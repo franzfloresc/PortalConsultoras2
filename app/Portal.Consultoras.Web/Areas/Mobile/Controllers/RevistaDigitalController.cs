@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                ViewBag.variableEstrategia = GetVariableEstrategia();
+                ViewBag.variableEstrategia = GetEstrategiaHabilitado();
                 return RDViewLanding(1);
             }
             catch (Exception ex)
@@ -111,6 +111,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             return PartialView("template-mensaje-bloqueado-Lan-Detalle", modelo);
         }
-                
+
+        public ActionResult ConfirmacionAPP()
+        {
+            return new EmptyResult();
+        }
+
     }
 }

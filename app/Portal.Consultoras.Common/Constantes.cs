@@ -1,9 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Common
 {
     public class Constantes
     {
+        public static class TipoSeccion
+        {
+            public const string Video = "01";
+            public const string Texto = "02";
+        }
+
         public static class TipoLink
         {
             public const int Ayuda = 301;
@@ -69,6 +76,7 @@ namespace Portal.Consultoras.Common
             public const short Facturado = 2;
 
             public const string PedidoValidado = "PV";
+            public const string PedidoIngresado = "INGRESADO";
         }
 
         public static class PaisID
@@ -90,6 +98,17 @@ namespace Portal.Consultoras.Common
             public const int Brasil = 15;
             public const int EstadosUnidos = 16;
         }
+
+
+        public static class TipoEnvio
+        {
+            public const string SMS = "SMS";
+            public const string FIJO = "FIJO";
+            public const string EMAIL = "Email";
+            public const string TODO = "todo";
+        }
+
+
 
         public static class CodigosISOPais
         {
@@ -140,64 +159,93 @@ namespace Portal.Consultoras.Common
             public const int IdMaximo = 502;
         }
 
+        [Obsolete("Use ConsTablaLogica")]
         public static class TablaLogicaDato
         {
             // PackNuevas-PedidoAsociado.
-            public const int TablaLogicaPackNuevasPedidoAsociadoID = 72;
-            public const int TablaLogicaDatosPackNuevasPedidoAsociadoID = 7201;
-            public const int PersonalizacionShowroom = 9850;
-            public const int BusquedaNemotecnicoMatriz = 9851;
-            public const int BusquedaNemotecnicoOfertaLiquidacion = 9852;
-            public const int BusquedaNemotecnicoProductoSugerido = 9853;
-            public const int BusquedaNemotecnicoZonaEstrategia = 9854;
-            public const int Tonos = 9802;
+            //public const int TablaLogicaPackNuevasPedidoAsociadoID = 72;
+            //public const int TablaLogicaDatosPackNuevasPedidoAsociadoID = 7201;
+            //public const int PersonalizacionShowroom = 9850;
+            //public const int BusquedaNemotecnicoMatriz = 9851;
+            //public const int BusquedaNemotecnicoOfertaLiquidacion = 9852;
+            //public const int BusquedaNemotecnicoProductoSugerido = 9853;
+            //public const int BusquedaNemotecnicoZonaEstrategia = 9854;
+            //public const int Tonos = 9802;
 
-            public const int ValoresImagenesResizeWitdhMaxSmall = 12101;
-            public const int ValoresImagenesResizeHeightSmall = 12102;
-            public const int ValoresImagenesResizeWitdhMaxMedium = 12103;
-            public const int ValoresImagenesResizeHeightMedium = 12104;
+            //public const int ValoresImagenesResizeWitdhMaxSmall = 12101;
+            //public const int ValoresImagenesResizeHeightSmall = 12102;
+            //public const int ValoresImagenesResizeWitdhMaxMedium = 12103;
+            //public const int ValoresImagenesResizeHeightMedium = 12104;
 
-            public const int MerchantId = 12201;
-            public const int AccessKeyId = 12202;
-            public const int SecretAccessKey = 12203;
-            public const int UrlSessionBotonPago = 12204;
-            public const int UrlGenerarNumeroPedido = 12205;
-            public const int PorcentajeGastosAdministrativos = 12206;
-            public const int UrlLibreriaPagoVisa = 12207;
-            public const int UrlAutorizacionBotonPago = 12208;
-            public const int UrlLogoPasarelaPago = 12209;
-            public const int ColorBotonPagarPasarelaPago = 12210;
-            public const int MensajeInformacionPagoExitoso = 12211;
+            //public const int MerchantId = 12201;
+            //public const int AccessKeyId = 12202;
+            //public const int SecretAccessKey = 12203;
+            //public const int UrlSessionBotonPago = 12204;
+            //public const int UrlGenerarNumeroPedido = 12205;
+            //public const int PorcentajeGastosAdministrativos = 12206;
+            //public const int UrlLibreriaPagoVisa = 12207;
+            //public const int UrlAutorizacionBotonPago = 12208;
+            //public const int UrlLogoPasarelaPago = 12209;
+            //public const int ColorBotonPagarPasarelaPago = 12210;
+            //public const int MensajeInformacionPagoExitoso = 12211;
+            //public const int Acplica3porciento = 12215;
 
-            public const int CantidadCuvMasivo_NuevoMasivo = 13701;
-            public const int EstrategiaImagen_NuevoMasivo = 13702;
+            //public const int CantidadCuvMasivo_NuevoMasivo = 13701;
+            //public const int EstrategiaImagen_NuevoMasivo = 13702;
 
-            public const int ActualizaDatosEnabled = 14301;
+            //public const int ActualizaDatosEnabled = 14301;
 
-            public const int MensajeActualizarEmailSms = 1001;
-            public const int MensajeActualizarSms = 1002;
-            public const int MensajeActualizarEmail = 1003;
+            //public const int MensajeActualizarEmailSms = 1001;
+            //public const int MensajeActualizarSms = 1002;
+            //public const int MensajeActualizarEmail = 1003;
+            //public const int CaminoBrillanteTablaLogica = 165;
+            public const int MensajeActualizarFijo = 16261;
 
-            public static class PersonalizacionOdd
-            {
-                public static readonly int ColorFondoBanner = 9301;
-                public static readonly int ColorFondoDisplay = 9302;
-            }
+            //public const int TablaLogicaestadoPopupInformativoID = 191;
 
-            public const int ActualizaEscalaDescuentoDestokp = 7201;
-            public const int ActualizaEscalaDescuentoMobile = 7301;
+            //public static class PersonalizacionOdd
+            //{
+            //    public static readonly int ColorFondoBanner = 9301;
+            //    public static readonly int ColorFondoDisplay = 9302;
+            //}
+
+            //public const int ActualizaEscalaDescuentoDestokp = 7201;
+            //public const int ActualizaEscalaDescuentoMobile = 7301;
 
             public static class PagoEnLinea
             {
-                public const int Habilitar_App = 12213;
-                public const int Habilitar_App_PBI_ExternalApp = 12214;
+                //public const int Habilitar_App = 12213;
+                //public const int Habilitar_App_PBI_ExternalApp = 12214;
+                //public const string Habilitar_Comision_Cero = "DESACTIVA_COMISION_VISA";
+                public const decimal MontoMinimoPago = 0.50m;
             }
 
-            public static class ArmaTuPack
-            {
-                public const string ListCuv = "ListCuv";
-            }
+            //public static class ArmaTuPack
+            //{
+            //    public const string ListCuv = "ListCuv";
+            //}
 
+            public const short CierreSessionValidado = 15301;
+            
+            //public static class CaminoBrillante
+            //{
+            //    /// <summary>
+            //    /// Url para conexion a informacionComercialServices
+            //    /// </summary>
+            //    public const string UrlInformacionComercial = "url_inf_com";
+            //    /// <summary>
+            //    /// Usuario para autenticarse en el servicio
+            //    /// </summary>
+            //    public const string UsuarioInformacionComercial = "usu_inf_com";
+            //    /// <summary>
+            //    /// Clave para autenticarse en el servicio
+            //    /// </summary>
+            //    public const string ClaveInformacionComercial = "cla_inf_com";
+            //    /// <summary>
+            //    /// Número de campanias a obtener en cada periodo
+            //    /// </summary>
+            //    public const string NumeroCampaniasEnPeriodo = "num_cam_per";
+            //}
         }
 
         public static class ParametrosNames
@@ -246,19 +294,22 @@ namespace Portal.Consultoras.Common
             public const string OfertaParaTi = "001";
             public const string PackNuevas = "002"; // Oferta Nueva Esika
             public const string OfertaWeb = "003";
+            public const string ArmaTuPack = "004";
             public const string Lanzamiento = "005";
             public const string OfertasParaMi = "007";
             public const string PackAltoDesembolso = "008";
-            public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
-            public const string LosMasVendidos = "020";
-            public const string IncentivosProgramaNuevas = "021";
             public const string OfertaDelDia = "009";
             public const string GuiaDeNegocioDigitalizada = "010";
+            public const string HerramientasVenta = "011";
+            public const string LosMasVendidos = "020";
+            public const string IncentivosProgramaNuevas = "021";
             public const string Incentivos = "022";
             public const string ShowRoom = "030";
-            public const string HerramientasVenta = "011";
+
+            public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
+            public const string MasGanadoras = "201"; // No tiene referecia con BD, caso particular de OfertasParaMi 007
+
             public const string NotParticipaProgramaNuevas = "0";
-            public const string MasGanadoras = "201"; // No tiene referecia con BD, es un grupo de estrategias
         }
 
         public static class TipoPersonalizacion
@@ -271,6 +322,7 @@ namespace Portal.Consultoras.Common
             public const string GuiaDeNegocioDigitalizada = "GND";
             public const string ShowRoom = "SR";
             public const string HerramientasVenta = "HV";
+            public const string ArmaTuPack = "ATP";
         }
 
         public static class TipoAccionAgregar
@@ -284,6 +336,13 @@ namespace Portal.Consultoras.Common
 
             public const int BannerCarrusel = 11;
 
+        }
+
+        public static class TipoAccionNavegar
+        {
+            public const int SinBoton = 0;
+            public const int BreadCrumbs = 1;
+            public const int Volver = 2;
         }
 
         public static class Inicializacion
@@ -343,6 +402,32 @@ namespace Portal.Consultoras.Common
                 }
             }
 
+            private static Dictionary<string, string> _palancasbyCodigo;
+            public static Dictionary<string, string> PalancasbyCodigo
+            {
+                get
+                {
+                    return _palancasbyCodigo ?? (_palancasbyCodigo = new Dictionary<string, string>
+                    {
+                        {NombrePalanca.OfertaParaTi, TipoEstrategiaCodigo.OfertaParaTi},
+                        {NombrePalanca.PackNuevas, TipoEstrategiaCodigo.PackNuevas},
+                        {NombrePalanca.OfertaWeb, TipoEstrategiaCodigo.OfertaWeb},
+                        {NombrePalanca.Lanzamiento, TipoEstrategiaCodigo.Lanzamiento},
+                        {NombrePalanca.OfertasParaMi, TipoEstrategiaCodigo.OfertasParaMi},
+                        {NombrePalanca.PackAltoDesembolso, TipoEstrategiaCodigo.PackAltoDesembolso},
+                        {NombrePalanca.RevistaDigital, TipoEstrategiaCodigo.RevistaDigital},
+                        {NombrePalanca.LosMasVendidos, TipoEstrategiaCodigo.LosMasVendidos},
+                        {NombrePalanca.IncentivosProgramaNuevas, TipoEstrategiaCodigo.IncentivosProgramaNuevas},
+                        {NombrePalanca.OfertaDelDia, TipoEstrategiaCodigo.OfertaDelDia},
+                        {NombrePalanca.GuiaDeNegocioDigitalizada, TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada},
+                        {NombrePalanca.Incentivos, TipoEstrategiaCodigo.Incentivos},
+                        {NombrePalanca.ShowRoom, TipoEstrategiaCodigo.ShowRoom},
+                        {NombrePalanca.HerramientasVenta, TipoEstrategiaCodigo.HerramientasVenta},
+                        {NombrePalanca.NotParticipaProgramaNuevas, TipoEstrategiaCodigo.NotParticipaProgramaNuevas},
+                        {NombrePalanca.MasGanadoras, TipoEstrategiaCodigo.OfertasParaMi},
+                    });
+                }
+            }
         }
         public static class ConstSession
         {
@@ -400,6 +485,7 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RevistaDigital";
             public const string HerramientasVenta = "HerramientasVenta";
             public const string ConfiguracionPaises = "ConfiguracionPaises";
+            public const string ArmaTuPack = "ArmaTuPack";
 
             public const string EventoFestivo = "EventoFestivo";
 
@@ -412,6 +498,7 @@ namespace Portal.Consultoras.Common
             public const string TieneHv = "TieneHv";
             public const string TieneHvX1 = "TieneHvX1";
             public const string TieneMg = "TieneMg";
+            public const string TieneAPT = "TieneAPT";
 
             public const string MisCertificados = "MisCertificados";
             public const string MisCertificadosData = "MisCertificadosData";
@@ -436,8 +523,14 @@ namespace Portal.Consultoras.Common
 
 
             public const string JwtApiSomosBelcorp = "JwtApiSomosBelcorp";
+            public const string UsuarioPedidos = "UsuarioPedidos";
             public const string RecomendacionesConfig = "RecomendacionesConfiguracion";
             public const string BuscadorYFiltrosConfig = "BuscadorYFiltros";
+            public const string MSPersonalizacionConfig = "MSPersonalizacion";
+
+            public const string NivelConsultoraCaminoBrillante = "NivelConsultoraCaminoBrillante";
+            public const string KitCaminoBrillante = "KitCaminoBrillante";
+            public const string DemostradoresCaminoBrillante = "DemostradoresCaminoBrillante";
         }
 
         public static class ConfiguracionManager
@@ -511,9 +604,6 @@ namespace Portal.Consultoras.Common
             public const string URL_SB = "URL_SB";
             public const string KeyPaisFormatDecimal = "KeyPaisFormatDecimal";
             public const string PaisesShowRoom = "PaisesShowRoom";
-            public const string RevistaPiloto_Zonas = "RevistaPiloto_Zonas_";
-            public const string RevistaPiloto_Codigo = "RevistaPiloto_Codigo";
-            public const string RevistaPiloto_Zonas_RDR_2 = "RevistaPiloto_Zonas_RDR_2_";
             public const string CodigoRevistaIssuu = "CodigoRevistaIssuu";
             public const string CodigoCatalogoIssuu = "CodigoCatalogoIssuu";
             public const string URL_SUPERATE_NUEVO = "URL_SUPERATE_NUEVO";
@@ -546,11 +636,14 @@ namespace Portal.Consultoras.Common
             public const string RDUrlTerminosCondiciones = "UrlTerminosCondiciones";
             public const string RDUrlPreguntasFrecuentes = "UrlPreguntasFrecuentes";
 
-            public const string RevistaPiloto_Grupos = "RevistaPiloto_Grupos_";
-            public const string RevistaPiloto_Escenario = "ESC";
             public const string PaisesCancelarSuscripcionRDUnete = "PaisesCancelarSuscripcionRDUnete";
             public const string PaisesCancelarSuscripcionRDNuevas = "PaisesCancelarSuscripcionRDNuevas";
 
+            public const int RevistaCatalogoTablaLogicaId = 24;
+            public const string RevistaPiloto_Escenario = "ESC";
+            public const string RevistaPiloto_Zonas = "RevistaPiloto_Zonas_";
+            public const string RevistaPiloto_Grupos = "RevistaPiloto_Grupos_";
+            public const string RevistaPiloto_Zonas_RDR_2 = "RevistaPiloto_Zonas_RDR_2_";
             public const string Catalogo_Piloto_Escenario = "ESC";
             public const string Catalogo_Piloto_Zonas = "Catalogo_Piloto_Zonas_";
             public const string Catalogo_Piloto_Grupos = "Catalogo_Piloto_Grupos_";
@@ -576,6 +669,9 @@ namespace Portal.Consultoras.Common
 
             public const string PaisesEscalaDescuento = "PaisesEscalaDescuento";
 
+            public const string BonificacionesURL = "BonificacionesURL";
+            public const string BonificacionesRegiones = "BonificacionesRegiones";
+            public const string JsonWebTokenSecretKey = "JsonWebTokenSecretKey";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -642,6 +738,7 @@ namespace Portal.Consultoras.Common
         /// Los cambios replicarlos en
         /// RevistaDigital-DataLayer.js + ConstantesModule.js
         /// </summary>
+        [Obsolete("Use ConsOrigenPedidoWeb")]
         public static class OrigenPedidoWeb
         {
             public static class Campos
@@ -702,16 +799,16 @@ namespace Portal.Consultoras.Common
             public const int DesktopPedidoOfertaFinal = 1261; // se mantiene para el metodo obtenerNuevaDescripcionProductoDetalle, grilla pedido
             public const int MobilePedidoOfertaFinal = 2261; // se mantiene para el metodo obtenerNuevaDescripcionProductoDetalle, grilla pedido
 
-            #region RevistaDigital
-            public const int RevistaDigitalDesktopHomeSeccion = 1101; // para rediccecionar metodo RedireccionarContenedorComprar
-            public const int RevistaDigitalMobileHomeSeccion = 2101; // para rediccecionar metodo RedireccionarContenedorComprar
-            public const int RevistaDigitalDesktopPedidoSeccion = 1201; // para rediccecionar metodo RedireccionarContenedorComprar
-            public const int RevistaDigitalMobilePedidoSeccion = 2201; // para rediccecionar metodo RedireccionarContenedorComprar
-            public const int RevistaDigitalDesktopHomeLanzamiento = 1103; // para rediccecionar metodo RedireccionarContenedorComprar
-            public const int RevistaDigitalMobileHomeLanzamiento = 2103; // para rediccecionar metodo RedireccionarContenedorComprar
-            public const int RevistaDigitalDesktopCatalogoSeccion = 1401; // para rediccecionar metodo RedireccionarContenedorComprar, RedireccionarContenedorInformativa
-            public const int RevistaDigitalMobileCatalogoSeccion = 2401; // para rediccecionar metodo RedireccionarContenedorComprar, RedireccionarContenedorInformativa
-            #endregion
+            //#region RevistaDigital
+            //public const int RevistaDigitalDesktopHomeSeccion = 1101; // para rediccecionar metodo RedireccionarContenedorComprar
+            //public const int RevistaDigitalMobileHomeSeccion = 2101; // para rediccecionar metodo RedireccionarContenedorComprar
+            //public const int RevistaDigitalDesktopPedidoSeccion = 1201; // para rediccecionar metodo RedireccionarContenedorComprar
+            //public const int RevistaDigitalMobilePedidoSeccion = 2201; // para rediccecionar metodo RedireccionarContenedorComprar
+            //public const int RevistaDigitalDesktopHomeLanzamiento = 1103; // para rediccecionar metodo RedireccionarContenedorComprar
+            //public const int RevistaDigitalMobileHomeLanzamiento = 2103; // para rediccecionar metodo RedireccionarContenedorComprar
+            //public const int RevistaDigitalDesktopCatalogoSeccion = 1401; // para rediccecionar metodo RedireccionarContenedorComprar, RedireccionarContenedorInformativa
+            //public const int RevistaDigitalMobileCatalogoSeccion = 2401; // para rediccecionar metodo RedireccionarContenedorComprar, RedireccionarContenedorInformativa
+            //#endregion
 
             #region MasVendidos
             public const int MasVendidosDesktopHomeCarrusel = 1151;
@@ -730,6 +827,36 @@ namespace Portal.Consultoras.Common
             public const int MobileContenedorGanadorasFicha = 2081402; // Esta en duro en ConstantesModule
             public const int MobileLandingGanadorasGanadorasCarrusel = 2111401; // Esta en duro en ConstantesModule
             public const int MobileLandingGanadorasGanadorasFicha = 2111402; // Esta en duro en ConstantesModule
+            #endregion
+
+            #region Duo Perfecto
+            public const int DesktopLandingDuoPerfectoCarrusel = 1141601;
+            public const int DesktopLandingDuoPerfectoFicha = 1141602;
+            public const int DesktopHomeDuoPerfectoCarrusel = 1011601;
+            public const int DesktopHomeDuoPerfectoFicha = 1011602;
+            public const int DesktopPedidoDuoPerfectoCarrusel = 1021601;
+            public const int DesktopPedidoDuoPerfectoFicha = 1021602;
+            public const int MobileLandingDuoPerfectoCarrusel = 2141601;
+            public const int MobileLandingDuoPerfectoFicha = 2141602;
+            public const int MobileHomeDuoPerfectoCarrusel = 2011601;
+            public const int MobileHomeDuoPerfectoFicha = 2011602;
+            public const int MobilePedidoDuoPerfectoCarrusel = 2021601;
+            public const int MobilePedidoDuoPerfectoFicha = 2021602;
+            #endregion
+
+            #region Pack Nuevas
+            public const int DesktopLandingPackNuevasCarrusel = 1151701;
+            public const int DesktopLandingPackNuevasFicha = 1151702;
+            public const int DesktopHomePackNuevasCarrusel = 1011701;
+            public const int DesktopHomePackNuevasFicha = 1011702;
+            public const int DesktopPedidoPackNuevasCarrusel = 1021701;
+            public const int DesktopPedidoPackNuevasFicha = 1021702;
+            public const int MobileLandingPackNuevasCarrusel = 2151701;
+            public const int MobileLandingPackNuevasFicha = 2151702;
+            public const int MobileHomePackNuevasCarrusel = 2011701;
+            public const int MobileHomePackNuevasFicha = 2011702;
+            public const int MobilePedidoPackNuevasCarrusel = 2021701;
+            public const int MobilePedidoPackNuevasFicha = 2021702;
             #endregion
 
             #region VirtualCoach
@@ -778,6 +905,20 @@ namespace Portal.Consultoras.Common
             public const int MobileLandingBuscadorOfertaDelDiaFicha = 2100302;
             public const int MobileLandingBuscadorGNDFicha = 2100502;
             public const int MobileLandingBuscadorHerramientasDeVentaFicha = 2100802;
+
+            public const int DesktopBuscadorGanadorasDesplegable = 1041404;
+            public const int MobileBuscadorGanadorasDesplegable = 2041404;
+
+            public const int DesktopBuscadorGanadorasFicha = 1041402;
+            public const int MobileBuscadorGanadorasFicha = 2041402;
+
+            public const int DesktopBuscadorGanadorasCarrusel = 1101401;
+            public const int MobileBuscadorGanadorasCarrusel = 2101401;
+
+            public const int DesktopLandingBuscadorGanadorasFicha = 1101402;
+            public const int MobileLandingBuscadorGanadorasFicha = 2101402;
+
+
 
             #endregion
 
@@ -903,12 +1044,43 @@ namespace Portal.Consultoras.Common
             public const int MobileContenedorShowroomCarrusel = 2080101;
             public const int MobileContenedorShowroomFicha = 2080102;
             public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
-
             #endregion
 
             #region Producto Recomendado
             public const int DesktopPedidoProductoRecomendadoCarrusel = 1021501;
             public const int MobilePedidoProductoRecomendadoCarrusel = 2021501;
+
+            public const string SufijoProductoRecomendadoCarrusel = "08";
+            public const string SufijoProductoRecomendadoFicha = "09";
+
+            public const int DesktopPedidoProductoRecomendadoOpm = 1020008;
+            public const int DesktopPedidoProductoRecomendadoShowRoom = 1020108;
+            public const int DesktopPedidoProductoRecomendadoLan = 1020208;
+            public const int DesktopPedidoProductoRecomendadoOdd = 1020308;
+            public const int DesktopPedidoProductoRecomendadoHv = 1020808;
+            public const int DesktopPedidoProductoRecomendadoGanadoras = 1021408;
+            public const int MobilePedidoProductoRecomendadoOpm = 2020008;
+            public const int MobilePedidoProductoRecomendadoShowRoom = 2020108;
+            public const int MobilePedidoProductoRecomendadoLan = 2020208;
+            public const int MobilePedidoProductoRecomendadoOdd = 2020308;
+            public const int MobilePedidoProductoRecomendadoHv = 2020808;
+            public const int MobilePedidoProductoRecomendadoGanadoras = 2021408;
+
+            public const int DesktopPedidoProductoRecomendadoOpmFicha = 1020009;
+            public const int DesktopPedidoProductoRecomendadoShowRoomFicha = 1020109;
+
+            public const int AppConsultoraContenedorShowroomFicha = 4080102;
+            public const int DesktopPedidoProductoRecomendadoLanFicha = 1020209;
+            public const int DesktopPedidoProductoRecomendadoOddFicha = 1020309;
+            public const int DesktopPedidoProductoRecomendadoHvFicha = 1020809;
+            //public const int DesktopPedidoProductoRecomendadoLanFicha = 1020209;
+            public const int DesktopPedidoProductoRecomendadoGanadorasFicha = 1021409;
+            public const int MobilePedidoProductoRecomendadoOpmFicha = 2020009;
+            public const int MobilePedidoProductoRecomendadoShowRoomFicha = 2020109;
+            public const int MobilePedidoProductoRecomendadoLanFicha = 2020209;
+            public const int MobilePedidoProductoRecomendadoOddFicha = 2020309;
+            public const int MobilePedidoProductoRecomendadoHvFicha = 2020809;
+            public const int MobilePedidoProductoRecomendadoGanadorasFicha = 2021409;
             #endregion
 
             #region Pedidos Pendientes
@@ -930,6 +1102,68 @@ namespace Portal.Consultoras.Common
             public const int AppConsultoraPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar = 4021111;
             public const int AppConsultoraPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 4021211;
             public const int AppConsultoraPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 4021311;
+            #endregion
+
+            #region Buscador App
+            public const int AppBuscadorLiquidacionDesplegable = 4040604;
+            public const int AppBuscadorLiquidacionLanding = 4100601;
+
+            public const int AppBuscadorCatalogoLbelDesplegable = 4041104;
+            public const int AppBuscadorCatalogoLbelLanding = 4101101;
+            public const int AppBuscadorCatalogoEsikaDesplegable = 4041204;
+            public const int AppBuscadorCatalogoEsikaLanding = 4101201;
+            public const int AppBuscadorCatalogoCyzoneDesplegable = 4041304;
+            public const int AppBuscadorCatalogoCyzoneLanding = 4101301;
+
+            public const int AppBuscadorSRDesplegable = 4040104;
+            public const int AppBuscadorSRLanding = 4100101;
+            public const int AppBuscadorSRDesplegableFicha = 4040102;
+            public const int AppBuscadorSRLandingFicha = 4100102;
+            public const int AppBuscadorSRDesplegableFichaCarrusel = 4040105;
+            public const int AppBuscadorSRLandingFichaCarrusel = 4100105;
+
+            public const int AppBuscadorLANDesplegable = 4040204;
+            public const int AppBuscadorLANLanding = 4100201;
+            public const int AppBuscadorLANDesplegableFicha = 4040202;
+            public const int AppBuscadorLANLandingFicha = 4100202;
+            public const int AppBuscadorLANDesplegableFichaCarrusel = 4040205;
+            public const int AppBuscadorLANLandingFichaCarrusel = 4100205;
+
+            public const int AppBuscadorODDDesplegable = 4040304;
+            public const int AppBuscadorODDLanding = 4100301;
+            public const int AppBuscadorODDDesplegableFicha = 4040302;
+            public const int AppBuscadorODDLandingFicha = 4100302;
+            public const int AppBuscadorODDDesplegableFichaCarrusel = 4040305;
+            public const int AppBuscadorODDLandingFichaCarrusel = 4100305;
+
+            public const int AppBuscadorGNDDesplegable = 4040504;
+            public const int AppBuscadorGNDLanding = 4100501;
+            public const int AppBuscadorGNDDesplegableFicha = 4040502;
+            public const int AppBuscadorGNDLandingFicha = 4100502;
+
+            public const int AppBuscadorHVDesplegable = 4040804;
+            public const int AppBuscadorHVLanding = 4100801;
+            public const int AppBuscadorHVDesplegableFicha = 4040802;
+            public const int AppBuscadorHVLandingFicha = 4100802;
+
+            public const int AppBuscadorMGDesplegable = 4041404;
+            public const int AppBuscadorMGLanding = 4101401;
+            public const int AppBuscadorMGDesplegableFicha = 4041402;
+            public const int AppBuscadorMGLandingFicha = 4101402;
+
+            public const int AppBuscadorOPTDesplegable = 4040004;
+            public const int AppBuscadorOPTLanding = 4100001;
+            public const int AppBuscadorOPTDesplegableFicha = 4040002;
+            public const int AppBuscadorOPTLandingFicha = 4100002;
+            #endregion
+
+            public const int MobileArmaTuPackFicha = 2131502;
+            public const int DesktopArmaTuPackFicha = 1131502;
+
+            #region CaminoBrillante
+            public const int CaminoBrillanteDesktopPedido = 1181901;
+            public const int CaminoBrillanteMobilePedido = 2181901;
+            public const int CaminoBrillanteAppConsultorasPedido = 4181901;
             #endregion
         }
 
@@ -1001,6 +1235,7 @@ namespace Portal.Consultoras.Common
             public const string SinPedidosDisponibles = "Lo sentimos, en estos momentos no cuentas con pedidos disponibles para reclamar.";
             public const string FueraDeFecha = "Tu solicitud se encuentra fuera de fecha para poder ser atendida.";
             public const string ContactateChatEnLinea = "Por favor, contáctate con nuestro <span class=\"enlace_chat belcorpChat\"><a>Chat en Línea</a></span>.";
+            public const string ExcedioLimiteReclamo = "Lo sentimos, usted ha excedido el límite de reclamos por pedido";
         }
 
         public static class CodigoOperacionCDR
@@ -1129,7 +1364,7 @@ namespace Portal.Consultoras.Common
                 public const string Mobile = "Mobile";
             }
 
-            public static class TipoPersonalizacion
+            public static class TipoPersonalizacionSr
             {
                 public const string Evento = "EVENTO";
                 public const string Categoria = "CATEGORIA";
@@ -1217,6 +1452,14 @@ namespace Portal.Consultoras.Common
             public const string PedidoFIC = "PedidoFIC";
             public const string ContenedorOfertas = "ContenedorOfertas";
             public const string LiquidacionWeb = "LiquidacionWeb";
+            public const string MiPerfil = "MiPerfil";
+        }
+
+        public static class MenuPosicion
+        {
+            public const string Header = "header";
+            public const string Body = "body";
+            public const string Footer = "footer";
         }
 
         public static class MenuMobileId
@@ -1230,6 +1473,12 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RevistaDigital";
         }
 
+        //INI HD-3693
+        public static class TipoPopupAlert
+        {
+            public const string Bloqueado = "HD3693~";
+        }
+        //FIN HD-3693
         public static class IngresoExternoPagina
         {
             public const string EstadoCuenta = "ESTADOCUENTA";
@@ -1259,6 +1508,10 @@ namespace Portal.Consultoras.Common
             public const string Ganancias = "GANANCIAS";
             public const string DuoPerfecto = "DUOPERFECTO";
             public const string PedidosPendientes = "PEDIDOSPENDIENTES";
+            public const string ActualizaDatos = "ACTUALIZADATOS";
+            public const string Notificaciones = "NOTIFICACIONES";
+            public const string MasGanadoras = "MASGANADORAS";
+            public const string ArmaTuPack = "ARMATUPACK";
         }
 
         public static class IngresoExternoOrigen
@@ -1309,8 +1562,18 @@ namespace Portal.Consultoras.Common
         {
             public const string UrlBase = "https://catalogodigital.somosbelcorp.com/";
             public const string UrlBaseQA = "http://ecatalogoqa.somosbelcorp.com/";
-            public const string UrlParamEncrip = "iso={0}&consultant={1}";
-            public const string UrlCatalogo = "{0}?cod={1}";
+            public const string UrlCatalogoPiloto = "UrlCatalogoPiloto";
+            /* INI HD-4015 */
+            public const string UrlParamEncrip = "{0}?consultant={1}";
+            public const string UrlCatalogo = "{0}{1}";
+            /* FIN HD-4015 */
+
+        }
+
+        public static class Facebook
+        {
+            public const string FB_AppId = "FB_AppId";
+            public const string FB_Pixel = "168434853695851";
         }
 
         public static class RevistaNombre
@@ -1347,7 +1610,6 @@ namespace Portal.Consultoras.Common
 
         public static class MensajesError
         {
-            public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
             public const string CargarProductosShowRoom = "Error al cargar los productos.";
             public const string DeletePedido_CuvNoExiste = "El producto que deseas eliminar ya no se encuentra en tu pedido. Por favor, vuelva a carga la página (F5).";
             public const string RecuperarContrasenia = "Error en la respuesta del servicio de Recuperar Contraseña.";
@@ -1379,11 +1641,13 @@ namespace Portal.Consultoras.Common
             public const string Reserva_ObsHuerfanas = "Reserva_ObsHuerfanas: Se obtuvieron observaciones al reservar que no se encuentran en el detalle.";
             public const string Reserva_Prol2 = "Reserva_Prol2: El servicio externo de reserva de Prol2 retornó vacio.";
             public const string Reserva_Prol3 = "Reserva_Prol3: El servicio externo de reserva de Sicc retornó vacio o error.";
-            public const string ErrorGenerico = "Ocurrio un error, vuelva ha intentarlo.";
+            public const string ErrorGenerico = "Ocurrió un error, vuelva a intentarlo.";
             public const string InsertarValidarKitInicio = "No está permitido agregar el Kit de un programa obligatorio.";
             public const string ValidarAgregarProgNuevas = "Sucedió un error al validar el programa de nuevas. Inténtenlo más tarde.";
             public const string ExcedioLimiteVenta = "Las unidades ingresadas exceden el máximo permitido ({0}) en esta campaña.";
-            public const string StockLimiteVenta = "En esta campaña nuestro producto <b>{0} – {1}</b> ha tenido una gran acogida. Sin embargo hemos reservado una ({2}) unidad(es) para ti. Por favor modifica las unidades ingresadas.";
+            public const string StockLimiteVenta = "En esta campaña nuestro producto <b>{0} – {1}</b> ha tenido una gran acogida. Sin embargo hemos reservado {2} unidad(es) para ti. Por favor modifica las unidades ingresadas.";
+            public const string Pedido_NoAgregarLiquidacion = "No se puede agregar una Oferta Liquidacion por este medio.";
+            public const string ServicioCatalogoVirtuales = "Por favor vuelva ingresar en unos momentos, ya que el servicio de catálogos virtuales está teniendo problemas.";
         }
 
         public static class MensajesExito
@@ -1419,6 +1683,12 @@ namespace Portal.Consultoras.Common
             public const string ElecMultiple = "DP";
             public const string MasGanadoras = "MG";
             public const string Recomendaciones = "RECOMDS";
+            public const string MicroserviciosPersonalizacion = "MSPersonalizacion";
+            public const string Datami = "DATAMI";
+            public const string DireccionEntrega = "DIRECCION_ENTREGA";
+            public const string ArmaTuPack = "ATP";
+            public const string CaminoBrillante = "CAMINOBRILLANTE";
+            public const string CaminoBrillanteMsg = "HomeCaminoBrillante";
         }
 
 
@@ -1591,6 +1861,13 @@ namespace Portal.Consultoras.Common
                 public const string MPopupBloqueado = "MPopupBloqueado";
                 #endregion
             }
+
+            public const string AppOfertasHomeActivo = "AppOfertasHomeActivo";
+            public const string AppOfertasHomeImgExtension = "AppOfertasHomeImgExtension";
+            public const string AppOfertasHomeImgAncho = "AppOfertasHomeImgAncho";
+            public const string AppOfertasHomeImgAlto = "AppOfertasHomeImgAlto";
+            public const string AppOfertasHomeMsjMedida = "AppOfertasHomeMsjMedida";
+            public const string AppOfertasHomeMsjFormato = "AppOfertasHomeMsjFormato";
         }
 
         public static class ConfiguracionSeccion
@@ -1605,6 +1882,7 @@ namespace Portal.Consultoras.Common
                 public const int DescagablesNavidenos = 7;
                 public const int CarruselIndividuales = 8; // Ejm LAN
                 public const int CarruselIndividualesV2 = 9; // Ejm GM
+                public const int BannerInteractivo = 10;
             }
         }
 
@@ -1678,56 +1956,61 @@ namespace Portal.Consultoras.Common
             public const int NoPopUp = 3;
         }
 
+        [Obsolete("Use ConsTablaLogica")]
         public struct TablaLogica
         {
-            public const int PersonalizacionODD = 93;
-            public const int Plan20 = 98;
-            public const int CDRExpress = 104;
-
-            public const int CorreoFeedbackAppConsultora = 105;
+            //public const int Plan20 = 98;
+            //public const int StockDiasAntes = 181;
 
             /// <summary>
             /// Variables configurables del app
             /// </summary>
-            public const short App = 106;
+            //public const short App = 106;
 
-            public static class Keys
-            {
-                /// <summary>
-                /// Codigo de cantidad Maxima de Movimientos
-                /// </summary>
-                public const string MovimientoCantidadMaxima = "mov_max_c";
+            //public static class Keys
+            //{
+            //    /// <summary>
+            //    /// Codigo de cantidad Maxima de Movimientos
+            //    /// </summary>
+            //    public const string MovimientoCantidadMaxima = "mov_max_c";
 
-                /// <summary>
-                /// Codigo de movimientos de meses anteriores a procesar
-                /// </summary>
-                public const string MovimientoHistoricoMes = "mov_max_m";
+            //    /// <summary>
+            //    /// Codigo de movimientos de meses anteriores a procesar
+            //    /// </summary>
+            //    public const string MovimientoHistoricoMes = "mov_max_m";
 
-                /// <summary>
-                /// Codigo de cantidad maxima de Notas
-                /// </summary>
-                public const string NotaCantidadMaxima = "not_max_c";
-            }
+            //    /// <summary>
+            //    /// Codigo de cantidad maxima de Notas
+            //    /// </summary>
+            //    public const string NotaCantidadMaxima = "not_max_c";
+            //}
 
-            public const short RevistaDigital = 131;
-            public const short CodigoRevistaFisica = 132;
-            public const short Palanca = 135;
-            public const int ValoresImagenesResize = 121;
-            public const short ExtensionBannerGanaMasApp = 136;
-            public const short MontoLimiteCupon = 103;
-            public const int ValoresPagoEnLinea = 122;
-            public const int CantidadCuvMasivo = 137;
-            public const short ProlObsCod = 5;
-            public const int ActualizaDatosEnabled = 143;
-            public const short HabilitarChatEmtelco = 144;
-            public const short OrdenamientoShowRoom = 99;
-            public const short NuevaDescripcionProductos = 145;
-            public const short MensajesToolTipPerfil = 10;
-            public const short EscalaDescuentoDestokp = 72;
-            public const short EscalaDescuentoMobile = 73;
-            public const short ListaOrdenamientoFiltros = 147;
-            public const short ArmaTuPack = 14;
-            public const short PilotoCatalogoDigital = 155;
+            //public const short RevistaDigital = 131;
+            //public const int ValoresPagoEnLinea = 122;
+            //public const short HabilitarChatEmtelco = 144;
+            //public const short OrdenamientoShowRoom = 99;
+            //public const short NuevaDescripcionProductos = 145;
+            //public const short MensajesToolTipPerfil = 10;
+            //public const short EscalaDescuentoDestokp = 72;
+            //public const short EscalaDescuentoMobile = 73;
+            //public const short ListaOrdenamientoFiltros = 147;
+            //public const short ArmaTuPack = 14;
+            public const short CierreSessionValidado = 153;
+            //public const short PilotoCatalogoDigital = 155;
+            //public const short GanaMasNativo = 159;
+            //public const short ResizeImagenesAppGanaMas = 162;
+            //public const short SegPedidoRegionZona = 169;//HD-3606 EINCA
+            //public const short TiempoMaximoSP = 180;
+            //#region Camino Brillante
+            //INI HD-3693
+            public const int MsjPopupBloqueadas = 230;
+            //FIN HD-3693
+            public const short ResizeImagenesAppHistorias = 162;
+            //public const short CaminoBrillanteInfoComercial = 165;
+            //public const short CaminoBrillanteLogros = 166;
+            //public const short CaminoBrillanteIndicadores = 167;
+            //public const short CaminoBrillanteOfertasEspeciales = 167; //Pendiente
+            //#endregion
         }
 
         public struct MensajesCDRExpress
@@ -1959,6 +2242,7 @@ namespace Portal.Consultoras.Common
             public const string MontoPremiacion = "Pasa pedido de {0} {1} esta campaña para entregarte tu premio.";
             public const string CalculoPuntos = "X;K";
             public const string CalculoProgramaNuevas = "P";
+            public const string OfertaFinalTippingPoint = "AGREGA {Monto} PARA GANAR UN {Producto} Y ACCEDER A PACKS EXCLUSIVOS NUEVAS";
         }
 
         public static class ComunicadoTipoDispositivo
@@ -2042,6 +2326,7 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVentaComprar = "/herramientasventa/comprar";
             public const string MasGanadorasIndex = "/masganadoras/index";
             public const string MasGanadoras = "/masganadoras";
+            public const string ArmaTuPackDetalle = "/armatupack/detalle";
             // Url Ficha
             public const string DetalleHerramientasVenta = "/detalle/demostradores";
             public const string DetalleLanzamiento = "/detalle/lonuevonuevo";
@@ -2054,8 +2339,15 @@ namespace Portal.Consultoras.Common
             public const string ProgramaNuevas = "/programanuevas";
             public const string ProgramaNuevasIndex = "/programanuevas/index";
             public const string DetalleMasGanadoras = "/detalle/ganadoras";
-
         }
+
+        public static class UrlDatsoPendientes
+        {
+            public const string MiPerfilDesktop = "/MiPerfil";
+            public const string MiPerfilMobile = "/Mobile/MiPerfil";
+        }
+
+
 
         public static class TipoVistaEstrategia
         {
@@ -2125,6 +2417,7 @@ namespace Portal.Consultoras.Common
                 public const short TablaLogicaID = 7;
                 public const string FlagProgNuevas = "ProgramaNuevas";
                 public const string FlagBannerElecMultiple = "BannerElecMultiple";
+                public const string FlagLabelPedidoDet = "PedidoLabelProgNuevas";
             }
 
             public static class Rango
@@ -2167,6 +2460,12 @@ namespace Portal.Consultoras.Common
             public const string AppConsultora = "App Consultora";
             public const string BannerDescargarAppNuevas = "BannerDescargarAppNuevas";
             public const string Extraordinarios = "App Consultora,BannerDescargarAppNuevas";
+
+            public static class TipoComunicado
+            {
+                public const int Banner = 1;
+                public const int PopUp = 2;
+            }
         }
         public static class ColumnsSetStrategyShowroom
         {
@@ -2256,6 +2555,7 @@ namespace Portal.Consultoras.Common
                 public const string SUCCESS = "0000";
                 public const string SUCCESS_DUOPERFECTO_AGREGADO_UNO = "0010";
                 public const string SUCCESS_DUOPERFECTO_AGREGADO_COMPLETADO = "0011";
+                public const string SUCCESS_REGALO = "0012";
                 public const string ERROR_INTERNO = "9999";
                 public const string ERROR_PRODUCTO_NOEXISTE = "1101";
                 public const string ERROR_PRODUCTO_AGOTADO = "1102";
@@ -2270,6 +2570,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_PRODUCTO_NOPERTENECE_VENTAEXCLUSIVA = "1113";
                 public const string ERROR_PRODUCTO_LIMITE_VENTA = "1114";
                 public const string ERROR_PRODUCTO_DUO_COMPLETO_COMPLETO = "1115";
+                public const string ERROR_PRODUCTO_KIT_CAMINO_BRILLANTE_USADO = "1116";
 
                 public const string ERROR_RESERVADO_HORARIO_RESTRINGIDO = "2101";
                 public const string ERROR_STOCK_ESTRATEGIA = "2102";
@@ -2287,7 +2588,10 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_UNIDAD_SOBREPASA_PERMITIDO = "2116";
                 public const string ERROR_UNIDAD_SINSALDO = "2117";
                 public const string ERROR_UNIDAD_CONSALDO = "2118";
-                public const string ERROR_UNIDAD_SOBREPASA_STOCK = "2119";               
+                public const string ERROR_UNIDAD_SOBREPASA_STOCK = "2119";
+                //INI HD-3693
+                public const string ERROR_CONSULTORA_BLOQUEADA = "3693";
+                //FIN HD-3693
 
                 public const string ERROR_RESERVA_NINGUNO = "2010";
                 public const string SUCCESS_RESERVA = "2011";
@@ -2313,7 +2617,6 @@ namespace Portal.Consultoras.Common
 
                 public const string ERROR_AGREGAR_BACKORDER_NO_PERMITIDO = "2201";
                 public const string ERROR_AGREGAR_BACKORDER = "2202";
-
             }
 
             public static Dictionary<string, PedidoValidacionConfiguracion> Configuracion
@@ -2335,6 +2638,7 @@ namespace Portal.Consultoras.Common
                             {Code.ERROR_PRODUCTO_NONUEVA, new PedidoValidacionConfiguracion(){ Mensaje = ProgNuevas.Mensaje.ConsultoraNoNueva } },
                             {Code.ERROR_PRODUCTO_NUEVA_NOPERTENECE_TUPROGRAMA, new PedidoValidacionConfiguracion(){ Mensaje = ProgNuevas.Mensaje.CuvNoPerteneceASuPrograma } },
                             {Code.ERROR_PRODUCTO_NOPERTENECE_VENTAEXCLUSIVA, new PedidoValidacionConfiguracion(){ Mensaje = VentaExclusiva.CuvNoEsVentaExclusiva } },
+                            {Code.ERROR_PRODUCTO_KIT_CAMINO_BRILLANTE_USADO, new PedidoValidacionConfiguracion(){ Mensaje = "Ya agregaste tu kit." } },
 
                             {Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, new PedidoValidacionConfiguracion()},
                             {Code.ERROR_STOCK_ESTRATEGIA, new PedidoValidacionConfiguracion()},
@@ -2352,7 +2656,7 @@ namespace Portal.Consultoras.Common
                             {Code.ERROR_ELIMINAR_SET, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el detalle del set."} },
                             {Code.ERROR_ELIMINAR_TODO, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el pedido." } },
                             {Code.ERROR_ELIMINAR_TODO_SET, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el set." } },
-                            {Code.ERROR_CANTIDAD_LIMITE, new PedidoValidacionConfiguracion(){ Mensaje ="La cantidad no debe ser mayor que la cantidad limite ( {0} )." } },
+                            {Code.ERROR_CANTIDAD_LIMITE, new PedidoValidacionConfiguracion(){ Mensaje ="Excediste el límite de compras de este producto. (Máx.: {0} unidades)" } },
 
                             {Code.ERROR_RESERVA_NINGUNO, new PedidoValidacionConfiguracion(){ Mensaje ="El pedido no se reservó." } },
                             {Code.SUCCESS_RESERVA, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido reservado." } },
@@ -2377,7 +2681,6 @@ namespace Portal.Consultoras.Common
 
                             {Code.ERROR_AGREGAR_BACKORDER_NO_PERMITIDO , new PedidoValidacionConfiguracion(){ Mensaje ="No se puede agregar un set como BackOrder." } },
                             {Code.ERROR_AGREGAR_BACKORDER , new PedidoValidacionConfiguracion(){ Mensaje ="No se encuentra el detalle en el pedido para agregarlo como BackOrder." } }
-
                         });
                 }
             }
@@ -2409,6 +2712,13 @@ namespace Portal.Consultoras.Common
             public const string INSERT = "I";
             public const string UPDATE = "U";
             public const string DELETE = "D";
+            public const string UPDATESET = "US";
+        }
+
+        public static class ClasificadorPedido
+        {
+            public const string PedidoDetalle = "DetPedido";
+            public const string PedidoDetallePendiente = "DetPedidoPend";
         }
 
         public static class FlagRevista
@@ -2613,6 +2923,7 @@ namespace Portal.Consultoras.Common
             public const int NuevasObtenerProductos = 6;
             public const int MGObtenerProductos = 7;
             public const int SRObtenerProductos = 8;
+            public const int ATPObtenerProductos = 9;
         };
 
         #region PagoEnLinea
@@ -2670,6 +2981,9 @@ namespace Portal.Consultoras.Common
             public const string MontoMinimoPago = "13";
             public const string UrlAutorizacionPagoApp = "14";
             public const string UrlTerminosUsoApp = "15";
+            public const string MerchantIdApp = "16";
+            public const string AccessKeyIdApp = "17";
+            public const string SecretAccessKeyApp = "18";
 
             public const string Recurrence = "FALSE";
             public const string RecurrenceAmount = "0.00";
@@ -2923,40 +3237,70 @@ namespace Portal.Consultoras.Common
             /// api/Evento/editarConsultora/{pais}/{tipo}
             /// </summary>
             public const string UrlEditarEventoConsultora = "api/Evento/editarConsultora/{0}/{1}";
+
+            /// <summary>
+            /// api/EstrategiaGrupo/{pais}/{estrategiaId}
+            /// </summary>        
+            public const string UrlInsertEstrategiaGrupo = "api/EstrategiaGrupo";
+
+
+            /// <summary>
+            /// api/EstrategiaGrupo/{pais}/{estrategiaId}
+            /// </summary>        
+            public const string UrlGuardarEstrategiaGrupo = "api/EstrategiaGrupo/Guardar";
+
+            /// <summary>
+            /// api/EstrategiaGrupo/{pais}/{estrategiaId}
+            /// </summary>        
+            public const string UrlUpdateEstrategiaGrupo = "api/EstrategiaGrupo";
+
+            /// <summary>
+            /// api/EstrategiaGrupo/GetEstrategiaGrupoByEstrategiaId/{pais}/{estrategiaId}
+            /// </summary>
+            public const string UrlGetEstrategiaGrupoByEstrategiaId = "api/EstrategiaGrupo/{0}/{1}";
+
+
             #endregion
 
             #region Oferta
             /// <summary>
-            /// api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{diaInicio}
+            /// Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{materialGanancia}/{diaInicio}/{codigoRegion}/{codigoZona}
             /// </summary>
-            public const string UrlObtenerOfertasDelDia = "api/Oferta/{0}/{1}/{2}/{3}/{4}";
+            public const string UrlObtenerOfertas = "Oferta/{0}/{1}/{2}/{3}/{4}/{5}/{6}/{7}";
 
             /// <summary>
-            /// api/Oferta/{pais}/{tipo}/{codigoCampania}/{codigoConsultora}/{codigoRegion}/{codigoZona}/{materialGanancia}
+            /// Oferta/ByCuv/{pais}/{tipoPersonalizacion}/{codigoCampania}/{cuv}
             /// </summary>
-            public const string UrlObtenerOfertas = "api/Oferta/{0}/{1}/{2}/{3}/{4}/{5}/{6}";
+            public const string UrlObtenerOfertaByCuv = "Oferta/ByCuv/{0}/{1}/{2}/{3}";
 
             /// <summary>
-            /// api/Evento/Get/{pais}/{campania}
+            /// Evento/Get/{pais}/{campania}
             /// </summary>
-            public const string UrlObtenerEvento = "api/Evento/Get/{0}/{1}";
+            public const string UrlObtenerEvento = "Evento/Get/{0}/{1}";
 
             /// <summary>
-            /// api/Nivel/listar/{pais}
+            /// Nivel/listar/{pais}
             /// </summary>
-            public const string UrlObtenerNivel = "api/Nivel/listar/{0}";
+            public const string UrlObtenerNivel = "Nivel/listar/{0}";
 
             /// <summary>
-            /// api/Evento/listarConsultora/{pais}/{campania}/{codigoConsultora}
+            /// Evento/listarconsultora/{pais}/{campania}/{codigoConsultora}
             /// </summary>
-            public const string UrlObtenerEventoConsultora = "api/Evento/listarConsultora/{0}/{1}/{2}";
+            public const string UrlObtenerEventoConsultora = "Evento/listarconsultora/{0}/{1}/{2}";
+            #endregion
+
+            #region Personalizacion
+            /// <summary>
+            /// api/Evento/listarConsultora/{isoPais}/{codigoConsultora}/{codigoCampania}
+            /// </summary>
+            public const string UrlObtenerPersonalizacion = "api/Personalizacion/{0}/{1}/{2}";
             #endregion
 
             #region Reporte
             /// <summary>
-            /// api/Estrategia/ReporteValidacion/{tipo}/{campania}/{paises}
+            /// /api/Reporte/ReporteValidacion/{pais}/{tipo}/{campania}
             /// </summary>
-            public const string UrlReporteValidacion = "api/Estrategia/ReporteValidacion/{0}/{1}/{2}";
+            public const string UrlReporteValidacion = "/api/Reporte/ReporteValidacion/{0}/{1}/{2}";
             #endregion
         }
         public static class OfertaFinalLog
@@ -3007,8 +3351,19 @@ namespace Portal.Consultoras.Common
             public const string TotalProductosPaginaResultado = "TotalProductosPaginaResultado";
             public const string TotalCaracteresDescPaginaResultado = "TotalCaracteresDescPaginaResultado";
             public const string FlagFiltrosBuscador = "FlagFiltrosBuscador";
+            public const string FlagBuscarPorCategoria = "BuscarPorCategoria";
+            public const string FlagBuscarPorCategoriaTotalProductos = "BuscarPorCategoriaTotalProductos";
+            public const string MostrarPalabrasMenoresACuatro = "MostrarPalabrasMenoresACuatro";
         }
-        
+
+        public static class CodigoConfiguracionMSPersonalizacion
+        {
+            public const string EstrategiaDisponible = "EstrategiaDisponible";
+            public const string GuardaDataEnLocalStorage = "GuardaDataEnLocalStorage";
+            public const string GuardaDataEnSession = "GuardaDataEnSession";
+            public const string EstrategiaDisponibleParaFicha = "EstrategiaDisponibleParaFicha";
+        }
+
         public static class CodigoConfiguracionRecomendaciones
         {
             public const string ActivarRecomendaciones = "ActivarRecomendaciones";
@@ -3031,6 +3386,8 @@ namespace Portal.Consultoras.Common
             public const string UrlPersonalizacion = "Personalizacion/{0}/{1}/{2}/{3}";
 
             public const string UrlRecomendaciones = "Recomendaciones/{0}/{1}/{2}";
+
+            public const string UrlCategorias = "Categoria/{0}/{1}";
         }
 
         public static class ActualizacionDatosValidacion
@@ -3158,6 +3515,11 @@ namespace Portal.Consultoras.Common
             public const string HERRAMIENTASDEVENTA = "HERRAMIENTASDEVENTA";
             public const string ESPECIALES = "ESPECIALES";
             public const string OFERTASFLEXIPAGO = "OFERTASFLEXIPAGO";
+            public const string ESPREMIOELEC = "ESPREMIOELEC";
+            public const string ESCUPONINDEPENDIENTE = "ESCUPONINDEPENDIENTE";
+            public const string ESCUPONNUEVAS = "ESCUPONNUEVAS";
+            public const string ESELECMULTIPLENUEVAS = "ESELECMULTIPLENUEVAS";
+            public const string ESCAMINOBRILLANTE = "1181901,2181901";
         }
 
         public static class CodigosCatalogos
@@ -3237,6 +3599,20 @@ namespace Portal.Consultoras.Common
                     });
                 }
             }
+
+        }
+
+        public static class ConsultaPROL
+        {
+            public const string ConsultaStockProl = "api/Pedido/ValidacionStockPalancas";
+            public const int StockPadre = 0;
+            public const int StockHijo = 1;
+        }
+
+        public static class Controlador
+        {
+            public static readonly string[] ActualizacionODD = { "Bienvenida", "Ofertas", "DetalleEstrategia", "Pedido" };
+            public const string Pedido = "Pedido";
         }
 
         public static class EstrategiaDetalleCamposID
@@ -3253,22 +3629,323 @@ namespace Portal.Consultoras.Common
             public const int ImgFichaFondoMobile = 10209;
             public const int UrlVideoDesktop = 10204;
             public const int UrlVideoMobile = 10207;
+            public const int ImgFondoApp = 10214;
+            public const int ColorTextoApp = 10215;
         }
 
-        public static class Formatos {
+        public static class Formatos
+        {
             public const string Fecha = "dd/MM/yyyy";
             public const string FechaHora = "dd/MM/yyyy HH:mm";
+            public const string FechaHoraUTC = "yyyy-MM-ddThh:mm:ss";
+        }
+        public static class OperacionBD
+        {
+            public const int Insertar = 0;
+            public const int Editar = 1;
+            public const int Eliminar = 2;
         }
 
-        public class SolicitudCliente
+        public static class MetodosHTTP
         {
-            public class FlagMedio
+            public const string Get = "get";
+            public const string Post = "post";
+            public const string Put = "put";
+            public const string Delete = "delete";
+        }
+
+        public static class MicroServicio
+        {
+            public const string PersonalizacionConfig = "CONFIG";
+            public const string PersonalizacionSearch = "SEARCH";
+        }
+
+        public static class SolicitudCliente
+        {
+            public static class FlagMedio
             {
                 public const string AppCatalogos = "01";
                 public const string WebMarcas = "02";
                 public const string CatalogoDigital = "03";
                 public const string MaquilladorVirtual = "04";
             }
+        }
+
+        public static class OpcionesUsuario
+        {
+            public const int BoletaImpresa = 1;
+            public const int CompartirWhatsApp = 2;
+        }
+
+        public static class SegmentoDatami
+        {
+            public const string SegmentoA = "Segmento_A";
+            public const string SegmentoB = "Segmento_B";
+            public const string SegmentoC = "Segmento_C";
+            public const string SegmentoD = "Segmento_D";
+            public const string SegmentoE = "Segmento_E";
+            public const string SegmentoF = "Segmento_F";
+        }
+
+        public static class SegmentoInterno
+        {
+            public const int SinSegmento = 0;
+            public const int Nuevas = 1;
+            public const int EmpresariaBrillante = 2;
+            public const int EmpresariaDeBelleza = 3;
+            public const int ExpertaDeBelleza = 4;
+            public const int EspecialistaDeBelleza = 5;
+            public const int AsesoraDeBelleza = 6;
+            public const int Inconstantes = 7;
+            public const int PosibleEgreso = 8;
+            public const int Reingreso = 9;
+        }
+
+        //HD-3606 EINCA
+        public static class SegPedidoSituacion
+        {
+            public const int PedidoRecibido = 1;
+            public const int Facturado = 2;
+            public const int InicioArmado = 3;
+            public const int Chequeado = 4;
+            public const int PuestoTransporte = 5;
+            public const int FechaEstimadaEntrega = 6;
+            public const int Entregado = 7;
+            public const int HoraEstimadaEntregaDesde = 8;
+            public const int HoraEstimadaEntregaHasta = 9;
+        }
+
+        public static class CaminoBrillante
+        {
+            public static class ServicioComercial
+            {
+                public const string GetPeriodo = "GetPeriodo/";
+                public const string GetNivel = "GetNivel/";
+                public const string GetOfertas = "GetOfertas/";
+                public const string GetNivelConsultora = "GetNivelConsultora/";
+                public const string GetKitsConsultora = "GetKitsConsultora/";
+
+                public static class TablaLogicaDatosKey
+                {
+                    /// <summary>
+                    /// Url para conexion a informacionComercialServices
+                    /// </summary>
+                    public const string UrlInformacionComercial = "url_inf_com";
+                    /// <summary>
+                    /// Usuario para autenticarse en el servicio
+                    /// </summary>
+                    public const string UsuarioInformacionComercial = "usu_inf_com";
+                    /// <summary>
+                    /// Clave para autenticarse en el servicio
+                    /// </summary>
+                    public const string ClaveInformacionComercial = "cla_inf_com";
+                    /// <summary>
+                    /// Número de campanias a obtener en cada periodo
+                    /// </summary>
+                    public const string NumeroCampaniasEnPeriodo = "num_cam_per";
+                }
+            }
+
+            public static class Logros
+            {
+
+                public const string COMPROMISO = "COMPROMISO";
+                public const string CRECIMIENTO = "CRECIMIENTO";
+                public const string RESUMEN = "RESUMEN";
+
+                public static class Indicadores
+                {
+                    private static Dictionary<string, string> _Titulos;
+
+                    public const string ESCALA = "ESCALA";
+                    public const string NIVEL = "NIVEL";
+                    public const string CONSTANCIA = "CONSTANCIA";
+                    public const string INCREMENTO_PEDIDO = "INCREMENTO_PEDIDO";
+                    public const string TIEMPO_JUNTOS = "TIEMPO_JUNTOS";
+                    public const string PROGRAMA_NUEVAS = "PROGRAMA_NUEVAS";
+
+                    public static Dictionary<string, string> Titulos
+                    {
+                        get
+                        {
+                            return _Titulos ?? (_Titulos = new Dictionary<string, string> {
+                                {ESCALA, "Escala"},
+                                {NIVEL, ""},
+                                {CONSTANCIA, "Constancia"},
+                                {INCREMENTO_PEDIDO, "Incremento"},
+                                {TIEMPO_JUNTOS, ""},
+                                {PROGRAMA_NUEVAS, ""},
+                            });
+                        }
+                    }
+
+                    public static class Medallas
+                    {
+
+                        public const string YaLoTienes = "¡Ya lo tienes!";
+                        public const string ComoLograrlo = "¿Cómo lograrlo?";
+
+                        public static class Codes
+                        {
+                            public const string CIRC = "CIRC";
+                            public const string NIV = "NIV";
+                            public const string PIE = "PIE";
+                            public const string TIM = "TIME";
+                            public const string PED = "PED";
+                        }
+
+                        public static Dictionary<string, string[]> Niveles
+                        {
+                            get
+                            {
+                                return CaminoBrillante.Niveles.Iconos;
+                            }
+                        }
+
+                        private static Dictionary<string, string> _Constancia;
+                        private static string pathContanica = "CAMINOBRILLANTE/LOGROS/CONSTANCIA/PIZZA_06_0{0}.svg";
+                        public static Dictionary<string, string> Constancia
+                        {
+                            get
+                            {
+                                return _Constancia ?? (_Constancia = new Dictionary<string, string> {
+                                    { "0", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "0")},
+                                    { "1", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "1")},
+                                    { "2", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "2")},
+                                    { "3", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "3")},
+                                    { "4", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "4")},
+                                    { "5", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "5")},
+                                    { "6", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathContanica), "6")}
+                                });
+                            }
+                        }
+
+                        private static Dictionary<string, string> _Corazon;
+                        private static string pathCorazon = "CAMINOBRILLANTE/LOGROS/COMPROMISO/CORAZON_{0}.svg";
+                        public static Dictionary<string, string> Corazon
+                        {
+                            get
+                            {
+                                return _Corazon ?? (_Corazon = new Dictionary<string, string> {
+                                    { "0", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathCorazon), "I")},
+                                    { "1", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathCorazon), "A")}
+                                });
+                            }
+                        }
+
+                        private static Dictionary<string, string> _Pedido;
+                        private static string pathPedido = "CAMINOBRILLANTE/LOGROS/COMPROMISO/PEDIDO_{0}.svg";
+                        public static Dictionary<string, string> Pedido
+                        {
+                            get
+                            {
+                                return _Pedido ?? (_Pedido = new Dictionary<string, string> {
+                                    { "0", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathPedido), "I")},
+                                    { "1", string.Format(ConfigS3.GetUrlFileS3("Iconos", pathPedido), "A")}
+                                });
+                            }
+                        }
+
+
+                    }
+
+                }
+            }
+
+            public static class Beneficios
+            {
+
+                private static Dictionary<string, string> _Iconos;
+                private static string path = "CAMINOBRILLANTE/BENEFICIOS/{0}";
+
+                public static Dictionary<string, string> Iconos
+                {
+                    get
+                    {
+                        return _Iconos ?? (_Iconos = new Dictionary<string, string> {
+                            {"01", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"asesor.svg")},
+                            {"02", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"beneficios.svg")},
+                            {"03", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"brazalete.svg")},
+                            {"04", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"call_center.svg")},
+                            {"05", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"catalogo_revista.svg")},
+                            {"06", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"descuento.svg")},
+                            {"07", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"kit.svg")},
+                            {"08", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"pago_diferido.svg")},
+                            {"09", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"productos_especiales.svg")},
+                            {"10", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"programa_brillante.svg")},
+                            {"11", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"reconocimiento.svg")},
+                            {"12", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"regalo.svg")},
+                            {"13", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"talleres.svg")},
+                            {"14", string.Format(ConfigS3.GetUrlFileS3("Iconos", path),"50_de_descuento.svg")},
+
+                        });
+                    }
+                }
+
+            }
+
+            public static class Niveles
+            {
+                public const int OfertasEspeciales_TablaLogicaDatos = 16800;
+
+                private static Dictionary<string, string[]> _Iconos;
+                private static string path = "CAMINOBRILLANTE/NIVELES/NIVEL_0{0}_{1}.svg";
+
+                public static Dictionary<string, string[]> Iconos
+                {
+                    get
+                    {
+                        return _Iconos ?? (_Iconos = new Dictionary<string, string[]> {
+                            { "1", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "1", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "1", "A") } },
+                            { "2", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "2", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "2", "A") } },
+                            { "3", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "3", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "3", "A") } },
+                            { "4", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "4", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "4", "A") } },
+                            { "5", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "5", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "5", "A") } },
+                            { "6", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "6", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path), "6", "A") } },
+                        });
+                    }
+                }
+
+                private static Dictionary<string, string[]> _Etiquetas;
+                private static string path_etiquetas = "CAMINOBRILLANTE/NIVELES/TAG/Etiqueta_Nivel_0{0}_{1}.png";
+
+                public static Dictionary<string, string[]> Etiquetas
+                {
+                    get
+                    {
+                        return _Etiquetas ?? (_Etiquetas = new Dictionary<string, string[]> {
+                            { "1", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "1", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "1", "A") } },
+                            { "2", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "2", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "2", "A") } },
+                            { "3", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "3", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "3", "A") } },
+                            { "4", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "4", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "4", "A") } },
+                            { "5", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "5", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "5", "A") } },
+                            { "6", new string[]{ string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "6", "I"), string.Format(ConfigS3.GetUrlFileS3("Iconos", path_etiquetas), "6", "A") } },
+                        });
+                    }
+                }
+            }
+        }
+
+        public static class CodigoContenido
+        {
+            public const string Lanzamiento = "BONIFICACIONES_RESUMEN";
+        }
+
+        #region
+        public static class CarpetasContenido
+        {
+            public const string Menu = "Menu";
+        }
+        #endregion
+
+        public static class OrigenPedidoBuscadorApp
+        {
+            public const string OrigenPedidoWebDesplegable = "OrigenPedidoWebDesplegable";
+            public const string OrigenPedidoWebLanding = "OrigenPedidoWebLanding";
+            public const string OrigenPedidoWebDesplegableFicha = "OrigenPedidoWebDesplegableFicha";
+            public const string OrigenPedidoWebLandingFicha = "OrigenPedidoWebLandingFicha";
+            public const string OrigenPedidoWebLandingFichaCarrusel = "OrigenPedidoWebLandingFichaCarrusel";
+            public const string OrigenPedidoWebDesplegableFichaCarrusel = "OrigenPedidoWebDesplegableFichaCarrusel";
         }
     }
 }

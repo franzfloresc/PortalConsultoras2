@@ -1,9 +1,13 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.BizLogic.CaminoBrillante;
 using Portal.Consultoras.BizLogic.CDR;
 using Portal.Consultoras.BizLogic.PagoEnlinea;
+using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.CaminoBrillante;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
+using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.Usuario;
 using Portal.Consultoras.ServiceContracts;
 using System;
@@ -14,15 +18,21 @@ namespace Portal.Consultoras.Service
     public class UsuarioService : IUsuarioService
     {
         private readonly IUsuarioBusinessLogic _usuarioBusinessLogic;
+        private readonly IDireccionEntregaBusinessLogic _direccionEntregaBusinessLogic;
+        private readonly ICaminoBrillanteBusinessLogic _caminoBrillanteBusinessLogic;
+        private readonly IConfiguracionPaisDatosBusinessLogic _configuracionPaisDatosBusinessLogic;
 
-        public UsuarioService() : this(new BLUsuario())
+        public UsuarioService() : this(new BLUsuario() , new BLDireccionEntrega(), new BLCaminoBrillante(), new BLConfiguracionPaisDatos())
         {
 
         }
 
-        public UsuarioService(IUsuarioBusinessLogic usuarioBusinessLogic)
+        public UsuarioService(IUsuarioBusinessLogic usuarioBusinessLogic , IDireccionEntregaBusinessLogic direccionEntregaBusinessLogic, ICaminoBrillanteBusinessLogic caminoBrillanteBusinessLogic, IConfiguracionPaisDatosBusinessLogic configuracionPaisDatosBusinessLogic)
         {
-            _usuarioBusinessLogic = usuarioBusinessLogic;
+            _usuarioBusinessLogic =          usuarioBusinessLogic;
+            _direccionEntregaBusinessLogic = direccionEntregaBusinessLogic;
+            _caminoBrillanteBusinessLogic = caminoBrillanteBusinessLogic;
+            _configuracionPaisDatosBusinessLogic = configuracionPaisDatosBusinessLogic;
         }
 
         public BEUsuario Select(int paisID, string codigoUsuario)
@@ -487,41 +497,6 @@ namespace Portal.Consultoras.Service
             return oblUsuario.GenerarReporteSuscripcionLideres(paisId, TipoReporte);
         }
 
-        // se movio a Util.GetPaisID
-        //public int GetPaisID(string ISO)
-        //{
-        //    try
-        //    {
-        //        List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
-        //        {
-        //            new KeyValuePair<string, string>("1", Constantes.CodigosISOPais.Argentina),
-        //            new KeyValuePair<string, string>("2", Constantes.CodigosISOPais.Bolivia),
-        //            new KeyValuePair<string, string>("3", Constantes.CodigosISOPais.Chile),
-        //            new KeyValuePair<string, string>("4", Constantes.CodigosISOPais.Colombia),
-        //            new KeyValuePair<string, string>("5", Constantes.CodigosISOPais.CostaRica),
-        //            new KeyValuePair<string, string>("6", Constantes.CodigosISOPais.Ecuador),
-        //            new KeyValuePair<string, string>("7", Constantes.CodigosISOPais.Salvador),
-        //            new KeyValuePair<string, string>("8", Constantes.CodigosISOPais.Guatemala),
-        //            new KeyValuePair<string, string>("9", Constantes.CodigosISOPais.Mexico),
-        //            new KeyValuePair<string, string>("10", Constantes.CodigosISOPais.Panama),
-        //            new KeyValuePair<string, string>("11", Constantes.CodigosISOPais.Peru),
-        //            new KeyValuePair<string, string>("12", Constantes.CodigosISOPais.PuertoRico),
-        //            new KeyValuePair<string, string>("13", Constantes.CodigosISOPais.Dominicana),
-        //            new KeyValuePair<string, string>("14", Constantes.CodigosISOPais.Venezuela),
-        //        };
-        //        string paisId = (from c in listaPaises
-        //                         where c.Value == ISO.ToUpper()
-        //                         select c.Key).SingleOrDefault() ?? "";
-        //        int outVal;
-        //        int.TryParse(paisId, out outVal);
-        //        return outVal;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw new Exception("Hubo un error en obtener el País");
-        //    }
-        //}
-
         public void UpdNotificacionSolicitudClienteVisualizacion(int paisID, long SolicitudClienteId)
         {
             var blNotificaciones = new BLNotificaciones();
@@ -693,6 +668,11 @@ namespace Portal.Consultoras.Service
             return bl.GetList(entidad);
         }
 
+        public List<BEConfiguracionPaisDatos> GetConfiguracionPaisDatosAll(BEConfiguracionPaisDatos entidad)
+        {
+            return _configuracionPaisDatosBusinessLogic.GetListAll(entidad);
+        }
+
         public List<BEConfiguracionPaisDatos> GetConfiguracionPaisComponente(BEConfiguracionPaisDatos entidad)
         {
             var bl = new BLConfiguracionPaisDatos();
@@ -728,6 +708,7 @@ namespace Portal.Consultoras.Service
         {
             var blUsuario = new BLUsuario();
             return blUsuario.ActualizarMisDatos(usuario, CorreoAnterior);
+
         }
 
         public BERespuestaServicio ActualizarEmail(BEUsuario usuario, string correoNuevo)
@@ -928,7 +909,24 @@ namespace Portal.Consultoras.Service
             return BLUsuario.ActuaizarNovedadBuscador(paisID, codigoUsuario);
         }
 
-
+        #region Direccion de Entrega
+        public BEDireccionEntrega ObtenerDireccionPorConsultora(BEDireccionEntrega direccion)
+        {
+            return _direccionEntregaBusinessLogic.ObtenerDireccionPorConsultora(direccion);
+        }
+        public BEDireccionEntrega InsertarDireccionEntrega(BEDireccionEntrega direccion)
+        {
+            return _direccionEntregaBusinessLogic.Insertar(direccion);
+        }
+        public BEDireccionEntrega EditarDireccionEntrega(BEDireccionEntrega direccion)
+        {
+            return _direccionEntregaBusinessLogic.Editar(direccion);
+        }
+        public void RegistrarDireccionEntrega(string codigoISO, BEDireccionEntrega direccionEntrega)
+        {
+            _usuarioBusinessLogic.RegistrarDireccionEntrega(codigoISO, direccionEntrega, true);
+        }
+        #endregion
         #region ActualizacionDatos
         public BERespuestaServicio ActualizarEmailWS(BEUsuario usuario, string correoNuevo)
         {
@@ -938,6 +936,64 @@ namespace Portal.Consultoras.Service
         {
             return _usuarioBusinessLogic.EnviarSmsCodigo(paisID, codigoUsuario, codigoConsultora, campaniaID, esMobile, celularActual, celularNuevo);
         }
+
+        public string RegistrarPerfil(BEUsuario usuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.RegistrarPerfil(usuario);
+        }
         #endregion
+        #region UsuarioOpciones
+        public List<BEUsuarioOpciones> GetUsuarioOpciones(int paisID, string codigoUsuario)
+        {
+            return _usuarioBusinessLogic.GetUsuarioOpciones(paisID, codigoUsuario);
+        }
+        #endregion
+        
+        #region Camino Brillante
+
+        public BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(BEUsuario entidad) {
+            return _caminoBrillanteBusinessLogic.GetConsultoraNivel(entidad);
+        }
+
+        #endregion
+
+        public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo,  string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoConsultora, PaisID, CodigoUsuario, tipoEnvio1, tipoEnvio2);
+        }
+
+        public int ActualizarSMS(int PaisID, string codigoConsultora, string tipoEnvio, string celularAnterior, string celularActual)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ActualizarSMS(PaisID, codigoConsultora, tipoEnvio, celularAnterior, celularActual);
+        }
+
+        public int ActualizarFijo(int PaisID, string codigoConsultora, string tipoEnvio, string telefonoAnterior, string telefonoActual)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ActualizarFijo(PaisID, codigoConsultora, tipoEnvio, telefonoAnterior, telefonoActual);
+        }
+
+        public int ValidaEstadoPopup(int PaisID)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ValidaEstadoPopup(PaisID);
+        }
+
+        public List<BEValidacionDatos> GetTipoEnvioActivos(int PaisID, string CodigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetTipoEnvioActivos(PaisID, CodigoUsuario);
+        }
+
+        public List<BEValidacionDatos> ListarValidacionDatos(BEValidacionDatos beValidacionDatos)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ListarValidacionDatos(beValidacionDatos);
+        }
+
+
     }
 }

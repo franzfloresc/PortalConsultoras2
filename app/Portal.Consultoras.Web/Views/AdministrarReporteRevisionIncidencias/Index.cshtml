@@ -118,14 +118,7 @@
             buttonImageOnly: true,
             dateFormat: 'dd/mm/yy'
         }).mask('99/99/9999');
-
-        //var fechaConsulta = jQuery('#txtFechaConsulta').val();
-
-        //if (fechaConsulta == "") {
-        //    alert('Ingresar Fecha de Consulta');
-        //    return false;
-        //}
-
+    
         reporteRevisionIncidencias = ReporteRevisionIncidencias({
             urlObtenterCampanias: '@Url.Action("ObtenerCampaniasPorUsuario", "BaseAdm")',
             urlExportarExcel: '@Url.Action("ExportarExcel", "AdministrarReporteRevisionIncidencias")',

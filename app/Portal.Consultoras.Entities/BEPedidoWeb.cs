@@ -1,5 +1,5 @@
 ﻿using Portal.Consultoras.Common;
-
+using Portal.Consultoras.Entities.CDR;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -91,13 +91,10 @@ namespace Portal.Consultoras.Entities
         public List<BEPedidoWebDetalle> olstBEPedidoWebDetalle { get; set; }
 
         [DataMember]
+        public List<BECDRWeb> BECDRWeb { get; set; }
+
+        [DataMember]
         public decimal Flete { get; set; }
-
-        [DataMember]
-        public int CDRWebID { get; set; }
-
-        [DataMember]
-        public int CDRWebEstado { get; set; }
 
         [DataMember]
         public int NumeroPedido { get; set; }
@@ -114,11 +111,16 @@ namespace Portal.Consultoras.Entities
         public decimal TippingPoint { get; set; }
 
         [DataMember]
+        public bool MuestraRegalo { get; set; }
+
+        [DataMember]
         public bool ValidacionAbierta { get; set; }
 
         [DataMember]
         public string FechaFacturado { get; set; }
 
+        [DataMember]
+        public bool TieneArmaTuPack { get; set; }
 
         public BEPedidoWeb() { }
 
@@ -155,8 +157,6 @@ namespace Portal.Consultoras.Entities
             MontoEscala = row.ToDecimal("MontoEscala");
             CanalIngreso = row.ToString("CanalIngreso");
             Flete = row.ToDecimal("Flete");
-            CDRWebID = row.ToInt32("CDRWebID");
-            CDRWebEstado = row.ToInt32("CDRWebEstado");
             NumeroPedido = row.ToInt32("NumeroPedido");
             VersionProl = row.ToByte("VersionProl");
             ModificaPedidoReservado = row.ToBoolean("ModificaPedidoReservado");

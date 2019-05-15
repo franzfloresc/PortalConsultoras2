@@ -1,5 +1,6 @@
 ﻿namespace Portal.Consultoras.Entities
 {
+    using Portal.Consultoras.Common;
     using System;
     using System.Collections.Generic;
     using System.Data;
@@ -86,88 +87,67 @@
                 switch (column)
                 {
                     case "CampaniaID":
-                        if (row["CampaniaID"] != DBNull.Value)
-                            CampaniaID = Convert.ToInt32(row["CampaniaID"]);
+                        CampaniaID = row.ToInt32("CampaniaID");
                         break;
                     case "PedidoID":
-                        if (row["PedidoID"] != DBNull.Value)
-                            PedidoID = Convert.ToInt32(row["PedidoID"]);
+                        PedidoID = row.ToInt32("PedidoID");
                         break;
                     case "ConsultoraID":
-                        if (row["ConsultoraID"] != DBNull.Value)
-                            ConsultoraID = Convert.ToInt64(row["ConsultoraID"]);
+                        ConsultoraID = row.ToInt64("ConsultoraID");
                         break;
                     case "FechaRegistro":
-                        if (row["FechaRegistro"] != DBNull.Value)
-                            FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
+                        FechaRegistro = row.ToDateTime("FechaRegistro");
                         break;
                     case "FechaModificacion":
-                        if (row["FechaModificacion"] != DBNull.Value)
-                            FechaModificacion = Convert.ToDateTime(row["FechaModificacion"]);
+                        FechaModificacion = row.ToDateTime("FechaModificacion");
                         break;
                     case "NumeroClientes":
-                        if (row["NumeroClientes"] != DBNull.Value)
-                            NumeroClientes = Convert.ToInt32(row["NumeroClientes"]);
+                        NumeroClientes = row.ToInt32("NumeroClientes");
                         break;
                     case "ImporteTotal":
-                        if (row["ImporteTotal"] != DBNull.Value)
-                            ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
+                        ImporteTotal = row.ToDecimal("ImporteTotal");
                         break;
                     case "ImporteMontoMinimo":
-                        if (row["ImporteMontoMinimo"] != DBNull.Value)
-                            ImporteMontoMinimo = Convert.ToDecimal(row["ImporteMontoMinimo"]);
+                        ImporteMontoMinimo = row.ToDecimal("ImporteMontoMinimo");
                         break;
                     case "ImporteTotalEstimado":
-                        if (row["ImporteTotalEstimado"] != DBNull.Value)
-                            ImporteTotalEstimado = Convert.ToDecimal(row["ImporteTotalEstimado"]);
+                        ImporteTotalEstimado = row.ToDecimal("ImporteTotalEstimado");
                         break;
                     case "IndicadorActivo":
-                        if (row["IndicadorActivo"] != DBNull.Value)
-                            IndicadorActivo = Convert.ToBoolean(row["IndicadorActivo"]);
+                        IndicadorActivo = row.ToBoolean("IndicadorActivo");
                         break;
                     case "PaisID":
-                        if (row["PaisID"] != DBNull.Value)
-                            PaisID = Convert.ToInt32(row["PaisID"]);
+                        PaisID = row.ToInt32("PaisID");
                         break;
                     case "IndicadorEnviado":
-                        if (row["IndicadorEnviado"] != DBNull.Value)
-                            IndicadorEnviado = Convert.ToBoolean(row["IndicadorEnviado"]);
+                        IndicadorEnviado = row.ToBoolean("IndicadorEnviado");
                         break;
                     case "IPUsuario":
-                        if (row["IPUsuario"] != DBNull.Value)
-                            IPUsuario = Convert.ToString(row["IPUsuario"]);
+                        IPUsuario = row.ToString("IPUsuario");
                         break;
                     case "CodigoUsuarioCreacion":
-                        if (row["CodigoUsuarioCreacion"] != DBNull.Value)
-                            CodigoUsuarioCreacion = Convert.ToString(row["CodigoUsuarioCreacion"]);
+                        CodigoUsuarioCreacion = row.ToString("CodigoUsuarioCreacion");
                         break;
                     case "CodigoUsuarioModificacion":
-                        if (row["CodigoUsuarioModificacion"] != DBNull.Value)
-                            CodigoUsuarioModificacion = Convert.ToString(row["CodigoUsuarioModificacion"]);
+                        CodigoUsuarioModificacion = row.ToString("CodigoUsuarioModificacion");
                         break;
                     case "CodigoConsultora":
-                        if (row["CodigoConsultora"] != DBNull.Value)
-                            CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
+                        CodigoConsultora = row.ToString("CodigoConsultora");
                         break;
                     case "NombreConsultora":
-                        if (row["NombreConsultora"] != DBNull.Value)
-                            NombreConsultora = Convert.ToString(row["NombreConsultora"]);
+                        NombreConsultora = row.ToString("NombreConsultora");
                         break;
                     case "MontoMinimoPedido":
-                        if (row["MontoMinimoPedido"] != DBNull.Value)
-                            MontoMinimoPedido = Convert.ToDecimal(row["MontoMinimoPedido"]);
+                        MontoMinimoPedido = row.ToDecimal("MontoMinimoPedido");
                         break;
                     case "NroRegistro":
-                        if (row["NroRegistro"] != DBNull.Value)
-                            NroRegistro = Convert.ToInt32(row["NroRegistro"]);
+                        NroRegistro = row.ToInt32("NroRegistro");
                         break;
                     case "SuperoMontoMinimo":
-                        if (row["SuperoMontoMinimo"] != DBNull.Value)
-                            SuperoMontoMinimo = Convert.ToBoolean(row["SuperoMontoMinimo"]);
+                        SuperoMontoMinimo = row.ToBoolean("SuperoMontoMinimo");
                         break;
                     case "SaldoConsultora":
-                        if (row["SaldoConsultora"] != DBNull.Value)
-                            SaldoConsultora = Convert.ToDecimal(row["SaldoConsultora"]);
+                        SaldoConsultora = row.ToDecimal("SaldoConsultora");
                         break;
                 }
             }

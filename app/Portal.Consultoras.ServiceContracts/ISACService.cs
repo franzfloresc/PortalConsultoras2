@@ -2,6 +2,8 @@
 using Portal.Consultoras.Entities.Mobile;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.Producto;
+using Portal.Consultoras.Entities.Oferta;
+using Portal.Consultoras.Entities.BuscadorYFiltros;
 
 using System;
 using System.Collections.Generic;
@@ -328,6 +330,13 @@ namespace Portal.Consultoras.ServiceContracts
         List<BETablaLogicaDatos> GetTablaLogicaDatos(int paisID, Int16 TablaLogicaID);
         #endregion
 
+        #region Buscador
+        [OperationContract]
+        Dictionary<string, string> GetOrdenamientoFiltrosBuscador(int paisID);
+        [OperationContract]
+        List<BEFiltroBuscador> GetFiltroBuscador(int paisID, int tablaLogicaDatosID);
+        #endregion
+
         #region "Fe de Erratas"
 
         [OperationContract]
@@ -432,6 +441,10 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion,
             string CodigoZona, int IdEstadoActividad);
+
+        [OperationContract]
+        List<BEComunicado> ObtenerSegmentacionInformativaPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion,
+         string CodigoZona, int IdEstadoActividad);
 
         [OperationContract]
         List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID);
@@ -700,6 +713,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BEConfiguracionOfertasHome> ListarSeccionConfiguracionOfertasHome(int paisId, int campaniaId);
+
+        [OperationContract]
+        IList<BEConfiguracionOfertasHomeApp> ListarSeccionConfiguracionOfertasApp(int paisId, int campaniaId);
         #endregion
 
         #region Estrategia

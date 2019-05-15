@@ -50,7 +50,13 @@ namespace Portal.Consultoras.BizLogic
         CredencialesSMS,
         NivelesProgramaNuevas,
         ProgramaArmaTuPack,
-        CuvListZonaArmaTuPack
+        CuvListZonaArmaTuPack,
+        OrdenamientoFiltros,
+        CaminoBrillanteNiveles,
+        CaminoBrillantePeriodos,
+        CaminoBrillanteMedallas,
+        CaminoBrillanteOfertas,
+        CaminoBrillanteDemostradores
     }
 
     internal static class CacheManager<T>

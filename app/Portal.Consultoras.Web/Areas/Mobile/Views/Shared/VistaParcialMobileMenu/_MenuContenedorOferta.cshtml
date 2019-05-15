@@ -9,16 +9,17 @@
     menuActivo.ConfiguracionPais.MobileFondoBanner = Util.Trim(menuActivo.ConfiguracionPais.MobileFondoBanner);
 }
 
-<div id="seccion-menu-mobile">
+<div data-layout="menuContenedor" id="seccion-menu-mobile">
     <div id="seccion-fixed-menu" class="agregarPosicionRelativa" style="z-index: 10; width: 100%;">
         @if (menuList.Any())
         {
-            <div data-layout-menu2="" class="slick-slider-fixed-mobile">
+            <div data-layout-menu2=""
+                 class="slick-slider-fixed-mobile">
                 <div class="bc_para_ti-menu-opciones">
                     <ul class="subnavegador"
-                        style="width: 100%; height: 45px; background: #fff;"
                         data-es-suscrita="@ViewBag.EsSuscrita.ToString().ToLower()"
-                        data-es-activa="@ViewBag.EsActiva.ToString().ToLower()">
+                        data-es-activa="@ViewBag.EsActiva.ToString().ToLower()"
+                        data-activo-codigo="@menuActivo.Codigo">
 
                         @foreach (var menuhijo in menuList)
                         {

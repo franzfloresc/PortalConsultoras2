@@ -1,30 +1,328 @@
-﻿@{
+﻿@model List<Portal.Consultoras.Web.Models.EscalaDescuentoModel>
+
+@{
+    Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     ViewBag.Title = "Escala de Descuentos";
+    var TextoDespuesDeBarra = "";
+    var TituloDescuentoFijo = "";
+    var Titulo20PorcDscto = "";
+    var Texto20PorcDscto = "";
+    var Texto10PorcDscto = "";
+    var Titulo10PorcDscto = "";
+    var TituloSinDscto = "";
+    var descuentoOrComision = "";
+    var descuentosOrComisiones = "";
+    var TextoSinDescuento = "";
+    var PaisID = (int)ViewData["PaisID"];
+    var mensajeImportante = ViewBag.MensajeImportante;
+
+
+    switch (PaisID)
+    {
+        case 2://BO
+            TextoDespuesDeBarra = "Estos descuentos aplican en: Bijouterie y cosméticos(fragancias, maquillaje, tratamiento facial y cuidado personal) de los catálogos Ésika, L'Bel y Cyzone";
+            TituloDescuentoFijo = "descuento fijo:";
+            Titulo20PorcDscto = "20% dscto";
+            Texto20PorcDscto = "En ropa, relojes, lentes, regalables, accesorios cosméticos, la mejor compra de Ésika, oferta insuperable de Ésika y la oferta especial de Cyzone.";
+            Titulo10PorcDscto = "10% dscto";
+            Texto10PorcDscto = "En catálogo de Expofertas";
+            TituloSinDscto = "sin descuento:";
+            TextoSinDescuento = "Productos en Guía de Negocio Ésika, productos no cosméticos apoyando otras ofertas, muestras y material de ayuda ventas ofrecidos en la Guía de Negocio Ésika y/o en los catálogos. ( SU VENTA SUMA PARA ALCANZAR LA ESCALA DE DESCUENTO).";
+            descuentoOrComision = "descuento";
+            descuentosOrComisiones = "descuentos";
+            break;
+        case 3://CL
+            TextoDespuesDeBarra = "EL MONTO INCLUYE EL IVA. Estos descuentos aplican en: cosméticos(fragancias, maquillaje, tratamiento facial y cuidado personal) de los catálogos Ésika, L'Bel y Cyzone.";
+            TituloDescuentoFijo = "20% comisión fija:";
+            Texto20PorcDscto = "En bijouterie, relojes, lentes, accesorios cosmético, complementos, regalables, promociones cosméticas, ropa y catálogo de Expofertas.";
+            Titulo20PorcDscto = "";
+            Titulo10PorcDscto = "";
+            TituloSinDscto = "sin comisión:";
+            TextoSinDescuento = "Productos en desmostración, materiales de ayuda de venta, promociones no cosméticas, muestras y Guía de Negocio Ésika";
+            descuentoOrComision = "comisión";
+            descuentosOrComisiones = "comisiones";
+            break;
+        case 4: //CO
+            TextoDespuesDeBarra = "Estos descuentos aplican en: Bijouterie y cosméticos(fragancias, maquillaje, tratamiento facial y cuidado personal) de los catálogos Ésika, L'Bel y Cyzone";
+            TituloDescuentoFijo = "20% descuento fijo:";
+            Texto20PorcDscto = "En promociones cosméticas, accesorios cosméticos, complementos(Cyzone y Ésika), ropa, regalables(Cyzone) y catálogo de Expofertas";
+            Titulo20PorcDscto = "";
+            Titulo10PorcDscto = "";
+            TituloSinDscto = "sin descuento:";
+            TextoSinDescuento = "Promociones no cosméticas(condicionadas o sin condición), materiales de ayuda de venta, productos en desmostración y productos tamaño muestras en catálogo";
+            descuentoOrComision = "descuento";
+            descuentosOrComisiones = "descuentos";
+            break;
+        case 5: //CR
+            TextoDespuesDeBarra = "Estos descuentos aplican en: Bijouterie y cosméticos(fragancias, maquillaje, tratamiento facial y cuidado personal) de los catálogos L'Bel, Ésika y Cyzone";
+            TituloDescuentoFijo = "20% descuento fijo:";
+            Texto20PorcDscto = "En ropa, complementos de vestir, relojes, lentes, regalables, accesorios cosméticos, promociones cosméticas y catálogo de Expofertas";
+            Titulo20PorcDscto = "";
+            Titulo10PorcDscto = "";
+            TituloSinDscto = "sin descuento:";
+            TextoSinDescuento = "Productos en revista Somos Belcorp, promociones no cosméticas, muestras y material de ayuda de venta ofrecidos en revista Somos Belcorp y/o en los catálogos. (SIN EMBARGO, SU VENTA SI SUMA PARA ALCANZAR LA ESCALA DE DESCUENTO).";
+            descuentoOrComision = "descuento";
+            descuentosOrComisiones = "descuentos";
+            break;
+        case 6: //EC
+            TextoDespuesDeBarra = "Estos descuentos aplican en: Bijouterie y cosméticos(fragancias, maquillaje, tratamiento facial y cuidado personal) de los catálogos Ésika, L'Bel y Cyzone";
+            TituloDescuentoFijo = "descuento fijo:";
+            Texto20PorcDscto = "En ropa, complementos de vestir, relojes, lentes, regalables, accesorios cosméticos, promociones cosméticas de los catáogos L'Bel, Ésika, Cyzone.";
+            Titulo20PorcDscto = "20% dscto";
+            Titulo10PorcDscto = "10% dscto";
+            Texto10PorcDscto = "en catálogos de Expofertas";
+            TituloSinDscto = "sin descuento:";
+            TextoSinDescuento = "Productos en la Guía de Negocio Ésika, promociones no cosméticas, muestras y material de ayuda de ventas ofrecidos en la Guía de Negocio Ésika y/o en los catálogos. (SIN EMBARGO, SU VENTA SI SUMA PARA ALCANZAR LA ESCALA DE DESCUENTO).";
+            descuentoOrComision = "descuento";
+            descuentosOrComisiones = "descuentos";
+            break;
+        case 7://SV
+            TextoDespuesDeBarra = "Estos descuentos aplican en: Bijouterie y cosméticos(fragancias, maquillaje, tratamiento facial y cuidado personal) de los catálogos Ésika, L'Bel y Cyzone";
+            TituloDescuentoFijo = "20% descuento fijo:";
+            Texto20PorcDscto = "En ropa, complementos de vestir, relojes, lentes, regalables, accesorios cosméticos, promociones cosméticas y catálogo de Expofertas.";
+            Titulo20PorcDscto = "";
+            Titulo10PorcDscto = "";
+            TituloSinDscto = "sin descuento:";
+            TextoSinDescuento = "Producto en demostración en la Guía de Negocio Ésika, promociones no cosméticas, materiales de ayuda de venta y muestra en venta en los catálogos L'Bel, Ésika y Cyzone y/o en la Guía de Negocio Ésika. (SIN EMBARGO, SU VENTA SI SUMA PARA ALCANZAR LA ESCALA DE DESCUENTO).";
+            descuentoOrComision = "descuento";
+            descuentosOrComisiones = "descuentos";
+            break;
+        case 8: //GT
+            TextoDespuesDeBarra = "Estos descuentos aplican en: Bijouterie y cosméticos(fragancias, maquillaje, tratamiento facial y cuidado personal) de los catálogos Ésika, L'Bel y Cyzone";
+            TituloDescuentoFijo = "20% descuento fijo:";
+            Texto20PorcDscto = "En ropa, complementos de vestir, relojes, lentes, regalables, accesorios cosméticos, promociones cosméticas y catálogo.";
+            Titulo20PorcDscto = "";
+            Titulo10PorcDscto = "";
+            TituloSinDscto = "sin descuento:";
+            TextoSinDescuento = "Productos en revista Somos Belcorp, Catálogo de Expofertas, promociones no cosméticas, muestra y material de ayuda de venta ofrecidos en revista Somos Belcorp y/o en los catálogos. (SIN EMBARGO, SU VENTA SI SUMA PARA ALCANZAR LA ESCALA DE DESCUENTO).";
+            descuentoOrComision = "descuento";
+            descuentosOrComisiones = "descuentos";
+            break;
+        case 9: //MX
+            TextoDespuesDeBarra = "Estos descuentos aplican en: Bijouterie y cosméticos(fragancias, maquillaje, tratamiento facial y cuidado personal) de los catálogos L'Bel, Ésika y Cyzone";
+            TituloDescuentoFijo = "20% descuento fijo:";
+            Texto20PorcDscto = "En ropa, complementos de vestir, relojes, lentes, regalables, accesorios cosméticos y promociones cosméticas.";
+            Titulo20PorcDscto = "";
+            Titulo10PorcDscto = "";
+            TituloSinDscto = "sin descuento:";
+            TextoSinDescuento = "Productos en revista Somos Belcorp, Catálogo de Expofertas, promociones no cosméticas, muestras y material de ayuda de venta ofrecidos en revista Somos Belcorp y/o en los catálogos. (SIN EMBARGO, SU VENTA SI SUMA PARA ALCANZAR LA ESCALA DE DESCUENTO).";
+            descuentoOrComision = "descuento";
+            descuentosOrComisiones = "descuentos";
+            break;
+        case 10: //PA
+            TextoDespuesDeBarra = "Estos descuentos aplican en: Bijouterie y cosméticos(fragancias, maquillaje, tratamiento facial y cuidado personal) de los catálogos Ésika, L'Bel y Cyzone";
+            TituloDescuentoFijo = "20% descuento fijo:";
+            Texto20PorcDscto = "En ropa, complementos de vestir, relojes, lentes, regalables, accesorios cosméticos, promociones cosméticas y catalogo de Expofertas.";
+            Titulo20PorcDscto = "";
+            Titulo10PorcDscto = "";
+            TituloSinDscto = "sin descuento:";
+            TextoSinDescuento = "Productos en revista Somos Belcorp, promociones no cosméticas, muestras y material de ayuda de venta ofrecidos en revista Somos Belcorp y/o en los catálogos. (SIN EMBARGO, SU VENTA SI SUMA PARA ALCANZAR LA ESCALA DE DESCUENTO).";
+            descuentoOrComision = "descuento";
+            descuentosOrComisiones = "descuentos";
+            break;
+        case 11: //PE
+            TextoDespuesDeBarra = "Estos descuentos aplican en: Cosméticos y bijouterie de los catálogos Ésika, L'Bel y Cyzone";
+            TituloDescuentoFijo = "descuento fijo:";
+            Texto20PorcDscto = "En promociones cosméticas, relojes, lentes, ropa y accesorios cosméticos.";
+            Titulo20PorcDscto = "20% dscto";
+            Titulo10PorcDscto = "";
+            TituloSinDscto = "sin descuento:";
+            TextoSinDescuento = "Productos en la Guía de Negocio Ésika, Gana +, promociones no cosméticos,productos adquiridos en en expofertas, muestras y materiales de ayuda de venta ofrecidos en la Guía de Negocio Ésika y/o catálogos";
+            descuentoOrComision = "descuento";
+            descuentosOrComisiones = "descuentos";
+            break;
+        case 12: //PR
+            TextoDespuesDeBarra = "Estos descuentos aplican en: Bijouterie y cosméticos(fragancias, maquillaje, tratamiento facial y cuidado personal) de los catálogos Ésika, L'Bel y Cyzone";
+            TituloDescuentoFijo = "20% descuento fijo";
+            Texto20PorcDscto = "En ropa, complementos de vestir, relojes, lentes, regalables, accesorios cosméticos, promociones cosméticas y catalogo de Expofertas.";
+            Titulo20PorcDscto = "";
+            Titulo10PorcDscto = "";
+            TituloSinDscto = "sin descuento:";
+            TextoSinDescuento = "Producto en demostración en la Guía de Negocio Ésika, promociones no cosméticas, materiales de ayuda de venta y muestra en venta en los catálogos L'Bel, Ésika y Cyzone y/o en la Guía de Negocio Ésika. (SIN EMBARGO, SU VENTA SI SUMA PARA ALCANZAR LA ESCALA DE DESCUENTO).";
+            descuentoOrComision = "descuento";
+            descuentosOrComisiones = "descuentos";
+            break;
+        default: //DO
+            TextoDespuesDeBarra = "Estos descuentos aplican en: Bijouterie y cosméticos(fragancias, maquillaje, tratamiento facial y cuidado personal) de los catálogos Ésika, L'Bel y Cyzone";
+            TituloDescuentoFijo = "20% descuento fijo:";
+            Texto20PorcDscto = "En ropa, complementos de vestir, relojes, lentes, regalables, accesorios cosméticos, promociones cosméticas de los catáogos L'Bel, Ésika, Cyzone y catálogo de Expofertas.";
+            Titulo20PorcDscto = "";
+            Titulo10PorcDscto = "";
+            TituloSinDscto = "sin descuento:";
+            TextoSinDescuento = "Productos en la Guía de Negocio Ésika, promociones no cosméticas, muestras y material de ayuda de ventas ofrecidos en la Guía de Negocio Ésika y/o en los catálogos. (SIN EMBARGO, SU VENTA SI SUMA PARA ALCANZAR LA ESCALA DE DESCUENTO).";
+            descuentoOrComision = "descuento";
+            descuentosOrComisiones = "descuentos";
+            break;
+    }
+
 }
 
-<div class="fondo_f9f9f9">
-    <div class="content_belcorp content_belcorp_misPedidos">
-        <div class="fondo_negro_lateral"></div>
-        <div class="titulo_interiores">ESCALA DE <span>DESCUENTOS</span></div>
-    </div>
-    <hr class="clear" />
-    <div class="linea_separadora" style="margin-top:-1px"></div>
-</div>
-<div class="pestana_lbel" style="margin-left:119px;"></div>
-<div class="wrap_cab">
-    <div class="filtros">
-        <div class="elements">
-            <div class="div-1">
-                <div class="box">
+<link href="@Url.Content("~/Content/Css/Site/EscalaDescuentos/escala-descuentos.css")" rel="stylesheet" />
+
+<main class="w-100 row flex-column justify-content-center ml-0 mr-0 layout__main__content">
+    <!-- TITULO DE VISTA ESCALA DE DESCUENTOS -->
+    <section class="row flex-row justify-content-start ml-0 mr-0 layout__view__title__wrapper">
+        <div class="col-12 pl-0 pr-0 mx-auto layout__view__title">
+            <div class="layout__view__title__background mostrarEnDesktop"></div>
+            <h1 class="col-12 col-lg-6 pl-lg-0 pr-lg-0 row flex-column flex-lg-row flex-wrap flex-lg-nowrap justify-content-center justify-content-lg-start align-items-lg-center layout__view__title__text text-uppercase">
+                <a href="@Request.UrlReferrer" class="d-block layout__view__title__icono__volver mostrarEnMobile">
+                    <img class="d-block" src="@Url.Content("~/Content/Images/icono_volver_mobile.svg")" alt="" />
+                </a>
+                <span class="d-block">
+                    <span class="text-bold text-uppercase">Escala de descuentos</span>
+                </span>
+            </h1>
+        </div>
+    </section>
+    <div class="row flex-row mx-auto pestana__lbel"></div>
+    <!-- FIN - TITULO DE VISTA ESCALA DE DESCUENTOS -->
+    <!-- CONTENIDO DE VISTA ESCALA DE DESCUENTO -->
+    <section class="row flex-row align-content-start ml-0 mr-0 mx-auto layout__content layout__content--escalaDescuento">
+        <h1 class="col-12 pl-0 pr-0 text-bold text-uppercase text-center escala__descuento__descripcion_primary">
+            Aprovecha estos excelentes @descuentosOrComisiones
+        </h1>
+        <p class="col-12 pl-0 pr-0 text-center color__multimarca escala__descuento__descripcion_secondary">
+            ¡Tú decides cuánto quieres ganar!
+        </p>
+        <div class="row flex-row border-radius-4 text-center ml-0 mr-0 info__calculo__porcentaje__descuento">
+            <h2 class="col-12 pl-0 pr-0 text-uppercase info__calculo__porcentaje__descuento__titulo">
+                ¿Cómo calculo el porcentaje de @descuentoOrComision?
+            </h2>
+            <p class="col-12 pl-0 pr-0 info__calculo__porcentaje__descuento__descripcion">
+                @if (PaisID == 3)
+                {
+                    <span class="color__gray__multimarca">
+                        Suma todos los productos con escala de comisión y ubícate en el monto de la escala que corresponda, luego debes quitarle el IVA y aplicar el % de comisión alcanzado para aquellos productos que tienen escala de comisión. Para el resto de productos, aplícale el descuento fijo correspondiente.
+                    </span>
+                }
+                else
+                {
+                    <span class="color__gray__multimarca">
+                        Suma todos los productos con descuento variable y ubícate en el monto de la escala que corresponda, luego debes aplicar el % de descuento alcanzado para aquellos productos que son VARIABLES. Para el resto de productos, aplícale el descuento fijo correspondiente.
+                    </span>
+                }
+
+            </p>
+        </div>
+        <!-- SECCIÓN ESCALA DE DESCUENTOS EN BARRA -->
+        <section class="row flex-row ml-0 mr-0 info__escala__descuento__variable">
+            @if (PaisID == 3)
+            {
+                <h2 class="col-12 pl-0 pr-0 text-bold text-uppercase info__escala__descuento__variable__titulo">
+                    Escala de comisiones
+                </h2>
+            }
+            else
+            {
+                <h2 class="col-12 pl-0 pr-0 text-bold text-uppercase info__escala__descuento__variable__titulo">
+                    Escala de descuento variable :
+                </h2>
+            }
+
+            @*<p class="col-12 pl-0 pr-0 info__escala__descuento__variable__descripcion">
+                    <span>De acuerdo a estos montos, tu descuento valor catálogo es:</span>
+                </p>*@
+            <!-- COMPONENTE BARRA DE DESCUENTOS -->
+            <div class="col-12 pl-0 pr-0 text-center row flex-row ml-0 mr-0 seccion__barra__escala__descuento">
+                <div class="col-3 col-lg-12 pl-0 pr-0 d-flex flex-wrap flex-row justify-content-end barra__descuento__wrapper">
+                    <div class="barra__descuento barra__descuento--vertical barra__descuento--horizontal">
+                        <div class="col-12 pl-0 pr-0 barra__descuento__espacio__limite barra__descuento__espacio__limite--vertical barra__descuento__espacio__limite--horizontal">
+                            <div class="col-12 pl-0 pr-0 barra__descuento__espacio__logrado barra__descuento__espacio__logrado--vertical barra__descuento__espacio__logrado--horizontal">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-9 col-lg-12 pl-0 pr-0 mx-lg-auto pl-0 pr-0 escala__descuentos__wrapper">
+                    <div class="row flex-row justify-content-between align-content-around ml-0 mr-0 escala__descuentos">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-12 col-lg pl-0 pr-0 row flex-row align-items-center ml-0 mr-0 escala__descuento">
+                                <div class="col-1 pl-0 pr-0 mx-lg-auto background__color__gray__multimarca linea__escala__descuento">
+                                </div>
+                                <div class="col col-lg-12 pl-0 pr-0 text-left text-lg-center escala__descuento__porcentaje__y__montos">
+                                    <span class="d-block text-bold text-uppercase escala__descuento__porcentaje">
+                                        @item.PorcentajeDescuento  % dscto
+                                    </span>
+                                    <span class="d-block color__gray__multimarca text-left text-lg-center escala__descuento__rango__montos">
+                                        @item.MontoMinimo a <span class="d-lg-block text-uppercase color__gray__multimarca">@item.MontoMaximo</span>
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <p class="col-12 pl-0 pr-0 text-center color__gray__multimarca info__descuentos__aplicables">
+                    @TextoDespuesDeBarra   @*Estos descuentos aplican en: Cosméticos  y Bijouterie de catálogos Ésika, L'bel y Cyzone**@
+                </p>
+            </div>
+            <!-- FIN - COMPONENTE BARRA DE DESCUENTOS -->
+        </section>
+        <!-- FIN - SECCIÓN ESCALA DE DESCUENTOS EN BARRA -->
+        <div class="row flex-row ml-0 mr-0 info__descuento__fijo w-100">
+            <h2 class="col-12 pl-0 pr-0 text-bold text-uppercase info__descuento__fijo__titulo">
+                @TituloDescuentoFijo @*Descuento fijo :*@
+            </h2>
+            <div class="col-12 pl-0 pr-0 d-flex flex-wrap flex-row info__descuento__fijo__porcentaje__wrapper">
+                <div class="col-12 pl-0 pr-0">
+                    <h3 class="text-bold text-uppercase info__descuento__fijo__porcentaje__titulo">
+                        @Titulo20PorcDscto   @*20% Dscto*@
+                    </h3>
+                    <p class="info__descuento__fijo__porcentaje__descripcion">
+                        @Texto20PorcDscto   @*En ropa, relojes, lentes, regalables, accesorios cosméticos, la mejor compra de Ésika, oferta insuperable de Ésika y la oferta especial de Cyzone.*@
+                    </p>
+                </div>
+                <div class="col-12 pl-0 pr-0">
+                    <h3 class="text-bold text-uppercase info__descuento__fijo__porcentaje__titulo">
+                        @Titulo10PorcDscto  @*10% Dscto*@
+                    </h3>
+                    <p class="info__descuento__fijo__porcentaje__descripcion">
+                        @Texto10PorcDscto  @*En catálogo de expofertas.*@
+                    </p>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="wrap">
-    <div class="container clearfix container_escalaDescuento">
-        <div>
-            <img src="@ViewBag.Ruta" />
+        <div class="row flex-row ml-0 mr-0 info__sin__descuento">
+            <h2 class="col-12 pl-0 pr-0 text-bold text-uppercase info__sin__descuento__titulo">
+                @TituloSinDscto  @*Sin descuento :*@
+            </h2>
+            <p class="col-12 pl-0 pr-0 info__sin__descuento__descripcion">
+                @TextoSinDescuento
+                @*<span>
+                        Productos en revista Somos Belcorp, promociones no cosméticas, muestras y material de ayuda de venta ofrecidos en revista Somos Belcorp y/o en los catálogos.
+                    </span>
+                    <span class="text-uppercase">
+                        (Sin embargo, su venta si suma para alcanzar la escala de descuento).
+                    </span>*@
+            </p>
         </div>
-    </div>
-</div>
+        <div class="row flex-row ml-0 mr-0 border-radius-4 info__adicional__importante__escala__descuentos">
+            <div class="col-12 pl-0 pr-0 info__adicional__importante__escala__descuentos__texto">
+                <img src="@Url.Content("~/Content/Images/icono_infoImportante.svg")" class="d-inline-block icono__info__importante" alt="Importante" />
+                @if (mensajeImportante != "" && mensajeImportante != null)
+                {
+                    <span class="text-bold text-uppercase color__multimarca">
+                        Importante:&nbsp;
+                    </span>
+                    <span class="color__gray__multimarca">
+                        @mensajeImportante
+                    </span>
+                }
+
+            </div>
+        </div>
+        <div class="row flex-row ml-0 mr-0 border-radius-4 info__gana__mas">
+            <div class="col-12 col-lg-2 pl-0 pr-0 text-center text-lg-left info__gana__mas__titulo">
+                <img src="@Url.Content("~/Content/Images/icono_titulo_ganaMas.svg")" alt="Gana Más" />
+            </div>
+            <div class="col-12 col-lg-10 pl-0 pr-0 text-left info__gana__mas__descripcion">
+                <p class="text-bold info__gana__mas__descripcion--resaltada">
+                    GANA + es una sección exclusiva para consultoras. Infórmate sobre la política y procedimiento de cambios y devoluciones llamando a Belcorp Responde o en www.somosbelcorp.com.
+                </p>
+                <p class="color__gray__multimarca">
+                    Las imágenes de los productos que aparecen en esta sección son referenciales. Podrás recibir productos con el logo nuevo o antiguo de Ésika, manteniendo el mismo nivel de calidad. Los precios de la sección GANA + son netos para las consultoras.
+                </p>
+            </div>
+        </div>
+    </section>
+    <!-- FIN - CONTENIDO DE VISTA ESCALA DE DESCUENTO -->
+</main>

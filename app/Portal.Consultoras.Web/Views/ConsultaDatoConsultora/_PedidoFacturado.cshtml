@@ -69,7 +69,7 @@
     }
 
     function CargarDetalle(CampaniaId, Flete, Total, tipo) {
-        $("#detallePedidoOCR").addClass('oculto');      
+        $("#detallePedidoOCR").addClass('oculto');
         $("#detallePedidoFacturado").addClass('oculto');
         $("#detallePedidoWeb").addClass('oculto');
         $("#totalPedidoWeb").html('');
@@ -95,7 +95,7 @@
             $("#campanaPedidoFacturado").html(campania);
             $("#campanaPedidoWeb").html(campania);
            fnGrillaPedidoFacturadoProducto();
-           GrillaPedidoWeb();            
+           GrillaPedidoWeb();
         }
         if (tipo == "OCR") {
             $("#detallePedidoOCR").removeClass('oculto');
@@ -187,8 +187,8 @@
                 hidegrid: false,
                 datatype: 'json',
                 postData: ({
-                    campaniaId: function () { return jQuery.trim($("#pedidoFacturadoCampania").val()); },
-                    consultoraId: function () { return jQuery.trim($("#txtDCConsultoraID").val()); }
+                    campaniaId  : jQuery.trim($("#pedidoFacturadoCampania").val()),
+                    consultoraId :  jQuery.trim($("#txtDCConsultoraID").val()),
                 }),
                 mtype: 'GET',
                 contentType: "application/json; charset=utf-8",
@@ -247,8 +247,8 @@
                         url: baseUrl + "ConsultaDatoConsultora/ConsultarPedidoWebDetalleProductos",
                         datatype: "json",
                         postData: ({
-                            campaniaId: function () { return jQuery.trim($("#pedidoFacturadoCampania").val()); },
-                            consultoraId: function () { return jQuery.trim($("#txtDCConsultoraID").val()); },
+                            campaniaId : jQuery.trim($("#pedidoFacturadoCampania").val()),
+                            consultoraId: jQuery.trim($("#txtDCConsultoraID").val()),
                             clientId: function () { return row_id; }
                         }),
                         colNames: ['Código', 'Descripción', 'Cantidad', 'Precio Unit.', 'Precio Total', ''],
@@ -291,7 +291,7 @@
 
     $.jgrid.extend({
         EnviarEmail: function (Email, ClientId) {
-            var CampaniaId = function () { return jQuery.trim($("#pedidoFacturadoCampania").val()); };
+            var CampaniaId = jQuery.trim($("#pedidoFacturadoCampania").val());
             if (jQuery.trim(Email) == "" && ClientId != "0") {
                 alert("El cliente seleccionado no tiene email registrado");
                 return false;
@@ -311,7 +311,7 @@
                     ClientId: ClientId,
                     Email: Email,
                     CampaniaId: CampaniaId,
-                    consultoraId: function () { return jQuery.trim($("#txtDCConsultoraID").val()); }
+                     consultoraId: jQuery.trim($("#txtDCConsultoraID").val())
                 }),
                 async: true,
                 success: function (data) {

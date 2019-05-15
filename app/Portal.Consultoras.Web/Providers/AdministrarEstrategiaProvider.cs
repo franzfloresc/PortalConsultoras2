@@ -1,9 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿using AutoMapper;
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.Response;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.AdministrarEstrategia;
+using Portal.Consultoras.Web.Models.Config.ResponseReporte;
+using Portal.Consultoras.Web.Models.Config.ResponseReporte.Estructura;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
+using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.SessionManager;
 using System;
@@ -18,18 +23,29 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class AdministrarEstrategiaProvider
     {
-        private readonly static HttpClient httpClientMicroservicioSync = new HttpClient();
+        private readonly static HttpClient httpClientMicroservicioSync;
 
         private readonly ISessionManager sessionManager = SessionManager.SessionManager.Instance;
+        protected OfertaBaseProvider _ofertaBaseProvider;
+        protected readonly EstrategiaGrupoProvider _estrategiaGrupoProvider;
+
 
         static AdministrarEstrategiaProvider()
         {
             if (!string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionSync))
             {
+                httpClientMicroservicioSync = new HttpClient();
                 httpClientMicroservicioSync.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSync);
                 httpClientMicroservicioSync.DefaultRequestHeaders.Accept.Clear();
                 httpClientMicroservicioSync.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             }
+        }
+
+
+        public AdministrarEstrategiaProvider()
+        {
+            _ofertaBaseProvider = new OfertaBaseProvider();
+            _estrategiaGrupoProvider = new EstrategiaGrupoProvider();
         }
 
         private static async Task<string> RespSBMicroservicios(string jsonParametros, string requestUrlParam, string responseType, UsuarioModel userData)
@@ -89,7 +105,7 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
             Dictionary<string, List<string>> irespuesta = new Dictionary<string, List<string>>();
             string jsonParameters = JsonConvert.SerializeObject(estrategiasIds);
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlCargarWebApi, pais,userData.UsuarioNombre);
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlCargarWebApi, pais, userData.UsuarioNombre);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -111,7 +127,7 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
             Dictionary<string, int> iCantidadOfertas = new Dictionary<string, int> { { "CUV_ZE", -1 }, { "CUV_OP", -1 } };
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlCantidadOfertas, pais, tipoCodigo, campania);
-            
+
             var taskApi = Task.Run(() => RespSBMicroservicios("", requestUrl, "get", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -130,16 +146,53 @@ namespace Portal.Consultoras.Web.Providers
 
         private static List<EstrategiaMDbAdapterModel> EstablecerEstrategiaList(IEnumerable<WaEstrategiaModel> waModelList)
         {
-            List<EstrategiaMDbAdapterModel> mapList = waModelList.Select(d =>
+            List<EstrategiaMDbAdapterModel> mapList = waModelList.Select((d, index) =>
                 new EstrategiaMDbAdapterModel
                 {
                     _id = d._id,
                     FlagConfig = d.FlagConfig,
+                    //Componentes = Mapper.Map<List<WaEstrategiaComponenteModel>, List<ServicePedido.BEEstrategiaProducto>>(d.Componentes ?? new List<WaEstrategiaComponenteModel>()),
+                    Componentes = d.Componentes.Select(x => new ServicePedido.BEEstrategiaProducto
+                    {
+                        CodigoEstrategia = x.CodigoEstrategia.ToString(),
+                        CUV2 = x.CuvPadre,
+                        CUV = x.Cuv,
+
+                        Precio = x.PrecioUnitario.ToDecimal(),
+                        PrecioValorizado = x.PrecioValorizado.ToDecimal(),
+                        Campania = x.CampaniaId.ToInt(),
+                        //CampaniaApp = x.,
+                        Cantidad = x.Cantidad,
+                        Digitable = x.IndicadorDigitable ? 1 : 0,
+                        EstrategiaID = x.EstrategiaId,
+                        EstrategiaProductoID = x.EstrategiaProductoId,
+                        FactorCuadre = x.FactorCuadre,
+                        IdMarca = x.MarcaId,
+                        Orden = x.Orden,
+                        //PaisID = x.,
+                        //Activo = x.Activo,
+                        //CodigoError = x.,
+                        //CodigoErrorObs = x.,
+                        Descripcion = x.Descripcion,
+                        Descripcion1 = x.Descripcion1,
+                        Grupo = x.Grupo.ToString(),
+                        ImagenBulk = x.ImagenBulk,
+                        ImagenProducto = x.ImagenProducto,
+                        NombreBulk = x.NombreBulk,
+                        NombreComercial = x.NombreComercial,
+                        NombreMarca = x.NombreMarca,
+                        NombreProducto = x.NombreProducto,
+                        SAP = x.CodigoSap,
+                        UsuarioCreacion = x.UsuarioCreacion,
+                        UsuarioModificacion = x.UsuarioModificacion,
+                        Volumen = x.Volumen
+                    }).ToList() ?? new List<ServicePedido.BEEstrategiaProducto>(),
                     BEEstrategia = new ServicePedido.BEEstrategia
                     {
+                        ID = index + 1,
                         EstrategiaID = d.EstrategiaId,
                         CampaniaID = int.Parse(d.CodigoCampania),
-                        Activo = d.Activo ? 1 : 0,
+                        Activo = d.Activo.ToInt(),
                         ImagenURL = d.ImagenURL,
                         LimiteVenta = d.LimiteVenta,
                         DescripcionCUV2 = d.DescripcionCUV2,
@@ -149,14 +202,14 @@ namespace Portal.Consultoras.Web.Providers
                         Ganancia = (decimal)d.Ganancia,
                         CUV2 = d.CUV2,
                         Orden = d.Orden,
-                        FlagNueva = d.FlagNueva ? 1 : 0,
-                        FlagEstrella = d.FlagEstrella ? 1 : 0,
+                        FlagNueva = d.FlagNueva.ToInt(),
+                        FlagEstrella = d.FlagEstrella.ToInt(),
                         CodigoEstrategia = d.CodigoEstrategia,
                         CodigoTipoEstrategia = d.CodigoTipoEstrategia,
                         TextoLibre = d.TextoLibre,
                         //cambiar por CodigoProducto cuando se corrija el servicio
                         CodigoProducto = string.IsNullOrEmpty(d.CodigoSap) ? d.CodigoProducto : d.CodigoSap,
-                        IndicadorMontoMinimo = d.IndicadorMontoMinimo ? 1 : 0,
+                        IndicadorMontoMinimo = d.IndicadorMontoMinimo.ToInt(),
                         IdMatrizComercial = d.MatrizComercialId,
                         MarcaID = d.MarcaId,
                         DescripcionMarca = d.MarcaDescripcion,
@@ -164,11 +217,11 @@ namespace Portal.Consultoras.Web.Providers
                         UsuarioModificacion = d.UsuarioModificacion,
                         ImagenMiniaturaURL = d.ImagenMiniatura ?? string.Empty,
                         TipoEstrategiaID = d.TipoEstrategiaId,
-                        Imagen = d.FlagImagenURL ? 1 : 0,
-                        DescripcionEstrategia = d.DescripcionTipoEstrategia,                    
+                        Imagen = d.FlagImagenURL.ToInt(),
+                        DescripcionEstrategia = d.DescripcionTipoEstrategia,
                         CodigoSAP = string.IsNullOrEmpty(d.CodigoSap) ? d.CodigoProducto : d.CodigoSap,
                         Zona = d.Zona,
-                        EsSubCampania = d.EsSubCampania.HasValue ? (d.EsSubCampania.Value ? 1 : 0) : 0,
+                        EsSubCampania = d.EsSubCampania.HasValue ? d.EsSubCampania.Value.ToInt() : 0,
                         //Lan
                         FlagIndividual = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.FlagIndividual, d.EstrategiaDetalle) == "1",
                         Slogan = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.Slogan, d.EstrategiaDetalle),
@@ -181,7 +234,9 @@ namespace Portal.Consultoras.Web.Providers
                         ImgFichaMobile = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ImgFichaMobile, d.EstrategiaDetalle),
                         ImgFichaFondoMobile = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ImgFichaFondoMobile, d.EstrategiaDetalle),
                         UrlVideoDesktop = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.UrlVideoDesktop, d.EstrategiaDetalle),
-                        UrlVideoMobile = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.UrlVideoMobile, d.EstrategiaDetalle)
+                        UrlVideoMobile = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.UrlVideoMobile, d.EstrategiaDetalle),
+                        ImgFondoApp = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ImgFondoApp, d.EstrategiaDetalle),
+                        ColorTextoApp = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ColorTextoApp, d.EstrategiaDetalle)
                     }
 
                 }).ToList();
@@ -243,11 +298,10 @@ namespace Portal.Consultoras.Web.Providers
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
-            //List<string> listaEstrategias = (respuesta.Result != null) ? JsonConvert.DeserializeObject<List<string>>(respuesta.Result.ToString()) : new List<string>();
             var listaEstrategias = (respuesta.Result != null) ? JsonConvert.DeserializeObject<List<EstrategiaMDbAdapterModel>>(respuesta.Result.ToString()) : new List<EstrategiaMDbAdapterModel>();
             return listaEstrategias;
         }
-        
+
         public List<EstrategiaMDbAdapterModel> FiltrarEstrategia(string id, string pais)
         {
             UsuarioModel userData = sessionManager.GetUserData();
@@ -255,8 +309,8 @@ namespace Portal.Consultoras.Web.Providers
 
             var taskApi = Task.Run(() => RespSBMicroservicios(
                     string.Empty,
-                    string.Format(Constantes.PersonalizacionOfertasService.UrlFiltrarEstrategia, pais, id), 
-                    "get", 
+                    string.Format(Constantes.PersonalizacionOfertasService.UrlFiltrarEstrategia, pais, id),
+                    "get",
                     userData
                 ));
 
@@ -276,6 +330,47 @@ namespace Portal.Consultoras.Web.Providers
                 listaEstrategias.AddRange(mapList);
             }
             return listaEstrategias;
+        }
+
+        public virtual List<ServicePedido.BEEstrategiaProducto> GetEstrategiaProductoService(string isoPais, string estrategiaId, string codigoTipoEstrategia)
+        {
+            List<ServicePedido.BEEstrategiaProducto> lst;
+            codigoTipoEstrategia = Util.Trim(codigoTipoEstrategia);
+            var palancaMongoPrueba = codigoTipoEstrategia != ""
+                && Constantes.TipoEstrategiaCodigo.ArmaTuPack == codigoTipoEstrategia;
+
+            if (palancaMongoPrueba && _ofertaBaseProvider.UsarMsPersonalizacion(isoPais, codigoTipoEstrategia, false))
+            {
+                lst = FiltrarEstrategia(estrategiaId, isoPais)
+                    .Select(x => x.Componentes)
+                    .FirstOrDefault();
+            }
+            else
+            {
+                int paisId = Util.GetPaisID(isoPais);
+                var estrategiaX = new ServicePedido.BEEstrategia() { PaisID = paisId, EstrategiaID = Int32.Parse(estrategiaId) };
+
+                using (var sv = new PedidoServiceClient())
+                {
+                    lst = sv.GetEstrategiaProducto(estrategiaX).ToList();
+                }
+            }
+            return lst;
+        }
+
+
+        public virtual List<EstrategiaGrupoModel> GetEstrategiaGrupoService(string isoPais, string estrategiaId, string codigoTipoEstrategia)
+        {
+            var estrategiaGrupoLista = new List<EstrategiaGrupoModel>();
+            codigoTipoEstrategia = Util.Trim(codigoTipoEstrategia);
+
+            var palancaMongoPrueba = codigoTipoEstrategia != ""
+                && Constantes.TipoEstrategiaCodigo.ArmaTuPack == codigoTipoEstrategia;
+            if (palancaMongoPrueba && _ofertaBaseProvider.UsarMsPersonalizacion(isoPais, codigoTipoEstrategia, false))
+            {
+                estrategiaGrupoLista = _estrategiaGrupoProvider.ObtenerEstrategiaGrupo(estrategiaId, isoPais);
+            }
+            return estrategiaGrupoLista;
         }
 
         public void RegistrarEstrategia(ServicePedido.BEEstrategia entidad, string pais)
@@ -298,7 +393,7 @@ namespace Portal.Consultoras.Web.Providers
         public void EditarEstrategia(ServicePedido.BEEstrategia entidad, string mongoId, string pais, string prod, string perfil)
         {
             UsuarioModel userData = sessionManager.GetUserData();
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlEditarWebApi, pais,prod,perfil);
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlEditarWebApi, pais, prod, perfil);
             WaEstrategiaModel waModel = ObtenerEstrategia(entidad, mongoId);
             waModel.FechaModificacion = DateTime.Now;
             string jsonParameters = JsonConvert.SerializeObject(waModel);
@@ -392,7 +487,7 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
 
             const string jsonParameters = "";
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlDesactivarWebApi, pais,id , usuario);
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlDesactivarWebApi, pais, id, usuario);
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -407,12 +502,17 @@ namespace Portal.Consultoras.Web.Providers
 
         public bool ActivarDesactivarEstrategias(List<string> estrategiasActivas, List<string> estrategiasInactivas, string usuario, string pais, string tipo)
         {
+            if (!estrategiasActivas.Any() && !estrategiasInactivas.Any())
+            {
+                return true;
+            }
+
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParametersActivas = JsonConvert.SerializeObject(estrategiasActivas);
-            
+
             string jsonParametersInactivas = JsonConvert.SerializeObject(estrategiasInactivas);
-            string parametros = "{activar:" + jsonParametersActivas + ", desactivar:" +jsonParametersInactivas+ ", usuario: \"" + usuario + "\"}";
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlActivarDesactivarEstrategias, pais,tipo);
+            string parametros = "{activar:" + jsonParametersActivas + ", desactivar:" + jsonParametersInactivas + ", usuario: \"" + usuario + "\"}";
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlActivarDesactivarEstrategias, pais, tipo);
             var taskApi = Task.Run(() => RespSBMicroservicios(parametros, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
@@ -461,20 +561,20 @@ namespace Portal.Consultoras.Web.Providers
             var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "put", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
-            List<DescripcionEstrategiaModel> descripcionList = new List<DescripcionEstrategiaModel>();
 
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
+            List<DescripcionEstrategiaModel> descripcionList = new List<DescripcionEstrategiaModel>();
             if (respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
                 List<Dictionary<string, object>> resultDictionary = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(respuesta.Result.ToString());
 
                 descripcionList.AddRange(resultDictionary.Select(item => new DescripcionEstrategiaModel
-                    {
-                        Cuv = item["cuv"].ToString(),
-                        Descripcion = item["descripcion"].ToString(), 
-                        Estado = (bool) item["estado"] ? 1 : 0
-                    }));
+                {
+                    Cuv = item["cuv"].ToString(),
+                    Descripcion = item["descripcion"].ToString(),
+                    Estado = ((bool)item["estado"]).ToInt()
+                }));
             }
             return descripcionList;
         }
@@ -537,14 +637,14 @@ namespace Portal.Consultoras.Web.Providers
             UsuarioModel userData = sessionManager.GetUserData();
 
             var taskApi = Task.Run(() => RespSBMicroservicios(
-                    string.Empty, 
-                    string.Format(Constantes.PersonalizacionOfertasService.UrlEliminarShowRoomEvento, userData.CodigoISO, id), 
-                    "delete", 
+                    string.Empty,
+                    string.Format(Constantes.PersonalizacionOfertasService.UrlEliminarShowRoomEvento, userData.CodigoISO, id),
+                    "delete",
                     userData)
                 );
 
             Task.WhenAll(taskApi);
-            
+
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(taskApi.Result);
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
@@ -576,7 +676,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var taskApi = Task.Run(() => RespSBMicroservicios(
                     string.Empty
-                    ,string.Format(Constantes.PersonalizacionOfertasService.UrlDeshabilitarShowRoomEvento, userData.CodigoISO, id, userData.CodigoUsuario) 
+                    , string.Format(Constantes.PersonalizacionOfertasService.UrlDeshabilitarShowRoomEvento, userData.CodigoISO, id, userData.CodigoUsuario)
                     , "put"
                     , userData
                 ));
@@ -594,7 +694,8 @@ namespace Portal.Consultoras.Web.Providers
         public int UploadFileSetStrategyShowroom(ServicePedido.BEEstrategiaMasiva m, List<ServicePedido.BEEstrategia> l, string TipoEstrategiaCodigo)
         {
             UsuarioModel userData = sessionManager.GetUserData();
-            string p = JsonConvert.SerializeObject(l.Select(x => new {
+            string p = JsonConvert.SerializeObject(l.Select(x => new
+            {
                 Cuv = x.CUV2
                 , Descripcion = x.DescripcionCUV2
                 , Estado = x.Activo
@@ -605,7 +706,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var taskApi = Task.Run(() => RespSBMicroservicios(
                     p
-                    , string.Format(Constantes.PersonalizacionOfertasService.UrlUploadFileSetStrategyShowroom,userData.CodigoISO, TipoEstrategiaCodigo, m.CampaniaID, m.TipoEstrategiaID, userData.CodigoUsuario)
+                    , string.Format(Constantes.PersonalizacionOfertasService.UrlUploadFileSetStrategyShowroom, userData.CodigoISO, TipoEstrategiaCodigo, m.CampaniaID, m.TipoEstrategiaID, userData.CodigoUsuario)
                     , "put"
                     , userData
                 ));
@@ -623,7 +724,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     Cuv = item["cuv"].ToString(),
                     Descripcion = item["descripcion"].ToString(),
-                    Estado = (bool)item["estado"] ? 1 : 0
+                    Estado = ((bool)item["estado"]).ToInt()
                 }));
             }
 
@@ -633,7 +734,8 @@ namespace Portal.Consultoras.Web.Providers
         public int UploadFileProductStrategyShowroom(ServicePedido.BEEstrategiaMasiva m, List<ServicePedido.BEEstrategiaProducto> l, string TipoEstrategiaCodigo)
         {
             UsuarioModel userData = sessionManager.GetUserData();
-            string p = JsonConvert.SerializeObject(l.Select(x => new {
+            string p = JsonConvert.SerializeObject(l.Select(x => new
+            {
                 CUV = x.CUV,
                 NombreProducto = x.NombreProducto,
                 Descripcion = x.Descripcion1,
@@ -643,7 +745,7 @@ namespace Portal.Consultoras.Web.Providers
 
             var taskApi = Task.Run(() => RespSBMicroservicios(
                     p
-                    , string.Format(Constantes.PersonalizacionOfertasService.UrlUploadFileProductStrategyShowroom, userData.CodigoISO, TipoEstrategiaCodigo, m.CampaniaID,userData.CodigoUsuario)
+                    , string.Format(Constantes.PersonalizacionOfertasService.UrlUploadFileProductStrategyShowroom, userData.CodigoISO, TipoEstrategiaCodigo, m.CampaniaID, userData.CodigoUsuario)
                     , "put"
                     , userData
                 ));
@@ -659,7 +761,8 @@ namespace Portal.Consultoras.Web.Providers
         {
             UsuarioModel userData = sessionManager.GetUserData();
 
-            string p = JsonConvert.SerializeObject(new {
+            string p = JsonConvert.SerializeObject(new
+            {
                 _id = o._id,
                 eventoId = o.EventoID,
                 campaniaId = o.CampaniaID,
@@ -678,9 +781,9 @@ namespace Portal.Consultoras.Web.Providers
             });
 
             var taskApi = Task.Run(() => RespSBMicroservicios(
-                p, 
-                string.Format(Constantes.PersonalizacionOfertasService.UrlGuardarShowRoom, userData.CodigoISO), 
-                "post", 
+                p,
+                string.Format(Constantes.PersonalizacionOfertasService.UrlGuardarShowRoom, userData.CodigoISO),
+                "post",
                 userData));
             Task.WhenAll(taskApi);
 
@@ -743,10 +846,11 @@ namespace Portal.Consultoras.Web.Providers
                 throw new Exception(respuesta.Message);
         }
 
-        public void RegistrarEventoPersonalizacion(string pais, string eventoId,string _id,  List<ShowRoomPersonalizacionModel> lstPersonalizacion) {
+        public void RegistrarEventoPersonalizacion(string pais, string eventoId, string _id, List<ShowRoomPersonalizacionModel> lstPersonalizacion)
+        {
             UsuarioModel userData = sessionManager.GetUserData();
             string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlEventoPersonalizacion, pais, _id);
-            string p = JsonConvert.SerializeObject(lstPersonalizacion.Select( x => new
+            string p = JsonConvert.SerializeObject(lstPersonalizacion.Select(x => new
             {
                 personalizacionId = x.PersonalizacionId,
                 tipoAplicacion = x.TipoAplicacion,
@@ -815,6 +919,7 @@ namespace Portal.Consultoras.Web.Providers
                     userData
                 ));
 
+
             Task.WhenAll(taskApi);
         }
 
@@ -845,21 +950,134 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public  List<ServicePedido.BEReporteValidacion> ObtenerReporteValidacionPalancas(string tipo,string  campaniaId)
+        public List<ServicePedido.BEReporteValidacion> ObtenerReporteValidacionPalancas(string tipo, string campaniaId)
         {
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParameters = string.Empty;
 
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlReporteValidacion,tipo,campaniaId,WebConfig.PaisesMicroservicioPersonalizacion);
-            var taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "get", userData));
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlReporteValidacion, userData.CodigoISO, tipo, campaniaId);
+            Task<string> taskApi = Task.Run(() => RespSBMicroservicios(jsonParameters, requestUrl, "get", userData));
             Task.WhenAll(taskApi);
             string content = taskApi.Result;
 
-            var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
+            GenericResponse respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
             List<ServicePedido.BEReporteValidacion> listaReporte = (respuesta.Result != null) ? JsonConvert.DeserializeObject<List<ServicePedido.BEReporteValidacion>>(respuesta.Result.ToString()) : new List<ServicePedido.BEReporteValidacion>();
 
             return listaReporte;
+        }
+
+        public ReporteValidacionShowroom ObtenerReportValidacionShowroom(string campaniaId)
+        {
+            UsuarioModel userData = sessionManager.GetUserData();
+            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlReporteValidacion, userData.CodigoISO, Constantes.TipoPersonalizacion.ShowRoom, campaniaId);
+
+            Task<string> taskApi = Task.Run(() => RespSBMicroservicios(string.Empty,
+                                                                       requestUrl,
+                                                                       Constantes.MetodosHTTP.Get,
+                                                                       userData));
+            Task.WhenAll(taskApi);
+            string jsonString = taskApi.Result;
+
+            OutputReporteValidacion respuesta = JsonConvert.DeserializeObject<OutputReporteValidacion>(jsonString);
+
+            if (respuesta == null)
+            {
+                return new ReporteValidacionShowroom();
+            }
+
+            if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
+            {
+                Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, userData.CodigoISO);
+                return new ReporteValidacionShowroom();
+            }
+
+            ReporteValidacionShowroom reporteValidacionShowroom = new ReporteValidacionShowroom
+            {
+                ListaCampania = new List<ReporteValidacionSRModel>(),
+                ListaComponente = new List<ReporteValidacionSRModel>(),
+                ListaOferta = new List<ReporteValidacionSRModel>(),
+                ListaPersonalizacion = new List<ReporteValidacionSRModel>()
+            };
+
+            foreach (ReporteValidacionCampania campania in respuesta.Result.ReporteValidacionCampania)
+            {
+                ReporteValidacionSRModel data = new ReporteValidacionSRModel
+                {
+                    CodPais = campania.Pais,
+                    Campania = campania.Campania.ToString(),
+                    NombreEvento = campania.NombreEvento,
+                    DiasAntesFacturacion = campania.DiasAntes,
+                    DiasDespuesFacturacion = campania.DiasDespues,
+                    FlagHabilitarEvento = campania.FlagHabilitarEvento,
+                    FlagHabilitarCompraXCompra = campania.FlagHabilitarCompraXCompra,
+                    FlagHabilitarSubCampania = campania.FlagHabilitarSubCampania
+                };
+
+                reporteValidacionShowroom.ListaCampania.Add(data);
+            }
+
+            foreach (ReporteValidacionComponente componente in respuesta.Result.ReporteValidacionComponente)
+            {
+                ReporteValidacionSRModel data = new ReporteValidacionSRModel()
+                {
+                    CodPais = componente.Pais,
+                    Campania = componente.Campania.ToString(),
+                    CUV = componente.CUV,
+                    Nombre = componente.Nombre ?? string.Empty,
+                    Descripcion1 = componente.Descripcion1 ?? string.Empty,
+                    FlagImagenCargada = string.IsNullOrEmpty(componente.FlagImagenCargada) ? 0 : Convert.ToInt32(componente.FlagImagenCargada)
+                };
+
+                reporteValidacionShowroom.ListaComponente.Add(data);
+            }
+
+            foreach (ReporteValidacionOferta oferta in respuesta.Result.ReporteValidacionOferta)
+            {
+                ReporteValidacionSRModel data = new ReporteValidacionSRModel()
+                {
+                    CodPais = oferta.Pais,
+                    Campania = oferta.Campania.ToString(),
+                    CodigoTO = oferta.CodigoTO,
+                    CodigoSAP = oferta.SAP,
+                    CUV = oferta.CUV,
+                    Descripcion = oferta.Descripcion,
+                    PrecioValorizado = Convert.ToDecimal(string.Format("{0:#,##0.00}", oferta.PrecioValorizado)),
+                    PrecioOferta = Convert.ToDecimal(string.Format("{0:#,##0.00}", oferta.PrecioOferta)),
+                    UnidadesPermitidas = oferta.UnidadesPermitidas,
+                    EsSubCampania = oferta.EsSubCampania ? 1 : 0,
+                    HabilitarOferta = oferta.HabilitarOferta ? 1 : 0,
+                    FlagImagenCargada = oferta.FlagImagenCargada ? 1 : 0,
+                    FlagImagenMINI = oferta.FlagImagenMini ? 1 : 0
+                };
+
+                reporteValidacionShowroom.ListaOferta.Add(data);
+            }
+
+            foreach (ReporteValidacionPersonalizacion personalizacion in respuesta.Result.ReporteValidacionPersonalizacion)
+            {
+                ReporteValidacionSRModel data = new ReporteValidacionSRModel()
+                {
+                    Medio = personalizacion.Medio,
+                    Personalizacion = personalizacion.Personalizacion,
+                    BO = personalizacion.BO ?? string.Empty,
+                    CL = personalizacion.CL ?? string.Empty,
+                    CO = personalizacion.CO ?? string.Empty,
+                    CR = personalizacion.CR ?? string.Empty,
+                    DO = personalizacion.DO ?? string.Empty,
+                    EC = personalizacion.EC ?? string.Empty,
+                    GT = personalizacion.GT ?? string.Empty,
+                    MX = personalizacion.MX ?? string.Empty,
+                    PA = personalizacion.PA ?? string.Empty,
+                    PE = personalizacion.PE ?? string.Empty,
+                    PR = personalizacion.PR ?? string.Empty,
+                    SV = personalizacion.SV ?? string.Empty
+                };
+
+                reporteValidacionShowroom.ListaPersonalizacion.Add(data);
+            }
+            
+            return reporteValidacionShowroom;
         }
 
         public ServicePedido.BEEstrategiaDetalle ObtenerEstrategiaDetalle(ServicePedido.BEEstrategia entidad)
@@ -878,7 +1096,9 @@ namespace Portal.Consultoras.Web.Providers
                 ImgFichaMobile = entidad.ImgFichaMobile,
                 ImgFichaFondoMobile = entidad.ImgFichaFondoMobile,
                 UrlVideoDesktop = entidad.UrlVideoDesktop,
-                UrlVideoMobile = entidad.UrlVideoMobile
+                UrlVideoMobile = entidad.UrlVideoMobile,
+                ImgFondoApp = entidad.ImgFondoApp,
+                ColorTextoApp = entidad.ColorTextoApp
             };
 
             return estrategiaDetalle;
@@ -886,7 +1106,7 @@ namespace Portal.Consultoras.Web.Providers
 
         private static List<WaEstrategiaDetalleModel> FormatterEstrategiaDetalle(ServicePedido.BEEstrategia entidad)
         {
-            List <WaEstrategiaDetalleModel> estrategiaDetalle = new List<WaEstrategiaDetalleModel>();
+            List<WaEstrategiaDetalleModel> estrategiaDetalle = new List<WaEstrategiaDetalleModel>();
             estrategiaDetalle.Add(new WaEstrategiaDetalleModel()
             {
                 TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.FlagIndividual,
@@ -946,6 +1166,16 @@ namespace Portal.Consultoras.Web.Providers
             {
                 TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.UrlVideoMobile,
                 Valor = entidad.UrlVideoMobile
+            });
+            estrategiaDetalle.Add(new WaEstrategiaDetalleModel()
+            {
+                TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.ImgFondoApp,
+                Valor = entidad.ImgFondoApp
+            });
+            estrategiaDetalle.Add(new WaEstrategiaDetalleModel()
+            {
+                TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.ColorTextoApp,
+                Valor = entidad.ColorTextoApp
             });
             return estrategiaDetalle;
         }

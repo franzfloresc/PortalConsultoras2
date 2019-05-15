@@ -1,29 +1,29 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.BizLogic.CaminoBrillante;
 using Portal.Consultoras.BizLogic.PagoEnlinea;
 using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.BizLogic.RevistaDigital;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.CaminoBrillante;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.PagoEnLinea;
 using Portal.Consultoras.Entities.Pedido;
-using Producto = Portal.Consultoras.Entities.Producto;
 using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.ShowRoom;
 using Portal.Consultoras.ServiceContracts;
-
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.ServiceModel;
 using System.Threading.Tasks;
-
 using Estrategia = Portal.Consultoras.Entities.Estrategia;
+using Producto = Portal.Consultoras.Entities.Producto;
 
 namespace Portal.Consultoras.Service
 {
@@ -55,14 +55,15 @@ namespace Portal.Consultoras.Service
         private readonly IPagoEnLineaBusinessLogic _pagoEnLineaBusinessLogic;
         private readonly BLActivarPremioNuevas _ActivarPremioNuevas;
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
-        private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
         private readonly IConfiguracionProgramaNuevasBusinessLogic _configuracionProgramaNuevasBusinessLogic;
         private readonly ITrackingBusinessLogic _trackingBusinessLogic;
         private readonly IPedidoBusinessLogic _pedidoBusinessLogic;
+        private readonly IPedidoWebBusinessLogic _pedidoWebBusinessLogic;
         private readonly IPedidoWebSetBusinessLogic _pedidoWebSetBusinessLogic;
+        private readonly ICaminoBrillanteBusinessLogic _caminoBrillanteBusinessLogic;
 
         public PedidoService() : this(new BLConsultoraConcurso(), new BLPedidoWeb(), new BLConfiguracionProgramaNuevas(), new BLTracking(),
-            new BLPedido(), new BLPedidoWebSet(), new BLPagoEnLinea())
+            new BLPedido(), new BLPedidoWebSet(), new BLPagoEnLinea(), new BLCaminoBrillante())
         {
             BLPedidoWebDetalle = new BLPedidoWebDetalle();
             BLPedidoWeb = new BLPedidoWeb();
@@ -96,7 +97,8 @@ namespace Portal.Consultoras.Service
             ITrackingBusinessLogic trackingBusinessLogic,
             IPedidoBusinessLogic pedidoBusinessLogic,
             IPedidoWebSetBusinessLogic pedidoWebSetBusinessLogic,
-            IPagoEnLineaBusinessLogic pagoEnLineaBusinessLogic
+            IPagoEnLineaBusinessLogic pagoEnLineaBusinessLogic,
+            ICaminoBrillanteBusinessLogic caminoBrillanteBusinessLogic
             )
         {
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
@@ -106,6 +108,7 @@ namespace Portal.Consultoras.Service
             _pedidoBusinessLogic = pedidoBusinessLogic;
             _pedidoWebSetBusinessLogic = pedidoWebSetBusinessLogic;
             _pagoEnLineaBusinessLogic = pagoEnLineaBusinessLogic;
+            _caminoBrillanteBusinessLogic = caminoBrillanteBusinessLogic;
         }
 
         #region Reporte Lider
@@ -144,6 +147,11 @@ namespace Portal.Consultoras.Service
         public BEPedidoWebResult InsertPedido(BEPedidoWebDetalleInvariant pedidoDetalle)
         {
             return BLPedidoWebDetalle.InsertPedido(pedidoDetalle);
+        }
+
+        public IList<BEPedidoWebDetalle> SelectByCampaniaWithLabelProgNuevas(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
+        {
+            return BLPedidoWebDetalle.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros, true, true, true);
         }
 
         public IList<BEPedidoWebDetalle> SelectByCampania(BEPedidoWebDetalleParametros bePedidoWebDetalleParametros)
@@ -1178,11 +1186,7 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().ValidarCUVsRecomendados(entidad);
         }
-
-        public List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad)
-        {
-            return new BLEstrategia().FiltrarEstrategiaPedido(entidad);
-        }
+        
         public string ValidarStockEstrategia(BEEstrategia entidad)
         {
             return new BLEstrategia().ValidarStockEstrategia(entidad);
@@ -1355,41 +1359,6 @@ namespace Portal.Consultoras.Service
         {
             return new BLOfertaProducto().RemoverOfertaLiquidacion(entity);
         }
-
-        // se movio a Util.GetPaisID
-        //public int GetPaisID(string ISO)
-        //{
-        //    try
-        //    {
-        //        List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
-        //        {
-        //            new KeyValuePair<string, string>("1", Constantes.CodigosISOPais.Argentina),
-        //            new KeyValuePair<string, string>("2", Constantes.CodigosISOPais.Bolivia),
-        //            new KeyValuePair<string, string>("3", Constantes.CodigosISOPais.Chile),
-        //            new KeyValuePair<string, string>("4", Constantes.CodigosISOPais.Colombia),
-        //            new KeyValuePair<string, string>("5", Constantes.CodigosISOPais.CostaRica),
-        //            new KeyValuePair<string, string>("6", Constantes.CodigosISOPais.Ecuador),
-        //            new KeyValuePair<string, string>("7", Constantes.CodigosISOPais.Salvador),
-        //            new KeyValuePair<string, string>("8", Constantes.CodigosISOPais.Guatemala),
-        //            new KeyValuePair<string, string>("9", Constantes.CodigosISOPais.Mexico),
-        //            new KeyValuePair<string, string>("10", Constantes.CodigosISOPais.Panama),
-        //            new KeyValuePair<string, string>("11", Constantes.CodigosISOPais.Peru),
-        //            new KeyValuePair<string, string>("12", Constantes.CodigosISOPais.PuertoRico),
-        //            new KeyValuePair<string, string>("13", Constantes.CodigosISOPais.Dominicana),
-        //            new KeyValuePair<string, string>("14", Constantes.CodigosISOPais.Venezuela),
-        //        };
-        //        string paisId = (from c in listaPaises
-        //                         where c.Value == ISO.ToUpper()
-        //                         select c.Key).SingleOrDefault() ?? "";
-        //        int outVal;
-        //        int.TryParse(paisId, out outVal);
-        //        return outVal;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw new Exception("Hubo un error en obtener el País");
-        //    }
-        //}
 
         public BEResultadoSolicitud InsertarSolicitudCliente(string prefijoISO, BEEntradaSolicitudCliente entidadSolicitud)
         {
@@ -1849,6 +1818,11 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.ValidacionModificarPedido(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA);
         }
 
+        public bool GetEsPedidoReservado(int paisId, int campaniId, long consultoraId)
+        {
+            return BLPedidoWeb.GetEsPedidoReservado(paisId, campaniId, consultoraId);
+        }
+
         public BEValidacionModificacionPedido ValidacionModificarPedidoSelectiva(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR, bool validarReservado, bool validarHorario)
         {
             return BLPedidoWeb.ValidacionModificarPedido(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA, validarGPR, validarReservado, validarHorario);
@@ -1888,12 +1862,7 @@ namespace Portal.Consultoras.Service
         {
             return new BLReserva().EnviarCorreoReservaProl(input);
         }
-
-        public int InsertarDesglose(BEInputReservaProl input)
-        {
-            return new BLReserva().InsertarDesglose(input);
-        }
-
+        
         public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo)
         {
             return new BLReserva().CargarSesionAndDeshacerPedidoValidado(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, tipo);
@@ -1929,9 +1898,14 @@ namespace Portal.Consultoras.Service
             return new BLOfertaProducto().UpdMatrizComercialDescripcionComercial(entity);
         }
 
-        public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva)
+        public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoPrograma, string codigoNivel)
         {
-            return new BLConfiguracionProgramaNuevas().GetConsultoraRegaloProgramaNuevas(paisID, campaniaId, codigoConsultora, consecutivoNueva);
+            return new BLConfiguracionProgramaNuevas().GetPremioAutomatico(paisID, campaniaId, codigoPrograma, codigoNivel);
+        }
+
+        public List<BEConsultoraRegaloProgramaNuevas> GetListPremioElecProgNuevas(int paisID, int campaniaId, string codigoPrograma, string codigoNivel)
+        {
+            return new BLConfiguracionProgramaNuevas().GetListPremioElectivo(paisID, campaniaId, codigoPrograma, codigoNivel);
         }
 
         #region Cupon
@@ -2249,9 +2223,9 @@ namespace Portal.Consultoras.Service
             return _pagoEnLineaBusinessLogic.ObtenerPagoEnLineaURLPaginasBancos(paisId);
         }
 
-        public BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario)
+        public BEPagoEnLinea ObtenerPagoEnLineaConfiguracion(int paisId, long consultoraId, string codigoUsuario, int esDigital, DateTime fechaVencimientoPago)
         {
-            return _pagoEnLineaBusinessLogic.ObtenerPagoEnLineaConfiguracion(paisId, consultoraId, codigoUsuario);
+            return _pagoEnLineaBusinessLogic.ObtenerPagoEnLineaConfiguracion(paisId, consultoraId, codigoUsuario, esDigital, fechaVencimientoPago);
         }
 
         public BEPagoEnLineaVisa ObtenerPagoEnLineaVisaConfiguracion(int paisId, string codigoConsutora)
@@ -2317,15 +2291,29 @@ namespace Portal.Consultoras.Service
             return _pedidoWebSetBusinessLogic.ObtenerFechaInicioSets(paisId);
         }
 
-        #region PedidoNativo
-        public BEPedidoProducto GetCUV(BEPedidoProductoBuscar productoBuscar)
-        {
-            return _pedidoBusinessLogic.GetCUV(productoBuscar);
-        }
+        #region Pedido Registro Insertar-Actualizar-Eliminar
 
         public BEPedidoDetalleResult InsertPedidoDetalle(BEPedidoDetalle pedidoDetalle)
         {
             return _pedidoBusinessLogic.Insert(pedidoDetalle);
+        }
+
+        public BEPedidoDetalleResult UpdatePedidoDetalle(BEPedidoDetalle pedidoDetalle)
+        {
+            return _pedidoBusinessLogic.Update(pedidoDetalle);
+        }
+
+        public async Task<BEPedidoDetalleResult> DeletePedido(BEPedidoDetalle pedidoDetalle)
+        {
+            return await _pedidoBusinessLogic.Delete(pedidoDetalle);
+        }
+
+        #endregion
+
+        #region PedidoNativo
+        public BEPedidoProducto GetCUV(BEPedidoProductoBuscar productoBuscar)
+        {
+            return _pedidoBusinessLogic.GetCUV(productoBuscar);
         }
 
         public BEPedidoWeb GetPedido(BEUsuario usuario)
@@ -2337,22 +2325,12 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoBusinessLogic.InsertKitInicio(usuario);
         }
-
-        public BEPedidoDetalleResult UpdatePedidoDetalle(BEPedidoDetalle pedidoDetalle)
-        {
-            return _pedidoBusinessLogic.Update(pedidoDetalle);
-        }
-
+        
         public BEConfiguracionPedido GetConfiguracionPedido(int paisID, string codigoUsuario, int campaniaID, string region, string zona)
         {
             return _pedidoBusinessLogic.GetConfiguracion(paisID, codigoUsuario, campaniaID, region, zona);
         }
-
-        public async Task<BEPedidoDetalleResult> DeletePedido(BEPedidoDetalle pedidoDetalle)
-        {
-            return await _pedidoBusinessLogic.Delete(pedidoDetalle);
-        }
-
+        
         public async Task<BEPedidoReservaResult> ReservaPedido(BEUsuario usuario)
         {
             return await _pedidoBusinessLogic.Reserva(usuario);
@@ -2376,6 +2354,21 @@ namespace Portal.Consultoras.Service
         public BEUsuario GetConfiguracionOfertaFinalCarrusel(BEUsuario usuario)
         {
             return _pedidoBusinessLogic.GetConfiguracionOfertaFinalCarrusel(usuario);
+        }
+
+        public BEProducto GetRegaloOfertaFinal(BEUsuario usuario)
+        {
+            return _pedidoBusinessLogic.GetRegaloOfertaFinal(usuario);
+        }
+
+        public BEPedidoDetalleResult ValidaRegaloPedido(BEPedidoDetalle pedidoDetalle)
+        {
+            return _pedidoBusinessLogic.ValidaRegaloPedido(pedidoDetalle);
+        }
+
+        public BEPedidoDetalleResult AgregaRegaloDefault(BEPedidoDetalle pedidoDetalle)
+        {
+            return _pedidoBusinessLogic.AgregaRegaloDefault(pedidoDetalle);
         }
 
         public BEPedidoDetalleResult InsertOfertaFinalCarrusel(BEPedidoDetalle pedidoDetalle)
@@ -2408,10 +2401,11 @@ namespace Portal.Consultoras.Service
             return _pedidoBusinessLogic.InsertMasivo(lstPedidoDetalle);
         }
 
-        public List<Producto.BEProductoRecomendado> GetProductoRecomendado(int paisID, bool RDEsSuscrita, bool RDEsActiva,List<Producto.BEProductoRecomendado> lst)
+        public List<Producto.BEProductoRecomendado> GetProductoRecomendado(int paisID, bool RDEsSuscrita, bool RDEsActiva, List<Producto.BEProductoRecomendado> lst)
         {
             return _pedidoBusinessLogic.GetProductoRecomendado(paisID, RDEsSuscrita, RDEsActiva, lst);
         }
+
         #endregion
 
         public void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario)
@@ -2435,10 +2429,14 @@ namespace Portal.Consultoras.Service
             return blEstrategia.GetEstrategiaPremiosTippingPoint(paisID, codigoPrograma, anioCampana, codigoNivel);
         }
 
+        public List<BEEstrategia> GetEstrategiaPremiosElectivos(int paisId, string codigoPrograma, int anioCampana, string codigoNivel)
+        {
+            return blEstrategia.GetEstrategiaPremiosElectivos(paisId, codigoPrograma, anioCampana, codigoNivel);
+        }
+
         public BEActivarPremioNuevas GetActivarPremioNuevas(int paisID, string codigoPrograma, int anioCampana, string codigoNivel)
         {
-            BEActivarPremioNuevas BEActivarPremioNuevas = _ActivarPremioNuevas.GetActivarPremioNuevas(paisID, codigoPrograma, anioCampana, codigoNivel);
-            return BEActivarPremioNuevas;
+            return _ActivarPremioNuevas.GetActivarPremioNuevas(paisID, codigoPrograma, anioCampana, codigoNivel);
         }
 
         public bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia, string campaniaID)
@@ -2446,5 +2444,23 @@ namespace Portal.Consultoras.Service
             return blEstrategia.LimpiarCacheRedis(paisID, codigoTipoEstrategia, campaniaID);
         }
 
+        public List<BEEstrategia> ListaRegalosApp(BEUsuario pedidoDetalle)
+        {
+            return _pedidoBusinessLogic.ListaRegalosApp(pedidoDetalle);
+        }
+
+        #region Camino Brillante
+
+        public List<BEKitCaminoBrillante> GetKitsCaminoBrillante(BEUsuario entidad)
+        {
+            return _caminoBrillanteBusinessLogic.GetKits(entidad);
+        }
+
+        public List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(BEUsuario entidad)
+        {
+            return _caminoBrillanteBusinessLogic.GetDemostradores(entidad);
+        }
+
+        #endregion
     }
 }

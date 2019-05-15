@@ -250,7 +250,10 @@
             GPR = 2,
             Reservado = 3,
             HorarioRestringido = 4,
-            Facturado = 5
+            Facturado = 5,
+            //INI HD-3693
+            Bloqueado = 6
+            //FIN HD-3693
         }
 
         public enum TipoLogin
@@ -313,7 +316,6 @@
             ConsultoraNoNueva = 2,
             NoParticipaEnProgramaNuevas = 3,
             CuvNoPerteneceASuPrograma = 4,
-            ExisteUnElectivoEnPedido = 5,
             CuvPerteneceProgramaNuevas = 6
         }
 
@@ -330,6 +332,12 @@
             AgregarYMostrarMensaje,
             Reemplazar,
             NoAgregarExcedioLimite
+        }
+
+        public enum MiAcademiaUrl
+        {
+            Cursos,
+            Video
         }
     }
 }

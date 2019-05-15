@@ -24,9 +24,6 @@ $(function () {
     }
 
     LayoutHeader();
-    if (typeof menuModule !== "undefined") {
-        menuModule.Resize();
-    }
 
     OcultarChatEmtelco();
 
@@ -412,7 +409,12 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 else fnRedireccionar();
             }
             else if (mostrarAlerta == true) {
-                AbrirMensaje(data.message);
+                //INI HD-3693
+                //AbrirMensaje(data.message);
+                var msjBloq = validarpopupBloqueada(data.message);
+                if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                else AbrirMensaje(data.message);
+                //FIN HD-3693
             }
         },
         error: function (error) {
@@ -764,20 +766,27 @@ function messageInfo(message, fnAceptar) {
     if (message == "") {
         return false;
     }
-
+    //INI HD-3693
+    var msjBloq = validarpopupBloqueada(message);
+    if (msjBloq != "") {
+        CerrarLoad();
+        alert_msg_bloqueadas(msjBloq);
+        return true;
+    }
+        //FIN HD-3693
     $('#mensajeInformacion').html(message);
     $('#popupInformacion').show();
 
     $('#popupInformacion .btn-aceptar').off('click');
     $('#popupInformacion .cerrar_popMobile').off('click');
 
-    $('#popupInformacion .btn-aceptar').on('click', function () {
+    $('#popupInformacion .btn-aceptar').on('click', function (e) {
         $('#popupInformacion').hide();
-        if ($.isFunction(fnAceptar)) fnAceptar();
+        if ($.isFunction(fnAceptar)) fnAceptar(e);
     });
-    $('#popupInformacion .cerrar_popMobile').on('click', function () {
+    $('#popupInformacion .cerrar_popMobile').on('click', function (e) {
         $('#popupInformacion').hide();
-        if ($.isFunction(fnAceptar)) fnAceptar();
+        if ($.isFunction(fnAceptar)) fnAceptar(e);
     });
 }
 
@@ -832,12 +841,20 @@ function messageInfoValidado(message, fnAceptar) {
     }
 }
 
-function messageConfirmacion(message, fnAceptar) {
+function messageConfirmacion(title, message, fnAceptar, fnCancelar) {
     $('#mensajeInformacionConfirmacion').html(message);
     $('#popupInformacionConfirmacion').show();
+    title = $.trim(title);
+    title = title == "" ? "MENSAJE" : title;
+    $('#popupInformacionConfirmacion #bTagTitulo').html(title);
     if ($.isFunction(fnAceptar)) {
         $('#popupInformacionConfirmacion .aceptar-mobile').off('click');
         $('#popupInformacionConfirmacion .aceptar-mobile').on('click', fnAceptar);
+    }
+
+    if ($.isFunction(fnCancelar)) {
+        $('#popupInformacionConfirmacion .cancelar-mobile').off('click');
+        $('#popupInformacionConfirmacion .cancelar-mobile').on('click', fnCancelar);
     }
 }
 
@@ -852,8 +869,7 @@ function messageConfirmacionDuoPerfecto(message, fnAceptar) {
 
 function CargarCantidadProductosPedidos(noMostrarEfecto) {
     noMostrarEfecto = noMostrarEfecto || false;
-    var montoWebAcumulado = "";
-    
+
     jQuery.ajax({
         type: 'POST',
         url: urlGetCantidadProductos,
@@ -864,20 +880,8 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
         success: function (data) {
             if (checkTimeout(data)) {
 
-                if (data.montoWebAcumulado == 0) {
-                    if (data.paisID == 4)  //Formato de decimales para Colombia
-                        montoWebAcumulado = "0";
-                    else
-                        montoWebAcumulado = "0.00";
-                } else {
-                    if (data.paisID == 4)  //Formato de decimales para Colombia
-                        montoWebAcumulado = SeparadorMiles(data.montoWebAcumulado.toFixed(0));
-                    else
-                        montoWebAcumulado = data.montoWebAcumulado.toFixed(2);
-                }
-
                 $(".num-menu-shop").html(data.cantidadProductos);
-                $(".js-span-pedidoingresado").html(montoWebAcumulado);
+                $(".js-span-pedidoingresado").html(data.montoWebConDescuentoStr);
                 if (!noMostrarEfecto) {
                     $('.num-menu-shop').removeClass('microefecto_color');
                     setTimeout(function () { $('.num-menu-shop').addClass('microefecto_color') }, 250);
@@ -890,9 +894,12 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
 }
 
 function CargarCantidadNotificacionesSinLeer() {
-    jQuery.ajax({
-        type: 'POST',
-        url: urlGetNotificacionesSinLeer,
+    var sparam = localStorage.getItem('KeyPseudoParam'); //SALUD-58 30-01-2019
+    $.ajax({
+        type: 'GET',
+        url: urlGetNotificacionesSinLeer + "?pseudoParam=" + sparam + "&codigoUsuario=" + codigoConsultora + "", //SALUD-58 30-01-2019
+        data: {}, //SALUD-58 30-01-2019
+        cache: true,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
@@ -902,7 +909,6 @@ function CargarCantidadNotificacionesSinLeer() {
                     $('.notificaciones_mobiles').html(data.cantidadNotificaciones);
                     $("#divNotificacionesSinLeer").show();
                 }
-
             }
         },
         error: function (data, error) { }
@@ -1136,21 +1142,21 @@ function getMobileOperatingSystem() {
     return "unknown";
 }
 
-function ValidarKitNuevas(fnSuccess) {
-    jQuery.ajax({
-        type: 'POST',
-        url: urlValidarKitNuevas,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            if (!checkTimeout(data)) return false;
+//function ValidarKitNuevas(fnSuccess) {
+//    jQuery.ajax({
+//        type: 'POST',
+//        url: urlValidarKitNuevas,
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        success: function (data) {
+//            if (!checkTimeout(data)) return false;
 
-            if (!data.success) messageInfo('Ocurrió un error al intentar cargar el Kit de Nuevas.');
-            else if ($.isFunction(fnSuccess)) fnSuccess();
-        },
-        error: function () { messageInfo('Ocurrió un error de conexion al intentar cargar el Kit de Nuevas.'); }
-    });
-}
+//            if (!data.success) messageInfo('Ocurrió un error al intentar cargar el Kit de Nuevas.');
+//            else if ($.isFunction(fnSuccess)) fnSuccess();
+//        },
+//        error: function () { messageInfo('Ocurrió un error de conexion al intentar cargar el Kit de Nuevas.'); }
+//    });
+//}
 
 function PopUpPrivacidadDatos() {
     $("#box-pop-up").show();
@@ -1161,3 +1167,14 @@ function CloseDialog(pop) {
     pop = pop || "box-pop-up";
     $("#" + pop).hide();
 } 
+
+function CerrarSesion() {
+    location.href = baseUrl + 'Login/LogOut';
+}
+//INI HD-3693
+function alert_msg_bloqueadas(message) {
+    $('#PopupBloqueoPorSistema .message_text_bloqueada').html(message);
+    $('#PopupBloqueoPorSistema').show();
+}
+//FIN HD-3693
+

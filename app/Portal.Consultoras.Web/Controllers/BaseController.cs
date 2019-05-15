@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Web.Mvc;
-using System.Web.Security;
-using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Infraestructure.Excel;
@@ -18,9 +10,16 @@ using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.SessionManager;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Linq;
+using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -46,13 +45,22 @@ namespace Portal.Consultoras.Web.Controllers
                 return SessionManager.GetRevistaDigital();
             }
         }
+
+        protected ArmaTuPackModel armaTuPack
+        {
+            get
+            {
+                return SessionManager.GetArmaTuPack();
+            }
+        }
+
         protected HerramientasVentaModel herramientasVenta;
         protected GuiaNegocioModel guiaNegocio;
         protected DataModel estrategiaODD;
         protected ConfigModel configEstrategiaSR;
         protected BuscadorYFiltrosConfiguracionModel buscadorYFiltro;
         protected ILogManager logManager;
-       
+
         protected string paisesMicroservicioPersonalizacion;
         protected string estrategiaWebApiDisponibilidadTipo;
         protected readonly TipoEstrategiaProvider _tipoEstrategiaProvider;
@@ -71,11 +79,19 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly EstrategiaComponenteProvider _estrategiaComponenteProvider;
         protected readonly ConfiguracionPaisProvider _configuracionPaisProvider;
         protected readonly ConfiguracionManagerProvider _configuracionManagerProvider;
-        protected readonly AdministrarEstrategiaProvider administrarEstrategiaProvider;
         protected readonly MenuProvider _menuProvider;
         protected readonly ChatEmtelcoProvider _chatEmtelcoProvider;
         protected readonly ComunicadoProvider _comunicadoProvider;
         protected readonly ProgramaNuevasProvider _programaNuevasProvider;
+        protected readonly MiPerfilProvider _miPerfilProvider;
+        private TempDataManager.TempDataManager _tempData;
+
+
+        
+
+
+
+
         protected MasGanadorasModel MasGanadoras
         {
             get
@@ -97,15 +113,14 @@ namespace Portal.Consultoras.Web.Controllers
         public BaseController() : this(Web.SessionManager.SessionManager.Instance, LogManager.LogManager.Instance)
         {
             _tablaLogicaProvider = new TablaLogicaProvider();
-            administrarEstrategiaProvider = new AdministrarEstrategiaProvider();
             _showRoomProvider = new ShowRoomProvider(_tablaLogicaProvider);
             _baseProvider = new BaseProvider();
             _guiaNegocioProvider = new GuiaNegocioProvider();
-            _ofertaPersonalizadaProvider = new OfertaPersonalizadaProvider();
+            _ofertaPersonalizadaProvider = new OfertaPersonalizadaProvider(this.TempData);
             _configuracionManagerProvider = new ConfiguracionManagerProvider();
             _ofertasViewProvider = new OfertaViewProvider();
             _revistaDigitalProvider = new RevistaDigitalProvider();
-            _ofertaDelDiaProvider = new OfertaDelDiaProvider();
+            _ofertaDelDiaProvider = new OfertaDelDiaProvider(this.TempData);
             _logDynamoProvider = new LogDynamoProvider();
             _eventoFestivoProvider = new EventoFestivoProvider();
             _pedidoWebProvider = new PedidoWebProvider();
@@ -117,6 +132,8 @@ namespace Portal.Consultoras.Web.Controllers
             _chatEmtelcoProvider = new ChatEmtelcoProvider();
             _comunicadoProvider = new ComunicadoProvider();
             _programaNuevasProvider = new ProgramaNuevasProvider(SessionManager);
+            _miPerfilProvider = new MiPerfilProvider();
+            _tempData = new TempDataManager.TempDataManager(this.TempData);
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -167,12 +184,6 @@ namespace Portal.Consultoras.Web.Controllers
                 configEstrategiaSR = SessionManager.GetEstrategiaSR() ?? new ConfigModel();
                 buscadorYFiltro = SessionManager.GetBuscadorYFiltrosConfig();
 
-                if (!configEstrategiaSR.CargoEntidadesShowRoom)
-                {
-                    _showRoomProvider.CargarEntidadesShowRoom(userData);
-                    configEstrategiaSR = SessionManager.GetEstrategiaSR();
-                }
-
                 if (Request.IsAjaxRequest())
                 {
                     base.OnActionExecuting(filterContext);
@@ -182,6 +193,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ObtenerPedidoWeb();
                 ObtenerPedidoWebDetalle();
 
+                bool esMobile = EsDispositivoMovil();
+
                 GetUserDataViewBag();
 
                 var controllerName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
@@ -190,7 +203,6 @@ namespace Portal.Consultoras.Web.Controllers
                     && !Constantes.AceptacionContrato.AcionesOmitidas.Contains(actionName)
                     && ValidarContratoPopup())
                 {
-                    bool esMobile = EsDispositivoMovil();
                     filterContext.Result = !esMobile ? new RedirectResult(Url.Action("Index", "Bienvenida")) :
                         new RedirectResult(Url.Action("Index", "Bienvenida", new { Area = "Mobile" }));
                     return;
@@ -228,20 +240,21 @@ namespace Portal.Consultoras.Web.Controllers
 
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(bool noSession = false)
         {
-            return _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt(), noSession);
+            return _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(noSession);
+        }
+
+        public virtual List<BEPedidoWebDetalle> GetDetallePedidoAgrupadoByCampania(int campaniaId)
+        {
+            return _pedidoWebProvider.GetDetallePedidoAgrupadoByCampania(campaniaId);
         }
 
         protected List<ObjMontosProl> ServicioProl_CalculoMontosProl(bool session = true)
         {
+            if (session && SessionManager.GetMontosProl() != null) return SessionManager.GetMontosProl();
+
             var montosProl = new List<ObjMontosProl> { new ObjMontosProl() };
 
-            if (session && SessionManager.GetMontosProl() != null)
-            {
-                return SessionManager.GetMontosProl();
-            }
-
             var detallesPedidoWeb = ObtenerPedidoWebDetalle();
-
             if (detallesPedidoWeb.Any())
             {
                 var cuvs = string.Join("|", detallesPedidoWeb.Select(p => p.CUV).ToArray());
@@ -297,22 +310,20 @@ namespace Portal.Consultoras.Web.Controllers
             var puntajesExigidos = string.Empty;
 
             userData.EjecutaProl = false;
-
-            var lista = ServicioProl_CalculoMontosProl(false) ?? new List<ObjMontosProl>();
-
-            if (lista.Any())
+            var listMontosProl = ServicioProl_CalculoMontosProl(false);
+            if (listMontosProl.Any())
             {
-                var oRespuestaProl = lista[0];
+                var montosProl = listMontosProl[0];
 
-                decimal.TryParse(oRespuestaProl.AhorroCatalogo, out montoAhorroCatalogo);
-                decimal.TryParse(oRespuestaProl.AhorroRevista, out montoAhorroRevista);
-                decimal.TryParse(oRespuestaProl.MontoTotalDescuento, out montoDescuento);
-                decimal.TryParse(oRespuestaProl.MontoEscala, out montoEscala);
+                decimal.TryParse(montosProl.AhorroCatalogo, out montoAhorroCatalogo);
+                decimal.TryParse(montosProl.AhorroRevista, out montoAhorroRevista);
+                decimal.TryParse(montosProl.MontoTotalDescuento, out montoDescuento);
+                decimal.TryParse(montosProl.MontoEscala, out montoEscala);
 
-                if (oRespuestaProl.ListaConcursoIncentivos != null)
+                if (montosProl.ListaConcursoIncentivos != null)
                 {
-                    puntajes = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]).ToArray());
-                    puntajesExigidos = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")).ToArray());
+                    puntajes = string.Join("|", montosProl.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]).ToArray());
+                    puntajesExigidos = string.Join("|", montosProl.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")).ToArray());
                 }
             }
 
@@ -331,7 +342,6 @@ namespace Portal.Consultoras.Web.Controllers
             using (var sv = new PedidoServiceClient())
             {
                 sv.UpdateMontosPedidoWeb(bePedidoWeb);
-
                 if (!string.IsNullOrEmpty(userData.CodigosConcursos))
                     sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), userData.CodigosConcursos, puntajes, puntajesExigidos);
             }
@@ -359,6 +369,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                     mensaje = result.Mensaje;
+                    //INI HD-3693
+                    if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Bloqueado) mensaje = Constantes.TipoPopupAlert.Bloqueado + result.Mensaje;
+                    //FIN HD-3693
                     return result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                 }
             }
@@ -549,6 +562,54 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion  
 
+        private bool ActualizarODDBase(bool esMobile)
+        {
+            bool actualizaBaseODD = !(new OfertaBaseProvider().UsarSession(Constantes.TipoEstrategiaCodigo.OfertaDelDia)); //actualizar session de ODD desde BD
+
+            if (actualizaBaseODD)
+            {
+                if (esMobile)
+                {
+                    if (GetControllerActual() == "DescargarApp")
+                    {
+                        _tempData.SetMobileBaseODD("1");
+                    }
+                    else
+                    {
+                        if (_tempData.GetMobileBaseODD() == "1")
+                        {
+                            //Valida si ya se ha cargado la data desde el controlador "DescargarApp", para no volver a actualizar data
+                            actualizaBaseODD = false;
+                            _tempData.RemoveMobileBaseODD();
+                        }
+                    }
+                }
+                else
+                {
+                    string controlador = GetControllerActual();
+
+                    if (!Constantes.Controlador.ActualizacionODD.Contains(controlador))
+                    {
+                        actualizaBaseODD = false;
+                    }
+
+                    switch (controlador)
+                    {
+                        case "DetalleEstrategia":
+                            string accion = (ControllerContext.RouteData.Values["action"] ?? "").ToString();
+                            string palanca = (ControllerContext.RouteData.Values["palanca"] ?? "").ToString();
+                            if (accion == "Ficha" && palanca != Constantes.NombrePalanca.OfertaDelDia)
+                            {
+                                actualizaBaseODD = false;
+                            }
+                            break;
+                    }
+                }
+            }
+
+            return actualizaBaseODD;
+        }
+
         public BarraConsultoraModel GetDataBarra(bool inEscala = true, bool inMensaje = false, bool Agrupado = false)
         {
             var objR = new BarraConsultoraModel
@@ -560,76 +621,19 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                var rtpa = ServicioProl_CalculoMontosProl(userData.EjecutaProl);
+                var listMontosProl = ServicioProl_CalculoMontosProl(userData.EjecutaProl);
                 userData.EjecutaProl = true;
+                if (!listMontosProl.Any()) return objR;
 
-                if (!rtpa.Any())
-                    return objR;
-
-                var obj = rtpa[0];
+                var montosProl = listMontosProl[0];
+                SetBarraConsultoraMontosTotales(objR, montosProl, Agrupado);
 
                 #region Tipping Point
 
-                objR.TippingPointStr = "";
-                objR.TippingPoint = 0;
-                if (userData.MontoMaximo > 0)
-                {
-                    var tippingPoint = _programaNuevasProvider.GetConfiguracion();
-                    if (tippingPoint.IndExigVent == "1")
-                    {
-                        objR.TippingPoint = tippingPoint.MontoVentaExigido;
-                        objR.TippingPointStr = Util.DecimalToStringFormat(objR.TippingPoint, userData.CodigoISO);
-                        if (objR.TippingPoint > 0) objR.TippingPointBarra = _programaNuevasProvider.GetTippingPoint(objR.TippingPointStr, tippingPoint.CodigoPrograma);
-                    }
-                }
-
+                var configProgNuevas = _programaNuevasProvider.GetConfiguracion();
+                objR.TippingPointBarra = _programaNuevasProvider.GetBarraTippingPoint(configProgNuevas.CodigoPrograma);
+                _programaNuevasProvider.SetBarraConsultoraTippingPoint(objR, configProgNuevas);
                 #endregion
-
-                objR.MontoMaximo = 0;
-                objR.MontoEscala = 0;
-                objR.MontoDescuento = 0;
-
-                objR.MontoMinimoStr = Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO);
-                objR.MontoMinimo = userData.MontoMinimo;
-
-                objR.MontoMaximoStr = Util.ValidaMontoMaximo(userData.MontoMaximo, userData.CodigoISO);
-                if (objR.MontoMaximoStr != "")
-                    objR.MontoMaximo = userData.MontoMaximo;
-
-                objR.MontoEscalaStr = Util.DecimalToStringFormat(obj.MontoEscala, userData.CodigoISO);
-                objR.MontoDescuentoStr = Util.DecimalToStringFormat(obj.MontoTotalDescuento, userData.CodigoISO);
-                if (objR.MontoEscalaStr != "")
-                    objR.MontoEscala = decimal.Parse(obj.MontoEscala);
-                if (objR.MontoDescuentoStr != "")
-                    objR.MontoDescuento = decimal.Parse(obj.MontoTotalDescuento);
-
-                objR.MontoAhorroCatalogoStr = Util.DecimalToStringFormat(obj.AhorroCatalogo, userData.CodigoISO);
-                if (objR.MontoAhorroCatalogoStr != "")
-                    objR.MontoAhorroCatalogo = decimal.Parse(obj.AhorroCatalogo);
-
-                objR.MontoAhorroRevistaStr = Util.DecimalToStringFormat(obj.AhorroRevista, userData.CodigoISO);
-                if (objR.MontoAhorroRevistaStr != "")
-                    objR.MontoAhorroRevista = decimal.Parse(obj.AhorroRevista);
-
-                objR.MontoGanancia = objR.MontoAhorroCatalogo + objR.MontoAhorroRevista;
-                objR.MontoGananciaStr = Util.DecimalToStringFormat(objR.MontoGanancia, userData.CodigoISO);
-
-                List<BEPedidoWebDetalle> listProducto;
-                if (Agrupado)
-                {
-                    listProducto = ObtenerPedidoWebSetDetalleAgrupado();
-                    ObtenerPedidoWebDetalle();
-                }
-                else
-                {
-                    listProducto = ObtenerPedidoWebDetalle();
-                }
-
-                objR.TotalPedido = listProducto.Sum(d => d.ImporteTotal);
-                objR.TotalPedidoStr = Util.DecimalToStringFormat(objR.TotalPedido, userData.CodigoISO);
-
-                objR.CantidadProductos = listProducto.Sum(p => p.Cantidad);
-                objR.CantidadCuv = listProducto.Count;
 
                 #region listaEscalaDescuento
 
@@ -654,9 +658,9 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 #region Mensajes
+
                 objR.ListaMensajeMeta = new List<BEMensajeMetaConsultora>();
-                if (inMensaje)
-                    objR.ListaMensajeMeta = GetMensajeMetaConsultora(Constantes.ConstSession.MensajeMetaConsultora, "") ?? new List<BEMensajeMetaConsultora>();
+                if (inMensaje) objR.ListaMensajeMeta = GetMensajeMetaConsultora(Constantes.ConstSession.MensajeMetaConsultora, "") ?? new List<BEMensajeMetaConsultora>();
 
                 #endregion
             }
@@ -666,6 +670,39 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return objR;
+        }
+
+        private void SetBarraConsultoraMontosTotales(BarraConsultoraModel barraModel, ObjMontosProl montosProl, bool agrupado)
+        {
+            List<BEPedidoWebDetalle> listProducto;
+            if (agrupado)
+            {
+                listProducto = ObtenerPedidoWebSetDetalleAgrupado();
+                ObtenerPedidoWebDetalle();
+            }
+            else listProducto = ObtenerPedidoWebDetalle();
+
+            barraModel.MontoMinimoStr = Util.DecimalToStringFormat(userData.MontoMinimo, userData.CodigoISO);
+            barraModel.MontoEscalaStr = Util.DecimalToStringFormat(montosProl.MontoEscala, userData.CodigoISO);
+            barraModel.MontoDescuentoStr = Util.DecimalToStringFormat(montosProl.MontoTotalDescuento, userData.CodigoISO);
+            barraModel.MontoMaximoStr = Util.ValidaMontoMaximo(userData.MontoMaximo, userData.CodigoISO);
+            barraModel.MontoAhorroCatalogoStr = Util.DecimalToStringFormat(montosProl.AhorroCatalogo, userData.CodigoISO);
+            barraModel.MontoAhorroRevistaStr = Util.DecimalToStringFormat(montosProl.AhorroRevista, userData.CodigoISO);
+
+            barraModel.MontoMinimo = userData.MontoMinimo;
+            if (barraModel.MontoMaximoStr != "") barraModel.MontoMaximo = userData.MontoMaximo;
+            if (barraModel.MontoEscalaStr != "") barraModel.MontoEscala = decimal.Parse(montosProl.MontoEscala);
+            if (barraModel.MontoDescuentoStr != "") barraModel.MontoDescuento = decimal.Parse(montosProl.MontoTotalDescuento);
+            if (barraModel.MontoAhorroCatalogoStr != "") barraModel.MontoAhorroCatalogo = decimal.Parse(montosProl.AhorroCatalogo);
+            if (barraModel.MontoAhorroRevistaStr != "") barraModel.MontoAhorroRevista = decimal.Parse(montosProl.AhorroRevista);
+
+            barraModel.MontoGanancia = barraModel.MontoAhorroCatalogo + barraModel.MontoAhorroRevista;
+            barraModel.TotalPedido = listProducto.Sum(d => d.ImporteTotal);
+            barraModel.CantidadProductos = listProducto.Sum(p => p.Cantidad);
+            barraModel.CantidadCuv = listProducto.Count;
+
+            barraModel.MontoGananciaStr = Util.DecimalToStringFormat(barraModel.MontoGanancia, userData.CodigoISO);
+            barraModel.TotalPedidoStr = Util.DecimalToStringFormat(barraModel.TotalPedido, userData.CodigoISO);
         }
 
         private List<BEEscalaDescuento> GetListaEscalaDescuento()
@@ -720,7 +757,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected bool ValidarContratoPopup()
         {
-            return userData.EsConsultora() && userData.CambioClave == 0 && userData.IndicadorContrato == 0 &&
+            return userData.EsConsultora() && userData.IndicadorContrato == 0 &&
                 userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia) &&
                 SessionManager.GetIsContrato() == 1 && !SessionManager.GetAceptoContrato();
         }
@@ -821,12 +858,12 @@ namespace Portal.Consultoras.Web.Controllers
             var result = false;
             try
             {
-                var url = HttpContext.Request.Url != null 
-                    ? HttpContext.Request.Url.AbsolutePath 
+                var url = HttpContext.Request.Url != null
+                    ? HttpContext.Request.Url.AbsolutePath
                     : null;
 
-                var urlReferrer = HttpContext.Request.UrlReferrer != null 
-                    ? Util.Trim(HttpContext.Request.UrlReferrer.LocalPath) 
+                var urlReferrer = HttpContext.Request.UrlReferrer != null
+                    ? Util.Trim(HttpContext.Request.UrlReferrer.LocalPath)
                     : Util.Trim(HttpContext.Request.FilePath);
 
                 url = (url ?? "").Replace("#", "/").ToLower() + "/";
@@ -904,6 +941,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var esMobile = IsMobile();
 
+            #region bonificaciones 
+
+            ViewBag.esConsultoraDigital = IndicadorConsultoraDigital();
+
+            #endregion
+
+            ViewBag.PseudoParamNotif = userData.PseudoParamNotif;
             ViewBag.EstadoInscripcionEpm = revistaDigital.EstadoRdcAnalytics;
             ViewBag.UsuarioNombre = (Util.Trim(userData.Sobrenombre) == "" ? userData.NombreConsultora : userData.Sobrenombre);
             ViewBag.Usuario = "Hola, " + userData.UsuarioNombre;
@@ -1013,7 +1057,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.QSBR = string.Format("NOMB={0}&PAIS={1}&CODI={2}&CORR={3}&TELF={4}", userData.NombreConsultora.ToUpper(), userData.CodigoISO, userData.CodigoConsultora, userData.EMail, (userData.Telefono ?? "").Trim() + ((userData.Celular ?? "").Trim() == string.Empty ? "" : "; " + (userData.Celular ?? "").Trim()));
             ViewBag.QSBR = ViewBag.QSBR.Replace("\n", "").Trim();
 
-            ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad ? 1 : 0;
+            ViewBag.EsUsuarioComunidad = userData.EsUsuarioComunidad.ToInt();
             ViewBag.NombreC = userData.PrimerNombre;
             ViewBag.ApellidoC = userData.PrimerApellido;
             ViewBag.CorreoC = userData.EMail;
@@ -1052,9 +1096,12 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.GPRBannerUrl = userData.GPRBannerUrl;
 
                 // odd
-                ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);
+                bool actualizaODDBase = ActualizarODDBase(esMobile);
+                ViewBag.OfertaDelDia = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData, true, actualizaODDBase);
                 ViewBag.TieneOfertaDelDia = _ofertaDelDiaProvider.CumpleOfertaDelDia(userData, GetControllerActual());
                 ViewBag.MostrarBannerSuperiorOdd = _ofertaDelDiaProvider.MostrarBannerSuperiorOdd(userData, GetControllerActual());
+
+                ViewBag.CaminoBrillante = ViewBag.CaminoBrillante ?? false;
             }
             catch (Exception ex)
             {
@@ -1068,22 +1115,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TipoUsuario = userData.TipoUsuario;
             ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
             ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
-
-            #region RegaloPN
-            try
-            {
-                ViewBag.ConsultoraTieneRegaloPN = false;
-                if (userData.ConsultoraRegaloProgramaNuevas != null)
-                {
-                    ViewBag.ConsultoraTieneRegaloPN = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                Common.LogManager.SaveLog(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-
-            #endregion
+            ViewBag.ConsultoraTieneRegaloPN = (userData.ConfigPremioProgNuevas != null && userData.ConfigPremioProgNuevas.MostrarRegaloOF);
 
             #region EventoFestivo
 
@@ -1103,38 +1135,11 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TituloCatalogo = ((revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI) ||
                 (!revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva));
 
-            var menuActivo = _menuContenedorProvider.GetMenuActivo(userData, revistaDigital, herramientasVenta, Request, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobile);
-            ViewBag.MenuContenedorActivo = menuActivo;
-            ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobile);
+            _showRoomProvider.CargarEventoPersonalizacion(userData);
 
-            var menuMobile = BuildMenuMobile(userData, revistaDigital);
-            var menuWeb = BuildMenu(userData, revistaDigital);
-            var descLiqWeb = "";
-            var existItemLiqWeb = esMobile ? _menuProvider.FindInMenu(menuMobile, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb) :
-                _menuProvider.FindInMenu(menuWeb, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb);
+            MenuViewBag(esMobile);
 
-            ViewBag.MenuMobile = menuMobile;
-            ViewBag.Permiso = menuWeb;
-            ViewBag.TituloLiqWeb = existItemLiqWeb ? descLiqWeb : "Liquidación Web";
-
-            ViewBag.ProgramaBelcorpMenu = BuildMenuService();
             ViewBag.codigoISOMenu = userData.CodigoISO;
-
-            if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
-            {
-                ViewBag.SegmentoConsultoraMenu = 1;
-            }
-            else
-            {
-                if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
-                {
-                    ViewBag.SegmentoConsultoraMenu = userData.SegmentoID;
-                }
-                else
-                {
-                    ViewBag.SegmentoConsultoraMenu = userData.SegmentoInternoID ?? userData.SegmentoID;
-                }
-            }
 
             var urlS3 = ConfigurationManager.AppSettings["URL_S3"] ?? "";
             if (!string.IsNullOrEmpty(urlS3))
@@ -1156,7 +1161,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
             ViewBag.FotoPerfilSinModificar = (string.IsNullOrWhiteSpace(userData.FotoOriginalSinModificar) ? "" : userData.FotoOriginalSinModificar);
 
-            ViewBag.TokenPedidoAutenticoOk = (SessionManager.GetTokenPedidoAutentico() != null) ? 1 : 0;
+            ViewBag.TokenPedidoAutenticoOk = (SessionManager.GetTokenPedidoAutentico() != null).ToInt();
             ViewBag.CodigoEstrategia = _revistaDigitalProvider.GetCodigoEstrategia();
             ViewBag.BannerInferior = _showRoomProvider.EvaluarBannerConfiguracion(userData.PaisID, SessionManager);
             ViewBag.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre).ToUpper();
@@ -1164,9 +1169,12 @@ namespace Portal.Consultoras.Web.Controllers
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
 
             ViewBag.HabilitarChatEmtelco = _chatEmtelcoProvider.HabilitarChatEmtelco(userData.PaisID, esMobile);
+            ViewBag.NoReservoPedido = userData.EsDiasFacturacion && _pedidoWebProvider.RequiereCierreSessionValidado(_tablaLogicaProvider, userData.PaisID) && !_pedidoWebProvider.TienePedidoReservado(userData) && ObtenerPedidoWebDetalle().Count > 0;
+            ViewBag.SessionTimeout = HttpContext.Session.Timeout;
 
             ViewBag.MostrarBuscadorYFiltros = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarBuscador).ToBool();
             ViewBag.CaracteresBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CaracteresBuscador);
+            ViewBag.CaracteresBuscadorNumerico = ObtenerConfiguracionBuscadorNumerico(Constantes.TipoConfiguracionBuscador.CaracteresBuscador);
             ViewBag.TotalListadorBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.TotalResultadosBuscador);
             ViewBag.CaracteresBuscadorMostrar = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CaracteresBuscadorMostrar);
             ViewBag.CantidadVecesInicioSesionNovedad = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.CantidadInicioSesionNovedadBuscador);
@@ -1174,8 +1182,73 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.MostrarBotonVerTodos = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.MostrarBotonVerTodos).ToBool();
             ViewBag.AplicarLogicaCantidadBotonVerTodos = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.AplicarLogicaCantidadBotonVerTodos).ToBool();
             ViewBag.FlagFiltrosBuscador = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.FlagFiltrosBuscador).ToBool();
+            ViewBag.FlagBuscarPorCategoria = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.FlagBuscarPorCategoria).ToBool();
+            ViewBag.FlagBuscarPorCategoriaTotalProductos = ObtenerConfiguracionBuscador(Constantes.TipoConfiguracionBuscador.FlagBuscarPorCategoriaTotalProductos).ToBool();
+            ViewBag.MostrarPalabrasMenoresACuatro = ObtenerConfiguracionBuscadorCaracteresMenoresACuatro(Constantes.TipoConfiguracionBuscador.MostrarPalabrasMenoresACuatro);
         }
 
+        #endregion
+
+        #region
+        private void MenuViewBag(bool esMobile)
+        {
+            if (MenuContenedorValidarPagina())
+            {
+                var esMobileMenu = EsDispositivoMovil() || esMobile;
+                var menuActivo = _menuContenedorProvider.GetMenuActivo(userData, revistaDigital, herramientasVenta, Request, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobileMenu);
+                ViewBag.MenuContenedorActivo = menuActivo;
+                ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobileMenu);
+               
+            }
+
+            var menuMobile = BuildMenuMobile(userData, revistaDigital);
+            var menuWeb = BuildMenu(userData, revistaDigital);
+            var descLiqWeb = "";
+            var existItemLiqWeb = esMobile ? _menuProvider.FindInMenu(menuMobile, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb) :
+                _menuProvider.FindInMenu(menuWeb, m => m.Codigo.ToLower() == Constantes.MenuCodigo.LiquidacionWeb.ToLower(), m => m.Descripcion, out descLiqWeb);
+
+            //CaminoBrillante : Si es postulante no figura la opción en el menú [desktop - Mobile]
+            if (userData.TipoUsuario == 2)
+            {
+                menuWeb.SingleOrDefault(r => r.Codigo == "mimegocio").SubMenus.Remove(menuWeb.SingleOrDefault(r => r.Codigo == "mimegocio").SubMenus.SingleOrDefault(x => x.Codigo == "caminobrillante"));
+                menuMobile.SingleOrDefault(r => r.Codigo == "minegocio").SubMenu.Remove(menuMobile.SingleOrDefault(r => r.Codigo == "minegocio").SubMenu.SingleOrDefault(x => x.Codigo == "caminobrillante"));
+            }
+
+            ViewBag.MenuMobile = menuMobile;
+            ViewBag.Permiso = menuWeb;
+            ViewBag.TituloLiqWeb = existItemLiqWeb ? descLiqWeb : "Liquidación Web";
+
+            ViewBag.ProgramaBelcorpMenu = BuildMenuService();
+
+            if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
+            {
+                ViewBag.SegmentoConsultoraMenu = 1;
+            }
+            else
+            {
+                if (userData.CodigoISO == Constantes.CodigosISOPais.Venezuela)
+                {
+                    ViewBag.SegmentoConsultoraMenu = userData.SegmentoID;
+                }
+                else
+                {
+                    ViewBag.SegmentoConsultoraMenu = userData.SegmentoInternoID ?? userData.SegmentoID;
+                }
+            }
+        }
+
+        private bool MenuContenedorValidarPagina()
+        {
+            string controllerName = GetControllerActual();
+
+            controllerName = "," + controllerName.ToLower() + ",";
+
+            var controladores = ",,miscatalogosrevistas,busquedaproductos,tusclientes,";
+
+            if (controladores.Contains(controllerName)) return false;
+
+            return true;
+        }
         #endregion
 
         public int ObtenerConfiguracionBuscador(string codigo)
@@ -1183,6 +1256,18 @@ namespace Portal.Consultoras.Web.Controllers
             if (!buscadorYFiltro.ConfiguracionPaisDatos.Any()) return ObtenerValorPorDefecto(codigo);
             var valor = (from item in buscadorYFiltro.ConfiguracionPaisDatos where item.Codigo == codigo select item.Valor1).FirstOrDefault();
             return valor == null ? ObtenerValorPorDefecto(codigo) : valor.ToInt();
+        }
+        public int ObtenerConfiguracionBuscadorNumerico(string codigo)
+        {
+            if (!buscadorYFiltro.ConfiguracionPaisDatos.Any()) return ObtenerValorPorDefecto(codigo);
+            var valor = (from item in buscadorYFiltro.ConfiguracionPaisDatos where item.Codigo == codigo select item.Valor2).FirstOrDefault();
+            return valor == null ? ObtenerValorPorDefecto(codigo) : valor.ToInt();
+        }
+        public string ObtenerConfiguracionBuscadorCaracteresMenoresACuatro(string codigo)
+        {
+            if (!buscadorYFiltro.ConfiguracionPaisDatos.Any()) return string.Empty;
+            var valor = (from item in buscadorYFiltro.ConfiguracionPaisDatos where item.Codigo == codigo select item.Valor1).FirstOrDefault();
+            return valor ?? string.Empty;
         }
 
         private int ObtenerValorPorDefecto(string codigo)
@@ -1267,7 +1352,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public virtual bool EsDispositivoMovil()
         {
-            return Util.EsDispositivoMovil(); 
+            return Util.EsDispositivoMovil();
         }
 
         public string GetControllerActual()
@@ -1275,12 +1360,11 @@ namespace Portal.Consultoras.Web.Controllers
             return ControllerContext.RouteData.Values["controller"].ToString();
         }
 
-        public VariablesGeneralEstrategiaModel GetVariableEstrategia()
+        public VariablesGeneralEstrategiaModel GetEstrategiaHabilitado()
         {
-            var variableEstrategia = new VariablesGeneralEstrategiaModel
+            VariablesGeneralEstrategiaModel variableEstrategia = new VariablesGeneralEstrategiaModel
             {
-                PaisHabilitado = WebConfig.PaisesMicroservicioPersonalizacion,
-                TipoEstrategiaHabilitado = WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion
+                TipoEstrategiaHabilitado = SessionManager.GetConfigMicroserviciosPersonalizacion().GuardaDataEnLocalStorage
             };
             return variableEstrategia;
         }
@@ -1327,10 +1411,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string ObtenerFlagActivacionRecomendaciones()
         {
+            if (!revistaDigital.EsSuscrita) return "0";
             var configuracionPaisDatos = SessionManager.GetRecomendacionesConfig()
                 .ConfiguracionPaisDatos
                 .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.ActivarRecomendaciones));
-            return configuracionPaisDatos != null ? configuracionPaisDatos.Valor1 : "0";
+            return configuracionPaisDatos != null ? configuracionPaisDatos.Valor2 : "0";
+
         }
 
         public int ObtenerNumeroMaximoCaracteresRecomendaciones(bool esMobile)
@@ -1338,8 +1424,43 @@ namespace Portal.Consultoras.Web.Controllers
             var configuracionPaisDatos = SessionManager.GetRecomendacionesConfig()
                 .ConfiguracionPaisDatos
                 .FirstOrDefault(a => a.Codigo.Equals(Constantes.CodigoConfiguracionRecomendaciones.CaracteresDescripcion));
-            if (esMobile ) return configuracionPaisDatos != null ?  configuracionPaisDatos.Valor2.ToInt() : 35;
+            if (esMobile) return configuracionPaisDatos != null ? configuracionPaisDatos.Valor2.ToInt() : 35;
             return configuracionPaisDatos != null ? configuracionPaisDatos.Valor1.ToInt() : 37;
+        }
+
+        public bool IndicadorConsultoraDigital()
+        {
+            bool r = false;
+            try
+            {
+                if (SessionManager.GetConsultoraDigital() == null)
+                {
+                    string region = ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.BonificacionesRegiones);
+                    List<string> ListRegion = region == null ? new List<string>() : region.Split(new char[] { ',' }).ToList();
+                    var validaRegion = ListRegion.Where(x => x.Contains(userData.CodigorRegion));
+
+                    if (validaRegion.Any())
+                    {
+                        using (var sv = new ServiceUsuario.UsuarioServiceClient())
+                        {
+                            ServiceUsuario.BEUsuario beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
+                            if (beusuario != null)
+                            {
+                                r = beusuario.IndicadorConsultoraDigital > 0;
+                                SessionManager.SetConsultoraDigital(r);
+                            }
+                        }
+                    }
+                }
+                else
+                    r = SessionManager.GetConsultoraDigital().Value;
+            }
+            catch (Exception e)
+            {
+                r = false;
+            }
+
+            return r;
         }
     }
 }

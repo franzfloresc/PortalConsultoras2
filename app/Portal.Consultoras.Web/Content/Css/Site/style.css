@@ -4,7 +4,7 @@ Stylesheet Guide
 -------------------------
 
 01. Reset
-
+     
 02. Basic Elements
 	1. Clearfix
 	2. Floating & Alignment
@@ -1557,7 +1557,7 @@ ul.tabs {
 
 .div-3 .titG {
     float: left;
-    width: 125px;
+    width: 140px;
     height: auto;
     padding: 9px;
     background: none;
@@ -1673,7 +1673,46 @@ ul.tabs {
 
 .div-3 .titJ {
     float: left;
-    width: 200px;
+    width: 170px;
+    height: auto;
+    background: none;
+    color: #702789;
+    font-size: 14px;
+    margin: 0;
+    border: 0;
+    text-align: left;
+    line-height: 50PX;
+    font-weight: bold;
+}
+
+.div-3 .titR {
+    float: left;
+    width: 40px;
+    height: auto;
+    padding: 5px;
+    background: none;
+    color: #702789;
+    font-size: 15px;
+    margin: 0;
+    border: 0;
+    text-align: right;
+}
+
+.div-3 .titM {
+    float: left;
+    height: auto;
+    padding: 10px 10px 10px 0px;
+    background: none;
+    color: #702789;
+    font-size: 15px;
+    line-height: 30PX;
+    margin: 6px;
+    border: 0;
+    text-align: right;
+}
+.div-3 .titO {
+    float: left;
+    width: 50px;
     height: auto;
     padding: 9px;
     background: none;
@@ -1955,6 +1994,19 @@ ul.tabs {
     position: relative;
 }
 
+.div-3 .selectP5 {
+    float: left;
+    width: 298px;
+    height: auto;
+    padding: 10px;
+    background: #fff;
+    color: #702789;
+    margin-right: 10px;
+    border: 1px solid #cfcfcf;
+    position: relative;
+    margin-top: 10px;
+}
+
     .div-3 .selectP:hover {
         border: 1px solid #9D9D9D;
     }
@@ -1984,6 +2036,45 @@ ul.tabs {
     }
 
     .div-3 .selectP textarea {
+        float: left;
+        width: 98%;
+        height: auto;
+        padding: 0 0 1px 0;
+        background: #fff;
+        color: #702789;
+        font-size: 14px;
+        margin: 0;
+        border: 0;
+    }
+    .div-3 .selectP5:hover {
+        border: 1px solid #9D9D9D;
+    }
+
+    .div-3 .selectP5 select {
+        float: left;
+        width: 300px;
+        height: 18px;
+        padding: 0;
+        background: #fff;
+        color: #702789;
+        font-size: 14px;
+        margin: 0;
+        border: 0;
+    }
+
+    .div-3 .selectP5 input {
+        float: left;
+        width: 300px;
+        height: auto;
+        padding: 0 0 1px 0;
+        background: #fff;
+        color: #702789;
+        font-size: 14px;
+        margin: 0;
+        border: 0;
+    }
+
+    .div-3 .selectP5 textarea {
         float: left;
         width: 98%;
         height: auto;
@@ -3436,6 +3527,13 @@ select.ui-pg-selbox {
     position: relative;
     margin: 0 auto;
     padding: 20px 0 0 0;
+    width: 100%;
+    background: #fff;
+}
+.wrapA {
+    position: relative;
+    margin: 0 auto;
+    padding: 0px 0 0 0;
     width: 100%;
     background: #fff;
 }
@@ -9650,6 +9748,18 @@ body, html {
     margin: 0;
     border: 0;
     text-align: right;
+}
+
+.div-3 .titN {
+    float: right;
+    width: auto;
+    height: auto;
+    background: #f5f5f7;
+    color: #702789;
+    font-size: 14px;
+    margin: 0;
+    border: 0;
+    text-align: left;
 }
 
 .contenedor_datos {

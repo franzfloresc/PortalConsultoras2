@@ -176,7 +176,6 @@ function CrearPopShow() {
 }
 
 function MostrarShowRoom() {
-
     if (!sesionEsShowRoom) {
         return;
     }
@@ -625,6 +624,7 @@ function armarComunicadosPopup(comunicado) {
     $(".popup_comunicado .detalle_popup_comunicado").attr("urlAccion", comunicado.DescripcionAccion);
 
     $(".popup_comunicado .detalle_popup_comunicado").css("background-image", "url(" + comunicado.UrlImagen + ")");
+    $(".popup_comunicado .detalle_popup_comunicado").css("background-size", "100%");
     $(".contenedor_popup_comunicado").modal("show");
 
     ActualizarVisualizoComunicado(comunicado.ComunicadoId);
@@ -737,6 +737,7 @@ function VerTutorialMobile() {
 }
 
 function ConsultarEmailPendiente() {
+
     var item = {
         pagina: "1"
     }
@@ -744,14 +745,36 @@ function ConsultarEmailPendiente() {
     $.ajax({
         type: 'POST',
         url: baseUrl + 'Bienvenida/ObtenerActualizacionEmailSms',
-        dataType: 'Text',
+        dataType: 'Json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
         success: function (data) {
             if (checkTimeout(data)) {
-                if (data != '') {
-                    document.getElementById('mensajeToolTip').innerHTML = data;
-                    document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
+                /*En este caso se mostrarà el tooltip*/
+                if (parseInt(data.tipoMostrador) == 0) {
+                    if (data.mensaje.length > 0) {
+                        document.getElementsByClassName('popup__wrapper')[0].style.display = 'none';
+                        document.getElementById('mensajeToolTip').innerHTML = data.mensaje;
+                        document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'block';
+                    } else {
+                        document.getElementsByClassName('popup__wrapper')[0].style.display = 'none';
+                        document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'none';
+                    }
+                    /*En este caso se mostrarà el popup*/
+                } else {
+                    document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'none';
+                    var hrefUrl = document.getElementById('hrfUrl');
+                    var URLdomain = window.location.origin;
+                    hrefUrl.href = URLdomain + data.urlDispositivo;
+
+                    if (parseInt(data.valor) == 0)
+                        document.getElementsByClassName('popup__wrapper')[0].style.display = 'none';
+                    else if (parseInt(data.valor) == 1) {
+                        document.getElementsByClassName('popup__wrapper')[0].style.display = 'block';
+                        document.getElementById("mensaje").innerHTML = "";
+                        document.getElementById("mensaje").innerHTML = data.mensaje;
+
+                    }
                 }
             }
         },

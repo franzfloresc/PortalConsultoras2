@@ -74,8 +74,10 @@ namespace Portal.Consultoras.Web.Controllers
                 string mostrarAyudaWebTracking = Convert.ToInt32(usuario.MostrarAyudaWebTraking).ToString();
                 string paisIso = userData.CodigoISO.Trim();
                 string campanhaId = userData.CampaniaID.ToString();
-
-                string url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisId, codigoConsultora, mostrarAyudaWebTracking, paisIso, campanhaId);
+                //HD-3606 EINCA
+                string zonaID = userData.ZonaID.ToString();
+                string regionID = userData.RegionID.ToString();
+                string url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisId, codigoConsultora, mostrarAyudaWebTracking, paisIso, campanhaId, zonaID, regionID);
 
                 ViewBag.URLWebTracking = url;
                 ViewBag.PaisISO = userData.CodigoISO;
@@ -381,12 +383,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                             var arr = column.Contains("#") ? column.Split('#') : new string[] { "", column };
                             string value = ExportToExcelMultiple_ValorColumna(arr[1], source);
-                            //      arr[1] == "CUV" ? source.CUV
-                            //    : arr[1] == "DescripcionProd" ? source.DescripcionProd
-                            //    : arr[1] == "Cantidad" ? source.Cantidad.ToString()
-                            //    : arr[1] == "ImporteTotal" ? Util.DecimalToStringFormat(source.ImporteTotal, userData.CodigoISO)
-                            //    : arr[1] == "PrecioUnidad" ? Util.DecimalToStringFormat(source.PrecioUnidad, userData.CodigoISO)
-                            //    : "";
 
                             if (value == "")
                             {
@@ -461,27 +457,62 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string ExportToExcelMultiple_ValorColumna(string columna, SC.BEPedidoWebDetalle source)
         {
-            string value =
-                columna == "CUV" ? source.CUV
-                : columna == "DescripcionProd" ? source.DescripcionProd
-                : columna == "Cantidad" ? source.Cantidad.ToString()
-                : columna == "ImporteTotal" ? Util.DecimalToStringFormat(source.ImporteTotal, userData.CodigoISO)
-                : columna == "PrecioUnidad" ? Util.DecimalToStringFormat(source.PrecioUnidad, userData.CodigoISO)
-                : "";
+            string value = "";
+
+            switch (columna)
+            {
+                case "CUV":
+                    value = source.CUV;
+                    break;
+                case "DescripcionProd":
+                    value = source.DescripcionProd;
+                    break;
+                case "Cantidad":
+                    value = source.Cantidad.ToString();
+                    break;
+                case "ImporteTotal":
+                    value = Util.DecimalToStringFormat(source.ImporteTotal, userData.CodigoISO);
+                    break;
+                case "PrecioUnidad":
+                    value = Util.DecimalToStringFormat(source.PrecioUnidad, userData.CodigoISO);
+                    break;
+                default:
+                    break;
+            }
+
             return value;
         }
 
         private string ExportToExcelMultiple_ValorColumna(string columna, BEPedidoWebDetalle source)
         {
-            string value =
-                columna == "CUV" ? source.CUV
-                : columna == "DescripcionProd" ? source.DescripcionProd
-                : columna == "Cantidad" ? source.Cantidad.ToString()
-                : columna == "ImporteTotal" ? Util.DecimalToStringFormat(source.ImporteTotal, userData.CodigoISO)
-                : columna == "PrecioUnidad" ? Util.DecimalToStringFormat(source.PrecioUnidad, userData.CodigoISO)
-                : columna == "Descuento" ? Util.DecimalToStringFormat(source.ImporteTotalPedido, userData.CodigoISO)
-                : columna == "ImportePagar" ? Util.DecimalToStringFormat(source.ImporteTotal - source.ImporteTotalPedido, userData.CodigoISO)
-                : "";
+            string value = "";
+            switch (columna)
+            {
+                case "CUV":
+                    value = source.CUV;
+                    break;
+                case "DescripcionProd":
+                    value = source.DescripcionProd;
+                    break;
+                case "Cantidad":
+                    value = source.Cantidad.ToString();
+                    break;
+                case "ImporteTotal":
+                    value = Util.DecimalToStringFormat(source.ImporteTotal, userData.CodigoISO);
+                    break;
+                case "PrecioUnidad":
+                    value = Util.DecimalToStringFormat(source.PrecioUnidad, userData.CodigoISO);
+                    break;
+                case "Descuento":
+                    value = Util.DecimalToStringFormat(source.ImporteTotalPedido, userData.CodigoISO);
+                    break;
+                case "ImportePagar":
+                    value = Util.DecimalToStringFormat(source.ImporteTotal - source.ImporteTotalPedido, userData.CodigoISO);
+                    break;
+                default:
+                    break;
+            }
+
             return value;
         }
 
@@ -601,14 +632,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                             var arr = column.Contains("#") ? column.Split('#') : new string[] { "", column };
                             string value = ExportToExcelMultiple_ValorColumna(arr[1], source);
-                            //  arr[1] == "CUV" ? source.CUV
-                            //: arr[1] == "DescripcionProd" ? source.DescripcionProd
-                            //: arr[1] == "Cantidad" ? source.Cantidad.ToString()
-                            //: arr[1] == "ImporteTotal" ? Util.DecimalToStringFormat(source.ImporteTotal, userData.CodigoISO)
-                            //: arr[1] == "PrecioUnidad" ? Util.DecimalToStringFormat(source.PrecioUnidad, userData.CodigoISO)
-                            //: arr[1] == "Descuento" ? Util.DecimalToStringFormat(source.ImporteTotalPedido, userData.CodigoISO)
-                            //: arr[1] == "ImportePagar" ? Util.DecimalToStringFormat(source.ImporteTotal - source.ImporteTotalPedido, userData.CodigoISO)
-                            //: "";
 
                             if (value == "")
                             {
@@ -756,14 +779,11 @@ namespace Portal.Consultoras.Web.Controllers
                 Nombre = cliente == -1 ? "" : itm.Nombre,
                 CampaniaId,
                 userData.NombreConsultora,
-
                 pag.PageCount,
                 pag.CurrentPage,
                 pag.RecordCount,
                 grid.PageSize,
-
                 userData.Simbolo,
-
                 CantidadProducto = itemCliente.Sum(p => p.Cantidad),
                 ImporteTotal = importeTotal,
                 ImporteFlete = Util.DecimalToStringFormat(0, userData.CodigoISO),
@@ -775,6 +795,7 @@ namespace Portal.Consultoras.Web.Controllers
                     tipo = estado.ToLower(),
                     userData.Simbolo,
                     a.CUV,
+                    a.SetIdentifierNumber,
                     a.DescripcionProd,
                     a.Cantidad,
                     PrecioUnidad = Util.DecimalToStringFormat(a.PrecioUnidad, userData.CodigoISO),
@@ -813,9 +834,9 @@ namespace Portal.Consultoras.Web.Controllers
                     CampaniaId = int.Parse(campaniaId),
                     ConsultoraId = ObtenerConsultoraId(),
                     Consultora = userData.NombreConsultora,
-                    EsBpt = EsOpt() == 1,
                     CodigoPrograma = userData.CodigoPrograma,
-                    NumeroPedido = userData.ConsecutivoNueva
+                    NumeroPedido = userData.ConsecutivoNueva,
+                    AgruparSet = true
                 };
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -863,7 +884,7 @@ namespace Portal.Consultoras.Web.Controllers
                         NombreCliente = ""
                     });
                 }
-                
+
                 #endregion
             }
 

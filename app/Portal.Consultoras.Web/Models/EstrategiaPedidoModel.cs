@@ -176,6 +176,11 @@ namespace Portal.Consultoras.Web.Models
         public List<EstrategiaPedidoModel> ListaOfertas { get; set; }
 
         public ConfiguracionSeccionHomeModel ConfiguracionContenedor { get; set; }
+        
+        /// <summary>
+        /// Calculo del factor cuadre
+        /// </summary>
+        public int CantidadPack { get; set; }
 
         public string PrecioOfertaFormat
         {
@@ -198,5 +203,7 @@ namespace Portal.Consultoras.Web.Models
         public IList<ConfiguracionPaisDatosModel> ConfiguracionPaisDatos { get; set; }
         public bool BloqueoProductoDigital { get; set; }
         public bool EsBannerProgNuevas { get; set; }
+
+        public bool TieneStock { get; set; }
     }
 }

@@ -126,7 +126,12 @@ function AceptarPedido(id, tipo) {
                         $('#PedidoAceptado').show();
                     }
                     else {
-                        AbrirMensaje(response.message);
+                        //INI HD-3693
+                        //AbrirMensaje(response.message);
+                        var msjBloq = validarpopupBloqueada(response.message);
+                        if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                        else AbrirMensaje(response.message);
+                        //FIN HD-3693
                     }
                 }
             },
@@ -148,3 +153,6 @@ function CerrarMensajeAceptado() {
     document.location.href = urlPendientes;
 }
 
+function PendientesRevisalo(categoria,accion) {    
+    DataLayerPedidosPendientes('virtualEvent', categoria, accion, 'Revísalo');
+}

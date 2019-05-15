@@ -34,16 +34,6 @@ namespace Portal.Consultoras.Web.Controllers
             return View(cronogramaModel);
         }
 
-        //movido a BaseAdm/ObtenerCampaniasPorPais
-        //public JsonResult ObtenterCampaniasPorPais(int PaisID)
-        //{
-        //    IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
-        //    return Json(new
-        //    {
-        //        lista = lst,
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
-
         public ActionResult ConsultarConfiguracionCrossSelling(string sidx, string sord, int page, int rows, int PaisID, int CampaniaID)
         {
             if (ModelState.IsValid)
@@ -190,11 +180,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lst = sv.GetCrossSellingProductosAdministracion(PaisID, CampaniaID).ToList();
                 }
-                
+
                 if (lst != null && lst.Count > 0)
                 {
                     lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, x.ImagenProducto));
-                }                                            
+                }
 
                 string iso = Util.GetPaisISO(PaisID);
 

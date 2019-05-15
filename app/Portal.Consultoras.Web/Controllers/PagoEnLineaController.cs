@@ -1,11 +1,9 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,6 +54,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult MetodoPago()
         {
+            string bancos = string.Empty;
             if (!userData.TienePagoEnLinea)
                 return RedirectToAction("Index", "Bienvenida");
 
@@ -63,21 +62,17 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ListaMetodoPago = _pagoEnLineaProvider.ObtenerListaMetodoPago()
             };
-            SessionManager.SetDatosPagoVisa(model);
 
-            return View(model);
-        }
-
-        [HttpPost]
-        public string ObtenerBancos()
-        {
-            string bancos = "";
             using (var ps = new PedidoServiceClient())
             {
                 bancos = ps.ObtenerPagoEnLineaURLPaginasBancos(userData.PaisID);
 
             }
-            return bancos;
+
+            model.Bancos = bancos;
+            SessionManager.SetDatosPagoVisa(model);
+
+            return View(model);
         }
 
         [HttpGet]
@@ -458,32 +453,32 @@ namespace Portal.Consultoras.Web.Controllers
                                id = a.PagoEnLineaResultadoLogId,
                                cell = new string[]
                                {
-                            a.CampaniaId.ToString(),
-                            a.NombreComercio ?? string.Empty,
-                            a.IdUnicoTransaccion ?? string.Empty,
-                            a.PagoEnLineaResultadoLogId.ToString(),
-                            a.NombreCompleto ?? string.Empty,
-                            a.FechaTransaccionFormat ?? string.Empty,
-                            a.FechaTransaccionHoraFormat ?? string.Empty,
-                            a.CodigoConsultora ?? string.Empty,
-                            a.NumeroDocumento ?? string.Empty,
-                            a.Canal ?? string.Empty,
-                            a.Ciclo ?? string.Empty,
-                            a.ImporteAutorizado.ToString(),
-                            a.MontoGastosAdministrativos.ToString(),
-                            a.IVA.ToString(),
-                            a.MontoPago.ToString(),
-                            a.TicketId ?? string.Empty,
-                            a.CodigoRegion?? string.Empty,
-                            a.CodigoZona ?? string.Empty,
-                            a.OrigenTarjeta ?? string.Empty,
-                            a.NumeroTarjeta ?? string.Empty,
-                            a.NumeroOrdenTienda ?? string.Empty,
-                            a.MensajeError ?? string.Empty,
-                            a.CodigoError ?? string.Empty,
-                            a.FechaCreacionFormat ?? string.Empty,
-                            a.FechaCreacionHoraFormat ?? string.Empty,
-                            a.Origen ?? string.Empty
+                                    a.CampaniaId.ToString(),
+                                    a.NombreComercio ?? string.Empty,
+                                    a.IdUnicoTransaccion ?? string.Empty,
+                                    a.PagoEnLineaResultadoLogId.ToString(),
+                                    a.NombreCompleto ?? string.Empty,
+                                    a.FechaTransaccionFormat ?? string.Empty,
+                                    a.FechaTransaccionHoraFormat ?? string.Empty,
+                                    a.CodigoConsultora ?? string.Empty,
+                                    a.NumeroDocumento ?? string.Empty,
+                                    a.Canal ?? string.Empty,
+                                    a.Ciclo ?? string.Empty,
+                                    a.ImporteAutorizado.ToString(),
+                                    a.MontoGastosAdministrativos.ToString(),
+                                    a.IVA.ToString(),
+                                    a.MontoPago.ToString(),
+                                    a.TicketId ?? string.Empty,
+                                    a.CodigoRegion?? string.Empty,
+                                    a.CodigoZona ?? string.Empty,
+                                    a.OrigenTarjeta ?? string.Empty,
+                                    a.NumeroTarjeta ?? string.Empty,
+                                    a.NumeroOrdenTienda ?? string.Empty,
+                                    a.MensajeError ?? string.Empty,
+                                    a.CodigoError ?? string.Empty,
+                                    a.FechaCreacionFormat ?? string.Empty,
+                                    a.FechaCreacionHoraFormat ?? string.Empty,
+                                    a.Origen ?? string.Empty
                                }
                            }
                 };

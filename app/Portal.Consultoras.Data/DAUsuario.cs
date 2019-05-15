@@ -1,6 +1,8 @@
 ﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
+using Portal.Consultoras.Entities.Usuario;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 
@@ -718,6 +720,60 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
+        public int ActualizarSMS(string codigoConsultora, string tipoEnvio, string celularAnterior, string celularActual)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetActualizarSMS");
+            Context.Database.AddInParameter(command, "@codigoConsultora", DbType.AnsiString, codigoConsultora);
+            Context.Database.AddInParameter(command, "@tipoEnvio", DbType.AnsiString, tipoEnvio);
+            Context.Database.AddInParameter(command, "@CelularAnterior", DbType.AnsiString, celularAnterior);
+            Context.Database.AddInParameter(command, "@CelularActual", DbType.AnsiString, celularActual);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public IDataReader ListarValidacionDatos(BEValidacionDatos beValidacionDatos)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarValidacionDatos");
+            Context.Database.AddInParameter(command, "@FechaInicio", DbType.AnsiString, beValidacionDatos.FechaInicio);
+            Context.Database.AddInParameter(command, "@FechaFin", DbType.AnsiString, beValidacionDatos.FechaFin);
+            Context.Database.AddInParameter(command, "@TipoEnvio", DbType.AnsiString, beValidacionDatos.TipoEnvio);
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, beValidacionDatos.CodigoUsuario);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader  GetTipoEnvioActivos(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetTipoEnvioActivos");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public int ActualizarFijo(string codigoConsultora, string tipoEnvio, string telefonoAnterior, string telefonoActual)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetActualizarFijo");
+            Context.Database.AddInParameter(command, "@codigoConsultora", DbType.AnsiString, codigoConsultora);
+            Context.Database.AddInParameter(command, "@tipoEnvio", DbType.AnsiString, tipoEnvio);
+            Context.Database.AddInParameter(command, "@FijoAnterior", DbType.AnsiString, telefonoAnterior);
+            Context.Database.AddInParameter(command, "@FijoActual", DbType.AnsiString, telefonoActual);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public int ActualizarValidacionDatos(bool isMobile, string codigoConsultora, string ipDispositivo, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetActualizarValidacionDatos");
+            Context.Database.AddInParameter(command, "@isMobile", DbType.Boolean, isMobile);
+            Context.Database.AddInParameter(command, "@codigoConsultora", DbType.AnsiString, codigoConsultora);
+            Context.Database.AddInParameter(command, "@ipDispositivo", DbType.AnsiString, ipDispositivo);
+            Context.Database.AddInParameter(command, "@codigoUsuario", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@tipoEnvio1", DbType.AnsiString, tipoEnvio1);
+            Context.Database.AddInParameter(command, "@tipoEnvio2", DbType.AnsiString, tipoEnvio2);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
         public IDataReader GetUsuarioExternoByCodigoUsuario(string codigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioExternoByCodigoUsuario");
@@ -988,7 +1044,13 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
-        public bool GetPermisoChatbot(string codigoConsultora)
+        public IDataReader GetUsuarioOpciones(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("GetUsuarioOpciones");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, codigoUsuario);
+            return Context.ExecuteReader(command);
+        }
+         public bool GetPermisoChatbot(string codigoConsultora)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPermisoChatbot");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, codigoConsultora);            
@@ -998,5 +1060,24 @@ namespace Portal.Consultoras.Data
             
             return Convert.ToBoolean(command.Parameters["@PermisoChatbot"].Value);
         }
+
+        public void InsertarUsuarioOpciones(BEUsuarioOpciones objU, string CodigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsUsuarioOpciones");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@OpcionesUsuarioId", DbType.Int32, objU.OpcionesUsuarioId);
+            Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, objU.CheckBox);
+
+            Context.ExecuteNonQuery(command);
+        }
+
+        public IDataReader CargaEstadoValidadorDatos()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.CargaEstadoValidadorDatos");
+            return Context.ExecuteReader(command);
+        }
+
+
+
     }
 }

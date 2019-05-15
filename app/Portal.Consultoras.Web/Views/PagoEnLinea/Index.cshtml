@@ -5,7 +5,6 @@
 @{
     ViewBag.Title = "Pago en Línea";
     var metodoPago = Model.MetodoPagoSeleccionado;
-    metodoPago.MontoMinimoPago = metodoPago.MontoMinimoPago ?? (decimal)0.5;
 }
 
 @section styles{
@@ -13,12 +12,12 @@
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
     {
 
-        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/pago-en-linea.css")?v=1">
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Esika/pago-en-linea.css")?v=2">
 
     }
     else
     {
-        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/pago-en-linea.css")?v=1">
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/pago-en-linea.css")?v=2">
     }
 
 }
@@ -57,8 +56,9 @@
             <div class="seleccion_tipo_pago w-100 text-center">
                 <h3 class="titulo_seleccion_tipo_pago">SELECCIONA EL TIPO DE PAGO</h3>
 
-                <input type="hidden" id="hdMontoDeuda" value="@Model.MontoDeuda" name="MontoDeuda"/>
-                <input type="hidden" id="hdPorcentajeGastosAdministrativos" value="@Model.PorcentajeGastosAdministrativos" name="PorcentajeGastosAdministrativos"/>
+                <input type="hidden" id="hdMontoDeuda" value="@Model.MontoDeuda" name="MontoDeuda" />
+                <input type="hidden" id="hdPorcentajeGastosAdministrativos" value="@Model.PorcentajeGastosAdministrativos" name="PorcentajeGastosAdministrativos" />
+                <input type="hidden" id="hdAplicaPorciento" value="@Model.AplicaPorcentaje" name="hdAplicaPorciento" />
 
                 @foreach (var item in Model.ListaTipoPago)
                 {
@@ -80,7 +80,7 @@
                                 </div>
                                 <div class="col_der">
                                     <div class="icono_flecha_despliegue">
-                                        <img src="@Url.Content("~/Content/Images/flecha-despliegue.svg")" alt="Desplegar contenido"/>
+                                        <img src="@Url.Content("~/Content/Images/flecha-despliegue.svg")" alt="Desplegar contenido" />
                                     </div>
                                 </div>
                             </div>
@@ -89,17 +89,17 @@
                                     <div class="w-53 text-left">Monto :</div>
                                     <div class="w-45 text-right">@Model.MontoDeudaString</div>
                                 </div>
-                                <div class="opcion_pago_gastos_administrativos">
+                                <div class="opcion_pago_gastos_administrativos @(Model.AplicaPorcentaje == 0 ? "childs-tachado" : "")">
                                     <div class="w-53 text-left">@ViewBag.PagoEnLineaGastosLabel (@Model.PorcentajeGastosAdministrativos%) :</div>
-                                    <div class="w-45 text-right">@Model.MontoGastosAdministrativosString</div>
+                                    <div class="w-45 text-right">@Model.MontoGastosAdministrativosBrutoString</div>
                                 </div>
-                                <hr class="linea_separacion_montos_y_total w-100"/>
+                                <hr class="linea_separacion_montos_y_total w-100" />
                                 <div class="opcion_pago_total_a_pagar">
                                     <div class="w-53 text-left text-bold-black">TOTAL POR PAGAR :</div>
                                     <div class="w-45 text-right text-bold-black">@Model.MontoDeudaConGastosString</div>
                                 </div>
                                 <div class="aceptar_terminos_y_condiciones">
-                                    <input type="hidden" value="@metodoPago.TerminosCondiciones" data-terminos/>
+                                    <input type="hidden" value="@metodoPago.TerminosCondiciones" data-terminos />
                                     <div class="descripcion_opcion_activacion">
                                         Al presionar continuar aceptas los
                                         @if (metodoPago.TipoVisualizacionTyC == Constantes.PagoEnLineaMetodoPagoVisualizacionTyC.Popup)
@@ -132,12 +132,12 @@
                                         <span>@Model.Simbolo </span>
                                         <input type="text" class="monto_a_editar" id="txtMontoParcial"
                                                placeholder="@Util.DecimalToStringFormat(0, Model.CodigoIso)"
-                                               value=""     onkeypress="return FuncionesGenerales.ValidarSoloDecimalPositivo(event, this, true); "/>
+                                               value="" onkeypress="return FuncionesGenerales.ValidarSoloDecimalPositivo(event, this, true); " />
                                     </div>
                                 </div>
                                 <div class="col_der">
                                     <div class="icono_flecha_despliegue">
-                                        <img src="@Url.Content("~/Content/Images/flecha-despliegue.svg")" alt="Desplegar contenido"/>
+                                        <img src="@Url.Content("~/Content/Images/flecha-despliegue.svg")" alt="Desplegar contenido" />
                                     </div>
                                 </div>
                             </div>
@@ -148,13 +148,13 @@
                                         @Util.DecimalToStringFormat(0, Model.CodigoIso)
                                     </div>
                                 </div>
-                                <div class="opcion_pago_gastos_administrativos">
+                                <div class="opcion_pago_gastos_administrativos @(Model.AplicaPorcentaje == 0 ? "childs-tachado" : "")">
                                     <div class="w-53 text-left">@ViewBag.PagoEnLineaGastosLabel (@Model.PorcentajeGastosAdministrativos%) :</div>
                                     <div class="w-45 text-right" id="spnMontoGastosAdministrativos">
                                         @Util.DecimalToStringFormat(0, Model.CodigoIso)
                                     </div>
                                 </div>
-                                <hr class="linea_separacion_montos_y_total w-100"/>
+                                <hr class="linea_separacion_montos_y_total w-100" />
                                 <div class="opcion_pago_total_a_pagar">
                                     <div class="w-53 text-left text-bold-black">TOTAL POR PAGAR :</div>
                                     <div class="w-45 text-right text-bold-black" id="spnMontoParcialConGastos">
@@ -162,7 +162,7 @@
                                     </div>
                                 </div>
                                 <div class="aceptar_terminos_y_condiciones">
-                                    <input type="hidden" value="@metodoPago.TerminosCondiciones" data-terminos/>
+                                    <input type="hidden" value="@metodoPago.TerminosCondiciones" data-terminos />
                                     <div class="descripcion_opcion_activacion">
                                         Al presionar continuar aceptas los
                                         @if (metodoPago.TipoVisualizacionTyC == Constantes.PagoEnLineaMetodoPagoVisualizacionTyC.Popup)
@@ -214,7 +214,7 @@
 </div>
 
 @section scripts{
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/Index.js")?v=2"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/Index.js")?v=3"></script>
     <script type="text/javascript">
         var pasarelaActual = '@metodoPago.TipoPasarelaCodigoPlataforma';
         var metodoPagoPasarelaVisa = '@Constantes.PagoEnLineaMetodoPago.PasarelaVisa';
@@ -223,6 +223,6 @@
         var rutaPagoVisa = '@Url.Action("PagoVisa", "PagoEnLinea")';
         var urlPasarelaPago = '@Url.Action("PasarelaPago","PagoEnLinea")';
         var tipoOrigenPantalla = 1;
-        var montoMinimoPago = @metodoPago.MontoMinimoPago;
+        var montoMinimoPago = '@Constantes.TablaLogicaDato.PagoEnLinea.MontoMinimoPago';
     </script>
 }

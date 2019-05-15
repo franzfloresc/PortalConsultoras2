@@ -789,6 +789,21 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         private bool AgregarEnMatrizField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppOfertasHomeImgAltoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppOfertasHomeImgAnchoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppOfertasHomeImgExtensionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppOfertasHomeMsjFormatoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AppOfertasHomeMsjMedidaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CUV1Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -808,6 +823,9 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CantidadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadPackField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoAgrupacionField;
@@ -837,7 +855,13 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         private string ColorFondoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ColorTextoAppField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ConsultoraIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool CuponElectivoDefaultField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionCUV2Field;
@@ -918,6 +942,9 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         private int FlagRevistaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FlagSeleccionadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int FlagTextoLibreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -967,6 +994,9 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImgFichaMobileField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImgFondoAppField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImgFondoDesktopField;
@@ -1050,6 +1080,9 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         private string TextoLibreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool TieneStockField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool TieneStockProlField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1119,6 +1152,71 @@ namespace Portal.Consultoras.Web.ServiceOferta {
                 if ((this.AgregarEnMatrizField.Equals(value) != true)) {
                     this.AgregarEnMatrizField = value;
                     this.RaisePropertyChanged("AgregarEnMatriz");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppOfertasHomeImgAlto {
+            get {
+                return this.AppOfertasHomeImgAltoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppOfertasHomeImgAltoField, value) != true)) {
+                    this.AppOfertasHomeImgAltoField = value;
+                    this.RaisePropertyChanged("AppOfertasHomeImgAlto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppOfertasHomeImgAncho {
+            get {
+                return this.AppOfertasHomeImgAnchoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppOfertasHomeImgAnchoField, value) != true)) {
+                    this.AppOfertasHomeImgAnchoField = value;
+                    this.RaisePropertyChanged("AppOfertasHomeImgAncho");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppOfertasHomeImgExtension {
+            get {
+                return this.AppOfertasHomeImgExtensionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppOfertasHomeImgExtensionField, value) != true)) {
+                    this.AppOfertasHomeImgExtensionField = value;
+                    this.RaisePropertyChanged("AppOfertasHomeImgExtension");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppOfertasHomeMsjFormato {
+            get {
+                return this.AppOfertasHomeMsjFormatoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppOfertasHomeMsjFormatoField, value) != true)) {
+                    this.AppOfertasHomeMsjFormatoField = value;
+                    this.RaisePropertyChanged("AppOfertasHomeMsjFormato");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AppOfertasHomeMsjMedida {
+            get {
+                return this.AppOfertasHomeMsjMedidaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AppOfertasHomeMsjMedidaField, value) != true)) {
+                    this.AppOfertasHomeMsjMedidaField = value;
+                    this.RaisePropertyChanged("AppOfertasHomeMsjMedida");
                 }
             }
         }
@@ -1210,6 +1308,19 @@ namespace Portal.Consultoras.Web.ServiceOferta {
                 if ((this.CantidadField.Equals(value) != true)) {
                     this.CantidadField = value;
                     this.RaisePropertyChanged("Cantidad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CantidadPack {
+            get {
+                return this.CantidadPackField;
+            }
+            set {
+                if ((this.CantidadPackField.Equals(value) != true)) {
+                    this.CantidadPackField = value;
+                    this.RaisePropertyChanged("CantidadPack");
                 }
             }
         }
@@ -1332,6 +1443,19 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ColorTextoApp {
+            get {
+                return this.ColorTextoAppField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ColorTextoAppField, value) != true)) {
+                    this.ColorTextoAppField = value;
+                    this.RaisePropertyChanged("ColorTextoApp");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string ConsultoraID {
             get {
                 return this.ConsultoraIDField;
@@ -1340,6 +1464,19 @@ namespace Portal.Consultoras.Web.ServiceOferta {
                 if ((object.ReferenceEquals(this.ConsultoraIDField, value) != true)) {
                     this.ConsultoraIDField = value;
                     this.RaisePropertyChanged("ConsultoraID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool CuponElectivoDefault {
+            get {
+                return this.CuponElectivoDefaultField;
+            }
+            set {
+                if ((this.CuponElectivoDefaultField.Equals(value) != true)) {
+                    this.CuponElectivoDefaultField = value;
+                    this.RaisePropertyChanged("CuponElectivoDefault");
                 }
             }
         }
@@ -1683,6 +1820,19 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FlagSeleccionado {
+            get {
+                return this.FlagSeleccionadoField;
+            }
+            set {
+                if ((this.FlagSeleccionadoField.Equals(value) != true)) {
+                    this.FlagSeleccionadoField = value;
+                    this.RaisePropertyChanged("FlagSeleccionado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int FlagTextoLibre {
             get {
                 return this.FlagTextoLibreField;
@@ -1899,6 +2049,19 @@ namespace Portal.Consultoras.Web.ServiceOferta {
                 if ((object.ReferenceEquals(this.ImgFichaMobileField, value) != true)) {
                     this.ImgFichaMobileField = value;
                     this.RaisePropertyChanged("ImgFichaMobile");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImgFondoApp {
+            get {
+                return this.ImgFondoAppField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImgFondoAppField, value) != true)) {
+                    this.ImgFondoAppField = value;
+                    this.RaisePropertyChanged("ImgFondoApp");
                 }
             }
         }
@@ -2255,6 +2418,19 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool TieneStock {
+            get {
+                return this.TieneStockField;
+            }
+            set {
+                if ((this.TieneStockField.Equals(value) != true)) {
+                    this.TieneStockField = value;
+                    this.RaisePropertyChanged("TieneStock");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool TieneStockProl {
             get {
                 return this.TieneStockProlField;
@@ -2473,6 +2649,9 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ColorTextoAppField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EstrategiaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2489,6 +2668,9 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImgFichaMobileField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ImgFondoAppField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ImgFondoDesktopField;
@@ -2518,6 +2700,19 @@ namespace Portal.Consultoras.Web.ServiceOferta {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ColorTextoApp {
+            get {
+                return this.ColorTextoAppField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ColorTextoAppField, value) != true)) {
+                    this.ColorTextoAppField = value;
+                    this.RaisePropertyChanged("ColorTextoApp");
+                }
             }
         }
         
@@ -2595,6 +2790,19 @@ namespace Portal.Consultoras.Web.ServiceOferta {
                 if ((object.ReferenceEquals(this.ImgFichaMobileField, value) != true)) {
                     this.ImgFichaMobileField = value;
                     this.RaisePropertyChanged("ImgFichaMobile");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ImgFondoApp {
+            get {
+                return this.ImgFondoAppField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImgFondoAppField, value) != true)) {
+                    this.ImgFondoAppField = value;
+                    this.RaisePropertyChanged("ImgFondoApp");
                 }
             }
         }
@@ -3140,6 +3348,9 @@ namespace Portal.Consultoras.Web.ServiceOferta {
         private string Descripcion1Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionGrupoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int DigitableField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3348,6 +3559,19 @@ namespace Portal.Consultoras.Web.ServiceOferta {
                 if ((object.ReferenceEquals(this.Descripcion1Field, value) != true)) {
                     this.Descripcion1Field = value;
                     this.RaisePropertyChanged("Descripcion1");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionGrupo {
+            get {
+                return this.DescripcionGrupoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionGrupoField, value) != true)) {
+                    this.DescripcionGrupoField = value;
+                    this.RaisePropertyChanged("DescripcionGrupo");
                 }
             }
         }
