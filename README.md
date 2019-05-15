@@ -1,3 +1,1 @@
-# Portal Consultoras SB 2
-
-BPT/PI3/Sprint5/FichaResponsive
+# Portal Consultoras SB 2.0
