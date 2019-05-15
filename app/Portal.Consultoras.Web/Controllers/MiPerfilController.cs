@@ -691,9 +691,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string resultado = string.Empty;
             JsonResult response;
-
+            
             try
             {
+                model.Telefono = model.Telefono ?? "";
                 model.DatosExtra = new
                 {
                     userData.ZonaID,
