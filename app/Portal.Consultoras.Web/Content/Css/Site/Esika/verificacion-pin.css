@@ -659,7 +659,7 @@ a{
     border-style:solid;
     position:absolute;
     bottom:8px;
-    right:-20px;
+    right:-30px;
     background-position:center;
     background-repeat:no-repeat;
 }
@@ -667,7 +667,7 @@ a{
 .validacion_erronea{
     border-color:#e81c36;
     background-image:url("/Content/Images/icono_validacion_codigo_sms_erroneo.svg");
-    background-position:6px 6px;
+    background-position:center;
 }
 
 .validacion_exitosa{
