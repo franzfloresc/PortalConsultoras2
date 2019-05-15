@@ -491,10 +491,12 @@ input:focus{
             background-size: 100%;
         }
 
+        .grupo_form_cambio_datos--validacionErronea label:before,
         .grupo_form_cambio_datos--confirmacionPendiente label:before {
             background-image: url(/Content/Images/icono_pendiente_confirmacion.svg);
         }
 
+        .grupo_form_cambio_datos--validacionExitosa label:before,
         .grupo_form_cambio_datos--confirmado label:before{
             background-image: url(/Content/Images/icono_confirmacion.svg);
         }
@@ -526,6 +528,19 @@ input:focus{
         background-color:#FFF;
         z-index:3;
     }
+
+        .grupo_form_cambio_datos--validacionErronea label:before,
+        .grupo_form_cambio_datos--validacionExitosa label:before{
+            display: block;
+            content: "";
+            position: absolute;
+            top: 2px;
+            left: -22px;
+            width: 16px;
+            height: 16px;
+            background-repeat: no-repeat;
+            background-size: 100%;
+        }
 
     .grupo_form_cambio_datos_btn_guardar_wrapper{
         margin-left: -20px;
@@ -619,6 +634,13 @@ input:focus{
     .grupo_form_cambio_datos input:focus + label,
     .grupo_form_cambio_datos select:focus + label{
         color:rgba(0,0,0,1);
+    }
+
+    .grupo_form_cambio_datos--validacionErronea input:focus + label:before,
+    .grupo_form_cambio_datos--validacionErronea .campo_con_datos + label:before,
+    .grupo_form_cambio_datos--validacionExitosa input:focus + label:before,
+    .grupo_form_cambio_datos--validacionExitosa .campo_con_datos + label:before{
+        top:1px;
     }
 
     .campo_con_datos + label{
@@ -925,7 +947,7 @@ input.permiso_cuenta_opcion_checkbox
 }
 
 .btn_primario--miPerfil {
-    z-index: 2000;
+    z-index: 400;
 }
 
 /*  FIN - MI PERFIL */
