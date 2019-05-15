@@ -522,7 +522,7 @@ function RenderCarruselIndividuales(divProd, data) {
     $.each(data.lista, function (key, value) {
         if (value.TipoEstrategiaDetalle.FlagIndividual) {
             var dateItem = new Array(value);
-            AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, dateItem, 0);
+            AnalyticsPortalModule.MarcaPromotionView(data.Seccion.Codigo, dateItem, 0);
             return false;
         }
     });

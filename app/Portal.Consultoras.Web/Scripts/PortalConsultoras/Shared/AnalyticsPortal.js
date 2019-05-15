@@ -45,7 +45,7 @@ var AnalyticsPortalModule = (function () {
         anterior: "Ver anterior",
         duoPerfecto: "Dúo Perfecto",
         palancaLasMasGandoras: "Más Ganadoras",
-        armaTuDuoPerfecto: ' Arma tu Dúo Perfecto - Dúo Perfecto'
+        armaTuDuoPerfecto: 'Arma tu Dúo Perfecto - Dúo Perfecto'
 
         // Fin - Analytics Ofertas (Miguel)
     };
@@ -460,7 +460,7 @@ var AnalyticsPortalModule = (function () {
                 }
 
                 dataLayer.push({
-                    'event': "virtualEvent",
+                    'event': _evento.virtualEvent,
                     'category': parametroList,
                     'action': "Flecha de Productos",
                     'label': paramlabel
@@ -574,43 +574,34 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    var marcaProductImpressionViewRecomendacionesMobile = function (data, index) {
-        try {
-
-            var lista = data.Productos;
-
-            var impressions = [];
-
-            index = index + 1;
-
-            var item = lista[index];
-
-            var impression = {
-                'name': item.DescripcionCompleta,
-                'id': item.CUV,
-                'price': parseFloat(item.Precio).toFixed(2).toString(),
-                'brand': _getMarca(item.MarcaId),
-                'category': _texto.notavaliable,
-                'variant': _texto.estandar,
-                'list': 'Pedido - Ofertas Relacionadas',
-                'position': index + 1
-            };
-            impressions.push(impression);
-
-
-            dataLayer.push({
-                'event': _evento.productImpression,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'impressions': impressions
-                }
-            });
-
-
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
+    //var marcaProductImpressionViewRecomendacionesMobile = function (data, index) {
+    //    try {
+    //        var lista = data.Productos;
+    //        var impressions = [];
+    //        index = index + 1;
+    //        var item = lista[index];
+    //        var impression = {
+    //            'name': item.DescripcionCompleta,
+    //            'id': item.CUV,
+    //            'price': parseFloat(item.Precio).toFixed(2).toString(),
+    //            'brand': _getMarca(item.MarcaId),
+    //            'category': _texto.notavaliable,
+    //            'variant': _texto.estandar,
+    //            'list': 'Pedido - Ofertas Relacionadas',
+    //            'position': index + 1
+    //        };
+    //        impressions.push(impression);
+    //        dataLayer.push({
+    //            'event': _evento.productImpression,
+    //            'ecommerce': {
+    //                'currencyCode': _getCurrencyCodes(),
+    //                'impressions': impressions
+    //            }
+    //        });
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //}
 
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin -Analytics Evento Product Impression
@@ -1209,18 +1200,22 @@ var AnalyticsPortalModule = (function () {
     var marcaGenericaLista = function (seccion, data, pos) {
         try {
             console.log('marcaGenericaLista- ini', seccion, data, pos);
+
+            _marcarProductImpresionSegunLista(data);
+
             // mantener la seccion para LAN, luego ponerlo dentro de data como origen
-            if (typeof seccion === "undefined")
-                return false;
+            //if (typeof seccion === "undefined")
+            //    return false;
 
-            seccion = seccion.replace("Lista", "");
-
-            switch (seccion) {
-                case _codigoSeccion.LAN:
-                case _codigoSeccion.DP: _marcaPromotionViewBanner(seccion, data, pos); break;
-                default:
-                    _marcarProductImpresionSegunLista(data); break;
-            }
+            //seccion = seccion.replace("Lista", "");
+            
+            //switch (seccion) {
+            //    case _codigoSeccion.LAN:
+            //    case _codigoSeccion.DP:
+            //        _marcaPromotionViewBanner(seccion, data, pos); break;
+            //    default:
+            //        _marcarProductImpresionSegunLista(data); break;
+            //}
         } catch (e) {
             console.log('marcaGenericaLista - ' + _texto.excepcion, e);
         }
@@ -1281,6 +1276,27 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
 
+    }
+
+    var marcaPromotionView = function (codigoSeccion, data, pos) {
+        try {
+            if (_constantes.isTest)
+                alert("Marcación promotion view.");
+            var promotions = _autoMapperV2(codigoSeccion, data, pos);
+            if (promotions.length === 0)
+                return false;
+
+            dataLayer.push({
+                'event': _evento.promotionView,
+                'ecommerce': {
+                    'promoView': {
+                        'promotions': promotions
+                    }
+                }
+            });
+        } catch (e) {
+            console.log("marca Promotion View - "_texto.excepcion + e);
+        }
     }
 
     var marcaPromotionClicBanner = function (OrigenPedidoWeb, texto, url) {
@@ -1620,27 +1636,25 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    var _marcaPromotionViewBanner = function (codigoSeccion, data, pos) {
-        try {
-            if (_constantes.isTest)
-                alert("Marcación promotion view.");
-            var promotions = _autoMapperV2(codigoSeccion, data, pos);
-            if (promotions.length === 0)
-                return false;
-
-            dataLayer.push({
-                'event': _evento.promotionView,
-                'ecommerce': {
-                    'promoView': {
-                        'promotions': promotions
-                    }
-                }
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-
-    }
+    //var _marcaPromotionViewBanner = function (codigoSeccion, data, pos) {
+    //    try {
+    //        if (_constantes.isTest)
+    //            alert("Marcación promotion view.");
+    //        var promotions = _autoMapperV2(codigoSeccion, data, pos);
+    //        if (promotions.length === 0)
+    //            return false;
+    //        dataLayer.push({
+    //            'event': _evento.promotionView,
+    //            'ecommerce': {
+    //                'promoView': {
+    //                    'promotions': promotions
+    //                }
+    //            }
+    //        });
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //}
 
     var _autoMapperV2 = function (codigoSeccion, data, pos) {
         var collection = [];
@@ -1665,7 +1679,7 @@ var AnalyticsPortalModule = (function () {
         if (codigoSeccion == _codigoSeccion.DP) {
             element = {
                 'id': _constantes.IdBennerDuoPerfecto,
-                'name': 'Arma tu Dúo Perfecto - Dúo Perfecto',
+                'name': _texto.armaTuDuoPerfecto,
                 'position': (pos !== undefined) ? pos + ' - Dúo Perfecto' : '',
                 'creative': "Banner"
             };
@@ -2747,10 +2761,11 @@ var AnalyticsPortalModule = (function () {
 
         MarcaProductImpressionRecomendaciones: marcaProductImpressionRecomendaciones,
         MarcaProductImpressionViewRecomendaciones: marcaProductImpressionViewRecomendaciones,
-        MarcaProductImpressionViewRecomendacionesMobile: marcaProductImpressionViewRecomendacionesMobile,
+        //MarcaProductImpressionViewRecomendacionesMobile: marcaProductImpressionViewRecomendacionesMobile,
         MarcaRecomendacionesFlechaSiguiente: marcaRecomendacionesFlechaSiguiente,
         MarcaRecomendacionesFlechaAnterior: marcaRecomendacionesFlechaAnterior,
         MarcaOcultarRecomendaciones: marcaOcultarRecomendaciones,
+        MarcaPromotionView: marcaPromotionView,
         MarcaPromotionViewBanner: marcaPromotionViewBanner,
         MarcaPromotionClicBanner: marcaPromotionClicBanner,
         MarcaCategoria: marcaCategoria,
