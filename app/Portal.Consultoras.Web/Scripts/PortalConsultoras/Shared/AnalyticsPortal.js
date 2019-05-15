@@ -422,6 +422,75 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
+    //var _marcarProductImpresionSegunLista = function (data) {
+    //    try {
+    //        if (_constantes.isTest)
+    //            alert("Marcación product impression.");
+
+    //        var parametroList = _getParametroListSegunOrigen(data.Origen);
+
+    //        var lista = data.lista;
+    //        var cantidadMostrar = lista.length == 1 ? 1 : data.CantidadMostrar;
+    //        var impressions = [];
+    //        $.each(lista, function (index) {
+    //            if (index < cantidadMostrar) {
+    //                var item = lista[index];
+    //                var impression = {
+    //                    'name': item.DescripcionCompleta,
+    //                    'id': item.CUV2,
+    //                    'price': item.PrecioVenta,
+    //                    'brand': item.DescripcionMarca,
+    //                    'category': _texto.notavaliable,
+    //                    'variant': _texto.estandar,
+    //                    'list': parametroList,
+    //                    'position': (item.Position == undefined ? index : item.Position) + 1
+    //                };
+
+    //                impressions.push(impression);
+    //            }
+    //        });
+
+    //        _marcarImpresionSetProductos(impressions);
+
+    //        if (data.Direccion != undefined) {
+
+    //            var paramlabel = "Flecha Anterior";
+    //            if (data.Direccion == CarruselVariable.Direccion.next) {
+    //                paramlabel = "Flecha Siguiente";
+    //            }
+
+    //            dataLayer.push({
+    //                'event': _evento.virtualEvent,
+    //                'category': parametroList,
+    //                'action': "Flecha de Productos",
+    //                'label': paramlabel
+    //            });
+    //        }
+
+    //    } catch (e) {
+    //        console.log("marcarProductImpresionSegunLista" + _texto.excepcion + e);
+    //    }
+
+    //}
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Fin - Metodos Iniciales
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Ini - Analytics Evento Product Impression
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    var marcaGenericaLista = function (seccion, data, pos) {
+        try {
+            console.log('marca Generica Lista- ini', seccion, data, pos);
+
+            _marcarProductImpresionSegunLista(data);
+
+        } catch (e) {
+            console.log('marca Generica Lista - ' + _texto.excepcion, e);
+        }
+
+    }
+
     var _marcarProductImpresionSegunLista = function (data) {
         try {
             if (_constantes.isTest)
@@ -472,12 +541,6 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////////
-    // Fin - Metodos Iniciales
-    ////////////////////////////////////////////////////////////////////////////////////////
-    // Ini - Analytics Evento Product Impression
-    ////////////////////////////////////////////////////////////////////////////////////////
 
     //Impresiones por productos en el carrusel
     var _marcarImpresionSetProductos = function (arrayItems) {
@@ -1197,30 +1260,28 @@ var AnalyticsPortalModule = (function () {
 
     }
 
-    var marcaGenericaLista = function (seccion, data, pos) {
-        try {
-            console.log('marcaGenericaLista- ini', seccion, data, pos);
+    //var marcaGenericaLista = function (seccion, data, pos) {
+    //    try {
+    //        console.log('marca Generica Lista- ini', seccion, data, pos);
 
-            _marcarProductImpresionSegunLista(data);
+    //        // mantener la seccion para LAN, luego ponerlo dentro de data como origen
+    //        if (typeof seccion === "undefined")
+    //            return false;
 
-            // mantener la seccion para LAN, luego ponerlo dentro de data como origen
-            //if (typeof seccion === "undefined")
-            //    return false;
+    //        seccion = seccion.replace("Lista", "");
 
-            //seccion = seccion.replace("Lista", "");
-            
-            //switch (seccion) {
-            //    case _codigoSeccion.LAN:
-            //    case _codigoSeccion.DP:
-            //        _marcaPromotionViewBanner(seccion, data, pos); break;
-            //    default:
-            //        _marcarProductImpresionSegunLista(data); break;
-            //}
-        } catch (e) {
-            console.log('marcaGenericaLista - ' + _texto.excepcion, e);
-        }
+    //        switch (seccion) {
+    //            case _codigoSeccion.LAN:
+    //            case _codigoSeccion.DP:
+    //                _marcaPromotionViewBanner(seccion, data, pos); break;
+    //            default:
+    //                _marcarProductImpresionSegunLista(data); break;
+    //        }
+    //    } catch (e) {
+    //        console.log('marca Generica Lista - ' + _texto.excepcion, e);
+    //    }
 
-    }
+    //}
 
     var marcaVerDetalleProducto = function (element, codigoOrigenPedido, url) {
         try {
@@ -1231,7 +1292,9 @@ var AnalyticsPortalModule = (function () {
 
             var list = _getParametroListSegunOrigen(codigoOrigenPedido, url, estoyEnLaFicha);
 
-            var item = $(element).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia");
+            var item = $(element).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia")
+                || $(element).parents("[data-item-cuv]").find("div[data-estrategia]").data("estrategia")
+                || {};
 
             dataLayer.push({
                 'event': _evento.productClick,
