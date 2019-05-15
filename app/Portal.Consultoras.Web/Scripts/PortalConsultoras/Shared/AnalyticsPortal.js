@@ -493,7 +493,7 @@ var AnalyticsPortalModule = (function () {
                 }
             });
         } catch (e) {
-            console.log("_marcarImpresionSetProductos - " + _texto.excepcion + e);
+            console.log("_marcar Impresion Set Productos - " + _texto.excepcion + e);
         }
 
     }
