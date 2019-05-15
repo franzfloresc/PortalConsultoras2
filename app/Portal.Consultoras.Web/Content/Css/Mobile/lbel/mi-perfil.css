@@ -544,6 +544,11 @@ a{
         top:-2px;
     }
 
+        .mensaje_validacion_campo--vistasActualizacion {
+            margin-top: 4px;
+            font-size: 13px;
+        }
+
     @media screen and (max-width:350px){
 
         .w-29{
