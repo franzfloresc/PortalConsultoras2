@@ -412,7 +412,7 @@ a{
 .lista_opciones_verificacion_autenticidad{
     margin-top:29.5px;
     margin-bottom:54px;
-    width:350px;
+    /*width:350px;*/
 }
 
 .opcion_verificacion_autenticidad,
