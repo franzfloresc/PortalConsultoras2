@@ -788,8 +788,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             demostradores = GetOrdenarDemostradores(demostradores, codOrdenar);
             if (codFiltro != "00") demostradores = GetFiltrarDemostradores(demostradores, codFiltro);
             objDemostradores.Total = demostradores.Count();
-            if (cantRegistros != 0) demostradores = GetDesmostradoresByCantidad(demostradores, regMostrados, cantRegistros);
-            
+            if (cantRegistros != 0) demostradores = GetDesmostradoresByCantidad(demostradores, regMostrados, cantRegistros);            
 
             objDemostradores.LstDemostradores = demostradores.Select(e => new BEDemostradoresCaminoBrillante()
             {
@@ -801,6 +800,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 EstrategiaID = e.EstrategiaID,
                 FotoProductoMedium = e.FotoProductoMedium,
                 FotoProductoSmall = e.FotoProductoSmall,
+                MarcaID = e.MarcaID,
                 CodigoMarca = e.CodigoMarca,
                 PrecioCatalogo = e.PrecioCatalogo,
                 PrecioValorizado = e.PrecioValorizado,
