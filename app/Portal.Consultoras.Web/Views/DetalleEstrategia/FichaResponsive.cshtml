@@ -29,64 +29,6 @@
                             </ul>
                         </div>*@
                     <div class="producto_componentes">
-                        <h3 class="contenido_titulo">CONTENIDO:</h3>
-                        <div class="detalle_producto">
-                            <ul class="detalle_producto_detalle">
-                                <li>x 1</li>
-                                <li>Rouge L'Intense Rouge L'Intense. Safran 7 g e. 24 o </li>
-                            </ul>
-                            <a id="btnVerDetalle" class="button_ver_detalle">
-                                Ver detalle <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="">
-                            </a>
-                        </div>
-                        <hr class="componentes_separador" />
-                        <div class="detalle_producto">
-                            <ul class="detalle_producto_detalle">
-                                <li>x 1</li>
-                                <li>Rouge L'Intense Rouge 7 g e. 24 o </li>
-                            </ul>
-                            <a id="btnVerDetalle" class="button_ver_detalle">
-                                Ver detalle <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="">
-                            </a>
-
-                            <div class="tiposytonos_componentes">
-                                <buttom class="tono_select_opt">
-                                    ELIGE 1 OPCIÓN
-                                </buttom>
-                                <div class="tonos_seleccionados">
-                                    <ul class="tonos_seleccionados_item" data-tono="">
-                                        <li class="imagen_seleccionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201906/E/productos/PE_200095507.jpg" alt=""></li>
-                                        <li class="titulo_selecionado">
-                                            <span class="cantidad_producto_opt">x1 </span>
-                                            <span class="descripcion_tipo">Paradisso. Safari adventure</span>
-                                        </li>
-                                    </ul>
-
-                                    <ul class="tonos_seleccionados_item" data-tono="">
-                                        <li class="imagen_seleccionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201906/E/productos/PE_200095507.jpg" alt=""></li>
-                                        <li class="titulo_selecionado">
-                                            <span class="cantidad_producto_opt">x1 </span>
-                                            <span class="descripcion_tipo">Paradisso. Safari adventure</span>
-                                        </li>
-                                    </ul>
-
-                                    <a class="btn_cambiar_opciones" href="">
-                                        Cambiar opción
-                                        <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="componentes_separador" />
-                        <div class="detalle_producto">
-                            <ul class="detalle_producto_detalle">
-                                <li>x 1</li>
-                                <li>Rouge L'Intense Rouge L'Intense Rouge L'Inte. Safran 7 g e. 24 o </li>
-                            </ul>
-                            <a id="btnVerDetalle" class="button_ver_detalle">
-                                Ver detalle <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="">
-                            </a>
-                        </div>
                     </div>
 
                     <div class="tiposytonos_componentes" style="display:none">
@@ -212,7 +154,7 @@
 
         @*<div id="compartir-estrategia" class="share" style="display:none">*@
 
-        </div>
+    </div>
     </div>
 </section>
 
@@ -221,6 +163,7 @@
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/estrategia-template.cshtml")
 @*@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/compartir-estrategia-template.cshtml")*@
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/FichaEnriquecida/tabs-ficha-enriquecida-template.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/componente-estrategia-template.cshtml")
 
 <!-- Modal tipos y tonos -->
 <section id="popup_tonos" class="popup_lateral">
@@ -454,11 +397,7 @@
     </div>
 </section>
 
-
-
-
 @section scripts{
-
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
