@@ -381,6 +381,7 @@ function MostrarBarra(datax, destino) {
             var txtDscto = "";
             var txtDetalle = "";
             if (vLogro <= vLimite) {
+                
                 if (indPuntoLimite == 0) {
                     txtDscto = "";
                     txtDetalle = "DSCTO";
@@ -397,13 +398,18 @@ function MostrarBarra(datax, destino) {
                 }
             }
             else {
-                txtDscto = "DSCTO";
-                txtDetalle = indPuntoLimite != ind ? "" :
+                if (caminoBrillante == "True") {
+                    txtDscto = "";
                     (variablesPortal.SimboloMoneda + "" + limite.MontoDesdeStr + " a más");
-                if (mx > 0 && destino == "1") {
+                } else {
+                    txtDscto = "DSCTO";
                     txtDetalle = indPuntoLimite != ind ? "" :
-                        (variablesPortal.SimboloMoneda + "" + limite.MontoDesdeStr + " a " + variablesPortal.SimboloMoneda + "" + limite.MontoHastaStr);
-                }
+                        (variablesPortal.SimboloMoneda + "" + limite.MontoDesdeStr + " a más");
+                    if (mx > 0 && destino == "1") {
+                        txtDetalle = indPuntoLimite != ind ? "" :
+                            (variablesPortal.SimboloMoneda + "" + limite.MontoDesdeStr + " a " + variablesPortal.SimboloMoneda + "" + limite.MontoHastaStr);
+                    }
+                 }
             }
 
             nombrePunto = limite.nombre2
@@ -2202,7 +2208,6 @@ function CalculoPosicionMinimoMaximoDestokp() {
                             var AvancePorcentaje3 = CalculoPorcentajeAvance(montoMaximo3, montoMaximo);
                             document.getElementById('barra_' + j.toString()).style.left = AvancePorcentaje3;
 
-
                             var AvancePorcentajeP3 = (AvancePorcentaje3.substring(0, AvancePorcentaje3.length - 1) * 1 - 5) + '%'
                             document.getElementById('punto_' + j.toString()).style.left = AvancePorcentajeP3;
 
@@ -2370,7 +2375,8 @@ function CalculoPosicionMinimoMaximoDestokp() {
                         var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
                         avance = (dataBarra.ListaEscalaDescuento[i].MontoDesde - dataBarra.ListaEscalaDescuento[i - 1].MontoDesde)
 
-                        if (avance <= 5000) { 
+
+                        if (avance >= 4000 && avance <= 5000) {
                             if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 + 1.5) + '%';
                             moverBandera = true;
                         } else if (avance >= 5001 && avance <= 9999) {
@@ -2379,12 +2385,12 @@ function CalculoPosicionMinimoMaximoDestokp() {
                         } else if (avance >= 10000 && avance <= 15000) {
                             if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 + 2) + '%';
                             moverBandera = true;
-                        } else
-                            if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left = AvancePorcentaje2;
+                        } else {
 
+                            if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left = AvancePorcentaje2;
                             var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 5) + '%'
                             if (document.getElementById('punto_' + i.toString())) document.getElementById('punto_' + i.toString()).style.left = AvancePorcentajeP2;
-
+                        }
                     }
                 }
             }
