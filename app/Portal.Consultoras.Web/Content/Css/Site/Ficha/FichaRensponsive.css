@@ -1,4 +1,5 @@
-﻿.contenedor_detalle {
+﻿
+.contenedor_detalle {
     margin: 0 auto;
     max-width: 1105px;
     padding: 25px 0;
@@ -123,16 +124,14 @@ ul.breadcumbs li a {
 }
 
 .nombre_marca {
-    text-transform: uppercase;
     font-size: 12px;
+    letter-spacing: 0.8px;
 }
 
 .descripcion {
     font-size: 20px;
     font-weight: 700;
-    letter-spacing: .9px;
-    line-height: 24px;
-    text-transform: uppercase;
+    line-height: 26px;
     margin-bottom: 3px;
 }
 
@@ -148,20 +147,20 @@ ul.breadcumbs li a {
     }
 
 .precio_venta_oferta {
-    font-size: 13px;
+    font-size: 16px;
     margin-bottom: 7px;
     line-height: normal;
+    font-weight: bold;
 }
 
     .precio_venta_oferta span {
         font-weight: bold;
-        font-size: 19px;
-        padding-left: 5px;
+        font-size: 16px;
+        padding-left: 3px;
         line-height: normal;
     }
 
 .ganancia, .ganancia span {
-    color: #b9007e;
     font-size: 13px;
     line-height: normal;
 }
@@ -184,9 +183,8 @@ ul.breadcumbs li a {
         font-size: 13px;
     }
 .contenido_titulo {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: bold;
-    letter-spacing: .5px;
     color: #000;
     margin: 0 0 12px 0;
     line-height: normal;
@@ -205,9 +203,9 @@ ul.breadcumbs li a {
 
     .detalle_producto_detalle li {
         display: inline-block;
-        font-size: 14px;
-        font-weight: bold;
+        font-size: 15px;
         vertical-align: text-top;
+        line-height: normal;
     }
 
     .detalle_producto_detalle li:first-child {
@@ -220,7 +218,7 @@ ul.breadcumbs li a {
 
 .componentes_separador {
     border-top: 1px solid #ccc;
-    margin: 12px 0px;
+    margin: 14px 0px;
 }
 
 .producto_componentes{
@@ -261,7 +259,7 @@ ul.breadcumbs li a {
 }
 
 .contenedor_rangos {
-    border: solid 1px #b0b0b0;
+    border: solid 1px #000;
     height: 45px;
     position: relative;
     width: 25%;
@@ -296,7 +294,7 @@ ul.breadcumbs li a {
 .dibujar_mas, .dibujar_menos {
     margin: auto;
     position: relative;
-    width: 7px;
+    width: 10px;
 }
 
 .dibujar_menos {
@@ -314,11 +312,9 @@ ul.breadcumbs li a {
 .txt_cantidad_pedido {
     background: none;
     border: none;
-    border-left: solid 1px #b0b0b0;
-    border-right: solid 1px #b0b0b0;
     color: #000;
     font-family: 'lato';
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 700;
     height: 43px;
     left: 30%;
@@ -329,8 +325,6 @@ ul.breadcumbs li a {
 }
 
 .btn_agregalo {
-    background: #000;
-    color: #fff !important;
     height: 45px;
     line-height: 45px;
     text-align: center;
@@ -338,7 +332,7 @@ ul.breadcumbs li a {
     border-radius: 4px;
     letter-spacing: 1px;
     font-weight: 600;
-    font-size: 13.5px;
+    font-size: 14px;
     display:block
 }
 
@@ -437,6 +431,15 @@ ul.breadcumbs li a {
 }
 
 /* Fin Botón Agregar*/
+
+
+@media (min-width: 768px) {
+    .contenedor_agregar {
+        border-top: 1px solid #d1d1d4;
+        padding-top: 15px;
+    }
+}
+
 @media (max-width: 768px) {
     .contenedor_detalle {
         background: url('/Content/Images/etiqueta_nuevo.svg');
@@ -472,7 +475,6 @@ ul.breadcumbs li a {
     }
 
     .nombre_marca{
-        font-weight: bold;
         font-size: 11px;
     }
 

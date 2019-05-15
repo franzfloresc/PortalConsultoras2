@@ -18,7 +18,7 @@
     border-radius: 4px;
     width: 100%;
     display: block;
-    font-size: 13px;
+    font-size: 15px;
 }
 
 .tonos_seleccionados {
@@ -52,8 +52,7 @@
 }
 
     .titulo_selecionado span {
-        font-size: 13px;
-        font-weight: bold;
+        font-size: 14px;
     }
 
         .titulo_selecionado span:first-child {
@@ -101,7 +100,7 @@
     }
 
 .detalle_producto .tiposytonos_componentes {
-    margin-top: 10px;
+    margin-top: 14px;
     margin-bottom: 4px;
     width: 100%
 }
@@ -293,10 +292,6 @@
     height: 36px;
 }
 
-.selecion_item .txt_cantidad_pedido {
-    border-left: solid 1px #000;
-    border-right: solid 1px #000;
-}
 
 .selecion_item button {
     font-size: 11px;

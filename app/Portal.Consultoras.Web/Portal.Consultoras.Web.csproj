@@ -1490,6 +1490,7 @@
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas.gif" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas_2.gif" />
+    <Content Include="Content\Css\Site\styleBase.css" />
     <Content Include="Content\Images\checkBuroSAC.svg" />
     <Content Include="Content\Images\etiqueta_nuevo.svg" />
     <Content Include="Content\Images\exclamationBuroSAC.svg" />
