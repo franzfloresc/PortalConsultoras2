@@ -421,7 +421,7 @@ namespace Portal.Consultoras.Web.Controllers
             ServiceODS.BEProductoBusqueda busqueda = new BEProductoBusqueda
             {
                 PaisID = userData.PaisID,
-                CampaniaID = userData.CampaniaID,
+                CampaniaID = model.CampaniaID,
                 CodigoDescripcion = model.CUV,
                 RegionID = userData.RegionID,
                 ZonaID = userData.ZonaID,
