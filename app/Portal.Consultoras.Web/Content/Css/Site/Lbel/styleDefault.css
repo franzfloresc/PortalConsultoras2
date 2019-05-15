@@ -289,8 +289,8 @@
         margin-bottom:20px;
     }
 }
-.multimarca-background-color {
-    background-color: #b9007e;
-}
 
 /* FIN - POPUP GENERAL (ACCIONES ACEPTAR Y CANCELAR) */
+.bg__popups__default {
+    background-color: rgba(0,0,0,.8);
+}

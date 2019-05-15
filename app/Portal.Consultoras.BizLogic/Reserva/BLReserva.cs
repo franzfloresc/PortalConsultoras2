@@ -20,6 +20,15 @@ namespace Portal.Consultoras.BizLogic.Reserva
 {
     public class BLReserva : IReservaBusinessLogic
     {
+        //INI HD-3693
+        private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
+        public BLReserva() : this(new BLTablaLogicaDatos())
+        { }
+        public BLReserva(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic)
+        {
+            _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
+        }
+        //FIN HD-3693
         #region Public Functions
 
         public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo)
@@ -57,8 +66,13 @@ namespace Portal.Consultoras.BizLogic.Reserva
         
         public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
         {
+            //INI HD-3693
+            if (usuario.AutorizaPedido == "0") return  _tablaLogicaDatosBusinessLogic.GetList(usuario.PaisID, Constantes.TablaLogica.MsjPopupBloqueadas).FirstOrDefault(a => a.Codigo == "01").Valor;
+          
+            //FIN HD-3693
+
             if (usuario.IndicadorGPRSB == 1) return string.Format("En este momento nos encontramos facturando tu pedido de C{0}, inténtalo más tarde", usuario.CampaniaID.Substring(4, 2));
-            
+
             var codigoUsuario = usuario.UsuarioPrueba == 1 ? usuario.ConsultoraAsociada : usuario.CodigoUsuario;
             bool validacionAbierta = tipo == "PV";
             short estado = validacionAbierta ? Constantes.EstadoPedido.Procesado : Constantes.EstadoPedido.Pendiente;
@@ -254,43 +268,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 return false;
             }
         }
-
-        //public int InsertarDesglose(BEInputReservaProl input)
-        //{
-        //    try
-        //    {
-        //        TransferirDatos datos;
-        //        using (var sv = new ServiceStockSsic())
-        //        {
-        //            sv.Url = ConfigurationManager.AppSettings["Prol_" + input.PaisISO];
-        //            datos = sv.ObtenerExplotado(input.CodigoConsultora, input.CampaniaID.ToString(), input.PaisISO, input.CodigoZona);
-        //        }
-        //        if (datos == null) return -1;
-
-        //        var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
-        //        {
-        //            PaisId = input.PaisID,
-        //            CampaniaId = input.CampaniaID,
-        //            ConsultoraId = input.ConsultoraID,
-        //            Consultora = input.NombreConsultora,
-        //            EsBpt = input.EsOpt == 1,
-        //            CodigoPrograma = input.CodigoPrograma,
-        //            NumeroPedido = input.ConsecutivoNueva
-        //        };
-        //        var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros).ToList();
-        //        if (listPedidoWebDetalle.Count == 0) return 0;
-
-        //        var listPedidoReserva = GetPedidoReserva(datos.data.Tables[0], listPedidoWebDetalle, input.CodigoUsuario);
-        //        EjecutarReservaPortal(input, listPedidoReserva, listPedidoWebDetalle);
-        //        return listPedidoWebDetalle[0].PedidoID;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.SaveLog(ex, input.CodigoConsultora, input.PaisISO);
-        //        return -1;
-        //    }
-        //}
-
+        
         #endregion
 
         #region Private Functions
@@ -453,18 +431,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 ObservacionPROL = observacion.Descripcion
             };
         }
-
-        //private void EjecutarReservaPortal(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoReserva, List<BEPedidoWebDetalle> listPedidoWebDetalle, decimal montoTotalProl = 0, decimal descuentoProl = 0)
-        //{
-        //    var bLPedidoWebDetalle = new BLPedidoWebDetalle();
-        //    var estadoPedido = Constantes.EstadoPedido.Procesado;
-        //    bLPedidoWebDetalle.InsPedidoWebDetallePROL(input.PaisID, input.CampaniaID, input.PedidoID, estadoPedido, listPedidoReserva, 0, input.CodigoUsuario, montoTotalProl, descuentoProl);
-
-        //    decimal totalPedido = listPedidoWebDetalle.Sum(p => p.ImporteTotal);
-        //    decimal gananciaEstimada = CalcularGananciaEstimada(input.PaisID, input.CampaniaID, input.PedidoID, totalPedido);
-        //    new BLFactorGanancia().UpdatePedidoWebEstimadoGanancia(input.PaisID, input.CampaniaID, input.PedidoID, gananciaEstimada);
-        //}
-
+        
         private decimal CalcularGananciaEstimada(int paisId, int campaniaId, int pedidoId, decimal totalPedido)
         {
             var bLFactorGanancia = new BLFactorGanancia();
@@ -495,37 +462,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             });
             return productosIndicadorDscto.Sum(p => p.MontoDscto);
         }
-
-        //private List<BEPedidoWebDetalle> GetPedidoReserva(DataTable dtr, List<BEPedidoWebDetalle> listPedidoWebDetalle, string codigoUsuario)
-        //{
-        //    var listPedidoReserva = new List<BEPedidoWebDetalle>();
-        //    foreach (DataRow row in dtr.Rows)
-        //    {
-        //        var temp = listPedidoWebDetalle.Where(p => p.CUV == Convert.ToString(row.ItemArray.GetValue(0)));
-        //        if (!temp.Any())
-        //        {
-        //            listPedidoReserva.Add(new BEPedidoWebDetalle()
-        //            {
-        //                CampaniaID = listPedidoWebDetalle[0].CampaniaID,
-        //                PedidoID = listPedidoWebDetalle[0].PedidoID,
-        //                PedidoDetalleID = 0,
-        //                MarcaID = listPedidoWebDetalle[0].MarcaID,
-        //                ConsultoraID = listPedidoWebDetalle[0].ConsultoraID,
-        //                ClienteID = 0,
-        //                Cantidad = Convert.ToInt32(row.ItemArray.GetValue(3)),
-        //                PrecioUnidad = 0,
-        //                ImporteTotal = 0,
-        //                CUV = Convert.ToString(row.ItemArray.GetValue(0)),
-        //                OfertaWeb = false,
-        //                CUVPadre = "0",
-        //                CodigoUsuarioCreacion = codigoUsuario,
-        //                CodigoUsuarioModificacion = codigoUsuario
-        //            });
-        //        }
-        //    }
-        //    return listPedidoReserva;
-        //}
-
+        
         private bool DebeEnviarCorreoReservaProl(BEInputReservaProl input, BEResultadoReservaProl resultado)
         {
             if (!resultado.Reserva || input.Email.IsNullOrEmptyTrim()) return false;
@@ -719,7 +656,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             return flag;
         }
 
-        private bool InsLogEnvioCorreoPedidoValidado(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
+        private void InsLogEnvioCorreoPedidoValidado(BEInputReservaProl input, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             BELogCabeceraEnvioCorreo beLogCabecera = new BELogCabeceraEnvioCorreo
             {
@@ -738,7 +675,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 PrecioUnitario = detalle.PrecioUnidad
             }).ToList();
 
-            return new BLLogEnvioCorreo().InsLogEnvioCorreoPedidoValidado(input.PaisID, beLogCabecera, listLogDetalleEnvioCorreo);
+            var bl = new BLLogEnvioCorreo();
+            bl.InsLogEnvioCorreoPedidoValidado(input.PaisID, beLogCabecera, listLogDetalleEnvioCorreo);
         }
 
         #endregion

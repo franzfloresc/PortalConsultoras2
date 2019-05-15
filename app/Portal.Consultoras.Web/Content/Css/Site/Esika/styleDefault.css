@@ -292,6 +292,7 @@
 }
 
 /* FIN - POPUP GENERAL (ACCIONES ACEPTAR Y CANCELAR) */
-.multimarca-background-color {
-    background-color: #b9007e;
+
+.bg__popups__default{
+    background-color:rgba(0,0,0,.8);
 }

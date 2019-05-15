@@ -55,6 +55,6 @@ namespace Portal.Consultoras.Entities.Pedido
 
         [DataMember]
         [Column("Grupo")]
-        public string Grupo { get; set; }
+        public int Grupo { get; set; }
     }
 }

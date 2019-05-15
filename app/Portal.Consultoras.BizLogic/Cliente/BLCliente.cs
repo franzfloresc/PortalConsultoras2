@@ -401,7 +401,7 @@ namespace Portal.Consultoras.BizLogic
 
         private void RegistrarLogDemoraSP(int paisID, long consultoraID, int campaniaID, TimeSpan diff)
         {
-            var tablaLogicaDatos = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.TiempoMaximoSP).FirstOrDefault(a => a.Codigo == "01");
+            var tablaLogicaDatos = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.TiempoMaximoDemoraSp.TablaLogicaId).FirstOrDefault(a => a.Codigo == "01");
             if (tablaLogicaDatos == null) return;
 
             var valor = tablaLogicaDatos.Valor;

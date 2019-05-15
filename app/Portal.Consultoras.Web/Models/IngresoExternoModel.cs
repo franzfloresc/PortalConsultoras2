@@ -24,5 +24,6 @@
         public string OrigenPedido { get; set; }
         public int idTipoPago { get; set; }
         public bool LimpiarSession { get; set; }
+        public int NivelCaminoBrillante { get; set; }
     }
 }
