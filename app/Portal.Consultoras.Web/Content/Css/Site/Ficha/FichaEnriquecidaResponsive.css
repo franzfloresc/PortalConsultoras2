@@ -1,15 +1,18 @@
 ﻿/*Ficha Enrriquecida*/
-.button_ver_detalle {
+.btn_texto {
     font-size: 13px;
     font-weight: bold;
     margin-left: auto;
     position: relative;
+    letter-spacing: 1px;
+    display: inherit;
 }
 
     .button_ver_detalle img {
         top: -1px;
         width: 10px;
         right: 8px;
+        margin-left: 3px;
     }
 /*Fin Ficha Enrriquecida*/
 
@@ -25,7 +28,7 @@
 }
     .tabs_ficha li {
         display: inline-block;
-        width: 21%;
+        width: 24.7%;
     }
 
     .tabs_ficha li:last-child {
