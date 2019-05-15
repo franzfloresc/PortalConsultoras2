@@ -35,7 +35,7 @@
         SetHandlebars(_elements.estrategia.templateId, estrategia, _elements.estrategia.id);
         // todo : validar si tiene un solo componente
         SetHandlebars(_elements.tabsComponente.templateId, estrategia, _elements.tabsComponente.id);
-        SetHandlebars(_elements.compartirEstrategia.templateId, estrategia, _elements.compartirEstrategia.id);
+        //SetHandlebars(_elements.compartirEstrategia.templateId, estrategia, _elements.compartirEstrategia.id);
         //
         return true;
     };
