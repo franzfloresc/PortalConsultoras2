@@ -36,6 +36,8 @@ module.exports = function (config) {
             // FichaModule
             'Scripts/PortalConsultoras/Shared/ConstantesModule.js',
             'Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js',
+
+            // FichaModule
             'Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js',
             'Scripts/PortalConsultoras/TusClientes/PanelListaModule.js',
             'Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js',
@@ -58,6 +60,17 @@ module.exports = function (config) {
             'Scripts/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenter.js',
             'Scripts/PortalConsultoras/ArmaTuPack/ArmaTuPackProvider.js',
 
+            // FichaResponsive
+            'Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaView.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaPresenter.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesView.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesPresenter.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClienteView.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClientePresenter.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsiveEvents.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsive.js',
+
             // Specs
             'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaModuleSpec.js',
             //
@@ -67,6 +80,8 @@ module.exports = function (config) {
             'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposPresenterSpec.js',
             'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenterSpec.js',
             'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenterSpec.js',
+            //
+            'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaPresenterSpec.js',
             // shared
             'Scripts/shared/AnalyticsPortalSpec.js',
 
