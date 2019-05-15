@@ -150,7 +150,7 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private int IdParametroUneteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> IdParametroUnetePadreField;
+        private int IdParametroUnetePadreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreField;
@@ -221,7 +221,7 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> IdParametroUnetePadre {
+        public int IdParametroUnetePadre {
             get {
                 return this.IdParametroUnetePadreField;
             }

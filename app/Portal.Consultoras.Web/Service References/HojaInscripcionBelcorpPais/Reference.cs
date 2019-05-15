@@ -35,7 +35,7 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         private int IdParametroUneteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> IdParametroUnetePadreField;
+        private int IdParametroUnetePadreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreField;
