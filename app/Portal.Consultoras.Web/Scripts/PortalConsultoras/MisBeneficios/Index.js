@@ -58,7 +58,7 @@ function EstructurarDataProgramasBelcorp(array) {
         else if (item.Descripcion.trim() == "Camino Brillante") {
             item.urlImgBeneficios = urlS3Raiz + "MisBeneficios/" + codigoISO_MB + "/camino_brillante.png";
             item.DetalleDesripcion = "Un nuevo programa que premiará tu crecimiento";
-            item.Descripcion = "<b>CAMINO BRILLANTE</b> " + anioActual;
+            item.Descripcion = "";
         }
         else if (item.Descripcion.trim() == "Familia Protegida" ||
             (codigoISO_MB == 'EC' && item.Descripcion == 'Familia Primero')) {
