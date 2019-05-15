@@ -23,9 +23,17 @@
     };
 
     var _onEstrategiaModelLoaded = function (estrategiaModel) {
+        if (typeof estrategiaModel === "undefined" || estrategiaModel === null) throw "estrategiaModel is null or undefined";
+
         _estrategiaModel(estrategiaModel);
-        _config.estrategiaView.render(_estrategiaModel());
-    }
+
+        var model = _estrategiaModel();
+        
+        if (!_config.estrategiaView.renderBreadcrumbs(model) ||
+            !_config.estrategiaView.renderEstrategia(model)) throw "estrategiaView do not render model";
+
+        return true;
+    };
 
     return {
         onEstrategiaModelLoaded: _onEstrategiaModelLoaded,

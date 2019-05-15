@@ -9,14 +9,14 @@
 
 <hidden id="data-estrategia" data-estrategia='@Html.Raw(Json.Encode(Model))'></hidden>
 
-<div id="ImagenDeFondo" class="imagen_fondo_detalle" style="background-image: url('https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019424344_dkvuwesndt.png');"></div>
+<div id="ImagenDeFondo" class="imagen_fondo_detalle" @*style="background-image: url('https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019424344_dkvuwesndt.png');"*@></div>
 <section class="contenedor_detalle">
     <div class="container">
         <ul id="breadcrumbs" class="breadcumbs"></ul>
         <div class="row scontenedor_fichas">
             <article id="imagen-estrategia" class="col-12 col-md-5 ficha_producto"></article>
 
-            <article class="col-12 col-md-7 ficha_detalle" style="padding-top:75px">
+            <article class="col-12 col-md-7 ficha_detalle" @*style="padding-top:75px"*@>
 
                 <div class="ficha_detalle_cuerpo">
                     <div id="estrategia" class="row contenedor_nombre_precio">
@@ -149,7 +149,7 @@
             </article>
         </div>
 
-        <div id="contenedor-tabs-ficha-enriquecida" class="ficha_enriquecida_contenedor" @*style="display:none"*@>
+        <div id="contenedor-tabs-ficha-enriquecida" class="ficha_enriquecida_contenedor" style="display:none">
         </div>
 
         @*<div id="compartir-estrategia" class="share" style="display:none">*@
