@@ -990,6 +990,7 @@ a{
         padding-right:15px;
         background: transparent;
         font-weight:700;
+        position:relative;
     }
 
     .titulo_interiores,
@@ -1048,12 +1049,16 @@ a{
         margin-bottom:0;
     }
 
-    .enlace_volver_mobile{
-        display:inline-block;
-        width:18px;
-        height:21px;
-        text-decoration:none;
-        margin-right:6px;
+    .enlace_volver_mobile {
+        display: block;
+        width: 18px;
+        height: 21px;
+        text-decoration: none;
+        margin: auto 0;
+        top: 0;
+        bottom: 0;
+        position: absolute;
+        cursor:pointer;
     }
 
         .enlace_volver_mobile:hover{

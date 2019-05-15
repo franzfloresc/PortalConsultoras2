@@ -4,6 +4,9 @@ var t;
 var tipo = 0;
 
 $(document).ready(function () {
+
+    $('.grupo_form_cambio_datos input').on('blur',LabelActivo);
+
     $(".RecuperarPorCorreo").click(function () {
         tipo = 1;
         nroIntentosCo = nroIntentosCo + 1;
@@ -121,6 +124,24 @@ $(document).ready(function () {
         }
     });
 });
+
+(function CamposFormularioConDatos() {
+    var camposFormulario = $('.grupo_form_cambio_datos input');
+    $.map(camposFormulario, function (campoFormulario, key) {
+        if ($(campoFormulario).val()) {
+            $(campoFormulario).addClass('campo_con_datos');
+        }
+    });
+})();
+
+function LabelActivo() {
+    var campoDatos = $(this).val();
+    if (campoDatos) {
+        $(this).addClass('campo_con_datos');
+    } else {
+        $(this).removeClass('campo_con_datos');
+    }
+}
 
 function ProcesaEnvioSMS() {
     Limpiar();
