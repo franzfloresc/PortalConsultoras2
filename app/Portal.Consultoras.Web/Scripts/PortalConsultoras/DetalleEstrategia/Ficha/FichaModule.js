@@ -853,7 +853,6 @@ var FichaModule = (function (config) {
     function _init() {
         _config.esMobile = _config.generalModule.isMobile();
 
-        console.log('Ficha - init');
         var modeloFicha = _getModelo();
 
         _config.tieneSession = modeloFicha.TieneSession;
@@ -873,12 +872,10 @@ var FichaModule = (function (config) {
             return;
         }
 
-        console.log('Ficha - init - construirSeccionFicha');
         _construirSeccionFicha();
         _construirSeccionEstrategia();
         _initCliente();
         _initCarrusel();
-        console.log('Ficha - init - analytics');
         _analytics();
     }
 

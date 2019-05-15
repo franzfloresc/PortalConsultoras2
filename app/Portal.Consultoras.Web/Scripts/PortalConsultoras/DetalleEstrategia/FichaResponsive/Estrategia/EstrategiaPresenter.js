@@ -16,6 +16,8 @@
         if (typeof value === "undefined") {
             return _estrategiaInstance;
         } else if (value !== null) {
+            value.isMobile = isMobile();
+
             _estrategiaInstance = value;
         }
     };
