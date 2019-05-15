@@ -506,6 +506,25 @@ var AnalyticsPortalModule = (function () {
 
         return impressions;
     };
+    
+    //Impresiones por productos en el carrusel
+    var _marcarImpresionSetProductos = function (arrayItems) {
+
+        try {
+
+            var tipoMoneda = _getCurrencyCodes();
+            dataLayer.push({
+                'event': _evento.productImpression,
+                'ecommerce': {
+                    'currencyCode': tipoMoneda,
+                    'impressions': arrayItems
+                }
+            });
+        } catch (e) {
+            console.log("_marcar Impresion Set Productos - " + _texto.excepcion + e);
+        }
+
+    }
 
     var marcaGenericaLista = function (seccion, data, pos) {
         try {
@@ -572,24 +591,6 @@ var AnalyticsPortalModule = (function () {
 
     }
 
-    //Impresiones por productos en el carrusel
-    var _marcarImpresionSetProductos = function (arrayItems) {
-
-        try {
-
-            var tipoMoneda = _getCurrencyCodes();
-            dataLayer.push({
-                'event': _evento.productImpression,
-                'ecommerce': {
-                    'currencyCode': tipoMoneda,
-                    'impressions': arrayItems
-                }
-            });
-        } catch (e) {
-            console.log("_marcar Impresion Set Productos - " + _texto.excepcion + e);
-        }
-
-    }
 
     var marcaProductImpressionRecomendaciones = function (data, isMobile) {
         try {
@@ -600,6 +601,8 @@ var AnalyticsPortalModule = (function () {
             var lista = data.Productos;
 
             var impressions = autoMapperEstrategia(lista, cantidadMostrar, 'Pedido - Ofertas Relacionadas');
+
+            _marcarImpresionSetProductos(impressions);
 
             //$.each(lista, function (index) {
             //    if (index == cantidadMostrar)
@@ -618,13 +621,13 @@ var AnalyticsPortalModule = (function () {
             //    impressions.push(impression);
             //});
 
-            dataLayer.push({
-                'event': _evento.productImpression,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'impressions': impressions
-                }
-            });
+            //dataLayer.push({
+            //    'event': _evento.productImpression,
+            //    'ecommerce': {
+            //        'currencyCode': _getCurrencyCodes(),
+            //        'impressions': impressions
+            //    }
+            //});
 
 
         } catch (e) {
@@ -642,6 +645,8 @@ var AnalyticsPortalModule = (function () {
             listaMarca.push(item);
             var impressions = autoMapperEstrategia(listaMarca, 1, 'Pedido - Ofertas Relacionadas');
 
+            _marcarImpresionSetProductos(impressions);
+
             //var impressions = [];
             //var item = lista[index];
             //var impression = {
@@ -656,13 +661,13 @@ var AnalyticsPortalModule = (function () {
             //};
             //impressions.push(impression);
             
-            dataLayer.push({
-                'event': _evento.productImpression,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'impressions': impressions
-                }
-            });
+            //dataLayer.push({
+            //    'event': _evento.productImpression,
+            //    'ecommerce': {
+            //        'currencyCode': _getCurrencyCodes(),
+            //        'impressions': impressions
+            //    }
+            //});
 
 
         } catch (e) {
