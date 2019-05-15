@@ -90,7 +90,12 @@ else
                     <a id="btnReenviameInstruciones" title="Reenviar el correo" class="enlace_reenviar_instrucciones w-100">
                         Reenviar el correo
                     </a>
-                    <span id="spnReenviarInstrucciones" style="display:none">Se reenvió el correo</span>
+                </div>
+                <div id="spnReenviarInstrucciones" class="notificacion_estado notificacion_estado--exito" style="display:none">
+                    <span class="notificacion_estado_img">
+                        <img src="@Url.Content("~/Content/Images/icono_confirmacion_con_fondo.svg")" alt="" />
+                    </span>
+                    <span class="text-bold">¡Listo! Se reenvió el correo.</span>
                 </div>
                 <button type="button" class="d-block center-block border-radius-4 text-bold mt-23 btn_primario btn_primario--miPerfil"
                         onclick="location.href='@Url.Action("Index")'">

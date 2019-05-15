@@ -94,6 +94,36 @@
         color: #FFF;
     }
 
+.notificacion_estado {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+    .notificacion_estado--exito {
+        color: #569c04;
+    }
+
+    .notificacion_estado_img{
+        display: block;
+        width: 20px;
+        height: 20px;
+        margin-top: -1.2px;
+        margin-right: 4px;
+        margin-bottom: 0!important;
+    }
+
+        .notificacion_estado_img img{
+            width:100%;
+            height:auto;
+        }
+
 /* POPUP GENERAL (ACCIONES ACEPTAR Y CANCELAR) */
 
 .contenedor_popup_general {

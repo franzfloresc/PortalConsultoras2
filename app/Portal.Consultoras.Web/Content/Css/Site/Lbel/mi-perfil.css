@@ -1270,6 +1270,11 @@ input.permiso_cuenta_opcion_checkbox
     margin-left:5px;
 }
 
+.notificacion_estado {
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
 .sin_correo_registrado,
 .sin_numero_celular_registrado
 {
