@@ -1662,8 +1662,20 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.HTMLSACUnete = getHTMLSACUnete("ConsultarEstadoTelefonico", "&id=" + id);
             return PartialView("_ConsultarEstadoTelefonico");
         }
+         
+        [HttpPost]
+        public JsonResult ConsultarEstadoTelefonico(int id, int idEstado)
+        {
+            bool actualizado;
+            using (var sv = new PortalServiceClient())
+            {
+                actualizado = sv.ActualizarEstado(CodigoISO, id, EnumsTipoParametro.EstadoTelefonico, idEstado);
+            }
+            RegistrarLogGestionSacUnete(id.ToString(), "CONSULTA TELEFONICA", "ASIGNAR");
+            return Json(actualizado, JsonRequestBehavior.AllowGet);
+        }
 
-        public ActionResult MostrarMensajeBuro(string respuestaBuro)
+public ActionResult MostrarMensajeBuro(string respuestaBuro)
 		{
             ViewBag.HTMLSACUnete = getHTMLSACUnete("MensajeRespuestaBuro", "&respuestaBuro=" + respuestaBuro);
             return PartialView("~/Views/Unete/_MensajeRespuestaBuro.cshtml");
