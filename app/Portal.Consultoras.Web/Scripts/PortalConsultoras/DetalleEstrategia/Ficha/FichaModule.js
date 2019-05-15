@@ -122,7 +122,6 @@ var FichaModule = (function (config) {
 
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
-    var _tipoEstrategia = ConstantesModule.TipoEstrategia;
     var _tipoAccionNavegar = ConstantesModule.TipoAccionNavegar;
 
     var _objTipoPalanca = ConstantesModule.DiccionarioTipoEstrategia.find(function (x) { return x.texto === _config.palanca });
@@ -882,6 +881,8 @@ var FichaModule = (function (config) {
 });
 
 var FichaPartialModule = (function () {
+
+    var _tipoEstrategia = ConstantesModule.TipoEstrategia;
 
     var _validarData = function (objFicha) {
         objFicha = objFicha || {};
