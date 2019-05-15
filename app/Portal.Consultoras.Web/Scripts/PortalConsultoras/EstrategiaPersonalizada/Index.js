@@ -81,7 +81,7 @@ function VerificarSecciones() {
 }
 
 function SeccionObtenerSeccion(seccion) {
-    
+
     var codigo = $.trim($(seccion).attr("data-seccion"));
     var campania = $.trim($(seccion).attr("data-campania"));
     var detalle = {};
@@ -288,7 +288,7 @@ function SeccionMostrarProductos(data) {
 
     data.Seccion.TemplateProducto = $.trim(data.Seccion.TemplateProducto);
     if ((data.Seccion.TemplateProducto === "" ||
-         data.Seccion.Codigo === undefined) && 
+        data.Seccion.Codigo === undefined) &&
         data.Seccion.Codigo != CONS_CODIGO_SECCION.ATP) {
         return false;
     }
@@ -342,7 +342,7 @@ function SeccionMostrarProductos(data) {
         }
     }
     else if (data.Seccion.Codigo === CONS_CODIGO_SECCION.ATP) {
-        
+
         if (data.lista.length > 0) {
             var btnRedirect = htmlSeccion.find('button.atp_button'),
                 pSubtitulo = htmlSeccion.find('p[data-subtitulo]');
@@ -368,8 +368,8 @@ function SeccionMostrarProductos(data) {
             //data.estaEnPedido = false is new and true is modified
             {
                 var codigoubigeoportal = $('#' + data.Seccion.Codigo).attr('data-codigoubigeoportal');
-                AnalyticsPortalModule.MarcaPromotionViewArmaTuPack(codigoubigeoportal,data.lista[0], data.estaEnPedido);
-            }               
+                AnalyticsPortalModule.MarcaPromotionViewArmaTuPack(codigoubigeoportal, data.lista[0], data.estaEnPedido);
+            }
         }
         else {
             $('.subnavegador').find('[data-codigo=' + data.Seccion.Codigo + ']').fadeOut();
@@ -512,7 +512,13 @@ function RenderCarruselIndividuales(divProd, data) {
 
         indexPosCarruselLan = currentSlide;
 
-        AnalyticsPortalModule.MarcaGenericaLista(data.CodigoPalanca, dateItem, currentSlide);
+        if (data.CodigoPalanca == ConstantesModule.CodigoPalanca.LAN) {
+            AnalyticsPortalModule.MarcaPromotionView(data.CodigoPalanca, dateItem, currentSlide);
+        }
+        else {
+            AnalyticsPortalModule.MarcaGenericaLista(data.CodigoPalanca, dateItem, currentSlide);
+        }
+
         $(sElementos.listadoProductos + " .slick-active [data-acortartxt] p").removeClass("Acortar2Renglones3puntos");
         $(sElementos.listadoProductos + " .slick-active [data-acortartxt] p").addClass("Acortar2Renglones3puntos");
         $(sElementos.listadoProductos + " .slick-active [data-acortartxt] span").removeClass("Acortar3Renglones3puntos");
@@ -522,7 +528,14 @@ function RenderCarruselIndividuales(divProd, data) {
     $.each(data.lista, function (key, value) {
         if (value.TipoEstrategiaDetalle.FlagIndividual) {
             var dateItem = new Array(value);
-            AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, dateItem, 0);
+
+            if (data.Seccion.Codigo == ConstantesModule.CodigoPalanca.LAN) {
+                AnalyticsPortalModule.MarcaPromotionView(data.Seccion.Codigo, dateItem, 0);
+            }
+            else {
+                AnalyticsPortalModule.MarcaGenericaLista(data.Seccion.Codigo, dateItem, 0);
+            }
+
             return false;
         }
     });
