@@ -35,20 +35,6 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        //public IList<string> GetSapFromCuvlist(string cuvList, int campaniaid, int paisId)
-        //{
-        //    var daMisPedidos = new DAConsultoraOnline(paisId);
-        //    var result = new List<string>();
-        //    using (IDataReader reader = daMisPedidos.GetSapFromCuvlist(cuvList, campaniaid))
-        //    {
-        //        while (reader.Read())
-        //        {                  
-        //            result.Add(reader[0].ToString());
-        //        }
-        //        return result;
-        //    }
-        //}
-
         public IList<BEMisPedidos> GetMisPedidos(int PaisID, long ConsultoraId, int Campania)
         {
             var daMisPedidos = new DAConsultoraOnline(PaisID);
@@ -290,9 +276,6 @@ namespace Portal.Consultoras.BizLogic
             var response = httpClient.PostAsync(string.Concat("recomendaciones/", RecomendadoRequest.codigoPais, "/", RecomendadoRequest.codigocampania, "/", RecomendadoRequest.origen), contentPost).GetAwaiter().GetResult();
             var jsonString = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
 
-            //var CurrentDirectory = HttpContext.Current.Server.MapPath(@"~\DataRecomendados\recomendados.json");
-            //var jsonString = System.Text.Encoding.UTF8.GetString(File.ReadAllBytes(CurrentDirectory));
-
             var respuesta = JsonConvert.DeserializeObject<OutputOfertaLista>(jsonString);
 
             return (List<ResponseRecomendacion.Estrategia>)respuesta.Result;
@@ -315,28 +298,27 @@ namespace Portal.Consultoras.BizLogic
                         DescripcionCUV2 = item.DescripcionCUV2,
                         DescripcionEstrategia = item.DescripcionTipoEstrategia,
                         DescripcionMarca = item.MarcaDescripcion,
-                        EstrategiaID = Convert.ToInt32(item.EstrategiaId),
-                        FlagNueva = Convert.ToBoolean(item.FlagNueva) ? 1 : 0,
+                        EstrategiaID = item.EstrategiaId,
+                        FlagNueva = Convert.ToInt32(item.FlagNueva),
                         FlagRevista = item.FlagRevista,
                         FotoProducto01 = item.ImagenURL,
                         ImagenURL = item.ImagenEstrategia,
                         IndicadorMontoMinimo = Convert.ToInt32(item.IndicadorMontoMinimo),
-                        LimiteVenta = Convert.ToInt32(item.LimiteVenta),
-                        MarcaID = Convert.ToInt32(item.MarcaId),
-                        Orden = Convert.ToInt32(item.Orden),
-                        Precio = Convert.ToDecimal(item.Precio),
-                        Precio2 = Convert.ToDecimal(item.Precio2),
-                        PrecioString = Util.DecimalToStringFormat(Convert.ToDecimal(item.Precio2), RecomendadoRequest.codigoPais),
-                        PrecioTachado = Util.DecimalToStringFormat(Convert.ToDecimal(item.Precio), RecomendadoRequest.codigoPais),
-                        GananciaString = Util.DecimalToStringFormat(Convert.ToDecimal(item.Ganancia), RecomendadoRequest.codigoPais),
-                        Ganancia = Convert.ToDecimal(item.Ganancia),
+                        LimiteVenta = item.LimiteVenta,
+                        MarcaID = item.MarcaId,
+                        Orden = item.Orden,
+                        Precio = item.Precio,
+                        Precio2 = item.Precio2,
+                        PrecioString = Util.DecimalToStringFormat(item.Precio2, RecomendadoRequest.codigoPais),
+                        PrecioTachado = Util.DecimalToStringFormat(item.Precio, RecomendadoRequest.codigoPais),
+                        GananciaString = Util.DecimalToStringFormat(item.Ganancia, RecomendadoRequest.codigoPais),
+                        Ganancia = item.Ganancia,
                         TextoLibre = item.TextoLibre,
-                        TieneVariedad = Convert.ToBoolean(item.TieneVariedad) ? 1 : 0,
-                        TipoEstrategiaID = Convert.ToInt32(item.TipoEstrategiaId),
+                        TieneVariedad = Convert.ToInt32(item.TieneVariedad),
+                        TipoEstrategiaID = item.TipoEstrategiaId,
                         TipoEstrategiaImagenMostrar = 6,
-                        EsSubCampania = Convert.ToBoolean(item.EsSubCampania) ? 1 : 0,
+                        EsSubCampania = Convert.ToInt32(item.EsSubCampania),
                         Niveles = item.Niveles,
-                        // TODO: liberar comentario
                         CantidadPack = item.CantidadPack
                     };
                     estrategia.TipoEstrategia = new BETipoEstrategia { Codigo = item.CodigoTipoEstrategia };
@@ -353,7 +335,7 @@ namespace Portal.Consultoras.BizLogic
                                 SAP = componente.CodigoSap,
                                 Orden = componente.Orden,
                                 Precio = componente.PrecioUnitario,
-                                Digitable = Convert.ToBoolean(componente.IndicadorDigitable) ? 1 : 0,
+                                Digitable = Convert.ToInt32(componente.IndicadorDigitable),
                                 Cantidad = componente.Cantidad,
                                 FactorCuadre = componente.FactorCuadre,
                                 IdMarca = componente.MarcaId,
@@ -514,7 +496,6 @@ namespace Portal.Consultoras.BizLogic
             var EstrategiasRecomendadas = new List<ResponseRecomendacion.Estrategia>();
 
             var EstrategiasIndividuales = new List<ResponseRecomendacion.Estrategia>();
-            var EstrategiasIndividualesClone = new List<ResponseRecomendacion.Estrategia>();
 
             foreach (var estrategia in Estrategias)
             {
@@ -524,7 +505,6 @@ namespace Portal.Consultoras.BizLogic
             }
 
             EstrategiasIndividuales = EstrategiasIndividuales.OrderByDescending(x => x.Componentes[0].Cantidad).ToList();
-            EstrategiasIndividualesClone = EstrategiasIndividuales;
 
             foreach (var estrategia in EstrategiasIndividuales)
             {
@@ -680,8 +660,7 @@ namespace Portal.Consultoras.BizLogic
                     {
                         foreach (var productoSolicitado in ProductosSolicitados)
                         {
-                            var componente = estrategia.Componentes.Where(comp => comp.CodigoSap == productoSolicitado.CodigoSap && comp.Cantidad > productoSolicitado.Cantidad).FirstOrDefault();
-
+                            var componente = estrategia.Componentes.FirstOrDefault(comp => comp.CodigoSap == productoSolicitado.CodigoSap && comp.Cantidad > productoSolicitado.Cantidad);
                             CantidadAdicionales = CantidadAdicionales + (componente.Cantidad - productoSolicitado.Cantidad);
                         }
 
@@ -711,12 +690,12 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
 
-            EstrategiasIndividuales = EstrategiasIndividuales.OrderByDescending(x => x.Componentes.Where(y=>y.CodigoSap.Equals(ProductoSolicitado.CodigoSap)).First().Cantidad).ToList();
+            EstrategiasIndividuales = EstrategiasIndividuales.OrderByDescending(x => x.Componentes.First(y=>y.CodigoSap.Equals(ProductoSolicitado.CodigoSap)).Cantidad).ToList();
 
             foreach (var estrategia in EstrategiasIndividuales)
             {
-                var residuo = ProductoSolicitado.Cantidad % estrategia.Componentes.Where(y => y.CodigoSap.Equals(ProductoSolicitado.CodigoSap)).First().Cantidad;
-                var cociente = ProductoSolicitado.Cantidad / estrategia.Componentes.Where(y => y.CodigoSap.Equals(ProductoSolicitado.CodigoSap)).First().Cantidad;
+                var residuo = ProductoSolicitado.Cantidad % estrategia.Componentes.First(y => y.CodigoSap.Equals(ProductoSolicitado.CodigoSap)).Cantidad;
+                var cociente = ProductoSolicitado.Cantidad / estrategia.Componentes.First(y => y.CodigoSap.Equals(ProductoSolicitado.CodigoSap)).Cantidad;
                 if (residuo == 0)
                 {
                     CantidadAdicionales = estrategia.Componentes.Where(y => !y.CodigoSap.Equals(ProductoSolicitado.CodigoSap)).Sum(x => x.Cantidad) * cociente;

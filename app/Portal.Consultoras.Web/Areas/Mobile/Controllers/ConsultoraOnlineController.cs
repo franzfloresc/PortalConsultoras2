@@ -928,7 +928,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             try
             {
-                var lstPedidos = new List<BEMisPedidos>();
+                List<BEMisPedidos> lstPedidos;
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
                     lstPedidos = svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID).ToList();
@@ -942,7 +942,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     lstPedidos.ForEach(x => x.FormatoPrecioTotal = Util.DecimalToStringFormat(x.PrecioTotal, userData.CodigoISO));
 
                     // obtener todo los detalles de los pedidos hechos
-                    var lstPedidosDetalleAll = new List<BEMisPedidosDetalle>();
+                    List<BEMisPedidosDetalle> lstPedidosDetalleAll;
                     using (UsuarioServiceClient svc = new UsuarioServiceClient())
                     {
                         lstPedidosDetalleAll = svc.GetMisPedidosDetallePendientesAll(userData.PaisID, userData.CampaniaID, userData.ConsultoraID).ToList();
@@ -963,9 +963,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         var lstCuv = lstPedidosDetalleAll.Where(x => x.CUV == cuv);
                         var det = lstPedidosDetalleAll.First(x => x.CUV == cuv);
                         var ids = lstCuv.Where(x => x.CUV == cuv).Select(x => x.PedidoId.ToString()).ToArray();
-                        //item.Cantidad = lst1.Count();
                         det.CantidadTotal = lstCuv.Sum(x => x.Cantidad);
-                        //det.PrecioTotal = (lstCuv.Sum(x => x.PrecioUnitario) * lstCuv.Sum(x => x.Cantidad));
                         det.PrecioTotal = (det.CantidadTotal * det.PrecioUnitario);
                         det.FormatoPrecioTotal = Util.DecimalToStringFormat(det.PrecioTotal.ToDecimal(), userData.CodigoISO);
                         det.ListaClientes = lstPedidos.Where(x => ids.Contains(x.PedidoId.ToString())).ToArray();
@@ -1011,7 +1009,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (!lstPedidos.Any())
                 {
-                    //if (consultoraOnlineMisPedidos.ListaPedidos.Count > 0)
                     if (pedidos.ListaPedidos.Any())
                         return RedirectToAction("Pendientes", "ConsultoraOnline", new { area = "Mobile" });
                     else
@@ -1037,25 +1034,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     model.MiPedido = firstPedido;
 
                     lstPedidosDetatalle = CargarMisPedidosDetalleDatos(firstPedido.MarcaID, lstPedidosDetatalle);
-                    //SessionManager.SetobjMisPedidosDetalle(lstPedidosDetatalle);
                     SessionManager.SetobjMisPedidos(pedidos);
                     var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(lstPedidosDetatalle);
                     detallePedidos.Update(p => p.CodigoIso = userData.CodigoISO);
                     model.ListaDetalle2 = detallePedidos;
                 }
-
-                //model.RegistrosTotal = model.ListaDetalle2.Count.ToString();
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-
-            //using (SACServiceClient sv = new SACServiceClient())
-            //{
-            //    var lsMotivos = sv.GetMotivosRechazo(userData.PaisID).ToList();
-            //    ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(lsMotivos);
-            //}
 
             return View(model);
         }
@@ -1077,7 +1065,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 var arrIds = new List<string>();
-                //var lstdetalle = new List<BEMisPedidosDetalle>();
 
                 foreach (var cab in pedidos.ListaPedidos)
                 {
@@ -1091,7 +1078,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 if (!arrIds.Any())
                 {
-                    //if (consultoraOnlineMisPedidos.ListaPedidos.Count > 0)
                     if (pedidos.ListaPedidos.Any())
                         return RedirectToAction("Pendientes", "ConsultoraOnline", new { area = "Mobile" });
                     else
@@ -1105,10 +1091,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 model.ListaPedidos = lstPedidos.ToList();
-                //model.ListaPedidos[0].DetallePedido = lstdetalle.ToArray();
-                //model.RegistrosTotal = model.ListaPedidos.Count.ToString();
                 SessionManager.SetobjMisPedidos(model);
-                //SessionManager.SetobjMisPedidosDetalle(lstdetalle);
                 ViewBag.CUVx = cuv;
                 ViewBag.Productox = producton;
             }
@@ -1116,12 +1099,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-
-            //using (SACServiceClient svc = new SACServiceClient())
-            //{
-            //    var lstMotivos = svc.GetMotivosRechazo(userData.PaisID).ToList();
-            //    ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(lstMotivos);
-            //}
 
             return View(model);
         }
@@ -1170,17 +1147,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private List<ServiceODS.BEProducto> GetValidarCuvMisPedidos(List<BEMisPedidosDetalle> lstMisPedidosDet)
         {
-            //var txtBuil = new StringBuilder();
-            //foreach (var item in lstMisPedidosDet)
-            //{
-            //    txtBuil.Append(item.CUV + ",");
-            //}
-
-            //var inputCuv = txtBuil.ToString();
             var inputCuv = string.Join(",", lstMisPedidosDet.Select(x => x.CUV).ToList());
-            //inputCuv = inputCuv.Substring(0, inputCuv.Length - 1);
-            var lstMisProductos = new List<ServiceODS.BEProducto>();
 
+            List<ServiceODS.BEProducto> lstMisProductos;
             using (ODSServiceClient svc = new ODSServiceClient())
             {
                 lstMisProductos = svc.GetValidarCUVMisPedidos(userData.PaisID, userData.CampaniaID, inputCuv, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona).ToList();
@@ -1201,9 +1170,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             pedidosSesion.ForEach(pedido =>
             {
-                if (pedido.DetallePedido.Any(i => i.Elegido == true))
+                if (pedido.DetallePedido.Any(i => i.Elegido))
                 {
-                    var odetalleTemporal = CargarMisPedidosDetalleDatos(pedido.MarcaID, pedido.DetallePedido.Where(i => i.Elegido == true).ToList());
+                    var odetalleTemporal = CargarMisPedidosDetalleDatos(pedido.MarcaID, pedido.DetallePedido.Where(i => i.Elegido).ToList());
                     var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(odetalleTemporal);
                     detallePedidos.Update(p => p.CodigoIso = userData.CodigoISO);
                     oListaCatalogo.AddRange(detallePedidos);

@@ -815,7 +815,7 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private int EstadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> FKIdParametroUneteField;
+        private int FKIdParametroUneteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IdParametroUneteField;
@@ -866,7 +866,7 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> FKIdParametroUnete {
+        public int FKIdParametroUnete {
             get {
                 return this.FKIdParametroUneteField;
             }
