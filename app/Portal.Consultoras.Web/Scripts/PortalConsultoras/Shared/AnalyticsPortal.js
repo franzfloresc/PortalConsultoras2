@@ -481,7 +481,7 @@ var AnalyticsPortalModule = (function () {
 
     var autoMapperEstrategia = function (lista, cantidadMostrar, parametroList) {
 
-        lista = lista[];
+        lista = lista || [];
         cantidadMostrar = cantidadMostrar || 0;
         parametroList = parametroList || "";
 
@@ -506,7 +506,7 @@ var AnalyticsPortalModule = (function () {
 
         return impressions;
     };
-    
+
     //Impresiones por productos en el carrusel
     var _marcarImpresionSetProductos = function (arrayItems) {
 
@@ -591,7 +591,6 @@ var AnalyticsPortalModule = (function () {
 
     }
 
-
     var marcaProductImpressionRecomendaciones = function (data, isMobile) {
         try {
 
@@ -660,7 +659,7 @@ var AnalyticsPortalModule = (function () {
             //    'position': index + 1
             //};
             //impressions.push(impression);
-            
+
             //dataLayer.push({
             //    'event': _evento.productImpression,
             //    'ecommerce': {
