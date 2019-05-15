@@ -120,12 +120,30 @@
         };
         function mensajeError() {
             var obj = $.trim(IfNull($('#NuevoCelular').val(), ''));
-
+            var band;
             var result = me.Funciones.ValidarCelular(obj);
-            if (obj != "" && !result.Success) me.Funciones.ShowError(result.Messages.join('<br>'));
-            else me.Funciones.ShowError("");
+            me.Funciones.ShowError("");
 
+
+
+            if (obj == "") band = null;
+            else if (obj != "" && !result.Success) {
+                me.Funciones.ShowError(result.Messages.join('<br>'));
+                band = false;
+            } else band = true;
+
+            activaCheck(band);
         };
+        function activaCheck(band) {
+            var obj = $(".form_actualizar_celular .grupo_form_cambio_datos");
+            obj.removeClass("grupo_form_cambio_datos--validacionExitosa");
+            obj.removeClass("grupo_form_cambio_datos--validacionErronea");
+            if (band == null) return;
+
+            if (band) obj.addClass("grupo_form_cambio_datos--validacionExitosa");
+            else obj.addClass("grupo_form_cambio_datos--validacionErronea");
+
+        }
        //FIN HD-3897
 
         function getLengthPais(iso) {
@@ -391,7 +409,8 @@
             SetIsoPais: setIsoPais,
             HandleError: handleError,
             SetSmsCode: setSmsCode,
-            ResetSmsCode: resetSmsCode
+            ResetSmsCode: resetSmsCode,
+            activaCheck: activaCheck
         };
 
     })();
@@ -420,6 +439,7 @@
                 CerrarLoad();
                 if (!r.Success) {
                     me.Funciones.ShowError(r.Message);
+                    me.Funciones.activaCheck(false);
                     return;
                 }
                 me.Elements.getCelularNuevoText().text(nuevoCelular);

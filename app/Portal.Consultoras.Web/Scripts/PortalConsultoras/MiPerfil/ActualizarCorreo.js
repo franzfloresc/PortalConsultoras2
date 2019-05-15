@@ -19,10 +19,28 @@ var MiPerfil_ActualizarCorreo = function (_config) {
     };
     var mensajeError = function () {
         var obj = getData().correoNuevo;
-        if (obj!="" && !validateEmail(obj)) $("#ValidateCorreo").show();
-        else $("#ValidateCorreo").hide();
+        var band;
+        $("#ValidateCorreo").hide();
 
+        if (obj == "") band = null;
+        else if (obj != "" && !validateEmail(obj)) {
+            $("#ValidateCorreo").show();
+            band = false;
+        } else band = true;
+        
+
+        activaCheck(band);
     };
+    var activaCheck = function (band) {
+        var obj = $("div[vista-id=1] .grupo_form_cambio_datos");
+        obj.removeClass("grupo_form_cambio_datos--validacionExitosa");
+        obj.removeClass("grupo_form_cambio_datos--validacionErronea");
+        if (band == null) return;
+
+        if (band) obj.addClass("grupo_form_cambio_datos--validacionExitosa");
+        else obj.addClass("grupo_form_cambio_datos--validacionErronea");
+        
+    }
     //FIN HD-3897
 
     var showSuccess = function (message) { AbrirMensaje(message, 'Mensaje', '', 2); };
