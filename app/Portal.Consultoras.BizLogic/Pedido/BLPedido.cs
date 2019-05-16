@@ -128,7 +128,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 {
                     #region HorarioRestringido
 
-                    var Reservado = false;
+                    var reservado = false;
                     if (!(pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel
                         || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha
                         || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel
@@ -137,10 +137,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha))
                     {
                         var respuesta = RespuestaModificarPedido(pedidoDetalle.Usuario);
-                        Reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);
                         if (respuesta != null)
                         {
-                            if(!Reservado)
+                            reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);
+
+                            if (!reservado)
                             {
                                 return respuesta;
                             }
@@ -155,9 +156,16 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         var usuario = pedidoDetalle.Usuario;
                         //var input = Mapper.Map<BEInputReservaProl>(usuario);
                         var pedido = _pedidoWebBusinessLogic.ValidacionModificarPedido(usuario.PaisID, usuario.ConsultoraID, usuario.CampaniaID, usuario.UsuarioPrueba == 1, usuario.AceptacionConsultoraDA);
-                        if(Reservado)
+                        if(reservado)
                         {
-                            var reservado = _reservaBusinessLogic.EjecutarReserva(null, true);
+                            var taskResultadoProl = Task.Run(() => _reservaBusinessLogic.EjecutarReserva(pedidoDetalle.ReservaProl, true));
+                            Task.WaitAll(taskResultadoProl);
+                            var resultadoProl = taskResultadoProl.Result;
+
+                            if(!(resultadoProl.ResultadoReservaEnum == Enumeradores.ResultadoReserva.Reservado || resultadoProl.ResultadoReservaEnum == Enumeradores.ResultadoReserva.ReservadoObservaciones))
+                            {
+                                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVA_NINGUNO, "Error al actualizar la reserva del pedido");
+                            }
                         }
 
                         oTransactionScope.Complete();
