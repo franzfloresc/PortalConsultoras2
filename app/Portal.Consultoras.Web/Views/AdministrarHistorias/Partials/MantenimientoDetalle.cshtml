@@ -93,7 +93,7 @@
     @if (Model.Proc == 1)
     {
         <div style="color: #ff0000">
-            Tener en cuenta el límite de Historias, su número máximo es de <strong>@Model.CantidadContenido</strong>, si supera el límite se desactiva la primera Historia.
+            @Model.LimitDetMensaje
         </div>
     }
   </div>

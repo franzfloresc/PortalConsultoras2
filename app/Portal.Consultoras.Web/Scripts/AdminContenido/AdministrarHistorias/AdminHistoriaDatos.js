@@ -59,7 +59,6 @@
         if (cellvalue == "") {
             act = "<img src='" + rutaImagenVacia + "' border='0' style='max-width: 40px; max-height: 40px;' />";
         } else {
-            //act = "<img src='" + urlDetalleS3 + cellvalue + "' border='0' style='max-width: 40px; max-height: 40px;' />";
             act = "<a href='javascript:;' onclick=\'return admHistoriaDatos.VerImagen(event, \"" + cellvalue + "\");\' >" + "<img src='" + urlDetalleS3 + cellvalue + "' border='0' style='max-width: 40px; max-height: 40px;' /></a>";
         }
         return act;
@@ -160,9 +159,7 @@
 
         var rowId = $(event.path[1]).parents('tr').attr('id');
         var row = jQuery(_elemento.TablaId).getRowData(rowId);
-        //console.log("rowId",rowId);
-        //console.log("row",row);
-        //return;
+
         var entidad = {
             IdContenidoDeta: row['IdContenidoDeta'],
             IdContenido: row['IdContenido'],
@@ -183,8 +180,7 @@
     }
 
     var _RegistroObtenerPopupImagen = function (modelo) {
-        //console.log(modelo);
-        //return;
+
         waitingDialog();
         $.ajax({
             url: _url.UrlGrillaVerImagen,
@@ -194,8 +190,6 @@
             contentType: 'application/json; charset=utf-8',
             success: function (result) {
                 closeWaitingDialog();
-                console.log(result);
-                //return;
 
                 $("#dialog-content-imagen").empty();
                 $("#dialog-content-imagen").html(result);
@@ -210,8 +204,7 @@
     };
 
     var _RegistroObterner = function (modelo) {
-        //console.log(modelo);
-        //return;
+ 
         waitingDialog();
         $.ajax({
             url: _url.UrlGrillaEditar,
@@ -279,13 +272,13 @@
             data: JSON.stringify(listaDatos),
             async: true,
             success: function (data) {
-                //console.log(data);
+ 
                 if (data.success) {
-                    console.log("exito");
+   
                     HideDialog(_elemento.DialogRegistro);
                     _toastHelper.success(_texto.ProcesoConforme);
-                    $('#tblHistoriaDet').trigger('reloadGrid');
-                    //CargarGrilla();
+                    $(_elemento.TablaId).trigger('reloadGrid');
+    
                 }
                 else {
                     _toastHelper.error(_texto.ProcesoError);
@@ -313,24 +306,18 @@
             open: function (event, ui) { },
             buttons:
             {
-                //'Guardar': function () {
-                //    // _GuardarDatos(this);
-                //},
                 'Salir': function () {
                     HideDialog("DialogImagen");
                 }
             }
         });
     };
-
    
     var GrillaEditarContenedor = function (event) {
 
         var rowId = $(event.path[1]).parents('tr').attr('id');
         var row = jQuery(_elemento.TablaId).getRowData(rowId);
-        console.log("rowId", row);
-        console.log("row=>",row);
-        //return;
+
         var entidad = {
             Proc: 2,
             IdContenidoDeta: row['IdContenidoDeta'],
@@ -345,8 +332,7 @@
         _RegistroObternerDetalle(entidad);
     }
     var _RegistroObternerDetalle = function (modelo) {
-        //console.log(modelo);
-        //return;
+ 
         waitingDialog();
         $.ajax({
             url: _url.UrlGrillaEditarContenedor,
@@ -362,7 +348,7 @@
                 $("#dialog-content-detalle").html(result).ready(function () {
                    // UploadFileDetalle("desktop-detalle");
                 });
-
+                $('#DialogMantenimientoDetalle').dialog('option', 'title', "Editar");
                 showDialog("DialogMantenimientoDetalle");
 
             },
@@ -377,7 +363,6 @@
     
     };
 
-   
     return {
         ini: function (param) {
             _initializar(param);

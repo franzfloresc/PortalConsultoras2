@@ -77,10 +77,7 @@ function IniDialogDetalle() {
                     CodigoDetalle: CodigoDetalle,
                        
                  };
-              
-                console.log("params=>",params);
-               // return;
-          
+                        
                     waitingDialog({});
 
                     jQuery.ajax({
@@ -141,7 +138,7 @@ function ModificarDetalle(Proc, IdContenido) {
             $("#dialog-content-detalle").html(result).ready(function () {
                 UploadFileDetalle("desktop-detalle");
             });
-
+            $('#DialogMantenimientoDetalle').dialog('option', 'title', "Nuevo");
             showDialog("DialogMantenimientoDetalle");
         },
         error: function (request, status, error) { closeWaitingDialog(); _toastHelper.error("Error al cargar la ventana."); }

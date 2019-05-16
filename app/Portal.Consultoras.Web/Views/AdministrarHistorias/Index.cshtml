@@ -101,7 +101,10 @@
                     <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" onclick="javaScript: NuevoDetalle('@Model.IdContenido');" />
                     @*<input type="submit" value="Cargar" />*@
                 </div>
-                <div class="titG">Campaña:</div>
+                <div class="titG">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Campaña:
+                </div>
                 <div class="selectP2 borde_redondeado">
                     @Html.DropDownList("Campania", new SelectList(Model.ListaCampanias, "CampaniaID", "NombreCorto"), "-- Todos --", new { id = "ddlCampania" })
                 </div>

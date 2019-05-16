@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Web.Models
         public string Alto { get; set; }
         public string CUV { get; set; }
         public int Campania { set; get; }
-        public int CantidadContenido { get; set; }
+        public String LimitDetMensaje { get; set; }
         public IEnumerable<CampaniaModel> ListaCampanias { set; get; }
         public IEnumerable<AdministrarHistorialDetaActModel> ListaAccion { set; get; }
         public IEnumerable<AdministrarHistorialDetaActModel> ListaCodigoDetalle { set; get; }

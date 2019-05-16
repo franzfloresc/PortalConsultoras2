@@ -354,6 +354,10 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult GetDetalle(int Proc, int IdContenido)
         {
             string HistAnchoAlto = ConfigurationManager.AppSettings["HistAnchoAltoDetalle"];
+           
+
+           string HistLimitDetMensaje1 = ConfigurationManager.AppSettings["HistLimitDetMensaje"];
+
             string[] arrHistAnchoAlto;
             arrHistAnchoAlto = HistAnchoAlto.Split(',');
 
@@ -373,7 +377,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
 
                 entidad = sv.GetContenidoAppHistoria(userData.PaisID, Globals.CodigoHistoriasResumen);
-                model.CantidadContenido = entidad.CantidadContenido;
+                model.LimitDetMensaje = string.Format(ConfigurationManager.AppSettings["HistLimitDetMensaje"], entidad.CantidadContenido);//entidad.CantidadContenido;
             }
 
             return PartialView("Partials/MantenimientoDetalle", model);
