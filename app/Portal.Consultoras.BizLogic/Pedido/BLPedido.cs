@@ -128,6 +128,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 {
                     #region HorarioRestringido
 
+                    var Reservado = false;
                     if (!(pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel
                         || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha
                         || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel
@@ -136,9 +137,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha))
                     {
                         var respuesta = RespuestaModificarPedido(pedidoDetalle.Usuario);
+                        Reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);
                         if (respuesta != null)
                         {
-                            return respuesta;
+                            if(!Reservado)
+                            {
+                                return respuesta;
+                            }
                         }
                     }
                     #endregion
@@ -147,6 +152,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                     if (respuestaT.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS)
                     {
+                        var usuario = pedidoDetalle.Usuario;
+                        //var input = Mapper.Map<BEInputReservaProl>(usuario);
+                        var pedido = _pedidoWebBusinessLogic.ValidacionModificarPedido(usuario.PaisID, usuario.ConsultoraID, usuario.CampaniaID, usuario.UsuarioPrueba == 1, usuario.AceptacionConsultoraDA);
+                        if(Reservado)
+                        {
+                            var reservado = _reservaBusinessLogic.EjecutarReserva(null, true);
+                        }
+
                         oTransactionScope.Complete();
                     }
                     return respuestaT;
@@ -232,6 +245,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
             if (validacionHorario.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Bloqueado)
                 return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_CONSULTORA_BLOQUEADA, validacionHorario.Mensaje);
             //FIN HD-3693
+
+            if (validacionHorario.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado)
+                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA, validacionHorario.Mensaje);
 
             if (validacionHorario.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno)
                 return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, validacionHorario.Mensaje);
