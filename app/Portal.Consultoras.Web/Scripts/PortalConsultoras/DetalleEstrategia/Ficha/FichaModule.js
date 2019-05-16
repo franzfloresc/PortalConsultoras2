@@ -718,7 +718,7 @@ var FichaModule = (function (config) {
     var _getModelo = function () {
 
         var modeloFicha = {};
-        Console.log('Ficha - promise Obterner Modelo');
+
         _config.detalleEstrategiaProvider
             .promiseObternerModelo({
                 palanca: _config.palanca,
@@ -766,7 +766,9 @@ var FichaModule = (function (config) {
             divCarruselContenedor: "#divFichaCarrusel",
             idTituloCarrusel: "#tituloCarrusel",
             divCarruselProducto: "#divFichaCarruselProducto",
-            OrigenPedidoWeb: _config.origen
+            OrigenPedidoWeb: _config.origen,
+            tituloCarrusel: modeloFicha.DescripcionCompleta,
+            cantidadPack: modeloFicha.Hermanos.length
         });
 
         carruselModule.Inicializar();

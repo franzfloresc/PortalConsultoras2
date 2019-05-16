@@ -337,7 +337,9 @@ var CarruselModule = (function (config) {
         cuv: config.cuv || "",
         urlDataCarrusel: config.urlDataCarrusel || "/Estrategia/FichaObtenerProductosCarrusel",
         OrigenPedidoWeb: config.OrigenPedidoWeb || "",
-        pantalla: "Ficha"
+        pantalla: "Ficha",
+        tituloCarrusel: config.tituloCarrusel,
+        cantidadPack: config.cantidadPack
     };
 
     var _elementos = {
@@ -494,7 +496,11 @@ var CarruselModule = (function (config) {
             titulo = 'SET DONDE ENCUENTRAS EL PRODUCTO';
         }
         else if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.ShowRoom) {
-            titulo = 'VER MÁS SETS EXCLUSIVOS PARA TI';
+            if (_config.cantidadPack > 1) {
+                titulo = 'Packs parecidos que contienen más productos';
+            } else {
+                titulo = 'Packs que Contienen ' + _config.tituloCarrusel;
+            }
         }
         else if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia) {
             titulo = 'VER MÁS OFERTAS ¡SOLO HOY!';
