@@ -29228,6 +29228,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string FotoProductoSmallField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MarcaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal PrecioCatalogoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -29372,6 +29375,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.FotoProductoSmallField, value) != true)) {
                     this.FotoProductoSmallField = value;
                     this.RaisePropertyChanged("FotoProductoSmall");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MarcaID {
+            get {
+                return this.MarcaIDField;
+            }
+            set {
+                if ((this.MarcaIDField.Equals(value) != true)) {
+                    this.MarcaIDField = value;
+                    this.RaisePropertyChanged("MarcaID");
                 }
             }
         }
