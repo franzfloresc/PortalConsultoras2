@@ -124,20 +124,5 @@ namespace Portal.Consultoras.BizLogic
             }
             return saldo;
         }
-
-        public IList<BESolicitudClienteDetalle> GetProductoByCampaniaByConsultoraId(int paisId, int campaniaId, long consultoraId)
-        {
-            var daConsultoraOnline = new DAConsultoraOnline(paisId);
-            var lista = new List<BESolicitudClienteDetalle>();
-            using (IDataReader reader = daConsultoraOnline.GetProductoByCampaniaByConsultoraId(campaniaId, consultoraId))
-            {
-                while (reader.Read())
-                {
-                    var entidad = new BESolicitudClienteDetalle(reader);
-                    lista.Add(entidad);
-                }
-                return lista;
-            }
-        }
     }
 }
