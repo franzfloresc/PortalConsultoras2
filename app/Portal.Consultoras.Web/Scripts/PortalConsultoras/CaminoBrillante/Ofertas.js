@@ -324,3 +324,7 @@ function CambiarOferta() {
     });
 }
 
+function ObtenerFiltros() {
+    
+}
+

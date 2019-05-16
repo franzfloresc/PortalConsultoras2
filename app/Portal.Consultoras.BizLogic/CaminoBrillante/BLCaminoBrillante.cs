@@ -1116,15 +1116,10 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         #endregion
 
         #region Orden y Filtros
-        //public BEOrdenFiltrosCaminoBrillante GetDatosOrdenFiltros()
-        //{
-        //    var oOrden = new BEDatosOrden({
-        //        CodigoOrden
-        //    })
-                
-        //    return null
-        //}
+        public List<BEOrdenFiltrosCaminoBrillante> GetDatosOrdenFiltros(int paisId)
+        {
+            return new DACaminoBrillante(paisId).GetFiltrosCaminoBrillante().MapToCollection<BEOrdenFiltrosCaminoBrillante>(closeReaderFinishing: true);
+        }
         #endregion
-
     }
 }

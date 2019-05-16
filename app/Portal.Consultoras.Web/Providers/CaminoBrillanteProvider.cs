@@ -330,5 +330,18 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
+        public List<BEOrdenFiltrosCaminoBrillante> GetDatosOrdenFiltros()
+        {
+            try
+            {
+                using (var svc = new PedidoServiceClient())
+                    return svc.GetDatosOrdenFiltros(usuarioModel.PaisID).ToList();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return null;
+            }
+        }
     }
 }
