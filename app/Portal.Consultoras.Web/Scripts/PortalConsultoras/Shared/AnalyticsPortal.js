@@ -551,7 +551,7 @@ var AnalyticsPortalModule = (function () {
             var parametroList = _getParametroListSegunOrigen(data.Origen);
 
             var lista = data.lista || [];
-            var cantidadMostrar = lista.length == 1 ? 1 : data.CantidadMostrar;
+            var cantidadMostrar = (lista.length == 1 ? 1 : data.CantidadMostrar) || 0;
             var impressions = autoMapperEstrategia(lista, cantidadMostrar, parametroList);
 
             //$.each(lista, function (index) {
@@ -571,7 +571,7 @@ var AnalyticsPortalModule = (function () {
             //    }
             //});
 
-            _marcarImpresionSetProductos(impressions);
+            var seMarco = _marcarImpresionSetProductos(impressions);
 
             if (data.Direccion != undefined) {
 
@@ -588,7 +588,12 @@ var AnalyticsPortalModule = (function () {
                 });
             }
 
-            return true;
+            if (!(lista.length == 0
+                || cantidadMostrar <= 0
+                || impressions.length == 0
+                || !seMarco)) {
+                return true;
+            }
 
         } catch (e) {
             console.log("marcarProductImpresionSegunLista" + _texto.excepcion + e);
