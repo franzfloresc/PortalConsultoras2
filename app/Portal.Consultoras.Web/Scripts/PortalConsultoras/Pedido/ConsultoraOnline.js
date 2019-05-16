@@ -490,7 +490,6 @@ function SelectOptAtender(event) {
 
 function AceptarPedido(pedidoId, tipo) {
 
-    //var data = lstDetallePedidoPoput[0].ListaDetalle;
     var popup = (tipo == 1) ? $('#divPopupPedidoPend') : $('#divPopup2PedidoPend');
     var container = (tipo == 1) ? $('#divDetPedidoPend') : $('#divDet2PedidoPend');
 
@@ -499,16 +498,6 @@ function AceptarPedido(pedidoId, tipo) {
         var isOk = true;
         var ing = 0;
         var opciones = "";
-
-        //for (var i = 0; i < data.length; i++) {
-        //    var id = data[i].PedidoDetalleId;
-        //    var opt = data[i].OptAtender === null ? '' : data[i].OptAtender.split('|')[1];
-        //    var cant = data[i].Cantidad;
-        //    var cuv = data[i].CUV;
-        //    var nombre = data[i].Producto;
-        //    var precio = data[i].PrecioUnitario;
-        //    var marca = data[i].Marca;
-        //    var opcion = data[i].OptAtender === null ? '' : data[i].OptAtender.split('|')[2];
 
         var nodes = $(container).find('> div');
         $(nodes).each(function () {
