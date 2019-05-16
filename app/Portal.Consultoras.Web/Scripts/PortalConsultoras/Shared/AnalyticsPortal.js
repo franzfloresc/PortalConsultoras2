@@ -912,7 +912,7 @@ var AnalyticsPortalModule = (function () {
 
     var marcaGenericaLista = function (seccion, data, pos) {
         try {
-            console.log('marca Generica Lista- ini', seccion, data, pos);
+            //console.log('marca Generica Lista- ini', seccion, data, pos);
 
             _marcarProductImpresionSegunLista(data);
 

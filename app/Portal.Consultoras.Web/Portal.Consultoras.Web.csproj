@@ -4205,8 +4205,8 @@
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Componentes\ComponentesView.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Estrategia\EstrategiaPresenter.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Estrategia\EstrategiaView.js" />
-    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaResponsiveEvents.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaResponsive.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaResponsiveEvents.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\CarruselModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\ComponenteDetalleModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\DetalleEstrategiaProvider.js" />
