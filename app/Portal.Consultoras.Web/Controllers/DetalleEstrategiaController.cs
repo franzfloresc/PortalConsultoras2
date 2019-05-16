@@ -27,6 +27,34 @@ namespace Portal.Consultoras.Web.Controllers
             : base(sesionManager, logManager, estrategiaComponenteProvider)
         {
         }
+        
+        [HttpGet]
+        public ActionResult FichaResponsive(string palanca, int campaniaId, string cuv, string origen)
+        {
+            if (string.IsNullOrWhiteSpace(palanca) ||
+                campaniaId <= 0 ||
+                string.IsNullOrWhiteSpace(cuv)) return Redirect("/Ofertas");
+
+            var modelo = FichaModelo(palanca, campaniaId, cuv, origen, false);
+
+
+            var estrategiaModelo = new EstrategiaPersonalizadaProductoModel
+            {
+                EstrategiaID = modelo.EstrategiaID,
+                CUV2 = modelo.CUV2,
+                CampaniaID = modelo.CampaniaID,
+                CodigoVariante = modelo.CodigoEstrategia,
+                Hermanos = modelo.Hermanos
+            };
+            bool esMultimarca = false;
+            string mensaje = "";
+
+            modelo.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, modelo.CodigoEstrategia, out esMultimarca, out mensaje);
+
+            return View(modelo);
+
+        }
+
 
         [HttpGet]
         public override ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)

@@ -520,10 +520,13 @@ var AnalyticsPortalModule = (function () {
                     'impressions': arrayItems
                 }
             });
+
+            return true;
         } catch (e) {
             console.log("_marcar Impresion Set Productos - " + _texto.excepcion + e);
         }
 
+        return false;
     }
 
     var marcaGenericaLista = function (seccion, data, pos) {
@@ -548,7 +551,7 @@ var AnalyticsPortalModule = (function () {
             var parametroList = _getParametroListSegunOrigen(data.Origen);
 
             var lista = data.lista || [];
-            var cantidadMostrar = lista.length == 1 ? 1 : data.CantidadMostrar;
+            var cantidadMostrar = (lista.length == 1 ? 1 : data.CantidadMostrar) || 0;
             var impressions = autoMapperEstrategia(lista, cantidadMostrar, parametroList);
 
             //$.each(lista, function (index) {
@@ -568,7 +571,7 @@ var AnalyticsPortalModule = (function () {
             //    }
             //});
 
-            _marcarImpresionSetProductos(impressions);
+            var seMarco = _marcarImpresionSetProductos(impressions);
 
             if (data.Direccion != undefined) {
 
@@ -585,9 +588,18 @@ var AnalyticsPortalModule = (function () {
                 });
             }
 
+            if (!(lista.length == 0
+                || cantidadMostrar <= 0
+                || impressions.length == 0
+                || !seMarco)) {
+                return true;
+            }
+
         } catch (e) {
             console.log("marcarProductImpresionSegunLista" + _texto.excepcion + e);
         }
+
+        return false;
 
     }
 
@@ -595,13 +607,20 @@ var AnalyticsPortalModule = (function () {
         try {
 
             data = data || {};
-            var cantidadMostrar = isMobile ? 1 : (data.Total >= 3) ? 3 : data.Total;
+            var cantidadMostrar = (isMobile ? 1 : (data.Total >= 3) ? 3 : data.Total) || 0;
 
-            var lista = data.Productos;
+            var lista = data.Productos || [];
 
             var impressions = autoMapperEstrategia(lista, cantidadMostrar, 'Pedido - Ofertas Relacionadas');
 
-            _marcarImpresionSetProductos(impressions);
+            var seMarco = _marcarImpresionSetProductos(impressions);
+
+            if (!(lista.length == 0
+                || cantidadMostrar <= 0
+                || impressions.length == 0
+                || !seMarco)) {
+                return true;
+            }
 
             //$.each(lista, function (index) {
             //    if (index == cantidadMostrar)
@@ -632,19 +651,31 @@ var AnalyticsPortalModule = (function () {
         } catch (e) {
             console.log(_texto.excepcion + e);
         }
+
+        return false;
     }
 
     var marcaProductImpressionViewRecomendaciones = function (data, index) {
         try {
 
-            var lista = data.Productos || [];
-            var item = lista[index];
+            var listaProductos = data.Productos || [];
+            index = index >= 0 ? index : -1;
+            var lista = [];
+            if (listaProductos.length > index && index >= 0) {
+                var item = listaProductos[index];
+                lista.push(item);
+            }
 
-            var listaMarca = [];
-            listaMarca.push(item);
-            var impressions = autoMapperEstrategia(listaMarca, 1, 'Pedido - Ofertas Relacionadas');
+            var impressions = autoMapperEstrategia(lista, 1, 'Pedido - Ofertas Relacionadas');
 
-            _marcarImpresionSetProductos(impressions);
+            var seMarco = _marcarImpresionSetProductos(impressions);
+
+
+            if (!(lista.length == 0
+                || impressions.length == 0
+                || !seMarco)) {
+                return true;
+            }
 
             //var impressions = [];
             //var item = lista[index];
@@ -672,6 +703,8 @@ var AnalyticsPortalModule = (function () {
         } catch (e) {
             console.log(_texto.excepcion + e);
         }
+
+        return false;
     }
 
     //var marcaProductImpressionViewRecomendacionesMobile = function (data, index) {
@@ -1395,7 +1428,7 @@ var AnalyticsPortalModule = (function () {
                 }
             });
         } catch (e) {
-            console.log("marca Promotion View - "_texto.excepcion + e);
+            console.log("marca Promotion View - " + _texto.excepcion + e);
         }
     }
 
