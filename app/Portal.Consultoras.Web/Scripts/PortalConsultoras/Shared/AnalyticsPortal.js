@@ -472,6 +472,297 @@ var AnalyticsPortalModule = (function () {
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Metodos Iniciales
     ////////////////////////////////////////////////////////////////////////////////////////
+    // Ini - Analytics Evento Add To Cart
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    var marcaAnadirCarritoBuscador = function (model, origen, campoBuscar) {
+        try {
+            var desplegable = "";
+            if ($.isNumeric(campoBuscar) && campoBuscar.length == 5)
+                desplegable = " por CUV";
+            var palanca;
+            if (model.CodigoTipoEstrategia === "0") palanca = model.DescripcionEstrategia;
+            else palanca = _obtenerNombrePalanca(model.CodigoTipoEstrategia);
+
+            if (model.MaterialGanancia || model.Palanca == 'Ganadoras') palanca = _texto.palancaLasMasGandoras;
+
+            var lista = "Buscador - " + palanca + " - " + origen + desplegable;
+            dataLayer.push({
+                'event': _evento.addToCart,
+                'ecommerce': {
+                    'currencyCode': _getCurrencyCodes(),
+                    'add': {
+                        'actionField': { 'list': lista },
+                        'products': [{
+                            'name': model.DescripcionCompleta,
+                            'id': model.CUV,
+                            'price': parseFloat(model.Precio).toFixed(2).toString(),
+                            'brand': _getMarca(model.MarcaId),
+                            'category': _texto.notavaliable,
+                            'variant': campoBuscar,
+                            'quantity': model.Cantidad
+                        }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    var marcaAnadirCarritoRecomendaciones = function (divPadre, valueJSON) {
+        try {
+            var model = JSON.parse($(divPadre).find(valueJSON).val());
+            var cantidad = $(divPadre).find("[data-input='cantidad']").val();
+            var agregado = $(divPadre).find(".etiqueta_buscador_producto");
+            model.Cantidad = cantidad;
+
+            var lista = "Pedido - Ofertas Relacionadas";
+            dataLayer.push({
+                'event': _evento.addToCart,
+                'ecommerce': {
+                    'currencyCode': _getCurrencyCodes(),
+                    'add': {
+                        'actionField': { 'list': lista },
+                        'products': [{
+                            'name': model.DescripcionCompleta,
+                            'id': model.CUV,
+                            'price': parseFloat(model.Precio).toFixed(2).toString(),
+                            'brand': _getMarca(model.MarcaId),
+                            'category': _texto.notavaliable,
+                            'variant': _texto.estandar,
+                            'quantity': model.Cantidad
+                        }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    var marcaAnadirCarritoHome = function (event, codigoOrigen, data) {
+        try {
+            if (_constantes.isTest)
+                alert("Marcación clic añadir al carrito.");
+
+            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
+            var producto = data;
+
+            list = "Home" + " - " + palanca;
+
+            dataLayer.push({
+                'event': _evento.addToCart,
+                'ecommerce': {
+                    'currencyCode': _getCurrencyCodes(),
+                    'add': {
+                        'actionField': { 'list': list },
+                        'products': [{
+                            'name': producto.DescripcionCompleta,
+                            'price': producto.PrecioVenta,
+                            'brand': producto.DescripcionMarca,
+                            'id': producto.CUV2,
+                            'category': _texto.notavaliable,
+                            'variant': _texto.estandar,
+                            'quantity': producto.Cantidad
+                        }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+
+    }
+
+    var marcaAnadirCarritoHomeBanner = function (event, codigoOrigen, data) {
+        try {
+            if (_constantes.isTest)
+                alert("Marcación clic añadir al carrito.");
+
+            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
+            var producto = data;
+
+            list = "Home - Oferta del Día";
+
+            dataLayer.push({
+                'event': _evento.addToCart,
+                'ecommerce': {
+                    'currencyCode': _getCurrencyCodes(),
+                    'add': {
+                        'actionField': { 'list': list },
+                        'products': [{
+                            'name': producto.DescripcionCompleta,
+                            'price': producto.PrecioVenta,
+                            'brand': producto.DescripcionMarca,
+                            'id': producto.CUV2,
+                            'category': _texto.notavaliable,
+                            'variant': _texto.estandar,
+                            'quantity': producto.Cantidad
+                        }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+
+    }
+    
+    var marcaAnadirCarritoLiquidacion = function (data) {
+        try {
+            if (_constantes.isTest)
+                alert("Marcación clic añadir al carrito.");
+
+
+            list = "Home" + " - " + "Liquidaciones Web";
+
+            dataLayer.push({
+                'event': _evento.addToCart,
+                'ecommerce': {
+                    'currencyCode': _getCurrencyCodes(),
+                    'add': {
+                        'actionField': { 'list': list },
+                        'products': [{
+                            'name': data.descripcionProd,
+                            'price': data.PrecioUnidad,
+                            'brand': data.descripcionMarca,
+                            'id': data.CUV,
+                            'category': _texto.notavaliable,
+                            'variant': _texto.estandar,
+                            'quantity': data.Cantidad
+                        }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+
+    }
+
+
+    var marcaAnadirCarrito = function (event, codigoOrigen, data) {
+
+        try {
+            if (_constantes.isTest)
+                alert("Marcación clic añadir al carrito.");
+
+            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
+            var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(event, codigoOrigen);
+
+            var codigoPalanca = codigoOrigen.toString().substring(3, 5);
+            var seccion = _constantes.origenpedidoWeb.find(function (element) {
+                return element.CodigoPalanca === codigoPalanca;
+            });
+
+            var esCarrusel = false;
+            if (!(event == null)) {
+                var elementCarrusel = $(event.target || event).parents("[data-item]");
+                esCarrusel = elementCarrusel.hasClass("slick-slide");
+            }
+
+            var producto = data;
+            var list = "";
+            //Si es carrusel de la ficha
+            if (esCarrusel && seccion.CodigoPalanca !== _constantes.origenpedidoWeb[parseInt(codigoPalanca)].CodigoPalanca)
+                list = contenedor + " - " + _constantes.campania + producto.CampaniaID;
+            else if (seccion.CodigoPalanca === _constantes.origenpedidoWeb[parseInt(codigoPalanca)].CodigoPalanca)
+                list = contenedor + " - " + palanca;
+            else
+                list = contenedor + " - " + palanca + " - " + _constantes.campania + producto.CampaniaID;
+
+            dataLayer.push({
+                'event': _evento.addToCart,
+                'ecommerce': {
+                    'currencyCode': _getCurrencyCodes(),
+                    'add': {
+                        'actionField': { 'list': list },
+                        'products': [{
+                            'name': producto.DescripcionCompleta,
+                            'price': producto.PrecioVenta,
+                            'brand': producto.DescripcionMarca,
+                            'id': producto.CUV2,
+                            'category': _texto.notavaliable,
+                            'variant': _texto.estandar,
+                            'quantity': producto.Cantidad
+                        }]
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+
+    }
+    
+    function clickAddCartFicha(event, codigoOrigenPedido, estrategia) {
+        try {
+
+            var producto = estrategia;
+
+            dataLayer.push({
+                'event': _evento.addToCart,
+                'ecommerce': {
+                    'currencyCode': _getCurrencyCodes(),
+                    'add': {
+                        'actionField': { 'list': 'Ficha de Producto – Las Más Ganadoras' },
+                        'products': [{
+                            'name': producto.DescripcionCompleta,
+                            'price': producto.PrecioVenta,
+                            'brand': producto.DescripcionMarca,
+                            'id': producto.CUV2,
+                            'category': _texto.notavaliable,
+                            'variant': _texto.estandar,
+                            'quantity': producto.Cantidad
+                        }]
+                    }
+                }
+            });
+
+        } catch (e) {
+
+        }
+    }
+
+    function marcarAddCarArmaTuPack(codigoubigeoportal, estrategia) {
+        try {
+
+            var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codigoubigeoportal) + ""; //using new function
+
+            var products = [];
+            $.each(estrategia, function (index) {
+                var item = estrategia[index];
+                var product = {
+                    "name": item.NombreComercial,
+                    "price": item.PrecioCatalogo,
+                    "brand": item.DescripcionMarca,
+                    "id": item.Cuv,
+                    category: _texto.notavaliable,
+                    variant: item.NombreBulk,
+                    quantity: item.Cantidad
+                };
+                products.push(product);
+            });
+
+            dataLayer.push({
+                'event': _evento.addToCart,
+                'ecommerce': {
+                    'currencyCode': _getCurrencyCodes(),
+                    'add': {
+                        'actionField': { 'list': textoCategory },
+                        'products': products
+                    }
+                }
+            });
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Fin - Analytics Evento Add To Cart
+    ////////////////////////////////////////////////////////////////////////////////////////
     // Ini - Analytics Evento Product Impression
     ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -1404,73 +1695,7 @@ var AnalyticsPortalModule = (function () {
                 return "Gana+";
         }
     }
-
-    var marcaAnadirCarritoBuscador = function (model, origen, campoBuscar) {
-        try {
-            var desplegable = "";
-            if ($.isNumeric(campoBuscar) && campoBuscar.length == 5)
-                desplegable = " por CUV";
-            var palanca;
-            if (model.CodigoTipoEstrategia === "0") palanca = model.DescripcionEstrategia;
-            else palanca = _obtenerNombrePalanca(model.CodigoTipoEstrategia);
-
-            if (model.MaterialGanancia || model.Palanca == 'Ganadoras') palanca = _texto.palancaLasMasGandoras;
-
-            var lista = "Buscador - " + palanca + " - " + origen + desplegable;
-            dataLayer.push({
-                'event': _evento.addToCart,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'add': {
-                        'actionField': { 'list': lista },
-                        'products': [{
-                            'name': model.DescripcionCompleta,
-                            'id': model.CUV,
-                            'price': parseFloat(model.Precio).toFixed(2).toString(),
-                            'brand': _getMarca(model.MarcaId),
-                            'category': _texto.notavaliable,
-                            'variant': campoBuscar,
-                            'quantity': model.Cantidad
-                        }]
-                    }
-                }
-            });
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    var marcaAnadirCarritoRecomendaciones = function (divPadre, valueJSON) {
-        try {
-            var model = JSON.parse($(divPadre).find(valueJSON).val());
-            var cantidad = $(divPadre).find("[data-input='cantidad']").val();
-            var agregado = $(divPadre).find(".etiqueta_buscador_producto");
-            model.Cantidad = cantidad;
-
-            var lista = "Pedido - Ofertas Relacionadas";
-            dataLayer.push({
-                'event': _evento.addToCart,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'add': {
-                        'actionField': { 'list': lista },
-                        'products': [{
-                            'name': model.DescripcionCompleta,
-                            'id': model.CUV,
-                            'price': parseFloat(model.Precio).toFixed(2).toString(),
-                            'brand': _getMarca(model.MarcaId),
-                            'category': _texto.notavaliable,
-                            'variant': _texto.estandar,
-                            'quantity': model.Cantidad
-                        }]
-                    }
-                }
-            });
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
+    
     var marcaSeleccionarContenidoBusqueda = function (busqueda) {
         try {
             dataLayer.push({
@@ -1643,75 +1868,7 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
-
-    var marcaAnadirCarritoHome = function (event, codigoOrigen, data) {
-        try {
-            if (_constantes.isTest)
-                alert("Marcación clic añadir al carrito.");
-
-            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
-            var producto = data;
-
-            list = "Home" + " - " + palanca;
-
-            dataLayer.push({
-                'event': _evento.addToCart,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'add': {
-                        'actionField': { 'list': list },
-                        'products': [{
-                            'name': producto.DescripcionCompleta,
-                            'price': producto.PrecioVenta,
-                            'brand': producto.DescripcionMarca,
-                            'id': producto.CUV2,
-                            'category': _texto.notavaliable,
-                            'variant': _texto.estandar,
-                            'quantity': producto.Cantidad
-                        }]
-                    }
-                }
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-
-    }
-
-    var marcaAnadirCarritoHomeBanner = function (event, codigoOrigen, data) {
-        try {
-            if (_constantes.isTest)
-                alert("Marcación clic añadir al carrito.");
-
-            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
-            var producto = data;
-
-            list = "Home - Oferta del Día";
-
-            dataLayer.push({
-                'event': _evento.addToCart,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'add': {
-                        'actionField': { 'list': list },
-                        'products': [{
-                            'name': producto.DescripcionCompleta,
-                            'price': producto.PrecioVenta,
-                            'brand': producto.DescripcionMarca,
-                            'id': producto.CUV2,
-                            'category': _texto.notavaliable,
-                            'variant': _texto.estandar,
-                            'quantity': producto.Cantidad
-                        }]
-                    }
-                }
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-
-    }
-
+    
     var marcaSucribete = function (url) {
 
         try {
@@ -1978,39 +2135,7 @@ var AnalyticsPortalModule = (function () {
 
         }
     }
-
-    var marcaAnadirCarritoLiquidacion = function (data) {
-        try {
-            if (_constantes.isTest)
-                alert("Marcación clic añadir al carrito.");
-
-
-            list = "Home" + " - " + "Liquidaciones Web";
-
-            dataLayer.push({
-                'event': _evento.addToCart,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'add': {
-                        'actionField': { 'list': list },
-                        'products': [{
-                            'name': data.descripcionProd,
-                            'price': data.PrecioUnidad,
-                            'brand': data.descripcionMarca,
-                            'id': data.CUV,
-                            'category': _texto.notavaliable,
-                            'variant': _texto.estandar,
-                            'quantity': data.Cantidad
-                        }]
-                    }
-                }
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-
-    }
-
+    
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Home 1 Miguel
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -2137,61 +2262,7 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
-
-    var marcaAnadirCarrito = function (event, codigoOrigen, data) {
-
-        try {
-            if (_constantes.isTest)
-                alert("Marcación clic añadir al carrito.");
-
-            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
-            var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(event, codigoOrigen);
-
-            var codigoPalanca = codigoOrigen.toString().substring(3, 5);
-            var seccion = _constantes.origenpedidoWeb.find(function (element) {
-                return element.CodigoPalanca === codigoPalanca;
-            });
-
-            var esCarrusel = false;
-            if (!(event == null)) {
-                var elementCarrusel = $(event.target || event).parents("[data-item]");
-                esCarrusel = elementCarrusel.hasClass("slick-slide");
-            }
-
-            var producto = data;
-            var list = "";
-            //Si es carrusel de la ficha
-            if (esCarrusel && seccion.CodigoPalanca !== _constantes.origenpedidoWeb[parseInt(codigoPalanca)].CodigoPalanca)
-                list = contenedor + " - " + _constantes.campania + producto.CampaniaID;
-            else if (seccion.CodigoPalanca === _constantes.origenpedidoWeb[parseInt(codigoPalanca)].CodigoPalanca)
-                list = contenedor + " - " + palanca;
-            else
-                list = contenedor + " - " + palanca + " - " + _constantes.campania + producto.CampaniaID;
-
-            dataLayer.push({
-                'event': _evento.addToCart,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'add': {
-                        'actionField': { 'list': list },
-                        'products': [{
-                            'name': producto.DescripcionCompleta,
-                            'price': producto.PrecioVenta,
-                            'brand': producto.DescripcionMarca,
-                            'id': producto.CUV2,
-                            'category': _texto.notavaliable,
-                            'variant': _texto.estandar,
-                            'quantity': producto.Cantidad
-                        }]
-                    }
-                }
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-
-    }
-
+    
     var marcaManagerFiltros = function (data) {
         try {
             if (_constantes.isTest)
@@ -2601,36 +2672,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-
-    function clickAddCartFicha(event, codigoOrigenPedido, estrategia) {
-        try {
-
-            var producto = estrategia;
-
-            dataLayer.push({
-                'event': _evento.addToCart,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'add': {
-                        'actionField': { 'list': 'Ficha de Producto – Las Más Ganadoras' },
-                        'products': [{
-                            'name': producto.DescripcionCompleta,
-                            'price': producto.PrecioVenta,
-                            'brand': producto.DescripcionMarca,
-                            'id': producto.CUV2,
-                            'category': _texto.notavaliable,
-                            'variant': _texto.estandar,
-                            'quantity': producto.Cantidad
-                        }]
-                    }
-                }
-            });
-
-        } catch (e) {
-
-        }
-    }
-
+    
     function clickTabGanadoras(codigo) {
         if (codigo === _codigoSeccion.MG)
             dataLayer.push({
@@ -2761,41 +2803,7 @@ var AnalyticsPortalModule = (function () {
             }
         }
     }
-    function marcarAddCarArmaTuPack(codigoubigeoportal, estrategia) {
-        try {
-
-            var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codigoubigeoportal) + ""; //using new function
-
-            var products = [];
-            $.each(estrategia, function (index) {
-                var item = estrategia[index];
-                var product = {
-                    "name": item.NombreComercial,
-                    "price": item.PrecioCatalogo,
-                    "brand": item.DescripcionMarca,
-                    "id": item.Cuv,
-                    category: _texto.notavaliable,
-                    variant: item.NombreBulk,
-                    quantity: item.Cantidad
-                };
-                products.push(product);
-            });
-
-            dataLayer.push({
-                'event': _evento.addToCart,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'add': {
-                        'actionField': { 'list': textoCategory },
-                        'products': products
-                    }
-                }
-            });
-
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
+    
     var marcaClickAgregarArmaTuPack = function (codigoubigeoportal, textoLabel, actionText) {
 
         if (codigoubigeoportal !== "") {
