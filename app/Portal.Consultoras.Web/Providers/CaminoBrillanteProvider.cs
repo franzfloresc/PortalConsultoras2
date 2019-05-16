@@ -330,12 +330,20 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public List<BEOrdenFiltrosCaminoBrillante> GetDatosOrdenFiltros()
+        public FiltrosCaminoBrillanteModel GetDatosOrdenFiltros()
         {
             try
             {
+                var entidad = new List<BEOrdenFiltrosCaminoBrillante>();
                 using (var svc = new PedidoServiceClient())
-                    return svc.GetDatosOrdenFiltros(usuarioModel.PaisID).ToList();
+                    entidad = svc.GetDatosOrdenFiltros(usuarioModel.PaisID).ToList();
+
+                if (entidad == null) return null;
+                var oFiltro = new FiltrosCaminoBrillanteModel();
+                oFiltro.DatosFiltros = Mapper.Map<List<FiltrosDatosCaminoBrillante>>(entidad.Where(x => x.Tipo == "FILTRO").ToList());
+                oFiltro.DatosOrden = Mapper.Map<List<OrdenDatosCaminoBrillante>>(entidad.Where(x => x.Tipo == "ORDEN").ToList());
+                return oFiltro;
+
             }
             catch (Exception ex)
             {

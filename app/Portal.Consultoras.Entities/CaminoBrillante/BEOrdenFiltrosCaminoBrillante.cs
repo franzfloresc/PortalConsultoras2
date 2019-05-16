@@ -12,13 +12,13 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
     public class BEOrdenFiltrosCaminoBrillante
     {
         [DataMember]
-        [Column("DatosOrden")]
+        [Column("Codigo")]
         public string Codigo { get; set; }        
         [DataMember]
-        [Column("DatosFiltro")]
+        [Column("Descripcion")]
         public string Descripcion { get; set; }
         [DataMember]
-        [Column("DatosFiltro")]
+        [Column("Tipo")]
         public string Tipo { get; set; }
     }
 }
