@@ -93,7 +93,7 @@ function MostrarBarra(datax, destino) {
     var vLogro = mt - md;
     var wMsgFin = 0;
     var wmin = 45;
-
+    debugger;
     if (!(mn == "0,00" || mn == "0.00" || mn == "0")) {
         wPrimer = wmin;
     }
@@ -226,6 +226,7 @@ function MostrarBarra(datax, destino) {
             });
         }
     }
+    debugger;
     mtoLogroBarra = vLogro;
 
     listaLimite = listaLimite || new Array();
@@ -812,6 +813,7 @@ function calcMtoLogro(data, destino) {
         var valTopTotal = destino == '2' && barra.TippingPointBarra.Active && tp > 0 ? tp : mn;
         if (vLogro > valTopTotal) vLogro = valTopTotal > me ? valTopTotal : me;
     }
+    debugger;
     mtoLogroBarra = vLogro;
 
     return vLogro;
