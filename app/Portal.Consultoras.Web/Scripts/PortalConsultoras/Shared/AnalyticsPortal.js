@@ -405,19 +405,6 @@ var AnalyticsPortalModule = (function () {
         return texto;
     }
 
-    var marcarIniciarPlayVideo = function (producto) {
-        try {
-            dataLayer.push({
-                "event": _evento.virtualEvent,
-                "category": _texto.fichaProducto,
-                "action": _texto.iniciarVideo,
-                "label": producto
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
-
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Metodos Iniciales
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -1450,6 +1437,19 @@ var AnalyticsPortalModule = (function () {
     ////////////////////////////////////////////////////////////////////////////////////////
     // Ini - Analytics Buscador Miguel
     ////////////////////////////////////////////////////////////////////////////////////////
+
+    var marcarIniciarPlayVideo = function (producto) {
+        try {
+            dataLayer.push({
+                "event": _evento.virtualEvent,
+                "category": _texto.fichaProducto,
+                "action": _texto.iniciarVideo,
+                "label": producto
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
 
     var _getMarca = function (marcaId) {
         switch (marcaId) {
