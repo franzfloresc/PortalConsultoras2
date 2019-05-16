@@ -418,57 +418,6 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    //var _marcarProductImpresionSegunLista = function (data) {
-    //    try {
-    //        if (_constantes.isTest)
-    //            alert("Marcación product impression.");
-
-    //        var parametroList = _getParametroListSegunOrigen(data.Origen);
-
-    //        var lista = data.lista;
-    //        var cantidadMostrar = lista.length == 1 ? 1 : data.CantidadMostrar;
-    //        var impressions = [];
-    //        $.each(lista, function (index) {
-    //            if (index < cantidadMostrar) {
-    //                var item = lista[index];
-    //                var impression = {
-    //                    'name': item.DescripcionCompleta,
-    //                    'id': item.CUV2,
-    //                    'price': item.PrecioVenta,
-    //                    'brand': item.DescripcionMarca,
-    //                    'category': _texto.notavaliable,
-    //                    'variant': _texto.estandar,
-    //                    'list': parametroList,
-    //                    'position': (item.Position == undefined ? index : item.Position) + 1
-    //                };
-
-    //                impressions.push(impression);
-    //            }
-    //        });
-
-    //        _marcarImpresionSetProductos(impressions);
-
-    //        if (data.Direccion != undefined) {
-
-    //            var paramlabel = "Flecha Anterior";
-    //            if (data.Direccion == CarruselVariable.Direccion.next) {
-    //                paramlabel = "Flecha Siguiente";
-    //            }
-
-    //            dataLayer.push({
-    //                'event': _evento.virtualEvent,
-    //                'category': parametroList,
-    //                'action': "Flecha de Productos",
-    //                'label': paramlabel
-    //            });
-    //        }
-
-    //    } catch (e) {
-    //        console.log("marcarProductImpresionSegunLista" + _texto.excepcion + e);
-    //    }
-
-    //}
-
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Metodos Iniciales
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -1087,35 +1036,6 @@ var AnalyticsPortalModule = (function () {
 
         return false;
     }
-
-    //var marcaProductImpressionViewRecomendacionesMobile = function (data, index) {
-    //    try {
-    //        var lista = data.Productos;
-    //        var impressions = [];
-    //        index = index + 1;
-    //        var item = lista[index];
-    //        var impression = {
-    //            'name': item.DescripcionCompleta,
-    //            'id': item.CUV,
-    //            'price': parseFloat(item.Precio).toFixed(2).toString(),
-    //            'brand': _getMarca(item.MarcaId),
-    //            'category': _texto.notavaliable,
-    //            'variant': _texto.estandar,
-    //            'list': 'Pedido - Ofertas Relacionadas',
-    //            'position': index + 1
-    //        };
-    //        impressions.push(impression);
-    //        dataLayer.push({
-    //            'event': _evento.productImpression,
-    //            'ecommerce': {
-    //                'currencyCode': _getCurrencyCodes(),
-    //                'impressions': impressions
-    //            }
-    //        });
-    //    } catch (e) {
-    //        console.log(_texto.excepcion + e);
-    //    }
-    //}
 
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Evento Product Impression
@@ -1972,29 +1892,6 @@ var AnalyticsPortalModule = (function () {
 
     }
 
-    //var marcaGenericaLista = function (seccion, data, pos) {
-    //    try {
-    //        console.log('marca Generica Lista- ini', seccion, data, pos);
-
-    //        // mantener la seccion para LAN, luego ponerlo dentro de data como origen
-    //        if (typeof seccion === "undefined")
-    //            return false;
-
-    //        seccion = seccion.replace("Lista", "");
-
-    //        switch (seccion) {
-    //            case _codigoSeccion.LAN:
-    //            case _codigoSeccion.DP:
-    //                _marcaPromotionViewBanner(seccion, data, pos); break;
-    //            default:
-    //                _marcarProductImpresionSegunLista(data); break;
-    //        }
-    //    } catch (e) {
-    //        console.log('marca Generica Lista - ' + _texto.excepcion, e);
-    //    }
-
-    //}
-
     var marcaNotificaciones = function (tipo, url) {
         try {
             if (_constantes.isTest)
@@ -2060,21 +1957,6 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
-
-    //var marcaClicVideoBienvenida = function () {
-    //    try {
-    //        if (_constantes.isTest)
-    //            alert("Marcación Clic seguimiento pedido.");
-    //        dataLayer.push({
-    //            'event': 'virtualEvent',
-    //            'category': 'Home',
-    //            'action': 'Video de Bienvenida: Iniciar Video',
-    //            'label': 'SomosBelcorp.com ¡se renueva para ti!'
-    //        });
-    //    } catch (e) {
-    //        console.log(_texto.excepcion + e);
-    //    }
-    //}
 
     var marcaClicFacturacionElectronica = function (url) {
         try {
@@ -2244,26 +2126,6 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-
-    //var _marcaPromotionViewBanner = function (codigoSeccion, data, pos) {
-    //    try {
-    //        if (_constantes.isTest)
-    //            alert("Marcación promotion view.");
-    //        var promotions = _autoMapperV2(codigoSeccion, data, pos);
-    //        if (promotions.length === 0)
-    //            return false;
-    //        dataLayer.push({
-    //            'event': _evento.promotionView,
-    //            'ecommerce': {
-    //                'promoView': {
-    //                    'promotions': promotions
-    //                }
-    //            }
-    //        });
-    //    } catch (e) {
-    //        console.log(_texto.excepcion + e);
-    //    }
-    //}
 
     var _autoMapperV2 = function (codigoSeccion, data, pos) {
         var collection = [];
@@ -2918,7 +2780,6 @@ var AnalyticsPortalModule = (function () {
         MarcaVerLanzamientos: marcaVerLanzamientos,
         MarcaVerMasLiquidaciones: marcaVerMasLiquidaciones,
         MarcaClicFechaLiquidacion: marcaClicFechaLiquidacion,
-        //MarcaClicVideoBienvenida: marcaClicVideoBienvenida,
         MarcaVerOtrasOfertasHome: marcaVerOtrasOfertasHome,
         MarcaFlechaHome: marcaFlechaHome,
         MarcaAnadirCarritoLiquidacion: marcaAnadirCarritoLiquidacion,
@@ -2950,7 +2811,6 @@ var AnalyticsPortalModule = (function () {
         ClickTabGanadoras: clickTabGanadoras,
         // Fin - Analytics Ganadoras
 
-        //MarcaProductImpressionViewRecomendacionesMobile: marcaProductImpressionViewRecomendacionesMobile,
         MarcaRecomendacionesFlechaSiguiente: marcaRecomendacionesFlechaSiguiente,
         MarcaRecomendacionesFlechaAnterior: marcaRecomendacionesFlechaAnterior,
         MarcaOcultarRecomendaciones: marcaOcultarRecomendaciones,
