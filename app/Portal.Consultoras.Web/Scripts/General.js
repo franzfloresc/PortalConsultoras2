@@ -897,10 +897,9 @@ function AbrirMensaje25seg(mensaje, titulo, fnAceptar, tipoIcono) {
         //Ocultar el scroll 
         $("body").css("overflow", "hidden");
 
-        /*setTimeout(function () {
-            HideDialog("alertDialogMensajes25seg");
-            
-        }, 2500);*/
+        setTimeout(function () {
+            HideDialog("alertDialogMensajes25seg");            
+        }, 2500);
         
     } catch (e) {
 

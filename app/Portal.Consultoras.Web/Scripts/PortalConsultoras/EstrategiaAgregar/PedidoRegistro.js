@@ -1550,8 +1550,8 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
                 messageInfo(strMsgListo);
             }
             else {
-                AbrirMensaje(strMsgListo, "");
-	            //CerrarLoad();
+                AbrirMensaje25seg(strMsgListo);
+                //CerrarLoad();
             }
             //Comentado según requerimiento TESLA-3
 
