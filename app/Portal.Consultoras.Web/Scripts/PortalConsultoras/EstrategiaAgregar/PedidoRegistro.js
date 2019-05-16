@@ -1579,8 +1579,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
             var totalUnidades = parseInt($("#pCantidadProductosPedido").html());
             totalUnidades = totalUnidades - parseInt(CantidadAnti) + parseInt(Cantidad);
             $("#pCantidadProductosPedido").html(totalUnidades);
-
-            debugger;
+            
             CargarDetallePedido();
             var prevTotal = mtoLogroBarra;
             MostrarBarra(data);
