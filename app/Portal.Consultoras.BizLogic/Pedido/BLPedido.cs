@@ -179,23 +179,28 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
+                    var reservado = false;
                     var respuesta = RespuestaModificarPedido(pedidoDetalle.Usuario);
                     if (respuesta != null)
                     {
-                        return respuesta;
+                        reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);
+                        if (!reservado)
+                            return respuesta;
                     }
                     respuesta = PedidoUpdateProductoTransaction(pedidoDetalle);
-
-                    if (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS)
+                    if(respuesta != null)
                     {
-                        var usuario = pedidoDetalle.Usuario;
-                        var pedido = _pedidoWebBusinessLogic.ValidacionModificarPedido(usuario.PaisID, usuario.ConsultoraID, usuario.CampaniaID, usuario.UsuarioPrueba == 1, usuario.AceptacionConsultoraDA);
-                        if (pedido.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado)
+                        reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS);
+                        if(!reservado)
+                            return respuesta;
+
+                        var respuestaReserva = _reservaBusinessLogic.EjecutarReserva(pedidoDetalle.ReservaProl, true).GetAwaiter().GetResult();
+                        var error = false;
+                        respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, out error);
+                        if (!error)
                         {
-                            //var reservado = await _reservaBusinessLogic.EjecutarReserva(pedidoDetalle.ReservaProl, true);
-                            //if(reservado)
-                        }
-                        oTransactionScope.Complete();
+                            oTransactionScope.Complete();
+                        }                        
                     }
                     return respuesta;
                 }
@@ -205,6 +210,54 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 LogManager.SaveLog(ex, pedidoDetalle.Usuario.CodigoUsuario, pedidoDetalle.PaisID);
                 return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_INTERNO, ex.Message);
             }
+        }
+
+        private BEPedidoDetalleResult GetPedidoDetalleResultFromResultadoReservaProl(BEResultadoReservaProl resultadoReservaProl, out bool error)
+        {
+            error = false;
+            var pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_NINGUNO;
+            if(resultadoReservaProl != null)
+            {
+                switch (resultadoReservaProl.ResultadoReservaEnum)
+                {                    
+                    case Enumeradores.ResultadoReserva.Reservado:
+                        pedidoValidacionCode = Constantes.PedidoValidacion.Code.SUCCESS_RESERVA;                        
+                        break;
+                    case Enumeradores.ResultadoReserva.ReservadoObservaciones:
+                        pedidoValidacionCode = Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_OBS;
+                        break;
+                    case Enumeradores.ResultadoReserva.NoReservadoObservaciones:
+                        pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_OBS;
+                        error = true;
+                        break;
+                    case Enumeradores.ResultadoReserva.NoReservadoMontoMinimo:
+                        pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_MONTO_MIN;
+                        error = true;
+                        break;
+                    case Enumeradores.ResultadoReserva.NoReservadoMontoMaximo:
+                        pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_MONTO_MAX;
+                        error = true;
+                        break;
+                    case Enumeradores.ResultadoReserva.ReservaNoDisponible:
+                        pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERORR_RESERVA_NO_DISP;
+                        error = true;
+                        break;
+                    case Enumeradores.ResultadoReserva.NoReservadoDeuda:
+                        pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_DEUDA;
+                        error = true;
+                        break;
+                    case Enumeradores.ResultadoReserva.NoReservadoMontoPermitido:
+                        pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_OBS; //No existe una constante 
+                        error = true;
+                        break;
+                    case Enumeradores.ResultadoReserva.Ninguno:                        
+                    default:
+                        pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_NINGUNO;
+                        error = true;
+                        break;
+                }                
+            }
+            return PedidoDetalleRespuesta(pedidoValidacionCode);
         }
 
         public async Task<BEPedidoDetalleResult> Delete(BEPedidoDetalle pedidoDetalle)
