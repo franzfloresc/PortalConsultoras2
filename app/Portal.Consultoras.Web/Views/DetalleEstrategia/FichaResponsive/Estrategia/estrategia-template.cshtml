@@ -1,6 +1,11 @@
 ﻿@using Portal.Consultoras.Common
 
 <script id="estrategia-template" type="text/x-handlebars-template">
+    {{#if TieneReloj}}
+        <div id="EtiquetaOdd" class="contenedor_etiqueta_odd">
+            <div class="clock_odd"></div>
+        </div>
+    {{/if}}
     <div class="col-md-8">
         <div class="nombre_marca">
             {{#iff EsMultimarca '==' false}}
@@ -54,6 +59,5 @@
             <span class="primary_color" data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span>
         </div>
         {{/iff}}
-
     </div>
 </script>

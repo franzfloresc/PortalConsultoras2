@@ -1096,12 +1096,16 @@ namespace Portal.Consultoras.Web
             #endregion
 
             #region FichaResponsive
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Responsive/Ficha").Include(
+                "~/Scripts/flipclock.js"
+            ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/Ficha").Include(
                 "~/Content/Css/Site/styleBase.css",
                 "~/Content/Css/Site/Ficha/FichaRensponsive.css",
                 "~/Content/Css/Site/Ficha/SeleccionarTipoResponsive.css",
-                "~/Content/Css/Site/Ficha/FichaEnriquecidaResponsive.css"
+                "~/Content/Css/Site/Ficha/FichaEnriquecidaResponsive.css",
+                "~/Content/Css/Site/flipclock.css"
             ));
             #endregion
 

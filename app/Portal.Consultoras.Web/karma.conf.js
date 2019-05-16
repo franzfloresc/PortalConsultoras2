@@ -29,12 +29,15 @@ module.exports = function (config) {
 
             // General
             'Scripts/General.js',
-            'Scripts/PortalConsultoras/Shared/ConstantesModule.js',
-            'Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js',
-
+<<<<<<<<< Temporary merge branch 1
+=========
             
             // shared
-            'Scripts/shared/AnalyticsPortal.js',
+            'Scripts/PortalConsultoras/Shared/AnalyticsPortal.js',
+
+            // FichaModule
+            'Scripts/PortalConsultoras/Shared/ConstantesModule.js',
+            'Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js',
 
             // FichaModule
             'Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js',
@@ -61,6 +64,13 @@ module.exports = function (config) {
 
             // FichaResponsive
             'Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaView.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaPresenter.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesView.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesPresenter.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClienteView.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClientePresenter.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsiveEvents.js',
             'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsive.js',
 
             // Specs
@@ -75,7 +85,7 @@ module.exports = function (config) {
             //
             'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaPresenterSpec.js',
             // shared
-            'Scripts/shared/AnalyticsPortalSpec.js',
+            'Scripts/tests/PortalConsultoras/Shared/AnalyticsPortalSpec.js',
 
         ],
 

@@ -1,4 +1,5 @@
 ﻿/// <reference path="estrategia/estrategiapresenter.js" />
+/// <reference path="componentes/componentespresenter.js" />
 /// <reference path="../../../admincontenido/general.js" />
 
 var fichaResponsiveEvents = FichaResponsiveEvents();
@@ -7,6 +8,11 @@ var estrategiaPresenter = EstrategiaPresenter({
     estrategiaView: estrategiaView,
     generalModule: GeneralModule,
     fichaResponsiveEvents: fichaResponsiveEvents
+});
+
+var componenteView = ComponenteView();
+var componentePresenter = ComponentePresenter({
+    componenteView: componenteView
 });
 
 $(document).ready(function () {
@@ -45,7 +51,7 @@ $(document).ready(function () {
     function tabs_resposive(id, mostar) {
         var selector = id + " ul li a";
         var selector_first = selector + ":nth-child(" + mostar + ")";
-        console.log(selector_first);
+        //console.log(selector_first);
         var mostra_div = id + " .seciones_tabs article";
         var mostra_div_first = id + " .seciones_tabs #tab" + mostar;
 
@@ -60,7 +66,7 @@ $(document).ready(function () {
 
             var activeTab = $(this).attr('href');
             var activeTabDinamico = id + " .seciones_tabs " + activeTab;
-            console.log(activeTabDinamico);
+            //console.log(activeTabDinamico);
             $(activeTabDinamico).fadeIn();
             return false;
         });
@@ -104,4 +110,5 @@ $(document).ready(function () {
     
     var estrategia = $("#data-estrategia").data("estrategia");
     estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
+    componentePresenter.onEstrategiaModelLoaded(estrategia);
 });

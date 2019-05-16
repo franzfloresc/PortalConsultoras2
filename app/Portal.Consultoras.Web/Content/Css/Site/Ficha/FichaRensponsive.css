@@ -103,7 +103,7 @@ ul.breadcumbs li a {
 
 .ficha_detalle {
     padding: 62px 40px 0px 40px;
-    background: url('/Content/Images/etiqueta_nuevo.svg');
+    /*background: url('/Content/Images/etiqueta_nuevo.svg');*/
     background-position: top right;
     background-repeat: no-repeat;
     background-color: #fff;
@@ -479,7 +479,7 @@ ul.breadcumbs li a {
 
 @media (max-width: 768px) {
     .contenedor_detalle {
-        background: url('/Content/Images/etiqueta_nuevo.svg');
+        /*background: url('/Content/Images/etiqueta_nuevo.svg');*/
         background-position: top right;
         background-repeat: no-repeat;
         background-size: 60px;

@@ -19,7 +19,6 @@ namespace Portal.Consultoras.Web
                 namespaces: new[] { "Portal.Consultoras.Web.Controllers" }
             );
 
-
             //Ejm: ~/DetalleResponsive/GanaMas/2018010/0006/1101
             routes.MapRoute(
                 name: "DetalleEstrategiaFichaResponsive",
@@ -28,6 +27,12 @@ namespace Portal.Consultoras.Web
                 namespaces: new[] { "Portal.Consultoras.Web.Controllers" }
             );
 
+            routes.MapRoute(
+                name: "MobileDetalleEstrategiaFichaResponsive",
+                url: "Mobile/Detalles/{palanca}/{campaniaId}/{cuv}/{origen}",
+                defaults: new { controller = "DetalleEstrategia", action = "FichaResponsive", origen = UrlParameter.Optional },
+                namespaces: new[] { "Portal.Consultoras.Web.Controllers" }
+            );
 
             //Ejm: ~/Detalle/GanaMas/2018010/0006/1101
             routes.MapRoute(

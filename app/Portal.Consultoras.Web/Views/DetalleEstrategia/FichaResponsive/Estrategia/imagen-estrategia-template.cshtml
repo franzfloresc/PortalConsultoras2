@@ -3,14 +3,18 @@
 <script id="imagen-estrategia-template" type="text/x-handlebars-template">
     <div class="contenedor_imagen">
         <div>
+            {{#if isMobile}}
+            <img src="{{ImgMedium FotoProducto01}}" />
+            {{else}}
             <img src="{{ImgUrl FotoProducto01}}" />
+            {{/if}}
         </div>
         {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.IndividualConTonos,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
         <p>* Foto Referencial</p>
         {{/iff}}
     </div>
 
-    <!--compartir-->
+    @*<!--compartir-->
     {{#if TieneCompartir}}
     <div data-item="">
         <div data-compartir-campos="" style="display:none;">
@@ -34,5 +38,5 @@
         </a>
     </div>
     {{/if}}
-    <!--fin compartir-->
+    <!--fin compartir-->*@
 </script>

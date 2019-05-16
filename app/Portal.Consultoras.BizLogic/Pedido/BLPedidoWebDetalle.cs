@@ -440,7 +440,7 @@ namespace Portal.Consultoras.BizLogic
 
         public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros detParametros, bool consultoraOnLine, bool updLabelNuevas)
         {
-            return GetPedidoWebDetalleByCampania(detParametros, true, false, false);
+            return GetPedidoWebDetalleByCampania(detParametros, consultoraOnLine, updLabelNuevas, false);
         }
 
         public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros detParametros, bool consultoraOnLine, bool updLabelNuevas, bool updLabelCaminoBrillante)

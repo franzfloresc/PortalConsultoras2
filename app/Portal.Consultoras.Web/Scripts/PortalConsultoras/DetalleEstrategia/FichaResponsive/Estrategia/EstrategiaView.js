@@ -25,23 +25,65 @@
         compartirEstrategia: {
             templateId: "#compartir-estrategia-template",
             id: "#compartir-estrategia",
+        },
+        reloj: {
+            templateId: "#ofertadeldia-template-style",
+            id: "[data-ficha-contenido=\"ofertadeldia-template-style\"]",
+            clase: ".clock_odd"
         }
     };
 
-    var _render = function (estrategia) {
-        debugger;
-        console.log(estrategia);
+    var _renderBreadcrumbs = function (estrategia) {
         SetHandlebars(_elements.breadcrumbs.templateId, estrategia, _elements.breadcrumbs.id);
+        return true;
+    };
+
+    var _renderEstrategia = function (estrategia) {
         SetHandlebars(_elements.imagenEstrategia.templateId, estrategia, _elements.imagenEstrategia.id);
         SetHandlebars(_elements.estrategia.templateId, estrategia, _elements.estrategia.id);
-        // todo : validar si tiene un solo componente
-        SetHandlebars(_elements.tabsComponente.templateId, estrategia, _elements.tabsComponente.id);
-        SetHandlebars(_elements.compartirEstrategia.templateId, estrategia, _elements.compartirEstrategia.id);
+        return true;
+    };
 
+    var _renderBackgroundAndStamp = function (estrategia) {
+        var backgroundImg = estrategia.TipoEstrategiaDetalle.ImgFichaFondoDesktop || "";
+        if(estrategia.isMobile){
+            backgroundImg = estrategia.TipoEstrategiaDetalle.ImgFichaFondoMobile || "";
+        }
+
+        // background
+        $(".ficha_detalle").css("background", backgroundImg);
+        $(".condenedor_detalle").css("background", backgroundImg);
+
+        // stamp
+        // $(".ficha_detalle").css("background", backgroundImg);
+        // $(".condenedor_detalle").css("background", backgroundImg);
+
+        return true;
+    };
+
+    var _renderReloj = function (estrategia) {
+        $(_elements.reloj.clase).each(function (i, e) {
+            $(e).FlipClock(estrategia.TeQuedan, {
+                countdown: true,
+                clockFace: "HourlyCounter",
+                language: "es-es"
+            });
+        });
+
+        return true;
+    };
+
+    var _renderRelojStyle = function (estrategia) {
+        SetHandlebars(_elements.reloj.templateId, estrategia, _elements.reloj.id);
+        return true;
     };
 
     return {
         setPresenter: _setPresenter,
-        render: _render
-    }
+        renderBreadcrumbs : _renderBreadcrumbs,
+        renderEstrategia : _renderEstrategia,
+        renderBackgroundAndStamp: _renderBackgroundAndStamp,
+        renderReloj: _renderReloj,
+        renderRelojStyle: _renderRelojStyle
+    };
 };
