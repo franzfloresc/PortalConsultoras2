@@ -49,6 +49,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var tablaLogicaDatosDV = tablaLogicaDatos.FirstOrDefault(e => e.TablaLogicaDatosID == Constantes.CaminoBrillante.Niveles.OfertasEspeciales_TablaLogicaDatos) ?? new BETablaLogicaDatos();
             var TieneOfertasEspecialesDV = "1".Equals(tablaLogicaDatosDV.Valor);
 
+            var tablaLogicaDatosEnterateMas = (GetDatosTablaLogica(paisId, ConsTablaLogica.CaminoBrillante.CaminoBrillanteEnterateMas) ?? new List<BETablaLogicaDatos>());
+
             return lstNiveles.Select(e => Niveles_EnterateMas(new BENivelCaminoBrillante()
             {
                 CodigoNivel = e.CodigoNivel,
@@ -57,7 +59,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 MontoMinimo = e.MontoMinimo,
                 TieneOfertasEspeciales = Niveles_TIeneOfertasEspeciales(tablaLogicaDatos, e.CodigoNivel, TieneOfertasEspecialesDV),
                 Beneficios = lstBeneficios.Where(b => b.CodigoNivel == e.CodigoNivel && !(string.IsNullOrEmpty(b.NombreBeneficio) && string.IsNullOrEmpty(b.Descripcion))).ToList()
-            }, tablaLogicaDatos, e.CodigoNivel)).ToList();
+            }, tablaLogicaDatosEnterateMas, e.CodigoNivel)).ToList();
         }
 
         private bool Niveles_TIeneOfertasEspeciales(List<BETablaLogicaDatos> bETablaLogicaDatos, string codNivel, bool defValor)
@@ -68,21 +70,15 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         private BENivelCaminoBrillante Niveles_EnterateMas(BENivelCaminoBrillante beNivelCaminoBrillante, List<BETablaLogicaDatos> bETablaLogicaDatos, string codNivel, string defValor = null)
         {
-            //var bETablaLogicaDato = bETablaLogicaDatos.FirstOrDefault(e => e.Codigo == codNivel);
-            //return bETablaLogicaDato != null ? "1".Equals(bETablaLogicaDato.Valor) : defValor;
-            //
-
-            beNivelCaminoBrillante.EnterateMas = 1; //MI ACADEMIA
-            //beNivelCaminoBrillante.EnterateMasParam = "682";
-            beNivelCaminoBrillante.EnterateMasParam = "222";
-
-            if (codNivel == "06")
-            {
-                beNivelCaminoBrillante.EnterateMas = 2; //ISSUE
-                beNivelCaminoBrillante.EnterateMasParam = "esika.peru.c07.2019";
-
+            var bETablaLogicaDato = bETablaLogicaDatos.FirstOrDefault(e => e.Codigo == codNivel);
+            if (bETablaLogicaDato == null) return beNivelCaminoBrillante;
+            if (string.IsNullOrEmpty(bETablaLogicaDato.Valor)) return beNivelCaminoBrillante;
+            var parts = bETablaLogicaDato.Valor.Split('|');
+            int tipoEnterateMas = 0;
+            if (int.TryParse(parts[0], out tipoEnterateMas)) {
+                beNivelCaminoBrillante.EnterateMas = tipoEnterateMas;
+                beNivelCaminoBrillante.EnterateMasParam = (parts.Length == 2 ? parts[1] : string.Empty);
             }
-
             return beNivelCaminoBrillante;
         }
 
