@@ -7,33 +7,6 @@ namespace Portal.Consultoras.Common.Cryptography
 {
     public static class DesAlgorithm
     {
-        public struct DesKeyPack
-        {
-            public byte[] Key, Iv;
-
-            public DesKeyPack(byte[] data)
-            {
-                Key = new byte[8];
-                Buffer.BlockCopy(data, 0, Key, 0, 8);
-                Iv = new byte[8];
-                Buffer.BlockCopy(data, 8, Iv, 0, 8);
-            }
-        }
-
-        private static DesKeyPack GenKeyPack(string keyString)
-        {
-            const string salt = "SALT";
-
-            using (var md5 = new MD5CryptoServiceProvider())
-            {
-                byte[] data = md5.ComputeHash(Encoding.UTF8.GetBytes(keyString + salt));
-                md5.Clear();
-                var dkp = new DesKeyPack(data);
-
-                return dkp;
-            }
-        }
-
         /// <summary>
         /// Encrypt
         /// </summary>
@@ -42,18 +15,26 @@ namespace Portal.Consultoras.Common.Cryptography
         /// <returns></returns>
         public static string Encrypt(string rawString, string keyString)
         {
-            var dkp = GenKeyPack(keyString);
-            using (var des = new DESCryptoServiceProvider())
+            var bytes = Encoding.UTF8.GetBytes(keyString);
+
+            var cryptoProvider = new DESCryptoServiceProvider {Mode = CipherMode.ECB};
+            using (cryptoProvider)
             {
-                var trans = des.CreateEncryptor(dkp.Key, dkp.Iv);
-                using (var ms = new MemoryStream())
+                var memoryStream = new MemoryStream();
+                var cryptoStream = new CryptoStream(memoryStream,
+                                    cryptoProvider.CreateEncryptor(bytes, bytes),
+                                    CryptoStreamMode.Write);
+
+                using (cryptoStream)
                 {
-                    using (var cs = new CryptoStream(ms, trans, CryptoStreamMode.Write))
+                    using (var writer = new StreamWriter(cryptoStream))
                     {
-                        byte[] rawData = Encoding.UTF8.GetBytes(rawString);
-                        cs.Write(rawData, 0, rawData.Length);
-                        return Convert.ToBase64String(ms.ToArray());  
-                    }
+                        writer.Write(rawString);
+                        writer.Flush();
+                        cryptoStream.FlushFinalBlock();
+                        writer.Flush();
+                        return Convert.ToBase64String(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
+                    } 
                 }
             }
         }
@@ -66,20 +47,19 @@ namespace Portal.Consultoras.Common.Cryptography
         /// <returns></returns>
         public static string Decrypt(string encString, string keyString)
         {
-            var dkp = GenKeyPack(keyString);
-            using (var des = new DESCryptoServiceProvider())
-            {
-                var trans = des.CreateDecryptor(dkp.Key, dkp.Iv);
+            var bytes = Encoding.UTF8.GetBytes(keyString);
 
-                using (var ms = new MemoryStream())
+            var cryptoProvider = new DESCryptoServiceProvider {Mode = CipherMode.ECB};
+            using (cryptoProvider)
+            {
+                var memoryStream = new MemoryStream(Convert.FromBase64String(encString));
+                var cryptoStream = new CryptoStream(memoryStream,
+                                        cryptoProvider.CreateDecryptor(bytes, bytes),
+                                        CryptoStreamMode.Read);
+                using (var reader = new StreamReader(cryptoStream))
                 {
-                    using (var cs = new CryptoStream(ms, trans, CryptoStreamMode.Write))
-                    {
-                        byte[] rawData = Convert.FromBase64String(encString);
-                        cs.Write(rawData, 0, rawData.Length);
-                    }
-                    return Encoding.UTF8.GetString(ms.ToArray());
-                } 
+                    return reader.ReadToEnd(); 
+                }
             }
         }
     }
