@@ -40,6 +40,12 @@ var EstrategiaPresenter = function (config) {
             !_config.estrategiaView.renderBackgroundAndStamp(model)) 
             throw "estrategiaView do not render background and stamp";
 
+        if (model.TieneReloj &&
+            !_config.estrategiaView.renderReloj(model)) throw "estrategiaView don't render reloj.";
+
+        if (model.TieneReloj &&
+            !_config.estrategiaView.renderRelojStyle(model)) throw "estrategiaView don't render style of reloj.";
+
         return true;
     };
 
