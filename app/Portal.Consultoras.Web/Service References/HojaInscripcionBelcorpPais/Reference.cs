@@ -29,13 +29,13 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         private int EstadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> FKIdParametroUneteField;
+        private int FKIdParametroUneteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IdParametroUneteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> IdParametroUnetePadreField;
+        private int IdParametroUnetePadreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreField;
@@ -80,7 +80,7 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> FKIdParametroUnete {
+        public int FKIdParametroUnete {
             get {
                 return this.FKIdParametroUneteField;
             }
@@ -106,7 +106,7 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> IdParametroUnetePadre {
+        public int IdParametroUnetePadre {
             get {
                 return this.IdParametroUnetePadreField;
             }
@@ -1060,6 +1060,12 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBelcorpPaisService/GetDatosConsultoraByRegionZona", ReplyAction="http://tempuri.org/IBelcorpPaisService/GetDatosConsultoraByRegionZonaResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE> GetDatosConsultoraByRegionZonaAsync(string CodigoISO, string codIsoSicc, string codRegion, string codZona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBelcorpPaisService/ObtenerPaisContrasenia", ReplyAction="http://tempuri.org/IBelcorpPaisService/ObtenerPaisContraseniaResponse")]
+        bool ObtenerPaisContrasenia(string CodigoISO);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBelcorpPaisService/ObtenerPaisContrasenia", ReplyAction="http://tempuri.org/IBelcorpPaisService/ObtenerPaisContraseniaResponse")]
+        System.Threading.Tasks.Task<bool> ObtenerPaisContraseniaAsync(string CodigoISO);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1239,6 +1245,14 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE> GetDatosConsultoraByRegionZonaAsync(string CodigoISO, string codIsoSicc, string codRegion, string codZona) {
             return base.Channel.GetDatosConsultoraByRegionZonaAsync(CodigoISO, codIsoSicc, codRegion, codZona);
+        }
+        
+        public bool ObtenerPaisContrasenia(string CodigoISO) {
+            return base.Channel.ObtenerPaisContrasenia(CodigoISO);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ObtenerPaisContraseniaAsync(string CodigoISO) {
+            return base.Channel.ObtenerPaisContraseniaAsync(CodigoISO);
         }
     }
 }

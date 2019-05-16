@@ -4670,28 +4670,28 @@
     <Content Include="Areas\Mobile\Views\Pedido\_PopupEleccionRegalo.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupPremio.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupDescuento.cshtml" />
-    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService.wsdl" />
-    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="Views\Shared\VistaParcialResponisve\_MenuContenedorResponsive.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-bannerInteractivo.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\ComponenteDetalleIndividualTemplate.cshtml" />
     <Content Include="Areas\Mobile\Views\Bonificaciones\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Bonificaciones\IndexExterno.cshtml" />
+    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService1.wsdl" />
+    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService51.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService52.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService53.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService54.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -5087,35 +5087,41 @@
     <None Include="Service References\ServiceSeguridad\SeguridadService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService.wsdl" />
-    <None Include="Service References\ServiceUnete\PortalService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService5.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService6.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService7.xsd">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Service References\ServiceUnete\PortalService12.wsdl" />
     <None Include="Service References\ServiceUnete\PortalService8.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService9.xsd">
+    <None Include="Service References\ServiceUnete\PortalService822.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService823.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService824.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService825.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService826.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService827.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService828.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService829.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService830.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService831.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService832.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuarioExt\UsuarioWebService.wsdl" />
