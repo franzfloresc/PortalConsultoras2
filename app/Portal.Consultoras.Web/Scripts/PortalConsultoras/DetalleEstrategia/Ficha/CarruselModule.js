@@ -336,9 +336,11 @@ var CarruselModule = (function (config) {
         palanca: config.palanca || "",
         campania: config.campania || "",
         cuv: config.cuv || "",
-        urlDataCarrusel: config.urlDataCarrusel || "/Estrategia/FichaObtenerProductosCarrusel",
+        urlDataCarrusel: config.urlDataCarrusel || "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
         OrigenPedidoWeb: config.OrigenPedidoWeb || "",
-        pantalla: "Ficha"
+        pantalla: "Ficha",
+        codigoProducto: config.codigoProducto,
+        precioProducto: config.precioProducto
     };
 
     var _elementos = {
@@ -508,7 +510,7 @@ var CarruselModule = (function (config) {
         var data = {
             lista: []
         };
-
+        
         if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
             data.lista = _cargarDatos();
         }
@@ -517,12 +519,18 @@ var CarruselModule = (function (config) {
             || (_config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia)
             || (_config.palanca == ConstantesModule.TipoEstrategiaTexto.PackNuevas)
         ) {
-            var param = { cuvExcluido: _config.cuv, palanca: _config.palanca }
+            var param = {
+                cuvExcluido: _config.cuv,
+                palanca: _config.palanca,
+                codigoProducto: _config.codigoProducto,
+                precioProducto: _config.precioProducto
+            }
+            
             _promiseObternerDataCarrusel(param).done(function (response) {
 
                 if (response) {
                     if (response.success) {
-                        data.lista = response.data;
+                        data.lista = response.result;
                     }
                 }
 

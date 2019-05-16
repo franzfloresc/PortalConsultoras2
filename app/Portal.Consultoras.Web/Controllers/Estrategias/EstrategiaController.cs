@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.ElasticSearch;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
+using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +20,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
     {
         protected OfertaBaseProvider _ofertaBaseProvider;
         protected ConfiguracionOfertasHomeProvider _configuracionOfertasHomeProvider;
+        protected CarruselUpSellingProvider _carruselUpSellingProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
 
         public EstrategiaController()
@@ -24,6 +28,12 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             _ofertaBaseProvider = new OfertaBaseProvider();
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
             _configuracionOfertasHomeProvider = new ConfiguracionOfertasHomeProvider();
+            _carruselUpSellingProvider = new CarruselUpSellingProvider();
+        }
+
+        public EstrategiaController(ISessionManager sesionManager, ILogManager logManager)
+            : base(sesionManager, logManager)
+        {
         }
 
         #region Metodos Por Palanca
@@ -104,7 +114,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 var listEstrategias = _ofertaPersonalizadaProvider.ValidBannerNuevas(isMobile, userData, listModel.Where(l => l.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(), bloquearBannerNuevas);
                 model.ListaLan = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listModel.Where(l => l.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(), listaPedido, userData.CodigoISO, userData.CampaniaID, 0, userData.esConsultoraLider, userData.Simbolo);
                 model.ListaModelo = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listEstrategias, listaPedido, userData.CodigoISO, userData.CampaniaID, 0, userData.esConsultoraLider, userData.Simbolo);
-               
+
 
             }
             catch (Exception ex)
@@ -232,7 +242,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     else
                     {
                         List<ServiceOferta.BEEstrategia> listaProducto = _ofertaPersonalizadaProvider.GetShowRoomOfertasConsultora(userData);
-                    
+
                         //listaProducto.ForEach(x => x.TieneStock = true);
 
                         //if (listaProducto.Any())
@@ -748,7 +758,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 {
                     success = true,
                     message = "Ok",
-                    data = listaOfertasModel == null ? new List<EstrategiaPersonalizadaProductoModel>() : listaOfertasModel.Where(x => x.CUV2 != cuvExcluido).ToList()
+                    result = listaOfertasModel == null ? new List<EstrategiaPersonalizadaProductoModel>() : listaOfertasModel.Where(x => x.CUV2 != cuvExcluido).ToList()
                 });
             }
             catch (Exception ex)
@@ -758,6 +768,33 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }
         }
 
+        [HttpPost]
+        public JsonResult FichaObtenerProductosUpSellingCarrusel(string cuvExcluido, string palanca, string codigoProducto, double precioProducto)
+        {
+            try
+            {
+                var mostrarFuncionalidadUpSelling = _tablaLogicaProvider.GetTablaLogicaDatoValor(userData.PaisID, ConsTablaLogica.ConfiguracionesFicha.TablaLogicaId, ConsTablaLogica.ConfiguracionesFicha.MostrarFuncionalidadUpSelling, true);
+
+                if (!mostrarFuncionalidadUpSelling.IsNullOrEmptyTrim() || mostrarFuncionalidadUpSelling == "1")
+                {
+                    /*var dataProductosCarruselUpSelling = _carruselUpSellingProvider.ObtenerProductosCarruselUpSelling(codigoProducto, precioProducto);
+                    return Json(dataProductosCarruselUpSelling);*/
+
+                    // Data de prueba
+                    return FichaObtenerProductosCarrusel(cuvExcluido, palanca);
+                    // Fin data prueba
+                }
+                else
+                {
+                    return FichaObtenerProductosCarrusel(cuvExcluido, palanca);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
+            }
+        }
         #endregion
     }
 }

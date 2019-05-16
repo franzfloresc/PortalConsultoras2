@@ -3388,6 +3388,8 @@ namespace Portal.Consultoras.Common
             public const string UrlRecomendaciones = "Recomendaciones/{0}/{1}/{2}";
 
             public const string UrlCategorias = "Categoria/{0}/{1}";
+
+            public const string UrlUpSelling = "upselling/{0}/{1}/{2}";
         }
 
         public static class ActualizacionDatosValidacion
