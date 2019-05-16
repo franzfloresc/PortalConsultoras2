@@ -130,7 +130,7 @@ var CarruselAyuda = function () {
                         var uniqueProgramNuevas = _eliminarDuplicadosArray(programNuevas, "CUV2");
 
                         var pos = (isHome()) ? "Home" : "Pedido";
-                        AnalyticsPortalModule.MarcaGenericaLista(ConstantesModule.CodigoPalanca.DP, uniqueProgramNuevas, pos);
+                        AnalyticsPortalModule.MarcaPromotionView(ConstantesModule.CodigoPalanca.DP, uniqueProgramNuevas, pos);
                     }
                 }
                 //FIN DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
@@ -650,7 +650,6 @@ function ArmarCarouselEstrategias(data) {
             }
         }
     }
-
 
     arrayOfertasParaTi = data.Lista;
     data.lista = data.Lista;
