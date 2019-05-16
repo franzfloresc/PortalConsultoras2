@@ -64,7 +64,7 @@
                 <div id="divPaso1" class="block opciones_verificacion_autenticidad">
                     <div class="block mt-20-mobile">
                         <p class="block texto_verificacion_datos">
-                            <span class="text-center block">¡Bienvenida @Model.PrimerNombre!</span>
+                            <span class="text-center block">¡Bienvenida @Model.PrimerNombre</span>
                         </p>
                         <h2 class="text-center text-bold block texto_verificacion_datos texto_verificacion_datos--resaltado">
                             Queremos verificar tus datos
@@ -142,6 +142,8 @@
                 <!-- FIN - OPCIONES DE VERIFICACIÓN DE AUTENTICIDAD -->
                 <!-- ACTUALIZACIÓN DE NÚMERO DE CELULAR -->
                 <div id="ActualizarCelular" class="block text-center form_actualizar_celular" style="display:none;">
+                    <!-- INICIO -Cuando el formato del celular sea incorrecto agregar la clase grupo_form_cambio_datos--validacionErronea,
+                         si el formato del correo es correcto remover clase mencionada anteriormente y agregar grupo_form_datos--validacionExitosa -->
                     <div class="block grupo_form_cambio_datos grupo_form_cambio_datos--vistaActualizacionCelular">
                         <div class="w-100">
                             <input id="NuevoCelular" name="NuevoCelular" class="w-100" type="tel" value="" />
@@ -149,6 +151,8 @@
                             <span id="ValidateCelular" class="text-bold mensaje_validacion_campo mensaje_validacion_campo--vistasActualizacion" style="display:none">Número inválido</span>
                         </div>
                     </div>
+                    <!-- FIN -Cuando el formato del celular sea incorrecto agregar la clase grupo_form_cambio_datos--validacionErronea,
+                         si el formato del correo es correcto remover clase mencionada anteriormente y agregar grupo_form_datos--validacionExitosa -->
                     <div class="block pt-31 mb-15">
                         <div class="checkbox_condiciones_wrapper w-100">
                             <div class="text-left checkbox_condiciones_descripcion">
@@ -230,8 +234,14 @@
                         Validar código
                     </button>
                 </div>
-                <div id="divPaso3sms" class="block celular_validado text-center" style="display:none;">
-                    <div class="block center-block mt-20-mobile icono_validacion_celular_exitosa"></div>
+                <div id="divPaso3sms" class="block text-center celular_validado" style="display:none;">
+                    <div class="center-block icono_success icono_success--miPerfil">
+                        <img class="d-block" src="@Url.Content("~/Content/Images/success_icon.svg")" alt="¡El cambio de correo fue exitoso!" />
+                    </div>
+                    <h6 class="center-block text-bold text-center mensaje_success mensaje_success--miPerfil">
+                        ¡El cambio de<br />número fue exitoso!
+                    </h6>
+                    @*<div class="block center-block mt-20-mobile icono_validacion_celular_exitosa"></div>
                     <h1 class="block center-block titulo_celular_validado text-uppercase">
                         ¡Validamos<br /><span class="text-bold">tu celular</span>!
                     </h1>
@@ -242,11 +252,13 @@
                         Te recomendamos además actualizar tu contraseña por tu seguridad.
                     </p>
                     <a class="block center-block mb-20-mobile enlace_ir_a_somos_belcorp text-uppercase text-bold default-background-color mb-31 ContinuarBienvenida">Ir a somos belcorp</a>
-                    <a title="Actualizar contraseña" class="block enlace_actualizar_contrasenia text-bold VerCambioClave">Actualizar contraseña</a>
+                    <a title="Actualizar contraseña" class="block enlace_actualizar_contrasenia text-bold VerCambioClave">Actualizar contraseña</a>*@
                 </div>
                 <!-- FIN - VERIFICACIÓN POR CÓDIGO SMS -->
                 <!-- ACTUALIZACIÓN DE CORREO ELECTRÓNICO -->
                 <div id="ActualizarCorreo" class="block text-center form_actualizar_correo" style="display:none;">
+                    <!-- INICIO -Cuando el formato del correo sea incorrecto agregar la clase grupo_form_cambio_datos--validacionErronea,
+                         si el formato del correo es correcto remover clase mencionada anteriormente y agregar grupo_form_datos--validacionExitosa -->
                     <div class="block grupo_form_cambio_datos grupo_form_cambio_datos--vistaActualizacionCorreo">
                         <div class="w-100">
                             <input id="NuevoCorreo" name="NuevoCorreo" class="w-100" type="tel" value="" />
@@ -254,6 +266,8 @@
                             <span id="ValidateCorreo" class="text-bold mensaje_validacion_campo mensaje_validacion_campo--vistasActualizacion" style="display:none;">Correo inválido</span>
                         </div>
                     </div>
+                    <!-- FIN -Cuando el formato del correo sea incorrecto agregar la clase grupo_form_cambio_datos--validacionErronea,
+                         si el formato del correo es correcto remover clase mencionada anteriormente y agregar grupo_form_datos--validacionExitosa -->
                     <div class="block pt-31 mb-15">
                         <div class="checkbox_condiciones_wrapper w-100">
                             <div class="text-left checkbox_condiciones_descripcion">
@@ -288,6 +302,12 @@
                             Reenviar el correo
                         </a>
                     </div>
+                    <div id="spnReenviarInstrucciones" class="notificacion_estado notificacion_estado--exito" style="display:none;">
+                        <span class="notificacion_estado_img">
+                            <img src="@Url.Content("~/Content/Images/icono_confirmacion_con_fondo.svg")" alt="" />
+                        </span>
+                        <span class="text-bold">¡Listo! Se reenvió el correo.</span>
+                    </div>
                     @*<p class="w-100 block envio_instrucciones_info mb-50">
                         <span class="w-100 block mb-13">¿Aún no recibes nuestro correo?</span>
                         <a id="linkRenviarCorreo" title="Reenvíenme las instrucciones" class="block enlace_reenviar_instrucciones w-100 text-uppercase text-bold RecuperarPorCorreo">
@@ -298,8 +318,14 @@
                         Ir a somos belcorp
                     </button>
                 </div>
-                <div id="divPaso3Email" class="correo_validado block text-center" style="display:none;">
-                    <div class="icono_validacion_correo_exitoso block center-block mt-20-mobile"></div>
+                <div id="divPaso3Email" class="block correo_validado text-center" style="display:none;">
+                    <div class="center-block icono_success icono_success--miPerfil">
+                        <img class="d-block" src="@Url.Content("~/Content/Images/success_icon.svg")" alt="¡El cambio de correo fue exitoso!" />
+                    </div>
+                    <h6 class="center-block text-bold text-center mensaje_success mensaje_success--miPerfil">
+                        ¡El cambio de<br />correo fue exitoso!
+                    </h6>
+                    @*<div class="icono_validacion_correo_exitoso block center-block mt-20-mobile"></div>
                     <h1 class="titulo_correo_validado text-uppercase block center-block">
                         ¡Validamos<br /><span class="text-bold">tu correo</span>!
                     </h1>
@@ -310,7 +336,7 @@
                         Te recomendamos además actualizar tu contraseña por tu seguridad.
                     </p>
                     <a class="block center-block mb-20-mobile enlace_ir_a_somos_belcorp text-uppercase text-bold default-background-color mb-31 ContinuarBienvenida">Ir a somos belcorp</a>
-                    <a title="Actualizar contraseña" class="block enlace_actualizar_contrasenia text-bold VerCambioClave">Actualizar contraseña</a>
+                    <a title="Actualizar contraseña" class="block enlace_actualizar_contrasenia text-bold VerCambioClave">Actualizar contraseña</a>*@
                 </div>
                 <!-- FIN - VERIFICACIÓN POR CORREO ELECTRÓNICO -->
             </div>

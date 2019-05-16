@@ -956,6 +956,21 @@ a{
     margin-right: 8px;
 }
 
+.notificacion_estado {
+    margin-top: 35px;
+    margin-bottom: 35px;
+}
+
+.icono_success--miPerfil {
+    margin-top: 24px;
+    width: 82px;
+    height: 82px;
+}
+
+.mensaje_success--miPerfil {
+    font-size: 20px;
+}
+
 /* FIN - VISTA ACTUALIZAR CELULAR */
 
 @media screen and (max-width:991px){
