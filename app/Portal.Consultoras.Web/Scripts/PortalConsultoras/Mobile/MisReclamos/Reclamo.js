@@ -232,20 +232,25 @@ $(document).ready(function () {
 
                 // Agregar otro producto.
                 $(me.Variables.IrSolicitudInicial).click(function () {
+                    if ($(me.Variables.hdCDRID).val() !== "0")
+                        flagAgregarNuevo = false;
+
                     if (mensajeGestionCdrInhabilitada !== "") {
                         messageInfoValidado(mensajeGestionCdrInhabilitada);
                         return false;
                     }
 
-                    //El if se hizo con !() para considerar posibles valores null o undefined de $('#ddlCampania').val()
-                    //if (!($(me.Variables.ComboCampania).val() > 0)) {
-                    //    messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
-                    //    return false;
-                    //}
-                    $(me.Variables.txtNumPedido).val("N° " + $(me.Variables.hdNumeroPedido).val());
-                    $(me.Variables.txtNumPedido).show();
-                    $(me.Variables.txtNumPedido).attr("readonly", "readonly");
+                    if (!flagAgregarNuevo && $(me.Variables.hdCDRID).val() !== "0") {
+                        $(me.Variables.txtNumPedido).val("N° " + $(me.Variables.hdNumeroPedido).val());
+                        $(me.Variables.txtNumPedido).show();
+                        $(me.Variables.txtNumPedido).attr("readonly", "readonly");
+                    }
 
+                    if ($(me.Variables.ddlnumPedido + " option").length > 0 && $(me.Variables.hdCDRID).val() === "0") {
+                        $(me.Variables.ddlnumPedido).show();
+                    } else {
+                        $(me.Variables.ddlnumPedido).hide();
+                    }
                     $(me.Variables.hdCuvCodigo).val("");
                     $(me.Variables.txtDescripcionCuv).html("");
                     $(me.Variables.txtCantidad1).val("1");
@@ -333,7 +338,7 @@ $(document).ready(function () {
 
                 $(me.Variables.UltimasSolicitudes).on('click', 'a[data-accion]', function (e) {
 
-                    e.preventDefault(); // prevents the <a> from navigating                  
+                    e.preventDefault();
                     me.Funciones.DetalleAccion(this);
                 });
 
@@ -355,6 +360,7 @@ $(document).ready(function () {
 
                 $(me.Variables.ddlnumPedido).on('change', function () {
                     $(me.Variables.txtCantidad1).val("1");
+                    $(me.Variables.txtCuvMobile).val("");
                     if ($(me.Variables.ddlnumPedido).val() == 0) {
                         $(me.Variables.DescripcionCuv).hide();
                         $(me.Variables.txtCuvMobile).show();
@@ -401,7 +407,6 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.aCambiarProducto2).click(function (e) {
-
                     $(me.Variables.DescripcionCuv2).hide();
                     $(me.Variables.txtCuvMobile2).fadeIn();
                     $(me.Variables.txtCuvMobile2).focus();
@@ -436,7 +441,7 @@ $(document).ready(function () {
                                             return false;
                                         }
                                         if (data.detalle.length === 0) {
-                                            messageInfoError("Lo sentimos, no encontramos opciones para el inconveniento seleccionado.");
+                                            messageInfoError("Lo sentimos, no encontramos opciones para el inconveniente seleccionado.");
                                             return false;
                                         }
                                         $(me.Variables.Registro1).hide();
@@ -481,19 +486,21 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.Enlace_regresar).click(function (e) {
+                    console.log("me.Variables.Enlace_regresar");
+
                     var arrHide = [me.Variables.Registro2, me.Variables.Registro3, me.Variables.Registro4, me.Variables.Enlace_regresar, me.Variables.btnAceptarSolucion,
                     me.Variables.btnCambioProducto, me.Variables.txtNumPedido, me.Variables.DescripcionCuv, me.Variables.DescripcionCuv2,
                     me.Variables.infoOpcionesDeCambio, "#MensajeTenerEncuenta"];
                     me.Funciones.HideTags(arrHide);
                     me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.uno_seleccion_de_producto);
 
-                    if (!flagAgregarNuevo) {
+                    if (!flagAgregarNuevo && $(me.Variables.hdCDRID).val() !== "0") {
                         $(me.Variables.txtNumPedido).val("N° " + $(me.Variables.hdNumeroPedido).val());
                         $(me.Variables.txtNumPedido).show();
                         $(me.Variables.txtNumPedido).attr("readonly", "readonly");
                     }
 
-                    if ($(me.Variables.ddlnumPedido + " option").length > 0) {
+                    if ($(me.Variables.ddlnumPedido + " option").length > 0 && $(me.Variables.hdCDRID).val() === "0") {
                         $(me.Variables.ddlnumPedido).show();
                     } else {
                         $(me.Variables.ddlnumPedido).hide();
@@ -534,7 +541,7 @@ $(document).ready(function () {
                     }
 
                     $(me.Variables.ComboCampania).removeAttr("disabled");
-                    //HD-3412 EINCA
+
                     if (me.Funciones.ValidarSolicitudCDREnvio(false, true)) {
                         $(me.Variables.txtCantidadPedidoConfig).text(CantidadReclamosPorPedidoConfig);
                         $(me.Variables.divConfirmEnviarSolicitudCDR).show();
@@ -666,7 +673,7 @@ $(document).ready(function () {
                     if (oID == "TipoEnvioExpress") tipoDespacho = true;
                     else tipoDespacho = false;
                 });
-                //HD-3412 EINCA
+
                 $(me.Variables.txtTelefono).keypress(function (evt) {
                     var charCode = (evt.which) ? evt.which : window.event.keyCode;
                     if (charCode <= 13) {
@@ -683,15 +690,9 @@ $(document).ready(function () {
                         messageInfoValidado(mensajeGestionCdrInhabilitada);
                         return false;
                     }
-
-
-                    //if (mensajeCdrFueraDeFechaCompleto !== "") {
-                    //    messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
-                    //    return false;
-                    //}
-
                     flagAgregarNuevo = true;
-                    console.log("IrPaso1");
+                    $(me.Variables.hdCDRID).val("0");
+                    console.log("me.Variables.IrPaso1");
                     $(me.Variables.Registro2).hide();
                     $(me.Variables.Registro3).hide();
                     $(me.Variables.txtCantidad1).val("1");
@@ -702,6 +703,8 @@ $(document).ready(function () {
                     $(me.Variables.txtNumPedido).val("").hide();
                     $(me.Variables.hdPedidoID).val(0);
                     $(me.Variables.hdNumeroPedido).val(0);
+                    $(me.Variables.infoOpcionesDeCambio).hide();//solve bug 
+                    $("#MensajeTenerEncuenta").hide();//solve bug
                     $("#VistaPaso3").hide();
                     me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.uno_seleccion_de_producto);
                     $("#VistaPaso1y2").show();
@@ -839,7 +842,6 @@ $(document).ready(function () {
                     }
                 });
             },
-            //HD-3412 EINCA
             ValidarPasoDosTrueque: function () {
                 var $val = $(me.Variables.txtCantidad2).val();
                 var cantidad = $.trim($val) !== "" && !isNaN($val) ? parseInt($val) : 0;
@@ -881,7 +883,7 @@ $(document).ready(function () {
                 }
                 return true;
             },
-            //HD-3412 EINCA
+
             ValidarPasoDosTruequeServer: function (callbackWhenFinish) {
                 var url = UrlValidarNoPack;
                 var sendData = {
@@ -1015,20 +1017,20 @@ $(document).ready(function () {
             AsignarCUV: function (pedido) {
                 console.log("AsignarCUV");
                 var EstadosConteo = 0;
-                var CDRWebID = 0;
-                pedido = pedido || new Object();
+                var CDRWebID = $(me.Variables.hdCDRID).val() || 0;
+                pedido = pedido || {};
                 $.each(pedido.BECDRWeb, function (i, item) {
                     if (item.Estado === 3 || item.Estado === 2) {
                         EstadosConteo++;
                     }
-                    //obtener el cdr en estado pendiente
+
                     if (item.Estado === 1) { CDRWebID = item.CDRWebID; }
                 });
                 var cantidad = CantidadReclamosPorPedidoConfig != null && CantidadReclamosPorPedidoConfig != '' ? parseInt(CantidadReclamosPorPedidoConfig) : 0;
                 if (cantidad === EstadosConteo && EstadosConteo > 0) {
                     messageInfoError("Lo sentimos, usted a excedido el límite de reclamos por pedido");
                 } else {
-                    pedido.olstBEPedidoWebDetalle = pedido.olstBEPedidoWebDetalle || new Array();
+                    pedido.olstBEPedidoWebDetalle = pedido.olstBEPedidoWebDetalle || [];
                     var detalle = pedido.olstBEPedidoWebDetalle.Find("CUV", $(me.Variables.hdCuvCodigo).val() || "");
                     var data = detalle.length > 0 ? detalle[0] : new Object();
 
@@ -1159,7 +1161,7 @@ $(document).ready(function () {
                 }
                 return true;
             },
-            //HD-3412 EINCA
+
             ValidarPasoUnoServer: function (callbackWhenFinish) {
                 var url = UrlValidarPaso1;
                 var sendData = {
@@ -1585,7 +1587,7 @@ $(document).ready(function () {
 
                 return true;
             },
-            //HD-3412 EINCA
+
             SolicitudCDREnviar: function (callbackWhenFinish) {
                 var url = UrlSolicitudEnviar;
                 var sendData = {
@@ -1735,15 +1737,15 @@ $(document).ready(function () {
                 }
             },
 
-            PopupPedidoSeleccionar: function (obj) {
+            //PopupPedidoSeleccionar: function (obj) {
 
-                var objPedido = $(obj);
-                var id = objPedido.attr("data-pedido-id");
-                var pedidos = listaPedidos.Find("PedidoID", id);
-                var pedido = pedidos.length > 0 ? pedidos[0] : new Object();
-                $/*("#divPopupPedido").hide();*/
-                me.Funciones.AsignarCUV(pedido);
-            },
+            //    var objPedido = $(obj);
+            //    var id = objPedido.attr("data-pedido-id");
+            //    var pedidos = listaPedidos.Find("PedidoID", id);
+            //    var pedido = pedidos.length > 0 ? pedidos[0] : new Object();
+
+            //    me.Funciones.AsignarCUV(pedido);
+            //},
 
             CancelarConfirmEnvioSolicitudCDR: function () {
                 $(me.Variables.divConfirmEnviarSolicitudCDR).hide();
@@ -1869,6 +1871,9 @@ $(document).ready(function () {
                 if (id === me.Variables.operaciones.trueque) {
                     $.when(me.Funciones.ObtenerValorParametria(id)).then(function () {
                         me.Funciones.SetMontoCampaniaTotal();
+                        $(me.Variables.txtCuvMobile2).val("");
+                        $(me.Variables.aCambiarProducto2).click();
+                        $(me.Variables.txtCuvMobile2).fadeIn();
                         $(me.Variables.OpcionCambioPorOtroProducto).fadeIn(200);
                     });
                 }

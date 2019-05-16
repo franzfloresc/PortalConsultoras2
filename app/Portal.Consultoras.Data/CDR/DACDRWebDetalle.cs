@@ -73,7 +73,7 @@ namespace Portal.Consultoras.Data.CDR
 
             return result;
         }
-        //HD-3412 EINCA
+
         public int ValCUVEnProcesoReclamo(int pedidoId, string cuv)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarCUVEnProcesoReclamo");

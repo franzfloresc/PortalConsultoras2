@@ -34,7 +34,6 @@ var reclamo = {
     },
     datosCuv: []
 };
-
 var dataCdrDevolucion = {};
 var flagSetsOrPack = false;
 $(document).ready(function () {
@@ -112,8 +111,6 @@ $(document).ready(function () {
         $("#txtCUVPrecio2").val("");
         $("#MensajeTenerEncuenta").fadeOut(100);
         if (ValidarPasoUno()) {
-            //HD-3412 EINCA
-            //validar lado del server
             ValidarPasoUnoServer(function (d) {
                 if (!d.success) {
                     alert_msg(d.message);
@@ -137,7 +134,7 @@ $(document).ready(function () {
                         }
 
                         if (data.detalle.length === 0) {
-                            alert_msg("Lo sentimos, no encontramos opciones para el inconveniento seleccionado");
+                            alert_msg("Lo sentimos, no encontramos opciones para el inconveniente seleccionado.");
                             return false;
                         }
 
@@ -188,7 +185,6 @@ $(document).ready(function () {
             alert_msg(mensajeGestionCdrInhabilitada);
             return false;
         }
-        //El if se hizo con !() para colnsiderar posibles valores null o undefined de $('#ddCampania').val()
         //if (!($("#ddlCampania").val() > 0)) {
         //    alert_msg(mensajeCdrFueraDeFechaCompleto);
         //    return false;
@@ -743,7 +739,6 @@ function BuscarMotivo() {
     });
 }
 
-//HD-3412 EINCA
 function ValidarPasoUno() {
     if ($("#ddlCampania").val() == "" || $("#ddlCampania").val() == "0") {
         alert_msg("por favor, seleccionar una campaña.");
@@ -778,7 +773,6 @@ function ValidarPasoUno() {
     return true;
 }
 
-//HD-3412 EINCA
 function ValidarPasoUnoServer(callbackWhenFinish) {
     var url = baseUrl + 'MisReclamos/ValidarPaso1';
 
@@ -1259,7 +1253,7 @@ function ValidarSolicitudCDREnvio(validarCorreoVacio, validarCelularVacio) {
     }
 
     if (!ok) return false;
-
+    
     if (!$("#btnAceptoPoliticas").hasClass("politica_reclamos_icono_active")) {
         alert_msg("Debe aceptar la política de Cambios y Devoluciones");
         return false;
@@ -1519,7 +1513,7 @@ function PreValidarCUV(event) {
 
     if (event.keyCode == 13) {
         if ($("#btnAgregar")[0].disabled == false) {
-            AgregarProductoListado();
+            PedidoRegistroModule.AgregarProductoListadoPasePedido();
         }
     }
 }
@@ -1675,15 +1669,6 @@ function AgregarODisminuirCantidad(event, opcion) {
     }
 
     CalcularTotal();
-    //var precio = parent.attr("data-precio");
-    //var cantidad = parent
-
-    //var precio = $("#hdCuvPrecio2").val() == "" ? 0 : parseFloat($("#hdCuvPrecio2").val());
-    //var cantidad = parseInt($("#txtCantidad2").val());
-    //cantidad = cantidad == 99 ? 99 : cantidad; //+ 1;
-    //var importeTotal = precio * cantidad;
-    //$("#hdImporteTotal2").val(importeTotal);
-    //$("#spnImporteTotal2").html(DecimalToStringFormat(importeTotal));
 }
 
 //HD-3703 EINCA

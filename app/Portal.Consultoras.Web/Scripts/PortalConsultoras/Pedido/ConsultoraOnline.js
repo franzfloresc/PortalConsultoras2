@@ -18,7 +18,6 @@ $(document).ready(function () {
         $('#infoPedido').show();
         $('#infoPendientes').hide();
         $('.paginador_pedidos.mostrarPaginadorPedidos.inferior').show();
-        //$('ul.paginador_notificaciones').show();
         $("#paginadorCab").show();
         $("#paginadorCabPend").hide();
         $('.caja_guardar_pedido').show();
@@ -43,7 +42,6 @@ $(document).ready(function () {
         $('#infoPedido').hide();
         $('#infoPendientes').show();
         $('.paginador_pedidos.mostrarPaginadorPedidos.inferior').hide();
-        //$('ul.paginador_notificaciones').hide();
         $("#paginadorCab").hide();
         $("#paginadorCabPend").show();
         $('.caja_guardar_pedido').hide();
@@ -575,7 +573,14 @@ function ProcesarAceptarPedido(pedido) {
 
                 }
                 else {
-                    alert_msg(response.message);
+                    //INI HD-3693
+                    //alert_msg(response.message);
+                    var msjBloq = validarpopupBloqueada(response.message);
+                    if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                    else alert_msg(response.message);
+                    //FIN HD-3693
+
+
                 }
             }
         },

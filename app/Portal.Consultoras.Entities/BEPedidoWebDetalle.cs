@@ -351,5 +351,10 @@ namespace Portal.Consultoras.Entities
         public bool EsArmaTuPack { get; set; }
         [DataMember]
         public string CUVReemplazo { get; set; }
+
+        [DataMember]
+        public bool EsKitCaminoBrillante { get; set; }
+        [DataMember]
+        public bool EsDemCaminoBrillante { get; set; }
     }
 }

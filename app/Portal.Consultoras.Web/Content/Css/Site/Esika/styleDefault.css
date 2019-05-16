@@ -32,6 +32,14 @@
     cursor:not-allowed!important;
     color:#909094!important;
 }
+.multimarca-background-color {
+    background-color: #b9007e;
+}
+
+.bg__popups__default {
+    background-color: rgba(0,0,0,.8);
+}
+
 
 .border-radius-4{
     border-radius:4px;
@@ -272,3 +280,7 @@
 }
 
 /* FIN - POPUP GENERAL (ACCIONES ACEPTAR Y CANCELAR) */
+
+.bg__popups__default{
+    background-color:rgba(0,0,0,.8);
+}

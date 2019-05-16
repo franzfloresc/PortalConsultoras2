@@ -53,8 +53,7 @@ namespace Portal.Consultoras.Web.Controllers
                 SessionManager.SetListaCDRWebCargaInicial(null);//HD-3412 EINCA
                 SessionManager.SetCDRPedidoFacturado(null); //HD-3412 EINCA
                 listaCdrWebModel = _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID, userData.PaisID);//HD-3412 EINCA
-                var ObtenerCampaniaPedidosFacturados = _cdrProvider.CDRObtenerPedidoFacturadoCargaInicial(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);//HD-3412 EINCA
-
+                var ObtenerCampaniaPedidosFacturados = _cdrProvider.CDRObtenerPedidoFacturadoCargaInicial(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
 
                 string urlPoliticaCdr = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
                 model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
@@ -106,7 +105,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var listaCdr = _cdrProvider.CargarBECDRWeb(new MisReclamosModel { PedidoID = p }, userData.PaisID, userData.ConsultoraID);
                 if (listaCdr.Count == 0) return RedirectToAction("Index");
-                //HD-3412 EINCA 
                 var listacdrweb = listaCdr.Where(a => a.CDRWebID == c).ToArray();
                 if (listacdrweb.Count() == 1)
                 {
@@ -149,7 +147,7 @@ namespace Portal.Consultoras.Web.Controllers
             string mensaje = "No se ha encontrado su número de pedido, vuelva a intentarlo otra vez seleccionando la campaña.";
             try
             {
-                var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();//HD-3412 EINCA
+                var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
 
                 listaPedidoFacturados = listaPedidoFacturados.Where(a => a.CampaniaID == CampaniaID).ToList();
 
@@ -158,7 +156,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mensaje = "";
                     foreach (var item in listaPedidoFacturados)
                     {
-                        //HD-3412 EINCA
+
                         var existe = listaNroPedidos.Where(c => c.CampaniaID == item.CampaniaID && item.PedidoID == c.PedidoID) ?? new List<CampaniaModel>();
                         if (!existe.Any())
                         {
@@ -239,7 +237,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.CUV = Util.SubStr(model.CUV, 0);
 
                 var listaPedidoFacturados = _cdrProvider.CargarPedidosFacturados(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-                var listaCDRWebCargaInicial = SessionManager.GetListaCDRWebCargaInicial(); //HD-3412 EINCA
+                var listaCDRWebCargaInicial = SessionManager.GetListaCDRWebCargaInicial();
 
                 var lstCDRWeb = new List<ServicePedido.BECDRWeb>();
 
@@ -274,7 +272,6 @@ namespace Portal.Consultoras.Web.Controllers
                         var lista = pedido.olstBEPedidoWebDetalle.Where(d => (d.CUV == model.CUV && d.CampaniaID == model.CampaniaID) || model.CUV == "").ToList();
                         if (lista.Any())
                         {
-                            //HD-3412 EINCA
                             BEPedidoWeb pedidoActual = new BEPedidoWeb
                             {
                                 CampaniaID = pedido.CampaniaID,
@@ -284,8 +281,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 FechaRegistro = pedido.FechaRegistro,
                                 CanalIngreso = pedido.CanalIngreso,
                                 BECDRWeb = (lstCDRWeb.Where(a => a.PedidoID == pedido.PedidoID).ToList() == null) ? null : lstCDRWeb.Where(a => a.PedidoID == pedido.PedidoID).ToArray(),
-                                //CDRWebID = pedido.CDRWebID, //HD-3412 EINCA 
-                                //CDRWebEstado = pedido.CDRWebEstado,//HD-3412 EINCA
                                 NumeroPedido = pedido.NumeroPedido,
                                 olstBEPedidoWebDetalle = lista.ToArray()
                             };
@@ -351,7 +346,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private bool TieneDetalleFueraFecha(ServiceCDR.BECDRWeb cdrWeb, MisReclamosModel model) //HD-3412
+        private bool TieneDetalleFueraFecha(ServiceCDR.BECDRWeb cdrWeb, MisReclamosModel model)
         {
             var operacionValidaList = _cdrProvider.CargarMotivoOperacionPorDias(model, userData.FechaActualPais.Date, userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
             return cdrWeb.CDRWebDetalle.Any(detalle =>
@@ -434,89 +429,52 @@ namespace Portal.Consultoras.Web.Controllers
             return cantidad >= 0;
         }
 
-        public JsonResult BuscarCuvCambiar(MisReclamosModel model)
+         public JsonResult BuscarCuvCambiar(MisReclamosModel model)
         {
-            List<ProductoModel> producto = new List<ProductoModel>();
-            try
+            List<ServiceODS.BEProducto> olstProducto;
+            List<ProductoModel> olstProductoModel = new List<ProductoModel>();
+
+            using (ODSServiceClient sv = new ODSServiceClient())
             {
-                List<ServiceODS.BEProducto> olstProducto;
-
-
-                using (ODSServiceClient sv = new ODSServiceClient())
-                {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID,
-                        model.CampaniaID,
-                        model.CUV,
-                        userData.RegionID,
-                        userData.ZonaID,
-                        userData.CodigorRegion,
-                        userData.CodigoZona,
-                        1,
-                        1,
-                        false).ToList();
-                }
-
-                if (olstProducto.Count == 0)
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        producto,
-                        message = "El producto solicitado no existe.",
-                        TieneSugerido = 0
-                    }, JsonRequestBehavior.AllowGet);
-
-                }
-
-                producto.Add(new ProductoModel()
-                {
-                    CUV = olstProducto[0].CUV.Trim(),
-                    Descripcion = olstProducto[0].Descripcion.Trim(),
-                    PrecioCatalogo = olstProducto[0].PrecioCatalogo,
-                    MarcaID = olstProducto[0].MarcaID,
-                    EstaEnRevista = olstProducto[0].EstaEnRevista,
-                    TieneStock = olstProducto[0].TieneStock,
-                    EsExpoOferta = olstProducto[0].EsExpoOferta,
-                    CUVRevista = olstProducto[0].CUVRevista.Trim(),
-                    CUVComplemento = olstProducto[0].CUVComplemento.Trim(),
-                    IndicadorMontoMinimo = olstProducto[0].IndicadorMontoMinimo.ToString().Trim(),
-                    TipoOfertaSisID = olstProducto[0].TipoOfertaSisID,
-                    ConfiguracionOfertaID = olstProducto[0].ConfiguracionOfertaID,
-                    MensajeCUV = "",
-                    ObservacionCUV = "",
-                    DesactivaRevistaGana = 0,
-                    DescripcionMarca = olstProducto[0].DescripcionMarca,
-                    DescripcionEstrategia = olstProducto[0].DescripcionEstrategia,
-                    DescripcionCategoria = olstProducto[0].DescripcionCategoria,
-                    FlagNueva = olstProducto[0].FlagNueva,
-                    TipoEstrategiaID = olstProducto[0].TipoEstrategiaID,
-                    TieneSugerido = olstProducto[0].TieneSugerido,
-                    CodigoProducto = olstProducto[0].CodigoProducto,
-                    LimiteVenta = 99
-                });
-
-                return Json(new
-                {
-                    success = true,
-                    producto,
-                    message = "",
-                    TieneSugerido = 0
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception)
-            {
-                return Json(new
-                {
-                    success = false,
-                    producto,
-                    message = "Error al realizar la busqueda.",
-                    TieneSugerido = 0
-                }, JsonRequestBehavior.AllowGet);
+                olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, model.CampaniaID, model.CUV, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, false).ToList();
             }
 
+            if (olstProducto.Count == 0)
+            {
+                olstProductoModel.Add(new ProductoModel() { MarcaID = 0, CUV = "El producto solicitado no existe.", TieneSugerido = 0 });
+                return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
+            }
 
+            olstProductoModel.Add(new ProductoModel()
+            {
+                CUV = olstProducto[0].CUV.Trim(),
+                Descripcion = olstProducto[0].Descripcion.Trim(),
+                PrecioCatalogo = olstProducto[0].PrecioCatalogo,
+                MarcaID = olstProducto[0].MarcaID,
+                EstaEnRevista = olstProducto[0].EstaEnRevista,
+                TieneStock = olstProducto[0].TieneStock,
+                EsExpoOferta = olstProducto[0].EsExpoOferta,
+                CUVRevista = olstProducto[0].CUVRevista.Trim(),
+                CUVComplemento = olstProducto[0].CUVComplemento.Trim(),
+                IndicadorMontoMinimo = olstProducto[0].IndicadorMontoMinimo.ToString().Trim(),
+                TipoOfertaSisID = olstProducto[0].TipoOfertaSisID,
+                ConfiguracionOfertaID = olstProducto[0].ConfiguracionOfertaID,
+                MensajeCUV = "",
+                ObservacionCUV = "",
+                DesactivaRevistaGana = 0,
+                DescripcionMarca = olstProducto[0].DescripcionMarca,
+                DescripcionEstrategia = olstProducto[0].DescripcionEstrategia,
+                DescripcionCategoria = olstProducto[0].DescripcionCategoria,
+                FlagNueva = olstProducto[0].FlagNueva,
+                TipoEstrategiaID = olstProducto[0].TipoEstrategiaID,
+                TieneSugerido = olstProducto[0].TieneSugerido,
+                CodigoProducto = olstProducto[0].CodigoProducto,
+                LimiteVenta = 99
+            });
 
+            return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
         }
+
 
         public JsonResult BuscarMotivo(MisReclamosModel model)
         {
@@ -583,7 +541,7 @@ namespace Portal.Consultoras.Web.Controllers
                             .FirstOrDefault()
                             .olstBEPedidoWebDetalle.ToList();
 
-                        
+
                         int i = 0;
                         foreach (var item in respuestaServiceCdr[0].LProductosComplementos)
                         {
@@ -619,9 +577,9 @@ namespace Portal.Consultoras.Web.Controllers
                     else
                     {
                         respuestaServiceCdr[0].LProductosComplementos = (from c in respuestaServiceCdr[0].LProductosComplementos
-                                            join d in cuvsPedido on c.cuv equals d.CUV
-                                            where d.Cantidad > 0
-                                            select c).ToArray();
+                                                                         join d in cuvsPedido on c.cuv equals d.CUV
+                                                                         where d.Cantidad > 0
+                                                                         select c).ToArray();
                     }
                 }
             }
@@ -799,7 +757,7 @@ namespace Portal.Consultoras.Web.Controllers
             var cdrWebs = _cdrProvider.CargarBECDRWeb(model, userData.PaisID, userData.ConsultoraID);
 
             //obtenermos el de estado pendiente
-            cdrWebs = cdrWebs.Where(a => a.Estado == Constantes.EstadoCDRWeb.Pendiente).ToList(); //HD-3412 EINCA
+            cdrWebs = cdrWebs.Where(a => a.Estado == Constantes.EstadoCDRWeb.Pendiente).ToList();
 
 
             if (cdrWebs.Count != 1)
@@ -1048,7 +1006,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string mensajeGestionCdrInhabilitada = _cdrProvider.MensajeGestionCdrInhabilitadaYChatEnLinea(userData.EsCDRWebZonaValida, userData.IndicadorBloqueoCDR, userData.FechaInicioCampania, userData.ZonaHoraria, userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
                 if (!string.IsNullOrEmpty(mensajeGestionCdrInhabilitada)) return ErrorJson(mensajeGestionCdrInhabilitada, true);
 
-                var cdrWebFiltro = new ServiceCDR.BECDRWeb { ConsultoraID = userData.ConsultoraID, PedidoID = model.PedidoID };
+                var cdrWebFiltro = new ServiceCDR.BECDRWeb { ConsultoraID = userData.ConsultoraID, PedidoID = model.PedidoID, CDRWebID = model.CDRWebID };
                 using (CDRServiceClient sv = new CDRServiceClient())
                 {
                     var cdrWeb = sv.GetCDRWeb(userData.PaisID, cdrWebFiltro).FirstOrDefault();
@@ -1088,20 +1046,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 RegistraLogDynamoCDR(model);
 
-                //HD-3412 EINCA 
                 var user = SessionManager.GetUserData();
                 user.EMail = model.Email;
                 user.Celular = model.Telefono;
                 SessionManager.SetUserData(user);
 
-                //userData.EMail = model.Email;
-                //userData.Celular = model.Telefono;
-                //SessionManager.SetUserData(userData);
-
                 if (!string.IsNullOrWhiteSpace(model.Email))
                 {
                     string contenidoMailCulminado = CrearEmailReclamoCulminado(cdrWebMailConfirmacion);
-                    //HD-3412 EINCA
                     var nombreConsultora = userData.NombreConsultora;
                     System.Threading.Tasks.Task.Factory.StartNew(() =>
                     {
@@ -1114,7 +1066,7 @@ namespace Portal.Consultoras.Web.Controllers
                         string paramQuerystring = Util.EncriptarQueryString(parametros);
                         string cadena = "<br /><br /> Estimada consultora " + userData.NombreConsultora + " Para confirmar la dirección de correo electrónico ingresada haga click " +
                                          "<br /> <a href='" + Util.GetUrlHost(HttpContext.Request) + "WebPages/MailConfirmation.aspx?data=" + paramQuerystring + "'>aquí</a><br/><br/>Belcorp";
-                        //HD-3412 EINCA
+
                         var codigoIso = userData.CodigoISO;
 
                         System.Threading.Tasks.Task.Factory.StartNew(() =>
@@ -1132,7 +1084,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                SessionManager.SetListaCDRWebCargaInicial(null);//HD-3412 EINCA
+                SessionManager.SetListaCDRWebCargaInicial(null);
 
                 return Json(new
                 {
@@ -1727,28 +1679,19 @@ namespace Portal.Consultoras.Web.Controllers
             htmlTemplate = htmlTemplate.Replace("#FORMATO_DETALLECDR#", txtBuil.ToString());
             return htmlTemplate;
         }
-
-
-        private List<BETablaLogicaDatos> GetListMensajeCDRExpress()
+        private List<TablaLogicaDatosModel> GetListMensajeCDRExpress()
         {
-            if (SessionManager.GetCDRExpressMensajes() != null)
-            {
-                return SessionManager.GetCDRExpressMensajes();
-            }
 
-            var listMensaje = new List<BETablaLogicaDatos>();
+            var listMensaje = new List<TablaLogicaDatosModel>();
             try
             {
-                using (SACServiceClient sv = new SACServiceClient())
-                {
-                    listMensaje = sv.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.CDRExpress).ToList();
-                }
+                listMensaje = _tablaLogicaProvider.GetTablaLogicaDatos(userData.PaisID, ConsTablaLogica.CdrExpress.TablaLogicaId, true);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            SessionManager.SetCDRExpressMensajes(listMensaje);
+
             return listMensaje;
         }
 
@@ -1756,7 +1699,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var listMensaje = GetListMensajeCDRExpress();
             var item = listMensaje.FirstOrDefault(i => i.Codigo == key);
-            return (item ?? new BETablaLogicaDatos()).Descripcion;
+            return (item ?? new TablaLogicaDatosModel()).Descripcion;
         }
 
         private decimal GetValorFleteExpress()

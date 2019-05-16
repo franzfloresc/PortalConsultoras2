@@ -70,7 +70,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
-                Common.LogManager.SaveLog(ex, string.Empty, codigoIso);
+                Common.LogManager.SaveLog(ex, string.Empty, codigoIso, jsonString);
             }
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
@@ -121,15 +121,14 @@ namespace Portal.Consultoras.Web.Providers
             {
                 return respuesta;
             }
-
-            //var listaSinPrecio2 = new List<string>();
+            
             try
             {
                 respuesta = JsonConvert.DeserializeObject<OutputEstrategiaGrupo>(jsonString);
             }
             catch (Exception ex)
             {
-                Common.LogManager.SaveLog(ex, string.Empty, codigoIso);
+                Common.LogManager.SaveLog(ex, string.Empty, codigoIso, jsonString);
                 return respuesta;
             }
 
