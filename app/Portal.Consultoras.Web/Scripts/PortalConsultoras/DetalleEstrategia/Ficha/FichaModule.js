@@ -717,7 +717,7 @@ var FichaModule = (function (config) {
     var _getModelo = function () {
 
         var modeloFicha = {};
-        Console.log('Ficha - promise Obterner Modelo');
+        console.log('Ficha - promise Obterner Modelo');
         _config.detalleEstrategiaProvider
             .promiseObternerModelo({
                 palanca: _config.palanca,
@@ -852,7 +852,6 @@ var FichaModule = (function (config) {
     function _init() {
         _config.esMobile = _config.generalModule.isMobile();
 
-        console.log('Ficha - init');
         var modeloFicha = _getModelo();
 
         _config.tieneSession = modeloFicha.TieneSession;
@@ -863,12 +862,19 @@ var FichaModule = (function (config) {
         modeloFicha = _getEstrategia(modeloFicha);
         _modeloFicha(modeloFicha);
 
-        console.log('Ficha - init - construirSeccionFicha');
+        if (_modeloFicha().MostrarFichaResponsive &&
+            _modeloFicha().CodigoVariante == _codigoVariedad.ComuestaFija) {
+            var urlResponsive = _config.generalModule.getLocationPathname()/*.toLowerCase()*/;
+            urlResponsive = urlResponsive.replace("Detalle", "Detalles");
+            urlResponsive = urlResponsive.substr(1);
+            _config.generalModule.redirectTo(urlResponsive, _config.esMobile);
+            return;
+        }
+
         _construirSeccionFicha();
         _construirSeccionEstrategia();
         _initCliente();
         _initCarrusel();
-        console.log('Ficha - init - analytics');
         _analytics();
     }
 
