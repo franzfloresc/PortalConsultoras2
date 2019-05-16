@@ -456,10 +456,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     Grupo = grupo
                 });
 
-                if ((listSp.Length > 4 && digitable == "0"))
-                {
-                    continue;
-                }
+                //if ((listSp.Length > 4 && digitable == "0"))
+                //{
+                //    continue;
+                //}
 
                 if (!pedidoDetalle.EsKitNuevaAuto)
                 {
@@ -675,7 +675,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var ncant = pedidoDetalle.Cantidad;
 
                     var set = _pedidoWebSetBusinessLogic.Obtener(pedidoDetalle.PaisID, pedidoDetalle.SetID);
-                    var detallesSet = set.Detalles.Where(x => x.Digitable == 1).ToList();
+                    var detallesSet = set.Detalles;
 
                     foreach (var detalleSet in detallesSet)
                     {
