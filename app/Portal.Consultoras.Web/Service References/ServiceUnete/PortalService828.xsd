@@ -10,6 +10,10 @@
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
       <xs:element minOccurs="0" name="FechaDesde" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaHasta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FlagValTel" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagValidacionCrediticia" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagValidacionTelefonica" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagValidacionUbicacion" type="xs:int" />
       <xs:element minOccurs="0" name="FuenteIngreso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FuenteIngresoListAvailable" nillable="true" type="tns:ArrayOfFuenteIngresoModelSAC" />
       <xs:element minOccurs="0" name="MostrarPaso1y2SE" type="xs:int" />
@@ -106,12 +110,14 @@
       <xs:element minOccurs="0" name="RegimenContable" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SeccionOrigen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ShowConsultarUbicacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ShowContrasenia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ShowDocs" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ShowEnviarAFFVV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ShowEvaliuacionTelefonica" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ShowEvaluacionTelefonica" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ShowPendienteConfirmacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ShowRFC" type="xs:boolean" />
       <xs:element minOccurs="0" name="ShowReactivar" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ShowValidacionTelefonica" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SolicitudPostulanteID" type="xs:int" />
       <xs:element minOccurs="0" name="TelefonoCelular" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
@@ -122,6 +128,7 @@
       <xs:element minOccurs="0" name="UrlContent" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UrlContentImage" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ValidacionTelefonica" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ZonaOrigen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="campania1erPasePedido" nillable="true" type="xs:string" />
     </xs:sequence>
@@ -182,4 +189,16 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="NivelesRiesgoModelSAC" nillable="true" type="tns:NivelesRiesgoModelSAC" />
+  <xs:complexType name="ZonaValidacionTelefonicaModelSAC">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PasoLimite" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ZonaSeccion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="page" type="xs:int" />
+      <xs:element minOccurs="0" name="rows" type="xs:int" />
+      <xs:element minOccurs="0" name="sidx" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="sord" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ZonaValidacionTelefonicaModelSAC" nillable="true" type="tns:ZonaValidacionTelefonicaModelSAC" />
 </xs:schema>
