@@ -279,6 +279,8 @@ namespace Portal.Consultoras.Web.Controllers
                     return result.Item2;
                 }
 
+                pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
+
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
                 
                 //INI HD-3693
