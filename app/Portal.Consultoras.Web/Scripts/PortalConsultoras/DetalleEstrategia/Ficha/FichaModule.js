@@ -341,7 +341,7 @@ var FichaModule = (function (config) {
 
     var _getEstrategia = function (modeloFicha) {
         var estrategia;
-        var mensajeError = "_getEstrategia";
+        var mensajeError = "Archivo FichaModule.js - Metodo _getEstrategia";
         if (!_fichaServicioApi) {
             mensajeError += "\n _fichaServicioApi si";
             if (_config.tieneSession) {
