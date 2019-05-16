@@ -161,6 +161,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             var taskResultadoProl = Task.Run(() => _reservaBusinessLogic.EjecutarReserva(pedidoDetalle.ReservaProl, true));
                             Task.WaitAll(taskResultadoProl);
                             var resultadoProl = taskResultadoProl.Result;
+
+                            if(!(resultadoProl.ResultadoReservaEnum == Enumeradores.ResultadoReserva.Reservado || resultadoProl.ResultadoReservaEnum == Enumeradores.ResultadoReserva.ReservadoObservaciones))
+                            {
+                                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVA_NINGUNO, "Error al actualizar la reserva del pedido");
+                            }
                         }
 
                         oTransactionScope.Complete();
