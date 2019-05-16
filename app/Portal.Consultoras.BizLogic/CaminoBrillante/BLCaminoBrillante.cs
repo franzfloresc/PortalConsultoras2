@@ -76,7 +76,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             //beNivelCaminoBrillante.EnterateMasParam = "682";
             beNivelCaminoBrillante.EnterateMasParam = "222";
 
-            if (codNivel == "06")
+            if (codNivel == "6")
             {
                 beNivelCaminoBrillante.EnterateMas = 2; //ISSUE
                 beNivelCaminoBrillante.EnterateMasParam = "esika.peru.c07.2019";
