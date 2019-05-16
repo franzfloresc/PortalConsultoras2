@@ -472,6 +472,100 @@ var AnalyticsPortalModule = (function () {
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Metodos Iniciales
     ////////////////////////////////////////////////////////////////////////////////////////
+    // Ini - Analytics Evento Remove From Cart
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    var marcarRemoveFromCart = function (data, cantidad) {
+        try {
+            codigoOrigen = data.data.OrigenPedidoWeb;
+            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
+            dataLayer.push({
+                'event': _evento.virtualRemoveEvent,
+                'ecommerce': {
+                    'remove': {
+                        'products': [{
+                            'name': data.data.DescripcionProducto,
+                            'id': data.data.CUV,
+                            'price': data.data.Precio,
+                            'brand': data.data.DescripcionMarca,
+                            'category': "NO DISPONIBLE",
+                            'variant': data.data.DescripcionOferta == "" ? "Estándar" : data.data.DescripcionOferta,
+                            'quantity': Number(cantidad),
+                            'ListaProducto': 'Contenedor - Home - ' + palanca + " - Campaña " + $('#hdCampaniaCodigo').val()
+                        }]
+                    }
+                }
+            });
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+
+    }
+
+    var marcaEliminarPedidoCompleto = function (data) {
+        try {
+            if (_constantes.isTest)
+                alert("Marcación clic eliminar pedido completo.");
+
+            var products = [];
+            $.each(data, function (index) {
+                var item = data[index];
+                var product = {
+                    "id": item.CUV, "name": item.DescripcionProd, "price": item.ImporteTotal, "brand": item.DescripcionLarga, category: _texto.notavaliable, variant: _texto.estandar, quantity: item.Cantidad, 'ListaProducto': AnalyticsPortalModule.GetContenedorByOrigenPedido(null, item.OrigenPedidoWeb) + " - " + AnalyticsPortalModule.GetPalancaByOrigenPedido(item.OrigenPedidoWeb) + " - " + _constantes.campania + item.CampaniaID
+                };
+                products.push(product);
+            });
+
+            dataLayer.push({
+                'event': _evento.virtualRemoveEvent,
+                'ecommerce': {
+                    'remove': {
+                        'products': products
+                    }
+                }
+            });
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Fin - Analytics Evento Remove From Cart
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Ini - Analytics Evento Social Event
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    var marcaRedesSocialesBuscador = function (network, label) {
+        try {
+            dataLayer.push({
+                'event': _evento.socialEvent,
+                'network': network,
+                'action': 'Compartir',
+                'label': label
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    var marcaCompartirRedesSociales = function (tipo, url) {
+        try {
+            dataLayer.push({
+                'event': 'socialEvent',
+                'network': tipo == "FB" ? 'Facebook' : "Whatsapp",
+                'action': 'Compartir',
+                'target': url == "" ? undefined : url
+            });
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Fin - Analytics Evento Social Event
+    ////////////////////////////////////////////////////////////////////////////////////////
     // Ini - Analytics Evento Add To Cart
     ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -607,7 +701,7 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
-    
+
     var marcaAnadirCarritoLiquidacion = function (data) {
         try {
             if (_constantes.isTest)
@@ -694,7 +788,7 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
-    
+
     function clickAddCartFicha(event, codigoOrigenPedido, estrategia) {
         try {
 
@@ -1314,7 +1408,7 @@ var AnalyticsPortalModule = (function () {
     ////////////////////////////////////////////////////////////////////////////////////////
     // Ini - Analytics Evento Promotion Click
     ////////////////////////////////////////////////////////////////////////////////////////
-    
+
     var marcaPromotionClicBanner = function (OrigenPedidoWeb, texto, url) {
         try {
             var pos = _getParametroListSegunOrigen(OrigenPedidoWeb, url);
@@ -1695,7 +1789,7 @@ var AnalyticsPortalModule = (function () {
                 return "Gana+";
         }
     }
-    
+
     var marcaSeleccionarContenidoBusqueda = function (busqueda) {
         try {
             dataLayer.push({
@@ -1756,19 +1850,6 @@ var AnalyticsPortalModule = (function () {
                 'category': 'Resultados de Búsqueda',
                 'action': 'Elige tu opción',
                 'label': busqueda
-            });
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    var marcaRedesSocialesBuscador = function (network, label) {
-        try {
-            dataLayer.push({
-                'event': _evento.socialEvent,
-                'network': network,
-                'action': 'Compartir',
-                'label': label
             });
         } catch (e) {
             console.error(e);
@@ -1868,7 +1949,7 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
-    
+
     var marcaSucribete = function (url) {
 
         try {
@@ -1913,7 +1994,7 @@ var AnalyticsPortalModule = (function () {
     //    }
 
     //}
-    
+
     var marcaNotificaciones = function (tipo, url) {
         try {
             if (_constantes.isTest)
@@ -2135,7 +2216,7 @@ var AnalyticsPortalModule = (function () {
 
         }
     }
-    
+
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Home 1 Miguel
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -2233,7 +2314,7 @@ var AnalyticsPortalModule = (function () {
 
         return contenedor;
     }
-    
+
     var marcaClicVerMasOfertas = function (url, origenPedido, titulo, clicEnBanner) {
         try {
             if (_constantes.isTest)
@@ -2262,7 +2343,7 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
-    
+
     var marcaManagerFiltros = function (data) {
         try {
             if (_constantes.isTest)
@@ -2286,20 +2367,6 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    var marcaCompartirRedesSociales = function (tipo, url) {
-        try {
-            dataLayer.push({
-                'event': 'socialEvent',
-                'network': tipo == "FB" ? 'Facebook' : "Whatsapp",
-                'action': 'Compartir',
-                'target': url == "" ? undefined : url
-            });
-
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
-
     var marcaVerTodoMiPedido = function (data) {
         try {
             var value = $(data).attr("title");
@@ -2317,60 +2384,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-    var marcarRemoveFromCart = function (data, cantidad) {
-        try {
-            codigoOrigen = data.data.OrigenPedidoWeb;
-            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
-            dataLayer.push({
-                'event': _evento.virtualRemoveEvent,
-                'ecommerce': {
-                    'remove': {
-                        'products': [{
-                            'name': data.data.DescripcionProducto,
-                            'id': data.data.CUV,
-                            'price': data.data.Precio,
-                            'brand': data.data.DescripcionMarca,
-                            'category': "NO DISPONIBLE",
-                            'variant': data.data.DescripcionOferta == "" ? "Estándar" : data.data.DescripcionOferta,
-                            'quantity': Number(cantidad),
-                            'ListaProducto': 'Contenedor - Home - ' + palanca + " - Campaña " + $('#hdCampaniaCodigo').val()
-                        }]
-                    }
-                }
-            });
 
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-
-    }
-
-    var marcaEliminarPedidoCompleto = function (data) {
-        try {
-            if (_constantes.isTest)
-                alert("Marcación clic eliminar pedido completo.");
-
-            var products = [];
-            $.each(data, function (index) {
-                var item = data[index];
-                var product = {
-                    "id": item.CUV, "name": item.DescripcionProd, "price": item.ImporteTotal, "brand": item.DescripcionLarga, category: _texto.notavaliable, variant: _texto.estandar, quantity: item.Cantidad, 'ListaProducto': AnalyticsPortalModule.GetContenedorByOrigenPedido(null, item.OrigenPedidoWeb) + " - " + AnalyticsPortalModule.GetPalancaByOrigenPedido(item.OrigenPedidoWeb) + " - " + _constantes.campania + item.CampaniaID
-                };
-                products.push(product);
-            });
-
-            dataLayer.push({
-                'event': _evento.virtualRemoveEvent,
-                'ecommerce': {
-                    'remove': {
-                        'products': products
-                    }
-                }
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
     var marcarGuardaTuPedido = function () {
         try {
             dataLayer.push({
@@ -2395,7 +2409,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-    
+
     var marcaBannersInferioresDescontinuados = function (strLabel) {
         try {
             dataLayer.push({
@@ -2672,7 +2686,7 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-    
+
     function clickTabGanadoras(codigo) {
         if (codigo === _codigoSeccion.MG)
             dataLayer.push({
@@ -2803,7 +2817,7 @@ var AnalyticsPortalModule = (function () {
             }
         }
     }
-    
+
     var marcaClickAgregarArmaTuPack = function (codigoubigeoportal, textoLabel, actionText) {
 
         if (codigoubigeoportal !== "") {
