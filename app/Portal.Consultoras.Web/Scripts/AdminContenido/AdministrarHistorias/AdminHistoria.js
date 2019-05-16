@@ -15,6 +15,11 @@ var _tipopresentacion = {
     bannerInterativo: "10"
 }
 
+var _obj_mensaje = {
+    seleccionImagen: "No seleccionó una imagen",
+    seleccionCampania: "Debe seleccionar una Campaña"
+}
+
 jQuery(document).ready(function () {
     admHistoriaDatos.ini();
     IniDialogDetalle();
@@ -45,7 +50,16 @@ function IniDialogDetalle() {
             {
             "Guardar": function () {
                var Proc = $("#Proc").val();    
-               var CodigoDetalle = "";
+                var CodigoDetalle = "";
+                if ($("#nombre-desktop-detalle").val() == "") {
+                    alert(_obj_mensaje.seleccionImagen);
+                    return false;
+                }
+                if ($("#ddlCampaniaDetalle").val() === "0") {
+                    alert(_obj_mensaje.seleccionCampania);
+                    return false;
+                }
+
                 if ($("#ddlAccion").val() == "VER_MAS") {
                     CodigoDetalle = $("#ddlCodigoDetalle").val();
                 }

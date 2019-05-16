@@ -11017,10 +11017,10 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoApp[]> GetContenidoAppAsync(Portal.Consultoras.Web.ServiceContenido.BEUsuario itmFilter, string codigoBanner);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetContenidoAppHistoria", ReplyAction="http://tempuri.org/IContenidoService/GetContenidoAppHistoriaResponse")]
-        Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria GetContenidoAppHistoria(string Codigo);
+        Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria GetContenidoAppHistoria(int paisID, string Codigo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetContenidoAppHistoria", ReplyAction="http://tempuri.org/IContenidoService/GetContenidoAppHistoriaResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria> GetContenidoAppHistoriaAsync(string Codigo);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria> GetContenidoAppHistoriaAsync(int paisID, string Codigo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/CheckContenidoApp", ReplyAction="http://tempuri.org/IContenidoService/CheckContenidoAppResponse")]
         void CheckContenidoApp(Portal.Consultoras.Web.ServiceContenido.BEUsuario itmFilter, int idContenidoDetalle);
@@ -11029,34 +11029,34 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         System.Threading.Tasks.Task CheckContenidoAppAsync(Portal.Consultoras.Web.ServiceContenido.BEUsuario itmFilter, int idContenidoDetalle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/UpdateContenidoApp", ReplyAction="http://tempuri.org/IContenidoService/UpdateContenidoAppResponse")]
-        void UpdateContenidoApp(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria formularioDato);
+        void UpdateContenidoApp(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria formularioDato);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/UpdateContenidoApp", ReplyAction="http://tempuri.org/IContenidoService/UpdateContenidoAppResponse")]
-        System.Threading.Tasks.Task UpdateContenidoAppAsync(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria formularioDato);
+        System.Threading.Tasks.Task UpdateContenidoAppAsync(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria formularioDato);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/ListContenidoApp", ReplyAction="http://tempuri.org/IContenidoService/ListContenidoAppResponse")]
-        Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList[] ListContenidoApp(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList entidad);
+        Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList[] ListContenidoApp(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/ListContenidoApp", ReplyAction="http://tempuri.org/IContenidoService/ListContenidoAppResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList[]> ListContenidoAppAsync(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList entidad);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList[]> ListContenidoAppAsync(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/InsertContenidoAppDeta", ReplyAction="http://tempuri.org/IContenidoService/InsertContenidoAppDetaResponse")]
-        void InsertContenidoAppDeta(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p);
+        void InsertContenidoAppDeta(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/InsertContenidoAppDeta", ReplyAction="http://tempuri.org/IContenidoService/InsertContenidoAppDetaResponse")]
-        System.Threading.Tasks.Task InsertContenidoAppDetaAsync(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p);
+        System.Threading.Tasks.Task InsertContenidoAppDetaAsync(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/UpdateContenidoAppDeta", ReplyAction="http://tempuri.org/IContenidoService/UpdateContenidoAppDetaResponse")]
-        int UpdateContenidoAppDeta(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p);
+        int UpdateContenidoAppDeta(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/UpdateContenidoAppDeta", ReplyAction="http://tempuri.org/IContenidoService/UpdateContenidoAppDetaResponse")]
-        System.Threading.Tasks.Task<int> UpdateContenidoAppDetaAsync(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p);
+        System.Threading.Tasks.Task<int> UpdateContenidoAppDetaAsync(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetContenidoAppDetaActList", ReplyAction="http://tempuri.org/IContenidoService/GetContenidoAppDetaActListResponse")]
-        Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDetaAct[] GetContenidoAppDetaActList();
+        Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDetaAct[] GetContenidoAppDetaActList(int paisID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetContenidoAppDetaActList", ReplyAction="http://tempuri.org/IContenidoService/GetContenidoAppDetaActListResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDetaAct[]> GetContenidoAppDetaActListAsync();
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDetaAct[]> GetContenidoAppDetaActListAsync(int paisID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetListaPopup", ReplyAction="http://tempuri.org/IContenidoService/GetListaPopupResponse")]
         Portal.Consultoras.Web.ServiceContenido.BEComunicado[] GetListaPopup(int Estado, string Campania, int Paginas, int Filas, int PaisID);
@@ -11772,12 +11772,12 @@ namespace Portal.Consultoras.Web.ServiceContenido {
             return base.Channel.GetContenidoAppAsync(itmFilter, codigoBanner);
         }
         
-        public Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria GetContenidoAppHistoria(string Codigo) {
-            return base.Channel.GetContenidoAppHistoria(Codigo);
+        public Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria GetContenidoAppHistoria(int paisID, string Codigo) {
+            return base.Channel.GetContenidoAppHistoria(paisID, Codigo);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria> GetContenidoAppHistoriaAsync(string Codigo) {
-            return base.Channel.GetContenidoAppHistoriaAsync(Codigo);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria> GetContenidoAppHistoriaAsync(int paisID, string Codigo) {
+            return base.Channel.GetContenidoAppHistoriaAsync(paisID, Codigo);
         }
         
         public void CheckContenidoApp(Portal.Consultoras.Web.ServiceContenido.BEUsuario itmFilter, int idContenidoDetalle) {
@@ -11788,44 +11788,44 @@ namespace Portal.Consultoras.Web.ServiceContenido {
             return base.Channel.CheckContenidoAppAsync(itmFilter, idContenidoDetalle);
         }
         
-        public void UpdateContenidoApp(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria formularioDato) {
-            base.Channel.UpdateContenidoApp(formularioDato);
+        public void UpdateContenidoApp(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria formularioDato) {
+            base.Channel.UpdateContenidoApp(paisID, formularioDato);
         }
         
-        public System.Threading.Tasks.Task UpdateContenidoAppAsync(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria formularioDato) {
-            return base.Channel.UpdateContenidoAppAsync(formularioDato);
+        public System.Threading.Tasks.Task UpdateContenidoAppAsync(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria formularioDato) {
+            return base.Channel.UpdateContenidoAppAsync(paisID, formularioDato);
         }
         
-        public Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList[] ListContenidoApp(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList entidad) {
-            return base.Channel.ListContenidoApp(entidad);
+        public Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList[] ListContenidoApp(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList entidad) {
+            return base.Channel.ListContenidoApp(paisID, entidad);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList[]> ListContenidoAppAsync(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList entidad) {
-            return base.Channel.ListContenidoAppAsync(entidad);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList[]> ListContenidoAppAsync(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList entidad) {
+            return base.Channel.ListContenidoAppAsync(paisID, entidad);
         }
         
-        public void InsertContenidoAppDeta(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p) {
-            base.Channel.InsertContenidoAppDeta(p);
+        public void InsertContenidoAppDeta(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p) {
+            base.Channel.InsertContenidoAppDeta(paisID, p);
         }
         
-        public System.Threading.Tasks.Task InsertContenidoAppDetaAsync(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p) {
-            return base.Channel.InsertContenidoAppDetaAsync(p);
+        public System.Threading.Tasks.Task InsertContenidoAppDetaAsync(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p) {
+            return base.Channel.InsertContenidoAppDetaAsync(paisID, p);
         }
         
-        public int UpdateContenidoAppDeta(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p) {
-            return base.Channel.UpdateContenidoAppDeta(p);
+        public int UpdateContenidoAppDeta(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p) {
+            return base.Channel.UpdateContenidoAppDeta(paisID, p);
         }
         
-        public System.Threading.Tasks.Task<int> UpdateContenidoAppDetaAsync(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p) {
-            return base.Channel.UpdateContenidoAppDetaAsync(p);
+        public System.Threading.Tasks.Task<int> UpdateContenidoAppDetaAsync(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p) {
+            return base.Channel.UpdateContenidoAppDetaAsync(paisID, p);
         }
         
-        public Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDetaAct[] GetContenidoAppDetaActList() {
-            return base.Channel.GetContenidoAppDetaActList();
+        public Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDetaAct[] GetContenidoAppDetaActList(int paisID) {
+            return base.Channel.GetContenidoAppDetaActList(paisID);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDetaAct[]> GetContenidoAppDetaActListAsync() {
-            return base.Channel.GetContenidoAppDetaActListAsync();
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDetaAct[]> GetContenidoAppDetaActListAsync(int paisID) {
+            return base.Channel.GetContenidoAppDetaActListAsync(paisID);
         }
         
         public Portal.Consultoras.Web.ServiceContenido.BEComunicado[] GetListaPopup(int Estado, string Campania, int Paginas, int Filas, int PaisID) {

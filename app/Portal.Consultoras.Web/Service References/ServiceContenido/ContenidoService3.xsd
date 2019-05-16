@@ -1087,6 +1087,7 @@
   <xs:element name="GetContenidoAppHistoria">
     <xs:complexType>
       <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
         <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
@@ -1114,6 +1115,7 @@
   <xs:element name="UpdateContenidoApp">
     <xs:complexType>
       <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
         <xs:element xmlns:q62="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="formularioDato" nillable="true" type="q62:BEContenidoAppHistoria" />
       </xs:sequence>
     </xs:complexType>
@@ -1126,6 +1128,7 @@
   <xs:element name="ListContenidoApp">
     <xs:complexType>
       <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
         <xs:element xmlns:q63="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q63:BEContenidoAppList" />
       </xs:sequence>
     </xs:complexType>
@@ -1140,6 +1143,7 @@
   <xs:element name="InsertContenidoAppDeta">
     <xs:complexType>
       <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
         <xs:element xmlns:q65="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="p" nillable="true" type="q65:BEContenidoAppDeta" />
       </xs:sequence>
     </xs:complexType>
@@ -1152,6 +1156,7 @@
   <xs:element name="UpdateContenidoAppDeta">
     <xs:complexType>
       <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
         <xs:element xmlns:q66="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="p" nillable="true" type="q66:BEContenidoAppDeta" />
       </xs:sequence>
     </xs:complexType>
@@ -1165,7 +1170,9 @@
   </xs:element>
   <xs:element name="GetContenidoAppDetaActList">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetContenidoAppDetaActListResponse">

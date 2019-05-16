@@ -26,7 +26,7 @@
     };
 
     var _url = {
-        UrlGrilla: baseUrl + 'AdministrarHistorias/ComponenteListar?IdContenido=' + $('#IdContenido').val(),
+        UrlGrilla: baseUrl + 'AdministrarHistorias/ComponenteListar',
         UrlGrillaEditar: baseUrl + 'AdministrarHistorias/ComponenteObtenerViewDatos',
         UrlGrillaVerImagen: baseUrl + 'AdministrarHistorias/ComponenteObtenerVerImagen',
         UrlComponenteDatosGuardar: baseUrl + 'AdministrarHistorias/ComponenteDatosGuardar',
@@ -65,6 +65,9 @@
         return act;
     };
 
+    $("#ddlCampania").change(function () {
+        $(_elemento.TablaId).trigger('reloadGrid');
+    })
     var CargarGrilla = function () {
         $(_elemento.TablaId).jqGrid('GridUnload');
 
@@ -72,10 +75,15 @@
             url: _url.UrlGrilla,
             hidegrid: false,
             datatype: 'json',
+            postData: ({
+                IdContenido: function () { return jQuery.trim($("#IdContenido").val()); },
+                Campania: function () { return jQuery.trim($("#ddlCampania").val()); }
+            }),
+           
             mtype: 'GET',
             contentType: 'application/json; charset=utf-8',
             multiselect: false,
-            colNames: ['ID', 'Tipo', 'Orden', 'Contenido', 'IdContenido', 'Campania', 'Region', 'Zona', 'Seccion', 'AccionTb', 'CodigoDetalle', 'Acción'],
+            colNames: ['ID', 'Tipo', 'Orden', 'Contenido', 'IdContenido', 'Campaña', 'Region', 'Zona', 'Seccion', 'AccionTb', 'CodigoDetalle', 'Acción'],
             colModel: [
                 {
                     name: 'IdContenidoDeta',
@@ -111,7 +119,7 @@
                     formatter: _GrillaImagen
                 },
                 { name: 'IdContenido', index: 'IdContenido', hidden: true },
-                { name: 'Campania', index: 'Campania', hidden: true },
+                { name: 'Campania', index: 'Campania', width: 40, align: 'center' },
                 { name: 'Region', index: 'Region', hidden: true },
                 { name: 'Zona', index: 'Zona', hidden: true },
                 { name: 'Seccion', index: 'Seccion', hidden: true },
