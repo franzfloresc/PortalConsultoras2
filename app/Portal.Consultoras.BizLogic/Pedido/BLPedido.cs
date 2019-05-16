@@ -175,6 +175,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                     if (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS)
                     {
+                        var reservado = _reservaBusinessLogic.EjecutarReserva(null, true);
                         oTransactionScope.Complete();
                     }
                     return respuesta;
