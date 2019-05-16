@@ -2356,14 +2356,6 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "Error al procesar la solicitud"
                 }, JsonRequestBehavior.AllowGet);
             }
-
-            //using (SACServiceClient sv = new SACServiceClient())
-            //{
-            //    var lsMotivos = sv.GetMotivosRechazo(userData.PaisID).ToList();
-            //    ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(lsMotivos);
-            //}
-
-            //return View(model);
         }
 
         [HttpPost]
@@ -2441,14 +2433,6 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "Error al procesar la solicitud"
                 }, JsonRequestBehavior.AllowGet);
             }
-
-            //using (SACServiceClient svc = new SACServiceClient())
-            //{
-            //    var lstMotivos = svc.GetMotivosRechazo(userData.PaisID).ToList();
-            //    ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(lstMotivos);
-            //}
-
-            //return View(model);
         }
 
         private List<BEMisPedidosDetalle> CargarMisPedidosDetalleDatos(int marcaId, List<BEMisPedidosDetalle> lstPedidosDetalle)
@@ -2497,14 +2481,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private List<ServiceODS.BEProducto> GetValidarCuvMisPedidos(List<BEMisPedidosDetalle> lstPedidosDetalle)
         {
-            //var txtBuil = new StringBuilder();
-            //foreach (var item in olstMisPedidosDet)
-            //{
-            //    txtBuil.Append(item.CUV + ",");
-            //}
-
-            //string inputCuv = txtBuil.ToString();
-            //inputCuv = inputCuv.Substring(0, inputCuv.Length - 1);
             var inputCuv = string.Join(",", lstPedidosDetalle.Select(x => x.CUV).ToList());
             var olstMisProductos = new List<ServiceODS.BEProducto>();
 
@@ -3425,3 +3401,4 @@ namespace Portal.Consultoras.Web.Controllers
 
     }
 }
+
