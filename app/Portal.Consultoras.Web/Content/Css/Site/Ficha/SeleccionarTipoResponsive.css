@@ -82,12 +82,13 @@
 }
 
 .content_tono_detalle {
-    width: 9.6%;
+    width: 11%;
     display: inline-block;
     margin: 3px;
     border: 1px solid white;
     box-sizing: border-box;
     cursor: pointer;
+    position: relative;
 }
 
     .content_tono_detalle:hover, .content_tono_detalle.active {
@@ -253,11 +254,19 @@
     margin-bottom: 0px;
 }
 
+.seleccion_img{
+    position: relative;
+}
+
 .seleccion_img img {
     width: 60px;
     display: block;
 }
 
+.selecion_item .tag_agotago {
+    width: 100px !important;
+    margin-left: auto;
+}
 
 .selecion_item {
     padding: 12px 20px;

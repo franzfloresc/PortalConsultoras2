@@ -432,6 +432,43 @@ ul.breadcumbs li a {
 
 /* Fin Botón Agregar*/
 
+/*Experiencia Agotado*/
+.tag_agotago {
+    background-color: #909094;
+    color: #fff;
+    height: 32px;
+    line-height: 31px;
+    width: 120px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.msj_agotado {
+    display: block;
+    padding-top: 5px;
+}
+
+.tono_agotado {
+    border: 1px solid #909094 !important;
+    pointer-events: none !important;
+    cursor: default !important;
+}
+
+    .tono_agotado::before {
+        content: "";
+        width: 142%;
+        display: block;
+        height: 1px;
+        background-color: #909094;
+        transform: rotate(45deg);
+        top: 29px;
+        left: -13px;
+        position: absolute;
+        z-index: 1;
+    }
+
 
 @media (min-width: 768px) {
     .contenedor_agregar {
