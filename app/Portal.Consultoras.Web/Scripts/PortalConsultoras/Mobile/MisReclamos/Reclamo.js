@@ -358,6 +358,7 @@ $(document).ready(function () {
 
                 $(me.Variables.ddlnumPedido).on('change', function () {
                     $(me.Variables.txtCantidad1).val("1");
+                    $(me.Variables.txtCuvMobile).val("");
                     if ($(me.Variables.ddlnumPedido).val() == 0) {
                         $(me.Variables.DescripcionCuv).hide();
                         $(me.Variables.txtCuvMobile).show();
@@ -653,6 +654,8 @@ $(document).ready(function () {
                     $(me.Variables.txtNumPedido).val("").hide();
                     $(me.Variables.hdPedidoID).val(0);
                     $(me.Variables.hdNumeroPedido).val(0);
+                    $(me.Variables.infoOpcionesDeCambio).hide();//solve bug 
+                    $("#MensajeTenerEncuenta").hide();//solve bug
                     $("#VistaPaso3").hide();
                     me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.uno_seleccion_de_producto);
                     $("#VistaPaso1y2").show();
@@ -1873,6 +1876,9 @@ $(document).ready(function () {
                 if (id === me.Variables.operaciones.trueque) {
                     $.when(me.Funciones.ObtenerValorParametria(id)).then(function () {
                         me.Funciones.SetMontoCampaniaTotal();
+                        $(me.Variables.txtCuvMobile2).val("");
+                        $(me.Variables.aCambiarProducto2).click();
+                        $(me.Variables.txtCuvMobile2).fadeIn();                        
                         $(me.Variables.OpcionCambioPorOtroProducto).fadeIn(200);
                     });
                 }

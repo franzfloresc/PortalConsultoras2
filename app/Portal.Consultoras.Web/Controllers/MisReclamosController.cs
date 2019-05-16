@@ -435,7 +435,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 List<ServiceODS.BEProducto> olstProducto;
-                
+
 
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
@@ -546,7 +546,7 @@ namespace Portal.Consultoras.Web.Controllers
                             .FirstOrDefault()
                             .olstBEPedidoWebDetalle.ToList();
 
-                        
+
                         int i = 0;
                         foreach (var item in respuestaServiceCdr[0].LProductosComplementos)
                         {
@@ -582,9 +582,9 @@ namespace Portal.Consultoras.Web.Controllers
                     else
                     {
                         respuestaServiceCdr[0].LProductosComplementos = (from c in respuestaServiceCdr[0].LProductosComplementos
-                                            join d in cuvsPedido on c.cuv equals d.CUV
-                                            where d.Cantidad > 0
-                                            select c).ToArray();
+                                                                         join d in cuvsPedido on c.cuv equals d.CUV
+                                                                         where d.Cantidad > 0
+                                                                         select c).ToArray();
                     }
                 }
             }
@@ -999,7 +999,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string mensajeGestionCdrInhabilitada = _cdrProvider.MensajeGestionCdrInhabilitadaYChatEnLinea(userData.EsCDRWebZonaValida, userData.IndicadorBloqueoCDR, userData.FechaInicioCampania, userData.ZonaHoraria, userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
                 if (!string.IsNullOrEmpty(mensajeGestionCdrInhabilitada)) return ErrorJson(mensajeGestionCdrInhabilitada, true);
 
-                var cdrWebFiltro = new ServiceCDR.BECDRWeb { ConsultoraID = userData.ConsultoraID, PedidoID = model.PedidoID };
+                var cdrWebFiltro = new ServiceCDR.BECDRWeb { ConsultoraID = userData.ConsultoraID, PedidoID = model.PedidoID, CDRWebID = model.CDRWebID };
                 using (CDRServiceClient sv = new CDRServiceClient())
                 {
                     var cdrWeb = sv.GetCDRWeb(userData.PaisID, cdrWebFiltro).FirstOrDefault();
