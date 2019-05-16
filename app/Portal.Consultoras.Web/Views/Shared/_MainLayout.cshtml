@@ -277,7 +277,7 @@
             s.parentNode.insertBefore(trme, s);
         })();
     </script>
-
+    @{ Html.RenderPartial("VistaParcialMainLayout/_fbsdk");}
     @RenderSection("scripts", required: false)
 
     <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
