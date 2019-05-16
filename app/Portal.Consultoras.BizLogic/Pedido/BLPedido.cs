@@ -188,7 +188,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                     if (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS)
                     {
-                        var reservado = _reservaBusinessLogic.EjecutarReserva(null, true);
+                        var usuario = pedidoDetalle.Usuario;
+                        var pedido = _pedidoWebBusinessLogic.ValidacionModificarPedido(usuario.PaisID, usuario.ConsultoraID, usuario.CampaniaID, usuario.UsuarioPrueba == 1, usuario.AceptacionConsultoraDA);
+                        if (pedido.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado)
+                        {
+                            //var reservado = await _reservaBusinessLogic.EjecutarReserva(pedidoDetalle.ReservaProl, true);
+                            //if(reservado)
+                        }
                         oTransactionScope.Complete();
                     }
                     return respuesta;
