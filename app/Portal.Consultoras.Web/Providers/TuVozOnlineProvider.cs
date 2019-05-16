@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             var url = BasePath;
 
-            var currentTimeSeconds = (DateTime.Now.ToUniversalTime() - new DateTime(1970, 1, 1)).TotalSeconds;
+            var currentTimeSeconds = Util.ToUnixTimespan(DateTime.Now);
             var parameters = string.Format("{0}|{1}|{2}|{3}|Year={4}|Active={5}|Birthdate={6:dd-MM-yyyy}|Country={7}",
                 currentTimeSeconds,
                 user.PrimerNombre,

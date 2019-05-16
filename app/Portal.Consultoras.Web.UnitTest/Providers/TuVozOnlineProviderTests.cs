@@ -18,13 +18,13 @@ namespace Portal.Consultoras.Web.UnitTest.Providers
         {
             var user = new UsuarioModel
             {
-                PrimerNombre = "Angel",
-                PrimerApellido = "Sabria",
-                EMail = "sangl@belcorp.biz",
+                PrimerNombre = "Ivan",
+                PrimerApellido = "Ake",
+                EMail = "ivan.ake@questionpro.com",
                 CodigoISO = "PE"
             };
 
-            var url = _provider.GetUrl(user, "1111", "33444b");
+            var url = _provider.GetUrl(user, "36882", "A12bZ091");
 
             var uri = new Uri(url);
 
