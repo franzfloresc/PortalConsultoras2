@@ -232,7 +232,9 @@ $(document).ready(function () {
 
                 // Agregar otro producto.
                 $(me.Variables.IrSolicitudInicial).click(function () {
-                    console.log("me.Variables.IrSolicitudInicial");
+                    if ($(me.Variables.hdCDRID).val() !== "0")
+                        flagAgregarNuevo = false;
+
                     if (mensajeGestionCdrInhabilitada !== "") {
                         messageInfoValidado(mensajeGestionCdrInhabilitada);
                         return false;
@@ -1878,7 +1880,7 @@ $(document).ready(function () {
                         me.Funciones.SetMontoCampaniaTotal();
                         $(me.Variables.txtCuvMobile2).val("");
                         $(me.Variables.aCambiarProducto2).click();
-                        $(me.Variables.txtCuvMobile2).fadeIn();                        
+                        $(me.Variables.txtCuvMobile2).fadeIn();
                         $(me.Variables.OpcionCambioPorOtroProducto).fadeIn(200);
                     });
                 }
