@@ -531,6 +531,7 @@ a{
     color: #FFF;
     letter-spacing: 1px;
     border: 0;
+    cursor:pointer;
 }
 
 .mensaje_validacion_campo {
