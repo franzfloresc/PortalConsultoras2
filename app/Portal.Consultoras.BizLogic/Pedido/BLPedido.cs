@@ -205,6 +205,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         var respuestaReserva = _reservaBusinessLogic.EjecutarReserva(pedidoDetalle.ReservaProl, true).GetAwaiter().GetResult();
                         var error = false;
                         respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, out error);
+                        
                         if (!error)
                         {
                             oTransactionScope.Complete();
@@ -223,16 +224,16 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private BEPedidoDetalleResult GetPedidoDetalleResultFromResultadoReservaProl(BEResultadoReservaProl resultadoReservaProl, out bool error)
         {
             error = false;
-            var pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_NINGUNO;
+            var pedidoValidacionCode = Constantes.PedidoValidacion.Code.SUCCESS;
             if(resultadoReservaProl != null)
             {
                 switch (resultadoReservaProl.ResultadoReservaEnum)
                 {                    
                     case Enumeradores.ResultadoReserva.Reservado:
-                        pedidoValidacionCode = Constantes.PedidoValidacion.Code.SUCCESS_RESERVA;                        
+                        pedidoValidacionCode = Constantes.PedidoValidacion.Code.SUCCESS;                        
                         break;
                     case Enumeradores.ResultadoReserva.ReservadoObservaciones:
-                        pedidoValidacionCode = Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_OBS;
+                        pedidoValidacionCode = Constantes.PedidoValidacion.Code.SUCCESS;
                         break;
                     case Enumeradores.ResultadoReserva.NoReservadoObservaciones:
                         pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_OBS;
@@ -258,10 +259,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_OBS; //No existe una constante 
                         error = true;
                         break;
-                    case Enumeradores.ResultadoReserva.Ninguno:                        
-                    default:
+                    case Enumeradores.ResultadoReserva.Ninguno:
                         pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_NINGUNO;
                         error = true;
+                        break;
+                    default:
+                        pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_NINGUNO;
                         break;
                 }                
             }
