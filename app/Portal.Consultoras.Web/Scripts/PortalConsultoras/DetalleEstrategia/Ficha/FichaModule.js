@@ -387,7 +387,12 @@ var FichaModule = (function (config) {
         }
         else {
             mensajeError += "\n _fichaServicioApi no";
-            estrategia = _modeloFicha();
+            estrategia = modeloFicha;
+
+            if (typeof estrategia === "undefined" || estrategia == null || typeof estrategia.EstrategiaID === "undefined" || estrategia.EstrategiaID == 0) {
+                throw '_getEstrategia, no obtiene oferta desde api';
+            }
+
             _esMultimarca = estrategia.EsMultimarca;
 
             estrategia.esCampaniaSiguiente = estrategia.CampaniaID !== _obtenerCampaniaActual();

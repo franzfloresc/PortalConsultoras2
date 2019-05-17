@@ -497,6 +497,8 @@ var PedidoRegistroModule = function () {
             cache: false
         });
 
+        debugger;
+
         jQuery.ajax({
             type: 'POST',
             url: baseUrl + _url.urlAgregarUnico,
