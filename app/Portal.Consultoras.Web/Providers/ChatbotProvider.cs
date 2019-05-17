@@ -12,6 +12,10 @@ namespace Portal.Consultoras.Web.Providers
         {
             var jwtKey = provider.GetConfiguracionManager(Constantes.ConfiguracionManager.JsonWebTokenSecretKey);
             var secret = provider.GetConfiguracionManager(Constantes.ConfiguracionManager.ChatbotSecret);
+            if (string.IsNullOrEmpty(jwtKey) || string.IsNullOrEmpty(secret))
+            {
+                return string.Empty;
+            }
 
             return GetToken(user, secret, jwtKey);
         }

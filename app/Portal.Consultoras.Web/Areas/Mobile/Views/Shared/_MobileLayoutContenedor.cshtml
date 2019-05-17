@@ -499,14 +499,16 @@
     </script>
     @RenderSection("scripts", required: false)
 
-    @{
-        // ViewBag.HabilitarChatEmtelco : Oculta boton que lanza chat.
-        // Deberia ir dentro de la condicion de este if?
-        if (!esIngresoUnico)
-        {
-            <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
-        }
+@{
+    // ViewBag.HabilitarChatEmtelco : Oculta boton que lanza chat.
+    // Deberia ir dentro de la condicion de este if
+}
+    @if (!esIngresoUnico)
+    {
+        Html.RenderPartial("VistaParcialMainLayout/_fbsdk");
+        <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
     }
+    
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
     <script>
