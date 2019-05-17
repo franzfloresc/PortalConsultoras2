@@ -2930,7 +2930,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public JsonResult ProcesaEnvioSms(int cantidadEnvios)
+        public JsonResult ProcesaEnvioSms(int cantidadEnvios,string numero)
         {
             var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
             if (oUsu == null) return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
@@ -2942,6 +2942,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var svc = new UsuarioServiceClient())
                 {
+                    oUsu.Celular = numero;
                     BERespuestaSMS EstadoEnvio = svc.ProcesaEnvioSms(paisID, oUsu, cantidadEnvios);
                     return Json(new
                     {

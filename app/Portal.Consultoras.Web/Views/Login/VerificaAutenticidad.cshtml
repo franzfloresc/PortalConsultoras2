@@ -77,18 +77,18 @@
                         <div class="block opcion_verificacion_autenticidad opcion_verificacion_autenticidad--pendiente">
                             <div class="datos_verificacion_autenticidad">
                                 <div class="block text-bold">Número de celular <span class="asteriscos">*</span></div>
-                                <div class="block">@Model.CelularEnmascarado</div>
-                                <span class="block text-bold mensaje_validacion_campo">Aún falta confirmar tu número</span>
+                                <div class="block" id="celularEnmascarado">@Model.CelularEnmascarado</div>                                
+                                <span id="textoConfSms" class="block text-bold mensaje_validacion_campo">Aún falta confirmar tu número</span>
                             </div>
                             <div>
-                                <a href="" title="Editar" class="inline-block text-center enlace_cambiar_dato RecuperarPorSms">
+                                <a href="javascript:EditarSms();" title="Editar" class="inline-block text-center enlace_cambiar_dato btnEditarSms">
                                     <span class="inline-block icono_cambiar_dato">
                                         <img src="@Url.Content("~/Content/Images/icono_cambiar_dato.svg")" alt="Editar">
                                     </span>
                                     <span class="inline-block text-bold">Editar</span>
                                 </a>
                                 <!-- INICIO - Este botón aparece cuando la consultora tiene pendiente confirmar su correo electrónico -->
-                                <button id="btn_confirmar_dato_email" type="button" class="block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato">
+                                <button id="btn_confirmar_dato_sms" type="button" class="block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato">
                                     Confirmar
                                 </button>
                                 <!-- FIN - Este botón aparece cuando la consultora tiene pendiente confirmar su correo electrónico -->
@@ -102,17 +102,17 @@
                                 <div class="datos_verificacion_autenticidad">
                                     <div class="block text-bold">Correo Electrónico <span class="asteriscos">*</span></div>
                                     <div class="block">@Model.CorreoEnmascarado</div>
-                                    <span class="d-block text-bold mensaje_validacion_campo">Aún falta confirmar tu correo</span>
+                                    <span id="textoConfEmail"  class="d-block text-bold mensaje_validacion_campo">Aún falta confirmar tu correo</span>
                                 </div>
                                 <div>
-                                    <a href="" title="Editar" class="inline-block text-center enlace_cambiar_dato RecuperarPorCorreo">
+                                    <a href="" title="Editar" class="inline-block text-center enlace_cambiar_dato btnEditarSms">
                                         <span class="inline-block icono_cambiar_dato">
                                             <img src="@Url.Content("~/Content/Images/icono_cambiar_dato.svg")" alt="Editar">
                                         </span>
                                         <span class="inline-block text-bold">Editar</span>
                                     </a>
                                     <!-- INICIO - Este botón aparece cuando la consultora tiene pendiente confirmar su correo electrónico -->
-                                    <button id="btn_confirmar_dato_sms" type="button" class="block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato">
+                                    <button id="btn_confirmar_dato_email" type="button" class="block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato">
                                         Confirmar
                                     </button>
                                     <!-- FIN - Este botón aparece cuando la consultora tiene pendiente confirmar su correo electrónico -->
@@ -146,7 +146,7 @@
                          si el formato del correo es correcto remover clase mencionada anteriormente y agregar grupo_form_datos--validacionExitosa -->
                     <div class="block grupo_form_cambio_datos grupo_form_cambio_datos--vistaActualizacionCelular">
                         <div class="w-100">
-                            <input id="NuevoCelular" name="NuevoCelular" class="w-100" type="tel" value="" />
+                            <input id="NuevoCelular" name="NuevoCelular" class="w-100 input-number" type="tel" value="" />
                             <label for="NuevoCelular" class="w-100 text-left">Número de celular</label>
                             <span id="ValidateCelular" class="text-bold mensaje_validacion_campo mensaje_validacion_campo--vistasActualizacion" style="display:none">Número inválido</span>
                         </div>
@@ -160,13 +160,13 @@
                                 Estoy de acuerdo con los <span><a href="javascript:;" id="hrefTerminosMD" target="_blank">términos y condiciones</a></span> sobre Protección de datos personales
                             </div>
                             <div class="grupo_form_checkbox_condiciones">
-                                <input class="checkbox_condiciones_checkbox" type="checkbox" name="chkAceptoContratoMD" id="chkAceptoContratoMD" />
-                                <label for="chkAceptoContratoMD" class="block border-radius-4 checkbox_condiciones_label"></label>
+                                <input class="checkbox_condiciones_checkbox" type="checkbox" name="chkAceptoContratoCambioCel" id="chkAceptoContratoCambioCel" />
+                                <label for="chkAceptoContratoCambioCel" class="block border-radius-4 checkbox_condiciones_label"></label>
                             </div>
                         </div>
                     </div>
                     <div class="grupo_form_cambio_datos grupo_form_cambio_datos--vistaActualizacionCorreo">
-                        <button type="button" class="w-100 border-radius-4 text-bold mt-23 btn_deshabilitado btn_primario btn_primario--miPerfil">
+                        <button id="btnGuardarNumero"  type="button"  class="w-100 border-radius-4 text-bold mt-23 btn_deshabilitado btn_primario btn_primario--miPerfil">
                             Guardar
                         </button>
                     </div>
@@ -178,7 +178,7 @@
                     <h3 class="d-block text-bold actualizacion_celular_titulo">Código de confirmación</h3>
                     <p class="w-100 envio_instrucciones_info">
                         <span class="block w-100">Te hemos enviado un SMS al número de celular:</span>
-                        <span class="inline-block text-bold num_celular_actual">@Model.CelularEnmascarado</span>
+                        <span id="txtNumeroParaValidar" class="inline-block text-bold num_celular_actual">@Model.CelularEnmascarado</span>
                         <a href="#" class="inline-block enlace_cambiar_numero_celular" title="Cambiar número">Cambiar número</a>
                     </p>
                     <div class="area_ingreso_codigo_sms block">
