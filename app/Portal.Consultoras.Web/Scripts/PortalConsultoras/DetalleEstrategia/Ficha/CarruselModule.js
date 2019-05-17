@@ -450,7 +450,7 @@ var CarruselModule = (function (config) {
                 //centerMode: true,
                 responsive: [
                     {
-                        breakpoint: 480,
+                        breakpoint: 720,
                         settings: {
                             slidesToShow: 1
                         }
