@@ -19,7 +19,7 @@
     });
 
     function OnSuccess(result) {
-        alert(result.message);
+        showDialogMensaje(result.message, 'Alerta');
         $('#NombreImagen').val("");
     }
     function AbrirSplash() {

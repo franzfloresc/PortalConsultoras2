@@ -52,11 +52,11 @@ function IniDialogDetalle() {
                var Proc = $("#Proc").val();    
                 var CodigoDetalle = "";
                 if ($("#nombre-desktop-detalle").val() == "") {
-                    alert(_obj_mensaje.seleccionImagen);
+                    showDialogMensaje(_obj_mensaje.seleccionImagen, 'Alerta');
                     return false;
                 }
                 if ($("#ddlCampaniaDetalle").val() === "0") {
-                    alert(_obj_mensaje.seleccionCampania);
+                    showDialogMensaje(_obj_mensaje.seleccionCampania, 'Alerta');
                     return false;
                 }
 
