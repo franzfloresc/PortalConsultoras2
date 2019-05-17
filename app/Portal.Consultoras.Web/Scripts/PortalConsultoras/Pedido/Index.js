@@ -62,13 +62,7 @@ $(document).ready(function () {
         cerrar_popup_tutorial();
     });
 
-    $('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
-        if (event.keyCode == 13) {
-            if ($("#btnAgregar")[0].disabled == false) {
-                PedidoRegistroModule.AgregarProductoListadoPasePedido();
-            }
-        }
-    })
+ 
 
     $("body").click(function (e) {
         if (!$(e.target).closest(".ui-dialog").length) {
