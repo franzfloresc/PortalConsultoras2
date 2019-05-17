@@ -956,7 +956,11 @@
         }
     </script>
 }
-
+<div class="fb-customerchat"
+     page_id="@ViewBag.ChatBotPageId"
+     greeting_dialog_display="hide"
+     theme_color="#0084FF">
+</div>
 @section scripts {
     <script src="~/Scripts/handlebars.js"></script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Js-Login")
@@ -969,8 +973,9 @@
                 appId: fbAppId,
                 cookie: true,
                 xfbml: true,
-                version: 'v3.0'
+                version: 'v3.3'
             });
+            FB.CustomerChat.hide();
 
             FB.getLoginStatus(function (response) {
                 if (response.status === 'connected') {
@@ -985,7 +990,7 @@
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) { return; }
             js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js";
+            js.src = "https://connect.facebook.net/es_LA/sdk/xfbml.customerchat.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 

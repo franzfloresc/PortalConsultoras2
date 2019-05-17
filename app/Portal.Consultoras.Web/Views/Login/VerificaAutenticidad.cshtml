@@ -239,12 +239,12 @@
     var UrlLogin = '@Url.Action("Index", "Login")';
     var EsMobile = '@Model.EsMobile';
     var VerCambioClaveMobile = '@Url.Action("Index", "MisDatos", new { area = "Mobile" })';
+    var fbxfbml = -1;
 </script>
 
 @Scripts.Render("~/Bundle/Js/Mixto/Login-VerificaAutenticidad")
 
-@{
-    <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
+@if (Model.OpcionChat)
+{
+    Html.RenderPartial("VistaParcialMainLayout/_fbsdk");
 }
-
-

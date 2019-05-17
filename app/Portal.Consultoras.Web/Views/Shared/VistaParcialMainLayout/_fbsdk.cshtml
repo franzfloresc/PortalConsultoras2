@@ -5,14 +5,19 @@
      theme_color="#0084FF">
 </div>
 
-<script>
-    window.fbAsyncInit = function() {
-        FB.init({
-            xfbml            : true,
-            version          : 'v3.3'
-        });
-    };
-</script>
+@if (ViewBag.FbCustomInit != "1")
+{
+    <script>
+        var fbxfbml = fbxfbml || 1;
+        window.fbAsyncInit = function () {
+            FB.init({
+                xfbml            : fbxfbml === 1 ? true : false,
+                version          : 'v3.3'
+            });
+        };
+    </script>
+}
+
 <script>
     (function(d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
