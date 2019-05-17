@@ -319,8 +319,39 @@ function CambiarOferta() {
         $("#divresultadosDemostradores").show();
         document.body.scrollTop = TabDos;
         $(window).scrollTop(TabDos);
+        ObtenerFiltros();
         if (contadordemo == 0) { CargarDemostradores(); }
         else { LinkCargarOfertasToScroll();}
+    });
+}
+
+function ObtenerFiltros() {
+    $.ajax({
+        type: 'GET',
+        url: urlObtenerFiltros,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (checkTimeout(data)) {
+                debugger
+                if (data.lista != null) {
+                    var _filtros = data.lista.DatosFiltros;
+                    var _orden = data.lista.DatosOrden;
+                    debugger
+                    $.each(_filtros, function (index, value) {
+                        $("#ddlfiltros").append('<option value="' + value.Codigo + '">' + value.Descripcion + '</option>');
+                    });
+
+                    $.each(_orden, function (index, value) {
+                        $("#ddlOrdenar").append('<option value="' + value.Codigo + '">' + value.Descripcion + '</option>');
+                    });
+                }
+            }
+        },
+        error: function (data, error) { },
+        complete: function (data) {
+            cargandoRegistros = false;
+        }
     });
 }
 

@@ -248,5 +248,13 @@ namespace Portal.Consultoras.Web.Controllers
             return _RedirectToAction("Index", "Bienvenida");
         }
 
+        public JsonResult GetFiltrosCaminoBrillante()
+        {
+            var oFiltro = _caminoBrillanteProvider.GetDatosOrdenFiltros();
+            return Json(new
+            {
+                lista = oFiltro
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
