@@ -6,8 +6,9 @@ if (!jQuery) { throw new Error("AnalyticsPortal.js requires jQuery"); }
 }(window.jQuery);
 
 var AnalyticsPortalModule = (function () {
+
     var _evento = {
-        virtualEvent: "virtualEvent",
+        virtualEvent: 'virtualEvent',
         virtualRemoveEvent: "removeFromCart",
         socialEvent: "socialEvent",
         addToCart: "addToCart",
@@ -488,7 +489,7 @@ var AnalyticsPortalModule = (function () {
     var marcaCompartirRedesSociales = function (tipo, url) {
         try {
             dataLayer.push({
-                'event': 'socialEvent',
+                'event': _evento.socialEvent,
                 'network': tipo == "FB" ? 'Facebook' : "Whatsapp",
                 'action': 'Compartir',
                 'target': url == "" ? undefined : url
@@ -871,23 +872,6 @@ var AnalyticsPortalModule = (function () {
             var cantidadMostrar = (lista.length == 1 ? 1 : data.CantidadMostrar) || 0;
             var impressions = autoMapperEstrategia(lista, cantidadMostrar, parametroList);
 
-            //$.each(lista, function (index) {
-            //    if (index < cantidadMostrar) {
-            //        var item = lista[index];
-            //        var impression = {
-            //            'name': item.DescripcionCompleta,
-            //            'id': item.CUV2,
-            //            'price': item.PrecioVenta,
-            //            'brand': item.DescripcionMarca,
-            //            'category': _texto.notavaliable,
-            //            'variant': _texto.estandar,
-            //            'list': parametroList,
-            //            'position': (item.Position == undefined ? index : item.Position) + 1
-            //        };
-            //        impressions.push(impression);
-            //    }
-            //});
-
             var seMarco = _marcarImpresionSetProductos(impressions);
 
             if (data.Direccion != undefined) {
@@ -939,32 +923,6 @@ var AnalyticsPortalModule = (function () {
                 return true;
             }
 
-            //$.each(lista, function (index) {
-            //    if (index == cantidadMostrar)
-            //        return false;
-            //    var item = lista[index];
-            //    var impression = {
-            //        'name': item.DescripcionCompleta,
-            //        'id': item.CUV,
-            //        'price': parseFloat(item.Precio).toFixed(2).toString(),
-            //        'brand': _getMarca(item.MarcaId),
-            //        'category': _texto.notavaliable,
-            //        'variant': _texto.estandar,
-            //        'list': 'Pedido - Ofertas Relacionadas',
-            //        'position': index + 1
-            //    };
-            //    impressions.push(impression);
-            //});
-
-            //dataLayer.push({
-            //    'event': _evento.productImpression,
-            //    'ecommerce': {
-            //        'currencyCode': _getCurrencyCodes(),
-            //        'impressions': impressions
-            //    }
-            //});
-
-
         } catch (e) {
             console.log(_texto.excepcion + e);
         }
@@ -993,29 +951,6 @@ var AnalyticsPortalModule = (function () {
                 || !seMarco)) {
                 return true;
             }
-
-            //var impressions = [];
-            //var item = lista[index];
-            //var impression = {
-            //    'name': item.DescripcionCompleta,
-            //    'id': item.CUV,
-            //    'price': parseFloat(item.Precio).toFixed(2).toString(),
-            //    'brand': _getMarca(item.MarcaId),
-            //    'category': _texto.notavaliable,
-            //    'variant': _texto.estandar,
-            //    'list': 'Pedido - Ofertas Relacionadas',
-            //    'position': index + 1
-            //};
-            //impressions.push(impression);
-
-            //dataLayer.push({
-            //    'event': _evento.productImpression,
-            //    'ecommerce': {
-            //        'currencyCode': _getCurrencyCodes(),
-            //        'impressions': impressions
-            //    }
-            //});
-
 
         } catch (e) {
             console.log(_texto.excepcion + e);
@@ -1320,7 +1255,7 @@ var AnalyticsPortalModule = (function () {
         try {
             var pos = _getParametroListSegunOrigen(OrigenPedidoWeb, url);
             dataLayer.push({
-                'event': 'promotionClick',
+                'event': _evento.promotionClick,
                 'ecommerce': {
                     'promoClick': {
                         'promotions': [
@@ -1713,7 +1648,7 @@ var AnalyticsPortalModule = (function () {
     var marcaSeleccionarContenidoBusqueda = function (busqueda) {
         try {
             dataLayer.push({
-                'event': 'virtualEvent',
+                'event': _evento.virtualEvent,
                 'category': 'Buscador SB',
                 'action': 'Buscar',
                 'label': busqueda
@@ -1898,7 +1833,7 @@ var AnalyticsPortalModule = (function () {
                 alert("Marcación Notificaciones.");
 
             dataLayer.push({
-                'event': 'virtualEvent',
+                'event': _evento.virtualEvent,
                 'category': 'Navegacion',
                 'action': tipo,
                 'label': tipo == 'Superior' ? 'Notificaciones' : 'Ver Notificaciones > Abrir',
@@ -1920,7 +1855,7 @@ var AnalyticsPortalModule = (function () {
                 alert("Marcación Clic seguimiento pedido.");
 
             dataLayer.push({
-                'event': 'virtualEvent',
+                'event': _evento.virtualEvent,
                 'category': 'Navegacion',
                 'action': 'Cuerpo',
                 'label': 'Seguimiento a tu pedido',
@@ -1941,7 +1876,7 @@ var AnalyticsPortalModule = (function () {
                 alert("Marcación Clic pago en línea.");
 
             dataLayer.push({
-                'event': 'virtualEvent',
+                'event': _evento.virtualEvent,
                 'category': 'Home – Mi estado de cuenta',
                 'action': 'Click Botón',
                 'label': 'PAGA EN LÍNEA',
@@ -1964,7 +1899,7 @@ var AnalyticsPortalModule = (function () {
                 alert("Marcación Clic pago en línea.");
 
             dataLayer.push({
-                'event': 'virtualEvent',
+                'event': _evento.virtualEvent,
                 'category': 'Home – Mi estado de cuenta',
                 'action': 'Click Botón',
                 'label': 'FACTURACIÓN ELECTRÓNICA',
@@ -1986,7 +1921,7 @@ var AnalyticsPortalModule = (function () {
                 alert("Marcación Clic comparte catalogos.");
 
             dataLayer.push({
-                'event': 'virtualEvent',
+                'event': _evento.virtualEvent,
                 'category': 'Home',
                 'action': 'Click Botón',
                 'label': 'COMPARTE TUS CATÁLOGOS',
@@ -2006,7 +1941,7 @@ var AnalyticsPortalModule = (function () {
         try {
 
             dataLayer.push({
-                'event': 'virtualEvent',
+                'event': _evento.virtualEvent,
                 'category': 'Home – Club GANA+',
                 'action': 'Club Gana+',
                 'label': 'Ver lanzamientos',
@@ -2025,7 +1960,7 @@ var AnalyticsPortalModule = (function () {
             codigo = codigo || "";
             if (codigo == _codigoSeccion.LAN) {
                 dataLayer.push({
-                    'event': 'virtualEvent',
+                    'event': _evento.virtualEvent,
                     'category': 'Home – Club GANA+',
                     'action': 'Club Gana+',
                     'label': 'Ver lanzamientos',
@@ -2058,7 +1993,7 @@ var AnalyticsPortalModule = (function () {
         try {
 
             dataLayer.push({
-                'event': 'virtualEvent',
+                'event': _evento.virtualEvent,
                 'category': 'Home – Liquidaciones Web',
                 'action': 'Click Botón',
                 'label': 'VER MÁS',
@@ -2089,7 +2024,7 @@ var AnalyticsPortalModule = (function () {
     var marcaFlechaHome = function (flecha) {
         try {
             dataLayer.push({
-                'event': 'virtualEvent',
+                'event': _evento.virtualEvent,
                 'category': 'Home – Club GANA+',
                 'action': 'Flechas de Productos',
                 'label': flecha
