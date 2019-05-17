@@ -377,7 +377,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
 
                 entidad = sv.GetContenidoAppHistoria(userData.PaisID, Globals.CodigoHistoriasResumen);
-                model.LimitDetMensaje = string.Format(ConfigurationManager.AppSettings["HistLimitDetMensaje"], entidad.CantidadContenido);//entidad.CantidadContenido;
+                model.LimitDetMensaje = string.Format(ConfigurationManager.AppSettings["HistLimitDetMensaje"], entidad.CantidadContenido);
             }
 
             return PartialView("Partials/MantenimientoDetalle", model);
@@ -513,10 +513,6 @@ namespace Portal.Consultoras.Web.Controllers
                     "AdministrarHistoriasController.GetContenidoAppDetaActService");
             }
             return listaEntidad;
-            //return listaEntidad.Where(p => p.Parent == 0);
-
-
-
         }
 
         public ActionResult ComponenteDetalleEditarViewDatos(AdministrarHistorialDetaListModel entidad)
