@@ -544,13 +544,14 @@ a{
         }
 
 .btn_confirmar_dato {
-    font-family:'Lato', sans-serif;
+    font-family: 'Lato', sans-serif;
     margin-top: 16px;
     height: 32px;
     font-size: 12.6px;
     color: #FFF;
     letter-spacing: 1px;
     border: 0;
+    cursor: pointer;
 }
 
 .mensaje_validacion_campo {
