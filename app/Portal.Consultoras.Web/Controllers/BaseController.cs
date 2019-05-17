@@ -275,6 +275,18 @@ namespace Portal.Consultoras.Web.Controllers
             return montosProl;
         }
 
+        protected void SetMontosProl(BEPedidoDetalleResult pedidoDetalleResult) {
+            SessionManager.SetMontosProl(new List<ObjMontosProl> {
+                new ObjMontosProl
+                {
+                    AhorroCatalogo = pedidoDetalleResult.MontoAhorroCatalogo,
+                    AhorroRevista = pedidoDetalleResult.MontoAhorroRevista,
+                    MontoTotalDescuento = pedidoDetalleResult.DescuentoProl,
+                    MontoEscala = pedidoDetalleResult.MontoEscala
+                }
+            });
+        }
+
         protected void InsIndicadorPedidoAutentico(BEIndicadorPedidoAutentico indPedidoAutentico, string cuv)
         {
             try
