@@ -104,10 +104,10 @@ namespace Portal.Consultoras.Web.Models
                     ProductoComplementarioModel obj = new ProductoComplementarioModel();
                     obj.CUV = xmlNode["cuv"].InnerText;
                     obj.Descripcion = xmlNode["descripcion"].InnerText;
-                    obj.Cantidad = xmlNode["cantidad"].InnerText != "" ? 0 : Convert.ToInt32(xmlNode["cantidad"].InnerText);
-                    obj.Precio = xmlNode["precio"].InnerText != "" ? 0 : Convert.ToDecimal(xmlNode["precio"].InnerText);
+                    obj.Cantidad = xmlNode["cantidad"].InnerText == "" ? 0 : Convert.ToInt32(xmlNode["cantidad"].InnerText);
+                    obj.Precio = xmlNode["precio"].InnerText == "" ? 0 : Convert.ToDecimal(xmlNode["precio"].InnerText);
                     obj.Simbolo = xmlNode["simbolo"].InnerText;
-                    obj.Estado = xmlNode["estado"].InnerText != "" ? 0 : Convert.ToInt32(xmlNode["estado"].InnerText);
+                    obj.Estado = xmlNode["estado"].InnerText == "" ? 0 : Convert.ToInt32(xmlNode["estado"].InnerText);
                     lista.Add(obj);
                 }
             }

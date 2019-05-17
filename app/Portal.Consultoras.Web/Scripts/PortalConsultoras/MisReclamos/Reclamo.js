@@ -1133,7 +1133,7 @@ function DetalleCargar() {
         }
 
         $("#spnCantidadUltimasSolicitadas").html(data.detalle.length);
-        ObtenerDetalleReemplazo(data);
+        CalcularMontoTotalTrueque(data);
         SetHandlebars("#template-detalle-banner", data.detalle, "#divDetalleUltimasSolicitudes");
         ValidarVisualizacionBannerResumen();
 
@@ -1147,56 +1147,78 @@ function DetalleCargar() {
 
 }
 
-function ObtenerDetalleReemplazo(data) {
+function CalcularMontoTotalTrueque(data) {
     try {
-        if (data.detalle.length > 0) {
-            $.each(data.detalle, function (index, v) {
-                if (v.XMLReemplazo.length > 0) {
-
-                    var xml;
-                    if (window.DOMParser) {
-                        parser = new DOMParser();
-                        xml = parser.parseFromString(v.XMLReemplazo, "text/xml");
-                    }
-                    else //IE
-                    {
-                        xml = new ActiveXObject("Microsoft.XMLDOM");
-                        xml.async = false;
-                        xml.loadXML(v.XMLReemplazo);
-                    }
-                    var arrReemplazo = [];
-                    var rows = xml.getElementsByTagName("reemplazo");
-                    var total = 0;
-                    for (var i = 0; i < rows.length; i++) {
-                        var precio = rows[i].getElementsByTagName("precio")[0].textContent;
-
-                        var obj = {
-                            CUV: rows[i].getElementsByTagName("cuv")[0].textContent,
-                            Cantidad: rows[i].getElementsByTagName("cantidad")[0].textContent,
-                            Descripcion: rows[i].getElementsByTagName("descripcion")[0].textContent,
-                            Precio: precio,
-                            Simbolo: rows[i].getElementsByTagName("simbolo")[0].textContent,
-                            Estado: rows[i].getElementsByTagName("estado")[0].textContent
-                        };
-                        total = total + parseFloat(precio);
-
-                        arrReemplazo.push(obj);
-                    }
-                    data.detalle[index].DetalleReemplazo = arrReemplazo;
-                    data.detalle[index].Total = total;
-
-                }
-                else {
-                    data.detalle[index].DetalleReemplazo = [];
-                    data.detalle[index].Total = 0;
-                }
-            });
+        if (data.detalle.length === 0) {
+            return false;
         }
+        $.each(data.detalle, function (i, el) {
+            var total = 0;
+            if (el.DetalleReemplazo === null) {
+                data.detalle[i].Total = 0;
+                return;
+            }
+
+            $.each(el.DetalleReemplazo, function (j, det) {
+                total = total + det.Precio;
+            });
+            data.detalle[i].Total = total;
+        });
     } catch (e) {
         console.log(e.message);
     }
-
 }
+
+//function ObtenerDetalleReemplazo(data) {
+//    try {
+//        if (data.detalle.length > 0) {
+//            $.each(data.detalle, function (index, v) {
+//                if (v.XMLReemplazo.length > 0) {
+
+//                    var xml;
+//                    if (window.DOMParser) {
+//                        var parser = new DOMParser();
+//                        xml = parser.parseFromString(v.XMLReemplazo, "text/xml");
+//                    }
+//                    else //IE
+//                    {
+//                        xml = new ActiveXObject("Microsoft.XMLDOM");
+//                        xml.async = false;
+//                        xml.loadXML(v.XMLReemplazo);
+//                    }
+//                    var arrReemplazo = [];
+//                    var rows = xml.getElementsByTagName("reemplazo");
+//                    var total = 0;
+//                    for (var i = 0; i < rows.length; i++) {
+//                        var precio = rows[i].getElementsByTagName("precio")[0].textContent;
+
+//                        var obj = {
+//                            CUV: rows[i].getElementsByTagName("cuv")[0].textContent,
+//                            Cantidad: rows[i].getElementsByTagName("cantidad")[0].textContent,
+//                            Descripcion: rows[i].getElementsByTagName("descripcion")[0].textContent,
+//                            Precio: precio,
+//                            Simbolo: rows[i].getElementsByTagName("simbolo")[0].textContent,
+//                            Estado: rows[i].getElementsByTagName("estado")[0].textContent
+//                        };
+//                        total = total + parseFloat(precio);
+
+//                        arrReemplazo.push(obj);
+//                    }
+//                    data.detalle[index].DetalleReemplazo = arrReemplazo;
+//                    data.detalle[index].Total = total;
+
+//                }
+//                else {
+//                    data.detalle[index].DetalleReemplazo = [];
+//                    data.detalle[index].Total = 0;
+//                }
+//            });
+//        }
+//    } catch (e) {
+//        console.log(e.message);
+//    }
+
+//}
 
 function DetalleEliminar(objItem) {
     var url = baseUrl + 'MisReclamos/DetalleEliminar';
@@ -1253,7 +1275,7 @@ function ValidarSolicitudCDREnvio(validarCorreoVacio, validarCelularVacio) {
     }
 
     if (!ok) return false;
-    
+
     if (!$("#btnAceptoPoliticas").hasClass("politica_reclamos_icono_active")) {
         alert_msg("Debe aceptar la política de Cambios y Devoluciones");
         return false;

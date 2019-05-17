@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using System.Xml;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -78,13 +79,13 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     lista = sv.GetCDRWebDetalle(paisId, entidad, model.PedidoID).ToList();
                 }
-
                 if (lista.Any())
                 {
                     lista.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado, paisId).Descripcion);
                     lista.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado, paisId).Descripcion);
                     lista.Update(p => p.FormatoPrecio1 = Util.DecimalToStringFormat(p.Precio, codigoIso));
                     lista.Update(p => p.FormatoPrecio2 = Util.DecimalToStringFormat(p.Precio2, codigoIso));
+                    lista.Update(p => p.DetalleReemplazo = string.IsNullOrEmpty(p.XMLReemplazo)? null : XMLToList(p.XMLReemplazo,codigoIso).ToArray());
                     sessionManager.SetCDRWebDetalle(lista);
                 }
                 else
@@ -100,6 +101,36 @@ namespace Portal.Consultoras.Web.Providers
                 sessionManager.SetCDRWebDetalle(null);
                 return new List<ServiceCDR.BECDRWebDetalle>();
             }
+        }
+
+        public static List<BECDRProductoComplementario> XMLToList(string xml, string codigoIso)
+        {
+            if (string.IsNullOrEmpty(xml))
+                return null;
+            var lista = new List<BECDRProductoComplementario>();
+            try
+            {
+                XmlDocument xmlDocument = new XmlDocument();
+                xmlDocument.LoadXml(xml);
+                XmlNodeList xmlNodeList = xmlDocument.SelectNodes("/reemplazos/reemplazo");
+                foreach (XmlNode xmlNode in xmlNodeList)
+                {
+                    BECDRProductoComplementario obj = new BECDRProductoComplementario();
+                    obj.CUV = xmlNode["cuv"].InnerText;
+                    obj.Descripcion = xmlNode["descripcion"].InnerText;
+                    obj.Cantidad = xmlNode["cantidad"].InnerText == "" ? 0 : Convert.ToInt32(xmlNode["cantidad"].InnerText);
+                    obj.Precio = xmlNode["precio"].InnerText == "" ? 0 : Convert.ToDecimal(xmlNode["precio"].InnerText);
+                    obj.Simbolo = xmlNode["simbolo"].InnerText;
+                    obj.Estado = xmlNode["estado"].InnerText != "" ? 0 : Convert.ToInt32(xmlNode["estado"].InnerText);
+                    obj.PrecioFormato = xmlNode["precio"].InnerText == "" ? "0" : Util.DecimalToStringFormat(Convert.ToDecimal(xmlNode["precio"].InnerText), codigoIso);
+                    lista.Add(obj);
+                }
+            }
+            catch (Exception)
+            {
+                lista = null;
+            }
+            return lista;
         }
 
         public List<BECDRMotivoReclamo> CargarMotivo(MisReclamosModel model, DateTime date, int paisId, int campaniaId, long consultoraId)
@@ -362,6 +393,7 @@ namespace Portal.Consultoras.Web.Providers
             diasFaltantes = 5;
 #endif
 
+
             if (diasFaltantes == 0) return Constantes.CdrWebMensajes.FueraDeFecha;
 
             var cdrDiasAntesFacturacion = 0;
@@ -552,7 +584,7 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager.SetNroPedidosCDRConfig(result);
             return result;
         }
-        
+
         private class PedidosEstadoCDRWeb
         {
             public int CampaniaID { get; set; }

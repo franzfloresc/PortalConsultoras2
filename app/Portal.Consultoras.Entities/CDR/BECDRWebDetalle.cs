@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -68,8 +69,13 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public string XMLReemplazo { get; set; } //HD-4017 EINCA
 
+        [DataMember]
+        public ICollection<BECDRProductoComplementario> DetalleReemplazo { get; set; } //HD-4017 EINCA
+
         public BECDRWebDetalle()
-        { }
+        {
+            DetalleReemplazo = new HashSet<BECDRProductoComplementario>();//HD-4017 EINCA
+        }
 
         public BECDRWebDetalle(IDataRecord row)
         {

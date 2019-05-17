@@ -1103,6 +1103,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         border-bottom:1px solid #808080;
         padding-top: 24px;
         padding-bottom: 24px;
+        justify-content:space-between;
     }
 
         .producto_a_cambiar:last-child{

@@ -622,8 +622,8 @@ $(document).ready(function () {
                                 .find("span[name=precio]").text(variablesPortal.SimboloMoneda + DecimalToStringFormat(datosCUV.PrecioCatalogo));
                             $("#contenedorCuvTrueque").append($template.html());
                             $this.val("");
+                            me.Funciones.CalcularTotal();
                         }
-
                     });
                 });
 
@@ -748,7 +748,11 @@ $(document).ready(function () {
             NoCuentaConRegistros: "No se puede finalizar la solicitud porque no cuenta con registros",
             SeleccionaOtraSoluccionPorcentajeFaltante: "Por favor, selecciona otra solución, ya que superas el porcentaje de faltante permitido en tu pedido facturado",
             SeleccionaOtraSoluccionMontoMinimo: "Por favor, selecciona otra solución, ya que tu pedido está quedando por debajo del monto mínimo permitido",
-            SeleccionaOtraSoluccionSuperasPorcentaje: "Por favor, selecciona otra solución, ya que superas el porcentaje de devolución permitido en tu pedido facturado"
+            SeleccionaOtraSoluccionSuperasPorcentaje: "Por favor, selecciona otra solución, ya que superas el porcentaje de devolución permitido en tu pedido facturado",
+            INPUT_NAME_CANTIDAD: "input[name=cantidad]",
+            SPAN_NAME_DESCRIPCION: "span[name=descripcion]",
+            SPAN_NAME_PRECIO: "span[name=precio]",
+            SPAN_NAME_CODIGO: "span[name=codigo]"
         };
 
         me.Funciones = {
@@ -843,17 +847,20 @@ $(document).ready(function () {
                 });
             },
             ValidarPasoDosTrueque: function () {
-                var $val = $(me.Variables.txtCantidad2).val();
-                var cantidad = $.trim($val) !== "" && !isNaN($val) ? parseInt($val) : 0;
-                if ($.trim($(me.Variables.txtCuvMobile2).val()) === "") {
+                var $elements = $("#contenedorCuvTrueque .item-producto-cambio");
+
+                if ($elements.length === 0) {
                     messageInfoValidado("Por favor, ingrese el CUV con el que desea cambiar.");
                     $(me.Variables.txtCuvMobile2).focus();
                     return false;
-                } else if (cantidad <= 0) {
-                    messageInfoValidado("La cantidad ingresada es incorrecto.");
-                    $(me.Variables.txtCantidad2).focus();
+                }
+
+                var $arrCantidad = $elements.find(me.Constantes.INPUT_NAME_CANTIDAD);
+                if (!me.Funciones.ValidarCantidadTrueque($arrCantidad)) {
+                    messageInfoValidado("La cantidad ingresada debe ser mayor a cero.");
                     return false;
                 }
+
                 var montoMinimoReclamo = $(me.Variables.hdMontoMinimoReclamo).val();
                 var montoPedidoTrueque = $(me.Variables.hdImporteTotal2).val() == "" ? 0 : $(me.Variables.hdImporteTotal2).val();
                 var valorParametria = $(me.Variables.hdParametriaCdr).val();
@@ -881,6 +888,17 @@ $(document).ready(function () {
                         }
                     }
                 }
+                return true;
+            },
+
+            ValidarCantidadTrueque: function (arrElements) {
+                $.each(arrElements, function (index, element) {
+                    var $val = $(element).val();
+                    var cantidad = $.trim($val) !== "" && !isNaN($val) ? parseInt($val) : 0;
+                    if (cantidad === 0) {
+                        return false;
+                    }
+                });
                 return true;
             },
 
@@ -1378,10 +1396,8 @@ $(document).ready(function () {
                 });
             },
 
-            DetalleGuardar: function (operacion, callbackWhenFinish) {
+            DetalleGuardar: function (operacionId, callbackWhenFinish) {
                 var url = UrlDetalleGuardar;
-
-
                 var Complemento = [];
                 var cantidad = 0;
                 if (dataCdrDevolucion !== null) {
@@ -1402,19 +1418,38 @@ $(document).ready(function () {
                     }
                 }
 
+                var Reemplazo = [];
+                if (operacionId === me.Variables.operaciones.trueque) {
+                    //obtener los valores del cada cuv para el trueque
+                    var items = $("#contenedorCuvTrueque .item-producto-cambio");
+                    items.each(function (i, el) {
+                        var $el = $(el);
+                        var obj = {
+                            cuv: $el.find(me.Constantes.SPAN_NAME_CODIGO).attr("data-codigo"),
+                            precio: $el.find(me.Constantes.SPAN_NAME_PRECIO).attr("data-precio") !== "" ? parseFloat($el.find(me.Constantes.SPAN_NAME_PRECIO).attr("data-precio")).toFixed(2) : 0,
+                            simbolo: variablesPortal.SimboloMoneda,
+                            cantidad: $el.find(me.Constantes.INPUT_NAME_CANTIDAD).attr("data-cantidad"),
+                            descripcion: $el.find(me.Constantes.SPAN_NAME_DESCRIPCION).attr("data-descripcion")
+                        };
+
+                        Reemplazo.push(obj);
+                    });
+                }
+
                 var sendData = {
                     CDRWebID: $(me.Variables.hdCDRID).val() || 0,
                     PedidoID: $(me.Variables.hdPedidoID).val() || 0,
                     NumeroPedido: $(me.Variables.hdNumeroPedido).val() || 0,
                     CampaniaID: $(me.Variables.ComboCampania).val() || 0,
                     Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id"),
-                    Operacion: operacion,
+                    Operacion: operacionId,
                     CUV: $(me.Variables.txtCuv).html(),
                     Cantidad: $.trim($(me.Variables.txtCantidad1).val()),
                     CUV2: $(me.Variables.txtCuv2).html(),
                     Cantidad2: $(me.Variables.txtCantidad2).val(),
                     EsMovilOrigen: OrigenCDR,
-                    Complemento: Complemento
+                    Complemento: Complemento,
+                    Reemplazo: operacionId === me.Variables.operaciones.trueque ? Reemplazo : null
                 };
 
                 me.Funciones.callAjax(url, sendData, function (data) {
@@ -1453,7 +1488,7 @@ $(document).ready(function () {
 
                         $(me.Variables.spnCantidadUltimasSolicitadas).html(data.detalle.length);
                         $(me.Variables.numSolicitudes).html(data.detalle.length)
-
+                        me.Funciones.CalcularMontoTotalTrueque(data);
                         SetHandlebars("#template-detalle-banner", data, me.Variables.divDetalleUltimasSolicitudes);
                         me.Funciones.ValidarVisualizacionBannerResumen();
 
@@ -1465,6 +1500,77 @@ $(document).ready(function () {
                     }
                 });
             },
+            CalcularMontoTotalTrueque: function (data) {
+                try {
+                    if (data.detalle.length === 0) {
+                        return false;
+                    }
+                    $.each(data.detalle, function (i, el) {
+                        var total = 0;
+                        if (el.DetalleReemplazo === null) {
+                            data.detalle[i].Total = 0;
+                            return;
+                        }
+
+                        $.each(el.DetalleReemplazo, function (j, det) {
+                            total = total + det.Precio;
+                        });
+                        data.detalle[i].Total = total;
+                    });
+                } catch (e) {
+                    console.log(e.message);
+                }
+            },
+            //ObtenerDetalleReemplazo: function (data) {
+            //    try {
+            //        if (data.detalle.length > 0) {
+            //            $.each(data.detalle, function (index, v) {
+            //                if (v.XMLReemplazo.length > 0) {
+
+            //                    var xml;
+            //                    if (window.DOMParser) {
+            //                        var parser = new DOMParser();
+            //                        xml = parser.parseFromString(v.XMLReemplazo, "text/xml");
+            //                    }
+            //                    else //IE
+            //                    {
+            //                        xml = new ActiveXObject("Microsoft.XMLDOM");
+            //                        xml.async = false;
+            //                        xml.loadXML(v.XMLReemplazo);
+            //                    }
+            //                    var arrReemplazo = [];
+            //                    var rows = xml.getElementsByTagName("reemplazo");
+            //                    var total = 0;
+            //                    for (var i = 0; i < rows.length; i++) {
+            //                        var precio = rows[i].getElementsByTagName("precio")[0].textContent;
+
+            //                        var obj = {
+            //                            CUV: rows[i].getElementsByTagName("cuv")[0].textContent,
+            //                            Cantidad: rows[i].getElementsByTagName("cantidad")[0].textContent,
+            //                            Descripcion: rows[i].getElementsByTagName("descripcion")[0].textContent,
+            //                            Precio: precio,
+            //                            Simbolo: rows[i].getElementsByTagName("simbolo")[0].textContent,
+            //                            Estado: rows[i].getElementsByTagName("estado")[0].textContent
+            //                        };
+            //                        total = total + parseFloat(precio);
+
+            //                        arrReemplazo.push(obj);
+            //                    }
+            //                    data.detalle[index].DetalleReemplazo = arrReemplazo;
+            //                    data.detalle[index].Total = total;
+
+            //                }
+            //                else {
+            //                    data.detalle[index].DetalleReemplazo = [];
+            //                    data.detalle[index].Total = 0;
+            //                }
+            //            });
+            //        }
+            //    } catch (e) {
+            //        console.log(e.message);
+            //    }
+
+            //},
 
             ValidarVisualizacionBannerResumen: function () {
                 var cantidadDetalles = $(me.Variables.spnCantidadUltimasSolicitadas).html();
@@ -1869,6 +1975,8 @@ $(document).ready(function () {
                     });
                 }
                 if (id === me.Variables.operaciones.trueque) {
+                    $("#contenedorCuvTrueque").empty();
+                    $("#MontoTotalProductoACambiar").hide();
                     $.when(me.Funciones.ObtenerValorParametria(id)).then(function () {
                         me.Funciones.SetMontoCampaniaTotal();
                         $(me.Variables.txtCuvMobile2).val("");
@@ -2071,15 +2179,26 @@ $(document).ready(function () {
                 var items = $("#contenedorCuvTrueque .item-producto-cambio");
                 items.each(function (i, el) {
                     var $el = $(el);
-                    var precio = $($el).find("span[name=precio]").attr("data-precio");
-                    var cantidad = $($el).find("input[name=cantidad]").val();
+                    var precio = $($el).find(me.Constantes.SPAN_NAME_PRECIO).attr("data-precio");
+                    var cantidad = $($el).find(me.Constantes.INPUT_NAME_CANTIDAD).val();
                     if (precio !== "" && cantidad !== "") {
                         precioTotal = precioTotal + parseFloat(precio) * parseInt(cantidad);
                     }
                 });
-                $("#spnImporteTotal2").text(DecimalToStringFormat(precioTotal));
-                $("#hdImporteTotal2").val(precioTotal);
+                $("#spnPrecioTotal").text(DecimalToStringFormat(precioTotal));
+                $(me.Variables.hdImporteTotal2).val(precioTotal);
                 $("#MontoTotalProductoACambiar").fadeIn(100);
+            },
+            AgregarODisminuirCantidad: function (event, opcion) {
+                if (opcion === 1) {
+                    EstrategiaAgregarModule.AdicionarCantidad(event);
+                }
+                if (opcion === 2) {
+                    EstrategiaAgregarModule.DisminuirCantidad(event);
+                }
+                var $el = $(event.target).parent().parent().find(me.Constantes.INPUT_NAME_CANTIDAD);
+                $el.attr("data-cantidad", $el.val());
+                me.Funciones.CalcularTotal();
             }
 
         };

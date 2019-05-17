@@ -76,7 +76,12 @@ namespace Portal.Consultoras.Data
 
             DbCommand command;
             if (busquedaCuv)
-                command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCuvByFilter");
+#if DEBUG
+                command = Context.Database.GetStoredProcCommand("GetProductoComercialByCuvByFilterTrueque");
+#else
+                     command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCuvByFilter");
+#endif
+
             else
                 command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByDescripcionByFilter");
 
@@ -243,7 +248,7 @@ namespace Portal.Consultoras.Data
                 return Context.ExecuteReader(dbCommand);
             }
         }
-        #region Programa Nuevas
+#region Programa Nuevas
         public IDataReader GetProductosProgramaNuevas(int campianiaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductosProgramaNuevas");
@@ -251,9 +256,9 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        #endregion
+#endregion
 
-        #region Venta Exclusiva
+#region Venta Exclusiva
         public IDataReader GetProductosExclusivos(int campaniaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoExclusivos");
@@ -270,6 +275,6 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
-        #endregion
+#endregion
     }
 }

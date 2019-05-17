@@ -229,7 +229,6 @@
                                    data-codigo=""
                                    name="codigo"
                                    placeholder="Código del producto" />
-                            <input type="hidden" id="hdImporteTotal2" />
                             @*<div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
                                     <span class="texto_cantidad_productos tipografia_lato tipografia_lato_regular">Cantidad:</span>
                                     <div id="divCantidad2">
@@ -246,12 +245,13 @@
                                     <a id="aCambiarProducto2" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">MODIFICAR PRODUCTO</a>
                                 </div>*@
                         </div>
-                        <div id="contenedorCuvTrueque">
+                        <div id="contenedorCuvTrueque" class="center-block lista_productos_a_cambiar">
 
                         </div>
                         <div id="MontoTotalProductoACambiar">
                             Total:
                             <span id="spnPrecioTotal"></span>
+                            <input type="hidden" id="hdImporteTotal2" />
                         </div>
 
                     </div>
@@ -580,12 +580,13 @@
                            value="1"
                            size="2"
                            maxlength="2"
-                           data-cantidad=""
+                           data-cantidad="1"
                            class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                            data-input="cantidad"
+                           name="cantidad"
                            onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
-                    <a class="cantidad_menos_home modificarPrecioMenos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                    <a class="cantidad_mas_home modificarPrecioMas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                    <a class="cantidad_menos_home modificarPrecioMenos" onclick="misReclamosRegistro.Funciones.AgregarODisminuirCantidad(event, 2);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <a class="cantidad_mas_home modificarPrecioMas" onclick="misReclamosRegistro.Funciones.AgregarODisminuirCantidad(event, 1);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                 </div>
             </div>
         </div>
@@ -704,11 +705,30 @@
                 {{else if_eq CodigoOperacion 'G'}}
                 {{item.SolucionSolicitada}}
                 {{else if_eq CodigoOperacion 'T'}}
-                {{item.CUV2}}<br />
-                {{item.Descripcion2}} <br />
-                {{item.Cantidad2}} unidades<br />
-                Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
+                {{#if item.DetalleReemplazo}}
+                {{#each item.DetalleReemplazo as |subItem|}}
+                <div>
+                    {{subItem.CUV}}
+                    <br />
+                    <b>{{subItem.Descripcion}}</b>
+                    <br />
+                    {{subItem.Cantidad}} unidades
+                    <br />
+                    Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}
+                </div>
+                {{/each}}
+                <div class="text-bold">Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}</div>
                 {{else}}
+                {{item.CUV2}}
+                <br />
+                <b>{{item.Descripcion2}}</b>
+                <br />
+                {{item.Cantidad2}} unidades
+                <br />
+                Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
+                {{/if}}
+                {{else}}
+
                 {{/if_eq}}
             </div>
             <div class="icono_eliminar_solic_cdr">
@@ -743,11 +763,30 @@
             {{else if_eq CodigoOperacion 'G'}}
             {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'T'}}
-            {{item.CUV2}}<br />
-            {{item.Descripcion2}} <br />
-            {{item.Cantidad2}} unidades<br />
-            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
+            {{#if item.DetalleReemplazo}}
+            {{#each item.DetalleReemplazo as |subItem|}}
+            <div>
+                {{subItem.CUV}}
+                <br />
+                <b>{{subItem.Descripcion}}</b>
+                <br />
+                {{subItem.Cantidad}} unidades
+                <br />
+                Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}
+            </div>
+            {{/each}}
+            <div class="text-bold">Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}</div>
             {{else}}
+            {{item.CUV2}}
+            <br />
+            <b>{{item.Descripcion2}}</b>
+            <br />
+            {{item.Cantidad2}} unidades
+            <br />
+            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
+            {{/if}}
+            {{else}}
+
             {{/if_eq}}
         </div>
     </div>
