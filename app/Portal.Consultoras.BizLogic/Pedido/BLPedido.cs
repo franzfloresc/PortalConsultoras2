@@ -145,6 +145,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             {
                                 return respuesta;
                             }
+                            else
+                            {
+                                if (pedidoDetalle.Usuario.FechaFinFacturacion == DateTime.Today)
+                                {
+                                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVA_ULTIMO_DIA_FACTURACION);
+                                }
+                            }
                         }
                     }
                     #endregion
@@ -153,9 +160,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                     if (respuestaT.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS)
                     {
-                        var usuario = pedidoDetalle.Usuario;
-                        //var input = Mapper.Map<BEInputReservaProl>(usuario);
-                        var pedido = _pedidoWebBusinessLogic.ValidacionModificarPedido(usuario.PaisID, usuario.ConsultoraID, usuario.CampaniaID, usuario.UsuarioPrueba == 1, usuario.AceptacionConsultoraDA);
                         if(reservado)
                         {
                             var taskResultadoProl = Task.Run(() => _reservaBusinessLogic.EjecutarReserva(pedidoDetalle.ReservaProl, true));
@@ -191,26 +195,37 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var respuesta = RespuestaModificarPedido(pedidoDetalle.Usuario);
                     if (respuesta != null)
                     {
-                        reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);
+                        reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);                        
                         if (!reservado)
+                        {
                             return respuesta;
+                        }
+                        else
+                        {
+                            if(pedidoDetalle.Usuario.FechaFinFacturacion == DateTime.Today)
+                            {
+                                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVA_ULTIMO_DIA_FACTURACION);
+                            }
+                        }                        
                     }
                     respuesta = PedidoUpdateProductoTransaction(pedidoDetalle);
-                    if(respuesta != null)
-                    {
-                        reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS);
-                        if(!reservado)
-                            return respuesta;
 
-                        var respuestaReserva = _reservaBusinessLogic.EjecutarReserva(pedidoDetalle.ReservaProl, true).GetAwaiter().GetResult();
+                    if (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS)
+                    {
                         var error = false;
-                        respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, out error);
-                        
+
+                        if (reservado)
+                        {
+                            var respuestaReserva = _reservaBusinessLogic.EjecutarReserva(pedidoDetalle.ReservaProl, true).GetAwaiter().GetResult();                            
+                            respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, out error);
+                        }
+
                         if (!error)
                         {
                             oTransactionScope.Complete();
-                        }                        
+                        }
                     }
+
                     return respuesta;
                 }
             }
