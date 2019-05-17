@@ -612,6 +612,10 @@ var EstrategiaAgregarModule = (function () {
                 CerrarLoad();
                 debugger;
 
+
+                var imagenProducto = $btnAgregar.parents("[data-item]").find("[data-imagen-producto]").attr("data-imagen-producto");
+                console.log(imagenProducto);
+
                 if (popup) {
                     CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);
                     $(elementosPopPup.popupDetalleCarouselPackNuevas).hide();
