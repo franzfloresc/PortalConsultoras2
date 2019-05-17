@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
     {
         [DataMember]
         [Column("Codigo")]
-        public string Codigo { get; set; }        
+        public string Codigo { get; set; }
         [DataMember]
         [Column("Descripcion")]
         public string Descripcion { get; set; }
