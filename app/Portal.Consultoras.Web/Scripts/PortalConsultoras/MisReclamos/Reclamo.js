@@ -1169,57 +1169,6 @@ function CalcularMontoTotalTrueque(data) {
     }
 }
 
-//function ObtenerDetalleReemplazo(data) {
-//    try {
-//        if (data.detalle.length > 0) {
-//            $.each(data.detalle, function (index, v) {
-//                if (v.XMLReemplazo.length > 0) {
-
-//                    var xml;
-//                    if (window.DOMParser) {
-//                        var parser = new DOMParser();
-//                        xml = parser.parseFromString(v.XMLReemplazo, "text/xml");
-//                    }
-//                    else //IE
-//                    {
-//                        xml = new ActiveXObject("Microsoft.XMLDOM");
-//                        xml.async = false;
-//                        xml.loadXML(v.XMLReemplazo);
-//                    }
-//                    var arrReemplazo = [];
-//                    var rows = xml.getElementsByTagName("reemplazo");
-//                    var total = 0;
-//                    for (var i = 0; i < rows.length; i++) {
-//                        var precio = rows[i].getElementsByTagName("precio")[0].textContent;
-
-//                        var obj = {
-//                            CUV: rows[i].getElementsByTagName("cuv")[0].textContent,
-//                            Cantidad: rows[i].getElementsByTagName("cantidad")[0].textContent,
-//                            Descripcion: rows[i].getElementsByTagName("descripcion")[0].textContent,
-//                            Precio: precio,
-//                            Simbolo: rows[i].getElementsByTagName("simbolo")[0].textContent,
-//                            Estado: rows[i].getElementsByTagName("estado")[0].textContent
-//                        };
-//                        total = total + parseFloat(precio);
-
-//                        arrReemplazo.push(obj);
-//                    }
-//                    data.detalle[index].DetalleReemplazo = arrReemplazo;
-//                    data.detalle[index].Total = total;
-
-//                }
-//                else {
-//                    data.detalle[index].DetalleReemplazo = [];
-//                    data.detalle[index].Total = 0;
-//                }
-//            });
-//        }
-//    } catch (e) {
-//        console.log(e.message);
-//    }
-
-//}
-
 function DetalleEliminar(objItem) {
     var url = baseUrl + 'MisReclamos/DetalleEliminar';
     callAjax(url, objItem, function (data) {

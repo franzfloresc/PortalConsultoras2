@@ -592,6 +592,12 @@ $(document).ready(function () {
                         $this.attr("data-codigo", "").end().val("");
                         return false;
                     }
+                    var $elements = $("#contenedorCuvTrueque .item-producto-cambio");
+                    var $arrCuv = $elements.find(me.Constantes.SPAN_NAME_CODIGO);
+                    if (me.Funciones.ValidarCUVYaIngresado($arrCuv, $this.val())) {
+                        messageInfoValidado("El CUV se encuentra en la lista, puedes aumentar la cantidad.");
+                        return false;
+                    }
 
                     var PedidoId = $.trim($(me.Variables.hdPedidoID).val()) || 0;
                     var sendData = {
@@ -900,6 +906,13 @@ $(document).ready(function () {
                     }
                 });
                 return true;
+            },
+
+            ValidarCUVYaIngresado: function (arrElements, cuv) {
+                var arrFilter = $.grep(arrElements, function (element, index) {
+                    return $(element).attr("data-codigo") == cuv;
+                });
+                return arrFilter.length > 0;
             },
 
             ValidarPasoDosTruequeServer: function (callbackWhenFinish) {
@@ -1521,57 +1534,6 @@ $(document).ready(function () {
                     console.log(e.message);
                 }
             },
-            //ObtenerDetalleReemplazo: function (data) {
-            //    try {
-            //        if (data.detalle.length > 0) {
-            //            $.each(data.detalle, function (index, v) {
-            //                if (v.XMLReemplazo.length > 0) {
-
-            //                    var xml;
-            //                    if (window.DOMParser) {
-            //                        var parser = new DOMParser();
-            //                        xml = parser.parseFromString(v.XMLReemplazo, "text/xml");
-            //                    }
-            //                    else //IE
-            //                    {
-            //                        xml = new ActiveXObject("Microsoft.XMLDOM");
-            //                        xml.async = false;
-            //                        xml.loadXML(v.XMLReemplazo);
-            //                    }
-            //                    var arrReemplazo = [];
-            //                    var rows = xml.getElementsByTagName("reemplazo");
-            //                    var total = 0;
-            //                    for (var i = 0; i < rows.length; i++) {
-            //                        var precio = rows[i].getElementsByTagName("precio")[0].textContent;
-
-            //                        var obj = {
-            //                            CUV: rows[i].getElementsByTagName("cuv")[0].textContent,
-            //                            Cantidad: rows[i].getElementsByTagName("cantidad")[0].textContent,
-            //                            Descripcion: rows[i].getElementsByTagName("descripcion")[0].textContent,
-            //                            Precio: precio,
-            //                            Simbolo: rows[i].getElementsByTagName("simbolo")[0].textContent,
-            //                            Estado: rows[i].getElementsByTagName("estado")[0].textContent
-            //                        };
-            //                        total = total + parseFloat(precio);
-
-            //                        arrReemplazo.push(obj);
-            //                    }
-            //                    data.detalle[index].DetalleReemplazo = arrReemplazo;
-            //                    data.detalle[index].Total = total;
-
-            //                }
-            //                else {
-            //                    data.detalle[index].DetalleReemplazo = [];
-            //                    data.detalle[index].Total = 0;
-            //                }
-            //            });
-            //        }
-            //    } catch (e) {
-            //        console.log(e.message);
-            //    }
-
-            //},
-
             ValidarVisualizacionBannerResumen: function () {
                 var cantidadDetalles = $(me.Variables.spnCantidadUltimasSolicitadas).html();
 
@@ -1643,9 +1605,7 @@ $(document).ready(function () {
                         CloseLoading();
                     }
                 });
-
                 return resultado;
-
             },
             ValidarCorreoDuplicadoServer: function (correo, callbackWhenFinish) {
                 var url = UrlValidarCorreoDuplicado;
@@ -2185,7 +2145,7 @@ $(document).ready(function () {
                         precioTotal = precioTotal + parseFloat(precio) * parseInt(cantidad);
                     }
                 });
-                $("#spnPrecioTotal").text(DecimalToStringFormat(precioTotal));
+                $("#spnPrecioTotal").text(variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(precioTotal));
                 $(me.Variables.hdImporteTotal2).val(precioTotal);
                 $("#MontoTotalProductoACambiar").fadeIn(100);
             },
