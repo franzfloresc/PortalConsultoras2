@@ -539,12 +539,12 @@ namespace Portal.Consultoras.Web.Controllers
                 SessionManager.SetDetallesPedidoSetAgrupado(null);
                 SetMontosProl(result);
                 SessionManager.SetMisPedidosDetallePorCampania(null);
-
-                var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
-
-                var total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
-                var formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
             }
+
+            var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
+
+            var total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
+            var formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
 
             SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
 

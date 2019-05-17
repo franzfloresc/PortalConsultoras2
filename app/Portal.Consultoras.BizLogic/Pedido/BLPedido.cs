@@ -835,6 +835,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 result.DescuentoProl = listObjMontosProl[0].MontoTotalDescuento;
                 result.MontoEscala = listObjMontosProl[0].MontoEscala;
             }
+            else
+            {
+                var cero = "0.00";
+                result.MontoAhorroCatalogo = cero;
+                result.MontoAhorroRevista = cero;
+                result.DescuentoProl = cero;
+                result.MontoEscala = cero;
+            }
         }
 
         private BEPedidoDetalle PedidoAgregar_ObtenerEstrategia(BEPedidoDetalle pedidoDetalle)
