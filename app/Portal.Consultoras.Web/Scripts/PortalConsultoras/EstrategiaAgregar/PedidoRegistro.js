@@ -1510,6 +1510,8 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
         EsCuponNuevas: esCuponNuevas
     };
 
+    debugger;
+
     jQuery.ajax({
         type: "POST",
         url: baseUrl + "PedidoRegistro/UpdateTransaction",

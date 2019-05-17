@@ -1061,6 +1061,7 @@ function paginadorAccionGenerico(obj) {
 }
 
 function ActualizarGanancia(data) {
+    debugger;
     data = data || {};
     data.CantidadProductos = data.CantidadProductos || "";
     data.TotalPedidoStr = data.TotalPedidoStr || "";

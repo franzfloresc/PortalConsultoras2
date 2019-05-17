@@ -610,6 +610,8 @@ var EstrategiaAgregarModule = (function () {
                 localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoPalanca, true);
 
                 CerrarLoad();
+                debugger;
+
                 if (popup) {
                     CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);
                     $(elementosPopPup.popupDetalleCarouselPackNuevas).hide();
