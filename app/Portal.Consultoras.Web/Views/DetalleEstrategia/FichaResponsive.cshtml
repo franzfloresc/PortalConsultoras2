@@ -402,15 +402,17 @@
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
-    @*
-        <script type="text/javascript">
-        var modelPalanca = "@Model.Palanca";
-        var modelCampania = "@Model.Campania";
-        var modelCuv = "@Model.Cuv";
-        var modelOrigen = "@Model.OrigenUrl";
-        </script>
-        <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/Ficha.js"></script>
-    *@
+
+    <script type="text/javascript">
+    var params = {
+        palanca: "@Model.Palanca",
+        campania: "@Model.Campania",
+        cuv: "@Model.Cuv",
+        origen: "@Model.OrigenUrl",
+    };
+    </script>
+
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js"></script>
 
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaView.js"></script>
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaPresenter.js"></script>

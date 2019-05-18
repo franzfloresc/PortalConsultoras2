@@ -31,27 +31,33 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public ActionResult FichaResponsive(string palanca, int campaniaId, string cuv, string origen)
         {
-            if (string.IsNullOrWhiteSpace(palanca) ||
-                campaniaId <= 0 ||
-                string.IsNullOrWhiteSpace(cuv)) return Redirect("/Ofertas");
-
-            var modelo = FichaModelo(palanca, campaniaId, cuv, origen, false);
-
-
-            var estrategiaModelo = new EstrategiaPersonalizadaProductoModel
+            try
             {
-                EstrategiaID = modelo.EstrategiaID,
-                CUV2 = modelo.CUV2,
-                CampaniaID = modelo.CampaniaID,
-                CodigoVariante = modelo.CodigoEstrategia,
-                Hermanos = modelo.Hermanos
-            };
-            bool esMultimarca = false;
-            string mensaje = "";
+                var url = (Request.Url.Query).Split('?');
+                if (EsDispositivoMovil()
+                    && url.Length > 1
+                    && url[1].Contains("sap")
+                    && url[1].Contains("VC"))
+                {
+                    string sap = "&" + url[1].Substring(3);
+                    return RedirectToAction("Ficha", "DetalleEstrategia", new { area = "Mobile", palanca, campaniaId, cuv, origen, sap });
+                }
 
-            modelo.Hermanos = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, modelo.CodigoEstrategia, out esMultimarca, out mensaje);
+                var modelo = new DetalleEstrategiaFichaModel
+                {
+                    Palanca = palanca,
+                    Campania = campaniaId,
+                    Cuv = cuv,
+                    OrigenUrl = origen
+                };
+                return View(modelo);
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "BaseViewController.Ficha");
+            }
 
-            return View(modelo);
+            return base.Redireccionar();
 
         }
 
