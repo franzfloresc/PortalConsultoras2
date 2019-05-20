@@ -33,8 +33,10 @@ function ArmarProgramasBelcorp(data) {
         htmlDiv += [
              '<div class="items_misBeneficios">',
                     '<div class="contenedor_item_img">',
-                        '<img class="item_img" src="' + imgIncentivos + '" alt="Alternate Text" />',
-            '<span class="item_titulo"><b>' + (codigoISO_MB=='CO'?'INCENTIVOS':'BONIFICACIONES')+'</b></span>',
+            '<img class="item_img" src="' + imgIncentivos + '" alt="Alternate Text" />',
+             /* INI HD-4086 */
+            '<span class="item_titulo"><b>' + ((codigoISO_MB == 'CO' || codigoISO_MB == 'PE') ? 'INCENTIVOS' : 'BONIFICACIONES') + '</b></span>',
+             /* FIN HD-4086 */
                     '</div>',
                     '<div class="contenedor_item_descripcion">',
                         '<span>',
