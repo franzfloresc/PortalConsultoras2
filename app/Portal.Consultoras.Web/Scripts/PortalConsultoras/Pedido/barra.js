@@ -252,9 +252,6 @@ function MostrarBarra(datax, destino) {
             + '</div>'
             + '</div>';
 
-
-
-
     // quitando esta clase contenedor_tippingPoint se quita el tooltip y el efecto que salta
     var htmlTippintPoint = "";
     var dataTP = dataBarra.TippingPointBarra;
@@ -1960,6 +1957,8 @@ function CalculoPosicionMinimoMaximo() {
                             document.getElementById('lineaPosicionMontoMaximo').style.display = 'None';
                             document.getElementById('MontoMaximoBloque').innerHTML = "";
 
+
+
                         }
                     }
 
@@ -2662,7 +2661,8 @@ function ReordenarMontosBarra() {
             }
 
         } else {
-              if (IsoPais == 'BO') {
+          
+            if (IsoPais == 'BO' && barra.length >= 5) {
                 if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%'
                 if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 - 2.5) + '%'
                 if (document.getElementById('punto_' + (i + 1).toString()) != null) document.getElementById('punto_' + (i + 1).toString()).style.left = (document.getElementById('punto_' + (i + 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i + 1).toString()).style.left.length - 1) * 1 + 1.5) + '%'
