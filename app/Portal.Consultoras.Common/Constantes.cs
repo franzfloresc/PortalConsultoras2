@@ -3947,5 +3947,12 @@ namespace Portal.Consultoras.Common
             public const string OrigenPedidoWebLandingFichaCarrusel = "OrigenPedidoWebLandingFichaCarrusel";
             public const string OrigenPedidoWebDesplegableFichaCarrusel = "OrigenPedidoWebDesplegableFichaCarrusel";
         }
+
+        public static class TipoContenido
+        {
+            public const string Imagen = "IMAGEN";
+            public const string Video = "VIDEO";
+            public const string Url = "URL";
+        }
     }
 }

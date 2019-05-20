@@ -167,6 +167,45 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        public static string HistoriaUrlMiniatura
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HistUrlMiniatura"] ?? string.Empty;
+            }
+        }
+
+        public static string HistAnchoAltoDetalle
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HistAnchoAltoDetalle"] ?? string.Empty;
+            }
+        }
+
+        public static string HistLimitDetMensaje
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HistLimitDetMensaje"] ?? string.Empty;
+            }
+        }
+
+        public static string CodigoHist
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["CodigoHist"] ?? string.Empty;
+            }
+        }
+
+        public static string HistAnchoAlto
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HistAnchoAlto"] ?? string.Empty;
+            }
+        }
         #endregion
 
         #region Flags
