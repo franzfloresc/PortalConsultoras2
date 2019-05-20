@@ -124,7 +124,6 @@ function CargarDemostradores() {
         },
         error: function (data, error) { },
         complete: function (data) {
-            //closeWaitingDialog();
             cargandoRegistros = false;
         }
     });

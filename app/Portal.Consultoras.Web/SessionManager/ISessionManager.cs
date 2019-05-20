@@ -331,6 +331,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<BEMisPedidosDetalle> GetobjMisPedidosDetalle();
 
+        void SetobjMisPedidosCliente(List<BEMisPedidos> val);
+
+        List<BEMisPedidos> GetobjMisPedidosCliente();
+
         void SetobjMisPedidosDetalleVal(List<ServiceODS.BEProducto> val);
 
         List<ServiceODS.BEProducto> GetobjMisPedidosDetalleVal();
@@ -504,6 +508,9 @@ namespace Portal.Consultoras.Web.SessionManager
         string GetJwtApiSomosBelcorp();
         void SetUsuarioOpciones(List<UsuarioOpcionesModel> val);
         List<UsuarioOpcionesModel> GetUsuarioOpciones();
+
+        void SetConsultoraDigital(bool val);
+        bool? GetConsultoraDigital();
         
         void SetConsultoraCaminoBrillante(BEConsultoraCaminoBrillante val);
         BEConsultoraCaminoBrillante GetConsultoraCaminoBrillante();

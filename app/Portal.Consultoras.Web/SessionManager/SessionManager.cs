@@ -808,6 +808,18 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<BEMisPedidosDetalle>)val;
         }
 
+        void ISessionManager.SetobjMisPedidosCliente(List<BEMisPedidos> val)
+        {
+            HttpContext.Current.Session["objMisPedidosCliente"] = val;
+        }
+
+        List<BEMisPedidos> ISessionManager.GetobjMisPedidosCliente()
+        {
+            var val = HttpContext.Current.Session["objMisPedidosCliente"];
+
+            return (List<BEMisPedidos>)val;
+        }
+
         void ISessionManager.SetobjMisPedidosDetalleVal(List<ServiceODS.BEProducto> val)
         {
             HttpContext.Current.Session["objMisPedidosDetalleVal"] = val;
@@ -1364,6 +1376,17 @@ namespace Portal.Consultoras.Web.SessionManager
         public List<UsuarioOpcionesModel> GetUsuarioOpciones()
         {
             return (List<UsuarioOpcionesModel>)HttpContext.Current.Session[Constantes.ConstSession.UsuarioPedidos];
+        }
+
+        void ISessionManager.SetConsultoraDigital(bool val)
+        {
+            HttpContext.Current.Session["esConsultoraDigital"] = val;
+        }
+        bool? ISessionManager.GetConsultoraDigital()
+        {
+            var val = HttpContext.Current.Session["esConsultoraDigital"];
+            if (val == null) { return null; }
+            return (bool)val;
         }
 
         #region CaminoBrillante

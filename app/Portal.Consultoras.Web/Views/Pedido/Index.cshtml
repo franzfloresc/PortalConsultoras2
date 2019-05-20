@@ -93,7 +93,10 @@
             <input type="hidden" id="hdfOrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopPedidoDigitado" name="OrigenPedidoWeb" />
             <input type="hidden" id="hdfEsBusquedaSR" />
             <input type="hidden" id="hdfEstrategiaId" value="0" />
-
+            @*INI HD-3908 *@
+            <input type="hidden" id="hdfCodigoPalanca" />
+            <input type="hidden" id="hdfCampaniaID" />
+            @*FIN HD-3908 *@
             <div id="divObservaciones" class="pedidos_no_existe" style="position:relative;"></div>
 
             <div class="pedido_ingreso_datos campo_codigo">
@@ -115,8 +118,8 @@
                 <!-- FIN - MENSAJE CUANDO LA DESCRIPCIÓN DE PRODUCTO INGRESADA NO EXISTA -->
                 <br />
                 <input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico default-border-hover"
-                       @*onkeyup="PreValidarCUV(event);"*@
-                       attrKey="PreValidarCUV"
+                       @*onkeyup="PreValidarCUV(event);"
+                       attrKey="PreValidarCUV"*@
                        placeholder="Descripción producto" />
             </div>
 
@@ -553,7 +556,7 @@
                 </ul>
                 <div class="clear"></div>
             </div>
-            @if (ViewBag.MostrarPedidosPendientes == "1")
+            @*@if (ViewBag.MostrarPedidosPendientes == "1")
             {
                 <div id="infoPendientes" style="background:white; display: none;">
 
@@ -586,7 +589,7 @@
                         }
                     </div>
                 </div>
-            }
+            }*@
         </div>
     </div>
 
@@ -618,10 +621,10 @@
     </div>
 
     <div id="divListaEstrategias" class="caja_carousel_productos">
-        @if (ViewBag.MostrarPedidosPendientes == "1")
+        @*@if (ViewBag.MostrarPedidosPendientes == "1")
         {
             <div class="truco_bloqueo sim2"></div>
-        }
+        }*@
         @Html.Partial("~/Views/Pedido/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
     </div>
 
@@ -1075,7 +1078,7 @@
     </div>
 }
 
-@if (ViewBag.MostrarPedidosPendientes == "1")
+@*@if (ViewBag.MostrarPedidosPendientes == "1")
 {
     <div id="popup_pendientes" class="contenedor_popup_percepciones" style="display: none;">
         <div class="popup_Pendientes">
@@ -1244,10 +1247,6 @@
     </div>
     <div class="tapsPedidos"></div>
 
-
-
-
-
     <script id="pedidopend-template" type="text/x-handlebars-template">
         {{#each this}}
 
@@ -1295,7 +1294,7 @@
     <script id="popup-pedidopend-template" type="text/x-handlebars-template">
         <div class="content_popUp_Pendientes">
             <div class="mensajes_deAtencion">
-                <span>¡No te pierdas esta oportunidad!</span>                
+                <span>¡No te pierdas esta oportunidad!</span>
                 <div class="clear"></div>
             </div>
 
@@ -1496,7 +1495,7 @@
 
         {{/each}}
     </script>
-}
+}*@
 
 <script id="js-CarruselSugerido" type="text/x-handlebars-template">
     {{#each this}}
@@ -1936,7 +1935,8 @@
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new {area = ""})';
         var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new {area = ""})';
         var constConfiguracionOfertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
-        var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
+        //var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
+        var cantPedidosPendientes = '@ViewBag.CantPedidoPendientes';
         var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
         var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
         var urlPedido = '@Url.Action("Index", "Pedido")';

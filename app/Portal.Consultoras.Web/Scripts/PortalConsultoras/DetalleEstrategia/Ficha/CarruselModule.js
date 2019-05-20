@@ -75,8 +75,6 @@ var CarruselAyuda = function () {
         }).map(function (e) {
             return arr[e];
         });
-        //emac6
-        //const unique = arr.map(e => e[comp]).map((e, i, final) => final.indexOf(e) === i && i).filter(e => arr[e]).map(e => arr[e]);
         return unique;
 
     }
@@ -582,7 +580,7 @@ var CarruselModule = (function (config) {
 ////////////////////////////////////////////////////////////////////
 //// Ini - Home y Pedido
 ////////////////////////////////////////////////////////////////////
-function ArmarCarouselEstrategias(data) {
+function ArmarCarouselEstrategias(data) {    
     $("#divListaEstrategias").hide();
     $(".js-slick-prev").remove();
     $(".js-slick-next").remove();

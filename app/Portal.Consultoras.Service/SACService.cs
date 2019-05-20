@@ -1242,6 +1242,26 @@ namespace Portal.Consultoras.Service
             BLSolicitudCliente.RechazarSolicitudCliente(paisID, solicitudId, definitivo, opcionRechazo, razonMotivoRechazo);
         }
 
+        public void UpdSolicitudClienteDetalleEstado(int paisID, long solicitudId, string cuv, bool estado)
+        {
+            BLSolicitudCliente.UpdSolicitudClienteDetalleEstado(paisID, solicitudId, cuv, estado);
+        }
+
+        public void UpdSolicitudClienteDetalleCantidad(int paisID, long solicitudId, string cuv, int cantidad)
+        {
+            BLSolicitudCliente.UpdSolicitudClienteDetalleCantidad(paisID, solicitudId, cuv, cantidad);
+        }
+
+        public void UpdSolicitudClienteRechazar(int paisID, long solicitudId)
+        {
+            BLSolicitudCliente.UpdSolicitudClienteRechazar(paisID, solicitudId);
+        }
+
+        public void UpdSolicitudClienteRechazarPorCuv(int paisID, long solicitudId, string cuv)
+        {
+            BLSolicitudCliente.UpdSolicitudClienteRechazarPorCuv(paisID, solicitudId, cuv);
+        }
+
         public BESolicitudNuevaConsultora ReasignarSolicitudCliente(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int opcionRechazo, string razonMotivoRechazo)
         {
             return BLSolicitudCliente.ReasignarSolicitudCliente(paisID, solicitudId, codigoUbigeo, campania, marcaId, opcionRechazo, razonMotivoRechazo);

@@ -120,7 +120,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 showRoomEventoModel.FiltersBySorting = _tablaLogicaProvider.GetTablaLogicaDatos(
                     userData.PaisID,
-                    Constantes.TablaLogica.OrdenamientoShowRoom);
+                    ConsTablaLogica.OrdenamientoShowRoom.TablaLogicaId);
 
                 var tipoAplicacion = Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop;
                 if (GetIsMobileDevice()) tipoAplicacion = Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile;

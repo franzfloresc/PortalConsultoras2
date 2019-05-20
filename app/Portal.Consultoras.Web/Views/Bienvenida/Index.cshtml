@@ -6,6 +6,9 @@
 @section styles{
 
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/CssBienvenida")
+    @*INI HD-3908*@
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha")
+    @*FIN HD-3908*@
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-AsesoraOnline")
 
     <style type="text/css">
@@ -93,7 +96,7 @@
             {
                 <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
                     ¡Bienvenida a
-                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                    <a href="javascript:RedireccionarContenedorComprar('@CodigoUbigeoPortal.DesktopRevistaDigitalResumenBelcorp', '@Constantes.ConfiguracionPais.RevistaDigital')">
                         Gana+
                     </a>
                     <br />@nombreConsultora
@@ -106,13 +109,13 @@
 
                 if (CampaniaEfectiva.Equals(CampaniaActual))
                 {
-                    <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                        ¡Bienvenida a
-                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                            Gana+
-                        </a>
-                        <br />@nombreConsultora
-                    </div>
+                <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
+                    ¡Bienvenida a
+                    <a href="javascript:RedireccionarContenedorComprar('@CodigoUbigeoPortal.DesktopRevistaDigitalResumenBelcorp', '@Constantes.ConfiguracionPais.RevistaDigital')">
+                        Gana+
+                    </a>
+                    <br />@nombreConsultora
+                </div>
                 }
                 else
                 {

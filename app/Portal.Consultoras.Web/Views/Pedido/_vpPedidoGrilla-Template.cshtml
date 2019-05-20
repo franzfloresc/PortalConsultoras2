@@ -21,8 +21,17 @@
     </ul>
 
     <ul class="paginador_notificaciones right" data-paginacion="block">
+        {{#if footer}}
+        @if (ViewBag.MostrarPedidosPendientes == "1")
+        {
+            <li class="texto_pagina">
+                <span class="btn--pedidos" onclick="javascript: PedidosPendientesPorAprobar();">Pedidos por aprobar (@ViewBag.CantPedidosPendientes)</span>
+            </li>
+        }
+        {{/if}}
+        {{#unless footer}}
         <li class="texto_pagina">Página</li>
-        <li class="flecha_paginador_atras" data-paginacion="back" data-tipo="{{TipoPaginador}}"></li>
+        <li class="flecha_paginador_atras" data-paginacion="back"></li>
         <li style="margin-right: 6px;">
             <span class="paginas_pedidos">
                 <span class="pagina_actual">
@@ -31,7 +40,8 @@
                 <span class="paginas_totales" id="spnPedidoPaginarPaginaDe" data-paginacion='pageCount'>{{PaginaDe}}</span>
             </span>
         </li>
-        <li class="flecha_paginador_adelante" data-paginacion="next" data-tipo="{{TipoPaginador}}"></li>
+        <li class="flecha_paginador_adelante" data-paginacion="next"></li>
+        {{/unless}}
     </ul>
     <div class="clear"></div>
 </script>
@@ -269,7 +279,7 @@
             </li>
             <li class="boton-primaria">
                 <button class="default-background"
-                            onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}', {{EsElecMultipleNuevas}});">
+                        onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}', {{EsElecMultipleNuevas}});">
                     SÍ, ELIMINAR
                 </button>
             </li>

@@ -268,7 +268,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     int.TryParse(userData.PaisID.ToString(), out paisid);
                     int.TryParse(userData.ZonaID.ToString(), out zonaid);
                     int.TryParse(userData.RegionID.ToString(), out regionid);
-                    var resultado = sv.GetTablaLogicaDatos(paisid, Constantes.TablaLogica.SegPedidoRegionZona).FirstOrDefault();
+                    var resultado = sv.GetTablaLogicaDatos(paisid, ConsTablaLogica.SegPedidoRegionZona.TablaLogicaId).FirstOrDefault();
                     if (resultado == null) return true; // si no hay registros mostrar para todos
                     if (resultado.Valor.IsNullOrEmptyTrim()) return false;
                     string[] arrZonaRegion = resultado.Valor.Split(';');
