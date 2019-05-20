@@ -545,7 +545,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string CodigosTablaLogica(string codigo)
         { 
-            var LogicaDatosHistoria = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.DatosContenedorHistorias.HistoriasLogicaId);
+            var LogicaDatosHistoria = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, ConsTablaLogica.AdministradorHistoria.TablaLogicaId);
           
             LogicaDatosHistoria = LogicaDatosHistoria.Where(x => x.Codigo.StartsWith(codigo)).ToList();
             string Description = LogicaDatosHistoria[0].Descripcion;
