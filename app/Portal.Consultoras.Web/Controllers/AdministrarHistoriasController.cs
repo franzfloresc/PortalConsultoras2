@@ -16,8 +16,10 @@ namespace Portal.Consultoras.Web.Controllers
     {
         protected TablaLogicaProvider _tablaLogica;
         public AdministrarHistoriasController()
+        { 
             _tablaLogica = new TablaLogicaProvider();
         }     
+
         public ActionResult Index()
         {
             var model = new AdministrarHistorialModel();
