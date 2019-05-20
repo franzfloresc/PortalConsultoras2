@@ -1,4 +1,5 @@
 using Portal.Consultoras.BizLogic.CaminoBrillante;
+using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
@@ -704,14 +705,14 @@ namespace Portal.Consultoras.BizLogic
             var daPedidoWeb = new DAPedidoWeb(usuario.PaisID);
             var daPedidoWebDetalle = new DAPedidoWebDetalle(usuario.PaisID);
             var blReserva = new BLReserva();
-
+            var blPedido = new BLPedido();
             TransactionOptions oTransactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             try
             {
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
                     
-                    var respuesta = _pedidoBusinessLogic.RespuestaModificarPedido(usuario);
+                    var respuesta = blPedido.RespuestaModificarPedido(usuario);
                     var reservado = false;
                     if(respuesta != null)
                     {
