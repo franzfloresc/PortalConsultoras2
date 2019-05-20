@@ -145,13 +145,15 @@ var DetalleEstrategiaProvider = function () {
         var _fichaServicioApi = (variablesPortal.MsFichaEstrategias && _objTipoPalanca) ? (variablesPortal.MsFichaEstrategias.indexOf(_objTipoPalanca.codigo) > -1) : false;
         //
         if (!_fichaServicioApi && !estrategia.TieneSession) {
-            estrategia = localStorageModule.ObtenerEstrategia(params.cuv, params.campania, params.palanca);
+            var estrategiaTmp = localStorageModule.ObtenerEstrategia(params.cuv, params.campania, params.palanca);
 
             if ((typeof estrategia === "undefined" || estrategia === null) && params.palanca === _tipoEstrategiaTexto.OfertasParaMi) {
-                estrategia = localStorageModule.ObtenerEstrategia(params.cuv, params.campania, _tipoEstrategiaTexto.Ganadoras);
+                estrategiaTmp = localStorageModule.ObtenerEstrategia(params.cuv, params.campania, _tipoEstrategiaTexto.Ganadoras);
             }
 
-            if (typeof estrategia === "undefined" || estrategia == null) throw "estrategia is null";
+            if (typeof estrategiaTmp === "undefined" || estrategiaTmp == null) throw "estrategia is null";
+
+            estrategia = $.extend(estrategia, estrategiaTmp);
         }
 
         if (!estrategia || !estrategia.EstrategiaID) throw 'no obtiene oferta desde api';
