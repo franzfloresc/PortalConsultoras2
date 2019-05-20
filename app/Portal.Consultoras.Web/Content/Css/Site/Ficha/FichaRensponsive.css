@@ -132,7 +132,7 @@ ul.breadcumbs li a {
     font-size: 20px;
     font-weight: 700;
     line-height: 26px;
-    margin-bottom: 3px;
+    margin-bottom: 6px;
 }
 
 .precio_valorizado {
@@ -469,15 +469,48 @@ ul.breadcumbs li a {
         z-index: 1;
     }
 
+.flip-clock-wrapper{
+    width: auto !important;
+}
+
+.flip-clock-dot {
+    box-shadow: none !important;
+}  
+
 
 @media (min-width: 768px) {
     .contenedor_agregar {
         border-top: 1px solid #d1d1d4;
         padding-top: 15px;
     }
+
+    .contenedor_etiqueta_odd .clock_odd {
+        margin: 0;
+        margin-bottom: 10px;
+    }
+
+    .flip-clock-wrapper ul li a div div.inn {
+        font-size: 25px !important;
+    }
+
+    .flip-clock-wrapper ul {
+        width: 14px !important;
+    }
+
+    .flip-clock-divider {
+        top: 3px !important;
+    } 
 }
 
 @media (max-width: 768px) {
+    .reloj_mobile{
+        display: block !important;
+    }
+
+    .reloj_desktop {
+        display: none !important;
+    }
+
     .contenedor_detalle {
         /*background: url('/Content/Images/etiqueta_nuevo.svg');*/
         background-position: top right;
