@@ -1405,6 +1405,15 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (List<BEDemostradoresCaminoBrillante>)HttpContext.Current.Session[Constantes.ConstSession.DemostradoresCaminoBrillante];
         }
+
+        public void SetFiltrosCaminoBrillante(List<BEOrdenFiltrosCaminoBrillante> val)
+        {
+            HttpContext.Current.Session[Constantes.ConstSession.FiltrosCaminoBrillante] = val;
+        }
+        public List<BEOrdenFiltrosCaminoBrillante> GetFiltrosCaminoBrillante()
+        {
+            return (List<BEOrdenFiltrosCaminoBrillante>)HttpContext.Current.Session[Constantes.ConstSession.DemostradoresCaminoBrillante];
+        }
         #endregion
     }
 }

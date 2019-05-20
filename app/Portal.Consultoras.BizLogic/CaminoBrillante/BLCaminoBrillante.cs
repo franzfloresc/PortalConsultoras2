@@ -780,7 +780,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var demostradoresEnPedido = new DACaminoBrillante(entidad.PaisID).GetPedidoWebDetalleCaminoBrillante(entidad.CampaniaID, entidad.CampaniaID, entidad.ConsultoraID).MapToCollection<BEKitsHistoricoConsultora>(closeReaderFinishing: true) ?? new List<BEKitsHistoricoConsultora>();
             var paisISO = Util.GetPaisISO(entidad.PaisID);            
 
-            if (string.IsNullOrEmpty(codOrdenar) || codOrdenar == "00") codOrdenar = Constantes.CaminoBrillante.CodigosOrdenamiento.porCategoria;
+            if (string.IsNullOrEmpty(codOrdenar) || codOrdenar == "00") codOrdenar = Constantes.CaminoBrillante.CodigosOrdenamiento.PorCategoria;
             demostradores = GetOrdenarDemostradores(demostradores, codOrdenar);
             if (codFiltro != "00") demostradores = GetFiltrarDemostradores(demostradores, codFiltro);
             objDemostradores.Total = demostradores.Count();
@@ -811,9 +811,9 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             switch (ordenar)
             {
-                case Constantes.CaminoBrillante.CodigosOrdenamiento.porCategoria:
+                case Constantes.CaminoBrillante.CodigosOrdenamiento.PorCategoria:
                     return demostradores;
-                case Constantes.CaminoBrillante.CodigosOrdenamiento.porNombre:
+                case Constantes.CaminoBrillante.CodigosOrdenamiento.PorNombre:
                     return demostradores.OrderBy(a => a.DescripcionCUV).ToList();
                 default:
                      return demostradores;
@@ -824,12 +824,12 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             switch (codFiltro)
             {
-                case Constantes.CaminoBrillante.CodigoFiltros.lbel:
-                    return demostradores.Where(x => x.CodigoMarca == Constantes.CaminoBrillante.CodigoFiltros.lbel).ToList();
-                case Constantes.CaminoBrillante.CodigoFiltros.esika:
-                    return demostradores.Where(x => x.CodigoMarca == Constantes.CaminoBrillante.CodigoFiltros.esika).ToList();
-                case Constantes.CaminoBrillante.CodigoFiltros.cyzone:
-                    return demostradores.Where(x => x.CodigoMarca == Constantes.CaminoBrillante.CodigoFiltros.cyzone).ToList();
+                case Constantes.CaminoBrillante.CodigoFiltros.Lbel:
+                    return demostradores.Where(x => x.CodigoMarca == Constantes.CaminoBrillante.CodigoFiltros.Lbel).ToList();
+                case Constantes.CaminoBrillante.CodigoFiltros.Esika:
+                    return demostradores.Where(x => x.CodigoMarca == Constantes.CaminoBrillante.CodigoFiltros.Esika).ToList();
+                case Constantes.CaminoBrillante.CodigoFiltros.Cyzone:
+                    return demostradores.Where(x => x.CodigoMarca == Constantes.CaminoBrillante.CodigoFiltros.Cyzone).ToList();
                 default:
                     return demostradores;
             }
@@ -1112,7 +1112,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         #endregion
 
         #region Orden y Filtros
-        public List<BEOrdenFiltrosCaminoBrillante> GetDatosOrdenFiltros(int paisId)
+        public List<BEOrdenFiltrosCaminoBrillante> GetFiltrosCaminoBrillante(int paisId)
         {
             return GetFiltrosCache(paisId);
         }

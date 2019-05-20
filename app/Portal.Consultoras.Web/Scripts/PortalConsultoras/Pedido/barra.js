@@ -1938,7 +1938,7 @@ function CalculoPosicionMinimoMaximo() {
                             PosicionMontoMinimo = montoMinimo * 100 / dataBarra.ListaEscalaDescuento[i].MontoDesde;
 
                             document.getElementById('MontoMinimoBloque').style.right = "";
-                            document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 5) + '%';
+                            document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 15) + '%';
                             document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
                             document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
 
@@ -1955,12 +1955,10 @@ function CalculoPosicionMinimoMaximo() {
 
                             PosicionMontoMinimo = montoMinimo * 100 / dataBarra.ListaEscalaDescuento[i].MontoDesde;
                             document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
-                            document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 5) + '%';
+                            document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 15) + '%';
 
                             document.getElementById('lineaPosicionMontoMaximo').style.display = 'None';
                             document.getElementById('MontoMaximoBloque').innerHTML = "";
-
-
 
                         }
                     }
