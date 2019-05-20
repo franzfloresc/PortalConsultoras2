@@ -4,15 +4,18 @@
 
 @{
     ViewBag.Title = "Ingresa tu Pedido";
-    
+
 }
 
 @section styles{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-CssPedido")
-
-   
-
 }
+
+@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+{
+    <link href="@Url.Content("~/Content/Css/Site/Esika/nuevo-look-and-feel.css")" rel="stylesheet" />
+}
+
 <style>
     .desactive-mas-menos {
         content: "";
@@ -27,15 +30,23 @@
         left: 0;
         z-index: 10;
     }
+
     .desactivo {
         pointer-events: none;
-        cursor:none;
-        text-decoration:none; 
+        cursor: none;
+        text-decoration: none;
         opacity: 0.4;
     }
 </style>
 
-<div class="franja_negra" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
+@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
+{
+    <div class="franja_negra franja_negra--nuevoLookAndFeelEsika" style="background: #ffded7 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
+}
+else
+{
+    <div class="franja_negra" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
+}
 <div class="envolvente_pop_up">
     <div class="pop_pedido" id="pop_liquidacion" style="display: none;">
         <div class="check_liquidacion"><img src="@Url.Content("~/Content/Images/Esika/check_liquidacion.png")" /></div>
@@ -64,7 +75,7 @@
     <input id="hdfEstadoPedido" type="hidden" value="@Model.EstadoPedido" />
     <input id="hdfNomConsultora" type="hidden" value="@Model.NombreConsultora" />
 
-    <h1 class="titulo_principal_interiores pedido_left">INGRESA <strong>TU PEDIDO</strong></h1>
+    <h1 class="titulo_principal_interiores titulo_principal_interiores--nuevoLookAndFeelEsika pedido_left">INGRESA <strong>TU PEDIDO</strong></h1>
     <div class="clear"></div>
 
     <div class="pedido_ingreso_c2">
@@ -146,8 +157,8 @@
                 <br />
                 <input type="text" name="ClienteDescripcion" id="txtClienteDescripcion" onblur="ValidarCliente();" onkeydown="ValidarClienteFocus(event);"
                        maxlength="50" class="ValidaAlfanumerico default-border-hover" placeholder="Cliente (Opcional)" />
-                <span class="pedido_ingreso_datos_icono_mas">+</span>
-                <a class="pedidos_cliente" onclick="showClienteDetalle(null);">
+                <span class="pedido_ingreso_datos_icono_mas pedido_ingreso_datos_icono_mas--nuevoLookAndFeelEsika">+</span>
+                <a class="pedidos_cliente pedidos_cliente--nuevoLookAndFeelEsika" onclick="showClienteDetalle(null);">
                     AGREGAR NUEVO CLIENTE
                 </a>
             </div>
@@ -1298,7 +1309,7 @@
     <script id="popup-pedidopend-template" type="text/x-handlebars-template">
         <div class="content_popUp_Pendientes">
             <div class="mensajes_deAtencion">
-                <span>¡No te pierdas esta oportunidad!</span>                
+                <span>¡No te pierdas esta oportunidad!</span>
                 <div class="clear"></div>
             </div>
 
@@ -2003,7 +2014,7 @@
         var ClasPedidoDetallePendiente = '@Constantes.ClasificadorPedido.PedidoDetallePendiente';
         var kitsCaminoBrillante = '@ViewBag.KitsCaminoBrillante';
 
-        
+
 
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")
