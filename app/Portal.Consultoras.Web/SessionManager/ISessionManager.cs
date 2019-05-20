@@ -331,6 +331,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<BEMisPedidosDetalle> GetobjMisPedidosDetalle();
 
+        void SetobjMisPedidosCliente(List<BEMisPedidos> val);
+
+        List<BEMisPedidos> GetobjMisPedidosCliente();
+
         void SetobjMisPedidosDetalleVal(List<ServiceODS.BEProducto> val);
 
         List<ServiceODS.BEProducto> GetobjMisPedidosDetalleVal();

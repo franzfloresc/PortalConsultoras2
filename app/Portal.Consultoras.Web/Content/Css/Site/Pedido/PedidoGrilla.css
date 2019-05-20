@@ -1596,7 +1596,25 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     align-items: center;
     transition: top 1s ease;
 }
-    .setBottom .pop_pedido_mensaje {
+    
+.setBottom .pop_pedido_mensaje {
         color: #569C04;
         font-size: 16px;
     }
+
+.btn--pedidos{
+    font-size: 14px; font-weight: 700; 
+    letter-spacing: 1px; color: #fff; 
+    border-radius: 4px; 
+    background-color: #000; 
+    padding: 10px 14px; 
+    margin-top: -4px;
+    cursor: pointer;
+}
+
+.title--middle{
+    font-size: 25px; 
+    color: #000; 
+    font-weight: 700; 
+    letter-spacing: 1.5px; 
+}
