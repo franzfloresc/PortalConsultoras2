@@ -136,6 +136,68 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
+        //INI HD-4200
+        #region Suscripcion SE
+        [HttpPost]
+        public JsonResult ValidarSuscripcionSE()
+        {
+            return Json(new { success = ValidarSuscripcionSE() });
+        }
+
+        private bool ValidarAgregarSuscripcionSE()
+        {
+            try
+            {
+
+                if (SessionManager.GetProcesoSuscripcionSE()) return true;
+                AgregarSuscripcionSE();
+                SessionManager.SetProcesoSuscripcionSE(true);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return false;
+            }
+        }
+        private void AgregarSuscripcionSE()
+        {
+            if (userData.CodigoISO != Constantes.CodigosISOPais.Colombia || !userData.esConsultoraLider) return;
+
+            if (userData.DiaPROL && !_pedidoWebProvider.EsHoraReserva(userData, DateTime.Now.AddHours(userData.ZonaHoraria))) return;
+
+            List<ServicePedido.BEProducto> olstProducto = _pedidoWebProvider.GetCuvsSuscripcionSE();
+
+            if (olstProducto.Count==0) return;
+
+            var lstPedido = ObtenerPedidoWebDetalle().Where(p => p.PedidoDetalleID > 0 && olstProducto.Any(d => d.CUV == p.CUV)).ToList();
+            if (lstPedido.Count == olstProducto.Count) return;
+
+            if (olstProducto.Count > 0) PedidoAgregarProductoTransaction(CreatePedidoCrudModelSuscripcionSE(olstProducto[0]));
+        }
+
+
+        private PedidoCrudModel CreatePedidoCrudModelSuscripcionSE(ServicePedido.BEProducto producto)
+        {
+            return new PedidoCrudModel
+            {
+                CUV = producto.CUV,
+                Cantidad = producto.Cantidad.ToString(),
+                PrecioUnidad = producto.PrecioCatalogo,
+                TipoEstrategiaID = producto.TipoEstrategiaID.ToInt32Secure(),
+                MarcaID = producto.MarcaID,
+                DescripcionProd = producto.Descripcion,
+                TipoOfertaSisID = 0,
+                IndicadorMontoMinimo = producto.IndicadorMontoMinimo.ToString(),
+                ConfiguracionOfertaID = 0,
+                EsKitNueva = true,
+                EsKitNuevaAuto = true
+            };
+        }
+        #endregion
+        //FIN HD-4200
+
+
         [HttpPost]
         public async Task<JsonResult> PedidoAgregarProductoTransaction(PedidoCrudModel model)
         {

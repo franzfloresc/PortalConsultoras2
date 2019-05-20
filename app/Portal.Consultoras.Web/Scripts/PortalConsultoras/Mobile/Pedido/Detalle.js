@@ -69,7 +69,12 @@ $(document).ready(function () {
         else mostrar.fadeOut(200);
     });
 
-    ValidarKitNuevas(function () { CargarPedido(true); });
+    //INI HD-4200
+    $.when(ValidarSuscripcionSEPromise())
+        .then(function () {
+            ValidarKitNuevas(function () { CargarPedido(true); });
+        });
+    //FIN HD-4200
 
     $("#suma, #resta").click(function (event) {
         if (!ValidarPermiso(this)) {

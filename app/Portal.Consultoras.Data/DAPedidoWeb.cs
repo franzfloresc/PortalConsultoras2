@@ -962,5 +962,15 @@ namespace Portal.Consultoras.Data
                 Context.ExecuteNonQuery(command);
             }
         }
+
+        //INI HD-4200
+        public IDataReader GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCuvSuscripcionSE");
+            Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, bEPedidoWeb.CampaniaID);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, bEPedidoWeb.CodigoConsultora);
+            return Context.ExecuteReader(command);
+        }
+        //FIN HD-4200
     }
 }

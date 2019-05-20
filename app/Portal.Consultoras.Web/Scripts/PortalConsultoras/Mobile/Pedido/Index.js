@@ -20,6 +20,9 @@ belcorp.pedido.initialize = function () {
 
 $(document).ready(function () {
     ValidarKitNuevas();
+    //INI HD-4200
+    ValidarSuscripcionSE();
+    //FIN HD-4200
 
     $('#txtClienteNombre').click(function (e) {
         if ($(this).prop('disabled')) return;
