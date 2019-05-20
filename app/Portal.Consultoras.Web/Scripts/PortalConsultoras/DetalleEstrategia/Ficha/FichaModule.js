@@ -767,7 +767,8 @@ var FichaModule = (function (config) {
             divCarruselProducto: "#divFichaCarruselProducto",
             OrigenPedidoWeb: _config.origen,
             codigoProducto: modeloFicha.CodigoProducto,
-            precioProducto: modeloFicha.Precio2
+            precioProducto: modeloFicha.Precio2,
+            productosHermanos: modeloFicha.Hermanos
         });
 
         carruselModule.Inicializar();

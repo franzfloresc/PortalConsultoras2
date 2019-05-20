@@ -19,17 +19,17 @@ namespace Portal.Consultoras.Web.Providers
             _tablaLogicaProvider = new TablaLogicaProvider();
         }
 
-        public async Task<OutputProductosUpSelling> ObtenerProductosCarruselUpSelling(string codigoProducto, double precioProducto)
+        public async Task<OutputProductosUpSelling> ObtenerProductosCarruselUpSelling(string[] codigosProductos, double precioProducto)
         {
             var revistadigital = _sessionManager.GetRevistaDigital();
             var userData = _sessionManager.GetUserData();
-            var pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlRecomendaciones,
+            var pathBuscador = string.Format(Constantes.RutaBuscadorService.UrlUpSelling,
                 userData.CodigoISO,
                 userData.CampaniaID,
                 ObtenerOrigen()
             );
             var cantidadProductosUpSelling = ObtenerCantidadProductosUpSelling();
-            var jsonData = GenerarJsonParaConsulta(userData, revistadigital, codigoProducto, cantidadProductosUpSelling, precioProducto);
+            var jsonData = GenerarJsonParaConsulta(userData, revistadigital, codigosProductos, cantidadProductosUpSelling, precioProducto);
 
             return await PostAsync<OutputProductosUpSelling>(pathBuscador, jsonData);
         }
@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Web.Providers
             return cantidadProductos.IsNullOrEmptyTrim() ? 0 : Convert.ToInt32(cantidadProductos);
         }
 
-        private dynamic GenerarJsonParaConsulta(UsuarioModel usuarioModel, RevistaDigitalModel revistaDigital, string codigoProducto, int cantidadProductos, double precioProducto)
+        private dynamic GenerarJsonParaConsulta(UsuarioModel usuarioModel, RevistaDigitalModel revistaDigital, string[] codigosProductos, int cantidadProductos, double precioProducto)
         {
             var suscripcion = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
             var personalizaciones = "";
@@ -53,7 +53,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 codigoConsultora = usuarioModel.CodigoConsultora,
                 codigoZona = usuarioModel.CodigoZona,
-                codigoProducto,
+                codigoProducto = codigosProductos,
                 personalizaciones,
                 cantidadProductos,
                 precioProducto,

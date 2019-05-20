@@ -25,7 +25,7 @@ var CarruselAyuda = function () {
 
         var cantActive = $(_slick.$slider).find('.slick-active').length;
         var indexCurrent = parseInt($(_slick.$slider).find('.slick-current').attr("data-slick-index"));
-        
+
         var direccion = CarruselVariable.Direccion.prev;
         if (indexCurrent === 0) {
             if (indexMostrar + 1 != slick.$slides.length) {
@@ -118,7 +118,7 @@ var CarruselAyuda = function () {
                     CantidadMostrar: cantActive,
                     Origen: origen
                 };
-                
+
                 AnalyticsPortalModule.MarcaGenericaLista("", obj);
 
                 //INI DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
@@ -340,7 +340,8 @@ var CarruselModule = (function (config) {
         OrigenPedidoWeb: config.OrigenPedidoWeb || "",
         pantalla: "Ficha",
         codigoProducto: config.codigoProducto,
-        precioProducto: config.precioProducto
+        precioProducto: config.precioProducto,
+        productosHermanos: config.productosHermanos
     };
 
     var _elementos = {
@@ -363,7 +364,7 @@ var CarruselModule = (function (config) {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(params),
-            async: false,
+            async: true,
             cache: false,
             success: function (data) {
                 dfd.resolve(data);
@@ -510,7 +511,7 @@ var CarruselModule = (function (config) {
         var data = {
             lista: []
         };
-        
+
         if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
             data.lista = _cargarDatos();
         }
@@ -519,22 +520,23 @@ var CarruselModule = (function (config) {
             || (_config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia)
             || (_config.palanca == ConstantesModule.TipoEstrategiaTexto.PackNuevas)
         ) {
+            var codigosProductos = _obtenerCodigoProductos();
             var param = {
                 cuvExcluido: _config.cuv,
                 palanca: _config.palanca,
-                codigoProducto: _config.codigoProducto,
+                codigosProductos: codigosProductos,
                 precioProducto: _config.precioProducto
             }
-            
+            console.log("esperando carrusel");
             _promiseObternerDataCarrusel(param).done(function (response) {
-
                 if (response) {
                     if (response.success) {
+                        console.log("respuesta", response);
                         data.lista = response.result;
                     }
                 }
-
             });
+            console.log("salio carrusel");
         }
 
         if (data.lista.length > 0) {
@@ -563,6 +565,29 @@ var CarruselModule = (function (config) {
         $(_elementos.divCarruselContenedor).hide();
     }
 
+    var _obtenerCodigoProductos = function () {
+        var componentes = _config.productosHermanos;
+        var codigosProductos = [];
+        var contarProductosHermanos = componentes.length;
+        if (contarProductosHermanos == 0) {
+            codigosProductos.push(_config.codigoProducto);
+        } else {
+            if (contarProductosHermanos == 1) {
+                var valores = componentes[0];
+                if (valores.FactorCuadre > 1) codigosProductos.push(valores.CodigoProducto);
+                else {
+                    codigosProductos.push(_config.codigoProducto);
+                }
+            } else {
+                for (var i = 0; i < contarProductosHermanos; i++) {
+                    codigosProductos.push(componentes[i].CodigoProducto);
+                }
+            }
+
+        }
+        return codigosProductos;
+    }
+
     function Inicializar() {
         _ocultarElementos();
         _mostrarCarrusel();
@@ -576,7 +601,7 @@ var CarruselModule = (function (config) {
 ////////////////////////////////////////////////////////////////////
 //// Ini - Home y Pedido
 ////////////////////////////////////////////////////////////////////
-function ArmarCarouselEstrategias(data) {    
+function ArmarCarouselEstrategias(data) {
     $("#divListaEstrategias").hide();
     $(".js-slick-prev").remove();
     $(".js-slick-next").remove();

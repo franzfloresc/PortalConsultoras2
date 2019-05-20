@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers.Estrategias
@@ -22,6 +23,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         protected ConfiguracionOfertasHomeProvider _configuracionOfertasHomeProvider;
         protected CarruselUpSellingProvider _carruselUpSellingProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
+        //protected TablaLogicaProvider _tablaLogicaProvider;
 
         public EstrategiaController()
         {
@@ -31,9 +33,10 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             _carruselUpSellingProvider = new CarruselUpSellingProvider();
         }
 
-        public EstrategiaController(ISessionManager sesionManager, ILogManager logManager)
+        public EstrategiaController(ISessionManager sesionManager, ILogManager logManager, TablaLogicaProvider tablaLogicaProvider)
             : base(sesionManager, logManager)
         {
+            //_tablaLogicaProvider = tablaLogicaProvider;
         }
 
         #region Metodos Por Palanca
@@ -769,7 +772,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         [HttpPost]
-        public JsonResult FichaObtenerProductosUpSellingCarrusel(string cuvExcluido, string palanca, string codigoProducto, double precioProducto)
+        public async Task<JsonResult> FichaObtenerProductosUpSellingCarrusel(string cuvExcluido, string palanca, string[] codigosProductos, double precioProducto)
         {
             try
             {
@@ -777,12 +780,12 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 if (!mostrarFuncionalidadUpSelling.IsNullOrEmptyTrim() || mostrarFuncionalidadUpSelling == "1")
                 {
-                    /*var dataProductosCarruselUpSelling = _carruselUpSellingProvider.ObtenerProductosCarruselUpSelling(codigoProducto, precioProducto);
-                    return Json(dataProductosCarruselUpSelling);*/
+                    var dataProductosCarruselUpSelling = await _carruselUpSellingProvider.ObtenerProductosCarruselUpSelling(codigosProductos, precioProducto);
+                    return Json(dataProductosCarruselUpSelling);
 
-                    // Data de prueba
-                    return FichaObtenerProductosCarrusel(cuvExcluido, palanca);
-                    // Fin data prueba
+                    //// Data de prueba
+                    //return FichaObtenerProductosCarrusel(cuvExcluido, palanca);
+                    //// Fin data prueba
                 }
                 else
                 {
