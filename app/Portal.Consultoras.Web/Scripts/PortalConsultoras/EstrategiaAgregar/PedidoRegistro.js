@@ -493,6 +493,9 @@ var PedidoRegistroModule = function () {
             OrigenPedidoWeb: DesktopHomeLiquidacion,
             TipoOfertaSisID: ConstantesModule.ConfiguracionOferta.Liquidacion,
         };
+
+        var imagenProducto = document.querySelector("#divCarruselLiquidaciones > div > div > div.slick-slide.slick-current.slick-active > div > div.producto_img_home.mini > img").src;
+
         $.ajaxSetup({
             cache: false
         });
@@ -524,8 +527,10 @@ var PedidoRegistroModule = function () {
 
                 CerrarLoad();
                 HidePopupTonosTallas();
-
                 ProcesarActualizacionMostrarContenedorCupon();
+
+                AbrirMensaje25seg('¡Listo! Agregaste esta(s) oferta(s) a tu pedido', imagenProducto);
+
             },
             error: function (data, error) {
                 if (checkTimeout(data)) {
