@@ -12,7 +12,7 @@ var reservaResponse = {
 };
 var contadorkit = 0
 var contadordemo = 0
-var codOrdenar = "00";
+var codOrdenar = "0";
 var codFiltro = "00";
 
 var moneda = ($('#moneda').val());
@@ -309,7 +309,7 @@ function CambiarOferta() {
         else { LinkCargarOfertasToScroll();}        
     });
 
-    $('#Tab-Demostradores').click(function () {
+    $('#Tab-Demostradores').click(function () {        
         $('.opOrdenar').show();
         $('#Demostradores').show();
         $('#kits').hide();
@@ -318,9 +318,11 @@ function CambiarOferta() {
         $("#divresultadosKit").hide();
         $("#divresultadosDemostradores").show();
         document.body.scrollTop = TabDos;
-        $(window).scrollTop(TabDos);
-        ObtenerFiltros();
-        if (contadordemo == 0) { CargarDemostradores(); }
+        $(window).scrollTop(TabDos);  
+        if (contadordemo == 0) {
+            ObtenerFiltros();
+            CargarDemostradores();
+        }
         else { LinkCargarOfertasToScroll();}
     });
 }
@@ -336,10 +338,11 @@ function ObtenerFiltros() {
                 if (data.lista != null) {
                     var _filtros = data.lista.DatosFiltros;
                     var _orden = data.lista.DatosOrden;
+                    $('#ddlfiltros').empty();
+                    $('#ddlOrdenar').empty();
                     $.each(_filtros, function (index, value) {
                         $("#ddlfiltros").append('<option value="' + value.Codigo + '">' + value.Descripcion + '</option>');
                     });
-
                     $.each(_orden, function (index, value) {
                         $("#ddlOrdenar").append('<option value="' + value.Codigo + '">' + value.Descripcion + '</option>');
                     });

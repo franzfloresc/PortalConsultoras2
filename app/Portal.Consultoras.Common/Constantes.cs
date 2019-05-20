@@ -3941,9 +3941,9 @@ namespace Portal.Consultoras.Common
             public static class CodigosOrdenamiento
             {
                 public const string CodigoOrden = "ORDEN";
-                public const string SinOrden = "00";
-                public const string PorCategoria = "01";
-                public const string PorNombre = "02";
+                public const string SinOrden = "0";
+                public const string PorCategoria = "1";
+                public const string PorNombre = "2";
             }
 
             public static class CodigoFiltros

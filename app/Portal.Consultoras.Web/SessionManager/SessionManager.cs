@@ -1412,7 +1412,7 @@ namespace Portal.Consultoras.Web.SessionManager
         }
         public List<BEOrdenFiltrosCaminoBrillante> GetFiltrosCaminoBrillante()
         {
-            return (List<BEOrdenFiltrosCaminoBrillante>)HttpContext.Current.Session[Constantes.ConstSession.DemostradoresCaminoBrillante];
+            return (List<BEOrdenFiltrosCaminoBrillante>)HttpContext.Current.Session[Constantes.ConstSession.FiltrosCaminoBrillante];
         }
         #endregion
     }
