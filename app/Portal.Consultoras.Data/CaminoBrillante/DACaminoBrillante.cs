@@ -62,5 +62,10 @@ namespace Portal.Consultoras.Data.CaminoBrillante
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetFiltrosCaminoBrillante()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetFiltrosCaminoBrillante");
+            return Context.ExecuteReader(command);
+        }
     }
 }

@@ -1335,7 +1335,10 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEKitCaminoBrillante> GetKitsCaminoBrillante(BEUsuario entidad);
 
         [OperationContract]
-        BEDemostradoresPaginado GetDemostradoresCaminoBrillante(BEUsuario entidad, int cantRegistros, int regMostrados, string codOrdenar, string codFiltro);        
+        BEDemostradoresPaginado GetDemostradoresCaminoBrillante(BEUsuario entidad, int cantRegistros, int regMostrados, string codOrdenar, string codFiltro);
+
+        [OperationContract]
+        List<BEOrdenFiltrosCaminoBrillante> GetDatosOrdenFiltros(int paisID);
         #endregion
     }
 }
