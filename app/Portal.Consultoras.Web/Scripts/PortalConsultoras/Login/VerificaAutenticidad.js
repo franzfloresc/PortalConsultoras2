@@ -279,6 +279,7 @@ function VerificarCodigo(CodIngresado) {
         data: JSON.stringify(parametros),
         async: true,
         success: function (response) {
+            debugger;
             if (response.success) {
                 if (tipo == 1) {
                     $("#divPaso2Email").hide();
@@ -403,6 +404,8 @@ function TiempoSMS(tempo) {
 /*---------PE- Actualizacion de datos de forma obligatoria para PEG y que sea bloqueante-----------------*/
 
 function EditarSms() {
+    tipo = 2;
+    nroIntentosSms = nroIntentosSms + 1;
     $('#divPaso1').hide();
     CargarEditarNumero()
 }
