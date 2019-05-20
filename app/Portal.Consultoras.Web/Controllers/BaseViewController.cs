@@ -240,7 +240,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Redireccionar();
         }
 
-        private ActionResult Redireccionar()
+        protected ActionResult Redireccionar()
         {
             string sap = "";
             var url = (Request.Url.Query).Split('?');

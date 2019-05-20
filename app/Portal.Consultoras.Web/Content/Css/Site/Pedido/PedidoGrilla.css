@@ -1586,3 +1586,17 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     background-repeat: no-repeat;
     background-position: center center ;    
 }
+/*Modal para modificiar y crear*/
+.setBottom {
+    display: flex;
+    height: 100px !important;
+    width: 500px !important;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    transition: top 1s ease;
+}
+    .setBottom .pop_pedido_mensaje {
+        color: #569C04;
+        font-size: 16px;
+    }

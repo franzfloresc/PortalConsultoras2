@@ -614,6 +614,7 @@ function CargarDetallePedido(page, rows, asyncrono) {
                 MostrarInformacionCliente(pedidoPageParams.clienteId);
                 mostrarSimplificacionCUV();
 
+                debugger;
                 MostrarBarra(response);
                 CargarAutocomplete();
 
@@ -1727,6 +1728,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         CerrarSplash();
         return;
     }
+    debugger;
 
     jQuery.ajax({
         type: "POST",

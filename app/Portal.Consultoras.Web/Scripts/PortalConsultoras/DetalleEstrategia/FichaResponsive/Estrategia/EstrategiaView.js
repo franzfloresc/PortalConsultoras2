@@ -25,6 +25,11 @@
         compartirEstrategia: {
             templateId: "#compartir-estrategia-template",
             id: "#compartir-estrategia",
+        },
+        reloj: {
+            templateId: "#ofertadeldia-template-style",
+            id: "[data-ficha-contenido=\"ofertadeldia-template-style\"]",
+            clase: ".clock_odd"
         }
     };
 
@@ -56,12 +61,29 @@
         return true;
     };
 
+    var _renderReloj = function (estrategia) {
+        $(_elements.reloj.clase).each(function (i, e) {
+            $(e).FlipClock(estrategia.TeQuedan, {
+                countdown: true,
+                clockFace: "HourlyCounter",
+                language: "es-es"
+            });
+        });
 
-    
+        return true;
+    };
+
+    var _renderRelojStyle = function (estrategia) {
+        SetHandlebars(_elements.reloj.templateId, estrategia, _elements.reloj.id);
+        return true;
+    };
+
     return {
         setPresenter: _setPresenter,
         renderBreadcrumbs : _renderBreadcrumbs,
         renderEstrategia : _renderEstrategia,
-        renderBackgroundAndStamp : _renderBackgroundAndStamp,
+        renderBackgroundAndStamp: _renderBackgroundAndStamp,
+        renderReloj: _renderReloj,
+        renderRelojStyle: _renderRelojStyle
     };
 };
