@@ -49,14 +49,14 @@
         {{/iff}}
 
         {{#iff Ganancia '>' 0}}
-        <div class="ganancia">
+        <div class="ganancia primary_color">
             {{#iff CodigoVariante '!=' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
-            GANA
+            Gana
             {{/iff}}
             {{#iff CodigoVariante '==' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
-            GANA HASTA
+            Gana hasta
             {{/iff}}
-            <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span>
+            <span class="primary_color" data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span>
         </div>
         {{/iff}}
     </div>
