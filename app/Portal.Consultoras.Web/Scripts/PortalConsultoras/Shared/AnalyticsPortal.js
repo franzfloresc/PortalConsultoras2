@@ -45,10 +45,9 @@ var AnalyticsPortalModule = (function () {
         anterior: "Ver anterior",
         duoPerfecto: "Dúo Perfecto",
         palancaLasMasGandoras: "Más Ganadoras",
-        armaTuDuoPerfecto: ' Arma tu Dúo Perfecto - Dúo Perfecto'
-
-        // Fin - Analytics Ofertas (Miguel)
-    };
+        armaTuDuoPerfecto: ' Arma tu Dúo Perfecto - Dúo Perfecto',
+	    PedidoPendienteAceptado: 'Pedidos Pendientes - Pedidos Aceptados '
+};
 
     // Inicio - Analytics Home 1 (Miguel)
     var _codigoSeccion = {
@@ -2652,6 +2651,56 @@ var AnalyticsPortalModule = (function () {
     // Fin - Analytics Ficha Resumida
     ////////////////////////////////////////////////////////////////////////////////////////
 
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Inicio - Analytics PedidoPendientes
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    var clickBotonPedidosPendientes = function (action, label) {
+        dataLayer.push({
+            'event': _evento.virtualEvent,
+            "category": _texto.CarritoCompras,
+            "action": action,
+            "label": label
+        });
+    }
+
+    var clickTabPedidosPendientes = function (action, label) {
+        dataLayer.push({
+            'event': _evento.virtualEvent,
+            "category": _texto.CarritoComprasPedidosPendientes,
+            "action": action,
+            "label": label
+        });
+    }
+
+    var clickBotonTabVistaProducto = function (action, label) {
+        dataLayer.push({
+            'event': _evento.virtualEvent,
+            "category": _texto.CarritoComprasPedidosPendientes,
+            "action": action,
+            "label": label
+        });
+    }
+    var clickVistaAddToCardPedidoPendiente = function (action, product) {
+
+	    var products = [];
+        products.push(product);
+
+        dataLayer.push({
+		    'event': _evento.addToCart,
+		    'ecommerce': {
+			    'currencyCode': _getCurrencyCodes(),
+			    'add': {
+                    'actionField': { 'list': _texto.PedidoPendienteAceptado + action },
+                    'products': products
+			    }
+		    }
+	    });
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Fin - Analytics PedidoPendientes
+    ////////////////////////////////////////////////////////////////////////////////////////
+
     return {
         // Ini - Metodos Iniciales
         MarcarIniciarPlayVideo: marcarIniciarPlayVideo,
@@ -2738,6 +2787,13 @@ var AnalyticsPortalModule = (function () {
         ClickAddCartFicha: clickAddCartFicha,
         ClickTabGanadoras: clickTabGanadoras,
         // Fin - Analytics Ganadoras
+
+        // Ini - Analytics PedidoPendientes
+        ClickBotonPedidosPendientes: clickBotonPedidosPendientes,
+        ClickTabPedidosPendientes: clickTabPedidosPendientes,
+        ClickBotonTabVistaProducto: clickBotonTabVistaProducto,
+        ClickVistaAddToCardPedidoPendiente: clickVistaAddToCardPedidoPendiente,
+        // Fin - Analytics PedidoPendientes
 
         MarcaProductImpressionRecomendaciones: marcaProductImpressionRecomendaciones,
         MarcaProductImpressionViewRecomendaciones: marcaProductImpressionViewRecomendaciones,

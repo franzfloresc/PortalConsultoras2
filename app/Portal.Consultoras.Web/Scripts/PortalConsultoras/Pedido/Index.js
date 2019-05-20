@@ -3022,3 +3022,12 @@ function CargarProductosRecomendados(item) {
     ProductoRecomendadoModule.ObtenerProductos(item.CodigoCatalago, item.EstrategiaIDSicc, item.CUV, item.CodigoProducto);
     
 }
+
+function PedidosPendientesPorAprobar() {
+
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+        AnalyticsPortalModule.ClickBotonPedidosPendientes('Click Botón', 'Pedidos por aprobar');
+    }
+    window.location.href = '/ConsultoraOnline/Pendientes';
+}
+

@@ -3062,11 +3062,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
+                
                 return Json(new
                 {
                     success = true,
                     message = "OK",
-                    continuarExpPendientes = ContinuarExpPendientes,
+                    PedidosSesion = pedidosSesion,
+                    ListaGana = parametros.ListaGana
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException e)
