@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.BizLogic.Pedido;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.ServiceCalculoPROL;
 using Portal.Consultoras.Entities;
@@ -16,6 +17,7 @@ namespace Portal.Consultoras.BizLogic
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
         private readonly IProductoBusinessLogic _blProducto;
         private readonly IProgramaNuevasBusinessLogic _blProgramaNuevas;
+        private readonly IPedidoBusinessLogic _pedidoBusinessLogic;
 
         private readonly BLPedidoWeb _blPedidoWeb;
         private readonly BLUsuario _blUsuario;
@@ -26,13 +28,15 @@ namespace Portal.Consultoras.BizLogic
         public BLPedidoWebDetalle() : this(
             new BLConsultoraConcurso(),
             new BLProducto(),
-            new BLProgramaNuevas()
+            new BLProgramaNuevas(),
+            new BLPedido()
         ) { }
 
         public BLPedidoWebDetalle(
             IConsultoraConcursoBusinessLogic consultoraConcursoBusinessLogic,
             IProductoBusinessLogic productoBusinessLogic,
-            IProgramaNuevasBusinessLogic programaNuevasBusinessLogic
+            IProgramaNuevasBusinessLogic programaNuevasBusinessLogic,
+            IPedidoBusinessLogic pedidoBusinessLogic
         )
         {
             _consultoraConcursoBusinessLogic = consultoraConcursoBusinessLogic;
@@ -44,6 +48,7 @@ namespace Portal.Consultoras.BizLogic
             _blUsuario = new BLUsuario();
             _blEstrategia = new BLEstrategia();
             _blOfertaProducto = new BLOfertaProducto();
+            _pedidoBusinessLogic = pedidoBusinessLogic;
         }
 
         /// <summary>

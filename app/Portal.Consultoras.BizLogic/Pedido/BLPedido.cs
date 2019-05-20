@@ -321,7 +321,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                         if (reservado)
                         {
-                            var respuestaReserva = _reservaBusinessLogic.EjecutarReserva(pedidoDetalle.ReservaProl, true).GetAwaiter().GetResult();
+                            var respuestaReserva = await _reservaBusinessLogic.EjecutarReserva(pedidoDetalle.ReservaProl, true);
                             respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, out error);
                         }
 
@@ -341,7 +341,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         }
 
-        private BEPedidoDetalleResult RespuestaModificarPedido(BEUsuario usuario)
+        public BEPedidoDetalleResult RespuestaModificarPedido(BEUsuario usuario)
         {
             var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(usuario.PaisID,
                                                                 usuario.ConsultoraID,

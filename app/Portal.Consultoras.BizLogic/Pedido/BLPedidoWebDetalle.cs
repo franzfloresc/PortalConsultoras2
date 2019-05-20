@@ -710,6 +710,18 @@ namespace Portal.Consultoras.BizLogic
             {
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
+                    
+                    var respuesta = _pedidoBusinessLogic.RespuestaModificarPedido(usuario);
+                    var reservado = false;
+                    if(respuesta != null)
+                    {
+                        reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);
+                        if (reservado)
+                        {
+                            //si está reservado no se permite eliminar el pedido
+                            return false;
+                        }
+                    }
                     daPedidoWebDetalle.DelPedidoWebDetalleMasivo(usuario.CampaniaID, pedidoId);
                     daPedidoWeb.UpdPedidoWebByEstadoConTotalesMasivo(usuario.CampaniaID, pedidoId, 201, false, 0, 0, usuario.CodigoUsuario);
                     daPedidoWeb.DelIndicadorPedidoAutenticoCompleto(new BEIndicadorPedidoAutentico { PedidoID = pedidoId, CampaniaID = usuario.CampaniaID });
