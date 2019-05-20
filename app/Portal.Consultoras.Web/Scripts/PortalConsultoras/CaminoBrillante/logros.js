@@ -29,7 +29,7 @@ function ComoLograrlo(categoria, caracteristica, titulo, descripcion) {
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Nivel y beneficios – Mis Logros',
-        'action': categoria + ' - ' + caracteristica,
+        'action': categoria + ' - ' + caracteristica + ' - ' + titulo,
         'label': 'Selección: ¿Cómo lograrlo?'
     });
 
@@ -38,7 +38,7 @@ function ComoLograrlo(categoria, caracteristica, titulo, descripcion) {
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Nivel y beneficios – Mis Logros',
-            'action': categoria + ' - ' + caracteristica,
+            'action': categoria + ' - ' + caracteristica + ' - ' + titulo,
             'label': 'Ver Detalle: ¿Cómo lograrlo?'
         });
     }
@@ -48,7 +48,7 @@ function CerrarComoLograrlo(categoria, caracteristica) {
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Nivel y beneficios – Mis Logros',
-        'action': categoria + ' - ' +  caracteristica ,
+        'action': categoria + ' - ' + caracteristica + ' - ' + titulo ,
         'label': ' Cerrar detalle: ¿Cómo lograrlo?'
     });
 }
