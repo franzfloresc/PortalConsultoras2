@@ -9,7 +9,7 @@ var Analytics = function (config) {
         if (!window.console) return;
         if (!window.console.log) return;
 
-        console.log(variable);
+        //console.log(variable);
     }
 
     var _crearImagenAnalyticsWithId = function (id) {

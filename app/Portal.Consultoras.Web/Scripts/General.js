@@ -4,6 +4,8 @@ var belcorp = belcorp || {};
 belcorp.settings = belcorp.settings || {};
 belcorp.settings.uniquePrefix = "/g/";
 
+var _ultimaMarca = "";
+
 jQuery(document).ready(function () {
 
     CreateLoading();
@@ -412,6 +414,25 @@ jQuery(document).ready(function () {
                 return JSON.stringify(context).replace(/"/g, '&quot;');
             });
 
+            Handlebars.registerHelper("ifVerificarMarcaLast", function (marca, esMultiMarca, options) {
+                if (esMultiMarca) {
+                    if (_ultimaMarca === "" || _ultimaMarca === marca) {
+                        _ultimaMarca = marca;
+                        return options.inverse(this);
+                    }
+                    else {
+                        _ultimaMarca = marca;
+                        return options.fn(this);
+                    }
+                }
+                else {
+                    if (_ultimaMarca === "") {
+                        _ultimaMarca = marca;
+                        return options.inverse(this);
+                    }
+                    else return options.fn(this);
+                }
+            });
         }
     };
 
@@ -2058,11 +2079,12 @@ var GeneralModule = (function () {
         return isUrlMobile;
     };
 
-    var _redirectTo = function (url) {
+    var _redirectTo = function (url, validateIsMobile) {
         if (typeof url === "undefined" || url === null || $.trim(url) === "") return false;
+        if (typeof validateIsMobile === "undefined") validateIsMobile = true;
 
         var destinationUrl = "/";
-        if (_isMobile()) destinationUrl = destinationUrl + "Mobile/";
+        if (validateIsMobile && _isMobile() && url.indexOf('Mobile/') == -1) destinationUrl = destinationUrl + "Mobile/";
         destinationUrl += url;
 
         window.location.href = destinationUrl;
@@ -2175,11 +2197,18 @@ var GeneralModule = (function () {
         }
     };
 
+    var _getLocationPathname = function (value) {
+        if (typeof value === "undefined") {
+            return window.location.pathname;
+        }
+    };
+
     return {
         isMobile: _isMobile,
         redirectTo: _redirectTo,
         abrirLoad: _abrirLoad,
-        cerrarLoad: _cerrarLoad
+        cerrarLoad: _cerrarLoad,
+        getLocationPathname: _getLocationPathname
     };
 }());
 //INI HD-3693
