@@ -720,7 +720,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BELogroCaminoBrillante, LogroCaminoBrillanteModel>();
             Mapper.CreateMap<BELogroCaminoBrillante.BEIndicadorCaminoBrillante, LogroCaminoBrillanteModel.IndicadorCaminoBrillanteModel>();
             Mapper.CreateMap<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante, LogroCaminoBrillanteModel.IndicadorCaminoBrillanteModel.MedallaCaminoBrillanteModel>();
-
+            Mapper.CreateMap<BEOrdenFiltrosCaminoBrillante, FiltrosDatosCaminoBrillante>();
+            Mapper.CreateMap<BEOrdenFiltrosCaminoBrillante, OrdenDatosCaminoBrillante>();
             #endregion
         }
     }
