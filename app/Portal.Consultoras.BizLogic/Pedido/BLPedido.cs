@@ -293,19 +293,42 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
+                    var reservado = false;
                     // solo por mantener la logica actual, se supone que PaisID ya viene dentro de Usuario
                     pedidoDetalle.Usuario.PaisID = pedidoDetalle.PaisID;
                     var respuesta = RespuestaModificarPedido(pedidoDetalle.Usuario);
                     if (respuesta != null)
                     {
-                        return respuesta;
+                        reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);
+                        if (!reservado)
+                        {
+                            return respuesta;
+                        }
+                        else
+                        {
+                            if (pedidoDetalle.Usuario.FechaFinFacturacion == DateTime.Today)
+                            {
+                                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVA_ULTIMO_DIA_FACTURACION);
+                            }
+                        }
                     }
 
                     respuesta = await PedidoDeleteProductoTransaction(pedidoDetalle);
 
                     if (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS)
                     {
-                        oTransactionScope.Complete();
+                        var error = false;
+
+                        if (reservado)
+                        {
+                            var respuestaReserva = await _reservaBusinessLogic.EjecutarReserva(pedidoDetalle.ReservaProl, true);
+                            respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, out error);
+                        }
+
+                        if (!error)
+                        {
+                            oTransactionScope.Complete();
+                        }
                     }
                     return respuesta;
                 }
@@ -318,7 +341,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         }
 
-        private BEPedidoDetalleResult RespuestaModificarPedido(BEUsuario usuario)
+        public BEPedidoDetalleResult RespuestaModificarPedido(BEUsuario usuario)
         {
             var validacionHorario = _pedidoWebBusinessLogic.ValidacionModificarPedido(usuario.PaisID,
                                                                 usuario.ConsultoraID,
