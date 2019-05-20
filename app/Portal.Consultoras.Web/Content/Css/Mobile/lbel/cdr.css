@@ -1110,6 +1110,10 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         justify-content:space-between;
     }
 
+        .producto_a_cambiar:first-child{
+            border-top:1px solid #808080;
+        }
+
         .producto_a_cambiar > div {
             -ms-flex-wrap: wrap;
             flex-wrap: wrap;
