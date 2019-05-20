@@ -14,9 +14,7 @@ namespace Portal.Consultoras.Common
         private static int _sizeLimitImageRevista;
         private static string _urlMatriz;
         private static string _rutaCdn;
-        private static string _rutaBuscadorAPI;
-        private static string _urlMatrizAppConsultora;
-        private static string _codigoHistoriasResumen;       
+        private static string _rutaBuscadorAPI;     
         #endregion
 
         #region Propiedades
@@ -189,33 +187,6 @@ namespace Portal.Consultoras.Common
                 return _rutaBuscadorAPI;
             }
             set { _rutaBuscadorAPI = value; }
-        }
-
-        public static string UrlMatrizAppConsultora
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_urlMatrizAppConsultora))
-                {
-                    _urlMatrizAppConsultora = ConfigurationManager.AppSettings["MatrizAppConsultora"] ?? string.Empty;
-                }
-
-                return _urlMatrizAppConsultora;
-            }
-            set { _urlMatrizAppConsultora = value; }
-        }
-        public static string CodigoHistoriasResumen
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(_codigoHistoriasResumen))
-                {
-                    _codigoHistoriasResumen = ConfigurationManager.AppSettings["CodigoHistoriasResumen"] ?? string.Empty;
-                }
-
-                return _codigoHistoriasResumen;
-            }
-            set { _codigoHistoriasResumen = value; }
         }
         #endregion
     }
