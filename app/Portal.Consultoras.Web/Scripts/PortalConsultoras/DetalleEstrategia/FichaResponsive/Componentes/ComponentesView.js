@@ -1,13 +1,13 @@
 ﻿var ComponenteView = function () {
     var _elements = {
-        componente: {
-            templateId: "#producto-componente-template",
-            id: "#componente",
+        componentes: {
+            templateId: "#componente-estrategia-template",
+            id: "#componentes",
         }
     };
 
     var _renderComponente = function (componente) {
-        SetHandlebars(_elements.componente.templateId, componente, _elements.componente.id);
+        SetHandlebars(_elements.componentes.templateId, componente, _elements.componentes.id);
 
         return true;
     };
