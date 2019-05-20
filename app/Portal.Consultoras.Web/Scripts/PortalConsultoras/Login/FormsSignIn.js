@@ -344,7 +344,6 @@ $(document).ready(function () {
         if (typeof FB === 'undefined') return;
 
         FB.XFBML.parse();
-        FB.CustomerChat.show(true);
     });
 
     $("body").keyup(function (evt) {
