@@ -531,6 +531,7 @@ namespace Portal.Consultoras.Common
             public const string NivelConsultoraCaminoBrillante = "NivelConsultoraCaminoBrillante";
             public const string KitCaminoBrillante = "KitCaminoBrillante";
             public const string DemostradoresCaminoBrillante = "DemostradoresCaminoBrillante";
+            public const string FiltrosCaminoBrillante = "FiltrosCaminoBrillante";
         }
 
         public static class ConfiguracionManager
@@ -3939,17 +3940,19 @@ namespace Portal.Consultoras.Common
 
             public static class CodigosOrdenamiento
             {
-                public const string sinOrden = "00";
-                public const string porCategoria = "01";
-                public const string porNombre = "02";
+                public const string CodigoOrden = "ORDEN";
+                public const string SinOrden = "00";
+                public const string PorCategoria = "01";
+                public const string PorNombre = "02";
             }
 
             public static class CodigoFiltros
             {
-                public const string sinFiltro = "00";
-                public const string lbel = "01";
-                public const string esika = "02";
-                public const string cyzone = "03";
+                public const string CodigoFiltro = "FILTRO";
+                public const string SinFiltro = "00";
+                public const string Lbel = "01";
+                public const string Esika = "02";
+                public const string Cyzone = "03";
             }
         }
 
