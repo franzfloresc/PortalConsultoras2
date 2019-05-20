@@ -1777,7 +1777,10 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .detalle_tipo_solicitud_titulo {
-    padding: 15px 0 14px 0;
+    background-color: #f7f7f7;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 15px 20px;
     border-top: 1px solid #979797;
     border-bottom: 1px solid #979797;
     position: relative;
@@ -1810,17 +1813,34 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     }
 
 .detalle_producto_cdr,
-.detalle_cdr_solucion {
+.detalle_cdr_solucion,
+.detalle_cdr_solucion > div {
     position: relative;
 }
+
+.detalle_producto_cdr,
+.detalle_cdr_solucion_titulo,
+.detalle_cdr_solucion > div{
+    margin-bottom:16px;
+}
+
+    .detalle_cdr_solucion > div:last-child {
+        margin-bottom: 0;
+    }
 
 .detalle_cdr_solucion_titulo,
 .detalle_cod_producto,
 .detalle_nom_producto,
 .detalle_cantidad_producto,
 .detalle_cdr_monto_devolucion {
-    margin-bottom: 2px;
     width: 68%;
+}
+
+.detalle_cod_producto,
+.detalle_nom_producto,
+.detalle_cantidad_producto,
+.detalle_cdr_monto_devolucion {
+    margin-bottom: 2px;
 }
 
 .detalle_precio_producto {
@@ -1835,11 +1855,9 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .datos_solicitud_cdr_consulta {
-    background: #f7f7f7;
     position: relative;
-    top: -26px;
-    padding: 32px 0 18px 0;
-    margin-bottom: 4px;
+    padding: 20px 0 18px 0;
+    margin-bottom: 6px;
 }
 
 .datos_solicitud_cdr_titulo {
