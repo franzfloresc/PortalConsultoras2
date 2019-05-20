@@ -3947,5 +3947,17 @@ namespace Portal.Consultoras.Common
             public const string OrigenPedidoWebLandingFichaCarrusel = "OrigenPedidoWebLandingFichaCarrusel";
             public const string OrigenPedidoWebDesplegableFichaCarrusel = "OrigenPedidoWebDesplegableFichaCarrusel";
         }
+
+        public static class DatosContenedorHistorias
+        {
+            public const short HistoriasLogicaId = 231;
+            public const string MatrizAppConsultora = "MatrizAppConsultora";
+            public const string CodigoHistoriasResumen = "CodigoHistoriasResumen";
+            public const string CodigoHist = "CodigoHist";
+            public const string HistAnchoAlto = "HistAnchoAlto";
+            public const string HistAnchoAltoDetalle = "HistAnchoAltoDetalle";
+            public const string HistUrlMiniatura = "HistUrlMiniatura";
+            public const string HistLimitDetMensaje = "HistLimitDetMensaje";
+        }
     }
 }

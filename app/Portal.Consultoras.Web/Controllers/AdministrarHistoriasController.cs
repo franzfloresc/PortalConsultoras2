@@ -15,18 +15,17 @@ using System.Threading.Tasks;
 using Portal.Consultoras.Web.ServiceContenido;
 using System.Configuration;
 using System.Net;
+using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarHistoriasController : BaseAdmController
     {
-        private static class _accion
+        protected TablaLogicaProvider _tablaLogica;
+        public AdministrarHistoriasController()
         {
-            public const int Nuevo = 1;
-            public const int Editar = 2;
-            public const int NuevoDatos = 3;
-            public const int Deshabilitar = 4;
-        }
+            _tablaLogica = new TablaLogicaProvider();
+        }     
 
         public ActionResult Index()
         {
@@ -38,11 +37,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarHistorias/Index"))
                     return RedirectToAction("Index", "Bienvenida");
+
                 ViewBag.UrlS3 = GetUrlS3();
                 ViewBag.UrlDetalleS3 = GetUrlDetalleS3();
                 model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID);
               
-                string HistAnchoAlto = ConfigurationManager.AppSettings["HistAnchoAlto"];
+                string HistAnchoAlto = CodigosTablaLogica(Constantes.DatosContenedorHistorias.HistAnchoAlto);
                 arrHistAnchoAlto = HistAnchoAlto.Split(',');
                 model.Ancho = arrHistAnchoAlto[0];
                 model.Alto = arrHistAnchoAlto[1];
@@ -50,8 +50,8 @@ namespace Portal.Consultoras.Web.Controllers
                 BEContenidoAppHistoria entidad;
                 using (var sv = new ServiceContenido.ContenidoServiceClient())
                 {
-                    
-                    entidad = sv.GetContenidoAppHistoria(userData.PaisID, Globals.CodigoHistoriasResumen);                    
+                    string CodigoHistoriasResumen = CodigosTablaLogica(Constantes.DatosContenedorHistorias.CodigoHistoriasResumen);
+                    entidad = sv.GetContenidoAppHistoria(userData.PaisID, CodigoHistoriasResumen);                    
 
                     model.IdContenido = entidad.IdContenido;
                     model.Codigo = entidad.Codigo;
@@ -83,12 +83,14 @@ namespace Portal.Consultoras.Web.Controllers
         private string GetUrlS3()
         {
             var paisIso = Util.GetPaisISO(userData.PaisID);
-            return ConfigCdn.GetUrlCdnAppConsultora(paisIso);
+            string MatrizAppConsultora = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
+            return ConfigCdn.GetUrlCdnAppConsultora(paisIso, MatrizAppConsultora);
         }
         private string GetUrlDetalleS3()
         {
             var paisIso = Util.GetPaisISO(userData.PaisID);
-            return ConfigCdn.GetUrlCdnAppConsultoraDetalle(paisIso);
+            string MatrizAppConsultora = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
+            return ConfigCdn.GetUrlCdnAppConsultoraDetalle(paisIso, MatrizAppConsultora);
         }
 
         [HttpPost]
@@ -107,7 +109,7 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.UrlMiniatura = beContenidoApp.UrlMiniatura;
                     if (form.NombreImagen != null)
                     {
-                        string histUrlMiniatura = ConfigurationManager.AppSettings["HistUrlMiniatura"];
+                        string histUrlMiniatura = CodigosTablaLogica(Constantes.DatosContenedorHistorias.HistUrlMiniatura);
                         entidad.UrlMiniatura = SaveFileS3(form.NombreImagen, true);
                         entidad.UrlMiniatura = histUrlMiniatura + entidad.UrlMiniatura;
                     }
@@ -227,7 +229,6 @@ namespace Portal.Consultoras.Web.Controllers
                     rows = from a in items
                            select new
                            {
-                               //id = a.IdContenidoDeta,
                                cell = new string[]
                                 {
                                     a.IdContenidoDeta.ToString(),
@@ -353,10 +354,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult GetDetalle(int Proc, int IdContenido)
         {
-            string HistAnchoAlto = ConfigurationManager.AppSettings["HistAnchoAltoDetalle"];
-           
-
-           string HistLimitDetMensaje1 = ConfigurationManager.AppSettings["HistLimitDetMensaje"];
+            string HistAnchoAlto = CodigosTablaLogica(Constantes.DatosContenedorHistorias.HistAnchoAltoDetalle);
 
             string[] arrHistAnchoAlto;
             arrHistAnchoAlto = HistAnchoAlto.Split(',');
@@ -375,9 +373,10 @@ namespace Portal.Consultoras.Web.Controllers
             BEContenidoAppHistoria entidad;
             using (var sv = new ServiceContenido.ContenidoServiceClient())
             {
-
-                entidad = sv.GetContenidoAppHistoria(userData.PaisID, Globals.CodigoHistoriasResumen);
-                model.LimitDetMensaje = string.Format(ConfigurationManager.AppSettings["HistLimitDetMensaje"], entidad.CantidadContenido);
+                string CodigoHistoriasResumen = CodigosTablaLogica(Constantes.DatosContenedorHistorias.CodigoHistoriasResumen);
+                string HistLimitDetMensaje = CodigosTablaLogica(Constantes.DatosContenedorHistorias.HistLimitDetMensaje);
+                entidad = sv.GetContenidoAppHistoria(userData.PaisID, CodigoHistoriasResumen);
+                model.LimitDetMensaje = string.Format(HistLimitDetMensaje, entidad.CantidadContenido);
             }
 
             return PartialView("Partials/MantenimientoDetalle", model);
@@ -440,9 +439,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (resizeImagenApp)
             {
-                string codeHist = ConfigurationManager.AppSettings["CodigoHist"].ToString();
-                var urlImagen = ConfigS3.GetUrlFileHistDetalle(userData.CodigoISO, model.RutaContenido);               
-                new Providers.RenderImgProvider().ImagenesResizeProcesoAppHistDetalle(urlImagen, userData.CodigoISO, userData.PaisID, codeHist);
+                string MatrizAppConsultora = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
+                string codeHist = CodigosTablaLogica(Constantes.DatosContenedorHistorias.CodigoHist);
+                var urlImagen = ConfigS3.GetUrlFileHistDetalle(userData.CodigoISO, model.RutaContenido, MatrizAppConsultora);               
+                new Providers.RenderImgProvider().ImagenesResizeProcesoAppHistDetalle(urlImagen, userData.CodigoISO, userData.PaisID, codeHist, MatrizAppConsultora);
             }
 
             return model;
@@ -456,7 +456,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var path = Path.Combine(Globals.RutaTemporales, imagenEstrategia);
 
-            string cadena = Globals.UrlMatrizAppConsultora;
+            string cadena = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
             string[] arrCadena;
             arrCadena = cadena.Split(',');
             var carpetaPais = string.Format("{0}/{1}/{2}/{3}", arrCadena[0], userData.CodigoISO, arrCadena[1], arrCadena[2]);
@@ -476,7 +476,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var path = Path.Combine(Globals.RutaTemporales, imagenEstrategia);
 
-            string cadena = Globals.UrlMatrizAppConsultora;
+            string cadena = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
             string[] arrCadena;
             arrCadena = cadena.Split(',');
             var carpetaPais = string.Format("{0}/{1}/{2}", arrCadena[0], userData.CodigoISO, arrCadena[1]);
@@ -519,7 +519,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             AdministrarHistorialDetaListModel model = new AdministrarHistorialDetaListModel();
 
-            string HistAnchoAlto = ConfigurationManager.AppSettings["HistAnchoAltoDetalle"];
+            string HistAnchoAlto = CodigosTablaLogica(Constantes.DatosContenedorHistorias.HistAnchoAltoDetalle);
             string[] arrHistAnchoAlto;
             arrHistAnchoAlto = HistAnchoAlto.Split(',');
             model.Ancho = arrHistAnchoAlto[0];
@@ -546,6 +546,16 @@ namespace Portal.Consultoras.Web.Controllers
                 model = new AdministrarHistorialDetaListModel();
             }
             return PartialView("Partials/MantenimientoDetalle", model);
+        }
+
+        private string CodigosTablaLogica(string codigo)
+        { 
+            var LogicaDatosHistoria = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.DatosContenedorHistorias.HistoriasLogicaId);
+          
+            LogicaDatosHistoria = LogicaDatosHistoria.Where(x => x.Codigo.StartsWith(codigo)).ToList();
+            string Description = LogicaDatosHistoria[0].Descripcion;
+
+            return Description;
         }
     }
 }
