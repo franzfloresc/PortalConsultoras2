@@ -67,6 +67,8 @@ namespace Portal.Consultoras.Entities.Pedido
         [DataMember]
         public BEInputReservaProl ReservaProl { get; set; }
 
+        public bool Reservado { get; set; }
+
         public object Clone()
         {
             return this.MemberwiseClone();
