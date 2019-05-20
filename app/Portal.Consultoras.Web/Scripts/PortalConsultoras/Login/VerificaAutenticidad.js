@@ -3,6 +3,9 @@ var nroIntentosSms = 0;
 var t;
 var tipo = 0;
 var numeroNuevo = "";
+var counterElement = $('#time_counter');
+
+
 
 $(document).ready(function () {
     debugger;
@@ -168,6 +171,48 @@ function LabelActivo() {
         $(this).removeClass('campo_con_datos');
     }
 }
+
+function continuar() {
+    var nuevoCelular = numeroNuevo;
+
+    //var result = me.Funciones.ValidarCelular(nuevoCelular);
+    //if (!result.Success) {
+    //    me.Funciones.ShowError(result.Messages.join('<br>'));
+    //    return;
+    //}
+
+    //if (document.getElementById('chkAceptoContratoMD').checked == false) {
+    //    alert('Debe aceptar los términos y condiciones para poder actualizar sus datos');
+    //    return false;
+    //}
+
+    //localData.CelularNuevo = nuevoCelular;
+    me.Funciones.ResetSmsCode();
+    AbrirLoad();
+    //INI HD-3897
+    var successEnviarSmsCode = function (r) {
+        $('#celularNuevo').text(nuevoCelular);
+        CerrarLoad();
+        if (!r.Success) {
+            me.Funciones.ShowError(r.Message);
+            me.Funciones.activaCheck(false);
+            return;
+        }
+        me.Elements.getCelularNuevoText().text(nuevoCelular);
+        me.Funciones.NavigatePanel(1);
+        me.Funciones.ShowError('');
+        me.Funciones.InitCounter();
+    };
+
+    me.Services.enviarSmsCode(nuevoCelular)
+        .then(successEnviarSmsCode, function (er) {
+            CerrarLoad();
+            me.Funciones.HandleError(er);
+        });
+
+    //FIN HD-3897
+}
+
 
 function ProcesaEnvioSMS() {
     Limpiar();
@@ -403,6 +448,33 @@ function TiempoSMS(tempo) {
 /*------------------ HD-3916 ---------------------*/
 /*---------PE- Actualizacion de datos de forma obligatoria para PEG y que sea bloqueante-----------------*/
 
+function stepCounter(segs) {
+    clearInterval(interval);
+
+    localData.Expired = false;
+    var now = 0;
+    interval = setInterval(function () {
+
+        now += cantMsInterval;
+        var distance = segs - now;
+
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        counterElement.text(format2(minutes) + ":" + format2(seconds));
+
+        if (distance < 0) {
+            localData.Expired = true;
+            clearInterval(interval);
+            counterElement.text("00:00");
+            resetSmsCode();
+        }
+    }, cantMsInterval);
+}
+function counter() {
+    counterElement.text('03:00');
+    stepCounter(3 * 60000);
+}
+
 function EditarSms() {
     tipo = 2;
     nroIntentosSms = nroIntentosSms + 1;
@@ -433,6 +505,8 @@ function CargarValidarNumero() {
     var celularValidar = $(divPadrevalidar).find('#txtNumeroParaValidar');
     $(celularValidar).text(numeroNuevo);
 }
+
+
 
 
 
