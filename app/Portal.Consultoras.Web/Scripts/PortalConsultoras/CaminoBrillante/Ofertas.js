@@ -333,11 +333,9 @@ function ObtenerFiltros() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
-                debugger
                 if (data.lista != null) {
                     var _filtros = data.lista.DatosFiltros;
                     var _orden = data.lista.DatosOrden;
-                    debugger
                     $.each(_filtros, function (index, value) {
                         $("#ddlfiltros").append('<option value="' + value.Codigo + '">' + value.Descripcion + '</option>');
                     });
