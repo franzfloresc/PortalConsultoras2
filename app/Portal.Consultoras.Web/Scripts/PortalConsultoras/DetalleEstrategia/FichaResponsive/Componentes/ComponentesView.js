@@ -1,4 +1,4 @@
-﻿var ComponenteView = function () {
+﻿var ComponentesView = function () {
     var _elements = {
         componentes: {
             templateId: "#componente-estrategia-template",
@@ -6,13 +6,13 @@
         }
     };
 
-    var _renderComponente = function (componente) {
+    var _renderComponentes = function (componente) {
         SetHandlebars(_elements.componentes.templateId, componente, _elements.componentes.id);
 
         return true;
     };
 
     return {
-        renderComponente: _renderComponente,
+        renderComponente: _renderComponentes,
     };
 };

@@ -12,9 +12,9 @@ var estrategiaPresenter = EstrategiaPresenter({
     fichaResponsiveEvents: fichaResponsiveEvents
 });
 
-var componenteView = ComponenteView();
-var componentePresenter = ComponentePresenter({
-    componenteView: componenteView
+var componentesView = ComponentesView();
+var componentesPresenter = ComponentesPresenter({
+    componentesView: componentesView
 });
 
 $(document).ready(function () {
@@ -113,5 +113,5 @@ $(document).ready(function () {
     $("#data-estrategia").data("estrategia", detalleEstrategia.getEstrategia(params));
     var estrategia = $("#data-estrategia").data("estrategia");
     estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
-    componentePresenter.onEstrategiaModelLoaded(estrategia);
+    componentesPresenter.onEstrategiaModelLoaded(estrategia);
 });
