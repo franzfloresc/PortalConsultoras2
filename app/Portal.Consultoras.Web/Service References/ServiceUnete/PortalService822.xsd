@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" />
+  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCFPPR/PortalService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" />
   <xs:complexType name="TablaLogicaDatos">
     <xs:sequence>
       <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
@@ -217,19 +217,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UbigeoTemplate" nillable="true" type="tns:UbigeoTemplate" />
-  <xs:complexType name="UbigeoSV">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:UbigeoTemplate">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="BARRIO_COLONIA_URBANIZACION_REFERENCIAS" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="CANTON_CENTRO_POBLADO" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="DEPARTAMENTO" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="MUNICIPIO" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="UbigeoSV" nillable="true" type="tns:UbigeoSV" />
   <xs:complexType name="UbigeoGT">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:UbigeoTemplate">
@@ -257,6 +244,19 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="UbigeoPA" nillable="true" type="tns:UbigeoPA" />
+  <xs:complexType name="UbigeoSV">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:UbigeoTemplate">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BARRIO_COLONIA_URBANIZACION_REFERENCIAS" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CANTON_CENTRO_POBLADO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DEPARTAMENTO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MUNICIPIO" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UbigeoSV" nillable="true" type="tns:UbigeoSV" />
   <xs:complexType name="ArrayOfUbigeoTemplate">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="UbigeoTemplate" nillable="true" type="tns:UbigeoTemplate" />
@@ -365,11 +365,76 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="EventoSolicitudPostulante" nillable="true" type="tns:EventoSolicitudPostulante" />
+  <xs:complexType name="PagoDeKitLog">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CampaniaId" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoCIP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoError" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoKit" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cuotas" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CuvCatalogo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CuvCatalogo2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CuvCatalogo3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Declarador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstadoSsicc" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Estatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstatusDetalle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstatusId" type="xs:int" />
+      <xs:element minOccurs="0" name="FechaAprobada" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaCreacion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaEnvioSicc" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaExpiracion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaModificacion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaNacimiento" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaUltimaActualizacion" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaVencimiento" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FleteMonto" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="FletePagador" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FleteTipo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InstitucionFinanciera" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IssuerId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeError" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MetodoPagoId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MonedaId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PagadorId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PagadorTipo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PagoDeKitLogId" type="xs:int" />
+      <xs:element minOccurs="0" name="PagoId" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="SolicitudPostulanteID" type="xs:int" />
+      <xs:element minOccurs="0" name="TarjetaExpiraAnio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TarjetaExpiraMes" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TarjetaId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TarjetaNumero" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TarjetaTitular" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TarjetaTitularIdentificacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TarjetaTitularIdentificacionTipo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoOperacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoPagoId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoTarjeta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TokenCard" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TransaccionMontoPagadoTotal" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TransaccionMontoPago" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TransaccionMontoRecibido" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="UsuarioCreacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PagoDeKitLog" nillable="true" type="tns:PagoDeKitLog" />
   <xs:complexType name="KitInicio">
     <xs:sequence>
       <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="BeneficiosKitInicio" nillable="true" type="q1:ArrayOfParametroUneteBE" />
       <xs:element minOccurs="0" name="ColorClass" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Cuv" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CuvCatalogo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CuvCatalogo2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CuvCatalogo3" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="DetallesKitInicio" nillable="true" type="q2:ArrayOfParametroUneteBE" />
       <xs:element minOccurs="0" name="IdParametroUnete" type="xs:int" />

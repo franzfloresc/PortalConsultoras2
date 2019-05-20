@@ -450,7 +450,7 @@ var CarruselModule = (function (config) {
                 //centerMode: true,
                 responsive: [
                     {
-                        breakpoint: 480,
+                        breakpoint: 720,
                         settings: {
                             slidesToShow: 1
                         }
@@ -495,15 +495,12 @@ var CarruselModule = (function (config) {
         if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
             titulo = 'SET DONDE ENCUENTRAS EL PRODUCTO';
         }
-        else if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.ShowRoom) {
+        else if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.ShowRoom || _config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia) {
             if (_config.cantidadPack > 1) {
-                titulo = 'Packs parecidos que contienen más productos';
+                titulo = 'Packs parecidos con más productos';
             } else {
                 titulo = 'Packs que Contienen ' + _config.tituloCarrusel;
             }
-        }
-        else if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia) {
-            titulo = 'VER MÁS OFERTAS ¡SOLO HOY!';
         }
 
         $(_elementos.idTituloCarrusel).html(titulo);

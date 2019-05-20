@@ -271,3 +271,15 @@
 #carrusel .slick-track, #carrusel_tonos .slick-track, #carrusel_odd .slick-track {
     margin: 0 auto;
 }
+
+
+.titulo_carrusel {
+    font-size: 18px;
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-left: 20px;
+}
+
+

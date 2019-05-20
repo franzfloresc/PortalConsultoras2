@@ -833,6 +833,79 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
     }
 }
 
+function AbrirMensaje25seg(mensaje, titulo, fnAceptar, tipoIcono) {
+    try {
+
+        mensaje = $.trim(mensaje);
+        if (mensaje == "") {
+            CerrarLoad();
+            return false;
+        }
+        //INI HD-3693
+        var msjBloq = validarpopupBloqueada(mensaje);
+        if (msjBloq != "") {
+            CerrarLoad();
+            alert_msg_bloqueadas(msjBloq);
+            return true;
+        }
+        //FIN HD-3693
+        titulo = titulo || "MENSAJE";
+        var CONS_TIPO_ICONO = { ALERTA: 1, CHECK: 2 };
+        var isUrlMobile = isMobile();
+        if (isUrlMobile > 0) {
+            $('.icono_alerta').hide();
+            if (tipoIcono == CONS_TIPO_ICONO.ALERTA) {
+                $('.icono_alerta.exclamacion_icono_mobile').show();
+            }
+            if (tipoIcono == CONS_TIPO_ICONO.CHECK) {
+                $('.icono_alerta.check_icono_mobile').show();
+            }
+            if (tipoIcono == undefined || tipoIcono == null) {
+                $('.icono_alerta.exclamacion_icono_mobile').show();
+            }
+            $('#mensajeInformacionvalidado').html(mensaje);
+            $('#popupInformacionValidado').show();
+            $('#popupInformacionValidado #bTagTitulo').html(titulo);
+
+            if ($.isFunction(fnAceptar)) {
+                var botonesCerrar = $('#popupInformacionValidado .btn_ok_mobile,.cerrar_popMobile');
+                botonesCerrar.off('click');
+                botonesCerrar.on('click', fnAceptar);
+            }
+        }
+        else {
+            
+            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
+            showDialogSinScroll("alertDialogMensajes25seg");
+
+            $('.ui-dialog .ui-button').off('click');
+            $('.ui-dialog .ui-icon-closethick').off('click');
+
+            $('.ui-dialog .ui-button').on('click', function (e) {
+                HideDialog("alertDialogMensajes25seg");
+                if ($.isFunction(fnAceptar)) fnAceptar(e);
+            });
+
+            $('.ui-dialog .ui-icon-closethick').on('click', function (e) {
+                HideDialog("alertDialogMensajes25seg");
+                if ($.isFunction(fnAceptar)) fnAceptar(e);
+            });
+
+            $('.ui-dialog .ui-button').focus();
+        }
+        CerrarLoad();
+        //Ocultar el scroll 
+        $("body").css("overflow", "hidden");
+
+        setTimeout(function () {
+            HideDialog("alertDialogMensajes25seg");            
+        }, 2500);
+        
+    } catch (e) {
+
+    }
+}
+
 function compare_dates(fecha, fecha2) {
 
     var xMonth = fecha.substring(3, 5);
@@ -1061,6 +1134,7 @@ function paginadorAccionGenerico(obj) {
 }
 
 function ActualizarGanancia(data) {
+    debugger;
     data = data || {};
     data.CantidadProductos = data.CantidadProductos || "";
     data.TotalPedidoStr = data.TotalPedidoStr || "";

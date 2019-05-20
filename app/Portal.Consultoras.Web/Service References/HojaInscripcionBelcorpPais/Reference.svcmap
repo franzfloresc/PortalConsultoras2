@@ -21,15 +21,15 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCFPPR/BelcorpPaisService.svc?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="BelcorpPaisService.xsd" MetadataType="Schema" ID="425c1f32-4bff-4d0b-8b58-71875fbb357b" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd1" />
-    <MetadataFile FileName="BelcorpPaisService1.xsd" MetadataType="Schema" ID="cd5e2d4d-0987-43c1-a262-62056fe10ba5" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd0" />
-    <MetadataFile FileName="BelcorpPaisService2.xsd" MetadataType="Schema" ID="0bf824a4-7774-4ce3-884b-0783fee5bb11" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd3" />
-    <MetadataFile FileName="BelcorpPaisService3.xsd" MetadataType="Schema" ID="166f90c8-2f09-4db3-b35f-35a200f931c2" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd2" />
-    <MetadataFile FileName="BelcorpPaisService.wsdl" MetadataType="Wsdl" ID="3fe44c29-dbfb-4e8c-aaa8-dff94ff7135b" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?wsdl" />
-    <MetadataFile FileName="BelcorpPaisService4.xsd" MetadataType="Schema" ID="fa539029-2027-4d6a-bdee-73dcccd9d6e6" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd4" />
+    <MetadataFile FileName="BelcorpPaisService5.xsd" MetadataType="Schema" ID="cbd93d64-5b3b-4653-a220-c32c4b2adb24" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCFPPR/BelcorpPaisService.svc?xsd=xsd2" />
+    <MetadataFile FileName="BelcorpPaisService51.xsd" MetadataType="Schema" ID="3d65cae6-adcf-41e8-a77e-51a6743ae761" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCFPPR/BelcorpPaisService.svc?xsd=xsd3" />
+    <MetadataFile FileName="BelcorpPaisService52.xsd" MetadataType="Schema" ID="e88a60d6-cd7b-4d8c-9157-0e8d77434352" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCFPPR/BelcorpPaisService.svc?xsd=xsd0" />
+    <MetadataFile FileName="BelcorpPaisService53.xsd" MetadataType="Schema" ID="783c8af1-07ff-424a-908e-3df256a9ff8e" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCFPPR/BelcorpPaisService.svc?xsd=xsd1" />
+    <MetadataFile FileName="BelcorpPaisService54.xsd" MetadataType="Schema" ID="9778c5d2-8b81-45cc-8206-d3a45aabad05" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCFPPR/BelcorpPaisService.svc?xsd=xsd4" />
+    <MetadataFile FileName="BelcorpPaisService1.wsdl" MetadataType="Wsdl" ID="e5cd0ef8-0e19-4fe2-8f0e-cb92ffeb41cd" SourceId="1" SourceUrl="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCFPPR/BelcorpPaisService.svc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
