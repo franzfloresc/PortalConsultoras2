@@ -1,4 +1,6 @@
 ﻿
+/* ESTILOS MARCA PAÍS */
+
 .default-color {
     color:  #e81c36;
 }
@@ -14,6 +16,87 @@
 .default-border-hover:hover {
     border-color: #e81c36 !important;
 }
+
+.multimarca-background-color {
+    background-color: #b9007e !important;
+}
+
+.multimarca-border-color {
+    border-color: #b9007e;
+}
+
+.color__multimarca {
+    color: #B9007E;
+}
+
+.color__gray__multimarca {
+    color: #808080;
+}
+
+.background__color__gray__multimarca {
+    background-color: #808080;
+}
+
+/* FIN - ESTILOS MARCA PAÍS */
+
+/* HELPERS CSS */
+
+.d-block {
+    display: block;
+}
+
+.d-inline-block {
+    display: inline-block;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.center-block{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.text-left{
+    text-align:left;
+}
+
+.text-right{
+    text-align:right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.text-thin{
+    font-weight:300;
+}
+
+.text-regular{
+    font-weight:400;
+}
+
+.text-bold {
+    font-weight: 700;
+}
+
+.text-black{
+    font-weight:900;
+}
+
+.border-radius-4 {
+    border-radius: 4px;
+}
+
+/* FIN - HELPERS CSS */
+
+/* ESTILOS GENERALES UI */
 
 .campo_deshabilitado {
     border: 1px solid rgba(128, 128, 128, 0.5) !important;
@@ -31,26 +114,6 @@
     pointer-events:none;
     cursor:not-allowed!important;
     color:#909094!important;
-}
-.multimarca-background-color {
-    background-color: #b9007e;
-}
-
-.bg__popups__default {
-    background-color: rgba(0,0,0,.8);
-}
-
-
-.border-radius-4{
-    border-radius:4px;
-}
-
-.multimarca-background-color {
-    background-color: #b9007e!important;
-}
-
-.multimarca-border-color {
-    border-color: #b9007e;
 }
 
 .bg__popups__default {
@@ -73,6 +136,8 @@
         background-color: #000;
         color: #FFF;
     }
+
+/* FIN - ESTILOS GENERALES UI */
 
 /* POPUP GENERAL (ACCIONES ACEPTAR Y CANCELAR) */
 

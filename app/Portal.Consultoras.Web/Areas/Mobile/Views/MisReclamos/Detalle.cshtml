@@ -51,10 +51,10 @@
         </div>
 
         <div class="detalle_solicitud_cdr">
-            <div class="titulo_detalle_solicitud_cdr tipografia_lato_bold">
+            <div class="text-bold titulo_detalle_solicitud_cdr">
                 Solicitud de Cambio y devolución
             </div>
-            <div class="info_detalle_cdr tipografia_lato_light">
+            <div class="text-thin info_detalle_cdr">
                 <div class="info_fecha_solicitud">
                     Fecha: <span class="tipografia_lato_regular">10/10/2016</span>
                 </div>
@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="detalle_solicitud_listado">
-                <div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
+                <div class="text-bold detalle_tipo_solicitud_titulo">
                     Solicitud de cambio
                 </div>
                 <div class="detalle_tipo_solicitud">
@@ -74,7 +74,7 @@
                         <span class="detalle_cod_producto tipografia_lato_regular">
                             00411
                         </span>
-                        <span class="detalle_nom_producto tipografia_lato_bold">
+                        <span class="text-bold detalle_nom_producto">
                             Berrylicious shampoo rojo 375ml.
                         </span>
                         <span class="detalle_cantidad_producto tipografia_lato_regular">
@@ -85,13 +85,13 @@
                         </span>
                     </div>
                     <div class="detalle_cdr_solucion">
-                        <span class="detalle_cdr_solucion_titulo color_marca tipografia_lato_bold">
+                        <span class="text-bold detalle_cdr_solucion_titulo color_marca">
                             Cambiar por:
                         </span>
                         <span class="detalle_cod_producto tipografia_lato_regular">
                             98765
                         </span>
-                        <span class="detalle_nom_producto tipografia_lato_bold">
+                        <span class="text-bold detalle_nom_producto">
                             Máscara Full Size Negro.
                         </span>
                         <span class="detalle_cantidad_producto tipografia_lato_regular">
@@ -102,7 +102,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
+                <div class="text-bold detalle_tipo_solicitud_titulo">
                     Solicitud de reenvío
                 </div>
                 <div class="detalle_tipo_solicitud">
@@ -110,7 +110,7 @@
                         <span class="detalle_cod_producto tipografia_lato_regular">
                             00411
                         </span>
-                        <span class="detalle_nom_producto tipografia_lato_bold">
+                        <span class="text-bold detalle_nom_producto">
                             Berrylicious shampoo rojo 375ml.
                         </span>
                         <span class="detalle_cantidad_producto tipografia_lato_regular">
@@ -118,7 +118,7 @@
                         </span>
                     </div>
                     <div class="detalle_cdr_solucion">
-                        <span class="detalle_cdr_solucion_titulo tipografia_lato_bold color_marca">
+                        <span class="text-bold detalle_cdr_solucion_titulo color_marca">
                             Reenviar:
                         </span>
                         <span class="detalle_cdr_solucion_titulo tipografia_lato_regular">
@@ -126,7 +126,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
+                <div class="text-bold detalle_tipo_solicitud_titulo">
                     Solicitud de devolución
                 </div>
                 <div class="detalle_tipo_solicitud">
@@ -134,7 +134,7 @@
                         <span class="detalle_cod_producto tipografia_lato_regular">
                             00411
                         </span>
-                        <span class="detalle_nom_producto tipografia_lato_bold">
+                        <span class="text-bold detalle_nom_producto">
                             Berrylicious shampoo rojo 375ml.
                         </span>
                         <span class="detalle_cantidad_producto tipografia_lato_regular">
@@ -142,7 +142,7 @@
                         </span>
                     </div>
                     <div class="detalle_cdr_solucion">
-                        <span class="detalle_cdr_solucion_titulo tipografia_lato_bold color_marca">
+                        <span class="text-bold detalle_cdr_solucion_titulo color_marca">
                             Devolución:
                         </span>
                         <span class="detalle_cdr_monto_devolucion tipografia_lato_regular">
@@ -165,19 +165,19 @@ else if (ViewBag.Origen == "1")
 {
     <div class="datos_solicitud_cdr_consulta tipografia_lato bloqueCDRDetalle">
         <div class="wrapper_resumen_mobile">
-            <div class="datos_solicitud_cdr_titulo tipografia_lato_bold">
+            <div class="text-bold datos_solicitud_cdr_titulo">
                 Solicitud de cambios y devoluciones
             </div>
             <div class="dato_fecha_solicitud_cdr">
-                <span class="tipografia_lato_light">Fecha</span>
+                <span class="text-thin">Fecha</span>
                 <span class="tipografia_lato_regular">@ViewBag.FormatoFechaCulminado</span>
             </div>
             <div class="dato_num_solicitud_cdr">
-                <span class="tipografia_lato_light">Solicitud</span>
+                <span class="text-thin">Solicitud</span>
                 <span class="tipografia_lato_regular">Nº @ViewBag.CDR_ID</span>
             </div>
             <div class="dato_campania_solicitud_cdr">
-                <span class="tipografia_lato_light">Campaña</span>
+                <span class="text-thin">Campaña</span>
                 <span class="tipografia_lato_regular">@ViewBag.FormatoCampania</span>
             </div>
             <div class="estado_productos_cdr">
@@ -190,19 +190,19 @@ else if (ViewBag.Origen == "1")
         <div id="MiDetalleCDR" class="detalle_solicitud_listado">
             @{ foreach (var item in ViewBag.ListaDetalle)
                 {
-                    <div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
+                    <div class="text-bold detalle_tipo_solicitud_titulo">
                         <div>
                             @item.SolucionSolicitada
                         </div>
-                        <div class="estado_solic_cdr tipografia_lato_bold">
+                        <div class="text-bold estado_solic_cdr">
                             @if (item.Estado == 4)
-                            {<span class="tipografia_lato_bold estado_registro_solicitud_cdr estado_rechazado">RECHAZADO</span>}
+                            {<span class="text-bold estado_registro_solicitud_cdr estado_rechazado">RECHAZADO</span>}
                             @if (item.Estado == 3)
-                            {<span class="tipografia_lato_bold estado_registro_solicitud_cdr estado_aprobado">APROBADO</span>}
+                            {<span class="text-bold estado_registro_solicitud_cdr estado_aprobado">APROBADO</span>}
                             @if (item.Estado == 2)
-                            {<span class="tipografia_lato_bold estado_registro_solicitud_cdr estado_en_evaluacion">EN EVALUACION</span>}
+                            {<span class="text-bold estado_registro_solicitud_cdr estado_en_evaluacion">EN EVALUACION</span>}
                             @if (item.Estado == 1)
-                            {<span class="tipografia_lato_bold estado_registro_solicitud_cdr estado_pendiente">PENDIENTE</span>}
+                            {<span class="text-bold estado_registro_solicitud_cdr estado_pendiente">PENDIENTE</span>}
                         </div>
                     </div>
                     <div class="detalle_tipo_solicitud">
@@ -211,40 +211,40 @@ else if (ViewBag.Origen == "1")
                             {
                                 <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div>
                             }
-                            <span class="detalle_cod_producto tipografia_lato_regular">
+                            <span class="detalle_cod_producto">
                                 @item.CUV
                             </span>
-                            <span class="detalle_nom_producto tipografia_lato_bold">
+                            <span class="text-bold detalle_nom_producto">
                                 @item.Descripcion
                             </span>
-                            <span class="detalle_cantidad_producto tipografia_lato_regular">
+                            <span class="detalle_cantidad_producto">
                                 x @item.Cantidad unidades
                             </span>
-                            <span class="detalle_precio_producto tipografia_lato_regular">
+                            <span class="detalle_precio_producto">
                                 @ViewBag.Simbolo @item.FormatoPrecio1
                             </span>
                         </div>
                         <div class="detalle_cdr_solucion">
-                            <span class="detalle_cdr_solucion_titulo tipografia_lato_bold">
-                                @item.Solicitud :
-                            </span>
                             @if (item.CodigoOperacion.Equals("T"))
                             {
+                                <div class="text-bold detalle_cdr_solucion_titulo detalle_cdr_solucion_titulo_trueque">
+                                    @item.Solicitud :
+                                </div>
                                 if (item.DetalleReemplazo.Length > 0)
                                 {
                                     foreach (var el in item.DetalleReemplazo)
                                     {
-                                        <div>
-                                            <span class="detalle_cod_producto tipografia_lato_regular">
+                                        <div class="detalle_cod_producto_trueque">
+                                            <span class="detalle_cod_producto">
                                                 @el.CUV
                                             </span>
-                                            <span class="detalle_nom_producto tipografia_lato_bold">
+                                            <span class="text-bold detalle_nom_producto">
                                                 @el.Descripcion
                                             </span>
-                                            <span class="detalle_cantidad_producto tipografia_lato_regular">
+                                            <span class="detalle_cantidad_producto">
                                                 x @el.Cantidad unidades
                                             </span>
-                                            <span class="detalle_precio_producto tipografia_lato_regular">
+                                            <span class="detalle_precio_producto">
                                                 @el.Simbolo @el.PrecioFormato
                                             </span>
                                         </div>
@@ -252,22 +252,27 @@ else if (ViewBag.Origen == "1")
                                 }
                                 else
                                 {
-                                    <span class="detalle_cod_producto tipografia_lato_regular">
+                                    <span class="detalle_cod_producto">
                                         @item.CUV2
                                     </span>
-                                    <span class="detalle_nom_producto tipografia_lato_bold">
+                                    <span class="text-bold detalle_nom_producto">
                                         @item.Descripcion2
                                     </span>
-                                    <span class="detalle_cantidad_producto tipografia_lato_regular">
+                                    <soan class="detalle_cantidad_producto">
                                         x @item.Cantidad2 unidades
-                                    </span>
-                                    <span class="detalle_precio_producto tipografia_lato_regular">
+                                    </soan>
+                                    <span class="detalle_precio_producto">
                                         @ViewBag.Simbolo @item.FormatoPrecio2
                                     </span>
                                 }
 
                             }
-
+                            else
+                            {
+                                <div class="text-bold detalle_cdr_solucion_titulo">
+                                    @item.Solicitud
+                                </div>
+                            }
                         </div>
                     </div>
                 }
