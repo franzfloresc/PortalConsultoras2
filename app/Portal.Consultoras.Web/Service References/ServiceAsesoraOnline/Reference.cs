@@ -221,6 +221,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private string AnoCampaniaIngresoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AutorizaPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string BanderaImagenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -606,6 +609,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NivelField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NivelCaminoBrillanteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NivelEducacionField;
@@ -996,6 +1002,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((object.ReferenceEquals(this.AnoCampaniaIngresoField, value) != true)) {
                     this.AnoCampaniaIngresoField = value;
                     this.RaisePropertyChanged("AnoCampaniaIngreso");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AutorizaPedido {
+            get {
+                return this.AutorizaPedidoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AutorizaPedidoField, value) != true)) {
+                    this.AutorizaPedidoField = value;
+                    this.RaisePropertyChanged("AutorizaPedido");
                 }
             }
         }
@@ -2673,6 +2692,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((object.ReferenceEquals(this.NivelField, value) != true)) {
                     this.NivelField = value;
                     this.RaisePropertyChanged("Nivel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NivelCaminoBrillante {
+            get {
+                return this.NivelCaminoBrillanteField;
+            }
+            set {
+                if ((this.NivelCaminoBrillanteField.Equals(value) != true)) {
+                    this.NivelCaminoBrillanteField = value;
+                    this.RaisePropertyChanged("NivelCaminoBrillante");
                 }
             }
         }
