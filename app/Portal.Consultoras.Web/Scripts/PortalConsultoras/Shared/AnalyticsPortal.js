@@ -414,7 +414,7 @@ var AnalyticsPortalModule = (function () {
 
     var marcarRemoveFromCart = function (data, cantidad) {
         try {
-            codigoOrigen = data.data.OrigenPedidoWeb;
+            var codigoOrigen = data.data.OrigenPedidoWeb;
             var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
             dataLayer.push({
                 'event': _evento.virtualRemoveEvent,
@@ -449,7 +449,14 @@ var AnalyticsPortalModule = (function () {
             $.each(data, function (index) {
                 var item = data[index];
                 var product = {
-                    "id": item.CUV, "name": item.DescripcionProd, "price": item.ImporteTotal, "brand": item.DescripcionLarga, category: _texto.notavaliable, variant: _texto.estandar, quantity: item.Cantidad, 'ListaProducto': AnalyticsPortalModule.GetContenedorByOrigenPedido(null, item.OrigenPedidoWeb) + " - " + AnalyticsPortalModule.GetPalancaByOrigenPedido(item.OrigenPedidoWeb) + " - " + _constantes.campania + item.CampaniaID
+                    'id': item.CUV,
+                    'name': item.DescripcionProd,
+                    'price': item.ImporteTotal,
+                    'brand': item.DescripcionLarga,
+                    'category': _texto.notavaliable,
+                    'variant': _texto.estandar,
+                    'quantity': item.Cantidad,
+                    'ListaProducto': AnalyticsPortalModule.GetContenedorByOrigenPedido(null, item.OrigenPedidoWeb) + " - " + AnalyticsPortalModule.GetPalancaByOrigenPedido(item.OrigenPedidoWeb) + " - " + _constantes.campania + item.CampaniaID
                 };
                 products.push(product);
             });
@@ -506,6 +513,40 @@ var AnalyticsPortalModule = (function () {
     // Ini - Analytics Evento Add To Cart
     ////////////////////////////////////////////////////////////////////////////////////////
 
+    var marcarAddToCart = function (producto, textoList) {
+
+        try {
+
+            producto = producto || {};
+            lista = lista || "";
+
+            dataLayer.push({
+                'event': _evento.addToCart,
+                'ecommerce': {
+                    'currencyCode': _getCurrencyCodes(),
+                    'add': {
+                        'actionField': { 'list': textoList },
+                        'products': [{
+                            'name': producto.DescripcionCompleta,
+                            'id': producto.CUV2 || producto.CUV,
+                            'price': producto.PrecioVenta || producto.PrecioString,
+                            'brand': producto.DescripcionMarca || _getMarca(producto.MarcaId || producto.MarcaID),
+                            'category': _texto.notavaliable,
+                            'variant': producto.Variant || _texto.estandar,
+                            'quantity': producto.Cantidad
+                        }]
+                    }
+                }
+            });
+
+            return true;
+        } catch (e) {
+            console.log("marcar Add To Cart - " + _texto.excepcion, e);
+        }
+
+        return false;
+    }
+
     var marcaAnadirCarritoBuscador = function (model, origen, campoBuscar) {
         try {
             var desplegable = "";
@@ -517,25 +558,12 @@ var AnalyticsPortalModule = (function () {
 
             if (model.MaterialGanancia || model.Palanca == 'Ganadoras') palanca = _texto.palancaLasMasGandoras;
 
+            model.Variant = campoBuscar;
+
             var lista = "Buscador - " + palanca + " - " + origen + desplegable;
-            dataLayer.push({
-                'event': _evento.addToCart,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'add': {
-                        'actionField': { 'list': lista },
-                        'products': [{
-                            'name': model.DescripcionCompleta,
-                            'id': model.CUV,
-                            'price': parseFloat(model.Precio).toFixed(2).toString(),
-                            'brand': _getMarca(model.MarcaId),
-                            'category': _texto.notavaliable,
-                            'variant': campoBuscar,
-                            'quantity': model.Cantidad
-                        }]
-                    }
-                }
-            });
+
+            marcarAddToCart(model, lista);
+
         } catch (e) {
             console.error(e);
         }
@@ -544,33 +572,16 @@ var AnalyticsPortalModule = (function () {
     var marcaAnadirCarritoRecomendaciones = function (divPadre, valueJSON) {
         try {
             var model = JSON.parse($(divPadre).find(valueJSON).val());
-            var cantidad = $(divPadre).find("[data-input='cantidad']").val();
-            var agregado = $(divPadre).find(".etiqueta_buscador_producto");
-            model.Cantidad = cantidad;
-
+            model.Cantidad = $(divPadre).find("[data-input='cantidad']").val
             var lista = "Pedido - Ofertas Relacionadas";
-            dataLayer.push({
-                'event': _evento.addToCart,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'add': {
-                        'actionField': { 'list': lista },
-                        'products': [{
-                            'name': model.DescripcionCompleta,
-                            'id': model.CUV,
-                            'price': parseFloat(model.Precio).toFixed(2).toString(),
-                            'brand': _getMarca(model.MarcaId),
-                            'category': _texto.notavaliable,
-                            'variant': _texto.estandar,
-                            'quantity': model.Cantidad
-                        }]
-                    }
-                }
-            });
+
+            marcarAddToCart(model, lista);
+
         } catch (e) {
             console.error(e);
         }
     }
+
     var marcaAnadirCarritoHome = function (event, codigoOrigen, data) {
         try {
             if (_constantes.isTest)
@@ -579,26 +590,10 @@ var AnalyticsPortalModule = (function () {
             var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
             var producto = data;
 
-            list = "Home" + " - " + palanca;
+            var list = "Home" + " - " + palanca;
 
-            dataLayer.push({
-                'event': _evento.addToCart,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'add': {
-                        'actionField': { 'list': list },
-                        'products': [{
-                            'name': producto.DescripcionCompleta,
-                            'price': producto.PrecioVenta,
-                            'brand': producto.DescripcionMarca,
-                            'id': producto.CUV2,
-                            'category': _texto.notavaliable,
-                            'variant': _texto.estandar,
-                            'quantity': producto.Cantidad
-                        }]
-                    }
-                }
-            });
+            marcarAddToCart(producto, list);
+
         } catch (e) {
             console.log(_texto.excepcion + e);
         }
@@ -610,29 +605,10 @@ var AnalyticsPortalModule = (function () {
             if (_constantes.isTest)
                 alert("Marcación clic añadir al carrito.");
 
-            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
-            var producto = data;
+            var list = "Home - Oferta del Día";
 
-            list = "Home - Oferta del Día";
+            marcarAddToCart(data, list);
 
-            dataLayer.push({
-                'event': _evento.addToCart,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'add': {
-                        'actionField': { 'list': list },
-                        'products': [{
-                            'name': producto.DescripcionCompleta,
-                            'price': producto.PrecioVenta,
-                            'brand': producto.DescripcionMarca,
-                            'id': producto.CUV2,
-                            'category': _texto.notavaliable,
-                            'variant': _texto.estandar,
-                            'quantity': producto.Cantidad
-                        }]
-                    }
-                }
-            });
         } catch (e) {
             console.log(_texto.excepcion + e);
         }
@@ -645,33 +621,20 @@ var AnalyticsPortalModule = (function () {
                 alert("Marcación clic añadir al carrito.");
 
 
-            list = "Home" + " - " + "Liquidaciones Web";
+            var list = "Home" + " - " + "Liquidaciones Web";
 
-            dataLayer.push({
-                'event': _evento.addToCart,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'add': {
-                        'actionField': { 'list': list },
-                        'products': [{
-                            'name': data.descripcionProd,
-                            'price': data.PrecioUnidad,
-                            'brand': data.descripcionMarca,
-                            'id': data.CUV,
-                            'category': _texto.notavaliable,
-                            'variant': _texto.estandar,
-                            'quantity': data.Cantidad
-                        }]
-                    }
-                }
-            });
+            data.DescripcionCompleta = data.descripcionProd;
+            data.PrecioVenta = data.PrecioUnidad;
+            data.DescripcionMarca = data.descripcionMarca;
+
+            marcarAddToCart(data, list);
+
         } catch (e) {
             console.log(_texto.excepcion + e);
         }
 
     }
-
-
+    
     var marcaAnadirCarrito = function (event, codigoOrigen, data) {
 
         try {
@@ -702,24 +665,9 @@ var AnalyticsPortalModule = (function () {
             else
                 list = contenedor + " - " + palanca + " - " + _constantes.campania + producto.CampaniaID;
 
-            dataLayer.push({
-                'event': _evento.addToCart,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'add': {
-                        'actionField': { 'list': list },
-                        'products': [{
-                            'name': producto.DescripcionCompleta,
-                            'price': producto.PrecioVenta,
-                            'brand': producto.DescripcionMarca,
-                            'id': producto.CUV2,
-                            'category': _texto.notavaliable,
-                            'variant': _texto.estandar,
-                            'quantity': producto.Cantidad
-                        }]
-                    }
-                }
-            });
+
+            marcarAddToCart(producto, list);
+
         } catch (e) {
             console.log(_texto.excepcion + e);
         }
@@ -728,28 +676,8 @@ var AnalyticsPortalModule = (function () {
 
     function clickAddCartFicha(event, codigoOrigenPedido, estrategia) {
         try {
-
-            var producto = estrategia;
-
-            dataLayer.push({
-                'event': _evento.addToCart,
-                'ecommerce': {
-                    'currencyCode': _getCurrencyCodes(),
-                    'add': {
-                        'actionField': { 'list': 'Ficha de Producto – Las Más Ganadoras' },
-                        'products': [{
-                            'name': producto.DescripcionCompleta,
-                            'price': producto.PrecioVenta,
-                            'brand': producto.DescripcionMarca,
-                            'id': producto.CUV2,
-                            'category': _texto.notavaliable,
-                            'variant': _texto.estandar,
-                            'quantity': producto.Cantidad
-                        }]
-                    }
-                }
-            });
-
+            var list = 'Ficha de Producto – Las Más Ganadoras';
+            marcarAddToCart(estrategia, list);
         } catch (e) {
 
         }
@@ -758,19 +686,24 @@ var AnalyticsPortalModule = (function () {
     function marcarAddCarArmaTuPack(codigoubigeoportal, estrategia) {
         try {
 
-            var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codigoubigeoportal) + ""; //using new function
+            var textoList = CodigoUbigeoPortal.GetTextoSegunCodigo(codigoubigeoportal) + ""; //using new function
 
             var products = [];
             $.each(estrategia, function (index) {
-                var item = estrategia[index];
+                var producto = estrategia[index];
+                producto.DescripcionCompleta = producto.NombreComercial;
+                producto.PrecioVenta = producto.PrecioCatalogo;
+                producto.CUV2 = producto.Cuv;
+                producto.Variant = producto.NombreBulk;
+
                 var product = {
-                    "name": item.NombreComercial,
-                    "price": item.PrecioCatalogo,
-                    "brand": item.DescripcionMarca,
-                    "id": item.Cuv,
-                    category: _texto.notavaliable,
-                    variant: item.NombreBulk,
-                    quantity: item.Cantidad
+                    'name': producto.DescripcionCompleta,
+                    'id': producto.CUV2,
+                    'price': producto.PrecioVenta,
+                    'brand': producto.DescripcionMarca,
+                    'category': _texto.notavaliable,
+                    'variant': producto.Variant,
+                    'quantity': producto.Cantidad
                 };
                 products.push(product);
             });
@@ -780,7 +713,7 @@ var AnalyticsPortalModule = (function () {
                 'ecommerce': {
                     'currencyCode': _getCurrencyCodes(),
                     'add': {
-                        'actionField': { 'list': textoCategory },
+                        'actionField': { 'list': textoList },
                         'products': products
                     }
                 }
