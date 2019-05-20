@@ -46382,11 +46382,11 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillante", ReplyAction="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillanteResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEDemostradoresPaginado> GetDemostradoresCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, int cantRegistros, int regMostrados, string codOrdenar, string codFiltro);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetDatosOrdenFiltros", ReplyAction="http://tempuri.org/IPedidoService/GetDatosOrdenFiltrosResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEOrdenFiltrosCaminoBrillante[] GetDatosOrdenFiltros(int paisID);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetFiltrosCaminoBrillante", ReplyAction="http://tempuri.org/IPedidoService/GetFiltrosCaminoBrillanteResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEOrdenFiltrosCaminoBrillante[] GetFiltrosCaminoBrillante(int paisID);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetDatosOrdenFiltros", ReplyAction="http://tempuri.org/IPedidoService/GetDatosOrdenFiltrosResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEOrdenFiltrosCaminoBrillante[]> GetDatosOrdenFiltrosAsync(int paisID);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetFiltrosCaminoBrillante", ReplyAction="http://tempuri.org/IPedidoService/GetFiltrosCaminoBrillanteResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEOrdenFiltrosCaminoBrillante[]> GetFiltrosCaminoBrillanteAsync(int paisID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalle", ReplyAction="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalleResponse")]
         Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] GetProductosShowRoomDetalle(int paisID, int campaniaId, string cuv);
@@ -49144,12 +49144,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetDemostradoresCaminoBrillanteAsync(entidad, cantRegistros, regMostrados, codOrdenar, codFiltro);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEOrdenFiltrosCaminoBrillante[] GetDatosOrdenFiltros(int paisID) {
-            return base.Channel.GetDatosOrdenFiltros(paisID);
+        public Portal.Consultoras.Web.ServicePedido.BEOrdenFiltrosCaminoBrillante[] GetFiltrosCaminoBrillante(int paisID) {
+            return base.Channel.GetFiltrosCaminoBrillante(paisID);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEOrdenFiltrosCaminoBrillante[]> GetDatosOrdenFiltrosAsync(int paisID) {
-            return base.Channel.GetDatosOrdenFiltrosAsync(paisID);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEOrdenFiltrosCaminoBrillante[]> GetFiltrosCaminoBrillanteAsync(int paisID) {
+            return base.Channel.GetFiltrosCaminoBrillanteAsync(paisID);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] GetProductosShowRoomDetalle(int paisID, int campaniaId, string cuv) {
