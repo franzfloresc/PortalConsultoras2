@@ -125,7 +125,7 @@ var DetalleEstrategiaProvider = function () {
 
     var _getEstrategia = function (params) {
         var estrategia = {};
-        debugger;
+        
         _promiseObternerModelo({
             palanca: params.palanca,
             campaniaId: params.campania,
