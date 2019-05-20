@@ -1548,14 +1548,25 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
                 }
                 return false;
             }
-
-            var tooltip = $('[data-agregado="tooltip"]');
-            if (typeof tooltip !== 'undefined') {
-                $('[data-agregado="mensaje1"]').html("¡Listo! ");
-                $('[data-agregado="mensaje2"]').html(" Modificaste tu pedido");
-                tooltip.show();
-                setTimeout(function () { tooltip.hide(); }, 4000);
+            //Tentativa de poner aqui el nuevo mensaje para TESLA-07
+            var strMsgListo = '¡Listo! Tu pedido ha sido modificado';
+            if (esMobile) {
+                messageInfo(strMsgListo);
             }
+            else {
+                AbrirMensaje25seg(strMsgListo);
+                //CerrarLoad();
+            }
+            //Comentado según requerimiento TESLA-3
+
+            //var tooltip = $('[data-agregado="tooltip"]');
+            //if (typeof tooltip !== 'undefined') {
+            //    $('[data-agregado="mensaje1"]').html("¡Listo! ");
+            //    $('[data-agregado="mensaje2"]').html(" Modificaste tu pedido");
+            //    tooltip.show();
+            //    setTimeout(function () { tooltip.hide(); }, 4000);
+            //}
+            //FIN COMENTARIO TESLA-3
 
             if ($(rowElement).find(".txtLPCli").val().length == 0) {
                 $(rowElement).find(".hdfLPCliDes").val($("#hdfNomConsultora").val());
@@ -1610,7 +1621,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
 
 
 function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, setId, esCuponNuevas) {
-
+	
     var rowElement = $(event.target).closest(".contenido_ingresoPedido");
     var txtLPCant = $(rowElement).find(".txtLPCant");
     var txtLPTempCant = $(rowElement).find(".txtLPTempCant");
