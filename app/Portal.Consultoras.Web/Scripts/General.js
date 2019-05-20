@@ -768,6 +768,10 @@ function CerrarLoad(opcion) {
     }
 }
 
+function AbrirMensaje25seg(mensaje, imagen) {
+        alert(imagen + ' - ' + mensaje);
+ }
+
 function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
     try {
         mensaje = $.trim(mensaje);
