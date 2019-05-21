@@ -25,38 +25,6 @@ $(document).ready(function () {
     estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
     componentesPresenter.onEstrategiaModelLoaded(estrategia);
 
-    //function modal_lateral(id, disparador) {
-
-    //    if ($("body").find(".modal-fondo").length == 0) {
-    //        $("body").append('<div class="modal-fondo" style="opacity: 0.8; display:none"></div>');
-    //    };
-
-    //    $(disparador).on("click", function () {
-    //        $("body").css('overflow', 'hidden');
-    //        $('.modal-fondo').css('opacity', '.8');
-    //        $('.modal-fondo').show();
-    //        $(id).addClass("popup_active");
-    //    });
-
-    //    var selector_cerrar = id + " .button_cerrar"
-    //    function cerra_modal() {
-    //        $(id).removeClass('popup_active')
-    //        $('.modal-fondo').css('opacity', '0');
-    //        $('.modal-fondo').hide();
-    //        $("body").css('overflow', 'auto');
-    //    }
-
-    //    $(selector_cerrar).on("click", function () {
-    //        cerra_modal();
-    //    });
-
-    //    $(document).on('keyup', function (evt) {
-    //        if (evt.keyCode == 27) {
-    //            cerra_modal();
-    //        }
-    //    });
-    //};
-
     //function tabs_resposive(id, mostar) {
     //    var selector = id + " ul li a";
     //    var selector_first = selector + ":nth-child(" + mostar + ")";
