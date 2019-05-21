@@ -2645,6 +2645,7 @@
       <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
       <xs:element minOccurs="0" name="ImporteTotalConDescuento" type="xs:decimal" />
       <xs:element minOccurs="0" name="ImporteTotalMM" type="xs:decimal" />
+      <xs:element minOccurs="0" name="IndicadorConsultoraDigital" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndicadorEnviado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MontoMinimoPedido" type="xs:decimal" />
       <xs:element minOccurs="0" name="MotivoRechazo" nillable="true" type="xs:string" />
