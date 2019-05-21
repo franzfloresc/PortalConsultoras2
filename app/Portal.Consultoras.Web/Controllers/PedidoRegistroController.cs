@@ -50,7 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var producto = olstProducto[0];
-                
+
                 int outVal;
 
                 var pedidoCrudModel = new PedidoCrudModel();
@@ -180,7 +180,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     var tonos = model.CuvTonos.Split('|');
                     var cuvTonos = new StringBuilder();
-                    
+
                     foreach (var tono in tonos)
                     {
                         var listSp = tono.Split(';');
@@ -202,7 +202,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             cuvTonos.Append(";" + descTono);
                         }
-                        
+
                     }
 
                     model.TipoEstrategiaID = ficha.TipoEstrategiaID;
@@ -413,8 +413,6 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult UpdateTransaction(PedidoWebDetalleModel model)
         {
             var txtBuildCliente = new StringBuilder();
-
-
             BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
             pedidoDetalle.Producto = new ServicePedido.BEProducto();
 
@@ -436,12 +434,11 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
 
             pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
-
             var pedidoDetalleResult = _pedidoWebProvider.UpdatePedidoDetalle(pedidoDetalle);
 
             var esReservado = (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.ERROR_RESERVA_AGREGAR) || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR)) ? true : false;
 
-            if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+            if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS) || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR))
             {
                 SessionManager.SetPedidoWeb(null);
                 SessionManager.SetDetallesPedido(null);
@@ -510,7 +507,7 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoDetalle.Cantidad = Convert.ToInt32(cantidad);
             pedidoDetalle.PaisID = userData.PaisID;
             pedidoDetalle.IPUsuario = GetIPCliente();
-            pedidoDetalle.ClienteID = string.IsNullOrEmpty(clienteId) ? (short) 0 : Convert.ToInt16(clienteId);
+            pedidoDetalle.ClienteID = string.IsNullOrEmpty(clienteId) ? (short)0 : Convert.ToInt16(clienteId);
             pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null
                 ? SessionManager.GetTokenPedidoAutentico().ToString()
                 : string.Empty;

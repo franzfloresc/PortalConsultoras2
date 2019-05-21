@@ -851,6 +851,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+
         public IDataReader GetConsultoraRegaloProgramaNuevas(int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraRegaloProgramaNuevas");
@@ -948,6 +949,18 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetLogCargaPedidoCliente");
             Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
             return Context.ExecuteReader(command);
+        }
+
+        public void UpdDatoRecogerPor(BEPedidoWeb pedidoWebDetalle)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.ActualizaDatoRecogerPor"))
+            {
+                Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoWebDetalle.PedidoID);
+                Context.Database.AddInParameter(command, "@Documento", DbType.String, pedidoWebDetalle.RecogerDNI);
+                Context.Database.AddInParameter(command, "@RecogerNombre", DbType.String, pedidoWebDetalle.RecogerNombre);
+
+                Context.ExecuteNonQuery(command);
+            }
         }
     }
 }

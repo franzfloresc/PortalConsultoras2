@@ -36,9 +36,15 @@ var EstrategiaPresenter = function (config) {
         if (!_config.estrategiaView.renderBreadcrumbs(model) ||
             !_config.estrategiaView.renderEstrategia(model)) throw "estrategiaView do not render model";
 
-        if (model.codigoEstrategia == ConstantesModule.TipoEstrategia.Lanzamiento &&
+        if (model.CodigoEstrategia == ConstantesModule.TipoEstrategia.Lanzamiento &&
             !_config.estrategiaView.renderBackgroundAndStamp(model)) 
             throw "estrategiaView do not render background and stamp";
+
+        if (model.TieneReloj &&
+            !_config.estrategiaView.renderReloj(model)) throw "estrategiaView don't render reloj.";
+
+        if (model.TieneReloj &&
+            !_config.estrategiaView.renderRelojStyle(model)) throw "estrategiaView don't render style of reloj.";
 
         return true;
     };

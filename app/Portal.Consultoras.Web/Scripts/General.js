@@ -833,6 +833,98 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
     }
 }
 
+function AbrirMensaje25seg(mensaje, imagen) {
+    try {
+        var _dialogClass = '.setBottom',
+            _overlay = '.ui-widget-overlay'
+
+        mensaje = $.trim(mensaje);
+        if (mensaje == "") {
+            CerrarLoad();
+            return false;
+        }
+        //INI HD-3693
+        var msjBloq = validarpopupBloqueada(mensaje);
+        if (msjBloq != "") {
+            CerrarLoad();
+            alert_msg_bloqueadas(msjBloq);
+            return true;
+        }
+        //FIN HD-3693
+        imagen = imagen || ""
+        if (imagen == "") {
+            $("#pop_src").css("display", "none")
+            $("#pop_src").attr("src", "#")            
+        }
+        else {
+            $("#pop_src").css("display", "block")
+            $("#pop_src").attr("src", imagen)
+        }
+        
+        
+        var isUrlMobile = isMobile();
+        if (isUrlMobile > 0) {
+            
+            
+            console.log('mobil')
+        }
+        else {
+            
+            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
+            showDialogSinScroll("alertDialogMensajes25seg");   
+            $(_overlay).css('background', 'black')
+            $(_overlay).css('opacity', '0.85')
+        }
+        CerrarLoad();
+        //Ocultar el scroll 
+        $("body").css("overflow", "hidden");  
+        
+        setTimeout(function () {
+            $(_dialogClass).fadeOut(500, function () {
+                $('#alertDialogMensajes25seg').dialog("close");
+                $("body").css("overflow", "auto")
+            })
+        }, 2500)    
+
+        //Por la confiruación del plugin se coloca en la zona inferior
+        /*var _dialogClass = '.setBottom',
+            _dialog25s = document.querySelector(_dialogClass)
+            
+        if (_dialog25s) {
+                //registrar la clase
+            var _topDefault = _dialog25s.style.top,
+                //registrar la altura
+                _dialogHeight = $(_dialogClass).outerHeight(),
+                //registrar el top sin px
+                _topDefaultValue = parseInt(_topDefault.split('px')[0])
+                
+                //Agregarle la altura para esconder fuera de la vista            
+                _dialog25s.style.top = _topDefaultValue + _dialogHeight + 'px'        
+            setTimeout(function () {
+                _dialog25s.style.transition = "top 1s ease"
+                _dialog25s.style.top = _topDefaultValue - (_dialogHeight * 2 ) + 'px'               
+                setTimeout(function () {
+                    
+                    
+                    $(_dialogClass).fadeOut(500,  function () {
+                        $('#alertDialogMensajes25seg').dialog("close");
+                        
+                        
+                    })
+
+                    $("#alertDialogMensajes25seg").dialog("option", "position", { my: "bottom", at: "bottom" });
+
+                }, 2500)                
+            }, 100);
+        }*/
+        var parameter = [["mensaje", mensaje], ["imagen", imagen]];
+        console.table(parameter);
+
+    } catch (e) {
+
+    }
+}
+
 function compare_dates(fecha, fecha2) {
 
     var xMonth = fecha.substring(3, 5);
