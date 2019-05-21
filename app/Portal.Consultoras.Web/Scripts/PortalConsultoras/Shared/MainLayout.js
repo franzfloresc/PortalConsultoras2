@@ -191,7 +191,8 @@ $(document).ready(function () {
         },
         draggable: false,
         dialogClass: 'setBottom',
-        position: "bottom"
+        position: "bottom",
+        show: {effect : "swing"}
     });
 
     $('#ModalFeDeErratas').dialog({
