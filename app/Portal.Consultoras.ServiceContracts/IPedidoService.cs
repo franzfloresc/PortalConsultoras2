@@ -511,6 +511,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoDD GetPedidoDDByCampaniaConsultora(int paisID, int campaniaID, long consultoraID);
 
         [OperationContract]
+        
         void InsPedidoDD(BEPedidoDD bePedidoDD);
 
         [OperationContract]
@@ -1340,5 +1341,7 @@ namespace Portal.Consultoras.ServiceContracts
         
         #endregion
 
+        [OperationContract]
+        void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle);
     }
 }

@@ -610,11 +610,21 @@ var EstrategiaAgregarModule = (function () {
                 localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoPalanca, true);
 
                 CerrarLoad();
-                debugger;
+                //debugger;
 
 
                 var imagenProducto = $btnAgregar.parents("[data-item]").find("[data-imagen-producto]").attr("data-imagen-producto");
-                console.log(imagenProducto);
+
+                if (typeof imagenProducto === 'undefined') {
+                    if (document.querySelector("#FichaImagenProducto > img") != null) {
+                        imagenProducto = document.querySelector("#FichaImagenProducto > img").src;
+                    } else if (document.querySelector("#img-banner-odd") != null) {
+                        imagenProducto = document.querySelector("#img-banner-odd").src;
+                    }
+                }
+
+
+                AbrirMensaje25seg('¡Listo! Agregaste esta(s) oferta(s) a tu pedido', imagenProducto);
 
                 if (popup) {
                     CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);

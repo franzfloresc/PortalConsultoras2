@@ -50,7 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var producto = olstProducto[0];
-                
+
                 int outVal;
 
                 var pedidoCrudModel = new PedidoCrudModel();
@@ -180,7 +180,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     var tonos = model.CuvTonos.Split('|');
                     var cuvTonos = new StringBuilder();
-                    
+
                     foreach (var tono in tonos)
                     {
                         var listSp = tono.Split(';');
@@ -202,7 +202,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             cuvTonos.Append(";" + descTono);
                         }
-                        
+
                     }
 
                     model.TipoEstrategiaID = ficha.TipoEstrategiaID;
@@ -278,6 +278,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return result.Item2;
                 }
+
+                pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
 
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
                 
@@ -407,8 +409,6 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult UpdateTransaction(PedidoWebDetalleModel model)
         {
             var txtBuildCliente = new StringBuilder();
-
-
             BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
             pedidoDetalle.Producto = new ServicePedido.BEProducto();
 
@@ -429,7 +429,7 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoDetalle.IPUsuario = GetIPCliente();
             pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
 
-
+            pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
             var pedidoDetalleResult = _pedidoWebProvider.UpdatePedidoDetalle(pedidoDetalle);
 
             if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
@@ -499,7 +499,7 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoDetalle.Cantidad = Convert.ToInt32(cantidad);
             pedidoDetalle.PaisID = userData.PaisID;
             pedidoDetalle.IPUsuario = GetIPCliente();
-            pedidoDetalle.ClienteID = string.IsNullOrEmpty(clienteId) ? (short) 0 : Convert.ToInt16(clienteId);
+            pedidoDetalle.ClienteID = string.IsNullOrEmpty(clienteId) ? (short)0 : Convert.ToInt16(clienteId);
             pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null
                 ? SessionManager.GetTokenPedidoAutentico().ToString()
                 : string.Empty;
@@ -518,6 +518,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return new Tuple<bool, JsonResult>(false, ErrorJson(Constantes.MensajesError.DeletePedido_CuvNoExiste));
             }
 
+            pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
             var result = await _pedidoWebProvider.EliminarPedidoDetalle(pedidoDetalle);
 
             pedidoEliminado.DescripcionOferta = !string.IsNullOrEmpty(pedidoEliminado.DescripcionOferta)

@@ -1,7 +1,9 @@
 ﻿/// <reference path="estrategia/estrategiapresenter.js" />
 /// <reference path="componentes/componentespresenter.js" />
-/// <reference path="../../../admincontenido/general.js" />
+/// <reference path="../../../general.js" />
+/// <reference path="../detalleestrategiaprovider.js" />
 
+var detalleEstrategia = DetalleEstrategiaProvider;
 var fichaResponsiveEvents = FichaResponsiveEvents();
 var estrategiaView = EstrategiaView();
 var estrategiaPresenter = EstrategiaPresenter({
@@ -108,6 +110,7 @@ $(document).ready(function () {
 
     modal_lateral("#popup_ficha_enriquecida", ".button_ver_detalle");
     
+    $("#data-estrategia").data("estrategia", detalleEstrategia.getEstrategia(params));
     var estrategia = $("#data-estrategia").data("estrategia");
     estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
     componentePresenter.onEstrategiaModelLoaded(estrategia);
