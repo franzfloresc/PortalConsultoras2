@@ -249,7 +249,7 @@ var AnalyticsPortalModule = (function () {
         origenEstructura.OrigenPedidoWeb = (origenEstructura.OrigenPedidoWeb || "").toString().trim();
         origenEstructura.CodigoPalanca = (origenEstructura.CodigoPalanca || "").toString().trim();
 
-        if (origenEstructura.OrigenPedidoWeb.length < ConstantesModule.OrigenPedidoWebEstructura.Dimension) {
+        if (origenEstructura.OrigenPedidoWeb.length < CodigoOrigenPedidoWeb.CodigoEstructura.Dimension) {
             origenEstructura.OrigenPedidoWeb = "";
         }
 
@@ -269,7 +269,7 @@ var AnalyticsPortalModule = (function () {
 
         if (origenEstructura.Pagina == "" && url != "") {
             switch (window.controllerName) {
-                case "ofertas": origenEstructura.Pagina = ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor; break;
+                case "ofertas": origenEstructura.Pagina = CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Contenedor; break;
             }
         }
 
@@ -279,18 +279,18 @@ var AnalyticsPortalModule = (function () {
     var _getTextoContenedorSegunOrigen = function (origenEstructura) {
 
         origenEstructura.CodigoPalanca = origenEstructura.CodigoPalanca || "";
-        var contendor = origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
-            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingBuscador
-            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingGanadoras
-            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingGnd
-            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingHerramientasVenta
-            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingLiquidacion
-            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingOfertasParaTi
-            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingDuoPerfecto
-            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingPackNuevas
-            || origenEstructura.Pagina == ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingShowroom
-            || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.Ficha
-            || origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas
+        var contendor = origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Contenedor
+            || origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.LandingBuscador
+            || origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.LandingGanadoras
+            || origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.LandingGnd
+            || origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.LandingHerramientasVenta
+            || origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.LandingLiquidacion
+            || origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.LandingOfertasParaTi
+            || origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.LandingDuoPerfecto
+            || origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.LandingPackNuevas
+            || origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.LandingShowroom
+            || origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Ficha
+            || origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselVerMas
             || origenEstructura.CodigoPalanca != "";
 
         if (contendor) {
@@ -376,13 +376,13 @@ var AnalyticsPortalModule = (function () {
         origenEstructura = _getEstructuraOrigenPedidoWeb(origenEstructura, url);
 
         if (estoyEnLaFicha === true) {
-            origenEstructura.Seccion = ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas;
+            origenEstructura.Seccion = CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselVerMas;
         }
 
         var contendor = _getTextoContenedorSegunOrigen(origenEstructura);
         var pagina = "";
 
-        if (origenEstructura.Seccion == ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas) {
+        if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselVerMas) {
             pagina = _getTextoSeccionSegunOrigen(origenEstructura);
         }
         else {

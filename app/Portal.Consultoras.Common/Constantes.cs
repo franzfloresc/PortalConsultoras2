@@ -736,7 +736,7 @@ namespace Portal.Consultoras.Common
 
         /// <summary>
         /// Los cambios replicarlos en
-        /// RevistaDigital-DataLayer.js + ConstantesModule.js
+        /// RevistaDigital-DataLayer.js + ConstantesModule.js + CodigoOrigenPedidoWeb.js
         /// </summary>
         [Obsolete("Use ConsOrigenPedidoWeb")]
         public static class OrigenPedidoWeb
