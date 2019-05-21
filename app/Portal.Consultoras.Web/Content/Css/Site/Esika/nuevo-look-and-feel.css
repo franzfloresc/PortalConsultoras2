@@ -1,8 +1,27 @@
 ﻿
-/*  HD-4065 - AJUSTES UI - CAMBIO DE LOOK AND FEEL DE ÉSIKA */
+/*  HD-4065 - CAMBIO DE LOOK AND FEEL DE ÉSIKA */
+
+.franja_negra.franja_negra--nuevoLookAndFeelEsika,
+.banner_ingresoPedido.banner_ingresoPedido--nuevoLookAndFeel {
+    background-color: #ffded7;
+}
 
 .franja_negra.franja_negra--nuevoLookAndFeelEsika {
     height: 203px;
+    background-position:66% center;
+}
+
+.pedido_ingreso_c2--nuevoLookAndFeelEsika .pedido_ingreso_datos input,
+.pedido_ingreso_c2--nuevoLookAndFeelEsika .liquidacion_rango_right_pedido {
+    border: 1px solid #000;
+}
+
+.pedido_ingreso_c2--nuevoLookAndFeelEsika .liquidacion_rango_wrapper_pedido input {
+    border-left: 1px solid #000 !important;
+}
+
+.pedido_ingreso_c2--nuevoLookAndFeelEsika .liquidacion_rango_right_pedido .mas {
+    border-bottom: 1px solid #000;
 }
 
 .titulo_principal_interiores.titulo_principal_interiores--nuevoLookAndFeelEsika {
@@ -28,4 +47,12 @@
     font-weight:400;
 }
 
-/*  FIN - HD-4065 - AJUSTES UI - CAMBIO DE LOOK AND FEEL DE ÉSIKA */
+@media screen and (max-width:991px){
+
+    .banner_ingresoPedido.banner_ingresoPedido--nuevoLookAndFeel {
+        background-position: 87% center;
+    }
+
+}
+
+/*  FIN - HD-4065 - CAMBIO DE LOOK AND FEEL DE ÉSIKA */
