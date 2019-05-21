@@ -5803,6 +5803,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int OrigenPedidoWebField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OrigenSolicitudField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PaisIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -6053,6 +6056,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.OrigenPedidoWebField.Equals(value) != true)) {
                     this.OrigenPedidoWebField = value;
                     this.RaisePropertyChanged("OrigenPedidoWeb");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OrigenSolicitud {
+            get {
+                return this.OrigenSolicitudField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrigenSolicitudField, value) != true)) {
+                    this.OrigenSolicitudField = value;
+                    this.RaisePropertyChanged("OrigenSolicitud");
                 }
             }
         }
@@ -15462,6 +15478,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CodigoRespuestaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescuentoProlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string[] ListCuvEliminarField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -15475,6 +15494,15 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ModificoBackOrderField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MontoAhorroCatalogoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MontoAhorroRevistaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MontoEscalaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle PedidoWebDetalleField;
@@ -15527,6 +15555,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.CodigoRespuestaField, value) != true)) {
                     this.CodigoRespuestaField = value;
                     this.RaisePropertyChanged("CodigoRespuesta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescuentoProl {
+            get {
+                return this.DescuentoProlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescuentoProlField, value) != true)) {
+                    this.DescuentoProlField = value;
+                    this.RaisePropertyChanged("DescuentoProl");
                 }
             }
         }
@@ -15592,6 +15633,45 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ModificoBackOrderField.Equals(value) != true)) {
                     this.ModificoBackOrderField = value;
                     this.RaisePropertyChanged("ModificoBackOrder");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MontoAhorroCatalogo {
+            get {
+                return this.MontoAhorroCatalogoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MontoAhorroCatalogoField, value) != true)) {
+                    this.MontoAhorroCatalogoField = value;
+                    this.RaisePropertyChanged("MontoAhorroCatalogo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MontoAhorroRevista {
+            get {
+                return this.MontoAhorroRevistaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MontoAhorroRevistaField, value) != true)) {
+                    this.MontoAhorroRevistaField = value;
+                    this.RaisePropertyChanged("MontoAhorroRevista");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MontoEscala {
+            get {
+                return this.MontoEscalaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MontoEscalaField, value) != true)) {
+                    this.MontoEscalaField = value;
+                    this.RaisePropertyChanged("MontoEscala");
                 }
             }
         }
@@ -15829,6 +15909,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int OrigenPedidoWebField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OrigenSolicitudField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PaisIDField;
@@ -16712,6 +16795,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.OrigenPedidoWebField.Equals(value) != true)) {
                     this.OrigenPedidoWebField = value;
                     this.RaisePropertyChanged("OrigenPedidoWeb");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OrigenSolicitud {
+            get {
+                return this.OrigenSolicitudField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrigenSolicitudField, value) != true)) {
+                    this.OrigenSolicitudField = value;
+                    this.RaisePropertyChanged("OrigenSolicitud");
                 }
             }
         }
@@ -44247,6 +44343,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private decimal ImporteTotalMMField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IndicadorConsultoraDigitalField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IndicadorEnviadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -44543,6 +44642,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ImporteTotalMMField.Equals(value) != true)) {
                     this.ImporteTotalMMField = value;
                     this.RaisePropertyChanged("ImporteTotalMM");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string IndicadorConsultoraDigital {
+            get {
+                return this.IndicadorConsultoraDigitalField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IndicadorConsultoraDigitalField, value) != true)) {
+                    this.IndicadorConsultoraDigitalField = value;
+                    this.RaisePropertyChanged("IndicadorConsultoraDigital");
                 }
             }
         }

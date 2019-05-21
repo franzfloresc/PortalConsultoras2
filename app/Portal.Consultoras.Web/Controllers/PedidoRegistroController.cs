@@ -34,9 +34,25 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 List<ServiceODS.BEProducto> olstProducto;
+                ServiceODS.BEProductoBusqueda busqueda = new BEProductoBusqueda
+                {
+                    PaisID = userData.PaisID,
+                    CampaniaID = userData.CampaniaID,
+                    CodigoDescripcion = CUV,
+                    RegionID = userData.RegionID,
+                    ZonaID = userData.ZonaID,
+                    CodigoRegion = userData.CodigorRegion,
+                    CodigoZona = userData.CodigoZona,
+                    Criterio = 1,
+                    RowCount = 1,
+                    ValidarOpt = false,
+                    CodigoPrograma = userData.CodigoPrograma,
+                    NumeroPedido = userData.ConsecutivoNueva + 1
+                };
+
                 using (var sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, CUV, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, false).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(busqueda).ToList();
                 }
 
                 if (olstProducto.Count == 0)
@@ -272,7 +288,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.OfertaWeb = model.OfertaWeb;
                 pedidoDetalle.EsEditable = model.EsEditable;
                 pedidoDetalle.SetID = model.SetId;
-
+                pedidoDetalle.OrigenSolicitud = "WebMobile";
                 var result = await DeletePremioIfReplace(model);
                 if (result != null && !result.Item1)
                 {
@@ -292,7 +308,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetDetallesPedido(null);
                     SessionManager.SetDetallesPedidoSetAgrupado(null);
                     SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
-                    SessionManager.SetMontosProl(null);
+                    SetMontosProl(pedidoDetalleResult);
                     SessionManager.SetMisPedidosDetallePorCampania(null);
 
                     var pedidoWebDetalle = ObtenerPedidoWebDetalle();
@@ -427,6 +443,7 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoDetalle.IPUsuario = GetIPCliente();
             pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
 
+            pedidoDetalle.OrigenSolicitud = "WebMobile";
             var pedidoDetalleResult = _pedidoWebProvider.UpdatePedidoDetalle(pedidoDetalle);
 
             if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
@@ -434,7 +451,7 @@ namespace Portal.Consultoras.Web.Controllers
                 SessionManager.SetPedidoWeb(null);
                 SessionManager.SetDetallesPedido(null);
                 SessionManager.SetDetallesPedidoSetAgrupado(null);
-                SessionManager.SetMontosProl(null);
+                SetMontosProl(pedidoDetalleResult);         
                 SessionManager.SetMisPedidosDetallePorCampania(null);
 
                 var pedidoWebDetalle = ObtenerPedidoWebDetalle();
@@ -529,11 +546,14 @@ namespace Portal.Consultoras.Web.Controllers
             errorServer = result.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS;
             tipo = result.MensajeRespuesta;
 
-            SessionManager.SetPedidoWeb(null);
-            SessionManager.SetDetallesPedido(null);
-            SessionManager.SetDetallesPedidoSetAgrupado(null);
-            SessionManager.SetMontosProl(null);
-            SessionManager.SetMisPedidosDetallePorCampania(null);
+            if (!errorServer)
+            {
+                SessionManager.SetPedidoWeb(null);
+                SessionManager.SetDetallesPedido(null);
+                SessionManager.SetDetallesPedidoSetAgrupado(null);
+                SetMontosProl(result);
+                SessionManager.SetMisPedidosDetallePorCampania(null);
+            }
 
             var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 

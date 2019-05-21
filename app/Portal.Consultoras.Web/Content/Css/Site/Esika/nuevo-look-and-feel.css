@@ -1,0 +1,58 @@
+﻿
+/*  HD-4065 - CAMBIO DE LOOK AND FEEL DE ÉSIKA */
+
+.franja_negra.franja_negra--nuevoLookAndFeelEsika,
+.banner_ingresoPedido.banner_ingresoPedido--nuevoLookAndFeel {
+    background-color: #ffded7;
+}
+
+.franja_negra.franja_negra--nuevoLookAndFeelEsika {
+    height: 203px;
+    background-position:66% center;
+}
+
+.pedido_ingreso_c2--nuevoLookAndFeelEsika .pedido_ingreso_datos input,
+.pedido_ingreso_c2--nuevoLookAndFeelEsika .liquidacion_rango_right_pedido {
+    border: 1px solid #000;
+}
+
+.pedido_ingreso_c2--nuevoLookAndFeelEsika .liquidacion_rango_wrapper_pedido input {
+    border-left: 1px solid #000 !important;
+}
+
+.pedido_ingreso_c2--nuevoLookAndFeelEsika .liquidacion_rango_right_pedido .mas {
+    border-bottom: 1px solid #000;
+}
+
+.titulo_principal_interiores.titulo_principal_interiores--nuevoLookAndFeelEsika {
+    font-weight: 400 !important;
+}
+    
+    .ubicacion_web span,
+    .titulo_principal_interiores.titulo_principal_interiores--nuevoLookAndFeelEsika strong,
+    .pedido_ingreso_datos .pedidos_cliente.pedidos_cliente--nuevoLookAndFeelEsika {
+        font-weight: 700 !important;
+    }
+
+.ubicacion_web span,
+.ubicacion_web a,
+.ubicacion_web a:hover,
+.titulo_principal_interiores.titulo_principal_interiores--nuevoLookAndFeelEsika,
+.pedido_ingreso_datos_icono_mas--nuevoLookAndFeelEsika,
+.pedido_ingreso_datos .pedidos_cliente.pedidos_cliente--nuevoLookAndFeelEsika {
+    color: #000 !important;
+}
+
+.ubicacion_web a{
+    font-weight:400;
+}
+
+@media screen and (max-width:991px){
+
+    .banner_ingresoPedido.banner_ingresoPedido--nuevoLookAndFeel {
+        background-position: 87% center;
+    }
+
+}
+
+/*  FIN - HD-4065 - CAMBIO DE LOOK AND FEEL DE ÉSIKA */

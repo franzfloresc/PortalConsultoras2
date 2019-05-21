@@ -4484,6 +4484,17 @@ a.subir_carousel, a.bajar_carousel {
         background-size: cover;
     }
 
+    /* HD-4065 - CAMBIO DE LOOK AND FEEL DE ÉSIKA */
+
+    .logo_esika--nuevoLogo a{
+        background-image: url('/Content/Images/Esika/nuevo-logo-esika.svg');
+        background-repeat:no-repeat;
+        background-size: 91px;
+        background-position-y: 16%;
+    }
+
+    /* FIN - HD-4065 - CAMBIO DE LOOK AND FEEL DE ÉSIKA */
+
 .cliente_detalle {
     display: block;
     color: black;
@@ -24527,9 +24538,9 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         min-height: 60px;
     }
 
-        .contenedor_item_descripcion span::after {
+        /*.contenedor_item_descripcion span::after {
             content: ' ..';
-        }
+        }*/
 
     .contenedor_item_descripcion a {
         display: block;

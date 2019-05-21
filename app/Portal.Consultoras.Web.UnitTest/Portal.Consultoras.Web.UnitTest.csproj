@@ -113,6 +113,7 @@
     <Compile Include="Controllers\TusClientesControllerUnitTests.cs" />
     <Compile Include="Extensions\DataHandler.cs" />
     <Compile Include="Extensions\RedirectToRouteResultExtensions.cs" />
+    <Compile Include="Infraestructure\Route\RedirectRoute.cs" />
     <Compile Include="Infraestructure\Validator\Phone\MatchCountryPhoneTests.cs" />
     <Compile Include="Controllers\RevistaDigitalControllerUnitTest.cs" />
     <Compile Include="Models\RevistaDigitalModelUnitTests.cs" />
