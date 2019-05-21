@@ -322,17 +322,18 @@ namespace Portal.Consultoras.Web.Providers
         {
             if (dbDefault) return false;
 
-            var configMs = GetConfigMicroserviciosPersonalizacion();
-
-            bool paisHabilitado = configMs.PaisHabilitado.Contains(pais);
-            bool tipoEstrategiaHabilitado = configMs.EstrategiaHabilitado.Contains(tipoEstrategia);
-
+            
+            string PaisHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado ?? string.Empty;
+            string EstrategiaHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado ?? string.Empty;
+            bool paisHabilitado = PaisHabilitado.Contains(pais); //WebConfig.PaisesMicroservicioPersonalizacion.Contains(pais);
+            bool tipoEstrategiaHabilitado = EstrategiaHabilitado.Contains(tipoEstrategia); //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
             return paisHabilitado && tipoEstrategiaHabilitado;
         }
 
         public bool UsarMsPersonalizacion(string tipoEstrategia)
         {
-            bool tipoEstrategiaHabilitado = GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado.Contains(tipoEstrategia);
+            string EstrategiaHabilitado =_sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado ?? string.Empty;
+            bool tipoEstrategiaHabilitado = EstrategiaHabilitado.Contains(tipoEstrategia); //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion.Contains(tipoEstrategia);
             return tipoEstrategiaHabilitado;
         }
 
