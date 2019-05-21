@@ -118,8 +118,8 @@ namespace Portal.Consultoras.Web.Controllers
                     !configuracionCampania.ModificaPedidoReservado &&
                     !configuracionCampania.ValidacionAbierta)
                 {
-                    //SessionManager.SetPedidoValidado(true);
-                    //return RedirectToAction("PedidoValidado");   TESLA-7
+                    SessionManager.SetPedidoValidado(true);
+                    return RedirectToAction("PedidoValidado");
                 }
 
                 userData.ZonaValida = configuracionCampania.ZonaValida;
