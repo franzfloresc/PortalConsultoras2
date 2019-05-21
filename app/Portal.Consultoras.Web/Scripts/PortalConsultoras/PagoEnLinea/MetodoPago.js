@@ -42,8 +42,7 @@ $(document).ready(function () {
                         }
                     },
                     error: function (data, error) {
-                        if (checkTimeout(data)) {
-                        }
+                        //
                     }
                 });
             }

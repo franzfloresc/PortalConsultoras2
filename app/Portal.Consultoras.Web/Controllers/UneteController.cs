@@ -2845,6 +2845,189 @@ public ActionResult MostrarMensajeBuro(string respuestaBuro)
 
             return responseHtml;
         }
+
+
+        #region Kit Inicio
+
+        public ActionResult KitInicio()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("KitInicio", "&rol=" + userData.RolDescripcion);
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult KitInicioInit()
+        {
+            var _zonificacionProvider = new ZonificacionProvider();
+            var paisId = userData.PaisID;
+            try
+            {
+                var listas = new List<object>();
+                listas.Add(_zonificacionProvider.GetCampanias(paisId));
+                listas.Add(new PortalServiceClient().ObtenerParametrosUnete(userData.CodigoISO, EnumsTipoParametro.TipoKitInicio, 0));
+                return Json(listas);
+            }
+            catch
+            {
+                return Error();
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetKitInicio(int campanhia, int kit)
+        {
+            try
+            {
+                var enKit = new PortalServiceClient().GetKitInicioEdit(CodigoISO, campanhia, kit);
+                var en = new ENTKitInicio
+                {
+                    Codigo = enKit.Codigo,
+                    SAP = enKit.SAP,
+                    CUV = enKit.CUV,
+                    Precio = enKit.Precio,
+                    PrecioReal = enKit.PrecioReal,
+                    Cantidad = enKit.Cantidad,
+                    Orden = enKit.Orden,
+                    Descripcion = enKit.Descripcion,
+                    UrlImagen = enKit.UrlImagen,
+                    Catalogos = new List<ENTKitInicioCatalogo>(),
+                    Editable = enKit.Editable
+                };
+                if (enKit.Catalogos != null)
+                {
+                    foreach(var det in enKit.Catalogos)
+                    {
+                        en.Catalogos.Add(new ENTKitInicioCatalogo
+                        {
+                            Codigo = det.Codigo,
+                            SAP = det.SAP,
+                            CUV = det.CUV,
+                            Orden = det.Orden,
+                            NomOrden = det.DescOrden,
+                            CodMarca = det.TipoCatalogo,
+                            NomMarca = det.NomTipoCatalogo
+                        });
+                    }
+                }
+                return Json(en);
+            }
+            catch
+            {
+                return Error();
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetKitInicioCatalogo(int campanhia)
+        {
+            try
+            {
+                var enResponse = new PortalServiceClient().GetKitInicioCatalogosEdit(CodigoISO, campanhia, false);
+                var en = new ENTKitInicio
+                {
+                    Editable = enResponse.Editable,
+                    Catalogos = new List<ENTKitInicioCatalogo>()
+                };
+                foreach (var det in enResponse.Catalogos)
+                {
+                    en.Catalogos.Add(new ENTKitInicioCatalogo
+                    {
+                        Codigo = det.Codigo,
+                        SAP = det.SAP,
+                        CUV = det.CUV,
+                        Orden = det.Orden,
+                        NomOrden = det.DescOrden,
+                        CodMarca = det.TipoCatalogo,
+                        NomMarca = det.NomTipoCatalogo
+                    });
+                }
+                return Json(en);
+            }
+            catch
+            {
+                return Error();
+            }
+        }
+
+        [HttpPost]
+        public JsonResult SaveKitInicio(int config, ENTKitInicio en)
+        {
+            try
+            {
+                var enRequest = new KitInicioBE
+                {
+                    Precio = en.Precio,
+                    UrlImagen = en.UrlImagen,
+                    Descripcion = en.Descripcion,
+                    CUV = en.CUV,
+                    Orden = en.Orden,
+                    Tipo = en.Kit,
+                    PrecioReal = en.PrecioReal,
+                    Campanhia = en.Campanha,
+                    Cantidad = en.Cantidad,
+                    SAP = en.SAP,
+                    UsuModifica = userData.CodigoUsuario
+                };
+                if (en.Catalogos != null)
+                {
+                    var catalogos = new List<KitInicioCatalogoBE>();
+                    foreach (var c in en.Catalogos)
+                    {
+                        catalogos.Add(new KitInicioCatalogoBE
+                        {
+                            CUV = c.CUV,
+                            Orden = c.Orden,
+                            TipoCatalogo = c.CodMarca,
+                            SAP = c.SAP
+                        });
+                    }
+                    enRequest.Catalogos = catalogos.ToArray();
+                }
+                if (config == 1) new PortalServiceClient().SaveKitInicio(CodigoISO, enRequest);
+                else new PortalServiceClient().SaveKitInicioCatalogos(CodigoISO, enRequest);
+                return Json(true);
+            }
+            catch
+            {
+                return Error();
+            }
+        }
+
+        private JsonResult Error(string error = null)
+        {
+            Response.StatusCode = 500;
+            return Json(error ?? "Ocurrió un error");
+        }
+
+        public struct ENTKitInicio
+        {
+            public int Codigo { get; set; }
+            public int Campanha { get; set; }
+            public int Kit { get; set; }
+            public string SAP { get; set; }
+            public string CUV { get; set; }
+            public decimal Precio { get; set; }
+            public decimal PrecioReal { get; set; }
+            public float Cantidad { get; set; }
+            public float Orden { get; set; }
+            public string Descripcion { get; set; }
+            public string UrlImagen { get; set; }
+            public List<ENTKitInicioCatalogo> Catalogos { get; set; }
+            public bool Editable { get; set; }
+
+        }
+        public struct ENTKitInicioCatalogo
+        {
+            public int Codigo { get; set; }
+            public string SAP { get; set; }
+            public string CUV { get; set; }
+            public float Orden { get; set; }
+            public string NomOrden { get; set; }
+            public float CodMarca { get; set; }
+            public string NomMarca { get; set; }
+        }
+
+        #endregion Kit Inicio
     }
 
     public class ParameterPagodeKit

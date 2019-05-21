@@ -12,8 +12,8 @@
 
     if (config.generalModule === null || typeof config.generalModule === "undefined")
         throw "config.generalModule is null or undefined";
-    
-    var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
+
+    //var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
 
     var _config = {
         localStorageModule: config.localStorageModule,
@@ -59,7 +59,7 @@
             //Este método asigna los datos del componente individual a _template.componenteDetalleIndividual
 
             //estrategia.Hermanos por default es solo 1
-            console.log('mostrarDetalleIndividual', estrategia);
+            //console.log('mostrarDetalleIndividual', estrategia);
 
             if (estrategia.Hermanos.length == 1) {
                 if (estrategia.MostrarFichaEnriquecida) {
@@ -99,7 +99,7 @@
         setTabDetalleComponente: function () {
             $("body").off("click", "[data-tab-header]");
             $("body").on("click", "[data-tab-header]", function (e) {
-                console.log('click setTabDetalleComponente');
+                //console.log('click setTabDetalleComponente');
                 e.preventDefault();
                 $("[data-tab-header]").removeClass("active");
                 var numTab = $(e.target).data("num-tab");
@@ -110,7 +110,7 @@
         },
         setAcordionDetalleComponente: function () {
             $(_template.MenuDetalleComponente).click(function () {
-                console.log('click setAcordionDetalleComponente');
+                //console.log('click setAcordionDetalleComponente');
                 var $this = $(this);
                 $this.parent().children("ul").slideToggle();
                 var clase = $this.attr("class");
@@ -152,7 +152,7 @@
     var _VerDetalleIndividual = function (estrategia) {
         _util.mostrarDetalleIndividual(estrategia);
     };
-    
+
     var _events = {
         bindClosePopup: function () {
             $("body").off("click", "[data-close-product-detail-popup]");

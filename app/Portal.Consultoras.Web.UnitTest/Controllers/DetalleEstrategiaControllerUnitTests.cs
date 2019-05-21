@@ -571,5 +571,99 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 })());
             }
         }
+
+        [TestClass]
+        public class FichaResponsive: Base
+        {
+            protected DetalleEstrategiaController controller;
+            protected Mock<EstrategiaComponenteProvider> estrategiaComponenteProvider;
+            protected const int campaniaIdActual = 201801;
+
+            protected virtual Mock<EstrategiaComponenteProvider> GetOfertaPersonalizadaProvider()
+            {
+                estrategiaComponenteProvider = new Mock<EstrategiaComponenteProvider>
+                {
+                    CallBase = true
+                };
+                estrategiaComponenteProvider.Setup(x => x.SessionManager).Returns(SessionManager.Object);
+                return estrategiaComponenteProvider;
+            }
+
+            protected DetalleEstrategiaController CreateController()
+            {
+                estrategiaComponenteProvider = GetOfertaPersonalizadaProvider();
+
+                return new DetalleEstrategiaController(SessionManager.Object, LogManager.Object, estrategiaComponenteProvider.Object);
+            }
+
+            [TestInitialize]
+            public override void Test_Initialize()
+            {
+                base.Test_Initialize();
+                controller = CreateController();
+                ConfigureUserDataWithCampaniaActual(campaniaIdActual);
+            }
+
+            [TestCleanup]
+            public override void Test_Cleanup()
+            {
+                base.Test_Cleanup();
+            }
+
+            [TestMethod]
+            public void FichaResponsive_PalancaIsNull_RedirectsToOfertas()
+            {
+                // Arrange
+                var palanca = (string)null;
+
+                // Act
+                var result = (RedirectResult)controller.FichaResponsive(palanca,0,null,null);
+
+                // Assert
+                Assert.AreEqual("/ofertas", result.Url.ToLower());
+            }
+
+            [TestMethod]
+            public void FichaResponsive_PalancaIsEmpty_RedirectsToOfertas()
+            {
+                // Arrange
+                var palanca = string.Empty;
+
+                // Act
+                var result = (RedirectResult)controller.FichaResponsive(palanca, 0, null, null);
+
+                // Assert
+                Assert.AreEqual("/ofertas", result.Url.ToLower());
+            }
+
+            [TestMethod]
+            public void FichaResponsive_CampaniaIsLessEqualThanZero_RedirectsToOfertas()
+            {
+                // Arrange
+                var palanca = "Especiales";
+                var campaniaId = 0;
+
+                // Act
+                var result = (RedirectResult)controller.FichaResponsive(palanca, campaniaId, null, null);
+
+                // Assert
+                Assert.AreEqual("/ofertas", result.Url.ToLower());
+            }
+            
+            [TestMethod]
+            public void FichaResponsive_CuvIsNull_RedirectsToOfertas()
+            {
+                // Arrange
+                var palanca = "Especiales";
+                var campaniaId = 201801;
+                var cuv = (string)null;
+
+                // Act
+                var result = (RedirectResult)controller.FichaResponsive(palanca, campaniaId, cuv, null);
+
+                // Assert
+                Assert.AreEqual("/ofertas", result.Url.ToLower());
+            }
+        }
     }
 }

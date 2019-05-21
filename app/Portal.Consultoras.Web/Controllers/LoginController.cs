@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using ClosedXML.Excel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
@@ -71,6 +71,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region ActionResult
 
+        #region Index
         [AllowAnonymous]
         public async Task<ActionResult> Index(string returnUrl = null)
         {
@@ -152,14 +153,27 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(model);
         }
-        [AllowAnonymous]
+
+        public RedirectToRouteResult IndexRedireccionar(int cantCursos, bool esMobile)
+        {
+            if (cantCursos > 0)
+            {
+                return RedirectToAction("Index", "MiAcademia");
+            }
+
+            return esMobile
+                ? RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
+                : RedirectToAction("Index", "Bienvenida");
+        }
+
+   		[AllowAnonymous]
         [HttpGet]
         [Route("Login/Login/{param?}")]
         public ActionResult Login(string param)
         {
             return RedirectToAction("Index", "Login");
         }
-
+        
         private void MisCursos()
         {
             TempData["MiAcademia"] = 0;
@@ -208,6 +222,31 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
         }
+
+        private LoginModel IndexEvento(LoginModel model)
+        {
+            model.ListaEventos = model.ListaEventos ?? new List<EventoFestivoModel>();
+            if (model.ListaEventos.Count == 0)
+                model.NombreClase = "fondo_estandar";
+            else
+            {
+                model.NombreClase = "fondo_festivo";
+
+                model.RutaEventoEsika =
+                (from g in model.ListaEventos
+                 where g.Nombre == Constantes.EventoFestivoNombre.FONDO_ESIKA
+                 select g.Personalizacion).FirstOrDefault();
+
+                model.RutaEventoLBel =
+                (from g in model.ListaEventos
+                 where g.Nombre == Constantes.EventoFestivoNombre.FONDO_LBEL
+                 select g.Personalizacion).FirstOrDefault();
+            }
+
+            return model;
+        }
+        
+        #endregion
 
         [AllowAnonymous]
         [HttpPost]
@@ -1913,11 +1952,18 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 if (usuarioModel == null)
-                    throw new ArgumentNullException("usuarioModel", "No puede ser nulo");
-
+                {
+                    SetUserError();
+                    return usuarioModel;
+                }
+           
 
                 if (usuarioModel.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                    throw new ArgumentException("No se asigna configuracion pais para los Postulantes.");
+                {
+                    SetUserError();
+                    return usuarioModel;
+                }
+                    
 
                 var guiaNegocio = new GuiaNegocioModel();
                 var revistaDigitalModel = new RevistaDigitalModel();
@@ -2077,11 +2123,8 @@ namespace Portal.Consultoras.Web.Controllers
                     codigoConsultora = usuarioModel.CodigoConsultora;
                     pais = usuarioModel.PaisID.ToString();
                 }
+                SetUserError();
                 logManager.LogErrorWebServicesBusWrap(ex, codigoConsultora, pais, "LoginController.ConfiguracionPaisUsuario");
-                sessionManager.SetGuiaNegocio(new GuiaNegocioModel());
-                sessionManager.SetRevistaDigital(new RevistaDigitalModel());
-                sessionManager.SetConfiguracionesPaisModel(new List<ConfiguracionPaisModel>());
-                sessionManager.SetOfertaFinalModel(new OfertaFinalModel());
             }
 
             return usuarioModel;
@@ -2107,7 +2150,13 @@ namespace Portal.Consultoras.Web.Controllers
                 return usuario;
             }
         }
-
+        private void SetUserError()
+        {
+            sessionManager.SetGuiaNegocio(new GuiaNegocioModel());
+            sessionManager.SetRevistaDigital(new RevistaDigitalModel());
+            sessionManager.SetConfiguracionesPaisModel(new List<ConfiguracionPaisModel>());
+            sessionManager.SetOfertaFinalModel(new OfertaFinalModel());
+        }
         #endregion
 
         #region metodos normales

@@ -126,7 +126,6 @@ var FichaModule = (function (config) {
 
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
-    var _tipoEstrategia = ConstantesModule.TipoEstrategia;
     var _tipoAccionNavegar = ConstantesModule.TipoAccionNavegar;
 
     var _elementos = {
@@ -343,7 +342,7 @@ var FichaModule = (function (config) {
 
     var _getEstrategia = function (modeloFicha) {
         var estrategia;
-        var mensajeError = "_getEstrategia";
+        var mensajeError = "Archivo FichaModule.js - Metodo _getEstrategia";
         if (!_fichaServicioApi) {
             mensajeError += "\n _fichaServicioApi si";
             if (_config.tieneSession) {
@@ -448,7 +447,7 @@ var FichaModule = (function (config) {
         _setEstrategiaBreadcrumb(estrategia);
 
         if (config.componenteDetalleModule === null || typeof config.componenteDetalleModule === "undefined") {
-            console.log('config.componenteDetalleModule is null or undefined');
+            //console.log('config.componenteDetalleModule is null or undefined');
         } else {
             _config.componenteDetalleModule.VerDetalleIndividual(estrategia);
         }
@@ -465,6 +464,7 @@ var FichaModule = (function (config) {
 
         if (estrategia.TieneReloj) {
             _crearReloj(estrategia);
+            //console.log(estrategia);
             _setHandlebars(_template.styleOdd, estrategia);
         }
 
@@ -703,7 +703,8 @@ var FichaModule = (function (config) {
     ////// Ini - Construir Estructura Ficha
 
     var _construirSeccionFicha = function () {
-        var modeloFicha = _getModelo();
+        //console.log('Ficha - construir Seccion Ficha');
+        var modeloFicha = _modeloFicha();
 
         if (!_validaOfertaDelDia(true)) {
             setTimeout(function () {
@@ -724,7 +725,7 @@ var FichaModule = (function (config) {
     var _getModelo = function () {
 
         var modeloFicha = {};
-
+        //console.log('Ficha - promise Obterner Modelo');
         _config.detalleEstrategiaProvider
             .promiseObternerModelo({
                 palanca: _config.palanca,
@@ -811,7 +812,7 @@ var FichaModule = (function (config) {
             }
 
             panelCliente.Abrir();
-            console.log('_initCliente - DivPopupFichaResumida overflow hidden');
+            //console.log('_initCliente - DivPopupFichaResumida overflow hidden');
             $("#DivPopupFichaResumida").css("overflow", "hidden");
             isChangeCliente = true;
 
@@ -824,7 +825,8 @@ var FichaModule = (function (config) {
         if (typeof _config.analyticsPortalModule === 'undefined')
             return;
 
-        _config.analyticsPortalModule.MarcaVisualizarDetalleProducto(_getModelo());
+        //console.log('Ficha - analytics - Marca Visualizar Detalle Producto');
+        _config.analyticsPortalModule.MarcaVisualizarDetalleProducto(_modeloFicha());
 
     };
 
@@ -869,6 +871,15 @@ var FichaModule = (function (config) {
         modeloFicha = _getEstrategia(modeloFicha);
         _modeloFicha(modeloFicha);
 
+        if (_modeloFicha().MostrarFichaResponsive &&
+            _modeloFicha().CodigoVariante == _codigoVariedad.ComuestaFija) {
+            var urlResponsive = _config.generalModule.getLocationPathname()/*.toLowerCase()*/;
+            urlResponsive = urlResponsive.replace("Detalle", "Detalles");
+            urlResponsive = urlResponsive.substr(1);
+            _config.generalModule.redirectTo(urlResponsive, _config.esMobile);
+            return;
+        }
+
         _construirSeccionFicha();
         _construirSeccionEstrategia();
         _initCliente();
@@ -885,6 +896,8 @@ var FichaModule = (function (config) {
 });
 
 var FichaPartialModule = (function () {
+
+    var _tipoEstrategia = ConstantesModule.TipoEstrategia;
 
     var _validarData = function (objFicha) {
         objFicha = objFicha || {};
@@ -993,7 +1006,7 @@ var FichaPartialModule = (function () {
             AnalyticsPortalModule.MarcaFichaResumidaClickDetalleProducto(producto);
         }
 
-        if (tipoEstrategiaCodigo == ConstantesModule.TipoEstrategia.ArmaTuPack) {
+        if (tipoEstrategiaCodigo == _tipoEstrategia.ArmaTuPack) {
             _mostrarPopupAtp(campaniaId, setid, cuv);
         }
         else {

@@ -11,17 +11,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                bool persistenciaTD = false;
+                bool persistenciaTd = false;
 
-                if (this.IsMobile())
+                if (this.IsMobile() && !EsControladorOrigen(Constantes.Controlador.Pedido))
                 {
-                    if(!EsControladorOrigen(Constantes.Controlador.Pedido))
-                    {
-                        persistenciaTD = true;
-                    }
+                    persistenciaTd = true;
                 }
 
-                var oddModel = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData, persistenciaTD);
+                var oddModel = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData, persistenciaTd);
 
                 if (oddModel != null)
                 {
@@ -49,9 +46,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             bool result = false;
             string[] segmentos = HttpContext.Request.UrlReferrer.Segments;
-            foreach(string item in segmentos)
+            foreach (string item in segmentos)
             {
-                if(item.Contains(controlador + "/"))
+                if (item.Contains(controlador + "/"))
                 {
                     result = true;
                     break;

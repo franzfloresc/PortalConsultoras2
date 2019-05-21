@@ -1,4 +1,4 @@
-﻿window.onload = function () {  
+﻿window.onload = function () {
     var raiz = document.getElementById("hdfUrlRaiz").value;
     var urlBase = window.location.protocol + '//' + window.location.host + raiz;
     window.sessionStorage.setItem("urlBase", urlBase);
@@ -8,7 +8,7 @@
     ObtenerDatosMatrizCampania();
     document.getElementById('ddlPais').onchange = function () { ObtenerCampaniasByPais(document.getElementById('ddlPais').value); };
     document.getElementById('ddlPaisM').onchange = function () {
- 
+
         document.getElementById('divregistrosValidos').style.display = 'None';
         document.getElementById('divRegistrosInvalidos').style.display = 'None';
         document.getElementById("uplArchivo").value = "";
@@ -17,10 +17,10 @@
     };
     document.getElementById('btnBuscar').onclick = function () { ObtenerDescripcion(document.getElementById('txtCodVenta').value, document.getElementById('ddlCampania').value, document.getElementById('ddlPais').value) };
     document.getElementById('btnGrabar').onclick = function () { GrabarMatrizCampania(); };
-    document.getElementById('uplArchivo').onchange = function (e) {ValidarExcel();};
+    document.getElementById('uplArchivo').onchange = function (e) { ValidarExcel(); };
     document.getElementById('uplArchivo').onclick = function (e) {
 
-        if (document.getElementById('ddlPaisM').value == "" || document.getElementById('ddlCampaniaM').value=="0" ) {
+        if (document.getElementById('ddlPaisM').value == "" || document.getElementById('ddlCampaniaM').value == "0") {
             alert("Los campos Pais y Campañia son obligatorios.");
             return false;
         }
@@ -40,7 +40,7 @@
 
 function GrabarMatrizCampania() {
     var vMessage = "";
-    if (document.getElementById('txtDescripcionNueva').value.trim()=="") {
+    if (document.getElementById('txtDescripcionNueva').value.trim() == "") {
         vMessage += "- Debe ingresar descripción del producto.\n";
     }
     if (document.getElementById('txtPrecioNuevo').value.trim() == "") {
@@ -49,20 +49,19 @@ function GrabarMatrizCampania() {
     if (document.getElementById('txtFactorRepeticionNuevo').value.trim() == "") {
         vMessage += "- Debe ingresar factor de repetición del producto.\n";
     }
-    if (vMessage!="") {
+    if (vMessage != "") {
         alert(vMessage);
         return false;
-    } else
-    {
+    } else {
         waitingDialog({});
-        
+
         var item = {
             CUV: document.getElementById('txtCodVenta').value.trim(),
             CampaniaID: document.getElementById('ddlCampania').value,
             Descripcion: document.getElementById('txtDescripcionNueva').value,
             PaisID: document.getElementById('ddlPais').value,
             PrecioProducto: document.getElementById('txtPrecioNuevo').value.trim(),
-            FactorRepeticion: document.getElementById('txtFactorRepeticionNuevo').value.trim() 
+            FactorRepeticion: document.getElementById('txtFactorRepeticionNuevo').value.trim()
         };
 
         var url = "MatrizCampania/InsertarProductoDescripcion";
@@ -93,7 +92,7 @@ function GrabarMatrizCampania() {
     }
 }
 
-function GrabarMatrizBloque(){
+function GrabarMatrizBloque() {
 
     var tabla = document.getElementById('tbValidos');
     var anioCampania = document.getElementById('ddlCampaniaM').value;
@@ -121,16 +120,16 @@ function GrabarMatrizBloque(){
 
 
         }
-        else break;      
+        else break;
     }
     data = data.substring(0, data.length - 1);
-    data += data +'~'+ pais
+    data += data + '~' + pais
 
     var url = "MatrizCampania/grabarBloque";
     var urlBase = window.sessionStorage.getItem("urlBase");
     url = urlBase + url;
 
-    requestServer(url ,"POST", mostrarGrabar, data, null);
+    requestServer(url, "POST", mostrarGrabar, data, null);
 }
 
 function GrabarMatrizCampaniaMasivo() {
@@ -139,7 +138,7 @@ function GrabarMatrizCampaniaMasivo() {
     var pais = document.getElementById('ddlPaisM').value;
     var data = "";
 
-    if (isNaN(pais)|| pais=="" || pais==null) {
+    if (isNaN(pais) || pais == "" || pais == null) {
         alert('Seleccionar País');
         return false;
     }
@@ -148,7 +147,7 @@ function GrabarMatrizCampaniaMasivo() {
         return false;
     }
     var Nfilas = tabla.rows.length;
-    if (Nfilas<=0) {
+    if (Nfilas <= 0) {
         alert('No existe productos por Actualizar');
         return false;
     }
@@ -157,10 +156,10 @@ function GrabarMatrizCampaniaMasivo() {
         data += anioCampania;
         data += "|";
         for (var j = 0; j < 4; j++) {
-            data += tabla.rows[i].cells[j].innerHTML.replace("|", '¦').replace('¬','-');
+            data += tabla.rows[i].cells[j].innerHTML.replace("|", '¦').replace('¬', '-');
             data += "|";
         }
-        data = data.substring(0, data.length-1);
+        data = data.substring(0, data.length - 1);
         data += '¬';
     }
 
@@ -186,16 +185,16 @@ function GrabarMatrizCampaniaMasivo() {
             if (checkTimeout(data)) {
                 closeWaitingDialog();
                 alert(data + ' registros procesados correctamente');
-               
+
                 var myTable = document.getElementById("tbValidos");
                 var rowCount = myTable.rows.length;
-                for (var x = rowCount - 1; x >=0; x--) {
+                for (var x = rowCount - 1; x >= 0; x--) {
                     myTable.deleteRow(x);
                 }
                 document.getElementById('spanTotales1').innerHTML = document.getElementById('spanInValido').innerHTML;
                 document.getElementById('spanValido').innerHTML = '0';
                 document.getElementById('spanTotales2').innerHTML = document.getElementById('spanInValido').innerHTML;
-                
+
             }
         },
         error: function (data, error) {
@@ -216,7 +215,7 @@ function ObtenerDescripcion(CodVenta, IDCampania, paisID) {
         alert(vMessage);
         return false;
     }
-    if (document.getElementById('ddlCampania').value == "" || document.getElementById('ddlCampania').value==0) {
+    if (document.getElementById('ddlCampania').value == "" || document.getElementById('ddlCampania').value == 0) {
         vMessage += "- Debe seleccionar la campaña.\n";
         document.getElementById('ddlCampania').focus();
         alert(vMessage);
@@ -237,7 +236,7 @@ function ObtenerDescripcion(CodVenta, IDCampania, paisID) {
         url: url,
         type: "POST",
         contentType: 'application/json',
-        data: JSON.stringify({ CUV: CodVenta, IDCampania: IDCampania, paisID: paisID}),
+        data: JSON.stringify({ CUV: CodVenta, IDCampania: IDCampania, paisID: paisID }),
         processData: false,
         success: function (data, textStatus, jQxhr) {
 
@@ -253,9 +252,9 @@ function ObtenerDescripcion(CodVenta, IDCampania, paisID) {
                 return false;
             }
             if (data.lstProducto.length > 0) {
-                document.getElementById('txtDescripcion').value=data.lstProducto[0].Descripcion;
-                document.getElementById('txtPrecio').value=data.lstProducto[0].PrecioProducto;
-                document.getElementById('txtFactorRepeticion').value=data.lstProducto[0].FactorRepeticion;
+                document.getElementById('txtDescripcion').value = data.lstProducto[0].Descripcion;
+                document.getElementById('txtPrecio').value = data.lstProducto[0].PrecioProducto;
+                document.getElementById('txtFactorRepeticion').value = data.lstProducto[0].FactorRepeticion;
             }
             if (data.lstProducto.length == 2) {
                 document.getElementById('txtDescripcionNueva').value = data.lstProducto[1].Descripcion;
@@ -281,10 +280,10 @@ function ObtenerCampaniasByPais(paisId2) {
         url: url,
         type: "POST",
         contentType: 'application/json',
-        data: JSON.stringify({ paisId: paisId2}),
+        data: JSON.stringify({ paisId: paisId2 }),
         processData: false,
         success: function (data, textStatus, jQxhr) {
-            llenarComboAnioCampania(data.DropDownListCampania,'ddlCampania');
+            llenarComboAnioCampania(data.DropDownListCampania, 'ddlCampania');
         },
         error: function (jqXhr, textStatus, errorThrown) {
             console.log(errorThrown);
@@ -362,10 +361,10 @@ function llenarComboPais(data) {
         options += "</option>";
     }
     document.getElementById('ddlPais').innerHTML = options;
-    document.getElementById('ddlPaisM').innerHTML = options;   
+    document.getElementById('ddlPaisM').innerHTML = options;
 }
 function llenarComboAnioCampania(data, ddlCampania) {
-var options = "";
+    var options = "";
     for (var i = 0; i < data.length; i++) {
         options += "<option value=" + data[i].CampaniaID + ">";
         options += data[i].Codigo;
@@ -383,7 +382,7 @@ function ValidarExcel() {
     var file = document.getElementById("uplArchivo");
     if (file != null && file != undefined) {
         waitingDialog({});
- 
+
         var pais = document.getElementById("ddlPaisM").value;
         var anioCampania = document.getElementById('ddlCampaniaM').value;
 
@@ -400,8 +399,8 @@ function ValidarExcel() {
         var formData = new FormData();
         formData.append("pais", pais);
         formData.append('AnioCampania', anioCampania);
-        formData.append('file', file.files[0],'arch.xls');
-      
+        formData.append('file', file.files[0], 'arch.xls');
+
         var url = "MatrizCampania/leerArchivoExcel";
         var urlBase = window.sessionStorage.getItem("urlBase");
         url = urlBase + url;
@@ -418,7 +417,7 @@ function ValidarExcel() {
                 if (rpt[0].length > 0) {
                     var regValidos = "", regInValidos = "";
                     rpt[0] = rpt[0].trim();
-                    var data = rpt[0].split('¬');                                     
+                    var data = rpt[0].split('¬');
                     var CampoValidos = rpt[1];
                     var CamposNovalidos = rpt[2];
                     var cuvInValidados = rpt[3];
@@ -428,70 +427,69 @@ function ValidarExcel() {
 
                     for (var i = 0; i < data.length; i++) {
                         var colum = data[i].split('¦');
-                        if (CampoValidos.indexOf(colum[0].toString()) >= 0 && cuvInValidados.indexOf(colum[0].toString()) < 0   ) {
-                                var encontro = 0;
-                                var listaCamposNovalidos = CamposNovalidos.split('¬');
+                        if (CampoValidos.indexOf(colum[0].toString()) >= 0 && cuvInValidados.indexOf(colum[0].toString()) < 0) {
+                            var encontro = 0;
+                            var listaCamposNovalidos = CamposNovalidos.split('¬');
 
-                                for (var g = 0; g < listaCamposNovalidos.length; g++) {
-                                    var item = listaCamposNovalidos[g];
-                                    if (item.split('¦')[0] == colum[0].toString() && item.split('¦')[1] == colum[1].toString() && item.split('¦')[2] == colum[2].toString() && item.split('¦')[3]==colum[3].toString() ) {
-                                        
-                                        var list = CamposNovalidos.split('¬');
-                                        var listCuvInval = cuvInValidados.split('¬');
-                                        contInValidos++;
-                                        var cuv = "";
-                                        regInValidos += "<tr style='background-color: white;'>";
-                                        for (var j = 0; j < 4; j++) {
-                                            cuv = colum[0];                                   
-                                            regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'><div contenteditable='true'>";
-                                           if (j == 2) {                                              
-                                               if (isNaN(colum[j]) || colum[j].trim().length==0) {
-                                                   regInValidos += colum[j];
-                                               } else
-                                                   regInValidos += parseFloat(colum[j]).toFixed(2);
+                            for (var g = 0; g < listaCamposNovalidos.length; g++) {
+                                var item = listaCamposNovalidos[g];
+                                if (item.split('¦')[0] == colum[0].toString() && item.split('¦')[1] == colum[1].toString() && item.split('¦')[2] == colum[2].toString() && item.split('¦')[3] == colum[3].toString()) {
 
-                                            } else
+                                    var list = CamposNovalidos.split('¬');
+                                    var listCuvInval = cuvInValidados.split('¬');
+                                    contInValidos++;
+                                    var cuv = "";
+                                    regInValidos += "<tr style='background-color: white;'>";
+                                    for (var j = 0; j < 4; j++) {
+                                        cuv = colum[0];
+                                        regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'><div contenteditable='true'>";
+                                        if (j == 2) {
+                                            if (isNaN(colum[j]) || colum[j].trim().length == 0) {
                                                 regInValidos += colum[j];
-                                            regInValidos += "</div></td>";
-                                        }
+                                            } else
+                                                regInValidos += parseFloat(colum[j]).toFixed(2);
 
-                                        var Obs = "";
-                                        regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'>";
-                                        for (var p = 0; p < list.length; p++) {
-                                            if (cuv == list[p].split('¦')[0])
-                                            {
-                                                if (colum[1] == list[p].split('¦')[1] && colum[2] == list[p].split('¦')[2] && colum[3] == list[p].split('¦')[3] ) {
-                                                    Obs += list[p].split('¦')[4];
-                                                }                                       
-                                            }
-                                                
-                                        }
+                                        } else
+                                            regInValidos += colum[j];
+                                        regInValidos += "</div></td>";
+                                    }
 
-                                        if (listCuvInval[0].trim().length>0) {
-                                            for (var k = 0; k < listCuvInval.length; k++) {
-                                                if (cuv == listCuvInval[k].split('¦')[0]) Obs += " - CUV no registrado en campaña seleccionada";
+                                    var Obs = "";
+                                    regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'>";
+                                    for (var p = 0; p < list.length; p++) {
+                                        if (cuv == list[p].split('¦')[0]) {
+                                            if (colum[1] == list[p].split('¦')[1] && colum[2] == list[p].split('¦')[2] && colum[3] == list[p].split('¦')[3]) {
+                                                Obs += list[p].split('¦')[4];
                                             }
                                         }
-                                   
-                                        regInValidos += Obs;
-                                        regInValidos += "</td>";
-
-                                        regInValidos += "</tr>";
-
-                                        encontro = 1;
-                                        break;
 
                                     }
-                          
+
+                                    if (listCuvInval[0].trim().length > 0) {
+                                        for (var k = 0; k < listCuvInval.length; k++) {
+                                            if (cuv == listCuvInval[k].split('¦')[0]) Obs += " - CUV no registrado en campaña seleccionada";
+                                        }
+                                    }
+
+                                    regInValidos += Obs;
+                                    regInValidos += "</td>";
+
+                                    regInValidos += "</tr>";
+
+                                    encontro = 1;
+                                    break;
+
                                 }
 
-                                if (encontro == 1) {
-                                    document.getElementById('divRegistrosInvalidos').style.display = 'block';
-                                    document.getElementById('divExportarExcel').style.display = 'block';
-                                    document.getElementById('spanInValido').innerHTML = contInValidos.toString();
-                                    continue;
-                                }
-                   
+                            }
+
+                            if (encontro == 1) {
+                                document.getElementById('divRegistrosInvalidos').style.display = 'block';
+                                document.getElementById('divExportarExcel').style.display = 'block';
+                                document.getElementById('spanInValido').innerHTML = contInValidos.toString();
+                                continue;
+                            }
+
                             contValidos++;
                             regValidos += "<tr style='background-color: white;'>";
                             for (var j = 0; j < 4; j++) {
@@ -500,8 +498,8 @@ function ValidarExcel() {
                                 if (j == 2) {
                                     if (isNaN(colum[j]) || colum[j].trim().length == 0) {
                                         regValidos += colum[j];
-                                    }else
-                                    regValidos += parseFloat(colum[j]).toFixed(2);
+                                    } else
+                                        regValidos += parseFloat(colum[j]).toFixed(2);
                                 } else
                                     regValidos += colum[j];
                                 regValidos += "</td>";
@@ -527,85 +525,83 @@ function ValidarExcel() {
                             }
 
                         }
-                        else
-                        {
+                        else {
                             var cantCol = colum.length;
                             var cantVacios = 0;
                             var list = CamposNovalidos.split('¬');
                             var listCuvInval = cuvInValidados.split('¬');
                             for (var a = 0; a < cantCol; a++) {
-                                if (colum[a].trim().length==0) 
+                                if (colum[a].trim().length == 0)
                                     cantVacios++;
-                                
+
                             }
                             if (cantVacios == cantCol) {
                                 continue;
                             }
 
-                                contInValidos++;
-                                var cuv = "";
-                                var descrip = "";
-                                regInValidos += "<tr style='background-color: white;'>";
-                                for (var j = 0; j < 4; j++) {
-                                    cuv = colum[0];
-                                    descrip = colum[1];
+                            contInValidos++;
+                            var cuv = "";
+                            var descrip = "";
+                            regInValidos += "<tr style='background-color: white;'>";
+                            for (var j = 0; j < 4; j++) {
+                                cuv = colum[0];
+                                descrip = colum[1];
 
-                                    regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'><div contenteditable='true'>";
+                                regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'><div contenteditable='true'>";
 
-                                    if (j == 2) {
-                                        if (isNaN(colum[j]) || colum[j].trim().length == 0) {
-                                            regInValidos += colum[j];
-                                        } else
-                                            regInValidos += parseFloat(colum[j]).toFixed(2);
-                                    } else
+                                if (j == 2) {
+                                    if (isNaN(colum[j]) || colum[j].trim().length == 0) {
                                         regInValidos += colum[j];
+                                    } else
+                                        regInValidos += parseFloat(colum[j]).toFixed(2);
+                                } else
+                                    regInValidos += colum[j];
 
-                                    regInValidos += "</div></td>";
-                                }
+                                regInValidos += "</div></td>";
+                            }
 
-                                var Obs = "";
-                                regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'>";
-                                for (var p = 0; p < list.length; p++) {
-                                    if (cuv == list[p].split('¦')[0])
-                                    {
-                                        if (descrip == list[p].split('¦')[1] && colum[2] == list[p].split('¦')[2] && colum[3] == list[p].split('¦')[3]) {
-                                            Obs += list[p].split('¦')[4];
-                                        }
-                                    }
-                                                                              
-                                }
-
-                                if (listCuvInval[0].trim().length > 0) {
-                                    for (var k = 0; k < listCuvInval.length; k++) {
-                                        if (cuv == listCuvInval[k].split('¦')[0]) Obs += " - CUV no registrado en campaña seleccionada";
+                            var Obs = "";
+                            regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'>";
+                            for (var p = 0; p < list.length; p++) {
+                                if (cuv == list[p].split('¦')[0]) {
+                                    if (descrip == list[p].split('¦')[1] && colum[2] == list[p].split('¦')[2] && colum[3] == list[p].split('¦')[3]) {
+                                        Obs += list[p].split('¦')[4];
                                     }
                                 }
-                              
-                                regInValidos += Obs;
-                                regInValidos += "</td>";
 
-                                regInValidos += "</tr>";
+                            }
 
-                                if (regInValidos.length > 0) {
-                                    document.getElementById('divRegistrosInvalidos').style.display = 'Block';
-                                    document.getElementById('divExportarExcel').style.display = 'Inline-block';
-                                    document.getElementById('spanInValido').innerHTML = contInValidos.toString();
-                                    document.getElementById('divTotalRegistrosInvalidos').style.display = 'Inline-block';
+                            if (listCuvInval[0].trim().length > 0) {
+                                for (var k = 0; k < listCuvInval.length; k++) {
+                                    if (cuv == listCuvInval[k].split('¦')[0]) Obs += " - CUV no registrado en campaña seleccionada";
                                 }
-                                else {
-                                    document.getElementById('divRegistrosInvalidos').style.display = 'None';
-                                    document.getElementById('divExportarExcel').style.display = 'None';
-                                    document.getElementById('spanInValido').innerHTML = contInValidos.toString();
-                                    document.getElementById('divTotalRegistrosInvalidos').style.display = 'None';
-                                }
+                            }
 
-                                if (contValidos == 0) {
-                                    document.getElementById('divregistrosValidos').style.display = 'None';
-                                    document.getElementById('divProcesarMasivo').style.display = 'None';
-                                    document.getElementById('spanValido').innerHTML = contValidos.toString();
-                                }
+                            regInValidos += Obs;
+                            regInValidos += "</td>";
 
-                           
+                            regInValidos += "</tr>";
+
+                            if (regInValidos.length > 0) {
+                                document.getElementById('divRegistrosInvalidos').style.display = 'Block';
+                                document.getElementById('divExportarExcel').style.display = 'Inline-block';
+                                document.getElementById('spanInValido').innerHTML = contInValidos.toString();
+                                document.getElementById('divTotalRegistrosInvalidos').style.display = 'Inline-block';
+                            }
+                            else {
+                                document.getElementById('divRegistrosInvalidos').style.display = 'None';
+                                document.getElementById('divExportarExcel').style.display = 'None';
+                                document.getElementById('spanInValido').innerHTML = contInValidos.toString();
+                                document.getElementById('divTotalRegistrosInvalidos').style.display = 'None';
+                            }
+
+                            if (contValidos == 0) {
+                                document.getElementById('divregistrosValidos').style.display = 'None';
+                                document.getElementById('divProcesarMasivo').style.display = 'None';
+                                document.getElementById('spanValido').innerHTML = contValidos.toString();
+                            }
+
+
 
                         }
 
@@ -616,9 +612,9 @@ function ValidarExcel() {
 
                     document.getElementById('spanTotales1').innerHTML = (contValidos + contInValidos);
                     document.getElementById('spanTotales2').innerHTML = (contValidos + contInValidos);
-         
-                    
-   
+
+
+
                 }
 
             }
@@ -629,7 +625,7 @@ function ValidarExcel() {
         alert("seleccione archivo");
     }
 
-   
+
 
 }
 
@@ -687,7 +683,7 @@ function ValidarInvalidos() {
         processData: false,
         success: function (data, textStatus, jQxhr) {
             if (checkTimeout(data)) {
-              
+
                 var rpt = data.split('||');
 
                 if (rpt[0].length > 0) {
@@ -695,18 +691,18 @@ function ValidarInvalidos() {
                     var regInValidos = "";
                     rpt[0] = rpt[0].replace('¦¬¦', '');
                     var data = rpt[0].split('¬');
-                    
+
 
                     var CampoValidos = rpt[1];
                     var CamposNovalidos = rpt[2];
                     var cuvInValidados = rpt[3];
-                    
+
                     for (var i = 0; i < data.length; i++) {
                         var colum = data[i].split('¦');
 
-                        
 
-                        if (CampoValidos.indexOf(colum[0].toString()) >= 0 && cuvInValidados.indexOf(colum[0].toString()) < 0 && (colum[0].toString().length > 0 && colum[1].toString().length > 0 && colum[2].toString().length > 0 && colum[3].toString().length > 0)  ) {
+
+                        if (CampoValidos.indexOf(colum[0].toString()) >= 0 && cuvInValidados.indexOf(colum[0].toString()) < 0 && (colum[0].toString().length > 0 && colum[1].toString().length > 0 && colum[2].toString().length > 0 && colum[3].toString().length > 0)) {
                             contValidos++;
 
 
@@ -728,7 +724,7 @@ function ValidarInvalidos() {
                                         regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'><div contenteditable='true'>";
 
                                         if (j == 2) {
-                                       
+
                                             if (isNaN(colum[j]) || colum[j].trim().length == 0) {
                                                 regInValidos += colum[j];
                                             } else
@@ -741,7 +737,7 @@ function ValidarInvalidos() {
 
                                     var Obs = "";
                                     regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'>";
-                                   
+
                                     for (var p = 0; p < list.length; p++) {
 
                                         if (cuv == list[p].split('¦')[0]) {
@@ -783,12 +779,12 @@ function ValidarInvalidos() {
                             var cell3 = row.insertCell(2);
                             var cell4 = row.insertCell(3);
 
-                            cell1.innerHTML = "<td style='background-color: white;border-style: solid;border-width: 1px;text-align: center;'>"+ colum[0] + "</td>";
-                            cell2.innerHTML = "<td style='background-color: white;border-style: solid;border-width: 1px;text-align: center;'>" + colum[1] + "</td>"; 
+                            cell1.innerHTML = "<td style='background-color: white;border-style: solid;border-width: 1px;text-align: center;'>" + colum[0] + "</td>";
+                            cell2.innerHTML = "<td style='background-color: white;border-style: solid;border-width: 1px;text-align: center;'>" + colum[1] + "</td>";
                             cell3.innerHTML = "<td style='background-color: white;border-style: solid;border-width: 1px;text-align: center;'>" + colum[2] + "</td>";
                             cell4.innerHTML = "<td style='background-color: white;border-style: solid;border-width: 1px;text-align: center;'>" + colum[3] + "</td>";
 
-                                                 
+
                             cell1.style.backgroundColor = "white";
                             cell2.style.backgroundColor = "white";
                             cell3.style.backgroundColor = "white";
@@ -805,17 +801,17 @@ function ValidarInvalidos() {
                             cell3.style.borderWidth = "1px";
                             cell4.style.borderWidth = "1px";
 
-                            cell1.style.textAlign  = "center";
-                            cell2.style.textAlign  = "center";
-                            cell3.style.textAlign  = "center";
-                            cell4.style.textAlign  = "center";
-                        
-                                document.getElementById('divregistrosValidos').style.display = 'Block';
-                                document.getElementById('divProcesarMasivo').style.display = 'Block';
-                                document.getElementById('spanValido').innerHTML = contValidos.toString();
-                                document.getElementById('divTotalRegistrosValidos').style.display = 'Inline-block';
-                                document.getElementById('spanInValido').innerHTML = contInValidos.toString();
-              
+                            cell1.style.textAlign = "center";
+                            cell2.style.textAlign = "center";
+                            cell3.style.textAlign = "center";
+                            cell4.style.textAlign = "center";
+
+                            document.getElementById('divregistrosValidos').style.display = 'Block';
+                            document.getElementById('divProcesarMasivo').style.display = 'Block';
+                            document.getElementById('spanValido').innerHTML = contValidos.toString();
+                            document.getElementById('divTotalRegistrosValidos').style.display = 'Inline-block';
+                            document.getElementById('spanInValido').innerHTML = contInValidos.toString();
+
 
                             if (contInValidos == 0) {
                                 document.getElementById('divRegistrosInvalidos').style.display = 'None';
@@ -826,7 +822,7 @@ function ValidarInvalidos() {
 
                         }
                         else {
-                            
+
                             var list = CamposNovalidos.split('¬');
                             var listCuvInval = cuvInValidados.split('¬');
                             contInValidos++;
@@ -891,7 +887,7 @@ function ValidarInvalidos() {
                 }
 
                 closeWaitingDialog();
-             
+
             }
         },
         error: function (data, error) {
@@ -905,8 +901,8 @@ function ValidarInvalidos() {
 
 }
 
-function createTablaRegistrosValidos() {    
-    var tabla="";
+function createTablaRegistrosValidos() {
+    var tabla = "";
     tabla += "<table style='border-style:solid;border-width:1px;width:98%;'><thead style='background-color: #ADFF2F;'><tr><th>CUV</th><th>Descripción</th><th>Precio Producto</th><th>Factor Repetición</th></tr></thead><tbody id='tbValidos'></tbody></table>";
     document.getElementById('tablaCuvsValidos').innerHTML = tabla;
 }
@@ -918,30 +914,30 @@ function createTablaRegistrosInValidos() {
 }
 
 function exportar() {
-        var tabla = document.getElementById('tbInValidos');
-       
-        var cnt = "<html><head><meta charset='utf-8'/></head><table style='table-layout:fixed'><thead>";
-            cnt += "<colgroup> <col style='width:100px'/> <col style='width:400px'/> <col style='width:100px'/> <col style='width:100px'/> <col style='width:500px'/></colgroup>";
-            cnt += "<tr><th style='background-color:red'>CUV</th><th style='background-color:red'>Descripción</th><th style='background-color:red'>Precio</th><th style='background-color:red'>Factor Repetición</th><th style='background-color:red'>Observación</th></tr>";
-            cnt += "</thead><tbody>";
-            for (var i = 0; i < tabla.rows.length; i++) {
-            cnt += "<tr>";
-            for (var j = 0; j < 5; j++) {
-                cnt += "<td>";
-                cnt += tabla.rows[i].cells[j].innerHTML;
-                cnt += "</td>";
-            }
-            cnt += "</tr>";
-            }
-            cnt += "</tbody></table></html>";
-        var formBlob = new Blob([cnt], { type: 'application/vnd.ms-excel' });
-        var body = document.getElementsByTagName("body")[0];
-        var href = document.createElement("a");
-        href.href = window.URL.createObjectURL(formBlob);
-        href.download = "ReporteProductosNoValidos.xls";
-        body.insertAdjacentElement("beforeend", href);
-        href.click();
-        body.removeChild(href);
+    var tabla = document.getElementById('tbInValidos');
+
+    var cnt = "<html><head><meta charset='utf-8'/></head><table style='table-layout:fixed'><thead>";
+    cnt += "<colgroup> <col style='width:100px'/> <col style='width:400px'/> <col style='width:100px'/> <col style='width:100px'/> <col style='width:500px'/></colgroup>";
+    cnt += "<tr><th style='background-color:red'>CUV</th><th style='background-color:red'>Descripción</th><th style='background-color:red'>Precio</th><th style='background-color:red'>Factor Repetición</th><th style='background-color:red'>Observación</th></tr>";
+    cnt += "</thead><tbody>";
+    for (var i = 0; i < tabla.rows.length; i++) {
+        cnt += "<tr>";
+        for (var j = 0; j < 5; j++) {
+            cnt += "<td>";
+            cnt += tabla.rows[i].cells[j].innerHTML;
+            cnt += "</td>";
+        }
+        cnt += "</tr>";
+    }
+    cnt += "</tbody></table></html>";
+    var formBlob = new Blob([cnt], { type: 'application/vnd.ms-excel' });
+    var body = document.getElementsByTagName("body")[0];
+    var href = document.createElement("a");
+    href.href = window.URL.createObjectURL(formBlob);
+    href.download = "ReporteProductosNoValidos.xls";
+    body.insertAdjacentElement("beforeend", href);
+    href.click();
+    body.removeChild(href);
 }
 
 var tableToExcel = (function () {
@@ -980,7 +976,7 @@ function grabarBloque() {
     var inicio = bloque;
     var fin = bloque + nroRegEnv;
     var data = "";
-    
+
     for (var i = inicio; i < fin; i++) {
         if (i < nRegistros) {
             data += matriz[i].join("|");
@@ -989,8 +985,8 @@ function grabarBloque() {
         else break;
     }
     data = data.substring(0, data.length - 1);
-    requestServer("MatrizCampania/grabarBloque","POST", mostrarGrabar, data, null);
-   
+    requestServer("MatrizCampania/grabarBloque", "POST", mostrarGrabar, data, null);
+
 }
 
 function mostrarGrabar(rpta) {
@@ -1000,9 +996,6 @@ function mostrarGrabar(rpta) {
         nroEnvio++;
         if (nroEnvio <= totalEnv) {
             grabarBloque();
-        }
-        else {
-
         }
     }
     else alert(rpta);

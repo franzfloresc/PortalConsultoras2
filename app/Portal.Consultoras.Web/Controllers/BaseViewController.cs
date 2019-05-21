@@ -240,7 +240,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Redireccionar();
         }
 
-        private ActionResult Redireccionar()
+        protected ActionResult Redireccionar()
         {
             string sap = "";
             var url = (Request.Url.Query).Split('?');
@@ -737,6 +737,12 @@ namespace Portal.Consultoras.Web.Controllers
                             userData.PaisID,
                             ConsTablaLogica.FlagFuncional.TablaLogicaId,
                             ConsTablaLogica.FlagFuncional.FichaEnriquecida,
+                            true
+                            );
+            modelo.MostrarFichaResponsive = !esEditar && _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            userData.PaisID,
+                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                            ConsTablaLogica.FlagFuncional.FichaResponsive,
                             true
                             );
             return modelo;

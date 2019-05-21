@@ -52,10 +52,10 @@ var menuModule = (function () {
         }
     }
 
-    var paddingTab = {
-        Mobile: 3,
-        Desktop: 1.5
-    }
+    //var paddingTab = {
+    //    Mobile: 3,
+    //    Desktop: 1.5
+    //}
 
     function _getHeight(element) {
         return $(element).outerHeight(true);

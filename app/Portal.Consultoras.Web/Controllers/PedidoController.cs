@@ -114,7 +114,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 SessionManager.SetPedidoValidado(false);
 
-                if (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
+                if ((configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == DateTime.Today) &&
                     !configuracionCampania.ModificaPedidoReservado &&
                     !configuracionCampania.ValidacionAbierta)
                 {
@@ -125,7 +125,7 @@ namespace Portal.Consultoras.Web.Controllers
                 userData.ZonaValida = configuracionCampania.ZonaValida;
 
                 model.FlagValidacionPedido = "0";
-                if (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
+                if ( (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == DateTime.Today) &&
                     configuracionCampania.ModificaPedidoReservado)
                 {
                     model.FlagValidacionPedido = "1";
@@ -2337,7 +2337,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                 }
-                var pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
+                var pedidoReservado = (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado && userData.FechaFinCampania == DateTime.Today);
                 var estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                 var mensaje = result.Mensaje;
                 //INI HD-3693

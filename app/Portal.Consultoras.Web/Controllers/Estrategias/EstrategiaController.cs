@@ -175,11 +175,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             string message;
             try
             {
-                DetalleEstrategiaFichaModel model = new DetalleEstrategiaFichaModel();
-
-                model = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campania, tipoEstrategia, out message);
-
-                //ir al provider para obtener el resultado del servicio 
+                DetalleEstrategiaFichaModel model = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campania, tipoEstrategia, out message);
 
                 return Json(new { success = true, data = model, message }, JsonRequestBehavior.AllowGet);
             }

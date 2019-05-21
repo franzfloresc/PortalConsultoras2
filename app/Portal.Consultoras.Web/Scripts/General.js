@@ -4,6 +4,8 @@ var belcorp = belcorp || {};
 belcorp.settings = belcorp.settings || {};
 belcorp.settings.uniquePrefix = "/g/";
 
+var _ultimaMarca = "";
+
 jQuery(document).ready(function () {
 
     CreateLoading();
@@ -32,13 +34,13 @@ jQuery(document).ready(function () {
         }
     }
 
-    document.onkeydown = function (evt) {
-        evt = evt || window.event;
-        if (evt.keyCode == 27) {
-            if ($('.resultado_busqueda_producto').is(':visible')) {
-            }
-        }
-    };
+    //document.onkeydown = function (evt) {
+    //    evt = evt || window.event;
+    //    if (evt.keyCode == 27) {
+    //        if ($('.resultado_busqueda_producto').is(':visible')) {
+    //        }
+    //    }
+    //};
 });
 
 (function ($) {
@@ -83,8 +85,10 @@ jQuery(document).ready(function () {
 
     $.fn.CleanWhitespace = function () {
         var textNodes = this.contents().filter(
-            function () { return (this.nodeType == 3 && !/\S/.test(this.nodeValue)); })
-            .remove();
+            function () {
+                return (this.nodeType == 3 && !/\S/.test(this.nodeValue));
+            }
+        ).remove();
         return this;
     };
 
@@ -409,7 +413,26 @@ jQuery(document).ready(function () {
             Handlebars.registerHelper('json', function (context) {
                 return JSON.stringify(context).replace(/"/g, '&quot;');
             });
-             
+
+            Handlebars.registerHelper("ifVerificarMarcaLast", function (marca, esMultiMarca, options) {
+                if (esMultiMarca) {
+                    if (_ultimaMarca === "" || _ultimaMarca === marca) {
+                        _ultimaMarca = marca;
+                        return options.inverse(this);
+                    }
+                    else {
+                        _ultimaMarca = marca;
+                        return options.fn(this);
+                    }
+                }
+                else {
+                    if (_ultimaMarca === "") {
+                        _ultimaMarca = marca;
+                        return options.inverse(this);
+                    }
+                    else return options.fn(this);
+                }
+            });
         }
     };
 
@@ -810,6 +833,98 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
     }
 }
 
+function AbrirMensaje25seg(mensaje, imagen) {
+    try {
+        var _dialogClass = '.setBottom',
+            _overlay = '.ui-widget-overlay'
+
+        mensaje = $.trim(mensaje);
+        if (mensaje == "") {
+            CerrarLoad();
+            return false;
+        }
+        //INI HD-3693
+        var msjBloq = validarpopupBloqueada(mensaje);
+        if (msjBloq != "") {
+            CerrarLoad();
+            alert_msg_bloqueadas(msjBloq);
+            return true;
+        }
+        //FIN HD-3693
+        imagen = imagen || ""
+        if (imagen == "") {
+            $("#pop_src").css("display", "none")
+            $("#pop_src").attr("src", "#")            
+        }
+        else {
+            $("#pop_src").css("display", "block")
+            $("#pop_src").attr("src", imagen)
+        }
+        
+        
+        var isUrlMobile = isMobile();
+        if (isUrlMobile > 0) {
+            
+            
+            console.log('mobil')
+        }
+        else {
+            
+            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
+            showDialogSinScroll("alertDialogMensajes25seg");   
+            $(_overlay).css('background', 'black')
+            $(_overlay).css('opacity', '0.85')
+        }
+        CerrarLoad();
+        //Ocultar el scroll 
+        $("body").css("overflow", "hidden");  
+        
+        setTimeout(function () {
+            $(_dialogClass).fadeOut(500, function () {
+                $('#alertDialogMensajes25seg').dialog("close");
+                $("body").css("overflow", "auto")
+            })
+        }, 2500)    
+
+        //Por la confiruación del plugin se coloca en la zona inferior
+        /*var _dialogClass = '.setBottom',
+            _dialog25s = document.querySelector(_dialogClass)
+            
+        if (_dialog25s) {
+                //registrar la clase
+            var _topDefault = _dialog25s.style.top,
+                //registrar la altura
+                _dialogHeight = $(_dialogClass).outerHeight(),
+                //registrar el top sin px
+                _topDefaultValue = parseInt(_topDefault.split('px')[0])
+                
+                //Agregarle la altura para esconder fuera de la vista            
+                _dialog25s.style.top = _topDefaultValue + _dialogHeight + 'px'        
+            setTimeout(function () {
+                _dialog25s.style.transition = "top 1s ease"
+                _dialog25s.style.top = _topDefaultValue - (_dialogHeight * 2 ) + 'px'               
+                setTimeout(function () {
+                    
+                    
+                    $(_dialogClass).fadeOut(500,  function () {
+                        $('#alertDialogMensajes25seg').dialog("close");
+                        
+                        
+                    })
+
+                    $("#alertDialogMensajes25seg").dialog("option", "position", { my: "bottom", at: "bottom" });
+
+                }, 2500)                
+            }, 100);
+        }*/
+        var parameter = [["mensaje", mensaje], ["imagen", imagen]];
+        console.table(parameter);
+
+    } catch (e) {
+
+    }
+}
+
 function compare_dates(fecha, fecha2) {
 
     var xMonth = fecha.substring(3, 5);
@@ -1038,6 +1153,7 @@ function paginadorAccionGenerico(obj) {
 }
 
 function ActualizarGanancia(data) {
+    //debugger;
     data = data || {};
     data.CantidadProductos = data.CantidadProductos || "";
     data.TotalPedidoStr = data.TotalPedidoStr || "";
@@ -1699,22 +1815,22 @@ function odd_google_analytics_product_click(name, id, price, brand, variant, pos
     dataLayer.push({
         'event': 'productClick',
         'ecommerce':
-        {
-            'click':
             {
-                'actionField': { 'list': listName },
-                'products':
-                    [{
-                        'name': name,
-                        'id': id,
-                        'price': price,
-                        'brand': brand,
-                        'category': 'No disponible',
-                        'variant': variant,
-                        'position': position
-                    }]
+                'click':
+                    {
+                        'actionField': { 'list': listName },
+                        'products':
+                            [{
+                                'name': name,
+                                'id': id,
+                                'price': price,
+                                'brand': brand,
+                                'category': 'No disponible',
+                                'variant': variant,
+                                'position': position
+                            }]
+                    }
             }
-        }
     });
 }
 
@@ -2036,15 +2152,15 @@ var GeneralModule = (function () {
     "use strict";
 
     var _elements = {
-        loading :{
-            spin : {
-                id : "loading-spin"
+        loading: {
+            spin: {
+                id: "loading-spin"
             },
-            loadingScreen:{
-                id : "loadingScreen",
-                class : {
-                    titulo : "loadingScreen-titulo",
-                    mensaje : "loadingScreen-mensaje"
+            loadingScreen: {
+                id: "loadingScreen",
+                class: {
+                    titulo: "loadingScreen-titulo",
+                    mensaje: "loadingScreen-mensaje"
                 }
             }
         }
@@ -2056,11 +2172,12 @@ var GeneralModule = (function () {
         return isUrlMobile;
     };
 
-    var _redirectTo = function (url) {
+    var _redirectTo = function (url, validateIsMobile) {
         if (typeof url === "undefined" || url === null || $.trim(url) === "") return false;
+        if (typeof validateIsMobile === "undefined") validateIsMobile = true;
 
         var destinationUrl = "/";
-        if (_isMobile()) destinationUrl = destinationUrl + "Mobile/";
+        if (validateIsMobile && _isMobile() && url.indexOf('Mobile/') == -1) destinationUrl = destinationUrl + "Mobile/";
         destinationUrl += url;
 
         window.location.href = destinationUrl;
@@ -2077,10 +2194,10 @@ var GeneralModule = (function () {
     var _createLoading = function () {
         if ($("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.titulo).length !== 0 ||
             $("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.mensaje).length !== 0) return false;
-    
+
         $("#" + _elements.loading.loadingScreen.id).append("<div class=\"" + _elements.loading.loadingScreen.class.titulo + "\"></div>");
         $("#" + _elements.loading.loadingScreen.id).append("<div class=\"" + _elements.loading.loadingScreen.class.mensaje + "\"></div>");
-    
+
         $("#" + _elements.loading.loadingScreen.id).dialog({
             autoOpen: false,
             dialogClass: "loadingScreenWindow",
@@ -2098,7 +2215,7 @@ var GeneralModule = (function () {
     var waitingDialog = function (params) {
         try {
             if (!$("#" + _elements.loading.loadingScreen.id)) {
-                $(document.body).append("<div id=\"" +_elements.loading.loadingScreen.id + "\"></div>");
+                $(document.body).append("<div id=\"" + _elements.loading.loadingScreen.id + "\"></div>");
             }
 
             if (!$("#" + _elements.loading.loadingScreen.id).hasClass('ui-dialog-content')) {
@@ -2119,7 +2236,7 @@ var GeneralModule = (function () {
 
     var _hideDialog = function (dialogId) {
         try {
-    
+
             dialogId = (dialogId || "").trim();
             if (dialogId != "") {
                 dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
@@ -2129,7 +2246,7 @@ var GeneralModule = (function () {
         catch (err) {
             console.log('HideDialog - log - ', err);
         }
-    
+
         $("body").css("overflow", "auto");
         return false;
     };
@@ -2173,18 +2290,25 @@ var GeneralModule = (function () {
         }
     };
 
+    var _getLocationPathname = function (value) {
+        if (typeof value === "undefined") {
+            return window.location.pathname;
+        }
+    };
+
     return {
         isMobile: _isMobile,
         redirectTo: _redirectTo,
         abrirLoad: _abrirLoad,
-        cerrarLoad: _cerrarLoad
+        cerrarLoad: _cerrarLoad,
+        getLocationPathname: _getLocationPathname
     };
 }());
 //INI HD-3693
 function validarpopupBloqueada(message) {
-    if (message.indexOf("HD3693~")!=-1) return message.split("~")[1];
+    if (message.indexOf("HD3693~") != -1) return message.split("~")[1];
     else return "";
-    
+
 }
 //FIN HD-3693
 

@@ -25,7 +25,7 @@ var CarruselAyuda = function () {
 
         var cantActive = $(_slick.$slider).find('.slick-active').length;
         var indexCurrent = parseInt($(_slick.$slider).find('.slick-current').attr("data-slick-index"));
-        
+
         var direccion = CarruselVariable.Direccion.prev;
         if (indexCurrent === 0) {
             if (indexMostrar + 1 != slick.$slides.length) {
@@ -56,13 +56,12 @@ var CarruselAyuda = function () {
         }
     };
 
-    var _obtenerPantalla = function (origen) {
-        var pagina = origen.Pagina;
-        var palanca = origen.Palanca;
-        var seccion = origen.Seccion;
-
-        return pagina;
-    }
+    //var _obtenerPantalla = function (origen) {
+    //    var pagina = origen.Pagina;
+    //    var palanca = origen.Palanca;
+    //    var seccion = origen.Seccion;
+    //    return pagina;
+    //}
 
     var _eliminarDuplicadosArray = function (arr, comp) {
         //emac5
@@ -118,7 +117,7 @@ var CarruselAyuda = function () {
                     CantidadMostrar: cantActive,
                     Origen: origen
                 };
-                
+
                 AnalyticsPortalModule.MarcaGenericaLista("", obj);
 
                 //INI DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
@@ -131,7 +130,7 @@ var CarruselAyuda = function () {
                         var uniqueProgramNuevas = _eliminarDuplicadosArray(programNuevas, "CUV2");
 
                         var pos = (isHome()) ? "Home" : "Pedido";
-                        AnalyticsPortalModule.MarcaGenericaLista(ConstantesModule.CodigoPalanca.DP, uniqueProgramNuevas, pos);
+                        AnalyticsPortalModule.MarcaPromotionView(ConstantesModule.CodigoPalanca.DP, uniqueProgramNuevas, pos);
                     }
                 }
                 //FIN DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
@@ -242,8 +241,8 @@ var CarruselAyuda = function () {
 
         var objPrevArrow = slick.$prevArrow;
         var objNextArrow = slick.$nextArrow;
-        var objVisorSlick = $(event.target).find('.slick-list')[0];
-        var lastSlick = $(event.target).find('[data-slick-index]')[slick.slideCount - 1];
+        //var objVisorSlick = $(event.target).find('.slick-list')[0];
+        //var lastSlick = $(event.target).find('[data-slick-index]')[slick.slideCount - 1];
 
         if (currentSlide === 0) {
             $(objPrevArrow).hide();
@@ -580,7 +579,7 @@ var CarruselModule = (function (config) {
 ////////////////////////////////////////////////////////////////////
 //// Ini - Home y Pedido
 ////////////////////////////////////////////////////////////////////
-function ArmarCarouselEstrategias(data) {    
+function ArmarCarouselEstrategias(data) {
     $("#divListaEstrategias").hide();
     $(".js-slick-prev").remove();
     $(".js-slick-next").remove();
@@ -657,7 +656,6 @@ function ArmarCarouselEstrategias(data) {
             }
         }
     }
-
 
     arrayOfertasParaTi = data.Lista;
     data.lista = data.Lista;
