@@ -78,8 +78,8 @@ var EstrategiaAgregarModule = (function () {
     }
 
     var _OrigenPedido = {
-        MobileContenedorArmaTuPack: ConstantesModule.OrigenPedidoWeb.MobileArmaTuPackFicha,
-        DesktopContenedorArmaTuPack: ConstantesModule.OrigenPedidoWeb.DesktopArmaTuPackFicha
+        MobileContenedorArmaTuPack: CodigoOrigenPedidoWeb.MaestroCodigoOrigen.MobileArmaTuPackFicha,
+        DesktopContenedorArmaTuPack: CodigoOrigenPedidoWeb.MaestroCodigoOrigen.DesktopArmaTuPackFicha
     }
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
@@ -290,12 +290,15 @@ var EstrategiaAgregarModule = (function () {
 
         var estrategia = getEstrategia($btnAgregar, origenPedidoWebEstrategia);
 
-        if (typeof getOrigenPedidoWebDetalle !== 'undefined') {
-            var origenDetalle = getOrigenPedidoWebDetalle(estrategia);
-            if (origenDetalle) {
-                origenPedidoWebEstrategia = origenDetalle;
+        if (typeof FichaVerDetalle !== 'undefined') {
+            if (typeof FichaVerDetalle.GetOrigenPedidoWebDetalle !== 'undefined') {
+                var origenDetalle = FichaVerDetalle.GetOrigenPedidoWebDetalle(estrategia);
+                if (origenDetalle) {
+                    origenPedidoWebEstrategia = origenDetalle;
+                }
             }
         }
+
         console.log(estrategia);
         if (estrategiaEstaBloqueada($btnAgregar, estrategia.CampaniaID)) {
             estrategia.OrigenPedidoWebEstrategia = origenPedidoWebEstrategia;
@@ -610,8 +613,6 @@ var EstrategiaAgregarModule = (function () {
                 localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoPalanca, true);
 
                 CerrarLoad();
-                //debugger;
-
 
                 var imagenProducto = $btnAgregar.parents("[data-item]").find("[data-imagen-producto]").attr("data-imagen-producto");
 
