@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data.ServicePROL;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ReservaProl;
@@ -57,6 +58,18 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 respuestaProl.codigoMensaje.Equals("00") ? Enumeradores.ResultadoReserva.Reservado :
                 reservo ? Enumeradores.ResultadoReserva.ReservadoObservaciones :
                 Enumeradores.ResultadoReserva.NoReservadoObservaciones;
+
+            if (respuestaProl.ListaMensajeCondicional != null)
+            {
+                respuestaProl.ListaMensajeCondicional.ForEach(x =>
+                {
+                    resultado.ListaMensajeCondicional.Add(new BEMensajeProl()
+                    {
+                        CodigoMensajeRxP = x.CodigoMensaje,
+                        MensajeRxP = x.Mensaje,
+                    });
+                });
+            }
             
             return resultado;
         }

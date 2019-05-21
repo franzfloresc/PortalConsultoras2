@@ -27,6 +27,12 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
+        public IDataReader ObtenerSegmentacionInformativaPorConsultora()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerSegmentacionInformativaPorConsultora");
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader ObtenerComunicadoPorConsultora(string CodigoConsultora, short TipoDispositivo)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerComunicadoPorConsultora");

@@ -51,7 +51,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var producto = olstProducto[0];
 
-                var strCuv = CUV;
                 int outVal;
 
                 var pedidoCrudModel = new PedidoCrudModel();
@@ -142,7 +141,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string mensaje = "", urlRedireccionar = "", CuvSet = string.Empty;
+                string mensaje = "", urlRedireccionar = "";
                 BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
                 pedidoDetalle.Producto = new ServicePedido.BEProducto();
                 model.CuvTonos = Util.Trim(model.CuvTonos);
@@ -180,7 +179,8 @@ namespace Portal.Consultoras.Web.Controllers
                     if (string.IsNullOrEmpty(model.CuvTonos)) model.CuvTonos = ficha.CUV2;
 
                     var tonos = model.CuvTonos.Split('|');
-                    string cuvTonos = "";
+                    var cuvTonos = new StringBuilder();
+
                     foreach (var tono in tonos)
                     {
                         var listSp = tono.Split(';');
@@ -195,20 +195,21 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
 
-                        cuvTonos = cuvTonos + (cuvTonos == "" ? "" : "|") + cuv;
-                        cuvTonos = cuvTonos + ";" + ficha.MarcaID;
-                        cuvTonos = cuvTonos + ";" + ficha.Precio2;
+                        cuvTonos.Append((cuvTonos.ToString() == "" ? "" : "|") + cuv);
+                        cuvTonos.Append(";" + ficha.MarcaID);
+                        cuvTonos.Append(";" + ficha.Precio2);
                         if (!string.IsNullOrEmpty(descTono))
                         {
-                            cuvTonos = cuvTonos + ";" + descTono;
+                            cuvTonos.Append(";" + descTono);
                         }
+
                     }
 
                     model.TipoEstrategiaID = ficha.TipoEstrategiaID;
                     model.IndicadorMontoMinimo = ficha.IndicadorMontoMinimo.ToString();
                     model.TipoEstrategiaImagen = ficha.TipoEstrategiaImagenMostrar;
                     model.FlagNueva = ficha.FlagNueva.ToString();
-                    model.CuvTonos = cuvTonos;
+                    model.CuvTonos = cuvTonos.ToString();
 
                     pedidoDetalle.EsVirtualCoach = true;
                     pedidoDetalle.Estrategia = new ServicePedido.BEEstrategia();
@@ -223,8 +224,18 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
+                var esCaminoBrillante = false;
+                #region Camino Brillante
+                if (model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
+                    model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido)
+                {
+                    esCaminoBrillante = true;                    
+                    SessionManager.SetDemostradoresCaminoBrillante(null);
+                }
+                #endregion
+
                 #region OfertaFinal/LiquidacionWeb
-                if (model.EstrategiaID <= 0 && !pedidoDetalle.EsVirtualCoach)
+                if (model.EstrategiaID <= 0 && !pedidoDetalle.EsVirtualCoach && !esCaminoBrillante)
                 {
                     pedidoDetalle.Estrategia = new ServicePedido.BEEstrategia();
                     pedidoDetalle.Estrategia.Cantidad = Convert.ToInt32(model.Cantidad);
@@ -269,6 +280,11 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
+                
+                //INI HD-3693
+                if (pedidoDetalleResult.CodigoRespuesta == Constantes.PedidoValidacion.Code.ERROR_CONSULTORA_BLOQUEADA)
+                    pedidoDetalleResult.MensajeRespuesta = Constantes.TipoPopupAlert.Bloqueado + pedidoDetalleResult.MensajeRespuesta;
+                //FIN HD-3693
 
                 if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
                 {
@@ -276,13 +292,14 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetDetallesPedido(null);
                     SessionManager.SetDetallesPedidoSetAgrupado(null);
                     SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
-                    SessionManager.SetMontosProl(null);
+                    SetMontosProl(pedidoDetalleResult);
                     SessionManager.SetMisPedidosDetallePorCampania(null);
 
                     var pedidoWebDetalle = ObtenerPedidoWebDetalle();
                     var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
                     var Total = pedidoWebDetalle.Sum(p => p.ImporteTotal);
                     var FormatoTotal = Util.DecimalToStringFormat(Total, userData.CodigoISO);
+                    var mensajeCondicional = pedidoDetalleResult.ListaMensajeCondicional != null && pedidoDetalleResult.ListaMensajeCondicional.Any() ? pedidoDetalleResult.ListaMensajeCondicional[0].MensajeRxP: null;
 
                     ObtenerPedidoWeb();
                     return Json(new
@@ -297,8 +314,9 @@ namespace Portal.Consultoras.Web.Controllers
                         cantidadTotalProductos = CantidadTotalProductos,
                         total = Total,
                         formatoTotal = FormatoTotal,
-                        listCuvEliminar = pedidoDetalleResult.ListCuvEliminar.ToList()
-                    }, JsonRequestBehavior.AllowGet);
+                        listCuvEliminar = pedidoDetalleResult.ListCuvEliminar.ToList(),
+                        mensajeCondicional
+                }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
@@ -326,7 +344,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public async Task<JsonResult> AgergarPremioDefault()
         {
-            var premios =_programaNuevasProvider.GetListPremioElectivo();
+            var premios = _programaNuevasProvider.GetListPremioElectivo();
             var premioSelected = GetPremioSelected(premios);
 
             if (premioSelected != null) return Json(false);
@@ -369,14 +387,12 @@ namespace Portal.Consultoras.Web.Controllers
             if (premioSelected != null && premioSelected.CUV != model.CUV)
             {
                 var result = await DeleteTransactionInternal(
-                    premioSelected.CampaniaID,
                     premioSelected.PedidoID,
                     premioSelected.PedidoDetalleID,
                     premioSelected.TipoOfertaSisID,
                     premioSelected.CUV,
                     premioSelected.Cantidad,
                     premioSelected.ClienteID.ToString(),
-                    "",
                     premioSelected.EsBackOrder,
                     premioSelected.SetID
                 );
@@ -390,11 +406,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult UpdateTransaction(PedidoWebDetalleModel model)
         {
-            string tipo = string.Empty;
-            string totalFormato = string.Empty;
             var txtBuildCliente = new StringBuilder();
-
-
             BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
             pedidoDetalle.Producto = new ServicePedido.BEProducto();
 
@@ -415,7 +427,6 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoDetalle.IPUsuario = GetIPCliente();
             pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
 
-
             var pedidoDetalleResult = _pedidoWebProvider.UpdatePedidoDetalle(pedidoDetalle);
 
             if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
@@ -423,13 +434,14 @@ namespace Portal.Consultoras.Web.Controllers
                 SessionManager.SetPedidoWeb(null);
                 SessionManager.SetDetallesPedido(null);
                 SessionManager.SetDetallesPedidoSetAgrupado(null);
-                SessionManager.SetMontosProl(null);
+                SetMontosProl(pedidoDetalleResult);         
                 SessionManager.SetMisPedidosDetallePorCampania(null);
 
                 var pedidoWebDetalle = ObtenerPedidoWebDetalle();
                 var CantidadTotalProductos = pedidoWebDetalle.Sum(dp => dp.Cantidad);
                 var total = pedidoWebDetalle.Sum(p => p.ImporteTotal);
                 var FormatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
+                var mensajeCondicional = pedidoDetalleResult.ListaMensajeCondicional != null && pedidoDetalleResult.ListaMensajeCondicional.Any() ? pedidoDetalleResult.ListaMensajeCondicional[0].MensajeRxP: null;
 
                 txtBuildCliente.Append(PedidoWebTotalClienteFormato(model.ClienteID_, pedidoWebDetalle));
 
@@ -448,7 +460,8 @@ namespace Portal.Consultoras.Web.Controllers
                     tipo = "U",
                     modificoBackOrder = pedidoDetalleResult.ModificoBackOrder,
                     DataBarra = GetDataBarra(),
-                    cantidadTotalProductos = CantidadTotalProductos
+                    cantidadTotalProductos = CantidadTotalProductos,
+                    mensajeCondicional
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -465,41 +478,41 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public async Task<JsonResult> DeleteTransaction(int CampaniaID, int PedidoID, short PedidoDetalleID, int TipoOfertaSisID, string CUV, int Cantidad, string ClienteID, string CUVReco, bool EsBackOrder, int setId)
         {
-            var result = await DeleteTransactionInternal(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad, ClienteID, CUVReco, EsBackOrder, setId);
+            var result = await DeleteTransactionInternal(PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, Cantidad, ClienteID, EsBackOrder, setId);
 
             return result.Item2;
         }
 
-        private async Task<Tuple<bool, JsonResult>> DeleteTransactionInternal(int CampaniaID, int PedidoID, short PedidoDetalleID, int TipoOfertaSisID, string CUV, int Cantidad, string ClienteID, string CUVReco, bool EsBackOrder, int setId)
+        private async Task<Tuple<bool, JsonResult>> DeleteTransactionInternal(int pedidoId, short pedidoDetalleId, int tipoOfertaSisId, string cuv, int cantidad, string clienteId, bool esBackOrder, int setId)
         {
             var lastResult = new Tuple<bool, JsonResult>(false, Json(new { }));
 
             BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
             pedidoDetalle.SetID = setId;
-            pedidoDetalle.PedidoDetalleID = PedidoDetalleID;
-            pedidoDetalle.PedidoID = PedidoID;
+            pedidoDetalle.PedidoDetalleID = pedidoDetalleId;
+            pedidoDetalle.PedidoID = pedidoId;
             pedidoDetalle.Producto = new ServicePedido.BEProducto();
-            pedidoDetalle.Producto.TipoOfertaSisID = TipoOfertaSisID;
-            pedidoDetalle.Producto.CUV = Util.Trim(CUV);
+            pedidoDetalle.Producto.TipoOfertaSisID = tipoOfertaSisId;
+            pedidoDetalle.Producto.CUV = Util.Trim(cuv);
             pedidoDetalle.Usuario = Mapper.Map<ServicePedido.BEUsuario>(userData);
-            pedidoDetalle.Cantidad = Convert.ToInt32(Cantidad);
+            pedidoDetalle.Cantidad = Convert.ToInt32(cantidad);
             pedidoDetalle.PaisID = userData.PaisID;
             pedidoDetalle.IPUsuario = GetIPCliente();
-            pedidoDetalle.ClienteID = string.IsNullOrEmpty(ClienteID) ? (short) 0 : Convert.ToInt16(ClienteID);
+            pedidoDetalle.ClienteID = string.IsNullOrEmpty(clienteId) ? (short)0 : Convert.ToInt16(clienteId);
             pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null
                 ? SessionManager.GetTokenPedidoAutentico().ToString()
                 : string.Empty;
-            if (EsBackOrder) pedidoDetalle.ObservacionPROL = Constantes.BackOrder.LogAccionCancelar;
-            else pedidoDetalle.ObservacionPROL = GetObservacionesProlPorCuv(CUV);
+            if (esBackOrder) pedidoDetalle.ObservacionPROL = Constantes.BackOrder.LogAccionCancelar;
+            else pedidoDetalle.ObservacionPROL = GetObservacionesProlPorCuv(cuv);
 
             var listaPedidoWebDetalle = ObtenerPedidoWebDetalle();
             var listaPedidoWebDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado();
-            var pedidoAgrupado = listaPedidoWebDetalleAgrupado.FirstOrDefault(x => x.CUV == CUV) ?? new BEPedidoWebDetalle();
+            var pedidoAgrupado = listaPedidoWebDetalleAgrupado.FirstOrDefault(x => x.CUV == cuv) ?? new BEPedidoWebDetalle();
             var pedidoEliminado = new BEPedidoWebDetalle();
 
             if (setId == 0)
             {
-                pedidoEliminado = listaPedidoWebDetalle.FirstOrDefault(x => x.CUV == CUV);
+                pedidoEliminado = listaPedidoWebDetalle.FirstOrDefault(x => x.CUV == cuv);
                 if (pedidoEliminado == null)
                     return new Tuple<bool, JsonResult>(false, ErrorJson(Constantes.MensajesError.DeletePedido_CuvNoExiste));
             }
@@ -516,20 +529,19 @@ namespace Portal.Consultoras.Web.Controllers
             errorServer = result.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS;
             tipo = result.MensajeRespuesta;
 
-            SessionManager.SetPedidoWeb(null);
-            SessionManager.SetDetallesPedido(null);
-            SessionManager.SetDetallesPedidoSetAgrupado(null);
-            SessionManager.SetMontosProl(null);
-            SessionManager.SetMisPedidosDetallePorCampania(null);
+            if (!errorServer)
+            {
+                SessionManager.SetPedidoWeb(null);
+                SessionManager.SetDetallesPedido(null);
+                SessionManager.SetDetallesPedidoSetAgrupado(null);
+                SetMontosProl(result);
+                SessionManager.SetMisPedidosDetallePorCampania(null);
+            }
 
             var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
             var total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
             var formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
-
-            //var formatoTotalCliente = "";
-            //if (olstPedidoWebDetalle.Any()) formatoTotalCliente = PedidoWebTotalClienteFormato(ClienteID, olstPedidoWebDetalle);
-            //var listaCliente = ListarClienteSegunPedido("", olstPedidoWebDetalle);
 
             SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
 
@@ -545,8 +557,6 @@ namespace Portal.Consultoras.Web.Controllers
                 message,
                 formatoTotal,
                 total,
-                //formatoTotalCliente,
-                //listaCliente,
                 tipo,
                 EsAgregado,
                 DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel(),

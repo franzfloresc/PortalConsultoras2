@@ -336,12 +336,12 @@ namespace Portal.Consultoras.Data
         public IDataReader GetPedidosWebNoFacturados(BEPedidoDDWeb BEPedidoDDWeb)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebNoFacturado");
-         
+
             Context.Database.AddInParameter(command, "@PaisID", DbType.Int32, BEPedidoDDWeb.paisID);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, BEPedidoDDWeb.CampaniaID);
             Context.Database.AddInParameter(command, "@RegionCodigo", DbType.AnsiString, BEPedidoDDWeb.RegionCodigo);
             Context.Database.AddInParameter(command, "@ZonaCodigo", DbType.AnsiString, BEPedidoDDWeb.ZonaCodigo);
-            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString,string.IsNullOrWhiteSpace(BEPedidoDDWeb.ConsultoraCodigo) ? null : BEPedidoDDWeb.ConsultoraCodigo);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, string.IsNullOrWhiteSpace(BEPedidoDDWeb.ConsultoraCodigo) ? null : BEPedidoDDWeb.ConsultoraCodigo);
             Context.Database.AddInParameter(command, "@EstadoPedido", DbType.AnsiString, BEPedidoDDWeb.EstadoValidacion);
             Context.Database.AddInParameter(command, "@EsRechazado", DbType.AnsiString, BEPedidoDDWeb.EsRechazado);
             Context.Database.AddInParameter(command, "@FechaRegistroInicio", DbType.Date, BEPedidoDDWeb.FechaRegistroInicio);
@@ -756,7 +756,7 @@ namespace Portal.Consultoras.Data
 
         public IDataReader GetPedidosFacturadoSegunDias(int campaniaID, long consultoraID, int maxDias)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosFacturadoSegunDias_SB2"); //HD-3412 EINCA
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosFacturadoSegunDias_SB2");
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraID);
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
             Context.Database.AddInParameter(command, "@maxDias", DbType.Int32, maxDias);
@@ -851,6 +851,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+
         public IDataReader GetConsultoraRegaloProgramaNuevas(int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraRegaloProgramaNuevas");
@@ -948,6 +949,18 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetLogCargaPedidoCliente");
             Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
             return Context.ExecuteReader(command);
+        }
+
+        public void UpdDatoRecogerPor(BEPedidoWeb pedidoWebDetalle)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.ActualizaDatoRecogerPor"))
+            {
+                Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoWebDetalle.PedidoID);
+                Context.Database.AddInParameter(command, "@Documento", DbType.String, pedidoWebDetalle.RecogerDNI);
+                Context.Database.AddInParameter(command, "@RecogerNombre", DbType.String, pedidoWebDetalle.RecogerNombre);
+
+                Context.ExecuteNonQuery(command);
+            }
         }
     }
 }

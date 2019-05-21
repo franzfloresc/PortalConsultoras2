@@ -4,7 +4,7 @@ Stylesheet Guide
 -------------------------
 
 01. Reset
-
+     
 02. Basic Elements
 	1. Clearfix
 	2. Floating & Alignment
@@ -1101,15 +1101,15 @@ ul.tabs {
     text-decoration: none;
 }
 
-    .div-3 .addlist_tab input:hover {
-        background: #6bc6ff;
-        background-image: -webkit-linear-gradient(top, #6bc6ff, #53a3d9);
-        background-image: -moz-linear-gradient(top, #6bc6ff, #53a3d9);
-        background-image: -ms-linear-gradient(top, #6bc6ff, #53a3d9);
-        background-image: -o-linear-gradient(top, #6bc6ff, #53a3d9);
-        background-image: linear-gradient(to bottom, #6bc6ff, #53a3d9);
-        text-decoration: none;
-    }
+.div-3 .addlist_tab input:hover {
+    background: #6bc6ff;
+    background-image: -webkit-linear-gradient(top, #6bc6ff, #53a3d9);
+    background-image: -moz-linear-gradient(top, #6bc6ff, #53a3d9);
+    background-image: -ms-linear-gradient(top, #6bc6ff, #53a3d9);
+    background-image: -o-linear-gradient(top, #6bc6ff, #53a3d9);
+    background-image: linear-gradient(to bottom, #6bc6ff, #53a3d9);
+    text-decoration: none;
+}
 
 .deletelist_tab input {
     width: 100px;
@@ -1299,6 +1299,7 @@ ul.tabs {
     margin: 0 0 5px 0;
     padding: 0 0 5px 0;
 }
+
     .div-3 .fieldset-2 {
         float: left;
         border: 2px solid #cfcfcf;
@@ -1309,6 +1310,7 @@ ul.tabs {
         border-radius: 10px;
         -webkit-border-radius: 10px;
     }
+
         .div-3 .fieldset-2 > legend {
             padding: 0px 5px;
             margin-left: 7px;
@@ -1557,7 +1559,7 @@ ul.tabs {
 
 .div-3 .titG {
     float: left;
-    width: 125px;
+    width: 140px;
     height: auto;
     padding: 9px;
     background: none;
@@ -1581,6 +1583,7 @@ ul.tabs {
     text-align: left;
     width: 95px;
 }
+
 .div-3 .titG3 {
     float: left;
     width: 120px;
@@ -1593,6 +1596,7 @@ ul.tabs {
     border: 0;
     text-align: left;
 }
+
 .div-3 .titG4 {
     float: left;
     width: 127px;
@@ -1605,6 +1609,7 @@ ul.tabs {
     border: 0;
     text-align: left;
 }
+
 .div-3 .titX {
     float: left;
     width: 125px;
@@ -1673,7 +1678,46 @@ ul.tabs {
 
 .div-3 .titJ {
     float: left;
-    width: 200px;
+    width: 170px;
+    height: auto;
+    background: none;
+    color: #702789;
+    font-size: 14px;
+    margin: 0;
+    border: 0;
+    text-align: left;
+    line-height: 50PX;
+    font-weight: bold;
+}
+
+.div-3 .titR {
+    float: left;
+    width: 40px;
+    height: auto;
+    padding: 5px;
+    background: none;
+    color: #702789;
+    font-size: 15px;
+    margin: 0;
+    border: 0;
+    text-align: right;
+}
+
+.div-3 .titM {
+    float: left;
+    height: auto;
+    padding: 10px 10px 10px 0px;
+    background: none;
+    color: #702789;
+    font-size: 15px;
+    line-height: 30PX;
+    margin: 6px;
+    border: 0;
+    text-align: right;
+}
+.div-3 .titO {
+    float: left;
+    width: 50px;
     height: auto;
     padding: 9px;
     background: none;
@@ -1955,6 +1999,19 @@ ul.tabs {
     position: relative;
 }
 
+.div-3 .selectP5 {
+    float: left;
+    width: 298px;
+    height: auto;
+    padding: 10px;
+    background: #fff;
+    color: #702789;
+    margin-right: 10px;
+    border: 1px solid #cfcfcf;
+    position: relative;
+    margin-top: 10px;
+}
+
     .div-3 .selectP:hover {
         border: 1px solid #9D9D9D;
     }
@@ -1984,6 +2041,45 @@ ul.tabs {
     }
 
     .div-3 .selectP textarea {
+        float: left;
+        width: 98%;
+        height: auto;
+        padding: 0 0 1px 0;
+        background: #fff;
+        color: #702789;
+        font-size: 14px;
+        margin: 0;
+        border: 0;
+    }
+    .div-3 .selectP5:hover {
+        border: 1px solid #9D9D9D;
+    }
+
+    .div-3 .selectP5 select {
+        float: left;
+        width: 300px;
+        height: 18px;
+        padding: 0;
+        background: #fff;
+        color: #702789;
+        font-size: 14px;
+        margin: 0;
+        border: 0;
+    }
+
+    .div-3 .selectP5 input {
+        float: left;
+        width: 300px;
+        height: auto;
+        padding: 0 0 1px 0;
+        background: #fff;
+        color: #702789;
+        font-size: 14px;
+        margin: 0;
+        border: 0;
+    }
+
+    .div-3 .selectP5 textarea {
         float: left;
         width: 98%;
         height: auto;
@@ -2238,6 +2334,54 @@ ul.tabs {
     border: 1px solid #cfcfcf;
     position: relative;
 }
+
+.div-3 .selectP8 {
+    float: left;
+    width: 468px;
+    height: auto;
+    padding: 9px;
+    background: #fff;
+    color: #702789;
+    margin-right: 10px;
+    border: 1px solid #cfcfcf;
+    position: relative;
+}
+
+    .div-3 .selectP8 input {
+        float: left;
+        width: 100%;
+        height: 18px;
+        padding: 0;
+        background: #fff;
+        color: #702789;
+        font-size: 14px;
+        margin: 0;
+        border: 0;
+    }
+
+.div-3 .selectP11 {
+    float: left;
+    width: 767px;
+    height: auto;
+    padding: 9px;
+    background: #fff;
+    color: #702789;
+    margin-right: 10px;
+    border: 1px solid #cfcfcf;
+    position: relative;
+}
+
+    .div-3 .selectP11 input {
+        float: left;
+        width: 100%;
+        height: 18px;
+        padding: 0;
+        background: #fff;
+        color: #702789;
+        font-size: 14px;
+        margin: 0;
+        border: 0;
+    }
 
 .div-3 .selectP22 {
     float: left;
@@ -3439,6 +3583,13 @@ select.ui-pg-selbox {
     width: 100%;
     background: #fff;
 }
+.wrapA {
+    position: relative;
+    margin: 0 auto;
+    padding: 0px 0 0 0;
+    width: 100%;
+    background: #fff;
+}
 
 .wrap_plan50 {
     border: 2px solid #dfeaec;
@@ -4094,10 +4245,7 @@ ol {
 @font-face {
     font-family: 'museo_sans_900regular';
     src: url('/Content/fonts/museo/museosans_900-webfont.eot');
-    src: url('/Content/fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'),
-        url('/Content/fonts/museo/museosans_900-webfont.woff') format('woff'),
-        url('/Content/fonts/museo/museosans_900-webfont.ttf') format('truetype'),
-        url('/Content/fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('/Content/fonts/museo/museosans_900-webfont.eot?#iefix') format('embedded-opentype'), url('/Content/fonts/museo/museosans_900-webfont.woff') format('woff'), url('/Content/fonts/museo/museosans_900-webfont.ttf') format('truetype'), url('/Content/fonts/museo/museosans_900-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -4105,10 +4253,7 @@ ol {
 @font-face {
     font-family: 'museo_sans_700regular';
     src: url('/Content/fonts/museo/museosans_700-webfont.eot');
-    src: url('/Content/fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'),
-        url('/Content/fonts/museo/museosans_700-webfont.woff') format('woff'),
-        url('/Content/fonts/museo/museosans_700-webfont.ttf') format('truetype'),
-        url('/Content/fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
+    src: url('/Content/fonts/museo/museosans_700-webfont.eot?#iefix') format('embedded-opentype'), url('/Content/fonts/museo/museosans_700-webfont.woff') format('woff'), url('/Content/fonts/museo/museosans_700-webfont.ttf') format('truetype'), url('/Content/fonts/museo/museosans_700-webfont.svg#museo_sans_700regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -4116,10 +4261,7 @@ ol {
 @font-face {
     font-family: 'museo_sans_500regular';
     src: url('/Content/fonts/museo/museosans_500-webfont.eot');
-    src: url('/Content/fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'),
-        url('/Content/fonts/museo/museosans_500-webfont.woff') format('woff'),
-        url('/Content/fonts/museo/museosans_500-webfont.ttf') format('truetype'),
-        url('/Content/fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
+    src: url('/Content/fonts/museo/museosans_500-webfont.eot?#iefix') format('embedded-opentype'), url('/Content/fonts/museo/museosans_500-webfont.woff') format('woff'), url('/Content/fonts/museo/museosans_500-webfont.ttf') format('truetype'), url('/Content/fonts/museo/museosans_500-webfont.svg#museo_sans_900regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -4127,10 +4269,7 @@ ol {
 @font-face {
     font-family: 'museo_300regular';
     src: url('/Content/fonts/museo/museo300-regular-webfont.eot');
-    src: url('/Content/fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'),
-        url('/Content/fonts/museo/museo300-regular-webfont.woff') format('woff'),
-        url('/Content/fonts/museo/museo300-regular-webfont.ttf') format('truetype'),
-        url('/Content/fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
+    src: url('/Content/fonts/museo/museo300-regular-webfont.eot?#iefix') format('embedded-opentype'), url('/Content/fonts/museo/museo300-regular-webfont.woff') format('woff'), url('/Content/fonts/museo/museo300-regular-webfont.ttf') format('truetype'), url('/Content/fonts/museo/museo300-regular-webfont.svg#museo_300regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -4138,10 +4277,7 @@ ol {
 @font-face {
     font-family: 'museo_sans_100regular';
     src: url('/Content/fonts/museo/museosans-100-webfont.eot');
-    src: url('/Content/fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'),
-        url('/Content/fonts/museo/museosans-100-webfont.woff') format('woff'),
-        url('/Content/fonts/museo/museosans-100-webfont.ttf') format('truetype'),
-        url('/Content/fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
+    src: url('/Content/fonts/museo/museosans-100-webfont.eot?#iefix') format('embedded-opentype'), url('/Content/fonts/museo/museosans-100-webfont.woff') format('woff'), url('/Content/fonts/museo/museosans-100-webfont.ttf') format('truetype'), url('/Content/fonts/museo/museosans-100-webfont.svg#museo_sans_100regular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -9354,16 +9490,16 @@ ul.error_messages {
     text-decoration: none;
 }
 
-    .qq-upload-button-hover {
-        background: #6bc6ff;
-        background-image: -webkit-linear-gradient(top, #6bc6ff, #53a3d9);
-        background-image: -moz-linear-gradient(top, #6bc6ff, #53a3d9);
-        background-image: -ms-linear-gradient(top, #6bc6ff, #53a3d9);
-        background-image: -o-linear-gradient(top, #6bc6ff, #53a3d9);
-        background-image: linear-gradient(to bottom, #6bc6ff, #53a3d9);
-        cursor: pointer;
-        text-decoration: none;
-    }
+.qq-upload-button-hover {
+    background: #6bc6ff;
+    background-image: -webkit-linear-gradient(top, #6bc6ff, #53a3d9);
+    background-image: -moz-linear-gradient(top, #6bc6ff, #53a3d9);
+    background-image: -ms-linear-gradient(top, #6bc6ff, #53a3d9);
+    background-image: -o-linear-gradient(top, #6bc6ff, #53a3d9);
+    background-image: linear-gradient(to bottom, #6bc6ff, #53a3d9);
+    cursor: pointer;
+    text-decoration: none;
+}
 
 .qq-upload-button-focus {
     outline: 1px dotted black;
@@ -9578,10 +9714,7 @@ span.icon-del {
 @font-face {
     font-family: 'Museo Sans 300';
     src: url('/Content/layer-flx-co/fonts/museo_sans_r300-webfont.eot');
-    src: url('/Content/layer-flx-co/fonts/museo_sans_r300-webfont.eot?#iefix') format('embedded-opentype'),
-        url('/Content/layer-flx-co/fonts/museo_sans_r300-webfont.woff') format('woff'),
-        url('/Content/layer-flx-co/fonts/museo_sans_r300-webfont.ttf') format('truetype'),
-        url('/Content/layer-flx-co/fonts/museo_sans_r300-webfont.svg') format('svg');
+    src: url('/Content/layer-flx-co/fonts/museo_sans_r300-webfont.eot?#iefix') format('embedded-opentype'), url('/Content/layer-flx-co/fonts/museo_sans_r300-webfont.woff') format('woff'), url('/Content/layer-flx-co/fonts/museo_sans_r300-webfont.ttf') format('truetype'), url('/Content/layer-flx-co/fonts/museo_sans_r300-webfont.svg') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -9650,6 +9783,18 @@ body, html {
     margin: 0;
     border: 0;
     text-align: right;
+}
+
+.div-3 .titN {
+    float: right;
+    width: auto;
+    height: auto;
+    background: #f5f5f7;
+    color: #702789;
+    font-size: 14px;
+    margin: 0;
+    border: 0;
+    text-align: left;
 }
 
 .contenedor_datos {
@@ -10939,9 +11084,7 @@ label.checkpop {
 @font-face {
     font-family: 'ArialMT';
     src: url('/Content/fonts/arialMT/arialmt.eot');
-    src: url('/Content/fonts/arialMT/arialmt.eot?#iefix') format('embedded-opentype'),
-        url('/Content/fonts/arialMT/arialmt.ttf') format('truetype'),
-        url('/Content/fonts/arialMT/arialmt.svg#arialmt') format('svg');
+    src: url('/Content/fonts/arialMT/arialmt.eot?#iefix') format('embedded-opentype'), url('/Content/fonts/arialMT/arialmt.ttf') format('truetype'), url('/Content/fonts/arialMT/arialmt.svg#arialmt') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -10949,9 +11092,7 @@ label.checkpop {
 @font-face {
     font-family: 'ArialBoldMT';
     src: url('/Content/fonts/arialboldMT/arialboldMT.eot');
-    src: url('/Content/fonts/arialboldMT/arialboldMT.eot?#iefix') format('embedded-opentype'),
-        url('/Content/fonts/arialboldMT/arialboldMT.ttf') format('truetype'),
-        url('/Content/fonts/arialboldMT/arialboldMT.svg#arialboldMT') format('svg');
+    src: url('/Content/fonts/arialboldMT/arialboldMT.eot?#iefix') format('embedded-opentype'), url('/Content/fonts/arialboldMT/arialboldMT.ttf') format('truetype'), url('/Content/fonts/arialboldMT/arialboldMT.svg#arialboldMT') format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -12106,10 +12247,69 @@ label.checkpop {
     margin-right: 350px;
 }
 
-#downxlxs a {
-    font-size: 14px;
-    text-decoration: underline;
-    cursor: pointer;
+    #downxlxs a {
+        font-size: 14px;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+/*----Kit de Inicio-----*/
+
+.uneteDashboard__container h1 {
+    font-family: Arial;
 }
 
-/**/
+.uneteDashboard__container p {
+    font-size: 13px;
+}
+
+.uneteDashboard {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+}
+
+    .uneteDashboard.detalle__kit {
+        border-top: 1px solid #cfcfcf;
+        margin-top: 10px;
+    }
+
+.input__container {
+    display: flex;
+    align-items: baseline;
+    margin-right: 3.3%;
+    width: 30%;
+    padding: 20px 0 5px;
+}
+
+    .input__container.one__six {
+        width: 63.3%;
+    }
+
+    .input__container.one__twelf {
+        width: 100%;
+    }
+
+    .input__container label {
+        min-width: 104px;
+        max-width: 105px;
+        color: #702789;
+        font-size: 14px;
+        text-align: right;
+        padding-right: 10px;
+    }
+
+    .input__container select, .input__container input {
+        width: 100%;
+        padding: 10px 15px;
+        border-radius: 8px;
+        color: #702789;
+    }
+
+    .input__container input {
+        border: 1px solid #cfcfcf;
+    }
+
+.showCuvSap {
+    display: none;
+}

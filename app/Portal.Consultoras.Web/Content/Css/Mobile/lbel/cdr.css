@@ -1317,20 +1317,19 @@
     padding:40px 37px;
 }
 
-.campo_busqueda_codigo_o_descripcion_producto
-{
-    width:100%;
+.campo_busqueda_codigo_o_descripcion_producto {
+    width: 100%;
     border: 1px solid #808080;
     border-radius: 4px;
     padding: 6px 10px 10px 19px;
     font-family: 'Lato', sans-serif;
-    font-size:15px;
-    color:#000;
-    height:47px;
-    background-color:#FFF;
-    background-image:url(../../../Images/icono_lupa_gris.svg);
-    background-repeat:no-repeat;
-    background-position:95% center;
+    font-size: 15px;
+    color: #000;
+    height: 47px;
+    background-color: #FFF;
+    background-image: url(/Content/Images/icono_lupa_gris.svg);
+    background-repeat: no-repeat;
+    background-position: 95% center;
 }
 
 .lista_coincidencias_busqueda_productos{
