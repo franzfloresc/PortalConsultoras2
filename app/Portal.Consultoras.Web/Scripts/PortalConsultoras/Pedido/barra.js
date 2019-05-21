@@ -37,7 +37,7 @@ function MostrarBarra(datax, destino) {
 
     ConfiguradoRegalo = dataBarra.TippingPointBarra.InMinimo;
 
-    debugger;
+    //debugger;
     ActualizarGanancia(dataBarra);
     if (destino == '2') {
         initCarruselPremios(dataBarra);

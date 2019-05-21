@@ -610,7 +610,7 @@ var EstrategiaAgregarModule = (function () {
                 localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoPalanca, true);
 
                 CerrarLoad();
-                debugger;
+                //debugger;
 
 
                 var imagenProducto = $btnAgregar.parents("[data-item]").find("[data-imagen-producto]").attr("data-imagen-producto");

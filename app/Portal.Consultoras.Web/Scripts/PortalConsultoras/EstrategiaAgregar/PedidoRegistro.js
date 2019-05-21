@@ -500,7 +500,7 @@ var PedidoRegistroModule = function () {
             cache: false
         });
 
-        debugger;
+        //debugger;
 
         jQuery.ajax({
             type: 'POST',
@@ -1517,7 +1517,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
         EsCuponNuevas: esCuponNuevas
     };
 
-    debugger;
+    //debugger;
 
     jQuery.ajax({
         type: "POST",
