@@ -544,13 +544,13 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         private string CodigosTablaLogica(string codigo)
-        { 
-            var LogicaDatosHistoria = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, ConsTablaLogica.AdministradorHistoria.TablaLogicaId);
-          
-            LogicaDatosHistoria = LogicaDatosHistoria.Where(x => x.Codigo.StartsWith(codigo)).ToList();
-            string Description = LogicaDatosHistoria[0].Descripcion;
-
-            return Description;
+        {
+            var LogicaDatosHistoria = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.DatosContenedorHistorias.HistoriasLogicaId);
+            var listFind = LogicaDatosHistoria.FirstOrDefault(x => x.Codigo == codigo);
+            if (listFind != null)
+                return listFind.Descripcion;
+            else
+                return string.Empty;
         }
     }
 }
