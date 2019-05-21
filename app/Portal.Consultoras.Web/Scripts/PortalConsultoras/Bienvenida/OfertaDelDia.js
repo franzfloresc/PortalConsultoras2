@@ -339,6 +339,8 @@ var OfertaDelDiaModule = function () {
                     $("#banner-odd .derecha_img img").attr("src", _data.ImagenFondo1);
                     $(contenedorOfertas).css("background-color", _data.ColorFondo1);
                 }
+                console.log(_data);
+                console.log('aqui es la wea');
                 SetHandlebars("#ofertadeldia-template-style", _data, "#styleRelojOdd");
 
                 $(contenedorOfertas).show();

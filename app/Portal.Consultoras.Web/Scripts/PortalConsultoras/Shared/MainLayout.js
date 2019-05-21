@@ -181,6 +181,20 @@ $(document).ready(function () {
         }
     });
 
+    $('#alertDialogMensajes25seg').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: true,
+        close: function (event, ui) {
+            HideDialog("alertDialogMensajes25seg");
+        },
+        draggable: false,
+        dialogClass: 'setBottom',
+        position: "bottom",
+        show: {effect : "swing"}
+    });
+
     $('#ModalFeDeErratas').dialog({
         autoOpen: false,
         resizable: false,
@@ -276,6 +290,7 @@ $(document).ready(function () {
             if (theEvent.preventDefault) theEvent.preventDefault();
         }
     });
+
 
     $("body").on("keypress", ".ValidaNumeral", function (e) {
         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {

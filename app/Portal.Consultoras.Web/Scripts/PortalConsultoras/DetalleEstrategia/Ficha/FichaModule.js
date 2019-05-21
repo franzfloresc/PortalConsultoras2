@@ -341,7 +341,7 @@ var FichaModule = (function (config) {
 
     var _getEstrategia = function (modeloFicha) {
         var estrategia;
-        var mensajeError = "_getEstrategia";
+        var mensajeError = "Archivo FichaModule.js - Metodo _getEstrategia";
         if (!_fichaServicioApi) {
             mensajeError += "\n _fichaServicioApi si";
             if (_config.tieneSession) {
@@ -387,7 +387,12 @@ var FichaModule = (function (config) {
         }
         else {
             mensajeError += "\n _fichaServicioApi no";
-            estrategia = _modeloFicha();
+            estrategia = modeloFicha;
+
+            if (typeof estrategia === "undefined" || estrategia == null || typeof estrategia.EstrategiaID === "undefined" || estrategia.EstrategiaID == 0) {
+                throw '_getEstrategia, no obtiene oferta desde api';
+            }
+
             _esMultimarca = estrategia.EsMultimarca;
 
             estrategia.esCampaniaSiguiente = estrategia.CampaniaID !== _obtenerCampaniaActual();
@@ -440,7 +445,7 @@ var FichaModule = (function (config) {
         _setEstrategiaBreadcrumb(estrategia);
 
         if (config.componenteDetalleModule === null || typeof config.componenteDetalleModule === "undefined") {
-            console.log('config.componenteDetalleModule is null or undefined');
+            //console.log('config.componenteDetalleModule is null or undefined');
         } else {
             _config.componenteDetalleModule.VerDetalleIndividual(estrategia);
         }
@@ -457,6 +462,7 @@ var FichaModule = (function (config) {
 
         if (estrategia.TieneReloj) {
             _crearReloj(estrategia);
+            //console.log(estrategia);
             _setHandlebars(_template.styleOdd, estrategia);
         }
 
@@ -695,7 +701,7 @@ var FichaModule = (function (config) {
     ////// Ini - Construir Estructura Ficha
 
     var _construirSeccionFicha = function () {
-        console.log('Ficha - construir Seccion Ficha');
+        //console.log('Ficha - construir Seccion Ficha');
         var modeloFicha = _modeloFicha();
 
         if (!_validaOfertaDelDia(true)) {
@@ -717,7 +723,7 @@ var FichaModule = (function (config) {
     var _getModelo = function () {
 
         var modeloFicha = {};
-        console.log('Ficha - promise Obterner Modelo');
+        //console.log('Ficha - promise Obterner Modelo');
         _config.detalleEstrategiaProvider
             .promiseObternerModelo({
                 palanca: _config.palanca,
@@ -803,7 +809,7 @@ var FichaModule = (function (config) {
             }
 
             panelCliente.Abrir();
-            console.log('_initCliente - DivPopupFichaResumida overflow hidden');
+            //console.log('_initCliente - DivPopupFichaResumida overflow hidden');
             $("#DivPopupFichaResumida").css("overflow", "hidden");
             isChangeCliente = true;
 
@@ -816,7 +822,7 @@ var FichaModule = (function (config) {
         if (typeof _config.analyticsPortalModule === 'undefined')
             return;
 
-        console.log('Ficha - analytics - Marca Visualizar Detalle Producto');
+        //console.log('Ficha - analytics - Marca Visualizar Detalle Producto');
         _config.analyticsPortalModule.MarcaVisualizarDetalleProducto(_modeloFicha());
 
     };
