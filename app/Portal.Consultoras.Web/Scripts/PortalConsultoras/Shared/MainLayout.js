@@ -185,14 +185,16 @@ $(document).ready(function () {
         autoOpen: false,
         resizable: false,
         modal: true,
-        closeOnEscape: true,
+        closeOnEscape: false,
         close: function (event, ui) {
             HideDialog("alertDialogMensajes25seg");
         },
+        beforeClose: function (event, ui) {
+            document.querySelector('.setBottom').style.transition = null
+        },
         draggable: false,
         dialogClass: 'setBottom',
-        position: "bottom",
-        show: {effect : "swing"}
+        position: "bottom"
     });
 
     $('#ModalFeDeErratas').dialog({
