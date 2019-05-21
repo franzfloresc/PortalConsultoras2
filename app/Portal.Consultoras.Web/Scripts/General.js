@@ -768,6 +768,10 @@ function CerrarLoad(opcion) {
     }
 }
 
+function AbrirMensaje25seg(mensaje, imagen) {
+        alert(imagen + ' - ' + mensaje);
+ }
+
 function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
     try {
         mensaje = $.trim(mensaje);
@@ -1147,6 +1151,7 @@ function paginadorAccionGenerico(obj) {
 }
 
 function ActualizarGanancia(data) {
+    debugger;
     data = data || {};
     data.CantidadProductos = data.CantidadProductos || "";
     data.TotalPedidoStr = data.TotalPedidoStr || "";

@@ -7,6 +7,8 @@
 
 @System.Web.Optimization.Styles.Render("~/Bundle/Css/Responsive/Ficha")
 
+<style data-ficha-contenido="ofertadeldia-template-style"></style>
+
 <hidden id="data-estrategia" data-estrategia='@Html.Raw(Json.Encode(Model))'></hidden>
 
 <div id="ImagenDeFondo" class="imagen_fondo_detalle" @*style="background-image: url('https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019424344_dkvuwesndt.png');"*@></div>
@@ -22,12 +24,12 @@
                     <div id="estrategia" class="row contenedor_nombre_precio">
                     </div>
                     @*<div class="descripcion_lanzamiento">
-                        <p>Déjate seducir por el dulce aroma de la noche</p>
-                        <ul class="descripcion_detalle_producto_tono">
-                            <li>- 200 ml. / 6,7 fl. oz</li>
-                            <li>- 200 ml. / 6,7 fl. oz</li>
-                        </ul>
-                    </div>*@
+                            <p>Déjate seducir por el dulce aroma de la noche</p>
+                            <ul class="descripcion_detalle_producto_tono">
+                                <li>- 200 ml. / 6,7 fl. oz</li>
+                                <li>- 200 ml. / 6,7 fl. oz</li>
+                            </ul>
+                        </div>*@
                     <div id="componente" class="producto_componentes"></div>
 
                     <div class="tiposytonos_componentes" style="display:none">
@@ -158,6 +160,7 @@
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/breadcrumbs-template.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/imagen-estrategia-template.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/estrategia-template.cshtml")
+@Html.Partial("~/Views/Shared/_template-ofertadeldia-style.cshtml")
 @*@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/compartir-estrategia-template.cshtml")*@
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/FichaEnriquecida/tabs-ficha-enriquecida-template.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/componente-estrategia-template.cshtml")
@@ -395,18 +398,21 @@
 </section>
 
 @section scripts{
+    @System.Web.Optimization.Scripts.Render("~/Scripts/flipclock.js")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
-    @*
-        <script type="text/javascript">
-        var modelPalanca = "@Model.Palanca";
-        var modelCampania = "@Model.Campania";
-        var modelCuv = "@Model.Cuv";
-        var modelOrigen = "@Model.OrigenUrl";
-        </script>
-        <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/Ficha.js"></script>
-    *@
+
+    <script type="text/javascript">
+    var params = {
+        palanca: "@Model.Palanca",
+        campania: "@Model.Campania",
+        cuv: "@Model.Cuv",
+        origen: "@Model.OrigenUrl",
+    };
+    </script>
+
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js"></script>
 
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaView.js"></script>
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaPresenter.js"></script>
@@ -415,7 +421,7 @@
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesView.js"></script>
 
     @*<script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClientePresenter.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClienteView.js"></script>*@
+        <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClienteView.js"></script>*@
 
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsiveEvents.js"></script>
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsive.js"></script>

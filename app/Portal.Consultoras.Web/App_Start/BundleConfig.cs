@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/ui.jqgrid/ui.jqgrid.css"
 
             ));
-             
+
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/JQueryJs").Include(
                "~/Scripts/jquery-1.11.2.js",
@@ -603,7 +603,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Descargables.js"
-                //"~/Scripts/PortalConsultoras/EstrategiaPersonalizada/BannerInteractivo.js"
+            //"~/Scripts/PortalConsultoras/EstrategiaPersonalizada/BannerInteractivo.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Ofertas").Include(
@@ -637,7 +637,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/CajaProducto.js"
-                //"~/Scripts/PortalConsultoras/EstrategiaPersonalizada/BannerInteractivo.js"
+            //"~/Scripts/PortalConsultoras/EstrategiaPersonalizada/BannerInteractivo.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Ofertas").Include(
@@ -1038,7 +1038,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Ficha/PopoverTooltip.css"
             ));
 
-            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/EsikaPageResponsive").Include(               
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/EsikaPageResponsive").Include(
                 "~/Content/Css/Site/Esika/marca-pais-responsive.css",
                 "~/Content/Css/Site/Esika/styleDefault.css"
             ));
@@ -1053,6 +1053,28 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/Clientes/Asignarcliente.css",
                 "~/Content/Css/Site/TusClientes/TusClientes_Responsive.css"
             ));
+
+            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/SugerenciaPendientes").Include(
+                "~/Content/Css/Site/slick.css",
+                "~/Content/Css/Mobile/ConsultoraOnline/Pendientes.css"
+            ));
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/SugerenciaPendientes").Include(
+                "~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/PedidoPendienteMedioCompra.js",
+                "~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/Pendientes.js",
+               "~/Scripts/slick.js"
+            ));
+
+            bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/SugerenciaPendientes").Include(
+                "~/Content/Css/Site/slick.css",
+                "~/Content/Css/Site/ConsultoraOnline/Pendientes.css",
+                "~/Content/Css/Site/ConsultoraOnline/Pendientes.rewrite.css"
+            ));
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/SugerenciaPendientes").Include(
+               "~/Scripts/PortalConsultoras/ConsultoraOnline/DetallePedidoPendiente.js",
+               "~/Scripts/PortalConsultoras/ConsultoraOnline/Pendientes.js",
+                "~/Scripts/General.js"
+            ));
+
 
             #region CaminoBrillante
             bundles.Add(new StyleBundle("~/Bundle/Css/CaminoBrillante").Include(
@@ -1096,11 +1118,15 @@ namespace Portal.Consultoras.Web
             #endregion
 
             #region FichaResponsive
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Responsive/Ficha").Include(
+                "~/Scripts/flipclock.js"
+            ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/Ficha").Include(
                 "~/Content/Css/Site/Ficha/FichaRensponsive.css",
                 "~/Content/Css/Site/Ficha/SeleccionarTipoResponsive.css",
-                "~/Content/Css/Site/Ficha/FichaEnriquecidaResponsive.css"
+                "~/Content/Css/Site/Ficha/FichaEnriquecidaResponsive.css",
+                "~/Content/Css/Site/flipclock.css"
             ));
             #endregion
 
