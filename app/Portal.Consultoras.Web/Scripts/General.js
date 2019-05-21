@@ -835,7 +835,8 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
 
 function AbrirMensaje25seg(mensaje, imagen) {
     try {
-        var _dialogClass = '.setBottom'
+        var _dialogClass = '.setBottom',
+            _overlay = '.ui-widget-overlay'
 
         mensaje = $.trim(mensaje);
         if (mensaje == "") {
@@ -870,7 +871,9 @@ function AbrirMensaje25seg(mensaje, imagen) {
         else {
             
             $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
-            showDialogSinScroll("alertDialogMensajes25seg");            
+            showDialogSinScroll("alertDialogMensajes25seg");   
+            $(_overlay).css('background', 'black')
+            $(_overlay).css('opacity', '0.85')
         }
         CerrarLoad();
         //Ocultar el scroll 
@@ -879,7 +882,7 @@ function AbrirMensaje25seg(mensaje, imagen) {
         setTimeout(function () {
             $(_dialogClass).fadeOut(500, function () {
                 $('#alertDialogMensajes25seg').dialog("close");
-                $("body").css("overflow", "hidden");
+                $("body").css("overflow", "auto")
             })
         }, 2500)    
 
