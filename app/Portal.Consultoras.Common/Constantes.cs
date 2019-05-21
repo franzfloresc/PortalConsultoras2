@@ -3472,9 +3472,20 @@ namespace Portal.Consultoras.Common
             /// </summary>
             public const string UrlPersonalizacion = "Personalizacion/{0}/{1}/{2}/{3}";
 
+            /// <summary>
+            /// recomendaciones/{codigoPais}/{codigocampania}/{origen}
+            /// </summary>
             public const string UrlRecomendaciones = "Recomendaciones/{0}/{1}/{2}";
 
+            /// <summary>
+            /// categoria/{codigoPais}/{codigoCampania}
+            /// </summary>
             public const string UrlCategorias = "Categoria/{0}/{1}";
+
+            /// <summary>
+            /// upselling/{codigoPais}/{codigocampania}/{origen}
+            /// </summary>
+            public const string UrlUpSelling = "upselling/{0}/{1}/{2}";
         }
 
         public static class ActualizacionDatosValidacion

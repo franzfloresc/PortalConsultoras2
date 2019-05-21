@@ -296,7 +296,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetDetallesPedido(null);
                     SessionManager.SetDetallesPedidoSetAgrupado(null);
                     SessionManager.SetBEEstrategia(Constantes.ConstSession.ListaEstrategia, null);
-                    SessionManager.SetMontosProl(null);
+                    SetMontosProl(pedidoDetalleResult);
                     SessionManager.SetMisPedidosDetallePorCampania(null);
 
                     var pedidoWebDetalle = ObtenerPedidoWebDetalle();
@@ -438,12 +438,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             var esReservado = (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.ERROR_RESERVA_AGREGAR) || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR)) ? true : false;
 
-            if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+            if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS) || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR))
             {
                 SessionManager.SetPedidoWeb(null);
                 SessionManager.SetDetallesPedido(null);
                 SessionManager.SetDetallesPedidoSetAgrupado(null);
-                SessionManager.SetMontosProl(null);
+                SetMontosProl(pedidoDetalleResult);         
                 SessionManager.SetMisPedidosDetallePorCampania(null);
 
                 var pedidoWebDetalle = ObtenerPedidoWebDetalle();
@@ -539,11 +539,14 @@ namespace Portal.Consultoras.Web.Controllers
             var esReservado = (result.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.ERROR_RESERVA_AGREGAR) || result.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR));
             tipo = result.MensajeRespuesta;
 
-            SessionManager.SetPedidoWeb(null);
-            SessionManager.SetDetallesPedido(null);
-            SessionManager.SetDetallesPedidoSetAgrupado(null);
-            SessionManager.SetMontosProl(null);
-            SessionManager.SetMisPedidosDetallePorCampania(null);
+            if (!errorServer)
+            {
+                SessionManager.SetPedidoWeb(null);
+                SessionManager.SetDetallesPedido(null);
+                SessionManager.SetDetallesPedidoSetAgrupado(null);
+                SetMontosProl(result);
+                SessionManager.SetMisPedidosDetallePorCampania(null);
+            }
 
             var olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 

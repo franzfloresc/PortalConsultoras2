@@ -610,5 +610,12 @@ namespace Portal.Consultoras.Common
             public const short CaminoBrillanteOfertasEspeciales = 168;
         }
 
+        public static class ConfiguracionesFicha
+        {
+            public const short TablaLogicaId = 15;
+            public const short MostrarFuncionalidadUpSelling = 1501;
+            public const short CantidadProductosCarruselUpSelling = 1502;
+        }
+
     }
 }

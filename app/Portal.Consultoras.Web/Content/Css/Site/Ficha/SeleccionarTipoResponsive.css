@@ -18,7 +18,7 @@
     border-radius: 4px;
     width: 100%;
     display: block;
-    font-size: 13px;
+    font-size: 15px;
 }
 
 .tonos_seleccionados {
@@ -52,15 +52,14 @@
 }
 
     .titulo_selecionado span {
-        font-size: 13px;
-        font-weight: bold;
+        font-size: 14px;
     }
 
         .titulo_selecionado span:first-child {
             margin-right: 5px;
         }
 
-.btn_cambiar_opciones {
+/*.btn_cambiar_opciones {
     font-size: 13px;
     font-weight: bold;
     display: inherit;
@@ -75,7 +74,7 @@
         display: inline-block;
         margin-top: -1px;
         margin-left: 3px;
-    }
+    }*/
 
 .content_tonos_maquillaje {
     margin-top: 13px;
@@ -83,12 +82,13 @@
 }
 
 .content_tono_detalle {
-    width: 9.6%;
+    width: 11%;
     display: inline-block;
     margin: 3px;
     border: 1px solid white;
     box-sizing: border-box;
     cursor: pointer;
+    position: relative;
 }
 
     .content_tono_detalle:hover, .content_tono_detalle.active {
@@ -101,7 +101,7 @@
     }
 
 .detalle_producto .tiposytonos_componentes {
-    margin-top: 10px;
+    margin-top: 14px;
     margin-bottom: 4px;
     width: 100%
 }
@@ -254,11 +254,19 @@
     margin-bottom: 0px;
 }
 
+.seleccion_img{
+    position: relative;
+}
+
 .seleccion_img img {
     width: 60px;
     display: block;
 }
 
+.selecion_item .tag_agotago {
+    width: 100px !important;
+    margin-left: auto;
+}
 
 .selecion_item {
     padding: 12px 20px;
@@ -293,10 +301,6 @@
     height: 36px;
 }
 
-.selecion_item .txt_cantidad_pedido {
-    border-left: solid 1px #000;
-    border-right: solid 1px #000;
-}
 
 .selecion_item button {
     font-size: 11px;
@@ -347,7 +351,7 @@
         border: none;
     }
 
-@media (max-width: 768px) {
+@media (max-width: 960px) {
     .content_tono_detalle {
         width: 16.8%;
     }
