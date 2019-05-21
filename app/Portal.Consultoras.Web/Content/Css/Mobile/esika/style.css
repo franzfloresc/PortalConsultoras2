@@ -4602,7 +4602,7 @@ body {
 .sin_padding {
     padding-left: 0 !important;
     padding-right: 0 !important;
-    margin-top: -5px;
+    margin-top: 0;
 }
 
 .banner_ingresoPedido {
