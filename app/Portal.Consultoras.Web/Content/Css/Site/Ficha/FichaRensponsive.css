@@ -480,7 +480,7 @@ ul.breadcumbs li a {
 }  
 
 
-@media (min-width: 768px) {
+@media (min-width: 960px) {
     .contenedor_agregar {
         border-top: 1px solid #d1d1d4;
         padding-top: 15px;
@@ -504,7 +504,7 @@ ul.breadcumbs li a {
     } 
 }
 
-@media (max-width: 768px) {
+@media (max-width: 960px) {
     .reloj_mobile{
         display: block !important;
     }
