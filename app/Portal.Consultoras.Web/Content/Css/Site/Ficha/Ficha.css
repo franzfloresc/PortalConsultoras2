@@ -1302,7 +1302,7 @@ ul.breadcumbs li a::before {
     opacity: .3;
 }
 
-.producto_nombre_descripcion{
+/*.producto_nombre_descripcion{
     text-align: left;
 }
 
@@ -1318,7 +1318,7 @@ ul.breadcumbs li a::before {
         display: block;
         font-weight: bold;
         line-height: normal;
-    }
+    }*/
 
 .titulo_carrusel {
     font-size: 18px;

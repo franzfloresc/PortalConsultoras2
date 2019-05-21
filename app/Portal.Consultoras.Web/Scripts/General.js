@@ -866,7 +866,14 @@ function AbrirMensaje25seg(mensaje, imagen) {
         
         var isUrlMobile = isMobile();
         if (isUrlMobile > 0) {                        
-            console.log('mobil')
+            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
+            $('#alertDialogMensajes25seg').dialog("open");
+            $(_overlay).css('background', 'black')
+            $(_overlay).css('opacity', '0.85')
+
+            var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0])
+            _newTopDialog = _topWithoutPXAfterCreateDialog + 200,
+                _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
         }
         else {
             
