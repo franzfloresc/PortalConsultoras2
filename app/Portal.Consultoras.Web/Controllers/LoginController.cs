@@ -249,14 +249,6 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         [AllowAnonymous]
-        [HttpGet]
-        [Route("Login/Login/{param?}")]
-        public ActionResult Login(string param)
-        {
-            return RedirectToAction("Index", "Login");
-        }
-
-        [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult> Login(LoginModel model, string returnUrl = null)
         {
