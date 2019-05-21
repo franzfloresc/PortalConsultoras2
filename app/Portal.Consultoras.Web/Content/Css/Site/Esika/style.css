@@ -4484,6 +4484,13 @@ a.subir_carousel, a.bajar_carousel {
         background-size: cover;
     }
 
+    .logo_esika--nuevoLogo a{
+        background-image: url('/Content/Images/Esika/nuevo-logo-esika.svg');
+        background-repeat:no-repeat;
+        background-size: 91px;
+        background-position-y: 16%;
+    }
+
 .cliente_detalle {
     display: block;
     color: black;
