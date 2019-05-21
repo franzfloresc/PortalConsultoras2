@@ -168,7 +168,8 @@ var AnalyticsPortalModule = (function () {
             { "Codigo": "08", "TextoList": "Inicio" },
             { "Codigo": "09", "TextoList": "Otras Paginas" },
             { "Codigo": "10", "TextoList": "" },
-            { "Codigo": "11", "TextoList": "" }
+            { "Codigo": "11", "TextoList": "" },
+            { "Codigo": "19", "TextoList": "Ficha" }
         ],
         Palanca: [
             { "Codigo": "00", "CodigoPalanca": "RD", "TextoList": "Ofertas Para Ti" },
@@ -197,7 +198,9 @@ var AnalyticsPortalModule = (function () {
             { "Codigo": "04", "TextoList": "" },
             { "Codigo": "05", "TextoList": "Detalle de Producto - Ver más sets" },
             { "Codigo": "06", "TextoList": "" },
-            { "Codigo": "07", "TextoList": "" }
+            { "Codigo": "07", "TextoList": "" },
+            { "Codigo": "15", "TextoList": "Carrusel Upselling" },
+            { "Codigo": "16", "TextoList": "Ficha Upselling" }
         ]
     }
 
