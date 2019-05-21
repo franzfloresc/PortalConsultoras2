@@ -304,6 +304,7 @@ var PedidoRegistroModule = function () {
             origenPedidoLiquidaciones = DesktopLiquidacion;
         }
 
+        var imagenProducto = $(this).parent().parent().find('.imagen_producto')[0].src;
         console.log('origenPedidoLiquidaciones', origenPedidoLiquidaciones);
 
         if (_mensajeCantidad(Cantidad, $('.liquidacion_rango_cantidad_pedido'))) {
@@ -370,6 +371,8 @@ var PedidoRegistroModule = function () {
                 }
 
                 CerrarLoad();
+
+                AbrirMensaje25seg('¡Listo! Agregaste esta(s) oferta(s) a tu pedido', imagenProducto);
 
                 modelLiquidacionOfertas = undefined;
                 labelAgregadoLiquidacion = undefined;
