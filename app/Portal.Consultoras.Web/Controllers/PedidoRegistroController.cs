@@ -272,7 +272,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.OfertaWeb = model.OfertaWeb;
                 pedidoDetalle.EsEditable = model.EsEditable;
                 pedidoDetalle.SetID = model.SetId;
-
+                pedidoDetalle.OrigenSolicitud = "WebMobile";
                 var result = await DeletePremioIfReplace(model);
                 if (result != null && !result.Item1)
                 {
@@ -427,6 +427,7 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoDetalle.IPUsuario = GetIPCliente();
             pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
 
+            pedidoDetalle.OrigenSolicitud = "WebMobile";
             var pedidoDetalleResult = _pedidoWebProvider.UpdatePedidoDetalle(pedidoDetalle);
 
             if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))

@@ -491,7 +491,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     DescripcionProd = descTono,
                     ImporteTotal = pedidoDetalle.Cantidad * Precio2,
                     Nombre = pedidoDetalle.ClienteID == 0 ? usuario.Nombre : pedidoDetalle.ClienteDescripcion,
-                    TipoAdm = Constantes.PedidoAccion.INSERT
+                    TipoAdm = Constantes.PedidoAccion.INSERT ,
+                    OrigenSolicitud = pedidoDetalle.OrigenSolicitud
                 };
 
                 ListaCuvsTemporal.Add(CUV2);
@@ -736,7 +737,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         Nombre = detalle.ClienteID == 0 ? usuario.Nombre : detalle.ClienteDescripcion,
                         Flag = 2,
                         Stock = pedidoDetalle.StockNuevo,
-                        TipoAdm = Constantes.PedidoAccion.UPDATE
+                        TipoAdm = Constantes.PedidoAccion.UPDATE,
+                        OrigenSolicitud = pedidoDetalle.OrigenSolicitud
                     };
 
                     pedidoWebDetalles.Add(obePedidoWebDetalle);
