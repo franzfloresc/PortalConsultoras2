@@ -15462,6 +15462,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CodigoRespuestaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescuentoProlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string[] ListCuvEliminarField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -15475,6 +15478,15 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ModificoBackOrderField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MontoAhorroCatalogoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MontoAhorroRevistaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MontoEscalaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle PedidoWebDetalleField;
@@ -15527,6 +15539,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.CodigoRespuestaField, value) != true)) {
                     this.CodigoRespuestaField = value;
                     this.RaisePropertyChanged("CodigoRespuesta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescuentoProl {
+            get {
+                return this.DescuentoProlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescuentoProlField, value) != true)) {
+                    this.DescuentoProlField = value;
+                    this.RaisePropertyChanged("DescuentoProl");
                 }
             }
         }
@@ -15592,6 +15617,45 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ModificoBackOrderField.Equals(value) != true)) {
                     this.ModificoBackOrderField = value;
                     this.RaisePropertyChanged("ModificoBackOrder");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MontoAhorroCatalogo {
+            get {
+                return this.MontoAhorroCatalogoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MontoAhorroCatalogoField, value) != true)) {
+                    this.MontoAhorroCatalogoField = value;
+                    this.RaisePropertyChanged("MontoAhorroCatalogo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MontoAhorroRevista {
+            get {
+                return this.MontoAhorroRevistaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MontoAhorroRevistaField, value) != true)) {
+                    this.MontoAhorroRevistaField = value;
+                    this.RaisePropertyChanged("MontoAhorroRevista");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MontoEscala {
+            get {
+                return this.MontoEscalaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MontoEscalaField, value) != true)) {
+                    this.MontoEscalaField = value;
+                    this.RaisePropertyChanged("MontoEscala");
                 }
             }
         }
@@ -17520,6 +17584,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int PedidoIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RecogerDNIField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RecogerNombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string RutaPaqueteDocumentarioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -18053,6 +18123,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.PedidoIDField.Equals(value) != true)) {
                     this.PedidoIDField = value;
                     this.RaisePropertyChanged("PedidoID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RecogerDNI {
+            get {
+                return this.RecogerDNIField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RecogerDNIField, value) != true)) {
+                    this.RecogerDNIField = value;
+                    this.RaisePropertyChanged("RecogerDNI");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string RecogerNombre {
+            get {
+                return this.RecogerNombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RecogerNombreField, value) != true)) {
+                    this.RecogerNombreField = value;
+                    this.RaisePropertyChanged("RecogerNombre");
                 }
             }
         }
@@ -46382,11 +46478,17 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillante", ReplyAction="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillanteResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEDemostradoresPaginado> GetDemostradoresCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad, int cantRegistros, int regMostrados, string codOrdenar, string codFiltro);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetDatosOrdenFiltros", ReplyAction="http://tempuri.org/IPedidoService/GetDatosOrdenFiltrosResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEOrdenFiltrosCaminoBrillante[] GetDatosOrdenFiltros(int paisID);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetFiltrosCaminoBrillante", ReplyAction="http://tempuri.org/IPedidoService/GetFiltrosCaminoBrillanteResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEOrdenFiltrosCaminoBrillante[] GetFiltrosCaminoBrillante(int paisID);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetDatosOrdenFiltros", ReplyAction="http://tempuri.org/IPedidoService/GetDatosOrdenFiltrosResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEOrdenFiltrosCaminoBrillante[]> GetDatosOrdenFiltrosAsync(int paisID);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetFiltrosCaminoBrillante", ReplyAction="http://tempuri.org/IPedidoService/GetFiltrosCaminoBrillanteResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEOrdenFiltrosCaminoBrillante[]> GetFiltrosCaminoBrillanteAsync(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdDatoRecogerPor", ReplyAction="http://tempuri.org/IPedidoService/UpdDatoRecogerPorResponse")]
+        void UpdDatoRecogerPor(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb pedidowebdetalle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdDatoRecogerPor", ReplyAction="http://tempuri.org/IPedidoService/UpdDatoRecogerPorResponse")]
+        System.Threading.Tasks.Task UpdDatoRecogerPorAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb pedidowebdetalle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalle", ReplyAction="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalleResponse")]
         Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] GetProductosShowRoomDetalle(int paisID, int campaniaId, string cuv);
@@ -49144,12 +49246,20 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetDemostradoresCaminoBrillanteAsync(entidad, cantRegistros, regMostrados, codOrdenar, codFiltro);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEOrdenFiltrosCaminoBrillante[] GetDatosOrdenFiltros(int paisID) {
-            return base.Channel.GetDatosOrdenFiltros(paisID);
+        public Portal.Consultoras.Web.ServicePedido.BEOrdenFiltrosCaminoBrillante[] GetFiltrosCaminoBrillante(int paisID) {
+            return base.Channel.GetFiltrosCaminoBrillante(paisID);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEOrdenFiltrosCaminoBrillante[]> GetDatosOrdenFiltrosAsync(int paisID) {
-            return base.Channel.GetDatosOrdenFiltrosAsync(paisID);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEOrdenFiltrosCaminoBrillante[]> GetFiltrosCaminoBrillanteAsync(int paisID) {
+            return base.Channel.GetFiltrosCaminoBrillanteAsync(paisID);
+        }
+        
+        public void UpdDatoRecogerPor(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb pedidowebdetalle) {
+            base.Channel.UpdDatoRecogerPor(pedidowebdetalle);
+        }
+        
+        public System.Threading.Tasks.Task UpdDatoRecogerPorAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb pedidowebdetalle) {
+            return base.Channel.UpdDatoRecogerPorAsync(pedidowebdetalle);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] GetProductosShowRoomDetalle(int paisID, int campaniaId, string cuv) {

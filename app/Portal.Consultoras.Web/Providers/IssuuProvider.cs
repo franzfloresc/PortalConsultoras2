@@ -170,5 +170,14 @@ namespace Portal.Consultoras.Web.Providers
 
             return _segmentacion;
         }
+
+        public string GetStringIssuRevista(string codigoRevista, bool isEmbed = true) {
+            var url = string.Format("https://issuu.com/somosbelcorp/docs/{0}", codigoRevista);
+            if (isEmbed) {
+                url += "?mode=embed";
+            }
+            return url;
+        }
+
     }
 }

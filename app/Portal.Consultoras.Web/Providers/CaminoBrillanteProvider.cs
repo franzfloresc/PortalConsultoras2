@@ -334,16 +334,20 @@ namespace Portal.Consultoras.Web.Providers
         {
             try
             {
-                var entidad = new List<BEOrdenFiltrosCaminoBrillante>();
-                using (var svc = new PedidoServiceClient())
-                    entidad = svc.GetDatosOrdenFiltros(usuarioModel.PaisID).ToList();
+                var entidad = sessionManager.GetFiltrosCaminoBrillante();
+                if (entidad == null)
+                {
+                    using (var svc = new PedidoServiceClient())
+                        entidad = svc.GetFiltrosCaminoBrillante(usuarioModel.PaisID).ToList();
 
-                if (entidad == null) return null;
+                    if (entidad == null) return null;
+                    sessionManager.SetFiltrosCaminoBrillante(entidad);
+                }
+
                 var oFiltro = new FiltrosCaminoBrillanteModel();
-                oFiltro.DatosFiltros = Mapper.Map<List<FiltrosDatosCaminoBrillante>>(entidad.Where(x => x.Tipo == "FILTRO").ToList());
-                oFiltro.DatosOrden = Mapper.Map<List<OrdenDatosCaminoBrillante>>(entidad.Where(x => x.Tipo == "ORDEN").ToList());
+                oFiltro.DatosFiltros = Mapper.Map<List<FiltrosDatosCaminoBrillante>>(entidad.Where(x => x.Tipo == Constantes.CaminoBrillante.CodigoFiltros.CodigoFiltro).ToList());
+                oFiltro.DatosOrden = Mapper.Map<List<OrdenDatosCaminoBrillante>>(entidad.Where(x => x.Tipo == Constantes.CaminoBrillante.CodigosOrdenamiento.CodigoOrden).ToList());
                 return oFiltro;
-
             }
             catch (Exception ex)
             {

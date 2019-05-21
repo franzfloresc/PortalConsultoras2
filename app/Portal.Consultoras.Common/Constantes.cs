@@ -531,6 +531,7 @@ namespace Portal.Consultoras.Common
             public const string NivelConsultoraCaminoBrillante = "NivelConsultoraCaminoBrillante";
             public const string KitCaminoBrillante = "KitCaminoBrillante";
             public const string DemostradoresCaminoBrillante = "DemostradoresCaminoBrillante";
+            public const string FiltrosCaminoBrillante = "FiltrosCaminoBrillante";
         }
 
         public static class ConfiguracionManager
@@ -1084,6 +1085,8 @@ namespace Portal.Consultoras.Common
             #endregion
 
             #region Pedidos Pendientes
+
+            // App Catalogo
             public const int DesktopPedidoCatalogoLbelAppCatalogoPendienteDeAprobar = 1021110;
             public const int DesktopPedidoCatalogoEsikaAppCatalogoPendienteDeAprobar = 1021210;
             public const int DesktopPedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar = 1021310;
@@ -1093,15 +1096,41 @@ namespace Portal.Consultoras.Common
             public const int AppConsultoraPedidoCatalogoLbelAppCatalogoPendienteDeAprobar = 4021110;
             public const int AppConsultoraPedidoCatalogoEsikaAppCataogoPendienteDeAprobar = 4021210;
             public const int AppConsultoraPedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar = 4021310;
+
+            // Catalogo Digital
             public const int DesktopPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar = 1021111;
             public const int DesktopPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 1021211;
             public const int DesktopPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 1021311;
+            public const int DesktopPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobarProducto = 1021113;
+            public const int DesktopPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobarProducto = 1021213;
+            public const int DesktopPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobarProducto = 1021313;
+
             public const int MobilePedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar = 2021111;
             public const int MobilePedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 2021211;
             public const int MobilePedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 2021311;
+            public const int MobilePedidoCatalogoLbelCatalogoDigitalPendienteDeAprobarProducto = 2021113;
+            public const int MobilePedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobarProducto = 2021213;
+            public const int MobilePedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobarProducto = 2021313;
+
             public const int AppConsultoraPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar = 4021111;
             public const int AppConsultoraPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar = 4021211;
             public const int AppConsultoraPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar = 4021311;
+
+            // Maquillador Virtual
+            public const int DesktopPedidoCatalogoLbelMaquilladorPendienteDeAprobar = 1021112;
+            public const int DesktopPedidoCatalogoEsikaMaquilladorPendienteDeAprobar = 1021212;
+            public const int DesktopPedidoCatalogoCyzoneMaquilladorPendienteDeAprobar = 1021312;
+            public const int DesktopPedidoCatalogoLbelMaquilladorPendienteDeAprobarProducto = 1021114;
+            public const int DesktopPedidoCatalogoEsikaMaquilladorPendienteDeAprobarProducto = 1021214;
+            public const int DesktopPedidoCatalogoCyzoneMaquilladorPendienteDeAprobarProducto = 1021314;
+
+            public const int MobilePedidoCatalogoLbelMaquilladorPendienteDeAprobar = 2021112;
+            public const int MobilePedidoCatalogoEsikaMaquilladorPendienteDeAprobar = 2021212;
+            public const int MobilePedidoCatalogoCyzoneMaquilladorPendienteDeAprobar = 2021312;
+            public const int MobilePedidoCatalogoLbelMaquilladorPendienteDeAprobarProducto = 2021114;
+            public const int MobilePedidoCatalogoEsikaMaquilladorPendienteDeAprobarProducto = 2021214;
+            public const int MobilePedidoCatalogoCyzoneMaquilladorPendienteDeAprobarProducto = 2021314;
+
             #endregion
 
             #region Buscador App
@@ -1156,6 +1185,57 @@ namespace Portal.Consultoras.Common
             public const int AppBuscadorOPTDesplegableFicha = 4040002;
             public const int AppBuscadorOPTLandingFicha = 4100002;
             #endregion
+
+            //public const int DesktopPedidoOfertasParaTiCatálogoDigitalPendientedeAprobarCliente = 1020011;
+            //public const int DesktopPedidoShowroomCatálogoDigitalPendientedeprobarCliente = 1020111;
+            //public const int DesktopPedidoLanzamientosCatálogoDigitalPendientedeAprobarCliente = 1020211;
+            //public const int DesktopPedidoOfertaDelDíaCatálogoDigitalPendientedeAprobarCliente = 1020311;
+            //public const int DesktopPedidoGanadorasCatálogoDigitalPendientedeAprobarCliente = 1021411;
+
+            //public const int DesktopPedidoArmaTuPackCatálogoDigitalPendientedeAprobarCliente = 1021511;
+            //public const int DesktopPedidoOfertasParaTiAppMaquilladorPendientedeAprobarCliente = 1020012;
+            //public const int DesktopPedidoShowroomAppMaquilladorPendientedeAprobarCliente = 1020112;
+            //public const int DesktopPedidoLanzamientosAppMaquilladorPendientedeAprobarCliente = 1020212;
+            //public const int DesktopPedidoOfertaDelDíaAppMaquilladorPendientedeAprobarCliente = 1020312;
+            //public const int DesktopPedidoGanadorasAppMaquilladorPendientedeAprobarCliente = 1021412;
+            //public const int DesktopPedidoArmaTuPackAppMaquilladorPendientedeAprobarCliente = 1021512;
+            //public const int DesktopPedidoOfertasParaTiCatálogoDigitalPendientedeAprobarProducto = 1020013;
+            //public const int DesktopPedidoShowroomCatálogoDigitalPendientedeAprobarProducto = 1020113;
+            //public const int DesktopPedidoLanzamientosCatálogoDigitalPendientedeAprobarProducto = 1020213;
+            //public const int DesktopPedidoOfertaDelDíaCatálogoDigitalPendientedeAprobarProducto = 1020313;
+            //public const int DesktopPedidoGanadorasCatálogoDigitalPendientedeAprobarProducto = 1021413;
+            //public const int DesktopPedidoArmaTuPackCatálogoDigitalPendientedeAprobarProducto = 1021513;
+            //public const int DesktopPedidoOfertasParaTiAppMaquilladorPendientedeAprobarProducto = 1020014;
+            //public const int DesktopPedidoShowroomAppMaquilladorPendientedeAprobarProducto = 1020114;
+            //public const int DesktopPedidoLanzamientosAppMaquilladorPendientedeAprobarProducto = 1020214;
+            //public const int DesktopPedidoOfertaDelDíaAppMaquilladorPendientedeAprobarProducto = 1020314;
+            //public const int DesktopPedidoGanadorasAppMaquilladorPendientedeAprobarProducto = 1021414;
+            //public const int DesktopPedidoArmaTuPackAppMaquilladorPendientedeAprobarProducto = 1021514;
+            //public const int MobilePedidoOfertasParaTiCatálogoDigitalPendientedeAprobarCliente = 2020011;
+            //public const int MobilePedidoShowroomCatálogoDigitalPendientedeAprobarCliente = 2020111;
+            //public const int MobilePedidoLanzamientosCatálogoDigitalPendientedeAprobarCliente = 2020211;
+            //public const int MobilePedidoOfertaDelDíaCatálogoDigitalPendientedeAprobarCliente = 2020311;
+            //public const int MobilePedidoGanadorasCatálogoDigitalPendientedeAprobarCliente = 2021411;
+            //public const int MobilePedidoArmaTuPackCatálogoDigitalPendientedeAprobarCliente = 2021511;
+            //public const int MobilePedidoOfertasParaTiAppMaquilladorPendientedeAprobarCliente = 2020012;
+            //public const int MobilePedidoShowroomAppMaquilladorPendientedeAprobarCliente = 2020112;
+            //public const int MobilePedidoLanzamientosAppMaquilladorPendientedeAprobarCliente = 2020212;
+            //public const int MobilePedidoOfertaDelDíaAppMaquilladorPendientedeAprobarCliente = 2020312;
+            //public const int MobilePedidoGanadorasAppMaquilladorPendientedeAprobarCliente = 2021412;
+            //public const int MobilePedidoArmaTuPackAppMaquilladorPendientedeAprobarCliente = 2021512;
+            //public const int MobilePedidoOfertasParaTiCatálogoDigitalPendientedeAprobarProducto = 2020013;
+            //public const int MobilePedidoShowroomCatálogoDigitalPendientedeAprobarProducto = 2020113;
+            //public const int MobilePedidoLanzamientosCatálogoDigitalPendientedeAprobarProducto = 2020213;
+            //public const int MobilePedidoOfertaDelDíaCatálogoDigitalPendientedeAprobarProducto = 2020313;
+            //public const int MobilePedidoGanadorasCatálogoDigitalPendientedeAprobarProducto = 2021413;
+            //public const int MobilePedidoArmaTuPackCatálogoDigitalPendientedeAprobarProducto = 2021513;
+            //public const int MobilePedidoOfertasParaTiAppMaquilladorPendientedeAprobarProducto = 2020014;
+            //public const int MobilePedidoShowroomAppMaquilladorPendientedeAprobarProducto = 2020114;
+            //public const int MobilePedidoLanzamientosAppMaquilladorPendientedeAprobarProducto = 2020214;
+            //public const int MobilePedidoOfertaDelDíaAppMaquilladorPendientedeAprobarProducto = 2020314;
+            //public const int MobilePedidoGanadorasAppMaquilladorPendientedeAprobarProducto = 2021414;
+            //public const int MobilePedidoArmaTuPackAppMaquilladorPendientedeAprobarProducto = 2021514;
+
 
             public const int MobileArmaTuPackFicha = 2131502;
             public const int DesktopArmaTuPackFicha = 1131502;
@@ -1466,6 +1546,9 @@ namespace Portal.Consultoras.Common
         {
             public static readonly int CatalogosYRevistas = 1002;
             public static readonly int NecesitasAyuda = 1039;
+            /* INI HD-4086 */
+            public static readonly int Bonificaciones = 1049;
+            /* FIN HD-4086 */
         }
 
         public static class BannerCodigo
@@ -2727,6 +2810,7 @@ namespace Portal.Consultoras.Common
         {
             public const string PedidoDetalle = "DetPedido";
             public const string PedidoDetallePendiente = "DetPedidoPend";
+            public const string PedidoDetallePoputPendiente = "DetPedidoPoputPend";
         }
 
         public static class FlagRevista
@@ -3939,17 +4023,19 @@ namespace Portal.Consultoras.Common
 
             public static class CodigosOrdenamiento
             {
-                public const string sinOrden = "00";
-                public const string porCategoria = "01";
-                public const string porNombre = "02";
+                public const string CodigoOrden = "ORDEN";
+                public const string SinOrden = "00";
+                public const string PorCategoria = "01";
+                public const string PorNombre = "02";
             }
 
             public static class CodigoFiltros
             {
-                public const string sinFiltro = "00";
-                public const string lbel = "01";
-                public const string esika = "02";
-                public const string cyzone = "03";
+                public const string CodigoFiltro = "FILTRO";
+                public const string SinFiltro = "00";
+                public const string Lbel = "01";
+                public const string Esika = "02";
+                public const string Cyzone = "03";
             }
         }
 
@@ -3974,5 +4060,16 @@ namespace Portal.Consultoras.Common
             public const string OrigenPedidoWebLandingFichaCarrusel = "OrigenPedidoWebLandingFichaCarrusel";
             public const string OrigenPedidoWebDesplegableFichaCarrusel = "OrigenPedidoWebDesplegableFichaCarrusel";
         }
+
+
+
+        public static class OpcionesIngresoPendientes
+        {
+            public const string ingrped = "ingrped";
+            public const string ingrgana = "ingrgana";
+            public const string ingrten = "ingrten";
+        }
+
+
     }
 }

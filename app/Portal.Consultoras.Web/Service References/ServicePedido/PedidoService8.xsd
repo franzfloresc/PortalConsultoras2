@@ -1263,32 +1263,26 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q99="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q99:BEUsuario" />
-        <xs:element minOccurs="0" name="cantRegistros" type="xs:int" />
-        <xs:element minOccurs="0" name="regMostrados" type="xs:int" />
-        <xs:element minOccurs="0" name="codOrdenar" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="codFiltro" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetDemostradoresCaminoBrillanteResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q100="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillante" minOccurs="0" name="GetDemostradoresCaminoBrillanteResult" nillable="true" type="q100:BEDemostradoresPaginado" />
+        <xs:element xmlns:q100="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillante" minOccurs="0" name="GetDemostradoresCaminoBrillanteResult" nillable="true" type="q100:ArrayOfBEDesmostradoresCaminoBrillante" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetDatosOrdenFiltros">
+  <xs:element name="UpdDatoRecogerPor">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="paisID" type="xs:int" />
+        <xs:element xmlns:q101="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="pedidowebdetalle" nillable="true" type="q101:BEPedidoWeb" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetDatosOrdenFiltrosResponse">
+  <xs:element name="UpdDatoRecogerPorResponse">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q101="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillante" minOccurs="0" name="GetDatosOrdenFiltrosResult" nillable="true" type="q101:ArrayOfBEOrdenFiltrosCaminoBrillante" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="GetProductosShowRoomDetalle">
