@@ -208,6 +208,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             }
                         }                        
                     }
+                    pedidoDetalle.Reservado = reservado;
                     respuesta = PedidoUpdateProductoTransaction(pedidoDetalle);
 
                     if (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS)
@@ -285,7 +286,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
             var respuesta = PedidoDetalleRespuesta(pedidoValidacionCode);
 
-            if (error)
+            if (!error)
             {
                 respuesta.CodigoRespuesta = Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR;
             }
@@ -333,6 +334,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         }
                     }
 
+                    pedidoDetalle.Reservado = reservado;
                     respuesta = await PedidoDeleteProductoTransaction(pedidoDetalle);
 
                     if (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS)
@@ -341,7 +343,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                         if (reservado)
                         {
-                            var respuestaReserva = await _reservaBusinessLogic.EjecutarReserva(pedidoDetalle.ReservaProl, true);
+                            //var respuestaReserva = await _reservaBusinessLogic.EjecutarReserva(pedidoDetalle.ReservaProl, true);
+                            //respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuesta, out error);
+
+                            var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
                             respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuesta, out error);
                         }
 
@@ -1095,7 +1100,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var modificoBackOrder = false;
             List<BEMensajeProl> ListaMensajeCondicional;
 
-            var result = AdministradorPedido(usuario, null, lista, null, null, Constantes.PedidoAccion.DELETE, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder, out ListaMensajeCondicional);
+            var result = AdministradorPedido(usuario, pedidoDetalle, lista, null, null, Constantes.PedidoAccion.DELETE, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder, out ListaMensajeCondicional);
             if (result) responseCode = Constantes.PedidoValidacion.Code.SUCCESS;
             var response = PedidoDetalleRespuesta(responseCode);
             ListaMensajeCondicional.AddRange(response.ListaMensajeCondicional);

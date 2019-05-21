@@ -28,7 +28,8 @@
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
     <IISExpressSSLPort>44361</IISExpressSSLPort>
-    <Use64BitIISExpress>true</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -313,6 +314,7 @@
     <Compile Include="Models\AdministrarEstrategia\EstrategiaGrupoModel.cs" />
     <Compile Include="Models\ArmaTuPackModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
+    <Compile Include="Models\ElasticSearch\OutputProductosUpSelling.cs" />
     <Compile Include="Models\ZonaValidacionTelefonicaModel.cs" />
     <Compile Include="Models\ConfiguracionZonaModel.cs" />
     <Compile Include="Models\DetalleEstrategia\EstrategiaComponenteSeccionModel.cs" />
@@ -851,6 +853,7 @@
     <Compile Include="Providers\BuscadorBaseProvider.cs" />
     <Compile Include="Providers\BuscadorYFiltrosProvider.cs" />
     <Compile Include="Providers\CaminoBrillanteProvider.cs" />
+    <Compile Include="Providers\CarruselUpSellingProvider.cs" />
     <Compile Include="Providers\CdrProvider.cs" />
     <Compile Include="Providers\ClienteProvider.cs" />
     <Compile Include="Providers\ConfiguracionManagerProvider.cs" />
@@ -4318,6 +4321,7 @@
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Suscripcion.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-DataLayer.js" />
+    <Content Include="Scripts\PortalConsultoras\Shared\CodigoOrigenPedidoWeb.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\CodigoUbigeoPortal.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\AnalyticsPortal.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\cierre-session.js" />

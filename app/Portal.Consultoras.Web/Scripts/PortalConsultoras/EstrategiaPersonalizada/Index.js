@@ -454,7 +454,7 @@ function SeccionMostrarProductos(data) {
     }
     else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.SimpleCentrado) {
         var origen = {
-            Pagina: ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor,
+            Pagina: CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Contenedor,
             CodigoPalanca: data.Seccion.Codigo
         };
         var obj = {
