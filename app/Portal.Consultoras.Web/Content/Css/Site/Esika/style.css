@@ -35245,7 +35245,9 @@ div.motivoRechazo textarea {
     background-image: url(/Content/Images/icono-chat-sb.svg);
     background-repeat: no-repeat;
     background-position: center;
-    cursor:pointer;
+    cursor: pointer;
+    border-radius: 100%;
+    z-index: 2000;
 }
 
 .fb_dialog_content iframe{
