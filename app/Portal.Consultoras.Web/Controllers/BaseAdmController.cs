@@ -11,10 +11,12 @@ namespace Portal.Consultoras.Web.Controllers
     public partial class BaseAdmController : BaseController
     {
         public readonly ZonificacionProvider _zonificacionProvider;
+        protected readonly AdministrarEstrategiaProvider administrarEstrategiaProvider;
 
         public BaseAdmController()
         {
             _zonificacionProvider = new ZonificacionProvider();
+            administrarEstrategiaProvider = new AdministrarEstrategiaProvider();
         }
 
         public IEnumerable<PaisModel> DropDowListPaises(int rolId = 0)
@@ -35,10 +37,16 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public IEnumerable<CampaniaModel> ObtenerCampaniasPorPaisPoput(int PaisID)
+        {
+            return _zonificacionProvider.GetCampanias(PaisID);
+        }
+
+
         public JsonResult ObtenerCampaniasNemotecnicoPorPais(int PaisID)
         {
             IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
-            string habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoProductoSugerido);
+            string habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(PaisID, ConsTablaLogica.Plan20.TablaLogicaId, ConsTablaLogica.Plan20.BusquedaNemotecnicoProductoSugerido);
             return Json(new
             {
                 lista = lst,

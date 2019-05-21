@@ -1,0 +1,81 @@
+﻿.btn {
+    /* float: inherit;
+    width: inherit;
+    height: inherit;
+    line-height: inherit;
+    padding: inherit;
+    background: inherit;
+    color: inherit;
+    font-size: inherit;
+    border: inherit;
+    margin-top: inherit; */
+    float: unset;
+    margin-top: inherit;
+    height: unset;
+    background-image: none;
+    width: unset;
+}
+[class^='btn-']{
+    position: relative;
+    display: initial;
+    overflow: unset;
+    border: unset;
+}
+.CMXD-btn-help{
+    position : relative !important;
+    display:none;
+}
+.mobile{
+    top: -61px;
+}
+
+footer, .SubHeader{
+    display : none;
+}
+body{
+    background-color: white;
+}
+.nav > li > a {
+    border-radius: 0;
+    color: #000;
+}
+.nav > li > a:hover{
+    background-image: none;
+    color: #000;
+   
+    
+    
+}
+.nav a {
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+#CampoBuscadorProductos{
+    border : 0 solid transparent;
+}
+
+*::before, *::after{
+    z-index: unset;
+}
+
+.img-fluid {
+    max-width: 100% !important;
+    height: auto;
+  }
+.info {
+    border: unset;
+    background-color: unset;
+    color: unset;
+}
+[data-action="not-reject"]{
+    text-decoration: underline;
+}
+
+h3.mt-2.mb-2, h3.mt-2.mb-1 {
+    font-weight: 700 !important;
+}
+
+.ValidaNumeral {
+    text-align: center;
+    padding-right: 2.5rem;
+}

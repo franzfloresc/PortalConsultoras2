@@ -146,7 +146,7 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEProductoAppCatalogo> GetNombreProducto048ByListaCUV(int paisID, int campaniaId, string listaCUV);
 
         [OperationContract]
-        int InsProductoCompartido(BEProductoCompartido ProComp);
+        BEProductoCompartidoResult InsProductoCompartido(BEProductoCompartido ProComp);
 
         [OperationContract]
         BEProductoCompartido GetProductoCompartido(int paisID, int ProCompID);

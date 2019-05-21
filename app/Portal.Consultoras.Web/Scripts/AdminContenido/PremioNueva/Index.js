@@ -86,7 +86,7 @@ function ShowActionsEdit(cellvalue, options, rowObject) {
 
 function ShowActionsDelete(cellvalue, options, rowObject) {
     var Des = "<img src='" + rutaImagenDelete + "' alt='Deshabilitar Premio' title='Deshabilitar Premio' border='0' style='cursor:pointer' /></a>";
-    if (rowObject.ActivePremioAuto == false) Des = "";
+    if (rowObject.ActivePremioAuto == false && rowObject.ActivePremioElectivo == false) Des = "";
     return Des;
 }
 function RegistrarConstrains() {
@@ -161,13 +161,19 @@ function fnDialog() {
     });
 }
 function DesactivarPremio(rowId) {
+
+    //HD-3756 HABILITA PREMIOS
     var premio = {};
+    var rowData = $("#list").jqGrid('getRowData', rowId);
+    Premio = rowData;
+    
+    if (Premio.ActivePremioAuto == 'false' && Premio.ActivePremioElectivo == 'false') return;
     var elimina = confirm('¿Está seguro que desea deshabilitar el premio?');
     if (!elimina) return;
 
-    var rowData = $("#list").jqGrid('getRowData', rowId);
-    Premio = rowData;
+    
     Premio.ActivePremioAuto = 0;
+    Premio.ActivePremioElectivo = 0;
     Premio['Operacion'] = 1;
 
     waitingDialog({});
@@ -222,8 +228,6 @@ function LoadMantenedor(rowId) {
 
             $("#divAgregar").html(data);
             showDialog("divAgregar");
-
-            //$("#CampaniaFin").focus();
         },
         error: function (xhr, ajaxOptions, error) {
             closeWaitingDialog();

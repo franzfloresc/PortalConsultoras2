@@ -3704,6 +3704,67 @@ namespace Portal.Consultoras.Web.ServiceODS {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEProductoCompartidoResult", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEProductoCompartidoResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UrlCompartirField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Id {
+            get {
+                return this.IdField;
+            }
+            set {
+                if ((this.IdField.Equals(value) != true)) {
+                    this.IdField = value;
+                    this.RaisePropertyChanged("Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UrlCompartir {
+            get {
+                return this.UrlCompartirField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UrlCompartirField, value) != true)) {
+                    this.UrlCompartirField = value;
+                    this.RaisePropertyChanged("UrlCompartir");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BERespValidarElectivos", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNueva" +
         "s")]
     [System.SerializableAttribute()]
@@ -4065,7 +4126,7 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private System.Nullable<bool> ActivePremioAutoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool ActivePremioElectivoField;
+        private System.Nullable<bool> ActivePremioElectivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ActiveTooltipField;
@@ -4171,7 +4232,7 @@ namespace Portal.Consultoras.Web.ServiceODS {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool ActivePremioElectivo {
+        public System.Nullable<bool> ActivePremioElectivo {
             get {
                 return this.ActivePremioElectivoField;
             }
@@ -4650,10 +4711,10 @@ namespace Portal.Consultoras.Web.ServiceODS {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProductoAppCatalogo[]> GetNombreProducto048ByListaCUVAsync(int paisID, int campaniaId, string listaCUV);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/InsProductoCompartido", ReplyAction="http://tempuri.org/IODSService/InsProductoCompartidoResponse")]
-        int InsProductoCompartido(Portal.Consultoras.Web.ServiceODS.BEProductoCompartido ProComp);
+        Portal.Consultoras.Web.ServiceODS.BEProductoCompartidoResult InsProductoCompartido(Portal.Consultoras.Web.ServiceODS.BEProductoCompartido ProComp);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/InsProductoCompartido", ReplyAction="http://tempuri.org/IODSService/InsProductoCompartidoResponse")]
-        System.Threading.Tasks.Task<int> InsProductoCompartidoAsync(Portal.Consultoras.Web.ServiceODS.BEProductoCompartido ProComp);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProductoCompartidoResult> InsProductoCompartidoAsync(Portal.Consultoras.Web.ServiceODS.BEProductoCompartido ProComp);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IODSService/GetProductoCompartido", ReplyAction="http://tempuri.org/IODSService/GetProductoCompartidoResponse")]
         Portal.Consultoras.Web.ServiceODS.BEProductoCompartido GetProductoCompartido(int paisID, int ProCompID);
@@ -5059,11 +5120,11 @@ namespace Portal.Consultoras.Web.ServiceODS {
             return base.Channel.GetNombreProducto048ByListaCUVAsync(paisID, campaniaId, listaCUV);
         }
         
-        public int InsProductoCompartido(Portal.Consultoras.Web.ServiceODS.BEProductoCompartido ProComp) {
+        public Portal.Consultoras.Web.ServiceODS.BEProductoCompartidoResult InsProductoCompartido(Portal.Consultoras.Web.ServiceODS.BEProductoCompartido ProComp) {
             return base.Channel.InsProductoCompartido(ProComp);
         }
         
-        public System.Threading.Tasks.Task<int> InsProductoCompartidoAsync(Portal.Consultoras.Web.ServiceODS.BEProductoCompartido ProComp) {
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceODS.BEProductoCompartidoResult> InsProductoCompartidoAsync(Portal.Consultoras.Web.ServiceODS.BEProductoCompartido ProComp) {
             return base.Channel.InsProductoCompartidoAsync(ProComp);
         }
         

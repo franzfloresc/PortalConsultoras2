@@ -1,12 +1,15 @@
 ﻿
 function OnClickFichaDetalle(e) {
-    //var estoyEnLaFicha = typeof fichaModule !== "undefined"; //una forma de identificar si estoy en la ficha o no.    
     //el objeto e debe ser establecido con target  (e.target)
     var infoCuvItem = EstrategiaAgregarModule.EstrategiaObtenerObj($(e));
     var codigoEstrategia = $.trim(infoCuvItem.CodigoEstrategia);
     var codigoCampania = $.trim(infoCuvItem.CampaniaID);
     var codigoCuv = $.trim(infoCuvItem.CUV2);
-    var OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), true);
+    var OrigenPedidoWeb = getOrigenPedidoWebDetalle(infoCuvItem);
+
+    if (!OrigenPedidoWeb) {
+        OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), true);
+    }
 
     var UrlDetalle = GetPalanca(codigoEstrategia, OrigenPedidoWeb);
 
@@ -25,6 +28,20 @@ function OnClickFichaDetalle(e) {
     window.location = UrlDetalle;
 
     return true;
+}
+
+function getOrigenPedidoWebDetalle(item) {
+    if (!item) return;
+
+    if (item.FlagNueva) {
+        if (item.EsDuoPerfecto && typeof origenPedidoWebDuoPerfecto !== 'undefined') {
+            return origenPedidoWebDuoPerfecto;
+        } else if (typeof origenPedidoWebPackNuevas !== 'undefined') {
+            return origenPedidoWebPackNuevas;
+        }
+    }
+
+    return '';
 }
 
 function BuscadorFichaDetalle(codigoCampania, codigoCuv, OrigenPedidoWeb, codigoEstrategia) {

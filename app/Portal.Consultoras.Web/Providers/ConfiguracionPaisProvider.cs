@@ -2,11 +2,14 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
 using System.Linq;
+using Portal.Consultoras.Web.SessionManager;
 
 namespace Portal.Consultoras.Web.Providers
 {
     public class ConfiguracionPaisProvider
     {
+        private readonly ISessionManager _sessionManager = SessionManager.SessionManager.Instance;
+
         public void RemplazarTagNombreConfiguracionOferta(ref BEConfiguracionOfertasHome config, string tag, string valor)
         {
             config.DesktopTitulo = Util.RemplazaTag(config.DesktopTitulo, tag, valor);
@@ -57,7 +60,10 @@ namespace Portal.Consultoras.Web.Providers
                 ExtensionImgMedium = Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium,
                 ImgUrlBase = ConfigCdn.GetUrlCdnMatriz(CodigoISO),
                 SimboloMoneda = Simbolo,
-                PaisISO = CodigoISO
+                PaisISO = CodigoISO,
+                MsTiposEstrategias = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado,
+                MsPais = _sessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado,
+                MsFichaEstrategias = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaDisponibleParaFicha
             };
 
             return baseVariablesGeneral;

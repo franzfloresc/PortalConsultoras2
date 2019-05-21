@@ -76,37 +76,46 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        
         #region App
         public IDataReader GetApp(int configuracionOfertasHomeID)
         {
-            var command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionOfertasHomeApp");
-            Context.Database.AddInParameter(command, "ConfiguracionOfertasHomeID", DbType.Int32, configuracionOfertasHomeID);
-            return Context.ExecuteReader(command);
+            using (var command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionOfertasHomeApp"))
+            {
+                Context.Database.AddInParameter(command, "ConfiguracionOfertasHomeID", DbType.Int32, configuracionOfertasHomeID);
+                return Context.ExecuteReader(command);
+            }
         }
 
         public void InsertApp(BEConfiguracionOfertasHomeApp entity)
         {
-            var command = Context.Database.GetStoredProcCommand("dbo.InsConfiguracionOfertasHomeApp");
-            Context.Database.AddInParameter(command, "ConfiguracionOfertasHomeAppID", DbType.Int32, entity.ConfiguracionOfertasHomeAppID);
-            Context.Database.AddInParameter(command, "ConfiguracionOfertasHomeID", DbType.Int32, entity.ConfiguracionOfertasHomeID);
-            Context.Database.AddInParameter(command, "AppActivo", DbType.Boolean, entity.AppActivo);
-            Context.Database.AddInParameter(command, "AppTitulo", DbType.String, entity.AppTitulo);
-            Context.Database.AddInParameter(command, "AppColorFondo", DbType.String, entity.AppColorFondo);
-            Context.Database.AddInParameter(command, "AppColorTexto", DbType.String, entity.AppColorTexto);
-            Context.Database.AddInParameter(command, "AppBannerInformativo", DbType.String, entity.AppBannerInformativo);
-            Context.Database.AddInParameter(command, "AppOrden", DbType.Int32, entity.AppOrden);
-            Context.Database.AddInParameter(command, "AppCantidadProductos", DbType.Int32, entity.AppCantidadProductos);
-            Context.ExecuteNonQuery(command);
+            using (var command = Context.Database.GetStoredProcCommand("dbo.InsConfiguracionOfertasHomeApp"))
+            {
+                Context.Database.AddInParameter(command, "ConfiguracionOfertasHomeAppID", DbType.Int32, entity.ConfiguracionOfertasHomeAppID);
+                Context.Database.AddInParameter(command, "ConfiguracionOfertasHomeID", DbType.Int32, entity.ConfiguracionOfertasHomeID);
+                Context.Database.AddInParameter(command, "AppActivo", DbType.Boolean, entity.AppActivo);
+                Context.Database.AddInParameter(command, "AppTitulo", DbType.String, entity.AppTitulo);
+                Context.Database.AddInParameter(command, "AppColorFondo", DbType.String, entity.AppColorFondo);
+                Context.Database.AddInParameter(command, "AppColorTexto", DbType.String, entity.AppColorTexto);
+                Context.Database.AddInParameter(command, "AppBannerInformativo", DbType.String, entity.AppBannerInformativo);
+                Context.Database.AddInParameter(command, "AppOrden", DbType.Int32, entity.AppOrden);
+                Context.Database.AddInParameter(command, "AppCantidadProductos", DbType.Int32, entity.AppCantidadProductos);
+                Context.Database.AddInParameter(command, "AppSubTitulo", DbType.String, entity.AppSubTitulo);
+                Context.Database.AddInParameter(command, "AppTextoBotonInicial", DbType.String, entity.AppTextoBotonInicial);
+                Context.Database.AddInParameter(command, "AppTextoBotonFinal", DbType.String, entity.AppTextoBotonFinal);
+                Context.Database.AddInParameter(command, "AppColorFondoBoton", DbType.String, entity.AppColorFondoBoton);
+                Context.Database.AddInParameter(command, "AppColorTextoBoton", DbType.String, entity.AppColorTextoBoton);
+                Context.ExecuteNonQuery(command);
+            }
         }
 
         public IDataReader GetListarSeccionAPP(int campaniaId)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionOfertasHomeAppListarSecciones");
-            Context.Database.AddInParameter(command, "CampaniaId", DbType.Int32, campaniaId);
-            return Context.ExecuteReader(command);
+            using(var command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionOfertasHomeAppListarSecciones"))
+            {
+                Context.Database.AddInParameter(command, "CampaniaId", DbType.Int32, campaniaId);
+                return Context.ExecuteReader(command);
+            }
         }
-        
         #endregion
     }
 }

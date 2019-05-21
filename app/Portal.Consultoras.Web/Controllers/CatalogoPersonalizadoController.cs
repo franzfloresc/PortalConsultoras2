@@ -594,15 +594,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int id;
+                int id = 0;
 
-                BEProductoCompartido entidad = AutoMapper.Mapper.Map<ProductoCompartidoModel, BEProductoCompartido>(ProCompModel);
-                using (ODSServiceClient svc = new ODSServiceClient())
+                var entidad = AutoMapper.Mapper.Map<BEProductoCompartido>(ProCompModel);
+                entidad.PaisID = userData.PaisID;
+                entidad.PcCampaniaID = userData.CampaniaID;
+
+                using (var svc = new ODSServiceClient())
                 {
-                    entidad.PaisID = userData.PaisID;
-                    entidad.PcCampaniaID = userData.CampaniaID;
-
-                    id = svc.InsProductoCompartido(entidad);
+                    var result = svc.InsProductoCompartido(entidad);
+                    id = result.Id;
                 }
 
                 return Json(new

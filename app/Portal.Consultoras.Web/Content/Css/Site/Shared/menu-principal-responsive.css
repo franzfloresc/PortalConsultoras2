@@ -53,7 +53,7 @@
 .menu__item[data-title="SOCIA EMPRESARIA"],
 .menu__item--sociaEmpresaria
 {
-    padding-left:25px;
+    padding-left:18px;
 }
 
 .header__menu--lateralIzquierdo .menu__item,
@@ -209,21 +209,23 @@
 .submenu__item--Catalogos,
 .submenu__item--ProgramaNuevas,
 .submenu__item--Incentivos,
-.submenu__item--MisEventos
+.submenu__item--MisEventos,
+.submenu__item--Bonificaciones 
 {
-    width:180px;
-    height:140px;
-    margin-top:8px;
+    width: 180px;
+    height: 140px;
+    margin-top: 8px;
 }
 
-.submenu__item--Catalogos .submenu__link,
-.submenu__item--ProgramaNuevas .submenu__link,
-.submenu__item--Incentivos .submenu__link,
-.submenu__item--MisEventos .submenu__link
-{
-    padding-left:0;
-    height:100%;
-}
+    .submenu__item--Catalogos .submenu__link,
+    .submenu__item--ProgramaNuevas .submenu__link,
+    .submenu__item--Incentivos .submenu__link,
+    .submenu__item--MisEventos .submenu__link,
+    .submenu__item--Bonificaciones .submenu__link
+    {
+        padding-left: 0;
+        height: 100%;
+    }
 
 .submenu__lista--miAsesorBelleza
 {
@@ -518,9 +520,10 @@
     .submenu__item--Catalogos,
     .submenu__item--ProgramaNuevas,
     .submenu__item--Incentivos,
-    .submenu__item--MisEventos
+    .submenu__item--MisEventos,
+    .submenu__item--Bonificaciones
     {
-        margin-top:0;
+        margin-top: 0;
     }
 
     .menu__link--conSubmenuMobile {

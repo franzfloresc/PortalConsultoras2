@@ -11,8 +11,6 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BonificacionesController : BaseController
     {
-       
-
         public ActionResult Index()
         {
             try
@@ -23,18 +21,23 @@ namespace Portal.Consultoras.Web.Controllers
                 string iso = userData.CodigoISO;
                 bool isDigital = IndicadorConsultoraDigital();
 
-                if (isDigital)
+                if (paisId == Constantes.PaisID.Peru && isDigital)
                 {
-                    System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
+                    string NumeroDocumento = userData.DocumentoIdentidad;
+                    if (iso == Constantes.CodigosISOPais.Peru)
+                    {
+                        NumeroDocumento = userData.DocumentoIdentidad.Substring(NumeroDocumento.Length - 8);
+                    }
+                    BonificacionesModel model = new BonificacionesModel
+                    {
+                        CodigoIso = userData.CodigoISO,
+                        Codigoconsultora = userData.CodigoConsultora,
+                        NumeroDocumento = NumeroDocumento
+                    };
 
-                    BonificacionesModel model = new BonificacionesModel {   CodigoIso = userData.CodigoISO ,
-                                                                            Codigoconsultora =userData.CodigoConsultora ,
-                                                                            NumeroDocumento = userData.DocumentoIdentidad
-                                                                        };
-                    
                     string secretKey = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.JsonWebTokenSecretKey);
 
-                    var token = JWT.JsonWebToken.Encode(model, secretKey,JWT.JwtHashAlgorithm.HS256);
+                    var token = JWT.JsonWebToken.Encode(model, secretKey, JWT.JwtHashAlgorithm.HS256);
 
                     ViewBag.Token = token;
 
@@ -76,6 +79,38 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return View(new IncentivosModel());
+        }
+
+        public ActionResult IndexExterno()
+        {
+            try
+            {
+                string NumeroDocumento = userData.DocumentoIdentidad;
+
+                if (userData.CodigoISO == Constantes.CodigosISOPais.Peru)
+                {
+                    NumeroDocumento = userData.DocumentoIdentidad.Substring(NumeroDocumento.Length - 8);
+                }
+
+                BonificacionesModel model = new BonificacionesModel
+                {
+                    CodigoIso = userData.CodigoISO,
+                    Codigoconsultora = userData.CodigoConsultora,
+                    NumeroDocumento = NumeroDocumento
+                };
+
+                string secretKey = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.JsonWebTokenSecretKey);
+
+                var token = JWT.JsonWebToken.Encode(model, secretKey, JWT.JwtHashAlgorithm.HS256);
+
+                ViewBag.Token = token;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+
+            return View();
         }
     }
 }

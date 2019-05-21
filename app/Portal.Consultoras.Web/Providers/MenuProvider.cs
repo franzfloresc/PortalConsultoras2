@@ -286,8 +286,7 @@ namespace Portal.Consultoras.Web.Providers
         public UsuarioModel GetMenuMobileModel(UsuarioModel userSession, RevistaDigitalModel revistaDigital, HttpRequestBase request, bool tieneTituloCatalogo)
         {
             var lstMenuMobileModel = GetMenuMobileModelService(userSession.PaisID);
-            //
-
+           
             userSession.ConsultoraOnlineMenuResumen = new ConsultoraOnlineMenuResumenModel();
 
             if ((userSession.CatalogoPersonalizado == 0 || !userSession.EsCatalogoPersonalizadoZonaValida) &&
@@ -358,6 +357,13 @@ namespace Portal.Consultoras.Web.Providers
                     continue;
                 }
 
+                /* INI HD-4086 */
+                if (menu.MenuMobileID == Constantes.MenuMobileId.Bonificaciones && userSession.PaisID == Constantes.PaisID.Peru)
+                {
+                    menu.Descripcion = menu.Descripcion.Replace("Bonificaciones", "Incentivos");
+                    menu.UrlItem = menu.UrlItem.Replace("Bonificaciones", "Incentivos");
+                }
+                /* FIN HD-4086 */
                 menu.ClaseMenu = "";
                 menu.ClaseMenuItem = "";
 
@@ -420,7 +426,7 @@ namespace Portal.Consultoras.Web.Providers
                     lstModel = lstModel.OrderBy(p => p.OrdenItem).ToList();
                 }
             }
-            //
+
             userSession.MenuMobile = lstModel;
             sessionManager.SetUserData(userSession);
             return userSession;
