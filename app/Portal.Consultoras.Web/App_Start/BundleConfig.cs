@@ -1020,11 +1020,11 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/Ficha/ficha.css"
             ));
 
-            //Se aisló el css de bootstrap de los otros css de Bundle/Css/Mixto, porque generaba errores de minificación
-            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Bootstrap").Include(
-                "~/Content/Css/Site/bootstrap/bootstrap.css"
-            ));
-
+            //Usar custom Bundle StyleIgnoreMinifyBundle cuando se desee omitir  el proceso de minificación , en el ambiente de producción.
+            //caso : Se aisló el css de bootstrap de los otros css de Bundle/Css/Mixto, porque generaba errores de minificación
+            //       el archivo contempla sintaxis que no reconoce el proceso de minificación y además es una archivo ya minificado.
+            bundles.Add(new StyleIgnoreMinifyBundle("~/Bundle/Css/Mixto/Bootstrap").Include(
+                                "~/Content/Css/Site/bootstrap/bootstrap.css"));
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/LayoutResponsive").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/Shared/general.css",
