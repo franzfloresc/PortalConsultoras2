@@ -124,8 +124,10 @@ ul.breadcumbs li a {
 }
 
 .nombre_marca {
+    width: 100%;
     font-size: 12px;
     letter-spacing: 0.8px;
+    margin-bottom: 3px;
 }
 
 .descripcion {
