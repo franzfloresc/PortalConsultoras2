@@ -92,8 +92,7 @@ function MostrarBarra(datax, destino) {
     var wPrimer = 0;
     var vLogro = mt - md;
     var wMsgFin = 0;
-    var wmin = 45;
-
+    var wmin = 45;    
     if (!(mn == "0,00" || mn == "0.00" || mn == "0")) {
         wPrimer = wmin;
     }
@@ -123,6 +122,31 @@ function MostrarBarra(datax, destino) {
             valor: data.MontoMaximo,
             valorStr: data.MontoMaximoStr
         });
+
+        //HD-4066
+        var valTopTotal = destino == '2' && dataBarra.TippingPointBarra.Active && tp > 0 ? tp : mn;
+        if (vLogro > valTopTotal) vLogro = valTopTotal > me ? valTopTotal : me;
+        listaEscalaDescuento = listaEscalaDescuento || new Array();
+        var listaEscala = new Array();
+        var indDesde = -1;
+        $.each(listaEscalaDescuento, function (ind, monto) {
+            if (mx > 0 && destino == "1") {
+                var desde = indDesde == -1 ? mx : listaEscalaDescuento[indDesde].MontoHasta
+                if (mn < monto.MontoHasta && mx >= desde) {
+                    monto.MontoDesde = indDesde == -1 ? mn : listaEscalaDescuento[indDesde].MontoHasta;
+                    monto.MontoDesdeStr = indDesde == -1 ? data.MontoMinimoStr : listaEscalaDescuento[indDesde].MontoHastaStr;
+                    listaEscala.push(monto);
+                    indDesde = ind;
+                }
+            }
+            else if (mn < monto.MontoHasta) {
+                monto.MontoDesde = indDesde == -1 ? mn : listaEscalaDescuento[indDesde].MontoHasta;
+                monto.MontoDesdeStr = indDesde == -1 ? data.MontoMinimoStr : listaEscalaDescuento[indDesde].MontoHastaStr;
+                listaEscala.push(monto);
+                indDesde = ind;
+            }
+        });
+        //Fin
     }
     else {
         var valTopTotal = destino == '2' && dataBarra.TippingPointBarra.Active && tp > 0 ? tp : mn;
@@ -200,7 +224,7 @@ function MostrarBarra(datax, destino) {
                 MontoHastaStr: data.MontoMinimoStr
             });
         }
-    }
+    }    
     mtoLogroBarra = vLogro;
 
     listaLimite = listaLimite || new Array();
@@ -786,7 +810,7 @@ function calcMtoLogro(data, destino) {
     else {
         var valTopTotal = destino == '2' && barra.TippingPointBarra.Active && tp > 0 ? tp : mn;
         if (vLogro > valTopTotal) vLogro = valTopTotal > me ? valTopTotal : me;
-    }
+    }    
     mtoLogroBarra = vLogro;
 
     return vLogro;
@@ -1298,9 +1322,16 @@ function showPopupNivelSuperado(barra, prevLogro) {
         return;
     }
 
+    //HD-4066
     if (!TieneMontoMaximo()) {
         showPopupEscalaSiguiente(barra, prevLogro);
     }
+    else {
+        if (mtoLogroBarra < dataBarra.MontoMaximo) {
+            showPopupEscalaSiguiente(barra, prevLogro);
+        }
+    }
+    //Fin
 }
 
 function showPopupPremio() {

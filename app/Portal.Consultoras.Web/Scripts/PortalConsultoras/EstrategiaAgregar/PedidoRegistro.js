@@ -1579,10 +1579,12 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
             var totalUnidades = parseInt($("#pCantidadProductosPedido").html());
             totalUnidades = totalUnidades - parseInt(CantidadAnti) + parseInt(Cantidad);
             $("#pCantidadProductosPedido").html(totalUnidades);
-
+            
+            CargarDetallePedido();
             var prevTotal = mtoLogroBarra;
             MostrarBarra(data);
             showPopupNivelSuperado(data.DataBarra, prevTotal);
+
             if (data.modificoBackOrder) {
                 showDialog("divBackOrderModificado");
             }
@@ -1591,7 +1593,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
                 AbrirMensajeImagen(data.mensajeCondicional);
             }
 
-            CargarDetallePedido();
+           
 
             var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
             if (diferenciaCantidades > 0)
