@@ -62,13 +62,7 @@ $(document).ready(function () {
         cerrar_popup_tutorial();
     });
 
-    $('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
-        if (event.keyCode == 13) {
-            if ($("#btnAgregar")[0].disabled == false) {
-                PedidoRegistroModule.AgregarProductoListadoPasePedido();
-            }
-        }
-    })
+ 
 
     $("body").click(function (e) {
         if (!$(e.target).closest(".ui-dialog").length) {
@@ -974,16 +968,16 @@ function ValidarDescripcion() {
     }
 }
 
-function PreValidarCUV(event) {
+//function PreValidarCUV(event) {
 
-    event = event || window.event;
+//    event = event || window.event;
 
-    if (event.keyCode == 13) {
-        if ($("#btnAgregar")[0].disabled == false) {
-            PedidoRegistroModule.AgregarProductoListadoPasePedido();
-        }
-    }
-}
+//    if (event.keyCode == 13) {
+//        if ($("#btnAgregar")[0].disabled == false) {
+//            PedidoRegistroModule.AgregarProductoListadoPasePedido();
+//        }
+//    }
+//}
 
 function SeleccionarContenido(control) {
     control.select();
@@ -2625,10 +2619,12 @@ function CambioPagina(obj, tipoPaginador) {
         return false;
     }
 
-    switch (tipoPaginador) {
+    var PedidoPendPoputPedidoId = $("#hdPedidoPendPoputPedidoId").val() == 0 ? $("#hdPedidoPendPoputPedidoId2").val() : $("#hdPedidoPendPoputPedidoId").val();
+    switch (tipoPaginador) {        
         case ClasPedidoDetalle: CargarDetallePedido(rpt.page, rpt.rows); break;
         case ClasPedidoDetallePendiente: CargarPedidosPend(rpt.page, rpt.rows); break;
-    }    
+        case ClasPedidoPopupPedidoPend: CargarPopupPedidoPend(rpt.page, rpt.rows, PedidoPendPoputPedidoId, '1'); break;
+    }  
     return true;
 }
 
