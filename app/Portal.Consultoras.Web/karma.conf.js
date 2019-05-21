@@ -29,8 +29,6 @@ module.exports = function (config) {
 
             // General
             'Scripts/General.js',
-<<<<<<<<< Temporary merge branch 1
-=========
             
             // shared
             'Scripts/PortalConsultoras/Shared/AnalyticsPortal.js',
