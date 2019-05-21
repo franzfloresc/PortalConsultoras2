@@ -1587,16 +1587,48 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     background-position: center center ;    
 }
 /*Modal para modificiar y crear*/
+#alertDialogMensajes25seg {
+    padding-bottom: 20px!important;
+    min-height: 100px !important;
+}
 .setBottom {
     display: flex;
-    height: 100px !important;
-    width: 500px !important;
-    align-content: center;
-    justify-content: center;
     align-items: center;
-    transition: top 1s ease;
+    border-radius: 8px;
+    /*transition: top 1s ease;*/
 }
-    .setBottom .pop_pedido_mensaje {
+    .setBottom > .ui-dialog-titlebar.ui-corner-all {
+        display:none;
+    }
+.pop_image .img-fluid {
+    max-width: 100%;
+    height: auto;
+    width: 100px;
+}
+
+.setBottom .pop_pedido_mensaje {
         color: #569C04;
         font-size: 16px;
-    }
+}
+    
+.setBottom .pop_pedido_mensaje {
+        color: #569C04;
+        font-size: 16px;
+}
+
+.btn--pedidos{
+    font-size: 14px; font-weight: 700; 
+    letter-spacing: 1px; color: #fff; 
+    border-radius: 4px; 
+    background-color: #000; 
+    padding: 10px 14px; 
+    margin-top: -4px;
+    cursor: pointer;
+}
+
+.title--middle{
+    font-size: 25px; 
+    color: #000; 
+    font-weight: 700; 
+    letter-spacing: 1.5px; 
+}

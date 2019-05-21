@@ -3651,7 +3651,18 @@ namespace Portal.Consultoras.Common
                         result = lista[Constantes.NuevoCatalogoProducto.CATALOGOCYZONE];
                         break;
                     default:
-                        result = "";
+                        if(marcaId == Constantes.Marca.Esika)
+                        {
+                            result = lista[Constantes.NuevoCatalogoProducto.CATALOGOESIKA];
+                        }
+                        if (marcaId == Constantes.Marca.Cyzone)
+                        {
+                            result = lista[Constantes.NuevoCatalogoProducto.CATALOGOCYZONE];
+                        }
+                        if (marcaId == Constantes.Marca.LBel)
+                        {
+                            result = lista[Constantes.NuevoCatalogoProducto.CATALOGOLBEL];
+                        }
                         break;
                 }
             }
@@ -3753,9 +3764,9 @@ namespace Portal.Consultoras.Common
             }
             else
             {
-                if (consultoraOnline) result = "CLIENTE ONLINE";
-                else
-                {
+                //if (consultoraOnline) result = "CLIENTE ONLINE";
+                //else
+                //{
                     switch (origenPedido)
                     {
                         case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal:
@@ -3789,7 +3800,7 @@ namespace Portal.Consultoras.Common
 
                             break;
                     }
-                }
+                //}
             }
 
             return result;
