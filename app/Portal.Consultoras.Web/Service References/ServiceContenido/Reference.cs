@@ -8301,6 +8301,7 @@ namespace Portal.Consultoras.Web.ServiceContenido {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceContenido.BEConfiguracionPais))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceContenido.BEConfiguracionPaisDetalle))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDetaAct))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceContenido.BERevistaDigitalSuscripcion))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceContenido.BEConfiguracionPaisDatos))]
     public partial class BaseEntidad : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -8896,6 +8897,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private string AccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoDetalleField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8914,10 +8918,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private int OrdenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RegionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string RutaContenidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SeccionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ZonaField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Accion {
@@ -8928,6 +8941,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((object.ReferenceEquals(this.AccionField, value) != true)) {
                     this.AccionField = value;
                     this.RaisePropertyChanged("Accion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Campania {
+            get {
+                return this.CampaniaField;
+            }
+            set {
+                if ((this.CampaniaField.Equals(value) != true)) {
+                    this.CampaniaField = value;
+                    this.RaisePropertyChanged("Campania");
                 }
             }
         }
@@ -9011,6 +9037,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Region {
+            get {
+                return this.RegionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RegionField, value) != true)) {
+                    this.RegionField = value;
+                    this.RaisePropertyChanged("Region");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string RutaContenido {
             get {
                 return this.RutaContenidoField;
@@ -9024,6 +9063,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Seccion {
+            get {
+                return this.SeccionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SeccionField, value) != true)) {
+                    this.SeccionField = value;
+                    this.RaisePropertyChanged("Seccion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Tipo {
             get {
                 return this.TipoField;
@@ -9032,6 +9084,106 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((object.ReferenceEquals(this.TipoField, value) != true)) {
                     this.TipoField = value;
                     this.RaisePropertyChanged("Tipo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Zona {
+            get {
+                return this.ZonaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ZonaField, value) != true)) {
+                    this.ZonaField = value;
+                    this.RaisePropertyChanged("Zona");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEContenidoAppDetaAct", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEContenidoAppDetaAct : Portal.Consultoras.Web.ServiceContenido.BaseEntidad {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ActivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdContenidoActField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ParentField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Activo {
+            get {
+                return this.ActivoField;
+            }
+            set {
+                if ((this.ActivoField.Equals(value) != true)) {
+                    this.ActivoField = value;
+                    this.RaisePropertyChanged("Activo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Codigo {
+            get {
+                return this.CodigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
+                    this.CodigoField = value;
+                    this.RaisePropertyChanged("Codigo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Descripcion {
+            get {
+                return this.DescripcionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
+                    this.DescripcionField = value;
+                    this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdContenidoAct {
+            get {
+                return this.IdContenidoActField;
+            }
+            set {
+                if ((this.IdContenidoActField.Equals(value) != true)) {
+                    this.IdContenidoActField = value;
+                    this.RaisePropertyChanged("IdContenidoAct");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Parent {
+            get {
+                return this.ParentField;
+            }
+            set {
+                if ((this.ParentField.Equals(value) != true)) {
+                    this.ParentField = value;
+                    this.RaisePropertyChanged("Parent");
                 }
             }
         }
@@ -9721,6 +9873,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private string AccionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoDetalleField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -9737,6 +9892,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int OrdenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ProcField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string RutaContenidoField;
@@ -9763,6 +9921,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((object.ReferenceEquals(this.AccionField, value) != true)) {
                     this.AccionField = value;
                     this.RaisePropertyChanged("Accion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Campania {
+            get {
+                return this.CampaniaField;
+            }
+            set {
+                if ((this.CampaniaField.Equals(value) != true)) {
+                    this.CampaniaField = value;
+                    this.RaisePropertyChanged("Campania");
                 }
             }
         }
@@ -9841,6 +10012,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((this.OrdenField.Equals(value) != true)) {
                     this.OrdenField = value;
                     this.RaisePropertyChanged("Orden");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Proc {
+            get {
+                return this.ProcField;
+            }
+            set {
+                if ((this.ProcField.Equals(value) != true)) {
+                    this.ProcField = value;
+                    this.RaisePropertyChanged("Proc");
                 }
             }
         }
@@ -10391,6 +10575,12 @@ namespace Portal.Consultoras.Web.ServiceContenido {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceContenido.IContenidoService")]
     public interface IContenidoService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatos", ReplyAction="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatosResponse")]
+        int CargaEstadoValidadorDatos(int PaisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatos", ReplyAction="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatosResponse")]
+        System.Threading.Tasks.Task<int> CargaEstadoValidadorDatosAsync(int PaisID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetCargaListadoPopupValidador", ReplyAction="http://tempuri.org/IContenidoService/GetCargaListadoPopupValidadorResponse")]
         Portal.Consultoras.Web.ServiceContenido.BEComunicadoSegmentacion[] GetCargaListadoPopupValidador(int PaisID);
         
@@ -10827,10 +11017,10 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoApp[]> GetContenidoAppAsync(Portal.Consultoras.Web.ServiceContenido.BEUsuario itmFilter, string codigoBanner);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetContenidoAppHistoria", ReplyAction="http://tempuri.org/IContenidoService/GetContenidoAppHistoriaResponse")]
-        Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria GetContenidoAppHistoria(string Codigo);
+        Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria GetContenidoAppHistoria(int paisID, string Codigo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetContenidoAppHistoria", ReplyAction="http://tempuri.org/IContenidoService/GetContenidoAppHistoriaResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria> GetContenidoAppHistoriaAsync(string Codigo);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria> GetContenidoAppHistoriaAsync(int paisID, string Codigo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/CheckContenidoApp", ReplyAction="http://tempuri.org/IContenidoService/CheckContenidoAppResponse")]
         void CheckContenidoApp(Portal.Consultoras.Web.ServiceContenido.BEUsuario itmFilter, int idContenidoDetalle);
@@ -10839,28 +11029,34 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         System.Threading.Tasks.Task CheckContenidoAppAsync(Portal.Consultoras.Web.ServiceContenido.BEUsuario itmFilter, int idContenidoDetalle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/UpdateContenidoApp", ReplyAction="http://tempuri.org/IContenidoService/UpdateContenidoAppResponse")]
-        void UpdateContenidoApp(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria formularioDato);
+        void UpdateContenidoApp(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria formularioDato);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/UpdateContenidoApp", ReplyAction="http://tempuri.org/IContenidoService/UpdateContenidoAppResponse")]
-        System.Threading.Tasks.Task UpdateContenidoAppAsync(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria formularioDato);
+        System.Threading.Tasks.Task UpdateContenidoAppAsync(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria formularioDato);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/ListContenidoApp", ReplyAction="http://tempuri.org/IContenidoService/ListContenidoAppResponse")]
-        Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList[] ListContenidoApp(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList entidad);
+        Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList[] ListContenidoApp(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/ListContenidoApp", ReplyAction="http://tempuri.org/IContenidoService/ListContenidoAppResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList[]> ListContenidoAppAsync(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList entidad);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList[]> ListContenidoAppAsync(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/InsertContenidoAppDeta", ReplyAction="http://tempuri.org/IContenidoService/InsertContenidoAppDetaResponse")]
-        void InsertContenidoAppDeta(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p);
+        void InsertContenidoAppDeta(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/InsertContenidoAppDeta", ReplyAction="http://tempuri.org/IContenidoService/InsertContenidoAppDetaResponse")]
-        System.Threading.Tasks.Task InsertContenidoAppDetaAsync(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p);
+        System.Threading.Tasks.Task InsertContenidoAppDetaAsync(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/UpdateContenidoAppDeta", ReplyAction="http://tempuri.org/IContenidoService/UpdateContenidoAppDetaResponse")]
-        int UpdateContenidoAppDeta(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p);
+        int UpdateContenidoAppDeta(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/UpdateContenidoAppDeta", ReplyAction="http://tempuri.org/IContenidoService/UpdateContenidoAppDetaResponse")]
-        System.Threading.Tasks.Task<int> UpdateContenidoAppDetaAsync(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p);
+        System.Threading.Tasks.Task<int> UpdateContenidoAppDetaAsync(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetContenidoAppDetaActList", ReplyAction="http://tempuri.org/IContenidoService/GetContenidoAppDetaActListResponse")]
+        Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDetaAct[] GetContenidoAppDetaActList(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetContenidoAppDetaActList", ReplyAction="http://tempuri.org/IContenidoService/GetContenidoAppDetaActListResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDetaAct[]> GetContenidoAppDetaActListAsync(int paisID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/GetListaPopup", ReplyAction="http://tempuri.org/IContenidoService/GetListaPopupResponse")]
         Portal.Consultoras.Web.ServiceContenido.BEComunicado[] GetListaPopup(int Estado, string Campania, int Paginas, int Filas, int PaisID);
@@ -10903,12 +11099,6 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidador", ReplyAction="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidadorResponse")]
         System.Threading.Tasks.Task<int> EliminarArchivoCsvValidadorAsync(int PaisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatos", ReplyAction="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatosResponse")]
-        int CargaEstadoValidadorDatos(int PaisID);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatos", ReplyAction="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatosResponse")]
-        System.Threading.Tasks.Task<int> CargaEstadoValidadorDatosAsync(int PaisID);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -10984,6 +11174,14 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         public ContenidoServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public int CargaEstadoValidadorDatos(int PaisID) {
+            return base.Channel.CargaEstadoValidadorDatos(PaisID);
+        }
+        
+        public System.Threading.Tasks.Task<int> CargaEstadoValidadorDatosAsync(int PaisID) {
+            return base.Channel.CargaEstadoValidadorDatosAsync(PaisID);
         }
         
         public Portal.Consultoras.Web.ServiceContenido.BEComunicadoSegmentacion[] GetCargaListadoPopupValidador(int PaisID) {
@@ -11574,12 +11772,12 @@ namespace Portal.Consultoras.Web.ServiceContenido {
             return base.Channel.GetContenidoAppAsync(itmFilter, codigoBanner);
         }
         
-        public Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria GetContenidoAppHistoria(string Codigo) {
-            return base.Channel.GetContenidoAppHistoria(Codigo);
+        public Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria GetContenidoAppHistoria(int paisID, string Codigo) {
+            return base.Channel.GetContenidoAppHistoria(paisID, Codigo);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria> GetContenidoAppHistoriaAsync(string Codigo) {
-            return base.Channel.GetContenidoAppHistoriaAsync(Codigo);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria> GetContenidoAppHistoriaAsync(int paisID, string Codigo) {
+            return base.Channel.GetContenidoAppHistoriaAsync(paisID, Codigo);
         }
         
         public void CheckContenidoApp(Portal.Consultoras.Web.ServiceContenido.BEUsuario itmFilter, int idContenidoDetalle) {
@@ -11590,36 +11788,44 @@ namespace Portal.Consultoras.Web.ServiceContenido {
             return base.Channel.CheckContenidoAppAsync(itmFilter, idContenidoDetalle);
         }
         
-        public void UpdateContenidoApp(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria formularioDato) {
-            base.Channel.UpdateContenidoApp(formularioDato);
+        public void UpdateContenidoApp(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria formularioDato) {
+            base.Channel.UpdateContenidoApp(paisID, formularioDato);
         }
         
-        public System.Threading.Tasks.Task UpdateContenidoAppAsync(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria formularioDato) {
-            return base.Channel.UpdateContenidoAppAsync(formularioDato);
+        public System.Threading.Tasks.Task UpdateContenidoAppAsync(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppHistoria formularioDato) {
+            return base.Channel.UpdateContenidoAppAsync(paisID, formularioDato);
         }
         
-        public Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList[] ListContenidoApp(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList entidad) {
-            return base.Channel.ListContenidoApp(entidad);
+        public Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList[] ListContenidoApp(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList entidad) {
+            return base.Channel.ListContenidoApp(paisID, entidad);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList[]> ListContenidoAppAsync(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList entidad) {
-            return base.Channel.ListContenidoAppAsync(entidad);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList[]> ListContenidoAppAsync(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppList entidad) {
+            return base.Channel.ListContenidoAppAsync(paisID, entidad);
         }
         
-        public void InsertContenidoAppDeta(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p) {
-            base.Channel.InsertContenidoAppDeta(p);
+        public void InsertContenidoAppDeta(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p) {
+            base.Channel.InsertContenidoAppDeta(paisID, p);
         }
         
-        public System.Threading.Tasks.Task InsertContenidoAppDetaAsync(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p) {
-            return base.Channel.InsertContenidoAppDetaAsync(p);
+        public System.Threading.Tasks.Task InsertContenidoAppDetaAsync(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p) {
+            return base.Channel.InsertContenidoAppDetaAsync(paisID, p);
         }
         
-        public int UpdateContenidoAppDeta(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p) {
-            return base.Channel.UpdateContenidoAppDeta(p);
+        public int UpdateContenidoAppDeta(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p) {
+            return base.Channel.UpdateContenidoAppDeta(paisID, p);
         }
         
-        public System.Threading.Tasks.Task<int> UpdateContenidoAppDetaAsync(Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p) {
-            return base.Channel.UpdateContenidoAppDetaAsync(p);
+        public System.Threading.Tasks.Task<int> UpdateContenidoAppDetaAsync(int paisID, Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDeta p) {
+            return base.Channel.UpdateContenidoAppDetaAsync(paisID, p);
+        }
+        
+        public Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDetaAct[] GetContenidoAppDetaActList(int paisID) {
+            return base.Channel.GetContenidoAppDetaActList(paisID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceContenido.BEContenidoAppDetaAct[]> GetContenidoAppDetaActListAsync(int paisID) {
+            return base.Channel.GetContenidoAppDetaActListAsync(paisID);
         }
         
         public Portal.Consultoras.Web.ServiceContenido.BEComunicado[] GetListaPopup(int Estado, string Campania, int Paginas, int Filas, int PaisID) {
@@ -11676,14 +11882,6 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         
         public System.Threading.Tasks.Task<int> EliminarArchivoCsvValidadorAsync(int PaisID) {
             return base.Channel.EliminarArchivoCsvValidadorAsync(PaisID);
-        }
-        
-        public int CargaEstadoValidadorDatos(int PaisID) {
-            return base.Channel.CargaEstadoValidadorDatos(PaisID);
-        }
-        
-        public System.Threading.Tasks.Task<int> CargaEstadoValidadorDatosAsync(int PaisID) {
-            return base.Channel.CargaEstadoValidadorDatosAsync(PaisID);
         }
     }
 }
