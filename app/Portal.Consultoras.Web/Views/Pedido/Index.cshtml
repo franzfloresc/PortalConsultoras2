@@ -493,14 +493,15 @@
                         </span>
                     </p>
                 </div>
-
-
-                <p class="texto_eliminar_pedido">
-                    <span class="texto_pedido_completo">
-                        Para eliminar el pedido completo <a href="javascript:;" class="link_eliminar_pedido default-color" title="Haz click aquí" onclick="MostrarEliminarPedidoTotal();">haz click aquí</a>
-                    </span>
-                </p>
-
+                <!-- Mostrar el link de eliminación de pedido solo si el pedido no está reservado-->
+                @if (Model.EstadoPedido != 1)
+                {
+                    <p class="texto_eliminar_pedido">
+                        <span class="texto_pedido_completo">
+                            Para eliminar el pedido completo <a href="javascript:;" class="link_eliminar_pedido default-color" title="Haz click aquí" onclick="MostrarEliminarPedidoTotal();">haz click aquí</a>
+                        </span>
+                    </p>
+                }
 
                 <div class="clear"></div>
             </div>
