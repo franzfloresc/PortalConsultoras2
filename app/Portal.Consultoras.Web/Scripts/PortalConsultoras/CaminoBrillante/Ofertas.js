@@ -12,7 +12,7 @@ var reservaResponse = {
 };
 var contadorkit = 0
 var contadordemo = 0
-var codOrdenar = "0";
+var codOrdenar = "00";
 var codFiltro = "00";
 
 var moneda = ($('#moneda').val());
@@ -299,6 +299,7 @@ function CambiarOferta() {
     $('#Tab-kits').click(function () {
         $('#kits').show();
         $('#Demostradores').hide();
+        $('.opOrdenar').hide();
         $("#Tab-kits").addClass("activado-dorado");
         $("#Tab-Demostradores").removeClass("activado-dorado");
         $("#divresultadosDemostradores").hide();

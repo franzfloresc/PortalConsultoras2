@@ -1112,6 +1112,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         #endregion
 
         #region Orden y Filtros
+
         public List<BEOrdenFiltrosCaminoBrillante> GetFiltrosCaminoBrillante(int paisId)
         {
             return GetFiltrosCache(paisId);
