@@ -182,16 +182,22 @@ h6, .h6 {
 }
 
 .logo-esika {
-    margin-bottom: 20px;
+    margin: 0 auto 20px auto;
+    width: 143px;
+    height: 55px;
     text-align: center;
-    font-family: 'logo_esika';
+    background-image: url(/Content/Images/Esika/nuevo-logo-esika-login.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    /*font-family: 'logo_esika';*/
 }
 
-    .logo-esika:before {
+    /*.logo-esika:before {
         content: '\e911';
         font-size: 55px;
         color: #e81c36;
-    }
+    }*/
 
 .logo {
     display: none;
