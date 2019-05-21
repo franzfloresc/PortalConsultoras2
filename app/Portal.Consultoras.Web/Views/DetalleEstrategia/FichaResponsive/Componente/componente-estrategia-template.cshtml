@@ -15,6 +15,9 @@
                 <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
                 <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
                 <div data-componente="{{{json this}}}"></div>
+                <div class="nombre_marca">
+                    xxxxx
+                </div>
                 <ul class="detalle_producto_detalle">
                     <li>x {{Multiplicar componente.Cantidad componente.FactorCuadre}}</li>
                     <li>{{componente.NombreComercial}}</li>
@@ -22,7 +25,7 @@
                 {{#iff ../MostrarFichaEnriquecida '==' true }}
                     {{#iff ../Hermanos.length '>' 1}}
                         {{#iff componente.TieneDetalleSeccion '==' true}}
-                            <a id="btnVerDetalle" class="button_ver_detalle">Ver detalle <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt=""></a>
+                            <a id="btnVerDetalle" class="btn_texto">Ver detalle <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt=""></a>
                         {{/iff}}
                     {{/iff}}
                 {{/iff}}
