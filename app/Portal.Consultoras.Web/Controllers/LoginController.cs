@@ -3112,28 +3112,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
-
-
-        [HttpPost]
-        public async Task<ActionResult> EnviarSmsCodigo(string celular)
-        {
-            var validator = GetPhoneValidator();
-
-            var result = await validator.Valid(celular);
-            if (!result.Success)
-            {
-                return Json(result);
-            }
-
-            ISmsSender sender = new SmsProcess
-            {
-                User = userData,
-                Mobile = EsDispositivoMovil()
-            };
-            string tipoEnvio = Constantes.TipoEnvio.SMS.ToString();
-            result = await sender.Send(celular);
-            ActualizarValidacionDatosUnique(EsDispositivoMovil(), userData.CodigoUsuario, tipoEnvio);
-            return Json(result);
-        }
+       
     }
 }
