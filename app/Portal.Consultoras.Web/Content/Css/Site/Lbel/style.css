@@ -34933,3 +34933,29 @@ height:30px;
 /* FIN - POPUP LLEGASTE AL 30% DE DESCUENTO */
 
 /* FIN - PROGRAMA NUEVAS - ELIGE TU REGALO */
+
+/* HD-4214 - CHAT MESSENGER SOMOS BELCORP */
+
+.fb_dialog_content {
+    position: relative!important;
+}
+
+.icono_chat_sb {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background-color: #FFF;
+    background-image: url(/Content/Images/icono-chat-sb.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor:pointer;
+}
+
+.fb_dialog_content iframe {
+    display: none !important;
+}
+
+/* FIN - HD-4214 - CHAT MESSENGER SOMOS BELCORP */

@@ -28,7 +28,8 @@
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
     <IISExpressSSLPort>44361</IISExpressSSLPort>
-    <Use64BitIISExpress>true</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -1525,6 +1526,7 @@
     <Content Include="Content\Css\Site\Menu\MenuContenedorResponsive.css" />
     <Content Include="Content\Images\Esika\icono_alerta_cierre_sesion.svg" />
     <Content Include="Content\Images\Esika\icono_sesion_por_finalizar.svg" />
+    <Content Include="Content\Images\icono-chat-sb.svg" />
     <Content Include="Content\Images\icono_alerta_cierre_sesion.svg" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\general-popups.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-bloqueo-sistema.css" />
