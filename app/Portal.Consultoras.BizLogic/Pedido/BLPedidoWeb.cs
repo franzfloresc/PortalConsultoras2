@@ -2485,6 +2485,17 @@ namespace Portal.Consultoras.BizLogic
 
             return line;
         }
+
+        public void UpdDatoRecogerPor(BEPedidoWeb pedidoWebDetalle)
+        {
+            DAPedidoWeb daPedidoWeb = new DAPedidoWeb(pedidoWebDetalle.PaisID);
+            if (pedidoWebDetalle.PedidoID == 0)
+            {
+                pedidoWebDetalle.PedidoID = daPedidoWeb.InsPedidoWeb(pedidoWebDetalle);
+            }
+            
+            daPedidoWeb.UpdDatoRecogerPor(pedidoWebDetalle);
+        }
     }
 
     internal class TemplateField
