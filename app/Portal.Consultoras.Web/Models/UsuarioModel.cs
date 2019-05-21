@@ -68,6 +68,10 @@ namespace Portal.Consultoras.Web.Models
             this.TieneCDRExpress = false;
             this.PopupBienvenidaCerrado = false;
             this.FotoPerfil = string.Empty;
+
+            this.CodigoClasificacion = string.Empty;
+            this.CodigoSubClasificacion = string.Empty;
+            this.DescripcionSubclasificacion = string.Empty;
         }
 
         public string Celular { get; set; }
@@ -91,7 +95,7 @@ namespace Portal.Consultoras.Web.Models
         public string NombreConsultora { get; set; }
         public string CodigoConsultora { get; set; }
         public string CodigoUsuario { get; set; }
-        
+
         /// <summary>
         /// Codigo Campaña
         /// </summary>
@@ -317,7 +321,7 @@ namespace Portal.Consultoras.Web.Models
             get { return FechaHoy >= FechaInicioCampania.Date && FechaHoy <= FechaFinCampania.Date; }
         }
 
-        
+
 
         public bool HizoLoginExterno { get; set; }
         public bool TieneLoginExterno { get; set; }
@@ -351,15 +355,15 @@ namespace Portal.Consultoras.Web.Models
         public DateTime FechaHoy
         {
             get { return DateTime.Now.AddHours(ZonaHoraria).Date; }
-        } 
+        }
 
         public string FotoPerfil { get; set; }
 
         public string CodigoUsuarioHost { get; set; }
-        
+
         public bool TienePagoEnLinea { get; set; }
         public string DocumentoIdentidad { get; set; }
-        
+
         public double CompraVDirectaCer { get; set; }
         public double IVACompraVDirectaCer { get; set; }
         public double RetailCer { get; set; }
@@ -391,13 +395,27 @@ namespace Portal.Consultoras.Web.Models
         public bool EsConsultora()
         {
             return RolID == Constantes.Rol.Consultora;
-        }        
+        }
 
         public int DiaFacturacion { get; set; }
         public Dictionary<string, string> NuevasDescripcionesBuscador { get; set; }
         public int NovedadBuscador { get; set; }
         public int IndicadorConsultoraDummy { get; set; }
-        
-        public string PseudoParamNotif { get; set; } //SALUD-58 
+        public bool CaminoBrillante { get; set; }
+        public string CaminoBrillanteMsg { get; set; }
+        public string PseudoParamNotif { get; set; }
+
+        public string CodigoClasificacion { get; set; }
+        public string CodigoSubClasificacion { get; set; }
+        public string DescripcionSubclasificacion { get; set; }
+
+
+        #region Camino Brillante
+        public int NivelCaminoBrillante { get; set; }
+        #endregion
+
+        //INI HD-3693
+        public string AutorizaPedido { get; set; }
+        //FIN HD-3693
     }
 }

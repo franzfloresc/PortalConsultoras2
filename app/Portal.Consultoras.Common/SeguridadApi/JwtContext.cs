@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 
 namespace Portal.Consultoras.Common
 {
     public class JwtContext
     {
-        
-
         private JwtContext() { }
         public static JwtContext Instance
         {
@@ -18,13 +11,13 @@ namespace Portal.Consultoras.Common
         }
         private abstract class Singleton
         {
-            static Singleton() { } 
+            static Singleton() { }
             public static readonly JwtContext instance = new JwtContext();
 
         }
-        public  string Application { get; set; }
-        public  string Url      { get { return ConfigurationManager.AppSettings["UrlLogDynamo"] ?? ""; } }
-        public  string Nombre   { get { return ConfigurationManager.AppSettings["JwtUsuario"] ?? ""; } }
-        public  string Password { get { return ConfigurationManager.AppSettings["JwtPassword"] ?? ""; } }
+        public string Application { get; set; }
+        public string Url { get { return ConfigurationManager.AppSettings["UrlLogDynamo"] ?? ""; } }
+        public string Nombre { get { return ConfigurationManager.AppSettings["JwtUsuario"] ?? ""; } }
+        public string Password { get { return ConfigurationManager.AppSettings["JwtPassword"] ?? ""; } }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Infraestructure;
-using System.Web.Mvc;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -13,11 +14,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         // GET: ProgramaNuevas
         public ActionResult Index()
         {
-            ViewBag.variableEstrategia = GetVariableEstrategia();
+
+            ViewBag.variableEstrategia = GetEstrategiaHabilitado();
             ViewBag.CodPalanca = _programaNuevasProvider.TieneDuoPerfecto()
                 ? Constantes.ConfiguracionPais.ElecMultiple
                 : Constantes.ConfiguracionPais.ProgramaNuevas;
-            var model = GetLandingModel(1);
+
+            RevistaDigitalLandingModel model = GetLandingModel(1, Constantes.ConfiguracionPais.ProgramaNuevas);
 
             return View(model);
         }

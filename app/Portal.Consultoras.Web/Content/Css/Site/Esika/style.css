@@ -222,7 +222,7 @@ header {
     font-size: 10.5px;
     text-decoration: none;
     color: black;
-    border-bottom: 2px solid white;
+    border-bottom: 0;
     letter-spacing: .75pt;
     height: 90%;
 }
@@ -3530,7 +3530,8 @@ a.subir_carousel, a.bajar_carousel {
     }
 
 .texto_terminosCondiciones {
-    font-size: 12px !important;
+    font-size: 13px !important;
+    letter-spacing:0.2px;
     padding-left: 25px;
     position: relative;
 }
@@ -3550,8 +3551,9 @@ a.subir_carousel, a.bajar_carousel {
         margin-right: 10px;
         margin-bottom: 10px;
         border-radius: 3px;
-        background: #fff;
-        border: 2px solid #bababa;
+        /*background: transparent; border: 1px solid #FFF;*/
+        background: #fff; /*HD-3680 ---P.S.O*/
+        border: 2px solid #bababa; /*HD-3680 ---P.S.O*/
         cursor: pointer;
         z-index: 10;
     }
@@ -15842,6 +15844,12 @@ body, html {
     color: white;
 }
 
+.enlace__noVolverAVerAnuncio {
+    position: relative;
+    margin-top: 0;
+    bottom: 0;
+}
+
 .caja-traslado {
     position: absolute;
     width: 214px;
@@ -27276,10 +27284,23 @@ div.motivoRechazo textarea {
 }
 
 .franja_noVolverMostrar {
-    border-top: 1px solid #000;
-    padding: 14px 20px 3px 20px;
-    margin-top: -7px;
+    padding: 0;
+    margin-top: 0;
     position: relative;
+    top:38px;
+    color:#FFF;
+}
+
+.enlace_no_volver_a_mostrar_comunicado,
+.enlace_no_volver_a_mostrar_comunicado:hover {
+    display:block;
+    color: #FFF;
+    font-size: 11px;
+    font-weight: 300 !important;
+    letter-spacing: 0.5px;
+    text-decoration: underline;
+    text-transform: uppercase;
+    text-align:center;
 }
 
 /* FIN POPUPS OFERTAS REVISTA */
