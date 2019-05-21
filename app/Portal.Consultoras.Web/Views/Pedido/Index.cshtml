@@ -4,13 +4,13 @@
 
 @{
     ViewBag.Title = "Ingresa tu Pedido";
-    
+
 }
 
 @section styles{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-CssPedido")
 
-   
+
 
 }
 <style>
@@ -27,10 +27,11 @@
         left: 0;
         z-index: 10;
     }
+
     .desactivo {
         pointer-events: none;
-        cursor:none;
-        text-decoration:none; 
+        cursor: none;
+        text-decoration: none;
         opacity: 0.4;
     }
 </style>
@@ -1054,6 +1055,7 @@
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupEleccionRegalo.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupPremio.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupDescuento.cshtml")
+@{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupInformacionRegalo.cshtml");}
 
 @if (Model.MostrarPopupPrecargados)
 {
@@ -2013,7 +2015,7 @@
         var ClasPedidoDetallePendiente = '@Constantes.ClasificadorPedido.PedidoDetallePendiente';
         var kitsCaminoBrillante = '@ViewBag.KitsCaminoBrillante';
 
-        
+
 
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")
