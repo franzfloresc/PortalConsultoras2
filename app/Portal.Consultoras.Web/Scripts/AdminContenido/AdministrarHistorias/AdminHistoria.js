@@ -17,7 +17,8 @@ var _tipopresentacion = {
 
 var _obj_mensaje = {
     seleccionImagen: "No seleccionó una imagen",
-    seleccionCampania: "Debe seleccionar una Campaña"
+    seleccionCampania: "Debe seleccionar una Campaña",
+    seleccionZonaRegion: "No se ha marcado ninguna zona o región."
 }
 
 jQuery(document).ready(function () {
@@ -39,7 +40,7 @@ function IniDialogDetalle() {
         resizable: false,
         modal: true,
         closeOnEscape: true,
-        width: 550,
+        width: 650,
         draggable: false,
         title: "Nuevo",
         close: function () {
@@ -49,8 +50,10 @@ function IniDialogDetalle() {
         buttons:
             {
             "Guardar": function () {
-               var Proc = $("#Proc").val();    
+                var Proc = $("#Proc").val();    
                 var CodigoDetalle = "";
+                var zonas = "";
+                var SegmentoInterno = "";
                 if ($("#nombre-desktop-detalle").val() == "") {
                     showDialogMensaje(_obj_mensaje.seleccionImagen, 'Alerta');
                     return false;
@@ -66,7 +69,42 @@ function IniDialogDetalle() {
                 else if ($("#ddlAccion").val() == "AGR_CAR") {
                     CodigoDetalle = $("#txtCUV").val();
                 }       
-                   
+
+                $("#ddlSegmentoBanner").find('input[type="checkbox"]').each(function () {
+                    if ($(this).attr("checked")) {
+                        SegmentoInterno += $(this).val() + ",";
+                    }
+                });
+
+                if (SegmentoInterno == "") {
+                    alert("No se ha marcado ningún Segmento.");
+                    return false;
+                }
+
+                if (SegmentoInterno != "") {
+                    SegmentoInterno = SegmentoInterno.substring(0, SegmentoInterno.length - 1);
+                }
+
+
+                $.jstree._reference($("#arbolRegionZona")).get_checked(null, true).each(function () {
+                    if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
+                        return true;
+                    }
+                    zonas += this.id + ",";
+                });
+                if (zonas != "") {
+                    zonas = zonas.substring(0, zonas.length - 1);
+                }
+
+                if (zonas == "") {
+                    showDialogMensaje(_obj_mensaje.seleccionZonaRegion, 'Alerta');
+                    return false;
+                }
+                               
+                               
+                //console.log("zonas", zonas);
+                //console.log("SegmentoInterno", SegmentoInterno);
+                //return false;
                 var params = {
                     Proc: Proc,
                     RutaContenido: $("#nombre-desktop-detalle").val(),

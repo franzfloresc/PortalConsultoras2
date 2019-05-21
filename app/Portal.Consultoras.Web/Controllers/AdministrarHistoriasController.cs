@@ -9,6 +9,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.ServiceZonificacion;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -363,7 +364,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID, true);
             model.ListaAccion = GetContenidoAppDetaActService(0);
             model.ListaCodigoDetalle = GetContenidoAppDetaActService(1);
-
+            model.PaisID = userData.PaisID;
 
             BEContenidoAppHistoria entidad;
             using (var sv = new ContenidoServiceClient())
@@ -533,6 +534,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Accion = entidad.Accion;
                 model.CodigoDetalle = entidad.CodigoDetalle;
                 model.CUV = entidad.CodigoDetalle;
+                model.PaisID = userData.PaisID;
+                model.Region = entidad.Region;
 
             }
             catch (Exception ex)
@@ -551,6 +554,61 @@ namespace Portal.Consultoras.Web.Controllers
             Description = LogicaDatosHistoria[0].Descripcion;
 
             return Description;
+        }
+
+        public JsonResult ObtenerSegmento(int PaisId)
+        {
+            IEnumerable<BESegmentoBanner> lst;
+
+            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            {
+                if (PaisId == Constantes.PaisID.Venezuela)
+                {
+                    lst = sv.GetSegmentoBanner(PaisId);
+                }
+                else
+                {
+                    lst = sv.GetSegmentoInternoBanner(PaisId);
+                }
+            }
+
+            return Json(new
+            {
+                listasegmento = lst
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CargarArbolRegionesZonas(int? pais)
+        {
+            if (pais.GetValueOrDefault() == 0)
+                return Json(null, JsonRequestBehavior.AllowGet);
+
+            IList<BEZonificacionJerarquia> lst;
+            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            {
+                lst = sv.GetZonificacionJerarquia(pais.GetValueOrDefault());
+            }
+            JsTreeModel[] tree = lst.Distinct<BEZonificacionJerarquia>(new BEZonificacionJerarquiaComparer()).Select(
+                                    r => new JsTreeModel
+                                    {
+                                        data = r.RegionNombre,
+                                        attr = new JsTreeAttribute
+                                        {
+                                            id = r.RegionId * 1000,
+                                            selected = false
+                                        },
+                                        children = lst.Where(i => i.RegionId == r.RegionId).Select(
+                                                        z => new JsTreeModel
+                                                        {
+                                                            data = z.ZonaNombre,
+                                                            attr = new JsTreeAttribute
+                                                            {
+                                                                id = z.ZonaId,
+                                                                selected = false
+                                                            }
+                                                        }).ToArray()
+                                    }).ToArray();
+            return Json(tree, JsonRequestBehavior.AllowGet);
         }
     }
 }

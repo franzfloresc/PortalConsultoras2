@@ -24,7 +24,8 @@ namespace Portal.Consultoras.Web.Models
         public IEnumerable<CampaniaModel> ListaCampanias { set; get; }
         public IEnumerable<AdministrarHistorialDetaActModel> ListaAccion { set; get; }
         public IEnumerable<AdministrarHistorialDetaActModel> ListaCodigoDetalle { set; get; }
-
+        public int PaisID { set; get; }
+        public string Region { get; set; }
 
         public object Clone()
         {
