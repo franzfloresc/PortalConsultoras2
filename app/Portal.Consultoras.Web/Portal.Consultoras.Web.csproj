@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -5851,6 +5851,7 @@
     <Content Include="Views\DetalleEstrategia\FichaResponsive\FichaEnriquecida\tabs-ficha-enriquecida-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\breadcrumbs-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\componente-estrategia-template.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\modal-tipos-tonos.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

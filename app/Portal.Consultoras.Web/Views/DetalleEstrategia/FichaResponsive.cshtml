@@ -16,7 +16,7 @@
     <div class="container">
         <ul id="breadcrumbs" class="breadcumbs"></ul>
         <div class="row scontenedor_fichas">
-            
+
             <article id="imagen-estrategia" class="col-12 col-lg-5 ficha_producto"></article>
 
             <article class="col-12 col-lg-7 ficha_detalle" @*style="padding-top:75px"*@>
@@ -158,7 +158,7 @@
                     </div>
                     <!--Fin Agregar agotados-->
                 </div>
-                
+
             </article>
         </div>
 
@@ -177,128 +177,7 @@
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/FichaEnriquecida/tabs-ficha-enriquecida-template.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/componente-estrategia-template.cshtml")
 
-<!-- Modal tipos y tonos -->
-<section id="popup_tonos" class="popup_lateral">
-    <button id="cerrar-tipos-tonos-modal" class="button_cerrar">
-        <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
-    </button>
-
-    <div class="header_fixed">
-        <div class="seleccion_header" id="contendor-titulo-opciones">
-            <h3 header-title>Elige 1 opción</h3>
-            @*<h3>¡Listo! <span>ya tienes tu</span> </h3>*@
-            <p>0 seleccionados</p>
-        </div>
-        <div class="contenedor_selecionados" id="contenedor-opciones-seleccionadas" style="display:none">
-            <div class="selecionados_carrosel" id="opciones-seleccionadas">
-                <article class="item_selecionado">
-                    <div>
-                        <button class="item_selecionado_close">
-                            <img src="/Content/Images/mobile/Esika/close-button-white.svg" alt="">
-                        </button>
-                        <img class="item_selecionado_img" src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/L/productos/bulk/PE_200082700_B.jpg" alt="">
-                        <span>Safran</span>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </div>
-
-    <div class="seleccion_main" style="height: 485px; display:none">
-        <article class="selecion_item">
-            <div class="seleccion_img">
-                <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
-            </div>
-            <div class="seleccion_title">miss sexy shine</div>
-            <div class="contenedor_rangos " id="idcontenedor_rangos" data-cantidad-contenedor="">
-                <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" data-cantidad-input="-">
-                <div>
-                    <a class="txt_menos" data-cantidad-agregar="-" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                        <div class="dibujar_linea dibujar_menos"></div>
-                    </a>
-                    <a class="txt_mas" data-cantidad-agregar="+" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                        <div class="dibujar_linea dibujar_mas"></div>
-                    </a>
-                </div>
-            </div>
-        </article>
-        <article class="selecion_item">
-            <div class="seleccion_img tono_agotado">
-                <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
-            </div>
-            <div class="seleccion_title">miss sexy shine</div>
-            <div class="tag_agotago">Agotado</div>
-        </article>
-        <article class="selecion_item">
-            <div class="seleccion_img">
-                <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
-            </div>
-            <div class="seleccion_title">miss sexy shine</div>
-            <button>
-                Elígelo
-            </button>
-        </article>
-        <article class="selecion_item">
-            <div class="seleccion_img">
-                <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
-            </div>
-            <div class="seleccion_title">miss sexy shine</div>
-            <button class="active">
-                Elígelo
-            </button>
-        </article>
-        <article class="selecion_item">
-            <div class="seleccion_img">
-                <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
-            </div>
-            <div class="seleccion_title">miss sexy shine</div>
-            <button>
-                Elígelo
-            </button>
-        </article>
-        <article class="selecion_item">
-            <div class="seleccion_img">
-                <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
-            </div>
-            <div class="seleccion_title">miss sexy shine</div>
-            <button class="disabled">
-                Elígelo
-            </button>
-        </article>
-        <article class="selecion_item">
-            <div class="seleccion_img">
-                <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
-            </div>
-            <div class="seleccion_title">miss sexy shine</div>
-            <button>
-                Elígelo
-            </button>
-        </article>
-        <article class="selecion_item">
-            <div class="seleccion_img">
-                <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
-            </div>
-            <div class="seleccion_title">miss sexy shine</div>
-            <button>
-                Elígelo
-            </button>
-        </article>
-        <article class="selecion_item">
-            <div class="seleccion_img">
-                <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
-            </div>
-            <div class="seleccion_title">miss sexy shine</div>
-            <button>
-                Elígelo
-            </button>
-        </article>
-
-    </div>
-
-    <div class="aplicar_seleccion" id="contenedor-aplicar-seleccion"  style="display:none">
-        <button id="btn-aplicar-seleccion" class="active">APLICAR SELECCIÓN</button>
-    </div>
-</section>
+@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/modal-tipos-tonos.cshtml")
 
 <!-- Modal ficha enriquecida -->
 <section id="popup_ficha_enriquecida" class="popup_full">
