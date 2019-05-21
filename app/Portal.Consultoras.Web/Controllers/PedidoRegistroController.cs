@@ -438,7 +438,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var esReservado = (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.ERROR_RESERVA_AGREGAR) || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR)) ? true : false;
 
-            if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+            if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS) || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR))
             {
                 SessionManager.SetPedidoWeb(null);
                 SessionManager.SetDetallesPedido(null);
