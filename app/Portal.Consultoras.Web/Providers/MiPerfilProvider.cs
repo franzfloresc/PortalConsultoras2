@@ -35,18 +35,6 @@ namespace Portal.Consultoras.Web.Providers
             }
             return datos;
         }
-        //public List<ParametroUneteBE> ObtenerUbigeoPrincipal(string CodigoISO)
-        //{
-        //    List<ParametroUneteBE> result;
-        //    int IdPadre = 0;
-        //    using (var sv = new PortalServiceClient())
-        //    {
-
-        //        result = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel1, IdPadre);
-        //    }
-
-        //    return result;
-        //}
 
         public async Task<List<ParametroUneteBE>> ObtenerUbigeoPrincipalAsync(string CodigoISO)
         {
@@ -79,21 +67,6 @@ namespace Portal.Consultoras.Web.Providers
 
             return result;
         }
-        //public DireccionEntregaModel ObtenerDireccionPorConsultora(DireccionEntregaModel Direccion)
-        //{
-
-        //    BEDireccionEntrega BlEntidad;
-        //    DireccionEntregaModel response;
-        //    var request = Mapper.Map<BEDireccionEntrega>(Direccion);
-        //    using (var sv = new UsuarioServiceClient())
-        //    {
-        //        BlEntidad = sv.ObtenerDireccionPorConsultora(request);
-        //    }
-        //    response = Mapper.Map<DireccionEntregaModel>(BlEntidad);
-        //    response.Operacion = response.DireccionEntregaID == Constantes.OperacionBD.Insertar ? Constantes.OperacionBD.Insertar : Constantes.OperacionBD.Editar;
-        //    return response;
-
-        //}
 
         public async Task<DireccionEntregaModel> ObtenerDireccionPorConsultoraAsync(DireccionEntregaModel Direccion)
         {

@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.AdministrarEstrategia;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceSAC;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class AdministrarEstrategiaMasivoController : BaseController
+    public class AdministrarEstrategiaMasivoController : BaseAdmController
     {
         protected OfertaBaseProvider _ofertaBaseProvider;
 
@@ -100,9 +100,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 };
 
-                int validarEstrategiaImagen = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.EstrategiaImagen_NuevoMasivo, true);
+                int validarEstrategiaImagen = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, ConsTablaLogica.NuevoMasivo.TablaLogicaId, ConsTablaLogica.NuevoMasivo.EstrategiaImagen, true);
 
-                if ((validarEstrategiaImagen == 1)&&(codigoEstrategia!= Constantes.TipoEstrategiaCodigo.ArmaTuPack))
+                if ((validarEstrategiaImagen == 1) && (codigoEstrategia != Constantes.TipoEstrategiaCodigo.ArmaTuPack))
                 {
                     lst.Add(new ComunModel
                     {
@@ -569,7 +569,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (entidadMasivo.CantidadCuv <= 0)
             {
-                entidadMasivo.CantidadCuv = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.CantidadCuvMasivo_NuevoMasivo, true);
+                entidadMasivo.CantidadCuv = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, ConsTablaLogica.NuevoMasivo.TablaLogicaId, ConsTablaLogica.NuevoMasivo.CantidadCuvMasivo, true);
             }
             return entidadMasivo.CantidadCuv;
         }
@@ -667,7 +667,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool rpta = false;
             try
             {
-                var codigo = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.Tonos, true);
+                var codigo = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, ConsTablaLogica.Plan20.TablaLogicaId, ConsTablaLogica.Plan20.Tonos, true);
                 if (codigo > entidadMasivo.CampaniaId)
                     return rpta;
 
@@ -690,7 +690,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool rpta = false;
             try
             {
-                int validarEstrategiaImagen = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, Constantes.TablaLogica.CantidadCuvMasivo, Constantes.TablaLogicaDato.EstrategiaImagen_NuevoMasivo, true);
+                int validarEstrategiaImagen = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(userData.PaisID, ConsTablaLogica.NuevoMasivo.TablaLogicaId, ConsTablaLogica.NuevoMasivo.EstrategiaImagen, true);
 
                 if (validarEstrategiaImagen == 1)
                 {

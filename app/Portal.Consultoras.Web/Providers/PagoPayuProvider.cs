@@ -227,7 +227,7 @@ namespace Portal.Consultoras.Web.Providers
                 await ps.UpdateMontoDeudaConsultoraAsync(User.PaisID, User.CodigoConsultora, model.SaldoPendiente);
             }
 
-            var mensajeExitoso = new TablaLogicaProvider().GetTablaLogicaDatoCodigo(User.PaisID, Constantes.TablaLogica.ValoresPagoEnLinea, Constantes.TablaLogicaDato.MensajeInformacionPagoExitoso, true);
+            var mensajeExitoso = new TablaLogicaProvider().GetTablaLogicaDatoCodigo(User.PaisID, ConsTablaLogica.PagoLinea.TablaLogicaId, ConsTablaLogica.PagoLinea.MensajeInformacionPagoExitoso, true);
 
             model.MensajeInformacionPagoExitoso = mensajeExitoso;
 

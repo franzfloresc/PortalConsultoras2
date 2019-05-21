@@ -78,6 +78,11 @@ namespace Portal.Consultoras.Web.Models
         public bool EsCuponNuevas { get; set; }
         public int CodigoCatalago { get; set; }
         public int EstrategiaIDSicc { get; set; }
+
+        //INI HD-3908
+        public string CodigoPalanca { get; set; }
+        public int CampaniaID { get; set; }
+        //FIN HD-3908
         public object Clone()
         {
             return this.MemberwiseClone();

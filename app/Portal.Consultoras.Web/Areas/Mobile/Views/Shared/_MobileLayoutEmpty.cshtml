@@ -15,6 +15,9 @@
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
 
+    @*INI HD-3693*@
+    @Html.Partial("~/Views/Shared/PopupsResponsive/_PopupBloqueoPorSistema.cshtml")
+    @*FIN HD-3693*@
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
 
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
@@ -112,30 +115,30 @@
             <a href="javascript:;" onclick="$('#popupInformacionSB2Malo').hide();" class="btn_ok_mobile"><b>OK</b></a>
         </div>
     </div>
-    <div id="popupInformacionSB2Error" class="MensajeAlertaMobile" style="display:none;">
-        <div class="content_mensajeAlerta">
-            <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Error').hide();">
-                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-            </a>
-            <hr class="clear">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>LO SENTIMOS</b></div>
-            <div id="mensajeInformacionSB2_Error" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="$('#popupInformacionSB2Error').hide();" class="btn_ok_mobile"><b>OK</b></a>
-        </div>
+<div id="popupInformacionSB2Error" class="MensajeAlertaMobile" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Error').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>LO SENTIMOS</b></div>
+        <div id="mensajeInformacionSB2_Error" class="mensaje_alerta"></div>
+        <a href="javascript:;" onclick="$('#popupInformacionSB2Error').hide();" class="btn_ok_mobile"><b>OK</b></a>
     </div>
-    <div id="popupInformacionSB2SesionFinalizada" class="MensajeAlertaMobile" style="display:none;">
-        <div class="content_mensajeAlerta">
-            <a class="cerrar_popMobile" href="javascript:;" onclick="window.location.href='@Url.Action("Index", "Login", new { area = "" })'">
-                <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-            </a>
-            <hr class="clear">
-            <div class="icono_alerta exclamacion_icono_mobile"></div>
-            <div class="titulo_compartir"><b>SESIÓN FINALIZADA</b></div>
-            <div id="mensajeInformacionSB2_SesionFinalizada" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="window.location.href='/Login'" class="btn_ok_mobile"><b>OK</b></a>
-        </div>
+</div>
+<div id="popupInformacionSB2SesionFinalizada" class="MensajeAlertaMobile" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="window.location.href='@Url.Action("Index", "Login", new { area = "" })'">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>SESIÓN FINALIZADA</b></div>
+        <div id="mensajeInformacionSB2_SesionFinalizada" class="mensaje_alerta"></div>
+        <a href="javascript:;" onclick="window.location.href='/Login'" class="btn_ok_mobile"><b>OK</b></a>
     </div>
+</div>
     <div id="popupInformacionSB2Bueno" class="MensajeAlertaMobile" style="display:none;">
         <div class="content_mensajeAlerta">
             <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionSB2Bueno').hide();">
@@ -148,7 +151,7 @@
             <a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>Ok</b></a>
         </div>
     </div>
-
+    @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupMensajesInformacion.cshtml")
 
     <div style="display:none">
@@ -263,6 +266,8 @@
         var AplicarLogicaCantidadBotonVerTodos = '@ViewBag.AplicarLogicaCantidadBotonVerTodos'.toLowerCase();
         var urlDeshacerReservaPedidoReservado2 = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
         var MostrarPalabrasMenoresACuatro = '@ViewBag.MostrarPalabrasMenoresACuatro';
+        var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
+        var SessionTimeout = '@ViewBag.SessionTimeout';
     </script>
 
     <script type="text/javascript">

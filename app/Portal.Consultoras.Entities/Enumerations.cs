@@ -3,7 +3,7 @@
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
-    public enum ETipoFormulario : int
+    public enum ETipoFormulario
     {
         [EnumMember]
         Login = 1101,
@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Entities
     }
 
     [DataContract]
-    public enum EGrupoBanner : int
+    public enum EGrupoBanner
     {
         [EnumMember]
         Principal = 1,
@@ -56,7 +56,7 @@ namespace Portal.Consultoras.Entities
     }
 
     [DataContract]
-    public enum EAplicacionOrigen : int
+    public enum EAplicacionOrigen
     {
         [EnumMember]
         BienvenidaConsultora = 1,
