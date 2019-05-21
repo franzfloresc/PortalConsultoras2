@@ -16,6 +16,8 @@ var PedidoRegistroModule = function () {
         urlAgregarCuvBanner: "PedidoRegistro/InsertarPedidoCuvBanner",
     }
 
+    var _mensajeAgregarPedido = ConstantesModule.MensajeAgregarPedido;
+
     var _mensajeCantidad = function (cantidad, inputCantidad) {
         cantidad = cantidad || "";
 
@@ -304,6 +306,7 @@ var PedidoRegistroModule = function () {
             origenPedidoLiquidaciones = DesktopLiquidacion;
         }
 
+        var imagenProducto = $(this).parent().parent().find('.imagen_producto')[0].src;
         console.log('origenPedidoLiquidaciones', origenPedidoLiquidaciones);
 
         if (_mensajeCantidad(Cantidad, $('.liquidacion_rango_cantidad_pedido'))) {
@@ -370,6 +373,15 @@ var PedidoRegistroModule = function () {
                 }
 
                 CerrarLoad();
+
+                var mensaje = '';
+                if (data.EsReservado === true) {
+                    mensaje = _mensajeAgregarPedido.reservado;
+                } else {
+                    mensaje = _mensajeAgregarPedido.normal;
+                }
+
+                AbrirMensaje25seg(mensaje, imagenProducto);
 
                 modelLiquidacionOfertas = undefined;
                 labelAgregadoLiquidacion = undefined;
@@ -527,7 +539,14 @@ var PedidoRegistroModule = function () {
                 HidePopupTonosTallas();
                 ProcesarActualizacionMostrarContenedorCupon();
 
-                AbrirMensaje25seg('¡Listo! Agregaste esta(s) oferta(s) a tu pedido', imagenProducto);
+                var mensaje = '';
+                if (data.EsReservado === true) {
+                    mensaje = _mensajeAgregarPedido.reservado;
+                } else {
+                    mensaje = _mensajeAgregarPedido.normal;
+                }
+
+                AbrirMensaje25seg(mensaje, imagenProducto);
 
             },
             error: function (data, error) {

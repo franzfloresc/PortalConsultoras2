@@ -25,6 +25,7 @@ var EstrategiaAgregarModule = (function () {
         esFicha: false
     };
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
+    var _mensajeAgregarPedido = ConstantesModule.MensajeAgregarPedido;
     var dataProperties = {
         dataItem: "[data-item]",
         dataContenedorCantidad: "[data-cantidad-contenedor]",
@@ -624,8 +625,14 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
 
+                var mensaje = '';
+                if (data.EsReservado === true) {
+                    mensaje = _mensajeAgregarPedido.reservado;
+                } else {
+                    mensaje = _mensajeAgregarPedido.normal;
+                }
 
-                AbrirMensaje25seg('¡Listo! Agregaste esta(s) oferta(s) a tu pedido', imagenProducto);
+                AbrirMensaje25seg(mensaje, imagenProducto);
 
                 if (popup) {
                     CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);
