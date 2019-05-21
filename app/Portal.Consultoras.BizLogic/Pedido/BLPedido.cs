@@ -1054,17 +1054,23 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 #endregion
 
                 //Validación producto no existe
-                var lstProducto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(
-                                    productoBuscar.PaisID,
-                                    usuario.CampaniaID,
-                                    productoBuscar.CodigoDescripcion,
-                                    usuario.RegionID,
-                                    usuario.ZonaID,
-                                    usuario.CodigorRegion,
-                                    usuario.CodigoZona,
-                                    productoBuscar.Criterio,
-                                    productoBuscar.RowCount,
-                                    productoBuscar.ValidarOpt);
+                BEProductoBusqueda busqueda = new BEProductoBusqueda
+                {
+                    PaisID = productoBuscar.PaisID,
+                    CampaniaID = usuario.CampaniaID,
+                    CodigoDescripcion = productoBuscar.CodigoDescripcion,
+                    RegionID = usuario.RegionID,
+                    ZonaID = usuario.ZonaID,
+                    CodigoRegion = usuario.CodigorRegion,
+                    CodigoZona = usuario.CodigoZona,
+                    Criterio = productoBuscar.Criterio,
+                    RowCount = productoBuscar.RowCount,
+                    ValidarOpt = productoBuscar.ValidarOpt,
+                    CodigoPrograma = usuario.CodigoPrograma,
+                    NumeroPedido = usuario.ConsecutivoNueva + 1
+                };
+
+                var lstProducto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(busqueda);
 
                 if (!lstProducto.Any()) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
 
