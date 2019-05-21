@@ -156,7 +156,11 @@ namespace Portal.Consultoras.Web.Controllers
                 else // Periodo de facturacion
                 {
                     model.AccionBoton = "validar";
-                    model.Prol = "RESERVA TU PEDIDO";
+                    if(model.EstadoPedido == 1) //Reservado
+                        model.Prol = "MODIFICA TU PEDIDO";
+                    else
+                        model.Prol = "RESERVA TU PEDIDO";
+
                     model.ProlTooltip = "Haz click aqui para reservar tu pedido";
                     model.IndicadorGPRSB = configuracionCampania.IndicadorGPRSB;
 
