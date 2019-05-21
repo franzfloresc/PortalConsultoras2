@@ -3000,20 +3000,16 @@ var AnalyticsPortalModule = (function () {
         ClickTabGanadoras: clickTabGanadoras,
         // Fin - Analytics Ganadoras
 
-<<<<<<< HEAD
         // Ini - Analytics PedidoPendientes
         ClickBotonPedidosPendientes: clickBotonPedidosPendientes,
         ClickTabPedidosPendientes: clickTabPedidosPendientes,
         ClickBotonTabVistaProducto: clickBotonTabVistaProducto,
         ClickVistaAddToCardPedidoPendiente: clickVistaAddToCardPedidoPendiente,
         // Fin - Analytics PedidoPendientes
-
         MarcaProductImpressionRecomendaciones: marcaProductImpressionRecomendaciones,
         MarcaProductImpressionViewRecomendaciones: marcaProductImpressionViewRecomendaciones,
-        MarcaProductImpressionViewRecomendacionesMobile: marcaProductImpressionViewRecomendacionesMobile,
-=======
         //MarcaProductImpressionViewRecomendacionesMobile: marcaProductImpressionViewRecomendacionesMobile,
->>>>>>> develop
+
         MarcaRecomendacionesFlechaSiguiente: marcaRecomendacionesFlechaSiguiente,
         MarcaRecomendacionesFlechaAnterior: marcaRecomendacionesFlechaAnterior,
         MarcaOcultarRecomendaciones: marcaOcultarRecomendaciones,
