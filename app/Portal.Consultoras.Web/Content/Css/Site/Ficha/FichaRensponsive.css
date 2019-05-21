@@ -615,3 +615,7 @@ ul.breadcumbs li a {
         display: block !important;
     }
 }
+
+.ui-dialog.ui-widget-content {
+    z-index: 999999999999 !important;
+}
