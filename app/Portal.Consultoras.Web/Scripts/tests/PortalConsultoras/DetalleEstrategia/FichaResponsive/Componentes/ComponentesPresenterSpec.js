@@ -1,4 +1,8 @@
-﻿describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresenter", function () {
+﻿/// <reference path="../../../../../portalconsultoras/detalleestrategia/ficharesponsive/componentes/componentespresenter.js" />
+/// <reference path="../../../../../portalconsultoras/detalleestrategia/ficharesponsive/componentes/componentesview.js" />
+
+
+describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresenter", function () {
    var estrategiaUnComponenteFactorCuadreIgualADos = function () {
       return {
          "CodigoVideo": null,
@@ -862,6 +866,7 @@
          beforeEach(function () {
             componentesPresenter.onEstrategiaModelLoaded(estrategiaUnComponenteFactorCuadreIgualAUno());
             componentesView.setTitle.returns(true);
+            componentesView.setSelectedQuantityText.returns(true);
             componentesView.showTypeAndTonesModal.returns(true);
          });
 
@@ -878,7 +883,7 @@
             expect(result).to.eql(false);
          });
 
-         it("Show '0 seleccionados' when quantity of selected items is equals to 0", function () {
+         it("Show 'Elige 1 opción' when quantity of selected items is equals to 0", function () {
             // Arrange
             var cuvComponent = "31305";
 
@@ -890,15 +895,42 @@
             expect(result).to.eql(true);
             expect(selectedTitle).to.have.string("Elige 1 opción");
          });
+
+         it("return false when componentesView do not set selected quantity's text", function () {
+            // Arrange
+            var cuvComponent = "31305";
+            componentesView.setSelectedQuantityText.returns(false);
+
+            //Act
+            var result = componentesPresenter.showTypesAndTonesModal(cuvComponent);
+            
+
+            // Assert
+            expect(result).to.eql(false);
+         });
+
+
+         it("Show '0 seleccionados' when quantity of selected items is equals to 0", function () {
+            // Arrange
+            var cuvComponent = "31305";
+
+            //Act
+            var result = componentesPresenter.showTypesAndTonesModal(cuvComponent);
+            var selectedQuantityText = componentesPresenter.estrategiaModel().Hermanos[0].selectedQuantityText;
+
+            // Assert
+            expect(result).to.eql(true);
+            expect(selectedQuantityText).to.have.string("0 Seleccionados");
+         });
       });
 
       describe("when strategy has one component with FactorCuadre equals to two", function () {
          beforeEach(function () {
             componentesPresenter.onEstrategiaModelLoaded(estrategiaUnComponenteFactorCuadreIgualADos());
             componentesView.setTitle.returns(true);
+            componentesView.setSelectedQuantityText.returns(true);
             componentesView.showTypeAndTonesModal.returns(true);
          });
-
 
          it("Show 'Elige 2 opciones' when quantity of components is equals to 2", function () {
             // Arrange

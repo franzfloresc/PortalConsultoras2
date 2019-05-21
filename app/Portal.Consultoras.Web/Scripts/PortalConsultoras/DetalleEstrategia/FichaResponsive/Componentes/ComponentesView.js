@@ -18,6 +18,9 @@ var ComponentesView = function () {
             titulo: {
                 id: "[header-title]"
             },
+            cantidadSeleccionados: {
+                id: "[header-selected-quantity]"
+            },
             btnCerrar: {
                 id: "#cerrar-tipos-tonos-modal"
             }
@@ -46,6 +49,14 @@ var ComponentesView = function () {
     var _setTitle = function (title) {
         title = title || "";
         $(_elements.tiposTonosModal.titulo.id).html(title);
+
+        return true;
+    };
+
+    
+    var _setSelectedQuantityText = function (text) {
+        text = text || "";
+        $(_elements.tiposTonosModal.cantidadSeleccionados.id).html(text);
 
         return true;
     };
@@ -84,6 +95,7 @@ var ComponentesView = function () {
         setPresenter: _setPresenter,
         renderComponente: _renderComponentes,
         setTitle: _setTitle,
+        setSelectedQuantityText: _setSelectedQuantityText,
         showTypeAndTonesModal: _showTypeAndTonesModal
     };
 };

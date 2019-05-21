@@ -14,6 +14,7 @@
             value.Hermanos = value.Hermanos || [];
             $.each(value.Hermanos, function (idx, hermano) {
                 hermano.FactorCuadre = hermano.FactorCuadre || 0;
+                hermano.selectedQuantityText = "0 Seleccionados";
                 if (hermano.FactorCuadre == 1){
                     hermano.selectComponentText = "Elige 1 opción";
                     hermano.selectComponentTitle = "Elige 1 opción";
@@ -53,8 +54,9 @@
         if(selectedComponent == null )throw "estrategia no tiene componente seleccionado";
 
         var result = false;
-        
+        // debugger;
         result = _config.componentesView.setTitle(selectedComponent.selectComponentTitle) &&
+            _config.componentesView.setSelectedQuantityText(selectedComponent.selectedQuantityText) &&
             _config.componentesView.showTypeAndTonesModal();
 
         return result;
