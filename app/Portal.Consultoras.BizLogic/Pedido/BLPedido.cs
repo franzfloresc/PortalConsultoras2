@@ -165,8 +165,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                         if (reservado)
                         {
-                            var respuestaReserva = _reservaBusinessLogic.EjecutarReserva(pedidoDetalle.ReservaProl, true).GetAwaiter().GetResult();
-                            respuestaT = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, out error);
+                            var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
+                            respuestaT = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuestaT, out error);
                         }
 
                         if (!error)
@@ -216,8 +216,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                         if (reservado)
                         {
-                            var respuestaReserva = _reservaBusinessLogic.EjecutarReserva(pedidoDetalle.ReservaProl, true).GetAwaiter().GetResult();                            
-                            respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, out error);
+                            var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
+                            respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuesta, out error);
                         }
 
                         if (!error)
@@ -236,7 +236,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
         }
 
-        private BEPedidoDetalleResult GetPedidoDetalleResultFromResultadoReservaProl(BEResultadoReservaProl resultadoReservaProl, out bool error)
+        private BEPedidoDetalleResult GetPedidoDetalleResultFromResultadoReservaProl(BEResultadoReservaProl resultadoReservaProl, BEPedidoDetalleResult respuestaT, out bool error)
         {
             error = false;
             var pedidoValidacionCode = Constantes.PedidoValidacion.Code.SUCCESS;
@@ -283,7 +283,27 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         break;
                 }                
             }
-            return PedidoDetalleRespuesta(pedidoValidacionCode);
+            var respuesta = PedidoDetalleRespuesta(pedidoValidacionCode);
+
+            if (error)
+            {
+                respuesta.CodigoRespuesta = Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR;
+            }
+            else
+            {
+                respuesta.CodigoRespuesta = Constantes.PedidoValidacion.Code.ERROR_RESERVA_AGREGAR;
+            }
+
+            if (respuestaT.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS)
+            {
+                respuesta.ListCuvEliminar = respuestaT.ListCuvEliminar;
+                respuesta.PedidoWebDetalle = respuestaT.PedidoWebDetalle;
+                respuesta.MensajeAviso = respuestaT.MensajeAviso;
+                respuesta.TituloMensaje = respuestaT.TituloMensaje;
+                respuesta.ListaMensajeCondicional = respuestaT.ListaMensajeCondicional;
+            }
+
+            return respuesta;
         }
 
         public async Task<BEPedidoDetalleResult> Delete(BEPedidoDetalle pedidoDetalle)
@@ -322,7 +342,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         if (reservado)
                         {
                             var respuestaReserva = await _reservaBusinessLogic.EjecutarReserva(pedidoDetalle.ReservaProl, true);
-                            respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, out error);
+                            respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuesta, out error);
                         }
 
                         if (!error)
@@ -909,7 +929,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 {
                     responseCode = await DeleteAll(usuario, pedidoDetalle);
 
-                    UpdateProl(usuario, lstDetalle, pedidoDetalle.Reservado, out ListaMensajeCondicional);
+                    UpdateProl(usuario, lstDetalle, out ListaMensajeCondicional);
                 }
                 else
                 {
@@ -1400,7 +1420,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     });
                     List<BEMensajeProl> ListMensajeCondicional;
 
-                    UpdateProl(usuario, lstDetalle, false, out ListMensajeCondicional);
+                    UpdateProl(usuario, lstDetalle, out ListMensajeCondicional);
 
                     return true;
                 }
@@ -1631,7 +1651,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 List<BEMensajeProl> ListaMensajeCondicional;
 
-                UpdateProl(usuario, lstDetalle, pedidoDetalle.Reservado ,out ListaMensajeCondicional);
+                UpdateProl(usuario, lstDetalle, out ListaMensajeCondicional);
 
                 //Agregar sets agrupados
                 var listCuvTonos = pedidoDetalle.Producto.CUV;
@@ -2676,8 +2696,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
 
                 lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
-                
-                UpdateProl(usuario, lstDetalle, pedidoDetalle.Reservado, out ListMensajeCondicional);
+
+                if (!pedidoDetalle.Reservado)
+                {
+                    UpdateProl(usuario, lstDetalle, out ListMensajeCondicional);
+                }
             }
             catch (Exception ex)
             {
@@ -3053,7 +3076,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return montosProl;
         }
 
-        private void UpdateProl(BEUsuario usuario, List<BEPedidoWebDetalle> lstDetalle, bool Reservado, out List<BEMensajeProl> ListMensajeCondicional)
+        private void UpdateProl(BEUsuario usuario, List<BEPedidoWebDetalle> lstDetalle, out List<BEMensajeProl> ListMensajeCondicional)
         {
             ListMensajeCondicional = new List<BEMensajeProl>();
             decimal montoAhorroCatalogo = 0, montoAhorroRevista = 0, montoDescuento = 0, montoEscala = 0;
@@ -3096,21 +3119,19 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 puntajesExigidos = string.Join("|", lstConcursos.Select(c => 0));
             }
 
-            if (!Reservado)
+            var bePedidoWeb = new BEPedidoWeb
             {
-                var bePedidoWeb = new BEPedidoWeb
-                {
-                    PaisID = usuario.PaisID,
-                    CampaniaID = usuario.CampaniaID,
-                    ConsultoraID = usuario.ConsultoraID,
-                    CodigoConsultora = usuario.CodigoConsultora,
-                    MontoAhorroCatalogo = montoAhorroCatalogo,
-                    MontoAhorroRevista = montoAhorroRevista,
-                    DescuentoProl = montoDescuento,
-                    MontoEscala = montoEscala
-                };
-                _pedidoWebBusinessLogic.UpdateMontosPedidoWeb(bePedidoWeb);
-            }
+                PaisID = usuario.PaisID,
+                CampaniaID = usuario.CampaniaID,
+                ConsultoraID = usuario.ConsultoraID,
+                CodigoConsultora = usuario.CodigoConsultora,
+                MontoAhorroCatalogo = montoAhorroCatalogo,
+                MontoAhorroRevista = montoAhorroRevista,
+                DescuentoProl = montoDescuento,
+                MontoEscala = montoEscala
+            };
+
+            _pedidoWebBusinessLogic.UpdateMontosPedidoWeb(bePedidoWeb);
 
             if (!string.IsNullOrEmpty(codigoConcursosProl))
                 _consultoraConcursoBusinessLogic.ActualizarInsertarPuntosConcursoTransaction(usuario.PaisID, usuario.CodigoConsultora, usuario.CampaniaID.ToString(), codigoConcursosProl, puntajes, puntajesExigidos);
@@ -3592,7 +3613,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             pedidoDetalle.PedidoID = pedidoID;
             List<BEMensajeProl> ListMensajeCondicional;
 
-            UpdateProl(usuario, lstDetalle, pedidoDetalle.Reservado, out ListMensajeCondicional);
+            UpdateProl(usuario, lstDetalle, out ListMensajeCondicional);
 
             //Indicador pedido autentico
             if (lstDetalle.Any())
@@ -3717,7 +3738,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             List<BEMensajeProl> ListMensajeCondicional;
 
-            UpdateProl(usuario, lstDetalle, pedidoDetalle.Reservado, out ListMensajeCondicional);
+            UpdateProl(usuario, lstDetalle, out ListMensajeCondicional);
 
             var response = PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
             ListMensajeCondicional.ForEach(x => { response.ListaMensajeCondicional.Add(x); });
