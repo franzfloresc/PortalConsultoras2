@@ -2675,6 +2675,8 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_CONSULTORA_BLOQUEADA = "3693";
                 //FIN HD-3693
 
+                public const string SUCCESS_RESERVA_AGREGAR = "2008";
+                public const string ERROR_RESERVA_AGREGAR = "2009";
                 public const string ERROR_RESERVA_NINGUNO = "2010";
                 public const string SUCCESS_RESERVA = "2011";
                 public const string SUCCESS_RESERVA_OBS = "2012";

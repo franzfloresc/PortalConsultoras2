@@ -288,7 +288,9 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoDetalleResult.MensajeRespuesta = Constantes.TipoPopupAlert.Bloqueado + pedidoDetalleResult.MensajeRespuesta;
                 //FIN HD-3693
 
-                if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+                var esReservado = (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.ERROR_RESERVA_AGREGAR) || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR)) ? true : false;
+
+                if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS) || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR))
                 {
                     SessionManager.SetPedidoWeb(null);
                     SessionManager.SetDetallesPedido(null);
@@ -317,8 +319,9 @@ namespace Portal.Consultoras.Web.Controllers
                         total = Total,
                         formatoTotal = FormatoTotal,
                         listCuvEliminar = pedidoDetalleResult.ListCuvEliminar.ToList(),
-                        mensajeCondicional
-                }, JsonRequestBehavior.AllowGet);
+                        mensajeCondicional,
+                        EsReservado = esReservado
+                    }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
@@ -328,7 +331,8 @@ namespace Portal.Consultoras.Web.Controllers
                         message = string.IsNullOrEmpty(pedidoDetalleResult.MensajeRespuesta) ? "Ocurrió un error al ejecutar la operación" : pedidoDetalleResult.MensajeRespuesta,
                         tituloMensaje = pedidoDetalleResult.TituloMensaje,
                         mensajeAviso = pedidoDetalleResult.MensajeAviso,
-                        errorInsertarProducto = "1"
+                        errorInsertarProducto = "1",
+                        EsReservado = esReservado
                     }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -432,6 +436,8 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
             var pedidoDetalleResult = _pedidoWebProvider.UpdatePedidoDetalle(pedidoDetalle);
 
+            var esReservado = (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.ERROR_RESERVA_AGREGAR) || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR)) ? true : false;
+
             if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
             {
                 SessionManager.SetPedidoWeb(null);
@@ -464,7 +470,8 @@ namespace Portal.Consultoras.Web.Controllers
                     modificoBackOrder = pedidoDetalleResult.ModificoBackOrder,
                     DataBarra = GetDataBarra(),
                     cantidadTotalProductos = CantidadTotalProductos,
-                    mensajeCondicional
+                    mensajeCondicional,
+                    EsReservado = esReservado
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -473,7 +480,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = string.IsNullOrEmpty(pedidoDetalleResult.MensajeRespuesta) ? "Ocurrió un error al ejecutar la operación" : pedidoDetalleResult.MensajeRespuesta
+                    message = string.IsNullOrEmpty(pedidoDetalleResult.MensajeRespuesta) ? "Ocurrió un error al ejecutar la operación" : pedidoDetalleResult.MensajeRespuesta,
+                    EsReservado = esReservado
                 }, JsonRequestBehavior.AllowGet);
             }
         }
@@ -524,11 +532,11 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoEliminado.DescripcionOferta = !string.IsNullOrEmpty(pedidoEliminado.DescripcionOferta)
                 ? pedidoEliminado.DescripcionOferta.Replace("[", "").Replace("]", "").Trim()
                 : "";
-
-            bool errorServer = false;
+            
             string tipo = string.Empty;
 
-            errorServer = result.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS;
+            var errorServer = !(result.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS) || result.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR));
+            var esReservado = (result.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.ERROR_RESERVA_AGREGAR) || result.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR));
             tipo = result.MensajeRespuesta;
 
             SessionManager.SetPedidoWeb(null);
@@ -570,7 +578,8 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoAgrupado.EstrategiaId,
                     pedidoAgrupado.TipoEstrategiaCodigo
                 },
-                cantidadTotalProductos = olstPedidoWebDetalle.Sum(x => x.Cantidad)
+                cantidadTotalProductos = olstPedidoWebDetalle.Sum(x => x.Cantidad),
+                EsReservado = esReservado
             }));
 
             return lastResult;
