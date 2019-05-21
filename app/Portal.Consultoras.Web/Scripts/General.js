@@ -768,10 +768,6 @@ function CerrarLoad(opcion) {
     }
 }
 
-function AbrirMensaje25seg(mensaje, imagen) {
-        alert(imagen + ' - ' + mensaje);
- }
-
 function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
     try {
         mensaje = $.trim(mensaje);
@@ -918,6 +914,9 @@ function AbrirMensaje25seg(mensaje, imagen) {
                 }, 2500)                
             }, 100);
         }*/
+        var parameter = [["mensaje", mensaje], ["imagen", imagen]];
+        console.table(parameter);
+
     } catch (e) {
 
     }
