@@ -206,14 +206,7 @@
         </div>
         <div class="texto_pedidos celda_iconos_acciones">
             {{#if EsSuscripcionSE}}
-            <div class="info_copy">
-                <input type="hidden" data-kit="true" />
-                <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Alternate Text" class="info_copy" style="width: 19px; margin:0;" />
-                <div class="tooltips tooltip_infoCopy_grid">
-                    <div class="tooltip_flecha_grid"></div>
-                    <h6>Suscripcion SE</h6>
-                    <p>Gana desde el comienzo con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de @(Model.EsPais) y más.</p>
-                </div>
+            <div class="info_copy" style="display:none">
             </div>
             {{else}}
             {{#if EsKitNueva}}

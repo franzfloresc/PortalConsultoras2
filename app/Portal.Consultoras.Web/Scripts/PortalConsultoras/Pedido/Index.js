@@ -30,9 +30,7 @@ var pedidoProvider = PedidoProvider();
 
 $(document).ready(function () {
     ValidarKitNuevas();
-    //INI HD-4200
-    ValidarSuscripcionSE();
-    //FIN HD-4200
+
     var hdDataBarra = $("#hdDataBarra").val();
     if ($.trim(hdDataBarra) != "") {
         dataBarra = JSON.parse(hdDataBarra);
@@ -477,7 +475,10 @@ $(document).ready(function () {
 
     CrearDialogs();
     MostrarBarra();
-    CargarDetallePedido();
+    //INI HD-4200
+    ValidarSuscripcionSE(function () { CargarDetallePedido();});
+    //FIN HD-4200
+    
     CargarCarouselEstrategias();
     CargarAutocomplete();
     CargarDialogMesajePostulantePedido();

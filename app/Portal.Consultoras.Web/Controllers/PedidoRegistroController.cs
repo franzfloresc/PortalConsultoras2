@@ -114,6 +114,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, cuvKitNuevas).ToList();
             }
+
             if (olstProducto.Count > 0) PedidoAgregarProductoTransaction(CreatePedidoCrudModelKitInicio(olstProducto[0]));
         }
 
@@ -173,7 +174,8 @@ namespace Portal.Consultoras.Web.Controllers
             var lstPedido = ObtenerPedidoWebDetalle().Where(p => p.PedidoDetalleID > 0 && olstProducto.Any(d => d.CUV == p.CUV)).ToList();
             if (lstPedido.Count == olstProducto.Count) return;
 
-            if (olstProducto.Count > 0) PedidoAgregarProductoTransaction(CreatePedidoCrudModelSuscripcionSE(olstProducto[0]));
+            foreach(var item in olstProducto)
+                PedidoAgregarProductoTransaction(CreatePedidoCrudModelSuscripcionSE(item));
         }
 
 
@@ -335,7 +337,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.OfertaWeb = model.OfertaWeb;
                 pedidoDetalle.EsEditable = model.EsEditable;
                 pedidoDetalle.SetID = model.SetId;
-
+                
                 var result = await DeletePremioIfReplace(model);
                 if (result != null && !result.Item1)
                 {

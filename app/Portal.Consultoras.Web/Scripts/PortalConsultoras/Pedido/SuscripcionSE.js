@@ -1,6 +1,8 @@
 ﻿
-function ValidarSuscripcionSE(fnSuccess) {
- jQuery.ajax({
+function ValidarSuscripcionSE(fnSuccess,isMobile=0) {
+
+    ShowCarga(isMobile);
+   jQuery.ajax({
         type: 'POST',
         url: urlValidarSuscripcionSE,
         dataType: 'json',
@@ -10,9 +12,18 @@ function ValidarSuscripcionSE(fnSuccess) {
 
             if (!data.success) messageInfo('Ocurrió un error al intentar cargar los pedidos exclusivos para Socia Empresaria.');
             else if ($.isFunction(fnSuccess)) fnSuccess();
+            ShowCarga(isMobile);
         },
-        error: function () { messageInfo('Ocurrió un error de conexion al intentar cargar los pedidos exclusivos para Socia Empresaria.'); }
+       error: function () { messageInfo('Ocurrió un error de conexion al intentar cargar los pedidos exclusivos para Socia Empresaria.'); ShowCarga(isMobile);}
     });
+    
+}
+
+function ShowCarga(isMobile) {
+    if (!isMobile) AbrirSplash();
+}
+function HideCarga(isMobile) {
+    if (!isMobile) CerrarSplash();
 }
 
 function ValidarSuscripcionSEPromise() {

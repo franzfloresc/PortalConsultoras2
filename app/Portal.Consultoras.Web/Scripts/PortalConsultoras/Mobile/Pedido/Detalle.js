@@ -70,7 +70,7 @@ $(document).ready(function () {
     });
 
     //INI HD-4200
-    ValidarSuscripcionSE(function () { ValidarKitNuevas(function () { CargarPedido(true); }) });
+    ValidarSuscripcionSE(function () { ValidarKitNuevas(function () { CargarPedido(true); }) },1);
      //FIN HD-4200
     
    
