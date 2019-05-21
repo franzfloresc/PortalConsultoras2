@@ -205,6 +205,17 @@
             {{/iff}}*@
         </div>
         <div class="texto_pedidos celda_iconos_acciones">
+            {{#if EsSuscripcionSE}}
+            <div class="info_copy">
+                <input type="hidden" data-kit="true" />
+                <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Alternate Text" class="info_copy" style="width: 19px; margin:0;" />
+                <div class="tooltips tooltip_infoCopy_grid">
+                    <div class="tooltip_flecha_grid"></div>
+                    <h6>Suscripcion SE</h6>
+                    <p>Gana desde el comienzo con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de @(Model.EsPais) y más.</p>
+                </div>
+            </div>
+            {{else}}
             {{#if EsKitNueva}}
             <div class="info_copy">
                 <input type="hidden" data-kit="true" />
@@ -229,6 +240,7 @@
             <!-- Fin - Este enlace se muestra cuando el producto es un regalo de Programa Nuevas -->
             {{else}}
             <a onclick="tooltipDelete(event, '{{PedidoDetalleID}}', '{{SetID}}');" class="border_radius_4 icon_trash" title="Eliminar"></a>
+            {{/if}}
             {{/if}}
             {{/if}}
         </div>

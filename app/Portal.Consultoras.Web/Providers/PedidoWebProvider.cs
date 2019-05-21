@@ -447,7 +447,7 @@ namespace Portal.Consultoras.Web.Providers
                 var consultoraSE = Mapper.Map<BEPedidoWeb>(userData);
                 using (var sv = new PedidoServiceClient())
                 {
-                    return lista=sv.GetCuvSuscripcionSE(consultoraSE).ToList();
+                    lista=sv.GetCuvSuscripcionSE(consultoraSE).ToList();
                 }
             }
             catch (Exception ex)

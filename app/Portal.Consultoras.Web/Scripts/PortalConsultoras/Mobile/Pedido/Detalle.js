@@ -70,11 +70,10 @@ $(document).ready(function () {
     });
 
     //INI HD-4200
-    $.when(ValidarSuscripcionSEPromise())
-        .then(function () {
-            ValidarKitNuevas(function () { CargarPedido(true); });
-        });
-    //FIN HD-4200
+    ValidarSuscripcionSE(function () { ValidarKitNuevas(function () { CargarPedido(true); }) });
+     //FIN HD-4200
+    
+   
 
     $("#suma, #resta").click(function (event) {
         if (!ValidarPermiso(this)) {

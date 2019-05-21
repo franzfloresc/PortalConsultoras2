@@ -141,7 +141,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ValidarSuscripcionSE()
         {
-            return Json(new { success = ValidarSuscripcionSE() });
+            return Json(new { success = ValidarAgregarSuscripcionSE() });
         }
 
         private bool ValidarAgregarSuscripcionSE()
@@ -191,7 +191,8 @@ namespace Portal.Consultoras.Web.Controllers
                 IndicadorMontoMinimo = producto.IndicadorMontoMinimo.ToString(),
                 ConfiguracionOfertaID = 0,
                 EsKitNueva = true,
-                EsKitNuevaAuto = true
+                EsKitNuevaAuto = true,
+                EsSuscripcionSE = true
             };
         }
         #endregion
