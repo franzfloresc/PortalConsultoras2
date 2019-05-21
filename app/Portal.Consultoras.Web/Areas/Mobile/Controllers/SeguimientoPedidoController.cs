@@ -202,8 +202,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (desde != null && hasta != null)
             {
-                if (desde.Fecha.HasValue) horaEstimadaEntregaDesde = desde.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? desde.Fecha.Value.ToString() : desde.Fecha.Value.ToString("HH:mm tt");
-                if (hasta.Fecha.HasValue) horaEstimadaEntregaHasta = hasta.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? hasta.Fecha.Value.ToString() : hasta.Fecha.Value.ToString("HH:mm tt");
+                if (desde.Fecha.HasValue) horaEstimadaEntregaDesde = desde.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? string.Empty : desde.Fecha.Value.ToString("HH:mm tt");
+                if (hasta.Fecha.HasValue) horaEstimadaEntregaHasta = hasta.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? string.Empty : hasta.Fecha.Value.ToString("HH:mm tt");
             }
 
             foreach (var item in listaSeguimientoSecundario)
@@ -249,7 +249,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         break;
                 }
 
-                var flag = (horaEstimadaEntregaDesde != string.Empty && horaEstimadaEntregaHasta != string.Empty);
+                var flag = horaEstimadaEntregaDesde != string.Empty && horaEstimadaEntregaHasta != string.Empty;
 
                 if (item.Etapa == Constantes.SegPedidoSituacion.FechaEstimadaEntrega && flag)
                     item.HoraEstimadaDesdeHasta = ValidarZonaRegion() ? string.Format("{0} - {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta) : "";
@@ -268,7 +268,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     int.TryParse(userData.PaisID.ToString(), out paisid);
                     int.TryParse(userData.ZonaID.ToString(), out zonaid);
                     int.TryParse(userData.RegionID.ToString(), out regionid);
-                    var resultado = sv.GetTablaLogicaDatos(paisid, Constantes.TablaLogica.SegPedidoRegionZona).FirstOrDefault();
+                    var resultado = sv.GetTablaLogicaDatos(paisid, ConsTablaLogica.SegPedidoRegionZona.TablaLogicaId).FirstOrDefault();
                     if (resultado == null) return true; // si no hay registros mostrar para todos
                     if (resultado.Valor.IsNullOrEmptyTrim()) return false;
                     string[] arrZonaRegion = resultado.Valor.Split(';');

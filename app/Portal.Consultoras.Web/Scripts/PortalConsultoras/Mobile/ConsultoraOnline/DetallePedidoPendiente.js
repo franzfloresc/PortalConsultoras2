@@ -282,8 +282,19 @@ function ProcesarAceptarPedido(pedido) {
                         AbrirMensaje(response.message);
                     }
                     else if (response.code == 2) {
-                        $('#MensajePedidoReservado').text(response.message);
-                        $('#AlertaPedidoReservado').show();
+
+                        //INI HD-3693
+                        //$('#MensajePedidoReservado').text(response.message);
+                        //$('#AlertaPedidoReservado').show();
+                        var msjBloq  = validarpopupBloqueada(response.message);
+                        if (msjBloq != "") {
+                            alert_msg_bloqueadas(msjBloq);
+                        }
+                        else{
+
+                            $('#MensajePedidoReservado').text(response.message);
+                            $('#AlertaPedidoReservado').show();
+                        }
                     }
                 }
             }
@@ -413,3 +424,214 @@ function VasARechazarelPedido(etiqueta) {
 function PedidoAceptado() {
 
 }
+
+function MostrarMensajedeRechazoPedido(cuv) {
+    var mensaje = '#' + cuv;
+    $(mensaje).show();
+    //document.location.href = urlPedido;
+}
+
+function OcultarMensajedeRechazoPedido(cuv) {
+    var mensaje = '#' + cuv;
+    $(mensaje).hide();
+    //document.location.href = urlPedido;
+}
+
+function AceptarPedidoProducto(id) {
+    var texto = '#texto_' + id;
+    var aceptado = '#aceptar_' + id;
+    if ($(aceptado).hasClass("active")) {
+        $(texto).removeClass('text-white');
+        $(texto).addClass('text-black');
+        $(aceptado).removeClass('active');
+        $(aceptado).text('Aceptado');
+    }
+    else {
+        $(texto).removeClass('text-black');
+        $(texto).addClass('text-white');
+        $(aceptado).addClass('active');
+        $(aceptado).text('Aceptar');
+        //document.location.href = urlPedido;
+    }
+
+}
+
+function RechazarSolicitudCliente(pedidoId) {
+    var obj = {
+        pedidoId: pedidoId,
+    };
+
+    ShowLoading();
+    $.ajax({
+        type: "POST",
+        url: "/ConsultoraOnline/RechazarSolicitudCliente",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(obj),
+        success: function (response) {
+            CloseLoading();
+
+            if (response.success) {
+                document.location.href = '/Mobile/ConsultoraOnline/Pendientes';
+            }
+            else {
+                alert(response.message);
+            }
+        },
+        error: function (err) {
+            CloseLoading();
+            console.log(err);
+        }
+    });
+}
+
+function RechazarSolicitudClientePorCuv(cuv) {
+    var obj = {
+        cuv: cuv,
+    };
+
+    ShowLoading();
+    $.ajax({
+        type: "POST",
+        url: "/ConsultoraOnline/RechazarSolicitudClientePorCuv",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(obj),
+        success: function (response) {
+            CloseLoading();
+            if (response.success) {
+                document.location.href = '/Mobile/ConsultoraOnline/Pendientes';
+            }
+            else {
+                alert(response.message);
+            }
+        },
+        error: function (err) {
+            CloseLoading();
+            console.log(err);
+        }
+    });
+
+}
+
+function ContinuarPedido() {
+    var lstDetalle = [];
+    ShowLoading();
+
+    $('.pedidos').each(function () {
+
+        if ($(this).find('a[id*="aceptar_"]').hasClass('active') == false) {
+            //$(aceptado).addClass('active');
+            var pedidoId = $(this).find(".pedidoId").val();
+            var cuv = $(this).find(".cuv").val();
+            //var cantidad = $(this).find(".cantidad").val();
+            var cantNew = $(this).find('[data-cantNew]').val();
+
+            var detalle = {
+                PedidoId: pedidoId,
+                CUV: cuv,
+                Cantidad: cantNew
+            }
+            lstDetalle.push(detalle);
+        }
+    });
+
+    var obj = {
+        lstDetalle: lstDetalle,
+        tipoVista: gTipoVista
+    };
+
+    if (lstDetalle.length > 0) {
+        $.ajax({
+            type: "POST",
+            url: "/ConsultoraOnline/ContinuarPedidos",
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            //data: JSON.stringify(lstDetalle),
+            data: JSON.stringify(obj),
+            success: function (response) {
+                CloseLoading();
+                if (response.success) {
+                    document.location.href = '/Mobile/ConsultoraOnline/PendientesMedioDeCompra';
+                }
+                else {
+                    alert(response.message);
+                }
+            },
+            error: function (err) {
+                CloseLoading();
+                console.log(err);
+            }
+        });
+    }
+    else {
+        CloseLoading();
+        $('#mensajepedido').show();
+        setTimeout(function () { $('#mensajepedido').hide(); }, 2000);
+    }
+}
+
+function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
+    var obj = {
+        pedidoId: pedidoId,
+        cuv: cuv
+    };
+
+    var pedidos = [];
+    var cuvs = [];
+
+    ShowLoading();
+    $.ajax({
+        type: "POST",
+        url: "/ConsultoraOnline/EliminarSolicitudDetalle",
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(obj),
+        success: function (response) {
+            CloseLoading();
+            if (response.success) {
+
+                var Pendientes = JSON.parse(response.Pendientes) || [];
+                $.each(Pendientes.ListaPedidos, function (index, value) {
+                    pedidos.push(value.PedidoId.toString());
+                    $.each(value.DetallePedido, function (index, value) {
+                        cuvs.push(value.CUV.toString());
+                    });
+                });
+                // ocultar div
+                var id = "";
+                if (origen == 'C') {
+                    id = '#vc_pedido_' + cuv;
+                    $(id).hide();
+                    if ($("#contentmobile").find('.pedidos').length == 1) {
+                        window.location.href = "/Mobile/ConsultoraOnline/Pendientes";
+                    }
+                } else if (origen == 'P') {
+                    id = '#vp_pedido_' + pedidoId;
+                    $(id).hide();
+                    if ($("#contentmobile").find('.pedidos').length == 1) {
+                        window.location.href = "/Mobile/ConsultoraOnline/Pendientes";
+                    }
+                }
+            }
+            else {
+                alert(response.message);
+            }
+        },
+        error: function (err) {
+            CloseLoading();
+            console.log(err);
+        }
+    });
+
+}
+
+$("body").on('change', ".ValidaValor", function (e) {
+    var $input = $(this);
+    var previousVal = $input.val();
+
+    if (previousVal == 0) {
+
+        $input.val(1);
+    }
+});

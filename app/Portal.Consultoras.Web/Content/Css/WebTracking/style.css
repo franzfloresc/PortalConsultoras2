@@ -244,6 +244,10 @@ div.accountInfo {
 
 /*-------Custom Style------------*/
 
+.pr-0{
+    padding-right:0;
+}
+
 .row {
     display: table-row;
     height: 8px;
@@ -673,6 +677,10 @@ div.accountInfo {
     padding-top: 25px;
 }
 
+.width_37{
+    width:37%;
+}
+
 .width_43{
     width:43%;
 }
@@ -683,4 +691,16 @@ div.accountInfo {
 
 .width_100 {
     width: 100%;
+}
+
+.grilla_lista_mis_pedidos fieldset{
+    padding-right: 36px;
+}
+
+.grilla_seguimiento_pedido fieldset{
+    padding-right:0;
+}
+
+.tabla2 tr td:nth-child(5){
+    white-space:nowrap;
 }

@@ -1037,7 +1037,8 @@ function getUrlImagenPortadaRevistaPromise(codigoCampania) {
     var defered = jQuery.Deferred();
 
     var data = JSON.stringify({
-        codigoRevista: RevistaCodigoIssuu[codigoCampania]
+        //codigoRevista: RevistaCodigoIssuu[codigoCampania],
+        codigoCampania: codigoCampania
     });
     jQuery.ajax({
         type: 'POST',
