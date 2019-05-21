@@ -1554,6 +1554,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
             }
             //Tentativa de poner aqui el nuevo mensaje para TESLA-07
             var strMsgListo = '¡Listo! Tu pedido ha sido modificado';
+            
             if (esMobile) {
                 messageInfo(strMsgListo);
             }
