@@ -85,7 +85,7 @@
                                         {{#iff TipoAccionAgregar 'ContainsArray' '[@Constantes.TipoAccionAgregar.LoQuieres,@Constantes.TipoAccionAgregar.LoQuieresInactivo]' }}
                                             onclick="javascript:VerPopupExpGanaMas();"
                                         {{else}}
-                                            onclick="javascript:OnClickFichaDetalle(event.target);"
+                                            onclick="javascript:FichaVerDetalle.OnClickFichaDetalle(event.target);"
                                         {{/iff}}
                                     {{/iff}}>
                                     <div class="producto_img_home" data-item-tag="foto">
@@ -230,7 +230,7 @@
                                             {{/iff}}
                                             {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
                                                 {{#if TieneStock}}
-                                                    <div {{#iff ClaseBloqueada '==' ''}} onclick="javascript:OnClickFichaDetalle(event.target);" {{/iff}}>
+                                                    <div {{#iff ClaseBloqueada '==' ''}} onclick="javascript:FichaVerDetalle.OnClickFichaDetalle(event.target);" {{/iff}}>
                                                         <div class="texto_elige_tono"></div>
                                                         <div class="clear"></div>
                                                         <a class="btn_elige_tono js-no-popup {{ClaseBloqueada}}" data-item-tag="eligetuopcion">

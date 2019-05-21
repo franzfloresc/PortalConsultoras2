@@ -497,8 +497,6 @@ var PedidoRegistroModule = function () {
             cache: false
         });
 
-        debugger;
-
         jQuery.ajax({
             type: 'POST',
             url: baseUrl + _url.urlAgregarUnico,
@@ -1511,8 +1509,6 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
         CUV: CUV,
         EsCuponNuevas: esCuponNuevas
     };
-
-    debugger;
 
     jQuery.ajax({
         type: "POST",
