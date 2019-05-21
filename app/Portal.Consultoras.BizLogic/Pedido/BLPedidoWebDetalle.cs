@@ -1,3 +1,4 @@
+using Portal.Consultoras.BizLogic.CaminoBrillante;
 using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
@@ -436,7 +437,13 @@ namespace Portal.Consultoras.BizLogic
         {
             return GetPedidoWebDetalleByCampania(detParametros, true, false);
         }
+
         public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros detParametros, bool consultoraOnLine, bool updLabelNuevas)
+        {
+            return GetPedidoWebDetalleByCampania(detParametros, consultoraOnLine, updLabelNuevas, false);
+        }
+
+        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros detParametros, bool consultoraOnLine, bool updLabelNuevas, bool updLabelCaminoBrillante)
         {
             var listpedidoDetalle = new List<BEPedidoWebDetalle>();
             var daPedidoWebDetalle = new DAPedidoWebDetalle(detParametros.PaisId);
@@ -482,6 +489,19 @@ namespace Portal.Consultoras.BizLogic
                         if (itemConsultoraOnline != null) item.FlagConsultoraOnline = true;
                     }
                 }
+            }
+            #endregion
+
+            #region Camino Brillante
+            if (updLabelCaminoBrillante) {
+                var origenPedidoWeb = new int[] {
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido,
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido,
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido };
+                var blCaminoBrillante = new BLCaminoBrillante();
+                listpedidoDetalle.Where(e => origenPedidoWeb.Contains(e.OrigenPedidoWeb)).ToList().ForEach(e => {                    
+                    blCaminoBrillante.UpdFlagsKitsOrDemostradores(e, detParametros.PaisId, detParametros.CampaniaId, detParametros.NivelCaminoBrillante);
+                });
             }
             #endregion
 

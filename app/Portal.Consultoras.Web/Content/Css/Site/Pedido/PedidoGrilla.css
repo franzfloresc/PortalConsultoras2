@@ -300,13 +300,22 @@ div.texto_encabezado_pedidos.cabecera_unidades, div.celda_cantidad_pedidos {
         }
 
 
-.texto_cantidad_pedidos{
+.texto_cantidad_pedidos {
     font-size: 14px !important;
+    width: 41px;
+    text-align: center;
 }
 
-.texto_pedidos.texto_cantidad_regalo{
-    padding-left:15px;
+.texto_pedidos_cliente {
+    width: 90%;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+    font-size: 12px !important;
 }
+
+/*.texto_pedidos.texto_cantidad_regalo{
+    padding-left:15px;
+}*/
 
 .grilla_pedidos div.fila_mensajeProductoAgotado div {
     padding-top: 0;
@@ -1576,4 +1585,21 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     background-image: url('/Content/Images/Esika/icons-trash.svg');
     background-repeat: no-repeat;
     background-position: center center ;    
+}
+
+.btn--pedidos{
+    font-size: 14px; font-weight: 700; 
+    letter-spacing: 1px; color: #fff; 
+    border-radius: 4px; 
+    background-color: #000; 
+    padding: 10px 14px; 
+    margin-top: -4px;
+    cursor: pointer;
+
+}
+.title--middle{
+    font-size: 25px; 
+    color: #000; 
+    font-weight: 700; 
+    letter-spacing: 1.5px; 
 }

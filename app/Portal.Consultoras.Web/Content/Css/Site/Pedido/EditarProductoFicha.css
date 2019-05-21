@@ -1,5 +1,5 @@
 ﻿.Modal_Editar_Producto {
-    display: block;
+    display: none;
     position: fixed;
     left: 0px;
     top: 0px;
@@ -13,8 +13,8 @@
 .boton_volver_ficha {
     font-weight: normal;
     text-transform: uppercase;
-    font-size: 13px;
-    margin-top: 25px;
+    font-size: 16px;
+    padding: 20px 0;
 }
     .boton_volver_ficha img {
         height: 9px;
@@ -22,8 +22,9 @@
         transform: rotate(180deg);
     }
 
-
-
+.contenedor_detalle {
+    display: block !important;
+}
 
 /*INIT Estilo Panel*/
 .sidenav {

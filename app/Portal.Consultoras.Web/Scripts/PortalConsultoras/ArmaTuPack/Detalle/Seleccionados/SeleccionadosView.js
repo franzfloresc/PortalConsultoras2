@@ -15,7 +15,7 @@
             claseBloqueada: "btn_desactivado_general",
             deshabilitado: "disable"
         },
-        tooltip : {
+        tooltip: {
             id: "[data-tooltip-component]",
         }
     };
@@ -44,7 +44,7 @@
             fade: false,
             arrows: true,
             infinite: false,
-            responsive:[
+            responsive: [
                 {
                     breakpoint: 768,
                     settings: {
@@ -73,23 +73,9 @@
             _presenter.deleteComponente(grupoComponente, cuvComponente, indiceComponente);
         });
 
-        $(_elements.seleccionados.id).on("click",_elements.btnAgregar.id, function (e) {
+        $(_elements.seleccionados.id).on("click", _elements.btnAgregar.id, function (e) {
             _presenter.addPack();
         });
-
-        //$(window).scroll(function () {
-            
-        //    var scrollTop = $(this).scrollTop();
-
-        //    if (scrollTop > 230) {
-        //        $(".Select_ArmaTuPack").addClass("Select_fixed");
-        //        $(".Select_ArmaTuPack").fadeIn();
-        //    }
-        //    else {
-        //        $(".Select_ArmaTuPack").removeClass("Select_fixed");
-        //        $(".Select_ArmaTuPack").removeAttr('style');
-        //    }
-        //});
     };
 
     var _hideTooltip = function () {
@@ -97,7 +83,10 @@
     };
 
     var _showTooltip = function () {
-        $(_elements.tooltip.id).show();
+        $(_elements.tooltip.id)
+            .show(0)
+            .delay(3000)
+            .hide(0);
     };
 
     return {

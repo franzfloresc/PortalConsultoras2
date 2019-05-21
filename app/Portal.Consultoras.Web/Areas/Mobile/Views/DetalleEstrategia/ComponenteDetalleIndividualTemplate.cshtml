@@ -1,0 +1,61 @@
+﻿﻿@using Portal.Consultoras.Common
+
+<div id="ContenidoProducto" data-ficha-contenido="componenteDetalleIndividual-template"></div>
+<script id="componenteDetalleIndividual-template" type="text/x-handlebars-template">
+    <div id="ContenidoProducto" class="container">
+        <div class="row tabs">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <ul id="mnuDetalleComponente" class="tabs ficha_tabs">
+                    {{#each this.Secciones as |seccion|}}
+                    {{#iff seccion.Tipo '==' '@Constantes.TipoSeccion.Texto' }}
+                    <li id="div_ficha_tab1">
+                        <a class="tab-link">{{seccion.Titulo}}</a>
+                        <ul class="tabs_container">
+                            {{#each seccion.Detalles as |detalle index|}}
+
+                            <h4>{{detalle.Titulo}}</h4>
+                            <p>{{detalle.Descripcion}}</p>
+
+                            {{/each}}
+                        </ul>
+                    </li>
+                    {{else}}
+                    <li id="div_ficha_tab1">
+                        <a class="active">{{seccion.Titulo}}</a>
+                        <ul class="tabs_container" style="display:block;">
+                            <div>
+                                <div id="carouselIndividualVideo">
+                                    {{#each seccion.Detalles as |detalle index|}}
+                                    <div style="">
+                                        <div class="video_item">
+                                            <div id="ytFichax"
+                                                 data-youtube-key="{{detalle.Key}}"
+                                                 data-youtube="{
+                                                     height:'173',
+                                                     width:'300',
+                                                     enablejsapi:1,
+                                                     fs:0,
+                                                     showinfo:0,
+                                                     modestbranding:1,
+                                                     loop:1,
+                                                     videoId: '{{detalle.Key}}',
+                                                     playerVars:{autoplay:0,rel:0}}"
+                                                 data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}">
+                                            </div>
+                                            <h3 class="video_title">{{detalle.Titulo}}</h3>
+                                        </div>
+                                    </div>
+
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </ul>
+                    </li>
+                    {{/iff}}
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    </div>
+</script>
+
