@@ -252,9 +252,6 @@ function MostrarBarra(datax, destino) {
             + '</div>'
             + '</div>';
 
-
-
-
     // quitando esta clase contenedor_tippingPoint se quita el tooltip y el efecto que salta
     var htmlTippintPoint = "";
     var dataTP = dataBarra.TippingPointBarra;
@@ -600,10 +597,6 @@ function MostrarBarra(datax, destino) {
         else {
             wLogro = CalculoLlenadoBarraDestokp();
             wLimite = CalculoLlenadoBarraEspacioLimiteDestokp();
-            if (IsoPais == 'CL' && wLogro !== '0%' && mt > mn && vDiferencia <= 15000) {
-                wLogro = (wLogro.substring(0, wLogro.length - 1) * 1 + 1.6) + '%';
-                wLimite = (wLimite.substring(0, wLimite.length - 1) * 1 + 1.6) + '%';
-            }
         }
     }
 
@@ -1938,7 +1931,7 @@ function CalculoPosicionMinimoMaximo() {
                             PosicionMontoMinimo = montoMinimo * 100 / dataBarra.ListaEscalaDescuento[i].MontoDesde;
 
                             document.getElementById('MontoMinimoBloque').style.right = "";
-                            document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 5) + '%';
+                            document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 15) + '%';
                             document.getElementById('lineaPosicionMontoMinimo').style.display = 'block';
                             document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
 
@@ -1955,7 +1948,7 @@ function CalculoPosicionMinimoMaximo() {
 
                             PosicionMontoMinimo = montoMinimo * 100 / dataBarra.ListaEscalaDescuento[i].MontoDesde;
                             document.getElementById('lineaPosicionMontoMinimo').style.left = (PosicionMontoMinimo) + '%';
-                            document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 5) + '%';
+                            document.getElementById('MontoMinimoBloque').style.left = (PosicionMontoMinimo - 15) + '%';
 
                             document.getElementById('lineaPosicionMontoMaximo').style.display = 'None';
                             document.getElementById('MontoMaximoBloque').innerHTML = "";
@@ -2366,18 +2359,13 @@ function CalculoPosicionMinimoMaximoDestokp() {
                     } else {
                         var montoMaximo2 = dataBarra.ListaEscalaDescuento[i].MontoDesde
                         var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
-                        if (IsoPais == 'CL') {
+                        if (IsoPais == 'CL' && dataBarra.ListaEscalaDescuento.length >= 5) {
+                           
                             avance = (dataBarra.ListaEscalaDescuento[i].MontoDesde - dataBarra.ListaEscalaDescuento[i - 1].MontoDesde)
-
                             if (avance <= 5000) {
                                 if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left =
-                                    (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 + 1.5) + '%';
-                            } else if (avance >= 5001 && avance <= 9999) {
-                                if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left =
-                                    (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 + 0.5) + '%';
-                            } else if (avance >= 10000 && avance <= 15000) {
-                                if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left =
-                                    (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 + 2) + '%';
+                                    (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 + 0.2) + '%';
+                           
                             } else 
                                 if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left = AvancePorcentaje2;
                                 var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 5) + '%'
@@ -2572,7 +2560,6 @@ function ReordenarMontosBarra() {
 
         if ((IsoPais == 'CO' && i == 0) || (IsoPais == 'CO' && document.getElementById('hdEsConsultoraOficina').value == 'False' && i == 1)) continue;
 
-
         var diferencia1 = (barra[i].MontoDesde - barra[i - 1].MontoDesde);
         if (i >= 2) {
             diferencia2 = (barra[i - 1].MontoDesde - barra[i - 2].MontoDesde);
@@ -2607,16 +2594,17 @@ function ReordenarMontosBarra() {
                     document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.nextSibling.style.fontSize = '10px';
 
                 }
-                else if (IsoPais == 'CR') {
+                else if (IsoPais == 'CR' ) {
 
                     document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.style.fontSize = '9px';
                     document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.nextSibling.style.fontSize = '9px';
                 }
-                else if (IsoPais == 'CL') {
+                else if (IsoPais == 'CL' || IsoPais == 'BO') {
 
                     document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.style.fontSize = '9px';
                     document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.nextSibling.style.fontSize = '9px';
                 }
+               
                 else {
 
                     document.getElementById('punto_' + x.toString()).firstChild.firstChild.firstChild.style.fontSize = '10px';
@@ -2641,8 +2629,8 @@ function ReordenarMontosBarra() {
             else if (IsoPais != 'CO' && IsoPais != 'CR') {
                 if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%'
                 if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 - 2) + '%'
-                //if (document.getElementById('punto_' + (i + 1).toString()) != null) document.getElementById('punto_' + (i + 1).toString()).style.left = (document.getElementById('punto_' + (i + 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i + 1).toString()).style.left.length - 1) * 1 + 1) + '%'
-                //if (document.getElementById('punto_' + (i + 2).toString()) != null) document.getElementById('punto_' + (i + 2).toString()).style.left = (document.getElementById('punto_' + (i + 2).toString()).style.left.substring(0, document.getElementById('punto_' + (i + 2).toString()).style.left.length - 1) * 1 + 1) + '%'
+                if (document.getElementById('punto_' + (i + 2).toString()) != null) document.getElementById('punto_' + (i + 2).toString()).style.left = (document.getElementById('punto_' + (i + 2).toString()).style.left.substring(0, document.getElementById('punto_' + (i + 2).toString()).style.left.length - 1) * 1 - 1.5) + '%'
+                if (document.getElementById('punto_' + (i + 1).toString()) != null) document.getElementById('punto_' + (i + 1).toString()).style.left = (document.getElementById('punto_' + (i + 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i + 1).toString()).style.left.length - 1) * 1 - 1) + '%'
             }
 
             for (var x = 0; x < barra.length; x++) {
@@ -2666,11 +2654,10 @@ function ReordenarMontosBarra() {
             }
 
         } else {
-              if (IsoPais == 'BO') {
-                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('punto_' + i.toString()).style.left.substring(0, document.getElementById('punto_' + i.toString()).style.left.length - 1) * 1 + 2) + '%'
-                if (document.getElementById('punto_' + (i - 1).toString()) != null) document.getElementById('punto_' + (i - 1).toString()).style.left = (document.getElementById('punto_' + (i - 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i - 1).toString()).style.left.length - 1) * 1 - 2.5) + '%'
-                if (document.getElementById('punto_' + (i + 1).toString()) != null) document.getElementById('punto_' + (i + 1).toString()).style.left = (document.getElementById('punto_' + (i + 1).toString()).style.left.substring(0, document.getElementById('punto_' + (i + 1).toString()).style.left.length - 1) * 1 + 1.5) + '%'
-                if (document.getElementById('punto_' + (i + 2).toString()) != null) document.getElementById('punto_' + (i + 2).toString()).style.left = (document.getElementById('punto_' + (i + 2).toString()).style.left.substring(0, document.getElementById('punto_' + (i + 2).toString()).style.left.length - 1) * 1 - 3.5) + '%'
+            
+            if (IsoPais == 'BO' && barra.length >= 5) {
+                if (document.getElementById('punto_0') != null) document.getElementById('punto_0').style.left = (document.getElementById('barra_0').style.left.substring(0, document.getElementById('barra_0').style.left.length - 1) * 1 - 9) + '%'
+                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('barra_' + i.toString()).style.left.substring(0, document.getElementById('barra_' + i.toString()).style.left.length - 1) * 1 - 5) + '%'
               }
 
         }
