@@ -2684,6 +2684,7 @@ namespace Portal.Consultoras.Common
                 public const string ERORR_RESERVA_NO_DISP = "2016";
                 public const string ERROR_RESERVA_DEUDA = "2017";
                 public const string ERROR_RESERVA_BACK_ORDER = "2018";
+                public const string ERROR_RESERVA_ULTIMO_DIA_FACTURACION = "2019";
 
                 public const string ERROR_GUARDAR_NINGUNO = "2020";
                 public const string SUCCESS_GUARDAR = "2021";
@@ -2750,6 +2751,7 @@ namespace Portal.Consultoras.Common
                             {Code.ERROR_RESERVA_DEUDA, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido no reservado, deuda pendiente." } },
                             {Code.ERROR_RESERVA_BACK_ORDER, new PedidoValidacionConfiguracion(){ Mensaje ="No contamos con stock de este producto. ¿Deseas que te lo entreguemos en la siguiente campaña? (aplica beneficio solo si facturas en ésta campaña)"} },
                             {Code.ERROR_GUARDAR_NINGUNO, new PedidoValidacionConfiguracion(){ Mensaje ="El pedido no se guardó." } },
+                            {Code.ERROR_RESERVA_ULTIMO_DIA_FACTURACION, new PedidoValidacionConfiguracion(){ Mensaje ="No se puede completar la operación debido a que se encuentra en el último día de facturación." } },
                             {Code.SUCCESS_GUARDAR, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido guardado." } },
                             {Code.SUCCESS_GUARDAR_OBS, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido guardado, productos con observaciones." } },
                             {Code.ERROR_GUARDAR_OBS, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido no guardado, productos con observaciones." } },

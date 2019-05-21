@@ -279,6 +279,8 @@ namespace Portal.Consultoras.Web.Controllers
                     return result.Item2;
                 }
 
+                pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
+
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
                 
                 //INI HD-3693
@@ -427,6 +429,7 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoDetalle.IPUsuario = GetIPCliente();
             pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
 
+            pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
             var pedidoDetalleResult = _pedidoWebProvider.UpdatePedidoDetalle(pedidoDetalle);
 
             if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
@@ -515,6 +518,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return new Tuple<bool, JsonResult>(false, ErrorJson(Constantes.MensajesError.DeletePedido_CuvNoExiste));
             }
 
+            pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
             var result = await _pedidoWebProvider.EliminarPedidoDetalle(pedidoDetalle);
 
             pedidoEliminado.DescripcionOferta = !string.IsNullOrEmpty(pedidoEliminado.DescripcionOferta)
