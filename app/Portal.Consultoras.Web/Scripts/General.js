@@ -768,10 +768,6 @@ function CerrarLoad(opcion) {
     }
 }
 
-function AbrirMensaje25seg(mensaje, imagen) {
-        alert(imagen + ' - ' + mensaje);
- }
-
 function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
     try {
         mensaje = $.trim(mensaje);
@@ -839,7 +835,8 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
 
 function AbrirMensaje25seg(mensaje, imagen) {
     try {
-        var _dialogClass = '.setBottom'
+        var _dialogClass = '.setBottom',
+            _overlay = '.ui-widget-overlay'
 
         mensaje = $.trim(mensaje);
         if (mensaje == "") {
@@ -874,7 +871,9 @@ function AbrirMensaje25seg(mensaje, imagen) {
         else {
             
             $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
-            showDialogSinScroll("alertDialogMensajes25seg");            
+            showDialogSinScroll("alertDialogMensajes25seg");   
+            $(_overlay).css('background', 'black')
+            $(_overlay).css('opacity', '0.85')
         }
         CerrarLoad();
         //Ocultar el scroll 
@@ -883,7 +882,7 @@ function AbrirMensaje25seg(mensaje, imagen) {
         setTimeout(function () {
             $(_dialogClass).fadeOut(500, function () {
                 $('#alertDialogMensajes25seg').dialog("close");
-                $("body").css("overflow", "hidden");
+                $("body").css("overflow", "auto")
             })
         }, 2500)    
 
@@ -918,6 +917,9 @@ function AbrirMensaje25seg(mensaje, imagen) {
                 }, 2500)                
             }, 100);
         }*/
+        var parameter = [["mensaje", mensaje], ["imagen", imagen]];
+        console.table(parameter);
+
     } catch (e) {
 
     }
@@ -1151,7 +1153,6 @@ function paginadorAccionGenerico(obj) {
 }
 
 function ActualizarGanancia(data) {
-    debugger;
     data = data || {};
     data.CantidadProductos = data.CantidadProductos || "";
     data.TotalPedidoStr = data.TotalPedidoStr || "";
