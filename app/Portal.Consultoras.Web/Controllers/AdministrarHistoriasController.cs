@@ -545,12 +545,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string CodigosTablaLogica(string codigo)
         {
-            string Description = String.Empty;
             var LogicaDatosHistoria = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.DatosContenedorHistorias.HistoriasLogicaId);
-            LogicaDatosHistoria = LogicaDatosHistoria.Where(x => x.Codigo == codigo).ToList();
-            Description = LogicaDatosHistoria[0].Descripcion;
-
-            return Description;
+            var listFind = LogicaDatosHistoria.FirstOrDefault(x => x.Codigo == codigo);
+            if (listFind != null)
+                return listFind.Descripcion;
+            else
+                return string.Empty;
         }
     }
 }
