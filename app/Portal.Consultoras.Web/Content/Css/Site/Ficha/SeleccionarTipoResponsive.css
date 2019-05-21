@@ -351,7 +351,7 @@
         border: none;
     }
 
-@media (max-width: 768px) {
+@media (max-width: 960px) {
     .content_tono_detalle {
         width: 16.8%;
     }
