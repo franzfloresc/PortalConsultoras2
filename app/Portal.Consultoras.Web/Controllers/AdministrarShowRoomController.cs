@@ -235,7 +235,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = idEventoNuevo > 0,
-                        message = idEventoNuevo > 0 ? "ShowRoom Agregado correctamente" : "howRoom Agregado incorrectamente",
+                        message = idEventoNuevo > 0 ? "ShowRoom Agregado correctamente" : "ShowRoom Agregado incorrectamente",
                         data = idEventoNuevo
                     });
                 }
