@@ -190,7 +190,7 @@ var ConstantesModule = (function () {
     };
 
     var _mensajeAgregarPedido = {
-        normal: '¡Listo! Agregaste esta(s) oferta(s) a tu pedido',
+        normal: '¡Listo! Agregaste con éxito a tu pedido.',
         reservado: '¡Listo! Agregaste con éxito a tu pedido reservado.'
     }
 
