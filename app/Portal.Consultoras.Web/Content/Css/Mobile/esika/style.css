@@ -3597,8 +3597,8 @@ table > thead > tr > th {
     max-width:60px;
 }
 
-.logo_marca_pais_wrapper{
-    padding-left:10px!important;
+.logo_marca_pais_wrapper {
+    padding-left: 2px!important;
 }
 
 .logo_mobile {
@@ -3609,6 +3609,14 @@ table > thead > tr > th {
     margin-top: 9px;
     background-size: 92%;
 }
+
+    .logo_esika--nuevoLogo{
+        background-image: url(/Content/Images/Esika/nuevo-logo-esika.svg);
+        background-repeat: no-repeat;
+        margin-top: 4px;
+        background-size: 100%;
+        width: 77px;
+    }
 
 .campana_mobile {
     float: right;
