@@ -2462,5 +2462,10 @@ namespace Portal.Consultoras.Service
         }
 
         #endregion
+        
+        public void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle)
+        {
+            _pedidoWebBusinessLogic.UpdDatoRecogerPor(pedidowebdetalle);
+        }
     }
 }

@@ -105,7 +105,7 @@ var CarruselAyuda = function () {
                     var recomendado = arrayItems[i];
                     if (recomendado != undefined) {
                         recomendado.Posicion = i;
-                        if (origen.Palanca == ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion) {
+                        if (origen.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Liquidacion) {
                             recomendado.CUV2 = recomendado.CUV;
                             recomendado.PrecioVenta = recomendado.PrecioString;
                         }
@@ -156,7 +156,7 @@ var CarruselAyuda = function () {
             var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
 
             if (estrategia === "") {
-                if (origen.Palanca == ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion) {
+                if (origen.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Liquidacion) {
                     estrategia = _obtenerEstrategiaLiquidacion(objMostrar);
                 }
             }
@@ -185,8 +185,8 @@ var CarruselAyuda = function () {
 
         try {
             var origen = {
-                Pagina: ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor,
-                Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel,
+                Pagina: CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Contenedor,
+                Seccion: CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel,
                 CodigoPalanca: seccionName
             };
 
@@ -209,9 +209,9 @@ var CarruselAyuda = function () {
         try {
 
             var origen = {
-                Pagina: ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home,
-                Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion,
-                Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
+                Pagina: CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Home,
+                Palanca: CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Liquidacion,
+                Seccion: CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel
             };
 
             if (tipo == 1) {
@@ -298,10 +298,10 @@ var CarruselAyuda = function () {
     var marcaAnalycticCarruselProgramasNuevas = function (e, url) {
         try {
             var category = (isHome()) ? "Home - Dúo Perfecto" : "Pedido - Dúo Perfecto";
-            var pagina = isHome() ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home : ConstantesModule.OrigenPedidoWebEstructura.Pagina.Pedido;
-            var OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
-                + pagina + ConstantesModule.OrigenPedidoWebEstructura.Palanca.DuoPerfecto
-                + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+            var pagina = isHome() ? CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Home : CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Pedido;
+            var OrigenPedidoWeb = CodigoOrigenPedidoWeb.CodigoEstructura.Dispositivo.Desktop
+                + pagina + CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.DuoPerfecto
+                + CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel;
             AnalyticsPortalModule.MarcaPromotionClicBanner(OrigenPedidoWeb, "", url);
 
             dataLayer.push({
@@ -476,7 +476,7 @@ var CarruselModule = (function (config) {
         }
 
         var origen = {
-            Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas,
+            Seccion: CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselVerMas,
             OrigenPedidoWeb: _config.OrigenPedidoWeb.toString()
         };
         if (tipo == 1) {
@@ -877,10 +877,10 @@ function MarcarAnalyticsInicioHomePedido(arrayItems) {
 
     var origen = {
         Pagina: isHome()
-            ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
-            : ConstantesModule.OrigenPedidoWebEstructura.Pagina.Pedido,
-        Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertasParaTi,
-        Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
+            ? CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Home
+            : CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Pedido,
+        Palanca: CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.OfertasParaTi,
+        Seccion: CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel
     };
 
     CarruselAyuda.MarcarAnalyticsInicio("#divListadoEstrategia", arrayItems, origen);
@@ -890,10 +890,10 @@ function MarcarAnalyticsChangeHomePedido(event, slick, currentSlide, nextSlide) 
 
     var origen = {
         Pagina: isHome()
-            ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
-            : ConstantesModule.OrigenPedidoWebEstructura.Pagina.Pedido,
-        Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertasParaTi,
-        Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
+            ? CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Home
+            : CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Pedido,
+        Palanca: CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.OfertasParaTi,
+        Seccion: CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel
     };
 
     CarruselAyuda.MarcarAnalyticsChange(slick, currentSlide, nextSlide, origen);// Home Pedido
