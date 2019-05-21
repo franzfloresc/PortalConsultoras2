@@ -16,6 +16,8 @@ var PedidoRegistroModule = function () {
         urlAgregarCuvBanner: "PedidoRegistro/InsertarPedidoCuvBanner",
     }
 
+    var _mensajeAgregarPedido = ConstantesModule.MensajeAgregarPedido;
+
     var _mensajeCantidad = function (cantidad, inputCantidad) {
         cantidad = cantidad || "";
 
@@ -372,7 +374,14 @@ var PedidoRegistroModule = function () {
 
                 CerrarLoad();
 
-                AbrirMensaje25seg('¡Listo! Agregaste esta(s) oferta(s) a tu pedido', imagenProducto);
+                var mensaje = '';
+                if (data.EsReservado === true) {
+                    mensaje = _mensajeAgregarPedido.reservado;
+                } else {
+                    mensaje = _mensajeAgregarPedido.normal;
+                }
+
+                AbrirMensaje25seg(mensaje, imagenProducto);
 
                 modelLiquidacionOfertas = undefined;
                 labelAgregadoLiquidacion = undefined;
@@ -530,7 +539,14 @@ var PedidoRegistroModule = function () {
                 HidePopupTonosTallas();
                 ProcesarActualizacionMostrarContenedorCupon();
 
-                AbrirMensaje25seg('¡Listo! Agregaste esta(s) oferta(s) a tu pedido', imagenProducto);
+                var mensaje = '';
+                if (data.EsReservado === true) {
+                    mensaje = _mensajeAgregarPedido.reservado;
+                } else {
+                    mensaje = _mensajeAgregarPedido.normal;
+                }
+
+                AbrirMensaje25seg(mensaje, imagenProducto);
 
             },
             error: function (data, error) {
@@ -1554,6 +1570,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
             }
             //Tentativa de poner aqui el nuevo mensaje para TESLA-07
             var strMsgListo = '¡Listo! Tu pedido ha sido modificado';
+            
             if (esMobile) {
                 messageInfo(strMsgListo);
             }
