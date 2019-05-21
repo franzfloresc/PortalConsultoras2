@@ -12,6 +12,17 @@ namespace Portal.Consultoras.Web.Providers
     {
         protected ISessionManager sessionManager;
 
+        //public virtual ISessionManager VSessionManager
+        //{
+        //    get { return sessionManager; }
+        //    private set { sessionManager = value; }
+        //}
+
+        public virtual void setSessionManager(ISessionManager sessionManager)
+        {
+            this.sessionManager = sessionManager;
+        }
+
         public TablaLogicaProvider()
         {
             sessionManager = SessionManager.SessionManager.Instance;
@@ -43,7 +54,7 @@ namespace Portal.Consultoras.Web.Providers
             return "";
         }
 
-        public List<TablaLogicaDatosModel> GetTablaLogicaDatos(int paisId, short tablaLogicaId, bool saveInSession = false)
+        public virtual List<TablaLogicaDatosModel> GetTablaLogicaDatos(int paisId, short tablaLogicaId, bool saveInSession = false)
         {
             var datos = saveInSession ? sessionManager.GetTablaLogicaDatosLista(Constantes.ConstSession.TablaLogicaDatos + tablaLogicaId) : null;
             if (datos == null)

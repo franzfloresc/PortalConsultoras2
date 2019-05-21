@@ -762,7 +762,7 @@ var FichaModule = (function (config) {
         if (!modeloFicha.TieneCarrusel) {
             return false;
         }
-
+        
         carruselModule = CarruselModule({
             palanca: _config.palanca,
             campania: _config.campania,
@@ -773,7 +773,10 @@ var FichaModule = (function (config) {
             divCarruselProducto: "#divFichaCarruselProducto",
             OrigenPedidoWeb: _config.origen,
             tituloCarrusel: modeloFicha.DescripcionCompleta,
-            cantidadPack: modeloFicha.Hermanos.length
+            cantidadPack: modeloFicha.Hermanos.length,
+            codigoProducto: modeloFicha.CodigoProducto,
+            precioProducto: modeloFicha.Precio2,
+            productosHermanos: modeloFicha.Hermanos
         });
 
         carruselModule.Inicializar();
