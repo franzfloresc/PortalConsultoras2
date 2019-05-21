@@ -89,30 +89,35 @@ $(document).ready(function () {
             //INI HD-3897
             ValidacionCheck: function () {
 
-                //SMS
-                if ($("#hdn_FlgCheckSMS").val()) {
-                    $("#grupo_form_cambio_datos_sms").addClass("grupo_form_cambio_datos--confirmado");
-                    $("#grupo_form_cambio_datos_sms .mensaje_validacion_campo").hide();
-                    $("#btn_confirmar_dato_sms").hide();
+                if ($("#hdn_EditarDatos").val() == 1) {
+                    //SMS
+                    if ($("#hdn_FlgCheckSMS").val()) {
+                        $("#grupo_form_cambio_datos_sms").addClass("grupo_form_cambio_datos--confirmado");
+                        $("#grupo_form_cambio_datos_sms .mensaje_validacion_campo").hide();
+                        $("#btn_confirmar_dato_sms").hide();
 
+                    } else {
+                        $("#grupo_form_cambio_datos_sms").addClass("grupo_form_cambio_datos--confirmacionPendiente");
+                        $("#grupo_form_cambio_datos_sms .mensaje_validacion_campo").show();
+                        $("#btn_confirmar_dato_sms").show();
+
+                    }
+
+                    //EMAIL
+                    if ($("#hdn_FlgCheckEMAIL").val()) {
+                        $("#grupo_form_cambio_datos_email").addClass("grupo_form_cambio_datos--confirmado");
+                        $("#grupo_form_cambio_datos_email .mensaje_validacion_campo").hide();
+                        $("#btn_confirmar_dato_email").hide();
+
+                    } else {
+                        $("#grupo_form_cambio_datos_email").addClass("grupo_form_cambio_datos--confirmacionPendiente");
+                        $("#grupo_form_cambio_datos_email .mensaje_validacion_campo").show();
+                        $("#btn_confirmar_dato_email").show();
+
+                    }
                 } else {
-                    $("#grupo_form_cambio_datos_sms").addClass("grupo_form_cambio_datos--confirmacionPendiente");
-                    $("#grupo_form_cambio_datos_sms .mensaje_validacion_campo").show();
-                    $("#btn_confirmar_dato_sms").show();
-                    
-                }
-
-                //EMAIL
-                if ($("#hdn_FlgCheckEMAIL").val()) {
-                    $("#grupo_form_cambio_datos_email").addClass("grupo_form_cambio_datos--confirmado");
-                    $("#grupo_form_cambio_datos_email .mensaje_validacion_campo").hide();
-                    $("#btn_confirmar_dato_email").hide();
-
-                } else {
-                    $("#grupo_form_cambio_datos_email").addClass("grupo_form_cambio_datos--confirmacionPendiente");
-                    $("#grupo_form_cambio_datos_email .mensaje_validacion_campo").show();
-                    $("#btn_confirmar_dato_email").show();
-
+                    $("#grupo_form_cambio_datos_email_opcionemail").hide();
+                    $("#grupo_form_cambio_datos_sms_opcionsms").hide();
                 }
             },
             //FIN HD-3897
