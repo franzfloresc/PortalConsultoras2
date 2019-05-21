@@ -1,9 +1,8 @@
-﻿
-if (!jQuery) { throw new Error("AnalyticsPortal.js requires jQuery"); }
+﻿if (!jQuery) { throw new Error("AnalyticsPortal.js requires jQuery"); }
 
-+function ($) {
+function ($) {
     "use strict";
-}(window.jQuery);
+} (window.jQuery);
 
 var AnalyticsPortalModule = (function () {
     var _evento = {

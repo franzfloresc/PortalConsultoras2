@@ -25,7 +25,7 @@ function LoginFB() {
 }
 
 function ValidarUsuarioFBAsociado(responseFB) {
-    var exists = ExistsExternalUser('Facebook', responseFB.authResponse.userID, function (exists) {
+    ExistsExternalUser('Facebook', responseFB.authResponse.userID, function (exists) {
         if (exists == null) MessageInfoError('Ocurrió un problema al intentar validar si tiene una consultora asociada.');
         else if (!exists) MostrarLoginNormal(responseFB);
         else ResponderBotmakerFB(responseFB.authResponse.userID, responseFB.authResponse.accessToken);

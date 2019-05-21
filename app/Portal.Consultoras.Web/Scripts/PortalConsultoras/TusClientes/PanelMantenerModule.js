@@ -1,5 +1,5 @@
 ﻿var PanelMantenerModule = function (config) {
-    "user strict";
+    "use strict";
 
     if (typeof config === "undefined" || config === null) throw "config parameter is null";
 

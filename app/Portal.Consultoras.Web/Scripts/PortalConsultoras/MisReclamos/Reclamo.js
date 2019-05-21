@@ -70,9 +70,8 @@ $(document).ready(function () {
                     alert_msg(msg);
                 } else {
                     paso2Actual = 1;
-                    $.when(CambioPaso()).then(function () {
-                        CargarOperacion();
-                    });
+                    CambioPaso();
+                    CargarOperacion();                    
                 }
             });
         }
@@ -1718,48 +1717,47 @@ function CancelarConfirmEnvioSolicitudCDR() {
 }
 
 function ContinuarConfirmEnvioSolicitudCDR() {
-    $.when(CancelarConfirmEnvioSolicitudCDR()).then(function () {
-        ValidarTelefonoServer($.trim($("#txtTelefono").val()), function (data) {
-            if (!data.success) {
-                ControlSetError('#txtTelefono', '#spnTelefonoError', '*Este número de celular ya está siendo utilizado. Intenta con otro.');
-                $('#IrSolicitudEnviada').removeClass('btn_deshabilitado');
-                return false;
-            } else if ($.trim($("#txtEmail").val()) != $.trim($("#hdEmail").val())) {
-                ValidarCorreoDuplicadoServer($.trim($("#txtEmail").val()), function (data) {
-                    if (!data.success) {
-                        ControlSetError('#txtEmail', '#spnEmailError', data.message);
-                        $('#IrSolicitudEnviada').removeClass('btn_deshabilitado');
-                        return false;
-                    } else {
-                        SolicitudCDREnviar(function (data) {
-                            if (!data.success) {
-                                alert_msg(data.message);
-                                $('#IrSolicitudEnviada').removeClass('btn_deshabilitado');
-                                return false;
-                            } else {
-                                if (data.Cantidad == 1) {
-                                    $('#IrSolicitudEnviada').removeClass('btn_deshabilitado');
-                                    alertEMail_msg(data.message, "MENSAJE");
-                                }
-                            }
-                        });
-                    }
-                });
-            } else {
-                SolicitudCDREnviar(function (data) {
-                    if (!data.success) {
-                        alert_msg(data.message);
-                        $('#IrSolicitudEnviada').removeClass('btn_deshabilitado');
-                        return false;
-                    } else {
-                        if (data.Cantidad == 1) {
+    CancelarConfirmEnvioSolicitudCDR();
+    ValidarTelefonoServer($.trim($("#txtTelefono").val()), function (data) {
+        if (!data.success) {
+            ControlSetError('#txtTelefono', '#spnTelefonoError', '*Este número de celular ya está siendo utilizado. Intenta con otro.');
+            $('#IrSolicitudEnviada').removeClass('btn_deshabilitado');
+            return false;
+        } else if ($.trim($("#txtEmail").val()) != $.trim($("#hdEmail").val())) {
+            ValidarCorreoDuplicadoServer($.trim($("#txtEmail").val()), function (data) {
+                if (!data.success) {
+                    ControlSetError('#txtEmail', '#spnEmailError', data.message);
+                    $('#IrSolicitudEnviada').removeClass('btn_deshabilitado');
+                    return false;
+                } else {
+                    SolicitudCDREnviar(function (data) {
+                        if (!data.success) {
+                            alert_msg(data.message);
                             $('#IrSolicitudEnviada').removeClass('btn_deshabilitado');
-                            alertEMail_msg(data.message, "MENSAJE");
+                            return false;
+                        } else {
+                            if (data.Cantidad == 1) {
+                                $('#IrSolicitudEnviada').removeClass('btn_deshabilitado');
+                                alertEMail_msg(data.message, "MENSAJE");
+                            }
                         }
+                    });
+                }
+            });
+        } else {
+            SolicitudCDREnviar(function (data) {
+                if (!data.success) {
+                    alert_msg(data.message);
+                    $('#IrSolicitudEnviada').removeClass('btn_deshabilitado');
+                    return false;
+                } else {
+                    if (data.Cantidad == 1) {
+                        $('#IrSolicitudEnviada').removeClass('btn_deshabilitado');
+                        alertEMail_msg(data.message, "MENSAJE");
                     }
-                });
-            }
-        });
+                }
+            });
+        }
     });
 }
 

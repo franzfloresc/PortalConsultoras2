@@ -15,24 +15,24 @@
 
     var _setDefaultValues = function () { };
 
-    var _listarCampaniasPromise = function (paisId) {
-        var d = $.Deferred();
+    //var _listarCampaniasPromise = function (paisId) {
+    //    var d = $.Deferred();
 
-        var promise = $.ajax({
-            type: 'GET',
-            url: (setting.BaseUrl + setting.UrlListarCampanias),
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            async: true
-        });
+    //    var promise = $.ajax({
+    //        type: 'GET',
+    //        url: (setting.BaseUrl + setting.UrlListarCampanias),
+    //        dataType: 'json',
+    //        contentType: 'application/json; charset=utf-8',
+    //        async: true
+    //    });
 
-        promise.done(function (response) {
-            d.resolve(response);
-        })
-        promise.fail(d.reject);
+    //    promise.done(function (response) {
+    //        d.resolve(response);
+    //    })
+    //    promise.fail(d.reject);
 
-        return d.promise();
-    }
+    //    return d.promise();
+    //}
 
     var initializer = function (parameters) {
         setting.UrlListarCampanias = parameters.urlListarCampanias;

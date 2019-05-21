@@ -243,9 +243,8 @@ var ListaOpcionesModule = (function () {
 
     var _eliminarOpcionDeComponenteModel = function (cuv, _indice) {
         var hermanoSeleccionadoIndex;
-        var HermanosSeleccionadosClone = jQuery.extend(true, [], _componente.HermanosSeleccionados);
-        HermanosSeleccionadosClone = HermanosSeleccionadosClone.reverse();
-        $.each(HermanosSeleccionadosClone, function (index1, hermano) {
+        var HermanosSeleccionadosClone = jQuery.extend(true, [], _componente.HermanosSeleccionados);        
+        $.each(HermanosSeleccionadosClone.reverse(), function (index1, hermano) {
             cuv = $.trim(cuv);
             if (cuv === hermano.Cuv) {
                 hermanoSeleccionadoIndex = index1;

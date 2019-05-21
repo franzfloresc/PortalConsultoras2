@@ -614,9 +614,6 @@ function mostrarVideoIntroductorio() {
         primeraVezVideo = false;
         return true;
 
-        if (viewBagVioTutorialSalvavidas == '0') {
-            mostrarUbicacionTutorial(false, false);
-        }
     } catch (e) {
 
     }

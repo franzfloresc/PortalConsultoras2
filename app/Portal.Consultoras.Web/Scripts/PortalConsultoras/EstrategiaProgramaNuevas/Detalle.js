@@ -144,7 +144,7 @@ function fnImagenes_Paginador(data) {
 }
 function fnImagenes_FileUpload(data) {
 
-    var uploader = new qq.FileUploader({
+    uploader = new qq.FileUploader({
         allowedExtensions: ['jpg', 'png', 'jpeg'],
         element: document.getElementById("file-uploader"),
         action: baseUrl + 'MatrizComercial/ActualizarMatrizComercial',
