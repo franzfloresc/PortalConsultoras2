@@ -2506,7 +2506,9 @@ function AgregarPremio(premio) {
     var params = {
         CUV: $.trim(premio.CUV2),
         Cantidad: 1,
+        PrecioUnidad: premio.Precio2,
         TipoEstrategiaID: premio.TipoEstrategiaID,
+        MarcaID: premio.MarcaID,
         FlagNueva: $.trim(premio.FlagNueva)
     };
 

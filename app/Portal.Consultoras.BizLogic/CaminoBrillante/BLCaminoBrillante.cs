@@ -780,9 +780,9 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var demostradoresEnPedido = new DACaminoBrillante(entidad.PaisID).GetPedidoWebDetalleCaminoBrillante(entidad.CampaniaID, entidad.CampaniaID, entidad.ConsultoraID).MapToCollection<BEKitsHistoricoConsultora>(closeReaderFinishing: true) ?? new List<BEKitsHistoricoConsultora>();
             var paisISO = Util.GetPaisISO(entidad.PaisID);            
 
-            if (string.IsNullOrEmpty(codOrdenar) || codOrdenar == "00") codOrdenar = Constantes.CaminoBrillante.CodigosOrdenamiento.PorCategoria;
+            if (codOrdenar == Constantes.CaminoBrillante.CodigosOrdenamiento.SinOrden) codOrdenar = Constantes.CaminoBrillante.CodigosOrdenamiento.PorCategoria;
             demostradores = GetOrdenarDemostradores(demostradores, codOrdenar);
-            if (codFiltro != "00") demostradores = GetFiltrarDemostradores(demostradores, codFiltro);
+            if (codFiltro != Constantes.CaminoBrillante.CodigoFiltros.SinFiltro) demostradores = GetFiltrarDemostradores(demostradores, codFiltro);
             objDemostradores.Total = demostradores.Count();
             if (cantRegistros != 0) demostradores = GetDesmostradoresByCantidad(demostradores, regMostrados, cantRegistros);            
 
@@ -1112,6 +1112,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         #endregion
 
         #region Orden y Filtros
+
         public List<BEOrdenFiltrosCaminoBrillante> GetFiltrosCaminoBrillante(int paisId)
         {
             return GetFiltrosCache(paisId);

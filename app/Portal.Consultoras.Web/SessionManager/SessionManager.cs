@@ -808,6 +808,18 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<BEMisPedidosDetalle>)val;
         }
 
+        void ISessionManager.SetobjMisPedidosCliente(List<BEMisPedidos> val)
+        {
+            HttpContext.Current.Session["objMisPedidosCliente"] = val;
+        }
+
+        List<BEMisPedidos> ISessionManager.GetobjMisPedidosCliente()
+        {
+            var val = HttpContext.Current.Session["objMisPedidosCliente"];
+
+            return (List<BEMisPedidos>)val;
+        }
+
         void ISessionManager.SetobjMisPedidosDetalleVal(List<ServiceODS.BEProducto> val)
         {
             HttpContext.Current.Session["objMisPedidosDetalleVal"] = val;
@@ -1412,7 +1424,7 @@ namespace Portal.Consultoras.Web.SessionManager
         }
         public List<BEOrdenFiltrosCaminoBrillante> GetFiltrosCaminoBrillante()
         {
-            return (List<BEOrdenFiltrosCaminoBrillante>)HttpContext.Current.Session[Constantes.ConstSession.DemostradoresCaminoBrillante];
+            return (List<BEOrdenFiltrosCaminoBrillante>)HttpContext.Current.Session[Constantes.ConstSession.FiltrosCaminoBrillante];
         }
         #endregion
     }
