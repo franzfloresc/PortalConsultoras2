@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -189,6 +189,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Mobile\Controllers\IncentivosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BonificacionesController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BuscadorController.cs" />
     <Compile Include="Areas\Mobile\Controllers\DetalleEstrategiaController.cs" />
@@ -321,6 +322,7 @@
     <Compile Include="Models\CaminoBrillante\NivelCaminoBrillanteModel.cs" />
     <Compile Include="Models\ConfiguracionCaminoBrillanteModel.cs" />
     <Compile Include="Models\MiAcademia\ParamUrlMiAcademiaModel.cs" />
+    <Compile Include="Models\PedidosPendientesMedioPagoModel.cs" />
     <Compile Include="Models\PremioNuevaModel.cs" />
     <Compile Include="Models\AdministracionPoput\ComunicadoModel.cs" />
     <Compile Include="Models\AdministracionPoput\SegmentacionComunicado.cs" />
@@ -856,6 +858,7 @@
     <Compile Include="Providers\ConfiguracionPaisDatosProvider.cs" />
     <Compile Include="Providers\ConfiguracionPaisProvider.cs" />
     <Compile Include="Providers\ConsultaProlProvider.cs" />
+    <Compile Include="Providers\ConsultoraOnlineProvider.cs" />
     <Compile Include="Providers\EstadoCuentaProvider.cs" />
     <Compile Include="Providers\EstrategiaComponenteProvider.cs" />
     <Compile Include="Providers\EventoFestivoProvider.cs" />
@@ -1456,6 +1459,7 @@
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
     <Content Include="Content\Css\Mobile\Clientes\Asignarcliente.css" />
     <Content Include="Content\Css\Mobile\Buscador\categorias-productos.css" />
+    <Content Include="Content\Css\Mobile\ConsultoraOnline\Pendientes.css" />
     <Content Include="Content\Css\Mobile\Contenedor\MenuContenedor.css" />
     <Content Include="Content\Css\Mobile\Contenedor\Index.css" />
     <Content Include="Content\Css\Mobile\Contenedor\carrusel.individual.css" />
@@ -1489,6 +1493,8 @@
     <Content Include="Content\Css\Site\bootstrap\bootstrap-chosen.css" />
     <Content Include="Content\Css\Site\bootstrap\bootstrap.css" />
     <Content Include="Content\Css\Site\BusquedaProductos\busqueda-productos.css" />
+    <Content Include="Content\Css\Site\ConsultoraOnline\Pendientes.css" />
+    <Content Include="Content\Css\Site\ConsultoraOnline\Pendientes.rewrite.css" />
     <Content Include="Content\Css\Site\Contenedor\BannerInteractivo.css" />
     <Content Include="Content\Css\Site\BusquedaProductos\filtros-busqueda.css" />
     <Content Include="Content\Css\Site\Contenedor\Index.css" />
@@ -3896,6 +3902,7 @@
     <Content Include="Content\Images\select_input_tab.png" />
     <Content Include="Content\Images\separador.png" />
     <Content Include="Content\Images\sesion_icono.png" />
+    <Content Include="Content\Images\Shared\svg\a-icon-call.svg" />
     <Content Include="Content\Images\showroom\banner_intriga_desktop.png" />
     <Content Include="Content\Images\showroom\banner_showroom.jpg" />
     <Content Include="Content\Images\showroom\BARRA SUPERIOR_COMPRA.png" />
@@ -4248,6 +4255,7 @@
     <Content Include="Scripts\PortalConsultoras\MiPerfil\Base.js" />
     <Content Include="Scripts\PortalConsultoras\MiPerfil\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisCatalogosRevistas\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\ConsultoraOnline\PedidoPendienteMedioCompra.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\GuiaNegocio\GuiaNegocio-Landing.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\PedidoFIC\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\PedidoFIC\Index.js" />
@@ -4311,6 +4319,7 @@
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Suscripcion.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-DataLayer.js" />
+    <Content Include="Scripts\PortalConsultoras\Shared\CodigoOrigenPedidoWeb.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\CodigoUbigeoPortal.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\AnalyticsPortal.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\cierre-session.js" />
@@ -4696,16 +4705,16 @@
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService5.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService51.xsd">
+    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService52.xsd">
+    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService53.xsd">
+    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService54.xsd">
+    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService4.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
@@ -5103,41 +5112,41 @@
     <None Include="Service References\ServiceSeguridad\SeguridadService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService12.wsdl" />
+    <None Include="Service References\ServiceUnete\PortalService.wsdl" />
+    <None Include="Service References\ServiceUnete\PortalService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService11.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceUnete\PortalService8.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceUnete\PortalService822.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService823.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService824.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService825.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService826.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService827.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService828.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService829.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService830.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService831.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServiceUnete\PortalService832.xsd">
+    <None Include="Service References\ServiceUnete\PortalService9.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuarioExt\UsuarioWebService.wsdl" />
@@ -5189,6 +5198,15 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuario\UsuarioService61.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService610.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService611.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService612.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuario\UsuarioService62.xsd">
@@ -5795,6 +5813,7 @@
     <Content Include="Views\Shared\PopupsResponsive\_PopupActualizacionCorreo.cshtml" />
     <Content Include="Views\Bienvenida\ReporteValidacionDatos.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle.cshtml" />
+    <Content Include="Views\Unete\KitInicio.cshtml" />
     <Content Include="Views\AdministrarEstrategia\EstrategiaGrupoDialog.cshtml" />
     <Content Include="Views\CaminoBrillante\Ofertas.cshtml" />
     <Content Include="Views\CaminoBrillante\Logros.cshtml" />
@@ -5810,6 +5829,7 @@
     <Content Include="Views\Bonificaciones\IndexExterno.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupBloqueoPorSistema.cshtml" />
     <Content Include="Views\MisCertificados\CAM_NoAdeudoPdf.cshtml" />
+    <Content Include="Views\Incentivos\IndexExterno.cshtml" />
     <Content Include="Views\Unete\ZonaValidacionTelefonica.cshtml" />
     <Content Include="Views\Unete\_ConsultarEstadoTelefonico.cshtml" />
     <Content Include="Views\AdministrarHistorias\Index.cshtml" />
@@ -5820,6 +5840,7 @@
     <Content Include="Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
     <Content Include="Views\AdministracionMedallaBrillante\Index.cshtml" />
     <Content Include="Views\Shared\_MainLayoutResponsiveCaminoBrillante.cshtml" />
+    <Content Include="Views\ConsultoraOnline\Pendientes.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\imagen-estrategia-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\estrategia-template.cshtml" />

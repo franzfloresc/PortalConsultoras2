@@ -493,11 +493,12 @@ var PedidoRegistroModule = function () {
             OrigenPedidoWeb: DesktopHomeLiquidacion,
             TipoOfertaSisID: ConstantesModule.ConfiguracionOferta.Liquidacion,
         };
+
+        var imagenProducto = $(contenedor).find(".producto_img_home img").attr("src");
+
         $.ajaxSetup({
             cache: false
         });
-
-        debugger;
 
         jQuery.ajax({
             type: 'POST',
@@ -524,8 +525,10 @@ var PedidoRegistroModule = function () {
 
                 CerrarLoad();
                 HidePopupTonosTallas();
-
                 ProcesarActualizacionMostrarContenedorCupon();
+
+                AbrirMensaje25seg('¡Listo! Agregaste esta(s) oferta(s) a tu pedido', imagenProducto);
+
             },
             error: function (data, error) {
                 if (checkTimeout(data)) {
@@ -1511,8 +1514,6 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
         CUV: CUV,
         EsCuponNuevas: esCuponNuevas
     };
-
-    debugger;
 
     jQuery.ajax({
         type: "POST",
