@@ -29,8 +29,8 @@
 
     {{#iff componente.Hermanos.length '>' 0}}
     <div class="tiposytonos_componentes">
-        <buttom class="tono_select_opt">
-            {{componente.selectComponentTitle}}
+        <buttom btn-show-types-tones-modal data-component-cuv="{{componente.Cuv}}" class="tono_select_opt">
+            {{componente.selectComponentText}}
         </buttom>
     </div>
     {{/iff}}
