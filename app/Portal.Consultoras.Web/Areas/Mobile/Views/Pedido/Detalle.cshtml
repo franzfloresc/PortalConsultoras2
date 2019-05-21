@@ -639,6 +639,7 @@
             Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.
         </span>
     </div>
+    <!-- Mostrar el link de eliminación de pedido solo si el pedido no está reservado-->
     @if (Model.EstadoPedido != 1)
     {
         <div class="mensaje_eliminarPedido">
@@ -650,7 +651,7 @@
     }
 
 
-    </script>
+</script>
 
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
     <div data-popup-body="">
