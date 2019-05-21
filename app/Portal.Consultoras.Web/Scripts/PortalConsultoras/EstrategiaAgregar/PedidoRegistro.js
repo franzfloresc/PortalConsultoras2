@@ -494,7 +494,7 @@ var PedidoRegistroModule = function () {
             TipoOfertaSisID: ConstantesModule.ConfiguracionOferta.Liquidacion,
         };
 
-        var imagenProducto = document.querySelector("#divCarruselLiquidaciones > div > div > div.slick-slide.slick-current.slick-active > div > div.producto_img_home.mini > img").src;
+        var imagenProducto = $(contenedor).find(".producto_img_home img").attr("src");
 
         $.ajaxSetup({
             cache: false
