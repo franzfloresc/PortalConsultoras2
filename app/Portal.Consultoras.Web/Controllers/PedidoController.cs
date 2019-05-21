@@ -123,8 +123,8 @@ namespace Portal.Consultoras.Web.Controllers
                     !configuracionCampania.ModificaPedidoReservado &&
                     !configuracionCampania.ValidacionAbierta)
                 {
-                    SessionManager.SetPedidoValidado(true);
-                    return RedirectToAction("PedidoValidado");
+                    //SessionManager.SetPedidoValidado(true);
+                    //return RedirectToAction("PedidoValidado");   TESLA-7
                 }
 
                 userData.ZonaValida = configuracionCampania.ZonaValida;
@@ -1580,7 +1580,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     },
                     flagCorreo = resultado.EnviarCorreo ? "1" : "",
                     permiteOfertaFinal = listPermiteOfertaFinal.Contains(resultado.ResultadoReservaEnum),
-                    mensajeCondicional
+                    mensajeCondicional,
+                    UltimoDiaFacturacion = (userData.FechaFacturacion == DateTime.Today)   //TESLA 7
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -2352,6 +2353,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = estado,
                     pedidoReservado = pedidoReservado,
                     message = mensaje,
+                    UltimoDiaFacturacion = (userData.FechaFacturacion == DateTime.Today),   //TESLA 7
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
