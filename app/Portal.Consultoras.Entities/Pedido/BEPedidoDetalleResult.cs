@@ -27,6 +27,14 @@ namespace Portal.Consultoras.Entities.Pedido
         public bool ModificoBackOrder { get; set; }
         [DataMember]
         public List<BEMensajeProl> ListaMensajeCondicional { get; set; }
+        [DataMember]
+        public string MontoAhorroCatalogo { get; set; }
+        [DataMember]
+        public string MontoAhorroRevista { get; set; }
+        [DataMember]
+        public string DescuentoProl { get; set; }
+        [DataMember]
+        public string MontoEscala { get; set; }
 
         public BEPedidoDetalleResult()
         {
