@@ -236,6 +236,7 @@ namespace Portal.Consultoras.Web.Controllers
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
         {
             return _pedidoWebProvider.ObtenerPedidoWebDetalle(EsOpt());
+            
         }
 
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(bool noSession = false)
@@ -273,6 +274,18 @@ namespace Portal.Consultoras.Web.Controllers
             SessionManager.SetMontosProl(montosProl);
 
             return montosProl;
+        }
+
+        protected void SetMontosProl(BEPedidoDetalleResult pedidoDetalleResult) {
+            SessionManager.SetMontosProl(new List<ObjMontosProl> {
+                new ObjMontosProl
+                {
+                    AhorroCatalogo = pedidoDetalleResult.MontoAhorroCatalogo,
+                    AhorroRevista = pedidoDetalleResult.MontoAhorroRevista,
+                    MontoTotalDescuento = pedidoDetalleResult.DescuentoProl,
+                    MontoEscala = pedidoDetalleResult.MontoEscala
+                }
+            });
         }
 
         protected void InsIndicadorPedidoAutentico(BEIndicadorPedidoAutentico indPedidoAutentico, string cuv)

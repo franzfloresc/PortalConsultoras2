@@ -410,7 +410,6 @@ $(document).ready(function () {
     });
 
     $("#divCarruselLiquidaciones").on('click', '.js-agregar-liquidacion', function (e) {
-        debugger;
         if (!$(this).hasClass("no_accionar")) {
             agregarProductoAlCarrito(this);
         }
