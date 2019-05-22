@@ -763,6 +763,8 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
     var cantidadElement = $(elementRow).find(".Cantidad");
     var Cantidad = $(cantidadElement).val();
     var CantidadAnti = detalleObj.CantidadTemporal;
+    var _mensajeModificarPedido = ConstantesModule.MensajeModificarPedido;
+
     item.SetID = detalleObj.SetID;
 
     ShowLoading();
@@ -810,13 +812,14 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             //Se pone aquí el nuevo mensaje para TESLA-03
             
             var isReservado = data.EsReservado || false;
-            var strMsgListo = "";
-            if (isReservado)
-	            strMsgListo = '¡Listo! Tu pedido reservado ha sido modificado';
-            else
-                strMsgListo = '¡Listo! Tu pedido ha sido modificado';
+            var mensaje = '';
+            if (isReservado) {
+                mensaje = _mensajeModificarPedido.reservado;
+            } else {
+                mensaje = _mensajeModificarPedido.normal;
+            }
 
-            AbrirMensaje25seg(strMsgListo);
+            AbrirMensaje25seg(mensaje);
 
             setTimeout(function () {
 		            showPopupNivelSuperado(data.DataBarra, prevTotal);

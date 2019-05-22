@@ -1731,7 +1731,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         async: true,
         success: function (data) {
             CerrarSplash();
-            debugger;
+            //debugger;
             if (!checkTimeout(data)) return false;
             if (data.success != true) {
                 btnSalirTlpDelete(window.event, pedidoDetalleId, setId);

@@ -17,6 +17,7 @@ var PedidoRegistroModule = function () {
     }
 
     var _mensajeAgregarPedido = ConstantesModule.MensajeAgregarPedido;
+ 
 
     var _mensajeCantidad = function (cantidad, inputCantidad) {
         cantidad = cantidad || "";
@@ -466,10 +467,21 @@ var PedidoRegistroModule = function () {
 
                 TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
 
+                //debugger;
+                var imagenProducto = article.find("[data-imagen-producto]").attr("data-imagen-producto");
+
+                var mensaje = '';
+                if (response.EsReservado === true) {
+                    mensaje = _mensajeAgregarPedido.reservado;
+                } else {
+                    mensaje = _mensajeAgregarPedido.normal;
+                }
+
+                AbrirMensaje25seg(mensaje, imagenProducto);
+
                 setTimeout(function () {
                     $("#divMensajeProductoAgregado").fadeOut();
                 }, 2000);
-
 
             },
             error: function (response, error) {
@@ -1194,6 +1206,24 @@ var PedidoRegistroModule = function () {
                         ActualizarLocalStoragePalancas(cuvElem, false);
                     })
                 }
+
+                //divProductoInformacion
+                //debugger;
+                var imagenProducto = null;
+                var objDataImg = $('#divProductoInformacion').find('div.producto_por_agregar_imagen').find('img');
+                if (objDataImg !== 'undefined' && objDataImg !== null) {
+                    imagenProducto = $(objDataImg).attr('src');
+                }
+
+                var mensaje = '';
+                if (data.EsReservado === true) {
+                    mensaje = _mensajeAgregarPedido.reservado;
+                } else {
+                    mensaje = _mensajeAgregarPedido.normal;
+                }
+
+                AbrirMensaje25seg(mensaje, imagenProducto);
+
                 var localStorageModule = new LocalStorageModule();
                 localStorageModule.ActualizarCheckAgregado($.trim($("#hdfEstrategiaId").val()), $("#hdfCampaniaID").val(), $("#hdfCodigoPalanca").val(), true);
                 //FIN HD-3908
@@ -1534,6 +1564,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
     var Total = DecimalToStringFormat(parseFloat(Cantidad * Unidad));
     $(rowElement).find(".lblLPImpTotal").html(Total);
     $(rowElement).find(".lblLPImpTotalMinimo").html(Total);
+    var _mensajeModificarPedido = ConstantesModule.MensajeModificarPedido;
 
     var item = {
         CampaniaID: CampaniaID,
@@ -1589,17 +1620,18 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
             }
             //Se pone aquí el nuevo mensaje para TESLA-07
             var isReservado = data.EsReservado || false;
-            var strMsgListo = "";
-            if (isReservado)
-				strMsgListo = '¡Listo! Tu pedido reservado ha sido modificado';
-            else
-                strMsgListo = '¡Listo! Tu pedido ha sido modificado';
+            var mensaje = '';
+            if (isReservado) {
+                mensaje = _mensajeModificarPedido.reservado;
+            } else {
+                mensaje = _mensajeModificarPedido.normal;
+            }
 
             if (esMobile) {
-                messageInfo(strMsgListo);
+                messageInfo(mensaje);
             }
             else {
-                AbrirMensaje25seg(strMsgListo);
+                AbrirMensaje25seg(mensaje);
                 //CerrarLoad();
             }
             //Comentado según requerimiento TESLA-3
