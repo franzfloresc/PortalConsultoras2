@@ -1797,9 +1797,9 @@ h1, h2, h3, h4, h5, h6 {
         background: url('/Content/Css/Site/Images/login-esika-1920.jpg');
     }
 
-    .logo-esika {
+    /*.logo-esika {
         margin-left: 0;
-    }
+    }*/
 
     .fondo_form {
         display: none;
