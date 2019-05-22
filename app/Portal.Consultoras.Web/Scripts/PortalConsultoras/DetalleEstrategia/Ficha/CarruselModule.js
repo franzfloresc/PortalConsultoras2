@@ -467,7 +467,7 @@ var CarruselModule = (function (config) {
             $(_elementos.divCarruselProducto + '.slick-initialized').slick('unslick');
             $(_elementos.divCarruselProducto).not('.slick-initialized').slick({
                 dots: false,
-                infinite: true,
+                infinite: false,
                 speed: 260,
                 slidesToShow: 2,
                 slidesToScroll: 1,
@@ -526,8 +526,9 @@ var CarruselModule = (function (config) {
     var _mostrarTitulo = function () {
 
         var titulo = '';
-
-        if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.ShowRoom || _config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia || _config.palanca == ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
+        if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia) {
+            titulo = 'Ver más ofertas ¡Solo Hoy!';
+        }else if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.ShowRoom || _config.palanca == ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
             if (_config.cantidadPack > 1) {
                 titulo = 'Packs parecidos con más productos';
             } else {
