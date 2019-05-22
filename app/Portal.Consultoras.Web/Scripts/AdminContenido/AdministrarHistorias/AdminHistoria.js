@@ -1,24 +1,11 @@
 ﻿
 var _toastHelper = ToastHelper();
-var _listPalanca = ["LAN", "RDR", "RD", "OPT"];
-var _palanca = {
-    showroom: "SR",
-    odd: "ODD",
-    pn: "PN",
-    dp: "DP"
-}
-
-var _tipopresentacion = {
-    showroom: "5",
-    odd: "6",
-    banner: "4",
-    bannerInterativo: "10"
-}
 
 var _obj_mensaje = {
     seleccionImagen: "No seleccionó una imagen",
     seleccionCampania: "Debe seleccionar una Campaña",
-    seleccionZonaRegion: "No se ha marcado ninguna zona o región."
+    seleccionZonaRegion: "No se ha marcado ninguna zona o región.",
+    seleccionSegmento: "No se ha marcado ningún Segmento."
 }
 
 jQuery(document).ready(function () {
@@ -58,6 +45,7 @@ function IniDialogDetalle() {
                     showDialogMensaje(_obj_mensaje.seleccionImagen, 'Alerta');
                     return false;
                 }
+
                 if ($("#ddlCampaniaDetalle").val() === "0") {
                     showDialogMensaje(_obj_mensaje.seleccionCampania, 'Alerta');
                     return false;
@@ -77,14 +65,13 @@ function IniDialogDetalle() {
                 });
 
                 if (SegmentoInterno == "") {
-                    alert("No se ha marcado ningún Segmento.");
+                    showDialogMensaje(_obj_mensaje.seleccionSegmento, 'Alerta');
                     return false;
                 }
 
                 if (SegmentoInterno != "") {
                     SegmentoInterno = SegmentoInterno.substring(0, SegmentoInterno.length - 1);
                 }
-
 
                 $.jstree._reference($("#arbolRegionZona")).get_checked(null, true).each(function () {
                     if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
@@ -113,7 +100,7 @@ function IniDialogDetalle() {
                     Seccion: SegmentoInterno                      
                  };
                         
-                    waitingDialog({});
+                waitingDialog({});
 
                     jQuery.ajax({
                         type: "POST",
@@ -220,6 +207,7 @@ function UploadFileDetalle(tag) {
 
     return false;
 }
+
 function UploadFile() {    
                       
     var params = {};

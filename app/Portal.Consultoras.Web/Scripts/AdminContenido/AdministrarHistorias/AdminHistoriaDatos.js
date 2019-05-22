@@ -323,7 +323,6 @@
             IdContenidoDeta: row['IdContenidoDeta'],
             IdContenido: row['IdContenido'],
             Campania: row['Campania'],
-            Region: row['Region'],
             Zona: row['Zona'],
             Seccion: row['Seccion'],
             Accion: row['Accion'],
