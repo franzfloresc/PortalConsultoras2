@@ -545,8 +545,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
 
                 var cuvsPedido = listaPedidoFacturados
-                    .Where(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID)
-                    .FirstOrDefault()
+                    .First(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID)
                     .olstBEPedidoWebDetalle;
 
                 //lista de cuvs con cantidad 0 y son reemplazados
@@ -563,11 +562,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     respuestaServiceCdr = sv.GetCdrWeb_Reclamo(userData.CodigoISO, model.CampaniaID.ToString(),
                        userData.CodigoConsultora, cuvEnviar, model.Cantidad, userData.CodigoZona);
-                    isSetsOrPack = (respuestaServiceCdr != null) ? (respuestaServiceCdr[0].LProductosComplementos.Count() > 0
-                        && estrategias.Contains(respuestaServiceCdr[0].Estrategia.ToString())) ? true : false : false;
-                    SessionManager.SetFlagIsSetsOrPack(isSetsOrPack);
-
                 }
+
+                isSetsOrPack = respuestaServiceCdr != null && respuestaServiceCdr[0].LProductosComplementos.Any() &&
+                    estrategias.Contains(respuestaServiceCdr[0].Estrategia.ToString());
+                SessionManager.SetFlagIsSetsOrPack(isSetsOrPack);
+
                 //reemplazar si tiene cuv reemplazo
                 if (respuestaServiceCdr.Any() && isSetsOrPack)
                 {
@@ -578,20 +578,18 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         //lista de cuvs en la factura
                         var cuvFacturados = listaPedidoFacturados
-                            .Where(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID)
-                            .FirstOrDefault()
+                            .First(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID)
                             .olstBEPedidoWebDetalle.ToList();
-
 
                         int i = 0;
                         foreach (var item in respuestaServiceCdr[0].LProductosComplementos)
                         {
-                            var obj = cuvReemplazados.Where(a => a.CUV == item.cuv).FirstOrDefault();
+                            var obj = cuvReemplazados.First(a => a.CUV == item.cuv);
                             var objReemplazo = new ProductosComplementos();
                             if (obj != null)
                             {
                                 //obtener los datos del cuv facturado 
-                                var objFacturado = cuvFacturados.Where(a => a.CUV == obj.CUVReemplazo).FirstOrDefault();
+                                var objFacturado = cuvFacturados.First(a => a.CUV == obj.CUVReemplazo);
                                 objReemplazo.cuv = objFacturado.CUV;
                                 objReemplazo.cantidad = objFacturado.Cantidad;
                                 objReemplazo.descripcion = objFacturado.DescripcionProd;
@@ -645,7 +643,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
-            //string mensajeError;
             return Json(new
             {
                 success = true,
@@ -861,8 +858,7 @@ namespace Portal.Consultoras.Web.Controllers
                         message = "Ya tiene un detalle con el mismo cuv, y operación para el mismo pedido y campaña"
                     }, JsonRequestBehavior.AllowGet);
                 }
-
-
+                                
                 if (SessionManager.GetFlagIsSetsOrPack() != null)
                     IsSetsOrPack = SessionManager.GetFlagIsSetsOrPack();
 
@@ -871,7 +867,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (model.Complemento.Any())
                     {
 
-                        var cantidad = model.Complemento.Count();
+                        var cantidad = model.Complemento.Count;
                         var grupoId = Guid.NewGuid().ToString().ToUpper();
                         Array.Resize(ref arrComplemento, cantidad);
                         var i = 0;
@@ -1654,13 +1650,15 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string html = htmlTemplateDetalleBase.Clone().ToString();
                 html = html.Replace("#FORMATO_CUV1#", cdrWebDetalle.CUV);
-
-                string templateUrlDetalleOperacionBase =
-                    cdrWebDetalle.CodigoOperacion == "C" ? templateDetalleOperacionCanjePath :
-                    cdrWebDetalle.CodigoOperacion == "D" ? templateDetalleOperacionDevolucionPath :
-                    cdrWebDetalle.CodigoOperacion == "F" ? templateDetalleOperacionFaltantePath :
-                    cdrWebDetalle.CodigoOperacion == "G" ? templateDetalleOperacionFaltanteAbonoPath :
-                    templateUrlDetalleOperacionTruequePath;
+                string templateUrlDetalleOperacionBase = string.Empty;
+                switch (cdrWebDetalle.CodigoOperacion)
+                {
+                    case Constantes.CodigoOperacionCDR.Canje: templateUrlDetalleOperacionBase = templateDetalleOperacionCanjePath; break;
+                    case Constantes.CodigoOperacionCDR.Devolucion: templateUrlDetalleOperacionBase = templateDetalleOperacionDevolucionPath; break;
+                    case Constantes.CodigoOperacionCDR.Faltante: templateUrlDetalleOperacionBase = templateDetalleOperacionFaltantePath; break;
+                    case Constantes.CodigoOperacionCDR.FaltanteAbono:  templateUrlDetalleOperacionBase = templateDetalleOperacionFaltanteAbonoPath; break;
+                    default: templateUrlDetalleOperacionBase = templateUrlDetalleOperacionTruequePath; break;
+                }
 
                 string htmlTemplateDetalleOperacion = FileManager.GetContenido(templateUrlDetalleOperacionBase);
                 string htmlOperacion = htmlTemplateDetalleOperacion.Clone().ToString();
@@ -1669,6 +1667,13 @@ namespace Portal.Consultoras.Web.Controllers
                 var precio2 = decimal.Round(cdrWebDetalle.Precio2, 2);
                 var simbolo = userData.Simbolo;
 
+                if ( (cdrWebDetalle.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje || cdrWebDetalle.CodigoOperacion == Constantes.CodigoOperacionCDR.Devolucion ) && !string.IsNullOrEmpty(cdrWebDetalle.GrupoID))
+                {
+                   var etiquetaHtml  = "<tr><td style = 'width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; font-weight: 700; vertical-align: top; color: #000; padding-right: 14px;'>"+
+                                       "<div style = 'display:block;border-radius: 10.5px; width: auto;height: 24px;font-size:14px;line-height: 23px;margin-bottom: 8px;padding-left: 8px;padding-right: 8px;  background-color: #000;color: #FFF;'>Set o Pack</div></ td >" + 
+                                       "< td rowspan = '2' style = 'width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; font-weight: 700;' >" + "</ td >" + "</ tr > ";
+                    htmlOperacion = htmlOperacion.Replace("#ETIQUETA_SET_PACK#", etiquetaHtml);
+                }
                 htmlOperacion = htmlOperacion.Replace("#FORMATO_DESCRIPCIONCUV1#", cdrWebDetalle.Descripcion);
                 htmlOperacion = htmlOperacion.Replace("#FORMATO_SOLICITUD#", cdrWebDetalle.Solicitud);
                 htmlOperacion = htmlOperacion.Replace("#FORMATO_CANTIDAD1#", cdrWebDetalle.Cantidad.ToString());

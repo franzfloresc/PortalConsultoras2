@@ -41,6 +41,9 @@
         text-decoration: none;
         opacity: 0.4;
     }
+    .linea_indicador_barra {
+        width: 2px;
+    }
 </style>
 
 <div class="franja_negra franja_negra--nuevoLookAndFeelEsika" style="background-image: url(@ViewBag.UrlFranjaNegra);"></div>
@@ -2002,6 +2005,9 @@
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido")';
 
         var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "PedidoRegistro", new { area = "" })';
+        //INI HD-4200
+        var urlValidarSuscripcionSE = '@Url.Action("ValidarSuscripcionSE", "PedidoRegistro", new { area = "" })';
+        //FIN HD-4200
 
         var urlObtenerComponentes = '@Url.Action("ObtenerComponentes", "DetalleEstrategia")';
         var listaIconoLluvia = [

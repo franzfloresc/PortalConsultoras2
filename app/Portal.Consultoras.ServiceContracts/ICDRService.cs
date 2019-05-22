@@ -33,7 +33,7 @@ namespace Portal.Consultoras.ServiceContracts
         int DelCDRWebDetalle(int PaisID, BECDRWebDetalle entity);
         //HD-3703 EINCA
         [OperationContract(Name = "DelCDRWebDetalleList")]
-        int DelCDRWebDetalle(int PaisID, List<BECDRWebDetalle> detalle);
+        int DelCDRWebDetalle(int PaisID, List<BECDRWebDetalle> listDetalle);
 
         [OperationContract]
         List<BECDRWebDetalle> GetCDRWebDetalle(int PaisID, BECDRWebDetalle entity, int pedidoId);

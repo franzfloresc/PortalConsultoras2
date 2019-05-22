@@ -430,7 +430,7 @@ $(document).ready(function () {
                                         Descripcion: $(me.Variables.hdDescripcionCuv).val()
                                     };
                                     dataCdrDevolucion.ProductoSeleccionado = ProductoSeleccionado;
-                                    if (d !== null) {
+                                    if (d.data[0].LProductosComplementos != null && d.data[0].LProductosComplementos != "undefined") {
                                         dataCdrDevolucion.DataRespuestaServicio = d.data[0].LProductosComplementos;
                                         flagSetsOrPack = d.flagSetsOrPack;
                                     }
@@ -463,7 +463,7 @@ $(document).ready(function () {
                             me.Funciones.DetalleGuardar(fnPreValidacion.id, function (data) {
                                 if (data.success) {
                                     $(me.Variables.hdCDRID).val(data.detalle);
-                                    $.when(me.Funciones.DetalleCargar()).done(function () {                                       
+                                    $.when(me.Funciones.DetalleCargar()).done(function () {
                                         $(me.Variables.wrpMobile).removeClass(me.Variables.pb120);
                                         var arrOcultarElementos = [me.Variables.TituloPreguntaInconvenientes, me.Variables.Registro4
                                             , me.Variables.Registro3, me.Variables.infoOpcionesDeCambio, me.Variables.Enlace_regresar, "#VistaPaso1y2"];
@@ -1757,16 +1757,6 @@ $(document).ready(function () {
                     listaPedidos = pedidos;
                 }
             },
-
-            //PopupPedidoSeleccionar: function (obj) {
-
-            //    var objPedido = $(obj);
-            //    var id = objPedido.attr("data-pedido-id");
-            //    var pedidos = listaPedidos.Find("PedidoID", id);
-            //    var pedido = pedidos.length > 0 ? pedidos[0] : new Object();
-
-            //    me.Funciones.AsignarCUV(pedido);
-            //},
 
             CancelarConfirmEnvioSolicitudCDR: function () {
                 $(me.Variables.divConfirmEnviarSolicitudCDR).hide();
