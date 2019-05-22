@@ -99,12 +99,8 @@ function IniDialogDetalle() {
                 if (zonas == "") {
                     showDialogMensaje(_obj_mensaje.seleccionZonaRegion, 'Alerta');
                     return false;
-                }
+                }                               
                                
-                               
-                //console.log("zonas", zonas);
-                //console.log("SegmentoInterno", SegmentoInterno);
-                //return false;
                 var params = {
                     Proc: Proc,
                     RutaContenido: $("#nombre-desktop-detalle").val(),
@@ -113,7 +109,8 @@ function IniDialogDetalle() {
                     Campania: $("#ddlCampaniaDetalle").val(),
                     Accion: $("#ddlAccion").val(),
                     CodigoDetalle: CodigoDetalle,
-                       
+                    Zona: zonas,
+                    Seccion: SegmentoInterno                      
                  };
                         
                     waitingDialog({});

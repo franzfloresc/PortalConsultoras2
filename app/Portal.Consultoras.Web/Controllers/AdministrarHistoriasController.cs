@@ -364,8 +364,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID, true);
             model.ListaAccion = GetContenidoAppDetaActService(0);
             model.ListaCodigoDetalle = GetContenidoAppDetaActService(1);
-            model.PaisID = userData.PaisID;
-
+             
             BEContenidoAppHistoria entidad;
             using (var sv = new ContenidoServiceClient())
             {
@@ -399,8 +398,9 @@ namespace Portal.Consultoras.Web.Controllers
                         Campania = model.Campania,
                         Accion = model.Accion,
                         CodigoDetalle = model.CodigoDetalle,
-                        Tipo = Constantes.TipoContenido.Imagen
-
+                        Tipo = Constantes.TipoContenido.Imagen,                        
+                        Zona = model.Zona,
+                        Seccion = model.Seccion
                     };
 
                     sv.InsertContenidoAppDeta(userData.PaisID, entidad);
@@ -534,9 +534,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Accion = entidad.Accion;
                 model.CodigoDetalle = entidad.CodigoDetalle;
                 model.CUV = entidad.CodigoDetalle;
-                model.PaisID = userData.PaisID;
-                model.Region = entidad.Region;
-
+                model.Zona = entidad.Zona;
+                model.Seccion = entidad.Seccion;
             }
             catch (Exception ex)
             {
@@ -556,19 +555,20 @@ namespace Portal.Consultoras.Web.Controllers
                 return string.Empty;
         }
 
-        public JsonResult ObtenerSegmento(int PaisId)
+        public JsonResult ObtenerSegmento(int? PaisId)
         {
+            PaisId = userData.PaisID;
             IEnumerable<BESegmentoBanner> lst;
 
             using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
             {
                 if (PaisId == Constantes.PaisID.Venezuela)
                 {
-                    lst = sv.GetSegmentoBanner(PaisId);
+                    lst = sv.GetSegmentoBanner(PaisId.GetValueOrDefault());
                 }
                 else
                 {
-                    lst = sv.GetSegmentoInternoBanner(PaisId);
+                    lst = sv.GetSegmentoInternoBanner(PaisId.GetValueOrDefault());
                 }
             }
 
@@ -580,6 +580,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult CargarArbolRegionesZonas(int? pais)
         {
+            pais = userData.PaisID;
             if (pais.GetValueOrDefault() == 0)
                 return Json(null, JsonRequestBehavior.AllowGet);
 

@@ -879,7 +879,9 @@
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
       <xs:element minOccurs="0" name="Proc" type="xs:int" />
       <xs:element minOccurs="0" name="RutaContenido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Seccion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEContenidoAppDeta" nillable="true" type="tns:BEContenidoAppDeta" />

@@ -52,14 +52,13 @@
 
         
     function CargarSegmentoPais() {
-        var PaisId = $('#PaisID').val();
-
-        if (PaisId != -1) {
-            $.ajaxSetup({
+  
+         $.ajaxSetup({
                 cache: false,
                 async: false
-            });
-            $.getJSON(baseUrl + 'AdministrarHistorias/ObtenerSegmento', { PaisId: PaisId }, function (data) {
+        });
+        var PaisId;
+        $.getJSON(baseUrl + 'AdministrarHistorias/ObtenerSegmento', { PaisId: PaisId}, function (data) {
                 if (checkTimeout(data)) {
                     var ddlSegmentoBanner = $('#ddlSegmentoBanner');
                     ddlSegmentoBanner.empty();
@@ -71,27 +70,7 @@
                             }
                         }
 
-                        //var BannerId = $("#hdBannerIdSegZon").val();
-                       // var CampaniaId = $('#ddlCampania').val();
-
-                        //$.getJSON(baseUrl + 'Banner/ObtenerBannerSegmentoSeccion', { CampaniaId: CampaniaId, BannerId: BannerId, PaisId: PaisId },
-                        //    function (data) {
-                        //        if (checkTimeout(data)) {
-                        //            if (data && data.Banner && data.Banner.SegmentoInterno) {
-                        //                var segmentosInternos = data.Banner.SegmentoInterno.split(',');
-
-                        //                $("#ddlSegmentoBanner").find('input[type="checkbox"]').each(function () {
-
-                        //                    var valor = $(this).attr('value');
-                        //                    if ($.inArray(valor, segmentosInternos) > -1) {
-                        //                        $(this).attr("checked", true);
-                        //                    }
-                        //                });
-                        //            }
-                        //        }
-                        //    });
-
-                       /* var segmentosVal = $("#Region").val();
+                        var segmentosVal = $("#Seccion").val();
                         if (segmentosVal != "") {
                             var segmentosInternos = segmentosVal.split(',');
                             $("#ddlSegmentoBanner").find('input[type="checkbox"]').each(function () {
@@ -101,18 +80,11 @@
                                     $(this).attr("checked", true);
                                 }
                             });
-                        }*/
+                        }
                         
                     }
                 }
             });
-            $.ajaxSetup({
-                async: true
-            });
-        }
-        else {
-            $('#ddlSegmentoBanner').empty();
-        }
         return false;
         }
 
@@ -124,9 +96,7 @@
                 json_data: {
                     ajax: {
                         url: baseUrl + "AdministrarHistorias/CargarArbolRegionesZonas",
-                        data: function (n) {
-                            return { pais: $("#PaisID").val() };
-                        },
+                        data: function (n) {},
                         type: "GET",
                         error: function (XMLHttpRequest, textStatus, errorThrown) { },
                         success: function (data, textStatus, jqXHR) { },
@@ -147,19 +117,6 @@
                                     }
                                     $("#chkSeleccionar").attr("checked", false);
                                 });
-                            } else {
-                                $.jstree._reference($("#arbolRegionZona")).check_all();
-                                var zonas = "";
-                                $.jstree._reference($("#arbolRegionZona")).get_checked(null, true).each(function () {
-                                    if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
-                                        return true;
-                                    }
-                                    zonas += this.id + ",";
-                                });
-                                if (zonas != "") {
-                                    zonas = zonas.substring(0, zonas.length - 1);
-                                }
-                                $("#chkSeleccionar").attr("checked", true);
                             }
                             $('#arbolRegionZona').jstree('close_all');
                         }
@@ -178,8 +135,7 @@
         //Ejecución
         $("#ddlAccion").change();
         CargarSegmentoPais();
-       // var Zonas = "2232,2233,2234,2235,2236,2237,2238,2239,2240,2241,2276,2310,2329,2589,2590,2591,2592,2593";
-        var Zonas =$("#Region").val();
+        var Zonas = $("#Zona").val();
         ConfigurarArbol(Zonas);
     })
 </script>
@@ -193,8 +149,8 @@
     @Html.HiddenFor(model => model.Proc)
     @Html.HiddenFor(model => model.IdContenidoDeta)
     @Html.HiddenFor(model => model.IdContenido)
-    @Html.TextBoxFor(model => model.PaisID)
-    @Html.TextBoxFor(model => model.Region)
+    @Html.HiddenFor(model => model.Zona)
+    @Html.HiddenFor(model => model.Seccion)
 
     @if (Model.Proc == 1)
     {
@@ -270,7 +226,6 @@
             </div>
         </div>
         <div class="div-3">
-            <div class="titC"></div>
             <div class="titH">
                 <div style="float:left">
                     <label id="lblSeleccionar">
