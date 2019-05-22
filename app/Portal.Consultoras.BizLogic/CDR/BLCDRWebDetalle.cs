@@ -87,7 +87,7 @@ namespace Portal.Consultoras.BizLogic.CDR
             }
         }
         //HD-3703 EINCA
-        public int DelCDRWebDetalle(int PaisID, List<BECDRWebDetalle> detalle)
+        public int DelCDRWebDetalle(int PaisID, List<BECDRWebDetalle> listDetalle)
         {
             try
             {
@@ -99,7 +99,7 @@ namespace Portal.Consultoras.BizLogic.CDR
                 };
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
-                    foreach (var item in detalle)
+                    foreach (var item in listDetalle)
                     {
                         var result = daCdrWebDetalle.DelCDRWebDetalle(item);
                         if (result <= 0 )
