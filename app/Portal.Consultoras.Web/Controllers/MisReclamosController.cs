@@ -1667,6 +1667,13 @@ namespace Portal.Consultoras.Web.Controllers
                 var precio2 = decimal.Round(cdrWebDetalle.Precio2, 2);
                 var simbolo = userData.Simbolo;
 
+                if ( (cdrWebDetalle.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje || cdrWebDetalle.CodigoOperacion == Constantes.CodigoOperacionCDR.Devolucion ) && !string.IsNullOrEmpty(cdrWebDetalle.GrupoID))
+                {
+                   var etiquetaHtml  = "<tr><td style = 'width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; font-weight: 700; vertical-align: top; color: #000; padding-right: 14px;'>"+
+                                       "<div style = 'display:block;border-radius: 10.5px; width: auto;height: 24px;font-size:14px;line-height: 23px;margin-bottom: 8px;padding-left: 8px;padding-right: 8px;  background-color: #000;color: #FFF;'>Set o Pack</div></ td >" + 
+                                       "< td rowspan = '2' style = 'width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; font-weight: 700;' >" + "</ td >" + "</ tr > ";
+                    htmlOperacion = htmlOperacion.Replace("#ETIQUETA_SET_PACK#", etiquetaHtml);
+                }
                 htmlOperacion = htmlOperacion.Replace("#FORMATO_DESCRIPCIONCUV1#", cdrWebDetalle.Descripcion);
                 htmlOperacion = htmlOperacion.Replace("#FORMATO_SOLICITUD#", cdrWebDetalle.Solicitud);
                 htmlOperacion = htmlOperacion.Replace("#FORMATO_CANTIDAD1#", cdrWebDetalle.Cantidad.ToString());
