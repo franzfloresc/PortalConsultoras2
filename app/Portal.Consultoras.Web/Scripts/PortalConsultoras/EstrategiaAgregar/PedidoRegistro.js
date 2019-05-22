@@ -17,6 +17,7 @@ var PedidoRegistroModule = function () {
     }
 
     var _mensajeAgregarPedido = ConstantesModule.MensajeAgregarPedido;
+ 
 
     var _mensajeCantidad = function (cantidad, inputCantidad) {
         cantidad = cantidad || "";
@@ -1563,6 +1564,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
     var Total = DecimalToStringFormat(parseFloat(Cantidad * Unidad));
     $(rowElement).find(".lblLPImpTotal").html(Total);
     $(rowElement).find(".lblLPImpTotalMinimo").html(Total);
+    var _mensajeModificarPedido = ConstantesModule.MensajeModificarPedido;
 
     var item = {
         CampaniaID: CampaniaID,
@@ -1618,17 +1620,18 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
             }
             //Se pone aquí el nuevo mensaje para TESLA-07
             var isReservado = data.EsReservado || false;
-            var strMsgListo = "";
-            if (isReservado)
-				strMsgListo = '¡Listo! Tu pedido reservado ha sido modificado';
-            else
-                strMsgListo = '¡Listo! Tu pedido ha sido modificado';
+            var mensaje = '';
+            if (isReservado) {
+                mensaje = _mensajeModificarPedido.reservado;
+            } else {
+                mensaje = _mensajeModificarPedido.normal;
+            }
 
             if (esMobile) {
-                messageInfo(strMsgListo);
+                messageInfo(mensaje);
             }
             else {
-                AbrirMensaje25seg(strMsgListo);
+                AbrirMensaje25seg(mensaje);
                 //CerrarLoad();
             }
             //Comentado según requerimiento TESLA-3
