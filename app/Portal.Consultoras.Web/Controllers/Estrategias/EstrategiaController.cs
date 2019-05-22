@@ -779,9 +779,9 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 if (!mostrarFuncionalidadUpSelling.IsNullOrEmptyTrim() || mostrarFuncionalidadUpSelling == "1")
                 {
-                    var dataProductosCarruselUpSelling = await _carruselUpSellingProvider.ObtenerProductosCarruselUpSelling(codigosProductos, precioProducto);
+                    var dataProductosCarruselUpSelling = await _carruselUpSellingProvider.ObtenerProductosCarruselUpSelling(cuvExcluido, codigosProductos, precioProducto);
 
-                    if (!dataProductosCarruselUpSelling.success)
+                    if (dataProductosCarruselUpSelling == null || !dataProductosCarruselUpSelling.success)
                     {
                         return Json(new OutputProductosUpSelling()
                         {
@@ -795,7 +795,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                     return Json(new
                     {
-                        success= true,
+                        success = true,
                         result = listaOfertasModel
                     });
                 }
