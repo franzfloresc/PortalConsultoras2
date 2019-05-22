@@ -138,7 +138,7 @@ namespace Portal.Consultoras.Web.Models
         public string Pagina { get; set; }
 
         public string PaginaDe { get; set; }
-        public string TipoPaginador { get; set; }
+        //public string TipoPaginador { get; set; }
 
         public List<BECliente> ListaCliente { get; set; }
 
