@@ -1204,10 +1204,6 @@
                 var extensiones = ['jpg', 'jpeg', 'png', 'gif'];
                 var get_ext;
                 var message = '';
-                /*Se agregregan los 2 campos nuevos HD-4144*/
-                //var fileValueMobile = $('#imagenProducto02').val();
-                //var URLMobile = $('#ddlUrlMobile').val();  
-                /*Fin*/
 
                 if (GrupoBannerId != "2" && GrupoBannerId != "3" && GrupoBannerId != "4" && GrupoBannerId != "5" && GrupoBannerId != "11" && GrupoBannerId != "12" && GrupoBannerId != "13" && GrupoBannerId != "14" && GrupoBannerId != "15" && GrupoBannerId != "16" && GrupoBannerId != "17" && GrupoBannerId != "18" && GrupoBannerId != "19" && GrupoBannerId != "20" && GrupoBannerId != "21" && GrupoBannerId != "22" && GrupoBannerId != 23 && GrupoBannerId != 26) {
                     if (TiempoRotacion == 0)
@@ -1219,16 +1215,6 @@
 
                 if (flgBnOperacionAct == flgBnOperacion.cargar && fileValue.length == 0)
                     message = message + '- Debe seleccionar la imagen que se cargará para web. </br>'
-
-                /*HD-4144*/
-                /*if (flgBnOperacionAct == flgBnOperacion.cargar && fileValueMobile.length == 0)
-                    message = message + '- Debe seleccionar la imagen que se cargará para App. </br>'
-
-                if (parseInt( URLMobile )== 0)
-                    message = message + '- Debe seleccionar la URL  que se cargará para App. </br>'*/
-                /*HD-4144-FIN*/
-                
-
 
                 //validar la extension del archivo
                 get_ext = fileValue.split('.');
@@ -1814,14 +1800,12 @@
                 /*HD-4144*/
                 $('#lblArchivoCargadoMobile').text(ArchivoMobile.length > 0 ? ArchivoMobile : 'Ingresar Imagen mobile');
                 FormatearImagenes('#lblArchivoCargado');
-                //$('#lblArchivoCargadoMobile2').text(ArchivoMobile.length > 0 ? ArchivoMobile :'Ingresar Imagen mobile');
                 $('#hdArchivoRutaCompletoMobile').val(ArchivoRutaCompletoMobile);
                 FormatearImagenes('#lblArchivoCargadoMobile');
                 FormatearImagenes('#lblArchivoCargadoMobile2');
                 FormatearImagenes('#hdArchivoRutaCompletoMobile');
                 /*HD-4144*/
             }
-
             $('#txtTituloComentario').val(TituloComentario);
             $('#txtTextoComentario').val(TextoComentario);
             $('#divMensaje li').remove(); //Limpiar mensajes de error

@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             var img = Image.FromFile(Globals.RutaTemporales + @"\" + System.Net.WebUtility.UrlDecode(listImagenActualizar[i]));
                             if (img.Width > model.Ancho || img.Height > model.Alto)
-                                return string.Format("El archivo adjunto no tiene las dimensiones correctas. Verifique que sea un archivo con " +
+                                return string.Format("El archivo adjunto para web no tiene las dimensiones correctas. Verifique que sea un archivo con " +
                                                                "una dimensión máxima de hasta {0} x {1}", model.Ancho, model.Alto);
                             img.Dispose();
                         }
@@ -105,7 +105,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 var img = Image.FromFile(Globals.RutaTemporales + @"\" + System.Net.WebUtility.UrlDecode(listImagenActualizar[j]));
                                 if (img.Width > model.Ancho || img.Height > model.Alto)
-                                    return string.Format("El archivo adjunto no tiene las dimensiones correctas. Verifique que sea un archivo con " +
+                                    return string.Format("El archivo adjunto para web no tiene las dimensiones correctas. Verifique que sea un archivo con " +
                                                                    "una dimensión máxima de hasta {0} x {1}", model.Ancho, model.Alto);
 
                                 img.Dispose();
@@ -150,7 +150,7 @@ namespace Portal.Consultoras.Web.Controllers
                 obeBanner.CuvPedido = model.CUV;
                 obeBanner.CantCuvPedido = model.cantidadPedido;
                 /*HD-4144*/
-                obeBanner.URLMobile = Convert.ToInt32(model.URLMobile)==0 ? null : model.URLMobile;
+                obeBanner.URLMobile = model.URLMobile=="0" ? null : model.URLMobile;
                
                 using (ContenidoServiceClient svc = new ContenidoServiceClient())
                 {
@@ -808,6 +808,7 @@ namespace Portal.Consultoras.Web.Controllers
         
         public string[] CrearCellArray(BEBanner obe, List<BEPais> lstPais)
         {
+            
             List<string> lstCell = new List<string>
             {
                 obe.BannerID.ToString(),
@@ -824,8 +825,8 @@ namespace Portal.Consultoras.Web.Controllers
                 obe.CuvPedido ?? string.Empty,
                 obe.CantCuvPedido.ToString(),
                 obe.ArchivoMobile.Length > 0 ? obe.ArchivoMobile.Substring(obe.Archivo.LastIndexOf("/") + 1):string.Empty,
-                obe.URLMobile?? string.Empty,
-                obe.ArchivoMobile?? string.Empty,
+                obe.URLMobile?? string.Empty,/*HD-4144*/
+                obe.ArchivoMobile?? string.Empty,/*HD-4144*/
             };
 
             foreach (BEPais obePais in lstPais)
