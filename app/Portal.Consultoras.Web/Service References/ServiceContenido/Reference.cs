@@ -26,6 +26,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private string ArchivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ArchivoMobileField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int BannerIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -83,6 +86,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private string URLField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string URLMobileField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool UdpSoloBannerField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -104,6 +110,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((object.ReferenceEquals(this.ArchivoField, value) != true)) {
                     this.ArchivoField = value;
                     this.RaisePropertyChanged("Archivo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ArchivoMobile {
+            get {
+                return this.ArchivoMobileField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ArchivoMobileField, value) != true)) {
+                    this.ArchivoMobileField = value;
+                    this.RaisePropertyChanged("ArchivoMobile");
                 }
             }
         }
@@ -351,6 +370,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((object.ReferenceEquals(this.URLField, value) != true)) {
                     this.URLField = value;
                     this.RaisePropertyChanged("URL");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string URLMobile {
+            get {
+                return this.URLMobileField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.URLMobileField, value) != true)) {
+                    this.URLMobileField = value;
+                    this.RaisePropertyChanged("URLMobile");
                 }
             }
         }
@@ -3471,6 +3503,9 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private string NivelField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NivelCaminoBrillanteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NivelEducacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5536,6 +5571,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((object.ReferenceEquals(this.NivelField, value) != true)) {
                     this.NivelField = value;
                     this.RaisePropertyChanged("Nivel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NivelCaminoBrillante {
+            get {
+                return this.NivelCaminoBrillanteField;
+            }
+            set {
+                if ((this.NivelCaminoBrillanteField.Equals(value) != true)) {
+                    this.NivelCaminoBrillanteField = value;
+                    this.RaisePropertyChanged("NivelCaminoBrillante");
                 }
             }
         }

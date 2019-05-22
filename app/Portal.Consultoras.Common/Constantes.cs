@@ -107,6 +107,11 @@ namespace Portal.Consultoras.Common
             public const string TODO = "todo";
         }
 
+        public static class ParentContenidoAppDetaAct
+        {
+            public const int ParenVerMas = 1;
+        }
+
 
 
             public static class CodigosISOPais

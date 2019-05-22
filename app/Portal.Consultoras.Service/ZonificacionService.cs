@@ -164,5 +164,12 @@ namespace Portal.Consultoras.Service
             return BLZonificacion.GetSegmentoInternoBanner(PaisID);
         }
 
+        #region Carga de ContenidoAppDetaAct HD-4144
+        public IList<BEContenidoAppDetaAct> GetContenidoAppDetaAct(int paisId,int parent)
+        {
+            return BLZonificacion.GetContenidoAppDetaAct(paisId,parent);
+        }
+        #endregion
+
     }
 }

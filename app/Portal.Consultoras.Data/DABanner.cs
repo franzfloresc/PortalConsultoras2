@@ -159,6 +159,15 @@ namespace Portal.Consultoras.Data
             parameter = new SqlParameter("@CantCuvPedido", SqlDbType.Int);
             parameter.Value = banner.CantCuvPedido;
             command.Parameters.Add(parameter);
+
+            parameter = new SqlParameter("@ArchivoMobile", SqlDbType.VarChar, 200);
+            parameter.Value = banner.ArchivoMobile;
+            command.Parameters.Add(parameter);
+
+            parameter = new SqlParameter("@URLMobile", SqlDbType.VarChar, 300);
+            parameter.Value = banner.URLMobile;
+            command.Parameters.Add(parameter);
+
             int result = Context.ExecuteNonQuery(command);
 
             if (banner.BannerID == 0)

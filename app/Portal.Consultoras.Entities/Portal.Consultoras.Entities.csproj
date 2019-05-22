@@ -62,6 +62,7 @@
     <Compile Include="Auditoria.cs" />
     <Compile Include="BEBuscadorYFiltros.cs" />
     <Compile Include="BEBeneficiosCaminoBrillante.cs" />
+    <Compile Include="BEContenidoAppDetaAct.cs" />
     <Compile Include="BEContenidoAppDetalle.cs" />
     <Compile Include="BEContenidoApp.cs" />
     <Compile Include="BeReporteContrato.cs" />

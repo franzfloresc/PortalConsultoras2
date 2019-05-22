@@ -101,5 +101,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BESegmentoBanner> GetSegmentoInternoBanner(int PaisID);
 
+        #region Carga de ContenidoAppDetaAct  HD-4144
+        [OperationContract]
+        IList<BEContenidoAppDetaAct> GetContenidoAppDetaAct(int paisId, int parent);
+        #endregion
     }
 }
