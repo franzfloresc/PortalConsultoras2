@@ -16,6 +16,8 @@ var PedidoRegistroModule = function () {
         urlAgregarCuvBanner: "PedidoRegistro/InsertarPedidoCuvBanner",
     }
 
+    var _mensajeAgregarPedido = ConstantesModule.MensajeAgregarPedido;
+
     var _mensajeCantidad = function (cantidad, inputCantidad) {
         cantidad = cantidad || "";
 
@@ -372,7 +374,14 @@ var PedidoRegistroModule = function () {
 
                 CerrarLoad();
 
-                AbrirMensaje25seg('¡Listo! Agregaste esta(s) oferta(s) a tu pedido', imagenProducto);
+                var mensaje = '';
+                if (data.EsReservado === true) {
+                    mensaje = _mensajeAgregarPedido.reservado;
+                } else {
+                    mensaje = _mensajeAgregarPedido.normal;
+                }
+
+                AbrirMensaje25seg(mensaje, imagenProducto);
 
                 modelLiquidacionOfertas = undefined;
                 labelAgregadoLiquidacion = undefined;
@@ -530,7 +539,14 @@ var PedidoRegistroModule = function () {
                 HidePopupTonosTallas();
                 ProcesarActualizacionMostrarContenedorCupon();
 
-                AbrirMensaje25seg('¡Listo! Agregaste esta(s) oferta(s) a tu pedido', imagenProducto);
+                var mensaje = '';
+                if (data.EsReservado === true) {
+                    mensaje = _mensajeAgregarPedido.reservado;
+                } else {
+                    mensaje = _mensajeAgregarPedido.normal;
+                }
+
+                AbrirMensaje25seg(mensaje, imagenProducto);
 
             },
             error: function (data, error) {
@@ -757,6 +773,17 @@ var PedidoRegistroModule = function () {
                     CerrarLoad();
 
                     _limpiarRecomendados();
+
+                    var imagenProducto = divPadre.find("[data-imagen-producto]").attr("data-imagen-producto");
+
+                    var mensaje = '';
+                    if (data.EsReservado === true) {
+                        mensaje = _mensajeAgregarPedido.reservado;
+                    } else {
+                        mensaje = _mensajeAgregarPedido.normal;
+                    }
+
+                    AbrirMensaje25seg(mensaje, imagenProducto);
 
                     var modelCarrito = {
                         'DescripcionCompleta': modelFinal.DescripcionProd,
@@ -1344,6 +1371,14 @@ var PedidoRegistroModule = function () {
                         }
                     });
 
+                    var mensaje = '';
+                    if (response.EsReservado === true) {
+                        mensaje = _mensajeAgregarPedido.reservado;
+                    } else {
+                        mensaje = _mensajeAgregarPedido.normal;
+                    }
+
+                    AbrirMensaje25seg(mensaje);
                 }
                 else {
                     var errorCliente = response.errorCliente || false;

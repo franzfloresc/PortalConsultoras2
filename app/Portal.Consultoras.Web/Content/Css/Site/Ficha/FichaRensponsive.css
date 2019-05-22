@@ -138,7 +138,7 @@ ul.breadcumbs li a {
 }
 
 .precio_valorizado {
-    font-size: 13px;
+    font-size: 14px;
     margin-bottom: 7px;
     line-height: normal;
 }
@@ -163,7 +163,7 @@ ul.breadcumbs li a {
     }
 
 .ganancia, .ganancia span {
-    font-size: 13px;
+    font-size: 14px;
     line-height: normal;
 }
 
@@ -184,8 +184,9 @@ ul.breadcumbs li a {
     .descripcion_lanzamiento ul li {
         font-size: 13px;
     }
+
 .contenido_titulo {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: bold;
     color: #000;
     margin: 0 0 12px 0;
@@ -480,7 +481,7 @@ ul.breadcumbs li a {
 }  
 
 
-@media (min-width: 768px) {
+@media (min-width: 960px) {
     .contenedor_agregar {
         border-top: 1px solid #d1d1d4;
         padding-top: 15px;
@@ -504,7 +505,7 @@ ul.breadcumbs li a {
     } 
 }
 
-@media (max-width: 768px) {
+@media (max-width: 960px) {
     .reloj_mobile{
         display: block !important;
     }
@@ -554,27 +555,6 @@ ul.breadcumbs li a {
         padding: 30px 15px 0px 15px !important;
         background: none;
     }
-    .descripcion {
-        font-size: 14px;
-    }
-
-    .precio_venta_oferta span {
-        font-size: 13px;
-    }
-
-    .precio_valorizado {
-        padding-right: 8px;
-        border-right: 1px solid #cacaca;
-        display: inline-block;
-    }
-
-    .ganancia {
-        padding-left: 5px;
-    }
-
-    .ganancia{
-        display: inline-block;
-    }
 
     .detalle_producto_detalle {
         width: 100%;
@@ -607,12 +587,15 @@ ul.breadcumbs li a {
     }
 
     .precio_venta_oferta {
-        margin-bottom: 0px;
         margin-top: 10px;
     }
 
     .share{
         display: block !important;
+    }
+
+    .btn_texto {
+        margin-top:5px;
     }
 }
 

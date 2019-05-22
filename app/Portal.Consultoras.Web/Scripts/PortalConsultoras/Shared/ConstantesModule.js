@@ -189,6 +189,15 @@ var ConstantesModule = (function () {
         valor.TipoPersonalizacion || valor.Nombre || "";
     };
 
+    var _mensajeAgregarPedido = {
+        normal: '¡Listo! Agregaste con éxito a tu pedido.',
+        reservado: '¡Listo! Agregaste con éxito a tu pedido reservado.'
+    }
+
+    var _tiempo = {
+        ToolTip: 2500
+    }
+
     return {
         CodigoPalanca: _codigoPalanca,
         TipoEstrategia: _codigoTipoEstrategia,
@@ -203,6 +212,8 @@ var ConstantesModule = (function () {
         UrlDetalleEstrategia: _urlDetalleEstrategia,
         UrlPedido: _urlPedido,
         DiccionarioTipoEstrategia: _diccionarioTipoEstrategia,
-        GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia
+        GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia,
+        MensajeAgregarPedido: _mensajeAgregarPedido,
+        Tiempo: _tiempo
     }
 })();
