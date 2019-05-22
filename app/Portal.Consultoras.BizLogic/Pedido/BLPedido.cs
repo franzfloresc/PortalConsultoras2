@@ -343,9 +343,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                         if (reservado)
                         {
-                            //var respuestaReserva = await _reservaBusinessLogic.EjecutarReserva(pedidoDetalle.ReservaProl, true);
-                            //respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuesta, out error);
-
                             var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
                             respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuesta, out error);
                         }
