@@ -1518,6 +1518,7 @@
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\general-popups.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-cierre-sesion.css" />
     <Content Include="Content\Images\checkBuroSAC.svg" />
+    <Content Include="Content\Images\Esika\favicon.ico" />
     <Content Include="Content\Images\Esika\nuevo-logo-esika-login-blanco.svg" />
     <Content Include="Content\Images\Esika\nuevo-logo-esika-login.svg" />
     <Content Include="Content\Images\Esika\nuevo-logo-esika.svg" />
@@ -2021,7 +2022,7 @@
     <Content Include="Content\Images\icono-gestion-clientes-asesora-online.png" />
     <Content Include="Content\Images\icono-mail-popup-felicitaciones.svg" />
     <Content Include="Content\Images\icono-mala-zonificacion.png" />
-    <Content Include="Content\Images\Esika\favicon.ico" />
+    <Content Include="Content\Images\Esika\favicon-antiguo.ico" />
     <Content Include="Content\Images\gif-regalo-blanco.png" />
     <Content Include="Content\Images\gif-regalo-gano.gif" />
     <Content Include="Content\Images\Esika\RevistaDigital\letra.gif" />
