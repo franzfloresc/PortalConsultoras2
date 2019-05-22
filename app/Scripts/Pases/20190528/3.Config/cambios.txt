@@ -3,6 +3,10 @@
 		<add key="UrlCatalogoDigital" value="https://catalogodigital.somosbelcorp.com{0}" />
 
 2. SB2 WEB
+	Agregar: (despues de key="UrlChatbot")
+		<add key="ChatbotSecret" value="ItK8MY4BgI9G3ifzRgKb0ERbVEk+L2qYkpfOIVHwHrE=" />
+    		<add key="ChatBotPageId" value="257341884945682" />
+
 	Eliminar:
 		<!-- Administrador de historias -->
    		<add key="MatrizAppConsultora" value="AppConsultora,Historia,Icono" />

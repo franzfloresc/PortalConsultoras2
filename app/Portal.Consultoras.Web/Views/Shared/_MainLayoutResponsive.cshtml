@@ -293,7 +293,10 @@
             location.href = baseUrl + 'Mobile/Buscador';
         }
     </script>
-
+    @if (!ViewContext.EsIngresoUnico())
+    {
+        Html.RenderPartial("VistaParcialMainLayout/_fbsdk");
+    }
 
     @RenderSection("scripts", required: false)
 
