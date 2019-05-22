@@ -68,7 +68,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         public ActionResult Reclamo(int p = 0, int c = 0,int t = 1)
         {
             var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
-            var ListaCDRWeb = new List<CDRWebModel>();
             var model = new MisReclamosModel
             {
                 PedidoID = p,
