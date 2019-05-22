@@ -774,6 +774,17 @@ var PedidoRegistroModule = function () {
 
                     _limpiarRecomendados();
 
+                    var imagenProducto = divPadre.find("[data-imagen-producto]").attr("data-imagen-producto");
+
+                    var mensaje = '';
+                    if (data.EsReservado === true) {
+                        mensaje = _mensajeAgregarPedido.reservado;
+                    } else {
+                        mensaje = _mensajeAgregarPedido.normal;
+                    }
+
+                    AbrirMensaje25seg(mensaje, imagenProducto);
+
                     var modelCarrito = {
                         'DescripcionCompleta': modelFinal.DescripcionProd,
                         'CUV': modelFinal.CUV,
@@ -1360,6 +1371,14 @@ var PedidoRegistroModule = function () {
                         }
                     });
 
+                    var mensaje = '';
+                    if (response.EsReservado === true) {
+                        mensaje = _mensajeAgregarPedido.reservado;
+                    } else {
+                        mensaje = _mensajeAgregarPedido.normal;
+                    }
+
+                    AbrirMensaje25seg(mensaje);
                 }
                 else {
                     var errorCliente = response.errorCliente || false;
