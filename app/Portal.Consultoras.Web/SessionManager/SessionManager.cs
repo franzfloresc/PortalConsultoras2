@@ -1427,5 +1427,15 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<BEDesmostradoresCaminoBrillante>)HttpContext.Current.Session[Constantes.ConstSession.DemostradoresCaminoBrillante];
         }
         #endregion
+
+        public void SetChatbotToken(string val)
+        {
+            HttpContext.Current.Session["ChatbotToken"] = val;
+        }
+
+        public string GetChatbotToken()
+        {
+            return (string)HttpContext.Current.Session["ChatbotToken"];
+        }
     }
 }
