@@ -213,8 +213,7 @@ var ConstantesModule = (function () {
         UrlPedido: _urlPedido,
         DiccionarioTipoEstrategia: _diccionarioTipoEstrategia,
         GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia,
-        MensajeAgregarPedido: _mensajeAgregarPedido
-        GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia,
+        MensajeAgregarPedido: _mensajeAgregarPedido,
         Tiempo: _tiempo
     }
 })();
