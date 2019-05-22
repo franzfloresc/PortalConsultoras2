@@ -1,5 +1,5 @@
 ﻿
-function ValidarSuscripcionSE(fnSuccess,isMobile=0) {
+function ValidarSuscripcionSE(fnSuccess,isMobile) {
 
     ShowCarga(isMobile);
    jQuery.ajax({
