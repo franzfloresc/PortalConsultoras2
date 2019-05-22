@@ -443,7 +443,7 @@ var CarruselModule = (function (config) {
             $(_elementos.divCarruselProducto + '.slick-initialized').slick('unslick');
             $(_elementos.divCarruselProducto).not('.slick-initialized').slick({
                 dots: false,
-                infinite: false,
+                infinite: true,
                 speed: 260,
                 slidesToShow: 2,
                 slidesToScroll: 1,
