@@ -467,7 +467,7 @@ var CarruselModule = (function (config) {
             $(_elementos.divCarruselProducto + '.slick-initialized').slick('unslick');
             $(_elementos.divCarruselProducto).not('.slick-initialized').slick({
                 dots: false,
-                infinite: true,
+                infinite: false,
                 speed: 260,
                 slidesToShow: 2,
                 slidesToScroll: 1,
@@ -562,7 +562,7 @@ var CarruselModule = (function (config) {
                         if (data.lista.length > 0) {
                             _variable.cantidadProdCarrusel = data.lista.length;
                             $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
-
+                            
                             SetHandlebars(_elementos.idPlantillaProducto, data, _elementos.divCarruselProducto);
                             _mostrarTitulo();
                             _mostrarSlicks();
@@ -617,7 +617,7 @@ var CarruselModule = (function (config) {
                 }
             } else {
                 for (var i = 0; i < contarProductosHermanos; i++) {
-                    codigosProductos.push(componentes[i].CodigoProducto);
+                    if (componentes[i].NombreComercial.indexOf("Bolsa") == -1) codigosProductos.push(componentes[i].CodigoProducto);
                 }
             }
 

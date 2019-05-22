@@ -779,7 +779,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 if (!mostrarFuncionalidadUpSelling.IsNullOrEmptyTrim() || mostrarFuncionalidadUpSelling == "1")
                 {
-                    var dataProductosCarruselUpSelling = await _carruselUpSellingProvider.ObtenerProductosCarruselUpSelling(codigosProductos, precioProducto);
+                    var dataProductosCarruselUpSelling = await _carruselUpSellingProvider.ObtenerProductosCarruselUpSelling(cuvExcluido, codigosProductos, precioProducto);
 
                     if (!dataProductosCarruselUpSelling.success)
                     {
