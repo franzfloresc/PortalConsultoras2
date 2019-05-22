@@ -466,10 +466,21 @@ var PedidoRegistroModule = function () {
 
                 TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
 
+                //debugger;
+                var imagenProducto = article.find("[data-imagen-producto]").attr("data-imagen-producto");
+
+                var mensaje = '';
+                if (response.EsReservado === true) {
+                    mensaje = _mensajeAgregarPedido.reservado;
+                } else {
+                    mensaje = _mensajeAgregarPedido.normal;
+                }
+
+                AbrirMensaje25seg(mensaje, imagenProducto);
+
                 setTimeout(function () {
                     $("#divMensajeProductoAgregado").fadeOut();
                 }, 2000);
-
 
             },
             error: function (response, error) {
@@ -1194,6 +1205,24 @@ var PedidoRegistroModule = function () {
                         ActualizarLocalStoragePalancas(cuvElem, false);
                     })
                 }
+
+                //divProductoInformacion
+                //debugger;
+                var imagenProducto = null;
+                var objDataImg = $('#divProductoInformacion').find('div.producto_por_agregar_imagen').find('img');
+                if (objDataImg !== 'undefined' && objDataImg !== null) {
+                    imagenProducto = $(objDataImg).attr('src');
+                }
+
+                var mensaje = '';
+                if (data.EsReservado === true) {
+                    mensaje = _mensajeAgregarPedido.reservado;
+                } else {
+                    mensaje = _mensajeAgregarPedido.normal;
+                }
+
+                AbrirMensaje25seg(mensaje, imagenProducto);
+
                 var localStorageModule = new LocalStorageModule();
                 localStorageModule.ActualizarCheckAgregado($.trim($("#hdfEstrategiaId").val()), $("#hdfCampaniaID").val(), $("#hdfCodigoPalanca").val(), true);
                 //FIN HD-3908

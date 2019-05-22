@@ -781,7 +781,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 {
                     var dataProductosCarruselUpSelling = await _carruselUpSellingProvider.ObtenerProductosCarruselUpSelling(cuvExcluido, codigosProductos, precioProducto);
 
-                    if (!dataProductosCarruselUpSelling.success)
+                    if (dataProductosCarruselUpSelling == null || !dataProductosCarruselUpSelling.success)
                     {
                         return Json(new OutputProductosUpSelling()
                         {
@@ -795,7 +795,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                     return Json(new
                     {
-                        success= true,
+                        success = true,
                         result = listaOfertasModel
                     });
                 }
