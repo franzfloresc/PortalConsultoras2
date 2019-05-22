@@ -474,14 +474,14 @@ var EstrategiaAgregarModule = (function () {
                 //Tooltip de agregado
                 if (esFichaT) {
                     try {
-                        var $AgregadoTooltip = $(dataProperties.tooltip);
-                        if (params.EsEditable) {
-                            $AgregadoTooltip.find(dataProperties.tooltipMensaje1).html("¡Listo! ");
-                            $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
-                        }
-                        $AgregadoTooltip.show();
+                        //var $AgregadoTooltip = $(dataProperties.tooltip);
+                        //if (params.EsEditable) {
+                        //    $AgregadoTooltip.find(dataProperties.tooltipMensaje1).html("¡Listo! ");
+                        //    $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
+                        //}
+                        //$AgregadoTooltip.show();
                         setTimeout(function () {
-                            $AgregadoTooltip.hide();
+                            //$AgregadoTooltip.hide();
                             if (typeof esAppMobile == 'undefined') {
                                 if (origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack) {
                                     window.location = "/ofertas";
