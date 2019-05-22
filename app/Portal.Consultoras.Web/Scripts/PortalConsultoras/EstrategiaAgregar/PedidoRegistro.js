@@ -304,6 +304,7 @@ var PedidoRegistroModule = function () {
             origenPedidoLiquidaciones = DesktopLiquidacion;
         }
 
+        var imagenProducto = $(this).parent().parent().find('.imagen_producto')[0].src;
         console.log('origenPedidoLiquidaciones', origenPedidoLiquidaciones);
 
         if (_mensajeCantidad(Cantidad, $('.liquidacion_rango_cantidad_pedido'))) {
@@ -370,6 +371,8 @@ var PedidoRegistroModule = function () {
                 }
 
                 CerrarLoad();
+
+                AbrirMensaje25seg('¡Listo! Agregaste esta(s) oferta(s) a tu pedido', imagenProducto);
 
                 modelLiquidacionOfertas = undefined;
                 labelAgregadoLiquidacion = undefined;
@@ -494,13 +497,11 @@ var PedidoRegistroModule = function () {
             TipoOfertaSisID: ConstantesModule.ConfiguracionOferta.Liquidacion,
         };
 
-        var imagenProducto = document.querySelector("#divCarruselLiquidaciones > div > div > div.slick-slide.slick-current.slick-active > div > div.producto_img_home.mini > img").src;
+        var imagenProducto = $(contenedor).find(".producto_img_home img").attr("src");
 
         $.ajaxSetup({
             cache: false
         });
-
-        //debugger;
 
         jQuery.ajax({
             type: 'POST',
@@ -1517,8 +1518,6 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
         EsCuponNuevas: esCuponNuevas
     };
 
-    //debugger;
-
     jQuery.ajax({
         type: "POST",
         url: baseUrl + "PedidoRegistro/UpdateTransaction",
@@ -1555,6 +1554,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
             }
             //Tentativa de poner aqui el nuevo mensaje para TESLA-07
             var strMsgListo = '¡Listo! Tu pedido ha sido modificado';
+            
             if (esMobile) {
                 messageInfo(strMsgListo);
             }

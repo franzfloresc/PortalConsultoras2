@@ -65,7 +65,7 @@
                {{#iff TipoAccionAgregar 'ContainsArray' '[@Constantes.TipoAccionAgregar.LoQuieres,@Constantes.TipoAccionAgregar.LoQuieresInactivo]' }}
                onclick="javascript:VerPopupExpGanaMas();"
                {{else}}
-               onclick="javascript:OnClickFichaDetalle(this);"
+               onclick="javascript:FichaVerDetalle.OnClickFichaDetalle(this);"
                {{/iff}}
                {{/iff}}>
                 <div>
@@ -178,7 +178,7 @@
 
                     {{#if TieneStock}}
                     <div class="producto_nombre_descripcion">
-                        <a class="btn_elige_tono" data-item-tag="eligetuopcion" onclick="javascript:OnClickFichaDetalle(this);" href="javascript:;">
+                        <a class="btn_elige_tono" data-item-tag="eligetuopcion" onclick="javascript:FichaVerDetalle.OnClickFichaDetalle(this);" href="javascript:;">
                             <div> <img src="/Content/Images/mobile/Esika/click-ico.svg" /> Elige tu opción</div>
                         </a>
                     </div>
@@ -209,7 +209,7 @@
 
                     {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
                     {{#if TieneStock}}
-                    <div class="texto_elige_tono cursor_pointer" data-item-tag="eligetuopcion" onclick="javascript:OnClickFichaDetalle(this);">
+                    <div class="texto_elige_tono cursor_pointer" data-item-tag="eligetuopcion" onclick="javascript:FichaVerDetalle.OnClickFichaDetalle(this);">
                         <img src="/Content/Images/mobile/Esika/click-ico.svg" /> ELIGE TU OPCIÓN
                     </div>
                     {{else}}

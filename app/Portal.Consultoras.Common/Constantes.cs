@@ -736,7 +736,7 @@ namespace Portal.Consultoras.Common
 
         /// <summary>
         /// Los cambios replicarlos en
-        /// RevistaDigital-DataLayer.js + ConstantesModule.js
+        /// RevistaDigital-DataLayer.js + ConstantesModule.js + CodigoOrigenPedidoWeb.js
         /// </summary>
         [Obsolete("Use ConsOrigenPedidoWeb")]
         public static class OrigenPedidoWeb
@@ -2675,6 +2675,8 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_CONSULTORA_BLOQUEADA = "3693";
                 //FIN HD-3693
 
+                public const string SUCCESS_RESERVA_AGREGAR = "2008";
+                public const string ERROR_RESERVA_AGREGAR = "2009";
                 public const string ERROR_RESERVA_NINGUNO = "2010";
                 public const string SUCCESS_RESERVA = "2011";
                 public const string SUCCESS_RESERVA_OBS = "2012";
@@ -3470,9 +3472,20 @@ namespace Portal.Consultoras.Common
             /// </summary>
             public const string UrlPersonalizacion = "Personalizacion/{0}/{1}/{2}/{3}";
 
+            /// <summary>
+            /// recomendaciones/{codigoPais}/{codigocampania}/{origen}
+            /// </summary>
             public const string UrlRecomendaciones = "Recomendaciones/{0}/{1}/{2}";
 
+            /// <summary>
+            /// categoria/{codigoPais}/{codigoCampania}
+            /// </summary>
             public const string UrlCategorias = "Categoria/{0}/{1}";
+
+            /// <summary>
+            /// upselling/{codigoPais}/{codigocampania}/{origen}
+            /// </summary>
+            public const string UrlUpSelling = "upselling/{0}/{1}/{2}";
         }
 
         public static class ActualizacionDatosValidacion

@@ -545,10 +545,10 @@ function AnalyticsSRListaOferta(response) {
     if (!(typeof AnalyticsPortalModule === 'undefined')) {
         var origen = {
             Pagina: isHome()
-                ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
-                : ConstantesModule.OrigenPedidoWebEstructura.Pagina.LandingShowroom,
-            Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.Showroom,
-            Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
+                ? CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Home
+                : CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.LandingShowroom,
+            Palanca: CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Showroom,
+            Seccion: CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel
         };
         var obj = {
             lista: response.listaOfertas,

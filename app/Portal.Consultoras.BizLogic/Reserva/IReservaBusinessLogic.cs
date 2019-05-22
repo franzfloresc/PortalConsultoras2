@@ -11,6 +11,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
         Task<BEResultadoReservaProl> CargarSesionAndEjecutarReserva(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, bool esMovil, bool enviarCorreo);
         string DeshacerPedidoValidado(BEUsuario usuario, string tipo);
         Task<BEResultadoReservaProl> EjecutarReserva(BEInputReservaProl input, bool crudreservado = false);
+        BEResultadoReservaProl EjecutarReservaCrud(BEInputReservaProl input, bool crudreservado = false);
         bool EnviarCorreoReservaProl(BEInputReservaProl input);
     }
 }
