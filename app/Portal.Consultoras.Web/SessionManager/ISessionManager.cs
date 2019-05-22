@@ -516,5 +516,8 @@ namespace Portal.Consultoras.Web.SessionManager
 
         void SetDemostradoresCaminoBrillante(List<BEDesmostradoresCaminoBrillante> val);
         List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante();
+
+        void SetChatbotToken(string val);
+        string GetChatbotToken();
     }
 }
