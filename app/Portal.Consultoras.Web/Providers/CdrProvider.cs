@@ -230,9 +230,6 @@ namespace Portal.Consultoras.Web.Providers
             if (differenceInDays <= 0) return new List<BECDRWebMotivoOperacion>();
 
             var listaMotivoOperacion = CargarMotivoOperacion(paisId);
-#if DEBUG
-            differenceInDays = 5;
-#endif
             var listaFiltro = listaMotivoOperacion.Where(mo => mo.CDRTipoOperacion.NumeroDiasAtrasOperacion >= differenceInDays).ToList();
             return listaFiltro.OrderBy(p => p.Prioridad).ToList();
         }
@@ -354,12 +351,6 @@ namespace Portal.Consultoras.Web.Providers
             if (CumpleRangoCampaniaCDR(paisId, campaniaId, consultoraId) == 0) return Constantes.CdrWebMensajes.SinPedidosDisponibles;
 
             var diasFaltantes = Util.GetDiasFaltantesFacturacion(fechaInicioCampania, zonaHoraria);
-
-#if DEBUG
-
-            diasFaltantes = 5;
-#endif
-
             if (diasFaltantes == 0) return Constantes.CdrWebMensajes.FueraDeFecha;
 
             var cdrDiasAntesFacturacion = 0;
