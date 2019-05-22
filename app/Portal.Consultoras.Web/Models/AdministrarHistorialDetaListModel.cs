@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.Models
         public IEnumerable<CampaniaModel> ListaCampanias { set; get; }
         public IEnumerable<AdministrarHistorialDetaActModel> ListaAccion { set; get; }
         public IEnumerable<AdministrarHistorialDetaActModel> ListaCodigoDetalle { set; get; }
-        
+
 
         public object Clone()
         {
