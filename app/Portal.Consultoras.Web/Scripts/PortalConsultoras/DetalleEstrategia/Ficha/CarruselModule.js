@@ -495,14 +495,11 @@ var CarruselModule = (function (config) {
 
         var titulo = '';
 
-        if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
-            titulo = 'SET DONDE ENCUENTRAS EL PRODUCTO';
-        }
-        else if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.ShowRoom || _config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia) {
+        if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.ShowRoom || _config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia || _config.palanca == ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
             if (_config.cantidadPack > 1) {
                 titulo = 'Packs parecidos con más productos';
             } else {
-                titulo = 'Packs que Contienen ' + _config.tituloCarrusel;
+                titulo = 'Packs que contienen <span style="text-transform:capitalize">' + _config.tituloCarrusel.toLowerCase()+'</span>';
             }
         }
 

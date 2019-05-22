@@ -390,11 +390,11 @@ namespace Portal.Consultoras.Web.Controllers
             tipo = Util.Trim(tipo);
             if (tieneCarrusel)
             {
-                pagina = ConsOrigenPedidoWeb.Pagina.Ficha;
                 seccionFicha = ConsOrigenPedidoWeb.Seccion.CarruselVerMas;
 
                 if (palanca != ConsOrigenPedidoWeb.Palanca.Lanzamientos)
                 {
+                    pagina = ConsOrigenPedidoWeb.Pagina.Ficha;
                     if (tipo == ConsOrigenPedidoWeb.Seccion.CarruselUpselling) // agregar los 'or' para crosSelling
                     {
                         seccionFicha = tipo;

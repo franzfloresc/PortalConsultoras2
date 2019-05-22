@@ -56,7 +56,7 @@ var FichaVerDetalle = (function () {
 
         var origenModelo = CodigoOrigenPedidoWeb.GetOrigenModelo(origenPedidoWeb);
         if (origenModelo.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling) {
-            var _objTipoPalanca = codigoOrigenPedidoWeb.DiccionarioTipoEstrategia.find(function (x) {
+            var _objTipoPalanca = CodigoOrigenPedidoWeb.DiccionarioTipoEstrategia.find(function (x) {
                 return x.codigo === codigoEstrategia
             }) || {};
 

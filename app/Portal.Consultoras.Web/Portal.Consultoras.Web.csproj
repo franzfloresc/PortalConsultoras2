@@ -1527,6 +1527,7 @@
     <Content Include="Content\Css\Site\Images\gif_de_ofertas_2.gif" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\general-popups.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-cierre-sesion.css" />
+    <Content Include="Content\Css\Site\styleBase.css" />
     <Content Include="Content\Images\checkBuroSAC.svg" />
     <Content Include="Content\Images\etiqueta_nuevo.svg" />
     <Content Include="Content\Images\Excel.svg" />
@@ -5850,6 +5851,7 @@
     <Content Include="Views\DetalleEstrategia\FichaResponsive\FichaEnriquecida\tabs-ficha-enriquecida-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\breadcrumbs-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\componente-estrategia-template.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\agregar-estrategia-template.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
