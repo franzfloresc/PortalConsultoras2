@@ -3492,7 +3492,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             };
             var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
             pedidoDetalle.PedidoID = pedidoID;
-            var listMensajeCondicional = new List<BEMensajeProl>();
+            List<BEMensajeProl> listMensajeCondicional;
 
             UpdateProl(usuario, lstDetalle, out listMensajeCondicional);
 
@@ -3617,7 +3617,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 });
             }
 
-            var listMensajeCondicional = new List<BEMensajeProl>();
+            List<BEMensajeProl> listMensajeCondicional;
 
             UpdateProl(usuario, lstDetalle, out listMensajeCondicional);
 

@@ -725,6 +725,11 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante, LogroCaminoBrillanteModel.IndicadorCaminoBrillanteModel.MedallaCaminoBrillanteModel>();
 
             #endregion
+
+            #region Historial
+            Mapper.CreateMap<BEContenidoAppDetaAct, AdministrarHistorialDetaActModel>();
+            #endregion
+
         }
     }
 }
