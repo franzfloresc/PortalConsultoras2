@@ -453,6 +453,7 @@ namespace Portal.Consultoras.Common
             public const string CDRParametria = "CDRParametria";
             public const string CDRWebDatos = "CDRWebDatos";
             public const string CDRExpressMensajes = "CDRExpressMensajes";
+            public const string CDRFlagIsSetsOrPacks = "CDRSetsYPacks"; //HD-3703 EINCA
 
             // Tabla LOgica
             public const string TablaLogicaDatos = "TablaLogicaDatos";

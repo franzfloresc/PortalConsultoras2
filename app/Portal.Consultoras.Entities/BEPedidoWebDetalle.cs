@@ -62,6 +62,7 @@ namespace Portal.Consultoras.Entities
             CodigoTipoOferta = row.ToString("CodigoTipoOferta");
             SetID = row.ToInt32("SetID");
             EstrategiaId = row.ToInt32("EstrategiaId");
+            CUVReemplazo = row.ToString("CUVReemplazo"); //HD-3703 EINCA
         }
 
         public BEPedidoWebDetalle(IDataRecord row, string Consultora)
@@ -119,6 +120,7 @@ namespace Portal.Consultoras.Entities
             CodigoTipoOferta = row.ToString("CodigoTipoOferta");
             SetID = row.ToInt32("SetID");
             EstrategiaId = row.ToInt32("EstrategiaId");
+            CUVReemplazo = row.ToString("CUVReemplazo"); //HD-3703 EINCA
         }
 
         [DataMember]
@@ -349,6 +351,8 @@ namespace Portal.Consultoras.Entities
         public bool EsArmaTuPack { get; set; }
         [DataMember]
         public string OrigenSolicitud { get; set; }
+        [DataMember]
+        public string CUVReemplazo { get; set; }
 
         [DataMember]
         public bool EsKitCaminoBrillante { get; set; }

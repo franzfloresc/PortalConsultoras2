@@ -143,6 +143,15 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             HttpContext.Current.Session[Constantes.ConstSession.CDRMotivoOperacion] = datos;
         }
+        //HD-3703 EINCA
+        public bool? GetFlagIsSetsOrPack() {
+            return (bool)HttpContext.Current.Session[Constantes.ConstSession.CDRFlagIsSetsOrPacks];
+        }
+        //HD-3703 EINCA
+        public void SetFlagIsSetsOrPack(bool? flag) {
+            HttpContext.Current.Session[Constantes.ConstSession.CDRFlagIsSetsOrPacks] = flag;
+        }      
+
         #endregion
 
         public IShowRoom ShowRoom

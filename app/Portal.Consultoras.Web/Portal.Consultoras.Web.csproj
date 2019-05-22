@@ -319,6 +319,7 @@
     <Compile Include="Models\ArmaTuPackModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
     <Compile Include="Models\ZonaValidacionTelefonicaModel.cs" />
+    <Compile Include="Models\CDRProductoRespuestaServicioModel.cs" />
     <Compile Include="Models\ConfiguracionZonaModel.cs" />
     <Compile Include="Models\DetalleEstrategia\EstrategiaComponenteSeccionModel.cs" />
     <Compile Include="Models\CaminoBrillante\DemostradorCaminoBrillanteModel.cs" />
@@ -367,6 +368,7 @@
     <Compile Include="Models\DireccionEntregaModel.cs" />
     <Compile Include="Models\ConsultaProl\ConsultaStockModel.cs" />
     <Compile Include="Models\ConsultaProl\RespuestaStockModel.cs" />
+    <Compile Include="Models\ProductoComplementarioModel.cs" />
     <Compile Include="Models\ProgramaNuevas\ConfigPremioProgNuevasModel.cs" />
     <Compile Include="Models\ProgramaNuevas\PremioProgNuevasOFModel.cs" />
     <Compile Include="Models\ProgramaNuevas\PremioProgNuevasModel.cs" />
@@ -1539,6 +1541,14 @@
     <Content Include="Content\Css\Site\Menu\MenuGeneral.css" />
     <Content Include="Content\Images\CaminoBrillante\medalla.PNG" />
     <Content Include="Content\Css\Site\Menu\MenuContenedorResponsive.css" />
+    <Content Include="Content\Images\flecha_despliegue_campo_select.svg" />
+    <Content Include="Content\Images\icono_foco_activo.svg" />
+    <Content Include="Content\Images\icono_mail_cdr_activo.svg" />
+    <Content Include="Content\Images\icono_check_cdr.svg" />
+    <Content Include="Content\Images\icono_cosmeticos.svg" />
+    <Content Include="Content\Images\icono_foco.svg" />
+    <Content Include="Content\Images\icono_mail_cdr.svg" />
+    <Content Include="Content\Images\icono_notificacion_negativa.svg" />
     <Content Include="Content\Images\Esika\icono_alerta_cierre_sesion.svg" />
     <Content Include="Content\Images\Esika\icono_sesion_por_finalizar.svg" />
     <Content Include="Content\Images\icono_alerta_cierre_sesion.svg" />
@@ -3683,6 +3693,7 @@
     <Content Include="Content\Images\no_image.gif" />
     <Content Include="Content\Images\nuevo-producto.png" />
     <Content Include="Content\Images\nuevo_tuclientes.svg" />
+    <Content Include="Content\Images\oferta-sin-imagen-sin-fondo.svg" />
     <Content Include="Content\Images\oferta-sin-imagen.svg" />
     <Content Include="Content\Images\oferta-ultimo-minuto.png" />
     <Content Include="Content\Images\oferta.png" />
@@ -3691,6 +3702,9 @@
     <Content Include="Content\Images\ojito.png" />
     <Content Include="Content\Images\ojos.svg" />
     <Content Include="Content\Images\ojos_negro.svg" />
+    <Content Include="Content\Images\opcion_cambio_mismo_producto_cdr.svg" />
+    <Content Include="Content\Images\opcion_cambio_otro_producto_cdr.svg" />
+    <Content Include="Content\Images\opcion_devolucion_cdr.svg" />
     <Content Include="Content\Images\ordenar-flecha-icono.svg" />
     <Content Include="Content\Images\ordenar-icono.svg" />
     <Content Include="Content\Images\paquete_doc.png" />
@@ -5807,6 +5821,7 @@
     <Content Include="Views\TusClientes\PanelTest.cshtml" />
     <Content Include="Views\EscalaDescuentos\Index.cshtml" />
     <Content Include="Views\TusClientes\_Mantener.cshtml" />
+    <Content Include="Areas\Mobile\Views\MisReclamos\_ListaMisReclamos.cshtml" />
     <Content Include="Views\Unete\ConfiguracionValidacionZona.cshtml" />
     <Content Include="Views\Unete\ReporteTipoConsultora.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaTemplate.cshtml" />
