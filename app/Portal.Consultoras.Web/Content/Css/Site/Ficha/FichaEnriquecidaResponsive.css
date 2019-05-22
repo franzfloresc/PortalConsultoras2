@@ -1,0 +1,215 @@
+﻿/*Ficha Enrriquecida*/
+.btn_texto {
+    font-size: 13px;
+    font-weight: bold;
+    margin-left: auto;
+    position: relative;
+    letter-spacing: 1px;
+    text-align: right;
+}
+
+    .btn_texto img {
+        top: -1px;
+        width: 10px;
+        right: 8px;
+        margin-left: 3px;
+    }
+/*Fin Ficha Enrriquecida*/
+
+/*Tabs*/
+
+.ficha_enriquecida_contenedor{
+    margin-top: 60px;
+}
+
+.tabs_ficha {
+    text-align: center;
+    border-bottom: solid 1px #979797;
+}
+    .tabs_ficha li {
+        display: inline-block;
+        width: 24.7%;
+    }
+
+    .tabs_ficha li:last-child {
+        border:none;
+    }
+    .tabs_ficha li a {
+        width: 100%;
+        color: #909094 !important;
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 50px;
+        height: 50px;
+        display: block;
+     }
+
+    .tabs_ficha li a.active {
+        border-bottom: solid 2px #b9007e;
+        color: #b9007e !important;
+     }
+
+.seciones_tabs article {
+    padding: 20px 0px;
+    
+}
+.tabs_ficha li > div{
+    padding-bottom: 15px;
+}
+
+.seciones_tabs article h4, .tabs_ficha li > div h4 {
+    font-size: 14.5px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    padding-top: 15px;
+}
+
+        .seciones_tabs article h4:first-child, .tabs_ficha li > div h4:first-child {
+            padding-top: 0px;
+        }
+
+    .seciones_tabs article p, .tabs_ficha li > div p {
+        font-size: 13.5px;
+        margin-bottom: 8px;
+    }
+
+
+.tabs_ficha li > div {
+    display: none;
+}
+
+.popup_full {
+    height: 100vh;
+    width: 100%;
+    background: #fff;
+    display: none;
+    z-index: 999999;
+    position: fixed;
+    top: 0;
+    overflow: auto;
+}
+
+.popup_active{
+    display: block !important; 
+}
+
+.button_volver{
+    left: 0;
+}
+
+.button_volver {
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 13px;
+    margin-top: 25px;
+}
+
+    .button_volver img {
+        height: 10px;
+        margin-right: 5px;
+        transform: rotate(180deg);
+        margin-top: -1px;
+    }
+
+.descripcion_enriquecida {
+    align-items: flex-end;
+    display: flex;
+}
+
+.descripcion_item {
+    line-height: normal;
+    padding-bottom: 4px;
+    font-size: 13px;
+}
+
+.descripcion_enriquecida .precio_valorizado {
+    padding-top: 3px;
+}
+
+.popup_full .ficha_enriquecida_contenedor {
+    padding:  0 15px;
+}
+
+.popup_full .contenedor_detalle {
+    background: none;
+}
+
+@media (min-width: 960px) {
+    .tabs_ficha li > div {
+        display: none !important
+    }       
+}
+
+@media (max-width: 960px) {
+
+    .tabs_ficha li {
+        width: 100%;
+        text-align: left;
+        border-bottom: solid 1px #d8d8d8;
+    }
+        .tabs_ficha li a {
+            line-height: 42px;
+            height: 42px;
+            background: url(/Content/Images/mobile/Esika/down-arrow.svg);
+            background-repeat: no-repeat;
+            background-position: center right 10px;
+            background-size: 11px;
+        }
+
+        .tabs_ficha li a.active {
+            border-bottom: none;
+        }
+
+    tabs_ficha li > div{
+        display: block;
+    }
+
+    .seciones_tabs{
+        display:none;
+    }
+
+    .tabs_ficha li a.active {
+        color: #909094 !important;
+    }
+
+    .tabs_ficha li a.activo {
+        color: #b9007e !important;
+        background: url(/Content/Images/mobile/Esika/top-arrow.svg);
+        background-repeat: no-repeat;
+        background-position: center right 10px;
+        background-size: 11px;
+    }
+
+    .tabs_ficha {
+        border: none;
+    }
+
+    .ficha_enriquecida_contenedor {
+        margin-top: 0px;
+    }
+
+    .popup_full .ficha_producto {
+        display: flex;
+        flex-direction: column;
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    .descripcion_enriquecida {
+        order: 2;
+        margin: 15px 0 15px 0;
+    }
+
+    .button_volver {
+        top: 5px;
+        left: 15px;
+    }
+
+    .popup_full .precio_valorizado{
+        border: none;
+    }
+
+    .button_ver_detalle {
+        margin-top: 10px;
+    }
+}

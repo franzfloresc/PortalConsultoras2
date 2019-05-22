@@ -14,7 +14,7 @@ belcorp.estrategia.subscribe("onProductoAgregado", function (data) {
 var fechaMostrarBanner = Date.now();
 var codigoAnclaOdd = codigoAnclaOdd || "";
 var baseUrl = baseUrl || "";
-var array_odd = array_odd || {};
+//var array_odd = array_odd || {};
 var variablesPortal = variablesPortal || {};
 var usuarioNombre = usuarioNombre || "";
 
@@ -104,8 +104,8 @@ var OfertaDelDiaModule = function () {
             var positionName = props.OrigenDesktopODD == 1
                 ? CONS_POSICION_BANNER.BANNER_HOME
                 : props.OrigenDesktopODD == 2
-                ? CONS_POSICION_BANNER.BANNER_PEDIDO
-                : "";
+                    ? CONS_POSICION_BANNER.BANNER_PEDIDO
+                    : "";
             dataLayer.push({
                 'event': "promotionView",
                 'ecommerce': {
@@ -162,7 +162,7 @@ var OfertaDelDiaModule = function () {
         data.lista = AsignarClaseCssAPalabraGratisDesktop(data.ListaOferta);
         data.prod = {};
         data.SoloUno = false;
- 
+
         if (data.lista.length > 0) {
             data.prod = data.lista[0];
             data.SoloUno = data.lista.length === 1;
@@ -175,12 +175,12 @@ var OfertaDelDiaModule = function () {
 
         var origen = {
             Pagina:
-                isHome() ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
-                : isPedido() ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Pedido
-                : isOfertas() ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
-                : ConstantesModule.OrigenPedidoWebEstructura.Pagina.Otras,
-            Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertaDelDia,
-            Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
+                isHome() ? CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Home
+                    : isPedido() ? CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Pedido
+                        : isOfertas() ? CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Contenedor
+                            : CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Otras,
+            Palanca: CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.OfertaDelDia,
+            Seccion: CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel
         };
         var cantidad = 3;
         if (!isOfertas()) {
@@ -214,9 +214,9 @@ var OfertaDelDiaModule = function () {
     var odd_desktop_procesar_evento_before_change = function (event, slick, currentSlide, nextSlide) {
 
         var origen = {
-            Pagina: ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor,
-            Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertaDelDia,
-            Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
+            Pagina: CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Contenedor,
+            Palanca: CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.OfertaDelDia,
+            Seccion: CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel
         };
 
         CarruselAyuda.MarcarAnalyticsChange(slick, currentSlide, nextSlide, origen);// Home Pedido
@@ -228,9 +228,9 @@ var OfertaDelDiaModule = function () {
             $(contenedorOfertas + ' [data-odd-accion="regresar"]').hide();
             $(contenedorOfertas + ' [data-odd-tipoventana="carrusel"]').show();
         }
-        var slidesToScroll = cantidadProductos;
+        //var slidesToScroll = cantidadProductos;
         if (cantidadProductos > 2) {
-            slidesToScroll = 2;
+            var slidesToShow = 2;
             EstablecerLazyCarrusel("#divOddCarrusel");
 
             $("#divOddCarrusel.slick-initialized").slick("unslick");
@@ -238,7 +238,7 @@ var OfertaDelDiaModule = function () {
                 lazyLoad: "ondemand",
                 infinite: true,
                 vertical: false,
-                slidesToShow: slidesToScroll,
+                slidesToShow: slidesToShow,
                 slidesToScroll: 1,
                 variableWidth: true,
                 autoplay: false,
@@ -292,7 +292,7 @@ var OfertaDelDiaModule = function () {
         OfertaDelDiaProvider
             .pedidoGetOfertaDelDiaPromise()
             .done(function (response) {
-                var array_odd = response.data;
+                //var array_odd = response.data;
 
                 if (!EsValidoResponseGetOfertaDelDia(response))
                     return false;
@@ -339,6 +339,7 @@ var OfertaDelDiaModule = function () {
                     $("#banner-odd .derecha_img img").attr("src", _data.ImagenFondo1);
                     $(contenedorOfertas).css("background-color", _data.ColorFondo1);
                 }
+
                 SetHandlebars("#ofertadeldia-template-style", _data, "#styleRelojOdd");
 
                 $(contenedorOfertas).show();
@@ -416,34 +417,34 @@ var OfertaDelDiaModule = function () {
         return descripcion;
     };
 
-    var AsignarPosicionAListaOfertas = function (listaOfertas) {
-        var posicion = 0;
-        var nuevaListaOfertas = [];
-        $.each(listaOfertas,
-            function (index, value) {
-                posicion++;
-                value.Posicion = posicion;
-                value.DescripcionOferta = (value.DescripcionOferta == "" || value.DescripcionOferta == null)
-                    ? ""
-                    : ConstruirDescripcionOferta(value.DescripcionOferta.split("+"));
-                nuevaListaOfertas.push(value);
-            });
+    //var AsignarPosicionAListaOfertas = function (listaOfertas) {
+    //    var posicion = 0;
+    //    var nuevaListaOfertas = [];
+    //    $.each(listaOfertas,
+    //        function (index, value) {
+    //            posicion++;
+    //            value.Posicion = posicion;
+    //            value.DescripcionOferta = (value.DescripcionOferta == "" || value.DescripcionOferta == null)
+    //                ? ""
+    //                : ConstruirDescripcionOferta(value.DescripcionOferta.split("+"));
+    //            nuevaListaOfertas.push(value);
+    //        });
 
-        return nuevaListaOfertas;
-    };
+    //    return nuevaListaOfertas;
+    //};
 
-    var AsignarClaseCssAPalabraGratisMobile = function (listaOfertas) {
-        var listaOfertasConClases = [];
+    //var AsignarClaseCssAPalabraGratisMobile = function (listaOfertas) {
+    //    var listaOfertasConClases = [];
 
-        $.each(listaOfertas,
-            function (index, value) {
-                value.DescripcionOferta =
-                    value.DescripcionOferta.replace("(¡GRATIS!)", "<span class='color-por-marca'>¡GRATIS!</span>");
-                listaOfertasConClases.push(value);
-            });
+    //    $.each(listaOfertas,
+    //        function (index, value) {
+    //            value.DescripcionOferta =
+    //                value.DescripcionOferta.replace("(¡GRATIS!)", "<span class='color-por-marca'>¡GRATIS!</span>");
+    //            listaOfertasConClases.push(value);
+    //        });
 
-        return listaOfertasConClases;
-    };
+    //    return listaOfertasConClases;
+    //};
 
     var CargarODDMobile = function () {
         MostrarRelojOfertaDelDia($(".clock").data("total-seconds"));
@@ -451,7 +452,7 @@ var OfertaDelDiaModule = function () {
         OfertaDelDiaProvider
             .pedidoGetOfertaDelDiaPromise()
             .done(function (data) {
-                array_odd = data.data;
+                //array_odd = data.data;
 
                 if (!EsValidoResponseGetOfertaDelDia(data))
                     return false;
@@ -460,7 +461,7 @@ var OfertaDelDiaModule = function () {
                 MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
 
                 $("#txtCantidad").val("1");
-                var overflowY = "auto";
+                //var overflowY = "auto";
                 $("body").css({ 'overflow-y': "auto" });
                 return false;
             })

@@ -1,49 +1,41 @@
-﻿using AutoMapper;
-
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceUsuario;
-
+using Portal.Consultoras.Web.ServiceContenido;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using System.Threading.Tasks;
-using Portal.Consultoras.Web.ServiceContenido;
-using System.Configuration;
-using System.Net;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarHistoriasController : BaseAdmController
     {
-        private static class _accion
-        {
-            public const int Nuevo = 1;
-            public const int Editar = 2;
-            public const int NuevoDatos = 3;
-            public const int Deshabilitar = 4;
-        }
+        //private static class _accion
+        //{
+        //    public const int Nuevo = 1;
+        //    public const int Editar = 2;
+        //    public const int NuevoDatos = 3;
+        //    public const int Deshabilitar = 4;
+        //}
 
         public ActionResult Index()
         {
             var model = new AdministrarHistorialModel();
-            string[] arrUrlMiniatura;
-            string[] arrHistAnchoAlto;
 
             try
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarHistorias/Index"))
                     return RedirectToAction("Index", "Bienvenida");
+
                 ViewBag.UrlS3 = GetUrlS3();
                 ViewBag.UrlDetalleS3 = GetUrlDetalleS3();
                 model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID, true);
 
                 string HistAnchoAlto = ConfigurationManager.AppSettings["HistAnchoAlto"];
-                arrHistAnchoAlto = HistAnchoAlto.Split(',');
+                string[] arrHistAnchoAlto = HistAnchoAlto.Split(',');
                 model.Ancho = arrHistAnchoAlto[0];
                 model.Alto = arrHistAnchoAlto[1];
 
@@ -51,7 +43,6 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new ServiceContenido.ContenidoServiceClient())
                 {
                     entidad = sv.GetContenidoAppHistoria(Globals.CodigoHistoriasResumen);
-                    
 
                     model.IdContenido = entidad.IdContenido;
                     model.Codigo = entidad.Codigo;
@@ -64,14 +55,14 @@ namespace Portal.Consultoras.Web.Controllers
                 if (entidad.UrlMiniatura == string.Empty)
                 {
                     model.NombreImagenAnterior = Url.Content("~/Content/Images/") + "Question.png";
-                    model.NombreImagen = "";
                 }
                 else
                 {
-                    arrUrlMiniatura = entidad.UrlMiniatura.Split('/');
+                    var arrUrlMiniatura = entidad.UrlMiniatura.Split('/');
                     model.NombreImagenAnterior = ViewBag.UrlS3 + arrUrlMiniatura[5];
-                    model.NombreImagen = "";
+
                 }
+                model.NombreImagen = "";
                 return View(model);
             }
             catch (FaultException ex)
@@ -152,7 +143,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var tempNombreImagen = form.NombreImagen;
+                //var tempNombreImagen = form.NombreImagen;
                 var entidad = new BEContenidoAppDeta
                 {
                     IdContenido = form.IdContenido,
@@ -176,23 +167,18 @@ namespace Portal.Consultoras.Web.Controllers
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "No se pudo realizar la carga de la Imagen.",
-                    extra = ""
-                });
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "No se pudo realizar la carga de la Imagen.",
-                    extra = ""
-                });
             }
+
+            return Json(new
+            {
+                success = false,
+                message = "No se pudo realizar la carga de la Imagen.",
+                extra = ""
+            });
         }
 
         public JsonResult ComponenteListar(string sidx, string sord, int page, int rows, int IdContenido)
@@ -286,7 +272,7 @@ namespace Portal.Consultoras.Web.Controllers
             AdministrarHistorialDetaUpdModel modelo;
             try
             {
-               string url = GetUrlDetalleS3();
+                string url = GetUrlDetalleS3();
                 modelo = new AdministrarHistorialDetaUpdModel
                 {
                     IdContenidoDeta = entidad.IdContenidoDeta,
@@ -391,7 +377,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (resizeImagenApp)
             {
                 string codeHist = ConfigurationManager.AppSettings["CodigoHist"].ToString();
-                var urlImagen = ConfigS3.GetUrlFileHistDetalle(userData.CodigoISO, model.RutaContenido);               
+                var urlImagen = ConfigS3.GetUrlFileHistDetalle(userData.CodigoISO, model.RutaContenido);
                 new Providers.RenderImgProvider().ImagenesResizeProcesoAppHistDetalle(urlImagen, userData.CodigoISO, userData.PaisID, codeHist);
             }
 

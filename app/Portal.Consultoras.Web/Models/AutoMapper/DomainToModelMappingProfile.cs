@@ -664,6 +664,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<ServiceCliente.BEPedidoWebDetalle, PedidoWebClienteMobilModel>();
             Mapper.CreateMap<ServiceCliente.BEPedidoWebDetalle, PedidoWebDetalleMobilModel>();
             Mapper.CreateMap<ServicePedido.BEEstrategia, PremioElectivoModel>()
+                .ForMember(t => t.Precio2, f => f.MapFrom(c => c.PrecioUnitario))
                 .ForMember(t => t.DescripcionResumen, f => f.MapFrom(c => c.DescripcionCUV2));
 
             Mapper.CreateMap<ServiceUsuario.BEUsuarioOpciones, UsuarioOpcionesModel>()
@@ -700,7 +701,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.DescripcionPlural, f => f.MapFrom(c => c.DescripcionPlural))
                 .ForMember(t => t.DescripcionSingular, f => f.MapFrom(c => c.DescripcionSingular))
                 .ForMember(t => t.Cabecera, f => f.MapFrom(c => c.Cabecera))
-                .ForMember(t => t.Secciones, f => f.MapFrom(c => c.Secciones));
+                .ForMember(t => t.Secciones, f => f.MapFrom(c => c.Secciones))
+                .ForMember(t => t.CodigoProducto, f => f.MapFrom(c => c.CodigoSap));
 
             Mapper.CreateMap<Search.ResponseOferta.Estructura.Estrategia, DetalleEstrategiaFichaModel>()
                 .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CodigoCampania))

@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
 using Portal.Consultoras.Web.Models.ProgramaNuevas;
-using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceContenido;
@@ -17,8 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -119,7 +114,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 SessionManager.SetPedidoValidado(false);
 
-                if (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
+                if ((configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == DateTime.Today) &&
                     !configuracionCampania.ModificaPedidoReservado &&
                     !configuracionCampania.ValidacionAbierta)
                 {
@@ -130,7 +125,7 @@ namespace Portal.Consultoras.Web.Controllers
                 userData.ZonaValida = configuracionCampania.ZonaValida;
 
                 model.FlagValidacionPedido = "0";
-                if (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado &&
+                if ( (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == DateTime.Today) &&
                     configuracionCampania.ModificaPedidoReservado)
                 {
                     model.FlagValidacionPedido = "1";
@@ -161,7 +156,11 @@ namespace Portal.Consultoras.Web.Controllers
                 else // Periodo de facturacion
                 {
                     model.AccionBoton = "validar";
-                    model.Prol = "RESERVA TU PEDIDO";
+                    if(model.EstadoPedido == 1) //Reservado
+                        model.Prol = "MODIFICA TU PEDIDO";
+                    else
+                        model.Prol = "RESERVA TU PEDIDO";
+
                     model.ProlTooltip = "Haz click aqui para reservar tu pedido";
                     model.IndicadorGPRSB = configuracionCampania.IndicadorGPRSB;
 
@@ -287,13 +286,12 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Pedidos Pendientes
 
                 ViewBag.MostrarPedidosPendientes = "0";
-                ViewBag.LanzarTabConsultoraOnline = (lanzarTabConsultoraOnline) ? "1" : "0";
+                //ViewBag.LanzarTabConsultoraOnline = (lanzarTabConsultoraOnline) ? "1" : "0";
 
                 if (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig())
                 {
                     var paisesConsultoraOnline = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
-                    if (paisesConsultoraOnline.Contains(userData.CodigoISO)
-                        && userData.EsConsultora())
+                    if (paisesConsultoraOnline.Contains(userData.CodigoISO) && userData.EsConsultora())
                     {
                         using (var svc = new UsuarioServiceClient())
                         {
@@ -301,23 +299,23 @@ namespace Portal.Consultoras.Web.Controllers
                             if (cantPedidosPendientes > 0)
                             {
                                 ViewBag.MostrarPedidosPendientes = "1";
+                                ViewBag.CantPedidosPendientes = cantPedidosPendientes;
 
-                                using (var sv = new SACServiceClient())
-                                {
-                                    var motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
-                                    ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
-                                }
+                                //using (var sv = new SACServiceClient())
+                                //{
+                                //    var motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
+                                //    ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
+                                //}
 
 
-                                var olstMisPedidos =
-                                    svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID)
-                                        .ToList();
+                                //var olstMisPedidos =
+                                //    svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID)
+                                //        .ToList();
 
-                                ViewBag.ListaPedidosPendientesCliente = olstMisPedidos;
+                                //ViewBag.ListaPedidosPendientesCliente = olstMisPedidos;
 
                             }
                         }
-
                     }
                 }
 
@@ -336,12 +334,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.CampaniaActual = userData.CampaniaID;
                 model.Simbolo = userData.Simbolo;
+
                 #region Cupon
                 model.TieneCupon = userData.TieneCupon;
                 model.EMail = userData.EMail;
                 model.Celular = userData.Celular;
                 model.EmailActivo = userData.EMailActivo;
                 #endregion
+
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
                 ViewBag.CodigoConsultora = userData.CodigoConsultora;
@@ -1580,7 +1580,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     },
                     flagCorreo = resultado.EnviarCorreo ? "1" : "",
                     permiteOfertaFinal = listPermiteOfertaFinal.Contains(resultado.ResultadoReservaEnum),
-                    mensajeCondicional
+                    mensajeCondicional,
+                    UltimoDiaFacturacion = (userData.FechaFacturacion == DateTime.Today)   //TESLA 7
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -2341,7 +2342,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                 }
-                var pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
+                var pedidoReservado = (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado && userData.FechaFinCampania == DateTime.Today);
                 var estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                 var mensaje = result.Mensaje;
                 //INI HD-3693
@@ -2352,6 +2353,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = estado,
                     pedidoReservado = pedidoReservado,
                     message = mensaje,
+                    UltimoDiaFacturacion = (userData.FechaFacturacion == DateTime.Today),   //TESLA 7
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }

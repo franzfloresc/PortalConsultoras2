@@ -39,22 +39,22 @@ $(document).ready(function () {
         $('.content_set_oferta_especial').slideUp();
 
     });
-    var stilo;
+    //var stilo;
     $("#CerrarOfertaEspecial").on("click", function () {
         $('.banner_especial_showroom').hide();
         $(".footer_e").css("margin-bottom", "0px");
         localStorage["cerrar_banner_sub_campanias"] = true;
     });
 
-    if (localStorage["cerrar_banner_sub_campanias"])
+    if (localStorage["cerrar_banner_sub_campanias"]) {
         $('.banner_especial_showroom').hide();
-    else {
-        stilo = $('.banner_especial_showroom').attr("style");
-        if (stilo != null) {
-            stilo = stilo.replace("display:none", "display:block");
-
-        }
     }
+    //else {
+    //    stilo = $('.banner_especial_showroom').attr("style");
+    //    if (stilo != null) {
+    //        stilo = stilo.replace("display:none", "display:block");
+    //    }
+    //}
 
     $(".seleccion_filtro_fav").on("click", function () {
         $(this).toggleClass("seleccion_click_flitro");
@@ -69,11 +69,11 @@ $(document).ready(function () {
         draggable: true,
         title: ":: Mensaje ::",
         buttons:
-        {
-            "Aceptar": function () {
-                HideDialog("DialogMensajesBanner");
+            {
+                "Aceptar": function () {
+                    HideDialog("DialogMensajesBanner");
+                }
             }
-        }
     });
 
     $('#divMensajeProductoAgregado').dialog({
@@ -216,13 +216,13 @@ $(document).ready(function () {
         $(".footer_e").css("margin-bottom", "73px");
     }
 
-    var cerrar_banner_sub_campanias = false;
+    //var cerrar_banner_sub_campanias = false;
     var ver_subcamapania = false;
     var ver_compraxcompra = false;
 
-    if (localStorage["cerrar_banner_sub_campanias"]) {
-        cerrar_banner_sub_campanias = true;
-    }
+    //if (localStorage["cerrar_banner_sub_campanias"]) {
+    //    cerrar_banner_sub_campanias = true;
+    //}
 
     if (tieneCompraXCompra == "True" && closeBannerCompraPorCompra == "False") {
         ver_compraxcompra = true;
@@ -232,20 +232,18 @@ $(document).ready(function () {
     }
     else if (ver_subcamapania == true && ver_compraxcompra == true) {
         $("#divBannerCompraPorCompra").hide();
-        stilo = $('.banner_especial_showroom').attr("style");
-        if (stilo != null) {
-            stilo = stilo.replace("display:none", "display:block");
-
-        }
+        //stilo = $('.banner_especial_showroom').attr("style");
+        //if (stilo != null) {
+        //    stilo = stilo.replace("display:none", "display:block");
+        //}
         $(".footer_e").css("margin-bottom", "73px");
     }
     else if (ver_subcamapania == true) {
         $("#divBannerCompraPorCompra").hide();
-        stilo = $('.banner_especial_showroom').attr("style");
-        if (stilo != null) {
-            stilo = stilo.replace("display:none", "display:block");
-
-        }
+        //stilo = $('.banner_especial_showroom').attr("style");
+        //if (stilo != null) {
+        //    stilo = stilo.replace("display:none", "display:block");
+        //}
     }
     else if (ver_compraxcompra == true) {
         $('.banner_especial_showroom').hide();
@@ -544,12 +542,12 @@ function compraxcompra_promotion_impression() {
         'ecommerce': {
             'promoView': {
                 'promotions': [
-                {
-                    'id': id,
-                    'name': name,
-                    'position': 'Showroom Footer',
-                    'creative': 'Promocion Showroom'
-                }]
+                    {
+                        'id': id,
+                        'name': name,
+                        'position': 'Showroom Footer',
+                        'creative': 'Promocion Showroom'
+                    }]
             }
         }
     });
