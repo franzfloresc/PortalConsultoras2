@@ -1,0 +1,39 @@
+﻿<script id="tipos-tonos-componente-teplate" type="text/x-handlebars-template">
+    {{#each this.Hermanos as |componente|}}
+    <article class="selecion_item">
+        <div class="seleccion_img">
+            <img src="{{componente.ImagenBulk}}" alt="">
+        </div>
+        <div class="seleccion_title">{{componente.NombreBulk}}</div>
+
+        {{#iff componente.TieneStock '==' true}}
+        <button data-tipo-tono-cuv="{{componente.Cuv}}">
+            Elígelo
+        </button>
+        <div class="contenedor_rangos " id="idcontenedor_rangos" data-cantidad-contenedor="" style="display:none">
+            <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" 
+                   type="text" 
+                   value="1" 
+                   onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);" 
+                   size="2" 
+                   maxlength="2" 
+                   id="txtCantidad" 
+                   data-input="cantidad" 
+                   data-cantidad-input="-">
+            <div>
+                <a class="txt_menos" data-cantidad-agregar="-" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                    <div class="dibujar_linea dibujar_menos"></div>
+                </a>
+                <a class="txt_mas" data-cantidad-agregar="+" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                    <div class="dibujar_linea dibujar_mas"></div>
+                </a>
+            </div>
+        </div>
+        {{/iff}}
+        {{#iff componente.TieneStock '==' false}}
+        <div class="tag_agotago">Agotado</div>
+        {{/iff}}
+
+    </article>
+    {{/each}}
+</script>

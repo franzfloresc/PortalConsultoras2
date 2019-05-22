@@ -57,7 +57,8 @@
         // debugger;
         result = _config.componentesView.setTitle(selectedComponent.selectComponentTitle) &&
             _config.componentesView.setSelectedQuantityText(selectedComponent.selectedQuantityText) &&
-            _config.componentesView.showTypeAndTonesModal();
+            _config.componentesView.showComponentTypesAndTones(selectedComponent) &&
+            _config.componentesView.showTypesAndTonesModal();
 
         return result;
     };

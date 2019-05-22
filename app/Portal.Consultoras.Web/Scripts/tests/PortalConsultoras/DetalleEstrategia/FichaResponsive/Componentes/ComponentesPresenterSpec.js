@@ -867,7 +867,8 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
             componentesPresenter.onEstrategiaModelLoaded(estrategiaUnComponenteFactorCuadreIgualAUno());
             componentesView.setTitle.returns(true);
             componentesView.setSelectedQuantityText.returns(true);
-            componentesView.showTypeAndTonesModal.returns(true);
+            componentesView.showComponentTypesAndTones.returns(true);
+            componentesView.showTypesAndTonesModal.returns(true);
          });
 
          it("return false when componentesView do not set title", function () {
@@ -922,6 +923,29 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
             expect(result).to.eql(true);
             expect(selectedQuantityText).to.have.string("0 Seleccionados");
          });
+
+         it("return false when componentesView do not render component's tones/types",function(){
+            // //Arrange
+            var cuvComponent = "31305";
+            componentesView.showComponentTypesAndTones.returns(false);
+
+            // //Act
+            var result = componentesPresenter.showTypesAndTonesModal(cuvComponent);
+
+            //Assert
+            expect(result).to.be.eql(false);
+         });
+
+         it("return true when component's tones/types are shown",function(){
+            // //Arrange
+            var cuvComponent = "31305";
+
+            // //Act
+            var result = componentesPresenter.showTypesAndTonesModal(cuvComponent);
+
+            //Assert
+            expect(result).to.be.eql(true);
+         });
       });
 
       describe("when strategy has one component with FactorCuadre equals to two", function () {
@@ -929,7 +953,8 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
             componentesPresenter.onEstrategiaModelLoaded(estrategiaUnComponenteFactorCuadreIgualADos());
             componentesView.setTitle.returns(true);
             componentesView.setSelectedQuantityText.returns(true);
-            componentesView.showTypeAndTonesModal.returns(true);
+            componentesView.showComponentTypesAndTones.returns(true);
+            componentesView.showTypesAndTonesModal.returns(true);
          });
 
          it("Show 'Elige 2 opciones' when quantity of components is equals to 2", function () {
