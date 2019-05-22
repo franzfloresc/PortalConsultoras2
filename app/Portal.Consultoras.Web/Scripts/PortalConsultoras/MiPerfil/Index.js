@@ -89,6 +89,7 @@ $(document).ready(function () {
             //INI HD-3897
             ValidacionCheck: function () {
 
+
                 if ($("#hdn_EditarDatos").val() == 1) {
                     //SMS
                     if ($("#hdn_FlgCheckSMS").val()) {
@@ -99,7 +100,7 @@ $(document).ready(function () {
                     } else {
                         $("#grupo_form_cambio_datos_sms").addClass("grupo_form_cambio_datos--confirmacionPendiente");
                         $("#grupo_form_cambio_datos_sms .mensaje_validacion_campo").show();
-                        $("#btn_confirmar_dato_sms").show();
+                        if ($('#txtCelularMD').val().trim()!="")$("#btn_confirmar_dato_sms").show();
 
                     }
 
@@ -112,7 +113,7 @@ $(document).ready(function () {
                     } else {
                         $("#grupo_form_cambio_datos_email").addClass("grupo_form_cambio_datos--confirmacionPendiente");
                         $("#grupo_form_cambio_datos_email .mensaje_validacion_campo").show();
-                        $("#btn_confirmar_dato_email").show();
+                        if ($('#txtEMailMD').val().trim() != "") $("#btn_confirmar_dato_email").show();
 
                     }
                 } else {
