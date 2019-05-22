@@ -1731,10 +1731,12 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         async: true,
         success: function (data) {
             CerrarSplash();
-
+            debugger;
             if (!checkTimeout(data)) return false;
             if (data.success != true) {
+                btnSalirTlpDelete(window.event, pedidoDetalleId, setId);
                 messageInfoError(data.message);
+                
                 return false;
             }
 
@@ -1769,6 +1771,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
+                btnSalirTlpDelete(window.event, pedidoDetalleId, setId);
                 HideDialog("divVistaPrevia");
                 CerrarSplash();
             }
