@@ -1518,6 +1518,7 @@
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\general-popups.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-cierre-sesion.css" />
     <Content Include="Content\Images\checkBuroSAC.svg" />
+    <Content Include="Content\Images\Esika\nuevo-logo-esika-login-blanco.svg" />
     <Content Include="Content\Images\Esika\nuevo-logo-esika-login.svg" />
     <Content Include="Content\Images\Esika\nuevo-logo-esika.svg" />
     <Content Include="Content\Images\Excel.svg" />
@@ -1865,6 +1866,7 @@
     <Content Include="Content\Images\lluvia\sq-r.svg" />
     <Content Include="Content\Images\lluvia\trg-d.svg" />
     <Content Include="Content\Images\lluvia\trg-r.svg" />
+    <Content Include="Content\Images\Login2\nuevo-logo-esika-login-blanco.svg" />
     <Content Include="Content\Images\logo-club-ganamas-dorado2.svg" />
     <Content Include="Content\Images\Lbel\logo_marca_pais.svg" />
     <Content Include="Content\Images\Lbel\vineta_indicador.png" />

@@ -1026,6 +1026,15 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
+    .logos_footer--esika {
+        margin-top: -2px;
+    }
+
+        .logos_footer--esika img {
+            width: 100%;
+            height: auto;
+        }        
+
 /*  Main Navigation */
 #popup_chatDisabled {
     font-family: lato;
