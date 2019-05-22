@@ -293,6 +293,7 @@ var AnalyticsPortalModule = (function () {
             || origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.LandingDuoPerfecto
             || origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.LandingPackNuevas
             || origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.LandingShowroom
+            || origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Ficha
             || origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Ficha
             || origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselVerMas
             || origenEstructura.CodigoPalanca != "";
