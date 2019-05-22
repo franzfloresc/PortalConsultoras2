@@ -1,8 +1,17 @@
-﻿
+﻿body {
+    background-color: #f5f5f7;
+}
+
+.seccion_ficha{
+    background-color: #fff;
+    margin-top: 12px;
+}
+
 .contenedor_detalle {
     margin: 0 auto;
     max-width: 1105px;
-    padding: 25px 0;
+    padding-top: 32px;
+    padding-bottom: 32px;
     position: relative;
 }
 
@@ -479,6 +488,15 @@ ul.breadcumbs li a {
 .flip-clock-dot {
     box-shadow: none !important;
 }  
+
+
+/*UpSelling*/
+.titulo_seccion {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/*Fin pSelling*/
 
 
 @media (min-width: 960px) {
