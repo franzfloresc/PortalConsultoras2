@@ -239,7 +239,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 FlagValidacionPedido = beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
                                        && beConfiguracionCampania.ModificaPedidoReservado
                     ? "1"
-                    : "0"
+                    : "0",
+                EstadoPedido = (beConfiguracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente).ToInt()
             };
 
             ValidarStatusCampania(beConfiguracionCampania);
