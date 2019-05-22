@@ -112,11 +112,25 @@ var CodigoOrigenPedidoWeb = (function () {
         }
     };
 
+    var getOrigenCambioSegunTipoEstrategia = function (origenPedidoWeb, codigoEstrategia) {
+
+        var origenModelo = getOrigenModelo(origenPedidoWeb);
+        if (origenModelo.Seccion == origenPedidoWebEstructura.Seccion.CarruselUpselling) {
+            var _objTipoPalanca = diccionarioTipoEstrategiaPalanca.find(function (x) {
+                return x.codigo === codigoEstrategia
+            }) || {};
+
+            origenModelo.Palanca = _objTipoPalanca.Palanca;
+        }
+
+        return origenModelo.Dispositivo + origenModelo.Pagina + origenModelo.Palanca + origenModelo.Seccion;
+    };
 
     return {
         CodigoEstructura: origenPedidoWebEstructura,
         MaestroCodigoOrigen: maestroCodigoOrigen,
         GetOrigenModelo: getOrigenModelo,
+        GetCambioSegunTipoEstrategia: getOrigenCambioSegunTipoEstrategia,
         DiccionarioTipoEstrategia: diccionarioTipoEstrategiaPalanca
     }
 })();
