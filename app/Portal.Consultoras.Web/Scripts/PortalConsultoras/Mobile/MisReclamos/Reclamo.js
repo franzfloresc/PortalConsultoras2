@@ -430,7 +430,7 @@ $(document).ready(function () {
                                         Descripcion: $(me.Variables.hdDescripcionCuv).val()
                                     };
                                     dataCdrDevolucion.ProductoSeleccionado = ProductoSeleccionado;
-                                    if (d !== null) {
+                                    if (d.data[0].LProductosComplementos != null && d.data[0].LProductosComplementos != "undefined") {
                                         dataCdrDevolucion.DataRespuestaServicio = d.data[0].LProductosComplementos;
                                         flagSetsOrPack = d.flagSetsOrPack;
                                     }
@@ -463,7 +463,7 @@ $(document).ready(function () {
                             me.Funciones.DetalleGuardar(fnPreValidacion.id, function (data) {
                                 if (data.success) {
                                     $(me.Variables.hdCDRID).val(data.detalle);
-                                    $.when(me.Funciones.DetalleCargar()).done(function () {                                       
+                                    $.when(me.Funciones.DetalleCargar()).done(function () {
                                         $(me.Variables.wrpMobile).removeClass(me.Variables.pb120);
                                         var arrOcultarElementos = [me.Variables.TituloPreguntaInconvenientes, me.Variables.Registro4
                                             , me.Variables.Registro3, me.Variables.infoOpcionesDeCambio, me.Variables.Enlace_regresar, "#VistaPaso1y2"];
