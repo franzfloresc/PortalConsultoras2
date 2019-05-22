@@ -617,13 +617,21 @@ var EstrategiaAgregarModule = (function () {
 
                 CerrarLoad();
 
+                //debugger;
                 var imagenProducto = $btnAgregar.parents("[data-item]").find("[data-imagen-producto]").attr("data-imagen-producto");
 
-                if (typeof imagenProducto === 'undefined') {
-                    if (document.querySelector("#FichaImagenProducto > img") != null) {
+                if (typeof imagenProducto === 'undefined' || imagenProducto === null) {
+                    if (document.querySelector("#FichaImagenProducto > img") !== null) {
                         imagenProducto = document.querySelector("#FichaImagenProducto > img").src;
-                    } else if (document.querySelector("#img-banner-odd") != null) {
+                    } else if (document.querySelector("#img-banner-odd") !== null) {
                         imagenProducto = document.querySelector("#img-banner-odd").src;
+                    } else if (isMobile()) {
+                        var dataImagen = $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
+                            .find(".slick-active").find("[data-imagen-producto]").attr("data-imagen-producto");
+                        if (dataImagen !== 'undefined' && dataImagen !== null) {
+                            imagenProducto = dataImagen;
+                        }
+                        
                     }
                 }
 
