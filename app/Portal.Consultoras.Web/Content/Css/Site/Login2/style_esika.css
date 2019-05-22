@@ -1026,6 +1026,15 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
+    .logos_footer--esika {
+        margin-top: -2px;
+    }
+
+        .logos_footer--esika img {
+            width: 59px;
+            height: auto;
+        }        
+
 /*  Main Navigation */
 #popup_chatDisabled {
     font-family: lato;
@@ -1770,6 +1779,15 @@ h1, h2, h3, h4, h5, h6 {
         bottom: 10px;
     }
 
+    .logos_footer--esika {
+        margin-top: -4px;
+    }
+
+        .logos_footer--esika img {
+            width: 62px;
+            height: auto;
+        } 
+
     .sombra_superior {
         display: none;
     }
@@ -1797,9 +1815,9 @@ h1, h2, h3, h4, h5, h6 {
         background: url('/Content/Css/Site/Images/login-esika-1920.jpg');
     }
 
-    .logo-esika {
+    /*.logo-esika {
         margin-left: 0;
-    }
+    }*/
 
     .fondo_form {
         display: none;
