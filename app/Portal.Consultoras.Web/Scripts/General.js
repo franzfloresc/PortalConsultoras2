@@ -833,6 +833,86 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
     }
 }
 
+function AbrirMensaje25seg(mensaje, imagen) {
+    try {
+        var _dialogClass = '.setBottom',
+            _overlay = '.ui-widget-overlay'
+
+        mensaje = $.trim(mensaje);
+        if (mensaje == "") {
+            CerrarLoad();
+            return false;
+        }
+        //INI HD-3693
+        var msjBloq = validarpopupBloqueada(mensaje);
+        if (msjBloq != "") {
+            CerrarLoad();
+            alert_msg_bloqueadas(msjBloq);
+            return true;
+        }
+        //FIN HD-3693
+        imagen = imagen || ""
+
+        $("#pop_src").attr("src", "#")
+
+        if (imagen == "") {            
+            $("#pop_src").css("display", "none")                        
+        }
+        else {
+            $("#pop_src").attr("src", imagen)
+            $("#pop_src").css("display", "block")            
+        }
+        
+        
+        var isUrlMobile = isMobile();
+        if (isUrlMobile > 0) {                        
+            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
+            $('#alertDialogMensajes25seg').dialog("open");
+            $(_overlay).css('background', 'black')
+            $(_overlay).css('opacity', '0.85')
+
+            var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0])
+            _newTopDialog = _topWithoutPXAfterCreateDialog + 200,
+                _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
+        }
+        else {
+            
+            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);                    
+            $('#alertDialogMensajes25seg').dialog("open");
+            $(_overlay).css('background', 'black')
+            $(_overlay).css('opacity', '0.85')
+
+            var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0])
+                _newTopDialog = _topWithoutPXAfterCreateDialog + 200,
+                _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
+
+        }
+        CerrarLoad();
+        //Ocultar el scroll 
+        $("body").css("overflow", "hidden");  
+
+        setTimeout(function () {
+            document.querySelector(_dialogClass).style.transition = "top 1s ease"
+            _newTopDialog = _topWithoutPXAfterCreateDialog - 200
+            _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'            
+        }, 100)
+
+        setTimeout(function () {
+            $(_dialogClass).fadeOut(500, function () {
+                $('#alertDialogMensajes25seg').dialog("close");
+                $("body").css("overflow", "auto")
+            })
+        }, 2500)    
+
+        
+        var parameter = [["mensaje", mensaje], ["imagen", imagen]];
+        console.table(parameter);
+
+    } catch (e) {
+
+    }
+}
+
 function compare_dates(fecha, fecha2) {
 
     var xMonth = fecha.substring(3, 5);

@@ -387,7 +387,12 @@ var FichaModule = (function (config) {
         }
         else {
             mensajeError += "\n _fichaServicioApi no";
-            estrategia = _modeloFicha();
+            estrategia = modeloFicha;
+
+            if (typeof estrategia === "undefined" || estrategia == null || typeof estrategia.EstrategiaID === "undefined" || estrategia.EstrategiaID == 0) {
+                throw '_getEstrategia, no obtiene oferta desde api';
+            }
+
             _esMultimarca = estrategia.EsMultimarca;
 
             estrategia.esCampaniaSiguiente = estrategia.CampaniaID !== _obtenerCampaniaActual();
@@ -760,7 +765,7 @@ var FichaModule = (function (config) {
         if (!modeloFicha.TieneCarrusel) {
             return false;
         }
-
+        
         carruselModule = CarruselModule({
             palanca: _config.palanca,
             campania: _config.campania,
@@ -769,7 +774,12 @@ var FichaModule = (function (config) {
             divCarruselContenedor: "#divFichaCarrusel",
             idTituloCarrusel: "#tituloCarrusel",
             divCarruselProducto: "#divFichaCarruselProducto",
-            OrigenPedidoWeb: _config.origen
+            OrigenPedidoWeb: _config.origen,
+            tituloCarrusel: modeloFicha.DescripcionCompleta,
+            cantidadPack: modeloFicha.Hermanos.length,
+            codigoProducto: modeloFicha.CodigoProducto,
+            precioProducto: modeloFicha.Precio2,
+            productosHermanos: modeloFicha.Hermanos
         });
 
         carruselModule.Inicializar();
@@ -916,7 +926,7 @@ var FichaPartialModule = (function () {
         var row = $(event).parents("[data-detalle-item]");
         var palanca = $.trim(row.attr("data-tipoestrategia"));
         var OrigenPedidoWeb = $.trim(row.attr("data-OrigenPedidoWeb"));
-        palanca = GetPalanca(palanca, OrigenPedidoWeb, false);
+        palanca = FichaVerDetalle.GetPalanca(palanca, OrigenPedidoWeb, false);
         var campania = $.trim(row.attr("data-campania"));
         var cuv = $.trim(row.attr("data-cuv"));
         var setId = $.trim(row.attr("data-SetID"));

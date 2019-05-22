@@ -175,12 +175,12 @@ var OfertaDelDiaModule = function () {
 
         var origen = {
             Pagina:
-                isHome() ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
-                    : isPedido() ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Pedido
-                        : isOfertas() ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
-                            : ConstantesModule.OrigenPedidoWebEstructura.Pagina.Otras,
-            Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertaDelDia,
-            Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
+                isHome() ? CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Home
+                    : isPedido() ? CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Pedido
+                        : isOfertas() ? CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Contenedor
+                            : CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Otras,
+            Palanca: CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.OfertaDelDia,
+            Seccion: CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel
         };
         var cantidad = 3;
         if (!isOfertas()) {
@@ -214,9 +214,9 @@ var OfertaDelDiaModule = function () {
     var odd_desktop_procesar_evento_before_change = function (event, slick, currentSlide, nextSlide) {
 
         var origen = {
-            Pagina: ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor,
-            Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertaDelDia,
-            Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
+            Pagina: CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Contenedor,
+            Palanca: CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.OfertaDelDia,
+            Seccion: CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel
         };
 
         CarruselAyuda.MarcarAnalyticsChange(slick, currentSlide, nextSlide, origen);// Home Pedido

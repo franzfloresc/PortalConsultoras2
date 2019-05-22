@@ -17,6 +17,8 @@
         estrategia: {
             templateId: "#estrategia-template",
             id: "#estrategia",
+            background: "#ImagenDeFondo",
+            stamp: "#ImagenDeFondo",
         },
         tabsComponente: {
             templateId: "#tabs-ficha-enriquecida-template",
@@ -51,17 +53,19 @@
 
     var _renderBackgroundAndStamp = function (estrategia) {
         var backgroundImg = estrategia.TipoEstrategiaDetalle.ImgFichaFondoDesktop || "";
+        var stampImg = estrategia.TipoEstrategiaDetalle.ImgFichaDesktop || "";
+
         if(estrategia.isMobile){
             backgroundImg = estrategia.TipoEstrategiaDetalle.ImgFichaFondoMobile || "";
+            stampImg = estrategia.TipoEstrategiaDetalle.ImgFichaMobile || "";
         }
 
         // background
-        $(".ficha_detalle").css("background", backgroundImg);
-        $(".condenedor_detalle").css("background", backgroundImg);
+        $(_elements.estrategia.background).css("background-image", 'url(' + backgroundImg + ')');
 
         // stamp
-        // $(".ficha_detalle").css("background", backgroundImg);
-        // $(".condenedor_detalle").css("background", backgroundImg);
+        $(_elements.estrategia.stamp).css("background-image", 'url(' + stampImg + ')');
+        $(_elements.estrategia.stamp).css("padding-top","75px");
 
         return true;
     };

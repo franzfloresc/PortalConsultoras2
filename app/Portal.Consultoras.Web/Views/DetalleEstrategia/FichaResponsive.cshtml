@@ -31,7 +31,7 @@
                     <div id="componente" class="producto_componentes"></div>
                     <div class="tiposytonos_componentes" style="display:none">
                         <buttom class="tono_select_opt">
-                            ELIGE 1 OPCIÓN
+                            Elige 1 opción
                         </buttom>
                         <div class="tonos_seleccionados">
                             <ul class="tonos_seleccionados_item" data-tono="">
@@ -50,7 +50,7 @@
                                 </li>
                             </ul>
 
-                            <a class="btn_cambiar_opciones" href="">
+                            <a class="btn_texto" href="">
                                 Cambiar opción
                                 <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="">
                             </a>
@@ -85,10 +85,10 @@
                             <div class="content_tono_detalle">
                                 <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
                             </div>
-                            <div class="content_tono_detalle">
+                            <div class="content_tono_detalle tono_agotado">
                                 <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
                             </div>
-                            <div class="content_tono_detalle">
+                            <div class="content_tono_detalle tono_agotado">
                                 <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
                             </div>
                         </div>
@@ -161,13 +161,11 @@
             </div>
         </article>
         <article class="selecion_item">
-            <div class="seleccion_img">
+            <div class="seleccion_img tono_agotado">
                 <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
             </div>
             <div class="seleccion_title">miss sexy shine</div>
-            <button>
-                Elígelo
-            </button>
+            <div class="tag_agotago">Agotado</div>
         </article>
         <article class="selecion_item">
             <div class="seleccion_img">
@@ -236,7 +234,7 @@
     </div>
 
     <div class="aplicar_seleccion" id="contenedor-aplicar-seleccion">
-        <button id="btn-aplicar-seleccion" class="active">APLICAR SELECCIÓN</button>
+        <button id="btn-aplicar-seleccion" class="active">Aplicar selección</button>
     </div>
 </section>
 
@@ -247,7 +245,7 @@
             <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt=""> Volver
         </button>
         <div class="row ficha_producto">
-            <div class="col-12 col-md-7 descripcion_enriquecida">
+            <div class="col-12 col-lg-7 descripcion_enriquecida">
                 <div>
                     <div class="nombre_marca">Ésika</div>
                     <div class="descripcion">EAU DE PARFUM VALENTÍA</div>
@@ -259,7 +257,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-5">
+            <div class="col-12 col-lg-5">
                 <div class="contenedor_imagen">
                     <div>
                         <img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_201907_34059.png">
@@ -352,15 +350,17 @@
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
-    @*
-        <script type="text/javascript">
-        var modelPalanca = "@Model.Palanca";
-        var modelCampania = "@Model.Campania";
-        var modelCuv = "@Model.Cuv";
-        var modelOrigen = "@Model.OrigenUrl";
-        </script>
-        <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/Ficha.js"></script>
-    *@
+
+    <script type="text/javascript">
+    var params = {
+        palanca: "@Model.Palanca",
+        campania: "@Model.Campania",
+        cuv: "@Model.Cuv",
+        origen: "@Model.OrigenUrl",
+    };
+    </script>
+
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js"></script>
 
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaView.js"></script>
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaPresenter.js"></script>

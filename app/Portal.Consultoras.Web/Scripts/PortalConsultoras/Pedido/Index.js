@@ -62,13 +62,7 @@ $(document).ready(function () {
         cerrar_popup_tutorial();
     });
 
-    $('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
-        if (event.keyCode == 13) {
-            if ($("#btnAgregar")[0].disabled == false) {
-                PedidoRegistroModule.AgregarProductoListadoPasePedido();
-            }
-        }
-    })
+ 
 
     $("body").click(function (e) {
         if (!$(e.target).closest(".ui-dialog").length) {
@@ -972,16 +966,16 @@ function ValidarDescripcion() {
     }
 }
 
-function PreValidarCUV(event) {
+//function PreValidarCUV(event) {
 
-    event = event || window.event;
+//    event = event || window.event;
 
-    if (event.keyCode == 13) {
-        if ($("#btnAgregar")[0].disabled == false) {
-            PedidoRegistroModule.AgregarProductoListadoPasePedido();
-        }
-    }
-}
+//    if (event.keyCode == 13) {
+//        if ($("#btnAgregar")[0].disabled == false) {
+//            PedidoRegistroModule.AgregarProductoListadoPasePedido();
+//        }
+//    }
+//}
 
 function SeleccionarContenido(control) {
     control.select();
@@ -2098,7 +2092,12 @@ function MostrarMensajeProl(response, fnOfertaFinal) {
 function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();
     $("#dialog_divReservaSatisfactoria").show();
-    RedirigirPedidoValidado();
+    var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
+    
+    if (ultimoDiaFacturacion) {
+	    RedirigirPedidoValidado();
+    }
+    
 }
 
 function EliminarPedido() {
@@ -2621,10 +2620,12 @@ function CambioPagina(obj, tipoPaginador) {
         return false;
     }
 
-    switch (tipoPaginador) {
+    var PedidoPendPoputPedidoId = $("#hdPedidoPendPoputPedidoId").val() == 0 ? $("#hdPedidoPendPoputPedidoId2").val() : $("#hdPedidoPendPoputPedidoId").val();
+    switch (tipoPaginador) {        
         case ClasPedidoDetalle: CargarDetallePedido(rpt.page, rpt.rows); break;
         case ClasPedidoDetallePendiente: CargarPedidosPend(rpt.page, rpt.rows); break;
-    }
+        case ClasPedidoPopupPedidoPend: CargarPopupPedidoPend(rpt.page, rpt.rows, PedidoPendPoputPedidoId, '1'); break;
+    }  
     return true;
 }
 
@@ -2834,13 +2835,13 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 restringido = false;
                 return false;
             }
-
+            
             if (data.pedidoReservado) {
                 if (mostrarAlerta == true) {
                     CerrarSplash();
                     AbrirPopupPedidoReservado(data.message, "1");
                 }
-                else {
+                else if (data.UltimoDiaFacturacion) { //TESLA-7 REDIRECCIONA SOLO SI ES ULTIMO DIA, CIERRE FACTURACION 
                     AbrirSplash();
                     location.href = urlValidadoPedido;
                 }

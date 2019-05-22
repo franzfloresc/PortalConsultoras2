@@ -25,6 +25,7 @@ var EstrategiaAgregarModule = (function () {
         esFicha: false
     };
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
+    var _mensajeAgregarPedido = ConstantesModule.MensajeAgregarPedido;
     var dataProperties = {
         dataItem: "[data-item]",
         dataContenedorCantidad: "[data-cantidad-contenedor]",
@@ -78,8 +79,8 @@ var EstrategiaAgregarModule = (function () {
     }
 
     var _OrigenPedido = {
-        MobileContenedorArmaTuPack: ConstantesModule.OrigenPedidoWeb.MobileArmaTuPackFicha,
-        DesktopContenedorArmaTuPack: ConstantesModule.OrigenPedidoWeb.DesktopArmaTuPackFicha
+        MobileContenedorArmaTuPack: CodigoOrigenPedidoWeb.MaestroCodigoOrigen.MobileArmaTuPackFicha,
+        DesktopContenedorArmaTuPack: CodigoOrigenPedidoWeb.MaestroCodigoOrigen.DesktopArmaTuPackFicha
     }
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
@@ -290,12 +291,15 @@ var EstrategiaAgregarModule = (function () {
 
         var estrategia = getEstrategia($btnAgregar, origenPedidoWebEstrategia);
 
-        if (typeof getOrigenPedidoWebDetalle !== 'undefined') {
-            var origenDetalle = getOrigenPedidoWebDetalle(estrategia);
-            if (origenDetalle) {
-                origenPedidoWebEstrategia = origenDetalle;
+        if (typeof FichaVerDetalle !== 'undefined') {
+            if (typeof FichaVerDetalle.GetOrigenPedidoWebDetalle !== 'undefined') {
+                var origenDetalle = FichaVerDetalle.GetOrigenPedidoWebDetalle(estrategia);
+                if (origenDetalle) {
+                    origenPedidoWebEstrategia = origenDetalle;
+                }
             }
         }
+
         console.log(estrategia);
         if (estrategiaEstaBloqueada($btnAgregar, estrategia.CampaniaID)) {
             estrategia.OrigenPedidoWebEstrategia = origenPedidoWebEstrategia;
@@ -610,6 +614,26 @@ var EstrategiaAgregarModule = (function () {
                 localStorageModule.ActualizarCheckAgregado($.trim(estrategia.EstrategiaID), estrategia.CampaniaID, estrategia.CodigoPalanca, true);
 
                 CerrarLoad();
+
+                var imagenProducto = $btnAgregar.parents("[data-item]").find("[data-imagen-producto]").attr("data-imagen-producto");
+
+                if (typeof imagenProducto === 'undefined') {
+                    if (document.querySelector("#FichaImagenProducto > img") != null) {
+                        imagenProducto = document.querySelector("#FichaImagenProducto > img").src;
+                    } else if (document.querySelector("#img-banner-odd") != null) {
+                        imagenProducto = document.querySelector("#img-banner-odd").src;
+                    }
+                }
+
+                var mensaje = '';
+                if (data.EsReservado === true) {
+                    mensaje = _mensajeAgregarPedido.reservado;
+                } else {
+                    mensaje = _mensajeAgregarPedido.normal;
+                }
+
+                AbrirMensaje25seg(mensaje, imagenProducto);
+
                 if (popup) {
                     CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);
                     $(elementosPopPup.popupDetalleCarouselPackNuevas).hide();
