@@ -1031,7 +1031,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 
         .logos_footer--esika img {
-            width: 100%;
+            width: 59px;
             height: auto;
         }        
 
@@ -1778,6 +1778,15 @@ h1, h2, h3, h4, h5, h6 {
         position: relative;
         bottom: 10px;
     }
+
+    .logos_footer--esika {
+        margin-top: -4px;
+    }
+
+        .logos_footer--esika img {
+            width: 62px;
+            height: auto;
+        } 
 
     .sombra_superior {
         display: none;
