@@ -877,9 +877,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool GetTieneCarrusel(string palanca, bool esEditar)
         {
-            return !esEditar && (Constantes.NombrePalanca.Lanzamiento == palanca
-                    || Constantes.NombrePalanca.ShowRoom == palanca
-                    || Constantes.NombrePalanca.OfertaDelDia == palanca);
+            return !esEditar;
         }
 
         private bool GetValidationHasCarrusel(int origen, string palanca, bool esEditar)
