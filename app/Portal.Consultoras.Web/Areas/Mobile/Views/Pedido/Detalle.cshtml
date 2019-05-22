@@ -35,10 +35,18 @@
                         <a href="@Request.UrlReferrer" class="enlace_regresar detalleP" title="Regresar"></a>
                     }
                 }
-                <h2 class="nombre_campania_pedido">
-                    Mi pedido
-                    <span>@Model.DescripcionCampaniaActual</span>
-                </h2>
+            <h2 class="nombre_campania_pedido">
+                @if (Model.EstadoPedido == 1)
+                {
+                    <span>Mi pedido reservado</span>
+                }
+                else
+                {
+                    <span>Mi pedido</span>
+                }
+                
+                <span>@Model.DescripcionCampaniaActual</span>
+            </h2>
                 <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
                 <input type="hidden" id="hdfTotal" value="@Model.Total" />
                 @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")
@@ -639,13 +647,16 @@
             Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.
         </span>
     </div>
-
-    <div class="mensaje_eliminarPedido">
-        <span>
-            Para eliminar el pedido completo
-            <a href="javascript:;" title="Haz click aquí" onclick="PedidoDetalleEliminarTodoConfirmar()">haz click aquí</a>
-        </span>
-    </div>
+    <!-- Mostrar el link de eliminación de pedido solo si el pedido no está reservado-->
+    @if (Model.EstadoPedido != 1)
+    {
+        <div class="mensaje_eliminarPedido">
+            <span>
+                Para eliminar el pedido completo
+                <a href="javascript:;" title="Haz click aquí" onclick="PedidoDetalleEliminarTodoConfirmar()">haz click aquí</a>
+            </span>
+        </div>
+    }
 
 
 </script>
@@ -1089,6 +1100,7 @@
     {
         <script>
             $(document).ready(function () {
+                
                 messageInfoValidado('@Html.Raw(Constantes.RecuperacionPedido.Mensaje)');
             });
 

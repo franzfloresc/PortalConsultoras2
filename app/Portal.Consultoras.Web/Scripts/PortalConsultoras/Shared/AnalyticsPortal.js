@@ -522,7 +522,7 @@ var AnalyticsPortalModule = (function () {
         try {
 
             producto = producto || {};
-            lista = lista || "";
+            //lista = lista || "";
 
             dataLayer.push({
                 'event': _evento.addToCart,

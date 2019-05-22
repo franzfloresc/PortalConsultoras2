@@ -353,9 +353,14 @@ var CarruselModule = (function (config) {
         palanca: config.palanca || "",
         campania: config.campania || "",
         cuv: config.cuv || "",
-        urlDataCarrusel: config.urlDataCarrusel || "/Estrategia/FichaObtenerProductosCarrusel",
+        urlDataCarrusel: config.urlDataCarrusel || "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
         OrigenPedidoWeb: config.OrigenPedidoWeb || "",
-        pantalla: "Ficha"
+        pantalla: "Ficha",
+        tituloCarrusel: config.tituloCarrusel,
+        cantidadPack: config.cantidadPack,
+        codigoProducto: config.codigoProducto,
+        precioProducto: config.precioProducto,
+        productosHermanos: config.productosHermanos
     };
 
     var _elementos = {
@@ -384,7 +389,7 @@ var CarruselModule = (function (config) {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(params),
-            async: false,
+            async: true,
             cache: false,
             success: function (data) {
                 dfd.resolve(data);
@@ -472,7 +477,7 @@ var CarruselModule = (function (config) {
                 //centerMode: true,
                 responsive: [
                     {
-                        breakpoint: 480,
+                        breakpoint: 720,
                         settings: {
                             slidesToShow: 1
                         }
@@ -522,14 +527,12 @@ var CarruselModule = (function (config) {
 
         var titulo = '';
 
-        if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
-            titulo = 'SET DONDE ENCUENTRAS EL PRODUCTO';
-        }
-        else if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.ShowRoom) {
-            titulo = 'VER MÁS SETS EXCLUSIVOS PARA TI';
-        }
-        else if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia) {
-            titulo = 'VER MÁS OFERTAS ¡SOLO HOY!';
+        if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.ShowRoom || _config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia || _config.palanca == ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
+            if (_config.cantidadPack > 1) {
+                titulo = 'Packs parecidos con más productos';
+            } else {
+                titulo = 'Packs que contienen <span style="text-transform:capitalize">' + _config.tituloCarrusel.toLowerCase()+'</span>';
+            }
         }
 
         $(_elementos.idTituloCarrusel).html(titulo);
@@ -543,20 +546,33 @@ var CarruselModule = (function (config) {
         if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
             data.lista = _cargarDatos();
         }
-        else if (
-            (_config.palanca == ConstantesModule.TipoEstrategiaTexto.ShowRoom)
-            || (_config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia)
-            || (_config.palanca == ConstantesModule.TipoEstrategiaTexto.PackNuevas)
-        ) {
-            var param = { cuvExcluido: _config.cuv, palanca: _config.palanca }
+        else {
+            var codigosProductos = _obtenerCodigoProductos();
+            var param = {
+                cuvExcluido: _config.cuv,
+                palanca: _config.palanca,
+                codigosProductos: codigosProductos,
+                precioProducto: _config.precioProducto
+            }
             _promiseObternerDataCarrusel(param).done(function (response) {
-
                 if (response) {
                     if (response.success) {
-                        data.lista = response.data;
+                        data.lista = response.result;
+                        // para salvar el sprint, no asustarse
+                        if (data.lista.length > 0) {
+                            _variable.cantidadProdCarrusel = data.lista.length;
+                            $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
+
+                            SetHandlebars(_elementos.idPlantillaProducto, data, _elementos.divCarruselProducto);
+                            _mostrarTitulo();
+                            _mostrarSlicks();
+
+                            _marcarAnalytics(1, data);
+
+                        }
+                        _ocultarCarrusel(data);
                     }
                 }
-
             });
         }
 
@@ -584,6 +600,29 @@ var CarruselModule = (function (config) {
             }
         }
         $(_elementos.divCarruselContenedor).hide();
+    }
+
+    var _obtenerCodigoProductos = function () {
+        var componentes = _config.productosHermanos;
+        var codigosProductos = [];
+        var contarProductosHermanos = componentes.length;
+        if (contarProductosHermanos == 0) {
+            codigosProductos.push(_config.codigoProducto);
+        } else {
+            if (contarProductosHermanos == 1) {
+                var valores = componentes[0];
+                if (valores.FactorCuadre > 1) codigosProductos.push(valores.CodigoProducto);
+                else {
+                    codigosProductos.push(_config.codigoProducto);
+                }
+            } else {
+                for (var i = 0; i < contarProductosHermanos; i++) {
+                    codigosProductos.push(componentes[i].CodigoProducto);
+                }
+            }
+
+        }
+        return codigosProductos;
     }
 
     function Inicializar() {

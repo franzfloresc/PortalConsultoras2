@@ -1731,10 +1731,12 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         async: true,
         success: function (data) {
             CerrarSplash();
-
+            debugger;
             if (!checkTimeout(data)) return false;
             if (data.success != true) {
+                btnSalirTlpDelete(window.event, pedidoDetalleId, setId);
                 messageInfoError(data.message);
+                
                 return false;
             }
 
@@ -1769,6 +1771,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
+                btnSalirTlpDelete(window.event, pedidoDetalleId, setId);
                 HideDialog("divVistaPrevia");
                 CerrarSplash();
             }
@@ -2092,7 +2095,12 @@ function MostrarMensajeProl(response, fnOfertaFinal) {
 function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();
     $("#dialog_divReservaSatisfactoria").show();
-    RedirigirPedidoValidado();
+    var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
+    
+    if (ultimoDiaFacturacion) {
+	    RedirigirPedidoValidado();
+    }
+    
 }
 
 function EliminarPedido() {
@@ -2830,13 +2838,13 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 restringido = false;
                 return false;
             }
-
+            
             if (data.pedidoReservado) {
                 if (mostrarAlerta == true) {
                     CerrarSplash();
                     AbrirPopupPedidoReservado(data.message, "1");
                 }
-                else {
+                else if (data.UltimoDiaFacturacion) { //TESLA-7 REDIRECCIONA SOLO SI ES ULTIMO DIA, CIERRE FACTURACION 
                     AbrirSplash();
                     location.href = urlValidadoPedido;
                 }

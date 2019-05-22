@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (configuracionCampania.CampaniaID == 0)
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
 
-            if (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
+            if ((configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == DateTime.Today)
                 && !configuracionCampania.ModificaPedidoReservado
                 && !configuracionCampania.ValidacionAbierta)
                 return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
@@ -224,7 +224,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (beConfiguracionCampania.CampaniaID == 0)
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
 
-            if (beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
+            if ((beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == DateTime.Today)
                 && !beConfiguracionCampania.ModificaPedidoReservado
                 && !beConfiguracionCampania.ValidacionAbierta)
                 return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
@@ -239,8 +239,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 FlagValidacionPedido = beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
                                        && beConfiguracionCampania.ModificaPedidoReservado
                     ? "1"
-                    : "0"
+                    : "0",
+                EstadoPedido = (beConfiguracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente).ToInt()
             };
+            model.EstadoPedido = (beConfiguracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente).ToInt();
 
             ValidarStatusCampania(beConfiguracionCampania);
 
@@ -264,7 +266,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             else // Periodo de facturacion
             {
                 ViewBag.AccionBoton = "validar";
-                model.Prol = "RESERVA TU PEDIDO";
+                if (model.EstadoPedido == 1) //Reservado
+                    model.Prol = "MODIFICA TU PEDIDO";
+                else
+                    model.Prol = "RESERVA TU PEDIDO";
+
+                
                 model.ProlTooltip = "Haz click aqui para reservar tu pedido";
 
                 if (diaActual <= userData.FechaInicioCampania)
@@ -329,6 +336,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.CampaniaActual = userData.CampaniaID.ToString();
             model.EMail = userData.EMail;
             model.Celular = userData.Celular;
+            
             ViewBag.paisISO = userData.CodigoISO;
             ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
 
