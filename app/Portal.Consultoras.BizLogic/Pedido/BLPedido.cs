@@ -468,7 +468,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     },
 
                     ClienteID = pedidoDetalle.ClienteID,
-                    Identifier = pedidoDetalle.Identifier
+                    Identifier = pedidoDetalle.Identifier,
+                    Reservado = pedidoDetalle.Reservado
                 }).Result;
 
                 if (transactionDelete.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS)
