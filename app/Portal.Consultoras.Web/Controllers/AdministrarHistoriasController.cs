@@ -159,7 +159,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var tempNombreImagen = form.NombreImagen;
                 var entidad = new BEContenidoAppDeta
                 {
                     IdContenido = form.IdContenido,
