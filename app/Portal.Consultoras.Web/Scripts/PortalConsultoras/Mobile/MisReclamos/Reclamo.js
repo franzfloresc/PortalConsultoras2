@@ -1758,16 +1758,6 @@ $(document).ready(function () {
                 }
             },
 
-            //PopupPedidoSeleccionar: function (obj) {
-
-            //    var objPedido = $(obj);
-            //    var id = objPedido.attr("data-pedido-id");
-            //    var pedidos = listaPedidos.Find("PedidoID", id);
-            //    var pedido = pedidos.length > 0 ? pedidos[0] : new Object();
-
-            //    me.Funciones.AsignarCUV(pedido);
-            //},
-
             CancelarConfirmEnvioSolicitudCDR: function () {
                 $(me.Variables.divConfirmEnviarSolicitudCDR).hide();
             },
