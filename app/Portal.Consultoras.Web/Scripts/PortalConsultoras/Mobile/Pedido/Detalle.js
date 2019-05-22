@@ -982,8 +982,9 @@ function EjecutarAccionesReservaExitosa(response) {
     var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
     if (ultimoDiaFacturacion) {
 	    RedirigirPedidoValidado();
+    } else {
+	    location.reload();
     }
-    
 }
 
 function ConstruirObservacionesPROL(model) {
