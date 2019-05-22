@@ -1587,9 +1587,14 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
                 }
                 return false;
             }
-            //Tentativa de poner aqui el nuevo mensaje para TESLA-07
-            var strMsgListo = '¡Listo! Tu pedido ha sido modificado';
-            
+            //Se pone aquí el nuevo mensaje para TESLA-07
+            var isReservado = data.EsReservado || false;
+            var strMsgListo = "";
+            if (isReservado)
+				strMsgListo = '¡Listo! Tu pedido reservado ha sido modificado';
+            else
+                strMsgListo = '¡Listo! Tu pedido ha sido modificado';
+
             if (esMobile) {
                 messageInfo(strMsgListo);
             }
