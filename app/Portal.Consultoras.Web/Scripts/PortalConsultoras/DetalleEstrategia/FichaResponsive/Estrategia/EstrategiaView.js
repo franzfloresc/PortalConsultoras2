@@ -30,6 +30,11 @@
             templateId: "#ofertadeldia-template-style",
             id: "[data-ficha-contenido=\"ofertadeldia-template-style\"]",
             clase: ".clock_odd"
+        },
+        agregar: {
+            templateId: "#agregar-estrategia-template",
+            id: "#dvContenedorAgregar",
+            contenedor: "#ContenedorAgregado"
         }
     };
 
@@ -78,12 +83,32 @@
         return true;
     };
 
+    var _renderAgregar = function (estrategia) {
+        SetHandlebars(_elements.agregar.templateId, estrategia, _elements.agregar.id);
+        return true;
+    };
+
+    var _showTitleAgregado = function (estrategia) {
+        if (estrategia.EsEditable) {
+            $(_elements.agregar.contenedor).remove();
+        }
+        else {
+            if (estrategia.IsAgregado) {
+                $(_elements.agregar.contenedor).show();
+            }
+        }
+
+        return true;
+    };
+
     return {
         setPresenter: _setPresenter,
         renderBreadcrumbs : _renderBreadcrumbs,
         renderEstrategia : _renderEstrategia,
         renderBackgroundAndStamp: _renderBackgroundAndStamp,
         renderReloj: _renderReloj,
-        renderRelojStyle: _renderRelojStyle
+        renderRelojStyle: _renderRelojStyle,
+        renderAgregar: _renderAgregar,
+        showTitleAgregado: _showTitleAgregado
     };
 };

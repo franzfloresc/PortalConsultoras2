@@ -253,6 +253,10 @@ var ConstantesModule = (function () {
         valor.TipoPersonalizacion || valor.Nombre || "";
     };
 
+    var _tiempo = {
+        ToolTip: 2500
+    }
+
     return {
         CodigoPalanca: _codigoPalanca,
         TipoEstrategia: _codigoTipoEstrategia,
@@ -268,6 +272,7 @@ var ConstantesModule = (function () {
         UrlDetalleEstrategia: _urlDetalleEstrategia,
         UrlPedido: _urlPedido,
         DiccionarioTipoEstrategia: _diccionarioTipoEstrategia,
-        GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia
+        GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia,
+        Tiempo: _tiempo
     }
 })();
