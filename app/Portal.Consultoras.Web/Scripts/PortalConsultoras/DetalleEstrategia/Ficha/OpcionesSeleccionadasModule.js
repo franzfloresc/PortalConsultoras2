@@ -1,19 +1,19 @@
-﻿/// <reference path="../../../Scripts/jquery-1.11.2.js" />
-/// <reference path="../../../Scripts/General.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/Shared/MainLayout.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/Bienvenida/Estrategia.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/Pedido/barra.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/TagManager/Home-Pedido.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
-/// <reference path="../../../Scripts/PortalConsultoras/DetalleEstrategia/Ficha/ListaOpcionesModule.js" />
-/// <reference path="../../../Scripts/slick.js" />
+﻿/// <reference path="../../../../Scripts/jquery-1.11.2.js" />
+/// <reference path="../../../../Scripts/General.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/Shared/MainLayout.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/Bienvenida/Estrategia.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/Estrategia/EstrategiaComponente.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/Pedido/barra.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/TagManager/Home-Pedido.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
+/// <reference path="../../../../Scripts/PortalConsultoras/DetalleEstrategia/Ficha/ListaOpcionesModule.js" />
+/// <reference path="../../../../Scripts/slick.js" />
 
 var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onOptionSelected");
@@ -24,11 +24,11 @@ var OpcionesSeleccionadasModule = (function () {
     var _componente = {};
 
     var _elements = {
-        divContenedorOpcionesSeleccionadas : {
+        divContenedorOpcionesSeleccionadas: {
             id: "#contenedor-opciones-seleccionadas",
             templateId: "#opciones-seleccionadas-template"
         },
-        divOpcionesSeleccionadas : {
+        divOpcionesSeleccionadas: {
             id: "#opciones-seleccionadas",
             templateId: "#opciones-seleccionadas-template"
         }
@@ -37,7 +37,7 @@ var OpcionesSeleccionadasModule = (function () {
     var CargarOpcionesSeleccionadas = function (componente) {
         if (typeof componente === "undefined" ||
             componente === null) throw "param componente is not defined or null";
-        
+
         _componente = componente || {};
         var cantidadSeleccionados = _componente.HermanosSeleccionados.length;
         if (cantidadSeleccionados > 0) {
@@ -51,7 +51,7 @@ var OpcionesSeleccionadasModule = (function () {
                 autoplaySpeed: 2000,
                 fade: false,
                 arrows: false,
-                infinite : false
+                infinite: false
             };
 
             if (!isMobile()) {
@@ -92,12 +92,11 @@ var OpcionesSeleccionadasModule = (function () {
         return false;
     }
 
-    var GetCantidadOpcionesSeleccionadas = function () {
-        if (typeof _componente.Hermanos === "undefined" ||
-            typeof _componente.Hermanos.length === "undefined") return 0;
-
-        return _componente.Hermanos.length;
-    };
+    //var GetCantidadOpcionesSeleccionadas = function () {
+    //    if (typeof _componente.Hermanos === "undefined" ||
+    //        typeof _componente.Hermanos.length === "undefined") return 0;
+    //    return _componente.Hermanos.length;
+    //};
 
     return {
         CargarOpcionesSeleccionadas: CargarOpcionesSeleccionadas

@@ -181,6 +181,22 @@ $(document).ready(function () {
         }
     });
 
+    $('#alertDialogMensajes25seg').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: false,
+        close: function (event, ui) {
+            HideDialog("alertDialogMensajes25seg");
+        },
+        beforeClose: function (event, ui) {
+            document.querySelector('.setBottom').style.transition = null
+        },
+        draggable: false,
+        dialogClass: 'setBottom',
+        position: "bottom"
+    });
+
     $('#ModalFeDeErratas').dialog({
         autoOpen: false,
         resizable: false,

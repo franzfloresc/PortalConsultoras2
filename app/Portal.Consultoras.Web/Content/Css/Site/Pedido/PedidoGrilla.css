@@ -1587,6 +1587,7 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     background-position: center center ;    
 }
 
+
 .btn--pedidos{
     font-size: 14px; font-weight: 700; 
     letter-spacing: 1px; color: #fff; 
@@ -1595,8 +1596,8 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     padding: 10px 14px; 
     margin-top: -4px;
     cursor: pointer;
-
 }
+
 .title--middle{
     font-size: 25px; 
     color: #000; 

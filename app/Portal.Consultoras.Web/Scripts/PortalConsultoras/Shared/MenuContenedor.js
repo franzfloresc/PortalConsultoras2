@@ -52,10 +52,10 @@ var menuModule = (function () {
         }
     }
 
-    var paddingTab = {
-        Mobile: 3,
-        Desktop: 1.5
-    }
+    //var paddingTab = {
+    //    Mobile: 3,
+    //    Desktop: 1.5
+    //}
 
     function _getHeight(element) {
         return $(element).outerHeight(true);
@@ -268,39 +268,39 @@ var menuModule = (function () {
             }
 
             if (url.indexOf(ConstantesModule.TipoEstrategiaTexto.LiquidacionWeb) > 0) {
-                OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
-                    + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
-                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion
-                    + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+                OrigenPedidoWeb = CodigoOrigenPedidoWeb.CodigoEstructura.Dispositivo.Desktop
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Home
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Liquidacion
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel;
             }
 
             else if (url.indexOf(ConstantesModule.TipoEstrategiaTexto.SR) > 0) {
                 if (titulo === "BotonVerMasEspecialesHome") {
-                    OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
-                        + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
-                        + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Showroom
-                        + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+                    OrigenPedidoWeb = CodigoOrigenPedidoWeb.CodigoEstructura.Dispositivo.Desktop
+                        + CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Home
+                        + CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Showroom
+                        + CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel;
                 }
             }
 
             else if (url.indexOf(ConstantesModule.TipoEstrategiaTexto.GuiaNegocio) > 0) {
-                OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
-                    + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
-                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.GND
-                    + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+                OrigenPedidoWeb = CodigoOrigenPedidoWeb.CodigoEstructura.Dispositivo.Desktop
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Contenedor
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.GND
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel;
             }
             else if (url.indexOf(ConstantesModule.CodigoPalanca.LAN) > 0) {
-                OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
-                    + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
-                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.Lanzamientos
-                    + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+                OrigenPedidoWeb = CodigoOrigenPedidoWeb.CodigoEstructura.Dispositivo.Desktop
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Home
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Lanzamientos
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel;
             }
 
             else if (url.includes(ConstantesModule.TipoEstrategia.DP)) {
-                OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
-                    + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
-                    + ConstantesModule.OrigenPedidoWebEstructura.Palanca.DuoPerfecto
-                    + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Banner;
+                OrigenPedidoWeb = CodigoOrigenPedidoWeb.CodigoEstructura.Dispositivo.Desktop
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Contenedor
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.DuoPerfecto
+                    + CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Banner;
                 if (titulo !== "ClicVerMas") {
                     clicEnBanner = true;
                 }

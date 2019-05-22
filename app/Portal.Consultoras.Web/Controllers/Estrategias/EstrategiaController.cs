@@ -1,14 +1,18 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.ElasticSearch;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
+using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers.Estrategias
@@ -17,13 +21,24 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
     {
         protected OfertaBaseProvider _ofertaBaseProvider;
         protected ConfiguracionOfertasHomeProvider _configuracionOfertasHomeProvider;
+        protected CarruselUpSellingProvider _carruselUpSellingProvider;
+        protected OfertaPersonalizadaProvider _ofertaPersonalizadaProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
+        //protected TablaLogicaProvider _tablaLogicaProvider;
 
         public EstrategiaController()
         {
             _ofertaBaseProvider = new OfertaBaseProvider();
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
             _configuracionOfertasHomeProvider = new ConfiguracionOfertasHomeProvider();
+            _carruselUpSellingProvider = new CarruselUpSellingProvider();
+            _ofertaPersonalizadaProvider = new OfertaPersonalizadaProvider();
+        }
+
+        public EstrategiaController(ISessionManager sesionManager, ILogManager logManager, TablaLogicaProvider tablaLogicaProvider)
+            : base(sesionManager, logManager)
+        {
+            //_tablaLogicaProvider = tablaLogicaProvider;
         }
 
         #region Metodos Por Palanca
@@ -104,7 +119,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 var listEstrategias = _ofertaPersonalizadaProvider.ValidBannerNuevas(isMobile, userData, listModel.Where(l => l.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(), bloquearBannerNuevas);
                 model.ListaLan = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listModel.Where(l => l.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(), listaPedido, userData.CodigoISO, userData.CampaniaID, 0, userData.esConsultoraLider, userData.Simbolo);
                 model.ListaModelo = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listEstrategias, listaPedido, userData.CodigoISO, userData.CampaniaID, 0, userData.esConsultoraLider, userData.Simbolo);
-               
+
 
             }
             catch (Exception ex)
@@ -175,11 +190,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             string message;
             try
             {
-                DetalleEstrategiaFichaModel model = new DetalleEstrategiaFichaModel();
-
-                model = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campania, tipoEstrategia, out message);
-
-                //ir al provider para obtener el resultado del servicio 
+                DetalleEstrategiaFichaModel model = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campania, tipoEstrategia, out message);
 
                 return Json(new { success = true, data = model, message }, JsonRequestBehavior.AllowGet);
             }
@@ -232,7 +243,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     else
                     {
                         List<ServiceOferta.BEEstrategia> listaProducto = _ofertaPersonalizadaProvider.GetShowRoomOfertasConsultora(userData);
-                    
+
                         //listaProducto.ForEach(x => x.TieneStock = true);
 
                         //if (listaProducto.Any())
@@ -749,7 +760,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 {
                     success = true,
                     message = "Ok",
-                    data = listaOfertasModel == null ? new List<EstrategiaPersonalizadaProductoModel>() : listaOfertasModel.Where(x => x.CUV2 != cuvExcluido).ToList()
+                    result = listaOfertasModel == null ? new List<EstrategiaPersonalizadaProductoModel>() : listaOfertasModel.Where(x => x.CUV2 != cuvExcluido).ToList()
                 });
             }
             catch (Exception ex)
@@ -759,6 +770,73 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }
         }
 
+        [HttpPost]
+        public async Task<JsonResult> FichaObtenerProductosUpSellingCarrusel(string cuvExcluido, string palanca, string[] codigosProductos, double precioProducto)
+        {
+            try
+            {
+                var mostrarFuncionalidadUpSelling = _tablaLogicaProvider.GetTablaLogicaDatoValor(userData.PaisID, ConsTablaLogica.ConfiguracionesFicha.TablaLogicaId, ConsTablaLogica.ConfiguracionesFicha.MostrarFuncionalidadUpSelling, true);
+
+                if (!mostrarFuncionalidadUpSelling.IsNullOrEmptyTrim() || mostrarFuncionalidadUpSelling == "1")
+                {
+                    var dataProductosCarruselUpSelling = await _carruselUpSellingProvider.ObtenerProductosCarruselUpSelling(codigosProductos, precioProducto);
+
+                    if (!dataProductosCarruselUpSelling.success)
+                    {
+                        return Json(new OutputProductosUpSelling()
+                        {
+                            result = new List<EstrategiaPersonalizadaProductoModel>()
+                        });
+                    }
+
+                    var listaProductosValidados = ValidacionResultadosProductos(dataProductosCarruselUpSelling.result).ToList();
+
+                    var listaOfertasModel = _ofertaPersonalizadaProvider.RevisarCamposParaMostrar(listaProductosValidados, true);
+
+                    return Json(new
+                    {
+                        success= true,
+                        result = listaOfertasModel
+                    });
+                }
+                else
+                {
+                    return FichaObtenerProductosCarrusel(cuvExcluido, palanca);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
+            }
+        }
+
+        private IList<EstrategiaPersonalizadaProductoModel> ValidacionResultadosProductos(IList<EstrategiaPersonalizadaProductoModel> estrategiaPersonalizadaProductoModels)
+        {
+            if (!estrategiaPersonalizadaProductoModels.Any()) return new List<EstrategiaPersonalizadaProductoModel>();
+            var pedidos = SessionManager.GetDetallesPedido();
+
+            foreach (var item in estrategiaPersonalizadaProductoModels)
+            {
+                var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV2).ToList();
+                item.IsAgregado = pedidoAgregado.Any();
+
+                item.CampaniaID = userData.CampaniaID;
+                item.PrecioVenta = Util.DecimalToStringFormat(item.Precio2.ToDecimal(), userData.CodigoISO);
+                item.PrecioTachado = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO);
+                item.ClaseBloqueada = "";
+                item.ClaseEstrategia = "revistadigital-landing";
+                item.TipoAccionAgregar = _ofertaPersonalizadaProvider.TipoAccionAgregar(
+                    item.CodigoVariante == "2003" ? 1 : 0,
+                    item.CodigoEstrategia,
+                    userData.esConsultoraLider,
+                    false,
+                    item.CodigoVariante);
+                //item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, mobile, home, recomendaciones, item.MaterialGanancia, suscrita);
+            }
+
+            return estrategiaPersonalizadaProductoModels;
+        }
         #endregion
     }
 }

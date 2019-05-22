@@ -1288,7 +1288,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             controllerName = "," + controllerName.ToLower() + ",";
 
-            var controladores = ",,miscatalogosrevistas,busquedaproductos,tusclientes,";
+            var controladores = ",,miscatalogosrevistas,busquedaproductos,tusclientes,detalleestrategia,";
 
             if (controladores.Contains(controllerName)) return false;
 

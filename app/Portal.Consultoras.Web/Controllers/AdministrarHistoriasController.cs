@@ -1,9 +1,10 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
@@ -23,8 +24,6 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             var model = new AdministrarHistorialModel();
-            string[] arrUrlMiniatura;
-            string[] arrHistAnchoAlto;
 
             try
             {
@@ -36,7 +35,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID);
 
                 string HistAnchoAlto = CodigosTablaLogica(Constantes.DatosContenedorHistorias.HistAnchoAlto);
-                arrHistAnchoAlto = HistAnchoAlto.Split(',');
+                var arrHistAnchoAlto = HistAnchoAlto.Split(',');
                 model.Ancho = arrHistAnchoAlto[0];
                 model.Alto = arrHistAnchoAlto[1];
 
@@ -60,10 +59,11 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    arrUrlMiniatura = entidad.UrlMiniatura.Split('/');
+                    var arrUrlMiniatura = entidad.UrlMiniatura.Split('/');
                     model.NombreImagenAnterior = ViewBag.UrlS3 + arrUrlMiniatura[5];
                     model.NombreImagen = string.Empty;
                 }
+                model.NombreImagen = "";
                 return View(model);
             }
             catch (FaultException ex)
@@ -159,7 +159,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var tempNombreImagen = form.NombreImagen;
+                //var tempNombreImagen = form.NombreImagen;
                 var entidad = new BEContenidoAppDeta
                 {
                     IdContenido = form.IdContenido,
@@ -200,6 +200,13 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = string.Empty
                 });
             }
+
+            return Json(new
+            {
+                success = false,
+                message = "No se pudo realizar la carga de la Imagen.",
+                extra = ""
+            });
         }
 
         public JsonResult ComponenteListar(string sidx, string sord, int page, int rows, int IdContenido, string Campania)

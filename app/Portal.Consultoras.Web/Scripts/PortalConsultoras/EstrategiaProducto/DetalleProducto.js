@@ -314,7 +314,7 @@
         }
     }
 
-    var _setDefaultValues = function () { };
+    //var _setDefaultValues = function () { };
 
     var _initializer = function (parameters) {
         _readVariables(parameters);
