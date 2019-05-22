@@ -865,7 +865,7 @@ function CargarPropuesta(codigoSsic) {
 }
 
 
-function DetalleGuardar(operacionId, callbackWhenFinish) {   
+function DetalleGuardar(operacionId, callbackWhenFinish) {
     var Complemento = [];
     var cantidad = 0;
     if (dataCdrDevolucion !== null) {
@@ -1005,8 +1005,10 @@ function ValidarPasoDosTrueque() {
     return true;
 }
 
-function ValidarPasoDosTruequeServer(callbackWhenFinish) {
-    var item = {
+function ValidarPasoDosTruequeServer(callbackSuccessful) {
+
+    var url = baseUrl + 'MisReclamos/ValidarNoPack';
+    var sendData = {
         PedidoID: $("#txtPedidoID").val(),
         CUV: $.trim($("#txtCUV2").val()),
         Cantidad: $.trim($("#txtCantidad2").val()),
@@ -1014,34 +1016,71 @@ function ValidarPasoDosTruequeServer(callbackWhenFinish) {
         CampaniaID: $("#ddlCampania").val()
     };
 
-
-    $.ajaxSetup({
-        global: false,
-        cache: false,
-        type: "POST",
-        url: baseUrl + 'MisReclamos/ValidarNoPack',
+    $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(sendData),
+        async: false,
+        url: url,
         beforeSend: function () {
             waitingDialog();
         },
         complete: function () {
             closeWaitingDialog();
-        }
-    });
-
-    $.ajax({
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(item),
-        async: true,
+        },
+        data: JSON.stringify(sendData),
+        contentType: "application/json; charset=utf-8",
+        async: false,
+        dataType: "json",
         success: function (data) {
-            if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
-                callbackWhenFinish(data.success, data.message);
+            if (callbackSuccessful && typeof callbackSuccessful === "function") {
+                callbackSuccessful(data.success, data.message);
             }
         },
         error: function (data, error) {
             closeWaitingDialog();
         }
     });
+
+    //callAjax(url, sendData, function (data) {
+    //    if (!checkTimeout(data)) {
+    //        return false;
+    //    }
+    //    if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+    //        callbackWhenFinish(data.success, data.message);
+    //    }
+    //});
+
+
+
+    //$.ajaxSetup({
+    //    global: false,
+    //    cache: false,
+    //    type: "POST",
+    //    url: baseUrl + 'MisReclamos/ValidarNoPack',
+    //    beforeSend: function () {
+    //        waitingDialog();
+    //    },
+    //    complete: function () {
+    //        closeWaitingDialog();
+    //    }
+    //});
+
+    //$.ajax({
+    //    dataType: 'json',
+    //    contentType: 'application/json; charset=utf-8',
+    //    data: JSON.stringify(item),
+    //    async: false,
+    //    success: function (data) {
+    //        if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+    //            callbackWhenFinish(data.success, data.message);
+    //        }
+    //    },
+    //    error: function (data, error) {
+    //        closeWaitingDialog();
+    //    }
+    //});
 }
 
 function ValidarCantidadMaximaPermitida(codigoSsic) {
@@ -1144,7 +1183,7 @@ function ValidarSolicitudCDREnvio(validarCorreoVacio, validarCelularVacio) {
     }
 
     if (!ok) return false;
-    
+
     if (!$("#btnAceptoPoliticas").hasClass("politica_reclamos_icono_active")) {
         alert_msg("Debe aceptar la política de Cambios y Devoluciones");
         return false;
@@ -1186,7 +1225,7 @@ function ValidarCorreoDuplicadoServer(correo, callbackWhenFinish) {
     });
 }
 
-function SolicitudCDREnviar(callbackWhenFinish) {   
+function SolicitudCDREnviar(callbackWhenFinish) {
     var url = baseUrl + 'MisReclamos/SolicitudEnviar';
     var sendData = {
         CDRWebID: $("#CDRWebID").val() || 0,
@@ -1205,46 +1244,46 @@ function SolicitudCDREnviar(callbackWhenFinish) {
         sendData.MensajeDespacho = $(!tipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').CleanWhitespace().html();
     }
 
-     setTimeout(function () {
-         callAjax(url, sendData, function (data) {
-             if (!checkTimeout(data)) {
-                 return false;
-             }
+    setTimeout(function () {
+        callAjax(url, sendData, function (data) {
+            if (!checkTimeout(data)) {
+                return false;
+            }
 
-             if (data.success) {
-                 var formatoFechaCulminado = "";
-                 var numeroSolicitud = 0;
-                 var formatoCampania = "";
-                 var mensajeDespacho = IfNull(data.cdrWeb.MensajeDespacho, '');
-                 if (data.cdrWeb.CDRWebID > 0) {
-                     if (data.cdrWeb.FechaCulminado != 'null' || data.cdrWeb.FechaCulminado != "" || data.cdrWeb.FechaCulminado != undefined) {
-                         var dateString = data.cdrWeb.FechaCulminado.substr(6);
-                         var currentTime = new Date(parseInt(dateString));
-                         var month = currentTime.getMonth() + 1;
-                         var day = currentTime.getDate();
-                         var year = currentTime.getFullYear();
-                         formatoFechaCulminado = (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
-                     }
-                     numeroSolicitud = data.cdrWeb.CDRWebID;
-                     if (data.cdrWeb.CampaniaID.toString().length == 6) {
-                         formatoCampania = data.cdrWeb.CampaniaID.toString().substring(0, 4) + "-" + data.cdrWeb.CampaniaID.toString().substring(4);
-                     }
-                 }
+            if (data.success) {
+                var formatoFechaCulminado = "";
+                var numeroSolicitud = 0;
+                var formatoCampania = "";
+                var mensajeDespacho = IfNull(data.cdrWeb.MensajeDespacho, '');
+                if (data.cdrWeb.CDRWebID > 0) {
+                    if (data.cdrWeb.FechaCulminado != 'null' || data.cdrWeb.FechaCulminado != "" || data.cdrWeb.FechaCulminado != undefined) {
+                        var dateString = data.cdrWeb.FechaCulminado.substr(6);
+                        var currentTime = new Date(parseInt(dateString));
+                        var month = currentTime.getMonth() + 1;
+                        var day = currentTime.getDate();
+                        var year = currentTime.getFullYear();
+                        formatoFechaCulminado = (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
+                    }
+                    numeroSolicitud = data.cdrWeb.CDRWebID;
+                    if (data.cdrWeb.CampaniaID.toString().length == 6) {
+                        formatoCampania = data.cdrWeb.CampaniaID.toString().substring(0, 4) + "-" + data.cdrWeb.CampaniaID.toString().substring(4);
+                    }
+                }
 
-                 $("#spnSolicitudFechaCulminado").html(formatoFechaCulminado);
-                 $("#spnSolicitudNumeroSolicitud").html(numeroSolicitud);
-                 $("#spnSolicitudCampania").html(formatoCampania);
-                 if (mensajeDespacho == '') $("#spnTipoDespacho").hide();
-                 else $("#spnTipoDespacho").show().html(mensajeDespacho);
-                 $("#divProcesoReclamo").hide();
-                 $("#divUltimasSolicitudes").hide();
-                 $("#TituloReclamo").hide();
-                 $("#SolicitudEnviada").show();
-             }
-             if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
-                 callbackWhenFinish(data);
-             }
-         });
+                $("#spnSolicitudFechaCulminado").html(formatoFechaCulminado);
+                $("#spnSolicitudNumeroSolicitud").html(numeroSolicitud);
+                $("#spnSolicitudCampania").html(formatoCampania);
+                if (mensajeDespacho == '') $("#spnTipoDespacho").hide();
+                else $("#spnTipoDespacho").show().html(mensajeDespacho);
+                $("#divProcesoReclamo").hide();
+                $("#divUltimasSolicitudes").hide();
+                $("#TituloReclamo").hide();
+                $("#SolicitudEnviada").show();
+            }
+            if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+                callbackWhenFinish(data);
+            }
+        });
     }, 0);
 }
 
@@ -1582,6 +1621,7 @@ function IrAFinalizar() {
 }
 
 
+
 function PreValidacionIrFinalizar() {
     var id = "";
     var tag = $("#divOperacion input[type=checkbox]");
@@ -1602,12 +1642,23 @@ function PreValidacionIrFinalizar() {
     //Validaciones
 
     //Trueque
+    var msg = "";
     if (id === reclamo.operacion.trueque) {
         if (!ValidarPasoDosTrueque()) {
             return false;
+        } else {
+            ValidarPasoDosTruequeServer(function (success, message) {
+                if (!success) {
+                    msg = message;
+                }
+            })
         }
     }
 
+    if (msg.length > 0) {
+        alert_msg(msg);
+        return false;
+    }
     //Devolución
     if (id === reclamo.operacion.devolucion) {
         if (!ValidarPasoDosDevolucion(id)) {
@@ -1629,7 +1680,7 @@ function PreValidacionIrFinalizar() {
         }
     }
 
-    return { result: true, id: id };
+    return { result: true, id: id, };
 }
 
 //HD-3703 EINCA 

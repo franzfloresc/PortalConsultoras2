@@ -332,9 +332,13 @@ namespace Portal.Consultoras.Web.Controllers
                     flagSetsOrPacks = SessionManager.GetFlagIsSetsOrPack();
                 }
 
-                if (flagSetsOrPacks == true)
+                if ((bool)flagSetsOrPacks)
                 {
+                    var desc = _cdrProvider.ObtenerDescripcion(model.Motivo, Constantes.TipoMensajeCDR.Motivo, userData.PaisID).Descripcion;                    
                     listaRetorno = listaRetorno.Where(a => a.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje || a.CodigoOperacion == Constantes.CodigoOperacionCDR.Devolucion).ToList();
+                    if (desc.Contains("mal estado") || desc.Contains("incompleta"))
+                        listaRetorno = listaRetorno.Where(a => a.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje).ToList();
+
                 }
 
                 return listaRetorno;
@@ -375,30 +379,9 @@ namespace Portal.Consultoras.Web.Controllers
             if (!listaPedidoFacturados.Any())
                 return false;
 
-            //validar si el cuv a cambiar se encuentra en un proceso de solicitud de cambio
-            //obtenermos los cdrs de pedidos
-            int estado = 0;
-            using (var sv = new CDRServiceClient())
-            {
-                estado = sv.ValCUVEnProcesoReclamo(userData.PaisID, model.PedidoID, model.CUV);
-            }
+            string mensaje = ValidarCUVEnProcesoReclamo(model);
 
-            string mensaje = null;
-            switch (estado)
-            {
-                case Constantes.EstadoCDRWeb.Pendiente:
-                case Constantes.EstadoCDRWeb.Enviado:
-                    mensaje = "El CUV se encuentra en un proceso de reclamo";
-                    break;
-                case Constantes.EstadoCDRWeb.Aceptado:
-                    mensaje = "El CUV ya fue tramitado en un proceso de reclamo";
-                    break;
-                default:
-                    mensaje = null;
-                    break;
-            }
-
-            if (mensaje != null)
+            if (mensaje.Length > 0)
             {
                 mensajeError = mensaje;
                 return false;
@@ -427,6 +410,34 @@ namespace Portal.Consultoras.Web.Controllers
                                detalle.Cantidad + ")";
 
             return cantidad >= 0;
+        }
+
+        private string ValidarCUVEnProcesoReclamo(MisReclamosModel model)
+        {
+            //validar si el cuv a cambiar se encuentra en un proceso de solicitud de cambio
+            //obtenermos los cdrs de pedidos
+            int estado = 0;
+            using (var sv = new CDRServiceClient())
+            {
+                estado = sv.ValCUVEnProcesoReclamo(userData.PaisID, model.PedidoID, model.CUV);
+            }
+
+            string mensaje;
+            switch (estado)
+            {
+                case Constantes.EstadoCDRWeb.Pendiente:
+                case Constantes.EstadoCDRWeb.Enviado:
+                    mensaje = "El CUV se encuentra en un proceso de reclamo";
+                    break;
+                case Constantes.EstadoCDRWeb.Aceptado:
+                    mensaje = "El CUV ya fue tramitado en un proceso de reclamo";
+                    break;
+                default:
+                    mensaje = "";
+                    break;
+            }
+
+            return mensaje;
         }
 
         public JsonResult BuscarCuvCambiar(MisReclamosModel model)
@@ -504,6 +515,18 @@ namespace Portal.Consultoras.Web.Controllers
             var isSetsOrPack = false;
             string[] estrategias = { "2002", "2003" };
             var cuvEnviar = string.Empty;
+
+            string mensajeError;
+            var valid = ValidarRegistro(model, out mensajeError);
+            if (!valid)
+                return Json(new
+                {
+                    success = false,
+                    message = mensajeError,
+                    data = respuestaServiceCdr,
+                    flagSetsOrPack = false,
+                }, JsonRequestBehavior.AllowGet);
+
             try
             {
                 var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
@@ -586,6 +609,20 @@ namespace Portal.Consultoras.Web.Controllers
                                                                          where d.Cantidad > 0
                                                                          select c).ToArray();
                     }
+
+                    //validar si se encuentra en algún proceso de reclamo uno de los CUVS
+                    var cuvs = string.Join(";", respuestaServiceCdr[0].LProductosComplementos.Select(a => a.cuv).ToArray());
+                    model.CUV = cuvs;
+                    var mensajeRespuesta = ValidarCUVEnProcesoReclamo(model);
+                    if (mensajeRespuesta.Length > 0)
+                        return Json(new
+                        {
+                            success = false,
+                            message = mensajeRespuesta,
+                            data = respuestaServiceCdr,
+                            flagSetsOrPack = false,
+                        }, JsonRequestBehavior.AllowGet);
+
                 }
             }
             catch (Exception ex)
@@ -595,12 +632,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
-            string mensajeError;
-            var valid = ValidarRegistro(model, out mensajeError);
+            //string mensajeError;
             return Json(new
             {
-                success = valid,
-                message = mensajeError,
+                success = true,
+                message = "",
                 data = respuestaServiceCdr,
                 flagSetsOrPack = isSetsOrPack,
             }, JsonRequestBehavior.AllowGet);
@@ -621,7 +657,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json(new
                         {
                             success = false,
-                            message = "No está permitido el cambio de Packs y Sets por este medio. " + Constantes.CdrWebMensajes.ContactateChatEnLinea,
+                            message = "Lo sentimos, no se puede realizar el cambio por este producto.",
                         }, JsonRequestBehavior.AllowGet);
                 }
             }

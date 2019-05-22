@@ -462,8 +462,8 @@ $(document).ready(function () {
                         if (fnPreValidacion.result) {
                             me.Funciones.DetalleGuardar(fnPreValidacion.id, function (data) {
                                 if (data.success) {
-                                    $.when(me.Funciones.DetalleCargar()).done(function () {
-                                        $(me.Variables.hdCDRID).val(data.detalle);
+                                    $(me.Variables.hdCDRID).val(data.detalle);
+                                    $.when(me.Funciones.DetalleCargar()).done(function () {                                       
                                         $(me.Variables.wrpMobile).removeClass(me.Variables.pb120);
                                         var arrOcultarElementos = [me.Variables.TituloPreguntaInconvenientes, me.Variables.Registro4
                                             , me.Variables.Registro3, me.Variables.infoOpcionesDeCambio, me.Variables.Enlace_regresar, "#VistaPaso1y2"];
@@ -847,16 +847,30 @@ $(document).ready(function () {
                     CampaniaID: $(me.Variables.ComboCampania).val()
                 };
 
-                me.Funciones.callAjax(url, sendData, function (data) {
-                    if (!checkTimeout(data))
-                        return false;
-                    if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
-                        callbackWhenFinish(data.success, data.message);
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(sendData),
+                    async: false,
+                    url: url,
+                    beforeSend: function () {
+                        ShowLoading();
+                    },
+                    complete: function () {
+                        CloseLoading();
+                    },
+                    success: function (data) {
+                        if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
+                            callbackWhenFinish(data.success, data.message);
+                        }
+                    },
+                    error: function (data, error) {
+                        CloseLoading();
                     }
                 });
             },
             BuscarCUV: function (CUV) {
-
                 var CampaniaId = $.trim($(me.Variables.ComboCampania).val()) || 0;
                 var PedidoId = $.trim($(me.Variables.hdPedidoID).val()) || 0;
 
@@ -1950,10 +1964,21 @@ $(document).ready(function () {
                 //Validaciones
 
                 //Trueque
+                var msg = "";
                 if (id === me.Variables.operaciones.trueque) {
                     if (!me.Funciones.ValidarPasoDosTrueque()) {
                         return { result: false, id: id };
+                    } else {
+                        me.Funciones.ValidarPasoDosTruequeServer(function (success, message) {
+                            if (!success) {
+                                msg = message;
+                            }
+                        });
                     }
+                }
+                if (msg.length > 0) {
+                    messageInfoValidado(msg);
+                    return false;
                 }
 
                 //Devolución
