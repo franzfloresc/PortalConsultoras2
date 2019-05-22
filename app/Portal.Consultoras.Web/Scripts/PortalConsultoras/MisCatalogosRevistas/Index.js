@@ -34,7 +34,14 @@ $(document).ready(function () {
             xfbml: true,
             version: 'v3.0'
         });
-
+        FB.Event.subscribe('customerchat.load', function() {
+            setTimeout(function () {
+                $('.fb_dialog_content').append('<div class="icono_chat_sb"></div>');
+                $('body').on('click', '.icono_chat_sb', function (e) {
+                    FB.CustomerChat.showDialog();
+                });
+            }, 2000);
+        });
         FB.getLoginStatus(function (response) {
             if (response.status === 'connected') {
                 getInfoFB(1);

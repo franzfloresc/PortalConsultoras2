@@ -7,10 +7,9 @@
 @if (ViewBag.FbCustomInit != "1")
 {
     <script>
-        var fbxfbml = fbxfbml || 1;
         window.fbAsyncInit = function () {
             FB.init({
-                xfbml            : fbxfbml === 1 ? true : false,
+                xfbml            : true,
                 version          : 'v3.3'
             });
 
@@ -23,7 +22,6 @@
                 }, 2000);
             });
         };
-
     </script>
 }
 
