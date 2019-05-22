@@ -194,6 +194,10 @@ var ConstantesModule = (function () {
         reservado: '¡Listo! Agregaste con éxito a tu pedido reservado.'
     }
 
+    var _tiempo = {
+        ToolTip: 2500
+    }
+
     return {
         CodigoPalanca: _codigoPalanca,
         TipoEstrategia: _codigoTipoEstrategia,
@@ -209,6 +213,7 @@ var ConstantesModule = (function () {
         UrlPedido: _urlPedido,
         DiccionarioTipoEstrategia: _diccionarioTipoEstrategia,
         GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia,
-        MensajeAgregarPedido: _mensajeAgregarPedido
+        MensajeAgregarPedido: _mensajeAgregarPedido,
+        Tiempo: _tiempo
     }
 })();
