@@ -5,6 +5,7 @@
 
 var detalleEstrategia = DetalleEstrategiaProvider;
 var fichaResponsiveEvents = FichaResponsiveEvents();
+
 var estrategiaView = EstrategiaView();
 var estrategiaPresenter = EstrategiaPresenter({
     estrategiaView: estrategiaView,
@@ -109,7 +110,7 @@ $(document).ready(function () {
     modal_lateral("#popup_tonos", ".tono_select_opt");
 
     modal_lateral("#popup_ficha_enriquecida", ".button_ver_detalle");
-    
+
     $("#data-estrategia").data("estrategia", detalleEstrategia.getEstrategia(params));
     var estrategia = $("#data-estrategia").data("estrategia");
     estrategiaPresenter.onEstrategiaModelLoaded(estrategia);

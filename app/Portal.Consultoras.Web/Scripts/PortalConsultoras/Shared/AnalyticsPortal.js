@@ -242,6 +242,7 @@ var AnalyticsPortalModule = (function () {
 
     var _getEstructuraOrigenPedidoWeb = function (origen, url) {
         var origenEstructura = {};
+        url = url || "";
 
         if (typeof origen === "object") {
             origenEstructura = origen || {};
@@ -375,36 +376,35 @@ var AnalyticsPortalModule = (function () {
         return seccion.Codigo || "";
     }
 
-    var _getParametroListSegunOrigen = function (origenEstructura, url, estoyEnLaFicha) {
+    var _getParametroListSegunOrigen = function (origenEstructura, url) {
 
         origenEstructura = _getEstructuraOrigenPedidoWeb(origenEstructura, url);
+        
+        var contendor = _getTextoContenedorSegunOrigen(origenEstructura) || "";
 
-        if (estoyEnLaFicha === true) {
-            origenEstructura.Seccion = CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselVerMas;
-        }
-
-        var contendor = _getTextoContenedorSegunOrigen(origenEstructura);
         var pagina = "";
-
         if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselVerMas) {
             pagina = _getTextoSeccionSegunOrigen(origenEstructura);
         }
         else {
             pagina = _getTextoPaginaSegunOrigen(origenEstructura);
         }
+        pagina = pagina || "";
 
-        var palanca = _getTextoPalancaSegunOrigen(origenEstructura);
+        var palanca = _getTextoPalancaSegunOrigen(origenEstructura) || "";
+
+        var seccion = "";
+        if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling) {
+            seccion = _getTextoSeccionSegunOrigen(origenEstructura);
+        }
+        seccion = seccion || "";
 
         var separador = " - ";
         var texto = contendor;
 
-        texto += texto != ""
-            ? ((pagina != "" ? separador : "") + pagina)
-            : pagina;
-
-        texto += texto != ""
-            ? ((palanca != "" ? separador : "") + palanca)
-            : palanca;
+        texto += (texto != "" ? (pagina != "" ? separador : "") : "") + pagina;
+        texto += (texto != "" ? (palanca != "" ? separador : "") : "") + palanca;
+        texto += (texto != "" ? (seccion != "" ? separador : "") : "") + seccion;
 
         return texto;
     }
@@ -637,7 +637,7 @@ var AnalyticsPortalModule = (function () {
         }
 
     }
-    
+
     var marcaAnadirCarrito = function (event, codigoOrigen, data) {
 
         try {
@@ -733,16 +733,27 @@ var AnalyticsPortalModule = (function () {
     // Ini - Analytics Evento Product Impression
     ////////////////////////////////////////////////////////////////////////////////////////
 
-    var autoMapperEstrategia = function (lista, cantidadMostrar, parametroList) {
+    var autoMapperEstrategia = function (lista, cantidadMostrar, parametroList, origenMapper) {
 
         lista = lista || [];
         cantidadMostrar = cantidadMostrar || 0;
         parametroList = parametroList || "";
 
+        origenMapper = origenMapper || "";
+
+        var origenEstructura = _getEstructuraOrigenPedidoWeb(origenMapper);
+        
         var impressions = [];
 
         $.each(lista, function (index, item) {
             if (index < cantidadMostrar) {
+                var paramList = parametroList;
+                console.log('autoMapperEstrategia', parametroList, origenEstructura);
+                if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling) {
+                    var origenEstructuraNueva = CodigoOrigenPedidoWeb.GetCambioSegunTipoEstrategia(origenMapper, item.CodigoEstrategia);
+                    paramList = _getParametroListSegunOrigen(origenEstructuraNueva);
+                    console.log('autoMapperEstrategia', parametroList, origenEstructura, origenEstructuraNueva, paramList);
+                }
                 var impression = {
                     'name': item.DescripcionCompleta,
                     'id': item.CUV2 || item.CUV,
@@ -750,7 +761,7 @@ var AnalyticsPortalModule = (function () {
                     'brand': item.DescripcionMarca || _getMarca(item.MarcaId || item.MarcaID),
                     'category': _texto.notavaliable,
                     'variant': _texto.estandar,
-                    'list': parametroList,
+                    'list': paramList,
                     'position': (item.Position == undefined ? index : item.Position) + 1
                 };
 
@@ -806,7 +817,7 @@ var AnalyticsPortalModule = (function () {
 
             var lista = data.lista || [];
             var cantidadMostrar = (lista.length == 1 ? 1 : data.CantidadMostrar) || 0;
-            var impressions = autoMapperEstrategia(lista, cantidadMostrar, parametroList);
+            var impressions = autoMapperEstrategia(lista, cantidadMostrar, parametroList, data.Origen);
 
             var seMarco = _marcarImpresionSetProductos(impressions);
 
@@ -907,9 +918,7 @@ var AnalyticsPortalModule = (function () {
             if (_constantes.isTest)
                 alert("Marcación clic ver detalle producto.");
 
-            var estoyEnLaFicha = isFicha();
-
-            var list = _getParametroListSegunOrigen(codigoOrigenPedido, url, estoyEnLaFicha);
+            var list = _getParametroListSegunOrigen(codigoOrigenPedido, url);
 
             var item = $(element).parents("[data-item-cuv]").find("div [data-estrategia]").data("estrategia")
                 || $(element).parents("[data-item-cuv]").find("div[data-estrategia]").data("estrategia")

@@ -17,6 +17,7 @@ using Portal.Consultoras.Entities.ReservaProl;
 using Portal.Consultoras.PublicService.Cryptography;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -343,9 +344,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                         if (reservado)
                         {
-                            //var respuestaReserva = await _reservaBusinessLogic.EjecutarReserva(pedidoDetalle.ReservaProl, true);
-                            //respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuesta, out error);
-
                             var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
                             respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuesta, out error);
                         }
@@ -391,10 +389,20 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return null;
         }
 
+        private bool ObtieneValorFlagDesactivacionNoDigitable()
+        {
+            var valorFlag = ConfigurationManager.AppSettings["DesactivarNoDigitablesPedido"];
+
+            if (valorFlag == null) return false;
+
+            return (valorFlag == "1");
+        }
+
         private BEPedidoDetalleResult PedidoAgregarProductoTransaction(BEPedidoDetalle pedidoDetalle)
         {
             pedidoDetalle = PedidoAgregar_ObtenerEstrategia(pedidoDetalle);
             var usuario = pedidoDetalle.Usuario;
+
 
             var estrategia = PedidoAgregar_FiltrarEstrategiaPedido(pedidoDetalle, usuario.PaisID);
 
@@ -432,10 +440,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
                 pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido)
             {
-                if (_bLCaminoBrillante.UpdEstragiaCaminiBrillante(estrategia, usuario.PaisID, usuario.CampaniaID, usuario.NivelCaminoBrillante, pedidoDetalle.Producto.CUV)) {
+                if (_bLCaminoBrillante.UpdEstragiaCaminiBrillante(estrategia, usuario.PaisID, usuario.CampaniaID, usuario.NivelCaminoBrillante, pedidoDetalle.Producto.CUV))
+                {
                     var codError = _bLCaminoBrillante.ValAgregarCaminiBrillante(estrategia, usuario, pedidoDetalle, lstDetalleAgrupado);
-                    if (!string.IsNullOrEmpty(codError)) {
-                        if(codError == Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE)
+                    if (!string.IsNullOrEmpty(codError))
+                    {
+                        if (codError == Constantes.PedidoValidacion.Code.ERROR_CANTIDAD_LIMITE)
                             return PedidoDetalleRespuesta(codError, args: estrategia.LimiteVenta);
                         return PedidoDetalleRespuesta(codError);
                     }
@@ -569,7 +579,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
             #endregion
 
-           
+
             #region PrepararPedidoDetalle
             //Preparar Pedido Detalle
             pedidoDetalle.Producto.TipoEstrategiaID = string.IsNullOrEmpty(pedidoDetalle.Producto.TipoEstrategiaID) ? "0" : pedidoDetalle.Producto.TipoEstrategiaID;
@@ -609,9 +619,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     Grupo = grupo
                 });
 
-                if ((listSp.Length > 4 && digitable == "0"))
+
+                if (ObtieneValorFlagDesactivacionNoDigitable())
                 {
-                    continue;
+                    if ((listSp.Length > 4 && digitable == "0"))
+                        continue;
                 }
 
                 if (!pedidoDetalle.EsKitNuevaAuto)
@@ -829,7 +841,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var ncant = pedidoDetalle.Cantidad;
 
                     var set = _pedidoWebSetBusinessLogic.Obtener(pedidoDetalle.PaisID, pedidoDetalle.SetID);
-                    var detallesSet = set.Detalles.Where(x => x.Digitable == 1).ToList();
+
+                    IEnumerable<BEPedidoWebSetDetalle> detallesSet = null;
+
+                    if (ObtieneValorFlagDesactivacionNoDigitable())
+                        detallesSet = set.Detalles.Where(x => x.Digitable == 1).ToList();
+                    else
+                        detallesSet = set.Detalles.ToList();
+
 
                     foreach (var detalleSet in detallesSet)
                     {
@@ -1325,8 +1344,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         x.EsKitCaminoBrillante || x.EsDemCaminoBrillante));
 
                     lstDetalle.Where(x => x.EsKitNueva).Update(x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.DescripcionKitInicio);
-                    lstDetalle.Where(x => x.IndicadorOfertaCUV && x.TipoEstrategiaID == 0 && !x.EsKitCaminoBrillante && !x.EsDemCaminoBrillante )
-                        .Update(x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.OfertaNiveles);                    
+                    lstDetalle.Where(x => x.IndicadorOfertaCUV && x.TipoEstrategiaID == 0 && !x.EsKitCaminoBrillante && !x.EsDemCaminoBrillante)
+                        .Update(x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.OfertaNiveles);
 
                     lstDetalle.Where(x => x.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack).Update(item => item.EsArmaTuPack = true);
 

@@ -26,6 +26,7 @@ var EstrategiaAgregarModule = (function () {
     };
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _mensajeAgregarPedido = ConstantesModule.MensajeAgregarPedido;
+    var _mensajeModificarPedido = ConstantesModule.MensajeModificarPedido;
     var dataProperties = {
         dataItem: "[data-item]",
         dataContenedorCantidad: "[data-cantidad-contenedor]",
@@ -84,14 +85,18 @@ var EstrategiaAgregarModule = (function () {
     }
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
-
-        var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia")
-            || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
-                .find(".slick-active").find(dataProperties.dataEstrategia).attr("data-estrategia")
+        var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia")
+            || $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia")
+            || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile").find(".slick-active").find(dataProperties.dataEstrategia).attr("data-estrategia")
             || "";
 
         var estrategia = {};
-        if (estrategiaTxt != "") {
+
+        if (typeof estrategiaTxt === "object") {
+            estrategia = estrategiaTxt;
+        }
+        else if (estrategiaTxt != "")
+        {
             estrategia = JSON.parse(estrategiaTxt);
         }
 
@@ -116,7 +121,6 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var estrategiaEstaBloqueada = function ($btnAgregar, campaniaId) {
-
         if ($btnAgregar.attr(dataProperties.dataBloqueada) === "") return false;
 
         if (campaniaId === parseInt(_config.CampaniaCodigo)) return false;
@@ -300,7 +304,6 @@ var EstrategiaAgregarModule = (function () {
             }
         }
 
-        console.log(estrategia);
         if (estrategiaEstaBloqueada($btnAgregar, estrategia.CampaniaID)) {
             estrategia.OrigenPedidoWebEstrategia = origenPedidoWebEstrategia;
             getDivMsgBloqueado($btnAgregar, estrategia).show();
@@ -467,7 +470,7 @@ var EstrategiaAgregarModule = (function () {
 
                 //}
                 var esFichaT = ((estrategia.FlagNueva == 1 ? true : false) && IsNullOrEmpty(data.mensajeAviso)) || _config.esFicha;
-                console.log('estrategiaAgregar - pedidoAgregarProductoPromise', _config.esFicha, esFichaT, estrategia.FlagNueva, data.mensajeAviso);
+
                 //Tooltip de agregado
                 if (esFichaT) {
                     try {
@@ -615,21 +618,37 @@ var EstrategiaAgregarModule = (function () {
 
                 CerrarLoad();
 
+                //debugger;
                 var imagenProducto = $btnAgregar.parents("[data-item]").find("[data-imagen-producto]").attr("data-imagen-producto");
 
-                if (typeof imagenProducto === 'undefined') {
-                    if (document.querySelector("#FichaImagenProducto > img") != null) {
+                if (typeof imagenProducto === 'undefined' || imagenProducto === null) {
+                    if (document.querySelector("#FichaImagenProducto > img") !== null) {
                         imagenProducto = document.querySelector("#FichaImagenProducto > img").src;
-                    } else if (document.querySelector("#img-banner-odd") != null) {
+                    } else if (document.querySelector("#img-banner-odd") !== null) {
                         imagenProducto = document.querySelector("#img-banner-odd").src;
+                    } else if (isMobile()) {
+                        var dataImagen = $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
+                            .find(".slick-active").find("[data-imagen-producto]").attr("data-imagen-producto");
+                        if (dataImagen !== 'undefined' && dataImagen !== null) {
+                            imagenProducto = dataImagen;
+                        }
+                        
                     }
                 }
 
                 var mensaje = '';
-                if (data.EsReservado === true) {
-                    mensaje = _mensajeAgregarPedido.reservado;
+                if (esEditable === false) {
+                    if (data.EsReservado === true) {
+                        mensaje = _mensajeAgregarPedido.reservado;
+                    } else {
+                        mensaje = _mensajeAgregarPedido.normal;
+                    }
                 } else {
-                    mensaje = _mensajeAgregarPedido.normal;
+                    if (data.EsReservado === true) {
+                        mensaje = _mensajeModificarPedido.reservado;
+                    } else {
+                        mensaje = _mensajeModificarPedido.normal;
+                    }
                 }
 
                 AbrirMensaje25seg(mensaje, imagenProducto);

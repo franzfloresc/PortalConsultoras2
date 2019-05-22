@@ -851,7 +851,7 @@ function AbrirMensaje25seg(mensaje, imagen) {
             return true;
         }
         //FIN HD-3693
-        imagen = imagen || ""
+        imagen = imagen || "";
 
         $("#pop_src").attr("src", "#")
 
@@ -902,7 +902,7 @@ function AbrirMensaje25seg(mensaje, imagen) {
                 $('#alertDialogMensajes25seg').dialog("close");
                 $("body").css("overflow", "auto")
             })
-        }, 2500)    
+        }, 3000)
 
         
         var parameter = [["mensaje", mensaje], ["imagen", imagen]];

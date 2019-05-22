@@ -23,8 +23,8 @@ var CarruselAyuda = function () {
         var indexMostrar = nextSlide == undefined ? currentSlide : nextSlide;
         var indexActive = -1;
 
-        var cantActive = $(_slick.$slider).find('.slick-active').length;
-        var indexCurrent = parseInt($(_slick.$slider).find('.slick-current').attr("data-slick-index"));
+        var cantActive = $(slick.$slider).find('.slick-active').length;
+        var indexCurrent = parseInt($(slick.$slider).find('.slick-current').attr("data-slick-index"));
 
         var direccion = CarruselVariable.Direccion.prev;
         if (indexCurrent === 0) {
@@ -47,13 +47,28 @@ var CarruselAyuda = function () {
             }
         }
 
-        var slideMostrar = $(_slick.$slider).find("[data-slick-index='" + indexMostrar + "']");
+        var slideMostrar = $(slick.$slider).find("[data-slick-index='" + indexMostrar + "']");
 
         return {
             Direccion: direccion,
             IndexMostrar: indexMostrar,
             SlideMostrar: slideMostrar
         }
+    };
+
+    var obtenerEstrategiaSlick = function (slick, currentSlide, nextSlide) {
+
+        var objMostrar = _obtenerSlideMostrar(slick, currentSlide, nextSlide);
+        var item = objMostrar.SlideMostrar;
+        var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
+
+        if (estrategia === "") {
+            if (origen.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Liquidacion) {
+                estrategia = _obtenerEstrategiaLiquidacion(objMostrar);
+            }
+        }
+
+        return estrategia || {};
     };
 
     //var _obtenerPantalla = function (origen) {
@@ -152,14 +167,16 @@ var CarruselAyuda = function () {
 
             var objMostrar = _obtenerSlideMostrar(slick, currentSlide, nextSlide);
 
-            var item = objMostrar.SlideMostrar;
-            var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
+            //var item = objMostrar.SlideMostrar;
+            //var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
 
-            if (estrategia === "") {
-                if (origen.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Liquidacion) {
-                    estrategia = _obtenerEstrategiaLiquidacion(objMostrar);
-                }
-            }
+            //if (estrategia === "") {
+            //    if (origen.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Liquidacion) {
+            //        estrategia = _obtenerEstrategiaLiquidacion(objMostrar);
+            //    }
+            //}
+
+            var estrategia = obtenerEstrategiaSlick(slick, currentSlide, nextSlide);
 
             estrategia = estrategia || "";
             if (estrategia != "") {
@@ -324,7 +341,8 @@ var CarruselAyuda = function () {
         MarcarAnalyticsContenedor: marcarAnalyticsContenedor,
         MarcarAnalyticsLiquidacion: marcarAnalyticsLiquidacion,
         MostrarFlechaCarrusel: mostrarFlechaCarrusel,
-        MarcaAnalycticCarruselProgramasNuevas: marcaAnalycticCarruselProgramasNuevas//HD-3473 EINCA
+        MarcaAnalycticCarruselProgramasNuevas: marcaAnalycticCarruselProgramasNuevas,
+        ObtenerEstrategiaSlick: obtenerEstrategiaSlick
     };
 }();
 
@@ -350,7 +368,13 @@ var CarruselModule = (function (config) {
         divCarruselContenedor: config.divCarruselContenedor,
         idTituloCarrusel: config.idTituloCarrusel,
         divCarruselProducto: config.divCarruselProducto,
-        dataLazy: config.dataLazy || "img[data-lazy-seccion-revista-digital]"
+        dataLazy: config.dataLazy || "img[data-lazy-seccion-revista-digital]",
+        dataOrigenPedidoWeb: {
+            busca: "[data-OrigenPedidoWeb]",
+            atributo: "data-OrigenPedidoWeb",
+            buscaAgregar: "[data-origenpedidowebagregar]",
+            atributoAgregar: "data-origenpedidowebagregar"
+        }
     };
 
     var _variable = {
@@ -443,7 +467,7 @@ var CarruselModule = (function (config) {
             $(_elementos.divCarruselProducto + '.slick-initialized').slick('unslick');
             $(_elementos.divCarruselProducto).not('.slick-initialized').slick({
                 dots: false,
-                infinite: true,
+                infinite: false,
                 speed: 260,
                 slidesToShow: 2,
                 slidesToScroll: 1,
@@ -475,14 +499,22 @@ var CarruselModule = (function (config) {
             return;
         }
 
-        var origen = {
-            Seccion: CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselVerMas,
-            OrigenPedidoWeb: _config.OrigenPedidoWeb.toString()
-        };
+        //var origen = {
+        //    Seccion: CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselVerMas,
+        //    OrigenPedidoWeb: _config.OrigenPedidoWeb.toString()
+        //};
+
+        var origen = $(_elementos.divCarruselProducto).attr(_elementos.dataOrigenPedidoWeb.atributoAgregar)
+            || $(_elementos.divCarruselProducto).attr(_elementos.dataOrigenPedidoWeb.atributo)
+            || $(_elementos.divCarruselProducto).parents(_elementos.dataOrigenPedidoWeb.buscaAgregar).attr(_elementos.dataOrigenPedidoWeb.atributoAgregar)
+            || $(_elementos.divCarruselProducto).parents(_elementos.dataOrigenPedidoWeb.busca).attr(_elementos.dataOrigenPedidoWeb.atributo);
+
         if (tipo == 1) {
             CarruselAyuda.MarcarAnalyticsInicio(_elementos.divCarruselProducto, data.lista, origen);
         }
         else if (tipo == 2) {
+            var estrategia = CarruselAyuda.ObtenerEstrategiaSlick(slick, currentSlide, nextSlide);
+            origen = CodigoOrigenPedidoWeb.GetCambioSegunTipoEstrategia(origen, estrategia.CodigoEstrategia);
             CarruselAyuda.MarcarAnalyticsChange(slick, currentSlide, nextSlide, origen);
         }
     }
@@ -494,8 +526,9 @@ var CarruselModule = (function (config) {
     var _mostrarTitulo = function () {
 
         var titulo = '';
-
-        if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.ShowRoom || _config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia || _config.palanca == ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
+        if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia) {
+            titulo = 'Ver más ofertas ¡Solo Hoy!';
+        }else if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.ShowRoom || _config.palanca == ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
             if (_config.cantidadPack > 1) {
                 titulo = 'Packs parecidos con más productos';
             } else {
@@ -530,7 +563,7 @@ var CarruselModule = (function (config) {
                         if (data.lista.length > 0) {
                             _variable.cantidadProdCarrusel = data.lista.length;
                             $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
-
+                            
                             SetHandlebars(_elementos.idPlantillaProducto, data, _elementos.divCarruselProducto);
                             _mostrarTitulo();
                             _mostrarSlicks();
@@ -585,7 +618,7 @@ var CarruselModule = (function (config) {
                 }
             } else {
                 for (var i = 0; i < contarProductosHermanos; i++) {
-                    codigosProductos.push(componentes[i].CodigoProducto);
+                    if (componentes[i].NombreComercial.indexOf("Bolsa") == -1) codigosProductos.push(componentes[i].CodigoProducto);
                 }
             }
 

@@ -259,7 +259,8 @@ namespace Portal.Consultoras.BizLogic.Reserva
             {
                 var listDetalle = GetPedidoWebDetalleReserva(input, false);
                 var listDetalleSinBackOrder = listDetalle.Where(d => !d.AceptoBackOrder).ToList();
-                if (!listDetalleSinBackOrder.Any()) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_SinDetalle, true);
+                if (!listDetalleSinBackOrder.Any())
+                    return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_SinDetalle, true, Enumeradores.ResultadoReserva.NoReservadoMontoMinimo);              
 
                 input.PedidoID = listDetalle[0].PedidoID;
                 input.VersionProl = GetVersionProl(input.PaisID);

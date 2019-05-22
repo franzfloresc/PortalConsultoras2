@@ -240,9 +240,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                                        && beConfiguracionCampania.ModificaPedidoReservado
                     ? "1"
                     : "0",
-                EstadoPedido = (beConfiguracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente).ToInt()
-            };
-            model.EstadoPedido = (beConfiguracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente).ToInt();
+                EstadoPedido = (beConfiguracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente && !beConfiguracionCampania.ValidacionAbierta).ToInt()
+                 
+        };
+            model.EstadoPedido = (beConfiguracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente && !beConfiguracionCampania.ValidacionAbierta).ToInt();
 
             ValidarStatusCampania(beConfiguracionCampania);
 
