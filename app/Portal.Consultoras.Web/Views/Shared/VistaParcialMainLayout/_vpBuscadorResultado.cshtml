@@ -20,6 +20,7 @@
         <input type="hidden" class="hdBuscadorTipoPersonalizacion" value="{{TipoPersonalizacion}}" />
         <input type="hidden" class="hdBuscadorEstrategiaID" value="{{EstrategiaID}}" />
 
+        <div style="display:none;"><div data-imagen-producto="{{Imagen}}"></div></div>
         <div class="resultado_busqueda_img_prod redireccionarFicha pl-0 pr-0">
             <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")'" />
         </div>
