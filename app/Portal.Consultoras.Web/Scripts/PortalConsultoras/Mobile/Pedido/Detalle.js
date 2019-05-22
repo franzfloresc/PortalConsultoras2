@@ -763,6 +763,8 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
     var cantidadElement = $(elementRow).find(".Cantidad");
     var Cantidad = $(cantidadElement).val();
     var CantidadAnti = detalleObj.CantidadTemporal;
+    var _mensajeModificarPedido = ConstantesModule.MensajeModificarPedido;
+
     item.SetID = detalleObj.SetID;
 
     ShowLoading();
@@ -786,36 +788,49 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
 
             var prevTotal = mtoLogroBarra || 0;
             MostrarBarra(data);
-            showPopupNivelSuperado(data.DataBarra, prevTotal);
-
-            var tooltip = $('[data-agregado="tooltip"]');
-            if (typeof tooltip !== 'undefined') {
-                $('[data-agregado="mensaje1"]').html("¡Listo! ");
-                $('[data-agregado="mensaje2"]').html(" Modificaste tu pedido");
-                tooltip.show();
-                setTimeout(function () { tooltip.hide(); }, 4000);
-            }
             
+
+            /**COMENTADO POR TESLA7 */
+            //var tooltip = $('[data-agregado="tooltip"]');
+            //if (typeof tooltip !== 'undefined') {
+            //    $('[data-agregado="mensaje1"]').html("¡Listo! ");
+            //    $('[data-agregado="mensaje2"]').html(" Modificaste tu pedido");
+            //    tooltip.show();
+            //    setTimeout(function () { tooltip.hide(); }, 4000);
+            //}
+            CargarPedido();
+            var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
+            if (diferenciaCantidades > 0)
+	            TrackingJetloreAdd(diferenciaCantidades.toString(), $("#hdCampaniaCodigo").val(), item.CUV);
+            else if (diferenciaCantidades < 0)
+                TrackingJetloreRemove((diferenciaCantidades * -1).toString(), $("#hdCampaniaCodigo").val(), item.CUV);
+
             if (PROL == "0") {
                 detalleObj.CantidadTemporal = $(cantidadElement).val();
                 belcorp.mobile.pedido.setDetalleById(detalleObj);
             }
-            CargarPedido();
-
-            if (data.mensajeCondicional) {
-	            AbrirMensaje(data.mensajeCondicional);
+            //Se pone aquí el nuevo mensaje para TESLA-03
+            
+            var isReservado = data.EsReservado || false;
+            var mensaje = '';
+            if (isReservado) {
+                mensaje = _mensajeModificarPedido.reservado;
+            } else {
+                mensaje = _mensajeModificarPedido.normal;
             }
 
-            if (data.modificoBackOrder) {
-                messageInfo('Recuerda que debes volver a validar tu pedido.');
-            }
+            AbrirMensaje25seg(mensaje);
 
-            var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
-            if (diferenciaCantidades > 0)
-                TrackingJetloreAdd(diferenciaCantidades.toString(), $("#hdCampaniaCodigo").val(), item.CUV);
-            else if (diferenciaCantidades < 0)
-                TrackingJetloreRemove((diferenciaCantidades * -1).toString(), $("#hdCampaniaCodigo").val(), item.CUV);
-
+            setTimeout(function () {
+		            showPopupNivelSuperado(data.DataBarra, prevTotal);
+		            if (data.mensajeCondicional) {
+			            AbrirMensaje(data.mensajeCondicional);
+		            }
+		            if (data.modificoBackOrder) {
+			            messageInfo('Recuerda que debes volver a validar tu pedido.');
+		            }
+	            },
+	            2500);
         },
         error: function (data, error) {
             CloseLoading();
@@ -967,7 +982,11 @@ function EjecutarAccionesReservaExitosa(response) {
     if (estaRechazado == "2") cerrarMensajeEstadoPedido();
 
     messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>');
-    RedirigirPedidoValidado();
+    var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
+    if (ultimoDiaFacturacion) {
+	    RedirigirPedidoValidado();
+    }
+    
 }
 
 function ConstruirObservacionesPROL(model) {
@@ -1178,6 +1197,7 @@ function ValidarPermiso(obj) {
 }
 
 function RedirigirPedidoValidado() {
+	
     setTimeout(function () {
         ShowLoading();
         document.location = urlPedidoValidado;
