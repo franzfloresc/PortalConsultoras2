@@ -91,6 +91,10 @@ namespace Portal.Consultoras.Web.Controllers
             model.ServiceSMS = userData.PuedeEnviarSMS;
             model.ActualizaDatos = userData.PuedeActualizar;
             model.PaisID = userData.PaisID;
+            //INI HD-3897
+            model.PuedeConfirmarAllEmail = userData.PuedeConfirmarAllEmail;
+            model.PuedeConfirmarAllSms = userData.PuedeConfirmarAllSms;
+            //FIN HD-3897
 
             var paisesDigitoControl = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
             model.CodigoUsuarioReal = userData.CodigoUsuario;

@@ -100,9 +100,12 @@ $(document).ready(function () {
                     } else {
                         $("#grupo_form_cambio_datos_sms").addClass("grupo_form_cambio_datos--confirmacionPendiente");
                         $("#grupo_form_cambio_datos_sms .mensaje_validacion_campo").show();
-                        if ($('#txtCelularMD').val().trim()!="")$("#btn_confirmar_dato_sms").show();
+                        $("#btn_confirmar_dato_sms").show();
 
                     }
+                        //------btnConfirmar
+                        if ($('#txtCelularMD').val().trim() == "") $("#btn_confirmar_dato_sms").hide();
+                        else if ($('#hdn_PuedeConfirmarAllSms').val()) $("#btn_confirmar_dato_sms").show();
 
                     //EMAIL
                     if ($("#hdn_FlgCheckEMAIL").val()) {
@@ -113,9 +116,14 @@ $(document).ready(function () {
                     } else {
                         $("#grupo_form_cambio_datos_email").addClass("grupo_form_cambio_datos--confirmacionPendiente");
                         $("#grupo_form_cambio_datos_email .mensaje_validacion_campo").show();
-                        if ($('#txtEMailMD').val().trim() != "") $("#btn_confirmar_dato_email").show();
+                        $("#btn_confirmar_dato_email").show();
 
                     }
+
+                        //------btnConfirmar
+                        if ($('#txtEMailMD').val().trim() == "") $("#btn_confirmar_dato_email").hide();
+                        else if ($('#hdn_PuedeConfirmarAllEmail').val()) $("#btn_confirmar_dato_email").show();
+
                 } else {
                     $("#grupo_form_cambio_datos_email_opcionemail").hide();
                     $("#grupo_form_cambio_datos_sms_opcionsms").hide();

@@ -76,10 +76,12 @@ else
                 <input type="hidden" id="hdn_FlgCheckSMS" value="@Model.FlgCheckSMS" />
                 <input type="hidden" id="hdn_FlgCheckEMAIL" value="@Model.FlgCheckEMAIL" />
                 @{
-                    var EditarDatos = Model.PaisISO!=Constantes.CodigosISOPais.Colombia ? "1" : "0";
+                    var EditarDatos = Model.PaisISO != Constantes.CodigosISOPais.Colombia ? "1" : "0";
                 }
 
                 <input type="hidden" id="hdn_EditarDatos" value="@EditarDatos" />
+                <input type="hidden" id="hdn_PuedeConfirmarAllEmail" value="@Model.PuedeConfirmarAllEmail" />
+                <input type="hidden" id="hdn_PuedeConfirmarAllSms" value="@Model.PuedeConfirmarAllSms" />
                 @*FIN HD-3897*@
                 <div class="datos_codigo">
                     <span class="text-bold">Código : </span>
