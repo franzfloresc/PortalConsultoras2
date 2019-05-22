@@ -1,4 +1,5 @@
 ﻿@using Portal.Consultoras.Common
+
 @model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
 
 @{
@@ -15,15 +16,11 @@
 <section class="contenedor_detalle">
     <div class="container">
         <ul id="breadcrumbs" class="breadcumbs"></ul>
-        <div class="row scontenedor_fichas">
-
-            <article id="imagen-estrategia" class="col-12 col-lg-5 ficha_producto"></article>
-
-            <article class="col-12 col-lg-7 ficha_detalle" @*style="padding-top:75px"*@>
-
+        <div class="row scontenedor_fichas" data-item="" data-tag-html="@ViewBag.Campania" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar" data-OrigenPedidoEditar="@Model.CodigoUbigeoPortal">
+            <article id="imagen-estrategia" class="col-12 col-md-5 ficha_producto"></article>
+            <article class="col-12 col-md-7 ficha_detalle" @*style="padding-top:75px"*@>
                 <div class="ficha_detalle_cuerpo">
-                    <div id="estrategia" class="row contenedor_nombre_precio">
-                    </div>
+                    <div id="estrategia" class="row contenedor_nombre_precio"></div>
                     @*<div class="descripcion_lanzamiento">
                             <p>Déjate seducir por el dulce aroma de la noche</p>
                             <ul class="descripcion_detalle_producto_tono">
@@ -98,72 +95,13 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
                 <!--Botón Agregar-->
-                <div id="dvContenedorAgregar" class="contenedor_agregar">
-                    <div data-selecciontono="tooltip" class="popover top tooltip_agregar_desabilitado" role="tooltip" id="" style="display: none;">
-                        <div class="arrow" style="left: 20%;"></div>
-                        <div class="popover-content">
-                            <ul class="list-inline popover_texto">
-                                <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
-                                <li>Debes elegir tus opciones para poder agregar la oferta.</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div data-limitepedido="tooltip" class="popover top tooltip_limite_pedidos" role="tooltip" id="" style="display: none;">
-                        <div class="arrow"></div>
-                        <div class="popover-content">
-                            <ul class="list-inline popover_texto">
-                                <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
-                                <li>Lo sentimos <img class="tooltop-emoji" src="/Content/Images/Mobile/Esika/1f615.png"> Has llegado al límite de pedidos para esta oferta.</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="contenedor_rangos " id="idcontenedor_rangos" data-cantidad-contenedor="">
-                        <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" data-cantidad-input="-">
-                        <div>
-                            <a class="txt_menos" data-cantidad-agregar="-" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                                <div class="dibujar_linea dibujar_menos"></div>
-                            </a>
-                            <a class="txt_mas" data-cantidad-agregar="+" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                                <div class="dibujar_linea dibujar_mas"></div>
-                            </a>
-                        </div>
-                    </div>
-                    <a id="btnAgregalo" class="btn_agregalo btn_primario">Agrégalo</a>
-
-                    <div class="ficha_div_libre_agregado">
-                        <div id="ContenedorAgregado" class="ficha_agregado" style="display:none;">
-                            <div class="txt_agregado" data-txt_agregado="">
-                                <span class="span_agregado">AGREGADO</span>
-                                <div class="check_agregado">
-                                    <div class="dibujar_linea dibujar_check_agregado"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Fin Botón Agregar-->
-                    <!--Agregar agotados-->
-                    <div class="row" style="width: 100%; flex-grow: 1;">
-                        <div class="col-6 text-left">
-                            <div class="tag_agotago">Agotado</div>
-                        </div>
-                        <div class="col-6 text-right">
-                            <span class="msj_agotado">No hay stock disponible</span>
-                        </div>
-                    </div>
-                    <!--Fin Agregar agotados-->
-                </div>
-
+                <div id="dvContenedorAgregar" class="contenedor_agregar"></div>
+                <!--Fin Botón Agregar-->
             </article>
         </div>
 
-        <div id="contenedor-tabs-ficha-enriquecida" class="ficha_enriquecida_contenedor" style="display:none">
-        </div>
+        <div id="contenedor-tabs-ficha-enriquecida" class="ficha_enriquecida_contenedor" style="display:none"></div>
 
         @*<div id="compartir-estrategia" class="share" style="display:none"></div>*@
     </div>
@@ -172,6 +110,7 @@
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/breadcrumbs-template.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/imagen-estrategia-template.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/estrategia-template.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/agregar-estrategia-template.cshtml")
 @Html.Partial("~/Views/Shared/_template-ofertadeldia-style.cshtml")
 @*@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/compartir-estrategia-template.cshtml")*@
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/FichaEnriquecida/tabs-ficha-enriquecida-template.cshtml")

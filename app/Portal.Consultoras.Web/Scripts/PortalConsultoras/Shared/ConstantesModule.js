@@ -190,8 +190,12 @@ var ConstantesModule = (function () {
     };
 
     var _mensajeAgregarPedido = {
-        normal: '¡Listo! Agregaste esta(s) oferta(s) a tu pedido',
-        reservado: '¡Listo! Agregaste esta(s) oferta(s) a tu pedido <b>reservado</b>'
+        normal: '¡Listo! Agregaste con éxito a tu pedido.',
+        reservado: '¡Listo! Agregaste con éxito a tu pedido reservado.'
+    }
+
+    var _tiempo = {
+        ToolTip: 2500
     }
 
     return {
@@ -209,6 +213,7 @@ var ConstantesModule = (function () {
         UrlPedido: _urlPedido,
         DiccionarioTipoEstrategia: _diccionarioTipoEstrategia,
         GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia,
-        MensajeAgregarPedido: _mensajeAgregarPedido
+        MensajeAgregarPedido: _mensajeAgregarPedido,
+        Tiempo: _tiempo
     }
 })();
