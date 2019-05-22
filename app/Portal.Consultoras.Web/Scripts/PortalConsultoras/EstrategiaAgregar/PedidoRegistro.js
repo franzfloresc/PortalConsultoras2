@@ -1574,7 +1574,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
             if (isReservado)
 				strMsgListo = '¡Listo! Tu pedido reservado ha sido modificado';
             else
-                strMsgListo = '¡Listo! Tu pedido reservado ha sido modificado';
+                strMsgListo = '¡Listo! Tu pedido ha sido modificado';
 
             if (esMobile) {
                 messageInfo(strMsgListo);

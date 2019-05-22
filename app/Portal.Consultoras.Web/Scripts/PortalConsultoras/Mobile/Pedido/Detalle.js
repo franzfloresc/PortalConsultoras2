@@ -783,7 +783,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
 
             var prevTotal = mtoLogroBarra || 0;
             MostrarBarra(data);
-            showPopupNivelSuperado(data.DataBarra, prevTotal);
+            
 
             /**COMENTADO POR TESLA7 */
             //var tooltip = $('[data-agregado="tooltip"]');
@@ -793,29 +793,38 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             //    tooltip.show();
             //    setTimeout(function () { tooltip.hide(); }, 4000);
             //}
-            var strMsgListo = '¡Listo! Tu pedido ha sido modificado';
-            AbrirMensaje25seg(strMsgListo);
+            CargarPedido();
+            var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
+            if (diferenciaCantidades > 0)
+	            TrackingJetloreAdd(diferenciaCantidades.toString(), $("#hdCampaniaCodigo").val(), item.CUV);
+            else if (diferenciaCantidades < 0)
+                TrackingJetloreRemove((diferenciaCantidades * -1).toString(), $("#hdCampaniaCodigo").val(), item.CUV);
 
             if (PROL == "0") {
                 detalleObj.CantidadTemporal = $(cantidadElement).val();
                 belcorp.mobile.pedido.setDetalleById(detalleObj);
             }
-            CargarPedido();
+            //Se pone aquí el nuevo mensaje para TESLA-03
+            
+            var isReservado = data.EsReservado || false;
+            var strMsgListo = "";
+            if (isReservado)
+	            strMsgListo = '¡Listo! Tu pedido reservado ha sido modificado';
+            else
+                strMsgListo = '¡Listo! Tu pedido ha sido modificado';
 
-            if (data.mensajeCondicional) {
-	            AbrirMensaje(data.mensajeCondicional);
-            }
+            AbrirMensaje25seg(strMsgListo);
 
-            if (data.modificoBackOrder) {
-                messageInfo('Recuerda que debes volver a validar tu pedido.');
-            }
-
-            var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
-            if (diferenciaCantidades > 0)
-                TrackingJetloreAdd(diferenciaCantidades.toString(), $("#hdCampaniaCodigo").val(), item.CUV);
-            else if (diferenciaCantidades < 0)
-                TrackingJetloreRemove((diferenciaCantidades * -1).toString(), $("#hdCampaniaCodigo").val(), item.CUV);
-
+            setTimeout(function () {
+		            showPopupNivelSuperado(data.DataBarra, prevTotal);
+		            if (data.mensajeCondicional) {
+			            AbrirMensaje(data.mensajeCondicional);
+		            }
+		            if (data.modificoBackOrder) {
+			            messageInfo('Recuerda que debes volver a validar tu pedido.');
+		            }
+	            },
+	            2500);
         },
         error: function (data, error) {
             CloseLoading();
@@ -967,7 +976,11 @@ function EjecutarAccionesReservaExitosa(response) {
     if (estaRechazado == "2") cerrarMensajeEstadoPedido();
 
     messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>');
-    RedirigirPedidoValidado();
+    var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
+    if (ultimoDiaFacturacion) {
+	    RedirigirPedidoValidado();
+    }
+    
 }
 
 function ConstruirObservacionesPROL(model) {
@@ -1178,6 +1191,7 @@ function ValidarPermiso(obj) {
 }
 
 function RedirigirPedidoValidado() {
+	
     setTimeout(function () {
         ShowLoading();
         document.location = urlPedidoValidado;
