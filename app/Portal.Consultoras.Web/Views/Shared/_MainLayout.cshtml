@@ -131,7 +131,7 @@
         }
     </script>
 
-    <header>
+    <header class="header--nuevoLookAndFeelEsika">
         @if (ViewBag.MostrarBannerPostulante == true)
         {
             @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBloqueMensajesPostulante.cshtml")
@@ -171,7 +171,7 @@
         {
             <div class="SubHeader"
                  data-layout="ubicacionWeb">
-                <div class="ubicacion_web">
+                <div class="ubicacion_web ubicacion_web--nuevoLookAndFeelEsika">
                     <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span>
                     <span> | @ViewBag.Title</span>
                 </div>

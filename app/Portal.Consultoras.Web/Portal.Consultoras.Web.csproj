@@ -1518,10 +1518,12 @@
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\general-popups.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-cierre-sesion.css" />
     <Content Include="Content\Images\checkBuroSAC.svg" />
+    <Content Include="Content\Images\Esika\club-gana-mas.gif" />
     <Content Include="Content\Images\Esika\favicon.ico" />
     <Content Include="Content\Images\Esika\nuevo-logo-esika-login-blanco.svg" />
     <Content Include="Content\Images\Esika\nuevo-logo-esika-login.svg" />
     <Content Include="Content\Images\Esika\nuevo-logo-esika.svg" />
+    <Content Include="Content\Images\Esika\ofertas.png" />
     <Content Include="Content\Images\Excel.svg" />
     <Content Include="Content\Images\exclamationBuroSAC.svg" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas_3.gif" />
