@@ -43,8 +43,8 @@ var AnalyticsPortalModule = (function () {
         duoPerfecto: "Dúo Perfecto",
         palancaLasMasGandoras: "Más Ganadoras",
         armaTuDuoPerfecto: ' Arma tu Dúo Perfecto - Dúo Perfecto',
-	    PedidoPendienteAceptado: 'Pedidos Pendientes - Pedidos Aceptados '
-};
+        PedidoPendienteAceptado: 'Pedidos Pendientes - Pedidos Aceptados '
+    };
 
     // Inicio - Analytics Home 1 (Miguel)
     var _codigoSeccion = {
