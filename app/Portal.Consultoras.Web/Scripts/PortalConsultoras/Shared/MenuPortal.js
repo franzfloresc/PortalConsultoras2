@@ -15,9 +15,7 @@ function LayoutHeader() {
 
 function LayoutHeaderFin() {
     var wtop = $("header").innerHeight() || 0;
-    var wtopubicacion = $("[data-layout='ubicacionWeb']").innerHeight() || 0;
     $("[data-content]").css("margin-top", (wtop) + "px");
-    $("[data-layout='body']").css("margin-top", (wtop + wtopubicacion) + "px");
 }
 
 function LayoutMenu() {

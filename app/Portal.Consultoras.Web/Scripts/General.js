@@ -851,7 +851,7 @@ function AbrirMensaje25seg(mensaje, imagen) {
             return true;
         }
         //FIN HD-3693
-        imagen = imagen || ""
+        imagen = imagen || "";
 
         $("#pop_src").attr("src", "#")
 

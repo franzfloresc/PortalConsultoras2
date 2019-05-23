@@ -449,18 +449,16 @@ $(document).ready(function () {
         e.preventDefault();
         var obj = $(this);
         var accion = obj.attr("data-paginacion");
-        var tipoPaginador = obj.attr("data-tipo");
         if (accion === "back" || accion === "next") {
-            CambioPagina(obj, tipoPaginador);
+            CambioPagina(obj);
         }
     });
     $("body").on("change", "[data-paginacion]", function (e) {
         e.preventDefault();
         var obj = $(this);
         var accion = obj.attr("data-paginacion");
-        var tipoPaginador = obj.attr("data-tipo");
         if (accion === "page" || accion === "rows") {
-            CambioPagina(obj, tipoPaginador);
+            CambioPagina(obj);
         }
     });
 
@@ -1731,7 +1729,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         async: true,
         success: function (data) {
             CerrarSplash();
-            debugger;
+            //debugger;
             if (!checkTimeout(data)) return false;
             if (data.success != true) {
                 btnSalirTlpDelete(window.event, pedidoDetalleId, setId);
@@ -2098,9 +2096,10 @@ function EjecutarAccionesReservaExitosa(response) {
     var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
     
     if (ultimoDiaFacturacion) {
-	    RedirigirPedidoValidado();
+	    RedirigirPedidoValidado(); //Redirige PEDIDO VALIDADO
+    } else {
+	    location.reload();
     }
-    
 }
 
 function EliminarPedido() {
@@ -2617,18 +2616,13 @@ function InfoCommerceGoogleDestacadoNextCarrusel() {
     }
 }
 
-function CambioPagina(obj, tipoPaginador) {
+function CambioPagina(obj) {
     var rpt = paginadorAccionGenerico(obj);
     if (rpt.page == undefined) {
         return false;
     }
 
-    var PedidoPendPoputPedidoId = $("#hdPedidoPendPoputPedidoId").val() == 0 ? $("#hdPedidoPendPoputPedidoId2").val() : $("#hdPedidoPendPoputPedidoId").val();
-    switch (tipoPaginador) {        
-        case ClasPedidoDetalle: CargarDetallePedido(rpt.page, rpt.rows); break;
-        case ClasPedidoDetallePendiente: CargarPedidosPend(rpt.page, rpt.rows); break;
-        case ClasPedidoPopupPedidoPend: CargarPopupPedidoPend(rpt.page, rpt.rows, PedidoPendPoputPedidoId, '1'); break;
-    }  
+    CargarDetallePedido(rpt.page, rpt.rows);
     return true;
 }
 
