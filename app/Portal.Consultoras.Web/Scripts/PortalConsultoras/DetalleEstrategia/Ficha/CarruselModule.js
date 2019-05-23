@@ -531,8 +531,11 @@ var CarruselModule = (function (config) {
         } else {
             if (_config.cantidadPack > 1) {
                 titulo = 'Packs parecidos con más productos';
-            } else if (_config.cantidadPack == 1) {
-                var componenteInicial = _config.productosHermanos[0];
+            } else {
+                var componenteInicial = {};
+                if (_config.cantidadPack == 1) {
+                    componenteInicial = _config.productosHermanos[0];
+                }
                 if (componenteInicial.FactorCuadre > 1) {
                     titulo = 'Packs parecidos con más productos';
                 } else {
