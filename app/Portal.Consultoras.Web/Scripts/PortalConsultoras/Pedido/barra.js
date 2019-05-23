@@ -2353,7 +2353,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
                         document.getElementById('barra_0').style.left = AvancePorcentaje1;
 
-                        var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%'
+                        var AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 9) + '%'
                         document.getElementById('punto_0').style.left = AvancePorcentajeP1;
                             
                     } else {
@@ -2363,6 +2363,8 @@ function CalculoPosicionMinimoMaximoDestokp() {
                            
                             avance = (dataBarra.ListaEscalaDescuento[i].MontoDesde - dataBarra.ListaEscalaDescuento[i - 1].MontoDesde)
                             if (avance <= 5000) {
+
+                                document.getElementById('punto_0').style.left = (AvancePorcentajeP1.substring(0, AvancePorcentajeP1.length - 1) * 1 + 2.2) + '%';
                                 if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left =
                                     (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 + 0.2) + '%';
                            
@@ -2496,9 +2498,7 @@ function AgregarPremio(premio) {
     var params = {
         CUV: $.trim(premio.CUV2),
         Cantidad: 1,
-        PrecioUnidad: premio.Precio2,
         TipoEstrategiaID: premio.TipoEstrategiaID,
-        MarcaID: premio.MarcaID,
         FlagNueva: $.trim(premio.FlagNueva)
     };
 
@@ -2653,14 +2653,7 @@ function ReordenarMontosBarra() {
                 }
             }
 
-        } else {
-            
-            if (IsoPais == 'BO' && barra.length >= 5) {
-                if (document.getElementById('punto_0') != null) document.getElementById('punto_0').style.left = (document.getElementById('barra_0').style.left.substring(0, document.getElementById('barra_0').style.left.length - 1) * 1 - 9) + '%'
-                if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('barra_' + i.toString()).style.left.substring(0, document.getElementById('barra_' + i.toString()).style.left.length - 1) * 1 - 5) + '%'
-              }
-
-        }
+        } 
     }
 
 
