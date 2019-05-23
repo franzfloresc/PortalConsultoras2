@@ -1514,7 +1514,6 @@
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas.gif" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas_2.gif" />
-
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-cierre-sesion.css" />
     <Content Include="Content\Images\checkBuroSAC.svg" />
     <Content Include="Content\Images\Excel.svg" />
@@ -1535,7 +1534,6 @@
     <Content Include="Content\Images\icono_confirmacion_con_fondo.svg" />
     <Content Include="Content\Images\icono_notificacion_negativa.svg" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-actualizacion-correo.css" />
-
     <Content Include="Content\Images\icono_correo.svg" />
     <Content Include="Content\Images\icono_celular.svg" />
     <Content Include="Content\Images\icono_confirmacion.svg" />
@@ -4237,6 +4235,7 @@
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Index.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Mensaje.js" />
     <Content Include="Scripts\PortalConsultoras\Login\VerificaAutenticidad.js" />
+    <Content Include="Scripts\PortalConsultoras\Login\VerificaAutenticidadBase.js" />
     <Content Include="Scripts\PortalConsultoras\MailConfirmacion\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCamapaniaJS.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />

@@ -21,4 +21,12 @@ namespace Portal.Consultoras.Web.Models
 
         public List<LoginAnalyticsModel> ListPaisAnalytics { get; set; }
     }
+
+    public class ActualizaCelularModel {
+        public int IsConfirmarCel { get; set; }
+        public string Celular { get; set; }
+        public int IniciaNumeroCelular { get; set; }
+        public string UrlPdfTerminosyCondiciones { get; set; }
+        public string IsoPais { get; set; }
+    }
 }
