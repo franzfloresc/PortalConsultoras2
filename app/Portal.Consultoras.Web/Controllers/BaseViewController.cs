@@ -390,11 +390,11 @@ namespace Portal.Consultoras.Web.Controllers
             tipo = Util.Trim(tipo);
             if (tieneCarrusel)
             {
-                pagina = ConsOrigenPedidoWeb.Pagina.Ficha;
                 seccionFicha = ConsOrigenPedidoWeb.Seccion.CarruselVerMas;
 
                 if (palanca != ConsOrigenPedidoWeb.Palanca.Lanzamientos)
                 {
+                    pagina = ConsOrigenPedidoWeb.Pagina.Ficha;
                     if (tipo == ConsOrigenPedidoWeb.Seccion.CarruselUpselling) // agregar los 'or' para crosSelling
                     {
                         seccionFicha = tipo;
@@ -877,9 +877,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool GetTieneCarrusel(string palanca, bool esEditar)
         {
-            return !esEditar && (Constantes.NombrePalanca.Lanzamiento == palanca
-                    || Constantes.NombrePalanca.ShowRoom == palanca
-                    || Constantes.NombrePalanca.OfertaDelDia == palanca);
+            return !esEditar;
         }
 
         private bool GetValidationHasCarrusel(int origen, string palanca, bool esEditar)

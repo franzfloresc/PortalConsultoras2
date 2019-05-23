@@ -2095,7 +2095,12 @@ function MostrarMensajeProl(response, fnOfertaFinal) {
 function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();
     $("#dialog_divReservaSatisfactoria").show();
-    RedirigirPedidoValidado();
+    var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
+    
+    if (ultimoDiaFacturacion) {
+	    RedirigirPedidoValidado();
+    }
+    
 }
 
 function EliminarPedido() {
@@ -2833,13 +2838,13 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 restringido = false;
                 return false;
             }
-
+            
             if (data.pedidoReservado) {
                 if (mostrarAlerta == true) {
                     CerrarSplash();
                     AbrirPopupPedidoReservado(data.message, "1");
                 }
-                else {
+                else if (data.UltimoDiaFacturacion) { //TESLA-7 REDIRECCIONA SOLO SI ES ULTIMO DIA, CIERRE FACTURACION 
                     AbrirSplash();
                     location.href = urlValidadoPedido;
                 }

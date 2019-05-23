@@ -156,7 +156,11 @@ namespace Portal.Consultoras.Web.Controllers
                 else // Periodo de facturacion
                 {
                     model.AccionBoton = "validar";
-                    model.Prol = "RESERVA TU PEDIDO";
+                    if(model.EstadoPedido == 1) //Reservado
+                        model.Prol = "MODIFICA TU PEDIDO";
+                    else
+                        model.Prol = "RESERVA TU PEDIDO";
+
                     model.ProlTooltip = "Haz click aqui para reservar tu pedido";
                     model.IndicadorGPRSB = configuracionCampania.IndicadorGPRSB;
 
@@ -1576,7 +1580,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     },
                     flagCorreo = resultado.EnviarCorreo ? "1" : "",
                     permiteOfertaFinal = listPermiteOfertaFinal.Contains(resultado.ResultadoReservaEnum),
-                    mensajeCondicional
+                    mensajeCondicional,
+                    UltimoDiaFacturacion = (userData.FechaFacturacion == DateTime.Today)   //TESLA 7
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -2348,6 +2353,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = estado,
                     pedidoReservado = pedidoReservado,
                     message = mensaje,
+                    UltimoDiaFacturacion = (userData.FechaFacturacion == DateTime.Today),   //TESLA 7
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }

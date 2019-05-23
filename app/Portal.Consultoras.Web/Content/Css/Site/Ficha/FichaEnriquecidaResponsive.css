@@ -1,15 +1,18 @@
 ﻿/*Ficha Enrriquecida*/
-.button_ver_detalle {
+.btn_texto {
     font-size: 13px;
     font-weight: bold;
     margin-left: auto;
     position: relative;
+    letter-spacing: 1px;
+    text-align: right;
 }
 
-    .button_ver_detalle img {
+    .btn_texto img {
         top: -1px;
         width: 10px;
         right: 8px;
+        margin-left: 3px;
     }
 /*Fin Ficha Enrriquecida*/
 
@@ -25,7 +28,7 @@
 }
     .tabs_ficha li {
         display: inline-block;
-        width: 21%;
+        width: 24.7%;
     }
 
     .tabs_ficha li:last-child {
@@ -115,7 +118,7 @@
 
 .descripcion_item {
     line-height: normal;
-    padding-bottom: 2px;
+    padding-bottom: 4px;
     font-size: 13px;
 }
 
@@ -131,13 +134,13 @@
     background: none;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 960px) {
     .tabs_ficha li > div {
         display: none !important
     }       
 }
 
-@media (max-width: 768px) {
+@media (max-width: 960px) {
 
     .tabs_ficha li {
         width: 100%;

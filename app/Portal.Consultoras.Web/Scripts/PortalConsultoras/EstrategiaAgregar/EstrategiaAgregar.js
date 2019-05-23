@@ -25,6 +25,7 @@ var EstrategiaAgregarModule = (function () {
         esFicha: false
     };
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
+    var _mensajeAgregarPedido = ConstantesModule.MensajeAgregarPedido;
     var dataProperties = {
         dataItem: "[data-item]",
         dataContenedorCantidad: "[data-cantidad-contenedor]",
@@ -83,14 +84,18 @@ var EstrategiaAgregarModule = (function () {
     }
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
-
-        var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia")
-            || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile")
-                .find(".slick-active").find(dataProperties.dataEstrategia).attr("data-estrategia")
+        var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia")
+            || $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia")
+            || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile").find(".slick-active").find(dataProperties.dataEstrategia).attr("data-estrategia")
             || "";
 
         var estrategia = {};
-        if (estrategiaTxt != "") {
+
+        if (typeof estrategiaTxt === "object") {
+            estrategia = estrategiaTxt;
+        }
+        else if (estrategiaTxt != "")
+        {
             estrategia = JSON.parse(estrategiaTxt);
         }
 
@@ -115,7 +120,6 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var estrategiaEstaBloqueada = function ($btnAgregar, campaniaId) {
-
         if ($btnAgregar.attr(dataProperties.dataBloqueada) === "") return false;
 
         if (campaniaId === parseInt(_config.CampaniaCodigo)) return false;
@@ -299,7 +303,6 @@ var EstrategiaAgregarModule = (function () {
             }
         }
 
-        console.log(estrategia);
         if (estrategiaEstaBloqueada($btnAgregar, estrategia.CampaniaID)) {
             estrategia.OrigenPedidoWebEstrategia = origenPedidoWebEstrategia;
             getDivMsgBloqueado($btnAgregar, estrategia).show();
@@ -466,7 +469,7 @@ var EstrategiaAgregarModule = (function () {
 
                 //}
                 var esFichaT = ((estrategia.FlagNueva == 1 ? true : false) && IsNullOrEmpty(data.mensajeAviso)) || _config.esFicha;
-                console.log('estrategiaAgregar - pedidoAgregarProductoPromise', _config.esFicha, esFichaT, estrategia.FlagNueva, data.mensajeAviso);
+
                 //Tooltip de agregado
                 if (esFichaT) {
                     try {
@@ -624,8 +627,14 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
 
+                var mensaje = '';
+                if (data.EsReservado === true) {
+                    mensaje = _mensajeAgregarPedido.reservado;
+                } else {
+                    mensaje = _mensajeAgregarPedido.normal;
+                }
 
-                AbrirMensaje25seg('¡Listo! Agregaste esta(s) oferta(s) a tu pedido', imagenProducto);
+                AbrirMensaje25seg(mensaje, imagenProducto);
 
                 if (popup) {
                     CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);
