@@ -47,6 +47,9 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         [Column("TipoEstrategiaID")]
         public int TipoEstrategiaID { get; set; }
         [DataMember]
+        [Column("EsCatalogo")]
+        public int EsCatalogo { get; set; }
+        [DataMember]
         public bool FlagSeleccionado { get; set; }
     }
 

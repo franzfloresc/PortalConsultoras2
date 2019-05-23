@@ -21,12 +21,12 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 174
 DELETE FROM TablaLogica WHERE TablaLogicaID = 174
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (174, 'Camino Brillante - Filtro Dem')
+	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17400, 174, 'FILTRO', 'FILTRAR POR', '00'),
-			(17401, 174, 'FILTRO', 'L''BEL', '01'),
-			(17402, 174, 'FILTRO', 'ÉSIKA', '02'),
-			(17403, 174, 'FILTRO', 'CYZONE', '03')
+	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
+			(17401, 174, '01', 'L''bel', ''),
+			(17402, 174, '02', 'Ésika', ''),
+			(17403, 174, '03', 'Cyzone', '')
 GO
 
 /* Orden Demostradores */
@@ -34,11 +34,11 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 175
 DELETE FROM TablaLogica WHERE TablaLogicaID = 175
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (175, 'Camino Brillante - Orden Dem');
+	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17500, 175, 'ORDEN', 'ORDENAR POR', '00'),
-			(17501, 175, 'ORDEN', 'CATEGORIA', '01'),
-			(17502, 175, 'ORDEN', 'NOMBRE', '02')
+	VALUES  (17500, 175, '00', 'Ordenar por', ''),
+			(17501, 175, '01', 'Categoria', ''),
+			(17502, 175, '02', 'Nombre', '')
 GO
 
 USE BelcorpMexico
@@ -64,12 +64,12 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 174
 DELETE FROM TablaLogica WHERE TablaLogicaID = 174
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (174, 'Camino Brillante - Filtro Dem')
+	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17400, 174, 'FILTRO', 'FILTRAR POR', '00'),
-			(17401, 174, 'FILTRO', 'L''BEL', '01'),
-			(17402, 174, 'FILTRO', 'ÉSIKA', '02'),
-			(17403, 174, 'FILTRO', 'CYZONE', '03')
+	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
+			(17401, 174, '01', 'L''bel', ''),
+			(17402, 174, '02', 'Ésika', ''),
+			(17403, 174, '03', 'Cyzone', '')
 GO
 
 /* Orden Demostradores */
@@ -77,11 +77,11 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 175
 DELETE FROM TablaLogica WHERE TablaLogicaID = 175
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (175, 'Camino Brillante - Orden Dem');
+	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17500, 175, 'ORDEN', 'ORDENAR POR', '00'),
-			(17501, 175, 'ORDEN', 'CATEGORIA', '01'),
-			(17502, 175, 'ORDEN', 'NOMBRE', '02')
+	VALUES  (17500, 175, '00', 'Ordenar por', ''),
+			(17501, 175, '01', 'Categoria', ''),
+			(17502, 175, '02', 'Nombre', '')
 GO
 
 USE BelcorpColombia
@@ -107,12 +107,12 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 174
 DELETE FROM TablaLogica WHERE TablaLogicaID = 174
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (174, 'Camino Brillante - Filtro Dem')
+	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17400, 174, 'FILTRO', 'FILTRAR POR', '00'),
-			(17401, 174, 'FILTRO', 'L''BEL', '01'),
-			(17402, 174, 'FILTRO', 'ÉSIKA', '02'),
-			(17403, 174, 'FILTRO', 'CYZONE', '03')
+	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
+			(17401, 174, '01', 'L''bel', ''),
+			(17402, 174, '02', 'Ésika', ''),
+			(17403, 174, '03', 'Cyzone', '')
 GO
 
 /* Orden Demostradores */
@@ -120,11 +120,11 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 175
 DELETE FROM TablaLogica WHERE TablaLogicaID = 175
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (175, 'Camino Brillante - Orden Dem');
+	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17500, 175, 'ORDEN', 'ORDENAR POR', '00'),
-			(17501, 175, 'ORDEN', 'CATEGORIA', '01'),
-			(17502, 175, 'ORDEN', 'NOMBRE', '02')
+	VALUES  (17500, 175, '00', 'Ordenar por', ''),
+			(17501, 175, '01', 'Categoria', ''),
+			(17502, 175, '02', 'Nombre', '')
 GO
 
 USE BelcorpSalvador
@@ -150,12 +150,12 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 174
 DELETE FROM TablaLogica WHERE TablaLogicaID = 174
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (174, 'Camino Brillante - Filtro Dem')
+	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17400, 174, 'FILTRO', 'FILTRAR POR', '00'),
-			(17401, 174, 'FILTRO', 'L''BEL', '01'),
-			(17402, 174, 'FILTRO', 'ÉSIKA', '02'),
-			(17403, 174, 'FILTRO', 'CYZONE', '03')
+	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
+			(17401, 174, '01', 'L''bel', ''),
+			(17402, 174, '02', 'Ésika', ''),
+			(17403, 174, '03', 'Cyzone', '')
 GO
 
 /* Orden Demostradores */
@@ -163,11 +163,11 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 175
 DELETE FROM TablaLogica WHERE TablaLogicaID = 175
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (175, 'Camino Brillante - Orden Dem');
+	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17500, 175, 'ORDEN', 'ORDENAR POR', '00'),
-			(17501, 175, 'ORDEN', 'CATEGORIA', '01'),
-			(17502, 175, 'ORDEN', 'NOMBRE', '02')
+	VALUES  (17500, 175, '00', 'Ordenar por', ''),
+			(17501, 175, '01', 'Categoria', ''),
+			(17502, 175, '02', 'Nombre', '')
 GO
 
 USE BelcorpPuertoRico
@@ -193,12 +193,12 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 174
 DELETE FROM TablaLogica WHERE TablaLogicaID = 174
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (174, 'Camino Brillante - Filtro Dem')
+	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17400, 174, 'FILTRO', 'FILTRAR POR', '00'),
-			(17401, 174, 'FILTRO', 'L''BEL', '01'),
-			(17402, 174, 'FILTRO', 'ÉSIKA', '02'),
-			(17403, 174, 'FILTRO', 'CYZONE', '03')
+	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
+			(17401, 174, '01', 'L''bel', ''),
+			(17402, 174, '02', 'Ésika', ''),
+			(17403, 174, '03', 'Cyzone', '')
 GO
 
 /* Orden Demostradores */
@@ -206,11 +206,11 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 175
 DELETE FROM TablaLogica WHERE TablaLogicaID = 175
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (175, 'Camino Brillante - Orden Dem');
+	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17500, 175, 'ORDEN', 'ORDENAR POR', '00'),
-			(17501, 175, 'ORDEN', 'CATEGORIA', '01'),
-			(17502, 175, 'ORDEN', 'NOMBRE', '02')
+	VALUES  (17500, 175, '00', 'Ordenar por', ''),
+			(17501, 175, '01', 'Categoria', ''),
+			(17502, 175, '02', 'Nombre', '')
 GO
 
 USE BelcorpPanama
@@ -236,12 +236,12 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 174
 DELETE FROM TablaLogica WHERE TablaLogicaID = 174
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (174, 'Camino Brillante - Filtro Dem')
+	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17400, 174, 'FILTRO', 'FILTRAR POR', '00'),
-			(17401, 174, 'FILTRO', 'L''BEL', '01'),
-			(17402, 174, 'FILTRO', 'ÉSIKA', '02'),
-			(17403, 174, 'FILTRO', 'CYZONE', '03')
+	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
+			(17401, 174, '01', 'L''bel', ''),
+			(17402, 174, '02', 'Ésika', ''),
+			(17403, 174, '03', 'Cyzone', '')
 GO
 
 /* Orden Demostradores */
@@ -249,11 +249,11 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 175
 DELETE FROM TablaLogica WHERE TablaLogicaID = 175
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (175, 'Camino Brillante - Orden Dem');
+	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17500, 175, 'ORDEN', 'ORDENAR POR', '00'),
-			(17501, 175, 'ORDEN', 'CATEGORIA', '01'),
-			(17502, 175, 'ORDEN', 'NOMBRE', '02')
+	VALUES  (17500, 175, '00', 'Ordenar por', ''),
+			(17501, 175, '01', 'Categoria', ''),
+			(17502, 175, '02', 'Nombre', '')
 GO
 
 USE BelcorpGuatemala
@@ -279,12 +279,12 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 174
 DELETE FROM TablaLogica WHERE TablaLogicaID = 174
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (174, 'Camino Brillante - Filtro Dem')
+	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17400, 174, 'FILTRO', 'FILTRAR POR', '00'),
-			(17401, 174, 'FILTRO', 'L''BEL', '01'),
-			(17402, 174, 'FILTRO', 'ÉSIKA', '02'),
-			(17403, 174, 'FILTRO', 'CYZONE', '03')
+	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
+			(17401, 174, '01', 'L''bel', ''),
+			(17402, 174, '02', 'Ésika', ''),
+			(17403, 174, '03', 'Cyzone', '')
 GO
 
 /* Orden Demostradores */
@@ -292,11 +292,11 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 175
 DELETE FROM TablaLogica WHERE TablaLogicaID = 175
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (175, 'Camino Brillante - Orden Dem');
+	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17500, 175, 'ORDEN', 'ORDENAR POR', '00'),
-			(17501, 175, 'ORDEN', 'CATEGORIA', '01'),
-			(17502, 175, 'ORDEN', 'NOMBRE', '02')
+	VALUES  (17500, 175, '00', 'Ordenar por', ''),
+			(17501, 175, '01', 'Categoria', ''),
+			(17502, 175, '02', 'Nombre', '')
 GO
 
 USE BelcorpEcuador
@@ -322,12 +322,12 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 174
 DELETE FROM TablaLogica WHERE TablaLogicaID = 174
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (174, 'Camino Brillante - Filtro Dem')
+	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17400, 174, 'FILTRO', 'FILTRAR POR', '00'),
-			(17401, 174, 'FILTRO', 'L''BEL', '01'),
-			(17402, 174, 'FILTRO', 'ÉSIKA', '02'),
-			(17403, 174, 'FILTRO', 'CYZONE', '03')
+	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
+			(17401, 174, '01', 'L''bel', ''),
+			(17402, 174, '02', 'Ésika', ''),
+			(17403, 174, '03', 'Cyzone', '')
 GO
 
 /* Orden Demostradores */
@@ -335,11 +335,11 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 175
 DELETE FROM TablaLogica WHERE TablaLogicaID = 175
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (175, 'Camino Brillante - Orden Dem');
+	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17500, 175, 'ORDEN', 'ORDENAR POR', '00'),
-			(17501, 175, 'ORDEN', 'CATEGORIA', '01'),
-			(17502, 175, 'ORDEN', 'NOMBRE', '02')
+	VALUES  (17500, 175, '00', 'Ordenar por', ''),
+			(17501, 175, '01', 'Categoria', ''),
+			(17502, 175, '02', 'Nombre', '')
 GO
 
 USE BelcorpDominicana
@@ -365,12 +365,12 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 174
 DELETE FROM TablaLogica WHERE TablaLogicaID = 174
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (174, 'Camino Brillante - Filtro Dem')
+	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17400, 174, 'FILTRO', 'FILTRAR POR', '00'),
-			(17401, 174, 'FILTRO', 'L''BEL', '01'),
-			(17402, 174, 'FILTRO', 'ÉSIKA', '02'),
-			(17403, 174, 'FILTRO', 'CYZONE', '03')
+	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
+			(17401, 174, '01', 'L''bel', ''),
+			(17402, 174, '02', 'Ésika', ''),
+			(17403, 174, '03', 'Cyzone', '')
 GO
 
 /* Orden Demostradores */
@@ -378,11 +378,11 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 175
 DELETE FROM TablaLogica WHERE TablaLogicaID = 175
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (175, 'Camino Brillante - Orden Dem');
+	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17500, 175, 'ORDEN', 'ORDENAR POR', '00'),
-			(17501, 175, 'ORDEN', 'CATEGORIA', '01'),
-			(17502, 175, 'ORDEN', 'NOMBRE', '02')
+	VALUES  (17500, 175, '00', 'Ordenar por', ''),
+			(17501, 175, '01', 'Categoria', ''),
+			(17502, 175, '02', 'Nombre', '')
 GO
 
 USE BelcorpCostaRica
@@ -408,12 +408,12 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 174
 DELETE FROM TablaLogica WHERE TablaLogicaID = 174
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (174, 'Camino Brillante - Filtro Dem')
+	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17400, 174, 'FILTRO', 'FILTRAR POR', '00'),
-			(17401, 174, 'FILTRO', 'L''BEL', '01'),
-			(17402, 174, 'FILTRO', 'ÉSIKA', '02'),
-			(17403, 174, 'FILTRO', 'CYZONE', '03')
+	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
+			(17401, 174, '01', 'L''bel', ''),
+			(17402, 174, '02', 'Ésika', ''),
+			(17403, 174, '03', 'Cyzone', '')
 GO
 
 /* Orden Demostradores */
@@ -421,11 +421,11 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 175
 DELETE FROM TablaLogica WHERE TablaLogicaID = 175
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (175, 'Camino Brillante - Orden Dem');
+	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17500, 175, 'ORDEN', 'ORDENAR POR', '00'),
-			(17501, 175, 'ORDEN', 'CATEGORIA', '01'),
-			(17502, 175, 'ORDEN', 'NOMBRE', '02')
+	VALUES  (17500, 175, '00', 'Ordenar por', ''),
+			(17501, 175, '01', 'Categoria', ''),
+			(17502, 175, '02', 'Nombre', '')
 GO
 
 USE BelcorpChile
@@ -451,12 +451,12 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 174
 DELETE FROM TablaLogica WHERE TablaLogicaID = 174
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (174, 'Camino Brillante - Filtro Dem')
+	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17400, 174, 'FILTRO', 'FILTRAR POR', '00'),
-			(17401, 174, 'FILTRO', 'L''BEL', '01'),
-			(17402, 174, 'FILTRO', 'ÉSIKA', '02'),
-			(17403, 174, 'FILTRO', 'CYZONE', '03')
+	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
+			(17401, 174, '01', 'L''bel', ''),
+			(17402, 174, '02', 'Ésika', ''),
+			(17403, 174, '03', 'Cyzone', '')
 GO
 
 /* Orden Demostradores */
@@ -464,11 +464,11 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 175
 DELETE FROM TablaLogica WHERE TablaLogicaID = 175
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (175, 'Camino Brillante - Orden Dem');
+	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17500, 175, 'ORDEN', 'ORDENAR POR', '00'),
-			(17501, 175, 'ORDEN', 'CATEGORIA', '01'),
-			(17502, 175, 'ORDEN', 'NOMBRE', '02')
+	VALUES  (17500, 175, '00', 'Ordenar por', ''),
+			(17501, 175, '01', 'Categoria', ''),
+			(17502, 175, '02', 'Nombre', '')
 GO
 
 USE BelcorpBolivia
@@ -494,12 +494,12 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 174
 DELETE FROM TablaLogica WHERE TablaLogicaID = 174
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (174, 'Camino Brillante - Filtro Dem')
+	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17400, 174, 'FILTRO', 'FILTRAR POR', '00'),
-			(17401, 174, 'FILTRO', 'L''BEL', '01'),
-			(17402, 174, 'FILTRO', 'ÉSIKA', '02'),
-			(17403, 174, 'FILTRO', 'CYZONE', '03')
+	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
+			(17401, 174, '01', 'L''bel', ''),
+			(17402, 174, '02', 'Ésika', ''),
+			(17403, 174, '03', 'Cyzone', '')
 GO
 
 /* Orden Demostradores */
@@ -507,10 +507,10 @@ DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 175
 DELETE FROM TablaLogica WHERE TablaLogicaID = 175
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
-	VALUES (175, 'Camino Brillante - Orden Dem');
+	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES  (17500, 175, 'ORDEN', 'ORDENAR POR', '00'),
-			(17501, 175, 'ORDEN', 'CATEGORIA', '01'),
-			(17502, 175, 'ORDEN', 'NOMBRE', '02')
+	VALUES  (17500, 175, '00', 'Ordenar por', ''),
+			(17501, 175, '01', 'Categoria', ''),
+			(17502, 175, '02', 'Nombre', '')
 GO
 
