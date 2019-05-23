@@ -897,7 +897,7 @@ button:focus{
         bottom: 18pt;
         right: 18pt;
         top: auto;
-        z-index: 2147483646;
+        z-index: 2147483647;
         padding: 13px 17px 13px 17px;
         -moz-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
         -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
