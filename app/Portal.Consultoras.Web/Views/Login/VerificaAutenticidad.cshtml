@@ -1,4 +1,5 @@
 ﻿@using System.Web.Optimization;
+@using Portal.Consultoras.Common;
 @{
     Layout = null;
     ViewBag.Title = "Verifica Tu Autenticidad";
@@ -106,7 +107,7 @@
                                         <span id="textoConfEmail" class="d-block text-bold mensaje_validacion_campo">Aún falta confirmar tu correo</span>
                                     </div>
                                     <div>
-                                        <a id="btnCambiarEmail" href="" title="Editar" class="inline-block text-center enlace_cambiar_dato btnEditarSms">
+                                        <a id="btnCambiarEmail" href="javascript:" title="Editar" class="inline-block text-center enlace_cambiar_dato btnEditarSms">
                                             <span class="inline-block icono_cambiar_dato">
                                                 <img src="@Url.Content("~/Content/Images/icono_cambiar_dato.svg")" alt="Editar">
                                             </span>
@@ -257,7 +258,7 @@
                 </div>
                 <!-- FIN - VERIFICACIÓN POR CÓDIGO SMS -->
                 <!-- ACTUALIZACIÓN DE CORREO ELECTRÓNICO -->
-                <div id="ActualizarCorreo" class="block text-center form_actualizar_correo" style="display:none;">
+                <div vista-id="1" id="ActualizarCorreo" class="block text-center form_actualizar_correo" style="display:none;">
                     <!-- INICIO -Cuando el formato del correo sea incorrecto agregar la clase grupo_form_cambio_datos--validacionErronea,
                          si el formato del correo es correcto remover clase mencionada anteriormente y agregar grupo_form_datos--validacionExitosa -->
                     <div class="block grupo_form_cambio_datos grupo_form_cambio_datos--vistaActualizacionCorreo">
@@ -282,7 +283,7 @@
                         </div>
                     </div>
                     <div class="grupo_form_cambio_datos grupo_form_cambio_datos--vistaActualizacionCorreo">
-                        <button type="button" class="w-100 border-radius-4 text-bold mt-23 btn_deshabilitado btn_primario btn_primario--miPerfil">
+                        <button id="btnActualizarCorreo" type="button" class="w-100 border-radius-4 text-bold mt-23 btn_deshabilitado btn_primario btn_primario--miPerfil">
                             Guardar
                         </button>
                     </div>
@@ -368,6 +369,7 @@
     var VerCambioClaveMobile = '@Url.Action("Index", "MisDatos", new { area = "Mobile" })';
 
     var UrlCargarEditaNumero = '@Url.Action("ActualizarCelular")';
+    var UrlCargarEditaCorreo = '@Url.Action("ActualizarCorreo")';
 </script>
 
 <script>
@@ -398,6 +400,20 @@
                 enviarSmsCodigo: '@Url.Action("EnviarSmsCodigo")',
                 confirmarSmsCode: '@Url.Action("ConfirmarSmsCode")'
         }
+</script>
+
+<script>
+    /*para Correo*/
+    var config = {
+        UrlPaginaPrevia: '@Url.Action("VerificaAutenticidad")',
+        UrlActualizarEnviarCorreo: '@Url.Action("ActualizarEnviarCorreo")',
+        MensajeError: '@Html.Raw(Constantes.MensajesError.ActivacionCorreo)',
+        MensajeReenvioExitoso: '@Html.Raw(Constantes.MensajesExito.UpdCorreoConsultora_Reenvio)',
+        VistaActual: 1,
+        CorreoActual:'',
+        IsConfirmar: 0,
+        EnlaceTerminosCondiciones :''
+        };
 </script>
 
 @Scripts.Render("~/Bundle/Js/Mixto/Login-VerificaAutenticidad")

@@ -35,6 +35,7 @@ using Portal.Consultoras.Web.Infraestructure.Sms;
 using Portal.Consultoras.Web.Infraestructure.Validator.Phone;
 using Portal.Consultoras.Common.Validator;
 using BEUsuario = Portal.Consultoras.Web.ServiceUsuario.BEUsuario;
+using BERespuestaServicio = Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -56,7 +57,7 @@ namespace Portal.Consultoras.Web.Controllers
         protected readonly RevistaDigitalProvider _revistaDigitalProvider = new RevistaDigitalProvider();
 
         //private UsuarioModel model = new UsuarioModel();
-        private readonly LogDynamoProvider _logDynamoProvider = new LogDynamoProvider(); 
+        private readonly LogDynamoProvider _logDynamoProvider = new LogDynamoProvider();
 
 
         #region Constructor
@@ -725,6 +726,74 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
+        public JsonResult ActualizarCorreo()
+        {
+            var userData = (BEUsuarioDatos)Session["DatosUsuario"];
+            var model = new ActualizaCorreoModel();
+            try
+            {
+                model.IsConfirmar = 0;
+                model.CorreoActual = userData.Correo;
+                model.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoIso);
+
+                return Json(new
+                {
+                    success = true,
+                    data = model,
+                    message = "OK"
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoUsuario, userData.CodigoIso);
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al procesar la solicitud"
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoUsuario, userData.CodigoIso);
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al procesar la solicitud"
+                });
+            }
+
+        }
+
+        [HttpPost]
+        public JsonResult ActualizarEnviarCorreo(string correoNuevo)
+        {
+            var userData = (BEUsuarioDatos)Session["DatosUsuario"];
+            try
+            {
+                BERespuestaServicio respuesta;
+                BEUsuario usuario = new BEUsuario();
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    usuario = sv.Select(Util.GetPaisID(userData.CodigoIso), userData.CodigoUsuario);
+                    respuesta = sv.ActualizarEmail(usuario, correoNuevo);
+                }
+                string tipoEnvio = Constantes.TipoEnvio.EMAIL.ToString();
+                ActualizarValidacionDatosUnique(EsDispositivoMovil(), userData.CodigoUsuario, tipoEnvio);
+                return Json(new { success = respuesta.Succcess, message = respuesta.Message });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoUsuario, userData.CodigoIso);
+                return ErrorJson(Constantes.MensajesError.UpdCorreoConsultora);
+            }
+        }
+
+        protected JsonResult ErrorJson(string message, bool allowGet = false)
+        {
+            return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
+        }
+
+        [HttpPost]
         public async Task<ActionResult> EnviarSmsCodigo(string celular)
         {
             var validator = GetPhoneValidator();
@@ -837,9 +906,9 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        protected void ActualizarDatosLogDynamoDB(UsuarioModel userData , MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
+        protected void ActualizarDatosLogDynamoDB(UsuarioModel userData, MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
         {
-           
+
             bool esMobile = EsDispositivoMovil();
             _logDynamoProvider.ActualizarDatosLogDynamoDB(userData, esMobile, p_modelo, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, p_Seccion);
         }

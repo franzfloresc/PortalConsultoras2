@@ -9,6 +9,7 @@ var VerificaAutenticidad;
 
 var urls = urlProvider;
 
+/*para Numero*/
 var localData = {
     CelularActual: null,
     InicialNumero: '',
@@ -19,6 +20,7 @@ var localData = {
     IsConfirmar: null,
     UrlPaginaPrevia: _UrlPaginaPrevia
 };
+
 
 
 var panels = [
@@ -68,6 +70,7 @@ $(document).ready(function () {
                 InicializarEventos: function () {
                     $('body').on('blur', '.grupo_form_cambio_datos input, .grupo_form_cambio_datos select', me.Eventos.LabelActivo);
                     $('body').on('click', '#btnCambiarCelular', me.Eventos.EditarSms);
+                    $('body').on('click', '#btnCambiarEmail', me.Eventos.EditarCorreo);
 
                     /*---------INI Celular ----------------------------------- */
                     var body = $('body');
@@ -282,7 +285,7 @@ $(document).ready(function () {
                     };
                 },
 
-            GetValidators: function () {                
+                GetValidators: function () {
                     var success = {
                         Success: true
                     };
@@ -311,7 +314,7 @@ $(document).ready(function () {
                         return success;
                     }
 
-                var byCountryFormat = function (numero) {                    
+                    var byCountryFormat = function (numero) {
                         if (localData.InicialNumero) {
                             if (numero.charAt(0) !== localData.InicialNumero) {
                                 return {
@@ -442,15 +445,15 @@ $(document).ready(function () {
                     me.Elements.getErrorText().html(text);
                 },
 
-            VerifySmsCode: function (code) {
-                debugger;
+                VerifySmsCode: function (code) {
+                    debugger;
                     if (localData.Expired) {
                         return;
                     }
 
                     AbrirLoad();
                     var successConfirmarSmsCode = function (r) {
-             
+
                         CerrarLoad();
                         if (!r.Success) {
                             me.Funciones.MarkSmsCodeStatus(false);
@@ -505,6 +508,13 @@ $(document).ready(function () {
                 /*----------------FIN CELULAR----------------------------------*/
                 /*-----------------------------------------------------------*/
 
+
+                /*----------------INI CORREO-----------------------------------*/
+
+
+                /*----------------FIN CELULAR----------------------------------*/
+                /*-------------------------------------------------------------*/
+
             },
             me.Eventos = {
                 LabelActivo: function () {
@@ -520,6 +530,12 @@ $(document).ready(function () {
                     nroIntentosSms = nroIntentosSms + 1;
 
                     me.Services.CargarEditarNumero();
+                },
+                EditarCorreo: function () {
+                    //tipo = 2;
+                    // nroIntentosSms = nroIntentosSms + 1;
+
+                    me.Services.CargarEditarCorreo();
                 },
                 /*---------INI Celular ----------------------------------- */
                 Continuar: function () {
@@ -593,7 +609,8 @@ $(document).ready(function () {
                 },
                 //FIN HD-3897
                 EnlaceTerminosCondiciones: function () {
-                    var enlace = $('#hdn_enlaceTerminosCondiciones').val();
+                    // var enlace = $('#hdn_enlaceTerminosCondiciones').val();
+                    var enlace = config.EnlaceTerminosCondiciones;
                     $('#hrefTerminosMD').attr('href', enlace);
                 },
 
@@ -717,26 +734,221 @@ $(document).ready(function () {
                             smsCode: code
                         }
                     });
-                }
+                },
                 /*---------FIN Celular ----------------------------------- */
                 /*-------------------------------------------------------- */
 
 
-            },       
-            me.Inicializar = function () {
 
-                me.Funciones.InicializarEventos();
-                me.Funciones.CamposFormularioConDatos();
+                /*---------INI CORREO ----------------------------------- */
+                CargarEditarCorreo: function () {
+                    me.Funciones.ShowLoading();
+                    $.ajax({
+                        url: UrlCargarEditaCorreo,
+                        type: 'POST',
+                        data: null,
+                        dataType: 'json',
+                        success: function (response) {
+                            debugger;
+                            me.Funciones.CloseLoading();
+                            if (!response.success) {
+                                alert(response.message);
+                                return false;
+                            }
 
-                me.Funciones.PuedeActualizar();
-                me.Funciones.PuedeCambiarTelefono();
-                //INI HD-3897
-                me.Funciones.ValidacionCheck();
+                            config.CorreoActual = response.data.CorreoActual;
+                            config.IsConfirmar = response.data.IsConfirmar;
+                            config.EnlaceTerminosCondiciones = response.data.UrlPdfTerminosyCondiciones;
+                            //localData.CelularNuevo = (response.data.IsConfirmarCel == 1) ? response.data.Celular : '';
+                            //localData.Expired = true;
+                            //localData.IsoPais = response.data.IsoPais;
+                            //localData.IsConfirmar = response.data.IsConfirmarCel;
+
+                            $('#divPaso1').hide();
+                            $("#ActualizarCorreo").show();
+
+
+
+                            if (config.IsConfirmar == 1) {
+                                me.Correo.postActualizarEnviarCorreo({ correoNuevo: config.CorreoActual }, irVista2.irVista2(config.CorreoActual));
+                            } else {
+                                me.Correo.irVista(config.VistaActual);
+                            }
+
+                            var inputEmail = document.getElementById("NuevoCorreo");
+                            FuncionesGenerales.AutoCompletarEmailAPartirDeArroba(inputEmail);
+                        },
+                        error: function (data, error) {
+                            if (checkTimeout(data)) {
+                                me.Funciones.CloseLoading();
+                                alert('Error al cargar pantalla editar número');
+                            }
+                        }
+                    });
+                }
+
+                /*---------FIN CORREO ----------------------------------- */
+                /*------------------------------------------------------- */
+
+
+
+
+            },
+            me.Correo = {
+            activaGuardar: function () {
+                debugger;
+                    var btn = $("#btnActualizarCorreo");
+                    btn.removeClass('btn_deshabilitado')
+                    if (me.Correo.getDataArrayError(me.Correo.getData()).length > 0 || !$('#chkAceptoContratoMDCorreo').prop('checked')) btn.addClass('btn_deshabilitado');
+
+                },
+            mensajeError: function () {
+                debugger;
+                    var obj = me.Correo.getData().correoNuevo;
+                    var band;
+                    $("#ValidateCorreo").hide();
+
+                    if (obj == "") band = null;
+                    else if (obj != "" && !validateEmail(obj)) {
+                        $("#ValidateCorreo").show();
+                        band = false;
+                    } else band = true;
+
+
+                    me.Correo.activaCheck(band);
+                },
+                activaCheck: function (band) {
+                    var obj = $("div[vista-id=1] .grupo_form_cambio_datos");
+                    obj.removeClass("grupo_form_cambio_datos--validacionExitosa");
+                    obj.removeClass("grupo_form_cambio_datos--validacionErronea");
+                    if (band == null) return;
+
+                    if (band) obj.addClass("grupo_form_cambio_datos--validacionExitosa");
+                    else obj.addClass("grupo_form_cambio_datos--validacionErronea");
+
+                },
                 //FIN HD-3897
-                me.Funciones.EvitandoCopiarPegar();
-                me.Funciones.ValidacionSoloLetras();
 
+                showSuccess: function (message) { AbrirMensaje(message, 'Mensaje', '', 2); },
+                showError: function (error) { AbrirMensaje(error, 'Error', '', 1); },
+                showArrayError: function (arrayError) {
+                    var mensaje = '';
+                    for (var i = 0; i <= arrayError.length - 2; i++) {
+                        mensaje += arrayError[i] + '<br/>';
+                    }
+                    mensaje += arrayError[arrayError.length - 1];
+
+                    me.Correo.showError(mensaje);
+                },
+
+                getData: function () {
+                    return {
+                        correoNuevo: $.trim(IfNull($('#NuevoCorreo').val(), ''))
+                    };
+                },
+                getDataArrayError: function (data) {
+                    var arrayError = [];
+
+                    if (data.correoNuevo === '') arrayError.push('Debe ingresar un email.');
+                    else if (!validateEmail(data.correoNuevo)) arrayError.push('El formato del email ingresado no es correcto.');
+
+                    return arrayError;
+                },
+            postActualizarEnviarCorreo: function (data, fnSuccess) {
+                debugger;
+                    AbrirLoad();
+                    $.post(config.UrlActualizarEnviarCorreo, data)
+                        .done(function (response) {
+                            if (!response.success) {
+                                me.Correo.showError(response.message);
+                                return;
+                            }
+
+                            if ($.isFunction(fnSuccess)) fnSuccess(data);
+                        })
+                        .fail(function () { me.Correo.showError(config.MensajeError); })
+                        .always(CerrarLoad);
+                },
+                actualizarEnviarCorreo: function (fnSuccess) {
+                    var data = me.Correo.getData();
+                    //INI HD-3897
+                    var arrayError = me.Correo.getDataArrayError(data);
+                    if (arrayError.length > 0) {
+                        me.Correo.showArrayError(arrayError);
+                        return;
+                    }
+                    //FIN HD-3897
+                    if (document.getElementById('chkAceptoContratoMDCorreo').checked == false) {
+                        alert('Debe aceptar los términos y condiciones para poder actualizar sus datos');
+                        return false;
+                    }
+
+                    me.Correo.postActualizarEnviarCorreo(data, fnSuccess);
+                },
+                enlaceTerminosCondiciones: function () {
+                    var enlace = config.EnlaceTerminosCondiciones;
+                    $('#hrefTerminosMD2').attr('href', enlace);
+                },
+                irPaginaPrevia: function () { window.location.href = config.UrlPaginaPrevia; },
+                irVista: function (vistaId) {
+                    $('#tabVistas div[vista-id]').hide();
+                    $('#tabVistas div[vista-id=' + vistaId + ']').show();
+                    config.VistaActual = vistaId;
+                },
+                irVista2: function (email) {
+                    me.Correo.irVista(2);
+                    $('#txtCorreoEnviado').html(email);
+                },
+                asignarEventos: function () {
+
+
+                    //$('#btnVolver').on('click', function () {
+                    //    if (config.VistaActual == 1 || config.IsConfirmar == 1) me.Correo.irPaginaPrevia();
+                    //    else if (config.VistaActual == 2) me.Correo.irVista(1);
+                    //});
+                    $('#btnCancelar').on('click', me.Correo.irPaginaPrevia);
+                    $('#btnReescribirCorreo').on('click', function () {
+                        if (config.IsConfirmar == 1) {
+                            $('#NuevoCorreo').val(config.CorreoActual);
+                            $('#NuevoCorreo').addClass('campo_con_datos');
+                        } me.Correo.irVista(1);
+                    });
+
+                    $('#btnReenviameInstruciones').on('click', function () {
+                        var MsjSuccess = function () { $("#spnReenviarInstrucciones").show(); };
+                        if (config.IsConfirmar == 1) {
+                            me.Correo.postActualizarEnviarCorreo({ correoNuevo: config.CorreoActual }, MsjSuccess);
+                        } else {
+                            me.Correo.actualizarEnviarCorreo(MsjSuccess);
+                        }
+                    });
+                    $('#btnActualizarCorreo').on('click', function () { me.Correo.actualizarEnviarCorreo(function (data) { me.Correo.irVista2(data.correoNuevo); }); });
+                    $('#hrefTerminosMD2').on('click', function () { me.Correo.enlaceTerminosCondiciones(); });
+
+                    //INI HD-3897
+                    $('div[vista-id=1] input').on('keyup change', function () { me.Correo.activaGuardar(); return $(this).val() });
+                    $('#NuevoCorreo').on('focusout', function () { me.Correo.mensajeError(); });
+                    //FIN HD-3897
+
+                    FuncionesGenerales.AvoidingCopyingAndPasting('NuevoCorreo');
+                }
             }
+        me.Inicializar = function () {
+
+            me.Funciones.InicializarEventos();
+            me.Funciones.CamposFormularioConDatos();
+
+            me.Funciones.PuedeActualizar();
+            me.Funciones.PuedeCambiarTelefono();
+            //INI HD-3897
+            me.Funciones.ValidacionCheck();
+            //FIN HD-3897
+            me.Funciones.EvitandoCopiarPegar();
+            me.Funciones.ValidacionSoloLetras();
+
+            me.Correo.asignarEventos();
+
+        }
     }
 
     VerificaAutenticidad = new vistaVerificaAutenticidad();
