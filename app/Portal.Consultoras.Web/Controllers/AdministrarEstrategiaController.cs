@@ -2079,6 +2079,18 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     while (readLine != null);
 
+                    var listaRepetida = strategyEntityList
+                        .GroupBy(x => new { x.DescripcionCUV2, x.CUV2 })
+                        .Where(g => g.Count() > 1)
+                        .Select(y => new { Element = y.Key, Counter = y.Count() })
+                        .ToList();
+
+                    if (listaRepetida.Count > 0)
+                    {
+                        var cuvRepetidos = string.Join(",", listaRepetida.Select(x => x.Element.CUV2).ToArray());
+                        throw new ArgumentException(string.Format("Verificar la información del archivo. <br /> Referencia: CUVs duplicados '{0}'", cuvRepetidos));
+                    }
+
                     XElement strategyXML = new XElement("strategy",
                     from strategy in strategyEntityList
                     select new XElement("row",

@@ -664,6 +664,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<ServiceCliente.BEPedidoWebDetalle, PedidoWebClienteMobilModel>();
             Mapper.CreateMap<ServiceCliente.BEPedidoWebDetalle, PedidoWebDetalleMobilModel>();
             Mapper.CreateMap<ServicePedido.BEEstrategia, PremioElectivoModel>()
+                .ForMember(t => t.Precio2, f => f.MapFrom(c => c.PrecioUnitario))
                 .ForMember(t => t.DescripcionResumen, f => f.MapFrom(c => c.DescripcionCUV2));
 
             Mapper.CreateMap<ServiceUsuario.BEUsuarioOpciones, UsuarioOpcionesModel>()
@@ -720,7 +721,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BELogroCaminoBrillante, LogroCaminoBrillanteModel>();
             Mapper.CreateMap<BELogroCaminoBrillante.BEIndicadorCaminoBrillante, LogroCaminoBrillanteModel.IndicadorCaminoBrillanteModel>();
             Mapper.CreateMap<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante, LogroCaminoBrillanteModel.IndicadorCaminoBrillanteModel.MedallaCaminoBrillanteModel>();
-
+            Mapper.CreateMap<BEOrdenFiltrosCaminoBrillante, FiltrosDatosCaminoBrillante>();
+            Mapper.CreateMap<BEOrdenFiltrosCaminoBrillante, OrdenDatosCaminoBrillante>();
             #endregion
         }
     }

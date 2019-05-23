@@ -299,6 +299,7 @@ function CambiarOferta() {
     $('#Tab-kits').click(function () {
         $('#kits').show();
         $('#Demostradores').hide();
+        $('.opOrdenar').hide();
         $("#Tab-kits").addClass("activado-dorado");
         $("#Tab-Demostradores").removeClass("activado-dorado");
         $("#divresultadosDemostradores").hide();
@@ -309,7 +310,7 @@ function CambiarOferta() {
         else { LinkCargarOfertasToScroll();}        
     });
 
-    $('#Tab-Demostradores').click(function () {
+    $('#Tab-Demostradores').click(function () {        
         $('.opOrdenar').show();
         $('#Demostradores').show();
         $('#kits').hide();
@@ -318,9 +319,41 @@ function CambiarOferta() {
         $("#divresultadosKit").hide();
         $("#divresultadosDemostradores").show();
         document.body.scrollTop = TabDos;
-        $(window).scrollTop(TabDos);
-        if (contadordemo == 0) { CargarDemostradores(); }
+        $(window).scrollTop(TabDos);  
+        if (contadordemo == 0) {
+            ObtenerFiltros();
+            CargarDemostradores();
+        }
         else { LinkCargarOfertasToScroll();}
+    });
+}
+
+function ObtenerFiltros() {
+    $.ajax({
+        type: 'GET',
+        url: urlObtenerFiltros,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.lista != null) {
+                    var _filtros = data.lista.DatosFiltros;
+                    var _orden = data.lista.DatosOrden;
+                    $('#ddlfiltros').empty();
+                    $('#ddlOrdenar').empty();
+                    $.each(_filtros, function (index, value) {
+                        $("#ddlfiltros").append('<option value="' + value.Codigo + '">' + value.Descripcion + '</option>');
+                    });
+                    $.each(_orden, function (index, value) {
+                        $("#ddlOrdenar").append('<option value="' + value.Codigo + '">' + value.Descripcion + '</option>');
+                    });
+                }
+            }
+        },
+        error: function (data, error) { },
+        complete: function (data) {
+            cargandoRegistros = false;
+        }
     });
 }
 

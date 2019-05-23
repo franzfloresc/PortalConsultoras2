@@ -12,12 +12,14 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
         private readonly MiAcademiaProvider _miAcademiaProvider;
         private readonly ConfiguracionManagerProvider _configuracionManagerProvider;
+        private readonly IssuuProvider _issuuProvider;
 
         public CaminoBrillanteController()
         {
             _caminoBrillanteProvider = new CaminoBrillanteProvider();
             _configuracionManagerProvider = new ConfiguracionManagerProvider();
             _miAcademiaProvider = new MiAcademiaProvider(_configuracionManagerProvider);
+            _issuuProvider = new IssuuProvider();
         }
 
         public ActionResult Index()
@@ -242,11 +244,19 @@ namespace Portal.Consultoras.Web.Controllers
                                        
                     return Redirect(_miAcademiaProvider.GetUrl(Enumeradores.MiAcademiaUrl.Cursos, paramMiAcademia));
                 case 2:
-                    return Redirect("https://issuu.com/somosbelcorp/docs/"+ nivelCB.EnterateMasParam);
+                    return Redirect(_issuuProvider.GetStringIssuRevista(nivelCB.EnterateMasParam, true));
             }
 
             return _RedirectToAction("Index", "Bienvenida");
         }
 
+        public JsonResult GetFiltrosCaminoBrillante()
+        {
+            var oFiltro = _caminoBrillanteProvider.GetDatosOrdenFiltros();
+            return Json(new
+            {
+                lista = oFiltro
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

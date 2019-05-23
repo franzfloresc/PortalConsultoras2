@@ -189,6 +189,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Mobile\Controllers\IncentivosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BonificacionesController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BuscadorController.cs" />
     <Compile Include="Areas\Mobile\Controllers\DetalleEstrategiaController.cs" />
@@ -236,6 +237,7 @@
     <Compile Include="Controllers\AdministracionPopupsController.cs" />
     <Compile Include="Controllers\BonificacionesController.cs" />
     <Compile Include="Controllers\BaseAdmController.cs" />
+    <Compile Include="Controllers\CaminoBrillanteAdministrarController.cs" />
     <Compile Include="Controllers\ConfiguracionZonasModel.cs" />
     <Compile Include="Controllers\FakeErrorController.cs" />
     <Compile Include="Controllers\EstrategiaGrupoController.cs" />
@@ -312,6 +314,7 @@
     <Compile Include="Models\AdministrarEstrategia\EstrategiaGrupoModel.cs" />
     <Compile Include="Models\ArmaTuPackModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
+    <Compile Include="Models\CaminoBrillante\FiltrosCaminoBrillanteModel.cs" />
     <Compile Include="Models\ZonaValidacionTelefonicaModel.cs" />
     <Compile Include="Models\ConfiguracionZonaModel.cs" />
     <Compile Include="Models\DetalleEstrategia\EstrategiaComponenteSeccionModel.cs" />
@@ -321,6 +324,7 @@
     <Compile Include="Models\CaminoBrillante\NivelCaminoBrillanteModel.cs" />
     <Compile Include="Models\ConfiguracionCaminoBrillanteModel.cs" />
     <Compile Include="Models\MiAcademia\ParamUrlMiAcademiaModel.cs" />
+    <Compile Include="Models\PedidosPendientesMedioPagoModel.cs" />
     <Compile Include="Models\PremioNuevaModel.cs" />
     <Compile Include="Models\AdministracionPoput\ComunicadoModel.cs" />
     <Compile Include="Models\AdministracionPoput\SegmentacionComunicado.cs" />
@@ -856,6 +860,7 @@
     <Compile Include="Providers\ConfiguracionPaisDatosProvider.cs" />
     <Compile Include="Providers\ConfiguracionPaisProvider.cs" />
     <Compile Include="Providers\ConsultaProlProvider.cs" />
+    <Compile Include="Providers\ConsultoraOnlineProvider.cs" />
     <Compile Include="Providers\EstadoCuentaProvider.cs" />
     <Compile Include="Providers\EstrategiaComponenteProvider.cs" />
     <Compile Include="Providers\EventoFestivoProvider.cs" />
@@ -1456,6 +1461,7 @@
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
     <Content Include="Content\Css\Mobile\Clientes\Asignarcliente.css" />
     <Content Include="Content\Css\Mobile\Buscador\categorias-productos.css" />
+    <Content Include="Content\Css\Mobile\ConsultoraOnline\Pendientes.css" />
     <Content Include="Content\Css\Mobile\Contenedor\MenuContenedor.css" />
     <Content Include="Content\Css\Mobile\Contenedor\Index.css" />
     <Content Include="Content\Css\Mobile\Contenedor\carrusel.individual.css" />
@@ -1489,6 +1495,8 @@
     <Content Include="Content\Css\Site\bootstrap\bootstrap-chosen.css" />
     <Content Include="Content\Css\Site\bootstrap\bootstrap.css" />
     <Content Include="Content\Css\Site\BusquedaProductos\busqueda-productos.css" />
+    <Content Include="Content\Css\Site\ConsultoraOnline\Pendientes.css" />
+    <Content Include="Content\Css\Site\ConsultoraOnline\Pendientes.rewrite.css" />
     <Content Include="Content\Css\Site\Contenedor\BannerInteractivo.css" />
     <Content Include="Content\Css\Site\BusquedaProductos\filtros-busqueda.css" />
     <Content Include="Content\Css\Site\Contenedor\Index.css" />
@@ -3891,6 +3899,7 @@
     <Content Include="Content\Images\select_input_tab.png" />
     <Content Include="Content\Images\separador.png" />
     <Content Include="Content\Images\sesion_icono.png" />
+    <Content Include="Content\Images\Shared\svg\a-icon-call.svg" />
     <Content Include="Content\Images\showroom\banner_intriga_desktop.png" />
     <Content Include="Content\Images\showroom\banner_showroom.jpg" />
     <Content Include="Content\Images\showroom\BARRA SUPERIOR_COMPRA.png" />
@@ -4195,6 +4204,9 @@
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\ConsultoraOnline\assets\bootstrap.min.js" />
+    <Content Include="Scripts\PortalConsultoras\ConsultoraOnline\DetallePedidoPendiente.js" />
+    <Content Include="Scripts\PortalConsultoras\ConsultoraOnline\Pendientes.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\CarruselModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\ComponenteDetalleModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\DetalleEstrategiaProvider.js" />
@@ -4235,6 +4247,7 @@
     <Content Include="Scripts\PortalConsultoras\MiPerfil\Base.js" />
     <Content Include="Scripts\PortalConsultoras\MiPerfil\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MisCatalogosRevistas\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\ConsultoraOnline\PedidoPendienteMedioCompra.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\GuiaNegocio\GuiaNegocio-Landing.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\PedidoFIC\Detalle.js" />
     <Content Include="Scripts\PortalConsultoras\Mobile\PedidoFIC\Index.js" />
@@ -4669,6 +4682,16 @@
     <Content Include="Areas\Mobile\Views\Pedido\_PopupEleccionRegalo.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupPremio.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupDescuento.cshtml" />
+    <Content Include="Views\Shared\VistaParcialResponisve\_MenuContenedorResponsive.cshtml" />
+    <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-bannerInteractivo.cshtml" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
+    <Content Include="Areas\Mobile\Views\DetalleEstrategia\ComponenteDetalleIndividualTemplate.cshtml" />
+    <Content Include="Areas\Mobile\Views\Bonificaciones\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\Bonificaciones\IndexExterno.cshtml" />
+    <Content Include="Areas\Mobile\Views\ConsultoraOnline\PendientesMedioDeCompra.cshtml" />
+    <Content Include="Areas\Mobile\Views\ConsultoraOnline\DetallePedidoPendienteClientes.cshtml" />
+    <Content Include="Areas\Mobile\Views\Incentivos\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\Incentivos\IndexExterno.cshtml" />
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService.wsdl" />
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService.xsd">
       <SubType>Designer</SubType>
@@ -4685,12 +4708,6 @@
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Views\Shared\VistaParcialResponisve\_MenuContenedorResponsive.cshtml" />
-    <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-bannerInteractivo.cshtml" />
-    <Content Include="Areas\Mobile\Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
-    <Content Include="Areas\Mobile\Views\DetalleEstrategia\ComponenteDetalleIndividualTemplate.cshtml" />
-    <Content Include="Areas\Mobile\Views\Bonificaciones\Index.cshtml" />
-    <Content Include="Areas\Mobile\Views\Bonificaciones\IndexExterno.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
@@ -5093,6 +5110,12 @@
     <None Include="Service References\ServiceUnete\PortalService1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceUnete\PortalService10.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUnete\PortalService11.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceUnete\PortalService2.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -5166,6 +5189,15 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuario\UsuarioService61.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService610.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService611.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceUsuario\UsuarioService612.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceUsuario\UsuarioService62.xsd">
@@ -5772,6 +5804,7 @@
     <Content Include="Views\Shared\PopupsResponsive\_PopupActualizacionCorreo.cshtml" />
     <Content Include="Views\Bienvenida\ReporteValidacionDatos.cshtml" />
     <Content Include="Views\ArmaTuPack\Detalle.cshtml" />
+    <Content Include="Views\Unete\KitInicio.cshtml" />
     <Content Include="Views\AdministrarEstrategia\EstrategiaGrupoDialog.cshtml" />
     <Content Include="Views\CaminoBrillante\Ofertas.cshtml" />
     <Content Include="Views\CaminoBrillante\Logros.cshtml" />
@@ -5787,6 +5820,7 @@
     <Content Include="Views\Bonificaciones\IndexExterno.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupBloqueoPorSistema.cshtml" />
     <Content Include="Views\MisCertificados\CAM_NoAdeudoPdf.cshtml" />
+    <Content Include="Views\Incentivos\IndexExterno.cshtml" />
     <Content Include="Views\Unete\ZonaValidacionTelefonica.cshtml" />
     <Content Include="Views\Unete\_ConsultarEstadoTelefonico.cshtml" />
     <Content Include="Views\AdministrarHistorias\Index.cshtml" />
@@ -5797,6 +5831,8 @@
     <Content Include="Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
     <Content Include="Views\AdministracionMedallaBrillante\Index.cshtml" />
     <Content Include="Views\Shared\_MainLayoutResponsiveCaminoBrillante.cshtml" />
+    <Content Include="Views\ConsultoraOnline\Pendientes.cshtml" />
+    <Content Include="Views\CaminoBrillanteAdministrar\AdministrarBeneficios.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

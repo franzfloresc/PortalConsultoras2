@@ -511,6 +511,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoDD GetPedidoDDByCampaniaConsultora(int paisID, int campaniaID, long consultoraID);
 
         [OperationContract]
+        
         void InsPedidoDD(BEPedidoDD bePedidoDD);
 
         [OperationContract]
@@ -1335,7 +1336,12 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEKitCaminoBrillante> GetKitsCaminoBrillante(BEUsuario entidad);
 
         [OperationContract]
-        BEDemostradoresPaginado GetDemostradoresCaminoBrillante(BEUsuario entidad, int cantRegistros, int regMostrados, string codOrdenar, string codFiltro);        
+        BEDemostradoresPaginado GetDemostradoresCaminoBrillante(BEUsuario entidad, int cantRegistros, int regMostrados, string codOrdenar, string codFiltro);
+
+        [OperationContract]
+        List<BEOrdenFiltrosCaminoBrillante> GetFiltrosCaminoBrillante(int paisID);
         #endregion
+        [OperationContract]
+        void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle);
     }
 }

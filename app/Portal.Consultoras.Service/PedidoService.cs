@@ -2461,6 +2461,16 @@ namespace Portal.Consultoras.Service
             return _caminoBrillanteBusinessLogic.GetDemostradores(entidad, cantRegistros, regMostrados, codOrdenar, codFiltro);
         }
 
+        public List<BEOrdenFiltrosCaminoBrillante> GetFiltrosCaminoBrillante(int paisID)
+        {
+            return _caminoBrillanteBusinessLogic.GetFiltrosCaminoBrillante(paisID);
+        }
+
         #endregion
+        
+        public void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle)
+        {
+            _pedidoWebBusinessLogic.UpdDatoRecogerPor(pedidowebdetalle);
+        }
     }
 }
