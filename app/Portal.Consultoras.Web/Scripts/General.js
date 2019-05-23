@@ -897,12 +897,12 @@ function AbrirMensaje25seg(mensaje, imagen) {
             _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'            
         }, 100)
 
-        /**setTimeout(function () {
+        setTimeout(function () {
             $(_dialogClass).fadeOut(500, function () {
                 $('#alertDialogMensajes25seg').dialog("close");
                 $("body").css("overflow", "auto")
             })
-        }, 3000) */
+        }, 3000) 
 
         
         var parameter = [["mensaje", mensaje], ["imagen", imagen]];
