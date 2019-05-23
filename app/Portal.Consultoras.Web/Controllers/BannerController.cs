@@ -688,7 +688,7 @@ namespace Portal.Consultoras.Web.Controllers
             //SOPORTEPD-252 ELIMINAR EL TENER EL DESARROLLO CONFIGURABLE
             var bannerHVList= lstFinalModel.Where(x => x.BannerID == 35);
             if (bannerHVList != null && bannerHVList.Count() > 0)
-                bannerHVList.FirstOrDefault().Archivo = "https://cdn1-prd.somosbelcorp.com/Banners/Herramientas_ventas_2019352583.png";
+                bannerHVList.FirstOrDefault().Archivo = "https://cdn1-prd.somosbelcorp.com/Banners/Herramientas_ventas_General.png";
             //SOPORTEPD-252
 
             return Json(new
