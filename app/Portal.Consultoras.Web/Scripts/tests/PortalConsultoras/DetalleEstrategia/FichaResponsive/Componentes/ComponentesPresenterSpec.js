@@ -802,6 +802,10 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
          componentesPresenter.onEstrategiaModelLoaded(estrategiaUnComponenteFactorCuadreIgualADos());
       });
 
+      afterEach(function () {
+         sinon.restore();
+      });
+
       it("throw an exception when component's cuv is null", function () {
          // Arrange
          var cuvComponent = null;
@@ -878,7 +882,7 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
 
             //Act
             var result = componentesPresenter.showTypesAndTonesModal(cuvComponent);
-            
+
 
             // Assert
             expect(result).to.eql(false);
@@ -904,7 +908,7 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
 
             //Act
             var result = componentesPresenter.showTypesAndTonesModal(cuvComponent);
-            
+
 
             // Assert
             expect(result).to.eql(false);
@@ -924,7 +928,7 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
             expect(selectedQuantityText).to.have.string("0 Seleccionados");
          });
 
-         it("return false when componentesView do not render component's tones/types",function(){
+         it("return false when componentesView do not render component's tones/types", function () {
             // //Arrange
             var cuvComponent = "31305";
             componentesView.showComponentTypesAndTones.returns(false);
@@ -936,7 +940,7 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
             expect(result).to.be.eql(false);
          });
 
-         it("return true when component's tones/types are shown",function(){
+         it("return true when component's tones/types are shown", function () {
             // //Arrange
             var cuvComponent = "31305";
 
@@ -969,6 +973,141 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
             expect(result).to.eql(true);
             expect(selectedTitle).to.have.string("Elige 2 opciones");
          });
+      });
+   });
+
+   describe("addTypeOrTone", function () {
+      var errorMsg = '';
+      var componentesView;
+      var componentesPresenter;
+
+      beforeEach(function () {
+         errorMsg = '';
+         componentesView = sinon.stub(ComponentesView());
+         componentesView.renderComponente.returns(true);
+         componentesPresenter = ComponentesPresenter({
+            componentesView: componentesView
+         });
+      });
+
+      afterEach(function () {
+         sinon.restore();
+      });
+
+      it("throw exception when grupo is undefined", function () {
+         // Arrange
+         var grupo;
+
+         //Act
+         try {
+            componentesPresenter.addTypeOrTone(grupo, null);
+         } catch (error) {
+            errorMsg = error;
+         }
+
+         // Assert
+         expect(errorMsg).to.have.string("grupo is null or undefined");
+      });
+
+      it("throw exception when grupo is null", function () {
+         // Arrange
+         var grupo = null;
+
+         //Act
+         try {
+            componentesPresenter.addTypeOrTone(grupo, null);
+         } catch (error) {
+            errorMsg = error;
+         }
+
+         // Assert
+         expect(errorMsg).to.have.string("grupo is null or undefined");
+      });
+
+      it("throw exception when cuv is undefined", function () {
+         // Arrange
+         var grupo = "1";
+         var cuv;
+
+         //Act
+         try {
+            componentesPresenter.addTypeOrTone(grupo, cuv);
+         } catch (error) {
+            errorMsg = error;
+         }
+
+         // Assert
+         expect(errorMsg).to.have.string("cuv is null or undefined");
+      });
+
+      it("throw exception when cuv is null", function () {
+         // Arrange
+         var grupo = "1";
+         var cuv = null;
+
+         //Act
+         try {
+            componentesPresenter.addTypeOrTone(grupo, cuv);
+         } catch (error) {
+            errorMsg = error;
+         }
+
+         // Assert
+         expect(errorMsg).to.have.string("cuv is null or undefined");
+      });
+
+      describe("Given a component with FactorCuadre equals to 2", function () {
+         beforeEach(function () {
+            componentesPresenter.onEstrategiaModelLoaded(estrategiaUnComponenteFactorCuadreIgualADos());
+            componentesView.setTitle.returns(true);
+            componentesView.setSelectedQuantityText.returns(true);
+         });
+
+         describe("and you select a type/tone", function () {
+            var grupo = "1";
+            var cuv = "31593";
+
+            beforeEach(function () {
+               componentesPresenter.onEstrategiaModelLoaded(estrategiaUnComponenteFactorCuadreIgualADos());
+            });
+
+            it("should update selected quantity", function () {
+               // Arrange
+               componentesPresenter.addTypeOrTone(grupo, cuv);
+
+               // Act
+               var result = componentesPresenter.estrategiaModel().Hermanos[0].cantidadSeleccionados;
+
+               // Assert
+               expect(result).to.be.equal(1);
+            });
+
+            it("should return false when componentesView do not render quantity selector", function () {
+               // Arrange
+               componentesView.showQuantitySelector.returns(false);
+
+               // Act
+               var result = componentesPresenter.addTypeOrTone(grupo, cuv);
+
+               // Assert
+               expect(result).to.be.equal(false);
+            });
+
+            // it("should return false when componentesView do not render selected types/tones", function () {
+            //    // Arrange
+            //    componentesView.showQuantitySelector.returns(false);
+
+            //    // Act
+            //    var result = componentesPresenter.addTypeOrTone(grupo, cuv);
+
+            //    // Assert
+            //    expect(result).to.be.equal(false);
+            // });
+         });
+
+         // it("should block type/tone when selected quantity is equal FactorCuadre", function () {
+
+         // });
       });
    });
 });
