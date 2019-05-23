@@ -60,20 +60,20 @@
         var PaisId;
         $.getJSON(baseUrl + 'AdministrarHistorias/ObtenerSegmento', { PaisId: PaisId}, function (data) {
                 if (checkTimeout(data)) {
-                    var ddlSegmentoBanner = $('#ddlSegmentoBanner');
-                    ddlSegmentoBanner.empty();
+                    var ddlSegmento = $('#ddlSegmento');
+                    ddlSegmento.empty();
                     if (data.listasegmento.length > 0) {
                         for (var item in data.listasegmento) {
                           
                             if (data.listasegmento.hasOwnProperty(+item)) {
-                                ddlSegmentoBanner.append('<div style="display:block"><div style="float:left"><input type="Checkbox" value="' + data.listasegmento[item].BannerSegmentoId + '" style="display:inline-block !important; height: 15px !important;" /></div><div style="float:left;">' + data.listasegmento[item].BannerSegmentoDes + '</div> <div style="clear: both"></div></div>');
+                                ddlSegmento.append('<div style="display:block"><div style="float:left"><input type="Checkbox" value="' + data.listasegmento[item].BannerSegmentoId + '" style="display:inline-block !important; height: 15px !important;" /></div><div style="float:left;">' + data.listasegmento[item].BannerSegmentoDes + '</div> <div style="clear: both"></div></div>');
                             }
                         }
 
                         var segmentosVal = $("#Seccion").val();
                         if (segmentosVal != "") {
                             var segmentosInternos = segmentosVal.split(',');
-                            $("#ddlSegmentoBanner").find('input[type="checkbox"]').each(function () {
+                            $("#ddlSegmento").find('input[type="checkbox"]').each(function () {
 
                                 var valor = $(this).attr('value');
                                 if ($.inArray(valor, segmentosInternos) > -1) {
@@ -88,7 +88,8 @@
         return false;
         }
 
-    function ConfigurarArbol(Zonas) {
+        function ConfigurarArbol(Zonas) {
+
             $.ajaxSetup({
                 cache: false
             });
@@ -174,7 +175,7 @@
 
 
     <div class="div-3">
-        <div class="titG">Accion:</div>
+        <div class="titG">Acción:</div>
         <div class="selectP2 borde_redondeado">
             @Html.DropDownListFor(model => model.Accion, new SelectList(Model.ListaAccion, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlAccion" })
         </div>
@@ -206,7 +207,7 @@
         <div class="div-3">
             <div class="titC">Segmento:</div>
             <div class="selectA borde_redondeado">
-                <ul id="ddlSegmentoBanner"></ul>&nbsp;
+                <ul id="ddlSegmento"></ul>&nbsp;
             </div>
         </div>
     </div>

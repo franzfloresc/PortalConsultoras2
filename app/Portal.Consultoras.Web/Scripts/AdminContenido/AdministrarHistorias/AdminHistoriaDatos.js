@@ -39,6 +39,10 @@
         NuevoDatos: 3,
         Deshabilitar: 4
     };
+    var _variables= {
+        VerMas: 'VER_MAS',
+        AgrCar: 'AGR_CAR',
+    };
 
     var _evento = function () {
         CargarGrilla();
@@ -64,9 +68,28 @@
         return act;
     };
 
+    var _GrillaDetaCodigo = function (cellvalue, options, rowObject) {      
+        var act = "";
+        if (cellvalue != null) {
+            if (cellvalue == _variables.VerMas) {
+                act = "<strong>" + rowObject[12] +"</strong>";
+                if (rowObject[13] != null) {
+                   act += ": " + rowObject[13];
+                }
+            } else if (cellvalue == _variables.AgrCar) {
+                act = "<strong>" + rowObject[12] + "</strong>";
+                if (rowObject[10] != null) {
+                   act += ": " + rowObject[10];
+                }
+            }
+        }
+        return act;
+    };
+
     $("#ddlCampania").change(function () {
         $(_elemento.TablaId).trigger('reloadGrid');
     })
+
     var CargarGrilla = function () {
         $(_elemento.TablaId).jqGrid('GridUnload');
 
@@ -77,12 +100,11 @@
             postData: ({
                 IdContenido: function () { return jQuery.trim($("#IdContenido").val()); },
                 Campania: function () { return jQuery.trim($("#ddlCampania").val()); }
-            }),
-           
+            }),           
             mtype: 'GET',
             contentType: 'application/json; charset=utf-8',
             multiselect: false,
-            colNames: ['ID', 'Tipo', 'Orden', 'Contenido', 'IdContenido', 'Campaña', 'Region', 'Zona', 'Seccion', 'AccionTb', 'CodigoDetalle', 'Acción'],
+            colNames: ['ID', 'Tipo', 'Orden', 'Contenido', 'IdContenido', 'Campaña', 'Region', 'Zona', 'Seccion', 'AccionHidden', 'CodigoDetalle', 'Acción', 'Opciones'],
             colModel: [
                 {
                     name: 'IdContenidoDeta',
@@ -123,18 +145,17 @@
                 { name: 'Zona', index: 'Zona', hidden: true },
                 { name: 'Seccion', index: 'Seccion', hidden: true },
                 { name: 'Accion', index: 'Accion', hidden: true },
-                { name: 'CodigoDetalle', index: 'CodigoDetalle', hidden: true },                
+                { name: 'CodigoDetalle', index: 'CodigoDetalle', hidden: true },
+                { name: 'DetaCodigo', index: 'DetaCodigo', formatter: _GrillaDetaCodigo},
                 {
                     name: 'Opciones',
                     index: 'Opciones',
-                    width: 20,
+                    width: 30,
                     align: 'center',
                     resizable: false,
                     sortable: false,
                     formatter: _GrillaAcciones
                 },
-
-
             ],
             pager: jQuery(_elemento.TablaPagina),
             loadtext: _texto.Cargando,
@@ -154,7 +175,7 @@
         });
         jQuery(_elemento.TablaId).jqGrid('navGrid', _elemento.TablaPagina, { edit: false, add: false, refresh: false, del: false, search: false });
     };
-
+ 
     var GrillaEditar = function (event) {
 
         var rowId = $(event.path[1]).parents('tr').attr('id');

@@ -224,7 +224,7 @@ namespace Portal.Consultoras.Web.Controllers
                     records = pag.RecordCount,
                     rows = from a in items
                            select new
-                           {
+                           { 
                                cell = new string[]
                                 {
                                     a.IdContenidoDeta.ToString(),
@@ -237,7 +237,10 @@ namespace Portal.Consultoras.Web.Controllers
                                     a.Zona,
                                     a.Seccion,
                                     a.Accion,
-                                    a.CodigoDetalle
+                                    a.CodigoDetalle,
+                                    a.DetaCodigo,
+                                    a.DetaAccionDescripcion,
+                                    a.DetaCodigoDetalleDescripcion
                                 }
                            }
                 };
@@ -251,9 +254,9 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private IEnumerable<ServiceContenido.BEContenidoAppList> ComponenteListarDetService(int IdContenido, string Campania)
+        private IEnumerable<BEContenidoAppList> ComponenteListarDetService(int IdContenido, string Campania)
         {
-            List<ServiceContenido.BEContenidoAppList> listaEntidad = new List<ServiceContenido.BEContenidoAppList>();
+            List<BEContenidoAppList> listaEntidad = new List<BEContenidoAppList>();
 
             try
             {

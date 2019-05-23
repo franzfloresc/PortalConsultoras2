@@ -58,7 +58,7 @@ function IniDialogDetalle() {
                     CodigoDetalle = $("#txtCUV").val();
                 }       
 
-                $("#ddlSegmentoBanner").find('input[type="checkbox"]').each(function () {
+                $("#ddlSegmento").find('input[type="checkbox"]').each(function () {
                     if ($(this).attr("checked")) {
                         SegmentoInterno += $(this).val() + ",";
                     }
