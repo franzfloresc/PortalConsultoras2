@@ -26,6 +26,7 @@ var EstrategiaAgregarModule = (function () {
     };
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _mensajeAgregarPedido = ConstantesModule.MensajeAgregarPedido;
+    var _mensajeModificarPedido = ConstantesModule.MensajeModificarPedido;
     var dataProperties = {
         dataItem: "[data-item]",
         dataContenedorCantidad: "[data-cantidad-contenedor]",
@@ -473,14 +474,14 @@ var EstrategiaAgregarModule = (function () {
                 //Tooltip de agregado
                 if (esFichaT) {
                     try {
-                        var $AgregadoTooltip = $(dataProperties.tooltip);
-                        if (params.EsEditable) {
-                            $AgregadoTooltip.find(dataProperties.tooltipMensaje1).html("¡Listo! ");
-                            $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
-                        }
-                        $AgregadoTooltip.show();
+                        //var $AgregadoTooltip = $(dataProperties.tooltip);
+                        //if (params.EsEditable) {
+                        //    $AgregadoTooltip.find(dataProperties.tooltipMensaje1).html("¡Listo! ");
+                        //    $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
+                        //}
+                        //$AgregadoTooltip.show();
                         setTimeout(function () {
-                            $AgregadoTooltip.hide();
+                            //$AgregadoTooltip.hide();
                             if (typeof esAppMobile == 'undefined') {
                                 if (origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack) {
                                     window.location = "/ofertas";
@@ -636,10 +637,18 @@ var EstrategiaAgregarModule = (function () {
                 }
 
                 var mensaje = '';
-                if (data.EsReservado === true) {
-                    mensaje = _mensajeAgregarPedido.reservado;
+                if (esEditable === false) {
+                    if (data.EsReservado === true) {
+                        mensaje = _mensajeAgregarPedido.reservado;
+                    } else {
+                        mensaje = _mensajeAgregarPedido.normal;
+                    }
                 } else {
-                    mensaje = _mensajeAgregarPedido.normal;
+                    if (data.EsReservado === true) {
+                        mensaje = _mensajeModificarPedido.reservado;
+                    } else {
+                        mensaje = _mensajeModificarPedido.normal;
+                    }
                 }
 
                 AbrirMensaje25seg(mensaje, imagenProducto);

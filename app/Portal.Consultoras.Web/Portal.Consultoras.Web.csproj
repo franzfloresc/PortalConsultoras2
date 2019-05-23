@@ -28,8 +28,7 @@
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
     <IISExpressSSLPort>44361</IISExpressSSLPort>
-    <Use64BitIISExpress>
-    </Use64BitIISExpress>
+    <Use64BitIISExpress>true</Use64BitIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -4210,6 +4209,9 @@
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\ConsultoraOnline\assets\bootstrap.min.js" />
+    <Content Include="Scripts\PortalConsultoras\ConsultoraOnline\DetallePedidoPendiente.js" />
+    <Content Include="Scripts\PortalConsultoras\ConsultoraOnline\Pendientes.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Cliente\ClientePresenter.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Cliente\ClienteView.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Componentes\ComponentesPresenter.js" />
@@ -4704,6 +4706,8 @@
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\ComponenteDetalleIndividualTemplate.cshtml" />
     <Content Include="Areas\Mobile\Views\Bonificaciones\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Bonificaciones\IndexExterno.cshtml" />
+    <Content Include="Areas\Mobile\Views\ConsultoraOnline\PendientesMedioDeCompra.cshtml" />
+    <Content Include="Areas\Mobile\Views\ConsultoraOnline\DetallePedidoPendienteClientes.cshtml" />
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService1.wsdl" />
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService5.xsd">
       <SubType>Designer</SubType>

@@ -1,5 +1,5 @@
 ﻿
-var ConstantesModule = (function () {
+var ConstantesModule = (function() {
     // antiguo var _codigosPalanca = {
     var _codigoTipoEstrategiaTexto = {
         OfertaParaTi: "OfertaParaTi",
@@ -69,19 +69,21 @@ var ConstantesModule = (function () {
         ProgramaNuevasRegalo: "044",
         ParticipaProgramaNuevas: "1",
         NotParticipaProgramaNuevas: "0",
-        DuoPerfecto: "034"//HD-3473 EINCA
+        DuoPerfecto: "034" //HD-3473 EINCA
     }
 
     var _diccionarioTipoEstrategia = [
         { codigo: _codigoTipoEstrategia.OfertaParaTi, texto: _codigoTipoEstrategiaTexto.OfertaParaTi },
         { codigo: _codigoTipoEstrategia.PackNuevas, texto: _codigoTipoEstrategiaTexto.PackNuevas },
         { codigo: _codigoTipoEstrategia.OfertaWeb, texto: _codigoTipoEstrategiaTexto.OfertaWeb },
-
         { codigo: _codigoTipoEstrategia.Lanzamiento, texto: _codigoTipoEstrategiaTexto.Lanzamiento },
         { codigo: _codigoTipoEstrategia.OfertasParaMi, texto: _codigoTipoEstrategiaTexto.OfertasParaMi },
         { codigo: _codigoTipoEstrategia.PackAltoDesembolso, texto: _codigoTipoEstrategiaTexto.PackAltoDesembolso },
         { codigo: _codigoTipoEstrategia.OfertaDelDia, texto: _codigoTipoEstrategiaTexto.OfertaDelDia },
-        { codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada, texto: _codigoTipoEstrategiaTexto.GuiaDeNegocioDigitalizada },
+        {
+            codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada,
+            texto: _codigoTipoEstrategiaTexto.GuiaDeNegocioDigitalizada
+        },
         { codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada, texto: _codigoTipoEstrategiaTexto.GuiaNegocio },
         { codigo: _codigoTipoEstrategia.HerramientasVenta, texto: _codigoTipoEstrategiaTexto.HerramientasVenta },
         { codigo: _codigoTipoEstrategia.ShowRoom, texto: _codigoTipoEstrategiaTexto.ShowRoom },
@@ -109,10 +111,10 @@ var ConstantesModule = (function () {
         LAN: "LAN",
         MG: "MG",
         SR: "SR",
-		ATP: "ATP",
+        ATP: "ATP",
         DP: "DP",
         //INI HD-3908
-        PN:"PN"
+        PN: "PN"
         //FIN HD-3908
     };
 
@@ -126,8 +128,8 @@ var ConstantesModule = (function () {
     };
 
     // en AnalyticsPortal.js tambiar actualizar los valores
-    
-    
+
+
     var _origenPedidoWeb = {
         DesktopHomeOfertaDeliaBannerSuperior: "1010306",
         DesktopPedidoOfertaDelDiaBannerSuperior: "1020306",
@@ -176,9 +178,9 @@ var ConstantesModule = (function () {
         updatePostulanteMensaje: '/Pedido/UpdatePostulanteMensaje'
     }
 
-    var _getTipoPersonalizacionByTipoEstrategia = function (codigoTipoEstrategia) {
+    var _getTipoPersonalizacionByTipoEstrategia = function(codigoTipoEstrategia) {
 
-        var valor = _TipoEstrategiaTipoPersonalizacion.find(function (element) {
+        var valor = _TipoEstrategiaTipoPersonalizacion.find(function(element) {
             return element.TipoEstrategia == codigoTipoEstrategia;
         });
 
@@ -194,6 +196,10 @@ var ConstantesModule = (function () {
         reservado: '¡Listo! Agregaste con éxito a tu pedido reservado.'
     }
 
+    var _mensajeModificarPedido = {
+        normal: '¡Listo! Tu pedido ha sido modificado',
+        reservado: '¡Listo! Tu pedido reservado ha sido modificado'
+    }
     var _tiempo = {
         ToolTip: 2500
     }
@@ -214,6 +220,7 @@ var ConstantesModule = (function () {
         DiccionarioTipoEstrategia: _diccionarioTipoEstrategia,
         GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia,
         MensajeAgregarPedido: _mensajeAgregarPedido,
+        MensajeModificarPedido: _mensajeModificarPedido,
         Tiempo: _tiempo
     }
 })();
