@@ -52,13 +52,13 @@ var EstrategiaPresenter = function (config) {
     };
 
     var _onEstrategiaModelClick = function (event, popup, limite, esFicha, esEditable) {
-        debugger;
+        if (!(event instanceof Event)) throw  "event is undefined";
+        if (!(typeof popup === "boolean")) throw  "popup is undefined";
+        if (!(typeof limite === "number")) throw  "limite is undefined";
+        if (!(typeof esFicha === "boolean")) throw  "esFicha is undefined";
+        if (!(typeof esEditable === "boolean")) throw  "esEditable is undefined";
 
-        console.log(event);
-        console.log('evento' instanceof Event);
-        console.log(typeof event);
-
-        //EstrategiaAgregarModule.EstrategiaAgregar(event, popup, limite, esFicha, esEditable);
+        EstrategiaAgregarModule.EstrategiaAgregar(event, popup, limite, esFicha, esEditable);
     };
 
     return {

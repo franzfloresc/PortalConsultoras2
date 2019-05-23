@@ -37,13 +37,15 @@ module.exports = function (config) {
             'Scripts/PortalConsultoras/Shared/ConstantesModule.js',
             'Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js',
 
-            // FichaModule
+            //#region Provider
             'Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js',
             'Scripts/PortalConsultoras/TusClientes/PanelListaModule.js',
             'Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js',
             'Scripts/PortalConsultoras/TusClientes/ClientePanelModule.js',
             'Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js',
             'Scripts/PortalConsultoras/DetalleEstrategia/Ficha/FichaModule.js',
+            'scripts/portalconsultoras/estrategiaagregar/estrategiaagregar.js',
+            //#endregion
 
             // TusClientes
             'Scripts/PortalConsultoras/TusClientes/TusClientesView.js',
