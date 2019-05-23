@@ -168,6 +168,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         {
                             var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
                             respuestaT = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuestaT, out error);
+
+                            respuestaT = SetMontosTotalesProl(respuestaT, respuestaReserva);
                         }
 
                         if (!error)
@@ -220,6 +222,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         {
                             var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
                             respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuesta, out error);
+
+                            respuesta = SetMontosTotalesProl(respuesta, respuestaReserva);
                         }
 
                         if (!error)
@@ -346,6 +350,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         {
                             var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
                             respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuesta, out error);
+
+                            respuesta = SetMontosTotalesProl(respuesta, respuestaReserva);
                         }
 
                         if (!error)
@@ -1016,6 +1022,18 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 result.MontoEscala = cero;
             }
         }
+
+
+        private BEPedidoDetalleResult SetMontosTotalesProl(BEPedidoDetalleResult result, BEResultadoReservaProl respuestaReserva)
+        {
+            result.MontoAhorroCatalogo = respuestaReserva.MontoAhorroCatalogo.ToString("#.00");
+            result.MontoAhorroRevista = respuestaReserva.MontoAhorroRevista.ToString("#.00");
+            result.DescuentoProl = respuestaReserva.MontoDescuento.ToString("#.00");
+            result.MontoEscala = respuestaReserva.MontoEscala.ToString("#.00");
+
+            return result;
+        }
+
 
         private BEPedidoDetalle PedidoAgregar_ObtenerEstrategia(BEPedidoDetalle pedidoDetalle)
         {
