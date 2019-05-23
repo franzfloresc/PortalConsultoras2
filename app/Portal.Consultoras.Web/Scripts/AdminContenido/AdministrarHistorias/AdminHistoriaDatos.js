@@ -131,12 +131,12 @@
                     sortable: false
                 },               
                 { name: 'IdContenido', index: 'IdContenido', hidden: true },
-                { name: 'Campania', index: 'Campania', width: 40, align: 'center' },
+                { name: 'Campania', index: 'Campania', width: 40, align: 'center', resizable: false, sortable: false},
                 { name: 'Zona', index: 'Zona', hidden: true },
                 { name: 'Seccion', index: 'Seccion', hidden: true },
                 { name: 'Accion', index: 'Accion', hidden: true },
                 { name: 'CodigoDetalle', index: 'CodigoDetalle', hidden: true },
-                { name: 'DetaCodigo', index: 'DetaCodigo', formatter: _GrillaDetaCodigo },
+                { name: 'DetaCodigo', index: 'DetaCodigo', resizable: false, sortable: false, formatter: _GrillaDetaCodigo },
                 { name: 'DetaAccionDescripcion', index: 'DetaAccionDescripcion', hidden: true },
                 { name: 'DetaCodigoDetalleDescripcion', index: 'DetaCodigoDetalleDescripcion', hidden: true },
                 {
