@@ -1,4 +1,4 @@
-﻿<script id="tipos-tonos-componente-teplate" type="text/x-handlebars-template">
+﻿<script id="tipos-tonos-componente-template" type="text/x-handlebars-template">
     {{#each this.Hermanos as |componente|}}
     <article class="selecion_item">
         <div class="seleccion_img">
@@ -7,19 +7,23 @@
         <div class="seleccion_title">{{componente.NombreBulk}}</div>
 
         {{#iff componente.TieneStock '==' true}}
-        <button data-tipo-tono-cuv="{{componente.Cuv}}">
+        <button id="btn-eligelo-{{componente.Grupo}}-{{componente.Cuv}}" btn-eligelo data-grupo="{{componente.Grupo}}" data-cuv="{{componente.Cuv}}">
             Elígelo
         </button>
-        <div class="contenedor_rangos " id="idcontenedor_rangos" data-cantidad-contenedor="" style="display:none">
-            <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" 
-                   type="text" 
-                   value="1" 
-                   onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);" 
-                   size="2" 
-                   maxlength="2" 
-                   id="txtCantidad" 
-                   data-input="cantidad" 
-                   data-cantidad-input="-">
+        <button id="btn-elegido-{{componente.Grupo}}-{{componente.Cuv}}" data-grupo="{{componente.Grupo}}" data-cuv="{{componente.Cuv}}" class="active" style="display:none;">
+            Elegido
+        </button>
+        <div id="selector-cantidad-{{componente.Grupo}}-{{componente.Cuv}}"class="contenedor_rangos " data-cantidad-contenedor="" style="display:none">
+            <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                   type="text"
+                   value="1"
+                   onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);"
+                   size="2"
+                   maxlength="2"
+                   id="txtCantidad"
+                   data-input="cantidad"
+                   data-cantidad-input="-"
+                   txt-cantidad-{{componente.Grupo}}-{{componente.Cuv}}>
             <div>
                 <a class="txt_menos" data-cantidad-agregar="-" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
                     <div class="dibujar_linea dibujar_menos"></div>
@@ -30,6 +34,7 @@
             </div>
         </div>
         {{/iff}}
+
         {{#iff componente.TieneStock '==' false}}
         <div class="tag_agotago">Agotado</div>
         {{/iff}}
