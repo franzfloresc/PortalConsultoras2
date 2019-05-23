@@ -2,6 +2,7 @@
 using Portal.Consultoras.Entities.CaminoBrillante;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Entities.OrdenYFiltros;
 using Portal.Consultoras.Entities.PagoEnLinea;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.ProgramaNuevas;
@@ -1339,8 +1340,10 @@ namespace Portal.Consultoras.ServiceContracts
         BEDemostradoresPaginado GetDemostradoresCaminoBrillante(BEUsuario entidad, int cantRegistros, int regMostrados, string codOrdenar, string codFiltro);
 
         [OperationContract]
-        List<BEOrdenFiltrosCaminoBrillante> GetFiltrosCaminoBrillante(int paisID);
+        BEOrdenFiltroConfiguracion GetFiltrosCaminoBrillante(int paisID, bool isApp);
+
         #endregion
+
         [OperationContract]
         void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle);
     }
