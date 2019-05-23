@@ -675,6 +675,7 @@ namespace Portal.Consultoras.Common
             public const string JsonWebTokenSecretKey = "JsonWebTokenSecretKey";
             public const string ChatbotSecret = "ChatbotSecret";
             public const string ChatBotPageId = "ChatBotPageId";
+            public const string ChatBotUrl = "https://m.me/{0}?ref={1}";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado

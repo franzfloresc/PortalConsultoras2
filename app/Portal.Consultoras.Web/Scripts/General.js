@@ -2197,3 +2197,10 @@ function AbrirMensajeImagen(mensaje) {
 
     popup.show();
 }
+
+function AbrirChatBot() {
+    if (typeof ChatBotUrlRef === 'undefined') return;
+
+    var win = window.open(ChatBotUrlRef, '_blank');
+    win.focus();
+}

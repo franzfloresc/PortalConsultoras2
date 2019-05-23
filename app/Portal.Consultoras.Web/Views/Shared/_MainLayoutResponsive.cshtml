@@ -144,8 +144,6 @@
 
     <div class="layout-somos-belcorp container-fluid pl-0 pr-0">
 
-
-
         @if (!ViewContext.EsIngresoUnico())
         {
             <header class="layout__header row flex-column flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
@@ -203,12 +201,14 @@
             }
         }
 
-    @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
+        @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
 
         <div class="content_responsive" data-layout="body">
             @RenderBody()
         </div>
-
+        <a title="Chat Messenger" class="mostrarEnMobile btn_chat_messenger_mobile" href="javascript: AbrirChatBot()">
+            <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
+        </a>
         @Html.Partial("~/Views/Shared/_FooterResponsive.cshtml")
     </div>
 
@@ -261,6 +261,7 @@
         var MostrarPalabrasMenoresACuatro = '@ViewBag.MostrarPalabrasMenoresACuatro';
         var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
         var SessionTimeout = '@ViewBag.SessionTimeout';
+        var ChatBotUrlRef = '@ViewBag.ChatBotUrlRef';
 
         function ShowLoading() {
             $("#loading-spin").css('visibility', 'visible').fadeIn();

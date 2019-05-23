@@ -1025,6 +1025,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.MensajeChat = userData.MensajeChat;
             ViewBag.ChatBotPageId = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ChatBotPageId);
             ViewBag.ChatBotToken = new ChatbotProvider().GetToken(userData, SessionManager, _configuracionManagerProvider);
+            ViewBag.ChatBotUrlRef = string.Format(Constantes.ConfiguracionManager.ChatBotUrl, ViewBag.ChatBotPageId, ViewBag.ChatBotToken);
 
             if (userData.RolID == Constantes.Rol.Consultora)
             {
