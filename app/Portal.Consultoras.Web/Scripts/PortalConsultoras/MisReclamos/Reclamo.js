@@ -1,6 +1,4 @@
-﻿import { setTimeout } from "timers";
-
-var cuvKeyUp = false, cuv2KeyUp = false;
+﻿var cuvKeyUp = false, cuv2KeyUp = false;
 var cuvPrevVal = '', cuv2PrevVal = '';
 var listaPedidos = new Array();
 
