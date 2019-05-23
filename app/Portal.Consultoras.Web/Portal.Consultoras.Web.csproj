@@ -237,6 +237,7 @@
     <Compile Include="Controllers\AdministracionPopupsController.cs" />
     <Compile Include="Controllers\BonificacionesController.cs" />
     <Compile Include="Controllers\BaseAdmController.cs" />
+    <Compile Include="Controllers\CaminoBrillanteAdministrarController.cs" />
     <Compile Include="Controllers\ConfiguracionZonasModel.cs" />
     <Compile Include="Controllers\FakeErrorController.cs" />
     <Compile Include="Controllers\EstrategiaGrupoController.cs" />
@@ -5831,6 +5832,7 @@
     <Content Include="Views\AdministracionMedallaBrillante\Index.cshtml" />
     <Content Include="Views\Shared\_MainLayoutResponsiveCaminoBrillante.cshtml" />
     <Content Include="Views\ConsultoraOnline\Pendientes.cshtml" />
+    <Content Include="Views\CaminoBrillanteAdministrar\AdministrarBeneficios.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

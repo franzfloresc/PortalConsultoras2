@@ -9,6 +9,7 @@ using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.CaminoBrillante;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Entities.OrdenYFiltros;
 using Portal.Consultoras.Entities.PagoEnLinea;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.ProgramaNuevas;
@@ -2461,9 +2462,9 @@ namespace Portal.Consultoras.Service
             return _caminoBrillanteBusinessLogic.GetDemostradores(entidad, cantRegistros, regMostrados, codOrdenar, codFiltro);
         }
 
-        public List<BEOrdenFiltrosCaminoBrillante> GetFiltrosCaminoBrillante(int paisID)
+        public BEOrdenFiltroConfiguracion GetFiltrosCaminoBrillante(int paisID, bool isApp)
         {
-            return _caminoBrillanteBusinessLogic.GetFiltrosCaminoBrillante(paisID);
+            return _caminoBrillanteBusinessLogic.GetFiltrosCaminoBrillante(paisID, isApp);
         }
 
         #endregion

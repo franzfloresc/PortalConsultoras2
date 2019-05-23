@@ -117,6 +117,9 @@
     <Compile Include="Oferta\BEGuiaNegocio.cs" />
     <Compile Include="Oferta\BEOfertaDelDia.cs" />
     <Compile Include="Oferta\BEOfertaFinal.cs" />
+    <Compile Include="OrdenYFiltros\BEFiltro.cs" />
+    <Compile Include="OrdenYFiltros\BEOrden.cs" />
+    <Compile Include="OrdenYFiltros\BEOrdenFiltroConfiguracion.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLinea.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaBanco.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaVisa.cs" />
