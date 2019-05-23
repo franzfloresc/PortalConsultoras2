@@ -52,7 +52,13 @@ var EstrategiaPresenter = function (config) {
     };
 
     var _onEstrategiaModelClick = function (event, popup, limite, esFicha, esEditable) {
-        EstrategiaAgregarModule.EstrategiaAgregar(event, popup, limite, esFicha, esEditable);
+        debugger;
+
+        console.log(event);
+        console.log('evento' instanceof Event);
+        console.log(typeof event);
+
+        //EstrategiaAgregarModule.EstrategiaAgregar(event, popup, limite, esFicha, esEditable);
     };
 
     return {

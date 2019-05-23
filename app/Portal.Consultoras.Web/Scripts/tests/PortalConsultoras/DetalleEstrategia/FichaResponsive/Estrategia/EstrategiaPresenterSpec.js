@@ -235,4 +235,26 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - EstrategiaPresenter
             expect(result).to.be.eql(true);
         });
     });
+
+    describe("onEstrategiaModelClick", function () {
+        var errorMsg = '';
+         
+        beforeEach(function () {
+            //generalModule = sinon.stub(GeneralModule);
+        });
+
+        afterEach(function () {
+            sinon.restore();
+        });
+
+        it("throw an exception when ", function () {
+            try {
+                estrategiaPresenter.onEstrategiaModelClick(undefined, true, true, true, true);
+            } catch (error) {
+                errorMsg = error;
+            }
+
+            expect(errorMsg).to.have.string("estrategiaModel is null or undefined");
+        });
+    });
 });
