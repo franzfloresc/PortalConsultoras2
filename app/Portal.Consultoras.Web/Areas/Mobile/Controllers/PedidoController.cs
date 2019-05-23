@@ -242,6 +242,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     : "0",
                 EstadoPedido = (beConfiguracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente).ToInt()
             };
+            model.EstadoPedido = (beConfiguracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente).ToInt();
 
             ValidarStatusCampania(beConfiguracionCampania);
 
@@ -265,7 +266,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             else // Periodo de facturacion
             {
                 ViewBag.AccionBoton = "validar";
-                model.Prol = "RESERVA TU PEDIDO";
+                if (model.EstadoPedido == 1) //Reservado
+                    model.Prol = "MODIFICA TU PEDIDO";
+                else
+                    model.Prol = "RESERVA TU PEDIDO";
+
+                
                 model.ProlTooltip = "Haz click aqui para reservar tu pedido";
 
                 if (diaActual <= userData.FechaInicioCampania)
@@ -330,6 +336,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.CampaniaActual = userData.CampaniaID.ToString();
             model.EMail = userData.EMail;
             model.Celular = userData.Celular;
+            
             ViewBag.paisISO = userData.CodigoISO;
             ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
 
