@@ -204,7 +204,6 @@ namespace Portal.Consultoras.BizLogic.Reserva
             if (!input.ZonaValida) return new BEResultadoReservaProl { Reserva = true, ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
             if (!input.ValidacionInteractiva) return new BEResultadoReservaProl { ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
 
-            
             try
             {
                 var listDetalle = GetPedidoWebDetalleReserva(input, false);

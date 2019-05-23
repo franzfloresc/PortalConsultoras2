@@ -410,7 +410,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
             pedidoDetalle = PedidoAgregar_ObtenerEstrategia(pedidoDetalle);
             var usuario = pedidoDetalle.Usuario;
 
-
             var estrategia = PedidoAgregar_FiltrarEstrategiaPedido(pedidoDetalle, usuario.PaisID);
 
             if (string.IsNullOrEmpty(estrategia.CUV2))
@@ -626,11 +625,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     Grupo = grupo
                 });
 
-
                 if (ObtieneValorFlagDesactivacionNoDigitable())
                 {
                     if ((listSp.Length > 4 && digitable == "0"))
+                    {
                         continue;
+                    }
                 }
 
                 if (!pedidoDetalle.EsKitNuevaAuto)
@@ -3198,7 +3198,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 DescuentoProl = montoDescuento,
                 MontoEscala = montoEscala
             };
-
             _pedidoWebBusinessLogic.UpdateMontosPedidoWeb(bePedidoWeb);
 
             if (!string.IsNullOrEmpty(codigoConcursosProl))
