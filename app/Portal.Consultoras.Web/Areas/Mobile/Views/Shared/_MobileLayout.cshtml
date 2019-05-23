@@ -152,7 +152,7 @@
             <br />
             <br />
         </div>
-        <a title="Chat Messenger" class="d-block btn_chat_messenger_mobile">
+        <a title="Chat Messenger" class="d-block btn_chat_messenger_mobile" href="javascript: AbrirChatBot()">
             <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
         </a>
     </section>
@@ -292,6 +292,7 @@
         window.actionName     = '@acti.ToLower()';
         var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
         var SessionTimeout = '@ViewBag.SessionTimeout';
+        var ChatBotUrlRef = '@ViewBag.ChatBotUrlRef';
     </script>
 
     @if (ViewBag.MostrarBannerSuperiorOdd == true) // TieneOfertaDelDia

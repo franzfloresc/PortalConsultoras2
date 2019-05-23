@@ -2188,3 +2188,10 @@ function validarpopupBloqueada(message) {
 }
 //FIN HD-3693
 
+
+function AbrirChatBot() {
+    if (typeof ChatBotUrlRef === 'undefined') return;
+
+    var win = window.open(ChatBotUrlRef, '_blank');
+    win.focus();
+}

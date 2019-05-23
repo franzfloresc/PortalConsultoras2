@@ -206,7 +206,7 @@
         <div class="content_responsive" data-layout="body">
             @RenderBody()
         </div>
-        <a title="Chat Messenger" class="mostrarEnMobile btn_chat_messenger_mobile">
+        <a title="Chat Messenger" class="mostrarEnMobile btn_chat_messenger_mobile" href="javascript: AbrirChatBot()">
             <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
         </a>
         @Html.Partial("~/Views/Shared/_FooterResponsive.cshtml")
@@ -261,6 +261,7 @@
         var MostrarPalabrasMenoresACuatro = '@ViewBag.MostrarPalabrasMenoresACuatro';
         var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
         var SessionTimeout = '@ViewBag.SessionTimeout';
+        var ChatBotUrlRef = '@ViewBag.ChatBotUrlRef';
 
         function ShowLoading() {
             $("#loading-spin").css('visibility', 'visible').fadeIn();
