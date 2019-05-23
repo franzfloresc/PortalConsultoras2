@@ -22,7 +22,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         protected OfertaBaseProvider _ofertaBaseProvider;
         protected ConfiguracionOfertasHomeProvider _configuracionOfertasHomeProvider;
         protected CarruselUpSellingProvider _carruselUpSellingProvider;
-        protected OfertaPersonalizadaProvider _ofertaPersonalizadaProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
         //protected TablaLogicaProvider _tablaLogicaProvider;
 
@@ -32,7 +31,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
             _configuracionOfertasHomeProvider = new ConfiguracionOfertasHomeProvider();
             _carruselUpSellingProvider = new CarruselUpSellingProvider();
-            _ofertaPersonalizadaProvider = new OfertaPersonalizadaProvider();
         }
 
         public EstrategiaController(ISessionManager sesionManager, ILogManager logManager, TablaLogicaProvider tablaLogicaProvider)
@@ -777,32 +775,28 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             {
                 var mostrarFuncionalidadUpSelling = _tablaLogicaProvider.GetTablaLogicaDatoValor(userData.PaisID, ConsTablaLogica.ConfiguracionesFicha.TablaLogicaId, ConsTablaLogica.ConfiguracionesFicha.MostrarFuncionalidadUpSelling, true);
 
-                if (!mostrarFuncionalidadUpSelling.IsNullOrEmptyTrim() || mostrarFuncionalidadUpSelling == "1")
-                {
-                    var dataProductosCarruselUpSelling = await _carruselUpSellingProvider.ObtenerProductosCarruselUpSelling(cuvExcluido, codigosProductos, precioProducto);
-
-                    if (dataProductosCarruselUpSelling == null || !dataProductosCarruselUpSelling.success)
-                    {
-                        return Json(new OutputProductosUpSelling()
-                        {
-                            result = new List<EstrategiaPersonalizadaProductoModel>()
-                        });
-                    }
-
-                    var listaProductosValidados = ValidacionResultadosProductos(dataProductosCarruselUpSelling.result).ToList();
-
-                    var listaOfertasModel = _ofertaPersonalizadaProvider.RevisarCamposParaMostrar(listaProductosValidados, true);
-
-                    return Json(new
-                    {
-                        success = true,
-                        result = listaOfertasModel
-                    });
-                }
-                else
+                if (mostrarFuncionalidadUpSelling.IsNullOrEmptyTrim() || mostrarFuncionalidadUpSelling == "0" || palanca == Constantes.NombrePalanca.OfertaDelDia)
                 {
                     return FichaObtenerProductosCarrusel(cuvExcluido, palanca);
                 }
+
+                var dataProductosCarruselUpSelling = await _carruselUpSellingProvider.ObtenerProductosCarruselUpSelling(cuvExcluido, codigosProductos, precioProducto);
+
+                if (!dataProductosCarruselUpSelling.success)
+                {
+                    return Json(new OutputProductosUpSelling()
+                    {
+                        result = new List<EstrategiaPersonalizadaProductoModel>()
+                    });
+                }
+
+                var listaProductosValidados = ValidacionResultadosProductos(dataProductosCarruselUpSelling.result).ToList();
+                var listaOfertasModel = _ofertaPersonalizadaProvider.RevisarCamposParaMostrar(listaProductosValidados, true);
+                return Json(new
+                {
+                    success = true,
+                    result = listaOfertasModel
+                });
             }
             catch (Exception ex)
             {

@@ -1,4 +1,4 @@
-﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Models;
@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (configuracionCampania.CampaniaID == 0)
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
 
-            if ((configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == DateTime.Today)
+            if ((configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == getDiaActual())
                 && !configuracionCampania.ModificaPedidoReservado
                 && !configuracionCampania.ValidacionAbierta)
                 return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
@@ -224,7 +224,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (beConfiguracionCampania.CampaniaID == 0)
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
 
-            if ((beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == DateTime.Today)
+            if ((beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == getDiaActual())
                 && !beConfiguracionCampania.ModificaPedidoReservado
                 && !beConfiguracionCampania.ValidacionAbierta)
                 return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
@@ -240,9 +240,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                                        && beConfiguracionCampania.ModificaPedidoReservado
                     ? "1"
                     : "0",
-                EstadoPedido = (beConfiguracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente).ToInt()
-            };
-            model.EstadoPedido = (beConfiguracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente).ToInt();
+                EstadoPedido = (beConfiguracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente && !beConfiguracionCampania.ValidacionAbierta).ToInt()
+                 
+        };
+            model.EstadoPedido = (beConfiguracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente && !beConfiguracionCampania.ValidacionAbierta).ToInt();
 
             ValidarStatusCampania(beConfiguracionCampania);
 
@@ -694,7 +695,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return resultado;
         }
-
+        /// <summary>
+        /// Fecha actual según el pais.
+        /// </summary>
+        /// <returns></returns>
+        private DateTime getDiaActual()
+        {
+            return DateTime.Now.AddHours(userData.ZonaHoraria);
+        }
 
     }
 }
