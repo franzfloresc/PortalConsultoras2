@@ -74,8 +74,8 @@ body{
 h3.mt-2.mb-2, h3.mt-2.mb-1 {
     font-weight: 700 !important;
 }
-
 .ValidaNumeral {
-    text-align: center;
+    text-align: center;    
     padding-right: 2.5rem;
 }
+

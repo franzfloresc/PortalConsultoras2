@@ -42,10 +42,9 @@ var AnalyticsPortalModule = (function () {
         anterior: "Ver anterior",
         duoPerfecto: "Dúo Perfecto",
         palancaLasMasGandoras: "Más Ganadoras",
-        armaTuDuoPerfecto: 'Arma tu Dúo Perfecto - Dúo Perfecto'
-
-        // Fin - Analytics Ofertas (Miguel)
-    };
+        armaTuDuoPerfecto: ' Arma tu Dúo Perfecto - Dúo Perfecto',
+	    PedidoPendienteAceptado: 'Pedidos Pendientes - Pedidos Aceptados '
+};
 
     // Inicio - Analytics Home 1 (Miguel)
     var _codigoSeccion = {
@@ -2738,6 +2737,13 @@ var AnalyticsPortalModule = (function () {
         ClickAddCartFicha: clickAddCartFicha,
         ClickTabGanadoras: clickTabGanadoras,
         // Fin - Analytics Ganadoras
+
+        // Ini - Analytics PedidoPendientes
+        ClickBotonPedidosPendientes: clickBotonPedidosPendientes,
+        ClickTabPedidosPendientes: clickTabPedidosPendientes,
+        ClickBotonTabVistaProducto: clickBotonTabVistaProducto,
+        ClickVistaAddToCardPedidoPendiente: clickVistaAddToCardPedidoPendiente,
+        // Fin - Analytics PedidoPendientes
 
         // Ini - Analytics PedidoPendientes
         ClickBotonPedidosPendientes: clickBotonPedidosPendientes,
