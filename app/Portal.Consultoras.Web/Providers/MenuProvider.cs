@@ -388,7 +388,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (menu.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower())
                 {
-                    menu.UrlImagen = GetUrlImagenMenuOfertas(userSession.CodigoISO, revistaDigital);
+                    menu.UrlImagen = GetUrlImagenMenuOfertas(userSession.CodigoISO, revistaDigital, true);
                 }
 
                 listadoMenuFinal.Add(menu);
