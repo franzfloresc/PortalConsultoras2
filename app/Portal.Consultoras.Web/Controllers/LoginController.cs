@@ -2163,6 +2163,9 @@ namespace Portal.Consultoras.Web.Controllers
                 revistaDigitalModel.MLogoComercialFondoNoActiva = GetValor2WithS3AndDelete(listaDatos, Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoNoActiva, codigoIso);
 
                 revistaDigitalModel.LogoMenuOfertasActiva = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva, codigoIso);
+                revistaDigitalModel.LogoMenuOfertasActivaMobile = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActivaMobile, codigoIso);
+                revistaDigitalModel.LogoMenuOfertasNoActiva = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva, codigoIso);
+                revistaDigitalModel.LogoMenuOfertasNoActivaMobile = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActivaMobile, codigoIso);
                 revistaDigitalModel.LogoMenuOfertasNoActiva = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva, codigoIso);
                 revistaDigitalModel.BloquearRevistaImpresaGeneral = GetValor1ToIntAndDelete(listaDatos, Constantes.ConfiguracionPaisDatos.RD.BloquearPedidoRevistaImp);
                 revistaDigitalModel.BloquearProductosSugeridos = GetValor1ToInt(listaDatos, Constantes.ConfiguracionPaisDatos.RD.BloquearSugerenciaProducto);
