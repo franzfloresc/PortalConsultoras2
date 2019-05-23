@@ -1,4 +1,4 @@
-﻿var modelLiquidacionOfertas;
+var modelLiquidacionOfertas;
 var labelAgregadoLiquidacion;
 var agregoOfertaFinal = agregoOfertaFinal || false;
 var DesktopPedidoOfertaFinal = DesktopPedidoOfertaFinal || 0;

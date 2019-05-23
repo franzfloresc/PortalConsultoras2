@@ -1,4 +1,4 @@
-﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Models;

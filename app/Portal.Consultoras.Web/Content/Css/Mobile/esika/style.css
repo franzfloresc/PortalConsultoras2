@@ -14964,7 +14964,7 @@ a {
 
 #alertDialogMensajes25seg {
     padding: 16px !important;
-    min-height: 100px !important;
+    min-height: 78px !important;
 }
 
 .alert-align {
@@ -14986,6 +14986,7 @@ a {
     .setBottom .pop_pedido_mensaje {
         color: #569C04;
         font-size: 16px;
+        margin-top: 13px;
     }
 
 .pop_image .img-fluid {
@@ -15021,8 +15022,6 @@ a {
     flex-flow: column;
 }
 
-    .snackbar-align .pop_image .img-fluid {
-        padding-bottom: 16px;
-    }
+    
 /* Fin */
 
