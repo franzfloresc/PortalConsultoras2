@@ -54,6 +54,12 @@ namespace Portal.Consultoras.Web.Controllers
             /* FIN HD-3693 */
             ViewBag.ConsultoraBloqueada = userData.AutorizaPedido;
             ViewBag.UrlCatalogoPiloto = GetUrlCatalogoPiloto();
+            /* INI HD-4248 */
+            ViewBag.UrlCatalogoPiloto_WSP = GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.TipoWSP);
+            ViewBag.UrlCatalogoPiloto_FB = GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.TipoFB);
+            ViewBag.UrlCatalogoPiloto_MSN = GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.TipoMSN);
+            ViewBag.UrlCatalogoPiloto_EMAIL = GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.TipoEMAIL);
+            /* FIN HD-4248 */
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.FBAppId = _configuracionManagerProvider.GetConfiguracionManager(Constantes.Facebook.FB_AppId);
             ViewBag.TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva;
