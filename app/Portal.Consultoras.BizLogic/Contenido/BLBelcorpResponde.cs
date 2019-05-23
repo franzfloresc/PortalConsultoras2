@@ -159,16 +159,16 @@ namespace Portal.Consultoras.BizLogic
                 arrayColumnas[2] = col2.ToString();
                 arrayColumnas[3] = col3.ToString();
 
-                for (int j = 0; j < arrayColumnas.Length; j++)
-                    arrayColumnas[j] = arrayColumnas[j].Length > 0 ? arrayColumnas[j].Substring(0, arrayColumnas[j].Length - 1) : string.Empty;
-
+                for (int j = 0; j < arrayColumnas.Length; j++) arrayColumnas[j] = arrayColumnas[j].Length > 0 ? arrayColumnas[j].Substring(0, arrayColumnas[j].Length - 1) : string.Empty;
                 return arrayColumnas;
             }
-
-            arrayColumnas[0] = separar;
-            arrayColumnas[1] = separar;
-            arrayColumnas[2] = separar;
-            arrayColumnas[3] = separar;
+            else
+            {
+                arrayColumnas[0] = separar;
+                arrayColumnas[1] = separar;
+                arrayColumnas[2] = separar;
+                arrayColumnas[3] = separar;
+            }
             return arrayColumnas;
         }
 
