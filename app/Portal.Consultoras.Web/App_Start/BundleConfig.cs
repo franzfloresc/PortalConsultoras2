@@ -249,8 +249,7 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Site-Esika-Contenedor").Include(
                 "~/Content/Css/Site/Contenedor/Index.css",
                 "~/Content/Css/Site/Esika/Contenedor.css",
-                "~/Content/Css/Site/ProductoListado/CajaProducto.css",
-                "~/Content/Css/Site/Esika/nuevo-look-and-feel.css"
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Esika-Contenedor").Include(

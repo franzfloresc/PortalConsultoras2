@@ -42,8 +42,9 @@
 }
 
 .header--nuevoLookAndFeelEsika .boton_cam,
+.header--nuevoLookAndFeelEsika .notificaciones_existentes,
 .layout__header--nuevoLookAndFeelEsika .menu__item--campaniaActual,
-.layout__header--nuevoLookAndFeelEsika .menu__item--campaniaActual span{
+.layout__header--nuevoLookAndFeelEsika .menu__item--campaniaActual span {
     background-color: #FFE8A2;
     color: #FF335A;
 }
@@ -103,6 +104,10 @@
     border: 1px solid #FFF;
 }
 
+.header--nuevoLookAndFeelEsika .buscador_productos_sin_enlace_menu_socia_empresaria_vista_pedido{
+    width:24%;
+}
+
 .header--nuevoLookAndFeelEsika .tutoriales_svg {
     background: url('/Content/Images/icono-tutorial-blanco.svg') no-repeat;
     background-position: left 3px;
@@ -112,7 +117,7 @@
     cursor:pointer;
 }
 
-.header--nuevoLookAndFeelEsika .invisible + .cart_compras:hover,
+.header--nuevoLookAndFeelEsika .cart_compras:hover,
 .header--nuevoLookAndFeelEsika .cart_compras .flechita_info {
     background-color: #FFF;
 }
@@ -132,7 +137,7 @@
     background-size: 103%;
 }
 
-.header--nuevoLookAndFeelEsika .invisible + .cart_compras:hover .campana_svg {
+.header--nuevoLookAndFeelEsika .cart_compras:hover .campana_svg {
     background: url('/Content/Images/icono_carrito.svg') no-repeat;
     background-position: left 4px;
     background-size: 103%;
@@ -210,7 +215,7 @@
     }
 
 .header--nuevoLookAndFeelEsika .sub_menu_home1 .new_menu_a,
-.header--nuevoLookAndFeelEsika .invisible + .cart_compras:hover .campana_svg + .notificaciones,
+.header--nuevoLookAndFeelEsika .cart_compras:hover .campana_svg + .notificaciones,
 .ubicacion_web.ubicacion_web--nuevoLookAndFeelEsika span,
 .ubicacion_web.ubicacion_web--nuevoLookAndFeelEsika a,
 .ubicacion_web.ubicacion_web--nuevoLookAndFeelEsika a:hover,
