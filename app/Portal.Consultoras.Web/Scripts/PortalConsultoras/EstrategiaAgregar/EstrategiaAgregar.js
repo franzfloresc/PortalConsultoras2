@@ -489,22 +489,34 @@ var EstrategiaAgregarModule = (function () {
                                } else if (origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack) {
                                    window.location = "/mobile/ofertas";
 
-                               }
-                           } else {
-                               if (estrategia.CodigoEstrategia === ConstantesModule.TipoEstrategia.ArmaTuPack) {
-                                   window.location = "/ArmaTuPack/AgregarATPApp";
-                               }
-                           }
-                       }, 2500);
-                       if (!(origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack || origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack)) {
-                           if (typeof ResumenOpcionesModule != 'undefined') { ResumenOpcionesModule.LimpiarOpciones() };
-                       }
-                       else {
-                           return;
-                       }
-                   } catch (e) {
-                       console.error(e);
-                   }
+                                }
+                            } else {
+                                if (estrategia.CodigoEstrategia === ConstantesModule.TipoEstrategia.ArmaTuPack) {
+                                    window.location = "/ArmaTuPack/AgregarATPApp";
+                                }
+                            }
+                        }, 2500);
+                        if (!(origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack ||
+                            origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack)) {
+                            if (typeof ResumenOpcionesModule != 'undefined') {
+                                ResumenOpcionesModule.LimpiarOpciones()
+                            };
+                        } else {
+                            var mensaje = '';
+
+                            if (data.EsReservado === true) {
+                                mensaje = _mensajeAgregarPedido.reservado;
+                            } else {
+                                mensaje = _mensajeAgregarPedido.normal;
+                            }
+
+                            AbrirMensaje25seg(mensaje);
+
+                            return;
+                        }
+                    } catch (e) {
+                        console.error(e);
+                    }
 
                }
                //FIN HD-3908
