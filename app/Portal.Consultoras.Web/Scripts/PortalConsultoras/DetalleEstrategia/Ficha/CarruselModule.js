@@ -528,7 +528,7 @@ var CarruselModule = (function (config) {
         var titulo = '';
         if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia) {
             titulo = 'Ver más ofertas ¡Solo Hoy!';
-        } else if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.ShowRoom || _config.palanca == ConstantesModule.TipoEstrategiaTexto.Lanzamiento || _config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertasParaMi || _config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaParaTi || _config.palanca == ConstantesModule.TipoEstrategiaTexto.Ganadoras) {
+        } else{
             if (_config.cantidadPack > 1) {
                 titulo = 'Packs parecidos con más productos';
             } else {
