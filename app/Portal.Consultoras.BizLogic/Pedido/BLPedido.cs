@@ -140,7 +140,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         var respuesta = RespuestaModificarPedido(pedidoDetalle.Usuario);
                         if (respuesta != null)
                         {
-                            reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);
+                            if(pedidoDetalle.ReservaProl != null)
+                            {
+                                reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);
+                            }
 
                             if (!reservado)
                             {
@@ -198,7 +201,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var respuesta = RespuestaModificarPedido(pedidoDetalle.Usuario);
                     if (respuesta != null)
                     {
-                        reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);                        
+                        if (pedidoDetalle.ReservaProl != null)
+                        {
+                            reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);
+                        }
+                                           
                         if (!reservado)
                         {
                             return respuesta;
@@ -326,7 +333,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var respuesta = RespuestaModificarPedido(pedidoDetalle.Usuario);
                     if (respuesta != null)
                     {
-                        reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);
+                        if (pedidoDetalle.ReservaProl != null)
+                        {
+                            reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);
+                        }
+
                         if (!reservado)
                         {
                             return respuesta;
