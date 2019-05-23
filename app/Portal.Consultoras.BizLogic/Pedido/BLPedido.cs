@@ -246,6 +246,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             error = false;
             var pedidoValidacionCode = Constantes.PedidoValidacion.Code.SUCCESS;
+
             if(resultadoReservaProl != null)
             {
                 switch (resultadoReservaProl.ResultadoReservaEnum)
@@ -290,7 +291,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }                
             }
             var respuesta = PedidoDetalleRespuesta(pedidoValidacionCode);
-
+            respuesta.MensajeRespuesta = respuesta.MensajeRespuesta.Replace("Pedido no reservado", "Pedido reservado");
             if (!error)
             {
                 respuesta.CodigoRespuesta = Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR;
