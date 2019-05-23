@@ -7,13 +7,15 @@
 .header--nuevoLookAndFeelEsika--mobile,
 .layout__header--nuevoLookAndFeelEsika,
 .layout__header--nuevoLookAndFeelEsika .btn__productos__agregados--IngresarPedido,
-.pedido_ingreso_c2--nuevoLookAndFeelEsika .pedido_agregado {
+.pedido_ingreso_c2--nuevoLookAndFeelEsika .pedido_agregado,
+.layout__header--nuevoLookAndFeelEsika .btn__productos__agregados--verMiPedido {
     background-color: #FF335A !important;
 }
 
 .header--nuevoLookAndFeelEsika .ver_pedido,
 .boton_home_guardar--nuevoLookAndFeelEsika,
-.layout__header--nuevoLookAndFeelEsika .btn__productos__agregados--IngresarPedido{
+.layout__header--nuevoLookAndFeelEsika .btn__productos__agregados--IngresarPedido,
+.layout__header--nuevoLookAndFeelEsika .btn__productos__agregados--verMiPedido{
     border-radius:4px;
 }
 
@@ -263,9 +265,7 @@
         color: #FFF !important;
     }
 
-    .btn_agregarPedido.btn_agregarPedido--nuevoLookAndFeelEsika input,
-    .layout__header--nuevoLookAndFeelEsika .menu__item[data-title="OFERTAS"],
-    .menu_mobile_belcorp[data-codigo="contenedorofertas"] {
+    .btn_agregarPedido.btn_agregarPedido--nuevoLookAndFeelEsika input{
         background-color: #FF335A;
     }
 
