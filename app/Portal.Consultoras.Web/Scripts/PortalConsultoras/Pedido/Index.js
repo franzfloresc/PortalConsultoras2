@@ -3032,3 +3032,11 @@ function CargarProductosRecomendados(item) {
 function ModificarPedido() {
 	showDialog("divConfirmValidarPROL2");
 }
+
+function PedidosPendientesPorAprobar() {
+
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+        AnalyticsPortalModule.ClickBotonPedidosPendientes('Click Botón', 'Pedidos por aprobar');
+    }
+    window.location.href = '/ConsultoraOnline/Pendientes';
+}

@@ -495,10 +495,22 @@ var EstrategiaAgregarModule = (function () {
                                 }
                             }
                         }, 2500);
-                        if (!(origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack || origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack)) {
-                            if (typeof ResumenOpcionesModule != 'undefined') { ResumenOpcionesModule.LimpiarOpciones() };
-                        }
-                        else {
+                        if (!(origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack ||
+                            origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack)) {
+                            if (typeof ResumenOpcionesModule != 'undefined') {
+                                ResumenOpcionesModule.LimpiarOpciones()
+                            };
+                        } else {
+                            var mensaje = '';
+
+                            if (data.EsReservado === true) {
+                                mensaje = _mensajeAgregarPedido.reservado;
+                            } else {
+                                mensaje = _mensajeAgregarPedido.normal;
+                            }
+
+                            AbrirMensaje25seg(mensaje);
+
                             return;
                         }
                     } catch (e) {
