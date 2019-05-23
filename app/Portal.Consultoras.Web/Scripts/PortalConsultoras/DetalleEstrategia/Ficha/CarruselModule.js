@@ -357,7 +357,7 @@ var CarruselModule = (function (config) {
         OrigenPedidoWeb: config.OrigenPedidoWeb || "",
         pantalla: "Ficha",
         tituloCarrusel: config.tituloCarrusel,
-        cantidadPack: config.cantidadPack,
+        cantidadPack: config.productosHermanos.length,
         codigoProducto: config.codigoProducto,
         precioProducto: config.precioProducto,
         productosHermanos: config.productosHermanos
@@ -528,11 +528,16 @@ var CarruselModule = (function (config) {
         var titulo = '';
         if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia) {
             titulo = 'Ver más ofertas ¡Solo Hoy!';
-        } else{
+        } else {
             if (_config.cantidadPack > 1) {
                 titulo = 'Packs parecidos con más productos';
-            } else {
-                titulo = 'Packs que contienen <span style="text-transform:capitalize">' + _config.tituloCarrusel.toLowerCase()+'</span>';
+            } else if (_config.cantidadPack == 1) {
+                var componenteInicial = _config.productosHermanos[0];
+                if (componenteInicial.FactorCuadre > 1) {
+                    titulo = 'Packs parecidos con más productos';
+                } else {
+                    titulo = 'Packs que contienen <span style="text-transform:capitalize">' + _config.tituloCarrusel.toLowerCase() + '</span>';
+                }
             }
         }
 
