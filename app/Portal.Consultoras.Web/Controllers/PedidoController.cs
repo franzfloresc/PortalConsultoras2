@@ -114,7 +114,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 SessionManager.SetPedidoValidado(false);
 
-                if ((configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == DateTime.Today) &&
+                if ((configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == getDiaActual()) &&
                     !configuracionCampania.ModificaPedidoReservado &&
                     !configuracionCampania.ValidacionAbierta)
                 {
@@ -125,7 +125,7 @@ namespace Portal.Consultoras.Web.Controllers
                 userData.ZonaValida = configuracionCampania.ZonaValida;
 
                 model.FlagValidacionPedido = "0";
-                if ( (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == DateTime.Today) &&
+                if ( (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == getDiaActual()) &&
                     configuracionCampania.ModificaPedidoReservado)
                 {
                     model.FlagValidacionPedido = "1";
@@ -1561,6 +1561,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Enumeradores.ResultadoReserva.ReservadoObservaciones,
                     Enumeradores.ResultadoReserva.NoReservadoMontoMinimo
                 };
+                
 
                 var mensajeCondicional = resultado.ListaMensajeCondicional != null && resultado.ListaMensajeCondicional.Any() ? resultado.ListaMensajeCondicional[0].MensajeRxP: null;
                 return Json(new
@@ -1581,7 +1582,7 @@ namespace Portal.Consultoras.Web.Controllers
                     flagCorreo = resultado.EnviarCorreo ? "1" : "",
                     permiteOfertaFinal = listPermiteOfertaFinal.Contains(resultado.ResultadoReservaEnum),
                     mensajeCondicional,
-                    UltimoDiaFacturacion = (userData.FechaFacturacion == DateTime.Today)   //TESLA 7
+                    UltimoDiaFacturacion = (userData.FechaFacturacion == getDiaActual())   //TESLA 7
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -1596,6 +1597,14 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Fecha actual según el pais.
+        /// </summary>
+        /// <returns></returns>
+        private DateTime getDiaActual()
+        {
+            return DateTime.Now.AddHours(userData.ZonaHoraria);
+        }
         public async Task<JsonResult> EnviarCorreoPedidoReservado()
         {
             try
@@ -2353,7 +2362,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = estado,
                     pedidoReservado = pedidoReservado,
                     message = mensaje,
-                    UltimoDiaFacturacion = (userData.FechaFacturacion == DateTime.Today),   //TESLA 7
+                    UltimoDiaFacturacion = (userData.FechaFacturacion == getDiaActual()),   //TESLA 7
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
