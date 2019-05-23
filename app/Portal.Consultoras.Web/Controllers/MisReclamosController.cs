@@ -334,7 +334,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if ((bool)flagSetsOrPacks)
                 {
-                    var desc = _cdrProvider.ObtenerDescripcion(model.Motivo, Constantes.TipoMensajeCDR.Motivo, userData.PaisID).Descripcion;                    
+                    var desc = _cdrProvider.ObtenerDescripcion(model.Motivo, Constantes.TipoMensajeCDR.Motivo, userData.PaisID).Descripcion;
                     listaRetorno = listaRetorno.Where(a => a.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje || a.CodigoOperacion == Constantes.CodigoOperacionCDR.Devolucion).ToList();
                     if (desc.Contains("mal estado") || desc.Contains("incompleta"))
                         listaRetorno = listaRetorno.Where(a => a.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje).ToList();
@@ -552,7 +552,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var cuvReemplazados = cuvsPedido.Where(a => a.Cantidad == 0 && a.CUVReemplazo != null);
 
                 //si el cambio es por el cuv que se reemplazò, enviamos el cuv original
-                var reemplazo = cuvReemplazados.Where(a => a.CUVReemplazo == model.CUV).FirstOrDefault();
+                var reemplazo = cuvReemplazados.FirstOrDefault(a => a.CUVReemplazo == model.CUV);
                 if (reemplazo != null)
                     cuvEnviar = reemplazo.CUV;
                 else
@@ -584,12 +584,12 @@ namespace Portal.Consultoras.Web.Controllers
                         int i = 0;
                         foreach (var item in respuestaServiceCdr[0].LProductosComplementos)
                         {
-                            var obj = cuvReemplazados.First(a => a.CUV == item.cuv);
+                            var obj = cuvReemplazados.FirstOrDefault(a => a.CUV == item.cuv);
                             var objReemplazo = new ProductosComplementos();
                             if (obj != null)
                             {
                                 //obtener los datos del cuv facturado 
-                                var objFacturado = cuvFacturados.First(a => a.CUV == obj.CUVReemplazo);
+                                var objFacturado = cuvFacturados.FirstOrDefault(a => a.CUV == obj.CUVReemplazo);
                                 objReemplazo.cuv = objFacturado.CUV;
                                 objReemplazo.cantidad = objFacturado.Cantidad;
                                 objReemplazo.descripcion = objFacturado.DescripcionProd;
@@ -858,7 +858,7 @@ namespace Portal.Consultoras.Web.Controllers
                         message = "Ya tiene un detalle con el mismo cuv, y operación para el mismo pedido y campaña"
                     }, JsonRequestBehavior.AllowGet);
                 }
-                                
+
                 if (SessionManager.GetFlagIsSetsOrPack() != null)
                     IsSetsOrPack = SessionManager.GetFlagIsSetsOrPack();
 
@@ -1649,6 +1649,18 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var cdrWebDetalle in cdrWeb.CDRWebDetalle)
             {
                 string html = htmlTemplateDetalleBase.Clone().ToString();
+                string etiquetaHtml = "";
+                if (cdrWebDetalle.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje || cdrWebDetalle.CodigoOperacion == Constantes.CodigoOperacionCDR.Devolucion)
+                {
+                    if (!string.IsNullOrEmpty(cdrWebDetalle.GrupoID))
+                    {
+                        etiquetaHtml = "<tr><td style = 'width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; font-weight: 700; vertical-align: top; color: #000; padding-right: 14px;'>" +
+                                                             "<div style = 'display: block;border-radius: 10.5px;width: 87px;height: 27px;font-size: 14px;line-height: 27px;margin-top: 8px;padding-left: 8px;padding-right: 8px;background-color: #000;color: #fff;font-weight: 700; '>Set o Pack</div></td>" +
+                                                             "<td rowspan = '2' style = 'width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; font-weight: 700;' >" + "</td>" + "</tr> ";
+                    }
+                    
+                }
+                html = html.Replace("#ETIQUETA_SET_PACK#", etiquetaHtml);
                 html = html.Replace("#FORMATO_CUV1#", cdrWebDetalle.CUV);
                 string templateUrlDetalleOperacionBase = string.Empty;
                 switch (cdrWebDetalle.CodigoOperacion)
@@ -1656,7 +1668,7 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.CodigoOperacionCDR.Canje: templateUrlDetalleOperacionBase = templateDetalleOperacionCanjePath; break;
                     case Constantes.CodigoOperacionCDR.Devolucion: templateUrlDetalleOperacionBase = templateDetalleOperacionDevolucionPath; break;
                     case Constantes.CodigoOperacionCDR.Faltante: templateUrlDetalleOperacionBase = templateDetalleOperacionFaltantePath; break;
-                    case Constantes.CodigoOperacionCDR.FaltanteAbono:  templateUrlDetalleOperacionBase = templateDetalleOperacionFaltanteAbonoPath; break;
+                    case Constantes.CodigoOperacionCDR.FaltanteAbono: templateUrlDetalleOperacionBase = templateDetalleOperacionFaltanteAbonoPath; break;
                     default: templateUrlDetalleOperacionBase = templateUrlDetalleOperacionTruequePath; break;
                 }
 
@@ -1666,14 +1678,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var precio = decimal.Round(cdrWebDetalle.Precio, 2);
                 var precio2 = decimal.Round(cdrWebDetalle.Precio2, 2);
                 var simbolo = userData.Simbolo;
-
-                if ( (cdrWebDetalle.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje || cdrWebDetalle.CodigoOperacion == Constantes.CodigoOperacionCDR.Devolucion ) && !string.IsNullOrEmpty(cdrWebDetalle.GrupoID))
-                {
-                   var etiquetaHtml  = "<tr><td style = 'width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; font-weight: 700; vertical-align: top; color: #000; padding-right: 14px;'>"+
-                                       "<div style = 'display:block;border-radius: 10.5px; width: auto;height: 24px;font-size:14px;line-height: 23px;margin-bottom: 8px;padding-left: 8px;padding-right: 8px;  background-color: #000;color: #FFF;'>Set o Pack</div></ td >" + 
-                                       "< td rowspan = '2' style = 'width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; font-weight: 700;' >" + "</ td >" + "</ tr > ";
-                    htmlOperacion = htmlOperacion.Replace("#ETIQUETA_SET_PACK#", etiquetaHtml);
-                }
+                
                 htmlOperacion = htmlOperacion.Replace("#FORMATO_DESCRIPCIONCUV1#", cdrWebDetalle.Descripcion);
                 htmlOperacion = htmlOperacion.Replace("#FORMATO_SOLICITUD#", cdrWebDetalle.Solicitud);
                 htmlOperacion = htmlOperacion.Replace("#FORMATO_CANTIDAD1#", cdrWebDetalle.Cantidad.ToString());
