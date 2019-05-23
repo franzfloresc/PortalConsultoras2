@@ -252,6 +252,9 @@ function MostrarBarra(datax, destino) {
             + '</div>'
             + '</div>';
 
+
+
+
     // quitando esta clase contenedor_tippingPoint se quita el tooltip y el efecto que salta
     var htmlTippintPoint = "";
     var dataTP = dataBarra.TippingPointBarra;
@@ -2362,6 +2365,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
                         if (IsoPais == 'CL' && dataBarra.ListaEscalaDescuento.length >= 5) {
                            
                             avance = (dataBarra.ListaEscalaDescuento[i].MontoDesde - dataBarra.ListaEscalaDescuento[i - 1].MontoDesde)
+
                             if (avance <= 5000) {
                                 if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left =
                                     (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 + 0.2) + '%';
@@ -2372,11 +2376,17 @@ function CalculoPosicionMinimoMaximoDestokp() {
                                 if (document.getElementById('punto_' + i.toString())) document.getElementById('punto_' + i.toString()).style.left = AvancePorcentajeP2;
 
                         } else {
-
+                           
                             if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left = AvancePorcentaje2;
+                                if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left = AvancePorcentaje2;
                             var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 5) + '%'
                             if (document.getElementById('punto_' + i.toString())) document.getElementById('punto_' + i.toString()).style.left = AvancePorcentajeP2;
 
+                        }
+                        
+                    }
+                            var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 5) + '%'
+                            if (document.getElementById('punto_' + i.toString())) document.getElementById('punto_' + i.toString()).style.left = AvancePorcentajeP2;
                         }
                         
                     }
@@ -2654,7 +2664,7 @@ function ReordenarMontosBarra() {
             }
 
         } else {
-            
+          
             if (IsoPais == 'BO' && barra.length >= 5) {
                 if (document.getElementById('punto_0') != null) document.getElementById('punto_0').style.left = (document.getElementById('barra_0').style.left.substring(0, document.getElementById('barra_0').style.left.length - 1) * 1 - 9) + '%'
                 if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('barra_' + i.toString()).style.left.substring(0, document.getElementById('barra_' + i.toString()).style.left.length - 1) * 1 - 5) + '%'
