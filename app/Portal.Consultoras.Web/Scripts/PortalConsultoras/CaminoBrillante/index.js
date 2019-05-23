@@ -1,4 +1,7 @@
-﻿$(document).ready(function () {
+﻿var scrollBeneficios = true
+var scrollLogros = true
+
+$(document).ready(function () {
     Carusel();
 
     var nivelactual = $("#hfNivelActual").val();
@@ -18,22 +21,31 @@
     $('#loadingScreen').hide();
 
 });
+$(window).on("load", function () {
+    TagNivelBeneficios('Mi Nivel');
+    
+});
 
-$(window).scroll(function () {
-
+$(window).on("scroll", function () {
+    
     var windowHeight = $(window).scrollTop() ;
+    var topBeneficios = $('#BeneficiosPrincipal').offset().top  - 100
+    var topLogros = $('#cont-logros').offset().top - 200
 
-    if (windowHeight >= $('#hfNivelActual').offset().top && windowHeight <= $('#hfNivelActual').offset().top) {
-        TagNivelBeneficios('Mi Nivel');
+    if (windowHeight >= topBeneficios && windowHeight <= topLogros ) {
+        if (scrollBeneficios) {
+            TagNivelBeneficios('Mis Beneficios');
+            scrollBeneficios = false;
+        }
     }
 
-    if (windowHeight >= $('#BeneficiosPrincipal').offset().top && windowHeight < $('#cont-logros').offset().top) {
-        TagNivelBeneficios('Mis Beneficios');
+    if (windowHeight >= topLogros) {
+        if (scrollLogros) {
+            TagNivelBeneficios('Mis Logros');
+            scrollLogros = false;
+        }
     }
 
-    if (windowHeight + 100  >= $('#cont-logros').offset().top) {
-        TagNivelBeneficios('Mis Logros');
-    }
 });
 
 function Carusel() {
