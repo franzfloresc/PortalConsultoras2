@@ -72,14 +72,14 @@
         var act = "";
         if (cellvalue != null) {
             if (cellvalue == _variables.VerMas) {
-                act = "<strong>" + rowObject[12] +"</strong>";
-                if (rowObject[13] != null) {
-                   act += ": " + rowObject[13];
+                act = "<strong>" + rowObject[10] +"</strong>";
+                if (rowObject[11] != null) {
+                   act += " - " + rowObject[11];
                 }
             } else if (cellvalue == _variables.AgrCar) {
-                act = "<strong>" + rowObject[12] + "</strong>";
-                if (rowObject[10] != null) {
-                   act += ": " + rowObject[10];
+                act = "<strong>" + rowObject[10] + "</strong>";
+                if (rowObject[8] != null) {
+                   act += " - " + rowObject[8];
                 }
             }
         }
@@ -104,7 +104,7 @@
             mtype: 'GET',
             contentType: 'application/json; charset=utf-8',
             multiselect: false,
-            colNames: ['ID', 'Tipo', 'Orden', 'Contenido', 'IdContenido', 'Campaña', 'Region', 'Zona', 'Seccion', 'AccionHidden', 'CodigoDetalle', 'Acción', 'Opciones'],
+            colNames: ['ID', 'Tipo', 'Orden', 'IdContenido', 'Campaña', 'Zona', 'Seccion', 'AccionHidden', 'CodigoDetalle', 'Acción', 'DetaAccionDescripcion', 'DetaCodigoDetalleDescripcion', 'Contenido',  'Opciones'],
             colModel: [
                 {
                     name: 'IdContenidoDeta',
@@ -129,7 +129,16 @@
                     align: 'center',
                     resizable: false,
                     sortable: false
-                },
+                },               
+                { name: 'IdContenido', index: 'IdContenido', hidden: true },
+                { name: 'Campania', index: 'Campania', width: 40, align: 'center' },
+                { name: 'Zona', index: 'Zona', hidden: true },
+                { name: 'Seccion', index: 'Seccion', hidden: true },
+                { name: 'Accion', index: 'Accion', hidden: true },
+                { name: 'CodigoDetalle', index: 'CodigoDetalle', hidden: true },
+                { name: 'DetaCodigo', index: 'DetaCodigo', formatter: _GrillaDetaCodigo },
+                { name: 'DetaAccionDescripcion', index: 'DetaAccionDescripcion', hidden: true },
+                { name: 'DetaCodigoDetalleDescripcion', index: 'DetaCodigoDetalleDescripcion', hidden: true },
                 {
                     name: 'RutaContenido',
                     index: 'RutaContenido',
@@ -139,14 +148,6 @@
                     align: 'center',
                     formatter: _GrillaImagen
                 },
-                { name: 'IdContenido', index: 'IdContenido', hidden: true },
-                { name: 'Campania', index: 'Campania', width: 40, align: 'center' },
-                { name: 'Region', index: 'Region', hidden: true },
-                { name: 'Zona', index: 'Zona', hidden: true },
-                { name: 'Seccion', index: 'Seccion', hidden: true },
-                { name: 'Accion', index: 'Accion', hidden: true },
-                { name: 'CodigoDetalle', index: 'CodigoDetalle', hidden: true },
-                { name: 'DetaCodigo', index: 'DetaCodigo', formatter: _GrillaDetaCodigo},
                 {
                     name: 'Opciones',
                     index: 'Opciones',

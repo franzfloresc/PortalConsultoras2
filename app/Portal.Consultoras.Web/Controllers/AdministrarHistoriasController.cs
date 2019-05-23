@@ -229,18 +229,17 @@ namespace Portal.Consultoras.Web.Controllers
                                 {
                                     a.IdContenidoDeta.ToString(),
                                     a.Tipo,
-                                    a.Orden.ToString(),
-                                    a.RutaContenido,
+                                    a.Orden.ToString(),  
                                     a.IdContenido.ToString(),
                                     a.Campania.ToString(),
-                                    a.Region,
                                     a.Zona,
                                     a.Seccion,
                                     a.Accion,
                                     a.CodigoDetalle,
                                     a.DetaCodigo,
                                     a.DetaAccionDescripcion,
-                                    a.DetaCodigoDetalleDescripcion
+                                    a.DetaCodigoDetalleDescripcion,
+                                    a.RutaContenido,
                                 }
                            }
                 };
