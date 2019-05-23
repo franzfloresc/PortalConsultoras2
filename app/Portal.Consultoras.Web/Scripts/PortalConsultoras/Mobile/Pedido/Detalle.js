@@ -1,4 +1,4 @@
-﻿/// <reference path="../../pedido/pedidoprovider.js" />
+/// <reference path="../../pedido/pedidoprovider.js" />
 
 var tipoOfertaFinal_Log = "";
 var gap_Log = 0;
