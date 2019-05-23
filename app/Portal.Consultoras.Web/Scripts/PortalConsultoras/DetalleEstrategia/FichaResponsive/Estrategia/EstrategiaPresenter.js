@@ -31,8 +31,6 @@ var EstrategiaPresenter = function (config) {
 
         var model = _estrategiaModel();
 
-        console.log(model);
-
         if (!_config.estrategiaView.renderBreadcrumbs(model) ||
             !_config.estrategiaView.renderEstrategia(model)) throw "estrategiaView do not render model";
 
@@ -46,10 +44,19 @@ var EstrategiaPresenter = function (config) {
         if (model.TieneReloj &&
             !_config.estrategiaView.renderRelojStyle(model)) throw "estrategiaView don't render style of reloj.";
 
+        if (!_config.estrategiaView.renderAgregar(model)) throw "estrategiaView don't render agregar.";
+
+        if (!_config.estrategiaView.showTitleAgregado(model)) throw "estrategiaView don't show title Agregado.";
+
         return true;
+    };
+
+    var _onEstrategiaModelClick = function (event, popup, limite, esFicha, esEditable) {
+        EstrategiaAgregarModule.EstrategiaAgregar(event, popup, limite, esFicha, esEditable);
     };
 
     return {
         onEstrategiaModelLoaded: _onEstrategiaModelLoaded,
+        onEstrategiaModelClick: _onEstrategiaModelClick
     };
 };

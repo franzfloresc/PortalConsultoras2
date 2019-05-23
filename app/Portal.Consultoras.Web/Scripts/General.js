@@ -851,7 +851,7 @@ function AbrirMensaje25seg(mensaje, imagen) {
             return true;
         }
         //FIN HD-3693
-        imagen = imagen || ""
+        imagen = imagen || "";
 
         $("#pop_src").attr("src", "#")
 
@@ -866,7 +866,14 @@ function AbrirMensaje25seg(mensaje, imagen) {
         
         var isUrlMobile = isMobile();
         if (isUrlMobile > 0) {                        
-            console.log('mobil')
+            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
+            $('#alertDialogMensajes25seg').dialog("open");
+            $(_overlay).css('background', 'black')
+            $(_overlay).css('opacity', '0.85')
+
+            var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0])
+            _newTopDialog = _topWithoutPXAfterCreateDialog + 200,
+                _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
         }
         else {
             
@@ -886,16 +893,16 @@ function AbrirMensaje25seg(mensaje, imagen) {
 
         setTimeout(function () {
             document.querySelector(_dialogClass).style.transition = "top 1s ease"
-            _newTopDialog = _topWithoutPXAfterCreateDialog - 200
+            _newTopDialog = _topWithoutPXAfterCreateDialog - 100
             _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'            
         }, 100)
 
-        setTimeout(function () {
+        /**setTimeout(function () {
             $(_dialogClass).fadeOut(500, function () {
                 $('#alertDialogMensajes25seg').dialog("close");
                 $("body").css("overflow", "auto")
             })
-        }, 2500)    
+        }, 3000) */
 
         
         var parameter = [["mensaje", mensaje], ["imagen", imagen]];
