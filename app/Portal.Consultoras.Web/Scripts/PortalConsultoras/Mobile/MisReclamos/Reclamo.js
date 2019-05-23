@@ -1968,7 +1968,7 @@ $(document).ready(function () {
                 }
                 if (msg.length > 0) {
                     messageInfoValidado(msg);
-                    return false;
+                    return { result: false, id: id };
                 }
 
                 //Devolución
