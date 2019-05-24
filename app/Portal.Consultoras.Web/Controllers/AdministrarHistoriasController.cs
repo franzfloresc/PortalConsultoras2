@@ -1,16 +1,15 @@
 using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceContenido;
+using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.ServiceZonificacion;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -18,9 +17,9 @@ namespace Portal.Consultoras.Web.Controllers
     {
         protected TablaLogicaProvider _tablaLogica;
         public AdministrarHistoriasController()
-        { 
+        {
             _tablaLogica = new TablaLogicaProvider();
-        }     
+        }
 
         public ActionResult Index()
         {
@@ -44,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new ServiceContenido.ContenidoServiceClient())
                 {
                     string CodigoHistoriasResumen = CodigosTablaLogica(Constantes.DatosContenedorHistorias.CodigoHistoriasResumen);
-                    entidad = sv.GetContenidoAppHistoria(userData.PaisID, CodigoHistoriasResumen);                    
+                    entidad = sv.GetContenidoAppHistoria(userData.PaisID, CodigoHistoriasResumen);
 
                     model.IdContenido = entidad.IdContenido;
                     model.Codigo = entidad.Codigo;
@@ -155,61 +154,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult InsertDet(AdministrarHistorialModel form)
-        {
-            try
-            {
-                //var tempNombreImagen = form.NombreImagen;
-                var entidad = new BEContenidoAppDeta
-                {
-                    IdContenido = form.IdContenido,
-                    RutaContenido = "1.jpg",
-                    Tipo = Constantes.TipoContenido.Imagen
-                };
-
-                using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                {
-                    sv.InsertContenidoAppDeta(userData.PaisID, entidad);
-                }
-
-
-                return Json(new
-                {
-                    success = true,
-                    message = "Se inserto satisfactoriamente.",
-                    extra = string.Empty
-                });
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "No se pudo realizar la carga de la Imagen.",
-                    extra = string.Empty
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "No se pudo realizar la carga de la Imagen.",
-                    extra = string.Empty
-                });
-            }
-
-            return Json(new
-            {
-                success = false,
-                message = "No se pudo realizar la carga de la Imagen.",
-                extra = ""
-            });
-        }
-
         public JsonResult ComponenteListar(string sidx, string sord, int page, int rows, int IdContenido, string Campania)
         {
             try
@@ -231,12 +175,12 @@ namespace Portal.Consultoras.Web.Controllers
                     records = pag.RecordCount,
                     rows = from a in items
                            select new
-                           { 
+                           {
                                cell = new string[]
                                 {
                                     a.IdContenidoDeta.ToString(),
                                     a.Tipo,
-                                    a.Orden.ToString(),  
+                                    a.Orden.ToString(),
                                     a.IdContenido.ToString(),
                                     a.Campania.ToString(),
                                     a.Zona,
@@ -373,7 +317,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID, true);
             model.ListaAccion = GetContenidoAppDetaActService(0);
             model.ListaCodigoDetalle = GetContenidoAppDetaActService(1);
-             
+
             BEContenidoAppHistoria entidad;
             using (var sv = new ContenidoServiceClient())
             {
@@ -407,7 +351,7 @@ namespace Portal.Consultoras.Web.Controllers
                         Campania = model.Campania,
                         Accion = model.Accion,
                         CodigoDetalle = model.CodigoDetalle,
-                        Tipo = Constantes.TipoContenido.Imagen,                        
+                        Tipo = Constantes.TipoContenido.Imagen,
                         Zona = model.Zona,
                         Seccion = model.Seccion
                     };
@@ -446,7 +390,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string MatrizAppConsultora = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
                 string codeHist = CodigosTablaLogica(Constantes.DatosContenedorHistorias.CodigoHist);
-                var urlImagen = ConfigS3.GetUrlFileHistDetalle(userData.CodigoISO, model.RutaContenido, MatrizAppConsultora);               
+                var urlImagen = ConfigS3.GetUrlFileHistDetalle(userData.CodigoISO, model.RutaContenido, MatrizAppConsultora);
                 new Providers.RenderImgProvider().ImagenesResizeProcesoAppHistDetalle(urlImagen, userData.CodigoISO, userData.PaisID, codeHist, MatrizAppConsultora);
             }
 
