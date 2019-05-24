@@ -198,7 +198,6 @@ namespace Portal.Consultoras.Common
             //public const int MensajeActualizarEmailSms = 1001;
             //public const int MensajeActualizarSms = 1002;
             //public const int MensajeActualizarEmail = 1003;
-            //public const int CaminoBrillanteTablaLogica = 165;
             public const int MensajeActualizarFijo = 16261;
 
             //public const int TablaLogicaestadoPopupInformativoID = 191;
@@ -227,25 +226,7 @@ namespace Portal.Consultoras.Common
 
             public const short CierreSessionValidado = 15301;
             
-            //public static class CaminoBrillante
-            //{
-            //    /// <summary>
-            //    /// Url para conexion a informacionComercialServices
-            //    /// </summary>
-            //    public const string UrlInformacionComercial = "url_inf_com";
-            //    /// <summary>
-            //    /// Usuario para autenticarse en el servicio
-            //    /// </summary>
-            //    public const string UsuarioInformacionComercial = "usu_inf_com";
-            //    /// <summary>
-            //    /// Clave para autenticarse en el servicio
-            //    /// </summary>
-            //    public const string ClaveInformacionComercial = "cla_inf_com";
-            //    /// <summary>
-            //    /// Número de campanias a obtener en cada periodo
-            //    /// </summary>
-            //    public const string NumeroCampaniasEnPeriodo = "num_cam_per";
-            //}
+           
         }
 
         public static class ParametrosNames
@@ -2089,10 +2070,7 @@ namespace Portal.Consultoras.Common
             public const int MsjPopupBloqueadas = 230;
             //FIN HD-3693
             public const short ResizeImagenesAppHistorias = 162;
-            //public const short CaminoBrillanteInfoComercial = 165;
-            //public const short CaminoBrillanteLogros = 166;
-            //public const short CaminoBrillanteIndicadores = 167;
-            //public const short CaminoBrillanteOfertasEspeciales = 167; //Pendiente
+           
             //#endregion
         }
 
