@@ -1813,7 +1813,9 @@ namespace Portal.Consultoras.Common
                 public const string LogoComercialFondoActiva = "LogoComercialFondoActiva";
                 public const string LogoComercialFondoNoActiva = "LogoComercialFondoNoActiva";
                 public const string LogoMenuOfertasActiva = "LogoMenuOfertasActiva";
+                public const string LogoMenuOfertasActivaMobile = "LogoMenuOfertasActivaMobile";
                 public const string LogoMenuOfertasNoActiva = "LogoMenuOfertasNoActiva";
+                public const string LogoMenuOfertasNoActivaMobile = "LogoMenuOfertasNoActivaMobile";
                 public const string BloquearPedidoRevistaImp = "BloquearPedidoRevistaImp";
                 public const string BloquearSugerenciaProducto = "BloquearSugerenciaProducto";
                 public const string SubscripcionAutomaticaAVirtualCoach = "SubscripcionAutomaticaAVirtualCoach";
