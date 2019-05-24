@@ -21,7 +21,6 @@
             <li class="layout__view__breadcrumb layout__view__breadcrumb--active__view">
                 <span class="d-block">Camino Brillante</span>
             </li>
-
         </ul>
     </div>
 </section>
@@ -156,7 +155,7 @@
                     @foreach (var indicador in logro.Indicadores)
                     {
                         <div class="item">
-                            <input type="hidden" id="xxx" value="@indicador.Titulo" />
+                            <input type="hidden"  value="@indicador.Titulo" />
                             <div class="shad box-@indicador.Titulo">
                                 <p class="text-bold">@indicador.Titulo</p>
                                 <span class="text-down">@indicador.Descripcion</span>
