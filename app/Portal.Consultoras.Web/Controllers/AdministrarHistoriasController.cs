@@ -155,54 +155,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult InsertDet(AdministrarHistorialModel form)
-        {
-            try
-            {
-                var tempNombreImagen = form.NombreImagen;
-                var entidad = new BEContenidoAppDeta
-                {
-                    IdContenido = form.IdContenido,
-                    RutaContenido = "1.jpg",
-                    Tipo = Constantes.TipoContenido.Imagen
-                };
-
-                using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                {
-                    sv.InsertContenidoAppDeta(userData.PaisID, entidad);
-                }
-
-
-                return Json(new
-                {
-                    success = true,
-                    message = "Se inserto satisfactoriamente.",
-                    extra = string.Empty
-                });
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "No se pudo realizar la carga de la Imagen.",
-                    extra = string.Empty
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "No se pudo realizar la carga de la Imagen.",
-                    extra = string.Empty
-                });
-            }
-        }
-
         public JsonResult ComponenteListar(string sidx, string sord, int page, int rows, int IdContenido, string Campania)
         {
             try
