@@ -1787,11 +1787,16 @@ function BuscarInfoCUV(e) {
 }
 
 //HD-4017 EINCA
-function EliminarCUVTrueque(el) {
-    if ($("#contenedorCuvTrueque .item-producto-cambio").length > 1)
-        $(el).parent().parent().remove();
-    else
+function EliminarCUVTrueque(el) {   
+    if ($("#contenedorCuvTrueque .item-producto-cambio").length > 1) {
+        waitingDialog();
+        setTimeout(function () {
+            $(el).parent().parent().remove()
+        }, 450);
+        closeWaitingDialog();
+    } else {
         return false;
+    }
 }
 
 function CalcularTotal() {
