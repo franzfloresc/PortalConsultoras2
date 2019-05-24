@@ -42,6 +42,14 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         /// Enterate Más Nivel Param
         /// </summary>
         public string EnterateMasParam { get; set; }
+        /// <summary>
+        /// Puntaje Nivel
+        /// </summary>
+        public int Puntaje { get; set; }
+        /// <summary>
+        /// Puntaje Acumulado
+        /// </summary>
+        public int? PuntajeAcumulado { get; set; }
 
     }
 

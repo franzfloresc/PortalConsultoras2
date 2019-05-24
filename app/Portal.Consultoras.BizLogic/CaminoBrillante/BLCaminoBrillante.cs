@@ -157,7 +157,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     MontoPedido = e.MontoPedido,
                     Nivel = e.NivelActual,
                     PeriodoCae = e.PeriodoCae,
-                    EsActual = (e == nivelConsultora)
+                    EsActual = (e == nivelConsultora),
+                    PuntajeAcumulado = e.PuntajeAcumulado
                 }).OrderByDescending(e => e.Campania).ToList(),
                 Niveles = CalcularCuantoFalta(niveles, periodo, nivelConsultora, nivelesConsultora),
                 ResumenLogros = GetResumenLogros(entidad.PaisID, logros),
@@ -185,12 +186,19 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     niveles.Where(e => e.CodigoNivel == nivel.ToString()).Update(e =>
                     {
                         decimal montoMinimo = 0;
-                        if (decimal.TryParse(e.MontoMinimo, out montoMinimo))
+                        if (decimal.TryParse(e.MontoMinimo, out montoMinimo) && e.CodigoNivel != "6")
                         {
                             e.MontoFaltante = montoMinimo - montoPedido;
                         }
                     });
 
+                    niveles.Where(e => e.CodigoNivel == "6").Update(e => {
+                        if (nivelActualConsutora.PuntajeAcumulado.HasValue)
+                        {
+                            e.PuntajeAcumulado = nivelActualConsutora.PuntajeAcumulado;
+                        }
+                    });
+ 
                 }
             }
             return niveles;
@@ -547,8 +555,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 {
                     Orden = idx++,
                     Tipo = Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.CIRC,
-                    Estado = (int.Parse(e.Codigo) <= nivelConsultora.PorcentajeIncremento),
-                    Subtitulo = (int.Parse(e.Codigo) <= nivelConsultora.PorcentajeIncremento) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
+                    Estado = (int.Parse(e.Codigo) <= (nivelConsultora.PorcentajeIncremento.HasValue ? nivelConsultora.PorcentajeIncremento : 0)),
+                    Subtitulo = (int.Parse(e.Codigo) <= (nivelConsultora.PorcentajeIncremento.HasValue ? nivelConsultora.PorcentajeIncremento : 0)) ? Constantes.CaminoBrillante.Logros.Indicadores.Medallas.YaLoTienes : Constantes.CaminoBrillante.Logros.Indicadores.Medallas.ComoLograrlo,
                     Valor = string.Format(e.Valor ?? string.Empty, e.Codigo),
                     ModalTitulo = e.ComoLograrlo_Estado ? e.ComoLograrlo_Titulo.Replace("{0}", string.Format("{0}%", e.Codigo)) : string.Empty,
                     ModalDescripcion = e.ComoLograrlo_Estado ? e.ComoLograrlo_Descripcion.Replace("{0}", string.Format("{0}%", e.Codigo)) : string.Empty,

@@ -10760,6 +10760,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             [System.Runtime.Serialization.OptionalFieldAttribute()]
             private string PeriodoCaeField;
             
+            [System.Runtime.Serialization.OptionalFieldAttribute()]
+            private System.Nullable<int> PuntajeAcumuladoField;
+            
             public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
                 get {
                     return this.extensionDataField;
@@ -10895,6 +10898,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                     if ((object.ReferenceEquals(this.PeriodoCaeField, value) != true)) {
                         this.PeriodoCaeField = value;
                         this.RaisePropertyChanged("PeriodoCae");
+                    }
+                }
+            }
+            
+            [System.Runtime.Serialization.DataMemberAttribute()]
+            public System.Nullable<int> PuntajeAcumulado {
+                get {
+                    return this.PuntajeAcumuladoField;
+                }
+                set {
+                    if ((this.PuntajeAcumuladoField.Equals(value) != true)) {
+                        this.PuntajeAcumuladoField = value;
+                        this.RaisePropertyChanged("PuntajeAcumulado");
                     }
                 }
             }
@@ -11353,6 +11369,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string MontoMinimoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PuntajeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> PuntajeAcumuladoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool TieneOfertasEspecialesField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -11465,6 +11487,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.MontoMinimoField, value) != true)) {
                     this.MontoMinimoField = value;
                     this.RaisePropertyChanged("MontoMinimo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Puntaje {
+            get {
+                return this.PuntajeField;
+            }
+            set {
+                if ((this.PuntajeField.Equals(value) != true)) {
+                    this.PuntajeField = value;
+                    this.RaisePropertyChanged("Puntaje");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> PuntajeAcumulado {
+            get {
+                return this.PuntajeAcumuladoField;
+            }
+            set {
+                if ((this.PuntajeAcumuladoField.Equals(value) != true)) {
+                    this.PuntajeAcumuladoField = value;
+                    this.RaisePropertyChanged("PuntajeAcumulado");
                 }
             }
         }

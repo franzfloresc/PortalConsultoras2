@@ -34,6 +34,8 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
                 return null;
             }
         }
+        public int Puntaje { get; set; }
+        public int? PuntajeAcumulado { get; set; }
 
         public class BeneficioCaminoBrillanteModel{
 
