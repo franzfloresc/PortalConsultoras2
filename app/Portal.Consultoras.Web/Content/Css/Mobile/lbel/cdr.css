@@ -1083,9 +1083,13 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         left: -1.5px;
     }
 
-.lista_productos_a_cambiar{
-    list-style-type:none;
-    max-width:312px;
+.lista_productos_a_cambiar,
+.lista_productos_a_cambiar_monto_total {
+    max-width: 312px;
+}
+
+.lista_productos_a_cambiar {
+    list-style-type: none;
 }
 
     .producto_a_cambiar,
@@ -1106,15 +1110,15 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         justify-content:space-between;
     }
 
-        .producto_a_cambiar:last-child{
-            border-bottom:0;
+        .producto_a_cambiar:first-child{
+            border-top:1px solid #808080;
         }
 
         .producto_a_cambiar > div {
             -ms-flex-wrap: wrap;
             flex-wrap: wrap;
             align-content: space-between;
-            min-height: 100px;
+            min-height: 115px;
         }
 
             .producto_a_cambiar > div:first-child{
@@ -1152,6 +1156,12 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         height: 40px;
         position: relative;
         right: -12px;
+    }
+
+    .lista_productos_a_cambiar_monto_total{
+        font-size: 16px;
+        margin-top: 16px;
+        margin-bottom: -14px;
     }
 
 .opcion_cdr_seleccionada_info--devolucionCasoSetProducto {
@@ -1420,6 +1430,33 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     text-align: left;
     font-size: 14px;
 }
+
+    .listado_producto_reclamo,
+    .listado_producto_reclamo > span,
+    .listado_producto_reclamo > div,
+    .listado_solicitada_reclamo > div{
+        margin-bottom:16px;
+    }
+
+    .icono_eliminar_solic_cdr {
+        display: block;
+        width: 22px;
+        height: 22px;
+        position: absolute;
+        top: 23px;
+        right: 8px;
+    }
+
+        .icono_eliminar_solic_cdr a {
+            display: block;
+            text-decoration: none;
+            cursor:pointer;
+        }
+
+    .monto_total_opcion_trueque{
+        font-size:16px;
+        margin-bottom:0;
+    }
 
 .icono_eliminar_solic_cdr {
     display: block;
@@ -1773,11 +1810,13 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .detalle_solicitud_listado {
     padding-left: 6px;
     padding-right: 6px;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .detalle_tipo_solicitud_titulo {
-    padding: 15px 0 14px 0;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 15px 20px;
     border-top: 1px solid #979797;
     border-bottom: 1px solid #979797;
     position: relative;
@@ -1802,7 +1841,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .detalle_tipo_solicitud {
-    padding: 15px 0 21px 0;
+    padding: 21px 0;
 }
 
     .detalle_tipo_solicitud:last-child {
@@ -1810,8 +1849,23 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     }
 
 .detalle_producto_cdr,
-.detalle_cdr_solucion {
+.detalle_cdr_solucion,
+.detalle_cdr_solucion > div {
     position: relative;
+}
+
+/*.detalle_producto_cdr,*/
+.detalle_cdr_solucion_titulo_trueque,
+.detalle_cod_producto_trueque {
+    margin-bottom: 16px;
+}
+
+.detalle_cdr_solucion_titulo_trueque {
+    margin-top: 16px;
+}
+
+.detalle_cdr_solucion > div:last-child {
+    margin-bottom: 0;
 }
 
 .detalle_cdr_solucion_titulo,
@@ -1819,8 +1873,14 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .detalle_nom_producto,
 .detalle_cantidad_producto,
 .detalle_cdr_monto_devolucion {
-    margin-bottom: 2px;
     width: 68%;
+}
+
+.detalle_cod_producto,
+.detalle_nom_producto,
+.detalle_cantidad_producto,
+.detalle_cdr_monto_devolucion {
+    margin-bottom: 2px;
 }
 
 .detalle_precio_producto {
@@ -1835,11 +1895,9 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 }
 
 .datos_solicitud_cdr_consulta {
-    background: #f7f7f7;
+    background-color: #f7f7f7;
     position: relative;
-    top: -26px;
-    padding: 32px 0 18px 0;
-    margin-bottom: 4px;
+    padding: 20px 0 20px 0;
 }
 
 .datos_solicitud_cdr_titulo {
