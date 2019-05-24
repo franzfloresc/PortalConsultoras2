@@ -7,8 +7,8 @@ GO
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID], [Descripcion]) VALUES (15,'Configuraciones de Ficha')
 GO
 INSERT INTO [dbo].[TablaLogicaDatos] ([TablaLogicaDatosID],[TablaLogicaID],[Codigo],[Descripcion],[Valor])
-VALUES (1501,15,'01', 'Mostrar funcionalidad Up Selling', '0'),
-		(1502,15,'02','Cantidad Productos Carrusel Up Selling','5')
+VALUES (1501,15,'FuncionalidadUpSelling', 'Mostrar funcionalidad Up Selling', '0'),
+		(1502,15,'CantidadProductosUpSelling','Cantidad Productos Carrusel Up Selling','5')
 GO
 
 GO
@@ -20,8 +20,8 @@ GO
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID], [Descripcion]) VALUES (15,'Configuraciones de Ficha')
 GO
 INSERT INTO [dbo].[TablaLogicaDatos] ([TablaLogicaDatosID],[TablaLogicaID],[Codigo],[Descripcion],[Valor])
-VALUES (1501,15,'01', 'Mostrar funcionalidad Up Selling', '0'),
-		(1502,15,'02','Cantidad Productos Carrusel Up Selling','5')
+VALUES (1501,15,'FuncionalidadUpSelling', 'Mostrar funcionalidad Up Selling', '0'),
+		(1502,15,'CantidadProductosUpSelling','Cantidad Productos Carrusel Up Selling','5')
 GO
 
 GO
@@ -33,8 +33,8 @@ GO
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID], [Descripcion]) VALUES (15,'Configuraciones de Ficha')
 GO
 INSERT INTO [dbo].[TablaLogicaDatos] ([TablaLogicaDatosID],[TablaLogicaID],[Codigo],[Descripcion],[Valor])
-VALUES (1501,15,'01', 'Mostrar funcionalidad Up Selling', '0'),
-		(1502,15,'02','Cantidad Productos Carrusel Up Selling','5')
+VALUES (1501,15,'FuncionalidadUpSelling', 'Mostrar funcionalidad Up Selling', '0'),
+		(1502,15,'CantidadProductosUpSelling','Cantidad Productos Carrusel Up Selling','5')
 GO
 
 GO
@@ -46,8 +46,8 @@ GO
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID], [Descripcion]) VALUES (15,'Configuraciones de Ficha')
 GO
 INSERT INTO [dbo].[TablaLogicaDatos] ([TablaLogicaDatosID],[TablaLogicaID],[Codigo],[Descripcion],[Valor])
-VALUES (1501,15,'01', 'Mostrar funcionalidad Up Selling', '0'),
-		(1502,15,'02','Cantidad Productos Carrusel Up Selling','5')
+VALUES (1501,15,'FuncionalidadUpSelling', 'Mostrar funcionalidad Up Selling', '0'),
+		(1502,15,'CantidadProductosUpSelling','Cantidad Productos Carrusel Up Selling','5')
 GO
 
 GO
@@ -59,8 +59,8 @@ GO
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID], [Descripcion]) VALUES (15,'Configuraciones de Ficha')
 GO
 INSERT INTO [dbo].[TablaLogicaDatos] ([TablaLogicaDatosID],[TablaLogicaID],[Codigo],[Descripcion],[Valor])
-VALUES (1501,15,'01', 'Mostrar funcionalidad Up Selling', '0'),
-		(1502,15,'02','Cantidad Productos Carrusel Up Selling','5')
+VALUES (1501,15,'FuncionalidadUpSelling', 'Mostrar funcionalidad Up Selling', '0'),
+		(1502,15,'CantidadProductosUpSelling','Cantidad Productos Carrusel Up Selling','5')
 GO
 
 GO
@@ -72,8 +72,8 @@ GO
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID], [Descripcion]) VALUES (15,'Configuraciones de Ficha')
 GO
 INSERT INTO [dbo].[TablaLogicaDatos] ([TablaLogicaDatosID],[TablaLogicaID],[Codigo],[Descripcion],[Valor])
-VALUES (1501,15,'01', 'Mostrar funcionalidad Up Selling', '0'),
-		(1502,15,'02','Cantidad Productos Carrusel Up Selling','5')
+VALUES (1501,15,'FuncionalidadUpSelling', 'Mostrar funcionalidad Up Selling', '0'),
+		(1502,15,'CantidadProductosUpSelling','Cantidad Productos Carrusel Up Selling','5')
 GO
 
 GO
@@ -85,8 +85,8 @@ GO
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID], [Descripcion]) VALUES (15,'Configuraciones de Ficha')
 GO
 INSERT INTO [dbo].[TablaLogicaDatos] ([TablaLogicaDatosID],[TablaLogicaID],[Codigo],[Descripcion],[Valor])
-VALUES (1501,15,'01', 'Mostrar funcionalidad Up Selling', '0'),
-		(1502,15,'02','Cantidad Productos Carrusel Up Selling','5')
+VALUES (1501,15,'FuncionalidadUpSelling', 'Mostrar funcionalidad Up Selling', '0'),
+		(1502,15,'CantidadProductosUpSelling','Cantidad Productos Carrusel Up Selling','5')
 GO
 
 GO
@@ -98,8 +98,8 @@ GO
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID], [Descripcion]) VALUES (15,'Configuraciones de Ficha')
 GO
 INSERT INTO [dbo].[TablaLogicaDatos] ([TablaLogicaDatosID],[TablaLogicaID],[Codigo],[Descripcion],[Valor])
-VALUES (1501,15,'01', 'Mostrar funcionalidad Up Selling', '0'),
-		(1502,15,'02','Cantidad Productos Carrusel Up Selling','5')
+VALUES (1501,15,'FuncionalidadUpSelling', 'Mostrar funcionalidad Up Selling', '0'),
+		(1502,15,'CantidadProductosUpSelling','Cantidad Productos Carrusel Up Selling','5')
 GO
 
 GO
@@ -111,8 +111,8 @@ GO
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID], [Descripcion]) VALUES (15,'Configuraciones de Ficha')
 GO
 INSERT INTO [dbo].[TablaLogicaDatos] ([TablaLogicaDatosID],[TablaLogicaID],[Codigo],[Descripcion],[Valor])
-VALUES (1501,15,'01', 'Mostrar funcionalidad Up Selling', '0'),
-		(1502,15,'02','Cantidad Productos Carrusel Up Selling','5')
+VALUES (1501,15,'FuncionalidadUpSelling', 'Mostrar funcionalidad Up Selling', '0'),
+		(1502,15,'CantidadProductosUpSelling','Cantidad Productos Carrusel Up Selling','5')
 GO
 
 GO
@@ -124,8 +124,8 @@ GO
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID], [Descripcion]) VALUES (15,'Configuraciones de Ficha')
 GO
 INSERT INTO [dbo].[TablaLogicaDatos] ([TablaLogicaDatosID],[TablaLogicaID],[Codigo],[Descripcion],[Valor])
-VALUES (1501,15,'01', 'Mostrar funcionalidad Up Selling', '0'),
-		(1502,15,'02','Cantidad Productos Carrusel Up Selling','5')
+VALUES (1501,15,'FuncionalidadUpSelling', 'Mostrar funcionalidad Up Selling', '0'),
+		(1502,15,'CantidadProductosUpSelling','Cantidad Productos Carrusel Up Selling','5')
 GO
 
 GO
@@ -137,8 +137,8 @@ GO
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID], [Descripcion]) VALUES (15,'Configuraciones de Ficha')
 GO
 INSERT INTO [dbo].[TablaLogicaDatos] ([TablaLogicaDatosID],[TablaLogicaID],[Codigo],[Descripcion],[Valor])
-VALUES (1501,15,'01', 'Mostrar funcionalidad Up Selling', '0'),
-		(1502,15,'02','Cantidad Productos Carrusel Up Selling','5')
+VALUES (1501,15,'FuncionalidadUpSelling', 'Mostrar funcionalidad Up Selling', '0'),
+		(1502,15,'CantidadProductosUpSelling','Cantidad Productos Carrusel Up Selling','5')
 GO
 
 GO
@@ -150,8 +150,8 @@ GO
 INSERT INTO [dbo].[TablaLogica] ([TablaLogicaID], [Descripcion]) VALUES (15,'Configuraciones de Ficha')
 GO
 INSERT INTO [dbo].[TablaLogicaDatos] ([TablaLogicaDatosID],[TablaLogicaID],[Codigo],[Descripcion],[Valor])
-VALUES (1501,15,'01', 'Mostrar funcionalidad Up Selling', '0'),
-		(1502,15,'02','Cantidad Productos Carrusel Up Selling','5')
+VALUES (1501,15,'FuncionalidadUpSelling', 'Mostrar funcionalidad Up Selling', '0'),
+		(1502,15,'CantidadProductosUpSelling','Cantidad Productos Carrusel Up Selling','5')
 GO
 
 GO

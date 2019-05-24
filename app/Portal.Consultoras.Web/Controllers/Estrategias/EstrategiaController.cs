@@ -773,9 +773,15 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         {
             try
             {
-                var mostrarFuncionalidadUpSelling = _tablaLogicaProvider.GetTablaLogicaDatoValor(userData.PaisID, ConsTablaLogica.ConfiguracionesFicha.TablaLogicaId, ConsTablaLogica.ConfiguracionesFicha.MostrarFuncionalidadUpSelling, true);
+                if (cuvExcluido.IsNullOrEmptyTrim() ||
+                    palanca.IsNullOrEmptyTrim() ||
+                    precioProducto <= 0) return Json(new { success = false });
 
-                if (mostrarFuncionalidadUpSelling.IsNullOrEmptyTrim() || mostrarFuncionalidadUpSelling == "0" || palanca == Constantes.NombrePalanca.OfertaDelDia)
+                var mostrarFuncionalidadUpSelling = _tablaLogicaProvider.GetTablaLogicaDatoValorInt(userData.PaisID,
+                    ConsTablaLogica.ConfiguracionesFicha.TablaLogicaId,
+                    ConsTablaLogica.ConfiguracionesFicha.FuncionalidadUpSelling, true);
+
+                if (mostrarFuncionalidadUpSelling == 0 || palanca == Constantes.NombrePalanca.OfertaDelDia)
                 {
                     return FichaObtenerProductosCarrusel(cuvExcluido, palanca);
                 }

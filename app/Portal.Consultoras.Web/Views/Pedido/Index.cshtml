@@ -425,10 +425,15 @@
                                 </div>
                             }
                         }
-                        <div class="boton_guardarPedido">
+                    <div class="boton_guardarPedido">
+                        @if (Model.EstadoPedido == 1)
+                        {
+                            <button class="btn_ModificaPedido" onclick="javascript:ModificarPedido();" class="info_copy default-background-color">@Model.Prol</button>
+                        }
+                        else
+                        { <button id="btnValidarPROL" class="info_copy default-background-color">@Model.Prol</button>}
 
-                            <button id="btnValidarPROL" class="info_copy default-background-color">@Model.Prol</button>
-                        </div>
+                    </div>
                     </div>
 
                     <div id="divCondicionesCupon" style="display: none; color: #9b9b9b">
@@ -797,6 +802,21 @@
     <div style="text-align: center; margin-top: 30px;">
         <input id="btnNoValidarConfirm" type="button" value="No Validar" onclick="ConfirmNoValidar()" class="input_modifica_horizontal" style="width: 120px; margin-left: 0;" />
         <input id="btnValidarConfirm" type="button" value="Validar" onclick="EjecutarPROL2()" class="input_modifica_horizontal" style="width: 120px; margin-left: 20px;" />
+    </div>
+</div>
+<div id="divConfirmValidarPROL2" style="display: none;">
+    <div class="terminos_title_2">
+        Importante
+    </div>
+    <div class="linea_superior margin_10"></div>
+    <div class="pop_pedido_mensaje">
+        <ul>
+            <li>Al hacer click en el botón <b>"Continuar"</b> se perderá la reserva de tus productos. Recuerda, que si lo modificas debes volver a validar.</li>
+        </ul>
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+        <input id="btnValidarConfirm" type="button" value="Cancelar" onclick="CerrarDialogo('divConfirmValidarPROL2')" class="input_modifica_horizontal" style="width: 120px; margin-left: 0;" />
+        <input id="btnNoValidarConfirm" type="button" value="Continuar" onclick="ConfirmarModificar()" class="input_modifica_horizontal" style="width: 120px; margin-left: 20px;" />
     </div>
 </div>
 

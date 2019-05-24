@@ -140,7 +140,7 @@ namespace Portal.Consultoras.Web.Providers
             return valor == "1";
         }
 
-        public int GetTablaLogicaDatoValorInt(int paisId, short tablaLogicaId, string codigo, bool saveInSession = false)
+        public virtual int GetTablaLogicaDatoValorInt(int paisId, short tablaLogicaId, string codigo, bool saveInSession = false)
         {
             var valor = GetTablaLogicaDatos(paisId, tablaLogicaId, saveInSession);
             var valInt = GatCampoValorInt(valor, codigo);

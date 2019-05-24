@@ -278,6 +278,7 @@ $(document).ready(function () {
 
         e.stopPropagation(); //Para evitar que se cierre el popup de divObservacionesPROL
     });
+    
 
     $("body").on("mouseleave", ".cantidad_detalle_focus", function () {
         var rowElement = $(this).closest(".contenido_ingresoPedido");
@@ -768,6 +769,17 @@ function CrearDialogs() {
         close: function (event, ui) {
             HideDialog("divConfirmValidarPROL");
         }
+    });
+    $("#divConfirmValidarPROL2").dialog({
+	    autoOpen: false,
+	    resizable: false,
+	    modal: true,
+	    closeOnEscape: true,
+	    width: 550,
+	    draggable: true,
+	    close: function (event, ui) {
+		    HideDialog("divConfirmValidarPROL");
+	    }
     });
 
     $("#divReservaSatisfactoria").dialog({
@@ -1729,7 +1741,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         async: true,
         success: function (data) {
             CerrarSplash();
-            //debugger;
+            
             if (!checkTimeout(data)) return false;
             if (data.success != true) {
                 btnSalirTlpDelete(window.event, pedidoDetalleId, setId);
@@ -3016,6 +3028,10 @@ function CargarProductosRecomendados(item) {
     ProductoRecomendadoModule.ObtenerProductos(item.CodigoCatalago, item.EstrategiaIDSicc, item.CUV, item.CodigoProducto);
 
 }
+//TESLA-7
+function ModificarPedido() {
+	showDialog("divConfirmValidarPROL2");
+}
 
 function PedidosPendientesPorAprobar() {
 
@@ -3024,4 +3040,3 @@ function PedidosPendientesPorAprobar() {
     }
     window.location.href = '/ConsultoraOnline/Pendientes';
 }
-
