@@ -19,15 +19,6 @@
     @Styles.Render("~/Bundle/Css/Mobile/Pedido")
 }
 
-<!-- HD-4065 - CAMBIO DE LOOK AND FEEL DE ÉSIKA -->
-
-@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
-{
-    <link href="@Url.Content("~/Content/Css/Site/Esika/nuevo-look-and-feel.css")" rel="stylesheet" />
-}
-
-<!-- FIN - HD-4065 - CAMBIO DE LOOK AND FEEL DE ÉSIKA -->
-
 <div class="wrapper_resumen_mobile sin_padding">
     @if (!mobileConfiguracion.EsAppMobile)
     {
