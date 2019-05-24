@@ -1159,6 +1159,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             if (tablaLogicaDatos.Count == 0) return null;
 
             return new List<BEFiltroGrupo>() { new BEFiltroGrupo() {
+                Excluyente = true,
                 NombreGrupo = tablaLogicaDatos.Where(e => e.Codigo == "00").Select(e => e.Valor).FirstOrDefault(),
                 Opciones = tablaLogicaDatos.Where(e => !(e.Codigo != "00" &&isApp) || !isApp ).Select(e => new BEFiltro() { Codigo = e.Codigo, Descripcion = e.Descripcion }).ToList()
             }};
