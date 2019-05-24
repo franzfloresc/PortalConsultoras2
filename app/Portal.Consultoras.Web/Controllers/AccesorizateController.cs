@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         #region Visualización de Pedidos Liquidación
 
-        static List<BEConfiguracionOferta> lstConfiguracion = new List<BEConfiguracionOferta>();
+        List<BEConfiguracionOferta> lstConfiguracion = new List<BEConfiguracionOferta>();
 
         public ActionResult Productos()
         {

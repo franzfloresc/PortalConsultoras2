@@ -257,13 +257,6 @@ namespace MaxMind.Util
         /// <summary>
         ///     Constructor
         /// </summary>
-        public CountryResponse()
-        {
-        }
-
-        /// <summary>
-        ///     Constructor
-        /// </summary>
         [Constructor]
         public CountryResponse(
             Continent continent = null,
@@ -280,19 +273,6 @@ namespace MaxMind.Util
 
     public abstract class AbstractCountryResponse : AbstractResponse
     {
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="AbstractCountryResponse" /> class.
-        /// </summary>
-        protected AbstractCountryResponse()
-        {
-            Continent = new Continent();
-            Country = new Country();
-            MaxMind = new MaxMind();
-            RegisteredCountry = new Country();
-            RepresentedCountry = new RepresentedCountry();
-            Traits = new Traits();
-        }
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="AbstractCountryResponse" /> class.
         /// </summary>
@@ -405,13 +385,6 @@ namespace MaxMind.Util
         /// <summary>
         ///     Constructor
         /// </summary>
-        public MaxMind()
-        {
-        }
-
-        /// <summary>
-        ///     Constructor
-        /// </summary>
         [Constructor]
         public MaxMind([Parameter("queries_remaining")] int? queriesRemaining = null)
         {
@@ -440,13 +413,6 @@ namespace MaxMind.Util
 
     public class Country : NamedEntity
     {
-        /// <summary>
-        ///     Constructor
-        /// </summary>
-        public Country()
-        {
-        }
-
         /// <summary>
         ///     Constructor
         /// </summary>
@@ -574,13 +540,6 @@ namespace MaxMind.Util
         /// <summary>
         ///     Constructor
         /// </summary>
-        public Continent()
-        {
-        }
-
-        /// <summary>
-        ///     Constructor
-        /// </summary>
         public Continent(string code = null, int? geoNameId = null, IDictionary<string, string> names = null,
             IEnumerable<string> locales = null)
             : base(geoNameId, names, locales)
@@ -611,13 +570,6 @@ namespace MaxMind.Util
     }
     public class RepresentedCountry : Country
     {
-        /// <summary>
-        ///     Constructor
-        /// </summary>
-        public RepresentedCountry()
-        {
-        }
-
         /// <summary>
         ///     Constructor
         /// </summary>
@@ -654,13 +606,6 @@ namespace MaxMind.Util
     }
     public class Traits
     {
-        /// <summary>
-        ///     Constructor
-        /// </summary>
-        public Traits()
-        {
-        }
-
         /// <summary>
         ///     Constructor
         /// </summary>
