@@ -1148,7 +1148,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             if (tablaLogicaDatos.Count == 0) return null;
             
             return new List<BEOrdenGrupo>() { new BEOrdenGrupo() {
-                NombreGrupo = tablaLogicaDatos.Where(e => e.Codigo == "00").Select(e => e.Descripcion).FirstOrDefault(),
+                NombreGrupo = tablaLogicaDatos.Where(e => e.Codigo == "00").Select(e => e.Valor).FirstOrDefault(),
                 Opciones = tablaLogicaDatos.Where(e => (e.Codigo != "00" && isApp) || !isApp ).Select(e => new BEOrden() { Codigo = e.Codigo, Descripcion = e.Descripcion }).ToList()
             }};
         }
@@ -1159,8 +1159,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             if (tablaLogicaDatos.Count == 0) return null;
 
             return new List<BEFiltroGrupo>() { new BEFiltroGrupo() {
-                NombreGrupo = tablaLogicaDatos.Where(e => e.Codigo == "00").Select(e => e.Descripcion).FirstOrDefault(),
-                Opciones = tablaLogicaDatos.Where(e => !(e.Codigo != "00" &&isApp) ).Select(e => new BEFiltro() { Codigo = e.Codigo, Descripcion = e.Descripcion }).ToList()
+                NombreGrupo = tablaLogicaDatos.Where(e => e.Codigo == "00").Select(e => e.Valor).FirstOrDefault(),
+                Opciones = tablaLogicaDatos.Where(e => !(e.Codigo != "00" &&isApp) || !isApp ).Select(e => new BEFiltro() { Codigo = e.Codigo, Descripcion = e.Descripcion }).ToList()
             }};
         }
 
