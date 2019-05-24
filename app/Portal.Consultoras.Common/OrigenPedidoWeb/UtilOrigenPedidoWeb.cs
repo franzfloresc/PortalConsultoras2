@@ -7,10 +7,10 @@
             try
             {
                 modelo = modelo ?? new OrigenPedidoWebModel();
-                modelo.Dispositivo = (modelo.Dispositivo ?? "").Trim() ?? "0";
-                modelo.Pagina = (modelo.Pagina ?? "").Trim() ?? "99";
-                modelo.Palanca = (modelo.Palanca ?? "").Trim() ?? "99";
-                modelo.Seccion = (modelo.Palanca ?? "").Trim() ?? "99";
+                modelo.Dispositivo = (modelo.Dispositivo ?? "").Trim() ?? ConsOrigenPedidoWeb.IncorrectoDispositivo;
+                modelo.Pagina = (modelo.Pagina ?? "").Trim() ?? ConsOrigenPedidoWeb.Incorrecto;
+                modelo.Palanca = (modelo.Palanca ?? "").Trim() ?? ConsOrigenPedidoWeb.Incorrecto;
+                modelo.Seccion = (modelo.Palanca ?? "").Trim() ?? ConsOrigenPedidoWeb.Incorrecto;
             }
             catch
             {
