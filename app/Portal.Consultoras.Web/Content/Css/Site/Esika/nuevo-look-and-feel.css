@@ -228,8 +228,17 @@
     color: #000 !important;
 }
 
-.ubicacion_web a{
-    font-weight:400;
+.layout__header--nuevoLookAndFeelEsika .menu__item--lateralDerechoIcono[data-title="Notificaciones"]{
+    min-width:63px;
+}
+
+.ubicacion_web a {
+    font-weight: 400;
+}
+
+.header--nuevoLookAndFeelEsika--mobile .menu_icon_wrapper img {
+    width: 22px !important;
+    height: auto;
 }
 
 @media screen and (max-width:991px){
@@ -245,11 +254,6 @@
         margin-right: -8px;
         top:2.5px;
     }
-
-        .header--nuevoLookAndFeelEsika--mobile .menu_icon_wrapper img{
-            width:22px!important;
-            height:auto;
-        }
 
     .header--nuevoLookAndFeelEsika--mobile .campana_svg_mobile {
         background: url(/Content/Images/icono_notificaciones_blanco.svg) no-repeat;
