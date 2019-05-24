@@ -2,10 +2,29 @@
 {
     public static class UtilOrigenPedidoWeb
     {
-        public static string Formatear(OrigenPedidoWebModel modelo)
+        private static OrigenPedidoWebModel Formatear(OrigenPedidoWebModel modelo)
         {
             try
             {
+                modelo = modelo ?? new OrigenPedidoWebModel();
+                modelo.Dispositivo = (modelo.Dispositivo ?? "").Trim() ?? "0";
+                modelo.Pagina = (modelo.Pagina ?? "").Trim() ?? "99";
+                modelo.Palanca = (modelo.Palanca ?? "").Trim() ?? "99";
+                modelo.Seccion = (modelo.Palanca ?? "").Trim() ?? "99";
+            }
+            catch
+            {
+                // ignored
+            }
+
+            return modelo;
+        }
+
+        public static string ToStr(OrigenPedidoWebModel modelo)
+        {
+            try
+            {
+                modelo = Formatear(modelo);
                 return string.Format(ConsOrigenPedidoWeb.StrFormat, modelo.Dispositivo, modelo.Pagina, modelo.Palanca, modelo.Seccion);
             }
             catch
@@ -16,11 +35,11 @@
             return "";
         }
 
-        public static int FormatearInt(OrigenPedidoWebModel modelo)
+        public static int ToInt(OrigenPedidoWebModel modelo)
         {
             try
             {
-                string origenStr = Formatear(modelo);
+                string origenStr = ToStr(modelo);
                 int origen;
                 int.TryParse(origenStr, out origen);
                 return origen;
@@ -32,6 +51,103 @@
 
             return 0;
         }
+        
+        public static string GetSeccionSegunFicha(bool ficha, bool fichaCarrusel, bool desplegable = false)
+        {
+            string codigo = "";
+            try
+            {
+                if (!ficha && !fichaCarrusel)
+                {
+                    codigo = desplegable ? ConsOrigenPedidoWeb.Seccion.DesplegableBuscador : ConsOrigenPedidoWeb.Seccion.Carrusel;
+                }
+                else if (ficha && !fichaCarrusel)
+                {
+                    codigo = ConsOrigenPedidoWeb.Seccion.Ficha;
+                }
+                else if (!ficha && fichaCarrusel)
+                {
+                    codigo = ConsOrigenPedidoWeb.Seccion.CarruselVerMas;
+                }
+            }
+            catch
+            {
+                // ignored
+            }
 
+            return codigo;
+        }
+
+        public static string GetPalancaSegunMarca(int marcaId)
+        {
+            string codigo = "";
+            try
+            {
+
+                if (marcaId == Constantes.Marca.LBel)
+                {
+                    codigo = ConsOrigenPedidoWeb.Palanca.CatalogoLbel;
+                }
+                else if (marcaId == Constantes.Marca.Esika)
+                {
+                    codigo = ConsOrigenPedidoWeb.Palanca.CatalogoEsika;
+                }
+                else if (marcaId == Constantes.Marca.Cyzone)
+                {
+                    codigo = ConsOrigenPedidoWeb.Palanca.CatalogoCyzone;
+                }
+            }
+            catch
+            {
+                // ignored
+            }
+
+            return codigo;
+        }
+        
+        public static string GetPalancaSegunTipoEstrategia(string codigoTipoEstrategia, bool materialGanancia = false)
+        {
+            string codigo = "";
+            try
+            {
+
+                switch (codigoTipoEstrategia)
+                {
+                    case Constantes.TipoEstrategiaCodigo.ShowRoom:
+                        codigo = ConsOrigenPedidoWeb.Palanca.Showroom;
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+                        codigo = ConsOrigenPedidoWeb.Palanca.Lanzamientos;
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
+                        codigo = ConsOrigenPedidoWeb.Palanca.OfertaDelDia;
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+                        codigo = ConsOrigenPedidoWeb.Palanca.Gnd;
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+                        codigo = ConsOrigenPedidoWeb.Palanca.HerramientasVenta;
+                        break;
+                    case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
+                    case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
+                    case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
+                        if (materialGanancia)
+                        {
+                            codigo = ConsOrigenPedidoWeb.Palanca.Ganadoras;
+                        }
+                        else
+                        {
+                            codigo = ConsOrigenPedidoWeb.Palanca.OfertasParaTi;
+                        }
+                        break;
+                }
+            }
+            catch
+            {
+                // ignored
+            }
+
+            return codigo;
+        }
     }
 }
