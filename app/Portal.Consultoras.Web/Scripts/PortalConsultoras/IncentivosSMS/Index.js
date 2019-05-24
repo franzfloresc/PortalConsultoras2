@@ -1,4 +1,5 @@
-﻿function InsertarProductoIncentivo() {
+﻿/// <reference path="../consultoraonline/pendientes.js" />
+function InsertarProductoIncentivo() {
     HorarioRestringido(function () {
         DesreservarPedido(function () {
         });

@@ -893,7 +893,7 @@ function AbrirMensaje25seg(mensaje, imagen) {
 
         setTimeout(function () {
             document.querySelector(_dialogClass).style.transition = "top 1s ease"
-            _newTopDialog = _topWithoutPXAfterCreateDialog - 200
+            _newTopDialog = _topWithoutPXAfterCreateDialog - 100
             _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'            
         }, 100)
 
@@ -902,7 +902,7 @@ function AbrirMensaje25seg(mensaje, imagen) {
                 $('#alertDialogMensajes25seg').dialog("close");
                 $("body").css("overflow", "auto")
             })
-        }, 3000)
+        }, 3000) 
 
         
         var parameter = [["mensaje", mensaje], ["imagen", imagen]];

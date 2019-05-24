@@ -197,8 +197,8 @@ var ConstantesModule = (function() {
     }
 
     var _mensajeModificarPedido = {
-        normal: '¡Listo! Tu pedido reservado ha sido modificado',
-        reservado: '¡Listo! Tu pedido ha sido modificado'
+        normal: '¡Listo! Tu pedido ha sido modificado',
+        reservado: '¡Listo! Tu pedido reservado ha sido modificado'
     }
     var _tiempo = {
         ToolTip: 2500

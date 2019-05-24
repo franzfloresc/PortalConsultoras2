@@ -140,7 +140,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         var respuesta = RespuestaModificarPedido(pedidoDetalle.Usuario);
                         if (respuesta != null)
                         {
-                            reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);
+                            if(pedidoDetalle.ReservaProl != null)
+                            {
+                                reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);
+                            }
 
                             if (!reservado)
                             {
@@ -168,6 +171,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         {
                             var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
                             respuestaT = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuestaT, out error);
+
+                            respuestaT = SetMontosTotalesProl(respuestaT, respuestaReserva);
                         }
 
                         if (!error)
@@ -196,7 +201,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var respuesta = RespuestaModificarPedido(pedidoDetalle.Usuario);
                     if (respuesta != null)
                     {
-                        reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);                        
+                        if (pedidoDetalle.ReservaProl != null)
+                        {
+                            reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);
+                        }
+                                           
                         if (!reservado)
                         {
                             return respuesta;
@@ -220,6 +229,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         {
                             var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
                             respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuesta, out error);
+
+                            respuesta = SetMontosTotalesProl(respuesta, respuestaReserva);
                         }
 
                         if (!error)
@@ -242,6 +253,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             error = false;
             var pedidoValidacionCode = Constantes.PedidoValidacion.Code.SUCCESS;
+
             if(resultadoReservaProl != null)
             {
                 switch (resultadoReservaProl.ResultadoReservaEnum)
@@ -286,7 +298,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }                
             }
             var respuesta = PedidoDetalleRespuesta(pedidoValidacionCode);
-
+            respuesta.MensajeRespuesta = respuesta.MensajeRespuesta.Replace("Pedido no reservado", "Pedido reservado");
             if (!error)
             {
                 respuesta.CodigoRespuesta = Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR;
@@ -321,7 +333,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var respuesta = RespuestaModificarPedido(pedidoDetalle.Usuario);
                     if (respuesta != null)
                     {
-                        reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);
+                        if (pedidoDetalle.ReservaProl != null)
+                        {
+                            reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);
+                        }
+
                         if (!reservado)
                         {
                             return respuesta;
@@ -344,11 +360,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                         if (reservado)
                         {
-                            //var respuestaReserva = await _reservaBusinessLogic.EjecutarReserva(pedidoDetalle.ReservaProl, true);
-                            //respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuesta, out error);
-
                             var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
                             respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuesta, out error);
+
+                            respuesta = SetMontosTotalesProl(respuesta, respuestaReserva);
                         }
 
                         if (!error)
@@ -405,7 +420,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             pedidoDetalle = PedidoAgregar_ObtenerEstrategia(pedidoDetalle);
             var usuario = pedidoDetalle.Usuario;
-
 
             var estrategia = PedidoAgregar_FiltrarEstrategiaPedido(pedidoDetalle, usuario.PaisID);
 
@@ -622,11 +636,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     Grupo = grupo
                 });
 
-
                 if (ObtieneValorFlagDesactivacionNoDigitable())
                 {
                     if ((listSp.Length > 4 && digitable == "0"))
+                    {
                         continue;
+                    }
                 }
 
                 if (!pedidoDetalle.EsKitNuevaAuto)
@@ -1019,6 +1034,18 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 result.MontoEscala = cero;
             }
         }
+
+
+        private BEPedidoDetalleResult SetMontosTotalesProl(BEPedidoDetalleResult result, BEResultadoReservaProl respuestaReserva)
+        {
+            result.MontoAhorroCatalogo = respuestaReserva.MontoAhorroCatalogo.ToString("#.00");
+            result.MontoAhorroRevista = respuestaReserva.MontoAhorroRevista.ToString("#.00");
+            result.DescuentoProl = respuestaReserva.MontoDescuento.ToString("#.00");
+            result.MontoEscala = respuestaReserva.MontoEscala.ToString("#.00");
+
+            return result;
+        }
+
 
         private BEPedidoDetalle PedidoAgregar_ObtenerEstrategia(BEPedidoDetalle pedidoDetalle)
         {
@@ -3182,7 +3209,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 DescuentoProl = montoDescuento,
                 MontoEscala = montoEscala
             };
-
             _pedidoWebBusinessLogic.UpdateMontosPedidoWeb(bePedidoWeb);
 
             if (!string.IsNullOrEmpty(codigoConcursosProl))

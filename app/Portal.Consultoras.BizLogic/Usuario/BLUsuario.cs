@@ -3994,7 +3994,6 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 if (conTransaccion) LogManager.SaveLog(ex, direccionEntrega.ConsultoraID, direccionEntrega.PaisID);
-                
                 throw new Exception("Exception BLUsuario - RegistrarDireccionEntrega", ex);
             }
             finally

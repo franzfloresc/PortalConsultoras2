@@ -278,6 +278,7 @@ $(document).ready(function () {
 
         e.stopPropagation(); //Para evitar que se cierre el popup de divObservacionesPROL
     });
+    
 
     $("body").on("mouseleave", ".cantidad_detalle_focus", function () {
         var rowElement = $(this).closest(".contenido_ingresoPedido");
@@ -449,18 +450,16 @@ $(document).ready(function () {
         e.preventDefault();
         var obj = $(this);
         var accion = obj.attr("data-paginacion");
-        var tipoPaginador = obj.attr("data-tipo");
         if (accion === "back" || accion === "next") {
-            CambioPagina(obj, tipoPaginador);
+            CambioPagina(obj);
         }
     });
     $("body").on("change", "[data-paginacion]", function (e) {
         e.preventDefault();
         var obj = $(this);
         var accion = obj.attr("data-paginacion");
-        var tipoPaginador = obj.attr("data-tipo");
         if (accion === "page" || accion === "rows") {
-            CambioPagina(obj, tipoPaginador);
+            CambioPagina(obj);
         }
     });
 
@@ -770,6 +769,17 @@ function CrearDialogs() {
         close: function (event, ui) {
             HideDialog("divConfirmValidarPROL");
         }
+    });
+    $("#divConfirmValidarPROL2").dialog({
+	    autoOpen: false,
+	    resizable: false,
+	    modal: true,
+	    closeOnEscape: true,
+	    width: 550,
+	    draggable: true,
+	    close: function (event, ui) {
+		    HideDialog("divConfirmValidarPROL");
+	    }
     });
 
     $("#divReservaSatisfactoria").dialog({
@@ -1731,7 +1741,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         async: true,
         success: function (data) {
             CerrarSplash();
-            //debugger;
+            
             if (!checkTimeout(data)) return false;
             if (data.success != true) {
                 btnSalirTlpDelete(window.event, pedidoDetalleId, setId);
@@ -2098,9 +2108,10 @@ function EjecutarAccionesReservaExitosa(response) {
     var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
     
     if (ultimoDiaFacturacion) {
-	    RedirigirPedidoValidado();
+	    RedirigirPedidoValidado(); //Redirige PEDIDO VALIDADO
+    } else {
+	    location.reload();
     }
-    
 }
 
 function EliminarPedido() {
@@ -2617,18 +2628,13 @@ function InfoCommerceGoogleDestacadoNextCarrusel() {
     }
 }
 
-function CambioPagina(obj, tipoPaginador) {
+function CambioPagina(obj) {
     var rpt = paginadorAccionGenerico(obj);
     if (rpt.page == undefined) {
         return false;
     }
 
-    var PedidoPendPoputPedidoId = $("#hdPedidoPendPoputPedidoId").val() == 0 ? $("#hdPedidoPendPoputPedidoId2").val() : $("#hdPedidoPendPoputPedidoId").val();
-    switch (tipoPaginador) {        
-        case ClasPedidoDetalle: CargarDetallePedido(rpt.page, rpt.rows); break;
-        case ClasPedidoDetallePendiente: CargarPedidosPend(rpt.page, rpt.rows); break;
-        case ClasPedidoPopupPedidoPend: CargarPopupPedidoPend(rpt.page, rpt.rows, PedidoPendPoputPedidoId, '1'); break;
-    }  
+    CargarDetallePedido(rpt.page, rpt.rows);
     return true;
 }
 
@@ -3021,4 +3027,16 @@ function BloquearPantallaPedidoByPopupSugerido(valor) {
 function CargarProductosRecomendados(item) {
     ProductoRecomendadoModule.ObtenerProductos(item.CodigoCatalago, item.EstrategiaIDSicc, item.CUV, item.CodigoProducto);
 
+}
+//TESLA-7
+function ModificarPedido() {
+	showDialog("divConfirmValidarPROL2");
+}
+
+function PedidosPendientesPorAprobar() {
+
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+        AnalyticsPortalModule.ClickBotonPedidosPendientes('Click Botón', 'Pedidos por aprobar');
+    }
+    window.location.href = '/ConsultoraOnline/Pendientes';
 }

@@ -474,14 +474,14 @@ var EstrategiaAgregarModule = (function () {
                 //Tooltip de agregado
                 if (esFichaT) {
                     try {
-                        var $AgregadoTooltip = $(dataProperties.tooltip);
-                        if (params.EsEditable) {
-                            $AgregadoTooltip.find(dataProperties.tooltipMensaje1).html("¡Listo! ");
-                            $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
-                        }
-                        $AgregadoTooltip.show();
+                        //var $AgregadoTooltip = $(dataProperties.tooltip);
+                        //if (params.EsEditable) {
+                        //    $AgregadoTooltip.find(dataProperties.tooltipMensaje1).html("¡Listo! ");
+                        //    $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
+                        //}
+                        //$AgregadoTooltip.show();
                         setTimeout(function () {
-                            $AgregadoTooltip.hide();
+                            //$AgregadoTooltip.hide();
                             if (typeof esAppMobile == 'undefined') {
                                 if (origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack) {
                                     window.location = "/ofertas";
@@ -495,10 +495,22 @@ var EstrategiaAgregarModule = (function () {
                                 }
                             }
                         }, 2500);
-                        if (!(origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack || origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack)) {
-                            if (typeof ResumenOpcionesModule != 'undefined') { ResumenOpcionesModule.LimpiarOpciones() };
-                        }
-                        else {
+                        if (!(origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack ||
+                            origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack)) {
+                            if (typeof ResumenOpcionesModule != 'undefined') {
+                                ResumenOpcionesModule.LimpiarOpciones()
+                            };
+                        } else {
+                            var mensaje = '';
+
+                            if (data.EsReservado === true) {
+                                mensaje = _mensajeAgregarPedido.reservado;
+                            } else {
+                                mensaje = _mensajeAgregarPedido.normal;
+                            }
+
+                            AbrirMensaje25seg(mensaje);
+
                             return;
                         }
                     } catch (e) {

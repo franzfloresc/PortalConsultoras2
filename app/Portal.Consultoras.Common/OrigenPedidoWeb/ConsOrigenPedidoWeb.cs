@@ -1,7 +1,7 @@
 ﻿
 using System;
 
-namespace Portal.Consultoras.Common
+namespace Portal.Consultoras.Common.OrigenPedidoWeb
 {
     /// <summary>
     /// Valores de OrigenPedidoWeb
@@ -80,6 +80,14 @@ namespace Portal.Consultoras.Common
             public const string CarruselUpselling = "15";
             public const string FichaUpselling = "16";
         }
+
+        /// <summary>
+        /// 0: Dispositivo
+        /// 1: Pagina
+        /// 2: Palanca
+        /// 3: Seccion
+        /// </summary>
+        public const string StrFormat = "{0}{1}{2}{3}";
 
         /// <summary>
         /// Nro Final Concatenado
