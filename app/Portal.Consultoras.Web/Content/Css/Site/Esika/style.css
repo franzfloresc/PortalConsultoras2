@@ -29837,7 +29837,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 
 .icono_resumen_resolucion {
     background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat top left;
-    background-position: 0 33px;
+    background-position: 0 center;
     background-size:7%;
 }
 
@@ -30312,7 +30312,8 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     margin-top: 23px;
     width: 360px;
     padding-left: 25px;
-    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat top left;
+    background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat center left;
+    background-size: 18px;
 }
 
 .btn_eliminar_observado {
