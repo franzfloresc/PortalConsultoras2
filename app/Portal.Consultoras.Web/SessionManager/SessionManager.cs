@@ -1418,13 +1418,13 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<BEDemostradoresCaminoBrillante>)HttpContext.Current.Session[Constantes.ConstSession.DemostradoresCaminoBrillante];
         }
 
-        public void SetFiltrosCaminoBrillante(List<BEOrdenFiltrosCaminoBrillante> val)
+        public void SetFiltrosCaminoBrillante(BEOrdenFiltroConfiguracion val)
         {
             HttpContext.Current.Session[Constantes.ConstSession.FiltrosCaminoBrillante] = val;
         }
-        public List<BEOrdenFiltrosCaminoBrillante> GetFiltrosCaminoBrillante()
+        public BEOrdenFiltroConfiguracion GetFiltrosCaminoBrillante()
         {
-            return (List<BEOrdenFiltrosCaminoBrillante>)HttpContext.Current.Session[Constantes.ConstSession.FiltrosCaminoBrillante];
+            return (BEOrdenFiltroConfiguracion)HttpContext.Current.Session[Constantes.ConstSession.FiltrosCaminoBrillante];
         }
         #endregion
     }
