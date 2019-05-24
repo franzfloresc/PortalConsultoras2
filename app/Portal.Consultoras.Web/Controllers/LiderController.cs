@@ -23,31 +23,49 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 strCodigoUsuario = userData.CodigoUsuario;
             }
-
-            //string[] parametros = new string[] { userData.PaisID.ToString() + "|" + strCodigoUsuario };
-            //string str = Util.EncriptarQueryString(parametros);
-            //string url = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.URL_LIDER) + "?p=" + str;
-
-            ////if (!SessionManager.GetIngresoPortalLideres())
-            //{
-            //    //RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalLideres, Constantes.LogDynamoDB.RolSociaEmpresaria, "HOME", "INGRESAR");
-            //    SessionManager.SetIngresoPortalLideres(true);
-            //}
-
+            
             string urlAccesoExterno = string.Empty;
             string secretKey = ConfigurationManager.AppSettings["JsonWebTokenSecretKey"] ?? "";
 
             if (!string.IsNullOrEmpty(secretKey))
             {
-                IngresoExternoModel payLoad = new IngresoExternoModel();
-                payLoad.Pais = userData.PaisID.ToString();
-                payLoad.CodigoUsuario = strCodigoUsuario;
+                PayLoad payLoad = new PayLoad();
+
+                payLoad.CodigoConsultora = userData.CodigoConsultora;
+                payLoad.CodPais = userData.CodigoISO;
+                payLoad.CodRegion = userData.CodigorRegion;
+                payLoad.CodZona = userData.CodigoZona;
+                payLoad.CodSeccion = userData.SeccionAnalytics;
+                payLoad.SeccionGestionLider = userData.SeccionGestionLider;
+                payLoad.EMail = userData.EMail;
+                payLoad.NombrePais = userData.NombrePais;
+                payLoad.Nombre = userData.NombreConsultora;
+                payLoad.Celular = userData.Celular;
+                payLoad.Telefono = userData.Telefono;
+                payLoad.DescripcionNivel = userData.DescripcionNivel;
 
                 var cadenaEncriptada = JWT.JsonWebToken.Encode(payLoad, secretKey, JWT.JwtHashAlgorithm.HS256);
-                urlAccesoExterno = ConfigurationManager.AppSettings["URL_LIDER"].ToString() + "/?p=" + cadenaEncriptada;
+                urlAccesoExterno = ConfigurationManager.AppSettings["URL_LIDER"].ToString() + "/?token=" + cadenaEncriptada;
             }
 
             return Redirect(urlAccesoExterno);
+        }
+
+        public class PayLoad
+        {
+            public string CodigoConsultora { get; set; }
+            public string CodRol { get; set; }
+            public string CodPais { get; set; }
+            public string CodRegion { get; set; }
+            public string CodZona { get; set; }
+            public string CodSeccion { get; set; }
+            public string SeccionGestionLider { get; set; }
+            public string EMail { get; set; }
+            public string NombrePais { get; set; }
+            public string Nombre { get; set; }
+            public string Celular { get; set; }
+            public string Telefono { get; set; }
+            public string DescripcionNivel { get; set; }
         }
 
     }
