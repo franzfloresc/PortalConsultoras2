@@ -613,8 +613,8 @@ namespace Portal.Consultoras.Common
         public static class ConfiguracionesFicha
         {
             public const short TablaLogicaId = 15;
-            public const short MostrarFuncionalidadUpSelling = 1501;
-            public const short CantidadProductosCarruselUpSelling = 1502;
+            public const string FuncionalidadUpSelling = "FuncionalidadUpSelling";
+            public const string CantidadProductosUpSelling = "CantidadProductosUpSelling";
         }
 
     }

@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Providers
             _tablaLogicaProvider = new TablaLogicaProvider();
         }
 
-        public async Task<OutputProductosUpSelling> ObtenerProductosCarruselUpSelling(string cuv, string[] codigosProductos, double precioProducto)
+        public virtual async Task<OutputProductosUpSelling> ObtenerProductosCarruselUpSelling(string cuv, string[] codigosProductos, double precioProducto)
         {
             try
             {
@@ -44,8 +44,10 @@ namespace Portal.Consultoras.Web.Providers
         private int ObtenerCantidadProductosUpSelling()
         {
             var userData = _sessionManager.GetUserData();
-            var cantidadProductos = _tablaLogicaProvider.GetTablaLogicaDatoValor(userData.PaisID, ConsTablaLogica.ConfiguracionesFicha.TablaLogicaId, ConsTablaLogica.ConfiguracionesFicha.CantidadProductosCarruselUpSelling, true);
-            return cantidadProductos.IsNullOrEmptyTrim() ? 0 : Convert.ToInt32(cantidadProductos);
+            var cantidadProductos = _tablaLogicaProvider.GetTablaLogicaDatoValorInt(userData.PaisID, 
+                ConsTablaLogica.ConfiguracionesFicha.TablaLogicaId, 
+                ConsTablaLogica.ConfiguracionesFicha.CantidadProductosUpSelling, true);
+            return cantidadProductos;
         }
 
         private dynamic GenerarJsonParaConsulta(UsuarioModel usuarioModel, 
