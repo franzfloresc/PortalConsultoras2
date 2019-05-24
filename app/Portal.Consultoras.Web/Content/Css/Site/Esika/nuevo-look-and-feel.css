@@ -228,8 +228,12 @@
     color: #000 !important;
 }
 
-.ubicacion_web a{
-    font-weight:400;
+.layout__header--nuevoLookAndFeelEsika .menu__item--lateralDerechoIcono[data-title="Notificaciones"]{
+    min-width:63px;
+}
+
+.ubicacion_web a {
+    font-weight: 400;
 }
 
 .header--nuevoLookAndFeelEsika--mobile .menu_icon_wrapper img {
