@@ -3,6 +3,20 @@
 @{
     string imagenVacia = "prod_grilla_vacio.png";
 }
+<style>
+    .div-3 .titC {
+        height: auto;
+        padding: 9px;
+        background: none;
+        color: #702789;
+        font-size: 14px;
+        margin: 0;
+        border: 0;
+        float: none;
+        width: auto;
+        text-align:left;
+    }
+</style>
 <script>
     $(document).ready(function () {
 
@@ -28,13 +42,111 @@
             }        
 
         })
+
+        $("#chkSeleccionar").click(function () {
+            if (this.checked)
+                $.jstree._reference($("#arbolRegionZona")).check_all();
+            else
+                $.jstree._reference($("#arbolRegionZona")).uncheck_all();
+        });
+
+        
+    function CargarSegmentoPais() {
+  
+         $.ajaxSetup({
+                cache: false,
+                async: false
+        });
+        var PaisId;
+        $.getJSON(baseUrl + 'AdministrarHistorias/ObtenerSegmento', { PaisId: PaisId}, function (data) {
+                if (checkTimeout(data)) {
+                    var ddlSegmento = $('#ddlSegmento');
+                    ddlSegmento.empty();
+                    if (data.listasegmento.length > 0) {
+                        for (var item in data.listasegmento) {
+                          
+                            if (data.listasegmento.hasOwnProperty(+item)) {
+                                ddlSegmento.append('<div style="display:block"><div style="float:left"><input type="Checkbox" value="' + data.listasegmento[item].BannerSegmentoId + '" style="display:inline-block !important; height: 15px !important;" /></div><div style="float:left;">' + data.listasegmento[item].BannerSegmentoDes + '</div> <div style="clear: both"></div></div>');
+                            }
+                        }
+
+                        var segmentosVal = $("#Seccion").val();
+                        if (segmentosVal != "") {
+                            var segmentosInternos = segmentosVal.split(',');
+                            $("#ddlSegmento").find('input[type="checkbox"]').each(function () {
+
+                                var valor = $(this).attr('value');
+                                if ($.inArray(valor, segmentosInternos) > -1) {
+                                    $(this).attr("checked", true);
+                                }
+                            });
+                        }
+                        
+                    }
+                }
+            });
+        return false;
+        }
+
+        function ConfigurarArbol(Zonas) {
+
+            $.ajaxSetup({
+                cache: false
+            });
+            $("#arbolRegionZona").jstree({
+                json_data: {
+                    ajax: {
+                        url: baseUrl + "AdministrarHistorias/CargarArbolRegionesZonas",
+                        data: function (n) {},
+                        type: "GET",
+                        error: function (XMLHttpRequest, textStatus, errorThrown) { },
+                        success: function (data, textStatus, jqXHR) { },
+                        complete: function () {
+                            $("#arbolRegionZona").jstree("set_theme", "apple", "@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")");
+
+                            var strZonas = Zonas;
+                            if (strZonas != "") {
+                                $.jstree._reference($("#arbolRegionZona")).uncheck_all();
+                                var strZonasArreglo = strZonas.split(",");
+                                for (i = 0; i < strZonasArreglo.length; i++) {
+                                    $("#arbolRegionZona").jstree("check_node", "#" + strZonasArreglo[i], true);
+                                }
+                                $("#chkSeleccionar").attr("checked", true);
+                                $.jstree._reference($("#arbolRegionZona")).get_unchecked(null, true).each(function () {
+                                    if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
+                                        return true;
+                                    }
+                                    $("#chkSeleccionar").attr("checked", false);
+                                });
+                            }
+                            $('#arbolRegionZona').jstree('close_all');
+                        }
+                    }
+                },
+                "themes": {
+                    "theme": "apple",
+                    "dots": true,
+                    "icons": false
+                },
+                plugins: ["themes", "json_data", "ui", "checkbox"]
+            });
+            return false;
+        }
+
         $("#ddlAccion").change();
+        CargarSegmentoPais();
+        var Zonas = $("#Zona").val();
+        ConfigurarArbol(Zonas);
     })
 </script>
+
 <div class="div-12">
     @Html.HiddenFor(model => model.Proc)
     @Html.HiddenFor(model => model.IdContenidoDeta)
     @Html.HiddenFor(model => model.IdContenido)
+    @Html.HiddenFor(model => model.Zona)
+    @Html.HiddenFor(model => model.Seccion)
+
     @if (Model.Proc == 1)
     {
         <div class="div-3 divHomeImagenFondo"
@@ -63,7 +175,7 @@
 
 
     <div class="div-3">
-        <div class="titG">Accion:</div>
+        <div class="titG">Acción:</div>
         <div class="selectP2 borde_redondeado">
             @Html.DropDownListFor(model => model.Accion, new SelectList(Model.ListaAccion, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlAccion" })
         </div>
@@ -90,10 +202,48 @@
 
     </div>
 
+
+    <div style="float:left">
+        <div class="div-3">
+            <div class="titC">Segmento:</div>
+            <div class="selectA borde_redondeado">
+                <ul id="ddlSegmento"></ul>&nbsp;
+            </div>
+        </div>
+    </div>
+
+    <div style="float:left">
+        <div class="div-3">
+            <div class="titC">Jerarquía:</div>
+            <div class="treeview_content borde_redondeado">
+                <div id="arbolRegionZona" class="demo">
+                </div>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titH">
+                <div style="float:left">
+                    <label id="lblSeleccionar">
+                        <input type="checkbox" id="chkSeleccionar" />
+
+                    </label>
+                </div>
+                <div style="float:left; margin-top:10px">
+                    Seleccionar todo
+                </div>
+            </div>
+        </div>
+        <div style="clear: both"></div>
+    </div>
+
+
     @if (Model.Proc == 1)
     {
-        <div style="color: #ff0000">
-            @Model.LimitDetMensaje
+        <div class="div-3">
+            <div style="color: #ff0000">
+                @Model.LimitDetMensaje
+            </div>
         </div>
     }
-  </div>
+</div>
+
