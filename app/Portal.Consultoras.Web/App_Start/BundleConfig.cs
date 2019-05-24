@@ -238,7 +238,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Esika/buscador-filtros.css",
                "~/Content/Css/Site/ProductoListado/CajaProducto.css",
                "~/Content/Css/Site/Pedido/PedidoInfo.css",
-               "~/Content/Css/Site/Pedido/EditarProductoFicha.css"
+               "~/Content/Css/Site/Pedido/EditarProductoFicha.css",
+               "~/Content/Css/Site/Esika/nuevo-look-and-feel.css"
                ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-AsesoraOnline").Include(
@@ -303,7 +304,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/Esika/revistaDigital.css",
                "~/Content/Css/Mobile/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css",
-               "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css"
+               "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css",
+               "~/Content/Css/Site/Esika/nuevo-look-and-feel.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/lbel-CssSB2Mobile").Include(
@@ -1049,7 +1051,8 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/EsikaPageResponsive").Include(
                 "~/Content/Css/Site/Esika/marca-pais-responsive.css",
-                "~/Content/Css/Site/Esika/styleDefault.css"
+                "~/Content/Css/Site/Esika/styleDefault.css",
+                "~/Content/Css/Site/Esika/nuevo-look-and-feel.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/LebelPageResponsive").Include(
