@@ -232,6 +232,11 @@
     font-weight:400;
 }
 
+.header--nuevoLookAndFeelEsika--mobile .menu_icon_wrapper img {
+    width: 22px !important;
+    height: auto;
+}
+
 @media screen and (max-width:991px){
 
     .banner_ingresoPedido.banner_ingresoPedido--nuevoLookAndFeel {
@@ -245,11 +250,6 @@
         margin-right: -8px;
         top:2.5px;
     }
-
-        .header--nuevoLookAndFeelEsika--mobile .menu_icon_wrapper img{
-            width:22px!important;
-            height:auto;
-        }
 
     .header--nuevoLookAndFeelEsika--mobile .campana_svg_mobile {
         background: url(/Content/Images/icono_notificaciones_blanco.svg) no-repeat;
