@@ -12,10 +12,12 @@ namespace Portal.Consultoras.Web.Providers
     public class CdrProvider
     {
         protected readonly ISessionManager sessionManager;
+        protected TablaLogicaProvider _tablaLogicaProvider;
 
         public CdrProvider()
         {
             sessionManager = SessionManager.SessionManager.Instance;
+            _tablaLogicaProvider = new TablaLogicaProvider();
         }
 
         public List<ServiceCDR.BECDRWeb> CargarBECDRWeb(MisReclamosModel model, int paisId, long consultoraId)
@@ -135,12 +137,8 @@ namespace Portal.Consultoras.Web.Providers
         {
             sessionManager.SetCDRWebDetalle(null);
             sessionManager.SetCdrWeb(null);
-            //sessionManager.SetCDRPedidoFacturado(null);//HD-3412 EINCA
-
 
             List<BEPedidoWeb> listaPedidoFacturados = CDRObtenerPedidoFacturadoCargaInicial(paisId, campaniaId, consultoraId);
-            //sessionManager.SetCDRPedidoFacturado(listaPedidoFacturados); //HD-3412 CargarPedidosFacturados - El método CargarPedidosFacturados ya lo setea
-
 
             var listaCampanias = new List<CampaniaModel>();
             var campania = new CampaniaModel
@@ -277,7 +275,7 @@ namespace Portal.Consultoras.Web.Providers
                     listaPedidoFacturados = sv.GetPedidosFacturadoSegunDias(paisId, campaniaId, consultoraId, maxDias).ToList();
 
                 }
-                //HD-3412 EINCA
+
                 if (listaPedidoFacturados.Any())
                 {
                     foreach (var item in listaPedidoFacturados)
@@ -449,7 +447,6 @@ namespace Portal.Consultoras.Web.Providers
             return (listaPedidoFacturados.Count > 0).ToInt();
         }
 
-        //HD-3412 EINCA
         public bool ValidarCantidadSolicitudesPerPedido(List<CDRWebModel> ListaCDRWeb, List<BEPedidoWeb> ListaCampaniaPedido, int? CantidadPedidosConfig)
         {
             bool result = true;
@@ -500,7 +497,6 @@ namespace Portal.Consultoras.Web.Providers
             return result;
         }
 
-        //HD-3412 EINCA
         public List<CDRWebModel> ObtenerCDRWebCargaInicial(long consultoraID, int paisID)
         {
             if (sessionManager.GetListaCDRWebCargaInicial() != null)
@@ -511,7 +507,7 @@ namespace Portal.Consultoras.Web.Providers
             List<CDRWebModel> listaCdrWebModel;
             using (CDRServiceClient cdr = new CDRServiceClient())
             {
-                var beCdrWeb = new ServiceCDR.BECDRWeb { ConsultoraID = consultoraID }; //HD-3412 EINCA
+                var beCdrWeb = new ServiceCDR.BECDRWeb { ConsultoraID = consultoraID };
 
                 var listaReclamo = cdr.GetCDRWeb(paisID, beCdrWeb).ToList();
 
@@ -523,7 +519,6 @@ namespace Portal.Consultoras.Web.Providers
             return listaCdrWebModel;
         }
 
-        //HD-3412 EINCA
         public int? GetNroSolicitudesReclamoPorPedido(int paisID, string codigoConsultora, string codigoISO)
         {
             int result = 0;
@@ -535,12 +530,8 @@ namespace Portal.Consultoras.Web.Providers
                     return sessionManager.GetNroPedidosCDRConfig();
                 }
 
-                using (var sv = new ServiceSAC.SACServiceClient())
-                {
-                    var serviceResult = sv.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.NroReclamosPorPedidoCDR).ToList();
-                    var cantidad = serviceResult.Where(a => a.Codigo == "01").FirstOrDefault().Valor;
-                    int.TryParse(cantidad, out result);
-                }
+                result = _tablaLogicaProvider.GetTablaLogicaDatoValorInt(paisID, ConsTablaLogica.NroSolicitudePedido.TablaLogicaId, ConsTablaLogica.NroSolicitudePedido.Cod01);
+
             }
             catch (Exception ex)
             {
@@ -549,7 +540,7 @@ namespace Portal.Consultoras.Web.Providers
             sessionManager.SetNroPedidosCDRConfig(result);
             return result;
         }
-        //HD-3412 EINCA
+
         private class PedidosEstadoCDRWeb
         {
             public int CampaniaID { get; set; }

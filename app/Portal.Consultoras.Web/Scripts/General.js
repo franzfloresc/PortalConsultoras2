@@ -1,16 +1,13 @@
-﻿var formatDecimalPais = formatDecimalPais || new Object();
+﻿var formatDecimalPais = formatDecimalPais || {};
 var finishLoadCuponContenedorInfo = false;
 var belcorp = belcorp || {};
-belcorp.settings = belcorp.settings || {}
+belcorp.settings = belcorp.settings || {};
 belcorp.settings.uniquePrefix = "/g/";
 
 jQuery(document).ready(function () {
 
     CreateLoading();
-    //eventCloseDialogMensaje();
-    $("header").resize(function () {
-        LayoutMenu();
-    });
+
 
     if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {
         GuardarIndicadorPedidoAutentico();
@@ -29,7 +26,7 @@ jQuery(document).ready(function () {
                 if (!options.beforeSend) {
                     options.beforeSend = function (xhr) {
                         xhr.setRequestHeader("guid", posibleGuid);
-                    }
+                    };
                 }
             });
         }
@@ -89,7 +86,7 @@ jQuery(document).ready(function () {
             function () { return (this.nodeType == 3 && !/\S/.test(this.nodeValue)); })
             .remove();
         return this;
-    }
+    };
 
     Clone = function (obj) {
         if (obj == null || typeof (obj) != 'object')
@@ -165,7 +162,7 @@ jQuery(document).ready(function () {
     };
 
     Array.prototype.Find = function (campo, valor) {
-        var array = new Array();
+        var array = [];
         var campoVal = $.trim(campo);
         if (campoVal == "") {
             $.each(this, function (index, item) {
@@ -337,6 +334,26 @@ jQuery(document).ready(function () {
                 return new Handlebars.SafeString(cadena);
             });
 
+            Handlebars.registerHelper('SubstrResponsive', function (cadena, length, length2) {
+                cadena = cadena || "";
+                cadena = $.trim(cadena);
+                length2 = length2 || 0;
+
+                if (window.innerWidth > 750) {
+                    if (cadena.length > length) {
+                        cadena = cadena.substring(0, length) + "...";
+                    }
+                } else {
+                    if (length2 > 0) {
+                        if (cadena.length > length2) {
+                            cadena = cadena.substring(0, length2) + "...";
+                        }
+                    }
+                }
+
+                return new Handlebars.SafeString(cadena);
+            });
+
             Handlebars.registerHelper('JSON2string', function (context) {
                 return JSON.stringify(context);
             });
@@ -387,8 +404,14 @@ jQuery(document).ready(function () {
             Handlebars.registerHelper('Multiplicar', function (a, b) {
                 return a * b;
             });
+
+            //EAAR
+            Handlebars.registerHelper('json', function (context) {
+                return JSON.stringify(context).replace(/"/g, '&quot;');
+            });
+             
         }
-    }
+    };
 
     SetHandlebarsHtml = function (urlTemplate, modelo, idHtml) {
         if (!Handlebars.helpers.iff)
@@ -422,7 +445,7 @@ jQuery(document).ready(function () {
 
         return "";
 
-    }
+    };
     SetHandlebars = function (idTemplate, data, idHtml) {
         if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
@@ -439,13 +462,13 @@ jQuery(document).ready(function () {
         if (idHtml == "" || $(idHtml).length === 0) return htmlDiv;
         $(idHtml).html(htmlDiv);
         return "";
-    }
+    };
 
     SetFormatDecimalPais = function (miles, decimal, decimalCantidad) {
         if (miles != undefined && decimal == undefined && decimalCantidad == undefined) {
             var listaDatos = miles.split("|");
             if (listaDatos.length < 2)
-                return new Object();
+                return {};
 
             miles = listaDatos.length > 0 ? listaDatos[0] : "";
             decimal = listaDatos.length > 1 ? listaDatos[1] : "";
@@ -453,11 +476,11 @@ jQuery(document).ready(function () {
         }
 
 
-        formatDecimalPais = formatDecimalPais || new Object();
+        formatDecimalPais = formatDecimalPais || {};
         formatDecimalPais.miles = miles || ",";
         formatDecimalPais.decimal = decimal || ".";
         formatDecimalPais.decimalCantidad = decimalCantidad || 2;
-    }
+    };
 
     IsDecimalExist = function (p_decimalNumber) {
         var l_boolIsExist = true;
@@ -466,10 +489,10 @@ jQuery(document).ready(function () {
             l_boolIsExist = false;
 
         return l_boolIsExist;
-    }
+    };
 
     DecimalToStringFormat = function (monto, noDecimal) {
-        formatDecimalPais = formatDecimalPais || new Object();
+        formatDecimalPais = formatDecimalPais || {};
         noDecimal = noDecimal || false;
         var decimal = formatDecimalPais.decimal || ".";
         var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0);
@@ -495,9 +518,9 @@ jQuery(document).ready(function () {
         } while (pEntera.length > 0);
 
         return pEnteraFinal + pDecimal;
-    }
+    };
 
-    IsNullOrEmpty = function (texto) { return texto == null || texto === ''; }
+    IsNullOrEmpty = function (texto) { return texto == null || texto === ''; };
 
     $(document).scroll(function () {
         try {
@@ -507,10 +530,10 @@ jQuery(document).ready(function () {
 
     RemoverRepetidos = function (lista, campo) {
         campo = $.trim(campo);
-        var newLista = new Array();
-        var arrAux = new Array();
+        var newLista = [];
+        var arrAux = [];
         $.each(lista, function (ind, item) {
-            arrAux = new Array();
+            arrAux = [];
             if (campo != "") {
                 arrAux = newLista.Find(campo, item[campo]);
             }
@@ -574,6 +597,10 @@ function showDialog(dialogId) {
     return false;
 }
 
+/**
+ * @deprecated
+ * se iran eliminando las referencias de manera progresiva.
+ */
 function HideDialog(dialogId) {
     try {
 
@@ -596,6 +623,10 @@ function validateEmail(email) {
     return re.test(email);
 }
 
+/**
+ * @deprecated usar GeneralModule.abrirLoad()
+ * se iran eliminando las referencias de manera progresiva.
+ */
 function CreateLoading() {
     if ($("#loadingScreen").find(".loadingScreen-titulo").length !== 0 ||
         $("#loadingScreen").find(".loadingScreen-mensaje").length !== 0) return false;
@@ -616,6 +647,7 @@ function CreateLoading() {
     });
     $("#loadingScreen").parent().find(".ui-dialog-titlebar").hide();
 }
+
 //function eventCloseDialogMensaje() {
 //    HideDialog("alertDialogMensajes");
 //}
@@ -632,6 +664,10 @@ function printElement(selector) {
     document.body.innerHTML = originalContents;
 }
 
+/**
+ * @deprecated usar GeneralModule.abrirLoad()
+ * se iran eliminando las referencias de manera progresiva.
+ */
 function waitingDialog(waiting) {
     try {
         if (!$("#loadingScreen")) {
@@ -657,6 +693,10 @@ function waitingDialog(waiting) {
     }
 }
 
+/**
+ * @deprecated usar GeneralModule.cerrarLoad()
+ * se iran eliminando las referencias de manera progresiva.
+ */
 function closeWaitingDialog(opcion) {
     try {
         HideDialog("loadingScreen");
@@ -671,6 +711,10 @@ function closeWaitingDialog(opcion) {
 
 }
 
+/**
+ * @deprecated usar GeneralModule.abrirLoad()
+ * se iran eliminando las referencias de manera progresiva.
+ */
 function AbrirLoad(opcion) {
     try {
         if (isMobile()) {
@@ -684,6 +728,10 @@ function AbrirLoad(opcion) {
     }
 }
 
+/**
+ * @deprecated usar GeneralModule.cerrarLoad()
+ * se iran eliminando las referencias de manera progresiva.
+ */
 function CerrarLoad(opcion) {
     try {
         if (isMobile()) {
@@ -704,6 +752,14 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             CerrarLoad();
             return false;
         }
+        //INI HD-3693
+        var msjBloq = validarpopupBloqueada(mensaje);
+        if (msjBloq != "") {
+            CerrarLoad();
+            alert_msg_bloqueadas(msjBloq);
+            return true;
+        }
+        //FIN HD-3693
         titulo = titulo || "MENSAJE";
         var CONS_TIPO_ICONO = { ALERTA: 1, CHECK: 2 };
         var isUrlMobile = isMobile();
@@ -736,14 +792,14 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('.ui-dialog .ui-button').off('click');
             $('.ui-dialog .ui-icon-closethick').off('click');
 
-            $('.ui-dialog .ui-button').on('click', function () {
+            $('.ui-dialog .ui-button').on('click', function (e) {
                 HideDialog("alertDialogMensajes");
-                if ($.isFunction(fnAceptar)) fnAceptar();
+                if ($.isFunction(fnAceptar)) fnAceptar(e);
             });
 
-            $('.ui-dialog .ui-icon-closethick').on('click', function () {
+            $('.ui-dialog .ui-icon-closethick').on('click', function (e) {
                 HideDialog("alertDialogMensajes");
-                if ($.isFunction(fnAceptar)) fnAceptar();
+                if ($.isFunction(fnAceptar)) fnAceptar(e);
             });
 
             $('.ui-dialog .ui-button').focus();
@@ -763,12 +819,12 @@ function compare_dates(fecha, fecha2) {
     var yDay = fecha2.substring(0, 2);
     var yYear = fecha2.substring(6, 10);
     if (xYear > yYear) {
-        return (true)
+        return (true);
     }
     else {
         if (xYear == yYear) {
             if (xMonth > yMonth) {
-                return (true)
+                return (true);
             }
             else {
                 if (xMonth == yMonth) {
@@ -792,6 +848,10 @@ function IsValidUrl(value) {
     return match;
 }
 
+/**
+ * @deprecated usar GeneralModule.isMobile()
+ * se iran eliminando las referencias de manera progresiva.
+ */
 function isMobile() {
     var isUrlMobile = $.trim(location.href.replace("#", "/") + "/").toLowerCase().indexOf("/mobile/") > 0 ||
         $.trim(location.href).toLowerCase().indexOf("/g/") > 0;
@@ -882,15 +942,20 @@ function checkTimeout(data) {
 
         if (!thereIsStillTime) {
 
-            var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
-            if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
-                $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
-                $('#dialog_SesionMainLayout').show();
+            if (typeof showPopupFinSesion === 'function') {
+                showPopupFinSesion();
+            } else {
+                var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
+                if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
+                    $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
+                    $('#dialog_SesionMainLayout').show();
+                }
+                else {
+                    $('#popupInformacionSB2SesionFinalizada').find('#mensajeInformacionSB2_SesionFinalizada').text(message);
+                    $('#popupInformacionSB2SesionFinalizada').show();
+                }
             }
-            else {
-                $('#popupInformacionSB2SesionFinalizada').find('#mensajeInformacionSB2_SesionFinalizada').text(message);
-                $('#popupInformacionSB2SesionFinalizada').show();
-            }
+
         }
     }
     else {
@@ -900,6 +965,13 @@ function checkTimeout(data) {
 }
 
 function checkUserSession() {
+
+    if (isSessionExpired()) {
+        window.location.href = '/Login/SesionExpirada';
+    }
+}
+
+function isSessionExpired() {
     var res = -1;
 
     $.ajax({
@@ -913,9 +985,7 @@ function checkUserSession() {
         }
     });
 
-    if (res == 0) {
-        window.location.href = '/Login/SesionExpirada';
-    }
+    return res == 0;
 }
 
 function paginadorAccionGenerico(obj) {
@@ -932,7 +1002,7 @@ function paginadorAccionGenerico(obj) {
     pageCount = pageCount <= 0 ? 1 : pageCount;
     paginaActual = paginaActual <= 0 ? 1 : paginaActual;
 
-    var rpt = new Object();
+    var rpt = {};
     rpt.estado = 0;
 
     if (accion === "back") {
@@ -968,7 +1038,7 @@ function paginadorAccionGenerico(obj) {
 }
 
 function ActualizarGanancia(data) {
-    data = data || new Object();
+    data = data || {};
     data.CantidadProductos = data.CantidadProductos || "";
     data.TotalPedidoStr = data.TotalPedidoStr || "";
 
@@ -1032,7 +1102,7 @@ FuncionesGenerales = {
         var tecla = (document.all) ? e.keyCode : e.which;
         if (tecla == 8) return true;
         var patron = /[0-9-\-]/;
-        var te = String.fromCharCode(tecla);    
+        var te = String.fromCharCode(tecla);
         return patron.test(te);
     },
     ValidarSpecialCharater: function (e) {
@@ -1041,7 +1111,7 @@ FuncionesGenerales = {
             return false;
         }
     },
-   
+
     ValidarSoloLetrasYNumeros: function (e) {
         var charCode = (e.which) ? e.which : window.event.keyCode;
         if (charCode <= 13) {
@@ -1128,8 +1198,8 @@ FuncionesGenerales = {
     AvoidingCopyingAndPasting: function (idInput) {
         var myInput = document.getElementById(idInput);
         if (myInput) {
-            myInput.onpaste = function (e) { e.preventDefault(); }
-            myInput.oncopy = function (e) { e.preventDefault(); }
+            myInput.onpaste = function (e) { e.preventDefault(); };
+            myInput.oncopy = function (e) { e.preventDefault(); };
         }
     },
     AutoCompletarEmailAPartirDeArroba: function (input) {
@@ -1303,106 +1373,6 @@ function xMensajeEstadoPedido(estado) {
         $("#bloquemensajesPedido").hide();
     }
     LayoutHeader();
-}
-
-function LayoutHeader() {
-    LayoutHeaderFin();
-    $(document).ajaxStop(function () {
-        LayoutHeaderFin();
-    });
-}
-
-function LayoutHeaderFin() {
-    var wtop = $("header").innerHeight();
-    $("[data-content]").css("margin-top", (wtop) + "px");
-}
-
-function LayoutMenu() {
-    LayoutMenuFin();
-    $(document).ajaxStop(function () {
-        LayoutMenuFin();
-    });
-}
-
-function LayoutMenuFin() {
-
-    if (typeof menuModule !== "undefined")
-        menuModule.Resize();
-
-    // validar si sale en dos lineas
-    var idMenus = "#ulNavPrincipal-0 > li";
-
-    if ($(idMenus).length == 0) {
-        return false;
-    }
-
-    var idnMenuHeader = ".wrapper_header";
-    var menuParte1 = "[data-menu-header='parte1']";
-    var menuParte2 = "[data-menu-header='parte2']";
-    var menuParte3 = "[data-menu-header='parte3']";
-
-    $(idnMenuHeader).css("max-width", "");
-    $(idnMenuHeader).css("width", "");
-    $(menuParte1).css("width", "");
-    $(menuParte2).css("width", "");
-    $(menuParte3).css("width", "");
-    $(idMenus).css("margin-left", "0px");
-
-    var wt = $(idnMenuHeader).width();
-    var wl = $(menuParte1).innerWidth();
-    var wr = $(menuParte3).innerWidth() + 1;
-    $(idnMenuHeader).css("max-width", wt + "px");
-    $(idnMenuHeader).css("width", wt + "px");
-
-    $(menuParte1).css("width", wl + "px");
-    $(menuParte3).css("width", wr + "px");
-
-    wt = wt - wl - wr;
-    $(menuParte2).css("width", wt + "px");
-
-    var h = $(idnMenuHeader).height();
-
-    if (h > 61) {
-        $(idMenus + " a").css("font-size", "9px");
-    }
-
-    wr = 0;
-    $.each($(idMenus), function (ind, menupadre) {
-        wr += $(menupadre).innerWidth();
-    });
-
-    if (wt == wr) {
-        $(idMenus + " a").css("font-size", "9px");
-        wr = 0;
-        $.each($(idMenus), function (ind, menupadre) {
-            wr += $(menupadre).innerWidth();
-        });
-    }
-
-    if (wt < wr) {
-        $(idMenus + " a").css("font-size", "10.5px");
-    }
-    else if (wt > wr) {
-        wr = (wt - wr) / $(idMenus).length;
-        wr = parseInt(wr * 10) / 10;
-        wr = Math.min(wr, 20);
-
-        $.each($(idMenus), function (ind, menupadre) {
-            if (ind > 0 && ind + 1 < $(idMenus).length) {
-                $(menupadre).css("margin-left", wr + "px");
-            }
-        });
-    }
-
-    // caso no entre en el menu
-    // poner en dos renglones
-    if ($(idnMenuHeader).height() > 61) {
-    }
-
-    LayoutHeader();
-
-    if (typeof menuModule !== "undefined")
-        menuModule.Resize();
 }
 
 function ResizeMensajeEstadoPedido() {
@@ -1590,35 +1560,6 @@ function AbrirPopupPedidoReservado(pMensaje, pTipoOrigen) {
     }
 }
 
-function OcultarMenu(codigo) {
-    MostrarMenu(codigo, 0);
-}
-
-function MostrarMenu(codigo, accion) {
-    codigo = $.trim(codigo);
-    if (codigo == "")
-        return false;
-
-    var idMenus = "#ulNavPrincipal-0";
-    var menu = $(idMenus).find("[data-codigo='" + codigo + "']");
-    menu = menu.length == 0 ? $(idMenus).find("[data-codigo='" + codigo.toLowerCase() + "']") : menu;
-    menu = menu.length == 0 ? $(idMenus).find("[data-codigo='" + codigo.toUpperCase() + "']") : menu;
-
-    if (menu.length == 0) {
-        // puede implementarse para los iconos de la parte derecha
-        return false;
-    }
-    if (accion == 0) {
-        $(menu).addClass("oculto");
-    }
-    else {
-        $(menu).removeClass("oculto");
-    }
-
-    LayoutMenu();
-
-}
-
 function FuncionEjecutar(functionHide) {
     functionHide = $.trim(functionHide);
     if (functionHide != "") {
@@ -1746,7 +1687,7 @@ function odd_desktop_google_analytics_addtocart(tipo, element) {
                 }]
             }
         }
-    }
+    };
 
     dataLayer.push(data);
 }
@@ -1758,22 +1699,22 @@ function odd_google_analytics_product_click(name, id, price, brand, variant, pos
     dataLayer.push({
         'event': 'productClick',
         'ecommerce':
+        {
+            'click':
             {
-                'click':
-                    {
-                        'actionField': { 'list': listName },
-                        'products':
-                            [{
-                                'name': name,
-                                'id': id,
-                                'price': price,
-                                'brand': brand,
-                                'category': 'No disponible',
-                                'variant': variant,
-                                'position': position
-                            }]
-                    }
+                'actionField': { 'list': listName },
+                'products':
+                    [{
+                        'name': name,
+                        'id': id,
+                        'price': price,
+                        'brand': brand,
+                        'category': 'No disponible',
+                        'variant': variant,
+                        'position': position
+                    }]
             }
+        }
     });
 }
 
@@ -1923,11 +1864,11 @@ var _actualizarModelMasVendidosPromise = function (model) {
     });
     promise.done(function (response) {
         d.resolve(response);
-    })
+    });
     promise.fail(d.reject);
 
     return d.promise();
-}
+};
 
 Object.defineProperty(Object.prototype, "in", {
     value: function () {
@@ -2003,9 +1944,7 @@ function EstablecerLazyCarruselAfterChange(elementoHtml) {
 
 }
 
-/*
-Detectando IE 6 - 11
-*/
+/*  Detectando IE 6 - 11 */
 function isMSIE() {
     return (navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > 0);
 }
@@ -2079,3 +2018,173 @@ function microefectoPedidoGuardado() {
         divCirculos.fadeOut();
     }, 2700);
 }
+
+function DataLayerPedidosPendientes(evento, categoria, accion, etiqueta) {
+    dataLayer.push({
+        'event': evento,
+        'category': categoria,
+        'action': accion,
+        'label': etiqueta
+    });
+}
+
+/**
+ * Creates an object and returns it with all general methods.
+ * This module was created to increase de readibility of the code.
+ */
+var GeneralModule = (function () {
+    "use strict";
+
+    var _elements = {
+        loading :{
+            spin : {
+                id : "loading-spin"
+            },
+            loadingScreen:{
+                id : "loadingScreen",
+                class : {
+                    titulo : "loadingScreen-titulo",
+                    mensaje : "loadingScreen-mensaje"
+                }
+            }
+        }
+    };
+
+    var _isMobile = function () {
+        var isUrlMobile = $.trim(location.href.replace("#", "/") + "/").toLowerCase().indexOf("/mobile/") > 0 ||
+            $.trim(location.href).toLowerCase().indexOf("/g/") > 0;
+        return isUrlMobile;
+    };
+
+    var _redirectTo = function (url) {
+        if (typeof url === "undefined" || url === null || $.trim(url) === "") return false;
+
+        var destinationUrl = "/";
+        if (_isMobile()) destinationUrl = destinationUrl + "Mobile/";
+        destinationUrl += url;
+
+        window.location.href = destinationUrl;
+    };
+
+    var _showLoading = function () {
+        $("#" + _elements.loading.spin.id).fadeIn();
+    };
+
+    var _closeLoading = function () {
+        $("#" + _elements.loading.spin.id).fadeOut("fast");
+    };
+
+    var _createLoading = function () {
+        if ($("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.titulo).length !== 0 ||
+            $("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.mensaje).length !== 0) return false;
+    
+        $("#" + _elements.loading.loadingScreen.id).append("<div class=\"" + _elements.loading.loadingScreen.class.titulo + "\"></div>");
+        $("#" + _elements.loading.loadingScreen.id).append("<div class=\"" + _elements.loading.loadingScreen.class.mensaje + "\"></div>");
+    
+        $("#" + _elements.loading.loadingScreen.id).dialog({
+            autoOpen: false,
+            dialogClass: "loadingScreenWindow",
+            closeOnEscape: false,
+            draggable: false,
+            width: 350,
+            minHeight: 50,
+            modal: true,
+            buttons: {},
+            resizable: false
+        });
+        $("#" + _elements.loading.loadingScreen.id).parent().find(".ui-dialog-titlebar").hide();
+    };
+
+    var waitingDialog = function (params) {
+        try {
+            if (!$("#" + _elements.loading.loadingScreen.id)) {
+                $(document.body).append("<div id=\"" +_elements.loading.loadingScreen.id + "\"></div>");
+            }
+
+            if (!$("#" + _elements.loading.loadingScreen.id).hasClass('ui-dialog-content')) {
+                if ($("#" + _elements.loading.loadingScreen.id).attr("data-dialog") != "1") {
+                    _createLoading();
+                    $("#" + _elements.loading.loadingScreen.id).attr("data-dialog", "1");
+                }
+            }
+            params = params || {};
+            $("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.titulo).html(params.title && '' != params.title ? params.title : 'Cargando');
+            $("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.mensaje).html(params.message && '' != params.message ? params.message : 'Espere, por favor...');
+            $("#" + _elements.loading.loadingScreen.id).dialog("open");
+        }
+        catch (err) {
+
+        }
+    };
+
+    var _hideDialog = function (dialogId) {
+        try {
+    
+            dialogId = (dialogId || "").trim();
+            if (dialogId != "") {
+                dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
+                $(dialogId).dialog("close");
+            }
+        }
+        catch (err) {
+            console.log('HideDialog - log - ', err);
+        }
+    
+        $("body").css("overflow", "auto");
+        return false;
+    };
+
+    var closeWaitingDialog = function (opcion) {
+        try {
+            _hideDialog("loadingScreen");
+
+            if (opcion.overflow === false) {
+                $('body').css('overflow', 'hidden');
+            }
+        }
+        catch (err) {
+        }
+
+    };
+
+    var _abrirLoad = function (opcion) {
+        try {
+            if (_isMobile()) {
+                _showLoading();
+            }
+            else {
+                waitingDialog(opcion);
+            }
+        } catch (e) {
+
+        }
+    };
+
+    var _cerrarLoad = function (opcion) {
+        try {
+            if (isMobile()) {
+                _closeLoading();
+            }
+            else {
+                closeWaitingDialog(opcion);
+            }
+        } catch (e) {
+
+        }
+    };
+
+    return {
+        isMobile: _isMobile,
+        redirectTo: _redirectTo,
+        abrirLoad: _abrirLoad,
+        cerrarLoad: _cerrarLoad
+    };
+}());
+//INI HD-3693
+function validarpopupBloqueada(message) {
+    if (message.indexOf("HD3693~")!=-1) return message.split("~")[1];
+    else return "";
+    
+}
+//FIN HD-3693
+

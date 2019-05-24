@@ -15,6 +15,147 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ParametroUneteBE", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE")]
+    [System.SerializableAttribute()]
+    public partial class ParametroUneteBE : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FKIdParametroUneteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdParametroUneteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdParametroUnetePadreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> ValorField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Descripcion {
+            get {
+                return this.DescripcionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
+                    this.DescripcionField = value;
+                    this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Estado {
+            get {
+                return this.EstadoField;
+            }
+            set {
+                if ((this.EstadoField.Equals(value) != true)) {
+                    this.EstadoField = value;
+                    this.RaisePropertyChanged("Estado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FKIdParametroUnete {
+            get {
+                return this.FKIdParametroUneteField;
+            }
+            set {
+                if ((this.FKIdParametroUneteField.Equals(value) != true)) {
+                    this.FKIdParametroUneteField = value;
+                    this.RaisePropertyChanged("FKIdParametroUnete");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdParametroUnete {
+            get {
+                return this.IdParametroUneteField;
+            }
+            set {
+                if ((this.IdParametroUneteField.Equals(value) != true)) {
+                    this.IdParametroUneteField = value;
+                    this.RaisePropertyChanged("IdParametroUnete");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdParametroUnetePadre {
+            get {
+                return this.IdParametroUnetePadreField;
+            }
+            set {
+                if ((this.IdParametroUnetePadreField.Equals(value) != true)) {
+                    this.IdParametroUnetePadreField = value;
+                    this.RaisePropertyChanged("IdParametroUnetePadre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nombre {
+            get {
+                return this.NombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreField, value) != true)) {
+                    this.NombreField = value;
+                    this.RaisePropertyChanged("Nombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> Valor {
+            get {
+                return this.ValorField;
+            }
+            set {
+                if ((this.ValorField.Equals(value) != true)) {
+                    this.ValorField = value;
+                    this.RaisePropertyChanged("Valor");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.CollectionDataContractAttribute(Name="PaisCollection", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collect" +
         "ions", ItemName="PaisBE")]
     [System.SerializableAttribute()]
@@ -205,115 +346,6 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         "ions", ItemName="ParametroUneteBE")]
     [System.SerializableAttribute()]
     public class ParametroUneteCollection : System.Collections.Generic.List<Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteBE> {
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ParametroUneteBE", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE")]
-    [System.SerializableAttribute()]
-    public partial class ParametroUneteBE : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescripcionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IdParametroUneteField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IdParametroUnetePadreField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> ValorField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Descripcion {
-            get {
-                return this.DescripcionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
-                    this.DescripcionField = value;
-                    this.RaisePropertyChanged("Descripcion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int IdParametroUnete {
-            get {
-                return this.IdParametroUneteField;
-            }
-            set {
-                if ((this.IdParametroUneteField.Equals(value) != true)) {
-                    this.IdParametroUneteField = value;
-                    this.RaisePropertyChanged("IdParametroUnete");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int IdParametroUnetePadre {
-            get {
-                return this.IdParametroUnetePadreField;
-            }
-            set {
-                if ((this.IdParametroUnetePadreField.Equals(value) != true)) {
-                    this.IdParametroUnetePadreField = value;
-                    this.RaisePropertyChanged("IdParametroUnetePadre");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Nombre {
-            get {
-                return this.NombreField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreField, value) != true)) {
-                    this.NombreField = value;
-                    this.RaisePropertyChanged("Nombre");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> Valor {
-            get {
-                return this.ValorField;
-            }
-            set {
-                if ((this.ValorField.Equals(value) != true)) {
-                    this.ValorField = value;
-                    this.RaisePropertyChanged("Valor");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -913,6 +945,12 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="HojaInscripcionBelcorpPais.IBelcorpPaisService")]
     public interface IBelcorpPaisService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBelcorpPaisService/ActualizarEstadoParametroUnete", ReplyAction="http://tempuri.org/IBelcorpPaisService/ActualizarEstadoParametroUneteResponse")]
+        bool ActualizarEstadoParametroUnete(string codigoIso, Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteBE model);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBelcorpPaisService/ActualizarEstadoParametroUnete", ReplyAction="http://tempuri.org/IBelcorpPaisService/ActualizarEstadoParametroUneteResponse")]
+        System.Threading.Tasks.Task<bool> ActualizarEstadoParametroUneteAsync(string codigoIso, Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteBE model);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBelcorpPaisService/ObtenerIdCampaniaActiva", ReplyAction="http://tempuri.org/IBelcorpPaisService/ObtenerIdCampaniaActivaResponse")]
         System.Nullable<int> ObtenerIdCampaniaActiva(string codigoISO);
         
@@ -1022,6 +1060,12 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBelcorpPaisService/GetDatosConsultoraByRegionZona", ReplyAction="http://tempuri.org/IBelcorpPaisService/GetDatosConsultoraByRegionZonaResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE> GetDatosConsultoraByRegionZonaAsync(string CodigoISO, string codIsoSicc, string codRegion, string codZona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBelcorpPaisService/ObtenerPaisContrasenia", ReplyAction="http://tempuri.org/IBelcorpPaisService/ObtenerPaisContraseniaResponse")]
+        bool ObtenerPaisContrasenia(string CodigoISO);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBelcorpPaisService/ObtenerPaisContrasenia", ReplyAction="http://tempuri.org/IBelcorpPaisService/ObtenerPaisContraseniaResponse")]
+        System.Threading.Tasks.Task<bool> ObtenerPaisContraseniaAsync(string CodigoISO);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1049,6 +1093,14 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         
         public BelcorpPaisServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public bool ActualizarEstadoParametroUnete(string codigoIso, Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteBE model) {
+            return base.Channel.ActualizarEstadoParametroUnete(codigoIso, model);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ActualizarEstadoParametroUneteAsync(string codigoIso, Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ParametroUneteBE model) {
+            return base.Channel.ActualizarEstadoParametroUneteAsync(codigoIso, model);
         }
         
         public System.Nullable<int> ObtenerIdCampaniaActiva(string codigoISO) {
@@ -1193,6 +1245,14 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE> GetDatosConsultoraByRegionZonaAsync(string CodigoISO, string codIsoSicc, string codRegion, string codZona) {
             return base.Channel.GetDatosConsultoraByRegionZonaAsync(CodigoISO, codIsoSicc, codRegion, codZona);
+        }
+        
+        public bool ObtenerPaisContrasenia(string CodigoISO) {
+            return base.Channel.ObtenerPaisContrasenia(CodigoISO);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ObtenerPaisContraseniaAsync(string CodigoISO) {
+            return base.Channel.ObtenerPaisContraseniaAsync(CodigoISO);
         }
     }
 }

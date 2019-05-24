@@ -178,6 +178,12 @@ namespace Portal.Consultoras.Web.Providers
         {
             return Util.GetOrCalcValue(sessionManager.GetLimElectivosProgNuevas, sessionManager.SetLimElectivosProgNuevas, (i) => i == 0, CalcLimElectivos);
         }
+
+        public bool TieneDuoPerfecto()
+        {
+            return GetLimElectivos() > 1;
+        }
+
         public List<PremioElectivoModel> GetListPremioElectivo()
         {
             return Util.GetOrCalcValue(sessionManager.GetListPremioElectivo, sessionManager.SetListPremioElectivo, (i) => i == null, CalcListPremioElectivo);

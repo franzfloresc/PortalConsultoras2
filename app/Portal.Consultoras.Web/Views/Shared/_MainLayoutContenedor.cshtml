@@ -5,6 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=10,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="description" content="Portal de consultoras" />
     <meta name="author" content="Belcorp" />
 
@@ -41,6 +42,8 @@
         var indicadorEnviadoDescarga = '@ViewBag.IndicadorEnviado';
         var gTipoUsuario = '@ViewBag.TipoUsuario';
         var IsoPais = '@ViewBag.CodigoISODL';
+        var codigoConsultora = '@ViewBag.CodigoConsultoraDL'; //SALUD-58
+        var pseudoParamNotif = '@ViewBag.PseudoParamNotif'; //SALUD-58
 
         //Postulante
         var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';
@@ -134,34 +137,38 @@
     </header>
 
     <div class="fondo_oscuro"></div>
-    <style>
-        .data-layaout-body {
-            width: initial !important;
-        }
-    </style>
     @{
         string controllerAction = this.ViewContext.RouteData.Values["controller"].ToString() + this.ViewContext.RouteData.Values["action"].ToString();
         controllerAction = controllerAction.ToLower();
     }
-    <div id="contentmain" class="content" data-content="" style="margin-top: 113px;">
-        <div data-layout-body="" class="data-layaout-body">
-            @if (!(controllerAction == "bienvenidaindex"
-                    || controllerAction == "showroomindex"
-                    || controllerAction == "showroomintriga"
-                    || ("/" + controllerAction).Contains("revistadigital")
-                    || ("/" + controllerAction).Contains("guianegocio")
-                )
-                && (@ViewBag.Title != "" && @ViewBag.Title != null))
-            {
-                <div class="SubHeader">
-                    <div class="ubicacion_web">
-                        <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span>
-                        <span> | @ViewBag.Title</span>
-                    </div>
+    <div id="contentmain"
+         class="content"
+         data-content=""
+         data-layout="contenido"
+         data-layout-body=""
+         style="margin-top: 113px;">
+        @if (!(controllerAction == "bienvenidaindex"
+                || controllerAction == "showroomindex"
+                || controllerAction == "showroomintriga"
+                || ("/" + controllerAction).Contains("revistadigital")
+                || ("/" + controllerAction).Contains("guianegocio")
+            )
+            && (@ViewBag.Title != "" && @ViewBag.Title != null))
+        {
+            <div class="SubHeader"
+                 data-layout="ubicacionWeb">
+                <div class="ubicacion_web">
+                    <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span>
+                    <span> | @ViewBag.Title</span>
                 </div>
-            }
-
+            </div>
+            <hr class="clear" />
+        }
+        <div data-layout="body">
             @RenderBody()
+        </div>
+        <hr class="clear" />
+        <div data-layout="footer">
 
             @if (ViewBag.TerminoMostrar == 1)
             {
@@ -185,7 +192,7 @@
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBuscadorResultado.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpFeDeErratas.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpRegistroComunidad.cshtml")
-    
+
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpInputHiddenSoloDesktop.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpInputHidden.cshtml")
 
@@ -194,8 +201,10 @@
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogMensajes.cshtml")
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogErrorMainLayout.cshtml")
-
+    
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogSesionMainLayout.cshtml")
+
+    @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogMensajePostulante.cshtml")
 
@@ -207,6 +216,9 @@
 
     @Html.Partial("~/Views/Shared/_template-ofertadeldia-style.cshtml")
 
+    @*INI HD-3693*@
+    @Html.Partial("~/Views/Shared/PopupsResponsive/_PopupBloqueoPorSistema.cshtml")
+    @*FIN HD-3693*@
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/JQueryJs")
 
     <script type="text/javascript">
@@ -229,10 +241,13 @@
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
         var OrigenDesktopODD = 0;
         var CaracteresBuscador = '@ViewBag.CaracteresBuscador';
+        var CaracteresBuscadorNumerico = '@ViewBag.CaracteresBuscadorNumerico';
         var TotalCaracteresEnListaBuscador = '@ViewBag.CaracteresBuscadorMostrar';
-
         var TotalResultadosBuscador = '@ViewBag.TotalListadorBuscador';
         var AplicarLogicaCantidadBotonVerTodos = '@ViewBag.AplicarLogicaCantidadBotonVerTodos'.toLowerCase();
+        var MostrarPalabrasMenoresACuatro = '@ViewBag.MostrarPalabrasMenoresACuatro';
+        var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
+        var SessionTimeout = '@ViewBag.SessionTimeout';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2")
     <script type='text/javascript'>
@@ -251,14 +266,19 @@
 
     <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
 
-    @if (TempData.ContainsKey("PixelCodigoIso"))
-    {
-        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
-        <script>
-            var pixelAnalytics = Analytics();
-            pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
-        </script>
-        @TempData.Remove("PixelCodigoIso");
-    }
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
+    <script>
+
+        var pixelAnalytics = Analytics({ pixelId : '@Constantes.Facebook.FB_Pixel'});
+
+            @if (TempData.ContainsKey("PixelCodigoIso"))
+            {
+                @:pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
+                TempData.Remove("PixelCodigoIso");
+            }
+        pixelAnalytics.invocarPageViewPixelById();
+    </script>
+    <script type="text/javascript" id="lightning_bolt" src="//cdn-akamai.mookie1.com/LB/LightningBolt.js"></script>
+
 </body>
 </html>

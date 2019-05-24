@@ -4,12 +4,39 @@
 
 @{
     ViewBag.Title = "Ingresa tu Pedido";
+    
 }
 
 @section styles{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-CssPedido")
 
+   
+
 }
+<style>
+    .desactive-mas-menos {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: gray;
+        opacity: 0.6;
+        cursor: not-allowed;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
+    }
+    .desactivo {
+        pointer-events: none;
+        cursor:none;
+        text-decoration:none; 
+        opacity: 0.4;
+    }
+    .linea_indicador_barra {
+        width: 2px;
+    }
+</style>
 
 <div class="franja_negra" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
 <div class="envolvente_pop_up">
@@ -69,11 +96,15 @@
             <input type="hidden" id="hdfOrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopPedidoDigitado" name="OrigenPedidoWeb" />
             <input type="hidden" id="hdfEsBusquedaSR" />
             <input type="hidden" id="hdfEstrategiaId" value="0" />
-
+            @*INI HD-3908 *@
+            <input type="hidden" id="hdfCodigoPalanca" />
+            <input type="hidden" id="hdfCampaniaID" />
+            @*FIN HD-3908 *@
             <div id="divObservaciones" class="pedidos_no_existe" style="position:relative;"></div>
 
             <div class="pedido_ingreso_datos campo_codigo">
                 <br />
+
                 <input type="text" name="CUV" id="txtCUV" maxlength="5" class="ValidaNumeral default-border-hover" placeholder="Código" />
             </div>
 
@@ -90,8 +121,8 @@
                 <!-- FIN - MENSAJE CUANDO LA DESCRIPCIÓN DE PRODUCTO INGRESADA NO EXISTA -->
                 <br />
                 <input type="text" name="DescripcionProd" id="txtDescripcionProd" maxlength="250" onblur="ValidarDescripcion();" class="ValidaAlfanumerico default-border-hover"
-                       @*onkeyup="PreValidarCUV(event);"*@
-                       attrKey="PreValidarCUV"
+                       @*onkeyup="PreValidarCUV(event);"
+                       attrKey="PreValidarCUV"*@
                        placeholder="Descripción producto" />
             </div>
 
@@ -395,8 +426,8 @@
                             }
                         }
                         <div class="boton_guardarPedido">
-                            
-                            <button id="btnValidarPROL"  class="info_copy default-background-color">@Model.Prol</button>
+
+                            <button id="btnValidarPROL" class="info_copy default-background-color">@Model.Prol</button>
                         </div>
                     </div>
 
@@ -435,20 +466,20 @@
                     </div>
                     <div class="descripcion_observaciones_alerta" id="desc_obs_alerta">
                         @*<ul>
-                            <li>
-                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                            </li>
-                            <li>
-                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                            </li>
-                            <li>
-                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                            </li>
+                                <li>
+                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                                </li>
+                                <li>
+                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                                </li>
+                                <li>
+                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                                </li>
 
-                        </ul>*@
+                            </ul>*@
                     </div>
 
                 </div>
@@ -528,9 +559,12 @@
                 </ul>
                 <div class="clear"></div>
             </div>
-            @if (ViewBag.MostrarPedidosPendientes == "1")
+            @*@if (ViewBag.MostrarPedidosPendientes == "1")
             {
                 <div id="infoPendientes" style="background:white; display: none;">
+
+                    <div id="paginadorCabPend" class="cant_productos_y_paginador_wrapper_top">
+                    </div>
                     <div class="content_datos_pendientes">
                         <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nombre de Cliente</div>
                         <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Origen</div>
@@ -543,9 +577,7 @@
                     <div>
                         <div id="divPedidosPend"> </div>
                     </div>
-                    <div class="tiempo_atencionPedido">
-                        <span class="icono_notaDemanda"></span>
-                        <span>Sólo tienes 24 horas para atender los pedidos. No pierdas esta oportunidad de hacer nuevos clientes.</span>
+                    <div id="paginadorPiePend" class="cant_productos_y_paginador_wrapper_bottom">
                     </div>
                     <div class="revision_pedidosAceptados">
                         <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
@@ -560,7 +592,7 @@
                         }
                     </div>
                 </div>
-            }
+            }*@
         </div>
     </div>
 
@@ -592,10 +624,10 @@
     </div>
 
     <div id="divListaEstrategias" class="caja_carousel_productos">
-        @if (ViewBag.MostrarPedidosPendientes == "1")
+        @*@if (ViewBag.MostrarPedidosPendientes == "1")
         {
             <div class="truco_bloqueo sim2"></div>
-        }
+        }*@
         @Html.Partial("~/Views/Pedido/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
     </div>
 
@@ -1049,7 +1081,7 @@
     </div>
 }
 
-@if (ViewBag.MostrarPedidosPendientes == "1")
+@*@if (ViewBag.MostrarPedidosPendientes == "1")
 {
     <div id="popup_pendientes" class="contenedor_popup_percepciones" style="display: none;">
         <div class="popup_Pendientes">
@@ -1060,7 +1092,7 @@
             <div class="btn_cerrar_popupPercepcion">
                 <a class="regresaPendientes" title="Regresar" style="text-align: right;">
                     <div class="icono_regresar"><img src="/Content/Images/btn_regresar.svg" alt="Regresar"></div>
-                    <div class="texto_btn_regresar">REGRESAR</div>
+                    <div class="texto_btn_regresar" onclick="PendientesRegresar();">REGRESAR</div>
                 </a>
             </div>
 
@@ -1073,7 +1105,7 @@
         <div class="popup_agregarUnidades">
 
             <div class="btn_cerrar_agregarUnidades">
-                <a id="aceptandoPendientes_1" onclick="$('#dialog_mensajeComoAtender').hide()">
+                <a id="aceptandoPendientes_1" onclick="DialogComoAtenderPedidoPend('Cerrar Pop up'); $('#dialog_mensajeComoAtender').hide()">
                     <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
                 </a>
             </div>
@@ -1081,7 +1113,7 @@
                 <div class="icono_exclamacion" id="apro_o_excla_1"></div>
                 <h1 class="titulo_agregarUnidades"><b>IMPORTANTE</b></h1>
                 <span class="mensaje_agregarUnidades">Por favor elige cómo atenderás todos los productos del pedido.</span>
-                <button type="button" class="btn_ok ok_aceptaPedido" onclick="$('#dialog_mensajeComoAtender').hide()">
+                <button type="button" class="btn_ok ok_aceptaPedido" onclick="DialogComoAtenderPedidoPend('Ok'); $('#dialog_mensajeComoAtender').hide()">
                     OK
                 </button>
             </div>
@@ -1113,7 +1145,7 @@
         <div class="popup_rechazarPendientes">
             <input type="hidden" id="hdePedidoIdRechazo" />
             <div class="btn_cerrar_agregarUnidades">
-                <a id="cierreRechazoPendientes" onclick="$('#dialog_confirmacionRechazo').hide()">
+                <a id="cierreRechazoPendientes" onclick="$('#dialog_confirmacionRechazo').hide(); NoRechazoPedidoDejameVerlo('Cerrar');">
                     <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
                 </a>
             </div>
@@ -1121,7 +1153,7 @@
                 <div class="icono_exclamacion" id="apro_o_excla"></div>
                 <h1 class="titulo_confirma"><b>¿VAS A RECHAZAR EL PEDIDO?</b></h1>
                 <span class="mensaje_agregarUnidades">Si rechazas el pedido vas a perderlo</span>
-                <button type="button" class="btn_eliminarCliente venizquierda sedetiene" onclick="$('#dialog_confirmacionRechazo').hide()">
+                <button type="button" class="btn_eliminarCliente venizquierda sedetiene" onclick="$('#dialog_confirmacionRechazo').hide(); NoRechazoPedidoDejameVerlo('No, Déjame verlo');">
                     NO, DÉJAME VERLO
                 </button>
                 <button type="button" class="btn_eliminarCliente venderecha prosigue" onclick="ShowPopupMotivoRechazo()">
@@ -1135,7 +1167,7 @@
         <div class="popup_rechazarPendientes">
 
             <div class="btn_cerrar_agregarUnidades">
-                <a id="cierreRechazoPendientes" onclick="$('#dialog_mensajeRechazado').hide()">
+                <a id="cierreRechazoPendientes" onclick="$('#dialog_mensajeRechazado').hide(); DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Pedido Rechazado - Click Botón', 'cerrar');">
                     <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
                 </a>
             </div>
@@ -1153,7 +1185,7 @@
     <div class="contenedor_popup_agregarUnidades" id="dialog_motivoRechazo" style="display: none;">
         <div class="popup_agregarUnidades mrechaza">
             <div class="btn_cerrar_agregarUnidades">
-                <a id="cierreMotivoRechazo" onclick="RechazarPedido();">
+                <a id="cierreMotivoRechazo" onclick="RechazarPedido(2);">
                     <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
                 </a>
             </div>
@@ -1173,7 +1205,7 @@
 
                 <textarea id="txtOtrosRechazo" placeholder="" readonly="readonly" maxlength="300"></textarea>
             </div>
-            <button type="button" class="btn_eliminarCliente btn-negro" id="btnRechazarPedido" onclick="RechazarPedido()">
+            <button type="button" class="btn_eliminarCliente btn-negro" id="btnRechazarPedido" onclick="RechazarPedido(1)">
                 ENVIAR
             </button>
         </div>
@@ -1218,10 +1250,6 @@
     </div>
     <div class="tapsPedidos"></div>
 
-
-
-
-
     <script id="pedidopend-template" type="text/x-handlebars-template">
         {{#each this}}
 
@@ -1249,19 +1277,14 @@
             <div class="padding_tabla_percepcion dinamicostablegrande grillaPendientes">
 
                 <input type="hidden" id="pedidopend_{{PedidoId}}" value="{{PedidoId}}|{{MarcaID}}|{{Campania}}|{{Cliente}}|{{Telefono}}|{{Direccion}}|{{Email}}|{{Mensaje}}|{{Leido}}|{{NumIteracion}}|{{CodigoUbigeo}}|{{FechaSolicitud}}|{{MedioContacto}}|{{FormatoPrecioTotal}}|{{SaldoHoras}}|{{FlagConsultora}}" />
-                <button type="button" class="btn_revisalo_pendientes1" onclick="CargarPopupPedidoPend('{{PedidoId}}');">
-                    REVÍSALO
+                <button type="button" class="btn_revisalo_pendientes1" onclick="CargarPopupPedidoPend('1', '10', '{{PedidoId}}', '0');">
+                    <div onclick="PendientesRevisalo('Carrito de Compras - In Tab Pedidos Pendientes','Click Botón');">REVÍSALO</div>
 
                     <div class="info_tiempo_oportunidad">
                         <span class="texto_pedidos_pendientes tips">
                             <label>¡No pierdas esta oportunidad!</label>
                         </span>
-                        {{#if FlagConsultora}}
-                        <h6 class="tiempos_P">Te quedan <span><b>24:00:00</b></span> horas</h6>
-                        {{else}}
-                        <h6 class="tiempos_P">Te quedan <span><b>{{SaldoHoras}}</b></span> horas</h6>
-                        {{/if}}
-                        <h4 class="linkea_Pendientes tooltipPendientes">►REVÍSALO</h4>
+                        <h4 class="linkea_Pendientes tooltipPendientes" onclick="PendientesRevisalo('Carrito de Compras - In Tab Pedidos Pendientes','Click Botón');">►REVÍSALO</h4>
                     </div>
                 </button>
 
@@ -1273,13 +1296,11 @@
 
     <script id="popup-pedidopend-template" type="text/x-handlebars-template">
         <div class="content_popUp_Pendientes">
+            <div style="display: none;">
+                <input type="hidden" id="hdPedidoPendPoputPedidoId" value="{{PedidoId}}" />
+            </div>
             <div class="mensajes_deAtencion">
                 <span>¡No te pierdas esta oportunidad!</span>
-                {{#if FlagConsultora}}
-                <span>Te quedan <br>24:00:00</span>
-                {{else}}
-                <span>Te quedan <br>{{SaldoHoras}}</span>
-                {{/if}}
                 <div class="clear"></div>
             </div>
 
@@ -1317,6 +1338,9 @@
 
             </div>
 
+            <div id="paginadorCabPendPoput">
+            </div>
+
             <div class="content_datos_pendientes">
                 <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemini">Código</div>
                 <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Producto</div>
@@ -1340,7 +1364,7 @@
             <div class="linea_separadora_roja" style="height: 2px;"></div>
 
             <div class="btn_grupo_accionesPedido accionesPendientes">
-                <button id="rechazarPendientes" type="button" class="btn_eliminarCliente venizquierda" onclick="ShowPopupRechazoPedido('{{PedidoId}}','1')">
+                <button id="rechazarPendientes" type="button" class="btn_eliminarCliente venizquierda" onclick="RechazoPedidosPendientes(); ShowPopupRechazoPedido('{{PedidoId}}','1')">
                     RECHAZO EL PEDIDO
                 </button>
                 <button id="aceptarPendientes" type="button" class="btn_noEliminarCliente venderecha" onclick="AceptarPedido('{{PedidoId}}', '1')">
@@ -1352,6 +1376,9 @@
 
     <script id="popup2-pedidopend-template" type="text/x-handlebars-template">
         <div class="content_popUp_Pendientes">
+            <div style="display: none;">
+                <input type="hidden" id="hdPedidoPendPoputPedidoId2" value="{{PedidoId}}" />
+            </div>
             <div class="mensajes_deAtencion">
 
                 <span>¡No te pierdas esta oportunidad!</span>
@@ -1403,6 +1430,9 @@
 
             </div>
 
+            <div id="paginadorCabPendPoput2">
+            </div>
+
             <div class="content_datos_pendientes">
                 <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande izq">Producto</div>
                 <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Unidades</div>
@@ -1438,14 +1468,14 @@
 
         <div class="content_datos_percepciones">
             <input type="hidden" value="{{PedidoDetalleId}}" />
-            <div class="padding_tabla_percepcion dinamicostablemini">{{CUV}}</div>
-            <div class="padding_tabla_percepcion dinamicostablemedio">{{Producto}}</div>
+            <div class="padding_tabla_percepcion dinamicostablemini" id="pedpend-deta2-cuv">{{CUV}}</div>
+            <div class="padding_tabla_percepcion dinamicostablemedio" id="pedpend-deta2-nombre">{{Producto}}</div>
             <div class="padding_tabla_percepcion dinamicostable" id="pedpend-deta2-cantidad">{{Cantidad}}</div>
             <div class="padding_tabla_percepcion dinamicostable">{{SimboloMoneda}} {{PrecioUnitario}}</div>
             <div class="padding_tabla_percepcion dinamicostable">{{SimboloMoneda}} {{PrecioTotal}}</div>
             <div class="padding_tabla_percepcion dinamicostablegrande">
                 {{#if_eq TieneStock '1'}}
-                <select class="oscurece" id="ddlAtender_{{@@index}}">
+                <select class="oscurece ddlAtenderPopUpPedidosPend" id="ddlAtender_{{Index}}" onchange="javascript:SelectOptAtender(this)">
                     <option value="" selected>¿CÓMO LO ATENDERAS?</option>
                     <option value="ingrped">INGRESAR A MI PEDIDO</option>
                     <option value="ingrten">YA LO TENGO</option>
@@ -1454,6 +1484,8 @@
                 <span>AGOTADO</span>
                 {{/if_eq}}
             </div>
+            <input type="hidden" id="pedpend-deta2-precio" value="{{PrecioUnitario}}" />
+            <input type="hidden" id="pedpend-deta2-marca" value="{{Marca}}" />
 
             {{#if_eq TieneStock '0'}}
             <div class="notiPendientes"><div class="mensajePendientes"><span class="icono_advertencia_notificacion"></span>{{MensajeValidacion}}</div></div>
@@ -1478,7 +1510,7 @@
 
         {{/each}}
     </script>
-}
+}*@
 
 <script id="js-CarruselSugerido" type="text/x-handlebars-template">
     {{#each this}}
@@ -1506,7 +1538,7 @@
                 </div>
                 <div class="producto_nombre_descripcion">
                     <h6>{{DescripcionMarca}}</h6>
-                    <p class="nombre_producto" style="display: inline-table;">
+                    <p class="nombre_producto nombre_producto_sugerido" style="display: inline-table;" title="{{Descripcion}}">
                         <b>{{Descripcion}}</b>
                     </p>
                     <div class="producto_precio">
@@ -1918,7 +1950,8 @@
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new {area = ""})';
         var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new {area = ""})';
         var constConfiguracionOfertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
-        var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
+        //var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
+        var cantPedidosPendientes = '@ViewBag.CantPedidoPendientes';
         var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
         var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
         var urlPedido = '@Url.Action("Index", "Pedido")';
@@ -1928,6 +1961,8 @@
         var origenPagina = 2;
         var tipoOrigenEstrategia = 11;
         var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel;
+        var origenPedidoWebDuoPerfecto = @Constantes.OrigenPedidoWeb.DesktopPedidoDuoPerfectoCarrusel;
+        var origenPedidoWebPackNuevas = @Constantes.OrigenPedidoWeb.DesktopPedidoPackNuevasCarrusel;
         var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.VirtualCoachDesktopPedido;
         var DesktopPedidoSugerido = @Constantes.OrigenPedidoWeb.DesktopPedidoProductoSugeridoCarrusel;
         var DesktopPedidoOfertaFinal = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel;
@@ -1960,9 +1995,9 @@
         var mensajeNoAgregarLiquidacion = '@Constantes.MensajesError.Pedido_NoAgregarLiquidacion';
 
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido")';
-        
+
         var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "PedidoRegistro", new { area = "" })';
-        
+
         var urlObtenerComponentes = '@Url.Action("ObtenerComponentes", "DetalleEstrategia")';
         var listaIconoLluvia = [
             '@Url.Content("~/Content/Images/lluvia/ov-d.svg")',
@@ -1976,6 +2011,13 @@
 
         var activarRecomendaciones = '@ViewBag.ActivarRecomendaciones';
         var maxCaracteresRecomendaciones = '@ViewBag.MaxCaracteresRecomendaciones';
+        var ClasPedidoPopupPedidoPend = '@Constantes.ClasificadorPedido.PedidoDetallePoputPendiente';
+        var ClasPedidoDetalle = '@Constantes.ClasificadorPedido.PedidoDetalle';
+        var ClasPedidoDetallePendiente = '@Constantes.ClasificadorPedido.PedidoDetallePendiente';
+        var kitsCaminoBrillante = '@ViewBag.KitsCaminoBrillante';
+
+        
+
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)
@@ -1992,4 +2034,5 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=2"></script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Pedido/ArmaTuPack")
 } 

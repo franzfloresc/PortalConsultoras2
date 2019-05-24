@@ -1,3 +1,2 @@
-# Portal Consultoras SB 2.
+# Portal Consultoras SB2.
 
-BPT/PI3/Sprint4/PprFix-Sr

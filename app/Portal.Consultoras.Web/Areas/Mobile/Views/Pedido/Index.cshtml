@@ -13,6 +13,9 @@
 }
 @section styles
 {
+    @*INI HD-3908*@
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mobile/Ficha")
+    @*FIN HD-3908*@
     @Styles.Render("~/Bundle/Css/Mobile/Pedido")
 }
 <div class="wrapper_resumen_mobile sin_padding">
@@ -72,6 +75,10 @@
                     <input type="hidden" id="hdCuvEnSession" value="@Session["CUVProductoDesctacado"]" />
                     <input type="hidden" id="hdfValorFlagNueva" />
                     <input type="hidden" id="hdLimiteVenta" />
+                    @*INI HD-3908 *@
+                    <input type="hidden" id="hdfCodigoPalanca" />
+                    <input type="hidden" id="hdfCampaniaID" />
+                    @*FIN HD-3908 *@
 
                 </div>
                 <div id="divProductoObservaciones"></div>
@@ -396,7 +403,7 @@
             </div>
             <div class="producto_nombre_descripcion">
                 <h6>{{DescripcionMarca}}</h6>
-                <p class="nombre_producto">{{Descripcion}}</p>
+                <p class="nombre_producto nombre_producto_sugerido">{{Descripcion}}</p>
                 <div class="producto_precio">
                     <span class="producto_precio_oferta"><b>@Model.Simbolo {{PrecioCatalogoString}}</b></span>
                 </div>
@@ -510,6 +517,8 @@
         var esEmailActivo = '@Model.EmailActivo';
         var viewBagCampaniaActual = '@Model.CampaniaActual';
         var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel;
+        var origenPedidoWebDuoPerfecto = @Constantes.OrigenPedidoWeb.MobilePedidoDuoPerfectoCarrusel;
+        var origenPedidoWebPackNuevas = @Constantes.OrigenPedidoWeb.MobilePedidoPackNuevasCarrusel;
         var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiFicha;
         var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel;
         var origenPedidoWebMobilePedido = @Constantes.OrigenPedidoWeb.MobilePedidoDigitado;

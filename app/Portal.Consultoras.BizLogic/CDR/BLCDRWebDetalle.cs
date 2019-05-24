@@ -132,7 +132,6 @@ namespace Portal.Consultoras.BizLogic.CDR
             return resultado;
         }
         
-        //HD-3412 EINCA
         public int ValCUVEnProcesoReclamo(int paisId, int pedidoId, string cuv)
         {
             try
