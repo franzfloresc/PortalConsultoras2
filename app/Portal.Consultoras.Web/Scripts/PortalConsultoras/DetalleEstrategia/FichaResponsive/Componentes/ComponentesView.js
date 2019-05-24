@@ -55,7 +55,12 @@ var ComponentesView = function () {
 
                     return "#txt-cantidad-" + grupo + "-" + cuv;
                 }
-            }
+            },
+            tiposTonosSeleccionados: {
+                templateId: "#tipos-tonos-seleccionados-template",
+                id: "#tipos-tonos-seleccionados",
+                contenedor: "#contenedor-tipos-tonos-seleccionados",
+            },
         }
     };
 
@@ -108,6 +113,7 @@ var ComponentesView = function () {
 
     var _setSelectedQuantityText = function (text) {
         text = text || "";
+        
         $(_elements.tiposTonosModal.cantidadSeleccionados.id).html(text);
 
         return true;
@@ -162,6 +168,23 @@ var ComponentesView = function () {
         return true;
     };
 
+    var _showSelectedTypesOrTones = function (componente) {
+        if(typeof componente ==="undefined" || componente === null ) return false;
+        $(_elements.tiposTonosModal.tiposTonosSeleccionados.id).slick("unslick");
+        SetHandlebars(_elements.tiposTonosModal.tiposTonosSeleccionados.templateId, componente, _elements.tiposTonosModal.tiposTonosSeleccionados.id);
+        $(_elements.tiposTonosModal.tiposTonosSeleccionados.contenedor).show();
+        $(_elements.tiposTonosModal.tiposTonosSeleccionados.id).slick({
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplaySpeed: 2000,
+            fade: false,
+            arrows: false,
+            infinite: false
+        });
+
+        return true;
+    };
+
     return {
         setPresenter: _setPresenter,
         renderComponente: _renderComponentes,
@@ -170,6 +193,6 @@ var ComponentesView = function () {
         showComponentTypesAndTones: _showComponentTypesAndTones,
         showTypesAndTonesModal: _showTypesAndTonesModal,
         showQuantitySelector: _showQuantitySelector,
-        // showSelectedTypesOrTones : _showSelectedTypesOrTones,
+        showSelectedTypesOrTones: _showSelectedTypesOrTones,
     };
 };

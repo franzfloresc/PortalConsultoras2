@@ -1061,6 +1061,8 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
             componentesPresenter.onEstrategiaModelLoaded(estrategiaUnComponenteFactorCuadreIgualADos());
             componentesView.setTitle.returns(true);
             componentesView.setSelectedQuantityText.returns(true);
+            componentesView.showQuantitySelector.returns(true);
+            componentesView.showSelectedTypesOrTones.returns(true);
          });
 
          describe("and you select a type/tone", function () {
@@ -1093,16 +1095,38 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
                expect(result).to.be.equal(false);
             });
 
-            // it("should return false when componentesView do not render selected types/tones", function () {
-            //    // Arrange
-            //    componentesView.showQuantitySelector.returns(false);
+            it("should return false when componentesView do not render selected types/tones", function () {
+               // Arrange
+               componentesView.showSelectedTypesOrTones.returns(false);
 
-            //    // Act
-            //    var result = componentesPresenter.addTypeOrTone(grupo, cuv);
+               // Act
+               var result = componentesPresenter.addTypeOrTone(grupo, cuv);
 
-            //    // Assert
-            //    expect(result).to.be.equal(false);
-            // });
+               // Assert
+               expect(result).to.be.eql(false);
+            });
+
+            it("should return false when componentesView do not render update title", function () {
+               // Arrange
+               componentesView.setTitle.returns(false);
+
+               // Act
+               var result = componentesPresenter.addTypeOrTone(grupo, cuv);
+
+               // Assert
+               expect(result).to.be.eql(false);
+            });
+
+            it("should update title to 'TE FALTA 1 OPCIÓN' ", function () {
+               // Arrange
+               componentesPresenter.addTypeOrTone(grupo, cuv);
+
+               // Act
+               var result = componentesPresenter.estrategiaModel().Hermanos[0].selectComponentTitle;
+               
+               // Assert
+               expect(result).to.be.eql("Te falta 1 opción");
+            });
          });
 
          // it("should block type/tone when selected quantity is equal FactorCuadre", function () {
