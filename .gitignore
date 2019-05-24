@@ -22,11 +22,14 @@ scripts/startpool_ws.bat
 scripts/stoppool_web.bat
 scripts/stoppool_ws.bat
 *.dll
+!/app/tools/BundleAnalyser/*.dll
+!/app/tools/BundleAnalyser/es/*.dll
 #Ignore thumbnails created by Windows
 Thumbs.db
 #Ignore files built by Visual Studio
 *.obj
 *.exe
+!/app/tools/BundleAnalyser/*.exe
 *.pdb
 *.user
 *.aps
@@ -73,6 +76,9 @@ node_modules/
 **/node_modules/**
 
 # Cakebuild
-/app/tools/**
+!/app/tools/
+/app/tools/*
+!/app/tools/BundleAnalyser/
+!/app/tools/BundleAnalyser/es/
 !/app/tools/packages.config
 /app/UpgradeLog.htm

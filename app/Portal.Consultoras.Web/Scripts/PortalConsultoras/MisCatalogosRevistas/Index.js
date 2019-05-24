@@ -27,6 +27,31 @@ var cantCamRev = 3;
 var aCamRev = new Array();
 
 $(document).ready(function () {
+    window.fbAsyncInit = function () {/*setear valor a  FBAppId desde la vista :   var FBAppId = '@ViewBag.FBAppId'; */
+        FB.init({
+            appId: FBAppId,
+            cookie: true,
+            xfbml: true,
+            version: 'v3.0'
+        });
+
+        FB.getLoginStatus(function (response) {
+            if (response.status === 'connected') {
+                getInfoFB(1);
+            }
+        });
+       
+    };
+
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    MarcarCompartirFbExitoso();
 
     configurarContenedorExpoOfertas();
     campSelect = getNumeroCampania(getCodigoCampaniaActual());
@@ -198,7 +223,38 @@ $(document).ready(function () {
 
     // Fin - Eventos que se utilizan en vista responsive
 
+
+
 });
+
+// catalogo compartir por Facebook actual
+var CompartirFacebookActual = function (catalogo, campaniaCatalogo, texto) {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Catálogos y revistas',
+        'action': 'Catálogo Digital - Compartir FB - clic botón',
+        'label': campaniaCatalogo,
+        'value': 0
+    });
+    InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
+
+    FB.ui({
+        method: 'share',
+        href: texto,
+    }, function (response) {
+        if (response && !response.error_code) {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Catálogos y revistas',
+                'action': 'Catálogo Digital - Compartir FB',
+                'label': campaniaCatalogo,
+            });
+        } else {
+            console.log('Error al publicar via facebook')
+        }
+    });
+}
+
 
 function getCodigoCampaniaAnterior() {
     return $.trim($("#hdCampaniaAnterior").val()) || '';
@@ -316,6 +372,8 @@ function CargarCarruselCatalogo() {
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{tipoCatalogoTodo}/g, tagTodo);
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{campania}/g, anio + nro);
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{textourl}/g, urlCatalogoPiloto);
+                //xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{isMovil}/g, isMovil);
+                //xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{FBAppId}/g, FBAppId);
 
                 $("#idSection" + i).append(xHtmlItemCatalogoPasosActual);                
                 $("#txtUrlActual").val(urlCatalogoPiloto);
@@ -477,7 +535,33 @@ function ObtenerEstadoCatalogo(campana, defered) {
 function CopiarEnlaceActual(catalogo, campania) {
 
     var copyText = $('#txtUrlActual');
-    copyText.select();
+
+    if (isMobileNative.iOS()) {
+        var el = copyText.get(0);
+        var editable = el.contentEditable;
+        var readOnly = el.readOnly;
+        el.contentEditable = true;
+        el.readOnly = false;
+        var range = document.createRange();
+        range.selectNodeContents(el);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        el.setSelectionRange(0, 999999);
+        el.contentEditable = editable;
+        el.readOnly = readOnly;
+    }
+    else
+        copyText.select();
+
+    //se agrego vento push - HD-3964
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Catálogos y revistas',
+        'action': 'Catálogo Digital - Copiar Enlace - clic botón',
+        'label': campania
+    });
+    // fin 
 
     try {
         var successful = document.execCommand('copy');
@@ -560,6 +644,15 @@ function GetCatalogosLinksByCampania(data, campania) {
             $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
             $(idCat).find(elemItem).find("[data-accion='whatsapp']").attr("href", "https://api.whatsapp.com/send?text=" + urlCatWS);
+
+            if (piloto == '1' && contDiv == 1) {
+                if (isMovil == "True")
+                    $("[data-accion='ms']").attr("href", "fb-messenger://share?link=" + encodeURIComponent(urlCatalogoPiloto) + "&app_id=" + encodeURIComponent(FBAppId));
+                else {
+                    $("[data-accion='ms']").attr("href", "https://www.facebook.com/dialog/send?app_id=" + encodeURIComponent(FBAppId) + "&link=" + encodeURIComponent(urlCatalogoPiloto) + "&redirect_uri=" + window.location.href + "?catalogo_compartido_fb_messenger=1");
+                    $("[data-accion='ms']").attr("target", "_self");
+                }
+            }
         }
     }
     FinRenderCatalogo();
@@ -756,7 +849,7 @@ function CatalogoEnviarEmail() {
         async: true,
         success: function (data) {
             closeWaitingDialog();
-            $('#CompartirCorreo').hide();
+            $('#CompartirCorreo').fadeOut(100);
             if (checkTimeout(data)) {
                 if (data.success) {
                     MonstrarAlerta(data.message);
@@ -771,7 +864,7 @@ function CatalogoEnviarEmail() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            $('#CompartirCorreo').hide();
+            $('#CompartirCorreo').fadeOut(100);
             if (checkTimeout(data)) {
                 MonstrarExclamacion("ERROR");
             }
@@ -820,13 +913,28 @@ function CatalogoEnviarEmailPiloto() {
         async: true,
         success: function (data) {
             closeWaitingDialog();
-            $('#CompartirCorreo').hide();
+            $('#CompartirCorreo').fadeOut(100);
             if (checkTimeout(data)) {
                 if (data.success) {
                     MonstrarAlerta(data.message);
+
+                    /*evento luego de enviar el correo satisfacoriamente - HD-3694*/
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Catálogos y revistas',
+                        'action': 'Catálogo digital - Compartir email',
+                        'label': campaniaEmail,
+                        'value': 1,
+                        'gtm.uniqueEventId': 7292
+                    });
+                    
+
                     if (data.extra == "R") {
                         location.href = '/Bienvenida';
                     }
+
+                    
+
                 }
                 else {
                     MonstrarExclamacion(data.message);
@@ -835,7 +943,7 @@ function CatalogoEnviarEmailPiloto() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            $('#CompartirCorreo').hide();
+            $('#CompartirCorreo').fadeOut(100);
             if (checkTimeout(data)) {
                 MonstrarExclamacion("ERROR");
             }
@@ -929,7 +1037,8 @@ function getUrlImagenPortadaRevistaPromise(codigoCampania) {
     var defered = jQuery.Deferred();
 
     var data = JSON.stringify({
-        codigoRevista: RevistaCodigoIssuu[codigoCampania]
+        //codigoRevista: RevistaCodigoIssuu[codigoCampania],
+        codigoCampania: codigoCampania
     });
     jQuery.ajax({
         type: 'POST',
@@ -974,10 +1083,22 @@ function ocultarTooltipCompartirCatalogoMobile() {
 
 function MonstrarExclamacion(texto) {
     $("#mensaje_exclamacion #mensaje_exclamacion_texto").html(texto);
-    $("#mensaje_exclamacion").show();
+    $("#mensaje_exclamacion").fadeIn(100);
 }
 
 function MonstrarAlerta(texto) {
     $("#mensaje_alerta #mensaje_alerta_texto").html(texto);
-    $("#mensaje_alerta").show();
+    $("#mensaje_alerta").fadeIn(100);
+}
+
+function MarcarCompartirFbExitoso() {
+    
+    if (window.location.search.includes("catalogo_compartido_fb_messenger")) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catálogos y revistas',
+            'action': 'Catálogo Digital - Compartir FB - Messenger',
+            'label': campaniaCodigo
+        });        
+    }
 }

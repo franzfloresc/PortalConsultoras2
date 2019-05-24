@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+  <xs:complexType name="ArrayOfBEMensajeProl">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEMensajeProl" nillable="true" type="tns:BEMensajeProl" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEMensajeProl" nillable="true" type="tns:ArrayOfBEMensajeProl" />
+  <xs:complexType name="BEMensajeProl">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoMensajeRxP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MensajeRxP" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEMensajeProl" nillable="true" type="tns:BEMensajeProl" />
   <xs:complexType name="BEResultadoReservaProl">
     <xs:sequence>
       <xs:element minOccurs="0" name="Aviso" type="xs:boolean" />
@@ -14,6 +27,7 @@
       <xs:element minOccurs="0" name="ListaConcursosCodigos" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ListaConcursosPuntaje" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ListaConcursosPuntajeExigido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ListaMensajeCondicional" nillable="true" type="tns:ArrayOfBEMensajeProl" />
       <xs:element minOccurs="0" name="MontoAhorroCatalogo" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoAhorroRevista" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoDescuento" type="xs:decimal" />

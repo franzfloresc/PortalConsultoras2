@@ -1,0 +1,34 @@
+﻿
+<link href="@Url.Content("~/Content/Css/Site/Shared/PopupsResponsive/general-popups.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Site/Shared/PopupsResponsive/popup-actualizacion-correo.css")" rel="stylesheet" />
+
+<div class="popup__wrapper bg__popups__default" id="PopupActualizacionCorreo">
+    <div class="popup__somos__belcorp popup__somos__belcorp--actualizacionCorreo">
+        <div class="popup__somos__belcorp__cabecera">
+            <a href="#" onclick="javascript:$('#PopupActualizacionCorreo').fadeOut(100);" title="Cerrar" class="popup__somos__belcorp__icono__cerrar popup__somos__belcorp__icono__cerrar--actualizacionCorreo">
+                <img src="@Url.Content("~/Content/Images/icono_cerrar_popup.svg")" alt="Cerrar Popup" />
+            </a>
+        </div>
+        <div class="popup__somos__belcorp__contenido">
+            <div class="popup__somos__belcorp__icono popup__somos__belcorp__icono--actualizacionCorreo">
+                <img src="@Url.Content("~/Content/Images/icono_correo.svg")" alt="Actualiza tu mail" />
+            </div>
+            <h2 class="popup__somos__belcorp__titulo popup__somos__belcorp__titulo--actualizacionCorreo">
+                ¡Estás perdiéndote<br />las mejores ofertas!
+            </h2>
+            <div id="mensaje" class="popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--actualizacionCorreo">
+                Actualiza tu mail/números de contacto y entérate de nuestras novedades primero.
+            </div>
+            <a href="https://sbepdqa.somosbelcorp.com/MiPerfil" id="hrfUrl" class="multimarca-background-color popup__somos__belcorp__btn popup__somos__belcorp__btn--actualizar"  title="Actualizar sus datos" style="display:block;">
+                Actualizar
+            </a>
+        
+            <a href="#" class="popup__somos__belcorp__enlace" title="Ahora no" style="display:none;">
+                Ahora no
+            </a>
+        </div>
+        <a href="#" class="popup__somos__belcorp__enlace popup__somos__belcorp__enlace--noVolverAMostrar" title="No volver a mostrar">
+            No volver a mostrar este anuncio
+        </a>
+    </div>
+</div>

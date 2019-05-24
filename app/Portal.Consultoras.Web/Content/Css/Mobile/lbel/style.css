@@ -42,6 +42,10 @@ h3 {
     font-size: 18px;
 }
 
+.mt-23{
+    margin-top:23px;
+}
+
 .noPadding {
     padding: 0 !important;
 }
@@ -338,7 +342,6 @@ h4.re3 {
     font-family: 'Lato';
     position: relative;
     font-size: 14px;
-    text-transform: uppercase;
     margin-bottom: 0;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -1047,7 +1050,6 @@ h4.re3 {
     .sub_titulo_noti span {
         font-weight: 900;
         color: #613c87;
-        text-transform: uppercase;
     }
 
 .firma_notificaciones {
@@ -1510,6 +1512,11 @@ h4.re3 {
     padding: 30px 0;
 }
 
+    .block-seguimiento-content--mobile{
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
     .block-seguimiento-content .seg-item {
         position: relative;
         text-align: center;
@@ -1613,6 +1620,22 @@ h4.re3 {
     .block-seguimiento-content .seg-active .seg-hora {
         color: black;
     }
+
+.seg-hora--entregaProyectada {
+    width: auto;
+    position: relative;
+    margin: 0 auto;
+    left: -13px;
+    right: 0;
+    white-space: nowrap;
+}
+
+@media screen and (min-width:400px) and (max-width:991px) {
+
+    .seg-hora--entregaProyectada {
+        left: 2px;
+    }
+}
 
 .alert .close {
     color: #fff;
@@ -4381,6 +4404,14 @@ table > thead > tr > th {
         font-weight: 900;
     }
 
+.sugerido .content_item_home{
+    padding-bottom: 20px
+}
+
+.nombre_producto_sugerido {
+    height: 60px !important;
+}
+
 .producto_precio {
     width: 100%;
     padding-left: 16px;
@@ -4437,6 +4468,21 @@ table > thead > tr > th {
     border-top: 1px solid #b0b0b0;
     border-bottom: 1px solid #b0b0b0;
     font-size: 11px;
+}
+
+
+.rango_cantidad_pedido_fijo {
+    -webkit-appearance: none;
+    border-radius: 0;
+    width: 100%;
+    height: 48px;
+    line-height: 48px;
+    background: transparent;
+    float: left;
+    text-align: center;
+    font-weight: 700;
+    border: 1px solid #b0b0b0;
+    color: rgb(84, 84, 84);
 }
 
 .cantidad_mas_home {
@@ -4693,8 +4739,7 @@ body {
 
 .mi_ganancia {
     color: #642f80;
-    font-weight: 700;
-    text-transform: uppercase;
+    font-weight: 700; 
 }
 
 .textos_resumen span, .montos_resumen span {
@@ -4793,7 +4838,7 @@ body {
         line-height: 15px;
         -webkit-border-radius: 0;
         -webkit-appearance: none !important;
-        text-transform: uppercase;
+     
     }
 
 
@@ -4805,14 +4850,14 @@ body {
     color: #b75d9f;
 }
 
-    .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .signo_menos, .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .signo_mas {
+    /*.bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .signo_menos, .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .signo_mas {
         width: 31%;
-    }
+    }*/
 
-    .bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .campo_cantidadProductos {
+    /*.bloque_cantidades_precios_items_ingresados .contenedor_cantidadProductos div .campo_cantidadProductos {
         width: 38%;
         max-width: 55.56px;
-    }
+    }*/
 
     .mensaje_eliminarPedido a {
         color: #642f80;
@@ -5470,14 +5515,22 @@ body {
 
 .titulo_compartir {
     font-family: 'Lato';
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 300;
     line-height: .82;
-    text-align: center;
+    text-transform: uppercase;
     color: #000000;
     margin-top: 30px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.contet_alert {
+    max-width: 300px;
+    margin: 0 auto;
     margin-bottom: 30px;
 }
+
 
 .contrevista p {
 font-size: 13px;
@@ -5704,7 +5757,7 @@ input[type='checkbox']:checked + span:after {
 
 .content_mensajeAlerta {
     width: 100%;
-    height: 100%;
+    height: auto;
     margin: 0 auto;
     position: relative;
     background: white;
@@ -5843,8 +5896,9 @@ input[type='checkbox']:checked + span:after {
     }
 
     .titulo_compartir {
-        font-size: 19px;
+        font-size: 16px;
         line-height: 28px;
+        text-align: center;
     }
 }
 /*CAMBIO FOOTER*/
@@ -6206,7 +6260,6 @@ input[type='checkbox']:checked + span:after {
     display: block;
     margin-top: 25px;
     cursor: pointer;
-    text-transform: uppercase;
 }
 
 .tooltip_validado {
@@ -6249,8 +6302,7 @@ input[type='checkbox']:checked + span:after {
     text-align: center;
     display: block;
     margin-top: 30px;
-    background: #613c87;
-    text-transform: uppercase;
+    background: #613c87; 
 }
 
 .icono_tooltip_validado {
@@ -6304,6 +6356,28 @@ input[type='checkbox']:checked + span:after {
 .right_reservado {
     float: right;
     text-align: right;
+}
+
+.observacion_notificacion{
+    margin-top: 12px;
+    padding: 10px;
+    background-color: #EEEEEE;
+    position: relative;
+    border-radius:4px;
+}
+
+.observacion_notificacion:before{
+    bottom: 100%;
+    left: 20px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(0, 0, 0, 0);
+    border-bottom-color: #EEEEEE;
+    border-width: 7px;
 }
 
 .datos_Reservado {
@@ -6681,8 +6755,8 @@ input[type='checkbox']:checked + span:after {
 
 .popup_comunicado {
     position: relative;
-    top: 80px;
-    margin: 0 auto;
+    top: 70px;
+    margin: 0 auto 49px auto;
     background: #fff;
     box-sizing: border-box;
     font-family: 'Lato';
@@ -6724,7 +6798,7 @@ input[type='checkbox']:checked + span:after {
         width: 100%;
         position: absolute;
         color: #fff;
-        padding-top: 5px;
+        padding-top: 0;
     }
 
         .popup_comunicado .pie_popup_comunicado input[type='checkbox'] {
@@ -6741,10 +6815,34 @@ input[type='checkbox']:checked + span:after {
         }
 
         .popup_comunicado .pie_popup_comunicado .check_text {
-            padding-left: 4px;
+            padding-left: 0;
             vertical-align: top;
             display: table-cell;
+            font-size: 13px;
+            letter-spacing: 0.2px;
         }
+
+.popup_comunicado .pie_popup_comunicado .check_text,
+.enlace_no_volver_a_mostrar_comunicado {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.enlace_no_volver_a_mostrar_comunicado,
+.enlace_no_volver_a_mostrar_comunicado:hover {
+    padding: 0 !important;
+    width: 240px;
+    height: 45px;
+    line-height: 45px;
+    color: #FFF;
+    font-size: 11px;
+    font-weight: 300 !important;
+    letter-spacing: 0.5px;
+    text-decoration: underline;
+    text-transform: uppercase;
+    text-align: center;
+}
 
 /* POPUP AGREGAR CLIENTE */
 
@@ -7159,7 +7257,6 @@ input[type='checkbox']:checked + span:after {
 
 .color_marca {
     color: #613c87;
-    text-transform: uppercase;
 }
 
 .text-danger {
@@ -8440,22 +8537,22 @@ a {
     background-repeat:no-repeat;
 }
 
-.camino_al_exito{
+.camino_al_exito {
     width: 167px;
     color: #613c87;
     font-size: 14px;
     margin-bottom: 3px;
-    background-image: url(../../../Images/Lbel/estrellas.png);
+    background-image: url(/Content/Images/Lbel/estrellas.png);
     background-position: right -2px;
     background-size: 23px;
 }
 
-.enlace_ver_mas_sobre_camino_al_exito{
+.enlace_ver_mas_sobre_camino_al_exito {
     width: 63px;
     margin: 0 auto;
     font-size: 11px;
     text-decoration: underline;
-    background-image: url(../../../Images/mobile/Lbel/indicador_pedido.png);
+    background-image: url(/Content/Images/mobile/Lbel/indicador_pedido.png);
     background-position: left 5px;
     background-size: 6px;
 }
@@ -9469,6 +9566,14 @@ span.icon-advertencia {
     float: left;
 }
 
+.content_cantidad_ficha_producto_fijo {
+    width: 48px;
+    margin-right: 5%;
+    background: white;
+    overflow: hidden;
+    float: left;
+}
+
 .btn_desactivado_general {
     background: #e5e5e5;
     border: 1px solid #d2d2d2;
@@ -9477,6 +9582,20 @@ span.icon-advertencia {
 
 .btn_agregar_ficha_producto {
     width: 50%;
+    height: 48px;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: white;
+    font-weight: 700;
+    display: block;
+    float: left;
+    text-align: center;
+    line-height: 47px;
+    background: black;
+}
+
+.btn_agregar_ficha_producto_fijo {
+    width: 70%;
     height: 48px;
     font-family: 'Lato';
     font-size: 14px;
@@ -13225,24 +13344,38 @@ span.icon-advertencia {
     z-index: 1001;
 }
 
-    .app-footer .sections-1 {
-        width: 50%;
-        display: inline-block;
-        margin-left: -2px;
-        margin-right: -2px;
-        vertical-align: middle;
-        text-align: right;
-        font-size: 17px;
+    .app-footer-pedidos {
+        height: auto;
+        line-height: 16px;
     }
 
-    .app-footer .sections-2 {
-        width: 50%;
-        display: inline-block;
-        margin-left: -2px;
-        margin-right: -2px;
-        vertical-align: middle;
-        text-align: center;
-        font-size: 19px;
+    .app-footer-section {
+        margin: 10px 0;
+    }
+
+.app-footer .sections-1 {
+    width: 50%;
+    display: inline-block;
+    margin-left: -2px;
+    margin-right: -2px;
+    vertical-align: middle;
+    text-align: right;
+    font-size: 14px;
+}
+
+.app-footer .sections-2 {
+    width: 50%;
+    display: inline-block;
+    margin-left: -2px;
+    margin-right: -2px;
+    vertical-align: middle;
+    text-align: right;
+    font-size: 14px;
+    padding-right: 16px;
+}
+
+    .fz-19 {
+        font-size: 19px !important;
     }
 /*FIN ESTILOS EMBEBER APP (APPCONS-1099)*/
 

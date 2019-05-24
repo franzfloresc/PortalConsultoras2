@@ -3,6 +3,9 @@
 @model PagoEnLineaModel
 @{
     ViewBag.Title = "Pago En Línea";
+    string bancos = Model.Bancos;
+    var rutaIcono = "";
+    string[] result = { };
     if (Model.origen == int.Parse(Constantes.IngresoExternoOrigen.ChatBot))
     {
         Layout = "~/Areas/Mobile/Views/Shared/_ChatboMobileLayout.cshtml";
@@ -18,13 +21,13 @@
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
     {
 
-        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")?v=1">
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Esika/pago-en-linea.css")?v=2">
 
     }
     else
     {
 
-        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Lbel/pago-en-linea.css")?v=1">
+        <link rel="stylesheet" href="@Url.Content("~/Content/Css/Mobile/Lbel/pago-en-linea.css")?v=2">
 
     }
 
@@ -57,7 +60,7 @@ else
         PAGO EN LÍNEA
     </div>
 }
-<div class="content_belcorp" id="divOpciones" style="display:none">
+<div class="content_belcorp" id="divOpciones" style="display:block;">
     <div class="pestana_lbel"></div>
 
     <div class="proceso_de_pago_en_linea">
@@ -99,25 +102,45 @@ else
                     </li>
                 }
                 <!-- HD-2960 - NUEVO MÉTODO DE PAGO -->
-                <li class="opcion_pago metodoPago text-center" id="divBancaPorInternet" style="display:none">
-                    <div class="opcion_pago_contenido_visible_sin_desplegar opcionPagoMobile w-100">
-                        <div class="col_izq text-left">
-                            <div class="icono_marca_tarjeta" id="divIcono">
+                @if (Model.Bancos != "1")
+                {
+                    if (!string.IsNullOrEmpty(bancos))
+                    {
+                        result = bancos.Split('¬');
+                        rutaIcono = result[0].Split('¦')[3];
+                    }
+                    <li class="opcion_pago metodoPago text-center" id="divBancaPorInternet" style="display:block;">
+                        <div class="opcion_pago_contenido_visible_sin_desplegar opcionPagoMobile w-100">
+                            <div class="col_izq text-left">
+                                <div class="icono_marca_tarjeta" id="divIcono">
+                                    <img src='@rutaIcono' alt='Pagos Banca por Internet' />
+                                </div>
+                                <h4 class="titulo_monto_pago_total titulo_monto_pago_total_paso_2">
+                                    Pagos banca por internet
+                                </h4>
+                            </div>
+                            <div class="col_der">
+                                <div class="icono_flecha_despliegue girar90n">
+                                    <img src="@Url.Content("~/Content/Images/flecha-despliegue.svg")" alt="Desplegar contenido" />
+                                </div>
+                            </div>
+                        </div>
 
-                            </div>
-                            <h4 class="titulo_monto_pago_total titulo_monto_pago_total_paso_2">
-                                Pagos banca por internet
-                            </h4>
+                        <div class="opcion_pago_contenido_visible_al_desplegar w-100 mt-0" id="ullistaBancos" style="display:none;">
+
+                            <p class="texto_informativo_lista_bancos">Te redireccionaremos al banco que elijas.</p>
+                            <ul class="listado_bancos">
+                                @for (var i = 0; i < result.Length; i++)
+                                {
+                                    var fila = result[i].Split('¦');
+                                    rutaIcono = fila[3];
+                                    <li class="banco_nombre"><a href='@fila[1]' title='@fila[0]' class="enlace_banco" target="_blank"> <img src='@fila[2]' alt='@fila[0]'> </a> </li>
+                                }
+                            </ul>
                         </div>
-                        <div class="col_der">
-                            <div class="icono_flecha_despliegue girar90n">
-                                <img src="@Url.Content("~/Content/Images/flecha-despliegue.svg")" alt="Desplegar contenido" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="opcion_pago_contenido_visible_al_desplegar w-100 mt-0" id="ullistaBancos" style="display:none">
-                    </div>
-                </li>
+
+                    </li>
+                }
                 <!-- FIN - HD-2960 - NUEVO MÉTODO DE PAGO -->
             </ul>
         </div>
@@ -137,6 +160,7 @@ else
         var urlPagoMonto = '@Url.Action("Index", "PagoEnLinea", new { area = "Mobile" })';
         var rutaGuardarDatosPago = '@Url.Action("GuardarDatosPago", "PagoEnLinea", new { area = "" })';
         var tipoOrigenPantalla = 2;
+        var bancos = '@Html.Raw(Model.Bancos)';
     </script>
 
     <script src="@Url.Content("~/Scripts/PortalConsultoras/PagoEnLinea/MetodoPago.js")?v3"></script>

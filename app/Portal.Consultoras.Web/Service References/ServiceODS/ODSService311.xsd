@@ -11,12 +11,36 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BERespValidarElectivos" nillable="true" type="tns:BERespValidarElectivos" />
+  <xs:complexType name="BEConsultoraProgramaNuevas">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoPrograma" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConsecutivoNueva" type="xs:int" />
+      <xs:element minOccurs="0" name="EsConsultoraNueva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEConsultoraProgramaNuevas" nillable="true" type="tns:BEConsultoraProgramaNuevas" />
+  <xs:complexType name="ArrayOfBEProductoEstraProgNuevas">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEProductoEstraProgNuevas" nillable="true" type="tns:BEProductoEstraProgNuevas" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEProductoEstraProgNuevas" nillable="true" type="tns:ArrayOfBEProductoEstraProgNuevas" />
+  <xs:complexType name="BEProductoEstraProgNuevas">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Cuv" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsCuponIndependiente" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEProductoEstraProgNuevas" nillable="true" type="tns:BEProductoEstraProgNuevas" />
   <xs:complexType name="BEPremioNuevas">
     <xs:sequence>
       <xs:element minOccurs="0" name="ActiveDesc" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ActiveMonto" type="xs:boolean" />
       <xs:element minOccurs="0" name="ActivePremioAuto" nillable="true" type="xs:boolean" />
-      <xs:element minOccurs="0" name="ActivePremioElectivo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActivePremioElectivo" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="ActiveTooltip" type="xs:boolean" />
       <xs:element minOccurs="0" name="ActiveTooltipDesc" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ActiveTooltipMontoDesc" nillable="true" type="xs:string" />

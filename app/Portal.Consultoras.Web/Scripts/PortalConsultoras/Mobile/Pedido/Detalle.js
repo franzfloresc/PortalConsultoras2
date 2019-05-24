@@ -203,6 +203,9 @@ function UpdateLiquidacionSegunTipoOfertaSis(obj, elementRow) {
         if (ReservadoOEnHorarioRestringido()) {
             obj.Cantidad = obj.CantidadTemporal;
             belcorp.mobile.pedido.setDetalleById(obj);
+            //INI HD-3693
+            $(elementRow).find(".Cantidad").val(obj.Cantidad);
+            //FIN HD-3693
             CloseLoading();
             return false;
         }
@@ -472,7 +475,9 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
             EsBackOrder: esBackOrder == 'true',
             SetId: setId
         });
-
+        //INI HD-3908
+        var campaniaId = CampaniaID;
+        //FIN HD-3908
         ShowLoading();
         jQuery.ajax({
             type: 'POST',
@@ -512,6 +517,12 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
                 cuponModule.actualizarContenedorCupon();
                 messageDelete('El producto fue eliminado.');
 
+                //INI HD-3908
+                if (!data.EsAgregado) {
+                    var localStorageModule = new LocalStorageModule();
+                    localStorageModule.ActualizarCheckAgregado($.trim(data.data.EstrategiaId), campaniaId, data.data.TipoEstrategiaCodigo, false);
+                }
+                //FIN HD-3908
                 ActualizarLocalStoragePalancas(data.data.CUV, false);
             },
             error: function (data, error) {
@@ -637,7 +648,12 @@ function PedidoDetalleEliminarTodo() {
             }
 
             if (data.success != true) {
-                messageInfoError(data.message);
+                //INI HD-3693
+                //messageInfoError(data.message);
+                var msjBloq = validarpopupBloqueada(data.message);
+                if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                else messageInfoError(data.message);
+                //FIN HD-3693
                 CloseLoading();
                 return false;
             }
@@ -769,11 +785,23 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             MostrarBarra(data);
             showPopupNivelSuperado(data.DataBarra, prevTotal);
 
+            var tooltip = $('[data-agregado="tooltip"]');
+            if (typeof tooltip !== 'undefined') {
+                $('[data-agregado="mensaje1"]').html("¡Listo! ");
+                $('[data-agregado="mensaje2"]').html(" Modificaste tu pedido");
+                tooltip.show();
+                setTimeout(function () { tooltip.hide(); }, 4000);
+            }
+            
             if (PROL == "0") {
                 detalleObj.CantidadTemporal = $(cantidadElement).val();
                 belcorp.mobile.pedido.setDetalleById(detalleObj);
             }
             CargarPedido();
+
+            if (data.mensajeCondicional) {
+	            AbrirMensaje(data.mensajeCondicional);
+            }
 
             if (data.modificoBackOrder) {
                 messageInfo('Recuerda que debes volver a validar tu pedido.');
@@ -878,6 +906,10 @@ function EjecutarServicioPROL() {
                 return;
             }
 
+            if (response.mensajeCondicional) {
+	            AbrirMensaje(response.mensajeCondicional);
+            }
+
             RespuestaEjecutarServicioPROL(response, function () { return CumpleOfertaFinalMostrar(response); });
         },
         error: function (data, error) {
@@ -915,7 +947,9 @@ function RespuestaEjecutarServicioPROL(response, fnOfertaFinal) {
     arrayProductosGuardadoExito = response;
 
     var cumpleOferta = fnOfertaFinal();
-    if (cumpleOferta) return;
+    if (cumpleOferta) {
+        return;
+    }
 
     if (!response.data.Reserva) {
         ShowPopupObservacionesReserva();
@@ -924,6 +958,7 @@ function RespuestaEjecutarServicioPROL(response, fnOfertaFinal) {
 
     EjecutarAccionesReservaExitosa(response);
 }
+
 function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == '1') EnviarCorreoPedidoReservado();
     if (estaRechazado == "2") cerrarMensajeEstadoPedido();
@@ -1156,4 +1191,8 @@ function closeDialogObservacionesProl() {
 
 
     $('#popup-observaciones-prol').hide();
+}
+
+function PedidosPendientesPorAprobar() {
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Click Botón', 'Pedidos por aprobar');
 }

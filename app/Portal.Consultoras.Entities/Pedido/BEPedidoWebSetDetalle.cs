@@ -47,11 +47,14 @@ namespace Portal.Consultoras.Entities.Pedido
         public int TipoOfertaSisId { get; set; }
         
         [DataMember]
+        [Column("SetIdentifierNumber")]
+        public int SetIdentifierNumber { get; set; }
+        
         [Column("Digitable")]
         public int Digitable { get; set; }
 
         [DataMember]
         [Column("Grupo")]
-        public string Grupo { get; set; }
+        public int Grupo { get; set; }
     }
 }

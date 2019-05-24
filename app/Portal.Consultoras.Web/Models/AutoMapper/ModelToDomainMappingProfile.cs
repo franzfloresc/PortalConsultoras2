@@ -10,6 +10,7 @@ using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.Models.AdministracionPoput;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -470,9 +471,10 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<ShowRoomEventoConsultoraModel, ServicePedido.BEShowRoomEventoConsultora>();
             
             Mapper.CreateMap<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>();
-
+            Mapper.CreateMap<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaDisenoModel>();
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEConsultoraProgramaNuevas>();
-            
+            Mapper.CreateMap<UsuarioModel, ServiceODS.BEConsultoraProgramaNuevas>();
+
             Mapper.CreateMap<PagoEnLineaTipoPagoModel, BEPagoEnLineaTipoPago>();
             Mapper.CreateMap<PagoEnLineaMedioPagoModel, BEPagoEnLineaMedioPago>();
             Mapper.CreateMap<PagoEnLineaMedioPagoDetalleModel, BEPagoEnLineaMedioPagoDetalle>();

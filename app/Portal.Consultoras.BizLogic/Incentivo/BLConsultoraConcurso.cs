@@ -177,7 +177,7 @@ namespace Portal.Consultoras.BizLogic
         /// Obtener los incentivos vigentes por consultora.
         /// </summary>
         /// <param name="PaisID"></param>
-        /// /// <param name="CodigoConsultora"></param>
+        /// <param name="CodigoConsultora"></param>
         /// <param name="CodigoCampania"></param>
         /// <returns></returns>
         public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania, long ConsultoraID,
@@ -197,7 +197,7 @@ namespace Portal.Consultoras.BizLogic
         /// Obtener los incentivos historicos por consultora.
         /// </summary>
         /// <param name="PaisID"></param>
-        /// /// <param name="CodigoConsultora"></param>
+        /// <param name="CodigoConsultora"></param>
         /// <param name="CodigoCampania"></param>
         /// <returns></returns>
         public List<BEIncentivoConcurso> ObtenerIncentivosHistorico(int paisID, string codigoConsultora, int codigoCampania)
@@ -464,7 +464,6 @@ namespace Portal.Consultoras.BizLogic
             List<BEIncentivoConcurso> incentivosConcursos;
             var incentivosNivel = new List<BEIncentivoNivel>();
             var incentivosPremios = new List<BEIncentivoPremio>();
-            string paisISO = Util.GetPaisISO(paisID);
 
             var DAConcurso = new DAConcurso(paisID);
 

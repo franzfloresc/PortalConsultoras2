@@ -48,7 +48,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.PaisISO = userData.CodigoISO;
                 ViewBag.LocationCountry = userData.CodigoISO;
-                ViewBag.EsMobile = IsMobile();
+                ViewBag.EsMobile = EsDispositivoMovil();
             model.NombreCompleto = beusuario.Nombre;
             model.NombreGerenteZonal = userData.NombreGerenteZonal;
             model.EMail = beusuario.EMail;
@@ -80,7 +80,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            model.DigitoVerificador = string.Empty;
+           
+            model.DigitoVerificador = beusuario.DigitoVerificador;
             model.CodigoUsuario = userData.CodigoUsuario;
             model.Zona = userData.CodigoZona;
             model.ServiceSMS = userData.PuedeEnviarSMS;
@@ -88,13 +89,9 @@ namespace Portal.Consultoras.Web.Controllers
             model.PaisID = userData.PaisID;
 
             var paisesDigitoControl = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
-            if (paisesDigitoControl.Contains(model.PaisISO)
-                && !string.IsNullOrEmpty(beusuario.DigitoVerificador))
-            {
-                model.CodigoUsuario = string.Format("{0} - {1} (Zona:{2})", userData.CodigoUsuario, beusuario.DigitoVerificador, userData.CodigoZona);
-            }
             model.CodigoUsuarioReal = userData.CodigoUsuario;
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
+            ViewBag.PaisesDigitoControl = paisesDigitoControl;
 
             #region limite Min - Max Telef
             int limiteMinimoTelef, limiteMaximoTelef;
@@ -135,11 +132,6 @@ namespace Portal.Consultoras.Web.Controllers
        
             record.DropDownUbigeo1 = await _miPerfilProvider.ObtenerUbigeoPrincipalAsync(userData.CodigoISO);
         }
-
-        private  async Task<List<ParametroUneteBE>>DropDownUbigeoPrincipalAsync()
-        {
-            return  await _miPerfilProvider.ObtenerUbigeoPrincipalAsync(userData.CodigoISO);
-        }
        
         [HttpGet]
         public async Task<JsonResult> ObtenerUbigeoDependiente(int Nivel, int IdPadre)
@@ -170,6 +162,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     respuesta = sv.ActualizarEmail(usuario, correoNuevo);
                 }
+                string tipoEnvio = Constantes.TipoEnvio.EMAIL.ToString();
+                ActualizarValidacionDatosUnique(EsDispositivoMovil(), userData.CodigoUsuario, tipoEnvio);
                 return Json(new { success = respuesta.Succcess, message = respuesta.Message });
             }
             catch (Exception ex)
@@ -317,7 +311,6 @@ namespace Portal.Consultoras.Web.Controllers
                         userData.FotoPerfilAncha = Util.EsImagenAncha(imagenS3);
                         ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
                     }
-
                     userData.FotoOriginalSinModificar = nameImage;
                     ViewBag.FotoPerfilSinModificar = nameImage;
 
@@ -384,10 +377,22 @@ namespace Portal.Consultoras.Web.Controllers
                 User = userData,
                 Mobile = EsDispositivoMovil()
             };
-
+            string tipoEnvio = Constantes.TipoEnvio.SMS.ToString();
             result = await sender.Send(celular);
-
+            ActualizarValidacionDatosUnique(EsDispositivoMovil(), userData.CodigoUsuario, tipoEnvio);
             return Json(result);
+        }
+
+        private void ActualizarValidacionDatosUnique(bool isMobile, string codigoUsuario, string tipoEnvio)
+        {
+            var request = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
+            string ipDispositivo = request.ClientIPFromRequest(skipPrivate: true);
+            ipDispositivo = ipDispositivo == null ? String.Empty : ipDispositivo;
+
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            {
+                sv.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoUsuario, userData.PaisID, codigoUsuario, tipoEnvio, string.Empty);
+            }
         }
 
         [HttpPost]
@@ -407,7 +412,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             var celularNuevo = result.Message;
             UpdateCelularLogDynamo(celularNuevo);
-
             return Json(new { Success = true });
         }
 
@@ -418,6 +422,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
+             
                 var entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
                 var correoAnterior = model.CorreoAnterior;
 
@@ -462,6 +467,11 @@ namespace Portal.Consultoras.Web.Controllers
                         });
                     }
                 }
+
+                ActualizarSMS(userData.PaisID, userData.CodigoUsuario, userData.Celular, entidad.Celular);
+                ActualizarFijo(userData.PaisID, userData.CodigoUsuario, userData.Telefono, entidad.Telefono);
+                ActualizarValidacionDatos(EsDispositivoMovil(), userData.CodigoUsuario, entidad.EMail, entidad.Celular, entidad.Telefono);
+
             }
             catch (FaultException ex)
             {
@@ -685,6 +695,9 @@ namespace Portal.Consultoras.Web.Controllers
                     model.DireccionEntrega.ConsultoraID = (int)userData.ConsultoraID;
                 }
 
+                ActualizarSMS(userData.PaisID, userData.CodigoUsuario, userData.Celular, model.Celular);
+                ActualizarFijo(userData.PaisID, userData.CodigoUsuario, userData.Telefono, model.Telefono);
+                ActualizarValidacionDatos(EsDispositivoMovil(), userData.CodigoUsuario,model.EMail, model.Celular, model.Telefono);
                 resultado = await _miPerfilProvider.RegistrarAsync(model);
                 ActualizarDatosLogDynamoDB(model, "MI PERFIL", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
                 var lst = resultado.Split('|');
@@ -709,6 +722,7 @@ namespace Portal.Consultoras.Web.Controllers
                         extra = ""
                     });
                 }
+
             }
             catch (Exception ex)
             {
@@ -722,12 +736,52 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
 
-
             return response;
+        }
+        
+        public void ActualizarValidacionDatos(bool isMobile,string codigoConsultora, string emailNuevo, string celularNuevo, string fijoNuevo )
+        {
+            var listTipoEnvio = new List<string>();
+            if (emailNuevo != userData.EMail) listTipoEnvio.Add(Constantes.TipoEnvio.EMAIL);
+            if (celularNuevo != userData.Celular) listTipoEnvio.Add(Constantes.TipoEnvio.SMS);
+            if (fijoNuevo != userData.Telefono) listTipoEnvio.Add(Constantes.TipoEnvio.FIJO);
+            if (!listTipoEnvio.Any()) return;
 
+            string tipoEnvio1, tipoEnvio2 = string.Empty;
+            if (listTipoEnvio.Count == 3) tipoEnvio1 = Constantes.TipoEnvio.TODO;
+            else {
+                tipoEnvio1 = listTipoEnvio[0];
+                if (listTipoEnvio.Count == 2) tipoEnvio2 = listTipoEnvio[1];
+            }
+
+            var request = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
+            string ipDispositivo = request.ClientIPFromRequest(skipPrivate: true) ?? string.Empty;
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            {
+                sv.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoConsultora, userData.PaisID, userData.CodigoUsuario, tipoEnvio1, tipoEnvio2);
+            }
         }
 
+        public void ActualizarSMS(int paisId, string codigoConsultora, string celularAnterior, string celularActual)
+        {
+            if (celularActual == celularAnterior) return;
+            if (userData.PaisID == Constantes.PaisID.Peru) return;
 
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            {
+                sv.ActualizarSMS(paisId, codigoConsultora, Constantes.TipoEnvio.SMS, celularAnterior, celularActual);
+            }
+        }
+
+        public void ActualizarFijo(int paisId, string codigoConsultora, string telefonoAnterior, string telefonoActual)
+        {
+            if (telefonoActual == telefonoAnterior) return;
+
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            {
+                sv.ActualizarFijo(paisId, codigoConsultora, Constantes.TipoEnvio.FIJO, telefonoAnterior, telefonoActual);
+            }
+        }
 
     }
 

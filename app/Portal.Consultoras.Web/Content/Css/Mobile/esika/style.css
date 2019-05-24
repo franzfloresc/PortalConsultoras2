@@ -50,6 +50,10 @@ h3 {
     font-size: 18px;
 }
 
+.mt-23{
+    margin-top:23px;
+}
+
 .noPadding {
     padding: 0 !important;
 }
@@ -340,7 +344,6 @@ h4.re3 {
     font-family: 'Lato';
     position: relative;
     font-size: 14px;
-    text-transform: uppercase;
     margin-bottom: 0;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -1043,7 +1046,6 @@ h4.re3 {
 .sub_titulo_noti span {
     font-weight: 900;
     color: #e81c36;
-    text-transform: uppercase;
 }
 
 .firma_notificaciones {
@@ -1472,6 +1474,10 @@ h4.re3 {
     position: relative;
 }
 
+    .block-seguimiento-content--mobile{
+        margin-left: -15px;
+        margin-right: -15px;
+    }
 
     .block-seguimiento strong {
         color: black;
@@ -1613,6 +1619,22 @@ h4.re3 {
     .block-seguimiento-content .seg-active .seg-hora {
         color: black;
     }
+
+.seg-hora--entregaProyectada {
+    width: auto;
+    position: relative;
+    margin: 0 auto;
+    left: -13px;
+    right: 0;
+    white-space: nowrap;
+}
+
+@media screen and (min-width:400px) and (max-width:991px) {
+
+    .seg-hora--entregaProyectada {
+        left: 2px;
+    }
+}
 
 .alert .close {
     color: #fff;
@@ -4394,6 +4416,14 @@ table > thead > tr > th {
     font-weight: 900;
 }
 
+.sugerido .content_item_home{
+    padding-bottom: 20px
+}
+
+.nombre_producto_sugerido {
+    height: 60px !important;
+}
+
 .producto_precio {   
     width: 100%;
     padding-left: 10px;
@@ -4450,6 +4480,21 @@ table > thead > tr > th {
     border-top: 1px solid #b0b0b0;
     border-bottom: 1px solid #b0b0b0;
 }
+
+.rango_cantidad_pedido_fijo {
+    -webkit-appearance: none;
+    border-radius: 0;
+    width: 100%;
+    height: 48px;
+    line-height: 48px;
+    background: transparent;
+    float: left;
+    text-align: center;
+    font-weight: 700;
+    border: 1px solid #b0b0b0;
+    color: rgb(84, 84, 84);
+}
+
 
 .cantidad_mas_home {
     float: left;
@@ -4706,8 +4751,7 @@ body {
 
 .mi_ganancia {
     color: #e81c36;
-    font-weight: 700;
-    text-transform: uppercase;
+    font-weight: 700; 
 }
 
 .textos_resumen span, .montos_resumen span {
@@ -4803,7 +4847,7 @@ body {
         line-height: 15px;
         -webkit-border-radius: 0;
         -webkit-appearance: none !important;
-        text-transform: uppercase;
+ 
     }
 
 .btn_agregarPedido input, .btn_guardarPedido input {
@@ -4929,6 +4973,13 @@ body {
     margin: 0 auto;
     border: 0;
 }
+
+.bonificaciones_digital {
+    width: 128px;
+    height: 76px;
+    background: url('/Content/Images/Mobile/Esika/bonificaciones_digital.png') no-repeat right bottom;
+    margin-bottom: 0;
+} 
 
 .catalogo_esika {
     width: 128px;
@@ -5493,12 +5544,19 @@ body {
 
 .titulo_compartir {
     font-family: 'Lato';
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 300;
     line-height: .82;
-    text-align: center;
+    text-transform: uppercase;
     color: #000000;
     margin-top: 30px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.contet_alert{
+    max-width:300px;
+    margin: 0 auto;
     margin-bottom: 30px;
 }
 
@@ -5693,7 +5751,7 @@ input[type='checkbox']:checked + span:after {
 
 .content_mensajeAlerta {
     width: 100%;
-    height: 100%;
+    height: auto;
     margin: 0 auto;
     position: relative;
     background: white;
@@ -5853,8 +5911,9 @@ input[type='checkbox']:checked + span:after {
     }
 
     .titulo_compartir {
-        font-size: 19px;
+        font-size: 16px;
         line-height: 28px;
+        text-align: center;
     }
 }
 /*CAMBIO FOOTER*/
@@ -6166,8 +6225,7 @@ input[type='checkbox']:checked + span:after {
     font-size: 13px;
     color: #606061;
     margin-top: 20px;
-    margin-bottom: 5px;
-    text-transform: uppercase;
+    margin-bottom: 5px; 
 }
 
 .monto_reservado_mobile {
@@ -6184,7 +6242,6 @@ input[type='checkbox']:checked + span:after {
     font-weight: 700;
     color: #e81c36;
     margin-bottom: 5px;
-    text-transform: uppercase;
 }
 
 .btn_ver_pedido_reservado {
@@ -6200,7 +6257,6 @@ input[type='checkbox']:checked + span:after {
     display: block;
     margin-top: 25px;
     cursor: pointer;
-    text-transform: uppercase;
 }
 
 .tooltip_validado {
@@ -6243,8 +6299,7 @@ input[type='checkbox']:checked + span:after {
     text-align: center;
     display: block;
     margin-top: 30px;
-    background: #e81c36;
-    text-transform: uppercase;
+    background: #e81c36; 
 }
 
 .icono_tooltip_validado {
@@ -6298,6 +6353,28 @@ input[type='checkbox']:checked + span:after {
 .right_reservado {
     float: right;
     text-align: right;
+}
+
+.observacion_notificacion{
+    margin-top: 12px;
+    padding: 10px;
+    background-color: #EEEEEE;
+    position: relative;
+    border-radius:4px;
+}
+
+.observacion_notificacion:before{
+    bottom: 100%;
+    left: 20px;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(0, 0, 0, 0);
+    border-bottom-color: #EEEEEE;
+    border-width: 7px;
 }
 
 .datos_Reservado {
@@ -6683,8 +6760,8 @@ input[type='checkbox']:checked + span:after {
 
 .popup_comunicado {
     position: relative;
-    top: 80px;
-    margin: 0 auto;
+    top: 70px;
+    margin: 0 auto 49px auto;
     background: #fff;
     box-sizing: border-box;
     font-family: 'Lato';
@@ -6726,7 +6803,7 @@ input[type='checkbox']:checked + span:after {
         width: 100%;
         position: absolute;
         color: #fff;
-        padding-top: 5px;
+        padding-top: 0;
     }
 
         .popup_comunicado .pie_popup_comunicado input[type='checkbox'] {
@@ -6743,10 +6820,34 @@ input[type='checkbox']:checked + span:after {
         }
 
         .popup_comunicado .pie_popup_comunicado .check_text {
-            padding-left: 4px;
+            padding-left: 0;
             vertical-align: top;
             display: table-cell;
+            font-size: 13px;
+            letter-spacing: 0.2px;
         }
+
+.popup_comunicado .pie_popup_comunicado .check_text,
+.enlace_no_volver_a_mostrar_comunicado{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.enlace_no_volver_a_mostrar_comunicado,
+.enlace_no_volver_a_mostrar_comunicado:hover {
+    padding:0!important;
+    width:240px;
+    height:45px;
+    line-height:45px;
+    color: #FFF;
+    font-size: 11px;
+    font-weight: 300 !important;
+    letter-spacing: 0.5px;
+    text-decoration: underline;
+    text-transform: uppercase;
+    text-align: center;
+}
 
 /* POPUP AGREGAR CLIENTE */
 
@@ -7151,7 +7252,6 @@ input[type='checkbox']:checked + span:after {
 
 .color_marca {
     color: #e81c36;
-    text-transform: uppercase;
 }
 
 .btn_borde_black {
@@ -9475,8 +9575,30 @@ a {
     float: left;
 }
 
+.content_cantidad_ficha_producto_fijo {
+    width: 48px;
+    margin-right: 5%;
+    background: white;
+    overflow: hidden;
+    float: left;
+}
+
 .btn_agregar_ficha_producto {
     width: 50%;
+    height: 48px;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: white;
+    font-weight: 700;
+    display: block;
+    float: left;
+    text-align: center;
+    line-height: 47px;
+    background: black;
+}
+
+.btn_agregar_ficha_producto_fijo {
+    width: 70%;
     height: 48px;
     font-family: 'Lato';
     font-size: 14px;
@@ -13188,6 +13310,10 @@ a {
         display: flex;
         align-items: center;
     }
+    .app-tabs-detail .app-panels .panel-heading{
+        flex-direction: column;
+    }
+    
 
     .app-panels .panel-body {
         padding: 0;
@@ -13221,6 +13347,17 @@ a {
         text-align: right;
     }
 
+    /* 
+    Nota: Para no sobreescribir el valor las clases .sections en otras posibles secciones  
+        .sections-1
+        .sections-2        
+    */
+    .app-tabs-detail .app-panels .panel-heading .sections-1,
+    .app-tabs-detail .app-panels .panel-heading .sections-2{
+        width: 100%;
+    }
+    /* End */
+
     .app-panels .sections-client {
         color: #1d1d26;
         font-size: 15px;
@@ -13238,6 +13375,17 @@ a {
         text-align: right;
         padding-right: 20px;
         font-size: 16px;
+    }
+    /*
+        Nota: Para no sobreescribir el valor las clases .sections en otras posibles secciones 
+    */
+    .app-tabs-detail .app-panels .panel-heading .sections-price{
+        text-align: left;
+
+    }
+    .app-tabs-detail .app-panels .panel-heading .sections-arrow{
+        position: relative;
+        top: -20px;
     }
 
     .app-panels .sections-arrow {
@@ -13291,6 +13439,13 @@ a {
     bottom: 0;
     z-index: 1001;
 }
+    .app-footer-pedidos{
+        height: auto;
+        line-height:16px;
+    }
+    .app-footer-section {
+        margin: 10px 0;
+    }
 
     .app-footer .sections-1 {
         width: 50%;
@@ -13299,8 +13454,8 @@ a {
         margin-right: -2px;
         vertical-align: middle;
         text-align: right;
-        font-size: 17px;
-    }
+        font-size: 14px;
+    }    
 
     .app-footer .sections-2 {
         width: 50%;
@@ -13308,9 +13463,13 @@ a {
         margin-left: -2px;
         margin-right: -2px;
         vertical-align: middle;
-        text-align: center;
-        font-size: 19px;
+        text-align: right;
+        font-size: 14px;
+        padding-right: 16px;
     }
+        .fz-19 {
+            font-size: 19px !important;
+        }
 /*FIN ESTILOS EMBEBER APP (APPCONS-1099)*/
 
 /* APPCONS-1098 */

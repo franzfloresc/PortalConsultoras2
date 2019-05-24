@@ -75,12 +75,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             record.DropDownUbigeo1 = await _miPerfilProvider.ObtenerUbigeoPrincipalAsync(userData.CodigoISO);
         }
-
-        private List<ParametroUneteBE> DropDownUbigeoPrincipal()
-        {
-            return _miPerfilProvider.ObtenerUbigeoPrincipal(userData.CodigoISO);
-        }
-
+        
         [HttpGet]
         public async Task<JsonResult> ObtenerUbigeoDependiente(int Nivel, int IdPadre)
         {
@@ -161,7 +156,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
 
-                model.DigitoVerificador = string.Empty;
+                model.DigitoVerificador = beusuario.DigitoVerificador;
                 model.CodigoUsuario = userData.CodigoUsuario;
                 model.Zona = userData.CodigoZona;
                 model.ServiceSMS = userData.PuedeEnviarSMS;
@@ -169,15 +164,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.PaisID = userData.PaisID;
 
                 var paisesDigitoControl = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
-                if (paisesDigitoControl.Contains(model.PaisISO)
-                    && !string.IsNullOrEmpty(beusuario.DigitoVerificador))
-                {
-                    model.CodigoUsuario = string.Format("{0} - {1} (Zona:{2})", userData.CodigoUsuario, beusuario.DigitoVerificador, userData.CodigoZona);
-                }
 
                 model.CodigoUsuarioReal = userData.CodigoUsuario;
 
                 ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
+				ViewBag.PaisesDigitoControl = paisesDigitoControl;
 
                 #region limite Min - Max Telef
 

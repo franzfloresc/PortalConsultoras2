@@ -243,7 +243,7 @@ h1#penmostreo .campana {
 }
 
 .encabezado_ingresoPedido {
-    border-bottom: 1px solid #808080;
+    border-bottom: 1px solid #d1d1d4;
     margin-bottom: 15px;
 }
 
@@ -300,13 +300,22 @@ div.texto_encabezado_pedidos.cabecera_unidades, div.celda_cantidad_pedidos {
         }
 
 
-.texto_cantidad_pedidos{
-    font-size: 16px !important;
+.texto_cantidad_pedidos {
+    font-size: 14px !important;
+    width: 41px;
+    text-align: center;
 }
 
-.texto_pedidos.texto_cantidad_regalo{
-    padding-left:15px;
+.texto_pedidos_cliente {
+    width: 90%;
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+    font-size: 12px !important;
 }
+
+/*.texto_pedidos.texto_cantidad_regalo{
+    padding-left:15px;
+}*/
 
 .grilla_pedidos div.fila_mensajeProductoAgotado div {
     padding-top: 0;
@@ -324,7 +333,7 @@ div.texto_encabezado_pedidos.cabecera_subtotal, div.texto_pedidos.subtotal {
 }
 
 div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
-    width: 16.4%;
+    width: 13.4%;
 }
 
 .escalaDescuento_texto {
@@ -715,7 +724,9 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
 }
 
 /* fin tool tip => info sobre el icono*/
-.boton_guardarPedido input[type='submit'], .boton_guardarPedido input[type='button'] {
+.boton_guardarPedido input[type='submit'], 
+.boton_guardarPedido input[type='button'],
+.boton_guardarPedido button{
     display: block;
     font-family: 'Lato';
     width: 218px;
@@ -728,6 +739,13 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     font-weight: bold;
     letter-spacing: 1px;
     margin-right: 0;
+}
+.boton_guardarPedido button{
+    text-transform: lowercase;
+}
+.boton_guardarPedido button::first-letter{
+    text-transform: uppercase;
+    
 }
 
 .monto_total, .monto_ganancia, .monto_con_descuento, .monto_descuento, .monto_montodescuento {
@@ -778,7 +796,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     font-size: 16px;
     font-weight: 400;
     line-height: 42px;
-    text-transform: uppercase;
     position: relative;
 }
 
@@ -786,7 +803,6 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     position: relative;
     font-size: 16px;
     font-weight: normal;
-    text-transform: uppercase;
 }
 
 .tabla_pedidos, .tabla_productos_agotados {
@@ -1173,7 +1189,16 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     float: right;
 }
 
-.paginador_pedidos ul {
+.cant_productos_y_paginador_wrapper_top{
+    margin-bottom:17px;
+}
+
+.cant_productos_y_paginador_wrapper_bottom {
+    margin-top: 28px;
+}
+
+.paginador_pedidos ul,
+.info_cant_productos {
     float: left;
 }
 
@@ -1549,3 +1574,32 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
         background: #f8f8f8;
         cursor: pointer;
     }
+.border_radius_4 {
+    border: 1px solid #909094;
+    border-radius: 4px;
+    border-color: #909094;
+    height: 40px;
+    width: 40px;
+}
+.icon_trash {
+    background-image: url('/Content/Images/Esika/icons-trash.svg');
+    background-repeat: no-repeat;
+    background-position: center center ;    
+}
+
+.btn--pedidos{
+    font-size: 14px; font-weight: 700; 
+    letter-spacing: 1px; color: #fff; 
+    border-radius: 4px; 
+    background-color: #000; 
+    padding: 10px 14px; 
+    margin-top: -4px;
+    cursor: pointer;
+
+}
+.title--middle{
+    font-size: 25px; 
+    color: #000; 
+    font-weight: 700; 
+    letter-spacing: 1.5px; 
+}

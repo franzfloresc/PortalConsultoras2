@@ -84,5 +84,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BECDRWeb GetMontoFletePorZonaId(int paisId, BECDRWeb entity);
+        
+        [OperationContract]
+        int ValCUVEnProcesoReclamo(int paisId, int pedidoId, string cuv);
     }
 }

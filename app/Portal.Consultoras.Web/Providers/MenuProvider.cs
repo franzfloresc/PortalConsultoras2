@@ -140,8 +140,9 @@ namespace Portal.Consultoras.Web.Providers
                         continue;
                     }
 
+                    var menuClassNegocio = "sub_menu_home1" + (userSession.PaisID == Constantes.PaisID.Peru ? " sub_menu_home_con_enlace_misEventos" : "");
                     permiso.PageTarget = permiso.PaginaNueva ? "_blank" : "_self";
-                    permiso.ClaseSubMenu = description == "MI NEGOCIO" ? "sub_menu_home1" : "sub_menu_home2";
+                    permiso.ClaseSubMenu = description == "MI NEGOCIO" ? menuClassNegocio : "sub_menu_home2";
 
                     if (permiso.IdPadre == 0)
                     {
@@ -285,8 +286,7 @@ namespace Portal.Consultoras.Web.Providers
         public UsuarioModel GetMenuMobileModel(UsuarioModel userSession, RevistaDigitalModel revistaDigital, HttpRequestBase request, bool tieneTituloCatalogo)
         {
             var lstMenuMobileModel = GetMenuMobileModelService(userSession.PaisID);
-            //
-
+           
             userSession.ConsultoraOnlineMenuResumen = new ConsultoraOnlineMenuResumenModel();
 
             if ((userSession.CatalogoPersonalizado == 0 || !userSession.EsCatalogoPersonalizadoZonaValida) &&
@@ -357,6 +357,13 @@ namespace Portal.Consultoras.Web.Providers
                     continue;
                 }
 
+                /* INI HD-4086 */
+                if (menu.MenuMobileID == Constantes.MenuMobileId.Bonificaciones && userSession.PaisID == Constantes.PaisID.Peru)
+                {
+                    menu.Descripcion = menu.Descripcion.Replace("Bonificaciones", "Incentivos");
+                    menu.UrlItem = menu.UrlItem.Replace("Bonificaciones", "Incentivos");
+                }
+                /* FIN HD-4086 */
                 menu.ClaseMenu = "";
                 menu.ClaseMenuItem = "";
 
@@ -419,7 +426,7 @@ namespace Portal.Consultoras.Web.Providers
                     lstModel = lstModel.OrderBy(p => p.OrdenItem).ToList();
                 }
             }
-            //
+
             userSession.MenuMobile = lstModel;
             sessionManager.SetUserData(userSession);
             return userSession;
@@ -470,7 +477,8 @@ namespace Portal.Consultoras.Web.Providers
                 }
             }
 
-            var segmentoServicio = userSession.EsJoven == 1 ? 99 : segmentoId;
+            var segmentoServicio =  segmentoId;
+            
 
             var lstTemp2 = lstTemp1.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(userSession.ZonaID.ToString())).ToList();
             var lst = lstTemp2.Where(p => p.Segmento == "-1" || p.Segmento == segmentoServicio.ToString()).ToList();

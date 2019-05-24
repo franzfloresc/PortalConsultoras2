@@ -53,7 +53,7 @@
 .menu__item[data-title="SOCIA EMPRESARIA"],
 .menu__item--sociaEmpresaria
 {
-    padding-left:25px;
+    padding-left:18px;
 }
 
 .header__menu--lateralIzquierdo .menu__item,
@@ -152,8 +152,8 @@
 }
 
 .submenu__lista--miNegocio{
-    width: 937px;
-    left:-108px;
+    left:-87px;
+    width:920px;
     height: 239px;
     z-index:6;
     align-content:space-evenly;
@@ -207,16 +207,25 @@
 }
 
 .submenu__item--Catalogos,
-.submenu__item--Incentivos
+.submenu__item--ProgramaNuevas,
+.submenu__item--Incentivos,
+.submenu__item--MisEventos,
+.submenu__item--Bonificaciones 
 {
-    width:180px;
+    width: 180px;
+    height: 140px;
+    margin-top: 8px;
 }
 
-.submenu__item--Catalogos .submenu__link,
-.submenu__item--Incentivos .submenu__link
-{
-    padding-left:0;
-}
+    .submenu__item--Catalogos .submenu__link,
+    .submenu__item--ProgramaNuevas .submenu__link,
+    .submenu__item--Incentivos .submenu__link,
+    .submenu__item--MisEventos .submenu__link,
+    .submenu__item--Bonificaciones .submenu__link
+    {
+        padding-left: 0;
+        height: 100%;
+    }
 
 .submenu__lista--miAsesorBelleza
 {
@@ -371,9 +380,7 @@
 /* FIN - MENÚ PRINCIPAL DESKTOP */
 
 /* MENÚ PRINCIPAL MOBILE */
-
-@media screen and (max-width:991px){
-
+@media screen and (max-width:991px) {
     .header__menu--lateralIzquierdo{
         width:90%;
         min-width:0;
@@ -510,9 +517,18 @@
         box-shadow:none;
     }
 
-    .menu__link--conSubmenuMobile{
-        display:none;
-        background-position:96% center;
+    .submenu__item--Catalogos,
+    .submenu__item--ProgramaNuevas,
+    .submenu__item--Incentivos,
+    .submenu__item--MisEventos,
+    .submenu__item--Bonificaciones
+    {
+        margin-top: 0;
+    }
+
+    .menu__link--conSubmenuMobile {
+        display: none;
+        background-position: 96% center;
     }
 
     .submenu__item{

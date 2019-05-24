@@ -10,6 +10,21 @@ namespace Portal.Consultoras.Common
 
         #region Propiedades
 
+        public static string RutaCDN
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["RutaCDN"] ?? string.Empty;
+            }
+        }
+
+        public static string JsonWebTokenSecret
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["JsonWebTokenSecretKey"] ?? string.Empty;
+            }
+        }
         public static string PaisesEsika
         {
             get
@@ -152,6 +167,16 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        #endregion
+
+        #region Flags
+        public static string SetIdentifierNumberFlag
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["SetIdentifierNumberFlag"] ?? string.Empty;
+            }
+        }
         #endregion
 
         public static string GetByTagName(string tagName)
