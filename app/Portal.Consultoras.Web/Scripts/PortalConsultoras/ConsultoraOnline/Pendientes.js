@@ -54,8 +54,6 @@ function bindElments() {
 
 function AceptarPedidoPendiente() {
 
-
-
     var btn = $('.btnAccion a.ghost')[0];
 
     if (btn) {
@@ -110,10 +108,12 @@ function AceptarPedidoPendiente() {
 
                             var lstproduct = [];
                             var listProductos = [];
+                            var pedidoSessionJson = JSON.parse(response.PedidosSesion);
+
                             if (response.ListaGana !== null) {
                                 listProductos = response.ListaGana || [];
                             } else {
-                                listProductos = response.PedidosSesion[0].DetallePedido || [];
+                                listProductos = pedidoSessionJson[0].DetallePedido || [];
                             }
                             if (listProductos.length > 0) {
                                 listProductos.forEach(function (product) {
@@ -539,12 +539,15 @@ function ContinuarPedido() {
                     response.result.ListaCatalogo = newListaCatalogo;
 
                     SetHandlebars("#template-paso-2", response.result, "#contenedor-paso-2");
-                    //if (response.result.ListaGana.length == 0 || response.result.GananciaGana <= 0) {
-                    //    $('.porGanaMas').hide();
-                    //}
-                    if (response.result.GananciaGana <= 0) {
-                        $('[data-ganancia-gana]').hide();
+                    if (response.result.ListaGana.length == 0) {
+                        $('.porGanaMas').hide();
                     }
+                    else {
+                        if (response.result.GananciaGana <= 0) {
+                            $('[data-ganancia-gana]').hide();
+                        }
+                    }
+
                     $('#contenedor-paso-2').show();
                     cargarGaleria()
                     bindElments();

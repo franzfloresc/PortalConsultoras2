@@ -3036,13 +3036,19 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                
+                var sessionJson = JsonConvert.SerializeObject(pedidosSesion, Formatting.Indented, new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                });
+
                 return Json(new
                 {
                     success = true,
                     message = "OK",
-                    PedidosSesion = pedidosSesion,
-                    ListaGana = parametros.ListaGana
+                    continuarExpPendientes = ContinuarExpPendientes,
+                    PedidosSesion = sessionJson,
+                    ListaGana = parametros.ListaGana,
+
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException e)
