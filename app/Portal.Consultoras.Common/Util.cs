@@ -3822,7 +3822,7 @@ namespace Portal.Consultoras.Common
                     modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunMarca(marcaId);
                     break;
                 default:
-                    codigoTipoEstrategia = codigoEstrategia == Constantes.TipoEstrategiaCodigo.Liquidacion ? Constantes.TipoEstrategiaCodigo.Liquidacion : codigoTipoEstrategia;
+                    codigoTipoEstrategia = codigoEstrategia == Constantes.CodigoEstrategiaBuscador.Liquidacion ? Constantes.TipoEstrategiaCodigo.Liquidacion : codigoTipoEstrategia;
                     modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunTipoEstrategia(codigoTipoEstrategia, materialGanancia, recomendaciones, suscripcion);
                     break;
             }
@@ -3951,97 +3951,99 @@ namespace Portal.Consultoras.Common
 
             var modelo = new OrigenPedidoWebModel
             {
-                Dispositivo = ConsOrigenPedidoWeb.Dispositivo.AppConsultora,
-                Pagina = desplegable ? ConsOrigenPedidoWeb.Pagina.Buscador : ConsOrigenPedidoWeb.Pagina.LandingBuscador
+                Dispositivo = ConsOrigenPedidoWeb.Dispositivo.AppConsultora
             };
+            modelo.Pagina = desplegable ? ConsOrigenPedidoWeb.Pagina.Buscador : ConsOrigenPedidoWeb.Pagina.LandingBuscador;
+            modelo.Seccion = UtilOrigenPedidoWeb.GetSeccionSegunFicha(ficha, fichaCarrusel, desplegable);
 
             switch (codigoEstrategia)
             {
-                case Constantes.CodigoEstrategiaBuscador.Liquidacion:
-                    modelo.Palanca = ConsOrigenPedidoWeb.Palanca.Liquidacion;
-                    modelo.Seccion = UtilOrigenPedidoWeb.GetSeccionSegunFicha(false, false, desplegable);
-
-                    //if (desplegable) result = Constantes.OrigenPedidoWeb.AppBuscadorLiquidacionDesplegable;
-                    //else if (landing) result = Constantes.OrigenPedidoWeb.AppBuscadorLiquidacionLanding;
-                    break;
                 case Constantes.CodigoEstrategiaBuscador.Catalogo:
                     modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunMarca(marcaId);
-                    modelo.Seccion = UtilOrigenPedidoWeb.GetSeccionSegunFicha(false, false, desplegable);
-
-                    //if (marcaId == Constantes.Marca.LBel && desplegable) result = Constantes.OrigenPedidoWeb.AppBuscadorCatalogoLbelDesplegable;
-                    //else if (marcaId == Constantes.Marca.Esika && desplegable) result = Constantes.OrigenPedidoWeb.AppBuscadorCatalogoEsikaDesplegable;
-                    //else if (marcaId == Constantes.Marca.Cyzone && desplegable) result = Constantes.OrigenPedidoWeb.AppBuscadorCatalogoCyzoneDesplegable;
-                    //else if (marcaId == Constantes.Marca.LBel && landing) result = Constantes.OrigenPedidoWeb.AppBuscadorCatalogoLbelLanding;
-                    //else if (marcaId == Constantes.Marca.Esika && landing) result = Constantes.OrigenPedidoWeb.AppBuscadorCatalogoEsikaLanding;
-                    //else if (marcaId == Constantes.Marca.Cyzone && landing) result = Constantes.OrigenPedidoWeb.AppBuscadorCatalogoCyzoneLanding;
                     break;
                 default:
-
+                    codigoTipoEstrategia = codigoEstrategia == Constantes.CodigoEstrategiaBuscador.Liquidacion ? Constantes.TipoEstrategiaCodigo.Liquidacion : codigoTipoEstrategia;
                     modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunTipoEstrategia(codigoTipoEstrategia, materialGanancia);
-                    modelo.Seccion = UtilOrigenPedidoWeb.GetSeccionSegunFicha(ficha, fichaCarrusel, desplegable);
-
-                    //switch (codigoTipoEstrategia)
-                    //{
-                    //    case Constantes.TipoEstrategiaCodigo.ShowRoom:
-                    //        if (desplegable && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorSRDesplegable;
-                    //        else if (landing && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorSRLanding;
-                    //        else if (desplegable && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorSRDesplegableFicha;
-                    //        else if (landing && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorSRLandingFicha;
-                    //        else if (desplegable && !ficha && fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorSRDesplegableFichaCarrusel;
-                    //        else if (landing && !ficha && fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorSRLandingFichaCarrusel;
-                    //        break;
-                    //    case Constantes.TipoEstrategiaCodigo.Lanzamiento:
-                    //        if (desplegable && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorLANDesplegable;
-                    //        else if (landing && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorLANLanding;
-                    //        else if (desplegable && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorLANDesplegableFicha;
-                    //        else if (landing && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorLANLandingFicha;
-                    //        else if (desplegable && !ficha && fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorLANDesplegableFichaCarrusel;
-                    //        else if (landing && !ficha && fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorLANLandingFichaCarrusel;
-                    //        break;
-                    //    case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
-                    //        if (desplegable && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorODDDesplegable;
-                    //        else if (landing && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorODDLanding;
-                    //        else if (desplegable && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorODDDesplegableFicha;
-                    //        else if (landing && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorODDLandingFicha;
-                    //        else if (desplegable && !ficha && fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorODDDesplegableFichaCarrusel;
-                    //        else if (landing && !ficha && fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorODDLandingFichaCarrusel;
-                    //        break;
-                    //    case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
-                    //        if (desplegable && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorGNDDesplegable;
-                    //        else if (landing && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorGNDLanding;
-                    //        else if (desplegable && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorGNDDesplegableFicha;
-                    //        else if (landing && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorGNDLandingFicha;
-                    //        break;
-                    //    case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
-                    //        if (desplegable && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorHVDesplegable;
-                    //        else if (landing && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorHVLanding;
-                    //        else if (desplegable && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorHVDesplegableFicha;
-                    //        else if (landing && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorHVLandingFicha;
-                    //        break;
-                    //    case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
-                    //    case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
-                    //    case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
-                    //        if (materialGanancia)
-                    //        {
-                    //            if (desplegable && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorMGDesplegable;
-                    //            else if (landing && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorMGLanding;
-                    //            else if (desplegable && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorMGDesplegableFicha;
-                    //            else if (landing && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorMGLandingFicha;
-                    //        }
-                    //        else
-                    //        {
-                    //            if (desplegable && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorOPTDesplegable;
-                    //            else if (landing && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorOPTLanding;
-                    //            else if (desplegable && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorOPTDesplegableFicha;
-                    //            else if (landing && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorOPTLandingFicha;
-                    //        }
-                    //        break;
-                    //}
                     break;
             }
+            return UtilOrigenPedidoWeb.ToInt(modelo);
+
+            //switch (codigoEstrategia)
+            //{
+            //    case Constantes.CodigoEstrategiaBuscador.Liquidacion:
+            //        if (desplegable) result = Constantes.OrigenPedidoWeb.AppBuscadorLiquidacionDesplegable;
+            //        else if (landing) result = Constantes.OrigenPedidoWeb.AppBuscadorLiquidacionLanding;
+            //        break;
+            //    case Constantes.CodigoEstrategiaBuscador.Catalogo:
+            //        if (marcaId == Constantes.Marca.LBel && desplegable) result = Constantes.OrigenPedidoWeb.AppBuscadorCatalogoLbelDesplegable;
+            //        else if (marcaId == Constantes.Marca.Esika && desplegable) result = Constantes.OrigenPedidoWeb.AppBuscadorCatalogoEsikaDesplegable;
+            //        else if (marcaId == Constantes.Marca.Cyzone && desplegable) result = Constantes.OrigenPedidoWeb.AppBuscadorCatalogoCyzoneDesplegable;
+            //        else if (marcaId == Constantes.Marca.LBel && landing) result = Constantes.OrigenPedidoWeb.AppBuscadorCatalogoLbelLanding;
+            //        else if (marcaId == Constantes.Marca.Esika && landing) result = Constantes.OrigenPedidoWeb.AppBuscadorCatalogoEsikaLanding;
+            //        else if (marcaId == Constantes.Marca.Cyzone && landing) result = Constantes.OrigenPedidoWeb.AppBuscadorCatalogoCyzoneLanding;
+            //        break;
+            //    default:
+            //        switch (codigoTipoEstrategia)
+            //        {
+            //            case Constantes.TipoEstrategiaCodigo.ShowRoom:
+            //                if (desplegable && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorSRDesplegable;
+            //                else if (landing && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorSRLanding;
+            //                else if (desplegable && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorSRDesplegableFicha;
+            //                else if (landing && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorSRLandingFicha;
+            //                else if (desplegable && !ficha && fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorSRDesplegableFichaCarrusel;
+            //                else if (landing && !ficha && fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorSRLandingFichaCarrusel;
+            //                break;
+            //            case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+            //                if (desplegable && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorLANDesplegable;
+            //                else if (landing && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorLANLanding;
+            //                else if (desplegable && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorLANDesplegableFicha;
+            //                else if (landing && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorLANLandingFicha;
+            //                else if (desplegable && !ficha && fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorLANDesplegableFichaCarrusel;
+            //                else if (landing && !ficha && fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorLANLandingFichaCarrusel;
+            //                break;
+            //            case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
+            //                if (desplegable && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorODDDesplegable;
+            //                else if (landing && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorODDLanding;
+            //                else if (desplegable && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorODDDesplegableFicha;
+            //                else if (landing && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorODDLandingFicha;
+            //                else if (desplegable && !ficha && fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorODDDesplegableFichaCarrusel;
+            //                else if (landing && !ficha && fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorODDLandingFichaCarrusel;
+            //                break;
+            //            case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+            //                if (desplegable && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorGNDDesplegable;
+            //                else if (landing && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorGNDLanding;
+            //                else if (desplegable && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorGNDDesplegableFicha;
+            //                else if (landing && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorGNDLandingFicha;
+            //                break;
+            //            case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+            //                if (desplegable && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorHVDesplegable;
+            //                else if (landing && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorHVLanding;
+            //                else if (desplegable && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorHVDesplegableFicha;
+            //                else if (landing && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorHVLandingFicha;
+            //                break;
+            //            case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
+            //            case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
+            //            case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
+            //                if (materialGanancia)
+            //                {
+            //                    if (desplegable && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorMGDesplegable;
+            //                    else if (landing && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorMGLanding;
+            //                    else if (desplegable && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorMGDesplegableFicha;
+            //                    else if (landing && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorMGLandingFicha;
+            //                }
+            //                else
+            //                {
+            //                    if (desplegable && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorOPTDesplegable;
+            //                    else if (landing && !ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorOPTLanding;
+            //                    else if (desplegable && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorOPTDesplegableFicha;
+            //                    else if (landing && ficha && !fichaCarrusel) result = Constantes.OrigenPedidoWeb.AppBuscadorOPTLandingFicha;
+            //                }
+            //                break;
+            //        }
+            //        break;
+            //}
 
             //return result;
-            return UtilOrigenPedidoWeb.ToInt(modelo);
         }
 
         public static string GetTipoPersonalizacionByCodigoEstrategia(string codigoEstrategia)
