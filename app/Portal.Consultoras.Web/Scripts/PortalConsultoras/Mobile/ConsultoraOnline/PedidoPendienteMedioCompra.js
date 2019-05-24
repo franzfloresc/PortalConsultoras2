@@ -16,11 +16,11 @@
 
         if ($('.btnAccion span.active').length == $('.btnAccion span').length) {
             $('#btnAceptarPedido a').removeClass('active');
-           // $('#btnAceptarPedido a').html('Elegido');
+            // $('#btnAceptarPedido a').html('Elegido');
         }
         else {
             $('#btnAceptarPedido a').addClass('active');
-         //   $('#btnAceptarPedido a').html('Elegir');
+            //   $('#btnAceptarPedido a').html('Elegir');
         }
 
         e.preventDefault();
@@ -41,18 +41,19 @@
 });
 
 function cerrandoPopupMobileClientePaso2() {
-    
+
     var option = location.search.split('option=')[1];
     if (option === "P") //Producto
         MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 2", "Cerrar Pop up");
     if (option === "C") //Cliente
-	    MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 2", "Cerrar Pop up");
+        MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 2", "Cerrar Pop up");
 }
+
 function MarcaAnalyticsClienteProducto(action, label) {
-	var textAction = action;
-	if (!(typeof AnalyticsPortalModule === 'undefined')) {
-		AnalyticsPortalModule.ClickTabPedidosPendientes(textAction, label);
-	}
+    var textAction = action;
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
+        AnalyticsPortalModule.ClickTabPedidosPendientes(textAction, label);
+    }
 }
 
 function AceptarPedidoPendiente(id, tipo) {
@@ -67,9 +68,9 @@ function AceptarPedidoPendiente(id, tipo) {
             ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? $('.conGanaMas').data('listagana') : [],
             OrigenTipoVista: gTipoVista
         }
-	    var AccionTipo = pedido.AccionTipo;
-
+        var AccionTipo = pedido.AccionTipo;
         ShowLoading({});
+
         $.ajax({
             type: 'POST',
             url: '/ConsultoraOnline/AceptarPedidoPendiente',
@@ -78,24 +79,15 @@ function AceptarPedidoPendiente(id, tipo) {
             data: JSON.stringify(pedido),
             async: true,
             success: function (response) {
-	    ShowLoading({});
-	    $.ajax({
-		    type: 'POST',
-		    url: '/ConsultoraOnline/AceptarPedidoPendiente',
-		    dataType: 'json',
-		    contentType: 'application/json; charset=utf-8',
-		    data: JSON.stringify(pedido),
-		    async: true,
-            success: function (response) {
-	            
-            /** Analytics **/
-            var textoAccionTipo = AccionTipo === "ingrgana" ? "Acepto Todo el Pedido - Por Gana +" : "Acepto Todo el Pedido - Por catálogo";
-	            var option = location.search.split('option=')[1];
-	            if (option === "P") //Producto
+
+                /** Analytics **/
+                var textoAccionTipo = AccionTipo === "ingrgana" ? "Acepto Todo el Pedido - Por Gana +" : "Acepto Todo el Pedido - Por catálogo";
+                var option = location.search.split('option=')[1];
+                if (option === "P") //Producto
                     MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 2", textoAccionTipo);
-	            if (option === "C") //Cliente
+                if (option === "C") //Cliente
                     MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 2", textoAccionTipo);
-				/** Fin Analytics **/
+                /** Fin Analytics **/
 
                 CloseLoading();
                 if (checkTimeout(response)) {
@@ -136,16 +128,15 @@ function AceptarPedidoPendiente(id, tipo) {
     } else {
         var $MensajeTolTip = $("[data-tooltip=\"mensajepedidopaso2\"]");
         $MensajeTolTip.show();
-
         setTimeout(function () { $MensajeTolTip.hide(); }, 2000);
+
         var option = location.search.split('option=')[1];
         if (option === "P") //Producto
-	    var option = location.search.split('option=')[1];
-	    if (option === "P") //Producto
+            var option = location.search.split('option=')[1];
+        if (option === "P") //Producto
             MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 2", "Alerta: Debes elegir como atender el pedido para aprobarlo");
         if (option === "C") //Cliente
             MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 2", "Alerta: Debes elegir como atender el pedido para aprobarlo");
     }
-
 
 }
