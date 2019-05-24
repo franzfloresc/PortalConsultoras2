@@ -162,7 +162,7 @@
             loadtext: _texto.Cargando,
             recordtext: _texto.RegistroPaginar,
             emptyrecords: _texto.SinResultados,
-            rowNum: rowNumList,
+            rowNum: 15,
             scrollOffset: 0,
             rowList: [15, 20, 30, 40, 50],
             viewrecords: true,
