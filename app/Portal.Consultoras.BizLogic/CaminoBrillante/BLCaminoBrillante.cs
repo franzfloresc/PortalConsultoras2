@@ -1149,7 +1149,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             
             return new List<BEOrdenGrupo>() { new BEOrdenGrupo() {
                 NombreGrupo = tablaLogicaDatos.Where(e => e.Codigo == "00").Select(e => e.Descripcion).FirstOrDefault(),
-                Opciones = tablaLogicaDatos.Where(e => !(e.Codigo != "00" &&isApp) ).Select(e => new BEOrden() { Codigo = e.Codigo, Descripcion = e.Descripcion }).ToList()
+                Opciones = tablaLogicaDatos.Where(e => (e.Codigo != "00" && isApp) || !isApp ).Select(e => new BEOrden() { Codigo = e.Codigo, Descripcion = e.Descripcion }).ToList()
             }};
         }
 
