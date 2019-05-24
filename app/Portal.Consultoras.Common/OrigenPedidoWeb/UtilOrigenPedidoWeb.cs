@@ -105,14 +105,16 @@
             return codigo;
         }
         
-        public static string GetPalancaSegunTipoEstrategia(string codigoTipoEstrategia, bool materialGanancia = false)
+        public static string GetPalancaSegunTipoEstrategia(string codigoTipoEstrategia, bool materialGanancia = false, bool recomendaciones = false, bool suscripcion = true)
         {
             string codigo = "";
             try
             {
-
                 switch (codigoTipoEstrategia)
                 {
+                    case Constantes.TipoEstrategiaCodigo.Liquidacion:
+                        codigo = ConsOrigenPedidoWeb.Palanca.Liquidacion;
+                        break;
                     case Constantes.TipoEstrategiaCodigo.ShowRoom:
                         codigo = ConsOrigenPedidoWeb.Palanca.Showroom;
                         break;
@@ -131,7 +133,8 @@
                     case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
                     case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
                     case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
-                        if (materialGanancia)
+
+                        if (materialGanancia && (recomendaciones || suscripcion))
                         {
                             codigo = ConsOrigenPedidoWeb.Palanca.Ganadoras;
                         }

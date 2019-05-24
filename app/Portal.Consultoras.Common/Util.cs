@@ -3811,222 +3811,133 @@ namespace Portal.Consultoras.Common
             int marcaId, bool mobile, bool home, bool recomendaciones, bool materialGanancia, bool suscripcion)
 
         {
-            //var result = "";
-
             var modelo = new OrigenPedidoWebModel();
+            modelo.Dispositivo = mobile ? ConsOrigenPedidoWeb.Dispositivo.Mobile : ConsOrigenPedidoWeb.Dispositivo.Desktop;
+            modelo.Seccion = recomendaciones ? ConsOrigenPedidoWeb.Seccion.Recomendado : home ? ConsOrigenPedidoWeb.Seccion.DesplegableBuscador : ConsOrigenPedidoWeb.Seccion.Carrusel;
+            modelo.Pagina = recomendaciones ? ConsOrigenPedidoWeb.Pagina.Pedido : home ? ConsOrigenPedidoWeb.Pagina.Buscador : ConsOrigenPedidoWeb.Pagina.LandingBuscador;
 
             switch (codigoEstrategia)
             {
-                case "LIQ":
-                    modelo.Dispositivo = mobile ? ConsOrigenPedidoWeb.Dispositivo.Mobile : ConsOrigenPedidoWeb.Dispositivo.Desktop;
-                    modelo.Pagina = home ? ConsOrigenPedidoWeb.Pagina.Buscador : ConsOrigenPedidoWeb.Pagina.LandingBuscador;
-                    modelo.Palanca = ConsOrigenPedidoWeb.Palanca.Liquidacion;
-                    modelo.Seccion = home ? ConsOrigenPedidoWeb.Seccion.DesplegableBuscador : ConsOrigenPedidoWeb.Seccion.Carrusel;
-
-                    //result = home ?
-                    //    (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLiquidacionDesplegableBuscador.ToString() :
-                    //        Constantes.OrigenPedidoWeb.DesktopBuscadorLiquidacionDesplegableBuscador.ToString())
-                    //    :
-                    //    (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorLiquidacionCarrusel.ToString() :
-                    //        Constantes.OrigenPedidoWeb.DesktopLandingBuscadorLiquidacionCarrusel.ToString());
-
-                    break;
                 case "CAT":
-                    modelo.Dispositivo = mobile ? ConsOrigenPedidoWeb.Dispositivo.Mobile : ConsOrigenPedidoWeb.Dispositivo.Desktop;
-                    modelo.Pagina = home ? ConsOrigenPedidoWeb.Pagina.Buscador : ConsOrigenPedidoWeb.Pagina.LandingBuscador;
-                    modelo.Palanca = marcaId == Constantes.Marca.LBel
-                        ? ConsOrigenPedidoWeb.Palanca.CatalogoLbel
-                        : marcaId == Constantes.Marca.Esika
-                            ? ConsOrigenPedidoWeb.Palanca.CatalogoEsika
-                            : ConsOrigenPedidoWeb.Palanca.CatalogoCyzone;
-                    modelo.Seccion = home ? ConsOrigenPedidoWeb.Seccion.DesplegableBuscador : ConsOrigenPedidoWeb.Seccion.Carrusel;
-
-                    //result = home ?
-                    //    ((marcaId == 1 ? (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoLbelDesplegableBuscador.ToString() :
-                    //            Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoLbelDesplegableBuscador.ToString()) :
-                    //    (marcaId == 2 ? (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoEsikaDesplegableBuscador.ToString() :
-                    //            Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoEsikaDesplegableBuscador.ToString()) :
-                    //    (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoCyzoneDesplegableBuscador.ToString() :
-                    //        Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoCyzoneDesplegableBuscador.ToString()))))
-                    //    :
-                    //     ((marcaId == 1 ? (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoLbelCarrusel.ToString() :
-                    //             Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoLbelCarrusel.ToString()) :
-                    //    (marcaId == 2 ? (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoEsikaCarrusel.ToString() :
-                    //            Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoEsikaCarrusel.ToString()) :
-                    //    (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoCyzoneCarrusel.ToString() :
-                    //        Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoCyzoneCarrusel.ToString()))));
+                    modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunMarca(marcaId);
                     break;
                 default:
-                    switch (codigoTipoEstrategia)
-                    {
-                        case Constantes.TipoEstrategiaCodigo.ShowRoom:
-                            modelo.Dispositivo = mobile ? ConsOrigenPedidoWeb.Dispositivo.Mobile : ConsOrigenPedidoWeb.Dispositivo.Desktop;
-                            modelo.Pagina = recomendaciones
-                                ? ConsOrigenPedidoWeb.Pagina.Pedido
-                                : home
-                                     ? ConsOrigenPedidoWeb.Pagina.Buscador
-                                     : ConsOrigenPedidoWeb.Pagina.LandingBuscador;
-                            modelo.Palanca = ConsOrigenPedidoWeb.Palanca.Showroom;
-                            modelo.Seccion = recomendaciones
-                                ? ConsOrigenPedidoWeb.Seccion.Recomendado
-                                : home
-                                     ? ConsOrigenPedidoWeb.Seccion.DesplegableBuscador
-                                     : ConsOrigenPedidoWeb.Seccion.Carrusel;
-
-                            //result = recomendaciones ?
-                            //    (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoShowRoom.ToString() :
-                            //        Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoShowRoom.ToString())
-                            //    : home ?
-                            //    (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorShowroomDesplegableBuscador.ToString() :
-                            //        Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomDesplegableBuscador.ToString())
-                            //    :
-                            //    (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorShowroomCarrusel.ToString() :
-                            //        Constantes.OrigenPedidoWeb.DesktopLandingBuscadorShowroomCarrusel.ToString());
-                            break;
-                        case Constantes.TipoEstrategiaCodigo.Lanzamiento:
-                            modelo.Dispositivo = mobile ? ConsOrigenPedidoWeb.Dispositivo.Mobile : ConsOrigenPedidoWeb.Dispositivo.Desktop;
-                            modelo.Pagina = recomendaciones
-                                ? ConsOrigenPedidoWeb.Pagina.Pedido
-                                : home
-                                     ? ConsOrigenPedidoWeb.Pagina.Buscador
-                                     : ConsOrigenPedidoWeb.Pagina.LandingBuscador;
-                            modelo.Palanca = ConsOrigenPedidoWeb.Palanca.Lanzamientos;
-                            modelo.Seccion = recomendaciones
-                                ? ConsOrigenPedidoWeb.Seccion.Recomendado
-                                : home
-                                     ? ConsOrigenPedidoWeb.Seccion.DesplegableBuscador
-                                     : ConsOrigenPedidoWeb.Seccion.Carrusel;
-
-                            //result = recomendaciones ?
-                            //    (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoLan.ToString() :
-                            //        Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoLan.ToString())
-                            //    : home ?
-                            //    (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosDesplegableBuscador.ToString() :
-                            //        Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosDesplegableBuscador.ToString())
-                            //    :
-                            //    (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorLanzamientosCarrusel.ToString() :
-                            //        Constantes.OrigenPedidoWeb.DesktopLandingBuscadorLanzamientosCarrusel.ToString());
-                            break;
-                        case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
-                        case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
-                        case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
-                            modelo.Dispositivo = mobile ? ConsOrigenPedidoWeb.Dispositivo.Mobile : ConsOrigenPedidoWeb.Dispositivo.Desktop;
-
-                            if (recomendaciones && materialGanancia)
-                            {
-                                modelo.Pagina = ConsOrigenPedidoWeb.Pagina.Pedido;
-                                modelo.Palanca = ConsOrigenPedidoWeb.Palanca.Ganadoras;
-                                modelo.Seccion = ConsOrigenPedidoWeb.Seccion.Recomendado;
-                            }
-                            else if (materialGanancia && suscripcion)
-                            {
-                                modelo.Pagina = home ? ConsOrigenPedidoWeb.Pagina.Buscador : ConsOrigenPedidoWeb.Pagina.LandingBuscador;
-                                modelo.Palanca = ConsOrigenPedidoWeb.Palanca.Ganadoras;
-                                modelo.Seccion = home ? ConsOrigenPedidoWeb.Seccion.DesplegableBuscador : ConsOrigenPedidoWeb.Seccion.Carrusel;
-                            }
-                            else if (recomendaciones)
-                            {
-                                modelo.Pagina = ConsOrigenPedidoWeb.Pagina.Pedido;
-                                modelo.Palanca = ConsOrigenPedidoWeb.Palanca.OfertasParaTi;
-                                modelo.Seccion = ConsOrigenPedidoWeb.Seccion.Recomendado;
-                            }
-                            else
-                            {
-                                modelo.Pagina = home ? ConsOrigenPedidoWeb.Pagina.Buscador : ConsOrigenPedidoWeb.Pagina.LandingBuscador;
-                                modelo.Palanca = ConsOrigenPedidoWeb.Palanca.OfertasParaTi;
-                                modelo.Seccion = home ? ConsOrigenPedidoWeb.Seccion.DesplegableBuscador : ConsOrigenPedidoWeb.Seccion.Carrusel;
-                            }
-
-                            //result = recomendaciones && materialGanancia ?
-                            //        (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoGanadoras.ToString() :
-                            //        Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoGanadoras.ToString())
-                            //    : materialGanancia && suscripcion ? (home ?
-                            //                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasDesplegable.ToString() :
-                            //                    Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasDesplegable.ToString())
-                            //                :
-                            //                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasCarrusel.ToString() :
-                            //                    Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasCarrusel.ToString()))
-                            //    : recomendaciones ?
-                            //    (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOpm.ToString() :
-                            //        Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOpm.ToString())
-                            //    : home ?
-                            //    (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiDesplegableBuscador.ToString() :
-                            //        Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiDesplegableBuscador.ToString())
-                            //    :
-                            //    (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertasParaTiCarrusel.ToString() :
-                            //        Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertasParaTiCarrusel.ToString());
-                            break;
-                        case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
-                            modelo.Dispositivo = mobile ? ConsOrigenPedidoWeb.Dispositivo.Mobile : ConsOrigenPedidoWeb.Dispositivo.Desktop;
-                            modelo.Pagina = recomendaciones
-                                ? ConsOrigenPedidoWeb.Pagina.Pedido
-                                : home
-                                     ? ConsOrigenPedidoWeb.Pagina.Buscador
-                                     : ConsOrigenPedidoWeb.Pagina.LandingBuscador;
-                            modelo.Palanca = ConsOrigenPedidoWeb.Palanca.OfertaDelDia;
-                            modelo.Seccion = recomendaciones
-                                ? ConsOrigenPedidoWeb.Seccion.Recomendado
-                                : home
-                                     ? ConsOrigenPedidoWeb.Seccion.DesplegableBuscador
-                                     : ConsOrigenPedidoWeb.Seccion.Carrusel;
-
-                            //result = recomendaciones ?
-                            //    (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOdd.ToString() :
-                            //        Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOdd.ToString())
-                            //    : home ?
-                            //     (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador.ToString() :
-                            //         Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador.ToString())
-                            //     :
-                            //     (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertaDelDiaCarrusel.ToString() :
-                            //         Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertaDelDiaCarrusel.ToString());
-                            break;
-                        case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
-                            modelo.Dispositivo = mobile ? ConsOrigenPedidoWeb.Dispositivo.Mobile : ConsOrigenPedidoWeb.Dispositivo.Desktop;
-                            modelo.Pagina = home
-                                     ? ConsOrigenPedidoWeb.Pagina.Buscador
-                                     : ConsOrigenPedidoWeb.Pagina.LandingBuscador;
-                            modelo.Palanca = ConsOrigenPedidoWeb.Palanca.Gnd;
-                            modelo.Seccion = home
-                                     ? ConsOrigenPedidoWeb.Seccion.DesplegableBuscador
-                                     : ConsOrigenPedidoWeb.Seccion.Carrusel;
-
-                            //result = home ?
-                            //    (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGNDDesplegableBuscador.ToString() :
-                            //        Constantes.OrigenPedidoWeb.DesktopBuscadorGNDDesplegableBuscador.ToString())
-                            //    :
-                            //    (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorGNDCarrusel.ToString() :
-                            //        Constantes.OrigenPedidoWeb.DesktopLandingBuscadorGNDCarrusel.ToString());
-                            break;
-                        case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
-                            modelo.Dispositivo = mobile ? ConsOrigenPedidoWeb.Dispositivo.Mobile : ConsOrigenPedidoWeb.Dispositivo.Desktop;
-                            modelo.Pagina = recomendaciones
-                                ? ConsOrigenPedidoWeb.Pagina.Pedido
-                                : home
-                                     ? ConsOrigenPedidoWeb.Pagina.Buscador
-                                     : ConsOrigenPedidoWeb.Pagina.LandingBuscador;
-                            modelo.Palanca = ConsOrigenPedidoWeb.Palanca.HerramientasVenta;
-                            modelo.Seccion = recomendaciones
-                                ? ConsOrigenPedidoWeb.Seccion.Recomendado
-                                : home
-                                     ? ConsOrigenPedidoWeb.Seccion.DesplegableBuscador
-                                     : ConsOrigenPedidoWeb.Seccion.Carrusel;
-
-                            //result = recomendaciones ?
-                            //    (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoHv.ToString() :
-                            //        Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoHv.ToString())
-                            //    : home ?
-                            //   (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaDesplegableBuscador.ToString() :
-                            //       Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaDesplegableBuscador.ToString())
-                            //   :
-                            //   (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorHerramientasDeVentaCarrusel.ToString() :
-                            //       Constantes.OrigenPedidoWeb.DesktopLandingBuscadorHerramientasDeVentaCarrusel.ToString());
-                            break;
-                    }
+                    codigoTipoEstrategia = codigoEstrategia == Constantes.TipoEstrategiaCodigo.Liquidacion ? Constantes.TipoEstrategiaCodigo.Liquidacion : codigoTipoEstrategia;
+                    modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunTipoEstrategia(codigoTipoEstrategia, materialGanancia, recomendaciones, suscripcion);
                     break;
             }
+            return UtilOrigenPedidoWeb.ToStr(modelo);
+
+            //var result = "";
+
+            //switch (codigoEstrategia)
+            //{
+            //    case "LIQ":
+            //        result = home ?
+            //            (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLiquidacionDesplegableBuscador.ToString() :
+            //                Constantes.OrigenPedidoWeb.DesktopBuscadorLiquidacionDesplegableBuscador.ToString())
+            //            :
+            //            (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorLiquidacionCarrusel.ToString() :
+            //                Constantes.OrigenPedidoWeb.DesktopLandingBuscadorLiquidacionCarrusel.ToString());
+            //        break;
+            //    case "CAT":
+            //        result = home ?
+            //            ((marcaId == 1 ? (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoLbelDesplegableBuscador.ToString() :
+            //                    Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoLbelDesplegableBuscador.ToString()) :
+            //            (marcaId == 2 ? (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoEsikaDesplegableBuscador.ToString() :
+            //                    Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoEsikaDesplegableBuscador.ToString()) :
+            //            (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorCatalogoCyzoneDesplegableBuscador.ToString() :
+            //                Constantes.OrigenPedidoWeb.DesktopBuscadorCatalogoCyzoneDesplegableBuscador.ToString()))))
+            //            :
+            //             ((marcaId == 1 ? (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoLbelCarrusel.ToString() :
+            //                     Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoLbelCarrusel.ToString()) :
+            //            (marcaId == 2 ? (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoEsikaCarrusel.ToString() :
+            //                    Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoEsikaCarrusel.ToString()) :
+            //            (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorCatalogoCyzoneCarrusel.ToString() :
+            //                Constantes.OrigenPedidoWeb.DesktopLandingBuscadorCatalogoCyzoneCarrusel.ToString()))));
+            //        break;
+            //    default:
+            //        switch (codigoTipoEstrategia)
+            //        {
+            //            case Constantes.TipoEstrategiaCodigo.ShowRoom:
+            //                result = recomendaciones ?
+            //                    (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoShowRoom.ToString() :
+            //                        Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoShowRoom.ToString())
+            //                    : home ?
+            //                    (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorShowroomDesplegableBuscador.ToString() :
+            //                        Constantes.OrigenPedidoWeb.DesktopBuscadorShowroomDesplegableBuscador.ToString())
+            //                    :
+            //                    (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorShowroomCarrusel.ToString() :
+            //                        Constantes.OrigenPedidoWeb.DesktopLandingBuscadorShowroomCarrusel.ToString());
+            //                break;
+            //            case Constantes.TipoEstrategiaCodigo.Lanzamiento:
+            //                result = recomendaciones ?
+            //                    (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoLan.ToString() :
+            //                        Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoLan.ToString())
+            //                    : home ?
+            //                    (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorLanzamientosDesplegableBuscador.ToString() :
+            //                        Constantes.OrigenPedidoWeb.DesktopBuscadorLanzamientosDesplegableBuscador.ToString())
+            //                    :
+            //                    (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorLanzamientosCarrusel.ToString() :
+            //                        Constantes.OrigenPedidoWeb.DesktopLandingBuscadorLanzamientosCarrusel.ToString());
+            //                break;
+            //            case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
+            //            case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
+            //            case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
+            //                result = recomendaciones && materialGanancia ?
+            //                        (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoGanadoras.ToString() :
+            //                        Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoGanadoras.ToString())
+            //                    : materialGanancia && suscripcion ? (home ?
+            //                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasDesplegable.ToString() :
+            //                                    Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasDesplegable.ToString())
+            //                                :
+            //                                (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGanadorasCarrusel.ToString() :
+            //                                    Constantes.OrigenPedidoWeb.DesktopBuscadorGanadorasCarrusel.ToString()))
+            //                    : recomendaciones ?
+            //                    (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOpm.ToString() :
+            //                        Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOpm.ToString())
+            //                    : home ?
+            //                    (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertasParaTiDesplegableBuscador.ToString() :
+            //                        Constantes.OrigenPedidoWeb.DesktopBuscadorOfertasParaTiDesplegableBuscador.ToString())
+            //                    :
+            //                    (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertasParaTiCarrusel.ToString() :
+            //                        Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertasParaTiCarrusel.ToString());
+            //                break;
+            //            case Constantes.TipoEstrategiaCodigo.OfertaDelDia:
+            //                result = recomendaciones ?
+            //                    (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoOdd.ToString() :
+            //                        Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoOdd.ToString())
+            //                    : home ?
+            //                     (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorOfertaDelDiaDesplegableBuscador.ToString() :
+            //                         Constantes.OrigenPedidoWeb.DesktopBuscadorOfertaDelDiaDesplegableBuscador.ToString())
+            //                     :
+            //                     (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorOfertaDelDiaCarrusel.ToString() :
+            //                         Constantes.OrigenPedidoWeb.DesktopLandingBuscadorOfertaDelDiaCarrusel.ToString());
+            //                break;
+            //            case Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada:
+            //                result = home ?
+            //                    (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorGNDDesplegableBuscador.ToString() :
+            //                        Constantes.OrigenPedidoWeb.DesktopBuscadorGNDDesplegableBuscador.ToString())
+            //                    :
+            //                    (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorGNDCarrusel.ToString() :
+            //                        Constantes.OrigenPedidoWeb.DesktopLandingBuscadorGNDCarrusel.ToString());
+            //                break;
+            //            case Constantes.TipoEstrategiaCodigo.HerramientasVenta:
+            //                result = recomendaciones ?
+            //                    (mobile ? Constantes.OrigenPedidoWeb.MobilePedidoProductoRecomendadoHv.ToString() :
+            //                        Constantes.OrigenPedidoWeb.DesktopPedidoProductoRecomendadoHv.ToString())
+            //                    : home ?
+            //                   (mobile ? Constantes.OrigenPedidoWeb.MobileBuscadorHerramientasdeVentaDesplegableBuscador.ToString() :
+            //                       Constantes.OrigenPedidoWeb.DesktopBuscadorHerramientasdeVentaDesplegableBuscador.ToString())
+            //                   :
+            //                   (mobile ? Constantes.OrigenPedidoWeb.MobileLandingBuscadorHerramientasDeVentaCarrusel.ToString() :
+            //                       Constantes.OrigenPedidoWeb.DesktopLandingBuscadorHerramientasDeVentaCarrusel.ToString());
+            //                break;
+            //        }
+            //        break;
+            //}
 
             //return result;
-            return UtilOrigenPedidoWeb.ToStr(modelo);
         }
 
         public static int obtenerCodigoOrigenWebApp(string codigoEstrategia, string codigoTipoEstrategia, int marcaId, bool desplegable, bool landing, bool ficha, bool fichaCarrusel, bool materialGanancia)
@@ -4068,7 +3979,7 @@ namespace Portal.Consultoras.Common
 
                     modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunTipoEstrategia(codigoTipoEstrategia, materialGanancia);
                     modelo.Seccion = UtilOrigenPedidoWeb.GetSeccionSegunFicha(ficha, fichaCarrusel, desplegable);
-                    
+
                     //switch (codigoTipoEstrategia)
                     //{
                     //    case Constantes.TipoEstrategiaCodigo.ShowRoom:

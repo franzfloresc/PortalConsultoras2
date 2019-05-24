@@ -309,6 +309,9 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
             public const string MasGanadoras = "201"; // No tiene referecia con BD, caso particular de OfertasParaMi 007
 
+
+            public const string Liquidacion = "LIQ"; // No tiene referecia con BD, para tenerlo dentro de codigo
+
             public const string NotParticipaProgramaNuevas = "0";
         }
 
