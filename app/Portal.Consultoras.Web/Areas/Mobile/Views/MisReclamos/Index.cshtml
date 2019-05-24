@@ -14,7 +14,6 @@
         listaCdr = Model.ListaCDRWeb;
     }
     string msg = Model.MensajeGestionCdrInhabilitada;
-    var flagLimiteReclamo = Model.flagLimiteReclamo == null ? false : Model.flagLimiteReclamo;
 }
 
 
@@ -46,7 +45,7 @@
 
 <div class="wrapper_resumen_mobile">
 
-    @if (msg.Length > 0 && !flagLimiteReclamo)
+    @if (msg.Length > 0 && Cantidad == 0)
     {
         <div class="mensaje_vista_cdr">
             @Html.Raw(msg)
@@ -101,10 +100,6 @@
 
 </div>
 <div class="btn_cta_wrapper">
-    @*<a id="linkNuevoReclamo"  href="@Url.Action("Reclamo","MisReclamos", new { area = "mobile", t = (Model.ListaCDRWeb.Count > 0 )? 1:0 })"
-           class="text-uppercase tipografia_lato tipografia_lato_bold border-radius-4 btn_cta_cdr btn_cta_cdr--agregarSolicitud">
-            Agregar cambio
-        </a>*@
     <a id="linkNuevoReclamo" href="javascript:void(0);" onclick="misReclamos.Funciones.NuevaSolicitud();"
        class="text-uppercase tipografia_lato tipografia_lato_bold border-radius-4 btn_cta_cdr btn_cta_cdr--agregarSolicitud">
         Agregar cambio
