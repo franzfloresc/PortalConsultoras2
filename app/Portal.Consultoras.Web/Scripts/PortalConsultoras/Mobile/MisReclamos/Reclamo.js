@@ -269,7 +269,7 @@ $(document).ready(function () {
                     $("#VistaPaso1y2").show();
                     $(me.Variables.DescripcionCuv).hide();
                     $(me.Variables.txtCuvMobile).fadeIn();
-
+                    $("#MensajeTenerEncuenta").hide(); 
                     $(me.Variables.DescripcionCuv2).hide();
                     $(me.Variables.txtCuvMobile2).fadeIn();
                     $(me.Variables.txtCuvMobile).removeClass(me.Variables.deshabilitarControl);
