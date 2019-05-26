@@ -1063,6 +1063,7 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
             componentesView.setSelectedQuantityText.returns(true);
             componentesView.showQuantitySelector.returns(true);
             componentesView.showSelectedTypesOrTones.returns(true);
+            componentesView.blockTypesOrTones.returns(true);
          });
 
          describe("and you select a type/tone", function () {
@@ -1126,6 +1127,121 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
                
                // Assert
                expect(result).to.be.eql("Te falta 1 opción");
+            });
+
+            it("should update selected quantity to '1 Seleccionado' ", function () {
+               // Arrange
+               componentesPresenter.addTypeOrTone(grupo, cuv);
+
+               // Act
+               var result = componentesPresenter.estrategiaModel().Hermanos[0].selectedQuantityText;
+               
+               // Assert
+               expect(result).to.be.eql("1 Seleccionado");
+            });
+         });
+
+         describe("and you select two type/tone", function () {
+            var grupo = "1";
+            var cuv = "31593";
+
+            beforeEach(function () {
+               componentesPresenter.onEstrategiaModelLoaded(estrategiaUnComponenteFactorCuadreIgualADos());
+               componentesPresenter.addTypeOrTone(grupo, cuv);
+            });
+
+            afterEach(function () {
+               //sinon.restore();
+            });
+
+            it("should update selected quantity", function () {
+               // Arrange
+               componentesPresenter.addTypeOrTone(grupo, cuv);
+
+               // Act
+               var result = componentesPresenter.estrategiaModel().Hermanos[0].cantidadSeleccionados;
+
+               // Assert
+               expect(result).to.be.equal(2);
+            });
+
+            it("should return false when componentesView do not render quantity selector", function () {
+               // Arrange
+               componentesView.showQuantitySelector.returns(false);
+
+               // Act
+               var result = componentesPresenter.addTypeOrTone(grupo, cuv);
+
+               // Assert
+               expect(result).to.be.equal(false);
+            });
+
+            it("should return false when componentesView do not render selected types/tones", function () {
+               // Arrange
+               componentesView.showSelectedTypesOrTones.returns(false);
+
+               // Act
+               var result = componentesPresenter.addTypeOrTone(grupo, cuv);
+
+               // Assert
+               expect(result).to.be.eql(false);
+            });
+
+            it("should return false when componentesView do not render update title", function () {
+               // Arrange
+               componentesView.setTitle.returns(false);
+
+               // Act
+               var result = componentesPresenter.addTypeOrTone(grupo, cuv);
+
+               // Assert
+               expect(result).to.be.eql(false);
+            });
+
+            it("should update title to 'Listo ya tienes tus 2 opciones' ", function () {
+               // Arrange
+               componentesPresenter.addTypeOrTone(grupo, cuv);
+
+               // Act
+               var result = componentesPresenter.estrategiaModel().Hermanos[0].selectComponentTitle;
+             
+               // Assert
+               expect(result).to.be.eql("<h3>¡Listo! <span>ya tienes tus</span> 2 opciones</h3>");
+            });
+
+            it("should update selected quantity to '2 Seleccionado' ", function () {
+               // Arrange
+               componentesPresenter.addTypeOrTone(grupo, cuv);
+
+               // Act
+               var result = componentesPresenter.estrategiaModel().Hermanos[0].selectedQuantityText;
+               
+               // Assert
+               expect(result).to.be.eql("2 Seleccionados");
+            });
+
+            it("should return false when componentesView do not disable types/tones", function () {
+               // Arrange
+               componentesPresenter.addTypeOrTone(grupo, cuv);
+
+               // Act
+               var result = componentesPresenter.estrategiaModel().Hermanos[0].selectedQuantityText;
+               
+               // Assert
+               expect(result).to.be.eql("2 Seleccionados");
+            });
+
+            it("should not increase selected quantity when adds types/tones and selected quantity is equal to FactorCuadre", function () {
+               // Arrange
+               componentesPresenter.addTypeOrTone(grupo, cuv);
+               componentesPresenter.addTypeOrTone(grupo, cuv);
+               componentesPresenter.addTypeOrTone(grupo, cuv);
+
+               // Act
+               var result = componentesPresenter.estrategiaModel().Hermanos[0].cantidadSeleccionados;
+
+               // Assert
+               expect(result).to.be.equal(2);
             });
          });
 

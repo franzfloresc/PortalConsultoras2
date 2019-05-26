@@ -16,7 +16,7 @@
                 componente.FactorCuadre = componente.FactorCuadre || 0;
                 componente.HermanosSeleccionados = componente.HermanosSeleccionados || [];
                 componente.cantidadSeleccionados = componente.cantidadSeleccionados || 0;
-                componente.cantidadFaltantes = componente.cantidadFaltantes || componente.FactorCuadre || 0;
+                componente.cantidadFaltantes = componente.FactorCuadre - componente.cantidadSeleccionados;
                 componente=_updateSelectComponentText(componente);
                 componente=_updateSelectComponentTitle(componente);
                 componente=_updateSelectQuantityText(componente);
@@ -94,7 +94,7 @@
                 componente.selectComponentTitle = "Te falta " + componente.cantidadFaltantes + " opción";
             }
         } else if (componente.cantidadFaltantes == 0) {
-            if (componente.FactorCuadre > 1) {
+            if (componente.FactorCuadre == 1) {
                 componente.selectComponentTitle = "<h3>¡Listo! <span>ya tienes tu</span> opción</h3>";
             } else {
                 componente.selectComponentTitle = "<h3>¡Listo! <span>ya tienes tus</span> " + componente.FactorCuadre + " opciones</h3>";
@@ -128,7 +128,8 @@
         $.each(model.Hermanos, function (idxComponente, componente) {
             if (componente.Grupo == grupo) {
                 $.each(componente.Hermanos, function (idxTipoTono, tipoTono) {
-                    if (tipoTono.Cuv == cuv) {
+                    if (tipoTono.Cuv == cuv 
+                        && componente.cantidadSeleccionados < componente.FactorCuadre) {
                         componente.HermanosSeleccionados.push(tipoTono);
                         componente.cantidadSeleccionados++;
                         componente.cantidadFaltantes--;
@@ -140,6 +141,10 @@
                             _config.componentesView.showSelectedTypesOrTones(componente) &&
                             _config.componentesView.setTitle(componente.selectComponentTitle) &&
                             _config.componentesView.setSelectedQuantityText(componente.selectedQuantityText);
+
+                        if(componente.cantidadSeleccionados == componente.FactorCuadre){
+                            result = result && _config.componentesView.blockTypesOrTones();
+                        }
 
                         return false;
                     }

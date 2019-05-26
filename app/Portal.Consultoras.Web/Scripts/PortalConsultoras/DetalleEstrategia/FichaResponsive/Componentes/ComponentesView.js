@@ -24,7 +24,12 @@ var ComponentesView = function () {
             cantidadSeleccionados: {
                 id: "[header-selected-quantity]"
             },
-            componentes: {
+            tiposTonosSeleccionados: {
+                templateId: "#tipos-tonos-seleccionados-template",
+                id: "#tipos-tonos-seleccionados",
+                contenedor: "#contenedor-tipos-tonos-seleccionados",
+            },
+            tiposTonos: {
                 templateId: "#tipos-tonos-componente-template",
                 id: "#contenedor-tipos-tonos-componente",
             },
@@ -36,7 +41,6 @@ var ComponentesView = function () {
 
                     return "#btn-eligelo-" + grupo + "-" + cuv;
                 },
-                all: "[btn-eligelo]"
             },
             selectorCantidad: {
                 id: function (grupo, cuv) {
@@ -53,14 +57,15 @@ var ComponentesView = function () {
                     cuv = cuv || "";
                     if (grupo == "" || cuv == "") return "";
 
-                    return "#txt-cantidad-" + grupo + "-" + cuv;
+                    return "[txt-cantidad-" + grupo + "-" + cuv + "]";
                 }
             },
-            tiposTonosSeleccionados: {
-                templateId: "#tipos-tonos-seleccionados-template",
-                id: "#tipos-tonos-seleccionados",
-                contenedor: "#contenedor-tipos-tonos-seleccionados",
+            agregarTipoTono:{
+                all : "[add-type-tone]"
             },
+            bloquear:{
+                all: "[block-group]"
+            }
         }
     };
 
@@ -82,7 +87,7 @@ var ComponentesView = function () {
             _hideTypeAndTonesModal();
         });
 
-        $(_elements.tiposTonosModal.componentes.id).on("click", _elements.tiposTonosModal.btnEligelo.all, function (e) {
+        $(_elements.tiposTonosModal.tiposTonos.id).on("click", _elements.tiposTonosModal.agregarTipoTono.all, function (e) {
             e.preventDefault();
             var grupo = $(e.target).data("grupo");
             var cuv = $(e.target).data("cuv");
@@ -122,11 +127,11 @@ var ComponentesView = function () {
     var _showComponentTypesAndTones = function (component) {
         if (typeof component === "undefined" || component === null) return false;
 
-        SetHandlebars(_elements.tiposTonosModal.componentes.templateId,
+        SetHandlebars(_elements.tiposTonosModal.tiposTonos.templateId,
             component,
-            _elements.tiposTonosModal.componentes.id);
+            _elements.tiposTonosModal.tiposTonos.id);
 
-        $(_elements.tiposTonosModal.componentes.id).show();
+        $(_elements.tiposTonosModal.tiposTonos.id).show();
 
         return true;
     };
@@ -185,6 +190,16 @@ var ComponentesView = function () {
         return true;
     };
 
+    var _blockTypesOrTones = function(){
+        $(_elements.tiposTonosModal.bloquear.all).addClass("disabled");
+        return true;
+    };
+
+    var _unblockTypesOrTones = function(){
+        $(_elements.tiposTonosModal.bloquear.all).removeClass("disabled");
+        return true;
+    };
+
     return {
         setPresenter: _setPresenter,
         renderComponente: _renderComponentes,
@@ -194,5 +209,7 @@ var ComponentesView = function () {
         showTypesAndTonesModal: _showTypesAndTonesModal,
         showQuantitySelector: _showQuantitySelector,
         showSelectedTypesOrTones: _showSelectedTypesOrTones,
+        blockTypesOrTones: _blockTypesOrTones,
+        unblockTypesOrTones: _unblockTypesOrTones
     };
 };

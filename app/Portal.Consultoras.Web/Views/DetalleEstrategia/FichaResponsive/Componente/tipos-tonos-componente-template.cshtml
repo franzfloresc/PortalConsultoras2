@@ -7,13 +7,13 @@
         <div class="seleccion_title">{{componente.NombreBulk}}</div>
 
         {{#iff componente.TieneStock '==' true}}
-        <button id="btn-eligelo-{{componente.Grupo}}-{{componente.Cuv}}" btn-eligelo data-grupo="{{componente.Grupo}}" data-cuv="{{componente.Cuv}}">
+        <button id="btn-eligelo-{{componente.Grupo}}-{{componente.Cuv}}" add-type-tone block-group btn-eligelo data-grupo="{{componente.Grupo}}" data-cuv="{{componente.Cuv}}">
             Elígelo
         </button>
-        <button id="btn-elegido-{{componente.Grupo}}-{{componente.Cuv}}" data-grupo="{{componente.Grupo}}" data-cuv="{{componente.Cuv}}" class="active" style="display:none;">
+        <button id="btn-elegido-{{componente.Grupo}}-{{componente.Cuv}}" block-group data-grupo="{{componente.Grupo}}" data-cuv="{{componente.Cuv}}" class="active" style="display:none;">
             Elegido
         </button>
-        <div id="selector-cantidad-{{componente.Grupo}}-{{componente.Cuv}}"class="contenedor_rangos " data-cantidad-contenedor="" style="display:none">
+        <div id="selector-cantidad-{{componente.Grupo}}-{{componente.Cuv}}" block-group class="contenedor_rangos " data-cantidad-contenedor="" style="display:none">
             <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                    type="text"
                    value="1"
@@ -25,11 +25,11 @@
                    data-cantidad-input="-"
                    txt-cantidad-{{componente.Grupo}}-{{componente.Cuv}}>
             <div>
-                <a class="txt_menos" data-cantidad-agregar="-" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                <a class="txt_menos" @*onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"*@>
                     <div class="dibujar_linea dibujar_menos"></div>
                 </a>
-                <a class="txt_mas" data-cantidad-agregar="+" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                    <div class="dibujar_linea dibujar_mas"></div>
+                <a class="txt_mas" add-type-tone data-grupo="{{componente.Grupo}}" data-cuv="{{componente.Cuv}}" >
+                    <div class="dibujar_linea dibujar_mas" data-grupo="{{componente.Grupo}}" data-cuv="{{componente.Cuv}}"></div>
                 </a>
             </div>
         </div>
