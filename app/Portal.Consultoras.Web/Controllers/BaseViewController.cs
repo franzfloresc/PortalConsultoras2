@@ -729,7 +729,7 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
             modelo.Campania = campaniaId;
             modelo.Cuv = cuv;
-            modelo.TieneCarrusel = GetValidationHasCarrusel(modelo.OrigenAgregar, palanca, esEditar);
+            modelo.TieneCarrusel = GetValidationHasCarrusel(modelo.OrigenAgregar, esEditar);
             modelo.OrigenAgregarCarrusel = modelo.TieneCarrusel ? GetFichaOrigenPedidoWeb(origen, ConsOrigenPedidoWeb.Seccion.CarruselUpselling, modelo.TieneCarrusel) : 0;
             modelo.TieneCompartir = GetTieneCompartir(palanca, esEditar, modelo.OrigenAgregar);
             modelo.Cantidad = 1;
@@ -871,12 +871,12 @@ namespace Portal.Consultoras.Web.Controllers
                    modelo.Seccion.Equals(ConsOrigenPedidoWeb.Seccion.RecomendadoFicha);
         }
 
-        private bool GetTieneCarrusel(string palanca, bool esEditar)
-        {
-            return !esEditar;
-        }
+        //private bool GetTieneCarrusel(string palanca, bool esEditar)
+        //{
+        //    return !esEditar;
+        //}
 
-        private bool GetValidationHasCarrusel(int origen, string palanca, bool esEditar)
+        private bool GetValidationHasCarrusel(int origen, bool esEditar)
         {
             if (EsProductoRecomendado(origen))
             {
@@ -893,7 +893,9 @@ namespace Portal.Consultoras.Web.Controllers
             //    return false;
             //}
 
-            return GetTieneCarrusel(palanca, esEditar);
+            //return GetTieneCarrusel(palanca, esEditar);
+
+            return !esEditar;
         }
 
         private bool GetTieneCompartir(string palanca, bool esEditar, int origen)
