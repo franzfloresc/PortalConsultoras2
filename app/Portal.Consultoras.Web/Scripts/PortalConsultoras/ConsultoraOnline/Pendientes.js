@@ -53,7 +53,7 @@ function bindElments() {
 }
 
 function AceptarPedidoPendiente() {
-	
+
     var btn = $('.btnAccion a.ghost')[0];
 
     if (btn) {
@@ -107,7 +107,7 @@ function AceptarPedidoPendiente() {
                             /**  Al visualizar el popup de la confirmación debe enviar los siguiente eventos **/
 
                             var lstproduct = [];
-                            
+
                             var listProductos = [];
                             var pedidoSessionJson = JSON.parse(response.PedidosSesion);
 

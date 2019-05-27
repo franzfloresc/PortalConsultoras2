@@ -104,9 +104,9 @@ function AceptarPedidoPendiente(id, tipo) {
                             $("#btnIrPedido").removeClass("active");
                             $("#btnIrPedido").addClass("action-btn_refuse");
                         }
-                        
+
                         /**  Si fue exitos debe enviar los siguiente eventos Analytics **/
-                        
+
                         var lstproduct = [];
                         var listProductos = [];
                         var pedidoSessionJson = JSON.parse(response.PedidosSesion);
@@ -147,7 +147,7 @@ function AceptarPedidoPendiente(id, tipo) {
                             AnalyticsMarcacionPopupConfirmacion($(btn).parent().data('accion') === "ingrgana" ? "Por Gana+" : "Por catálogo", lstproduct);
                         }
                         return false;
-                    }   
+                    }
                     else {
                         if (response.code == 1) {
                             AbrirMensaje(response.message);
