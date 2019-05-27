@@ -1154,10 +1154,13 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             var tablaLogicaDatos = _tablaLogicaDatosBusinessLogic.GetList(paisId, ConsTablaLogica.CaminoBrillante.CaminoBrillanteOrden) ?? new List<BETablaLogicaDatos>();
             if (tablaLogicaDatos.Count == 0) return null;
-            
+
+            var opciones = tablaLogicaDatos.Where(e => (e.Codigo != "00" && isApp) || !isApp)
+                            .Select(e => new BEOrden() { Codigo = e.Codigo, Descripcion = e.Descripcion }).ToList();
+
             return new List<BEOrdenGrupo>() { new BEOrdenGrupo() {
                 NombreGrupo = tablaLogicaDatos.Where(e => e.Codigo == "00").Select(e => e.Valor).FirstOrDefault(),
-                Opciones = tablaLogicaDatos.Where(e => (e.Codigo != "00" && isApp) || !isApp ).Select(e => new BEOrden() { Codigo = e.Codigo, Descripcion = e.Descripcion }).ToList()
+                Opciones = opciones
             }};
         }
 
@@ -1166,10 +1169,18 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var tablaLogicaDatos = _tablaLogicaDatosBusinessLogic.GetList(paisId, ConsTablaLogica.CaminoBrillante.CaminoBrillanteFiltro) ?? new List<BETablaLogicaDatos>();
             if (tablaLogicaDatos.Count == 0) return null;
 
+            var opciones = tablaLogicaDatos.Where(e => (e.Codigo != "00" && isApp) || !isApp)
+                            .Select(e => new BEFiltro() { Codigo = e.Codigo, Descripcion = e.Descripcion }).ToList();
+            if (!isApp) {
+                var filtrar = opciones.Where(e => e.Codigo == "00").SingleOrDefault();
+                opciones = opciones.Where(e => e.Codigo != "00").OrderBy(e => e.Descripcion).ToList();
+                if(filtrar!= null) opciones.Insert(0, filtrar);
+            }
+
             return new List<BEFiltroGrupo>() { new BEFiltroGrupo() {
                 Excluyente = true,
                 NombreGrupo = tablaLogicaDatos.Where(e => e.Codigo == "00").Select(e => e.Valor).FirstOrDefault(),
-                Opciones = tablaLogicaDatos.Where(e => (e.Codigo != "00" &&isApp) || !isApp ).Select(e => new BEFiltro() { Codigo = e.Codigo, Descripcion = e.Descripcion }).ToList()
+                Opciones = opciones
             }};
         }
 

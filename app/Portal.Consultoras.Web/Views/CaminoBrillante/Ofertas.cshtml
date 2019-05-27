@@ -12,7 +12,7 @@
 <link href="~/Content/CaminoBrillante/css/estilos.css" rel="stylesheet" />
 <input type="hidden" id="moneda" value="@ViewBag.Moneda">
 
-<div class="subbox" data-menu-codigo="" >
+<div class="subbox" data-menu-codigo="">
     <div class="op-menu-horizontal">
         <ul class="subnavegador" data-es-suscrita="" data-es-activa="">
             <li data-campania="" data-activo="1" data-codigo="" data-es-ancla="">
@@ -42,10 +42,8 @@
 
 <div class="ml-0 mr-0 mx-auto layout__content__fichaProductos clearboth opOrdenar" style="display:none">
     <div>
-        <select id="ddlfiltros" class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
-        </select>
-        <select id="ddlOrdenar" class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
-        </select>
+        <select id="ddlfiltros" class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca"></select>
+        <select id="ddlOrdenar" class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden"></select>
     </div>
 </div>
 
@@ -213,13 +211,11 @@
     {{/each}}
 </script>
 
-
-<script src="https://www.somosbelcorp.com/Bundle/Js/Desktop/JQuery3Js?v=6K-kHHuzTBQeaIUNJP1kR-uZJRJv9nA2SlHvYURb6j41"></script>
-<script src="~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"></script>
-<script src="~/Scripts/PortalConsultoras/Cliente/Index.js"></script>
-
 @section scripts{
+    <script src="~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"></script>
+    <script src="~/Scripts/PortalConsultoras/Cliente/Index.js"></script>
     <script type="text/javascript">
+
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var urlGetKits = '@Url.Action("GetKits", "CaminoBrillante", new { area = "" })';
         var urlGetDemostradores = '@Url.Action("GetDemostradores", "CaminoBrillante", new { area = "" })';
