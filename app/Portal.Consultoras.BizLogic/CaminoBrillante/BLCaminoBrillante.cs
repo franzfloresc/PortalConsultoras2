@@ -58,6 +58,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 DescripcionNivel = e.DescripcionNivel,
                 MontoMaximo = e.MontoMaximo,
                 MontoMinimo = e.MontoMinimo,
+                Puntaje = e.Puntaje,
                 TieneOfertasEspeciales = Niveles_TIeneOfertasEspeciales(tablaLogicaDatos, e.CodigoNivel, TieneOfertasEspecialesDV),
                 Beneficios = lstBeneficios.Where(b => b.CodigoNivel == e.CodigoNivel && !(string.IsNullOrEmpty(b.NombreBeneficio) && string.IsNullOrEmpty(b.Descripcion))).ToList()
             }, tablaLogicaDatosEnterateMas, e.CodigoNivel)).ToList();
