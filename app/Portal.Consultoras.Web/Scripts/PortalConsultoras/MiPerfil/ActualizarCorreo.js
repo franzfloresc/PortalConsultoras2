@@ -20,11 +20,11 @@ var MiPerfil_ActualizarCorreo = function (_config) {
     var mensajeError = function () {
         var obj = getData().correoNuevo;
         var band;
-        $("#ValidateCorreo").hide();
-
+        showError("");
+        
         if (obj == "") band = null;
         else if (obj != "" && !validateEmail(obj)) {
-            $("#ValidateCorreo").show();
+            showError(getDataArrayError(getData()).join('<br>'));
             band = false;
         } else band = true;
         
@@ -44,7 +44,7 @@ var MiPerfil_ActualizarCorreo = function (_config) {
     //FIN HD-3897
 
     var showSuccess = function (message) { AbrirMensaje(message, 'Mensaje', '', 2); };
-    var showError = function (error) { AbrirMensaje(error, 'Error', '', 1); };
+    var showError = function (error) { $("#ValidateCorreo").html(error); };
     var showArrayError = function (arrayError) {
         var mensaje = '';
         for (var i = 0; i <= arrayError.length - 2; i++) {
@@ -74,12 +74,13 @@ var MiPerfil_ActualizarCorreo = function (_config) {
             .done(function (response) {
                 if (!response.success) {
                     showError(response.message);
+                    activaCheck(false);
                     return;
                 }
 
                 if ($.isFunction(fnSuccess)) fnSuccess(data);
             })
-            .fail(function () { showError(config.MensajeError); })
+            .fail(function () { showError(config.MensajeError); activaCheck(false);})
             .always(CerrarLoad);
     };
     var actualizarEnviarCorreo = function (fnSuccess) {

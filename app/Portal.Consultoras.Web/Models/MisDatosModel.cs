@@ -54,6 +54,8 @@ namespace Portal.Consultoras.Web.Models
         public bool TienePermisosCuenta { get; set; }
         //INI HD-3897
         public bool FlgCheckSMS { get; set; }
+        public bool PuedeConfirmarAllEmail { get; set; }
+        public bool PuedeConfirmarAllSms { get; set; }
         public bool FlgCheckEMAIL { get; set; }
         //FIN HD-3897
     }

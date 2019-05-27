@@ -101,6 +101,13 @@ else
                     @*INI HD-3897*@
                     <input type="hidden" id="hdn_FlgCheckSMS" value="@Model.FlgCheckSMS" />
                     <input type="hidden" id="hdn_FlgCheckEMAIL" value="@Model.FlgCheckEMAIL" />
+                    @{
+                        var EditarDatos = Model.PaisISO != Constantes.CodigosISOPais.Colombia ? "1" : "0";
+                    }
+
+                    <input type="hidden" id="hdn_EditarDatos" value="@EditarDatos" />
+                    <input type="hidden" id="hdn_PuedeConfirmarAllEmail" value="@Model.PuedeConfirmarAllEmail" />
+                    <input type="hidden" id="hdn_PuedeConfirmarAllSms" value="@Model.PuedeConfirmarAllSms" />
                     @*FIN HD-3897*@
                     <div class="datos_codigo w-50 text-left">
                         <span class="text-left text-bold">Código : </span>
@@ -205,10 +212,10 @@ else
                                             }
                                         </label>
                                         <!-- INICIO - Este el mensaje de validación que se muestra si la consultora no tiene registrado o está pendiente de confirmación un correo electrónico -->
-                                        <span class="d-block text-bold mensaje_validacion_campo">Aún falta confirmar tu correo</span>
+                                        <span class="d-block text-bold mensaje_validacion_campo" style="display:none;">Aún falta confirmar tu correo</span>
                                         <!-- FIN - Este el mensaje de validación que se muestra si la consultora no tiene registrado o está pendiente de confirmación un correo electrónico -->
                                     </div>
-                                    <div>
+                                    <div id="grupo_form_cambio_datos_email_opcionemail">
                                         <a href="@Url.Action("ActualizarCorreo", "MiPerfil", new { area = "Mobile" })" title="Cambiar" class="d-block enlace_cambiar_dato text-center">
                                             <span class="icono_cambiar_dato">
                                                 <img src="@Url.Content("~/Content/Images/icono_cambiar_dato.svg")" alt="Editar" />
@@ -216,7 +223,7 @@ else
                                             <span class="text-bold">Editar</span>
                                         </a>
                                         <!-- INICIO - Este botón aparece cuando la consultora tiene pendiente confirmar su correo electrónico -->
-                                        <button id="btn_confirmar_dato_email" type="button" class="d-block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato"
+                                        <button id="btn_confirmar_dato_email" type="button" style="display:none;" class="d-block text-bold border-radius-4 multimarca-background-color btn_confirmar_dato"
                                                  onclick="location.href='@Url.Action("ConfirmarCorreo", "MiPerfil", new { area = "Mobile" })'">
                                             Confirmar
                                         </button>

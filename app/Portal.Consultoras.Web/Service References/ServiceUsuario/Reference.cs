@@ -2014,6 +2014,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool PuedeActualizarEmailField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PuedeConfirmarAllEmailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PuedeConfirmarAllSmsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool PuedeEnviarSMSField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4421,6 +4427,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.PuedeActualizarEmailField.Equals(value) != true)) {
                     this.PuedeActualizarEmailField = value;
                     this.RaisePropertyChanged("PuedeActualizarEmail");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PuedeConfirmarAllEmail {
+            get {
+                return this.PuedeConfirmarAllEmailField;
+            }
+            set {
+                if ((this.PuedeConfirmarAllEmailField.Equals(value) != true)) {
+                    this.PuedeConfirmarAllEmailField = value;
+                    this.RaisePropertyChanged("PuedeConfirmarAllEmail");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PuedeConfirmarAllSms {
+            get {
+                return this.PuedeConfirmarAllSmsField;
+            }
+            set {
+                if ((this.PuedeConfirmarAllSmsField.Equals(value) != true)) {
+                    this.PuedeConfirmarAllSmsField = value;
+                    this.RaisePropertyChanged("PuedeConfirmarAllSms");
                 }
             }
         }
