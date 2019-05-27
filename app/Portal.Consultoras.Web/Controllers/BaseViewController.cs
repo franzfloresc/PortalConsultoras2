@@ -382,37 +382,34 @@ namespace Portal.Consultoras.Web.Controllers
                 return 0;
             }
 
-            var dispositivo = origen.Substring(0, 1);
-            var pagina = origen.Substring(1, 2);
-            var palanca = origen.Substring(3, 2);
-            var seccion = origen.Substring(5, 2);
-            var seccionFicha = ConsOrigenPedidoWeb.Seccion.Ficha;
+            var modeloOrigen = UtilOrigenPedidoWeb.GetModelo(origen);
+            modeloOrigen.Seccion = ConsOrigenPedidoWeb.Seccion.Ficha;
 
             tipo = Util.Trim(tipo);
             if (tieneCarrusel)
             {
-                seccionFicha = ConsOrigenPedidoWeb.Seccion.CarruselVerMas;
+                modeloOrigen.Seccion = ConsOrigenPedidoWeb.Seccion.CarruselVerMas;
 
-                if (palanca != ConsOrigenPedidoWeb.Palanca.Lanzamientos)
+                if (modeloOrigen.Palanca != ConsOrigenPedidoWeb.Palanca.Lanzamientos)
                 {
-                    pagina = ConsOrigenPedidoWeb.Pagina.Ficha;
+                    modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Ficha;
                     if (tipo == ConsOrigenPedidoWeb.Seccion.CarruselUpselling) // agregar los 'or' para crosSelling
                     {
-                        seccionFicha = tipo;
+                        modeloOrigen.Seccion = tipo;
                     }
                 }
             }
-            else if (seccion == ConsOrigenPedidoWeb.Seccion.Recomendado)
+            else if (modeloOrigen.Seccion == ConsOrigenPedidoWeb.Seccion.Recomendado)
             {
-                seccionFicha = ConsOrigenPedidoWeb.Seccion.RecomendadoFicha;
+                modeloOrigen.Seccion = ConsOrigenPedidoWeb.Seccion.RecomendadoFicha;
             }
-            else if (seccion == ConsOrigenPedidoWeb.Seccion.CarruselUpselling)
+            else if (modeloOrigen.Seccion == ConsOrigenPedidoWeb.Seccion.CarruselUpselling)
             {
-                seccionFicha = ConsOrigenPedidoWeb.Seccion.FichaUpselling;
-                pagina = ConsOrigenPedidoWeb.Pagina.Ficha;
+                modeloOrigen.Seccion = ConsOrigenPedidoWeb.Seccion.FichaUpselling;
+                modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Ficha;
             }
 
-            int result = Convert.ToInt32(dispositivo + pagina + palanca + seccionFicha);
+            int result = UtilOrigenPedidoWeb.ToInt(modeloOrigen);
             return result;
 
             //switch (intOrigen)
@@ -868,12 +865,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool EsProductoRecomendado(int origen)
         {
-            var origenString = origen.ToString();
-            if (origen == 0 || origenString.IsNullOrEmptyTrim()) return false;
-
-            var twoLastDigitsOrigen = origenString.Substring(origenString.Length - 2);
-            return twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoCarrusel) ||
-                   twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoFicha);
+            var modelo = UtilOrigenPedidoWeb.GetModelo(origen.ToString());
+            
+            return modelo.Seccion.Equals(ConsOrigenPedidoWeb.Seccion.Recomendado) ||
+                   modelo.Seccion.Equals(ConsOrigenPedidoWeb.Seccion.RecomendadoFicha);
         }
 
         private bool GetTieneCarrusel(string palanca, bool esEditar)
@@ -883,15 +878,20 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool GetValidationHasCarrusel(int origen, string palanca, bool esEditar)
         {
-            var origenString = origen.ToString();
-            if (origen == 0 || origenString.IsNullOrEmptyTrim()) return GetTieneCarrusel(palanca, esEditar);
-
-            var twoLastDigitsOrigen = origenString.Substring(origenString.Length - 2);
-            if (twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoCarrusel) ||
-               twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoFicha))
+            if (EsProductoRecomendado(origen))
             {
                 return false;
             }
+
+            //var origenString = origen.ToString();
+            //if (origen == 0 || origenString.IsNullOrEmptyTrim()) return GetTieneCarrusel(palanca, esEditar);
+
+            //var twoLastDigitsOrigen = origenString.Substring(origenString.Length - 2);
+            //if (twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoCarrusel) ||
+            //   twoLastDigitsOrigen.Equals(Constantes.OrigenPedidoWeb.SufijoProductoRecomendadoFicha))
+            //{
+            //    return false;
+            //}
 
             return GetTieneCarrusel(palanca, esEditar);
         }

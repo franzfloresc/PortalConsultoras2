@@ -19,6 +19,28 @@
 
             return modelo;
         }
+        
+        public static OrigenPedidoWebModel GetModelo(string origen)
+        {
+            var modelo = new OrigenPedidoWebModel();
+            try
+            {
+                origen = origen ?? "";
+                if (origen.Length < 7) return modelo;
+
+                modelo.Dispositivo = origen.Substring(0, 1);
+                modelo.Pagina = origen.Substring(1, 2);
+                modelo.Palanca = origen.Substring(3, 2);
+                modelo.Seccion = origen.Substring(5, 2);
+                modelo = Formatear(modelo);
+            }
+            catch
+            {
+                // ignored
+            }
+
+            return modelo;
+        }
 
         public static string ToStr(OrigenPedidoWebModel modelo)
         {
