@@ -628,7 +628,11 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
 
-            EstrategiasIndividuales = EstrategiasIndividuales.OrderByDescending(x => x.Componentes.Where(y => y.CodigoSap.Equals(ProductoSolicitado.CodigoSap)).First().Cantidad).ToList();
+            EstrategiasIndividuales = EstrategiasIndividuales.OrderByDescending(x =>
+                            x.Componentes
+                            .FirstOrDefault(y => y.CodigoSap.Equals(ProductoSolicitado.CodigoSap))
+                            .Cantidad
+                ).ToList();
 
             foreach (var estrategia in EstrategiasIndividuales)
             {

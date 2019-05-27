@@ -265,6 +265,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         pedidoValidacionCode = Constantes.PedidoValidacion.Code.SUCCESS;
                         break;
                     case Enumeradores.ResultadoReserva.NoReservadoObservaciones:
+                    case Enumeradores.ResultadoReserva.NoReservadoMontoPermitido:
                         pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_OBS;
                         error = true;
                         break;
@@ -284,10 +285,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_DEUDA;
                         error = true;
                         break;
-                    case Enumeradores.ResultadoReserva.NoReservadoMontoPermitido:
-                        pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_OBS; //No existe una constante 
-                        error = true;
-                        break;
+                    //case Enumeradores.ResultadoReserva.NoReservadoMontoPermitido:
+                    //    pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_OBS; //No existe una constante 
+                    //    error = true;
+                    //    break;
                     case Enumeradores.ResultadoReserva.Ninguno:
                         pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_NINGUNO;
                         error = true;
@@ -636,12 +637,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     Grupo = grupo
                 });
 
-                if (ObtieneValorFlagDesactivacionNoDigitable())
+                if ((listSp.Length > 4 && digitable == "0") && ObtieneValorFlagDesactivacionNoDigitable())
                 {
-                    if ((listSp.Length > 4 && digitable == "0"))
-                    {
-                        continue;
-                    }
+                    continue;
                 }
 
                 if (!pedidoDetalle.EsKitNuevaAuto)
