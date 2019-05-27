@@ -211,12 +211,13 @@
     {{/each}}
 </script>
 
+<script src="https://www.somosbelcorp.com/Bundle/Js/Desktop/JQuery3Js?v=6K-kHHuzTBQeaIUNJP1kR-uZJRJv9nA2SlHvYURb6j41"></script>
 <script src="~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"></script>
 <script src="~/Scripts/PortalConsultoras/Cliente/Index.js"></script>
 
 @section scripts{
     <script type="text/javascript">
-        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
+       
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var urlGetKits = '@Url.Action("GetKits", "CaminoBrillante", new { area = "" })';
         var urlGetDemostradores = '@Url.Action("GetDemostradores", "CaminoBrillante", new { area = "" })';
