@@ -630,6 +630,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (Session["DatosUsuario"] == null) return RedirectToAction("Index", "Login");
             var obj = (BEUsuarioDatos)Session["DatosUsuario"];
+
+            BEUsuario beusuario;
+            using (var sv = new UsuarioServiceClient())
+            {
+                beusuario = sv.Select(Util.GetPaisID(obj.CodigoIso), obj.CodigoUsuario);
+            }
+
             var model = new BEUsuarioDatos();
             model.PrimerNombre = obj.PrimerNombre;
             model.MensajeSaludo = obj.MensajeSaludo;
@@ -645,8 +652,12 @@ namespace Portal.Consultoras.Web.Controllers
             model.CodigoUsuario = obj.CodigoUsuario;
             model.Correo = obj.Correo;
             model.MostrarOpcion = obj.MostrarOpcion;
-            model.OpcionChat = obj.OpcionChat;
+            model.OpcionChat = obj.OpcionChat;            
             model.EsMobile = EsDispositivoMovil();
+
+            ViewBag.FlgCheckSMS = beusuario.FlgCheckSMS;
+            ViewBag.FlgCheckEMAIL = beusuario.FlgCheckEMAIL;
+
             return View(model);
         }
 
@@ -862,7 +873,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> ConfirmarSmsCode(string smsCode)
+        public async Task<ActionResult> ConfirmarSmsCode(string smsCode, string nuevoNumero)
         {
             var BEUserData = (BEUsuarioDatos)Session["DatosUsuario"];
             var userData = new UsuarioModel
@@ -897,8 +908,18 @@ namespace Portal.Consultoras.Web.Controllers
                 var usuario = Mapper.Map<BEUsuario>(userData);
                 var misDatosModel = Mapper.Map<MisDatosModel>(usuario);
                 misDatosModel.Celular = celularNuevo;
-                ActualizarDatosLogDynamoDB(userData, misDatosModel, "LOGIN /VERIFICA AUTENTICIDAD",
-                    Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
+                if (ActualizarDatosLogDynamoDB(userData, misDatosModel, "LOGIN /VERIFICA AUTENTICIDAD",
+                    Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion"))
+                {
+                    if (Session["DatosUsuario"] != null)
+                    {
+                        var BEUserData = (BEUsuarioDatos)Session["DatosUsuario"];
+                        BEUserData.CelularEnmascarado = Util.EnmascararCelular(celularNuevo);
+                        Session["DatosUsuario"] = BEUserData;
+                    }
+                };
+
+
             }
             catch (Exception ex)
             {
@@ -906,11 +927,20 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        protected void ActualizarDatosLogDynamoDB(UsuarioModel userData, MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
+        protected bool ActualizarDatosLogDynamoDB(UsuarioModel userData, MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
         {
+            try
+            {
+                bool esMobile = EsDispositivoMovil();
+                _logDynamoProvider.ActualizarDatosLogDynamoDB(userData, esMobile, p_modelo, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, p_Seccion);
+                return true;
+            }
+            catch (Exception)
+            {
 
-            bool esMobile = EsDispositivoMovil();
-            _logDynamoProvider.ActualizarDatosLogDynamoDB(userData, esMobile, p_modelo, p_origen, p_aplicacion, p_Accion, p_CodigoConsultoraBuscado, p_Seccion);
+                return false;
+            }
+
         }
 
 
@@ -3183,9 +3213,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public JsonResult ProcesaEnvioCorreo(int CantidadEnvios)
+        public JsonResult ProcesaEnvioCorreo(ActualizarCorreoNuevoModel parametros)
         {
             var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
+            if (!String.IsNullOrEmpty(parametros.CorreoActualizado))
+            {
+                oUsu.Correo = parametros.CorreoActualizado;
+            }
             if (oUsu == null) return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
             int paisID = Convert.ToInt32(TempData["PaisID"]);
             try
@@ -3196,8 +3230,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var svc = new UsuarioServiceClient())
                 {
-                    EstadoEnvio = svc.ProcesaEnvioEmail(paisID, oUsu, CantidadEnvios);
+                    EstadoEnvio = svc.ProcesaEnvioEmail(paisID, oUsu, parametros.CantidadEnvios);
                 }
+
+                oUsu.Correo = parametros.CorreoActualizado;
+                oUsu.CorreoEnmascarado = Util.EnmascararCorreo(parametros.CorreoActualizado);
+                Session["DatosUsuario"] = oUsu;
+
                 return Json(new
                 {
                     success = EstadoEnvio,

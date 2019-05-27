@@ -91,12 +91,12 @@ $(document).ready(function () {
 
                 //SMS
                 if ($("#hdn_FlgCheckSMS").val()) {
-                    $("#grupo_form_cambio_datos_sms").addClass("grupo_form_cambio_datos--confirmado");
+                    $("#grupo_form_cambio_datos_sms").removeClass("opcion_verificacion_autenticidad--pendiente");
                     $("#grupo_form_cambio_datos_sms .mensaje_validacion_campo").hide();
                     $("#btn_confirmar_dato_sms").hide();
 
                 } else {
-                    $("#grupo_form_cambio_datos_sms").addClass("grupo_form_cambio_datos--confirmacionPendiente");
+                    $("#grupo_form_cambio_datos_sms").addClass("opcion_verificacion_autenticidad--pendiente");
                     $("#grupo_form_cambio_datos_sms .mensaje_validacion_campo").show();
                     $("#btn_confirmar_dato_sms").show();
                     

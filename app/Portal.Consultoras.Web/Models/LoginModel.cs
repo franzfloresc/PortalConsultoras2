@@ -38,4 +38,9 @@ namespace Portal.Consultoras.Web.Models
         public string UrlPdfTerminosyCondiciones { get; set; }
 
     }
+
+    public class ActualizarCorreoNuevoModel {
+        public int CantidadEnvios { get; set; }
+        public string CorreoActualizado { get; set; }
+    }
 }
