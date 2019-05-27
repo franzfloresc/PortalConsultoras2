@@ -37,13 +37,15 @@ module.exports = function (config) {
             'Scripts/PortalConsultoras/Shared/ConstantesModule.js',
             'Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js',
 
-            // FichaModule
+            //#region Provider
             'Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js',
             'Scripts/PortalConsultoras/TusClientes/PanelListaModule.js',
             'Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js',
             'Scripts/PortalConsultoras/TusClientes/ClientePanelModule.js',
             'Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js',
             'Scripts/PortalConsultoras/DetalleEstrategia/Ficha/FichaModule.js',
+            'scripts/portalconsultoras/estrategiaagregar/estrategiaagregar.js',
+            //#endregion
 
             // TusClientes
             'Scripts/PortalConsultoras/TusClientes/TusClientesView.js',
@@ -80,10 +82,11 @@ module.exports = function (config) {
             'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposPresenterSpec.js',
             'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenterSpec.js',
             'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenterSpec.js',
-            //
-            'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaPresenterSpec.js',
-            // shared
+            
             'Scripts/tests/PortalConsultoras/Shared/AnalyticsPortalSpec.js',
+            'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaPresenterSpec.js',
+            
+            'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesPresenterSpec.js',
 
         ],
 

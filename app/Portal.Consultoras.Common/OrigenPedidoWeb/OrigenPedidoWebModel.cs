@@ -2,6 +2,14 @@
 {
     public class OrigenPedidoWebModel
     {
+        public OrigenPedidoWebModel()
+        {
+            Dispositivo = "";
+            Pagina = "";
+            Palanca = "";
+            Seccion = "";
+        }
+
         public string Dispositivo { get; set; }
         public string Pagina { get; set; }
         public string Palanca { get; set; }
