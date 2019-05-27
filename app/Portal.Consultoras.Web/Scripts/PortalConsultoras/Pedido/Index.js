@@ -62,13 +62,7 @@ $(document).ready(function () {
         cerrar_popup_tutorial();
     });
 
-    $('body').on('keypress', 'input[attrKey="PreValidarCUV"]', function (event) {
-        if (event.keyCode == 13) {
-            if ($("#btnAgregar")[0].disabled == false) {
-                PedidoRegistroModule.AgregarProductoListadoPasePedido();
-            }
-        }
-    })
+ 
 
     $("body").click(function (e) {
         if (!$(e.target).closest(".ui-dialog").length) {
@@ -455,18 +449,16 @@ $(document).ready(function () {
         e.preventDefault();
         var obj = $(this);
         var accion = obj.attr("data-paginacion");
-        var tipoPaginador = obj.attr("data-tipo");
         if (accion === "back" || accion === "next") {
-            CambioPagina(obj, tipoPaginador);
+            CambioPagina(obj);
         }
     });
     $("body").on("change", "[data-paginacion]", function (e) {
         e.preventDefault();
         var obj = $(this);
         var accion = obj.attr("data-paginacion");
-        var tipoPaginador = obj.attr("data-tipo");
         if (accion === "page" || accion === "rows") {
-            CambioPagina(obj, tipoPaginador);
+            CambioPagina(obj);
         }
     });
 
@@ -974,16 +966,16 @@ function ValidarDescripcion() {
     }
 }
 
-function PreValidarCUV(event) {
+//function PreValidarCUV(event) {
 
-    event = event || window.event;
+//    event = event || window.event;
 
-    if (event.keyCode == 13) {
-        if ($("#btnAgregar")[0].disabled == false) {
-            PedidoRegistroModule.AgregarProductoListadoPasePedido();
-        }
-    }
-}
+//    if (event.keyCode == 13) {
+//        if ($("#btnAgregar")[0].disabled == false) {
+//            PedidoRegistroModule.AgregarProductoListadoPasePedido();
+//        }
+//    }
+//}
 
 function SeleccionarContenido(control) {
     control.select();
@@ -2619,16 +2611,13 @@ function InfoCommerceGoogleDestacadoNextCarrusel() {
     }
 }
 
-function CambioPagina(obj, tipoPaginador) {
+function CambioPagina(obj) {
     var rpt = paginadorAccionGenerico(obj);
     if (rpt.page == undefined) {
         return false;
     }
 
-    switch (tipoPaginador) {
-        case ClasPedidoDetalle: CargarDetallePedido(rpt.page, rpt.rows); break;
-        case ClasPedidoDetallePendiente: CargarPedidosPend(rpt.page, rpt.rows); break;
-    }    
+    CargarDetallePedido(rpt.page, rpt.rows);
     return true;
 }
 
