@@ -39,17 +39,25 @@
                            {{#if esCampaniaSiguiente}} {{RangoInputEnabled}} {{/if}}>
                 </div>
                 <a id="btnAgregalo"
-                    class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
+                    class="btn_agregalo btn_primario {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
                     {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
                     onclick="javascript: estrategiaPresenter.onEstrategiaModelClick(event, false, 0, true, {{EsEditable}}); ">
-                    AGRÉGALO
+                    Agrégalo
                 </a>
             {{else}}
-                <a id="btnAgregalo"
+                <div class="row" style="width: 100%; flex-grow: 1;">
+                    <div class="col-6 text-left">
+                        <div class="tag_agotago">Agotado</div>
+                    </div>
+                    <div class="col-6 text-right">
+                        <span class="msj_agotado">No hay stock disponible</span>
+                    </div>
+                </div>
+                @*<a id="btnAgregalo"
                    class="boton_Agregalo_agotado btn_agregalo"
                    style="pointer-events: none;">
                     AGOTADO
-                </a>
+                </a>*@
             {{/if}}
         {{else}}
             {{#if TieneStock}}
@@ -84,13 +92,21 @@
                 <a id="btnAgregalo"
                    onclick="javascript: estrategiaPresenter.onEstrategiaModelClick(event, false, 0, true, {{EsEditable}});"
                    {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
-                   class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}">
-                    AGRÉGALO
+                   class="btn_agregalo btn_primario {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}">
+                    Agrégalo
                 </a>
             {{else}}
-                <a id="btnAgregalo"
+                <div class="row" style="width: 100%; flex-grow: 1;">
+                    <div class="col-6 text-left">
+                        <div class="tag_agotago">Agotado</div>
+                    </div>
+                    <div class="col-6 text-right">
+                        <span class="msj_agotado">No hay stock disponible</span>
+                    </div>
+                </div>
+                @*<a id="btnAgregalo"
                    class="boton_Agregalo_agotado btn_agregalo"
-                   style="pointer-events: none;">AGOTADO</a>
+                   style="pointer-events: none;">AGOTADO</a>*@
             {{/if}}
         {{/iff}}
     {{/iff}}

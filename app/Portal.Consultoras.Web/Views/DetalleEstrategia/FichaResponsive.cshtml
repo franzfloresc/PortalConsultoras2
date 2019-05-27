@@ -10,7 +10,6 @@
 
 <style data-ficha-contenido="ofertadeldia-template-style"></style>
 
-<hidden id="data-estrategia" data-estrategia='@Html.Raw(Json.Encode(Model))'></hidden>
 <section class="seccion_ficha">
     <div id="ImagenDeFondo" class="imagen_fondo_detalle" @*style="background-image: url('https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019424344_dkvuwesndt.png');"*@></div>
     <div class="contenedor_detalle container">
@@ -22,12 +21,12 @@
                 <div class="ficha_detalle_cuerpo">
                     <div id="estrategia" class="row contenedor_nombre_precio"></div>
                     @*<div class="descripcion_lanzamiento">
-                    <p>Déjate seducir por el dulce aroma de la noche</p>
-                    <ul class="descripcion_detalle_producto_tono">
-                        <li>- 200 ml. / 6,7 fl. oz</li>
-                        <li>- 200 ml. / 6,7 fl. oz</li>
-                    </ul>
-                </div>*@
+                            <p>Déjate seducir por el dulce aroma de la noche</p>
+                            <ul class="descripcion_detalle_producto_tono">
+                                <li>- 200 ml. / 6,7 fl. oz</li>
+                                <li>- 200 ml. / 6,7 fl. oz</li>
+                            </ul>
+                        </div>*@
                     <div id="componente" class="producto_componentes"></div>
                     <div class="tiposytonos_componentes" style="display:none">
                         <buttom class="tono_select_opt">
@@ -113,10 +112,272 @@
         <div class="carousel_ficha">
             <article class="caja_producto">
                 <div class="img_producto">
-                    <img src="#" alt="Alternate Text" />
+                    <img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_200029898201953972_nxvwsfpmgb.png" />
                 </div>
                 <div class="descripcion_producto">
+                    <div class="nombre_marca">xxxxx </div>
+                    <h3 class="titulo_producto">Lorem Ipsum<br />Lorem Ipsum</h3>
+                    <div class="precio_oferta">
+                        Para ti
+                        <span>S/. 00.00</span>
+                    </div>
+                    <div class="precio_normal">
+                        Para tu cliente
+                        <span>S/. 00.00</span>
+                    </div>
+                </div>
+                <div class="seccion_agregar">
+                    <div class="contenedor_rangos_producto" data-cantidad-contenedor="">
+                        <input type="text" value="1" size="2" maxlength="2" data-input="cantidad" class="caja_rangos" tabindex="0">
+                        <div class="botones_rangos">
+                            <a href="javascript:;" class="mas_rangos" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="" tabindex="0">
+                                <img src="/Content/Images/Esika/mas.png" alt="">
+                            </a>
+                            <a href="javascript:;" class="menos_rangos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="" tabindex="0">
+                                <img src="/Content/Images/Esika/menos.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <a id="btnAgregalo" class="btn_agregalo_producto btn_defecto">
+                        Agrégalo
+                    </a>
+                </div>
+            </article>
 
+            <article class="caja_producto">
+                <div class="img_producto">
+                    <img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_200029898201953972_nxvwsfpmgb.png" />
+                </div>
+                <div class="descripcion_producto">
+                    <div class="nombre_marca">xxxxx </div>
+                    <h3 class="titulo_producto">Lorem Ipsum<br />Lorem Ipsum</h3>
+                    <div class="precio_oferta">
+                        Para ti
+                        <span>S/. 00.00</span>
+                    </div>
+                    <div class="precio_normal">
+                        Para tu cliente
+                        <span>S/. 00.00</span>
+                    </div>
+                </div>
+                <div class="seccion_agregar">
+                    <div class="contenedor_rangos_producto" data-cantidad-contenedor="">
+                        <input type="text" value="1" size="2" maxlength="2" data-input="cantidad" class="caja_rangos" tabindex="0">
+                        <div class="botones_rangos">
+                            <a href="javascript:;" class="mas_rangos" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="" tabindex="0">
+                                <img src="/Content/Images/Esika/mas.png" alt="">
+                            </a>
+                            <a href="javascript:;" class="menos_rangos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="" tabindex="0">
+                                <img src="/Content/Images/Esika/menos.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <a id="btnAgregalo" class="btn_agregalo_producto btn_defecto">
+                        Agrégalo
+                    </a>
+                </div>
+            </article>
+
+            <article class="caja_producto">
+                <div class="img_producto">
+                    <img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_200029898201953972_nxvwsfpmgb.png" />
+                </div>
+                <div class="descripcion_producto">
+                    <div class="nombre_marca">xxxxx </div>
+                    <h3 class="titulo_producto">Lorem Ipsum<br />Lorem Ipsum</h3>
+                    <div class="precio_oferta">
+                        Para ti
+                        <span>S/. 00.00</span>
+                    </div>
+                    <div class="precio_normal">
+                        Para tu cliente
+                        <span>S/. 00.00</span>
+                    </div>
+                </div>
+                <div class="seccion_agregar">
+                    <div class="contenedor_rangos_producto" data-cantidad-contenedor="">
+                        <input type="text" value="1" size="2" maxlength="2" data-input="cantidad" class="caja_rangos" tabindex="0">
+                        <div class="botones_rangos">
+                            <a href="javascript:;" class="mas_rangos" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="" tabindex="0">
+                                <img src="/Content/Images/Esika/mas.png" alt="">
+                            </a>
+                            <a href="javascript:;" class="menos_rangos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="" tabindex="0">
+                                <img src="/Content/Images/Esika/menos.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <a id="btnAgregalo" class="btn_agregalo_producto btn_defecto">
+                        Agrégalo
+                    </a>
+                </div>
+            </article>
+            <article class="caja_producto">
+                <div class="img_producto">
+                    <img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_200029898201953972_nxvwsfpmgb.png" />
+                </div>
+                <div class="descripcion_producto">
+                    <div class="nombre_marca">xxxxx </div>
+                    <h3 class="titulo_producto">Lorem Ipsum<br />Lorem Ipsum</h3>
+                    <div class="precio_oferta">
+                        Para ti
+                        <span>S/. 00.00</span>
+                    </div>
+                    <div class="precio_normal">
+                        Para tu cliente
+                        <span>S/. 00.00</span>
+                    </div>
+                </div>
+                <div class="seccion_agregar">
+                    <div class="contenedor_rangos_producto" data-cantidad-contenedor="">
+                        <input type="text" value="1" size="2" maxlength="2" data-input="cantidad" class="caja_rangos" tabindex="0">
+                        <div class="botones_rangos">
+                            <a href="javascript:;" class="mas_rangos" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="" tabindex="0">
+                                <img src="/Content/Images/Esika/mas.png" alt="">
+                            </a>
+                            <a href="javascript:;" class="menos_rangos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="" tabindex="0">
+                                <img src="/Content/Images/Esika/menos.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <a id="btnAgregalo" class="btn_agregalo_producto btn_defecto">
+                        Agrégalo
+                    </a>
+                </div>
+            </article>
+            <article class="caja_producto">
+                <div class="img_producto">
+                    <img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_200029898201953972_nxvwsfpmgb.png" />
+                </div>
+                <div class="descripcion_producto">
+                    <div class="nombre_marca">xxxxx </div>
+                    <h3 class="titulo_producto">Lorem Ipsum<br />Lorem Ipsum</h3>
+                    <div class="precio_oferta">
+                        Para ti
+                        <span>S/. 00.00</span>
+                    </div>
+                    <div class="precio_normal">
+                        Para tu cliente
+                        <span>S/. 00.00</span>
+                    </div>
+                </div>
+                <div class="seccion_agregar">
+                    <div class="contenedor_rangos_producto" data-cantidad-contenedor="">
+                        <input type="text" value="1" size="2" maxlength="2" data-input="cantidad" class="caja_rangos" tabindex="0">
+                        <div class="botones_rangos">
+                            <a href="javascript:;" class="mas_rangos" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="" tabindex="0">
+                                <img src="/Content/Images/Esika/mas.png" alt="">
+                            </a>
+                            <a href="javascript:;" class="menos_rangos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="" tabindex="0">
+                                <img src="/Content/Images/Esika/menos.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <a id="btnAgregalo" class="btn_agregalo_producto btn_defecto">
+                        Agrégalo
+                    </a>
+                </div>
+            </article>
+            <article class="caja_producto">
+                <div class="img_producto">
+                    <img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_200029898201953972_nxvwsfpmgb.png" />
+                </div>
+                <div class="descripcion_producto">
+                    <div class="nombre_marca">xxxxx </div>
+                    <h3 class="titulo_producto">Lorem Ipsum<br />Lorem Ipsum</h3>
+                    <div class="precio_oferta">
+                        Para ti
+                        <span>S/. 00.00</span>
+                    </div>
+                    <div class="precio_normal">
+                        Para tu cliente
+                        <span>S/. 00.00</span>
+                    </div>
+                </div>
+                <div class="seccion_agregar">
+                    <div class="contenedor_rangos_producto" data-cantidad-contenedor="">
+                        <input type="text" value="1" size="2" maxlength="2" data-input="cantidad" class="caja_rangos" tabindex="0">
+                        <div class="botones_rangos">
+                            <a href="javascript:;" class="mas_rangos" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="" tabindex="0">
+                                <img src="/Content/Images/Esika/mas.png" alt="">
+                            </a>
+                            <a href="javascript:;" class="menos_rangos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="" tabindex="0">
+                                <img src="/Content/Images/Esika/menos.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <a id="btnAgregalo" class="btn_agregalo_producto btn_defecto">
+                        Agrégalo
+                    </a>
+                </div>
+            </article>
+
+
+
+            <article class="caja_producto">
+                <div class="img_producto">
+                    <img src="https://d1y60eoca8fkyl.cloudfront.net/Matriz/PE/PE_2000500182019555537_tfzduqnodc.png" />
+                </div>
+                <div class="descripcion_producto">
+                    <div class="nombre_marca">xxxxx </div>
+                    <h3 class="titulo_producto">Lorem Ipsum<br />Lorem Ipsum</h3>
+                    <div class="precio_oferta">
+                        Para ti
+                        <span>S/. 00.00</span>
+                    </div>
+                    <div class="precio_normal">
+                        Para tu cliente
+                        <span>S/. 00.00</span>
+                    </div>
+                </div>
+                <div class="seccion_agregar">
+                    <div class="contenedor_rangos_producto" data-cantidad-contenedor="">
+                        <input type="text" value="1" size="2" maxlength="2" data-input="cantidad" class="caja_rangos" tabindex="0">
+                        <div class="botones_rangos">
+                            <a href="javascript:;" class="mas_rangos" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="" tabindex="0">
+                                <img src="/Content/Images/Esika/mas.png" alt="">
+                            </a>
+                            <a href="javascript:;" class="menos_rangos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="" tabindex="0">
+                                <img src="/Content/Images/Esika/menos.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <a id="btnAgregalo" class="btn_agregalo_producto btn_defecto">
+                        Agrégalo
+                    </a>
+                </div>
+            </article>
+
+            <article class="caja_producto">
+                <div class="img_producto">
+                    <img src="https://d1y60eoca8fkyl.cloudfront.net/Matriz/PE/PE_2000500182019555537_tfzduqnodc.png" />
+                </div>
+                <div class="descripcion_producto">
+                    <div class="nombre_marca">xxxxx </div>
+                    <h3 class="titulo_producto">Lorem Ipsum<br />Lorem Ipsum</h3>
+                    <div class="precio_oferta">
+                        Para ti
+                        <span>S/. 00.00</span>
+                    </div>
+                    <div class="precio_normal">
+                        Para tu cliente
+                        <span>S/. 00.00</span>
+                    </div>
+                </div>
+                <div class="seccion_agregar">
+                    <div class="contenedor_rangos_producto" data-cantidad-contenedor="">
+                        <input type="text" value="1" size="2" maxlength="2" data-input="cantidad" class="caja_rangos" tabindex="0">
+                        <div class="botones_rangos">
+                            <a href="javascript:;" class="mas_rangos" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="" tabindex="0">
+                                <img src="/Content/Images/Esika/mas.png" alt="">
+                            </a>
+                            <a href="javascript:;" class="menos_rangos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="" tabindex="0">
+                                <img src="/Content/Images/Esika/menos.png" alt="">
+                            </a>
+                        </div>
+                    </div>
+                    <a id="btnAgregalo" class="btn_agregalo_producto btn_defecto">
+                        Agrégalo
+                    </a>
                 </div>
             </article>
         </div>
@@ -183,7 +444,7 @@
                 <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
             </div>
             <div class="seleccion_title">miss sexy shine</div>
-            <div class="tag_agotago">Agotado</div>
+            <div class="tag_agotado">Agotado</div>
         </article>
         <article class="selecion_item">
             <div class="seleccion_img">
