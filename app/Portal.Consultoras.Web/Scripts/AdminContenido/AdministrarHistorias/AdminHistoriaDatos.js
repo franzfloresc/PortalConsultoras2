@@ -39,6 +39,10 @@
         NuevoDatos: 3,
         Deshabilitar: 4
     };
+    var _variables= {
+        VerMas: 'VER_MAS',
+        AgrCar: 'AGR_CAR',
+    };
 
     var _evento = function () {
         CargarGrilla();
@@ -64,9 +68,28 @@
         return act;
     };
 
+    var _GrillaDetaCodigo = function (cellvalue, options, rowObject) {      
+        var act = "";
+        if (cellvalue != null) {
+            if (cellvalue == _variables.VerMas) {
+                act = "<strong>" + rowObject[10] +"</strong>";
+                if (rowObject[11] != null) {
+                   act += " - " + rowObject[11];
+                }
+            } else if (cellvalue == _variables.AgrCar) {
+                act = "<strong>" + rowObject[10] + "</strong>";
+                if (rowObject[8] != null) {
+                   act += " - " + rowObject[8];
+                }
+            }
+        }
+        return act;
+    };
+
     $("#ddlCampania").change(function () {
         $(_elemento.TablaId).trigger('reloadGrid');
     })
+
     var CargarGrilla = function () {
         $(_elemento.TablaId).jqGrid('GridUnload');
 
@@ -77,12 +100,11 @@
             postData: ({
                 IdContenido: function () { return jQuery.trim($("#IdContenido").val()); },
                 Campania: function () { return jQuery.trim($("#ddlCampania").val()); }
-            }),
-           
+            }),           
             mtype: 'GET',
             contentType: 'application/json; charset=utf-8',
             multiselect: false,
-            colNames: ['ID', 'Tipo', 'Orden', 'Contenido', 'IdContenido', 'Campaña', 'Region', 'Zona', 'Seccion', 'AccionTb', 'CodigoDetalle', 'Acción'],
+            colNames: ['ID', 'Tipo', 'Orden', 'IdContenido', 'Campaña', 'Zona', 'Seccion', 'AccionHidden', 'CodigoDetalle', 'Acción', 'DetaAccionDescripcion', 'DetaCodigoDetalleDescripcion', 'Contenido',  'Opciones'],
             colModel: [
                 {
                     name: 'IdContenidoDeta',
@@ -107,7 +129,16 @@
                     align: 'center',
                     resizable: false,
                     sortable: false
-                },
+                },               
+                { name: 'IdContenido', index: 'IdContenido', hidden: true },
+                { name: 'Campania', index: 'Campania', width: 40, align: 'center', resizable: false, sortable: false},
+                { name: 'Zona', index: 'Zona', hidden: true },
+                { name: 'Seccion', index: 'Seccion', hidden: true },
+                { name: 'Accion', index: 'Accion', hidden: true },
+                { name: 'CodigoDetalle', index: 'CodigoDetalle', hidden: true },
+                { name: 'DetaCodigo', index: 'DetaCodigo', resizable: false, sortable: false, formatter: _GrillaDetaCodigo },
+                { name: 'DetaAccionDescripcion', index: 'DetaAccionDescripcion', hidden: true },
+                { name: 'DetaCodigoDetalleDescripcion', index: 'DetaCodigoDetalleDescripcion', hidden: true },
                 {
                     name: 'RutaContenido',
                     index: 'RutaContenido',
@@ -117,30 +148,21 @@
                     align: 'center',
                     formatter: _GrillaImagen
                 },
-                { name: 'IdContenido', index: 'IdContenido', hidden: true },
-                { name: 'Campania', index: 'Campania', width: 40, align: 'center' },
-                { name: 'Region', index: 'Region', hidden: true },
-                { name: 'Zona', index: 'Zona', hidden: true },
-                { name: 'Seccion', index: 'Seccion', hidden: true },
-                { name: 'Accion', index: 'Accion', hidden: true },
-                { name: 'CodigoDetalle', index: 'CodigoDetalle', hidden: true },                
                 {
                     name: 'Opciones',
                     index: 'Opciones',
-                    width: 20,
+                    width: 30,
                     align: 'center',
                     resizable: false,
                     sortable: false,
                     formatter: _GrillaAcciones
                 },
-
-
             ],
             pager: jQuery(_elemento.TablaPagina),
             loadtext: _texto.Cargando,
             recordtext: _texto.RegistroPaginar,
             emptyrecords: _texto.SinResultados,
-            rowNum: rowNumList,
+            rowNum: 15,
             scrollOffset: 0,
             rowList: [15, 20, 30, 40, 50],
             viewrecords: true,
@@ -154,7 +176,7 @@
         });
         jQuery(_elemento.TablaId).jqGrid('navGrid', _elemento.TablaPagina, { edit: false, add: false, refresh: false, del: false, search: false });
     };
-
+ 
     var GrillaEditar = function (event) {
 
         var rowId = $(event.path[1]).parents('tr').attr('id');
@@ -323,7 +345,6 @@
             IdContenidoDeta: row['IdContenidoDeta'],
             IdContenido: row['IdContenido'],
             Campania: row['Campania'],
-            Region: row['Region'],
             Zona: row['Zona'],
             Seccion: row['Seccion'],
             Accion: row['Accion'],
