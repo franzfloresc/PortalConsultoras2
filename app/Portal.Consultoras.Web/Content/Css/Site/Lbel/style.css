@@ -24495,13 +24495,11 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 
 
-        .contenedor_item_descripcion span::after {
+        /*.contenedor_item_descripcion span::after {
             content: '..';
-        }
+        }*/
 
-        .contenedor_item_descripcion span::after {
-            content: '..';
-        }
+        
 
 
     .contenedor_item_descripcion a {

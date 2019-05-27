@@ -332,9 +332,13 @@ namespace Portal.Consultoras.Web.Controllers
                     flagSetsOrPacks = SessionManager.GetFlagIsSetsOrPack();
                 }
 
-                if (flagSetsOrPacks == true)
+                if ((bool)flagSetsOrPacks)
                 {
+                    var desc = _cdrProvider.ObtenerDescripcion(model.Motivo, Constantes.TipoMensajeCDR.Motivo, userData.PaisID).Descripcion;
                     listaRetorno = listaRetorno.Where(a => a.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje || a.CodigoOperacion == Constantes.CodigoOperacionCDR.Devolucion).ToList();
+                    if (desc.Contains("mal estado") || desc.Contains("incompleta"))
+                        listaRetorno = listaRetorno.Where(a => a.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje).ToList();
+
                 }
 
                 return listaRetorno;
@@ -375,30 +379,9 @@ namespace Portal.Consultoras.Web.Controllers
             if (!listaPedidoFacturados.Any())
                 return false;
 
-            //validar si el cuv a cambiar se encuentra en un proceso de solicitud de cambio
-            //obtenermos los cdrs de pedidos
-            int estado = 0;
-            using (var sv = new CDRServiceClient())
-            {
-                estado = sv.ValCUVEnProcesoReclamo(userData.PaisID, model.PedidoID, model.CUV);
-            }
+            string mensaje = ValidarCUVEnProcesoReclamo(model);
 
-            string mensaje = null;
-            switch (estado)
-            {
-                case Constantes.EstadoCDRWeb.Pendiente:
-                case Constantes.EstadoCDRWeb.Enviado:
-                    mensaje = "El CUV se encuentra en un proceso de reclamo";
-                    break;
-                case Constantes.EstadoCDRWeb.Aceptado:
-                    mensaje = "El CUV ya fue tramitado en un proceso de reclamo";
-                    break;
-                default:
-                    mensaje = null;
-                    break;
-            }
-
-            if (mensaje != null)
+            if (mensaje.Length > 0)
             {
                 mensajeError = mensaje;
                 return false;
@@ -428,6 +411,34 @@ namespace Portal.Consultoras.Web.Controllers
 
             return cantidad >= 0;
         }
+        private string ValidarCUVEnProcesoReclamo(MisReclamosModel model)
+        {
+            //validar si el cuv a cambiar se encuentra en un proceso de solicitud de cambio
+            //obtenermos los cdrs de pedidos
+            int estado = 0;
+            using (var sv = new CDRServiceClient())
+            {
+                estado = sv.ValCUVEnProcesoReclamo(userData.PaisID, model.PedidoID, model.CUV);
+            }
+
+            string mensaje;
+            switch (estado)
+            {
+                case Constantes.EstadoCDRWeb.Pendiente:
+                case Constantes.EstadoCDRWeb.Enviado:
+                    mensaje = "El CUV se encuentra en un proceso de reclamo";
+                    break;
+                case Constantes.EstadoCDRWeb.Aceptado:
+                    mensaje = "El CUV ya fue tramitado en un proceso de reclamo";
+                    break;
+                default:
+                    mensaje = "";
+                    break;
+            }
+
+            return mensaje;
+        }
+
         public JsonResult BuscarCuvCambiar(MisReclamosModel model)
         {
             List<ProductoModel> producto = new List<ProductoModel>();
@@ -526,20 +537,31 @@ namespace Portal.Consultoras.Web.Controllers
             var isSetsOrPack = false;
             string[] estrategias = { "2002", "2003" };
             var cuvEnviar = string.Empty;
+
+            string mensajeError;
+            var valid = ValidarRegistro(model, out mensajeError);
+            if (!valid)
+                return Json(new
+                {
+                    success = false,
+                    message = mensajeError,
+                    data = respuestaServiceCdr,
+                    flagSetsOrPack = false,
+                }, JsonRequestBehavior.AllowGet);
+
             try
             {
                 var listaPedidoFacturados = SessionManager.GetCDRPedidoFacturado();
 
                 var cuvsPedido = listaPedidoFacturados
-                    .Where(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID)
-                    .FirstOrDefault()
+                    .First(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID)
                     .olstBEPedidoWebDetalle;
 
                 //lista de cuvs con cantidad 0 y son reemplazados
                 var cuvReemplazados = cuvsPedido.Where(a => a.Cantidad == 0 && a.CUVReemplazo != null);
 
                 //si el cambio es por el cuv que se reemplazò, enviamos el cuv original
-                var reemplazo = cuvReemplazados.Where(a => a.CUVReemplazo == model.CUV).FirstOrDefault();
+                var reemplazo = cuvReemplazados.FirstOrDefault(a => a.CUVReemplazo == model.CUV);
                 if (reemplazo != null)
                     cuvEnviar = reemplazo.CUV;
                 else
@@ -549,14 +571,14 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     respuestaServiceCdr = sv.GetCdrWeb_Reclamo(userData.CodigoISO, model.CampaniaID.ToString(),
                        userData.CodigoConsultora, cuvEnviar, model.Cantidad, userData.CodigoZona);
-                    if (respuestaServiceCdr != null)
-                    {
-                        isSetsOrPack = respuestaServiceCdr[0].LProductosComplementos.Count() > 0 && estrategias.Contains(respuestaServiceCdr[0].Estrategia.ToString());
-                        SessionManager.SetFlagIsSetsOrPack(isSetsOrPack);
+                }
+
+                isSetsOrPack = respuestaServiceCdr != null && respuestaServiceCdr[0].LProductosComplementos.Any() &&
+                    estrategias.Contains(respuestaServiceCdr[0].Estrategia.ToString());
+                SessionManager.SetFlagIsSetsOrPack(isSetsOrPack);
                     }
 
 
-                }
                 //reemplazar si tiene cuv reemplazo
                 if (respuestaServiceCdr.Any() && isSetsOrPack)
                 {
@@ -567,20 +589,18 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         //lista de cuvs en la factura
                         var cuvFacturados = listaPedidoFacturados
-                            .Where(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID)
-                            .FirstOrDefault()
+                            .First(a => a.CampaniaID == model.CampaniaID && a.PedidoID == model.PedidoID)
                             .olstBEPedidoWebDetalle.ToList();
-
 
                         int i = 0;
                         foreach (var item in respuestaServiceCdr[0].LProductosComplementos)
                         {
-                            var obj = cuvReemplazados.Where(a => a.CUV == item.cuv).FirstOrDefault();
+                            var obj = cuvReemplazados.FirstOrDefault(a => a.CUV == item.cuv);
                             var objReemplazo = new ProductosComplementos();
                             if (obj != null)
                             {
                                 //obtener los datos del cuv facturado 
-                                var objFacturado = cuvFacturados.Where(a => a.CUV == obj.CUVReemplazo).FirstOrDefault();
+                                var objFacturado = cuvFacturados.FirstOrDefault(a => a.CUV == obj.CUVReemplazo);
                                 objReemplazo.cuv = objFacturado.CUV;
                                 objReemplazo.cantidad = objFacturado.Cantidad;
                                 objReemplazo.descripcion = objFacturado.DescripcionProd;
@@ -611,6 +631,20 @@ namespace Portal.Consultoras.Web.Controllers
                                                                          where d.Cantidad > 0
                                                                          select c).ToArray();
                     }
+
+                    //validar si se encuentra en algún proceso de reclamo uno de los CUVS
+                    var cuvs = string.Join(";", respuestaServiceCdr[0].LProductosComplementos.Select(a => a.cuv).ToArray());
+                    model.CUV = cuvs;
+                    var mensajeRespuesta = ValidarCUVEnProcesoReclamo(model);
+                    if (mensajeRespuesta.Length > 0)
+                        return Json(new
+                        {
+                            success = false,
+                            message = mensajeRespuesta,
+                            data = respuestaServiceCdr,
+                            flagSetsOrPack = false,
+                        }, JsonRequestBehavior.AllowGet);
+
                 }
             }
             catch (Exception ex)
@@ -620,12 +654,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             #endregion
 
-            string mensajeError;
-            var valid = ValidarRegistro(model, out mensajeError);
             return Json(new
             {
-                success = valid,
-                message = mensajeError,
+                success = true,
+                message = "",
                 data = respuestaServiceCdr,
                 flagSetsOrPack = isSetsOrPack,
             }, JsonRequestBehavior.AllowGet);
@@ -646,7 +678,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json(new
                         {
                             success = false,
-                            message = "No está permitido el cambio de Packs y Sets por este medio. " + Constantes.CdrWebMensajes.ContactateChatEnLinea,
+                            message = "Lo sentimos, no se puede realizar el cambio por este producto.",
                         }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -837,7 +869,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
-
                 if (SessionManager.GetFlagIsSetsOrPack() != null)
                     IsSetsOrPack = SessionManager.GetFlagIsSetsOrPack();
 
@@ -846,7 +877,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (model.Complemento.Any())
                     {
 
-                        var cantidad = model.Complemento.Count();
+                        var cantidad = model.Complemento.Count;
                         var grupoId = Guid.NewGuid().ToString().ToUpper();
                         Array.Resize(ref arrComplemento, cantidad);
                         var i = 0;
@@ -1642,14 +1673,28 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var cdrWebDetalle in cdrWeb.CDRWebDetalle)
             {
                 string html = htmlTemplateDetalleBase.Clone().ToString();
+                string etiquetaHtml = "";
+                if (cdrWebDetalle.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje || cdrWebDetalle.CodigoOperacion == Constantes.CodigoOperacionCDR.Devolucion)
+                {
+                    if (!string.IsNullOrEmpty(cdrWebDetalle.GrupoID))
+                    {
+                        etiquetaHtml = "<tr><td style = 'width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; font-weight: 700; vertical-align: top; color: #000; padding-right: 14px;'>" +
+                                                             "<div style = 'display: block;border-radius: 10.5px;width: 87px;height: 27px;font-size: 14px;line-height: 27px;margin-top: 8px;padding-left: 8px;padding-right: 8px;background-color: #000;color: #fff;font-weight: 700; '>Set o Pack</div></td>" +
+                                                             "<td rowspan = '2' style = 'width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; font-weight: 700;' >" + "</td>" + "</tr> ";
+                    }
+                    
+                }
+                html = html.Replace("#ETIQUETA_SET_PACK#", etiquetaHtml);
                 html = html.Replace("#FORMATO_CUV1#", cdrWebDetalle.CUV);
-
-                string templateUrlDetalleOperacionBase =
-                    cdrWebDetalle.CodigoOperacion == "C" ? templateDetalleOperacionCanjePath :
-                    cdrWebDetalle.CodigoOperacion == "D" ? templateDetalleOperacionDevolucionPath :
-                    cdrWebDetalle.CodigoOperacion == "F" ? templateDetalleOperacionFaltantePath :
-                    cdrWebDetalle.CodigoOperacion == "G" ? templateDetalleOperacionFaltanteAbonoPath :
-                    templateUrlDetalleOperacionTruequePath;
+                string templateUrlDetalleOperacionBase = string.Empty;
+                switch (cdrWebDetalle.CodigoOperacion)
+                {
+                    case Constantes.CodigoOperacionCDR.Canje: templateUrlDetalleOperacionBase = templateDetalleOperacionCanjePath; break;
+                    case Constantes.CodigoOperacionCDR.Devolucion: templateUrlDetalleOperacionBase = templateDetalleOperacionDevolucionPath; break;
+                    case Constantes.CodigoOperacionCDR.Faltante: templateUrlDetalleOperacionBase = templateDetalleOperacionFaltantePath; break;
+                    case Constantes.CodigoOperacionCDR.FaltanteAbono: templateUrlDetalleOperacionBase = templateDetalleOperacionFaltanteAbonoPath; break;
+                    default: templateUrlDetalleOperacionBase = templateUrlDetalleOperacionTruequePath; break;
+                }
 
                 string htmlTemplateDetalleOperacion = FileManager.GetContenido(templateUrlDetalleOperacionBase);
                 string htmlOperacion = htmlTemplateDetalleOperacion.Clone().ToString();
@@ -1663,7 +1708,7 @@ namespace Portal.Consultoras.Web.Controllers
                     htmlOperacion = htmlOperacion.Replace("#FORMATO_SOLICITUD#", cdrWebDetalle.Solicitud);
                     htmlOperacion = htmlOperacion.Replace("#FORMATO_CANTIDAD1#", cdrWebDetalle.Cantidad.ToString());
                     htmlOperacion = htmlOperacion.Replace("#FORMATO_PRECIO1#", string.Format("{0} {1}", simbolo, Util.DecimalToStringFormat(cdrWebDetalle.Precio, isoPais)));
-
+                
                     bool primeraFila = false;
                     foreach (var item in listaDetalleCambio)
                     {
