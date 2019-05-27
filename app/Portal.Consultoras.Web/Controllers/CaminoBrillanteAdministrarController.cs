@@ -14,9 +14,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarTipoEstrategia/Index"))
-                //    return RedirectToAction("Index", "Bienvenida");
-
                 model.listaPaises = DropDowListPaises();
             }
             catch (FaultException ex)
@@ -24,7 +21,6 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return View(model);
-            //return View();
         }
     }
 }
