@@ -104,6 +104,7 @@
       <xs:element minOccurs="0" name="ObservacionPROL" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OfertaWeb" type="xs:boolean" />
       <xs:element minOccurs="0" name="OrigenPedidoWeb" type="xs:int" />
+      <xs:element minOccurs="0" name="OrigenSolicitud" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="PedidoDetalleID" type="xs:short" />
       <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
@@ -151,11 +152,15 @@
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ClienteID" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescuentoProl" nillable="true" type="xs:string" />
       <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ListCuvEliminar" nillable="true" type="q4:ArrayOfstring" />
       <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" minOccurs="0" name="ListaMensajeCondicional" nillable="true" type="q5:ArrayOfBEMensajeProl" />
       <xs:element minOccurs="0" name="MensajeAviso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ModificoBackOrder" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MontoAhorroCatalogo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MontoAhorroRevista" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MontoEscala" nillable="true" type="xs:string" />
       <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="PedidoWebDetalle" nillable="true" type="q6:BEPedidoWebDetalle" />
       <xs:element minOccurs="0" name="TituloMensaje" nillable="true" type="xs:string" />
     </xs:sequence>

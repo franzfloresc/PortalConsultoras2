@@ -269,7 +269,9 @@ $(document).ready(function () {
 
     CargarDialogMesajePostulantePedido();
 
-    CargarDetallePedido();
+    //INI HD-4200
+    ValidarSuscripcionSE(function () { CargarDetallePedido(); },1);
+    //FIN HD-4200
 });
 
 var ClienteDetalleOK = null;
