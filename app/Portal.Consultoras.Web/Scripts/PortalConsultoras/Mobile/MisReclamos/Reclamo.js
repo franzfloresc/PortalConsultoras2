@@ -659,6 +659,7 @@ $(document).ready(function () {
                     $(me.Variables.infoOpcionesDeCambio).hide();//solve bug 
                     $("#MensajeTenerEncuenta").hide();//solve bug
                     $("#VistaPaso3").hide();
+                    $(me.Variables.SolicitudEnviada).hide();
                     me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.uno_seleccion_de_producto);
                     $("#VistaPaso1y2").show();
                     $(me.Variables.ListaCoincidenciasBusquedaProductosCdr).empty();
