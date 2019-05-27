@@ -133,7 +133,6 @@
         var urlGetLogros = '@Url.Action("GetLogros", "CaminoBrillante")';
         var categoriaLogro = "@categoria";
     </script>
-
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/PortalConsultoras/CaminoBrillante/logros.js"></script>
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/logros")
 }

@@ -212,8 +212,8 @@
 </script>
 
 @section scripts{
-    <script src="~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"></script>
-    <script src="~/Scripts/PortalConsultoras/Cliente/Index.js"></script>
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/ofertas")
     <script type="text/javascript">
 
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
