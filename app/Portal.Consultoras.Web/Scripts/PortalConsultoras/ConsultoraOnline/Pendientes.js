@@ -53,7 +53,7 @@ function bindElments() {
 }
 
 function AceptarPedidoPendiente() {
-
+	
     var btn = $('.btnAccion a.ghost')[0];
 
     if (btn) {
@@ -107,6 +107,7 @@ function AceptarPedidoPendiente() {
                             /**  Al visualizar el popup de la confirmación debe enviar los siguiente eventos **/
 
                             var lstproduct = [];
+                            
                             var listProductos = [];
                             var pedidoSessionJson = JSON.parse(response.PedidosSesion);
 
@@ -154,8 +155,9 @@ function AceptarPedidoPendiente() {
                         if (response.code == 1) {
                             AbrirMensaje(response.message);
                         } else if (response.code == 2) {
-                            $('#MensajePedidoReservado').text(response.message);
-                            $('#AlertaPedidoReservado').show();
+                            //$('#MensajePedidoReservado').text(response.message);
+                            //$('#AlertaPedidoReservado').show();
+                            AbrirMensaje(response.message);
                         }
                     }
                 }

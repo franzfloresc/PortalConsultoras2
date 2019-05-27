@@ -35,18 +35,18 @@
                         <a href="@Request.UrlReferrer" class="enlace_regresar detalleP" title="Regresar"></a>
                     }
                 }
-            <h2 class="nombre_campania_pedido">
-                @if (Model.EstadoPedido == 1)
-                {
-                    <span>Mi pedido reservado</span>
-                }
-                else
-                {
-                    <span>Mi pedido</span>
-                }
-                
-                <span>@Model.DescripcionCampaniaActual</span>
-            </h2>
+                <h2 class="nombre_campania_pedido">
+                    @if (Model.EstadoPedido == 1)
+                    {
+                        <span>Mi pedido reservado</span>
+                    }
+                    else
+                    {
+                        <span>Mi pedido</span>
+                    }
+
+                    <span>@Model.DescripcionCampaniaActual</span>
+                </h2>
                 <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
                 <input type="hidden" id="hdfTotal" value="@Model.Total" />
                 @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")
@@ -104,7 +104,14 @@
 </div>
 
 <div class="btn_guardarPedido">
-    <input type="submit" style="text-transform:none" value="@Model.Prol" id="btnGuardarPedido" name="btnGuardarPedido" onclick="EjecutarPROL();" />
+    @if (Model.EstadoPedido == 1)
+    {
+        <input type="submit" style="text-transform: none" value="@Model.Prol" id="btnModificarPedidoMobile" onclick="AccionConfirmarModificarPedido();" />
+    }
+    else
+    {
+        <input type="submit" style="text-transform: none" value="@Model.Prol" id="btnGuardarPedido" name="btnGuardarPedido" onclick="EjecutarPROL();" />
+    }
 </div>
 
 <div class="MensajeAlertaMobile" id="popup-observaciones-prol" style="display:none;">
@@ -152,6 +159,38 @@
         </div>
     </div>
 </div>
+
+<div id="divConfirmValidarPROL2" style="display: none;">
+    <div class="terminos_title_2">
+        Importante
+    </div>
+    <div class="linea_superior margin_10"></div>
+    <div class="pop_pedido_mensaje">
+        <ul>
+            <li>Al hacer click en el botón <b>"Continuar"</b> se perderá la reserva de tus productos. Recuerda, que si lo modificas debes volver a validar.</li>
+        </ul><div id="divConfirmValidarPROL2" style="display: none;">
+            <div class="terminos_title_2">
+                Importante
+            </div>
+            <div class="linea_superior margin_10"></div>
+            <div class="pop_pedido_mensaje">
+                <ul>
+                    <li>Al hacer click en el botón <b>"Continuar"</b> se perderá la reserva de tus productos. Recuerda, que si lo modificas debes volver a validar.</li>
+                </ul>
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <input id="btnValidarConfirm" type="button" value="Cancelar" onclick="CerrarDialogo('divConfirmValidarPROL2')" class="input_modifica_horizontal" style="width: 120px; margin-left: 0;" />
+                <input id="btnNoValidarConfirm" type="button" value="Continuar" onclick="ConfirmarModificar()" class="input_modifica_horizontal" style="width: 120px; margin-left: 20px;" />
+            </div>
+        </div>
+
+    </div>
+    <div style="text-align: center; margin-top: 30px;">
+        <input id="btnValidarConfirm" type="button" value="Cancelar" onclick="CerrarDialogo('divConfirmValidarPROL2')" class="input_modifica_horizontal" style="width: 120px; margin-left: 0;" />
+        <input id="btnNoValidarConfirm" type="button" value="Continuar" onclick="ConfirmarModificar()" class="input_modifica_horizontal" style="width: 120px; margin-left: 20px;" />
+    </div>
+</div>
+
 
 <div id="MensajeLograste" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
@@ -391,7 +430,7 @@
                     {{/if}}
                 </div>
 
-                {{#if detalle.EsKitNueva}}                
+                {{#if detalle.EsKitNueva}}
                 <div class="icono_kitNuevas">
                     <a href="javascript:;" title="Ver Info Kit Nuevas">
                         <img src="@Url.Content("~/Content/Images/Esika/info-copy.png")" alt="Ver Info Kit Nuevas" />
@@ -399,7 +438,7 @@
                     <div class="tooltip_kitNuevas">
                         <span class="icono_notaDemanda" style="display:inline-block;"></span>
                         <span class="texto_tooltipKitNuevas">
-                            @Model.MensajeKitNuevas                            
+                            @Model.MensajeKitNuevas
                         </span>
                     </div>
                 </div>
@@ -443,80 +482,80 @@
                             {{/iff}}
 
                             @*{{#iff detalle.EsKitNueva '==' true}}
-                            <input type="tel"
-                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
-                                   maxlength="2"
-                                   name="Cantidad_{{detalle.PedidoDetalleID}}"
-                                   value="{{detalle.Cantidad}}"
-                                   data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
-                                   data-setId="{{detalle.SetID}}"
-                                   data-cantidad-input="-"
-                                   readonly="readonly"
-                                   autocomplete="off">
-                            <i class="arrow-down"></i>
-                            {{else iff detalle.TipoEstrategiaID '==' 1}}
-                            <input type="tel"
-                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
-                                   maxlength="2"
-                                   name="Cantidad_{{detalle.PedidoDetalleID}}"
-                                   value="{{detalle.Cantidad}}"
-                                   data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
-                                   data-setId="{{detalle.SetID}}"
-                                   data-cantidad-input="-"
-                                   readonly="readonly"
-                                   autocomplete="off">
-                            <i class="arrow-down"></i>
-                            {{else iff detalle.EsPremioElectivo}}
-                            <input type="tel"
-                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
-                                   maxlength="2"
-                                   name="Cantidad_{{detalle.PedidoDetalleID}}"
-                                   value="{{detalle.Cantidad}}"
-                                   data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
-                                   data-setId="{{detalle.SetID}}"
-                                   data-cantidad-input="-"
-                                   readonly="readonly"
-                                   autocomplete="off">
-                            <i class="arrow-down"></i>
-                            {{else iff detalle.EsKitCaminoBrillante}}
-                            <input type="tel"
-                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
-                                   maxlength="2"
-                                   name="Cantidad_{{detalle.PedidoDetalleID}}"
-                                   value="{{detalle.Cantidad}}"
-                                   data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
-                                   data-setId="{{detalle.SetID}}"
-                                   data-cantidad-input="-"
-                                   readonly="readonly"
-                                   autocomplete="off">
-                            <i class="arrow-down"></i>
-                            {{else iff TipoEstrategiaCodigo '==' @Constantes.TipoEstrategiaCodigo.ArmaTuPack}}
-                            <input type="tel"
-                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
-                                   maxlength="2"
-                                   name="Cantidad_{{detalle.PedidoDetalleID}}"
-                                   onblur="UpdateLiquidacionEvento(event)"
-                                   onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
-                                   value="{{detalle.Cantidad}}"
-                                   data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
-                                   data-setId="{{detalle.SetID}}"
-                                   data-cantidad-input="-"
-                                   readonly="readonly"
-                                   autocomplete="off">
-                            {{else}}
-                            <input type="tel"
-                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
-                                   maxlength="2"
-                                   name="Cantidad_{{detalle.PedidoDetalleID}}"
-                                   onblur="UpdateLiquidacionEvento(event)"
-                                   onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
-                                   value="{{detalle.Cantidad}}"
-                                   data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
-                                   data-setId="{{detalle.SetID}}"
-                                   data-cantidad-input="-"
-                                   autocomplete="off">
-                            <i class="arrow-down"></i>
-                            {{/iff}}*@
+                                <input type="tel"
+                                       class="ValidaNumeral ValidaPasteNumeral Cantidad"
+                                       maxlength="2"
+                                       name="Cantidad_{{detalle.PedidoDetalleID}}"
+                                       value="{{detalle.Cantidad}}"
+                                       data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                       data-setId="{{detalle.SetID}}"
+                                       data-cantidad-input="-"
+                                       readonly="readonly"
+                                       autocomplete="off">
+                                <i class="arrow-down"></i>
+                                {{else iff detalle.TipoEstrategiaID '==' 1}}
+                                <input type="tel"
+                                       class="ValidaNumeral ValidaPasteNumeral Cantidad"
+                                       maxlength="2"
+                                       name="Cantidad_{{detalle.PedidoDetalleID}}"
+                                       value="{{detalle.Cantidad}}"
+                                       data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                       data-setId="{{detalle.SetID}}"
+                                       data-cantidad-input="-"
+                                       readonly="readonly"
+                                       autocomplete="off">
+                                <i class="arrow-down"></i>
+                                {{else iff detalle.EsPremioElectivo}}
+                                <input type="tel"
+                                       class="ValidaNumeral ValidaPasteNumeral Cantidad"
+                                       maxlength="2"
+                                       name="Cantidad_{{detalle.PedidoDetalleID}}"
+                                       value="{{detalle.Cantidad}}"
+                                       data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                       data-setId="{{detalle.SetID}}"
+                                       data-cantidad-input="-"
+                                       readonly="readonly"
+                                       autocomplete="off">
+                                <i class="arrow-down"></i>
+                                {{else iff detalle.EsKitCaminoBrillante}}
+                                <input type="tel"
+                                       class="ValidaNumeral ValidaPasteNumeral Cantidad"
+                                       maxlength="2"
+                                       name="Cantidad_{{detalle.PedidoDetalleID}}"
+                                       value="{{detalle.Cantidad}}"
+                                       data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                       data-setId="{{detalle.SetID}}"
+                                       data-cantidad-input="-"
+                                       readonly="readonly"
+                                       autocomplete="off">
+                                <i class="arrow-down"></i>
+                                {{else iff TipoEstrategiaCodigo '==' @Constantes.TipoEstrategiaCodigo.ArmaTuPack}}
+                                <input type="tel"
+                                       class="ValidaNumeral ValidaPasteNumeral Cantidad"
+                                       maxlength="2"
+                                       name="Cantidad_{{detalle.PedidoDetalleID}}"
+                                       onblur="UpdateLiquidacionEvento(event)"
+                                       onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
+                                       value="{{detalle.Cantidad}}"
+                                       data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                       data-setId="{{detalle.SetID}}"
+                                       data-cantidad-input="-"
+                                       readonly="readonly"
+                                       autocomplete="off">
+                                {{else}}
+                                <input type="tel"
+                                       class="ValidaNumeral ValidaPasteNumeral Cantidad"
+                                       maxlength="2"
+                                       name="Cantidad_{{detalle.PedidoDetalleID}}"
+                                       onblur="UpdateLiquidacionEvento(event)"
+                                       onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
+                                       value="{{detalle.Cantidad}}"
+                                       data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                       data-setId="{{detalle.SetID}}"
+                                       data-cantidad-input="-"
+                                       autocomplete="off">
+                                <i class="arrow-down"></i>
+                                {{/iff}}*@
 
                         </div>
                         <div class="clear"></div>
@@ -1099,7 +1138,7 @@
     @if (Model.MostrarPopupPrecargados)
     {
         <script>
-            $(document).ready(function () {    
+            $(document).ready(function () {
                 messageInfoValidado('@Html.Raw(Constantes.RecuperacionPedido.Mensaje)');
             });
 

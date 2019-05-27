@@ -1222,3 +1222,37 @@ function PedidosPendientesPorAprobar() {
     if (!(typeof AnalyticsPortalModule === 'undefined'))
         AnalyticsPortalModule.ClickBotonPedidosPendientes('Click Botón', 'Pedidos por aprobar');
 }
+function AccionConfirmarModificarPedido() {
+	
+	ShowLoading();
+	jQuery.ajax({
+		type: 'POST',
+		url: urlDeshacerReservaPedidoReservado + '?Tipo=PV',
+		dataType: 'json',
+		contentType: 'application/json; charset=utf-8',
+		async: true,
+		success: function (data) {
+			if (checkTimeout(data)) {
+				if (data.success == true) {
+					location.reload();
+				} else {
+					CloseLoading();
+
+					//INI HD-3693
+					//messageInfoError(data.message);
+					var msjBloq = validarpopupBloqueada(data.message);
+					if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+					else messageInfoError(data.message);
+					//FIN HD-3693
+
+				}
+			}
+		},
+		error: function (data, error) {
+			if (checkTimeout(data)) {
+				CloseLoading();
+				messageInfo("Ocurrió un problema de conectividad. Por favor inténtelo mas tarde.");
+			}
+		}
+	});
+}

@@ -104,15 +104,58 @@ function AceptarPedidoPendiente(id, tipo) {
                             $("#btnIrPedido").removeClass("active");
                             $("#btnIrPedido").addClass("action-btn_refuse");
                         }
+                        
+                        /**  Si fue exitos debe enviar los siguiente eventos Analytics **/
+                        
+                        var lstproduct = [];
+                        var listProductos = [];
+                        var pedidoSessionJson = JSON.parse(response.PedidosSesion);
+
+                        if (response.ListaGana !== null) {
+                            listProductos = response.ListaGana || [];
+                        } else {
+                            listProductos = pedidoSessionJson[0].DetallePedido || [];
+                        }
+                        if (listProductos.length > 0) {
+                            listProductos.forEach(function (product) {
+                                if ($(btn).parent().data('accion') == "ingrgana") {  //por Gana+
+                                    var itemProduct = {
+                                        "id": product.CUV2,
+                                        "name": product.DescripcionCUV2,
+                                        "price": product.PrecioString,
+                                        "brand": product.DescripcionMarca,
+                                        "category": "(not available)",
+                                        "variant": "Estándar",
+                                        "quantity": product.Cantidad
+                                    };
+                                    lstproduct.push(itemProduct);
+                                } else {        //Por Catálogo
+                                    var itemProduct = {
+                                        "id": product.CUV,
+                                        "name": product.Producto,
+                                        "price": product.PrecioTotal.toFixed(2),
+                                        "brand": product.Marca,
+                                        "category": "(not available)",
+                                        "variant": "Estándar",
+                                        "quantity": product.Cantidad
+                                    };
+                                    lstproduct.push(itemProduct);
+                                }
+
+                            });
+
+                            AnalyticsMarcacionPopupConfirmacion($(btn).parent().data('accion') === "ingrgana" ? "Por Gana+" : "Por catálogo", lstproduct);
+                        }
                         return false;
-                    }
+                    }   
                     else {
                         if (response.code == 1) {
                             AbrirMensaje(response.message);
                         }
                         else if (response.code == 2) {
-                            $('#MensajePedidoReservado').text(response.message);
-                            $('#AlertaPedidoReservado').show();
+                            //$('#MensajePedidoReservado').text(response.message);
+                            //$('#AlertaPedidoReservado').show();
+                            AbrirMensaje(response.message);
                         }
                     }
                 }

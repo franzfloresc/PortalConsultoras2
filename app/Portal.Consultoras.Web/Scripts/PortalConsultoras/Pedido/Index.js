@@ -3032,6 +3032,11 @@ function CargarProductosRecomendados(item) {
 function ModificarPedido() {
 	showDialog("divConfirmValidarPROL2");
 }
+function CerrarDialogo(dialog) {
+	HideDialog(dialog); function CerrarDialogo(dialog) {
+		HideDialog(dialog);
+	}
+}
 
 function PedidosPendientesPorAprobar() {
 
