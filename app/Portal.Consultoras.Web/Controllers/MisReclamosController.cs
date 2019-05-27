@@ -576,9 +576,7 @@ namespace Portal.Consultoras.Web.Controllers
                 isSetsOrPack = respuestaServiceCdr != null && respuestaServiceCdr[0].LProductosComplementos.Any() &&
                     estrategias.Contains(respuestaServiceCdr[0].Estrategia.ToString());
                 SessionManager.SetFlagIsSetsOrPack(isSetsOrPack);
-                    }
-
-
+                
                 //reemplazar si tiene cuv reemplazo
                 if (respuestaServiceCdr.Any() && isSetsOrPack)
                 {
