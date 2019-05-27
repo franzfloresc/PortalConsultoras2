@@ -309,6 +309,10 @@
             height: 38px;
         }
 
+    .layout__header--nuevoLookAndFeelEsika .menu__item--lateralDerechoIcono[data-title="Notificaciones"] {
+        min-width: 0;
+    }
+
 }
 
 /*  FIN - HD-4065 - CAMBIO DE LOOK AND FEEL DE ÉSIKA */
