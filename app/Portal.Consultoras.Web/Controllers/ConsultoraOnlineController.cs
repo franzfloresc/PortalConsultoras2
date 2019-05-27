@@ -3280,8 +3280,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        String titulo = "(" + userData.CodigoISO + ") Consultora que atenderá tu pedido de " +
-                                        HttpUtility.HtmlDecode(marcaPedido);
+                        //String titulo = "(" + userData.CodigoISO + ") Consultora que atenderá tu pedido de " +
+                        //                HttpUtility.HtmlDecode(marcaPedido);
                         StringBuilder mensaje = new StringBuilder();
                         mensaje.AppendFormat("<p>Hola {0},</br><br /><br />", HttpUtility.HtmlDecode(pedidoAux.Cliente));
                         mensaje.AppendFormat("{0}</p><br/>", mensajeaCliente);
