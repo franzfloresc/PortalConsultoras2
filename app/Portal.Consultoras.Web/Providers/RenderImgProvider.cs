@@ -199,7 +199,7 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public string ImagenesResizeProcesoAppHistDetalle(string urlImagen, string codigoIso, int paisID, string palanca)
+        public string ImagenesResizeProcesoAppHistDetalle(string urlImagen, string codigoIso, int paisID, string palanca, string cadena)
         {
             var mensajeErrorImagenResize = string.Empty;
 
@@ -222,7 +222,7 @@ namespace Portal.Consultoras.Web.Providers
                     var soloImagen = Path.GetFileNameWithoutExtension(urlImagen);
                     var soloExtension = Path.GetExtension(urlImagen);
                     var fileName = string.Concat(soloImagen, tipo, soloExtension);
-                    var rutaImagenResize = ConfigS3.GetUrlFileHistDetalle(codigoIso, fileName);
+                    var rutaImagenResize = ConfigS3.GetUrlFileHistDetalle(codigoIso, fileName, cadena);
                     //var rutaImagenResize = ConfigS3.GetUrlFileS3Matriz(codigoIso, fileName);
 
                     var entidad = new EntidadMagickResize
@@ -238,7 +238,7 @@ namespace Portal.Consultoras.Web.Providers
                     return entidad;
                 }).ToList();
 
-                MagickNetLibrary.GuardarImagenesResizeParaleloHistDetalle(lstFinal, true);
+                MagickNetLibrary.GuardarImagenesResizeParaleloHistDetalle(lstFinal, cadena, true);
             }
 
             return mensajeErrorImagenResize;

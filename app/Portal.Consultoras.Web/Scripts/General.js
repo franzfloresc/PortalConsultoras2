@@ -2188,3 +2188,18 @@ function validarpopupBloqueada(message) {
 }
 //FIN HD-3693
 
+function AbrirMensajeImagen(mensaje) {
+    var popup = $('#PopupInformacionRegalo');
+    popup.find('.popup__somos__belcorp--informacionRegalo').addClass('mostrarPopup');
+    var mensajeDv = popup.find('.mensaje_regalo');
+
+    mensajeDv.html(mensaje);
+
+    popup.show();
+}
+
+function AbrirChatBot() {
+    if (typeof ChatBotUrlRef === 'undefined') return;
+
+    window.location.href = ChatBotUrlRef;
+}
