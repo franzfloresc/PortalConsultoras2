@@ -188,17 +188,34 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var listaEstadoSeguimiento = new List<SeguimientoMobileModel>();
 
-            foreach (var item in listaEstado)
+            var listaSeguimiento = AutoMapper.Mapper.Map<List<BETracking>, List<SeguimientoMobileModel>>(listaEstado);
+
+            var listaSeguimientoSecundario = listaSeguimiento.Where(a => a.Etapa != Constantes.SegPedidoSituacion.HoraEstimadaEntregaDesde
+            && a.Etapa != Constantes.SegPedidoSituacion.HoraEstimadaEntregaHasta);
+
+
+            var horaEstimadaEntregaDesde = string.Empty;
+            var horaEstimadaEntregaHasta = string.Empty;
+
+            var desde = listaEstado.FirstOrDefault(a => a.Etapa == Constantes.SegPedidoSituacion.HoraEstimadaEntregaDesde);
+            var hasta = listaEstado.FirstOrDefault(a => a.Etapa == Constantes.SegPedidoSituacion.HoraEstimadaEntregaHasta);
+
+            if (desde != null && hasta != null)
             {
-                var estadoSeguimiento = Mapper.Map<SeguimientoMobileModel>(item);
+                if (desde.Fecha.HasValue) horaEstimadaEntregaDesde = desde.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? string.Empty : desde.Fecha.Value.ToString("HH:mm tt");
+                if (hasta.Fecha.HasValue) horaEstimadaEntregaHasta = hasta.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? string.Empty : hasta.Fecha.Value.ToString("HH:mm tt");
+            }
+
+            foreach (var item in listaSeguimientoSecundario)
+            {
                 if (!item.Fecha.HasValue)
                 {
-                    listaEstadoSeguimiento.Add(estadoSeguimiento);
+                    listaEstadoSeguimiento.Add(item);
                     continue;
                 }
 
-                estadoSeguimiento.DiaMes = item.Fecha.Value.ToString("dd/MM");
-                estadoSeguimiento.HoraMinuto = item.Fecha.Value.ToString("hh:mm tt");
+                item.DiaMes = item.Fecha.Value.ToString("dd/MM");
+                item.HoraMinuto = item.Fecha.Value.ToString("hh:mm tt");
 
                 var fechaFormatted = item.Fecha.Value.TimeOfDay.TotalHours.Equals(0)
                         ? item.Fecha.Value.ToString("dd/MM/yyyy")
@@ -209,34 +226,79 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     case "01/01/0001":
                     case "1/01/0001":
                     case "01/01/2001":
-                        estadoSeguimiento.DiaMes = string.Empty;
-                        estadoSeguimiento.HoraMinuto = string.Empty;
+                        item.DiaMes = string.Empty;
+                        item.HoraMinuto = string.Empty;
                         break;
                     case "01/01/2010":
                         var temp = novedades.FirstOrDefault(p => p.TipoEntrega == "01");
                         if (temp != null && temp.FechaNovedad.HasValue)
                         {
                             var fechaTemp = temp.FechaNovedad;
-                            estadoSeguimiento.DiaMes = fechaTemp.Value.ToString("dd/MM");
-                            estadoSeguimiento.HoraMinuto = fechaTemp.Value.ToString("hh:mm tt");
+                            item.DiaMes = fechaTemp.Value.ToString("dd/MM");
+                            item.HoraMinuto = fechaTemp.Value.ToString("hh:mm tt");
                         }
                         else
                         {
-                            estadoSeguimiento.DiaMes = string.Empty;
-                            estadoSeguimiento.HoraMinuto = string.Empty;
+                            item.DiaMes = string.Empty;
+                            item.HoraMinuto = string.Empty;
                         }
                         break;
                     case "02/01/2010":
-                        estadoSeguimiento.DiaMes = "No Entregado";
-                        estadoSeguimiento.HoraMinuto = "";
+                        item.DiaMes = "No Entregado";
+                        item.HoraMinuto = "";
                         break;
                 }
 
-                listaEstadoSeguimiento.Add(estadoSeguimiento);
-            }
+                var flag = horaEstimadaEntregaDesde != string.Empty && horaEstimadaEntregaHasta != string.Empty;
 
+                if (item.Etapa == Constantes.SegPedidoSituacion.FechaEstimadaEntrega && flag)
+                    item.HoraEstimadaDesdeHasta = ValidarZonaRegion() ? string.Format("{0} - {1}", horaEstimadaEntregaDesde, horaEstimadaEntregaHasta) : "";
+
+                listaEstadoSeguimiento.Add(item);
+            }
             return listaEstadoSeguimiento;
         }
+        public bool ValidarZonaRegion()
+        {
+            try
+            {
+                using (var sv = new ServiceSAC.SACServiceClient())
+                {
+                    int paisid, zonaid, regionid;
+                    int.TryParse(userData.PaisID.ToString(), out paisid);
+                    int.TryParse(userData.ZonaID.ToString(), out zonaid);
+                    int.TryParse(userData.RegionID.ToString(), out regionid);
+                    var resultado = sv.GetTablaLogicaDatos(paisid, ConsTablaLogica.SegPedidoRegionZona.TablaLogicaId).FirstOrDefault();
+                    if (resultado == null) return true; // si no hay registros mostrar para todos
+                    if (resultado.Valor.IsNullOrEmptyTrim()) return false;
+                    string[] arrZonaRegion = resultado.Valor.Split(';');
+                    foreach (var item in arrZonaRegion)
+                    {
+                        //Extraer la zona y la region
+                        string[] arrItem = item.Split(',');
+                        int nzonaid, nregionid;
+                        int.TryParse(arrItem[1], out nzonaid);
+                        int.TryParse(arrItem[0], out nregionid);
+                        if (zonaid == nzonaid && regionid == nregionid) return true;
+                    }
+                }
+                return false;
+            }
+            catch (FaultException ex)
+            {
+
+                ViewBag.MensajeError = ex.Message;
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                ViewBag.MensajeError = ex.Message;
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return false;
+            }
+        }
+
 
         #endregion
     }

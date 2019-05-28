@@ -159,5 +159,14 @@ namespace Portal.Consultoras.Web.Models
         public bool EsPremioElectivo { get; set; }
         public bool LockPremioElectivo { get; set; }
         public bool EsCuponIndependiente { get; set; }
+
+        public bool EsKitCaminoBrillante { get; set; }
+        public bool FlagModificaCantidad { get; set; }
+        public bool FlagModificaCliente { get; set; }
+        public bool FlagVerCuv { get; set; }
+
+        //INI HD-4200
+        public bool EsSuscripcionSE { get; set; }
+        //FIN HD-4200
     }
 }

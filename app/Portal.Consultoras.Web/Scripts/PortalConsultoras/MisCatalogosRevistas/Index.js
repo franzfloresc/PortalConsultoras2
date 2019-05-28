@@ -35,6 +35,17 @@ $(document).ready(function () {
             version: 'v3.0'
         });
 
+        if (typeof IsoPais !== 'undefined' && IsoPais == 'PE') {
+            FB.Event.subscribe('customerchat.load', function() {
+                setTimeout(function () {
+                    $('.fb_dialog_content').append('<div class="icono_chat_sb"></div>');
+                    $('body').on('click', '.icono_chat_sb', function (e) {
+                        FB.CustomerChat.showDialog();
+                    });
+                }, 2000);
+            });
+        }
+
         FB.getLoginStatus(function (response) {
             if (response.status === 'connected') {
                 getInfoFB(1);
@@ -42,7 +53,6 @@ $(document).ready(function () {
         });
        
     };
-
     (function (d, s, id) {
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) { return; }
@@ -1037,7 +1047,8 @@ function getUrlImagenPortadaRevistaPromise(codigoCampania) {
     var defered = jQuery.Deferred();
 
     var data = JSON.stringify({
-        codigoRevista: RevistaCodigoIssuu[codigoCampania]
+        //codigoRevista: RevistaCodigoIssuu[codigoCampania],
+        codigoCampania: codigoCampania
     });
     jQuery.ajax({
         type: 'POST',
@@ -1092,16 +1103,6 @@ function MonstrarAlerta(texto) {
 
 function MarcarCompartirFbExitoso() {
     
-    //if (window.location.search.includes("catalogo_compartido_fb")) {        
-    //    dataLayer.push({
-    //        'event': 'virtualEvent',
-    //        'category': 'Catálogos y revistas',
-    //        'action': 'Catálogo Digital - Compartir FB',
-    //        'label' : campaniaCodigo
-    //    });
-
-    //    window.close();
-    //}
     if (window.location.search.indexOf("catalogo_compartido_fb_messenger") > -1) {
         dataLayer.push({
             'event': 'virtualEvent',

@@ -1,0 +1,25 @@
+﻿
+<link href="@Url.Content("~/Content/Css/Site/Shared/PopupsResponsive/general-popups.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Site/Shared/PopupsResponsive/popup-informacion-regalos.css")" rel="stylesheet" />
+
+<div class="popup__wrapper bg__popups__default" id="PopupInformacionRegalo">
+    <div class="popup__somos__belcorp popup__somos__belcorp--informacionRegalo mostrarPopup">
+        <div class="popup__somos__belcorp__cabecera">
+            <a href="#" onclick="javascript: $('#PopupInformacionRegalo').fadeOut(100); $(this).parents('.popup__somos__belcorp--informacionRegalo').removeClass('mostrarPopup');" title="Cerrar" class="popup__somos__belcorp__icono__cerrar popup__somos__belcorp__icono__cerrar--informacionRegalo">
+                <img src="@Url.Content("~/Content/Images/icono_cerrar_popup.svg")" alt="Cerrar Popup" />
+            </a>
+        </div>
+        <div class="popup__somos__belcorp__contenido popup__somos__belcorp__contenido--informacionRegalo">
+            <div class="popup__somos__belcorp__imagen">
+                <img src="@(ViewBag.UrlRaizS3)Menu/MiNegocio/@(ViewBag.codigoISOMenu)/RXP@(ViewBag.CampaniaCodigo).jpg" alt="Premio RxP" />
+            </div>
+            <div>
+                <div class="mensaje_regalo popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--informacionRegalo">
+                </div>
+                <button onclick="javascript: $('#PopupInformacionRegalo').fadeOut(100); $(this).parents('.popup__somos__belcorp--informacionRegalo').removeClass('mostrarPopup');" class="multimarca-background-color popup__somos__belcorp__btn popup__somos__belcorp__btn--aceptar" title="Aceptar">
+                    Aceptar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

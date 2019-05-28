@@ -20,7 +20,6 @@ namespace Portal.Consultoras.Entities.Pedido
         public int RowCount { get; set; }
         [DataMember]
         public bool ValidarOpt { get; set; }
-
         [DataMember]
         public BEUsuario Usuario { get; set; }
     }

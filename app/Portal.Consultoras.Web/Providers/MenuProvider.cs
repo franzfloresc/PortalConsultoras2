@@ -209,7 +209,7 @@ namespace Portal.Consultoras.Web.Providers
             return userSession;
         }
 
-        public string GetUrlImagenMenuOfertas(string codigoIso, RevistaDigitalModel revistaDigital)
+        public string GetUrlImagenMenuOfertas(string codigoIso, RevistaDigitalModel revistaDigital, bool isMobile = false)
         {
             var urlImagen = string.Empty;
             var tieneRevistaDigital = revistaDigital.TieneRevistaDigital();
@@ -230,7 +230,7 @@ namespace Portal.Consultoras.Web.Providers
 
             if (tieneRevistaDigital && !revistaDigital.EsSuscrita)
             {
-                urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
+                urlImagen = isMobile ? revistaDigital.LogoMenuOfertasNoActivaMobile : revistaDigital.LogoMenuOfertasNoActiva;
                 urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
@@ -241,7 +241,7 @@ namespace Portal.Consultoras.Web.Providers
 
             if (tieneRevistaDigital && revistaDigital.EsSuscrita)
             {
-                urlImagen = revistaDigital.LogoMenuOfertasActiva;
+                urlImagen = isMobile ? revistaDigital.LogoMenuOfertasActivaMobile : revistaDigital.LogoMenuOfertasActiva;
                 urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
@@ -251,7 +251,7 @@ namespace Portal.Consultoras.Web.Providers
 
             if (revistaDigital.TieneRDI)
             {
-                urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
+                urlImagen = isMobile ? revistaDigital.LogoMenuOfertasNoActivaMobile : revistaDigital.LogoMenuOfertasNoActiva;
                 urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
@@ -286,8 +286,7 @@ namespace Portal.Consultoras.Web.Providers
         public UsuarioModel GetMenuMobileModel(UsuarioModel userSession, RevistaDigitalModel revistaDigital, HttpRequestBase request, bool tieneTituloCatalogo)
         {
             var lstMenuMobileModel = GetMenuMobileModelService(userSession.PaisID);
-            //
-
+           
             userSession.ConsultoraOnlineMenuResumen = new ConsultoraOnlineMenuResumenModel();
 
             if ((userSession.CatalogoPersonalizado == 0 || !userSession.EsCatalogoPersonalizadoZonaValida) &&
@@ -358,6 +357,13 @@ namespace Portal.Consultoras.Web.Providers
                     continue;
                 }
 
+                /* INI HD-4086 */
+                if (menu.MenuMobileID == Constantes.MenuMobileId.Bonificaciones && userSession.PaisID == Constantes.PaisID.Peru)
+                {
+                    menu.Descripcion = menu.Descripcion.Replace("Bonificaciones", "Incentivos");
+                    menu.UrlItem = menu.UrlItem.Replace("Bonificaciones", "Incentivos");
+                }
+                /* FIN HD-4086 */
                 menu.ClaseMenu = "";
                 menu.ClaseMenuItem = "";
 
@@ -382,7 +388,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (menu.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower())
                 {
-                    menu.UrlImagen = GetUrlImagenMenuOfertas(userSession.CodigoISO, revistaDigital);
+                    menu.UrlImagen = GetUrlImagenMenuOfertas(userSession.CodigoISO, revistaDigital, true);
                 }
 
                 listadoMenuFinal.Add(menu);
@@ -420,7 +426,7 @@ namespace Portal.Consultoras.Web.Providers
                     lstModel = lstModel.OrderBy(p => p.OrdenItem).ToList();
                 }
             }
-            //
+
             userSession.MenuMobile = lstModel;
             sessionManager.SetUserData(userSession);
             return userSession;

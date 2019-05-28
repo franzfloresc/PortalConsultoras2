@@ -1,0 +1,409 @@
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.OfertaProductoModel
+@{
+    ViewBag.Title = "Configuracón de indicadores de Camino Brillante";
+}
+<script type="text/javascript">
+
+    $(document).unbind('keydown').bind('keydown', function (event) {
+        var doPrevent = false;
+        if (event.keyCode === 8) {
+            var d = event.srcElement || event.target;
+            if ((d.tagName.toUpperCase() === 'INPUT' && (d.type.toUpperCase() === 'TEXT' || d.type.toUpperCase() === 'PASSWORD'))
+                 || d.tagName.toUpperCase() === 'TEXTAREA') {
+                doPrevent = d.readOnly || d.disabled;
+            }
+            else {
+                doPrevent = true;
+            }
+        }
+        if (doPrevent) {
+            event.preventDefault();
+        }
+    });
+
+    jQuery(document).ready(function () {
+        $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
+        IniDialog();
+
+        $("#btnNuevo").click(function () {
+            Limpiar();
+            //showDialog("DialogAdministracionCodigoOferta");
+            showDialog("DialogAdministracionIndicadoresCaminoBrillante");
+        });
+
+        $("#btnBuscar").click(function () {
+            if ($("#ddlPais").val() == "") {
+                alert("Debe seleccionar el País, verifique.");
+                return false;
+            }
+            fnGrilla();
+        });
+
+        $('#ddlPais').change(function () {
+            var Id = $(this).val();
+            if (Id == "") {
+                $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
+            }
+        });
+    });
+
+    function IniDialog() {
+        $('#DialogAdministracionIndicadoresCaminoBrillante').dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 500,
+            draggable: true,
+            title: "Registro/Edición de Configuración Camino Brillante",
+            close: function () {
+                HideDialog("DialogAdministracionIndicadoresCaminoBrillante");
+            },
+            buttons:
+            {
+                "Guardar": function () {
+                    var vMessage = "";
+                    if (jQuery.trim($('#ddlPaisModal').val()) == "")
+                        vMessage += "- Debe seleccionar el País al cual será asociado el código de oferta.\n";
+                    if (jQuery.trim($('#ddlLogroModal').val()) == "0")
+                        vMessage += "- Debe seleccionar un Logro para el registro asociado.\n";
+                    if (jQuery.trim($('#ddlIndicadorModal').val()) == "0")
+                        vMessage += "- Debe seleccionar el Indicador para el registro asociado.\n";
+                    if (jQuery.trim($('#txtOrden').val()) == "")
+                        vMessage += "- Debe ingresar un orden.\n";
+                    if (jQuery.trim($('#txtCodigo').val()) == "")
+                        vMessage += "- Debe ingresar el Código de Indicador.\n";
+
+                    if (vMessage != "") {
+                        alert(vMessage);
+                        $('#ddlAdministradorModal').focus();
+                        return false;
+                    }
+                    else {
+                        if ($('#hdConfiguraconOfertaID').val() == "0") {
+                            $.getJSON(baseUrl + 'AdministracionOferta/ValidarCodigoOferta', { paisID: $('#ddlPaisModal').val(), codigoOferta: jQuery.trim($('#txtCodigoOferta').val()) }, function (data) {
+                                if (data.existe == 0)
+                                    RegistrarConfiguracionOferta();
+                                else {
+                                    alert("El código de Oferta ingresado ya está asociado a otro registro, verifique.");
+                                    return false;
+                                }
+                            });
+                        } else {
+                            if ($.trim($("#hdCodigoOfertaAnterior").val()) != jQuery.trim($('#txtCodigoOferta').val())) {
+                                $.getJSON(baseUrl + 'AdministracionOferta/ValidarCodigoOferta', { paisID: $('#ddlPaisModal').val(), codigoOferta: jQuery.trim($('#txtCodigoOferta').val()) }, function (data) {
+                                    if (data.existe == 0)
+                                        RegistrarConfiguracionOferta();
+                                    else {
+                                        alert("El código de Oferta ingresado ya está asociado a otro registro, verifique.");
+                                        return false;
+                                    }
+                                });
+                            } else {
+                                RegistrarConfiguracionOferta();
+                            }
+                        }
+                    }
+                },
+                "Cancelar": function () {
+                    HideDialog("DialogAdministracionCodigoOferta");
+                }
+            }
+        });
+    }
+
+    function fnGrilla() {
+        jQuery("#list").jqGrid({
+            url: baseUrl + "AdministracionOferta/Consultar",
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                PaisID: function () { return jQuery.trim($("#ddlPais").val()); },
+                TipoOfertaSisID: function () { return jQuery.trim($("#ddlAdministrador").val()); }
+            }),
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['Administrador', 'Código Oferta', 'Nombre', 'Estado', ''],
+            colModel: [
+                { name: 'Administrador', index: 'Administrador', width: 120, editable: true, resizable: false, formatter: ShowNombre },
+                { name: 'CodigoOferta', index: 'CodigoOferta', width: 80, editable: true, resizable: false },
+                { name: 'Descripcion', index: 'Descripcion', width: 80, editable: true, resizable: false },
+                { name: 'Estado', index: 'Estado', width: 80, editable: true, resizable: false, formatter: ShowEstado, hidden: true },
+                { name: 'Activo', index: 'Activo', width: 25, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
+            ],
+            jsonReader:
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: true,
+                    cell: "cell",
+                    id: "id"
+                },
+            pager: jQuery('#pager'),
+            loadtext: 'Cargando datos...',
+            recordtext: "{0} - {1} de {2} Registros",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [10, 20, 30, 40, 50],
+            sortname: 'Nombre',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            width: '930',
+            height: 'auto',
+            pgtext: 'Pág: {0} de {1}',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function () { }
+        });
+        jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+
+        function ShowActions(cellvalue, options, rowObject) {
+
+            var Edit = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('" + rowObject[4] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Código Oferta' title='Editar Código Oferta border='0' /></a>";
+            var Del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[4] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Desactivar Código Oferta' title='Desactivar Código Oferta' border='0' /></a>";
+
+            if (rowObject[3] == "1")
+                return Edit + Del;
+            else
+                return Edit;
+        };
+
+        function ShowEstado(cellvalue, options, rowObject) {
+            if (cellvalue == "1")
+                return "Activo";
+            else
+                return "Inactivo";
+        };
+
+        function ShowNombre(cellvalue, options, rowObject) {
+            if ('@Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion' == rowObject[0])
+                return "Administrador Liquidación";
+            else if ('@Portal.Consultoras.Common.Constantes.ConfiguracionOferta.CrossSelling' == rowObject[0])
+                return "Administrador Productos Recomendados";
+            else if ('@Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Nueva' == rowObject[0])
+                return "Administrador Para Nuevas";
+            else if ('@Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Flexipago' == rowObject[0])
+                return "Administrador Flexipago";
+            else if ('@Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Accesorizate' == rowObject[0])
+                return "Administrador Accesorizate";
+            else
+                return "Administrador Web";
+        };
+    }
+
+    $.jgrid.extend({
+        Editar: function (Id) {
+            if (Id) {
+                Limpiar();
+                $('#hdConfiguraconOfertaID').val(Id);
+                $('#ddlPaisModal').val($("#ddlPais").val());
+                $('#ddlAdministradorModal option:contains("' + jQuery("#list").jqGrid('getCell', Id, 'Administrador') + '")').attr('selected', true);
+                $('#txtNombreOferta').val(jQuery("#list").jqGrid('getCell', Id, 'Descripcion'));
+                $('#txtCodigoOferta').val(jQuery("#list").jqGrid('getCell', Id, 'CodigoOferta'));
+                $("#hdCodigoOfertaAnterior").val(jQuery("#list").jqGrid('getCell', Id, 'CodigoOferta'));
+                showDialog("DialogAdministracionCodigoOferta");
+            } else {
+                alert("No selecciono el Cliente");
+            }
+            return false;
+        },
+
+    Eliminar: function (Id) {
+        var PaisID = $("#ddlPais").val();
+        if (Id == '@Portal.Consultoras.Common.Constantes.TipoOferta.Web' || Id == '@Portal.Consultoras.Common.Constantes.TipoOferta.Dupla' || Id == '@Portal.Consultoras.Common.Constantes.TipoOferta.Liquidacion' || Id == '@Portal.Consultoras.Common.Constantes.TipoOferta.CrossSelling'
+                || Id == '@Portal.Consultoras.Common.Constantes.TipoOferta.Nueva'
+                || Id == '@Portal.Consultoras.Common.Constantes.TipoOferta.Accesorizate') {
+                alert("El registro seleccionado no se puede eliminar, ya que está siendo usado");
+                return false;
+            }
+
+            var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado?');
+            if (!elimina)
+                return false;
+            waitingDialog({});
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'AdministracionOferta/Eliminar',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ PaisID: PaisID, ConfiguracionOfertaID: Id }),
+                async: true,
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        if (data.success == true) {
+                            alert(data.message);
+                            jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                        }
+                        else
+                            alert(data.message);
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                    }
+                }
+            });
+            return false;
+        }
+    });
+
+    function Limpiar() {
+        $("#ddlAdministradorModal").val(0);
+        $("#ddlPaisModal").val("");
+        $("#txtNombreOferta").val("");
+        $("#txtCodigoOferta").val("");
+        $("#hdConfiguraconOfertaID").val("0");
+    }
+
+    function RegistrarConfiguracionOferta() {
+        var PaisID = $("#ddlPaisModal").val();
+        var item = {
+            PaisID: PaisID,
+            ConfiguracionOfertaID: jQuery('#hdConfiguraconOfertaID').val(),
+            TipoOfertaSisID: jQuery('#ddlAdministradorModal').val(),
+            CodigoOferta: $.trim(jQuery('#txtCodigoOferta').val()),
+            Descripcion: $("#txtNombreOferta").val()
+        };
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'AdministracionOferta/Mantener',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    if (data.success == true) {
+                        var item = data.items;
+                        alert(data.message);
+                        HideDialog("DialogAdministracionCodigoOferta");
+                        Limpiar();
+                        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                    }
+                    else {
+                        alert(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    alert(data.message);
+                    HideDialog("DialogAdministracionCodigoOferta");
+                }
+            }
+        });
+    }
+
+</script>
+<div class="wrap_cab">
+    <div class="filtros">
+        <div class="elements">
+            <div class="div-2">
+                <h1>Administración <span>de Códigos de Oferta</span></h1>
+            </div>
+            <div class="div-3">
+                <div class="titC">Pais:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.lstPais, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
+                </div>
+                <div class="titG">Administrador:</div>
+                <div class="selectA borde_redondeado">
+                    <select id="ddlAdministrador">
+                        <option value="0">-- Todos --</option>
+                        <option value="1701">Administrador Web</option>
+                        <option value="1702">Administrador Liquidación</option>
+                        <option value="1703">Administrador Productos Recomendados</option>
+                        <option value="1704">Administrador Para Nuevas</option>
+                        <option value="1705">Administrador Flexipago</option>
+                        <option value="1707">Administrador Ofertas Showroom</option>
+                        @foreach (var item in Model.lstPais)
+                        {
+                            if (item.CodigoISO == Constantes.CodigosISOPais.Ecuador)
+                            {
+                                <option value="1706">Administrador Accesorizate</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="input_search">
+                    <input type="button" name="" id="btnBuscar" value="Buscar">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper">
+            <table id="list"></table>
+            <div id="pager"></div>
+        </div>
+        <div class="div-3">
+            <div class="titAuto">
+                <div class="input_search">
+                    <input type="button" name="" id="btnNuevo" value="Nuevo" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="loadingScreen"></div>
+
+<div id="DialogAdministracionCodigoOferta" style="display: none;">
+    <input type="hidden" id="hdConfiguraconOfertaID" value="0" />
+    <input type="hidden" id="hdCodigoOfertaAnterior" value="" />
+    <div class="Content_modal">
+        <div class="div-3">
+            <div class="titG">Pais:</div>
+            <div class="selectA borde_redondeado">
+                @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.lstPais, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPaisModal" })
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Administrador:</div>
+            <div class="selectA borde_redondeado">
+                <select id="ddlAdministradorModal">
+                    <option value="0">-- Seleccione --</option>
+                    <option value="1701">Administrador Web</option>
+                    <option value="1702">Administrador Liquidación</option>
+                    <option value="1703">Administrador Productos Recomendados</option>
+                    <option value="1704">Administrador Para Nuevas</option>
+                    <option value="1705">Administrador Flexipago</option>
+                    <option value="1707">Administrador Ofertas Showroom</option>
+
+                    @foreach (var item in Model.lstPais)
+                    {
+                        if (item.CodigoISO == Constantes.CodigosISOPais.Ecuador)
+                        {
+                            <option value="1706">Administrador Accesorizate</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Nombre Oferta:</div>
+            <div class="selectA borde_redondeado">
+                <input type="text" maxlength="45" id="txtNombreOferta" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Código:</div>
+            <div class="selectA borde_redondeado">
+                <input type="text" maxlength="6" id="txtCodigoOferta" />
+            </div>
+        </div>
+    </div>
+</div>
+
+

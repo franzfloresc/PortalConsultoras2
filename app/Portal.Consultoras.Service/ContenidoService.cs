@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Bl_Conte = Portal.Consultoras.BizLogic.Contenido;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Comunicado;
 using Portal.Consultoras.ServiceContracts;
@@ -16,6 +17,7 @@ namespace Portal.Consultoras.Service
         private readonly BLNavidadConsultora _BLNavidadConsultora;
         private readonly BLItemCarruselInicio _BLItemCarruselInicio;
         private readonly BLMailing _BLMailing;
+        private readonly Bl_Conte.IContenidoAppResumenBusinessLogic _BLContenidoAppResumenBusinessLogic;
         private readonly BLBelcorpResponde _BLBelcorpResponde;
 
         public ContenidoService()
@@ -23,6 +25,7 @@ namespace Portal.Consultoras.Service
             _BLNavidadConsultora = new BLNavidadConsultora();
             _BLItemCarruselInicio = new BLItemCarruselInicio();
             _BLMailing = new BLMailing();
+            _BLContenidoAppResumenBusinessLogic = new Bl_Conte.BLContenidoApp();
             _BLBelcorpResponde = new BLBelcorpResponde();
         }
 
@@ -559,6 +562,50 @@ namespace Portal.Consultoras.Service
       
         #endregion
 
+        public List<BEContenidoApp> GetContenidoApp(BEUsuario itmFilter, string codigoBanner)
+        {
+            return _BLContenidoAppResumenBusinessLogic.GetContenidoApp(itmFilter, codigoBanner);
+        }
+
+        public void CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle)
+        {
+            _BLContenidoAppResumenBusinessLogic.CheckContenidoApp(itmFilter, idContenidoDetalle);
+        }
+        public BEContenidoAppHistoria GetContenidoAppHistoria(int paisID, string Codigo)
+        {
+            var bl = new BLContenidoAppHistoria();
+            return bl.Get(paisID, Codigo);
+        }
+
+        public void UpdateContenidoApp(int paisID, BEContenidoAppHistoria formularioDato)
+        {
+            var bl = new BLContenidoAppHistoria();
+            bl.UpdateContenidoApp(paisID, formularioDato);
+        }
+       
+        public List<BEContenidoAppList> ListContenidoApp(int paisID, BEContenidoAppList entidad)
+        {
+            var bl = new BLContenidoAppHistoria();
+            return bl.GetList(paisID, entidad);
+        }
+        
+        public void InsertContenidoAppDeta(int paisID, BEContenidoAppDeta p)
+        {
+            var bl = new BLContenidoAppHistoria();
+            bl.InsertContenidoAppDeta(paisID, p);
+        }
+
+        public int UpdateContenidoAppDeta(int paisID, BEContenidoAppDeta p)
+        {
+            var bl = new BLContenidoAppHistoria();
+           return bl.UpdateContenidoAppDeta(paisID, p);
+        }
+
+        public List<BEContenidoAppDetaAct> GetContenidoAppDetaActList(int paisID)
+        {
+            var bl = new BLContenidoAppHistoria();
+            return bl.GetContenidoAppDetaActList(paisID);
+        }
 
 
     }

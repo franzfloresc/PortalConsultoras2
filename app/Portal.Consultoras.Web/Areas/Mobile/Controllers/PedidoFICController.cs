@@ -194,7 +194,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (!userData.DiaPROL)  // Periodo de venta
             {
                 ViewBag.AccionBoton = "guardar";
-                //model.Prol = "GUARDA TU PEDIDO";
                 model.Prol = "GUARDAR TU PEDIDO";
                 model.ProlTooltip = "Es importante que guardes tu pedido";
                 model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
@@ -240,7 +239,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             ViewBag.NombreConsultora = userData.Sobrenombre;
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                //model.Prol = "GUARDA TU PEDIDO";
                 model.Prol = "GUARDAR TU PEDIDO";
             var ofertaFinalModel = SessionManager.GetOfertaFinalModel();
             ViewBag.OfertaFinalEstado = ofertaFinalModel.Estado;
@@ -297,9 +295,25 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 List<ServiceODS.BEProducto> olstProducto;
+                ServiceODS.BEProductoBusqueda busqueda = new BEProductoBusqueda
+                {
+                    PaisID = userData.PaisID,
+                    CampaniaID = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias),
+                    CodigoDescripcion = term,
+                    RegionID = userData.RegionID,
+                    ZonaID = userData.ZonaID,
+                    CodigoRegion = userData.CodigorRegion,
+                    CodigoZona = userData.CodigoZona,
+                    Criterio = 1,
+                    RowCount = 5,
+                    ValidarOpt = true,
+                    CodigoPrograma = userData.CodigoPrograma,
+                    NumeroPedido = userData.ConsecutivoNueva + 1
+                };
+
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias), term, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 5, true).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(busqueda).ToList();
                 }
 
                 foreach (var item in olstProducto)
@@ -341,9 +355,25 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 List<ServiceODS.BEProducto> olstProducto;
+                ServiceODS.BEProductoBusqueda busqueda = new BEProductoBusqueda
+                {
+                    PaisID = userData.PaisID,
+                    CampaniaID = Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias),
+                    CodigoDescripcion = model.CUV,
+                    RegionID = userData.RegionID,
+                    ZonaID = userData.ZonaID,
+                    CodigoRegion = userData.CodigorRegion,
+                    CodigoZona = userData.CodigoZona,
+                    Criterio = 1,
+                    RowCount = 1,
+                    ValidarOpt = true,
+                    CodigoPrograma = userData.CodigoPrograma,
+                    NumeroPedido = userData.ConsecutivoNueva + 1
+                };
+
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, Util.AddCampaniaAndNumero(userData.CampaniaID, 1, userData.NroCampanias), model.CUV, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, true).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(busqueda).ToList();
                 }
 
                 if (olstProducto.Count != 0)
@@ -463,7 +493,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (!userData.DiaPROL)  // Periodo de venta
             {
-                //model.Prol = "GUARDA TU PEDIDO";
                 model.Prol = "GUARDAR TU PEDIDO";
                 model.ProlTooltip = "Es importante que guardes tu pedido";
                 model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
@@ -540,7 +569,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.ModificacionPedidoProl = 0;
 
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                //model.Prol = "GUARDA TU PEDIDO";
                 model.Prol = "GUARDAR TU PEDIDO";
 
             return View(model);
