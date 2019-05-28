@@ -325,8 +325,8 @@ namespace Portal.Consultoras.Common
         {
             public const int TablaLogicaId = 93;
 
-            public static int ColorFondoBanner = 9301;
-            public static int ColorFondoDisplay = 9302;
+            public const int ColorFondoBanner = 9301;
+            public const int ColorFondoDisplay = 9302;
         }
 
         public static class OrdernamientoFav
@@ -609,5 +609,9 @@ namespace Portal.Consultoras.Common
             public const short CaminoBrillanteOfertasEspeciales = 168;
         }
 
+        public static class AdministradorHistoria
+        {
+            public const int TablaLogicaId = 231;
+        }
     }
 }

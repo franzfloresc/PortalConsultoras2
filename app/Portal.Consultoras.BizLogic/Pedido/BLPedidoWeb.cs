@@ -2461,6 +2461,23 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
+        //INI HD-4200
+        public List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb BEPedidoWeb)
+        {
+            var listaSuscripcionSE= new List<BEProducto>();
+            var daPedidoWeb = new DAPedidoWeb(BEPedidoWeb.PaisID);
+   
+            using (IDataReader reader = daPedidoWeb.GetCuvSuscripcionSE(BEPedidoWeb))
+                while (reader.Read())
+                {
+                    var entidad = new BEProducto(reader);
+                    listaSuscripcionSE.Add(entidad);
+                }
+            return listaSuscripcionSE;
+        }
+        //FIN HD-4200
+
+
         private string ClienteLine(TemplateField[] template, BEDescargaPedidoCliente row)
         {
             var line = string.Empty;
@@ -2484,6 +2501,17 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return line;
+        }
+
+        public void UpdDatoRecogerPor(BEPedidoWeb pedidoWebDetalle)
+        {
+            DAPedidoWeb daPedidoWeb = new DAPedidoWeb(pedidoWebDetalle.PaisID);
+            if (pedidoWebDetalle.PedidoID == 0)
+            {
+                pedidoWebDetalle.PedidoID = daPedidoWeb.InsPedidoWeb(pedidoWebDetalle);
+            }
+            
+            daPedidoWeb.UpdDatoRecogerPor(pedidoWebDetalle);
         }
     }
 

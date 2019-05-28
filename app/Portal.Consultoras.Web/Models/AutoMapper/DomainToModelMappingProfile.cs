@@ -664,6 +664,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<ServiceCliente.BEPedidoWebDetalle, PedidoWebClienteMobilModel>();
             Mapper.CreateMap<ServiceCliente.BEPedidoWebDetalle, PedidoWebDetalleMobilModel>();
             Mapper.CreateMap<ServicePedido.BEEstrategia, PremioElectivoModel>()
+                .ForMember(t => t.Precio2, f => f.MapFrom(c => c.PrecioUnitario))
                 .ForMember(t => t.DescripcionResumen, f => f.MapFrom(c => c.DescripcionCUV2));
 
             Mapper.CreateMap<ServiceUsuario.BEUsuarioOpciones, UsuarioOpcionesModel>()
@@ -709,7 +710,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CodigoVariante, f => f.MapFrom(c => c.CodigoEstrategia))
                 .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.MarcaDescripcion))
                 .ForMember(t => t.CodigoEstrategia, f => f.MapFrom(c => c.CodigoTipoEstrategia))
-                .ForMember(t => t.CodigoPalanca, f => f.MapFrom(c => c.TipoPersonalizacion));
+                .ForMember(t => t.CodigoPalanca, f => f.MapFrom(c => c.TipoPersonalizacion))
+                .ForMember(t => t.ImagenURL, f => f.MapFrom(c => c.ImagenEtiqueta));
+
 
             #region Camino Brillante
 
@@ -722,6 +725,11 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante, LogroCaminoBrillanteModel.IndicadorCaminoBrillanteModel.MedallaCaminoBrillanteModel>();
 
             #endregion
+
+            #region Historial
+            Mapper.CreateMap<BEContenidoAppDetaAct, AdministrarHistorialDetaActModel>();
+            #endregion
+
         }
     }
 }
