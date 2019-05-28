@@ -15,6 +15,9 @@ var ComponentesView = function () {
         },
         tiposTonosModal: {
             id: "#popup_tonos",
+            header : {
+                id : "#contenedor-cabecera"
+            },
             btnCerrar: {
                 id: "#cerrar-tipos-tonos-modal"
             },
@@ -77,6 +80,9 @@ var ComponentesView = function () {
             },
             bloquear:{
                 all: "[block-group]"
+            },
+            aplicarSeleccion : {
+                contenedor :"#contenedor-aplicar-seleccion"
             }
         }
     };
@@ -174,13 +180,21 @@ var ComponentesView = function () {
         return true;
     };
 
+    var _updateModalHeight = function(){
+        var hModal = $(window).outerHeight();
+        var hHeader = $(_elements.tiposTonosModal.header.id).outerHeight();
+        var hApplyChanges = $(_elements.tiposTonosModal.aplicarSeleccion.contenedor).outerHeight();
+
+        $(_elements.tiposTonosModal.tiposTonos.id).height(hModal - hHeader - hApplyChanges);
+    };
+
     var _showTypesAndTonesModal = function () {
         _showModal(_elements.tiposTonosModal.id);
+        _updateModalHeight();
+       
 
-        $(body).on("resize", _elements.tiposTonosModal.id, function () {
-            var hPopup = $(_elements.tiposTonosModal.id).height();
-            var hSelectedTypesTones = $(_elements.tiposTonosModal.tiposTonosSeleccionados.contenedor).height();
-            $(_elements.showTypesAndTonesModal.tiposTonos.id).height(hPopup - hSelectedTypesTones);
+        $(window).on("resize", function () {
+            _updateModalHeight();
         });
 
         return true;
@@ -188,7 +202,7 @@ var ComponentesView = function () {
 
     var _hideTypeAndTonesModal = function () {
         _hideModal(_elements.tiposTonosModal.id);
-        $(body).off("resize", _elements.tiposTonosModal.id);
+        $(window).off("resize");
         return true;
     };
 
@@ -236,6 +250,8 @@ var ComponentesView = function () {
             $(_elements.tiposTonosModal.tiposTonosSeleccionados.contenedor).hide();
         }
 
+        _updateModalHeight();
+        
         return true;
     };
 
