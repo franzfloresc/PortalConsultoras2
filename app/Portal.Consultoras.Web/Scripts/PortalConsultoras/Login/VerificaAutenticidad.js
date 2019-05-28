@@ -485,8 +485,7 @@ $(document).ready(function () {
                     me.Elements.getErrorText().html(text);
                 },
 
-                VerifySmsCode: function (code) {
-                    debugger;
+                VerifySmsCode: function (code) {                    
                     if (localData.Expired) {
                         return;
                     }
@@ -597,8 +596,7 @@ $(document).ready(function () {
                     me.Funciones.ResetSmsCode();
                     AbrirLoad();
                     //INI HD-3897
-                    var successEnviarSmsCode = function (r) {
-                        debugger;
+                    var successEnviarSmsCode = function (r) {                        
                         $('#celularNuevo').text(nuevoCelular);
                         CerrarLoad();
                         if (!r.Success) {
@@ -751,8 +749,7 @@ $(document).ready(function () {
                         type: 'POST',
                         data: null,
                         dataType: 'json',
-                        success: function (response) {
-                            debugger;
+                        success: function (response) {                            
                             me.Funciones.CloseLoading();
                             if (!response.success) {
                                 alert(response.message);
@@ -823,8 +820,7 @@ $(document).ready(function () {
                         type: 'POST',
                         data: null,
                         dataType: 'json',
-                        success: function (response) {
-                            debugger;
+                        success: function (response) {                            
                             me.Funciones.CloseLoading();
                             if (!response.success) {
                                 alert(response.message);
@@ -871,15 +867,13 @@ $(document).ready(function () {
 
             },
             me.Correo = {
-                activaGuardar: function () {
-                    debugger;
+                activaGuardar: function () {                    
                     var btn = $("#btnActualizarCorreo");
                     btn.removeClass('btn_deshabilitado')
                     if (me.Correo.getDataArrayError(me.Correo.getData()).length > 0 || !$('#chkAceptoContratoMDCorreo').prop('checked')) btn.addClass('btn_deshabilitado');
 
                 },
-                mensajeError: function () {
-                    debugger;
+                mensajeError: function () {                    
                     var obj = me.Correo.getData().correoNuevo;
                     var band;
                     $("#ValidateCorreo").hide();
@@ -930,18 +924,15 @@ $(document).ready(function () {
 
                     return arrayError;
                 },
-                postActualizarEnviarCorreo: function (data, fnSuccess) {
-                    debugger;
+                postActualizarEnviarCorreo: function (data, fnSuccess) {                    
                     nroIntentosCo = nroIntentosCo + 1;
                     var parametros = {
                         CantidadEnvios: nroIntentosCo,
                         CorreoActualizado: me.Correo.getData().correoNuevo
-                    };
-                    debugger;
+                    };                    
                     AbrirLoad();
                     $.post(config.UrlActualizarEnviarCorreo, parametros)
-                        .done(function (response) {
-                            debugger;
+                        .done(function (response) {                            
                             if (!response.success) {
                                 me.Correo.showError(response.message);
                                 return;
