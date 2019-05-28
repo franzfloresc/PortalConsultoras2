@@ -117,7 +117,7 @@
             btn.removeClass('btn_deshabilitado')
             
             if (!me.Funciones.ValidarCelular(obj).Success || !$('#chkAceptoContratoMD').prop('checked')) btn.addClass('btn_deshabilitado');
-        };
+        }
         function mensajeError() {
             var obj = $.trim(IfNull($('#NuevoCelular').val(), ''));
             var band;
@@ -133,7 +133,7 @@
             } else band = true;
 
             activaCheck(band);
-        };
+        }
         function activaCheck(band) {
             var obj = $(".form_actualizar_celular .grupo_form_cambio_datos");
             obj.removeClass("grupo_form_cambio_datos--validacionExitosa");

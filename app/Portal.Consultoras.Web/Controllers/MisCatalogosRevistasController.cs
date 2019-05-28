@@ -851,7 +851,7 @@ namespace Portal.Consultoras.Web.Controllers
             var urlBase = _configuracionManagerProvider.GetConfiguracionManager(Constantes.CatalogoPiloto.UrlCatalogoPiloto);
             var url=string.Format(Constantes.CatalogoPiloto.UrlCatalogo, urlBase, queryString);
             /* INI HD-4248 */
-            var UrlCatalogoPiloto = url;
+            string UrlCatalogoPiloto;
             switch (tipo)
             {
                 case Constantes.CatalogoPiloto.TipoWSP: UrlCatalogoPiloto = string.Format(Constantes.CatalogoPiloto.UrlCatalogo_WSP, url);break;

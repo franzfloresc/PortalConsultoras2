@@ -16,7 +16,7 @@ var MiPerfil_ActualizarCorreo = function (_config) {
         btn.removeClass('btn_deshabilitado')
         if (getDataArrayError(getData()).length > 0 || !$('#chkAceptoContratoMD').prop('checked')) btn.addClass('btn_deshabilitado');
 
-    };
+    }
     var mensajeError = function () {
         var obj = getData().correoNuevo;
         var band;
@@ -30,7 +30,7 @@ var MiPerfil_ActualizarCorreo = function (_config) {
         
 
         activaCheck(band);
-    };
+    }
     var activaCheck = function (band) {
         var obj = $("div[vista-id=1] .grupo_form_cambio_datos");
         obj.removeClass("grupo_form_cambio_datos--validacionExitosa");
@@ -43,7 +43,6 @@ var MiPerfil_ActualizarCorreo = function (_config) {
     }
     //FIN HD-3897
 
-    var showSuccess = function (message) { AbrirMensaje(message, 'Mensaje', '', 2); };
     var showError = function (error) { $("#ValidateCorreo").html(error); };
     var showArrayError = function (arrayError) {
         var mensaje = '';
