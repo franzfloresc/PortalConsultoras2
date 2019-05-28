@@ -28,11 +28,11 @@
 
         <div class="clear"></div>
 
-        @Html.Partial("~/Views/DetalleEstrategia/ComponenteDetalleIndividualTemplate.cshtml")
+        <div data-ficha-contenido="ficha_carrusel_template"></div>
 
         <div class="clear"></div>
 
-        <div data-ficha-contenido="ficha_carrusel_template"></div>
+        @Html.Partial("~/Views/DetalleEstrategia/ComponenteDetalleIndividualTemplate.cshtml")
 
     </div>
 </div>
@@ -65,14 +65,14 @@
 <script id="ficha_carrusel_template" type="text/x-handlebars-template">
 
     <div id="divFichaCarrusel" class="contenedor_ficha_carrusel">
-        <div class="contenedor_titulo_carrusel">
-            <div class="contenedor_linea_carrusel">
+        <div class="contenedor_carrusel">
+            @*<div class="contenedor_linea_carrusel">
                 <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_izquierda"></div>
-            </div>
-            <div id="tituloCarrusel" class="txt_titulo_carrusel"></div>
-            <div class="contenedor_linea_carrusel">
+            </div>*@
+            <div id="tituloCarrusel" class="titulo_carrusel"></div>
+            @*<div class="contenedor_linea_carrusel">
                 <div class="dibujar_linea dibujar_linea_titulo_carrusel linea_derecha"></div>
-            </div>
+            </div>*@
         </div>
         <!--carrusel-->
         <div class="contenedor_carrusel" data-OrigenPedidoWeb="{{OrigenUrl}}" data-OrigenPedidoWebAgregar="{{OrigenAgregarCarrusel}}">

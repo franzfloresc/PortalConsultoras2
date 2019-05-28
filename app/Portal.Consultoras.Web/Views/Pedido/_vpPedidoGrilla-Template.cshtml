@@ -1,7 +1,7 @@
 ﻿@using Portal.Consultoras.Common
 
 <script id="paginador-template" type="text/x-handlebars-template">
-    <ul class="paginador_notificaciones" data-paginacion="block">
+    <ul class="paginador_notificaciones info_cant_productos" data-paginacion="block">
         {{#if footer}}
         <li class="productos_agregados_usuario">
             Has agregado
@@ -9,7 +9,7 @@
             &nbsp;productos
         </li>
         <li class="seleccion_pagina">
-            <select data-paginacion="rows" style="height: 24px;" data-val="{{PageSize}}">
+            <select data-paginacion="rows" style="height: 24px;" data-val="{{PageSize}}" data-tipo="{{TipoPaginador}}">
                 <option value="10">ver 10 filas</option>
                 <option value="20">ver 20 filas</option>
                 <option value="30">ver 30 filas</option>
@@ -21,6 +21,15 @@
     </ul>
 
     <ul class="paginador_notificaciones right" data-paginacion="block">
+        {{#if footer}}
+        @if (ViewBag.MostrarPedidosPendientes == "1")
+        {
+            <li class="texto_pagina">
+                <span class="btn--pedidos" onclick="javascript: PedidosPendientesPorAprobar();">Pedidos por aprobar (@ViewBag.CantPedidosPendientes)</span>
+            </li>
+        }
+        {{/if}}
+        {{#unless footer}}
         <li class="texto_pagina">Página</li>
         <li class="flecha_paginador_atras" data-paginacion="back"></li>
         <li style="margin-right: 6px;">
@@ -32,6 +41,7 @@
             </span>
         </li>
         <li class="flecha_paginador_adelante" data-paginacion="next"></li>
+        {{/unless}}
     </ul>
     <div class="clear"></div>
 </script>
@@ -117,6 +127,8 @@
             {{else if FlagNueva}}
             <div class="texto_pedidos texto_cantidad_pedidos">{{Cantidad}}</div>
             {{else if EsPremioElectivo}}
+            <div class="texto_pedidos texto_cantidad_pedidos texto_cantidad_regalo">{{Cantidad}}</div>
+            {{else if EsKitCaminoBrillante}}
             <div class="texto_pedidos texto_cantidad_pedidos texto_cantidad_regalo">{{Cantidad}}</div>
             {{else}}
             <div class="liquidacion_rango_wrapper_pedido cantidad_detalle_focus" data-cantidad-contenedor="">
@@ -267,7 +279,7 @@
             </li>
             <li class="boton-primaria">
                 <button class="default-background"
-                            onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}', {{EsElecMultipleNuevas}});">
+                        onclick="ValidDeletePedido('{{CampaniaID}}', '{{PedidoID}}', '{{PedidoDetalleID}}', '{{TipoOfertaSisID}}', '{{CUV}}', '{{Cantidad}}', '{{ClienteID_}}', '{{CUVReco}}', null, '{{SetID}}', {{EsElecMultipleNuevas}});">
                     SÍ, ELIMINAR
                 </button>
             </li>

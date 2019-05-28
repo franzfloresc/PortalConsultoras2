@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using AutoMapper;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Infraestructure;
-using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -53,7 +49,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listModel = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaOfertasATP, lstPedidoAgrupado, userData.CodigoISO, userData.CampaniaID, 0, userData.esConsultoraLider, userData.Simbolo);
 
             var OfertaATP = listModel.FirstOrDefault();
-            //var modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>(OfertaATP);
+
             var modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaDisenoModel>(OfertaATP);
 
             #region Obtiene variables portal
@@ -66,8 +62,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (listaOfertasATP.Count > 0)
             {
-                var primerItem = listaOfertasATP.First();
-
                 modelo.ImagenFondo = listaSeccion.ImagenFondo;
                 modelo.ColorFondo = listaSeccion.ColorFondo;
                 modelo.SubTitulo = listaSeccion.SubTitulo
@@ -83,25 +77,8 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.IsMobile = esMobile;
             modelo.CodigoUbigeoPortal = CodigoUbigeoPortal.GuionContenedorArmaTuPack;
 
-            //var DetalleEstrategiaFichaModel = new DetalleEstrategiaFichaModel
-            //{
+            modelo.OrigenAgregar = esMobile ? Constantes.OrigenPedidoWeb.MobileArmaTuPackFicha : Constantes.OrigenPedidoWeb.DesktopArmaTuPackFicha;
 
-            //    CUV2 = OfertaATP.CUV2,
-            //    TipoEstrategiaID = OfertaATP.TipoEstrategiaID,
-            //    EstrategiaID = OfertaATP.EstrategiaID,
-            //    FlagNueva = OfertaATP.FlagNueva,
-            //    CodigoVariante = OfertaATP.CodigoEstrategia,
-            //    EsEditable = packAgregado != null,
-            //    IsMobile = esMobile,
-            //    CampaniaID = userData.CampaniaID,
-            //    CodigoEstrategia = Constantes.TipoEstrategiaCodigo.ArmaTuPack,
-            //    CodigoUbigeoPortal = CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion,
-            //    Precio = OfertaATP.Precio,
-            //    Precio2 =  OfertaATP.Precio2,
-            //    DescripcionResumen = OfertaATP.DescripcionResumen,
-            //    DescripcionMarca =  OfertaATP.DescripcionMarca,
-            //    DescripcionCategoria = OfertaATP.DescripcionCategoria
-            //};
             return View(modelo);
         }
 

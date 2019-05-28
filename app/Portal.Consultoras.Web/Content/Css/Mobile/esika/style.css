@@ -1474,6 +1474,10 @@ h4.re3 {
     position: relative;
 }
 
+    .block-seguimiento-content--mobile{
+        margin-left: -15px;
+        margin-right: -15px;
+    }
 
     .block-seguimiento strong {
         color: black;
@@ -1615,6 +1619,22 @@ h4.re3 {
     .block-seguimiento-content .seg-active .seg-hora {
         color: black;
     }
+
+.seg-hora--entregaProyectada {
+    width: auto;
+    position: relative;
+    margin: 0 auto;
+    left: -13px;
+    right: 0;
+    white-space: nowrap;
+}
+
+@media screen and (min-width:400px) and (max-width:991px) {
+
+    .seg-hora--entregaProyectada {
+        left: 2px;
+    }
+}
 
 .alert .close {
     color: #fff;
@@ -4461,6 +4481,21 @@ table > thead > tr > th {
     border-bottom: 1px solid #b0b0b0;
 }
 
+.rango_cantidad_pedido_fijo {
+    -webkit-appearance: none;
+    border-radius: 0;
+    width: 100%;
+    height: 48px;
+    line-height: 48px;
+    background: transparent;
+    float: left;
+    text-align: center;
+    font-weight: 700;
+    border: 1px solid #b0b0b0;
+    color: rgb(84, 84, 84);
+}
+
+
 .cantidad_mas_home {
     float: left;
     width: 30%;
@@ -5516,6 +5551,7 @@ body {
     color: #000000;
     margin-top: 30px;
     margin-bottom: 15px;
+    text-align: center;
 }
 
 .contet_alert{
@@ -5877,6 +5913,7 @@ input[type='checkbox']:checked + span:after {
     .titulo_compartir {
         font-size: 16px;
         line-height: 28px;
+        text-align: center;
     }
 }
 /*CAMBIO FOOTER*/
@@ -6723,8 +6760,8 @@ input[type='checkbox']:checked + span:after {
 
 .popup_comunicado {
     position: relative;
-    top: 80px;
-    margin: 0 auto;
+    top: 70px;
+    margin: 0 auto 49px auto;
     background: #fff;
     box-sizing: border-box;
     font-family: 'Lato';
@@ -6766,7 +6803,7 @@ input[type='checkbox']:checked + span:after {
         width: 100%;
         position: absolute;
         color: #fff;
-        padding-top: 5px;
+        padding-top: 0;
     }
 
         .popup_comunicado .pie_popup_comunicado input[type='checkbox'] {
@@ -6783,10 +6820,34 @@ input[type='checkbox']:checked + span:after {
         }
 
         .popup_comunicado .pie_popup_comunicado .check_text {
-            padding-left: 4px;
+            padding-left: 0;
             vertical-align: top;
             display: table-cell;
+            font-size: 13px;
+            letter-spacing: 0.2px;
         }
+
+.popup_comunicado .pie_popup_comunicado .check_text,
+.enlace_no_volver_a_mostrar_comunicado{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.enlace_no_volver_a_mostrar_comunicado,
+.enlace_no_volver_a_mostrar_comunicado:hover {
+    padding:0!important;
+    width:240px;
+    height:45px;
+    line-height:45px;
+    color: #FFF;
+    font-size: 11px;
+    font-weight: 300 !important;
+    letter-spacing: 0.5px;
+    text-decoration: underline;
+    text-transform: uppercase;
+    text-align: center;
+}
 
 /* POPUP AGREGAR CLIENTE */
 
@@ -9514,8 +9575,30 @@ a {
     float: left;
 }
 
+.content_cantidad_ficha_producto_fijo {
+    width: 48px;
+    margin-right: 5%;
+    background: white;
+    overflow: hidden;
+    float: left;
+}
+
 .btn_agregar_ficha_producto {
     width: 50%;
+    height: 48px;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: white;
+    font-weight: 700;
+    display: block;
+    float: left;
+    text-align: center;
+    line-height: 47px;
+    background: black;
+}
+
+.btn_agregar_ficha_producto_fijo {
+    width: 70%;
     height: 48px;
     font-family: 'Lato';
     font-size: 14px;
@@ -14872,3 +14955,73 @@ a {
 /* FIN - POPUP LLEGASTE AL 30% DE DESCUENTO */
 
 /* FIN - PROGRAMA NUEVAS - ELIGE TU REGALO */
+
+/*
+    * Sitio : Mobile 
+    * Descripción : Para notificaciones en crear y modificar
+    * Dependencias : Jquery-ui.css - (se están invocando estos estilos en esta zona)    
+*/
+
+#alertDialogMensajes25seg {
+    padding: 16px !important;
+    min-height: 78px !important;
+}
+
+.alert-align {
+    display: flex;
+    align-items: center
+}
+
+.setBottom {
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    /*transition: top 1s ease;*/
+}
+
+    .setBottom > .ui-dialog-titlebar.ui-corner-all {
+        display: none;
+    }
+
+    .setBottom .pop_pedido_mensaje {
+        color: #569C04;
+        font-size: 16px;
+        margin-top: 13px;
+    }
+
+.pop_image .img-fluid {
+    max-width: 100%;
+    height: auto;
+    width: 100px;
+}
+/*
+    * Sitio : Mobile 
+    * Descripción  :  Overlays viene de jquery.ui       
+*/
+.ui-widget-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.ui-dialog {
+    position: absolute;
+    padding: .2em;
+    width: 300px;
+    overflow: hidden;
+}
+    .ui-dialog.ui-widget-content {
+        width: auto !important;
+        background: #FFFFFF !important;
+        color: #555 !important;
+    }
+.snackbar-align {
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+}
+
+    
+/* Fin */
+

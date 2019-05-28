@@ -46,5 +46,21 @@
         /// Calculo del factor cuadre
         /// </summary>
         public int CantidadPack { get; set; }
+
+        public string FotoProducto01 { get; set; }
+        public string GananciaString { get; set; }
+        public string DescripcionMarca { get; set; }
+        public string PrecioTachado { get; set; }
+        public string PrecioVenta { get; set; }
+        public bool TieneStock { get; set; }
+        public string DescripcionCompleta { get; set; }
+        public string DescripcionCortada { get; set; }
+        public string DescripcionDetalle { get; set; }
+        public string DescripcionResumen { get; set; }
+        public string TipoPersonalizacion { get; set; }
+        public bool EsMultiMarca { get; set; }
+        public List<string> ListaDescripcionDetalle { get; set; }
+        public EstrategiaDetalleModelo TipoEstrategiaDetalle { get; set; }
+        public List<string> ListaPrecioNiveles { get; set; }
     }
 }

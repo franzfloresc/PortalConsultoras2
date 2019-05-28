@@ -24,9 +24,6 @@ $(function () {
     }
 
     LayoutHeader();
-    //if (typeof menuModule !== "undefined") {
-    //    menuModule.Resize();
-    //}
 
     OcultarChatEmtelco();
 
@@ -412,7 +409,12 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 else fnRedireccionar();
             }
             else if (mostrarAlerta == true) {
-                AbrirMensaje(data.message);
+                //INI HD-3693
+                //AbrirMensaje(data.message);
+                var msjBloq = validarpopupBloqueada(data.message);
+                if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                else AbrirMensaje(data.message);
+                //FIN HD-3693
             }
         },
         error: function (error) {
@@ -764,14 +766,21 @@ function messageInfo(message, fnAceptar) {
     if (message == "") {
         return false;
     }
-
+    //INI HD-3693
+    var msjBloq = validarpopupBloqueada(message);
+    if (msjBloq != "") {
+        CerrarLoad();
+        alert_msg_bloqueadas(msjBloq);
+        return true;
+    }
+        //FIN HD-3693
     $('#mensajeInformacion').html(message);
     $('#popupInformacion').show();
 
     $('#popupInformacion .btn-aceptar').off('click');
     $('#popupInformacion .cerrar_popMobile').off('click');
 
-    $('#popupInformacion .btn-aceptar').on('click', function (e) {        
+    $('#popupInformacion .btn-aceptar').on('click', function (e) {
         $('#popupInformacion').hide();
         if ($.isFunction(fnAceptar)) fnAceptar(e);
     });
@@ -832,18 +841,6 @@ function messageInfoValidado(message, fnAceptar) {
     }
 }
 
-function messageConfirmacion(title, message, fnAceptar) {
-    $('#mensajeInformacionConfirmacion').html(message);
-    $('#popupInformacionConfirmacion').show();
-    title = $.trim(title);
-    title = title == "" ? "MENSAJE" : title;
-    $('#popupInformacionConfirmacion #bTagTitulo').html(title);
-    if ($.isFunction(fnAceptar)) {
-        $('#popupInformacionConfirmacion .aceptar-mobile').off('click');
-        $('#popupInformacionConfirmacion .aceptar-mobile').on('click', fnAceptar);
-    }
-}
-
 function messageConfirmacion(title, message, fnAceptar, fnCancelar) {
     $('#mensajeInformacionConfirmacion').html(message);
     $('#popupInformacionConfirmacion').show();
@@ -871,8 +868,8 @@ function messageConfirmacionDuoPerfecto(message, fnAceptar) {
 }
 
 function CargarCantidadProductosPedidos(noMostrarEfecto) {
-    noMostrarEfecto = noMostrarEfecto || false;    
-    
+    noMostrarEfecto = noMostrarEfecto || false;
+
     jQuery.ajax({
         type: 'POST',
         url: urlGetCantidadProductos,
@@ -1118,6 +1115,7 @@ function VerificarVistaBannerApp() {
     return false;
 }
 
+
 function OcultarBannerApp() {
     $.ajax({
         type: 'GET',
@@ -1170,3 +1168,29 @@ function CloseDialog(pop) {
     pop = pop || "box-pop-up";
     $("#" + pop).hide();
 } 
+
+function CerrarSesion() {
+    location.href = baseUrl + 'Login/LogOut';
+}
+//INI HD-3693
+function alert_msg_bloqueadas(message) {
+    $('#PopupBloqueoPorSistema .message_text_bloqueada').html(message);
+    $('#PopupBloqueoPorSistema').show();
+}
+//FIN HD-3693
+
+$('#alertDialogMensajes25seg').dialog({
+    autoOpen: false,
+    resizable: false,
+    modal: true,
+    closeOnEscape: false,
+    close: function (event, ui) {
+        HideDialog("alertDialogMensajes25seg");
+    },
+    beforeClose: function (event, ui) {
+        document.querySelector('.setBottom').style.transition = null
+    },
+    draggable: false,
+    dialogClass: 'setBottom',
+    position: "bottom"
+});

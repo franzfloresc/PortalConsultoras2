@@ -1,11 +1,12 @@
 ﻿/* ESTILOS GENERALES */
 
-*{
-    box-sizing:border-box;
-    font-family:'Lato';
-    font-size:14px;
-    font-weight:400;
-    color:#000;
+* {
+    box-sizing: border-box;
+    /*font-family:'Lato';*/
+    font-family: 'Lato', sans-serif !important;
+    font-size: 14px;
+    font-weight: 400;
+    color: #000;
 }
 
 html, body{
@@ -759,8 +760,9 @@ button:focus{
 }
 
 .layout__view__lista__breadcrumbs {
-    height: 58px;
+    min-height: 58px;
     margin-bottom: 6px;
+    /*margin-left: 21px !important;*/
 }
 
 .layout__view__breadcrumb {
@@ -837,7 +839,7 @@ button:focus{
 /* SECCIÓN CONTENIDO */
 
 .layout__content{
-    margin-top:60px;
+    /*margin-top:60px;*/
     padding:20px 15px;
     min-height:calc(100vh - 207px);
     position:relative;
@@ -881,9 +883,9 @@ button:focus{
         display:none;
     }
 
-    .row.mostrarEnDesktop{
+    /*.row.mostrarEnDesktop{
         display:none;
-    }
+    }*/
 
     .d-block.mostrarEnMobile{
         display:block!important;
@@ -893,9 +895,13 @@ button:focus{
 
     /* VISTA BREADCRUMBS Y TITULO DE VISTA (VERSIÓN MOBILE) */
 
+    .layout__view__breadcrumbs__wrapper{
+        display:none!important;
+    }
+
     .layout__view__title,
-    .layout__view__title__text{
-        max-width:none;
+    .layout__view__title__text {
+        max-width: none;
     }
 
     .layout__view__title,

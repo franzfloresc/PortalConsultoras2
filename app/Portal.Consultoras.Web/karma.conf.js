@@ -29,16 +29,23 @@ module.exports = function (config) {
 
             // General
             'Scripts/General.js',
+            
+            // shared
+            'Scripts/PortalConsultoras/Shared/AnalyticsPortal.js',
 
             // FichaModule
             'Scripts/PortalConsultoras/Shared/ConstantesModule.js',
             'Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js',
+
+            //#region Provider
             'Scripts/PortalConsultoras/TusClientes/TusClientesProvider.js',
             'Scripts/PortalConsultoras/TusClientes/PanelListaModule.js',
             'Scripts/PortalConsultoras/TusClientes/PanelMantenerModule.js',
             'Scripts/PortalConsultoras/TusClientes/ClientePanelModule.js',
             'Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js',
             'Scripts/PortalConsultoras/DetalleEstrategia/Ficha/FichaModule.js',
+            'scripts/portalconsultoras/estrategiaagregar/estrategiaagregar.js',
+            //#endregion
 
             // TusClientes
             'Scripts/PortalConsultoras/TusClientes/TusClientesView.js',
@@ -55,6 +62,17 @@ module.exports = function (config) {
             'Scripts/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenter.js',
             'Scripts/PortalConsultoras/ArmaTuPack/ArmaTuPackProvider.js',
 
+            // FichaResponsive
+            'Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaView.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaPresenter.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesView.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesPresenter.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClienteView.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClientePresenter.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsiveEvents.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsive.js',
+
             // Specs
             'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaModuleSpec.js',
             //
@@ -63,7 +81,13 @@ module.exports = function (config) {
             'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Cabecera/CabeceraPresenterSpec.js',
             'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Grupos/GruposPresenterSpec.js',
             'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/Seleccionados/SeleccionadosPresenterSpec.js',
-            'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenterSpec.js'
+            'Scripts/tests/PortalConsultoras/ArmaTuPack/Detalle/DetallePresenterSpec.js',
+            
+            'Scripts/tests/PortalConsultoras/Shared/AnalyticsPortalSpec.js',
+            'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaPresenterSpec.js',
+            
+            'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesPresenterSpec.js',
+
         ],
 
 
@@ -90,7 +114,7 @@ module.exports = function (config) {
 
         coverageReporter: {
             type: 'text'
-        },      
+        },
 
         // web server port
         port: 9876,
@@ -125,7 +149,7 @@ module.exports = function (config) {
         },
 
         browserNoActivityTimeout: 100000,
-        
+
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
         singleRun: false,

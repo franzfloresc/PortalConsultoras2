@@ -73,11 +73,11 @@ namespace Portal.Consultoras.Web.Providers
             {
                 mensaje += "SiMongo|";
                 estrategiaModelo.CodigoEstrategia = Util.GetTipoPersonalizacionByCodigoEstrategia(codigoTipoEstrategia);
-                EstrategiaPersonalizadaProductoModel estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
+                var estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
 
                 listaEstrategiaComponente = estrategia.Hermanos;
+                esMultimarca = estrategia.EsMultimarca;
 
-                //validación 'tiene detalle de sección?'
                 listaEstrategiaComponente.ForEach(c =>
                 {
                     c.TieneDetalleSeccion = (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>()).Any() && c.Cabecera != null;
@@ -103,6 +103,15 @@ namespace Portal.Consultoras.Web.Providers
                 mensaje += "OrdenarComponentesPorMarca = " + listaEstrategiaComponente.Count + "|";
             }
 
+            listaEstrategiaComponente = FormatterEstrategiaComponentes(listaEstrategiaComponente, estrategiaModelo.CUV2, estrategiaModelo.CampaniaID);
+
+            return listaEstrategiaComponente;
+        }
+
+        public List<EstrategiaComponenteModel> FormatterEstrategiaComponentes(List<EstrategiaComponenteModel> listaEstrategiaComponente, string cuv2, int campania, bool esApiFicha = false)
+        {
+            var userData = SessionManager.GetUserData();
+
             if (listaEstrategiaComponente.Any())
             {
                 listaEstrategiaComponente.ForEach(x =>
@@ -111,72 +120,21 @@ namespace Portal.Consultoras.Web.Providers
                     if (x.Hermanos != null && x.Hermanos.Any())
                     {
                         x.Hermanos.ForEach(y => y.TieneStock = true);
+
+                        if (esApiFicha)
+                        {
+                            //Temporal mientras se utiliza el Grupo como identificador en vez del Cuv
+                            x.Cuv = x.Hermanos[0].Cuv;
+                        }
                     }
                 });
 
-                if (GetValidarDiasAntesStock(userData))
-                {
-                    _consultaProlProvider.ActualizarComponenteStockPROL(listaEstrategiaComponente, estrategiaModelo.CUV2, userData.CodigoISO, estrategiaModelo.CampaniaID, userData.GetCodigoConsultora());
-                }
+                var validarDias = _consultaProlProvider.GetValidarDiasAntesStock(userData);
+                _consultaProlProvider.ActualizarComponenteStockPROL(listaEstrategiaComponente, cuv2, userData.CodigoISO, campania, userData.GetCodigoConsultora(), validarDias);
             }
 
             return listaEstrategiaComponente;
         }
-
-        //Copia de GetListaComponentes. Incluye: Tipos y tonos + Sección
-        //public EstrategiaPersonalizadaProductoModel GetListaComponenteDetalle(EstrategiaPersonalizadaProductoModel estrategiaModelo, string codigoTipoEstrategia, out bool esMultimarca, out string mensaje)
-        //{
-        //    esMultimarca = false;
-        //    mensaje = "";
-
-        //    var userData = SessionManager.GetUserData();
-        //    EstrategiaPersonalizadaProductoModel estrategia;
-        //    if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, codigoTipoEstrategia)
-        //        && codigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
-        //    {
-        //        mensaje += "SiMongo|";
-        //        estrategiaModelo.CodigoEstrategia = Util.GetTipoPersonalizacionByCodigoEstrategia(codigoTipoEstrategia);
-        //        estrategia = _ofertaBaseProvider.ObtenerModeloOfertaDesdeApi(estrategiaModelo, userData.CodigoISO);
-
-        //        mensaje += "ObtenerModeloOfertaDesdeApi = " + estrategia.Hermanos.Count + "|";
-        //    }
-        //    else
-        //    {
-        //        mensaje += "NoMongo|";
-
-        //        List<BEEstrategiaProducto> listaBeEstrategiaProductos;
-        //        listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
-        //        estrategia = new EstrategiaPersonalizadaProductoModel();
-        //        if (!listaBeEstrategiaProductos.Any()) return estrategia;
-
-        //        mensaje += "GetEstrategiaProductos = " + listaBeEstrategiaProductos.Count + "|";
-
-        //        estrategia.Hermanos = GetEstrategiaDetalleCompuesta(estrategiaModelo, listaBeEstrategiaProductos);
-        //        mensaje += "GetEstrategiaDetalleCompuesta = " + estrategia.Hermanos.Count + "|";
-
-        //        estrategia.Hermanos = OrdenarComponentesPorMarca(estrategia.Hermanos, out esMultimarca);
-        //        mensaje += "OrdenarComponentesPorMarca = " + estrategia.Hermanos.Count + "|";
-        //    }
-
-        //    if (estrategia.Hermanos.Any())
-        //    {
-        //        estrategia.Hermanos.ForEach(x =>
-        //        {
-        //            x.TieneStock = true;
-        //            if (x.Hermanos != null && x.Hermanos.Any())
-        //            {
-        //                x.Hermanos.ForEach(y => y.TieneStock = true);
-        //            }
-        //        });
-
-        //        if (GetValidarDiasAntesStock(userData))
-        //        {
-        //            _consultaProlProvider.ActualizarComponenteStockPROL(estrategia.Hermanos, estrategiaModelo.CUV2, userData.CodigoISO, estrategiaModelo.CampaniaID, userData.GetCodigoConsultora());
-        //        }
-        //    }
-
-        //    return estrategia;
-        //}
 
         public virtual List<BEEstrategiaProducto> GetEstrategiaProducto(int PaisID, int EstrategiaID)
         {
@@ -257,6 +215,7 @@ namespace Portal.Consultoras.Web.Providers
                 componenteModel.Cuv = Util.Trim(beEstrategiaProducto.CUV);
                 componenteModel.Cantidad = beEstrategiaProducto.Cantidad;
                 componenteModel.FactorCuadre = beEstrategiaProducto.FactorCuadre > 0 ? beEstrategiaProducto.FactorCuadre : 1;
+                componenteModel.CodigoProducto = beEstrategiaProducto.SAP;
 
                 listaEstrategiaComponenteProductos.Add(componenteModel);
             }
@@ -303,14 +262,6 @@ namespace Portal.Consultoras.Web.Providers
                         hermano.Hermanos = new List<EstrategiaComponenteModel>();
                         if (hermano.Digitable == 1)
                         {
-                            //var existe = false;
-                            //foreach (var itemR in listaComponentes)
-                            //{
-                            //    existe = itemR.Hermanos.Any(h => h.Cuv == hermano.Cuv || h.Grupo == hermano.Grupo);
-                            //    if (existe) break;
-                            //}
-                            //if (existe) continue;
-
                             hermano.Hermanos = listaEstrategiaComponenteProductos
                                 .Where(p => p.Grupo == hermano.Grupo && p.NombreBulk != "" && p.Digitable == 1)
                                 .OrderBy(p => p.Orden).ToList();
@@ -518,23 +469,5 @@ namespace Portal.Consultoras.Web.Providers
             return _paiseLBel.Any(x => x == _paisISO);
         }
 
-        private bool GetValidarDiasAntesStock(UsuarioModel userData)
-        {
-            var validar = false;
-            var lstTablaLogicaDatos = _tablaLogicaProvider.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.StockDiasAntes, true);
-            if (lstTablaLogicaDatos.Any())
-            {
-                var diasAntesStock = lstTablaLogicaDatos.FirstOrDefault().Valor;
-                if (!string.IsNullOrEmpty(diasAntesStock))
-                {
-                    var iDiasAntesStock = int.Parse(diasAntesStock);
-                    if (DateTime.Now.Date >= userData.FechaInicioCampania.AddDays(iDiasAntesStock))
-                    {
-                        validar = true;
-                    }
-                }
-            }
-            return validar;
-        }
     }
 }

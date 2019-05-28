@@ -10,8 +10,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.ServiceModel;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -46,11 +46,16 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
-                        
+
             ViewBag.Piloto = GetTienePiloto(userData.PaisID);
+            /* INI HD-3693 */
+            ViewBag.Piloto = (ViewBag.Piloto == "1") ? ((ViewBag.Piloto == userData.AutorizaPedido) ? "1" : "0") : "0";
+            /* FIN HD-3693 */
+            ViewBag.ConsultoraBloqueada = userData.AutorizaPedido;
             ViewBag.UrlCatalogoPiloto = GetUrlCatalogoPiloto();
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.FBAppId = _configuracionManagerProvider.GetConfiguracionManager(Constantes.Facebook.FB_AppId);
+            ViewBag.TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva;
 
             return View(clienteModel);
         }
@@ -149,7 +154,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult GetCatalogosPilotoSeg(int campania)
         {
             bool data, outPilotoSeg;
- 
+
             _issuuProvider.GetCatalogoCodigoIssuu(campania.ToString(), Constantes.Marca.LBel, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
             data = outPilotoSeg;
             _issuuProvider.GetCatalogoCodigoIssuu(campania.ToString(), Constantes.Marca.Esika, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
@@ -197,47 +202,34 @@ namespace Portal.Consultoras.Web.Controllers
                 List<Catalogo> catalogos;
                 string campaniaId;
                 string fechaFacturacion;
-                try
-                {
-                    if (Campania == userData.CampaniaID.ToString())
-                    {
-                        campaniaId = userData.CampaniaID.ToString();
 
-                        if (!userData.DiaPROL) fechaFacturacion = userData.FechaFacturacion.ToShortDateString();
-                        else
-                        {
-                            DateTime fechaHoraActual = DateTime.Now.AddHours(userData.ZonaHoraria);
-                            if (userData.DiasCampania != 0 && fechaHoraActual < userData.FechaInicioCampania)
-                            {
-                                fechaFacturacion = userData.FechaInicioCampania.ToShortDateString();
-                            }
-                            else
-                            {
-                                fechaFacturacion = fechaHoraActual.ToShortDateString();
-                            }
-                        }
-                    }
+                if (Campania == userData.CampaniaID.ToString())
+                {
+                    campaniaId = userData.CampaniaID.ToString();
+
+                    if (!userData.DiaPROL) fechaFacturacion = userData.FechaFacturacion.ToShortDateString();
                     else
                     {
-                        campaniaId = Campania;
-                        using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                        DateTime fechaHoraActual = DateTime.Now.AddHours(userData.ZonaHoraria);
+                        if (userData.DiasCampania != 0 && fechaHoraActual < userData.FechaInicioCampania)
                         {
-                            fechaFacturacion = sv.GetFechaFacturacion(campaniaId, userData.ZonaID, userData.PaisID).ToShortDateString();
+                            fechaFacturacion = userData.FechaInicioCampania.ToShortDateString();
+                        }
+                        else
+                        {
+                            fechaFacturacion = fechaHoraActual.ToShortDateString();
                         }
                     }
-
-                    catalogos = this.GetCatalogosPublicados(userData.CodigoISO, campaniaId);
                 }
-                catch (Exception ex)
+                else
                 {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    return Json(new
+                    campaniaId = Campania;
+                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
                     {
-                        success = false,
-                        message = "Por favor vuelva ingresar en unos momentos, ya que el servicio de catálogos virtuales está teniendo problemas.",
-                        extra = string.Empty
-                    });
+                        fechaFacturacion = sv.GetFechaFacturacion(campaniaId, userData.ZonaID, userData.PaisID).ToShortDateString();
+                    }
                 }
+                catalogos = this.GetCatalogosPublicados(userData.CodigoISO, campaniaId);
 
                 if (catalogos.Count <= 0)
                 {
@@ -509,7 +501,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = ex.Message,
+                    message = Constantes.MensajesError.ServicioCatalogoVirtuales,
                     extra = ""
                 });
             }
@@ -519,7 +511,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult EnviarEmailPiloto(List<CatalogoClienteModel> ListaCatalogosCliente, string Mensaje, string Campania)
         {
             try
-            {                
+            {
                 var url = GetUrlCatalogoPiloto();
                 var urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png";
                 var urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail.png";
@@ -531,6 +523,36 @@ namespace Portal.Consultoras.Web.Controllers
                     urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail_lbel.png";
                     urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail_lbel.png";
                 }
+
+                string fechaFacturacion;
+                if (Campania == userData.CampaniaID.ToString())
+                {
+                    if (!userData.DiaPROL) fechaFacturacion = userData.FechaFacturacion.ToShortDateString();
+                    else
+                    {
+                        DateTime fechaHoraActual = DateTime.Now.AddHours(userData.ZonaHoraria);
+                        if (userData.DiasCampania != 0 && fechaHoraActual < userData.FechaInicioCampania)
+                        {
+                            fechaFacturacion = userData.FechaInicioCampania.ToShortDateString();
+                        }
+                        else
+                        {
+                            fechaFacturacion = fechaHoraActual.ToShortDateString();
+                        }
+                    }
+                }
+                else
+                {
+                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                    {
+                        fechaFacturacion = sv.GetFechaFacturacion(Campania, userData.ZonaID, userData.PaisID).ToShortDateString();
+                    }
+                }
+
+                DateTime dd = DateTime.Parse(fechaFacturacion, new CultureInfo("es-ES"));
+                string fdf = dd.ToString("dd", new CultureInfo("es-ES"));
+                string fmf = dd.ToString("MMMM", new CultureInfo("es-ES"));
+                string ffechaFact = fdf + " de " + char.ToUpper(fmf[0]) + fmf.Substring(1);
 
                 Mensaje = Mensaje.Replace("\n", "<br/>");
                 var txtBuil = new StringBuilder();
@@ -560,6 +582,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "</tr>";
                     mailBody += "<tr>";
                     mailBody += "<td style=\"text-align:center; font-family:'Calibri'; color:#000; font-weight:500; font-size:14px; padding-bottom:30px;\">" + (Mensaje ?? "");
+                    mailBody += "<br/><br/>Recuerda que tienes hasta el " + ffechaFact + " para enviarme tu pedido.</td>";
                     mailBody += "</tr>";
                     mailBody += "<tr>";
                     mailBody += "<td>";
@@ -721,7 +744,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = ex.Message,
+                    message = Constantes.MensajesError.ServicioCatalogoVirtuales,
                     extra = ""
                 });
             }
@@ -811,20 +834,58 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string GetUrlCatalogoPiloto()
         {
-            var queryString = string.Format(Constantes.CatalogoPiloto.UrlParamEncrip, userData.CodigoISO, userData.CodigoConsultora);
-            byte[] encbuff = Encoding.UTF8.GetBytes(queryString);
+            /* INI HD-4015 */
+
+            byte[] encbuff = Encoding.UTF8.GetBytes(userData.CodigoConsultora);
             var encripParams = Convert.ToBase64String(encbuff);
+            var queryString = string.Format(Constantes.CatalogoPiloto.UrlParamEncrip, userData.CodigoISO.ToLower(), encripParams);
+            /* FIN HD-4015 */
 
             var urlBase = _configuracionManagerProvider.GetConfiguracionManager(Constantes.CatalogoPiloto.UrlCatalogoPiloto);
-            return string.Format(Constantes.CatalogoPiloto.UrlCatalogo, urlBase, encripParams);
+            return string.Format(Constantes.CatalogoPiloto.UrlCatalogo, urlBase, queryString);
         }
 
         private string GetTienePiloto(int paisId)
         {
-            var listDato = _tablaLogicaProvider.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.PilotoCatalogoDigital);
+            var listDato = _tablaLogicaProvider.GetTablaLogicaDatos(paisId, ConsTablaLogica.PilotoCatalogoDigital.TablaLogicaId);
             if (listDato.Count == 0) return "0";
 
             return listDato[0].Valor;
+        }
+
+        [HttpPost]
+        public JsonResult ObtenerPortadaRevista(string codigoCampania)
+        {
+            string url;
+            try
+            {
+                url = GetStringIssuRevista(codigoCampania);
+            }
+            catch (FaultException faulException)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(faulException, userData.CodigoConsultora, userData.CodigoISO + " - " + "ObtenerPortadaRevista");
+                url = Constantes.CatalogoImagenDefault.Revista;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO + " - " + "ObtenerPortadaRevista");
+                url = Constantes.CatalogoImagenDefault.Revista;
+            }
+
+            return Json(url);
+        }
+
+        private string GetStringIssuRevista(string codigoCampania)
+        {
+            BECatalogoRevista entidad;
+            using (ClienteServiceClient sv = new ClienteServiceClient())
+            {
+                var lista = sv.GetListCatalogoRevistaPublicadoWithTitulo(userData.CodigoISO, userData.CodigoZona, Convert.ToInt32(codigoCampania));
+                entidad = lista.FirstOrDefault(l => l.MarcaDescripcion == "Revista") ?? new BECatalogoRevista();
+            }
+            if (string.IsNullOrEmpty(entidad.UrlImagen)) return Constantes.CatalogoImagenDefault.Revista;
+
+            return entidad.UrlImagen;
         }
     }
 }

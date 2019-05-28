@@ -41,6 +41,8 @@ namespace Portal.Consultoras.Entities.ReservaProl
         [DataMember]
         public string CodigoMensaje { get; set; }
         [DataMember]
+        public List<BEMensajeProl> ListaMensajeCondicional { get; set; }
+        [DataMember]
         public int PedidoID { get; set; }
         [DataMember]
         public Enumeradores.ResultadoReserva ResultadoReservaEnum { get; set; }
@@ -75,6 +77,7 @@ namespace Portal.Consultoras.Entities.ReservaProl
             CodigoMensaje = string.Empty;
             ListPedidoObservacion = new List<BEPedidoObservacion>();
             ListDetalleBackOrder = new List<BEPedidoWebDetalle>();
+            ListaMensajeCondicional = new List<BEMensajeProl>();
         }
 
         public BEResultadoReservaProl(string mensajeError, bool aviso)
@@ -82,6 +85,10 @@ namespace Portal.Consultoras.Entities.ReservaProl
             ListPedidoObservacion = new List<BEPedidoObservacion> { new BEPedidoObservacion { Descripcion = mensajeError } };
             Error = true;
             Aviso = aviso;
+        }
+        public BEResultadoReservaProl(string mensajeError, bool aviso, Enumeradores.ResultadoReserva resultadoReserva) :this(mensajeError, aviso)
+        {
+            ResultadoReservaEnum = resultadoReserva;
         }
     }
 }

@@ -50,8 +50,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var paisIso = Util.GetPaisISO(userData.PaisID);
                 var urlS3 = ConfigCdn.GetUrlCdnMatriz(paisIso);
 
-                var habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.Plan20,
-                    Constantes.TablaLogicaDato.BusquedaNemotecnicoZonaEstrategia);
+                var habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(userData.PaisID, ConsTablaLogica.Plan20.TablaLogicaId,
+                    ConsTablaLogica.Plan20.BusquedaNemotecnicoZonaEstrategia);
 
                 estrategiaModel = new EstrategiaModel()
                 {
@@ -65,9 +65,7 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoVistaEstrategia = TipoVistaEstrategia,
                     PaisID = userData.PaisID
                 };
-                //Enviar listado de palancas c/microservicios y si el país está configurado para ser evaluados en grilla.
-                ViewBag.MsEstrategias = _ofertaBaseProvider.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado;
-                ViewBag.MsPaises = _ofertaBaseProvider.GetConfigMicroserviciosPersonalizacion().PaisHabilitado;
+
             }
             catch (Exception ex)
             {
@@ -646,8 +644,8 @@ namespace Portal.Consultoras.Web.Controllers
             var respuestaServiceCdr = new List<RptProductoEstrategia>();
             try
             {
-                var codigo = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.Plan20,
-                    Constantes.TablaLogicaDato.Tonos, true);
+                var codigo = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(userData.PaisID, ConsTablaLogica.Plan20.TablaLogicaId,
+                    ConsTablaLogica.Plan20.Tonos, true);
 
                 if (Convert.ToInt32(codigo) <= entidad.CampaniaID)
                 {
@@ -895,7 +893,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     message = ex.Message,
                     extra = "",
-                    msjError = error
+                    msjError = error.ToString()
                 });
             }
             catch (Exception ex)
@@ -907,7 +905,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     message = ex.Message,
                     extra = "",
-                    msjError = error
+                    msjError = error.ToString()
                 });
             }
         }
@@ -2080,6 +2078,18 @@ namespace Portal.Consultoras.Web.Controllers
                         });
                     }
                     while (readLine != null);
+
+                    var listaRepetida = strategyEntityList
+                        .GroupBy(x => new { x.DescripcionCUV2, x.CUV2 })
+                        .Where(g => g.Count() > 1)
+                        .Select(y => new { Element = y.Key, Counter = y.Count() })
+                        .ToList();
+
+                    if (listaRepetida.Count > 0)
+                    {
+                        var cuvRepetidos = string.Join(",", listaRepetida.Select(x => x.Element.CUV2).ToArray());
+                        throw new ArgumentException(string.Format("Verificar la información del archivo. <br /> Referencia: CUVs duplicados '{0}'", cuvRepetidos));
+                    }
 
                     XElement strategyXML = new XElement("strategy",
                     from strategy in strategyEntityList

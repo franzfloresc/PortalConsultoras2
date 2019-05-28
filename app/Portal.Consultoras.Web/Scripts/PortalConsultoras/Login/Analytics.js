@@ -1,15 +1,15 @@
 var Analytics = function (config) {
     config = config || {};
-    var _config = { listPaisAnalytics: config.listPaisAnalytics || [] };
+    var _config = { listPaisAnalytics: config.listPaisAnalytics || [], pixelId: config.pixelId };
 
     var _listImagenAnalyticsId = [], _listScriptAnalyticsId = [], _callingScriptAnalytics = false;
     var _listImagenPixelId = [];
 
-    var _consoleLog = function(variable){
+    var _consoleLog = function (variable) {
         if (!window.console) return;
         if (!window.console.log) return;
 
-        console.log(variable);
+        //console.log(variable);
     }
 
     var _crearImagenAnalyticsWithId = function (id) {
@@ -19,7 +19,7 @@ var Analytics = function (config) {
         element.attr('height', '1').attr('width', '1').attr('alt', '');
         element.attr('src', '//googleads.g.doubleclick.net/pagead/viewthroughconversion/' + id + '/?guid=ON&amp;script=0');
         element.css('border-style', 'none');
-	
+
         var parent = $('#div-analytics-image');
         parent.append(element);
         _listImagenAnalyticsId.push(id);
@@ -34,14 +34,14 @@ var Analytics = function (config) {
         var google_conversion_id = _listScriptAnalyticsId[0];
 
         _callingScriptAnalytics = true;
-        $.getScript("//www.googleadservices.com/pagead/conversion.js").done(function() {
+        $.getScript("//www.googleadservices.com/pagead/conversion.js").done(function () {
             _listScriptAnalyticsId.shift();
             _consoleLog('Cargó analytics Id: ' + google_conversion_id);
             _callingScriptAnalytics = false;
             _invocarScriptAnalytics();
         });
     }
-    
+
     var _crearImagenPixelWithId = function (id) {
         if ($.inArray(id, _listImagenPixelId) > -1) return;
 
@@ -87,6 +87,19 @@ var Analytics = function (config) {
         _consoleLog('Pixel PageView');
     }
 
+    var _invocarCompleteRegistrationPixel = function () {
+        if (!window.fbq) return;
+        _invocarPixelFacebook(_config.pixelId);
+        window.fbq('track', 'CompleteRegistration');
+        _consoleLog('Pixel CompleteRegistration');
+    }
+    var _invocarPageViewPixelById = function () {
+        _limpiarPixelFacebook();
+        _invocarPixelFacebook(_config.pixelId);    
+        if (!window.fbq) return;        
+        _invocarPageViewPixel();
+    }
+
     var _invocarAnalyticsByCodigoIso = function (codigoIso) {
         _limpiarPixelFacebook();
         $.each(_config.listPaisAnalytics, function (key, item) {
@@ -105,6 +118,7 @@ var Analytics = function (config) {
         });
     }
 
+
     var _invocarEventoPixel = function (link) {
         if (!window.fbq) return;
 
@@ -122,6 +136,9 @@ var Analytics = function (config) {
     return {
         invocarAnalyticsByCodigoIso: _invocarAnalyticsByCodigoIso,
         invocarEventoPixel: _invocarEventoPixel,
-        invocarEventoPixelById: _invocarEventoPixelById
+        invocarEventoPixelById: _invocarEventoPixelById,
+        invocarCompleteRegistrationPixel: _invocarCompleteRegistrationPixel,
+        invocarPageViewPixelById: _invocarPageViewPixelById
+
     }
 };

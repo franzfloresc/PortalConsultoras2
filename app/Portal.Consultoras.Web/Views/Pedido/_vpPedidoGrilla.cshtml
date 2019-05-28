@@ -1,10 +1,14 @@
-﻿<div id="divListadoPedido" class="divListadoPedido tabla_pedidos">
+﻿@using Portal.Consultoras.Web.Models
+@model PedidoSb2Model
+
+<div id="divListadoPedido" class="divListadoPedido tabla_pedidos">
     <div class="paginador_pedidos mostrarPaginadorPedidos">
         <div class="titulo_mis_pedidos" style="width:100%;">
 
             @if (ViewBag.MostrarPedidosPendientes == "1")
             {
-                <h1 id="pedmostreo" class="w_40" data-pedido="1">PEDIDO <b>INGRESADO</b></h1>
+                <span class="title--middle">Mi pedido</span>
+                <!-- <h1 id="pedmostreo" class="w_40" data-pedido="1">PEDIDO <b>INGRESADO</b></h1> -->
 
                 <h1 id="penmostreo" style="display: none; background: white;" class="w_25" data-pedido="2">
                     <b>PENDIENTES</b>
@@ -24,7 +28,15 @@
             }
             else
             {
-                <h1>MI <b>PEDIDO</b></h1>
+
+                if(@Model.EstadoPedido == 1)
+                {
+                    <h1>MI <b>PEDIDO RESERVADO CON ÉXITO</b></h1>
+                }
+                else
+                {
+                    <h1>MI<b>PEDIDO</b></h1>
+                }
             }
         </div>
         <div class="clear"></div>

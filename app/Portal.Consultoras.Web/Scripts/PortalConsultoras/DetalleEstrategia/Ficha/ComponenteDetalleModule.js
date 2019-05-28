@@ -13,10 +13,7 @@
     if (config.generalModule === null || typeof config.generalModule === "undefined")
         throw "config.generalModule is null or undefined";
 
-    var _urlComponenteDetalle = ConstantesModule.UrlDetalleEstrategia;
-    var _codigoVariedad = ConstantesModule.CodigoVariedad;
-    var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
-    var _constantePalanca = ConstantesModule.ConstantesPalanca;
+    //var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
 
     var _config = {
         localStorageModule: config.localStorageModule,
@@ -34,35 +31,16 @@
         },
         componenteDetalle: "componenteDetalle-template",
         componenteDetalleIndividual: "componenteDetalleIndividual-template",
-        ContenidoProducto: "#ContenidoProducto",
-        BotonVerDetalle: "[id='btnVerDetalle']",
         MenuDetalleComponente: "#mnuDetalleComponente li a",
         CarruselVideo: '#carouselVideo',
         CarruselIndividualVideo: '#carouselIndividualVideo',
         ModalProductoDetalle: "#modal_producto_detalle"
     };
 
-    var _validator = {
-        mostrarBotoneraVerDetalle: function (valor) {
-            if (valor) {
-                $(_template.BotonVerDetalle).each(function () { $(this).show(); });
-            } else {
-                $(_template.BotonVerDetalle).each(function () { $(this).hide(); });
-            }
-        },
-        mostrarContenidoProducto: function (valor) {
-            if (valor) {
-                $(_template.ContenidoProducto).show();
-            } else {
-                $(_template.ContenidoProducto).hide();
-            }
-        }
-    };
-
     var _util = {
         mostrarDetalleModal: function (data) {
             _util.setHandlebars(_template.componenteDetalle, data);
-            //console.log(1, _template.componenteDetalle);
+
             this.setYoutubeId();
             if (!_config.generalModule.isMobile()) {
                 _events.bindClosePopup();
@@ -81,19 +59,19 @@
             //Este método asigna los datos del componente individual a _template.componenteDetalleIndividual
 
             //estrategia.Hermanos por default es solo 1
-            console.log(estrategia);
-            //if (estrategia.Hermanos.length == 1) {
-            if (estrategia.CodigoVariante == ConstantesModule.CodigoVariedad.IndividualVariable) {
+            //console.log('mostrarDetalleIndividual', estrategia);
+
+            if (estrategia.Hermanos.length == 1) {
                 if (estrategia.MostrarFichaEnriquecida) {
-                    //console.log(_template.componenteDetalleIndividual);
+
                     _util.setHandlebars(_template.componenteDetalleIndividual, estrategia.Hermanos[0]);
-                    //console.log(1, _template.componenteDetalleIndividual);
+
                     this.setYoutubeId();
                     if (!_config.generalModule.isMobile()) {
                         this.setTabDetalleComponente();
                     }
                     else {
-                        this.setAcordionDetalleComponente();//eventos de acordio
+                        this.setAcordionDetalleComponente();
                     }
                     this.setCarrusel(_template.CarruselIndividualVideo);
                     this.setYoutubeApi();
@@ -101,26 +79,13 @@
             }
         },
         setCarrusel: function (id) {
+            var cantSlides = _config.generalModule.isMobile() ? 1 : 3;
             $(id).slick({
                 infinite: false,
                 speed: 300,
-                //slidesToShow: 3,
                 centerMode: false,
                 variableWidth: true,
-                //responsive: [
-                //    {
-                //        breakpoint: 1024,
-                //        settings: {
-                //            slidesToShow: 3,
-                //        }
-                //    },
-                //    {
-                //        breakpoint: 700,
-                //        settings: {
-                //            slidesToShow: 1,
-                //        }
-                //    },
-                //],
+                slidesToShow: cantSlides,
                 prevArrow:
                     "<a id=\"opciones-seleccionadas-prev\" class=\"flecha_ofertas-tipo prev\" style=\"left:-5%; text-align:left;display:none;\">" +
                     "<img src=\"" + baseUrl + "Content/Images/Esika/previous_ofertas_home.png\")\" alt=\"\" />" +
@@ -134,20 +99,18 @@
         setTabDetalleComponente: function () {
             $("body").off("click", "[data-tab-header]");
             $("body").on("click", "[data-tab-header]", function (e) {
-                console.log('click setTabDetalleComponente');
+                //console.log('click setTabDetalleComponente');
                 e.preventDefault();
-                var numTab = $(e.target).data("num-tab");
                 $("[data-tab-header]").removeClass("active");
-                if ($("[data-tab-header][data-num-tab]").length > 1) {
-                    $("[data-tab-header][data-num-tab=" + numTab + "]").addClass("active");
-                }
+                var numTab = $(e.target).data("num-tab");
+                $("[data-tab-header][data-num-tab=" + numTab + "]").addClass("active");
                 $("[data-tab-body]").hide();
                 $("[data-tab-body][data-num-tab=" + numTab + "]").show();
             });
         },
         setAcordionDetalleComponente: function () {
             $(_template.MenuDetalleComponente).click(function () {
-                console.log('click setAcordionDetalleComponente');
+                //console.log('click setAcordionDetalleComponente');
                 var $this = $(this);
                 $this.parent().children("ul").slideToggle();
                 var clase = $this.attr("class");
@@ -157,8 +120,7 @@
                 else {
                     $this.attr("class", "active");
                 }
-                //this.setCarrusel(_template.CarruselIndividualVideo);
-                //this.setCarrusel(_template.CarruselVideo);
+
             });
         },
         setHandlebars: function (idTemplate, modelo) {
@@ -183,41 +145,12 @@
     };
 
     var _VerDetalle = function (event) {
-        //console.log('componente', componente);
-        var componente = $(event.target).parents("[data-componente-grupo]").find("[data-componente]").data("componente");;
+        var componente = $(event.target).parents("[data-componente-grupo]").find("[data-componente]").data("componente");
         _util.mostrarDetalleModal(componente);
     };
 
     var _VerDetalleIndividual = function (estrategia) {
-
-        //console.log('estrategia', estrategia);
         _util.mostrarDetalleIndividual(estrategia);
-
-    };
-
-    var _OcultarControles = function (variante) {
-        console.log(variante);
-        if (_tipoEstrategiaTexto.Ganadoras === _config.palanca ||
-            _tipoEstrategiaTexto.ShowRoom === _config.palanca || /*Especiales*/
-            _tipoEstrategiaTexto.Lanzamiento === _config.palanca || /*Lo nuevo nuevo*/
-            _tipoEstrategiaTexto.OfertasParaMi === _config.palanca ||
-            _tipoEstrategiaTexto.OfertaParaTi === _config.palanca ||
-
-            _tipoEstrategiaTexto.GuiaNegocio === _config.palanca ||
-            _tipoEstrategiaTexto.GuiaDeNegocioDigitalizada === _config.palanca) {
-            _validator.mostrarContenidoProducto(true);
-
-            if (variante != ConstantesModule.CodigoVariedad.IndividualVariable) {
-                _validator.mostrarBotoneraVerDetalle(true);
-                _validator.mostrarContenidoProducto(false);
-            } else {
-                _validator.mostrarBotoneraVerDetalle(false);
-            }
-        }
-        else {
-            _validator.mostrarContenidoProducto(false);
-            _validator.mostrarBotoneraVerDetalle(false);
-        }
     };
 
     var _events = {
@@ -233,7 +166,7 @@
 
     return {
         VerDetalle: _VerDetalle,
-        VerDetalleIndividual: _VerDetalleIndividual,
-        OcultarControles: _OcultarControles
+        VerDetalleIndividual: _VerDetalleIndividual
+        //OcultarControles: _OcultarControles
     };
 });

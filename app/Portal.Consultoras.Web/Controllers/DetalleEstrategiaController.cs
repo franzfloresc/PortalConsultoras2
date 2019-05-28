@@ -27,6 +27,40 @@ namespace Portal.Consultoras.Web.Controllers
             : base(sesionManager, logManager, estrategiaComponenteProvider)
         {
         }
+        
+        [HttpGet]
+        public ActionResult FichaResponsive(string palanca, int campaniaId, string cuv, string origen)
+        {
+            try
+            {
+                var url = (Request.Url.Query).Split('?');
+                if (EsDispositivoMovil()
+                    && url.Length > 1
+                    && url[1].Contains("sap")
+                    && url[1].Contains("VC"))
+                {
+                    string sap = "&" + url[1].Substring(3);
+                    return RedirectToAction("Ficha", "DetalleEstrategia", new { area = "Mobile", palanca, campaniaId, cuv, origen, sap });
+                }
+
+                var modelo = new DetalleEstrategiaFichaModel
+                {
+                    Palanca = palanca,
+                    Campania = campaniaId,
+                    Cuv = cuv,
+                    OrigenUrl = origen
+                };
+                return View(modelo);
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "BaseViewController.Ficha");
+            }
+
+            return base.Redireccionar();
+
+        }
+
 
         [HttpGet]
         public override ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)

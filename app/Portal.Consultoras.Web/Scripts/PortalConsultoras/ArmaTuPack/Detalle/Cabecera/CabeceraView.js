@@ -1,19 +1,10 @@
 ﻿var CabeceraView = function () {
-    var _config = {
-
-    };
 
     var _elements = {
         cabecera: {
             templateId: "#cabecera-template",
             id: "#cabecera",
         },
-    };
-    
-    var _presenter = null;
-
-    var _setPresenter = function (presenter) {
-        _presenter = presenter;
     };
 
     var _renderTitle = function (packComponents) {
@@ -22,7 +13,6 @@
     };
 
     return {
-        setPresenter: _setPresenter,
         renderTitle: _renderTitle
     };
 };

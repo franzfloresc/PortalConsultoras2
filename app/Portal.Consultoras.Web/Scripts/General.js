@@ -4,6 +4,8 @@ var belcorp = belcorp || {};
 belcorp.settings = belcorp.settings || {};
 belcorp.settings.uniquePrefix = "/g/";
 
+var _ultimaMarca = "";
+
 jQuery(document).ready(function () {
 
     CreateLoading();
@@ -32,13 +34,13 @@ jQuery(document).ready(function () {
         }
     }
 
-    document.onkeydown = function (evt) {
-        evt = evt || window.event;
-        if (evt.keyCode == 27) {
-            if ($('.resultado_busqueda_producto').is(':visible')) {
-            }
-        }
-    };
+    //document.onkeydown = function (evt) {
+    //    evt = evt || window.event;
+    //    if (evt.keyCode == 27) {
+    //        if ($('.resultado_busqueda_producto').is(':visible')) {
+    //        }
+    //    }
+    //};
 });
 
 (function ($) {
@@ -83,8 +85,10 @@ jQuery(document).ready(function () {
 
     $.fn.CleanWhitespace = function () {
         var textNodes = this.contents().filter(
-            function () { return (this.nodeType == 3 && !/\S/.test(this.nodeValue)); })
-            .remove();
+            function () {
+                return (this.nodeType == 3 && !/\S/.test(this.nodeValue));
+            }
+        ).remove();
         return this;
     };
 
@@ -409,7 +413,26 @@ jQuery(document).ready(function () {
             Handlebars.registerHelper('json', function (context) {
                 return JSON.stringify(context).replace(/"/g, '&quot;');
             });
-             
+
+            Handlebars.registerHelper("ifVerificarMarcaLast", function (marca, esMultiMarca, options) {
+                if (esMultiMarca) {
+                    if (_ultimaMarca === "" || _ultimaMarca === marca) {
+                        _ultimaMarca = marca;
+                        return options.inverse(this);
+                    }
+                    else {
+                        _ultimaMarca = marca;
+                        return options.fn(this);
+                    }
+                }
+                else {
+                    if (_ultimaMarca === "") {
+                        _ultimaMarca = marca;
+                        return options.inverse(this);
+                    }
+                    else return options.fn(this);
+                }
+            });
         }
     };
 
@@ -752,6 +775,14 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             CerrarLoad();
             return false;
         }
+        //INI HD-3693
+        var msjBloq = validarpopupBloqueada(mensaje);
+        if (msjBloq != "") {
+            CerrarLoad();
+            alert_msg_bloqueadas(msjBloq);
+            return true;
+        }
+        //FIN HD-3693
         titulo = titulo || "MENSAJE";
         var CONS_TIPO_ICONO = { ALERTA: 1, CHECK: 2 };
         var isUrlMobile = isMobile();
@@ -797,6 +828,86 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('.ui-dialog .ui-button').focus();
         }
         CerrarLoad();
+    } catch (e) {
+
+    }
+}
+
+function AbrirMensaje25seg(mensaje, imagen) {
+    try {
+        var _dialogClass = '.setBottom',
+            _overlay = '.ui-widget-overlay'
+
+        mensaje = $.trim(mensaje);
+        if (mensaje == "") {
+            CerrarLoad();
+            return false;
+        }
+        //INI HD-3693
+        var msjBloq = validarpopupBloqueada(mensaje);
+        if (msjBloq != "") {
+            CerrarLoad();
+            alert_msg_bloqueadas(msjBloq);
+            return true;
+        }
+        //FIN HD-3693
+        imagen = imagen || "";
+
+        $("#pop_src").attr("src", "#")
+
+        if (imagen == "") {            
+            $("#pop_src").css("display", "none")                        
+        }
+        else {
+            $("#pop_src").attr("src", imagen)
+            $("#pop_src").css("display", "block")            
+        }
+        
+        
+        var isUrlMobile = isMobile();
+        if (isUrlMobile > 0) {                        
+            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
+            $('#alertDialogMensajes25seg').dialog("open");
+            $(_overlay).css('background', 'black')
+            $(_overlay).css('opacity', '0.85')
+
+            var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0])
+            _newTopDialog = _topWithoutPXAfterCreateDialog + 200,
+                _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
+        }
+        else {
+            
+            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);                    
+            $('#alertDialogMensajes25seg').dialog("open");
+            $(_overlay).css('background', 'black')
+            $(_overlay).css('opacity', '0.85')
+
+            var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0])
+                _newTopDialog = _topWithoutPXAfterCreateDialog + 200,
+                _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
+
+        }
+        CerrarLoad();
+        //Ocultar el scroll 
+        $("body").css("overflow", "hidden");  
+
+        setTimeout(function () {
+            document.querySelector(_dialogClass).style.transition = "top 1s ease"
+            _newTopDialog = _topWithoutPXAfterCreateDialog - 100
+            _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'            
+        }, 100)
+
+        setTimeout(function () {
+            $(_dialogClass).fadeOut(500, function () {
+                $('#alertDialogMensajes25seg').dialog("close");
+                $("body").css("overflow", "auto")
+            })
+        }, 3000) 
+
+        
+        var parameter = [["mensaje", mensaje], ["imagen", imagen]];
+        console.log(parameter);
+
     } catch (e) {
 
     }
@@ -934,15 +1045,20 @@ function checkTimeout(data) {
 
         if (!thereIsStillTime) {
 
-            var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
-            if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
-                $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
-                $('#dialog_SesionMainLayout').show();
+            if (typeof showPopupFinSesion === 'function') {
+                showPopupFinSesion();
+            } else {
+                var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
+                if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
+                    $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
+                    $('#dialog_SesionMainLayout').show();
+                }
+                else {
+                    $('#popupInformacionSB2SesionFinalizada').find('#mensajeInformacionSB2_SesionFinalizada').text(message);
+                    $('#popupInformacionSB2SesionFinalizada').show();
+                }
             }
-            else {
-                $('#popupInformacionSB2SesionFinalizada').find('#mensajeInformacionSB2_SesionFinalizada').text(message);
-                $('#popupInformacionSB2SesionFinalizada').show();
-            }
+
         }
     }
     else {
@@ -952,6 +1068,13 @@ function checkTimeout(data) {
 }
 
 function checkUserSession() {
+
+    if (isSessionExpired()) {
+        window.location.href = '/Login/SesionExpirada';
+    }
+}
+
+function isSessionExpired() {
     var res = -1;
 
     $.ajax({
@@ -965,9 +1088,7 @@ function checkUserSession() {
         }
     });
 
-    if (res == 0) {
-        window.location.href = '/Login/SesionExpirada';
-    }
+    return res == 0;
 }
 
 function paginadorAccionGenerico(obj) {
@@ -1681,22 +1802,22 @@ function odd_google_analytics_product_click(name, id, price, brand, variant, pos
     dataLayer.push({
         'event': 'productClick',
         'ecommerce':
-        {
-            'click':
             {
-                'actionField': { 'list': listName },
-                'products':
-                    [{
-                        'name': name,
-                        'id': id,
-                        'price': price,
-                        'brand': brand,
-                        'category': 'No disponible',
-                        'variant': variant,
-                        'position': position
-                    }]
+                'click':
+                    {
+                        'actionField': { 'list': listName },
+                        'products':
+                            [{
+                                'name': name,
+                                'id': id,
+                                'price': price,
+                                'brand': brand,
+                                'category': 'No disponible',
+                                'variant': variant,
+                                'position': position
+                            }]
+                    }
             }
-        }
     });
 }
 
@@ -2018,15 +2139,15 @@ var GeneralModule = (function () {
     "use strict";
 
     var _elements = {
-        loading :{
-            spin : {
-                id : "loading-spin"
+        loading: {
+            spin: {
+                id: "loading-spin"
             },
-            loadingScreen:{
-                id : "loadingScreen",
-                class : {
-                    titulo : "loadingScreen-titulo",
-                    mensaje : "loadingScreen-mensaje"
+            loadingScreen: {
+                id: "loadingScreen",
+                class: {
+                    titulo: "loadingScreen-titulo",
+                    mensaje: "loadingScreen-mensaje"
                 }
             }
         }
@@ -2038,11 +2159,12 @@ var GeneralModule = (function () {
         return isUrlMobile;
     };
 
-    var _redirectTo = function (url) {
+    var _redirectTo = function (url, validateIsMobile) {
         if (typeof url === "undefined" || url === null || $.trim(url) === "") return false;
+        if (typeof validateIsMobile === "undefined") validateIsMobile = true;
 
         var destinationUrl = "/";
-        if (_isMobile()) destinationUrl = destinationUrl + "Mobile/";
+        if (validateIsMobile && _isMobile() && url.indexOf('Mobile/') == -1) destinationUrl = destinationUrl + "Mobile/";
         destinationUrl += url;
 
         window.location.href = destinationUrl;
@@ -2059,10 +2181,10 @@ var GeneralModule = (function () {
     var _createLoading = function () {
         if ($("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.titulo).length !== 0 ||
             $("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.mensaje).length !== 0) return false;
-    
+
         $("#" + _elements.loading.loadingScreen.id).append("<div class=\"" + _elements.loading.loadingScreen.class.titulo + "\"></div>");
         $("#" + _elements.loading.loadingScreen.id).append("<div class=\"" + _elements.loading.loadingScreen.class.mensaje + "\"></div>");
-    
+
         $("#" + _elements.loading.loadingScreen.id).dialog({
             autoOpen: false,
             dialogClass: "loadingScreenWindow",
@@ -2080,7 +2202,7 @@ var GeneralModule = (function () {
     var waitingDialog = function (params) {
         try {
             if (!$("#" + _elements.loading.loadingScreen.id)) {
-                $(document.body).append("<div id=\"" +_elements.loading.loadingScreen.id + "\"></div>");
+                $(document.body).append("<div id=\"" + _elements.loading.loadingScreen.id + "\"></div>");
             }
 
             if (!$("#" + _elements.loading.loadingScreen.id).hasClass('ui-dialog-content')) {
@@ -2101,7 +2223,7 @@ var GeneralModule = (function () {
 
     var _hideDialog = function (dialogId) {
         try {
-    
+
             dialogId = (dialogId || "").trim();
             if (dialogId != "") {
                 dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
@@ -2111,7 +2233,7 @@ var GeneralModule = (function () {
         catch (err) {
             console.log('HideDialog - log - ', err);
         }
-    
+
         $("body").css("overflow", "auto");
         return false;
     };
@@ -2155,10 +2277,25 @@ var GeneralModule = (function () {
         }
     };
 
+    var _getLocationPathname = function (value) {
+        if (typeof value === "undefined") {
+            return window.location.pathname;
+        }
+    };
+
     return {
         isMobile: _isMobile,
         redirectTo: _redirectTo,
         abrirLoad: _abrirLoad,
-        cerrarLoad: _cerrarLoad
+        cerrarLoad: _cerrarLoad,
+        getLocationPathname: _getLocationPathname
     };
 }());
+//INI HD-3693
+function validarpopupBloqueada(message) {
+    if (message.indexOf("HD3693~") != -1) return message.split("~")[1];
+    else return "";
+
+}
+//FIN HD-3693
+

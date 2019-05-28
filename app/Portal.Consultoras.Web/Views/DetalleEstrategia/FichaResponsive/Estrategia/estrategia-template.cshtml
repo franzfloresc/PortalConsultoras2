@@ -1,0 +1,65 @@
+﻿@using Portal.Consultoras.Common
+
+<script id="estrategia-template" type="text/x-handlebars-template">
+    {{#if TieneReloj}}
+        <div class="col-12 reloj_desktop">
+            <div id="EtiquetaOdd" class="contenedor_etiqueta_odd">
+                <div class="clock_odd"></div>
+            </div>
+        </div>
+    {{/if}}
+    <div class="col-md-7">
+        <div class="nombre_marca">
+            {{#iff EsMultimarca '==' false}}
+            {{DescripcionMarca}}
+            {{/iff}}
+        </div>
+        <div class="descripcion">{{DescripcionCompleta}}</div>
+        <!--INI AGANA 456 -->
+        {{#iff MostrarFichaEnriquecida '==' true }}
+        {{#iff this.Hermanos.length '==' 1}}
+        {{#each this.Hermanos as |componente|}}
+        <div class="descripcion_item">
+            {{componente.Cabecera.ContenidoNeto}}
+        </div>
+        <div class="descripcion_item">
+            {{componente.Cabecera.Dimensiones}}
+        </div>
+        <div class="descripcion_item">
+            {{componente.Cabecera.TallaMedidas}}
+        </div>
+        {{/each}}
+        {{/iff}}
+        {{/iff}}
+        <!--END AGANA 456 -->
+    </div>
+    <div class="col-md-5 text-md-right">
+        <div class="precio_venta_oferta">
+            Precio para ti 
+            <span data-precio_venta_oferta="">
+                {{#IsNullOrEmpty this.ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
+            </span>
+            {{#each ListaPrecioNiveles as |itemNivel|}}
+            <span class="subprecio">{{itemNivel}}</span>
+            {{/each}}
+        </div>
+
+        {{#iff Precio '>' 0}}
+        <div class="precio_valorizado">
+            Para tu cliente : <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span>
+        </div>
+        {{/iff}}
+
+        {{#iff Ganancia '>' 0}}
+        <div class="ganancia primary_color">
+            {{#iff CodigoVariante '!=' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
+            Gana
+            {{/iff}}
+            {{#iff CodigoVariante '==' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
+            Gana hasta
+            {{/iff}}
+            <span class="primary_color" data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span>
+        </div>
+        {{/iff}}
+    </div>
+</script>
