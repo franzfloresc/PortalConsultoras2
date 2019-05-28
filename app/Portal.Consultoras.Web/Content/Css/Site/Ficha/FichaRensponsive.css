@@ -507,7 +507,7 @@ ul.breadcumbs li a {
     }
 
     .carousel_ficha .js-slick-prev {
-        left: -42px;
+        left: -50px;
     }
 
 .titulo_seccion {
@@ -517,7 +517,7 @@ ul.breadcumbs li a {
 }
 
 .carousel_ficha .slick-list {
-    padding: 2px 0px;
+    padding: 2px 1px;
 }
 
 .carousel_ficha .slick-disabled {
@@ -534,11 +534,16 @@ ul.breadcumbs li a {
     margin: 0px 10px;
 }
 
-.img_producto img{
-    height: 156px;
-    width: auto;
-    margin-bottom: 15px;
+.img_producto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+    .img_producto img{
+        height: 156px;
+        width: auto;
+        margin-bottom: 15px;
+    }
 
 .titulo_producto {
     font-size: 17px;
@@ -546,7 +551,8 @@ ul.breadcumbs li a {
     color: #000000;
     line-height: 18px;
     height: 36px;
-    margin-bottom: 15px;    
+    margin-bottom: 15px;  
+    overflow: hidden;
 }
 
 .caja_producto .nombre_marca{
@@ -629,6 +635,16 @@ ul.breadcumbs li a {
     font-size: 14px;
     display: block;
 }
+
+.caja_vertical {
+    /*max-width: 195px;*/
+    width: 196px !important;
+}
+
+.caja_horizontal {
+    /*max-width: 410px;*/
+    width: 412px !important;
+}
 /*Fin pSelling*/
 @media (min-width: 960px) {
     .contenedor_agregar {
@@ -655,7 +671,40 @@ ul.breadcumbs li a {
 }
 
 @media (max-width: 960px) {
-    .reloj_mobile{
+    .content_responsive {
+        margin-bottom: 73px;
+    }
+
+    /*UpSelling*/
+    .carousel_ficha .slick-arrow {
+        display:none !important;
+    }
+
+    .img_producto img{
+        width: 100%;
+        height: auto;
+        margin-bottom: 0px;
+    }
+    .precio_normal{
+        display: none;
+    }
+
+    .caja_vertical {
+        /*max-width: 195px;*/
+        width: 250px !important;
+    }
+
+    .caja_horizontal {
+        /*max-width: 410px;*/
+        width: 250px !important;
+    }
+
+    .titulo_producto {
+        font-size: 14px;
+    }
+
+    /*Fin UpSelling*/
+    .reloj_mobile {
         display: block !important;
     }
 
@@ -716,6 +765,7 @@ ul.breadcumbs li a {
         width: 100%;
         background: #ececec;
         padding: 14px;
+        z-index: 99;
     }
 
     .ficha_div_libre_agregado {
