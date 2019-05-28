@@ -112,22 +112,22 @@
             {
                 if (tipoVista == 1) // por cliente
                 {
-                    codigo = ConsOrigenPedidoWeb.Seccion.CatalogoPendienteDeAprobar;
+                    codigo = ConsOrigenPedidoWeb.Seccion.CatalogoDigitalPendienteDeAprobarCliente;
                 }
                 else
                 {
-                    codigo = ConsOrigenPedidoWeb.Seccion.CatalogoPendienteDeAprobarProducto;
+                    codigo = ConsOrigenPedidoWeb.Seccion.CatalogoDigitalPendienteDeAprobarProducto;
                 }
             }
             else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual)
             {
                 if (tipoVista == 1) // por cliente
                 {
-                    codigo = ConsOrigenPedidoWeb.Seccion.MaquilladorPendienteDeAprobar;
+                    codigo = ConsOrigenPedidoWeb.Seccion.AppMaquilladorPendienteDeAprobarCliente;
                 }
                 else
                 {
-                    codigo = ConsOrigenPedidoWeb.Seccion.MaquilladorPendienteDeAprobarProducto;
+                    codigo = ConsOrigenPedidoWeb.Seccion.AppMaquilladorPendienteDeAprobarProducto;
                 }
             }
             return codigo;
