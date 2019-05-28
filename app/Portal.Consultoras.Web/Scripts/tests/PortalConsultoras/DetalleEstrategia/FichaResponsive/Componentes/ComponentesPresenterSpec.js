@@ -1124,7 +1124,7 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
 
                // Act
                var result = componentesPresenter.estrategiaModel().Hermanos[0].selectComponentTitle;
-               
+
                // Assert
                expect(result).to.be.eql("Te falta 1 opción");
             });
@@ -1135,7 +1135,7 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
 
                // Act
                var result = componentesPresenter.estrategiaModel().Hermanos[0].selectedQuantityText;
-               
+
                // Assert
                expect(result).to.be.eql("1 Seleccionado");
             });
@@ -1204,7 +1204,7 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
 
                // Act
                var result = componentesPresenter.estrategiaModel().Hermanos[0].selectComponentTitle;
-             
+
                // Assert
                expect(result).to.be.eql("<h3>¡Listo! <span>ya tienes tus</span> 2 opciones</h3>");
             });
@@ -1215,7 +1215,7 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
 
                // Act
                var result = componentesPresenter.estrategiaModel().Hermanos[0].selectedQuantityText;
-               
+
                // Assert
                expect(result).to.be.eql("2 Seleccionados");
             });
@@ -1226,7 +1226,7 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
 
                // Act
                var result = componentesPresenter.estrategiaModel().Hermanos[0].selectedQuantityText;
-               
+
                // Assert
                expect(result).to.be.eql("2 Seleccionados");
             });
@@ -1248,6 +1248,251 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
          // it("should block type/tone when selected quantity is equal FactorCuadre", function () {
 
          // });
+      });
+   });
+
+   describe("removeTypeOrTone", function () {
+      var errorMsg = '';
+      var componentesView;
+      var componentesPresenter;
+
+      beforeEach(function () {
+         errorMsg = '';
+         componentesView = sinon.stub(ComponentesView());
+         componentesView.renderComponente.returns(true);
+         componentesPresenter = ComponentesPresenter({
+            componentesView: componentesView
+         });
+      });
+
+      afterEach(function () {
+         sinon.restore();
+      });
+
+      it("throw exception when grupo is undefined", function () {
+         // Arrange
+         var grupo;
+
+         //Act
+         try {
+            componentesPresenter.removeTypeOrTone(grupo, null);
+         } catch (error) {
+            errorMsg = error;
+         }
+
+         // Assert
+         expect(errorMsg).to.have.string("grupo is null or undefined");
+      });
+
+      it("throw exception when grupo is null", function () {
+         // Arrange
+         var grupo = null;
+
+         //Act
+         try {
+            componentesPresenter.removeTypeOrTone(grupo, null);
+         } catch (error) {
+            errorMsg = error;
+         }
+
+         // Assert
+         expect(errorMsg).to.have.string("grupo is null or undefined");
+      });
+
+      it("throw exception when cuv is undefined", function () {
+         // Arrange
+         var grupo = "1";
+         var cuv;
+
+         //Act
+         try {
+            componentesPresenter.removeTypeOrTone(grupo, cuv);
+         } catch (error) {
+            errorMsg = error;
+         }
+
+         // Assert
+         expect(errorMsg).to.have.string("cuv is null or undefined");
+      });
+
+      it("throw exception when cuv is null", function () {
+         // Arrange
+         var grupo = "1";
+         var cuv = null;
+
+         //Act
+         try {
+            componentesPresenter.removeTypeOrTone(grupo, cuv);
+         } catch (error) {
+            errorMsg = error;
+         }
+
+         // Assert
+         expect(errorMsg).to.have.string("cuv is null or undefined");
+      });
+
+      describe("Given a component with FactorCuadre equals to 2", function () {
+
+         beforeEach(function () {
+            componentesPresenter.onEstrategiaModelLoaded(estrategiaUnComponenteFactorCuadreIgualADos());
+            //
+            componentesView.setTitle.returns(true);
+            componentesView.setSelectedQuantityText.returns(true);
+            componentesView.showChooseIt.returns(true);
+            componentesView.showChoosen.returns(true);
+            componentesView.showQuantitySelector.returns(true);
+            componentesView.showSelectedTypesOrTones.returns(true);
+            componentesView.blockTypesOrTones.returns(true);
+            componentesView.unblockTypesOrTones.returns(true);
+         });
+
+         describe("and two types/tones are added", function () {
+
+            var grupo = "1";
+            var cuv = "31593";
+
+            beforeEach(function () {
+               componentesPresenter.addTypeOrTone(grupo, cuv);
+               componentesPresenter.addTypeOrTone(grupo, cuv);
+            });
+
+            describe("When one type/tone is removed", function () {
+               beforeEach(function () {
+               });
+
+               it("should update selected quantity", function () {
+                  // Arrange
+                  componentesPresenter.removeTypeOrTone(grupo, cuv);
+   
+                  // Act
+                  var result = componentesPresenter.estrategiaModel().Hermanos[0].cantidadSeleccionados;
+   
+                  // Assert
+                  expect(result).to.be.equal(1);
+               });
+
+               it("should return false when componentesView do not render quantity selector", function () {
+                  // Arrange
+                  componentesView.showQuantitySelector.returns(false);
+   
+                  // Act
+                  var result = componentesPresenter.removeTypeOrTone(grupo, cuv);
+   
+                  // Assert
+                  expect(result).to.be.equal(false);
+               });
+   
+               it("should return false when componentesView do not render selected types/tones", function () {
+                  // Arrange
+                  componentesView.showSelectedTypesOrTones.returns(false);
+   
+                  // Act
+                  var result = componentesPresenter.removeTypeOrTone(grupo, cuv);
+   
+                  // Assert
+                  expect(result).to.be.eql(false);
+               });
+   
+               it("should return false when componentesView do not render update title", function () {
+                  // Arrange
+                  componentesView.setTitle.returns(false);
+   
+                  // Act
+                  var result = componentesPresenter.removeTypeOrTone(grupo, cuv);
+   
+                  // Assert
+                  expect(result).to.be.eql(false);
+               });
+
+               it("should update title to 'TE FALTA 1 OPCIÓN' ", function () {
+                  // Arrange
+                  componentesPresenter.removeTypeOrTone(grupo, cuv);
+   
+                  // Act
+                  var result = componentesPresenter.estrategiaModel().Hermanos[0].selectComponentTitle;
+   
+                  // Assert
+                  expect(result).to.be.eql("Te falta 1 opción");
+               });
+   
+               it("should update selected quantity to '1 Seleccionado' ", function () {
+                  // Arrange
+                  componentesPresenter.removeTypeOrTone(grupo, cuv);
+   
+                  // Act
+                  var result = componentesPresenter.estrategiaModel().Hermanos[0].selectedQuantityText;
+   
+                  // Assert
+                  expect(result).to.be.eql("1 Seleccionado");
+               });
+
+               it("should return false when componentesView do not enable types/tones", function () {
+                  // Arrange
+                  componentesView.unblockTypesOrTones.returns(false);
+   
+                  // Act
+                  var result = componentesPresenter.removeTypeOrTone(grupo, cuv);
+   
+                  // Assert
+                  expect(result).to.be.eql(false);
+               });
+            });
+
+            describe("When two type/tone are removed", function () {
+               beforeEach(function () {
+               });
+
+               it("should update selected quantity", function () {
+                  // Arrange
+                  componentesPresenter.removeTypeOrTone(grupo, cuv);
+                  componentesPresenter.removeTypeOrTone(grupo, cuv);
+   
+                  // Act
+                  var result = componentesPresenter.estrategiaModel().Hermanos[0].cantidadSeleccionados;
+   
+                  // Assert
+                  expect(result).to.be.equal(0);
+               });
+
+               it("should return false when componentesView do not render 'Eligelo' ", function () {
+                  // Arrange
+                  componentesView.showChooseIt.returns(false);
+                  componentesPresenter.removeTypeOrTone(grupo, cuv);
+   
+                  // Act
+                  var result = componentesPresenter.removeTypeOrTone(grupo, cuv);
+   
+                  // Assert
+                  expect(result).to.be.equal(false);
+               });
+
+               it("should update title to 'TE FALTA 2 OPCIÓN' ", function () {
+                  // Arrange
+                  componentesPresenter.removeTypeOrTone(grupo, cuv);
+                  componentesPresenter.removeTypeOrTone(grupo, cuv);
+   
+                  // Act
+                  var result = componentesPresenter.estrategiaModel().Hermanos[0].selectComponentTitle;
+   
+                  // Assert
+                  expect(result).to.be.eql("Elige 2 opciones");
+               });
+
+               it("should update selected quantity to '0 Seleccionado' ", function () {
+                  // Arrange
+                  componentesPresenter.removeTypeOrTone(grupo, cuv);
+                  componentesPresenter.removeTypeOrTone(grupo, cuv);
+   
+                  // Act
+                  var result = componentesPresenter.estrategiaModel().Hermanos[0].selectedQuantityText;
+   
+                  // Assert
+                  expect(result).to.be.eql("0 Seleccionados");
+               });
+
+            });
+
+         });
       });
    });
 });
