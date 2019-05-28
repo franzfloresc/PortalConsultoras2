@@ -28,7 +28,8 @@
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
     <IISExpressSSLPort>44361</IISExpressSSLPort>
-    <Use64BitIISExpress>true</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -1523,6 +1524,7 @@
     <Content Include="Content\Css\Site\Images\gif_de_ofertas_2.gif" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\general-popups.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-cierre-sesion.css" />
+    <Content Include="Content\Css\Site\TuVozOnline\TuVozOnline.css" />
     <Content Include="Content\Images\checkBuroSAC.svg" />
     <Content Include="Content\Images\Excel.svg" />
     <Content Include="Content\Images\exclamationBuroSAC.svg" />
@@ -5830,6 +5832,7 @@
     <Content Include="Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
     <Content Include="Views\AdministracionMedallaBrillante\Index.cshtml" />
     <Content Include="Views\Shared\_MainLayoutResponsiveCaminoBrillante.cshtml" />
+    <Content Include="Views\TuVozOnline\Index.cshtml" />
     <Content Include="Views\ConsultoraOnline\Pendientes.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
@@ -6142,7 +6145,6 @@
     <Folder Include="Views\EstrategiaProductoComentario\" />
     <Folder Include="Views\FakeError\" />
     <Folder Include="Views\PremioNuevas\Partial\" />
-    <Folder Include="Views\TuVozOnline\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
