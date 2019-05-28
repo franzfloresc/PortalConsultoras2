@@ -11,9 +11,9 @@ var timeCloseRain = timeCloseRain || 30000;   //tiempo de visualización del efec
 var esShowRoom = esShowRoom || false;
 
 var numObjects = vnumObjects,
-	waft = 50,
+    waft = 50,
     fallSpeed = vfallSpeed,
-	wind = 0;
+    wind = 0;
 
 var heightIcon = esMobile ? 7 : 10;
 var widthIcon = esMobile ? 7 : 10;
@@ -59,7 +59,16 @@ function mostrarLluvia() {
 
 }
 
-function ocultarLluvia() {
+function ocultarLluvia(valor) {
+    var valorCerrar = "icono_cerrar_popup_eleccion_regalo_programaNuevas";
+    /*HD-3710 - 6_7 (Pop up Felicidades -  Click Botón) -  (Pop up Regalos - Click Botón) */
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Carrito de Compras',
+        'action':  valor.className == valorCerrar ? valor.title : valor.innerHTML,
+        'label': 'popupPremio',
+    });
+
     if (timer) {
         clearTimeout(timer);
     }

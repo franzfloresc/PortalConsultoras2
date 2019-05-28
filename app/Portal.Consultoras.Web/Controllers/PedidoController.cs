@@ -22,9 +22,10 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Routing;
+using static Portal.Consultoras.Common.Constantes;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
- 
+
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -349,6 +350,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.ActivarRecomendaciones = ObtenerFlagActivacionRecomendaciones();
                 ViewBag.MaxCaracteresRecomendaciones = ObtenerNumeroMaximoCaracteresRecomendaciones(false);
+
+                /*HD-3710*/
+                ViewBag.PedidoEscogeRegaloCarrusel = EsDispositivoMovil() ? OrigenPedidoWeb.MobilePedidoEscogeRegaloCarrusel : OrigenPedidoWeb.DesktopPedidoEscogeRegaloCarrusel;
+
 
                 #region Camino Brillante 
 
@@ -1024,7 +1029,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var revistaGana = ValidarDesactivaRevistaGana(userModel);
 
-               
+
 
                 productosModel.Add(new ProductoModel()
                 {
@@ -1058,10 +1063,10 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoCatalago = producto.CodigoCatalogo,
                     EstrategiaIDSicc = producto.EstrategiaIDSicc,
                     //INI HD-3908
-                    CodigoPalanca= (new OfertaPersonalizadaProvider()).getCodigoPalanca(producto.TipoEstrategiaCodigo),
-                    CampaniaID= userModel.CampaniaID
+                    CodigoPalanca = (new OfertaPersonalizadaProvider()).getCodigoPalanca(producto.TipoEstrategiaCodigo),
+                    CampaniaID = userModel.CampaniaID
                     //FIN HD-3908
-                    
+
                 });
             }
             catch (Exception ex)
@@ -1558,7 +1563,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Enumeradores.ResultadoReserva.NoReservadoMontoMinimo
                 };
 
-                var mensajeCondicional = resultado.ListaMensajeCondicional != null && resultado.ListaMensajeCondicional.Any() ? resultado.ListaMensajeCondicional[0].MensajeRxP: null;
+                var mensajeCondicional = resultado.ListaMensajeCondicional != null && resultado.ListaMensajeCondicional.Any() ? resultado.ListaMensajeCondicional[0].MensajeRxP : null;
                 return Json(new
                 {
                     success = true,

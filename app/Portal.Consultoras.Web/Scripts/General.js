@@ -409,7 +409,7 @@ jQuery(document).ready(function () {
             Handlebars.registerHelper('json', function (context) {
                 return JSON.stringify(context).replace(/"/g, '&quot;');
             });
-             
+
         }
     };
 
@@ -746,6 +746,7 @@ function CerrarLoad(opcion) {
 }
 
 function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
+
     try {
         mensaje = $.trim(mensaje);
         if (mensaje == "") {
@@ -793,11 +794,27 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('.ui-dialog .ui-icon-closethick').off('click');
 
             $('.ui-dialog .ui-button').on('click', function (e) {
+
+                /*HD-3710 - 9 (Pop up Lo sentimos - Click Botón)*/
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Carrito de Compras',
+                    'action': 'alertDialogMensajes - Click Botón',
+                    'label': 'Ok'
+                });
                 HideDialog("alertDialogMensajes");
                 if ($.isFunction(fnAceptar)) fnAceptar(e);
             });
 
             $('.ui-dialog .ui-icon-closethick').on('click', function (e) {
+
+                /*HD-3710 - 10 (Cerrar Pop up Lo sentimos)*/
+                dataLayer.push({
+                    'event': 'virtualEvent',
+                    'category': 'Carrito de Compras',
+                    'action': 'alertDialogMensajes - Click Botón',
+                    'label': 'Cerrar'
+                });
                 HideDialog("alertDialogMensajes");
                 if ($.isFunction(fnAceptar)) fnAceptar(e);
             });
@@ -1699,22 +1716,22 @@ function odd_google_analytics_product_click(name, id, price, brand, variant, pos
     dataLayer.push({
         'event': 'productClick',
         'ecommerce':
-        {
-            'click':
             {
-                'actionField': { 'list': listName },
-                'products':
-                    [{
-                        'name': name,
-                        'id': id,
-                        'price': price,
-                        'brand': brand,
-                        'category': 'No disponible',
-                        'variant': variant,
-                        'position': position
-                    }]
+                'click':
+                    {
+                        'actionField': { 'list': listName },
+                        'products':
+                            [{
+                                'name': name,
+                                'id': id,
+                                'price': price,
+                                'brand': brand,
+                                'category': 'No disponible',
+                                'variant': variant,
+                                'position': position
+                            }]
+                    }
             }
-        }
     });
 }
 
@@ -2036,15 +2053,15 @@ var GeneralModule = (function () {
     "use strict";
 
     var _elements = {
-        loading :{
-            spin : {
-                id : "loading-spin"
+        loading: {
+            spin: {
+                id: "loading-spin"
             },
-            loadingScreen:{
-                id : "loadingScreen",
-                class : {
-                    titulo : "loadingScreen-titulo",
-                    mensaje : "loadingScreen-mensaje"
+            loadingScreen: {
+                id: "loadingScreen",
+                class: {
+                    titulo: "loadingScreen-titulo",
+                    mensaje: "loadingScreen-mensaje"
                 }
             }
         }
@@ -2077,10 +2094,10 @@ var GeneralModule = (function () {
     var _createLoading = function () {
         if ($("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.titulo).length !== 0 ||
             $("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.mensaje).length !== 0) return false;
-    
+
         $("#" + _elements.loading.loadingScreen.id).append("<div class=\"" + _elements.loading.loadingScreen.class.titulo + "\"></div>");
         $("#" + _elements.loading.loadingScreen.id).append("<div class=\"" + _elements.loading.loadingScreen.class.mensaje + "\"></div>");
-    
+
         $("#" + _elements.loading.loadingScreen.id).dialog({
             autoOpen: false,
             dialogClass: "loadingScreenWindow",
@@ -2098,7 +2115,7 @@ var GeneralModule = (function () {
     var waitingDialog = function (params) {
         try {
             if (!$("#" + _elements.loading.loadingScreen.id)) {
-                $(document.body).append("<div id=\"" +_elements.loading.loadingScreen.id + "\"></div>");
+                $(document.body).append("<div id=\"" + _elements.loading.loadingScreen.id + "\"></div>");
             }
 
             if (!$("#" + _elements.loading.loadingScreen.id).hasClass('ui-dialog-content')) {
@@ -2119,7 +2136,7 @@ var GeneralModule = (function () {
 
     var _hideDialog = function (dialogId) {
         try {
-    
+
             dialogId = (dialogId || "").trim();
             if (dialogId != "") {
                 dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
@@ -2129,7 +2146,7 @@ var GeneralModule = (function () {
         catch (err) {
             console.log('HideDialog - log - ', err);
         }
-    
+
         $("body").css("overflow", "auto");
         return false;
     };
@@ -2182,9 +2199,9 @@ var GeneralModule = (function () {
 }());
 //INI HD-3693
 function validarpopupBloqueada(message) {
-    if (message.indexOf("HD3693~")!=-1) return message.split("~")[1];
+    if (message.indexOf("HD3693~") != -1) return message.split("~")[1];
     else return "";
-    
+
 }
 //FIN HD-3693
 

@@ -267,7 +267,7 @@ function MostrarBarra(datax, destino) {
                 + '<div class="monto_minimo_barra">'
                 + '<div style="width:{wText}px;position: relative;" data-texto>'
                 + '<div class="{barra_tooltip_class}">'
-                + '<a class="tippingPoint {estado}" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a>'
+            + '<a class="tippingPoint {estado}" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo(' + "'Ver Regalos'" + ');"></a>'
                 + '{barra_monto}'
                 + '{barra_tooltip}'
                 + '</div>'
@@ -286,7 +286,7 @@ function MostrarBarra(datax, destino) {
                 + '<div class="monto_minimo_barra">'
                 + '<div style="width:{wText}px;position: relative;" data-texto>'
                 + '<div class="{barra_tooltip_class}">'
-                + '<a class="tippingPoint {estado}" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();"></a>'
+            + '<a class="tippingPoint {estado}" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo(' + "'Ver Regalos'" + ');"></a>'
                 + '{barra_monto}'
                 + '{barra_tooltip}'
                 + '</div>'
@@ -868,7 +868,16 @@ function cargarPopupEleccionRegalo(disableCheck) {
     }
 
     showTextsPremio();
-
+    /*HD-3710 - 1_Click en regalo*/
+    var disableValue = typeof disableCheck === 'string' && disableCheck.length > 0;
+    if (disableValue) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Carrito de Compras',
+            'action': 'Click Botón',
+            'label': disableCheck
+        });
+    }
     AbrirPopup('#popupEleccionRegalo');
     setTimeout(function () {
         armarCarouselRegalos();
@@ -2530,6 +2539,15 @@ function tryLoadPedidoDetalle() {
 }
 
 function AgregarPremio(premio) {
+
+    /*HD-3710 - 2_3_Popup elige tu regalo*/
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Carrito de Compras',
+        'action': 'popupEleccionRegalo - Click Botón',
+        'label': $(".btn_elegir_regalo").html() + ' - ' + premio.DescripcionResumen
+    });
+
     AbrirLoad();
     var params = {
         CUV: $.trim(premio.CUV2),
@@ -2537,7 +2555,8 @@ function AgregarPremio(premio) {
         PrecioUnidad: premio.Precio2,
         TipoEstrategiaID: premio.TipoEstrategiaID,
         MarcaID: premio.MarcaID,
-        FlagNueva: $.trim(premio.FlagNueva)
+        FlagNueva: $.trim(premio.FlagNueva),
+        OrigenPedidoWeb: parseInt(PedidoEscogeRegaloCarrusel) /*HD-3710*/
     };
 
     return InsertarPremio(params);
@@ -2571,7 +2590,16 @@ function InsertarPremio(model) {
     });
 };
 
-function ClosePopupRegaloElectivo() {
+function ClosePopupRegaloElectivo(valor) {
+    var valorCerrar = "icono_cerrar_popup_eleccion_regalo_programaNuevas";
+    /*HD-3710 - 6_7 (Pop up felicidades - Click Botón) -  (Cerrar Pop up felicidades) */
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Carrito de Compras',
+        'action': valor.className == valorCerrar ? valor.title : 'popupEleccionRegalo - Click Botón',
+        'label': valor.className == valorCerrar ? 'popupEleccionRegalo' : valor.innerHTML
+    });
+
     if (typeof dataAgregarOF !== 'undefined') dataAgregarOF = null;
     CerrarPopup('#popupEleccionRegalo');
     $('#popupEleccionRegalo').scrollTop(0);
