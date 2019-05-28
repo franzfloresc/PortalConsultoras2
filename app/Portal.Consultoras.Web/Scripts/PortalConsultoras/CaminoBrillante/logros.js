@@ -44,7 +44,7 @@ function ComoLograrlo(categoria, caracteristica, titulo, descripcion) {
     }
 }
 
-function CerrarComoLograrlo(categoria, caracteristica, titulo) {
+function CerrarComoLograrlo(categoria, caracteristica) {
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Nivel y beneficios – Mis Logros',
