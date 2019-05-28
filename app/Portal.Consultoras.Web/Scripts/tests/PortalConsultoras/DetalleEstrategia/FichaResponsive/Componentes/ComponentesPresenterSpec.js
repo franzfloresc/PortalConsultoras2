@@ -1061,9 +1061,12 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
             componentesPresenter.onEstrategiaModelLoaded(estrategiaUnComponenteFactorCuadreIgualADos());
             componentesView.setTitle.returns(true);
             componentesView.setSelectedQuantityText.returns(true);
+            componentesView.showChooseIt.returns(true);
+            componentesView.showChoosen.returns(true);
             componentesView.showQuantitySelector.returns(true);
             componentesView.showSelectedTypesOrTones.returns(true);
             componentesView.blockTypesOrTones.returns(true);
+            componentesView.unblockTypesOrTones.returns(true);
          });
 
          describe("and you select a type/tone", function () {
@@ -1244,10 +1247,6 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
                expect(result).to.be.equal(2);
             });
          });
-
-         // it("should block type/tone when selected quantity is equal FactorCuadre", function () {
-
-         // });
       });
    });
 

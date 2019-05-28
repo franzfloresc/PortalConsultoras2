@@ -121,17 +121,6 @@ var ComponentesView = function () {
             _presenter.removeTypeOrTone(grupo, cuv, indice);
         });
 
-        $(window).on('resize', function () {
-            // var _componente = ListaOpcionesModule.GetComponente() || {};
-            // if (_componente.HermanosSeleccionados) {
-            //     if (_componente.HermanosSeleccionados.length === 0) {
-            //         ListaOpcionesModule.MoverListaOpcionesOcultarSeleccionados();
-            //     } else {
-            //         ListaOpcionesModule.MoverListaOpcionesMostrarSeleccionados();
-            //     }
-            // }
-        });
-
         return true;
     };
 
@@ -186,11 +175,21 @@ var ComponentesView = function () {
     };
 
     var _showTypesAndTonesModal = function () {
-        return _showModal(_elements.tiposTonosModal.id);
+        _showModal(_elements.tiposTonosModal.id);
+
+        $(body).on("resize", _elements.tiposTonosModal.id, function () {
+            var hPopup = $(_elements.tiposTonosModal.id).height();
+            var hSelectedTypesTones = $(_elements.tiposTonosModal.tiposTonosSeleccionados.contenedor).height();
+            $(_elements.showTypesAndTonesModal.tiposTonos.id).height(hPopup - hSelectedTypesTones);
+        });
+
+        return true;
     };
 
     var _hideTypeAndTonesModal = function () {
-        return _hideModal(_elements.tiposTonosModal.id);
+        _hideModal(_elements.tiposTonosModal.id);
+        $(body).off("resize", _elements.tiposTonosModal.id);
+        return true;
     };
 
     var _showQuantitySelector = function (grupo, cuv, cantidad) {
