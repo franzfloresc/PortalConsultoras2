@@ -1,6 +1,32 @@
+GO
 USE BelcorpPeru
 GO
 
+DELETE FROM [dbo].[OrigenPedidoWeb]
+      WHERE [CodOrigenPedidoWeb]
+		in ('1190015',
+			'1190115',
+			'1190215',
+			'1190315',
+			'1191415',
+			'2190015',
+			'2190115',
+			'2190215',
+			'2190315',
+			'2191415',
+			'1190016',
+			'1190116',
+			'1190216',
+			'1190316',
+			'1191416',
+			'2190016',
+			'2190116',
+			'2190216',
+			'2190316',
+			'2191416')
+
+go
+
 INSERT INTO [dbo].[OrigenPedidoWeb]
            ([CodOrigenPedidoWeb],[DesOrigenPedidoWeb],[CodMedio],[DesMedio],[CodZona],[DesZona],[CodSeccion],[DesSeccion],[CodPopup],[DesPopup])
      VALUES
@@ -24,11 +50,37 @@ INSERT INTO [dbo].[OrigenPedidoWeb]
 		   ('2190216', 'Mobile Ficha Lanzamientos Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '02', 'Lanzamientos', '16','Ficha Upselling'),
 		   ('2190316', 'Mobile Ficha Oferta Del Día Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '03', 'Oferta Del Día', '16','Ficha Upselling'),
 		   ('2191416', 'Mobile Ficha Ganadoras Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '14', 'Ganadoras', '16','Ficha Upselling')
-GO
 
+
+GO
 USE BelcorpMexico
 GO
 
+DELETE FROM [dbo].[OrigenPedidoWeb]
+      WHERE [CodOrigenPedidoWeb]
+		in ('1190015',
+			'1190115',
+			'1190215',
+			'1190315',
+			'1191415',
+			'2190015',
+			'2190115',
+			'2190215',
+			'2190315',
+			'2191415',
+			'1190016',
+			'1190116',
+			'1190216',
+			'1190316',
+			'1191416',
+			'2190016',
+			'2190116',
+			'2190216',
+			'2190316',
+			'2191416')
+
+go
+
 INSERT INTO [dbo].[OrigenPedidoWeb]
            ([CodOrigenPedidoWeb],[DesOrigenPedidoWeb],[CodMedio],[DesMedio],[CodZona],[DesZona],[CodSeccion],[DesSeccion],[CodPopup],[DesPopup])
      VALUES
@@ -52,11 +104,37 @@ INSERT INTO [dbo].[OrigenPedidoWeb]
 		   ('2190216', 'Mobile Ficha Lanzamientos Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '02', 'Lanzamientos', '16','Ficha Upselling'),
 		   ('2190316', 'Mobile Ficha Oferta Del Día Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '03', 'Oferta Del Día', '16','Ficha Upselling'),
 		   ('2191416', 'Mobile Ficha Ganadoras Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '14', 'Ganadoras', '16','Ficha Upselling')
-GO
 
+
+GO
 USE BelcorpColombia
 GO
 
+DELETE FROM [dbo].[OrigenPedidoWeb]
+      WHERE [CodOrigenPedidoWeb]
+		in ('1190015',
+			'1190115',
+			'1190215',
+			'1190315',
+			'1191415',
+			'2190015',
+			'2190115',
+			'2190215',
+			'2190315',
+			'2191415',
+			'1190016',
+			'1190116',
+			'1190216',
+			'1190316',
+			'1191416',
+			'2190016',
+			'2190116',
+			'2190216',
+			'2190316',
+			'2191416')
+
+go
+
 INSERT INTO [dbo].[OrigenPedidoWeb]
            ([CodOrigenPedidoWeb],[DesOrigenPedidoWeb],[CodMedio],[DesMedio],[CodZona],[DesZona],[CodSeccion],[DesSeccion],[CodPopup],[DesPopup])
      VALUES
@@ -80,11 +158,37 @@ INSERT INTO [dbo].[OrigenPedidoWeb]
 		   ('2190216', 'Mobile Ficha Lanzamientos Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '02', 'Lanzamientos', '16','Ficha Upselling'),
 		   ('2190316', 'Mobile Ficha Oferta Del Día Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '03', 'Oferta Del Día', '16','Ficha Upselling'),
 		   ('2191416', 'Mobile Ficha Ganadoras Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '14', 'Ganadoras', '16','Ficha Upselling')
-GO
 
+
+GO
 USE BelcorpSalvador
 GO
 
+DELETE FROM [dbo].[OrigenPedidoWeb]
+      WHERE [CodOrigenPedidoWeb]
+		in ('1190015',
+			'1190115',
+			'1190215',
+			'1190315',
+			'1191415',
+			'2190015',
+			'2190115',
+			'2190215',
+			'2190315',
+			'2191415',
+			'1190016',
+			'1190116',
+			'1190216',
+			'1190316',
+			'1191416',
+			'2190016',
+			'2190116',
+			'2190216',
+			'2190316',
+			'2191416')
+
+go
+
 INSERT INTO [dbo].[OrigenPedidoWeb]
            ([CodOrigenPedidoWeb],[DesOrigenPedidoWeb],[CodMedio],[DesMedio],[CodZona],[DesZona],[CodSeccion],[DesSeccion],[CodPopup],[DesPopup])
      VALUES
@@ -108,11 +212,37 @@ INSERT INTO [dbo].[OrigenPedidoWeb]
 		   ('2190216', 'Mobile Ficha Lanzamientos Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '02', 'Lanzamientos', '16','Ficha Upselling'),
 		   ('2190316', 'Mobile Ficha Oferta Del Día Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '03', 'Oferta Del Día', '16','Ficha Upselling'),
 		   ('2191416', 'Mobile Ficha Ganadoras Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '14', 'Ganadoras', '16','Ficha Upselling')
-GO
 
+
+GO
 USE BelcorpPuertoRico
 GO
 
+DELETE FROM [dbo].[OrigenPedidoWeb]
+      WHERE [CodOrigenPedidoWeb]
+		in ('1190015',
+			'1190115',
+			'1190215',
+			'1190315',
+			'1191415',
+			'2190015',
+			'2190115',
+			'2190215',
+			'2190315',
+			'2191415',
+			'1190016',
+			'1190116',
+			'1190216',
+			'1190316',
+			'1191416',
+			'2190016',
+			'2190116',
+			'2190216',
+			'2190316',
+			'2191416')
+
+go
+
 INSERT INTO [dbo].[OrigenPedidoWeb]
            ([CodOrigenPedidoWeb],[DesOrigenPedidoWeb],[CodMedio],[DesMedio],[CodZona],[DesZona],[CodSeccion],[DesSeccion],[CodPopup],[DesPopup])
      VALUES
@@ -136,11 +266,37 @@ INSERT INTO [dbo].[OrigenPedidoWeb]
 		   ('2190216', 'Mobile Ficha Lanzamientos Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '02', 'Lanzamientos', '16','Ficha Upselling'),
 		   ('2190316', 'Mobile Ficha Oferta Del Día Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '03', 'Oferta Del Día', '16','Ficha Upselling'),
 		   ('2191416', 'Mobile Ficha Ganadoras Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '14', 'Ganadoras', '16','Ficha Upselling')
-GO
 
+
+GO
 USE BelcorpPanama
 GO
 
+DELETE FROM [dbo].[OrigenPedidoWeb]
+      WHERE [CodOrigenPedidoWeb]
+		in ('1190015',
+			'1190115',
+			'1190215',
+			'1190315',
+			'1191415',
+			'2190015',
+			'2190115',
+			'2190215',
+			'2190315',
+			'2191415',
+			'1190016',
+			'1190116',
+			'1190216',
+			'1190316',
+			'1191416',
+			'2190016',
+			'2190116',
+			'2190216',
+			'2190316',
+			'2191416')
+
+go
+
 INSERT INTO [dbo].[OrigenPedidoWeb]
            ([CodOrigenPedidoWeb],[DesOrigenPedidoWeb],[CodMedio],[DesMedio],[CodZona],[DesZona],[CodSeccion],[DesSeccion],[CodPopup],[DesPopup])
      VALUES
@@ -164,11 +320,37 @@ INSERT INTO [dbo].[OrigenPedidoWeb]
 		   ('2190216', 'Mobile Ficha Lanzamientos Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '02', 'Lanzamientos', '16','Ficha Upselling'),
 		   ('2190316', 'Mobile Ficha Oferta Del Día Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '03', 'Oferta Del Día', '16','Ficha Upselling'),
 		   ('2191416', 'Mobile Ficha Ganadoras Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '14', 'Ganadoras', '16','Ficha Upselling')
-GO
 
+
+GO
 USE BelcorpGuatemala
 GO
 
+DELETE FROM [dbo].[OrigenPedidoWeb]
+      WHERE [CodOrigenPedidoWeb]
+		in ('1190015',
+			'1190115',
+			'1190215',
+			'1190315',
+			'1191415',
+			'2190015',
+			'2190115',
+			'2190215',
+			'2190315',
+			'2191415',
+			'1190016',
+			'1190116',
+			'1190216',
+			'1190316',
+			'1191416',
+			'2190016',
+			'2190116',
+			'2190216',
+			'2190316',
+			'2191416')
+
+go
+
 INSERT INTO [dbo].[OrigenPedidoWeb]
            ([CodOrigenPedidoWeb],[DesOrigenPedidoWeb],[CodMedio],[DesMedio],[CodZona],[DesZona],[CodSeccion],[DesSeccion],[CodPopup],[DesPopup])
      VALUES
@@ -192,11 +374,37 @@ INSERT INTO [dbo].[OrigenPedidoWeb]
 		   ('2190216', 'Mobile Ficha Lanzamientos Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '02', 'Lanzamientos', '16','Ficha Upselling'),
 		   ('2190316', 'Mobile Ficha Oferta Del Día Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '03', 'Oferta Del Día', '16','Ficha Upselling'),
 		   ('2191416', 'Mobile Ficha Ganadoras Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '14', 'Ganadoras', '16','Ficha Upselling')
-GO
 
+
+GO
 USE BelcorpEcuador
 GO
 
+DELETE FROM [dbo].[OrigenPedidoWeb]
+      WHERE [CodOrigenPedidoWeb]
+		in ('1190015',
+			'1190115',
+			'1190215',
+			'1190315',
+			'1191415',
+			'2190015',
+			'2190115',
+			'2190215',
+			'2190315',
+			'2191415',
+			'1190016',
+			'1190116',
+			'1190216',
+			'1190316',
+			'1191416',
+			'2190016',
+			'2190116',
+			'2190216',
+			'2190316',
+			'2191416')
+
+go
+
 INSERT INTO [dbo].[OrigenPedidoWeb]
            ([CodOrigenPedidoWeb],[DesOrigenPedidoWeb],[CodMedio],[DesMedio],[CodZona],[DesZona],[CodSeccion],[DesSeccion],[CodPopup],[DesPopup])
      VALUES
@@ -220,11 +428,37 @@ INSERT INTO [dbo].[OrigenPedidoWeb]
 		   ('2190216', 'Mobile Ficha Lanzamientos Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '02', 'Lanzamientos', '16','Ficha Upselling'),
 		   ('2190316', 'Mobile Ficha Oferta Del Día Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '03', 'Oferta Del Día', '16','Ficha Upselling'),
 		   ('2191416', 'Mobile Ficha Ganadoras Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '14', 'Ganadoras', '16','Ficha Upselling')
-GO
 
+
+GO
 USE BelcorpDominicana
 GO
 
+DELETE FROM [dbo].[OrigenPedidoWeb]
+      WHERE [CodOrigenPedidoWeb]
+		in ('1190015',
+			'1190115',
+			'1190215',
+			'1190315',
+			'1191415',
+			'2190015',
+			'2190115',
+			'2190215',
+			'2190315',
+			'2191415',
+			'1190016',
+			'1190116',
+			'1190216',
+			'1190316',
+			'1191416',
+			'2190016',
+			'2190116',
+			'2190216',
+			'2190316',
+			'2191416')
+
+go
+
 INSERT INTO [dbo].[OrigenPedidoWeb]
            ([CodOrigenPedidoWeb],[DesOrigenPedidoWeb],[CodMedio],[DesMedio],[CodZona],[DesZona],[CodSeccion],[DesSeccion],[CodPopup],[DesPopup])
      VALUES
@@ -248,11 +482,37 @@ INSERT INTO [dbo].[OrigenPedidoWeb]
 		   ('2190216', 'Mobile Ficha Lanzamientos Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '02', 'Lanzamientos', '16','Ficha Upselling'),
 		   ('2190316', 'Mobile Ficha Oferta Del Día Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '03', 'Oferta Del Día', '16','Ficha Upselling'),
 		   ('2191416', 'Mobile Ficha Ganadoras Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '14', 'Ganadoras', '16','Ficha Upselling')
-GO
 
+
+GO
 USE BelcorpCostaRica
 GO
 
+DELETE FROM [dbo].[OrigenPedidoWeb]
+      WHERE [CodOrigenPedidoWeb]
+		in ('1190015',
+			'1190115',
+			'1190215',
+			'1190315',
+			'1191415',
+			'2190015',
+			'2190115',
+			'2190215',
+			'2190315',
+			'2191415',
+			'1190016',
+			'1190116',
+			'1190216',
+			'1190316',
+			'1191416',
+			'2190016',
+			'2190116',
+			'2190216',
+			'2190316',
+			'2191416')
+
+go
+
 INSERT INTO [dbo].[OrigenPedidoWeb]
            ([CodOrigenPedidoWeb],[DesOrigenPedidoWeb],[CodMedio],[DesMedio],[CodZona],[DesZona],[CodSeccion],[DesSeccion],[CodPopup],[DesPopup])
      VALUES
@@ -276,11 +536,37 @@ INSERT INTO [dbo].[OrigenPedidoWeb]
 		   ('2190216', 'Mobile Ficha Lanzamientos Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '02', 'Lanzamientos', '16','Ficha Upselling'),
 		   ('2190316', 'Mobile Ficha Oferta Del Día Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '03', 'Oferta Del Día', '16','Ficha Upselling'),
 		   ('2191416', 'Mobile Ficha Ganadoras Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '14', 'Ganadoras', '16','Ficha Upselling')
-GO
 
+
+GO
 USE BelcorpChile
 GO
 
+DELETE FROM [dbo].[OrigenPedidoWeb]
+      WHERE [CodOrigenPedidoWeb]
+		in ('1190015',
+			'1190115',
+			'1190215',
+			'1190315',
+			'1191415',
+			'2190015',
+			'2190115',
+			'2190215',
+			'2190315',
+			'2191415',
+			'1190016',
+			'1190116',
+			'1190216',
+			'1190316',
+			'1191416',
+			'2190016',
+			'2190116',
+			'2190216',
+			'2190316',
+			'2191416')
+
+go
+
 INSERT INTO [dbo].[OrigenPedidoWeb]
            ([CodOrigenPedidoWeb],[DesOrigenPedidoWeb],[CodMedio],[DesMedio],[CodZona],[DesZona],[CodSeccion],[DesSeccion],[CodPopup],[DesPopup])
      VALUES
@@ -304,11 +590,37 @@ INSERT INTO [dbo].[OrigenPedidoWeb]
 		   ('2190216', 'Mobile Ficha Lanzamientos Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '02', 'Lanzamientos', '16','Ficha Upselling'),
 		   ('2190316', 'Mobile Ficha Oferta Del Día Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '03', 'Oferta Del Día', '16','Ficha Upselling'),
 		   ('2191416', 'Mobile Ficha Ganadoras Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '14', 'Ganadoras', '16','Ficha Upselling')
-GO
 
+
+GO
 USE BelcorpBolivia
 GO
 
+DELETE FROM [dbo].[OrigenPedidoWeb]
+      WHERE [CodOrigenPedidoWeb]
+		in ('1190015',
+			'1190115',
+			'1190215',
+			'1190315',
+			'1191415',
+			'2190015',
+			'2190115',
+			'2190215',
+			'2190315',
+			'2191415',
+			'1190016',
+			'1190116',
+			'1190216',
+			'1190316',
+			'1191416',
+			'2190016',
+			'2190116',
+			'2190216',
+			'2190316',
+			'2191416')
+
+go
+
 INSERT INTO [dbo].[OrigenPedidoWeb]
            ([CodOrigenPedidoWeb],[DesOrigenPedidoWeb],[CodMedio],[DesMedio],[CodZona],[DesZona],[CodSeccion],[DesSeccion],[CodPopup],[DesPopup])
      VALUES
@@ -332,5 +644,6 @@ INSERT INTO [dbo].[OrigenPedidoWeb]
 		   ('2190216', 'Mobile Ficha Lanzamientos Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '02', 'Lanzamientos', '16','Ficha Upselling'),
 		   ('2190316', 'Mobile Ficha Oferta Del Día Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '03', 'Oferta Del Día', '16','Ficha Upselling'),
 		   ('2191416', 'Mobile Ficha Ganadoras Ficha Upselling', '2', 'Desktop', '19', 'Ficha', '14', 'Ganadoras', '16','Ficha Upselling')
-GO
 
+
+GO
