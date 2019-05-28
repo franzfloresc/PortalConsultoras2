@@ -225,7 +225,7 @@ var AnalyticsPortalModule = (function () {
     ]
 
     ////////////////////////////////////////////////////////////////////////////////////////
-    // Ini - Metodos Iniciales
+    // Ini - Metodos Texto Origen Pedido Web
     ////////////////////////////////////////////////////////////////////////////////////////
     var _getIdPalancaSegunCodigo = function (codigo) {
         var total = _origenPedidoWebEstructura.Palanca.length;
@@ -408,8 +408,18 @@ var AnalyticsPortalModule = (function () {
         return texto;
     }
 
+
     ////////////////////////////////////////////////////////////////////////////////////////
-    // Fin - Metodos Iniciales
+    // Fin - Metodos Texto Origen Pedido Web
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Ini - Metodos Ayuda
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    var getDescripcionMarca = function (item) {
+        return item.DescripcionMarca || _getMarca(item.MarcaId || item.MarcaID)
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Fin - Metodos Ayuda
     ////////////////////////////////////////////////////////////////////////////////////////
     // Ini - Analytics Evento Remove From Cart
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -426,7 +436,7 @@ var AnalyticsPortalModule = (function () {
                             'name': data.data.DescripcionProducto,
                             'id': data.data.CUV,
                             'price': data.data.Precio,
-                            'brand': data.data.DescripcionMarca,
+                            'brand': getDescripcionMarca(data.data),
                             'category': "NO DISPONIBLE",
                             'variant': data.data.DescripcionOferta == "" ? "Estándar" : data.data.DescripcionOferta,
                             'quantity': Number(cantidad),
@@ -532,7 +542,7 @@ var AnalyticsPortalModule = (function () {
                             'name': producto.DescripcionCompleta,
                             'id': producto.CUV2 || producto.CUV,
                             'price': producto.PrecioVenta || producto.PrecioString,
-                            'brand': producto.DescripcionMarca || _getMarca(producto.MarcaId || producto.MarcaID),
+                            'brand': getDescripcionMarca(producto),
                             'category': _texto.notavaliable,
                             'variant': producto.Variant || _texto.estandar,
                             'quantity': producto.Cantidad
@@ -702,7 +712,7 @@ var AnalyticsPortalModule = (function () {
                     'name': producto.DescripcionCompleta,
                     'id': producto.CUV2,
                     'price': producto.PrecioVenta,
-                    'brand': producto.DescripcionMarca,
+                    'brand': getDescripcionMarca(producto),
                     'category': _texto.notavaliable,
                     'variant': producto.Variant,
                     'quantity': producto.Cantidad
@@ -757,7 +767,7 @@ var AnalyticsPortalModule = (function () {
                     'name': item.DescripcionCompleta,
                     'id': item.CUV2 || item.CUV,
                     'price': item.PrecioVenta || item.PrecioString,
-                    'brand': item.DescripcionMarca || _getMarca(item.MarcaId || item.MarcaID),
+                    'brand': getDescripcionMarca(item),
                     'category': _texto.notavaliable,
                     'variant': _texto.estandar,
                     'list': paramList,
@@ -933,7 +943,7 @@ var AnalyticsPortalModule = (function () {
                             'name': item.DescripcionCompleta,
                             'id': item.CUV2,
                             'price': item.PrecioVenta,
-                            'brand': item.DescripcionMarca,
+                            'brand': getDescripcionMarca(item),
                             'category': _texto.notavaliable,
                             'variant': _texto.estandar,
                             'position': item.Posicion
@@ -961,7 +971,7 @@ var AnalyticsPortalModule = (function () {
                             'name': item.DescripcionCompleta,
                             'id': item.CUV2,
                             'price': item.PrecioVenta,
-                            'brand': item.DescripcionMarca,
+                            'brand': getDescripcionMarca(item),
                             'category': _texto.notavaliable,
                             'variant': _texto.estandar,
                             'position': item.Posicion
@@ -1040,7 +1050,7 @@ var AnalyticsPortalModule = (function () {
                                     'name': item.DescripcionCompleta,
                                     'id': item.CUV2,
                                     'price': item.Precio2,
-                                    'brand': item.DescripcionMarca,
+                                    'brand': getDescripcionMarca(item),
                                     'category': _texto.notavaliable,
                                     'variant': _texto.estandar,
                                     'position': item.Posicion
@@ -1074,7 +1084,7 @@ var AnalyticsPortalModule = (function () {
                 "id": item.CUV2,
                 "name": item.DescripcionCompleta,
                 "price": item.PrecioVenta,
-                "brand": item.DescripcionMarca,
+                "brand": getDescripcionMarca(item),
                 "category": _texto.notavaliable,
                 "variant": _texto.estandar
             };
