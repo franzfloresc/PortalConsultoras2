@@ -915,40 +915,6 @@ $(document).ready(function () {
                 });
                 return arrFilter.length > 0;
             },
-
-            ValidarPasoDosTruequeServer: function (callbackWhenFinish) {
-                var url = UrlValidarNoPack;
-                var sendData = {
-                    PedidoID: $(me.Variables.hdPedidoID).val(),
-                    CUV: $.trim($(me.Variables.txtCuvMobile2).val()),
-                    Cantidad: $.trim($(me.Variables.txtCantidad2).val()),
-                    Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id"),
-                    CampaniaID: $(me.Variables.ComboCampania).val()
-                };
-
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(sendData),
-                    async: false,
-                    url: url,
-                    beforeSend: function () {
-                        ShowLoading();
-                    },
-                    complete: function () {
-                        CloseLoading();
-                    },
-                    success: function (data) {
-                        if (callbackWhenFinish && typeof callbackWhenFinish === "function") {
-                            callbackWhenFinish(data.success, data.message);
-                        }
-                    },
-                    error: function (data, error) {
-                        CloseLoading();
-                    }
-                });
-            },
             BuscarCUV: function (CUV) {
                 var CampaniaId = $.trim($(me.Variables.ComboCampania).val()) || 0;
                 var PedidoId = $.trim($(me.Variables.hdPedidoID).val()) || 0;
@@ -2016,22 +1982,11 @@ $(document).ready(function () {
                 //Validaciones
 
                 //Trueque
-                var msg = "";
                 if (id === me.Variables.operaciones.trueque) {
                     if (!me.Funciones.ValidarPasoDosTrueque()) {
                         return { result: false, id: id };
-                    } else {
-                        me.Funciones.ValidarPasoDosTruequeServer(function (success, message) {
-                            if (!success) {
-                                msg = message;
-                            }
-                        });
-                    }
-                }
-                if (msg.length > 0) {
-                    messageInfoValidado(msg);
-                    return { result: false, id: id };
-                }
+                    } 
+                }              
 
                 //Devolución
                 if (id === me.Variables.operaciones.devolucion) {

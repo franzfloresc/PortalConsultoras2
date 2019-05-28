@@ -441,28 +441,40 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult BuscarCuvCambiar(MisReclamosModel model)
         {
+            string mensaje;
             List<ProductoModel> producto = new List<ProductoModel>();
+            var result = ValidarNoPack(model, out mensaje);
+            if (!result)
+            {
+                return Json(new
+                {
+                    success = false,
+                    producto,
+                    message = mensaje,
+                    TieneSugerido = 0
+                }, JsonRequestBehavior.AllowGet);
+            }
             try
             {
-            ServiceODS.BEProductoBusqueda busqueda = new BEProductoBusqueda
-            {
-                PaisID = userData.PaisID,
-                CampaniaID = model.CampaniaID,
-                CodigoDescripcion = model.CUV,
-                RegionID = userData.RegionID,
-                ZonaID = userData.ZonaID,
-                CodigoRegion = userData.CodigorRegion,
-                CodigoZona = userData.CodigoZona,
-                Criterio = 1,
-                RowCount = 1,
-                ValidarOpt = false,
-                CodigoPrograma = userData.CodigoPrograma,
-                NumeroPedido = userData.ConsecutivoNueva + 1
-            };
-		List<ServiceODS.BEProducto> olstProducto;
+                ServiceODS.BEProductoBusqueda busqueda = new BEProductoBusqueda
+                {
+                    PaisID = userData.PaisID,
+                    CampaniaID = model.CampaniaID,
+                    CodigoDescripcion = model.CUV,
+                    RegionID = userData.RegionID,
+                    ZonaID = userData.ZonaID,
+                    CodigoRegion = userData.CodigorRegion,
+                    CodigoZona = userData.CodigoZona,
+                    Criterio = 1,
+                    RowCount = 1,
+                    ValidarOpt = false,
+                    CodigoPrograma = userData.CodigoPrograma,
+                    NumeroPedido = userData.ConsecutivoNueva + 1
+                };
+                List<ServiceODS.BEProducto> olstProducto;
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(busqueda).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(busqueda).ToList();
                 }
 
                 if (olstProducto.Count == 0)
@@ -512,8 +524,9 @@ namespace Portal.Consultoras.Web.Controllers
                     TieneSugerido = 0
                 }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, "BuscarCuvCambiar");
                 return Json(new
                 {
                     success = false,
@@ -582,7 +595,7 @@ namespace Portal.Consultoras.Web.Controllers
                 isSetsOrPack = respuestaServiceCdr != null && respuestaServiceCdr[0].LProductosComplementos.Any() &&
                     estrategias.Contains(respuestaServiceCdr[0].Estrategia.ToString());
                 SessionManager.SetFlagIsSetsOrPack(isSetsOrPack);
-                
+
                 //reemplazar si tiene cuv reemplazo
                 if (respuestaServiceCdr.Any() && isSetsOrPack)
                 {
@@ -667,10 +680,10 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ValidarNoPack(MisReclamosModel model)
+        public bool ValidarNoPack(MisReclamosModel model, out string mensage)
         {
-            #region Validar Pack y Sets
-
+            bool resultado = true;
+            mensage = "";
             try
             {
                 using (WsGestionWeb sv = new WsGestionWeb())
@@ -679,26 +692,19 @@ namespace Portal.Consultoras.Web.Controllers
                         userData.CodigoConsultora, model.CUV, model.Cantidad, userData.CodigoZona);
 
                     if (respuestaServiceCdr[0].Codigo != "00")
-                        return Json(new
-                        {
-                            success = false,
-                            message = "Lo sentimos, no se puede realizar el cambio por este producto.",
-                        }, JsonRequestBehavior.AllowGet);
+                    {
+                        mensage = "Lo sentimos, no se puede realizar el cambio por este producto.";
+                        resultado = false;
+                    }
                 }
             }
             catch (Exception ex)
             {
+                resultado = false;
+                mensage = "Lo sentimos, no se puede realizar el cambio por este producto";
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-
-            #endregion
-
-            string mensajeError = "";
-            return Json(new
-            {
-                success = true,
-                message = mensajeError
-            }, JsonRequestBehavior.AllowGet);
+            return resultado;
         }
 
         public JsonResult BuscarOperacion(MisReclamosModel model)
@@ -1686,7 +1692,7 @@ namespace Portal.Consultoras.Web.Controllers
                                                              "<div style = 'display: block;border-radius: 10.5px;width: 87px;height: 27px;font-size: 14px;line-height: 27px;margin-top: 8px;padding-left: 8px;padding-right: 8px;background-color: #000;color: #fff;font-weight: 700; '>Set o Pack</div></td>" +
                                                              "<td rowspan = '2' style = 'width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; font-weight: 700;' >" + "</td>" + "</tr> ";
                     }
-                    
+
                 }
                 html = html.Replace("#ETIQUETA_SET_PACK#", etiquetaHtml);
                 html = html.Replace("#FORMATO_CUV1#", cdrWebDetalle.CUV);
@@ -1712,7 +1718,7 @@ namespace Portal.Consultoras.Web.Controllers
                     htmlOperacion = htmlOperacion.Replace("#FORMATO_SOLICITUD#", cdrWebDetalle.Solicitud);
                     htmlOperacion = htmlOperacion.Replace("#FORMATO_CANTIDAD1#", cdrWebDetalle.Cantidad.ToString());
                     htmlOperacion = htmlOperacion.Replace("#FORMATO_PRECIO1#", string.Format("{0} {1}", simbolo, Util.DecimalToStringFormat(cdrWebDetalle.Precio, isoPais)));
-                
+
                     bool primeraFila = false;
                     foreach (var item in listaDetalleCambio)
                     {

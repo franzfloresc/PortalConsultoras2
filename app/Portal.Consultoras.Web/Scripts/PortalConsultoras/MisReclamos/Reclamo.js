@@ -1057,40 +1057,6 @@ function ValidarPasoDosTrueque() {
     return true;
 }
 
-function ValidarPasoDosTruequeServer(callbackSuccessful) {
-    var url = baseUrl + 'MisReclamos/ValidarNoPack';
-    var sendData = {
-        PedidoID: $("#txtPedidoID").val(),
-        CUV: $.trim($("#txtCUV2").val()),
-        Cantidad: $.trim($("#txtCantidad2").val()),
-        Motivo: $.trim($("#divMotivo [data-check='1']").attr("id")),
-        CampaniaID: $("#ddlCampania").val()
-    };
-
-    $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(sendData),
-        async: false,
-        url: url,
-        beforeSend: function () {
-            waitingDialog();
-        },
-        complete: function () {
-            closeWaitingDialog();
-        },
-        success: function (data) {
-            if (callbackSuccessful && typeof callbackSuccessful === "function") {
-                callbackSuccessful(data.success, data.message);
-            }
-        },
-        error: function (data, error) {
-            closeWaitingDialog();
-        }
-    });
-}
-
 function ValidarCantidadMaximaPermitida(codigoSsic) {
     ObtenerValorCDRWebDatos(codigoSsic);
     var cantidadProductosFaltanteActual = ObtenerCantidadProductosByCodigoSsic(codigoSsic);
@@ -1670,23 +1636,12 @@ function PreValidacionIrFinalizar() {
     //Validaciones
 
     //Trueque
-    var msg = "";
     if (id === reclamo.operacion.trueque) {
         if (!ValidarPasoDosTrueque()) {
             return false;
-        } else {
-            ValidarPasoDosTruequeServer(function (success, message) {
-                if (!success) {
-                    msg = message;
-                }
-            })
         }
     }
 
-    if (msg.length > 0) {
-        alert_msg(msg);
-        return false;
-    }
     //Devolución
     if (id === reclamo.operacion.devolucion) {
         if (!ValidarPasoDosDevolucion(id)) {

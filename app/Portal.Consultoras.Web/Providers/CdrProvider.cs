@@ -385,6 +385,10 @@ namespace Portal.Consultoras.Web.Providers
 
             var diasFaltantes = Util.GetDiasFaltantesFacturacion(fechaInicioCampania, zonaHoraria);
 
+#if(DEBUG)
+            diasFaltantes = 5;
+#endif
+
             if (diasFaltantes == 0) return Constantes.CdrWebMensajes.FueraDeFecha;
 
             var cdrDiasAntesFacturacion = 0;
