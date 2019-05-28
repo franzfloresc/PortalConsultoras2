@@ -1925,6 +1925,7 @@ function EsValidoMontoTotalReserva() {
 }
 
 function EjecutarServicioPROL() {
+	
     PedidoProvider
         .PedidoEjecutarServicioProlPromise()
         .done(function (response) {
@@ -3033,9 +3034,7 @@ function ModificarPedido() {
 	showDialog("divConfirmValidarPROL2");
 }
 function CerrarDialogo(dialog) {
-	HideDialog(dialog); function CerrarDialogo(dialog) {
-		HideDialog(dialog);
-	}
+	HideDialog(dialog);
 }
 
 function PedidosPendientesPorAprobar() {
