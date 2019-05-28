@@ -2117,32 +2117,7 @@ namespace Portal.Consultoras.Web.Controllers
                 tipoVista = 1;
             }
 
-            if (flagMedio == Constantes.SolicitudCliente.FlagMedio.AppCatalogos)
-            {
-                modelo.Seccion = ConsOrigenPedidoWeb.Seccion.AppCatalogoPendienteDeAprobar;
-            }
-            else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.CatalogoDigital)
-            {
-                if (tipoVista == 1) // por cliente
-                {
-                    modelo.Seccion = ConsOrigenPedidoWeb.Seccion.CatalogoPendienteDeAprobar;
-                }
-                else
-                {
-                    modelo.Seccion = ConsOrigenPedidoWeb.Seccion.CatalogoPendienteDeAprobarProducto;
-                }
-            }
-            else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual)
-            {
-                if (tipoVista == 1) // por cliente
-                {
-                    modelo.Seccion = ConsOrigenPedidoWeb.Seccion.MaquilladorPendienteDeAprobar;
-                }
-                else
-                {
-                    modelo.Seccion = ConsOrigenPedidoWeb.Seccion.MaquilladorPendienteDeAprobarProducto;
-                }
-            }
+            modelo.Seccion = UtilOrigenPedidoWeb.GetSeccionSegunMedioVista(flagMedio, tipoVista);
 
             return UtilOrigenPedidoWeb.ToInt(modelo);
 
@@ -2244,8 +2219,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             //return origenPedidoWeb;
         }
-
-
+        
         #region New Pedido Pendientes
 
         public ActionResult Pendientes()
