@@ -2467,6 +2467,8 @@ namespace Portal.Consultoras.Service
             return _caminoBrillanteBusinessLogic.GetFiltrosCaminoBrillante(paisID, isApp);
         }
 
+        //public BEOrdenFiltroConfiguracion
+
         #endregion
         
         public void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle)
