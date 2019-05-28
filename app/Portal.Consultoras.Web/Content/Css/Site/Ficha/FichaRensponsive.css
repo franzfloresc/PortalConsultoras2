@@ -491,9 +491,38 @@ ul.breadcumbs li a {
 
 
 /*UpSelling*/
+.carousel_ficha{
+    position: relative;
+}
+
+    .carousel_ficha .slick-arrow {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .carousel_ficha .js-slick-next {
+        right: -42px;
+    }
+
+    .carousel_ficha .js-slick-prev {
+        left: -42px;
+    }
+
 .titulo_seccion {
     font-size: 18px;
     font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.carousel_ficha .slick-list {
+    padding: 2px 0px;
+}
+
+.carousel_ficha .slick-disabled {
+    opacity: 0.25;
+    cursor: default;
 }
 
 .caja_producto {
@@ -502,6 +531,7 @@ ul.breadcumbs li a {
     background-color: #ffffff;
     padding: 20px;
     display: inline-block;
+    margin: 0px 10px;
 }
 
 .img_producto img{

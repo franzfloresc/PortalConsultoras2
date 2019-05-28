@@ -105,6 +105,19 @@
         return true;
     };
 
+    var _showCarrusel = function(){
+        $('#carousel_upselling').slick({
+            lazyLoad: 'ondemand',
+            infinite: false,
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            autoplay: false,
+            speed: 260,
+            prevArrow: '<a class="previous_ofertas js-slick-prev" style=""><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas js-slick-next" style=""><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+        });
+    };
+
     return {
         setPresenter: _setPresenter,
         renderBreadcrumbs : _renderBreadcrumbs,
@@ -113,6 +126,7 @@
         renderReloj: _renderReloj,
         renderRelojStyle: _renderRelojStyle,
         renderAgregar: _renderAgregar,
-        showTitleAgregado: _showTitleAgregado
+        showTitleAgregado: _showTitleAgregado,
+        showCarrusel : _showCarrusel
     };
 };
