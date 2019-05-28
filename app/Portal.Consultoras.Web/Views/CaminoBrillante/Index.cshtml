@@ -91,7 +91,7 @@
                                             }
                                             else
                                             {
-                                                @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.MontoMinimo), @ViewBag.CodigoISODL)
+                                               <em>@ViewBag.SimboloMoneda</em> @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.MontoMinimo), @ViewBag.CodigoISODL)
                                             }
                                         </span></p>
                                         @if (nivel.MontoFaltante.HasValue)
