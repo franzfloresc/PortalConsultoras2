@@ -10,7 +10,7 @@
                 modelo.Dispositivo = (modelo.Dispositivo ?? "").Trim() ?? ConsOrigenPedidoWeb.IncorrectoDispositivo;
                 modelo.Pagina = (modelo.Pagina ?? "").Trim() ?? ConsOrigenPedidoWeb.Incorrecto;
                 modelo.Palanca = (modelo.Palanca ?? "").Trim() ?? ConsOrigenPedidoWeb.Incorrecto;
-                modelo.Seccion = (modelo.Palanca ?? "").Trim() ?? ConsOrigenPedidoWeb.Incorrecto;
+                modelo.Seccion = (modelo.Seccion ?? "").Trim() ?? ConsOrigenPedidoWeb.Incorrecto;
             }
             catch
             {
