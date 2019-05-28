@@ -310,13 +310,13 @@ var EstrategiaAgregarModule = (function () {
         var cantidad = (limite > 0) ? limite : ($btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val());
 
         if (!$.isNumeric(cantidad)) {
-            abrirMensajeEstrategia("Ingrese un valor numérico.", esFicha);
+            abrirMensajeEstrategia("Ingrese un valor numérico.", _config.esFicha);
             $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
             CerrarLoad();
             return false;
         }
         if (parseInt(cantidad) <= 0) {
-            abrirMensajeEstrategia("La cantidad debe ser mayor a cero.", esFicha);
+            abrirMensajeEstrategia("La cantidad debe ser mayor a cero.", _config.esFicha);
             $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
             CerrarLoad();
             return false;
@@ -386,8 +386,16 @@ var EstrategiaAgregarModule = (function () {
                 }
 
                 if (data.success === false) {
+                    //INI HD-3693
+                    //if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
+                    //else abrirMensajeEstrategia(data.message, esFicha);
                     if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
-                    else abrirMensajeEstrategia(data.message, esFicha);
+                    else {
+                        var msjBloq = validarpopupBloqueada(data.message);
+                        if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                        else abrirMensajeEstrategia(data.message, _config.esFicha);
+                    }
+                    //FIN HD-3693
 
                     CerrarLoad();
                     return false;
@@ -434,8 +442,29 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
 
+
+                //INI HD-3908
+
+                ////Tooltip de agregado
+                //if (esFicha) {
+                //    try {
+                //        var $AgregadoTooltip = $(dataProperties.tooltip);
+                //        if (params.EsEditable) {
+                //            $AgregadoTooltip.find(dataProperties.tooltipMensaje1).html("¡Listo! ");
+                //            $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
+                //        }
+                //        $AgregadoTooltip.show();
+                //        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+                //        ResumenOpcionesModule.LimpiarOpciones();
+                //    } catch (e) {
+                //        console.error(e);
+                //    }
+
+                //}
+                var esFichaT = ((estrategia.FlagNueva == 1 ? true : false) && IsNullOrEmpty(data.mensajeAviso)) || _config.esFicha;
+                console.log('estrategiaAgregar - pedidoAgregarProductoPromise', _config.esFicha, esFichaT, estrategia.FlagNueva, data.mensajeAviso);
                 //Tooltip de agregado
-                if (esFicha) {
+                if (esFichaT) {
                     try {
                         var $AgregadoTooltip = $(dataProperties.tooltip);
                         if (params.EsEditable) {
@@ -459,7 +488,7 @@ var EstrategiaAgregarModule = (function () {
                             }
                         }, 2500);
                         if (!(origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack || origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack)) {
-                            ResumenOpcionesModule.LimpiarOpciones();
+                            if (typeof ResumenOpcionesModule != 'undefined') { ResumenOpcionesModule.LimpiarOpciones() };
                         }
                         else {
                             return;
@@ -469,6 +498,8 @@ var EstrategiaAgregarModule = (function () {
                     }
 
                 }
+                //FIN HD-3908
+               
                 var barraJsLoaded = typeof MostrarBarra === 'function';
 
                 if (barraJsLoaded) {
@@ -629,7 +660,6 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var adicionarCantidad = function (e) {
-
         e.stopPropagation();
         var $this = $(e.target);
         if (selectorCantidadEstaBloquedo($this)) return false;

@@ -8,6 +8,7 @@ namespace Portal.Consultoras.Entities
     public class BEContenidoApp
     {
         [DataMember]
+
         [Column("IdContenido")]
         public int IdContenido { get; set; }
 
@@ -40,3 +41,5 @@ namespace Portal.Consultoras.Entities
         public BEContenidoApp() { }
     }
 }
+
+       

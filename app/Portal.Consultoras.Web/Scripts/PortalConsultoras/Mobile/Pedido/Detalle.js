@@ -69,7 +69,11 @@ $(document).ready(function () {
         else mostrar.fadeOut(200);
     });
 
-    ValidarKitNuevas(function () { CargarPedido(true); });
+    //INI HD-4200
+    ValidarSuscripcionSE(function () { ValidarKitNuevas(function () { CargarPedido(true); }) },1);
+     //FIN HD-4200
+    
+   
 
     $("#suma, #resta").click(function (event) {
         if (!ValidarPermiso(this)) {
@@ -203,6 +207,9 @@ function UpdateLiquidacionSegunTipoOfertaSis(obj, elementRow) {
         if (ReservadoOEnHorarioRestringido()) {
             obj.Cantidad = obj.CantidadTemporal;
             belcorp.mobile.pedido.setDetalleById(obj);
+            //INI HD-3693
+            $(elementRow).find(".Cantidad").val(obj.Cantidad);
+            //FIN HD-3693
             CloseLoading();
             return false;
         }
@@ -472,7 +479,9 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
             EsBackOrder: esBackOrder == 'true',
             SetId: setId
         });
-
+        //INI HD-3908
+        var campaniaId = CampaniaID;
+        //FIN HD-3908
         ShowLoading();
         jQuery.ajax({
             type: 'POST',
@@ -512,6 +521,12 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
                 cuponModule.actualizarContenedorCupon();
                 messageDelete('El producto fue eliminado.');
 
+                //INI HD-3908
+                if (!data.EsAgregado) {
+                    var localStorageModule = new LocalStorageModule();
+                    localStorageModule.ActualizarCheckAgregado($.trim(data.data.EstrategiaId), campaniaId, data.data.TipoEstrategiaCodigo, false);
+                }
+                //FIN HD-3908
                 ActualizarLocalStoragePalancas(data.data.CUV, false);
             },
             error: function (data, error) {
@@ -637,7 +652,12 @@ function PedidoDetalleEliminarTodo() {
             }
 
             if (data.success != true) {
-                messageInfoError(data.message);
+                //INI HD-3693
+                //messageInfoError(data.message);
+                var msjBloq = validarpopupBloqueada(data.message);
+                if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                else messageInfoError(data.message);
+                //FIN HD-3693
                 CloseLoading();
                 return false;
             }
@@ -783,6 +803,10 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             }
             CargarPedido();
 
+            if (data.mensajeCondicional) {
+	            AbrirMensajeImagen(data.mensajeCondicional);
+            }
+
             if (data.modificoBackOrder) {
                 messageInfo('Recuerda que debes volver a validar tu pedido.');
             }
@@ -886,6 +910,10 @@ function EjecutarServicioPROL() {
                 return;
             }
 
+            if (response.mensajeCondicional) {
+                AbrirMensajeImagen(response.mensajeCondicional);
+            }
+
             RespuestaEjecutarServicioPROL(response, function () { return CumpleOfertaFinalMostrar(response); });
         },
         error: function (data, error) {
@@ -923,7 +951,9 @@ function RespuestaEjecutarServicioPROL(response, fnOfertaFinal) {
     arrayProductosGuardadoExito = response;
 
     var cumpleOferta = fnOfertaFinal();
-    if (cumpleOferta) return;
+    if (cumpleOferta) {
+        return;
+    }
 
     if (!response.data.Reserva) {
         ShowPopupObservacionesReserva();
@@ -932,6 +962,7 @@ function RespuestaEjecutarServicioPROL(response, fnOfertaFinal) {
 
     EjecutarAccionesReservaExitosa(response);
 }
+
 function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == '1') EnviarCorreoPedidoReservado();
     if (estaRechazado == "2") cerrarMensajeEstadoPedido();

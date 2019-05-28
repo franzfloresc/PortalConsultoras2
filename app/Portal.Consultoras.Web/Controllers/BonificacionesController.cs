@@ -21,13 +21,18 @@ namespace Portal.Consultoras.Web.Controllers
                 string iso = userData.CodigoISO;
                 bool isDigital = IndicadorConsultoraDigital();
 
-                if (isDigital)
+                if (paisId == Constantes.PaisID.Peru && isDigital)
                 {
+                    string NumeroDocumento = userData.DocumentoIdentidad;
+                    if (iso == Constantes.CodigosISOPais.Peru)
+                    {
+                        NumeroDocumento = userData.DocumentoIdentidad.Substring(NumeroDocumento.Length - 8);
+                    }
                     BonificacionesModel model = new BonificacionesModel
                     {
                         CodigoIso = userData.CodigoISO,
                         Codigoconsultora = userData.CodigoConsultora,
-                        NumeroDocumento = userData.DocumentoIdentidad
+                        NumeroDocumento = NumeroDocumento
                     };
 
                     string secretKey = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.JsonWebTokenSecretKey);

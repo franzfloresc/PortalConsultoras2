@@ -511,6 +511,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoDD GetPedidoDDByCampaniaConsultora(int paisID, int campaniaID, long consultoraID);
 
         [OperationContract]
+        
         void InsPedidoDD(BEPedidoDD bePedidoDD);
 
         [OperationContract]
@@ -978,6 +979,9 @@ namespace Portal.Consultoras.ServiceContracts
         BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA);
 
         [OperationContract]
+        bool GetEsPedidoReservado(int paisId, int campaniId, long consultoraId);
+
+        [OperationContract]
         BEValidacionModificacionPedido ValidacionModificarPedidoSelectiva(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR, bool validarReservado, bool validarHorario);
 
         [OperationContract]
@@ -1334,8 +1338,14 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(BEUsuario entidad);
-        
+
         #endregion
 
+        [OperationContract]
+        void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle);
+        //INI HD-4200
+        [OperationContract]
+        List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb);
+        //FIN HD-4200
     }
 }

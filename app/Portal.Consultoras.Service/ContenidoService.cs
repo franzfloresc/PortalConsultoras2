@@ -562,14 +562,51 @@ namespace Portal.Consultoras.Service
       
         #endregion
 
-        public List<BEContenidoApp> GetContenidoApp(BEUsuario itmFilter)
+        public List<BEContenidoApp> GetContenidoApp(BEUsuario itmFilter, string codigoBanner)
         {
-            return _BLContenidoAppResumenBusinessLogic.GetContenidoApp(itmFilter);
+            return _BLContenidoAppResumenBusinessLogic.GetContenidoApp(itmFilter, codigoBanner);
         }
 
         public void CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle)
         {
             _BLContenidoAppResumenBusinessLogic.CheckContenidoApp(itmFilter, idContenidoDetalle);
         }
+        public BEContenidoAppHistoria GetContenidoAppHistoria(int paisID, string Codigo)
+        {
+            var bl = new BLContenidoAppHistoria();
+            return bl.Get(paisID, Codigo);
+        }
+
+        public void UpdateContenidoApp(int paisID, BEContenidoAppHistoria formularioDato)
+        {
+            var bl = new BLContenidoAppHistoria();
+            bl.UpdateContenidoApp(paisID, formularioDato);
+        }
+       
+        public List<BEContenidoAppList> ListContenidoApp(int paisID, BEContenidoAppList entidad)
+        {
+            var bl = new BLContenidoAppHistoria();
+            return bl.GetList(paisID, entidad);
+        }
+        
+        public void InsertContenidoAppDeta(int paisID, BEContenidoAppDeta p)
+        {
+            var bl = new BLContenidoAppHistoria();
+            bl.InsertContenidoAppDeta(paisID, p);
+        }
+
+        public int UpdateContenidoAppDeta(int paisID, BEContenidoAppDeta p)
+        {
+            var bl = new BLContenidoAppHistoria();
+           return bl.UpdateContenidoAppDeta(paisID, p);
+        }
+
+        public List<BEContenidoAppDetaAct> GetContenidoAppDetaActList(int paisID)
+        {
+            var bl = new BLContenidoAppHistoria();
+            return bl.GetContenidoAppDetaActList(paisID);
+        }
+
+
     }
 }

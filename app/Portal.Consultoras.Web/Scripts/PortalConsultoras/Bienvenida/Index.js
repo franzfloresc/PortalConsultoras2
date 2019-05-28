@@ -215,9 +215,7 @@ $(document).ready(function () {
         }
 
     });
-
-
-    //GetNivelConsultoraCaminoBrillante();
+    
     CrearDialogs();
     CargarCarouselEstrategias();
     if (_validartieneMasVendidos() === 1) {

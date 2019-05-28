@@ -55,10 +55,18 @@ var PedidoRegistroModule = function () {
     var _mensajeRespuestaError = function (data) {
         if (data.success == true) return false;
         if (!IsNullOrEmpty(data.mensajeAviso)) {
+
             AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
             return false;
         }
-
+        //INI HD-3693
+        var msjBloq = validarpopupBloqueada(data.message);
+        if (msjBloq != "") {
+            CerrarLoad();
+            alert_msg_bloqueadas(msjBloq);
+            return true;
+        }
+        //FIN HD-3693
         data.message = data.message || 'Error al realizar proceso, inténtelo más tarde.';
         messageInfoError(data.message);
         CerrarLoad();
@@ -953,6 +961,10 @@ var PedidoRegistroModule = function () {
                     HideDialog(divDialog);
                 }
 
+                if (data.mensajeCondicional) {
+                    AbrirMensajeImagen(data.mensajeCondicional);
+                }
+
                 if (model != null && model != undefined)
                     PedidoOnSuccessSugerido(model);
 
@@ -1047,7 +1059,14 @@ var PedidoRegistroModule = function () {
                     $("#btnAgregarProducto").show();
                     var errorCliente = data.errorCliente || false;
 
-                    if (!errorCliente) AbrirMensaje(data.message, data.tituloMensaje);
+                    //INI HD-3693
+                    //if (!errorCliente) AbrirMensaje(data.message, data.tituloMensaje);
+                    if (!errorCliente) {
+                        var msjBloq = validarpopupBloqueada(data.message);
+                        if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                        else AbrirMensaje(data.message, data.tituloMensaje);
+                    }
+                    //FIN HD-3693
                     else {
                         $.each(lstClientes, function (ind, cli) {
                             if (cli.ClienteID == $("#txtClienteId").val()) {
@@ -1063,6 +1082,18 @@ var PedidoRegistroModule = function () {
                 }
 
                 CloseLoading();
+
+                //INI HD-3908
+                if (_flagNueva && IsNullOrEmpty(data.mensajeAviso)) {
+                    try {
+                        var $AgregadoTooltip = $("[data-agregado=\"tooltip\"]");
+                        $AgregadoTooltip.show();
+                        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
+                //FIN HD-3908
                 var prevTotal = mtoLogroBarra || 0;
                 MostrarBarra(data);
                 var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
@@ -1089,6 +1120,10 @@ var PedidoRegistroModule = function () {
                 PedidoOnSuccess();
                 if (data.modificoBackOrder) messageInfo('Recuerda que debes volver a validar tu pedido.');
                 else if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
+
+                if (data.mensajeCondicional) {
+                    AbrirMensajeImagen(data.mensajeCondicional);
+                }
 
                 $("#hdCuvEnSession").val("");
                 ProcesarActualizacionMostrarContenedorCupon();
@@ -1117,6 +1152,17 @@ var PedidoRegistroModule = function () {
 
                 var seccionProductosRecomendados = $('.divProductosRecomendados');
                 seccionProductosRecomendados.slideUp(200);
+
+                //INI HD-3908
+                if (data.listCuvEliminar != null) {
+                    $.each(data.listCuvEliminar, function (i, cuvElem) {
+
+                        ActualizarLocalStoragePalancas(cuvElem, false);
+                    })
+                }
+                var localStorageModule = new LocalStorageModule();
+                localStorageModule.ActualizarCheckAgregado($.trim($("#hdfEstrategiaId").val()), $("#hdfCampaniaID").val(), $("#hdfCodigoPalanca").val(), true);
+                //FIN HD-3908
             },
             error: function (data, error) {
                 CloseLoading();
@@ -1146,6 +1192,7 @@ var PedidoRegistroModule = function () {
             PrecioUnidad: $("#hdfPrecioUnidad").val(),
             TipoEstrategiaID: $("#hdTipoEstrategiaID").val(),
             MarcaID: $("#hdfMarcaID").val(),
+            EstrategiaID: $("#hdfEstrategiaId").val(),
             DescripcionProd: $("#txtDescripcionProd").val(),
             IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
             TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
@@ -1168,21 +1215,46 @@ var PedidoRegistroModule = function () {
                 }
 
                 if (_mensajeRespuestaError(data)) {
-                    CerrarSplash();
                     return false;
                 }
 
                 $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
 
+                //INI HD-3908
+                if (_flagNueva && IsNullOrEmpty(data.mensajeAviso)) {
+                    try {
+                        var $AgregadoTooltip = $("[data-agregado=\"tooltip\"]");
+                        $AgregadoTooltip.show();
+                        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
+                //FIN HD-3908
                 cierreCarouselEstrategias();
                 CargarCarouselEstrategias();
                 HideDialog("divVistaPrevia");
                 PedidoOnSuccess();
+
+
+
+                //INI HD-3908
+                if (data.listCuvEliminar != null) {
+                    $.each(data.listCuvEliminar, function (i, cuvElem) {
+
+                        ActualizarLocalStoragePalancas(cuvElem, false);
+                    })
+                }
+                var localStorageModule = new LocalStorageModule();
+                localStorageModule.ActualizarCheckAgregado($.trim($("#hdfEstrategiaId").val()), $("#hdfCampaniaID").val(), $("#hdfCodigoPalanca").val(), true);
+                //FIN HD-3908
+                   
                 if (data.modificoBackOrder) showDialog("divBackOrderModificado");
                 CargarDetallePedido();
                 MostrarBarra(data);
                 if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
                 TrackingJetloreAdd(param2.Cantidad, $("#hdCampaniaCodigo").val(), param2.CUV);
+                
                 dataLayer.push({
                     'event': "addToCart",
                     'label': $("#hdMetodoBusqueda").val(),
@@ -1202,7 +1274,7 @@ var PedidoRegistroModule = function () {
                         }
                     }
                 });
-                CerrarSplash();
+                CerrarSplash(); 
             },
             error: function (data, error) {
                 CerrarSplash();
@@ -1242,6 +1314,9 @@ var PedidoRegistroModule = function () {
                     $("#pCantidadProductosPedido").html(response.cantidadTotalProductos > 0 ? response.cantidadTotalProductos : 0);
                     microefectoPedidoGuardado();
                     if (!IsNullOrEmpty(response.mensajeAviso)) AbrirMensaje(response.mensajeAviso, response.tituloMensaje);
+                    if (response.mensajeCondicional) {
+                        AbrirMensajeImagen(response.mensajeCondicional);
+                    }
                     TrackingJetloreAdd(form.data.Cantidad, $("#hdCampaniaCodigo").val(), form.data.CUV);
                     dataLayer.push({
                         'event': "addToCart",
@@ -1262,11 +1337,18 @@ var PedidoRegistroModule = function () {
                             }
                         }
                     });
+
                 }
                 else {
                     var errorCliente = response.errorCliente || false;
-
-                    if (!errorCliente) AbrirMensaje(response.message, response.tituloMensaje);
+                    //INI HD-3693
+                    //if (!errorCliente) AbrirMensaje(response.message, response.tituloMensaje);
+                    if (!errorCliente) {
+                        var msjBloq = validarpopupBloqueada(response.message);
+                        if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                        else AbrirMensaje(response.message, response.tituloMensaje);
+                    }
+                    //FIN HD-3693
                     else {
                         messageInfoError(response.message, null, function () {
                             showClienteDetalle(currentClienteCreate, function (cliente) {
@@ -1498,15 +1580,21 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
             var totalUnidades = parseInt($("#pCantidadProductosPedido").html());
             totalUnidades = totalUnidades - parseInt(CantidadAnti) + parseInt(Cantidad);
             $("#pCantidadProductosPedido").html(totalUnidades);
-
+            
+            CargarDetallePedido();
             var prevTotal = mtoLogroBarra;
             MostrarBarra(data);
             showPopupNivelSuperado(data.DataBarra, prevTotal);
+
             if (data.modificoBackOrder) {
                 showDialog("divBackOrderModificado");
             }
 
-            CargarDetallePedido();
+            if (data.mensajeCondicional) {
+                AbrirMensajeImagen(data.mensajeCondicional);
+            }
+
+           
 
             var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
             if (diferenciaCantidades > 0)

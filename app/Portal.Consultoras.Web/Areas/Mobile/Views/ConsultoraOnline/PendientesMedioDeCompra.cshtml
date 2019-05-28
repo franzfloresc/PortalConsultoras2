@@ -1,0 +1,265 @@
+﻿@using Portal.Consultoras.Web.CustomHelpers
+@using Portal.Consultoras.Common;
+@model Portal.Consultoras.Web.Models.PedidosPendientesMedioPagoModel
+
+@{
+
+    var layout = ViewContext.MobileLayout();
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    var mobileConfiguracion = Html.MobileAppConfiguracion();
+}
+
+@section styles{
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/Bootstrap")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/SugerenciaPendientes")
+}
+
+<!-- Paso 2  -->
+<div class="container-flex pending d-flex flex-column vh-100 ">
+
+    <!-- Attend title  -->
+    <div class="container pending-top mb-5">
+        <div class="row align-items-center mb-2">
+            <div class="col-10">
+                <h2 class="attend-title mb-0">Paso 2: Elige cómo atender</h2>
+                <span class="attend-subtitle text-12">Podrás vender todo a @ViewBag.Simbolo @Model.TotalCatalogo</span>
+            </div>
+            <div class="col-2">
+                <div class="attend-close">
+
+                    <a href="/Mobile/ConsultoraOnline/Pendientes"><img class="attend-img_32" src="https://i.ibb.co/tPxhXbW/close-3x.png" alt="cerrar"></a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / Attend title  -->
+
+    <div class="overflow-y auto">
+
+        @if (Model.ListaGana.Any())
+        {
+            <!--  Con Gana+  -->
+            <div class="container  containBox">
+                <div class="porGanaMas">
+                    <div class="row align-items-center">
+                        <div class="col-8 pr-0">
+                            <h3 class="title-small text-700 text-gray">Por Gana+ @ViewBag.Simbolo @Model.TotalGana</h3>
+                            @if (Model.GananciaGana > 0)
+                            {
+                                <span class="text-purple text-14">Gana @ViewBag.Simbolo @Model.GananciaGana</span>
+                            }
+
+                        </div>
+                        <div class="col">
+                            <div data-accion="ingrgana" class="btnAccion vc-box text-black text-14 text-700">
+                                <span style="cursor:pointer" class="action-btn action-btn_border active">Elegir</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row conGanaMas vc-box vc-box--shadow  @if (Model.ListaGana.Count > 2){ <text>brokenBox</text> } " data-listagana="@Json.Encode(Model.ListaGana)">
+                        @foreach (var itemGana in Model.ListaGana)
+                        {
+                            <div class="col products-item">
+                                <img src="@itemGana.ImagenURL" class="img-fluid products-img" alt="Producto">
+                                <p class="text-12 text-gray"> @itemGana.DescripcionCUV2</p>
+                                <span class="text-12 text-gray">@ViewBag.Simbolo @itemGana.PrecioString</span>
+                            </div>
+                        }
+                    </div>
+                    @*<span class="text-12 text-purple">* Incluye productos extras</span>*@
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- / Con Gana+    -->
+        }
+
+
+
+
+
+        @if (Model.ListaCatalogo.Any())
+        {
+            <!--  Con Catálogo  -->
+            <div class="container containBox">
+                <div class="porCatalogo">
+                    <div class="row align-items-center">
+                        <div class="col-8 pr-0">
+                            <h3 class="title-small text-700 text-gray">Por Catálogo</h3>
+                            <span class="title-small text-700 text-gray"> @ViewBag.Simbolo @Model.TotalCatalogo</span>
+                        </div>
+                        <div class="col">
+                            <div data-accion="ingrped" class="btnAccion vc-box text-black text-14 text-700">
+                                <span style="cursor:pointer" class="action-btn action-btn_border active">Elegir</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row conCatalogo vc-box vc-box--shadow  @if (Model.ListaGana.Count > 2){ <text>brokenBox</text> } ">
+
+                        @foreach (var x in Model.ListaCatalogo)
+                        {
+                            for (int i = 0; i < x.Cantidad; i++)
+                            {
+                                <div class="col">
+                                    <img src="@x.Url" class="img-fluid products-img" alt="Producto">
+                                    <p class="text-12 text-gray"> @x.Producto</p>
+
+                                    <span class="text-12 text-gray">@Util.DecimalToStringFormat(x.PrecioUnitario, ViewBag.PaisISOx)</span>
+                                </div>
+                            }
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <!-- / Con Catálogo    -->
+
+        }
+    </div>
+
+
+    <!--  Con Stock  -->
+    @*<hr>
+        <div class="container">
+                <div class="yaLoTengo">
+                    <div class="row align-items-center">
+                        <div class="col-8">
+                            <h3 class="title-small text-700 text-gray">Ya lo tengo en stock</h3>
+                        </div>
+                        <div class="col">
+                            <div data-accion="ingrten" class="btnAccion vc-box text-black text-14 text-700">
+                                <a href="#" class="action-btn action-btn_border active">Elegir</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+    <!-- / Con Stock    -->
+    @*<hr>*@
+
+    <!--  Tooltip  -->
+    <div data-tooltip="mensajepedidopaso2" class="container position-absolute" style="display:none; bottom:0;">
+        <!--   Tooltip bottom     -->
+        <div class="row align-items-center position-relative action-continue" style="padding-right:16px;">
+            <div class="col mb-16">
+                <div class="tooltip-secondary tooltip-arrow_bottom ptb-16 ">
+                    <div class="col-12">
+                        <h6 class="text-14 text-black text-700 tooltip-info">Debes elegir cómo atender el pedido para aprobarlo.</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  / Tooltip bottom      -->
+    </div>
+    <!--  / Tooltip  -->
+    <!--  / Action buttons  -->
+    <div class="bt-1 mt-auto">
+        <div class="container pt-3 pb-3">
+            <div class="row">
+                <div class="col">
+                    <div id="btnAceptarPedido" onclick="AceptarPedidoPendiente()" class="vc-box text-14 text-700">
+                        <a href="#" class="action-btn action-btn_continue " data-toggle="modal">Aprobar pedido</a>
+                    </div>
+                    <a href="#" style="display:none" id="popuplink" class="action-btn action-btn_continue " data-toggle="modal" data-target="#aprobarPedido"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  / Action buttons  -->
+</div>
+
+<!-- modal -->
+<div id="aprobarPedido" class="modal animated bounceIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+    <!-- dialog -->
+    <div class="modal-dialog" style="max-width: 100%;">
+
+        <!-- content -->
+        <div class="modal-content">
+
+            <!-- header -->
+            <div class="modal-header">
+                <div class="" style="display: flex; justify-content: flex-end; width:100%">
+
+
+                </div>
+            </div>
+            <!-- header -->
+            <!-- body -->
+            <div class="modal-body" style=" margin-top: 76px;">
+                <div class="vc-box--action" style="display: flex; justify-content: center; align-items: center; width:100%">
+                    <img src="https://i.ibb.co/n6p5vcB/check-circle-outline-3x.png" alt="error">
+                </div>
+                <p class="text-center text-18 text-700 text-black" style=" width: 85%; margin: 0 auto;">¡Pedido aprobado!</p>
+                <p class="text-center text-14 text-black mt-16 mb-24">Has atendido el pedido por Gana+.</p>
+                <!--
+                - Si elige Gana+: "Has atendido el pedido por Gana+."
+
+                - Si elige Catálogo: "Has atendido el pedido por catálogo."
+
+                - Si ya lo tiene en stock: "Recuerda atenderlo con los productos que tienes en stock."
+                -->
+                <div class="row justify-content-center ">
+                    <div class="col-10 mb-16">
+                        <div class="vc-box text-14 text-700">
+                            <a id="btnIrPEdidoAprobar" href="/Mobile/ConsultoraOnline/Pendientes" class="action-btn action-btn_continue active">Ver pedidos por aprobar</a>
+                        </div>
+                    </div>
+                    <div class="w-100"></div>
+                    <div class="col-10">
+                        <div class="vc-box text-14 text-700">
+                            <a id="btnIrPedido" href="/Mobile/Pedido/Detalle" class="action-btn action-btn_refuse " data-toggle="modal" data-target="#rechazarTodo">Ir a mis pedidos</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- body -->
+            <!-- footer -->
+
+        </div>
+        <!-- footer -->
+
+    </div>
+    <!-- content -->
+
+</div>
+<!-- / modal -->
+<!-- /Paso 2  -->
+
+
+@section scripts {
+
+    <script type="text/javascript">
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var urlPendientes = '@Url.Action("Pendientes", "ConsultoraOnline")';
+        var urlPedido = '@Url.Action("Detalle", "Pedido")';
+
+    </script>
+
+    @*<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/PedidoPendienteMedioCompra.js")"></script>*@
+
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/SugerenciaPendientes")
+
+    <script type="text/javascript">
+
+        $('.conGanaMas').slick({
+            arrows: false,
+            mobileFirst: true,
+            infinite: false,
+            centerPadding: '40px',
+            slidesToShow: 2
+        });
+        $('.conCatalogo').slick({
+            arrows: false,
+            mobileFirst: true,
+            infinite: false,
+            centerPadding: '40px',
+            slidesToShow: 2.3
+        });
+
+        var glbDispositivo = 2;
+        var gTipoVista = '@ViewBag.TipoVista';
+    </script>
+}

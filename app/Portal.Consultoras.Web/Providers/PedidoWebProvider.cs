@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -166,6 +167,20 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             return detallesPedidoWeb;
+        }
+        
+        public bool TienePedidoReservado(UsuarioModel user)
+        {
+            using (var sv = new PedidoServiceClient())
+            {
+                return sv.GetEsPedidoReservado(user.PaisID, user.CampaniaID, user.UsuarioPrueba == 1 ? user.AceptacionConsultoraDA : user.ConsultoraID);
+            }
+        }
+
+        public bool RequiereCierreSessionValidado(TablaLogicaProvider provider, int paisId)
+        {
+            var value = provider.GetTablaLogicaDatoValor(paisId, Constantes.TablaLogica.CierreSessionValidado, Constantes.TablaLogicaDato.CierreSessionValidado, true);
+            return value == "1";
         }
 
         private List<BEPedidoWebDetalle> PedidoConObservaciones(List<BEPedidoWebDetalle> pedido, List<ObservacionModel> observaciones)
@@ -421,6 +436,29 @@ namespace Portal.Consultoras.Web.Providers
 
             return result;
         }
+
+        #region Suscripcion SE
+        public List<BEProducto> GetCuvsSuscripcionSE()
+        {
+            var userData = sessionManager.GetUserData();
+            List<BEProducto> lista;
+            try
+            {
+                var consultoraSE = Mapper.Map<BEPedidoWeb>(userData);
+                using (var sv = new PedidoServiceClient())
+                {
+                    lista=sv.GetCuvSuscripcionSE(consultoraSE).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                lista=null;
+            }
+
+            return lista ?? new List<BEProducto>();
+        }
+        #endregion Suscripcion SE
 
     }
 }

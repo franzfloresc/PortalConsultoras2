@@ -1818,6 +1818,11 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.ValidacionModificarPedido(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA);
         }
 
+        public bool GetEsPedidoReservado(int paisId, int campaniId, long consultoraId)
+        {
+            return BLPedidoWeb.GetEsPedidoReservado(paisId, campaniId, consultoraId);
+        }
+
         public BEValidacionModificacionPedido ValidacionModificarPedidoSelectiva(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR, bool validarReservado, bool validarHorario)
         {
             return BLPedidoWeb.ValidacionModificarPedido(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA, validarGPR, validarReservado, validarHorario);
@@ -2457,5 +2462,17 @@ namespace Portal.Consultoras.Service
         }
 
         #endregion
+        
+        public void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle)
+        {
+            _pedidoWebBusinessLogic.UpdDatoRecogerPor(pedidowebdetalle);
+        }
+
+        //INI HD-4200
+        public List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb)
+        {
+            return BLPedidoWeb.GetCuvSuscripcionSE(bEPedidoWeb);
+        }
+        //FIN HD-4200
     }
 }
