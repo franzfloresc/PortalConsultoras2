@@ -1,8 +1,8 @@
+GO
 USE BelcorpPeru
 GO
-
 DELETE FROM [dbo].[OrigenPedidoWeb]
-      WHERE [CodOrigenPedidoWeb] 
+      WHERE [CodOrigenPedidoWeb]
 		in ('1190015',
 			'1190115',
 			'1190215',
@@ -23,13 +23,12 @@ DELETE FROM [dbo].[OrigenPedidoWeb]
 			'2190216',
 			'2190316',
 			'2191416')
-GO
 
+GO
 USE BelcorpMexico
 GO
-
 DELETE FROM [dbo].[OrigenPedidoWeb]
-      WHERE [CodOrigenPedidoWeb] 
+      WHERE [CodOrigenPedidoWeb]
 		in ('1190015',
 			'1190115',
 			'1190215',
@@ -50,13 +49,12 @@ DELETE FROM [dbo].[OrigenPedidoWeb]
 			'2190216',
 			'2190316',
 			'2191416')
-GO
 
+GO
 USE BelcorpColombia
 GO
-
 DELETE FROM [dbo].[OrigenPedidoWeb]
-      WHERE [CodOrigenPedidoWeb] 
+      WHERE [CodOrigenPedidoWeb]
 		in ('1190015',
 			'1190115',
 			'1190215',
@@ -77,13 +75,12 @@ DELETE FROM [dbo].[OrigenPedidoWeb]
 			'2190216',
 			'2190316',
 			'2191416')
-GO
 
+GO
 USE BelcorpSalvador
 GO
-
 DELETE FROM [dbo].[OrigenPedidoWeb]
-      WHERE [CodOrigenPedidoWeb] 
+      WHERE [CodOrigenPedidoWeb]
 		in ('1190015',
 			'1190115',
 			'1190215',
@@ -104,13 +101,12 @@ DELETE FROM [dbo].[OrigenPedidoWeb]
 			'2190216',
 			'2190316',
 			'2191416')
-GO
 
+GO
 USE BelcorpPuertoRico
 GO
-
 DELETE FROM [dbo].[OrigenPedidoWeb]
-      WHERE [CodOrigenPedidoWeb] 
+      WHERE [CodOrigenPedidoWeb]
 		in ('1190015',
 			'1190115',
 			'1190215',
@@ -131,13 +127,12 @@ DELETE FROM [dbo].[OrigenPedidoWeb]
 			'2190216',
 			'2190316',
 			'2191416')
-GO
 
+GO
 USE BelcorpPanama
 GO
-
 DELETE FROM [dbo].[OrigenPedidoWeb]
-      WHERE [CodOrigenPedidoWeb] 
+      WHERE [CodOrigenPedidoWeb]
 		in ('1190015',
 			'1190115',
 			'1190215',
@@ -158,13 +153,12 @@ DELETE FROM [dbo].[OrigenPedidoWeb]
 			'2190216',
 			'2190316',
 			'2191416')
-GO
 
+GO
 USE BelcorpGuatemala
 GO
-
 DELETE FROM [dbo].[OrigenPedidoWeb]
-      WHERE [CodOrigenPedidoWeb] 
+      WHERE [CodOrigenPedidoWeb]
 		in ('1190015',
 			'1190115',
 			'1190215',
@@ -185,13 +179,12 @@ DELETE FROM [dbo].[OrigenPedidoWeb]
 			'2190216',
 			'2190316',
 			'2191416')
-GO
 
+GO
 USE BelcorpEcuador
 GO
-
 DELETE FROM [dbo].[OrigenPedidoWeb]
-      WHERE [CodOrigenPedidoWeb] 
+      WHERE [CodOrigenPedidoWeb]
 		in ('1190015',
 			'1190115',
 			'1190215',
@@ -212,13 +205,12 @@ DELETE FROM [dbo].[OrigenPedidoWeb]
 			'2190216',
 			'2190316',
 			'2191416')
-GO
 
+GO
 USE BelcorpDominicana
 GO
-
 DELETE FROM [dbo].[OrigenPedidoWeb]
-      WHERE [CodOrigenPedidoWeb] 
+      WHERE [CodOrigenPedidoWeb]
 		in ('1190015',
 			'1190115',
 			'1190215',
@@ -239,13 +231,12 @@ DELETE FROM [dbo].[OrigenPedidoWeb]
 			'2190216',
 			'2190316',
 			'2191416')
-GO
 
+GO
 USE BelcorpCostaRica
 GO
-
 DELETE FROM [dbo].[OrigenPedidoWeb]
-      WHERE [CodOrigenPedidoWeb] 
+      WHERE [CodOrigenPedidoWeb]
 		in ('1190015',
 			'1190115',
 			'1190215',
@@ -266,13 +257,12 @@ DELETE FROM [dbo].[OrigenPedidoWeb]
 			'2190216',
 			'2190316',
 			'2191416')
-GO
 
+GO
 USE BelcorpChile
 GO
-
 DELETE FROM [dbo].[OrigenPedidoWeb]
-      WHERE [CodOrigenPedidoWeb] 
+      WHERE [CodOrigenPedidoWeb]
 		in ('1190015',
 			'1190115',
 			'1190215',
@@ -293,13 +283,12 @@ DELETE FROM [dbo].[OrigenPedidoWeb]
 			'2190216',
 			'2190316',
 			'2191416')
-GO
 
+GO
 USE BelcorpBolivia
 GO
-
 DELETE FROM [dbo].[OrigenPedidoWeb]
-      WHERE [CodOrigenPedidoWeb] 
+      WHERE [CodOrigenPedidoWeb]
 		in ('1190015',
 			'1190115',
 			'1190215',
@@ -320,5 +309,5 @@ DELETE FROM [dbo].[OrigenPedidoWeb]
 			'2190216',
 			'2190316',
 			'2191416')
-GO
 
+GO
