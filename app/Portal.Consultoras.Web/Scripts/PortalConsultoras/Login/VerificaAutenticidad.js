@@ -100,11 +100,9 @@ $(document).ready(function () {
         });
 
     $("#aChatearConNosotros").click(function () {
-        $('#marca').css('display', 'block');
+        if (typeof FB === 'undefined') return;
 
-        var connected = localStorage.getItem('connected');
-        var idBtn = connected ? '#btn_open' : '#btn_init';
-        $(idBtn).trigger("click");
+        FB.XFBML.parse();
     });
 
     $("#divVolver").click(function () {

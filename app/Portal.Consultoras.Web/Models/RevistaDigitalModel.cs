@@ -45,7 +45,9 @@ namespace Portal.Consultoras.Web.Models
         public string MLogoComercialFondoNoActiva { get; set; }
 
         public string LogoMenuOfertasActiva { get; set; }
+        public string LogoMenuOfertasActivaMobile { get; set; }
         public string LogoMenuOfertasNoActiva { get; set; }
+        public string LogoMenuOfertasNoActivaMobile { get; set; }
 
         public string EstadoRdcAnalytics { get; set; }
 

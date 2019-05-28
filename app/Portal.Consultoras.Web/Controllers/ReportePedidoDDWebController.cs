@@ -69,7 +69,8 @@ namespace Portal.Consultoras.Web.Controllers
                 hdnpaisISO = data["paisISO"].ToString(),
                 Usuario = Convert.ToString(data["Usuario"]),
                 TipoProceso = data["TipoProceso"].ToString(),
-                MotivoRechazo = data["MotivoRechazo"].ToString()
+                MotivoRechazo = data["MotivoRechazo"].ToString(),
+                IndicadorConsultoraDigital= data["IndicadorConsultoraDigital"].ToString(),
             };
 
             return View(model);
@@ -158,7 +159,8 @@ namespace Portal.Consultoras.Web.Controllers
                         a.EstadoValidacionNombre,
                         a.IndicadorEnviado,
                         a.TipoProceso,
-                        FomatearMontoDecimalGPR(string.IsNullOrEmpty(a.MotivoRechazo) ? " " : a.MotivoRechazo)
+                        FomatearMontoDecimalGPR(string.IsNullOrEmpty(a.MotivoRechazo) ? " " : a.MotivoRechazo),
+                        a.IndicadorConsultoraDigital
                     }
                 }).ToList()
             };
@@ -451,7 +453,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Origen", "OrigenNombre"},
                 {"Validado", "EstadoValidacionNombre"},
                 {"Estado", "IndicadorEnviado"},
-                {"Motivo de Rechazo", "MotivoRechazo"}
+                {"Motivo de Rechazo", "MotivoRechazo"},
+                {"100% Digital", "IndicadorConsultoraDigital"}
             };
 
             var list = GetPedidoWebDD(model);
@@ -473,7 +476,8 @@ namespace Portal.Consultoras.Web.Controllers
                 a.OrigenNombre,
                 a.EstadoValidacionNombre,
                 a.IndicadorEnviado,
-                MotivoRechazo = string.IsNullOrEmpty(a.MotivoRechazo) ? "" : a.MotivoRechazo.Replace(",", ";")
+                MotivoRechazo = string.IsNullOrEmpty(a.MotivoRechazo) ? "" : a.MotivoRechazo.Replace(",", ";"),
+                a.IndicadorConsultoraDigital
             }).ToList();
 
             Util.ExportToExcel("exportar", lista, dic, "DescargaCompleta", "1", GetExcelSecureCallback());
@@ -589,9 +593,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ExportarPDF(string vPaisISO, string vCampaniaCod, string vConsultoraCod, string vConsultoraNombre,
                                         string vUsuarioNombre, string vOrigen, string vValidado, string vSaldo, string vImporte, string vImporteConDescuento,
-                                        string vpage, string vsortname, string vsortorder, string vrowNum, string vUsuario, string vTipoProceso, string vMotivoRechazo)
+                                        string vpage, string vsortname, string vsortorder, string vrowNum, string vUsuario, string vTipoProceso, string vMotivoRechazo, string vIndicadorConsultoraDigital)
         {
-            string[] lista = new string[21];
+            string[] lista = new string[22];
 
             SessionManager.SetPaisID(userData.PaisID);
 
@@ -599,7 +603,7 @@ namespace Portal.Consultoras.Web.Controllers
             lista[4] = vUsuarioNombre; lista[5] = vOrigen; lista[6] = vValidado; lista[7] = vSaldo;
             lista[8] = vImporte; lista[9] = vImporteConDescuento; lista[10] = vpage; lista[11] = vsortname; lista[12] = vsortorder;
             lista[13] = vrowNum; lista[14] = vUsuario; lista[15] = userData.Simbolo; lista[16] = userData.BanderaImagen;
-            lista[17] = userData.NombrePais; lista[18] = vTipoProceso; lista[19] = userData.PaisID.ToString(); lista[20] = vMotivoRechazo;
+            lista[17] = userData.NombrePais; lista[18] = vTipoProceso; lista[19] = userData.PaisID.ToString(); lista[20] = vMotivoRechazo; lista[21] = vIndicadorConsultoraDigital;
 
             Util.ExportToPdfWebPages(this, "PedidoDDWeb.pdf", "ReportePedidoDDWebDetalleImp", Util.EncriptarQueryString(lista));
             return new EmptyResult();
