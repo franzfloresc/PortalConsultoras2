@@ -923,6 +923,15 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
+    .logos_footer--esika {
+        margin-top: -2px;
+    }
+
+        .logos_footer--esika img {
+            width: 59px;
+            height: auto;
+        }
+
 .float_r {
     float: right;
     width: 50%;
@@ -1652,6 +1661,34 @@ h1, h2, h3, h4, h5, h6 {
     top: 11px;
 }
 
+/* HD-4214 - CHAT MESSENGER SOMOS BELCORP */
+
+.fb_dialog_content {
+    position: relative !important;
+}
+
+.icono_chat_sb {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background-color: #FFF;
+    background-image: url(/Content/Images/icono-chat-sb.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    border-radius: 100%;
+    z-index: 2000;
+}
+
+.fb_dialog_content iframe {
+    display: none !important;
+}
+
+/* FIN - HD-4214 - CHAT MESSENGER SOMOS BELCORP */
+
 @media only screen and (max-height : 700px) {
     .footer {
         position: relative;
@@ -1730,6 +1767,15 @@ h1, h2, h3, h4, h5, h6 {
         position: relative;
         bottom: 10px;
     }
+
+    .logos_footer--esika {
+        margin-top: -4px;
+    }
+
+        .logos_footer--esika img {
+            width: 62px;
+            height: auto;
+        }
 
     .sombra_superior {
         display: none;

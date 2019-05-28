@@ -144,24 +144,29 @@
 
     <div class="layout-somos-belcorp container-fluid pl-0 pr-0">
 
-
-
         @if (!ViewContext.EsIngresoUnico())
         {
-            <header class="layout__header row flex-column flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
+            <header class="layout__header layout__header--nuevoLookAndFeelEsika row flex-column flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
                 <div data-layout="menu"
                      class="col-12 d-flex flex-row flex-nowrap pl-lg-0 pr-lg-0 layout__header--menuSomosBelcorp">
                     <div class="row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0 mx-auto layout__container">
                         <section class="header__icono__menu mostrarEnMobile pl-0 pr-0">
-                            <img class="w-100" src="@Url.Content("~/Content/images/mobile/icono-menu-mobile.svg")" alt="Abrir Menú">
+                            @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+                            {
+                                <img class="w-100" src="@Url.Content("~/Content/Images/icono-menu-mobile.svg")" alt="Abrir Menú">
+                            }
+                            else
+                            {
+                                <img class="w-100" src="@Url.Content("~/Content/images/mobile/icono-menu-mobile.svg")" alt="Abrir Menú">
+                            }
                         </section>
                         <section class="header__marca__pais text-left">
                             @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
                             {
                                 <picture class="d-block w-100">
-                                    <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")">
-                                    <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_mobile.svg")">
-                                    <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")" alt="Ésika">
+                                    <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/nuevo-logo-esika.svg")">
+                                    @*<source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_mobile.svg")">*@
+                                    <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Esika/nuevo-logo-esika.svg")" alt="Ésika">
                                 </picture>
                             }
                             else
@@ -203,12 +208,14 @@
             }
         }
 
-    @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
+        @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
 
         <div class="content_responsive" data-layout="body">
             @RenderBody()
         </div>
-
+        <a title="Chat Messenger" class="mostrarEnMobile btn_chat_messenger_mobile" href="javascript: AbrirChatBot()">
+            <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
+        </a>
         @Html.Partial("~/Views/Shared/_FooterResponsive.cshtml")
     </div>
 
@@ -261,6 +268,7 @@
         var MostrarPalabrasMenoresACuatro = '@ViewBag.MostrarPalabrasMenoresACuatro';
         var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
         var SessionTimeout = '@ViewBag.SessionTimeout';
+        var ChatBotUrlRef = '@ViewBag.ChatBotUrlRef';
 
         function ShowLoading() {
             $("#loading-spin").css('visibility', 'visible').fadeIn();
@@ -293,7 +301,10 @@
             location.href = baseUrl + 'Mobile/Buscador';
         }
     </script>
-
+    @if (!ViewContext.EsIngresoUnico())
+    {
+        Html.RenderPartial("VistaParcialMainLayout/_fbsdk");
+    }
 
     @RenderSection("scripts", required: false)
 
