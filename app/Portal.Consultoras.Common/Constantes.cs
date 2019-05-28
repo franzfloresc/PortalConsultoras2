@@ -1652,6 +1652,15 @@ namespace Portal.Consultoras.Common
             /* INI HD-4015 */
             public const string UrlParamEncrip = "{0}?consultant={1}";
             public const string UrlCatalogo = "{0}{1}";
+            public const string UrlCatalogo_WSP = "{0}&utm_source=whatsapp&utm_medium=social&utm_campaign=catalogo_digital";
+            public const string UrlCatalogo_FB = "{0}&utm_source=facebook&utm_medium=social&utm_campaign=catalogo_digital&utm_content=fb_post";
+            public const string UrlCatalogo_MSN = "{0}&utm_source=facebook&utm_medium=social&utm_campaign=catalogo_digital&utm_content=fb_msn";
+            public const string UrlCatalogo_EMAIL = "{0}&utm_source=marketing&utm_medium=email&utm_campaign=catalogo_digital";
+
+            public const string TipoWSP = "WSP";
+            public const string TipoFB = "FB";
+            public const string TipoMSN = "MSN";
+            public const string TipoEMAIL = "EMAIL";
             /* FIN HD-4015 */
 
         }

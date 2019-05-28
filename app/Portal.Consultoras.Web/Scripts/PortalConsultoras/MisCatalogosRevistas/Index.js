@@ -374,6 +374,13 @@ function CargarCarruselCatalogo() {
                 //xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{isMovil}/g, isMovil);
                 //xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{FBAppId}/g, FBAppId);
 
+                /* INI HD-4248 */
+                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{WSP_textourl}/g, urlCatalogoPiloto_WSP);
+                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{FB_textourl}/g, urlCatalogoPiloto_FB);
+                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{MSN_textourl}/g, urlCatalogoPiloto_MSN);
+                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{EMAIL_textourl}/g, urlCatalogoPiloto_EMAIL);
+                /* FIN HD-4248 */
+
                 $("#idSection" + i).append(xHtmlItemCatalogoPasosActual);                
                 $("#txtUrlActual").val(urlCatalogoPiloto);
                 $("#idSection" + i).addClass(" catalogos__campania--actual");
@@ -646,9 +653,13 @@ function GetCatalogosLinksByCampania(data, campania) {
 
             if (piloto == '1' && contDiv == 1) {
                 if (isMovil == "True")
-                    $("[data-accion='ms']").attr("href", "fb-messenger://share?link=" + encodeURIComponent(urlCatalogoPiloto) + "&app_id=" + encodeURIComponent(FBAppId));
+                    /* INI HD-4248 */
+                    $("[data-accion='ms']").attr("href", "fb-messenger://share?link=" + encodeURIComponent(urlCatalogoPiloto_MSN) + "&app_id=" + encodeURIComponent(FBAppId));
+                    /* FIN HD-4248 */
                 else {
-                    $("[data-accion='ms']").attr("href", "https://www.facebook.com/dialog/send?app_id=" + encodeURIComponent(FBAppId) + "&link=" + encodeURIComponent(urlCatalogoPiloto) + "&redirect_uri=" + window.location.href + "?catalogo_compartido_fb_messenger=1");
+                    /* INI HD-4248 */
+                    $("[data-accion='ms']").attr("href", "https://www.facebook.com/dialog/send?app_id=" + encodeURIComponent(FBAppId) + "&link=" + encodeURIComponent(urlCatalogoPiloto_MSN) + "&redirect_uri=" + window.location.href + "?catalogo_compartido_fb_messenger=1");
+                    /* FIN HD-4248 */
                     $("[data-accion='ms']").attr("target", "_self");
                 }
             }
