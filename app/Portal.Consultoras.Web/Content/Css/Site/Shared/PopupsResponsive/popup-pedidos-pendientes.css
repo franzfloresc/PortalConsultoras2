@@ -1,0 +1,58 @@
+﻿
+/* MC - HD-4277 - POPUP PEDIDOS PENDIENTES POR APROBAR */
+
+.popup__somos__belcorp--pedidosPendientes {
+    max-width: 473px;
+    min-height: 312px;
+    padding: 58px 31px 30px;
+}
+
+.popup__somos__belcorp__icono__cerrar--pedidosPendientes {
+    right: -23px;
+    top: -50px;
+}
+
+.popup__somos__belcorp__icono--pedidosPendientes {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px !important;
+}
+
+.popup__somos__belcorp__titulo.popup__somos__belcorp__titulo--pedidosPendientes {
+    font-size: 18px;
+    margin-bottom: 8px !important;
+    color: #000;
+}
+
+.popup__somos__belcorp__mensaje--pedidosPendientes {
+    margin-bottom: 40px !important;
+    max-width: 317px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.popup__somos__belcorp__btn--verPedidosPorAprobar {
+    width: 100%;
+    margin-bottom: 10px !important;
+    color: #FFF;
+    max-width: 216px;
+}
+
+@media screen and (max-width:991px) {
+
+    .popup__somos__belcorp--pedidosPendientes {
+        width: 100% !important;
+        height: 100%;
+        max-width: none;
+        padding: 69px 31px 22px;
+        top: 0 !important;
+        border-radius: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+        .popup__somos__belcorp--pedidosPendientes .popup__somos__belcorp__icono__cerrar {
+            top: -56px;
+        }
+}
+
+/* FIN - MC - HD-4277 - POPUP PEDIDOS PENDIENTES POR APROBAR */
