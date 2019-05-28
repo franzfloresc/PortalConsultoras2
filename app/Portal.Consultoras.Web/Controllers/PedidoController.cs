@@ -22,7 +22,6 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Routing;
-using static Portal.Consultoras.Common.Constantes;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
 
@@ -352,7 +351,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.MaxCaracteresRecomendaciones = ObtenerNumeroMaximoCaracteresRecomendaciones(false);
 
                 /*HD-3710*/
-                ViewBag.PedidoEscogeRegaloCarrusel = EsDispositivoMovil() ? OrigenPedidoWeb.MobilePedidoEscogeRegaloCarrusel : OrigenPedidoWeb.DesktopPedidoEscogeRegaloCarrusel;
+                ViewBag.PedidoEscogeRegaloCarrusel = EsDispositivoMovil() ? Constantes.OrigenPedidoWeb.MobilePedidoEscogeRegaloCarrusel : Constantes.OrigenPedidoWeb.DesktopPedidoEscogeRegaloCarrusel;
 
 
                 #region Camino Brillante 
