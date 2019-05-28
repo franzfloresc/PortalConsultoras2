@@ -38,10 +38,9 @@
     padding: 40px 55px 50px 55px;
 }
 
-.tu__voz__online__confirmacion__correo__form__titulo{
+.tu__voz__online__confirmacion__correo__titulo{
     font-size:20px;
     color:#000;
-    letter-spacing:0.5px;
     margin-top:20px;
     margin-bottom:56px;
     flex:0 0 100%;
@@ -65,8 +64,39 @@
     max-width: 279px;
 }
 
-@media screen and (max-width:991px){
+.icono__confirmacion__correo__wrapper {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
+}
 
+    .icono__confirmacion__correo{
+        width:100%;
+        height:auto;
+    }
+
+.icono__confirmacion__correo__wrapper + .tu__voz__online__confirmacion__correo__titulo{
+    margin-top:0;
+    margin-bottom:6px;
+}
+
+.icono__confirmacion__correo__wrapper + .tu__voz__online__confirmacion__correo__titulo + p{
+    margin-bottom:8px;
+}
+
+.correo__registrado__actual {
+    font-size: 16px;
+}
+
+.enlace__actualizar__correo{
+    margin-bottom:72px;
+}
+
+.notificacion__estado--exito--reenvioCorreo{
+    margin-top:24px;
+}
+
+@media screen and (max-width:991px) {
     .layout__footer--mobile{
         display:none!important;
     }
@@ -103,9 +133,13 @@
             padding: 26px;
         }
 
-    .tu__voz__online__confirmacion__correo__form__titulo {
-        margin-top: 56px;
+    .tu__voz__online__confirmacion__correo__titulo {
         letter-spacing: 0.1px;
+    }
+
+    .tu__voz__online__confirmacion__correo__titulo,
+    .icono__confirmacion__correo__wrapper{
+        margin-top:56px;
     }
 
     .enlace__terminos__y__condiciones {

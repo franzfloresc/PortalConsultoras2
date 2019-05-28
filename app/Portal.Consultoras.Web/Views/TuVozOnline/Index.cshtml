@@ -15,21 +15,48 @@
             </span>
             <span class="d-inline-block text-bold">Volver</span>
         </a>
-        <div class="row flex-row justify-content-start align-content-start ml-0 mr-0 mx-md-auto tu__voz__online__confirmacion__correo__form__wrapper">
-            <h1 class="d-block text-bold text-center tu__voz__online__confirmacion__correo__form__titulo">
-                Ingresa tu correo para comenzar<br />
-                a usar Tu Voz Online.
-            </h1>
-            <div class="d-block form__group__fields form__group__fields--correoElectronico">
-                <input class="d-block w-100 text-bold text__field__sb" id="CorreoElectronicoCampo" type="text" value="" />
-                <label class="d-block w-100 label__field__sb" for="CorreoElectronicoCampo">Correo Electrónico</label>
-            </div>
-            <div class="d-flex flex-row ml-0 mr-0 form_group_fields form_group_fields--terminosYCondiciones">
-                <input id="TerminosYCondiciones" type="checkbox" value="" class="d-none field__checkbox__sb" />
-                <label class="d-inline-block border-radius-4 label__checkbox__sb label__checkbox__sb--multimarca" for="TerminosYCondiciones"></label>
-                <span class="d-inline-block">Estoy de acuerdo con los <a href="#" title="" class="d-inline-block text-underline enlace__terminos__y__condiciones">términos y condiciones</a> sobre protección de datos personales.</span>
-            </div>
-            <button type="button" class="d-block mx-auto text-bold text-center border-radius-4 btn__sb btn__sb__primary--multimarca btn__sb--actualizar">Actualizar</button>
-        </div>
+        <section class="row flex-row ml-0 mr-0 mx-md-auto tu__voz__online__confirmacion__correo__form__wrapper">
+            <section id="VistaIngresoCorreo" class="row flex-row justify-content-start align-content-start ml-0 mr-0">
+                <h1 class="d-block text-bold text-center tu__voz__online__confirmacion__correo__titulo">
+                    Ingresa tu correo para comenzar<br />
+                    a usar Tu Voz Online.
+                </h1>
+                <div class="d-block form__group__fields form__group__fields--correoElectronico">
+                    <input class="d-block w-100 text-bold text__field__sb" id="CorreoElectronicoCampo" type="text" value="" />
+                    <label class="d-block w-100 label__field__sb" for="CorreoElectronicoCampo">Correo Electrónico</label>
+                </div>
+                <div class="d-flex flex-row ml-0 mr-0 form_group_fields form_group_fields--terminosYCondiciones">
+                    <input id="TerminosYCondiciones" type="checkbox" value="" class="d-none field__checkbox__sb" onkeyup="this.setAttribute('value', this.value);" />
+                    <label class="d-inline-block border-radius-4 label__checkbox__sb label__checkbox__sb--multimarca" for="TerminosYCondiciones"></label>
+                    <span class="d-inline-block">Estoy de acuerdo con los <a href="#" title="" class="d-inline-block text-underline enlace__terminos__y__condiciones">términos y condiciones</a> sobre protección de datos personales.</span>
+                </div>
+                <button type="button" class="d-block mx-auto text-bold text-center border-radius-4 btn__sb btn__sb--disabled btn__sb__primary--multimarca btn__sb--actualizar">Actualizar</button>
+            </section>
+            <section id="VistaConfirmacionCorreo" class="row flex-row justify-content-start align-content-start ml-0 mr-0" style="display:none;">
+                <div class="d-block mx-auto icono__confirmacion__correo__wrapper">
+                    <img src="@Url.Content("~/Content/Images/icono_mail.svg")" class="icono__confirmacion__correo" alt="Confirma tu correo" />
+                </div>
+                <h2 class="d-block text-bold text-center tu__voz__online__confirmacion__correo__titulo">
+                    Confirma tu correo
+                </h2>
+                <p class="d-block w-100 text-center">Te hemos enviado un correo de confirmación a:</p>
+                <p class="d-block w-100 text-bold text-center correo__registrado__actual">cambiodecorreo@example.com</p>
+                <a href="" title="Cambia de correo" class="d-block text-underline text-center mx-auto enlace__actualizar__correo">Cambia de correo</a>
+                <p class="d-block w-100 text-center">¿Aún no recibes nuestro correo?</p>
+                <a href="" title="Reenviar el correo" class="d-block text-underline text-center mx-auto enlace__reenviar__correo">Reenviar el correo</a>
+                <!-- Esta notificación se muestra cuando se da click a la opción de reenvío de correo una vez que se realizó la acción mencionada -->
+                <div class="w-100 notificacion__estado notificacion__estado--exito notificacion__estado--exito--reenvioCorreo" style="display:none;">
+                    <span class="notificacion__estado__img">
+                        <img src="@Url.Content("~/Content/Images/icono_confirmacion_con_fondo.svg")" alt="¡Listo! Se reenvió el correo." />
+                    </span>
+                    <span class="text-bold">¡Listo! Se reenvió el correo.</span>
+                </div>
+                <!-- Fin - Esta notificación se muestra cuando se da click a la opción de reenvío de correo una vez que se realizó la acción mencionada -->
+            </section>
+        </section>
     </section>
 </main>
+
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TuVozOnline/Index.js")"></script>
+}

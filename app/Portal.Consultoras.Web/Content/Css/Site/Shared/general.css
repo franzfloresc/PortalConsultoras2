@@ -76,14 +76,14 @@ button:focus{
 /* LABELS */
 
 .label__field__sb {
-    position:absolute;
-    z-index:1;
-    top:6px;
-    left:0;
+    position: absolute;
+    z-index: 1;
+    top: 6px;
+    left: 0;
     color: #808080;
-    margin-bottom:0;
-    font-size:14px;
-    order:-1;
+    margin-bottom: 0;
+    font-size: 14px;
+    order: -1;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
@@ -188,7 +188,7 @@ button:focus{
     font-size:14px;
     position:relative;
 }
-    
+
     .btn__sb__primary,
     .btn__sb__primary--multimarca{
         color:#FFF;
@@ -213,6 +213,14 @@ button:focus{
         color:#000;
     }
 
+.btn__sb--disabled {
+    border: 1px solid #D1D1D4;
+    background-color: #D1D1D4;
+    pointer-events: none;
+    cursor: not-allowed;
+    color: #909094;
+}
+
 @media screen and (max-width:991px){
 
     .btn__sb {
@@ -227,6 +235,40 @@ button:focus{
 /* FIN - BUTTONS */
 
 /* FIN - FORMS */
+
+/* NOTIFICACIONES */
+
+.notificacion__estado {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+    .notificacion__estado--exito span {
+        color: #569c04;
+    }
+
+    .notificacion__estado__img {
+        display: block;
+        width: 20px;
+        height: 20px;
+        margin-top: -1.2px;
+        margin-right: 4px;
+        margin-bottom: 0 !important;
+    }
+
+        .notificacion__estado__img img {
+            width: 100%;
+            height: auto;
+        }
+
+/* FIN - NOTIFICACIONES */
 
 /* FIN - COMPONENTES UI */
 
