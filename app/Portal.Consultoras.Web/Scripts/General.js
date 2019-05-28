@@ -906,7 +906,7 @@ function AbrirMensaje25seg(mensaje, imagen) {
 
         
         var parameter = [["mensaje", mensaje], ["imagen", imagen]];
-        console.table(parameter);
+        console.log(parameter);
 
     } catch (e) {
 
