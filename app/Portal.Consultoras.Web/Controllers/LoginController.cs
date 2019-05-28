@@ -626,7 +626,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult VerificaAutenticidad()
+        public async Task<ActionResult> VerificaAutenticidad()
         {
             if (Session["DatosUsuario"] == null) return RedirectToAction("Index", "Login");
             var obj = (BEUsuarioDatos)Session["DatosUsuario"];
@@ -636,6 +636,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 beusuario = sv.Select(Util.GetPaisID(obj.CodigoIso), obj.CodigoUsuario);
             }
+
+
+            UsuarioModel userData = new UsuarioModel();
+            userData = await GetUserData(Util.GetPaisID(obj.CodigoIso), obj.CodigoUsuario);
 
             var model = new BEUsuarioDatos();
             model.PrimerNombre = obj.PrimerNombre;
@@ -652,11 +656,13 @@ namespace Portal.Consultoras.Web.Controllers
             model.CodigoUsuario = obj.CodigoUsuario;
             model.Correo = obj.Correo;
             model.MostrarOpcion = obj.MostrarOpcion;
-            model.OpcionChat = obj.OpcionChat;            
+            model.OpcionChat = obj.OpcionChat;
             model.EsMobile = EsDispositivoMovil();
 
             ViewBag.FlgCheckSMS = beusuario.FlgCheckSMS;
             ViewBag.FlgCheckEMAIL = beusuario.FlgCheckEMAIL;
+            ViewBag.PuedeConfirmarAllEmail = userData.PuedeConfirmarAllEmail;
+            ViewBag.PuedeConfirmarAllSms = userData.PuedeConfirmarAllSms;
 
             return View(model);
         }
@@ -3218,7 +3224,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public JsonResult ProcesaEnvioCorreo(ActualizarCorreoNuevoModel parametros)
+        public async Task<JsonResult> ProcesaEnvioCorreo(ActualizarCorreoNuevoModel parametros)
         {
             var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
             if (!String.IsNullOrEmpty(parametros.CorreoActualizado))
@@ -3229,18 +3235,47 @@ namespace Portal.Consultoras.Web.Controllers
             int paisID = Convert.ToInt32(TempData["PaisID"]);
             try
             {
+                //BERespuestaServicio respuesta;
+                //BEUsuario usuario = new BEUsuario();
+                //UsuarioModel usuarioModel = new UsuarioModel();
+                //using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                //{
+                //    usuarioModel = await GetUserData(Util.GetPaisID(oUsu.CodigoIso), oUsu.CodigoUsuario);
+                //    //usuario.
+                //    respuesta = sv.ActualizarEmail(usuario, oUsu.Correo);
+                //}
+                //string tipoEnvio = Constantes.TipoEnvio.EMAIL.ToString();
+                //ActualizarValidacionDatosUnique(EsDispositivoMovil(), userData.CodigoUsuario, tipoEnvio);
+
+                UsuarioModel userData = new UsuarioModel();
+                userData = await GetUserData(Util.GetPaisID(oUsu.CodigoIso), oUsu.CodigoUsuario);
+                BERespuestaServicio respuesta;
+                BEUsuario usuario = Mapper.Map<BEUsuario>(userData);
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    respuesta = sv.ActualizarEmail(usuario, oUsu.Correo);
+                }
+                string tipoEnvio = Constantes.TipoEnvio.EMAIL.ToString();
+                TempData["PaisID"] = paisID;
+                ActualizarValidacionDatosUnique(EsDispositivoMovil(), userData.CodigoUsuario, tipoEnvio);
+                return Json(new { success = respuesta.Succcess, message = respuesta.Message });
+
+
+
                 TempData["PaisID"] = paisID;
                 bool EstadoEnvio = false;
-                oUsu.EsMobile = EsDispositivoMovil();
+                //oUsu.EsMobile = EsDispositivoMovil();
 
-                using (var svc = new UsuarioServiceClient())
-                {
-                    EstadoEnvio = svc.ProcesaEnvioEmail(paisID, oUsu, parametros.CantidadEnvios);
-                }
+                //using (var svc = new UsuarioServiceClient())
+                //{
+                //    EstadoEnvio = svc.ProcesaEnvioEmail(paisID, oUsu, parametros.CantidadEnvios);
+                //}
 
-                oUsu.Correo = parametros.CorreoActualizado;
-                oUsu.CorreoEnmascarado = Util.EnmascararCorreo(parametros.CorreoActualizado);
-                Session["DatosUsuario"] = oUsu;
+                //oUsu.Correo = parametros.CorreoActualizado;
+                //oUsu.CorreoEnmascarado = Util.EnmascararCorreo(parametros.CorreoActualizado);
+                //Session["DatosUsuario"] = oUsu;
+
+
 
                 return Json(new
                 {

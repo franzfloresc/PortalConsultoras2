@@ -34,6 +34,8 @@ var counterElement = $('#time_counter');
 var cantMsInterval = 1000;
 var irALogin = true;
 
+
+
 $(document).ready(function () {
 
 
@@ -90,16 +92,17 @@ $(document).ready(function () {
                     body.on('keydown', '#NuevoCelular', me.Eventos.OnlyNumberCodeSms);
                     body.on('cut copy paste', '#NuevoCelular', function (e) { e.preventDefault(); });
                     body.on('click', '#hrefTerminosMD', me.Eventos.EnlaceTerminosCondiciones);
+                    body.on('click', '.ContinuarBienvenida', me.Services.ContinuarLogin);
 
                     //INI HD-3897
                     $('.form_actualizar_celular input').on('keyup change', function () { me.Funciones.ActivaGuardar(); return $(this).val() });
                     $('#NuevoCelular').on('focusout', function () { me.Funciones.MensajeError(); });
-                    $('#btnVolver').on('click', function () {                        
-                        if (irALogin) {                            
+                    $('#btnVolver').on('click', function () {
+                        if (irALogin) {
                             window.location.href = localData.UrlPaginaLogin;
                         } else {
                             window.location.href = localData.UrlPaginaPrevia;
-                        }                        
+                        }
 
                     });
                     //FIN HD-3897
@@ -140,35 +143,61 @@ $(document).ready(function () {
                 //INI HD-3897
                 ValidacionCheck: function () {
 
-                    //SMS
-                    if ($("#hdn_FlgCheckSMS").val()) {
-                        $("#grupo_form_cambio_datos_sms").removeClass("opcion_verificacion_autenticidad--pendiente");
-                        $("#grupo_form_cambio_datos_sms").addClass("opcion_verificacion_autenticidad--confirmado");
-                        $("#grupo_form_cambio_datos_sms .mensaje_validacion_campo").hide();
-                        $("#btn_confirmar_dato_sms").hide();
 
-                    } else {
-                        $("#grupo_form_cambio_datos_sms").removeClass("opcion_verificacion_autenticidad--confirmado");
-                        $("#grupo_form_cambio_datos_sms").addClass("opcion_verificacion_autenticidad--pendiente");                        
-                        $("#grupo_form_cambio_datos_sms .mensaje_validacion_campo").show();
-                        $("#btn_confirmar_dato_sms").show();
+                    var btnCambiarCelular = document.getElementById("btnCambiarCelular");;
+                    var btnCambiarCorreo = document.getElementById("btnCambiarEmail");;
 
+                    var checkSMS = true;
+                    var checkCorreo = true;
+
+
+                    if (btnCambiarCelular) {
+                        //SMS
+                        if ($("#hdn_FlgCheckSMS").val()) {
+                            $("#grupo_form_cambio_datos_sms").removeClass("opcion_verificacion_autenticidad--pendiente");
+                            $("#grupo_form_cambio_datos_sms").addClass("opcion_verificacion_autenticidad--confirmado");
+                            $("#grupo_form_cambio_datos_sms .mensaje_validacion_campo").hide();
+                            $("#btn_confirmar_dato_sms").hide();
+
+                        } else {
+                            $("#grupo_form_cambio_datos_sms").removeClass("opcion_verificacion_autenticidad--confirmado");
+                            $("#grupo_form_cambio_datos_sms").addClass("opcion_verificacion_autenticidad--pendiente");
+                            $("#grupo_form_cambio_datos_sms .mensaje_validacion_campo").show();
+                            $("#btn_confirmar_dato_sms").show();
+                            checkSMS = false;
+                        }
+
+                        //------btnConfirmar
+                        if ($('#txtCelularMD').val().trim() == "") $("#btn_confirmar_dato_sms").hide();
+                        else if ($('#hdn_PuedeConfirmarAllSms').val()) $("#btn_confirmar_dato_sms").show();
                     }
 
-                    //EMAIL
-                    if ($("#hdn_FlgCheckEMAIL").val()) {
-                        $("#grupo_form_cambio_datos_email").removeClass("opcion_verificacion_autenticidad--pendiente");
-                        $("#grupo_form_cambio_datos_email").addClass("opcion_verificacion_autenticidad--confirmado");
-                        $("#grupo_form_cambio_datos_email .mensaje_validacion_campo").hide();
-                        $("#btn_confirmar_dato_email").hide();
+                    if (btnCambiarCorreo) {
+                        //EMAIL
+                        if ($("#hdn_FlgCheckEMAIL").val()) {
+                            $("#grupo_form_cambio_datos_email").removeClass("opcion_verificacion_autenticidad--pendiente");
+                            $("#grupo_form_cambio_datos_email").addClass("opcion_verificacion_autenticidad--confirmado");
+                            $("#grupo_form_cambio_datos_email .mensaje_validacion_campo").hide();
+                            $("#btn_confirmar_dato_email").hide();
 
-                    } else {
-                        $("#grupo_form_cambio_datos_email").removeClass("opcion_verificacion_autenticidad--confirmado");
-                        $("#grupo_form_cambio_datos_email").addClass("opcion_verificacion_autenticidad--pendiente");          
-                        $("#grupo_form_cambio_datos_email .mensaje_validacion_campo").show();
-                        $("#btn_confirmar_dato_email").show();
+                        } else {
+                            $("#grupo_form_cambio_datos_email").removeClass("opcion_verificacion_autenticidad--confirmado");
+                            $("#grupo_form_cambio_datos_email").addClass("opcion_verificacion_autenticidad--pendiente");
+                            $("#grupo_form_cambio_datos_email .mensaje_validacion_campo").show();
+                            $("#btn_confirmar_dato_email").show();
+                            checkCorreo = false;
+                        }
 
+                        //------btnConfirmar
+                        if ($('#txtEMailMD').val().trim() == "") $("#btn_confirmar_dato_email").hide();
+                        else if ($('#hdn_PuedeConfirmarAllEmail').val()) $("#btn_confirmar_dato_email").show();
+
+                        if (checkSMS && checkCorreo) {
+                            $('.ContinuarBienvenida').removeClass('btn_deshabilitado');
+                        }
                     }
+
+
                 },
                 //FIN HD-3897
                 EvitandoCopiarPegar: function () {
@@ -441,6 +470,7 @@ $(document).ready(function () {
                             clearInterval(interval);
                             counterElement.text("00:00");
                             me.Funciones.ResetSmsCode();
+                            me.Eventos.BackEdiNumber()
                         }
                     }, cantMsInterval);
                 },
@@ -683,6 +713,36 @@ $(document).ready(function () {
 
             },
             me.Services = {
+                ContinuarLogin: function (CambioClave) {
+                    var param = "";
+                    if (CambioClave == 1) //Para Desktop
+                        param = "?verCambioClave=1"
+
+                    waitingDialog();
+                    var o = 1;
+                    $.ajax({
+                        type: 'POST',
+                        url: urlContinuarLogin,
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        async: true,
+                        success: function (response) {
+                            if (EsMobile == "True" && CambioClave == 1) {
+
+                                document.location.href = VerCambioClaveMobile;
+                            }
+                            else {
+
+                                document.location.href = response.redirectTo + param;
+                            }
+                        },
+                        error: function (data, error) {
+                            if (checkTimeout(data)) {
+                                closeWaitingDialog();
+                            }
+                        }
+                    });
+                },
                 /*---------INI Celular ----------------------------------- */
                 CargarEditarNumero: function () {
                     me.Funciones.ShowLoading();
@@ -719,6 +779,7 @@ $(document).ready(function () {
                                 me.Eventos.Confirmar();
                             }
                             //FIN HD-3897
+                            
                         },
                         error: function (data, error) {
                             if (checkTimeout(data)) {
