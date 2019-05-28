@@ -114,7 +114,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 SessionManager.SetPedidoValidado(false);
 
-                if ((configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == getDiaActual()) &&
+                if ((configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == GetDiaActual()) &&
                     !configuracionCampania.ModificaPedidoReservado &&
                     !configuracionCampania.ValidacionAbierta)
                 {
@@ -125,7 +125,7 @@ namespace Portal.Consultoras.Web.Controllers
                 userData.ZonaValida = configuracionCampania.ZonaValida;
 
                 model.FlagValidacionPedido = "0";
-                if ( (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == getDiaActual()) &&
+                if ( (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == GetDiaActual()) &&
                     configuracionCampania.ModificaPedidoReservado)
                 {
                     model.FlagValidacionPedido = "1";
@@ -1582,7 +1582,7 @@ namespace Portal.Consultoras.Web.Controllers
                     flagCorreo = resultado.EnviarCorreo ? "1" : "",
                     permiteOfertaFinal = listPermiteOfertaFinal.Contains(resultado.ResultadoReservaEnum),
                     mensajeCondicional,
-                    UltimoDiaFacturacion = (userData.FechaFacturacion == getDiaActual())   //TESLA 7
+                    UltimoDiaFacturacion = (userData.FechaFacturacion == GetDiaActual())   //TESLA 7
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -1601,9 +1601,9 @@ namespace Portal.Consultoras.Web.Controllers
         /// Fecha actual según el pais.
         /// </summary>
         /// <returns></returns>
-        private DateTime getDiaActual()
+        private DateTime GetDiaActual()
         {
-            return DateTime.Now.AddHours(userData.ZonaHoraria);
+            return DateTime.Now.AddHours(userData.ZonaHoraria).Date;
         }
         public async Task<JsonResult> EnviarCorreoPedidoReservado()
         {
@@ -2362,7 +2362,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = estado,
                     pedidoReservado = pedidoReservado,
                     message = mensaje,
-                    UltimoDiaFacturacion = (userData.FechaFacturacion == getDiaActual()),   //TESLA 7
+                    UltimoDiaFacturacion = (userData.FechaFacturacion == GetDiaActual()),   //TESLA 7
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
