@@ -30,6 +30,7 @@ var pedidoProvider = PedidoProvider();
 
 $(document).ready(function () {
     ValidarKitNuevas();
+
     var hdDataBarra = $("#hdDataBarra").val();
     if ($.trim(hdDataBarra) != "") {
         dataBarra = JSON.parse(hdDataBarra);
@@ -449,18 +450,16 @@ $(document).ready(function () {
         e.preventDefault();
         var obj = $(this);
         var accion = obj.attr("data-paginacion");
-        var tipoPaginador = obj.attr("data-tipo");
         if (accion === "back" || accion === "next") {
-            CambioPagina(obj, tipoPaginador);
+            CambioPagina(obj);
         }
     });
     $("body").on("change", "[data-paginacion]", function (e) {
         e.preventDefault();
         var obj = $(this);
         var accion = obj.attr("data-paginacion");
-        var tipoPaginador = obj.attr("data-tipo");
         if (accion === "page" || accion === "rows") {
-            CambioPagina(obj, tipoPaginador);
+            CambioPagina(obj);
         }
     });
 
@@ -476,7 +475,10 @@ $(document).ready(function () {
 
     CrearDialogs();
     MostrarBarra();
-    CargarDetallePedido();
+    //INI HD-4200
+    ValidarSuscripcionSE(function () { CargarDetallePedido();},0);
+    //FIN HD-4200
+    
     CargarCarouselEstrategias();
     CargarAutocomplete();
     CargarDialogMesajePostulantePedido();
@@ -1927,7 +1929,7 @@ function EjecutarServicioPROL() {
             }
 
             if (response.mensajeCondicional) {
-	            AbrirMensaje(response.mensajeCondicional);
+                AbrirMensajeImagen(response.mensajeCondicional);
             }
 
             //Marcación Analytics
@@ -2462,7 +2464,7 @@ function UpdateCliente(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CU
             }
 
             if (data.mensajeCondicional) {
-	            AbrirMensaje(data.mensajeCondicional);
+                AbrirMensajeImagen(data.mensajeCondicional);
             }
 
             CargarDetallePedido();
@@ -2613,18 +2615,13 @@ function InfoCommerceGoogleDestacadoNextCarrusel() {
     }
 }
 
-function CambioPagina(obj, tipoPaginador) {
+function CambioPagina(obj) {
     var rpt = paginadorAccionGenerico(obj);
     if (rpt.page == undefined) {
         return false;
     }
 
-    var PedidoPendPoputPedidoId = $("#hdPedidoPendPoputPedidoId").val() == 0 ? $("#hdPedidoPendPoputPedidoId2").val() : $("#hdPedidoPendPoputPedidoId").val();
-    switch (tipoPaginador) {        
-        case ClasPedidoDetalle: CargarDetallePedido(rpt.page, rpt.rows); break;
-        case ClasPedidoDetallePendiente: CargarPedidosPend(rpt.page, rpt.rows); break;
-        case ClasPedidoPopupPedidoPend: CargarPopupPedidoPend(rpt.page, rpt.rows, PedidoPendPoputPedidoId, '1'); break;
-    }  
+    CargarDetallePedido(rpt.page, rpt.rows);
     return true;
 }
 

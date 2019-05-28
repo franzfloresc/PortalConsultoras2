@@ -26,10 +26,11 @@
     };
 
     var _url = {
-        UrlGrilla: baseUrl + 'AdministrarHistorias/ComponenteListar?IdContenido=' + $('#IdContenido').val(),
+        UrlGrilla: baseUrl + 'AdministrarHistorias/ComponenteListar',
         UrlGrillaEditar: baseUrl + 'AdministrarHistorias/ComponenteObtenerViewDatos',
         UrlGrillaVerImagen: baseUrl + 'AdministrarHistorias/ComponenteObtenerVerImagen',
-        UrlComponenteDatosGuardar: baseUrl + 'AdministrarHistorias/ComponenteDatosGuardar'
+        UrlComponenteDatosGuardar: baseUrl + 'AdministrarHistorias/ComponenteDatosGuardar',
+        UrlGrillaEditarContenedor: baseUrl + 'AdministrarHistorias/ComponenteDetalleEditarViewDatos',
     };
 
     var _accion = {
@@ -44,7 +45,10 @@
     };
 
     var _GrillaAcciones = function (cellvalue, options, rowObject) {
-        var act = "&nbsp;<a href='javascript:;' onclick=\'return admHistoriaDatos.Editar(event);\' >"
+        var act = "&nbsp;<a href='javascript:;' onclick=\'return admHistoriaDatos.EditarContenedor(event);\' >"
+            + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
+       
+        act  += "&nbsp;<a href='javascript:;' onclick=\'return admHistoriaDatos.Editar(event);\' >"
             + "<img src='" + rutaImagenDelete + "' alt='Eliminar' title='Eliminar' border='0' /></a>";
         return act;
     };
@@ -55,12 +59,14 @@
         if (cellvalue == "") {
             act = "<img src='" + rutaImagenVacia + "' border='0' style='max-width: 40px; max-height: 40px;' />";
         } else {
-            //act = "<img src='" + urlDetalleS3 + cellvalue + "' border='0' style='max-width: 40px; max-height: 40px;' />";
             act = "<a href='javascript:;' onclick=\'return admHistoriaDatos.VerImagen(event, \"" + cellvalue + "\");\' >" + "<img src='" + urlDetalleS3 + cellvalue + "' border='0' style='max-width: 40px; max-height: 40px;' /></a>";
         }
         return act;
     };
 
+    $("#ddlCampania").change(function () {
+        $(_elemento.TablaId).trigger('reloadGrid');
+    })
     var CargarGrilla = function () {
         $(_elemento.TablaId).jqGrid('GridUnload');
 
@@ -68,10 +74,15 @@
             url: _url.UrlGrilla,
             hidegrid: false,
             datatype: 'json',
+            postData: ({
+                IdContenido: function () { return jQuery.trim($("#IdContenido").val()); },
+                Campania: function () { return jQuery.trim($("#ddlCampania").val()); }
+            }),
+           
             mtype: 'GET',
             contentType: 'application/json; charset=utf-8',
             multiselect: false,
-            colNames: ['ID', 'Tipo', 'Orden', 'Contenido', 'IdContenido', 'Acción'],
+            colNames: ['ID', 'Tipo', 'Orden', 'Contenido', 'IdContenido', 'Campaña', 'Region', 'Zona', 'Seccion', 'AccionTb', 'CodigoDetalle', 'Acción'],
             colModel: [
                 {
                     name: 'IdContenidoDeta',
@@ -106,18 +117,16 @@
                     align: 'center',
                     formatter: _GrillaImagen
                 },
+                { name: 'IdContenido', index: 'IdContenido', hidden: true },
+                { name: 'Campania', index: 'Campania', width: 40, align: 'center' },
+                { name: 'Region', index: 'Region', hidden: true },
+                { name: 'Zona', index: 'Zona', hidden: true },
+                { name: 'Seccion', index: 'Seccion', hidden: true },
+                { name: 'Accion', index: 'Accion', hidden: true },
+                { name: 'CodigoDetalle', index: 'CodigoDetalle', hidden: true },                
                 {
-                    name: 'IdContenido',
-                    index: 'IdContenido',
-                    width: 40,
-                    align: 'center',
-                    resizable: false,
-                    sortable: false,
-                    hidden: true
-                },
-                {
-                    name: 'Accion',
-                    index: 'Accion',
+                    name: 'Opciones',
+                    index: 'Opciones',
                     width: 20,
                     align: 'center',
                     resizable: false,
@@ -131,7 +140,7 @@
             loadtext: _texto.Cargando,
             recordtext: _texto.RegistroPaginar,
             emptyrecords: _texto.SinResultados,
-            rowNum: 20,
+            rowNum: rowNumList,
             scrollOffset: 0,
             rowList: [15, 20, 30, 40, 50],
             viewrecords: true,
@@ -150,9 +159,7 @@
 
         var rowId = $(event.path[1]).parents('tr').attr('id');
         var row = jQuery(_elemento.TablaId).getRowData(rowId);
-        //console.log("rowId",rowId);
-        //console.log("row",row);
-        //return;
+
         var entidad = {
             IdContenidoDeta: row['IdContenidoDeta'],
             IdContenido: row['IdContenido'],
@@ -173,8 +180,7 @@
     }
 
     var _RegistroObtenerPopupImagen = function (modelo) {
-        //console.log(modelo);
-        //return;
+
         waitingDialog();
         $.ajax({
             url: _url.UrlGrillaVerImagen,
@@ -184,8 +190,6 @@
             contentType: 'application/json; charset=utf-8',
             success: function (result) {
                 closeWaitingDialog();
-                console.log(result);
-                //return;
 
                 $("#dialog-content-imagen").empty();
                 $("#dialog-content-imagen").html(result);
@@ -200,8 +204,7 @@
     };
 
     var _RegistroObterner = function (modelo) {
-        //console.log(modelo);
-        //return;
+ 
         waitingDialog();
         $.ajax({
             url: _url.UrlGrillaEditar,
@@ -269,13 +272,13 @@
             data: JSON.stringify(listaDatos),
             async: true,
             success: function (data) {
-                //console.log(data);
+ 
                 if (data.success) {
-                    console.log("exito");
+   
                     HideDialog(_elemento.DialogRegistro);
                     _toastHelper.success(_texto.ProcesoConforme);
-                    $('#tblHistoriaDet').trigger('reloadGrid');
-                    //CargarGrilla();
+                    $(_elemento.TablaId).trigger('reloadGrid');
+    
                 }
                 else {
                     _toastHelper.error(_texto.ProcesoError);
@@ -303,30 +306,70 @@
             open: function (event, ui) { },
             buttons:
             {
-                //'Guardar': function () {
-                //    // _GuardarDatos(this);
-                //},
                 'Salir': function () {
                     HideDialog("DialogImagen");
                 }
             }
         });
     };
+   
+    var GrillaEditarContenedor = function (event) {
 
+        var rowId = $(event.path[1]).parents('tr').attr('id');
+        var row = jQuery(_elemento.TablaId).getRowData(rowId);
+
+        var entidad = {
+            Proc: 2,
+            IdContenidoDeta: row['IdContenidoDeta'],
+            IdContenido: row['IdContenido'],
+            Campania: row['Campania'],
+            Region: row['Region'],
+            Zona: row['Zona'],
+            Seccion: row['Seccion'],
+            Accion: row['Accion'],
+            CodigoDetalle: row['CodigoDetalle'],
+        };
+        _RegistroObternerDetalle(entidad);
+    }
+    var _RegistroObternerDetalle = function (modelo) {
+ 
+        waitingDialog();
+        $.ajax({
+            url: _url.UrlGrillaEditarContenedor,
+            type: 'GET',
+            dataType: 'html',
+            data: modelo,
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+
+                closeWaitingDialog();
+
+                $("#dialog-content-detalle").empty();
+                $("#dialog-content-detalle").html(result).ready(function () {
+                   // UploadFileDetalle("desktop-detalle");
+                });
+                $('#DialogMantenimientoDetalle').dialog('option', 'title', "Editar");
+                showDialog("DialogMantenimientoDetalle");
+
+            },
+            error: function (request, status, error) { closeWaitingDialog(); _toastHelper.error("Error al cargar la ventana."); }
+        });
+    };
  
     var _initializar = function (param) {
         _evento();
         _DialogCrear();
         _DialogImagen();
+    
     };
 
-   
     return {
         ini: function (param) {
             _initializar(param);
         },
         Editar: GrillaEditar,
         VerImagen: GrillaVerImagen,
+        EditarContenedor: GrillaEditarContenedor
     };
 
 })();

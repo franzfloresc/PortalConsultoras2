@@ -45,6 +45,7 @@
     var numeroImagenesPorPagina = 10;
 
     jQuery(document).ready(function () {
+        $("#hdUrlpathname").val(window.location.pathname);
         ofertaLiquidacionObj = OfertaLiquidacion({
             codigoSapElementId: 'hdnCodigoSAP',
             fileUploadElementId: 'file-upload-matriz',
@@ -1249,6 +1250,7 @@
 
 </script>
 <div class="wrap_cab">
+    <input id="hdUrlpathname" type="hidden" value="" />
     <div class="filtros">
         <div class="elements">
             <div class="div-2">

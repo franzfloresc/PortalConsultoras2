@@ -682,7 +682,6 @@
         <div class="contenedor_info_cdr">
             <div class="listado_producto_reclamo">
                 {{#if_eq item.GrupoID ''}}
-
                 {{else}}
                 <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div>
                 {{/if_eq}}
@@ -751,6 +750,10 @@
             Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
         </div>
         <div class="listado_solicitud_reclamo">
+            {{#if_eq item.GrupoID ''}}
+            {{else}}
+            <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div><br />
+            {{/if_eq}}
             <b>{{item.Solicitud}}</b>
         </div>
         <div class="titulo_solicitud_cdr">

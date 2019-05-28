@@ -697,6 +697,10 @@ namespace Portal.Consultoras.Web.SessionManager
         void ISessionManager.SetLimElectivosProgNuevas(int limElectivos) { HttpContext.Current.Session["LimElectivosProgNuevas"] = limElectivos; }
         List<PremioElectivoModel> ISessionManager.GetListPremioElectivo() { return (List<PremioElectivoModel>)HttpContext.Current.Session["ListPremioElectivo"]; }
         void ISessionManager.SetListPremioElectivo(List<PremioElectivoModel> listPremioElectivo) { HttpContext.Current.Session["ListPremioElectivo"] = listPremioElectivo; }
+        //INI HD-4200
+        bool ISessionManager.GetProcesoSuscripcionSE() { return (bool)(HttpContext.Current.Session["ProcesoSuscripcionSE"] ?? false); }
+        void ISessionManager.SetProcesoSuscripcionSE(bool proceso) { HttpContext.Current.Session["ProcesoSuscripcionSE"] = proceso; }
+        //FIN HD-4200
         Dictionary<string, PremioProgNuevasOFModel> ISessionManager.GetDictPremioProgNuevasOF()
         {
             return (Dictionary<string, PremioProgNuevasOFModel>)HttpContext.Current.Session["DictPremioProgNuevasOF"];
@@ -1427,5 +1431,15 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<BEDesmostradoresCaminoBrillante>)HttpContext.Current.Session[Constantes.ConstSession.DemostradoresCaminoBrillante];
         }
         #endregion
+
+        public void SetChatbotToken(string val)
+        {
+            HttpContext.Current.Session["ChatbotToken"] = val;
+        }
+
+        public string GetChatbotToken()
+        {
+            return (string)HttpContext.Current.Session["ChatbotToken"];
+        }
     }
 }

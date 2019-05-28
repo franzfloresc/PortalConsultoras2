@@ -444,19 +444,25 @@ namespace Portal.Consultoras.Web.Controllers
             List<ProductoModel> producto = new List<ProductoModel>();
             try
             {
-                List<ServiceODS.BEProducto> olstProducto;
+            ServiceODS.BEProductoBusqueda busqueda = new BEProductoBusqueda
+            {
+                PaisID = userData.PaisID,
+                CampaniaID = model.CampaniaID,
+                CodigoDescripcion = model.CUV,
+                RegionID = userData.RegionID,
+                ZonaID = userData.ZonaID,
+                CodigoRegion = userData.CodigorRegion,
+                CodigoZona = userData.CodigoZona,
+                Criterio = 1,
+                RowCount = 1,
+                ValidarOpt = false,
+                CodigoPrograma = userData.CodigoPrograma,
+                NumeroPedido = userData.ConsecutivoNueva + 1
+            };
+		List<ServiceODS.BEProducto> olstProducto;
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID,
-                        model.CampaniaID,
-                        model.CUV,
-                        userData.RegionID,
-                        userData.ZonaID,
-                        userData.CodigorRegion,
-                        userData.CodigoZona,
-                        1,
-                        1,
-                        false).ToList();
+                olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(busqueda).ToList();
                 }
 
                 if (olstProducto.Count == 0)

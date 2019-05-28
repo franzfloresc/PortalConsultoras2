@@ -287,6 +287,10 @@ namespace Portal.Consultoras.Web.SessionManager
         Dictionary<string, PremioProgNuevasOFModel> GetDictPremioProgNuevasOF();
         void SetDictPremioProgNuevasOF(Dictionary<string, PremioProgNuevasOFModel> dictPremioProgNuevasOF);
 
+        //INI HD-4200
+        bool GetProcesoSuscripcionSE();
+        void SetProcesoSuscripcionSE(bool proceso);
+        //FIN HD-4200
         void SetBuscadorYFiltrosConfig(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
 
         BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltrosConfig();
@@ -527,5 +531,8 @@ namespace Portal.Consultoras.Web.SessionManager
 
         void SetDemostradoresCaminoBrillante(List<BEDesmostradoresCaminoBrillante> val);
         List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante();
+
+        void SetChatbotToken(string val);
+        string GetChatbotToken();
     }
 }

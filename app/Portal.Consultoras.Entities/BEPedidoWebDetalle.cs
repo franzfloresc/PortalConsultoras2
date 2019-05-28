@@ -63,6 +63,9 @@ namespace Portal.Consultoras.Entities
             SetID = row.ToInt32("SetID");
             EstrategiaId = row.ToInt32("EstrategiaId");
             CUVReemplazo = row.ToString("CUVReemplazo"); //HD-3703 EINCA
+            //INI HD-4200
+            EsSuscripcionSE = (row.HasColumn("EsSuscripcionSE") ? row.ToBoolean("EsSuscripcionSE") : false);
+            //FIN HD-4200
         }
 
         public BEPedidoWebDetalle(IDataRecord row, string Consultora)
@@ -121,6 +124,9 @@ namespace Portal.Consultoras.Entities
             SetID = row.ToInt32("SetID");
             EstrategiaId = row.ToInt32("EstrategiaId");
             CUVReemplazo = row.ToString("CUVReemplazo"); //HD-3703 EINCA
+            //INI HD-4200
+            EsSuscripcionSE = (row.HasColumn("EsSuscripcionSE") ? row.ToBoolean("EsSuscripcionSE") : false);
+            //FIN HD-4200
         }
 
         [DataMember]
@@ -350,11 +356,18 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool EsArmaTuPack { get; set; }
         [DataMember]
+        public string OrigenSolicitud { get; set; }
+        [DataMember]
         public string CUVReemplazo { get; set; }
 
         [DataMember]
         public bool EsKitCaminoBrillante { get; set; }
         [DataMember]
         public bool EsDemCaminoBrillante { get; set; }
+
+        //INI HD-4200
+        [DataMember]
+        public bool EsSuscripcionSE { get; set; }
+        //FIN HD-4200
     }
 }

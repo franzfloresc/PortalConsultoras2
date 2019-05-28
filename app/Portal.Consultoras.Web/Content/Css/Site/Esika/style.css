@@ -4484,6 +4484,17 @@ a.subir_carousel, a.bajar_carousel {
         background-size: cover;
     }
 
+    /* HD-4065 - CAMBIO DE LOOK AND FEEL DE ÉSIKA */
+
+    .logo_esika--nuevoLogo a{
+        background-image: url('/Content/Images/Esika/nuevo-logo-esika.svg');
+        background-repeat:no-repeat;
+        background-size: 91px;
+        background-position-y: 16%;
+    }
+
+    /* FIN - HD-4065 - CAMBIO DE LOOK AND FEEL DE ÉSIKA */
+
 .cliente_detalle {
     display: block;
     color: black;
@@ -36016,3 +36027,31 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 /* FIN - POPUP LLEGASTE AL 30% DE DESCUENTO */
 
 /* FIN - PROGRAMA NUEVAS - ELIGE TU REGALO */
+
+/* HD-4214 - CHAT MESSENGER SOMOS BELCORP */
+
+.fb_dialog_content {
+    position: relative!important;
+}
+
+.icono_chat_sb {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background-color: #FFF;
+    background-image: url(/Content/Images/icono-chat-sb.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    border-radius: 100%;
+    z-index: 2000;
+}
+
+.fb_dialog_content iframe{
+    display:none!important;
+}
+
+/* FIN - HD-4214 - CHAT MESSENGER SOMOS BELCORP */
