@@ -56,10 +56,8 @@ $(document).ready(function () {
                                 });
                             }
                         },
-                        error: function (data, error) {
-                            if (checkTimeout(data)) {
-                                resultado = "";
-                            }
+                        error: function (data) {
+                            checkTimeout(data);
                         }
                     });
                 },

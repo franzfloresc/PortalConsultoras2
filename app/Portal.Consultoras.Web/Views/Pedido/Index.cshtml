@@ -4,15 +4,13 @@
 
 @{
     ViewBag.Title = "Ingresa tu Pedido";
-    
+
 }
 
 @section styles{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-CssPedido")
-
-   
-
 }
+
 <style>
     .desactive-mas-menos {
         content: "";
@@ -27,10 +25,11 @@
         left: 0;
         z-index: 10;
     }
+
     .desactivo {
         pointer-events: none;
-        cursor:none;
-        text-decoration:none; 
+        cursor: none;
+        text-decoration: none;
         opacity: 0.4;
     }
     .linea_indicador_barra {
@@ -38,7 +37,7 @@
     }
 </style>
 
-<div class="franja_negra" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
+<div class="franja_negra franja_negra--nuevoLookAndFeelEsika" style="background-image: url(@ViewBag.UrlFranjaNegra);"></div>
 <div class="envolvente_pop_up">
     <div class="pop_pedido" id="pop_liquidacion" style="display: none;">
         <div class="check_liquidacion"><img src="@Url.Content("~/Content/Images/Esika/check_liquidacion.png")" /></div>
@@ -67,10 +66,10 @@
     <input id="hdfEstadoPedido" type="hidden" value="@Model.EstadoPedido" />
     <input id="hdfNomConsultora" type="hidden" value="@Model.NombreConsultora" />
 
-    <h1 class="titulo_principal_interiores pedido_left">INGRESA <strong>TU PEDIDO</strong></h1>
+    <h1 class="titulo_principal_interiores titulo_principal_interiores--nuevoLookAndFeelEsika pedido_left">INGRESA <strong>TU PEDIDO</strong></h1>
     <div class="clear"></div>
 
-    <div class="pedido_ingreso_c2">
+    <div class="pedido_ingreso_c2 pedido_ingreso_c2--nuevoLookAndFeelEsika">
         <form id="frmInsertPedido" action="@Url.Action("PedidoAgregarProductoTransaction", "PedidoRegistro")" method="post" role="form">
             <input type="hidden" id="hdfDescripcionCategoria" />
             <input type="hidden" id="hdfDescripcionEstrategia" />
@@ -104,7 +103,6 @@
 
             <div class="pedido_ingreso_datos campo_codigo">
                 <br />
-
                 <input type="text" name="CUV" id="txtCUV" maxlength="5" class="ValidaNumeral default-border-hover" placeholder="Código" />
             </div>
 
@@ -149,8 +147,8 @@
                 <br />
                 <input type="text" name="ClienteDescripcion" id="txtClienteDescripcion" onblur="ValidarCliente();" onkeydown="ValidarClienteFocus(event);"
                        maxlength="50" class="ValidaAlfanumerico default-border-hover" placeholder="Cliente (Opcional)" />
-                <span class="pedido_ingreso_datos_icono_mas">+</span>
-                <a class="pedidos_cliente" onclick="showClienteDetalle(null);">
+                <span class="pedido_ingreso_datos_icono_mas pedido_ingreso_datos_icono_mas--nuevoLookAndFeelEsika">+</span>
+                <a class="pedidos_cliente pedidos_cliente--nuevoLookAndFeelEsika" onclick="showClienteDetalle(null);">
                     AGREGAR NUEVO CLIENTE
                 </a>
             </div>
@@ -1057,6 +1055,7 @@
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupEleccionRegalo.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupPremio.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupDescuento.cshtml")
+@{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupInformacionRegalo.cshtml");}
 
 @if (Model.MostrarPopupPrecargados)
 {
@@ -1997,6 +1996,9 @@
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido")';
 
         var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "PedidoRegistro", new { area = "" })';
+        //INI HD-4200
+        var urlValidarSuscripcionSE = '@Url.Action("ValidarSuscripcionSE", "PedidoRegistro", new { area = "" })';
+        //FIN HD-4200
 
         var urlObtenerComponentes = '@Url.Action("ObtenerComponentes", "DetalleEstrategia")';
         var listaIconoLluvia = [
@@ -2016,7 +2018,7 @@
         var ClasPedidoDetallePendiente = '@Constantes.ClasificadorPedido.PedidoDetallePendiente';
         var kitsCaminoBrillante = '@ViewBag.KitsCaminoBrillante';
 
-        
+
 
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")

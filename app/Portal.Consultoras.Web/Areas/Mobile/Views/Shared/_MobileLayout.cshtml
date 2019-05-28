@@ -72,7 +72,7 @@
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpAlertaPedidosOnline.cshtml")
 
-    <header id="new-header">
+    <header id="new-header" class="header--nuevoLookAndFeelEsika--mobile">
         @if (ViewBag.mostrarBannerPostulante == true)
         {
             @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueMensajesPostulante.cshtml")
@@ -106,7 +106,8 @@
 
         @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileMenu/_MobileMenu.cshtml", new ViewDataDictionary {
             { "vbEsContenedor", 0 },
-            { "vbEsMostrarBuscadorYFiltros", ViewBag.MostrarBuscadorYFiltros }
+            { "vbEsMostrarBuscadorYFiltros", ViewBag.MostrarBuscadorYFiltros },
+            { "PaisAnalytics", ViewBag.PaisAnalytics}
         })
 
     </header>
@@ -152,6 +153,9 @@
             <br />
             <br />
         </div>
+        <a title="Chat Messenger" class="d-block btn_chat_messenger_mobile" href="javascript: AbrirChatBot()">
+            <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
+        </a>
     </section>
 
     <footer class="footer-page">
@@ -289,6 +293,7 @@
         window.actionName     = '@acti.ToLower()';
         var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
         var SessionTimeout = '@ViewBag.SessionTimeout';
+        var ChatBotUrlRef = '@ViewBag.ChatBotUrlRef';
     </script>
 
     @if (ViewBag.MostrarBannerSuperiorOdd == true) // TieneOfertaDelDia
@@ -507,11 +512,11 @@
 
     @{
         // ViewBag.HabilitarChatEmtelco : Oculta boton que lanza chat.
-        // Deberia ir dentro de la condicion de este if?
-        if (!esIngresoUnico)
-        {
-            <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
-        }
+        // Deberia ir dentro de la condicion de este if
+    }
+    @if (!esIngresoUnico)
+    {
+        <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
     }
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
