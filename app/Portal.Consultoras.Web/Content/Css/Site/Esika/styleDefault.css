@@ -147,6 +147,7 @@
 .validation__message{
     color:#e81c36;
     font-size:11px;
+    margin-top:4px;
 }
 
 /* FIN - VALIDATION MESSAGE */

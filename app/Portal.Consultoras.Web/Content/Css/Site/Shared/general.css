@@ -152,6 +152,16 @@ button:focus{
 
 /* FIN - INPUT TEXT */
 
+/* VALIDATION MESSAGE */
+
+.validation__message {
+    color: #e81c36;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+/* FIN - VALIDATION MESSAGE */
+
 /* CHECKBOXES */
 
 .field__checkbox__sb:checked + .label__checkbox__sb,
