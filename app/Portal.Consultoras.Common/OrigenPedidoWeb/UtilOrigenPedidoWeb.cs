@@ -100,6 +100,39 @@
             return codigo;
         }
 
+        public static string GetSeccionSegunMedioVista(string flagMedio, int tipoVista)
+        {
+            string codigo = "";
+
+            if (flagMedio == Constantes.SolicitudCliente.FlagMedio.AppCatalogos)
+            {
+                codigo = ConsOrigenPedidoWeb.Seccion.AppCatalogoPendienteDeAprobar;
+            }
+            else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.CatalogoDigital)
+            {
+                if (tipoVista == 1) // por cliente
+                {
+                    codigo = ConsOrigenPedidoWeb.Seccion.CatalogoDigitalPendienteDeAprobarCliente;
+                }
+                else
+                {
+                    codigo = ConsOrigenPedidoWeb.Seccion.CatalogoDigitalPendienteDeAprobarProducto;
+                }
+            }
+            else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual)
+            {
+                if (tipoVista == 1) // por cliente
+                {
+                    codigo = ConsOrigenPedidoWeb.Seccion.AppMaquilladorPendienteDeAprobarCliente;
+                }
+                else
+                {
+                    codigo = ConsOrigenPedidoWeb.Seccion.AppMaquilladorPendienteDeAprobarProducto;
+                }
+            }
+            return codigo;
+        }
+
         public static string GetPalancaSegunMarca(int marcaId)
         {
             string codigo = "";
