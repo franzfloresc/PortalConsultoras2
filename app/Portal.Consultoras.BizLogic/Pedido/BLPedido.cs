@@ -771,7 +771,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         public async Task<BEPedidoDetalleResult> PedidoDeleteProductoTransaction(BEPedidoDetalle pedidoDetalle)
         {
             var ListaMensajeCondicional = new List<BEMensajeProl>();
-
+            var respuesta = new BEPedidoDetalleResult();
             try
             {
                 var usuario = pedidoDetalle.Usuario;
@@ -801,13 +801,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         CodigoPrograma = usuario.CodigoPrograma,
                         ConsecutivoNueva = usuario.ConsecutivoNueva
                     };
+
                     var pedidoID = 0;
                     lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
-
-                    var respuesta = PedidoAgregar_EliminarUno(pedidoDetalle, lstDetalle);
-
-                    ListaMensajeCondicional.AddRange(respuesta.ListaMensajeCondicional);
-
+                    respuesta = PedidoAgregar_EliminarUno(pedidoDetalle, lstDetalle);
                     if (respuesta.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS)
                     {
                         return respuesta;
@@ -815,11 +812,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
 
                 PedidoAgregar_DesReservarPedido(lstDetalle, pedidoDetalle.Producto, usuario);
-                var request = PedidoDetalleRespuesta(responseCode);
-
-                ListaMensajeCondicional.AddRange(request.ListaMensajeCondicional);
-
-                return request;
+                return respuesta;
             }
             catch (Exception ex)
             {
