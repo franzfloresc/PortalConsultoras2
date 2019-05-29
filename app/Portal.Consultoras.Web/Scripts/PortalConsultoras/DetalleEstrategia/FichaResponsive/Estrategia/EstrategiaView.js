@@ -43,6 +43,51 @@
         }
     };
 
+    var _util = {
+        setCarrusel: function (id) {
+            $(id).slick({
+                infinite: false,
+                speed: 300,
+                centerMode: false,
+                variableWidth: true,
+                slidesToShow: 3,
+                prevArrow:
+                    "<a id=\"opciones-seleccionadas-prev\" class=\"flecha_ofertas-tipo prev\" style=\"left:-5%; text-align:left;display:none;\">" +
+                    "<img src=\"" + baseUrl + "Content/Images/Esika/previous_ofertas_home.png\")\" alt=\"\" />" +
+                    "</a>",
+                nextArrow:
+                    "<a id=\"opciones-seleccionadas-next\" class=\"flecha_ofertas-tipo\" style=\"display: block; right:-5%; text-align:right;display:none;\">" +
+                    "<img src=\"" + baseUrl + "Content/Images/Esika/next.png\")\" alt=\"\" />" +
+                    "</a>",
+                responsive: [
+                    {
+                        breakpoint: 1024,
+                        settings: { slidesToShow: 3, slidesToScroll: 3 }
+                    },
+                    {
+                        breakpoint: 768, settings: { slidesToShow: 1, slidesToScroll: 1 }
+                    }
+                ]
+            });
+        },
+        setYoutubeId: function () {
+            $.each($("[data-youtube-key]"), function (i, ytEle) {
+                var idyt = $(ytEle).attr('id') + "-" + i;
+                $(ytEle).attr('id', idyt);
+            });
+        },
+        setYoutubeApi: function () {
+            try {
+                if (youtubeModule) {
+                    youtubeModule.Inicializar();
+                    window.onYouTubeIframeAPIReady();
+                }
+            } catch (e) {
+                console.log('setYoutubeApi => ', e);
+            }
+        }
+    }
+
     var _renderBreadcrumbs = function (estrategia) {
         SetHandlebars(_elements.breadcrumbs.templateId, estrategia, _elements.breadcrumbs.id);
         return true;
@@ -109,57 +154,11 @@
     };
 
     var _renderFichaEnriquecida = function (estrategia) {
-        SetHandlebars(_elements.tabsComponente.templateId, estrategia.Hermanos[0], _elements.tabsComponente.id);
-
-        //PLUGIN Slick
-        $(_elements.carruselVideo.id).slick({
-            infinite: false,
-            speed: 300,
-            centerMode: false,
-            variableWidth: true,
-            slidesToShow: 3,
-            prevArrow:
-                "<a id=\"opciones-seleccionadas-prev\" class=\"flecha_ofertas-tipo prev\" style=\"left:-5%; text-align:left;display:none;\">" +
-                "<img src=\"" + baseUrl + "Content/Images/Esika/previous_ofertas_home.png\")\" alt=\"\" />" +
-                "</a>",
-            nextArrow:
-                "<a id=\"opciones-seleccionadas-next\" class=\"flecha_ofertas-tipo\" style=\"display: block; right:-5%; text-align:right;display:none;\">" +
-                "<img src=\"" + baseUrl + "Content/Images/Esika/next.png\")\" alt=\"\" />" +
-                "</a>",
-            responsive: [
-                {
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 3,
-                        infinite: true,
-                        dots: true
-                    }                
-                },
-                {
-                    breakpoint: 768,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1
-                    }
-                }
-            ]
-        });
-
-        //API Youtube
-
-        $.each($("[data-youtube-key]"), function (i, ytEle) {
-            var idyt = $(ytEle).attr('id') + "-" + i;
-            $(ytEle).attr('id', idyt);
-        });
-
-        try {
-            if (youtubeModule) {
-                youtubeModule.Inicializar();
-                window.onYouTubeIframeAPIReady();
-            }
-        } catch (e) {
-            console.log('setYoutubeApi => ', e);
+        if (estrategia.Hermanos.length == 1) {
+            SetHandlebars(_elements.tabsComponente.templateId, estrategia.Hermanos[0], _elements.tabsComponente.id);
+            _util.setCarrusel(_elements.carruselVideo.id);
+            _util.setYoutubeId();
+            _util.setYoutubeApi();
         }
 
         return true;
