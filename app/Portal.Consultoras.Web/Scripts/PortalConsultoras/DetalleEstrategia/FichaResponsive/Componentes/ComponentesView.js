@@ -15,6 +15,9 @@ var ComponentesView = function () {
         },
         tiposTonosModal: {
             id: "#popup_tonos",
+            header : {
+                id : "#contenedor-cabecera"
+            },
             btnCerrar: {
                 id: "#cerrar-tipos-tonos-modal"
             },
@@ -42,6 +45,15 @@ var ComponentesView = function () {
                     return "#btn-eligelo-" + grupo + "-" + cuv;
                 },
             },
+            btnElegido: {
+                id: function (grupo, cuv) {
+                    grupo = grupo || "";
+                    cuv = cuv || "";
+                    if (grupo == "" || cuv == "") return "";
+
+                    return "#btn-elegido-" + grupo + "-" + cuv;
+                },
+            },
             selectorCantidad: {
                 id: function (grupo, cuv) {
                     grupo = grupo || "";
@@ -63,8 +75,19 @@ var ComponentesView = function () {
             agregarTipoTono:{
                 all : "[add-type-tone]"
             },
+            eliminarTipoTono:{
+                all : "[remove-type-tone]"
+            },
             bloquear:{
-                all: "[block-group]"
+                all: "[block-group]",
+                claseHabilitado : "active",
+                claseInhabilitado : "btn_deshabilitado",
+            },
+            aplicarSeleccion : {
+                contenedor :"#contenedor-aplicar-seleccion",
+                id : "#btn-aplicar-seleccion",
+                claseHabilitado : "active",
+                claseInhabilitado : "btn_deshabilitado",
             }
         }
     };
@@ -94,15 +117,19 @@ var ComponentesView = function () {
             _presenter.addTypeOrTone(grupo, cuv);
         });
 
-        $(window).on('resize', function () {
-            // var _componente = ListaOpcionesModule.GetComponente() || {};
-            // if (_componente.HermanosSeleccionados) {
-            //     if (_componente.HermanosSeleccionados.length === 0) {
-            //         ListaOpcionesModule.MoverListaOpcionesOcultarSeleccionados();
-            //     } else {
-            //         ListaOpcionesModule.MoverListaOpcionesMostrarSeleccionados();
-            //     }
-            // }
+        $(_elements.tiposTonosModal.tiposTonos.id).on("click", _elements.tiposTonosModal.eliminarTipoTono.all, function (e) {
+            e.preventDefault();
+            var grupo = $(e.target).data("grupo");
+            var cuv = $(e.target).data("cuv");
+            _presenter.removeTypeOrTone(grupo, cuv);
+        });
+
+        $(_elements.tiposTonosModal.tiposTonosSeleccionados.id).on("click", _elements.tiposTonosModal.eliminarTipoTono.all, function (e) {
+            e.preventDefault();
+            var grupo = $(e.target).data("grupo");
+            var cuv = $(e.target).data("cuv");
+            var indice = $(e.target).data("indice");
+            _presenter.removeTypeOrTone(grupo, cuv, indice);
         });
 
         return true;
@@ -158,45 +185,102 @@ var ComponentesView = function () {
         return true;
     };
 
+    var _updateModalHeight = function(){
+        var hModal = $(window).outerHeight();
+        var hHeader = $(_elements.tiposTonosModal.header.id).outerHeight();
+        var hApplyChanges = $(_elements.tiposTonosModal.aplicarSeleccion.contenedor).outerHeight();
+
+        $(_elements.tiposTonosModal.tiposTonos.id).height(hModal - hHeader - hApplyChanges);
+    };
+
     var _showTypesAndTonesModal = function () {
-        return _showModal(_elements.tiposTonosModal.id);
-    };
+        _showModal(_elements.tiposTonosModal.id);
+        _updateModalHeight();
+       
 
-    var _hideTypeAndTonesModal = function () {
-        return _hideModal(_elements.tiposTonosModal.id);
-    };
-
-    var _showQuantitySelector = function (grupo, cuv, cantidad) {
-        $(_elements.tiposTonosModal.btnEligelo.id(grupo, cuv)).hide();
-        $(_elements.tiposTonosModal.txtCantidad.id(grupo, cuv)).val(cantidad);
-        $(_elements.tiposTonosModal.selectorCantidad.id(grupo, cuv)).show();
-        return true;
-    };
-
-    var _showSelectedTypesOrTones = function (componente) {
-        if(typeof componente ==="undefined" || componente === null ) return false;
-        $(_elements.tiposTonosModal.tiposTonosSeleccionados.id).slick("unslick");
-        SetHandlebars(_elements.tiposTonosModal.tiposTonosSeleccionados.templateId, componente, _elements.tiposTonosModal.tiposTonosSeleccionados.id);
-        $(_elements.tiposTonosModal.tiposTonosSeleccionados.contenedor).show();
-        $(_elements.tiposTonosModal.tiposTonosSeleccionados.id).slick({
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            autoplaySpeed: 2000,
-            fade: false,
-            arrows: false,
-            infinite: false
+        $(window).on("resize", function () {
+            _updateModalHeight();
         });
 
         return true;
     };
 
+    var _hideTypeAndTonesModal = function () {
+        _hideModal(_elements.tiposTonosModal.id);
+        $(window).off("resize");
+        return true;
+    };
+
+    var _showQuantitySelector = function (grupo, cuv, cantidad) {
+        $(_elements.tiposTonosModal.btnEligelo.id(grupo, cuv)).hide();
+        $(_elements.tiposTonosModal.btnElegido.id(grupo, cuv)).hide();
+        $(_elements.tiposTonosModal.txtCantidad.id(grupo, cuv)).val(cantidad);
+        $(_elements.tiposTonosModal.selectorCantidad.id(grupo, cuv)).show();
+        return true;
+    };
+
+    var _showChooseIt = function (grupo, cuv) {
+        $(_elements.tiposTonosModal.btnEligelo.id(grupo, cuv)).show();
+        $(_elements.tiposTonosModal.btnElegido.id(grupo, cuv)).hide();
+        $(_elements.tiposTonosModal.selectorCantidad.id(grupo, cuv)).hide();
+        return true;
+    };
+
+    var _showChoosen = function (grupo, cuv) {
+        $(_elements.tiposTonosModal.btnEligelo.id(grupo, cuv)).hide();
+        $(_elements.tiposTonosModal.btnElegido.id(grupo, cuv)).show();
+        $(_elements.tiposTonosModal.selectorCantidad.id(grupo, cuv)).hide();
+        return true;
+    };
+
+    var _showSelectedTypesOrTones = function (componente) {
+        if(typeof componente ==="undefined" || componente === null ) return false;
+
+        if (componente.HermanosSeleccionados.length > 0) {
+            $(_elements.tiposTonosModal.tiposTonosSeleccionados.id).slick("unslick");
+            $(_elements.tiposTonosModal.tiposTonosSeleccionados.id).html("");
+            SetHandlebars(_elements.tiposTonosModal.tiposTonosSeleccionados.templateId, componente, _elements.tiposTonosModal.tiposTonosSeleccionados.id);
+            $(_elements.tiposTonosModal.tiposTonosSeleccionados.contenedor).show();
+            $(_elements.tiposTonosModal.tiposTonosSeleccionados.id).slick({
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                autoplaySpeed: 2000,
+                fade: false,
+                arrows: false,
+                infinite: false
+            });
+        }else{
+            $(_elements.tiposTonosModal.tiposTonosSeleccionados.id).slick("unslick");
+            $(_elements.tiposTonosModal.tiposTonosSeleccionados.id).html("");
+            $(_elements.tiposTonosModal.tiposTonosSeleccionados.contenedor).hide();
+        }
+
+        _updateModalHeight();
+        
+        return true;
+    };
+
     var _blockTypesOrTones = function(){
-        $(_elements.tiposTonosModal.bloquear.all).addClass("disabled");
+        $(_elements.tiposTonosModal.bloquear.all).addClass(_elements.tiposTonosModal.bloquear.claseInhabilitado);
         return true;
     };
 
     var _unblockTypesOrTones = function(){
-        $(_elements.tiposTonosModal.bloquear.all).removeClass("disabled");
+        $(_elements.tiposTonosModal.bloquear.all).removeClass(_elements.tiposTonosModal.bloquear.claseInhabilitado);
+        return true;
+    };
+
+    var _unblockApplySelection = function(){
+        $(_elements.tiposTonosModal.aplicarSeleccion.id)
+            .removeClass(_elements.tiposTonosModal.aplicarSeleccion.claseInhabilitado)
+            .addClass(_elements.tiposTonosModal.aplicarSeleccion.claseHabilitado);
+        return true;
+    };
+
+    var _blockApplySelection = function(){
+        $(_elements.tiposTonosModal.aplicarSeleccion.id)
+            .removeClass(_elements.tiposTonosModal.aplicarSeleccion.claseHabilitado)
+            .addClass(_elements.tiposTonosModal.aplicarSeleccion.claseInhabilitado);
         return true;
     };
 
@@ -207,9 +291,13 @@ var ComponentesView = function () {
         setSelectedQuantityText: _setSelectedQuantityText,
         showComponentTypesAndTones: _showComponentTypesAndTones,
         showTypesAndTonesModal: _showTypesAndTonesModal,
+        showChooseIt: _showChooseIt,
+        showChoosen: _showChoosen,
         showQuantitySelector: _showQuantitySelector,
         showSelectedTypesOrTones: _showSelectedTypesOrTones,
         blockTypesOrTones: _blockTypesOrTones,
-        unblockTypesOrTones: _unblockTypesOrTones
+        unblockTypesOrTones: _unblockTypesOrTones,
+        unblockApplySelection : _unblockApplySelection,
+        blockApplySelection : _blockApplySelection,
     };
 };

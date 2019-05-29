@@ -65,6 +65,8 @@ namespace Portal.Consultoras.Entities.Pedido
         [DataMember]
         public bool EsEditable { get; set; }
         [DataMember]
+        public bool EsDuoPerfecto { get; set; }
+        [DataMember]
         public BEInputReservaProl ReservaProl { get; set; }
 
         public bool Reservado { get; set; }
