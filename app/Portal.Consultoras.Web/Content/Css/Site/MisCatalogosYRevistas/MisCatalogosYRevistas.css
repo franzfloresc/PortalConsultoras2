@@ -768,7 +768,7 @@ input[type='checkbox']:checked + span:after {
 }
 
 .icono_exclamacion_alerta{
-    background-image: url(/Content/Images/icono_advertencia_notificacion.svg);
+    background-image: url(/Content/Images/icono_advertencia_notificacion_multimarca.svg);
 }
 
 .texto_mensaje_alerta,
