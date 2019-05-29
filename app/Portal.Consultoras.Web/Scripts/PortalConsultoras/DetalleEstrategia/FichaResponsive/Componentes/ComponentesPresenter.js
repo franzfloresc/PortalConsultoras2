@@ -260,7 +260,7 @@
                 //_aplicarOpciones(true, componente);
 
                 //#region Marcación Analytics (EPM-1442)
-                AnalyticsPortalModule.MarcarImagenProducto(_estrategia, componente.resumenAplicados);
+                AnalyticsPortalModule.MarcarImagenProducto(_estrategiaInstance, componente.resumenAplicados);
                 //#endregion
 
                 return true;
