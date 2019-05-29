@@ -801,15 +801,18 @@ var AnalyticsPortalModule = (function () {
     var _marcarImpresionSetProductos = function (arrayItems) {
 
         try {
-
             var tipoMoneda = _getCurrencyCodes();
-            dataLayer.push({
+            var objMarcar = {
                 'event': _evento.productImpression,
                 'ecommerce': {
                     'currencyCode': tipoMoneda,
                     'impressions': arrayItems
                 }
-            });
+            };
+
+            console.log('metodo _marcar Impresion Set Productos', objMarcar);
+
+            dataLayer.push(objMarcar);
 
             return true;
         } catch (e) {
@@ -821,7 +824,6 @@ var AnalyticsPortalModule = (function () {
 
     var marcaGenericaLista = function (seccion, data, pos) {
         try {
-            //console.log('marca Generica Lista- ini', seccion, data, pos);
 
             _marcarProductImpresionSegunLista(data);
 
