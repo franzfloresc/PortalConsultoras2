@@ -43,7 +43,8 @@ var AnalyticsPortalModule = (function () {
         duoPerfecto: "Dúo Perfecto",
         palancaLasMasGandoras: "Más Ganadoras",
         armaTuDuoPerfecto: ' Arma tu Dúo Perfecto - Dúo Perfecto',
-        PedidoPendienteAceptado: 'Pedidos Pendientes - Pedidos Aceptados '
+        PedidoPendienteAceptado: 'Pedidos Pendientes - Pedidos Aceptados',
+        CarritoComprasPedidosPendientes: 'Carrito de Compras - Pedidos Pendientes'
     };
 
     // Inicio - Analytics Home 1 (Miguel)
@@ -156,18 +157,25 @@ var AnalyticsPortalModule = (function () {
             { "Codigo": "2", "TextoList": "" }
         ],
         Pagina: [
-            { "Codigo": "00", "TextoList": "" },
+            { "Codigo": "00", "TextoList": "Landing Herramientas Venta" },
             { "Codigo": "01", "TextoList": "Home" },
             { "Codigo": "02", "TextoList": "Carrito de Compras" },
-            { "Codigo": "03", "TextoList": "" },
-            { "Codigo": "04", "TextoList": "Showroom" },
-            { "Codigo": "05", "TextoList": "" },
-            { "Codigo": "06", "TextoList": "" },
-            { "Codigo": "07", "TextoList": "" },
+            { "Codigo": "03", "TextoList": "Landing Liquidacion" },
+            { "Codigo": "04", "TextoList": "Buscador" },
+            { "Codigo": "05", "TextoList": "Showroom" },
+            { "Codigo": "06", "TextoList": "Landing Gnd" },
+            { "Codigo": "07", "TextoList": "Landing Ofertas Para Ti" },
             { "Codigo": "08", "TextoList": "Inicio" },
             { "Codigo": "09", "TextoList": "Otras Paginas" },
-            { "Codigo": "10", "TextoList": "" },
-            { "Codigo": "11", "TextoList": "" },
+            { "Codigo": "10", "TextoList": "Landing Buscador" },
+            { "Codigo": "11", "TextoList": "Landing Ganadoras" },
+            { "Codigo": "12", "TextoList": "Maquillador" },
+            { "Codigo": "13", "TextoList": "Landing Arma Tu Pack" },
+            { "Codigo": "14", "TextoList": "Landing Duo Perfecto" },
+            { "Codigo": "15", "TextoList": "Landing Pack Nuevas" },
+            { "Codigo": "16", "TextoList": "Landing Oferta Del Dia" },
+            { "Codigo": "17", "TextoList": "Landing Categoria" },
+            { "Codigo": "18", "TextoList": "Camino Brillante" },
             { "Codigo": "19", "TextoList": "Ficha" }
         ],
         Palanca: [
@@ -175,29 +183,38 @@ var AnalyticsPortalModule = (function () {
             { "Codigo": "01", "CodigoPalanca": "SR", "TextoList": "Showroom" },
             { "Codigo": "02", "CodigoPalanca": "LAN", "TextoList": "Lanzamientos" },
             { "Codigo": "03", "CodigoPalanca": "ODD", "TextoList": "Oferta del Día" },
-            { "Codigo": "04", "CodigoPalanca": "OF", "TextoList": "" },
+            { "Codigo": "04", "CodigoPalanca": "OF", "TextoList": "Oferta Final" },
             { "Codigo": "05", "CodigoPalanca": "GND", "TextoList": "GND" },
             { "Codigo": "06", "CodigoPalanca": "", "TextoList": "Liquidaciones Web" },
-            { "Codigo": "07", "CodigoPalanca": "", "TextoList": "" },
+            { "Codigo": "07", "CodigoPalanca": "", "TextoList": "Producto Sugerido" },
             { "Codigo": "08", "CodigoPalanca": "HV", "TextoList": "Herramientas de Venta" },
-            { "Codigo": "09", "CodigoPalanca": "", "TextoList": "" },
-            { "Codigo": "10", "CodigoPalanca": "", "TextoList": "" },
-            { "Codigo": "11", "CodigoPalanca": "", "TextoList": "" },
-            { "Codigo": "12", "CodigoPalanca": "", "TextoList": "" },
-            { "Codigo": "13", "CodigoPalanca": "", "TextoList": "" },
+            { "Codigo": "09", "CodigoPalanca": "", "TextoList": "Banners" },
+            { "Codigo": "10", "CodigoPalanca": "", "TextoList": "Digitado" },
+            { "Codigo": "11", "CodigoPalanca": "", "TextoList": "Catalogo Lbel" },
+            { "Codigo": "12", "CodigoPalanca": "", "TextoList": "Catalogo Esika" },
+            { "Codigo": "13", "CodigoPalanca": "", "TextoList": "Catalogo Cyzone" },
             { "Codigo": "14", "CodigoPalanca": "MG", "TextoList": "Más Ganadoras" },
-            { "Codigo": "15", "CodigoPalanca": "", "TextoList": "" },
+            { "Codigo": "15", "CodigoPalanca": "ATP", "TextoList": "Arma Tu Pack" },
             { "Codigo": "16", "CodigoPalanca": "DP", "TextoList": "Dúo Perfecto" },
-            { "Codigo": "17", "CodigoPalanca": "PN", "TextoList": "Pack de Nuevas" }
+            { "Codigo": "17", "CodigoPalanca": "PN", "TextoList": "Pack de Nuevas" },
+            { "Codigo": "18", "CodigoPalanca": "", "TextoList": "Escoge Tu Regalo" },
+            { "Codigo": "19", "CodigoPalanca": "", "TextoList": "Ofertas Especiales" }
         ],
         Seccion: [
             { "Codigo": "01", "TextoList": "" },
             { "Codigo": "02", "TextoList": "Detalle de Producto" },
-            { "Codigo": "03", "TextoList": "" },
-            { "Codigo": "04", "TextoList": "" },
+            { "Codigo": "03", "TextoList": "Banner" },
+            { "Codigo": "04", "TextoList": "Desplegable Buscador" },
             { "Codigo": "05", "TextoList": "Detalle de Producto - Ver más sets" },
-            { "Codigo": "06", "TextoList": "" },
-            { "Codigo": "07", "TextoList": "" },
+            { "Codigo": "06", "TextoList": "Banner Superior" },
+            { "Codigo": "07", "TextoList": "Sub Campania" },
+            { "Codigo": "08", "TextoList": "Carrusel Recomendado" },
+            { "Codigo": "09", "TextoList": "Ficha Recomendada" },
+            { "Codigo": "10", "TextoList": "App Catalogo Pendiente de Aprobar" },
+            { "Codigo": "11", "TextoList": "Catalogo Digital Pendiente de Aprobar Cliente" },
+            { "Codigo": "12", "TextoList": "App Maquillador Pendiente de Aprobar Cliente" },
+            { "Codigo": "13", "TextoList": "Catalogo Digital Pendiente de Aprobar Producto" },
+            { "Codigo": "14", "TextoList": "App Maquillador Pendiente de Aprobar Producto" },
             { "Codigo": "15", "TextoList": "Carrusel Upselling" },
             { "Codigo": "16", "TextoList": "Ficha Upselling" }
         ]
@@ -785,15 +802,18 @@ var AnalyticsPortalModule = (function () {
     var _marcarImpresionSetProductos = function (arrayItems) {
 
         try {
-
             var tipoMoneda = _getCurrencyCodes();
-            dataLayer.push({
+            var objMarcar = {
                 'event': _evento.productImpression,
                 'ecommerce': {
                     'currencyCode': tipoMoneda,
                     'impressions': arrayItems
                 }
-            });
+            };
+
+            console.log('metodo _marcar Impresion Set Productos', objMarcar);
+
+            dataLayer.push(objMarcar);
 
             return true;
         } catch (e) {
@@ -805,7 +825,6 @@ var AnalyticsPortalModule = (function () {
 
     var marcaGenericaLista = function (seccion, data, pos) {
         try {
-            //console.log('marca Generica Lista- ini', seccion, data, pos);
 
             _marcarProductImpresionSegunLista(data);
 
@@ -2747,13 +2766,6 @@ var AnalyticsPortalModule = (function () {
         ClickAddCartFicha: clickAddCartFicha,
         ClickTabGanadoras: clickTabGanadoras,
         // Fin - Analytics Ganadoras
-
-        // Ini - Analytics PedidoPendientes
-        ClickBotonPedidosPendientes: clickBotonPedidosPendientes,
-        ClickTabPedidosPendientes: clickTabPedidosPendientes,
-        ClickBotonTabVistaProducto: clickBotonTabVistaProducto,
-        ClickVistaAddToCardPedidoPendiente: clickVistaAddToCardPedidoPendiente,
-        // Fin - Analytics PedidoPendientes
 
         // Ini - Analytics PedidoPendientes
         ClickBotonPedidosPendientes: clickBotonPedidosPendientes,
