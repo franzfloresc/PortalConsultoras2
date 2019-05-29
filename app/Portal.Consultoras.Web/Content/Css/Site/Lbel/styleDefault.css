@@ -1,4 +1,5 @@
-﻿
+﻿/* ESTILOS MARCA PAÍS */
+
 .default-color {
     color:  #613c87;
 }
@@ -15,28 +16,6 @@
     border-color: #613c87 !important;
 }
 
-.campo_deshabilitado {
-    border: 1px solid rgba(128, 128, 128, 0.5) !important;
-    background-color: rgba(216, 216, 216, 0.5) !important;
-    line-height: 45px;
-    pointer-events: none;
-    cursor: not-allowed !important;
-    color: rgba(128, 128, 128, 0.5) !important;
-}
-
-.btn_deshabilitado{
-    border:1px solid #D1D1D4!important;
-    background-color:#D1D1D4!important;
-    line-height:45px;
-    pointer-events:none;
-    cursor:not-allowed!important;
-    color:#909094!important;
-}
-
-.border-radius-4{
-    border-radius:4px;
-}
-
 .multimarca-background-color {
     background-color: #b9007e!important;
 }
@@ -45,9 +24,64 @@
     border-color: #b9007e;
 }
 
-.bg__popups__default {
-    background-color: rgba(0,0,0,.8);
+/* FIN - ESTILOS MARCA PAÍS */
+
+/* HELPERS CSS */
+
+.d-block {
+    display: block;
 }
+
+.d-inline-block {
+    display: inline-block;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.center-block {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.text-thin {
+    font-weight: 300;
+}
+
+.text-regular {
+    font-weight: 400;
+}
+
+.text-bold {
+    font-weight: 700;
+}
+
+.text-black {
+    font-weight: 900;
+}
+
+.border-radius-4 {
+    border-radius: 4px;
+}
+
+/* FIN - HELPERS CSS */
 
 /* COMPONENTES UI */
 
@@ -271,6 +305,47 @@
 
 /* FIN - FORMS */
 
+/* NOTIFICACIONES */
+
+.notificacion_estado {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.notificacion_estado--exito {
+    color: #569c04;
+}
+
+.notificacion_estado_img {
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    margin-right: 4px;
+    margin-bottom: 0 !important;
+}
+
+    .notificacion_estado_img img {
+        width: 100%;
+        height: auto;
+    }
+
+@media screen and (max-width:991px) {
+
+    .notificacion_estado_img {
+        margin-top: -1.2px;
+    }
+}
+
+/* FIN - NOTIFICACIONES */
+
 /* TAGS */
 
 .tag_sb {
@@ -293,6 +368,32 @@
 /* FIN - TAGS */
 
 /* FIN - COMPONENTES UI */
+
+/* ESTILOS GENERALES UI */
+
+.campo_deshabilitado {
+    border: 1px solid rgba(128, 128, 128, 0.5) !important;
+    background-color: rgba(216, 216, 216, 0.5) !important;
+    line-height: 45px;
+    pointer-events: none;
+    cursor: not-allowed !important;
+    color: rgba(128, 128, 128, 0.5) !important;
+}
+
+.btn_deshabilitado {
+    border: 1px solid #D1D1D4 !important;
+    background-color: #D1D1D4 !important;
+    line-height: 45px;
+    pointer-events: none;
+    cursor: not-allowed !important;
+    color: #909094 !important;
+}
+
+.bg__popups__default {
+    background-color: rgba(0,0,0,.8);
+}
+
+/* FIN - ESTILOS GENERALES UI */
 
 /* POPUP GENERAL (ACCIONES ACEPTAR Y CANCELAR) */
 
