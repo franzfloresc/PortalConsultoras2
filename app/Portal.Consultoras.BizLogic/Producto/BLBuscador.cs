@@ -29,7 +29,7 @@ namespace Portal.Consultoras.BizLogic.Producto
 
             try
             {
-                var listaDescripciones = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.NuevaDescripcionProductos);
+                var listaDescripciones = _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.DescripcionProducto.TablaLogicaId);
 
                 foreach (var item in listaDescripciones)
                 {
@@ -45,6 +45,20 @@ namespace Portal.Consultoras.BizLogic.Producto
                     {
                         item.OrigenPedidoWeb = Util.ProcesarOrigenPedidoApp(item.OrigenPedidoWeb);
                         item.OrigenPedidoWebFicha = Util.ProcesarOrigenPedidoAppFicha(item.OrigenPedidoWeb);
+
+                        var OrigenPedidoWebDesplegable = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, true, false, false, false, item.MaterialGanancia);
+                        var OrigenPedidoWebLanding = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, false, true, false, false, item.MaterialGanancia);
+                        var OrigenPedidoWebDesplegableFicha = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, true, false, true, false, item.MaterialGanancia);
+                        var OrigenPedidoWebLandingFicha = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, false, true, true, false, item.MaterialGanancia);
+                        var OrigenPedidoWebDesplegableFichaCarrusel = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, true, false, false, true, item.MaterialGanancia);
+                        var OrigenPedidoWebLandingFichaCarrusel = Util.obtenerCodigoOrigenWebApp(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaID, false, true, false, true, item.MaterialGanancia);
+
+                        if(OrigenPedidoWebDesplegable > 0) item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebDesplegable, Valor = OrigenPedidoWebDesplegable });
+                        if (OrigenPedidoWebLanding > 0) item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebLanding, Valor = OrigenPedidoWebLanding });
+                        if (OrigenPedidoWebDesplegableFicha > 0) item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebDesplegableFicha, Valor = OrigenPedidoWebDesplegableFicha });
+                        if (OrigenPedidoWebLandingFicha > 0) item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebLandingFicha, Valor = OrigenPedidoWebLandingFicha });
+                        if (OrigenPedidoWebDesplegableFichaCarrusel > 0) item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebLandingFichaCarrusel, Valor = OrigenPedidoWebDesplegableFichaCarrusel });
+                        if (OrigenPedidoWebLandingFichaCarrusel > 0) item.OrigenesPedidoWeb.Add(new BEBuscadorResponseOrigen() { Codigo = Constantes.OrigenPedidoBuscadorApp.OrigenPedidoWebDesplegableFichaCarrusel, Valor = OrigenPedidoWebLandingFichaCarrusel });
                     }
                 });
             }
@@ -65,7 +79,7 @@ namespace Portal.Consultoras.BizLogic.Producto
 
                 if (rst == null)
                 {
-                    using (IDataReader reader = new DATablaLogicaDatos(paisID).GetTablaLogicaDatos(Constantes.TablaLogica.ListaOrdenamientoFiltros))
+                    using (IDataReader reader = new DATablaLogicaDatos(paisID).GetTablaLogicaDatos(ConsTablaLogica.BfOpcionesOrdenamiento.TablaLogicaId))
                     {
                         rst = reader.MapToCollection<BETablaLogicaDatos>();
                     }

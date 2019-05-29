@@ -338,7 +338,11 @@
                         <span class="icon-advertencia"></span>
                         {{/if}}
                         {{/if}}
+
+                        {{#iff detalle.FlagVerCuv}}
                         {{detalle.CUV}}
+                        {{/iff}}
+
                     </div>
                     <span class="desc_prod text-bold">
                         {{#iff detalle.IndicadorMontoMinimo '==' 0}}
@@ -379,6 +383,10 @@
                     {{/if}}
                 </div>
 
+                {{#if detalle.EsSuscripcionSE}}
+                <div class="info_copy" style="display:none">
+                </div>
+                {{else}}
                 {{#if detalle.EsKitNueva}}
                 <div class="icono_kitNuevas">
                     <a href="javascript:;" title="Ver Info Kit Nuevas">
@@ -398,12 +406,40 @@
                     </a>
                 </div>
                 {{/if}}
+                {{/if}}
             </div>
             <div class="bloque_cantidades_precios_items_ingresados">
                 <div class="contenedor_cantidadProductos">
                     <div data-cantidad-contenedor="">
                         <div class="campo_cantidadProductos">
-                            {{#iff detalle.EsKitNueva '==' true}}
+
+                            {{#iff FlagModificaCantidad}}
+                            <input type="tel"
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
+                                   maxlength="2"
+                                   name="Cantidad_{{detalle.PedidoDetalleID}}"
+                                   onblur="UpdateLiquidacionEvento(event)"
+                                   onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
+                                   value="{{detalle.Cantidad}}"
+                                   data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                   data-setId="{{detalle.SetID}}"
+                                   data-cantidad-input="-"
+                                   autocomplete="off">
+                            <i class="arrow-down"></i>
+                            {{else}}
+                            <input type="text"
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
+                                   maxlength="2"
+                                   name="Cantidad_{{detalle.PedidoDetalleID}}"
+                                   value="{{detalle.Cantidad}}"
+                                   data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                   data-setId="{{detalle.SetID}}"
+                                   data-cantidad-input="-"
+                                   readonly="readonly"
+                                   autocomplete="off">
+                            {{/iff}}
+
+                            @*{{#iff detalle.EsKitNueva '==' true}}
                             <input type="tel"
                                    class="ValidaNumeral ValidaPasteNumeral Cantidad"
                                    maxlength="2"
@@ -428,6 +464,18 @@
                                    autocomplete="off">
                             <i class="arrow-down"></i>
                             {{else iff detalle.EsPremioElectivo}}
+                            <input type="tel"
+                                   class="ValidaNumeral ValidaPasteNumeral Cantidad"
+                                   maxlength="2"
+                                   name="Cantidad_{{detalle.PedidoDetalleID}}"
+                                   value="{{detalle.Cantidad}}"
+                                   data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
+                                   data-setId="{{detalle.SetID}}"
+                                   data-cantidad-input="-"
+                                   readonly="readonly"
+                                   autocomplete="off">
+                            <i class="arrow-down"></i>
+                            {{else iff detalle.EsKitCaminoBrillante}}
                             <input type="tel"
                                    class="ValidaNumeral ValidaPasteNumeral Cantidad"
                                    maxlength="2"
@@ -465,7 +513,7 @@
                                    data-cantidad-input="-"
                                    autocomplete="off">
                             <i class="arrow-down"></i>
-                            {{/iff}}
+                            {{/iff}}*@
 
                         </div>
                         <div class="clear"></div>
@@ -481,9 +529,9 @@
                 </div>
 
                 <div class="icono_eliminar_item_pedido">
-                    <a href="javascript:;" class="border_radius_4 icon_trash" title="Eliminar" 
-                       onclick="tooltipDelete(event,'{{PedidoDetalleID}}', '{{SetID}}');" 
-                       data-pedidodetalleid="{{detalle.PedidoDetalleID}}" 
+                    <a href="javascript:;" class="border_radius_4 icon_trash" title="Eliminar"
+                       onclick="tooltipDelete(event,'{{PedidoDetalleID}}', '{{SetID}}');"
+                       data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
                        data-setid="{{detalle.SetID}}"></a>
                 </div>
                 {{/unless}}
@@ -954,6 +1002,7 @@
 @{ Html.RenderPartial("_PopupEleccionRegalo");}
 @{ Html.RenderPartial("_PopupPremio");}
 @{ Html.RenderPartial("_PopupDescuento");}
+@{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupInformacionRegalo.cshtml");}
 <div id="DivPopupFichaResumida" class="Modal_Editar_Producto" style="display: none">
     @Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/FichaTemplate.cshtml")
 </div>
@@ -983,6 +1032,11 @@
         var urlPedidoAceptarBackOrder = '@Url.Action("AceptarBackOrder", "Pedido", new { area = "" })';
 
         var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "PedidoRegistro", new { area = "" })';
+        //INI HD-4200
+        var urlValidarSuscripcionSE = '@Url.Action("ValidarSuscripcionSE", "PedidoRegistro", new { area = "" })';
+        //FIN HD-4200
+
+
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var fnEliminarProducto = null;
 

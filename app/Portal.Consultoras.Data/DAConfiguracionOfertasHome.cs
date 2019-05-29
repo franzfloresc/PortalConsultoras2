@@ -76,7 +76,6 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        
         #region App
         public IDataReader GetApp(int configuracionOfertasHomeID)
         {
@@ -101,6 +100,10 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "AppOrden", DbType.Int32, entity.AppOrden);
                 Context.Database.AddInParameter(command, "AppCantidadProductos", DbType.Int32, entity.AppCantidadProductos);
                 Context.Database.AddInParameter(command, "AppSubTitulo", DbType.String, entity.AppSubTitulo);
+                Context.Database.AddInParameter(command, "AppTextoBotonInicial", DbType.String, entity.AppTextoBotonInicial);
+                Context.Database.AddInParameter(command, "AppTextoBotonFinal", DbType.String, entity.AppTextoBotonFinal);
+                Context.Database.AddInParameter(command, "AppColorFondoBoton", DbType.String, entity.AppColorFondoBoton);
+                Context.Database.AddInParameter(command, "AppColorTextoBoton", DbType.String, entity.AppColorTextoBoton);
                 Context.ExecuteNonQuery(command);
             }
         }

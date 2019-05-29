@@ -131,7 +131,7 @@
         }
     </script>
 
-    <header>
+    <header class="header--nuevoLookAndFeelEsika">
         @if (ViewBag.MostrarBannerPostulante == true)
         {
             @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBloqueMensajesPostulante.cshtml")
@@ -171,7 +171,7 @@
         {
             <div class="SubHeader"
                  data-layout="ubicacionWeb">
-                <div class="ubicacion_web">
+                <div class="ubicacion_web ubicacion_web--nuevoLookAndFeelEsika">
                     <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span>
                     <span> | @ViewBag.Title</span>
                 </div>
@@ -203,6 +203,7 @@
         </div>
     </div>
 
+    @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBuscadorResultado.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpFeDeErratas.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpRegistroComunidad.cshtml")
@@ -228,6 +229,9 @@
 
     @Html.Partial("~/Views/Shared/_template-ofertadeldia-style.cshtml")
 
+    @*INI HD-3693*@
+    @Html.Partial("~/Views/Shared/PopupsResponsive/_PopupBloqueoPorSistema.cshtml")
+    @*FIN HD-3693*@
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/JQueryJs")
 
     <script type="text/javascript">
@@ -258,6 +262,8 @@
         var TotalResultadosBuscador = '@ViewBag.TotalListadorBuscador';
         var AplicarLogicaCantidadBotonVerTodos = '@ViewBag.AplicarLogicaCantidadBotonVerTodos'.toLowerCase();
         var MostrarPalabrasMenoresACuatro = '@ViewBag.MostrarPalabrasMenoresACuatro';
+        var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
+        var SessionTimeout = '@ViewBag.SessionTimeout';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2")
     <script type='text/javascript'>
@@ -271,9 +277,10 @@
             s.parentNode.insertBefore(trme, s);
         })();
     </script>
-
+   
     @RenderSection("scripts", required: false)
-
+    
+    @{ Html.RenderPartial("VistaParcialMainLayout/_fbsdk");}
     <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")

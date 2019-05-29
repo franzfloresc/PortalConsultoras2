@@ -1,5 +1,7 @@
+using Portal.Consultoras.BizLogic.CaminoBrillante;
 using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
@@ -171,6 +173,8 @@ namespace Portal.Consultoras.BizLogic
                     Constantes.ConfiguracionOferta.Accesorizate,
                     pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
 
+           
+
             if (pedidowebdetalle.IndicadorPedidoAutentico != null)
             {
                 try
@@ -178,9 +182,19 @@ namespace Portal.Consultoras.BizLogic
                     var indPedidoAutentico = pedidowebdetalle.IndicadorPedidoAutentico;
                     indPedidoAutentico.PedidoID = pedidowebdetalle.PedidoID;
                     indPedidoAutentico.PedidoDetalleID = bePedidoWebDetalle.PedidoDetalleID;
-                    indPedidoAutentico.IndicadorToken = AESAlgorithm.Decrypt(indPedidoAutentico.IndicadorToken);
-
-                    daPedidoWeb.InsIndicadorPedidoAutentico(indPedidoAutentico);
+                    
+                    if (TryDecryptError(indPedidoAutentico.IndicadorToken))
+                    {
+                        
+                        string message = string.Format("Tracking Decrypt=> OrigenSolicitud:{0},Token:{1}", pedidowebdetalle.OrigenSolicitud ?? "Null", indPedidoAutentico.IndicadorToken ?? "Null");
+                        LogManager.SaveLog(new ClientInformationException(message), pedidowebdetalle.CodigoUsuarioCreacion, pedidowebdetalle.PaisID);
+                    }
+                    else
+                    {
+                        indPedidoAutentico.IndicadorToken = AESAlgorithm.Decrypt(indPedidoAutentico.IndicadorToken);
+                        daPedidoWeb.InsIndicadorPedidoAutentico(indPedidoAutentico);
+                    }
+                    
                 }
                 catch (Exception ex)
                 {
@@ -215,7 +229,7 @@ namespace Portal.Consultoras.BizLogic
                             new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockActualizar(pedidowebdetalle.TipoOfertaSisID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Stock, pedidowebdetalle.Flag);
                             break;
                     }
-
+                    
                     if (pedidowebdetalle.IndicadorPedidoAutentico != null)
                     {
                         try
@@ -436,7 +450,13 @@ namespace Portal.Consultoras.BizLogic
         {
             return GetPedidoWebDetalleByCampania(detParametros, true, false);
         }
+
         public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros detParametros, bool consultoraOnLine, bool updLabelNuevas)
+        {
+            return GetPedidoWebDetalleByCampania(detParametros, consultoraOnLine, updLabelNuevas, false);
+        }
+
+        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros detParametros, bool consultoraOnLine, bool updLabelNuevas, bool updLabelCaminoBrillante)
         {
             var listpedidoDetalle = new List<BEPedidoWebDetalle>();
             var daPedidoWebDetalle = new DAPedidoWebDetalle(detParametros.PaisId);
@@ -482,6 +502,19 @@ namespace Portal.Consultoras.BizLogic
                         if (itemConsultoraOnline != null) item.FlagConsultoraOnline = true;
                     }
                 }
+            }
+            #endregion
+
+            #region Camino Brillante
+            if (updLabelCaminoBrillante) {
+                var origenPedidoWeb = new int[] {
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido,
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido,
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido };
+                var blCaminoBrillante = new BLCaminoBrillante();
+                listpedidoDetalle.Where(e => origenPedidoWeb.Contains(e.OrigenPedidoWeb)).ToList().ForEach(e => {                    
+                    blCaminoBrillante.UpdFlagsKitsOrDemostradores(e, detParametros.PaisId, detParametros.CampaniaId, detParametros.NivelCaminoBrillante);
+                });
             }
             #endregion
 
@@ -876,6 +909,24 @@ namespace Portal.Consultoras.BizLogic
             return listaBePedidoWebDetalle;
         }
 
+        private bool TryDecryptError(string token)
+        {
+            bool Notdecrypt = false;
+            
+            try
+            {
+                AESAlgorithm.Decrypt(token);
+                
+            }
+            catch
+            {
+                Notdecrypt = true;
+               
+               
+            }
+
+            return Notdecrypt;
+        }
 
     }
 }

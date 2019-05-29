@@ -341,14 +341,9 @@ $(document).ready(function () {
     });
 
     $("#divChatearConNosotros").click(function () {
-        if ($('#hddHabilitarChatEmtelco').val() === 'false') {
-            $('#popupChatDisabled').show();
-            return;
-        }
-        $('#marca').css('display', 'block');
-        var connected = localStorage.getItem('connected');
-        var idBtn = connected ? '#btn_open' : '#btn_init';
-        $(idBtn).trigger("click");
+        if (typeof FB === 'undefined') return;
+
+        FB.XFBML.parse();
     });
 
     $("body").keyup(function (evt) {
@@ -722,7 +717,7 @@ function AsignarHojaEstilos() {
         document.title = ' ÉSIKA ';
         $("link[data-id='iconPagina']").attr("href", "/Content/Images/Esika/favicon.ico");
 
-        $currentLink.attr('href', UrlStyles.esika/*$currentBelcorpStyle.data("srcesika")*/);
+        $currentLink.attr('href', UrlStyles.esika);
 
         Fondofestivo("hddFondoFestivoEsika");
 
@@ -734,7 +729,7 @@ function AsignarHojaEstilos() {
         document.title = " L'BEL ";
         $("link[data-id='iconPagina']").attr("href", "/Content/Images/Lbel/favicon.ico");
 
-        $currentLink.attr('href', UrlStyles.lbel /*$currentBelcorpStyle.data("srclbel")*/);
+        $currentLink.attr('href', UrlStyles.lbel);
 
         Fondofestivo("hddFondoFestivoLebel");
 
@@ -745,7 +740,7 @@ function AsignarHojaEstilos() {
         document.title = ' ÉSIKA ';
         $("link[data-id='iconPagina']").attr("href", "/Content/Images/Esika/favicon.ico");
 
-        $currentLink.attr('href', UrlStyles.esika/*$currentBelcorpStyle.data("srcesika")*/);
+        $currentLink.attr('href', UrlStyles.esika);
 
         Fondofestivo("hddFondoFestivoEsika");
 

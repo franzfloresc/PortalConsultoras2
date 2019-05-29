@@ -42,7 +42,6 @@ $(document).ready(function () {
                 $('body').on('click', '#btnConfirmarUbicacionDireccionEntrega', me.Eventos.ConfirmarUbicacionDireccionEntrega);
 
                 $('body').on('change', '#Ubigeo1,#Ubigeo2', me.Eventos.UbigeoChanged);
-                //$('body').on('click', '#Ubigeo2', me.Eventos.UbigeoChanged);
 
             },
            
@@ -144,7 +143,6 @@ $(document).ready(function () {
                 });
             },
             ModoEdicion: function() {
-                //$('#Ubigeo1').trigger("change");
                 if (window.matchMedia("(max-width: 991px)").matches)
                    $('.enlace_abrir_mapa')[0].disabled = false;
                 me.Funciones.CargarUbigeos();
@@ -335,7 +333,7 @@ $(document).ready(function () {
                                 var name = response[i]['Nombre'];
                                 $(IdDependiente).append("<option value='" + id + "'>" + name + "</option>");
                             }
-                            //me.Funciones.ItemSelected(IdDependiente);
+
                     
                         }
                     });
@@ -409,7 +407,7 @@ function actualizarDatos() {
     if ((txtCelularMD == null || txtCelularMD == "")) {
         $('#btnGuardar')[0].disabled = false;
         alert('Debe ingresar un número de celular. \n');
-        return false;
+        return false; 
     }
 
     if ((txtTelefonoMD == null || txtTelefonoMD == "") && hdn_PaisID != 3 ) {
@@ -417,6 +415,7 @@ function actualizarDatos() {
         alert('Debe ingresar un número de teléfono. \n');
         return false;
     }
+
 
     if (txtCelularMD != "") {
         if (!isInt(txtCelularMD)) {
@@ -537,12 +536,6 @@ function actualizarDatos() {
             return false;
         }
 
-        //if (Referencia == "" && hdn_PaisID != 3) {
-        //    $('#btnGuardar')[0].disabled = false;
-        //    alert("Debe ingresar una dirección de referencia.");
-        //    return false;
-        //}
-
         if (Latitud == 0 || Longitud == 0) {
             $('#btnGuardar')[0].disabled = false;
             alert("Debe ingresar una dirección valida.");
@@ -603,7 +596,6 @@ function actualizarDatos() {
     
     jQuery.ajax({
         type: 'POST',
-        //url: baseUrl + 'MiPerfil/ActualizarDatos',
         url: baseUrl + 'MiPerfil/RegistrarPerfil',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -820,19 +812,19 @@ function ConsultarActualizaEmail() {
         $.ajax({
             type: 'POST',
             url: baseUrl + 'Bienvenida/ObtenerActualizacionEmailSms',
-            dataType: 'Text',
+            dataType: 'Json',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(item),
             success: function (data) {
                 if (checkTimeout(data)) {
                     if (data != "") {
-                        if (data.split('|')[1] != ""){
+                        if (data.mensaje.split('|')[1] != ""){
                             document.getElementsByClassName('toolTipCorreo')[0].style.display = 'block';
-                            document.getElementById('EmailNuevo').innerHTML = data.split('|')[1];
+                            document.getElementById('EmailNuevo').innerHTML = data.mensaje.split('|')[1];
                         }
-                        if (data.split('|')[0] != "") {
+                        if (data.mensaje.split('|')[0] != "") {
                             document.getElementsByClassName('toolTipCelular')[0].style.display = 'block';
-                            document.getElementById('CelularNuevo').innerHTML = data.split('|')[0];
+                            document.getElementById('CelularNuevo').innerHTML = data.mensaje.split('|')[0];
                         }
                     }
                 }
@@ -919,15 +911,8 @@ var GoogleMap = function() {
             });
             directionsService = new google.maps.DirectionsService;
             var input = document.getElementById('Direccion');
-
-
-            //var options = {
-            //    //types: ['(cities)'],
-            //    componentRestrictions: { country: LocationCountry, postalCode: '1530000' }
-            //};
+            
             searchBox = new google.maps.places.Autocomplete(input);
-            //searchBox = new google.maps.places.Autocomplete(input);
-            //searchBox.setComponentRestrictions({ 'country': 'PE' });
             searchBox.setComponentRestrictions({ 'country': LocationCountry });
             searchBox.bindTo('bounds', map);
         },
@@ -965,11 +950,6 @@ var GoogleMap = function() {
                     }
                     me.Funciones.LimpiarMapa();
                 }
-                //if (EsMobile == 'True' && $(this).val().length === 0) {
-
-                //    $('.enlace_abrir_mapa')[0].disabled = true;
-                //    $('.enlace_abrir_mapa').addClass('enlace_abrir_mapa_disabled');
-                //}
             });
 
         },
@@ -1032,11 +1012,11 @@ var GoogleMap = function() {
         ModoEdicion: function() {
           
                 var coordenadas = {
-                    lat: parseFloat($('#Latitud').val()), //$('#Latitud').val()
+                    lat: parseFloat($('#Latitud').val()),
                     lng: parseFloat($('#Longitud').val())
                 };
 
-                me.Propiedades.latitudIni = coordenadas.lat; //$('#Latitud').val()
+                me.Propiedades.latitudIni = coordenadas.lat;
                 me.Propiedades.longitudIni = coordenadas.lng;
                 map.setCenter(coordenadas);
                 marker.setPosition(coordenadas);
@@ -1089,9 +1069,7 @@ var GoogleMap = function() {
             }
         },
         DragStart: function() {
-
-            //me.Propiedades.latitudIni = this.position.lat();
-            //me.Propiedades.longitudIni = this.position.lng();
+            
         },
         DragEnd: function() {
             var Latlng = { lat: this.position.lat(), lng: this.position.lng() };

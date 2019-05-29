@@ -50,8 +50,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var paisIso = Util.GetPaisISO(userData.PaisID);
                 var urlS3 = ConfigCdn.GetUrlCdnMatriz(paisIso);
 
-                var habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.Plan20,
-                    Constantes.TablaLogicaDato.BusquedaNemotecnicoZonaEstrategia);
+                var habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(userData.PaisID, ConsTablaLogica.Plan20.TablaLogicaId,
+                    ConsTablaLogica.Plan20.BusquedaNemotecnicoZonaEstrategia);
 
                 estrategiaModel = new EstrategiaModel()
                 {
@@ -65,9 +65,7 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoVistaEstrategia = TipoVistaEstrategia,
                     PaisID = userData.PaisID
                 };
-                //Enviar listado de palancas c/microservicios y si el país está configurado para ser evaluados en grilla. (Reemplazado por variablesPortal)
-                //ViewBag.MsEstrategias = SessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado; //WebConfig.EstrategiaDisponibleMicroservicioPersonalizacion;
-                //ViewBag.MsPaises = SessionManager.GetConfigMicroserviciosPersonalizacion().PaisHabilitado; //WebConfig.PaisesMicroservicioPersonalizacion;
+
             }
             catch (Exception ex)
             {
@@ -646,8 +644,8 @@ namespace Portal.Consultoras.Web.Controllers
             var respuestaServiceCdr = new List<RptProductoEstrategia>();
             try
             {
-                var codigo = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(userData.PaisID, Constantes.TablaLogica.Plan20,
-                    Constantes.TablaLogicaDato.Tonos, true);
+                var codigo = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(userData.PaisID, ConsTablaLogica.Plan20.TablaLogicaId,
+                    ConsTablaLogica.Plan20.Tonos, true);
 
                 if (Convert.ToInt32(codigo) <= entidad.CampaniaID)
                 {
@@ -729,7 +727,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
-                var mensajeErrorImagenResize = ""; // " Antes de Crear la Imagenes Renderizadas";
+                var mensajeErrorImagenResize = "";
                 var nroPedido = Util.Trim(model.NumeroPedido);
                 if (nroPedido.Contains(",")) model.NumeroPedido = "0";
 
@@ -895,7 +893,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     message = ex.Message,
                     extra = "",
-                    msjError = error
+                    msjError = error.ToString()
                 });
             }
             catch (Exception ex)
@@ -907,7 +905,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     message = ex.Message,
                     extra = "",
-                    msjError = error
+                    msjError = error.ToString()
                 });
             }
         }
@@ -959,7 +957,6 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 bool dbdefault = HttpUtility.ParseQueryString(((System.Web.HttpRequestWrapper)Request).UrlReferrer.Query)[_dbdefault].ToBool();
-                //var lst = new List<EstrategiaMDbAdapterModel>();
 
                 if (_ofertaBaseProvider.UsarMsPersonalizacion(userData.CodigoISO, tipoEstrategiaCodigo, dbdefault))
                 {
@@ -985,7 +982,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             lst.Add(new EstrategiaMDbAdapterModel { BEEstrategia = itemEstrategia });
                         }
-                    }   
+                    }
                 }
 
                 if (lst.Count <= 0)
@@ -1196,41 +1193,6 @@ namespace Portal.Consultoras.Web.Controllers
             return data;
         }
 
-        //[HttpPost]
-        //public JsonResult FiltrarEstrategiaPedido(string EstrategiaID, int FlagNueva = 0)
-        //{
-        //    List<ServicePedido.BEEstrategia> lst;
-
-        //    var entidad = new ServicePedido.BEEstrategia
-        //    {
-        //        PaisID = userData.PaisID,
-        //        EstrategiaID = Convert.ToInt32(EstrategiaID),
-        //        FlagNueva = FlagNueva
-        //    };
-
-        //    using (var sv = new PedidoServiceClient())
-        //    {
-        //        lst = sv.FiltrarEstrategiaPedido(entidad).ToList();
-        //    }
-
-        //    if (lst.Count > 0)
-        //    {
-        //        lst.Update(x => x.ImagenURL = ConfigS3.GetUrlFileS3Matriz(userData.CodigoISO, x.ImagenURL));
-        //        lst.Update(x => x.Simbolo = userData.Simbolo);
-        //    }
-        //    ViewBag.ProductoDestacadoDetalle = lst[0];
-        //    return Json(new
-        //    {
-        //        data = lst[0],
-        //        precio = (userData.PaisID == Constantes.PaisID.Colombia)
-        //            ? lst[0].Precio.ToString("#,##0").Replace(',', '.')
-        //            : lst[0].Precio.ToString("#,##0.00"),
-        //        precio2 = (userData.PaisID == Constantes.PaisID.Colombia)
-        //            ? lst[0].Precio2.ToString("#,##0").Replace(',', '.')
-        //            : lst[0].Precio2.ToString("#,##0.00")
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
-
         [HttpPost]
         public JsonResult DeshabilitarEstrategia(string EstrategiaID, string idMongoVal, string tipoEstrategiaCodigo)
         {
@@ -1410,117 +1372,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-
-        //[HttpPost]
-        //public JsonResult InsertEstrategiaPortal(PedidoDetalleModel model)
-        //{
-        //    try
-        //    {
-        //        string mensaje;
-        //        var beEstrategia = new ServicePedido.BEEstrategia
-        //        {
-        //            PaisID = userData.PaisID,
-        //            Cantidad = Convert.ToInt32(model.Cantidad),
-        //            CUV2 = model.CUV,
-        //            CampaniaID = userData.CampaniaID,
-        //            ConsultoraID = userData.ConsultoraID.ToString()
-        //        };
-
-        //        using (var svc = new PedidoServiceClient())
-        //        {
-        //            mensaje = svc.ValidarStockEstrategia(beEstrategia);
-        //            if (model.FlagNueva == 1)
-        //            {
-        //                var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
-        //                {
-        //                    PaisId = userData.PaisID,
-        //                    CampaniaId = userData.CampaniaID,
-        //                    ConsultoraId = userData.ConsultoraID,
-        //                    Consultora = userData.NombreConsultora,
-        //                    EsBpt = EsOpt() == 1,
-        //                    CodigoPrograma = userData.CodigoPrograma,
-        //                    NumeroPedido = userData.ConsecutivoNueva
-        //                };
-
-        //                var detallePedidos = svc.SelectByCampania(bePedidoWebDetalleParametros).ToList();
-        //                var pedido = detallePedidos.FirstOrDefault(p => p.FlagNueva);
-        //                if (pedido != null)
-        //                    svc.DelPedidoWebDetalle(pedido);
-        //            }
-        //        }
-
-        //        if (mensaje != "OK")
-        //        {
-        //            return Json(new
-        //            {
-        //                result = false,
-        //                message = mensaje
-        //            }, JsonRequestBehavior.AllowGet);
-        //        }
-
-        //        var entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
-        //        using (var sv = new PedidoServiceClient())
-        //        {
-        //            entidad.PaisID = userData.PaisID;
-        //            entidad.ConsultoraID = userData.ConsultoraID;
-        //            entidad.CampaniaID = userData.CampaniaID;
-        //            entidad.TipoOfertaSisID = 0;
-        //            entidad.IPUsuario = userData.IPUsuario;
-        //            entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
-        //            entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
-        //            entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
-        //            sv.InsPedidoWebDetalleOferta(entidad);
-        //        }
-
-        //        UpdPedidoWebMontosPROL();
-
-        //        if (!string.IsNullOrEmpty(entidad.CUV))
-        //        {
-        //            var indPedidoAutentico = new BEIndicadorPedidoAutentico
-        //            {
-        //                PedidoID = entidad.PedidoID,
-        //                CampaniaID = entidad.CampaniaID,
-        //                PedidoDetalleID = entidad.PedidoDetalleID,
-        //                IndicadorIPUsuario = GetIPCliente(),
-        //                IndicadorFingerprint = "",
-        //                IndicadorToken = SessionManager.GetTokenPedidoAutentico() != null
-        //                    ? SessionManager.GetTokenPedidoAutentico().ToString()
-        //                    : ""
-        //            };
-        //            InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
-        //        }
-
-        //        object jsoNdata = new
-        //        {
-        //            success = true,
-        //            message = "Se agrego la estrategia satisfactoriamente.",
-        //            extra = ""
-        //        };
-
-        //        return Json(jsoNdata);
-        //    }
-        //    catch (FaultException ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = ex.Message,
-        //            extra = ""
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = ex.Message,
-        //            extra = ""
-        //        });
-        //    }
-        //}
 
         public static byte[] ReadFully(Stream input)
         {
@@ -2227,6 +2078,18 @@ namespace Portal.Consultoras.Web.Controllers
                         });
                     }
                     while (readLine != null);
+
+                    var listaRepetida = strategyEntityList
+                        .GroupBy(x => new { x.DescripcionCUV2, x.CUV2 })
+                        .Where(g => g.Count() > 1)
+                        .Select(y => new { Element = y.Key, Counter = y.Count() })
+                        .ToList();
+
+                    if (listaRepetida.Count > 0)
+                    {
+                        var cuvRepetidos = string.Join(",", listaRepetida.Select(x => x.Element.CUV2).ToArray());
+                        throw new ArgumentException(string.Format("Verificar la información del archivo. <br /> Referencia: CUVs duplicados '{0}'", cuvRepetidos));
+                    }
 
                     XElement strategyXML = new XElement("strategy",
                     from strategy in strategyEntityList

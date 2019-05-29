@@ -242,8 +242,9 @@ namespace Portal.Consultoras.Web.Providers
 
                             seccion.UrlObtenerProductos = "Estrategia/ATPObtenerProductos";
                             seccion.UrlLandig = "ArmaTuPack/Detalle";
-                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorArmaTuPack : Constantes.OrigenPedidoWeb.DesktopContenedorArmaTuPack;
+                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileArmaTuPackFicha : Constantes.OrigenPedidoWeb.DesktopArmaTuPackFicha;
                             seccion.VerMas = false;
+                            seccion.CodigoUbigeoPortal = CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion;
                             break;
                     }
 

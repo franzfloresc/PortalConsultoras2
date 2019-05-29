@@ -170,5 +170,122 @@ namespace Portal.Consultoras.Common.MagickNet
 
             return resultado;
         }
+
+        public static string GuardarImagenesResizeParaleloHistDetalle(List<EntidadMagickResize> lista, string cadena, bool actualizar = false)
+        {
+            var txtBuil = new StringBuilder();
+
+            if (lista.Any())
+            {
+                var primerItem = lista.FirstOrDefault();
+
+                if (primerItem != null)
+                {
+                    var nombreImagenOriginal = Path.GetFileName(primerItem.RutaImagenOriginal);
+                    var rutaImagenTemporal = Path.Combine(Globals.RutaTemporales, nombreImagenOriginal);
+
+                    var esOk = GuardarImagenToTemporal(primerItem.CodigoIso, primerItem.RutaImagenOriginal, rutaImagenTemporal);
+
+                    var lstTask = lista.Select(item => Task.Run(() => GuardarImagenesResizeHistDetalle(item, cadena, actualizar, false))).ToArray();
+                    Task.WaitAll(lstTask);
+
+                    File.Delete(rutaImagenTemporal);
+
+                    foreach (var item in lstTask)
+                    {
+                        txtBuil.Append(item.Result);
+                    }
+                }
+            }
+
+            return txtBuil.ToString();
+        }
+
+        private static string GuardarImagenesResizeHistDetalle(EntidadMagickResize item, string cadena, bool actualizar = false, bool temporal = true)
+        {
+            var result = string.Empty;
+
+            if (!Util.ExisteUrlRemota(item.RutaImagenResize) || actualizar)
+            {
+                var nombreImagen = Path.GetFileName(item.RutaImagenResize);
+                var resultadoImagenResize = GuardarImagenResizeHistDetalle(item.CodigoIso, item.RutaImagenOriginal, nombreImagen, item.Width, item.Height, cadena, actualizar, temporal);
+
+                if (!resultadoImagenResize) result = string.Format("No se genero la imagen {0}, favor volver a guardar.", item.TipoImagen);
+            }
+
+            return result;
+        }
+
+        private static bool GuardarImagenResizeHistDetalle(string codigoIso, string rutaImagenOriginal, string nombreImagenGuardar, int width,
+            int height, string cadena, bool actualizar = false, bool temporal = true)
+        {
+            var resultado = true;
+
+            string soloImagen = Path.GetFileName(rutaImagenOriginal) ?? "";
+
+            var rutaImagenResize = rutaImagenOriginal.Clone().ToString();
+            rutaImagenResize = rutaImagenResize.Replace(soloImagen, nombreImagenGuardar);
+
+            if (!Util.ExisteUrlRemota(rutaImagenResize) || actualizar)
+            {
+                var nombreImagenOriginal = Path.GetFileName(rutaImagenOriginal);
+
+                string rutaImagenTemporal = Path.Combine(Globals.RutaTemporales, nombreImagenOriginal);
+
+                if (temporal)
+                {
+                    var esOk = GuardarImagenToTemporal(codigoIso, rutaImagenOriginal, rutaImagenTemporal);
+
+                    if (esOk) esOk = GuardarImagenHistDetalle(codigoIso, rutaImagenTemporal, width, height, nombreImagenGuardar, cadena, actualizar);
+
+                    File.Delete(rutaImagenTemporal);
+
+                    resultado = esOk;
+                }
+                else
+                {
+                    resultado = GuardarImagenHistDetalle(codigoIso, rutaImagenTemporal, width, height, nombreImagenGuardar, cadena, actualizar);
+                }
+            }
+
+            return resultado;
+        }
+
+        private static bool GuardarImagenHistDetalle(string codigoIso, string rutaImagenOriginal, int width, int height, string nombreImagenGuardar, string cadena, bool actualizar = false)
+        {
+            var resultado = true;
+
+            try
+            {
+                string rutaTemporalGuardar = Path.Combine(Globals.RutaTemporales, nombreImagenGuardar);
+
+                MagickGeometry size = new MagickGeometry(width, height);
+                size.IgnoreAspectRatio = true;
+
+                using (MagickImage imagen = new MagickImage(rutaImagenOriginal))
+                {
+                    imagen.Resize(size);
+
+                    // Guardar la imagen resize a carpeta temporal                                                               
+                    imagen.Write(rutaTemporalGuardar);
+                }
+
+                //Guardar la imagen resize a Amazon
+                string[] arrCadena;
+                arrCadena = cadena.Split(',');
+                var carpetaPais = string.Format("{0}/{1}/{2}", arrCadena[0], codigoIso, arrCadena[1]);
+
+                ConfigS3.SetFileS3(rutaTemporalGuardar, carpetaPais, nombreImagenGuardar, actualizar);
+            }
+            catch (Exception ex)
+            {
+                resultado = false;
+                LogManager.SaveLog(ex, "", codigoIso, "MagickNetLibrary.GuardarImagen");
+            }
+
+            return resultado;
+        }
+
+
     }
 }
