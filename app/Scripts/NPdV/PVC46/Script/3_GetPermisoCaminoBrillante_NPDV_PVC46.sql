@@ -1,9 +1,9 @@
 USE BelcorpPeru
 GO
 
-IF EXISTS (select 1 from SYSOBJECTS where type = 'FN' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
+IF EXISTS (select 1 from SYSOBJECTS where type = 'P' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
 Begin
-	Drop FUNCTION GetPermisoCaminoBrillante
+	Drop PROC GetPermisoCaminoBrillante
 End
 GO
 CREATE FUNCTION [dbo].[GetPermisoCaminoBrillante]
@@ -53,9 +53,9 @@ GO
 USE BelcorpMexico
 GO
 
-IF EXISTS (select 1 from SYSOBJECTS where type = 'FN' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
+IF EXISTS (select 1 from SYSOBJECTS where type = 'P' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
 Begin
-	Drop FUNCTION GetPermisoCaminoBrillante
+	Drop PROC GetPermisoCaminoBrillante
 End
 GO
 CREATE FUNCTION [dbo].[GetPermisoCaminoBrillante]
@@ -105,9 +105,9 @@ GO
 USE BelcorpColombia
 GO
 
-IF EXISTS (select 1 from SYSOBJECTS where type = 'FN' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
+IF EXISTS (select 1 from SYSOBJECTS where type = 'P' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
 Begin
-	Drop FUNCTION GetPermisoCaminoBrillante
+	Drop PROC GetPermisoCaminoBrillante
 End
 GO
 CREATE FUNCTION [dbo].[GetPermisoCaminoBrillante]
@@ -157,9 +157,9 @@ GO
 USE BelcorpSalvador
 GO
 
-IF EXISTS (select 1 from SYSOBJECTS where type = 'FN' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
+IF EXISTS (select 1 from SYSOBJECTS where type = 'P' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
 Begin
-	Drop FUNCTION GetPermisoCaminoBrillante
+	Drop PROC GetPermisoCaminoBrillante
 End
 GO
 CREATE FUNCTION [dbo].[GetPermisoCaminoBrillante]
@@ -209,9 +209,9 @@ GO
 USE BelcorpPuertoRico
 GO
 
-IF EXISTS (select 1 from SYSOBJECTS where type = 'FN' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
+IF EXISTS (select 1 from SYSOBJECTS where type = 'P' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
 Begin
-	Drop FUNCTION GetPermisoCaminoBrillante
+	Drop PROC GetPermisoCaminoBrillante
 End
 GO
 CREATE FUNCTION [dbo].[GetPermisoCaminoBrillante]
@@ -261,9 +261,9 @@ GO
 USE BelcorpPanama
 GO
 
-IF EXISTS (select 1 from SYSOBJECTS where type = 'FN' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
+IF EXISTS (select 1 from SYSOBJECTS where type = 'P' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
 Begin
-	Drop FUNCTION GetPermisoCaminoBrillante
+	Drop PROC GetPermisoCaminoBrillante
 End
 GO
 CREATE FUNCTION [dbo].[GetPermisoCaminoBrillante]
@@ -313,9 +313,9 @@ GO
 USE BelcorpGuatemala
 GO
 
-IF EXISTS (select 1 from SYSOBJECTS where type = 'FN' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
+IF EXISTS (select 1 from SYSOBJECTS where type = 'P' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
 Begin
-	Drop FUNCTION GetPermisoCaminoBrillante
+	Drop PROC GetPermisoCaminoBrillante
 End
 GO
 CREATE FUNCTION [dbo].[GetPermisoCaminoBrillante]
@@ -365,9 +365,9 @@ GO
 USE BelcorpEcuador
 GO
 
-IF EXISTS (select 1 from SYSOBJECTS where type = 'FN' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
+IF EXISTS (select 1 from SYSOBJECTS where type = 'P' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
 Begin
-	Drop FUNCTION GetPermisoCaminoBrillante
+	Drop PROC GetPermisoCaminoBrillante
 End
 GO
 CREATE FUNCTION [dbo].[GetPermisoCaminoBrillante]
@@ -417,9 +417,9 @@ GO
 USE BelcorpDominicana
 GO
 
-IF EXISTS (select 1 from SYSOBJECTS where type = 'FN' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
+IF EXISTS (select 1 from SYSOBJECTS where type = 'P' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
 Begin
-	Drop FUNCTION GetPermisoCaminoBrillante
+	Drop PROC GetPermisoCaminoBrillante
 End
 GO
 CREATE FUNCTION [dbo].[GetPermisoCaminoBrillante]
@@ -469,9 +469,9 @@ GO
 USE BelcorpCostaRica
 GO
 
-IF EXISTS (select 1 from SYSOBJECTS where type = 'FN' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
+IF EXISTS (select 1 from SYSOBJECTS where type = 'P' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
 Begin
-	Drop FUNCTION GetPermisoCaminoBrillante
+	Drop PROC GetPermisoCaminoBrillante
 End
 GO
 CREATE FUNCTION [dbo].[GetPermisoCaminoBrillante]
@@ -521,9 +521,9 @@ GO
 USE BelcorpChile
 GO
 
-IF EXISTS (select 1 from SYSOBJECTS where type = 'FN' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
+IF EXISTS (select 1 from SYSOBJECTS where type = 'P' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
 Begin
-	Drop FUNCTION GetPermisoCaminoBrillante
+	Drop PROC GetPermisoCaminoBrillante
 End
 GO
 CREATE FUNCTION [dbo].[GetPermisoCaminoBrillante]
@@ -573,9 +573,9 @@ GO
 USE BelcorpBolivia
 GO
 
-IF EXISTS (select 1 from SYSOBJECTS where type = 'FN' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
+IF EXISTS (select 1 from SYSOBJECTS where type = 'P' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))
 Begin
-	Drop FUNCTION GetPermisoCaminoBrillante
+	Drop PROC GetPermisoCaminoBrillante
 End
 GO
 CREATE FUNCTION [dbo].[GetPermisoCaminoBrillante]

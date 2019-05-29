@@ -273,7 +273,7 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
                 'ecommerce': {
                     'currencyCode': moneda,
                     'add': {
-                        'actionField': 'list: ' + categoria ,
+                        'actionField': 'list Ofertas-CaminoBrillante : ' + categoria ,
                         'products': [{
                             'name': nombre_producto,
                             'price': precio_producto,
