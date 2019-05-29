@@ -61,7 +61,6 @@ namespace Portal.Consultoras.Web.SessionManager
         List<BECDRWebMotivoOperacion> GetCdrMotivoOperacion();
 
         void SetCdrMotivoOperacion(List<BECDRWebMotivoOperacion> datos);
-        #endregion
 
         int? GetNroPedidosCDRConfig();
 
@@ -70,6 +69,14 @@ namespace Portal.Consultoras.Web.SessionManager
         List<CDRWebModel> GetListaCDRWebCargaInicial();
 
         void SetListaCDRWebCargaInicial(List<CDRWebModel> lista);
+
+        bool? GetFlagIsSetsOrPack(); //HD-3703 EINCA
+
+        void SetFlagIsSetsOrPack(bool? flag); //HD-3703 EINCA
+
+        #endregion
+
+
 
         BEPedidoWeb GetPedidoWeb();
 
@@ -280,6 +287,10 @@ namespace Portal.Consultoras.Web.SessionManager
         Dictionary<string, PremioProgNuevasOFModel> GetDictPremioProgNuevasOF();
         void SetDictPremioProgNuevasOF(Dictionary<string, PremioProgNuevasOFModel> dictPremioProgNuevasOF);
 
+        //INI HD-4200
+        bool GetProcesoSuscripcionSE();
+        void SetProcesoSuscripcionSE(bool proceso);
+        //FIN HD-4200
         void SetBuscadorYFiltrosConfig(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
 
         BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltrosConfig();
@@ -520,5 +531,8 @@ namespace Portal.Consultoras.Web.SessionManager
 
         void SetDemostradoresCaminoBrillante(List<BEDesmostradoresCaminoBrillante> val);
         List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante();
+
+        void SetChatbotToken(string val);
+        string GetChatbotToken();
     }
 }

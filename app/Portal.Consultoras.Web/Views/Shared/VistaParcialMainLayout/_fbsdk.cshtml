@@ -1,0 +1,41 @@
+﻿@using Portal.Consultoras.Common
+
+@if (ViewBag.CodigoISODL == Constantes.CodigosISOPais.Peru)
+{
+<div class="fb-customerchat"
+     page_id="@ViewBag.ChatBotPageId"
+     greeting_dialog_display="hide"
+     ref="@ViewBag.ChatBotToken">
+</div>
+
+ if (ViewBag.FbCustomInit != "1")
+ {
+     <script>
+         window.fbAsyncInit = function () {
+             FB.init({
+                 xfbml            : true,
+                 version          : 'v3.3'
+             });
+
+             FB.Event.subscribe('customerchat.load', function() {
+                 setTimeout(function () {
+                     $('.fb_dialog_content').append('<div class="icono_chat_sb"></div>');
+                     $('body').on('click', '.icono_chat_sb', function (e) {
+                         FB.CustomerChat.showDialog();
+                     });
+                 }, 2000);
+             });
+         };
+     </script>
+ }
+
+<script>
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/es_LA/sdk/xfbml.customerchat.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+}
