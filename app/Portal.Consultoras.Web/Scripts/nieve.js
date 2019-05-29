@@ -66,18 +66,6 @@ function ocultarLluvia() {
     hideImages();
 }
 
-function cerrarProgramaNuevas(valor) {
-    var valorCerrar = "icono_cerrar_popup_eleccion_regalo_programaNuevas";
-    /*HD-3710 - 6_7 (Pop up Felicidades -  Click Botón) -  (Pop up Regalos - Click Botón) */
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Carrito de Compras',
-        'action': valor.className == valorCerrar ? valor.title : valor.innerHTML,
-        'label': 'popupPremio',
-    });
-
-}
-
 function hideImages() {
     closeImagenRain = 1;
     //$("img[id^='fO']").fadeOut(200);
