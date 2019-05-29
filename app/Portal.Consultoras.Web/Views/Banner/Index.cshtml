@@ -1535,7 +1535,7 @@
     }
 
     function fnAgregarNuevoObjBanner(subgrid, BannerId, PaisId) {
-
+        debugger;
         var img01 = subgrid.jqGrid('getCell', BannerId, 'ArchivoRutaCompleto').replace(/^.*[\\\/]/, '');
         if (img01.lastIndexOf("?") >= 0) {
             img01 = img01.substring(0, img01.lastIndexOf("?"));
@@ -1556,7 +1556,9 @@
             PaginaNueva: subgrid.jqGrid('getCell', BannerId, 'PaginaNueva'),
             TipoAccion: subgrid.jqGrid('getCell', BannerId, 'TipoAccion'),
             CuvPedido: subgrid.jqGrid('getCell', BannerId, 'CuvPedido'),
-            CantCuvPedido: subgrid.jqGrid('getCell', BannerId, 'CantCuvPedido')
+            CantCuvPedido: subgrid.jqGrid('getCell', BannerId, 'CantCuvPedido'),
+            ArchivoMobile: subgrid.jqGrid('getCell', BannerId, 'ArchivoMobile'),
+            URLMobile: subgrid.jqGrid('getCell', BannerId, 'URLMobile'),
         }
     }
 
