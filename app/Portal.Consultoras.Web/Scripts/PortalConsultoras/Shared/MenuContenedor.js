@@ -296,7 +296,7 @@ var menuModule = (function () {
                     + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
             }
 
-            else if (url.includes(ConstantesModule.TipoEstrategia.DP)) {
+            else if (url.indexOf(ConstantesModule.TipoEstrategia.DP) > -1) {
                 OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
                     + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
                     + ConstantesModule.OrigenPedidoWebEstructura.Palanca.DuoPerfecto

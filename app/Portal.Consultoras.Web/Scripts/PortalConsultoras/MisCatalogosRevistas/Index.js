@@ -1114,7 +1114,7 @@ function MonstrarAlerta(texto) {
 
 function MarcarCompartirFbExitoso() {
     
-    if (window.location.search.includes("catalogo_compartido_fb_messenger")) {
+    if (window.location.search.indexOf("catalogo_compartido_fb_messenger") > -1) {
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',

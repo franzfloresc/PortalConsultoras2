@@ -127,9 +127,9 @@ else
                                 item.ClienteID = data.extra.split("|")[1];
 
                                 messageInfo(data.message, function (e) {                                    
-                                    if ($(e.target.parentElement).attr('class').includes("cerrar_popMobile")) { /*click en cerrar pop up*/
+                                    if ($(e.target.parentElement).attr('class').indexOf("cerrar_popMobile") > -1) { /*click en cerrar pop up*/
                                         DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Pop up Registro Cliente Satisfactorio', 'Cerrar');
-                                    } else if ($(e.target).attr('class').includes("btn-aceptar")) {  /*click en Aceptar*/
+                                    } else if ($(e.target).attr('class').indexOf("btn-aceptar") > -1) {  /*click en Aceptar*/
                                         DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Pop up Registro Cliente Satisfactorio', 'Aceptar');
                                     }
                                     item.Insertado = data.insertado;
