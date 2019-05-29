@@ -2913,6 +2913,7 @@ function ProcesarActualizacionMostrarContenedorCupon() {
         }
     }
 }
+
 function closeDialogObservacionesProl() {
 
     var notExitoFromProl = $('#divMensajeObservacionesPROL').data('prop-NotExito');
@@ -3028,10 +3029,11 @@ function CargarProductosRecomendados(item) {
     ProductoRecomendadoModule.ObtenerProductos(item.CodigoCatalago, item.EstrategiaIDSicc, item.CUV, item.CodigoProducto);
 
 }
-//TESLA-7
+
 function ModificarPedido() {
 	showDialog("divConfirmValidarPROL2");
 }
+
 function CerrarDialogo(dialog) {
 	HideDialog(dialog); function CerrarDialogo(dialog) {
 		HideDialog(dialog);
