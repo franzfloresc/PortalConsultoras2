@@ -51,6 +51,7 @@
 }
 
 @media screen and (max-width:991px) {
+
     .popup__somos__belcorp--popupRecepcionPedido {
         width: 100% !important;
         height: 100%;
@@ -64,6 +65,7 @@
         .popup__somos__belcorp--popupRecepcionPedido .popup__somos__belcorp__icono__cerrar {
             top: -56px;
         }
+
 }
 
 /* FIN - MC-4288 - SWITCH CONSULTORA 100% DIGITAL */

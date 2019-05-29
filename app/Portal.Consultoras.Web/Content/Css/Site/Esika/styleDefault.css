@@ -153,6 +153,7 @@
 /* FIN - VALIDATION MESSAGE */
 
 /* SWITCH */
+
 .switch__control__descrip {
     color: #000;
     font-size: 14px;
@@ -213,9 +214,64 @@
 
 /* FIN - SWITCH */
 
+/* BUTTONS */
+
+.btn__sb {
+    height: 40px;
+    line-height: 32px;
+    border: 0;
+    font-size: 14px;
+    position: relative;
+}
+
+.btn__sb__primary,
+.btn__sb__primary--multimarca {
+    color: #FFF;
+}
+
+.btn__sb__primary,
+.btn__sb__secondary {
+    border: 1px solid #000;
+}
+
+.btn__sb__primary {
+    background-color: #000;
+}
+
+.btn__sb__primary--multimarca {
+    background-color: #B9007E;
+    border: 1px solid #B9007E;
+}
+
+.btn__sb__secondary {
+    background-color: #FFF;
+    color: #000;
+}
+
+.btn__sb--disabled {
+    border: 1px solid #D1D1D4;
+    background-color: #D1D1D4;
+    pointer-events: none;
+    cursor: not-allowed;
+    color: #909094;
+}
+
+@media screen and (max-width:991px) {
+
+    .btn__sb {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 16px;
+    }
+}
+
+/* FIN - BUTTONS */
+
 /* FIN - FORMS */
 
 /* TAGS */
+
 .tag_sb {
     display: inline-block;
     border-radius: 10.5px;
