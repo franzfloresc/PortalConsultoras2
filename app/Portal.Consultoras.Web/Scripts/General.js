@@ -5,7 +5,6 @@ belcorp.settings = belcorp.settings || {};
 belcorp.settings.uniquePrefix = "/g/";
 
 jQuery(document).ready(function () {
-
     CreateLoading();
 
     if (typeof IsoPais === 'undefined' || IsoPais != 'PE')  {
@@ -1298,27 +1297,6 @@ function autoCompleteByCharacters(inp, arr, car) {
     document.addEventListener("click", function (e) {
         closeAllLists(e.target);
     });
-}
-
-function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
-    if (urlLogDynamo != "") {
-        jQuery.ajax({
-            type: "POST",
-            async: true,
-            //crossDomain: true,
-            url: baseUrl + 'Comun/InsertarLogDymnamo',
-            //url: urlLogDynamo + "Api/LogUsabilidad",
-            dataType: "json",
-            data: {
-                'Aplicacion': userData.aplicacion,
-                'PantallaOpcion': pantallaOpcion,
-                'OpcionAccion': opcionAccion,
-                'Extra': ToDictionary(extra)
-            },
-            success: function (result) { },
-            error: function (x, xh, xhr) { }
-        });
-    }
 }
 
 function ToDictionary(dic) {

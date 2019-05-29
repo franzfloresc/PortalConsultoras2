@@ -740,16 +740,6 @@ namespace Portal.Consultoras.Web.SessionManager
             return (dynamic)HttpContext.Current.Session["PrimeraVezSessionMobile"];
         }
 
-        void ISessionManager.SetIngresoPortalConsultoras(bool val)
-        {
-            HttpContext.Current.Session[Constantes.ConstSession.IngresoPortalConsultoras] = val;
-        }
-
-        dynamic ISessionManager.GetIngresoPortalConsultoras()
-        {
-            return (dynamic)HttpContext.Current.Session[Constantes.ConstSession.IngresoPortalConsultoras];
-        }
-
         void ISessionManager.SetConsultoraNuevaBannerAppMostrar(dynamic val)
         {
             HttpContext.Current.Session[Constantes.ConstSession.ConsultoraNuevaBannerAppMostrar] = val;
@@ -1084,18 +1074,6 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<BEShowRoomOferta>)val;
         }
 
-        void ISessionManager.SetActualizarDatosConsultora(bool val)
-        {
-            HttpContext.Current.Session["ActualizarDatosConsultora"] = val;
-        }
-
-        bool ISessionManager.GetActualizarDatosConsultora()
-        {
-            var val = HttpContext.Current.Session["ActualizarDatosConsultora"];
-            if (val == null) { return false; }
-            return (bool)val;
-        }
-
         void ISessionManager.SetSuenioNavidad(int val)
         {
             HttpContext.Current.Session["SuenioNavidad"] = val;
@@ -1177,18 +1155,6 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             var val = HttpContext.Current.Session["ZonaCodigoEliminar"];
             return (string)val;
-        }
-
-        void ISessionManager.SetIngresoPortalLideres(bool val)
-        {
-            HttpContext.Current.Session["IngresoPortalLideres"] = val;
-        }
-
-        bool ISessionManager.GetIngresoPortalLideres()
-        {
-            var val = HttpContext.Current.Session["IngresoPortalLideres"];
-            if (val == null) { return false; }
-            return (bool)val;
         }
 
         void ISessionManager.Seterrores(List<MatrizCampaniaModel> val)
