@@ -1535,7 +1535,7 @@
     }
 
     function fnAgregarNuevoObjBanner(subgrid, BannerId, PaisId) {
-        debugger;
+        
         var img01 = subgrid.jqGrid('getCell', BannerId, 'ArchivoRutaCompleto').replace(/^.*[\\\/]/, '');
         if (img01.lastIndexOf("?") >= 0) {
             img01 = img01.substring(0, img01.lastIndexOf("?"));
