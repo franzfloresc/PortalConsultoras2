@@ -52,5 +52,7 @@
 
         public bool EsEditable { get; set; }
         public int SetId { get; set; }
+
+        public bool EsDuoPerfecto { get; set; }
     }
 }

@@ -165,14 +165,21 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                     if (respuestaT.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS)
                     {
-                        var error = false;
+                        var error = false;                        
 
                         if (reservado)
                         {
-                            var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
-                            respuestaT = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuestaT, out error);
+                            if (!pedidoDetalle.EsDuoPerfecto)
+                            {
+                                var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
+                                respuestaT = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuestaT, out error);
 
-                            respuestaT = SetMontosTotalesProl(respuestaT, respuestaReserva);
+                                respuestaT = SetMontosTotalesProl(respuestaT, respuestaReserva);
+                            }
+                            else
+                            {
+                                respuestaT.MensajeAviso = "Pedido Reservado, por favor modifique su pedido para agregar su Dúo Perfecto.";
+                            }
                         }
 
                         if (!error)
