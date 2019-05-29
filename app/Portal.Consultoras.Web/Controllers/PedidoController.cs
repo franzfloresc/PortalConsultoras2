@@ -350,10 +350,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.ActivarRecomendaciones = ObtenerFlagActivacionRecomendaciones();
                 ViewBag.MaxCaracteresRecomendaciones = ObtenerNumeroMaximoCaracteresRecomendaciones(false);
 
-                /*HD-3710*/
-                ViewBag.PedidoEscogeRegaloCarrusel = EsDispositivoMovil() ? Constantes.OrigenPedidoWeb.MobilePedidoEscogeRegaloCarrusel : Constantes.OrigenPedidoWeb.DesktopPedidoEscogeRegaloCarrusel;
-
-
                 #region Camino Brillante 
 
                 ViewBag.KitsCaminoBrillante = _caminoBrillanteProvider.GetKitsCaminoBrillante().ToList();

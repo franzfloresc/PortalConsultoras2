@@ -1926,7 +1926,7 @@
 
 @section scripts{
 
-    <script type="text/javascript">
+<script type="text/javascript">
         var arregloProductos;
         var cantProductosLoad = '@Model.ListaEstrategias.Count';
         var constConfiguracionOfertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
@@ -2017,10 +2017,9 @@
         var ClasPedidoDetalle = '@Constantes.ClasificadorPedido.PedidoDetalle';
         var ClasPedidoDetallePendiente = '@Constantes.ClasificadorPedido.PedidoDetallePendiente';
         var kitsCaminoBrillante = '@ViewBag.KitsCaminoBrillante';
-        var PedidoEscogeRegaloCarrusel = '@ViewBag.PedidoEscogeRegaloCarrusel';
+        var PedidoEscogeRegaloCarrusel = '@Constantes.OrigenPedidoWeb.DesktopPedidoEscogeRegaloCarrusel';/*HD-3710*/
 
-
-    </script>
+</script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)
     {

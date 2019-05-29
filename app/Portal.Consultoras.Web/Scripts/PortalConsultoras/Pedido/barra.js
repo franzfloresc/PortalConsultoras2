@@ -866,9 +866,9 @@ function cargarPopupEleccionRegalo(disableCheck) {
     if (!disable) {
         checkPremioSelected(true);
     }
-
+    
     showTextsPremio();
-    /*HD-3710 - 1_Click en regalo*/
+    /*HD-3710 - 1_Click en regalo Web*/
     var disableValue = typeof disableCheck === 'string' && disableCheck.length > 0;
     if (disableValue) {
         dataLayer.push({
@@ -1020,6 +1020,14 @@ function cargarPremiosElectivos() {
             });
 
             if (belcorp.barra.settings.isMobile) {
+                /*HD-3710 - 1_Click en regalo - Mobile*/
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Carrito de Compras',
+                        'action': 'Click Botón',
+                        'label': 'Ver Regalos'
+                    });
+
                 $('#hrefIconoRegalo').click(cargarPopupEleccionRegalo);
             }
 
@@ -2540,7 +2548,7 @@ function tryLoadPedidoDetalle() {
 
 function AgregarPremio(premio) {
 
-    /*HD-3710 - 2_3_Popup elige tu regalo*/
+    /*HD-3710 - 2_3_Popup elige tu regalo - Click en botón cambiar -  Web - Mobile*/
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Carrito de Compras',
@@ -2592,7 +2600,7 @@ function InsertarPremio(model) {
 
 function ClosePopupRegaloElectivo(valor) {
     var valorCerrar = "icono_cerrar_popup_eleccion_regalo_programaNuevas";
-    /*HD-3710 - 6_7 (Pop up felicidades - Click Botón) -  (Cerrar Pop up felicidades) */
+    /*HD-3710 - 4_5_ Cerrar pop up elige tu regalo - Pop up regalos - Click Botón -- Web, Mobile */
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Carrito de Compras',

@@ -1046,7 +1046,7 @@ namespace Portal.Consultoras.Common
             public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
 
             /*HD-3710*/
-            public const int DesktopPedidoEscogeRegaloCarrusel = 1021801;
+            public const int DesktopPedidoEscogeRegaloCarrusel = 1021801;   
             public const int MobilePedidoEscogeRegaloCarrusel = 2021801;
             #endregion
 

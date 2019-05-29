@@ -746,6 +746,17 @@ function CerrarLoad(opcion) {
 }
 
 function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
+    
+    var valor = mensaje.indexOf("Sin embargo hemos reservado");
+    /*HD-3710 - 9_10 (Pop up Lo sentimos - Click Botón - Cerrar Pop up lo sentimos) - Web, Mobile*/
+    if (valor != -1) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Carrito de Compras',
+            'action': 'alertDialogMensajes - Click Botón',
+            'label': 'Ok'
+        });
+    }
 
     try {
         mensaje = $.trim(mensaje);
@@ -794,27 +805,11 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('.ui-dialog .ui-icon-closethick').off('click');
 
             $('.ui-dialog .ui-button').on('click', function (e) {
-
-                /*HD-3710 - 9 (Pop up Lo sentimos - Click Botón)*/
-                dataLayer.push({
-                    'event': 'virtualEvent',
-                    'category': 'Carrito de Compras',
-                    'action': 'alertDialogMensajes - Click Botón',
-                    'label': 'Ok'
-                });
                 HideDialog("alertDialogMensajes");
                 if ($.isFunction(fnAceptar)) fnAceptar(e);
             });
 
             $('.ui-dialog .ui-icon-closethick').on('click', function (e) {
-
-                /*HD-3710 - 10 (Cerrar Pop up Lo sentimos)*/
-                dataLayer.push({
-                    'event': 'virtualEvent',
-                    'category': 'Carrito de Compras',
-                    'action': 'alertDialogMensajes - Click Botón',
-                    'label': 'Cerrar'
-                });
                 HideDialog("alertDialogMensajes");
                 if ($.isFunction(fnAceptar)) fnAceptar(e);
             });
