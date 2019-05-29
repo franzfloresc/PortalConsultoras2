@@ -79,11 +79,15 @@ var ComponentesView = function () {
                 all : "[remove-type-tone]"
             },
             bloquear:{
-                all: "[block-group]"
+                all: "[block-group]",
+                claseHabilitado : "active",
+                claseInhabilitado : "btn_deshabilitado",
             },
             aplicarSeleccion : {
                 contenedor :"#contenedor-aplicar-seleccion",
                 id : "#btn-aplicar-seleccion",
+                claseHabilitado : "active",
+                claseInhabilitado : "btn_deshabilitado",
             }
         }
     };
@@ -257,26 +261,26 @@ var ComponentesView = function () {
     };
 
     var _blockTypesOrTones = function(){
-        $(_elements.tiposTonosModal.bloquear.all).addClass("btn_deshabilitado");
+        $(_elements.tiposTonosModal.bloquear.all).addClass(_elements.tiposTonosModal.bloquear.claseInhabilitado);
         return true;
     };
 
     var _unblockTypesOrTones = function(){
-        $(_elements.tiposTonosModal.bloquear.all).removeClass("btn_deshabilitado");
+        $(_elements.tiposTonosModal.bloquear.all).removeClass(_elements.tiposTonosModal.bloquear.claseInhabilitado);
         return true;
     };
 
     var _unblockApplySelection = function(){
         $(_elements.tiposTonosModal.aplicarSeleccion.id)
-            .removeClass("btn_deshabilitado")
-            .addClass("active");
+            .removeClass(_elements.tiposTonosModal.aplicarSeleccion.claseInhabilitado)
+            .addClass(_elements.tiposTonosModal.aplicarSeleccion.claseHabilitado);
         return true;
     };
 
     var _blockApplySelection = function(){
         $(_elements.tiposTonosModal.aplicarSeleccion.id)
-            .removeClass("active")
-            .addClass("btn_deshabilitado");
+            .removeClass(_elements.tiposTonosModal.aplicarSeleccion.claseHabilitado)
+            .addClass(_elements.tiposTonosModal.aplicarSeleccion.claseInhabilitado);
         return true;
     };
 
