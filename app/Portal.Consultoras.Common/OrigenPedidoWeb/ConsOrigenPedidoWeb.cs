@@ -77,6 +77,9 @@ namespace Portal.Consultoras.Common.OrigenPedidoWeb
             public const string RecomendadoFicha = "09";
             public const string AppCatalogoPendienteDeAprobar = "10";
             public const string CatalogoPendienteDeAprobar = "11";
+            public const string MaquilladorPendienteDeAprobar = "12";
+            public const string CatalogoPendienteDeAprobarProducto = "13";
+            public const string MaquilladorPendienteDeAprobarProducto = "14";
             public const string CarruselUpselling = "15";
             public const string FichaUpselling = "16";
         }
