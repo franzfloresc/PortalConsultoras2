@@ -53,6 +53,10 @@
         public bool EsEditable { get; set; }
         public int SetId { get; set; }
 
+        //INI HD-4200
+        public bool EsSuscripcionSE{ get; set; }
+        //FIN HD-4200
         public bool EsDuoPerfecto { get; set; }
+
     }
 }

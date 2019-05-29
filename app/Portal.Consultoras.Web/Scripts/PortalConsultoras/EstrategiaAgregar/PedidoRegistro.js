@@ -1008,7 +1008,7 @@ var PedidoRegistroModule = function () {
                 }
 
                 if (data.mensajeCondicional) {
-                    AbrirMensaje(data.mensajeCondicional);
+                    AbrirMensajeImagen(data.mensajeCondicional);
                 }
 
                 if (model != null && model != undefined)
@@ -1168,7 +1168,7 @@ var PedidoRegistroModule = function () {
                 else if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
 
                 if (data.mensajeCondicional) {
-                    AbrirMensaje(data.mensajeCondicional);
+                    AbrirMensajeImagen(data.mensajeCondicional);
                 }
 
                 $("#hdCuvEnSession").val("");
@@ -1256,6 +1256,7 @@ var PedidoRegistroModule = function () {
             PrecioUnidad: $("#hdfPrecioUnidad").val(),
             TipoEstrategiaID: $("#hdTipoEstrategiaID").val(),
             MarcaID: $("#hdfMarcaID").val(),
+            EstrategiaID: $("#hdfEstrategiaId").val(),
             DescripcionProd: $("#txtDescripcionProd").val(),
             IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
             TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
@@ -1378,7 +1379,7 @@ var PedidoRegistroModule = function () {
                     microefectoPedidoGuardado();
                     if (!IsNullOrEmpty(response.mensajeAviso)) AbrirMensaje(response.mensajeAviso, response.tituloMensaje);
                     if (response.mensajeCondicional) {
-                        AbrirMensaje(response.mensajeCondicional);
+                        AbrirMensajeImagen(response.mensajeCondicional);
                     }
                     TrackingJetloreAdd(form.data.Cantidad, $("#hdCampaniaCodigo").val(), form.data.CUV);
                     dataLayer.push({
@@ -1670,19 +1671,21 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
             var totalUnidades = parseInt($("#pCantidadProductosPedido").html());
             totalUnidades = totalUnidades - parseInt(CantidadAnti) + parseInt(Cantidad);
             $("#pCantidadProductosPedido").html(totalUnidades);
-
+            
+            CargarDetallePedido();
             var prevTotal = mtoLogroBarra;
             MostrarBarra(data);
             showPopupNivelSuperado(data.DataBarra, prevTotal);
+
             if (data.modificoBackOrder) {
                 showDialog("divBackOrderModificado");
             }
 
             if (data.mensajeCondicional) {
-                AbrirMensaje(data.mensajeCondicional);
+                AbrirMensajeImagen(data.mensajeCondicional);
             }
 
-            CargarDetallePedido();
+           
 
             var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
             if (diferenciaCantidades > 0)
