@@ -17,7 +17,6 @@
 /*Fin Ficha Enrriquecida*/
 
 /*Tabs*/
-
 .ficha_enriquecida_contenedor{
     margin-top: 60px;
 }
@@ -31,7 +30,7 @@
         order: 1;
         padding: 1rem 2rem;
         cursor: pointer;
-        border-bottom: 1px solid #333;
+        border-bottom: 1px solid #d8d8d8;
         transition: background ease 0.2s;
         font-weight: bold;
         font-size: 16px;
@@ -45,7 +44,7 @@
         flex-grow: 1;
         width: 100%;
         display: none;
-        padding: 1rem;
+        padding: 30px 1rem 1rem 1rem;
         background: #fff;
     }
 
@@ -54,7 +53,6 @@
     }
 
         .tabs input[type="radio"]:checked + label {
-            background: #fff;
             color: #b9007e;
             border-bottom: 2px solid #b9007e;
         }
@@ -73,6 +71,17 @@
 .tab p {
     font-size: 13px;
     margin-bottom: 12px;
+}
+
+.tab h3 {
+    color: #000;
+    font-size: 14px;
+    font-weight: bold !important;
+    margin-bottom: 6px;
+}
+
+.items_video .slick-slide {
+    margin: 0px 10px;
 }
 
 /*.tabs_ficha {
@@ -130,7 +139,6 @@
 .tabs_ficha li > div {
     display: none;
 }*/
-
 .popup_full {
     height: 100vh;
     width: 100%;
@@ -237,19 +245,37 @@
         border: none;
     }*/
 
+    .tabs input[type="radio"]:checked + label {
+        border-bottom: 2px solid #b9007e;
+        border: none !important;
+        margin: 0px !important;
+        background: url(/Content/Images/mobile/Esika/top-arrow.svg);
+        background-repeat: no-repeat;
+        background-position: center right 10px;
+        background-size: 12px;
+    }
+
     .tabs .tab,
     .tabs label {
         order: initial;
+        padding: 15px 0;
     }
 
     .tabs label {
         width: 100%;
         margin-right: 0;
+        text-align: left;
+        padding: 0.8rem 0rem;
         margin-top: 0.2rem;
+        background: url(/Content/Images/mobile/Esika/down-arrow.svg);
+        background-repeat: no-repeat;
+        background-position: center right 10px;
+        background-size: 12px;
     }
 
     .ficha_enriquecida_contenedor {
         margin-top: 0px;
+        margin-bottom: 65px;
     }
 
     .popup_full .ficha_producto {

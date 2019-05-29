@@ -17,10 +17,11 @@
         <div class="tab">
             <div id="carrusel-video" class="items_video">
                 {{#each seccion.Detalles as |detalle|}}
-                <div class="video_item">
-                    <div id="ytFichax"
-                         data-youtube-key="{{detalle.Key}}"
-                         data-youtube="{
+                <div>
+                    <div class="video_item">
+                        <div id="ytFichax"
+                             data-youtube-key="{{detalle.Key}}"
+                             data-youtube="{
                           height:'165',
                           width:'300',
                           enablejsapi:1,
@@ -30,9 +31,11 @@
                           loop:1,
                           videoId: '{{detalle.Key}}',
                           playerVars:{autoplay:0,rel:0}}"
-                         data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}">
+                             data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}">
+                        </div>
+                        <h3>{{detalle.Titulo}}</h3>
                     </div>
-                    <h3>{{detalle.Titulo}}</h3>
+                    <h3>Lorem Ipsum</h3>
                 </div>
                 {{/each}}
             </div>

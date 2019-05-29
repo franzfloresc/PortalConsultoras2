@@ -51,6 +51,7 @@
                 centerMode: false,
                 variableWidth: true,
                 slidesToShow: 3,
+                slidesToScroll: 1,
                 prevArrow:
                     "<a id=\"opciones-seleccionadas-prev\" class=\"flecha_ofertas-tipo prev\" style=\"left:-5%; text-align:left;display:none;\">" +
                     "<img src=\"" + baseUrl + "Content/Images/Esika/previous_ofertas_home.png\")\" alt=\"\" />" +
