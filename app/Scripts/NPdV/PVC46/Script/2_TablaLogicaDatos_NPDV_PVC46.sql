@@ -279,7 +279,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
-			(17402, 174, '02', 'Ésika', ''),
+			(17401, 174, '02', 'Ésika', ''),
 			(17402, 174, '01', 'L''bel', ''),
 			(17403, 174, '03', 'Cyzone', '')
 GO
