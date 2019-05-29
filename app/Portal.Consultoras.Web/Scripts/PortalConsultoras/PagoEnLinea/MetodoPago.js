@@ -41,8 +41,8 @@ $(document).ready(function () {
                             window.location.href = urlPagoMonto;
                         }
                     },
-                    error: function (data, error) {
-                        //
+                    error: function (data) {
+                        checkTimeout(data);
                     }
                 });
             }

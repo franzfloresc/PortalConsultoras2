@@ -685,7 +685,7 @@ namespace Portal.Consultoras.Web.Controllers
             });
 
             lstFinalModel = lstFinalModel.Where(m => m.Clase != "oculto").ToList();
-
+            
             return Json(new
             {
                 success = issuccess,

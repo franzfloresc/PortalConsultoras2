@@ -541,8 +541,11 @@ function ContinuarPedido() {
                     response.result.ListaCatalogo = newListaCatalogo;
 
                     SetHandlebars("#template-paso-2", response.result, "#contenedor-paso-2");
-                    if (response.result.ListaGana.length == 0) {
-                        $('.porGanaMas').hide();
+                    //if (response.result.ListaGana.length == 0 || response.result.GananciaGana <= 0) {
+                    //    $('.porGanaMas').hide();
+                    //}
+                    if (response.result.TotalGana <= 0 || response.result.GananciaGana <= 0) {
+                        $('[data-ganancia-gana]').hide();
                     }
                     else {
                         if (response.result.GananciaGana <= 0) {

@@ -32,13 +32,14 @@
             var vUsuario = $('#hdn_vUsuario').val();
             var vTipoProceso = $("#hdn_vTipoProceso").val();
             var vMotivoRechazo = $("#hdn_MotivoRechazo").val();
+            var vIndicadorConsultoraDigital = $("#hdn_IndicadorConsultoraDigital").val();
             var vpage = "";
             var vsortname = "";
             var vsortorder = "";
             var vrowNum = 0;
             setTimeout(function () {
                 DownloadAttachPDF(vPaisISO, vCampaniaCod, vConsultoraCod, vConsultoraNombre, vUsuarioNombre, vOrigen,
-                    vValidado, vSaldo, vImporte, vImporteConDescuento, vpage, vsortname, vsortorder, vrowNum, vUsuario, vTipoProceso, vMotivoRechazo)
+                    vValidado, vSaldo, vImporte, vImporteConDescuento, vpage, vsortname, vsortorder, vrowNum, vUsuario, vTipoProceso, vMotivoRechazo, vIndicadorConsultoraDigital)
             }, 0);
         });
         $("#btnRegresar").click(function () {
@@ -56,7 +57,7 @@
     });
 
     function DownloadAttachPDF(vPaisISO, vCampaniaCod, vConsultoraCod, vConsultoraNombre, vUsuarioNombre, vOrigen,
-                    vValidado, vSaldo, vImporte, vImporteConDescuento, vpage, vsortname, vsortorder, vrowNum, vUsuario, vTipoProceso, vMotivoRechazo) {
+        vValidado, vSaldo, vImporte, vImporteConDescuento, vpage, vsortname, vsortorder, vrowNum, vUsuario, vTipoProceso, vMotivoRechazo, vIndicadorConsultoraDigital) {
         // TODO: probar las repercusiones de este if
         if (checkTimeout()) {
             var content = baseUrl + "ReportePedidoDDWeb/ExportarPDF?" +
@@ -76,8 +77,9 @@
                     "&vrowNum=" + vrowNum +
                     "&vUsuario=" + vUsuario +
                     "&vTipoProceso=" + vTipoProceso +
-                    "&vMotivoRechazo=" + encodeURIComponent(vMotivoRechazo.length > 122 ? vMotivoRechazo.substring(0, 121) + '...' : vMotivoRechazo);
-
+                    "&vMotivoRechazo=" + encodeURIComponent(vMotivoRechazo.length > 122 ? vMotivoRechazo.substring(0, 121) + '...' : vMotivoRechazo) + 
+                "&vIndicadorConsultoraDigital=" + vIndicadorConsultoraDigital;
+            
             var iframe_ = document.createElement("iframe");
             iframe_.style.display = "none";
             iframe_.setAttribute("src", content);
@@ -311,6 +313,16 @@
                         </div>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        <div class="module_1">
+                            <div class="label1">100% Digital:</div>
+                        </div>
+                        <div class="module_2">
+                            <div class="label2">@Model.IndicadorConsultoraDigital </div>
+                        </div>
+                    </td>
+                </tr>
             </table>
 
         </div>
@@ -363,3 +375,5 @@
 @Html.Hidden("hdn_vUsuario", Model.Usuario)
 @Html.Hidden("hdn_vTipoProceso", Model.TipoProceso)
 @Html.Hidden("hdn_MotivoRechazo", Model.MotivoRechazo)
+@Html.Hidden("hdn_IndicadorConsultoraDigital", Model.IndicadorConsultoraDigital)
+

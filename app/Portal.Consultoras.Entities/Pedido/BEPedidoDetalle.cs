@@ -69,6 +69,7 @@ namespace Portal.Consultoras.Entities.Pedido
 
         public bool Reservado { get; set; }
 
+        public string OrigenSolicitud { get; set; }
         public object Clone()
         {
             return this.MemberwiseClone();

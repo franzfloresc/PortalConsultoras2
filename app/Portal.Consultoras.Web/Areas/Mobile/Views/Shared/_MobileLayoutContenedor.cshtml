@@ -67,7 +67,7 @@
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpAlertaPedidosOnline.cshtml")
 
-    <header id="new-header">
+    <header id="new-header" class="header--nuevoLookAndFeelEsika--mobile">
         @if (ViewBag.mostrarBannerPostulante == true && !esIngresoUnico)
         {
             @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueMensajesPostulante.cshtml")
@@ -81,7 +81,8 @@
         {
             @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileMenu/_MobileMenu.cshtml", new ViewDataDictionary {
                { "vbEsContenedor", 1 },
-               { "vbEsMostrarBuscadorYFiltros", ViewBag.MostrarBuscadorYFiltros }
+               { "vbEsMostrarBuscadorYFiltros", ViewBag.MostrarBuscadorYFiltros },
+               { "PaisAnalytics", ViewBag.PaisAnalytics}
             })
         }
 
@@ -89,7 +90,7 @@
 
     </header>
 
-    <section data-layout="contenido" 
+    <section data-layout="contenido"
              style="min-height: 380px;">
         @{
             var marginTop = esIngresoUnico ? "0px;" : "60px";
@@ -133,6 +134,9 @@
             <br />
             <br />
         </div>
+        <a title="Chat Messenger" class="d-block btn_chat_messenger_mobile" href="javascript: AbrirChatBot()">
+            <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
+        </a>
     </section>
 
     @if (!esIngresoUnico)
@@ -277,6 +281,7 @@
         window.actionName = '@acti.ToLower()';
         var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
         var SessionTimeout = '@ViewBag.SessionTimeout';
+        var ChatBotUrlRef = '@ViewBag.ChatBotUrlRef';
     </script>
     @if (esIngresoUnico)
     {
@@ -499,14 +504,15 @@
     </script>
     @RenderSection("scripts", required: false)
 
-    @{
-        // ViewBag.HabilitarChatEmtelco : Oculta boton que lanza chat.
-        // Deberia ir dentro de la condicion de este if?
-        if (!esIngresoUnico)
-        {
-            <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
-        }
+@{
+    // ViewBag.HabilitarChatEmtelco : Oculta boton que lanza chat.
+    // Deberia ir dentro de la condicion de este if
+}
+    @if (!esIngresoUnico)
+    {
+        <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
     }
+    
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
     <script>

@@ -617,5 +617,9 @@ namespace Portal.Consultoras.Common
             public const string CantidadProductosUpSelling = "CantidadProductosUpSelling";
         }
 
+        public static class AdministradorHistoria
+        {
+            public const int TablaLogicaId = 231;
+        }
     }
 }

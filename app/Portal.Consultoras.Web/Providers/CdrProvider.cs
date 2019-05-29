@@ -356,6 +356,7 @@ namespace Portal.Consultoras.Web.Providers
             var cdrDiasAntesFacturacion = 0;
             var cdrWebDatos = ObtenerCdrWebDatosByCodigo(Constantes.CdrWebDatos.DiasAntesFacturacion, paisId);
             if (cdrWebDatos != null) int.TryParse(cdrWebDatos.Valor, out cdrDiasAntesFacturacion);
+
             if (diasFaltantes <= cdrDiasAntesFacturacion) return Constantes.CdrWebMensajes.FueraDeFecha;
 
             return string.Empty;

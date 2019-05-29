@@ -360,7 +360,8 @@ var CarruselModule = (function (config) {
         cantidadPack: config.productosHermanos.length,
         codigoProducto: config.codigoProducto,
         precioProducto: config.precioProducto,
-        productosHermanos: config.productosHermanos
+        productosHermanos: config.productosHermanos,
+        usaLocalStorage: config.usaLocalStorage
     };
 
     var _elementos = {
@@ -413,13 +414,24 @@ var CarruselModule = (function (config) {
             return setRelacionados;
         }
 
-        var str = LocalStorageListado("LANLista" + campaniaId, "", 1) || "";
+        var lista = [];
+        if (_config.usaLocalStorage) {
+            var str = LocalStorageListado("LANLista" + campaniaId, "", 1) || "";
 
-        if (str === '') {
-            return setRelacionados;
+            if (str === '') {
+                return setRelacionados;
+            }
+
+            lista = JSON.parse(str).response.listaLan;
+        } else {
+            var localStorageModule = new LocalStorageModule();
+            lista = localStorageModule.ObtenerEstrategiasNoLS(campaniaId, ConstantesModule.TipoEstrategiaTexto.Lanzamiento);
+
+            if (lista === []) {
+                return setRelacionados;
+            }
         }
 
-        var lista = JSON.parse(str).response.listaLan;
         var codigoProducto = "";
 
         $.each(lista, function (index, lanzamiento) {
