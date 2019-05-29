@@ -160,12 +160,47 @@
         return result;
     };
 
+    var _onPaletaSelectItemClick = function (event, cuv) {
+        var paletaItem = $(event.target);
+        var cuvPadre = String(paletaItem.length > 0 ? paletaItem.parents("[data-tono-div]").data("tono-div") : "");
 
+        $.each(_estrategiaInstance.Hermanos, function (iComponente, hermano) {
+            if (cuvPadre === hermano.Cuv) {
+                var componente = _estrategiaInstance.Hermanos[iComponente];
+
+                componente.resumenAplicados = [];
+
+                $.each(componente.Hermanos, function (i, item) {
+                    item.cantidadSeleccionada = 0;
+
+                    if (cuv === item.Cuv) {
+                        componente.resumenAplicados.push(item);
+                        item.cantidadSeleccionada = 1;
+                    }
+                });
+
+                //opcionesEvents.applyChanges("onComponentSelected", componente);
+
+                //var callFromSeleccionarPaletaOpcion = true;
+                // TODO: integrar con lo de victor
+                //_aplicarOpciones(true, componente);
+
+                //#region Marcación Analytics (EPM-1442)
+                AnalyticsPortalModule.MarcarImagenProducto(_estrategia, componente.resumenAplicados);
+                //#endregion
+
+                return true;
+            }
+        });
+
+        return true;
+    };
 
     return {
         estrategiaModel: _estrategiaModel,
         onEstrategiaModelLoaded: _onEstrategiaModelLoaded,
         showTypesAndTonesModal: _showTypesAndTonesModal,
         addTypeOrTone: _addTypeOrTone,
+        onPaletaSelectItemClick: _onPaletaSelectItemClick
     };
 };
