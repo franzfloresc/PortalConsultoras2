@@ -276,14 +276,16 @@
                                 <span class="switch__slider"></span>
                             </label>
                         </div>
-                        <div class="d-block w-100 info_recepcion_pedido">
+                        <!-- Esta sección aparece una vez que se llena los datos de la persona que recibirá el pedido en el popup de recepción de pedido (id="PopupRecepcionPedido") -->
+                        <div class="d-block w-100 info_recepcion_pedido" style="display:none;">
                             <p class="text-bold">Lo va a recibir:</p>
                             <p class="datos__receptor__pedido">
                                 <span class="d-block">Luis Gonzáles</span>
                                 <span class="d-block">44243894</span>
                             </p>
-                            <button class="d-block w-100 border-radius-4 text-center text-bold btn__sb btn__sb__secondary btn__sb--cambiarPersona">Cambia de persona</button>
+                            <button onclick="javascript:$('#PopupRecepcionPedido').fadeIn(100);" class="d-block w-100 border-radius-4 text-center text-bold btn__sb btn__sb__secondary btn__sb--cambiarPersona">Cambia de persona</button>
                         </div>
+                        <!-- Fin - Esta sección aparece una vez que se llena los datos de la persona que recibirá el pedido en el popup de recepción de pedido (id="PopupRecepcionPedido") -->
                     </div>
                 </div>
                 <!-- FIN - HD-4288 - SWITCH CONSULTORA 100% DIGITAL -->
