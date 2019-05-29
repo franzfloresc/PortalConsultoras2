@@ -164,6 +164,7 @@
     position: relative;
     width: 48px;
     height: 28px;
+    margin-bottom:0;
 }
 
     input[type="checkbox"].switch__control,
