@@ -43,7 +43,8 @@ var AnalyticsPortalModule = (function () {
         duoPerfecto: "Dúo Perfecto",
         palancaLasMasGandoras: "Más Ganadoras",
         armaTuDuoPerfecto: ' Arma tu Dúo Perfecto - Dúo Perfecto',
-        PedidoPendienteAceptado: 'Pedidos Pendientes - Pedidos Aceptados '
+        PedidoPendienteAceptado: 'Pedidos Pendientes - Pedidos Aceptados',
+        CarritoComprasPedidosPendientes: 'Carrito de Compras - Pedidos Pendientes'
     };
 
     // Inicio - Analytics Home 1 (Miguel)
@@ -2737,13 +2738,6 @@ var AnalyticsPortalModule = (function () {
         ClickAddCartFicha: clickAddCartFicha,
         ClickTabGanadoras: clickTabGanadoras,
         // Fin - Analytics Ganadoras
-
-        // Ini - Analytics PedidoPendientes
-        ClickBotonPedidosPendientes: clickBotonPedidosPendientes,
-        ClickTabPedidosPendientes: clickTabPedidosPendientes,
-        ClickBotonTabVistaProducto: clickBotonTabVistaProducto,
-        ClickVistaAddToCardPedidoPendiente: clickVistaAddToCardPedidoPendiente,
-        // Fin - Analytics PedidoPendientes
 
         // Ini - Analytics PedidoPendientes
         ClickBotonPedidosPendientes: clickBotonPedidosPendientes,
