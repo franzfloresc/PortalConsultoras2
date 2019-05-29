@@ -61,14 +61,14 @@
                 $("#listPedidoFacturado").jqGrid("clearGridData", true);
                 $("#fecha-vencimiento").html('');
                 $("#monto-pagar").html('');
-               DatoConsultora();
+                DatoConsultora();
             }
 
-
+            var CodigoConsultora = $("#txtCodigos").val() == "" ? $("#txtDCCodigoConsultoraVisible").text() : $("#txtCodigos").val();
             $.ajax({
                 dataType: "json",
                 url: baseUrl + "ConsultaDatoConsultora/GetCampaniasRVDigitalWeb",
-                data: "CodigoConsultora=" + $("#txtCodigos").val(),
+                data: "CodigoConsultora=" + CodigoConsultora,
                 success: function (resultado) {                    
                     $("#ddlCampaniaPaquete").empty();
                     $("#ddlCampaniaPaquete").append('<option value= "">-- Seleccionar --</option>');
