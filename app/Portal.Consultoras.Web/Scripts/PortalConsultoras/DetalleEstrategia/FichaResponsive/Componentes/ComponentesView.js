@@ -82,7 +82,8 @@ var ComponentesView = function () {
                 all: "[block-group]"
             },
             aplicarSeleccion : {
-                contenedor :"#contenedor-aplicar-seleccion"
+                contenedor :"#contenedor-aplicar-seleccion",
+                id : "#btn-aplicar-seleccion",
             }
         }
     };
@@ -256,12 +257,28 @@ var ComponentesView = function () {
     };
 
     var _blockTypesOrTones = function(){
-        $(_elements.tiposTonosModal.bloquear.all).addClass("disabled");
+        $(_elements.tiposTonosModal.bloquear.all).addClass("btn_deshabilitado");
         return true;
     };
 
     var _unblockTypesOrTones = function(){
-        $(_elements.tiposTonosModal.bloquear.all).removeClass("disabled");
+        $(_elements.tiposTonosModal.bloquear.all).removeClass("btn_deshabilitado");
+        return true;
+    };
+
+    var _unblockApplySelection = function(){
+        debugger;
+        $(_elements.tiposTonosModal.aplicarSeleccion.id)
+            .removeClass("btn_deshabilitado")
+            .addClass("active");
+        return true;
+    };
+
+    var _blockApplySelection = function(){
+        debugger;
+        $(_elements.tiposTonosModal.aplicarSeleccion.id)
+            .removeClass("active")
+            .addClass("btn_deshabilitado");
         return true;
     };
 
@@ -277,6 +294,8 @@ var ComponentesView = function () {
         showQuantitySelector: _showQuantitySelector,
         showSelectedTypesOrTones: _showSelectedTypesOrTones,
         blockTypesOrTones: _blockTypesOrTones,
-        unblockTypesOrTones: _unblockTypesOrTones
+        unblockTypesOrTones: _unblockTypesOrTones,
+        unblockApplySelection : _unblockApplySelection,
+        blockApplySelection : _blockApplySelection,
     };
 };
