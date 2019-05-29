@@ -2,7 +2,7 @@
 
 <link href="@Url.Content("~/Content/Css/Site/Pedido/PopupRecepcionPedido.css")" rel="stylesheet" />
 
-<div class="popup__wrapper bg__popups__default" id="PopupRecepcionPedido">
+<div class="popup__wrapper bg__popups__default bg__popups__default--popupRecepcionPedido" id="PopupRecepcionPedido">
     <div class="popup__somos__belcorp popup__somos__belcorp--popupRecepcionPedido">
         <div class="popup__somos__belcorp__cabecera">
             <a onclick="javascript:$('#PopupRecepcionPedido').fadeOut(100);" title="Cerrar" class="popup__somos__belcorp__icono__cerrar popup__somos__belcorp__icono__cerrar--popupRecepcionPedido">
@@ -26,7 +26,7 @@
                 <label class="d-block w-100 label__field__sb" for="txtNumeroDocumento">Número de documento (DNI)</label>
                 <span class="d-block w-100 text-bold validation__message"></span>
             </div>
-            <button class="center-block text-center text-bold multimarca-background-color popup__somos__belcorp__btn popup__somos__belcorp__btn--next"
+            <button class="center-block text-center text-bold btn_deshabilitado multimarca-background-color popup__somos__belcorp__btn popup__somos__belcorp__btn--next"
                     onclick="javascript:$('#PopupRecepcionPedido').fadeOut(100);">
                 Continuar
             </button>
