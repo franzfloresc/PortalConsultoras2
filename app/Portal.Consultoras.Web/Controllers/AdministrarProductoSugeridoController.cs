@@ -28,6 +28,10 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new AdministrarProductoSugeridoModel()
             {
                 lstCampania = new List<CampaniaModel>(),
+                //INI HD-4289
+                lstRegion = new List<RegionModel>(),
+                lstZona= new List<ZonaModel>(),
+                //FIN HD-4289
                 lstPais = DropDowListPaises(),
                 PaisIDUser = userData.PaisID,
                 ExpValidacionNemotecnico = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico),

@@ -41,6 +41,20 @@
                 </div>
                 <span class="color_red" style="width:5px;">*</span>
             </div>
+            @* INI HD-4289 *@
+            <div class="div-3">
+                <div class="titG">Region:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.RegionID, new SelectList(Model.lstRegion, "RegionID", "Nombre"), "-- Seleccionar --", new { id = "ddlRegion" })
+                </div>
+                <span class="color_red" style="width:5px;">*</span>
+                <div class="titG">Zona:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.lstZona, "ZonaID", "Nombre"), "-- Seleccionar --", new { id = "ddlZona" })
+                </div>
+                <span class="color_red" style="width:5px;">*</span>
+            </div>
+            @* FIN HD-4289 *@
             <div class="div-3">
                 <div class="titG">
                     CUV Agotado:
@@ -229,6 +243,7 @@
                 return false;
             }
             CargarCampaniaModal(Id, 'ddlCampania, ddlCampaniaModal');
+            CargarRegion("ddlRegion");
         });
 
         $("#btnBuscar").click(function () {
@@ -501,7 +516,40 @@
 
         });
     }
+    //INI HD-4289
+    function CargarRegion(combo) {
 
+        var pais = $("#PaisIDUser").val() || 0;
+        combo = combo || "";
+        var listaCombo = combo.split(',');
+        if (listaCombo.length == 0) {
+            return false;
+        }
+
+        waitingDialog({});
+        $.getJSON(baseUrl + 'BaseAdm/ObtenerRegionPorPais', { PaisID: pais }, function (data) {
+            if (!checkTimeout(data)) {
+                closeWaitingDialog();
+                return false;
+            }
+            data = data || new Object();
+            data.lista = data.lista || new Array();
+
+            $.each(listaCombo, function (index, combo) {
+                var ddl = $('#' + $.trim(combo));
+                ddl.empty();
+                ddl.append($('<option/>', { value: "", text: "-- Seleccionar --" }));
+
+                data.lista.forEach(function (item) {
+                    ddl.append($('<option/>', { value: item.RegionId, text: item.Nombre }));
+                });
+            }); 
+        });
+        closeWaitingDialog();
+    }
+
+ 
+    //FIN HD-4289
     function CargarImagenSugerido() {
         LimpiarDatosMatrizComercial();
         $("#matriz-imagenes-paginacion").empty();
