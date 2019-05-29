@@ -26,7 +26,7 @@
 
 .btn_defecto {
     color: #fff !important;
-    background-color: #fff;
+    background-color: #000 !important;
 }
 
     .btn_defecto:hover {
