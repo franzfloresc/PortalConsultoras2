@@ -86,8 +86,7 @@ var EstrategiaAgregarModule = (function () {
     //}
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
-        var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia")
-            || $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia")
+        var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia")
             || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile").find(".slick-active").find(dataProperties.dataEstrategia).attr("data-estrategia")
             || "";
 
@@ -372,6 +371,12 @@ var EstrategiaAgregarModule = (function () {
 
         var tipoEstrategiaImagen = $btnAgregar.parents(dataProperties.dataItem).attr("data-tipoestrategiaimagenmostrar");
 
+        var EsDuoPerfecto = false;
+        if (estrategia.CodigoEstrategia === ConstantesModule.TipoEstrategia.PackNuevas) {
+            var EsOfertaIndependiente = estrategia.EsOfertaIndependiente || true;
+            EsDuoPerfecto = (estrategia.EsDuoPerfecto || false) && (!EsOfertaIndependiente);
+        };
+
         var params = {
             CuvTonos: $.trim(cuvs),
             CUV: $.trim(estrategia.CUV2),
@@ -383,6 +388,7 @@ var EstrategiaAgregarModule = (function () {
             FlagNueva: $.trim(estrategia.FlagNueva),
             EsEditable: estrategia.esEditable,
             SetId: estrategia.setId,
+            EsDuoPerfecto: EsDuoPerfecto,
             ClienteID: _getClienteIdSelected()
         };
 

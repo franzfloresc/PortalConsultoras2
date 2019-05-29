@@ -1052,6 +1052,9 @@ function MostrarPopupErrorReserva(mensajePedido, esAviso) {
 function ShowPopupObservacionesReserva() {
     $('#popup-observaciones-prol').show();
 }
+function ShowPopupQuestionModificarPedido() {
+	$('#popupInformacionSB2Question').show();
+}
 
 function AlmacenarRespuestaReservaEnHidden(model) {
     $("hdfModificaPedido").val(model.EsModificacion == true ? "1" : "0");
@@ -1223,7 +1226,9 @@ function PedidosPendientesPorAprobar() {
         AnalyticsPortalModule.ClickBotonPedidosPendientes('Click Botón', 'Pedidos por aprobar');
 }
 function AccionConfirmarModificarPedido() {
-	
+
+	$('#popupInformacionSB2Question').hide();
+
 	ShowLoading();
 	jQuery.ajax({
 		type: 'POST',
