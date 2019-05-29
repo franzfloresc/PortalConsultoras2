@@ -94,6 +94,9 @@
         $(_elemento.TablaId).jqGrid('GridUnload');
 
         jQuery(_elemento.TablaId).jqGrid({
+            autowidth: true,
+           // shrinkToFit: true,
+            width: '50%',
             url: _url.UrlGrilla,
             hidegrid: false,
             datatype: 'json',
@@ -117,7 +120,7 @@
                 {
                     name: 'Tipo',
                     index: 'Tipo',
-                    width: 100,
+                    width: 20,
                     align: 'center',
                     resizable: false,
                     sortable: false

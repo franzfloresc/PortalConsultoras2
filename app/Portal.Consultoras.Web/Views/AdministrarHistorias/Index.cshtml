@@ -12,6 +12,15 @@
     .elements {
         padding: 0px 0 7px;
     }
+     .Content_modal1 {
+        background: #fff;
+        padding: 10px 10px 10px 10px;       
+        border: 1px solid #D0D0D0;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -khtml-border-radius: 10px;
+        border-radius: 10px;      
+    }
 </style>
 <script type="text/javascript">
     jQuery(document).ready(function () {
@@ -89,34 +98,53 @@
     </div>
 </div>
 }
-
 <div class="wrap_cab">
     <div class="filtros2">
+
+       
         <div class="elements">
-            <div class="div-2">
-                <h2><span>Historias</span></h2>
-            </div>
-            <div class="div-3">
-                <div class="input_horizontal">
-                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" onclick="javaScript: NuevoDetalle('@Model.IdContenido');" />
-                    @*<input type="submit" value="Cargar" />*@
+
+
+            <div id="tabControl1" class="Content_modal1" style="width: 96%; ">
+                <div class="div-3">
+                    <div style="color: white;">
+                        <div id="divHistorias" style="display: inline-block; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px; border-top-right-radius: 10px; cursor: pointer;">
+                            <span style="font-size:14px;">Historias</span>
+                        </div>
+                        <div id="divGanaEnUnClick" style="display: inline-block; text-align: center; padding: 8px; color: #702789; background: #D0D0D0; border-top-left-radius: 10px; border-top-right-radius: 10px; cursor: pointer;">
+                            <span style="font-size:14px;">Video Gana en un Click App</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="titG">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    Campaña:
+                <!--IMAGENES-->
+                <div id="divHistoriaContenido">
+                    <div class="div-3">
+                        <div class="input_horizontal">
+                            <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" onclick="javaScript: NuevoDetalle('@Model.IdContenido');" />
+                            @*<input type="submit" value="Cargar" />*@
+                        </div>
+                        <div class="titG">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            Campaña:
+                        </div>
+                        <div class="selectP2 borde_redondeado">
+                            @Html.DropDownList("Campania", new SelectList(Model.ListaCampanias, "CampaniaID", "NombreCorto"), "-- Todos --", new { id = "ddlCampania" })
+                        </div>
+                    </div>
+
+
+                    <div class="clearfix">
+                        <div class="border-wrapper">
+                            <table id="tblHistoriaDet"></table>
+                            <div id="pagerHistoriaDet"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="selectP2 borde_redondeado">
-                    @Html.DropDownList("Campania", new SelectList(Model.ListaCampanias, "CampaniaID", "NombreCorto"), "-- Todos --", new { id = "ddlCampania" })
+                <div id="divGanaEnUnClickContenido" style="display: none;">
+
                 </div>
             </div>
 
-          
-            <div class="container clearfix">
-                <div class="border-wrapper">
-                    <table id="tblHistoriaDet"></table>
-                    <div id="pagerHistoriaDet"></div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
