@@ -35,37 +35,37 @@ else
         <div class="wrapper_content_cambiar_contrasenia">
             <div id="contentPass">
                 <div class="form_cambiar_contrasenia">
-                    <fieldset class="grupo_form_cambio_datos text-uppercase">
+                    <div class="grupo_form_cambio_datos grupo_form_cambio_datos--cambioContrasenia">
                         <div class="w-100">
                             <input id="txtContraseniaAnterior" name="txtContraseniaAnterior" class="w-100" type="password" value="" />
                             <label for="txtContraseniaAnterior" class="w-100">Contraseña Actual</label>
                             <a href="#" title="Ver password" class="enlace_ver_password icono_ver_password"></a>
                         </div>
-                    </fieldset>
-                    <fieldset class="grupo_form_cambio_datos text-uppercase">
+                    </div>
+                    <div class="grupo_form_cambio_datos grupo_form_cambio_datos--cambioContrasenia">
                         <div class="w-100">
                             <input id="txtNuevaContrasenia01" name="txtNuevaContrasenia01" class="w-100" type="password" value="" />
                             <label for="txtNuevaContrasenia01" class="w-100">Nueva contraseña</label>
                             <a href="#" title="Ver password" class="enlace_ver_password icono_ver_password"></a>
                         </div>
-                    </fieldset>
-                    <fieldset class="grupo_form_cambio_datos text-uppercase">
+                    </div>
+                    <div class="grupo_form_cambio_datos grupo_form_cambio_datos--cambioContrasenia">
                         <div class="w-100">
                             <input id="txtNuevaContrasenia02" name="txtNuevaContrasenia02" class="w-100" type="password" value="" />
                             <label for="txtNuevaContrasenia02" class="w-100">Repite la nueva contraseña</label>
                             <a href="#" title="Ver password" class="enlace_ver_password icono_ver_password"></a>
                         </div>
-                    </fieldset>
-                    <fieldset class="grupo_form_cambio_datos text-uppercase pt-8">
-                        <div class="pull-left text-left v-alignMiddle">
-                            <a href="@Request.UrlReferrer" title="Cancelar" class="enlace_cancelar">Cancelar</a>
+                    </div>
+                    <div class="grupo_form_cambio_datos grupo_form_cambio_datos--ctasCambioContrasenia pt-8">
+                        <div class="text-left">
+                            <a href="@Request.UrlReferrer" title="Cancelar" class="d-block w-100 border-radius-4 text-bold text-center btn_secundario btn_secundario--cancelar">Cancelar</a>
                         </div>
-                        <div class="pull-right text-right v-alignMiddle">
-                            <button id="btnCambiarPass" type="button" class="btn_cambiar_contrasenia text-uppercase text-bold default-background-color">
+                        <div class="text-right">
+                            <button id="btnCambiarPass" type="button" class="d-block w-100 border-radius-4 text-bold btn_primario btn_primario--cambiarContrasenia">
                                 Cambiar
                             </button>
                         </div>
-                    </fieldset>
+                    </div>
                 </div>
             </div>
             <div id="contentPassChange" class="contrasenia_actualizada text-center mt-40 mb-40" style="display:none;">

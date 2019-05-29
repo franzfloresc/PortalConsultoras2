@@ -5,10 +5,11 @@ belcorp.settings = belcorp.settings || {};
 belcorp.settings.uniquePrefix = "/g/";
 
 jQuery(document).ready(function () {
-
     CreateLoading();
 
-
+    if (typeof IsoPais === 'undefined' || IsoPais != 'PE')  {
+        $('.btn_chat_messenger_mobile').hide();
+    }
     if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {
         GuardarIndicadorPedidoAutentico();
     }
@@ -1240,6 +1241,12 @@ function autoCompleteByCharacters(inp, arr, car) {
                 b.innerHTML += "<input type='hidden' value='" + valueInput + arr[i] + "'>";
                 b.addEventListener("click", function (e) {
                     inp.value = this.getElementsByTagName("input")[0].value;
+                    //INI HD-3897
+                    if ($(inp).hasClass("eventActPerfil_Auto")) {
+                        $(inp).trigger("change");
+                        $(inp).trigger("focusout");
+                    }
+                    //FIN HD-3897
                     closeAllLists();
                 });
                 a.appendChild(b);
@@ -1290,27 +1297,6 @@ function autoCompleteByCharacters(inp, arr, car) {
     document.addEventListener("click", function (e) {
         closeAllLists(e.target);
     });
-}
-
-function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
-    if (urlLogDynamo != "") {
-        jQuery.ajax({
-            type: "POST",
-            async: true,
-            //crossDomain: true,
-            url: baseUrl + 'Comun/InsertarLogDymnamo',
-            //url: urlLogDynamo + "Api/LogUsabilidad",
-            dataType: "json",
-            data: {
-                'Aplicacion': userData.aplicacion,
-                'PantallaOpcion': pantallaOpcion,
-                'OpcionAccion': opcionAccion,
-                'Extra': ToDictionary(extra)
-            },
-            success: function (result) { },
-            error: function (x, xh, xhr) { }
-        });
-    }
 }
 
 function ToDictionary(dic) {
