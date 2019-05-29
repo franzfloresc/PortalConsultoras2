@@ -129,40 +129,40 @@ var CarruselAyuda = function () {
                 return;
             }
 
-                var arrayEstrategia = [];
-                for (var i = 0; i < cantActive; i++) {
-                    var recomendado = arrayItems[i];
-                    if (recomendado != undefined) {
-                        recomendado.Posicion = i;
-                        if (origen.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Liquidacion) {
-                            recomendado.CUV2 = recomendado.CUV;
-                            recomendado.PrecioVenta = recomendado.PrecioString;
-                        }
-                        arrayEstrategia.push(recomendado);
+            var arrayEstrategia = [];
+            for (var i = 0; i < cantActive; i++) {
+                var recomendado = arrayItems[i];
+                if (recomendado != undefined) {
+                    recomendado.Posicion = i;
+                    if (origen.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Liquidacion) {
+                        recomendado.CUV2 = recomendado.CUV;
+                        recomendado.PrecioVenta = recomendado.PrecioString;
                     }
+                    arrayEstrategia.push(recomendado);
                 }
-                var obj = {
-                    lista: arrayEstrategia,
-                    CantidadMostrar: cantActive,
-                    Origen: origen
-                };
+            }
+            var obj = {
+                lista: arrayEstrategia,
+                CantidadMostrar: cantActive,
+                Origen: origen
+            };
 
-                AnalyticsPortalModule.MarcaGenericaLista("", obj);
+            AnalyticsPortalModule.MarcaGenericaLista("", obj);
 
-                //INI DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
-                var programNuevas = arrayItems.filter(function (pn) {
-                    return pn.EsBannerProgNuevas == true;
-                });
+            //INI DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
+            var programNuevas = arrayItems.filter(function (pn) {
+                return pn.EsBannerProgNuevas == true;
+            });
 
-                if (programNuevas) {
-                    if (programNuevas.length > 0) {
-                        var uniqueProgramNuevas = _eliminarDuplicadosArray(programNuevas, "CUV2");
+            if (programNuevas) {
+                if (programNuevas.length > 0) {
+                    var uniqueProgramNuevas = _eliminarDuplicadosArray(programNuevas, "CUV2");
 
-                        var pos = (isHome()) ? "Home" : "Pedido";
-                        AnalyticsPortalModule.MarcaPromotionView(ConstantesModule.CodigoPalanca.DP, uniqueProgramNuevas, pos);
-                    }
+                    var pos = (isHome()) ? "Home" : "Pedido";
+                    AnalyticsPortalModule.MarcaPromotionView(ConstantesModule.CodigoPalanca.DP, uniqueProgramNuevas, pos);
                 }
-                //FIN DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
+            }
+            //FIN DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
 
 
 
