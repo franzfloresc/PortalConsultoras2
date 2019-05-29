@@ -75,61 +75,52 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> Index(string returnUrl = null)
         {
-            MisCursos();
-
-
-
-            if (EsUsuarioAutenticado())
-            {
-                if (misCursos > 0)
-                {
-                    sessionManager.SetMiAcademia(misCursos);
-                    sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);
-                    sessionManager.SetMiAcademiaParametro(urlSapParametro);
-
-                    return RedirectToAction("Index", "MiAcademia");
-                }
-
-                return EsDispositivoMovil()
-                    ? RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
-                    : RedirectToAction("Index", "Bienvenida");
-            }
-
             var ip = string.Empty;
             var iso = string.Empty;
             var model = new LoginModel();
 
             try
             {
+
+                MisCursos();
+                
+                if (EsUsuarioAutenticado())
+                {
+                    if (misCursos > 0)
+                    {
+                        sessionManager.SetMiAcademia(misCursos);
+                        sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);
+                        sessionManager.SetMiAcademiaParametro(urlSapParametro);
+
+                        //return RedirectToAction("Index", "MiAcademia");
+                    }
+
+                    //return EsDispositivoMovil()
+                    //    ? RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
+                    //    : RedirectToAction("Index", "Bienvenida");
+
+                    var esMobile = EsDispositivoMovil();
+                    return IndexRedireccionar(misCursos, esMobile);
+                }
+
+
                 model.ListaPaises = ObtenerPaises();
                 model.ListaEventos = await ObtenerEventoFestivo(0, Constantes.EventoFestivoAlcance.LOGIN, 0);
 
-                if (model.ListaEventos.Count == 0)
-                    model.NombreClase = "fondo_estandar";
-                else
-                {
-                    model.NombreClase = "fondo_festivo";
-
-                    model.RutaEventoEsika =
-                    (from g in model.ListaEventos
-                     where g.Nombre == Constantes.EventoFestivoNombre.FONDO_ESIKA
-                     select g.Personalizacion).FirstOrDefault();
-
-                    model.RutaEventoLBel =
-                    (from g in model.ListaEventos
-                     where g.Nombre == Constantes.EventoFestivoNombre.FONDO_LBEL
-                     select g.Personalizacion).FirstOrDefault();
-                }
-
+                model = IndexEvento(model);
+                
                 if (EstaActivoBuscarIsoPorIp())
                 {
-                    ip = GetIpCliente();
                     iso = Util.GetISObyIPAddress(ip);
 
                     if (string.IsNullOrEmpty(iso))
                     {
                         ip = IP_DEFECTO;
                         iso = ISO_DEFECTO;
+                    }
+                    else
+                    {
+                        ip = GetIpCliente();
                     }
                 }
 
@@ -253,6 +244,7 @@ namespace Portal.Consultoras.Web.Controllers
         public async Task<ActionResult> Login(LoginModel model, string returnUrl = null)
         {
             pasoLog = "Login.POST.Index";
+            string errorMensaje = "";
             try
             {
                 if (model.PaisID == 0)
@@ -265,10 +257,11 @@ namespace Portal.Consultoras.Web.Controllers
                 TempData["serverPaisISO"] = model.CodigoISO;
                 TempData["serverCodigoUsuario"] = model.CodigoUsuario;
 
-                #region DesencriptarClaveSecreta
-                var PasswordCjs = ConfigurationManager.AppSettings.Get("CryptoJSPassword");
-                model.ClaveSecreta = Util.DecryptCryptoJs(model.ClaveSecreta, PasswordCjs, model.Salt, model.Key, model.Iv);
-                #endregion
+                model.ClaveSecreta = DecryptCryptoClaveSecreta(model);
+                //#region DesencriptarClaveSecreta
+                //var PasswordCjs = ConfigurationManager.AppSettings.Get("CryptoJSPassword");
+                //model.ClaveSecreta = Util.DecryptCryptoJs(model.ClaveSecreta, PasswordCjs, model.Salt, model.Key, model.Iv);
+                //#endregion
 
                 var resultadoInicioSesion = await ObtenerResultadoInicioSesion(model);
 
@@ -314,7 +307,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     PaisID = model.PaisID,
                                     CodigoISO = Util.GetPaisISO(model.PaisID)
                                 };
-                                svc.InsUsuarioExternoPais(11, beUserExtPais);
+                                svc.InsUsuarioExternoPais(Constantes.PaisID.Peru, beUserExtPais);
 
                                 var beUsuarioExterno = new BEUsuarioExterno
                                 {
@@ -347,63 +340,76 @@ namespace Portal.Consultoras.Web.Controllers
                     return await Redireccionar(model.PaisID, resultadoInicioSesion.CodigoUsuario, returnUrl);
                 }
 
-                var mensaje = resultadoInicioSesion != null
+                errorMensaje = resultadoInicioSesion != null
                     ? resultadoInicioSesion.Mensaje
                     : "Error al procesar la solicitud";
 
-                if (Request.IsAjaxRequest())
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = mensaje
-                    });
-                }
+                //if (Request.IsAjaxRequest())
+                //{
+                //    return Json(new
+                //    {
+                //        success = false,
+                //        message = errorMensaje
+                //    });
+                //}
 
-                TempData["errorLogin"] = mensaje;
-                return RedirectToAction("Index", "Login");
+                //TempData["errorLogin"] = errorMensaje;
+                //return RedirectToAction("Index", "Login");
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, model.CodigoUsuario, model.CodigoISO);
+                errorMensaje = "Error al procesar la solicitud";
 
-                if (Request.IsAjaxRequest())
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "Error al procesar la solicitud"
-                    });
-                }
+                //if (Request.IsAjaxRequest())
+                //{
+                //    return Json(new
+                //    {
+                //        success = false,
+                //        message = errorMensaje
+                //    });
+                //}
 
-                TempData["errorLogin"] = "Error al procesar la solicitud";
+                //TempData["errorLogin"] = errorMensaje;
+                //return RedirectToAction("Index", "Login");
             }
             catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(ex, model.CodigoUsuario, model.CodigoISO, pasoLog);
+                errorMensaje = "Error al procesar la solicitud";
 
-                if (Request.IsAjaxRequest())
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "Error al procesar la solicitud"
-                    });
-                }
+                //if (Request.IsAjaxRequest())
+                //{
+                //    return Json(new
+                //    {
+                //        success = false,
+                //        message = errorMensaje
+                //    });
+                //}
 
-                TempData["errorLogin"] = "Error al procesar la solicitud";
-                return RedirectToAction("Index", "Login");
+                //TempData["errorLogin"] = errorMensaje;
+                //return RedirectToAction("Index", "Login");
             }
+
 
             if (Request.IsAjaxRequest())
             {
                 return Json(new
                 {
-                    success = true,
-                    redirectTo = Url.Action("Index", "Login")
+                    success = false,
+                    redirectTo = Url.Action("Index", "Login"),
+                    message = errorMensaje
                 });
             }
+
+            TempData["errorLogin"] = errorMensaje;
             return RedirectToAction("Index", "Login");
+        }
+
+        private string DecryptCryptoClaveSecreta(LoginModel model)
+        {
+            var passwordCjs = ConfigurationManager.AppSettings.Get("CryptoJSPassword");
+            return Util.DecryptCryptoJs(model.ClaveSecreta, passwordCjs, model.Salt, model.Key, model.Iv);
         }
 
         [AllowAnonymous]
