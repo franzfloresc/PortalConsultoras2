@@ -64,6 +64,10 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
             /// Flag Nivel Actual 
             /// </summary>
             public bool EsActual { get; set; }
+            /// <summary>
+            /// Puntaje Acumulado 
+            /// </summary>
+            public int? PuntajeAcumulado { get; set; }
         }
 
     }

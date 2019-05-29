@@ -238,6 +238,7 @@
     <Compile Include="Controllers\AdministracionPopupsController.cs" />
     <Compile Include="Controllers\BonificacionesController.cs" />
     <Compile Include="Controllers\BaseAdmController.cs" />
+    <Compile Include="Controllers\CaminoBrillanteAdministrarController.cs" />
     <Compile Include="Controllers\ConfiguracionZonasModel.cs" />
     <Compile Include="Controllers\FakeErrorController.cs" />
     <Compile Include="Controllers\EstrategiaGrupoController.cs" />
@@ -318,6 +319,7 @@
     <Compile Include="Models\AdministrarEstrategia\EstrategiaGrupoModel.cs" />
     <Compile Include="Models\ArmaTuPackModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
+    <Compile Include="Models\CaminoBrillante\FiltrosCaminoBrillanteModel.cs" />
     <Compile Include="Models\ZonaValidacionTelefonicaModel.cs" />
     <Compile Include="Models\CDRProductoRespuestaServicioModel.cs" />
     <Compile Include="Models\ConfiguracionZonaModel.cs" />
@@ -5869,8 +5871,8 @@
     <Content Include="Views\DetalleEstrategia\ComponenteDetalleIndividualTemplate.cshtml" />
     <Content Include="Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
     <Content Include="Views\AdministracionMedallaBrillante\Index.cshtml" />
-    <Content Include="Views\Shared\_MainLayoutResponsiveCaminoBrillante.cshtml" />
     <Content Include="Views\ConsultoraOnline\Pendientes.cshtml" />
+    <Content Include="Views\CaminoBrillanteAdministrar\AdministrarBeneficios.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_fbsdk.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupInformacionRegalo.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">

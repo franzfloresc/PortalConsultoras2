@@ -991,6 +991,16 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
+                #region Camino Brillante
+                var valCaminoBrillante = _caminoBrillanteProvider.ValidarBusquedaCaminoBrillante(model.CUV);
+                
+                if (valCaminoBrillante.Validacion != Enumeradores.ValidacionCaminoBrillante.ProductoNoExiste) {
+                    productosModel.Add(GetValidacionProgramaNuevas(valCaminoBrillante.Mensaje));
+                    return Json(productosModel, JsonRequestBehavior.AllowGet);
+                }
+                
+                #endregion
+
                 var userModel = userData;
                 var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 5, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
                 var siExiste = productos.Any(p => p.CUV == model.CUV);

@@ -717,13 +717,14 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             #region Camino Brillante
 
             Mapper.CreateMap<BEKitCaminoBrillante, KitCaminoBrillanteModel>();
-            Mapper.CreateMap<BEDesmostradoresCaminoBrillante, DemostradorCaminoBrillanteModel>();
+            Mapper.CreateMap<BEDemostradoresCaminoBrillante, DemostradorCaminoBrillanteModel>();
             Mapper.CreateMap<BENivelCaminoBrillante, NivelCaminoBrillanteModel>();
-            Mapper.CreateMap<BENivelCaminoBrillante.BEBeneficioCaminoBrillante, NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>();
+            Mapper.CreateMap<BEBeneficioCaminoBrillante, NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>();
             Mapper.CreateMap<BELogroCaminoBrillante, LogroCaminoBrillanteModel>();
             Mapper.CreateMap<BELogroCaminoBrillante.BEIndicadorCaminoBrillante, LogroCaminoBrillanteModel.IndicadorCaminoBrillanteModel>();
             Mapper.CreateMap<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante, LogroCaminoBrillanteModel.IndicadorCaminoBrillanteModel.MedallaCaminoBrillanteModel>();
-
+            Mapper.CreateMap<BEFiltro, FiltrosDatosCaminoBrillante>();
+            Mapper.CreateMap<BEOrden, OrdenDatosCaminoBrillante>();
             #endregion
 
             #region Historial

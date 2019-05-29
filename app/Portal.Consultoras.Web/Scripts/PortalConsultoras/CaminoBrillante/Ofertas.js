@@ -12,10 +12,30 @@ var reservaResponse = {
 };
 var contadorkit = 0
 var contadordemo = 0
+var codOrdenar = "00";
+var codFiltro = "00";
+
+var moneda = ($('#moneda').val());
 
 $(document).ready(function () {    
     CambiarOferta();
     Inicializar();
+
+    $("#ddlOrdenar").on("change", function () {
+        codOrdenar = $("#ddlOrdenar").val();
+        $("#Demostradores").empty();
+        contadordemo = 0;
+        offsetRegistrosDemo = 0;
+        CargarDemostradores();
+    });
+
+    $("#ddlfiltros").on("change", function () {
+        codFiltro = $("#ddlfiltros").val();
+        $("#Demostradores").empty();
+        contadordemo = 0;
+        offsetRegistrosDemo = 0;
+        CargarDemostradores();
+    });
 });
 
 $("#Demostradores").on('click', '.boton_agregar_ofertas', function (e) {
@@ -72,6 +92,7 @@ function ValidarCargaOfertas() {
 }
 
 function CargarKits() {
+    
     $.ajax({
         type: 'GET',
         url: urlGetKits,
@@ -80,6 +101,7 @@ function CargarKits() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
+
                 if (data.lista.length > 0) ArmarOfertaKits(data.lista);   
                 contadorkit = contadorkit + data.lista.length;
                 verMasKits = data.verMas;
@@ -87,9 +109,35 @@ function CargarKits() {
                 if (!verMasKits) UnlinkCargarOfertasToScroll();
                 offsetRegistrosKits += nroRegistrosKits;
                 $("#divresultadosKit").html("Mostrando " + contadorkit + " de " + data.total);
+
+                var productos = [];
+                for (i = 0; i < data.lista.length; i++) {
+                    var product = data.lista[i]
+                    var productoAnalicits = {
+                        'name': product.DescripcionCUV,
+                        'id': product.CUV,
+                        'price': product.PrecioCatalogo,
+                        'brand': product.DescripcionMarca,
+                        'category': 'Kits',
+                        'variant': 'Estándar',
+                        'position': i + 1,
+                    }
+                    productos.push(productoAnalicits);
+                }
+
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'currencyCode': moneda,
+                        'impressions': {
+                            'actionField': 'list: Kits',
+                            'products': productos                          
+                        }
+                    }
+                })
             }
         },
-
+        
         error: function (data, error) { },
         complete: function (data) {
             closeWaitingDialog();
@@ -99,16 +147,18 @@ function CargarKits() {
 }
 
 function ArmarOfertaKits(data) {
+   
     var htmlDiv = SetHandlebars("#template-Kits", data);
     $('#kits').append(htmlDiv);
     $('#kits').show();
+
 }
 
 function CargarDemostradores() {
     $.ajax({
         type: 'GET',
         url: urlGetDemostradores,
-        data: { offset: offsetRegistrosDemo, cantidadregistros: nroRegistrosDemostradores },
+        data: { cantRegistros: nroRegistrosDemostradores, regMostrados: offsetRegistrosDemo, codOrdenar: codOrdenar, codFiltro: codFiltro},
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
@@ -119,7 +169,34 @@ function CargarDemostradores() {
                 $(window).scroll(CargarOfertasScroll);
                 if (!verMasDemostradores) UnlinkCargarOfertasToScroll();
                 offsetRegistrosDemo += nroRegistrosDemostradores;
-                $("#divresultadosDemostradores").html("Mostrando " + contadordemo   + " de " + data.total);
+                $("#divresultadosDemostradores").html("Mostrando " + contadordemo + " de " + data.total);
+
+                var productos = [];
+                for (i = 0; i < data.lista.length; i++) {
+                    var product = data.lista[i]
+                    var productoAnalicits = {
+                        'name': product.DescripcionCUV,
+                        'id': product.CUV,
+                        'price': product.PrecioCatalogo,
+                        'brand': product.DescripcionMarca,
+                        'category': 'Demostradores',
+                        'variant': 'Estándar',
+                        'position': i + 1,
+                    }
+                    productos.push(productoAnalicits);
+                }
+
+                dataLayer.push({
+                    'event': 'productImpression',
+                    'ecommerce': {
+                        'currencyCode': moneda,
+                        'impressions': {
+                            'actionField': 'list: Demostradores',
+                            'products': productos
+                        }
+                    }
+                })
+
             }
         },
         error: function (data, error) { },
@@ -147,7 +224,6 @@ $(window).scroll(function (event) {
 function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
     AbrirSplash();
     var categoria = tab;
-    var moneda = ($('#moneda').val());
     var nombre_producto = data.DescripcionCUV;
     var precio_producto = data.PrecioCatalogo;
     var marca_producto = data.DescripcionMarca;
@@ -197,7 +273,7 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
                 'ecommerce': {
                     'currencyCode': moneda,
                     'add': {
-                        'actionField': { 'list': 'Ofertas-CaminoBrillante' },
+                        'actionField': 'list Ofertas-CaminoBrillante : ' + categoria ,
                         'products': [{
                             'name': nombre_producto,
                             'price': precio_producto,
@@ -223,16 +299,19 @@ function CambiarOferta() {
     $('#Tab-kits').click(function () {
         $('#kits').show();
         $('#Demostradores').hide();
+        $('.opOrdenar').hide();
         $("#Tab-kits").addClass("activado-dorado");
         $("#Tab-Demostradores").removeClass("activado-dorado");
         $("#divresultadosDemostradores").hide();
         $("#divresultadosKit").show();
         document.body.scrollTop = TabUno;
         $(window).scrollTop(TabUno);
-        if (!verMasKits) CargarKits();
+        if (contadorkit == 0) { CargarKits(); }
+        else { LinkCargarOfertasToScroll();}        
     });
 
-    $('#Tab-Demostradores').click(function () {
+    $('#Tab-Demostradores').click(function () {        
+        $('.opOrdenar').show();
         $('#Demostradores').show();
         $('#kits').hide();
         $("#Tab-kits").removeClass("activado-dorado");
@@ -240,28 +319,41 @@ function CambiarOferta() {
         $("#divresultadosKit").hide();
         $("#divresultadosDemostradores").show();
         document.body.scrollTop = TabDos;
-        $(window).scrollTop(TabDos);
-        if (verMasDemostradores) CargarDemostradores();
+        $(window).scrollTop(TabDos);  
+        if (contadordemo == 0) {
+            ObtenerFiltros();
+            CargarDemostradores();
+        }
+        else { LinkCargarOfertasToScroll();}
     });
 }
 
-function TagImpresionProductos(pen, nombrelista, nombreProducto, idProducto, precioProducto, marcaProducto, categoriaProducto, varianteProducto, posicionProducto) {
-    dataLayer.push({
-        'event': 'productImpression',
-        'ecommerce': {
-            'currencyCode': pen,
-            'impressions': {
-                'actionField': { 'list': nombrelista },
-                'products': [{
-                    'name': nombreProducto,
-                    'id': idProducto,
-                    'price': precioProducto,
-                    'brand': marcaProducto,
-                    'category': categoriaProducto,
-                    'variant': varianteProducto,
-                    'position': posicionProducto
-                }]
+function ObtenerFiltros() {
+    $.ajax({
+        type: 'GET',
+        url: urlObtenerFiltros,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.lista != null) {
+                    var _filtros = data.lista.DatosFiltros;
+                    var _orden = data.lista.DatosOrden;
+                    $('#ddlfiltros').empty();
+                    $('#ddlOrdenar').empty();
+                    $.each(_filtros, function (index, value) {
+                        $("#ddlfiltros").append('<option value="' + value.Codigo + '">' + value.Descripcion + '</option>');
+                    });
+                    $.each(_orden, function (index, value) {
+                        $("#ddlOrdenar").append('<option value="' + value.Codigo + '">' + value.Descripcion + '</option>');
+                    });
+                }
             }
+        },
+        error: function (data, error) { },
+        complete: function (data) {
+            cargandoRegistros = false;
         }
     });
 }
+
