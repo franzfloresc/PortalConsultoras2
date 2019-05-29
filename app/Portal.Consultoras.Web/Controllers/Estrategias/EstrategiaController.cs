@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.ElasticSearch;
@@ -130,25 +131,45 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
         private int HomePedidoObtenerProductos_OrigenPedidoWeb(EstrategiaOutModel model, string tipoOrigenEstrategia, bool isMobile)
         {
+            var modeloOrigen = new OrigenPedidoWebModel
+            {
+                Palanca = ConsOrigenPedidoWeb.Palanca.OfertasParaTi,
+                Seccion = ConsOrigenPedidoWeb.Seccion.Carrusel
+            };
+
             switch (tipoOrigenEstrategia)
             {
                 case "1":
-                    model.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel;
+                    modeloOrigen.Dispositivo = ConsOrigenPedidoWeb.Dispositivo.Desktop;
+                    modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Home;
+                    //model.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel;
                     break;
                 case "11":
-                    model.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel;
+                    modeloOrigen.Dispositivo = ConsOrigenPedidoWeb.Dispositivo.Desktop;
+                    modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Pedido;
+                    //model.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTiCarrusel;
                     break;
                 case "2":
-                    model.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel;
+                    modeloOrigen.Dispositivo = ConsOrigenPedidoWeb.Dispositivo.Mobile;
+                    modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Home;
+                    //model.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel;
                     break;
                 case "21":
-                    model.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel;
+                    modeloOrigen.Dispositivo = ConsOrigenPedidoWeb.Dispositivo.Mobile;
+                    modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Pedido;
+                    //model.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel;
                     break;
                 default:
-                    model.OrigenPedidoWeb = (Request.UrlReferrer != null && isMobile) ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel : 0;
+                    if (Request.UrlReferrer != null && isMobile)
+                    {
+                        modeloOrigen.Dispositivo = ConsOrigenPedidoWeb.Dispositivo.Mobile;
+                        modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Home;
+                    }
+                    //model.OrigenPedidoWeb = (Request.UrlReferrer != null && isMobile) ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTiCarrusel : 0;
                     break;
             }
 
+            model.OrigenPedidoWeb = UtilOrigenPedidoWeb.ToInt(modeloOrigen);
             return model.OrigenPedidoWeb;
         }
 

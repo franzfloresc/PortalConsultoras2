@@ -1106,18 +1106,18 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoAux.DetallePedido = olstMisPedidosDet.Where(x => x.PedidoId == pedidoAux.PedidoId).ToArray();
 
             int tipo;
-            string marcaPedido;
+            //string marcaPedido;
 
             // 0=App Catalogos, >0=Portal Marca
             if (pedidoAux.MarcaID == 0)
             {
                 tipo = 1;
-                marcaPedido = pedidoAux.MedioContacto;
+                //marcaPedido = pedidoAux.MedioContacto;
             }
             else
             {
                 tipo = 2;
-                marcaPedido = pedidoAux.Marca;
+                //marcaPedido = pedidoAux.Marca;
             }
 
             #region AceptarPedido
@@ -2254,7 +2254,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lstPedidos.ForEach(x => x.FormartoFechaSolicitud = x.FechaSolicitud.ToString("dd") + " de " + x.FechaSolicitud.ToString("MMMM", new CultureInfo("es-ES")));
                 lstPedidos.ForEach(x => x.FormatoPrecioTotal = Util.DecimalToStringFormat(x.PrecioTotal, userData.CodigoISO));
 
-                // obtener todo los detalles de los pedidos hechos
+                // obtener todos los detalles de los pedidos hechos
                 List<BEMisPedidosDetalle> lstPedidosDetalleAll;
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
@@ -3088,19 +3088,19 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidosSesion.ForEach(pedidoAux =>
                 {
                     //int tipo;
-                    string marcaPedido;
+                    //string marcaPedido;
 
                     // 0=App Catalogos, >0=Portal Marca
-                    if (pedidoAux.MarcaID == 0)
-                    {
-                        //tipo = 1;
-                        marcaPedido = pedidoAux.MedioContacto;
-                    }
-                    else
-                    {
-                        //tipo = 2;
-                        marcaPedido = pedidoAux.Marca;
-                    }
+                    //if (pedidoAux.MarcaID == 0)
+                    //{
+                    //    tipo = 1;
+                    //    marcaPedido = pedidoAux.MedioContacto;
+                    //}
+                    //else
+                    //{
+                    //    tipo = 2;
+                    //    marcaPedido = pedidoAux.Marca;
+                    //}
 
                     if (pedidoAux.DetallePedido.Any(i => i.Elegido) && pedidoAux.FlagMedio == "01")
                     {
