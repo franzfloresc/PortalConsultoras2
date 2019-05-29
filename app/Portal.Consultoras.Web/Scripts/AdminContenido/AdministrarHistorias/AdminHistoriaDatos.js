@@ -95,8 +95,6 @@
 
         jQuery(_elemento.TablaId).jqGrid({
             autowidth: true,
-           // shrinkToFit: true,
-            width: '50%',
             url: _url.UrlGrilla,
             hidegrid: false,
             datatype: 'json',
