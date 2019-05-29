@@ -3,6 +3,10 @@
 
 
 describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresenter", function () {
+   var errorMsg = '';
+   var componentesView;
+   var componentesPresenter;
+   
    var estrategiaUnComponenteFactorCuadreIgualADos = function () {
       return {
          "CodigoVideo": null,
@@ -694,13 +698,33 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
       };
    };
 
-   describe("Constructor", function () {
-      var errorMsg = '';
-
-      beforeEach(function () {
-         errorMsg = '';
+   beforeEach(function () {
+      errorMsg = '';
+      componentesView = sinon.stub(ComponentesView());
+      componentesPresenter = ComponentesPresenter({
+         componentesView: componentesView
       });
+      //
+      componentesView.renderComponente.returns(true);
+      componentesView.showComponentTypesAndTones.returns(true);
+      componentesView.showTypesAndTonesModal.returns(true);
+      componentesView.setTitle.returns(true);
+      componentesView.setSelectedQuantityText.returns(true);
+      componentesView.showChooseIt.returns(true);
+      componentesView.showChoosen.returns(true);
+      componentesView.showQuantitySelector.returns(true);
+      componentesView.showSelectedTypesOrTones.returns(true);
+      componentesView.blockTypesOrTones.returns(true);
+      componentesView.unblockTypesOrTones.returns(true);
+      componentesView.unblockApplySelection.returns(true);
+      componentesView.blockApplySelection.returns(true);
+   });
 
+   afterEach(function () {
+      sinon.restore();
+   });
+
+   describe("Constructor", function () {
       it("throw an exception when config is undefined", function () {
 
          try {
@@ -751,19 +775,6 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
    });
 
    describe("onEstrategiaModelLoaded", function () {
-      var errorMsg = '';
-      var componentesView;
-      var componentesPresenter;
-
-      beforeEach(function () {
-         errorMsg = '';
-         componentesView = sinon.stub(ComponentesView());
-         componentesView.renderComponente.returns(true);
-         componentesPresenter = ComponentesPresenter({
-            componentesView: componentesView
-         });
-      });
-
       it("Show 'Elige 1 opción' when quantity of components is equals to 1", function () {
          // Arrange
          componentesPresenter.onEstrategiaModelLoaded(estrategiaUnComponenteFactorCuadreIgualAUno());
@@ -788,22 +799,8 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
    });
 
    describe("showTypesAndTonesModal", function () {
-      var errorMsg = '';
-      var componentesView;
-      var componentesPresenter;
-
       beforeEach(function () {
-         errorMsg = '';
-         componentesView = sinon.stub(ComponentesView());
-         componentesView.renderComponente.returns(true);
-         componentesPresenter = ComponentesPresenter({
-            componentesView: componentesView
-         });
          componentesPresenter.onEstrategiaModelLoaded(estrategiaUnComponenteFactorCuadreIgualADos());
-      });
-
-      afterEach(function () {
-         sinon.restore();
       });
 
       it("throw an exception when component's cuv is null", function () {
@@ -836,7 +833,7 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
          expect(errorMsg).to.have.string("cuvComponente is null or undefined");
       });
 
-      it("throw an exception when component do not belong to strategy", function () {
+      it("throw an exception when component do not belong to strategy :P", function () {
          // Arrange
          var cuvComponent = "XXXXX";
 
@@ -851,7 +848,7 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
          expect(errorMsg).to.have.string("estrategia no tiene componente seleccionado");
       });
 
-      it("throw an exception when component do not belong to strategy", function () {
+      it("throw an exception when component do not belong to strategy -.-", function () {
          // Arrange
          var cuvComponent = "XXXXX";
 
@@ -869,10 +866,6 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
       describe("when strategy has one component with FactorCuadre equals to one", function () {
          beforeEach(function () {
             componentesPresenter.onEstrategiaModelLoaded(estrategiaUnComponenteFactorCuadreIgualAUno());
-            componentesView.setTitle.returns(true);
-            componentesView.setSelectedQuantityText.returns(true);
-            componentesView.showComponentTypesAndTones.returns(true);
-            componentesView.showTypesAndTonesModal.returns(true);
          });
 
          it("return false when componentesView do not set title", function () {
@@ -955,10 +948,6 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
       describe("when strategy has one component with FactorCuadre equals to two", function () {
          beforeEach(function () {
             componentesPresenter.onEstrategiaModelLoaded(estrategiaUnComponenteFactorCuadreIgualADos());
-            componentesView.setTitle.returns(true);
-            componentesView.setSelectedQuantityText.returns(true);
-            componentesView.showComponentTypesAndTones.returns(true);
-            componentesView.showTypesAndTonesModal.returns(true);
          });
 
          it("Show 'Elige 2 opciones' when quantity of components is equals to 2", function () {
@@ -977,34 +966,6 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
    });
 
    describe("addTypeOrTone", function () {
-      var errorMsg = '';
-      var componentesView;
-      var componentesPresenter;
-
-      beforeEach(function () {
-         errorMsg = '';
-         componentesView = sinon.stub(ComponentesView());
-         componentesView.renderComponente.returns(true);
-         componentesPresenter = ComponentesPresenter({
-            componentesView: componentesView
-         });
-         //
-         componentesView.setTitle.returns(true);
-         componentesView.setSelectedQuantityText.returns(true);
-         componentesView.showChooseIt.returns(true);
-         componentesView.showChoosen.returns(true);
-         componentesView.showQuantitySelector.returns(true);
-         componentesView.showSelectedTypesOrTones.returns(true);
-         componentesView.blockTypesOrTones.returns(true);
-         componentesView.unblockTypesOrTones.returns(true);
-         componentesView.unblockApplySelection.returns(true);
-         componentesView.blockApplySelection.returns(true);
-      });
-
-      afterEach(function () {
-         sinon.restore();
-      });
-
       it("throw exception when grupo is undefined", function () {
          // Arrange
          var grupo;
@@ -1364,33 +1325,6 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
    });
 
    describe("removeTypeOrTone", function () {
-      var errorMsg = '';
-      var componentesView;
-      var componentesPresenter;
-
-      beforeEach(function () {
-         errorMsg = '';
-         componentesView = sinon.stub(ComponentesView());
-         componentesView.renderComponente.returns(true);
-         componentesPresenter = ComponentesPresenter({
-            componentesView: componentesView
-         });
-         //
-         componentesView.setTitle.returns(true);
-         componentesView.setSelectedQuantityText.returns(true);
-         componentesView.showChooseIt.returns(true);
-         componentesView.showChoosen.returns(true);
-         componentesView.showQuantitySelector.returns(true);
-         componentesView.showSelectedTypesOrTones.returns(true);
-         componentesView.blockTypesOrTones.returns(true);
-         componentesView.unblockTypesOrTones.returns(true);
-         componentesView.unblockApplySelection.returns(true);
-         componentesView.blockApplySelection.returns(true);
-      });
-
-      afterEach(function () {
-         sinon.restore();
-      });
 
       it("throw exception when grupo is undefined", function () {
          // Arrange
@@ -1717,6 +1651,24 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
             });
 
          });
+      });
+   });
+
+   describe("applySelected",function(){
+
+      it("throw exception when grupo is undefined", function () {
+         // Arrange
+         var grupo;
+
+         //Act
+         try {
+            componentesPresenter.removeTypeOrTone(grupo, null);
+         } catch (error) {
+            errorMsg = error;
+         }
+
+         // Assert
+         expect(errorMsg).to.have.string("grupo is null or undefined");
       });
    });
 });

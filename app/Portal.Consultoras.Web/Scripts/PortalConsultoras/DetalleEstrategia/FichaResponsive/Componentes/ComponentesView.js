@@ -267,7 +267,6 @@ var ComponentesView = function () {
     };
 
     var _unblockApplySelection = function(){
-        debugger;
         $(_elements.tiposTonosModal.aplicarSeleccion.id)
             .removeClass("btn_deshabilitado")
             .addClass("active");
@@ -275,7 +274,6 @@ var ComponentesView = function () {
     };
 
     var _blockApplySelection = function(){
-        debugger;
         $(_elements.tiposTonosModal.aplicarSeleccion.id)
             .removeClass("active")
             .addClass("btn_deshabilitado");
