@@ -80,18 +80,16 @@ namespace Portal.Consultoras.Common
             return RutaCdn + "/" + subdirectory + "/" + subdirectoryPais + fileName;
         }
 
-        public static string GetUrlCdnAppConsultora(string isoPais)
+        public static string GetUrlCdnAppConsultora(string isoPais, string cadena)
         {
-            string cadena = Globals.UrlMatrizAppConsultora;
             string[] arrCadena;
             arrCadena = cadena.Split(',');
 
             var carpetaPais = string.Format("{0}/{1}/{2}/{3}", arrCadena[0], isoPais, arrCadena[1], arrCadena[2]);
             return GetUrlCdn(carpetaPais);
         }
-        public static string GetUrlCdnAppConsultoraDetalle(string isoPais)
+        public static string GetUrlCdnAppConsultoraDetalle(string isoPais, string cadena)
         {
-            string cadena = Globals.UrlMatrizAppConsultora;
             string[] arrCadena;
             arrCadena = cadena.Split(',');
 
