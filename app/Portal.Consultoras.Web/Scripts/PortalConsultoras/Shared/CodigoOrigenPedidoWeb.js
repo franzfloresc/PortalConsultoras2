@@ -9,7 +9,10 @@ var CodigoOrigenPedidoWeb = (function () {
         Dimension: 7,
         Dispositivo: {
             Desktop: '1',
-            Mobile: '2'
+            Mobile: '2',
+            Chatbot: '3',
+            AppConsultora: '4',
+            AppMaquillador: '5'
         },
         Pagina: {
             LandingHerramientasVenta: '00',
@@ -24,11 +27,13 @@ var CodigoOrigenPedidoWeb = (function () {
             Otras: '09',
             LandingBuscador: '10',
             LandingGanadoras: '11',
+            Maquillador: '12',
             ArmaTuPackDetalle: '13',
             LandingDuoPerfecto: '14',
             LandingPackNuevas: '15',
-            DuoPerfecto: '16',
-            PackNuevas: '17',
+            LandingOfertaDelDia: '16',
+            LandingCategoria: '17',
+            CaminoBrillante: '18',
             Ficha: '19'
         },
         Palanca: {
@@ -49,7 +54,9 @@ var CodigoOrigenPedidoWeb = (function () {
             Ganadoras: '14',
             ArmaTuPack: '15',
             DuoPerfecto: '16',
-            PackNuevas: '17'
+            PackNuevas: '17',
+            EscogeTuRegalo: '18',
+            OfertasEspeciales: '19'
         },
         Seccion: {
             Carrusel: '01',
@@ -62,7 +69,10 @@ var CodigoOrigenPedidoWeb = (function () {
             Recomendado: '08',
             RecomendadoFicha: '09',
             AppCatalogoPendienteDeAprobar: '10',
-            CatalogoPendienteDeAprobar: '11',
+            CatalogoDigitalPendienteDeAprobarCliente: '11',
+            AppMaquilladorPendienteDeAprobarCliente: '12',
+            CatalogoDigitalPendienteDeAprobarProducto: '13',
+            AppMaquilladorPendienteDeAprobarProducto: '14',
             CarruselUpselling: '15',
             FichaUpselling: '16',
         }
