@@ -571,6 +571,7 @@ var CarruselModule = (function (config) {
 
         if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
             data.lista = _cargarDatos();
+            _buildCarrusel(data);
         }
         else {
             var codigosProductos = _obtenerCodigoProductos();
@@ -584,10 +585,13 @@ var CarruselModule = (function (config) {
                 if (response) {
                     if (response.success) {
                         data.lista = response.result;
+                        _buildCarrusel(data);
                     }
                 }
             });
         }
+    };
+    var _buildCarrusel = function (data) {
 
         if (data.lista.length > 0) {
             _variable.cantidadProdCarrusel = data.lista.length;
