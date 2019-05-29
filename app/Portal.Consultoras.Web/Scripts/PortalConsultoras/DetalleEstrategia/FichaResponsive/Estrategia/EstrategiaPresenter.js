@@ -51,6 +51,15 @@ var EstrategiaPresenter = function (config) {
         return true;
     };
 
+    var _showPopupFichaEnriquecida = function (event) {
+        var componente = $(event.target).parents("[data-componente-grupo]").find("[data-componente]").data("componente");
+        estrategiaView.showPopup(componente);
+    }
+
+    var _hidePopupFichaEnriquecida = function () {
+        estrategiaView.hidePopup();
+    }
+
     var _onEstrategiaModelClick = function (event, popup, limite, esFicha, esEditable) {
         if (!(event instanceof Event)) throw  "event is undefined";
         if (!(typeof popup === "boolean")) throw  "popup is undefined";
@@ -59,10 +68,13 @@ var EstrategiaPresenter = function (config) {
         if (!(typeof esEditable === "boolean")) throw  "esEditable is undefined";
 
         EstrategiaAgregarModule.EstrategiaAgregar(event, popup, limite, esFicha, esEditable);
+
     };
 
     return {
         onEstrategiaModelLoaded: _onEstrategiaModelLoaded,
-        onEstrategiaModelClick: _onEstrategiaModelClick
+        onEstrategiaModelClick: _onEstrategiaModelClick,
+        showPopupFichaEnriquecida: _showPopupFichaEnriquecida,
+        hidePopupFichaEnriquecida: _hidePopupFichaEnriquecida
     };
 };

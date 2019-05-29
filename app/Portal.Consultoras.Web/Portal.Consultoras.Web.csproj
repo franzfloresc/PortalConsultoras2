@@ -28,7 +28,8 @@
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
     <UseGlobalApplicationHostFile />
     <IISExpressSSLPort>44361</IISExpressSSLPort>
-    <Use64BitIISExpress>true</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -5859,6 +5860,7 @@
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\modal-tipos-tonos.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\tipos-tonos-componente-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\tipos-tonos-seleccionados-template.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\FichaEnriquecida\popup-ficha-enriquecida-template.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

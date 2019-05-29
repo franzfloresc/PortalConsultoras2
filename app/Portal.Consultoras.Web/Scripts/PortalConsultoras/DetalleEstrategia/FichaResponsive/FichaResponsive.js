@@ -22,6 +22,7 @@ componentesView.setPresenter(componentesPresenter);
 $(document).ready(function () {
     $("#data-estrategia").data("estrategia", detalleEstrategia.getEstrategia(params));
     var estrategia = $("#data-estrategia").data("estrategia");
+    console.log("estrategia", estrategia);
     estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
     componentesPresenter.onEstrategiaModelLoaded(estrategia);
 
