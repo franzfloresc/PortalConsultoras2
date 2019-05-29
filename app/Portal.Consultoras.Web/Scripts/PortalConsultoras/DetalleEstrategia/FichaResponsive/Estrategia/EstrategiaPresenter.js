@@ -48,6 +48,9 @@ var EstrategiaPresenter = function (config) {
 
         if (!_config.estrategiaView.showTitleAgregado(model)) throw "estrategiaView don't show title Agregado.";
 
+        if (model.MostrarFichaEnriquecida &&
+            !_config.estrategiaView.renderFichaEnriquecida(model)) throw "estrategiaView don't render ficha enriquecida.";
+
         return true;
     };
 
