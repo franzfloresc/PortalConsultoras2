@@ -1,0 +1,69 @@
+﻿
+/* MC-4288 - SWITCH CONSULTORA 100% DIGITAL */
+
+.popup__somos__belcorp--popupRecepcionPedido {
+    max-width: 550px;
+    min-height: 312px;
+    padding:0;
+}
+
+.popup__somos__belcorp__icono__cerrar--popupRecepcionPedido {
+    right: 3px;
+    top: 6px;
+}
+
+.popup__somos__belcorp__titulo--popupRecepcionPedido,
+.popup__somos__belcorp__titulo--datosPersona {
+    color: #000;
+}
+
+    .popup__somos__belcorp__titulo.popup__somos__belcorp__titulo--popupRecepcionPedido {
+        border-bottom: 1px solid #CCC;
+        height: 59px;
+        line-height: 59px;
+        font-size: 20px;
+    }
+
+    .popup__somos__belcorp__titulo.popup__somos__belcorp__titulo--datosPersona {
+        font-size: 16px;
+        margin-top: 25px;
+        margin-bottom: 40px!important;
+        text-align:left;
+    }
+
+.form__group__fields--nombreApellido{
+    margin-bottom: 44px;
+}
+
+.form__group__fields--numeroDocumento{
+    margin-bottom:56px;
+}
+
+.popup__somos__belcorp__btn--next {
+    width: 100%;
+    margin-bottom: 10px !important;
+    color: #FFF;
+    max-width: 328px;
+}
+
+.popup__somos__belcorp__contenido--popupRecepcionPedido {
+    padding: 0 111px 24px 111px;
+}
+
+@media screen and (max-width:991px) {
+    .popup__somos__belcorp--popupRecepcionPedido {
+        width: 100% !important;
+        height: 100%;
+        max-width: none;
+        padding: 69px 31px 22px;
+        top: 0 !important;
+        border-radius: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+        .popup__somos__belcorp--popupRecepcionPedido .popup__somos__belcorp__icono__cerrar {
+            top: -56px;
+        }
+}
+
+/* FIN - MC-4288 - SWITCH CONSULTORA 100% DIGITAL */
