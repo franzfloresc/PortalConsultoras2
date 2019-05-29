@@ -272,6 +272,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.OfertaWeb = model.OfertaWeb;
                 pedidoDetalle.EsEditable = model.EsEditable;
                 pedidoDetalle.SetID = model.SetId;
+                pedidoDetalle.EsDuoPerfecto = model.EsDuoPerfecto;
 
                 var result = await DeletePremioIfReplace(model);
                 if (result != null && !result.Item1)
