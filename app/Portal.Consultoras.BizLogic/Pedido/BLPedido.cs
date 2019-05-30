@@ -257,6 +257,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private BEPedidoDetalleResult GetPedidoDetalleResultFromResultadoReservaProl(BEResultadoReservaProl resultadoReservaProl, BEPedidoDetalleResult respuestaT, out bool error)
         {
             error = false;
+            string mensajePersonalizado = null;
             var pedidoValidacionCode = Constantes.PedidoValidacion.Code.SUCCESS;
 
             if(resultadoReservaProl != null)
@@ -276,6 +277,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     case Enumeradores.ResultadoReserva.NoReservadoMontoMinimo:
                         pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_MONTO_MIN;
                         error = true;
+                        mensajePersonalizado = "Si eliminas este producto no llegaras al monto mínimo y tendrás que modificar tu reservación.";
                         break;
                     case Enumeradores.ResultadoReserva.NoReservadoMontoMaximo:
                         pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_MONTO_MAX;
@@ -302,7 +304,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         break;
                 }                
             }
-            var respuesta = PedidoDetalleRespuesta(pedidoValidacionCode);
+            var respuesta = PedidoDetalleRespuesta(pedidoValidacionCode, mensajePersonalizado);            
             respuesta.MensajeRespuesta = respuesta.MensajeRespuesta.Replace("Pedido no reservado", "Pedido reservado");
             if (!error)
             {
