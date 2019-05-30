@@ -123,9 +123,9 @@ namespace Portal.Consultoras.Web.Controllers
             /*HD-4329*/
             string extension = ".png";
             if (foto != null && foto.Length > 0)
-                extension = foto.Split('.')[1].ToString() != "gif" ? extension : ".gif";
+                extension = foto.EndsWith(".gif", StringComparison.OrdinalIgnoreCase) ? ".gif" : extension;    
 
-            if (!string.IsNullOrEmpty(foto))
+                if (!string.IsNullOrEmpty(foto))
             {
                 string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
                 var newfilename = preFileName + time + "_" + FileManager.RandomString() + extension;

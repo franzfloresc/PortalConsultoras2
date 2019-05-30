@@ -150,7 +150,8 @@ namespace Portal.Consultoras.Web.Controllers
                         /*HD-4329*/
                         if (!string.IsNullOrEmpty(item.ImagenProducto))
                         {
-                            if (item.ImagenProducto.Substring(item.ImagenProducto.Length - 4) == ".gif")
+                        
+                            if (item.ImagenProducto.EndsWith(".gif", StringComparison.OrdinalIgnoreCase))
                             {
                                 item.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, item.ImagenProducto);
                                 item.ImagenProductoSmall = item.ImagenProducto;
