@@ -237,7 +237,7 @@ namespace Portal.Consultoras.BizLogic
                     BEValidacionDatos validacionDato;
                     using (var reader = dAValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(Constantes.TipoEnvioEmailSms.EnviarPorEmail, codigoUsuario))
                     {
-                        validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader, true, true);    
+                        validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader, true, true);
                     }
 
                     if (validacionDato == null || validacionDato.DatoNuevo.ToLower() != email.ToLower())
@@ -252,7 +252,7 @@ namespace Portal.Consultoras.BizLogic
 
                     usuario = GetBasicSesionUsuario(paisID, codigoUsuario);
 
-                    if (!usuario.EMail.ToLower(). Contains(email.ToLower()) && daUsuario.ExistsUsuarioEmail(email)
+                    if (!usuario.EMail.ToLower().Contains(email.ToLower()) && daUsuario.ExistsUsuarioEmail(email)
                         && daUsuario.ExistsUsuarioEmail(email))
                     {
                         return ActivacionEmailRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_ACTIVACION_DUPLICADO, belcorpResponde: _belcorpRespondeBusinessLogic.GetBelcorpResponde(paisID).FirstOrDefault());
@@ -758,7 +758,7 @@ namespace Portal.Consultoras.BizLogic
             return daUsuario.ActualizarSMS(codigoConsultora, tipoEnvio, celularAnterior, celularActual);
         }
 
-     
+
 
         public int ValidaEstadoPopup(int paisID)
         {
@@ -781,7 +781,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daUsuario.ListarValidacionDatos(beValidacionDatos))
                 return reader.MapToCollection<BEValidacionDatos>();
         }
-       public List<BEValidacionDatos> GetTipoEnvioActivos(int paisID, string codigoUsuario)
+        public List<BEValidacionDatos> GetTipoEnvioActivos(int paisID, string codigoUsuario)
         {
             List<BEValidacionDatos> lista = new List<BEValidacionDatos>();
             var daUsuario = new DAUsuario(paisID);
@@ -792,18 +792,18 @@ namespace Portal.Consultoras.BizLogic
                 {
                     lista.Add(new BEValidacionDatos()
                     {
-                        TipoEnvio = reader[0] == DBNull.Value ? string.Empty: reader[0].ToString(),
+                        TipoEnvio = reader[0] == DBNull.Value ? string.Empty : reader[0].ToString(),
                         DatoNuevo = reader[1] == DBNull.Value ? string.Empty : reader[1].ToString(),
-                        DatoAntiguo = reader[2] == DBNull.Value ? string.Empty: reader[2].ToString(),
+                        DatoAntiguo = reader[2] == DBNull.Value ? string.Empty : reader[2].ToString(),
                         Estado = reader[3] == DBNull.Value ? string.Empty : reader[3].ToString(),
                     });
                 }
 
-            return lista;
-        }
+                return lista;
+            }
         }
 
-        public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora,  int paisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)
+        public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int paisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)
         {
             var daUsuario = new DAUsuario(paisID);
             return daUsuario.ActualizarValidacionDatos(isMobile, codigoConsultora, ipDispositivo, CodigoUsuario, tipoEnvio1, tipoEnvio2);
@@ -2060,7 +2060,7 @@ namespace Portal.Consultoras.BizLogic
             //string logo = Globals.RutaCdn + (esEsika ? "/ImagenesPortal/Iconos/logo.png" : "/ImagenesPortal/Iconos/logod.png");
             //string fondo = (esEsika ? "e81c36" : "642f80");
 
-            MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname,  nomconsultora, url, paramQuerystring);
+            MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, nomconsultora, url, paramQuerystring);
             //FIN HD-3897//
         }
 
@@ -2805,7 +2805,7 @@ namespace Portal.Consultoras.BizLogic
                     case Constantes.OpcionesDeVerificacion.OrigenOlvideContrasenia:
                         return EnviarEmailOlvideContrasenia(paisID, oUsu, cantidadEnvios);
                     case Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad:
-                        return EnviarEmailVerificacionAutenticidad(paisID, oUsu, cantidadEnvios);                        
+                        return EnviarEmailVerificacionAutenticidad(paisID, oUsu, cantidadEnvios);
                 }
                 return false;
             }
@@ -3123,14 +3123,14 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         #region Verificacion De Autenticidad
-        public BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb)
+        public BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb, bool flgCheckSMS, bool FlgCheckEmail)
         {
             if (verificacionWeb)
-                return GetVerificacionAutenticidad(paisID, CodigoUsuario);
+                return GetVerificacionAutenticidad(paisID, CodigoUsuario, flgCheckSMS, FlgCheckEmail);
             return GetVerificacionAutenticidadWS(paisID, CodigoUsuario);
         }
 
-        private BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario)
+        private BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool flgCheckSMS, bool FlgCheckEmail)
         {
             try
             {
@@ -3158,11 +3158,16 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion;
+                var smsCorreoValidado = false;
+
                 if (opcion.OpcionEmail)
                 {
                     oUsu.CorreoEnmascarado = Common.Util.EnmascararCorreo(oUsu.Correo);
                     oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmail;
+
+                    smsCorreoValidado = (opcion.OpcionSms) ? (flgCheckSMS && FlgCheckEmail) : (FlgCheckEmail);
                 }
+
                 if (opcion.OpcionSms)
                 {
                     oUsu.CelularEnmascarado = Common.Util.EnmascararCelular(oUsu.Celular);
@@ -3170,7 +3175,14 @@ namespace Portal.Consultoras.BizLogic
                         oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmailyCelular;
                     else
                         oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarCelular;
+                    smsCorreoValidado = (opcion.OpcionEmail) ? (flgCheckSMS && FlgCheckEmail) : (flgCheckSMS);
                 }
+
+                if (smsCorreoValidado)
+                {
+                    return null;
+                }
+
                 if (oUsu.MostrarOpcion == Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion) return null;
                 oUsu.OpcionChat = opcion.OpcionChat;
                 oUsu.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);
@@ -3307,7 +3319,7 @@ namespace Portal.Consultoras.BizLogic
                 string url = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
                 string nomconsultora = oUsu.PrimerNombre; //(string.IsNullOrEmpty(beusuario.PrimerNombre) ? beusuario.PrimerNombre : beusuario.Sobrenombre);
 
-                string[] parametros = new string[] { oUsu.CodigoUsuario, Common.Util.GetPaisID(oUsu.CodigoIso).ToString(), oUsu.Correo};
+                string[] parametros = new string[] { oUsu.CodigoUsuario, Common.Util.GetPaisID(oUsu.CodigoIso).ToString(), oUsu.Correo };
                 string paramQuerystring = Common.Util.Encrypt(string.Join(";", parametros));
                 LogManager.SaveLog(new Exception(), oUsu.CodigoUsuario, oUsu.CodigoIso, " | data=" + paramQuerystring + " | parametros = " + string.Join("|", parametros));
 

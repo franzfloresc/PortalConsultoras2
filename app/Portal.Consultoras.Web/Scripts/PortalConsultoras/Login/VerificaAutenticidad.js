@@ -932,8 +932,7 @@ $(document).ready(function () {
                     };                    
                     AbrirLoad();
                     $.post(config.UrlActualizarEnviarCorreo, parametros)
-                        .done(function (response) {  
-                            debugger;
+                        .done(function (response) {                              
                             if (!response.success) {                         
                                 me.Correo.showError(response.message);
                                 return;

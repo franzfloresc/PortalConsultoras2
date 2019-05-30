@@ -403,6 +403,8 @@ namespace Portal.Consultoras.Web.Controllers
         public async Task<ActionResult> Redireccionar(int paisId, string codigoUsuario, string returnUrl = null,
             bool hizoLoginExterno = false)
         {
+            
+
             if (!Convert.ToBoolean(TempData["FlagPin"]) && TieneVerificacionAutenticidad(paisId, codigoUsuario))
             {
                 if (Request.IsAjaxRequest())
@@ -419,7 +421,7 @@ namespace Portal.Consultoras.Web.Controllers
             Session["DatosUsuario"] = null;
 
             pasoLog = "Login.Redireccionar";
-            var usuario = await GetUserData(paisId, codigoUsuario);
+var usuario = await GetUserData(paisId, codigoUsuario);
 
             if (usuario == null)
             {
@@ -3393,10 +3395,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                BEUsuario beusuario;
+
                 BEUsuarioDatos oVerificacion;
                 using (var sv = new UsuarioServiceClient())
                 {
-                    oVerificacion = sv.GetVerificacionAutenticidad(paisID, codigoUsuario, true);
+                    beusuario = sv.Select(paisID, codigoUsuario);
+                    oVerificacion =  sv.GetVerificacionAutenticidad(paisID, codigoUsuario, true, beusuario.FlgCheckSMS, beusuario.FlgCheckEMAIL);
                 }
 
                 if (oVerificacion == null) return false;
