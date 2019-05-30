@@ -388,7 +388,7 @@ button:focus{
 /* ESTILOS MODIFICADORES JQUERY UI (PRECARGA PÁGINA RESULTADOS VERSIÓN DESKTOP) */
 
 .ui-widget-overlay {
-    z-index: 99999999 !important;
+    z-index: 99999999!important;
 }
 
 .ui-dialog.ui-widget-content {
@@ -396,7 +396,7 @@ button:focus{
     background: #FFFFFF !important;
     color: #555 !important;
     border-radius: 0;
-    z-index: 99999999 !important;
+    z-index: 999999910 !important;
 }
 
 .ui-dialog .ui-dialog-titlebar {
