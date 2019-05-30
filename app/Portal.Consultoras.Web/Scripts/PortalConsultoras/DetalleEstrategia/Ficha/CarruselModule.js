@@ -371,6 +371,7 @@ var CarruselModule = (function (config) {
         urlDataCarrusel: config.urlDataCarrusel || "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
         OrigenPedidoWeb: config.OrigenPedidoWeb || "",
         pantalla: "Ficha",
+        usaLocalStorage: config.usaLocalStorage,
         tituloCarrusel: config.tituloCarrusel,
         cantidadPack: config.productosHermanos.length,
         codigoProducto: config.codigoProducto,
@@ -428,13 +429,24 @@ var CarruselModule = (function (config) {
             return setRelacionados;
         }
 
-        var str = LocalStorageListado("LANLista" + campaniaId, "", 1) || "";
+        var lista = [];
+        if (_config.usaLocalStorage) {
+            var str = LocalStorageListado("LANLista" + campaniaId, "", 1) || "";
 
-        if (str === '') {
-            return setRelacionados;
+            if (str === '') {
+                return setRelacionados;
+            }
+
+            lista = JSON.parse(str).response.listaLan;
+        } else {
+            var localStorageModule = new LocalStorageModule();
+            lista = localStorageModule.ObtenerEstrategiasNoLS(campaniaId, ConstantesModule.TipoEstrategiaTexto.Lanzamiento);
+
+            if (lista === []) {
+                return setRelacionados;
+            }
         }
 
-        var lista = JSON.parse(str).response.listaLan;
         var codigoProducto = "";
 
         $.each(lista, function (index, lanzamiento) {

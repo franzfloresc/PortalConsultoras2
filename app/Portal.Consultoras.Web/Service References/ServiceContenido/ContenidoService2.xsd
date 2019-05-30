@@ -844,14 +844,18 @@
       <xs:extension base="tns:BaseEntidad">
         <xs:sequence>
           <xs:element minOccurs="0" name="Accion" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Campania" type="xs:int" />
           <xs:element minOccurs="0" name="CodigoDetalle" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
           <xs:element minOccurs="0" name="IdContenido" type="xs:int" />
           <xs:element minOccurs="0" name="IdContenidoDeta" type="xs:int" />
           <xs:element minOccurs="0" name="Orden" type="xs:int" />
+          <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="RutaContenido" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Seccion" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -866,17 +870,39 @@
   <xs:complexType name="BEContenidoAppDeta">
     <xs:sequence>
       <xs:element minOccurs="0" name="Accion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Campania" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoDetalle" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
       <xs:element minOccurs="0" name="IdContenido" type="xs:int" />
       <xs:element minOccurs="0" name="IdContenidoDeta" type="xs:int" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="Proc" type="xs:int" />
       <xs:element minOccurs="0" name="RutaContenido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEContenidoAppDeta" nillable="true" type="tns:BEContenidoAppDeta" />
+  <xs:complexType name="ArrayOfBEContenidoAppDetaAct">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEContenidoAppDetaAct" nillable="true" type="tns:BEContenidoAppDetaAct" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEContenidoAppDetaAct" nillable="true" type="tns:ArrayOfBEContenidoAppDetaAct" />
+  <xs:complexType name="BEContenidoAppDetaAct">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseEntidad">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Activo" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IdContenidoAct" type="xs:int" />
+          <xs:element minOccurs="0" name="Parent" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="BEContenidoAppDetaAct" nillable="true" type="tns:BEContenidoAppDetaAct" />
   <xs:complexType name="ArrayOfBEComunicado">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEComunicado" nillable="true" type="tns:BEComunicado" />

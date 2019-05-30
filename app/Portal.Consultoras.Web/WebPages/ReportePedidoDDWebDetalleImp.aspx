@@ -179,6 +179,16 @@
                                 </div>
                             </td>
                         </tr>
+                          <tr>
+                    <td>
+                        <div class="module_1">
+                            <div class="label1">100% Digital:</div>
+                        </div>
+                        <div class="module_2">
+                            <asp:Label ID="lblIndicadorConsultoraDigital" runat="server" Text=""> </asp:Label>
+                        </div>
+                    </td>
+                </tr>
                     </table>
 
                 </div>

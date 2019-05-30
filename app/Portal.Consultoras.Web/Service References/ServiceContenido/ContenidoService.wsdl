@@ -39,6 +39,12 @@
       <xsd:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Usuario" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IContenidoService_CargaEstadoValidadorDatos_InputMessage">
+    <wsdl:part name="parameters" element="tns:CargaEstadoValidadorDatos" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_CargaEstadoValidadorDatos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CargaEstadoValidadorDatosResponse" />
+  </wsdl:message>
   <wsdl:message name="IContenidoService_GetCargaListadoPopupValidador_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCargaListadoPopupValidador" />
   </wsdl:message>
@@ -507,6 +513,12 @@
   <wsdl:message name="IContenidoService_UpdateContenidoAppDeta_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateContenidoAppDetaResponse" />
   </wsdl:message>
+  <wsdl:message name="IContenidoService_GetContenidoAppDetaActList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetContenidoAppDetaActList" />
+  </wsdl:message>
+  <wsdl:message name="IContenidoService_GetContenidoAppDetaActList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetContenidoAppDetaActListResponse" />
+  </wsdl:message>
   <wsdl:message name="IContenidoService_GetListaPopup_InputMessage">
     <wsdl:part name="parameters" element="tns:GetListaPopup" />
   </wsdl:message>
@@ -549,13 +561,11 @@
   <wsdl:message name="IContenidoService_EliminarArchivoCsvValidador_OutputMessage">
     <wsdl:part name="parameters" element="tns:EliminarArchivoCsvValidadorResponse" />
   </wsdl:message>
-  <wsdl:message name="IContenidoService_CargaEstadoValidadorDatos_InputMessage">
-    <wsdl:part name="parameters" element="tns:CargaEstadoValidadorDatos" />
-  </wsdl:message>
-  <wsdl:message name="IContenidoService_CargaEstadoValidadorDatos_OutputMessage">
-    <wsdl:part name="parameters" element="tns:CargaEstadoValidadorDatosResponse" />
-  </wsdl:message>
   <wsdl:portType name="IContenidoService">
+    <wsdl:operation name="CargaEstadoValidadorDatos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatos" message="tns:IContenidoService_CargaEstadoValidadorDatos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatosResponse" message="tns:IContenidoService_CargaEstadoValidadorDatos_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetCargaListadoPopupValidador">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetCargaListadoPopupValidador" message="tns:IContenidoService_GetCargaListadoPopupValidador_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetCargaListadoPopupValidadorResponse" message="tns:IContenidoService_GetCargaListadoPopupValidador_OutputMessage" />
@@ -868,6 +878,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/UpdateContenidoAppDeta" message="tns:IContenidoService_UpdateContenidoAppDeta_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/UpdateContenidoAppDetaResponse" message="tns:IContenidoService_UpdateContenidoAppDeta_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetContenidoAppDetaActList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetContenidoAppDetaActList" message="tns:IContenidoService_GetContenidoAppDetaActList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetContenidoAppDetaActListResponse" message="tns:IContenidoService_GetContenidoAppDetaActList_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetListaPopup">
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/GetListaPopup" message="tns:IContenidoService_GetListaPopup_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/GetListaPopupResponse" message="tns:IContenidoService_GetListaPopup_OutputMessage" />
@@ -896,13 +910,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidador" message="tns:IContenidoService_EliminarArchivoCsvValidador_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidadorResponse" message="tns:IContenidoService_EliminarArchivoCsvValidador_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="CargaEstadoValidadorDatos">
-      <wsdl:input wsaw:Action="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatos" message="tns:IContenidoService_CargaEstadoValidadorDatos_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatosResponse" message="tns:IContenidoService_CargaEstadoValidadorDatos_OutputMessage" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IContenidoService" type="tns:IContenidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CargaEstadoValidadorDatos">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCargaListadoPopupValidador">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/GetCargaListadoPopupValidador" style="document" />
       <wsdl:input>
@@ -1605,6 +1624,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetContenidoAppDetaActList">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetContenidoAppDetaActList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetListaPopup">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/GetListaPopup" style="document" />
       <wsdl:input>
@@ -1661,15 +1689,6 @@
     </wsdl:operation>
     <wsdl:operation name="EliminarArchivoCsvValidador">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidador" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CargaEstadoValidadorDatos">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1681,6 +1700,15 @@
   <wsdl:binding name="BasicHttpsBinding_IContenidoService" type="tns:IContenidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IContenidoService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CargaEstadoValidadorDatos">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCargaListadoPopupValidador">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/GetCargaListadoPopupValidador" style="document" />
       <wsdl:input>
@@ -2383,6 +2411,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetContenidoAppDetaActList">
+      <soap:operation soapAction="http://tempuri.org/IContenidoService/GetContenidoAppDetaActList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetListaPopup">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/GetListaPopup" style="document" />
       <wsdl:input>
@@ -2439,15 +2476,6 @@
     </wsdl:operation>
     <wsdl:operation name="EliminarArchivoCsvValidador">
       <soap:operation soapAction="http://tempuri.org/IContenidoService/EliminarArchivoCsvValidador" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CargaEstadoValidadorDatos">
-      <soap:operation soapAction="http://tempuri.org/IContenidoService/CargaEstadoValidadorDatos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
