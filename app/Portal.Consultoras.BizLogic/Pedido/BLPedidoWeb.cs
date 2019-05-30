@@ -1267,7 +1267,7 @@ namespace Portal.Consultoras.BizLogic
                 // DD : 1
                 // Web: 2
                 List<BEPedidoDDWebDetalle> lstPedidosWebDetalle = new List<BEPedidoDDWebDetalle>();
-                if (Origen.Equals("Web"))
+                if (Origen.ToUpper().Equals("WEB"))
                 {
                     try
                     {
@@ -1285,7 +1285,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 List<BEPedidoDDWebDetalle> lstPedidosDdDetalle = new List<BEPedidoDDWebDetalle>();
-                if (Origen.Equals("DD"))
+                if (Origen.ToUpper().Equals("DD"))
                 {
                     try
                     {
@@ -1599,7 +1599,7 @@ namespace Portal.Consultoras.BizLogic
                 // DD : 1
                 // Web: 2
                 List<BEPedidoDDWebDetalle> lstPedidosWebDetalle = new List<BEPedidoDDWebDetalle>();
-                if (Origen.Equals("Web"))
+                if (Origen.ToUpper().Equals("WEB"))
                 {
                     try
                     {
@@ -1617,7 +1617,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 List<BEPedidoDDWebDetalle> lstPedidosDdDetalle = new List<BEPedidoDDWebDetalle>();
-                if (Origen.Equals("DD"))
+                if (Origen.ToUpper().Equals("DD"))
                 {
                     try
                     {
