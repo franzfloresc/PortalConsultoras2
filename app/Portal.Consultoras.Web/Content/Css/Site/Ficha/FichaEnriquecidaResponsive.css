@@ -66,6 +66,7 @@
     font-size: 14px;
     font-weight: bold !important;
     margin-bottom: 6px;
+    text-transform:capitalize
 }
 
 .tab p {

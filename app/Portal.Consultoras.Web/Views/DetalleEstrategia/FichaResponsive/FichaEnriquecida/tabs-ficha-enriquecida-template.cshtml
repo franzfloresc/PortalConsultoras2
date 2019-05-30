@@ -9,7 +9,7 @@
         {{#iff seccion.Tipo '==' '@Constantes.TipoSeccion.Texto' }}
         <div class="tab">
             {{#each seccion.Detalles as |detalle|}}
-            <h4>{{detalle.Titulo}}</h4>
+            <h4>{{LowerCase detalle.Titulo}}</h4>
             <p>{{detalle.Descripcion}}</p>
             {{/each}}
         </div>
@@ -35,7 +35,6 @@
                         </div>
                         <h3>{{detalle.Titulo}}</h3>
                     </div>
-                    <h3>Lorem Ipsum</h3>
                 </div>
                 {{/each}}
             </div>
