@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 if not exists(select column_name from INFORMATION_SCHEMA.columns where table_name = 'OpcionesVerificacion' and column_name = 'OpcionConfirmarEmail')
 begin

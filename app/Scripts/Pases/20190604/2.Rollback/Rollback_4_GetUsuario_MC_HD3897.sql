@@ -1,4 +1,4 @@
-GO
+﻿GO
 USE [BelcorpBolivia]
 GO
 ALTER PROCEDURE dbo.GetUsuario
