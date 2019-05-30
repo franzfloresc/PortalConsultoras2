@@ -371,12 +371,12 @@ var CarruselModule = (function (config) {
         urlDataCarrusel: config.urlDataCarrusel || "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
         OrigenPedidoWeb: config.OrigenPedidoWeb || "",
         pantalla: "Ficha",
+        usaLocalStorage: config.usaLocalStorage,
         tituloCarrusel: config.tituloCarrusel,
         cantidadPack: config.productosHermanos.length,
         codigoProducto: config.codigoProducto,
         precioProducto: config.precioProducto,
-        productosHermanos: config.productosHermanos,
-        usaLocalStorage: config.usaLocalStorage
+        productosHermanos: config.productosHermanos
     };
 
     var _elementos = {

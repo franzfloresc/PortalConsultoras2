@@ -160,6 +160,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     }
                     #endregion
 
+                    if (reservado && pedidoDetalle.EsDuoPerfecto)
+                    {
+                        return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVA_DUO_COMPLETO_COMPLETO);
+                    }
+
                     pedidoDetalle.Reservado = reservado;
                     var respuestaT = PedidoAgregarProductoTransaction(pedidoDetalle);
 
@@ -169,17 +174,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                         if (reservado)
                         {
-                            if (!pedidoDetalle.EsDuoPerfecto)
-                            {
-                                var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
-                                respuestaT = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuestaT, out error);
+                            var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
+                            respuestaT = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuestaT, out error);
 
-                                respuestaT = SetMontosTotalesProl(respuestaT, respuestaReserva);
-                            }
-                            else
-                            {
-                                respuestaT.MensajeAviso = "Pedido Reservado, por favor modifique su pedido para agregar su Dúo Perfecto.";
-                            }
+                            respuestaT = SetMontosTotalesProl(respuestaT, respuestaReserva);
                         }
 
                         if (!error)
@@ -259,6 +257,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private BEPedidoDetalleResult GetPedidoDetalleResultFromResultadoReservaProl(BEResultadoReservaProl resultadoReservaProl, BEPedidoDetalleResult respuestaT, out bool error)
         {
             error = false;
+            string mensajePersonalizado = null;
             var pedidoValidacionCode = Constantes.PedidoValidacion.Code.SUCCESS;
 
             if(resultadoReservaProl != null)
@@ -279,6 +278,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     case Enumeradores.ResultadoReserva.NoReservadoMontoMinimo:
                         pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_MONTO_MIN;
                         error = true;
+                        mensajePersonalizado = "Si eliminas este producto no llegaras al monto mínimo y tendrás que modificar tu reservación.";
                         break;
                     case Enumeradores.ResultadoReserva.NoReservadoMontoMaximo:
                         pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_MONTO_MAX;
@@ -305,7 +305,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         break;
                 }                
             }
-            var respuesta = PedidoDetalleRespuesta(pedidoValidacionCode);
+            var respuesta = PedidoDetalleRespuesta(pedidoValidacionCode, mensajePersonalizado);            
             respuesta.MensajeRespuesta = respuesta.MensajeRespuesta.Replace("Pedido no reservado", "Pedido reservado");
             if (!error)
             {
@@ -1509,9 +1509,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         Cantidad = 1,
                         ClienteID = 0
                     });
-                    List<BEMensajeProl> ListMensajeCondicional;
+                    List<BEMensajeProl> listMensajeCondicional;
 
-                    UpdateProl(usuario, lstDetalle, out ListMensajeCondicional);
+                    UpdateProl(usuario, lstDetalle, out listMensajeCondicional);
 
                     return true;
                 }

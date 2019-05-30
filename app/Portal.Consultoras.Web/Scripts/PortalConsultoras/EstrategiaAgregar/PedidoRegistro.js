@@ -25,11 +25,11 @@ var PedidoRegistroModule = function () {
         var esMobile = isMobile();
         var txtMensaje = "";
         //"La cantidad ingresada debe ser mayor que 0, verifique."
-        //"La cantidad ingresada debe ser un nÃºmero mayor que cero, verifique"
+        //"La cantidad ingresada debe ser un número mayor que cero, verifique"
         //"La cantidad ingresada debe ser mayor que cero, verifique"
 
         if (!isInt(cantidad)) {
-            txtMensaje = "Ingrese un valor numÃ©rico.";
+            txtMensaje = "Ingrese un valor numérico.";
         }
         else if (parseInt(cantidad, 10) <= 0) {
             txtMensaje = "La cantidad debe ser mayor a cero.";
@@ -70,7 +70,7 @@ var PedidoRegistroModule = function () {
             return true;
         }
         //FIN HD-3693
-        data.message = data.message || 'Error al realizar proceso, intÃ©ntelo mÃ¡s tarde.';
+        data.message = data.message || 'Error al realizar proceso, inténtelo más tarde.';
         messageInfoError(data.message);
         CerrarLoad();
 
@@ -127,12 +127,12 @@ var PedidoRegistroModule = function () {
         var variantcad = "";
 
         if (result.data.DescripcionEstrategia == null || result.data.DescripcionEstrategia == "") {
-            variantcad = "EstÃ¡ndar";
+            variantcad = "Estándar";
         } else {
             variantcad = result.data.DescripcionEstrategia;
         }
         if (result.data.Categoria == null || result.data.Categoria == "") {
-            categoriacad = "Sin CategorÃ­a";
+            categoriacad = "Sin Categoría";
         } else {
             categoriacad = result.data.Categoria;
         }
@@ -925,7 +925,7 @@ var PedidoRegistroModule = function () {
                     'event': 'addToCart',
                     'ecommerce': {
                         'add': {
-                            'actionField': { 'list': 'EstÃ¡ndar' },
+                            'actionField': { 'list': 'Estándar' },
                             'products': [{
                                 'name': data.data.DescripcionProd,
                                 'price': String(data.data.PrecioUnidad),
@@ -1178,14 +1178,14 @@ var PedidoRegistroModule = function () {
                     'event': 'addToCart',
                     'ecommerce': {
                         'add': {
-                            'actionField': { 'list': 'EstÃ¡ndar' },
+                            'actionField': { 'list': 'Estándar' },
                             'products': [{
                                 'name': data.data.DescripcionProd,
                                 'price': String(data.data.PrecioUnidad),
                                 'brand': data.data.DescripcionLarga,
                                 'id': data.data.CUV,
                                 'category': 'NO DISPONIBLE',
-                                'variant': data.data.DescripcionOferta == "" ? "EstÃ¡ndar" : data.data.DescripcionOferta,
+                                'variant': data.data.DescripcionOferta == "" ? "Estándar" : data.data.DescripcionOferta,
                                 'quantity': Number(model.Cantidad),
                                 'position': 1
                             }]
@@ -1324,14 +1324,14 @@ var PedidoRegistroModule = function () {
                     'label': $("#hdMetodoBusqueda").val(),
                     'ecommerce': {
                         'add': {
-                            'actionField': { 'list': "EstÃ¡ndar" },
+                            'actionField': { 'list': "Estándar" },
                             'products': [{
                                 'name': data.data.DescripcionProd,
                                 'price': String(data.data.PrecioUnidad),
                                 'brand': data.data.DescripcionLarga,
                                 'id': data.data.CUV,
                                 'category': "NO DISPONIBLE",
-                                'variant': data.data.DescripcionOferta == "" ? "EstÃ¡ndar" : data.data.DescripcionOferta,
+                                'variant': data.data.DescripcionOferta == "" ? "Estándar" : data.data.DescripcionOferta,
                                 'quantity': Number(param2.Cantidad),
                                 'position': 1
                             }]
@@ -1387,14 +1387,14 @@ var PedidoRegistroModule = function () {
                         'label': $("#hdMetodoBusqueda").val(),
                         'ecommerce': {
                             'add': {
-                                'actionField': { 'list': "EstÃ¡ndar" },
+                                'actionField': { 'list': "Estándar" },
                                 'products': [{
                                     'name': form.data.DescripcionProd,
                                     'price': form.data.PrecioUnidad,
                                     'brand': response.data.DescripcionLarga,
                                     'id': form.data.CUV,
                                     'category': "NO DISPONIBLE",
-                                    'variant': response.data.DescripcionOferta == "" ? "EstÃ¡ndar" : response.data.DescripcionOferta,
+                                    'variant': response.data.DescripcionOferta == "" ? "Estándar" : response.data.DescripcionOferta,
                                     'quantity': Number(form.data.Cantidad),
                                     'position': 1
                                 }]
@@ -1473,7 +1473,7 @@ var PedidoRegistroModule = function () {
                 MostrarBarra(data);
                 var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
                 if (existeError == "1") {
-                    AbrirMensaje("OcurriÃ³ un error al ejecutar la operaciÃ³n.");
+                    AbrirMensaje("Ocurrió un error al ejecutar la operación.");
                     CloseLoading();
                     return false;
                 }

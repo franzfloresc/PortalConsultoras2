@@ -355,7 +355,6 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.SetID = model.SetId;
                 pedidoDetalle.OrigenSolicitud = "WebMobile";
                 pedidoDetalle.EsDuoPerfecto = model.EsDuoPerfecto;
-
                 var result = await DeletePremioIfReplace(model);
                 if (result != null && !result.Item1)
                 {
@@ -518,8 +517,8 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoDetalle.IPUsuario = GetIPCliente();
             pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
 
-            pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
             pedidoDetalle.OrigenSolicitud = "WebMobile";
+            pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
             var pedidoDetalleResult = _pedidoWebProvider.UpdatePedidoDetalle(pedidoDetalle);
 
             var esReservado =

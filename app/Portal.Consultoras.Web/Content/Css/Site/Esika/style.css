@@ -22,7 +22,7 @@
     font-family: 'OldStandard-Italic';
     src: url('fonts/OldStandard-Italic.eot');
     src: url('fonts/OldStandard-Italic.eot?#iefix') format('embedded-opentype'), 
-        url('fonts/OldStandard-Italic.woff') format('woff'), a
+        url('fonts/OldStandard-Italic.woff') format('woff'), 
         url('fonts/OldStandard-Italic.ttf') format('truetype'), 
         url('fonts/OldStandard-Italic.svg#OldStandardItalic') format('svg');
     font-weight: normal;
