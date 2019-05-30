@@ -115,7 +115,6 @@ else
             </div>
         </div>
         <div id="celular_actualizado" class="celular_actualizado text-center" style="display:none;">
-
             <div class="center-block icono_success icono_success--miPerfil">
                 <img class="d-block" src="@Url.Content("~/Content/Images/success_icon.svg")" alt="¡El cambio de correo fue exitoso!" />
             </div>
@@ -132,11 +131,10 @@ else
             <a href="@Url.Action("Index")" class="btn_acept text-uppercase text-bold default-background-color">Ok</a>*@
         </div>
         <div id="celular_no_actualizado" class="celular_actualizado text-center" style="display:none;">
-
-            <div class="center-block icono_success icono_success--miPerfil">
+            <div class="center-block icono_error icono_error--miPerfil">
                 <img class="d-block" src="@Url.Content("~/Content/Images/icono_pendiente_confirmacion.svg")" alt="El cambio de correo no se completo" />
             </div>
-            <h6 id="message" class="center-block text-bold text-center mensaje_success mensaje_success--miPerfil"></h6>
+            <h6 id="message" class="center-block text-bold text-center mensaje_error mensaje_error--miPerfil"></h6>
             <button type="button" class="d-block center-block border-radius-4 text-bold mt-23 btn_primario btn_primario--miPerfil"
                     onclick="location.href='@Url.Action("Index")'">
                 Ir a ver mis datos
