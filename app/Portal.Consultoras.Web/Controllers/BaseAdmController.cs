@@ -96,13 +96,14 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ObtenerRegionPorPais(int PaisID)
+        public JsonResult ObtenerRegionZonaPorPais(int PaisID)
         {
             IEnumerable<RegionModel> lstRegiones = _zonificacionProvider.GetRegiones(PaisID);
-
+            IEnumerable<ZonaModel> lstZonas = _zonificacionProvider.GetZonas(PaisID);
             return Json(new
             {
-               lista = lstRegiones
+                lstRegion = lstRegiones.OrderBy(p => p.Codigo),
+                lstZona = lstZonas.OrderBy(p => p.Codigo)
             }, JsonRequestBehavior.AllowGet);
         }
 

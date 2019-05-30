@@ -57,6 +57,23 @@ namespace Portal.Consultoras.Entities
             FechaModificacion = row.ToDateTime("FechaModificacion");
             UsuarioModificacion = row.ToString("UsuarioModificacion");
             MostrarAgotado = row.ToInt32("MostrarAgotado");
+            //INI HD-4289
+            RegionID = (row.HasColumn("RegionID") ? row.ToInt32("RegionID") : 0);
+            ZonaID = (row.HasColumn("ZonaID") ? row.ToInt32("ZonaID") : 0);
+            Region = (row.HasColumn("Region") ? row.ToString("Region") : "");
+            Zona = (row.HasColumn("Zona") ? row.ToString("Zona") : "");
+            //FIN HD-4289
         }
+
+        //INI HD-4289
+        [DataMember]
+        public int RegionID { get; set; }
+        [DataMember]
+        public int ZonaID { get; set; }
+        [DataMember]
+        public string Region { get; set; }
+        [DataMember]
+        public string Zona { get; set; }
+        //FIN HD-4289
     }
 }

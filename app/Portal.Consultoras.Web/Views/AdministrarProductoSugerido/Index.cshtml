@@ -45,14 +45,13 @@
             <div class="div-3">
                 <div class="titG">Region:</div>
                 <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.RegionID, new SelectList(Model.lstRegion, "RegionID", "Nombre"), "-- Seleccionar --", new { id = "ddlRegion" })
+                    @Html.DropDownListFor(model => model.RegionID, new SelectList(Model.lstRegion, "RegionID", "Nombre"), "-- Todas --", new { id = "ddlRegion", @class = "ddlRegion" })
                 </div>
-                <span class="color_red" style="width:5px;">*</span>
+                <span class="color_red" style="width:5px;"></span>
                 <div class="titG">Zona:</div>
                 <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.lstZona, "ZonaID", "Nombre"), "-- Seleccionar --", new { id = "ddlZona" })
+                    @Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.lstZona, "ZonaID", "Nombre"), "-- Todas --", new { id = "ddlZona", @class = "ddlZona" })
                 </div>
-                <span class="color_red" style="width:5px;">*</span>
             </div>
             @* FIN HD-4289 *@
             <div class="div-3">
@@ -112,6 +111,20 @@
             </div>
             <span class="color_red" style="width: 5px;">*</span>
         </div>
+        @* INI HD-4289 *@
+        <div class="div-3">
+            <div class="titG">Region:</div>
+            <div class="selectA borde_redondeado">
+                @Html.DropDownListFor(model => model.RegionID, new SelectList(Model.lstRegion, "RegionID", "Nombre"), "-- Todas --", new { id = "ddlRegionModal", @class = "ddlRegion" })
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titG">Zona:</div>
+            <div class="selectA borde_redondeado">
+                @Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.lstZona, "ZonaID", "Nombre"), "-- Todas --", new { id = "ddlZonaModal", @class = "ddlZona" })
+            </div>
+        </div>
+        @* FIN HD-4289 *@
         <div class="div-3">
             <div class="titG">CUV Agotado:</div>
             <div class="selectP2 borde_redondeado">
@@ -220,9 +233,11 @@
             getImagesByNemotecnico: '@Url.Action("GetImagesByNemotecnico", "MatrizComercial")',
             numeroImagenesPorPagina: numeroImagenesPorPagina,
             expValidacionNemotecnico: @Html.Raw(Model.ExpValidacionNemotecnico),
-                actualizarDescripcionComercialAction: '@Url.Action("ActualizarDescripcionComercial", "MatrizComercial")'
+            actualizarDescripcionComercialAction: '@Url.Action("ActualizarDescripcionComercial", "MatrizComercial")',
+            listaZonas: new Array()
         });
         CargarDialog();
+        CargarRegion();
         CargarEventos();
 
         editarDescripcionComercial = function editarDescripcionComercial(idImagen) {
@@ -238,12 +253,25 @@
 
         $('#ddlPais').change(function () {
             var Id = $(this).val() || "";
+            $('#ddlRegion').val("0");
+            $('#ddlRegion').change();
+            
             if (Id == "") {
                 LimpiarDependencias('ddlCampania');
                 return false;
             }
+
             CargarCampaniaModal(Id, 'ddlCampania, ddlCampaniaModal');
-            CargarRegion("ddlRegion");
+            
+        });
+
+        $('#ddlRegion').change(function () {
+            var Id = $(this).val() || "0";
+            CargarZonabyRegion(Id,"#ddlZona");
+        });
+        $('#ddlRegionModal').change(function () {
+            var Id = $(this).val() || "0";
+            CargarZonabyRegion(Id, "#ddlZonaModal");
         });
 
         $("#btnBuscar").click(function () {
@@ -275,6 +303,11 @@
             $("#ddlCampaniaModal").val($.trim($("#ddlCampania").val()));
             $("#txtCUVModal").val($.trim($("#txtCUVAgotado").val()));
 
+            //INI HD-4289
+            $("#ddlRegionModal").val($.trim($("#ddlRegion").val()));
+            $("#ddlRegionModal").change();
+            $("#ddlZonaModal").val($.trim($("#ddlZona").val()));
+            //FIN HD-4289
             showDialog("DialogRegistroProductoSugerido");
         });
 
@@ -389,18 +422,27 @@
             url: baseUrl + "AdministrarProductoSugerido/Consultar",
             hidegrid: false,
             datatype: 'json',
-            postData: ({
+            postData: {
                 PaisID: function () { return $("#ddlPais").val() },
                 CampaniaID: function () { return ($("#ddlCampania").val() || "0"); },
                 CUVAgotado: function () { return $.trim($("#txtCUVAgotado").val()); },
-                CUVSugerido: function () { return $.trim($("#txtCUVSugerido").val()); }
-            }),
+                CUVSugerido: function () { return $.trim($("#txtCUVSugerido").val()); },
+                //INI HD-4289
+                RegionID: function () { return ($("#ddlRegion").val() || "0"); },
+                ZonaID: function () { return ($("#ddlZona").val() || "0"); }
+                //FIN HD-4289
+            },
             mtype: 'GET',
-            contentType: "application/json; charset=utf-8",
-            colNames: ['Id', 'Campaña', 'CUV Agotado', 'CUV Sugerido', 'Orden', 'ImagenProducto', 'Estado', 'MostrarAgotado', 'Foto', 'Opciones'],
+            colNames: ['Id', 'Campaña', 'RegionID','Region','ZonaID','Zona', 'CUV Agotado', 'CUV Sugerido', 'Orden', 'ImagenProducto', 'Estado', 'MostrarAgotado', 'Foto', 'Opciones'],
             colModel: [
                 { name: 'ProductoSugeridoID', index: 'ProductoSugeridoID', key: true, hidden: true },
                 { name: 'CampaniaID', index: 'CampaniaID', width: 50, align: 'center', resizable: false },
+                //INI HD-4289
+                { name: 'RegionID', index: 'RegionID', hidden: true  },
+                { name: 'Region', index: 'Region', width: 50, align: 'center', resizable: false },
+                { name: 'ZonaID', index: 'ZonaID', hidden: true },
+                { name: 'Zona', index: 'Zona', width: 50, align: 'center', resizable: false },
+                //FIN HD-4289
                 { name: 'CUV', index: 'CUV', width: 80, align: 'center', resizable: false },
                 { name: 'CUVSugerido', index: 'CUVSugerido', width: 80, align: 'center', resizable: false },
                 { name: 'Orden', index: 'Orden', width: 35, align: 'center', resizable: false },
@@ -520,35 +562,52 @@
     function CargarRegion(combo) {
 
         var pais = $("#PaisIDUser").val() || 0;
-        combo = combo || "";
-        var listaCombo = combo.split(',');
-        if (listaCombo.length == 0) {
-            return false;
-        }
+        combo = combo || ".ddlRegion";
+        var ddl = $(combo);
+        ddl.empty();
+        ddl.append($('<option/>', { value: "0", text: "-- Todas --" }));
+
+        CargarZonabyRegion("0", combo.replace("Region", "Zona"));
 
         waitingDialog({});
-        $.getJSON(baseUrl + 'BaseAdm/ObtenerRegionPorPais', { PaisID: pais }, function (data) {
+        $.getJSON(baseUrl + 'BaseAdm/ObtenerRegionZonaPorPais', { PaisID: pais }, function (data) {
             if (!checkTimeout(data)) {
                 closeWaitingDialog();
                 return false;
             }
+           
             data = data || new Object();
-            data.lista = data.lista || new Array();
+            data.lstRegion = data.lstRegion || new Array();
+            productoSugeridoObj.listaZonas = data.lstZona || new Array();
+            
 
-            $.each(listaCombo, function (index, combo) {
-                var ddl = $('#' + $.trim(combo));
-                ddl.empty();
-                ddl.append($('<option/>', { value: "", text: "-- Seleccionar --" }));
+            data.lstRegion.forEach(function (item) {
+                ddl.append($('<option/>', { value: item.RegionID, text: item.Codigo }));
+            });
 
-                data.lista.forEach(function (item) {
-                    ddl.append($('<option/>', { value: item.RegionId, text: item.Nombre }));
-                });
-            }); 
+            
         });
         closeWaitingDialog();
     }
 
- 
+    function CargarZonabyRegion(IdRegion,combo) {
+
+        combo = combo || ".ddlZona";
+        var ddl = $(combo);
+        ddl.empty();
+        ddl.append($('<option/>', { value: "0", text: "-- Todas --" }));
+
+        if (IdRegion == "") return false;
+        waitingDialog({});
+
+        lstZona = productoSugeridoObj.listaZonas || new Array();
+        if (lstZona.length > 0) lstZona =lstZona.filter(x => x.RegionID == IdRegion);
+        
+        lstZona.forEach(function (item) {
+            ddl.append($('<option/>', { value: item.ZonaID, text: item.Codigo }));
+        });
+        closeWaitingDialog();
+    }
     //FIN HD-4289
     function CargarImagenSugerido() {
         LimpiarDatosMatrizComercial();
@@ -651,7 +710,11 @@
             DescripcionComercial: $('#txtDescripcionProductoComercial').val(),
             ImagenProducto: imagen,
             PaisID: paisID,
-            MostrarAgotado: $('#chkMostrarAgotado').length ? $('#chkMostrarAgotado').attr('checked') ? 1 : 0 : 0
+            MostrarAgotado: $('#chkMostrarAgotado').length ? $('#chkMostrarAgotado').attr('checked') ? 1 : 0 : 0,
+            //INI HD-4289
+            RegionID: jQuery('#ddlRegionModal').val(),
+            ZonaID: jQuery('#ddlZonaModal').val()
+            //FIN HD-4289
         };
         jQuery.ajax({
             type: 'POST',
@@ -732,6 +795,11 @@
                 if (data) {
                     $('#hdIdSugerido').val(jQuery("#list").jqGrid('getCell', rowPk, 'ProductoSugeridoID'));
                     $('#ddlCampaniaModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CampaniaID'));
+                    //INI HD-4289
+                    $('#ddlRegionModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'RegionID'));
+                    $('#ddlRegionModal').change();
+                    $('#ddlZonaModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'ZonaID'));
+                    //FIN HD-4289
                     $('#txtCUVModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CUV'));
                     $('#txtCUVSugeridoModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'CUVSugerido'));
                     $('#txtOrdenModal').val(jQuery("#list").jqGrid('getCell', rowPk, 'Orden'));

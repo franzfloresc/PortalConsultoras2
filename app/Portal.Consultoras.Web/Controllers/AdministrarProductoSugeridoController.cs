@@ -63,17 +63,18 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        public ActionResult Consultar(string sidx, string sord, int page, int rows, int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido)
+        public ActionResult Consultar(string sidx, string sord, int page, int rows, int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido, int RegionID,int ZonaID )
         {
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Index", "Bienvenida");
             }
-
+            
             List<BEProductoSugerido> lst;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lst = sv.GetPaginateProductoSugerido(PaisID, CampaniaID, CUVAgotado, CUVSugerido).ToList();
+                lst = sv.GetPaginateProductoSugerido(PaisID, new BEProductoSugerido { CampaniaID= CampaniaID, CUV = CUVAgotado , CUVSugerido = CUVSugerido,RegionID=RegionID,ZonaID=ZonaID } ).ToList();
+                //lst = sv.GetPaginateProductoSugerido(obj.PaisID, entidad).ToList();
             }
 
             BEGrid grid = new BEGrid
@@ -104,6 +105,12 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 a.ProductoSugeridoID.ToString(),
                                 a.CampaniaID.ToString(),
+                                //INI HD-4289
+                                a.RegionID.ToString(),
+                                a.Region,
+                                a.ZonaID.ToString(),
+                                a.Zona,
+                                //FIN HD-4289
                                 a.CUV,
                                 a.CUVSugerido,
                                 a.Orden.ToString(),

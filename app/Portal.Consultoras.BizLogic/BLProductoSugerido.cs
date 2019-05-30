@@ -7,12 +7,12 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLProductoSugerido
     {
-        public IList<BEProductoSugerido> GetPaginateProductoSugerido(int paisID, int campaniaID, string cuvAgotado, string cuvSugerido)
+        public IList<BEProductoSugerido> GetPaginateProductoSugerido(int paisID, BEProductoSugerido entidad)
         {
             var lst = new List<BEProductoSugerido>();
             var dataAccess = new DAProductoSugerido(paisID);
 
-            using (IDataReader reader = dataAccess.GetPaginateProductoSugerido(campaniaID, cuvAgotado, cuvSugerido))
+            using (IDataReader reader = dataAccess.GetPaginateProductoSugerido(entidad))
                 while (reader.Read())
                 {
                     var entity = new BEProductoSugerido(reader);
