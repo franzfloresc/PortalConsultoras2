@@ -35,7 +35,7 @@ else
             </a>
             <div class="form_actualizar_celular">
                 <!-- INICIO -Cuando el formato del celular sea incorrecto agregar la clase grupo_form_cambio_datos--validacionErronea,
-                     si el formato del correo es correcto remover clase mencionada anteriormente y agregar grupo_form_datos--validacionExitosa -->
+                 si el formato del correo es correcto remover clase mencionada anteriormente y agregar grupo_form_datos--validacionExitosa -->
                 <div class="grupo_form_cambio_datos grupo_form_cambio_datos--vistaActualizacionCelular">
                     <div class="w-100">
                         <input id="NuevoCelular" name="NuevoCelular" class="w-100 eventActPerfil_Auto" type="text" value="" />
@@ -44,7 +44,7 @@ else
                     </div>
                 </div>
                 <!-- FIN -Cuando el formato del celular sea incorrecto agregar la clase grupo_form_cambio_datos--validacionErronea,
-                     si el formato del correo es correcto remover clase mencionada anteriormente y agregar grupo_form_datos--validacionExitosa -->
+                 si el formato del correo es correcto remover clase mencionada anteriormente y agregar grupo_form_datos--validacionExitosa -->
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos terminos_y_condiciones_wrapper pt-31">
                     <div class="checkbox_condiciones_wrapper w-100">
                         <div class="checkbox_condiciones_descripcion">
@@ -123,13 +123,24 @@ else
                 ¡El cambio de<br />número fue exitoso!
             </h6>
             @*<div class="icono_actualizacion_celular_exitoso"></div>
-                <h1 class="titulo_correo_actualizado text-uppercase">
-                    ¡Actualizaste <span class="text-bold">tu celular</span>!
-                </h1>
-                <p class="mensaje_celular_actualizado">
-                    Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.
-                </p>
-                <a href="@Url.Action("Index")" class="btn_acept text-uppercase text-bold default-background-color">Ok</a>*@
+            <h1 class="titulo_correo_actualizado text-uppercase">
+                ¡Actualizaste <span class="text-bold">tu celular</span>!
+            </h1>
+            <p class="mensaje_celular_actualizado">
+                Continúa visitando somosbelcorp.com<br />y descubre todas la ofertas que tenemos para ti.
+            </p>
+            <a href="@Url.Action("Index")" class="btn_acept text-uppercase text-bold default-background-color">Ok</a>*@
+        </div>
+        <div id="celular_no_actualizado" class="celular_actualizado text-center" style="display:none;">
+
+            <div class="center-block icono_success icono_success--miPerfil">
+                <img class="d-block" src="@Url.Content("~/Content/Images/icono_pendiente_confirmacion.svg")" alt="El cambio de correo no se completo" />
+            </div>
+            <h6 id="message" class="center-block text-bold text-center mensaje_success mensaje_success--miPerfil"></h6>
+            <button type="button" class="d-block center-block border-radius-4 text-bold mt-23 btn_primario btn_primario--miPerfil"
+                    onclick="location.href='@Url.Action("Index")'">
+                Ir a ver mis datos
+            </button>
         </div>
     </div>
 </section>
