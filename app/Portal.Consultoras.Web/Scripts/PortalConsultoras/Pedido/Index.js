@@ -267,11 +267,6 @@ $(document).ready(function () {
         }
     });
     $("#btnValidarPROL").on("click", function (e) {
-        //HD-4277 EINCA
-        if (cantPedidosPendientes > 0) {
-            $("#PopupPedidosPendientes").fadeIn(250);
-            return false;
-        }
 
         if (gTipoUsuario == 2) { //Postulante
             var mesg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
@@ -1928,6 +1923,12 @@ function EjecutarServicioPROL() {
             CerrarSplash();
             if (!checkTimeout(response)) return;
             if (!response.success) {
+                if (response.hasOwnProperty("PedidoPendiente")) {
+                    if (response.PedidoPendiente) {
+                        $("#PopupPedidosPendientes").fadeIn(250);
+                        return false;
+                    }
+                }
                 MostrarPopupErrorReserva(mensajeErrorReserva, false);
                 return;
             }
