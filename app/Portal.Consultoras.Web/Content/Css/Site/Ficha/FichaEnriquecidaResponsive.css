@@ -196,6 +196,11 @@
     background: none;
 }
 
+.popup_tabs_ficha {
+    margin-top: 50px;
+    padding: 0px 15px;
+}
+
 @media (min-width: 960px) {
     /*.tabs_ficha li > div {
         display: none !important
@@ -246,6 +251,16 @@
         border: none;
     }*/
 
+    .popup_tabs_ficha {
+        margin-top: 30px;
+    }
+
+    .item_pum {
+        font-size: 12px;
+        font-weight: normal;
+        color: #909094;
+    }
+
     .tabs input[type="radio"]:checked + label {
         border-bottom: 2px solid #b9007e;
         border: none !important;
@@ -259,7 +274,7 @@
     .tabs .tab,
     .tabs label {
         order: initial;
-        padding: 15px 0;
+        padding: 0px 0;
     }
 
     .tabs label {
