@@ -135,8 +135,11 @@
 
         if (componente.cantidadSeleccionados < componente.FactorCuadre) {
             result = result && _config.componentesView.unblockTypesOrTones();
+            result = result && _config.componentesView.blockApplySelection();
         } else {
             result = result && _config.componentesView.blockTypesOrTones();
+            result = result && _config.componentesView.unblockApplySelection();
+
         }
 
         result = result && _config.componentesView.setTitle(componente.selectComponentTitle) &&
