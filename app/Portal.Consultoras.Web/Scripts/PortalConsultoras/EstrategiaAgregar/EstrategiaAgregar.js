@@ -373,8 +373,8 @@ var EstrategiaAgregarModule = (function () {
 
         var EsDuoPerfecto = false;
         if (estrategia.CodigoEstrategia === ConstantesModule.TipoEstrategia.PackNuevas) {
-            var EsOfertaIndependiente = estrategia.EsOfertaIndependiente || true;
-            EsDuoPerfecto = (estrategia.EsDuoPerfecto || false) && (!EsOfertaIndependiente);
+            var EsOfertaIndependiente = (typeof estrategia.EsOfertaIndependiente === 'undefined') ? true : estrategia.EsOfertaIndependiente;
+            EsDuoPerfecto = ((typeof estrategia.EsDuoPerfecto === 'undefined') ? false : estrategia.EsDuoPerfecto) && (!EsOfertaIndependiente);
         };
 
         var params = {
