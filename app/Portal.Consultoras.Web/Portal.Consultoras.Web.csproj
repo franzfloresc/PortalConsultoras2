@@ -5863,6 +5863,7 @@
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\modal-tipos-tonos.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\tipos-tonos-componente-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\tipos-tonos-seleccionados-template.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\resumen-componente-template.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
