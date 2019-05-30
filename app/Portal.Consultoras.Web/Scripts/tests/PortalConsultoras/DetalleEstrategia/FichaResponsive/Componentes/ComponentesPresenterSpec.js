@@ -1325,7 +1325,6 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
    });
 
    describe("removeTypeOrTone", function () {
-
       it("throw exception when grupo is undefined", function () {
          // Arrange
          var grupo;
@@ -1336,7 +1335,6 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
          } catch (error) {
             errorMsg = error;
          }
-
          // Assert
          expect(errorMsg).to.have.string("grupo is null or undefined");
       });

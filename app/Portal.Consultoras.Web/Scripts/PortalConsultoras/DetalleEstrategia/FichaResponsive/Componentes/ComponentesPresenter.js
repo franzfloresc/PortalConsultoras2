@@ -141,6 +141,7 @@ var ComponentesPresenter = function (config) {
         } else {
             result = result && _config.componentesView.blockTypesOrTones();
             result = result && _config.componentesView.unblockApplySelection();
+
         }
 
         result = result && _config.componentesView.setTitle(componente.selectComponentTitle) &&
