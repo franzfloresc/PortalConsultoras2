@@ -761,16 +761,14 @@ input[type='checkbox']:checked + span:after {
     background-size: 100%;
     background-position:center;
     background-repeat:no-repeat;
-    background-color:#b9007e;
-    background-blend-mode:screen;
 }
 
 .icono_check_alerta {
-    background-image: url(/Content/Images/Esika/icono_check_esika.png);
+    background-image: url(/Content/Images/Esika/icono_check_esika_multimarca.svg);
 }
 
 .icono_exclamacion_alerta{
-    background-image: url(/Content/Images/Esika/icono_advertencia.png);
+    background-image: url(/Content/Images/icono_advertencia_notificacion_multimarca.svg);
 }
 
 .texto_mensaje_alerta,
