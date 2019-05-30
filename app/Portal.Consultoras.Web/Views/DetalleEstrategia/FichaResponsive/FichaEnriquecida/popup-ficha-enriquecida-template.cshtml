@@ -9,11 +9,26 @@
             <div class="row ficha_producto">
                 <div class="col-12 col-lg-7 descripcion_enriquecida">
                     <div>
+                        {{#IsNullOrEmpty DescripcionMarca '!='}}
                         <div class="nombre_marca">{{DescripcionMarca}}</div>
+                        {{/IsNullOrEmpty}}
+
+                        {{#IsNullOrEmpty NombreComercial '!='}}
                         <div class="descripcion">{{NombreComercial}}</div>
+                        {{/IsNullOrEmpty}}
+
+                        {{#IsNullOrEmpty Cabecera.ContenidoNeto '!='}}
                         <div class="descripcion_item">{{Cabecera.ContenidoNeto}}</div>
+                        {{/IsNullOrEmpty}}
+
+                        {{#IsNullOrEmpty Cabecera.Dimensiones '!='}}
                         <div class="descripcion_item">{{Cabecera.Dimensiones}}</div>
+                        {{/IsNullOrEmpty}}
+
+                        {{#IsNullOrEmpty Cabecera.TallaMedidas '!='}}
                         <div class="descripcion_item">{{Cabecera.TallaMedidas}}</div>
+                        {{/IsNullOrEmpty}}
+
                         <div class="descripcion_item">Aquí va PUM</div>
 
                         {{#iff PrecioCatalogo '>' 0}}
