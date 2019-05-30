@@ -56,7 +56,7 @@ var MiPerfil_ActualizarCorreo = function (_config) {
             return;
         }
         if (document.getElementById('chkAceptoContratoMD').checked == false) {
-            alert('Debe aceptar los términos y condiciones para poder actualizar sus datos');
+            showError('Debe aceptar los términos y condiciones para poder actualizar sus datos');
             return false;
         }
 
@@ -96,6 +96,7 @@ var MiPerfil_ActualizarCorreo = function (_config) {
         Inicializar: function () {
             irVista(config.VistaActual);
             asignarEventos();
-        }
+        },
+        actualizarEnviarCorreo: actualizarEnviarCorreo
     }
 }

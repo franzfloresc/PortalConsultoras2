@@ -1,11 +1,22 @@
 ﻿var TuVozOnlineView = (function () {
+    var me = {};
 
     var _elementos = {
-        campoCorreoElectronico: '#CorreoElectronicoCampo'
+        campoCorreoElectronico: '#NuevoCorreo',
+        campoCorreoActualizado: '#correoActualizado',
+        actualizarMail: '#btnActualizarMail',
+        reenviarCorreo: '#btnReenviarCorreo',
+        cambiarCorreo: '#btnCambiarCorreo',
+        vistaIngresoEmail: '#VistaIngresoCorreo',
+        vistaConfirmacion: '#VistaConfirmacionCorreo'
     };
     var _funciones = {
         InicializarEventos: function() {
             $(document).on("keyup", _elementos.campoCorreoElectronico, _eventos.CampoConDatos);
+            $(document).on("click", _elementos.actualizarMail, _eventos.actualizarEmail);
+            $(document).on("click", _elementos.reenviarCorreo, _eventos.actualizarEmail);
+            $(document).on("click", _elementos.reenviarCorreo, _eventos.actualizarEmail);
+            $(document).on("click", _elementos.cambiarCorreo, _eventos.cambiarCorreo);
         }
     };
     var _eventos = {
@@ -16,12 +27,30 @@
             } else {
                 $(this).removeClass('text__field__sb--withContent');
             }
+        },
+        actualizarEmail: function() {
+            me.actualizarCorreoService.actualizarEnviarCorreo(function () {
+                var email = $(campoCorreoElectronico).html();
+                $(campoCorreoActualizado).html(email);
+                $(_elementos.vistaIngresoEmail).hide();
+                $(_elementos.vistaConfirmacion).show();
+            });
+        },
+        cambiarCorreo: function() {
+            $(_elementos.vistaConfirmacion).hide();
+            $(_elementos.vistaIngresoEmail).show();
+            $(campoCorreoElectronico).focus();
         }
     }
 
     //Public functions
-    function Inicializar() {
+    function Inicializar(mailService) {
+        me.actualizarCorreoService = mailService;
         _funciones.InicializarEventos();
+
+        var inputEmail = document.getElementById('NuevoCorreo');
+        FuncionesGenerales.AvoidingCopyingAndPasting('NuevoCorreo');
+        FuncionesGenerales.AutoCompletarEmailAPartirDeArroba(inputEmail);
     }
 
     return {
@@ -29,7 +58,3 @@
     };
 
 })();
-
-$(document).ready(function () {
-    TuVozOnlineView.Inicializar();
-});

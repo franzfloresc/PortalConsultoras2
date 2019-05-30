@@ -1,6 +1,4 @@
-﻿@using Portal.Consultoras.Web.Models
-
-@{
+﻿@{
     ViewBag.Title = "Tu Voz Online";
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
 }
@@ -9,7 +7,7 @@
 
 <main class="w-100 row flex-row justify-content-center ml-0 mr-0 layout__main__content layout__main__content--tuVozOnline">
     <section class="row flex-row ml-0 mr-0 mx-auto layout__content">
-        <a title="Volver" class="d-block enlace__volver__atras">
+        <a title="Volver" class="d-block enlace__volver__atras" href="@Request.UrlReferrer">
             <span class="d-inline-block enlace__volver__atras__icono">
                 <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Volver" />
             </span>
@@ -22,15 +20,15 @@
                     a usar Tu Voz Online.
                 </h1>
                 <div class="d-block form__group__fields form__group__fields--correoElectronico">
-                    <input class="d-block w-100 text-bold text__field__sb" id="CorreoElectronicoCampo" type="text" value="" />
-                    <label class="d-block w-100 label__field__sb" for="CorreoElectronicoCampo">Correo Electrónico</label>
+                    <input class="d-block w-100 text-bold text__field__sb" id="NuevoCorreo" type="email" value="" />
+                    <label class="d-block w-100 label__field__sb" for="NuevoCorreo">Correo Electrónico</label>
                 </div>
                 <div class="d-flex flex-row ml-0 mr-0 form_group_fields form_group_fields--terminosYCondiciones">
-                    <input id="TerminosYCondiciones" type="checkbox" value="" class="d-none field__checkbox__sb" onkeyup="this.setAttribute('value', this.value);" />
-                    <label class="d-inline-block border-radius-4 label__checkbox__sb label__checkbox__sb--multimarca" for="TerminosYCondiciones"></label>
-                    <span class="d-inline-block">Estoy de acuerdo con los <a href="#" title="" class="d-inline-block text-underline enlace__terminos__y__condiciones">términos y condiciones</a> sobre protección de datos personales.</span>
+                    <input id="chkAceptoContratoMD" type="checkbox" value="" class="d-none field__checkbox__sb" onkeyup="this.setAttribute('value', this.value);" />
+                    <label class="d-inline-block border-radius-4 label__checkbox__sb label__checkbox__sb--multimarca" for="chkAceptoContratoMD"></label>
+                    <span class="d-inline-block">Estoy de acuerdo con los <a href="@ViewBag.UrlPdfTerminosyCondiciones" title="" class="d-inline-block text-underline enlace__terminos__y__condiciones">términos y condiciones</a> sobre protección de datos personales.</span>
                 </div>
-                <button type="button" class="d-block mx-auto text-bold text-center border-radius-4 btn__sb btn__sb--disabled btn__sb__primary--multimarca btn__sb--actualizar">Actualizar</button>
+                <button type="button" id="btnActualizarMail" class="d-block mx-auto text-bold text-center border-radius-4 btn__sb btn__sb__primary--multimarca btn__sb--actualizar">Actualizar</button>
             </section>
             <section id="VistaConfirmacionCorreo" class="row flex-row justify-content-start align-content-start ml-0 mr-0" style="display:none;">
                 <div class="d-block mx-auto icono__confirmacion__correo__wrapper">
@@ -40,10 +38,10 @@
                     Confirma tu correo
                 </h2>
                 <p class="d-block w-100 text-center">Te hemos enviado un correo de confirmación a:</p>
-                <p class="d-block w-100 text-bold text-center correo__registrado__actual">cambiodecorreo@example.com</p>
-                <a href="" title="Cambia de correo" class="d-block text-underline text-center mx-auto enlace__actualizar__correo">Cambia de correo</a>
+                <p class="d-block w-100 text-bold text-center correo__registrado__actual" id="correoActualizado"></p>
+                <a href="" title="Cambia de correo" class="d-block text-underline text-center mx-auto enlace__actualizar__correo" id="btnCambiarCorreo">Cambia de correo</a>
                 <p class="d-block w-100 text-center">¿Aún no recibes nuestro correo?</p>
-                <a href="" title="Reenviar el correo" class="d-block text-underline text-center mx-auto enlace__reenviar__correo">Reenviar el correo</a>
+                <a href="" title="Reenviar el correo" class="d-block text-underline text-center mx-auto enlace__reenviar__correo" id="btnReenviarCorreo">Reenviar el correo</a>
                 <!-- Esta notificación se muestra cuando se da click a la opción de reenvío de correo una vez que se realizó la acción mencionada -->
                 <div class="w-100 notificacion__estado notificacion__estado--exito notificacion__estado--exito--reenvioCorreo" style="display:none;">
                     <span class="notificacion__estado__img">
@@ -58,5 +56,14 @@
 </main>
 
 @section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/ActualizarCorreo.js?v=3")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TuVozOnline/Index.js")"></script>
+    <script>
+        $(document).ready(function () {
+            var service = new MiPerfil_ActualizarCorreo({
+                UrlActualizarEnviarCorreo: '@Url.Action("ActualizarEnviarCorreo", "MiPerfil")',
+            });
+            TuVozOnlineView.Inicializar(service);
+        });
+    </script>
 }
