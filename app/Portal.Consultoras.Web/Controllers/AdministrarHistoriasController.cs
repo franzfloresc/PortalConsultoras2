@@ -155,11 +155,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult ComponenteListar(string sidx, string sord, int page, int rows, int IdContenido, string Campania)
+        public JsonResult ComponenteListar(string sidx, string sord, int page, int rows, int IdContenido, string Campania, string Codigo)
         {
             try
             {
-                var list = ComponenteListarDetService(IdContenido, Campania);
+                var list = ComponenteListarDetService(IdContenido, Campania, Codigo);
                 var grid = new BEGrid
                 {
                     PageSize = rows,
@@ -205,7 +205,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private IEnumerable<BEContenidoAppList> ComponenteListarDetService(int IdContenido, string Campania)
+        private IEnumerable<BEContenidoAppList> ComponenteListarDetService(int IdContenido, string Campania, string Codigo)
         {
             List<BEContenidoAppList> listaEntidad = new List<BEContenidoAppList>();
 
@@ -213,7 +213,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var entidad = new BEContenidoAppList
                 {
-                    IdContenido = IdContenido
+                    IdContenido = IdContenido,
+                    Codigo = Codigo
+
                 };
 
                 using (var sv = new ContenidoServiceClient())
@@ -565,5 +567,49 @@ namespace Portal.Consultoras.Web.Controllers
                                     }).ToArray();
             return Json(tree, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult ComponenteVideoListar(string sidx, string sord, int page, int rows, int IdContenido, string Campania, string Codigo)
+        {
+            try
+            {
+                var list = ComponenteListarDetService(IdContenido, Campania, Codigo);
+                var grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+                var items = list.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                var pag = Util.PaginadorGenerico(grid, list.ToList());
+                var data = new
+                {
+                    total = pag.PageCount,
+                    page = pag.CurrentPage,
+                    records = pag.RecordCount,
+                    rows = from a in items
+                           select new
+                           {
+                               cell = new string[]
+                                {
+                                    a.IdContenidoDeta.ToString(),
+                                    a.Tipo,
+                                    a.Orden.ToString(),
+                                    a.IdContenido.ToString(),
+                                    a.Campania.ToString(),
+                                    a.RutaContenido,
+                                }
+                           }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new { success = false });
+            }
+        }
+
     }
 }

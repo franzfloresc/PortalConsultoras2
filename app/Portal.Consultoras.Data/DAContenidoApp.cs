@@ -46,6 +46,7 @@ namespace Portal.Consultoras.Data
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ContenidoAppDetaList");
             Context.Database.AddInParameter(command, "@IdContenido", DbType.Int32, p.IdContenido);
+            Context.Database.AddInParameter(command, "@Codigo", DbType.AnsiString, p.Codigo);
             return Context.ExecuteReader(command);
         }
 

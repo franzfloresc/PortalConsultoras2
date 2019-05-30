@@ -12,6 +12,8 @@
         ChbxEstado: '#Estado',
         PopupTitulo: '#divPalancaDatos_Titulo',
         DialogImagen: 'DialogImagen',
+        TablaVideoId: '#tblVideoDet',
+        TablaVideoPagina: '#pagerVideoDet',
     }
 
     var _texto = {
@@ -31,6 +33,7 @@
         UrlGrillaVerImagen: baseUrl + 'AdministrarHistorias/ComponenteObtenerVerImagen',
         UrlComponenteDatosGuardar: baseUrl + 'AdministrarHistorias/ComponenteDatosGuardar',
         UrlGrillaEditarContenedor: baseUrl + 'AdministrarHistorias/ComponenteDetalleEditarViewDatos',
+        UrlVideoGrilla: baseUrl + 'AdministrarHistorias/ComponenteVideoListar',
     };
 
     var _accion = {
@@ -46,6 +49,7 @@
 
     var _evento = function () {
         CargarGrilla();
+        CargarGrillaVideo();
     };
 
     var _GrillaAcciones = function (cellvalue, options, rowObject) {
@@ -100,7 +104,8 @@
             datatype: 'json',
             postData: ({
                 IdContenido: function () { return jQuery.trim($("#IdContenido").val()); },
-                Campania: function () { return jQuery.trim($("#ddlCampania").val()); }
+                Campania: function () { return jQuery.trim($("#ddlCampania").val()); },
+                Codigo: function () { return jQuery.trim($("#Codigo").val()); }
             }),           
             mtype: 'GET',
             contentType: 'application/json; charset=utf-8',
@@ -377,7 +382,90 @@
             error: function (request, status, error) { closeWaitingDialog(); _toastHelper.error("Error al cargar la ventana."); }
         });
     };
- 
+
+    var CargarGrillaVideo = function () {
+        $(_elemento.TablaVideoId).jqGrid('GridUnload');
+
+        jQuery(_elemento.TablaVideoId).jqGrid({
+            //autowidth: true,
+            url: _url.UrlVideoGrilla,
+            hidegrid: false,
+            datatype: 'json',
+            postData: ({
+                IdContenido: function () { return jQuery.trim(4); },
+                Campania: function () { return jQuery.trim($("#ddlCampania").val()); },
+                Codigo: function () { return jQuery.trim('GANA_EN_UN_CLICK'); }
+
+            }),
+            mtype: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            multiselect: false,
+            colNames: ['ID', 'Tipo', 'Orden', 'IdContenido', 'Campaña', 'Contenido', 'Opciones'],
+            colModel: [
+                {
+                    name: 'IdContenidoDeta',
+                    index: 'IdContenidoDeta',
+                    width: 20,
+                    align: 'center',
+                    resizable: false,
+                    sortable: false
+                },
+                {
+                    name: 'Tipo',
+                    index: 'Tipo',
+                    width: 20,
+                    align: 'center',
+                    resizable: false,
+                    sortable: false
+                },
+                {
+                    name: 'Orden',
+                    index: 'Orden',
+                    width: 40,
+                    align: 'center',
+                    resizable: false,
+                    sortable: false
+                },
+                { name: 'IdContenido', index: 'IdContenido', hidden: true },
+                { name: 'Campania', index: 'Campania', width: 40, align: 'center', resizable: false, sortable: false },
+                {
+                    name: 'RutaContenido',
+                    index: 'RutaContenido',
+                    width: 100,
+                    resizable: false,
+                    sortable: false,
+                    align: 'center',
+                   // formatter: _GrillaImagen
+                },
+                {
+                    name: 'Opciones',
+                    index: 'Opciones',
+                    width: 30,
+                    align: 'center',
+                    resizable: false,
+                    sortable: false,
+                    formatter: _GrillaAcciones
+                },
+            ],
+            pager: jQuery(_elemento.TablaPagina),
+            loadtext: _texto.Cargando,
+            recordtext: _texto.RegistroPaginar,
+            emptyrecords: _texto.SinResultados,
+            rowNum: 15,
+            scrollOffset: 0,
+            rowList: [15, 20, 30, 40, 50],
+            viewrecords: true,
+            pgtext: 'Pág: {0} de {1}',
+            sortname: 'Orden',
+            sortorder: 'asc',
+            height: 'auto',
+            width: 930,
+            altRows: true,
+            altclass: 'jQGridAltRowClass'
+        });
+        jQuery(_elemento.TablaVideoId).jqGrid('navGrid', _elemento.TablaVideoPagina, { edit: false, add: false, refresh: false, del: false, search: false });
+    };
+
     var _initializar = function (param) {
         _evento();
         _DialogCrear();
