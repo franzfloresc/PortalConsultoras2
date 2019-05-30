@@ -91,7 +91,7 @@
                 {{#iff ../MostrarFichaEnriquecida '==' true }}
                     {{#iff ../Hermanos.length '>' 1}}
                         {{#iff componente.TieneDetalleSeccion '==' true}}
-                            <a id="btnVerDetalle" class="button_ver_detalle">Ver detalle <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt=""></a>
+                            <a id="btnVerDetalle" class="btn_texto" onclick="javascript:fichaEnriquecidaPresenter.showPopupFichaEnriquecida(event)">Ver detalle <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt=""></a>
                         {{/iff}}
                     {{/iff}}
                 {{/iff}}
