@@ -1,0 +1,41 @@
+﻿<div id="contenedor_popup_ficha_enriquecida"></div>
+
+<script id="popup-ficha-enriquecida-responsive" type="text/x-handlebars-template">
+    <section id="modal_popup_ficha_enriquecida" class="popup_full">
+        <div class="contenedor_detalle">
+            <button class="button_cerrar button_volver" onclick="javascript:fichaEnriquecidaPresenter.hidePopupFichaEnriquecida()">
+                <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt=""> Volver
+            </button>
+            <div class="row ficha_producto">
+                <div class="col-12 col-lg-7 descripcion_enriquecida">
+                    <div>
+                        <div class="nombre_marca">{{DescripcionMarca}}</div>
+                        <div class="descripcion">{{NombreComercial}}</div>
+                        <div class="descripcion_item">{{Cabecera.ContenidoNeto}}</div>
+                        <div class="descripcion_item">{{Cabecera.Dimensiones}}</div>
+                        <div class="descripcion_item">{{Cabecera.TallaMedidas}}</div>
+                        <div class="descripcion_item">Aquí va PUM</div>
+
+                        {{#iff PrecioCatalogo '>' 0}}
+                        <div class="precio_valorizado">
+                            Para tu cliente: <span style="font-weight:bold">{{SimboloMoneda}} {{DecimalToStringFormat PrecioCatalogo}}</span>
+                        </div>
+                        {{/iff}}
+                    </div>
+                </div>
+                <div class="col-12 col-lg-5">
+                    <div class="contenedor_imagen">
+                        <div>
+                            <img src={{ImgUrl ImagenBulk}}>
+                        </div>
+                        <p>* Foto Referencial</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="popup_tabs_ficha_enriquecida_contenedor">
+                
+            </div>
+        </div>
+    </section>
+</script>
