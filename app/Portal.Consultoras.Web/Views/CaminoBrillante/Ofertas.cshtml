@@ -211,12 +211,11 @@
     {{/each}}
 </script>
 
-<script src="~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"></script>
-<script src="~/Scripts/PortalConsultoras/Cliente/Index.js"></script>
-
 @section scripts{
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/ofertas")
     <script type="text/javascript">
-        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
+
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var urlGetKits = '@Url.Action("GetKits", "CaminoBrillante", new { area = "" })';
         var urlGetDemostradores = '@Url.Action("GetDemostradores", "CaminoBrillante", new { area = "" })';

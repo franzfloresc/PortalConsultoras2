@@ -25,9 +25,25 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.CampaniaID != IncentivoCampania) return RedirectToAction("Index", "Bienvenida");
 
                 List<BEProducto> listProducto;
+                ServiceODS.BEProductoBusqueda busqueda = new BEProductoBusqueda
+                {
+                    PaisID = userData.PaisID,
+                    CampaniaID = userData.CampaniaID,
+                    CodigoDescripcion = IncentivoCUV,
+                    RegionID = userData.RegionID,
+                    ZonaID = userData.ZonaID,
+                    CodigoRegion = userData.CodigorRegion,
+                    CodigoZona = userData.CodigoZona,
+                    Criterio = 1,
+                    RowCount = 1,
+                    ValidarOpt = true,
+                    CodigoPrograma = userData.CodigoPrograma,
+                    NumeroPedido = userData.ConsecutivoNueva + 1
+                };
+
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    listProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, IncentivoCUV, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, true).ToList();
+                    listProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(busqueda).ToList();
                 }
                 if (listProducto.Count == 0) return RedirectToAction("Index", "Bienvenida");
 

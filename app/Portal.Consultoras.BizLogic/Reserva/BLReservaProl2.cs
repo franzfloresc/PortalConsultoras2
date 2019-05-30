@@ -61,14 +61,12 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
             if (respuestaProl.ListaMensajeCondicional != null)
             {
-                respuestaProl.ListaMensajeCondicional.ForEach(x =>
-                {
-                    resultado.ListaMensajeCondicional.Add(new BEMensajeProl()
+                resultado.ListaMensajeCondicional.AddRange(respuestaProl.ListaMensajeCondicional.Select(item => 
+                    new BEMensajeProl
                     {
-                        CodigoMensajeRxP = x.CodigoMensaje,
-                        MensajeRxP = x.Mensaje,
-                    });
-                });
+                        CodigoMensajeRxP = item.CodigoMensaje,
+                        MensajeRxP = item.Mensaje,
+                    }));
             }
             
             return resultado;
