@@ -1,4 +1,4 @@
-﻿use BelcorpCostaRica_GANAMAS
+﻿use BelcorpPeru_GANAMAS
 GO
 
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
@@ -294,6 +294,7 @@ BEGIN
 				,0 AS SetID
 				,PWD.ObservacionPROL
 				,PWD.GananciaTotal as Ganancia
+				,PWD.CodigoTipoOferta
 			    ,IIF(ISNULL(SSE.CUV,0)= 0,0,1) EsSuscripcionSE --/* HD-4200 */
 			FROM @PedidoDetalle2 PWD
 			LEFT JOIN @Estrategia2 EST ON EST.CUV2 = PWD.CUV
@@ -357,6 +358,7 @@ BEGIN
 				,PWS.SetID
 				,PWD.ObservacionPROL
 				,PWD.GananciaTotal
+				,PWD.CodigoTipoOferta
 				,0 AS EsSuscripcionSE --/* HD-4200 */
 			FROM PedidoWebSet PWS
 			INNER JOIN PedidoWebSetDetalle PWSD ON PWSD.SetID = PWS.SetID
@@ -412,6 +414,7 @@ BEGIN
 				,TE.NombreComercial
 				,PWD.ObservacionProl
 				,PWD.GananciaTotal
+				,PWD.CodigoTipoOferta
 			) Agrupado
 		ORDER BY Agrupado.OrdenPedidoWD DESC
 			,Agrupado.PedidoDetalleID DESC
