@@ -84,16 +84,18 @@
                                 <div class="left-mod" style="width: 100%; margin-left: 0px; ">
                                     <h2 id="m_titulo" style="color: black; font-size: 20px; font-weight: bold;">@nivel.DescripcionNivel</h2>@ViewBag.Pais
                                     <div class="cont-textLograr">
-                                        <p id="m_montoMinimo"><b>Lo logras con:</b><span style='float: right'>
-                                            @if (nivel.PuntajeAcumulado.HasValue)
-                                            {
-                                                @nivel.Puntaje @Html.Raw(" puntos")
-                                            }
-                                            else
-                                            {
-                                               <em>@ViewBag.SimboloMoneda</em> @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.MontoMinimo), @ViewBag.CodigoISODL)
-                                            }
-                                        </span></p>
+                                        <p id="m_montoMinimo">
+                                            <b>Lo logras con:</b><span style='float: right'>
+                                                @if (nivel.PuntajeAcumulado.HasValue)
+                                                {
+                                                    @nivel.Puntaje @Html.Raw(" puntos")
+                                                }
+                                                else
+                                                {
+                                                    <em>@ViewBag.SimboloMoneda</em> @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.MontoMinimo), @ViewBag.CodigoISODL)
+                                                }
+                                            </span>
+                                        </p>
                                         @if (nivel.MontoFaltante.HasValue)
                                         {
                                             <p id="m_montoFaltante"><b>Te falta:</b><span style='float: right'>@ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.MontoFaltante), @ViewBag.CodigoISODL)</span></p>
@@ -155,7 +157,7 @@
                     @foreach (var indicador in logro.Indicadores)
                     {
                         <div class="item">
-                            <input type="hidden"  value="@indicador.Titulo" />
+                            <input type="hidden" value="@indicador.Titulo" />
                             <div class="shad box-@indicador.Titulo">
                                 <p class="text-bold">@indicador.Titulo</p>
                                 <span class="text-down">@indicador.Descripcion</span>
@@ -189,10 +191,8 @@
         </div>
     }
 </div>
-
+<script src="~/Scripts/Chart.min.js"></script>
 @section scripts{
-
-    @*<script src="~/Scripts/bootstrap.min.js"></script>*@
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
-
 }
