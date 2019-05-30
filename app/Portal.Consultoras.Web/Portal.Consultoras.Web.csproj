@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -4728,6 +4728,7 @@
     <Content Include="Areas\Mobile\Views\Pedido\_PopupEleccionRegalo.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupPremio.cshtml" />
     <Content Include="Areas\Mobile\Views\Pedido\_PopupDescuento.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_fbsdk.cshtml" />
     <Content Include="Views\Shared\VistaParcialResponisve\_MenuContenedorResponsive.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-bannerInteractivo.cshtml" />
     <Content Include="Areas\Mobile\Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
@@ -4739,24 +4740,6 @@
     <Content Include="Areas\Mobile\Views\Incentivos\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\Incentivos\IndexExterno.cshtml" />
     <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService.wsdl" />
-    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService.xsd">
-    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService1.wsdl" />
-    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService5.xsd">
-
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\HojaInscripcionBelcorpPais\BelcorpPaisService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
