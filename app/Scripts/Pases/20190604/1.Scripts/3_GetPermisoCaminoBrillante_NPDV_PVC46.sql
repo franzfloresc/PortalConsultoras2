@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 IF EXISTS (select 1 from SYSOBJECTS where type = 'FN' and id = OBJECT_ID('dbo.GetPermisoCaminoBrillante'))

@@ -1,4 +1,4 @@
-USE BelcorpPeru
+ÔªøUSE BelcorpPeru
 GO
 
 IF EXISTS (select 1 from SYSOBJECTS where type = 'P' and id = OBJECT_ID('dbo.GetCuvsCaminoBrillante'))
@@ -18,7 +18,7 @@ SELECT
 	 , PROD.NumeroPagina - 202 AS Nivel
 	 , (CASE PROD.NumeroPagina 
 			WHEN 204 THEN 'Kit Coral'
-			WHEN 205 THEN 'Kit ¡mbar'
+			WHEN 205 THEN 'Kit √Åmbar'
 			WHEN 206 THEN 'Kit Perla'
 			WHEN 207 THEN 'Kit Topacio'
 		ELSE PROD.Descripcion END) AS Descripcion
@@ -80,7 +80,7 @@ SELECT
 	 , PROD.NumeroPagina - 202 AS Nivel
 	 , (CASE PROD.NumeroPagina 
 			WHEN 204 THEN 'Kit Coral'
-			WHEN 205 THEN 'Kit ¡mbar'
+			WHEN 205 THEN 'Kit √Åmbar'
 			WHEN 206 THEN 'Kit Perla'
 			WHEN 207 THEN 'Kit Topacio'
 		ELSE PROD.Descripcion END) AS Descripcion
@@ -142,7 +142,7 @@ SELECT
 	 , PROD.NumeroPagina - 202 AS Nivel
 	 , (CASE PROD.NumeroPagina 
 			WHEN 204 THEN 'Kit Coral'
-			WHEN 205 THEN 'Kit ¡mbar'
+			WHEN 205 THEN 'Kit √Åmbar'
 			WHEN 206 THEN 'Kit Perla'
 			WHEN 207 THEN 'Kit Topacio'
 		ELSE PROD.Descripcion END) AS Descripcion
@@ -204,7 +204,7 @@ SELECT
 	 , PROD.NumeroPagina - 202 AS Nivel
 	 , (CASE PROD.NumeroPagina 
 			WHEN 204 THEN 'Kit Coral'
-			WHEN 205 THEN 'Kit ¡mbar'
+			WHEN 205 THEN 'Kit √Åmbar'
 			WHEN 206 THEN 'Kit Perla'
 			WHEN 207 THEN 'Kit Topacio'
 		ELSE PROD.Descripcion END) AS Descripcion
@@ -266,7 +266,7 @@ SELECT
 	 , PROD.NumeroPagina - 202 AS Nivel
 	 , (CASE PROD.NumeroPagina 
 			WHEN 204 THEN 'Kit Coral'
-			WHEN 205 THEN 'Kit ¡mbar'
+			WHEN 205 THEN 'Kit √Åmbar'
 			WHEN 206 THEN 'Kit Perla'
 			WHEN 207 THEN 'Kit Topacio'
 		ELSE PROD.Descripcion END) AS Descripcion
@@ -328,7 +328,7 @@ SELECT
 	 , PROD.NumeroPagina - 202 AS Nivel
 	 , (CASE PROD.NumeroPagina 
 			WHEN 204 THEN 'Kit Coral'
-			WHEN 205 THEN 'Kit ¡mbar'
+			WHEN 205 THEN 'Kit √Åmbar'
 			WHEN 206 THEN 'Kit Perla'
 			WHEN 207 THEN 'Kit Topacio'
 		ELSE PROD.Descripcion END) AS Descripcion
@@ -390,7 +390,7 @@ SELECT
 	 , PROD.NumeroPagina - 202 AS Nivel
 	 , (CASE PROD.NumeroPagina 
 			WHEN 204 THEN 'Kit Coral'
-			WHEN 205 THEN 'Kit ¡mbar'
+			WHEN 205 THEN 'Kit √Åmbar'
 			WHEN 206 THEN 'Kit Perla'
 			WHEN 207 THEN 'Kit Topacio'
 		ELSE PROD.Descripcion END) AS Descripcion
@@ -452,7 +452,7 @@ SELECT
 	 , PROD.NumeroPagina - 202 AS Nivel
 	 , (CASE PROD.NumeroPagina 
 			WHEN 204 THEN 'Kit Coral'
-			WHEN 205 THEN 'Kit ¡mbar'
+			WHEN 205 THEN 'Kit √Åmbar'
 			WHEN 206 THEN 'Kit Perla'
 			WHEN 207 THEN 'Kit Topacio'
 		ELSE PROD.Descripcion END) AS Descripcion
@@ -514,7 +514,7 @@ SELECT
 	 , PROD.NumeroPagina - 202 AS Nivel
 	 , (CASE PROD.NumeroPagina 
 			WHEN 204 THEN 'Kit Coral'
-			WHEN 205 THEN 'Kit ¡mbar'
+			WHEN 205 THEN 'Kit √Åmbar'
 			WHEN 206 THEN 'Kit Perla'
 			WHEN 207 THEN 'Kit Topacio'
 		ELSE PROD.Descripcion END) AS Descripcion
@@ -576,7 +576,7 @@ SELECT
 	 , PROD.NumeroPagina - 202 AS Nivel
 	 , (CASE PROD.NumeroPagina 
 			WHEN 204 THEN 'Kit Coral'
-			WHEN 205 THEN 'Kit ¡mbar'
+			WHEN 205 THEN 'Kit √Åmbar'
 			WHEN 206 THEN 'Kit Perla'
 			WHEN 207 THEN 'Kit Topacio'
 		ELSE PROD.Descripcion END) AS Descripcion
@@ -638,7 +638,7 @@ SELECT
 	 , PROD.NumeroPagina - 202 AS Nivel
 	 , (CASE PROD.NumeroPagina 
 			WHEN 204 THEN 'Kit Coral'
-			WHEN 205 THEN 'Kit ¡mbar'
+			WHEN 205 THEN 'Kit √Åmbar'
 			WHEN 206 THEN 'Kit Perla'
 			WHEN 207 THEN 'Kit Topacio'
 		ELSE PROD.Descripcion END) AS Descripcion
@@ -700,7 +700,7 @@ SELECT
 	 , PROD.NumeroPagina - 202 AS Nivel
 	 , (CASE PROD.NumeroPagina 
 			WHEN 204 THEN 'Kit Coral'
-			WHEN 205 THEN 'Kit ¡mbar'
+			WHEN 205 THEN 'Kit √Åmbar'
 			WHEN 206 THEN 'Kit Perla'
 			WHEN 207 THEN 'Kit Topacio'
 		ELSE PROD.Descripcion END) AS Descripcion

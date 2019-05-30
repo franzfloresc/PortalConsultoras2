@@ -1,9 +1,9 @@
-/* REGISTRO PARA PERU */
+ï»¿/* REGISTRO PARA PERU */
 
 USE BelcorpPeru
 GO
 
-/* Enterate Más */
+/* Enterate MÃ¡s */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
@@ -19,7 +19,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
-			(17401, 174, '02', 'Ésika', ''),
+			(17401, 174, '02', 'Ã‰sika', ''),
 			(17402, 174, '01', 'L''bel', ''),
 			(17403, 174, '03', 'Cyzone', '')
 GO
@@ -43,7 +43,7 @@ GO
 USE BelcorpMexico
 GO
 
-/* Enterate Más */
+/* Enterate MÃ¡s */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
@@ -59,7 +59,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
-			(17401, 174, '02', 'Ésika', ''),
+			(17401, 174, '02', 'Ã‰sika', ''),
 			(17402, 174, '01', 'L''bel', ''),
 			(17403, 174, '03', 'Cyzone', '')
 GO
@@ -81,7 +81,7 @@ GO
 USE BelcorpColombia
 GO
 
-/* Enterate Más */
+/* Enterate MÃ¡s */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
@@ -97,7 +97,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
-			(17401, 174, '02', 'Ésika', ''),
+			(17401, 174, '02', 'Ã‰sika', ''),
 			(17402, 174, '01', 'L''bel', ''),
 			(17403, 174, '03', 'Cyzone', '')
 GO
@@ -119,7 +119,7 @@ GO
 USE BelcorpSalvador
 GO
 
-/* Enterate Más */
+/* Enterate MÃ¡s */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
@@ -135,7 +135,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
-			(17401, 174, '02', 'Ésika', ''),
+			(17401, 174, '02', 'Ã‰sika', ''),
 			(17402, 174, '01', 'L''bel', ''),
 			(17403, 174, '03', 'Cyzone', '')
 GO
@@ -155,7 +155,7 @@ GO
 USE BelcorpPuertoRico
 GO
 
-/* Enterate Más */
+/* Enterate MÃ¡s */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
@@ -171,7 +171,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
-			(17401, 174, '02', 'Ésika', ''),
+			(17401, 174, '02', 'Ã‰sika', ''),
 			(17402, 174, '01', 'L''bel', ''),
 			(17403, 174, '03', 'Cyzone', '')
 GO
@@ -191,7 +191,7 @@ GO
 USE BelcorpPanama
 GO
 
-/* Enterate Más */
+/* Enterate MÃ¡s */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
@@ -207,7 +207,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
-			(17401, 174, '02', 'Ésika', ''),
+			(17401, 174, '02', 'Ã‰sika', ''),
 			(17402, 174, '01', 'L''bel', ''),
 			(17403, 174, '03', 'Cyzone', '')
 GO
@@ -227,7 +227,7 @@ GO
 USE BelcorpGuatemala
 GO
 
-/* Enterate Más */
+/* Enterate MÃ¡s */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
@@ -243,7 +243,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
-			(17401, 174, '02', 'Ésika', ''),
+			(17401, 174, '02', 'Ã‰sika', ''),
 			(17402, 174, '01', 'L''bel', ''),
 			(17403, 174, '03', 'Cyzone', '')
 GO
@@ -263,7 +263,7 @@ GO
 USE BelcorpEcuador
 GO
 
-/* Enterate Más */
+/* Enterate MÃ¡s */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
@@ -279,7 +279,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
-			(17401, 174, '02', 'Ésika', ''),
+			(17401, 174, '02', 'Ã‰sika', ''),
 			(17402, 174, '01', 'L''bel', ''),
 			(17403, 174, '03', 'Cyzone', '')
 GO
@@ -299,7 +299,7 @@ GO
 USE BelcorpDominicana
 GO
 
-/* Enterate Más */
+/* Enterate MÃ¡s */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
@@ -315,7 +315,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
-			(17401, 174, '02', 'Ésika', ''),
+			(17401, 174, '02', 'Ã‰sika', ''),
 			(17402, 174, '01', 'L''bel', ''),
 			(17403, 174, '03', 'Cyzone', '')
 GO
@@ -335,19 +335,19 @@ GO
 USE BelcorpCostaRica
 GO
 
-/* Enterate Más */
+/* Enterate MÃ¡s */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (173, 'Camino Brillante - Enterate +');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES (17301, 173, '1', 'Enterate Más Nivel 1 (1: MiAcademia, 2: Issue)', '1|676'),
-		   (17302, 173, '2', 'Enterate Más Nivel 2 (1: MiAcademia, 2: Issue)', '1|676'),
-		   (17303, 173, '3', 'Enterate Más Nivel 3 (1: MiAcademia, 2: Issue)', '1|676'),
-		   (17304, 173, '4', 'Enterate Más Nivel 4 (1: MiAcademia, 2: Issue)', '1|676'),
-		   (17305, 173, '5', 'Enterate Más Nivel 5 (1: MiAcademia, 2: Issue)', '1|676'),
-		   (17306, 173, '6', 'Enterate Más Nivel 6 (1: MiAcademia, 2: Issue)', '2|folleto_brillante_2019_cr')
+	VALUES (17301, 173, '1', 'Enterate MÃ¡s Nivel 1 (1: MiAcademia, 2: Issue)', '1|676'),
+		   (17302, 173, '2', 'Enterate MÃ¡s Nivel 2 (1: MiAcademia, 2: Issue)', '1|676'),
+		   (17303, 173, '3', 'Enterate MÃ¡s Nivel 3 (1: MiAcademia, 2: Issue)', '1|676'),
+		   (17304, 173, '4', 'Enterate MÃ¡s Nivel 4 (1: MiAcademia, 2: Issue)', '1|676'),
+		   (17305, 173, '5', 'Enterate MÃ¡s Nivel 5 (1: MiAcademia, 2: Issue)', '1|676'),
+		   (17306, 173, '6', 'Enterate MÃ¡s Nivel 6 (1: MiAcademia, 2: Issue)', '2|folleto_brillante_2019_cr')
 GO
 
 /* Filtro Demostradores */
@@ -358,7 +358,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
-			(17401, 174, '02', 'Ésika', ''),
+			(17401, 174, '02', 'Ã‰sika', ''),
 			(17402, 174, '01', 'L''bel', ''),
 			(17403, 174, '03', 'Cyzone', '')
 GO
@@ -378,19 +378,19 @@ GO
 USE BelcorpChile
 GO
 
-/* Enterate Más */
+/* Enterate MÃ¡s */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (173, 'Camino Brillante - Enterate +');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES (17301, 173, '1', 'Enterate Más Nivel 1 (1: MiAcademia, 2: Issue)', '1|682'),
-		   (17302, 173, '2', 'Enterate Más Nivel 2 (1: MiAcademia, 2: Issue)', '1|682'),
-		   (17303, 173, '3', 'Enterate Más Nivel 3 (1: MiAcademia, 2: Issue)', '1|682'),
-		   (17304, 173, '4', 'Enterate Más Nivel 4 (1: MiAcademia, 2: Issue)', '1|682'),
-		   (17305, 173, '5', 'Enterate Más Nivel 5 (1: MiAcademia, 2: Issue)', '1|682'),
-		   (17306, 173, '6', 'Enterate Más Nivel 6 (1: MiAcademia, 2: Issue)', '2|folleto_brillante_2019_cl')
+	VALUES (17301, 173, '1', 'Enterate MÃ¡s Nivel 1 (1: MiAcademia, 2: Issue)', '1|682'),
+		   (17302, 173, '2', 'Enterate MÃ¡s Nivel 2 (1: MiAcademia, 2: Issue)', '1|682'),
+		   (17303, 173, '3', 'Enterate MÃ¡s Nivel 3 (1: MiAcademia, 2: Issue)', '1|682'),
+		   (17304, 173, '4', 'Enterate MÃ¡s Nivel 4 (1: MiAcademia, 2: Issue)', '1|682'),
+		   (17305, 173, '5', 'Enterate MÃ¡s Nivel 5 (1: MiAcademia, 2: Issue)', '1|682'),
+		   (17306, 173, '6', 'Enterate MÃ¡s Nivel 6 (1: MiAcademia, 2: Issue)', '2|folleto_brillante_2019_cl')
 GO
 
 /* Filtro Demostradores */
@@ -401,7 +401,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
-			(17401, 174, '02', 'Ésika', ''),
+			(17401, 174, '02', 'Ã‰sika', ''),
 			(17402, 174, '01', 'L''bel', ''),
 			(17403, 174, '03', 'Cyzone', '')
 GO
@@ -421,19 +421,19 @@ GO
 USE BelcorpBolivia
 GO
 
-/* Enterate Más */
+/* Enterate MÃ¡s */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
 INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (173, 'Camino Brillante - Enterate +');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
-	VALUES (17301, 173, '1', 'Enterate Más Nivel 1 (1: MiAcademia, 2: Issue)', '1|694'),
-		   (17302, 173, '2', 'Enterate Más Nivel 2 (1: MiAcademia, 2: Issue)', '1|694'),
-		   (17303, 173, '3', 'Enterate Más Nivel 3 (1: MiAcademia, 2: Issue)', '1|694'),
-		   (17304, 173, '4', 'Enterate Más Nivel 4 (1: MiAcademia, 2: Issue)', '1|694'),
-		   (17305, 173, '5', 'Enterate Más Nivel 5 (1: MiAcademia, 2: Issue)', '1|694'),
-		   (17306, 173, '6', 'Enterate Más Nivel 6 (1: MiAcademia, 2: Issue)', '2|folleto_brillante_2019_bo')
+	VALUES (17301, 173, '1', 'Enterate MÃ¡s Nivel 1 (1: MiAcademia, 2: Issue)', '1|694'),
+		   (17302, 173, '2', 'Enterate MÃ¡s Nivel 2 (1: MiAcademia, 2: Issue)', '1|694'),
+		   (17303, 173, '3', 'Enterate MÃ¡s Nivel 3 (1: MiAcademia, 2: Issue)', '1|694'),
+		   (17304, 173, '4', 'Enterate MÃ¡s Nivel 4 (1: MiAcademia, 2: Issue)', '1|694'),
+		   (17305, 173, '5', 'Enterate MÃ¡s Nivel 5 (1: MiAcademia, 2: Issue)', '1|694'),
+		   (17306, 173, '6', 'Enterate MÃ¡s Nivel 6 (1: MiAcademia, 2: Issue)', '2|folleto_brillante_2019_bo')
 GO
 
 /* Filtro Demostradores */
@@ -444,7 +444,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (174, 'Camino Brillante - Filtros')
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17400, 174, '00', 'Filtrar por', 'Marca'),
-			(17401, 174, '02', 'Ésika', ''),
+			(17401, 174, '02', 'Ã‰sika', ''),
 			(17402, 174, '01', 'L''bel', ''),
 			(17403, 174, '03', 'Cyzone', '')
 GO

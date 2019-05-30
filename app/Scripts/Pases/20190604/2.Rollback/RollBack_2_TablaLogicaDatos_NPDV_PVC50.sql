@@ -1,7 +1,7 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
-/* Enterate M�s */
+/* Enterate Más */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
@@ -17,7 +17,7 @@ GO
 USE BelcorpMexico
 GO
 
-/* Enterate M�s */
+/* Enterate Más */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
@@ -33,7 +33,7 @@ GO
 USE BelcorpColombia
 GO
 
-/* Enterate M�s */
+/* Enterate Más */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
@@ -49,7 +49,7 @@ GO
 USE BelcorpSalvador
 GO
 
-/* Enterate M�s */
+/* Enterate Más */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
@@ -65,7 +65,7 @@ GO
 USE BelcorpPuertoRico
 GO
 
-/* Enterate M�s */
+/* Enterate Más */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
@@ -81,7 +81,7 @@ GO
 USE BelcorpPanama
 GO
 
-/* Enterate M�s */
+/* Enterate Más */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
@@ -97,7 +97,7 @@ GO
 USE BelcorpGuatemala
 GO
 
-/* Enterate M�s */
+/* Enterate Más */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
@@ -113,7 +113,7 @@ GO
 USE BelcorpEcuador
 GO
 
-/* Enterate M�s */
+/* Enterate Más */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
@@ -129,7 +129,7 @@ GO
 USE BelcorpDominicana
 GO
 
-/* Enterate M�s */
+/* Enterate Más */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
@@ -145,7 +145,7 @@ GO
 USE BelcorpCostaRica
 GO
 
-/* Enterate M�s */
+/* Enterate Más */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
@@ -161,7 +161,7 @@ GO
 USE BelcorpChile
 GO
 
-/* Enterate M�s */
+/* Enterate Más */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
@@ -177,7 +177,7 @@ GO
 USE BelcorpBolivia
 GO
 
-/* Enterate M�s */
+/* Enterate Más */
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 173
 DELETE FROM TablaLogica WHERE TablaLogicaID = 173
 GO
