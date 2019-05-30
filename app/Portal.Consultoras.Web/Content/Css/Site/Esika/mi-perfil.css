@@ -1412,15 +1412,20 @@ input.permiso_cuenta_opcion_checkbox
     z-index: -1;
 }
 
+.icono_error,
 .icono_success {
     margin-bottom: 16px;
 }
 
+    .icono_error img,
     .icono_success img {
         width: 100%;
         height: auto;
-        margin-left:9px;
-        border:0;
+        border: 0;
+    }
+
+    .icono_success img {
+        margin-left: 9px;
     }
 
     .icono_success--miPerfil {
@@ -1429,16 +1434,35 @@ input.permiso_cuenta_opcion_checkbox
         height: 82px;
     }
 
-.mensaje_success {
+    .icono_error--miPerfil{
+        margin-top:24px;
+        width:64px;
+        height:64px;
+    }
+
+.mensaje_success,
+.mensaje_error{
     margin-top: 0;
     margin-bottom: 0;
-    color: #b9007e;
     line-height: 24px;
     letter-spacing: 0.8px;
 }
 
-    .mensaje_success--miPerfil{
-        font-size:20px;
+    .mensaje_success{
+        color: #b9007e;
+    }
+
+    .mensaje_error{
+        color:#000;
+    }
+
+    .mensaje_error--miPerfil{
+        font-size:15px;
+        margin-bottom:64px;
+    }
+
+    .mensaje_success--miPerfil {
+        font-size: 20px;
     }
 
 @media screen and (max-width:991px){
