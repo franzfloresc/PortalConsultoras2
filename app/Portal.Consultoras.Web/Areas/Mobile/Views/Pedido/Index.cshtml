@@ -18,6 +18,7 @@
     @*FIN HD-3908*@
     @Styles.Render("~/Bundle/Css/Mobile/Pedido")
 }
+
 <div class="wrapper_resumen_mobile sin_padding">
     @if (!mobileConfiguracion.EsAppMobile)
     {
@@ -29,7 +30,7 @@
 
     <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
     <input type="hidden" id="hdfTotal" value="@Model.Total" />
-    <div class="banner_ingresoPedido nuevaAlturaBanner" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center center;">
+    <div class="banner_ingresoPedido nuevaAlturaBanner banner_ingresoPedido--nuevoLookAndFeel" style="background-image: url(@ViewBag.UrlFranjaNegra);">
         <div class="content_320 ingresoPedido">
             <form>
                 @Html.Hidden("txtClienteId", Model.ClienteId)
@@ -447,6 +448,7 @@
 @{ Html.RenderPartial("_PopupEleccionRegalo");}
 @{ Html.RenderPartial("_PopupPremio");}
 @{ Html.RenderPartial("_PopupDescuento");}
+@{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupInformacionRegalo.cshtml");}
 
 <div id="DivPopupFichaResumida" class="Modal_Editar_Producto" style="display: none">
     @Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/FichaTemplate.cshtml")
@@ -492,6 +494,9 @@
         var urlCarruselNext = "@Url.Content("~/Content/Images/mobile/Esika/next.png")";
 
         var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "PedidoRegistro", new { area = "" })';
+        //INI HD-4200
+        var urlValidarSuscripcionSE = '@Url.Action("ValidarSuscripcionSE", "PedidoRegistro", new { area = "" })';
+        //FIN HD-4200
         var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new { area = "" })';
         var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new { area = "" })';
         var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new { area = "" })';

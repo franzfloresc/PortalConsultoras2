@@ -121,7 +121,7 @@
         }
     </script>
 
-    <header>
+    <header class="header--nuevoLookAndFeelEsika">
         @if (ViewBag.MostrarBannerPostulante == true)
         {
             @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBloqueMensajesPostulante.cshtml")
@@ -261,9 +261,10 @@
             s.parentNode.insertBefore(trme, s);
         })();
     </script>
-
+    
     @RenderSection("scripts", required: false)
 
+    @{ Html.RenderPartial("VistaParcialMainLayout/_fbsdk");}
     <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")

@@ -1,74 +1,5 @@
 ﻿﻿@using Portal.Consultoras.Common
 
-
-@{
-    <style>
-        .tabs {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-            .tabs label {
-                order: 1;
-                display: block;
-                padding: 1rem 2rem;
-                margin-right: 0.2rem;
-                cursor: pointer;
-                border-bottom: 1px solid #333;
-                transition: background ease 0.2s;
-                font-weight: bold;
-                font-size: 16px
-            }
-
-            .tabs .tab {
-                order: 99;
-                flex-grow: 1;
-                width: 100%;
-                display: none;
-                padding: 1rem;
-                background: #fff;
-            }
-
-            .tabs input[type="radio"] {
-                display: none;
-            }
-
-                .tabs input[type="radio"]:checked + label {
-                    background: #fff;
-                    color: #b9007e;
-                    border-bottom: 2px solid #b9007e;
-                }
-
-                    .tabs input[type="radio"]:checked + label + .tab {
-                        display: block;
-                    }
-
-        .tab h4 {
-            color: #000;
-            font-size: 14px;
-            font-weight: bold !important;
-            margin-bottom: 6px;
-        }
-
-        .tab p {
-            font-size: 13px;
-            margin-bottom: 12px;
-        }
-
-        @@media (max-width: 45em) {
-            .tabs .tab,
-            .tabs label {
-                order: initial;
-            }
-
-            .tabs label {
-                width: 100%;
-                margin-right: 0;
-                margin-top: 0.2rem;
-            }
-        }
-    </style>
-}
 <script id="tabs-ficha-enriquecida-template" type="text/x-handlebars-template">
 
     <div class="tabs">
@@ -78,7 +9,7 @@
         {{#iff seccion.Tipo '==' '@Constantes.TipoSeccion.Texto' }}
         <div class="tab">
             {{#each seccion.Detalles as |detalle|}}
-            <h4>{{detalle.Titulo}}</h4>
+            <h4>{{LowerCase detalle.Titulo}}</h4>
             <p>{{detalle.Descripcion}}</p>
             {{/each}}
         </div>
@@ -86,10 +17,11 @@
         <div class="tab">
             <div id="carrusel-video" class="items_video">
                 {{#each seccion.Detalles as |detalle|}}
-                <div class="video_item">
-                    <div id="ytFichax"
-                         data-youtube-key="{{detalle.Key}}"
-                         data-youtube="{
+                <div>
+                    <div class="video_item">
+                        <div id="ytFichax"
+                             data-youtube-key="{{detalle.Key}}"
+                             data-youtube="{
                           height:'165',
                           width:'300',
                           enablejsapi:1,
@@ -99,9 +31,10 @@
                           loop:1,
                           videoId: '{{detalle.Key}}',
                           playerVars:{autoplay:0,rel:0}}"
-                         data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}">
+                             data-extra="{'descripcionResumen':'{{detalle.Titulo}}'}">
+                        </div>
+                        <h3>{{detalle.Titulo}}</h3>
                     </div>
-                    <h3>{{detalle.Titulo}}</h3>
                 </div>
                 {{/each}}
             </div>

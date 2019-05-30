@@ -24,6 +24,7 @@
                 centerMode: false,
                 variableWidth: true,
                 slidesToShow: 3,
+                slidesToScroll: 1,
                 prevArrow:
                     "<a id=\"opciones-seleccionadas-prev\" class=\"flecha_ofertas-tipo prev\" style=\"left:-5%; text-align:left;display:none;\">" +
                     "<img src=\"" + baseUrl + "Content/Images/Esika/previous_ofertas_home.png\")\" alt=\"\" />" +
@@ -34,11 +35,7 @@
                     "</a>",
                 responsive: [
                     {
-                        breakpoint: 1024,
-                        settings: { slidesToShow: 3, slidesToScroll: 3 }
-                    },
-                    {
-                        breakpoint: 768, settings: { slidesToShow: 1, slidesToScroll: 1 }
+                        breakpoint: 768, settings: { slidesToShow: 1, slidesToScroll: 1, prevArrow: null, nextArrow: null }
                     }
                 ]
             });
@@ -59,7 +56,7 @@
                 console.log('setYoutubeApi => ', e);
             }
         }
-    };
+    }
 
     var _renderFichaEnriquecida = function (componente, popup) {
         var contenedor = popup ? _elements.tabsComponente.contenedorPopup : _elements.tabsComponente.id;
