@@ -25,4 +25,26 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="EvaluacionCrediticiaDatosBE" nillable="true" type="tns:EvaluacionCrediticiaDatosBE" />
+  <xs:complexType name="DatosConsultoraBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodAutorizaPedido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodGenero" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ErrorDatosGenerales" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FecNacimiento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdEstActividad" type="xs:int" />
+      <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PrimerApellido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SegundoApellido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SegundoNombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DatosConsultoraBE" nillable="true" type="tns:DatosConsultoraBE" />
+  <xs:complexType name="ConsultaCrediticiaBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EnumEstadoCrediticio" type="xs:int" />
+      <xs:element minOccurs="0" name="Valid" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ConsultaCrediticiaBE" nillable="true" type="tns:ConsultaCrediticiaBE" />
 </xs:schema>

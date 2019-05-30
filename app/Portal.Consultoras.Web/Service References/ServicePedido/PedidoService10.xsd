@@ -564,6 +564,7 @@
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CUVComplemento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CUVRevista" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="CatalogoDescripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoCatalogo" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
@@ -985,6 +986,7 @@
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CUVNuevo" type="xs:boolean" />
       <xs:element minOccurs="0" name="CUVPadre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUVReemplazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="CantidadAnterior" type="xs:int" />
@@ -1019,6 +1021,7 @@
       <xs:element minOccurs="0" name="EsPremioElectivo" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsRegalo" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsSugerido" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsSuscripcionSE" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstadoItem" type="xs:short" />
       <xs:element minOccurs="0" name="EstrategiaId" type="xs:int" />
       <xs:element minOccurs="0" name="FechaCreacion" type="xs:dateTime" />
@@ -1044,6 +1047,7 @@
       <xs:element minOccurs="0" name="OfertaWeb" type="xs:boolean" />
       <xs:element minOccurs="0" name="OrdenPedidoWD" type="xs:int" />
       <xs:element minOccurs="0" name="OrigenPedidoWeb" type="xs:int" />
+      <xs:element minOccurs="0" name="OrigenSolicitud" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="PedidoDetalleID" type="xs:short" />
       <xs:element minOccurs="0" name="PedidoDetalleIDPadre" type="xs:short" />
@@ -2645,6 +2649,7 @@
       <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
       <xs:element minOccurs="0" name="ImporteTotalConDescuento" type="xs:decimal" />
       <xs:element minOccurs="0" name="ImporteTotalMM" type="xs:decimal" />
+      <xs:element minOccurs="0" name="IndicadorConsultoraDigital" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndicadorEnviado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MontoMinimoPedido" type="xs:decimal" />
       <xs:element minOccurs="0" name="MotivoRechazo" nillable="true" type="xs:string" />

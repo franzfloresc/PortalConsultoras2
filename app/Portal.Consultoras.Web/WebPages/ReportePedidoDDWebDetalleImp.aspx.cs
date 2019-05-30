@@ -29,6 +29,7 @@ namespace Portal.Consultoras.Web.WebPages
             string tipoProceso = lst[18];
             string motivoRechazo = lst[20];
             int paisId = Convert.ToInt32(lst[19]);
+            string IndicadorConsultoraDigital= lst[21];
 
             Usuario.Text = usuario;
             lblCampaniaCod.Text = campaniaCod;
@@ -40,7 +41,7 @@ namespace Portal.Consultoras.Web.WebPages
             lblMotivoRechazo.Text = motivoRechazo;
             lblImporte.Text = importe;
             lblImporteConDescuento.Text = importeConDescuento;
-
+            lblIndicadorConsultoraDigital.Text = IndicadorConsultoraDigital;
             List<BEPedidoDDWebDetalle> lstPedidosDdWebNoFacturados;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {

@@ -456,6 +456,7 @@ namespace Portal.Consultoras.Common
             public const string CDRParametria = "CDRParametria";
             public const string CDRWebDatos = "CDRWebDatos";
             public const string CDRExpressMensajes = "CDRExpressMensajes";
+            public const string CDRFlagIsSetsOrPacks = "CDRSetsYPacks"; //HD-3703 EINCA
 
             // Tabla LOgica
             public const string TablaLogicaDatos = "TablaLogicaDatos";
@@ -675,6 +676,9 @@ namespace Portal.Consultoras.Common
             public const string BonificacionesURL = "BonificacionesURL";
             public const string BonificacionesRegiones = "BonificacionesRegiones";
             public const string JsonWebTokenSecretKey = "JsonWebTokenSecretKey";
+            public const string ChatbotSecret = "ChatbotSecret";
+            public const string ChatBotPageId = "ChatBotPageId";
+            public const string ChatBotUrl = "https://m.me/{0}?ref={1}";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -1812,7 +1816,9 @@ namespace Portal.Consultoras.Common
                 public const string LogoComercialFondoActiva = "LogoComercialFondoActiva";
                 public const string LogoComercialFondoNoActiva = "LogoComercialFondoNoActiva";
                 public const string LogoMenuOfertasActiva = "LogoMenuOfertasActiva";
+                public const string LogoMenuOfertasActivaMobile = "LogoMenuOfertasActivaMobile";
                 public const string LogoMenuOfertasNoActiva = "LogoMenuOfertasNoActiva";
+                public const string LogoMenuOfertasNoActivaMobile = "LogoMenuOfertasNoActivaMobile";
                 public const string BloquearPedidoRevistaImp = "BloquearPedidoRevistaImp";
                 public const string BloquearSugerenciaProducto = "BloquearSugerenciaProducto";
                 public const string SubscripcionAutomaticaAVirtualCoach = "SubscripcionAutomaticaAVirtualCoach";
@@ -4051,15 +4057,30 @@ namespace Portal.Consultoras.Common
             public const string OrigenPedidoWebDesplegableFichaCarrusel = "OrigenPedidoWebDesplegableFichaCarrusel";
         }
 
-
-
         public static class OpcionesIngresoPendientes
         {
             public const string ingrped = "ingrped";
             public const string ingrgana = "ingrgana";
             public const string ingrten = "ingrten";
         }
-
-
+        
+        public static class TipoContenido
+        {
+            public const string Imagen = "IMAGEN";
+            public const string Video = "VIDEO";
+            public const string Url = "URL";
+        }
+        
+        public static class DatosContenedorHistorias
+        {
+            public const short HistoriasLogicaId = 231;
+            public const string MatrizAppConsultora = "MatrizAppConsultora";
+            public const string CodigoHistoriasResumen = "CodigoHistoriasResumen";
+            public const string CodigoHist = "CodigoHist";
+            public const string HistAnchoAlto = "HistAnchoAlto";
+            public const string HistAnchoAltoDetalle = "HistAnchoAltoDetalle";
+            public const string HistUrlMiniatura = "HistUrlMiniatura";
+            public const string HistLimitDetMensaje = "HistLimitDetMensaje";
+        }
     }
 }
