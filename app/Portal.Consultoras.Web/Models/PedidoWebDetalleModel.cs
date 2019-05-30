@@ -164,5 +164,7 @@ namespace Portal.Consultoras.Web.Models
         public bool FlagModificaCantidad { get; set; }
         public bool FlagModificaCliente { get; set; }
         public bool FlagVerCuv { get; set; }
+
+        public bool EsPedidoReservado { get; set; }
     }
 }
