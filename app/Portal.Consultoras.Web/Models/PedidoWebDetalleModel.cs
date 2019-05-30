@@ -165,6 +165,7 @@ namespace Portal.Consultoras.Web.Models
         public bool FlagModificaCliente { get; set; }
         public bool FlagVerCuv { get; set; }
 
+        public bool EsPedidoReservado { get; set; }
         //INI HD-4200
         public bool EsSuscripcionSE { get; set; }
         //FIN HD-4200

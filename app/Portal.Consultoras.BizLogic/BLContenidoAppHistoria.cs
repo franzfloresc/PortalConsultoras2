@@ -17,7 +17,7 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 var da = new DAContenidoApp(paisID);
-                    
+
                 var task1 = Task.Run(() =>
                 {
                     var entidad = new BEContenidoAppHistoria();
@@ -55,7 +55,6 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-
         public List<BEContenidoAppList> GetList(int paisID, BEContenidoAppList entidad)
         {
             List<BEContenidoAppList> lista;
@@ -92,7 +91,7 @@ namespace Portal.Consultoras.BizLogic
 
         public int UpdateContenidoAppDeta(int paisID, BEContenidoAppDeta p)
         {
-           try
+            try
             {
                 var da = new DAContenidoApp(paisID);
                 return da.UpdContenidoAppDeta(p);

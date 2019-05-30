@@ -246,8 +246,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/ProductoListado/CajaProducto.css",
                "~/Content/Css/Site/Pedido/PedidoInfo.css",
                "~/Content/Css/Site/Pedido/EditarProductoFicha.css",
-               "~/Content/Css/Site/Esika/Notificacion.css",
-               "~/Content/Css/Site/Esika/nuevo-look-and-feel.css"
+               "~/Content/Css/Site/Esika/nuevo-look-and-feel.css",
+               "~/Content/Css/Site/Esika/Notificacion.css"
                ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-AsesoraOnline").Include(
@@ -314,8 +314,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css",
                "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css",
-               "~/Content/Css/Mobile/Esika/Notificacion.css",
-               "~/Content/Css/Site/Esika/nuevo-look-and-feel.css"
+               "~/Content/Css/Site/Esika/nuevo-look-and-feel.css",
+               "~/Content/Css/Mobile/Esika/Notificacion.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/lbel-CssSB2Mobile").Include(

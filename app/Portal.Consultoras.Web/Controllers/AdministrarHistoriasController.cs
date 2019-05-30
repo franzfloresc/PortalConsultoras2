@@ -1,9 +1,10 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceContenido;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
@@ -13,31 +14,20 @@ using Portal.Consultoras.Web.ServiceContenido;
 using System.Configuration;
 using System.Net;
 using AutoMapper;
-using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarHistoriasController : BaseAdmController
     {
-        //private static class _accion
-        //{
-        //    public const int Nuevo = 1;
-        //    public const int Editar = 2;
-        //    public const int NuevoDatos = 3;
-        //    public const int Deshabilitar = 4;
-        //}
-
         protected TablaLogicaProvider _tablaLogica;
         public AdministrarHistoriasController()
-        {
+        { 
             _tablaLogica = new TablaLogicaProvider();
-        }
+        }     
 
         public ActionResult Index()
         {
             var model = new AdministrarHistorialModel();
-            string[] arrUrlMiniatura;
-            string[] arrHistAnchoAlto;
 
             try
             {
@@ -48,8 +38,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.UrlDetalleS3 = GetUrlDetalleS3();
                 model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID);
 
-                string HistAnchoAlto = ConfigurationManager.AppSettings["HistAnchoAlto"];
-                arrHistAnchoAlto = HistAnchoAlto.Split(',');
+                string HistAnchoAlto = CodigosTablaLogica(Constantes.DatosContenedorHistorias.HistAnchoAlto);
+                string[] arrHistAnchoAlto = HistAnchoAlto.Split(',');
                 model.Ancho = arrHistAnchoAlto[0];
                 model.Alto = arrHistAnchoAlto[1];
 
@@ -58,7 +48,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     string CodigoHistoriasResumen = CodigosTablaLogica(Constantes.DatosContenedorHistorias.CodigoHistoriasResumen);
                     entidad = sv.GetContenidoAppHistoria(userData.PaisID, CodigoHistoriasResumen);
-
                     model.IdContenido = entidad.IdContenido;
                     model.Codigo = entidad.Codigo;
                     model.Descripcion = entidad.Descripcion;
@@ -69,14 +58,14 @@ namespace Portal.Consultoras.Web.Controllers
                 if (entidad.UrlMiniatura == string.Empty)
                 {
                     model.NombreImagenAnterior = Url.Content("~/Content/Images/") + "Question.png";
-                    model.NombreImagen = "";
                 }
                 else
                 {
-                    arrUrlMiniatura = entidad.UrlMiniatura.Split('/');
+                    var arrUrlMiniatura = entidad.UrlMiniatura.Split('/');
                     model.NombreImagenAnterior = ViewBag.UrlS3 + arrUrlMiniatura[5];
-                    model.NombreImagen = string.Empty;
+
                 }
+                model.NombreImagen = "";
                 return View(model);
             }
             catch (FaultException ex)
@@ -107,23 +96,23 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (form.NombreImagen != null)
                 {
-                BEContenidoAppHistoria beContenidoApp;
-                using (ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
-                {
+                    BEContenidoAppHistoria beContenidoApp;
+                    using (ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
+                    {
                         beContenidoApp = sv.GetContenidoAppHistoria(userData.PaisID, form.Codigo);
-                }
+                    }
 
-                var entidad = new BEContenidoAppHistoria();
-                entidad.UrlMiniatura = beContenidoApp.UrlMiniatura;
-                if (form.NombreImagen != null)
-                {
+                    var entidad = new BEContenidoAppHistoria();
+                    entidad.UrlMiniatura = beContenidoApp.UrlMiniatura;
+                    if (form.NombreImagen != null)
+                    {
                         string histUrlMiniatura = CodigosTablaLogica(Constantes.DatosContenedorHistorias.HistUrlMiniatura);
-                    entidad.UrlMiniatura = SaveFileS3(form.NombreImagen, true);
-                    entidad.UrlMiniatura = histUrlMiniatura + entidad.UrlMiniatura;
-                }
-                entidad.IdContenido = form.IdContenido;
-                using (ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
-                {
+                        entidad.UrlMiniatura = SaveFileS3(form.NombreImagen, true);
+                        entidad.UrlMiniatura = histUrlMiniatura + entidad.UrlMiniatura;
+                    }
+                    entidad.IdContenido = form.IdContenido;
+                    using (ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
+                    {
                         sv.UpdateContenidoApp(userData.PaisID, entidad);
                 }
                 return Json(new
@@ -172,7 +161,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var tempNombreImagen = form.NombreImagen;
                 var entidad = new BEContenidoAppDeta
                 {
                     IdContenido = form.IdContenido,
@@ -196,23 +184,17 @@ namespace Portal.Consultoras.Web.Controllers
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "No se pudo realizar la carga de la Imagen.",
-                    extra = ""
-                });
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-                return Json(new
-                {
-                    success = false,
-                    message = "No se pudo realizar la carga de la Imagen.",
-                    extra = string.Empty
+            return Json(new
+            {
+                success = false,
+                message = "No se pudo realizar la carga de la Imagen.",
+                extra = string.Empty
                 });
             }
 

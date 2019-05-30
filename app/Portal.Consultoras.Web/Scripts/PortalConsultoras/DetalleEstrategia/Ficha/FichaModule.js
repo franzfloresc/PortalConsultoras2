@@ -777,11 +777,11 @@ var FichaModule = (function (config) {
             idTituloCarrusel: "#tituloCarrusel",
             divCarruselProducto: "#divFichaCarruselProducto",
             OrigenPedidoWeb: _config.origen,
+            usaLocalStorage: _config.usaLocalStorage,
             tituloCarrusel: modeloFicha.DescripcionCompleta,
             codigoProducto: modeloFicha.CodigoProducto,
             precioProducto: modeloFicha.Precio2,
-            productosHermanos: modeloFicha.Hermanos,
-            usaLocalStorage: _config.usaLocalStorage
+            productosHermanos: modeloFicha.Hermanos
         });
 
         carruselModule.Inicializar();

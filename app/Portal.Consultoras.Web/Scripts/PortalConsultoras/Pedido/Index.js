@@ -476,6 +476,7 @@ $(document).ready(function () {
 
     CrearDialogs();
     MostrarBarra();
+
     //INI HD-4200
     ValidarSuscripcionSE(function () { CargarDetallePedido();},0);
     //FIN HD-4200

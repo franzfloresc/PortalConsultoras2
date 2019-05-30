@@ -431,11 +431,13 @@
                     </div>
                 </div>
                 {{else iff detalle.LockPremioElectivo}}
+                {{#iff EsPedidoReservado '==' false}}
                 <div class="icono_cambiar_regalo_programaNuevas">
                     <a href="javascript:;" title="Cambiar regalo" onclick="javascript: cargarPopupEleccionRegalo();">
                         <img src="@Url.Content("~/Content/Images/icono_editar.svg")" alt="Cambiar regalo" />
                     </a>
                 </div>
+                {{/iff}}
                 {{/if}}
                 {{/if}}
             </div>
