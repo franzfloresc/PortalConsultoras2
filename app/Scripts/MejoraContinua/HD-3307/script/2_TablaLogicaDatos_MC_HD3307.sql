@@ -8,7 +8,7 @@ INSERT INTO TablaLogica values (@TablaLogicaID, 'Tu Voz Online')
 INSERT INTO TablaLogicaDatos
 values
 (cast(@TablaLogicaID as varchar(3)) + '01', @TablaLogicaID, 'PANEL_ID', 'Panel ID', '36882'),
-(cast(@TablaLogicaID as varchar(3)) + '02', @TablaLogicaID, 'PANEL_KEY', 'Panel Key', '654321ba');
+(cast(@TablaLogicaID as varchar(3)) + '02', @TablaLogicaID, 'PANEL_KEY', 'Panel Key', 'A12bZ091');
 
 GO
 USE [BelcorpChile];
@@ -21,7 +21,7 @@ INSERT INTO TablaLogica values (@TablaLogicaID, 'Tu Voz Online')
 INSERT INTO TablaLogicaDatos
 values
 (cast(@TablaLogicaID as varchar(3)) + '01', @TablaLogicaID, 'PANEL_ID', 'Panel ID', '36882'),
-(cast(@TablaLogicaID as varchar(3)) + '02', @TablaLogicaID, 'PANEL_KEY', 'Panel Key', '654321ba');
+(cast(@TablaLogicaID as varchar(3)) + '02', @TablaLogicaID, 'PANEL_KEY', 'Panel Key', 'A12bZ091');
 
 GO
 USE [BelcorpColombia];
@@ -34,7 +34,7 @@ INSERT INTO TablaLogica values (@TablaLogicaID, 'Tu Voz Online')
 INSERT INTO TablaLogicaDatos
 values
 (cast(@TablaLogicaID as varchar(3)) + '01', @TablaLogicaID, 'PANEL_ID', 'Panel ID', '36882'),
-(cast(@TablaLogicaID as varchar(3)) + '02', @TablaLogicaID, 'PANEL_KEY', 'Panel Key', '654321ba');
+(cast(@TablaLogicaID as varchar(3)) + '02', @TablaLogicaID, 'PANEL_KEY', 'Panel Key', 'A12bZ091');
 
 GO
 USE [BelcorpCostaRica];
@@ -60,7 +60,7 @@ INSERT INTO TablaLogica values (@TablaLogicaID, 'Tu Voz Online')
 INSERT INTO TablaLogicaDatos
 values
 (cast(@TablaLogicaID as varchar(3)) + '01', @TablaLogicaID, 'PANEL_ID', 'Panel ID', '36882'),
-(cast(@TablaLogicaID as varchar(3)) + '02', @TablaLogicaID, 'PANEL_KEY', 'Panel Key', '654321ba');
+(cast(@TablaLogicaID as varchar(3)) + '02', @TablaLogicaID, 'PANEL_KEY', 'Panel Key', 'A12bZ091');
 
 GO
 USE [BelcorpEcuador];
@@ -73,7 +73,7 @@ INSERT INTO TablaLogica values (@TablaLogicaID, 'Tu Voz Online')
 INSERT INTO TablaLogicaDatos
 values
 (cast(@TablaLogicaID as varchar(3)) + '01', @TablaLogicaID, 'PANEL_ID', 'Panel ID', '36882'),
-(cast(@TablaLogicaID as varchar(3)) + '02', @TablaLogicaID, 'PANEL_KEY', 'Panel Key', '654321ba');
+(cast(@TablaLogicaID as varchar(3)) + '02', @TablaLogicaID, 'PANEL_KEY', 'Panel Key', 'A12bZ091');
 
 GO
 USE [BelcorpGuatemala];
@@ -86,7 +86,7 @@ INSERT INTO TablaLogica values (@TablaLogicaID, 'Tu Voz Online')
 INSERT INTO TablaLogicaDatos
 values
 (cast(@TablaLogicaID as varchar(3)) + '01', @TablaLogicaID, 'PANEL_ID', 'Panel ID', '36882'),
-(cast(@TablaLogicaID as varchar(3)) + '02', @TablaLogicaID, 'PANEL_KEY', 'Panel Key', '654321ba');
+(cast(@TablaLogicaID as varchar(3)) + '02', @TablaLogicaID, 'PANEL_KEY', 'Panel Key', 'A12bZ091');
 
 GO
 USE [BelcorpMexico];
@@ -125,7 +125,7 @@ INSERT INTO TablaLogica values (@TablaLogicaID, 'Tu Voz Online')
 INSERT INTO TablaLogicaDatos
 values
 (cast(@TablaLogicaID as varchar(3)) + '01', @TablaLogicaID, 'PANEL_ID', 'Panel ID', '36882'),
-(cast(@TablaLogicaID as varchar(3)) + '02', @TablaLogicaID, 'PANEL_KEY', 'Panel Key', '654321ba');
+(cast(@TablaLogicaID as varchar(3)) + '02', @TablaLogicaID, 'PANEL_KEY', 'Panel Key', 'A12bZ091');
 
 GO
 USE [BelcorpPuertoRico];
@@ -151,6 +151,6 @@ INSERT INTO TablaLogica values (@TablaLogicaID, 'Tu Voz Online')
 INSERT INTO TablaLogicaDatos
 values
 (cast(@TablaLogicaID as varchar(3)) + '01', @TablaLogicaID, 'PANEL_ID', 'Panel ID', '36882'),
-(cast(@TablaLogicaID as varchar(3)) + '02', @TablaLogicaID, 'PANEL_KEY', 'Panel Key', '654321ba');
+(cast(@TablaLogicaID as varchar(3)) + '02', @TablaLogicaID, 'PANEL_KEY', 'Panel Key', 'A12bZ091');
 
 GO
