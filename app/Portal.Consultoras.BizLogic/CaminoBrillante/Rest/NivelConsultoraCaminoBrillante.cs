@@ -32,7 +32,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante.Rest
         public int CambioNivel { get; set; }
         [DataMember(Name = "PORCENTAJEINCREMENTO")]
         public decimal? PorcentajeIncremento { get; set; }
-        //public int PorcentajeIncremento { get { return PorcentajeIncrementoFix.HasValue ? (int)(PorcentajeIncrementoFix.Value) : 0; } }
         [DataMember(Name = "CONSTANCIA1")]
         public int Constancia1 { get; set; }
         [DataMember(Name = "CONSTANCIA2")]

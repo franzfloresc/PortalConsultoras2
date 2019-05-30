@@ -3804,7 +3804,7 @@ namespace Portal.Consultoras.Common
         public static class CaminoBrillante
         {
             public static class Menu {
-                public static string Permiso_CaminoBrillante = "CaminoBrillante";
+                public const string Permiso_CaminoBrillante = "CaminoBrillante";
             }
 
             public static class ServicioComercial
@@ -4017,7 +4017,6 @@ namespace Portal.Consultoras.Common
 
             public static class CodigosOrdenamiento
             {
-                //public const string CodigoOrden = "ORDEN";
                 public const string SinOrden = "00";
                 public const string PorCategoria = "01";
                 public const string PorNombre = "02";
@@ -4025,7 +4024,6 @@ namespace Portal.Consultoras.Common
 
             public static class CodigoFiltros
             {
-                //public const string CodigoFiltro = "FILTRO";
                 public const string SinFiltro = "00";
                 public const string Lbel = "01";
                 public const string Esika = "02";
