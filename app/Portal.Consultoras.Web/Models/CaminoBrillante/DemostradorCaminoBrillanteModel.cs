@@ -5,6 +5,8 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
 {
     public class DemostradorCaminoBrillanteModel
     {
+        public string EstrategiaID { get; set; }
+        public string CodigoEstrategia { get; set; }
         public string PaisISO { private get;  set; }
         public string CUV { get; set; }
         public string DescripcionCUV { get; set; }
@@ -14,6 +16,23 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         public decimal PrecioCatalogo { get; set; }
         public string FotoProductoMedium { get; set; }
         public bool FlagSeleccionado { get; set; }
+
+        public string CampaniaID
+        {
+            get
+            {
+                return "201909";
+            }
+        }
+
+        public string CUV2
+        {
+            get
+            {
+                return CUV.ToString();
+            }
+        }
+
         public string PrecioValorizadoFormat
         {
             get
@@ -23,6 +42,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
                 return PrecioValorizado.ToString();
             }
         }
+
         public string PrecioCatalogoFormat
         {
             get
