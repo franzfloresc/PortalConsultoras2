@@ -571,34 +571,40 @@ namespace Portal.Consultoras.Service
         {
             _BLContenidoAppResumenBusinessLogic.CheckContenidoApp(itmFilter, idContenidoDetalle);
         }
-        public BEContenidoAppHistoria GetContenidoAppHistoria(string Codigo)
+        public BEContenidoAppHistoria GetContenidoAppHistoria(int paisID, string Codigo)
         {
             var bl = new BLContenidoAppHistoria();
-            return bl.Get(Codigo);
+            return bl.Get(paisID, Codigo);
         }
 
-        public void UpdateContenidoApp(BEContenidoAppHistoria formularioDato)
+        public void UpdateContenidoApp(int paisID, BEContenidoAppHistoria formularioDato)
         {
             var bl = new BLContenidoAppHistoria();
-            bl.UpdateContenidoApp(formularioDato);
+            bl.UpdateContenidoApp(paisID, formularioDato);
         }
        
-        public List<BEContenidoAppList> ListContenidoApp(BEContenidoAppList entidad)
+        public List<BEContenidoAppList> ListContenidoApp(int paisID, BEContenidoAppList entidad)
         {
             var bl = new BLContenidoAppHistoria();
-            return bl.GetList(entidad);
+            return bl.GetList(paisID, entidad);
         }
         
-        public void InsertContenidoAppDeta(BEContenidoAppDeta p)
+        public void InsertContenidoAppDeta(int paisID, BEContenidoAppDeta p)
         {
             var bl = new BLContenidoAppHistoria();
-            bl.InsertContenidoAppDeta(p);
+            bl.InsertContenidoAppDeta(paisID, p);
         }
 
-        public int UpdateContenidoAppDeta(BEContenidoAppDeta p)
+        public int UpdateContenidoAppDeta(int paisID, BEContenidoAppDeta p)
         {
             var bl = new BLContenidoAppHistoria();
-           return bl.UpdateContenidoAppDeta(p);
+           return bl.UpdateContenidoAppDeta(paisID, p);
+        }
+
+        public List<BEContenidoAppDetaAct> GetContenidoAppDetaActList(int paisID)
+        {
+            var bl = new BLContenidoAppHistoria();
+            return bl.GetContenidoAppDetaActList(paisID);
         }
 
 

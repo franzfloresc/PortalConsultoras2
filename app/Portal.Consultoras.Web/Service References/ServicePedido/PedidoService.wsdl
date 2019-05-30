@@ -546,6 +546,12 @@
   <wsdl:message name="IPedidoService_UpdDatoRecogerPor_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdDatoRecogerPorResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetCuvSuscripcionSE_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCuvSuscripcionSE" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetCuvSuscripcionSE_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCuvSuscripcionSEResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GetProductosShowRoomDetalle_InputMessage">
     <wsdl:part name="parameters" element="tns:GetProductosShowRoomDetalle" />
   </wsdl:message>
@@ -2919,6 +2925,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdDatoRecogerPor" message="tns:IPedidoService_UpdDatoRecogerPor_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdDatoRecogerPorResponse" message="tns:IPedidoService_UpdDatoRecogerPor_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetCuvSuscripcionSE">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCuvSuscripcionSE" message="tns:IPedidoService_GetCuvSuscripcionSE_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetCuvSuscripcionSEResponse" message="tns:IPedidoService_GetCuvSuscripcionSE_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetProductosShowRoomDetalle">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalle" message="tns:IPedidoService_GetProductosShowRoomDetalle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalleResponse" message="tns:IPedidoService_GetProductosShowRoomDetalle_OutputMessage" />
@@ -5022,6 +5032,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdDatoRecogerPor">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdDatoRecogerPor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCuvSuscripcionSE">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCuvSuscripcionSE" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8833,6 +8852,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdDatoRecogerPor">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdDatoRecogerPor" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCuvSuscripcionSE">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCuvSuscripcionSE" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
