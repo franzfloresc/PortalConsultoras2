@@ -146,6 +146,10 @@
         <a id="OfertasEspeciales" href="@Url.Action("Ofertas", "CaminoBrillante")" class="btn-principal">Ver ofertas</a>
     }
 
+
+
+
+
     @if (ViewBag.ResumenLogros != null)
     {
         var logro = ViewBag.ResumenLogros as LogroCaminoBrillanteModel;
@@ -190,8 +194,111 @@
             </div>
         </div>
     }
+
+
+
+<div id="boxganancias">
+    <h2 class="title">Mis Ganancias</h2>
+    <div class="box-right-ganancias">
+        <p class="text-bold">Monto de mi pedido C10</p>
+        <canvas id="canvas"></canvas>
+        <span class="text-bold">Campañas</span>
+    </div>
+    <div class="box-left-ganancias">
+
+        <div class="box-montos">
+            <p class="text-bold">Ganancia 08</p>
+            <img src="https://s3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/BENEFICIOS/pago_diferido.svg">
+            <span>S/ 100.00</span>
+        </div>
+
+        <div class="box-montos">
+            <p class="text-bold">Ganancia de periodo</p>
+            <img src="https://s3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/BENEFICIOS/pago_diferido.svg">
+            <span> S/ 100.00</span>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
 </div>
 
+
+    <script>
+
+        window.onload = function () {
+            var ctx = document.getElementById('canvas').getContext('2d');
+            window.myBar = new Chart(ctx, {
+                type: 'bar',
+                data: {
+
+                    labels: ["C05", "C06", "C07", "C08", "C09", "C10"],
+                    datasets: [
+                        {
+
+                            label: "Unidad (Millones) ",
+                            backgroundColor: ["#ffdaf3", "#4f0036", "#ffdaf3", "#ffdaf3", "#ffdaf3", "#ffdaf3"],
+                            data: [2478, 3267, 734, 784, 433, 403]
+                        }
+                    ]
+                },
+
+
+
+                options: {
+                       tooltips: {
+                             enabled: false
+                        },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+
+                                fontColor: "#000",
+                                fontSize: 14
+                            },
+                            gridLines: {
+                                color: "#f7f7f7",
+                                lineWidth: 1,
+                                zeroLineColor: "#000",
+                                zeroLineWidth: 0
+                            }
+                        }],
+
+                        xAxes: [{
+                            ticks: {
+                                fontColor: "#000",
+                                fontSize: 14
+                            },
+                            gridLines: {
+                                color: "#f7f7f7",
+                                lineWidth: 1,
+                                zeroLineColor: "#000",
+                                zeroLineWidth: 0
+                            }
+                        }]
+
+                    },
+
+                    legend: { display: false },
+                    title: {
+                        display: true
+                    },
+                    onClick: alertBox
+
+                }
+            });
+
+        };
+
+    function alertBox() {
+        alert("click");
+            $(".box-left-ganancias span").text("Hello world!");
+        }
+    </script>
+
+</div>
+
+
+<script src="~/Scripts/Chart.min.js"></script>
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
