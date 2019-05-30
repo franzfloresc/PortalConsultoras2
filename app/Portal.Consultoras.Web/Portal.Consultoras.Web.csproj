@@ -5903,6 +5903,7 @@
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\tipos-tonos-componente-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\tipos-tonos-seleccionados-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\FichaEnriquecida\popup-ficha-enriquecida-template.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\resumen-componente-template.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
