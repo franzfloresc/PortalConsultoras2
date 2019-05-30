@@ -4422,6 +4422,7 @@
     <Content Include="Scripts\tests\PortalConsultoras\ArmaTuPack\Detalle\Grupos\GruposPresenterSpec.js" />
     <Content Include="Scripts\tests\PortalConsultoras\ArmaTuPack\Detalle\Seleccionados\SeleccionadosPresenterSpec.js" />
     <Content Include="Scripts\tests\PortalConsultoras\DetalleEstrategia\FichaModuleSpec.js" />
+    <Content Include="Scripts\tests\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaEnriquecida\FichaEnriquecidaPresenterSpec.js" />
     <Content Include="Scripts\tests\PortalConsultoras\Shared\AnalyticsPortalSpec.js" />
     <Content Include="Scripts\tests\PortalConsultoras\DetalleEstrategia\FichaResponsive\Cliente\ClientePresenterSpec.js" />
     <Content Include="Scripts\tests\PortalConsultoras\DetalleEstrategia\FichaResponsive\Componentes\ComponentesPresenterSpec.js" />
