@@ -10,20 +10,13 @@ namespace Portal.Consultoras.BizLogic
     public class BLContenidoAppHistoria
     {
 
-        private readonly DAContenidoApp DAContenidoApp;
-
-        public BLContenidoAppHistoria()
-        {
-            DAContenidoApp = new DAContenidoApp();
-        }
-
-        public BEContenidoAppHistoria Get(string Codigo)
+        public BEContenidoAppHistoria Get(int paisID, string Codigo)
         {
             var contenidoApp = new BEContenidoAppHistoria();
 
             try
             {
-                var da = new DAContenidoApp();
+                var da = new DAContenidoApp(paisID);
 
                 var task1 = Task.Run(() =>
                 {
@@ -48,11 +41,12 @@ namespace Portal.Consultoras.BizLogic
             return contenidoApp;
         }
 
-        public void UpdateContenidoApp(BEContenidoAppHistoria p)
+        public void UpdateContenidoApp(int paisID, BEContenidoAppHistoria p)
         {
             try
             {
-                DAContenidoApp.UpdContenidoApp(p);
+                var da = new DAContenidoApp(paisID);
+                da.UpdContenidoApp(p);
             }
             catch (Exception ex)
             {
@@ -61,13 +55,13 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public List<BEContenidoAppList> GetList(BEContenidoAppList entidad)
+        public List<BEContenidoAppList> GetList(int paisID, BEContenidoAppList entidad)
         {
             List<BEContenidoAppList> lista;
 
             try
             {
-                var da = new DAContenidoApp();
+                var da = new DAContenidoApp(paisID);
                 using (var reader = da.GetList(entidad))
                 {
                     lista = reader.MapToCollection<BEContenidoAppList>(true);
@@ -81,11 +75,12 @@ namespace Portal.Consultoras.BizLogic
             return lista;
         }
 
-        public void InsertContenidoAppDeta(BEContenidoAppDeta p)
+        public void InsertContenidoAppDeta(int paisID, BEContenidoAppDeta p)
         {
             try
             {
-                DAContenidoApp.InsertContenidoAppDeta(p);
+               var da = new DAContenidoApp(paisID);
+               da.InsertContenidoAppDeta(p);
             }
             catch (Exception ex)
             {
@@ -94,9 +89,38 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public int UpdateContenidoAppDeta(BEContenidoAppDeta p)
+        public int UpdateContenidoAppDeta(int paisID, BEContenidoAppDeta p)
         {
-            return DAContenidoApp.UpdContenidoAppDeta(p);
+            try
+            {
+                var da = new DAContenidoApp(paisID);
+                return da.UpdContenidoAppDeta(p);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", "");
+                throw new Exception("Exception BLContenidoAppHistoria - UpdateContenidoAppDeta", ex);
+            }
+        }
+
+        public List<BEContenidoAppDetaAct> GetContenidoAppDetaActList(int paisID)
+        {
+            List<BEContenidoAppDetaAct> lista;
+
+            try
+            {
+                var da = new DAContenidoApp(paisID);
+                using (var reader = da.GetContenidoAppDetaActList())
+                {
+                    lista = reader.MapToCollection<BEContenidoAppDetaAct>(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", "");
+                lista = new List<BEContenidoAppDetaAct>();
+            }
+            return lista;
         }
     }
 }

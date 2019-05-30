@@ -131,7 +131,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.FlagValidacionPedido = "1";
                 }
 
-                model.EstadoPedido = (configuracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente && !configuracionCampania.ValidacionAbierta).ToInt();
+                model.EstadoPedido = EsPedidoReservado(configuracionCampania).ToInt();
 
 
                 ActualizarUserDataConInformacionCampania(configuracionCampania);
@@ -519,6 +519,16 @@ namespace Portal.Consultoras.Web.Controllers
                 && fechaHoraActual < usuario.FechaFinCampania.AddDays(1));
 
             usuario.MostrarBotonValidar = _pedidoWebProvider.EsHoraReserva(usuario, fechaHoraActual);
+        }
+
+        public bool EsPedidoReservado(BEConfiguracionCampania configuracionCampania = null)
+        {
+            if (configuracionCampania == null)
+            {
+                configuracionCampania = GetConfiguracionCampania();
+            }
+
+            return configuracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente && !configuracionCampania.ValidacionAbierta;
         }
 
         #region CRUD
@@ -1079,20 +1089,25 @@ namespace Portal.Consultoras.Web.Controllers
         private List<ServiceODS.BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(string codigoDescripcion, UsuarioModel userModel, int cantidadFilas, int criterioBusqueda)
         {
             List<ServiceODS.BEProducto> productos;
+            ServiceODS.BEProductoBusqueda busqueda = new BEProductoBusqueda
+            {
+                PaisID = userModel.PaisID,
+                CampaniaID = userModel.CampaniaID,
+                CodigoDescripcion = codigoDescripcion,
+                RegionID = userModel.RegionID,
+                ZonaID = userModel.ZonaID,
+                CodigoRegion = userModel.CodigorRegion,
+                CodigoZona = userModel.CodigoZona,
+                Criterio = criterioBusqueda,
+                RowCount = cantidadFilas,
+                ValidarOpt = true,
+                CodigoPrograma = userModel.CodigoPrograma,
+                NumeroPedido = userModel.ConsecutivoNueva + 1
+            };
 
             using (var odsServiceClient = new ODSServiceClient())
             {
-                productos = odsServiceClient.SelectProductoByCodigoDescripcionSearchRegionZona(
-                    userModel.PaisID,
-                    userModel.CampaniaID,
-                    codigoDescripcion,
-                    userModel.RegionID,
-                    userModel.ZonaID,
-                    userModel.CodigorRegion,
-                    userModel.CodigoZona,
-                    criterioBusqueda,
-                    cantidadFilas,
-                    true).ToList();
+                productos = odsServiceClient.SelectProductoByCodigoDescripcionSearchRegionZona(busqueda).ToList();
             }
 
             return productos;
@@ -2624,6 +2639,8 @@ namespace Portal.Consultoras.Web.Controllers
                             true
                             );
 
+            var configuracionCampania = GetConfiguracionCampania();
+
             pedidoWebDetalleModel.ForEach(p =>
             {
                 p.Simbolo = userData.Simbolo;
@@ -2634,6 +2651,7 @@ namespace Portal.Consultoras.Web.Controllers
                 p.FlagModificaCliente = p.FlagModificaCantidad;
                 p.FlagVerCuv = FlagVerCuv(p);
                 p.LockPremioElectivo = p.EsPremioElectivo && string.IsNullOrEmpty(p.Mensaje);
+                p.EsPedidoReservado = EsPedidoReservado(configuracionCampania);
             });
 
             return pedidoWebDetalleModel;

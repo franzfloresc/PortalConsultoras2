@@ -209,7 +209,7 @@ namespace Portal.Consultoras.Web.Providers
             return userSession;
         }
 
-        public string GetUrlImagenMenuOfertas(string codigoIso, RevistaDigitalModel revistaDigital)
+        public string GetUrlImagenMenuOfertas(string codigoIso, RevistaDigitalModel revistaDigital, bool isMobile = false)
         {
             var urlImagen = string.Empty;
             var tieneRevistaDigital = revistaDigital.TieneRevistaDigital();
@@ -230,7 +230,7 @@ namespace Portal.Consultoras.Web.Providers
 
             if (tieneRevistaDigital && !revistaDigital.EsSuscrita)
             {
-                urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
+                urlImagen = isMobile ? revistaDigital.LogoMenuOfertasNoActivaMobile : revistaDigital.LogoMenuOfertasNoActiva;
                 urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
@@ -241,7 +241,7 @@ namespace Portal.Consultoras.Web.Providers
 
             if (tieneRevistaDigital && revistaDigital.EsSuscrita)
             {
-                urlImagen = revistaDigital.LogoMenuOfertasActiva;
+                urlImagen = isMobile ? revistaDigital.LogoMenuOfertasActivaMobile : revistaDigital.LogoMenuOfertasActiva;
                 urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
@@ -251,7 +251,7 @@ namespace Portal.Consultoras.Web.Providers
 
             if (revistaDigital.TieneRDI)
             {
-                urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
+                urlImagen = isMobile ? revistaDigital.LogoMenuOfertasNoActivaMobile : revistaDigital.LogoMenuOfertasNoActiva;
                 urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
@@ -388,7 +388,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (menu.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower())
                 {
-                    menu.UrlImagen = GetUrlImagenMenuOfertas(userSession.CodigoISO, revistaDigital);
+                    menu.UrlImagen = GetUrlImagenMenuOfertas(userSession.CodigoISO, revistaDigital, true);
                 }
 
                 listadoMenuFinal.Add(menu);

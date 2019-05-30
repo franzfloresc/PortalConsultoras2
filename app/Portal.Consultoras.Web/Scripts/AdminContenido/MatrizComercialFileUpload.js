@@ -1,8 +1,14 @@
 ﻿//depende de Nemotecnico.js
 var MatrizComercialFileUpload = function (config) {
+
+    var arrayImage = ['jpg', 'png', 'jpeg'];
+    var Urlpathname = $("#hdUrlpathname").val() == undefined ? "" : $("#hdUrlpathname").val();
+    if (window.location.pathname == Urlpathname)
+        arrayImage.push("gif");
+
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction || '',
-        allowedExtensions: config.allowedExtensions || ['jpg', 'png', 'jpeg'],
+        allowedExtensions: config.allowedExtensions || arrayImage,
         habilitarNemotecnico: config.habilitarNemotecnico || false
     };
 

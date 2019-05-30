@@ -79,10 +79,15 @@ var ComponentesView = function () {
                 all : "[remove-type-tone]"
             },
             bloquear:{
-                all: "[block-group]"
+                all: "[block-group]",
+                claseHabilitado : "active",
+                claseInhabilitado : "btn_deshabilitado",
             },
             aplicarSeleccion : {
-                contenedor :"#contenedor-aplicar-seleccion"
+                contenedor :"#contenedor-aplicar-seleccion",
+                id : "#btn-aplicar-seleccion",
+                claseHabilitado : "active",
+                claseInhabilitado : "btn_deshabilitado",
             }
         }
     };
@@ -256,12 +261,26 @@ var ComponentesView = function () {
     };
 
     var _blockTypesOrTones = function(){
-        $(_elements.tiposTonosModal.bloquear.all).addClass("disabled");
+        $(_elements.tiposTonosModal.bloquear.all).addClass(_elements.tiposTonosModal.bloquear.claseInhabilitado);
         return true;
     };
 
     var _unblockTypesOrTones = function(){
-        $(_elements.tiposTonosModal.bloquear.all).removeClass("disabled");
+        $(_elements.tiposTonosModal.bloquear.all).removeClass(_elements.tiposTonosModal.bloquear.claseInhabilitado);
+        return true;
+    };
+
+    var _unblockApplySelection = function(){
+        $(_elements.tiposTonosModal.aplicarSeleccion.id)
+            .removeClass(_elements.tiposTonosModal.aplicarSeleccion.claseInhabilitado)
+            .addClass(_elements.tiposTonosModal.aplicarSeleccion.claseHabilitado);
+        return true;
+    };
+
+    var _blockApplySelection = function(){
+        $(_elements.tiposTonosModal.aplicarSeleccion.id)
+            .removeClass(_elements.tiposTonosModal.aplicarSeleccion.claseHabilitado)
+            .addClass(_elements.tiposTonosModal.aplicarSeleccion.claseInhabilitado);
         return true;
     };
 
@@ -277,6 +296,8 @@ var ComponentesView = function () {
         showQuantitySelector: _showQuantitySelector,
         showSelectedTypesOrTones: _showSelectedTypesOrTones,
         blockTypesOrTones: _blockTypesOrTones,
-        unblockTypesOrTones: _unblockTypesOrTones
+        unblockTypesOrTones: _unblockTypesOrTones,
+        unblockApplySelection : _unblockApplySelection,
+        blockApplySelection : _blockApplySelection,
     };
 };
