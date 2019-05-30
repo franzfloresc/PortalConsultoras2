@@ -183,6 +183,31 @@
         return resppuesta;
     };
 
+    var ObtenerEstrategiasNoLS = function (campania, palanca) {
+        var result = [];
+        var urlEstrategia = _obtenerUrlEstrategia(palanca);
+        if (urlEstrategia == null || urlEstrategia == "") {
+            return result;
+        }
+
+        var param = {
+            CampaniaID: campania,
+            IsMobile: isMobile()
+        };
+        
+        _promiseObternerEstrategia(urlEstrategia, param).done(function (data) {
+
+            if (data.success === true) {
+                result = data.lista;
+            }
+
+        }).fail(function (data, error) {
+            result = [];
+        });
+
+        return result;
+    };
+
     var _actualizarAgregado = function (lista, estrategiaId, valor) {
         var updated = false;
         if (lista !== undefined) {
@@ -267,7 +292,8 @@
 
     return {
         ObtenerEstrategia: ObtenerEstrategia,
-        ActualizarCheckAgregado: ActualizarCheckAgregado
+        ActualizarCheckAgregado: ActualizarCheckAgregado,
+        ObtenerEstrategiasNoLS: ObtenerEstrategiasNoLS
     };
 });
 

@@ -3,22 +3,97 @@
 @{
     string imagenVacia = "prod_grilla_vacio.png";
 }
+<script>
+    $(document).ready(function () {
+
+        $("#ddlAccion").change(function () {
+            var ddlAccion = $("#ddlAccion");
+            var Id = $('#ddlAccion').val();
+
+            if ($("#ddlAccion").val() == "VER_MAS") {
+                $("#div_codigo_detalle").show();
+                $("#div_cuv").hide();
+                $("#txtCUV").val("");
+            }
+            else if ($("#ddlAccion").val() == "AGR_CAR") {
+                $("#div_codigo_detalle").hide();
+                $("#div_cuv").show();
+                $("#ddlCodigoDetalle").val("");
+            } else {
+                $("#div_codigo_detalle").hide();
+                $("#div_cuv").hide();
+                $("#ddlCodigoDetalle").val("");
+                $("#txtCUV").val("");
+
+            }        
+
+        })
+        $("#ddlAccion").change();
+    })
+</script>
 <div class="div-12">
-    <div class="div-3 divHomeImagenFondo"
-         style="display: inline-block; text-align: left; margin-bottom: 15px;">
-        <div class="titG">
-            <span id="">Imagen:</span>
-            <h6 id="lblMedidasHistApp">(@Model.Ancho x @Model.Alto pixeles)</h6>
+    @Html.HiddenFor(model => model.Proc)
+    @Html.HiddenFor(model => model.IdContenidoDeta)
+    @Html.HiddenFor(model => model.IdContenido)
+    @if (Model.Proc == 1)
+    {
+        <div class="div-3 divHomeImagenFondo"
+             style="display: inline-block; text-align: left; margin-bottom: 15px;">
+            <div class="titG">
+                <span id="">Imagen:</span>
+                <h6 id="lblMedidasHistApp">(@Model.Ancho x @Model.Alto pixeles)</h6>
+            </div>
+            <div style="display: inline-block;">
+                @Html.HiddenFor(m => m.RutaContenido, new { id = "nombre-desktop-detalle", imageextension = "jpg", imagewidth = @Model.Ancho, imageheight = @Model.Alto, messageSize = "Las medidas no son correctas. Vuelve a intentar, por favor.", messageFormat = "El formato no es correcto. Vuelve a intentar, por favor." })
+                <div id="img-desktop-detalle" style="display: inline-block; vertical-align: middle;"></div>
+                <div class="pdr_modal2 borde_redondeado alignrigth">
+                    <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-desktop-detalle" class="img-matriz-preview2" data-id="">
+                </div>
+            </div>
         </div>
-        <div style="display: inline-block;">
-            @Html.HiddenFor(model => model.IdContenido)
-            @Html.HiddenFor(m => m.RutaContenido, new { id = "nombre-desktop-detalle", imageextension = "jpg", imagewidth = @Model.Ancho, imageheight = @Model.Alto, messageSize = "Las medidas no son correctas. Vuelve a intentar, por favor.", messageFormat = "El formato no es correcto. Vuelve a intentar, por favor." })
-            <div id="img-desktop-detalle" style="display: inline-block; vertical-align: middle;"></div>
-            <div class="pdr_modal2 borde_redondeado alignrigth">
-                <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-desktop-detalle" class="img-matriz-preview2" data-id="">
+    }
+
+
+    <div class="div-3">
+        <div class="titG">Campaña:</div>
+        <div class="selectP2 borde_redondeado">
+            @Html.DropDownListFor(model => model.Campania, new SelectList(Model.ListaCampanias, "CampaniaID", "Codigo"), new { id = "ddlCampaniaDetalle" })
+        </div>
+    </div>
+
+
+    <div class="div-3">
+        <div class="titG">Accion:</div>
+        <div class="selectP2 borde_redondeado">
+            @Html.DropDownListFor(model => model.Accion, new SelectList(Model.ListaAccion, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlAccion" })
+        </div>
+    </div>
+
+    <div id="div_codigo_detalle" style="display: none;">
+        <div class="div-3">
+            <div class="titG">Detalle:</div>
+            <div class="selectP2 borde_redondeado">
+                @Html.DropDownListFor(model => model.CodigoDetalle, new SelectList(Model.ListaCodigoDetalle, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlCodigoDetalle" })
             </div>
         </div>
     </div>
 
 
-</div>
+    <div id="div_cuv" style="display: none;">
+        <div class="div-3">
+            <div class="titG">CUV:</div>
+            <div class="selectP borde_redondeado" style="width: 100px;">
+                @Html.TextBoxFor(model => model.CUV, new { @class = "input_search_form2", Style = "width: 100px;", maxlength = 5, id = "txtCUV",// onblur = "ValidarCUVMarquesina()"
+           })
+            </div>
+        </div>
+
+    </div>
+
+    @if (Model.Proc == 1)
+    {
+        <div style="color: #ff0000">
+            @Model.LimitDetMensaje
+        </div>
+    }
+  </div>

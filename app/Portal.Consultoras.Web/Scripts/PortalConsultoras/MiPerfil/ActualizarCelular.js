@@ -331,7 +331,7 @@
         }
 
         function handleError(er) {
-            alert('Ocurrio un error inesperado.');
+            AbrirMensaje('Ocurrio un error inesperado.');
         }
 
         return {

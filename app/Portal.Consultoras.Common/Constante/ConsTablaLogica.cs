@@ -612,5 +612,9 @@ namespace Portal.Consultoras.Common
             public const short CaminoBrillanteOrden = 175;
         }
 
+        public static class AdministradorHistoria
+        {
+            public const int TablaLogicaId = 231;
+        }
     }
 }
