@@ -1,4 +1,4 @@
-GO
+﻿GO
 USE [BelcorpBolivia]
 GO
 
@@ -1610,7 +1610,7 @@ BEGIN
         on pc.cuv = op.cuv and pc.campaniaid = op.campaniaid  
       left join ProductoDescripcion pd with(nolock)   
        on ca.Codigo = pd.campaniaid and op.cuv = pd.cuv  
-       --R2469 - JICM Nuevos Campos marcaci�n  
+       --R2469 - JICM Nuevos Campos marcación  
       --LEFT JOIN ODS.SAP_PRODUCTO PRO ON PC.CodigoProducto=PRO.CodigoSap  
       -- LEFT JOIN ODS.SAP_MARCA MAR ON MAR.Codigo = PRO.CodigoMarca  
       -- LEFT JOIN ODS.SAP_CATEGORIA CAT ON CAT.CodigoCategoria=PRO.CodigoCategoria  

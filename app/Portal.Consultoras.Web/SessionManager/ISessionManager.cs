@@ -291,6 +291,7 @@ namespace Portal.Consultoras.Web.SessionManager
         bool GetProcesoSuscripcionSE();
         void SetProcesoSuscripcionSE(bool proceso);
         //FIN HD-4200
+        
         void SetBuscadorYFiltrosConfig(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
 
         BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltrosConfig();
@@ -517,10 +518,13 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetKitCaminoBrillante(List<BEKitCaminoBrillante> val);
         List<BEKitCaminoBrillante> GetKitCaminoBrillante();
 
-        void SetDemostradoresCaminoBrillante(List<BEDesmostradoresCaminoBrillante> val);
-        List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante();
+        void SetDemostradoresCaminoBrillante(List<BEDemostradoresCaminoBrillante> val);
+        List<BEDemostradoresCaminoBrillante> GetDemostradoresCaminoBrillante();
 
         void SetChatbotToken(string val);
         string GetChatbotToken();
+        
+        void SetFiltrosCaminoBrillante(BEOrdenFiltroConfiguracion val);
+        BEOrdenFiltroConfiguracion GetFiltrosCaminoBrillante();
     }
 }

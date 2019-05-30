@@ -151,8 +151,9 @@ var MiPerfil_ActualizarCorreo = function (_config) {
         Inicializar: function () {
             asignarEventos();
                 //INI HD-3897
+            var fn = function () { irVista2(config.CorreoActual)};
             if (config.IsConfirmar == 1) {
-                postActualizarEnviarCorreo({ correoNuevo: config.CorreoActual }, irVista2(config.CorreoActual));
+                postActualizarEnviarCorreo({ correoNuevo: config.CorreoActual }, fn);
             } else{
                 irVista(config.VistaActual);
 
