@@ -34,14 +34,18 @@ $(document).ready(function () {
             xfbml: true,
             version: 'v3.0'
         });
-        FB.Event.subscribe('customerchat.load', function() {
-            setTimeout(function () {
-                $('.fb_dialog_content').append('<div class="icono_chat_sb"></div>');
-                $('body').on('click', '.icono_chat_sb', function (e) {
-                    FB.CustomerChat.showDialog();
-                });
-            }, 2000);
-        });
+
+        if (typeof IsoPais !== 'undefined' && IsoPais == 'PE') {
+            FB.Event.subscribe('customerchat.load', function() {
+                setTimeout(function () {
+                    $('.fb_dialog_content').append('<div class="icono_chat_sb"></div>');
+                    $('body').on('click', '.icono_chat_sb', function (e) {
+                        FB.CustomerChat.showDialog();
+                    });
+                }, 2000);
+            });
+        }
+
         FB.getLoginStatus(function (response) {
             if (response.status === 'connected') {
                 getInfoFB(1);
@@ -49,6 +53,13 @@ $(document).ready(function () {
         });
        
     };
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
 
     MarcarCompartirFbExitoso();
 
