@@ -120,10 +120,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string UploadFoto(string foto, string preFileName, string carpetaPais)
         {
+            /*HD-4329*/
+            string extension = ".png";
+            if (foto != null && foto.Length > 0)
+                extension = foto.Split('.')[1].ToString() != "gif" ? extension : ".gif";
+
             if (!string.IsNullOrEmpty(foto))
             {
                 string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                var newfilename = preFileName + time + "_" + FileManager.RandomString() + ".png";
+                var newfilename = preFileName + time + "_" + FileManager.RandomString() + extension;
                 ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, foto), carpetaPais, newfilename);
                 return newfilename;
             }

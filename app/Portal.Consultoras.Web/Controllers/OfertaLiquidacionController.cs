@@ -147,9 +147,28 @@ namespace Portal.Consultoras.Web.Controllers
 
                     foreach (var item in lst)
                     {
-                        item.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, item.ImagenProducto);
-                        item.ImagenProductoSmall = string.IsNullOrEmpty(item.ImagenProducto) ? string.Empty : Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenSmall);
-                        item.ImagenProductoMedium = string.IsNullOrEmpty(item.ImagenProducto) ? string.Empty : Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenMedium);
+                        /*HD-4329*/
+                        if (!string.IsNullOrEmpty(item.ImagenProducto))
+                        {
+                            if (item.ImagenProducto.Substring(item.ImagenProducto.Length - 4) == ".gif")
+                            {
+                                item.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, item.ImagenProducto);
+                                item.ImagenProductoSmall = item.ImagenProducto;
+                                item.ImagenProductoMedium = item.ImagenProducto;
+                            }
+                            else
+                            {
+                                item.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, item.ImagenProducto);
+                                item.ImagenProductoSmall = Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenSmall);
+                                item.ImagenProductoMedium = Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenMedium);
+                            }
+                        }
+                        else
+                        {
+                            item.ImagenProducto = string.Empty;
+                            item.ImagenProductoSmall = string.Empty;
+                            item.ImagenProductoMedium = string.Empty;
+                        }
                         item.PrecioString = Util.DecimalToStringFormat(item.PrecioOferta, userData.CodigoISO);
                     }
                 }
