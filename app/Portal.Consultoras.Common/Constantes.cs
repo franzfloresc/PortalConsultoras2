@@ -2678,6 +2678,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_CONSULTORA_BLOQUEADA = "3693";
                 //FIN HD-3693
 
+                public const string ERROR_RESERVA_DUO_COMPLETO_COMPLETO = "2007";
                 public const string SUCCESS_RESERVA_AGREGAR = "2008";
                 public const string ERROR_RESERVA_AGREGAR = "2009";
                 public const string ERROR_RESERVA_NINGUNO = "2010";
@@ -2746,6 +2747,7 @@ namespace Portal.Consultoras.Common
                             {Code.ERROR_ELIMINAR_TODO_SET, new PedidoValidacionConfiguracion(){ Mensaje ="Ocurrió un error al eliminar el set." } },
                             {Code.ERROR_CANTIDAD_LIMITE, new PedidoValidacionConfiguracion(){ Mensaje ="Excediste el límite de compras de este producto. (Máx.: {0} unidades)" } },
 
+                            {Code.ERROR_RESERVA_DUO_COMPLETO_COMPLETO, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido Reservado, por favor modifique su pedido para agregar su Dúo Perfecto." } },
                             {Code.ERROR_RESERVA_NINGUNO, new PedidoValidacionConfiguracion(){ Mensaje ="El pedido no se reservó." } },
                             {Code.SUCCESS_RESERVA, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido reservado." } },
                             {Code.SUCCESS_RESERVA_OBS, new PedidoValidacionConfiguracion(){ Mensaje ="Pedido reservado, productos con observaciones." } },

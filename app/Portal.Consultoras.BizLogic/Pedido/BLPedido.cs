@@ -160,6 +160,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     }
                     #endregion
 
+                    if (reservado && pedidoDetalle.EsDuoPerfecto)
+                    {
+                        return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVA_DUO_COMPLETO_COMPLETO);
+                    }
+
                     pedidoDetalle.Reservado = reservado;
                     var respuestaT = PedidoAgregarProductoTransaction(pedidoDetalle);
 
@@ -169,17 +174,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                         if (reservado)
                         {
-                            if (!pedidoDetalle.EsDuoPerfecto)
-                            {
-                                var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
-                                respuestaT = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuestaT, out error);
+                            var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
+                            respuestaT = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuestaT, out error);
 
-                                respuestaT = SetMontosTotalesProl(respuestaT, respuestaReserva);
-                            }
-                            else
-                            {
-                                respuestaT.MensajeAviso = "Pedido Reservado, por favor modifique su pedido para agregar su Dúo Perfecto.";
-                            }
+                            respuestaT = SetMontosTotalesProl(respuestaT, respuestaReserva);
                         }
 
                         if (!error)

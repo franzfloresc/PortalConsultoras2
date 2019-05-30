@@ -131,7 +131,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.FlagValidacionPedido = "1";
                 }
 
-                model.EstadoPedido = (configuracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente && !configuracionCampania.ValidacionAbierta).ToInt();
+                model.EstadoPedido = EsPedidoReservado(configuracionCampania).ToInt();
 
 
                 ActualizarUserDataConInformacionCampania(configuracionCampania);
@@ -519,6 +519,16 @@ namespace Portal.Consultoras.Web.Controllers
                 && fechaHoraActual < usuario.FechaFinCampania.AddDays(1));
 
             usuario.MostrarBotonValidar = _pedidoWebProvider.EsHoraReserva(usuario, fechaHoraActual);
+        }
+
+        public bool EsPedidoReservado(BEConfiguracionCampania configuracionCampania = null)
+        {
+            if (configuracionCampania == null)
+            {
+                configuracionCampania = GetConfiguracionCampania();
+            }
+
+            return configuracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente && !configuracionCampania.ValidacionAbierta;
         }
 
         #region CRUD
@@ -2624,6 +2634,8 @@ namespace Portal.Consultoras.Web.Controllers
                             true
                             );
 
+            var configuracionCampania = GetConfiguracionCampania();
+
             pedidoWebDetalleModel.ForEach(p =>
             {
                 p.Simbolo = userData.Simbolo;
@@ -2634,6 +2646,7 @@ namespace Portal.Consultoras.Web.Controllers
                 p.FlagModificaCliente = p.FlagModificaCantidad;
                 p.FlagVerCuv = FlagVerCuv(p);
                 p.LockPremioElectivo = p.EsPremioElectivo && string.IsNullOrEmpty(p.Mensaje);
+                p.EsPedidoReservado = EsPedidoReservado(configuracionCampania);
             });
 
             return pedidoWebDetalleModel;
