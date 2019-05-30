@@ -47,7 +47,7 @@ var EstrategiaPresenter = function (config) {
         if (!_config.estrategiaView.renderAgregar(model)) throw "estrategiaView don't render agregar.";
 
         if (!_config.estrategiaView.showTitleAgregado(model)) throw "estrategiaView don't show title Agregado.";
-
+  
         return true;
     };
 
@@ -59,6 +59,7 @@ var EstrategiaPresenter = function (config) {
         if (!(typeof esEditable === "boolean")) throw  "esEditable is undefined";
 
         EstrategiaAgregarModule.EstrategiaAgregar(event, popup, limite, esFicha, esEditable);
+
     };
 
     return {

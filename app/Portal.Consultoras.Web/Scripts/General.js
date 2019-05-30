@@ -368,6 +368,10 @@ jQuery(document).ready(function () {
                 return context.toUpperCase();
             });
 
+            Handlebars.registerHelper('LowerCase', function (context) {
+                return context.toLowerCase();
+            });
+
             Handlebars.registerHelper('DecimalToStringFormat', function (context) {
                 return DecimalToStringFormat(context);
             });
