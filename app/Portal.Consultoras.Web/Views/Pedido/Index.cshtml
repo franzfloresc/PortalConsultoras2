@@ -201,76 +201,192 @@
         <div class="content_T_T" style="position:relative; z-index:100">
             <div class="bloque_left"></div>
             @*<div id="divListadoPedido" class="divListadoPedido tabla_pedidos">
-                    <div class="paginador_pedidos mostrarPaginadorPedidos">
-                        <div class="titulo_mis_pedidos" style="width:100%;">
+            <div class="paginador_pedidos mostrarPaginadorPedidos">
+                <div class="titulo_mis_pedidos" style="width:100%;">
 
-                            @if (ViewBag.MostrarPedidosPendientes == "1")
-                            {
-                                <h1 id="pedmostreo" class="w_40" data-pedido="1">PEDIDO <b>INGRESADO</b></h1>
+                    @if (ViewBag.MostrarPedidosPendientes == "1")
+                    {
+                        <h1 id="pedmostreo" class="w_40" data-pedido="1">PEDIDO <b>INGRESADO</b></h1>
 
-                                <h1 id="penmostreo" style="display: none; background: white;" class="w_25" data-pedido="2">
-                                    <b>PENDIENTES</b>
-                                    <div class="info_tiempo_oportunidad inicial">
-                                        <div class="campana">
-                                            <a class="" href="javascript:;" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
-                                                <div class="campana_svg mensaje_svg"></div>
-                                                <p class="notificaciones notificaciones_existentes notificaciones_activas" id="cont1PedidosPend">0</p>
-                                            </a>
-                                        </div>
-                                        <div class="noticia">
-                                            <h6>Tienes <span id="cont2PedidosPend">0</span> pedidos pendientes.</h6>
-                                            <h6 class="tiempos_P"><span><b>Te quedan <span id="fecPedidoPendRec">00:00:00</span></b></span> horas para atenderlo.</h6>
-                                            <h4 class="linkea_Pendientes">►REVÍSALO</h4>
-                                        </div>
-                                    </div>
-                                </h1>
-                            }
-                            else
-                            {
-                                <h1>MIS <b>PRODUCTOS</b></h1>
-                            }
-                        </div>
-                        <div id="paginadorCab">
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-
-
-                    <div id="infoPedido">
-                        <div class="grilla_pedidos" data-tag="table" id="tbListaPedido">
-                            <div class="encabezado_ingresoPedido">
-                                <div class="texto_encabezado_pedidos cabecera_codigo" align="left">Código</div>
-                                <div class="texto_encabezado_pedidos cabecera_producto" align="left">Producto</div>
-                                <div class="texto_encabezado_pedidos cabecera_unidades">Unidades</div>
-                                <div class="texto_encabezado_pedidos precioUnitario cabecera_precioUnitario">Precio Unitario</div>
-                                <div class="texto_encabezado_pedidos subtotal cabecera_subtotal">
-                                    <span class="mostrarPrecioUnitario">Precio Unitario</span>
-                                    <span>Subtotal</span>
+                        <h1 id="penmostreo" style="display: none; background: white;" class="w_25" data-pedido="2">
+                            <b>PENDIENTES</b>
+                            <div class="info_tiempo_oportunidad inicial">
+                                <div class="campana">
+                                    <a class="" href="javascript:;" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
+                                        <div class="campana_svg mensaje_svg"></div>
+                                        <p class="notificaciones notificaciones_existentes notificaciones_activas" id="cont1PedidosPend">0</p>
+                                    </a>
                                 </div>
-                                <div class="texto_encabezado_pedidos cabecera_cliente">
-                                    <select id="ddlClientes" onchange="CambiarCliente(this)"></select>
+                                <div class="noticia">
+                                    <h6>Tienes <span id="cont2PedidosPend">0</span> pedidos pendientes.</h6>
+                                    <h6 class="tiempos_P"><span><b>Te quedan <span id="fecPedidoPendRec">00:00:00</span></b></span> horas para atenderlo.</h6>
+                                    <h4 class="linkea_Pendientes">►REVÍSALO</h4>
                                 </div>
-                                <div class="texto_encabezado_pedidos acciones"></div>
                             </div>
+                        </h1>
+                    }
+                    else
+                    {
+                        <h1>MIS <b>PRODUCTOS</b></h1>
+                    }
+                </div>
+                <div id="paginadorCab">
+                </div>
+            </div>
+            <div class="clear"></div>
 
-                            <div id="tbobyDetallePedido"></div>
+
+            <div id="infoPedido">
+                <div class="grilla_pedidos" data-tag="table" id="tbListaPedido">
+                    <div class="encabezado_ingresoPedido">
+                        <div class="texto_encabezado_pedidos cabecera_codigo" align="left">Código</div>
+                        <div class="texto_encabezado_pedidos cabecera_producto" align="left">Producto</div>
+                        <div class="texto_encabezado_pedidos cabecera_unidades">Unidades</div>
+                        <div class="texto_encabezado_pedidos precioUnitario cabecera_precioUnitario">Precio Unitario</div>
+                        <div class="texto_encabezado_pedidos subtotal cabecera_subtotal">
+                            <span class="mostrarPrecioUnitario">Precio Unitario</span>
+                            <span>Subtotal</span>
                         </div>
+                        <div class="texto_encabezado_pedidos cabecera_cliente">
+                            <select id="ddlClientes" onchange="CambiarCliente(this)"></select>
+                        </div>
+                        <div class="texto_encabezado_pedidos acciones"></div>
                     </div>
 
-                    <div class="paginador_pedidos mostrarPaginadorPedidos inferior">
-                        <div id="paginadorPie">
-                        </div>
-                    </div>
+                    <div id="tbobyDetallePedido"></div>
+                </div>
+            </div>
 
-                    <div class="clear"></div>
-                </div>*@
+            <div class="paginador_pedidos mostrarPaginadorPedidos inferior">
+                <div id="paginadorPie">
+                </div>
+            </div>
+
+            <div class="clear"></div>
+        </div>*@
             @Html.Partial("~/Views/Pedido/_vpPedidoGrilla.cshtml", Model)
+
+            @{
+                string cabezaEscala = null, pieEscala = null;
+                string lbl1Ganancia = null, lbl2Ganancia = null;
+
+                if (Model.CodigoIso == Constantes.CodigosISOPais.Peru ||
+                    Model.CodigoIso == Constantes.CodigosISOPais.Colombia ||
+                    Model.CodigoIso == Constantes.CodigosISOPais.Ecuador ||
+                    Model.CodigoIso == Constantes.CodigosISOPais.Guatemala ||
+                    Model.CodigoIso == Constantes.CodigosISOPais.Salvador ||
+                    Model.CodigoIso == Constantes.CodigosISOPais.Dominicana ||
+                    Model.CodigoIso == Constantes.CodigosISOPais.PuertoRico) //PE,CO,EC,GT.SV,DO,PR
+                {
+
+                    cabezaEscala = "Ganancia estimada";
+                    pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+                    lbl1Ganancia = "Mis descuentos";
+                    lbl2Ganancia = "Ganancia estimada: <br> (Guía de negocio y otros)";
+                }
+                else if (Model.CodigoIso == Constantes.CodigosISOPais.Panama ||
+                    Model.CodigoIso == Constantes.CodigosISOPais.Mexico) //PA,MX
+                {
+                    cabezaEscala = "Ganancia estimada";
+                    pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                    lbl1Ganancia = "Mis descuentos";
+                    lbl2Ganancia = "Ganancia estimada: <br> (Guía de negocio y otros)";
+                }
+                else if (Model.CodigoIso == Constantes.CodigosISOPais.Chile) //CH
+                {
+                    cabezaEscala = "Comisión y ahorro total";
+                    pieEscala = "Comisión = ganancia estimada proveniente de tus descuentos por compras en catálogo; Ahorro = ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+                    lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
+                    lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
+                }
+                else if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela) //VE
+                {
+                    cabezaEscala = "Oportunidad de ahorro total";
+                    pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                    lbl1Ganancia = "Por tus compras de productos de catalogo";
+                    lbl2Ganancia = "Por tus comprar de productos de revista";
+                }
+                else if (Model.CodigoIso == Constantes.CodigosISOPais.Bolivia) //BO
+                {
+                    cabezaEscala = "Ganancia estimada";
+                    pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+                    lbl1Ganancia = "Mis descuentos";
+                    lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+                }
+                else if (Model.CodigoIso == Constantes.CodigosISOPais.CostaRica) //CR
+                {
+                    cabezaEscala = "Oportunidad de ahorro total";
+                    pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+                    lbl1Ganancia = "Mis descuentos";
+                    lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
+                }
+            }
 
             <div class="caja_guardar_pedido">
                 <div class="contenedor_guardadoPedido">
                     <div class="bloque_montosPedido">
                         <div class="caja_montos">
                             <div style="position:relative;">
+                                <div class="ganancia-estimada">
+                                    <div class="panel-toggle">
+                                        <div class="toggle-container">
+
+                                            <div class="toggle-header">
+                                                <div class="toggle-switch closed">
+                                                    <div class="toggle-icon">
+
+                                                    </div>
+                                                </div>
+                                                <div class="toggle-info">
+                                                    <span class="ganancia-titulo accent-color">
+                                                        @(cabezaEscala):
+                                                    </span>
+                                                    <span class="ganancia-total accent-color">
+                                                        S/ 454.80
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="toggle-content">
+                                                <div class="toggle-info">
+                                                    <span class="ganancia-titulo first-color">
+                                                        Revista/web
+                                                    </span>
+                                                    <span class="ganancia-total first-color" ">
+                                                        S/. 0000.00
+                                                    </span>
+                                                </div>
+                                                <div class="toggle-info">
+                                                    <span class="ganancia-titulo first-color">
+                                                        Catálogo
+                                                    </span>
+                                                    <span class="ganancia-total first-color" ">
+                                                        S/. 0000.00
+                                                    </span>
+                                                </div>
+                                                <div class="toggle-info">
+                                                    <span class="ganancia-titulo first-color">
+                                                        Gana+
+                                                    </span>
+                                                    <span class="ganancia-total first-color" ">
+                                                        S/. 0000.00
+                                                    </span>
+                                                </div>
+                                                <div class="toggle-info">
+                                                    <span class="ganancia-titulo first-color">
+                                                        Comisión
+                                                    </span>
+                                                    <span class="ganancia-total first-color" ">
+                                                        S/. 0000.00
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
+                                            <input type="hidden" id="hdePieEscala" value="@pieEscala" />
+                                            <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
+                                            <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="contenedorCupon" style="width:100%;">
                                     <div class="contenedorCuponConocelo content_pedido_cupon_monto" style="display: none;">
                                         <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/cupon_gif_negro.gif")" alt="" /></div>
@@ -300,67 +416,7 @@
                                         <div class="info_extra_Validado abrir_popupMisGanancias">
                                             <img src="/Content/Images/Esika/info-copy.png" onclick="MostrarDetalleGanancia();">
                                         </div>
-                                        @{
-                                            string cabezaEscala = null, pieEscala = null;
-                                            string lbl1Ganancia = null, lbl2Ganancia = null;
 
-                                            if (Model.CodigoIso == Constantes.CodigosISOPais.Peru ||
-                                                Model.CodigoIso == Constantes.CodigosISOPais.Colombia ||
-                                                Model.CodigoIso == Constantes.CodigosISOPais.Ecuador ||
-                                                Model.CodigoIso == Constantes.CodigosISOPais.Guatemala ||
-                                                Model.CodigoIso == Constantes.CodigosISOPais.Salvador ||
-                                                Model.CodigoIso == Constantes.CodigosISOPais.Dominicana ||
-                                                Model.CodigoIso == Constantes.CodigosISOPais.PuertoRico) //PE,CO,EC,GT.SV,DO,PR
-                                            {
-
-                                                cabezaEscala = "Ganancia estimada";
-                                                pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
-                                                lbl1Ganancia = "Mis descuentos";
-                                                lbl2Ganancia = "Ganancia estimada: <br> (Guía de negocio y otros)";
-                                            }
-                                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Panama ||
-                                                Model.CodigoIso == Constantes.CodigosISOPais.Mexico) //PA,MX
-                                            {
-                                                cabezaEscala = "Ganancia estimada";
-                                                pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-                                                lbl1Ganancia = "Mis descuentos";
-                                                lbl2Ganancia = "Ganancia estimada: <br> (Guía de negocio y otros)";
-                                            }
-                                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Chile) //CH
-                                            {
-                                                cabezaEscala = "Comisión y ahorro total";
-                                                pieEscala = "Comisión = ganancia estimada proveniente de tus descuentos por compras en catálogo; Ahorro = ahorro estimado proveniente de compras en Guía de Negocio y Otros";
-                                                lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
-                                                lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
-                                            }
-                                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela) //VE
-                                            {
-                                                cabezaEscala = "Oportunidad de ahorro total";
-                                                pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-                                                lbl1Ganancia = "Por tus compras de productos de catalogo";
-                                                lbl2Ganancia = "Por tus comprar de productos de revista";
-                                            }
-                                            else if (Model.CodigoIso == Constantes.CodigosISOPais.Bolivia) //BO
-                                            {
-                                                cabezaEscala = "Ganancia estimada";
-                                                pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
-                                                lbl1Ganancia = "Mis descuentos";
-                                                lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
-                                            }
-                                            else if (Model.CodigoIso == Constantes.CodigosISOPais.CostaRica) //CR
-                                            {
-                                                cabezaEscala = "Oportunidad de ahorro total";
-                                                pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-                                                lbl1Ganancia = "Mis descuentos";
-                                                lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
-                                            }
-                                        }
-                                        @(cabezaEscala):
-
-                                        <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
-                                        <input type="hidden" id="hdePieEscala" value="@pieEscala" />
-                                        <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
-                                        <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
                                     </div>
                                 </div>
                                 <div class="caja_montos_cantidades">
@@ -425,15 +481,15 @@
                                 </div>
                             }
                         }
-                    <div class="boton_guardarPedido">
-                        @if (Model.EstadoPedido == 1)
-                        {
-                            <button class="btn_ModificaPedido" onclick="javascript:ModificarPedido();" class="info_copy default-background-color">@Model.Prol</button>
-                        }
-                        else
-                        { <button id="btnValidarPROL" class="info_copy default-background-color">@Model.Prol</button>}
+                        <div class="boton_guardarPedido">
+                            @if (Model.EstadoPedido == 1)
+                            {
+                                <button class="btn_ModificaPedido" onclick="javascript:ModificarPedido();" class="info_copy default-background-color">@Model.Prol</button>
+                            }
+                            else
+                            { <button id="btnValidarPROL" class="info_copy default-background-color">@Model.Prol</button>}
 
-                    </div>
+                        </div>
                     </div>
 
                     <div id="divCondicionesCupon" style="display: none; color: #9b9b9b">
@@ -471,20 +527,20 @@
                     </div>
                     <div class="descripcion_observaciones_alerta" id="desc_obs_alerta">
                         @*<ul>
-                                <li>
-                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                                </li>
-                                <li>
-                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                                </li>
-                                <li>
-                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                                </li>
+                        <li>
+                            El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                            Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                        </li>
+                        <li>
+                            El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                            Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                        </li>
+                        <li>
+                            El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                            Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                        </li>
 
-                            </ul>*@
+                    </ul>*@
                     </div>
 
                 </div>
@@ -566,39 +622,39 @@
                 <div class="clear"></div>
             </div>
             @*@if (ViewBag.MostrarPedidosPendientes == "1")
-            {
-                <div id="infoPendientes" style="background:white; display: none;">
+        {
+            <div id="infoPendientes" style="background:white; display: none;">
 
-                    <div id="paginadorCabPend" class="cant_productos_y_paginador_wrapper_top">
-                    </div>
-                    <div class="content_datos_pendientes">
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nombre de Cliente</div>
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Origen</div>
-
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Fecha Registro</div>
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Precio Total</div>
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Acción</div>
-                    </div>
-                    <div class="linea_separadora" style="margin-top:-1px"></div>
-                    <div>
-                        <div id="divPedidosPend"> </div>
-                    </div>
-                    <div id="paginadorPiePend" class="cant_productos_y_paginador_wrapper_bottom">
-                    </div>
-                    <div class="revision_pedidosAceptados">
-                        <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
-                        <span class="icono_consultoraOnline"></span>
-                        <span class="texto_misPedidosClientesOnline" style="cursor: pointer;" onclick="MostrarMisPedidosConsultoraOnline();">MIS PEDIDOS DEL <b>APP DE CATÁLOGOS</b></span>
-                    </div>
-
-                    <div style="display: none;">
-                        @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmConsultoraOnline" }))
-                        {
-                            <input type="hidden" name="lanzarTabConsultoraOnline" value="true">
-                        }
-                    </div>
+                <div id="paginadorCabPend" class="cant_productos_y_paginador_wrapper_top">
                 </div>
-            }*@
+                <div class="content_datos_pendientes">
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nombre de Cliente</div>
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Origen</div>
+
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Fecha Registro</div>
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Precio Total</div>
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Acción</div>
+                </div>
+                <div class="linea_separadora" style="margin-top:-1px"></div>
+                <div>
+                    <div id="divPedidosPend"> </div>
+                </div>
+                <div id="paginadorPiePend" class="cant_productos_y_paginador_wrapper_bottom">
+                </div>
+                <div class="revision_pedidosAceptados">
+                    <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
+                    <span class="icono_consultoraOnline"></span>
+                    <span class="texto_misPedidosClientesOnline" style="cursor: pointer;" onclick="MostrarMisPedidosConsultoraOnline();">MIS PEDIDOS DEL <b>APP DE CATÁLOGOS</b></span>
+                </div>
+
+                <div style="display: none;">
+                    @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmConsultoraOnline" }))
+                    {
+                        <input type="hidden" name="lanzarTabConsultoraOnline" value="true">
+                    }
+                </div>
+            </div>
+        }*@
         </div>
     </div>
 
