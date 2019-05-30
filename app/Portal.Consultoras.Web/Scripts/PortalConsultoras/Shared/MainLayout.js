@@ -221,11 +221,11 @@ $(document).ready(function () {
         draggable: true,
         title: "Comunidad SomosBelcorp",
         buttons:
-            {
-                "Aceptar": function () {
-                    HideDialog("DialogMensajesCom");
-                }
+        {
+            "Aceptar": function () {
+                HideDialog("DialogMensajesCom");
             }
+        }
     });
 
     $('#divMensajeConfirmacion').dialog({
@@ -311,7 +311,12 @@ $(document).ready(function () {
 
     $("body").on('click', '.belcorpChat', function (e) {
         e.preventDefault();
-
+        if (IsoPais == "PE") {
+            if (typeof FB !== "undefined") {
+                FB.CustomerChat.showDialog();
+            }
+            return false;
+        }
         var connected = localStorage.getItem('connected');
         var idBtn = connected ? '#btn_open' : '#btn_init';
         $(idBtn).trigger("click");
