@@ -4890,6 +4890,18 @@
     <None Include="Service References\ServiceODS\ODSService312.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceODS\ODSService313.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService314.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService315.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceODS\ODSService316.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceODS\ODSService32.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -4967,6 +4979,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService1112.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServicePedido\PedidoService1113.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService112.xsd">

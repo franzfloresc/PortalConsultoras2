@@ -851,6 +851,10 @@ div .layout__view__breadcrumbs__wrapper, div .layout__view__title__wrapper {
     display: none !important;
 }
 
+#m_montoMinimo span em {
+    font-style: normal;
+}
+
 @media (min-width:576px) {
     .modal-dialog {
         max-width: 500px;

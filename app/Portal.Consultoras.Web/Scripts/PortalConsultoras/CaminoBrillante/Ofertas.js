@@ -7,6 +7,7 @@ var offsetRegistrosDemo = 0;
 var offsetRegistrosKits = 0;
 var verMasKits = true;
 var verMasDemostradores = true;
+var i = 0; 
 var reservaResponse = {
     data: { Reserva: false }
 };
@@ -273,7 +274,7 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
                 'ecommerce': {
                     'currencyCode': moneda,
                     'add': {
-                        'actionField': 'list Ofertas-CaminoBrillante : ' + categoria ,
+                        'actionField': 'list : ' + categoria ,
                         'products': [{
                             'name': nombre_producto,
                             'price': precio_producto,
