@@ -14706,9 +14706,10 @@ a {
 }
 
 .opciones_regalo_carousel_programaNuevas.slick-initialized .slick-slide{
-    display:inline-block;
+    display:block;
+    /*display:inline-block;
     vertical-align:top;
-    float:none;
+    float:none;*/
     min-height:315px;
     padding-top:0!important;
     padding-bottom:25px!important;

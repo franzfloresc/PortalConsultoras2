@@ -14541,13 +14541,14 @@ span.icon-advertencia {
     margin-top:2px;
 }
 
-.opciones_regalo_carousel_programaNuevas.slick-initialized .slick-slide{
-    display:inline-block;
+.opciones_regalo_carousel_programaNuevas.slick-initialized .slick-slide {
+    display:block;
+    /*display:inline-block;
     vertical-align:top;
-    float:none;
-    min-height:315px;
-    padding-top:0!important;
-    padding-bottom:25px!important;
+    float:none;*/
+    min-height: 315px;
+    padding-top: 0 !important;
+    padding-bottom: 25px !important;
 }
 
 .opcion_regalo_carousel_programaNuevas {
