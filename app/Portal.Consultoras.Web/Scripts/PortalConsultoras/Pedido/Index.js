@@ -30,6 +30,7 @@ var pedidoProvider = PedidoProvider();
 
 $(document).ready(function () {
     ValidarKitNuevas();
+
     var hdDataBarra = $("#hdDataBarra").val();
     if ($.trim(hdDataBarra) != "") {
         dataBarra = JSON.parse(hdDataBarra);
@@ -474,7 +475,10 @@ $(document).ready(function () {
 
     CrearDialogs();
     MostrarBarra();
-    CargarDetallePedido();
+    //INI HD-4200
+    ValidarSuscripcionSE(function () { CargarDetallePedido();},0);
+    //FIN HD-4200
+    
     CargarCarouselEstrategias();
     CargarAutocomplete();
     CargarDialogMesajePostulantePedido();
@@ -1769,7 +1773,6 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                btnSalirTlpDelete(window.event, pedidoDetalleId, setId);
                 HideDialog("divVistaPrevia");
                 CerrarSplash();
             }
@@ -1924,7 +1927,7 @@ function EjecutarServicioPROL() {
             }
 
             if (response.mensajeCondicional) {
-                AbrirMensaje(response.mensajeCondicional);
+                AbrirMensajeImagen(response.mensajeCondicional);
             }
 
             //Marcación Analytics
@@ -2093,12 +2096,7 @@ function MostrarMensajeProl(response, fnOfertaFinal) {
 function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();
     $("#dialog_divReservaSatisfactoria").show();
-    var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
-    
-    if (ultimoDiaFacturacion) {
-	    RedirigirPedidoValidado();
-    }
-    
+    RedirigirPedidoValidado();
 }
 
 function EliminarPedido() {
@@ -2464,7 +2462,7 @@ function UpdateCliente(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CU
             }
 
             if (data.mensajeCondicional) {
-                AbrirMensaje(data.mensajeCondicional);
+                AbrirMensajeImagen(data.mensajeCondicional);
             }
 
             CargarDetallePedido();
@@ -2707,7 +2705,7 @@ $.fn.CreateSelected = function (array, val, text, etiqueta, index) {
         }
 
         $.each(array, function (i, item) {
-            //var objtemp = item;
+            var objtemp = item;
             $(obj).append('<option value="' + item[val] + '">' + item[text] + "</option>");
         });
     } catch (e) {
@@ -2837,7 +2835,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                     CerrarSplash();
                     AbrirPopupPedidoReservado(data.message, "1");
                 }
-                else if (data.UltimoDiaFacturacion) { //TESLA-7 REDIRECCIONA SOLO SI ES ULTIMO DIA, CIERRE FACTURACION 
+                else {
                     AbrirSplash();
                     location.href = urlValidadoPedido;
                 }

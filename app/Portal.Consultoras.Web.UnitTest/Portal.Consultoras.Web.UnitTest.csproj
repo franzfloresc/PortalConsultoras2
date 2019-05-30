@@ -114,10 +114,12 @@
     <Compile Include="Controllers\TusClientesControllerUnitTests.cs" />
     <Compile Include="Extensions\DataHandler.cs" />
     <Compile Include="Extensions\RedirectToRouteResultExtensions.cs" />
+    <Compile Include="Infraestructure\Route\RedirectRoute.cs" />
     <Compile Include="Infraestructure\Validator\Phone\MatchCountryPhoneTests.cs" />
     <Compile Include="Controllers\RevistaDigitalControllerUnitTest.cs" />
     <Compile Include="Models\RevistaDigitalModelUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ChatbotProviderTests.cs" />
     <Compile Include="Providers\ConfiguracionOfertasHomeProviderUnitTests.cs" />
     <Compile Include="Providers\ShowRoomProviderTests.cs" />
   </ItemGroup>

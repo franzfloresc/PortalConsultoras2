@@ -116,7 +116,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = true,
-                        message = "Se actualizÃ³ satisfactoriamente.",
+                        message = "Se actualizó satisfactoriamente.",
                         extra = string.Empty
                     });
                 }
@@ -125,7 +125,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No seleccionÃ³ una imagen.",
+                        message = "No seleccionó una imagen.",
                         extra = string.Empty
                     });
                 }
@@ -363,7 +363,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se actualizÃ³ la informaciÃ³n satisfactoriamente",
+                    message = "Se actualizó la información satisfactoriamente",
                 });
             }
             catch (Exception ex)

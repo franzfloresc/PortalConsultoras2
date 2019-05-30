@@ -37,7 +37,7 @@
 
     <div class="overflow-y auto">
 
-        @if (Model.ListaGana.Any() && Model.GananciaGana > 0)
+        @if (Model.ListaGana.Any())
         {
             <!--  Con Gana+  -->
             <div class="container  containBox">
@@ -45,7 +45,11 @@
                     <div class="row align-items-center">
                         <div class="col-8 pr-0">
                             <h3 class="title-small text-700 text-gray">Por Gana+ @ViewBag.Simbolo @Model.TotalGana</h3>
-                            <span class="text-purple text-14">Gana @ViewBag.Simbolo @Model.GananciaGana</span>
+                            @if (Model.GananciaGana > 0)
+                            {
+                                <span class="text-purple text-14">Gana @ViewBag.Simbolo @Model.GananciaGana</span>
+                            }
+
                         </div>
                         <div class="col">
                             <div data-accion="ingrgana" class="btnAccion vc-box text-black text-14 text-700">

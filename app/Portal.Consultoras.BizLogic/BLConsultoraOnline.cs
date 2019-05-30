@@ -184,6 +184,8 @@ namespace Portal.Consultoras.BizLogic
                     };
                 EstrategiasMs = EstrategiasMs.Where(x => x.CodigoEstrategia != 2003 && !CodigoTipoEstrategiasNoAplica.Contains(x.CodigoTipoEstrategia)).ToList();
 
+                EstrategiasMs = EstrategiasMs.OrderBy(x => x.Precio2).ToList();
+
                 EstrategiasMs = GetRecomendadosAlgorithm(RecomendadoRequest, EstrategiasMs);
 
                 var Estrategias = MapearRecomendados(EstrategiasMs, RecomendadoRequest);

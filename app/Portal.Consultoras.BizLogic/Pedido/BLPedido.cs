@@ -1,3 +1,4 @@
+using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
 using Portal.Consultoras.BizLogic.ArmaTuPack;
 using Portal.Consultoras.BizLogic.CaminoBrillante;
 using Portal.Consultoras.BizLogic.LimiteVenta;
@@ -644,7 +645,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     DescripcionProd = descTono,
                     ImporteTotal = pedidoDetalle.Cantidad * Precio2,
                     Nombre = pedidoDetalle.ClienteID == 0 ? usuario.Nombre : pedidoDetalle.ClienteDescripcion,
-                    TipoAdm = Constantes.PedidoAccion.INSERT
+                    TipoAdm = Constantes.PedidoAccion.INSERT ,
+                    OrigenSolicitud = pedidoDetalle.OrigenSolicitud
                 };
 
                 ListaCuvsTemporal.Add(CUV2);
@@ -889,7 +891,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         Nombre = detalle.ClienteID == 0 ? usuario.Nombre : detalle.ClienteDescripcion,
                         Flag = 2,
                         Stock = pedidoDetalle.StockNuevo,
-                        TipoAdm = Constantes.PedidoAccion.UPDATE
+                        TipoAdm = Constantes.PedidoAccion.UPDATE,
+                        OrigenSolicitud = pedidoDetalle.OrigenSolicitud
                     };
 
                     pedidoWebDetalles.Add(obePedidoWebDetalle);
@@ -1205,17 +1208,23 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 #endregion
 
                 //Validación producto no existe
-                var lstProducto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(
-                                    productoBuscar.PaisID,
-                                    usuario.CampaniaID,
-                                    productoBuscar.CodigoDescripcion,
-                                    usuario.RegionID,
-                                    usuario.ZonaID,
-                                    usuario.CodigorRegion,
-                                    usuario.CodigoZona,
-                                    productoBuscar.Criterio,
-                                    productoBuscar.RowCount,
-                                    productoBuscar.ValidarOpt);
+                BEProductoBusqueda busqueda = new BEProductoBusqueda
+                {
+                    PaisID = productoBuscar.PaisID,
+                    CampaniaID = usuario.CampaniaID,
+                    CodigoDescripcion = productoBuscar.CodigoDescripcion,
+                    RegionID = usuario.RegionID,
+                    ZonaID = usuario.ZonaID,
+                    CodigoRegion = usuario.CodigorRegion,
+                    CodigoZona = usuario.CodigoZona,
+                    Criterio = productoBuscar.Criterio,
+                    RowCount = productoBuscar.RowCount,
+                    ValidarOpt = productoBuscar.ValidarOpt,
+                    CodigoPrograma = usuario.CodigoPrograma,
+                    NumeroPedido = usuario.ConsecutivoNueva + 1
+                };
+
+                var lstProducto = _productoBusinessLogic.SelectProductoByCodigoDescripcionSearchRegionZona(busqueda);
 
                 if (!lstProducto.Any()) return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOEXISTE);
 
@@ -3106,13 +3115,14 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return montosProl;
         }
 
-        private List<ObjMontosProl> UpdateProl(BEUsuario usuario, List<BEPedidoWebDetalle> lstDetalle, out List<BEMensajeProl> ListMensajeCondicional)
+        private List<ObjMontosProl> UpdateProl(BEUsuario usuario, List<BEPedidoWebDetalle> lstDetalle, out List<BEMensajeProl> listMensajeCondicional)
         {
             ListMensajeCondicional = new List<BEMensajeProl>();
             decimal montoAhorroCatalogo = 0, montoAhorroRevista = 0, montoDescuento = 0, montoEscala = 0;
             string codigoConcursosProl = string.Empty, puntajes = string.Empty, puntajesExigidos = string.Empty;
 
             var lista = ServicioProl_CalculoMontosProl(usuario, lstDetalle);
+            listMensajeCondicional = new List<BEMensajeProl>();
             if (lista.Any())
             {
                 var oRespuestaProl = lista[0];
@@ -3131,14 +3141,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 if (oRespuestaProl.ListaMensajeCondicional != null)
                 {
-                    foreach (var item in oRespuestaProl.ListaMensajeCondicional)
+                    listMensajeCondicional.AddRange(oRespuestaProl.ListaMensajeCondicional.Select(item => 
+                        new BEMensajeProl
                     {
-                        ListMensajeCondicional.Add(new BEMensajeProl()
-                        {
-                            CodigoMensajeRxP = item.CodigoMensaje,
-                            MensajeRxP = item.Mensaje,
-                        });
-                    }
+                        CodigoMensajeRxP = item.CodigoMensaje,
+                        MensajeRxP = item.Mensaje,
+                    }));
                 }
             }
             else
@@ -3643,9 +3651,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
             };
             var lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
             pedidoDetalle.PedidoID = pedidoID;
-            List<BEMensajeProl> ListMensajeCondicional;
+            List<BEMensajeProl> listMensajeCondicional;
 
-            UpdateProl(usuario, lstDetalle, out ListMensajeCondicional);
+            UpdateProl(usuario, lstDetalle, out listMensajeCondicional);
 
             //Indicador pedido autentico
             if (lstDetalle.Any())
@@ -3768,12 +3776,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 });
             }
 
-            List<BEMensajeProl> ListMensajeCondicional;
+            List<BEMensajeProl> listMensajeCondicional;
 
-            UpdateProl(usuario, lstDetalle, out ListMensajeCondicional);
+            UpdateProl(usuario, lstDetalle, out listMensajeCondicional);
 
             var response = PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
-            ListMensajeCondicional.ForEach(x => { response.ListaMensajeCondicional.Add(x); });
+            listMensajeCondicional.ForEach(x => { response.ListaMensajeCondicional.Add(x); });
 
             return response;
         }

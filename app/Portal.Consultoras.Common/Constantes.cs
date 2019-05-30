@@ -453,6 +453,7 @@ namespace Portal.Consultoras.Common
             public const string CDRParametria = "CDRParametria";
             public const string CDRWebDatos = "CDRWebDatos";
             public const string CDRExpressMensajes = "CDRExpressMensajes";
+            public const string CDRFlagIsSetsOrPacks = "CDRSetsYPacks"; //HD-3703 EINCA
 
             // Tabla LOgica
             public const string TablaLogicaDatos = "TablaLogicaDatos";
@@ -672,6 +673,9 @@ namespace Portal.Consultoras.Common
             public const string BonificacionesURL = "BonificacionesURL";
             public const string BonificacionesRegiones = "BonificacionesRegiones";
             public const string JsonWebTokenSecretKey = "JsonWebTokenSecretKey";
+            public const string ChatbotSecret = "ChatbotSecret";
+            public const string ChatBotPageId = "ChatBotPageId";
+            public const string ChatBotUrl = "https://m.me/{0}?ref={1}";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -1809,7 +1813,9 @@ namespace Portal.Consultoras.Common
                 public const string LogoComercialFondoActiva = "LogoComercialFondoActiva";
                 public const string LogoComercialFondoNoActiva = "LogoComercialFondoNoActiva";
                 public const string LogoMenuOfertasActiva = "LogoMenuOfertasActiva";
+                public const string LogoMenuOfertasActivaMobile = "LogoMenuOfertasActivaMobile";
                 public const string LogoMenuOfertasNoActiva = "LogoMenuOfertasNoActiva";
+                public const string LogoMenuOfertasNoActivaMobile = "LogoMenuOfertasNoActivaMobile";
                 public const string BloquearPedidoRevistaImp = "BloquearPedidoRevistaImp";
                 public const string BloquearSugerenciaProducto = "BloquearSugerenciaProducto";
                 public const string SubscripcionAutomaticaAVirtualCoach = "SubscripcionAutomaticaAVirtualCoach";

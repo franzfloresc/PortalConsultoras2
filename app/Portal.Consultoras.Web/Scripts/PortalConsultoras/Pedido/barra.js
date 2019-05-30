@@ -93,11 +93,34 @@ function MostrarBarra(datax, destino) {
     var wPrimer = 0;
     var vLogro = mt - md;
     var wMsgFin = 0;
-    var wmin = 45;
-
+    var wmin = 45;    
     if (!(mn == "0,00" || mn == "0.00" || mn == "0")) {
         wPrimer = wmin;
     }
+    //HD-4066
+    var valTopTotal = destino == '2' && dataBarra.TippingPointBarra.Active && tp > 0 ? tp : mn;
+    if (vLogro > valTopTotal) vLogro = valTopTotal > me ? valTopTotal : me;
+    listaEscalaDescuento = listaEscalaDescuento || new Array();
+    var listaEscala = new Array();
+    var indDesde = -1;
+    $.each(listaEscalaDescuento, function (ind, monto) {
+        if (mx > 0 && destino == "1") {
+            var desde = indDesde == -1 ? mx : listaEscalaDescuento[indDesde].MontoHasta
+            if (mn < monto.MontoHasta && mx >= desde) {
+                monto.MontoDesde = indDesde == -1 ? mn : listaEscalaDescuento[indDesde].MontoHasta;
+                monto.MontoDesdeStr = indDesde == -1 ? data.MontoMinimoStr : listaEscalaDescuento[indDesde].MontoHastaStr;
+                listaEscala.push(monto);
+                indDesde = ind;
+            }
+        }
+        else if (mn < monto.MontoHasta) {
+            monto.MontoDesde = indDesde == -1 ? mn : listaEscalaDescuento[indDesde].MontoHasta;
+            monto.MontoDesdeStr = indDesde == -1 ? data.MontoMinimoStr : listaEscalaDescuento[indDesde].MontoHastaStr;
+            listaEscala.push(monto);
+            indDesde = ind;
+        }
+    });
+    //Fin
     var textoPunto = '<div style="font-size:12px; font-weight:400; margin-bottom:4px;">{titulo}</div><div style="font-size: 12px;">{detalle}</div>';
     if (mx > 0 && destino == '2') {
         listaLimite.push({
@@ -126,30 +149,6 @@ function MostrarBarra(datax, destino) {
         });
     }
     else {
-        var valTopTotal = destino == '2' && dataBarra.TippingPointBarra.Active && tp > 0 ? tp : mn;
-        if (vLogro > valTopTotal) vLogro = valTopTotal > me ? valTopTotal : me;
-
-        listaLimite = new Array();
-        listaEscalaDescuento = listaEscalaDescuento || new Array();
-        var listaEscala = new Array();
-        var indDesde = -1;
-        $.each(listaEscalaDescuento, function (ind, monto) {
-            if (mx > 0 && destino == "1") {
-                var desde = indDesde == -1 ? mx : listaEscalaDescuento[indDesde].MontoHasta
-                if (mn < monto.MontoHasta && mx >= desde) {
-                    monto.MontoDesde = indDesde == -1 ? mn : listaEscalaDescuento[indDesde].MontoHasta;
-                    monto.MontoDesdeStr = indDesde == -1 ? data.MontoMinimoStr : listaEscalaDescuento[indDesde].MontoHastaStr;
-                    listaEscala.push(monto);
-                    indDesde = ind;
-                }
-            }
-            else if (mn < monto.MontoHasta) {
-                monto.MontoDesde = indDesde == -1 ? mn : listaEscalaDescuento[indDesde].MontoHasta;
-                monto.MontoDesdeStr = indDesde == -1 ? data.MontoMinimoStr : listaEscalaDescuento[indDesde].MontoHastaStr;
-                listaEscala.push(monto);
-                indDesde = ind;
-            }
-        });
 
         if (mx > 0 && destino == "1" && listaEscala.length > 0) {
             listaEscala[listaEscala.length - 1].MontoHasta = mx;
@@ -198,7 +197,7 @@ function MostrarBarra(datax, destino) {
                 MontoHastaStr: data.MontoMinimoStr
             });
         }
-    }
+    }    
     mtoLogroBarra = vLogro;
 
     listaLimite = listaLimite || new Array();
@@ -788,13 +787,11 @@ function calcMtoLogro(data, destino) {
 
     var vLogro = mt - md;
 
-    if (mx > 0 && destino == '2') {
-
-    }
-    else {
+    if (!(mx > 0 && destino == '2')) {
         var valTopTotal = destino == '2' && barra.TippingPointBarra.Active && tp > 0 ? tp : mn;
         if (vLogro > valTopTotal) vLogro = valTopTotal > me ? valTopTotal : me;
     }
+
     mtoLogroBarra = vLogro;
 
     return vLogro;
@@ -1306,9 +1303,16 @@ function showPopupNivelSuperado(barra, prevLogro) {
         return;
     }
 
+    //HD-4066
     if (!TieneMontoMaximo()) {
         showPopupEscalaSiguiente(barra, prevLogro);
     }
+    else {
+        if (mtoLogroBarra < dataBarra.MontoMaximo) {
+            showPopupEscalaSiguiente(barra, prevLogro);
+        }
+    }
+    //Fin
 }
 
 function showPopupPremio() {
@@ -2065,6 +2069,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
     var montoMaximo = dataBarra.MontoMaximo;
     var montoTipipoing = dataBarra.TippingPoint;
     var montoMinimo = dataBarra.MontoMinimo;
+    var showTintineo;
 
     if (TieneMontoMaximo()) { // se trata como tipinpoing
         if (ConfiguradoRegalo == true) {
@@ -2160,7 +2165,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
             var MostrarMonto = 'none';
             if (dataBarra.TippingPointBarra.ActiveMonto == true) MostrarMonto = 'block';
 
-            var showTintineo = dataBarra.TippingPointBarra.ActivePremioElectivo && tpElectivos.hasPremios && tpElectivos.premioSelected == null;
+            showTintineo = dataBarra.TippingPointBarra.ActivePremioElectivo && tpElectivos.hasPremios && tpElectivos.premioSelected == null;
             if (showTintineo) {
 
                 htmlTipinpoing = '<div id="punto_' + dataBarra.ListaEscalaDescuento.length + '" data-punto="0" style="float: left;top:-52px; z-index: 200;left:' + AvancePorcentajeTippingPoint + '" class="EscalaDescuento"><div class="monto_minimo_barra"><div style="width:90px;position: relative;" data-texto=""><div class=""><a class="tippingPoint" href="javascript:;" onclick="javascript: cargarPopupEleccionRegalo();" style="position: relative; left: -44px;"></a><div class="monto_meta_tippingPoint" style="display:' + MostrarMonto + ';position: relative;left: -47px;">' + variablesPortal.SimboloMoneda + ' ' + dataBarra.TippingPointStr + '</div></div><div class="contenedor_circulos microEfecto_regaloPendienteEleccion" style="display: block;left: -8px;" ><div class="circulo-1 iniciarTransicion"></div><div class="circulo-2 iniciarTransicion"></div><div class="circulo-3 iniciarTransicion"></div></div></div></div></div>';
@@ -2413,7 +2418,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
                 var MostrarMonto = 'none';
                 if (dataBarra.TippingPointBarra.ActiveMonto == true) MostrarMonto = 'block';
 
-                var showTintineo = dataBarra.TippingPointBarra.ActivePremioElectivo && tpElectivos.hasPremios && tpElectivos.premioSelected == null;
+                showTintineo = dataBarra.TippingPointBarra.ActivePremioElectivo && tpElectivos.hasPremios && tpElectivos.premioSelected == null;
 
                 AvancePorcentaje = CalculoPorcentajeAvance(montoTipipoing, montoMaximo);
 
