@@ -17,9 +17,9 @@
                 componente.HermanosSeleccionados = componente.HermanosSeleccionados || [];
                 componente.cantidadSeleccionados = componente.cantidadSeleccionados || 0;
                 componente.cantidadFaltantes = componente.FactorCuadre - componente.cantidadSeleccionados;
-                componente=_updateSelectComponentText(componente);
-                componente=_updateSelectComponentTitle(componente);
-                componente=_updateSelectQuantityText(componente);
+                componente = _updateSelectComponentText(componente);
+                componente = _updateSelectComponentTitle(componente);
+                componente = _updateSelectQuantityText(componente);
                 $.each(componente.Hermanos, function (idxTipoTono, tipoTono) {
                     tipoTono.FactorCuadre = componente.FactorCuadre || 0;
                     tipoTono.cantidadSeleccionados = tipoTono.cantidadSeleccionados || 0;
@@ -118,6 +118,34 @@
         return componente;
     };
 
+    var _updateView = function (componente, tipoTono) {
+        var result = false;
+
+        var grupo = tipoTono.Grupo;
+        var cuv = tipoTono.Cuv;
+        var cantidadSeleccionados = tipoTono.cantidadSeleccionados;
+
+        if (tipoTono.cantidadSeleccionados == 0) {
+            result = _config.componentesView.showChooseIt(grupo, cuv);
+        } else if (tipoTono.cantidadSeleccionados == 1 && componente.FactorCuadre == 1) {
+            result = _config.componentesView.showChoosen(grupo, cuv);
+        } else if (tipoTono.cantidadSeleccionados >= 1 && componente.FactorCuadre > 1) {
+            result = _config.componentesView.showQuantitySelector(grupo, cuv, cantidadSeleccionados);
+        }
+
+        if (componente.cantidadSeleccionados < componente.FactorCuadre) {
+            result = result && _config.componentesView.unblockTypesOrTones();
+        } else {
+            result = result && _config.componentesView.blockTypesOrTones();
+        }
+
+        result = result && _config.componentesView.setTitle(componente.selectComponentTitle) &&
+            _config.componentesView.setSelectedQuantityText(componente.selectedQuantityText) &&
+            _config.componentesView.showSelectedTypesOrTones(componente);
+
+        return result;
+    };
+
     var _addTypeOrTone = function (grupo, cuv) {
         if (typeof grupo === "undefined" || grupo === null) throw "grupo is null or undefined";
         if (typeof cuv === "undefined" || cuv === null) throw "cuv is null or undefined";
@@ -128,23 +156,16 @@
         $.each(model.Hermanos, function (idxComponente, componente) {
             if (componente.Grupo == grupo) {
                 $.each(componente.Hermanos, function (idxTipoTono, tipoTono) {
-                    if (tipoTono.Cuv == cuv 
-                        && componente.cantidadSeleccionados < componente.FactorCuadre) {
+                    if (tipoTono.Cuv == cuv &&
+                        componente.cantidadSeleccionados < componente.FactorCuadre) {
                         componente.HermanosSeleccionados.push(tipoTono);
                         componente.cantidadSeleccionados++;
                         componente.cantidadFaltantes--;
                         tipoTono.cantidadSeleccionados++;
                         componente = _updateSelectComponentTitle(componente);
                         componente = _updateSelectQuantityText(componente);
-                        //debugger;
-                        result = _config.componentesView.showQuantitySelector(tipoTono.Grupo, tipoTono.Cuv, tipoTono.cantidadSeleccionados) &&
-                            _config.componentesView.showSelectedTypesOrTones(componente) &&
-                            _config.componentesView.setTitle(componente.selectComponentTitle) &&
-                            _config.componentesView.setSelectedQuantityText(componente.selectedQuantityText);
-
-                        if(componente.cantidadSeleccionados == componente.FactorCuadre){
-                            result = result && _config.componentesView.blockTypesOrTones();
-                        }
+                        
+                        result = _updateView(componente, tipoTono);
 
                         return false;
                     }
@@ -155,17 +176,69 @@
 
         _estrategiaModel(model);
 
-        //console.log(_estrategiaModel());
-
         return result;
     };
 
+    var _removeSelectedItem = function (selectedItems, selectedItem, selectedIndex) {
+        if (typeof selectedItems == "undefined" || typeof selectedItem == "undefined") return selectedItems;
 
+        if (typeof selectedIndex == undefined) {
+            var tmp = $.extend(true, [], selectedItems);
+            tmp = tmp.reverse();
+            selectedIndex = -1;
+            $.each(tmp, function (idxTmpSelectedItem, tmpSelectedItem) {
+                if (selectedItem.Grupo == tmpSelectedItem.Grupo && selectedItem.Cuv == tmpSelectedItem.Cuv) {
+                    selectedIndex = idxTmpSelectedItem;
+                    return false;
+                }
+            });
+
+            if (selectedIndex >= 0) selectedIndex = selectedItems.length - selectedIndex - 1;
+        }
+
+        selectedItems.splice(selectedIndex, 1);
+
+        return selectedItems;
+    };
+
+    var _removeTypeOrTone = function (grupo, cuv, selectedIndex) {
+        if (typeof grupo === "undefined" || grupo === null) throw "grupo is null or undefined";
+        if (typeof cuv === "undefined" || cuv === null) throw "cuv is null or undefined";
+
+        var result = false;
+        var model = _estrategiaModel();
+
+        $.each(model.Hermanos, function (idxComponente, componente) {
+            if (componente.Grupo == grupo) {
+                $.each(componente.Hermanos, function (idxTipoTono, tipoTono) {
+                    if (tipoTono.Cuv == cuv &&
+                        componente.cantidadSeleccionados > 0) {
+                        componente.HermanosSeleccionados = _removeSelectedItem(componente.HermanosSeleccionados, componente, selectedIndex);
+                        componente.cantidadSeleccionados--;
+                        componente.cantidadFaltantes++;
+                        tipoTono.cantidadSeleccionados--;
+                        componente = _updateSelectComponentTitle(componente);
+                        componente = _updateSelectQuantityText(componente);
+
+                        result = _updateView(componente, tipoTono);
+
+                        return false;
+                    }
+                });
+                return false;
+            }
+        });
+
+        _estrategiaModel(model);
+
+        return result;
+    };
 
     return {
         estrategiaModel: _estrategiaModel,
         onEstrategiaModelLoaded: _onEstrategiaModelLoaded,
         showTypesAndTonesModal: _showTypesAndTonesModal,
         addTypeOrTone: _addTypeOrTone,
+        removeTypeOrTone: _removeTypeOrTone,
     };
 };

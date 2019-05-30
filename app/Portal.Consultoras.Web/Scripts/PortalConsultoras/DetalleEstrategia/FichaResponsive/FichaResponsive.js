@@ -19,12 +19,18 @@ var componentesPresenter = ComponentesPresenter({
 });
 componentesView.setPresenter(componentesPresenter);
 
+var fichaEnriquecidaView = FichaEnriquecidaView();
+var fichaEnriquecidaPresenter = FichaEnriquecidaPresenter({
+    fichaEnriquecidaView: fichaEnriquecidaView
+});
+
 $(document).ready(function () {
     $("#data-estrategia").data("estrategia", detalleEstrategia.getEstrategia(params));
     var estrategia = $("#data-estrategia").data("estrategia");
-    console.log("estrategia", estrategia);
+
     estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
     componentesPresenter.onEstrategiaModelLoaded(estrategia);
+    fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
 
     //function tabs_resposive(id, mostar) {
     //    var selector = id + " ul li a";

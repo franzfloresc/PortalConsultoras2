@@ -2,8 +2,8 @@
     {{#each this.HermanosSeleccionados as |opcion|}}
     <article class="item_selecionado">
         <div>
-            <button class="item_selecionado_close" data-grupo="{{opcion.Grupo}}" data-cuv="{{opcion.Cuv}}" data-indice="{{@@index}}">
-                <img src="/Content/Images/mobile/Esika/close-button-white.svg" alt="">
+            <button class="item_selecionado_close" remove-type-tone data-grupo="{{opcion.Grupo}}" data-cuv="{{opcion.Cuv}}" data-indice="{{@@index}}">
+                <img src="/Content/Images/mobile/Esika/close-button-white.svg" alt="" data-grupo="{{opcion.Grupo}}" data-cuv="{{opcion.Cuv}}" data-indice="{{@@index}}">
             </button>
             <img class="item_selecionado_img" src="{{opcion.ImagenBulk}}" alt="">
             <span>

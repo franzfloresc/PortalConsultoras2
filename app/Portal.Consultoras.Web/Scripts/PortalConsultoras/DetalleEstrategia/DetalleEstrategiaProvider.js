@@ -71,7 +71,7 @@ var DetalleEstrategiaProvider = function () {
 
     var _promiseObternerModelo = function (params) {
         var dfd = $.Deferred();
-
+        
         try {
 
             $.ajax({
@@ -228,6 +228,7 @@ var DetalleEstrategiaProvider = function () {
 
         //estrategia = $.extend(modeloFicha, estrategia);
         estrategia.TipoPersonalizacion = estrategia.CodigoEstrategia;
+        estrategia.MostarTabsFichaEnriquecidaSinDetalle = estrategia.Hermanos.length == 1;
         //
 
         return estrategia;

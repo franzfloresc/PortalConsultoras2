@@ -20,10 +20,6 @@
             background: "#ImagenDeFondo",
             stamp: "#ImagenDeFondo",
         },
-        tabsComponente: {
-            templateId: "#tabs-ficha-enriquecida-template",
-            id: "#contenedor-tabs-ficha-enriquecida",
-        },
         compartirEstrategia: {
             templateId: "#compartir-estrategia-template",
             id: "#compartir-estrategia",
@@ -37,11 +33,6 @@
             templateId: "#agregar-estrategia-template",
             id: "#dvContenedorAgregar",
             contenedor: "#ContenedorAgregado"
-        },
-        popup: {
-            templateId: "#popup-ficha-enriquecida-responsive",
-            id: "#modal_popup_ficha_enriquecida",
-            contenedor: "#contenedor_popup_ficha_enriquecida"
         }
     };
 
@@ -109,18 +100,7 @@
 
         return true;
     };
-
-    var _showPopup = function (data) {
-        SetHandlebars(_elements.popup.templateId, data, _elements.popup.contenedor)
-        $(_elements.popup.id).show();
-        return true;
-    }
-
-    var _hidePopup = function () {
-        $(_elements.popup.id).hide();
-        return true;
-    }
-
+    
     return {
         setPresenter: _setPresenter,
         renderBreadcrumbs : _renderBreadcrumbs,
@@ -129,8 +109,6 @@
         renderReloj: _renderReloj,
         renderRelojStyle: _renderRelojStyle,
         renderAgregar: _renderAgregar,
-        showTitleAgregado: _showTitleAgregado,
-        showPopup: _showPopup,
-        hidePopup: _hidePopup
+        showTitleAgregado: _showTitleAgregado
     };
 };

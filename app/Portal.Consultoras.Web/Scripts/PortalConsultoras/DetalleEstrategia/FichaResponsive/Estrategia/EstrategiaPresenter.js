@@ -47,18 +47,9 @@ var EstrategiaPresenter = function (config) {
         if (!_config.estrategiaView.renderAgregar(model)) throw "estrategiaView don't render agregar.";
 
         if (!_config.estrategiaView.showTitleAgregado(model)) throw "estrategiaView don't show title Agregado.";
-
+  
         return true;
     };
-
-    var _showPopupFichaEnriquecida = function (event) {
-        var componente = $(event.target).parents("[data-componente-grupo]").find("[data-componente]").data("componente");
-        estrategiaView.showPopup(componente);
-    }
-
-    var _hidePopupFichaEnriquecida = function () {
-        estrategiaView.hidePopup();
-    }
 
     var _onEstrategiaModelClick = function (event, popup, limite, esFicha, esEditable) {
         if (!(event instanceof Event)) throw  "event is undefined";
@@ -73,8 +64,6 @@ var EstrategiaPresenter = function (config) {
 
     return {
         onEstrategiaModelLoaded: _onEstrategiaModelLoaded,
-        onEstrategiaModelClick: _onEstrategiaModelClick,
-        showPopupFichaEnriquecida: _showPopupFichaEnriquecida,
-        hidePopupFichaEnriquecida: _hidePopupFichaEnriquecida
+        onEstrategiaModelClick: _onEstrategiaModelClick
     };
 };
