@@ -1,7 +1,7 @@
 ﻿@using Portal.Consultoras.Common
 
 <script id="componente-estrategia-template" type="text/x-handlebars-template">
-    <h3 class="contenido_titulo">CONTENIDO:</h3>
+    <h3 class="contenido_titulo">Contenido</h3>
     {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.CompuestaFija,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
         {{#each this.Hermanos as |componente|}}
             {{#ifVerificarMarcaLast componente.DescripcionMarca EsMultimarca}}
@@ -21,7 +21,7 @@
                 {{#iff ../MostrarFichaEnriquecida '==' true }}
                     {{#iff ../Hermanos.length '>' 1}}
                         {{#iff componente.TieneDetalleSeccion '==' true}}
-                            <a id="btnVerDetalle" class="button_ver_detalle" onclick="javascript:fichaEnriquecidaPresenter.showPopupFichaEnriquecida(event)">Ver detalle <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt=""></a>
+                            <a id="btnVerDetalle" class="btn_texto" onclick="javascript:fichaEnriquecidaPresenter.showPopupFichaEnriquecida(event)">Ver detalle <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt=""></a>
                         {{/iff}}
                     {{/iff}}
                 {{/iff}}
