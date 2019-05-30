@@ -30,8 +30,8 @@
         },
         actualizarEmail: function() {
             me.actualizarCorreoService.actualizarEnviarCorreo(function () {
-                var email = $(campoCorreoElectronico).html();
-                $(campoCorreoActualizado).html(email);
+                var email = $(_elementos.campoCorreoElectronico).html();
+                $(_elementos.campoCorreoActualizado).html(email);
                 $(_elementos.vistaIngresoEmail).hide();
                 $(_elementos.vistaConfirmacion).show();
             });
@@ -39,7 +39,8 @@
         cambiarCorreo: function() {
             $(_elementos.vistaConfirmacion).hide();
             $(_elementos.vistaIngresoEmail).show();
-            $(campoCorreoElectronico).focus();
+            $(_elementos.campoCorreoElectronico).html('');
+            $(_elementos.campoCorreoElectronico).focus();
         }
     }
 
