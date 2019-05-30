@@ -88,6 +88,7 @@ var ComponentesView = function () {
                 id : "#btn-aplicar-seleccion",
                 claseHabilitado : "active",
                 claseInhabilitado : "btn_deshabilitado",
+
             }
         }
     };
