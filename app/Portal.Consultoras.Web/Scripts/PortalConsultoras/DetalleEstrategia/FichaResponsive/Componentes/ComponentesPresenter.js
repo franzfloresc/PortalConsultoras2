@@ -3,9 +3,11 @@
 var ComponentesPresenter = function (config) {
     if (typeof config === "undefined" || config == null) throw "config is null or undefined";
     if (typeof config.componentesView === "undefined" || config.componentesView == null) throw "config.componentesView is null or undefined";
+    if (typeof config.analyticsPortal === "undefined" || config.analyticsPortal == null) throw "config.analyticsPortal is null or undefined";
 
     var _config = {
-        componentesView: config.componentesView
+        componentesView: config.componentesView,
+        analyticsPortal: config.analyticsPortal,
     };
 
     var _estrategiaInstance = null;
@@ -140,7 +142,7 @@ var ComponentesPresenter = function (config) {
             result = result && _config.componentesView.blockApplySelection();
         } else {
             result = result && _config.componentesView.blockTypesOrTones();
-            result = result && _config.componentesView.unblockApplySelection();
+            result = result && _config.componentesView.unblockApplySelection(grupo);
 
         }
 
@@ -243,114 +245,76 @@ var ComponentesPresenter = function (config) {
         if (typeof grupo === "undefined" || grupo === null) throw "grupo is null or undefined";
         if (typeof cuv === "undefined" || cuv === null) throw "cuv is null or undefined";
 
-        // var paletaItem = $(event.target);
-        // var cuvPadre = String(paletaItem.length > 0 ? paletaItem.parents("[data-tono-div]").data("tono-div") : "");
-
-        $.each(_estrategiaInstance.Hermanos, function (iComponente, hermano) {
-            if (grupo == hermano.Grupo) {
-                var componente = _estrategiaInstance.Hermanos[iComponente];
-
-                componente.resumenAplicados = [];
-
-                $.each(componente.Hermanos, function (i, item) {
-                    item.cantidadSeleccionada = 0;
-
-                    if (cuv === item.Cuv) {
-                        componente.resumenAplicados.push(item);
-                        item.cantidadSeleccionada++;
-                        _aplicarOpciones(true, componente);
-
-                        return false;
-                    }
-                });
-
-
-                //#region Marcación Analytics (EPM-1442)
-                AnalyticsPortalModule.MarcarImagenProducto(_estrategiaInstance, componente.resumenAplicados);
-                //#endregion
-
-                return true;
-            }
-        });
-
+        _addTypeOrTone(grupo,cuv);
+        _aplicarOpciones(grupo);
+        
         return true;
     };
 
-    function _aplicarOpciones(callFromSeleccionarPaletaOpcion, _componente) {
-        _actualizarCantidadAplicada(_estrategiaInstance.CodigoVariante, _componente);
-        _config.componentesView.renderResumen(_componente);
+    var _getResumenAplicadosVisualizar = function (opcionesAplicadas) {
+        opcionesAplicadas = opcionesAplicadas || [];
+        if (opcionesAplicadas.length === 0) return opcionesAplicadas;
 
-        //var callCloseElegirOpcionesModal = callFromSeleccionarPaletaOpcion ? !callFromSeleccionarPaletaOpcion : true;
+        var componentesAplicados = [];
+        var estaEnResumen = false;
 
-        if (ConstantesModule.CodigoVariedad.IndividualVariable === _estrategiaInstance.CodigoVariante) {
-            _config.componentesView.showBorderItemSelected(_componente);
-        }
-        //if (_estrategiaInstance.CodigoVariante.in(ConstantesModule.CodigoVariedad.CompuestaVariable, ConstantesModule.CodigoVariedad.IndividualVariable)) {
-        //    _config.componentesView.verifyButtonActive();
-        //}
-
-        //#region Marcación Analytics
-        //if (callCloseElegirOpcionesModal) {
-        //    var nombreConcat = "";
-
-        //    if (_componente.FactorCuadre === 1) {
-        //        AnalyticsPortalModule.MarcarBotonAplicarSeleccion(_estrategiaInstance, _componente);
-        //    } else {
-        //        $.each(_componente.resumenAplicados, function (index, opcion) {
-        //            if (opcion.cantidadSeleccionada > 0) {
-        //                nombreConcat += " " + _estrategiaInstance.DescripcionCompleta + " " + opcion.NombreBulk + " |";
-        //            }
-        //        });
-
-        //        nombreConcat = Left(nombreConcat, nombreConcat.length - 1).trim();
-
-        //        AnalyticsPortalModule.MarcarPopupBotonAplicarSeleccionVariasOpciones(nombreConcat);
-        //    }
-        //}
-
-        //#region TODO: consultar
-        //var isDesactivado = $('#btnAgregalo').hasClass(_estrategiaInstance.ClaseBloqueada);
-
-        //if (!isDesactivado) {
-        //    fichaModule.SetChangeFichaAnalytics(true, null, null);
-        //}
-        //#endregion
-        //#endregion
-
-        return true;
-    }
-
-    function _actualizarCantidadAplicada(codigoVariante, _componente) {
-        var resumenAplicadosVisualizar = [];
-
-        $.each(_componente.Hermanos, function (index, hermano) {
-            hermano.cantidadAplicada = 0;
-            hermano.CodigoVariante = codigoVariante || 0;
-        });
-
-        $.each(_componente.resumenAplicados, function (index, item) {
-            $.each(_componente.Hermanos, function (index2, hermano) {
-                if (hermano.Cuv === item.Cuv) {
-                    hermano.cantidadAplicada++;
-
-                    var estaEnResumen = false;
-                    $.each(resumenAplicadosVisualizar, function (index3, item2) {
-                        if (hermano.Cuv === item2.Cuv) {
-                            item2.cantidadAplicada++;
-                            estaEnResumen = true;
-                        }
-                    });
-
-                    if (!estaEnResumen) {
-                        resumenAplicadosVisualizar.push(jQuery.extend(true, {}, hermano));
+        $.each(opcionesAplicadas,function(idxOpcionAplicada,opcionAplicada){
+            estaEnResumen = false;
+            $.each(componentesAplicados,function(idxComponenteAplicado,componenteAplicado){
+                if(componenteAplicado.Grupo == opcionAplicada.Grupo &&
+                    componenteAplicado.Cuv == opcionAplicada.Cuv){
+                        estaEnResumen= true;
+                        opcionAplicada.cantidadAplicada++;
+                        //
+                        return false;                   
                     }
-                }
             });
+            
+            if (!estaEnResumen) {
+                opcionAplicada.cantidadAplicada = 0;
+                opcionAplicada.cantidadAplicada++;
+                componentesAplicados.push(opcionAplicada);
+            } 
         });
 
-        _componente.resumenAplicadosVisualizar = resumenAplicadosVisualizar;
+        return componentesAplicados;
+    };
 
-        return false;
+    var _aplicarOpciones = function (grupo) {
+        if (typeof grupo === "undefined" || grupo === null) throw "grupo is null or undefined";
+
+        var model = _estrategiaModel();
+
+        $.each(model.HermanosSeleccionados,function(idxHermano,hermanoSeleccionado){
+            hermanoSeleccionado.cantidadSeleccionados = 1;
+        });
+
+        $.each(model.Hermanos,function(idxComponente,componente){
+            if(componente.Grupo == grupo && componente.FactorCuadre == componente.cantidadSeleccionados){
+                componente.resumenAplicados = componente.HermanosSeleccionados;
+                componente.HermanosSeleccionados = [];
+                componente.resumenAplicadosVisualizar = _getResumenAplicadosVisualizar(componente.resumenAplicados);
+                //
+                componente.cantidadSeleccionados = 0;
+                componente.cantidadFaltantes = componente.FactorCuadre;
+                $.each(componente.Hermanos,function(idxOpcion,opcion){
+                    opcion.cantidadSeleccionados = 0;
+                });
+                //
+                _config.componentesView.renderResumen(componente);
+                //
+                if (ConstantesModule.CodigoVariedad.IndividualVariable === model.CodigoVariante) {
+                    _config.componentesView.showBorderItemSelected(componente);
+                }
+                _config.componentesView.hideTypeAndTonesModal();
+                //
+                return false;
+            }          
+        });
+        //
+        _estrategiaModel(model);
+        //
+        return true;
     };
 
     return {
@@ -359,6 +323,7 @@ var ComponentesPresenter = function (config) {
         showTypesAndTonesModal: _showTypesAndTonesModal,
         addTypeOrTone: _addTypeOrTone,
         onPaletaSelectItemClick: _onPaletaSelectItemClick,
-        removeTypeOrTone: _removeTypeOrTone
+        removeTypeOrTone: _removeTypeOrTone,
+        applySelected: _aplicarOpciones
     };
 };

@@ -155,6 +155,12 @@ var ComponentesView = function () {
             _presenter.removeTypeOrTone(grupo, cuv, indice);
         });
 
+        $(_elements.tiposTonosModal.id).on("click", _elements.tiposTonosModal.aplicarSeleccion.id, function (e) {
+            e.preventDefault();
+            var grupo = $(e.target).data("grupo");
+            _presenter.applySelected(grupo);
+        });
+
         return true;
     };
 
@@ -292,10 +298,15 @@ var ComponentesView = function () {
         return true;
     };
 
-    var _unblockApplySelection = function(){
+    var _unblockApplySelection = function (grupo) {
+        if(typeof grupo ==="undefined" || grupo === null ) return false;
+
         $(_elements.tiposTonosModal.aplicarSeleccion.id)
             .removeClass(_elements.tiposTonosModal.aplicarSeleccion.claseInhabilitado)
             .addClass(_elements.tiposTonosModal.aplicarSeleccion.claseHabilitado);
+        //
+        $(_elements.tiposTonosModal.aplicarSeleccion.id).data("grupo", grupo);
+        //
         return true;
     };
 
@@ -303,6 +314,9 @@ var ComponentesView = function () {
         $(_elements.tiposTonosModal.aplicarSeleccion.id)
             .removeClass(_elements.tiposTonosModal.aplicarSeleccion.claseHabilitado)
             .addClass(_elements.tiposTonosModal.aplicarSeleccion.claseInhabilitado);
+        //
+        $(_elements.tiposTonosModal.aplicarSeleccion.id).data("grupo", "");
+        //
         return true;
     };
 
@@ -360,6 +374,7 @@ var ComponentesView = function () {
         setSelectedQuantityText: _setSelectedQuantityText,
         showComponentTypesAndTones: _showComponentTypesAndTones,
         showTypesAndTonesModal: _showTypesAndTonesModal,
+        hideTypeAndTonesModal: _hideTypeAndTonesModal,
         showChooseIt: _showChooseIt,
         showChoosen: _showChoosen,
         showQuantitySelector: _showQuantitySelector,
