@@ -239,12 +239,15 @@ var ComponentesPresenter = function (config) {
         return result;
     };
 
-    var _onPaletaSelectItemClick = function (event, cuv) {
-        var paletaItem = $(event.target);
-        var cuvPadre = String(paletaItem.length > 0 ? paletaItem.parents("[data-tono-div]").data("tono-div") : "");
+    var _onPaletaSelectItemClick = function (grupo, cuv) {
+        if (typeof grupo === "undefined" || grupo === null) throw "grupo is null or undefined";
+        if (typeof cuv === "undefined" || cuv === null) throw "cuv is null or undefined";
+
+        // var paletaItem = $(event.target);
+        // var cuvPadre = String(paletaItem.length > 0 ? paletaItem.parents("[data-tono-div]").data("tono-div") : "");
 
         $.each(_estrategiaInstance.Hermanos, function (iComponente, hermano) {
-            if (cuvPadre === hermano.Cuv) {
+            if (grupo == hermano.Grupo) {
                 var componente = _estrategiaInstance.Hermanos[iComponente];
 
                 componente.resumenAplicados = [];
@@ -254,11 +257,13 @@ var ComponentesPresenter = function (config) {
 
                     if (cuv === item.Cuv) {
                         componente.resumenAplicados.push(item);
-                        item.cantidadSeleccionada = 1;
+                        item.cantidadSeleccionada++;
+                        _aplicarOpciones(true, componente);
+
+                        return false;
                     }
                 });
 
-                _aplicarOpciones(true, componente);
 
                 //#region Marcación Analytics (EPM-1442)
                 AnalyticsPortalModule.MarcarImagenProducto(_estrategiaInstance, componente.resumenAplicados);

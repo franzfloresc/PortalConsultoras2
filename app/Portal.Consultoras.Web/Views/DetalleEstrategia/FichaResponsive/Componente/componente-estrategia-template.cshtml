@@ -40,7 +40,7 @@
                                      data-tono-nombre="{{variedad.NombreBulk}}"
                                      data-tono-descripcion="{{variedad.NombreComercial}}"
                                      {{#unless ../esCampaniaSiguiente}}
-                                        onclick="javascript: componentesPresenter.onPaletaSelectItemClick(event,'{{variedad.Cuv}}');"
+                                        onclick="javascript: componentesPresenter.onPaletaSelectItemClick('{{variedad.Grupo}}','{{variedad.Cuv}}');"
                                      {{/unless}}>
                                     <img src="{{variedad.ImagenBulk}}" alt="" />
                                 </div>
