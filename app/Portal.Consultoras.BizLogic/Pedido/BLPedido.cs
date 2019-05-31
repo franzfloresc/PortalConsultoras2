@@ -3236,9 +3236,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 .Where(p => p.CodigoCatalago.ToString() == Constantes.ODSCodigoCatalogo.WebPortalFFVV && (Convert.ToInt32(p.CodigoTipoOferta) < 200 && p.CodigoTipoOferta != "002"))
                 .Where(p => !itemsCatalogo.Contains(p.CodigoCatalago.ToString()));
 
-            var descuentoRevista = itemsRevista.Any() ? itemsRevista.Sum(p => p.Ganancia) : 0;
-            var descuentoWeb = itemsWeb.Any() ? itemsWeb.Sum(p => p.Ganancia) : 0;
-            var descuentoOtros = itemsOtros.Any() ? itemsOtros.Sum(p => p.Ganancia) : 0;
+            var gananciaRevista = itemsRevista.Any() ? itemsRevista.Sum(p => p.Ganancia) : 0;
+            var gananciaWeb = itemsWeb.Any() ? itemsWeb.Sum(p => p.Ganancia) : 0;
+            var gananciaOtros = itemsOtros.Any() ? itemsOtros.Sum(p => p.Ganancia) : 0;
 
             var bePedidoWeb = new BEPedidoWeb
             {
@@ -3250,9 +3250,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 MontoAhorroRevista = montoAhorroRevista,
                 DescuentoProl = montoDescuento,
                 MontoEscala = montoEscala,
-                DescuentoRevista = descuentoRevista,
-                DescuentoWeb = descuentoWeb,
-                DescuentoOtros = descuentoOtros
+                GananciaRevista = gananciaRevista,
+                GananciaWeb = gananciaWeb,
+                GananciaOtros = gananciaOtros
             };
 
             return bePedidoWeb;
