@@ -59,12 +59,13 @@ function MarcaAnalyticsClienteProducto(action, label) {
 function AceptarPedidoPendiente(id, tipo) {
 
     var btn = $('.btnAccion span').not('.active')[0];
+    var accionTipo = $(btn).parent().data('accion');
 
     if (btn) {
         var pedido = {
             Accion: 2,
             Dispositivo: glbDispositivo,
-            AccionTipo: $(btn).parent().data('accion'),
+            AccionTipo: accionTipo,
             ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? $('.conGanaMas').data('listagana') : [],
             OrigenTipoVista: gTipoVista
         }
@@ -92,6 +93,10 @@ function AceptarPedidoPendiente(id, tipo) {
                 CloseLoading();
                 if (checkTimeout(response)) {
                     if (response.success) {
+
+                        var mensajeConfirmacion = (accionTipo == "ingrgana") ? "Has atendido el pedido por Gana+." : "Has atendido el pedido por Catálogo.";
+                        $("#mensajeConfirmacion").html(mensajeConfirmacion);
+
                         $('#popuplink').click();
                         if (!response.continuarExpPendientes) {
                             $("#btnIrPEdidoAprobar").hide();
