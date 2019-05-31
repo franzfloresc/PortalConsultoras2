@@ -1,8 +1,8 @@
 ﻿use BelcorpPeru_GANAMAS;
 
 
-select * from PedidoWeb;
+ALTER TABLE PedidoWeb ADD GananciaRevista MONEY;
+ALTER TABLE PedidoWeb ADD GananciaWeb MONEY;
+ALTER TABLE PedidoWeb ADD GananciaOtros MONEY;
 
-ALTER TABLE PedidoWeb ADD DescuentoRevista MONEY;
-ALTER TABLE PedidoWeb ADD DescuentoWeb MONEY;
-ALTER TABLE PedidoWeb ADD DescuentoOtros MONEY;
+select * from PedidoWeb;
