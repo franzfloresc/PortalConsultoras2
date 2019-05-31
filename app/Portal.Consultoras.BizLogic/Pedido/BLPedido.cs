@@ -304,6 +304,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         break;
                 }                
             }
+
+            var ListPedidoObservacion = resultadoReservaProl.ListPedidoObservacion;
+            if (ListPedidoObservacion.Any())
+            {
+                mensajePersonalizado = (ListPedidoObservacion.Count > 1 && ListPedidoObservacion[0].ToString().Contains("ya no contamos con unidades")) ? ListPedidoObservacion[1].ToString() : ListPedidoObservacion[0].ToString();
+            }
+
             var respuesta = PedidoDetalleRespuesta(pedidoValidacionCode, mensajePersonalizado);            
             respuesta.MensajeRespuesta = respuesta.MensajeRespuesta.Replace("Pedido no reservado", "Pedido reservado");
             if (!error)
