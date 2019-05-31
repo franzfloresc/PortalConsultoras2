@@ -119,6 +119,7 @@ namespace Portal.Consultoras.Entities
             CodigoTipoOferta = row.ToString("CodigoTipoOferta");
             SetID = row.ToInt32("SetID");
             EstrategiaId = row.ToInt32("EstrategiaId");
+            Ganancia = row.ToDecimal("Ganancia");
         }
 
         [DataMember]
@@ -352,5 +353,7 @@ namespace Portal.Consultoras.Entities
         public bool EsKitCaminoBrillante { get; set; }
         [DataMember]
         public bool EsDemCaminoBrillante { get; set; }
+        [DataMember]
+        public decimal Ganancia { get; set; }
     }
 }
