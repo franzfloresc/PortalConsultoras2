@@ -5,6 +5,7 @@
 
 @section styles{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/SugerenciaPendientes")
+    <link href="@Url.Content("~/Content/Css/Site/ConsultoraOnline/MotivosRechazo.css")" rel="stylesheet" />
 }
 
 @{
@@ -328,9 +329,6 @@
             </div>
         </div>
     </article>
-
-
-
     <div id="rechazarTodop" class="mobile hide rechazar">
         <div class="container position-sticky top">
             <div class="row align-items-center">
@@ -353,6 +351,35 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div id="MotivosRechazo" class="mobile hide motivos__rechazo__modal">
+        <h2 class="d-block text-bold motivo__rechazo__modal__titulo">¿A qué se debe el rechazo del pedido?</h2>
+        <ul class="w-100 d-flex flex-wrap justify-content-between lista__motivos__rechazo">
+            <li class="d-block motivo__rechazo">
+                <input id="1" name="motivoRechazo" type="radio" class="d-none field__checkbox__sb" value="" />
+                <label for="1" class="border-radius-4 text-center mr-0 tag__checkbox__sb tag__checkbox__sb--motivoRechazo">El cliente vive muy lejos</label>
+            </li>
+            <li class="d-block motivo__rechazo">
+                <input id="2" name="motivoRechazo" type="radio" class="d-none field__checkbox__sb" value="" />
+                <label for="2" class="border-radius-4 text-center mr-0 tag__checkbox__sb tag__checkbox__sb--motivoRechazo">Tengo productos en stock</label>
+            </li>
+            <li class="d-block motivo__rechazo">
+                <input id="3" name="motivoRechazo" type="radio" class="d-none field__checkbox__sb" value="" />
+                <label for="3" class="border-radius-4 text-center mr-0 tag__checkbox__sb tag__checkbox__sb--motivoRechazo">No conozco el cliente</label>
+            </li>
+            <li class="d-block motivo__rechazo">
+                <input id="4" name="motivoRechazo" type="radio" class="d-none field__checkbox__sb" value="" />
+                <label for="4" class="border-radius-4 text-center mr-0 tag__checkbox__sb tag__checkbox__sb--motivoRechazo">Productos agotados</label>
+            </li>
+            <li class="d-block motivo__rechazo">
+                <input id="5" name="motivoRechazo" type="radio" class="d-none field__checkbox__sb" value="" />
+                <label for="5" class="border-radius-4 text-center mr-0 tag__checkbox__sb tag__checkbox__sb--motivoRechazo">No pasaré pedido</label>
+            </li>
+            <li class="d-block motivo__rechazo">
+                <input id="6" name="motivoRechazo" type="radio" class="d-none field__checkbox__sb" value="" />
+                <label for="6" class="border-radius-4 text-center mr-0 tag__checkbox__sb tag__checkbox__sb--motivoRechazo">Pruebo la herramienta</label>
+            </li>
+        </ul>
     </div>
 </script>
 <!-- Modal confirmación  -->

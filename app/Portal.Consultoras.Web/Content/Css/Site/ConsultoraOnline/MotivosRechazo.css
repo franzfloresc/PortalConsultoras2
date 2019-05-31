@@ -1,0 +1,35 @@
+﻿
+/* HD-4287 - MOTIVOS DE RECHAZO */
+
+.motivos__rechazo__modal{
+    padding-left:16px;
+    padding-right:16px;
+}
+
+.motivo__rechazo__modal__titulo {
+    margin-top: 24px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.lista__motivos__rechazo {
+    margin-top:0;
+    margin-bottom: 0;
+    height: auto;
+}
+
+.motivo__rechazo{
+    margin-bottom:16px;
+}
+
+.motivo__rechazo,
+.tag__checkbox__sb--motivoRechazo {
+    flex:0 0 145px;
+    max-width:145px;
+}
+
+input[type="radio"].field__checkbox__sb {
+    display: none !important;
+}
+
+/* FIN - HD-4287 - MOTIVOS DE RECHAZO */
