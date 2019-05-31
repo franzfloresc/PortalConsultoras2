@@ -399,21 +399,20 @@ var AnalyticsPortalModule = (function () {
         var contendor = _getTextoContenedorSegunOrigen(origenEstructura) || "";
 
         var pagina = "";
+        var seccion = "";
         if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselVerMas) {
             pagina = _getTextoSeccionSegunOrigen(origenEstructura);
         }
         else {
             pagina = _getTextoPaginaSegunOrigen(origenEstructura);
+            if (origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel) {
+                seccion = _getTextoSeccionSegunOrigen(origenEstructura);
+            }
         }
         pagina = pagina || "";
+        seccion = seccion || "";
 
         var palanca = _getTextoPalancaSegunOrigen(origenEstructura) || "";
-
-        var seccion = "";
-        if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling) {
-            seccion = _getTextoSeccionSegunOrigen(origenEstructura);
-        }
-        seccion = seccion || "";
 
         var separador = " - ";
         var texto = contendor;
@@ -421,6 +420,8 @@ var AnalyticsPortalModule = (function () {
         texto += (texto != "" ? (pagina != "" ? separador : "") : "") + pagina;
         texto += (texto != "" ? (palanca != "" ? separador : "") : "") + palanca;
         texto += (texto != "" ? (seccion != "" ? separador : "") : "") + seccion;
+
+        console.log(origenEstructura, texto);
 
         return texto;
     }
@@ -2705,6 +2706,9 @@ var AnalyticsPortalModule = (function () {
     ////////////////////////////////////////////////////////////////////////////////////////
 
     return {
+
+        GetTextoSegunOrigen: _getParametroListSegunOrigen,
+
         // Ini - Analytics Evento Product Impression
         MarcaGenericaLista: marcaGenericaLista,
         MarcaProductImpressionRecomendaciones: marcaProductImpressionRecomendaciones,
