@@ -360,7 +360,7 @@
     <div class="modal center column pb-5">
         <div class="position-relative mt-5 modal-close">
             <div class="text-right mb-3"><a class="close-modal" href="#" onclick="javascript: CerrarPopupConfirmacion();" alt="Cerrar">Cerrar</a></div>
-        </div><img class="img-fluid mb-3" src="https://i.ibb.co/n6p5vcB/check-circle-outline-3x.png" alt="Aprobado"><span class="font-big t-w700 dark-color mb-3">¡Pedido aprobado!</span><span class="small mb-4 dark-color">Has atendido el pedido por Gana+.</span>
+        </div><img class="img-fluid mb-3" src="https://i.ibb.co/n6p5vcB/check-circle-outline-3x.png" alt="Aprobado"><span class="font-big t-w700 dark-color mb-3">¡Pedido aprobado!</span><span class="small mb-4 dark-color" id="mensajeConfirmacion">Has atendido el pedido por Gana+.</span>
         <div class="position-relative container-btn">
             <div class="position-relative btn-left"><a id="btnIrPedido" class="btn full ghost color-dark" href="/Pedido/Index">Ir a mi pedido</a></div>
             <div class="position-relative btn-right"><a id="btnIrPEdidoAprobar" class="btn full second-color" href="#" onclick="javascript: CerrarPopupConfirmacion();">Ver pedidos por aprobar</a></div>
@@ -701,7 +701,7 @@
                     <div class="card--title">
                         <div class="row">
                             <div class="col-1"></div>
-                            <div class="col-3">Nombre del cliente</div>
+                            <div class="col-3">Nombre del producto</div>
                             <div class="col-2">Precio total</div>
                             <div class="col-2">Origen</div>
                             <div class="col">Clientes que te lo pidieron</div>
