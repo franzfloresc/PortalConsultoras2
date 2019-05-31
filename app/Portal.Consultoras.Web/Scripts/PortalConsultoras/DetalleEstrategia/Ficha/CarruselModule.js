@@ -565,10 +565,10 @@ var CarruselModule = (function (config) {
                 if (_config.cantidadPack == 1) {
                     componenteInicial = _config.productosHermanos[0];
                 }
-                if (componenteInicial.FactorCuadre > 1) {
-                    titulo = 'Packs parecidos con más productos';
-                } else {
+                if (componenteInicial.FactorCuadre * componenteInicial.Cantidad == 1) {
                     titulo = 'Packs que contienen <span style="text-transform:capitalize">' + _config.tituloCarrusel.toLowerCase() + '</span>';
+                } else {
+                    titulo = 'Packs parecidos con más productos';
                 }
             }
         }
