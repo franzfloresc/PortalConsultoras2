@@ -850,6 +850,29 @@ div .layout__view__breadcrumbs__wrapper, div .layout__view__title__wrapper {
 .hide {
     display: none !important;
 }
+.revistadigital-landing {
+    width: auto;
+    padding: 0 10px 25px 10px;
+    display: inline-block;
+}
+.ver-todos {
+    color: black;
+    text-decoration: underline;
+    text-align: right;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: right;
+    display: block;
+    float: right;
+}
+.fleft {
+    float:left;
+}
+.slick-dots {
+    display:none;
+}
+
 
 @media (min-width:576px) {
     .modal-dialog {
@@ -1378,6 +1401,22 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
 
     .text-down {
         line-height: 15px;
+    }
+    #ddlfiltros {
+        width: 57%;
+        margin-right: 3%;
+        box-sizing: border-box;
+        display: block;
+        margin-left: 0;
+    }
+    #ddlOrdenar {
+        width: 40%;
+        box-sizing: border-box;
+        display: block;
+        margin-left: 0;
+    }
+    .slick-arrow {
+        display:none !important;
     }
 }
 

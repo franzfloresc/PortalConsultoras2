@@ -10,6 +10,12 @@
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/CaminoBrillante")
 }
 
+
+
+<link href="~/Content/Css/Site/FichaProductoResponsive/ficha-producto-responsive.css" rel="stylesheet" />
+
+
+
 <section data-layout="ubicacionWeb" class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
     <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
         <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
@@ -195,111 +201,423 @@
         </div>
     }
 
-
-
-<div id="boxganancias">
-    <h2 class="title">Mis Ganancias</h2>
-    <div class="box-right-ganancias">
-        <p class="text-bold">Monto de mi pedido C10</p>
-        <canvas id="canvas"></canvas>
-        <span class="text-bold">Campañas</span>
-    </div>
-    <div class="box-left-ganancias">
-
-        <div class="box-montos">
-            <p class="text-bold">Ganancia 08</p>
-            <img src="https://s3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/BENEFICIOS/pago_diferido.svg">
-            <span>S/ 100.00</span>
-        </div>
-
-        <div class="box-montos">
-            <p class="text-bold">Ganancia de periodo</p>
-            <img src="https://s3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/BENEFICIOS/pago_diferido.svg">
-            <span> S/ 100.00</span>
-        </div>
-        <div class="clear"></div>
-    </div>
+        
+    <h2 class="title fleft">Kit y Demostradores</h2>
+    <a href="#" class="ver-todos">Ver todos</a>
     <div class="clear"></div>
-</div>
+        <section class="regular slider" id="template-Kits">
+
+            <div class="revistadigital-landing">
+                <article class="ficha__producto ficha__producto__kit " data-item="BuscadorFichasProductos">
+                    <div class="etiq-producto">
+                        <img class="ficha__producto__tag_enable " src="https://S3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/NIVELES/TAG/Etiqueta_Nivel_02_A.png" />
+                    </div>
+                    <div class="row flex-row justify-content-center ml-0 mr-0">
+                        <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
+                            <img class="" src="http://somosbelcorpprd.s3.amazonaws.com/Iconos/CAMINOBRILLANTE/KITS/CR/31219.png">
+                        </figure>
+                        <div style="display:none;">
+                            <div data-kit=""></div>
+                        </div>
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
+                            <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
+                                L'Bel
+                            </div>
+                            <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold redireccionarFicha boxheight">
+                                Kit Coral
+                            </div>
+                        </div>
+                        <div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+                            <div>
+                                <div style="text-align: left;padding-right: 15px;font-size: 12px;">
+                                    Precio para ti<br /><b>¢ 19.990</b>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="font-size: 12px;text-align: left;">Ganancia<br>¢ 88.550</div>
+                            </div>
+                        </div>
+                        <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
+                            <div class="col-12 col-md col-lg col-xl pl-0 pr-0" style="display:none;">
+                                <div class="row flex-row justify-content-between ml-0 mr-0 ficha__producto__rango__cantidad js-no-popup" data-cantidad-contenedor="">
+                                    <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                                        <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/menos.svg" alt="">
+                                    </a>
+                                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="col-4 col-md-8 col-lg-8 col-xl-8 pl-0 pr-0 d-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                                    <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                                        <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/mas.svg" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0 flex-grow-1">
+                                <a class="boton_Agregalo_home boton_agregar_ofertas boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador act">
+                                    <i>
+                                        <img src="/Content/CaminoBrillante/imgs/add_to_cart2.svg" />
+                                    </i> Agregar
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" data-Agregado="DivAgregado">
+                            <span class="text-uppercase text-bold d-inline-block">Agregado</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="revistadigital-landing">
+                <article class="ficha__producto ficha__producto__kit " data-item="BuscadorFichasProductos">
+                    <div class="etiq-producto">
+                        <img class="ficha__producto__tag_enable " src="https://S3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/NIVELES/TAG/Etiqueta_Nivel_02_A.png" />
+                    </div>
+                    <div class="row flex-row justify-content-center ml-0 mr-0">
+                        <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
+                            <img class="" src="http://somosbelcorpprd.s3.amazonaws.com/Iconos/CAMINOBRILLANTE/KITS/CR/31219.png">
+                        </figure>
+                        <div style="display:none;">
+                            <div data-kit=""></div>
+                        </div>
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
+                            <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
+                                L'Bel
+                            </div>
+                            <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold redireccionarFicha boxheight">
+                                Kit Coral
+                            </div>
+                        </div>
+                        <div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+                            <div>
+                                <div style="text-align: left;padding-right: 15px;font-size: 12px;">
+                                    Precio para ti<br /><b>¢ 19.990</b>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="font-size: 12px;text-align: left;">Ganancia<br>¢ 88.550</div>
+                            </div>
+                        </div>
+                        <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
+                            <div class="col-12 col-md col-lg col-xl pl-0 pr-0" style="display:none;">
+                                <div class="row flex-row justify-content-between ml-0 mr-0 ficha__producto__rango__cantidad js-no-popup" data-cantidad-contenedor="">
+                                    <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                                        <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/menos.svg" alt="">
+                                    </a>
+                                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="col-4 col-md-8 col-lg-8 col-xl-8 pl-0 pr-0 d-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                                    <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                                        <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/mas.svg" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0 flex-grow-1">
+                                <a class="boton_Agregalo_home boton_agregar_ofertas boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador act">
+                                    <i>
+                                        <img src="/Content/CaminoBrillante/imgs/add_to_cart2.svg" />
+                                    </i> Agregar
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" data-Agregado="DivAgregado">
+                            <span class="text-uppercase text-bold d-inline-block">Agregado</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="revistadigital-landing">
+                <article class="ficha__producto ficha__producto__kit " data-item="BuscadorFichasProductos">
+                    <div class="etiq-producto">
+                        <img class="ficha__producto__tag_enable " src="https://S3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/NIVELES/TAG/Etiqueta_Nivel_02_A.png" />
+                    </div>
+                    <div class="row flex-row justify-content-center ml-0 mr-0">
+                        <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
+                            <img class="" src="http://somosbelcorpprd.s3.amazonaws.com/Iconos/CAMINOBRILLANTE/KITS/CR/31219.png">
+                        </figure>
+                        <div style="display:none;">
+                            <div data-kit=""></div>
+                        </div>
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
+                            <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
+                                L'Bel
+                            </div>
+                            <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold redireccionarFicha boxheight">
+                                Kit Coral
+                            </div>
+                        </div>
+                        <div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+                            <div>
+                                <div style="text-align: left;padding-right: 15px;font-size: 12px;">
+                                    Precio para ti<br /><b>¢ 19.990</b>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="font-size: 12px;text-align: left;">Ganancia<br>¢ 88.550</div>
+                            </div>
+                        </div>
+                        <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
+                            <div class="col-12 col-md col-lg col-xl pl-0 pr-0" style="display:none;">
+                                <div class="row flex-row justify-content-between ml-0 mr-0 ficha__producto__rango__cantidad js-no-popup" data-cantidad-contenedor="">
+                                    <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                                        <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/menos.svg" alt="">
+                                    </a>
+                                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="col-4 col-md-8 col-lg-8 col-xl-8 pl-0 pr-0 d-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                                    <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                                        <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/mas.svg" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0 flex-grow-1">
+                                <a class="boton_Agregalo_home boton_agregar_ofertas boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador act">
+                                    <i>
+                                        <img src="/Content/CaminoBrillante/imgs/add_to_cart2.svg" />
+                                    </i> Agregar
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" data-Agregado="DivAgregado">
+                            <span class="text-uppercase text-bold d-inline-block">Agregado</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="revistadigital-landing">
+                <article class="ficha__producto ficha__producto__kit " data-item="BuscadorFichasProductos">
+                    <div class="etiq-producto">
+                        <img class="ficha__producto__tag_enable " src="https://S3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/NIVELES/TAG/Etiqueta_Nivel_02_A.png" />
+                    </div>
+                    <div class="row flex-row justify-content-center ml-0 mr-0">
+                        <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
+                            <img class="" src="http://somosbelcorpprd.s3.amazonaws.com/Iconos/CAMINOBRILLANTE/KITS/CR/31219.png">
+                        </figure>
+                        <div style="display:none;">
+                            <div data-kit=""></div>
+                        </div>
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
+                            <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
+                                L'Bel
+                            </div>
+                            <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold redireccionarFicha boxheight">
+                                Kit Coral
+                            </div>
+                        </div>
+                        <div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+                            <div>
+                                <div style="text-align: left;padding-right: 15px;font-size: 12px;">
+                                    Precio para ti<br /><b>¢ 19.990</b>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="font-size: 12px;text-align: left;">Ganancia<br>¢ 88.550</div>
+                            </div>
+                        </div>
+                        <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
+                            <div class="col-12 col-md col-lg col-xl pl-0 pr-0" style="display:none;">
+                                <div class="row flex-row justify-content-between ml-0 mr-0 ficha__producto__rango__cantidad js-no-popup" data-cantidad-contenedor="">
+                                    <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                                        <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/menos.svg" alt="">
+                                    </a>
+                                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="col-4 col-md-8 col-lg-8 col-xl-8 pl-0 pr-0 d-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                                    <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                                        <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/mas.svg" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0 flex-grow-1">
+                                <a class="boton_Agregalo_home boton_agregar_ofertas boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador act">
+                                    <i>
+                                        <img src="/Content/CaminoBrillante/imgs/add_to_cart2.svg" />
+                                    </i> Agregar
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" data-Agregado="DivAgregado">
+                            <span class="text-uppercase text-bold d-inline-block">Agregado</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="revistadigital-landing">
+                <article class="ficha__producto ficha__producto__kit " data-item="BuscadorFichasProductos">
+                    <div class="etiq-producto">
+                        <img class="ficha__producto__tag_enable " src="https://S3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/NIVELES/TAG/Etiqueta_Nivel_02_A.png" />
+                    </div>
+                    <div class="row flex-row justify-content-center ml-0 mr-0">
+                        <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
+                            <img class="" src="http://somosbelcorpprd.s3.amazonaws.com/Iconos/CAMINOBRILLANTE/KITS/CR/31219.png">
+                        </figure>
+                        <div style="display:none;">
+                            <div data-kit=""></div>
+                        </div>
+                        <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
+                            <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
+                                L'Bel
+                            </div>
+                            <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold redireccionarFicha boxheight">
+                                Kit Coral
+                            </div>
+                        </div>
+                        <div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
+                            <div>
+                                <div style="text-align: left;padding-right: 15px;font-size: 12px;">
+                                    Precio para ti<br /><b>¢ 19.990</b>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="font-size: 12px;text-align: left;">Ganancia<br>¢ 88.550</div>
+                            </div>
+                        </div>
+                        <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
+                            <div class="col-12 col-md col-lg col-xl pl-0 pr-0" style="display:none;">
+                                <div class="row flex-row justify-content-between ml-0 mr-0 ficha__producto__rango__cantidad js-no-popup" data-cantidad-contenedor="">
+                                    <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                                        <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/menos.svg" alt="">
+                                    </a>
+                                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="col-4 col-md-8 col-lg-8 col-xl-8 pl-0 pr-0 d-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
+                                    <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                                        <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/mas.svg" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0 flex-grow-1">
+                                <a class="boton_Agregalo_home boton_agregar_ofertas boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador act">
+                                    <i>
+                                        <img src="/Content/CaminoBrillante/imgs/add_to_cart2.svg" />
+                                    </i> Agregar
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" data-Agregado="DivAgregado">
+                            <span class="text-uppercase text-bold d-inline-block">Agregado</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
 
 
-    <script>
+        <div id="boxganancias">
+            <h2 class="title">Mis Ganancias</h2>
+            <div class="box-right-ganancias">
+                <p class="text-bold">Monto de mi pedido C10</p>
+                <canvas id="canvas"></canvas>
+                <span class="text-bold">Campañas</span>
+            </div>
+            <div class="box-left-ganancias">
 
-        window.onload = function () {
-            var ctx = document.getElementById('canvas').getContext('2d');
-            window.myBar = new Chart(ctx, {
-                type: 'bar',
-                data: {
+                <div class="box-montos">
+                    <p class="text-bold">Ganancia 08</p>
+                    <img src="https://s3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/BENEFICIOS/pago_diferido.svg">
+                    <span>S/ 100.00</span>
+                </div>
 
-                    labels: ["C05", "C06", "C07", "C08", "C09", "C10"],
-                    datasets: [
+                <div class="box-montos">
+                    <p class="text-bold">Ganancia de periodo</p>
+                    <img src="https://s3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/BENEFICIOS/pago_diferido.svg">
+                    <span> S/ 100.00</span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+
+
+        <script src="~/Scripts/jquery-1.11.2.js"></script>
+
+        <script src="~/Scripts/Chart.min.js"></script>
+        <script>
+
+            window.onload = function () {
+                var ctx = document.getElementById('canvas').getContext('2d');
+                window.myBar = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+
+                        labels: ["C05", "C06", "C07", "C08", "C09", "C10"],
+                        datasets: [
+                            {
+
+                                label: "Unidad (Millones) ",
+                                backgroundColor: ["#ffdaf3", "#4f0036", "#ffdaf3", "#ffdaf3", "#ffdaf3", "#ffdaf3"],
+                                data: [2478, 3267, 734, 784, 433, 403]
+                            }
+                        ]
+                    },
+
+
+
+                    options: {
+                        tooltips: {
+                            enabled: false
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+
+                                    fontColor: "#000",
+                                    fontSize: 14
+                                },
+                                gridLines: {
+                                    color: "#f7f7f7",
+                                    lineWidth: 1,
+                                    zeroLineColor: "#000",
+                                    zeroLineWidth: 0
+                                }
+                            }],
+
+                            xAxes: [{
+                                ticks: {
+                                    fontColor: "#000",
+                                    fontSize: 14
+                                },
+                                gridLines: {
+                                    color: "#f7f7f7",
+                                    lineWidth: 1,
+                                    zeroLineColor: "#000",
+                                    zeroLineWidth: 0
+                                }
+                            }]
+
+                        },
+
+                        legend: { display: false },
+                        title: {
+                            display: true
+                        },
+                        onClick: alertBox
+
+                    }
+                });
+
+            };
+
+            function alertBox() {
+                alert("click");
+                $(".box-left-ganancias span").text("Hello world!");
+            }
+        </script>
+        <script type="text/javascript">
+            $(document).on('ready', function () {
+
+                $(".regular").slick({
+                    dots: true,
+                    infinite: true,
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    dots: false,    
+                    responsive: [
                         {
+                            breakpoint: 768,
+                            settings: {
 
-                            label: "Unidad (Millones) ",
-                            backgroundColor: ["#ffdaf3", "#4f0036", "#ffdaf3", "#ffdaf3", "#ffdaf3", "#ffdaf3"],
-                            data: [2478, 3267, 734, 784, 433, 403]
+                                slidesToShow: 2,
+                            }
                         }
                     ]
-                },
+                });
 
-
-
-                options: {
-                       tooltips: {
-                             enabled: false
-                        },
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-
-                                fontColor: "#000",
-                                fontSize: 14
-                            },
-                            gridLines: {
-                                color: "#f7f7f7",
-                                lineWidth: 1,
-                                zeroLineColor: "#000",
-                                zeroLineWidth: 0
-                            }
-                        }],
-
-                        xAxes: [{
-                            ticks: {
-                                fontColor: "#000",
-                                fontSize: 14
-                            },
-                            gridLines: {
-                                color: "#f7f7f7",
-                                lineWidth: 1,
-                                zeroLineColor: "#000",
-                                zeroLineWidth: 0
-                            }
-                        }]
-
-                    },
-
-                    legend: { display: false },
-                    title: {
-                        display: true
-                    },
-                    onClick: alertBox
-
-                }
             });
-
-        };
-
-    function alertBox() {
-        alert("click");
-            $(".box-left-ganancias span").text("Hello world!");
-        }
-    </script>
-
-</div>
+        </script>
+    </div>
 
 
-<script src="~/Scripts/Chart.min.js"></script>
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
 }
+
