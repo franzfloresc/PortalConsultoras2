@@ -4,7 +4,7 @@
     {{#iff CodigoVariante '==' '@Constantes.TipoEstrategiaSet.IndividualConTonos'}}
         {{#each this.Hermanos as |componente|}}
             <div class="tiposytonos_componentes" data-tono="" data-opciones-seleccionadas="0" data-tono-digitable="1">
-                <button type="button" class="tono_select_opt" data-tono-change="1" onclick="javascript: ComponentesModule.SeleccionarComponente('{{componente.Cuv}}')">
+                <button type="button" class="tono_select_opt" data-tono-change="1" btn-show-types-tones-modal data-component-cuv="{{componente.Cuv}}">
                     {{#iff componente.FactorCuadre '==' '1'}}
                         Elige 1 opción
                     {{else}}
