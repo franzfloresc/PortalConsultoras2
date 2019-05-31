@@ -128,6 +128,15 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string RecogerNombre { get; set; }
 
+        [DataMember]
+        public decimal DescuentoRevista { get; set; }
+
+        [DataMember]
+        public decimal DescuentoWeb { get; set; }
+
+        [DataMember]
+        public decimal DescuentoOtros { get; set; }
+
         public BEPedidoWeb() { }
 
         public BEPedidoWeb(IDataRecord row)
