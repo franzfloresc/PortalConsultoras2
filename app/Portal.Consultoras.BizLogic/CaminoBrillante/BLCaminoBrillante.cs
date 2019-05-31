@@ -1165,6 +1165,15 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var tablaLogicaDatos = _tablaLogicaDatosBusinessLogic.GetList(paisID, ConsTablaLogica.CaminoBrillante.CaminoBrillanteFiltro) ?? new List<BETablaLogicaDatos>();
             if (tablaLogicaDatos.Count == 0) return null;
 
+            if (!isApp) {
+                tablaLogicaDatos = tablaLogicaDatos.OrderBy(e => e.Descripcion).ToList();
+                var titulo = tablaLogicaDatos.FirstOrDefault(e => e.Codigo == "00");
+                if (titulo != null) {
+                    tablaLogicaDatos.Remove(titulo);
+                    tablaLogicaDatos.Insert(0, titulo);
+                }
+            }
+
             return new List<BEFiltroGrupo>() { new BEFiltroGrupo() {
                 Excluyente = true,
                 NombreGrupo = tablaLogicaDatos.Where(e => e.Codigo == "00").Select(e => e.Valor).FirstOrDefault(),

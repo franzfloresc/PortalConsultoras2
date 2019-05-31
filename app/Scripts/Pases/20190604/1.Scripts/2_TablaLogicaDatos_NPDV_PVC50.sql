@@ -32,7 +32,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17500, 175, '00', 'Ordenar por', ''),
-			(17501, 175, '01', 'Categoria', ''),
+			(17501, 175, '01', 'Categoría', ''),
 			(17502, 175, '02', 'Nombre', '')
 GO
 
@@ -72,7 +72,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17500, 175, '00', 'Ordenar por', ''),
-			(17501, 175, '01', 'Categoria', ''),
+			(17501, 175, '01', 'Categoría', ''),
 			(17502, 175, '02', 'Nombre', '')
 GO
 
@@ -110,7 +110,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17500, 175, '00', 'Ordenar por', ''),
-			(17501, 175, '01', 'Categoria', ''),
+			(17501, 175, '01', 'Categoría', ''),
 			(17502, 175, '02', 'Nombre', '')
 GO
 
@@ -148,7 +148,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17500, 175, '00', 'Ordenar por', ''),
-			(17501, 175, '01', 'Categoria', ''),
+			(17501, 175, '01', 'Categoría', ''),
 			(17502, 175, '02', 'Nombre', '')
 GO
 
@@ -184,7 +184,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17500, 175, '00', 'Ordenar por', ''),
-			(17501, 175, '01', 'Categoria', ''),
+			(17501, 175, '01', 'Categoría', ''),
 			(17502, 175, '02', 'Nombre', '')
 GO
 
@@ -220,7 +220,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17500, 175, '00', 'Ordenar por', ''),
-			(17501, 175, '01', 'Categoria', ''),
+			(17501, 175, '01', 'Categoría', ''),
 			(17502, 175, '02', 'Nombre', '')
 GO
 
@@ -256,7 +256,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17500, 175, '00', 'Ordenar por', ''),
-			(17501, 175, '01', 'Categoria', ''),
+			(17501, 175, '01', 'Categoría', ''),
 			(17502, 175, '02', 'Nombre', '')
 GO
 
@@ -292,7 +292,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17500, 175, '00', 'Ordenar por', ''),
-			(17501, 175, '01', 'Categoria', ''),
+			(17501, 175, '01', 'Categoría', ''),
 			(17502, 175, '02', 'Nombre', '')
 GO
 
@@ -328,7 +328,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17500, 175, '00', 'Ordenar por', ''),
-			(17501, 175, '01', 'Categoria', ''),
+			(17501, 175, '01', 'Categoría', ''),
 			(17502, 175, '02', 'Nombre', '')
 GO
 
@@ -364,7 +364,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17500, 175, '00', 'Ordenar por', ''),
-			(17501, 175, '01', 'Categoria', ''),
+			(17501, 175, '01', 'Categoría', ''),
 			(17502, 175, '02', 'Nombre', '')
 GO
 
@@ -400,7 +400,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17500, 175, '00', 'Ordenar por', ''),
-			(17501, 175, '01', 'Categoria', ''),
+			(17501, 175, '01', 'Categoría', ''),
 			(17502, 175, '02', 'Nombre', '')
 GO
 
@@ -436,7 +436,7 @@ INSERT INTO TablaLogica (TablaLogicaID, Descripcion)
 	VALUES (175, 'Camino Brillante - Orden');
 INSERT INTO TablaLogicaDatos (TablaLogicaDatosID, TablaLogicaID, Codigo, Descripcion, Valor)
 	VALUES  (17500, 175, '00', 'Ordenar por', ''),
-			(17501, 175, '01', 'Categoria', ''),
+			(17501, 175, '01', 'Categoría', ''),
 			(17502, 175, '02', 'Nombre', '')
 GO
 

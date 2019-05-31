@@ -8,6 +8,11 @@
 
 @section css{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/CaminoBrillante")
+    <style>
+        div.content_responsive {
+            margin-top: 0px;
+        }
+    </style>
 }
 
 <section data-layout="ubicacionWeb" class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
@@ -108,7 +113,7 @@
                                     @if (nivel.EnterateMas == 1 || nivel.EnterateMas == 2)
                                     {
                                         <div class="box-enterate">
-                                            <a target="_blank" href="@Url.Action("EnterateMas", "CaminoBrillante", new { nivel = nivel.CodigoNivel  })">Enterate más</a>
+                                            <a target="_blank" href="@Url.Action("EnterateMas", "CaminoBrillante", new { nivel = nivel.CodigoNivel  })">Entérate más</a>
                                         </div>
                                     }
                                 </div>
