@@ -129,13 +129,13 @@ namespace Portal.Consultoras.Entities
         public string RecogerNombre { get; set; }
 
         [DataMember]
-        public decimal DescuentoRevista { get; set; }
+        public decimal GananciaRevista { get; set; }
 
         [DataMember]
-        public decimal DescuentoWeb { get; set; }
+        public decimal GananciaWeb { get; set; }
 
         [DataMember]
-        public decimal DescuentoOtros { get; set; }
+        public decimal GananciaOtros { get; set; }
 
         public BEPedidoWeb() { }
 
