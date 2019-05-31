@@ -19,5 +19,7 @@ namespace Portal.Consultoras.Entities.CDR
         public string Simbolo { get; set; }
         public decimal? Precio { get; set; }
         public string PrecioFormato { get; set; }
+        public string CodigoMotivoRechazo { get; set; }
+        public string Observacion { get; set; }
     }
 }

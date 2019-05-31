@@ -123,6 +123,8 @@ namespace Portal.Consultoras.Web.Providers
                     obj.Simbolo = xmlNode["simbolo"].InnerText;
                     obj.Estado = xmlNode["estado"].InnerText != "" ? 0 : Convert.ToInt32(xmlNode["estado"].InnerText);
                     obj.PrecioFormato = xmlNode["precio"].InnerText == "" ? "0" : Util.DecimalToStringFormat(Convert.ToDecimal(xmlNode["precio"].InnerText), codigoIso);
+                    obj.CodigoMotivoRechazo = xmlNode["codigorechazo"].InnerText;
+                    obj.Observacion = xmlNode["obs"].InnerText;
                     lista.Add(obj);
                 }
             }

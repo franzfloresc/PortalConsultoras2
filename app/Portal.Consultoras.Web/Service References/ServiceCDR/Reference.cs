@@ -887,10 +887,16 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private int CantidadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoMotivoRechazoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ObservacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<decimal> PrecioField;
@@ -938,6 +944,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoMotivoRechazo {
+            get {
+                return this.CodigoMotivoRechazoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoMotivoRechazoField, value) != true)) {
+                    this.CodigoMotivoRechazoField = value;
+                    this.RaisePropertyChanged("CodigoMotivoRechazo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Descripcion {
             get {
                 return this.DescripcionField;
@@ -959,6 +978,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((this.EstadoField.Equals(value) != true)) {
                     this.EstadoField = value;
                     this.RaisePropertyChanged("Estado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Observacion {
+            get {
+                return this.ObservacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ObservacionField, value) != true)) {
+                    this.ObservacionField = value;
+                    this.RaisePropertyChanged("Observacion");
                 }
             }
         }
@@ -2638,10 +2670,10 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         System.Threading.Tasks.Task<int> DelCDRWebDetalleAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/DelCDRWebDetalleList", ReplyAction="http://tempuri.org/ICDRService/DelCDRWebDetalleListResponse")]
-        int DelCDRWebDetalleList(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] detalle);
+        int DelCDRWebDetalleList(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] listDetalle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/DelCDRWebDetalleList", ReplyAction="http://tempuri.org/ICDRService/DelCDRWebDetalleListResponse")]
-        System.Threading.Tasks.Task<int> DelCDRWebDetalleListAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] detalle);
+        System.Threading.Tasks.Task<int> DelCDRWebDetalleListAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] listDetalle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetCDRWebDetalle", ReplyAction="http://tempuri.org/ICDRService/GetCDRWebDetalleResponse")]
         Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] GetCDRWebDetalle(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity, int pedidoId);
@@ -2855,12 +2887,12 @@ namespace Portal.Consultoras.Web.ServiceCDR {
             return base.Channel.DelCDRWebDetalleAsync(PaisID, entity);
         }
         
-        public int DelCDRWebDetalleList(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] detalle) {
-            return base.Channel.DelCDRWebDetalleList(PaisID, detalle);
+        public int DelCDRWebDetalleList(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] listDetalle) {
+            return base.Channel.DelCDRWebDetalleList(PaisID, listDetalle);
         }
         
-        public System.Threading.Tasks.Task<int> DelCDRWebDetalleListAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] detalle) {
-            return base.Channel.DelCDRWebDetalleListAsync(PaisID, detalle);
+        public System.Threading.Tasks.Task<int> DelCDRWebDetalleListAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] listDetalle) {
+            return base.Channel.DelCDRWebDetalleListAsync(PaisID, listDetalle);
         }
         
         public Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle[] GetCDRWebDetalle(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity, int pedidoId) {

@@ -80,7 +80,9 @@ namespace Portal.Consultoras.Web.Models
                         "<simbolo>{3}</simbolo>" +
                         "<precio>{4}</precio>" +
                         "<estado>{5}</estado>" +
-                        "</reemplazo>", item.CUV, item.Cantidad, item.Descripcion, item.Simbolo, item.Precio, 1);
+                        "<codigorechazo>{6}</codigorechazo>" +
+                        "<obs>{7}</obs>" +
+                        "</reemplazo>", item.CUV, item.Cantidad, item.Descripcion, item.Simbolo, item.Precio, 1,item.CodigoMotivoRechazo,item.Observacion);
                 }
                 sb.Append("</reemplazos>");
                 strOut = sb.ToString();
@@ -108,6 +110,8 @@ namespace Portal.Consultoras.Web.Models
                     obj.Precio = xmlNode["precio"].InnerText == "" ? 0 : Convert.ToDecimal(xmlNode["precio"].InnerText);
                     obj.Simbolo = xmlNode["simbolo"].InnerText;
                     obj.Estado = xmlNode["estado"].InnerText == "" ? 0 : Convert.ToInt32(xmlNode["estado"].InnerText);
+                    obj.CodigoMotivoRechazo = xmlNode["codigorechazo"].InnerText;
+                    obj.Observacion = xmlNode["obs"].InnerText;
                     lista.Add(obj);
                 }
             }

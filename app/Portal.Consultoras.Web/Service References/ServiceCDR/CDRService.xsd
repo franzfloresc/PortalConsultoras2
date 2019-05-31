@@ -76,8 +76,10 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoMotivoRechazo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Estado" type="xs:int" />
+      <xs:element minOccurs="0" name="Observacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Precio" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="PrecioFormato" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
