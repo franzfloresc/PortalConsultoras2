@@ -94,11 +94,13 @@
 
 /* INPUT TEXT */
 
+input[type="text"].text__field__sb,
 .text__field__sb {
     border-top: 0;
     border-left: 0;
     border-right: 0;
     border-bottom: 1px solid #b4b4b4;
+    border-radius: 0;
     height: 40px;
     background-color: transparent;
     position: relative;
@@ -113,7 +115,9 @@
     transition: all 0.3s ease;
 }
 
+    input[type="text"].text__field__sb:focus,
     .text__field__sb:focus,
+    input[type="text"].text__field__sb--withContent,
     .text__field__sb--withContent {
         border-bottom: 1px solid #000;
     }
