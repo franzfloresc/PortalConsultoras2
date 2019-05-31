@@ -79,11 +79,10 @@ var EstrategiaAgregarModule = (function () {
         }
     }
 
-    // TODO: modelo no se usa
-    //var _OrigenPedido = {
-    //    MobileContenedorArmaTuPack: CodigoOrigenPedidoWeb.MaestroCodigoOrigen.MobileArmaTuPackFicha,
-    //    DesktopContenedorArmaTuPack: CodigoOrigenPedidoWeb.MaestroCodigoOrigen.DesktopArmaTuPackFicha
-    //}
+    var _OrigenPedido = {
+        MobileContenedorArmaTuPack: CodigoOrigenPedidoWeb.MaestroCodigoOrigen.MobileArmaTuPackFicha,
+        DesktopContenedorArmaTuPack: CodigoOrigenPedidoWeb.MaestroCodigoOrigen.DesktopArmaTuPackFicha
+    }
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
         var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia")
