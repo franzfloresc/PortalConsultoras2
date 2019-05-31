@@ -120,6 +120,28 @@
 
 /* FIN - INPUT TEXT */
 
+/* CHECKBOXES */
+
+.field__checkbox__sb:checked + .label__checkbox__sb,
+.field__checkbox__sb:checked + .label__checkbox__sb--active {
+    background-image: url(/Content/Images/icono_check_mi_perfil.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 13px;
+}
+
+.field__checkbox__sb:checked + .label__checkbox__sb {
+    background-color: #000;
+    border: 1px solid #000;
+}
+
+.field__checkbox__sb:checked + .label__checkbox__sb--multimarca {
+    background-color: #b9007e;
+    border: 1px solid #b9007e;
+}
+
+/* FIN - CHECKBOXES */
+
 /* CHECKBOXES TIPO TAGS */
 
 .tag__checkbox__sb {

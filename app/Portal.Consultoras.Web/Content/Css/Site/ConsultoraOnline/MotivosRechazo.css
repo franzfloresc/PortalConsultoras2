@@ -22,14 +22,32 @@
     margin-bottom:16px;
 }
 
-.motivo__rechazo,
-.tag__checkbox__sb--motivoRechazo {
-    flex:0 0 145px;
-    max-width:145px;
+    .motivo__rechazo:last-child{
+        margin-bottom:0;
+    }
+
+.form__group__fields--motivoAdicionalWrapper .label__checkbox__sb {
+    border: 1px solid #454549;
+    margin-right:5px;
 }
 
+    .form__group__fields--motivoAdicionalWrapper .label__checkbox__sb + span{
+        margin-top:0;
+    }
+
+.motivo__rechazo,
+.tag__checkbox__sb--motivoRechazo {
+    flex: 0 0 145px;
+    max-width: 145px;
+}
+
+input[type="checkbox"].field__checkbox__sb,
 input[type="radio"].field__checkbox__sb {
     display: none !important;
+}
+
+.motivo__adicional__otro {
+    color: #454549;
 }
 
 /* FIN - HD-4287 - MOTIVOS DE RECHAZO */
