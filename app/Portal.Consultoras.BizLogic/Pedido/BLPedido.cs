@@ -276,7 +276,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         var ListPedidoObservacion = resultadoReservaProl.ListPedidoObservacion;
                         if (ListPedidoObservacion!=null && ListPedidoObservacion.Any())
                         {
-                            mensajePersonalizado = (ListPedidoObservacion.Count > 1 && ListPedidoObservacion[0].ToString().Contains("ya no contamos con unidades")) ? ListPedidoObservacion[1].Descripcion : ListPedidoObservacion[0].Descripcion;
+                            mensajePersonalizado = ListPedidoObservacion[0].Descripcion;
                         }
                         error = true;
                         break;
