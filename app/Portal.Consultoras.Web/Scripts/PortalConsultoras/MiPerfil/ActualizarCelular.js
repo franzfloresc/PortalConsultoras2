@@ -8,14 +8,14 @@
         CelularActual: globalData.celular,
         InicialNumero: globalData.iniciaNumero === -1 ? '' : globalData.iniciaNumero.toString(),
         CelularValido: false,
-        CelularNuevo: (globalData.IsConfirmar==1) ? globalData.celular:'',
+        CelularNuevo: (globalData.IsConfirmar == 1) ? globalData.celular : '',
         Expired: true,
         IsoPais: IsoPais,
         IsConfirmar: globalData.IsConfirmar,
-        UrlPaginaPrevia:globalData.UrlPaginaPrevia
+        UrlPaginaPrevia: globalData.UrlPaginaPrevia
     };
 
-    me.Elements = (function() {
+    me.Elements = (function () {
         function getInputCelular() {
             return $('#NuevoCelular');
         }
@@ -48,7 +48,7 @@
             getIsConfirmar: getIsConfirmar
         };
     })();
-    me.Services = (function() {
+    me.Services = (function () {
         function enviarSmsCode(numero) {
             return $.ajax({
                 url: urls.enviarSmsCodigo,
@@ -73,7 +73,7 @@
             confirmarSmsCode: confirmarSmsCode
         };
     })();
-    me.Funciones = (function() {
+    me.Funciones = (function () {
         var panels = [
             $('.form_actualizar_celular'),
             $('.revisa_tu_celular'),
@@ -105,7 +105,7 @@
             $('#NuevoCelular').on('focusout', function () { mensajeError(); });
             $('#btnVolver').on('click', function () {
                 window.location.href = localData.UrlPaginaPrevia;
-              
+
             });
             //FIN HD-3897
         };
@@ -115,7 +115,7 @@
             var btn = $("#btn_continuar");
             var obj = $.trim(IfNull($('#NuevoCelular').val(), ''));
             btn.removeClass('btn_deshabilitado')
-            
+
             if (!me.Funciones.ValidarCelular(obj).Success || !$('#chkAceptoContratoMD').prop('checked')) btn.addClass('btn_deshabilitado');
         }
         function mensajeError() {
@@ -144,7 +144,7 @@
             else obj.addClass("grupo_form_cambio_datos--validacionErronea");
 
         }
-       //FIN HD-3897
+        //FIN HD-3897
 
         function getLengthPais(iso) {
             var paises = {
@@ -215,7 +215,7 @@
                             Success: false,
                             Message: 'El número debe empezar con ' + localData.InicialNumero + '.'
                         }
-                    }                
+                    }
                 }
 
                 return success;
@@ -258,14 +258,14 @@
         }
 
         function setReadOnlySmsCodeInput(disabled) {
-            me.Elements.getInputsCodeSms().each(function() {
+            me.Elements.getInputsCodeSms().each(function () {
                 $(this).prop('readonly', disabled);
             });
         }
 
         function getSmsCode() {
             var code = '';
-            me.Elements.getInputsCodeSms().each(function() {
+            me.Elements.getInputsCodeSms().each(function () {
                 code += $(this).val();
             });
 
@@ -274,7 +274,7 @@
 
         function setSmsCode(value) {
             value = value || '';
-            me.Elements.getInputsCodeSms().each(function(idx) {
+            me.Elements.getInputsCodeSms().each(function (idx) {
                 var char = value.charAt(idx);
                 $(this).val(char);
             });
@@ -311,21 +311,21 @@
 
             localData.Expired = false;
             var now = 0;
-            interval = setInterval(function() {
-                
-                    now += cantMsInterval;
-                    var distance = segs - now;
+            interval = setInterval(function () {
 
-                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                    counterElement.text(format2(minutes) + ":" + format2(seconds));
+                now += cantMsInterval;
+                var distance = segs - now;
 
-                    if (distance < 0) {
-                        localData.Expired = true;
-                        clearInterval(interval);
-                        counterElement.text("00:00");
-                        resetSmsCode();
-                    }
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                counterElement.text(format2(minutes) + ":" + format2(seconds));
+
+                if (distance < 0) {
+                    localData.Expired = true;
+                    clearInterval(interval);
+                    counterElement.text("00:00");
+                    resetSmsCode();
+                }
             }, cantMsInterval);
         }
 
@@ -344,7 +344,7 @@
             }
 
             AbrirLoad();
-            var successConfirmarSmsCode = function(r) {
+            var successConfirmarSmsCode = function (r) {
                 CerrarLoad();
                 if (!r.Success) {
                     me.Funciones.MarkSmsCodeStatus(false);
@@ -354,28 +354,28 @@
 
                 setReadOnlySmsCodeInput(true);
                 me.Funciones.MarkSmsCodeStatus(true);
-                setTimeout(function() {
+                setTimeout(function () {
                     me.Funciones.NavigatePanel(2);
-                    
+
                     mostrarLluvia();
-                    },
+                },
                     1000);
                 setTimeout(function () {
-                    window.location.href  = localData.UrlPaginaPrevia;
+                    window.location.href = localData.UrlPaginaPrevia;
                 },
                     3000);
-               
+
             };
-            
+
             me.Services.confirmarSmsCode(code)
-                .then(successConfirmarSmsCode, function(er) {
+                .then(successConfirmarSmsCode, function (er) {
                     CerrarLoad();
                     me.Funciones.HandleError(er);
                 });
         }
 
         function navigatePanel(index) {
-            panels.forEach(function(item, idx) {
+            panels.forEach(function (item, idx) {
                 if (idx === index) {
                     item.show();
                 } else {
@@ -414,7 +414,7 @@
         };
 
     })();
-    me.Eventos = (function() {
+    me.Eventos = (function () {
 
         function continuar() {
             var nuevoCelular = me.Elements.getInputCelular().val();
@@ -425,11 +425,11 @@
                 return;
             }
 
-            if (document.getElementById('chkAceptoContratoMD').checked ==false) {
+            if (document.getElementById('chkAceptoContratoMD').checked == false) {
                 alert('Debe aceptar los términos y condiciones para poder actualizar sus datos');
                 return false;
             }
-            
+
             localData.CelularNuevo = nuevoCelular;
             me.Funciones.ResetSmsCode();
             AbrirLoad();
@@ -453,7 +453,7 @@
                     CerrarLoad();
                     me.Funciones.HandleError(er);
                 });
-            
+
             //FIN HD-3897
         }
         //INI HD-3897
@@ -466,7 +466,8 @@
                 $('#celularNuevo').text(localData.CelularNuevo);
                 CerrarLoad();
                 if (!r.Success) {
-                    me.Funciones.ShowError(r.Message);
+                    $("#celular_no_actualizado #message").html(r.Message);
+                    $("#celular_no_actualizado").show();
                     return;
                 }
                 me.Elements.getCelularNuevoText().text(localData.CelularNuevo);
@@ -498,7 +499,7 @@
             me.Funciones.ResetSmsCode();
             AbrirLoad();
             me.Services.enviarSmsCode(localData.CelularNuevo)
-                .then(function(r) {
+                .then(function (r) {
                     CerrarLoad();
                     if (!r.Success) {
                         me.Funciones.ShowError(r.Message);
@@ -508,7 +509,7 @@
                     }
 
                     me.Funciones.InitCounter();
-                }, function(er) {
+                }, function (er) {
                     CerrarLoad();
                     me.Funciones.HandleError(er);
                 });
@@ -534,7 +535,7 @@
 
         function onlyNumberCodeSms(e) {
             if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
-                (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+                (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
                 (e.keyCode >= 35 && e.keyCode <= 40)) {
                 return;
             }
@@ -553,7 +554,7 @@
             EnlaceTerminosCondiciones: enlaceTerminosCondiciones
         };
     })();
-    me.Inicializar = function() {
+    me.Inicializar = function () {
         me.Funciones.InicializarEventos();
     };
 

@@ -43,7 +43,7 @@
 <div class="ml-0 mr-0 mx-auto layout__content__fichaProductos clearboth opOrdenar" style="display:none">
     <div>
         <select id="ddlfiltros" class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca"></select>
-        <select id="ddlOrdenar" class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden"></select>
+        <select id="ddlOrdenar" class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden"></select>        
     </div>
 </div>
 
@@ -68,9 +68,10 @@
 </div>
 
 <style>
-    .hide {
-        display: none;
-    }
+    .hide { display: none; }
+    #ddlfiltros option, #ddlOrdenar option, #ddlfiltros, #ddlOrdenar { text-transform: uppercase; }
+    #ddlfiltros option, #ddlOrdenar option { padding: 4px; font-size: 12px; }
+    #ddlfiltros, #ddlOrdenar { font-size: 12px; }
 </style>
 
 <script id="template-Kits" type="text/x-handlebars-template">

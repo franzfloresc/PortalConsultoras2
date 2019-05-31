@@ -1383,6 +1383,20 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
     .text-down {
         line-height: 15px;
     }
+
+    #ddlfiltros {
+        width: 48%;
+        margin-left: 4%;
+        box-sizing: border-box;
+        display: block;
+    }
+
+    #ddlOrdenar {
+        width: 48%;
+        box-sizing: border-box;
+        display: block;
+        margin-left: 0;
+    }
 }
 
 @media screen and (max-width:600px) {
