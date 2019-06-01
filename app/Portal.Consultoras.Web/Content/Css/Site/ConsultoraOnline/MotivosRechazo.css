@@ -1,23 +1,38 @@
 ﻿
 /* HD-4287 - MOTIVOS DE RECHAZO */
 
-.motivos__rechazo__modal{
-    padding-left:16px;
-    padding-right:16px;
+.motivos__rechazo__modal {
+    padding-left: 16px;
+    padding-right: 16px;
+    z-index: 2147483647;
+    background-color: #FFF;
+    overflow:auto;
 }
 
     .motivos__rechazo__modal > div{
         height:100%;
     }
 
-    .motivos__rechazo__modal > div:last-child{
-       display:flex;
-    }
-
-.enlace__cerrar__modal__motivos__rechazo:before {
-    margin-top: 10px;
-    margin-right: 3px;
+.enlace__cerrar__modal__motivos__rechazo {
+    font-size: 0;
+    display: inline-block;
+    padding: .938rem;
+    cursor:pointer;
+    margin-bottom:7px;
 }
+
+    .enlace__cerrar__modal__motivos__rechazo:before {
+        content: "";
+        background: url("https://i.ibb.co/tPxhXbW/close-3x.png") center center no-repeat;
+        background-size: cover;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 24px;
+        height: 24px;
+        margin-top: 10px;
+        margin-right: 5px;
+    }
 
 .motivo__rechazo__modal__titulo {
     margin-top: 16px;
@@ -26,6 +41,9 @@
 }
 
 .lista__motivos__rechazo {
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content:space-between;
     margin-top:0;
     margin-bottom: 0;
     height: auto;
@@ -44,10 +62,6 @@
     margin-right:5px;
 }
 
-    .form__group__fields--motivoAdicionalWrapper .label__checkbox__sb + span{
-        margin-top:0;
-    }
-
 .motivo__rechazo,
 .tag__checkbox__sb--motivoRechazo {
     flex: 0 0 145px;
@@ -64,6 +78,8 @@ input[type="radio"].field__checkbox__sb {
 }
 
 .form__group__fields--motivoAdicionalWrapper{
+    flex-wrap:wrap;
+    align-items:center;
     margin-bottom:8px;
 }
 
@@ -89,9 +105,15 @@ input[type="radio"].field__checkbox__sb {
     top: calc(100% - 57px);
 }
 
-.motivos__rechazo__modal__icono{
-    width:72px;
-    height:72px;
+.motivos__rechazo__modal__paso2{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.motivos__rechazo__modal__icono {
+    width: 72px;
+    height: 72px;
 }
 
     .motivos__rechazo__modal__icono img{
@@ -103,6 +125,54 @@ input[type="radio"].field__checkbox__sb {
     margin-top:10px;
     color:#000;
     font-size:34px;
+}
+
+@media screen and (min-width:992px){
+
+    .form__group__fields--motivoAdicionalWrapper .label__checkbox__sb + span {
+        margin-top: 0;
+    }
+
+}
+
+@media screen and (max-width:991px){
+
+    .motivos__rechazo__modal {
+        position: fixed;
+        top:0;
+        width:100%;
+    }
+
+        .motivos__rechazo__modal > div {
+            height: 100vh;
+        }
+
+    .enlace__cerrar__modal__motivos__rechazo:before{
+        margin-right:8px;
+    }
+
+    .motivo__rechazo {
+        flex: 0 0 48%;
+        max-width: 48%;
+    }
+
+    .tag__checkbox__sb--motivoRechazo{
+        flex:0 0 100%;
+        max-width:100%;
+    }
+
+}
+
+@media screen and (max-width:991px) and (orientation:landscape) {
+
+    .btn__sb__primary--confirmar {
+        position: relative;
+        z-index: 5;
+        margin-top: 56px;
+        margin-bottom: 20px;
+        top:0;
+    }
+
 }
 
 /* FIN - HD-4287 - MOTIVOS DE RECHAZO */
