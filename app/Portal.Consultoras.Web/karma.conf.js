@@ -32,9 +32,10 @@ module.exports = function (config) {
             
             // shared
             'Scripts/PortalConsultoras/Shared/AnalyticsPortal.js',
+            'Scripts/PortalConsultoras/Shared/ConstantesModule.js',
+            'Scripts/PortalConsultoras/Shared/CodigoOrigenPedidoWeb.js',
 
             // FichaModule
-            'Scripts/PortalConsultoras/Shared/ConstantesModule.js',
             'Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js',
 
             //#region Provider
