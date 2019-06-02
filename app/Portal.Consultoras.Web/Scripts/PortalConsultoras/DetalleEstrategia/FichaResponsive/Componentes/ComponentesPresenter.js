@@ -165,13 +165,14 @@ var ComponentesPresenter = function (config) {
                 $.each(componente.Hermanos, function (idxTipoTono, tipoTono) {
                     if (tipoTono.Cuv == cuv &&
                         componente.cantidadSeleccionados < componente.FactorCuadre) {
-                        componente.HermanosSeleccionados.push(tipoTono);
+                        var tipoTonoSeleccionado = $.extend(true, {}, tipoTono, { cantidadSeleccionados: 1 });
+                        componente.HermanosSeleccionados.push(tipoTonoSeleccionado);
                         componente.cantidadSeleccionados++;
                         componente.cantidadFaltantes--;
                         tipoTono.cantidadSeleccionados++;
                         componente = _updateSelectComponentTitle(componente);
                         componente = _updateSelectQuantityText(componente);
-                        
+
                         result = _updateView(componente, tipoTono);
 
                         return false;
@@ -245,9 +246,9 @@ var ComponentesPresenter = function (config) {
         if (typeof grupo === "undefined" || grupo === null) throw "grupo is null or undefined";
         if (typeof cuv === "undefined" || cuv === null) throw "cuv is null or undefined";
 
-        _addTypeOrTone(grupo,cuv);
-        _aplicarOpciones(grupo);
-        
+        _addTypeOrTone(grupo, cuv);
+        _applySelectedTypesOrTones(grupo);
+
         return true;
     };
 
@@ -258,63 +259,72 @@ var ComponentesPresenter = function (config) {
         var componentesAplicados = [];
         var estaEnResumen = false;
 
-        $.each(opcionesAplicadas,function(idxOpcionAplicada,opcionAplicada){
+        $.each(opcionesAplicadas, function (idxOpcionAplicada, opcionAplicada) {
             estaEnResumen = false;
-            $.each(componentesAplicados,function(idxComponenteAplicado,componenteAplicado){
-                if(componenteAplicado.Grupo == opcionAplicada.Grupo &&
-                    componenteAplicado.Cuv == opcionAplicada.Cuv){
-                        estaEnResumen= true;
-                        opcionAplicada.cantidadAplicada++;
-                        //
-                        return false;                   
-                    }
+            $.each(componentesAplicados, function (idxComponenteAplicado, componenteAplicado) {
+                if (componenteAplicado.Grupo == opcionAplicada.Grupo &&
+                    componenteAplicado.Cuv == opcionAplicada.Cuv) {
+                        
+                    estaEnResumen = true;
+                    opcionAplicada.cantidadAplicada++;
+                    //
+                    return false;
+                }
             });
-            
+
             if (!estaEnResumen) {
                 opcionAplicada.cantidadAplicada = 0;
                 opcionAplicada.cantidadAplicada++;
                 componentesAplicados.push(opcionAplicada);
-            } 
+            }
         });
 
         return componentesAplicados;
     };
 
-    var _aplicarOpciones = function (grupo) {
-        if (typeof grupo === "undefined" || grupo === null) throw "grupo is null or undefined";
-
-        var model = _estrategiaModel();
-
-        $.each(model.HermanosSeleccionados,function(idxHermano,hermanoSeleccionado){
-            hermanoSeleccionado.cantidadSeleccionados = 1;
+    var _updateTypeOrToneSelectedQuantity = function(typesOrTones, selectedQuantity){
+        typesOrTones = typesOrTones || [];
+        
+        $.each(typesOrTones, function (idxOpcion, opcion) {
+            opcion.cantidadSeleccionados = selectedQuantity;
         });
 
-        $.each(model.Hermanos,function(idxComponente,componente){
-            if(componente.Grupo == grupo && componente.FactorCuadre == componente.cantidadSeleccionados){
+        return typesOrTones;
+    };
+
+    var _applySelectedTypesOrTones = function (grupo) {
+        if (typeof grupo === "undefined" || grupo === null) throw "grupo is null or undefined";
+
+        var result = false;
+        var model = _estrategiaModel();
+
+        $.each(model.Hermanos, function (idxComponente, componente) {
+            if (componente.Grupo == grupo &&
+                componente.FactorCuadre == componente.cantidadSeleccionados) {
+
                 componente.resumenAplicados = componente.HermanosSeleccionados;
-                componente.HermanosSeleccionados = [];
                 componente.resumenAplicadosVisualizar = _getResumenAplicadosVisualizar(componente.resumenAplicados);
                 //
+                componente.HermanosSeleccionados = [];
                 componente.cantidadSeleccionados = 0;
                 componente.cantidadFaltantes = componente.FactorCuadre;
-                $.each(componente.Hermanos,function(idxOpcion,opcion){
-                    opcion.cantidadSeleccionados = 0;
-                });
+                componente.Hermanos =_updateTypeOrToneSelectedQuantity(componente.Hermanos,0);
                 //
-                _config.componentesView.renderResumen(componente);
+                result = true;
+                result = result && _config.componentesView.renderResumen(componente);
                 //
                 if (ConstantesModule.CodigoVariedad.IndividualVariable === model.CodigoVariante) {
-                    _config.componentesView.showBorderItemSelected(componente);
+                    result = result && _config.componentesView.showBorderItemSelected(componente);
                 }
-                _config.componentesView.hideTypeAndTonesModal();
+                result = result && _config.componentesView.hideTypeAndTonesModal();
                 //
                 return false;
-            }          
+            }
         });
         //
         _estrategiaModel(model);
         //
-        return true;
+        return result;
     };
 
     return {
@@ -324,6 +334,6 @@ var ComponentesPresenter = function (config) {
         addTypeOrTone: _addTypeOrTone,
         onPaletaSelectItemClick: _onPaletaSelectItemClick,
         removeTypeOrTone: _removeTypeOrTone,
-        applySelected: _aplicarOpciones
+        applySelectedTypesOrTones: _applySelectedTypesOrTones
     };
 };

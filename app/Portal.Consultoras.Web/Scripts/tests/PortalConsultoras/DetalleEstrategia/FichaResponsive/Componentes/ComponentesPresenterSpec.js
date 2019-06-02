@@ -1,12 +1,13 @@
 ﻿/// <reference path="../../../../../portalconsultoras/detalleestrategia/ficharesponsive/componentes/componentespresenter.js" />
 /// <reference path="../../../../../portalconsultoras/detalleestrategia/ficharesponsive/componentes/componentesview.js" />
+/// <reference path="../../../../../portalconsultoras/shared/analyticsportal.js" />
 
-
-describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresenter", function () {
+describe("DetalleEstrategia - FichaResponsive - Componentes - ComponentesPresenter", function () {
    var errorMsg = '';
    var componentesView;
+   var analyticsPortal;
    var componentesPresenter;
-   
+
    var estrategiaUnComponenteFactorCuadreIgualADos = function () {
       return {
          "CodigoVideo": null,
@@ -701,8 +702,10 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
    beforeEach(function () {
       errorMsg = '';
       componentesView = sinon.stub(ComponentesView());
+      analyticsPortal = sinon.stub(AnalyticsPortalModule);
       componentesPresenter = ComponentesPresenter({
-         componentesView: componentesView
+         componentesView: componentesView,
+         analyticsPortal: analyticsPortal
       });
       //
       componentesView.renderComponente.returns(true);
@@ -718,6 +721,8 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
       componentesView.unblockTypesOrTones.returns(true);
       componentesView.unblockApplySelection.returns(true);
       componentesView.blockApplySelection.returns(true);
+      componentesView.renderResumen.returns(true);
+      componentesView.hideTypeAndTonesModal.returns(true);
    });
 
    afterEach(function () {
@@ -1103,7 +1108,7 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
                expect(result).to.be.eql("1 Seleccionado");
             });
 
-            it("should return false when componentesView do not activate 'Aplicar Selección'", function(){
+            it("should return false when componentesView do not activate 'Aplicar Selección'", function () {
                // Arrange
                componentesView.unblockApplySelection.returns(false);
 
@@ -1195,7 +1200,7 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
                expect(result).to.be.eql("1 Seleccionado");
             });
 
-            it("should return false when componentesView do not disable 'Aplicar Selección'", function(){
+            it("should return false when componentesView do not disable 'Aplicar Selección'", function () {
                // Arrange
                componentesView.blockApplySelection.returns(false);
 
@@ -1297,7 +1302,7 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
                expect(result).to.be.eql("2 Seleccionados");
             });
 
-            it("should return false when componentesView do not activate 'Aplicar Selección'", function(){
+            it("should return false when componentesView do not activate 'Aplicar Selección'", function () {
                // Arrange
                componentesView.unblockApplySelection.returns(false);
 
@@ -1408,10 +1413,10 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
                it("should update selected quantity", function () {
                   // Arrange
                   componentesPresenter.removeTypeOrTone(grupo, cuv);
-   
+
                   // Act
                   var result = componentesPresenter.estrategiaModel().Hermanos[0].cantidadSeleccionados;
-   
+
                   // Assert
                   expect(result).to.be.equal(0);
                });
@@ -1419,10 +1424,10 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
                it("should return false when componentesView do not show 'Eligelo'", function () {
                   // Arrange
                   componentesView.showChooseIt.returns(false);
-   
+
                   // Act
                   var result = componentesPresenter.removeTypeOrTone(grupo, cuv);
-   
+
                   // Assert
                   expect(result).to.be.equal(false);
                });
@@ -1430,10 +1435,10 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
                it("should return false when componentesView do not render selected types/tones", function () {
                   // Arrange
                   componentesView.showSelectedTypesOrTones.returns(false);
-   
+
                   // Act
                   var result = componentesPresenter.removeTypeOrTone(grupo, cuv);
-   
+
                   // Assert
                   expect(result).to.be.eql(false);
                });
@@ -1441,10 +1446,10 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
                it("should return false when componentesView do not render update title", function () {
                   // Arrange
                   componentesView.setTitle.returns(false);
-   
+
                   // Act
                   var result = componentesPresenter.removeTypeOrTone(grupo, cuv);
-   
+
                   // Assert
                   expect(result).to.be.eql(false);
                });
@@ -1452,21 +1457,21 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
                it("should update title to 'Elige 1 OPCIÓN' ", function () {
                   // Arrange
                   componentesPresenter.removeTypeOrTone(grupo, cuv);
-   
+
                   // Act
                   var result = componentesPresenter.estrategiaModel().Hermanos[0].selectComponentTitle;
-   
+
                   // Assert
                   expect(result).to.be.eql("Elige 1 opción");
                });
-   
+
                it("should update selected quantity to '0 Seleccionados' ", function () {
                   // Arrange
                   componentesPresenter.removeTypeOrTone(grupo, cuv);
-   
+
                   // Act
                   var result = componentesPresenter.estrategiaModel().Hermanos[0].selectedQuantityText;
-   
+
                   // Assert
                   expect(result).to.be.eql("0 Seleccionados");
                });
@@ -1474,21 +1479,21 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
                it("should return false when componentesView do not enable types/tones", function () {
                   // Arrange
                   componentesView.unblockTypesOrTones.returns(false);
-   
+
                   // Act
                   var result = componentesPresenter.removeTypeOrTone(grupo, cuv);
-   
+
                   // Assert
                   expect(result).to.be.eql(false);
                });
 
-               it("should return false when componentesView do not disable 'Aplicar Selección'", function(){
+               it("should return false when componentesView do not disable 'Aplicar Selección'", function () {
                   // Arrange
                   componentesView.blockApplySelection.returns(false);
-   
+
                   // Act
                   var result = componentesPresenter.addTypeOrTone(grupo, cuv);
-   
+
                   // Assert
                   expect(result).to.be.eql(false);
                });
@@ -1519,10 +1524,10 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
                it("should update selected quantity", function () {
                   // Arrange
                   componentesPresenter.removeTypeOrTone(grupo, cuv);
-   
+
                   // Act
                   var result = componentesPresenter.estrategiaModel().Hermanos[0].cantidadSeleccionados;
-   
+
                   // Assert
                   expect(result).to.be.equal(1);
                });
@@ -1530,32 +1535,32 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
                it("should return false when componentesView do not render quantity selector", function () {
                   // Arrange
                   componentesView.showQuantitySelector.returns(false);
-   
+
                   // Act
                   var result = componentesPresenter.removeTypeOrTone(grupo, cuv);
-   
+
                   // Assert
                   expect(result).to.be.equal(false);
                });
-   
+
                it("should return false when componentesView do not render selected types/tones", function () {
                   // Arrange
                   componentesView.showSelectedTypesOrTones.returns(false);
-   
+
                   // Act
                   var result = componentesPresenter.removeTypeOrTone(grupo, cuv);
-   
+
                   // Assert
                   expect(result).to.be.eql(false);
                });
-   
+
                it("should return false when componentesView do not render update title", function () {
                   // Arrange
                   componentesView.setTitle.returns(false);
-   
+
                   // Act
                   var result = componentesPresenter.removeTypeOrTone(grupo, cuv);
-   
+
                   // Assert
                   expect(result).to.be.eql(false);
                });
@@ -1563,21 +1568,21 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
                it("should update title to 'TE FALTA 1 OPCIÓN' ", function () {
                   // Arrange
                   componentesPresenter.removeTypeOrTone(grupo, cuv);
-   
+
                   // Act
                   var result = componentesPresenter.estrategiaModel().Hermanos[0].selectComponentTitle;
-   
+
                   // Assert
                   expect(result).to.be.eql("Te falta 1 opción");
                });
-   
+
                it("should update selected quantity to '1 Seleccionado' ", function () {
                   // Arrange
                   componentesPresenter.removeTypeOrTone(grupo, cuv);
-   
+
                   // Act
                   var result = componentesPresenter.estrategiaModel().Hermanos[0].selectedQuantityText;
-   
+
                   // Assert
                   expect(result).to.be.eql("1 Seleccionado");
                });
@@ -1585,10 +1590,10 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
                it("should return false when componentesView do not enable types/tones", function () {
                   // Arrange
                   componentesView.unblockTypesOrTones.returns(false);
-   
+
                   // Act
                   var result = componentesPresenter.removeTypeOrTone(grupo, cuv);
-   
+
                   // Assert
                   expect(result).to.be.eql(false);
                });
@@ -1602,10 +1607,10 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
                   // Arrange
                   componentesPresenter.removeTypeOrTone(grupo, cuv);
                   componentesPresenter.removeTypeOrTone(grupo, cuv);
-   
+
                   // Act
                   var result = componentesPresenter.estrategiaModel().Hermanos[0].cantidadSeleccionados;
-   
+
                   // Assert
                   expect(result).to.be.equal(0);
                });
@@ -1614,10 +1619,10 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
                   // Arrange
                   componentesView.showChooseIt.returns(false);
                   componentesPresenter.removeTypeOrTone(grupo, cuv);
-   
+
                   // Act
                   var result = componentesPresenter.removeTypeOrTone(grupo, cuv);
-   
+
                   // Assert
                   expect(result).to.be.equal(false);
                });
@@ -1626,10 +1631,10 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
                   // Arrange
                   componentesPresenter.removeTypeOrTone(grupo, cuv);
                   componentesPresenter.removeTypeOrTone(grupo, cuv);
-   
+
                   // Act
                   var result = componentesPresenter.estrategiaModel().Hermanos[0].selectComponentTitle;
-   
+
                   // Assert
                   expect(result).to.be.eql("Elige 2 opciones");
                });
@@ -1638,10 +1643,10 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
                   // Arrange
                   componentesPresenter.removeTypeOrTone(grupo, cuv);
                   componentesPresenter.removeTypeOrTone(grupo, cuv);
-   
+
                   // Act
                   var result = componentesPresenter.estrategiaModel().Hermanos[0].selectedQuantityText;
-   
+
                   // Assert
                   expect(result).to.be.eql("0 Seleccionados");
                });
@@ -1652,7 +1657,7 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
       });
    });
 
-   describe("applySelected",function(){
+   describe("applySelectedTypesOrTones", function () {
 
       it("throw exception when grupo is undefined", function () {
          // Arrange
@@ -1667,6 +1672,124 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - ComponentesPresente
 
          // Assert
          expect(errorMsg).to.have.string("grupo is null or undefined");
+      });
+
+      describe("Given a strategy with one component and FactorCuadreEquals to 2", function () {
+         beforeEach(function () {
+            componentesPresenter.onEstrategiaModelLoaded(estrategiaUnComponenteFactorCuadreIgualADos());
+         });
+
+         describe("and one type/tone was selected", function () {
+            var grupo = "1";
+            var cuv = "31593";
+
+            beforeEach(function () {
+               componentesPresenter.addTypeOrTone(grupo, cuv);
+            });
+
+            describe("when 'Aplicar Seleccionados' is clicked", function () {
+               it("should return false when cantidadSeleccionados is lower than Factor Cuadre", function () {
+                  // Arrange
+
+                  // Act
+                  var result = componentesPresenter.applySelectedTypesOrTones(grupo);
+
+                  // Assert
+                  expect(result).to.be.eqls(false);
+               });
+            });
+         });
+
+         describe("and two identical type/tone are selected", function () {
+            var grupo = "1";
+            var cuv = "31593";
+
+            beforeEach(function () {
+               componentesPresenter.addTypeOrTone(grupo, cuv);
+               componentesPresenter.addTypeOrTone(grupo, cuv);
+            });
+
+            describe("when 'Aplicar Seleccionados' is clicked", function () {
+               it("should be two items in 'resumenAplicados'", function () {
+                  // Arrange
+                  componentesPresenter.applySelectedTypesOrTones(grupo);
+
+                  // Act
+                  var result = componentesPresenter.estrategiaModel().Hermanos[0].resumenAplicados.length;
+
+                  // Assert
+                  expect(result).to.be.eqls(2);
+               });
+
+               it("should be one item in 'resumenAplicadosVisualizar'", function () {
+                  // Arrange
+                  componentesPresenter.applySelectedTypesOrTones(grupo);
+
+                  // Act
+                  var result = componentesPresenter.estrategiaModel().Hermanos[0].resumenAplicadosVisualizar.length;
+
+                  // Assert
+                  expect(result).to.be.eqls(1);
+               });
+
+               it("should return false when componenteView do not show resumen", function () {
+                  // Arrange
+                  componentesView.renderResumen.returns(false);
+
+                  // Act
+                  var result = componentesPresenter.applySelectedTypesOrTones(grupo);
+
+                  // Assert
+                  expect(result).to.be.eqls(false);
+               });
+
+               it("should return false when componenteView do not hide types/tones' modal", function () {
+                  // Arrange
+                  componentesView.hideTypeAndTonesModal.returns(false);
+
+                  // Act
+                  var result = componentesPresenter.applySelectedTypesOrTones(grupo);
+
+                  // Assert
+                  expect(result).to.be.eqls(false);
+               });
+            });
+         });
+
+         describe("and two different type/tone are selected", function () {
+            var grupo = "1";
+            var cuv1 = "31593";
+            var cuv2 = "31306";
+
+            beforeEach(function () {
+               componentesPresenter.addTypeOrTone(grupo, cuv1);
+               componentesPresenter.addTypeOrTone(grupo, cuv2);
+            });
+
+            describe("when 'Aplicar Seleccionados' is clicked", function () {
+               it("should be two items in 'resumenAplicados'", function () {
+                  // Arrange
+                  componentesPresenter.applySelectedTypesOrTones(grupo);
+
+                  // Act
+                  var result = componentesPresenter.estrategiaModel().Hermanos[0].resumenAplicados.length;
+
+                  // Assert
+                  expect(result).to.be.eqls(2);
+               });
+
+               it("should be one item in 'resumenAplicadosVisualizar'", function () {
+                  // Arrange
+                  componentesPresenter.applySelectedTypesOrTones(grupo);
+
+                  // Act
+                  var result = componentesPresenter.estrategiaModel().Hermanos[0].resumenAplicadosVisualizar.length;
+
+                  // Assert
+                  expect(result).to.be.eqls(2);
+               });
+            });
+         });
       });
    });
 });
