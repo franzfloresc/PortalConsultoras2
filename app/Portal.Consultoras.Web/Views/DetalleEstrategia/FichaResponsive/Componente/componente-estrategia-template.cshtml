@@ -68,7 +68,7 @@
     {{/iff}}
 
     {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.CompuestaFija,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
-        <h3 class="contenido_titulo">CONTENIDO:</h3>
+        <h3 class="contenido_titulo">Contenido</h3>
         {{#each this.Hermanos as |componente|}}
             {{#ifVerificarMarcaLast componente.DescripcionMarca EsMultimarca}}
                 <hr class="componentes_separador" />
@@ -76,7 +76,6 @@
             <div class="tiposytonos_componentes"
                  data-opciones-seleccionadas="0"
                  data-tono-digitable="{{componente.Digitable}}"
-                 style="margin-bottom: 10px"
                  data-componente-grupo="{{componente.Grupo}}">
                 <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
                 <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
