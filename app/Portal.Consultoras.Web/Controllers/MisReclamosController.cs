@@ -1028,13 +1028,22 @@ namespace Portal.Consultoras.Web.Controllers
 
             SessionManager.SetCDRWebDetalle(null);
             var lista = _cdrProvider.CargarDetalle(model, userData.PaisID, userData.CodigoISO);
+            int cantidadObservado = 0, cantidadAprobado = 0;
+            foreach (var item in lista)
+            {
+                if (item.DetalleReemplazo !=null && item.CodigoOperacion == Constantes.CodigoOperacionCDR.Trueque)
+                {
+                    cantidadObservado += item.DetalleReemplazo.Count(a => a.Estado == Constantes.EstadoCDRWeb.Observado);
+                    cantidadAprobado += item.DetalleReemplazo.Count(a => a.Estado == Constantes.EstadoCDRWeb.Aceptado);
+                }
+            }
             return Json(new
             {
                 success = true,
                 message = "",
                 detalle = lista,
-                cantobservado = lista.Count(x => x.Estado == Constantes.EstadoCDRWeb.Observado),
-                cantaprobado = lista.Count(x => x.Estado == Constantes.EstadoCDRWeb.Aceptado),
+                cantobservado = lista.Count(x => x.Estado == Constantes.EstadoCDRWeb.Observado) + cantidadObservado,
+                cantaprobado = lista.Count(x => x.Estado == Constantes.EstadoCDRWeb.Aceptado) + cantidadAprobado,
                 esCDRExpress = TieneDetalleCDRExpress(lista),
                 Simbolo = userData.Simbolo
             }, JsonRequestBehavior.AllowGet);
