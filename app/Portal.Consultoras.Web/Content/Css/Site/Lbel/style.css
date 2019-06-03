@@ -25534,6 +25534,20 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     min-width:1189px;
 }
 
+    .titulo_grilla.titulo_grilla--productosObservados,
+    .subtitulo_grilla.subtitulo_grilla--productosObservados{
+        margin-left:0;
+    }
+
+    .popup_productos_observados .pop_solicitud_producto--nom,
+    .popup_productos_observados .pop_solicitud_tipo--nomSolucion,
+    .popup_productos_observados .pop_solicitud_solucion--listadoProductos,
+    .popup_productos_observados .pop_solicitud_solucion--listadoProductos--content,
+    .popup_productos_observados .pop_solicitud_resolucion--estado,
+    .popup_productos_observados .pop_solicitud_solucion--acciones{
+        padding-left:0;
+    }
+
     .popup_productos_observados .content_listado_reclamo{
         justify-content:flex-start;
         align-items:flex-start;
@@ -25572,11 +25586,11 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
             }
 
     .popup_productos_observados .pop_solicitud_resolucion--estado {
-        width: 19%;
+        width: 25%;
     }
 
     .popup_productos_observados .pop_solicitud_solucion--acciones{
-        width:18%;
+        width:13%;
     }
 
 .producto_solicitud_row {
@@ -25624,6 +25638,10 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         padding-right: 16px;
     }
 
+        .nota_producto_observado_y_eliminar_todos_los_productos_wrapper:after {
+            display: none;
+        }
+
         .nota_producto_observado_y_eliminar_todos_los_productos_wrapper .nota_producto_observado {
             margin-top: 0;
             margin-left: 0;
@@ -25637,6 +25655,12 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
             max-width: 280px;
             line-height:37px;
         }
+
+    .btn__sb--continuarEnvio{
+        min-width: 196px;
+        margin-top: 24px;
+        line-height: 37px;
+    }
 
 /* FIN - HD-4017 - POPUP PRODUCTOS OBSERVADOS */
 
