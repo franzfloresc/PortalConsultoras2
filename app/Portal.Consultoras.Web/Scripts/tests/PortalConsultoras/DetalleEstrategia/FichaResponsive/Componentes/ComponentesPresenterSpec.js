@@ -1666,7 +1666,22 @@ describe("DetalleEstrategia - FichaResponsive - Componentes - ComponentesPresent
 
          //Act
          try {
-            componentesPresenter.removeTypeOrTone(grupo, null);
+            componentesPresenter.applySelectedTypesOrTones(grupo);
+         } catch (error) {
+            errorMsg = error;
+         }
+
+         // Assert
+         expect(errorMsg).to.have.string("grupo is null or undefined");
+      });
+
+      it("throw exception when grupo is null", function () {
+         // Arrange
+         var grupo = null;
+
+         //Act
+         try {
+            componentesPresenter.applySelectedTypesOrTones(grupo);
          } catch (error) {
             errorMsg = error;
          }
@@ -1864,6 +1879,103 @@ describe("DetalleEstrategia - FichaResponsive - Componentes - ComponentesPresent
             });
          });
 
+      });
+   });
+
+   describe("changeAppliedTypesOrTones", function () {
+      it("throw exception when grupo is undefined", function () {
+         // Arrange
+         var grupo;
+
+         //Act
+         try {
+            componentesPresenter.changeAppliedTypesOrTones(grupo);
+         } catch (error) {
+            errorMsg = error;
+         }
+
+         // Assert
+         expect(errorMsg).to.have.string("grupo is null or undefined");
+      });
+
+      it("throw exception when grupo is null", function () {
+         // Arrange
+         var grupo = null;
+
+         //Act
+         try {
+            componentesPresenter.changeAppliedTypesOrTones(grupo);
+         } catch (error) {
+            errorMsg = error;
+         }
+
+         // Assert
+         expect(errorMsg).to.have.string("grupo is null or undefined");
+      });
+
+      describe("Given a strategy with one component and FactorCuadre equals to 2", function () {
+         beforeEach(function () {
+            componentesPresenter.onEstrategiaModelLoaded(estrategiaUnComponenteFactorCuadreIgualADos());
+         });
+
+         describe("and two types/tones were added and two types/tones were applied", function () {
+            var grupo = "1";
+            var cuv = "31593";
+
+            beforeEach(function () {
+               componentesPresenter.addTypeOrTone(grupo, cuv);
+               componentesPresenter.addTypeOrTone(grupo, cuv);
+               componentesPresenter.applySelectedTypesOrTones(grupo);
+            });
+
+            describe("When 'cambiar opciones' is clicked", function () {
+               describe("and the group do not exists", function () {
+                  it("should return false", function () {
+                     // Arrange
+                     var unexistentGrupo = "XXXXXXX";
+
+                     // Act
+                     var result = componentesPresenter.changeAppliedTypesOrTones(unexistentGrupo);
+
+                     // Assert
+                     expect(result).to.be.eqls(false);
+                  });
+               });
+
+               it("should return false when componenteView do not show types/tones modal", function () {
+                  // Arrange
+                  componentesView.showTypesAndTonesModal.returns(false);
+
+                  // Act
+                  var result = componentesPresenter.changeAppliedTypesOrTones(grupo);
+
+                  // Assert
+                  expect(result).to.be.eqls(false);
+               });
+
+               it("should return false when componentesView do not update title", function () {
+                  // Arrange
+                  componentesView.setTitle.returns(false);
+   
+                  // Act
+                  var result = componentesPresenter.changeAppliedTypesOrTones(grupo);
+   
+                  // Assert
+                  expect(result).to.be.eql(false);
+               });
+   
+               // it("should update title to 'CAMBIA TUS 2 OPCIONES' ", function () {
+               //    // Arrange
+               //    componentesPresenter.changeAppliedTypesOrTones(grupo, cuv);
+   
+               //    // Act
+               //    var result = componentesPresenter.estrategiaModel().Hermanos[0].selectComponentTitle;
+   
+               //    // Assert
+               //    expect(result).to.be.eql("Cambia tus 2 opciones");
+               // });
+            });
+         });
       });
    });
 });
