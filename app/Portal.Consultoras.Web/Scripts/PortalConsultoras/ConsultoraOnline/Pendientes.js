@@ -55,12 +55,13 @@ function bindElments() {
 function AceptarPedidoPendiente() {
 
     var btn = $('.btnAccion a.ghost')[0];
+    var accionTipo = $(btn).parent().data('accion');
 
     if (btn) {
         var pedido = {
             Accion: 2,
             Dispositivo: glbDispositivo,
-            AccionTipo: $(btn).parent().data('accion'),
+            AccionTipo: accionTipo,
             ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? $("#list-ofertas-ganamas").data('listagana') : [],
             OrigenTipoVista: gTipoVista
         }
@@ -85,6 +86,9 @@ function AceptarPedidoPendiente() {
 
                         if ($('#modal-confirmacion')[0]) {
                             //$('#modal-confirmacion').addClass('on');
+
+                            var mensajeConfirmacion = (accionTipo == "ingrgana") ? "Has atendido el pedido por Gana+." : "Has atendido el pedido por Catálogo.";
+                            $("#mensajeConfirmacion").html(mensajeConfirmacion);
 
                             $("#contenedor-paso-2").hide();
                             $("#modal-confirmacion").show();
