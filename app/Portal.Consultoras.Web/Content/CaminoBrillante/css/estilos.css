@@ -1805,6 +1805,14 @@ div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span
     text-transform: inherit;
     font-size: 14px !important
 }
+.box-kit-demos {
+    margin: 60px auto;
+    margin-bottom: 35px;
+}
+
+
+
+
 
 @media (max-width:999px) {
     .lista__opciones__ordenamiento__y__filtrar {
