@@ -861,13 +861,15 @@ div .layout__view__breadcrumbs__wrapper, div .layout__view__title__wrapper {
     text-align: right;
     display: block;
     font-weight: bold;
-    margin-bottom: 20px;
+
     text-align: right;
     display: block;
     float: right;
+    margin-bottom: 30px;
 }
 .fleft {
     float:left;
+    margin-bottom:30px;
 }
 .slick-dots {
     display:none;
@@ -2167,7 +2169,7 @@ div.opOrdenar {
 
 #boxganancias {
     display: block;
-    margin: 20px auto;
+    margin: 30px auto;
     margin-bottom: 40px;
 }
 .box-camb .text-bold, .owl-stage-outer .text-bold, .txt-benf .text-bold {
