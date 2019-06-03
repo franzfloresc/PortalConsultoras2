@@ -1,5 +1,6 @@
 ﻿var _switch = '.toggle-switch'
 var _profit = '.toggle-content'
+var _earning = '.ganancia-estimada'
 document.querySelector(_switch).addEventListener('click', function () {
     toggle(_switch)
 })
@@ -9,6 +10,7 @@ var toggle = function (_switch) {
     document.querySelector(_switch).classList.toggle('opened')
     // Activa la informacion
     document.querySelector(_profit).classList.toggle('opened')
+    document.querySelector(_earning).classList.toggle('opened')
 
 
 }

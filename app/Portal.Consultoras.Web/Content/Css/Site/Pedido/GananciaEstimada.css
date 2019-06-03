@@ -37,8 +37,12 @@
     left: 0;
     height: 0;
     bottom: 0;
+    
     transition: all 0.5s ease-out;
 }
+    .ganancia-estimada.opened{
+        bottom:100%;
+    }
     /*
             *
             * Panel Toggle
@@ -50,7 +54,6 @@
             * Padre: Ganancia Estimada
             *
         */
-
     .ganancia-estimada .panel-toggle {
         background-color: #f5f5f7;
     }
@@ -203,11 +206,15 @@
 .toggle-container .toggle-content {
     display: flex;
     flex-direction: column;
-    transition: max-height 0.25s ease-out, opacity 0.25s ease-out;
+    transition: max-height 0.25s ease-out, opacity 0.25s ease-out, transform 0.3s ease-out;
+    height: auto;
     overflow: hidden;
-    max-height: 0;
+    transform: scaleY(1);
+    transform-origin: bottom;
+    /*max-height: 0;*/
     opacity: 0;
     margin-left: 36px;
+    transform: scaleY(0);
 }
 
 .toggle-content .toggle-info {
@@ -221,8 +228,10 @@
 
 .toggle-content.opened {
     /* display:block; */
-    max-height: 150px;
-    opacity: 100;
+    /*max-height: 150px;*/
+    transform: scaleY(1);
+    opacity: 1;
+
 }
 
 .toggle-content .ganancia-titulo {
