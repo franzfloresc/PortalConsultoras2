@@ -48,6 +48,8 @@ var EstrategiaPresenter = function (config) {
 
         if (!_config.estrategiaView.showTitleAgregado(model)) throw "estrategiaView don't show title Agregado.";
   
+        _config.estrategiaView.showCarrusel();
+
         return true;
     };
 
