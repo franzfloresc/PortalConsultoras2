@@ -760,6 +760,9 @@ var PedidoRegistroModule = function () {
                     }
 
                     if (_mensajeRespuestaError(data)) {
+                        if (!IsNullOrEmpty(data.message)) {
+                            AbrirMensaje(data.message);
+                        }
                         return false;
                     }
 
@@ -831,7 +834,8 @@ var PedidoRegistroModule = function () {
                 }
             });
         }
-    };
+    }
+
     /* Fin - Region Buscador */
 
     /* Ini - Region Oferta Final */
