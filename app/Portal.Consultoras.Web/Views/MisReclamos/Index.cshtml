@@ -323,7 +323,7 @@
     <div class="linea_separadora"></div>
     {{#each detalle as |item|}}
     {{#if_eq item.Estado '4'}}
-    <div class="content_listado_reclamo" data-pedidodetalleid="{{item.CDRWebDetalleID}}">
+    <div class="content_listado_reclamo content_listado_reclamo--contenidoGrilla" data-pedidodetalleid="{{item.CDRWebDetalleID}}">
         <div class="pop_solicitud_producto pop_solicitud_producto--nom">
             <span class="d-block">{{item.CUV}}</span>
             <span class="d-block text-bold">{{item.Descripcion}}</span>
