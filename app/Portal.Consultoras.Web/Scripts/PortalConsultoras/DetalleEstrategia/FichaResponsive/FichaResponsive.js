@@ -2,12 +2,14 @@
 /// <reference path="componentes/componentespresenter.js" />
 /// <reference path="../../../general.js" />
 /// <reference path="../detalleestrategiaprovider.js" />
+/// <reference path="../../shared/analyticsportal.js" />
 /// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselPresenter.js" />
 /// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselModel.js" />
 /// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselView.js" />
 
 var detalleEstrategia = DetalleEstrategiaProvider;
 var fichaResponsiveEvents = FichaResponsiveEvents();
+var analyticsPortal = AnalyticsPortalModule;
 
 var estrategiaView = EstrategiaView();
 var estrategiaPresenter = EstrategiaPresenter({
@@ -18,7 +20,8 @@ var estrategiaPresenter = EstrategiaPresenter({
 
 var componentesView = ComponentesView();
 var componentesPresenter = ComponentesPresenter({
-    componentesView: componentesView
+    componentesView: componentesView,
+    analyticsPortal : analyticsPortal
 });
 componentesView.setPresenter(componentesPresenter);
 

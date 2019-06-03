@@ -136,7 +136,8 @@ ul.breadcumbs li a {
     width: 100%;
     font-size: 12px;
     letter-spacing: 0.8px;
-    margin-bottom: 3px;
+    line-height: 12px;
+    margin-bottom: 4px;
 }
 
 .descripcion {
@@ -198,7 +199,7 @@ ul.breadcumbs li a {
     font-size: 16px;
     font-weight: bold;
     color: #000;
-    margin: 0 0 12px 0;
+    margin: 0 0 15px 0;
     line-height: normal;
 }
 

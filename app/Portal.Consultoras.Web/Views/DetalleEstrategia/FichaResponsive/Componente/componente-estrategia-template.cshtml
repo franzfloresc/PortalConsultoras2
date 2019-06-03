@@ -4,7 +4,7 @@
     {{#iff CodigoVariante '==' '@Constantes.TipoEstrategiaSet.IndividualConTonos'}}
         {{#each this.Hermanos as |componente|}}
             <div class="tiposytonos_componentes" data-tono="" data-opciones-seleccionadas="0" data-tono-digitable="1">
-                <button type="button" class="tono_select_opt" data-tono-change="1" onclick="javascript: ComponentesModule.SeleccionarComponente('{{componente.Cuv}}')">
+                <button type="button" class="tono_select_opt" data-tono-change="1" btn-show-types-tones-modal data-component-cuv="{{componente.Cuv}}">
                     {{#iff componente.FactorCuadre '==' '1'}}
                         Elige 1 opción
                     {{else}}
@@ -40,7 +40,7 @@
                                      data-tono-nombre="{{variedad.NombreBulk}}"
                                      data-tono-descripcion="{{variedad.NombreComercial}}"
                                      {{#unless ../esCampaniaSiguiente}}
-                                        onclick="javascript: componentesPresenter.onPaletaSelectItemClick(event,'{{variedad.Cuv}}');"
+                                        onclick="javascript: componentesPresenter.onPaletaSelectItemClick('{{variedad.Grupo}}','{{variedad.Cuv}}');"
                                      {{/unless}}>
                                     <img src="{{variedad.ImagenBulk}}" alt="" />
                                 </div>
@@ -68,112 +68,39 @@
     {{/iff}}
 
     {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.CompuestaFija,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
-        <h3 class="contenido_titulo">CONTENIDO:</h3>
+        <h3 class="contenido_titulo">Contenido</h3>
         {{#each this.Hermanos as |componente|}}
             {{#ifVerificarMarcaLast componente.DescripcionMarca EsMultimarca}}
                 <hr class="componentes_separador" />
             {{/ifVerificarMarcaLast}}
-            <div class="detalle_producto"
-                    data-opciones-seleccionadas="0"
-                    data-tono-digitable="{{componente.Digitable}}"
-                    style="border-bottom: {{../Linea}}; margin-bottom: 10px"
-                    data-componente-grupo="{{componente.Grupo}}">
+            <div class="tiposytonos_componentes"
+                 data-opciones-seleccionadas="0"
+                 data-tono-digitable="{{componente.Digitable}}"
+                 data-componente-grupo="{{componente.Grupo}}">
                 <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
                 <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
-                <div data-componente="{{{json this}}}"></div>
-                <div class="nombre_marca">
-                    xxxxx
-                </div>
+                {{#ifVerificarMarcaLast componente.DescripcionMarca EsMultimarca}}
+                    <div class="nombre_marca">{{componente.DescripcionMarca}}</div>
+                {{/ifVerificarMarcaLast}}
                 <ul class="detalle_producto_detalle">
                     <li>x {{Multiplicar componente.Cantidad componente.FactorCuadre}}</li>
                     <li>{{componente.NombreComercial}}</li>
                 </ul>
+
                 {{#iff ../MostrarFichaEnriquecida '==' true }}
                     {{#iff ../Hermanos.length '>' 1}}
                         {{#iff componente.TieneDetalleSeccion '==' true}}
-                            <a id="btnVerDetalle" class="btn_texto" onclick="javascript:fichaEnriquecidaPresenter.showPopupFichaEnriquecida(event)">Ver detalle <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt=""></a>
+                            <a id="btnVerDetalle" class="btn_texto" onclick="javascript:fichaEnriquecidaPresenter.showPopupFichaEnriquecida('{{componente.Grupo}}','{{componente.Cuv}}');">Ver detalle <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt=""></a>
                         {{/iff}}
                     {{/iff}}
                 {{/iff}}
-
                 {{#iff componente.Hermanos.length '>' 0}}
-                    <div class="tiposytonos_componentes">
-                        <buttom btn-show-types-tones-modal data-component-cuv="{{componente.Cuv}}" class="tono_select_opt">
-                            {{componente.selectComponentText}}
-                        </buttom>
-                    </div>
+                    <button type="button" class="tono_select_opt" data-tono-change="1" btn-show-types-tones-modal data-component-cuv="{{componente.Cuv}}">
+                        {{componente.selectComponentText}}
+                    </button>
+                    <div id="resumen-opciones-{{componente.Cuv}}" class="tonos_seleccionados" style="display:none;"></div>
                 {{/iff}}
             </div>
         {{/each}}
     {{/iff}}
-
-
-
-    @*<hr />
-    <hr />
-    <hr />
-    <div class="tiposytonos_componentes">
-        <buttom class="tono_select_opt">
-            Elige 1 opción
-        </buttom>
-        <div class="tonos_seleccionados">
-            <ul class="tonos_seleccionados_item" data-tono="">
-                <li class="imagen_seleccionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201906/E/productos/PE_200095507.jpg" alt=""></li>
-                <li class="titulo_selecionado">
-                    <span class="cantidad_producto_opt">x1 </span>
-                    <span class="descripcion_tipo">Paradisso. Safari adventure</span>
-                </li>
-            </ul>
-
-            <ul class="tonos_seleccionados_item" data-tono="">
-                <li class="imagen_seleccionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201906/E/productos/PE_200095507.jpg" alt=""></li>
-                <li class="titulo_selecionado">
-                    <span class="cantidad_producto_opt">x1 </span>
-                    <span class="descripcion_tipo">Paradisso. Safari adventure</span>
-                </li>
-            </ul>
-
-            <a class="btn_texto" href="">
-                Cambiar opción
-                <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="">
-            </a>
-        </div>
-
-        <div class="content_tonos_maquillaje">
-            <div class="content_tono_detalle">
-                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-            </div>
-            <div class="content_tono_detalle">
-                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-            </div>
-
-            <div class="content_tono_detalle">
-                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-            </div>
-            <div class="content_tono_detalle">
-                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-            </div>
-            <div class="content_tono_detalle">
-                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-            </div>
-            <div class="content_tono_detalle">
-                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-            </div>
-            <div class="content_tono_detalle">
-                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-            </div>
-            <div class="content_tono_detalle">
-                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-            </div>
-            <div class="content_tono_detalle">
-                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-            </div>
-            <div class="content_tono_detalle tono_agotado">
-                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-            </div>
-            <div class="content_tono_detalle tono_agotado">
-                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-            </div>
-        </div>
-    </div>*@
 </script>

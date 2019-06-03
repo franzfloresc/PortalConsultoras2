@@ -155,6 +155,12 @@ var ComponentesView = function () {
             _presenter.removeTypeOrTone(grupo, cuv, indice);
         });
 
+        $(_elements.tiposTonosModal.id).on("click", _elements.tiposTonosModal.aplicarSeleccion.id, function (e) {
+            e.preventDefault();
+            var grupo = $(e.target).data("grupo");
+            _presenter.applySelectedTypesOrTones(grupo);
+        });
+
         return true;
     };
 
@@ -292,10 +298,15 @@ var ComponentesView = function () {
         return true;
     };
 
-    var _unblockApplySelection = function(){
+    var _unblockApplySelection = function (grupo) {
+        if(typeof grupo ==="undefined" || grupo === null ) return false;
+
         $(_elements.tiposTonosModal.aplicarSeleccion.id)
             .removeClass(_elements.tiposTonosModal.aplicarSeleccion.claseInhabilitado)
             .addClass(_elements.tiposTonosModal.aplicarSeleccion.claseHabilitado);
+        //
+        $(_elements.tiposTonosModal.aplicarSeleccion.id).data("grupo", grupo);
+        //
         return true;
     };
 
@@ -303,6 +314,9 @@ var ComponentesView = function () {
         $(_elements.tiposTonosModal.aplicarSeleccion.id)
             .removeClass(_elements.tiposTonosModal.aplicarSeleccion.claseHabilitado)
             .addClass(_elements.tiposTonosModal.aplicarSeleccion.claseInhabilitado);
+        //
+        $(_elements.tiposTonosModal.aplicarSeleccion.id).data("grupo", "");
+        //
         return true;
     };
 
@@ -324,16 +338,14 @@ var ComponentesView = function () {
     };
 
     var _showBorderItemSelected = function (componente) {
-        var opcion = "";
-
-        $.each(componente.Hermanos, function (iHermano, oHermano) {
-            if (oHermano.cantidadSeleccionada > 0) {
-                opcion = _elements.componente.tono.cuv.replace("{0}", oHermano.Cuv);
-            }
-        });
-
         $(_elements.componente.tono.div).find(_elements.componente.tono.cuv2).removeClass(_elements.componente.tono.bordeSeleccionado);
-        $(_elements.componente.tono.div).find(opcion).addClass(_elements.componente.tono.bordeSeleccionado);
+
+        $.each(componente.resumenAplicadosVisualizar, function (i, objeto) {
+            if(objeto.cantidadAplicada)
+                $(_elements.componente.tono.div)
+                    .find(_elements.componente.tono.cuv.replace("{0}", objeto.Cuv))
+                    .addClass(_elements.componente.tono.bordeSeleccionado);
+        });
 
         return true;
     };
@@ -360,6 +372,7 @@ var ComponentesView = function () {
         setSelectedQuantityText: _setSelectedQuantityText,
         showComponentTypesAndTones: _showComponentTypesAndTones,
         showTypesAndTonesModal: _showTypesAndTonesModal,
+        hideTypeAndTonesModal: _hideTypeAndTonesModal,
         showChooseIt: _showChooseIt,
         showChoosen: _showChoosen,
         showQuantitySelector: _showQuantitySelector,
