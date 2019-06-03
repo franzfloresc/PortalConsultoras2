@@ -79,9 +79,9 @@
                  data-componente-grupo="{{componente.Grupo}}">
                 <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
                 <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
-                <div class="nombre_marca">
-                    xxxxx
-                </div>
+                {{#ifVerificarMarcaLast componente.DescripcionMarca EsMultimarca}}
+                    <div class="nombre_marca">{{componente.DescripcionMarca}}</div>
+                {{/ifVerificarMarcaLast}}
                 <ul class="detalle_producto_detalle">
                     <li>x {{Multiplicar componente.Cantidad componente.FactorCuadre}}</li>
                     <li>{{componente.NombreComercial}}</li>
