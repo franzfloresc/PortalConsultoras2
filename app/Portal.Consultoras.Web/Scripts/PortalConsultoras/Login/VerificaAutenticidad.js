@@ -547,13 +547,7 @@ $(document).ready(function () {
                 }
                 /*----------------FIN CELULAR----------------------------------*/
                 /*-----------------------------------------------------------*/
-
-
-                /*----------------INI CORREO-----------------------------------*/
-
-
-                /*----------------FIN CELULAR----------------------------------*/
-                /*-------------------------------------------------------------*/
+                
 
             },
             me.Eventos = {
@@ -934,9 +928,10 @@ $(document).ready(function () {
                     $.post(config.UrlActualizarEnviarCorreo, parametros)
                         .done(function (response) {                              
                             if (!response.success) {                         
-                                me.Correo.showError(response.message);
+                                //me.Correo.showError(response.message);
+                                alert(response.message);
                                 return;
-                            }
+                            } 
 
                             if ($.isFunction(fnSuccess)) fnSuccess(data);
                         })
