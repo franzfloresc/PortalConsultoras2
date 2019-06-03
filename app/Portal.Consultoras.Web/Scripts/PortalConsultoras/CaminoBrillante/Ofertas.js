@@ -17,7 +17,10 @@ var codFiltro = "00";
 
 var moneda = ($('#moneda').val());
 
-$(document).ready(function () {    
+$(document).ready(function () {  
+    Handlebars.registerPartial("kit_template", $("#template-kit").html());
+    Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
+
     CambiarOferta();
     Inicializar();
 

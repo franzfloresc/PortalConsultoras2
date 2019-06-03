@@ -13,6 +13,7 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
 
         public BECarruselCaminoBrillante() {
             Items = new List<BEItemCarruselCaminoBrillante>();
+            VerMas = true;
         }
     }
 

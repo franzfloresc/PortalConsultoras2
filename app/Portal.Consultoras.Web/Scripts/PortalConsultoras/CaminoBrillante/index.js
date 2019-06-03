@@ -2,7 +2,11 @@
 var scrollLogros = true
 
 $(document).ready(function () {
+    Handlebars.registerPartial("kit_template", $("#template-kit").html());
+    Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
+
     Carusel();
+    CargarCarrusel();
 
     var nivelactual = $("#hfNivelActual").val();
     for (var i = 1; i <= nivelactual; i++)
@@ -19,27 +23,6 @@ $(document).ready(function () {
     });
 
     $('#loadingScreen').hide();
-
-    $(".regular").slick({
-        dots: true,
-        infinite: true,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        dots: false,
-        prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
-        nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
-        responsive: [
-            {
-                breakpoint: 768,
-                settings: {
-
-                    slidesToShow: 2,
-                }
-            }
-        ]
-    });
-
-
 });
 $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');
@@ -238,4 +221,50 @@ window.onload = function () {
 function alertBox() {
     alert("click");
     $(".box-left-ganancias span").text("Hello world!");
+}
+
+
+function CargarCarrusel() {
+    $.ajax({
+        type: 'GET',
+        url: urlGetCarrusel,        
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (checkTimeout(data)) {
+                ArmarCarrusel(data);
+            }
+        },
+        error: function (data, error) { },
+        complete: function (data) {
+            closeWaitingDialog();
+            cargandoRegistros = false;
+        }
+    });
+}
+
+function ArmarCarrusel(data) {
+    var htmlDiv = SetHandlebars("#template-carrusel", data);
+    $('#carrusel').append(htmlDiv);
+    $('#carrusel').show();
+
+    $(".regular").slick({
+        dots: true,
+        infinite: true,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        dots: false,
+        prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+        nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+
+                    slidesToShow: 2,
+                }
+            }
+        ]
+    });
+    
 }

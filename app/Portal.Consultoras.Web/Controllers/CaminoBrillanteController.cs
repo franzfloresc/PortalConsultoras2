@@ -35,6 +35,9 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.TieneOfertasEspeciales = _caminoBrillanteProvider.TieneOfertasEspeciales();
                 ViewBag.SimboloMoneda = userData.Simbolo;
 
+                if (ViewBag.TieneOfertasEspeciales)
+                    ViewBag.Carrusel = _caminoBrillanteProvider.GetCarruselCaminoBrillante();
+
                 return View();
             }
             catch (Exception ex)
@@ -230,5 +233,11 @@ namespace Portal.Consultoras.Web.Controllers
                 lista = oFiltro
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetCarruselCaminoBrillante()
+        {
+            return Json(_caminoBrillanteProvider.GetCarruselCaminoBrillante(), JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

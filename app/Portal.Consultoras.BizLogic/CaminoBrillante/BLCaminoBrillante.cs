@@ -1228,19 +1228,5 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #endregion
 
-        #region Carrusel Camino Brillante
-        public List<BEDemostradoresCaminoBrillante> GetProductosCarruselCaminoBrillante(BEUsuario entidad, int nivelId)
-        {
-            if (nivelId == 1) return new List<BEDemostradoresCaminoBrillante>();
-            var kits = GetKits(entidad);
-            //OBTENIENDO SOLO EL KIT DE LA CONSULTORA
-            //var oCarrusel = new BEDemostradoresCaminoBrillante({
-                
-            //});
-            var Demostradores = GetDemostradores(entidad.PaisID, entidad.CampaniaID, nivelId);
-
-            return null;
-        }
-        #endregion
     }
 }

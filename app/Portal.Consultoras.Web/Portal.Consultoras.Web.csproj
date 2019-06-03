@@ -315,6 +315,7 @@
     <Compile Include="Models\AdministrarEstrategia\EstrategiaGrupoModel.cs" />
     <Compile Include="Models\ArmaTuPackModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
+    <Compile Include="Models\CaminoBrillante\CarruselCaminoBrillante.cs" />
     <Compile Include="Models\CaminoBrillante\FiltrosCaminoBrillanteModel.cs" />
     <Compile Include="Models\ZonaValidacionTelefonicaModel.cs" />
     <Compile Include="Models\ConfiguracionZonaModel.cs" />
@@ -5834,6 +5835,8 @@
     <Content Include="Views\AdministracionMedallaBrillante\Index.cshtml" />
     <Content Include="Views\ConsultoraOnline\Pendientes.cshtml" />
     <Content Include="Views\CaminoBrillanteAdministrar\AdministrarBeneficios.cshtml" />
+    <Content Include="Views\CaminoBrillante\Partial\template_kit.cshtml" />
+    <Content Include="Views\CaminoBrillante\Partial\template_demostrador.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
