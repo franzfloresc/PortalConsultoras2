@@ -2467,10 +2467,13 @@ namespace Portal.Consultoras.Service
             return _caminoBrillanteBusinessLogic.GetFiltrosCaminoBrillante(paisID, isApp);
         }
 
-        //public BEOrdenFiltroConfiguracion
+        public BECarruselCaminoBrillante GetCarruselCaminoBrillante(BEUsuario entidad)
+        {
+            return _caminoBrillanteBusinessLogic.GetCarruselCaminoBrillante(entidad);
+        }
 
         #endregion
-        
+
         public void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle)
         {
             _pedidoWebBusinessLogic.UpdDatoRecogerPor(pedidowebdetalle);
