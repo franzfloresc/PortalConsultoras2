@@ -134,7 +134,6 @@ function ObtenerDetalleCdr(item) {
                 messageInfoError(data.message);
                 return false;
             }
-            ObtenerDetalleReemplazo(data);
             if (item.Estado == 4) {
                 if (data.cantobservado > 0) SetHandlebars("#template-detalle-2-observado", data, "#divDetallePedidoCdrObservado");
                 if (data.cantaprobado > 0) SetHandlebars("#template-detalle-2-aprobado", data, "#divDetallePedidoCdrAprobado");
@@ -144,84 +143,6 @@ function ObtenerDetalleCdr(item) {
         complete: closeWaitingDialog
     });
 }
-
-
-function ObtenerDetalleReemplazo(data) {
-    try {
-        if (data.detalle.length > 0) {
-            $.each(data.detalle, function (index, v) {
-                if (v.XMLReemplazo.length > 0) {
-
-                    var xml;
-                    if (window.DOMParser) {
-                        parser = new DOMParser();
-                        xml = parser.parseFromString(v.XMLReemplazo, "text/xml");
-                    }
-                    else //IE
-                    {
-                        xml = new ActiveXObject("Microsoft.XMLDOM");
-                        xml.async = false;
-                        xml.loadXML(v.XMLReemplazo);
-                    }
-                    var arrReemplazo = [];
-                    var rows = xml.getElementsByTagName("reemplazo");
-                    var total = 0;
-                    for (var i = 0; i < rows.length; i++) {
-                        var precio = rows[i].getElementsByTagName("precio")[0].textContent;
-
-                        var obj = {
-                            CUV: rows[i].getElementsByTagName("cuv")[0].textContent,
-                            Cantidad: rows[i].getElementsByTagName("cantidad")[0].textContent,
-                            Descripcion: rows[i].getElementsByTagName("descripcion")[0].textContent,
-                            Precio: precio,
-                            Simbolo: rows[i].getElementsByTagName("simbolo")[0].textContent,
-                            Estado: rows[i].getElementsByTagName("estado")[0].textContent
-                        };
-                        total = total + parseFloat(precio);
-
-                        arrReemplazo.push(obj);
-                    }
-                    data.detalle[index].DetalleReemplazo = arrReemplazo;
-                    data.detalle[index].Total = total;
-
-                }
-                else {
-                    data.detalle[index].DetalleReemplazo = [];
-                    data.detalle[index].Total = 0;
-                }
-            });
-        }
-    } catch (e) {
-        console.log(e.message);
-    }
-
-}
-
-
-//function DetalleAccion(obj) {
-//    var accion = $.trim($(obj).attr("data-accion"));
-//    if (accion == "") {
-//        return false;
-//    }
-
-//    if (accion == "x") {
-//        var pedidodetalleid = $.trim($(obj).attr("data-pedidodetalleid"));
-
-//        var item = {
-//            CDRWebDetalleID: pedidodetalleid
-//        };
-
-//        var functionEliminar = function () {
-//            var eliminado = DetalleEliminar(item);
-
-//            if (eliminado) {
-//                var parent = $(obj).parents(".content_listado_reclamo").eq(0);
-//                $(parent).remove();
-//            }
-//        };
-//        messageConfirmacion("", "Se eliminará el registro seleccionado. <br/>¿Deseas continuar?", functionEliminar);
-//    }
-//}
 
 function DetalleEliminar(objItem) {
     var item = {
