@@ -1,15 +1,16 @@
 ﻿
 <script id="template-producto-carrusel-responsive" type="text/x-handlebars-template">
     {{#each this.lista as |item|}}
-    <article class="caja_producto caja_vertical"  data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}">
+    <article class="caja_producto caja_vertical" data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}">
         <div style="display:none;">
             <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
             <div data-estrategia="{{JSON2string item}}"></div>
             <div data-imagen-producto="{{ImgUrl FotoProducto01}}"></div>
         </div>
-        <div class="row"  onclick="javascript:FichaVerDetalle.OnClickFichaDetalle(event.target);">
+        <div class="row" onclick="javascript:FichaVerDetalle.OnClickFichaDetalle(event.target);">
             <div class="col-6 col-lg-12 img_producto">
                 <img alt="Etiqueta Producto" data-src="{{ImgUrl FotoProducto01}}" data-img-lazy="1" data-lazy-seccion-revista-digital="" />
+                <a class="ver_detalle_producto" href="#">Ver Detalle</a>
             </div>
             <div class="col-6 col-lg-12 descripcion_producto">
                 <div class="nombre_marca">{{DescripcionMarca}} </div>
@@ -41,6 +42,16 @@
                onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
                 Agrégalo
             </a>
+        </div>
+
+        <div class="seccion_agregar">
+            <div class="tag_agotago">Agotado</div>
+        </div>
+
+        <div class="caja_producto_agregado">
+            <div>
+                AGREGADO <div class="icono"></div>
+            </div>
         </div>
     </article>
     {{/each}}
