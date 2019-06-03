@@ -664,6 +664,8 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 usuario.GanaMasNativo = (tieneGanaMasNativo.Result.Select(x => x.Valor).FirstOrDefault() == "1");
+                usuario.EsUltimoDiaFacturacion = (usuario.FechaFinFacturacion - DateTime.Now.Date ).Days == 0;
+
 
                 return usuario;
             }

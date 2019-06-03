@@ -32,7 +32,38 @@ namespace Portal.Consultoras.BizLogic.CDR
                 return 0;
             }
         }
+        //HD-3703 EINCA
+        public int InsCDRWebDetalle(int PaisID, List<BECDRWebDetalle> detalle)
+        {
+            try
+            {
+                int retorno = 1;             
+                var dacdrWeDetalle = new DACDRWebDetalle(PaisID);
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
+                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+                {
+                    foreach (var item in detalle)
+                    {
+                        var idDetalle = dacdrWeDetalle.InsCDRWebDetalle(item);
+                        if (idDetalle <= 0)
+                        {
+                            retorno = 0;
+                            oTransactionScope.Dispose();
+                        }
+                    }
+                    oTransactionScope.Complete();
+                }
+                return retorno;
 
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
         public int DelCDRWebDetalle(int PaisID, BECDRWebDetalle entity)
         {
             try
@@ -55,7 +86,38 @@ namespace Portal.Consultoras.BizLogic.CDR
                 return 0;
             }
         }
-
+        //HD-3703 EINCA
+        public int DelCDRWebDetalle(int PaisID, List<BECDRWebDetalle> listDetalle)
+        {
+            try
+            {
+                int retorno = 1;
+                var daCdrWebDetalle = new DACDRWebDetalle(PaisID);
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
+                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+                {
+                    foreach (var item in listDetalle)
+                    {
+                        var result = daCdrWebDetalle.DelCDRWebDetalle(item);
+                        if (result <= 0 )
+                        {
+                            retorno = 0;
+                            oTransactionScope.Dispose();
+                        }
+                    }
+                    
+                    oTransactionScope.Complete();
+                }
+                return retorno;
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
         public List<BECDRWebDetalle> GetCDRWebDetalle(int PaisID, BECDRWebDetalle entity, int pedidoId)
         {
             var listaEntity = new List<BECDRWebDetalle>();
@@ -78,7 +140,6 @@ namespace Portal.Consultoras.BizLogic.CDR
                 return listaEntity;
             }
         }
-
         public List<BECDRWebDetalle> GetCDRWebDetalleLog(int PaisID, BELogCDRWeb entity)
         {
             var listaEntity = new List<BECDRWebDetalle>();
@@ -101,7 +162,6 @@ namespace Portal.Consultoras.BizLogic.CDR
                 return listaEntity;
             }
         }
-
         public bool DetalleActualizarObservado(int paisId, List<BECDRWebDetalle> lista)
         {
             bool resultado;
@@ -131,7 +191,6 @@ namespace Portal.Consultoras.BizLogic.CDR
 
             return resultado;
         }
-        
         public int ValCUVEnProcesoReclamo(int paisId, int pedidoId, string cuv)
         {
             try

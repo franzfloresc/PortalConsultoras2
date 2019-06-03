@@ -19,7 +19,7 @@
     });
 
     function OnSuccess(result) {
-        alert(result.message);
+        showDialogMensaje(result.message, 'Alerta');
         $('#NombreImagen').val("");
     }
     function AbrirSplash() {
@@ -39,72 +39,78 @@
     OnComplete = "CerrarSplash()"
 }))
 {
-    <div class="wrap_cab">
-        <div class="filtros2">
-            <div class="elements">
+<div class="wrap_cab">
+  
+    <div class="filtros2">
+        <div class="elements">
 
-                <div class="div-3">
-                    <div class="titG">Campaña:</div>
-                    <div class="selectP2 borde_redondeado">
-                        @Html.DropDownListFor(model => model.DesdeCampania, new SelectList(Model.ListaCampanias, "CampaniaID", "Codigo"), new { id = "ddlCampania" })
-                    </div>
+         <div class="div-2">
+            <h2><span>Icono principal</span></h2>
+        </div>
+            <div class="div-3">
+                <div class="titG">
+                    <span id="">Imagen:</span>
+                    <h6 id="">(@Model.Ancho x @Model.Alto pixeles)</h6>
+                    <h6>La imagen debe ser redonda</h6>
                 </div>
 
-                <div class="div-3">
-                    <div class="titG">
-                        <span id="">Imagen:</span>
-                        <h6 id="">(@Model.Ancho x @Model.Alto pixeles)</h6>
-                        <h6>La imagen debe ser redonda</h6>
+                <div class="fondo_left">
+                    <div class="fondo_image">
+                        @Html.HiddenFor(model => model.IdContenido)
+                        @Html.HiddenFor(model => model.Codigo)
+                        @Html.HiddenFor(model => model.NombreImagen, new { id = "NombreImagen", imageextension = "jpg", imagewidth = @Model.Ancho, imageheight = @Model.Alto, messageSize = "Las medidas no son correctas. Vuelve a intentar, por favor.", messageFormat = "El formato no es correcto. Vuelve a intentar, por favor." })
+
+                        <img id="preview" src="@Model.NombreImagenAnterior" alt="Imagen Previa" style="max-width:80px; max-height:100px;" />
                     </div>
-
-                    <div class="fondo_left">
-                        <div class="fondo_image">
-                            @Html.HiddenFor(model => model.IdContenido)
-                            @Html.HiddenFor(model => model.Codigo)
-                            @Html.HiddenFor(model => model.NombreImagen, new { id = "NombreImagen", imageextension = "jpg", imagewidth = @Model.Ancho, imageheight = @Model.Alto, messageSize = "Las medidas no son correctas. Vuelve a intentar, por favor.", messageFormat = "El formato no es correcto. Vuelve a intentar, por favor." })
-
-                            <img id="preview" src="@Model.NombreImagenAnterior" alt="Imagen Previa" style="max-width:80px; max-height:100px;" />
-                        </div>
-                    </div>
-                    <div class="fondo_right">
-                        <div class="div-3" style="margin-top:-25px;">
-                            <div class="input_validar">
-                                <div id="file-uploader">
-                                </div>
-
+                </div>
+                <div class="fondo_right">
+                    <div class="div-3" style="margin-top:-25px;">
+                        <div class="input_validar">
+                            <div id="file-uploader">
                             </div>
-                        </div>
 
-                        <div class="div-3">
-                            <div class="input_search">
-                                <input type="submit" value="Guardar" />
-                            </div>
                         </div>
-
                     </div>
 
+                    <div class="div-3">
+                        <div class="input_search">
+                            <input type="submit" value="Guardar" />
+                        </div>
+                    </div>
 
                 </div>
-
 
 
             </div>
+
+
+
         </div>
     </div>
+</div>
 }
 
 <div class="wrap_cab">
     <div class="filtros2">
         <div class="elements">
             <div class="div-2">
-                <h1><span>Historias</span></h1>
+                <h2><span>Historias</span></h2>
             </div>
             <div class="div-3">
                 <div class="input_horizontal">
                     <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" onclick="javaScript: NuevoDetalle('@Model.IdContenido');" />
                     @*<input type="submit" value="Cargar" />*@
                 </div>
+                <div class="titG">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Campaña:
+                </div>
+                <div class="selectP2 borde_redondeado">
+                    @Html.DropDownList("Campania", new SelectList(Model.ListaCampanias, "CampaniaID", "NombreCorto"), "-- Todos --", new { id = "ddlCampania" })
+                </div>
             </div>
+
+          
             <div class="container clearfix">
                 <div class="border-wrapper">
                     <table id="tblHistoriaDet"></table>
@@ -137,6 +143,7 @@
         var urlS3 = '@ViewBag.UrlS3';
         var urlDetalleS3 = '@ViewBag.UrlDetalleS3';
         var rutaImagenVacia = '@Url.Content("~/Content/Images/Question.png")';
+        var rowNumList = @Model.CantidadContenido;
 </script>
 
 <script src="@Url.Content("~/Scripts/handlebars.js")" type="text/javascript"></script>
@@ -148,4 +155,3 @@
 <script src="@Url.Content("~/Scripts/AdminContenido/MatrizComercialFileUpload.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/AdministrarHistorias/AdminHistoria.js")"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/AdministrarHistorias/AdminHistoriaDatos.js")"></script>
-

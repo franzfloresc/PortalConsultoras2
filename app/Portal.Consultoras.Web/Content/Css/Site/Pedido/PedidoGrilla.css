@@ -206,6 +206,9 @@ h1#penmostreo .campana {
     top: 0;
     left: 0;
     z-index: 1;
+    background-color:#000;
+    background-position: center bottom;
+    background-repeat:no-repeat;
 }
 
 .caja_pedidos {

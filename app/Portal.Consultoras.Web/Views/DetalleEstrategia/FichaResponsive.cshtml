@@ -29,9 +29,9 @@
                                 <li>- 200 ml. / 6,7 fl. oz</li>
                             </ul>
                         </div>*@
-                    <div id="componentes" class="producto_componentes"></div>
+                    <div id="componentes" class="producto_componentes" data-codigovariante="@Model.CodigoVariante"></div>
 
-                    <div class="tiposytonos_componentes" style="display:none">
+                    @*<div class="tiposytonos_componentes" style="display:none">
                         <buttom class="tono_select_opt">
                             Elige 1 opción
                         </buttom>
@@ -94,7 +94,7 @@
                                 <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
                             </div>
                         </div>
-                    </div>
+                    </div>*@
                 </div>
                 <!--Botón Agregar-->
                 <div id="dvContenedorAgregar" class="contenedor_agregar"></div>
@@ -102,7 +102,7 @@
             </article>
         </div>
 
-        <div id="contenedor-tabs-ficha-enriquecida" class="ficha_enriquecida_contenedor" style="display:none"></div>
+        <div id="contenedor-tabs-ficha-enriquecida" class="ficha_enriquecida_contenedor"></div>
 
         @*<div id="compartir-estrategia" class="share" style="display:none"></div>*@
     </div>
@@ -127,118 +127,12 @@
 @Html.Partial("~/Views/Shared/_template-ofertadeldia-style.cshtml")
 @*@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/compartir-estrategia-template.cshtml")*@
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/FichaEnriquecida/tabs-ficha-enriquecida-template.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/FichaEnriquecida/popup-ficha-enriquecida-template.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/componente-estrategia-template.cshtml")
-
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/modal-tipos-tonos.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/tipos-tonos-componente-template.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/tipos-tonos-seleccionados-template.cshtml")
-
-<!-- Modal ficha enriquecida -->
-<section id="popup_ficha_enriquecida" class="popup_full">
-    <div class="contenedor_detalle">
-        <button class="button_cerrar button_volver">
-            <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt=""> Volver
-        </button>
-        <div class="row ficha_producto">
-            <div class="col-12 col-lg-7 descripcion_enriquecida">
-                <div>
-                    <div class="nombre_marca">Ésika</div>
-                    <div class="descripcion">EAU DE PARFUM VALENTÍA</div>
-                    <div class="descripcion_item">200.0 Ml</div>
-                    <div class="descripcion_item">200.0 Ml</div>
-
-                    <div class="precio_valorizado">
-                        Para tu cliente: <span style="font-weight:bold">S/. 26.90</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg-5">
-                <div class="contenedor_imagen">
-                    <div>
-                        <img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_201907_34059.png">
-                    </div>
-                    <p>* Foto Referencial</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="ficha_enriquecida_contenedor">
-            <div id="tabs_ficha_popup">
-                <ul class="tabs_ficha">
-                    <li>
-                        <a href="#tab1">Modo de uso</a>
-                        <div class="tab1"></div>
-                    </li>
-                    <li>
-                        <a href="#tab2">Descubre más</a>
-                        <div class="tab2"></div>
-                    </li>
-                    <li>
-                        <a href="#tab3">Tips de venta</a>
-                        <div class="tab3"></div>
-                    </li>
-                    <li>
-                        <a href="#tab4" class="activo active">Videos</a>
-                        <div class="tab4"></div>
-                    </li>
-                </ul>
-
-                <div class="seciones_tabs">
-                    <article id="tab1">
-                        <h4>The standard Lorem Ipsum passage, used since the 1500s</h4>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamc.
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.
-                        </p>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunm.
-                        </p>
-                        <h4>The standard Lorem Ipsum passage, used since the 1500s</h4>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunm.
-                        </p>
-                    </article>
-                    <article id="tab2">
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunm.
-                        </p>
-                        <h4>The standard Lorem Ipsum passage, used since the 1500s</h4>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunm.
-                        </p>
-                    </article>
-                    <article id="tab3">
-                        <h4>The standardxxxx Lorem Ipsum passage, used since the 1500sxxxxxx</h4>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamc.
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.
-                        </p>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunm.
-                        </p>
-                    </article>
-
-                    <article id="tab4">
-                        <h4>videos</h4>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamc.
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.
-                        </p>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunm.
-                        </p>
-                    </article>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/resumen-componente-template.cshtml")
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/Scripts/flipclock.js")
@@ -263,6 +157,8 @@
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesPresenter.js"></script>
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesView.js"></script>
 
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaEnriquecida/FichaEnriquecidaView.js"></script>
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaEnriquecida/FichaEnriquecidaPresenter.js"></script>
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/CarruselAyuda.js"></script>
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselModel.js"></script>
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselView.js"></script>

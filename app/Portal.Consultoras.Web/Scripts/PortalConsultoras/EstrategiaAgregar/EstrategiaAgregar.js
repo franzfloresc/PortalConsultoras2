@@ -79,11 +79,10 @@ var EstrategiaAgregarModule = (function () {
         }
     }
 
-    // TODO: modelo no se usa
-    //var _OrigenPedido = {
-    //    MobileContenedorArmaTuPack: CodigoOrigenPedidoWeb.MaestroCodigoOrigen.MobileArmaTuPackFicha,
-    //    DesktopContenedorArmaTuPack: CodigoOrigenPedidoWeb.MaestroCodigoOrigen.DesktopArmaTuPackFicha
-    //}
+    var _OrigenPedido = {
+        MobileContenedorArmaTuPack: CodigoOrigenPedidoWeb.MaestroCodigoOrigen.MobileArmaTuPackFicha,
+        DesktopContenedorArmaTuPack: CodigoOrigenPedidoWeb.MaestroCodigoOrigen.DesktopArmaTuPackFicha
+    }
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
         var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia")
@@ -373,8 +372,8 @@ var EstrategiaAgregarModule = (function () {
 
         var EsDuoPerfecto = false;
         if (estrategia.CodigoEstrategia === ConstantesModule.TipoEstrategia.PackNuevas) {
-            var EsOfertaIndependiente = estrategia.EsOfertaIndependiente || true;
-            EsDuoPerfecto = (estrategia.EsDuoPerfecto || false) && (!EsOfertaIndependiente);
+            var EsOfertaIndependiente = (typeof estrategia.EsOfertaIndependiente === 'undefined') ? true : estrategia.EsOfertaIndependiente;
+            EsDuoPerfecto = ((typeof estrategia.EsDuoPerfecto === 'undefined') ? false : estrategia.EsDuoPerfecto) && (!EsOfertaIndependiente);
         };
 
         var params = {
@@ -723,7 +722,6 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var adicionarCantidad = function (e) {
-
         e.stopPropagation();
         var $this = $(e.target);
         if (selectorCantidadEstaBloquedo($this)) return false;

@@ -4,13 +4,35 @@ var ComponentesView = function () {
     var _presenter = null;
 
     var _elements = {
-        componentes: {
-            templateId: "#componente-estrategia-template",
-            id: "#componentes",
+        estrategia: {
+            btnAgregar: {
+                id: "#btnAgregalo",
+                //clase: {
+                //    bloqueado: "btn_desactivado_general"
+                //}
+            }
         },
         componente: {
+            templateId: "#componente-estrategia-template",
+            id: "#componentes",
+            button: {
+                clase: ".tono_select_opt"
+            },
             btnShowModal: {
                 all: "[btn-show-types-tones-modal]",
+            },
+            resumen: {
+                templateId: "#resumen-componente-template",
+                id: "#resumen-opciones-{0}"
+            },
+            tono: {
+                cuv: "[data-tono-cuv='{0}']",
+                div: "[data-tono-div]",
+                cuv2: "[data-tono-cuv]",
+                bordeSeleccionado: "borde_seleccion_tono",
+                opcionSeleccionada: "opciones-seleccionadas",
+                opcionesSeleccionadas: "div[data-opciones-seleccionadas]",
+                dataDigitable: "tono-digitable"
             }
         },
         tiposTonosModal: {
@@ -79,10 +101,16 @@ var ComponentesView = function () {
                 all : "[remove-type-tone]"
             },
             bloquear:{
-                all: "[block-group]"
+                all: "[block-group]",
+                claseHabilitado : "active",
+                claseInhabilitado : "btn_deshabilitado",
             },
             aplicarSeleccion : {
-                contenedor :"#contenedor-aplicar-seleccion"
+                contenedor :"#contenedor-aplicar-seleccion",
+                id : "#btn-aplicar-seleccion",
+                claseHabilitado : "active",
+                claseInhabilitado : "btn_deshabilitado",
+
             }
         }
     };
@@ -92,9 +120,9 @@ var ComponentesView = function () {
     };
 
     var _renderComponentes = function (componente) {
-        SetHandlebars(_elements.componentes.templateId, componente, _elements.componentes.id);
+        SetHandlebars(_elements.componente.templateId, componente, _elements.componente.id);
 
-        $(_elements.componentes.id).on("click", _elements.componente.btnShowModal.all, function (e) {
+        $(_elements.componente.id).on("click", _elements.componente.btnShowModal.all, function (e) {
             e.preventDefault();
             var cuvComponent = $(e.target).data("component-cuv");
             _presenter.showTypesAndTonesModal(cuvComponent);
@@ -136,7 +164,6 @@ var ComponentesView = function () {
 
         return true;
     };
-
 
     var _setSelectedQuantityText = function (text) {
         text = text || "";
@@ -256,14 +283,75 @@ var ComponentesView = function () {
     };
 
     var _blockTypesOrTones = function(){
-        $(_elements.tiposTonosModal.bloquear.all).addClass("disabled");
+        $(_elements.tiposTonosModal.bloquear.all).addClass(_elements.tiposTonosModal.bloquear.claseInhabilitado);
         return true;
     };
 
     var _unblockTypesOrTones = function(){
-        $(_elements.tiposTonosModal.bloquear.all).removeClass("disabled");
+        $(_elements.tiposTonosModal.bloquear.all).removeClass(_elements.tiposTonosModal.bloquear.claseInhabilitado);
         return true;
     };
+
+    var _unblockApplySelection = function(){
+        $(_elements.tiposTonosModal.aplicarSeleccion.id)
+            .removeClass(_elements.tiposTonosModal.aplicarSeleccion.claseInhabilitado)
+            .addClass(_elements.tiposTonosModal.aplicarSeleccion.claseHabilitado);
+        return true;
+    };
+
+    var _blockApplySelection = function(){
+        $(_elements.tiposTonosModal.aplicarSeleccion.id)
+            .removeClass(_elements.tiposTonosModal.aplicarSeleccion.claseHabilitado)
+            .addClass(_elements.tiposTonosModal.aplicarSeleccion.claseInhabilitado);
+        return true;
+    };
+
+    var _renderResumen = function (componente) {
+        var id = _elements.componente.resumen.id.replace("{0}", componente.Cuv);
+
+        SetHandlebars(_elements.componente.resumen.templateId, componente, id);
+
+        $(id).siblings(_elements.componente.button.clase).hide(); // Oculta boton "elige opcion"
+        $(id).show();
+
+        $(id)
+            .parents(_elements.componente.tono.opcionesSeleccionadas)
+            .data(_elements.componente.tono.dataDigitable, componente.FactorCuadre);
+            //.parents("[data-opciones-seleccionadas]")
+            //.attr("data-opciones-seleccionadas", _componente.FactorCuadre);
+
+        return id;
+    };
+
+    var _showBorderItemSelected = function (componente) {
+        var opcion = "";
+
+        $.each(componente.Hermanos, function (iHermano, oHermano) {
+            if (oHermano.cantidadSeleccionada > 0) {
+                opcion = _elements.componente.tono.cuv.replace("{0}", oHermano.Cuv);
+            }
+        });
+
+        $(_elements.componente.tono.div).find(_elements.componente.tono.cuv2).removeClass(_elements.componente.tono.bordeSeleccionado);
+        $(_elements.componente.tono.div).find(opcion).addClass(_elements.componente.tono.bordeSeleccionado);
+
+        return true;
+    };
+
+    //var _verifyButtonActive = function () {
+    //    var show = true;
+
+    //    $(_elements.componente.tono.opcionesSeleccionadas).each(function () {
+    //        if (parseInt($(this).data(_elements.componente.tono.opcionSeleccionada)) === 0 && parseInt($(this).data(_elements.componente.tono.dataDigitable)) === 1)
+    //            show = false;
+    //    });
+
+    //    // TODO: revisar
+    //    if (show)
+    //        $(_elements.estrategia.btnAgregar.id).removeClass(_elements.estrategia.btnAgregar.clase.bloqueado);
+
+    //    return true;
+    //};
 
     return {
         setPresenter: _setPresenter,
@@ -277,6 +365,11 @@ var ComponentesView = function () {
         showQuantitySelector: _showQuantitySelector,
         showSelectedTypesOrTones: _showSelectedTypesOrTones,
         blockTypesOrTones: _blockTypesOrTones,
-        unblockTypesOrTones: _unblockTypesOrTones
+        unblockTypesOrTones: _unblockTypesOrTones,
+        unblockApplySelection : _unblockApplySelection,
+        blockApplySelection: _blockApplySelection,
+        renderResumen: _renderResumen,
+        showBorderItemSelected: _showBorderItemSelected,
+        //verifyButtonActive: _verifyButtonActive
     };
 };

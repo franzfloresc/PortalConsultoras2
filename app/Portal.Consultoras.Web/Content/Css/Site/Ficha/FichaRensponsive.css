@@ -632,6 +632,15 @@ ul.breadcumbs li a {
         margin-top: 10px;
     }
 
+    .producto_componentes {
+        border-top: 1px solid #d1d1d4;
+        padding-top: 13px;
+    }
+
+    .detalle_producto_detalle li {
+        font-size: 14px;
+    }
+
     .share{
         display: block !important;
     }

@@ -117,12 +117,12 @@ namespace Portal.Consultoras.BizLogic
                     select producto).ToList();
         }
 
-        public IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID, string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio, int rowCount, bool validarOpt)
+        public IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(BEProductoBusqueda busqueda)
         {
            var productos = new List<BEProducto>();
 
 
-            using (IDataReader reader = new DAProducto(paisID).GetProductoComercialByCampaniaBySearchRegionZona(campaniaID, rowCount, criterio, codigoDescripcion, RegionID, ZonaID, CodigoRegion, CodigoZona, validarOpt))
+            using (IDataReader reader = new DAProducto(busqueda.PaisID).GetProductoComercialByCampaniaBySearchRegionZona(busqueda))
             {
                 while (reader.Read())
                 {
@@ -140,7 +140,7 @@ namespace Portal.Consultoras.BizLogic
             });
 
             return (from producto in productos
-                    orderby (criterio == 1 ? producto.CUV : producto.Descripcion)
+                    orderby (busqueda.Criterio == 1 ? producto.CUV : producto.Descripcion)
                     select producto).ToList();
         }
 
