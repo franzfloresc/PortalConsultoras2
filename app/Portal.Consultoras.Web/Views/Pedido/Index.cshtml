@@ -32,6 +32,7 @@
         text-decoration: none;
         opacity: 0.4;
     }
+
     .linea_indicador_barra {
         width: 2px;
     }
@@ -265,6 +266,29 @@
             @Html.Partial("~/Views/Pedido/_vpPedidoGrilla.cshtml")
 
             <div class="caja_guardar_pedido">
+                <!-- HD-4288 - SWITCH CONSULTORA 100% DIGITAL -->
+                <div class="d-block contenedor_info_recepcion_pedido">
+                    <div class="border-radius-4">
+                        <div class="d-block w-100 switch__control__contenedor">
+                            <span class="switch__control__descrip">Quiero que otra persona reciba por mí este pedido</span>
+                            <label class="switch__control__wrapper">
+                                <input type="checkbox" class="switch__control">
+                                <span class="switch__slider"></span>
+                            </label>
+                        </div>
+                        <!-- Esta sección aparece una vez que se llena los datos de la persona que recibirá el pedido en el popup de recepción de pedido (id="PopupRecepcionPedido") -->
+                        <div class="d-block w-100 info_recepcion_pedido" style="display:none;">
+                            <p class="text-bold">Lo va a recibir:</p>
+                            <p class="datos__receptor__pedido">
+                                <span class="d-block">Luis Gonzáles</span>
+                                <span class="d-block">44243894</span>
+                            </p>
+                            <button onclick="javascript:$('#PopupRecepcionPedido').fadeIn(100);" class="d-block w-100 border-radius-4 text-center text-bold btn__sb btn__sb__secondary btn__sb--cambiarPersona">Cambia de persona</button>
+                        </div>
+                        <!-- Fin - Esta sección aparece una vez que se llena los datos de la persona que recibirá el pedido en el popup de recepción de pedido (id="PopupRecepcionPedido") -->
+                    </div>
+                </div>
+                <!-- FIN - HD-4288 - SWITCH CONSULTORA 100% DIGITAL -->
                 <div class="contenedor_guardadoPedido">
                     <div class="bloque_montosPedido">
                         <div class="caja_montos">
@@ -558,39 +582,39 @@
                 <div class="clear"></div>
             </div>
             @*@if (ViewBag.MostrarPedidosPendientes == "1")
-            {
-                <div id="infoPendientes" style="background:white; display: none;">
+                {
+                    <div id="infoPendientes" style="background:white; display: none;">
 
-                    <div id="paginadorCabPend" class="cant_productos_y_paginador_wrapper_top">
-                    </div>
-                    <div class="content_datos_pendientes">
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nombre de Cliente</div>
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Origen</div>
+                        <div id="paginadorCabPend" class="cant_productos_y_paginador_wrapper_top">
+                        </div>
+                        <div class="content_datos_pendientes">
+                            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nombre de Cliente</div>
+                            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Origen</div>
 
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Fecha Registro</div>
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Precio Total</div>
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Acción</div>
-                    </div>
-                    <div class="linea_separadora" style="margin-top:-1px"></div>
-                    <div>
-                        <div id="divPedidosPend"> </div>
-                    </div>
-                    <div id="paginadorPiePend" class="cant_productos_y_paginador_wrapper_bottom">
-                    </div>
-                    <div class="revision_pedidosAceptados">
-                        <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
-                        <span class="icono_consultoraOnline"></span>
-                        <span class="texto_misPedidosClientesOnline" style="cursor: pointer;" onclick="MostrarMisPedidosConsultoraOnline();">MIS PEDIDOS DEL <b>APP DE CATÁLOGOS</b></span>
-                    </div>
+                            <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Fecha Registro</div>
+                            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Precio Total</div>
+                            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Acción</div>
+                        </div>
+                        <div class="linea_separadora" style="margin-top:-1px"></div>
+                        <div>
+                            <div id="divPedidosPend"> </div>
+                        </div>
+                        <div id="paginadorPiePend" class="cant_productos_y_paginador_wrapper_bottom">
+                        </div>
+                        <div class="revision_pedidosAceptados">
+                            <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
+                            <span class="icono_consultoraOnline"></span>
+                            <span class="texto_misPedidosClientesOnline" style="cursor: pointer;" onclick="MostrarMisPedidosConsultoraOnline();">MIS PEDIDOS DEL <b>APP DE CATÁLOGOS</b></span>
+                        </div>
 
-                    <div style="display: none;">
-                        @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmConsultoraOnline" }))
-                        {
-                            <input type="hidden" name="lanzarTabConsultoraOnline" value="true">
-                        }
+                        <div style="display: none;">
+                            @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmConsultoraOnline" }))
+                            {
+                                <input type="hidden" name="lanzarTabConsultoraOnline" value="true">
+                            }
+                        </div>
                     </div>
-                </div>
-            }*@
+                }*@
         </div>
     </div>
 
@@ -623,9 +647,9 @@
 
     <div id="divListaEstrategias" class="caja_carousel_productos">
         @*@if (ViewBag.MostrarPedidosPendientes == "1")
-        {
-            <div class="truco_bloqueo sim2"></div>
-        }*@
+            {
+                <div class="truco_bloqueo sim2"></div>
+            }*@
         @Html.Partial("~/Views/Pedido/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
     </div>
 
@@ -1055,6 +1079,7 @@
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupEleccionRegalo.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupPremio.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupDescuento.cshtml")
+@Html.Partial("~/Views/Pedido/_PopupRecepcionPedido.cshtml")
 @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupInformacionRegalo.cshtml");}
 
 @if (Model.MostrarPopupPrecargados)
@@ -1081,435 +1106,435 @@
 }
 
 @*@if (ViewBag.MostrarPedidosPendientes == "1")
-{
-    <div id="popup_pendientes" class="contenedor_popup_percepciones" style="display: none;">
-        <div class="popup_Pendientes">
-            <div class="cubre"></div>
+    {
+        <div id="popup_pendientes" class="contenedor_popup_percepciones" style="display: none;">
+            <div class="popup_Pendientes">
+                <div class="cubre"></div>
 
-            <input type="hidden" id="hdIdComprobantePercepcion">
+                <input type="hidden" id="hdIdComprobantePercepcion">
 
-            <div class="btn_cerrar_popupPercepcion">
-                <a class="regresaPendientes" title="Regresar" style="text-align: right;">
-                    <div class="icono_regresar"><img src="/Content/Images/btn_regresar.svg" alt="Regresar"></div>
-                    <div class="texto_btn_regresar" onclick="PendientesRegresar();">REGRESAR</div>
-                </a>
+                <div class="btn_cerrar_popupPercepcion">
+                    <a class="regresaPendientes" title="Regresar" style="text-align: right;">
+                        <div class="icono_regresar"><img src="/Content/Images/btn_regresar.svg" alt="Regresar"></div>
+                        <div class="texto_btn_regresar" onclick="PendientesRegresar();">REGRESAR</div>
+                    </a>
+                </div>
+
+                <div id="divPopupPedidoPend"></div>
+
             </div>
-
-            <div id="divPopupPedidoPend"></div>
-
         </div>
-    </div>
 
-    <div class="contenedor_popup_agregarUnidades" id="dialog_mensajeComoAtender" style="display: none;">
-        <div class="popup_agregarUnidades">
+        <div class="contenedor_popup_agregarUnidades" id="dialog_mensajeComoAtender" style="display: none;">
+            <div class="popup_agregarUnidades">
 
-            <div class="btn_cerrar_agregarUnidades">
-                <a id="aceptandoPendientes_1" onclick="DialogComoAtenderPedidoPend('Cerrar Pop up'); $('#dialog_mensajeComoAtender').hide()">
-                    <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
-                </a>
+                <div class="btn_cerrar_agregarUnidades">
+                    <a id="aceptandoPendientes_1" onclick="DialogComoAtenderPedidoPend('Cerrar Pop up'); $('#dialog_mensajeComoAtender').hide()">
+                        <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                    </a>
+                </div>
+                <div class="contenido_popUp aceptaPedido">
+                    <div class="icono_exclamacion" id="apro_o_excla_1"></div>
+                    <h1 class="titulo_agregarUnidades"><b>IMPORTANTE</b></h1>
+                    <span class="mensaje_agregarUnidades">Por favor elige cómo atenderás todos los productos del pedido.</span>
+                    <button type="button" class="btn_ok ok_aceptaPedido" onclick="DialogComoAtenderPedidoPend('Ok'); $('#dialog_mensajeComoAtender').hide()">
+                        OK
+                    </button>
+                </div>
             </div>
-            <div class="contenido_popUp aceptaPedido">
-                <div class="icono_exclamacion" id="apro_o_excla_1"></div>
-                <h1 class="titulo_agregarUnidades"><b>IMPORTANTE</b></h1>
-                <span class="mensaje_agregarUnidades">Por favor elige cómo atenderás todos los productos del pedido.</span>
-                <button type="button" class="btn_ok ok_aceptaPedido" onclick="DialogComoAtenderPedidoPend('Ok'); $('#dialog_mensajeComoAtender').hide()">
-                    OK
+        </div>
+
+        <div id="popup2_pendientes" class="contenedor_popup_percepciones popupPendientesPORTAL" style="display: none;">
+            <div class="popup_Pendientes">
+                <div class="cubre cubre2"></div>
+
+                <input type="hidden" id="hdIdComprobantePercepcion">
+
+                <div class="btn_cerrar_popupPercepcion cerrarPendientesPORTAL">
+                    <a class="regresaPendientes" title="Regresar" style="text-align: right;">
+                        <div class="icono_regresar"><img src="/Content/Images/btn_regresar.svg" alt="Regresar"></div>
+                        <div class="texto_btn_regresar">REGRESAR</div>
+                    </a>
+                </div>
+
+                <div id="divPopup2PedidoPend"></div>
+            </div>
+        </div>
+
+        <div class="truco_bloqueo sim1"></div>
+        <div class="truco_bloqueo sim3"></div>
+        <div class="truco_bloqueo sim4"></div>
+
+        <div class="contenedor_popup_agregarUnidades" id="dialog_confirmacionRechazo" style="display: none;">
+            <div class="popup_rechazarPendientes">
+                <input type="hidden" id="hdePedidoIdRechazo" />
+                <div class="btn_cerrar_agregarUnidades">
+                    <a id="cierreRechazoPendientes" onclick="$('#dialog_confirmacionRechazo').hide(); NoRechazoPedidoDejameVerlo('Cerrar');">
+                        <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                    </a>
+                </div>
+                <div class="contenido_popUp confirmacionRechazo">
+                    <div class="icono_exclamacion" id="apro_o_excla"></div>
+                    <h1 class="titulo_confirma"><b>¿VAS A RECHAZAR EL PEDIDO?</b></h1>
+                    <span class="mensaje_agregarUnidades">Si rechazas el pedido vas a perderlo</span>
+                    <button type="button" class="btn_eliminarCliente venizquierda sedetiene" onclick="$('#dialog_confirmacionRechazo').hide(); NoRechazoPedidoDejameVerlo('No, Déjame verlo');">
+                        NO, DÉJAME VERLO
+                    </button>
+                    <button type="button" class="btn_eliminarCliente venderecha prosigue" onclick="ShowPopupMotivoRechazo()">
+                        SÍ, RECHAZO EL PEDIDO
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="contenedor_popup_agregarUnidades" id="dialog_mensajeRechazado" style="display: none;">
+            <div class="popup_rechazarPendientes">
+
+                <div class="btn_cerrar_agregarUnidades">
+                    <a id="cierreRechazoPendientes" onclick="$('#dialog_mensajeRechazado').hide(); DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Pedido Rechazado - Click Botón', 'cerrar');">
+                        <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                    </a>
+                </div>
+                <div class="contenido_popUp confirmacionRechazo">
+                    <div class="icono_exclamacion" id="apro_o_excla"></div>
+                    <h1 class="titulo_confirma"><b>RECHAZASTE</b> EL PEDIDO</h1>
+                    <span class="mensaje_agregarUnidades">Ya esta eliminado de tu lista de pendientes.</span>
+                    <button type="button" class="btn_ok ok_aceptaPedido" onclick="CerrarMensajeRechazado()">
+                        OK
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="contenedor_popup_agregarUnidades" id="dialog_motivoRechazo" style="display: none;">
+            <div class="popup_agregarUnidades mrechaza">
+                <div class="btn_cerrar_agregarUnidades">
+                    <a id="cierreMotivoRechazo" onclick="RechazarPedido(2);">
+                        <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                    </a>
+                </div>
+                <div class="contenido_popUp motivoRechazo">
+
+                    <input type="hidden" name="SolicitudId" id="SolicitudId" />
+                    <input type="hidden" name="NumIteracion" id="NumIteracion" />
+                    <input type="hidden" name="CodigoUbigeo" id="CodigoUbigeo" />
+                    <input type="hidden" name="Campania" id="Campania" />
+                    <input type="hidden" name="MarcaID" id="MarcaID" />
+                    <h1 class="titulo_mensajeMotivoRechazo"><b>¡CUÉNTANOS PORQUÉ LO RECHAZASTE!</b></h1>
+
+                    @foreach (var motivoRechazo in ViewBag.MotivosRechazo)
+                    {
+                        <div class="optionsRechazo" data-id="@motivoRechazo.MotivoSolicitudID">@motivoRechazo.Motivo</div>
+                    }
+
+                    <textarea id="txtOtrosRechazo" placeholder="" readonly="readonly" maxlength="300"></textarea>
+                </div>
+                <button type="button" class="btn_eliminarCliente btn-negro" id="btnRechazarPedido" onclick="RechazarPedido(1)">
+                    ENVIAR
                 </button>
             </div>
         </div>
-    </div>
 
-    <div id="popup2_pendientes" class="contenedor_popup_percepciones popupPendientesPORTAL" style="display: none;">
-        <div class="popup_Pendientes">
-            <div class="cubre cubre2"></div>
-
-            <input type="hidden" id="hdIdComprobantePercepcion">
-
-            <div class="btn_cerrar_popupPercepcion cerrarPendientesPORTAL">
-                <a class="regresaPendientes" title="Regresar" style="text-align: right;">
-                    <div class="icono_regresar"><img src="/Content/Images/btn_regresar.svg" alt="Regresar"></div>
-                    <div class="texto_btn_regresar">REGRESAR</div>
-                </a>
-            </div>
-
-            <div id="divPopup2PedidoPend"></div>
-        </div>
-    </div>
-
-    <div class="truco_bloqueo sim1"></div>
-    <div class="truco_bloqueo sim3"></div>
-    <div class="truco_bloqueo sim4"></div>
-
-    <div class="contenedor_popup_agregarUnidades" id="dialog_confirmacionRechazo" style="display: none;">
-        <div class="popup_rechazarPendientes">
-            <input type="hidden" id="hdePedidoIdRechazo" />
-            <div class="btn_cerrar_agregarUnidades">
-                <a id="cierreRechazoPendientes" onclick="$('#dialog_confirmacionRechazo').hide(); NoRechazoPedidoDejameVerlo('Cerrar');">
-                    <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
-                </a>
-            </div>
-            <div class="contenido_popUp confirmacionRechazo">
-                <div class="icono_exclamacion" id="apro_o_excla"></div>
-                <h1 class="titulo_confirma"><b>¿VAS A RECHAZAR EL PEDIDO?</b></h1>
-                <span class="mensaje_agregarUnidades">Si rechazas el pedido vas a perderlo</span>
-                <button type="button" class="btn_eliminarCliente venizquierda sedetiene" onclick="$('#dialog_confirmacionRechazo').hide(); NoRechazoPedidoDejameVerlo('No, Déjame verlo');">
-                    NO, DÉJAME VERLO
-                </button>
-                <button type="button" class="btn_eliminarCliente venderecha prosigue" onclick="ShowPopupMotivoRechazo()">
-                    SÍ, RECHAZO EL PEDIDO
-                </button>
+        <div class="contenedor_popup_agregarUnidades" id="dialog_aceptasPendientes" style="display: none;">
+            <div class="popup_agregarUnidades">
+                <input type="hidden" id="hdePedidoIdAcepto" />
+                <div class="btn_cerrar_agregarUnidades">
+                    <a id="aceptandoPendientes" onclick="$('#dialog_aceptasPendientes').hide()">
+                        <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                    </a>
+                </div>
+                <div class="contenido_popUp aceptaPedido">
+                    <div class="icono_aprobacion" id="apro_o_excla"></div>
+                    <h1 class="titulo_agregarUnidades">PEDIDO <b>ACEPTADO</b></h1>
+                    <span class="mensaje_agregarUnidades" id="msgPedidoAceptado1">No te olvides de coordinar la entrega de los productos.</span>
+                    <button type="button" class="btn_ok ok_aceptaPedido" onclick="CerrarMensajeAceptado(1);">
+                        OK
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="contenedor_popup_agregarUnidades" id="dialog_mensajeRechazado" style="display: none;">
-        <div class="popup_rechazarPendientes">
-
-            <div class="btn_cerrar_agregarUnidades">
-                <a id="cierreRechazoPendientes" onclick="$('#dialog_mensajeRechazado').hide(); DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Pedido Rechazado - Click Botón', 'cerrar');">
-                    <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
-                </a>
-            </div>
-            <div class="contenido_popUp confirmacionRechazo">
-                <div class="icono_exclamacion" id="apro_o_excla"></div>
-                <h1 class="titulo_confirma"><b>RECHAZASTE</b> EL PEDIDO</h1>
-                <span class="mensaje_agregarUnidades">Ya esta eliminado de tu lista de pendientes.</span>
-                <button type="button" class="btn_ok ok_aceptaPedido" onclick="CerrarMensajeRechazado()">
-                    OK
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div class="contenedor_popup_agregarUnidades" id="dialog_motivoRechazo" style="display: none;">
-        <div class="popup_agregarUnidades mrechaza">
-            <div class="btn_cerrar_agregarUnidades">
-                <a id="cierreMotivoRechazo" onclick="RechazarPedido(2);">
-                    <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
-                </a>
-            </div>
-            <div class="contenido_popUp motivoRechazo">
-
-                <input type="hidden" name="SolicitudId" id="SolicitudId" />
-                <input type="hidden" name="NumIteracion" id="NumIteracion" />
-                <input type="hidden" name="CodigoUbigeo" id="CodigoUbigeo" />
-                <input type="hidden" name="Campania" id="Campania" />
-                <input type="hidden" name="MarcaID" id="MarcaID" />
-                <h1 class="titulo_mensajeMotivoRechazo"><b>¡CUÉNTANOS PORQUÉ LO RECHAZASTE!</b></h1>
-
-                @foreach (var motivoRechazo in ViewBag.MotivosRechazo)
-                {
-                    <div class="optionsRechazo" data-id="@motivoRechazo.MotivoSolicitudID">@motivoRechazo.Motivo</div>
-                }
-
-                <textarea id="txtOtrosRechazo" placeholder="" readonly="readonly" maxlength="300"></textarea>
-            </div>
-            <button type="button" class="btn_eliminarCliente btn-negro" id="btnRechazarPedido" onclick="RechazarPedido(1)">
-                ENVIAR
-            </button>
-        </div>
-    </div>
-
-    <div class="contenedor_popup_agregarUnidades" id="dialog_aceptasPendientes" style="display: none;">
-        <div class="popup_agregarUnidades">
-            <input type="hidden" id="hdePedidoIdAcepto" />
-            <div class="btn_cerrar_agregarUnidades">
-                <a id="aceptandoPendientes" onclick="$('#dialog_aceptasPendientes').hide()">
-                    <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
-                </a>
-            </div>
-            <div class="contenido_popUp aceptaPedido">
-                <div class="icono_aprobacion" id="apro_o_excla"></div>
-                <h1 class="titulo_agregarUnidades">PEDIDO <b>ACEPTADO</b></h1>
-                <span class="mensaje_agregarUnidades" id="msgPedidoAceptado1">No te olvides de coordinar la entrega de los productos.</span>
-                <button type="button" class="btn_ok ok_aceptaPedido" onclick="CerrarMensajeAceptado(1);">
-                    OK
-                </button>
+        <div class="contenedor_popup_agregarUnidades" id="dialog2_aceptasPendientes" style="display: none;">
+            <div class="popup_agregarUnidades">
+                <input type="hidden" id="hdePedidoIdAcepto" />
+                <div class="btn_cerrar_agregarUnidades">
+                    <a id="aceptandoPendientes" onclick="$('#dialog2_aceptasPendientes').hide()">
+                        <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
+                    </a>
+                </div>
+                <div class="contenido_popUp aceptaPedido">
+                    <div class="icono_aprobacion" id="apro_o_excla"></div>
+                    <h1 class="titulo_agregarUnidades">PEDIDO <b>ACEPTADO</b></h1>
+                    <span class="mensaje_agregarUnidades">No te olvides de ingresar en tu pedido los productos de este cliente.</span>
+                    <button type="button" class="btn_ok ok_aceptaPedido" onclick="CerrarMensajeAceptado(2);">
+                        OK
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="tapsPedidos"></div>
 
-    <div class="contenedor_popup_agregarUnidades" id="dialog2_aceptasPendientes" style="display: none;">
-        <div class="popup_agregarUnidades">
-            <input type="hidden" id="hdePedidoIdAcepto" />
-            <div class="btn_cerrar_agregarUnidades">
-                <a id="aceptandoPendientes" onclick="$('#dialog2_aceptasPendientes').hide()">
-                    <img src="/Content/Images/btn_cerrar_popup.svg" alt="Cerrar">
-                </a>
-            </div>
-            <div class="contenido_popUp aceptaPedido">
-                <div class="icono_aprobacion" id="apro_o_excla"></div>
-                <h1 class="titulo_agregarUnidades">PEDIDO <b>ACEPTADO</b></h1>
-                <span class="mensaje_agregarUnidades">No te olvides de ingresar en tu pedido los productos de este cliente.</span>
-                <button type="button" class="btn_ok ok_aceptaPedido" onclick="CerrarMensajeAceptado(2);">
-                    OK
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="tapsPedidos"></div>
+        <script id="pedidopend-template" type="text/x-handlebars-template">
+            {{#each this}}
 
-    <script id="pedidopend-template" type="text/x-handlebars-template">
-        {{#each this}}
-
-        <div class="content_datos_percepciones mouse-encima-padding">
-            <div class="padding_tabla_percepcion dinamicostablegrande izq grillaPendientes">
-                <span class="texto_pedidos_pendientes">
-                    {{#if FlagConsultora}}
-                    <label> CLIENTE EXISTENTE </label>
+            <div class="content_datos_percepciones mouse-encima-padding">
+                <div class="padding_tabla_percepcion dinamicostablegrande izq grillaPendientes">
+                    <span class="texto_pedidos_pendientes">
+                        {{#if FlagConsultora}}
+                        <label> CLIENTE EXISTENTE </label>
+                        {{else}}
+                        <label> NUEVO CLIENTE </label>
+                        {{/if}}
+                    </span>
+                    {{Cliente}}
+                </div>
+                <div class="padding_tabla_percepcion dinamicostablegrande grillaPendientes">
+                    {{#if_eq MarcaID '0'}}
+                    {{MedioContacto}}
                     {{else}}
-                    <label> NUEVO CLIENTE </label>
+                    Portal {{Marca}}
+                    {{/if_eq}}
+                </div>
+
+                <div class="padding_tabla_percepcion dinamicostable grillaPendientes">{{FormartoFechaSolicitud}}</div>
+                <div class="padding_tabla_percepcion dinamicostablemedio grillaPendientes">{{SimboloMoneda}} {{FormatoPrecioTotal}}</div>
+                <div class="padding_tabla_percepcion dinamicostablegrande grillaPendientes">
+
+                    <input type="hidden" id="pedidopend_{{PedidoId}}" value="{{PedidoId}}|{{MarcaID}}|{{Campania}}|{{Cliente}}|{{Telefono}}|{{Direccion}}|{{Email}}|{{Mensaje}}|{{Leido}}|{{NumIteracion}}|{{CodigoUbigeo}}|{{FechaSolicitud}}|{{MedioContacto}}|{{FormatoPrecioTotal}}|{{SaldoHoras}}|{{FlagConsultora}}" />
+                    <button type="button" class="btn_revisalo_pendientes1" onclick="CargarPopupPedidoPend('1', '10', '{{PedidoId}}', '0');">
+                        <div onclick="PendientesRevisalo('Carrito de Compras - In Tab Pedidos Pendientes','Click Botón');">REVÍSALO</div>
+
+                        <div class="info_tiempo_oportunidad">
+                            <span class="texto_pedidos_pendientes tips">
+                                <label>¡No pierdas esta oportunidad!</label>
+                            </span>
+                            <h4 class="linkea_Pendientes tooltipPendientes" onclick="PendientesRevisalo('Carrito de Compras - In Tab Pedidos Pendientes','Click Botón');">►REVÍSALO</h4>
+                        </div>
+                    </button>
+
+                </div>
+            </div>
+
+            {{/each}}
+        </script>
+
+        <script id="popup-pedidopend-template" type="text/x-handlebars-template">
+            <div class="content_popUp_Pendientes">
+                <div style="display: none;">
+                    <input type="hidden" id="hdPedidoPendPoputPedidoId" value="{{PedidoId}}" />
+                </div>
+                <div class="mensajes_deAtencion">
+                    <span>¡No te pierdas esta oportunidad!</span>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="percepcion_campania libero">
+                    <h1><b>PRIMERO, CONTÁCTATE CON {{Contacto}} ...</b></h1>
+                    <h5>Tu cliente esta esperando que la contactes. Confirma los productos, precios y forma de entrega.<br>Luego elige como entregarás cada producto para que puedas aceptar todo el pedido.</h5>
+                </div>
+
+                <div class="contenedor_bloque_datos">
+                    <div class="datos_cliente_pendientes">
+
+                        <div class="bloque_datos izq">
+                            <div class="nombre_cliente">
+                                <span class="AtribCliente">Nombre:</span>
+                                <span class="datoPedidoCliente" id="sc-d1-nombre">{{Nombre}}</span>
+                            </div>
+
+                            <div class="telefono_cliente">
+                                <span class="AtribCliente">Teléfono:</span>
+                                <span class="datoPedidoCliente" id="sc-d1-telefono">{{Telefono}}</span>
+                            </div>
+                        </div>
+                        <div class="bloque_datos der">
+                            <div class="correo_cliente">
+                                <span class="AtribCliente">Correo:</span>
+                                <span class="datoPedidoCliente" id="sc-d1-correo">{{Email}}</span>
+                            </div>
+
+                            <div class="direccion_cliente">
+                                <span class="AtribCliente">Dirección:</span>
+                                <span class="datoPedidoCliente">{{Direccion}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="paginadorCabPendPoput">
+                </div>
+
+                <div class="content_datos_pendientes">
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemini">Código</div>
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Producto</div>
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Unidades</div>
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Precio unitario</div>
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Subtotal</div>
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">¿Cómo lo Atenderás?</div>
+                </div>
+                <div class="linea_separadora" style="margin-top:-1px"></div>
+
+                <div style="max-height: 226px; overflow-y:auto;">
+                    <div id="divDetPedidoPend"> </div>
+                </div>
+
+                <div class="linea_separadora" style="height:2px;"></div>
+
+                <div class="calculo_PendientesTotal">
+                    <h4 class="txtderecha">TOTAL PEDIDO: <span>{{SimboloMoneda}} {{PrecioTotal}}</span></h4>
+                </div>
+
+                <div class="linea_separadora_roja" style="height: 2px;"></div>
+
+                <div class="btn_grupo_accionesPedido accionesPendientes">
+                    <button id="rechazarPendientes" type="button" class="btn_eliminarCliente venizquierda" onclick="RechazoPedidosPendientes(); ShowPopupRechazoPedido('{{PedidoId}}','1')">
+                        RECHAZO EL PEDIDO
+                    </button>
+                    <button id="aceptarPendientes" type="button" class="btn_noEliminarCliente venderecha" onclick="AceptarPedido('{{PedidoId}}', '1')">
+                        ACEPTO TODO EL PEDIDO
+                    </button>
+                </div>
+            </div>
+        </script>
+
+        <script id="popup2-pedidopend-template" type="text/x-handlebars-template">
+            <div class="content_popUp_Pendientes">
+                <div style="display: none;">
+                    <input type="hidden" id="hdPedidoPendPoputPedidoId2" value="{{PedidoId}}" />
+                </div>
+                <div class="mensajes_deAtencion">
+
+                    <span>¡No te pierdas esta oportunidad!</span>
+                    {{#if FlagConsultora}}
+                    <span>Te quedan<br>00:00:00</span>
+                    {{else}}
+                    <span>Te quedan<br>{{SaldoHoras}}</span>
                     {{/if}}
-                </span>
-                {{Cliente}}
+
+                </div>
+
+                <div class="percepcion_campania libero">
+                    <h1><b>PRIMERO, CONTÁCTATE CON {{Contacto}}...</b></h1>
+                    <h5>Tu cliente esta esperando que la contactes. Confirma los productos, precios y forma de entrega.<br>Luego elige como entregarás cada producto para que puedas aceptar todo el pedido.</h5>
+                </div>
+
+                <div class="contenedor_bloque_datos">
+                    <div class="datos_cliente_pendientes">
+
+                        <div class="bloque_datos izq">
+                            <div class="nombre_cliente">
+                                <span class="AtribCliente">Nombre:</span>
+                                <span class="datoPedidoCliente" id="sc-d2-nombre">{{Nombre}}</span>
+                            </div>
+
+                            <div class="telefono_cliente">
+                                <span class="AtribCliente">Teléfono:</span>
+                                <span class="datoPedidoCliente" id="sc-d2-telefono">{{Telefono}}</span>
+                            </div>
+                        </div>
+                        <div class="bloque_datos der">
+                            <div class="correo_cliente">
+                                <span class="AtribCliente">Correo:</span>
+                                <span class="datoPedidoCliente" id="sc-d2-correo">{{Email}}</span>
+                            </div>
+
+                            <div class="direccion_cliente">
+                                <span class="AtribCliente">Dirección:</span>
+                                <span class="datoPedidoCliente">{{Direccion}}</span>
+                            </div>
+                        </div>
+                        <div class="bloque_datos izq">
+                            <div class="nombre_cliente">
+                                <span class="AtribCliente">Comentario:</span>
+                                <span class="datoPedidoCliente">{{Comentario}}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="paginadorCabPendPoput2">
+                </div>
+
+                <div class="content_datos_pendientes">
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande izq">Producto</div>
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Unidades</div>
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Precio unitario</div>
+                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Subtotal</div>
+                </div>
+                <div class="linea_separadora" style="margin-top:-1px"></div>
+                <div style="max-height:419px; overflow:auto;">
+                    <div id="divDet2PedidoPend"> </div>
+                </div>
+
+                <div class="linea_separadora" style="height:2px;"></div>
+
+                <div class="calculo_PendientesTotal">
+                    <h4 class="txtderecha">TOTAL PEDIDO: <span>{{SimboloMoneda}} {{PrecioTotal}}</span></h4>
+                </div>
+
+                <div class="linea_separadora_roja" style="height: 2px;"></div>
+
+                <div class="btn_grupo_accionesPedido accionesPendientes">
+                    <button id="rechazarPendientesPORTAL" type="button" class="btn_eliminarCliente venizquierda" onclick="ShowPopupRechazoPedido('{{PedidoId}}', '2')">
+                        RECHAZO EL PEDIDO
+                    </button>
+                    <button id="aceptarPendientesPORTAL" type="button" class="btn_noEliminarCliente venderecha" onclick="AceptarPedido('{{PedidoId}}', '2')">
+                        ACEPTO TODO EL PEDIDO
+                    </button>
+                </div>
             </div>
-            <div class="padding_tabla_percepcion dinamicostablegrande grillaPendientes">
-                {{#if_eq MarcaID '0'}}
-                {{MedioContacto}}
-                {{else}}
-                Portal {{Marca}}
+        </script>
+
+        <script id="detalle-pedidopend-template" type="text/x-handlebars-template">
+            {{#each this}}
+
+            <div class="content_datos_percepciones">
+                <input type="hidden" value="{{PedidoDetalleId}}" />
+                <div class="padding_tabla_percepcion dinamicostablemini" id="pedpend-deta2-cuv">{{CUV}}</div>
+                <div class="padding_tabla_percepcion dinamicostablemedio" id="pedpend-deta2-nombre">{{Producto}}</div>
+                <div class="padding_tabla_percepcion dinamicostable" id="pedpend-deta2-cantidad">{{Cantidad}}</div>
+                <div class="padding_tabla_percepcion dinamicostable">{{SimboloMoneda}} {{PrecioUnitario}}</div>
+                <div class="padding_tabla_percepcion dinamicostable">{{SimboloMoneda}} {{PrecioTotal}}</div>
+                <div class="padding_tabla_percepcion dinamicostablegrande">
+                    {{#if_eq TieneStock '1'}}
+                    <select class="oscurece ddlAtenderPopUpPedidosPend" id="ddlAtender_{{Index}}" onchange="javascript:SelectOptAtender(this)">
+                        <option value="" selected>¿CÓMO LO ATENDERAS?</option>
+                        <option value="ingrped">INGRESAR A MI PEDIDO</option>
+                        <option value="ingrten">YA LO TENGO</option>
+                    </select>
+                    {{else}}
+                    <span>AGOTADO</span>
+                    {{/if_eq}}
+                </div>
+                <input type="hidden" id="pedpend-deta2-precio" value="{{PrecioUnitario}}" />
+                <input type="hidden" id="pedpend-deta2-marca" value="{{Marca}}" />
+
+                {{#if_eq TieneStock '0'}}
+                <div class="notiPendientes"><div class="mensajePendientes"><span class="icono_advertencia_notificacion"></span>{{MensajeValidacion}}</div></div>
+                {{else if_eq EstaEnRevista '1'}}
+                <div class="notiPendientes"><div class="mensajePendientes"><span class="icono_advertencia_notificacion"></span>{{MensajeValidacion}}</div></div>
                 {{/if_eq}}
             </div>
 
-            <div class="padding_tabla_percepcion dinamicostable grillaPendientes">{{FormartoFechaSolicitud}}</div>
-            <div class="padding_tabla_percepcion dinamicostablemedio grillaPendientes">{{SimboloMoneda}} {{FormatoPrecioTotal}}</div>
-            <div class="padding_tabla_percepcion dinamicostablegrande grillaPendientes">
+            {{/each}}
+        </script>
 
-                <input type="hidden" id="pedidopend_{{PedidoId}}" value="{{PedidoId}}|{{MarcaID}}|{{Campania}}|{{Cliente}}|{{Telefono}}|{{Direccion}}|{{Email}}|{{Mensaje}}|{{Leido}}|{{NumIteracion}}|{{CodigoUbigeo}}|{{FechaSolicitud}}|{{MedioContacto}}|{{FormatoPrecioTotal}}|{{SaldoHoras}}|{{FlagConsultora}}" />
-                <button type="button" class="btn_revisalo_pendientes1" onclick="CargarPopupPedidoPend('1', '10', '{{PedidoId}}', '0');">
-                    <div onclick="PendientesRevisalo('Carrito de Compras - In Tab Pedidos Pendientes','Click Botón');">REVÍSALO</div>
+        <script id="detalle2-pedidopend-template" type="text/x-handlebars-template">
+            {{#each this}}
 
-                    <div class="info_tiempo_oportunidad">
-                        <span class="texto_pedidos_pendientes tips">
-                            <label>¡No pierdas esta oportunidad!</label>
-                        </span>
-                        <h4 class="linkea_Pendientes tooltipPendientes" onclick="PendientesRevisalo('Carrito de Compras - In Tab Pedidos Pendientes','Click Botón');">►REVÍSALO</h4>
-                    </div>
-                </button>
-
-            </div>
-        </div>
-
-        {{/each}}
-    </script>
-
-    <script id="popup-pedidopend-template" type="text/x-handlebars-template">
-        <div class="content_popUp_Pendientes">
-            <div style="display: none;">
-                <input type="hidden" id="hdPedidoPendPoputPedidoId" value="{{PedidoId}}" />
-            </div>
-            <div class="mensajes_deAtencion">
-                <span>¡No te pierdas esta oportunidad!</span>
-                <div class="clear"></div>
+            <div class="content_datos_percepciones">
+                <input type="hidden" value="{{PedidoDetalleId}}" />
+                <div class="padding_tabla_percepcion dinamicostableextragrande izq">{{Producto}}</div>
+                <div class="padding_tabla_percepcion dinamicostableextragrande">{{Cantidad}}</div>
+                <div class="padding_tabla_percepcion dinamicostableextragrande">{{SimboloMoneda}} {{PrecioUnitario}}</div>
+                <div class="padding_tabla_percepcion dinamicostableextragrande">{{SimboloMoneda}} {{PrecioTotal}}</div>
             </div>
 
-            <div class="percepcion_campania libero">
-                <h1><b>PRIMERO, CONTÁCTATE CON {{Contacto}} ...</b></h1>
-                <h5>Tu cliente esta esperando que la contactes. Confirma los productos, precios y forma de entrega.<br>Luego elige como entregarás cada producto para que puedas aceptar todo el pedido.</h5>
-            </div>
-
-            <div class="contenedor_bloque_datos">
-                <div class="datos_cliente_pendientes">
-
-                    <div class="bloque_datos izq">
-                        <div class="nombre_cliente">
-                            <span class="AtribCliente">Nombre:</span>
-                            <span class="datoPedidoCliente" id="sc-d1-nombre">{{Nombre}}</span>
-                        </div>
-
-                        <div class="telefono_cliente">
-                            <span class="AtribCliente">Teléfono:</span>
-                            <span class="datoPedidoCliente" id="sc-d1-telefono">{{Telefono}}</span>
-                        </div>
-                    </div>
-                    <div class="bloque_datos der">
-                        <div class="correo_cliente">
-                            <span class="AtribCliente">Correo:</span>
-                            <span class="datoPedidoCliente" id="sc-d1-correo">{{Email}}</span>
-                        </div>
-
-                        <div class="direccion_cliente">
-                            <span class="AtribCliente">Dirección:</span>
-                            <span class="datoPedidoCliente">{{Direccion}}</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div id="paginadorCabPendPoput">
-            </div>
-
-            <div class="content_datos_pendientes">
-                <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemini">Código</div>
-                <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Producto</div>
-                <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Unidades</div>
-                <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Precio unitario</div>
-                <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Subtotal</div>
-                <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">¿Cómo lo Atenderás?</div>
-            </div>
-            <div class="linea_separadora" style="margin-top:-1px"></div>
-
-            <div style="max-height: 226px; overflow-y:auto;">
-                <div id="divDetPedidoPend"> </div>
-            </div>
-
-            <div class="linea_separadora" style="height:2px;"></div>
-
-            <div class="calculo_PendientesTotal">
-                <h4 class="txtderecha">TOTAL PEDIDO: <span>{{SimboloMoneda}} {{PrecioTotal}}</span></h4>
-            </div>
-
-            <div class="linea_separadora_roja" style="height: 2px;"></div>
-
-            <div class="btn_grupo_accionesPedido accionesPendientes">
-                <button id="rechazarPendientes" type="button" class="btn_eliminarCliente venizquierda" onclick="RechazoPedidosPendientes(); ShowPopupRechazoPedido('{{PedidoId}}','1')">
-                    RECHAZO EL PEDIDO
-                </button>
-                <button id="aceptarPendientes" type="button" class="btn_noEliminarCliente venderecha" onclick="AceptarPedido('{{PedidoId}}', '1')">
-                    ACEPTO TODO EL PEDIDO
-                </button>
-            </div>
-        </div>
-    </script>
-
-    <script id="popup2-pedidopend-template" type="text/x-handlebars-template">
-        <div class="content_popUp_Pendientes">
-            <div style="display: none;">
-                <input type="hidden" id="hdPedidoPendPoputPedidoId2" value="{{PedidoId}}" />
-            </div>
-            <div class="mensajes_deAtencion">
-
-                <span>¡No te pierdas esta oportunidad!</span>
-                {{#if FlagConsultora}}
-                <span>Te quedan<br>00:00:00</span>
-                {{else}}
-                <span>Te quedan<br>{{SaldoHoras}}</span>
-                {{/if}}
-
-            </div>
-
-            <div class="percepcion_campania libero">
-                <h1><b>PRIMERO, CONTÁCTATE CON {{Contacto}}...</b></h1>
-                <h5>Tu cliente esta esperando que la contactes. Confirma los productos, precios y forma de entrega.<br>Luego elige como entregarás cada producto para que puedas aceptar todo el pedido.</h5>
-            </div>
-
-            <div class="contenedor_bloque_datos">
-                <div class="datos_cliente_pendientes">
-
-                    <div class="bloque_datos izq">
-                        <div class="nombre_cliente">
-                            <span class="AtribCliente">Nombre:</span>
-                            <span class="datoPedidoCliente" id="sc-d2-nombre">{{Nombre}}</span>
-                        </div>
-
-                        <div class="telefono_cliente">
-                            <span class="AtribCliente">Teléfono:</span>
-                            <span class="datoPedidoCliente" id="sc-d2-telefono">{{Telefono}}</span>
-                        </div>
-                    </div>
-                    <div class="bloque_datos der">
-                        <div class="correo_cliente">
-                            <span class="AtribCliente">Correo:</span>
-                            <span class="datoPedidoCliente" id="sc-d2-correo">{{Email}}</span>
-                        </div>
-
-                        <div class="direccion_cliente">
-                            <span class="AtribCliente">Dirección:</span>
-                            <span class="datoPedidoCliente">{{Direccion}}</span>
-                        </div>
-                    </div>
-                    <div class="bloque_datos izq">
-                        <div class="nombre_cliente">
-                            <span class="AtribCliente">Comentario:</span>
-                            <span class="datoPedidoCliente">{{Comentario}}</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div id="paginadorCabPendPoput2">
-            </div>
-
-            <div class="content_datos_pendientes">
-                <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande izq">Producto</div>
-                <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Unidades</div>
-                <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Precio unitario</div>
-                <div class="texto_gris_popup padding_tabla_pendientes dinamicostableextragrande">Subtotal</div>
-            </div>
-            <div class="linea_separadora" style="margin-top:-1px"></div>
-            <div style="max-height:419px; overflow:auto;">
-                <div id="divDet2PedidoPend"> </div>
-            </div>
-
-            <div class="linea_separadora" style="height:2px;"></div>
-
-            <div class="calculo_PendientesTotal">
-                <h4 class="txtderecha">TOTAL PEDIDO: <span>{{SimboloMoneda}} {{PrecioTotal}}</span></h4>
-            </div>
-
-            <div class="linea_separadora_roja" style="height: 2px;"></div>
-
-            <div class="btn_grupo_accionesPedido accionesPendientes">
-                <button id="rechazarPendientesPORTAL" type="button" class="btn_eliminarCliente venizquierda" onclick="ShowPopupRechazoPedido('{{PedidoId}}', '2')">
-                    RECHAZO EL PEDIDO
-                </button>
-                <button id="aceptarPendientesPORTAL" type="button" class="btn_noEliminarCliente venderecha" onclick="AceptarPedido('{{PedidoId}}', '2')">
-                    ACEPTO TODO EL PEDIDO
-                </button>
-            </div>
-        </div>
-    </script>
-
-    <script id="detalle-pedidopend-template" type="text/x-handlebars-template">
-        {{#each this}}
-
-        <div class="content_datos_percepciones">
-            <input type="hidden" value="{{PedidoDetalleId}}" />
-            <div class="padding_tabla_percepcion dinamicostablemini" id="pedpend-deta2-cuv">{{CUV}}</div>
-            <div class="padding_tabla_percepcion dinamicostablemedio" id="pedpend-deta2-nombre">{{Producto}}</div>
-            <div class="padding_tabla_percepcion dinamicostable" id="pedpend-deta2-cantidad">{{Cantidad}}</div>
-            <div class="padding_tabla_percepcion dinamicostable">{{SimboloMoneda}} {{PrecioUnitario}}</div>
-            <div class="padding_tabla_percepcion dinamicostable">{{SimboloMoneda}} {{PrecioTotal}}</div>
-            <div class="padding_tabla_percepcion dinamicostablegrande">
-                {{#if_eq TieneStock '1'}}
-                <select class="oscurece ddlAtenderPopUpPedidosPend" id="ddlAtender_{{Index}}" onchange="javascript:SelectOptAtender(this)">
-                    <option value="" selected>¿CÓMO LO ATENDERAS?</option>
-                    <option value="ingrped">INGRESAR A MI PEDIDO</option>
-                    <option value="ingrten">YA LO TENGO</option>
-                </select>
-                {{else}}
-                <span>AGOTADO</span>
-                {{/if_eq}}
-            </div>
-            <input type="hidden" id="pedpend-deta2-precio" value="{{PrecioUnitario}}" />
-            <input type="hidden" id="pedpend-deta2-marca" value="{{Marca}}" />
-
-            {{#if_eq TieneStock '0'}}
-            <div class="notiPendientes"><div class="mensajePendientes"><span class="icono_advertencia_notificacion"></span>{{MensajeValidacion}}</div></div>
-            {{else if_eq EstaEnRevista '1'}}
-            <div class="notiPendientes"><div class="mensajePendientes"><span class="icono_advertencia_notificacion"></span>{{MensajeValidacion}}</div></div>
-            {{/if_eq}}
-        </div>
-
-        {{/each}}
-    </script>
-
-    <script id="detalle2-pedidopend-template" type="text/x-handlebars-template">
-        {{#each this}}
-
-        <div class="content_datos_percepciones">
-            <input type="hidden" value="{{PedidoDetalleId}}" />
-            <div class="padding_tabla_percepcion dinamicostableextragrande izq">{{Producto}}</div>
-            <div class="padding_tabla_percepcion dinamicostableextragrande">{{Cantidad}}</div>
-            <div class="padding_tabla_percepcion dinamicostableextragrande">{{SimboloMoneda}} {{PrecioUnitario}}</div>
-            <div class="padding_tabla_percepcion dinamicostableextragrande">{{SimboloMoneda}} {{PrecioTotal}}</div>
-        </div>
-
-        {{/each}}
-    </script>
-}*@
+            {{/each}}
+        </script>
+    }*@
 
 <script id="js-CarruselSugerido" type="text/x-handlebars-template">
     {{#each this}}
@@ -2034,6 +2059,7 @@
     }
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FichaProducto/Index.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=2"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/PopupRecepcionPedido.js")"></script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Pedido/ArmaTuPack")

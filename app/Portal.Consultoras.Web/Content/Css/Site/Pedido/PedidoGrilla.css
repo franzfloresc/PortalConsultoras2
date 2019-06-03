@@ -1606,3 +1606,71 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     font-weight: 700; 
     letter-spacing: 1.5px; 
 }
+
+/* HD-4288 - SWITCH CONSULTORA 100% DIGITAL */
+
+.contenedor_info_recepcion_pedido,
+.switch__control__contenedor {
+    display: flex;
+    align-items: center;
+}
+
+    .contenedor_info_recepcion_pedido {
+        justify-content: flex-end;
+    }
+
+.contenedor_info_recepcion_pedido > div{
+    flex:0 0 340px;
+    max-width:340px;
+}
+
+.switch__control__contenedor{
+    justify-content:space-between;
+    height:71px;
+}
+
+.switch__control__descrip {
+    flex: 0 0 204px;
+    max-width:204px;
+}
+
+.info_recepcion_pedido{
+    margin-top:15px;
+}
+
+.datos__receptor__pedido{
+    margin-top:8px;
+}
+
+.contenedor_info_recepcion_pedido > div,
+.btn__sb--cambiarPersona {
+    background-color: #f5f5f5;
+}
+
+.contenedor_info_recepcion_pedido > div {
+    padding: 0 20px;
+}
+
+.info_recepcion_pedido p{
+    padding:0;
+}
+
+.info_recepcion_pedido p:first-child{
+    font-size:16px;
+    margin-bottom:8px;
+}
+
+.datos__receptor__pedido{
+    font-size:14px;
+}
+
+    .datos__receptor__pedido span {
+        color: #505050;
+    }
+
+.btn__sb--cambiarPersona{
+    font-size:14px;
+    margin-bottom:20px;
+}
+
+/* FIN - HD-4288 - SWITCH CONSULTORA 100% DIGITAL */
