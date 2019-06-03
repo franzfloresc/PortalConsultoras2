@@ -31,7 +31,6 @@ class CarruselView {
 
     mostrarSlicks(cantidadProdCarrusel) {
         const platform = !isMobile() ? "desktop" : "mobile";
-        const widthDimamico = !isMobile();
         const slickArrows = {
             mobile: {
                 prev: `<a class="carrusel_fechaprev_mobile" href="javascript:void(0);"><img src="${baseUrl}Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>`,
@@ -39,25 +38,22 @@ class CarruselView {
             },
             desktop: {
                 prev: `<a class="previous_ofertas" style="left:-5%; text-align:left;"><img src="${baseUrl}Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>`,
-                next: `<a class="previous_ofertas" style="display: block; right:-5%; text-align:right;"><img src="${baseUrl}Content/Images/Esika/next.png")" alt="" /></a>`
+                next: `<a class="previous_ofertas" style="right:-5%; text-align:right;"><img src="${baseUrl}Content/Images/Esika/next.png")" alt="" /></a>`
             }
         };
-
-        $(this.divCarruselProducto).fadeIn();
 
         $(this.divCarruselProducto + ".slick-initialized").slick("unslick");
         const parent = this;
         $(this.divCarruselProducto).not(".slick-initialized").slick({
-            lazyLoad: 'progressive',
+            lazyLoad: "progressive",
             dots: false,
             infinite: false,
             speed: 260,
-            slidesToShow: 3,
+            slidesToShow: isMobile() ? 1 : 3,
             slidesToScroll: 1,
             variableWidth: false,
             prevArrow: slickArrows[platform].prev,
             nextArrow: slickArrows[platform].next,
-            //centerMode: true,
             responsive: [
                 {
                     breakpoint: 720,
@@ -69,26 +65,22 @@ class CarruselView {
         }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
             parent.marcarAnalytics(2, null, slick, currentSlide, nextSlide);
         }).on("lazyLoaded", function(event, slick, image, imageSource) {
-            let classBox = "";
-            const aspect_ratio = image[0].naturalWidth / image[0].naturalHeight;
-            console.log("aspect_ratio: " + aspect_ratio);
+            const aspectRatio = image[0].naturalWidth / image[0].naturalHeight;
+            console.log(`aspect_ratio: ${aspectRatio}`);
             switch (true) {
-            case aspect_ratio === 1:
-                classBox = "caja_vertical";
+            case aspectRatio === 1:
                 break;
-            case aspect_ratio > 1.3:
-                classBox = "caja_horizontal";
+            case aspectRatio > 1.3:
+                $(image[0].parentNode).closest("article").removeClass("caja_vertical").addClass("caja_horizontal");
                 break;
-            case aspect_ratio < 1:
-                classBox = "caja_vertical";
+            case aspectRatio < 1:
                 break;
             }
-            $(image[0].parentNode).closest("article").addClass(classBox);
         }).on("lazyLoadError", function (event, slick, image, imageSource) {
-            $(image[0].parentNode).closest("article").addClass("caja_vertical");
+            //$(image[0].parentNode).closest("article").addClass("caja_vertical");
         });
 
-       // EstablecerAccionLazyImagen(this.divCarruselProducto + " " + this.dataLazy);
+        $(this.divCarruselProducto).fadeIn();
     }
 
     marcarAnalytics(tipo, data, slick, currentSlide, nextSlide) {
