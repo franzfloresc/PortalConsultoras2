@@ -711,29 +711,41 @@ var EstrategiaAgregarModule = (function () {
 
     var analyticsAgregar = function (event, origenPedidoWebEstrategia, estrategia) {
         try {
-            
-            if (!(typeof AnalyticsPortalModule === 'undefined')) {
+            estrategia = estrategia || {};
+            var objJetlore = {
+                Cantidad: estrategia.Cantidad,
+                CUV: estrategia.CUV2,
+                Campania: $(elementosDiv.hdCampaniaCodigo).val()
+            }
 
+            if (!(typeof AnalyticsPortalModule === 'undefined')) {
+                
                 var origenModelo = _codigoOrigenPedidoWeb.GetOrigenModelo(origenPedidoWebEstrategia);
                 if (origenModelo.Pagina == _codigoOrigenPedidoWeb.CodigoEstructura.Pagina.ArmaTuPackDetalle) {
                     if (typeof (seleccionadosPresenter) !== 'undefined') {
                         var packComponents = seleccionadosPresenter.packComponents();
                         if (packComponents !== 'undefined') {
-                            var estrategiaAnalytics = JSON.parse($("#data-estrategia").attr("data-estrategia"));
-                            var codigoubigeoportal = estrategiaAnalytics.CodigoUbigeoPortal;
+                            //var estrategiaAnalytics = JSON.parse($("#data-estrategia").attr("data-estrategia"));
+                            //var codigoubigeoportal = estrategiaAnalytics.CodigoUbigeoPortal;
 
-                            if (codigoubigeoportal !== "") {
-                                var seleccionados = packComponents.componentesSeleccionados;
-                                AnalyticsPortalModule.MarcarAddCarArmaTuPack(codigoubigeoportal, seleccionados);
-                            }
+                            //if (codigoubigeoportal !== "") {
+                            //    var seleccionados = packComponents.componentesSeleccionados;
+                            //    AnalyticsPortalModule.MarcarAddCarArmaTuPack(origenPedidoWebEstrategia, seleccionados);
+                            //}
+
+                            estrategia = packComponents.componentesSeleccionados;
                         }
                     }
                 }
-                else {
-                    AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
-                }
+
+                AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
+                
             }
-            TrackingJetloreAdd(estrategia.Cantidad, $(elementosDiv.hdCampaniaCodigo).val(), estrategia.CUV2);
+
+            if (!(typeof TrackingJetloreAdd === 'undefined')) {
+                TrackingJetloreAdd(objJetlore.Cantidad, objJetlore.Campania, objJetlore.CUV2);
+            }
+
         } catch (e) {
             console.log(e);
         }
