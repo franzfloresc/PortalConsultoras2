@@ -1690,7 +1690,8 @@ li .productos__agregados {
 
 div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span {
     letter-spacing: 0;
-    text-indent: 22px
+    text-indent: 22px;
+    text-decoration:none;
 }
 
 .boton__agregalo--fichaProducto .cartbtn {
@@ -2223,9 +2224,41 @@ div.opOrdenar {
     display: inherit;
     text-align: right;
 }
-
-
-
+.producto_img_home {
+    position: relative;
+}
+.producto_img_home:hover .ver_detalle_carrusel, .producto_img:hover .ver_detalle_carrusel, .content_img_carrusel_ODD:hover .ver_detalle_carrusel {
+    opacity: 1;
+}
+.ver_detalle_carrusel {
+    text-align: center;
+    display: block;
+    font-size: 11px;
+    position: absolute;
+    height: 40px;
+    line-height: 38px;
+    width: 55%;
+    font-weight: 700;
+    border: 1px solid #000;
+    border-radius: 2px;
+    font-family: 'Lato',sans-serif;
+    background: #fff;
+    opacity: 0;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    margin: 0 auto;
+    text-decoration:none;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    letter-spacing: .2px;
+}
+.regular.slider .mgtop .producto_img_home {
+    margin-top:20px;
+}
 
 
 @media screen and (max-width: 950px) {

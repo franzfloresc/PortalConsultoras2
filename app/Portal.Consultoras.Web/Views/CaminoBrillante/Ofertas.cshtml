@@ -82,13 +82,14 @@
             <img class="ficha__producto__tag_disable {{#if FlagHabilitado}} hide {{/if}}" src="{{FotoTagDisable}}" />
         </div>
         <div class="row flex-row justify-content-center ml-0 mr-0">
-            <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
+            <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center producto_img_home">
                 {{#IsNullOrEmpty FotoProductoMedium '!='}}
                 <img class="" src="{{FotoProductoMedium}}">
                 {{/IsNullOrEmpty}}
                 {{#IsNullOrEmpty FotoProductoMedium '=='}}
                 <img class="" src="@ViewBag.RutaImagenNoDisponible">
                 {{/IsNullOrEmpty}}
+                <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
             </figure>
             <div style="display:none;">
                 <div data-kit="{{JSON2string this}}"></div>
@@ -150,13 +151,14 @@
     {{#each this}}
     <article class="ficha__producto" data-item="BuscadorFichasProductos">
         <div class="row flex-row justify-content-center ml-0 mr-0">
-            <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
+            <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center producto_img_home">
                 {{#IsNullOrEmpty FotoProductoMedium '!='}}
                 <img class="" src="{{FotoProductoMedium}}">
                 {{/IsNullOrEmpty}}
                 {{#IsNullOrEmpty FotoProductoMedium '=='}}
                 <img class="" src="@ViewBag.RutaImagenNoDisponible">
                 {{/IsNullOrEmpty}}
+                <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
             </figure>
             <div style="display:none;">
                 <div data-demostrador="{{JSON2string this}}"></div>
