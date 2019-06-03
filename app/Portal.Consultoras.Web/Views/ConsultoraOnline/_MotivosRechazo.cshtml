@@ -1,4 +1,8 @@
-﻿
+﻿@using Portal.Consultoras.Web.Models
+@{
+    var countMotivos = 0;
+    MisPedidosMotivoRechazoModel motivoOtros = null;
+}
 <link href="@Url.Content("~/Content/Css/Site/ConsultoraOnline/MotivosRechazo.css")" rel="stylesheet" />
 
 <div id="MotivosRechazo" class="mobile hide motivos__rechazo__modal" style="display:block;">
@@ -8,10 +12,20 @@
         <ul class="w-100 d-flex lista__motivos__rechazo">
             @foreach (var motivoRechazo in ViewBag.MotivosRechazo)
             {
-                <li class="d-block motivo__rechazo">
-                    <input  name="motivoRechazo" type="radio" class="d-none field__checkbox__sb" value="@motivoRechazo.MotivoSolicitudID" />
-                    <label  class="border-radius-4 text-center mr-0 tag__checkbox__sb tag__checkbox__sb--motivoRechazo">@motivoRechazo.Motivo</label>
-                </li>
+                //countMotivos += 1;
+
+                if (@motivoRechazo.MotivoSolicitudID != 11) //diferente a 11 otros
+                {
+                    <li class="d-block motivo__rechazo">
+                        <input id="@motivoRechazo.MotivoSolicitudID" name="motivoRechazo" type="radio" class="d-none field__checkbox__sb" value="@motivoRechazo.MotivoSolicitudID" />
+                        <label for="@motivoRechazo.MotivoSolicitudID" class="border-radius-4 text-center mr-0 tag__checkbox__sb tag__checkbox__sb--motivoRechazo">@motivoRechazo.Motivo</label>
+                    </li>
+                }
+                else
+                {
+                    motivoOtros = motivoRechazo;
+                }
+
 
             }
 
@@ -40,11 +54,15 @@
                     <label for="6" class="border-radius-4 text-center mr-0 tag__checkbox__sb tag__checkbox__sb--motivoRechazo">Pruebo la herramienta</label>
                 </li>*@
         </ul>
-        <div class="d-flex form__group__fields form__group__fields--motivoAdicionalWrapper">
-            <input id="OtroMotivo" type="checkbox" class="d-none field__checkbox__sb">
-            <label for="OtroMotivo" class="border-radius-4 text-center label__checkbox__sb"></label>
-            <span class="d-inline-block motivo__adicional__otro">Otro</span>
-        </div>
+        @if (motivoOtros != null)
+        {
+            <div class="d-flex form__group__fields form__group__fields--motivoAdicionalWrapper">
+                <input id="OtroMotivo" type="checkbox" class="d-none field__checkbox__sb" value="@motivoOtros.MotivoSolicitudID">
+                <label for="OtroMotivo" class="border-radius-4 text-center label__checkbox__sb"></label>
+                <span class="d-inline-block motivo__adicional__otro">@motivoOtros.Motivo</span>
+            </div>
+        }
+
         <div class="d-flex form__group__fields">
             <input id="txtOtroMotivo" type="text" class="d-block w-100 p-0 text__field__sb" placeholder="Dinos cuál fue el motivo">
         </div>
