@@ -471,7 +471,7 @@ describe("DetalleEstrategia - FichaResponsive - Componentes - ComponentesPresent
          "CodigoCategoria": null,
          "CodigoEstrategia": "030",
          "CodigoProducto": null,
-         "CodigoVariante": "2003",
+         "CodigoVariante": "2001",
          "CUV2": "31590",
          "DescripcionCompleta": "Pack x 2 Twelve O'clock",
          "DescripcionCortada": "Pack x 2 Twelve O'clock",
@@ -723,6 +723,7 @@ describe("DetalleEstrategia - FichaResponsive - Componentes - ComponentesPresent
       componentesView.blockApplySelection.returns(true);
       componentesView.renderResumen.returns(true);
       componentesView.hideTypeAndTonesModal.returns(true);
+      componentesView.showBorderItemSelected.returns(true);
    });
 
    afterEach(function () {
@@ -1790,6 +1791,79 @@ describe("DetalleEstrategia - FichaResponsive - Componentes - ComponentesPresent
                });
             });
          });
+      });
+
+      describe("Given a strategy with one component and FactorCuadreEquals to 1", function () {
+         beforeEach(function () {
+            componentesPresenter.onEstrategiaModelLoaded(estrategiaUnComponenteFactorCuadreIgualAUno());
+         });
+
+         describe("and one type/tone is selected", function () {
+            var grupo = "1";
+            var cuv = "31593";
+
+            beforeEach(function () {
+               componentesPresenter.addTypeOrTone(grupo, cuv);
+            });
+
+            describe("when 'Aplicar Seleccionados' is clicked", function () {
+               it("should be two items in 'resumenAplicados'", function () {
+                  // Arrange
+                  componentesPresenter.applySelectedTypesOrTones(grupo);
+
+                  // Act
+                  var result = componentesPresenter.estrategiaModel().Hermanos[0].resumenAplicados.length;
+
+                  // Assert
+                  expect(result).to.be.eqls(1);
+               });
+
+               it("should be one item in 'resumenAplicadosVisualizar'", function () {
+                  // Arrange
+                  componentesPresenter.applySelectedTypesOrTones(grupo);
+
+                  // Act
+                  var result = componentesPresenter.estrategiaModel().Hermanos[0].resumenAplicadosVisualizar.length;
+
+                  // Assert
+                  expect(result).to.be.eqls(1);
+               });
+
+               it("should return false when componenteView do not show resumen", function () {
+                  // Arrange
+                  componentesView.renderResumen.returns(false);
+
+                  // Act
+                  var result = componentesPresenter.applySelectedTypesOrTones(grupo);
+
+                  // Assert
+                  expect(result).to.be.eqls(false);
+               });
+
+               it("should return false when componenteView do not hide types/tones' modal", function () {
+                  // Arrange
+                  componentesView.hideTypeAndTonesModal.returns(false);
+
+                  // Act
+                  var result = componentesPresenter.applySelectedTypesOrTones(grupo);
+
+                  // Assert
+                  expect(result).to.be.eqls(false);
+               });
+
+               it("should return false when componenteView do not select type/tone on palette", function () {
+                  // Arrange
+                  componentesView.showBorderItemSelected.returns(false);
+
+                  // Act
+                  var result = componentesPresenter.applySelectedTypesOrTones(grupo);
+
+                  // Assert
+                  expect(result).to.be.eqls(false);
+               });
+            });
+         });
+
       });
    });
 });
