@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Web.Models
         public string RutaImagen { set; get; }
         public string Ancho { get; set; }
         public string Alto { get; set; }
-
+        public int Campania { set; get; }
 
         public IEnumerable<CampaniaModel> ListaCampanias { set; get; }
      

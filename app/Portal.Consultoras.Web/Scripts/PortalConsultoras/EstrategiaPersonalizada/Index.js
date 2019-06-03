@@ -176,6 +176,7 @@ function SeccionCargarProductos(objConsulta) {
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.MG) {
         if (!varContenedor.CargoMg) {
             varContenedor.CargoMg = true;
+            guardaEnLS = false;
             OfertaCargarProductos({
                 VarListaStorage: "MGLista",
                 UrlCargarProductos: baseUrl + objConsulta.UrlObtenerProductos,

@@ -91,6 +91,7 @@
       <xs:element minOccurs="0" name="ClienteDescripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ClienteID" type="xs:short" />
       <xs:element minOccurs="0" name="EsCuponNuevas" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsDuoPerfecto" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsEditable" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsKitNueva" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsKitNuevaAuto" type="xs:boolean" />
@@ -104,6 +105,7 @@
       <xs:element minOccurs="0" name="ObservacionPROL" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OfertaWeb" type="xs:boolean" />
       <xs:element minOccurs="0" name="OrigenPedidoWeb" type="xs:int" />
+      <xs:element minOccurs="0" name="OrigenSolicitud" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="PedidoDetalleID" type="xs:short" />
       <xs:element minOccurs="0" name="PedidoID" type="xs:int" />

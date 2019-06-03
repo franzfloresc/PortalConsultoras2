@@ -383,32 +383,32 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var modeloOrigen = UtilOrigenPedidoWeb.GetModelo(origen);
-            modeloOrigen.Seccion = ConsOrigenPedidoWeb.Seccion.Ficha;
+            var codigoSeccion = ConsOrigenPedidoWeb.Seccion.Ficha;
 
             tipo = Util.Trim(tipo);
             if (tieneCarrusel)
             {
-                modeloOrigen.Seccion = ConsOrigenPedidoWeb.Seccion.CarruselVerMas;
+                codigoSeccion = ConsOrigenPedidoWeb.Seccion.CarruselVerMas;
 
                 if (modeloOrigen.Palanca != ConsOrigenPedidoWeb.Palanca.Lanzamientos)
                 {
                     modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Ficha;
                     if (tipo == ConsOrigenPedidoWeb.Seccion.CarruselUpselling) // agregar los 'or' para crosSelling
                     {
-                        modeloOrigen.Seccion = tipo;
+                        codigoSeccion = tipo;
                     }
                 }
             }
             else if (modeloOrigen.Seccion == ConsOrigenPedidoWeb.Seccion.Recomendado)
             {
-                modeloOrigen.Seccion = ConsOrigenPedidoWeb.Seccion.RecomendadoFicha;
+                codigoSeccion = ConsOrigenPedidoWeb.Seccion.RecomendadoFicha;
             }
             else if (modeloOrigen.Seccion == ConsOrigenPedidoWeb.Seccion.CarruselUpselling)
             {
-                modeloOrigen.Seccion = ConsOrigenPedidoWeb.Seccion.FichaUpselling;
+                codigoSeccion = ConsOrigenPedidoWeb.Seccion.FichaUpselling;
                 modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Ficha;
             }
-
+            modeloOrigen.Seccion = codigoSeccion;
             int result = UtilOrigenPedidoWeb.ToInt(modeloOrigen);
             return result;
 
@@ -729,7 +729,7 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.TieneSession = _ofertaPersonalizadaProvider.PalancasConSesion(palanca);
             modelo.Campania = campaniaId;
             modelo.Cuv = cuv;
-            modelo.TieneCarrusel = GetValidationHasCarrusel(modelo.OrigenAgregar, palanca, esEditar);
+            modelo.TieneCarrusel = GetValidationHasCarrusel(modelo.OrigenAgregar, esEditar);
             modelo.OrigenAgregarCarrusel = modelo.TieneCarrusel ? GetFichaOrigenPedidoWeb(origen, ConsOrigenPedidoWeb.Seccion.CarruselUpselling, modelo.TieneCarrusel) : 0;
             modelo.TieneCompartir = GetTieneCompartir(palanca, esEditar, modelo.OrigenAgregar);
             modelo.Cantidad = 1;
@@ -871,12 +871,12 @@ namespace Portal.Consultoras.Web.Controllers
                    modelo.Seccion.Equals(ConsOrigenPedidoWeb.Seccion.RecomendadoFicha);
         }
 
-        private bool GetTieneCarrusel(string palanca, bool esEditar)
-        {
-            return !esEditar;
-        }
+        //private bool GetTieneCarrusel(string palanca, bool esEditar)
+        //{
+        //    return !esEditar;
+        //}
 
-        private bool GetValidationHasCarrusel(int origen, string palanca, bool esEditar)
+        private bool GetValidationHasCarrusel(int origen, bool esEditar)
         {
             if (EsProductoRecomendado(origen))
             {
@@ -893,7 +893,9 @@ namespace Portal.Consultoras.Web.Controllers
             //    return false;
             //}
 
-            return GetTieneCarrusel(palanca, esEditar);
+            //return GetTieneCarrusel(palanca, esEditar);
+
+            return !esEditar;
         }
 
         private bool GetTieneCompartir(string palanca, bool esEditar, int origen)

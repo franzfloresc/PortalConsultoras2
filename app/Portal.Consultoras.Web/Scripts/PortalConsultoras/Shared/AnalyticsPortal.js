@@ -157,18 +157,25 @@ var AnalyticsPortalModule = (function () {
             { "Codigo": "2", "TextoList": "" }
         ],
         Pagina: [
-            { "Codigo": "00", "TextoList": "" },
+            { "Codigo": "00", "TextoList": "Landing Herramientas Venta" },
             { "Codigo": "01", "TextoList": "Home" },
             { "Codigo": "02", "TextoList": "Carrito de Compras" },
-            { "Codigo": "03", "TextoList": "" },
-            { "Codigo": "04", "TextoList": "Showroom" },
-            { "Codigo": "05", "TextoList": "" },
-            { "Codigo": "06", "TextoList": "" },
-            { "Codigo": "07", "TextoList": "" },
+            { "Codigo": "03", "TextoList": "Landing Liquidacion" },
+            { "Codigo": "04", "TextoList": "Buscador" },
+            { "Codigo": "05", "TextoList": "Showroom" },
+            { "Codigo": "06", "TextoList": "Landing Gnd" },
+            { "Codigo": "07", "TextoList": "Landing Ofertas Para Ti" },
             { "Codigo": "08", "TextoList": "Inicio" },
             { "Codigo": "09", "TextoList": "Otras Paginas" },
-            { "Codigo": "10", "TextoList": "" },
-            { "Codigo": "11", "TextoList": "" },
+            { "Codigo": "10", "TextoList": "Landing Buscador" },
+            { "Codigo": "11", "TextoList": "Landing Ganadoras" },
+            { "Codigo": "12", "TextoList": "Maquillador" },
+            { "Codigo": "13", "TextoList": "Landing Arma Tu Pack" },
+            { "Codigo": "14", "TextoList": "Landing Duo Perfecto" },
+            { "Codigo": "15", "TextoList": "Landing Pack Nuevas" },
+            { "Codigo": "16", "TextoList": "Landing Oferta Del Dia" },
+            { "Codigo": "17", "TextoList": "Landing Categoria" },
+            { "Codigo": "18", "TextoList": "Camino Brillante" },
             { "Codigo": "19", "TextoList": "Ficha" }
         ],
         Palanca: [
@@ -176,29 +183,38 @@ var AnalyticsPortalModule = (function () {
             { "Codigo": "01", "CodigoPalanca": "SR", "TextoList": "Showroom" },
             { "Codigo": "02", "CodigoPalanca": "LAN", "TextoList": "Lanzamientos" },
             { "Codigo": "03", "CodigoPalanca": "ODD", "TextoList": "Oferta del Día" },
-            { "Codigo": "04", "CodigoPalanca": "OF", "TextoList": "" },
+            { "Codigo": "04", "CodigoPalanca": "OF", "TextoList": "Oferta Final" },
             { "Codigo": "05", "CodigoPalanca": "GND", "TextoList": "GND" },
             { "Codigo": "06", "CodigoPalanca": "", "TextoList": "Liquidaciones Web" },
-            { "Codigo": "07", "CodigoPalanca": "", "TextoList": "" },
+            { "Codigo": "07", "CodigoPalanca": "", "TextoList": "Producto Sugerido" },
             { "Codigo": "08", "CodigoPalanca": "HV", "TextoList": "Herramientas de Venta" },
-            { "Codigo": "09", "CodigoPalanca": "", "TextoList": "" },
-            { "Codigo": "10", "CodigoPalanca": "", "TextoList": "" },
-            { "Codigo": "11", "CodigoPalanca": "", "TextoList": "" },
-            { "Codigo": "12", "CodigoPalanca": "", "TextoList": "" },
-            { "Codigo": "13", "CodigoPalanca": "", "TextoList": "" },
+            { "Codigo": "09", "CodigoPalanca": "", "TextoList": "Banners" },
+            { "Codigo": "10", "CodigoPalanca": "", "TextoList": "Digitado" },
+            { "Codigo": "11", "CodigoPalanca": "", "TextoList": "Catalogo Lbel" },
+            { "Codigo": "12", "CodigoPalanca": "", "TextoList": "Catalogo Esika" },
+            { "Codigo": "13", "CodigoPalanca": "", "TextoList": "Catalogo Cyzone" },
             { "Codigo": "14", "CodigoPalanca": "MG", "TextoList": "Más Ganadoras" },
-            { "Codigo": "15", "CodigoPalanca": "", "TextoList": "" },
+            { "Codigo": "15", "CodigoPalanca": "ATP", "TextoList": "Arma Tu Pack" },
             { "Codigo": "16", "CodigoPalanca": "DP", "TextoList": "Dúo Perfecto" },
-            { "Codigo": "17", "CodigoPalanca": "PN", "TextoList": "Pack de Nuevas" }
+            { "Codigo": "17", "CodigoPalanca": "PN", "TextoList": "Pack de Nuevas" },
+            { "Codigo": "18", "CodigoPalanca": "", "TextoList": "Escoge Tu Regalo" },
+            { "Codigo": "19", "CodigoPalanca": "", "TextoList": "Ofertas Especiales" }
         ],
         Seccion: [
             { "Codigo": "01", "TextoList": "" },
             { "Codigo": "02", "TextoList": "Detalle de Producto" },
-            { "Codigo": "03", "TextoList": "" },
-            { "Codigo": "04", "TextoList": "" },
+            { "Codigo": "03", "TextoList": "Banner" },
+            { "Codigo": "04", "TextoList": "Desplegable Buscador" },
             { "Codigo": "05", "TextoList": "Detalle de Producto - Ver más sets" },
-            { "Codigo": "06", "TextoList": "" },
-            { "Codigo": "07", "TextoList": "" },
+            { "Codigo": "06", "TextoList": "Banner Superior" },
+            { "Codigo": "07", "TextoList": "Sub Campania" },
+            { "Codigo": "08", "TextoList": "Carrusel Recomendado" },
+            { "Codigo": "09", "TextoList": "Ficha Recomendada" },
+            { "Codigo": "10", "TextoList": "App Catalogo Pendiente de Aprobar" },
+            { "Codigo": "11", "TextoList": "Catalogo Digital Pendiente de Aprobar Cliente" },
+            { "Codigo": "12", "TextoList": "App Maquillador Pendiente de Aprobar Cliente" },
+            { "Codigo": "13", "TextoList": "Catalogo Digital Pendiente de Aprobar Producto" },
+            { "Codigo": "14", "TextoList": "App Maquillador Pendiente de Aprobar Producto" },
             { "Codigo": "15", "TextoList": "Carrusel Upselling" },
             { "Codigo": "16", "TextoList": "Ficha Upselling" }
         ]
@@ -226,7 +242,7 @@ var AnalyticsPortalModule = (function () {
     ]
 
     ////////////////////////////////////////////////////////////////////////////////////////
-    // Ini - Metodos Iniciales
+    // Ini - Metodos Texto Origen Pedido Web
     ////////////////////////////////////////////////////////////////////////////////////////
     var _getIdPalancaSegunCodigo = function (codigo) {
         var total = _origenPedidoWebEstructura.Palanca.length;
@@ -383,21 +399,20 @@ var AnalyticsPortalModule = (function () {
         var contendor = _getTextoContenedorSegunOrigen(origenEstructura) || "";
 
         var pagina = "";
+        var seccion = "";
         if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselVerMas) {
             pagina = _getTextoSeccionSegunOrigen(origenEstructura);
         }
         else {
             pagina = _getTextoPaginaSegunOrigen(origenEstructura);
+            if (origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel) {
+                seccion = _getTextoSeccionSegunOrigen(origenEstructura);
+            }
         }
         pagina = pagina || "";
+        seccion = seccion || "";
 
         var palanca = _getTextoPalancaSegunOrigen(origenEstructura) || "";
-
-        var seccion = "";
-        if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling) {
-            seccion = _getTextoSeccionSegunOrigen(origenEstructura);
-        }
-        seccion = seccion || "";
 
         var separador = " - ";
         var texto = contendor;
@@ -406,11 +421,23 @@ var AnalyticsPortalModule = (function () {
         texto += (texto != "" ? (palanca != "" ? separador : "") : "") + palanca;
         texto += (texto != "" ? (seccion != "" ? separador : "") : "") + seccion;
 
+        console.log(origenEstructura, texto);
+
         return texto;
     }
 
+
     ////////////////////////////////////////////////////////////////////////////////////////
-    // Fin - Metodos Iniciales
+    // Fin - Metodos Texto Origen Pedido Web
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Ini - Metodos Ayuda
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    var getDescripcionMarca = function (item) {
+        return item.DescripcionMarca || _getMarca(item.MarcaId || item.MarcaID)
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Fin - Metodos Ayuda
     ////////////////////////////////////////////////////////////////////////////////////////
     // Ini - Analytics Evento Remove From Cart
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -427,7 +454,7 @@ var AnalyticsPortalModule = (function () {
                             'name': data.data.DescripcionProducto,
                             'id': data.data.CUV,
                             'price': data.data.Precio,
-                            'brand': data.data.DescripcionMarca,
+                            'brand': getDescripcionMarca(data.data),
                             'category': "NO DISPONIBLE",
                             'variant': data.data.DescripcionOferta == "" ? "Estándar" : data.data.DescripcionOferta,
                             'quantity': Number(cantidad),
@@ -521,9 +548,9 @@ var AnalyticsPortalModule = (function () {
         try {
 
             producto = producto || {};
-            //lista = lista || "";
+            textoList = textoList || "";
 
-            dataLayer.push({
+            var objMarcar = {
                 'event': _evento.addToCart,
                 'ecommerce': {
                     'currencyCode': _getCurrencyCodes(),
@@ -533,14 +560,17 @@ var AnalyticsPortalModule = (function () {
                             'name': producto.DescripcionCompleta,
                             'id': producto.CUV2 || producto.CUV,
                             'price': producto.PrecioVenta || producto.PrecioString,
-                            'brand': producto.DescripcionMarca || _getMarca(producto.MarcaId || producto.MarcaID),
+                            'brand': getDescripcionMarca(producto),
                             'category': _texto.notavaliable,
                             'variant': producto.Variant || _texto.estandar,
                             'quantity': producto.Cantidad
                         }]
                     }
                 }
-            });
+            };
+
+            console.log(_evento.addToCart, objMarcar);
+            dataLayer.push(objMarcar);
 
             return true;
         } catch (e) {
@@ -585,106 +615,106 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    var marcaAnadirCarritoHome = function (event, codigoOrigen, data) {
-        try {
-            if (_constantes.isTest)
-                alert("Marcación clic añadir al carrito.");
+    //var marcaAnadirCarritoHome = function (event, codigoOrigen, data) {
+    //    try {
+    //        if (_constantes.isTest)
+    //            alert("Marcación clic añadir al carrito.");
 
-            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
-            var producto = data;
+    //        var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
+    //        var producto = data;
 
-            var list = "Home" + " - " + palanca;
+    //        var list = "Home" + " - " + palanca;
 
-            marcarAddToCart(producto, list);
+    //        marcarAddToCart(producto, list);
 
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
 
-    }
+    //}
 
-    var marcaAnadirCarritoHomeBanner = function (event, codigoOrigen, data) {
-        try {
-            if (_constantes.isTest)
-                alert("Marcación clic añadir al carrito.");
+    //var marcaAnadirCarritoHomeBanner = function (event, codigoOrigen, data) {
+    //    try {
+    //        if (_constantes.isTest)
+    //            alert("Marcación clic añadir al carrito.");
 
-            var list = "Home - Oferta del Día";
+    //        var list = "Home - Oferta del Día";
 
-            marcarAddToCart(data, list);
+    //        marcarAddToCart(data, list);
 
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
 
-    }
+    //}
 
-    var marcaAnadirCarritoLiquidacion = function (data) {
-        try {
-            if (_constantes.isTest)
-                alert("Marcación clic añadir al carrito.");
-
-
-            var list = "Home" + " - " + "Liquidaciones Web";
-
-            data.DescripcionCompleta = data.descripcionProd;
-            data.PrecioVenta = data.PrecioUnidad;
-            data.DescripcionMarca = data.descripcionMarca;
-
-            marcarAddToCart(data, list);
-
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-
-    }
-
-    var marcaAnadirCarrito = function (event, codigoOrigen, data) {
-
-        try {
-            if (_constantes.isTest)
-                alert("Marcación clic añadir al carrito.");
-
-            var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
-            var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(event, codigoOrigen);
-
-            var codigoPalanca = codigoOrigen.toString().substring(3, 5);
-            var seccion = _constantes.origenpedidoWeb.find(function (element) {
-                return element.CodigoPalanca === codigoPalanca;
-            });
-
-            var esCarrusel = false;
-            if (!(event == null)) {
-                var elementCarrusel = $(event.target || event).parents("[data-item]");
-                esCarrusel = elementCarrusel.hasClass("slick-slide");
-            }
-
-            var producto = data;
-            var list = "";
-            //Si es carrusel de la ficha
-            if (esCarrusel && seccion.CodigoPalanca !== _constantes.origenpedidoWeb[parseInt(codigoPalanca)].CodigoPalanca)
-                list = contenedor + " - " + _constantes.campania + producto.CampaniaID;
-            else if (seccion.CodigoPalanca === _constantes.origenpedidoWeb[parseInt(codigoPalanca)].CodigoPalanca)
-                list = contenedor + " - " + palanca;
-            else
-                list = contenedor + " - " + palanca + " - " + _constantes.campania + producto.CampaniaID;
+    //var marcaAnadirCarritoLiquidacion = function (data) {
+    //    try {
+    //        if (_constantes.isTest)
+    //            alert("Marcación clic añadir al carrito.");
 
 
-            marcarAddToCart(producto, list);
+    //        var list = "Home" + " - " + "Liquidaciones Web";
 
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
+    //        data.DescripcionCompleta = data.descripcionProd;
+    //        data.PrecioVenta = data.PrecioUnidad;
+    //        data.DescripcionMarca = data.descripcionMarca;
 
-    }
+    //        marcarAddToCart(data, list);
 
-    function clickAddCartFicha(event, codigoOrigenPedido, estrategia) {
-        try {
-            var list = 'Ficha de Producto – Las Más Ganadoras';
-            marcarAddToCart(estrategia, list);
-        } catch (e) {
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
 
-        }
-    }
+    //}
+
+    //var marcaAnadirCarrito = function (event, codigoOrigen, data) {
+
+    //    try {
+    //        if (_constantes.isTest)
+    //            alert("Marcación clic añadir al carrito.");
+
+    //        var palanca = AnalyticsPortalModule.GetPalancaByOrigenPedido(codigoOrigen);
+    //        var contenedor = AnalyticsPortalModule.GetContenedorByOrigenPedido(event, codigoOrigen);
+
+    //        var codigoPalanca = codigoOrigen.toString().substring(3, 5);
+    //        var seccion = _constantes.origenpedidoWeb.find(function (element) {
+    //            return element.CodigoPalanca === codigoPalanca;
+    //        });
+
+    //        var esCarrusel = false;
+    //        if (!(event == null)) {
+    //            var elementCarrusel = $(event.target || event).parents("[data-item]");
+    //            esCarrusel = elementCarrusel.hasClass("slick-slide");
+    //        }
+
+    //        var producto = data;
+    //        var list = "";
+    //        //Si es carrusel de la ficha
+    //        if (esCarrusel && seccion.CodigoPalanca !== _constantes.origenpedidoWeb[parseInt(codigoPalanca)].CodigoPalanca)
+    //            list = contenedor + " - " + _constantes.campania + producto.CampaniaID;
+    //        else if (seccion.CodigoPalanca === _constantes.origenpedidoWeb[parseInt(codigoPalanca)].CodigoPalanca)
+    //            list = contenedor + " - " + palanca;
+    //        else
+    //            list = contenedor + " - " + palanca + " - " + _constantes.campania + producto.CampaniaID;
+
+
+    //        marcarAddToCart(producto, list);
+
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
+
+    //}
+
+    //function clickAddCartFicha(event, codigoOrigenPedido, estrategia) {
+    //    try {
+    //        var list = 'Ficha de Producto – Las Más Ganadoras';
+    //        marcarAddToCart(estrategia, list);
+    //    } catch (e) {
+
+    //    }
+    //}
 
     function marcarAddCarArmaTuPack(codigoubigeoportal, estrategia) {
         try {
@@ -703,7 +733,7 @@ var AnalyticsPortalModule = (function () {
                     'name': producto.DescripcionCompleta,
                     'id': producto.CUV2,
                     'price': producto.PrecioVenta,
-                    'brand': producto.DescripcionMarca,
+                    'brand': getDescripcionMarca(producto),
                     'category': _texto.notavaliable,
                     'variant': producto.Variant,
                     'quantity': producto.Cantidad
@@ -724,6 +754,37 @@ var AnalyticsPortalModule = (function () {
 
         } catch (e) {
             console.log(_texto.excepcion + e);
+        }
+    }
+
+    var marcaAnadirCarritoGenerico = function (event, codigoOrigenPedido, estrategia) {
+        try {
+
+            var origenEstructura = _getEstructuraOrigenPedidoWeb(codigoOrigenPedido);
+
+            var textoPagina = _getTextoPaginaSegunOrigen(origenEstructura);
+            
+            if (textoPagina === "Landing Buscador") {
+                var model = {
+                    'DescripcionCompleta': estrategia.DescripcionCompleta,
+                    'CUV': estrategia.CUV2,
+                    'Precio': estrategia.Precio2,
+                    'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
+                    'MarcaId': estrategia.MarcaID,
+                    'Cantidad': estrategia.Cantidad,
+                    'Palanca': estrategia.Palanca
+                };
+                var valorBuscar = localStorage.getItem('valorBuscador');
+                AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
+                return;
+            }
+
+            var parametroList = _getParametroListSegunOrigen(codigoOrigenPedido);
+
+            var marco = marcarAddToCart(estrategia, parametroList);
+
+        } catch (e) {
+
         }
     }
 
@@ -758,7 +819,7 @@ var AnalyticsPortalModule = (function () {
                     'name': item.DescripcionCompleta,
                     'id': item.CUV2 || item.CUV,
                     'price': item.PrecioVenta || item.PrecioString,
-                    'brand': item.DescripcionMarca || _getMarca(item.MarcaId || item.MarcaID),
+                    'brand': getDescripcionMarca(item),
                     'category': _texto.notavaliable,
                     'variant': _texto.estandar,
                     'list': paramList,
@@ -776,15 +837,18 @@ var AnalyticsPortalModule = (function () {
     var _marcarImpresionSetProductos = function (arrayItems) {
 
         try {
-
             var tipoMoneda = _getCurrencyCodes();
-            dataLayer.push({
+            var objMarcar = {
                 'event': _evento.productImpression,
                 'ecommerce': {
                     'currencyCode': tipoMoneda,
                     'impressions': arrayItems
                 }
-            });
+            };
+
+            console.log(_evento.productImpression, objMarcar);
+
+            dataLayer.push(objMarcar);
 
             return true;
         } catch (e) {
@@ -796,7 +860,6 @@ var AnalyticsPortalModule = (function () {
 
     var marcaGenericaLista = function (seccion, data, pos) {
         try {
-            //console.log('marca Generica Lista- ini', seccion, data, pos);
 
             _marcarProductImpresionSegunLista(data);
 
@@ -934,7 +997,7 @@ var AnalyticsPortalModule = (function () {
                             'name': item.DescripcionCompleta,
                             'id': item.CUV2,
                             'price': item.PrecioVenta,
-                            'brand': item.DescripcionMarca,
+                            'brand': getDescripcionMarca(item),
                             'category': _texto.notavaliable,
                             'variant': _texto.estandar,
                             'position': item.Posicion
@@ -962,7 +1025,7 @@ var AnalyticsPortalModule = (function () {
                             'name': item.DescripcionCompleta,
                             'id': item.CUV2,
                             'price': item.PrecioVenta,
-                            'brand': item.DescripcionMarca,
+                            'brand': getDescripcionMarca(item),
                             'category': _texto.notavaliable,
                             'variant': _texto.estandar,
                             'position': item.Posicion
@@ -1041,7 +1104,7 @@ var AnalyticsPortalModule = (function () {
                                     'name': item.DescripcionCompleta,
                                     'id': item.CUV2,
                                     'price': item.Precio2,
-                                    'brand': item.DescripcionMarca,
+                                    'brand': getDescripcionMarca(item),
                                     'category': _texto.notavaliable,
                                     'variant': _texto.estandar,
                                     'position': item.Posicion
@@ -1075,7 +1138,7 @@ var AnalyticsPortalModule = (function () {
                 "id": item.CUV2,
                 "name": item.DescripcionCompleta,
                 "price": item.PrecioVenta,
-                "brand": item.DescripcionMarca,
+                "brand": getDescripcionMarca(item),
                 "category": _texto.notavaliable,
                 "variant": _texto.estandar
             };
@@ -1481,73 +1544,73 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
-    var marcaAnadirCarritoGenerico = function (event, codigoOrigenPedido, estrategia) {
-        try {
-            var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);
+    //var marcaAnadirCarritoGenerico = function (event, codigoOrigenPedido, estrategia) {
+    //    try {
+    //        var codigoPagina = codigoOrigenPedido.toString().substring(1, 3);
 
-            var pagina = _constantes.paginas.find(function (element) {
-                return element.CodigoPagina == codigoPagina;
-            });
+    //        var pagina = _constantes.paginas.find(function (element) {
+    //            return element.CodigoPagina == codigoPagina;
+    //        });
 
-            if (pagina == undefined) {
-                return false;
-            }
+    //        if (pagina == undefined) {
+    //            return false;
+    //        }
 
-            //Marcar analytics cuando es Ganadoras en ficha y 
-            var estoyEnLaFicha = typeof fichaModule !== "undefined";
+    //        //Marcar analytics cuando es Ganadoras en ficha y 
+    //        var estoyEnLaFicha = typeof fichaModule !== "undefined";
 
-            var codigoSeccion = codigoOrigenPedido.toString().substring(5, 7);
-            var seccion = _constantes.secciones.find(function (element) {
-                return element.CodigoSeccion == codigoSeccion;
-            });
+    //        var codigoSeccion = codigoOrigenPedido.toString().substring(5, 7);
+    //        var seccion = _constantes.secciones.find(function (element) {
+    //            return element.CodigoSeccion == codigoSeccion;
+    //        });
 
-            if (seccion == undefined) {
-                return false;
-            }
+    //        if (seccion == undefined) {
+    //            return false;
+    //        }
 
-            var model = {
-                'DescripcionCompleta': estrategia.DescripcionCompleta,
-                'CUV': estrategia.CUV2,
-                'Precio': estrategia.Precio2,
-                'DescripcionMarca': estrategia.CUV2,
-                'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
-                'MarcaId': estrategia.MarcaID,
-                'Cantidad': estrategia.Cantidad,
-                'Palanca': estrategia.Palanca
-            };
+    //        var model = {
+    //            'DescripcionCompleta': estrategia.DescripcionCompleta,
+    //            'CUV': estrategia.CUV2,
+    //            'Precio': estrategia.Precio2,
+    //            'DescripcionMarca': estrategia.CUV2,
+    //            'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
+    //            'MarcaId': estrategia.MarcaID,
+    //            'Cantidad': estrategia.Cantidad,
+    //            'Palanca': estrategia.Palanca
+    //        };
 
-            var _pagina = pagina.Pagina;
-            var valorBuscar = localStorage.getItem('valorBuscador');
+    //        var _pagina = pagina.Pagina;
+    //        var valorBuscar = localStorage.getItem('valorBuscador');
 
-            if (_pagina === "Landing Buscador") {
-                AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
-                return;
-            }
+    //        if (_pagina === "Landing Buscador") {
+    //            AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
+    //            return;
+    //        }
 
-            if (pagina.Pagina.includes("Landing"))
-                _pagina = "Landing";
+    //        if (pagina.Pagina.includes("Landing"))
+    //            _pagina = "Landing";
 
-            switch (_pagina) {
-                case "Buscador":
-                case "Landing Buscador":
-                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
-                    break;
-                case "Home":
-                    seccion.Seccion == "Banner Superior"
-                        ? AnalyticsPortalModule.MarcaAnadirCarritoHomeBanner(null, codigoOrigenPedido, estrategia)
-                        : AnalyticsPortalModule.MarcaAnadirCarritoHome(null, codigoOrigenPedido, estrategia);
-                    break;
-                // Inicio Analytics Oferta Miguel
-                case "Contenedor": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
-                case "Landing": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
-                case "Pedido": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
-                // Fin Analytics Oferta Miguel
-            }
+    //        switch (_pagina) {
+    //            case "Buscador":
+    //            case "Landing Buscador":
+    //                AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
+    //                break;
+    //            case "Home":
+    //                seccion.Seccion == "Banner Superior"
+    //                    ? AnalyticsPortalModule.MarcaAnadirCarritoHomeBanner(null, codigoOrigenPedido, estrategia)
+    //                    : AnalyticsPortalModule.MarcaAnadirCarritoHome(null, codigoOrigenPedido, estrategia);
+    //                break;
+    //            // Inicio Analytics Oferta Miguel
+    //            case "Contenedor": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
+    //            case "Landing": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
+    //            case "Pedido": AnalyticsPortalModule.MarcaAnadirCarrito(event, codigoOrigenPedido, estrategia); break;
+    //            // Fin Analytics Oferta Miguel
+    //        }
 
-        } catch (e) {
+    //    } catch (e) {
 
-        }
-    }
+    //    }
+    //}
 
     var marcaEligeUnaOpcion = function (url, textobusqueda) {
         try {
@@ -2643,6 +2706,9 @@ var AnalyticsPortalModule = (function () {
     ////////////////////////////////////////////////////////////////////////////////////////
 
     return {
+
+        GetTextoSegunOrigen: _getParametroListSegunOrigen,
+
         // Ini - Analytics Evento Product Impression
         MarcaGenericaLista: marcaGenericaLista,
         MarcaProductImpressionRecomendaciones: marcaProductImpressionRecomendaciones,
@@ -2697,7 +2763,7 @@ var AnalyticsPortalModule = (function () {
         // Ini - Analytics Home 1 
         MarcaGanaOfertas: marcaGanaOfertas,
         MarcaSucribete: marcaSucribete,
-        MarcaAnadirCarritoHome: marcaAnadirCarritoHome,
+        //MarcaAnadirCarritoHome: marcaAnadirCarritoHome, // no se utiliza como publico
         MarcaVerDetalleProducto: marcaVerDetalleProducto,
         MarcaDetalleProductoBienvenida: marcaDetalleProductoBienvenida,
         MarcaNotificaciones: marcaNotificaciones,
@@ -2710,8 +2776,8 @@ var AnalyticsPortalModule = (function () {
         MarcaClicFechaLiquidacion: marcaClicFechaLiquidacion,
         MarcaVerOtrasOfertasHome: marcaVerOtrasOfertasHome,
         MarcaFlechaHome: marcaFlechaHome,
-        MarcaAnadirCarritoLiquidacion: marcaAnadirCarritoLiquidacion,
-        MarcaAnadirCarritoHomeBanner: marcaAnadirCarritoHomeBanner,
+        //MarcaAnadirCarritoLiquidacion: marcaAnadirCarritoLiquidacion,// no se utiliza
+        //MarcaAnadirCarritoHomeBanner: marcaAnadirCarritoHomeBanner,// no se utiliza como publico
         MarcarRemoveFromCart: marcarRemoveFromCart,
         MarcaVerTodoMiPedido: marcaVerTodoMiPedido,
         // Fin - Analytics Home 1 
@@ -2720,7 +2786,7 @@ var AnalyticsPortalModule = (function () {
         MarcaClicFlechaBanner: marcaClicFlechaBanner,
         MarcaClicBanner: marcaClicBanner,
         MarcaClicVerMasOfertas: marcaClicVerMasOfertas,
-        MarcaAnadirCarrito: marcaAnadirCarrito,
+        //MarcaAnadirCarrito: marcaAnadirCarrito,// no se utiliza como publico
         MarcaManagerFiltros: marcaManagerFiltros,
         MarcaCompartirRedesSociales: marcaCompartirRedesSociales,
         MarcaVisualizarDetalleProducto: marcaVisualizarDetalleProducto,
@@ -2735,7 +2801,7 @@ var AnalyticsPortalModule = (function () {
         MarcarClickMasOfertasPromotionClickMG: marcarClickMasOfertasPromotionClickMG,
         ClickArrowMG: clickArrowMG,
         ClickOnBreadcrumb: clickOnBreadcrumb,
-        ClickAddCartFicha: clickAddCartFicha,
+        //ClickAddCartFicha: clickAddCartFicha,// no se utiliza
         ClickTabGanadoras: clickTabGanadoras,
         // Fin - Analytics Ganadoras
 

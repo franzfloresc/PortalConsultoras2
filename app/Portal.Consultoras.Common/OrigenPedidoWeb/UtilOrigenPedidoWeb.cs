@@ -10,7 +10,7 @@
                 modelo.Dispositivo = (modelo.Dispositivo ?? "").Trim() ?? ConsOrigenPedidoWeb.IncorrectoDispositivo;
                 modelo.Pagina = (modelo.Pagina ?? "").Trim() ?? ConsOrigenPedidoWeb.Incorrecto;
                 modelo.Palanca = (modelo.Palanca ?? "").Trim() ?? ConsOrigenPedidoWeb.Incorrecto;
-                modelo.Seccion = (modelo.Palanca ?? "").Trim() ?? ConsOrigenPedidoWeb.Incorrecto;
+                modelo.Seccion = (modelo.Seccion ?? "").Trim() ?? ConsOrigenPedidoWeb.Incorrecto;
             }
             catch
             {
@@ -97,6 +97,39 @@
                 // ignored
             }
 
+            return codigo;
+        }
+
+        public static string GetSeccionSegunMedioVista(string flagMedio, int tipoVista)
+        {
+            string codigo = "";
+
+            if (flagMedio == Constantes.SolicitudCliente.FlagMedio.AppCatalogos)
+            {
+                codigo = ConsOrigenPedidoWeb.Seccion.AppCatalogoPendienteDeAprobar;
+            }
+            else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.CatalogoDigital)
+            {
+                if (tipoVista == 1) // por cliente
+                {
+                    codigo = ConsOrigenPedidoWeb.Seccion.CatalogoDigitalPendienteDeAprobarCliente;
+                }
+                else
+                {
+                    codigo = ConsOrigenPedidoWeb.Seccion.CatalogoDigitalPendienteDeAprobarProducto;
+                }
+            }
+            else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual)
+            {
+                if (tipoVista == 1) // por cliente
+                {
+                    codigo = ConsOrigenPedidoWeb.Seccion.AppMaquilladorPendienteDeAprobarCliente;
+                }
+                else
+                {
+                    codigo = ConsOrigenPedidoWeb.Seccion.AppMaquilladorPendienteDeAprobarProducto;
+                }
+            }
             return codigo;
         }
 

@@ -25,11 +25,11 @@ var PedidoRegistroModule = function () {
         var esMobile = isMobile();
         var txtMensaje = "";
         //"La cantidad ingresada debe ser mayor que 0, verifique."
-        //"La cantidad ingresada debe ser un nÃºmero mayor que cero, verifique"
+        //"La cantidad ingresada debe ser un número mayor que cero, verifique"
         //"La cantidad ingresada debe ser mayor que cero, verifique"
 
         if (!isInt(cantidad)) {
-            txtMensaje = "Ingrese un valor numÃ©rico.";
+            txtMensaje = "Ingrese un valor numérico.";
         }
         else if (parseInt(cantidad, 10) <= 0) {
             txtMensaje = "La cantidad debe ser mayor a cero.";
@@ -70,7 +70,7 @@ var PedidoRegistroModule = function () {
             return true;
         }
         //FIN HD-3693
-        data.message = data.message || 'Error al realizar proceso, intÃ©ntelo mÃ¡s tarde.';
+        data.message = data.message || 'Error al realizar proceso, inténtelo más tarde.';
         messageInfoError(data.message);
         CerrarLoad();
 
@@ -127,12 +127,12 @@ var PedidoRegistroModule = function () {
         var variantcad = "";
 
         if (result.data.DescripcionEstrategia == null || result.data.DescripcionEstrategia == "") {
-            variantcad = "EstÃ¡ndar";
+            variantcad = "Estándar";
         } else {
             variantcad = result.data.DescripcionEstrategia;
         }
         if (result.data.Categoria == null || result.data.Categoria == "") {
-            categoriacad = "Sin CategorÃ­a";
+            categoriacad = "Sin Categoría";
         } else {
             categoriacad = result.data.Categoria;
         }
@@ -760,6 +760,9 @@ var PedidoRegistroModule = function () {
                     }
 
                     if (_mensajeRespuestaError(data)) {
+                        if (!IsNullOrEmpty(data.message)) {
+                            AbrirMensaje(data.message);
+                        }
                         return false;
                     }
 
@@ -831,7 +834,8 @@ var PedidoRegistroModule = function () {
                 }
             });
         }
-    };
+    }
+
     /* Fin - Region Buscador */
 
     /* Ini - Region Oferta Final */
@@ -925,7 +929,7 @@ var PedidoRegistroModule = function () {
                     'event': 'addToCart',
                     'ecommerce': {
                         'add': {
-                            'actionField': { 'list': 'EstÃ¡ndar' },
+                            'actionField': { 'list': 'Estándar' },
                             'products': [{
                                 'name': data.data.DescripcionProd,
                                 'price': String(data.data.PrecioUnidad),
@@ -1008,7 +1012,7 @@ var PedidoRegistroModule = function () {
                 }
 
                 if (data.mensajeCondicional) {
-                    AbrirMensaje(data.mensajeCondicional);
+                    AbrirMensajeImagen(data.mensajeCondicional);
                 }
 
                 if (model != null && model != undefined)
@@ -1084,6 +1088,17 @@ var PedidoRegistroModule = function () {
         if (flag == "true") {
             model.EstrategiaID = $("#hdfEstrategiaId").val();
         }
+
+        var EsDuoPerfecto = false;
+        var CodigoEstrategia = $("#hdTipoEstrategiaCodigo").val();
+        if (CodigoEstrategia === ConstantesModule.TipoEstrategia.PackNuevas) {
+            var _EsOfertaIndependiente = $("#hdEsOfertaIndependiente").val();
+            var EsOfertaIndependiente = (typeof _EsOfertaIndependiente === 'undefined') ? true : JSON.parse(_EsOfertaIndependiente);
+            var _esDuoPerfecto = $("#hdEsDuoPerfecto").val();
+            EsDuoPerfecto = ((typeof _esDuoPerfecto === 'undefined') ? false : JSON.parse(_esDuoPerfecto)) && (!EsOfertaIndependiente);
+        };
+
+        model.EsDuoPerfecto = EsDuoPerfecto;
 
         ShowLoading();
         jQuery.ajax({
@@ -1168,7 +1183,7 @@ var PedidoRegistroModule = function () {
                 else if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
 
                 if (data.mensajeCondicional) {
-                    AbrirMensaje(data.mensajeCondicional);
+                    AbrirMensajeImagen(data.mensajeCondicional);
                 }
 
                 $("#hdCuvEnSession").val("");
@@ -1178,14 +1193,14 @@ var PedidoRegistroModule = function () {
                     'event': 'addToCart',
                     'ecommerce': {
                         'add': {
-                            'actionField': { 'list': 'EstÃ¡ndar' },
+                            'actionField': { 'list': 'Estándar' },
                             'products': [{
                                 'name': data.data.DescripcionProd,
                                 'price': String(data.data.PrecioUnidad),
                                 'brand': data.data.DescripcionLarga,
                                 'id': data.data.CUV,
                                 'category': 'NO DISPONIBLE',
-                                'variant': data.data.DescripcionOferta == "" ? "EstÃ¡ndar" : data.data.DescripcionOferta,
+                                'variant': data.data.DescripcionOferta == "" ? "Estándar" : data.data.DescripcionOferta,
                                 'quantity': Number(model.Cantidad),
                                 'position': 1
                             }]
@@ -1250,18 +1265,30 @@ var PedidoRegistroModule = function () {
     };
 
     var AgregarProductoZonaEstrategia = function (tipoEstrategiaImagen) {
+
         var param2 = {
             CUV: $("#txtCUV").val(),
             Cantidad: $("#txtCantidad").val(),
             PrecioUnidad: $("#hdfPrecioUnidad").val(),
             TipoEstrategiaID: $("#hdTipoEstrategiaID").val(),
             MarcaID: $("#hdfMarcaID").val(),
+            EstrategiaID: $("#hdfEstrategiaId").val(),
             DescripcionProd: $("#txtDescripcionProd").val(),
             IndicadorMontoMinimo: $("#hdfIndicadorMontoMinimo").val(),
             TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
             EsOfertaIndependiente: $("#hdEsOfertaIndependiente").val(),
             EsCuponNuevas: cuvEsCuponNuevas
         };
+
+        var EsDuoPerfecto = false;
+        var CodigoEstrategia = $("#hdTipoEstrategiaCodigo").val();
+        if (CodigoEstrategia === ConstantesModule.TipoEstrategia.PackNuevas) {
+            var EsOfertaIndependiente = (typeof param2.EsOfertaIndependiente === 'undefined') ? true : JSON.parse(param2.EsOfertaIndependiente);
+            var _esDuoPerfecto = $("#hdEsDuoPerfecto").val();
+            EsDuoPerfecto = ((typeof _esDuoPerfecto === 'undefined') ? false : JSON.parse(_esDuoPerfecto)) && (!EsOfertaIndependiente);
+        };
+
+        param2.EsDuoPerfecto = EsDuoPerfecto;
 
         AbrirSplash();
         jQuery.ajax({
@@ -1323,14 +1350,14 @@ var PedidoRegistroModule = function () {
                     'label': $("#hdMetodoBusqueda").val(),
                     'ecommerce': {
                         'add': {
-                            'actionField': { 'list': "EstÃ¡ndar" },
+                            'actionField': { 'list': "Estándar" },
                             'products': [{
                                 'name': data.data.DescripcionProd,
                                 'price': String(data.data.PrecioUnidad),
                                 'brand': data.data.DescripcionLarga,
                                 'id': data.data.CUV,
                                 'category': "NO DISPONIBLE",
-                                'variant': data.data.DescripcionOferta == "" ? "EstÃ¡ndar" : data.data.DescripcionOferta,
+                                'variant': data.data.DescripcionOferta == "" ? "Estándar" : data.data.DescripcionOferta,
                                 'quantity': Number(param2.Cantidad),
                                 'position': 1
                             }]
@@ -1378,7 +1405,7 @@ var PedidoRegistroModule = function () {
                     microefectoPedidoGuardado();
                     if (!IsNullOrEmpty(response.mensajeAviso)) AbrirMensaje(response.mensajeAviso, response.tituloMensaje);
                     if (response.mensajeCondicional) {
-                        AbrirMensaje(response.mensajeCondicional);
+                        AbrirMensajeImagen(response.mensajeCondicional);
                     }
                     TrackingJetloreAdd(form.data.Cantidad, $("#hdCampaniaCodigo").val(), form.data.CUV);
                     dataLayer.push({
@@ -1386,14 +1413,14 @@ var PedidoRegistroModule = function () {
                         'label': $("#hdMetodoBusqueda").val(),
                         'ecommerce': {
                             'add': {
-                                'actionField': { 'list': "EstÃ¡ndar" },
+                                'actionField': { 'list': "Estándar" },
                                 'products': [{
                                     'name': form.data.DescripcionProd,
                                     'price': form.data.PrecioUnidad,
                                     'brand': response.data.DescripcionLarga,
                                     'id': form.data.CUV,
                                     'category': "NO DISPONIBLE",
-                                    'variant': response.data.DescripcionOferta == "" ? "EstÃ¡ndar" : response.data.DescripcionOferta,
+                                    'variant': response.data.DescripcionOferta == "" ? "Estándar" : response.data.DescripcionOferta,
                                     'quantity': Number(form.data.Cantidad),
                                     'position': 1
                                 }]
@@ -1472,7 +1499,7 @@ var PedidoRegistroModule = function () {
                 MostrarBarra(data);
                 var existeError = $(data).filter("input[id=hdErrorInsertarProducto]").val();
                 if (existeError == "1") {
-                    AbrirMensaje("OcurriÃ³ un error al ejecutar la operaciÃ³n.");
+                    AbrirMensaje("Ocurrió un error al ejecutar la operación.");
                     CloseLoading();
                     return false;
                 }
@@ -1670,19 +1697,21 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
             var totalUnidades = parseInt($("#pCantidadProductosPedido").html());
             totalUnidades = totalUnidades - parseInt(CantidadAnti) + parseInt(Cantidad);
             $("#pCantidadProductosPedido").html(totalUnidades);
-
+            
+            CargarDetallePedido();
             var prevTotal = mtoLogroBarra;
             MostrarBarra(data);
             showPopupNivelSuperado(data.DataBarra, prevTotal);
+
             if (data.modificoBackOrder) {
                 showDialog("divBackOrderModificado");
             }
 
             if (data.mensajeCondicional) {
-                AbrirMensaje(data.mensajeCondicional);
+                AbrirMensajeImagen(data.mensajeCondicional);
             }
 
-            CargarDetallePedido();
+           
 
             var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
             if (diferenciaCantidades > 0)

@@ -247,6 +247,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Pedido/PedidoInfo.css",
                "~/Content/Css/Site/Pedido/EditarProductoFicha.css",
                "~/Content/Css/Site/Notificacion.css"
+               "~/Content/Css/Site/Esika/nuevo-look-and-feel.css"
                ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-AsesoraOnline").Include(
@@ -314,6 +315,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/calc.css",
                "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css",
                "~/Content/Css/Mobile/Notificacion.css"
+               "~/Content/Css/Site/Esika/nuevo-look-and-feel.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/lbel-CssSB2Mobile").Include(
@@ -441,7 +443,10 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/Pedido/tooltip.js",
                 "~/Scripts/PortalConsultoras/ProductoRecomendado/ProductoRecomendadoModule.js",
-                "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js"
+                "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
+                //INI HD-4200
+                "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js"
+                //FIN HD-4200
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/PedidoValidado").Include(
@@ -536,7 +541,10 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/ProductoRecomendado/ProductoRecomendadoModule.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
-                "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js"
+                "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
+                //INI HD-4200
+                "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js"
+               //FIN HD-4200
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/PedidoDetalle").Include(
@@ -550,6 +558,9 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Pedido/tooltip.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
+                //INI HD-4200
+                "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js",
+                //FIN HD-4200
                 "~/Scripts/PortalConsultoras/Pedido/barra.js"
             ));
 
@@ -1033,11 +1044,11 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/Ficha/ficha.css"
             ));
 
-            //Se aisló el css de bootstrap de los otros css de Bundle/Css/Mixto, porque generaba errores de minificación
-            bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Bootstrap").Include(
-                "~/Content/Css/Site/bootstrap/bootstrap.css"
-            ));
-
+            //Usar custom Bundle StyleIgnoreMinifyBundle cuando se desee omitir  el proceso de minificación , en el ambiente de producción.
+            //caso : Se aisló el css de bootstrap de los otros css de Bundle/Css/Mixto, porque generaba errores de minificación
+            //       el archivo contempla sintaxis que no reconoce el proceso de minificación y además es una archivo ya minificado.
+            bundles.Add(new StyleIgnoreMinifyBundle("~/Bundle/Css/Mixto/Bootstrap").Include(
+                                "~/Content/Css/Site/bootstrap/bootstrap.css"));
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/LayoutResponsive").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/Shared/general.css",
@@ -1053,7 +1064,8 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/EsikaPageResponsive").Include(
                 "~/Content/Css/Site/Esika/marca-pais-responsive.css",
-                "~/Content/Css/Site/Esika/styleDefault.css"
+                "~/Content/Css/Site/Esika/styleDefault.css",
+                "~/Content/Css/Site/Esika/nuevo-look-and-feel.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/LebelPageResponsive").Include(
