@@ -32,9 +32,10 @@ module.exports = function (config) {
             
             // shared
             'Scripts/PortalConsultoras/Shared/AnalyticsPortal.js',
+            'Scripts/PortalConsultoras/Shared/ConstantesModule.js',
+            'Scripts/PortalConsultoras/Shared/CodigoOrigenPedidoWeb.js',
 
             // FichaModule
-            'Scripts/PortalConsultoras/Shared/ConstantesModule.js',
             'Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js',
 
             //#region Provider
@@ -71,6 +72,8 @@ module.exports = function (config) {
             'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClienteView.js',
             'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClientePresenter.js',
             'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsiveEvents.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaEnriquecida/FichaEnriquecidaView.js',
+            'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaEnriquecida/FichaEnriquecidaPresenter.js',
             'Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsive.js',
 
             // Specs
@@ -87,6 +90,7 @@ module.exports = function (config) {
             'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaPresenterSpec.js',
             
             'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesPresenterSpec.js',
+            'Scripts/tests/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaEnriquecida/FichaEnriquecidaPresenterSpec.js'
 
         ],
 

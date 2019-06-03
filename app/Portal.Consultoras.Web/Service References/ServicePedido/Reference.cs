@@ -5804,10 +5804,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int OrigenPedidoWebField;
-        
+
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string OrigenSolicitudField;
-        
+
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PaisIDField;
         
@@ -6078,20 +6078,24 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 }
             }
         }
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string OrigenSolicitud {
-            get {
+        public string OrigenSolicitud
+        {
+            get
+            {
                 return this.OrigenSolicitudField;
             }
-            set {
-                if ((object.ReferenceEquals(this.OrigenSolicitudField, value) != true)) {
+            set
+            {
+                if ((object.ReferenceEquals(this.OrigenSolicitudField, value) != true))
+                {
                     this.OrigenSolicitudField = value;
                     this.RaisePropertyChanged("OrigenSolicitud");
                 }
             }
         }
-        
+
         [System.Runtime.Serialization.DataMemberAttribute()]
         public int PaisID {
             get {

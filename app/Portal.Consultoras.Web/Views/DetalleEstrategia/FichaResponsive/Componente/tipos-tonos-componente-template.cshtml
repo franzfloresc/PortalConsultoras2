@@ -10,7 +10,7 @@
         <button id="btn-eligelo-{{componente.Grupo}}-{{componente.Cuv}}" add-type-tone block-group btn-eligelo data-grupo="{{componente.Grupo}}" data-cuv="{{componente.Cuv}}">
             Elígelo
         </button>
-        <button id="btn-elegido-{{componente.Grupo}}-{{componente.Cuv}}" block-group data-grupo="{{componente.Grupo}}" data-cuv="{{componente.Cuv}}" class="active" style="display:none;">
+        <button id="btn-elegido-{{componente.Grupo}}-{{componente.Cuv}}" data-grupo="{{componente.Grupo}}" data-cuv="{{componente.Cuv}}" class="active" style="display:none;">
             Elegido
         </button>
         <div id="selector-cantidad-{{componente.Grupo}}-{{componente.Cuv}}" block-group class="contenedor_rangos " data-cantidad-contenedor="" style="display:none">
@@ -25,8 +25,8 @@
                    data-cantidad-input="-"
                    txt-cantidad-{{componente.Grupo}}-{{componente.Cuv}}>
             <div>
-                <a class="txt_menos" @*onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"*@>
-                    <div class="dibujar_linea dibujar_menos"></div>
+                <a class="txt_menos" remove-type-tone data-grupo="{{componente.Grupo}}" data-cuv="{{componente.Cuv}}">
+                    <div class="dibujar_linea dibujar_menos" data-grupo="{{componente.Grupo}}" data-cuv="{{componente.Cuv}}"></div>
                 </a>
                 <a class="txt_mas" add-type-tone data-grupo="{{componente.Grupo}}" data-cuv="{{componente.Cuv}}" >
                     <div class="dibujar_linea dibujar_mas" data-grupo="{{componente.Grupo}}" data-cuv="{{componente.Cuv}}"></div>

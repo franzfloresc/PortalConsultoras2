@@ -1,90 +1,106 @@
 ﻿@using Portal.Consultoras.Common
 
 <script id="componente-estrategia-template" type="text/x-handlebars-template">
-    <h3 class="contenido_titulo">CONTENIDO:</h3>
-    {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.CompuestaFija,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
-    {{#each this.Hermanos as |componente|}}
-    {{#ifVerificarMarcaLast componente.DescripcionMarca EsMultimarca}}
-    <hr class="componentes_separador" />
-    {{/ifVerificarMarcaLast}}
-<div class="detalle_producto"
-     data-opciones-seleccionadas="0"
-     data-tono-digitable="{{componente.Digitable}}"
-     style="border-bottom: {{../Linea}}; margin-bottom: 10px"
-     data-componente-grupo="{{componente.Grupo}}">
-    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
-    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
-    <div data-componente="{{{json this}}}"></div>
-    @*<div class="nombre_marca">
-        xxxxx
-    </div>*@
-    <ul class="detalle_producto_detalle">
-        <li>x {{Multiplicar componente.Cantidad componente.FactorCuadre}}</li>
-        <li>{{componente.NombreComercial}}</li>
-    </ul>
-    {{#iff ../MostrarFichaEnriquecida '==' true }}
-    {{#iff ../Hermanos.length '>' 1}}
-    {{#iff componente.TieneDetalleSeccion '==' true}}
-    <a id="btnVerDetalle" class="button_ver_detalle">Ver detalle <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt=""></a>
-    {{/iff}}
-    {{/iff}}
-    {{/iff}}
-
-    {{#iff componente.Hermanos.length '>' 0}}
-    <div class="tiposytonos_componentes">
-        <buttom btn-show-types-tones-modal data-component-cuv="{{componente.Cuv}}" class="tono_select_opt">
-            {{componente.selectComponentText}}
-        </buttom>
-    </div>
-    {{/iff}}
-</div>
-
-    {{/each}}
-    {{/iff}}
-    @*<hr class="componentes_separador" />*@
-    @*<div class="detalle_producto">
-            <ul class="detalle_producto_detalle">
-                <li>x 1</li>
-                <li>Rouge L'Intense Rouge 7 g e. 24 o </li>
-            </ul>
-            <a id="btnVerDetalle" class="button_ver_detalle">
-                Ver detalle <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="">
-            </a>
-            <div class="tiposytonos_componentes">
-                <buttom class="tono_select_opt">
-                    ELIGE 1 OPCIÓN
-                </buttom>
-                <div class="tonos_seleccionados">
-                    <ul class="tonos_seleccionados_item" data-tono="">
-                        <li class="imagen_seleccionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201906/E/productos/PE_200095507.jpg" alt=""></li>
-                        <li class="titulo_selecionado">
-                            <span class="cantidad_producto_opt">x1 </span>
-                            <span class="descripcion_tipo">Paradisso. Safari adventure</span>
-                        </li>
-                    </ul>
-                    <ul class="tonos_seleccionados_item" data-tono="">
-                        <li class="imagen_seleccionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201906/E/productos/PE_200095507.jpg" alt=""></li>
-                        <li class="titulo_selecionado">
-                            <span class="cantidad_producto_opt">x1 </span>
-                            <span class="descripcion_tipo">Paradisso. Safari adventure</span>
-                        </li>
-                    </ul>
-
-                    <a class="btn_cambiar_opciones" href="">
-                        Cambiar opción
-                        <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="">
-                    </a>
+    {{#iff CodigoVariante '==' '@Constantes.TipoEstrategiaSet.IndividualConTonos'}}
+        {{#each this.Hermanos as |componente|}}
+            <div class="tiposytonos_componentes" data-tono="" data-opciones-seleccionadas="0" data-tono-digitable="1">
+                <button type="button" class="tono_select_opt" data-tono-change="1" btn-show-types-tones-modal data-component-cuv="{{componente.Cuv}}">
+                    {{#iff componente.FactorCuadre '==' '1'}}
+                        Elige 1 opción
+                    {{else}}
+                        Elige {{componente.FactorCuadre}} opciones
+                    {{/iff}}
+                </button>
+                <div class="content_tonos_select" style="display:none;" data-tono-select-area="1">
+                    {{#each componente.Hermanos as |variedad|}}
+                        <div class="content_tono_elegido"
+                             data-tono-change="2"
+                             data-tono-cuv="{{variedad.Cuv}}"
+                             data-tono-nombre="{{variedad.NombreBulk}}"
+                             data-tono-descripcion="{{variedad.NombreComercial}}">
+                            <div class="tono_seleccionado">
+                                <img src="{{variedad.ImagenBulk}}" alt="" />
+                            </div>
+                            <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
+                        </div>
+                    {{/each}}
                 </div>
+                <div id="resumen-opciones-{{componente.Cuv}}" class="tonos_seleccionados" style="display:none;"></div>
+                {{#iff FactorCuadre '==' '1'}}
+                    <div class="content_tonos_maquillaje" data-tono-div="{{componente.Cuv}}">
+                        {{#each componente.Hermanos as |variedad|}}
+                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{variedad.IdMarca}}" />
+                            <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{variedad.PrecioCatalogo}}" />
+
+                            {{#if TieneStock}}
+                                <div class="content_tono_detalle"
+                                     data-tono-change="2"
+                                     id="fav_tono_{{variedad.Cuv}}"
+                                     data-tono-cuv="{{variedad.Cuv}}"
+                                     data-tono-nombre="{{variedad.NombreBulk}}"
+                                     data-tono-descripcion="{{variedad.NombreComercial}}"
+                                     {{#unless ../esCampaniaSiguiente}}
+                                        onclick="javascript: componentesPresenter.onPaletaSelectItemClick('{{variedad.Grupo}}','{{variedad.Cuv}}');"
+                                     {{/unless}}>
+                                    <img src="{{variedad.ImagenBulk}}" alt="" />
+                                </div>
+                            {{else}}
+                                <div class="content_tono_detalle tono_agotado"
+                                     data-tono-change="2"
+                                     id="fav_tono_{{variedad.Cuv}}"
+                                     data-tono-cuv="{{variedad.Cuv}}"
+                                     data-tono-nombre="{{variedad.NombreBulk}}"
+                                     data-tono-descripcion="{{variedad.NombreComercial}}">
+                                    <img src="{{variedad.ImagenBulk}}" alt="" />
+                                </div>
+                            {{/if}}
+                        {{/each}}
+                    </div>
+                {{/iff}}
             </div>
-        </div>*@
-    @*<hr class="componentes_separador" />
-        <div class="detalle_producto">
-            <ul class="detalle_producto_detalle">
-                <li>x 1</li>
-                <li>Rouge L'Intense Rouge L'Intense Rouge L'Inte. Safran 7 g e. 24 o </li>
+        {{/each}}
+        <div style="display: none;" class="xmsg-tonos-agotados">
+            <ul class="list-inline" style="padding-bottom:15px">
+                <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                <li>Uno o más productos están AGOTADOS.</li>
             </ul>
-            <a id="btnVerDetalle" class="button_ver_detalle">
-                Ver detalle <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="">
-            </a>
-        </div>*@
+        </div>
+    {{/iff}}
+
+    {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.CompuestaFija,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
+        <h3 class="contenido_titulo">Contenido</h3>
+        {{#each this.Hermanos as |componente|}}
+            {{#ifVerificarMarcaLast componente.DescripcionMarca EsMultimarca}}
+                <hr class="componentes_separador" />
+            {{/ifVerificarMarcaLast}}
+            <div class="tiposytonos_componentes"
+                 data-opciones-seleccionadas="0"
+                 data-tono-digitable="{{componente.Digitable}}"
+                 data-componente-grupo="{{componente.Grupo}}">
+                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
+                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
+                <div class="nombre_marca">
+                    xxxxx
+                </div>
+                <ul class="detalle_producto_detalle">
+                    <li>x {{Multiplicar componente.Cantidad componente.FactorCuadre}}</li>
+                    <li>{{componente.NombreComercial}}</li>
+                </ul>
+
+                {{#iff ../MostrarFichaEnriquecida '==' true }}
+                    {{#iff ../Hermanos.length '>' 1}}
+                        {{#iff componente.TieneDetalleSeccion '==' true}}
+                            <a id="btnVerDetalle" class="btn_texto" onclick="javascript:fichaEnriquecidaPresenter.showPopupFichaEnriquecida('{{componente.Grupo}}','{{componente.Cuv}}');">Ver detalle <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt=""></a>
+                        {{/iff}}
+                    {{/iff}}
+                {{/iff}}
+                {{#iff componente.Hermanos.length '>' 0}}
+                    <button type="button" class="tono_select_opt" data-tono-change="1" btn-show-types-tones-modal data-component-cuv="{{componente.Cuv}}">
+                        {{componente.selectComponentText}}
+                    </button>
+                    <div id="resumen-opciones-{{componente.Cuv}}" class="tonos_seleccionados" style="display:none;"></div>
+                {{/iff}}
+            </div>
+        {{/each}}
+    {{/iff}}
 </script>
