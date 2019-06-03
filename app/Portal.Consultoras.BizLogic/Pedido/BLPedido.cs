@@ -273,6 +273,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     case Enumeradores.ResultadoReserva.NoReservadoObservaciones:
                     case Enumeradores.ResultadoReserva.NoReservadoMontoPermitido:
                         pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_OBS;
+                        var ListPedidoObservacion = resultadoReservaProl.ListPedidoObservacion;
+                        if (ListPedidoObservacion!=null && ListPedidoObservacion.Any())
+                        {
+                            mensajePersonalizado = (ListPedidoObservacion.Count > 1 && ListPedidoObservacion[0].ToString().Contains("ya no contamos con unidades")) ? ListPedidoObservacion[1].Descripcion : ListPedidoObservacion[0].Descripcion;
+                        }
                         error = true;
                         break;
                     case Enumeradores.ResultadoReserva.NoReservadoMontoMinimo:
@@ -305,6 +310,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         break;
                 }                
             }
+
             var respuesta = PedidoDetalleRespuesta(pedidoValidacionCode, mensajePersonalizado);            
             respuesta.MensajeRespuesta = respuesta.MensajeRespuesta.Replace("Pedido no reservado", "Pedido reservado");
             if (!error)
