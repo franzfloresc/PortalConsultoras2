@@ -1089,6 +1089,17 @@ var PedidoRegistroModule = function () {
             model.EstrategiaID = $("#hdfEstrategiaId").val();
         }
 
+        var EsDuoPerfecto = false;
+        var CodigoEstrategia = $("#hdTipoEstrategiaCodigo").val();
+        if (CodigoEstrategia === ConstantesModule.TipoEstrategia.PackNuevas) {
+            var _EsOfertaIndependiente = $("#hdEsOfertaIndependiente").val();
+            var EsOfertaIndependiente = (typeof _EsOfertaIndependiente === 'undefined') ? true : JSON.parse(_EsOfertaIndependiente);
+            var _esDuoPerfecto = $("#hdEsDuoPerfecto").val();
+            EsDuoPerfecto = ((typeof _esDuoPerfecto === 'undefined') ? false : JSON.parse(_esDuoPerfecto)) && (!EsOfertaIndependiente);
+        };
+
+        model.EsDuoPerfecto = EsDuoPerfecto;
+
         ShowLoading();
         jQuery.ajax({
             type: 'POST',
@@ -1254,6 +1265,7 @@ var PedidoRegistroModule = function () {
     };
 
     var AgregarProductoZonaEstrategia = function (tipoEstrategiaImagen) {
+
         var param2 = {
             CUV: $("#txtCUV").val(),
             Cantidad: $("#txtCantidad").val(),
@@ -1267,6 +1279,16 @@ var PedidoRegistroModule = function () {
             EsOfertaIndependiente: $("#hdEsOfertaIndependiente").val(),
             EsCuponNuevas: cuvEsCuponNuevas
         };
+
+        var EsDuoPerfecto = false;
+        var CodigoEstrategia = $("#hdTipoEstrategiaCodigo").val();
+        if (CodigoEstrategia === ConstantesModule.TipoEstrategia.PackNuevas) {
+            var EsOfertaIndependiente = (typeof param2.EsOfertaIndependiente === 'undefined') ? true : JSON.parse(param2.EsOfertaIndependiente);
+            var _esDuoPerfecto = $("#hdEsDuoPerfecto").val();
+            EsDuoPerfecto = ((typeof _esDuoPerfecto === 'undefined') ? false : JSON.parse(_esDuoPerfecto)) && (!EsOfertaIndependiente);
+        };
+
+        param2.EsDuoPerfecto = EsDuoPerfecto;
 
         AbrirSplash();
         jQuery.ajax({

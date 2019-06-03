@@ -514,7 +514,6 @@ var EstrategiaAgregarModule = (function () {
                             } else {
                                 mensaje = _mensajeAgregarPedido.normal;
                             }
-
                             AbrirMensaje25seg(mensaje);
 
                             return;
@@ -636,7 +635,6 @@ var EstrategiaAgregarModule = (function () {
 
                CerrarLoad();
 
-               //debugger;
                var imagenProducto = $btnAgregar.parents("[data-item]").find("[data-imagen-producto]").attr("data-imagen-producto");
 
                if (typeof imagenProducto === 'undefined' || imagenProducto === null) {
@@ -669,7 +667,10 @@ var EstrategiaAgregarModule = (function () {
                    }
                }
 
-               AbrirMensaje25seg(mensaje, imagenProducto);
+               if (params.EsDuoPerfecto !== 'undefined' && params.EsDuoPerfecto === false) {
+                   AbrirMensaje25seg(mensaje, imagenProducto);
+               }
+               
 
                if (popup) {
                    CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);
