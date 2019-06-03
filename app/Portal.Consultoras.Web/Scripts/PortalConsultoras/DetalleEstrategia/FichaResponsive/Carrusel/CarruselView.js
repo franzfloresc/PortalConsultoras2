@@ -45,33 +45,50 @@ class CarruselView {
 
         $(this.divCarruselProducto).fadeIn();
 
-        if ((widthDimamico && cantidadProdCarrusel > 2) || !widthDimamico) {
-            $(this.divCarruselProducto + ".slick-initialized").slick("unslick");
-            const parent = this;
-            $(this.divCarruselProducto).not(".slick-initialized").slick({
-                dots: false,
-                infinite: false,
-                speed: 260,
-                slidesToShow: 2,
-                slidesToScroll: 1,
-                variableWidth: widthDimamico,
-                prevArrow: slickArrows[platform].prev,
-                nextArrow: slickArrows[platform].next,
-                //centerMode: true,
-                responsive: [
-                    {
-                        breakpoint: 720,
-                        settings: {
-                            slidesToShow: 1
-                        }
+        $(this.divCarruselProducto + ".slick-initialized").slick("unslick");
+        const parent = this;
+        $(this.divCarruselProducto).not(".slick-initialized").slick({
+            lazyLoad: 'progressive',
+            dots: false,
+            infinite: false,
+            speed: 260,
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            variableWidth: false,
+            prevArrow: slickArrows[platform].prev,
+            nextArrow: slickArrows[platform].next,
+            //centerMode: true,
+            responsive: [
+                {
+                    breakpoint: 720,
+                    settings: {
+                        slidesToShow: 1
                     }
-                ]
-            }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
-                parent.marcarAnalytics(2, null, slick, currentSlide, nextSlide);
-            });
-        }
+                }
+            ]
+        }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
+            parent.marcarAnalytics(2, null, slick, currentSlide, nextSlide);
+        }).on("lazyLoaded", function(event, slick, image, imageSource) {
+            let classBox = "";
+            const aspect_ratio = image[0].naturalWidth / image[0].naturalHeight;
+            console.log("aspect_ratio: " + aspect_ratio);
+            switch (true) {
+            case aspect_ratio === 1:
+                classBox = "caja_vertical";
+                break;
+            case aspect_ratio > 1.3:
+                classBox = "caja_horizontal";
+                break;
+            case aspect_ratio < 1:
+                classBox = "caja_vertical";
+                break;
+            }
+            $(image[0].parentNode).closest("article").addClass(classBox);
+        }).on("lazyLoadError", function (event, slick, image, imageSource) {
+            $(image[0].parentNode).closest("article").addClass("caja_vertical");
+        });
 
-        EstablecerAccionLazyImagen(this.divCarruselProducto + " " + this.dataLazy);
+       // EstablecerAccionLazyImagen(this.divCarruselProducto + " " + this.dataLazy);
     }
 
     marcarAnalytics(tipo, data, slick, currentSlide, nextSlide) {
