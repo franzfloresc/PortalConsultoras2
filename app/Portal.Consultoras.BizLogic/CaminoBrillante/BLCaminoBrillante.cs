@@ -807,7 +807,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return objDemostradores;
         }
 
-        public List<BEDemostradoresCaminoBrillante> GetOrdenarDemostradores(List<BEDemostradoresCaminoBrillante> demostradores, string ordenar)
+        private List<BEDemostradoresCaminoBrillante> GetOrdenarDemostradores(List<BEDemostradoresCaminoBrillante> demostradores, string ordenar)
         {
             switch (ordenar)
             {
@@ -820,7 +820,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             }
         }
 
-        public List<BEDemostradoresCaminoBrillante> GetFiltrarDemostradores(List<BEDemostradoresCaminoBrillante> demostradores, string codFiltro)
+        private List<BEDemostradoresCaminoBrillante> GetFiltrarDemostradores(List<BEDemostradoresCaminoBrillante> demostradores, string codFiltro)
         {
             switch (codFiltro)
             {
@@ -866,6 +866,42 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         private List<BEDemostradoresCaminoBrillante> GetDemostradoresCaminoBrillanteCache(int paisId, int campaniaId, int nivelId)
         {
             return CacheManager<List<BEDemostradoresCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteDemostradores, string.Format("{0}-{1}", campaniaId, nivelId), () => GetDemostradoresCaminoBrillanteBD(paisId, campaniaId, nivelId));
+        }
+
+        #endregion
+
+        #region Carrusel
+
+        public BECarruselCaminoBrillante GetCarruselCaminoBrillante(BEUsuario entidad)
+        {
+            return GetCarrusel(entidad, 6);
+        }
+
+        private BECarruselCaminoBrillante GetCarrusel(BEUsuario entidad, int size)
+        {
+            var kits = GetKits(entidad); var demostradores = GetDemostradores(entidad, size, 0, string.Empty, string.Empty);
+            if (kits == null && demostradores == null) return null;
+
+            var carrusel = new BECarruselCaminoBrillante(); var iSize = size;
+            /* Agregar el Kit Actual */
+            if (kits != null)
+            {
+                var kitsTop = kits.Where(e => e.FlagHabilitado).OrderByDescending(e => e.CodigoNivel);
+                if (kitsTop.Any())
+                {
+                    carrusel.Items.Add(new BEItemCarruselCaminoBrillante() { Kit = kits.First() });
+                    iSize -= carrusel.Items.Count;
+                }
+            }
+
+            /* Agregar los Demostradores */
+            if (demostradores != null)
+            {
+                if (demostradores.LstDemostradores.Any())
+                    carrusel.Items.AddRange(demostradores.LstDemostradores.Take(iSize).Select(e => new BEItemCarruselCaminoBrillante() { Demostrador = e }));                
+            }
+
+            return carrusel;
         }
 
         #endregion

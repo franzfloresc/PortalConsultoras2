@@ -2466,8 +2466,13 @@ namespace Portal.Consultoras.Service
             return _caminoBrillanteBusinessLogic.GetFiltrosCaminoBrillante(paisID);
         }
 
+        public BECarruselCaminoBrillante GetCarruselCaminoBrillante(BEUsuario entidad)
+        {
+            return _caminoBrillanteBusinessLogic.GetCarruselCaminoBrillante(entidad);
+        }
+
         #endregion
-        
+
         public void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle)
         {
             _pedidoWebBusinessLogic.UpdDatoRecogerPor(pedidowebdetalle);

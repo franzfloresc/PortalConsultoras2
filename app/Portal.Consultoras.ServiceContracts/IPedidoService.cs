@@ -1340,7 +1340,12 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEOrdenFiltrosCaminoBrillante> GetFiltrosCaminoBrillante(int paisID);
+
+        [OperationContract]
+        BECarruselCaminoBrillante GetCarruselCaminoBrillante(BEUsuario entidad);
+
         #endregion
+
         [OperationContract]
         void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle);
     }
