@@ -7,9 +7,10 @@
             <div data-estrategia="{{JSON2string item}}"></div>
             <div data-imagen-producto="{{ImgUrl FotoProducto01}}"></div>
         </div>
-        <div class="row"  onclick="javascript:FichaVerDetalle.OnClickFichaDetalle(event.target);">
+        <div class="row" onclick="javascript:FichaVerDetalle.OnClickFichaDetalle(event.target);">
             <div class="col-6 col-lg-12 img_producto">
                 <img alt="Etiqueta Producto" src="" data-lazy="{{ImgUrl FotoProducto01}}"/>
+                <a class="ver_detalle_producto" href="#">Ver Detalle</a>
             </div>
             <div class="col-6 col-lg-12 descripcion_producto">
                 <div class="nombre_marca">{{DescripcionMarca}} </div>
@@ -41,6 +42,16 @@
                onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
                 Agrégalo
             </a>
+        </div>
+
+        <div class="seccion_agregar">
+            <div class="tag_agotago">Agotado</div>
+        </div>
+
+        <div class="caja_producto_agregado">
+            <div>
+                AGREGADO <div class="icono"></div>
+            </div>
         </div>
     </article>
     {{/each}}

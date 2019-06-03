@@ -35,7 +35,7 @@
 
 .caja_producto {
     border-radius: 4px;
-    box-shadow: 0 0 5px 0 rgba(144, 144, 148, 0.12), 0 1px 2px 0 rgba(144, 144, 148, 0.14), 0 2px 1px -2px rgba(144, 144, 148, 0.2);
+    box-shadow: 0 0 5px 0 rgba(144, 144, 148, 0.22), 0 1px 2px 0 rgba(144, 144, 148, 0.24), 0 2px 1px -2px rgba(144, 144, 148, 0.12);
     background-color: #ffffff;
     padding: 20px;
     display: inline-block;
@@ -46,6 +46,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .img_producto img {
@@ -55,11 +56,11 @@
 }
 
 .titulo_producto {
-    font-size: 17px;
+    font-size: 14px;
     font-weight: bold;
     color: #000000;
-    line-height: 18px;
-    height: 36px;
+    line-height: 17px;
+    height: 34px;
     margin-bottom: 15px;
     overflow: hidden;
 }
@@ -85,8 +86,10 @@
 
 .seccion_agregar {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     margin-top: 12px;
+    height: 40px;
 }
 
 .contenedor_rangos_producto {
@@ -97,7 +100,7 @@
     width: 64px;
     min-width: 60px;
     -webkit-flex-flow: row wrap;
-}
+}    
 
 .botones_rangos {
     border-left: 1px solid #000;
@@ -156,6 +159,64 @@
     width: 412px !important;
 }
 /*Fin pSelling*/
+
+.producto_agotado .img_producto img {
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+.ver_detalle_producto {
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    border: 1px solid #000;
+    background-color: #fff;
+    width: 80%;
+    display: block;
+    padding: 10px 0px;
+    position: absolute;
+    line-height: normal;
+    text-align: center;
+    bottom: 18px;
+    opacity: 0;
+    letter-spacing: 1px;
+    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+}
+
+.img_producto:hover .ver_detalle_producto {
+    opacity: 1;
+}
+
+.caja_producto_agregado {
+    text-align: right;  
+    height: 18px;
+}
+
+    .caja_producto_agregado > div{
+        color: #a18328;
+        font-size: 10px;
+        font-weight: bold;
+        letter-spacing: .5px;
+        text-align: center;
+        text-transform: uppercase;
+        padding-top: 8px;
+        display: inline-block;
+        line-height: normal;
+    }
+
+        .caja_producto_agregado > div .icono {
+            width: 11px;
+            height: 11px;
+            display: inline-block;
+            position: relative;
+            top: 1px;
+            background: url(/Content/Images/group.svg) no-repeat center center;
+        }
 
 @media (min-width: 960px) {
 }
