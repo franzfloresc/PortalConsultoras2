@@ -5,6 +5,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
@@ -2212,6 +2213,13 @@ namespace Portal.Consultoras.Web.Controllers
                 model.RegistrosTotal = "0";
                 return RedirectToAction("Index", "Pedido", new { area = "" });
             }
+
+            using (var sv = new SACServiceClient())
+            {
+                var motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
+                ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
+            }
+
             return View(model);
         }
 

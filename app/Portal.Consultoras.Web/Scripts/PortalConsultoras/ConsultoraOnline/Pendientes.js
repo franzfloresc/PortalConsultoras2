@@ -294,6 +294,16 @@ function RenderizarPendientes(Pendientes) {
     SetHandlebars("#template-vpcpContent", Pendientes, "#vpcpContent");
 }
 
+function MotivoRechazoSolicitudPedidoPend(pedidoId) {
+    $('#MotivosRechazo').removeClass('hide');
+    $('#MotivosRechazo').css('display','block');
+}
+
+function OcultarMotivoRechazoPedidoPend(pedidoId) {
+    $('#MotivosRechazo').addClass('hide');
+    $('#MotivosRechazo').css('display', 'none');
+}
+
 function RechazarSolicitudCliente(pedidoId) {
     var obj = {
         pedidoId: pedidoId,
