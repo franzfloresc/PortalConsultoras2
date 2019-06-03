@@ -1001,6 +1001,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var revistaGana = ValidarDesactivaRevistaGana(userModel);
 
+              var esDuoPerfecto = _programaNuevasProvider.TieneDuoPerfecto();
 
                 productosModel.Add(new ProductoModel()
                 {
@@ -1035,9 +1036,10 @@ namespace Portal.Consultoras.Web.Controllers
                     EstrategiaIDSicc = producto.EstrategiaIDSicc,
                     //INI HD-3908
                     CodigoPalanca= (new OfertaPersonalizadaProvider()).getCodigoPalanca(producto.TipoEstrategiaCodigo),
-                    CampaniaID= userModel.CampaniaID
+                    CampaniaID= userModel.CampaniaID,
                     //FIN HD-3908
-
+                    EsDuoPerfecto = producto.FlagNueva == "1" && esDuoPerfecto,
+                    CodigoEstrategia = producto.TipoEstrategiaCodigo
                 });
             }
             catch (Exception ex)
