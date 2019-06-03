@@ -117,6 +117,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.ClienteId = mobileConfiguracion.ClienteID;
             model.Nombre = string.Empty;
 
+            model.EstadoPedido = EsPedidoReservado(configuracionCampania).ToInt();
+
             if (isMobileApp && model.ListaClientes.Any(x => x.ClienteID == mobileConfiguracion.ClienteID))
             {
                 var cli = model.ListaClientes.FirstOrDefault(x => x.ClienteID == mobileConfiguracion.ClienteID) ?? new BECliente();
@@ -241,9 +243,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ? "1"
                     : "0",
                 EstadoPedido = (beConfiguracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente && !beConfiguracionCampania.ValidacionAbierta).ToInt()
-                 
-        };
-            model.EstadoPedido = (beConfiguracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente && !beConfiguracionCampania.ValidacionAbierta).ToInt();
+            };
+
+            model.EstadoPedido = EsPedidoReservado(beConfiguracionCampania).ToInt();
 
             ValidarStatusCampania(beConfiguracionCampania);
 
