@@ -116,7 +116,7 @@ namespace Portal.Consultoras.Web.Controllers
             IEnumerable<ZonaModel> lstZonas;
             if (RegionID == -1)
             {
-                 lstZonas = _zonificacionProvider.GetZonas(PaisID);
+                 lstZonas = await _zonificacionProvider.GetZonasAsync(PaisID);
             }
             else
             {
