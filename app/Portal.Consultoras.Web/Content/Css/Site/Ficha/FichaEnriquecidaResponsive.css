@@ -6,6 +6,7 @@
     position: relative;
     letter-spacing: 1px;
     text-align: right;
+    display: block;
 }
 
     .btn_texto img {

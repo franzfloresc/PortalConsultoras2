@@ -246,7 +246,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/ProductoListado/CajaProducto.css",
                "~/Content/Css/Site/Pedido/PedidoInfo.css",
                "~/Content/Css/Site/Pedido/EditarProductoFicha.css",
-               "~/Content/Css/Site/Notificacion.css"
+               "~/Content/Css/Site/Notificacion.css",
                "~/Content/Css/Site/Esika/nuevo-look-and-feel.css"
                ));
 
@@ -314,7 +314,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css",
                "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css",
-               "~/Content/Css/Mobile/Notificacion.css"
+               "~/Content/Css/Mobile/Notificacion.css",
                "~/Content/Css/Site/Esika/nuevo-look-and-feel.css"
             ));
 

@@ -27,9 +27,9 @@
                                 <li>- 200 ml. / 6,7 fl. oz</li>
                             </ul>
                         </div>*@
-                    <div id="componentes" class="producto_componentes"></div>
+                    <div id="componentes" class="producto_componentes" data-codigovariante="@Model.CodigoVariante"></div>
 
-                    <div class="tiposytonos_componentes" style="display:none">
+                    @*<div class="tiposytonos_componentes" style="display:none">
                         <buttom class="tono_select_opt">
                             Elige 1 opción
                         </buttom>
@@ -92,7 +92,7 @@
                                 <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
                             </div>
                         </div>
-                    </div>
+                    </div>*@
                 </div>
                 <!--Botón Agregar-->
                 <div id="dvContenedorAgregar" class="contenedor_agregar"></div>
@@ -118,6 +118,7 @@
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/modal-tipos-tonos.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/tipos-tonos-componente-template.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/tipos-tonos-seleccionados-template.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/resumen-componente-template.cshtml")
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/Scripts/flipclock.js")
