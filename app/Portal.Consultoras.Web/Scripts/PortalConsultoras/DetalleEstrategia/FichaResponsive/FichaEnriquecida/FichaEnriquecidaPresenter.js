@@ -17,9 +17,17 @@
         }
     };
 
-    var _showPopupFichaEnriquecida = function (event) {
-        var componente = $(event.target).parents("[data-componente-grupo]").find("[data-componente]").data("componente");
-        _config.fichaEnriquecidaView.showPopup(componente);
+    var _showPopupFichaEnriquecida = function (grupo, cuv) {
+        var _estrategia = _estrategiaModel();
+        var _componente = _estrategia.Hermanos.filter(function(hermano){
+            return hermano.Grupo === grupo && hermano.Cuv === cuv;
+        })[0];
+
+        if(_componente === undefined) throw("componente doesn't exist.");
+
+        _config.fichaEnriquecidaView.showPopup(_componente);
+
+        return true;
     };
 
     var _hidePopupFichaEnriquecida = function () {

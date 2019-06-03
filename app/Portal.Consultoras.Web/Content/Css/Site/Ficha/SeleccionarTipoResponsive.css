@@ -1,6 +1,9 @@
 ﻿/* Tipos y tonos*/
 .tiposytonos_componentes {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
 }
 
 .tono_select_opt {
@@ -20,6 +23,7 @@
     display: block;
     font-size: 15px;
     text-align: left;
+    margin-top: 10px;
 }
 
 .tonos_seleccionados {
@@ -27,6 +31,7 @@
     border-radius: 4px;
     padding: 15px;
     margin-top: 10px;
+    width: 100%;
 }
 
 .tonos_seleccionados_item {

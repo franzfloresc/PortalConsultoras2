@@ -264,7 +264,7 @@ var ComponentesPresenter = function (config) {
             $.each(componentesAplicados, function (idxComponenteAplicado, componenteAplicado) {
                 if (componenteAplicado.Grupo == opcionAplicada.Grupo &&
                     componenteAplicado.Cuv == opcionAplicada.Cuv) {
-                        
+
                     estaEnResumen = true;
                     opcionAplicada.cantidadAplicada++;
                     //
@@ -282,9 +282,9 @@ var ComponentesPresenter = function (config) {
         return componentesAplicados;
     };
 
-    var _updateTypeOrToneSelectedQuantity = function(typesOrTones, selectedQuantity){
+    var _updateTypeOrToneSelectedQuantity = function (typesOrTones, selectedQuantity) {
         typesOrTones = typesOrTones || [];
-        
+
         $.each(typesOrTones, function (idxOpcion, opcion) {
             opcion.cantidadSeleccionados = selectedQuantity;
         });
@@ -308,7 +308,7 @@ var ComponentesPresenter = function (config) {
                 componente.HermanosSeleccionados = [];
                 componente.cantidadSeleccionados = 0;
                 componente.cantidadFaltantes = componente.FactorCuadre;
-                componente.Hermanos =_updateTypeOrToneSelectedQuantity(componente.Hermanos,0);
+                componente.Hermanos = _updateTypeOrToneSelectedQuantity(componente.Hermanos, 0);
                 //
                 result = true;
                 result = result && _config.componentesView.renderResumen(componente);
@@ -327,6 +327,41 @@ var ComponentesPresenter = function (config) {
         return result;
     };
 
+    var _changeAppliedTypesOrTones = function (grupo) {
+        if (typeof grupo === "undefined" || grupo === null) throw "grupo is null or undefined";
+
+        var result = false;
+        var model = _estrategiaModel();
+
+        $.each(model.Hermanos, function (idxComponente, componente) {
+            if (componente.Grupo == grupo) {
+                result = true;
+
+                result = result && _config.componentesView.showTypesAndTonesModal();
+
+                $.each(componente.resumenAplicados, function (idxOpcion, opcion) {
+                    _addTypeOrTone(opcion.Grupo,opcion.Cuv);
+                });
+
+                componente.selectComponentTitle = "";
+                if (componente.FactorCuadre == 1)
+                    componente.selectComponentTitle = "Cambia tu opción";
+
+                if (componente.FactorCuadre > 1)
+                    componente.selectComponentTitle = "Cambia tus " + componente.FactorCuadre + " opciones";
+
+                result = result && _config.componentesView.setTitle(componente.selectComponentTitle);
+
+                //
+                return false;
+            }
+        });
+
+        _estrategiaModel(model);
+
+        return result;
+    };
+
     return {
         estrategiaModel: _estrategiaModel,
         onEstrategiaModelLoaded: _onEstrategiaModelLoaded,
@@ -334,6 +369,7 @@ var ComponentesPresenter = function (config) {
         addTypeOrTone: _addTypeOrTone,
         onPaletaSelectItemClick: _onPaletaSelectItemClick,
         removeTypeOrTone: _removeTypeOrTone,
-        applySelectedTypesOrTones: _applySelectedTypesOrTones
+        applySelectedTypesOrTones: _applySelectedTypesOrTones,
+        changeAppliedTypesOrTones: _changeAppliedTypesOrTones,
     };
 };
