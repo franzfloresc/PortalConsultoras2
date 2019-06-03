@@ -72,8 +72,15 @@
                     @*FIN HD-3897*@
                     <div class="block mt-20-mobile">
                         <p class="block texto_verificacion_datos">
-                            <span class="text-center block">¡Bienvenida @Model.PrimerNombre</span>
+                            <span class="text-center block">¡Bienvenida @Model.PrimerNombre!</span>
                         </p>
+                        @{ if (!String.IsNullOrEmpty(Model.MensajeSaludo))
+                            {
+                                <p class="block texto_verificacion_datos">
+                                    <span class="text-center block">@Model.MensajeSaludo</span>
+                                </p>
+                            }
+                        }
                         <h2 class="text-center text-bold block texto_verificacion_datos texto_verificacion_datos--resaltado">
                             Queremos verificar tus datos
                         </h2>
