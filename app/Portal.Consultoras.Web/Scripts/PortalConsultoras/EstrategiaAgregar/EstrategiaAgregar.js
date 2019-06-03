@@ -27,6 +27,8 @@ var EstrategiaAgregarModule = (function () {
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _mensajeAgregarPedido = ConstantesModule.MensajeAgregarPedido;
     var _mensajeModificarPedido = ConstantesModule.MensajeModificarPedido;
+    var _codigoOrigenPedidoWeb = CodigoOrigenPedidoWeb;
+
     var dataProperties = {
         dataItem: "[data-item]",
         dataContenedorCantidad: "[data-cantidad-contenedor]",
@@ -266,7 +268,7 @@ var EstrategiaAgregarModule = (function () {
         var $btnAgregar = $(event.target);
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
 
-        //*****ANALYTICS ******
+        //*****ANALYTICS virtualEvent ******
         if (AnalyticsPortalModule != 'undefined') {
             var estrategiaAnalytics;
             if (typeof (fichaModule) != "undefined") {
@@ -277,20 +279,23 @@ var EstrategiaAgregarModule = (function () {
                 }
             }
 
-            if (typeof (seleccionadosPresenter) !== 'undefined') {
-                if (seleccionadosPresenter.packComponents() !== 'undefined') {
-                    var seleccionados = seleccionadosPresenter.packComponents().componentesSeleccionados;
-                    estrategiaAnalytics = JSON.parse($("#data-estrategia").attr("data-estrategia"));
-                    var codigoubigeoportal = estrategiaAnalytics.CodigoUbigeoPortal;
+            if (origenModelo.Pagina == _codigoOrigenPedidoWeb.CodigoEstructura.Pagina.ArmaTuPackDetalle) {
+                if (typeof (seleccionadosPresenter) !== 'undefined') {
+                    if (seleccionadosPresenter.packComponents() !== 'undefined') {
+                        var seleccionados = seleccionadosPresenter.packComponents().componentesSeleccionados;
+                        estrategiaAnalytics = JSON.parse($("#data-estrategia").attr("data-estrategia"));
+                        var codigoubigeoportal = estrategiaAnalytics.CodigoUbigeoPortal;
 
-                    if (codigoubigeoportal !== "") {
-                        AnalyticsPortalModule.MarcarAddCarArmaTuPack(codigoubigeoportal, seleccionados);
-                        AnalyticsPortalModule.MarcaClickAgregarArmaTuPack(codigoubigeoportal, "Agregar", "Click Botón");
+                        if (codigoubigeoportal !== "") {
+                            //AnalyticsPortalModule.MarcarAddCarArmaTuPack(codigoubigeoportal, seleccionados);
+                            AnalyticsPortalModule.MarcaClickAgregarArmaTuPack(codigoubigeoportal, "Agregar", "Click Botón");
+                        }
                     }
                 }
             }
+
         }
-        //**FIN ANALYTICS *****
+        //**FIN ANALYTICS virtualEvent *****
 
         var estrategia = getEstrategia($btnAgregar, origenPedidoWebEstrategia);
 
@@ -421,15 +426,8 @@ var EstrategiaAgregarModule = (function () {
                    sessionStorage.setItem('cuvPack', cuv);
                }
 
-               try {
-                   if (!(typeof AnalyticsPortalModule === 'undefined')) {
-                       AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
-                   }
-                   TrackingJetloreAdd(cantidad, $(elementosDiv.hdCampaniaCodigo).val(), cuv);
-               } catch (e) {
-                   console.log(e);
-               }
-
+               analyticsAgregar(event, origenPedidoWebEstrategia, estrategia);
+               
                $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
 
 
@@ -709,6 +707,36 @@ var EstrategiaAgregarModule = (function () {
            });
 
         return false;
+    };
+
+    var analyticsAgregar = function (event, origenPedidoWebEstrategia, estrategia) {
+        try {
+            
+            if (!(typeof AnalyticsPortalModule === 'undefined')) {
+
+                var origenModelo = _codigoOrigenPedidoWeb.GetOrigenModelo(origenPedidoWebEstrategia);
+                if (origenModelo.Pagina == _codigoOrigenPedidoWeb.CodigoEstructura.Pagina.ArmaTuPackDetalle) {
+                    if (typeof (seleccionadosPresenter) !== 'undefined') {
+                        var packComponents = seleccionadosPresenter.packComponents();
+                        if (packComponents !== 'undefined') {
+                            var estrategiaAnalytics = JSON.parse($("#data-estrategia").attr("data-estrategia"));
+                            var codigoubigeoportal = estrategiaAnalytics.CodigoUbigeoPortal;
+
+                            if (codigoubigeoportal !== "") {
+                                var seleccionados = packComponents.componentesSeleccionados;
+                                AnalyticsPortalModule.MarcarAddCarArmaTuPack(codigoubigeoportal, seleccionados);
+                            }
+                        }
+                    }
+                }
+                else {
+                    AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
+                }
+            }
+            TrackingJetloreAdd(estrategia.Cantidad, $(elementosDiv.hdCampaniaCodigo).val(), estrategia.CUV2);
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     var selectorCantidadEstaBloquedo = function ($element) {
