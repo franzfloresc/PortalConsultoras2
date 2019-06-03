@@ -54,5 +54,8 @@
         public int SetId { get; set; }
 
         public bool EsDuoPerfecto { get; set; }
+        //INI HD-4200
+        public bool EsSuscripcionSE{ get; set; }
+        //FIN HD-4200
     }
 }

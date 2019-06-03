@@ -140,73 +140,82 @@
 
 
 
-	<div class="layout-somos-belcorp container-fluid pl-0 pr-0">
+    <div class="layout-somos-belcorp container-fluid pl-0 pr-0">
 
 
 
-		@if (!ViewContext.EsIngresoUnico())
-		{
-			<header class="layout__header row flex-column flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
-				<div data-layout="menu"
-					 class="col-12 d-flex flex-row flex-nowrap pl-lg-0 pr-lg-0 layout__header--menuSomosBelcorp">
-					<div class="row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0 mx-auto layout__container">
-						<section class="header__icono__menu mostrarEnMobile pl-0 pr-0">
-							<img class="w-100" src="@Url.Content("~/Content/images/mobile/icono-menu-mobile.svg")" alt="Abrir Menú">
-						</section>
-						<section class="header__marca__pais text-left">
-							@if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
-							{
-								<picture class="d-block w-100">
-									<source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")">
-									<source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_mobile.svg")">
-									<img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")" alt="Ésika">
-								</picture>
-							}
-							else
-							{
-								<picture class="d-block w-100">
-									<source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
-									<img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
-								</picture>
-							}
-						</section>
-						@Html.Partial("~/Views/Shared/_MenuPrincipalResponsive.cshtml")
-						<section class="row flex-row justify-content-center align-items-center flex-grow-1 header__buscador__productos">
-							@if (ViewBag.MostrarBuscadorYFiltros)
-							{
-								@Html.Partial("~/Views/Shared/_BuscadorResponsive.cshtml")
-							}
-						</section>
-						@Html.Partial("~/Views/Shared/_MenuSecundarioResponsive.cshtml")
-					</div>
-				</div>
-			</header>
+        @if (!ViewContext.EsIngresoUnico())
+        {
+	    <header class="layout__header layout__header--nuevoLookAndFeelEsika row flex-column flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0">
+                <div data-layout="menu"
+                     class="col-12 d-flex flex-row flex-nowrap pl-lg-0 pr-lg-0 layout__header--menuSomosBelcorp">
+                    <div class="row flex-row flex-nowrap justify-content-between justify-content-lg-start justify-content-xl-start align-items-center ml-0 mr-0 mx-auto layout__container">
+                        <section class="header__icono__menu mostrarEnMobile pl-0 pr-0">
+                            @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+                            {
+                                <img class="w-100" src="@Url.Content("~/Content/Images/icono-menu-mobile.svg")" alt="Abrir Menú">
+                            }
+                            else
+                            {
+                                <img class="w-100" src="@Url.Content("~/Content/images/mobile/icono-menu-mobile.svg")" alt="Abrir Menú">
+                            }
+                        </section>
+                        <section class="header__marca__pais text-left">
+                            @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
+                            {
+                                <picture class="d-block w-100">
+                                    <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")">
+                                    <source media="(max-width: 991px)" srcset="@Url.Content("~/Content/images/Esika/logo_marca_pais_mobile.svg")">
+                                    <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Esika/logo_marca_pais_desktop.svg")" alt="Ésika">
+                                </picture>
+                            }
+                            else
+                            {
+                                <picture class="d-block w-100">
+                                    <source media="(min-width: 992px)" srcset="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
+                                    <img class="logoPaginaResponsive pointer" src="@Url.Content("~/Content/images/Lbel/logo_marca_pais.svg")">
+                                </picture>
+                            }
+                        </section>
+                        @Html.Partial("~/Views/Shared/_MenuPrincipalResponsive.cshtml")
+                        <section class="row flex-row justify-content-center align-items-center flex-grow-1 header__buscador__productos">
+                            @if (ViewBag.MostrarBuscadorYFiltros)
+                            {
+                                @Html.Partial("~/Views/Shared/_BuscadorResponsive.cshtml")
+                            }
+                        </section>
+                        @Html.Partial("~/Views/Shared/_MenuSecundarioResponsive.cshtml")
+                    </div>
+                </div>
+            </header>
 
-			if (!string.IsNullOrEmpty(ViewBag.Title))
-			{
-				<section data-layout="ubicacionWeb"
-						 class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
-					<div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
-						<ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
-							<li class="layout__view__breadcrumb">
-								<a href="@Url.Action("Index", "Bienvenida")" class="d-block" title="Home">Home</a>
-							</li>
-							<li class="layout__view__breadcrumb layout__view__breadcrumb--active__view">
-								<span class="d-block">@ViewBag.Title</span>
-							</li>
-						</ul>
-					</div>
-				</section>
-			}
-		}
+            if (!string.IsNullOrEmpty(ViewBag.Title))
+            {
+                <section data-layout="ubicacionWeb"
+                         class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
+                    <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
+                        <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
+                            <li class="layout__view__breadcrumb">
+                                <a href="@Url.Action("Index", "Bienvenida")" class="d-block" title="Home">Home</a>
+                            </li>
+                            <li class="layout__view__breadcrumb layout__view__breadcrumb--active__view">
+                                <span class="d-block">@ViewBag.Title</span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            }
+        }
 
 
-		<div class="content_responsive" data-layout="body">
-			@RenderBody()
-		</div>
-
-		@Html.Partial("~/Views/Shared/_FooterResponsive.cshtml")
-	</div>
+        <div class="content_responsive" data-layout="body">
+            @RenderBody()
+        </div>
+        <a title="Chat Messenger" class="mostrarEnMobile btn_chat_messenger_mobile" href="javascript: AbrirChatBot()">
+            <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
+        </a>
+        @Html.Partial("~/Views/Shared/_FooterResponsive.cshtml")
+    </div>
 
 	<div id="loadingScreen"></div>
 
@@ -255,6 +264,8 @@
         var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
         var AplicarLogicaCantidadBotonVerTodos = '@ViewBag.AplicarLogicaCantidadBotonVerTodos'.toLowerCase();
         var MostrarPalabrasMenoresACuatro = '@ViewBag.MostrarPalabrasMenoresACuatro';
+        var SessionTimeout = '@ViewBag.SessionTimeout';
+        var ChatBotUrlRef = '@ViewBag.ChatBotUrlRef';
 
         function ShowLoading() {
             $("#loading-spin").css('visibility', 'visible').fadeIn();
@@ -287,7 +298,10 @@
 			location.href = baseUrl + 'Mobile/Buscador';
 		}
 	</script>
-
+    @if (!ViewContext.EsIngresoUnico())
+    {
+        Html.RenderPartial("VistaParcialMainLayout/_fbsdk");
+    }
 
 	@RenderSection("scripts", required: false)
 

@@ -79,11 +79,10 @@ var EstrategiaAgregarModule = (function () {
         }
     }
 
-    // TODO: modelo no se usa
-    //var _OrigenPedido = {
-    //    MobileContenedorArmaTuPack: CodigoOrigenPedidoWeb.MaestroCodigoOrigen.MobileArmaTuPackFicha,
-    //    DesktopContenedorArmaTuPack: CodigoOrigenPedidoWeb.MaestroCodigoOrigen.DesktopArmaTuPackFicha
-    //}
+    var _OrigenPedido = {
+        MobileContenedorArmaTuPack: CodigoOrigenPedidoWeb.MaestroCodigoOrigen.MobileArmaTuPackFicha,
+        DesktopContenedorArmaTuPack: CodigoOrigenPedidoWeb.MaestroCodigoOrigen.DesktopArmaTuPackFicha
+    }
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
         var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia")
@@ -515,7 +514,6 @@ var EstrategiaAgregarModule = (function () {
                             } else {
                                 mensaje = _mensajeAgregarPedido.normal;
                             }
-
                             AbrirMensaje25seg(mensaje);
 
                             return;
@@ -637,7 +635,6 @@ var EstrategiaAgregarModule = (function () {
 
                CerrarLoad();
 
-               //debugger;
                var imagenProducto = $btnAgregar.parents("[data-item]").find("[data-imagen-producto]").attr("data-imagen-producto");
 
                if (typeof imagenProducto === 'undefined' || imagenProducto === null) {
@@ -670,7 +667,10 @@ var EstrategiaAgregarModule = (function () {
                    }
                }
 
-               AbrirMensaje25seg(mensaje, imagenProducto);
+               if (params.EsDuoPerfecto !== 'undefined' && params.EsDuoPerfecto === false) {
+                   AbrirMensaje25seg(mensaje, imagenProducto);
+               }
+               
 
                if (popup) {
                    CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);
@@ -723,7 +723,6 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var adicionarCantidad = function (e) {
-
         e.stopPropagation();
         var $this = $(e.target);
         if (selectorCantidadEstaBloquedo($this)) return false;

@@ -102,6 +102,9 @@ var FichaModule = (function (config) {
         }
     }
 
+    var _objTipoPalanca = ConstantesModule.DiccionarioTipoEstrategia.find(function (x) { return x.texto === config.palanca });
+    var _fichaServicioApi = (variablesPortal.MsFichaEstrategias && _objTipoPalanca) ? (variablesPortal.MsFichaEstrategias.indexOf(_objTipoPalanca.codigo) > -1) : false;
+
     var _config = {
         esMobile: null,
         palanca: config.palanca || "",
@@ -117,15 +120,13 @@ var FichaModule = (function (config) {
         analyticsPortalModule: config.analyticsPortalModule,
         generalModule: config.generalModule,
         detalleEstrategiaProvider: config.detalleEstrategiaProvider,
-        componenteDetalleModule: config.componenteDetalleModule
+        componenteDetalleModule: config.componenteDetalleModule,
+        usaLocalStorage: !_fichaServicioApi
     };
 
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
     var _tipoAccionNavegar = ConstantesModule.TipoAccionNavegar;
-
-    var _objTipoPalanca = ConstantesModule.DiccionarioTipoEstrategia.find(function (x) { return x.texto === _config.palanca });
-    var _fichaServicioApi = (variablesPortal.MsFichaEstrategias && _objTipoPalanca) ? (variablesPortal.MsFichaEstrategias.indexOf(_objTipoPalanca.codigo) > -1) : false;
 
     var _elementos = {
         hdCampaniaCodigo: {
@@ -396,6 +397,7 @@ var FichaModule = (function (config) {
             _esMultimarca = estrategia.EsMultimarca;
 
             estrategia.esCampaniaSiguiente = estrategia.CampaniaID !== _obtenerCampaniaActual();
+
             $.each(estrategia.Hermanos, function (idx, hermano) {
                 hermano = estrategia.Hermanos[idx];
                 hermano.esCampaniaSiguiente = estrategia.esCampaniaSiguiente;
@@ -775,6 +777,7 @@ var FichaModule = (function (config) {
             idTituloCarrusel: "#tituloCarrusel",
             divCarruselProducto: "#divFichaCarruselProducto",
             OrigenPedidoWeb: _config.origen,
+            usaLocalStorage: _config.usaLocalStorage,
             tituloCarrusel: modeloFicha.DescripcionCompleta,
             codigoProducto: modeloFicha.CodigoProducto,
             precioProducto: modeloFicha.Precio2,

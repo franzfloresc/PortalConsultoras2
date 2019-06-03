@@ -1060,6 +1060,9 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.SegmentoConstancia = userData.SegmentoConstancia != null && userData.SegmentoConstancia != "" ? userData.SegmentoConstancia.Trim() : "(not available)";
             ViewBag.DescripcionNivelAnalytics = userData.DescripcionNivel != null && userData.DescripcionNivel != "" ? userData.DescripcionNivel : "(not available)";
             ViewBag.MensajeChat = userData.MensajeChat;
+            ViewBag.ChatBotPageId = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ChatBotPageId);
+            ViewBag.ChatBotToken = new ChatbotProvider().GetToken(userData, SessionManager, _configuracionManagerProvider);
+            ViewBag.ChatBotUrlRef = string.Format(Constantes.ConfiguracionManager.ChatBotUrl, ViewBag.ChatBotPageId, ViewBag.ChatBotToken);
 
             if (userData.RolID == Constantes.Rol.Consultora)
             {

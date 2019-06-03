@@ -205,6 +205,10 @@
             {{/iff}}*@
         </div>
         <div class="texto_pedidos celda_iconos_acciones">
+            {{#if EsSuscripcionSE}}
+            <div class="info_copy" style="display:none">
+            </div>
+            {{else}}
             {{#if EsKitNueva}}
             <div class="info_copy">
                 <input type="hidden" data-kit="true" />
@@ -231,6 +235,7 @@
             <!-- Fin - Este enlace se muestra cuando el producto es un regalo de Programa Nuevas -->
             {{else}}
             <a onclick="tooltipDelete(event, '{{PedidoDetalleID}}', '{{SetID}}');" class="border_radius_4 icon_trash" title="Eliminar"></a>
+            {{/if}}
             {{/if}}
             {{/if}}
         </div>
