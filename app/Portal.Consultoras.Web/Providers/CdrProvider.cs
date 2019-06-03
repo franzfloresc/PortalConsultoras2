@@ -121,7 +121,7 @@ namespace Portal.Consultoras.Web.Providers
                     obj.Cantidad = xmlNode["cantidad"].InnerText == "" ? 0 : Convert.ToInt32(xmlNode["cantidad"].InnerText);
                     obj.Precio = xmlNode["precio"].InnerText == "" ? 0 : Convert.ToDecimal(xmlNode["precio"].InnerText);
                     obj.Simbolo = xmlNode["simbolo"].InnerText;
-                    obj.Estado = xmlNode["estado"].InnerText != "" ? 0 : Convert.ToInt32(xmlNode["estado"].InnerText);
+                    obj.Estado = xmlNode["estado"].InnerText == "" ? 0 : Convert.ToInt32(xmlNode["estado"].InnerText);
                     obj.PrecioFormato = xmlNode["precio"].InnerText == "" ? "0" : Util.DecimalToStringFormat(Convert.ToDecimal(xmlNode["precio"].InnerText), codigoIso);
                     obj.CodigoMotivoRechazo = xmlNode["codigorechazo"].InnerText;
                     obj.Observacion = xmlNode["obs"].InnerText;
