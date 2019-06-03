@@ -46,8 +46,7 @@ $(document).ready(function () {
         estrategia.Hermanos.length,
         estrategia.CodigoProducto,
         estrategia.Precio2,
-        estrategia.Hermanos,
-        0);
+        estrategia.Hermanos);
     let carruselPresenter = new CarruselPresenter();
 
     let carruselView = new CarruselView(carruselPresenter);

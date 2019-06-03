@@ -9,7 +9,7 @@ class CarruselPresenter {
         this.mostrarCarrusel();
     }
 
-    promiseObternerDataCarrusel(){
+    promiseObternerDataCarrusel(params){
         var dfd = $.Deferred();
         $.ajax({
             type: "POST",
@@ -45,19 +45,21 @@ class CarruselPresenter {
                 codigosProductos: codigosProductos,
                 precioProducto: this.model.precioProducto
             };
+            const thisReference = this;
             this.promiseObternerDataCarrusel(param).done(function (response) {
                 if (response) {
                     if (response.success) {
                         data.lista = response.result;
+                        if (data.lista.length > 0) {
+                            $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
+                            thisReference.view.crearPlantilla(data, thisReference.obtenerTitulo(), data.lista.length);
+                        }
                     }
                 }
             });
         }
 
-        if (data.lista.length > 0) {
-            $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
-            this.view.crearPlantilla(data, this.obtenerTitulo(), data.lista.length);
-        }
+        
     }
 
     cargarDatos() {
