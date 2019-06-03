@@ -158,7 +158,7 @@ var ComponentesView = function () {
         $(_elements.tiposTonosModal.id).on("click", _elements.tiposTonosModal.aplicarSeleccion.id, function (e) {
             e.preventDefault();
             var grupo = $(e.target).data("grupo");
-            _presenter.applySelected(grupo);
+            _presenter.applySelectedTypesOrTones(grupo);
         });
 
         return true;
