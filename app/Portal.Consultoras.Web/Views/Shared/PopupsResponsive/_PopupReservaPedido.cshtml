@@ -1,0 +1,63 @@
+﻿@* MC - HD-4294 - VALIDAR CORREO EN EL PASE DE PEDIDO *@
+
+<link href="@Url.Content("~/Content/Css/Site/Shared/PopupsResponsive/popup-pedidos-pendientes.css")" rel="stylesheet" />
+
+<div class="popup__wrapper bg__popups__default" id="PopupReservaPedido">
+    <div class="popup__somos__belcorp popup__somos__belcorp--reservaPedido">
+        <div id="Paso1-RegistroCorreo">
+            <div class="popup__somos__belcorp__cabecera">
+                <a onclick="javascript:$('#PopupReservaPedido').fadeOut(100);" title="Cerrar" class="popup__somos__belcorp__icono__cerrar popup__somos__belcorp__icono__cerrar--reservaPedido">
+                    <img src="@Url.Content("~/Content/Images/icono_cerrar_popup.svg")" alt="Cerrar Popup" />
+                </a>
+                <div class="mt-53 popup__somos__belcorp__icono popup__somos__belcorp__icono--reservaPedido center-block">
+                    <img src="@Url.Content("~/Content/Images/icono_notificacion_negativa.svg")" alt="Tienes pedidos pendientes por aprobar" />
+                </div>
+                <h1 class="popup__somos__belcorp__titulo popup__somos__belcorp__titulo--reservaPedido">
+                    Tu pedido fue reservado<br />con éxito
+                </h1>
+            </div>
+            <div class="popup__somos__belcorp__contenido popup__somos__belcorp__contenido--reservaPedido">
+                <h2 class="popup__somos__belcorp__titulo popup__somos__belcorp__titulo--boletaElectronica">
+                    Para recibir tu boleta electrónica<br />actualizar tu correo
+                </h2>
+                <p class="text-left popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--reservaPedido">
+                    Podrás conocer tu ganacia y el detalle de tu pedido.
+                </p>
+                <div class="form__group__fields form__group__fields--confirmacionCorreoBoleta">
+                    <input id="txtCorreoElectronicoBoletaElectronica" type="text" class="d-block w-100 text-bold text__field__sb" name="txtCorreoElectronicoBoletaElectronica" value="" />
+                    <label for="txtCorreoElectronicoBoletaElectronica" class="d-block w-100 label__field__sb">Correo electrónico</label>
+                </div>
+                <button class="text-center text-bold multimarca-background-color popup__somos__belcorp__btn popup__somos__belcorp__btn--actualizarCorreo">
+                    Actualizar
+                </button>
+            </div>
+        </div>
+        <div id="Paso2-ConfirmacionCorreo" style="display:none;">
+            <div class="popup__somos__belcorp__cabecera">
+                <a onclick="javascript:$('#PopupReservaPedido').fadeOut(100);" title="Cerrar" class="popup__somos__belcorp__icono__cerrar popup__somos__belcorp__icono__cerrar--confirmaCorreo">
+                    <img src="@Url.Content("~/Content/Images/icono_cerrar_popup.svg")" alt="Cerrar Popup" />
+                </a>
+                <div class="mt-53 popup__somos__belcorp__icono popup__somos__belcorp__icono--reservaPedido center-block">
+                    <img src="@Url.Content("~/Content/Images/icono_notificacion_negativa.svg")" alt="Tienes pedidos pendientes por aprobar" />
+                </div>
+            </div>
+            <div class="text-center popup__somos__belcorp__contenido popup__somos__belcorp__contenido--confirmaCorreo">
+                <h2 class="popup__somos__belcorp__titulo popup__somos__belcorp__titulo--reservaPedido">
+                    Confirma tu correo
+                </h2>
+                <p class="text-left popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--confirmaCorreo">
+                    Te enviamos un mensaje a:
+                </p>
+                <div class="d-inline-block form__group__fields form__group__fields--confirmaCorreo">
+                    <input id="txtCorreoElectronicoPorConfirmar" type="text" class="d-block w-100 text-bold text__field__sb" name="txtCorreoElectronicoPorConfirmar" value="cambiodecorreo@example.com" />
+                </div>
+                <p class="text-center popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--reenvioAlCorreo">
+                    <span class="d-block">¿Aún no recibes nuestro correo?</span>
+                    <a href="#" class="d-block enlace__sb enlace__sb--reenviarCorreo" title="Reenviar el correo">Reenviar el correo</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* FIN - MC - HD-4294 - VALIDAR CORREO EN EL PASE DE PEDIDO *@
