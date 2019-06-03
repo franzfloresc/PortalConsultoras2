@@ -87,7 +87,7 @@ var EstrategiaAgregarModule = (function () {
     }
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
-        var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia")
+        var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia")
             || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile").find(".slick-active").find(dataProperties.dataEstrategia).attr("data-estrategia")
             || "";
 
@@ -267,8 +267,8 @@ var EstrategiaAgregarModule = (function () {
 
         var $btnAgregar = $(event.target);
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
+        //#region ANALYTICS
 
-        //*****ANALYTICS virtualEvent ******
         if (AnalyticsPortalModule != 'undefined') {
             var estrategiaAnalytics;
             if (typeof (fichaModule) != "undefined") {
@@ -302,12 +302,14 @@ var EstrategiaAgregarModule = (function () {
         if (typeof FichaVerDetalle !== 'undefined') {
             if (typeof FichaVerDetalle.GetOrigenPedidoWebDetalle !== 'undefined') {
                 var origenDetalle = FichaVerDetalle.GetOrigenPedidoWebDetalle(estrategia);
+
                 if (origenDetalle) {
                     origenPedidoWebEstrategia = origenDetalle;
                 }
             }
         }
 
+        // TODO: consultar si tiene "esCampaniaSiguiente"
         if (estrategiaEstaBloqueada($btnAgregar, estrategia.CampaniaID)) {
             estrategia.OrigenPedidoWebEstrategia = origenPedidoWebEstrategia;
             getDivMsgBloqueado($btnAgregar, estrategia).show();
@@ -315,6 +317,7 @@ var EstrategiaAgregarModule = (function () {
             return false;
         }
 
+        // TODO: consultar si tiene "esCampaniaSiguiente", clase btn_desactivado_general
         if (_ValidarSeleccionTono($btnAgregar, _config.esFicha)) {
             return false;
         }
@@ -333,6 +336,7 @@ var EstrategiaAgregarModule = (function () {
             CerrarLoad();
             return false;
         }
+
         estrategia.Cantidad = cantidad;
 
         if (!isMobile()) {
@@ -343,12 +347,15 @@ var EstrategiaAgregarModule = (function () {
         AbrirLoad();
 
         var itemClone = estrategiaObtenerObjHtmlLanding($btnAgregar);
+
         if (isPagina("ofertas") && !isMobile()) {
             var estratediaId = itemClone.data("item");
             if (estratediaId != "") {
                 itemClone = itemClone.parent().find("[data-item=" + estratediaId + "]");
             }
         }
+
+        // TODO: consultar
         var divAgregado = $(itemClone).find(".agregado.product-add");
 
         var cuvs = "";

@@ -1,6 +1,9 @@
 ﻿/* Tipos y tonos*/
 .tiposytonos_componentes {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
 }
 
 .tono_select_opt {
@@ -19,6 +22,8 @@
     width: 100%;
     display: block;
     font-size: 15px;
+    text-align: left;
+    margin-top: 10px;
 }
 
 .tonos_seleccionados {
@@ -26,6 +31,7 @@
     border-radius: 4px;
     padding: 15px;
     margin-top: 10px;
+    width: 100%;
 }
 
 .tonos_seleccionados_item {
@@ -200,7 +206,7 @@
     width: 56px !important;
     text-align: center;
     position: relative;
-    margin: 0px 6px;
+    margin: 6px 6px 0px 6px;
     height: 74px;
     align-items: center;
     justify-content: center;
@@ -217,8 +223,8 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    right: -3px;
-    top: -5px;
+    right: -6px;
+    top: -6px;
     transition: all 350ms;
     z-index: 99;
 }
@@ -240,6 +246,7 @@
         letter-spacing: 0.5px;
         line-height: normal;
         display: block;
+        margin-top: 3px;
     }
 
 .seleccion_main {
@@ -303,8 +310,7 @@
 
 
 .selecion_item button {
-    font-size: 11px;
-    text-transform: uppercase;
+    font-size: 13px;
     font-weight: bold;
     line-height: normal;
     padding: 10px 26px;
@@ -314,6 +320,7 @@
     transition: all 350ms;
     text-align: center;
     width: 100px;
+    letter-spacing: 1px;
     margin-left: auto;
 }
 
@@ -350,6 +357,10 @@
         padding: 15px 0;
         border: none;
     }
+
+.borde_seleccion_tono {
+    border-color: black;
+}
 
 @media (max-width: 960px) {
     .content_tono_detalle {
