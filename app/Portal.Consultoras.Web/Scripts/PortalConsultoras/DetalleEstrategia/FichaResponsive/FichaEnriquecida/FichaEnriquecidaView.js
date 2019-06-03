@@ -70,11 +70,13 @@
     var _showPopup = function (data) {
         SetHandlebars(_elements.popup.templateId, data, _elements.popup.contenedor);
         _renderFichaEnriquecida(data, true);
+        $("body").css("overflow", "hidden");
         $(_elements.popup.id).show();
         return true;
     };
 
     var _hidePopup = function () {
+        $("body").css("overflow", "auto");
         $(_elements.popup.id).hide();
         return true;
     };

@@ -29,13 +29,16 @@
                         <div class="descripcion_item">{{Cabecera.TallaMedidas}}</div>
                         {{/IsNullOrEmpty}}
 
-
                         {{#iff PrecioCatalogo '>' 0}}
                         <div class="descripcion_item" style="font-weight:bold">
                             Para tu cliente: <span style="font-weight:bold">{{SimboloMoneda}} {{DecimalToStringFormat PrecioCatalogo}}</span>
                         </div>
                         {{/iff}}
-                        @*<div class="descripcion_item item_pum">Aquí va PUM</div>*@
+                        {{#IsNullOrEmpty UnidadMedidaContenido '!='}}
+                        {{#iff PrecioContenido '>' 0}}
+                        <div class="descripcion_item item_pum">{{UnidadMedidaContenido}} a {{SimboloMoneda}} {{DecimalToStringFormatWithoutRounding PrecioContenido}}</div>
+                        {{/iff}}
+                        {{/IsNullOrEmpty}}
                     </div>
                 </div>
                 <div class="col-12 col-lg-5">
