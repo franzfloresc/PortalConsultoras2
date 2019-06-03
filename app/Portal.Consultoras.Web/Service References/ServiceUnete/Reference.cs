@@ -9683,7 +9683,10 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string campania1erPasePedidoField;
-        
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EdadField;
+
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -10590,7 +10593,24 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 }
             }
         }
-        
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Edad
+        {
+            get
+            {
+                return this.EdadField;
+            }
+            set
+            {
+                if ((object.ReferenceEquals(this.EdadField, value) != true))
+                {
+                    this.EdadField = value;
+                    this.RaisePropertyChanged("Edad");
+                }
+            }
+        }
+
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
