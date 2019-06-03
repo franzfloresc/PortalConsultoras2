@@ -106,12 +106,16 @@
                 justify-content: flex-end;
             }
 
+            .popup__somos__belcorp--reservaPedido > div:last-child{
+                justify-content:center;
+            }
+
             .popup__somos__belcorp__icono__cerrar--reservaPedido {
                 top: -58px;
             }
 
             .popup__somos__belcorp__icono__cerrar--confirmaCorreo {
-                top: 6px;
+                top: -80px;
             }
 
         .popup__somos__belcorp__contenido--reservaPedido {
@@ -120,7 +124,7 @@
         
         .popup__somos__belcorp__titulo--boletaElectronica,
         .popup__somos__belcorp__mensaje--reservaPedido{
-            text-align:left;
+            text-align:left!important;
         }
         
         .popup__somos__belcorp__contenido--confirmaCorreo {
@@ -135,14 +139,22 @@
         overflow: auto;
     }
 
-    .popup__somos__belcorp--reservaPedido > div:first-child {
-        justify-content: flex-start;
-    }
+        .popup__somos__belcorp--reservaPedido > div:first-child,
+        .popup__somos__belcorp--reservaPedido > div:last-child{
+            justify-content: flex-start;
+        }
 
-    .popup__somos__belcorp__icono__cerrar--reservaPedido,
-    .popup__somos__belcorp__icono__cerrar--confirmaCorreo {
-        top: 6px;
-    }
+        .popup__somos__belcorp__icono__cerrar--reservaPedido,
+        .popup__somos__belcorp__icono__cerrar--confirmaCorreo {
+            top: 6px;
+        }
+
+        .popup__somos__belcorp__titulo--boletaElectronica,
+        .popup__somos__belcorp__mensaje--reservaPedido,
+        .form__group__fields--confirmacionCorreoBoleta,
+        .popup__somos__belcorp__btn--actualizarCorreo {
+            max-width: 320px;
+        }
 }
 
 /* FIN - MC - HD-4294 - VALIDAR CORREO EN EL PASE DE PEDIDO */
