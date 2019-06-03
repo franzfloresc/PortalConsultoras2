@@ -383,32 +383,32 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var modeloOrigen = UtilOrigenPedidoWeb.GetModelo(origen);
-            modeloOrigen.Seccion = ConsOrigenPedidoWeb.Seccion.Ficha;
+            var codigoSeccion = ConsOrigenPedidoWeb.Seccion.Ficha;
 
             tipo = Util.Trim(tipo);
             if (tieneCarrusel)
             {
-                modeloOrigen.Seccion = ConsOrigenPedidoWeb.Seccion.CarruselVerMas;
+                codigoSeccion = ConsOrigenPedidoWeb.Seccion.CarruselVerMas;
 
                 if (modeloOrigen.Palanca != ConsOrigenPedidoWeb.Palanca.Lanzamientos)
                 {
                     modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Ficha;
                     if (tipo == ConsOrigenPedidoWeb.Seccion.CarruselUpselling) // agregar los 'or' para crosSelling
                     {
-                        modeloOrigen.Seccion = tipo;
+                        codigoSeccion = tipo;
                     }
                 }
             }
             else if (modeloOrigen.Seccion == ConsOrigenPedidoWeb.Seccion.Recomendado)
             {
-                modeloOrigen.Seccion = ConsOrigenPedidoWeb.Seccion.RecomendadoFicha;
+                codigoSeccion = ConsOrigenPedidoWeb.Seccion.RecomendadoFicha;
             }
             else if (modeloOrigen.Seccion == ConsOrigenPedidoWeb.Seccion.CarruselUpselling)
             {
-                modeloOrigen.Seccion = ConsOrigenPedidoWeb.Seccion.FichaUpselling;
+                codigoSeccion = ConsOrigenPedidoWeb.Seccion.FichaUpselling;
                 modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Ficha;
             }
-
+            modeloOrigen.Seccion = codigoSeccion;
             int result = UtilOrigenPedidoWeb.ToInt(modeloOrigen);
             return result;
 
