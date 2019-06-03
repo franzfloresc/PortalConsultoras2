@@ -338,16 +338,14 @@ var ComponentesView = function () {
     };
 
     var _showBorderItemSelected = function (componente) {
-        var opcion = "";
-
-        $.each(componente.Hermanos, function (iHermano, oHermano) {
-            if (oHermano.cantidadSeleccionada > 0) {
-                opcion = _elements.componente.tono.cuv.replace("{0}", oHermano.Cuv);
-            }
-        });
-
         $(_elements.componente.tono.div).find(_elements.componente.tono.cuv2).removeClass(_elements.componente.tono.bordeSeleccionado);
-        $(_elements.componente.tono.div).find(opcion).addClass(_elements.componente.tono.bordeSeleccionado);
+
+        $.each(componente.resumenAplicadosVisualizar, function (i, objeto) {
+            if(objeto.cantidadAplicada)
+                $(_elements.componente.tono.div)
+                    .find(_elements.componente.tono.cuv.replace("{0}", objeto.Cuv))
+                    .addClass(_elements.componente.tono.bordeSeleccionado);
+        });
 
         return true;
     };
