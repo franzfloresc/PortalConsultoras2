@@ -165,6 +165,7 @@
     <Compile Include="Constante\CodigoUbigeoPortal.cs" />
     <Compile Include="Constante\ConsOrigenPedidoWeb.cs" />
     <Compile Include="Constante\ConsTablaLogica.cs" />
+    <Compile Include="Cryptography\DesAlgorithm.cs" />
     <Compile Include="Excel\ExcelProtection.cs" />
     <Compile Include="LogManager\CustomTraceException.cs" />
     <Compile Include="ExcelCellHeader.cs" />

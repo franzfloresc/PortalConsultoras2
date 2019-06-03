@@ -621,5 +621,12 @@ namespace Portal.Consultoras.Common
             public const short CantidadProductosCarruselUpSelling = 1502;
         }
 
+        public static class TuVozOnline
+        {
+            public const short Id = 172;
+            public const string PanelId = "PANEL_ID";
+            public const string PanelKey = "PANEL_KEY";
+        }
+
     }
 }

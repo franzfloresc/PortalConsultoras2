@@ -6,11 +6,24 @@ using System.Data;
 using System.Linq;
 using System.Configuration;
 using JWT;
+using System;
 
 namespace Portal.Consultoras.BizLogic.Contenido
 {
     public class BLContenidoApp : IContenidoAppResumenBusinessLogic
     {
+        private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
+
+        public BLContenidoApp() : this(new BLTablaLogicaDatos())
+        {
+
+        }
+
+        public BLContenidoApp(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic)
+        {
+            _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
+        }
+
         public void CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle)
         {
             var daContenidoApp = new DAContenidoAppResumen(itmFilter.PaisID);
@@ -84,6 +97,12 @@ namespace Portal.Consultoras.BizLogic.Contenido
 
             if (TuVozOnline != null)
             {
+                var datos = _tablaLogicaDatosBusinessLogic.GetListCache(itmFilter.PaisID, ConsTablaLogica.TuVozOnline.Id);
+                var dato = datos.FirstOrDefault(r => r.Codigo == ConsTablaLogica.TuVozOnline.PanelId);
+                var panelId = dato != null ? dato.Valor : string.Empty;
+
+                dato = datos.FirstOrDefault(r => r.Codigo == ConsTablaLogica.TuVozOnline.PanelKey);
+                var panelKey = dato != null ? dato.Valor : string.Empty;
 
                 //var secretKey = WebConfig.JsonWebTokenSecret;
 
@@ -105,5 +124,64 @@ namespace Portal.Consultoras.BizLogic.Contenido
 
             return listaContenido;
         }
+
+        public KeyValuePair<string, string> GetPanelConfig(int paisId)
+        {
+            var datos = _tablaLogicaDatosBusinessLogic.GetListCache(paisId, ConsTablaLogica.TuVozOnline.Id);
+            var dato = datos.FirstOrDefault(r => r.Codigo == ConsTablaLogica.TuVozOnline.PanelId);
+            var panelId = dato != null ? dato.Valor : string.Empty;
+
+            dato = datos.FirstOrDefault(r => r.Codigo == ConsTablaLogica.TuVozOnline.PanelKey);
+            var panelKey = dato != null ? dato.Valor : string.Empty;
+
+            return new KeyValuePair<string, string>(panelKey, panelId);
+        }
+
+        public string GetUrl(string baseUrl, string panelId, string panelKey)
+        {
+            var currentTimeSeconds = Util.ToUnixTimespan(DateTime.Now);
+
+            var parameters = string.Format(Constantes.DatosTuVozOnline.FormatUrl,
+                currentTimeSeconds,
+                "",//user.PrimerNombre,
+                "", //user.PrimerApellido,
+                "",//user.EMail,
+                DateTime.Now.Year,
+                "Yes",
+                "",//user.FechaNacimiento,
+                ""//user.CodigoISO
+            );
+
+            //var query = string.Format(baseUrl,
+            //    HttpUtility.UrlEncode(DesAlgorithm.Encrypt(parameters, panelKey)),
+            //    HmacShaAlgorithm.GetHash(parameters, panelKey),
+            //    panelId
+            //);
+
+            return string.Empty;
+        }
+
+        //public string GetUrl(User user, string panelId, string panelKey)
+        //{
+        //    var url = BasePath;
+        //    var currentTimeSeconds = Util.ToUnixTimespan(DateTime.Now);
+        //    var parameters = string.Format("{0}|{1}|{2}|{3}|Year={4}|Active={5}|Birthdate={6:dd-MM-yyyy}|Country={7}",
+        //        currentTimeSeconds,
+        //        user.PrimerNombre,
+        //        user.PrimerApellido,
+        //        user.EMail,
+        //        DateTime.Now.Year,
+        //        "Yes",
+        //        user.FechaNacimiento,
+        //        user.CodigoISO
+        //    );
+        //    var query = string.Format("?ID_STRING={0}&SIGNATURE={1}&id={2}",
+        //        HttpUtility.UrlEncode(DesAlgorithm.Encrypt(parameters, panelKey)),
+        //        HmacShaAlgorithm.GetHash(parameters, panelKey),
+        //        panelId
+        //    );
+        //    return url + query;
+        //}
+
     }
 }
