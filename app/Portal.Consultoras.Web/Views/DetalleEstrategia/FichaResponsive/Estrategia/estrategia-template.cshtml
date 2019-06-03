@@ -35,7 +35,7 @@
     </div>
     <div class="col-md-5 text-md-right">
         <div class="precio_venta_oferta">
-            Precio para ti 
+            Precio para ti
             <span data-precio_venta_oferta="">
                 {{#IsNullOrEmpty this.ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
             </span>
@@ -43,6 +43,8 @@
             <span class="subprecio">{{itemNivel}}</span>
             {{/each}}
         </div>
+
+        <div class="descripcion_item item_pum">Aquí va PUM</div>
 
         {{#iff Precio '>' 0}}
         <div class="precio_valorizado">
