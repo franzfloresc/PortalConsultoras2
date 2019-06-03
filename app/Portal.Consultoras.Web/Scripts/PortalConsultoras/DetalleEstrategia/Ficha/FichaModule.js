@@ -781,7 +781,8 @@ var FichaModule = (function (config) {
             tituloCarrusel: modeloFicha.DescripcionCompleta,
             codigoProducto: modeloFicha.CodigoProducto,
             precioProducto: modeloFicha.Precio2,
-            productosHermanos: modeloFicha.Hermanos
+            productosHermanos: modeloFicha.Hermanos,
+            tieneStock: modeloFicha.TieneStock
         });
 
         carruselModule.Inicializar();
