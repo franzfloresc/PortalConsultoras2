@@ -1146,13 +1146,22 @@ var PedidoRegistroModule = function () {
 
                 //INI HD-3908
                 if (_flagNueva && IsNullOrEmpty(data.mensajeAviso)) {
-                    try {
-                        var $AgregadoTooltip = $("[data-agregado=\"tooltip\"]");
-                        $AgregadoTooltip.show();
-                        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
-                    } catch (e) {
-                        console.error(e);
+                    //try {
+                    //    var $AgregadoTooltip = $("[data-agregado=\"tooltip\"]");
+                    //    $AgregadoTooltip.show();
+                    //    setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+                    //} catch (e) {
+                    //    console.error(e);
+                    //}
+
+                    var mensaje = '';
+                    if (data.EsReservado === true) {
+                        mensaje = _mensajeAgregarPedido.reservado;
+                    } else {
+                        mensaje = _mensajeAgregarPedido.normal;
                     }
+
+                    AbrirMensaje25seg(mensaje);
                 }
                 //FIN HD-3908
                 var prevTotal = mtoLogroBarra || 0;
@@ -1312,13 +1321,22 @@ var PedidoRegistroModule = function () {
 
                 //INI HD-3908
                 if (_flagNueva && IsNullOrEmpty(data.mensajeAviso)) {
-                    try {
-                        var $AgregadoTooltip = $("[data-agregado=\"tooltip\"]");
-                        $AgregadoTooltip.show();
-                        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
-                    } catch (e) {
-                        console.error(e);
+                    //try {
+                    //    var $AgregadoTooltip = $("[data-agregado=\"tooltip\"]");
+                    //    $AgregadoTooltip.show();
+                    //    setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+                    //} catch (e) {
+                    //    console.error(e);
+                    //}
+
+                    var mensaje = '';
+                    if (data.EsReservado === true) {
+                        mensaje = _mensajeAgregarPedido.reservado;
+                    } else {
+                        mensaje = _mensajeAgregarPedido.normal;
                     }
+
+                    AbrirMensaje25seg(mensaje);
                 }
                 //FIN HD-3908
                 cierreCarouselEstrategias();
