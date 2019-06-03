@@ -1,10 +1,11 @@
-﻿class CarruselModel
+﻿"use strict";
+class CarruselModel
 {
     constructor(palanca,
         campania,
         cuv,
         urlDataCarrusel,
-        OrigenPedidoWeb,
+        origenPedidoWeb,
         pantalla,
         tituloCarrusel,
         cantidadPack,
@@ -16,7 +17,7 @@
         this.campania = campania || "";
         this.cuv = cuv || "";
         this.urlDataCarrusel = urlDataCarrusel || "/Estrategia/FichaObtenerProductosUpSellingCarrusel";
-        this.OrigenPedidoWeb = OrigenPedidoWeb || "";
+        this.origenPedidoWeb = origenPedidoWeb || "";
         this.pantalla = pantalla;
         this.tituloCarrusel = tituloCarrusel;
         this.cantidadPack = cantidadPack;

@@ -2,6 +2,9 @@
 /// <reference path="componentes/componentespresenter.js" />
 /// <reference path="../../../general.js" />
 /// <reference path="../detalleestrategiaprovider.js" />
+/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselPresenter.js" />
+/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselModel.js" />
+/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselView.js" />
 
 var detalleEstrategia = DetalleEstrategiaProvider;
 var fichaResponsiveEvents = FichaResponsiveEvents();
@@ -24,6 +27,25 @@ $(document).ready(function () {
     var estrategia = $("#data-estrategia").data("estrategia");
     estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
     componentesPresenter.onEstrategiaModelLoaded(estrategia);
+
+    let carruselModel = new CarruselModel(
+        params.palanca,
+        params.campania,
+        params.cuv,
+       "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
+        params.origen,
+        "Ficha",
+        estrategia.DescripcionCompleta,
+        estrategia.Hermanos.length,
+        estrategia.CodigoProducto,
+        estrategia.Precio2,
+        estrategia.Hermanos,
+        0);
+    let carruselPresenter = new CarruselPresenter();
+
+    let carruselView = new CarruselView(carruselPresenter);
+
+    carruselPresenter.initialize(carruselModel, carruselView);
 
     //function tabs_resposive(id, mostar) {
     //    var selector = id + " ul li a";
