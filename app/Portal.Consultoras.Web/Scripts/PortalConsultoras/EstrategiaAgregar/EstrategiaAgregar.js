@@ -279,6 +279,7 @@ var EstrategiaAgregarModule = (function () {
                 }
             }
 
+            var origenModelo = _codigoOrigenPedidoWeb.GetOrigenModelo(origenPedidoWebEstrategia);
             if (origenModelo.Pagina == _codigoOrigenPedidoWeb.CodigoEstructura.Pagina.ArmaTuPackDetalle) {
                 if (typeof (seleccionadosPresenter) !== 'undefined') {
                     if (seleccionadosPresenter.packComponents() !== 'undefined') {
