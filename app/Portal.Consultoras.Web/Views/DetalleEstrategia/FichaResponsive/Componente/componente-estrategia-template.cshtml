@@ -1,45 +1,40 @@
 ﻿@using Portal.Consultoras.Common
 
 <script id="componente-estrategia-template" type="text/x-handlebars-template">
-    <h3 class="contenido_titulo">CONTENIDO:</h3>
+    <h3 class="contenido_titulo">Contenido</h3>
     {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.CompuestaFija,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
-    {{#each this.Hermanos as |componente|}}
-    {{#ifVerificarMarcaLast componente.DescripcionMarca EsMultimarca}}
-    <hr class="componentes_separador" />
-    {{/ifVerificarMarcaLast}}
-<div class="detalle_producto"
-     data-opciones-seleccionadas="0"
-     data-tono-digitable="{{componente.Digitable}}"
-     style="border-bottom: {{../Linea}}; margin-bottom: 10px"
-     data-componente-grupo="{{componente.Grupo}}">
-    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
-    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
-    <div data-componente="{{{json this}}}"></div>
-    @*<div class="nombre_marca">
-        xxxxx
-    </div>*@
-    <ul class="detalle_producto_detalle">
-        <li>x {{Multiplicar componente.Cantidad componente.FactorCuadre}}</li>
-        <li>{{componente.NombreComercial}}</li>
-    </ul>
-    {{#iff ../MostrarFichaEnriquecida '==' true }}
-    {{#iff ../Hermanos.length '>' 1}}
-    {{#iff componente.TieneDetalleSeccion '==' true}}
-    <a id="btnVerDetalle" class="button_ver_detalle">Ver detalle <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt=""></a>
-    {{/iff}}
-    {{/iff}}
-    {{/iff}}
+        {{#each this.Hermanos as |componente|}}
+            {{#ifVerificarMarcaLast componente.DescripcionMarca EsMultimarca}}
+                <hr class="componentes_separador" />
+            {{/ifVerificarMarcaLast}}
+            <div class="detalle_producto" data-opciones-seleccionadas="0" data-tono-digitable="{{componente.Digitable}}" style="border-bottom: {{../Linea}}; margin-bottom: 10px" data-componente-grupo="{{componente.Grupo}}">
+                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.MarcaID}}" />
+                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
+                <div data-componente="{{{json this}}}"></div>
+                @*<div class="nombre_marca">
+                    xxxxx
+                </div>*@
+                <ul class="detalle_producto_detalle">
+                    <li>x {{Multiplicar componente.Cantidad componente.FactorCuadre}}</li>
+                    <li>{{componente.NombreComercial}}</li>
+                </ul>
+                {{#iff ../MostrarFichaEnriquecida '==' true }}
+                    {{#iff ../Hermanos.length '>' 1}}
+                        {{#iff componente.TieneDetalleSeccion '==' true}}
+                            <a id="btnVerDetalle" class="btn_texto" onclick="javascript:fichaEnriquecidaPresenter.showPopupFichaEnriquecida(event)">Ver detalle <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt=""></a>
+                        {{/iff}}
+                    {{/iff}}
+                {{/iff}}
 
-    {{#iff componente.Hermanos.length '>' 0}}
-    <div class="tiposytonos_componentes">
-        <buttom btn-show-types-tones-modal data-component-cuv="{{componente.Cuv}}" class="tono_select_opt">
-            {{componente.selectComponentText}}
-        </buttom>
-    </div>
-    {{/iff}}
-</div>
-
-    {{/each}}
+                {{#iff componente.Hermanos.length '>' 0}}
+                <div class="tiposytonos_componentes">
+                    <buttom btn-show-types-tones-modal data-component-cuv="{{componente.Cuv}}" class="tono_select_opt">
+                        {{componente.selectComponentText}}
+                    </buttom>
+                </div>
+                {{/iff}}
+            </div>
+        {{/each}}
     {{/iff}}
     @*<hr class="componentes_separador" />*@
     @*<div class="detalle_producto">

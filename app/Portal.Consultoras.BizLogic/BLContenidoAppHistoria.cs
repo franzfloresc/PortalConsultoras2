@@ -45,8 +45,8 @@ namespace Portal.Consultoras.BizLogic
         {
             try
             {
-            var da = new DAContenidoApp(paisID);
-            da.UpdContenidoApp(p);
+                var da = new DAContenidoApp(paisID);
+                da.UpdContenidoApp(p);
             }
             catch (Exception ex)
             {
@@ -79,8 +79,8 @@ namespace Portal.Consultoras.BizLogic
         {
             try
             {
-            var da = new DAContenidoApp(paisID);
-            da.InsertContenidoAppDeta(p);
+               var da = new DAContenidoApp(paisID);
+               da.InsertContenidoAppDeta(p);
             }
             catch (Exception ex)
             {
@@ -91,8 +91,16 @@ namespace Portal.Consultoras.BizLogic
 
         public int UpdateContenidoAppDeta(int paisID, BEContenidoAppDeta p)
         {
-            var da = new DAContenidoApp(paisID);
-            return da.UpdContenidoAppDeta(p);
+            try
+            {
+                var da = new DAContenidoApp(paisID);
+                return da.UpdContenidoAppDeta(p);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", "");
+                throw new Exception("Exception BLContenidoAppHistoria - UpdateContenidoAppDeta", ex);
+            }
         }
 
         public List<BEContenidoAppDetaAct> GetContenidoAppDetaActList(int paisID)

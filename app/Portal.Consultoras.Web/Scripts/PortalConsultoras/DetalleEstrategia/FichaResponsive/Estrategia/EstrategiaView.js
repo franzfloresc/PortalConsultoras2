@@ -20,10 +20,6 @@
             background: "#ImagenDeFondo",
             stamp: "#ImagenDeFondo",
         },
-        tabsComponente: {
-            templateId: "#tabs-ficha-enriquecida-template",
-            id: "#contenedor-tabs-ficha-enriquecida",
-        },
         compartirEstrategia: {
             templateId: "#compartir-estrategia-template",
             id: "#compartir-estrategia",
@@ -104,7 +100,7 @@
 
         return true;
     };
-
+    
     return {
         setPresenter: _setPresenter,
         renderBreadcrumbs : _renderBreadcrumbs,

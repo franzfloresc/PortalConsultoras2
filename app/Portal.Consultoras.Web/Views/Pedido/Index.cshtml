@@ -59,7 +59,6 @@
 <div class="wrapper_general2">
     <div class="fondo_pendiente"></div>
     <input id="hdTipoEstrategiaID" type="hidden" value="0" />
-    <input id="hdEsOfertaIndependiente" type="hidden" value="0" />
     <input id="hdAccionBotonProl" type="hidden" value="@Model.AccionBoton" />
     <input id="hdCuvRecomendado" type="hidden" />
     <input id="hdnHasFlexipago" type="hidden" value="@Model.IndicadorFlexiPago" />
@@ -99,6 +98,9 @@
             <input type="hidden" id="hdfCodigoPalanca" />
             <input type="hidden" id="hdfCampaniaID" />
             @*FIN HD-3908 *@
+            <input id="hdEsOfertaIndependiente" type="hidden" value="0" />
+            <input id="hdTipoEstrategiaCodigo" type="hidden" value="0" />
+            <input id="hdEsDuoPerfecto" type="hidden" value="0" />
             <div id="divObservaciones" class="pedidos_no_existe" style="position:relative;"></div>
 
             <div class="pedido_ingreso_datos campo_codigo">
@@ -423,15 +425,15 @@
                                 </div>
                             }
                         }
-                    <div class="boton_guardarPedido">
-                        @if (Model.EstadoPedido == 1)
-                        {
-                            <button class="btn_ModificaPedido" onclick="javascript:ModificarPedido();" class="info_copy default-background-color">@Model.Prol</button>
-                        }
-                        else
-                        { <button id="btnValidarPROL" class="info_copy default-background-color">@Model.Prol</button>}
+                        <div class="boton_guardarPedido">
+                            @if (Model.EstadoPedido == 1)
+                            {
+                                <button class="btn_ModificaPedido" onclick="javascript:ModificarPedido();" class="info_copy default-background-color">@Model.Prol</button>
+                            }
+                            else
+                            { <button id="btnValidarPROL" class="info_copy default-background-color">@Model.Prol</button>}
 
-                    </div>
+                        </div>
                     </div>
 
                     <div id="divCondicionesCupon" style="display: none; color: #9b9b9b">
@@ -564,39 +566,39 @@
                 <div class="clear"></div>
             </div>
             @*@if (ViewBag.MostrarPedidosPendientes == "1")
-            {
-                <div id="infoPendientes" style="background:white; display: none;">
+                {
+                    <div id="infoPendientes" style="background:white; display: none;">
 
-                    <div id="paginadorCabPend" class="cant_productos_y_paginador_wrapper_top">
-                    </div>
-                    <div class="content_datos_pendientes">
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nombre de Cliente</div>
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Origen</div>
+                        <div id="paginadorCabPend" class="cant_productos_y_paginador_wrapper_top">
+                        </div>
+                        <div class="content_datos_pendientes">
+                            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nombre de Cliente</div>
+                            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Origen</div>
 
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Fecha Registro</div>
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Precio Total</div>
-                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Acción</div>
-                    </div>
-                    <div class="linea_separadora" style="margin-top:-1px"></div>
-                    <div>
-                        <div id="divPedidosPend"> </div>
-                    </div>
-                    <div id="paginadorPiePend" class="cant_productos_y_paginador_wrapper_bottom">
-                    </div>
-                    <div class="revision_pedidosAceptados">
-                        <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
-                        <span class="icono_consultoraOnline"></span>
-                        <span class="texto_misPedidosClientesOnline" style="cursor: pointer;" onclick="MostrarMisPedidosConsultoraOnline();">MIS PEDIDOS DEL <b>APP DE CATÁLOGOS</b></span>
-                    </div>
+                            <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Fecha Registro</div>
+                            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Precio Total</div>
+                            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Acción</div>
+                        </div>
+                        <div class="linea_separadora" style="margin-top:-1px"></div>
+                        <div>
+                            <div id="divPedidosPend"> </div>
+                        </div>
+                        <div id="paginadorPiePend" class="cant_productos_y_paginador_wrapper_bottom">
+                        </div>
+                        <div class="revision_pedidosAceptados">
+                            <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
+                            <span class="icono_consultoraOnline"></span>
+                            <span class="texto_misPedidosClientesOnline" style="cursor: pointer;" onclick="MostrarMisPedidosConsultoraOnline();">MIS PEDIDOS DEL <b>APP DE CATÁLOGOS</b></span>
+                        </div>
 
-                    <div style="display: none;">
-                        @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmConsultoraOnline" }))
-                        {
-                            <input type="hidden" name="lanzarTabConsultoraOnline" value="true">
-                        }
+                        <div style="display: none;">
+                            @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmConsultoraOnline" }))
+                            {
+                                <input type="hidden" name="lanzarTabConsultoraOnline" value="true">
+                            }
+                        </div>
                     </div>
-                </div>
-            }*@
+                }*@
         </div>
     </div>
 
@@ -629,9 +631,9 @@
 
     <div id="divListaEstrategias" class="caja_carousel_productos">
         @*@if (ViewBag.MostrarPedidosPendientes == "1")
-        {
-            <div class="truco_bloqueo sim2"></div>
-        }*@
+            {
+                <div class="truco_bloqueo sim2"></div>
+            }*@
         @Html.Partial("~/Views/Pedido/_PartialSectionBpt.cshtml", Model.PartialSectionBpt)
     </div>
 
@@ -2005,6 +2007,7 @@
         var ofertaFinalAlgoritmo = '@ViewBag.OfertaFinalAlgoritmo';
         var VirtualCoachCuv = '@ViewBag.VirtualCoachCuv';
         var VirtualCoachCampana = '@ViewBag.VirtualCoachCampana' || 0;
+        var EstadoPedido = @Model.EstadoPedido;
 
         var seccionMisOfertas = '@Constantes.SeccionBienvenida.MisOfertas';
         var OrigenDesktopODD = 2;

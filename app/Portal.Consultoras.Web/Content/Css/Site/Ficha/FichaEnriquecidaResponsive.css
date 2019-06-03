@@ -17,12 +17,75 @@
 /*Fin Ficha Enrriquecida*/
 
 /*Tabs*/
-
 .ficha_enriquecida_contenedor{
     margin-top: 60px;
 }
 
-.tabs_ficha {
+.tabs {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+    .tabs label {
+        order: 1;
+        padding: 1rem 2rem;
+        cursor: pointer;
+        border-bottom: 1px solid #d8d8d8;
+        transition: background ease 0.2s;
+        font-weight: bold;
+        font-size: 16px;
+        flex-shrink: 0;
+        text-align: center;
+        flex-grow: 1;
+    }
+
+    .tabs .tab {
+        order: 99;
+        flex-grow: 1;
+        width: 100%;
+        display: none;
+        padding: 30px 1rem 1rem 1rem;
+        background: #fff;
+    }
+
+    .tabs input[type="radio"] {
+        display: none;
+    }
+
+        .tabs input[type="radio"]:checked + label {
+            color: #b9007e;
+            border-bottom: 2px solid #b9007e;
+        }
+
+            .tabs input[type="radio"]:checked + label + .tab {
+                display: block;
+            }
+
+.tab h4 {
+    color: #000;
+    font-size: 14px;
+    font-weight: bold !important;
+    margin-bottom: 6px;
+    text-transform:capitalize
+}
+
+.tab p {
+    font-size: 13px;
+    margin-bottom: 12px;
+}
+
+.tab h3 {
+    color: #000;
+    font-size: 14px;
+    font-weight: bold !important;
+    margin-bottom: 6px;
+}
+
+.items_video .slick-slide {
+    margin: 0px 10px;
+}
+
+/*.tabs_ficha {
     text-align: center;
     border-bottom: solid 1px #979797;
 }
@@ -76,8 +139,7 @@
 
 .tabs_ficha li > div {
     display: none;
-}
-
+}*/
 .popup_full {
     height: 100vh;
     width: 100%;
@@ -134,15 +196,26 @@
     background: none;
 }
 
+.popup_tabs_ficha {
+    margin-top: 50px;
+    padding: 0px 15px;
+}
+
+.item_pum {
+    font-size: 12px;
+    font-weight: normal;
+    color: #909094;
+}
+
 @media (min-width: 960px) {
-    .tabs_ficha li > div {
+    /*.tabs_ficha li > div {
         display: none !important
-    }       
+    }*/       
 }
 
 @media (max-width: 960px) {
 
-    .tabs_ficha li {
+    /*.tabs_ficha li {
         width: 100%;
         text-align: left;
         border-bottom: solid 1px #d8d8d8;
@@ -182,10 +255,43 @@
 
     .tabs_ficha {
         border: none;
+    }*/
+
+    .popup_tabs_ficha {
+        margin-top: 30px;
+    }
+
+    .tabs input[type="radio"]:checked + label {
+        border-bottom: 2px solid #b9007e;
+        border: none !important;
+        margin: 0px !important;
+        background: url(/Content/Images/mobile/Esika/top-arrow.svg);
+        background-repeat: no-repeat;
+        background-position: center right 10px;
+        background-size: 12px;
+    }
+
+    .tabs .tab,
+    .tabs label {
+        order: initial;
+        padding: 0px 0;
+    }
+
+    .tabs label {
+        width: 100%;
+        margin-right: 0;
+        text-align: left;
+        padding: 0.8rem 0rem;
+        margin-top: 0.2rem;
+        background: url(/Content/Images/mobile/Esika/down-arrow.svg);
+        background-repeat: no-repeat;
+        background-position: center right 10px;
+        background-size: 12px;
     }
 
     .ficha_enriquecida_contenedor {
         margin-top: 0px;
+        margin-bottom: 65px;
     }
 
     .popup_full .ficha_producto {
