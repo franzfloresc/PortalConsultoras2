@@ -174,8 +174,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                         if (reservado)
                         {
+                            pedidoDetalle.Producto.CUV = respuestaT.CUV;
                             var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
-                            respuestaT = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuestaT, out error);
+                            respuestaT = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuestaT, pedidoDetalle, out error);
 
                             respuestaT = SetMontosTotalesProl(respuestaT, respuestaReserva);
                         }
@@ -233,7 +234,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         if (reservado)
                         {
                             var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
-                            respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuesta, out error);
+                            respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuesta, pedidoDetalle, out error);
 
                             respuesta = SetMontosTotalesProl(respuesta, respuestaReserva);
                         }
@@ -254,7 +255,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
         }
 
-        private BEPedidoDetalleResult GetPedidoDetalleResultFromResultadoReservaProl(BEResultadoReservaProl resultadoReservaProl, BEPedidoDetalleResult respuestaT, out bool error)
+        private BEPedidoDetalleResult GetPedidoDetalleResultFromResultadoReservaProl(BEResultadoReservaProl resultadoReservaProl, BEPedidoDetalleResult respuestaT, BEPedidoDetalle pedidoDetalle, out bool error)
         {
             error = false;
             string mensajePersonalizado = null;
@@ -275,7 +276,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         var ListPedidoObservacion = resultadoReservaProl.ListPedidoObservacion;
                         if (ListPedidoObservacion!=null && ListPedidoObservacion.Any())
                         {
-                            mensajePersonalizado = ListPedidoObservacion[0].Descripcion;
+                            var observacion = ListPedidoObservacion.Find(x => x.CUV == pedidoDetalle.Producto.CUV);
+                            if (observacion != null)
+                            {
+                                mensajePersonalizado = observacion.Descripcion;
+                            }
                         }
                         error = true;
                         break;
@@ -374,7 +379,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         if (reservado)
                         {
                             var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
-                            respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuesta, out error);
+                            respuesta = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuesta, pedidoDetalle,out error);
 
                             respuesta = SetMontosTotalesProl(respuesta, respuestaReserva);
                         }
@@ -743,6 +748,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             response.MensajeAviso = mensajeObs;
             response.TituloMensaje = TituloMensaje;
             response.ListaMensajeCondicional.AddRange(ListaMensajeCondicional);
+            response.CUV = cuvSet;
             SetMontosTotalesProl(response, listObjMontosProl);
             return response;
         }
