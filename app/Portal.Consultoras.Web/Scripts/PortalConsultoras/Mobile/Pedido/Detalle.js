@@ -985,7 +985,7 @@ function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == '1') EnviarCorreoPedidoReservado();
     if (estaRechazado == "2") cerrarMensajeEstadoPedido();
 
-    messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>');
+    messageInfoBueno('<h3>Tu pedido fue reservado con &eacute;xito.</h3>');
     var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
     if (ultimoDiaFacturacion) {
 	    RedirigirPedidoValidado();
@@ -1001,13 +1001,13 @@ function ConstruirObservacionesPROL(model) {
     }
     var mensajeBloqueante = true;
 
-    if (!model.ZonaValida) messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
+    if (!model.ZonaValida) messageInfoBueno('<h3>Tu pedido se guard&oacute; con &eacute;xito.</h3>');
     else if (!model.ValidacionInteractiva) messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
     else {
         mensajeBloqueante = false;
 
         if (model.ObservacionRestrictiva) CrearPopupObservaciones(model);
-        else ArmarPopupObsReserva(true, '¡LO <b>LOGRASTE</b>!', 'Tu pedido fue guardado con éxito. Recuerda, al final de tu campaña valida tu pedido para reservar tus productos.');
+        else ArmarPopupObsReserva(true, '!LO <b>LOGRASTE</b>!', 'Tu pedido fue guardado con &eacute;xito. Recuerda, al final de tu campa&ntilde;a valida tu pedido para reservar tus productos.');
     }
 
     CargarPedido();
@@ -1018,7 +1018,7 @@ function ConstruirObservacionesPROL(model) {
 
 function CrearPopupObservaciones(model) {
     var mensaje = "<ul style='padding-left: 15px; list-style-type: none; text-align: center;'>";
-    if (model.ListaObservacionesProl.length == 0) mensaje += "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
+    if (model.ListaObservacionesProl.length == 0) mensaje += "<li>Tu pedido tiene observaciones, por favor rev&iacute;salo.</li>";
     else {
         $.each(model.ListaObservacionesProl, function (index, item) {
             if (model.CodigoIso == "BO" || model.CodigoIso == "MX") {
@@ -1028,7 +1028,7 @@ function CrearPopupObservaciones(model) {
             }
 
             if (item.Caso == 95 || item.Caso == 105) mensaje += "<li>" + item.Descripcion + "</li>";
-            else mensaje += "<li>Tu pedido tiene observaciones, por favor revísalo.</li>";
+            else mensaje += "<li>Tu pedido tiene observaciones, por favor rev&iacute;salo.</li>";
 
             return false;
         });
