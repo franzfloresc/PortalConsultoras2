@@ -34,7 +34,7 @@
             type: 'POST',
             url: baseUrl + 'ConsultaDatoConsultora/DatoConsultora',
             data: item,
-            async: true,
+            async: false,
             success: function (data) {
                 
                 if (checkTimeout(data) && data) {
