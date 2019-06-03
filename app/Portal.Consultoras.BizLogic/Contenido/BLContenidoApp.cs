@@ -23,7 +23,7 @@ namespace Portal.Consultoras.BizLogic.Contenido
             List<BEContenidoApp> listaContenido = null;
             List<BEContenidoAppDetalle> contenidoDetalle = null;
 
-            using (IDataReader reader = daContenidoApp.GetBannerCodigo(codigoBanner,itmFilter))
+            using (IDataReader reader = daContenidoApp.GetBannerCodigo(codigoBanner, itmFilter))
             {
                 listaContenido = reader.MapToCollection<BEContenidoApp>(closeReaderFinishing: false);
                 reader.NextResult();
@@ -41,8 +41,22 @@ namespace Portal.Consultoras.BizLogic.Contenido
                 x.CantidadContenido = lstDetalle.Count;
             });
 
+            //Forma la URL de las imagenes
+            var restoContenido = listaContenido.Where(x => x.Codigo != Constantes.CodigoContenido.Lanzamiento).ToList();
 
+            if (restoContenido != null)
+            {
+                restoContenido.ForEach(x =>
+                {
+                    x.DetalleContenido.ForEach(y =>
+                    {
+                        y.RutaContenido = string.Format(x.RutaImagen ?? y.RutaContenido, WebConfig.RutaCDN, itmFilter.CodigoISO, y.RutaContenido);
+                    });
+                    x.UrlMiniatura = string.IsNullOrEmpty(x.UrlMiniatura) ? string.Empty : string.Format(x.UrlMiniatura, WebConfig.RutaCDN, itmFilter.CodigoISO);
+                });
+            }
 
+            //Personalizacion para URL de banner de lanzamiento
             var BannerBonifica = listaContenido.FirstOrDefault(x => x.Codigo == Constantes.CodigoContenido.Lanzamiento);
 
             if (BannerBonifica != null)
@@ -65,19 +79,28 @@ namespace Portal.Consultoras.BizLogic.Contenido
                 });
             }
 
-            //Forma la URL de las imagenes
-            var restoContenido = listaContenido.Where(x => x.Codigo != Constantes.CodigoContenido.Lanzamiento).ToList();
+            //Personalizacion para URL de tu voz ONLINE
+            var TuVozOnline = listaContenido.FirstOrDefault(x => x.Codigo == Constantes.CodigoContenido.TuVozOnline);
 
-            if (restoContenido != null)
+            if (TuVozOnline != null)
             {
-                restoContenido.ForEach(x =>
-                {
-                    x.DetalleContenido.ForEach(y =>
-                    {
-                        y.RutaContenido = string.Format(x.RutaImagen ?? y.RutaContenido, WebConfig.RutaCDN, itmFilter.CodigoISO, y.RutaContenido);
-                    });
-                    x.UrlMiniatura = string.IsNullOrEmpty(x.UrlMiniatura) ? string.Empty : string.Format(x.UrlMiniatura, WebConfig.RutaCDN, itmFilter.CodigoISO);
-                });
+
+                //var secretKey = WebConfig.JsonWebTokenSecret;
+
+                //var data = new
+                //{
+                //    CodigoIso = itmFilter.CodigoISO,
+                //    Codigoconsultora = itmFilter.CodigoConsultora,
+                //    NumeroDocumento = itmFilter.NumeroDocumento.Length > 8 ? itmFilter.NumeroDocumento.Substring(2, 8) : itmFilter.NumeroDocumento
+                //};
+
+                //var token = JsonWebToken.Encode(data, secretKey, JwtHashAlgorithm.HS512);
+
+                ////Forma la URL de las imagenes
+                //TuVozOnline.DetalleContenido.ForEach(x =>
+                //{
+                //    x.RutaContenido = string.Concat(x.RutaContenido, token);
+                //});
             }
 
             return listaContenido;
