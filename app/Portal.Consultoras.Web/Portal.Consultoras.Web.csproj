@@ -1466,7 +1466,7 @@
     <Content Include="Content\Css\Mobile\Contenedor\Index.css" />
     <Content Include="Content\Css\Mobile\Contenedor\carrusel.individual.css" />
     <Content Include="Content\Css\Mobile\esika\mi-perfil.css" />
-    <Content Include="Content\Css\Mobile\esika\Notificacion.css" />
+    <Content Include="Content\Css\Mobile\Notificacion.css" />
     <Content Include="Content\Css\Mobile\Ficha\Esika\FichaEsika.css" />
     <Content Include="Content\Css\Mobile\Ficha\FichaEnriquecida.css" />
     <Content Include="Content\Css\Mobile\Ficha\Lbel\FichaLbel.css" />
@@ -1478,7 +1478,6 @@
     <Content Include="Content\Css\Mobile\LasMasGanadoras\banner_ofertas_masGanadoras.css" />
     <Content Include="Content\Css\Mobile\LasMasGanadoras\presentacion-seccion-carrusel.css" />
     <Content Include="Content\Css\Mobile\lbel\mi-perfil.css" />
-    <Content Include="Content\Css\Mobile\lbel\Notificacion.css" />
     <Content Include="Content\Css\Mobile\Pedido\EditarProductoFicha.css" />
     <Content Include="Content\Css\Mobile\Pedido\PedidoGrilla.css" />
     <Content Include="Content\Css\Mobile\ProductoListado\CajaProductoV2.css" />
@@ -1508,7 +1507,7 @@
     <Content Include="Content\Css\Site\Esika\mi-perfil.css" />
     <Content Include="Content\Css\Site\Contenedor\OfertaDelDia.css" />
     <Content Include="Content\Css\Site\Esika\marca-pais-responsive.css" />
-    <Content Include="Content\Css\Site\Esika\Notificacion.css" />
+    <Content Include="Content\Css\Site\Notificacion.css" />
     <Content Include="Content\Css\Site\Esika\styleDefault.css" />
     <Content Include="Content\Css\Site\Esika\unsubscribe.css" />
     <Content Include="Content\Css\Site\Esika\verificacion-pin.css" />
@@ -1527,7 +1526,6 @@
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas.gif" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas_2.gif" />
-    <Content Include="Content\Css\Site\Lbel\Notificacion.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\general-popups.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-cierre-sesion.css" />
     <Content Include="Content\Css\Site\styleBase.css" />

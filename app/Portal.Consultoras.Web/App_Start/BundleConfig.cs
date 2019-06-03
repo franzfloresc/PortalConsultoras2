@@ -246,7 +246,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/ProductoListado/CajaProducto.css",
                "~/Content/Css/Site/Pedido/PedidoInfo.css",
                "~/Content/Css/Site/Pedido/EditarProductoFicha.css",
-               "~/Content/Css/Site/Esika/Notificacion.css"
+               "~/Content/Css/Site/Notificacion.css"
                ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-AsesoraOnline").Include(
@@ -280,7 +280,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Lbel/buscador-filtros.css",
                "~/Content/Css/Site/Pedido/PedidoInfo.css",
                "~/Content/Css/Site/Pedido/EditarProductoFicha.css",
-               "~/Content/Css/Site/Lbel/Notificacion.css"
+               "~/Content/Css/Site/Notificacion.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Site-Lbel-Contenedor").Include(
@@ -313,7 +313,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/Esika/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css",
                "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css",
-               "~/Content/Css/Mobile/Esika/Notificacion.css"
+               "~/Content/Css/Mobile/Notificacion.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/lbel-CssSB2Mobile").Include(
@@ -332,7 +332,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/Lbel/seccion-descarga-imprime.css",
                "~/Content/Css/Mobile/calc.css",
                "~/Content/Css/Site/ProductosRecomendados/productos-recomendados.css",
-               "~/Content/Css/Mobile/Lbel/Notificacion.css"
+               "~/Content/Css/Mobile/Notificacion.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/CssBienvenida").Include(
@@ -1107,7 +1107,9 @@ namespace Portal.Consultoras.Web
             
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/ArmaTuPack").Include(
                 "~/Content/Css/Site/ArmaTuPack/ArmaTuPack_Responsive.css",
-                "~/Content/Css/Site/ficha/SeleccionarTipo.css"
+                "~/Content/Css/Site/ficha/SeleccionarTipo.css",
+                "~/Content/Css/Site/Notificacion.css"
+
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/ArmaTuPack").Include(
