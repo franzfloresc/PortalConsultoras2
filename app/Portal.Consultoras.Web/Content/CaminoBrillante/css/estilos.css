@@ -2238,7 +2238,7 @@ div.opOrdenar {
     }
 
     .box-montos {
-        width: 40%;
+        width: 45%;
         float: left;
         margin-right: 2%;
         border-right: 1px solid #a5a5a5;
@@ -2250,6 +2250,6 @@ div.opOrdenar {
 
     .box-montos:nth-child(2) {
         border: 0;
-        padding-left: 4%;
+        padding-left: 12%;
     }
 }
