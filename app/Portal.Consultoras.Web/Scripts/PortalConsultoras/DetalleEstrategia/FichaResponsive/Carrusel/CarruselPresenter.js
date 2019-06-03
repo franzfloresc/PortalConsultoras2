@@ -36,6 +36,10 @@ class CarruselPresenter {
 
         if (this.model.palanca == ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
             data.lista = this.cargarDatos();
+            if (data.lista.length > 0) {
+                $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
+                this.view.crearPlantilla(data, this.obtenerTitulo(), data.lista.length);
+            }
         }
         else {
             const codigosProductos = this.obtenerCodigoProductos();
