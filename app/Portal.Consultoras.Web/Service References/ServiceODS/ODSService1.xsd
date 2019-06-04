@@ -11,6 +11,7 @@
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CUVComplemento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CUVRevista" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="CatalogoDescripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoCatalogo" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />

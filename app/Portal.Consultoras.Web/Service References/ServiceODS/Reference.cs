@@ -32,6 +32,9 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private string CUVRevistaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantidadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CatalogoDescripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -217,6 +220,19 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((object.ReferenceEquals(this.CUVRevistaField, value) != true)) {
                     this.CUVRevistaField = value;
                     this.RaisePropertyChanged("CUVRevista");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Cantidad {
+            get {
+                return this.CantidadField;
+            }
+            set {
+                if ((this.CantidadField.Equals(value) != true)) {
+                    this.CantidadField = value;
+                    this.RaisePropertyChanged("Cantidad");
                 }
             }
         }

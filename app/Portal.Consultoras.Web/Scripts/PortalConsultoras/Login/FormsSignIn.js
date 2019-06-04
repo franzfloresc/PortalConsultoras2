@@ -858,9 +858,9 @@ function login2() {
         dataType: 'json',
         //contentType: 'application/json; charset=utf-8',
         success: function (response) {
-            
+
             var resul = "";
-            if (response.data != null) {        
+            if (response.data != null) {
                 analytics.invocarCompleteRegistrationPixel();
 
                 var datos = response.data;
@@ -870,7 +870,7 @@ function login2() {
                 closeWaitingDialog();
 
 
-            } else if (response.success) {   
+            } else if (response.success) {
                 analytics.invocarCompleteRegistrationPixel();
                 if (response.redirectTo !== "") {
                     analytics.invocarEventoPixel("FacebookLoginLogin");
@@ -1040,8 +1040,8 @@ function RecuperarContrasenia() {
                 $("#hddHabilitarChatEmtelco").val(response.habilitarChatEmtelco);
 
                 OcultarContenidoPopup();
-                var nroCelular = $.trim(datos.Celular);
-                var email = $.trim(datos.Correo);
+                //var nroCelular = $.trim(datos.Celular);
+                //var email = $.trim(datos.Correo);
                 var primerNombre = $.trim(datos.PrimerNombre);
 
                 var tituloPopup = "CAMBIO DE <b>CONTRASEÑA</b>"

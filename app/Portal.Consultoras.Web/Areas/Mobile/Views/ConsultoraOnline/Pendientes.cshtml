@@ -37,10 +37,10 @@
         <div class="vc-tabs">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item active">
-                    <a class="nav-link " id="cliente-tab" data-toggle="tab" href="#cliente" role="tab" aria-controls="cliente" aria-selected="true">Vista por cliente</a>
+                    <a class="nav-link " id="cliente-tab" onclick="javascript:PedidosPendientesVistaCliente();" data-toggle="tab" href="#cliente" role="tab" aria-controls="cliente" aria-selected="true">Vista por cliente</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " id="producto-tab" data-toggle="tab" href="#producto" role="tab" aria-controls="producto" aria-selected="false">Vista por producto</a>
+                    <a class="nav-link " id="producto-tab" onclick="javascript:PedidosPendientesVistaProducto();" data-toggle="tab" href="#producto" role="tab" aria-controls="producto" aria-selected="false">Vista por producto</a>
                 </li>
             </ul>
         </div>
@@ -111,7 +111,7 @@
                                             <p><strong>Monto total: </strong>@ViewBag.Simbolo @item2.FormatoPrecioTotal</p>
                                             <p><strong>Origen: </strong>@item2.MedioContacto</p>
                                         </div>
-                                        <div class="cursor onProduct vc-box--action vc-box--radius" onclick="DetallePedidoPendienteClientes(@item2.CUV)">
+                                        <div class="cursor onProduct vc-box--action vc-box--radius">
                                             <p class="vc-box--title"><strong>Te lo pidieron</strong></p>
                                             @foreach (var item3 in item2.ListaClientes.Take(2).ToList())
                                             {
@@ -119,10 +119,10 @@
                                             }
                                             @if (item2.ListaClientes.Count() > 2)
                                             {
-                                                <p>Ver más...</p>
+                                                <p onclick="javascript: DetallePedidoPendienteClientesVerMas(@item2.CUV);">Ver más...</p>
                                             }
                                             <div class="vc-box--button">
-                                                <a class="vc-box--btn vc-box--title" href="@Url.Action("DetallePedidoPendienteClientes", "ConsultoraOnline", new { cuv = item2.CUV })">Confirmar clientes</a>
+                                                <a class="vc-box--btn vc-box--title" onclick="javascript: DetallePedidoPendienteClientes(@item2.CUV);" @*href="@Url.Action("DetallePedidoPendienteClientes", "ConsultoraOnline", new { cuv = item2.CUV })"*@>Confirmar clientes</a>
                                             </div>
 
                                         </div>
