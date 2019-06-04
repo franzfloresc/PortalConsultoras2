@@ -129,18 +129,19 @@ namespace Portal.Consultoras.Entities
         public string RecogerNombre { get; set; }
 
         [DataMember]
-        public decimal GananciaRevista { get; set; }
+        public decimal? GananciaRevista { get; set; }
 
         [DataMember]
-        public decimal GananciaWeb { get; set; }
+        public decimal? GananciaWeb { get; set; }
 
         [DataMember]
-        public decimal GananciaOtros { get; set; }
+        public decimal? GananciaOtros { get; set; }
 
         public BEPedidoWeb() { }
 
         public BEPedidoWeb(IDataRecord row)
         {
+
             CampaniaID = row.ToInt32("CampaniaID");
             PedidoID = row.ToInt32("PedidoID");
             ConsultoraID = row.ToInt64("ConsultoraID");
@@ -179,6 +180,9 @@ namespace Portal.Consultoras.Entities
             FechaFacturado = row.ToString("FechaFacturado");
             RecogerDNI = row.ToString("RecogerDNI");
             RecogerNombre = row.ToString("RecogerNombre");
+            if (row["GananciaRevista"] != DBNull.Value) { GananciaRevista = row.ToDecimal("GananciaRevista"); }
+            if (row["GananciaWeb"] != DBNull.Value) { GananciaRevista = row.ToDecimal("GananciaWeb"); }
+            if (row["GananciaOtros"] != DBNull.Value) { GananciaRevista = row.ToDecimal("GananciaOtros"); }
         }
     }
 }
