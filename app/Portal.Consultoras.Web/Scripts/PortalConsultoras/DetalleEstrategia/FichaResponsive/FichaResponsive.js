@@ -1,5 +1,6 @@
 ﻿/// <reference path="estrategia/estrategiapresenter.js" />
 /// <reference path="componentes/componentespresenter.js" />
+/// <reference path="componentes/componentesanalyticspresenter.js" />
 /// <reference path="../../../general.js" />
 /// <reference path="../detalleestrategiaprovider.js" />
 /// <reference path="../../shared/analyticsportal.js" />
@@ -15,10 +16,14 @@ var estrategiaPresenter = EstrategiaPresenter({
     fichaResponsiveEvents: fichaResponsiveEvents
 });
 
+var componentesAnalyticsPresenter = ComponentesAnalyticsPresenter({
+    analyticsPortal: analyticsPortal
+});
+
 var componentesView = ComponentesView();
 var componentesPresenter = ComponentesPresenter({
     componentesView: componentesView,
-    analyticsPortal : analyticsPortal
+    componentesAnalyticsPresenter: componentesAnalyticsPresenter
 });
 componentesView.setPresenter(componentesPresenter);
 
