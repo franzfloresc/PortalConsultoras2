@@ -85,7 +85,7 @@ namespace Portal.Consultoras.Web.Providers
                     lista.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado, paisId).Descripcion);
                     lista.Update(p => p.FormatoPrecio1 = Util.DecimalToStringFormat(p.Precio, codigoIso));
                     lista.Update(p => p.FormatoPrecio2 = Util.DecimalToStringFormat(p.Precio2, codigoIso));
-                    lista.Update(p => p.DetalleReemplazo = string.IsNullOrEmpty(p.XMLReemplazo)? null : XMLToList(p.XMLReemplazo,codigoIso).ToArray());
+                    lista.Update(p => p.DetalleReemplazo = string.IsNullOrEmpty(p.XMLReemplazo) ? null : XMLToList(p.XMLReemplazo, codigoIso, paisId).ToArray());
                     sessionManager.SetCDRWebDetalle(lista);
                 }
                 else
@@ -103,7 +103,7 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public static List<BECDRProductoComplementario> XMLToList(string xml, string codigoIso)
+        public List<BECDRProductoComplementario> XMLToList(string xml, string codigoIso, int paisId)
         {
             if (string.IsNullOrEmpty(xml))
                 return null;
@@ -124,12 +124,13 @@ namespace Portal.Consultoras.Web.Providers
                     obj.Estado = xmlNode["estado"].InnerText == "" ? 0 : Convert.ToInt32(xmlNode["estado"].InnerText);
                     obj.PrecioFormato = xmlNode["precio"].InnerText == "" ? "0" : Util.DecimalToStringFormat(Convert.ToDecimal(xmlNode["precio"].InnerText), codigoIso);
                     obj.CodigoMotivoRechazo = xmlNode["codigorechazo"].InnerText;
-                    obj.Observacion = xmlNode["obs"].InnerText;
+                    obj.Observacion = xmlNode["codigorechazo"].InnerText == "" ? "" : ObtenerDescripcion(xmlNode["codigorechazo"].InnerText, Constantes.TipoMensajeCDR.Motivo, paisId).Descripcion;
                     lista.Add(obj);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", codigoIso);
                 lista = null;
             }
             return lista;
