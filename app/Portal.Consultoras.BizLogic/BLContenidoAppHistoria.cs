@@ -103,5 +103,11 @@ namespace Portal.Consultoras.BizLogic
             }
             return lista;
         }
+
+        public int ContenidoAppDetaVideo(int paisID, BEContenidoAppDeta p)
+        {
+            var da = new DAContenidoApp(paisID);
+            return da.ContenidoAppDetaVideo(p);
+        }
     }
 }

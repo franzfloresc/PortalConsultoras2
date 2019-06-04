@@ -5,7 +5,11 @@ var _obj_mensaje = {
     seleccionImagen: "No seleccionó una imagen",
     seleccionCampania: "Debe seleccionar una Campaña",
     seleccionZonaRegion: "No se ha marcado ninguna zona o región.",
-    seleccionSegmento: "No se ha marcado ningún Segmento."
+    seleccionSegmento: "No se ha marcado ningún Segmento.",
+    ProcesoConforme: 'Se procesó con éxito su solicitud.',
+    ProcesoRegistroExistente: 'Campaña ya existe.',
+    ProcesoCantidadMenor: 'La cantidad no puede ser menor que los registros en el detalle.',
+    seleccionFile: "No seleccionó un archivo",
 }
 
 jQuery(document).ready(function () {
@@ -133,6 +137,87 @@ function IniDialogDetalle() {
                     HideDialog("DialogMantenimientoDetalle");
                 }
             }
+    });
+
+    $("#DialogMantenimientoVideo").dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: true,
+        width: 650,
+        draggable: false,
+        title: "Nuevo",
+        close: function () {
+            HideDialog("DialogMantenimientoVideo");
+        },
+        open: function (event, ui) { },
+        buttons:
+        {
+            "Guardar": function () {  
+                
+                var uploadFile = $('input[id="file"]').get(0).files[0];
+
+                if ($("#ddlCampaniaVideo").val() === "0") {
+                    showDialogMensaje(_obj_mensaje.seleccionCampania, 'Alerta');
+                    return false;
+                }
+                else if (uploadFile === undefined) {
+                    showDialogMensaje(_obj_mensaje.seleccionFile, 'Alerta');
+                    return false;
+                }
+
+                
+                //console.log("uploadFile", uploadFile);
+                //return false;
+                
+                var formData = new FormData();
+                formData.append('file', uploadFile);
+                formData.append("Proc", $("#ProcVideo").val());
+                formData.append("IdContenidoDeta", $("#IdContenidoDetaVideo").val());
+                formData.append("IdContenido", $("#IdContenidoVideo").val());
+                formData.append("Campania", $("#ddlCampaniaVideo").val());
+
+                waitingDialog({});
+
+                $.ajax({
+                    dataType: "json",
+                    data: formData,
+                    url: baseUrl + "AdministrarHistorias/ComponenteDatosVideoGuardar",
+                    type: 'post',
+                    cache: false,
+                    processData: false,
+                    contentType: false, 
+                    success: function (data) {
+                        console.log(data);
+                        closeWaitingDialog();
+                        if (data.success) {
+                            if (data.message == 1) {
+                                HideDialog("DialogMantenimientoVideo");
+                                showDialogMensaje(_obj_mensaje.ProcesoConforme, 'Alerta');
+                                $('#tblVideoDet').trigger('reloadGrid');
+                            }
+                            else if (data.message == 2) {
+                                showDialogMensaje(_obj_mensaje.ProcesoRegistroExistente, 'Alerta');
+                            } else if (data.message == 3) {
+                                showDialogMensaje(_obj_mensaje.ProcesoCantidadMenor, 'Alerta');
+                            }
+
+                        } else {
+                            showDialogMensaje(data.message, 'Alerta');
+                        }
+                    },
+                     error: function (data, error) {
+                        closeWaitingDialog();
+                        _toastHelper.error("Error al procesar la Solicitud.");
+                    }
+                });
+                
+
+            },
+            "Salir": function () {
+                HideDialog("DialogMantenimientoVideo");
+            }
+        }
     });
 }
 
@@ -272,4 +357,23 @@ var _eventos = {
         $("#divGanaEnUnClickContenido").show();
         $("#divHistoriaContenido").hide();
     }
+}
+
+function NuevoVideo() {
+    waitingDialog();
+    $.ajax({
+        url: baseUrl + "AdministrarHistorias/GetViewVideo",
+        type: "GET",
+        dataType: "html",
+        contentType: "application/json; charset=utf-8",
+        success: function (result) {
+            closeWaitingDialog();
+            $("#dialog-content-video").empty();
+            $("#dialog-content-video").html(result).ready(function () {
+            });
+            $('#DialogMantenimientoVideo').dialog('option', 'title', "Nuevo");
+            showDialog("DialogMantenimientoVideo");
+        },
+        error: function (request, status, error) { closeWaitingDialog(); _toastHelper.error("Error al cargar la ventana."); }
+    });
 }

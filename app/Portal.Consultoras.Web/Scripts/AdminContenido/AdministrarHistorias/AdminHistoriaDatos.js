@@ -14,6 +14,7 @@
         DialogImagen: 'DialogImagen',
         TablaVideoId: '#tblVideoDet',
         TablaVideoPagina: '#pagerVideoDet',
+        DialogVideoEliminar: 'DialogMantenimientoVideoEliminar',
     }
 
     var _texto = {
@@ -34,6 +35,9 @@
         UrlComponenteDatosGuardar: baseUrl + 'AdministrarHistorias/ComponenteDatosGuardar',
         UrlGrillaEditarContenedor: baseUrl + 'AdministrarHistorias/ComponenteDetalleEditarViewDatos',
         UrlVideoGrilla: baseUrl + 'AdministrarHistorias/ComponenteVideoListar',
+        UrlContenidoApp: baseUrl + 'AdministrarHistorias/GetContenidoApp',
+        UrlGrillaEditarVideo: baseUrl + 'AdministrarHistorias/GetViewEditarVideo',
+        UrlComponenteVideoEliminar: baseUrl + 'AdministrarHistorias/ComponenteVideoEliminar',
     };
 
     var _accion = {
@@ -50,8 +54,12 @@
     var _evento = function () {
         CargarGrilla();
         CargarGrillaVideo();
+        OcultarTab();
+        
+    
     };
 
+    
     var _GrillaAcciones = function (cellvalue, options, rowObject) {
         var act = "&nbsp;<a href='javascript:;' onclick=\'return admHistoriaDatos.EditarContenedor(event);\' >"
             + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
@@ -68,6 +76,16 @@
             act = "<img src='" + rutaImagenVacia + "' border='0' style='max-width: 40px; max-height: 40px;' />";
         } else {
             act = "<a href='javascript:;' onclick=\'return admHistoriaDatos.VerImagen(event, \"" + cellvalue + "\");\' >" + "<img src='" + urlDetalleS3 + cellvalue + "' border='0' style='max-width: 40px; max-height: 40px;' /></a>";
+        }
+        return act;
+    };
+    var _GrillaUrlVideo = function (cellvalue, options, rowObject) {
+        var act = "";
+        //alert(cellvalue)
+        if (cellvalue == null) {
+            act = "";
+        } else {
+            act = '<a href="' + urlDetalleS3 + cellvalue +'" target = "_blank">' + cellvalue + '</a>';
         }
         return act;
     };
@@ -282,6 +300,30 @@
                 }
             }
         });
+
+        $('#' + _elemento.DialogVideoEliminar).dialog({
+            autoOpen: false,
+            resizable: false,
+            modal: true,
+            closeOnEscape: true,
+            width: 400,
+            height: 200,
+            close: function () {
+                HideDialog(_elemento.DialogVideoEliminar);
+            },
+            draggable: false,
+            title: "Eliminar",
+            open: function (event, ui) { },
+            buttons:
+            {
+                'Guardar': function () {
+                    _GuardarDatos(this);
+                },
+                'Salir': function () {
+                    HideDialog(_elemento.DialogVideoEliminar);
+                }
+            }
+        });
     };
 
     var _GuardarDatos = function (dialog) {
@@ -384,19 +426,14 @@
     };
 
     var CargarGrillaVideo = function () {
+
         $(_elemento.TablaVideoId).jqGrid('GridUnload');
 
         jQuery(_elemento.TablaVideoId).jqGrid({
-            //autowidth: true,
+            autowidth: true,
             url: _url.UrlVideoGrilla,
             hidegrid: false,
             datatype: 'json',
-            postData: ({
-                IdContenido: function () { return jQuery.trim(4); },
-                Campania: function () { return jQuery.trim($("#ddlCampania").val()); },
-                Codigo: function () { return jQuery.trim('GANA_EN_UN_CLICK'); }
-
-            }),
             mtype: 'GET',
             contentType: 'application/json; charset=utf-8',
             multiselect: false,
@@ -421,7 +458,7 @@
                 {
                     name: 'Orden',
                     index: 'Orden',
-                    width: 40,
+                    width: 10,
                     align: 'center',
                     resizable: false,
                     sortable: false
@@ -431,11 +468,11 @@
                 {
                     name: 'RutaContenido',
                     index: 'RutaContenido',
-                    width: 100,
+                    width: 50,
                     resizable: false,
                     sortable: false,
                     align: 'center',
-                   // formatter: _GrillaImagen
+                    formatter: _GrillaUrlVideo
                 },
                 {
                     name: 'Opciones',
@@ -444,10 +481,10 @@
                     align: 'center',
                     resizable: false,
                     sortable: false,
-                    formatter: _GrillaAcciones
+                    formatter: _GrillaAccionesVideo
                 },
             ],
-            pager: jQuery(_elemento.TablaPagina),
+            pager: jQuery(_elemento.TablaVideoPagina),
             loadtext: _texto.Cargando,
             recordtext: _texto.RegistroPaginar,
             emptyrecords: _texto.SinResultados,
@@ -466,6 +503,88 @@
         jQuery(_elemento.TablaVideoId).jqGrid('navGrid', _elemento.TablaVideoPagina, { edit: false, add: false, refresh: false, del: false, search: false });
     };
 
+    var OcultarTab = function () {
+      $("#divGanaEnUnClickContenido").hide();
+    }
+
+    var _GrillaAccionesVideo = function (cellvalue, options, rowObject) {
+        var act = "&nbsp;<a href='javascript:;' onclick=\'return admHistoriaDatos.EditarContenedorVideo(event);\' >"
+            + "<img src='" + rutaImagenEdit + "' alt='Editar' title='Editar' border='0' /></a>";
+
+        act += "&nbsp;<a href='javascript:;' onclick=\'return admHistoriaDatos.EliminarContenedorVideo(event);\' >"
+            + "<img src='" + rutaImagenDelete + "' alt='Eliminar' title='Eliminar' border='0' /></a>";
+        return act;
+    };
+
+    var GrillaEditarContenedorVideo = function (event) {
+
+        var rowId = $(event.path[1]).parents('tr').attr('id');
+        var row = jQuery(_elemento.TablaVideoId).getRowData(rowId);
+
+        var entidad = {
+            IdContenidoDeta: row['IdContenidoDeta'],
+            IdContenido: row['IdContenido'],
+            Campania: row['Campania']
+        };
+        _RegistroObternerVideo(entidad);
+    }
+
+    var _RegistroObternerVideo = function (modelo) {
+
+        waitingDialog();
+        $.ajax({
+            url: _url.UrlGrillaEditarVideo,
+            type: 'GET',
+            dataType: 'html',
+            data: modelo,
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+
+                closeWaitingDialog();
+
+                $("#dialog-content-video").empty();
+                $("#dialog-content-video").html(result).ready(function () {
+                });
+                $('#DialogMantenimientoVideo').dialog('option', 'title', "Editar");
+                showDialog("DialogMantenimientoVideo");
+
+            },
+            error: function (request, status, error) { closeWaitingDialog(); _toastHelper.error("Error al cargar la ventana."); }
+        });
+    };
+
+    var GrillaEliminarContenedorVideo = function (event) {
+
+        var rowId = $(event.path[1]).parents('tr').attr('id');
+        var row = jQuery(_elemento.TablaVideoId).getRowData(rowId);
+ 
+        var modelo = {
+            IdContenidoDeta: row['IdContenidoDeta'],
+            IdContenido: row['IdContenido'],
+        };
+
+        waitingDialog();
+        $.ajax({
+            url: _url.UrlComponenteVideoEliminar,
+            type: 'GET',
+            dataType: 'html',
+            data: modelo,
+            contentType: 'application/json; charset=utf-8',
+            success: function (result) {
+                closeWaitingDialog();
+                $("#dialog-content-video-eliminar").empty();
+                $("#dialog-content-video-eliminar").html(result).ready(function () {
+                });
+
+              showDialog(_elemento.DialogVideoEliminar);
+
+            },
+            error: function (request, status, error) {
+                _toastHelper.error(_texto.ProcesoError);
+            }
+        });
+    }
+
     var _initializar = function (param) {
         _evento();
         _DialogCrear();
@@ -479,7 +598,9 @@
         },
         Editar: GrillaEditar,
         VerImagen: GrillaVerImagen,
-        EditarContenedor: GrillaEditarContenedor
+        EditarContenedor: GrillaEditarContenedor,
+        EditarContenedorVideo: GrillaEditarContenedorVideo,
+        EliminarContenedorVideo: GrillaEliminarContenedorVideo
     };
 
 })();

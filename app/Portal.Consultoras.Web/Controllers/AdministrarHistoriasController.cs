@@ -568,11 +568,14 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(tree, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ComponenteVideoListar(string sidx, string sord, int page, int rows, int IdContenido, string Campania, string Codigo)
+        public JsonResult ComponenteVideoListar(string sidx, string sord, int page, int rows)
         {
             try
             {
-                var list = ComponenteListarDetService(IdContenido, Campania, Codigo);
+                string Codigo = Constantes.DatosContenedorHistorias.CodigoGanaEnUnClick;
+                BEContenidoAppHistoria entidad = GetContenidoApp(Codigo);
+               
+                var list = ComponenteListarDetService(entidad.IdContenido, string.Empty, entidad.Codigo);
                 var grid = new BEGrid
                 {
                     PageSize = rows,
@@ -609,6 +612,156 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new { success = false });
             }
+        }
+        
+        private BEContenidoAppHistoria GetContenidoApp(string Codigo)
+        {
+            BEContenidoAppHistoria entidad = new BEContenidoAppHistoria();
+            try
+            {
+                
+                using (var sv = new ContenidoServiceClient())
+                {                 
+                    entidad = sv.GetContenidoAppHistoria(userData.PaisID, Codigo);
+                }
+
+              
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+               
+            }
+            return entidad;
+        }
+        [HttpGet]
+        public ActionResult GetViewVideo()
+        {
+            string Codigo = Constantes.DatosContenedorHistorias.CodigoGanaEnUnClick;
+            BEContenidoAppHistoria entidad = GetContenidoApp(Codigo);
+
+            var model = new AdministrarHistorialDetaListModel();
+            model.Proc = Constantes.DatosContenedorHistorias.ProcAdd;
+            model.IdContenido = entidad.IdContenido;
+            model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID, true);
+
+            return PartialView("Partials/MantenimientoVideo", model); 
+
+        }
+
+        public ActionResult GetViewEditarVideo(AdministrarHistorialDetaListModel entidad)
+        {
+            AdministrarHistorialDetaListModel model = new AdministrarHistorialDetaListModel();
+
+            try
+            {
+                model.Proc = Constantes.DatosContenedorHistorias.ProcEdit;
+                model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID, true);
+                model.IdContenidoDeta = entidad.IdContenidoDeta;
+                model.IdContenido = entidad.IdContenido;
+                model.Campania = entidad.Campania;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                model = new AdministrarHistorialDetaListModel();
+            }
+            return PartialView("Partials/MantenimientoVideo", model);
+        }
+
+        [HttpPost]
+        public JsonResult ComponenteDatosVideoGuardar(AdministrarHistorialDetaListModel model)
+        {
+            int valRespuesta = 0;
+            var allowedExtensions = new[] {".mp4" };
+            try
+            {
+                string _name = string.Empty;
+                if (model.file != null && model.file.ContentLength > 0)
+                {
+                    var checkextension = Path.GetExtension(model.file.FileName).ToLower();
+                    if (!allowedExtensions.Contains(checkextension))
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            message = "El formato no es correcto. Vuelve a intentar, por favor."
+                        });
+                    }
+                    else if (model.file.ContentLength > 30000000)
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            message = "El tamaño máximo de archivo permitido es 20MB."
+                        });
+                    }
+                    else
+                    {
+                        string _FileName = Path.GetFileName(model.file.FileName);
+
+                        var _time = string.Concat(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Minute, DateTime.Now.Millisecond);
+                        var _path = Path.Combine(Globals.RutaTemporales, _time + _FileName);
+
+                        if (!Directory.Exists(Globals.RutaTemporales)) Directory.CreateDirectory(Globals.RutaTemporales);
+                        model.file.SaveAs(_path);
+
+                        _name = Path.GetFileName(_path);
+                    }
+                }
+
+                model.RutaContenido = SaveFileDetalleS3(_name, true);
+
+                using (ContenidoServiceClient sv = new ContenidoServiceClient())
+                {
+
+                    var entidad = new BEContenidoAppDeta
+                    {
+                        Proc = model.Proc,
+                        IdContenidoDeta = model.IdContenidoDeta,
+                        IdContenido = model.IdContenido,
+                        RutaContenido = model.RutaContenido,
+                        Campania = model.Campania,
+                        Tipo = Constantes.TipoContenido.Video
+                    };
+                    valRespuesta = sv.ContenidoAppDetaVideo(userData.PaisID, entidad);
+
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = valRespuesta,
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.StackTrace,
+                });
+            }
+        }
+
+        public ActionResult ComponenteVideoEliminar(AdministrarHistorialDetaUpdModel entidad)
+        {
+            AdministrarHistorialDetaUpdModel modelo;
+            try
+            {
+                modelo = new AdministrarHistorialDetaUpdModel
+                {
+                    IdContenidoDeta = entidad.IdContenidoDeta,
+                    IdContenido = entidad.IdContenido
+                };
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                modelo = new AdministrarHistorialDetaUpdModel();
+            }
+            return PartialView("Partials/MantenimientoVideoEliminar", modelo);
         }
 
     }
