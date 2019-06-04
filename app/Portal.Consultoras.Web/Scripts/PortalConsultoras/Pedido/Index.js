@@ -30,6 +30,7 @@ var pedidoProvider = PedidoProvider();
 
 $(document).ready(function () {
     ValidarKitNuevas();
+
     var hdDataBarra = $("#hdDataBarra").val();
     if ($.trim(hdDataBarra) != "") {
         dataBarra = JSON.parse(hdDataBarra);
@@ -475,7 +476,11 @@ $(document).ready(function () {
 
     CrearDialogs();
     MostrarBarra();
-    CargarDetallePedido();
+
+    //INI HD-4200
+    ValidarSuscripcionSE(function () { CargarDetallePedido();},0);
+    //FIN HD-4200
+    
     CargarCarouselEstrategias();
     CargarAutocomplete();
     CargarDialogMesajePostulantePedido();
@@ -1498,6 +1503,8 @@ function ObservacionesProducto(item) {
     $("#hdTipoEstrategiaID").val(item.TipoEstrategiaID);
     $("#hdEsOfertaIndependiente").val(item.EsOfertaIndependiente);
     $("#OfertaTipoNuevo").val("");
+    $("#hdEsDuoPerfecto").val(item.EsDuoPerfecto);
+    $("#hdTipoEstrategiaCodigo").val(item.CodigoEstrategia);
 
     $("#txtCantidad").removeAttr("disabled");
     if (item.FlagNueva == 1) {
@@ -1937,7 +1944,7 @@ function EjecutarServicioPROL() {
             }
 
             if (response.mensajeCondicional) {
-                AbrirMensaje(response.mensajeCondicional);
+                AbrirMensajeImagen(response.mensajeCondicional);
             }
 
             //Marcación Analytics
@@ -2478,7 +2485,7 @@ function UpdateCliente(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CU
             }
 
             if (data.mensajeCondicional) {
-                AbrirMensaje(data.mensajeCondicional);
+                AbrirMensajeImagen(data.mensajeCondicional);
             }
 
             CargarDetallePedido();

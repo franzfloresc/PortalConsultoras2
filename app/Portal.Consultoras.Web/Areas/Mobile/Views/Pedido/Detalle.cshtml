@@ -169,8 +169,8 @@
             Al hacer click en el botón <b>"Continuar"</b> se perderá la reserva de tus productos. Recuerda, que si lo modificas debes volver a validar.
         </div>
         <div style="text-align: center; margin-top: 30px;">
-            <input id="btnValidarConfirm" type="button" value="Cancelar" onclick="$('#popupInformacionSB2Question').hide();" class="input_modifica_horizontal" style="width: 120px; margin-left: 0;" />            
-            <input id="btnNoValidarConfirm" type="button" value="Continuar" onclick="AccionConfirmarModificarPedido()" class="input_modifica_horizontal" style="width: 120px; margin-left: 20px;" />
+            <input id="btnValidarConfirm" type="button" value="Cancelar" onclick="$('#popupInformacionSB2Question').hide();" class="input_modifica_horizontal_popup_pedido" style="width: 120px; margin-left: 0;" />            
+            <input id="btnNoValidarConfirm" type="button" value="Continuar" onclick="AccionConfirmarModificarPedido()" class="input_modifica_horizontal_popup_pedido" style="width: 120px; margin-left: 20px;" />
         </div>
     </div>
 </div>
@@ -414,6 +414,10 @@
                     {{/if}}
                 </div>
 
+                {{#if detalle.EsSuscripcionSE}}
+                <div class="info_copy" style="display:none">
+                </div>
+                {{else}}
                 {{#if detalle.EsKitNueva}}
                 <div class="icono_kitNuevas">
                     <a href="javascript:;" title="Ver Info Kit Nuevas">
@@ -427,11 +431,14 @@
                     </div>
                 </div>
                 {{else iff detalle.LockPremioElectivo}}
+                {{#iff EsPedidoReservado '==' false}}
                 <div class="icono_cambiar_regalo_programaNuevas">
                     <a href="javascript:;" title="Cambiar regalo" onclick="javascript: cargarPopupEleccionRegalo();">
                         <img src="@Url.Content("~/Content/Images/icono_editar.svg")" alt="Cambiar regalo" />
                     </a>
                 </div>
+                {{/iff}}
+                {{/if}}
                 {{/if}}
             </div>
             <div class="bloque_cantidades_precios_items_ingresados">
@@ -1031,6 +1038,7 @@
 @{ Html.RenderPartial("_PopupEleccionRegalo");}
 @{ Html.RenderPartial("_PopupPremio");}
 @{ Html.RenderPartial("_PopupDescuento");}
+@{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupInformacionRegalo.cshtml");}
 <div id="DivPopupFichaResumida" class="Modal_Editar_Producto" style="display: none">
     @Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/FichaTemplate.cshtml")
 </div>
@@ -1060,6 +1068,11 @@
         var urlPedidoAceptarBackOrder = '@Url.Action("AceptarBackOrder", "Pedido", new { area = "" })';
 
         var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "PedidoRegistro", new { area = "" })';
+        //INI HD-4200
+        var urlValidarSuscripcionSE = '@Url.Action("ValidarSuscripcionSE", "PedidoRegistro", new { area = "" })';
+        //FIN HD-4200
+
+
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var fnEliminarProducto = null;
 
@@ -1081,6 +1094,7 @@
         var paginaOrigenCupon = 21;
         var correo = '@Model.EMail';
         var celular = '@Model.Celular';
+        var EstadoPedido = @Model.EstadoPedido;
 
         var consultoraRegaloPN = '@ViewBag.ConsultoraTieneRegaloPN';
         var ofertaFinalEstado = '@ViewBag.OfertaFinalEstado';

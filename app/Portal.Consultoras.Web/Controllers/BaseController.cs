@@ -419,6 +419,43 @@ namespace Portal.Consultoras.Web.Controllers
             return false;
         }
 
+        public BEConfiguracionCampania GetConfiguracionCampania()
+        {
+            BEConfiguracionCampania configuracionCampania;
+
+            if (userData.EsConsultora())
+            {
+                using (var pedidoServiceClient = new PedidoServiceClient())
+                {
+                    var consultoraId = userData.GetConsultoraId();
+                    configuracionCampania = pedidoServiceClient.GetEstadoPedido(userData.PaisID, userData.CampaniaID, consultoraId, userData.ZonaID, userData.RegionID);
+                }
+
+                return configuracionCampania;
+            }
+
+            configuracionCampania = new BEConfiguracionCampania
+            {
+                CampaniaID = userData.CampaniaID,
+                EstadoPedido = Constantes.EstadoPedido.Pendiente,
+                ModificaPedidoReservado = false,
+                ZonaValida = false,
+                CampaniaDescripcion = Convert.ToString(userData.CampaniaID)
+            };
+
+            return configuracionCampania;
+        }
+
+        public bool EsPedidoReservado(BEConfiguracionCampania configuracionCampania = null)
+        {
+            if (configuracionCampania == null)
+            {
+                configuracionCampania = GetConfiguracionCampania();
+            }
+
+            return configuracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente && !configuracionCampania.ValidacionAbierta;
+        }
+
         protected string ValidarMontoMaximo(decimal montoCuv, int cantidad, out bool result)
         {
             var mensaje = "";
@@ -1023,6 +1060,9 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.SegmentoConstancia = userData.SegmentoConstancia != null && userData.SegmentoConstancia != "" ? userData.SegmentoConstancia.Trim() : "(not available)";
             ViewBag.DescripcionNivelAnalytics = userData.DescripcionNivel != null && userData.DescripcionNivel != "" ? userData.DescripcionNivel : "(not available)";
             ViewBag.MensajeChat = userData.MensajeChat;
+            ViewBag.ChatBotPageId = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ChatBotPageId);
+            ViewBag.ChatBotToken = new ChatbotProvider().GetToken(userData, SessionManager, _configuracionManagerProvider);
+            ViewBag.ChatBotUrlRef = string.Format(Constantes.ConfiguracionManager.ChatBotUrl, ViewBag.ChatBotPageId, ViewBag.ChatBotToken);
 
             if (userData.RolID == Constantes.Rol.Consultora)
             {

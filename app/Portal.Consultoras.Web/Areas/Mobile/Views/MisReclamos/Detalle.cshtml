@@ -163,7 +163,7 @@
 }
 else if (ViewBag.Origen == "1")
 {
-    <div class="datos_solicitud_cdr_consulta tipografia_lato bloqueCDRDetalle pt-78">
+    <div class="datos_solicitud_cdr_consulta tipografia_lato bloqueCDRDetalle">
         <div class="wrapper_resumen_mobile">
             <div class="datos_solicitud_cdr_titulo tipografia_lato_bold">
                 Solicitud de cambios y devoluciones
@@ -194,19 +194,23 @@ else if (ViewBag.Origen == "1")
                         <div>
                             @item.SolucionSolicitada
                         </div>
-                        <div class="estado_solic_cdr color_marca  tipografia_lato_bold">
+                        <div class="estado_solic_cdr tipografia_lato_bold">
                             @if (item.Estado == 4)
-                            {<span>RECHAZADO</span>}
+                            {<span class="tipografia_lato_bold estado_registro_solicitud_cdr estado_rechazado">RECHAZADO</span>}
                             @if (item.Estado == 3)
-                            {<span>APROBADO</span>}
+                            {<span class="tipografia_lato_bold estado_registro_solicitud_cdr estado_aprobado">APROBADO</span>}
                             @if (item.Estado == 2)
-                            {<span>EN EVALUACION</span>}
+                            {<span class="tipografia_lato_bold estado_registro_solicitud_cdr estado_en_evaluacion">EN EVALUACION</span>}
                             @if (item.Estado == 1)
-                            {<span>PENDIENTE</span>}
+                            {<span class="tipografia_lato_bold estado_registro_solicitud_cdr estado_pendiente">PENDIENTE</span>}
                         </div>
                     </div>
                     <div class="detalle_tipo_solicitud">
                         <div class="detalle_producto_cdr">
+                            @if (item.GrupoID != "" && item.GrupoID != null)
+                            {
+                                <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div>
+                            }
                             <span class="detalle_cod_producto tipografia_lato_regular">
                                 @item.CUV
                             </span>
@@ -221,7 +225,7 @@ else if (ViewBag.Origen == "1")
                             </span>
                         </div>
                         <div class="detalle_cdr_solucion">
-                            <span class="detalle_cdr_solucion_titulo color_marca tipografia_lato_bold">
+                            <span class="detalle_cdr_solucion_titulo tipografia_lato_bold">
                                 @item.Solicitud
                             </span>
                             @if (item.CodigoOperacion.Equals("T"))

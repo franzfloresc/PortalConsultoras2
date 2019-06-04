@@ -1,8 +1,17 @@
-﻿
+﻿body {
+    background-color: #f5f5f7;
+}
+
+.seccion_ficha{
+    background-color: #fff;
+    margin-top: 12px;
+}
+
 .contenedor_detalle {
     margin: 0 auto;
     max-width: 1105px;
-    padding: 25px 0;
+    padding-top: 32px;
+    padding-bottom: 32px;
     position: relative;
 }
 
@@ -127,7 +136,8 @@ ul.breadcumbs li a {
     width: 100%;
     font-size: 12px;
     letter-spacing: 0.8px;
-    margin-bottom: 3px;
+    line-height: 12px;
+    margin-bottom: 4px;
 }
 
 .descripcion {
@@ -189,7 +199,7 @@ ul.breadcumbs li a {
     font-size: 16px;
     font-weight: bold;
     color: #000;
-    margin: 0 0 12px 0;
+    margin: 0 0 15px 0;
     line-height: normal;
 }
 
@@ -480,7 +490,6 @@ ul.breadcumbs li a {
     box-shadow: none !important;
 }  
 
-
 @media (min-width: 960px) {
     .contenedor_agregar {
         border-top: 1px solid #d1d1d4;
@@ -506,7 +515,40 @@ ul.breadcumbs li a {
 }
 
 @media (max-width: 960px) {
-    .reloj_mobile{
+    .content_responsive {
+        margin-bottom: 73px;
+    }
+
+    /*UpSelling*/
+    .carousel_ficha .slick-arrow {
+        display:none !important;
+    }
+
+    .img_producto img{
+        width: 100%;
+        height: auto;
+        margin-bottom: 0px;
+    }
+    .precio_normal{
+        display: none;
+    }
+
+    .caja_vertical {
+        /*max-width: 195px;*/
+        width: 250px !important;
+    }
+
+    .caja_horizontal {
+        /*max-width: 410px;*/
+        width: 250px !important;
+    }
+
+    .titulo_producto {
+        font-size: 14px;
+    }
+
+    /*Fin UpSelling*/
+    .reloj_mobile {
         display: block !important;
     }
 
@@ -567,6 +609,7 @@ ul.breadcumbs li a {
         width: 100%;
         background: #ececec;
         padding: 14px;
+        z-index: 99;
     }
 
     .ficha_div_libre_agregado {
@@ -588,6 +631,15 @@ ul.breadcumbs li a {
 
     .precio_venta_oferta {
         margin-top: 10px;
+    }
+
+    .producto_componentes {
+        border-top: 1px solid #d1d1d4;
+        padding-top: 13px;
+    }
+
+    .detalle_producto_detalle li {
+        font-size: 14px;
     }
 
     .share{

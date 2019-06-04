@@ -69,7 +69,11 @@ $(document).ready(function () {
         else mostrar.fadeOut(200);
     });
 
-    ValidarKitNuevas(function () { CargarPedido(true); });
+    //INI HD-4200
+    ValidarSuscripcionSE(function () { ValidarKitNuevas(function () { CargarPedido(true); }) },1);
+     //FIN HD-4200
+    
+   
 
     $("#suma, #resta").click(function (event) {
         if (!ValidarPermiso(this)) {
@@ -106,7 +110,7 @@ function CargarPedido(firstLoad) {
         })
         .fail(function (data, error) {
             if (checkTimeout(data)) {
-                messageInfo('Ocurri√≥ un error al intentar validar el horario restringido o si el pedido est√° reservado. Por favor int√©ntelo en unos minutos.');
+                messageInfo('OcurriÛ un error al intentar validar el horario restringido o si el pedido est· reservado. Por favor intÈntelo en unos minutos.');
             }
         })
         .then(function () {
@@ -159,7 +163,7 @@ function UpdateLiquidacionEvento(evento) {
     var cantidadAnterior = obj.CantidadTemporal;
 
     if (cantidad.length == 0 || isNaN(cantidad)) {
-        messageInfoMalo('Por favor ingrese una cantidad v√°lida.');
+        messageInfoMalo('Por favor ingrese una cantidad v·lida.');
         $(cantidadElement).val(cantidadAnterior);
         return false;
     }
@@ -277,7 +281,7 @@ function UpdateLiquidacionTipoOfertaSis(urls, obj, elementRow) {
         return false;
 
     if ($.trim(cantidadActual).length == 0) {
-        messageInfoMalo('Por favor ingrese una cantidad v√°lida.');
+        messageInfoMalo('Por favor ingrese una cantidad v·lida.');
         $(cantidadElement).val(cantidadAnterior);
         return false;
     }
@@ -337,9 +341,9 @@ function UpdateLiquidacionTipoOfertaSis(urls, obj, elementRow) {
                 messageInfoMalo("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto " + obj.CUV + ".");
             else {
                 if (Saldo == "0")
-                    messageInfoMalo("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar m√°s, debido a que ya agreg√≥ este producto (" + obj.CUV + ") a su pedido, verifique.");
+                    messageInfoMalo("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar m·s, debido a que ya agregÛ este producto (" + obj.CUV + ") a su pedido, verifique.");
                 else
-                    messageInfoMalo("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") m√°s, debido a que ya agreg√≥ este producto (" + obj.CUV + ") a su pedido, verifique.");
+                    messageInfoMalo("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") m·s, debido a que ya agregÛ este producto (" + obj.CUV + ") a su pedido, verifique.");
             }
 
             CloseLoading();
@@ -404,7 +408,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
     }
 
     if (Cantidad.length == 0) {
-        messageInfoMalo('Por favor ingrese una cantidad v√°lida.');
+        messageInfoMalo('Por favor ingrese una cantidad v·lida.');
         return false;
     }
 
@@ -716,7 +720,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBa
     var DesProd = detalleObj.DescripcionProd;
 
     if (Cantidad.length == 0) {
-        messageInfoMalo('Por favor ingrese una cantidad v√°lida.');
+        messageInfoMalo('Por favor ingrese una cantidad v·lida.');
         return false;
     }
 
@@ -824,7 +828,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             setTimeout(function () {
 		            showPopupNivelSuperado(data.DataBarra, prevTotal);
 		            if (data.mensajeCondicional) {
-			            AbrirMensaje(data.mensajeCondicional);
+			            AbrirMensajeImagen(data.mensajeCondicional);
 		            }
 		            if (data.modificoBackOrder) {
 			            messageInfo('Recuerda que debes volver a validar tu pedido.');
@@ -839,7 +843,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
 }
 
 function TagManagerClickEliminarProducto(descripcionProd, cuv, precioUnidad, descripcionMarca, descripcionOferta, cantidad) {
-    var variant = "Est√°ndar";
+    var variant = "Est·ndar";
     if (descripcionOferta != "") {
         descripcionOferta = descripcionOferta.replace('[', '').replace(']', '');
         variant = $.trim(descripcionOferta);
@@ -884,7 +888,7 @@ function SeparadorMiles(pnumero) {
 function EjecutarPROL(cuvOfertaProl) {
 
     if (gTipoUsuario == '2') {
-        var msgg = "Recuerda que este pedido no se va a facturar. Pronto podr√°s acceder a todos los beneficios de Somos Belcorp.";
+        var msgg = "Recuerda que este pedido no se va a facturar. Pronto podr·s acceder a todos los beneficios de Somos Belcorp.";
         $('#popupInformacionSB2Malo').find('#mensajeInformacionSB2_Malo').text(msgg);
         $('#popupInformacionSB2Malo').show();
         return;
@@ -925,7 +929,7 @@ function EjecutarServicioPROL() {
             }
 
             if (response.mensajeCondicional) {
-	            AbrirMensaje(response.mensajeCondicional);
+                AbrirMensajeImagen(response.mensajeCondicional);
             }
 
             RespuestaEjecutarServicioPROL(response, function () { return CumpleOfertaFinalMostrar(response); });
@@ -981,7 +985,7 @@ function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == '1') EnviarCorreoPedidoReservado();
     if (estaRechazado == "2") cerrarMensajeEstadoPedido();
 
-    messageInfoBueno('<h3>Tu pedido fue reservado con √©xito.</h3>');
+    messageInfoBueno('<h3>Tu pedido fue reservado con &eacute;xito.</h3>');
     var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
     if (ultimoDiaFacturacion) {
 	    RedirigirPedidoValidado();
@@ -997,13 +1001,13 @@ function ConstruirObservacionesPROL(model) {
     }
     var mensajeBloqueante = true;
 
-    if (!model.ZonaValida) messageInfoBueno('<h3>Tu pedido se guard√≥ con √©xito</h3>');
+    if (!model.ZonaValida) messageInfoBueno('<h3>Tu pedido se guard&oacute; con &eacute;xito.</h3>');
     else if (!model.ValidacionInteractiva) messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
     else {
         mensajeBloqueante = false;
 
         if (model.ObservacionRestrictiva) CrearPopupObservaciones(model);
-        else ArmarPopupObsReserva(true, '¬°LO <b>LOGRASTE</b>!', 'Tu pedido fue guardado con √©xito. Recuerda, al final de tu campa√±a valida tu pedido para reservar tus productos.');
+        else ArmarPopupObsReserva(true, '!LO <b>LOGRASTE</b>!', 'Tu pedido fue guardado con &eacute;xito. Recuerda, al final de tu campa&ntilde;a valida tu pedido para reservar tus productos.');
     }
 
     CargarPedido();
@@ -1014,7 +1018,7 @@ function ConstruirObservacionesPROL(model) {
 
 function CrearPopupObservaciones(model) {
     var mensaje = "<ul style='padding-left: 15px; list-style-type: none; text-align: center;'>";
-    if (model.ListaObservacionesProl.length == 0) mensaje += "<li>Tu pedido tiene observaciones, por favor rev√≠salo.</li>";
+    if (model.ListaObservacionesProl.length == 0) mensaje += "<li>Tu pedido tiene observaciones, por favor rev&iacute;salo.</li>";
     else {
         $.each(model.ListaObservacionesProl, function (index, item) {
             if (model.CodigoIso == "BO" || model.CodigoIso == "MX") {
@@ -1024,7 +1028,7 @@ function CrearPopupObservaciones(model) {
             }
 
             if (item.Caso == 95 || item.Caso == 105) mensaje += "<li>" + item.Descripcion + "</li>";
-            else mensaje += "<li>Tu pedido tiene observaciones, por favor rev√≠salo.</li>";
+            else mensaje += "<li>Tu pedido tiene observaciones, por favor rev&iacute;salo.</li>";
 
             return false;
         });
@@ -1085,7 +1089,7 @@ function ActualizarBtnGuardar(model) {
 //            CloseLoading();
 //            if (!checkTimeout(data)) return;
 
-//            messageInfoMalo("Ocurri√≥ un error al ejecutar la acci√≥n. Por favor int√©ntelo de nuevo.");
+//            messageInfoMalo("OcurriÛ un error al ejecutar la acciÛn. Por favor intÈntelo de nuevo.");
 //        }
 //    });
 //}
@@ -1112,7 +1116,7 @@ function CancelarObsInformativas() {
             error: function (data, error) {
                 CloseLoading();
                 if (checkTimeout(data))
-                    messageInfoMalo("Ocurri√≥ un error al ejecutar la acci√≥n. Por favor int√©ntelo de nuevo.");
+                    messageInfoMalo("OcurriÛ un error al ejecutar la acciÛn. Por favor intÈntelo de nuevo.");
             }
         });
     } else {
@@ -1165,7 +1169,7 @@ function MostrarDetalleGanancia() {
 //                'event': 'addToCart',
 //                'ecommerce': {
 //                    'add': {
-//                        'actionField': { 'list': 'Est√°ndar' },
+//                        'actionField': { 'list': 'Est·ndar' },
 //                        'products': [{
 //                            'name': data.data.DescripcionProd,
 //                            'price': String(data.data.PrecioUnidad),

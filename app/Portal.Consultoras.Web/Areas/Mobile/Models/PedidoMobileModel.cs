@@ -81,5 +81,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public PartialSectionBpt PartialSectionBpt { get; set; }
 
         public bool MostrarPopupPrecargados { get; set; }
+
+        public int EstadoPedido { get; set; }
     }
 }

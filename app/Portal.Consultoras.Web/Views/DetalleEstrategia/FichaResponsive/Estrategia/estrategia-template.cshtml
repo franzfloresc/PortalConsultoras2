@@ -2,11 +2,11 @@
 
 <script id="estrategia-template" type="text/x-handlebars-template">
     {{#if TieneReloj}}
-        <div class="col-12 reloj_desktop">
-            <div id="EtiquetaOdd" class="contenedor_etiqueta_odd">
-                <div class="clock_odd"></div>
-            </div>
+    <div class="col-12 reloj_desktop">
+        <div id="EtiquetaOdd" class="contenedor_etiqueta_odd">
+            <div class="clock_odd"></div>
         </div>
+    </div>
     {{/if}}
     <div class="col-md-7">
         <div class="nombre_marca">
@@ -35,7 +35,7 @@
     </div>
     <div class="col-md-5 text-md-right">
         <div class="precio_venta_oferta">
-            Precio para ti 
+            Precio para ti
             <span data-precio_venta_oferta="">
                 {{#IsNullOrEmpty this.ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
             </span>
@@ -43,6 +43,16 @@
             <span class="subprecio">{{itemNivel}}</span>
             {{/each}}
         </div>
+
+        {{#iff this.Hermanos.length '==' 1}}
+        {{#each this.Hermanos as |componente|}}
+        {{#IsNullOrEmpty componente.UnidadMedidaContenido '!='}}
+        {{#iff componente.PrecioContenido '>' 0}}
+        <div class="descripcion_item item_pum">{{componente.UnidadMedidaContenido}} a {{SimboloMoneda}} {{DecimalToStringFormatWithoutRounding componente.PrecioContenido}}</div>
+        {{/iff}}
+        {{/IsNullOrEmpty}}
+        {{/each}}
+        {{/iff}}
 
         {{#iff Precio '>' 0}}
         <div class="precio_valorizado">

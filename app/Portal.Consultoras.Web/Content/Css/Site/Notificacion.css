@@ -1,0 +1,57 @@
+﻿/*
+    * Sitio : Desktop 
+    * Descripción : Para todoas las palancas mensaje de notificacion al  crear y modificar
+    * Dependencias : Jquery-ui.css 
+*/
+
+#alertDialogMensajes25seg {
+    padding-bottom: 20px !important;
+    min-height: 100px !important;
+}
+
+.alert-align {
+    display: flex;
+    align-items: center
+}
+
+.setBottom {
+    display: flex;
+    align-items: center;
+    border-radius: 4px !important;
+}
+
+    .setBottom > .ui-dialog-titlebar.ui-corner-all {
+        display: none;
+    }
+
+    .setBottom .pop_pedido_mensaje {
+        color: #569C04;
+        font-size: 16px;
+    }
+
+.pop_image .img-fluid {
+    max-width: 100%;
+    height: auto;
+    width: 100px;
+}
+
+.ui-dialog .ui-dialog-content {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.snackbar-align {
+    display: flex;
+    align-items: center;
+    
+}
+
+@media (max-width: 600px) {
+    .snackbar-align {
+        flex-flow: column
+    }
+    .ui-dialog .ui-dialog-content {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}

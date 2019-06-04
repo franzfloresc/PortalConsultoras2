@@ -1267,7 +1267,7 @@ namespace Portal.Consultoras.BizLogic
                 // DD : 1
                 // Web: 2
                 List<BEPedidoDDWebDetalle> lstPedidosWebDetalle = new List<BEPedidoDDWebDetalle>();
-                if (Origen.Equals("Web"))
+                if (Origen.ToUpper().Equals("WEB"))
                 {
                     try
                     {
@@ -1285,7 +1285,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 List<BEPedidoDDWebDetalle> lstPedidosDdDetalle = new List<BEPedidoDDWebDetalle>();
-                if (Origen.Equals("DD"))
+                if (Origen.ToUpper().Equals("DD"))
                 {
                     try
                     {
@@ -1599,7 +1599,7 @@ namespace Portal.Consultoras.BizLogic
                 // DD : 1
                 // Web: 2
                 List<BEPedidoDDWebDetalle> lstPedidosWebDetalle = new List<BEPedidoDDWebDetalle>();
-                if (Origen.Equals("Web"))
+                if (Origen.ToUpper().Equals("WEB"))
                 {
                     try
                     {
@@ -1617,7 +1617,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 List<BEPedidoDDWebDetalle> lstPedidosDdDetalle = new List<BEPedidoDDWebDetalle>();
-                if (Origen.Equals("DD"))
+                if (Origen.ToUpper().Equals("DD"))
                 {
                     try
                     {
@@ -2460,6 +2460,23 @@ namespace Portal.Consultoras.BizLogic
                 throw ex;
             }
         }
+
+        //INI HD-4200
+        public List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb BEPedidoWeb)
+        {
+            var listaSuscripcionSE= new List<BEProducto>();
+            var daPedidoWeb = new DAPedidoWeb(BEPedidoWeb.PaisID);
+   
+            using (IDataReader reader = daPedidoWeb.GetCuvSuscripcionSE(BEPedidoWeb))
+                while (reader.Read())
+                {
+                    var entidad = new BEProducto(reader);
+                    listaSuscripcionSE.Add(entidad);
+                }
+            return listaSuscripcionSE;
+        }
+        //FIN HD-4200
+
 
         private string ClienteLine(TemplateField[] template, BEDescargaPedidoCliente row)
         {

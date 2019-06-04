@@ -496,6 +496,10 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                .ForMember(t => t.SAP, f => f.MapFrom(c => c.CodigoProducto))
                .ForMember(t => t.Precio, f => f.MapFrom(c => c.PrecioCatalogo))
                .ForMember(t => t.NombreMarca, f => f.MapFrom(c => c.DescripcionMarca));
+
+            //INI HD-4200
+            Mapper.CreateMap<UsuarioModel, ServicePedido.BEPedidoWeb>();
+            //FIN HD-4200
         }
     }
 }
