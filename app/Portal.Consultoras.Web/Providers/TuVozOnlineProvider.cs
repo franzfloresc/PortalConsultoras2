@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Web.Providers
                 user.PrimerApellido,
                 user.EMail,
                 DateTime.Now.Year,
-                "Yes",
+                user.EMailActivo ? "Yes" : "No",
                 user.FechaNacimiento,
                 user.CodigoISO
             );
