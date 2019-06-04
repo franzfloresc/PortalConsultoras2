@@ -8,7 +8,7 @@ jQuery(document).ready(function () {
 
     CreateLoading();
 
-    if (typeof IsoPais === 'undefined' || IsoPais != 'PE')  {
+    if (typeof habilitarChatBot === 'undefined' || habilitarChatBot === 'False')  {
         $('.btn_chat_messenger_mobile').hide();
     }
     if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {

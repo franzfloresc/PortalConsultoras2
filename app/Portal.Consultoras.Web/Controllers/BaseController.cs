@@ -1216,7 +1216,9 @@ namespace Portal.Consultoras.Web.Controllers
             int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
 
-            ViewBag.HabilitarChatEmtelco = _chatEmtelcoProvider.HabilitarChatEmtelco(userData.PaisID, esMobile);
+            var chats = _chatEmtelcoProvider.HabilitarChats(userData.PaisID, esMobile);
+            ViewBag.HabilitarChatEmtelco = chats.ChatEmtelco;
+            ViewBag.HabilitarChatBot = chats.ChatBot;
             ViewBag.NoReservoPedido = userData.EsDiasFacturacion && _pedidoWebProvider.RequiereCierreSessionValidado(_tablaLogicaProvider, userData.PaisID) && !_pedidoWebProvider.TienePedidoReservado(userData) && ObtenerPedidoWebDetalle().Count > 0;
             ViewBag.SessionTimeout = HttpContext.Session.Timeout;
 
