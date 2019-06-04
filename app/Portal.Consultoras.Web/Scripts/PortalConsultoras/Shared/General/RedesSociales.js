@@ -17,7 +17,7 @@
         var padre = obj.parents("[data-item]");
         var article = $(padre).find("[data-compartir-campos]").eq(0);
 
-        var label = $(article).find(".rs" + tipoRedes + "Mensaje").val();
+        //var label = $(article).find(".rs" + tipoRedes + "Mensaje").val();
 
         CompartirRedesSocialesInsertar(article, tipoRedes);
     }
@@ -48,8 +48,6 @@
         if (_palanca === "FAV") {
             pcDetalle += "|" + _vol + "|" + _descProd;
         }
-        try {
-        } catch (e) { console.log(e); }
 
         var Item = {
             mCUV: $(article).find(".CUV").val(),
@@ -134,33 +132,31 @@
         return "whatsapp://send?text=" + texto;
     }
 
-    var CompartirRedesSocialesAnalytics = function (tipoRedes, ruta, nombre) {
+    //var CompartirRedesSocialesAnalytics = function (tipoRedes, ruta, nombre) {
 
-        try {
-            if (typeof origenPedidoWebEstrategia !== "undefined" && origenPedidoWebEstrategia.indexOf("7") !== -1) {
-                rdAnalyticsModule.CompartirProducto(tipoRedes, ruta, nombre);
-            } else {
+    //    try {
+    //        if (typeof origenPedidoWebEstrategia !== "undefined" && origenPedidoWebEstrategia.indexOf("7") !== -1) {
+    //            rdAnalyticsModule.CompartirProducto(tipoRedes, ruta, nombre);
+    //        } else {
 
-                if (tipoRedes === "FB") {
-                    dataLayer.push({
-                        'event': 'socialEvent',
-                        'network': 'Facebook',
-                        'action': 'Share',
-                        'target': ruta
-                    });
-                } else if (tipoRedes == "WA") {
-                    dataLayer.push({
-                        'event': 'socialEvent',
-                        'network': 'Whatsapp',
-                        'action': 'Compartir',
-                        'target': ruta
-                    });
-                }
-            }
-        } catch (e) { console.log(e) }
-
-
-    }
+    //            if (tipoRedes === "FB") {
+    //                dataLayer.push({
+    //                    'event': 'socialEvent',
+    //                    'network': 'Facebook',
+    //                    'action': 'Share',
+    //                    'target': ruta
+    //                });
+    //            } else if (tipoRedes == "WA") {
+    //                dataLayer.push({
+    //                    'event': 'socialEvent',
+    //                    'network': 'Whatsapp',
+    //                    'action': 'Compartir',
+    //                    'target': ruta
+    //                });
+    //            }
+    //        }
+    //    } catch (e) { console.log(e) }
+    //}
 
     // catalogo compartir por Facebook
     var CompartirFacebook = function (catalogo, campaniaCatalogo, btn) {

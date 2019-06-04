@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
+﻿using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
+using Portal.Consultoras.BizLogic.CaminoBrillante.Rest;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Serializer;
 using Portal.Consultoras.Data.CaminoBrillante;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.CaminoBrillante;
-using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
-using System.Globalization;
-using Portal.Consultoras.Common.Serializer;
 using Portal.Consultoras.Entities.Pedido;
-using Portal.Consultoras.BizLogic.CaminoBrillante.Rest;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Globalization;
+using System.Linq;
 
 namespace Portal.Consultoras.BizLogic.CaminoBrillante
 {
@@ -372,9 +372,11 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             };
         }
 
-        private List<BEEscalaDescuento> GetEscalaDescuento(int paisId, BEUsuario entidad) {
+        private List<BEEscalaDescuento> GetEscalaDescuento(int paisId, BEUsuario entidad)
+        {
             var escalas = _escalaDescuentoBusinessLogic.GetEscalaDescuento(paisId, entidad.CampaniaID, entidad.Region, entidad.Zona) ?? new List<BEEscalaDescuento>();
-            if (escalas.Any()) {
+            if (escalas.Any())
+            {
                 var montoMinimo = (new DACaminoBrillante(paisId)).GetMontoMinimoEscala(entidad.ConsultoraID);
                 foreach (var item in escalas)
                 {
@@ -481,7 +483,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         }
 
         private Action<string, int> GetBuilderMedallaContancia(List<BEPeriodoCaminoBrillante> periodos, List<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante> medallaConstancia,
-            BEPeriodoCaminoBrillante _periodoActual, BEConfiguracionMedallaCaminoBrillante configMedalla) {
+            BEPeriodoCaminoBrillante _periodoActual, BEConfiguracionMedallaCaminoBrillante configMedalla)
+        {
             var _periodo = 0;
 
             Action<string, int> builderMedallaConstancia = (periodo, constancia) =>
@@ -699,7 +702,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             if (kitsProvider.Any())
             {
-                
+
                 var cuvsStringList = kitsProvider.Select(e => e.Cuv).Distinct().ToList().Serialize();
                 var kits = new DACaminoBrillante(paisId).GetKitsCaminoBrillante(periodoId, campaniaId, cuvsStringList).MapToCollection<BEKitCaminoBrillante>(closeReaderFinishing: true);
                 var paisISO = Util.GetPaisISO(paisId);
@@ -722,9 +725,10 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     }
                 });
 
-                var kitsResult =  kits.Where(e => e.FlagDigitable == 1).ToList();
-                
-                kitsResult.ForEach(e => {
+                var kitsResult = kits.Where(e => e.FlagDigitable == 1).ToList();
+
+                kitsResult.ForEach(e =>
+                {
                     e.DescripcionCUV = string.Format("Kit {0}", e.DescripcionNivel);
                     e.DescripcionCortaCUV = e.DescripcionCUV;
                     e.PrecioValorizado = kits.Where(d => d.CodigoKit == e.CodigoKit).Sum(d => d.PrecioValorizado);
@@ -762,7 +766,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             var demostradores = GetDemostradoresCaminoBrillanteCache(entidad.PaisID, entidad.CampaniaID, entidad.NivelCaminoBrillante);
             var demostradoresEnPedido = new DACaminoBrillante(entidad.PaisID).GetPedidoWebDetalleCaminoBrillante(entidad.CampaniaID, entidad.CampaniaID, entidad.ConsultoraID).MapToCollection<BEKitsHistoricoConsultora>(closeReaderFinishing: true) ?? new List<BEKitsHistoricoConsultora>();
-            var paisISO = Util.GetPaisISO(entidad.PaisID);
 
             return demostradores.Select(e => new BEDesmostradoresCaminoBrillante()
             {
@@ -841,7 +844,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 {
                     var kits = GetKitsCache(paisId, periodo.Periodo, campaniaId) ?? new List<BEKitCaminoBrillante>();
                     var kit = kits.FirstOrDefault(k => k.CUV == bEPedidoWebDetalle.CUV);
-                    if (kit != null) {
+                    if (kit != null)
+                    {
                         bEPedidoWebDetalle.EsKitCaminoBrillante = true;
                         bEPedidoWebDetalle.DescripcionCortadaProd = kit.DescripcionCUV;
                         bEPedidoWebDetalle.DescripcionProd = kit.DescripcionCUV;
@@ -887,7 +891,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             {
                 return false;
             }
-            
+
         }
 
         public string ValAgregarCaminiBrillante(BEEstrategia estrategia, BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle)
@@ -947,6 +951,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         }
 
         #endregion
-       
+
     }
 }

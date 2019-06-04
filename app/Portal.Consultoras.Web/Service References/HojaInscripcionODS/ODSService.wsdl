@@ -69,6 +69,12 @@
   <wsdl:message name="IODSService_ObtenerYaEsConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerYaEsConsultoraResponse" />
   </wsdl:message>
+  <wsdl:message name="IODSService_GetDatosConsultoraPorDocumentos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDatosConsultoraPorDocumentos" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_GetDatosConsultoraPorDocumentos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDatosConsultoraPorDocumentosResponse" />
+  </wsdl:message>
   <wsdl:portType name="IODSService">
     <wsdl:operation name="ObtenerEstadoActividadDeConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ObtenerEstadoActividadDeConsultora" message="tns:IODSService_ObtenerEstadoActividadDeConsultora_InputMessage" />
@@ -109,6 +115,10 @@
     <wsdl:operation name="ObtenerYaEsConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ObtenerYaEsConsultora" message="tns:IODSService_ObtenerYaEsConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ObtenerYaEsConsultoraResponse" message="tns:IODSService_ObtenerYaEsConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDatosConsultoraPorDocumentos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetDatosConsultoraPorDocumentos" message="tns:IODSService_GetDatosConsultoraPorDocumentos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetDatosConsultoraPorDocumentosResponse" message="tns:IODSService_GetDatosConsultoraPorDocumentos_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IODSService" type="tns:IODSService">
@@ -196,6 +206,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerYaEsConsultora">
       <soap:operation soapAction="http://tempuri.org/IODSService/ObtenerYaEsConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDatosConsultoraPorDocumentos">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetDatosConsultoraPorDocumentos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

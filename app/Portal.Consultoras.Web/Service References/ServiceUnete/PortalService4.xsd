@@ -508,6 +508,9 @@
       <xs:element minOccurs="0" name="CuvCatalogo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CuvCatalogo2" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CuvCatalogo3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CuvCatalogo4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CuvCatalogo5" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CuvCatalogo6" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Cvv" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaExpiracion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaNacimientoTarjeta" nillable="true" type="xs:string" />
@@ -564,4 +567,25 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="KitInicioCatalogoBE" nillable="true" type="tns:KitInicioCatalogoBE" />
+  <xs:complexType name="FormularioSimplificadoBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ApellidoMaterno" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ApellidoPaterno" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoConsultoraRecomienda" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CorreoElectronico" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstadoPostulante" type="xs:int" />
+      <xs:element minOccurs="0" name="IpOrigen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LugarHijo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LugarPadre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NombreConsultoraRecomienda" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Rechazo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TipoDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VieneDe" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FormularioSimplificadoBE" nillable="true" type="tns:FormularioSimplificadoBE" />
 </xs:schema>
