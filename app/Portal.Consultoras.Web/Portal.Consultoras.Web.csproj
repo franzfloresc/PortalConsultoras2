@@ -5807,6 +5807,7 @@
     <Content Include="Views\DetalleEstrategia\ComponenteDetalleTemplate.cshtml" />
     <Content Include="Views\AdministracionMedallaBrillante\Index.cshtml" />
     <Content Include="Views\Shared\_MainLayoutResponsiveCaminoBrillante.cshtml" />
+    <Content Include="Views\Shared\PopupsResponsive\_PopupGeneral.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

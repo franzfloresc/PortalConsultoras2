@@ -35,6 +35,12 @@
     position: relative;
 }
 
+    .popup__somos__belcorp--general{
+        max-width: 420px;
+        padding: 40px;
+        min-height: 247px;
+    }
+
 .popup__somos__belcorp__icono__cerrar img,
 .popup__somos__belcorp__icono img {
     width: 100%;
@@ -48,6 +54,11 @@
     height: 45px;
     padding: 11px;
 }
+
+    .popup__somos__belcorp--general .popup__somos__belcorp__icono__cerrar {
+        right: -37px;
+        top: -36px;
+    }
 
 .popup__somos__belcorp__titulo,
 .popup__somos__belcorp__mensaje,
@@ -86,6 +97,11 @@
     line-height: 18px;
 }
 
+    .popup__somos__belcorp__mensaje--general{
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
 .popup__somos__belcorp__btn,
 .popup__somos__belcorp__enlace {
     height: 40px;
@@ -121,8 +137,11 @@
         text-decoration: underline;
     }
 
-@media screen and (max-width:991px) {
+.btn__sb--general{
+    min-width:200px;
+}
 
+@media screen and (max-width:991px) {
     .popup__somos__belcorp {
         width: 90%;
         position: relative;
