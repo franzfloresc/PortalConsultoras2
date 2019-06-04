@@ -575,9 +575,12 @@ $(document).ready(function () {
                     me.Funciones.ControlSetError(me.Variables.txtEmail, me.Variables.spnEmailError, '');
                 });
 
-                $(me.Variables.txtCuvMobile2).on('change', function () {
+                $(me.Variables.txtCuvMobile2).on('keyup', function () {
                     var $this = $(this);
-                    //aquí
+                    if ($this.val().length !== 5) {
+                        $this.val($this.val().substring(0, 5));
+                        return false;
+                    }
                     var dataValue = $this.attr("data-codigo");
                     if (dataValue === $this.val()) {
                         $this.val("");

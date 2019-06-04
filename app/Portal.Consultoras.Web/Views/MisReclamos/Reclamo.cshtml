@@ -391,8 +391,9 @@
     <div class="item-producto-cambio">
         <div class="text-center opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar">
             <input type="text"
-                   onblur="BuscarInfoCUV(event);"
-                   class="cls-producto-codigo border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--codigo"
+                   onkeyup="BuscarInfoCUV(event);"
+                   class="ValidaNumeral ValidaPasteNumeral cls-producto-codigo border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--codigo"
+                   maxlength="5"
                    data-codigo=""
                    name="codigo"
                    placeholder="Código" />
@@ -415,6 +416,7 @@
                        data-cantidad=""
                        value="1"
                        maxlength="2"
+                       onchange="CalcularTotal();"
                        class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid">
                 <div class="liquidacion_rango_right_pedido">
                     <a class="mas modificarPrecioMas" onclick="AgregarODisminuirCantidad(event,1)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
@@ -522,6 +524,8 @@
             {{else}}
             <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div><br />
             {{/if_eq}}
+            {{item.CUV}}
+            <br />
             <b>{{item.Descripcion}}</b>
             <br />
             {{item.Cantidad}} unidades

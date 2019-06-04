@@ -150,8 +150,8 @@
                     <div class="formulario_inscripcion_cdr formulario_inscripcion_cdr--paso1">
                         @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "border-radius-4 select_reclamo", @required = "required" })
                         <select class="border-radius-4 elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;"></select>
-                        <input id="txtNumPedido" type="text" class="border-radius-4" style="display:none;" />
-                        <input id="cuvmobile" class="border-radius-4 tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral valid" type="text" value="" placeholder="Código o Descripción del producto" readonly />
+                        <input id="txtNumPedido" autocomplete="off" type="text" class="border-radius-4" style="display:none;" />
+                        <input id="cuvmobile" autocomplete="off" class="border-radius-4 tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral valid" type="text" value="" placeholder="Código o Descripción del producto" readonly />
 
                         <div id="DescripcionCuv" class="producto_cdr" style="font-size:13px;display:none;">
                             <span id="txtCuv" class="text-bold codigo_producto_cdr"></span>
@@ -584,7 +584,8 @@
                            class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                            data-input="cantidad"
                            name="cantidad"
-                           onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                           onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
+                           onchange="misReclamosRegistro.Funciones.CalcularTotal();">
                     <a class="cantidad_menos_home modificarPrecioMenos" onclick="misReclamosRegistro.Funciones.AgregarODisminuirCantidad(event, 2);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                     <a class="cantidad_mas_home modificarPrecioMas" onclick="misReclamosRegistro.Funciones.AgregarODisminuirCantidad(event, 1);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                 </div>
