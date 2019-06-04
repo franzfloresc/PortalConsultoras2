@@ -6,6 +6,10 @@
     };
 
     var _elements = {
+        btnAgregar: {
+            id: "#btnAgregalo",
+            classDesactivado:"btn_deshabilitado"
+        },
         breadcrumbs: {
             templateId: "#breadcrumbs-template",
             id: "#breadcrumbs",
@@ -101,6 +105,78 @@
         return true;
     };
     
+    var _showCarrusel = function(){
+        $('#carousel_upselling').slick({
+            lazyLoad: 'ondemand',
+            infinite: false,
+            slidesToShow: 5,
+            slidesToScroll: 1,
+            autoplay: false,
+            speed: 260,
+            variableWidth: true,
+            prevArrow: '<a class="previous_ofertas js-slick-prev" style=""><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas js-slick-next" style=""><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
+            responsive: [
+                {
+                    breakpoint: 900,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+            ]
+        });
+    };
+
+    var _validarDesactivadoGeneral = function (pEstrategia) {
+        if (pEstrategia.esEditable) {
+            $(_elements.btnAgregar.id).addClass(_elements.btnAgregar.classDesactivado);
+        } else {
+            $.each(pEstrategia.Hermanos, function (index, hermano) {
+                if (hermano.Hermanos && hermano.Hermanos.length > 0) {
+                    $(_elements.btnAgregar.id).addClass(_elements.btnAgregar.classDesactivado);
+                }
+            });
+        }
+
+    };
+    var _validarActivadoGeneral = function (pEstrategia) {
+        if (!pEstrategia.esEditable) {
+            $.each(pEstrategia.Hermanos, function (index, hermano) {
+                if (!(hermano.Hermanos && hermano.Hermanos.length > 0)) {
+                    $(_elements.btnAgregar.id).removeClass(_elements.btnAgregar.classDesactivado);
+                }
+            });
+        }
+
+    };
+
+    var _setEstrategiaTipoBotonAgregar = function (estrategia) {
+         pEstrategia = estrategia;
+         if (pEstrategia.TipoAccionAgregar <= 0) {
+             $(_elementos.agregar.id).hide();
+         }
+ 
+        if (pEstrategia.CodigoVariante === ConstantesModule.CodigoVariedad.IndividualVariable ||
+            pEstrategia.CodigoVariante === ConstantesModule.CodigoVariedad.CompuestaVariable ||
+            pEstrategia.CodigoVariante === ConstantesModule.CodigoVariedad.ComuestaFija) {
+             _validarDesactivadoGeneral(pEstrategia);
+         }
+        if (pEstrategia.CodigoVariante === ConstantesModule.CodigoVariedad.IndividualVariable ||
+            pEstrategia.CodigoVariante === ConstantesModule.CodigoVariedad.ComuestaFija) {
+             _validarActivadoGeneral(pEstrategia);
+         }
+ 
+         return true;
+    };
+
     return {
         setPresenter: _setPresenter,
         renderBreadcrumbs : _renderBreadcrumbs,
@@ -109,6 +185,8 @@
         renderReloj: _renderReloj,
         renderRelojStyle: _renderRelojStyle,
         renderAgregar: _renderAgregar,
-        showTitleAgregado: _showTitleAgregado
+        showTitleAgregado: _showTitleAgregado,
+        showCarrusel: _showCarrusel,
+        setEstrategiaTipoBotonAgregar: _setEstrategiaTipoBotonAgregar
     };
 };

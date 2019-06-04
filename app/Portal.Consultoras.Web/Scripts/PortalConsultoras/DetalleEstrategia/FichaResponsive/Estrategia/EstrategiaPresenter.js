@@ -47,7 +47,11 @@ var EstrategiaPresenter = function (config) {
         if (!_config.estrategiaView.renderAgregar(model)) throw "estrategiaView don't render agregar.";
 
         if (!_config.estrategiaView.showTitleAgregado(model)) throw "estrategiaView don't show title Agregado.";
+
+        if(!_config.estrategiaView.setEstrategiaTipoBotonAgregar(model)) throw "estrategiaView don't set type button Agregado.";
   
+        _config.estrategiaView.showCarrusel();
+
         return true;
     };
 
@@ -58,8 +62,9 @@ var EstrategiaPresenter = function (config) {
         if (!(typeof esFicha === "boolean")) throw  "esFicha is undefined";
         if (!(typeof esEditable === "boolean")) throw  "esEditable is undefined";
 
-        EstrategiaAgregarModule.EstrategiaAgregar(event, popup, limite, esFicha, esEditable);
+        var model = _estrategiaModel();
 
+        EstrategiaAgregarModule.EstrategiaAgregar(event, popup, limite, esFicha, esEditable, model);
     };
 
     return {

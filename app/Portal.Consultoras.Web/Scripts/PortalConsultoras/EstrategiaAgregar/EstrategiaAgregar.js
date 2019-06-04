@@ -87,16 +87,13 @@ var EstrategiaAgregarModule = (function () {
     }
 
     var getEstrategia = function ($btnAgregar, origenPedidoWebEstrategia) {
-        var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).data("estrategia")
+        var estrategiaTxt = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataEstrategia).attr("data-estrategia")
             || $btnAgregar.parents("div.content_btn_agregar").siblings("#contenedor-showroom-subcampanias-mobile").find(".slick-active").find(dataProperties.dataEstrategia).attr("data-estrategia")
             || "";
 
         var estrategia = {};
 
-        if (typeof estrategiaTxt === "object") {
-            estrategia = estrategiaTxt;
-        }
-        else if (estrategiaTxt != "")
+        if (estrategiaTxt != "")
         {
             estrategia = JSON.parse(estrategiaTxt);
         }
@@ -256,7 +253,7 @@ var EstrategiaAgregarModule = (function () {
         return clientId;
     }
 
-    var estrategiaAgregar = function (event, popup, limite, esFicha, esEditable) {
+    var estrategiaAgregar = function (event, popup, limite, esFicha, esEditable, estrategiaResponsive) {
 
         popup = popup || false;
         limite = limite || 0;
@@ -279,6 +276,7 @@ var EstrategiaAgregarModule = (function () {
                 }
             }
 
+            var origenModelo = _codigoOrigenPedidoWeb.GetOrigenModelo(origenPedidoWebEstrategia);
             if (origenModelo.Pagina == _codigoOrigenPedidoWeb.CodigoEstructura.Pagina.ArmaTuPackDetalle) {
                 if (typeof (seleccionadosPresenter) !== 'undefined') {
                     if (seleccionadosPresenter.packComponents() !== 'undefined') {
@@ -297,7 +295,7 @@ var EstrategiaAgregarModule = (function () {
         }
         //**FIN ANALYTICS virtualEvent *****
 
-        var estrategia = getEstrategia($btnAgregar, origenPedidoWebEstrategia);
+        var estrategia = estrategiaResponsive || getEstrategia($btnAgregar, origenPedidoWebEstrategia);
 
         if (typeof FichaVerDetalle !== 'undefined') {
             if (typeof FichaVerDetalle.GetOrigenPedidoWebDetalle !== 'undefined') {
@@ -398,7 +396,7 @@ var EstrategiaAgregarModule = (function () {
             TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
             FlagNueva: $.trim(estrategia.FlagNueva),
             EsEditable: estrategia.esEditable,
-            SetId: estrategia.setId,
+            SetId: estrategia.setId || 0,
             EsDuoPerfecto: EsDuoPerfecto,
             ClienteID: _getClienteIdSelected()
         };
