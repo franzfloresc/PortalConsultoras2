@@ -5,7 +5,7 @@
 <div class="popup__wrapper bg__popups__default" id="PopupGeneral">
     <div class="popup__somos__belcorp popup__somos__belcorp--general">
         <div class="popup__somos__belcorp__cabecera">
-            <a onclick="javascript:$('#PopupGeneral').fadeOut(100);" title="Cerrar" class="popup__somos__belcorp__icono__cerrar">
+            <a id="btnCerrar" title="Cerrar" class="popup__somos__belcorp__icono__cerrar">
                 <img src="@Url.Content("~/Content/Images/icono_cerrar_popup.svg")" alt="Cerrar Popup" />
             </a>
         </div>
@@ -13,8 +13,7 @@
             <p class="text-center popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--general">
                 Aquí iría el mensaje del popup
             </p>
-            <button class="border-radius-4 center-block text-center text-bold btn__sb btn__sb__primary--multimarca btn__sb--general"
-                    onclick="javascript:$('#PopupGeneral').fadeOut(100);">
+            <button id="btnAceptar" class="border-radius-4 center-block text-center text-bold btn__sb btn__sb__primary--multimarca btn__sb--general">
                 Aceptar
             </button>
         </div>

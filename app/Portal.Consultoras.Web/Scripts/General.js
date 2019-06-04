@@ -409,7 +409,7 @@ jQuery(document).ready(function () {
             Handlebars.registerHelper('json', function (context) {
                 return JSON.stringify(context).replace(/"/g, '&quot;');
             });
-             
+
         }
     };
 
@@ -808,6 +808,45 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
     } catch (e) {
 
     }
+}
+
+function AbrirAlert(mensaje, fnAceptar, fnCerrar) {
+    try {
+        var popup = $('#PopupGeneral');
+        var txtMensaje = $('.popup__somos__belcorp__mensaje--general');
+        if (popup.is(':visible')) {
+            popup.hide();
+        }
+
+        txtMensaje.text((mensaje) ? mensaje : '');
+
+        var botonesAceptar = $('#PopupGeneral #btnAceptar');
+        botonesAceptar.off('click');
+        if ($.isFunction(fnAceptar)) {
+            botonesAceptar.on('click', fnAceptar);
+        } else {
+            botonesAceptar.on('click', function () { popup.fadeOut(100)} );
+        }
+
+
+        var botonesCerrar = $('#PopupGeneral #btnCerrar');
+        botonesCerrar.off('click');
+        if ($.isFunction(fnCerrar)) {
+            botonesCerrar.on('click', fnCerrar);
+        } else {
+            botonesCerrar.on('click', function () { popup.fadeOut(100) } );            
+        }
+
+
+        popup.fadeIn(50);
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+function CerrarlAlert() {
+    $('#PopupGeneral').fadeOut(100);
 }
 
 function compare_dates(fecha, fecha2) {
@@ -2042,15 +2081,15 @@ var GeneralModule = (function () {
     "use strict";
 
     var _elements = {
-        loading :{
-            spin : {
-                id : "loading-spin"
+        loading: {
+            spin: {
+                id: "loading-spin"
             },
-            loadingScreen:{
-                id : "loadingScreen",
-                class : {
-                    titulo : "loadingScreen-titulo",
-                    mensaje : "loadingScreen-mensaje"
+            loadingScreen: {
+                id: "loadingScreen",
+                class: {
+                    titulo: "loadingScreen-titulo",
+                    mensaje: "loadingScreen-mensaje"
                 }
             }
         }
@@ -2083,10 +2122,10 @@ var GeneralModule = (function () {
     var _createLoading = function () {
         if ($("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.titulo).length !== 0 ||
             $("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.mensaje).length !== 0) return false;
-    
+
         $("#" + _elements.loading.loadingScreen.id).append("<div class=\"" + _elements.loading.loadingScreen.class.titulo + "\"></div>");
         $("#" + _elements.loading.loadingScreen.id).append("<div class=\"" + _elements.loading.loadingScreen.class.mensaje + "\"></div>");
-    
+
         $("#" + _elements.loading.loadingScreen.id).dialog({
             autoOpen: false,
             dialogClass: "loadingScreenWindow",
@@ -2104,7 +2143,7 @@ var GeneralModule = (function () {
     var waitingDialog = function (params) {
         try {
             if (!$("#" + _elements.loading.loadingScreen.id)) {
-                $(document.body).append("<div id=\"" +_elements.loading.loadingScreen.id + "\"></div>");
+                $(document.body).append("<div id=\"" + _elements.loading.loadingScreen.id + "\"></div>");
             }
 
             if (!$("#" + _elements.loading.loadingScreen.id).hasClass('ui-dialog-content')) {
@@ -2125,7 +2164,7 @@ var GeneralModule = (function () {
 
     var _hideDialog = function (dialogId) {
         try {
-    
+
             dialogId = (dialogId || "").trim();
             if (dialogId != "") {
                 dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
@@ -2135,7 +2174,7 @@ var GeneralModule = (function () {
         catch (err) {
             console.log('HideDialog - log - ', err);
         }
-    
+
         $("body").css("overflow", "auto");
         return false;
     };
@@ -2188,9 +2227,9 @@ var GeneralModule = (function () {
 }());
 //INI HD-3693
 function validarpopupBloqueada(message) {
-    if (message.indexOf("HD3693~")!=-1) return message.split("~")[1];
+    if (message.indexOf("HD3693~") != -1) return message.split("~")[1];
     else return "";
-    
+
 }
 //FIN HD-3693
 

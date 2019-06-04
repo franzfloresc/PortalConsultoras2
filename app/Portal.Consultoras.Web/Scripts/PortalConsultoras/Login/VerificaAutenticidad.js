@@ -3,7 +3,7 @@ var nroIntentosSms = 0;
 var t;
 var tipo = 0;
 var numeroNuevo = "";
-var counterElement = $('#time_counter');
+/*var counterElement = $('#time_counter');*/
 
 var VerificaAutenticidad;
 
@@ -485,7 +485,7 @@ $(document).ready(function () {
                     me.Elements.getErrorText().html(text);
                 },
 
-                VerifySmsCode: function (code) {                    
+                VerifySmsCode: function (code) {
                     if (localData.Expired) {
                         return;
                     }
@@ -496,7 +496,7 @@ $(document).ready(function () {
                         CerrarLoad();
                         if (!r.Success) {
                             me.Funciones.MarkSmsCodeStatus(false);
-                            alert(r.Message);
+                            AbrirAlert(r.Message);
                             return;
                         }
 
@@ -543,11 +543,11 @@ $(document).ready(function () {
                 },
 
                 HandleError: function (er) {
-                    alert('Ocurrio un error inesperado.');
+                    AbrirAlert('Ocurrio un error inesperado.');
                 }
                 /*----------------FIN CELULAR----------------------------------*/
                 /*-----------------------------------------------------------*/
-                
+
 
             },
             me.Eventos = {
@@ -582,7 +582,7 @@ $(document).ready(function () {
                     }
 
                     if (document.getElementById('chkAceptoContratoMD').checked == false) {
-                        alert('Debe aceptar los términos y condiciones para poder actualizar sus datos');
+                        AbrirAlert('Debe aceptar los términos y condiciones para poder actualizar sus datos');
                         return false;
                     }
 
@@ -590,7 +590,7 @@ $(document).ready(function () {
                     me.Funciones.ResetSmsCode();
                     AbrirLoad();
                     //INI HD-3897
-                    var successEnviarSmsCode = function (r) {                        
+                    var successEnviarSmsCode = function (r) {
                         $('#celularNuevo').text(nuevoCelular);
                         CerrarLoad();
                         if (!r.Success) {
@@ -743,10 +743,10 @@ $(document).ready(function () {
                         type: 'POST',
                         data: null,
                         dataType: 'json',
-                        success: function (response) {                            
+                        success: function (response) {
                             me.Funciones.CloseLoading();
                             if (!response.success) {
-                                alert(response.message);
+                                AbrirAlert(response.message);
                                 return false;
                             }
 
@@ -770,12 +770,12 @@ $(document).ready(function () {
                                 me.Eventos.Confirmar();
                             }
                             //FIN HD-3897
-                            
+
                         },
                         error: function (data, error) {
                             if (checkTimeout(data)) {
                                 me.Funciones.CloseLoading();
-                                alert('Error al cargar pantalla editar número');
+                                AbrirAlert('Error al cargar pantalla editar número');
                             }
                         }
                     });
@@ -814,10 +814,10 @@ $(document).ready(function () {
                         type: 'POST',
                         data: null,
                         dataType: 'json',
-                        success: function (response) {                            
+                        success: function (response) {
                             me.Funciones.CloseLoading();
                             if (!response.success) {
-                                alert(response.message);
+                                AbrirAlert(response.message);
                                 return false;
                             }
 
@@ -847,7 +847,7 @@ $(document).ready(function () {
                         error: function (data, error) {
                             if (checkTimeout(data)) {
                                 me.Funciones.CloseLoading();
-                                alert('Error al cargar pantalla editar número');
+                                AbrirAlert('Error al cargar pantalla editar número');
                             }
                         }
                     });
@@ -861,13 +861,13 @@ $(document).ready(function () {
 
             },
             me.Correo = {
-                activaGuardar: function () {                    
+                activaGuardar: function () {
                     var btn = $("#btnActualizarCorreo");
                     btn.removeClass('btn_deshabilitado')
                     if (me.Correo.getDataArrayError(me.Correo.getData()).length > 0 || !$('#chkAceptoContratoMDCorreo').prop('checked')) btn.addClass('btn_deshabilitado');
 
                 },
-                mensajeError: function () {                    
+                mensajeError: function () {
                     var obj = me.Correo.getData().correoNuevo;
                     var band;
                     $("#ValidateCorreo").hide();
@@ -893,8 +893,8 @@ $(document).ready(function () {
                 },
                 //FIN HD-3897
 
-                showSuccess: function (message) { AbrirMensaje(message, 'Mensaje', '', 2); },
-                showError: function (error) { AbrirMensaje(error, 'Error', '', 1); },
+                showSuccess: function (message) { AbrirAlert(message); },
+                showError: function (error) { AbrirAlert(error); },
                 showArrayError: function (arrayError) {
                     var mensaje = '';
                     for (var i = 0; i <= arrayError.length - 2; i++) {
@@ -918,20 +918,19 @@ $(document).ready(function () {
 
                     return arrayError;
                 },
-                postActualizarEnviarCorreo: function (data, fnSuccess) {                    
+                postActualizarEnviarCorreo: function (data, fnSuccess) {
                     nroIntentosCo = nroIntentosCo + 1;
                     var parametros = {
                         CantidadEnvios: nroIntentosCo,
                         CorreoActualizado: me.Correo.getData().correoNuevo
-                    };                    
+                    };
                     AbrirLoad();
                     $.post(config.UrlActualizarEnviarCorreo, parametros)
-                        .done(function (response) {                              
-                            if (!response.success) {                         
-                                //me.Correo.showError(response.message);
-                                alert(response.message);
+                        .done(function (response) {
+                            if (!response.success) {
+                                me.Correo.showError(response.message);
                                 return;
-                            } 
+                            }
 
                             if ($.isFunction(fnSuccess)) fnSuccess(data);
                         })
@@ -948,7 +947,7 @@ $(document).ready(function () {
                     }
                     //FIN HD-3897
                     if (document.getElementById('chkAceptoContratoMDCorreo').checked == false) {
-                        alert('Debe aceptar los términos y condiciones para poder actualizar sus datos');
+                        AbrirAlert('Debe aceptar los términos y condiciones para poder actualizar sus datos');
                         return false;
                     }
 
