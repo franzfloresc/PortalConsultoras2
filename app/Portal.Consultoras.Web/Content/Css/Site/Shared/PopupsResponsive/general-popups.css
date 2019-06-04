@@ -149,6 +149,10 @@
         margin-bottom: 70px;
     }
 
+    .btn__sb.btn__sb--general{
+        position:relative;
+    }
+
 }
 
 /* FIN - ESTILOS GENERALES POPUPS SOMOS BELCORP */
