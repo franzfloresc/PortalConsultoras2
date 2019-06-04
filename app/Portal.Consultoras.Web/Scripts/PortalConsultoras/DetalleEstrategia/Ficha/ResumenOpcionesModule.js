@@ -1,6 +1,8 @@
 ﻿var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onComponentSelected");
 
+var componentesAnalyticsPresenter = null;
+
 var ResumenOpcionesModule = (function () {
     "use strict";
 
@@ -113,8 +115,7 @@ var ResumenOpcionesModule = (function () {
         }
         
         _verificarActivarBtn(codigoVariante);
-
-        console.log('AplicarOpciones - DivPopupFichaResumida overflow auto');
+        
         $("#DivPopupFichaResumida").css("overflow", "auto");
 
         if (!esEditar) {
@@ -176,25 +177,16 @@ var ResumenOpcionesModule = (function () {
         return false;
     };
     
-    var _applySelectedAnalytics = function (componentes, tipo) {
+    var _applySelectedAnalytics = function (componente, tipo) {
+        componente = componente || {};
+        tipo = tipo || '';
 
-        var modeloMarcar = {
-            Const: {
-                TipoSelector: _const.tipoSelector
-            },
-            TipoSelectorTono: tipo || _const.tipoSelector.Panel,
-            Label: ''
+        if (!componentesAnalyticsPresenter) {
+            componentesAnalyticsPresenter = ComponentesAnalyticsPresenter({
+                analyticsPortal: AnalyticsPortalModule
+            });
         }
-
-        cuvPadre = $.trim(cuvPadre);
-        componentes = componentes || [];
-        $.each(componentes, function (idxComponente, componente) {
-            if (componente.cantidadSeleccionada > 0) {
-                modeloMarcar.Label = " " + componente.NombreComercial;
-            }
-        });
-
-        AnalyticsPortalModule.VirtualEventFichaAplicarCambio(modeloMarcar);
+        componentesAnalyticsPresenter.applySelectedAnalytics(componente, tipo);
     };
 
     return {

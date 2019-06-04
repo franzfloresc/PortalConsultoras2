@@ -1294,28 +1294,23 @@ var AnalyticsPortalModule = (function () {
     ////////////////////////////////////////////////////////////////////////////////////////
 
     var marcarVirtualEvent = function (modelo) {
-        try {
 
-            modelo = modelo || {};
+        modelo = modelo || {};
 
-            var objMarcar = {
-                "event": _evento.virtualEvent,
-                "category": modelo.category,
-                "action": modelo.action,
-                "label": modelo.label
-            };
+        var objMarcar = {
+            "event": _evento.virtualEvent,
+            "category": modelo.category,
+            "action": modelo.action,
+            "label": modelo.label
+        };
 
-            console.log(_evento.virtualEvent, objMarcar);
-            dataLayer.push(objMarcar);
+        console.log(_evento.virtualEvent, objMarcar);
+        dataLayer.push(objMarcar);
 
-            return true;
-        } catch (e) {
-            console.log('marcar Virtual Event - ' + _texto.excepcion, e);
-        }
-        return false;
-    }
+        return true;
+    };
 
-    var virtualEventFichaAplicarCambio = function (modelo) {
+    var virtualEventFichaAplicarSeleccionTono = function (modelo) {
         try {
             var modeloMarcar = {
                 category: _texto.contenedorfichaProducto,
@@ -1335,8 +1330,30 @@ var AnalyticsPortalModule = (function () {
             console.log('virtual Event Ficha - ' + _texto.excepcion, e);
         }
         return false;
-    }
-    
+    };
+
+    var VirtualEventFichaMostrarPanelTono = function (modelo) {
+        try {
+            var modeloMarcar = {
+                category: _texto.contenedorfichaProducto,
+                action: '',
+                label: modelo.Label
+            };
+
+            if (modelo.TipoShowPanelTono == modelo.Const.TipoShowMedioPanel.Elige) {
+                modeloMarcar.action = 'Panel Tono - Elegir opción';
+            }
+            else if (modelo.TipoShowPanelTono == modelo.Const.TipoShowMedioPanel.Cambio) {
+                modeloMarcar.action = 'Panel Tono - Cambiar opción';
+            }
+
+            return marcarVirtualEvent(modeloMarcar);
+        } catch (e) {
+            console.log('virtual Event Ficha - ' + _texto.excepcion, e);
+        }
+        return false;
+    };
+
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Virtual Event Ficha
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -2679,7 +2696,8 @@ var AnalyticsPortalModule = (function () {
         GetTextoSegunOrigen: _getParametroListSegunOrigen,
 
         // Ini - Analytics Virtual Event Ficha
-        VirtualEventFichaAplicarCambio: virtualEventFichaAplicarCambio,
+        VirtualEventFichaAplicarSeleccionTono: virtualEventFichaAplicarSeleccionTono,
+        VirtualEventFichaMostrarPanelTono: VirtualEventFichaMostrarPanelTono,
         // Fin - Analytics Virtual Event Ficha
 
         // Ini - Analytics Evento Product Impression

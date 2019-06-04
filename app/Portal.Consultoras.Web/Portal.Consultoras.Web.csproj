@@ -4252,6 +4252,7 @@
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Carrusel\CarruselView.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Cliente\ClientePresenter.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Cliente\ClienteView.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Componentes\ComponentesAnalyticsPresenter.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Componentes\ComponentesPresenter.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Componentes\ComponentesView.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Estrategia\EstrategiaPresenter.js" />

@@ -3,17 +3,21 @@
 var ComponentesPresenter = function (config) {
     if (typeof config === "undefined" || config == null) throw "config is null or undefined";
     if (typeof config.componentesView === "undefined" || config.componentesView == null) throw "config.componentesView is null or undefined";
-    if (typeof config.analyticsPortal === "undefined" || config.analyticsPortal == null) throw "config.analyticsPortal is null or undefined";
+    if (typeof config.componentesAnalyticsPresenter === "undefined" || config.componentesAnalyticsPresenter == null) throw "config.componentesAnalyticsPresenter is null or undefined";
 
     var _config = {
         componentesView: config.componentesView,
-        analyticsPortal: config.analyticsPortal,
+        analyticsPresenter: config.componentesAnalyticsPresenter,
     };
 
     var _const = {
         tipoSelector: {
             Paleta: 1,
             Panel: 2
+        },
+        tipoShowMedioPanel: {
+            Elige: 1,
+            Cambio: 2
         }
     };
 
@@ -71,6 +75,8 @@ var ComponentesPresenter = function (config) {
             _config.componentesView.setSelectedQuantityText(selectedComponent.selectedQuantityText) &&
             _config.componentesView.showComponentTypesAndTones(selectedComponent) &&
             _config.componentesView.showTypesAndTonesModal();
+
+        _config.analyticsPresenter.showTypesAndTonesModalAnalytics(selectedComponent, _const.tipoShowMedioPanel.Elige);
 
         return result;
     };
@@ -304,10 +310,11 @@ var ComponentesPresenter = function (config) {
         var result = false;
         var model = _estrategiaModel();
 
+        var selectedComponent = {};
         $.each(model.Hermanos, function (idxComponente, componente) {
             if (componente.Grupo == grupo &&
                 componente.FactorCuadre == componente.cantidadSeleccionados) {
-
+                selectedComponent = componente;
                 componente.resumenAplicados = componente.HermanosSeleccionados;
                 componente.resumenAplicadosVisualizar = _getResumenAplicadosVisualizar(componente.resumenAplicados);
                 //
@@ -332,32 +339,9 @@ var ComponentesPresenter = function (config) {
         //
 
         tipo = tipo || '';
-        _applySelectedAnalytics(model, grupo, tipo);
+        _config.analyticsPresenter.applySelectedAnalytics(selectedComponent, tipo);
 
         return result;
-    };
-
-    var _applySelectedAnalytics = function (model, grupo, tipo) {
-        console.log('_applySelectedAnalytics', model, tipo);
-        var modeloMarcar = {
-            Const: {
-                TipoSelector: _const.tipoSelector
-            },
-            TipoSelectorTono: tipo || _const.tipoSelector.Panel,
-            Label : ''
-        }
-
-        model.Hermanos = model.Hermanos || [];
-        
-        $.each(model.Hermanos, function (idxComponente, componente) {
-            if (componente.Grupo == grupo &&
-                componente.FactorCuadre == componente.cantidadSeleccionados) {
-                modeloMarcar.Label = componente.NombreComercial;
-                return false;
-            }
-        });
-
-        _config.analyticsPortal.VirtualEventFichaAplicarCambio(modeloMarcar);
     };
 
     var _changeAppliedTypesOrTones = function (grupo) {
@@ -366,8 +350,10 @@ var ComponentesPresenter = function (config) {
         var result = false;
         var model = _estrategiaModel();
 
+        var selectedComponent = {};
         $.each(model.Hermanos, function (idxComponente, componente) {
             if (componente.Grupo == grupo) {
+                selectedComponent = componente;
                 result = true;
 
                 result = result && _config.componentesView.showTypesAndTonesModal();
@@ -391,6 +377,8 @@ var ComponentesPresenter = function (config) {
         });
 
         _estrategiaModel(model);
+
+        _config.analyticsPresenter.showTypesAndTonesModalAnalytics(selectedComponent, _const.tipoShowMedioPanel.Cambio);
 
         return result;
     };
