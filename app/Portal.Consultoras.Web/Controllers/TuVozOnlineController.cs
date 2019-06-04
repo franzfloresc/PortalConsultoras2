@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Providers;
 
@@ -7,17 +8,19 @@ namespace Portal.Consultoras.Web.Controllers
     public class TuVozOnlineController : BaseController
     {
         // GET: TuVozOnline
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var user = userData;
+            var beUsuario = await _miPerfilProvider.GetUsuario(user.PaisID, user.CodigoUsuario);
 
-            if (string.IsNullOrEmpty(user.EMail))
+            if (beUsuario == null || string.IsNullOrEmpty(beUsuario.EMail))
             {
                 ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(user.CodigoISO);
 
                 return View();
             }
 
+            user.EMail = beUsuario.EMail;
             var provider = new TuVozOnlineProvider
             {
                 BasePath = _configuracionManagerProvider

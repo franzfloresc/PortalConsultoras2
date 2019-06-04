@@ -2,7 +2,6 @@
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Linq;
 using System.Web;
@@ -15,14 +14,12 @@ using AutoMapper;
 using System.ServiceModel;
 using Portal.Consultoras.Web.Infraestructure.Sms;
 using System.Collections.Generic;
-using Portal.Consultoras.Web.ServiceUnete;
 using Portal.Consultoras.Web.Providers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class MiPerfilController : BaseController
     {
-        protected MiPerfilProvider _miperfil;
 		private readonly ZonificacionProvider _zonificacionProvider;
 
         public MiPerfilController()
@@ -32,15 +29,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         public async Task<ActionResult> Index()
         {
-            BEUsuario beusuario;
             var model = new MisDatosModel();
-            _miperfil = new MiPerfilProvider();
 
-            using (var sv = new UsuarioServiceClient())
-            {
-                beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);                
-            }
-
+            var beusuario = await _miPerfilProvider.GetUsuario(userData.PaisID, userData.CodigoUsuario);
             if (beusuario == null)
             {
                 return View(model);
@@ -119,7 +110,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }                    
             }
 
-            model.UsuarioOpciones = _miperfil.GetUsuarioOpciones(userData.PaisID, userData.CodigoUsuario, true);
+            model.UsuarioOpciones = _miPerfilProvider.GetUsuarioOpciones(userData.PaisID, userData.CodigoUsuario, true);
             model.TieneDireccionEntrega = userData.TieneDireccionEntrega;
             model.TienePermisosCuenta = model.UsuarioOpciones.Count > 0;
             model.CodigoConsultoraAsociada = userData.CodigoConsultora;
