@@ -13,7 +13,8 @@
         cantidadPack: config.productosHermanos.length,
         codigoProducto: config.codigoProducto,
         precioProducto: config.precioProducto,
-        productosHermanos: config.productosHermanos
+        productosHermanos: config.productosHermanos,
+        tieneStock: config.tieneStock
     };
 
     var _elementos = {
@@ -223,21 +224,23 @@
             _buildCarrusel(data);
         }
         else {
-            var codigosProductos = _obtenerCodigoProductos();
-            var param = {
-                cuvExcluido: _config.cuv,
-                palanca: _config.palanca,
-                codigosProductos: codigosProductos,
-                precioProducto: _config.precioProducto
-            }
-            _promiseObternerDataCarrusel(param).done(function (response) {
-                if (response) {
-                    if (response.success) {
-                        data.lista = response.result;
-                        _buildCarrusel(data);
-                    }
+            if (_config.tieneStock) {
+                var codigosProductos = _obtenerCodigoProductos();
+                var param = {
+                    cuvExcluido: _config.cuv,
+                    palanca: _config.palanca,
+                    codigosProductos: codigosProductos,
+                    precioProducto: _config.precioProducto
                 }
-            });
+                _promiseObternerDataCarrusel(param).done(function (response) {
+                    if (response) {
+                        if (response.success) {
+                            data.lista = response.result;
+                            _buildCarrusel(data);
+                        }
+                    }
+                });
+            }
         }
     };
     var _buildCarrusel = function (data) {
