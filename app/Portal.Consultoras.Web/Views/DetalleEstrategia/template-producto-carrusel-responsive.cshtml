@@ -1,0 +1,63 @@
+﻿
+<script id="template-producto-carrusel-responsive" type="text/x-handlebars-template">
+    {{#each this.lista as |item|}}
+    <article class="caja_producto caja_vertical"  data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}">
+        <div style="display:none;">
+            <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
+            <div data-estrategia="{{JSON2string item}}"></div>
+            <div data-imagen-producto="{{ImgUrl FotoProducto01}}"></div>
+        </div>
+        <div class="row" onclick="javascript:FichaVerDetalle.OnClickFichaDetalle(event.target);">
+            <div class="col-6 col-lg-12 img_producto">
+                <img alt="Etiqueta Producto" src="" data-lazy="{{ImgUrl FotoProducto01}}"/>
+                <a class="ver_detalle_producto" href="#">Ver Detalle</a>
+            </div>
+            <div class="col-6 col-lg-12 descripcion_producto">
+                <div class="nombre_marca">{{DescripcionMarca}} </div>
+                <h3 class="titulo_producto">{{DescripcionCortada}}</h3>
+                <div class="precio_oferta">
+                    Para ti
+                    <span>{{SimboloMoneda}} {{PrecioVenta}}</span>
+                </div>
+                <div class="precio_normal">
+                    Para tu cliente
+                    <span>{{SimboloMoneda}} {{PrecioTachado}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="seccion_agregar">
+            {{#if TieneStock}}
+            <div class="contenedor_rangos_producto" data-cantidad-contenedor="">
+                <input type="text" value="1" size="2" maxlength="2" data-input="cantidad" class="caja_rangos  ValidaNumeral ValidaPasteNumeral" tabindex="0">
+                <div class="botones_rangos">
+                    <a href="javascript:;" class="mas_rangos" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)" data-bloqueada="" tabindex="0">
+                        <img src="/Content/Images/Esika/mas.png" alt="">
+                    </a>
+                    <a href="javascript:;" class="menos_rangos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)" data-bloqueada="" tabindex="0">
+                        <img src="/Content/Images/Esika/menos.png" alt="">
+                    </a>
+                </div>
+            </div>
+            <a id="btnAgregalo" class="btn_agregalo_producto btn_defecto"
+               href="javascript:;"
+               onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
+                Agrégalo
+            </a>
+            {{else}}
+            <div class="seccion_agregar">
+                <div class="tag_agotago">Agotado</div>
+            </div>
+            {{/if}}
+        </div>
+        <div class="caja_producto_agregado">
+            {{#if IsAgregado }}
+            <div>
+                AGREGADO <div class="icono"></div>
+            </div>
+            {{else}}
+            
+            {{/if}}
+        </div>
+    </article>
+    {{/each}}
+</script>

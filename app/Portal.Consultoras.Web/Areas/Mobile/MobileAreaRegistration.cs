@@ -14,6 +14,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
+            context.Routes.Redirect("Mobile/Catalogo").ToUrl("MisCatalogosRevistas/Index");
             context.MapRoute(
                 "Mobile_default",
                 "Mobile/{controller}/{action}/{id}",

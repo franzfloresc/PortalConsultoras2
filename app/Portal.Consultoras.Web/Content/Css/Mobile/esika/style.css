@@ -3597,8 +3597,8 @@ table > thead > tr > th {
     max-width:60px;
 }
 
-.logo_marca_pais_wrapper{
-    padding-left:10px!important;
+.logo_marca_pais_wrapper {
+    padding-left: 2px!important;
 }
 
 .logo_mobile {
@@ -3609,6 +3609,14 @@ table > thead > tr > th {
     margin-top: 9px;
     background-size: 92%;
 }
+
+    .logo_esika--nuevoLogo{
+        background-image: url(/Content/Images/Esika/nuevo-logo-esika.svg);
+        background-repeat: no-repeat;
+        margin-top: 4px;
+        background-size: 100%;
+        width: 77px;
+    }
 
 .campana_mobile {
     float: right;
@@ -4215,6 +4223,10 @@ table > thead > tr > th {
     margin-bottom: 20px;
 }
 
+    .imagen_catalogo.imagen_miAcademia--nuevoLookAndFeelEsika {
+        min-height: 85.25px;
+    }
+
 .fondo_gris {
     background: #f0f0f0;
     width: 100%;
@@ -4594,13 +4606,16 @@ body {
 .sin_padding {
     padding-left: 0 !important;
     padding-right: 0 !important;
-    margin-top: 7 -5px;
+    margin-top: 0;
 }
 
 .banner_ingresoPedido {
     display: block;
     background-size: cover;
     height: 200px;
+    background-color:#000;
+    background-position:center center;
+    background-repeat:no-repeat;
 }
 
 .ingresoPedido {
@@ -14956,72 +14971,67 @@ a {
 
 /* FIN - PROGRAMA NUEVAS - ELIGE TU REGALO */
 
-/*
-    * Sitio : Mobile 
-    * Descripción : Para notificaciones en crear y modificar
-    * Dependencias : Jquery-ui.css - (se están invocando estos estilos en esta zona)    
-*/
+/* HD-4214 - CHAT MESSENGER SOMOS BELCORP */
 
-#alertDialogMensajes25seg {
-    padding: 16px !important;
-    min-height: 78px !important;
+.btn_chat_messenger_mobile {
+    background-color: #FFF;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    padding: 0px;
+    position: fixed;
+    bottom: 18pt;
+    right: 18pt;
+    top: auto;
+    z-index: 2147483646;
+    padding: 13px 17px 13px 17px;
+    -moz-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+    -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+    cursor: pointer;
 }
 
-.alert-align {
-    display: flex;
-    align-items: center
-}
-
-.setBottom {
-    display: flex;
-    align-items: center;
-    border-radius: 4px;
-    /*transition: top 1s ease;*/
-}
-
-    .setBottom > .ui-dialog-titlebar.ui-corner-all {
-        display: none;
+    .btn_chat_messenger_mobile img{
+        width:100%;
+        height:auto;
     }
 
-    .setBottom .pop_pedido_mensaje {
-        color: #569C04;
-        font-size: 16px;
-        margin-top: 13px;
-    }
-
-.pop_image .img-fluid {
-    max-width: 100%;
-    height: auto;
-    width: 100px;
+.fb_dialog_content {
+    display:none;
+    position: relative !important;
 }
-/*
-    * Sitio : Mobile 
-    * Descripción  :  Overlays viene de jquery.ui       
-*/
-.ui-widget-overlay {
+
+.icono_chat_sb {
+    display: block;
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-}
-.ui-dialog {
-    position: absolute;
-    padding: .2em;
-    width: 300px;
-    overflow: hidden;
-}
-    .ui-dialog.ui-widget-content {
-        width: auto !important;
-        background: #FFFFFF !important;
-        color: #555 !important;
-    }
-.snackbar-align {
-    display: flex;
-    align-items: center;
-    flex-flow: column;
+    width: 60px;
+    height: 60px;
+    background-color: #FFF;
+    background-image: url(/Content/Images/icono-chat-sb.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    border-radius: 100%;
+    z-index: 2000;
 }
 
-    
-/* Fin */
+.fb_dialog_content iframe {
+    display: none !important;
+}
 
+/* FIN - HD-4214 - CHAT MESSENGER SOMOS BELCORP */
+
+.input_modifica_horizontal_popup_pedido {
+    text-transform: uppercase;
+    width: 115px !important;
+    height: 45px;
+    letter-spacing: .5px;
+    color: white;
+    font-size: 13px;
+    border-radius: 4px;
+    background-color: #e81c36;
+    border: none;
+    font-weight: bold;
+}

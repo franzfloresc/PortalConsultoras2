@@ -1,9 +1,13 @@
-﻿var ComponentesPresenter = function (config) {
+﻿/// <reference path="../Componentes/ComponentesView.js" />
+
+var ComponentesPresenter = function (config) {
     if (typeof config === "undefined" || config == null) throw "config is null or undefined";
     if (typeof config.componentesView === "undefined" || config.componentesView == null) throw "config.componentesView is null or undefined";
+    if (typeof config.analyticsPortal === "undefined" || config.analyticsPortal == null) throw "config.analyticsPortal is null or undefined";
 
     var _config = {
-        componentesView: config.componentesView
+        componentesView: config.componentesView,
+        analyticsPortal: config.analyticsPortal,
     };
 
     var _estrategiaInstance = null;
@@ -17,9 +21,9 @@
                 componente.HermanosSeleccionados = componente.HermanosSeleccionados || [];
                 componente.cantidadSeleccionados = componente.cantidadSeleccionados || 0;
                 componente.cantidadFaltantes = componente.FactorCuadre - componente.cantidadSeleccionados;
-                componente=_updateSelectComponentText(componente);
-                componente=_updateSelectComponentTitle(componente);
-                componente=_updateSelectQuantityText(componente);
+                componente = _updateSelectComponentText(componente);
+                componente = _updateSelectComponentTitle(componente);
+                componente = _updateSelectQuantityText(componente);
                 $.each(componente.Hermanos, function (idxTipoTono, tipoTono) {
                     tipoTono.FactorCuadre = componente.FactorCuadre || 0;
                     tipoTono.cantidadSeleccionados = tipoTono.cantidadSeleccionados || 0;
@@ -118,6 +122,37 @@
         return componente;
     };
 
+    var _updateView = function (componente, tipoTono) {
+        var result = false;
+
+        var grupo = tipoTono.Grupo;
+        var cuv = tipoTono.Cuv;
+        var cantidadSeleccionados = tipoTono.cantidadSeleccionados;
+
+        if (tipoTono.cantidadSeleccionados == 0) {
+            result = _config.componentesView.showChooseIt(grupo, cuv);
+        } else if (tipoTono.cantidadSeleccionados == 1 && componente.FactorCuadre == 1) {
+            result = _config.componentesView.showChoosen(grupo, cuv);
+        } else if (tipoTono.cantidadSeleccionados >= 1 && componente.FactorCuadre > 1) {
+            result = _config.componentesView.showQuantitySelector(grupo, cuv, cantidadSeleccionados);
+        }
+
+        if (componente.cantidadSeleccionados < componente.FactorCuadre) {
+            result = result && _config.componentesView.unblockTypesOrTones();
+            result = result && _config.componentesView.blockApplySelection();
+        } else {
+            result = result && _config.componentesView.blockTypesOrTones();
+            result = result && _config.componentesView.unblockApplySelection(grupo);
+
+        }
+
+        result = result && _config.componentesView.setTitle(componente.selectComponentTitle) &&
+            _config.componentesView.setSelectedQuantityText(componente.selectedQuantityText) &&
+            _config.componentesView.showSelectedTypesOrTones(componente);
+
+        return result;
+    };
+
     var _addTypeOrTone = function (grupo, cuv) {
         if (typeof grupo === "undefined" || grupo === null) throw "grupo is null or undefined";
         if (typeof cuv === "undefined" || cuv === null) throw "cuv is null or undefined";
@@ -128,23 +163,17 @@
         $.each(model.Hermanos, function (idxComponente, componente) {
             if (componente.Grupo == grupo) {
                 $.each(componente.Hermanos, function (idxTipoTono, tipoTono) {
-                    if (tipoTono.Cuv == cuv 
-                        && componente.cantidadSeleccionados < componente.FactorCuadre) {
-                        componente.HermanosSeleccionados.push(tipoTono);
+                    if (tipoTono.Cuv == cuv &&
+                        componente.cantidadSeleccionados < componente.FactorCuadre) {
+                        var tipoTonoSeleccionado = $.extend(true, {}, tipoTono, { cantidadSeleccionados: 1 });
+                        componente.HermanosSeleccionados.push(tipoTonoSeleccionado);
                         componente.cantidadSeleccionados++;
                         componente.cantidadFaltantes--;
                         tipoTono.cantidadSeleccionados++;
                         componente = _updateSelectComponentTitle(componente);
                         componente = _updateSelectQuantityText(componente);
-                        //debugger;
-                        result = _config.componentesView.showQuantitySelector(tipoTono.Grupo, tipoTono.Cuv, tipoTono.cantidadSeleccionados) &&
-                            _config.componentesView.showSelectedTypesOrTones(componente) &&
-                            _config.componentesView.setTitle(componente.selectComponentTitle) &&
-                            _config.componentesView.setSelectedQuantityText(componente.selectedQuantityText);
 
-                        if(componente.cantidadSeleccionados == componente.FactorCuadre){
-                            result = result && _config.componentesView.blockTypesOrTones();
-                        }
+                        result = _updateView(componente, tipoTono);
 
                         return false;
                     }
@@ -155,17 +184,193 @@
 
         _estrategiaModel(model);
 
-        //console.log(_estrategiaModel());
+        return result;
+    };
+
+    var _removeSelectedItem = function (selectedItems, selectedItem, selectedIndex) {
+        if (typeof selectedItems == "undefined" || typeof selectedItem == "undefined") return selectedItems;
+
+        if (typeof selectedIndex == undefined) {
+            var tmp = $.extend(true, [], selectedItems);
+            tmp = tmp.reverse();
+            selectedIndex = -1;
+            $.each(tmp, function (idxTmpSelectedItem, tmpSelectedItem) {
+                if (selectedItem.Grupo == tmpSelectedItem.Grupo && selectedItem.Cuv == tmpSelectedItem.Cuv) {
+                    selectedIndex = idxTmpSelectedItem;
+                    return false;
+                }
+            });
+
+            if (selectedIndex >= 0) selectedIndex = selectedItems.length - selectedIndex - 1;
+        }
+
+        selectedItems.splice(selectedIndex, 1);
+
+        return selectedItems;
+    };
+
+    var _removeTypeOrTone = function (grupo, cuv, selectedIndex) {
+        if (typeof grupo === "undefined" || grupo === null) throw "grupo is null or undefined";
+        if (typeof cuv === "undefined" || cuv === null) throw "cuv is null or undefined";
+
+        var result = false;
+        var model = _estrategiaModel();
+
+        $.each(model.Hermanos, function (idxComponente, componente) {
+            if (componente.Grupo == grupo) {
+                $.each(componente.Hermanos, function (idxTipoTono, tipoTono) {
+                    if (tipoTono.Cuv == cuv &&
+                        componente.cantidadSeleccionados > 0) {
+                        componente.HermanosSeleccionados = _removeSelectedItem(componente.HermanosSeleccionados, componente, selectedIndex);
+                        componente.cantidadSeleccionados--;
+                        componente.cantidadFaltantes++;
+                        tipoTono.cantidadSeleccionados--;
+                        componente = _updateSelectComponentTitle(componente);
+                        componente = _updateSelectQuantityText(componente);
+
+                        result = _updateView(componente, tipoTono);
+
+                        return false;
+                    }
+                });
+                return false;
+            }
+        });
+
+        _estrategiaModel(model);
 
         return result;
     };
 
+    var _onPaletaSelectItemClick = function (grupo, cuv) {
+        if (typeof grupo === "undefined" || grupo === null) throw "grupo is null or undefined";
+        if (typeof cuv === "undefined" || cuv === null) throw "cuv is null or undefined";
 
+        _addTypeOrTone(grupo, cuv);
+        _applySelectedTypesOrTones(grupo);
+
+        return true;
+    };
+
+    var _getResumenAplicadosVisualizar = function (opcionesAplicadas) {
+        opcionesAplicadas = opcionesAplicadas || [];
+        if (opcionesAplicadas.length === 0) return opcionesAplicadas;
+
+        var componentesAplicados = [];
+        var estaEnResumen = false;
+
+        $.each(opcionesAplicadas, function (idxOpcionAplicada, opcionAplicada) {
+            estaEnResumen = false;
+            $.each(componentesAplicados, function (idxComponenteAplicado, componenteAplicado) {
+                if (componenteAplicado.Grupo == opcionAplicada.Grupo &&
+                    componenteAplicado.Cuv == opcionAplicada.Cuv) {
+
+                    estaEnResumen = true;
+                    opcionAplicada.cantidadAplicada++;
+                    //
+                    return false;
+                }
+            });
+
+            if (!estaEnResumen) {
+                opcionAplicada.cantidadAplicada = 0;
+                opcionAplicada.cantidadAplicada++;
+                componentesAplicados.push(opcionAplicada);
+            }
+        });
+
+        return componentesAplicados;
+    };
+
+    var _updateTypeOrToneSelectedQuantity = function (typesOrTones, selectedQuantity) {
+        typesOrTones = typesOrTones || [];
+
+        $.each(typesOrTones, function (idxOpcion, opcion) {
+            opcion.cantidadSeleccionados = selectedQuantity;
+        });
+
+        return typesOrTones;
+    };
+
+    var _applySelectedTypesOrTones = function (grupo) {
+        if (typeof grupo === "undefined" || grupo === null) throw "grupo is null or undefined";
+
+        var result = false;
+        var model = _estrategiaModel();
+
+        $.each(model.Hermanos, function (idxComponente, componente) {
+            if (componente.Grupo == grupo &&
+                componente.FactorCuadre == componente.cantidadSeleccionados) {
+
+                componente.resumenAplicados = componente.HermanosSeleccionados;
+                componente.resumenAplicadosVisualizar = _getResumenAplicadosVisualizar(componente.resumenAplicados);
+                //
+                componente.HermanosSeleccionados = [];
+                componente.cantidadSeleccionados = 0;
+                componente.cantidadFaltantes = componente.FactorCuadre;
+                componente.Hermanos = _updateTypeOrToneSelectedQuantity(componente.Hermanos, 0);
+                //
+                result = true;
+                result = result && _config.componentesView.renderResumen(componente);
+                //
+                if (ConstantesModule.CodigoVariedad.IndividualVariable === model.CodigoVariante) {
+                    result = result && _config.componentesView.showBorderItemSelected(componente);
+                }
+                result = result && _config.componentesView.hideTypeAndTonesModal();
+                //
+                return false;
+            }
+        });
+        //
+        _estrategiaModel(model);
+        //
+        console.log('analizar objeto para marcar analytics, luego quitar', model);
+        return result;
+    };
+
+    var _changeAppliedTypesOrTones = function (grupo) {
+        if (typeof grupo === "undefined" || grupo === null) throw "grupo is null or undefined";
+
+        var result = false;
+        var model = _estrategiaModel();
+
+        $.each(model.Hermanos, function (idxComponente, componente) {
+            if (componente.Grupo == grupo) {
+                result = true;
+
+                result = result && _config.componentesView.showTypesAndTonesModal();
+
+                $.each(componente.resumenAplicados, function (idxOpcion, opcion) {
+                    _addTypeOrTone(opcion.Grupo, opcion.Cuv);
+                });
+
+                componente.selectComponentTitle = "";
+                if (componente.FactorCuadre == 1)
+                    componente.selectComponentTitle = "Cambia tu opción";
+
+                if (componente.FactorCuadre > 1)
+                    componente.selectComponentTitle = "Cambia tus " + componente.FactorCuadre + " opciones";
+
+                result = result && _config.componentesView.setTitle(componente.selectComponentTitle);
+
+                //
+                return false;
+            }
+        });
+
+        _estrategiaModel(model);
+
+        return result;
+    };
 
     return {
         estrategiaModel: _estrategiaModel,
         onEstrategiaModelLoaded: _onEstrategiaModelLoaded,
         showTypesAndTonesModal: _showTypesAndTonesModal,
         addTypeOrTone: _addTypeOrTone,
+        onPaletaSelectItemClick: _onPaletaSelectItemClick,
+        removeTypeOrTone: _removeTypeOrTone,
+        applySelectedTypesOrTones: _applySelectedTypesOrTones,
+        changeAppliedTypesOrTones: _changeAppliedTypesOrTones,
     };
 };

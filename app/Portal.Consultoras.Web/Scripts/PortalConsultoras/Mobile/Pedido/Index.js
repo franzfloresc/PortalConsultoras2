@@ -269,7 +269,9 @@ $(document).ready(function () {
 
     CargarDialogMesajePostulantePedido();
 
-    CargarDetallePedido();
+    //INI HD-4200
+    ValidarSuscripcionSE(function () { CargarDetallePedido(); },1);
+    //FIN HD-4200
 });
 
 var ClienteDetalleOK = null;
@@ -519,6 +521,9 @@ function ObservacionesProducto(item) {
     $("#hdfDescripcionEstrategia").val(item.DescripcionEstrategia);
     $("#hdfDescripcionMarca").val(item.DescripcionMarca);
     $("#hdLimiteVenta").val(item.LimiteVenta);
+    $("#hdEsOfertaIndependiente").val(item.EsOfertaIndependiente);
+    $("#hdEsDuoPerfecto").val(item.EsDuoPerfecto);
+    $("#hdTipoEstrategiaCodigo").val(item.CodigoEstrategia);
 
     $("#hdfIndicadorMontoMinimo").val(item.IndicadorMontoMinimo);
     $("#hdfMarcaID").val(item.MarcaID);
