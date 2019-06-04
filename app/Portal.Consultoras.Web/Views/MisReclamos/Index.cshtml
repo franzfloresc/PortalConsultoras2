@@ -392,21 +392,6 @@
             </div>
             {{/each}}
             <div class="text-bold text-uppercase producto_solicitud_row">Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}</div>
-
-            <div class="d-flex content_producto_observado nota_producto_observado_y_eliminar_todos_los_productos_wrapper">
-                <div class="nota_producto_observado">
-                    {{#if_eq item.TipoMotivoRechazo '1'}}
-                Debes eliminar este producto para procesar nuevamente tu solicitud.
-                {{else if_eq item.TipoMotivoRechazo '2'}}
-                Debes modificar la cantidad y/o eliminar este producto para procesar nuevamente tu solicitud.
-                {{else}}
-                Debes eliminar este producto para procesar nuevamente tu solicitud.
-                    {{/if_eq}}
-                </div>               
-                <a data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x" class="d-block border-radius-4 text-uppercase text-center text-bold btn__sb btn__sb__secondary btn__sb--eliminarTodosLosProductos">
-                    Eliminar productos rechazados
-                </a>
-            </div>
             {{else}}
             <div class="d-flex w-100 producto_solicitud_row">
                 <div class="d-block producto_solicitud">
@@ -415,14 +400,22 @@
                     <span class="d-block">{{item.Cantidad2}} unidades</span>
                     <span class="d-block">Precio: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}</span>
                 </div>
+                {{#if_eq item.Estado '4'}}
                 <div class="d-block estado_producto_solicitud">
                     <div class="tag_sb text-bold text-uppercase estado_texto EstadoRechazado">Rechazado</div>
-                    <div class="descripcion_estado_producto_solicitud">No tienes unidades disponibles de este producto para su atención.</div>
+                    <div class="nota_producto_observado">
+                        {{#if_eq item.TipoMotivoRechazo '1'}}
+                        Debes eliminar este producto para procesar nuevamente tu solicitud.
+                        {{else if_eq item.TipoMotivoRechazo '2'}}
+                        Debes modificar la cantidad y/o eliminar este producto para procesar nuevamente tu solicitud.
+                        {{else}}
+                        Debes eliminar este producto para procesar nuevamente tu solicitud.
+                        {{/if_eq}}
+                    </div>
                 </div>
                 <div class="d-flex acciones_solicitud">
                     <div class="rango_producto_observado" data-cantidad-contenedor="">
                         <input style="background: white;" type="text" name="Cantidad" data-input="cantidad" value="1" maxlength="2" class="txtCantidad liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid"
-                               @*onkeypress=" PreValidarCUV(event); "*@
                                attrKey="PreValidarCUV"
                                onfocus=" SeleccionarContenido(this) " />
                         <div class="liquidacion_rango_right_pedido" style="background: white;">
@@ -434,21 +427,20 @@
                         <img src="@Url.Content("~/Content/Images/Esika/icons-trash.svg")" alt="Eliminar" />
                     </a>
                 </div>
-            </div>
-            <div class="text-bold text-uppercase producto_solicitud_row">Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}</div>
-            <div class="d-flex content_producto_observado nota_producto_observado_y_eliminar_todos_los_productos_wrapper">
-                <div class="nota_producto_observado">
-                    Debes modificar la cantidad y/o eliminar los productos rechazados para procesar nuevamente la solicitud.
+                {{else}}
+                <div class="d-block estado_producto_solicitud">
+                    <div class="tag_sb text-bold text-uppercase estado_texto EstadoAceptado">
+                        APROBADO
+                    </div>
                 </div>
-                <a data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x" class="d-block border-radius-4 text-uppercase text-center text-bold btn__sb btn__sb__secondary btn__sb--eliminarTodosLosProductos">
-                    Eliminar todos los productos
-                </a>
+                <div class="d-flex acciones_solicitud"></div>
+                {{/if_eq}}
             </div>
             {{/if}}
             {{else}}
 
             {{/if_eq}}
-        </div>       
+        </div>
         <hr class="clear" />
     </div>
     {{/if_eq}}
