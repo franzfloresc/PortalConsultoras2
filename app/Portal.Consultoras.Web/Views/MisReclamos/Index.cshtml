@@ -30,13 +30,10 @@
                 puedes registrar una solicitud de cambios y devoluciones:
             </span>
         </div>
-        <div class="content_registro_reclamos">
+        <div class="d-flex content_registro_reclamos lista_solicitudes_registradas_wrapper">
             <div class="texto_solicitud_registrada">Tienes @Model.ListaCDRWeb.Count() solicitudes registradas:</div>
             <a class="d-block text-center text-bold pull-right border-radius-4 btn__sb btn__sb__primary--multimarca" href="javascript:;" style="width: 296px; margin-top:37px; line-height:37px;" id="IrPaso1">REGISTRAR SOLICITUD</a>
-            <hr class="clear" />
-            <br />
-            <br />
-            <div class="grilla_detalle_reclamo">
+            <div class="w-100 grilla_detalle_reclamo mt-40">
                 <div class="content_listado_reclamo content_listado_reclamo--header">
                     <div class="text-bold listado_fecha_general">FECHA REGISTRO</div>
                     <div class="text-bold listado_campana_general">CAMPAÑA</div>
@@ -411,7 +408,7 @@
                         {{#if_eq item.TipoMotivoRechazo '1'}}
                         Debes eliminar este producto para procesar nuevamente tu solicitud.
                         {{else if_eq item.TipoMotivoRechazo '2'}}
-                        Debes modificar la cantidad y/o eliminar este producto para procesar nuevamente tu solicitud.
+                        @*Debes modificar la cantidad y/o eliminar este producto para procesar nuevamente tu solicitud.*@
                         {{else}}
                         Debes eliminar este producto para procesar nuevamente tu solicitud.
                         {{/if_eq}}

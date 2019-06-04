@@ -439,6 +439,10 @@ input[type="checkbox"].switch__control,
     border-radius: 4px;
 }
 
+.mt-40{
+    margin-top:40px;
+}
+
 @media screen and (max-width:991px) and (orientation:landscape) {
 
     .mt-53 {
