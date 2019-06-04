@@ -341,14 +341,9 @@ $(document).ready(function () {
     });
 
     $("#divChatearConNosotros").click(function () {
-        if ($('#hddHabilitarChatEmtelco').val() === 'false') {
-            $('#popupChatDisabled').show();
-            return;
-        }
-        $('#marca').css('display', 'block');
-        var connected = localStorage.getItem('connected');
-        var idBtn = connected ? '#btn_open' : '#btn_init';
-        $(idBtn).trigger("click");
+        if (typeof FB === 'undefined') return;
+
+        FB.XFBML.parse();
     });
 
     $("body").keyup(function (evt) {

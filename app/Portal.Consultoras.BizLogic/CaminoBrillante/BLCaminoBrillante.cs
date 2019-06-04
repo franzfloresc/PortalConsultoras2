@@ -14,7 +14,7 @@ using Portal.Consultoras.BizLogic.CaminoBrillante.Rest;
 using Portal.Consultoras.Entities.OrdenYFiltros;
 
 namespace Portal.Consultoras.BizLogic.CaminoBrillante
-{
+{ 
     public class BLCaminoBrillante : ICaminoBrillanteBusinessLogic
     {
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
@@ -58,7 +58,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 DescripcionNivel = e.DescripcionNivel,
                 MontoMaximo = e.MontoMaximo,
                 MontoMinimo = e.MontoMinimo,
-                Puntaje = e.Puntaje,
                 TieneOfertasEspeciales = Niveles_TIeneOfertasEspeciales(tablaLogicaDatos, e.CodigoNivel, TieneOfertasEspecialesDV),
                 Beneficios = lstBeneficios.Where(b => b.CodigoNivel == e.CodigoNivel && !(string.IsNullOrEmpty(b.NombreBeneficio) && string.IsNullOrEmpty(b.Descripcion))).ToList()
             }, tablaLogicaDatosEnterateMas, e.CodigoNivel)).ToList();
@@ -1191,13 +1190,10 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             var tablaLogicaDatos = _tablaLogicaDatosBusinessLogic.GetList(paisId, ConsTablaLogica.CaminoBrillante.CaminoBrillanteOrden) ?? new List<BETablaLogicaDatos>();
             if (tablaLogicaDatos.Count == 0) return null;
-
-            var opciones = tablaLogicaDatos.Where(e => (e.Codigo != "00" && isApp) || !isApp)
-                            .Select(e => new BEOrden() { Codigo = e.Codigo, Descripcion = e.Descripcion }).ToList();
-
+            
             return new List<BEOrdenGrupo>() { new BEOrdenGrupo() {
                 NombreGrupo = tablaLogicaDatos.Where(e => e.Codigo == "00").Select(e => e.Valor).FirstOrDefault(),
-                Opciones = opciones
+                Opciones = tablaLogicaDatos.Where(e => (e.Codigo != "00" && isApp) || !isApp ).Select(e => new BEOrden() { Codigo = e.Codigo, Descripcion = e.Descripcion }).ToList()
             }};
         }
 
@@ -1206,18 +1202,10 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var tablaLogicaDatos = _tablaLogicaDatosBusinessLogic.GetList(paisId, ConsTablaLogica.CaminoBrillante.CaminoBrillanteFiltro) ?? new List<BETablaLogicaDatos>();
             if (tablaLogicaDatos.Count == 0) return null;
 
-            var opciones = tablaLogicaDatos.Where(e => (e.Codigo != "00" && isApp) || !isApp)
-                            .Select(e => new BEFiltro() { Codigo = e.Codigo, Descripcion = e.Descripcion }).ToList();
-            if (!isApp) {
-                var filtrar = opciones.Where(e => e.Codigo == "00").SingleOrDefault();
-                opciones = opciones.Where(e => e.Codigo != "00").OrderBy(e => e.Descripcion).ToList();
-                if(filtrar!= null) opciones.Insert(0, filtrar);
-            }
-
             return new List<BEFiltroGrupo>() { new BEFiltroGrupo() {
                 Excluyente = true,
                 NombreGrupo = tablaLogicaDatos.Where(e => e.Codigo == "00").Select(e => e.Valor).FirstOrDefault(),
-                Opciones = opciones
+                Opciones = tablaLogicaDatos.Where(e => (e.Codigo != "00" &&isApp) || !isApp ).Select(e => new BEFiltro() { Codigo = e.Codigo, Descripcion = e.Descripcion }).ToList()
             }};
         }
 

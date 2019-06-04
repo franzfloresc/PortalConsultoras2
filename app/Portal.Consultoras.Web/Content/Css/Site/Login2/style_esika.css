@@ -182,16 +182,22 @@ h6, .h6 {
 }
 
 .logo-esika {
-    margin-bottom: 20px;
+    margin: 0 auto 20px auto;
+    width: 143px;
+    height: 55px;
     text-align: center;
-    font-family: 'logo_esika';
+    background-image: url(/Content/Images/Esika/nuevo-logo-esika-login.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    /*font-family: 'logo_esika';*/
 }
 
-    .logo-esika:before {
+    /*.logo-esika:before {
         content: '\e911';
         font-size: 55px;
         color: #e81c36;
-    }
+    }*/
 
 .logo {
     display: none;
@@ -1020,6 +1026,15 @@ h1, h2, h3, h4, h5, h6 {
     text-align: center;
 }
 
+    .logos_footer--esika {
+        margin-top: -2px;
+    }
+
+        .logos_footer--esika img {
+            width: 59px;
+            height: auto;
+        }        
+
 /*  Main Navigation */
 #popup_chatDisabled {
     font-family: lato;
@@ -1688,6 +1703,34 @@ h1, h2, h3, h4, h5, h6 {
     top: 11px;
 }
 
+/* HD-4214 - CHAT MESSENGER SOMOS BELCORP */
+
+.fb_dialog_content {
+    position: relative !important;
+}
+
+.icono_chat_sb {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background-color: #FFF;
+    background-image: url(/Content/Images/icono-chat-sb.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    border-radius: 100%;
+    z-index: 2000;
+}
+
+.fb_dialog_content iframe {
+    display: none !important;
+}
+
+/* FIN - HD-4214 - CHAT MESSENGER SOMOS BELCORP */
+
 @media only screen and (max-height : 700px) {
     .footer {
         position: relative;
@@ -1764,6 +1807,15 @@ h1, h2, h3, h4, h5, h6 {
         bottom: 10px;
     }
 
+    .logos_footer--esika {
+        margin-top: -4px;
+    }
+
+        .logos_footer--esika img {
+            width: 62px;
+            height: auto;
+        } 
+
     .sombra_superior {
         display: none;
     }
@@ -1791,9 +1843,9 @@ h1, h2, h3, h4, h5, h6 {
         background: url('/Content/Css/Site/Images/login-esika-1920.jpg');
     }
 
-    .logo-esika {
+    /*.logo-esika {
         margin-left: 0;
-    }
+    }*/
 
     .fondo_form {
         display: none;

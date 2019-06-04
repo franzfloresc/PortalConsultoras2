@@ -171,7 +171,7 @@ namespace Portal.Consultoras.Common.MagickNet
             return resultado;
         }
 
-        public static string GuardarImagenesResizeParaleloHistDetalle(List<EntidadMagickResize> lista, bool actualizar = false)
+        public static string GuardarImagenesResizeParaleloHistDetalle(List<EntidadMagickResize> lista, string cadena, bool actualizar = false)
         {
             var txtBuil = new StringBuilder();
 
@@ -186,7 +186,7 @@ namespace Portal.Consultoras.Common.MagickNet
 
                     var esOk = GuardarImagenToTemporal(primerItem.CodigoIso, primerItem.RutaImagenOriginal, rutaImagenTemporal);
 
-                    var lstTask = lista.Select(item => Task.Run(() => GuardarImagenesResizeHistDetalle(item, actualizar, false))).ToArray();
+                    var lstTask = lista.Select(item => Task.Run(() => GuardarImagenesResizeHistDetalle(item, cadena, actualizar, false))).ToArray();
                     Task.WaitAll(lstTask);
 
                     File.Delete(rutaImagenTemporal);
@@ -201,14 +201,14 @@ namespace Portal.Consultoras.Common.MagickNet
             return txtBuil.ToString();
         }
 
-        private static string GuardarImagenesResizeHistDetalle(EntidadMagickResize item, bool actualizar = false, bool temporal = true)
+        private static string GuardarImagenesResizeHistDetalle(EntidadMagickResize item, string cadena, bool actualizar = false, bool temporal = true)
         {
             var result = string.Empty;
 
             if (!Util.ExisteUrlRemota(item.RutaImagenResize) || actualizar)
             {
                 var nombreImagen = Path.GetFileName(item.RutaImagenResize);
-                var resultadoImagenResize = GuardarImagenResizeHistDetalle(item.CodigoIso, item.RutaImagenOriginal, nombreImagen, item.Width, item.Height, actualizar, temporal);
+                var resultadoImagenResize = GuardarImagenResizeHistDetalle(item.CodigoIso, item.RutaImagenOriginal, nombreImagen, item.Width, item.Height, cadena, actualizar, temporal);
 
                 if (!resultadoImagenResize) result = string.Format("No se genero la imagen {0}, favor volver a guardar.", item.TipoImagen);
             }
@@ -217,7 +217,7 @@ namespace Portal.Consultoras.Common.MagickNet
         }
 
         private static bool GuardarImagenResizeHistDetalle(string codigoIso, string rutaImagenOriginal, string nombreImagenGuardar, int width,
-            int height, bool actualizar = false, bool temporal = true)
+            int height, string cadena, bool actualizar = false, bool temporal = true)
         {
             var resultado = true;
 
@@ -236,7 +236,7 @@ namespace Portal.Consultoras.Common.MagickNet
                 {
                     var esOk = GuardarImagenToTemporal(codigoIso, rutaImagenOriginal, rutaImagenTemporal);
 
-                    if (esOk) esOk = GuardarImagenHistDetalle(codigoIso, rutaImagenTemporal, width, height, nombreImagenGuardar, actualizar);
+                    if (esOk) esOk = GuardarImagenHistDetalle(codigoIso, rutaImagenTemporal, width, height, nombreImagenGuardar, cadena, actualizar);
 
                     File.Delete(rutaImagenTemporal);
 
@@ -244,14 +244,14 @@ namespace Portal.Consultoras.Common.MagickNet
                 }
                 else
                 {
-                    resultado = GuardarImagenHistDetalle(codigoIso, rutaImagenTemporal, width, height, nombreImagenGuardar, actualizar);
+                    resultado = GuardarImagenHistDetalle(codigoIso, rutaImagenTemporal, width, height, nombreImagenGuardar, cadena, actualizar);
                 }
             }
 
             return resultado;
         }
 
-        private static bool GuardarImagenHistDetalle(string codigoIso, string rutaImagenOriginal, int width, int height, string nombreImagenGuardar, bool actualizar = false)
+        private static bool GuardarImagenHistDetalle(string codigoIso, string rutaImagenOriginal, int width, int height, string nombreImagenGuardar, string cadena, bool actualizar = false)
         {
             var resultado = true;
 
@@ -271,7 +271,6 @@ namespace Portal.Consultoras.Common.MagickNet
                 }
 
                 //Guardar la imagen resize a Amazon
-                string cadena = Globals.UrlMatrizAppConsultora;
                 string[] arrCadena;
                 arrCadena = cadena.Split(',');
                 var carpetaPais = string.Format("{0}/{1}/{2}", arrCadena[0], codigoIso, arrCadena[1]);

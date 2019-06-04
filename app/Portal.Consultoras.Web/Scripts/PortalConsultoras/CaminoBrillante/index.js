@@ -112,7 +112,7 @@ function TagClickSeleccionNivel(nivelConsultora) {
     });
 }
 
-function TagMostrarPopupNivel(nivelConsultora) {   
+function TagMostrarPopupNivel(nivelConsultora) {
 
     TagClickSeleccionNivel(nivelConsultora);
 
