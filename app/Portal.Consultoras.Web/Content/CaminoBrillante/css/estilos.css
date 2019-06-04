@@ -2264,10 +2264,12 @@ div.opOrdenar {
     -webkit-transition: all .3s ease;
     letter-spacing: .2px;
 }
-.regular.slider .mgtop .producto_img_home {
+/*.regular.slider .mgtop .producto_img_home {
     margin-top:20px;
+}*/
+.regular.slider .ficha__producto__kit .producto_img_home {
+    margin-top: 27px;
 }
-
 
 @media screen and (max-width: 950px) {
     .box-left-ganancias, .box-right-ganancias {

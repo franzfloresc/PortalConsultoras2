@@ -152,27 +152,28 @@
         <div id="carrusel" style="margin-top:40px;"></div>
         @Html.Partial("Partial/template_kit")
         @Html.Partial("Partial/template_demostrador")
-        <script id="template-carrusel" type="text/x-handlebars-template">
-            <h2 class="title fleft">Kit y Demostradores</h2>
-            {{#if VerMas}}
-            <a href="@Url.Action("Ofertas", "CaminoBrillante")" class="ver-todos">Ver todos</a>
-            {{/if}}
-            <div class="clear"></div>
-            <div class="box-kit-demos">
-            <section class="regular slider">
-                {{#each Items}}
-                <div class="revistadigital-landing">
-                    {{#with Kit}}
-                    {{> kit_template}}
-                    {{/with}}
-                    {{#with Demostrador}}
-                    {{> demostrador_template}}
-                    {{/with}}
-                </div>
-                {{/each}}
-            </section>
+<script id="template-carrusel" type="text/x-handlebars-template">
+    <div class="box-kit-demos">
+        <h2 class="title fleft">Kit y Demostradores</h2>
+        {{#if VerMas}}
+        <a href="@Url.Action("Ofertas", "CaminoBrillante")" class="ver-todos">Ver todos</a>
+        {{/if}}
+        <div class="clear"></div>
+
+        <section class="regular slider">
+            {{#each Items}}
+            <div class="revistadigital-landing">
+                {{#with Kit}}
+                {{> kit_template}}
+                {{/with}}
+                {{#with Demostrador}}
+                {{> demostrador_template}}
+                {{/with}}
             </div>
-        </script>
+            {{/each}}
+        </section>
+    </div>
+</script>
     }
 
     <div id="boxganancias">
