@@ -250,6 +250,19 @@ namespace Portal.Consultoras.Web.Providers
             return items;
         }
 
+        private CarruselCaminoBrillanteModel Format(CarruselCaminoBrillanteModel carrusel)
+        {
+            if (carrusel != null)
+            {
+                if (carrusel.Items == null) return carrusel;            
+                carrusel.Items.Update(e => {
+                    if (e.Kit != null) e.Kit.PaisISO = usuarioModel.CodigoISO;
+                    if (e.Demostrador != null) e.Demostrador.PaisISO = usuarioModel.CodigoISO;
+                });
+            }
+            return carrusel;
+        }
+
         /// <summary>
         /// Obtiene el Flag si tiene ofertas especiales
         /// </summary>
@@ -358,5 +371,30 @@ namespace Portal.Consultoras.Web.Providers
                 return null;
             }
         }
+
+        public CarruselCaminoBrillanteModel GetCarruselCaminoBrillante() {
+            try
+            {
+                using (var svc = new PedidoServiceClient())
+                {
+                    var usuario = new ServicePedido.BEUsuario()
+                    {
+                        PaisID = usuarioModel.PaisID,
+                        CampaniaID = usuarioModel.CampaniaID,
+                        ConsultoraID = usuarioModel.ConsultoraID,
+                        CodigoConsultora = usuarioModel.CodigoConsultora,
+                        NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
+                    };
+
+                    return Format(Mapper.Map<CarruselCaminoBrillanteModel>(svc.GetCarruselCaminoBrillante(usuario)));
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return null;
+            }
+        }
+
     }
 }

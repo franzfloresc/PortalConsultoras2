@@ -2,7 +2,11 @@
 var scrollLogros = true
 
 $(document).ready(function () {
+    Handlebars.registerPartial("kit_template", $("#template-kit").html());
+    Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
+
     Carusel();
+    CargarCarrusel();
 
     var nivelactual = $("#hfNivelActual").val();
     for (var i = 1; i <= nivelactual; i++)
@@ -19,7 +23,6 @@ $(document).ready(function () {
     });
 
     $('#loadingScreen').hide();
-
 });
 $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');
@@ -145,4 +148,123 @@ function TagNivelBeneficios(pagina) {
             'pageUrl': 'CaminoBrillante/pv/nivel-y-beneficios/' + pagina,
             'pageName': 'Nivel y beneficios - ' + pagina
         });
+}
+
+
+
+
+
+window.onload = function () {
+    var ctx = document.getElementById('canvas').getContext('2d');
+    window.myBar = new Chart(ctx, {
+        type: 'bar',
+        data: {
+
+            labels: ["C05", "C06", "C07", "C08", "C09", "C10"],
+            datasets: [
+                {
+
+                    label: "Unidad (Millones) ",
+                    backgroundColor: ["#ffdaf3", "#4f0036", "#ffdaf3", "#ffdaf3", "#ffdaf3", "#ffdaf3"],
+                    data: [2478, 3267, 734, 784, 433, 403]
+                }
+            ]
+        },
+
+
+
+        options: {
+            tooltips: {
+                enabled: false
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+
+                        fontColor: "#000",
+                        fontSize: 14
+                    },
+                    gridLines: {
+                        color: "#f7f7f7",
+                        lineWidth: 1,
+                        zeroLineColor: "#000",
+                        zeroLineWidth: 0
+                    }
+                }],
+
+                xAxes: [{
+                    ticks: {
+                        fontColor: "#000",
+                        fontSize: 14
+                    },
+                    gridLines: {
+                        color: "#f7f7f7",
+                        lineWidth: 1,
+                        zeroLineColor: "#000",
+                        zeroLineWidth: 0
+                    }
+                }]
+
+            },
+
+            legend: { display: false },
+            title: {
+                display: true
+            },
+            onClick: alertBox
+
+        }
+    });
+
+};
+
+function alertBox() {
+    alert("click");
+    $(".box-left-ganancias span").text("Hello world!");
+}
+
+
+function CargarCarrusel() {
+    $.ajax({
+        type: 'GET',
+        url: urlGetCarrusel,        
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (checkTimeout(data)) {
+                ArmarCarrusel(data);
+            }
+        },
+        error: function (data, error) { },
+        complete: function (data) {
+            closeWaitingDialog();
+            cargandoRegistros = false;
+        }
+    });
+}
+
+function ArmarCarrusel(data) {
+    var htmlDiv = SetHandlebars("#template-carrusel", data);
+    $('#carrusel').append(htmlDiv);
+    $('#carrusel').show();
+
+    $(".regular").slick({
+        dots: true,
+        infinite: true,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        dots: false,
+        prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+        nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+
+                    slidesToShow: 2,
+                }
+            }
+        ]
+    });
+    
 }

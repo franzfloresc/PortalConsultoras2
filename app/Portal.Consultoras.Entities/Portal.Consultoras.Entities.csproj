@@ -100,6 +100,7 @@
     <Compile Include="CaminoBrillante\BEKitCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEPeriodoCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEProductoCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\BECarruselCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEValidacionCaminoBrillante.cs" />
     <Compile Include="CargaMasiva\BECargaMasivaImagenes.cs" />
     <Compile Include="BEMiCertificado.cs" />

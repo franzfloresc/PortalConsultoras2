@@ -850,6 +850,31 @@ div .layout__view__breadcrumbs__wrapper, div .layout__view__title__wrapper {
 .hide {
     display: none !important;
 }
+.revistadigital-landing {
+    width: auto;
+    padding: 0 10px 25px 10px;
+    display: inline-block;
+}
+.ver-todos {
+    color: black;
+    text-decoration: underline;
+    text-align: right;
+    display: block;
+    font-weight: bold;
+
+    text-align: right;
+    display: block;
+    float: right;
+    margin-bottom: 30px;
+}
+.fleft {
+    float:left;
+    margin-bottom:30px;
+}
+.slick-dots {
+    display:none;
+}
+
 
 @media (min-width:576px) {
     .modal-dialog {
@@ -1222,7 +1247,7 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
     }
 
     .box-beneficios li {
-        min-height: auto
+        min-height: inherit;
     }
 
     .subtitle {
@@ -1378,6 +1403,22 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
 
     .text-down {
         line-height: 15px;
+    }
+    #ddlfiltros {
+        width: 57%;
+        margin-right: 3%;
+        box-sizing: border-box;
+        display: block;
+        margin-left: 0;
+    }
+    #ddlOrdenar {
+        width: 40%;
+        box-sizing: border-box;
+        display: block;
+        margin-left: 0;
+    }
+    .slick-arrow {
+        display:none !important;
     }
 }
 
@@ -1649,7 +1690,8 @@ li .productos__agregados {
 
 div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span {
     letter-spacing: 0;
-    text-indent: 22px
+    text-indent: 22px;
+    text-decoration:none;
 }
 
 .boton__agregalo--fichaProducto .cartbtn {
@@ -1763,6 +1805,14 @@ div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span
     text-transform: inherit;
     font-size: 14px !important
 }
+.box-kit-demos {
+    margin: 60px auto;
+    margin-bottom: 35px;
+}
+
+
+
+
 
 @media (max-width:999px) {
     .lista__opciones__ordenamiento__y__filtrar {
@@ -2117,4 +2167,134 @@ div.ui-dialog.ui-widget-content {
 div.opOrdenar {
     padding: 0 15px;
     padding-bottom: 0;
+}
+#m_montoMinimo span em {
+    font-style: normal;
+}
+
+
+/*STYLE GANANCIAS*/
+
+
+#boxganancias {
+    display: block;
+    margin: 30px auto;
+    margin-bottom: 40px;
+}
+.box-camb .text-bold, .owl-stage-outer .text-bold, .txt-benf .text-bold {
+    color: #000;
+    font-size: 14px;
+    text-align: left;
+    font-weight: 700;
+    line-height: 17px;
+    margin-bottom: 20px;
+}
+
+.box-left-ganancias, .box-right-ganancias {
+    display: block;
+    float: right;
+    width: 30%;
+    max-width: 300px;
+}
+
+.box-left-ganancias {
+    margin-top: 195px;
+}
+
+.box-right-ganancias {
+    width: 70%;
+    max-width: 700px;
+}
+
+.box-left-ganancias p, .box-left-ganancias span {
+    margin-bottom: 10px;
+    display: block;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.box-left-ganancias img {
+    display: inline-block;
+    position: relative;
+    /* margin-top: 4px; */
+    top: 0px;
+    min-width: 32px;
+}
+
+.box-left-ganancias span {
+    margin-bottom: 23px;
+    display: inline-block;
+    margin-left: 10px;
+}
+.box-right-ganancias span {
+    display: inherit;
+    text-align: right;
+}
+.producto_img_home {
+    position: relative;
+}
+.producto_img_home:hover .ver_detalle_carrusel, .producto_img:hover .ver_detalle_carrusel, .content_img_carrusel_ODD:hover .ver_detalle_carrusel {
+    opacity: 1;
+}
+.ver_detalle_carrusel {
+    text-align: center;
+    display: block;
+    font-size: 11px;
+    position: absolute;
+    height: 40px;
+    line-height: 38px;
+    width: 55%;
+    font-weight: 700;
+    border: 1px solid #000;
+    border-radius: 2px;
+    font-family: 'Lato',sans-serif;
+    background: #fff;
+    opacity: 0;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    margin: 0 auto;
+    text-decoration:none;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    letter-spacing: .2px;
+}
+/*.regular.slider .mgtop .producto_img_home {
+    margin-top:20px;
+}*/
+.regular.slider .ficha__producto__kit .producto_img_home {
+    margin-top: 27px;
+}
+
+@media screen and (max-width: 950px) {
+    .box-left-ganancias, .box-right-ganancias {
+        float: none;
+        margin: 15px auto;
+        width: 100%;
+    }
+
+    .box-left-ganancias {
+        max-width: 600px;
+    }
+
+    .box-montos {
+        width: 45%;
+        float: left;
+        margin-right: 2%;
+        border-right: 1px solid #a5a5a5;
+    }
+
+    .box-left-ganancias span {
+        margin-bottom: 10px;
+    }
+
+    .box-montos:nth-child(2) {
+        border: 0;
+        padding-left: 12%;
+    }
 }

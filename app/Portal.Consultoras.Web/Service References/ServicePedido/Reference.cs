@@ -24276,6 +24276,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEDemostradoresPaginado))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEDemostradoresCaminoBrillante[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEDemostradoresCaminoBrillante))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BECarruselCaminoBrillante))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEItemCarruselCaminoBrillante[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEItemCarruselCaminoBrillante))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BECuponConsultora))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BECupon))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BECupon[]))]
@@ -29349,6 +29352,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string DescripcionMarcaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EsCatalogoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EstrategiaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -29461,6 +29467,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EsCatalogo {
+            get {
+                return this.EsCatalogoField;
+            }
+            set {
+                if ((this.EsCatalogoField.Equals(value) != true)) {
+                    this.EsCatalogoField = value;
+                    this.RaisePropertyChanged("EsCatalogo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int EstrategiaID {
             get {
                 return this.EstrategiaIDField;
@@ -29560,6 +29579,130 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.TipoEstrategiaIDField.Equals(value) != true)) {
                     this.TipoEstrategiaIDField = value;
                     this.RaisePropertyChanged("TipoEstrategiaID");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BECarruselCaminoBrillante", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillan" +
+        "te")]
+    [System.SerializableAttribute()]
+    public partial class BECarruselCaminoBrillante : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServicePedido.BEItemCarruselCaminoBrillante[] ItemsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool VerMasField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServicePedido.BEItemCarruselCaminoBrillante[] Items {
+            get {
+                return this.ItemsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ItemsField, value) != true)) {
+                    this.ItemsField = value;
+                    this.RaisePropertyChanged("Items");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool VerMas {
+            get {
+                return this.VerMasField;
+            }
+            set {
+                if ((this.VerMasField.Equals(value) != true)) {
+                    this.VerMasField = value;
+                    this.RaisePropertyChanged("VerMas");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEItemCarruselCaminoBrillante", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillan" +
+        "te")]
+    [System.SerializableAttribute()]
+    public partial class BEItemCarruselCaminoBrillante : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServicePedido.BEDemostradoresCaminoBrillante DemostradorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServicePedido.BEKitCaminoBrillante KitField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServicePedido.BEDemostradoresCaminoBrillante Demostrador {
+            get {
+                return this.DemostradorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DemostradorField, value) != true)) {
+                    this.DemostradorField = value;
+                    this.RaisePropertyChanged("Demostrador");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServicePedido.BEKitCaminoBrillante Kit {
+            get {
+                return this.KitField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.KitField, value) != true)) {
+                    this.KitField = value;
+                    this.RaisePropertyChanged("Kit");
                 }
             }
         }
@@ -46883,6 +47026,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetFiltrosCaminoBrillante", ReplyAction="http://tempuri.org/IPedidoService/GetFiltrosCaminoBrillanteResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEOrdenFiltroConfiguracion> GetFiltrosCaminoBrillanteAsync(int paisID, bool isApp);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCarruselCaminoBrillante", ReplyAction="http://tempuri.org/IPedidoService/GetCarruselCaminoBrillanteResponse")]
+        Portal.Consultoras.Web.ServicePedido.BECarruselCaminoBrillante GetCarruselCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCarruselCaminoBrillante", ReplyAction="http://tempuri.org/IPedidoService/GetCarruselCaminoBrillanteResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECarruselCaminoBrillante> GetCarruselCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdDatoRecogerPor", ReplyAction="http://tempuri.org/IPedidoService/UpdDatoRecogerPorResponse")]
         void UpdDatoRecogerPor(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb pedidowebdetalle);
         
@@ -49657,6 +49806,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEOrdenFiltroConfiguracion> GetFiltrosCaminoBrillanteAsync(int paisID, bool isApp) {
             return base.Channel.GetFiltrosCaminoBrillanteAsync(paisID, isApp);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BECarruselCaminoBrillante GetCarruselCaminoBrillante(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad) {
+            return base.Channel.GetCarruselCaminoBrillante(entidad);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BECarruselCaminoBrillante> GetCarruselCaminoBrillanteAsync(Portal.Consultoras.Web.ServicePedido.BEUsuario entidad) {
+            return base.Channel.GetCarruselCaminoBrillanteAsync(entidad);
         }
         
         public void UpdDatoRecogerPor(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb pedidowebdetalle) {
