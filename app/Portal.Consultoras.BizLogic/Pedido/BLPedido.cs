@@ -3235,7 +3235,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         private BEPedidoWeb GetPedidoWebConCalculosGanancia(BEUsuario usuario, decimal montoAhorroCatalogo, decimal montoAhorroRevista, decimal montoDescuento, decimal montoEscala)
         {
-            var pedidoWebSetDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, false, out int pedidoID);
+            int pedidoID = 0;
+            var pedidoWebSetDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, false, out pedidoID);
 
             var codigosCatalogosWeb = GetCodigosCatalogoWeb();
             var codigosCatalogosRevista = GetCodigosCatalogoWeb(false);
