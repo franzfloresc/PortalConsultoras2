@@ -10,7 +10,7 @@ jQuery(document).ready(function () {
 
     CreateLoading();
 
-    if (typeof IsoPais === 'undefined' || IsoPais != 'PE')  {
+    if (typeof IsoPais === 'undefined' || IsoPais != 'PE') {
         $('.btn_chat_messenger_mobile').hide();
     }
     if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {
@@ -376,6 +376,10 @@ jQuery(document).ready(function () {
                 return DecimalToStringFormat(context);
             });
 
+            Handlebars.registerHelper('DecimalToStringFormatWithoutRounding', function (context) {
+                return DecimalToStringFormat(context, false, true);
+            });
+
             Handlebars.registerHelper('DateTimeToStringFormat', function (context) {
                 if (context != null && context != '') {
                     var dateString = context.substr(6);
@@ -520,9 +524,10 @@ jQuery(document).ready(function () {
         return l_boolIsExist;
     };
 
-    DecimalToStringFormat = function (monto, noDecimal) {
+    DecimalToStringFormat = function (monto, noDecimal, sinRendondeo) {
         formatDecimalPais = formatDecimalPais || {};
         noDecimal = noDecimal || false;
+        sinRendondeo = sinRendondeo || false;
         var decimal = formatDecimalPais.decimal || ".";
         var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0);
         var miles = formatDecimalPais.miles || ",";
@@ -533,20 +538,28 @@ jQuery(document).ready(function () {
         decimalCantidad = isNaN(decimalCantidad) ? 0 : parseInt(decimalCantidad);
 
         var pEntera = $.trim(parseInt(montoOrig));
-        var pDecimal = $.trim((parseFloat(montoOrig) - parseFloat(pEntera)).toFixed(decimalCantidad));
-        pDecimal = pDecimal.length > 1 ? pDecimal.substring(2) : "";
-        pDecimal = decimalCantidad > 0 ? (decimal + pDecimal) : "";
+        var pDecimal = 0;
 
-        var pEnteraFinal = "";
-        do {
-            var x = pEntera.length;
-            var sub = pEntera.substring(x, x - 3);
-            pEnteraFinal = (pEntera == sub ? sub : (miles + sub)) + pEnteraFinal;
-            pEntera = pEntera.substring(x - 3, 0);
+        if (sinRendondeo) {
+            pDecimal = Math.floor(montoOrig * 100) / 100;
+            return pDecimal.toFixed(decimalCantidad);
+        } else {
+            pDecimal = $.trim((parseFloat(montoOrig) - parseFloat(pEntera)).toFixed(decimalCantidad));
+            pDecimal = pDecimal.length > 1 ? pDecimal.substring(2) : "";
+            pDecimal = decimalCantidad > 0 ? (decimal + pDecimal) : "";
 
-        } while (pEntera.length > 0);
+            var pEnteraFinal = "";
+            do {
+                var x = pEntera.length;
+                var sub = pEntera.substring(x, x - 3);
+                pEnteraFinal = (pEntera == sub ? sub : (miles + sub)) + pEnteraFinal;
+                pEntera = pEntera.substring(x - 3, 0);
 
-        return pEnteraFinal + pDecimal;
+            } while (pEntera.length > 0);
+
+            return pEnteraFinal + pDecimal;
+        }
+
     };
 
     IsNullOrEmpty = function (texto) { return texto == null || texto === ''; };
@@ -861,17 +874,17 @@ function AbrirMensaje25seg(mensaje, imagen) {
 
         $("#pop_src").attr("src", "#")
 
-        if (imagen == "") {            
-            $("#pop_src").css("display", "none")                        
+        if (imagen == "") {
+            $("#pop_src").css("display", "none")
         }
         else {
             $("#pop_src").attr("src", imagen)
-            $("#pop_src").css("display", "block")            
+            $("#pop_src").css("display", "block")
         }
-        
-        
+
+
         var isUrlMobile = isMobile();
-        if (isUrlMobile > 0) {                        
+        if (isUrlMobile > 0) {
             $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
             $('#alertDialogMensajes25seg').dialog("open");
             $(_overlay).css('background', 'black')
@@ -882,25 +895,25 @@ function AbrirMensaje25seg(mensaje, imagen) {
                 _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
         }
         else {
-            
-            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);                    
+
+            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
             $('#alertDialogMensajes25seg').dialog("open");
             $(_overlay).css('background', 'black')
             $(_overlay).css('opacity', '0.85')
 
             var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0])
-                _newTopDialog = _topWithoutPXAfterCreateDialog + 200,
+            _newTopDialog = _topWithoutPXAfterCreateDialog + 200,
                 _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
 
         }
         CerrarLoad();
         //Ocultar el scroll 
-        $("body").css("overflow", "hidden");  
+        $("body").css("overflow", "hidden");
 
         setTimeout(function () {
             document.querySelector(_dialogClass).style.transition = "top 1s ease"
             _newTopDialog = _topWithoutPXAfterCreateDialog - 100
-            _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'            
+            _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
         }, 100)
 
         setTimeout(function () {
@@ -908,9 +921,9 @@ function AbrirMensaje25seg(mensaje, imagen) {
                 $('#alertDialogMensajes25seg').dialog("close");
                 $("body").css("overflow", "auto")
             })
-        }, 3000) 
+        }, 3000)
 
-        
+
         var parameter = [["mensaje", mensaje], ["imagen", imagen]];
         console.log(parameter);
 
@@ -1808,22 +1821,22 @@ function odd_google_analytics_product_click(name, id, price, brand, variant, pos
     dataLayer.push({
         'event': 'productClick',
         'ecommerce':
+        {
+            'click':
             {
-                'click':
-                    {
-                        'actionField': { 'list': listName },
-                        'products':
-                            [{
-                                'name': name,
-                                'id': id,
-                                'price': price,
-                                'brand': brand,
-                                'category': 'No disponible',
-                                'variant': variant,
-                                'position': position
-                            }]
-                    }
+                'actionField': { 'list': listName },
+                'products':
+                    [{
+                        'name': name,
+                        'id': id,
+                        'price': price,
+                        'brand': brand,
+                        'category': 'No disponible',
+                        'variant': variant,
+                        'position': position
+                    }]
             }
+        }
     });
 }
 
