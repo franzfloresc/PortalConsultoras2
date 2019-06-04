@@ -2183,7 +2183,11 @@ var GeneralModule = (function () {
         if (typeof validateIsMobile === "undefined") validateIsMobile = true;
 
         var destinationUrl = "/";
-        if (validateIsMobile && _isMobile() && url.indexOf('Mobile/') == -1) destinationUrl = destinationUrl + "Mobile/";
+        if (validateIsMobile && _isMobile() && url.indexOf('Mobile/') == -1) destinationUrl += "Mobile/";
+
+        url = $.trim(url);
+        url = url[0] === '/' ? url.substr(1) : url;
+
         destinationUrl += url;
 
         window.location.href = destinationUrl;
