@@ -216,8 +216,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.Celular = userData.Celular;
 
-            var numero = 0;
-            var valida = false;
+            int numero;
+            bool valida;
             Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
             ViewBag.IniciaNumeroCelular = valida ? numero : -1;
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
@@ -368,7 +368,7 @@ namespace Portal.Consultoras.Web.Controllers
                 User = userData,
                 Mobile = EsDispositivoMovil()
             };
-            string tipoEnvio = Constantes.TipoEnvio.SMS.ToString();
+            string tipoEnvio = Constantes.TipoEnvio.SMS;
             result = await sender.Send(celular);
             ActualizarValidacionDatosUnique(EsDispositivoMovil(), userData.CodigoUsuario, tipoEnvio);
             return Json(result);
@@ -662,7 +662,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public async Task<JsonResult> RegistrarPerfil(MisDatosModel model)
         {
-            string resultado = string.Empty;
             JsonResult response;
 
             try
@@ -689,7 +688,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ActualizarSMS(userData.PaisID, userData.CodigoUsuario, userData.Celular, model.Celular);
                 ActualizarFijo(userData.PaisID, userData.CodigoUsuario, userData.Telefono, model.Telefono);
                 ActualizarValidacionDatos(EsDispositivoMovil(), userData.CodigoUsuario,model.EMail, model.Celular, model.Telefono);
-                resultado = await _miPerfilProvider.RegistrarAsync(model);
+                var resultado = await _miPerfilProvider.RegistrarAsync(model);
                 ActualizarDatosLogDynamoDB(model, "MI PERFIL", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
                 var lst = resultado.Split('|');
 
