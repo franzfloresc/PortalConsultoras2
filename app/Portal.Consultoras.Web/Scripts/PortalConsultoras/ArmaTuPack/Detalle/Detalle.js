@@ -20,6 +20,7 @@ var armaTuPackDetalleEvents = ArmaTuPackDetalleEvents();
 
 var armaTuPackProvider = ArmaTuPackProvider();
 var generalModule = GeneralModule;
+var analyticsPortalModule = AnalyticsPortalModule;
 
 var detallePresenter = DetallePresenter({
     armaTuPackProvider: armaTuPackProvider,
@@ -44,7 +45,8 @@ var gruposPresenter = GruposPresenter({
     gruposView: gruposView,
     armaTuPackProvider: armaTuPackProvider,
     generalModule: generalModule,
-    armaTuPackDetalleEvents: armaTuPackDetalleEvents
+    armaTuPackDetalleEvents: armaTuPackDetalleEvents,
+    analyticsPortalModule: analyticsPortalModule
 });
 gruposView.setPresenter(gruposPresenter);
 
