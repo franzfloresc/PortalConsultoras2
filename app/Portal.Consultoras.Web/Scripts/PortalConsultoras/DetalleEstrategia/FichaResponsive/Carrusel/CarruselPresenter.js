@@ -113,7 +113,7 @@ class CarruselPresenter {
                     componenteInicial = this.model.productosHermanos[0];
                 }
                 if (componenteInicial.FactorCuadre * componenteInicial.Cantidad === 1) {
-                    titulo = 'Packs que contienen <span style="text-transform:capitalize">' + _config.tituloCarrusel.toLowerCase() + "</span>";
+                    titulo = 'Packs que contienen <span style="text-transform:capitalize">' + this.model.tituloCarrusel.toLowerCase() + "</span>";
                 } else {
                     titulo = "Packs parecidos con más productos";
                 }
