@@ -39,20 +39,6 @@ namespace Portal.Consultoras.Web.Providers
             return url + query;
         }
 
-        public async Task<bool> RequiereValidarCorreo(UsuarioModel user)
-        {
-            using (var client = new UsuarioServiceClient())
-            {
-                var estado = await client.ObtenerEstadoValidacionDatosAsync(
-                                user.PaisID,
-                                user.CodigoUsuario,
-                                Constantes.TipoEnvioEmailSms.EnviarPorEmail
-                            );
-
-                return string.IsNullOrEmpty(estado) || estado != Constantes.ValidacionDatosEstado.Activo;
-            }
-        }
-
         public KeyValuePair<string, string> GetPanelConfig(TablaLogicaProvider provider, int paisId)
         {
             var datos = provider.GetTablaLogicaDatos(paisId, ConsTablaLogica.TuVozOnline.Id);

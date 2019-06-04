@@ -431,12 +431,6 @@
   <wsdl:message name="IUsuarioService_ValidaEstadoPopup_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidaEstadoPopupResponse" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_ObtenerEstadoValidacionDatos_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerEstadoValidacionDatos" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_ObtenerEstadoValidacionDatos_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerEstadoValidacionDatosResponse" />
-  </wsdl:message>
   <wsdl:message name="IUsuarioService_GetTipoEnvioActivos_InputMessage">
     <wsdl:part name="parameters" element="tns:GetTipoEnvioActivos" />
   </wsdl:message>
@@ -1225,10 +1219,6 @@
     <wsdl:operation name="ValidaEstadoPopup">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ValidaEstadoPopup" message="tns:IUsuarioService_ValidaEstadoPopup_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ValidaEstadoPopupResponse" message="tns:IUsuarioService_ValidaEstadoPopup_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerEstadoValidacionDatos">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerEstadoValidacionDatos" message="tns:IUsuarioService_ObtenerEstadoValidacionDatos_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerEstadoValidacionDatosResponse" message="tns:IUsuarioService_ObtenerEstadoValidacionDatos_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetTipoEnvioActivos">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetTipoEnvioActivos" message="tns:IUsuarioService_GetTipoEnvioActivos_InputMessage" />
@@ -2163,15 +2153,6 @@
     </wsdl:operation>
     <wsdl:operation name="ValidaEstadoPopup">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ValidaEstadoPopup" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerEstadoValidacionDatos">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerEstadoValidacionDatos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3553,15 +3534,6 @@
     </wsdl:operation>
     <wsdl:operation name="ValidaEstadoPopup">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ValidaEstadoPopup" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerEstadoValidacionDatos">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerEstadoValidacionDatos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -17972,12 +17972,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ValidaEstadoPopup", ReplyAction="http://tempuri.org/IUsuarioService/ValidaEstadoPopupResponse")]
         System.Threading.Tasks.Task<int> ValidaEstadoPopupAsync(int PaisID);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ObtenerEstadoValidacionDatos", ReplyAction="http://tempuri.org/IUsuarioService/ObtenerEstadoValidacionDatosResponse")]
-        string ObtenerEstadoValidacionDatos(int paisId, string codigoUsuario, string tipo);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ObtenerEstadoValidacionDatos", ReplyAction="http://tempuri.org/IUsuarioService/ObtenerEstadoValidacionDatosResponse")]
-        System.Threading.Tasks.Task<string> ObtenerEstadoValidacionDatosAsync(int paisId, string codigoUsuario, string tipo);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetTipoEnvioActivos", ReplyAction="http://tempuri.org/IUsuarioService/GetTipoEnvioActivosResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEValidacionDatos[] GetTipoEnvioActivos(int PaisID, string CodigoUsuario);
         
@@ -19066,14 +19060,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<int> ValidaEstadoPopupAsync(int PaisID) {
             return base.Channel.ValidaEstadoPopupAsync(PaisID);
-        }
-        
-        public string ObtenerEstadoValidacionDatos(int paisId, string codigoUsuario, string tipo) {
-            return base.Channel.ObtenerEstadoValidacionDatos(paisId, codigoUsuario, tipo);
-        }
-        
-        public System.Threading.Tasks.Task<string> ObtenerEstadoValidacionDatosAsync(int paisId, string codigoUsuario, string tipo) {
-            return base.Channel.ObtenerEstadoValidacionDatosAsync(paisId, codigoUsuario, tipo);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEValidacionDatos[] GetTipoEnvioActivos(int PaisID, string CodigoUsuario) {
