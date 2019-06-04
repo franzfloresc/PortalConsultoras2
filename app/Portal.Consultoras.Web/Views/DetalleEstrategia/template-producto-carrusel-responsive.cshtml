@@ -43,12 +43,19 @@
                onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event); ">
                 Agrégalo
             </a>
-            {{else}}
-            <div class="seccion_agregar">
-                <div class="tag_agotago">Agotado</div>
-            </div>
-            {{/if}}
         </div>
+        {{else}}
+         <div class="seccion_agregar">
+            <div class="tag_agotago">Agotado</div>
+         </div>
+         {{/if}}
+
+         <div class="seccion_agregar">
+            <button class="btn_agregalo_producto btn_defecto">
+                <img src="/Content/Images/mobile/Esika/click-ico-White.svg"> Elige tu opción
+            </button>
+         </div>
+
         <div class="caja_producto_agregado">
             {{#if IsAgregado }}
             <div>
