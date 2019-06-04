@@ -36,17 +36,17 @@ var cabeceraPresenter = CabeceraPresenter({
 });
 //cabeceraView.setPresenter(cabeceraPresenter);
 
-var gruposDesktopView = GruposView({
+var gruposView = GruposView({
     generalModule: generalModule,
     gruposContainerId: "#grupos"
 });
-var gruposDesktopPresenter = GruposPresenter({
-    gruposView: gruposDesktopView,
+var gruposPresenter = GruposPresenter({
+    gruposView: gruposView,
     armaTuPackProvider: armaTuPackProvider,
     generalModule: generalModule,
     armaTuPackDetalleEvents: armaTuPackDetalleEvents
 });
-gruposDesktopView.setPresenter(gruposDesktopPresenter);
+gruposView.setPresenter(gruposPresenter);
 
 var seleccionadosView = SeleccionadosView({
     seleccionadosContainerId: "#seleccionados"
@@ -66,15 +66,15 @@ $(document).ready(function () {
 
 armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onGruposLoaded, function (packComponents) {
     cabeceraPresenter.onGruposLoaded(packComponents);
-    gruposDesktopPresenter.onGruposLoaded(packComponents);
+    gruposPresenter.onGruposLoaded(packComponents);
     seleccionadosPresenter.onGruposLoaded(packComponents);
 });
 
 armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onSelectedComponentsChanged, function (packComponents) {
-    gruposDesktopPresenter.onSelectedComponentsChanged(packComponents);
+    gruposPresenter.onSelectedComponentsChanged(packComponents);
     seleccionadosPresenter.onSelectedComponentsChanged(packComponents);
 });
 
 armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onShowWarnings, function (packComponents) {
-    gruposDesktopPresenter.onShowWarnings(packComponents);
+    gruposPresenter.onShowWarnings(packComponents);
 });
