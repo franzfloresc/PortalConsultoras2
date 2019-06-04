@@ -66,7 +66,6 @@ class CarruselView {
             parent.marcarAnalytics(2, null, slick, currentSlide, nextSlide);
         }).on("lazyLoaded", function(event, slick, image, imageSource) {
             const aspectRatio = image[0].naturalWidth / image[0].naturalHeight;
-            console.log(`aspect_ratio: ${aspectRatio}`);
             switch (true) {
             case aspectRatio === 1:
                 break;

@@ -38,6 +38,7 @@ $(document).ready(function () {
     componentesPresenter.onEstrategiaModelLoaded(estrategia);
 
     fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
+
     let carruselModel = new CarruselModel(
         params.palanca,
         params.campania,
@@ -49,7 +50,9 @@ $(document).ready(function () {
         estrategia.Hermanos.length,
         estrategia.CodigoProducto,
         estrategia.Precio2,
-        estrategia.Hermanos);
+        estrategia.Hermanos,
+        estrategia.TieneStock);
+
     let carruselPresenter = new CarruselPresenter();
 
     let carruselView = new CarruselView(carruselPresenter);
