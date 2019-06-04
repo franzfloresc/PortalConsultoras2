@@ -60,8 +60,9 @@ var EstrategiaPresenter = function (config) {
         if (!(typeof esFicha === "boolean")) throw  "esFicha is undefined";
         if (!(typeof esEditable === "boolean")) throw  "esEditable is undefined";
 
-        EstrategiaAgregarModule.EstrategiaAgregar(event, popup, limite, esFicha, esEditable);
+        var model = _estrategiaModel();
 
+        EstrategiaAgregarModule.EstrategiaAgregar(event, popup, limite, esFicha, esEditable, model);
     };
 
     return {
