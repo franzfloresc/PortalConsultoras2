@@ -311,7 +311,7 @@
 </script>
 
 <script id="template-detalle-2-observado" type="text/x-handlebars-template">
-    <div class="color-multimarca titulo_grilla titulo_grilla--productosObservados">PRODUCTOS OBSERVADOS:</div>
+    @*<div class="color-multimarca titulo_grilla titulo_grilla--productosObservados">PRODUCTOS OBSERVADOS:</div>*@
     <div class="subtitulo_grilla subtitulo_grilla--productosObservados">Resuelve las observaciones y envía nuevamente la solicitud</div>
     <div class="content_listado_reclamo">
         <div class="pop_solicitud_producto text_gris_reclamo pop_solicitud_producto--nom">Producto</div>
@@ -368,8 +368,8 @@
                     <span class="d-block">Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}</span>
                 </div>
                 {{#if_eq subItem.Estado '4'}}
-                <div class="d-block estado_producto_solicitud">
-                    <div class="tag_sb text-bold text-uppercase estado_texto EstadoRechazado">Rechazado</div>
+                <div class="d-flex estado_producto_solicitud">
+                    <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoRechazado">Rechazado</div>
                     <div class="descripcion_estado_producto_solicitud">{{subItem.Observacion}}</div>
                 </div>
                 <div class="d-flex acciones_solicitud">
@@ -387,7 +387,11 @@
                     </a>
                 </div>
                 {{else}}
-                <div class="pop_solicitud_resolucion"><span class="estado_texto EstadoAceptado">APROBADO</span></div>
+                <div class="d-flex estado_producto_solicitud">
+                    <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoAceptado">Aprobado</div>
+                    <div class="descripcion_estado_producto_solicitud">{{subItem.Observacion}}</div>
+                </div>
+                <div class="d-flex acciones_solicitud"></div>
                 {{/if_eq}}
             </div>
             {{/each}}
@@ -401,9 +405,9 @@
                     <span class="d-block">Precio: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}</span>
                 </div>
                 {{#if_eq item.Estado '4'}}
-                <div class="d-block estado_producto_solicitud">
-                    <div class="tag_sb text-bold text-uppercase estado_texto EstadoRechazado">Rechazado</div>
-                    <div class="nota_producto_observado">
+                <div class="d-flex estado_producto_solicitud">
+                    <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoRechazado">Rechazado</div>
+                    <div class="descripcion_estado_producto_solicitud">
                         {{#if_eq item.TipoMotivoRechazo '1'}}
                         Debes eliminar este producto para procesar nuevamente tu solicitud.
                         {{else if_eq item.TipoMotivoRechazo '2'}}
@@ -428,7 +432,7 @@
                     </a>
                 </div>
                 {{else}}
-                <div class="d-block estado_producto_solicitud">
+                <div class="d-flex estado_producto_solicitud">
                     <div class="tag_sb text-bold text-uppercase estado_texto EstadoAceptado">
                         APROBADO
                     </div>
@@ -441,7 +445,6 @@
 
             {{/if_eq}}
         </div>
-        <hr class="clear" />
     </div>
     {{/if_eq}}
     {{/each}}

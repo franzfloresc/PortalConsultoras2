@@ -371,10 +371,10 @@ input[type="checkbox"].switch__control,
     padding-right: 8px;
 }
 
-.tag_sb--standard {
-    background-color: #000;
-    color: #FFF;
-}
+    .tag_sb--standard {
+        background-color: #000;
+        color: #FFF;
+    }
 
 /* FIN - TAGS */
 

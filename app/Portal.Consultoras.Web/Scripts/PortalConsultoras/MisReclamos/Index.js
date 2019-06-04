@@ -136,7 +136,7 @@ function ObtenerDetalleCdr(item) {
             }
             if (item.Estado == 4) {
                 if (data.cantobservado > 0) SetHandlebars("#template-detalle-2-observado", data, "#divDetallePedidoCdrObservado");
-                if (data.cantaprobado > 0) SetHandlebars("#template-detalle-2-aprobado", data, "#divDetallePedidoCdrAprobado");
+                //if (data.cantaprobado > 0) SetHandlebars("#template-detalle-2-aprobado", data, "#divDetallePedidoCdrAprobado");
             }
             else SetHandlebars("#template-detalle-1", data, "#divDetallePedidoCDR");
         },
