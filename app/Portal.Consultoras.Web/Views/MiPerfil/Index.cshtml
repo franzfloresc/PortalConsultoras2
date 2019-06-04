@@ -2,7 +2,6 @@
 @model Portal.Consultoras.Web.Models.MisDatosModel
 @{
     ViewBag.Title = "Mi Perfil";
-    var msg = TempData[Constantes.TempDataKey.MsgValidation] as Portal.Consultoras.Web.Models.Common.ResultModel<string>;
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
@@ -373,11 +372,6 @@ else
         var UrlDrop = '@Url.Action("ObtenerUbigeoDependiente")';
         var Ubigeos = { Ubigeo1: '@Model.DireccionEntrega.Ubigeo1', Ubigeo2: '@Model.DireccionEntrega.Ubigeo2', Ubigeo3 :'@Model.DireccionEntrega.Ubigeo3'
         };
-
-        @if (msg != null)
-        {
-            @:$(function() { AbrirMensaje('@msg.Message', '@msg.Data'); });
-        }
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?client=gme-cetcosa&v=weekly&callback=initMapa&libraries=places,directions"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Base.js")?v=3"></script>
