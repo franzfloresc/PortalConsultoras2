@@ -269,7 +269,7 @@ a{
     background-color: #FFF;
     padding: 37px;
     font-size: 14px;
-    height: calc(100% - 52px);
+    height: calc(100vh - 52px);
 }
 
 .wrapper_content_restablecer_contrasenia,
