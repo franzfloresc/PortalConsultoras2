@@ -1239,15 +1239,6 @@ var PedidoRegistroModule = function () {
                     imagenProducto = $(objDataImg).attr('src');
                 }
 
-                var mensaje = '';
-                if (data.EsReservado === true) {
-                    mensaje = _mensajeAgregarPedido.reservado;
-                } else {
-                    mensaje = _mensajeAgregarPedido.normal;
-                }
-
-                AbrirMensaje25seg(mensaje, imagenProducto);
-
                 var localStorageModule = new LocalStorageModule();
                 localStorageModule.ActualizarCheckAgregado($.trim($("#hdfEstrategiaId").val()), $("#hdfCampaniaID").val(), $("#hdfCodigoPalanca").val(), true);
                 //FIN HD-3908
