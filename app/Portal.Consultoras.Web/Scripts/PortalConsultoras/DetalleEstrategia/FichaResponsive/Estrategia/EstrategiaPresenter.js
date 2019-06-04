@@ -47,6 +47,8 @@ var EstrategiaPresenter = function (config) {
         if (!_config.estrategiaView.renderAgregar(model)) throw "estrategiaView don't render agregar.";
 
         if (!_config.estrategiaView.showTitleAgregado(model)) throw "estrategiaView don't show title Agregado.";
+
+        if(!_config.estrategiaView.setEstrategiaTipoBotonAgregar(model)) throw "estrategiaView don't set type button Agregado.";
   
         _config.estrategiaView.showCarrusel();
 
