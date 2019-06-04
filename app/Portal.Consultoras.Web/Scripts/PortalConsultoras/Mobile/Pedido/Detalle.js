@@ -204,15 +204,15 @@ function UpdateLiquidacionSegunTipoOfertaSis(obj, elementRow) {
     }
     else {
         ShowLoading();
-        if (ReservadoOEnHorarioRestringido()) {
-            obj.Cantidad = obj.CantidadTemporal;
-            belcorp.mobile.pedido.setDetalleById(obj);
-            //INI HD-3693
-            $(elementRow).find(".Cantidad").val(obj.Cantidad);
-            //FIN HD-3693
-            CloseLoading();
-            return false;
-        }
+        //if (ReservadoOEnHorarioRestringido()) {
+        //    obj.Cantidad = obj.CantidadTemporal;
+        //    belcorp.mobile.pedido.setDetalleById(obj);
+        //    //INI HD-3693
+        //    $(elementRow).find(".Cantidad").val(obj.Cantidad);
+        //    //FIN HD-3693
+        //    CloseLoading();
+        //    return false;
+        //}
 
         var cantidadElement = $(elementRow).find(".Cantidad");
         var Cantidad = $(cantidadElement).val() || "";
@@ -227,39 +227,42 @@ function UpdateLiquidacionSegunTipoOfertaSis(obj, elementRow) {
         //if (obj.TipoOfertaSisID) CantidadSoli = (Cantidad - cantidadAnterior);
 		obj.Stock = CantidadSoli;
 
-        var param = ({
-            CUV: obj.CUV,
-            PrecioUnidad: obj.PrecioUnidad,
-            Cantidad: CantidadSoli,
-            TipoOferta: obj.TipoOfertaSisID || 0,
-            esCuponNuevas: obj.EsCuponNuevas
-        });
-        ShowLoading();
+        //var param = ({
+        //    CUV: obj.CUV,
+        //    PrecioUnidad: obj.PrecioUnidad,
+        //    Cantidad: CantidadSoli,
+        //    TipoOferta: obj.TipoOfertaSisID || 0,
+        //    esCuponNuevas: obj.EsCuponNuevas
+        //});
 
-        jQuery.ajax({
-            type: 'POST',
-            url: urlValidarStockEstrategia,
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(param),
-            async: true,
-            success: function (datos) {
-                if (checkTimeout(datos)) {
-                    CloseLoading();
-                    if (!datos.result) {
-                        messageInfoMalo(datos.message);
-                        CargarPedido();
-                        return false;
-                    }
-                    Update(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.FlagValidacion, obj.CUV, obj.EsBackOrder, obj, elementRow);
-                    if (datos.message.length > 3)
-                        messageInfoMalo(datos.message);
-                }
-            },
-            error: function (data, error) {
-                CloseLoading();
-            }
-        });
+        //ShowLoading();
+
+        Update(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.FlagValidacion, obj.CUV, obj.EsBackOrder, obj, elementRow);
+
+        //jQuery.ajax({
+        //    type: 'POST',
+        //    url: urlValidarStockEstrategia,
+        //    dataType: 'json',
+        //    contentType: 'application/json; charset=utf-8',
+        //    data: JSON.stringify(param),
+        //    async: true,
+        //    success: function (datos) {
+        //        if (checkTimeout(datos)) {
+        //            CloseLoading();
+        //            if (!datos.result) {
+        //                messageInfoMalo(datos.message);
+        //                CargarPedido();
+        //                return false;
+        //            }
+        //            Update(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.FlagValidacion, obj.CUV, obj.EsBackOrder, obj, elementRow);
+        //            if (datos.message.length > 3)
+        //                messageInfoMalo(datos.message);
+        //        }
+        //    },
+        //    error: function (data, error) {
+        //        CloseLoading();
+        //    }
+        //});
     }
 }
 
@@ -291,15 +294,15 @@ function UpdateLiquidacionTipoOfertaSis(urls, obj, elementRow) {
 
     ShowLoading();
 
-    if (ReservadoOEnHorarioRestringido()) {
-        CloseLoading();
-        return false;
-    }
+    //if (ReservadoOEnHorarioRestringido()) {
+    //    CloseLoading();
+    //    return false;
+    //}
 
-    if (HorarioRestringido()) {
-        CloseLoading();
-        return false;
-    }
+    //if (HorarioRestringido()) {
+    //    CloseLoading();
+    //    return false;
+    //}
 
     $.ajaxSetup({ cache: false });
 
@@ -538,8 +541,8 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
 
 function ConfirmaEliminarPedido() {
 
-    if (ReservadoOEnHorarioRestringido())
-        return false;
+    //if (ReservadoOEnHorarioRestringido())
+    //    return false;
 
     if ($.isFunction(fnEliminarProducto)) {
         fnEliminarProducto();
@@ -1198,5 +1201,7 @@ function closeDialogObservacionesProl() {
 }
 
 function PedidosPendientesPorAprobar() {
-    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Click Botón', 'Pedidos por aprobar');
+    //DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Click Botón', 'Pedidos por aprobar');
+    if (!(typeof AnalyticsPortalModule === 'undefined'))
+        AnalyticsPortalModule.ClickBotonPedidosPendientes('Click Botón', 'Pedidos por aprobar');
 }

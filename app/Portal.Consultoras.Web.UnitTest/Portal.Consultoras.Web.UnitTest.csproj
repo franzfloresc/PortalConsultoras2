@@ -105,6 +105,7 @@
     <Compile Include="Base.cs" />
     <Compile Include="Controllers\BaseControllerUnitTest.cs" />
     <Compile Include="Controllers\BaseShowRoomControllerUnitTest.cs" />
+    <Compile Include="Controllers\EstratagiaControllerUnitTest.cs" />
     <Compile Include="Controllers\OfertasControllerUnitTests.cs" />
     <Compile Include="Controllers\PedidoControllerUnitTest.cs" />
     <Compile Include="Controllers\LoginControllerUnitTest.cs" />

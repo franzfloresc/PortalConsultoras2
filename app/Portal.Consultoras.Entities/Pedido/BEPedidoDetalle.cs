@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Entities.ReservaProl;
+using System;
 using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.Pedido
@@ -64,7 +65,11 @@ namespace Portal.Consultoras.Entities.Pedido
         [DataMember]
         public bool EsEditable { get; set; }
         [DataMember]
+	public BEInputReservaProl ReservaProl { get; set; }
+	[DataMember]
         public string OrigenSolicitud { get; set; }
+
+        public bool Reservado { get; set; }
         public object Clone()
         {
             return this.MemberwiseClone();

@@ -1,4 +1,4 @@
-ï»¿using AutoMapper;
+using AutoMapper;
 using ClosedXML.Excel;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.PublicService.Cryptography;
@@ -71,6 +71,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region ActionResult
 
+        #region Index
         [AllowAnonymous]
         public async Task<ActionResult> Index(string returnUrl = null)
         {
@@ -151,14 +152,27 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(model);
         }
-        [AllowAnonymous]
+
+        public RedirectToRouteResult IndexRedireccionar(int cantCursos, bool esMobile)
+        {
+            if (cantCursos > 0)
+            {
+                return RedirectToAction("Index", "MiAcademia");
+            }
+
+            return esMobile
+                ? RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
+                : RedirectToAction("Index", "Bienvenida");
+        }
+
+   		[AllowAnonymous]
         [HttpGet]
         [Route("Login/Login/{param?}")]
         public ActionResult Login(string param)
         {
             return RedirectToAction("Index", "Login");
         }
-
+        
         private void MisCursos()
         {
             TempData["MiAcademia"] = 0;
@@ -207,6 +221,31 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
         }
+
+        private LoginModel IndexEvento(LoginModel model)
+        {
+            model.ListaEventos = model.ListaEventos ?? new List<EventoFestivoModel>();
+            if (model.ListaEventos.Count == 0)
+                model.NombreClase = "fondo_estandar";
+            else
+            {
+                model.NombreClase = "fondo_festivo";
+
+                model.RutaEventoEsika =
+                (from g in model.ListaEventos
+                 where g.Nombre == Constantes.EventoFestivoNombre.FONDO_ESIKA
+                 select g.Personalizacion).FirstOrDefault();
+
+                model.RutaEventoLBel =
+                (from g in model.ListaEventos
+                 where g.Nombre == Constantes.EventoFestivoNombre.FONDO_LBEL
+                 select g.Personalizacion).FirstOrDefault();
+            }
+
+            return model;
+        }
+        
+        #endregion
 
         [AllowAnonymous]
         [HttpPost]
@@ -298,7 +337,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     : Json(new
                                     {
                                         success = true,
-                                        message = "El codigo de consultora se asociÃ³ con su cuenta de Facebook"
+                                        message = "El codigo de consultora se asoció con su cuenta de Facebook"
                                     });
                             }
                         }
@@ -1005,10 +1044,10 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 if (paisId == 0)
-                    throw new ArgumentException("ParÃ¡metro paisId no puede ser cero.");
+                    throw new ArgumentException("Parámetro paisId no puede ser cero.");
 
                 if (string.IsNullOrEmpty(codigoUsuario))
-                    throw new ArgumentException("ParÃ¡metro codigoUsuario no puede ser vacÃ­o.");
+                    throw new ArgumentException("Parámetro codigoUsuario no puede ser vacío.");
 
                 var usuario = await GetUsuarioAndLogsIngresoPortal(paisId, codigoUsuario, refrescarDatos);
 
@@ -1420,7 +1459,7 @@ namespace Portal.Consultoras.Web.Controllers
                             msPersonalizacionModel.GuardaDataEnLocalStorage = string.Empty;
                             msPersonalizacionModel.GuardaDataEnSession = string.Empty;
                             msPersonalizacionModel.EstrategiaDisponibleParaFicha = string.Empty;
-                            Common.LogManager.SaveLog(new Exception("La configuraciÃ³n MSPersonalizacion se encuentra deshabilitado en la tabla configuracionpais.", null), usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                            Common.LogManager.SaveLog(new Exception("La configuración MSPersonalizacion se encuentra deshabilitado en la tabla configuracionpais.", null), usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
                         }
 
                         sessionManager.SetConfigMicroserviciosPersonalizacion(msPersonalizacionModel);
@@ -1846,7 +1885,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(ex, usuarioModel.CodigoConsultora, usuarioModel.PaisID.ToString(), string.Empty);
-                pasoLog = "OcurriÃ³ un error al cargar Eventofestivo";
+                pasoLog = "Ocurrió un error al cargar Eventofestivo";
                 sessionManager.SetEventoFestivoDataModel(new EventoFestivoDataModel());
             }
             return eventoFestivoDataModel;
@@ -2077,7 +2116,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                pasoLog = "OcurriÃ³ un error al cargar ConfiguracionPais";
+                pasoLog = "Ocurrió un error al cargar ConfiguracionPais";
                 var codigoConsultora = string.Empty;
                 var pais = string.Empty;
                 if (usuarioModel != null)
@@ -2571,7 +2610,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.IsoPais = iso;
 
             if (iso == Constantes.CodigosISOPais.Brasil) iso = "00";
-            ViewBag.TituloPagina = " Ã‰SIKA ";
+            ViewBag.TituloPagina = " ÉSIKA ";
             ViewBag.IconoPagina = "/Content/Images/Esika/favicon.ico";
             ViewBag.EsPaisEsika = true;
             ViewBag.EsPaisLbel = false;
@@ -2779,7 +2818,7 @@ namespace Portal.Consultoras.Web.Controllers
                 throw new ArgumentNullException("revistaDigital", "No puede ser nulo.");
 
             if (string.IsNullOrWhiteSpace(nombreConsultora))
-                throw new ArgumentNullException("nombreConsultora", "No puede ser nulo o vacÃ­o.");
+                throw new ArgumentNullException("nombreConsultora", "No puede ser nulo o vacío.");
 
             if (revistaDigital.ConfiguracionPaisDatos == null) return revistaDigital;
 
@@ -2870,7 +2909,7 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToRoute(routeName, route);
         }
 
-        #region OLVIDE CONTRASEÃ‘A
+        #region OLVIDE CONTRASEÑA
         [AllowAnonymous]
         [HttpPost]
         public JsonResult GetRestaurarClaveByValor(int paisID, string valorRestaurar, int prioridad)

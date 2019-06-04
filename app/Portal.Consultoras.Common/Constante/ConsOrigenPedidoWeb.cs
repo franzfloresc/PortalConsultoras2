@@ -38,6 +38,7 @@ namespace Portal.Consultoras.Common
             public const string LandingPackNuevas = "15";
             public const string LandingOfertaDelDia = "16";
             public const string LandingCategoria = "17";
+            public const string Ficha = "19";
         }
 
         public static class Palanca
@@ -76,6 +77,8 @@ namespace Portal.Consultoras.Common
             public const string RecomendadoFicha = "09";
             public const string AppCatalogoPendienteDeAprobar = "10";
             public const string CatalogoPendienteDeAprobar = "11";
+            public const string CarruselUpselling = "15";
+            public const string FichaUpselling = "16";
         }
 
         /// <summary>

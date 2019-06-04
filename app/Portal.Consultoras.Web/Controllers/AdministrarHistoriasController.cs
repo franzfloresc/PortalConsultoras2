@@ -1,15 +1,15 @@
-Ôªøusing AutoMapper;
+using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceContenido;
+using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.ServiceZonificacion;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -17,15 +17,13 @@ namespace Portal.Consultoras.Web.Controllers
     {
         protected TablaLogicaProvider _tablaLogica;
         public AdministrarHistoriasController()
-        { 
+        {
             _tablaLogica = new TablaLogicaProvider();
-        }     
+        }
 
         public ActionResult Index()
         {
             var model = new AdministrarHistorialModel();
-            string[] arrUrlMiniatura;
-            string[] arrHistAnchoAlto;
 
             try
             {
@@ -37,7 +35,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID);
 
                 string HistAnchoAlto = CodigosTablaLogica(Constantes.DatosContenedorHistorias.HistAnchoAlto);
-                arrHistAnchoAlto = HistAnchoAlto.Split(',');
+                var arrHistAnchoAlto = HistAnchoAlto.Split(',');
                 model.Ancho = arrHistAnchoAlto[0];
                 model.Alto = arrHistAnchoAlto[1];
 
@@ -45,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new ServiceContenido.ContenidoServiceClient())
                 {
                     string CodigoHistoriasResumen = CodigosTablaLogica(Constantes.DatosContenedorHistorias.CodigoHistoriasResumen);
-                    entidad = sv.GetContenidoAppHistoria(userData.PaisID, CodigoHistoriasResumen);                    
+                    entidad = sv.GetContenidoAppHistoria(userData.PaisID, CodigoHistoriasResumen);
 
                     model.IdContenido = entidad.IdContenido;
                     model.Codigo = entidad.Codigo;
@@ -61,10 +59,11 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    arrUrlMiniatura = entidad.UrlMiniatura.Split('/');
+                    var arrUrlMiniatura = entidad.UrlMiniatura.Split('/');
                     model.NombreImagenAnterior = ViewBag.UrlS3 + arrUrlMiniatura[5];
                     model.NombreImagen = string.Empty;
                 }
+                model.NombreImagen = "";
                 return View(model);
             }
             catch (FaultException ex)
@@ -117,7 +116,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = true,
-                        message = "Se actualiz√≥ satisfactoriamente.",
+                        message = "Se actualizÛ satisfactoriamente.",
                         extra = string.Empty
                     });
                 }
@@ -126,7 +125,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "No seleccion√≥ una imagen.",
+                        message = "No seleccionÛ una imagen.",
                         extra = string.Empty
                     });
                 }
@@ -176,12 +175,12 @@ namespace Portal.Consultoras.Web.Controllers
                     records = pag.RecordCount,
                     rows = from a in items
                            select new
-                           { 
+                           {
                                cell = new string[]
                                 {
                                     a.IdContenidoDeta.ToString(),
                                     a.Tipo,
-                                    a.Orden.ToString(),  
+                                    a.Orden.ToString(),
                                     a.IdContenido.ToString(),
                                     a.Campania.ToString(),
                                     a.Zona,
@@ -320,7 +319,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID, true);
             model.ListaAccion = GetContenidoAppDetaActService(0);
             model.ListaCodigoDetalle = GetContenidoAppDetaActService(1);
-             
+
             BEContenidoAppHistoria entidad;
             using (var sv = new ContenidoServiceClient())
             {
@@ -354,7 +353,7 @@ namespace Portal.Consultoras.Web.Controllers
                         Campania = model.Campania,
                         Accion = model.Accion,
                         CodigoDetalle = model.CodigoDetalle,
-                        Tipo = Constantes.TipoContenido.Imagen,                        
+                        Tipo = Constantes.TipoContenido.Imagen,
                         Zona = model.Zona,
                         Seccion = model.Seccion
                     };
@@ -366,7 +365,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se actualiz√≥ la informaci√≥n satisfactoriamente",
+                    message = "Se actualizÛ la informaciÛn satisfactoriamente",
                 });
             }
             catch (Exception ex)
@@ -393,7 +392,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string MatrizAppConsultora = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
                 string codeHist = CodigosTablaLogica(Constantes.DatosContenedorHistorias.CodigoHist);
-                var urlImagen = ConfigS3.GetUrlFileHistDetalle(userData.CodigoISO, model.RutaContenido, MatrizAppConsultora);               
+                var urlImagen = ConfigS3.GetUrlFileHistDetalle(userData.CodigoISO, model.RutaContenido, MatrizAppConsultora);
                 new Providers.RenderImgProvider().ImagenesResizeProcesoAppHistDetalle(urlImagen, userData.CodigoISO, userData.PaisID, codeHist, MatrizAppConsultora);
             }
 
@@ -693,7 +692,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json(new
                         {
                             success = false,
-                            message = "El tama√±o m√°ximo de archivo permitido es 20MB."
+                            message = "El tamaÒo m·ximo de archivo permitido es 20MB."
                         });
                     }
                     else

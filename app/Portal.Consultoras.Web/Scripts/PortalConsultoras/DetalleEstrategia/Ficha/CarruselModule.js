@@ -25,7 +25,7 @@ var CarruselAyuda = function () {
 
         var cantActive = $(_slick.$slider).find('.slick-active').length;
         var indexCurrent = parseInt($(_slick.$slider).find('.slick-current').attr("data-slick-index"));
-        
+
         var direccion = CarruselVariable.Direccion.prev;
         if (indexCurrent === 0) {
             if (indexMostrar + 1 != slick.$slides.length) {
@@ -56,13 +56,12 @@ var CarruselAyuda = function () {
         }
     };
 
-    var _obtenerPantalla = function (origen) {
-        var pagina = origen.Pagina;
-        var palanca = origen.Palanca;
-        var seccion = origen.Seccion;
-
-        return pagina;
-    }
+    //var _obtenerPantalla = function (origen) {
+    //    var pagina = origen.Pagina;
+    //    var palanca = origen.Palanca;
+    //    var seccion = origen.Seccion;
+    //    return pagina;
+    //}
 
     var _eliminarDuplicadosArray = function (arr, comp) {
         //emac5
@@ -106,7 +105,7 @@ var CarruselAyuda = function () {
                     var recomendado = arrayItems[i];
                     if (recomendado != undefined) {
                         recomendado.Posicion = i;
-                        if (origen.Palanca == ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion) {
+                        if (origen.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Liquidacion) {
                             recomendado.CUV2 = recomendado.CUV;
                             recomendado.PrecioVenta = recomendado.PrecioString;
                         }
@@ -118,7 +117,7 @@ var CarruselAyuda = function () {
                     CantidadMostrar: cantActive,
                     Origen: origen
                 };
-                
+
                 AnalyticsPortalModule.MarcaGenericaLista("", obj);
 
                 //INI DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
@@ -131,7 +130,7 @@ var CarruselAyuda = function () {
                         var uniqueProgramNuevas = _eliminarDuplicadosArray(programNuevas, "CUV2");
 
                         var pos = (isHome()) ? "Home" : "Pedido";
-                        AnalyticsPortalModule.MarcaGenericaLista(ConstantesModule.CodigoPalanca.DP, uniqueProgramNuevas, pos);
+                        AnalyticsPortalModule.MarcaPromotionView(ConstantesModule.CodigoPalanca.DP, uniqueProgramNuevas, pos);
                     }
                 }
                 //FIN DH-3473 EINCA Marcar las estrategias de programas nuevas(dúo perfecto)
@@ -157,7 +156,7 @@ var CarruselAyuda = function () {
             var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
 
             if (estrategia === "") {
-                if (origen.Palanca == ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion) {
+                if (origen.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Liquidacion) {
                     estrategia = _obtenerEstrategiaLiquidacion(objMostrar);
                 }
             }
@@ -186,8 +185,8 @@ var CarruselAyuda = function () {
 
         try {
             var origen = {
-                Pagina: ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor,
-                Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel,
+                Pagina: CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Contenedor,
+                Seccion: CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel,
                 CodigoPalanca: seccionName
             };
 
@@ -210,9 +209,9 @@ var CarruselAyuda = function () {
         try {
 
             var origen = {
-                Pagina: ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home,
-                Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.Liquidacion,
-                Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
+                Pagina: CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Home,
+                Palanca: CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Liquidacion,
+                Seccion: CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel
             };
 
             if (tipo == 1) {
@@ -242,8 +241,8 @@ var CarruselAyuda = function () {
 
         var objPrevArrow = slick.$prevArrow;
         var objNextArrow = slick.$nextArrow;
-        var objVisorSlick = $(event.target).find('.slick-list')[0];
-        var lastSlick = $(event.target).find('[data-slick-index]')[slick.slideCount - 1];
+        //var objVisorSlick = $(event.target).find('.slick-list')[0];
+        //var lastSlick = $(event.target).find('[data-slick-index]')[slick.slideCount - 1];
 
         if (currentSlide === 0) {
             $(objPrevArrow).hide();
@@ -299,10 +298,10 @@ var CarruselAyuda = function () {
     var marcaAnalycticCarruselProgramasNuevas = function (e, url) {
         try {
             var category = (isHome()) ? "Home - Dúo Perfecto" : "Pedido - Dúo Perfecto";
-            var pagina = isHome() ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home : ConstantesModule.OrigenPedidoWebEstructura.Pagina.Pedido;
-            var OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
-                + pagina + ConstantesModule.OrigenPedidoWebEstructura.Palanca.DuoPerfecto
-                + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
+            var pagina = isHome() ? CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Home : CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Pedido;
+            var OrigenPedidoWeb = CodigoOrigenPedidoWeb.CodigoEstructura.Dispositivo.Desktop
+                + pagina + CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.DuoPerfecto
+                + CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel;
             AnalyticsPortalModule.MarcaPromotionClicBanner(OrigenPedidoWeb, "", url);
 
             dataLayer.push({
@@ -336,10 +335,14 @@ var CarruselModule = (function (config) {
         palanca: config.palanca || "",
         campania: config.campania || "",
         cuv: config.cuv || "",
-        urlDataCarrusel: config.urlDataCarrusel || "/Estrategia/FichaObtenerProductosCarrusel",
+        urlDataCarrusel: config.urlDataCarrusel || "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
         OrigenPedidoWeb: config.OrigenPedidoWeb || "",
         pantalla: "Ficha",
-        usaLocalStorage: config.usaLocalStorage
+        tituloCarrusel: config.tituloCarrusel,
+        cantidadPack: config.cantidadPack,
+        codigoProducto: config.codigoProducto,
+        precioProducto: config.precioProducto,
+        productosHermanos: config.productosHermanos
     };
 
     var _elementos = {
@@ -362,7 +365,7 @@ var CarruselModule = (function (config) {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(params),
-            async: false,
+            async: true,
             cache: false,
             success: function (data) {
                 dfd.resolve(data);
@@ -461,7 +464,7 @@ var CarruselModule = (function (config) {
                 //centerMode: true,
                 responsive: [
                     {
-                        breakpoint: 480,
+                        breakpoint: 720,
                         settings: {
                             slidesToShow: 1
                         }
@@ -484,7 +487,7 @@ var CarruselModule = (function (config) {
         }
 
         var origen = {
-            Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.CarruselVerMas,
+            Seccion: CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselVerMas,
             OrigenPedidoWeb: _config.OrigenPedidoWeb.toString()
         };
         if (tipo == 1) {
@@ -506,11 +509,12 @@ var CarruselModule = (function (config) {
         if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
             titulo = 'SET DONDE ENCUENTRAS EL PRODUCTO';
         }
-        else if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.ShowRoom) {
-            titulo = 'VER MÁS SETS EXCLUSIVOS PARA TI';
-        }
-        else if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia) {
-            titulo = 'VER MÁS OFERTAS ¡SOLO HOY!';
+        else if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.ShowRoom || _config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia) {
+            if (_config.cantidadPack > 1) {
+                titulo = 'Packs parecidos con más productos';
+            } else {
+                titulo = 'Packs que Contienen ' + _config.tituloCarrusel;
+            }
         }
 
         $(_elementos.idTituloCarrusel).html(titulo);
@@ -524,20 +528,33 @@ var CarruselModule = (function (config) {
         if (_config.palanca == ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
             data.lista = _cargarDatos();
         }
-        else if (
-            (_config.palanca == ConstantesModule.TipoEstrategiaTexto.ShowRoom)
-            || (_config.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia)
-            || (_config.palanca == ConstantesModule.TipoEstrategiaTexto.PackNuevas)
-        ) {
-            var param = { cuvExcluido: _config.cuv, palanca: _config.palanca }
+        else {
+            var codigosProductos = _obtenerCodigoProductos();
+            var param = {
+                cuvExcluido: _config.cuv,
+                palanca: _config.palanca,
+                codigosProductos: codigosProductos,
+                precioProducto: _config.precioProducto
+            }
             _promiseObternerDataCarrusel(param).done(function (response) {
-
                 if (response) {
                     if (response.success) {
-                        data.lista = response.data;
+                        data.lista = response.result;
+                        // para salvar el sprint, no asustarse
+                        if (data.lista.length > 0) {
+                            _variable.cantidadProdCarrusel = data.lista.length;
+                            $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
+
+                            SetHandlebars(_elementos.idPlantillaProducto, data, _elementos.divCarruselProducto);
+                            _mostrarTitulo();
+                            _mostrarSlicks();
+
+                            _marcarAnalytics(1, data);
+
+                        }
+                        _ocultarCarrusel(data);
                     }
                 }
-
             });
         }
 
@@ -567,6 +584,29 @@ var CarruselModule = (function (config) {
         $(_elementos.divCarruselContenedor).hide();
     }
 
+    var _obtenerCodigoProductos = function () {
+        var componentes = _config.productosHermanos;
+        var codigosProductos = [];
+        var contarProductosHermanos = componentes.length;
+        if (contarProductosHermanos == 0) {
+            codigosProductos.push(_config.codigoProducto);
+        } else {
+            if (contarProductosHermanos == 1) {
+                var valores = componentes[0];
+                if (valores.FactorCuadre > 1) codigosProductos.push(valores.CodigoProducto);
+                else {
+                    codigosProductos.push(_config.codigoProducto);
+                }
+            } else {
+                for (var i = 0; i < contarProductosHermanos; i++) {
+                    codigosProductos.push(componentes[i].CodigoProducto);
+                }
+            }
+
+        }
+        return codigosProductos;
+    }
+
     function Inicializar() {
         _ocultarElementos();
         _mostrarCarrusel();
@@ -580,7 +620,7 @@ var CarruselModule = (function (config) {
 ////////////////////////////////////////////////////////////////////
 //// Ini - Home y Pedido
 ////////////////////////////////////////////////////////////////////
-function ArmarCarouselEstrategias(data) {    
+function ArmarCarouselEstrategias(data) {
     $("#divListaEstrategias").hide();
     $(".js-slick-prev").remove();
     $(".js-slick-next").remove();
@@ -657,7 +697,6 @@ function ArmarCarouselEstrategias(data) {
             }
         }
     }
-
 
     arrayOfertasParaTi = data.Lista;
     data.lista = data.Lista;
@@ -849,10 +888,10 @@ function MarcarAnalyticsInicioHomePedido(arrayItems) {
 
     var origen = {
         Pagina: isHome()
-            ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
-            : ConstantesModule.OrigenPedidoWebEstructura.Pagina.Pedido,
-        Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertasParaTi,
-        Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
+            ? CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Home
+            : CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Pedido,
+        Palanca: CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.OfertasParaTi,
+        Seccion: CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel
     };
 
     CarruselAyuda.MarcarAnalyticsInicio("#divListadoEstrategia", arrayItems, origen);
@@ -862,10 +901,10 @@ function MarcarAnalyticsChangeHomePedido(event, slick, currentSlide, nextSlide) 
 
     var origen = {
         Pagina: isHome()
-            ? ConstantesModule.OrigenPedidoWebEstructura.Pagina.Home
-            : ConstantesModule.OrigenPedidoWebEstructura.Pagina.Pedido,
-        Palanca: ConstantesModule.OrigenPedidoWebEstructura.Palanca.OfertasParaTi,
-        Seccion: ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel
+            ? CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Home
+            : CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Pedido,
+        Palanca: CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.OfertasParaTi,
+        Seccion: CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel
     };
 
     CarruselAyuda.MarcarAnalyticsChange(slick, currentSlide, nextSlide, origen);// Home Pedido

@@ -199,10 +199,12 @@ namespace Portal.Consultoras.BizLogic.Reserva
             }
         }
 
-        public async Task<BEResultadoReservaProl> EjecutarReserva(BEInputReservaProl input)
+        public async Task<BEResultadoReservaProl> EjecutarReserva(BEInputReservaProl input, bool crudreservado = false)
         {
             if (!input.ZonaValida) return new BEResultadoReservaProl { Reserva = true, ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
             if (!input.ValidacionInteractiva) return new BEResultadoReservaProl { ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
+
+            
             try
             {
                 var listDetalle = GetPedidoWebDetalleReserva(input, false);
@@ -224,15 +226,70 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 resultado.RefreshPedido = true;
                 resultado.RefreshMontosProl = true;
                 resultado.PedidoID = input.PedidoID;
-                resultado.EnviarCorreo = DebeEnviarCorreoReservaProl(input, resultado);
 
-                if (input.EnviarCorreo && resultado.EnviarCorreo)
+                if (!crudreservado)
                 {
-                    var listaDetalleAgrupado = GetPedidoWebDetalleReserva(input, true);
+                    resultado.EnviarCorreo = DebeEnviarCorreoReservaProl(input, resultado);
 
-                    try { EnviarCorreoReservaProl(input, listaDetalleAgrupado); }
-                    catch (Exception ex) { LogManager.SaveLog(ex, input.CodigoUsuario, input.PaisISO); }                    
+                    if (input.EnviarCorreo && resultado.EnviarCorreo)
+                    {
+                        var listaDetalleAgrupado = GetPedidoWebDetalleReserva(input, true);
+
+                        try { EnviarCorreoReservaProl(input, listaDetalleAgrupado); }
+                        catch (Exception ex) { LogManager.SaveLog(ex, input.CodigoUsuario, input.PaisISO); }
+                    }
                 }
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, input.CodigoConsultora, input.PaisISO);
+                return new BEResultadoReservaProl(Constantes.MensajesError.Pedido_Reserva, false);
+            }
+        }
+
+        public BEResultadoReservaProl EjecutarReservaCrud(BEInputReservaProl input, bool crudreservado = false)
+        {
+            if (!input.ZonaValida) return new BEResultadoReservaProl { Reserva = true, ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
+            if (!input.ValidacionInteractiva) return new BEResultadoReservaProl { ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
+
+
+            try
+            {
+                var listDetalle = GetPedidoWebDetalleReserva(input, false);
+                var listDetalleSinBackOrder = listDetalle.Where(d => !d.AceptoBackOrder).ToList();
+                if (!listDetalleSinBackOrder.Any()) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_SinDetalle, true);
+
+                input.PedidoID = listDetalle[0].PedidoID;
+                input.VersionProl = GetVersionProl(input.PaisID);
+                var reservaExternaBL = NewReservaExternaBL(input.VersionProl);
+                BEResultadoReservaProl resultado = reservaExternaBL.ReservarPedido(input, listDetalleSinBackOrder).GetAwaiter().GetResult();
+                if (resultado.Error) return resultado;
+
+                resultado.MontoGanancia = resultado.MontoAhorroCatalogo + resultado.MontoAhorroRevista;
+                resultado.MontoTotal = listDetalle.Sum(pd => pd.ImporteTotal) - resultado.MontoDescuento;
+                resultado.UnidadesAgregadas = listDetalle.Sum(pd => pd.Cantidad);
+
+                RegistrarObservacionesHuerfanas(input, resultado, listDetalleSinBackOrder);
+                UpdatePedidoWebReservado(input, resultado, listDetalleSinBackOrder);
+                resultado.RefreshPedido = true;
+                resultado.RefreshMontosProl = true;
+                resultado.PedidoID = input.PedidoID;
+
+                if (!crudreservado)
+                {
+                    resultado.EnviarCorreo = DebeEnviarCorreoReservaProl(input, resultado);
+
+                    if (input.EnviarCorreo && resultado.EnviarCorreo)
+                    {
+                        var listaDetalleAgrupado = GetPedidoWebDetalleReserva(input, true);
+
+                        try { EnviarCorreoReservaProl(input, listaDetalleAgrupado); }
+                        catch (Exception ex) { LogManager.SaveLog(ex, input.CodigoUsuario, input.PaisISO); }
+                    }
+                }
+
                 return resultado;
             }
             catch (Exception ex)

@@ -1,0 +1,376 @@
+﻿@using Portal.Consultoras.Common
+
+@model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
+
+@{
+    Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
+}
+
+@System.Web.Optimization.Styles.Render("~/Bundle/Css/Responsive/Ficha")
+
+<style data-ficha-contenido="ofertadeldia-template-style"></style>
+
+<hidden id="data-estrategia" data-estrategia='@Html.Raw(Json.Encode(Model))'></hidden>
+
+<div id="ImagenDeFondo" class="imagen_fondo_detalle" @*style="background-image: url('https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019424344_dkvuwesndt.png');"*@></div>
+<section class="contenedor_detalle">
+    <div class="container">
+        <ul id="breadcrumbs" class="breadcumbs"></ul>
+        <div class="row scontenedor_fichas" data-item="" data-tag-html="@ViewBag.Campania" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar" data-OrigenPedidoEditar="@Model.CodigoUbigeoPortal">
+            <article id="imagen-estrategia" class="col-12 col-md-5 ficha_producto"></article>
+            <article class="col-12 col-md-7 ficha_detalle" @*style="padding-top:75px"*@>
+                <div class="ficha_detalle_cuerpo">
+                    <div id="estrategia" class="row contenedor_nombre_precio"></div>
+                    @*<div class="descripcion_lanzamiento">
+                            <p>Déjate seducir por el dulce aroma de la noche</p>
+                            <ul class="descripcion_detalle_producto_tono">
+                                <li>- 200 ml. / 6,7 fl. oz</li>
+                                <li>- 200 ml. / 6,7 fl. oz</li>
+                            </ul>
+                        </div>*@
+                    <div id="componente" class="producto_componentes"></div>
+                    <div class="tiposytonos_componentes" style="display:none">
+                        <buttom class="tono_select_opt">
+                            Elige 1 opción
+                        </buttom>
+                        <div class="tonos_seleccionados">
+                            <ul class="tonos_seleccionados_item" data-tono="">
+                                <li class="imagen_seleccionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201906/E/productos/PE_200095507.jpg" alt=""></li>
+                                <li class="titulo_selecionado">
+                                    <span class="cantidad_producto_opt">x1 </span>
+                                    <span class="descripcion_tipo">Paradisso. Safari adventure</span>
+                                </li>
+                            </ul>
+
+                            <ul class="tonos_seleccionados_item" data-tono="">
+                                <li class="imagen_seleccionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201906/E/productos/PE_200095507.jpg" alt=""></li>
+                                <li class="titulo_selecionado">
+                                    <span class="cantidad_producto_opt">x1 </span>
+                                    <span class="descripcion_tipo">Paradisso. Safari adventure</span>
+                                </li>
+                            </ul>
+
+                            <a class="btn_texto" href="">
+                                Cambiar opción
+                                <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="">
+                            </a>
+                        </div>
+
+                        <div class="content_tonos_maquillaje">
+                            <div class="content_tono_detalle">
+                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
+                            </div>
+                            <div class="content_tono_detalle">
+                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
+                            </div>
+
+                            <div class="content_tono_detalle">
+                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
+                            </div>
+                            <div class="content_tono_detalle">
+                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
+                            </div>
+                            <div class="content_tono_detalle">
+                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
+                            </div>
+                            <div class="content_tono_detalle">
+                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
+                            </div>
+                            <div class="content_tono_detalle">
+                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
+                            </div>
+                            <div class="content_tono_detalle">
+                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
+                            </div>
+                            <div class="content_tono_detalle">
+                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
+                            </div>
+                            <div class="content_tono_detalle tono_agotado">
+                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
+                            </div>
+                            <div class="content_tono_detalle tono_agotado">
+                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Botón Agregar-->
+                <div id="dvContenedorAgregar" class="contenedor_agregar"></div>
+                <!--Fin Botón Agregar-->
+            </article>
+        </div>
+
+        <div id="contenedor-tabs-ficha-enriquecida" class="ficha_enriquecida_contenedor" style="display:none"></div>
+
+        @*<div id="compartir-estrategia" class="share" style="display:none"></div>*@
+    </div>
+</section>
+
+@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/breadcrumbs-template.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/imagen-estrategia-template.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/estrategia-template.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/agregar-estrategia-template.cshtml")
+@Html.Partial("~/Views/Shared/_template-ofertadeldia-style.cshtml")
+@*@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/compartir-estrategia-template.cshtml")*@
+@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/FichaEnriquecida/tabs-ficha-enriquecida-template.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/componente-estrategia-template.cshtml")
+
+<!-- Modal tipos y tonos -->
+<section id="popup_tonos" class="popup_lateral">
+    <button class="button_cerrar">
+        <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
+    </button>
+
+    <div class="header_fixed">
+        <div class="seleccion_header" id="contendor-titulo-opciones">
+            <h3>Elige 1 opción</h3>
+            @*<h3>¡Listo! <span>ya tienes tu</span> opción</h3>*@
+            <p>0 seleccionados</p>
+        </div>
+        <div class="contenedor_selecionados" id="contenedor-opciones-seleccionadas">
+            <div class="selecionados_carrosel" id="opciones-seleccionadas">
+                <article class="item_selecionado">
+                    <div>
+                        <button class="item_selecionado_close">
+                            <img src="/Content/Images/mobile/Esika/close-button-white.svg" alt="">
+                        </button>
+                        <img class="item_selecionado_img" src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/L/productos/bulk/PE_200082700_B.jpg" alt="">
+                        <span>Safran</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <div class="seleccion_main" style="height: 485px;">
+        <article class="selecion_item">
+            <div class="seleccion_img">
+                <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
+            </div>
+            <div class="seleccion_title">miss sexy shine</div>
+            <div class="contenedor_rangos " id="idcontenedor_rangos" data-cantidad-contenedor="">
+                <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" value="1" onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" data-cantidad-input="-">
+                <div>
+                    <a class="txt_menos" data-cantidad-agregar="-" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
+                        <div class="dibujar_linea dibujar_menos"></div>
+                    </a>
+                    <a class="txt_mas" data-cantidad-agregar="+" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
+                        <div class="dibujar_linea dibujar_mas"></div>
+                    </a>
+                </div>
+            </div>
+        </article>
+        <article class="selecion_item">
+            <div class="seleccion_img tono_agotado">
+                <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
+            </div>
+            <div class="seleccion_title">miss sexy shine</div>
+            <div class="tag_agotago">Agotado</div>
+        </article>
+        <article class="selecion_item">
+            <div class="seleccion_img">
+                <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
+            </div>
+            <div class="seleccion_title">miss sexy shine</div>
+            <button>
+                Elígelo
+            </button>
+        </article>
+        <article class="selecion_item">
+            <div class="seleccion_img">
+                <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
+            </div>
+            <div class="seleccion_title">miss sexy shine</div>
+            <button class="active">
+                Elígelo
+            </button>
+        </article>
+        <article class="selecion_item">
+            <div class="seleccion_img">
+                <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
+            </div>
+            <div class="seleccion_title">miss sexy shine</div>
+            <button>
+                Elígelo
+            </button>
+        </article>
+        <article class="selecion_item">
+            <div class="seleccion_img">
+                <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
+            </div>
+            <div class="seleccion_title">miss sexy shine</div>
+            <button class="disabled">
+                Elígelo
+            </button>
+        </article>
+        <article class="selecion_item">
+            <div class="seleccion_img">
+                <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
+            </div>
+            <div class="seleccion_title">miss sexy shine</div>
+            <button>
+                Elígelo
+            </button>
+        </article>
+        <article class="selecion_item">
+            <div class="seleccion_img">
+                <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
+            </div>
+            <div class="seleccion_title">miss sexy shine</div>
+            <button>
+                Elígelo
+            </button>
+        </article>
+        <article class="selecion_item">
+            <div class="seleccion_img">
+                <img src="https://s3.amazonaws.com/catalogodigitalbelcorp/PE/201908/C/productos/PE_200092022.jpg" alt="">
+            </div>
+            <div class="seleccion_title">miss sexy shine</div>
+            <button>
+                Elígelo
+            </button>
+        </article>
+
+    </div>
+
+    <div class="aplicar_seleccion" id="contenedor-aplicar-seleccion">
+        <button id="btn-aplicar-seleccion" class="active">Aplicar selección</button>
+    </div>
+</section>
+
+<!-- Modal ficha enriquecida -->
+<section id="popup_ficha_enriquecida" class="popup_full">
+    <div class="contenedor_detalle">
+        <button class="button_cerrar button_volver">
+            <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt=""> Volver
+        </button>
+        <div class="row ficha_producto">
+            <div class="col-12 col-lg-7 descripcion_enriquecida">
+                <div>
+                    <div class="nombre_marca">Ésika</div>
+                    <div class="descripcion">EAU DE PARFUM VALENTÍA</div>
+                    <div class="descripcion_item">200.0 Ml</div>
+                    <div class="descripcion_item">200.0 Ml</div>
+
+                    <div class="precio_valorizado">
+                        Para tu cliente: <span style="font-weight:bold">S/. 26.90</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-5">
+                <div class="contenedor_imagen">
+                    <div>
+                        <img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_201907_34059.png">
+                    </div>
+                    <p>* Foto Referencial</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="ficha_enriquecida_contenedor">
+            <div id="tabs_ficha_popup">
+                <ul class="tabs_ficha">
+                    <li>
+                        <a href="#tab1">Modo de uso</a>
+                        <div class="tab1"></div>
+                    </li>
+                    <li>
+                        <a href="#tab2">Descubre más</a>
+                        <div class="tab2"></div>
+                    </li>
+                    <li>
+                        <a href="#tab3">Tips de venta</a>
+                        <div class="tab3"></div>
+                    </li>
+                    <li>
+                        <a href="#tab4" class="activo active">Videos</a>
+                        <div class="tab4"></div>
+                    </li>
+                </ul>
+
+                <div class="seciones_tabs">
+                    <article id="tab1">
+                        <h4>The standard Lorem Ipsum passage, used since the 1500s</h4>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamc.
+                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunm.
+                        </p>
+                        <h4>The standard Lorem Ipsum passage, used since the 1500s</h4>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunm.
+                        </p>
+                    </article>
+                    <article id="tab2">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunm.
+                        </p>
+                        <h4>The standard Lorem Ipsum passage, used since the 1500s</h4>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunm.
+                        </p>
+                    </article>
+                    <article id="tab3">
+                        <h4>The standardxxxx Lorem Ipsum passage, used since the 1500sxxxxxx</h4>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamc.
+                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunm.
+                        </p>
+                    </article>
+
+                    <article id="tab4">
+                        <h4>videos</h4>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamc.
+                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.
+                        </p>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunm.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    @System.Web.Optimization.Scripts.Render("~/Scripts/flipclock.js")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
+
+    <script type="text/javascript">
+    var params = {
+        palanca: "@Model.Palanca",
+        campania: "@Model.Campania",
+        cuv: "@Model.Cuv",
+        origen: "@Model.OrigenUrl",
+    };
+    </script>
+
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js"></script>
+
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaView.js"></script>
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaPresenter.js"></script>
+
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesPresenter.js"></script>
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesView.js"></script>
+
+    @*<script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClientePresenter.js"></script>
+        <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClienteView.js"></script>*@
+
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsiveEvents.js"></script>
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsive.js"></script>
+}

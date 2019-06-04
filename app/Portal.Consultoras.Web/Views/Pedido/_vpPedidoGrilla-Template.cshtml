@@ -25,7 +25,7 @@
         @if (ViewBag.MostrarPedidosPendientes == "1")
         {
             <li class="texto_pagina">
-                <span onclick="window.location.href = '/ConsultoraOnline/Pendientes'" class="btn--pedidos">Pedidos por aprobar (@ViewBag.CantPedidosPendientes)</span>
+                <span class="btn--pedidos" onclick="javascript: PedidosPendientesPorAprobar();">Pedidos por aprobar (@ViewBag.CantPedidosPendientes)</span>
             </li>
         }
         {{/if}}

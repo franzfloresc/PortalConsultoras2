@@ -10,6 +10,10 @@ namespace Portal.Consultoras.Web
         /// <param name="bundles"></param>
         public static void RegisterBundles(BundleCollection bundles)
         {
+            #region Layout
+
+            #endregion
+
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/Login2").Include(
                 "~/Scripts/jquery-1.11.2.js",
                 "~/Scripts/jquery-ui-1.9.2.custom.js",
@@ -89,6 +93,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/jquery.tmpl.js",
                 "~/Scripts/LogError.js",
                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
+                "~/Scripts/PortalConsultoras/Shared/CodigoOrigenPedidoWeb.js",
                 "~/Scripts/AdminContenido/General.js"
             ));
 
@@ -124,6 +129,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/cierre-session.js",
                 "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js",
                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
+                "~/Scripts/PortalConsultoras/Shared/CodigoOrigenPedidoWeb.js",
                 "~/Scripts/PortalConsultoras/Shared/CodigoUbigeoPortal.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
@@ -156,6 +162,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/MenuPortal.js",
                 "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js",
                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
+                "~/Scripts/PortalConsultoras/Shared/CodigoOrigenPedidoWeb.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/BannerInteractivo.js"
             ));
 
@@ -175,11 +182,11 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/handlebars.js",
                 "~/Scripts/LogError.js",
                 "~/Scripts/General.js",
-                "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
                 "~/Scripts/PortalConsultoras/Shared/Menu.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayoutResponsive.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
+                "~/Scripts/PortalConsultoras/Shared/CodigoOrigenPedidoWeb.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
@@ -355,6 +362,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/MenuContenedor.js",
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
+                "~/Scripts/PortalConsultoras/Shared/CodigoOrigenPedidoWeb.js",
                 "~/Scripts/LogError.js",
                 "~/Scripts/flipclock.js",
                 "~/Scripts/slick.js",
@@ -822,6 +830,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
+                "~/Scripts/PortalConsultoras/Shared/CodigoOrigenPedidoWeb.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/ListaOpcionesModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/ComponentesModule.js",
@@ -1127,6 +1136,20 @@ namespace Portal.Consultoras.Web
             bundles.Add(new ScriptBundle("~/Bundle/Js/Pedido/ArmaTuPack").Include(
                 "~/Scripts/PortalConsultoras/ArmaTuPack/ArmaTuPack.js"
              ));
+            #endregion
+
+            #region FichaResponsive
+            bundles.Add(new ScriptBundle("~/Bundle/Js/Responsive/Ficha").Include(
+                "~/Scripts/flipclock.js"
+            ));
+
+            bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/Ficha").Include(
+                "~/Content/Css/Site/styleBase.css",
+                "~/Content/Css/Site/Ficha/FichaRensponsive.css",
+                "~/Content/Css/Site/Ficha/SeleccionarTipoResponsive.css",
+                "~/Content/Css/Site/Ficha/FichaEnriquecidaResponsive.css",
+                "~/Content/Css/Site/flipclock.css"
+            ));
             #endregion
 
 

@@ -14971,6 +14971,41 @@ a {
 
 /* FIN - PROGRAMA NUEVAS - ELIGE TU REGALO */
 
+/* Modal - Crear - Modificar */
+#alertDialogMensajes25seg {
+    padding-bottom: 20px !important;
+    min-height: 100px !important;
+}
+
+.alert-align {
+    display: flex;
+    align-items: center
+}
+
+.setBottom {
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    /*transition: top 1s ease;*/
+}
+
+    .setBottom > .ui-dialog-titlebar.ui-corner-all {
+        display: none;
+    }
+
+    .setBottom .pop_pedido_mensaje {
+        color: #569C04;
+        font-size: 16px;
+    }
+
+.pop_image .img-fluid {
+    max-width: 100%;
+    height: auto;
+    width: 100px;
+}
+
+/* / Modal - Crear - Modificar */
+
 /* HD-4214 - CHAT MESSENGER SOMOS BELCORP */
 
 .btn_chat_messenger_mobile {
