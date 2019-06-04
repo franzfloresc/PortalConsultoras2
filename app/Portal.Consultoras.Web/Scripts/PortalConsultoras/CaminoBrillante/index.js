@@ -178,6 +178,7 @@ window.onload = function () {
                 enabled: false
             },
             scales: {
+           
                 yAxes: [{
                     ticks: {
 
@@ -197,6 +198,7 @@ window.onload = function () {
                         fontColor: "#000",
                         fontSize: 14
                     },
+                    barPercentage: 0.6,
                     gridLines: {
                         color: "#f7f7f7",
                         lineWidth: 1,
