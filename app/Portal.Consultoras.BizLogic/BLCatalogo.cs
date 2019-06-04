@@ -18,6 +18,7 @@ using System.Web.Script.Serialization;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Portal.Consultoras.Common.Exceptions;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -411,9 +412,11 @@ namespace Portal.Consultoras.BizLogic
 
             if (string.IsNullOrEmpty(json)) return;
 
-            var oIssuu = JsonConvert.DeserializeObject<dynamic>(json);
-
-            var docs = (JArray)oIssuu.rsp._content.result._content;
+           
+             var docs = TryCastResultApi(url, catalogoRevista.PaisISO, json, catalogoRevista.CodigoIssuu);
+             if (docs == null)
+                 return;
+         
 
             var doc = docs.FirstOrDefault();
 
@@ -501,5 +504,32 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
+
+        private JArray TryCastResultApi(string Url, string CodigoISO, string Json, string CodigoIssue)
+        {
+            StringBuilder build = new StringBuilder();
+            JArray result = null;
+           
+            string accion = "";
+            try
+            {
+                accion = "JsonConvert.DeserializeObject<dynamic>(Json)";
+                var oIssuu = JsonConvert.DeserializeObject<dynamic>(Json);
+                accion = "(JArray)oIssuu.rsp._content.result._content";
+                result = (JArray)oIssuu.rsp._content.result._content;
+                
+            }
+            catch
+            {
+                build.AppendLine("Tracking =>TryCastResultApi");
+                build.AppendLine(string.Format("Url:{0}", Url));
+                build.AppendLine(string.Format("Json:{0}", Json));
+                build.AppendLine(string.Format("Accion:{0}", accion));
+                build.AppendLine(string.Format("CodigoIssue:{0}", CodigoIssue));
+                LogManager.SaveLog(new ClientInformationException(build.ToString()), "userTracking", CodigoISO);
+            }
+
+            return result;
+        }
     }
 }
