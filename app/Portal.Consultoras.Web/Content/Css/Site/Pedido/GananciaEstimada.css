@@ -31,17 +31,20 @@
 
 
 .ganancia-estimada {
-    border: 1px solid red;
+    
     position: absolute;
-    width: 100%;
-    left: 0;
+    width: 50%;
+    left: 50%;
     height: 0;
     bottom: 0;
+    z-index: 1;
     
     transition: all 0.5s ease-out;
 }
     .ganancia-estimada.opened{
         bottom:100%;
+        left: 36%;
+        width : 67%;
     }
     /*
             *
@@ -55,7 +58,8 @@
             *
         */
     .ganancia-estimada .panel-toggle {
-        background-color: #f5f5f7;
+        padding-bottom: 30px;
+        /*background-color: #f5f5f7;*/
     }
 
 
@@ -76,7 +80,9 @@
             *
         */
 
-.toggle-container .toggle-header {
+.toggle-header {
+    align-items: center;
+    cursor: pointer;
     display: flex;
     background-color: #f5f5f7;
 }
@@ -86,7 +92,15 @@
                 * Padre : Header
                 *
             */
+.ganancia-estimada.opened .toggle-header .toggle-switch {    
+    position: relative;
+    left: -5px;
+    top: -15px;
+    transform: scale(.6);
+}
 .toggle-header .toggle-switch {
+    left: -10px;
+    position: relative;
 }
     /*
                 / ========= INICIO ============= /
@@ -125,6 +139,7 @@
         transform: rotate(-90deg);
         left: 50%;
         top: 50%;
+        z-index: 1;
     }
 
     .toggle-switch.closed .toggle-icon:before {
@@ -189,10 +204,21 @@
     font-size: 16px;
     font-weight: 700;
     text-transform: uppercase;
+    padding-left: 0;
+    padding-right: 4px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.ganancia-estimada.opened .toggle-header .toggle-info {
+    padding-right: 30px;
+    padding-left: 10px;
 }
 
-.toggle-header .ganancia-titulo {
-}
+    .toggle-header .ganancia-titulo {
+    }
 
 .toggle-header .ganancia-total {
 }
@@ -202,37 +228,44 @@
 }
 /*================================*/
 
+.ganancia-estimada.opened .toggle-content.opened {
+    padding-right: 30px;
+    /*border:1px solid red;*/
+}
+
 /*================================*/
-.toggle-container .toggle-content {
+.toggle-content {
     display: flex;
     flex-direction: column;
     transition: max-height 0.25s ease-out, opacity 0.25s ease-out, transform 0.3s ease-out;
     height: auto;
-    overflow: hidden;
-    transform: scaleY(1);
-    transform-origin: bottom;
-    /*max-height: 0;*/
+    overflow: hidden;    
+    transform-origin: top;    
     opacity: 0;
-    margin-left: 36px;
+    padding-left: 36px;
     transform: scaleY(0);
+    background-color: #f5f5f7;
+    padding-bottom: 30px;
 }
 
-.toggle-content .toggle-info {
-    font-size: 14px;
-}
+    .toggle-content .toggle-info {
+        font-size: 14px;
+        display: flex;
+        justify-content: space-between;
+    }
 
 .toggle-content.closed {
     /* display: none;                 */
     /* border: 1px solid red; */
 }
 
-.toggle-content.opened {
-    /* display:block; */
-    /*max-height: 150px;*/
-    transform: scaleY(1);
-    opacity: 1;
-
-}
+    .toggle-content.opened {
+        /* display:block; */
+        /*max-height: 150px;*/
+        
+        transform: scaleY(1);
+        opacity: 1;
+    }
 
 .toggle-content .ganancia-titulo {
 }

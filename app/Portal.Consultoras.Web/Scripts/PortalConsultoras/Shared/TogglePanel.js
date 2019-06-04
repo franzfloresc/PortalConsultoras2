@@ -1,7 +1,8 @@
 ﻿var _switch = '.toggle-switch'
+var _switchControl = '.toggle-header'
 var _profit = '.toggle-content'
 var _earning = '.ganancia-estimada'
-document.querySelector(_switch).addEventListener('click', function () {
+document.querySelector(_switchControl).addEventListener('click', function () {
     toggle(_switch)
 })
 
