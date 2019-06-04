@@ -12,11 +12,13 @@ namespace Portal.Consultoras.Web.Providers
     public class CarruselUpSellingProvider:BuscadorBaseProvider
     {
         protected TablaLogicaProvider _tablaLogicaProvider;
+        protected ConsultaProlProvider _consultaProlProvider;
 
         public CarruselUpSellingProvider()
         {
             _sessionManager = SessionManager.SessionManager.Instance;
             _tablaLogicaProvider = new TablaLogicaProvider();
+            _consultaProlProvider = new ConsultaProlProvider();
         }
 
         public virtual async Task<OutputProductosUpSelling> ObtenerProductosCarruselUpSelling(string cuv, string[] codigosProductos, double precioProducto)
@@ -60,6 +62,8 @@ namespace Portal.Consultoras.Web.Providers
             var suscripcion = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
             var personalizaciones = "";
             var buscadorConfig = _sessionManager.GetBuscadorYFiltrosConfig();
+            var esFacturacion = _consultaProlProvider.GetValidarDiasAntesStock(usuarioModel);
+
             if (buscadorConfig != null)
                 personalizaciones = buscadorConfig.PersonalizacionDummy ?? "";
 
@@ -80,7 +84,8 @@ namespace Portal.Consultoras.Web.Providers
                     rd = revistaDigital.TieneRDC.ToString(),
                     rdi = revistaDigital.TieneRDI.ToString(),
                     rdr = revistaDigital.TieneRDCR.ToString(),
-                    diaFacturacion = usuarioModel.DiaFacturacion
+                    diaFacturacion = usuarioModel.DiaFacturacion,
+                    esFacturacion
                 }
             };
         }
