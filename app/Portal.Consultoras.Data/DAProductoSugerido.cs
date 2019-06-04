@@ -19,8 +19,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CuvAgotado", DbType.String, entity.CUV);
             Context.Database.AddInParameter(command, "@CuvSugerido", DbType.String, entity.CUVSugerido);
             //INI HD-4289
-            Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, entity.RegionID);
-            Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, entity.ZonaID);
+            Context.Database.AddInParameter(command, "@ConfiguracionZona", DbType.String, entity.ConfiguracionZona);
             //FIN HD-4289
             return Context.ExecuteReader(command);
         }
@@ -39,8 +38,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "UsuarioRegistro", DbType.String, entity.UsuarioRegistro);
             Context.Database.AddInParameter(command, "MostrarAgotado", DbType.Int32, entity.MostrarAgotado);
             //INI HD-4289
-            Context.Database.AddInParameter(command, "RegionID", DbType.Int32, entity.RegionID);
-            Context.Database.AddInParameter(command, "ZonaID", DbType.Int32, entity.ZonaID);
+            Context.Database.AddInParameter(command, "ConfiguracionZona", DbType.String,entity.ConfiguracionZona);
             //FIN HD-4289
 
             Context.ExecuteNonQuery(command);
@@ -62,9 +60,9 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "UsuarioModificacion", DbType.String, entity.UsuarioModificacion);
             Context.Database.AddInParameter(command, "MostrarAgotado", DbType.Int32, entity.MostrarAgotado);
             //INI HD-4289
-            Context.Database.AddInParameter(command, "RegionID", DbType.Int32, entity.RegionID);
-            Context.Database.AddInParameter(command, "ZonaID", DbType.Int32, entity.ZonaID);
+            Context.Database.AddInParameter(command, "ConfiguracionZona", DbType.String, entity.ConfiguracionZona);
             //FIN HD-4289
+
             Context.ExecuteNonQuery(command);
             var id = (string)Context.Database.GetParameterValue(command, "Return");
             return id;

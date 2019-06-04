@@ -12,15 +12,14 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
 	SET @Return = '0|No se pudo registrar el producto sugerido, vuelva a intentarlo luego.'
 
 	DECLARE @return_status VARCHAR(max);
-	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro,@RegionID,@ZonaID/* HD-4289 */;
+	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
 	IF @return_status = ''
 	BEGIN
@@ -36,8 +35,7 @@ BEGIN
 			,FechaRegistro
 			,UsuarioModificacion
 			,FechaModificacion
-			,RegionID /* HD-4289 */
-			,ZonaID  /* HD-4289 */
+			,ConfiguracionZona /* HD-4289 */
 		)
 		VALUES
 		(
@@ -51,8 +49,7 @@ BEGIN
 			,getdate()
 			,null
 			,null
-			,@RegionID /* HD-4289 */
-			,@ZonaID  /* HD-4289 */
+			,@ConfiguracionZona /* HD-4289 */
 		)
 		SET @Return = convert(VARCHAR, @@IDENTITY) + '|Se registró con éxito el producto sugerido.'
 
@@ -83,15 +80,14 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
 	SET @Return = '0|No se pudo registrar el producto sugerido, vuelva a intentarlo luego.'
 
 	DECLARE @return_status VARCHAR(max);
-	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro,@RegionID,@ZonaID/* HD-4289 */;
+	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
 	IF @return_status = ''
 	BEGIN
@@ -107,8 +103,7 @@ BEGIN
 			,FechaRegistro
 			,UsuarioModificacion
 			,FechaModificacion
-			,RegionID /* HD-4289 */
-			,ZonaID  /* HD-4289 */
+			,ConfiguracionZona /* HD-4289 */
 		)
 		VALUES
 		(
@@ -122,8 +117,7 @@ BEGIN
 			,getdate()
 			,null
 			,null
-			,@RegionID /* HD-4289 */
-			,@ZonaID  /* HD-4289 */
+			,@ConfiguracionZona /* HD-4289 */
 		)
 		SET @Return = convert(VARCHAR, @@IDENTITY) + '|Se registró con éxito el producto sugerido.'
 
@@ -154,15 +148,14 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
 	SET @Return = '0|No se pudo registrar el producto sugerido, vuelva a intentarlo luego.'
 
 	DECLARE @return_status VARCHAR(max);
-	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro,@RegionID,@ZonaID/* HD-4289 */;
+	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
 	IF @return_status = ''
 	BEGIN
@@ -178,8 +171,7 @@ BEGIN
 			,FechaRegistro
 			,UsuarioModificacion
 			,FechaModificacion
-			,RegionID /* HD-4289 */
-			,ZonaID  /* HD-4289 */
+			,ConfiguracionZona /* HD-4289 */
 		)
 		VALUES
 		(
@@ -193,8 +185,7 @@ BEGIN
 			,getdate()
 			,null
 			,null
-			,@RegionID /* HD-4289 */
-			,@ZonaID  /* HD-4289 */
+			,@ConfiguracionZona /* HD-4289 */
 		)
 		SET @Return = convert(VARCHAR, @@IDENTITY) + '|Se registró con éxito el producto sugerido.'
 
@@ -225,15 +216,14 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
 	SET @Return = '0|No se pudo registrar el producto sugerido, vuelva a intentarlo luego.'
 
 	DECLARE @return_status VARCHAR(max);
-	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro,@RegionID,@ZonaID/* HD-4289 */;
+	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
 	IF @return_status = ''
 	BEGIN
@@ -249,8 +239,7 @@ BEGIN
 			,FechaRegistro
 			,UsuarioModificacion
 			,FechaModificacion
-			,RegionID /* HD-4289 */
-			,ZonaID  /* HD-4289 */
+			,ConfiguracionZona /* HD-4289 */
 		)
 		VALUES
 		(
@@ -264,8 +253,7 @@ BEGIN
 			,getdate()
 			,null
 			,null
-			,@RegionID /* HD-4289 */
-			,@ZonaID  /* HD-4289 */
+			,@ConfiguracionZona /* HD-4289 */
 		)
 		SET @Return = convert(VARCHAR, @@IDENTITY) + '|Se registró con éxito el producto sugerido.'
 
@@ -296,15 +284,14 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
 	SET @Return = '0|No se pudo registrar el producto sugerido, vuelva a intentarlo luego.'
 
 	DECLARE @return_status VARCHAR(max);
-	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro,@RegionID,@ZonaID/* HD-4289 */;
+	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
 	IF @return_status = ''
 	BEGIN
@@ -320,8 +307,7 @@ BEGIN
 			,FechaRegistro
 			,UsuarioModificacion
 			,FechaModificacion
-			,RegionID /* HD-4289 */
-			,ZonaID  /* HD-4289 */
+			,ConfiguracionZona /* HD-4289 */
 		)
 		VALUES
 		(
@@ -335,8 +321,7 @@ BEGIN
 			,getdate()
 			,null
 			,null
-			,@RegionID /* HD-4289 */
-			,@ZonaID  /* HD-4289 */
+			,@ConfiguracionZona /* HD-4289 */
 		)
 		SET @Return = convert(VARCHAR, @@IDENTITY) + '|Se registró con éxito el producto sugerido.'
 
@@ -367,15 +352,14 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
 	SET @Return = '0|No se pudo registrar el producto sugerido, vuelva a intentarlo luego.'
 
 	DECLARE @return_status VARCHAR(max);
-	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro,@RegionID,@ZonaID/* HD-4289 */;
+	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
 	IF @return_status = ''
 	BEGIN
@@ -391,8 +375,7 @@ BEGIN
 			,FechaRegistro
 			,UsuarioModificacion
 			,FechaModificacion
-			,RegionID /* HD-4289 */
-			,ZonaID  /* HD-4289 */
+			,ConfiguracionZona /* HD-4289 */
 		)
 		VALUES
 		(
@@ -406,8 +389,7 @@ BEGIN
 			,getdate()
 			,null
 			,null
-			,@RegionID /* HD-4289 */
-			,@ZonaID  /* HD-4289 */
+			,@ConfiguracionZona /* HD-4289 */
 		)
 		SET @Return = convert(VARCHAR, @@IDENTITY) + '|Se registró con éxito el producto sugerido.'
 
@@ -438,15 +420,14 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
 	SET @Return = '0|No se pudo registrar el producto sugerido, vuelva a intentarlo luego.'
 
 	DECLARE @return_status VARCHAR(max);
-	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro,@RegionID,@ZonaID/* HD-4289 */;
+	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
 	IF @return_status = ''
 	BEGIN
@@ -462,8 +443,7 @@ BEGIN
 			,FechaRegistro
 			,UsuarioModificacion
 			,FechaModificacion
-			,RegionID /* HD-4289 */
-			,ZonaID  /* HD-4289 */
+			,ConfiguracionZona /* HD-4289 */
 		)
 		VALUES
 		(
@@ -477,8 +457,7 @@ BEGIN
 			,getdate()
 			,null
 			,null
-			,@RegionID /* HD-4289 */
-			,@ZonaID  /* HD-4289 */
+			,@ConfiguracionZona /* HD-4289 */
 		)
 		SET @Return = convert(VARCHAR, @@IDENTITY) + '|Se registró con éxito el producto sugerido.'
 
@@ -509,15 +488,14 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
 	SET @Return = '0|No se pudo registrar el producto sugerido, vuelva a intentarlo luego.'
 
 	DECLARE @return_status VARCHAR(max);
-	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro,@RegionID,@ZonaID/* HD-4289 */;
+	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
 	IF @return_status = ''
 	BEGIN
@@ -533,8 +511,7 @@ BEGIN
 			,FechaRegistro
 			,UsuarioModificacion
 			,FechaModificacion
-			,RegionID /* HD-4289 */
-			,ZonaID  /* HD-4289 */
+			,ConfiguracionZona /* HD-4289 */
 		)
 		VALUES
 		(
@@ -548,8 +525,7 @@ BEGIN
 			,getdate()
 			,null
 			,null
-			,@RegionID /* HD-4289 */
-			,@ZonaID  /* HD-4289 */
+			,@ConfiguracionZona /* HD-4289 */
 		)
 		SET @Return = convert(VARCHAR, @@IDENTITY) + '|Se registró con éxito el producto sugerido.'
 
@@ -580,15 +556,14 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
 	SET @Return = '0|No se pudo registrar el producto sugerido, vuelva a intentarlo luego.'
 
 	DECLARE @return_status VARCHAR(max);
-	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro,@RegionID,@ZonaID/* HD-4289 */;
+	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
 	IF @return_status = ''
 	BEGIN
@@ -604,8 +579,7 @@ BEGIN
 			,FechaRegistro
 			,UsuarioModificacion
 			,FechaModificacion
-			,RegionID /* HD-4289 */
-			,ZonaID  /* HD-4289 */
+			,ConfiguracionZona /* HD-4289 */
 		)
 		VALUES
 		(
@@ -619,8 +593,7 @@ BEGIN
 			,getdate()
 			,null
 			,null
-			,@RegionID /* HD-4289 */
-			,@ZonaID  /* HD-4289 */
+			,@ConfiguracionZona /* HD-4289 */
 		)
 		SET @Return = convert(VARCHAR, @@IDENTITY) + '|Se registró con éxito el producto sugerido.'
 
@@ -651,15 +624,14 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
 	SET @Return = '0|No se pudo registrar el producto sugerido, vuelva a intentarlo luego.'
 
 	DECLARE @return_status VARCHAR(max);
-	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro,@RegionID,@ZonaID/* HD-4289 */;
+	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
 	IF @return_status = ''
 	BEGIN
@@ -675,8 +647,7 @@ BEGIN
 			,FechaRegistro
 			,UsuarioModificacion
 			,FechaModificacion
-			,RegionID /* HD-4289 */
-			,ZonaID  /* HD-4289 */
+			,ConfiguracionZona /* HD-4289 */
 		)
 		VALUES
 		(
@@ -690,8 +661,7 @@ BEGIN
 			,getdate()
 			,null
 			,null
-			,@RegionID /* HD-4289 */
-			,@ZonaID  /* HD-4289 */
+			,@ConfiguracionZona /* HD-4289 */
 		)
 		SET @Return = convert(VARCHAR, @@IDENTITY) + '|Se registró con éxito el producto sugerido.'
 
@@ -722,15 +692,14 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
 	SET @Return = '0|No se pudo registrar el producto sugerido, vuelva a intentarlo luego.'
 
 	DECLARE @return_status VARCHAR(max);
-	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro,@RegionID,@ZonaID/* HD-4289 */;
+	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
 	IF @return_status = ''
 	BEGIN
@@ -746,8 +715,7 @@ BEGIN
 			,FechaRegistro
 			,UsuarioModificacion
 			,FechaModificacion
-			,RegionID /* HD-4289 */
-			,ZonaID  /* HD-4289 */
+			,ConfiguracionZona /* HD-4289 */
 		)
 		VALUES
 		(
@@ -761,8 +729,7 @@ BEGIN
 			,getdate()
 			,null
 			,null
-			,@RegionID /* HD-4289 */
-			,@ZonaID  /* HD-4289 */
+			,@ConfiguracionZona /* HD-4289 */
 		)
 		SET @Return = convert(VARCHAR, @@IDENTITY) + '|Se registró con éxito el producto sugerido.'
 
@@ -793,15 +760,14 @@ ALTER PROCEDURE [dbo].[InsProductoSugerido_SB2](
 	,@Estado INT
 	,@UsuarioRegistro VARCHAR(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
 	SET @Return = '0|No se pudo registrar el producto sugerido, vuelva a intentarlo luego.'
 
 	DECLARE @return_status VARCHAR(max);
-	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro,@RegionID,@ZonaID/* HD-4289 */;
+	EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioRegistro;
 	SET @Return = @return_status
 	IF @return_status = ''
 	BEGIN
@@ -817,8 +783,7 @@ BEGIN
 			,FechaRegistro
 			,UsuarioModificacion
 			,FechaModificacion
-			,RegionID /* HD-4289 */
-			,ZonaID  /* HD-4289 */
+			,ConfiguracionZona /* HD-4289 */
 		)
 		VALUES
 		(
@@ -832,8 +797,7 @@ BEGIN
 			,getdate()
 			,null
 			,null
-			,@RegionID /* HD-4289 */
-			,@ZonaID  /* HD-4289 */
+			,@ConfiguracionZona /* HD-4289 */
 		)
 		SET @Return = convert(VARCHAR, @@IDENTITY) + '|Se registró con éxito el producto sugerido.'
 

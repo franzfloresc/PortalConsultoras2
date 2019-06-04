@@ -28,10 +28,6 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new AdministrarProductoSugeridoModel()
             {
                 lstCampania = new List<CampaniaModel>(),
-                //INI HD-4289
-                lstRegion = new List<RegionModel>(),
-                lstZona= new List<ZonaModel>(),
-                //FIN HD-4289
                 lstPais = DropDowListPaises(),
                 PaisIDUser = userData.PaisID,
                 ExpValidacionNemotecnico = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ExpresionValidacionNemotecnico),
@@ -62,19 +58,19 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
-
-        public ActionResult Consultar(string sidx, string sord, int page, int rows, int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido, int RegionID,int ZonaID )
+        [HttpGet]
+        public ActionResult Consultar(string sidx, string sord, int page, int rows, string obj)
         {
+            AdministrarProductoSugeridoModel objProdSug = Newtonsoft.Json.JsonConvert.DeserializeObject<AdministrarProductoSugeridoModel>(obj);
             if (!ModelState.IsValid)
             {
                 return RedirectToAction("Index", "Bienvenida");
             }
-            
+            var entidad = Mapper.Map<AdministrarProductoSugeridoModel, BEProductoSugerido>(objProdSug);
             List<BEProductoSugerido> lst;
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lst = sv.GetPaginateProductoSugerido(PaisID, new BEProductoSugerido { CampaniaID= CampaniaID, CUV = CUVAgotado , CUVSugerido = CUVSugerido,RegionID=RegionID,ZonaID=ZonaID } ).ToList();
-                //lst = sv.GetPaginateProductoSugerido(obj.PaisID, entidad).ToList();
+                lst = sv.GetPaginateProductoSugerido(objProdSug.PaisID, entidad).ToList();
             }
 
             BEGrid grid = new BEGrid
@@ -106,10 +102,9 @@ namespace Portal.Consultoras.Web.Controllers
                                 a.ProductoSugeridoID.ToString(),
                                 a.CampaniaID.ToString(),
                                 //INI HD-4289
-                                a.RegionID.ToString(),
-                                a.Region,
-                                a.ZonaID.ToString(),
-                                a.Zona,
+                                a.ConfiguracionZona,
+                                a.ConfiguracionZona.Replace(",",", "),
+                                a.ConfiguracionZona.Substring(0,19).Replace(",",", "),
                                 //FIN HD-4289
                                 a.CUV,
                                 a.CUVSugerido,
@@ -334,5 +329,40 @@ namespace Portal.Consultoras.Web.Controllers
             return arrayProducto[0].Imagen;
         }
 
+        //INI HD-4289
+        public JsonResult CargarArbolRegionesZonas(int? pais)
+        {
+            if (pais.GetValueOrDefault() == 0)
+                return Json(null, JsonRequestBehavior.AllowGet);
+
+            IList<BEZonificacionJerarquia> lst;
+            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            {
+                lst = sv.GetZonificacionJerarquia(pais.GetValueOrDefault());
+            }
+            JsTreeModel[] tree = lst.Distinct<BEZonificacionJerarquia>(new BEZonificacionJerarquiaComparer()).Select(
+                                    r => new JsTreeModel
+                                    {
+                                        data = r.RegionNombre,
+                                        attr = new JsTreeAttribute
+                                        {
+                                            id = r.RegionId * 1000,
+                                            selected = false
+                                        },
+                                        children = lst.Where(i => i.RegionId == r.RegionId).Select(
+                                                        z => new JsTreeModel
+                                                        {
+                                                            data = z.ZonaNombre,
+                                                            attr = new JsTreeAttribute
+                                                            {
+                                                                id = Convert.ToInt32(z.ZonaCodigo),
+                                                                selected = false
+                                                            }
+                                                        }).ToArray()
+                                    }).ToArray();
+            return Json(tree, JsonRequestBehavior.AllowGet);
+        }
+
+        //FIN HD-4289
     }
 }

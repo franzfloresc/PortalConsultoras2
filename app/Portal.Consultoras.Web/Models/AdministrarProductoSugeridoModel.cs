@@ -27,10 +27,7 @@ namespace Portal.Consultoras.Web.Models
         public int Cantidad { get; set; }
         public decimal PrecioUnidad { get; set; }
         //INI HD-4289
-        public IEnumerable<RegionModel> lstRegion { get; set; }
-        public IEnumerable<ZonaModel> lstZona { get; set; }
-        public int RegionID { get; set; }
-        public int ZonaID { get; set; }
+        public string ConfiguracionZona { get; set; }
         //FIN HD-4289
     }
 }

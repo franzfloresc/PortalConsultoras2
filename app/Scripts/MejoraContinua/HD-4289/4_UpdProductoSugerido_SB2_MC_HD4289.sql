@@ -13,9 +13,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
-
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
@@ -30,7 +28,7 @@ BEGIN
 	begin
 
 		DECLARE @return_status varchar(max);
-		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion,@RegionID,@ZonaID/* HD-4289 */;
+		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
 		if	@return_status = ''
@@ -44,8 +42,7 @@ BEGIN
 				Estado = @Estado,
 				UsuarioModificacion = @UsuarioModificacion,
 				FechaModificacion = GETDATE()
-				,RegionID = @RegionID  --/* HD-4289 */
-				,ZonaID=@ZonaID  --/* HD-4289 */
+				,ConfiguracionZona=@ConfiguracionZona --/* HD-4289 */
 			WHERE ProductoSugeridoID = @ProductoSugeridoID
 
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
@@ -79,8 +76,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
@@ -95,7 +91,7 @@ BEGIN
 	begin
 
 		DECLARE @return_status varchar(max);
-		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion,@RegionID,@ZonaID/* HD-4289 */;
+		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
 		if	@return_status = ''
@@ -109,8 +105,7 @@ BEGIN
 				Estado = @Estado,
 				UsuarioModificacion = @UsuarioModificacion,
 				FechaModificacion = GETDATE()
-				,RegionID = @RegionID  --/* HD-4289 */
-				,ZonaID=@ZonaID  --/* HD-4289 */
+				,ConfiguracionZona=@ConfiguracionZona --/* HD-4289 */
 			WHERE ProductoSugeridoID = @ProductoSugeridoID
 
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
@@ -144,8 +139,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
@@ -160,7 +154,7 @@ BEGIN
 	begin
 
 		DECLARE @return_status varchar(max);
-		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion,@RegionID,@ZonaID/* HD-4289 */;
+		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
 		if	@return_status = ''
@@ -174,8 +168,7 @@ BEGIN
 				Estado = @Estado,
 				UsuarioModificacion = @UsuarioModificacion,
 				FechaModificacion = GETDATE()
-				,RegionID = @RegionID  --/* HD-4289 */
-				,ZonaID=@ZonaID  --/* HD-4289 */
+				,ConfiguracionZona=@ConfiguracionZona --/* HD-4289 */
 			WHERE ProductoSugeridoID = @ProductoSugeridoID
 
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
@@ -209,8 +202,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
@@ -225,7 +217,7 @@ BEGIN
 	begin
 
 		DECLARE @return_status varchar(max);
-		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion,@RegionID,@ZonaID/* HD-4289 */;
+		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
 		if	@return_status = ''
@@ -239,8 +231,7 @@ BEGIN
 				Estado = @Estado,
 				UsuarioModificacion = @UsuarioModificacion,
 				FechaModificacion = GETDATE()
-				,RegionID = @RegionID  --/* HD-4289 */
-				,ZonaID=@ZonaID  --/* HD-4289 */
+				,ConfiguracionZona=@ConfiguracionZona --/* HD-4289 */
 			WHERE ProductoSugeridoID = @ProductoSugeridoID
 
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
@@ -274,8 +265,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
@@ -290,7 +280,7 @@ BEGIN
 	begin
 
 		DECLARE @return_status varchar(max);
-		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion,@RegionID,@ZonaID/* HD-4289 */;
+		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
 		if	@return_status = ''
@@ -304,8 +294,7 @@ BEGIN
 				Estado = @Estado,
 				UsuarioModificacion = @UsuarioModificacion,
 				FechaModificacion = GETDATE()
-				,RegionID = @RegionID  --/* HD-4289 */
-				,ZonaID=@ZonaID  --/* HD-4289 */
+				,ConfiguracionZona=@ConfiguracionZona --/* HD-4289 */
 			WHERE ProductoSugeridoID = @ProductoSugeridoID
 
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
@@ -339,8 +328,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
@@ -355,7 +343,7 @@ BEGIN
 	begin
 
 		DECLARE @return_status varchar(max);
-		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion,@RegionID,@ZonaID/* HD-4289 */;
+		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
 		if	@return_status = ''
@@ -369,8 +357,7 @@ BEGIN
 				Estado = @Estado,
 				UsuarioModificacion = @UsuarioModificacion,
 				FechaModificacion = GETDATE()
-				,RegionID = @RegionID  --/* HD-4289 */
-				,ZonaID=@ZonaID  --/* HD-4289 */
+				,ConfiguracionZona=@ConfiguracionZona --/* HD-4289 */
 			WHERE ProductoSugeridoID = @ProductoSugeridoID
 
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
@@ -404,8 +391,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
@@ -420,7 +406,7 @@ BEGIN
 	begin
 
 		DECLARE @return_status varchar(max);
-		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion,@RegionID,@ZonaID/* HD-4289 */;
+		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
 		if	@return_status = ''
@@ -434,8 +420,7 @@ BEGIN
 				Estado = @Estado,
 				UsuarioModificacion = @UsuarioModificacion,
 				FechaModificacion = GETDATE()
-				,RegionID = @RegionID  --/* HD-4289 */
-				,ZonaID=@ZonaID  --/* HD-4289 */
+				,ConfiguracionZona=@ConfiguracionZona --/* HD-4289 */
 			WHERE ProductoSugeridoID = @ProductoSugeridoID
 
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
@@ -469,8 +454,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
@@ -485,7 +469,7 @@ BEGIN
 	begin
 
 		DECLARE @return_status varchar(max);
-		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion,@RegionID,@ZonaID/* HD-4289 */;
+		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
 		if	@return_status = ''
@@ -499,8 +483,7 @@ BEGIN
 				Estado = @Estado,
 				UsuarioModificacion = @UsuarioModificacion,
 				FechaModificacion = GETDATE()
-				,RegionID = @RegionID  --/* HD-4289 */
-				,ZonaID=@ZonaID  --/* HD-4289 */
+				,ConfiguracionZona=@ConfiguracionZona --/* HD-4289 */
 			WHERE ProductoSugeridoID = @ProductoSugeridoID
 
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
@@ -534,8 +517,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
@@ -550,7 +532,7 @@ BEGIN
 	begin
 
 		DECLARE @return_status varchar(max);
-		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion,@RegionID,@ZonaID/* HD-4289 */;
+		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
 		if	@return_status = ''
@@ -564,8 +546,7 @@ BEGIN
 				Estado = @Estado,
 				UsuarioModificacion = @UsuarioModificacion,
 				FechaModificacion = GETDATE()
-				,RegionID = @RegionID  --/* HD-4289 */
-				,ZonaID=@ZonaID  --/* HD-4289 */
+				,ConfiguracionZona=@ConfiguracionZona --/* HD-4289 */
 			WHERE ProductoSugeridoID = @ProductoSugeridoID
 
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
@@ -599,8 +580,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
@@ -615,7 +595,7 @@ BEGIN
 	begin
 
 		DECLARE @return_status varchar(max);
-		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion,@RegionID,@ZonaID/* HD-4289 */;
+		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
 		if	@return_status = ''
@@ -629,8 +609,7 @@ BEGIN
 				Estado = @Estado,
 				UsuarioModificacion = @UsuarioModificacion,
 				FechaModificacion = GETDATE()
-				,RegionID = @RegionID  --/* HD-4289 */
-				,ZonaID=@ZonaID  --/* HD-4289 */
+				,ConfiguracionZona=@ConfiguracionZona --/* HD-4289 */
 			WHERE ProductoSugeridoID = @ProductoSugeridoID
 
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
@@ -664,8 +643,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
@@ -680,7 +658,7 @@ BEGIN
 	begin
 
 		DECLARE @return_status varchar(max);
-		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion,@RegionID,@ZonaID/* HD-4289 */;
+		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
 		if	@return_status = ''
@@ -694,8 +672,7 @@ BEGIN
 				Estado = @Estado,
 				UsuarioModificacion = @UsuarioModificacion,
 				FechaModificacion = GETDATE()
-				,RegionID = @RegionID  --/* HD-4289 */
-				,ZonaID=@ZonaID  --/* HD-4289 */
+				,ConfiguracionZona=@ConfiguracionZona --/* HD-4289 */
 			WHERE ProductoSugeridoID = @ProductoSugeridoID
 
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'
@@ -729,8 +706,7 @@ ALTER PROCEDURE [dbo].[UpdProductoSugerido_SB2]
 	,@Estado int
 	,@UsuarioModificacion varchar(50)
 	,@MostrarAgotado INT
-	,@RegionID INT=0 --/* HD-4289 */
-	,@ZonaID INT=0 --/* HD-4289 */
+	,@ConfiguracionZona VARCHAR(max)='' --/* HD-4289 */
 )
 AS
 BEGIN
@@ -745,7 +721,7 @@ BEGIN
 	begin
 
 		DECLARE @return_status varchar(max);
-		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion,@RegionID,@ZonaID/* HD-4289 */;
+		EXEC ValidProductoSugerido_SB2 @return_status OUTPUT, @ProductoSugeridoID, @CampaniaID, @CUV, @CUVSugerido, @Orden, @ImagenProducto, @Estado, @UsuarioModificacion;
 		-- SELECT 'Return Status' = @return_status;
 		set @Return = @return_status
 		if	@return_status = ''
@@ -759,8 +735,7 @@ BEGIN
 				Estado = @Estado,
 				UsuarioModificacion = @UsuarioModificacion,
 				FechaModificacion = GETDATE()
-				,RegionID = @RegionID  --/* HD-4289 */
-				,ZonaID=@ZonaID  --/* HD-4289 */
+				,ConfiguracionZona=@ConfiguracionZona --/* HD-4289 */
 			WHERE ProductoSugeridoID = @ProductoSugeridoID
 
 			set @Return = convert(varchar, @ProductoSugeridoID)  + '|Se actualizó con éxito el producto sugerido.'

@@ -74,8 +74,7 @@ BEGIN
 		CUVSugerido
 	FROM dbo.ProductoSugerido (NOLOCK)
 	WHERE CampaniaID = CAST(@CampaniaID AS VARCHAR(6))
-	AND (RegionID=0 OR RegionID=@RegionID) --*/ HD-4289 /*--
-	AND (ZonaID=0 OR ZonaID=@ZonaID) --*/ HD-4289 /*--
+	AND charindex(','+@CodigoZona+',',','+ConfiguracionZona+',' )>0 --*/ HD-4289 /*--
 	AND CUV = @CUV
 	AND Estado = 1
 
@@ -238,8 +237,7 @@ BEGIN
 		CUVSugerido
 	FROM dbo.ProductoSugerido (NOLOCK)
 	WHERE CampaniaID = CAST(@CampaniaID AS VARCHAR(6))
-	AND (RegionID=0 OR RegionID=@RegionID) --*/ HD-4289 /*--
-	AND (ZonaID=0 OR ZonaID=@ZonaID) --*/ HD-4289 /*--
+	AND charindex(','+@CodigoZona+',',','+ConfiguracionZona+',' )>0 --*/ HD-4289 /*--
 	AND CUV = @CUV
 	AND Estado = 1
 
@@ -402,8 +400,7 @@ BEGIN
 		CUVSugerido
 	FROM dbo.ProductoSugerido (NOLOCK)
 	WHERE CampaniaID = CAST(@CampaniaID AS VARCHAR(6))
-	AND (RegionID=0 OR RegionID=@RegionID) --*/ HD-4289 /*--
-	AND (ZonaID=0 OR ZonaID=@ZonaID) --*/ HD-4289 /*--
+	AND charindex(','+@CodigoZona+',',','+ConfiguracionZona+',' )>0 --*/ HD-4289 /*--
 	AND CUV = @CUV
 	AND Estado = 1
 
@@ -566,8 +563,7 @@ BEGIN
 		CUVSugerido
 	FROM dbo.ProductoSugerido (NOLOCK)
 	WHERE CampaniaID = CAST(@CampaniaID AS VARCHAR(6))
-	AND (RegionID=0 OR RegionID=@RegionID) --*/ HD-4289 /*--
-	AND (ZonaID=0 OR ZonaID=@ZonaID) --*/ HD-4289 /*--
+	AND charindex(','+@CodigoZona+',',','+ConfiguracionZona+',' )>0 --*/ HD-4289 /*--
 	AND CUV = @CUV
 	AND Estado = 1
 
@@ -730,8 +726,7 @@ BEGIN
 		CUVSugerido
 	FROM dbo.ProductoSugerido (NOLOCK)
 	WHERE CampaniaID = CAST(@CampaniaID AS VARCHAR(6))
-	AND (RegionID=0 OR RegionID=@RegionID) --*/ HD-4289 /*--
-	AND (ZonaID=0 OR ZonaID=@ZonaID) --*/ HD-4289 /*--
+	AND charindex(','+@CodigoZona+',',','+ConfiguracionZona+',' )>0 --*/ HD-4289 /*--
 	AND CUV = @CUV
 	AND Estado = 1
 
@@ -894,8 +889,7 @@ BEGIN
 		CUVSugerido
 	FROM dbo.ProductoSugerido (NOLOCK)
 	WHERE CampaniaID = CAST(@CampaniaID AS VARCHAR(6))
-	AND (RegionID=0 OR RegionID=@RegionID) --*/ HD-4289 /*--
-	AND (ZonaID=0 OR ZonaID=@ZonaID) --*/ HD-4289 /*--
+	AND charindex(','+@CodigoZona+',',','+ConfiguracionZona+',' )>0 --*/ HD-4289 /*--
 	AND CUV = @CUV
 	AND Estado = 1
 
@@ -1058,8 +1052,7 @@ BEGIN
 		CUVSugerido
 	FROM dbo.ProductoSugerido (NOLOCK)
 	WHERE CampaniaID = CAST(@CampaniaID AS VARCHAR(6))
-	AND (RegionID=0 OR RegionID=@RegionID) --*/ HD-4289 /*--
-	AND (ZonaID=0 OR ZonaID=@ZonaID) --*/ HD-4289 /*--
+	AND charindex(','+@CodigoZona+',',','+ConfiguracionZona+',' )>0 --*/ HD-4289 /*--
 	AND CUV = @CUV
 	AND Estado = 1
 
@@ -1222,8 +1215,7 @@ BEGIN
 		CUVSugerido
 	FROM dbo.ProductoSugerido (NOLOCK)
 	WHERE CampaniaID = CAST(@CampaniaID AS VARCHAR(6))
-	AND (RegionID=0 OR RegionID=@RegionID) --*/ HD-4289 /*--
-	AND (ZonaID=0 OR ZonaID=@ZonaID) --*/ HD-4289 /*--
+	AND charindex(','+@CodigoZona+',',','+ConfiguracionZona+',' )>0 --*/ HD-4289 /*--
 	AND CUV = @CUV
 	AND Estado = 1
 
@@ -1386,8 +1378,7 @@ BEGIN
 		CUVSugerido
 	FROM dbo.ProductoSugerido (NOLOCK)
 	WHERE CampaniaID = CAST(@CampaniaID AS VARCHAR(6))
-	AND (RegionID=0 OR RegionID=@RegionID) --*/ HD-4289 /*--
-	AND (ZonaID=0 OR ZonaID=@ZonaID) --*/ HD-4289 /*--
+	AND charindex(','+@CodigoZona+',',','+ConfiguracionZona+',' )>0 --*/ HD-4289 /*--
 	AND CUV = @CUV
 	AND Estado = 1
 
@@ -1550,8 +1541,7 @@ BEGIN
 		CUVSugerido
 	FROM dbo.ProductoSugerido (NOLOCK)
 	WHERE CampaniaID = CAST(@CampaniaID AS VARCHAR(6))
-	AND (RegionID=0 OR RegionID=@RegionID) --*/ HD-4289 /*--
-	AND (ZonaID=0 OR ZonaID=@ZonaID) --*/ HD-4289 /*--
+	AND charindex(','+@CodigoZona+',',','+ConfiguracionZona+',' )>0 --*/ HD-4289 /*--
 	AND CUV = @CUV
 	AND Estado = 1
 
@@ -1714,8 +1704,7 @@ BEGIN
 		CUVSugerido
 	FROM dbo.ProductoSugerido (NOLOCK)
 	WHERE CampaniaID = CAST(@CampaniaID AS VARCHAR(6))
-	AND (RegionID=0 OR RegionID=@RegionID) --*/ HD-4289 /*--
-	AND (ZonaID=0 OR ZonaID=@ZonaID) --*/ HD-4289 /*--
+	AND charindex(','+@CodigoZona+',',','+ConfiguracionZona+',' )>0 --*/ HD-4289 /*--
 	AND CUV = @CUV
 	AND Estado = 1
 
@@ -1878,8 +1867,7 @@ BEGIN
 		CUVSugerido
 	FROM dbo.ProductoSugerido (NOLOCK)
 	WHERE CampaniaID = CAST(@CampaniaID AS VARCHAR(6))
-	AND (RegionID=0 OR RegionID=@RegionID) --*/ HD-4289 /*--
-	AND (ZonaID=0 OR ZonaID=@ZonaID) --*/ HD-4289 /*--
+	AND charindex(','+@CodigoZona+',',','+ConfiguracionZona+',' )>0 --*/ HD-4289 /*--
 	AND CUV = @CUV
 	AND Estado = 1
 
