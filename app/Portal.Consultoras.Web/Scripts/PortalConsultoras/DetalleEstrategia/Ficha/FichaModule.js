@@ -235,7 +235,7 @@ var FichaModule = (function (config) {
                 for (cant = 0; cant < o.FactorRepeticion; cant++) {
                     ListaOpcionesModule.SeleccionarOpcion(o.CUV);
                 }
-                ResumenOpcionesModule.AplicarOpciones();
+                ResumenOpcionesModule.AplicarOpciones(false, true);
             }
         });
 
@@ -781,7 +781,8 @@ var FichaModule = (function (config) {
             tituloCarrusel: modeloFicha.DescripcionCompleta,
             codigoProducto: modeloFicha.CodigoProducto,
             precioProducto: modeloFicha.Precio2,
-            productosHermanos: modeloFicha.Hermanos
+            productosHermanos: modeloFicha.Hermanos,
+            tieneStock: modeloFicha.TieneStock
         });
 
         carruselModule.Inicializar();

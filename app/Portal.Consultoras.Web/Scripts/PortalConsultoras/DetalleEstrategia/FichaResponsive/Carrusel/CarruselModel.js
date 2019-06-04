@@ -11,12 +11,13 @@ class CarruselModel
         cantidadPack,
         codigoProducto,
         precioProducto,
-        productosHermanos)
+        productosHermanos,
+        tieneStock)
     {
         this.palanca = palanca || "";
         this.campania = campania || "";
         this.cuv = cuv || "";
-        this.urlDataCarrusel = urlDataCarrusel || "/Estrategia/FichaObtenerProductosUpSellingCarrusel";
+        this.urlDataCarrusel = urlDataCarrusel || "";
         this.origenPedidoWeb = origenPedidoWeb || "";
         this.pantalla = pantalla;
         this.tituloCarrusel = tituloCarrusel;
@@ -24,5 +25,6 @@ class CarruselModel
         this.codigoProducto = codigoProducto;
         this.precioProducto = precioProducto;
         this.productosHermanos = productosHermanos;
+        this.tieneStock = tieneStock;
     }
 }
