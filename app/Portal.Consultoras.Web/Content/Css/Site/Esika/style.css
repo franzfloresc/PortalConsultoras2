@@ -1063,6 +1063,10 @@ header {
     margin-bottom: 0;
 }
 
+.liquidacion_descripcion--paisColombia{
+    min-height:68px;
+}
+
 .liquidacion_cantidad {
     margin-left: 15px;
     margin-right: 15px;
@@ -1091,6 +1095,20 @@ header {
         font-size: 13pt;
         color: #e81c36;
     }
+
+/* INI HD-4009 */
+.liquidacion_pum,
+.liquidacion_pum_hidden {
+    margin-bottom: 0;
+    min-height:18px;
+}
+    .liquidacion_pum span {
+        color: #000;
+    }
+.liquidacion_pum_hidden {
+    visibility: hidden;
+}
+/* FIN HD-4009 */
 
 .liquidacion_rango_wrapper {
     margin: 0;
@@ -1671,6 +1689,20 @@ a.subir_carousel, a.bajar_carousel {
     position: relative;
     top: -1px;
 }
+
+/* INI HD-4009 */
+.producto_pum,
+.producto_pum_hidden {
+    margin-bottom: 0;
+    min-height: 18px;
+}
+    .producto_pum span {
+        color: #000;
+    }
+.producto_pum_hidden {
+    visibility: hidden;
+}
+/* FIN HD-4009 */
 
 .producto_precio_oferta {
     margin: 0;
@@ -4483,6 +4515,17 @@ a.subir_carousel, a.bajar_carousel {
         background: url('/Content/Images/Esika/logo_esika_negro.png') no-repeat;
         background-size: cover;
     }
+
+    /* HD-4065 - CAMBIO DE LOOK AND FEEL DE ÉSIKA */
+
+    .logo_esika--nuevoLogo a{
+        background-image: url('/Content/Images/Esika/nuevo-logo-esika.svg');
+        background-repeat:no-repeat;
+        background-size: 91px;
+        background-position-y: 16%;
+    }
+
+    /* FIN - HD-4065 - CAMBIO DE LOOK AND FEEL DE ÉSIKA */
 
 .cliente_detalle {
     display: block;
@@ -17261,6 +17304,7 @@ label.checkpop.c_on {
     -webkit-transition-property: color;
     transition-property: color;
     transition-duration: .3s;
+    overflow:hidden;
 }
 
     .boton_home_guardar:hover {
@@ -17525,7 +17569,7 @@ label.checkpop.c_on {
 .precio_ganancia {
     text-align: center;
     font-size: 10px;
-    font-size: 9px\9;
+    font-size: 9px;
     font-family: 'lato';
     margin-top: -6px;
     width: 68px;
@@ -17828,6 +17872,10 @@ label.checkpop.c_on {
     margin-right: 7%;
     background: white;
 }
+
+    .content_item_carrusel.content_item_carrusel--liquidacion {
+        height: 349px!important;
+    }
 
 .content_item_carrusel_width_ODD {
     width: 260px;
@@ -19128,7 +19176,10 @@ body {
     }
 
 .content_carrusel_liquidacion .content_item_carrusel {
-    height: 330px;
+    /* INI HD-4009 */
+    /* height: 330px;*/
+    /* FIN HD-4009 */
+    height: 340px;
 }
 
 .content_carrusel_liquidacion .producto_precio {
@@ -23997,6 +24048,10 @@ input[type='checkbox']:checked + span:after {
     background-size: 80%;
 }
 
+.icono_check_alerta--paso3{
+    background-size:100%;
+}
+
 .texto_mensaje_alerta {
     font-family: 'Lato';
     font-weight: 300;
@@ -28178,39 +28233,8 @@ div.motivoRechazo textarea {
     text-align: center;
 }
 
-.content_pasos {
-    width: 310px;
-    margin: 34px auto 60px auto;
-    position: relative;
-    display: flex;
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flexbox;
-    display: -o-flex;
-    justify-content: space-between;
-    z-index: 4;
-}
-
-.paso_reclamo {
-    width: 36px;
-    height: 36px;
-    background: white;
-    border: 1px solid black;
-    border-radius: 100px;
-    -webkit-border-radius: 100px;
-    -o-border-radius: 100px;
-    -moz-border-radius: 100px;
-    -ms-border-radius: 100px;
-    font-size: 20px;
-    font-family: 'Lato';
-    color: white;
-    font-weight: 700;
-    text-align: center;
-    overflow: hidden;
-}
-
 .content_reclamo {
-    width:100%;
+    width: 100%;
     margin: 0 auto;
     position: relative;
 }
@@ -28225,6 +28249,41 @@ div.motivoRechazo textarea {
     margin-top: 25px;
 }
 
+.subtitulo_reclamo_motivo{
+    font-size:16px;
+    margin-top:30px;
+    margin-bottom:20px;
+}
+
+.enlace__regresar_paso_anterior,
+.enlace__regresar_paso_anterior span{
+    display:inline-block;
+}
+
+.enlace__regresar_paso_anterior {
+    width: 200px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    margin-bottom:60px;
+}
+
+    .enlace__regresar_paso_anterior span{
+        vertical-align:middle;
+    }
+
+    .enlace__regresar_paso_anterior:hover span:last-child{
+        text-decoration:underline;
+    }
+
+    .icono_back_arrow {
+        width: 18px;
+        height: 31px;
+        margin-top: 1px;
+        margin-right: 8px;
+    }
+
 .select_reclamo,
 .elige_num_pedido,
 .codigo_reclamo,
@@ -28234,10 +28293,9 @@ div.motivoRechazo textarea {
 .precio_reclamo,
 .rango_reclamo,
 .rango_reclamo .liquidacion_rango_cantidad_pedido,
-.rango_reclamo .liquidacion_rango_right_pedido
-{
-    display:inline-block;
-    vertical-align:top;
+.rango_reclamo .liquidacion_rango_right_pedido {
+    display: inline-block;
+    vertical-align: top;
 }
 
 .select_reclamo,
@@ -28248,15 +28306,15 @@ div.motivoRechazo textarea {
 .precio_reclamo,
 .rango_reclamo
 {
-    border: 1px solid #808080;
+    border: 1px solid #000;
     border-radius: 4px;
     padding: 6px 10px 10px 16px;
     font-family: 'Lato', sans-serif;
-    font-size:16px;
+    font-size:14px;
     color:#000;
-    margin-right:22px;
-    line-height: 47px;
-    height:47px;
+    margin-right:8px;
+    line-height: 40px;
+    height:40px;
 }
 
 .select_reclamo,
@@ -28270,15 +28328,14 @@ div.motivoRechazo textarea {
 }
 
 .select_reclamo{
-    width:261px;
+    width:264px;
 }
 
 .select_reclamo,
-.elige_num_pedido
-{
-    background-image:url(/Content/Images/flecha-campo-select.svg);
-    background-repeat:no-repeat;
-    background-position:95.8% center;
+.elige_num_pedido {
+    background-image: url(/Content/Images/flecha_despliegue_campo_select.svg);
+    background-repeat: no-repeat;
+    background-position: 97.3% center;
 }
 
 .elige_num_pedido{
@@ -28295,10 +28352,101 @@ div.motivoRechazo textarea {
 
 .contenedor_descripcion_reclamo{
     position:relative;
-    margin-right:22px;
+    margin-right:8px;
+    z-index:24;
 }
 
-.descripcion_reclamo_fake_placeholder{
+.lista_resultados_busqueda_por_cuv_wrapper {
+    display: none;
+    background-color: #FFF;
+    border-top: 1px solid #FFF;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    position: absolute;
+    width:100%;
+    top: 36px;
+    z-index: 2;
+    padding: 8px 10px 0 0;
+}
+
+.lista_resultados_busqueda_por_cuv {
+    min-height: 0;
+    max-height: 200px;
+    overflow: auto;
+    margin-bottom:15px;
+}
+
+    .lista_resultados_busqueda_por_cuv::-webkit-scrollbar-track {
+        background-color: #e2e2e2;
+        border-radius: 4px;
+    }
+
+.resultado_busqueda_por_cuv{
+    border-bottom:1px solid #b5b5b5;
+}
+
+    .resultado_busqueda_por_cuv:last-child{
+        border-bottom:none;
+    }
+
+    .resultado_busqueda_por_cuv:last-child .resultado_busqueda_por_cuv_enlace{
+        padding-bottom:0;
+    }
+
+.resultado_busqueda_por_cuv_enlace {
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    min-height: 80px;
+    padding-left: 15px;
+    padding-right: 15px;
+    cursor: pointer;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+    .resultado_busqueda_por_cuv_enlace:hover {
+        background-color: #f3f3f3;
+    }
+
+.resultado_busqueda_por_cuv_datos_imagen,
+.resultado_busqueda_por_cuv_datos_prod {
+    display: inline-block;
+    vertical-align:middle;
+}
+
+.resultado_busqueda_por_cuv_datos_imagen{
+    height:56px;
+    margin-right:16px;
+}
+
+.resultado_busqueda_por_cuv_datos_imagen img{
+    width:auto;
+    height:100%;
+}
+
+.resultado_busqueda_por_cuv_datos_prod {
+    width: 83%;
+}
+
+.resultado_busqueda_por_cuv_codigo_prod{
+    color:#808080;
+    margin-bottom:3px;
+}
+
+.resultado_busqueda_por_cuv_codigo_prod,
+.resultado_busqueda_por_cuv_descrip_prod {
+    font-size: 13px;
+}
+
+.descripcion_reclamo_fake_placeholder {
     display: block;
     width: 100%;
     margin: auto 0;
@@ -28308,7 +28456,7 @@ div.motivoRechazo textarea {
     left: 21px;
     height: 47px;
     line-height: 44px;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .contenedor_descripcion_reclamo,
@@ -28335,7 +28483,7 @@ div.motivoRechazo textarea {
         width: 100%;
         height: 95%;
         padding: 6px 10px 10px 20px;
-        line-height: 30px;
+        line-height: 24px;
     }
 
 .descripcion_reclamo + .chosen-container .chosen-single,
@@ -28392,10 +28540,12 @@ div.motivoRechazo textarea {
         padding-left: 18px;
         padding-right: 18px;
         padding-top: 1px;
-        border: 1px solid#000;
-        background-color: #FBFBFB;
-        font-size: 16px;
+        border: 0;
+        /*background-color:#FBFBFB;*/
+        /*background-color:#FBFBFB;*/
         background-image: url(/Content/Images/icono_lupa.svg);
+        background-color: #FFF;
+        font-size: 14px;
         background-repeat: no-repeat;
         background-position: 97% center;
     }
@@ -28416,7 +28566,7 @@ div.motivoRechazo textarea {
 }
 
 .descripcion_reclamo + .chosen-container .active-result {
-    font-size:16px;
+    font-size:14px;
     margin-bottom:8px;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
@@ -28447,65 +28597,462 @@ div.motivoRechazo textarea {
 }
 
 .rango_reclamo {
-    width:80px;
+    width: 80px;
+    margin-right: 0;
+    padding: 0;
+}
+
+    .rango_reclamo .liquidacion_rango_cantidad_pedido,
+    .rango_reclamo .liquidacion_rango_right_pedido {
+        height: 100%;
+    }
+
+    .rango_reclamo .liquidacion_rango_cantidad_pedido {
+        width: 70.5%;
+        border-top: 0;
+        border-bottom: 0;
+        border-left: 0;
+        border-right: 1px solid #000 !important;
+        padding-bottom: 3px;
+    }
+
+    .rango_reclamo.campo_deshabilitado .liquidacion_rango_cantidad_pedido {
+        border-right: 1px solid rgba(128, 128, 128, 0.5) !important;
+        opacity:0.5;
+    }
+
+    .rango_reclamo .liquidacion_rango_right_pedido,
+    .rango_reclamo .mas,
+    .rango_reclamo .menos {
+        position: relative;
+        padding-top: 0;
+    }
+
+    .rango_reclamo .liquidacion_rango_right_pedido,
+    .rango_reclamo .menos {
+        border: 0;
+    }
+
+    .rango_reclamo .mas,
+    .rango_reclamo .menos {
+        margin-top: 0;
+        height: 50%;
+    }
+
+    .rango_reclamo.campo_deshabilitado .mas,
+    .rango_reclamo.campo_deshabilitado .menos{
+        opacity:0.5;
+    }
+
+    .rango_reclamo .mas {
+        border-bottom: 1px solid #000;
+    }
+
+    .rango_reclamo.campo_deshabilitado .mas {
+        border-bottom: 1px solid rgba(128, 128, 128, 0.5) !important;
+    }
+
+    .rango_reclamo .mas img,
+    .rango_reclamo .menos img {
+        position: absolute;
+        margin: auto;
+        bottom: 0;
+        right: 0;
+    }
+
+        .rango_reclamo .mas img {
+            top: 2.5px;
+            left: 2px;
+        }
+
+    .rango_reclamo .menos img {
+        top: -2.5px;
+        left: 0;
+    }
+
+.lista_opciones_cdr {
+    list-style-type: none;
+    margin-bottom: 41px;
+}
+
+.opcion_cdr,
+.opcion_cdr_seleccionada_campo_busqueda,
+.validacion_datos_correo_electronico,
+.validacion_datos_celular_contacto {
+    display: inline-block;
+}
+
+.validacion_datos_wrapper{
+    border-bottom:1px solid #000;
+}
+
+    .validacion_datos_correo_electronico,
+    .validacion_datos_celular_contacto {
+        vertical-align: top;
+    }
+
+        .validacion_datos_correo_electronico > div,
+        .validacion_datos_celular_contacto > div {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .validacion_datos_correo_electronico .texto_correo,
+        .validacion_datos_celular_contacto .texto_correo {
+            order: -1;
+        }
+
+.opcion_cdr,
+.opcion_cdr_seleccionada_campo_busqueda {
+    vertical-align: middle;
+}
+
+.opcion_cdr {
+    width: 156px;
+    height: 154px;
+    border-radius: 4px;
+    margin-right: 16px;
+    border: 1px solid #808080;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+    .opcion_cdr:last-child{
+        margin-right:0;
+    }
+
+.opcion_cdr_seleccionada {
+    border: 2px solid #000;
+    -moz-box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
+    -webkit-box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
+    box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
+}
+
+.opcion_cdr_enlace,
+.opcion_cdr_seleccionada_terminos_entrega_producto_wrapper,
+.opcion_cdr_seleccionada_terminos_entrega_producto_set_wrapper {
+    position: relative;
+}
+
+.opcion_cdr_enlace {
+    padding: 15px;
+    height: 100%;
+}
+
+.opcion_cdr_icono_wrapper{
+    height:46px;
+    margin-top:24px;
+    margin-bottom:15px;
+}
+
+.opcion_cdr_icono {
+    display: block;
+    width: auto;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 21px;
+}
+
+.opcion_cdr_icono--solicitudReclamo{
+    margin-bottom:0;
+}
+
+.opcion_cdr_checkbox {
+    display: block;
+    background-color: #FFF;
+    border: 1px solid #000;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 10px;
+    right: 11px;
+    cursor: pointer;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+input[type="checkbox"]:checked + .opcion_cdr_checkbox {
+    background-color: #000;
+    background-image: url(/Content/Images/icono_check_cdr.svg);
+    background-position: center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.opcion_cdr_seleccionada_info_wrapper{
+    margin-bottom:30px;
+}
+
+.opcion_cdr_seleccionada_info--cambiarPorOtroProducto p,
+.opcion_cdr_seleccionada_info--devolucionCasoSetProducto p,
+.opcion_cdr_seleccionada_campo_busqueda,
+.opcion_cdr_seleccionada_terminos_entrega_producto_texto,
+.opcion_cdr_seleccionada_info--cambioMismoProducto p,
+.opcion_cdr_seleccionada_info--envioProducto p,
+.opcion_cdr_seleccionada_info--devolucionDinero p {
+    font-size: 14px;
+    letter-spacing: 0.1px;
+}
+
+.opcion_cdr_seleccionada_info--cambiarPorOtroProducto p{
+    margin-bottom: 12px;
+}
+
+.opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar,
+.opcion_cdr_seleccionada_info--cambioMismoProducto,
+.opcion_cdr_seleccionada_info--envioProducto,
+.opcion_cdr_seleccionada_info--devolucionDinero {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda {
+    border: 1px solid #000;
+    height: 40px;
+    margin-right: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-family: 'Lato', sans-serif;
+    line-height: 40px;
+    color:#000;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #808080;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda::-moz-placeholder { /* Firefox 19+ */
+    color: #808080;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda:-ms-input-placeholder { /* IE 10+ */
+    color: #808080;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda:-moz-placeholder { /* Firefox 18- */
+    color: #808080;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda:last-child{
     margin-right:0;
-    padding:0;
 }
 
-.rango_reclamo .liquidacion_rango_cantidad_pedido{
-    width:70.5%;
-    border-top:0;
-    border-bottom:0;
-    border-left:0;
-    border-right:1px solid #808080!important;
+.opcion_cdr_seleccionada_campo_busqueda--codigo,
+.opcion_cdr_seleccionada_campo_busqueda--precio {
+    width: 130px;
 }
 
-.rango_reclamo .liquidacion_rango_right_pedido,
-.rango_reclamo .mas,
-.rango_reclamo .menos
-{
-    position:relative;
-    padding-top:0;
+.opcion_cdr_seleccionada_campo_busqueda--descripcion {
+    width: 261px;
 }
 
-.rango_reclamo .liquidacion_rango_right_pedido,
-.rango_reclamo .menos
-{
-    border:0;
+.opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad{
+    min-width:60px;
+    padding-left:0;
+    padding-right:0;
 }
 
-.rango_reclamo .mas,
-.rango_reclamo .menos
-{
-    margin-top:0;
-    height:22.5px;
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_cantidad_pedido,
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_right_pedido,
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos {
+        border-left: 0;
+        border-bottom: 0;
+        border-top: 0;
+        border-radius: 0;
+        height: 100%;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_cantidad_pedido {
+        border-right: 1px solid #000 !important;
+        padding-bottom:3px;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad.btn_deshabilitado .liquidacion_rango_cantidad_pedido {
+        border-right: 1px solid rgba(128, 128, 128, 0.5)!important;
+        opacity:0.5;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_right_pedido {
+        border-right:0;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .mas,
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos{
+        height: 47%;
+        position:relative;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad.btn_deshabilitado .mas,
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad.btn_deshabilitado .menos{
+        opacity:0.5;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .mas {
+        border-bottom: 1px solid #000;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad.btn_deshabilitado .mas {
+        border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad img{
+        position:absolute;
+        margin:auto;
+        right:0;
+        top:0;
+        bottom:0;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .mas img{
+        left:0.5px;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos img {
+        left: -1.5px;
+    }
+
+.opcion_cdr_seleccionada_info--devolucionCasoSetProducto{
+    margin-bottom:8px;
 }
 
-.rango_reclamo .mas{
-    border-bottom:1px solid #808080;
+.opcion_cdr_seleccionada_terminos_entrega_producto_set_wrapper{
+    margin-top:18px;
 }
 
-.rango_reclamo .mas img,
-.rango_reclamo .menos img
-{
-    position:absolute;
-    margin:auto;
-    bottom:0;
-    right:0;
+.producto_set_lista,
+.opcion_cdr_checkbox--terminosEntregaProductoSet,
+.opcion_cdr_seleccionada_terminos_entrega_producto_texto {
+    display: inline-block;
 }
 
-.rango_reclamo .mas img{
-    top:2.5px;
-    left:2px;
+.producto_nom,
+.producto_set_lista {
+    margin-top: 8px;
 }
 
-.rango_reclamo .menos img{
-    top:-2.5px;
-    left:0;
+    .producto_nom,
+    .producto_nom span,
+    .producto_set_lista span {
+        margin-bottom: 5px;
+    }
+
+    .producto_nom,
+    .producto_nom span,
+    .producto_set_lista span,
+    .cantidad_und_producto {
+        display: block;
+    }
+
+.producto_set_lista {
+    text-align: left;
+    margin-bottom: 18px;
 }
+
+.opcion_cdr_checkbox--terminosEntregaProductoSet,
+.opcion_cdr_seleccionada_terminos_entrega_producto_texto {
+    vertical-align: middle;
+}
+
+.opcion_cdr_checkbox--terminosEntregaProductoSet {
+    position: relative;
+    width:20px;
+    height:20px;
+    top: 0;
+    right: 0;
+    margin-right: 8px;
+}
+
+.opcion_cdr_seleccionada_terminos_entrega_producto_texto{
+    line-height:20px;
+}
+
+.info_devolucion_a_tener_en_cuenta {
+    display: inline-block;
+    max-width: 628px;
+    margin-bottom: 16px;
+    border-top: 1px solid #808080;
+    border-bottom: 1px solid #808080;
+}
+
+    .info_devolucion_a_tener_en_cuenta_mensaje {
+        font-family: 'Lato';
+        text-align: center;
+        font-size: 13px;
+        margin-top: 22px;
+        margin-bottom: 22px;
+    }
+
+        .info_devolucion_a_tener_en_cuenta_mensaje span {
+            display: block;
+            font-size: 12px;
+        }
+
+            .info_devolucion_a_tener_en_cuenta_mensaje span:first-child {
+                font-weight: bold;
+                margin-bottom: 6px;
+            }
+
+            .info_devolucion_a_tener_en_cuenta_mensaje span:last-child {
+                letter-spacing: normal;
+                line-height: 19px;
+            }
+
+/*.ui-dialog {
+    border-radius: 4px !important;
+}
+
+    .terminos_title_2{
+        font-size:18px!important;
+    }
+
+    .pop_pedido_mensaje {
+        margin-left: auto;
+        margin-right: auto;
+        font-size:14px;
+        font-weight:400;
+    }
+
+        .pop_pedido_mensaje p{
+            line-height:21px;
+        }
+
+    .input_modifica_horizontal,
+    .ui-button-text-only .ui-button-text{
+        display:inline-block;
+        vertical-align:middle;
+        min-width: 152px;
+        line-height: 38px;
+        height: 40px;
+        border-radius: 4px;
+    }
+
+        .input_modifica_horizontal:first-child{
+            color:#000;
+            background-color:#FFF;
+            border:1px solid #000;
+        }
+
+        .input_modifica_horizontal:last-child,
+        .ui-button-text-only .ui-button-text {
+            color: #FFF !important;
+            background-color: #b9007e !important;
+            border: 1px solid #b9007e !important;
+        }
+
+        .input_modifica_horizontal:last-child {
+            margin-left: 16px!important;
+        }*/
 
 .btn_no_stock {
-    font-family: 'LAto';
+    font-family: 'Lato', sans-serif;
     font-size: 13px;
     text-decoration: underline;
     margin-top: 30px;
@@ -28517,7 +29064,7 @@ div.motivoRechazo textarea {
 }
 
 .btn_si_stock {
-    font-family: 'LAto';
+    font-family: 'Lato', sans-serif;
     font-size: 13px;
     font-weight: 700;
     display: block;
@@ -28529,11 +29076,11 @@ div.motivoRechazo textarea {
     background: #e81c36;
     line-height: 45px;
     float: left;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .btn_si_stock_cdr {
-    font-family: 'LAto';
+    font-family: 'Lato', sans-serif;
     font-size: 13px;
     font-weight: 700;
     float: right;
@@ -28545,12 +29092,8 @@ div.motivoRechazo textarea {
     color: white;
     background: #e81c36;
     line-height: 45px;
-    cursor:pointer;
-}
-
-.paso_active_reclamo {
-    background: #e81c36;
-    border: 0;
+    cursor: pointer;
+    letter-spacing:0.5px;
 }
 
 *::-webkit-input-placeholder {
@@ -28577,19 +29120,18 @@ div.motivoRechazo textarea {
 
 .content_motivo_select {
     width: 100%;
-    margin-right: 10%;
-    float: left;
-    margin-bottom: 20px;
 }
 
 .reclamo_motivo_select {
+    display: -ms-flexbox;
     display: flex;
     justify-content: center;
     align-content: center;
+    -ms-flex-direction:column;
     flex-direction: column;
     width: 48%;
     height: 50px;
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
     font-size: 14px;
     padding-left: 50px;
     background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/selector_reclamo.png') no-repeat;
@@ -28600,7 +29142,7 @@ div.motivoRechazo textarea {
     margin-right: 4%;
 }
 
-    .reclamo_motivo_select:nth-child(2n) {
+    .reclamo_motivo_select:nth-child(odd) {
         margin-right: 0;
     }
 
@@ -28616,29 +29158,24 @@ div.motivoRechazo textarea {
     background-position: 20px 17px;
 }
 
-.btn_solucion_reclamo {
-    float: left;
-    width: 270px;
-    height: 45px;
-    border: 1px solid black;
-    line-height: 45px;
-    font-family: 'Lato';
-    font-size: 13px;
-    font-weight: bold;
-    text-align: center;
-    margin-right: 36px;
-    margin-bottom: 10px;
-    cursor:pointer;
+.btn_cdr {
+    display: block;
+    width: 217px;
+    height: 40px;
+    background-color: #000;
+    color: #FFF;
+    border: 1px solid #000;
+    line-height: 38px;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    margin:20px auto 40px auto;
+    cursor: pointer;
+    letter-spacing: 0.5px;
 }
 
-    .btn_solucion_reclamo:last-child {
-        margin-right: 0;
-    }
-
-    .btn_solucion_reclamo:hover {
-        background: black;
-        color: white;
-    }
+.btn_ir_paso_2{
+    margin-top:52px;
+}
 
 .subtitulo_reclamo_light {
     font-family: 'Lato';
@@ -28671,13 +29208,12 @@ div.motivoRechazo textarea {
 }
 
 .total_precio_reclamo {
-    float: right;
-    width: 33%;
-    margin-top: 15px;
-    margin-bottom: 20px;
+    display:inline-block;
+    width: auto;
+    margin-bottom: 0;
     font-family: 'Lato';
-    font-size: 15px;
-    color: #888888;
+    font-size: 17px;
+    color: #000;
 }
 
 .btn_paso_anterior {
@@ -28736,32 +29272,77 @@ div.motivoRechazo textarea {
 }
 
 .content_listado_reclamo {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction:row;
+    flex-direction: row;
+    -ms-flex-wrap:nowrap;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
     position: relative;
     overflow: hidden;
-    border-bottom: 1px solid #c9c9c9;
+    border-bottom: 1px solid #d8d8d8;
 }
 
-    .content_listado_reclamo:last-child {
+    /*.content_listado_reclamo:last-child {
         border-bottom: 0;
+    }*/
+
+    .content_listado_reclamo--header {
+        border-bottom: 1px solid #000;
+        border-top: 1px solid #000;
     }
 
-.listado_producto_reclamo, .listado_solicitud_reclamo, .listado_solicitada_reclamo, .listado_eliminar_reclamo {
+    .content_listado_reclamo--contenido,
+    .content_listado_reclamo--contenido:last-child{
+        border-bottom: 1px solid #d8d8d8;
+    }
+
+.listado_producto_reclamo,
+.listado_solicitud_reclamo,
+.listado_solicitada_reclamo,
+.listado_eliminar_reclamo {
+    display:inline-block;
+    vertical-align:top;
     font-family: 'Lato';
     line-height: 19px;
     font-size: 15px;
     padding-top: 25px;
     padding-bottom: 25px;
     color: black;
-    float: left;
 }
 
 .listado_producto_reclamo {
-    width: 40%;
+    width: 37%;
     padding-right: 15px;
 }
 
 .listado_solicitud_reclamo {
-    width: 22%;
+    width: 17%;
+    margin-right: 100px;
+}
+
+.listado_solicitud_reclamo--paso3{
+    margin-right:85px;
+}
+
+.listado_solicitud_reclamo_icono_solucion,
+.listado_solicitud_reclamo_descrip_solucion{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.listado_solicitud_reclamo_icono_solucion {
+    width: auto;
+    height: 40px;
+    margin-bottom: 7px;
+}
+
+.listado_solicitud_reclamo_descrip_solucion{
+    font-size:14px;
+    max-width:103px;
+    line-height:17px;
 }
 
 .listado_solicitada_reclamo {
@@ -28769,7 +29350,7 @@ div.motivoRechazo textarea {
 }
 
 .listado_eliminar_reclamo {
-    width: 12%;
+    width: 11%;
     text-align: center;
 }
 
@@ -28778,6 +29359,66 @@ div.motivoRechazo textarea {
     padding-bottom: 15px;
     font-size: 13px;
     font-weight: 300;
+}
+
+.tooltip_confirmacion_eliminacion_producto_grilla,
+.tooltip_acciones_eliminacion_producto {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.tooltip_confirmacion_eliminacion_producto_grilla {
+    display:none;
+    justify-content: space-between;
+    height: 86px;
+    background-color: #ebebeb;
+    margin-bottom: 20px;
+    position: relative;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+    .tooltip_confirmacion_eliminacion_producto_grilla:before {
+        bottom: 100%;
+        left: 50px;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-color: rgba(136, 183, 213, 0);
+        border-bottom-color: #ebebeb;
+        border-width: 10px;
+        z-index: 2;
+    }
+
+.btn_acciones{
+    height:45px;
+    color:#FFF;
+}
+
+    .btn_acciones--eliminar{
+        width:130px;
+    }
+
+.tooltip_informacion_eliminacion_producto_texto,
+.enlace_tooltip_informacion{
+    display:block;
+}
+
+.tooltip_informacion_eliminacion_producto_texto {
+    margin: 0;
+    font-size: 14px;
+}
+
+.enlace_tooltip_informacion {
+    font-size: 13px;
+    text-decoration: underline;
+    margin-right: 20px;
+    cursor:pointer;
 }
 
 .subtitulo_listado {
@@ -28799,39 +29440,54 @@ div.motivoRechazo textarea {
 .correo_reclamo {
     width: 276px;
     height: 45px;
-    border: 1px solid #cccccc;
-    font-family: 'Lato';
+    border: 1px solid #808080;
+    font-family: 'Lato', sans-serif;
     font-size: 15px;
-    color: #b5b5b5;
+    color: #000;
     line-height: 45px;
     float: left;
-    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
     margin-left: 50px;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease 0.3s ease;
 }
 
+    .correo_reclamo:focus{
+        border-color: #000;
+    }
+
+    .correo_reclamo:focus + .texto_correo {
+        color: #000;
+    }
+
 .correo_reclamo_error {
-    margin-bottom: 20px;
     display: inline-block;
     width: 270px;
-    margin-left: 60px;
+    margin-left: 49px;
+    margin-bottom: 20px;
+    text-align: left;
 }
 
     .correo_reclamo_error span {
+        display: block;
         font-family: 'Lato';
         font-size: 14px;
         color: red;
-        line-height: 14px;
-        margin-top: 5px;
+        line-height: 18px;
+        margin-top: -8px;
     }
 
 .texto_correo {
     display: block;
-    margin-left: 60px;
-    font-family: 'Lato';
+    margin-left: 51px;
+    font-family: 'Lato', sans-serif;
     font-size: 15px;
-    color: #b5b5b5;
+    color: #808080;
     margin-top: 18px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .politica_reclamos {
@@ -28842,7 +29498,7 @@ div.motivoRechazo textarea {
     font-size: 15px;
     line-height: 30px;
     width: 330px;
-    text-decoration:none;
+    text-decoration: none;
 }
 
 .politica_reclamos_icono,
@@ -28853,25 +29509,26 @@ div.motivoRechazo textarea {
 }
 
 .politica_reclamos_icono {
-    background-image: url('/Content/Images/check_terminos_cdr.svg');
-    background-repeat:no-repeat;
-    background-position:center;
-    background-color:#d6d6d6;
-    width:20px;
-    height:20px;
-    margin-top:4.5px;
-    margin-right:6px;
-    border-radius:4px;
-    background-size: 65%;
+    background-image: url(/Content/Images/icono_check_cdr.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #FFF;
+    border: 1px solid #000;
+    width: 20px;
+    height: 20px;
+    margin-top: 4.5px;
+    margin-right: 6px;
+    border-radius: 4px;
+    background-size: 100%;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .politica_reclamos_icono_active {
-    background-color:#e81c36;
+    background-color:#000;
 }
 
 .politica_reclamos_texto a{
@@ -28879,7 +29536,7 @@ div.motivoRechazo textarea {
 }
 
 .btn_agrega_otro_reclamo {
-    font-family: 'LAto';
+    font-family: 'Lato', sans-serif;
     font-size: 13px;
     font-weight: 700;
     float: left;
@@ -28958,7 +29615,7 @@ div.motivoRechazo textarea {
 }
 
 .btn_ver_solicitudes {
-    font-family: 'LAto';
+    font-family: 'Lato', sans-serif;
     font-size: 14px;
     color: black;
     font-weight: 700;
@@ -28971,6 +29628,10 @@ div.motivoRechazo textarea {
     background: url('/Content/Images/Esika/icono_solicitud.png') no-repeat;
     background-position: 0 4px;
 }
+
+    .btn_ver_solicitudes--paso3{
+        margin-bottom:60px;
+    }
 
 .UltimasSolicitudes {
     position: absolute;
@@ -29139,13 +29800,19 @@ div.motivoRechazo textarea {
     margin-top: 43px;
 }
 
-.listado_fecha_general, .listado_campana_general, .listado_solicitud_general, .listado_resolucion_general, .listado_resumen_general, .listado_estado_general {
-    font-family: 'Lato';
-    font-size: 15px;
-    padding-top: 30px;
+.listado_fecha_general,
+.listado_campana_general,
+.listado_solicitud_general,
+.listado_resolucion_general,
+.listado_resumen_general,
+.listado_estado_general {
     display: inline-block;
-    padding-bottom: 15px;
     vertical-align: top;
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    letter-spacing:0.5px;
 }
 
 .listado_solicitud_general, .listado_resolucion_general {
@@ -29172,7 +29839,7 @@ div.motivoRechazo textarea {
 
 .icono_resumen_resolucion {
     background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg') no-repeat top left;
-    background-position: 0 33px;
+    background-position: 0 center;
     background-size:7%;
 }
 
@@ -29191,15 +29858,21 @@ div.motivoRechazo textarea {
     cursor: pointer;
 }
 
-.listado_estado_general div .estado_texto {
-    font-weight: 600;
-    font-size: 13px;
+.listado_estado_general div .estado_texto,
+.pop_solicitud_resolucion .estado_texto {
+    font-weight: 700;
+    font-size: 12px;
     display: inline-block;
     margin: 0;
-    padding: 3px 7px;
+    padding-left: 12px;
+    padding-right: 12px;
     vertical-align: middle;
-    margin-right: 15px;
-    width: 118px;
+    margin-right: 16px;
+    min-width: 105px;
+    height: 24px;
+    line-height: 22px;
+    letter-spacing: 0.5px;
+    border-radius: 10.5px;
 }
 
 .estado_detalleObservado {
@@ -29208,20 +29881,16 @@ div.motivoRechazo textarea {
     color: #e81c36;
 }
 
-.listado_estado_general div:hover .icono_verDetalle {
-    margin-top: -10px;
-    opacity: .4;
-}
-
 .listado_estado_general div .icono_verDetalle {
-    width: 21px;
     display: block;
+    margin: auto 0;
+    width: 21px;
+    height: 21px;
     position: absolute;
-    top: 50%;
-    left: 56%;
+    top: 0;
+    bottom: 0;
+    left: 82%;
     opacity: 1;
-    margin-top: -5px;
-    margin-left: 46.5px !important;
     transition: all .3s ease;
     -moz-transition: all .3s ease;
     -o-transition: all .3s ease;
@@ -29229,13 +29898,44 @@ div.motivoRechazo textarea {
     -webkit-transition: all .3s ease;
 }
 
+    .listado_estado_general div:hover .icono_verDetalle {
+        opacity: .4;
+    }
+
 .icono_verDetalle img {
     width: 100%;
 }
 
+.EstadoEnviado,
+.EstadoAceptado,
+.EstadoRechazado{
+    color:#FFF;
+}
+
+.EstadoPendiente {
+    border: 1px solid #808080;
+    color: #808080;
+}
+
+.EstadoEnviado {
+    border: 1px solid #626262;
+    background-color: #626262;
+}
+
+.EstadoAceptado {
+    border: 1px solid #569C04;
+    background-color: #569C04;
+}
+
+.EstadoObservado {
+    border: 1px solid #B9007E;
+    color: #B9007E;
+    background-color: #FFF;
+}
+
 .EstadoRechazado {
-    background: #626262;
-    color: white;
+    border: 1px solid #e81c36;
+    background-color: #e81c36;
 }
 
 .fondo_f7f7f7 {
@@ -29254,37 +29954,42 @@ div.motivoRechazo textarea {
     font-size: 14px;
     color: black;
     text-align: center;
-    margin-bottom: 11px;
+    margin-bottom: 24px;
 }
 
-.pop_solicitud_producto, .pop_solicitud_tipo, .pop_solicitud_solucion, .pop_solicitud_resolucion {
+.pop_solicitud_producto,
+.pop_solicitud_tipo,
+.pop_solicitud_solucion,
+.pop_solicitud_resolucion {
     float: left;
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
     line-height: 19px;
     font-size: 15px;
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left:16px;
+    padding-right:16px;
     color: black;
 }
 
 .pop_solicitud_producto {
     width: 32%;
-    padding-left: 2%;
+    /*padding-left: 2%;*/
 }
 
 .pop_solicitud_tipo {
     width: 16%;
-    padding-left: 1%;
+    /*padding-left: 1%;*/
 }
 
 .pop_solicitud_solucion {
     width: 22.5%;
-    padding-left: 1%;
+    /*padding-left: 1%;*/
 }
 
 .pop_solicitud_resolucion {
     width: 28.5%;
-    padding-left: 4%;
+    /*padding-left: 4%;*/
 }
 
 .texto_estado_solicitud {
@@ -31172,19 +31877,89 @@ div.motivoRechazo textarea {
     width: 139px;
 }
 
-.content_pasos_linea {
-    position: absolute;
-    width: 99%;
-    height: 2px;
-    top:0;
-    left: 0;
-    right:0;
-    bottom:0;
+.content_pasos {
     width: 310px;
-    margin: auto;
-    background: #d1d1d1;
-    z-index:-1;
+    margin: 34px auto 60px auto;
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: space-between;
+    z-index: 4;
 }
+
+    .content_pasos_linea {
+        position: absolute;
+        width: 99%;
+        height: 1px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 310px;
+        margin: auto;
+        background: #808080;
+        z-index: -1;
+    }
+
+        .progreso_pasos {
+            width: 0%;
+            height: 100%;
+        }
+
+    .paso_reclamo {
+        position: relative;
+        width: 43px;
+        height: 43px;
+        background: white;
+        border: 1px solid #979797;
+        border-radius: 100px;
+        font-size: 20px;
+        font-family: 'Lato', sans-serif;
+        color: white;
+        font-weight: 700;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .paso_reclamo_1,
+    .paso_reclamo_2,
+    .paso_reclamo_3 {
+        background-size: 56% !important;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+    }
+
+        .paso_reclamo_1.paso_active_reclamo {
+            background-image: url(/Content/Images/icono_cosmeticos.svg);
+        }
+
+    .paso_reclamo_2 {
+        background-image: url(/Content/Images/icono_foco.svg);
+    }
+
+        .paso_reclamo_2.paso_active_reclamo {
+            background-image: url(/Content/Images/icono_foco_activo.svg);
+        }
+
+    .paso_reclamo_3 {
+        background-image: url(/Content/Images/icono_mail_cdr.svg);
+    }
+
+        .paso_reclamo_3.paso_active_reclamo {
+            background-image: url(/Content/Images/icono_mail_cdr_activo.svg);
+        }
+
+    .paso_active_reclamo {
+        background: #FFF;
+        border: 1px solid #b9007e;
+    }
+
+    .paso_reclamo_completado {
+        background-color: #b9007e;
+        border: 1px solid #b9007e;
+        background-image: url(/Content/Images/icono_check_cdr.svg);
+    }
+
 /*POP UP PRODUCTO FALTANTE*/
 .producto_faltante {
     height: 32px;
@@ -32956,10 +33731,6 @@ div.motivoRechazo textarea {
     background: #f9f9f9;
 }
 
-.reclamo_motivo_select:nth-child(2n) {
-    margin-right: 0;
-}
-
 .height_min {
     min-height: 267px;
 }
@@ -33985,12 +34756,15 @@ div.motivoRechazo textarea {
 }
 
 /*EPD-1919 INICIO*/
+
 .content_tipo_despacho {
-    margin-top: 25px;
-    margin-bottom: 15px;
+    padding-top: 25px;
+    padding-bottom: 15px;
     font-family: 'Lato';
     font-size: 15px;
     text-align: left;
+    border-top:1px solid #000;
+    border-bottom:1px solid #000;
 }
 
 .cdr_tipo_despacho_icono {
@@ -35227,3 +36001,31 @@ div.motivoRechazo textarea {
 /* FIN - POPUP LLEGASTE AL 30% DE DESCUENTO */
 
 /* FIN - PROGRAMA NUEVAS - ELIGE TU REGALO */
+
+/* HD-4214 - CHAT MESSENGER SOMOS BELCORP */
+
+.fb_dialog_content {
+    position: relative!important;
+}
+
+.icono_chat_sb {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background-color: #FFF;
+    background-image: url(/Content/Images/icono-chat-sb.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    border-radius: 100%;
+    z-index: 2000;
+}
+
+.fb_dialog_content iframe{
+    display:none!important;
+}
+
+/* FIN - HD-4214 - CHAT MESSENGER SOMOS BELCORP */

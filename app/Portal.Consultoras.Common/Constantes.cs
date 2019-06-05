@@ -225,7 +225,7 @@ namespace Portal.Consultoras.Common
             //}
 
             public const short CierreSessionValidado = 15301;
-            
+
            
         }
 
@@ -446,6 +446,7 @@ namespace Portal.Consultoras.Common
             public const string CDRParametria = "CDRParametria";
             public const string CDRWebDatos = "CDRWebDatos";
             public const string CDRExpressMensajes = "CDRExpressMensajes";
+            public const string CDRFlagIsSetsOrPacks = "CDRSetsYPacks"; //HD-3703 EINCA
 
             // Tabla LOgica
             public const string TablaLogicaDatos = "TablaLogicaDatos";
@@ -666,6 +667,9 @@ namespace Portal.Consultoras.Common
             public const string BonificacionesURL = "BonificacionesURL";
             public const string BonificacionesRegiones = "BonificacionesRegiones";
             public const string JsonWebTokenSecretKey = "JsonWebTokenSecretKey";
+            public const string ChatbotSecret = "ChatbotSecret";
+            public const string ChatBotPageId = "ChatBotPageId";
+            public const string ChatBotUrl = "https://m.me/{0}?ref={1}";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -1038,6 +1042,10 @@ namespace Portal.Consultoras.Common
             public const int MobileContenedorShowroomCarrusel = 2080101;
             public const int MobileContenedorShowroomFicha = 2080102;
             public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
+
+            /*HD-3710*/
+            public const int DesktopPedidoEscogeRegaloCarrusel = 1021801;   
+            public const int MobilePedidoEscogeRegaloCarrusel = 2021801;
             #endregion
 
             #region Producto Recomendado
@@ -1359,10 +1367,7 @@ namespace Portal.Consultoras.Common
         public static class LogDynamoDB
         {
             public const string AplicacionPortalConsultoras = "PORTALCONSULTORAS";
-            public const string AplicacionPortalLideres = "PORTALLIDERES";
-
             public const string RolConsultora = "CO";
-            public const string RolSociaEmpresaria = "SE";
         }
 
         public static class MensajeEstaEnRevista
@@ -1642,6 +1647,15 @@ namespace Portal.Consultoras.Common
             /* INI HD-4015 */
             public const string UrlParamEncrip = "{0}?consultant={1}";
             public const string UrlCatalogo = "{0}{1}";
+            public const string UrlCatalogo_WSP = "{0}&utm_source=whatsapp&utm_medium=social&utm_campaign=catalogo_digital";
+            public const string UrlCatalogo_FB = "{0}&utm_source=facebook&utm_medium=social&utm_campaign=catalogo_digital&utm_content=fb_post";
+            public const string UrlCatalogo_MSN = "{0}&utm_source=facebook&utm_medium=social&utm_campaign=catalogo_digital&utm_content=fb_msn";
+            public const string UrlCatalogo_EMAIL = "{0}&utm_source=marketing&utm_medium=email&utm_campaign=catalogo_digital";
+
+            public const string TipoWSP = "WSP";
+            public const string TipoFB = "FB";
+            public const string TipoMSN = "MSN";
+            public const string TipoEMAIL = "EMAIL";
             /* FIN HD-4015 */
 
         }
@@ -1805,7 +1819,9 @@ namespace Portal.Consultoras.Common
                 public const string LogoComercialFondoActiva = "LogoComercialFondoActiva";
                 public const string LogoComercialFondoNoActiva = "LogoComercialFondoNoActiva";
                 public const string LogoMenuOfertasActiva = "LogoMenuOfertasActiva";
+                public const string LogoMenuOfertasActivaMobile = "LogoMenuOfertasActivaMobile";
                 public const string LogoMenuOfertasNoActiva = "LogoMenuOfertasNoActiva";
+                public const string LogoMenuOfertasNoActivaMobile = "LogoMenuOfertasNoActivaMobile";
                 public const string BloquearPedidoRevistaImp = "BloquearPedidoRevistaImp";
                 public const string BloquearSugerenciaProducto = "BloquearSugerenciaProducto";
                 public const string SubscripcionAutomaticaAVirtualCoach = "SubscripcionAutomaticaAVirtualCoach";
@@ -3804,7 +3820,7 @@ namespace Portal.Consultoras.Common
         public static class CaminoBrillante
         {
             public static class Menu {
-                public static string Permiso_CaminoBrillante = "CaminoBrillante";
+                public const string Permiso_CaminoBrillante = "CaminoBrillante";
             }
 
             public static class ServicioComercial
@@ -4017,7 +4033,6 @@ namespace Portal.Consultoras.Common
 
             public static class CodigosOrdenamiento
             {
-                //public const string CodigoOrden = "ORDEN";
                 public const string SinOrden = "00";
                 public const string PorCategoria = "01";
                 public const string PorNombre = "02";
@@ -4025,7 +4040,6 @@ namespace Portal.Consultoras.Common
 
             public static class CodigoFiltros
             {
-                //public const string CodigoFiltro = "FILTRO";
                 public const string SinFiltro = "00";
                 public const string Lbel = "01";
                 public const string Esika = "02";
@@ -4055,15 +4069,30 @@ namespace Portal.Consultoras.Common
             public const string OrigenPedidoWebDesplegableFichaCarrusel = "OrigenPedidoWebDesplegableFichaCarrusel";
         }
 
-
-
         public static class OpcionesIngresoPendientes
         {
             public const string ingrped = "ingrped";
             public const string ingrgana = "ingrgana";
             public const string ingrten = "ingrten";
         }
-
-
+        
+        public static class TipoContenido
+        {
+            public const string Imagen = "IMAGEN";
+            public const string Video = "VIDEO";
+            public const string Url = "URL";
+        }
+        
+        public static class DatosContenedorHistorias
+        {
+            public const short HistoriasLogicaId = 231;
+            public const string MatrizAppConsultora = "MatrizAppConsultora";
+            public const string CodigoHistoriasResumen = "CodigoHistoriasResumen";
+            public const string CodigoHist = "CodigoHist";
+            public const string HistAnchoAlto = "HistAnchoAlto";
+            public const string HistAnchoAltoDetalle = "HistAnchoAltoDetalle";
+            public const string HistUrlMiniatura = "HistUrlMiniatura";
+            public const string HistLimitDetMensaje = "HistLimitDetMensaje";
+        }
     }
 }

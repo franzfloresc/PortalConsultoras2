@@ -8,6 +8,11 @@
 
 @section css{
     <link href="~/Content/CaminoBrillante/css/estilos.css" rel="stylesheet" />
+    <style>
+        div.content_responsive {
+            margin-top: 0px;
+        }
+    </style>
 }
 
 <section data-layout="ubicacionWeb" class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
@@ -82,7 +87,7 @@
                 <div class="modal fade" id="medalla-{{../Codigo}}-{{@Html.Raw("@index")}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" onloadeddata="PopupComoLograrlo('@Html.Raw(data.Titulo)','{{Titulo}}')">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CerrarComoLograrlo('@Html.Raw(data.Titulo)','{{../Titulo}}','{{ModalTitulo}}','{{ModalDescripcion}}')">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CerrarComoLograrlo('@Html.Raw(data.Titulo)','{{../Titulo}}','{{ModalTitulo}}')">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             <div class="modal-body pad-center">

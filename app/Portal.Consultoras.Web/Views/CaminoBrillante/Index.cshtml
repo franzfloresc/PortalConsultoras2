@@ -8,6 +8,11 @@
 
 @section css{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/CaminoBrillante")
+    <style>
+        div.content_responsive {
+            margin-top: 0px;
+        }
+    </style>
 }
 
 
@@ -98,7 +103,7 @@
                                                 }
                                                 else
                                                 {
-                                                    @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.MontoMinimo), @ViewBag.CodigoISODL)
+                                                    <em>@ViewBag.SimboloMoneda</em> @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.MontoMinimo), @ViewBag.CodigoISODL)
                                                 }
                                             </span>
                                         </p>
@@ -114,7 +119,7 @@
                                     @if (nivel.EnterateMas == 1 || nivel.EnterateMas == 2)
                                     {
                                         <div class="box-enterate">
-                                            <a target="_blank" href="@Url.Action("EnterateMas", "CaminoBrillante", new { nivel = nivel.CodigoNivel  })">Enterate más</a>
+                                            <a target="_blank" href="@Url.Action("EnterateMas", "CaminoBrillante", new { nivel = nivel.CodigoNivel  })">Entérate más</a>
                                         </div>
                                     }
                                 </div>
@@ -205,7 +210,7 @@
     <script src="~/Scripts/Chart.min.js"></script>
 
 </div>
-
+<script src="~/Scripts/Chart.min.js"></script>
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")

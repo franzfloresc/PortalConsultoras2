@@ -24,6 +24,7 @@
     var nombreConsultoraSin = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
     var nroCampania = Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
     var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
+    var claseCajaProductoLiquidacion = "";
 }
 
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
@@ -141,7 +142,7 @@
             </div>
         </div>
         <div class="pedido_resumen_home">
-            <a role="link" region="Cuerpo" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" class="boton_home_guardar boton_ingresa_tu_pedido_navidenio" href="@Url.Action("Index", "Pedido")">INGRESA TU PEDIDO</a>
+            <a role="link" region="Cuerpo" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" class="boton_home_guardar boton_home_guardar--nuevoLookAndFeelEsika" href="@Url.Action("Index", "Pedido")">INGRESA TU PEDIDO</a>
         </div>
         <div class="socia_negocio_home">
             <div class="notificaciones_resumen">
@@ -1275,7 +1276,15 @@
 <script id="liquidacion-template" type="text/x-handlebars-template">
     {{#each this}}
     <div>
-        <div class="content_item_carrusel caja-borde">
+        @if (@ViewBag.CodigoISODL == Constantes.CodigosISOPais.Colombia)
+        {
+            claseCajaProductoLiquidacion = "content_item_carrusel--liquidacion";
+        }
+        else
+        {
+            claseCajaProductoLiquidacion = "";
+        }
+        <div class="content_item_carrusel caja-borde @claseCajaProductoLiquidacion">
             <input type="hidden" id="MarcaID" value="{{MarcaID}}" />
             <input type="hidden" id="PrecioOferta" value="{{PrecioOferta}}" />
             <input type="hidden" id="CUV" value="{{CUV}}" />
@@ -1294,6 +1303,12 @@
                 <p class="nombre_producto">
                     <b>{{Descripcion}}</b>
                 </p>
+                @*INI HD-4009*@
+                @if (@ViewBag.CodigoISODL == Constantes.CodigosISOPais.Colombia)
+                {
+                <div class="text-center {{#if ValPUM}}producto_pum{{else}}producto_pum_hidden{{/if}}"><span>{{UnidadMedida}} a </span>{{SimboloMoneda}}{{PUM}}</div>
+                }
+                @*FIN HD-4009*@
                 <div class="producto_precio">
                     <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioString}}</b></span>
                 </div>
@@ -1940,7 +1955,7 @@
             <img src="/Content/Images/cerrar_04_blanco.png" alt="">
         </a>
         <div class="saludo_consultora_showroom">Valeria YA COMENZÓ LA</div>
-        <img class="imagen_dias_intriga" src="@Url.Content("~/Content/Images/showroom/POPUP_COMPRAR.png")" onclick="VerShowRoomVenta()" style="cursor: pointer;" />
+        <img class="imagen_dias_intriga" src="" onclick="VerShowRoomVenta()" style="cursor: pointer;" />
         <div class="check_01 enlace__noVolverAVerAnuncio">
             <label class="checkpop2">
                 <a id="cbNoMostrarPopupShowRoomVenta" onclick="NoMostrarPopupShowRoomIntrigaVenta('V')">NO VOLVER A VER ESTE ANUNCIO</a>

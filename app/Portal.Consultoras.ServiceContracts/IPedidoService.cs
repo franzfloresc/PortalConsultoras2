@@ -1348,5 +1348,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle);
+        
+        //INI HD-4200
+        [OperationContract]
+        List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb);
+        //FIN HD-4200
     }
 }

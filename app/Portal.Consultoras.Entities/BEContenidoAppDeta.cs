@@ -12,6 +12,8 @@ namespace Portal.Consultoras.Entities
         {
 
         }
+        [DataMember]
+        public int Proc { set; get; }
 
         [DataMember]
         public int IdContenidoDeta { get; set; }
@@ -39,6 +41,9 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public int Estado { get; set; }
+
+        [DataMember]
+        public int Campania { get; set; }
 
     }
 }

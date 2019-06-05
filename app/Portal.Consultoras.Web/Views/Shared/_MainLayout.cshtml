@@ -131,7 +131,7 @@
         }
     </script>
 
-    <header>
+    <header class="header--nuevoLookAndFeelEsika">
         @if (ViewBag.MostrarBannerPostulante == true)
         {
             @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBloqueMensajesPostulante.cshtml")
@@ -171,7 +171,7 @@
         {
             <div class="SubHeader"
                  data-layout="ubicacionWeb">
-                <div class="ubicacion_web">
+                <div class="ubicacion_web ubicacion_web--nuevoLookAndFeelEsika">
                     <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span>
                     <span> | @ViewBag.Title</span>
                 </div>
@@ -277,9 +277,10 @@
             s.parentNode.insertBefore(trme, s);
         })();
     </script>
-
+   
     @RenderSection("scripts", required: false)
-
+    
+    @{ Html.RenderPartial("VistaParcialMainLayout/_fbsdk");}
     <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")

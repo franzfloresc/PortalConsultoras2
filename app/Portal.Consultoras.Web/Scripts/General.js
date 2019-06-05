@@ -5,10 +5,11 @@ belcorp.settings = belcorp.settings || {};
 belcorp.settings.uniquePrefix = "/g/";
 
 jQuery(document).ready(function () {
-
     CreateLoading();
 
-
+    if (typeof IsoPais === 'undefined' || IsoPais != 'PE')  {
+        $('.btn_chat_messenger_mobile').hide();
+    }
     if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {
         GuardarIndicadorPedidoAutentico();
     }
@@ -409,7 +410,7 @@ jQuery(document).ready(function () {
             Handlebars.registerHelper('json', function (context) {
                 return JSON.stringify(context).replace(/"/g, '&quot;');
             });
-             
+
         }
     };
 
@@ -746,6 +747,18 @@ function CerrarLoad(opcion) {
 }
 
 function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
+    
+    var valor = mensaje.indexOf("Sin embargo hemos reservado");
+    /*HD-3710 - 9_10 (Pop up Lo sentimos - Click Botón - Cerrar Pop up lo sentimos) - Web, Mobile*/
+    if (valor != -1) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Carrito de Compras',
+            'action': 'alertDialogMensajes - Click Botón',
+            'label': 'Ok'
+        });
+    }
+
     try {
         mensaje = $.trim(mensaje);
         if (mensaje == "") {
@@ -1240,6 +1253,12 @@ function autoCompleteByCharacters(inp, arr, car) {
                 b.innerHTML += "<input type='hidden' value='" + valueInput + arr[i] + "'>";
                 b.addEventListener("click", function (e) {
                     inp.value = this.getElementsByTagName("input")[0].value;
+                    //INI HD-3897
+                    if ($(inp).hasClass("eventActPerfil_Auto")) {
+                        $(inp).trigger("change");
+                        $(inp).trigger("focusout");
+                    }
+                    //FIN HD-3897
                     closeAllLists();
                 });
                 a.appendChild(b);
@@ -1290,27 +1309,6 @@ function autoCompleteByCharacters(inp, arr, car) {
     document.addEventListener("click", function (e) {
         closeAllLists(e.target);
     });
-}
-
-function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
-    if (urlLogDynamo != "") {
-        jQuery.ajax({
-            type: "POST",
-            async: true,
-            //crossDomain: true,
-            url: baseUrl + 'Comun/InsertarLogDymnamo',
-            //url: urlLogDynamo + "Api/LogUsabilidad",
-            dataType: "json",
-            data: {
-                'Aplicacion': userData.aplicacion,
-                'PantallaOpcion': pantallaOpcion,
-                'OpcionAccion': opcionAccion,
-                'Extra': ToDictionary(extra)
-            },
-            success: function (result) { },
-            error: function (x, xh, xhr) { }
-        });
-    }
 }
 
 function ToDictionary(dic) {
@@ -1699,22 +1697,22 @@ function odd_google_analytics_product_click(name, id, price, brand, variant, pos
     dataLayer.push({
         'event': 'productClick',
         'ecommerce':
-        {
-            'click':
             {
-                'actionField': { 'list': listName },
-                'products':
-                    [{
-                        'name': name,
-                        'id': id,
-                        'price': price,
-                        'brand': brand,
-                        'category': 'No disponible',
-                        'variant': variant,
-                        'position': position
-                    }]
+                'click':
+                    {
+                        'actionField': { 'list': listName },
+                        'products':
+                            [{
+                                'name': name,
+                                'id': id,
+                                'price': price,
+                                'brand': brand,
+                                'category': 'No disponible',
+                                'variant': variant,
+                                'position': position
+                            }]
+                    }
             }
-        }
     });
 }
 
@@ -2036,15 +2034,15 @@ var GeneralModule = (function () {
     "use strict";
 
     var _elements = {
-        loading :{
-            spin : {
-                id : "loading-spin"
+        loading: {
+            spin: {
+                id: "loading-spin"
             },
-            loadingScreen:{
-                id : "loadingScreen",
-                class : {
-                    titulo : "loadingScreen-titulo",
-                    mensaje : "loadingScreen-mensaje"
+            loadingScreen: {
+                id: "loadingScreen",
+                class: {
+                    titulo: "loadingScreen-titulo",
+                    mensaje: "loadingScreen-mensaje"
                 }
             }
         }
@@ -2077,10 +2075,10 @@ var GeneralModule = (function () {
     var _createLoading = function () {
         if ($("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.titulo).length !== 0 ||
             $("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.mensaje).length !== 0) return false;
-    
+
         $("#" + _elements.loading.loadingScreen.id).append("<div class=\"" + _elements.loading.loadingScreen.class.titulo + "\"></div>");
         $("#" + _elements.loading.loadingScreen.id).append("<div class=\"" + _elements.loading.loadingScreen.class.mensaje + "\"></div>");
-    
+
         $("#" + _elements.loading.loadingScreen.id).dialog({
             autoOpen: false,
             dialogClass: "loadingScreenWindow",
@@ -2098,7 +2096,7 @@ var GeneralModule = (function () {
     var waitingDialog = function (params) {
         try {
             if (!$("#" + _elements.loading.loadingScreen.id)) {
-                $(document.body).append("<div id=\"" +_elements.loading.loadingScreen.id + "\"></div>");
+                $(document.body).append("<div id=\"" + _elements.loading.loadingScreen.id + "\"></div>");
             }
 
             if (!$("#" + _elements.loading.loadingScreen.id).hasClass('ui-dialog-content')) {
@@ -2119,7 +2117,7 @@ var GeneralModule = (function () {
 
     var _hideDialog = function (dialogId) {
         try {
-    
+
             dialogId = (dialogId || "").trim();
             if (dialogId != "") {
                 dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
@@ -2129,7 +2127,7 @@ var GeneralModule = (function () {
         catch (err) {
             console.log('HideDialog - log - ', err);
         }
-    
+
         $("body").css("overflow", "auto");
         return false;
     };
@@ -2182,9 +2180,24 @@ var GeneralModule = (function () {
 }());
 //INI HD-3693
 function validarpopupBloqueada(message) {
-    if (message.indexOf("HD3693~")!=-1) return message.split("~")[1];
+    if (message.indexOf("HD3693~") != -1) return message.split("~")[1];
     else return "";
-    
+
 }
 //FIN HD-3693
 
+function AbrirMensajeImagen(mensaje) {
+    var popup = $('#PopupInformacionRegalo');
+    popup.find('.popup__somos__belcorp--informacionRegalo').addClass('mostrarPopup');
+    var mensajeDv = popup.find('.mensaje_regalo');
+
+    mensajeDv.html(mensaje);
+
+    popup.show();
+}
+
+function AbrirChatBot() {
+    if (typeof ChatBotUrlRef === 'undefined') return;
+
+    window.location.href = ChatBotUrlRef;
+}

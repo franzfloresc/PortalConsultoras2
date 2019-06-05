@@ -190,9 +190,6 @@ namespace Portal.Consultoras.Web.Providers
         {
             try
             {
-                //var demostradores = sessionManager.GetDemostradoresCaminoBrillante();
-                //if (demostradores != null) return Format(Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores));
-
                 var demostradores = new BEDemostradoresPaginado();
 
                 int nivel = 0;
@@ -216,7 +213,6 @@ namespace Portal.Consultoras.Web.Providers
                     demostradores = svc.GetDemostradoresCaminoBrillante(usuario, cantRegistros, regMostrados, codOrdenar, codFiltro);
                 }
 
-                //sessionManager.SetDemostradoresCaminoBrillante(demostradores);
                 var oDemostradores = new DemostradoresPaginadoModel();
                 oDemostradores.LstDemostradores = Format(Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores.LstDemostradores));
                 oDemostradores.Total = demostradores.Total;
@@ -293,7 +289,6 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
-                //DesactivarCaminoBrillante();
                 LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
                 return false;
             }

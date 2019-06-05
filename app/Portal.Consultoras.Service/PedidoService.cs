@@ -2482,5 +2482,12 @@ namespace Portal.Consultoras.Service
         {
             _pedidoWebBusinessLogic.UpdDatoRecogerPor(pedidowebdetalle);
         }
+
+        //INI HD-4200
+        public List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb)
+        {
+            return BLPedidoWeb.GetCuvSuscripcionSE(bEPedidoWeb);
+        }
+        //FIN HD-4200
     }
 }
