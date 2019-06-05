@@ -2232,18 +2232,18 @@ var AnalyticsPortalModule = (function () {
     //        console.log(_texto.excepcion + e);
     //    }
     //}
-    var marcarPopupEligeUnaOpcion = function (opcion) {
-        try {
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': _texto.contenedorfichaProducto,
-                'action': 'Ver Popup Elige 1 opción',
-                'label': opcion.DescripcionCompleta
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
+    //var marcarPopupEligeUnaOpcion = function (opcion) {
+    //    try {
+    //        dataLayer.push({
+    //            'event': _evento.virtualEvent,
+    //            'category': _texto.contenedorfichaProducto,
+    //            'action': 'Ver Popup Elige 1 opción',
+    //            'label': opcion.DescripcionCompleta
+    //        });
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //}
     var marcarCerrarPopupEligeUnaOpcion = function (opcion) {
         try {
             dataLayer.push({
@@ -2293,49 +2293,49 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-    var marcarCambiarOpcion = function (opcion) {
+    //var marcarCambiarOpcion = function (opcion) {
 
-        var codUbigeo = opcion.CodigoUbigeoPortal || "";
-        if (codUbigeo !== "") {
-            if (codUbigeo === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionCarritoComprasGuionFichaResumida) {
-                var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codUbigeo); //using new function
-                try {
-                    dataLayer.push({
-                        'event': _evento.virtualEvent,
-                        'category': textoCategory,
-                        'action': 'Ver Popup Cambiar opciones',
-                        'label': opcion.DescripcionCompleta
-                    });
-                } catch (e) {
-                    console.log(_texto.excepcion + e);
-                }
-            }
+    //    var codUbigeo = opcion.CodigoUbigeoPortal || "";
+    //    if (codUbigeo !== "") {
+    //        if (codUbigeo === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionCarritoComprasGuionFichaResumida) {
+    //            var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codUbigeo); //using new function
+    //            try {
+    //                dataLayer.push({
+    //                    'event': _evento.virtualEvent,
+    //                    'category': textoCategory,
+    //                    'action': 'Ver Popup Cambiar opciones',
+    //                    'label': opcion.DescripcionCompleta
+    //                });
+    //            } catch (e) {
+    //                console.log(_texto.excepcion + e);
+    //            }
+    //        }
 
-        } else {  //Cambia Opcione normal
-            try {
-                dataLayer.push({
-                    'event': _evento.virtualEvent,
-                    'category': _texto.contenedorfichaProducto,
-                    'action': 'Cambiar opción',
-                    'label': opcion.DescripcionCompleta
-                });
-            } catch (e) {
-                console.log(_texto.excepcion + e);
-            }
-        }
-    }
-    var marcarPopupEligeXOpciones = function (opcion) {
-        try {
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': _texto.contenedorfichaProducto,
-                'action': 'Ver Popup Elige más de una opción',
-                'label': opcion.DescripcionCompleta
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
+    //    } else {  //Cambia Opcione normal
+    //        try {
+    //            dataLayer.push({
+    //                'event': _evento.virtualEvent,
+    //                'category': _texto.contenedorfichaProducto,
+    //                'action': 'Cambiar opción',
+    //                'label': opcion.DescripcionCompleta
+    //            });
+    //        } catch (e) {
+    //            console.log(_texto.excepcion + e);
+    //        }
+    //    }
+    //}
+    //var marcarPopupEligeXOpciones = function (opcion) {
+    //    try {
+    //        dataLayer.push({
+    //            'event': _evento.virtualEvent,
+    //            'category': _texto.contenedorfichaProducto,
+    //            'action': 'Ver Popup Elige más de una opción',
+    //            'label': opcion.DescripcionCompleta
+    //        });
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //}
     var marcarPopupCerrarEligeXOpciones = function (opcion) {
         try {
             dataLayer.push({
@@ -2398,38 +2398,38 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-    var marcarCambiarOpcionVariasOpciones = function (opcion) {
+    //var marcarCambiarOpcionVariasOpciones = function (opcion) {
 
-        try {
-            var codUbigeo = opcion.CodigoUbigeoPortal || "";
+    //    try {
+    //        var codUbigeo = opcion.CodigoUbigeoPortal || "";
 
-            if (codUbigeo !== "") {
-                if (codUbigeo === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionCarritoComprasGuionFichaResumida) {
-                    var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codUbigeo); //using new function
-                    try {
-                        dataLayer.push({
-                            'event': _evento.virtualEvent,
-                            'category': textoCategory,
-                            'action': 'Ver Popup Cambiar opciones',
-                            'label': opcion.DescripcionCompleta
-                        });
-                    } catch (e) {
-                        console.log(_texto.excepcion + e);
-                    }
-                }
+    //        if (codUbigeo !== "") {
+    //            if (codUbigeo === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionCarritoComprasGuionFichaResumida) {
+    //                var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codUbigeo); //using new function
+    //                try {
+    //                    dataLayer.push({
+    //                        'event': _evento.virtualEvent,
+    //                        'category': textoCategory,
+    //                        'action': 'Ver Popup Cambiar opciones',
+    //                        'label': opcion.DescripcionCompleta
+    //                    });
+    //                } catch (e) {
+    //                    console.log(_texto.excepcion + e);
+    //                }
+    //            }
 
-            } else { //Cambia Opcione normal
-                dataLayer.push({
-                    'event': _evento.virtualEvent,
-                    'category': 'Contenedor - Ficha de producto',
-                    'action': 'Cambiar opciones',
-                    'label': opcion.DescripcionCompleta
-                });
-            }
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
+    //        } else { //Cambia Opcione normal
+    //            dataLayer.push({
+    //                'event': _evento.virtualEvent,
+    //                'category': 'Contenedor - Ficha de producto',
+    //                'action': 'Cambiar opciones',
+    //                'label': opcion.DescripcionCompleta
+    //            });
+    //        }
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //}
 
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Rama TiposAnalytics
@@ -2719,19 +2719,19 @@ var AnalyticsPortalModule = (function () {
 
         // Ini - Rama TiposAnalytics
         //MarcarImagenProducto: marcarImagenProducto,
-        MarcarPopupEligeUnaOpcion: marcarPopupEligeUnaOpcion,
+        //MarcarPopupEligeUnaOpcion: marcarPopupEligeUnaOpcion,
         MarcarCerrarPopupEligeUnaOpcion: marcarCerrarPopupEligeUnaOpcion,
         MarcarPopupBotonEligeloSoloUno: marcarPopupBotonEligeloSoloUno,
         //MarcarBotonAplicarSeleccion: marcarBotonAplicarSeleccion,
         MarcarEliminarOpcionSeleccionada: marcarEliminarOpcionSeleccionada,
-        MarcarCambiarOpcion: marcarCambiarOpcion,
-        MarcarPopupEligeXOpciones: marcarPopupEligeXOpciones,
+        //MarcarCambiarOpcion: marcarCambiarOpcion,
+        //MarcarPopupEligeXOpciones: marcarPopupEligeXOpciones,
         MarcarPopupCerrarEligeXOpciones: marcarPopupCerrarEligeXOpciones,
         MarcarPopupBotonEligeloVariasOpciones: marcarPopupBotonEligeloVariasOpciones,
         //MarcarPopupBotonAplicarSeleccionVariasOpciones: marcarPopupBotonAplicarSeleccionVariasOpciones,
         MarcarEliminarOpcionSeleccionadaVariasOpciones: marcarEliminarOpcionSeleccionadaVariasOpciones,
         MarcarAumentardisminuirOpcionProducto: marcarAumentardisminuirOpcionProducto,
-        MarcarCambiarOpcionVariasOpciones: marcarCambiarOpcionVariasOpciones,
+        //MarcarCambiarOpcionVariasOpciones: marcarCambiarOpcionVariasOpciones,
         // Fin - Rama TiposAnalytics
 
         // Ini - Analytics Buscador Miguel
