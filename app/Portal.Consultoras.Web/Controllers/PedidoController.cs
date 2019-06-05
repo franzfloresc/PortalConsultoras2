@@ -991,6 +991,20 @@ namespace Portal.Consultoras.Web.Controllers
                 var producto = productos.FirstOrDefault(prod => prod.CUV == model.CUV) ?? new ServiceODS.BEProducto();
 
                 var estrategias = SessionManager.GetBEEstrategia(Constantes.ConstSession.ListaEstrategia) ?? new List<ServiceOferta.BEEstrategia>();
+
+                if (producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
+                {
+                    var listProdEstraProgNuevas = _programaNuevasProvider.GetListCuvEstrategia();
+
+                    listProdEstraProgNuevas.ForEach(x =>
+                    {
+                        if (x.Cuv.Equals(producto.CUV))
+                        {
+                            producto.EsOfertaIndependiente = x.EsCuponIndependiente;
+                        }
+                    });
+                }
+
                 var estrategia = estrategias.FirstOrDefault(p => p.CUV2 == producto.CUV) ?? new ServiceOferta.BEEstrategia();
 
                 var observacionCuv = ObtenerObservacionCreditoCuv(userModel, cuvCredito);
@@ -1028,7 +1042,7 @@ namespace Portal.Consultoras.Web.Controllers
                     TieneSugerido = producto.TieneSugerido,
                     CodigoProducto = producto.CodigoProducto,
                     LimiteVenta = estrategia.LimiteVenta,
-                    EsOfertaIndependiente = estrategia.EsOfertaIndependiente,
+                    EsOfertaIndependiente = producto.EsOfertaIndependiente,
                     TieneRDC = tieneRdc,
                     EstrategiaID = producto.EstrategiaID,
                     EsCuponNuevas = esCuponNuevas,
