@@ -333,7 +333,7 @@ var ComponentesPresenter = function (config) {
         });
         
         _estrategiaModel(model);
-        
+        //
         return result;
     };
 
@@ -353,7 +353,7 @@ var ComponentesPresenter = function (config) {
                 result = result && _config.componentesView.showTypesAndTonesModal();
 
                 $.each(componente.resumenAplicados, function (idxOpcion, opcion) {
-                    _addTypeOrTone(opcion.Grupo,opcion.Cuv);
+                    _addTypeOrTone(opcion.Grupo, opcion.Cuv);
                 });
 
                 componente.selectComponentTitle = "";

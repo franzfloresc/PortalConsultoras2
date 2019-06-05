@@ -10,9 +10,9 @@
 
 <style data-ficha-contenido="ofertadeldia-template-style"></style>
 
-<div id="ImagenDeFondo" class="imagen_fondo_detalle"></div>
-<section class="contenedor_detalle">
-    <div class="container">
+<section class="seccion_ficha">
+    <div id="ImagenDeFondo" class="imagen_fondo_detalle" @*style="background-image: url('https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019424344_dkvuwesndt.png');"*@></div>
+    <div class="contenedor_detalle container">
         <ul id="breadcrumbs" class="breadcumbs"></ul>
         <div class="row scontenedor_fichas" data-item="" data-tag-html="@ViewBag.Campania" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar" data-OrigenPedidoEditar="@Model.CodigoUbigeoPortal">
             <hidden id="data-estrategia" data-estrategia='@Html.Raw(Json.Encode(Model))'></hidden>
@@ -29,6 +29,18 @@
         @*<div id="compartir-estrategia" class="share" style="display:none"></div>*@
     </div>
 </section>
+
+<!--Comienza Up-Selling-->
+<section class="seccion_ficha" id="divFichaCarrusel">
+    <div class="contenedor_detalle container">
+        <h2 class="titulo_seccion" id="tituloCarrusel">Packs que contienen Magnat Select</h2>
+        <div id="divFichaCarruselProducto" class="carousel_ficha">
+
+        </div>
+    </div>
+</section>
+<!--Finaliza Up-Selling-->
+@Html.Partial("~/Views/DetalleEstrategia/template-producto-carrusel-responsive.cshtml")
 
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/breadcrumbs-template.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/imagen-estrategia-template.cshtml")
@@ -69,6 +81,10 @@
 
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaEnriquecida/FichaEnriquecidaView.js"></script>
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaEnriquecida/FichaEnriquecidaPresenter.js"></script>
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/CarruselAyuda.js"></script>
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselModel.js"></script>
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselView.js"></script>
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselPresenter.js"></script>
 
     @*<script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClientePresenter.js"></script>
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClienteView.js"></script>*@

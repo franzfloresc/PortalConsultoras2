@@ -27,6 +27,8 @@ var EstrategiaAgregarModule = (function () {
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _mensajeAgregarPedido = ConstantesModule.MensajeAgregarPedido;
     var _mensajeModificarPedido = ConstantesModule.MensajeModificarPedido;
+    var _codigoOrigenPedidoWeb = CodigoOrigenPedidoWeb;
+
     var dataProperties = {
         dataItem: "[data-item]",
         dataContenedorCantidad: "[data-cantidad-contenedor]",
@@ -261,8 +263,8 @@ var EstrategiaAgregarModule = (function () {
 
         var $btnAgregar = $(event.target);
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
-
         //#region ANALYTICS
+
         if (AnalyticsPortalModule != 'undefined') {
             var estrategiaAnalytics;
             if (typeof (fichaModule) != "undefined") {
@@ -273,20 +275,21 @@ var EstrategiaAgregarModule = (function () {
                 }
             }
 
-            if (typeof (seleccionadosPresenter) !== 'undefined') {
-                if (seleccionadosPresenter.packComponents() !== 'undefined') {
-                    var seleccionados = seleccionadosPresenter.packComponents().componentesSeleccionados;
-                    estrategiaAnalytics = JSON.parse($("#data-estrategia").attr("data-estrategia"));
-                    var codigoubigeoportal = estrategiaAnalytics.CodigoUbigeoPortal;
+            var origenModelo = _codigoOrigenPedidoWeb.GetOrigenModelo(origenPedidoWebEstrategia);
+            if (origenModelo.Pagina == _codigoOrigenPedidoWeb.CodigoEstructura.Pagina.ArmaTuPackDetalle) {
+                if (typeof (seleccionadosPresenter) !== 'undefined') {
+                    if (seleccionadosPresenter.packComponents() !== 'undefined') {
+                        var seleccionados = seleccionadosPresenter.packComponents().componentesSeleccionados;
+                        estrategiaAnalytics = JSON.parse($("#data-estrategia").attr("data-estrategia"));
+                        var codigoubigeoportal = estrategiaAnalytics.CodigoUbigeoPortal;
 
-                    if (codigoubigeoportal !== "") {
-                        AnalyticsPortalModule.MarcarAddCarArmaTuPack(codigoubigeoportal, seleccionados);
-                        AnalyticsPortalModule.MarcaClickAgregarArmaTuPack(codigoubigeoportal, "Agregar", "Click Botón");
+                        if (codigoubigeoportal !== "") {
+                            //AnalyticsPortalModule.MarcarAddCarArmaTuPack(codigoubigeoportal, seleccionados);
+                            AnalyticsPortalModule.MarcaClickAgregarArmaTuPack(codigoubigeoportal, "Agregar", "Click Botón");
+                        }
                     }
                 }
             }
-        }
-        //#endregion
 
         var estrategia = estrategiaResponsive || getEstrategia($btnAgregar, origenPedidoWebEstrategia);
 
@@ -424,16 +427,9 @@ var EstrategiaAgregarModule = (function () {
                     sessionStorage.setItem('cuvPack', cuv);
                 }
 
-                try {
-                    if (!(typeof AnalyticsPortalModule === 'undefined')) {
-                        AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
-                    }
-                    TrackingJetloreAdd(cantidad, $(elementosDiv.hdCampaniaCodigo).val(), cuv);
-                } catch (e) {
-                    console.log(e);
-                }
-
-                $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
+               analyticsAgregar(event, origenPedidoWebEstrategia, estrategia);
+               
+               $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
 
 
                 if (divAgregado != null) {
@@ -512,13 +508,12 @@ var EstrategiaAgregarModule = (function () {
                          } else {
                              var mensaje = '';
 
-                             if (data.EsReservado === true) {
-                                 mensaje = _mensajeAgregarPedido.reservado;
-                             } else {
-                                 mensaje = _mensajeAgregarPedido.normal;
-                             }
-
-                             AbrirMensaje25seg(mensaje);
+                            if (data.EsReservado === true) {
+                                mensaje = _mensajeAgregarPedido.reservado;
+                            } else {
+                                mensaje = _mensajeAgregarPedido.normal;
+                            }
+                            AbrirMensaje25seg(mensaje);
 
                              return;
                          }
@@ -639,8 +634,7 @@ var EstrategiaAgregarModule = (function () {
 
                 CerrarLoad();
 
-                //debugger;
-                var imagenProducto = $btnAgregar.parents("[data-item]").find("[data-imagen-producto]").attr("data-imagen-producto");
+               var imagenProducto = $btnAgregar.parents("[data-item]").find("[data-imagen-producto]").attr("data-imagen-producto");
 
                 if (typeof imagenProducto === 'undefined' || imagenProducto === null) {
                     if (document.querySelector("#FichaImagenProducto > img") !== null) {
@@ -672,23 +666,26 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
 
-                AbrirMensaje25seg(mensaje, imagenProducto);
+               if (params.EsDuoPerfecto !== 'undefined' && params.EsDuoPerfecto === false) {
+                   AbrirMensaje25seg(mensaje, imagenProducto);
+               }
+               
 
-                if (popup) {
-                    CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);
-                    $(elementosPopPup.popupDetalleCarouselPackNuevas).hide();
-                }
-                else {
-                    if (_config.esFicha) {
-                        if (params.CuvTonos != "") {
-                            var listaCuvs = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataTono.concat(dataProperties.dataTonoSelect));
-                            if (listaCuvs.length > 0) {
-                                $(".texto_sin_tono").find(".tono_seleccionado").hide();
-                                var $ContentTonoDetalle = $(".content_tono_detalle");
-                                if ($ContentTonoDetalle.length > 0) {
-                                    $ContentTonoDetalle.removeClass("borde_seleccion_tono");
-                                }
-                                $btnAgregar.addClass("btn_desactivado_general");
+               if (popup) {
+                   CerrarPopup(elementosPopPup.popupDetalleCarouselLanzamiento);
+                   $(elementosPopPup.popupDetalleCarouselPackNuevas).hide();
+               }
+               else {
+                   if (_config.esFicha) {
+                       if (params.CuvTonos != "") {
+                           var listaCuvs = $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataTono.concat(dataProperties.dataTonoSelect));
+                           if (listaCuvs.length > 0) {
+                               $(".texto_sin_tono").find(".tono_seleccionado").hide();
+                               var $ContentTonoDetalle = $(".content_tono_detalle");
+                               if ($ContentTonoDetalle.length > 0) {
+                                   $ContentTonoDetalle.removeClass("borde_seleccion_tono");
+                               }
+                               $btnAgregar.addClass("btn_desactivado_general");
 
                                 $.each(listaCuvs,
                                     function (i, item) {
@@ -716,6 +713,48 @@ var EstrategiaAgregarModule = (function () {
             });
 
         return false;
+    };
+
+    var analyticsAgregar = function (event, origenPedidoWebEstrategia, estrategia) {
+        try {
+            estrategia = estrategia || {};
+            var objJetlore = {
+                Cantidad: estrategia.Cantidad,
+                CUV: estrategia.CUV2,
+                Campania: $(elementosDiv.hdCampaniaCodigo).val()
+            }
+
+            if (!(typeof AnalyticsPortalModule === 'undefined')) {
+                
+                var origenModelo = _codigoOrigenPedidoWeb.GetOrigenModelo(origenPedidoWebEstrategia);
+                if (origenModelo.Pagina == _codigoOrigenPedidoWeb.CodigoEstructura.Pagina.ArmaTuPackDetalle) {
+                    if (typeof (seleccionadosPresenter) !== 'undefined') {
+                        var packComponents = seleccionadosPresenter.packComponents();
+                        if (packComponents !== 'undefined') {
+                            //var estrategiaAnalytics = JSON.parse($("#data-estrategia").attr("data-estrategia"));
+                            //var codigoubigeoportal = estrategiaAnalytics.CodigoUbigeoPortal;
+
+                            //if (codigoubigeoportal !== "") {
+                            //    var seleccionados = packComponents.componentesSeleccionados;
+                            //    AnalyticsPortalModule.MarcarAddCarArmaTuPack(origenPedidoWebEstrategia, seleccionados);
+                            //}
+
+                            estrategia = packComponents.componentesSeleccionados;
+                        }
+                    }
+                }
+
+                AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
+                
+            }
+
+            if (!(typeof TrackingJetloreAdd === 'undefined')) {
+                TrackingJetloreAdd(objJetlore.Cantidad, objJetlore.Campania, objJetlore.CUV2);
+            }
+
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     var selectorCantidadEstaBloquedo = function ($element) {

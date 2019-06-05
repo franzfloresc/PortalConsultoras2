@@ -760,6 +760,9 @@ var PedidoRegistroModule = function () {
                     }
 
                     if (_mensajeRespuestaError(data)) {
+                        if (!IsNullOrEmpty(data.message)) {
+                            AbrirMensaje(data.message);
+                        }
                         return false;
                     }
 
@@ -831,7 +834,8 @@ var PedidoRegistroModule = function () {
                 }
             });
         }
-    };
+    }
+
     /* Fin - Region Buscador */
 
     /* Ini - Region Oferta Final */
@@ -1085,6 +1089,17 @@ var PedidoRegistroModule = function () {
             model.EstrategiaID = $("#hdfEstrategiaId").val();
         }
 
+        var EsDuoPerfecto = false;
+        var CodigoEstrategia = $("#hdTipoEstrategiaCodigo").val();
+        if (CodigoEstrategia === ConstantesModule.TipoEstrategia.PackNuevas) {
+            var _EsOfertaIndependiente = $("#hdEsOfertaIndependiente").val();
+            var EsOfertaIndependiente = (typeof _EsOfertaIndependiente === 'undefined') ? true : JSON.parse(_EsOfertaIndependiente);
+            var _esDuoPerfecto = $("#hdEsDuoPerfecto").val();
+            EsDuoPerfecto = ((typeof _esDuoPerfecto === 'undefined') ? false : JSON.parse(_esDuoPerfecto)) && (!EsOfertaIndependiente);
+        };
+
+        model.EsDuoPerfecto = EsDuoPerfecto;
+
         ShowLoading();
         jQuery.ajax({
             type: 'POST',
@@ -1131,13 +1146,22 @@ var PedidoRegistroModule = function () {
 
                 //INI HD-3908
                 if (_flagNueva && IsNullOrEmpty(data.mensajeAviso)) {
-                    try {
-                        var $AgregadoTooltip = $("[data-agregado=\"tooltip\"]");
-                        $AgregadoTooltip.show();
-                        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
-                    } catch (e) {
-                        console.error(e);
+                    //try {
+                    //    var $AgregadoTooltip = $("[data-agregado=\"tooltip\"]");
+                    //    $AgregadoTooltip.show();
+                    //    setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+                    //} catch (e) {
+                    //    console.error(e);
+                    //}
+
+                    var mensaje = '';
+                    if (data.EsReservado === true) {
+                        mensaje = _mensajeAgregarPedido.reservado;
+                    } else {
+                        mensaje = _mensajeAgregarPedido.normal;
                     }
+
+                    AbrirMensaje25seg(mensaje);
                 }
                 //FIN HD-3908
                 var prevTotal = mtoLogroBarra || 0;
@@ -1250,6 +1274,7 @@ var PedidoRegistroModule = function () {
     };
 
     var AgregarProductoZonaEstrategia = function (tipoEstrategiaImagen) {
+
         var param2 = {
             CUV: $("#txtCUV").val(),
             Cantidad: $("#txtCantidad").val(),
@@ -1263,6 +1288,16 @@ var PedidoRegistroModule = function () {
             EsOfertaIndependiente: $("#hdEsOfertaIndependiente").val(),
             EsCuponNuevas: cuvEsCuponNuevas
         };
+
+        var EsDuoPerfecto = false;
+        var CodigoEstrategia = $("#hdTipoEstrategiaCodigo").val();
+        if (CodigoEstrategia === ConstantesModule.TipoEstrategia.PackNuevas) {
+            var EsOfertaIndependiente = (typeof param2.EsOfertaIndependiente === 'undefined') ? true : JSON.parse(param2.EsOfertaIndependiente);
+            var _esDuoPerfecto = $("#hdEsDuoPerfecto").val();
+            EsDuoPerfecto = ((typeof _esDuoPerfecto === 'undefined') ? false : JSON.parse(_esDuoPerfecto)) && (!EsOfertaIndependiente);
+        };
+
+        param2.EsDuoPerfecto = EsDuoPerfecto;
 
         AbrirSplash();
         jQuery.ajax({
@@ -1286,13 +1321,22 @@ var PedidoRegistroModule = function () {
 
                 //INI HD-3908
                 if (_flagNueva && IsNullOrEmpty(data.mensajeAviso)) {
-                    try {
-                        var $AgregadoTooltip = $("[data-agregado=\"tooltip\"]");
-                        $AgregadoTooltip.show();
-                        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
-                    } catch (e) {
-                        console.error(e);
+                    //try {
+                    //    var $AgregadoTooltip = $("[data-agregado=\"tooltip\"]");
+                    //    $AgregadoTooltip.show();
+                    //    setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+                    //} catch (e) {
+                    //    console.error(e);
+                    //}
+
+                    var mensaje = '';
+                    if (data.EsReservado === true) {
+                        mensaje = _mensajeAgregarPedido.reservado;
+                    } else {
+                        mensaje = _mensajeAgregarPedido.normal;
                     }
+
+                    AbrirMensaje25seg(mensaje);
                 }
                 //FIN HD-3908
                 cierreCarouselEstrategias();
