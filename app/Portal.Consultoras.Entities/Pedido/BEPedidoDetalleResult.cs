@@ -44,6 +44,9 @@ namespace Portal.Consultoras.Entities.Pedido
         [DataMember]
         public decimal? GananciaOtros { get; set; }
 
+        [DataMember]
+        public BEPedidoWeb PedidoWeb { get; set; }
+
         public BEPedidoDetalleResult()
         {
             ListaMensajeCondicional = new List<BEMensajeProl>();
