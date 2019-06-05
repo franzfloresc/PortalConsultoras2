@@ -1,4 +1,6 @@
-﻿var animacion = true;
+﻿var UR_DESHACERRECEPCION_PEDIDO = baseUrl + "Pedido/DeshacerRecepcionPedidoRequest",
+    URL_VERIFICAR_CONSULTORA_DIGITAL = baseUrl + "Pedido/VerificarConsultoraDigitalRequest"
+var animacion = true;
 var contadorNext = 2;
 var positionCarrousel = 0;
 var posicionInicial = 0;
@@ -29,6 +31,9 @@ var _flagNueva = false;
 var pedidoProvider = PedidoProvider();
 
 $(document).ready(function () {
+
+
+
     ValidarKitNuevas();
 
     var hdDataBarra = $("#hdDataBarra").val();
@@ -63,7 +68,7 @@ $(document).ready(function () {
         cerrar_popup_tutorial();
     });
 
- 
+
 
     $("body").click(function (e) {
         if (!$(e.target).closest(".ui-dialog").length) {
@@ -221,7 +226,7 @@ $(document).ready(function () {
                 .appendTo(ul);
     };
 
-    $("#txtCUV").on('input', function () {        
+    $("#txtCUV").on('input', function () {
         if (isNaN($("#txtCUV").val()) == true) {
             $("#txtCUV").val("");
             //document.getElementById('divObservaciones').style.display = 'block';
@@ -408,7 +413,7 @@ $(document).ready(function () {
             AbrirMensaje("Ingrese una cantidad mayor que cero.");
             return false;
         }
-        
+
         var cuv = $("#txtCUV").val();
         var esKit = $("#divListadoPedido").find("input[data-kit='True']") || $("#divListadoPedido").find("input[data-kit='true']") || [];
         if (esKit.length > 0) {
@@ -424,7 +429,7 @@ $(document).ready(function () {
             AbrirMensaje(mensajeNoAgregarLiquidacion);
             return false;
         }
-        
+
         var flagNueva = $.trim($("#hdFlagNueva").val());
         if (flagNueva == "0" || flagNueva == "") {
             var form = FuncionesGenerales.GetDataForm(this);
@@ -439,11 +444,10 @@ $(document).ready(function () {
         if (cuv.substring(0, 3) == '999') {
             sessionStorage.setItem('cuvPack', cuv);
         }
-
+        
         ProcesarActualizacionMostrarContenedorCupon();
         ProductoRecomendadoModule.OcultarProductosRecomendados();
         $("#btnAgregar").removeAttr("disabled");
-
         return false;
     });
     $("body").on("click", "[data-paginacion]", function (e) {
@@ -476,9 +480,9 @@ $(document).ready(function () {
     CrearDialogs();
     MostrarBarra();
     //INI HD-4200
-    ValidarSuscripcionSE(function () { CargarDetallePedido();},0);
+    ValidarSuscripcionSE(function () { CargarDetallePedido(); }, 0);
     //FIN HD-4200
-    
+
     CargarCarouselEstrategias();
     CargarAutocomplete();
     CargarDialogMesajePostulantePedido();
@@ -488,23 +492,21 @@ $(document).ready(function () {
 
     var myvar = setInterval(myTimer, 1000);
     var cont = 0;
-    function myTimer()
-    {
+    function myTimer() {
         if (cont <= 5) {
             cont++;
-            if (document.getElementById('divListaEstrategias').style.display == 'none')
-            {
+            if (document.getElementById('divListaEstrategias').style.display == 'none') {
                 MostrarBarra();
                 clearInterval(myvar);
             }
-             
-        } 
+
+        }
         else
             clearInterval(myvar);
-                 
+
     }
- 
-  
+
+
 
 
     $("#observaciones_alerta").dialog({
@@ -530,11 +532,15 @@ $(document).ready(function () {
         HideDialog("observaciones_alerta");
         return false;
     });
-
-    
+    //
+    //doWhatYouNeed();
 });
 
-function CargarDetallePedido(page, rows, asyncrono) {    
+
+//paco
+
+
+function CargarDetallePedido(page, rows, asyncrono) {
     $(".pMontoCliente").css("display", "none");
 
     $("#tbobyDetallePedido").html('<div><div style="width:100%;"><div style="text-align: center;"><br>Cargando Detalle de Productos<br><img src="' + urlLoad + '" /></div></div></div>');
@@ -550,6 +556,7 @@ function CargarDetallePedido(page, rows, asyncrono) {
     pedidoProvider
         .cargarDetallePedidoPromise(pedidoPageParams)
         .done(function (response) {
+
             if (checkTimeout(response)) {
                 var data = response.data;
 
@@ -601,7 +608,7 @@ function CargarDetallePedido(page, rows, asyncrono) {
                 var htmlPaginadorH = ArmarDetallePedidoPaginador(data);
 
                 data.footer = false;
-                var htmlPaginadorF = ArmarDetallePedidoPaginador(data);                
+                var htmlPaginadorF = ArmarDetallePedidoPaginador(data);
 
                 $("#paginadorCab").html(htmlPaginadorH);
                 $("#paginadorPie").html(htmlPaginadorF);
@@ -621,10 +628,10 @@ function CargarDetallePedido(page, rows, asyncrono) {
                     }
                 }
                 // camino brillante
-                
+
                 var filas = document.getElementById('tbListaPedido').children[1].getElementsByClassName('contenido_ingresoPedido mouse_encima');
 
-                
+
                 var Eskits = false;
                 if (filas != null) {
 
@@ -653,7 +660,9 @@ function CargarDetallePedido(page, rows, asyncrono) {
                         }
                     }
                 }
-                
+
+                /*HD-4288 - Switch Consultora 100% */
+                doWhatYouNeed()
             }
         })
         .fail(function (response, error) {
@@ -918,6 +927,7 @@ function ActualizarMontosPedido(formatoTotal, total, formatoTotalCliente) {
 }
 
 function ArmarDetallePedidoPaginador(data) {
+
     return SetHandlebars("#paginador-template", data);
 }
 
@@ -1680,8 +1690,8 @@ function CerrarProductoAgregado() {
 }
 
 function ValidDeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId, esElecMultipleNuevas) {
-    
-    
+
+
     ValidDeleteElectivoNuevas(
         cuv,
         esElecMultipleNuevas,
@@ -2639,12 +2649,12 @@ function CargarProductoAgotados(identificador) {
         CargarFiltrosProductoAgotados();
 
     var data =
-    {
-        cuv: $("#producto-faltante-busqueda-cuv").val(),
-        descripcion: $("#producto-faltante-busqueda-descripcion").val(),
-        categoria: $("#ddlCategoriaProductoAgotado").val() == null ? "" : $("#ddlCategoriaProductoAgotado").val(),
-        revista: $("#ddlCatalogoRevistaProductoAgotado").val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text()
-    };
+        {
+            cuv: $("#producto-faltante-busqueda-cuv").val(),
+            descripcion: $("#producto-faltante-busqueda-descripcion").val(),
+            categoria: $("#ddlCategoriaProductoAgotado").val() == null ? "" : $("#ddlCategoriaProductoAgotado").val(),
+            revista: $("#ddlCatalogoRevistaProductoAgotado").val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text()
+        };
 
     AbrirSplash();
     jQuery.ajax({
@@ -2919,7 +2929,7 @@ function ArmarPopupObsReserva(titulo, mensaje) {
 }
 
 function MostrarPopupErrorReserva(mensajePedido, esAviso) {
-    
+
     mostrarAlerta = typeof mostrarAlerta !== "undefined" ? mostrarAlerta : true;
 
     if (esAviso) ArmarPopupObsReserva("Aviso", mensajePedido);
@@ -3013,5 +3023,124 @@ function BloquearPantallaPedidoByPopupSugerido(valor) {
 
 function CargarProductosRecomendados(item) {
     ProductoRecomendadoModule.ObtenerProductos(item.CodigoCatalago, item.EstrategiaIDSicc, item.CUV, item.CodigoProducto);
-    
+
 }
+
+/*HD-4288 - Switch Consultora 100% */
+function doWhatYouNeed() {
+    
+    object = { codigoConsultora: $("#hdCodigoConsultora").val() }
+
+    $.ajax({
+        type: "POST",
+        url: URL_VERIFICAR_CONSULTORA_DIGITAL,
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(object),
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+            
+            if (checkTimeout(data)) {
+                if (data != null) {
+                    if (data.IndicadorConsultoraDigital) {
+                        if (document.getElementById("bPedidoPaginarRegistrosTotal").innerHTML.length > 0 && document.getElementById("bPedidoPaginarRegistrosTotal") != undefined) {
+                            if (data.IndicadorRecepcion) {
+                                $("div.contenedor_info_recepcion_pedido").css("display", "flex");
+                                $(".info_recepcion_pedido").css("display", "block");
+                                $(".switch__control").prop("checked", true);
+                                cargarDatosrecepcion(data);
+                            } else {
+                                $("div.contenedor_info_recepcion_pedido").css("display", "flex");
+                                $(".info_recepcion_pedido").css("display", "none");
+                                $(".switch__control").prop("checked", false);
+                            }
+
+                        } else {
+                            $("div.contenedor_info_recepcion_pedido").css("display", "none");
+                            $(".info_recepcion_pedido").css("display", "none");
+                            $(".switch__control").prop("checked", false);
+                        }
+                    } else $("div.contenedor_info_recepcion_pedido").css("display", "none")
+                }
+            }
+        },
+        error: function (x, xh, xhr) {
+            if (checkTimeout(x)) {
+                closeWaitingDialog();
+            }
+        }
+    });
+
+
+}
+
+$("input:checkbox[class=switch__control]").change(function () {
+    // 
+    if (!document.querySelectorAll("input[type=checkbox]:not(:checked )").length) {
+        LimpiarCamposRecepcionPoput();
+        $('#PopupRecepcionPedido').fadeIn(100);
+    } else {
+        DeshacerRecepcionpedido();
+    }
+
+});
+
+
+function DeshacerRecepcionpedido() {
+    $.ajax({
+        type: "POST",
+        url: UR_DESHACERRECEPCION_PEDIDO,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+            
+            if (checkTimeout(data)) {
+                if (data > 0) {
+                    $(".info_recepcion_pedido").css("display", "none");
+                }
+            }
+        },
+        error: function (x, xh, xhr) {
+            if (checkTimeout(x)) {
+                closeWaitingDialog();
+            }
+        }
+    });
+}
+
+function cargarDatosrecepcion(object) {
+    var ListChildren = document.getElementsByClassName("datos__receptor__pedido")[0].children;
+    ListChildren[0].textContent = object.nombreYApellido;
+    ListChildren[1].textContent = object.numeroDocumento;
+}
+
+
+function LimpiarCamposRecepcionPoput() {
+
+    document.getElementsByClassName("form__group__fields--nombreApellido")[0].children[2].textContent = "";
+    document.getElementsByClassName("form__group__fields--numeroDocumento")[0].children[2].textContent = "";
+    $("#txtNombreYApellido").val("");
+    $("#txtNumeroDocumento").val("");
+    $(".btn__sb__primary--multimarca").addClass("btn__sb--disabled");
+    object = {};
+}
+
+$(".popup__somos__belcorp__icono__cerrar--popupRecepcionPedido").click(function () {
+    ActualizarCheck();
+})
+
+
+function ActualizarCheck() {
+    
+    if ($(".info_recepcion_pedido").css("display") == "none") {
+        $(".switch__control").prop("checked", false);
+    }
+}
+
+
+
+
+
+
+/*HD-4288 - FIN*/

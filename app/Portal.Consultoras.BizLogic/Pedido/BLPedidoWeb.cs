@@ -2147,7 +2147,7 @@ namespace Portal.Consultoras.BizLogic
                     //INI HD-3693 
                     if (usuario.AutorizaPedido == "0")
                     {
-                        
+
                         return new BEValidacionModificacionPedido
                         {
                             MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Bloqueado,
@@ -2219,7 +2219,7 @@ namespace Portal.Consultoras.BizLogic
             BEConfiguracionCampania configuracion = null;
             using (var reader = new DAPedidoWeb(paisId).GetEstadoPedido(campaniId, consultoraId))
             {
-                configuracion =  reader.MapToObject<BEConfiguracionCampania>(true); 
+                configuracion = reader.MapToObject<BEConfiguracionCampania>(true);
             }
 
             return configuracion != null && EsPedidoReservado(configuracion);
@@ -2358,6 +2358,42 @@ namespace Portal.Consultoras.BizLogic
             var daPedidoWeb = new DAPedidoWeb(paisID);
             daPedidoWeb.UpdateMostradoProductosPrecargados(CampaniaID, ConsultoraID, IPUsuario);
         }
+
+
+
+        #endregion
+
+
+        #region HD-4288
+        public int DeshacerRecepcionPedido(int pedidoID, int paisID)
+        {
+            var daPedidoWeb = new DAPedidoWeb(paisID);
+            return daPedidoWeb.DeshacerRecepcionPedido(pedidoID);
+        }
+
+        public int GuardarRecepcionPedido(string nombreYApellido, string numeroDocumento, int pedidoID, int paisID)
+        {
+            var daPedidoWeb = new DAPedidoWeb(paisID);
+            return daPedidoWeb.GuardarRecepcionPedido(nombreYApellido, numeroDocumento, pedidoID);
+        }
+
+        public BEConsultora VerificarConsultoraDigital(string codigoConsultora, int pedidoID, int paisID)
+        {
+            var objBEConsultora = new BEConsultora();
+            var daPedidoWeb = new DAPedidoWeb(paisID);
+
+            using (IDataReader reader = daPedidoWeb.VerificarConsultoraDigital(codigoConsultora, pedidoID))
+            {
+                if (reader.Read())
+                {
+                    objBEConsultora.IndicadorRecepcion = reader[0].ToBool();
+                    objBEConsultora.nombreYApellido = reader[1] == null ? string.Empty : reader[1].ToString();
+                    objBEConsultora.numeroDocumento = reader[2] == null ? string.Empty : reader[2].ToString();
+                    objBEConsultora.IndicadorConsultoraDigital = reader[3].ToBool();
+                }
+            }
+            return objBEConsultora;
+        }
         #endregion
 
         #region Certificado Digital
@@ -2464,9 +2500,9 @@ namespace Portal.Consultoras.BizLogic
         //INI HD-4200
         public List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb BEPedidoWeb)
         {
-            var listaSuscripcionSE= new List<BEProducto>();
+            var listaSuscripcionSE = new List<BEProducto>();
             var daPedidoWeb = new DAPedidoWeb(BEPedidoWeb.PaisID);
-   
+
             using (IDataReader reader = daPedidoWeb.GetCuvSuscripcionSE(BEPedidoWeb))
                 while (reader.Read())
                 {
@@ -2510,7 +2546,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 pedidoWebDetalle.PedidoID = daPedidoWeb.InsPedidoWeb(pedidoWebDetalle);
             }
-            
+
             daPedidoWeb.UpdDatoRecogerPor(pedidoWebDetalle);
         }
     }

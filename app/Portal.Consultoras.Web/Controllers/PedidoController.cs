@@ -24,7 +24,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
- 
+using BEConsultora = Portal.Consultoras.Web.ServicePedido.BEConsultora;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1024,7 +1024,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var revistaGana = ValidarDesactivaRevistaGana(userModel);
 
-               
+
 
                 productosModel.Add(new ProductoModel()
                 {
@@ -1058,10 +1058,10 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoCatalago = producto.CodigoCatalogo,
                     EstrategiaIDSicc = producto.EstrategiaIDSicc,
                     //INI HD-3908
-                    CodigoPalanca= (new OfertaPersonalizadaProvider()).getCodigoPalanca(producto.TipoEstrategiaCodigo),
-                    CampaniaID= userModel.CampaniaID
+                    CodigoPalanca = (new OfertaPersonalizadaProvider()).getCodigoPalanca(producto.TipoEstrategiaCodigo),
+                    CampaniaID = userModel.CampaniaID
                     //FIN HD-3908
-                    
+
                 });
             }
             catch (Exception ex)
@@ -1563,7 +1563,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Enumeradores.ResultadoReserva.NoReservadoMontoMinimo
                 };
 
-                var mensajeCondicional = resultado.ListaMensajeCondicional != null && resultado.ListaMensajeCondicional.Any() ? resultado.ListaMensajeCondicional[0].MensajeRxP: null;
+                var mensajeCondicional = resultado.ListaMensajeCondicional != null && resultado.ListaMensajeCondicional.Any() ? resultado.ListaMensajeCondicional[0].MensajeRxP : null;
                 return Json(new
                 {
                     success = true,
@@ -3401,5 +3401,86 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        #region /*HD-4288 - Switch Consultora 100% */
+
+        /// <summary>
+        /// Guarda lso cambios efectuados
+        /// </summary>
+        /// <param name="te">GuardarRecepcionPedido</param>
+        /// <returns></returns>
+        public JsonResult GuardarRecepcionPedidoRequest(string nombreYApellido, string numeroDocumento)
+        {
+            int result = 0;
+            try
+            {
+                result = GuardarRecepcionPedido(nombreYApellido, numeroDocumento, userData.PedidoID, userData.PaisID);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /// <summary>
+        /// Guarda lso cambios efectuados
+        /// </summary>
+        /// <param name="te">GuardarRecepcionPedido</param>
+        /// <returns></returns>
+        public JsonResult DeshacerRecepcionPedidoRequest()
+        {
+            int result = 0;
+            try
+            {
+                result = DeshacerRecepcionPedido(userData.PedidoID, userData.PaisID);
+
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /// <summary>
+        /// Verifica si la consultoar es digital
+        /// </summary>
+        /// <param name="te">VerificarConsultoraDigital</param>
+        /// <returns></returns>
+        public JsonResult VerificarConsultoraDigitalRequest(string codigoConsultora)
+        {
+            BEConsultora objConsultoraFicticiaModel =new BEConsultora();
+            try
+            {
+                objConsultoraFicticiaModel = VerificarConsultoraDigital(codigoConsultora, userData.PedidoID, userData.PaisID);
+                return Json(objConsultoraFicticiaModel, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+
+        /*HD-4288 - FIN*/
+        #endregion
+
+
+
     }
 }

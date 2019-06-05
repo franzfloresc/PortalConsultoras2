@@ -9,6 +9,7 @@ using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
@@ -20,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
+using BEConsultora = Portal.Consultoras.Web.ServicePedido.BEConsultora;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -87,7 +89,7 @@ namespace Portal.Consultoras.Web.Controllers
         private TempDataManager.TempDataManager _tempData;
 
 
-        
+
 
 
 
@@ -236,8 +238,28 @@ namespace Portal.Consultoras.Web.Controllers
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
         {
             return _pedidoWebProvider.ObtenerPedidoWebDetalle(EsOpt());
-            
+
         }
+
+        /*HD-4288 - Switch Consultora 100% */
+        public virtual int GuardarRecepcionPedido(string nombreYApellido, string numeroDocumento, int pedidoID, int paisID)
+        {
+            return _pedidoWebProvider.GuardarRecepcionPedido(nombreYApellido, numeroDocumento, pedidoID, paisID);
+
+        }
+
+        public virtual int DeshacerRecepcionPedido(int pedidoID, int paisID)
+        {
+            return _pedidoWebProvider.DeshacerRecepcionPedido(pedidoID, paisID);
+
+        }
+
+        public virtual BEConsultora VerificarConsultoraDigital(string codigoConsultora, int pedidoID, int paisID)
+        {
+            return _pedidoWebProvider.VerificarConsultoraDigital(codigoConsultora, pedidoID, paisID);
+
+        }
+        /*HD-4288 - Switch Consultora 100% - FIN */
 
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(bool noSession = false)
         {
@@ -276,7 +298,8 @@ namespace Portal.Consultoras.Web.Controllers
             return montosProl;
         }
 
-        protected void SetMontosProl(BEPedidoDetalleResult pedidoDetalleResult) {
+        protected void SetMontosProl(BEPedidoDetalleResult pedidoDetalleResult)
+        {
             SessionManager.SetMontosProl(new List<ObjMontosProl> {
                 new ObjMontosProl
                 {
@@ -1246,7 +1269,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var menuActivo = _menuContenedorProvider.GetMenuActivo(userData, revistaDigital, herramientasVenta, Request, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobileMenu);
                 ViewBag.MenuContenedorActivo = menuActivo;
                 ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobileMenu);
-               
+
             }
 
             var menuMobile = BuildMenuMobile(userData, revistaDigital);
