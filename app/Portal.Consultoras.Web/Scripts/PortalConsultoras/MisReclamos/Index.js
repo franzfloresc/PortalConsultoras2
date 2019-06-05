@@ -130,18 +130,40 @@ function ObtenerDetalleCdr(item) {
         cache: false,
         success: function (data) {
             if (!checkTimeout(data)) return false;
-            if (data.success != true) {
+            if (!data.success) {
                 messageInfoError(data.message);
                 return false;
             }
+            CalcularMontoTotalTrueque(data);
             if (item.Estado == 4) {
                 if (data.cantobservado > 0) SetHandlebars("#template-detalle", data, "#divDetallePedidoCdrDetalle");
-                //if (data.cantaprobado > 0) SetHandlebars("#template-detalle-2-aprobado", data, "#divDetallePedidoCdrAprobado");
             }
             else SetHandlebars("#template-detalle-1", data, "#divDetallePedidoCDR");
         },
         complete: closeWaitingDialog
     });
+}
+
+function CalcularMontoTotalTrueque(data) {
+    try {
+        if (data.detalle.length === 0) {
+            return false;
+        }
+        $.each(data.detalle, function (i, el) {
+            var total = 0;
+            if (el.DetalleReemplazo === null) {
+                data.detalle[i].Total = 0;
+                return;
+            }
+
+            $.each(el.DetalleReemplazo, function (j, det) {
+                total = total + det.Precio * det.Cantidad;
+            });
+            data.detalle[i].Total = total;
+        });
+    } catch (e) {
+        console.log(e.message);
+    }
 }
 
 function DetalleEliminar(objItem) {

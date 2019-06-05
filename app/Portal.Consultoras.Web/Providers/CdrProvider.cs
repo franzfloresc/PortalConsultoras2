@@ -102,7 +102,6 @@ namespace Portal.Consultoras.Web.Providers
                 return new List<ServiceCDR.BECDRWebDetalle>();
             }
         }
-
         public List<BECDRProductoComplementario> XMLToList(string xml, string codigoIso, int paisId)
         {
             if (string.IsNullOrEmpty(xml))

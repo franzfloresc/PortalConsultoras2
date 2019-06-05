@@ -304,9 +304,7 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.ocultar_mi_solicitud).click(function (e) {
-
                     e.stopPropagation();
-
                     $(me.Variables.datosSolicitudOpened).fadeOut(200);
                     $(me.Variables.miSolicitudCDR).animate({
                         "height": "35px"
@@ -317,7 +315,6 @@ $(document).ready(function () {
                             "width": "35px"
                         }, 120);
                     });
-
                     setTimeout(function () {
                         $(me.Variables.numSolicitudes).fadeIn(200);
                     }, 450);
@@ -382,20 +379,12 @@ $(document).ready(function () {
 
                 $(me.Variables.ListaCoincidenciasBusquedaProductosCdr).on('click', '.coincidencia_busqueda_producto', function (e) {
                     var $el = $(this);
-
                     var _cuv = $.trim($el.attr("data-codigo"));
                     var _descripcionCuv = $.trim($el.attr("data-descr"));
                     var cantidad = $el.attr("data-cantidad") !== "" ? parseInt($el.attr("data-cantidad")) : 1;
                     me.Funciones.CuvSeleccionado(_cuv, _descripcionCuv, cantidad);
                 });
-
-                //setInterval(function () {
-                //    if (cuv2KeyUp) cuv2KeyUp = false;
-                //    else me.Funciones.EvaluarCUV2();
-                //}, 1000)
-
                 $(me.Variables.aCambiarProducto).click(function (e) {
-
                     $(me.Variables.DescripcionCuv).hide();
                     $(me.Variables.DescripcionCuv).hide();
                     $(me.Variables.txtCuvMobile).show();
@@ -1060,33 +1049,7 @@ $(document).ready(function () {
                     $(me.Variables.hdCDRID).val(CDRWebID);
                 }
             },
-
-            //EvaluarCUV2: function () {
-
-            //    if (!me.Funciones.CUV2Cambio()) return false;
-
-            //    if (cuv2PrevVal.length == 5) me.Funciones.BuscarCUVCambiar(cuv2PrevVal);
-            //    else {
-            //        $(me.Variables.txtDescripcionCuv2).html("");
-            //        $(me.Variables.txtPrecioCuv2).html("");
-            //        $(me.Variables.hdImporteTotal2).val(0);
-            //        $(me.Variables.btnCambioProducto).addClass("disabledClick");
-            //    }
-            //},
-
-            //CUV2Cambio: function () {
-            //    var cuv2Val = $(me.Variables.txtCuvMobile2).val();
-            //    if (cuv2Val == null) cuv2Val = '';
-            //    if (cuv2Val.length > 5) {
-            //        cuv2Val = cuv2Val.substr(0, 5);
-            //        $(me.Variables.txtCuvMobile2).val(cuv2Val);
-            //    }
-
-            //    var cambio = (cuv2Val != cuv2PrevVal);
-            //    cuv2PrevVal = cuv2Val;
-            //    return cambio;
-            //},
-
+          
             BuscarCUVCambiarServer: function (sendData, callbackWhenFinish) {
                 me.Funciones.callAjax(UrlBuscarCuvCambiar, sendData, function (data) {
                     if (!checkTimeout(data))
@@ -2080,13 +2043,9 @@ $(document).ready(function () {
                 }
             },
             EliminarCUVTrueque: function (el) {
-                ShowLoading();
-                setTimeout(function () {
                     $(el).parent().parent().remove();
                     me.Funciones.CalcularTotal();
-                }, 100);
-                CloseLoading();
-            },
+            },  
             CalcularTotal: function () {
                 var precioTotal = 0;
                 var items = $("#contenedorCuvTrueque .item-producto-cambio");
@@ -2110,9 +2069,6 @@ $(document).ready(function () {
                     EstrategiaAgregarModule.DisminuirCantidad(event);
                 }
                 me.Funciones.ActualizarCantidad(event);
-                //var $el = $(event.target).parent().parent().find(me.Constantes.INPUT_NAME_CANTIDAD);
-                //$el.attr("data-cantidad", $el.val());
-                //me.Funciones.CalcularTotal();
             },
             ActualizarCantidad: function (event) {
                 var $el = $(event.target).parent().parent().find(me.Constantes.INPUT_NAME_CANTIDAD);

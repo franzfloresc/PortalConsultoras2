@@ -1613,6 +1613,14 @@ function BuscarInfoCUV(e) {
         return false;
     }
 
+    var $elementsCUV = $("#contenedorCuvTrueque .item-producto-cambio");
+    var $arrCuv = $elementsCUV.find("input[name=codigo]");
+    if (ValidarCUVYaIngresado($arrCuv, $this.val())) {
+        $this.val("");
+        alert_msg("El CUV se encuentra en la lista, puedes aumentar la cantidad.");
+        return false;
+    }
+    
     BuscarCUVCambiarServer($this.val(), function (data) {
         if (!data.success) {
             //Limpiar controles
@@ -1647,11 +1655,8 @@ function BuscarInfoCUV(e) {
 //HD-4017 EINCA
 function EliminarCUVTrueque(el) {
     if ($("#contenedorCuvTrueque .item-producto-cambio").length > 1) {
-        waitingDialog();
-        setTimeout(function () {
-            $(el).parent().parent().remove();
-        }, 450);
-        closeWaitingDialog();
+        $(el).parent().parent().remove();
+        CalcularTotal();
     } else {
         return false;
     }
@@ -1697,4 +1702,11 @@ function BuscarCUVCambiarServer(cuv, callbackWhenFinish) {
         }
 
     });
+}
+
+function ValidarCUVYaIngresado (arrElements, cuv) {
+    var arrFilter = $.grep(arrElements, function (element, index) {
+        return $(element).attr("data-codigo") == cuv;
+    });
+    return arrFilter.length > 0;
 }

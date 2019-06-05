@@ -210,6 +210,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 SessionManager.SetCDRWebDetalle(null);
                 objCdr.ListaDetalle = _cdrProvider.CargarDetalle(obj, userData.PaisID, userData.CodigoISO);
+                int cantidadObservadoDetalleReemplazo = 0, cantidadAprobadoDetalleReemplazo = 0;
+                if (objCdr.ListaDetalle != null)
+                {
+                    foreach (var item in objCdr.ListaDetalle)
+                    {
+                        if (item.DetalleReemplazo != null && item.CodigoOperacion == Constantes.CodigoOperacionCDR.Trueque)
+                        {
+                            cantidadObservadoDetalleReemplazo += item.DetalleReemplazo.Count(a => a.Estado == Constantes.EstadoCDRWeb.Observado);
+                            cantidadAprobadoDetalleReemplazo += item.DetalleReemplazo.Count(a => a.Estado == Constantes.EstadoCDRWeb.Aceptado);
+                        }
+                    }
+
+                    objCdr.CantidadRechazados = objCdr.ListaDetalle.Count(x => x.Estado == Constantes.EstadoCDRWeb.Observado && string.IsNullOrEmpty(x.XMLReemplazo)) + cantidadObservadoDetalleReemplazo;
+                    objCdr.CantidadAprobados = objCdr.ListaDetalle.Count(x => x.Estado == Constantes.EstadoCDRWeb.Aceptado && string.IsNullOrEmpty(x.XMLReemplazo)) + cantidadAprobadoDetalleReemplazo;
+
+                }
+
 
                 ViewBag.Origen = objCdr.OrigenCDRDetalle;
                 ViewBag.FormatoCampania = objCdr.FormatoCampaniaID;
@@ -224,7 +241,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             return View();
-        }
+        }     
 
         public JsonResult ValidarCargaDetalle(CDRWebModel model)
         {

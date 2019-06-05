@@ -319,7 +319,6 @@
     </div>
     <div class="linea_separadora"></div>
     {{#each detalle as |item|}}
-    {{#if_eq item.Estado '4'}}
     <div class="content_listado_reclamo content_listado_reclamo--contenidoGrilla" data-pedidodetalleid="{{item.CDRWebDetalleID}}">
         <div class="pop_solicitud_producto pop_solicitud_producto--nom">
             <span class="d-block">{{item.CUV}}</span>
@@ -346,15 +345,83 @@
             </div>
         </div>
         <div class="pop_solicitud_solucion pop_solicitud_solucion--listadoProductos--content">
-            {{#if_eq CodigoOperacion 'C'}}
+            {{#if_eq item.CodigoOperacion 'C'}}
             {{item.SolucionSolicitada}}
-            {{else if_eq CodigoOperacion 'D'}}
+            {{#if_eq item.Estado '3'}}
+            <div class="d-flex estado_producto_solicitud">
+                <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoAceptado">Aprobado</div>
+            </div>
+            <div class="d-flex acciones_solicitud">
+            </div>
+            {{else}}
+            <div class="d-flex estado_producto_solicitud">
+                <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoRechazado">Rechazado</div>
+                <div class="descripcion_estado_producto_solicitud">{{subItem.Observacion}}</div>
+            </div>
+            <div class="d-flex acciones_solicitud">
+                <a href="" title="Eliminar" class="d-block enlace_eliminar_producto_rechazado">
+                    <img src="@Url.Content("~/Content/Images/Esika/icons-trash.svg")" alt="Eliminar" />
+                </a>
+            </div>
+            {{/if_eq}}
+            {{else if_eq item.CodigoOperacion 'D'}}
             {{item.SolucionSolicitada}}
-            {{else if_eq CodigoOperacion 'F'}}
+            {{#if_eq item.Estado '3'}}
+            <div class="d-flex estado_producto_solicitud">
+                <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoAceptado">Aprobado</div>
+            </div>
+            <div class="d-flex acciones_solicitud">
+            </div>
+            {{else}}
+            <div class="d-flex estado_producto_solicitud">
+                <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoRechazado">Rechazado</div>
+                <div class="descripcion_estado_producto_solicitud">{{subItem.Observacion}}</div>
+            </div>
+            <div class="d-flex acciones_solicitud">
+                <a href="" title="Eliminar" class="d-block enlace_eliminar_producto_rechazado">
+                    <img src="@Url.Content("~/Content/Images/Esika/icons-trash.svg")" alt="Eliminar" />
+                </a>
+            </div>
+            {{/if_eq}}
+            {{else if_eq item.CodigoOperacion 'F'}}
             {{item.SolucionSolicitada}}
-            {{else if_eq CodigoOperacion 'G'}}
+            {{#if_eq item.Estado '3'}}
+            <div class="d-flex estado_producto_solicitud">
+                <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoAceptado">Aprobado</div>
+            </div>
+            <div class="d-flex acciones_solicitud">
+            </div>
+            {{else}}
+            <div class="d-flex estado_producto_solicitud">
+                <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoRechazado">Rechazado</div>
+                <div class="descripcion_estado_producto_solicitud">{{subItem.Observacion}}</div>
+            </div>
+            <div class="d-flex acciones_solicitud">
+                <a href="" title="Eliminar" class="d-block enlace_eliminar_producto_rechazado">
+                    <img src="@Url.Content("~/Content/Images/Esika/icons-trash.svg")" alt="Eliminar" />
+                </a>
+            </div>
+            {{/if_eq}}
+            {{else if_eq item.CodigoOperacion 'G'}}
             {{item.SolucionSolicitada}}
-            {{else if_eq CodigoOperacion 'T'}}
+            {{#if_eq item.Estado '3'}}
+            <div class="d-flex estado_producto_solicitud">
+                <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoAceptado">Aprobado</div>
+            </div>
+            <div class="d-flex acciones_solicitud">
+            </div>
+            {{else}}
+            <div class="d-flex estado_producto_solicitud">
+                <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoRechazado">Rechazado</div>
+                <div class="descripcion_estado_producto_solicitud">{{subItem.Observacion}}</div>
+            </div>
+            <div class="d-flex acciones_solicitud">
+                <a href="" title="Eliminar" class="d-block enlace_eliminar_producto_rechazado">
+                    <img src="@Url.Content("~/Content/Images/Esika/icons-trash.svg")" alt="Eliminar" />
+                </a>
+            </div>
+            {{/if_eq}}
+            {{else if_eq item.CodigoOperacion 'T'}}
             {{#if item.DetalleReemplazo}}
             {{#each item.DetalleReemplazo as |subItem|}}
             <div class="d-flex w-100 producto_solicitud_row">
@@ -386,7 +453,6 @@
                 {{else}}
                 <div class="d-flex estado_producto_solicitud">
                     <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoAceptado">Aprobado</div>
-                    <div class="descripcion_estado_producto_solicitud">{{subItem.Observacion}}</div>
                 </div>
                 <div class="d-flex acciones_solicitud"></div>
                 {{/if_eq}}
@@ -443,7 +509,6 @@
             {{/if_eq}}
         </div>
     </div>
-    {{/if_eq}}
     {{/each}}
 </script>
 
