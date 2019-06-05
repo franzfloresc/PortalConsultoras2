@@ -1105,7 +1105,6 @@ var PedidoRegistroModule = function () {
                     return false;
                 }
                 showPopupNivelSuperado(data.DataBarra, prevTotal);
-                CargarDetallePedido();
                 $('#divMensajeCUV').hide();
                 $("#divProductoObservaciones").html("");
                 $("#divProductoMantenedor").hide();
