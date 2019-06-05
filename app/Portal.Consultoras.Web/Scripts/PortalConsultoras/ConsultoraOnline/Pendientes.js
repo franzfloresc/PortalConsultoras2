@@ -2,9 +2,11 @@
 var urlDetallePedidoPendienteClientes = "/ConsultoraOnline/DetallePedidoPendienteClientes";
 var listaGana = [];
 var gTipoVista = 0;
+var vPendientes = [];
 
 $(document).ready(function () {
     cambiaTabs();
+    InicializarMotivoRechazo();
 });
 
 function bindElments() {
@@ -296,21 +298,63 @@ function RenderizarPendientes(Pendientes) {
 
 function MotivoRechazoSolicitudPedidoPend(pedidoId) {
     $('#MotivosRechazo').removeClass('hide');
-    $('#MotivosRechazo').css('display','block');
+    $('#MotivosRechazo').css('display', 'block');
+    $('#hdPedidoId').val(pedidoId);
+    debugger;
 }
 
-function OcultarMotivoRechazoPedidoPend(pedidoId) {
+function SeRechazoConExito() {
+    $('#MotivosRechazo-Paso1').css('display', 'none');
+    $('#MotivosRechazo-Paso2').css('display', 'flex');
+    setTimeout(function () {
+        CerrarModalMotivosRechazo();
+    }, 6000);
+}
+
+function CerrarModalMotivosRechazo() {
+    if ($('#MotivosRechazo-Paso2').is(':visible')) {
+        $('#hdPedidoId').val('');
+        $('#hdMotivoRechazoId').val('');
+        $('#txtOtroMotivo').val('');
+        $('#MotivosRechazo-Paso1').css('display', '');
+        $('#MotivosRechazo-Paso2').css('display', 'none');
+        $('[name="motivoRechazo"]').prop('checked', false);
+        $('#OtroMotivo').prop('checked', false);
+        $('#OtroMotivo').trigger("change");
+        $('#MotivosRechazo').hide();
+
+        $('#rechazarTodop').addClass('hide');
+        $("#Paso1-Productos").hide();
+        $('body').removeClass('visible');
+        $(".modal-fondo").hide();
+        //document.location.href = '/ConsultoraOnline/Pendientes';
+
+        var Pendientes = JSON.parse(vPendientes) || [];
+        RenderizarPendientes(Pendientes);
+        cambiaTabs();
+
+
+    } else {
+        $('#MotivosRechazo').fadeOut(100);
+    }
+}
+
+function OcultarMotivoRechazoPedidoPend() {
     $('#MotivosRechazo').addClass('hide');
     $('#MotivosRechazo').css('display', 'none');
 }
 
-function RechazarSolicitudCliente(pedidoId) {
+function RechazarSolicitudCliente(pedidoId, idMotivoRechazo, razonMotivoRechazo) {
+    debugger;
     var obj = {
         pedidoId: pedidoId,
+        motivoRechazoId: idMotivoRechazo,
+        motivoRechazoTexto: razonMotivoRechazo
     };
 
     //ShowLoading();
     AbrirLoad();
+    debugger;
     $.ajax({
         type: "POST",
         url: "/ConsultoraOnline/RechazarSolicitudCliente",
@@ -321,19 +365,20 @@ function RechazarSolicitudCliente(pedidoId) {
             //CloseLoading();
             CerrarLoad();
             if (response.success) {
-                $('#rechazarTodop').addClass('hide');
-                $("#Paso1-Productos").hide();
-                $('body').removeClass('visible');
-                $(".modal-fondo").hide();
-                //document.location.href = '/ConsultoraOnline/Pendientes';
+                //$('#rechazarTodop').addClass('hide');
+                //$("#Paso1-Productos").hide();
+                //$('body').removeClass('visible');
+                //$(".modal-fondo").hide();
+                ////document.location.href = '/ConsultoraOnline/Pendientes';
 
-                var Pendientes = JSON.parse(response.Pendientes) || [];
-                RenderizarPendientes(Pendientes);
-                cambiaTabs();
-
+                //var Pendientes = JSON.parse(response.Pendientes) || [];
+                //RenderizarPendientes(Pendientes);
+                //cambiaTabs();
+                vPendientes = response.Pendientes;
+                SeRechazoConExito();
             }
             else {
-                alert(response.message);
+                AbrirMensaje(response.message,'Error');
             }
         },
         error: function (err) {
@@ -613,4 +658,55 @@ $("#vpcp li a").click(function () {
     $(activeTab).fadeIn();
     return false;
 });
+
+function InicializarMotivoRechazo() {
+
+    var btnContinuar = $('#btnConfirmaMotivo');
+    var checkOtroMotivo = $('#OtroMotivo');
+    var txtOtroMotivo = $('#txtOtroMotivo');
+    var rdoMotivos = $('[name="motivoRechazo"]');
+    var hdMotivoRechazoId = $('#hdMotivoRechazoId');
+
+
+    if (checkOtroMotivo.length) {
+        checkOtroMotivo.change(function () {
+            if ($('#OtroMotivo:checkbox:checked').length) {
+                $('[name="motivoRechazo"]').prop('checked', false);
+                txtOtroMotivo.prop('style', 'display:block');
+                btnContinuar.removeClass('btn__sb--disabled');
+                hdMotivoRechazoId.val(checkOtroMotivo.val());
+            } else {
+                txtOtroMotivo.prop('style', 'display:none !important');
+                btnContinuar.addClass('btn__sb--disabled');
+            }
+        });
+
+        checkOtroMotivo.trigger("change");
+    }
+
+
+    rdoMotivos.change(function () {
+        console.log('change motivo rechazo');
+        if (rdoMotivos.is(':checked')) {
+            if (checkOtroMotivo.length) {
+                checkOtroMotivo.prop('checked', false);
+                checkOtroMotivo.trigger("change");
+            }
+
+            btnContinuar.removeClass('btn__sb--disabled');
+        }
+        hdMotivoRechazoId.val($('[name="motivoRechazo"]:checked').val());
+    });
+
+    btnContinuar.click(function (e) {
+        debugger;
+        var idPedido = $('#hdPedidoId').val().trim();
+        var idMotivoRechazo = hdMotivoRechazoId.val().trim();
+        var razonMotivoRechazo = (idMotivoRechazo == '11') ? txtOtroMotivo.val().trim() : '';
+
+        RechazarSolicitudCliente(idPedido, idMotivoRechazo, razonMotivoRechazo);
+    });
+
+
+}
 

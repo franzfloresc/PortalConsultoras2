@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Pedido;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
@@ -2534,7 +2535,8 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult RechazarSolicitudCliente(string pedidoId)
+        //public JsonResult RechazarSolicitudCliente(string pedidoId)
+            public JsonResult RechazarSolicitudCliente(string pedidoId, int motivoRechazoId, string motivoRechazoTexto)
         {
             try
             {
@@ -2559,9 +2561,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
-                using (ServiceSAC.SACServiceClient svc = new ServiceSAC.SACServiceClient())
+                using (SACServiceClient svc = new SACServiceClient())
                 {
-                    svc.UpdSolicitudClienteRechazar(userData.PaisID, pedido.PedidoId);
+                    svc.UpdSolicitudClienteRechazar(userData.PaisID, pedido.PedidoId, motivoRechazoId, motivoRechazoTexto);
                 }
 
                 MisPedidosModel model = new MisPedidosModel();
