@@ -993,6 +993,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int NivelCaminoBrillante { get; set; }
 
+        [DataMember]
+        public bool EsUltimoDiaFacturacion { get; set; }
+        
         //INI HD-3897
         [DataMember]
         public bool PuedeConfirmarAllEmail { get; set; }
