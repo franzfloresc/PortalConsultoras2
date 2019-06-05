@@ -323,5 +323,16 @@ namespace Portal.Consultoras.Web.Models
                     return Util.DecimalToStringFormat(0, CodigoIso);
             }
         }
+        public string FormatoTotalMontoGanancia
+        {
+            get
+            {
+                if (GananciaOtros != null && GananciaWeb != null && GananciaRevista != null)
+                    return Util.DecimalToStringFormat((GananciaOtros.Value + GananciaWeb.Value + GananciaRevista.Value), CodigoIso);
+                else
+                    return Util.DecimalToStringFormat(0, CodigoIso);
+            }
+        }
+        public bool isShowGananciaConsultora { get; set; }
     }
 }
