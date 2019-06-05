@@ -4081,6 +4081,6 @@ namespace Portal.Consultoras.Common
             public const string HistAnchoAltoDetalle = "HistAnchoAltoDetalle";
             public const string HistUrlMiniatura = "HistUrlMiniatura";
             public const string HistLimitDetMensaje = "HistLimitDetMensaje";
-        }
+        }        
     }
 }

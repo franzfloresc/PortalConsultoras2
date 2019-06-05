@@ -10,6 +10,13 @@ var ComponentesPresenter = function (config) {
         analyticsPortal: config.analyticsPortal,
     };
 
+    var _const = {
+        tipoSelector: {
+            Paleta: 1,
+            Panel: 2
+        }
+    };
+
     var _estrategiaInstance = null;
     var _estrategiaModel = function (value) {
         if (typeof value === "undefined") {
@@ -247,8 +254,7 @@ var ComponentesPresenter = function (config) {
         if (typeof cuv === "undefined" || cuv === null) throw "cuv is null or undefined";
 
         _addTypeOrTone(grupo, cuv);
-        _applySelectedTypesOrTones(grupo);
-
+        _applySelectedTypesOrTones(grupo, _const.tipoSelector.Paleta);
         return true;
     };
 
@@ -292,7 +298,7 @@ var ComponentesPresenter = function (config) {
         return typesOrTones;
     };
 
-    var _applySelectedTypesOrTones = function (grupo) {
+    var _applySelectedTypesOrTones = function (grupo, tipo) {
         if (typeof grupo === "undefined" || grupo === null) throw "grupo is null or undefined";
 
         var result = false;
@@ -324,7 +330,34 @@ var ComponentesPresenter = function (config) {
         //
         _estrategiaModel(model);
         //
+
+        tipo = tipo || '';
+        _applySelectedAnalytics(model, grupo, tipo);
+
         return result;
+    };
+
+    var _applySelectedAnalytics = function (model, grupo, tipo) {
+        console.log('_applySelectedAnalytics', model, tipo);
+        var modeloMarcar = {
+            Const: {
+                TipoSelector: _const.tipoSelector
+            },
+            TipoSelectorTono: tipo || _const.tipoSelector.Panel,
+            Label : ''
+        }
+
+        model.Hermanos = model.Hermanos || [];
+        
+        $.each(model.Hermanos, function (idxComponente, componente) {
+            if (componente.Grupo == grupo &&
+                componente.FactorCuadre == componente.cantidadSeleccionados) {
+                modeloMarcar.Label = componente.NombreComercial;
+                return false;
+            }
+        });
+
+        _config.analyticsPortal.VirtualEventFichaAplicarCambio(modeloMarcar);
     };
 
     var _changeAppliedTypesOrTones = function (grupo) {
@@ -340,7 +373,7 @@ var ComponentesPresenter = function (config) {
                 result = result && _config.componentesView.showTypesAndTonesModal();
 
                 $.each(componente.resumenAplicados, function (idxOpcion, opcion) {
-                    _addTypeOrTone(opcion.Grupo,opcion.Cuv);
+                    _addTypeOrTone(opcion.Grupo, opcion.Cuv);
                 });
 
                 componente.selectComponentTitle = "";

@@ -127,6 +127,7 @@ namespace Portal.Consultoras.Entities
             //INI HD-4200
             EsSuscripcionSE = (row.HasColumn("EsSuscripcionSE") ? row.ToBoolean("EsSuscripcionSE") : false);
             //FIN HD-4200
+            Ganancia = row.ToDecimal("Ganancia");
         }
 
         [DataMember]
@@ -369,5 +370,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool EsSuscripcionSE { get; set; }
         //FIN HD-4200
+        [DataMember]
+        public decimal Ganancia { get; set; }
     }
 }
