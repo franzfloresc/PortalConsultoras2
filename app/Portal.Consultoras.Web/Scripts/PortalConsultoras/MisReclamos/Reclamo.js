@@ -42,7 +42,7 @@ $(document).ready(function () {
         $("#divMotivo").html("");
         $(reclamo.form.resultadosBusquedaCuv).empty(); //HD-7303 EINCA
         $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
-        $(reclamo.form.txtCuv).val("");
+        $(reclamo.form.txtCuv).val("").attr("data-codigo","");
         if ($(this).val() == "0") {
             $("#ddlnumPedido").html("");
             $("#ddlnumPedido").hide();
@@ -148,6 +148,7 @@ $(document).ready(function () {
         }
     }).on("keyup", function () {
         if ($(this).val().length === 0) {
+            $(this).attr("data-codigo", "");
             $(".resultado_busqueda_por_cuv").fadeIn(100);
         } else {
             $(reclamo.form.resultadosBusquedaCuv).fadeIn(100);
@@ -502,9 +503,9 @@ function SeleccionarCUVBusqueda(tag) {
     var cuv = $(el).attr('data-value-cuv');
     var producto = $(el).attr('data-value-producto');
     $("#hdfCUV").val(cuv);
-    $('#ddlCuv').val(cuv + ' - ' + producto);
+    $(reclamo.form.txtCuv).val(cuv + ' - ' + producto).attr("data-codigo", cuv);
     ObtenerDatosCuv();
-}
+}   
 
 function ValidarVisualizacionBannerResumen() {
     var cantidadDetalles = $("#spnCantidadUltimasSolicitadas").html();
@@ -657,8 +658,16 @@ function ValidarPasoUno() {
 
 
     if ($(reclamo.form.txtCuv).val() == "") {
-        alert_msg("por favor, seleccionar un CUV.");
+        alert_msg("por favor, seleccionar un producto.");
         $(this).focus();
+        return false;
+    }
+
+    var $lis = $("#ResultadosBusquedaCUV li");
+    if (!ValidarCUVYaIngresado($lis, $(reclamo.form.txtCuv).attr("data-codigo"))) {
+        $(reclamo.form.txtCuv).val("");
+        $(reclamo.form.txtCuv).attr("data-codigo","");
+        alert_msg("Por favor, ingrese un producto válido");
         return false;
     }
 
@@ -1620,7 +1629,7 @@ function BuscarInfoCUV(e) {
         alert_msg("El CUV se encuentra en la lista, puedes aumentar la cantidad.");
         return false;
     }
-    
+
     BuscarCUVCambiarServer($this.val(), function (data) {
         if (!data.success) {
             //Limpiar controles
@@ -1704,9 +1713,11 @@ function BuscarCUVCambiarServer(cuv, callbackWhenFinish) {
     });
 }
 
-function ValidarCUVYaIngresado (arrElements, cuv) {
+function ValidarCUVYaIngresado(arrElements, cuv) {
     var arrFilter = $.grep(arrElements, function (element, index) {
         return $(element).attr("data-codigo") == cuv;
     });
     return arrFilter.length > 0;
 }
+
+
