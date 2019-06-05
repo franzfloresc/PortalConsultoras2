@@ -101,7 +101,7 @@ namespace Portal.Consultoras.BizLogic.Contenido
             {
                 var config = GetPanelConfig(itmFilter.PaisID);
                 TuVozOnline.DetalleContenido.ForEach(x => {
-                    x.RutaContenido = GetUrl(x.RutaContenido, config.Value, config.Key);
+                    x.RutaContenido = GetUrl(x.RutaContenido, config.Value, config.Key, itmFilter);
                 });
             }
 
@@ -120,19 +120,19 @@ namespace Portal.Consultoras.BizLogic.Contenido
             return new KeyValuePair<string, string>(panelKey, panelId);
         }
 
-        public string GetUrl(string baseUrl, string panelId, string panelKey)
+        public string GetUrl(string baseUrl, string panelId, string panelKey, BEUsuario usuarioItem)
         {
             var currentTimeSeconds = Util.ToUnixTimespan(DateTime.Now);
 
             var parameters = string.Format(Constantes.DatosTuVozOnline.FormatUrl,
                 currentTimeSeconds,
-                "Alexis",//user.PrimerNombre,
-                "Basilio", //user.PrimerApellido,
-                "alexisb1v1@gmail.com",//user.EMail,
+                usuarioItem.PrimerNombre,//user.PrimerNombre,
+                usuarioItem.PrimerApellido, //user.PrimerApellido,
+                usuarioItem.EMail,//user.EMail,
                 DateTime.Now.Year,
                 "Yes",
-                DateTime.Now,//user.FechaNacimiento,
-                "PE"//user.CodigoISO
+                usuarioItem.FechaNacimiento,//user.FechaNacimiento,
+                usuarioItem.CodigoISO//user.CodigoISO
             );
 
             return string.Format(baseUrl,
