@@ -153,7 +153,7 @@
     </div>
     @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupMensajesInformacion.cshtml")
-    <a title="Chat Messenger" class="d-block btn_chat_messenger_mobile" href="javascript: AbrirChatBot()">
+    <a title="Chat Messenger" class="d-block btn_chat_messenger_mobile" style="display: none;"style="display: none;" href="javascript: AbrirChatBot()">
         <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
     </a>
     <div style="display:none">
@@ -201,6 +201,7 @@
         var ocultarBannerTop = '@Session["OcultarBannerTop"]';
 
         var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
+        var habilitarChatBot = '@ViewBag.HabilitarChatBot';
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
 
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';

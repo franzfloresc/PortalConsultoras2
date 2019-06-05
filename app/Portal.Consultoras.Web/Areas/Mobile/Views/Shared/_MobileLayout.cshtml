@@ -244,6 +244,7 @@
         var emt_default_message = '@Html.Raw(ViewBag.MensajeChat)';
 
         var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
+        var habilitarChatBot = '@ViewBag.HabilitarChatBot';
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
@@ -514,7 +515,7 @@
     @if (!esIngresoUnico)
     {
         <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
-        <a title="Chat Messenger" class="d-block btn_chat_messenger_mobile" href="javascript: AbrirChatBot()">
+        <a title="Chat Messenger" class="d-block btn_chat_messenger_mobile" style="display: none;" href="javascript: AbrirChatBot()">
             <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
         </a>
     }

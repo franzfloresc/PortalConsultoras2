@@ -7,9 +7,10 @@ belcorp.settings.uniquePrefix = "/g/";
 jQuery(document).ready(function () {
     CreateLoading();
 
-    if (typeof IsoPais === 'undefined' || IsoPais != 'PE')  {
-        $('.btn_chat_messenger_mobile').hide();
+    if (typeof habilitarChatBot !== 'undefined' && habilitarChatBot === 'True') {
+        $('.btn_chat_messenger_mobile').show();
     }
+
     if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {
         GuardarIndicadorPedidoAutentico();
     }
