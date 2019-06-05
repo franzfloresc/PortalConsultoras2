@@ -82,6 +82,3 @@ SET @respuesta = 0;
 	END
 	
 END
-
---EXEC [dbo].[ContenidoAppDetaVideo] @Proc = 1, @IdContenidoDeta=0, @IdContenido = 4, @RutaContenido='', @tipo = 'VIDEO',@Campania='201918', @respuesta = 1000;
---EXEC [dbo].[ContenidoAppDetaVideo] @Proc = 2, @IdContenidoDeta=0, @IdContenido = 4, @RutaContenido='', @tipo = 'VIDEO',@Campania='201918', @respuesta = 1000;  
