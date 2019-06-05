@@ -421,8 +421,6 @@ var AnalyticsPortalModule = (function () {
         texto += (texto != "" ? (palanca != "" ? separador : "") : "") + palanca;
         texto += (texto != "" ? (seccion != "" ? separador : "") : "") + seccion;
 
-        console.log(origenEstructura, texto);
-
         return texto;
     }
 
@@ -569,7 +567,6 @@ var AnalyticsPortalModule = (function () {
                 }
             };
 
-            console.log(_evento.addToCart, objMarcar);
             dataLayer.push(objMarcar);
 
             return true;
@@ -809,11 +806,9 @@ var AnalyticsPortalModule = (function () {
         $.each(lista, function (index, item) {
             if (index < cantidadMostrar) {
                 var paramList = parametroList;
-                console.log('autoMapperEstrategia', parametroList, origenEstructura);
                 if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling) {
                     var origenEstructuraNueva = CodigoOrigenPedidoWeb.GetCambioSegunTipoEstrategia(origenMapper, item.CodigoEstrategia);
                     paramList = _getParametroListSegunOrigen(origenEstructuraNueva);
-                    console.log('autoMapperEstrategia', parametroList, origenEstructura, origenEstructuraNueva, paramList);
                 }
                 var impression = {
                     'name': item.DescripcionCompleta,
@@ -845,8 +840,6 @@ var AnalyticsPortalModule = (function () {
                     'impressions': arrayItems
                 }
             };
-
-            console.log(_evento.productImpression, objMarcar);
 
             dataLayer.push(objMarcar);
 

@@ -100,6 +100,12 @@
 
         return true;
     };
+
+    var _clearContainer = function(){
+        $(_elements.breadcrumbs.id).empty();
+        $(_elements.imagenEstrategia.id).empty();
+        $(_elements.agregar.id).empty();
+    };
     
     return {
         setPresenter: _setPresenter,
@@ -109,6 +115,7 @@
         renderReloj: _renderReloj,
         renderRelojStyle: _renderRelojStyle,
         renderAgregar: _renderAgregar,
-        showTitleAgregado: _showTitleAgregado
+        showTitleAgregado: _showTitleAgregado,
+        clearContainer: _clearContainer
     };
 };
