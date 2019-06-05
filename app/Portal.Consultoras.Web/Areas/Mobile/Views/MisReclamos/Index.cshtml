@@ -6,7 +6,17 @@
     var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     MobileAppConfiguracionModel mobileConfiguracion = Html.MobileAppConfiguracion();
+    int Cantidad = 0;
+    var listaCdr = new List<Portal.Consultoras.Web.Models.CDRWebModel>();
+    if (Model.ListaCDRWeb.Any())
+    {
+        Cantidad = Model.ListaCDRWeb.Count;
+        listaCdr = Model.ListaCDRWeb;
+    }
+    string msg = Model.MensajeGestionCdrInhabilitada;
 }
+
+
 
 @section styles
 {
@@ -23,7 +33,7 @@
 @{
     if (!mobileConfiguracion.EsAppMobile)
     {
-        <div class="titulo_mobile fijarTituloMobile">
+        <div class="titulo_mobile">
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
             CAMBIOS Y DEVOLUCIONES
         </div>
@@ -33,127 +43,78 @@
     }
 }
 
-<div class="wrapper_resumen_mobile pt-50">
-    @if (!string.IsNullOrEmpty(Model.MensajeGestionCdrInhabilitada) && Model.ListaCDRWeb.Count <= 0)
+<div class="wrapper_resumen_mobile">
+
+    @if (msg.Length > 0 && Cantidad == 0)
     {
-        <div class="mensaje_vista_cdr">@Html.Raw(Model.MensajeGestionCdrInhabilitada)</div>
+        <div class="mensaje_vista_cdr">
+            @Html.Raw(msg)
+
+        </div>
     }
     else
     {
-        <div>
-            <span class="mensaje_vista_cdr tipografia_lato_bold">
-                Queremos verte siempre satisfecha con nuestros productos y servicio.
-            </span>
-            <span class="mensaje_vista_cdr tipografia_lato_regular">
-                Si tuviste inconvenientes con algún producto y estás dentro del <a href="@Model.UrlPoliticaCdr" class="plazo_permitido" title="Detalle de plazo permitido" target="_blank">plazo permitido</a> sigue estos pasos:
-            </span>
-            <input type="button" title="Registrar Solicitud" class="btn_registrar_solicitud_cdr tipografia_lato_bold" value="REGISTRAR SOLICITUD" id="IrPaso1">
-            @if (@Model.ListaCDRWeb.Count() > 1)
-            {
-                <span class="mensaje_vista_cdr tipografia_lato_regular">Actualmente tienes @Model.ListaCDRWeb.Count() solicitudes registradas :</span>
-            }
-            else
-            {
-                <span class="mensaje_vista_cdr tipografia_lato_regular">Actualmente tienes @Model.ListaCDRWeb.Count() solicitud registrada :</span>
-            }
-        </div>
-        <div class="grilla_registros_solicitud_cdr">
-            @foreach (var item in Model.ListaCDRWeb)
-            {
-                var claseEstado = item.Estado == Constantes.EstadoCDRWeb.Pendiente
-                    ? "estado_pendiente"
-                    : item.Estado == Constantes.EstadoCDRWeb.Enviado
-                        ? "estado_rechazado"
-                        : item.Estado == Constantes.EstadoCDRWeb.Aceptado
-                            ? "estado_aprobado"
-                            : item.Estado == Constantes.EstadoCDRWeb.Observado //Rechazado
-                                ? "estado_observado"
-                                : "";
-
-                var formatoHoraAtencion = "";
-                var formatoFechaAtencion = "";
-                if (item.FechaAtencion.HasValue)
+        if (Cantidad > 0)
+        {
+            <input id="hdNroSolicitudes" type="hidden" value="@Cantidad" />
+            <div class="grilla_registros_solicitud_cdr">
+                <h4 class="tipografia_lato_bold titulo_solicitudes_registradas">Mis solicitudes registradas</h4>
+                @if (Cantidad > 6)
                 {
-                    var horaAtencion = item.FechaAtencion.Value.Hour > 12 ? item.FechaAtencion.Value.Hour - 12 : item.FechaAtencion.Value.Hour;
-                    var minutoAtencion = item.FechaAtencion.Value.Minute.ToString().PadLeft(2, '0');
-                    var formatoDiaAtencion = item.FechaAtencion.Value.Hour > 12 ? "pm" : "am";
-                    formatoHoraAtencion = horaAtencion.ToString().PadLeft(2, '0') + ":" + minutoAtencion + " " + formatoDiaAtencion;
+                    //Este filtro se muestra cuando la cantidad de solicitudes excede a 6
+                    <div class="campo_orden_solicitudes_cdr_wrapper">
+                        <label id="lblTextoSeleccionado">Filtrar por :</label>
+                        <select id="OrdenarSolicitudesRegistradasPor" class="border-radius-4 campo_ordenar_solicitudes_por">
+                            <option value="0">Todos</option>
+                            <option value="1">Pendientes</option>
+                            <option value="2">Enviados</option>
+                            <option value="3">Aceptados</option>
+                            <option value="4">Observados</option>
+                            @*<option value="4">Rechazados</option>*@
 
-                    formatoFechaAtencion = item.FechaAtencion.Value.Day.ToString().PadLeft(2, '0') + "/" +
-                                           item.FechaAtencion.Value.Month.ToString().PadLeft(2, '0') + "/" + item.FechaAtencion.Value.Year;
-                }
-
-                var cantAprobados = "";
-                var cantRechazados = "";
-                if (item.CantidadAprobados != 0)
-                {
-                    cantAprobados = item.CantidadAprobados == 1 ? item.CantidadAprobados + " producto aprobado," : item.CantidadAprobados + " productos aprobados,";
-                }
-
-                if (item.CantidadRechazados != 0)
-                {
-                    cantRechazados = item.CantidadRechazados == 1 ? item.CantidadRechazados + " rechazado" : item.CantidadRechazados + " rechazados";
-                }
-
-                var formatoFechaCulminado = "--/--/----";
-                if (item.FechaCulminado.HasValue)
-                {
-                    formatoFechaCulminado = item.FechaCulminado.Value.Day.ToString().PadLeft(2, '0') + "/" +
-                                            item.FechaCulminado.Value.Month.ToString().PadLeft(2, '0') + "/" + item.FechaCulminado.Value.Year;
-                }
-
-                var formatoCampania = item.CampaniaID.ToString().Substring(0, 4) + "-" + item.CampaniaID.ToString().Substring(4, 2);
-                <div class="registro_solicitud_cdr">
-                    <input type="hidden" class="cdrweb_id" value="@item.CDRWebID" />
-                    <input type="hidden" class="cdrweb_pedidoid" value="@item.PedidoID" />
-                    <input type="hidden" class="cdrweb_estado" value="@item.Estado" />
-                    <input type="hidden" class="cdrweb_formatoFechaCulminado" value="@formatoFechaCulminado" />
-                    <input type="hidden" class="cdrweb_formatocampania" value="@formatoCampania" />
-                    <input type="hidden" class="cdrweb_CantidadAprobados" value="@item.CantidadAprobados" />
-                    <input type="hidden" class="cdrweb_CantidadRechazados" value="@item.CantidadRechazados" />
-
-                    <div class="datos_solicitud_cdr abrir_detallemb">
-                        <div class="fecha_solicitud tipografia_lato_light">
-                            @formatoFechaAtencion
-                        </div>
-                        <div class="num_campania tipografia_lato_bold numcampsubraya">
-                            CAMPAÑA @formatoCampania
-                        </div>
-                        <div class="num_solicitud tipografia_lato_regular numsolsubraya">
-                            SOLICITUD N° - <span>@item.CDRWebID</span>
-                        </div>
-                        <div class="resumen_resolucion tipografia_lato_light">
-                            @if (item.CantidadAprobados != 0)
-                            {
-                                <span class="productos_aprobados">@cantAprobados</span>
-                            }
-                            @if (item.CantidadRechazados != 0)
-                            {
-                                <span class="productos_rechazados">@cantRechazados</span>
-                            }
-                        </div>
+                        </select>
                     </div>
-                    <div class="estado_registro_solicitud_cdr abrir_detallemb @claseEstado">
-                        @item.EstadoDescripcion
-                    </div>
-                    <div class="icono_busqueda abrir_detallemb">
-                        <span title="Ver solicitud" class="enlace_ver_solicitud_cdr">
-                            <img src="~/Content/Images/icono_lupa.png" alt="Ver solicitud" />
-                        </span>
-                    </div>
+                    //Fin - Este filtro se muestra cuando la cantidad de solicitudes excede a 6
+                }
+                <div id="divMisReclamos">
+                    @Html.Partial("~/Areas/Mobile/Views/MisReclamos/_ListaMisReclamos.cshtml", listaCdr)
                 </div>
-            }
-        </div>
+            </div>
+        }
+        else
+        {
+            <div id="VistaSinSolicitudesRegistradas">
+                <div class="text-center mensaje_sin_solicitudes_registradas_wrapper">
+                    <div class="mensaje_sin_solicitudes_registradas_icono">
+                        <img src="@Url.Content("~/Content/Images/icono_notificacion_negativa.svg")" alt="No tiene ningún cambio y devolución" />
+                    </div>
+                    <p class="tipografia_lato_bold mensaje_sin_solicitudes_registradas">
+                        No tienes ningún<br />cambio y devolución
+                    </p>
+                </div>
+            </div>
+        }
     }
 
+
+
 </div>
+<div class="btn_cta_wrapper">
+    <a id="linkNuevoReclamo" href="javascript:void(0);" onclick="misReclamos.Funciones.NuevaSolicitud();"
+       class="text-uppercase tipografia_lato tipografia_lato_bold border-radius-4 btn_cta_cdr btn_cta_cdr--agregarSolicitud">
+        Agregar cambio
+    </a>
+</div>
+
 @section scripts{
     @Scripts.Render("~/Bundle/Js/Mobile/MisReclamos")
 }
 
 <script type="text/javascript">
     var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
+    var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha)';
     var urlReclamo = '@Url.Action("Reclamo", "MisReclamos", new { area = "Mobile" } )';
+    var UrlGetMisReclamos = '@Url.Action("GetReclamos","MisReclamos", new { area = "mobile"})';
     var urlValidarCargaDetalle = '@Url.Action("ValidarCargaDetalle", "MisReclamos", new { area = "Mobile" })';
 </script>
 

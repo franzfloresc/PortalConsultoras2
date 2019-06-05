@@ -4437,6 +4437,24 @@ table > thead > tr > th {
     cursor: pointer;
 }
 
+/* INI HD-4009 */
+.producto_pum,
+.producto_pum_hidden {
+    margin-top: 5px;
+    margin-bottom: 0;
+    font-size: 12px;
+    min-height: 17px;
+}
+
+    .producto_pum span {
+        color: #000;
+    }
+
+.producto_pum_hidden {
+    visibility: hidden;
+}
+/* FIN HD-4009 */
+
 .producto_precio_oferta {
     margin: 0;
     padding: 0;
@@ -14806,3 +14824,55 @@ span.icon-advertencia {
 /* FIN - POPUP LLEGASTE AL 30% DE DESCUENTO */
 
 /* FIN - PROGRAMA NUEVAS - ELIGE TU REGALO */
+
+/* HD-4214 - CHAT MESSENGER SOMOS BELCORP */
+
+.btn_chat_messenger_mobile {
+    background-color: #FFF;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    padding: 0px;
+    position: fixed;
+    bottom: 18pt;
+    right: 18pt;
+    top: auto;
+    z-index: 2147483646;
+    padding: 13px 17px 13px 17px;
+    -moz-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+    -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+    cursor:pointer;
+}
+
+    .btn_chat_messenger_mobile img {
+        width: 100%;
+        height: auto;
+    }
+
+.fb_dialog_content {
+    display:none;
+    position: relative !important;
+}
+
+.icono_chat_sb {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background-color: #FFF;
+    background-image: url(/Content/Images/icono-chat-sb.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    border-radius:100%;
+    z-index: 2000;
+}
+
+.fb_dialog_content iframe {
+    display: none !important;
+}
+
+/* FIN - HD-4214 - CHAT MESSENGER SOMOS BELCORP */

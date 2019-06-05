@@ -1,35 +1,146 @@
 ﻿
 .default-color {
-    color:  #613c87;
+    color: #613c87;
 }
 
 .default-background {
-    background-color:  #613c87;
+    background-color: #613c87;
 }
 
 .default-background-color {
-    background-color:  #613c87;
+    background-color: #613c87;
 }
 
 .default-border-hover:hover {
     border-color: #613c87 !important;
 }
 
-.btn_deshabilitado{
-    border:1px solid rgba(128, 128, 128, 0.5);
-    background-color:rgba(216, 216, 216, 0.5)!important;
-    line-height:45px;
-    pointer-events:none;
-    cursor:not-allowed!important;
-    color:rgba(128, 128, 128, 0.5)!important;
+.campo_deshabilitado,
+.btn_deshabilitado {
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.campo_deshabilitado {
+    border: 1px solid rgba(128, 128, 128, 0.5) !important;
+    background-color: rgba(216, 216, 216, 0.5) !important;
+    line-height: 45px;
+    pointer-events: none;
+    cursor: not-allowed !important;
+    color: rgba(128, 128, 128, 0.5) !important;
+}
+
+.btn_deshabilitado {
+    border: 1px solid #D1D1D4 !important;
+    background-color: #D1D1D4 !important;
+    line-height: 45px;
+    pointer-events: none;
+    cursor: not-allowed !important;
+    color: #909094 !important;
+}
+
+.btn_primario,
+.btn_secundario {
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.btn_primario {
+    color: #FFF;
+    background-color: #b9007e;
+    border: 1px solid #b9007e;
+}
+
+.btn_secundario {
+    color: #000;
+    border: 1px solid #000;
+    background-color: #FFF;
+}
+
+.border-radius-4 {
+    border-radius: 4px;
 }
 
 .multimarca-background-color {
-    background-color: #b9007e;
 }
 
 .bg__popups__default {
     background-color: rgba(0,0,0,.8);
+}
+
+
+.border-radius-4 {
+    border-radius: 4px;
+}
+
+.multimarca-background-color {
+    background-color: #b9007e !important;
+}
+
+.multimarca-border-color {
+    border-color: #b9007e;
+}
+
+.bg__popups__default {
+    background-color: rgba(0,0,0,.8);
+}
+
+.tag_sb {
+    display: inline-block;
+    border-radius: 10.5px;
+    width: auto;
+    height: 24px;
+    font-size: 14px;
+    line-height: 23px;
+    margin-bottom: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+    .tag_sb--standard {
+        background-color: #000;
+        color: #FFF;
+    }
+
+.notificacion_estado {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+    .notificacion_estado--exito {
+        color: #569c04;
+    }
+
+    .notificacion_estado_img{
+        display: block;
+        width: 20px;
+        height: 20px;
+        margin-top: 2px;
+        margin-right: 4px;
+        margin-bottom: 0!important;
+    }
+
+        .notificacion_estado_img img{
+            width:100%;
+            height:auto;
+        }
+
+@media screen and (max-width:991px) {
+
+    .notificacion_estado_img {
+        margin-top: -1.2px;
+    }
 }
 
 /* POPUP GENERAL (ACCIONES ACEPTAR Y CANCELAR) */

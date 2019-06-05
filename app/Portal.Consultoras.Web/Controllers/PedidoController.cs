@@ -24,7 +24,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
- 
+
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1034,7 +1034,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var revistaGana = ValidarDesactivaRevistaGana(userModel);
 
-               
+
 
                 productosModel.Add(new ProductoModel()
                 {
@@ -1068,10 +1068,10 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoCatalago = producto.CodigoCatalogo,
                     EstrategiaIDSicc = producto.EstrategiaIDSicc,
                     //INI HD-3908
-                    CodigoPalanca= (new OfertaPersonalizadaProvider()).getCodigoPalanca(producto.TipoEstrategiaCodigo),
-                    CampaniaID= userModel.CampaniaID
+                    CodigoPalanca = (new OfertaPersonalizadaProvider()).getCodigoPalanca(producto.TipoEstrategiaCodigo),
+                    CampaniaID = userModel.CampaniaID
                     //FIN HD-3908
-                    
+
                 });
             }
             catch (Exception ex)
@@ -1085,20 +1085,25 @@ namespace Portal.Consultoras.Web.Controllers
         private List<ServiceODS.BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(string codigoDescripcion, UsuarioModel userModel, int cantidadFilas, int criterioBusqueda)
         {
             List<ServiceODS.BEProducto> productos;
+            ServiceODS.BEProductoBusqueda busqueda = new BEProductoBusqueda
+            {
+                PaisID = userModel.PaisID,
+                CampaniaID = userModel.CampaniaID,
+                CodigoDescripcion = codigoDescripcion,
+                RegionID = userModel.RegionID,
+                ZonaID = userModel.ZonaID,
+                CodigoRegion = userModel.CodigorRegion,
+                CodigoZona = userModel.CodigoZona,
+                Criterio = criterioBusqueda,
+                RowCount = cantidadFilas,
+                ValidarOpt = true,
+                CodigoPrograma = userModel.CodigoPrograma,
+                NumeroPedido = userModel.ConsecutivoNueva + 1
+            };
 
             using (var odsServiceClient = new ODSServiceClient())
             {
-                productos = odsServiceClient.SelectProductoByCodigoDescripcionSearchRegionZona(
-                    userModel.PaisID,
-                    userModel.CampaniaID,
-                    codigoDescripcion,
-                    userModel.RegionID,
-                    userModel.ZonaID,
-                    userModel.CodigorRegion,
-                    userModel.CodigoZona,
-                    criterioBusqueda,
-                    cantidadFilas,
-                    true).ToList();
+                productos = odsServiceClient.SelectProductoByCodigoDescripcionSearchRegionZona(busqueda).ToList();
             }
 
             return productos;
@@ -1568,7 +1573,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Enumeradores.ResultadoReserva.NoReservadoMontoMinimo
                 };
 
-                var mensajeCondicional = resultado.ListaMensajeCondicional != null && resultado.ListaMensajeCondicional.Any() ? resultado.ListaMensajeCondicional[0].MensajeRxP: null;
+                var mensajeCondicional = resultado.ListaMensajeCondicional != null && resultado.ListaMensajeCondicional.Any() ? resultado.ListaMensajeCondicional[0].MensajeRxP : null;
                 return Json(new
                 {
                     success = true,

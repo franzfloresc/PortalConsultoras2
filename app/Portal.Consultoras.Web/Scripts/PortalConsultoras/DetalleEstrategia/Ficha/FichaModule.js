@@ -102,6 +102,9 @@ var FichaModule = (function (config) {
         }
     }
 
+    var _objTipoPalanca = ConstantesModule.DiccionarioTipoEstrategia.find(function (x) { return x.texto === config.palanca });
+    var _fichaServicioApi = (variablesPortal.MsFichaEstrategias && _objTipoPalanca) ? (variablesPortal.MsFichaEstrategias.indexOf(_objTipoPalanca.codigo) > -1) : false;
+
     var _config = {
         esMobile: null,
         palanca: config.palanca || "",
@@ -117,16 +120,14 @@ var FichaModule = (function (config) {
         analyticsPortalModule: config.analyticsPortalModule,
         generalModule: config.generalModule,
         detalleEstrategiaProvider: config.detalleEstrategiaProvider,
-        componenteDetalleModule: config.componenteDetalleModule
+        componenteDetalleModule: config.componenteDetalleModule,
+        usaLocalStorage: !_fichaServicioApi
     };
 
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
     var _tipoEstrategia = ConstantesModule.TipoEstrategia;
     var _tipoAccionNavegar = ConstantesModule.TipoAccionNavegar;
-
-    var _objTipoPalanca = ConstantesModule.DiccionarioTipoEstrategia.find(function (x) { return x.texto === _config.palanca });
-    var _fichaServicioApi = (variablesPortal.MsFichaEstrategias && _objTipoPalanca) ? (variablesPortal.MsFichaEstrategias.indexOf(_objTipoPalanca.codigo) > -1) : false;
 
     var _elementos = {
         hdCampaniaCodigo: {
@@ -388,10 +389,16 @@ var FichaModule = (function (config) {
         }
         else {
             mensajeError += "\n _fichaServicioApi no";
-            estrategia = _modeloFicha;
+            estrategia = modeloFicha;
+
+            if (typeof estrategia === "undefined" || estrategia == null || typeof estrategia.EstrategiaID === "undefined" || estrategia.EstrategiaID == 0) {
+                throw '_getEstrategia, no obtiene oferta desde api';
+            }
+
             _esMultimarca = estrategia.EsMultimarca;
 
             estrategia.esCampaniaSiguiente = estrategia.CampaniaID !== _obtenerCampaniaActual();
+
             $.each(estrategia.Hermanos, function (idx, hermano) {
                 hermano = estrategia.Hermanos[idx];
                 hermano.esCampaniaSiguiente = estrategia.esCampaniaSiguiente;
@@ -765,7 +772,8 @@ var FichaModule = (function (config) {
             divCarruselContenedor: "#divFichaCarrusel",
             idTituloCarrusel: "#tituloCarrusel",
             divCarruselProducto: "#divFichaCarruselProducto",
-            OrigenPedidoWeb: _config.origen
+            OrigenPedidoWeb: _config.origen,
+            usaLocalStorage: _config.usaLocalStorage
         });
 
         carruselModule.Inicializar();

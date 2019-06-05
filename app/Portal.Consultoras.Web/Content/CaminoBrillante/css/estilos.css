@@ -876,6 +876,10 @@ div .layout__view__breadcrumbs__wrapper, div .layout__view__title__wrapper {
 }
 
 
+#m_montoMinimo span em {
+    font-style: normal;
+}
+
 @media (min-width:576px) {
     .modal-dialog {
         max-width: 500px;
@@ -1403,6 +1407,20 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
 
     .text-down {
         line-height: 15px;
+    }
+
+    #ddlfiltros {
+        width: 48%;
+        margin-left: 4%;
+        box-sizing: border-box;
+        display: block;
+    }
+
+    #ddlOrdenar {
+        width: 48%;
+        box-sizing: border-box;
+        display: block;
+        margin-left: 0;
     }
     #ddlfiltros {
         width: 57%;

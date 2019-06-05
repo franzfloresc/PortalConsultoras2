@@ -710,7 +710,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CodigoVariante, f => f.MapFrom(c => c.CodigoEstrategia))
                 .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.MarcaDescripcion))
                 .ForMember(t => t.CodigoEstrategia, f => f.MapFrom(c => c.CodigoTipoEstrategia))
-                .ForMember(t => t.CodigoPalanca, f => f.MapFrom(c => c.TipoPersonalizacion));
+                .ForMember(t => t.CodigoPalanca, f => f.MapFrom(c => c.TipoPersonalizacion))
+                .ForMember(t => t.ImagenURL, f => f.MapFrom(c => c.ImagenEtiqueta));
+
 
             #region Camino Brillante
 
@@ -726,6 +728,11 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BECarruselCaminoBrillante, CarruselCaminoBrillanteModel>();
             Mapper.CreateMap<BEItemCarruselCaminoBrillante, ItemCarruselCaminoBrillanteModel>();
             #endregion
+
+            #region Historial
+            Mapper.CreateMap<BEContenidoAppDetaAct, AdministrarHistorialDetaActModel>();
+            #endregion
+
         }
     }
 }

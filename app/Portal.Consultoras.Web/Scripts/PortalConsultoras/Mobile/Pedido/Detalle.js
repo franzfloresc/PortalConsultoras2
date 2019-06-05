@@ -69,7 +69,11 @@ $(document).ready(function () {
         else mostrar.fadeOut(200);
     });
 
-    ValidarKitNuevas(function () { CargarPedido(true); });
+    //INI HD-4200
+    ValidarSuscripcionSE(function () { ValidarKitNuevas(function () { CargarPedido(true); }) },1);
+     //FIN HD-4200
+    
+   
 
     $("#suma, #resta").click(function (event) {
         if (!ValidarPermiso(this)) {
@@ -800,7 +804,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             CargarPedido();
 
             if (data.mensajeCondicional) {
-	            AbrirMensaje(data.mensajeCondicional);
+	            AbrirMensajeImagen(data.mensajeCondicional);
             }
 
             if (data.modificoBackOrder) {
@@ -907,7 +911,7 @@ function EjecutarServicioPROL() {
             }
 
             if (response.mensajeCondicional) {
-	            AbrirMensaje(response.mensajeCondicional);
+                AbrirMensajeImagen(response.mensajeCondicional);
             }
 
             RespuestaEjecutarServicioPROL(response, function () { return CumpleOfertaFinalMostrar(response); });
