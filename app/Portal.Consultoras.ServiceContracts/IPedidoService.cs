@@ -1345,6 +1345,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BECarruselCaminoBrillante GetCarruselCaminoBrillante(BEUsuario entidad);
 
+        [OperationContract]
+        BEOfertaCaminoBrillante GetOfertaCaminoBrillante(BEUsuario entidad, string CUV);
+
         #endregion
 
         [OperationContract]

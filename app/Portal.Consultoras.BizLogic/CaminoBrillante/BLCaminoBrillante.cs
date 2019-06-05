@@ -193,13 +193,14 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                         }
                     });
 
-                    niveles.Where(e => e.CodigoNivel == "6").Update(e => {
+                    niveles.Where(e => e.CodigoNivel == "6").Update(e =>
+                    {
                         if (nivelActualConsutora.PuntajeAcumulado.HasValue)
                         {
                             e.PuntajeAcumulado = nivelActualConsutora.PuntajeAcumulado;
                         }
                     });
- 
+
                 }
             }
             return niveles;
@@ -748,6 +749,14 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                         kit.DescripcionNivel = niveles.Where(e => e.CodigoNivel == _kitProvider.Nivel).Select(e => e.DescripcionNivel).SingleOrDefault();
                         kit.FotoProductoSmall = !string.IsNullOrEmpty(kit.FotoProductoSmall) ? ConfigCdn.GetUrlFileCdnMatriz(paisISO, kit.FotoProductoSmall) : string.Empty;
                         kit.FotoProductoMedium = !string.IsNullOrEmpty(kit.FotoProductoMedium) ? ConfigCdn.GetUrlFileCdnMatriz(paisISO, kit.FotoProductoMedium) : string.Empty;
+                        kit.Detalle = kitsProvider.Where(e => e.Nivel == _kitProvider.Nivel).Select(e => new BEKitComponenteCaminoBrillante()
+                        {
+                            Cuv = e.Cuv,
+                            Descripcion = e.Descripcion,
+                            DescripcionOferta = e.DescripcionOferta,
+                            Marca = e.Marca,
+                            Precio = e.Precio
+                        }).ToList();
                     }
                 });
 
@@ -820,6 +829,11 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             }).ToList();
 
             return objDemostradores;
+        }
+
+        private List<BEDemostradoresCaminoBrillante> GetDemostradores(BEUsuario entidad)
+        {
+            return GetDemostradoresCaminoBrillanteCache(entidad.PaisID, entidad.CampaniaID, entidad.NivelCaminoBrillante);
         }
 
         private List<BEDemostradoresCaminoBrillante> GetOrdenarDemostradores(List<BEDemostradoresCaminoBrillante> demostradores, string ordenar)
@@ -913,7 +927,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             if (demostradores != null)
             {
                 if (demostradores.LstDemostradores.Any())
-                    carrusel.Items.AddRange(demostradores.LstDemostradores.Take(iSize).Select(e => new BEItemCarruselCaminoBrillante() { Demostrador = e }));                
+                    carrusel.Items.AddRange(demostradores.LstDemostradores.Take(iSize).Select(e => new BEItemCarruselCaminoBrillante() { Demostrador = e }));
             }
 
             return carrusel;
@@ -1208,10 +1222,11 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             var opciones = tablaLogicaDatos.Where(e => (e.Codigo != "00" && isApp) || !isApp)
                             .Select(e => new BEFiltro() { Codigo = e.Codigo, Descripcion = e.Descripcion }).ToList();
-            if (!isApp) {
+            if (!isApp)
+            {
                 var filtrar = opciones.Where(e => e.Codigo == "00").SingleOrDefault();
                 opciones = opciones.Where(e => e.Codigo != "00").OrderBy(e => e.Descripcion).ToList();
-                if(filtrar!= null) opciones.Insert(0, filtrar);
+                if (filtrar != null) opciones.Insert(0, filtrar);
             }
 
             return new List<BEFiltroGrupo>() { new BEFiltroGrupo() {
@@ -1223,7 +1238,74 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         private BEOrdenFiltroConfiguracion GetFiltrosCache(int paisId, bool isApp)
         {
-            return CacheManager<BEOrdenFiltroConfiguracion>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteFiltros, isApp ? "APP":"WEB" , () => GetFiltros(paisId, isApp));
+            return CacheManager<BEOrdenFiltroConfiguracion>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteFiltros, isApp ? "APP" : "WEB", () => GetFiltros(paisId, isApp));
+        }
+
+        #endregion
+
+        #region Ficha Producto
+
+        public BEOfertaCaminoBrillante GetOfertaCaminoBrillante(BEUsuario entidad, string CUV)
+        {
+            var demostradores = GetDemostradores(entidad) ?? new List<BEDemostradoresCaminoBrillante>();
+            if (demostradores.Any(e => e.CUV == CUV))
+            {
+                return demostradores.Where(e => e.CUV == CUV).Select(e => new BEOfertaCaminoBrillante()
+                {
+                    TipoOferta = 2,
+                    EstrategiaID = e.EstrategiaID,
+                    CodigoEstrategia = e.CodigoEstrategia,
+                    TipoEstrategiaID = e.TipoEstrategiaID,
+                    CUV = e.CUV,
+                    DescripcionCUV = e.DescripcionCUV,
+                    DescripcionCortaCUV = e.DescripcionCortaCUV,
+                    MarcaID = e.MarcaID,
+                    CodigoMarca = e.CodigoMarca,
+                    DescripcionMarca = e.DescripcionMarca,
+                    //CodigoNivel = e.cod
+                    //DescripcionNivel { get; set; }
+                    PrecioValorizado = e.PrecioValorizado,
+                    PrecioCatalogo = e.PrecioCatalogo,
+                    //Ganancia = e.Gana
+                    FotoProductoSmall = e.FotoProductoSmall,
+                    FotoProductoMedium = e.FotoProductoMedium,
+                    FlagSeleccionado = e.FlagSeleccionado,
+                    //FlagDigitable = e.flag
+                    //FlagHabilitado = e.fla
+                    ///FlagHistorico = e.
+                    EsCatalogo = e.EsCatalogo
+                }).First();
+            }
+            var kits = GetKits(entidad);
+            if (kits.Any(e => e.CUV == CUV))
+            {
+                return kits.Where(e => e.CUV == CUV).Select(e => new BEOfertaCaminoBrillante()
+                {
+                    TipoOferta = 2,
+                    EstrategiaID = e.EstrategiaID,
+                    CodigoEstrategia = e.CodigoEstrategia,
+                    TipoEstrategiaID = e.TipoEstrategiaID,
+                    CUV = e.CUV,
+                    DescripcionCUV = e.DescripcionCUV,
+                    DescripcionCortaCUV = e.DescripcionCortaCUV,
+                    MarcaID = e.MarcaID,
+                    //CodigoMarca = e.CodigoMarca,
+                    DescripcionMarca = e.DescripcionMarca,
+                    CodigoNivel = e.CodigoNivel,
+                    DescripcionNivel = e.DescripcionNivel,
+                    PrecioValorizado = e.PrecioValorizado,
+                    PrecioCatalogo = e.PrecioCatalogo,
+                    Ganancia = e.Ganancia,
+                    FotoProductoSmall = e.FotoProductoSmall,
+                    FotoProductoMedium = e.FotoProductoMedium,
+                    FlagSeleccionado = e.FlagSeleccionado,
+                    FlagDigitable = e.FlagDigitable,
+                    FlagHabilitado = e.FlagHabilitado,
+                    FlagHistorico = e.FlagHistorico
+                    //EsCatalogo = e.EsCatalogo
+                }).First();
+            }
+            return null;
         }
 
         #endregion

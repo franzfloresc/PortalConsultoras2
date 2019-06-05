@@ -414,5 +414,29 @@ namespace Portal.Consultoras.Web.Providers
             return misGanancias;
         }
 
+        public EstrategiaPersonalizadaProductoModel GetEstrategiaPersonalizadaProducto(string cuv) {
+            try
+            {
+                using (var svc = new PedidoServiceClient())
+                {
+                    var usuario = new ServicePedido.BEUsuario()
+                    {
+                        PaisID = usuarioModel.PaisID,
+                        CampaniaID = usuarioModel.CampaniaID,
+                        ConsultoraID = usuarioModel.ConsultoraID,
+                        CodigoConsultora = usuarioModel.CodigoConsultora,
+                        NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
+                    };
+
+                    return Mapper.Map<EstrategiaPersonalizadaProductoModel>(svc.GetOfertaCaminoBrillante(usuario, cuv));
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return null;
+            }
+        }
+
     }
 }
