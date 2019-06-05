@@ -6,8 +6,8 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
     public class DemostradorCaminoBrillanteModel
     {
         public string EstrategiaID { get; set; }
-        public string CodigoEstrategia { get; set; }
         public string PaisISO { private get;  set; }
+        public int CampaniaID { get; set; }
         public string CUV { get; set; }
         public string DescripcionCUV { get; set; }
         public int MarcaID { get; set; }
@@ -17,11 +17,12 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         public string FotoProductoMedium { get; set; }
         public bool FlagSeleccionado { get; set; }
 
-        public string CampaniaID
+
+        public string CodigoEstrategia
         {
             get
             {
-                return "201909";
+                return "035";
             }
         }
 

@@ -867,7 +867,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             if (demostradores != null)
             {
                 var paisISO = Util.GetPaisISO(paisId);
-                var CampaniaID = campaniaId;
 
                 demostradores.ForEach(e =>
                 {

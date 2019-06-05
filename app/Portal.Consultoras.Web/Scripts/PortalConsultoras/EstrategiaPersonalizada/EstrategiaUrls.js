@@ -7,16 +7,9 @@ function OnClickFichaDetalle(e) {
     var codigoCuv = $.trim(infoCuvItem.CUV2);
     var OrigenPedidoWeb = getOrigenPedidoWebDetalle(infoCuvItem);
 
-    console.log(codigoEstrategia);
-    console.log(codigoCampania);
-    console.log(codigoCuv);
-    console.log(OrigenPedidoWeb);
-
-
     if (!OrigenPedidoWeb) {
         OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), true);
     }
-
     var UrlDetalle = GetPalanca(codigoEstrategia, OrigenPedidoWeb);
 
     if (UrlDetalle === "" || UrlDetalle === "undefined" || UrlDetalle == null)
@@ -147,6 +140,12 @@ function GetPalanca(codigoEstrategia, origenPedidoWeb, esUrl) {
             break;
         case ConstantesModule.TipoEstrategia.NotParticipaProgramaNuevas:
             url += ConstantesModule.TipoEstrategiaTexto.NotParticipaProgramaNuevas;
+            break;
+        case ConstantesModule.TipoEstrategia.CaminoBrillanteDemostradores:
+            url += ConstantesModule.TipoEstrategiaTexto.CaminoBrillanteDemostradores;
+            break;
+        case ConstantesModule.TipoEstrategia.CaminoBrillanteKits:
+            url += ConstantesModule.TipoEstrategiaTexto.CaminoBrillanteKits;
             break;
         default:
             url = "";
