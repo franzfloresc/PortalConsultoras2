@@ -968,6 +968,8 @@ function EjecutarAccionesReservaExitosa(response) {
     if (estaRechazado == "2") cerrarMensajeEstadoPedido();
 
     messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>');
+    //INI HD-4294
+    //FIN HD-4294
     RedirigirPedidoValidado();
 }
 

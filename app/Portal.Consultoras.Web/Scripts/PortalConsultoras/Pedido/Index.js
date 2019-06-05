@@ -531,7 +531,12 @@ $(document).ready(function () {
         return false;
     });
 
-    
+     //INI HD-4294
+    $("body").on("close", "#PopupReservaPedido", function () {
+        AbrirSplash();
+        location.href = baseUrl + "Pedido/PedidoValidado";
+    });
+    //FIN HD-429
 });
 
 function CargarDetallePedido(page, rows, asyncrono) {    
@@ -2097,8 +2102,21 @@ function MostrarMensajeProl(response, fnOfertaFinal) {
 
 function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();
-    $("#dialog_divReservaSatisfactoria").show();
-    RedirigirPedidoValidado();
+
+    //INI HD-4294
+    var flgConfirmarDatos= true;
+    if (flgConfirmarDatos) $("#PopupReservaPedido").show();
+    else {
+        $("#dialog_divReservaSatisfactoria").show();
+        RedirigirPedidoValidado();
+    }
+    //FIN HD-4294
+
+}
+
+
+function ReservaExistosaActualizacionDatos() {
+
 }
 
 function EliminarPedido() {
