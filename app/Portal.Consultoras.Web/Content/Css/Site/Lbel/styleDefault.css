@@ -468,7 +468,30 @@ input[type="checkbox"].switch__control,
     background-color: rgba(0,0,0,.8);
 }
 
+.btn_primario,
+.btn_secundario {
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.btn_primario {
+    color: #FFF;
+    background-color: #b9007e;
+    border: 1px solid #b9007e;
+}
+
+.btn_secundario {
+    color: #000;
+    border: 1px solid #000;
+    background-color: #FFF;
+}
+
+
+
 /* FIN - ESTILOS GENERALES UI */
+
 
 /* POPUP GENERAL (ACCIONES ACEPTAR Y CANCELAR) */
 
