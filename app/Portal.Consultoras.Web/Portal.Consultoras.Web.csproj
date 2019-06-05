@@ -1921,6 +1921,7 @@
     <Content Include="Content\Images\menos-desplegable-icono.svg" />
     <Content Include="Content\Images\menos.svg" />
     <Content Include="Content\Images\mobile\Esika\bonificaciones_digital.png" />
+    <Content Include="Content\Images\mobile\Esika\click-ico-White.svg" />
     <Content Include="Content\Images\mobile\Esika\emoji-clapping-hands%403x.png" />
     <Content Include="Content\Images\mobile\icono_mas_footer_mobile.png" />
     <Content Include="Content\Images\mobile\icono_menos_footer_mobile.png" />
@@ -3779,6 +3780,8 @@
     <Content Include="Content\Images\PL20\set_hoy.png" />
     <Content Include="Content\Images\PL20\solo_hoy.png" />
     <Content Include="Content\Images\PL20\textura_fondo.png" />
+    <Content Include="Content\Images\placeholder\img_placeholder_horizontal.jpg" />
+    <Content Include="Content\Images\placeholder\img_placeholder_vertical.jpg" />
     <Content Include="Content\Images\Pop Up Navidad 2-01.png" />
     <Content Include="Content\Images\Pop Up Navidad 2-02.png" />
     <Content Include="Content\Images\Pop Up Navidad 2-04.png" />

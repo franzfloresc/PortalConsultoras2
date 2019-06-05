@@ -18,10 +18,6 @@
 /*Fin Ficha Enrriquecida*/
 
 /*Tabs*/
-.ficha_enriquecida_contenedor{
-    margin-top: 60px;
-}
-
 .tabs {
     display: flex;
     flex-wrap: wrap;
@@ -292,7 +288,7 @@
 
     .ficha_enriquecida_contenedor {
         margin-top: 0px;
-        margin-bottom: 65px;
+        /*margin-bottom: 65px;*/
     }
 
     .popup_full .ficha_producto {

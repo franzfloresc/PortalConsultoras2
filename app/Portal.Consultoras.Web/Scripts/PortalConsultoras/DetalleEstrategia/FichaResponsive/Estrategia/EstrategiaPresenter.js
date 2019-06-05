@@ -1,4 +1,5 @@
 ﻿/// <reference path="../../../shared/constantesmodule.js" />
+/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaView.js" />
 
 var EstrategiaPresenter = function (config) {
     if (typeof config === "undefined" || config === null) throw "config is null or undefined";
@@ -51,7 +52,7 @@ var EstrategiaPresenter = function (config) {
         if(!_config.estrategiaView.setEstrategiaTipoBotonAgregar(model)) throw "estrategiaView don't set type button Agregado.";
   
         _config.estrategiaView.showCarrusel();
-
+        _config.estrategiaView.fixButtonAddProduct();
         return true;
     };
 
