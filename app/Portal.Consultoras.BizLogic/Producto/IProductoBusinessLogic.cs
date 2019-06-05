@@ -22,7 +22,7 @@ namespace Portal.Consultoras.BizLogic
         IList<BEProducto> SearchSmartListProductoByCampaniaRegionZonaDescripcion(string paisISO, int campaniaID, int zonaID, string codigoRegion, string codigoZona, string textoBusqueda, int rowCount);
         IList<BEProducto> SelectProductoByCodigoDescripcion(int paisID, int campaniaID, string codigoDescripcion, int criterio, int rowCount);
         IList<BEProducto> SelectProductoByCodigoDescripcionSearch(int paisID, int campaniaID, string codigoDescripcion, int criterio, int rowCount);
-        IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID, string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio, int rowCount, bool validarOpt);
+        IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(BEProductoBusqueda busqueda);
         IList<BEProducto> SelectProductoByListaCuvSearchRegionZona(int paisID, int campaniaID, string listaCuv, int regionID, int zonaID, string codigoRegion, string codigoZona, bool validarOpt);
         IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv);
         int UpdProductoDescripcion(BEProductoDescripcion producto, string codigoUsuario);

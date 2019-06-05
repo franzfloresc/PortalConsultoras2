@@ -63,7 +63,8 @@ namespace Portal.Consultoras.Entities.Pedido
         public bool OfertaWeb { get; set; }
         [DataMember]
         public bool EsEditable { get; set; }
-
+        [DataMember]
+        public string OrigenSolicitud { get; set; }
         public object Clone()
         {
             return this.MemberwiseClone();

@@ -98,7 +98,7 @@
                                                 }
                                                 else
                                                 {
-                                                    @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.MontoMinimo), @ViewBag.CodigoISODL)
+                                                    <em>@ViewBag.SimboloMoneda</em> @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.MontoMinimo), @ViewBag.CodigoISODL)
                                                 }
                                             </span>
                                         </p>
@@ -206,6 +206,7 @@
 
 </div>
 
+<script src="~/Scripts/Chart.min.js"></script>
 
 @section scripts{
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")

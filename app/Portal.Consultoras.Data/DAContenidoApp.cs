@@ -10,8 +10,8 @@ namespace Portal.Consultoras.Data
 {
     public class DAContenidoApp : DataAccess
     {
-        public DAContenidoApp()
-            : base()
+        public DAContenidoApp(int paisID)
+            : base(paisID, EDbSource.Portal)
         {
 
         }
@@ -29,7 +29,6 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ContenidoAppUpd");
             Context.Database.AddInParameter(command, "@IdContenido", DbType.Int32, p.IdContenido);
             Context.Database.AddInParameter(command, "@UrlMiniatura", DbType.AnsiString, p.UrlMiniatura);
-            Context.Database.AddInParameter(command, "@DesdeCampania", DbType.Int32, p.DesdeCampania);
 
             try
             {
@@ -53,8 +52,13 @@ namespace Portal.Consultoras.Data
         public void InsertContenidoAppDeta(BEContenidoAppDeta p)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ContenidoAppDetaInsert");
+            Context.Database.AddInParameter(command, "@Proc", DbType.Int32, p.Proc);
+            Context.Database.AddInParameter(command, "@IdContenidoDeta", DbType.Int32, p.IdContenidoDeta);
             Context.Database.AddInParameter(command, "@IdContenido", DbType.Int32, p.IdContenido);
             Context.Database.AddInParameter(command, "@RutaContenido", DbType.AnsiString, p.RutaContenido);
+            Context.Database.AddInParameter(command, "@Campania", DbType.Int32, p.Campania);
+            Context.Database.AddInParameter(command, "@Accion", DbType.AnsiString, p.Accion);
+            Context.Database.AddInParameter(command, "@CodigoDetalle", DbType.AnsiString, p.CodigoDetalle);
             Context.Database.AddInParameter(command, "@tipo", DbType.AnsiString, p.Tipo);
 
             try
@@ -80,6 +84,13 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
             return Convert.ToInt32(command.Parameters["@respuesta"].Value);
 
+
+        }
+
+        public IDataReader GetContenidoAppDetaActList()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ContenidoAppDetaActList");
+            return Context.ExecuteReader(command);
 
         }
     }
