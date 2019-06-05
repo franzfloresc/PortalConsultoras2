@@ -218,6 +218,7 @@ function ArmarMisGanancias(data) {
                 enabled: false
             },
             scales: {
+           
                 yAxes: [{
                     ticks: {
                         fontColor: "#000",
@@ -235,6 +236,7 @@ function ArmarMisGanancias(data) {
                         fontColor: "#000",
                         fontSize: 14
                     },
+                    barPercentage: 0.6,
                     gridLines: {
                         color: "#f7f7f7",
                         lineWidth: 1,
