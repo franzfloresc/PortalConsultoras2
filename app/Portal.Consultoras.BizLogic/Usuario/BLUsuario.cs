@@ -1,22 +1,20 @@
 ﻿using JWT;
 using Newtonsoft.Json;
-
 using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.BizLogic.RevistaDigital;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
-using Portal.Consultoras.Data.ServiceActualizarFlagBoletaImpresa;
 using Portal.Consultoras.Data.Hana;
+using Portal.Consultoras.Data.ServiceActualizarFlagBoletaImpresa;
 using Portal.Consultoras.Data.ServiceDirecciondeEntrega;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
-using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.ProgramaNuevas;
+using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.Usuario;
 using Portal.Consultoras.PublicService.Cryptography;
-
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -24,11 +22,10 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.ServiceModel;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Transactions;
-using System.ServiceModel;
-using Portal.Consultoras.Data.CaminoBrillante;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -671,6 +668,8 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 usuario.GanaMasNativo = (tieneGanaMasNativo.Result.Select(x => x.Valor).FirstOrDefault() == "1");
+                usuario.EsUltimoDiaFacturacion = (usuario.FechaFinFacturacion - DateTime.Now.Date ).Days == 0;
+
 
                 return usuario;
             }
@@ -3999,7 +3998,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 if (conTransaccion) LogManager.SaveLog(ex, direccionEntrega.ConsultoraID, direccionEntrega.PaisID);
-                throw ex;
+                throw new Exception("Exception BLUsuario - RegistrarDireccionEntrega", ex);
             }
             finally
             {

@@ -164,7 +164,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 ShowRoomEventoModel showRoomEventoModel = CargarValoresModel();
 
-                List<EstrategiaPersonalizadaProductoModel> listaShowRoomOfertas = new List<EstrategiaPersonalizadaProductoModel>();
+                List<EstrategiaPersonalizadaProductoModel> listaShowRoomOfertas;
 
                 if (_showRoomProvider.UsarSession(Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
@@ -189,12 +189,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     List<EstrategiaPedidoModel> listaEstrategiaOfertas;
                     List<EstrategiaPedidoModel> listaEstrategiaSubCampania;
-                    var listaEstrategiaOfertasPerdio = new List<EstrategiaPedidoModel>();
+                    //var listaEstrategiaOfertasPerdio = new List<EstrategiaPedidoModel>();
 
                     if (revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
                     {
                         listaEstrategiaOfertas = listaProductoModel.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
-                        listaEstrategiaOfertasPerdio = listaProductoModel.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
+                        //listaEstrategiaOfertasPerdio = listaProductoModel.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
                         listaEstrategiaSubCampania = listaProductoModel.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
                     }
                     else

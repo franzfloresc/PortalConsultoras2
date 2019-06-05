@@ -1,6 +1,8 @@
 ﻿var opcionesEvents = opcionesEvents || {};
 registerEvent.call(opcionesEvents, "onComponentSelected");
 
+var componentesAnalyticsPresenter = null;
+
 var ResumenOpcionesModule = (function () {
     "use strict";
 
@@ -15,6 +17,13 @@ var ResumenOpcionesModule = (function () {
         dataTonoDiv: "[data-tono-div]",
         dataTonoCuv: "[data-tono-cuv]",
         bordeSeleccionTono: "borde_seleccion_tono"
+    };
+
+    var _const = {
+        tipoSelector: {
+            Paleta: 1,
+            Panel: 2
+        }
     };
 
     var _actualizarCantidadAplicada = function (codigoVariante) {
@@ -61,8 +70,8 @@ var ResumenOpcionesModule = (function () {
             if (activarBtnAgregar) EstrategiaAgregarModule.HabilitarBoton();
         }
     }
-
-    var AplicarOpciones = function (callFromSeleccionarPaletaOpcion) {
+    
+    var AplicarOpciones = function (callFromSeleccionarPaletaOpcion, esEditar) {
         
         var callCloseElegirOpcionesModal = callFromSeleccionarPaletaOpcion ? !callFromSeleccionarPaletaOpcion : true;
         _componente = ListaOpcionesModule.GetComponente() || _componente;
@@ -106,29 +115,33 @@ var ResumenOpcionesModule = (function () {
         }
         
         _verificarActivarBtn(codigoVariante);
-
-        console.log('AplicarOpciones - DivPopupFichaResumida overflow auto');
-        $("#DivPopupFichaResumida").css("overflow", "auto");
-         
-        if (callCloseElegirOpcionesModal) {
-            var estrategia = fichaModule.GetEstrategia();
-            var nombreConcat = "";
-            if (_componente.FactorCuadre === 1) {
-                AnalyticsPortalModule.MarcarBotonAplicarSeleccion(estrategia, _componente);
-            } else {
-                $.each(_componente.resumenAplicados, function (index, opcion) {
-                    if (opcion.cantidadSeleccionada > 0) {
-                        nombreConcat += " " + estrategia.DescripcionCompleta + " " + opcion.NombreBulk + " |";
-                    }
-                });
-
-                nombreConcat = Left(nombreConcat, nombreConcat.length - 1).trim();
-
-                AnalyticsPortalModule.MarcarPopupBotonAplicarSeleccionVariasOpciones(nombreConcat);
-            }
-        }
-        var isDesactivado = $('#btnAgregalo').hasClass('.btn_desactivado_general');
         
+        $("#DivPopupFichaResumida").css("overflow", "auto");
+
+        if (!esEditar) {
+            var tipo = callCloseElegirOpcionesModal ? _const.tipoSelector.Panel : _const.tipoSelector.Paleta;
+            _applySelectedAnalytics(_componente, tipo);
+        }
+
+        //if (callCloseElegirOpcionesModal) {
+        //    var estrategia = fichaModule.GetEstrategia();
+        //    var nombreConcat = "";
+        //    if (_componente.FactorCuadre === 1) {
+        //        AnalyticsPortalModule.MarcarBotonAplicarSeleccion(estrategia, _componente);
+        //    } else {
+        //        $.each(_componente.resumenAplicados, function (index, opcion) {
+        //            if (opcion.cantidadSeleccionada > 0) {
+        //                nombreConcat += " " + estrategia.DescripcionCompleta + " " + opcion.NombreBulk + " |";
+        //            }
+        //        });
+
+        //        nombreConcat = Left(nombreConcat, nombreConcat.length - 1).trim();
+
+        //        AnalyticsPortalModule.MarcarPopupBotonAplicarSeleccionVariasOpciones(nombreConcat);
+        //    }
+        //}
+
+        var isDesactivado = $('#btnAgregalo').hasClass('.btn_desactivado_general');
         if (!isDesactivado) {
             fichaModule.SetChangeFichaAnalytics(true, null, null);
         }
@@ -162,6 +175,18 @@ var ResumenOpcionesModule = (function () {
             }
         }
         return false;
+    };
+    
+    var _applySelectedAnalytics = function (componente, tipo) {
+        componente = componente || {};
+        tipo = tipo || '';
+
+        if (!componentesAnalyticsPresenter) {
+            componentesAnalyticsPresenter = ComponentesAnalyticsPresenter({
+                analyticsPortal: AnalyticsPortalModule
+            });
+        }
+        componentesAnalyticsPresenter.applySelectedAnalytics(componente, tipo);
     };
 
     return {

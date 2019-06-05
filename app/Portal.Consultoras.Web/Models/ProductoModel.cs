@@ -78,6 +78,8 @@ namespace Portal.Consultoras.Web.Models
         public bool EsCuponNuevas { get; set; }
         public int CodigoCatalago { get; set; }
         public int EstrategiaIDSicc { get; set; }
+        public bool EsDuoPerfecto { get; set; }
+        public string CodigoEstrategia { get; set; }
 
         //INI HD-3908
         public string CodigoPalanca { get; set; }

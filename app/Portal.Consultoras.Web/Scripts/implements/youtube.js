@@ -26,7 +26,7 @@ var YoutubeModule = (function (config) {
             , oYTPlayers = {} // Todas las instancias de de los reproductores youtube
             ;
 
-         // Todos los objetos html jQuery contenedores de video youtube
+        // Todos los objetos html jQuery contenedores de video youtube
         var $allPlayers = getAllPlayer();
 
 
@@ -53,7 +53,7 @@ var YoutubeModule = (function (config) {
         // Llenando oYTPlayers con los data-youtube y data-extra de los elementos contenedores del reproductor
         if ($allPlayers.length > 0) {
             $.each($allPlayers, function (i, ele) {
-            //$allPlayers.each(function (i, ele) {
+                //$allPlayers.each(function (i, ele) {
                 var sJsonYoutube = $(ele).data('youtube')
                     , oDataYoutube = sJsonYoutube ? (new Function("return " + sJsonYoutube + ";"))() : false
                     ;
@@ -158,10 +158,7 @@ var YoutubeModule = (function (config) {
             ytExtra = oYTPlayers[ytIdx].hasOwnProperty("extra") ? oYTPlayers[ytIdx].extra : false;
             ytPlayer = oYTPlayers[ytIdx].instance; // instancia de Youtube Player
 
-            if (typeof videoKey == "undefined") {
-
-            }
-            else {
+            if (typeof videoKey != "undefined") {
                 // para ind=0, videoId depende del @Model.TipoEstrategiaDetalle.UrlVideoMobile del view o de videoKey del JS ??
                 if (ind > 0 && videoKey) { ytParams.videoId = videoKey; }
             }

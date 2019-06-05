@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
+﻿using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
+using Portal.Consultoras.BizLogic.CaminoBrillante.Rest;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Serializer;
 using Portal.Consultoras.Data.CaminoBrillante;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.CaminoBrillante;
-using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
-using System.Globalization;
-using Portal.Consultoras.Common.Serializer;
 using Portal.Consultoras.Entities.Pedido;
-using Portal.Consultoras.BizLogic.CaminoBrillante.Rest;
+using System;
+using System.Collections.Generic;
 using Portal.Consultoras.Entities.OrdenYFiltros;
+using System.Data;
+using System.Globalization;
+using System.Linq;
 
 namespace Portal.Consultoras.BizLogic.CaminoBrillante
 {
@@ -785,7 +785,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var objDemostradores = new BEDemostradoresPaginado();
             var demostradores = GetDemostradoresCaminoBrillanteCache(entidad.PaisID, entidad.CampaniaID, entidad.NivelCaminoBrillante);
             var demostradoresEnPedido = new DACaminoBrillante(entidad.PaisID).GetPedidoWebDetalleCaminoBrillante(entidad.CampaniaID, entidad.CampaniaID, entidad.ConsultoraID).MapToCollection<BEKitsHistoricoConsultora>(closeReaderFinishing: true) ?? new List<BEKitsHistoricoConsultora>();
-            var paisISO = Util.GetPaisISO(entidad.PaisID);
 
             if (codOrdenar == Constantes.CaminoBrillante.CodigosOrdenamiento.SinOrden) codOrdenar = Constantes.CaminoBrillante.CodigosOrdenamiento.PorCategoria;
             demostradores = GetOrdenarDemostradores(demostradores, codOrdenar);
@@ -1073,6 +1072,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             {
                 return false;
             }
+
         }
 
         public string ValAgregarCaminiBrillante(BEEstrategia estrategia, BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle)
