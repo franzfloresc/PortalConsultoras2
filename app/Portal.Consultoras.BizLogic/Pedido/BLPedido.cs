@@ -1272,6 +1272,15 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
                 #endregion
 
+                //Validación de cuvs en Camino Brillante
+                #region Camino Brillante
+                var valCaminoBrillante = _bLCaminoBrillante.ValidarBusquedaCaminoBrillante(usuario, productoBuscar.CodigoDescripcion);
+                if (valCaminoBrillante.Validacion != Enumeradores.ValidacionCaminoBrillante.ProductoNoExiste)
+                {
+                    return ProductoBuscarRespuesta(valCaminoBrillante.Code, valCaminoBrillante.Mensaje);
+                }
+                #endregion
+
                 //Validación producto no existe
                 BEProductoBusqueda busqueda = new BEProductoBusqueda
                 {
@@ -2800,7 +2809,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
 
                 lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
-
+                
                 if (!pedidoDetalle.Reservado)
                 {
                     listObjMontosProl = UpdateProl(usuario, lstDetalle, out ListMensajeCondicional);
@@ -3232,6 +3241,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 DescuentoProl = montoDescuento,
                 MontoEscala = montoEscala
             };
+
+            //TODO: incluir campos y parametros en el metodo UpdateMontosPedidoWeb y en el sp
             _pedidoWebBusinessLogic.UpdateMontosPedidoWeb(bePedidoWeb);
 
             if (!string.IsNullOrEmpty(codigoConcursosProl))

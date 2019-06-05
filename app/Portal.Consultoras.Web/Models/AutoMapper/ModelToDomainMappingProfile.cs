@@ -90,12 +90,16 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.FechaFinFacturacion, f => f.MapFrom(c => c.FechaFinCampania))
                 .ForMember(t => t.MontoMinimoFlexipago, f => f.Ignore())
                 .ForMember(t => t.OfertaDelDia, f => f.Ignore())
+                .ForMember(t => t.HoraInicio, f => f.MapFrom(c => c.HoraInicioReserva))
+                .ForMember(t => t.HoraFin, f => f.MapFrom(c => c.HoraFinReserva))
                 .ForMember(t => t.beOfertaFinal, f => f.Ignore());
 
             Mapper.CreateMap<UsuarioModel, ServiceUsuario.BEUsuario>()
                 .ForMember(t => t.FechaInicioFacturacion, f => f.MapFrom(c => c.FechaInicioCampania))
                 .ForMember(t => t.FechaFinFacturacion, f => f.MapFrom(c => c.FechaFinCampania))
                 .ForMember(t => t.MontoMinimoFlexipago, f => f.Ignore())
+                .ForMember(t => t.HoraInicio, f => f.MapFrom(c => c.HoraInicioReserva))
+                .ForMember(t => t.HoraFin, f => f.MapFrom(c => c.HoraFinReserva))
                 .ForMember(t => t.OfertaDelDia, f => f.Ignore())
                 .ForMember(t => t.beOfertaFinal, f => f.Ignore());
 

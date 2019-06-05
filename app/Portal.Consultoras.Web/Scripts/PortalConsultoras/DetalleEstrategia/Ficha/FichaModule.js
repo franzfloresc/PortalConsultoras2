@@ -235,7 +235,7 @@ var FichaModule = (function (config) {
                 for (cant = 0; cant < o.FactorRepeticion; cant++) {
                     ListaOpcionesModule.SeleccionarOpcion(o.CUV);
                 }
-                ResumenOpcionesModule.AplicarOpciones();
+                ResumenOpcionesModule.AplicarOpciones(false, true);
             }
         });
 
@@ -820,7 +820,6 @@ var FichaModule = (function (config) {
             }
 
             panelCliente.Abrir();
-            //console.log('_initCliente - DivPopupFichaResumida overflow hidden');
             $("#DivPopupFichaResumida").css("overflow", "hidden");
             isChangeCliente = true;
 

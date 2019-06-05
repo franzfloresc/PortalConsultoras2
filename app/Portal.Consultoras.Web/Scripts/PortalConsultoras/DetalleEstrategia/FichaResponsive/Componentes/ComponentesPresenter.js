@@ -3,11 +3,22 @@
 var ComponentesPresenter = function (config) {
     if (typeof config === "undefined" || config == null) throw "config is null or undefined";
     if (typeof config.componentesView === "undefined" || config.componentesView == null) throw "config.componentesView is null or undefined";
-    if (typeof config.analyticsPortal === "undefined" || config.analyticsPortal == null) throw "config.analyticsPortal is null or undefined";
+    if (typeof config.componentesAnalyticsPresenter === "undefined" || config.componentesAnalyticsPresenter == null) throw "config.componentesAnalyticsPresenter is null or undefined";
 
     var _config = {
         componentesView: config.componentesView,
-        analyticsPortal: config.analyticsPortal,
+        analyticsPresenter: config.componentesAnalyticsPresenter,
+    };
+
+    var _const = {
+        tipoSelector: {
+            Paleta: 1,
+            Panel: 2
+        },
+        tipoShowMedioPanel: {
+            Elige: 1,
+            Cambio: 2
+        }
     };
 
     var _estrategiaInstance = null;
@@ -74,6 +85,8 @@ var ComponentesPresenter = function (config) {
             _config.componentesView.setSelectedQuantityText(selectedComponent.selectedQuantityText) &&
             _config.componentesView.showComponentTypesAndTones(selectedComponent) &&
             _config.componentesView.showTypesAndTonesModal();
+
+        _config.analyticsPresenter.showTypesAndTonesModalAnalytics(selectedComponent, _const.tipoShowMedioPanel.Elige);
 
         return result;
     };
@@ -257,8 +270,7 @@ var ComponentesPresenter = function (config) {
         if (typeof cuv === "undefined" || cuv === null) throw "cuv is null or undefined";
 
         _addTypeOrTone(grupo, cuv);
-        _applySelectedTypesOrTones(grupo);
-
+        _applySelectedTypesOrTones(grupo, _const.tipoSelector.Paleta);
         return true;
     };
 
@@ -302,16 +314,17 @@ var ComponentesPresenter = function (config) {
         return typesOrTones;
     };
 
-    var _applySelectedTypesOrTones = function (grupo) {
+    var _applySelectedTypesOrTones = function (grupo, tipo) {
         if (typeof grupo === "undefined" || grupo === null) throw "grupo is null or undefined";
 
         var result = false;
         var model = _estrategiaModel();
 
+        var selectedComponent = {};
         $.each(model.Hermanos, function (idxComponente, componente) {
             if (componente.Grupo == grupo &&
                 componente.FactorCuadre == componente.cantidadSeleccionados) {
-
+                selectedComponent = componente;
                 componente.resumenAplicados = componente.HermanosSeleccionados;
                 componente.resumenAplicadosVisualizar = _getResumenAplicadosVisualizar(componente.resumenAplicados);
                 //
@@ -334,6 +347,10 @@ var ComponentesPresenter = function (config) {
         
         _estrategiaModel(model);
         //
+
+        tipo = tipo || '';
+        _config.analyticsPresenter.applySelectedAnalytics(selectedComponent, tipo);
+
         return result;
     };
 
@@ -346,8 +363,10 @@ var ComponentesPresenter = function (config) {
         _estrategiaAnteriorModel(model); // Guarda el estado antes que se abra el popup
         _config.componentesView.cleanTiposTonosModal(); // Se limpia la seleccion de tonos
 
+        var selectedComponent = {};
         $.each(model.Hermanos, function (idxComponente, componente) {
             if (componente.Grupo == grupo) {
+                selectedComponent = componente;
                 result = true;
 
                 result = result && _config.componentesView.showTypesAndTonesModal();
@@ -371,6 +390,8 @@ var ComponentesPresenter = function (config) {
         });
 
         _estrategiaModel(model);
+
+        _config.analyticsPresenter.showTypesAndTonesModalAnalytics(selectedComponent, _const.tipoShowMedioPanel.Cambio);
 
         return result;
     };

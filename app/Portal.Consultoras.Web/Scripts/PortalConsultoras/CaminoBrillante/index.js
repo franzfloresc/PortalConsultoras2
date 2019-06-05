@@ -1,5 +1,7 @@
-﻿$(document).ready(function () {
-    
+﻿var scrollBeneficios = true
+var scrollLogros = true
+
+$(document).ready(function () {
     Carusel();
 
     var nivelactual = $("#hfNivelActual").val();
@@ -12,15 +14,39 @@
         TagClickBotonVerOfertas();
     });
 
+    $('#btnCerrarNiveles').click(function () {
+        TagCerrarBeneficios($("#btnCerrarNiveles").val());
+    });
 
     $('#loadingScreen').hide();
+
+});
+$(window).on("load", function () {
+    TagNivelBeneficios('Mi Nivel');
+    
 });
 
+$(window).on("scroll", function () {
+    
+    var windowHeight = $(window).scrollTop() ;
+    var topBeneficios = $('#BeneficiosPrincipal').offset().top  - 100
+    var topLogros = $('#cont-logros').offset().top - 200
 
-$('#btnCerrarNiveles').click(function () {
-    CerrarBeneficios();
+    if (windowHeight >= topBeneficios && windowHeight <= topLogros ) {
+        if (scrollBeneficios) {
+            TagNivelBeneficios('Mis Beneficios');
+            scrollBeneficios = false;
+        }
+    }
+
+    if (windowHeight >= topLogros) {
+        if (scrollLogros) {
+            TagNivelBeneficios('Mis Logros');
+            scrollLogros = false;
+        }
+    }
+
 });
-
 
 function Carusel() {
     var owl = $('.owl-crec');
@@ -64,6 +90,15 @@ function Carusel() {
     })
 }
 
+function TagVerTodos(MisLogros) {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Nivel y beneficios – Mis Logros',
+        'action': 'Detalle ' + MisLogros ,
+        'label': '(not available)'
+    });
+}
+
 
 function TagClickSeleccionNivel(nivelConsultora) {
     dataLayer.push({
@@ -74,7 +109,8 @@ function TagClickSeleccionNivel(nivelConsultora) {
     });
 }
 
-function TagMostrarPopupNivel(nivelConsultora) {   
+function TagMostrarPopupNivel(nivelConsultora) {  
+    TagClickSeleccionNivel(nivelConsultora);
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Nivel y beneficios',
@@ -92,13 +128,19 @@ function TagClickBotonVerOfertas() {
     });
 }
 
-function CerrarBeneficios() {
-    var nivelconsultora = $("#hfNivelActual").val();
+function TagCerrarBeneficios(nivelConsultora) {
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Nivel y beneficios',
         'action': 'Cerrar Pop-up del nivel',
-        'label': 'Nivel: ' + nivelconsultora
+        'label': 'Nivel: ' + nivelConsultora
     });
 }
 
+function TagNivelBeneficios(pagina) {
+        dataLayer.push({
+            'event': 'virtualPage',
+            'pageUrl': 'CaminoBrillante/pv/nivel-y-beneficios/' + pagina,
+            'pageName': 'Nivel y beneficios - ' + pagina
+        });
+}

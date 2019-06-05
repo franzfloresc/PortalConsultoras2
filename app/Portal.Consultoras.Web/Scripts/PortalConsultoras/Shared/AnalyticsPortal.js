@@ -1283,6 +1283,73 @@ var AnalyticsPortalModule = (function () {
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Evento Promotion Checkout
     ////////////////////////////////////////////////////////////////////////////////////////
+    // Ini - Analytics Virtual Event Ficha
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    var marcarVirtualEvent = function (modelo) {
+
+        modelo = modelo || {};
+
+        var objMarcar = {
+            "event": _evento.virtualEvent,
+            "category": modelo.category,
+            "action": modelo.action,
+            "label": modelo.label
+        };
+
+        console.log(_evento.virtualEvent, objMarcar);
+        dataLayer.push(objMarcar);
+
+        return true;
+    };
+
+    var virtualEventFichaAplicarSeleccionTono = function (modelo) {
+        try {
+            var modeloMarcar = {
+                category: _texto.contenedorfichaProducto,
+                action: '',
+                label: modelo.Label
+            };
+
+            if (modelo.TipoSelectorTono == modelo.Const.TipoSelector.Panel) {
+                modeloMarcar.action = 'Aplicar Tono Panel';
+            }
+            else if (modelo.TipoSelectorTono == modelo.Const.TipoSelector.Paleta) {
+                modeloMarcar.action = 'Aplicar Tono Paleta';
+            }
+
+            return marcarVirtualEvent(modeloMarcar);
+        } catch (e) {
+            console.log('virtual Event Ficha - ' + _texto.excepcion, e);
+        }
+        return false;
+    };
+
+    var VirtualEventFichaMostrarPanelTono = function (modelo) {
+        try {
+            var modeloMarcar = {
+                category: _texto.contenedorfichaProducto,
+                action: '',
+                label: modelo.Label
+            };
+
+            if (modelo.TipoShowPanelTono == modelo.Const.TipoShowMedioPanel.Elige) {
+                modeloMarcar.action = 'Panel Tono - Elegir opción';
+            }
+            else if (modelo.TipoShowPanelTono == modelo.Const.TipoShowMedioPanel.Cambio) {
+                modeloMarcar.action = 'Panel Tono - Cambiar opción';
+            }
+
+            return marcarVirtualEvent(modeloMarcar);
+        } catch (e) {
+            console.log('virtual Event Ficha - ' + _texto.excepcion, e);
+        }
+        return false;
+    };
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // Fin - Analytics Virtual Event Ficha
+    ////////////////////////////////////////////////////////////////////////////////////////
     // Ini - Analytics Nueva Region
     ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -2146,30 +2213,30 @@ var AnalyticsPortalModule = (function () {
     // Ini - Rama TiposAnalytics
     ////////////////////////////////////////////////////////////////////////////////////////
 
-    var marcarImagenProducto = function (opcion, detalle) {
-        try {
-            dataLayer.push({
-                "event": _evento.virtualEvent,
-                "category": _texto.contenedorfichaProducto,
-                "action": 'Seleccionar imagen del producto',
-                "label": opcion.DescripcionCompleta + " - " + detalle[0].NombreBulk
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
-    var marcarPopupEligeUnaOpcion = function (opcion) {
-        try {
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': _texto.contenedorfichaProducto,
-                'action': 'Ver Popup Elige 1 opción',
-                'label': opcion.DescripcionCompleta
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
+    //var marcarImagenProducto = function (opcion, detalle) {
+    //    try {
+    //        dataLayer.push({
+    //            "event": _evento.virtualEvent,
+    //            "category": _texto.contenedorfichaProducto,
+    //            "action": 'Seleccionar imagen del producto',
+    //            "label": opcion.DescripcionCompleta + " - " + detalle[0].NombreBulk
+    //        });
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //}
+    //var marcarPopupEligeUnaOpcion = function (opcion) {
+    //    try {
+    //        dataLayer.push({
+    //            'event': _evento.virtualEvent,
+    //            'category': _texto.contenedorfichaProducto,
+    //            'action': 'Ver Popup Elige 1 opción',
+    //            'label': opcion.DescripcionCompleta
+    //        });
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //}
     var marcarCerrarPopupEligeUnaOpcion = function (opcion) {
         try {
             dataLayer.push({
@@ -2194,18 +2261,18 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-    var marcarBotonAplicarSeleccion = function (estrategia, componentes) {
-        try {
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': 'Contenedor - Pop up Elige 1 opción',
-                'action': 'Aplicar selección',
-                'label': estrategia.DescripcionCompleta + '-' + componentes.resumenAplicados[0].NombreBulk
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
+    //var marcarBotonAplicarSeleccion = function (estrategia, componentes) {
+    //    try {
+    //        dataLayer.push({
+    //            'event': _evento.virtualEvent,
+    //            'category': 'Contenedor - Pop up Elige 1 opción',
+    //            'action': 'Aplicar selección',
+    //            'label': estrategia.DescripcionCompleta + '-' + componentes.resumenAplicados[0].NombreBulk
+    //        });
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //}
     var marcarEliminarOpcionSeleccionada = function (estrategia, nombreComponentes) {
         try {
             var textoCategory = "Contenedor - Pop up Elige 1 opción";
@@ -2219,49 +2286,49 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-    var marcarCambiarOpcion = function (opcion) {
+    //var marcarCambiarOpcion = function (opcion) {
 
-        var codUbigeo = opcion.CodigoUbigeoPortal || "";
-        if (codUbigeo !== "") {
-            if (codUbigeo === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionCarritoComprasGuionFichaResumida) {
-                var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codUbigeo); //using new function
-                try {
-                    dataLayer.push({
-                        'event': _evento.virtualEvent,
-                        'category': textoCategory,
-                        'action': 'Ver Popup Cambiar opciones',
-                        'label': opcion.DescripcionCompleta
-                    });
-                } catch (e) {
-                    console.log(_texto.excepcion + e);
-                }
-            }
+    //    var codUbigeo = opcion.CodigoUbigeoPortal || "";
+    //    if (codUbigeo !== "") {
+    //        if (codUbigeo === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionCarritoComprasGuionFichaResumida) {
+    //            var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codUbigeo); //using new function
+    //            try {
+    //                dataLayer.push({
+    //                    'event': _evento.virtualEvent,
+    //                    'category': textoCategory,
+    //                    'action': 'Ver Popup Cambiar opciones',
+    //                    'label': opcion.DescripcionCompleta
+    //                });
+    //            } catch (e) {
+    //                console.log(_texto.excepcion + e);
+    //            }
+    //        }
 
-        } else {  //Cambia Opcione normal
-            try {
-                dataLayer.push({
-                    'event': _evento.virtualEvent,
-                    'category': _texto.contenedorfichaProducto,
-                    'action': 'Cambiar opción',
-                    'label': opcion.DescripcionCompleta
-                });
-            } catch (e) {
-                console.log(_texto.excepcion + e);
-            }
-        }
-    }
-    var marcarPopupEligeXOpciones = function (opcion) {
-        try {
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': _texto.contenedorfichaProducto,
-                'action': 'Ver Popup Elige más de una opción',
-                'label': opcion.DescripcionCompleta
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
+    //    } else {  //Cambia Opcione normal
+    //        try {
+    //            dataLayer.push({
+    //                'event': _evento.virtualEvent,
+    //                'category': _texto.contenedorfichaProducto,
+    //                'action': 'Cambiar opción',
+    //                'label': opcion.DescripcionCompleta
+    //            });
+    //        } catch (e) {
+    //            console.log(_texto.excepcion + e);
+    //        }
+    //    }
+    //}
+    //var marcarPopupEligeXOpciones = function (opcion) {
+    //    try {
+    //        dataLayer.push({
+    //            'event': _evento.virtualEvent,
+    //            'category': _texto.contenedorfichaProducto,
+    //            'action': 'Ver Popup Elige más de una opción',
+    //            'label': opcion.DescripcionCompleta
+    //        });
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //}
     var marcarPopupCerrarEligeXOpciones = function (opcion) {
         try {
             dataLayer.push({
@@ -2286,18 +2353,18 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-    var marcarPopupBotonAplicarSeleccionVariasOpciones = function (componentes_Concatenados) {
-        try {
-            dataLayer.push({
-                'event': _evento.virtualEvent,
-                'category': 'Contenedor - Pop up Elige más de una opción',
-                'action': 'Aplicar selección',
-                'label': componentes_Concatenados
-            });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
+    //var marcarPopupBotonAplicarSeleccionVariasOpciones = function (componentes_Concatenados) {
+    //    try {
+    //        dataLayer.push({
+    //            'event': _evento.virtualEvent,
+    //            'category': 'Contenedor - Pop up Elige más de una opción',
+    //            'action': 'Aplicar selección',
+    //            'label': componentes_Concatenados
+    //        });
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //}
     var marcarEliminarOpcionSeleccionadaVariasOpciones = function (estrategia, nombreComponentes) {
         try {
 
@@ -2324,38 +2391,38 @@ var AnalyticsPortalModule = (function () {
             console.log(_texto.excepcion + e);
         }
     }
-    var marcarCambiarOpcionVariasOpciones = function (opcion) {
+    //var marcarCambiarOpcionVariasOpciones = function (opcion) {
 
-        try {
-            var codUbigeo = opcion.CodigoUbigeoPortal || "";
+    //    try {
+    //        var codUbigeo = opcion.CodigoUbigeoPortal || "";
 
-            if (codUbigeo !== "") {
-                if (codUbigeo === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionCarritoComprasGuionFichaResumida) {
-                    var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codUbigeo); //using new function
-                    try {
-                        dataLayer.push({
-                            'event': _evento.virtualEvent,
-                            'category': textoCategory,
-                            'action': 'Ver Popup Cambiar opciones',
-                            'label': opcion.DescripcionCompleta
-                        });
-                    } catch (e) {
-                        console.log(_texto.excepcion + e);
-                    }
-                }
+    //        if (codUbigeo !== "") {
+    //            if (codUbigeo === CodigoUbigeoPortal.MaestroCodigoUbigeo.GuionCarritoComprasGuionFichaResumida) {
+    //                var textoCategory = CodigoUbigeoPortal.GetTextoSegunCodigo(codUbigeo); //using new function
+    //                try {
+    //                    dataLayer.push({
+    //                        'event': _evento.virtualEvent,
+    //                        'category': textoCategory,
+    //                        'action': 'Ver Popup Cambiar opciones',
+    //                        'label': opcion.DescripcionCompleta
+    //                    });
+    //                } catch (e) {
+    //                    console.log(_texto.excepcion + e);
+    //                }
+    //            }
 
-            } else { //Cambia Opcione normal
-                dataLayer.push({
-                    'event': _evento.virtualEvent,
-                    'category': 'Contenedor - Ficha de producto',
-                    'action': 'Cambiar opciones',
-                    'label': opcion.DescripcionCompleta
-                });
-            }
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
+    //        } else { //Cambia Opcione normal
+    //            dataLayer.push({
+    //                'event': _evento.virtualEvent,
+    //                'category': 'Contenedor - Ficha de producto',
+    //                'action': 'Cambiar opciones',
+    //                'label': opcion.DescripcionCompleta
+    //            });
+    //        }
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //}
 
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Rama TiposAnalytics
@@ -2621,6 +2688,11 @@ var AnalyticsPortalModule = (function () {
 
         GetTextoSegunOrigen: _getParametroListSegunOrigen,
 
+        // Ini - Analytics Virtual Event Ficha
+        VirtualEventFichaAplicarSeleccionTono: virtualEventFichaAplicarSeleccionTono,
+        VirtualEventFichaMostrarPanelTono: VirtualEventFichaMostrarPanelTono,
+        // Fin - Analytics Virtual Event Ficha
+
         // Ini - Analytics Evento Product Impression
         MarcaGenericaLista: marcaGenericaLista,
         MarcaProductImpressionRecomendaciones: marcaProductImpressionRecomendaciones,
@@ -2639,20 +2711,20 @@ var AnalyticsPortalModule = (function () {
         // Fin - Metodos Iniciales
 
         // Ini - Rama TiposAnalytics
-        MarcarImagenProducto: marcarImagenProducto,
-        MarcarPopupEligeUnaOpcion: marcarPopupEligeUnaOpcion,
+        //MarcarImagenProducto: marcarImagenProducto,
+        //MarcarPopupEligeUnaOpcion: marcarPopupEligeUnaOpcion,
         MarcarCerrarPopupEligeUnaOpcion: marcarCerrarPopupEligeUnaOpcion,
         MarcarPopupBotonEligeloSoloUno: marcarPopupBotonEligeloSoloUno,
-        MarcarBotonAplicarSeleccion: marcarBotonAplicarSeleccion,
+        //MarcarBotonAplicarSeleccion: marcarBotonAplicarSeleccion,
         MarcarEliminarOpcionSeleccionada: marcarEliminarOpcionSeleccionada,
-        MarcarCambiarOpcion: marcarCambiarOpcion,
-        MarcarPopupEligeXOpciones: marcarPopupEligeXOpciones,
+        //MarcarCambiarOpcion: marcarCambiarOpcion,
+        //MarcarPopupEligeXOpciones: marcarPopupEligeXOpciones,
         MarcarPopupCerrarEligeXOpciones: marcarPopupCerrarEligeXOpciones,
         MarcarPopupBotonEligeloVariasOpciones: marcarPopupBotonEligeloVariasOpciones,
-        MarcarPopupBotonAplicarSeleccionVariasOpciones: marcarPopupBotonAplicarSeleccionVariasOpciones,
+        //MarcarPopupBotonAplicarSeleccionVariasOpciones: marcarPopupBotonAplicarSeleccionVariasOpciones,
         MarcarEliminarOpcionSeleccionadaVariasOpciones: marcarEliminarOpcionSeleccionadaVariasOpciones,
         MarcarAumentardisminuirOpcionProducto: marcarAumentardisminuirOpcionProducto,
-        MarcarCambiarOpcionVariasOpciones: marcarCambiarOpcionVariasOpciones,
+        //MarcarCambiarOpcionVariasOpciones: marcarCambiarOpcionVariasOpciones,
         // Fin - Rama TiposAnalytics
 
         // Ini - Analytics Buscador Miguel

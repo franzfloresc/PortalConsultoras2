@@ -1,10 +1,10 @@
 ﻿"use strict";
 
 class CarruselPresenter {
+
     initialize(model, view) {
         this.model = model;
         this.view = view;
-
         this.view.ocultarElementos();
         this.mostrarCarrusel();
     }
@@ -30,11 +30,14 @@ class CarruselPresenter {
     }
 
     mostrarCarrusel() {
+
+        if (!this.model.tieneStock) return;
+
         var data = {
             lista: []
         };
 
-        if (this.model.palanca == ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
+        if (this.model.palanca === ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
             data.lista = this.cargarDatos();
             if (data.lista.length > 0) {
                 $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
@@ -62,8 +65,6 @@ class CarruselPresenter {
                 }
             });
         }
-
-        
     }
 
     cargarDatos() {
@@ -75,7 +76,7 @@ class CarruselPresenter {
             return setRelacionados;
         }
 
-        const str = LocalStorageListado("LANLista" + campaniaId, "", 1) || "";
+        const str = LocalStorageListado(`LANLista${campaniaId}`, "", 1) || "";
         if (str === "") {
             return setRelacionados;
         }
@@ -112,7 +113,7 @@ class CarruselPresenter {
                     componenteInicial = this.model.productosHermanos[0];
                 }
                 if (componenteInicial.FactorCuadre * componenteInicial.Cantidad === 1) {
-                    titulo = 'Packs que contienen <span style="text-transform:capitalize">' + _config.tituloCarrusel.toLowerCase() + "</span>";
+                    titulo = `Packs que contienen <span style="text-transform:capitalize">${this.model.tituloCarrusel.toLowerCase()}</span>`;
                 } else {
                     titulo = "Packs parecidos con más productos";
                 }
@@ -144,4 +145,5 @@ class CarruselPresenter {
         }
         return codigosProductos;
     }
+
 }

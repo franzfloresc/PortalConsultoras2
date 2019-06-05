@@ -290,6 +290,7 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
             }
+            //#endregion
 
         var estrategia = estrategiaResponsive || getEstrategia($btnAgregar, origenPedidoWebEstrategia);
 
@@ -392,7 +393,7 @@ var EstrategiaAgregarModule = (function () {
             TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
             FlagNueva: $.trim(estrategia.FlagNueva),
             EsEditable: estrategia.esEditable,
-            SetId: estrategia.setId,
+            SetId: estrategia.setId || 0,
             EsDuoPerfecto: EsDuoPerfecto,
             ClienteID: _getClienteIdSelected()
         };

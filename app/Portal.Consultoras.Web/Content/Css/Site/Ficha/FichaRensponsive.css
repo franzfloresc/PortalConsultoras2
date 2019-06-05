@@ -11,7 +11,7 @@
     margin: 0 auto;
     max-width: 1105px;
     padding-top: 32px;
-    padding-bottom: 32px;
+    padding-bottom: 15px;
     position: relative;
 }
 
@@ -269,6 +269,8 @@ ul.breadcumbs li a {
     display: flex;
     -webkit-flex-flow: row wrap;
     justify-content: space-between;
+    padding-top: 15px;
+    border-top: 1px solid #d1d1d4;
 }
 
 .contenedor_rangos {
@@ -491,11 +493,6 @@ ul.breadcumbs li a {
 }  
 
 @media (min-width: 960px) {
-    .contenedor_agregar {
-        border-top: 1px solid #d1d1d4;
-        padding-top: 15px;
-    }
-
     .contenedor_etiqueta_odd .clock_odd {
         margin: 0;
         margin-bottom: 10px;
@@ -516,7 +513,7 @@ ul.breadcumbs li a {
 
 @media (max-width: 960px) {
     .content_responsive {
-        margin-bottom: 73px;
+        margin-bottom: 54px;
     }
 
     /*UpSelling*/
@@ -602,16 +599,6 @@ ul.breadcumbs li a {
         width: 100%;
     }
 
-    .contenedor_agregar {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        background: #ececec;
-        padding: 14px;
-        z-index: 99;
-    }
-
     .ficha_div_libre_agregado {
         display: none;
         z-index: 999;
@@ -648,6 +635,18 @@ ul.breadcumbs li a {
 
     .btn_texto {
         margin-top:5px;
+    }
+
+    .contenedor_fixed {
+        position: fixed;
+        z-index: 1;
+        bottom: 0px;
+        width: 100%;
+        left: 0;
+        background-color: #fff;
+        padding: 15px;
+        border: none;
+        box-shadow: 0 -1px 5px 0 rgba(0, 0, 0, 0.1);
     }
 }
 
