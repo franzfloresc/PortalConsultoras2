@@ -99,6 +99,12 @@
             <div class="producto_nombre_descripcion pb-20">
                 <h6>{{DescripcionMarca}}</h6>
                 <p class="nombre_producto">{{Descripcion}}</p>
+                @*INI HD-4009*@
+                @if (@ViewBag.CodigoISODL == Constantes.CodigosISOPais.Colombia)
+                {
+                <p class="text-center {{#if ValPUM}}producto_pum{{else}}producto_pum_hidden{{/if}}"><span>{{UnidadMedida}} a </span> @ViewBag.Simbolo{{PUM}}</p>
+                }
+                @*FIN HD-4009*@
                 <div class="producto_precio">
                     <span class="producto_stock">Stock: <span class="claseStock">{{Stock}}</span></span>
                     <span class="producto_precio_oferta"><b>@ViewBag.Simbolo<span id="precio_oferta">{{PrecioString}}</span></b></span>

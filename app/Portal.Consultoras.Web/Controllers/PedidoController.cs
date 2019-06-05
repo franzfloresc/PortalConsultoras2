@@ -24,7 +24,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
- 
+
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -968,6 +968,16 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
+                #region Camino Brillante
+                var valCaminoBrillante = _caminoBrillanteProvider.ValidarBusquedaCaminoBrillante(model.CUV);
+                
+                if (valCaminoBrillante.Validacion != Enumeradores.ValidacionCaminoBrillante.ProductoNoExiste) {
+                    productosModel.Add(GetValidacionProgramaNuevas(valCaminoBrillante.Mensaje));
+                    return Json(productosModel, JsonRequestBehavior.AllowGet);
+                }
+                
+                #endregion
+
                 var userModel = userData;
                 var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 5, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
                 var siExiste = productos.Any(p => p.CUV == model.CUV);
@@ -1015,7 +1025,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var revistaGana = ValidarDesactivaRevistaGana(userModel);
 
-              var esDuoPerfecto = _programaNuevasProvider.TieneDuoPerfecto();
+                var esDuoPerfecto = _programaNuevasProvider.TieneDuoPerfecto();
+
 
                 productosModel.Add(new ProductoModel()
                 {
@@ -1049,11 +1060,13 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoCatalago = producto.CodigoCatalogo,
                     EstrategiaIDSicc = producto.EstrategiaIDSicc,
                     //INI HD-3908
-                    CodigoPalanca= (new OfertaPersonalizadaProvider()).getCodigoPalanca(producto.TipoEstrategiaCodigo),
+                    CodigoPalanca = (new OfertaPersonalizadaProvider()).getCodigoPalanca(producto.TipoEstrategiaCodigo),
                     CampaniaID= userModel.CampaniaID,
                     //FIN HD-3908
                     EsDuoPerfecto = producto.FlagNueva == "1" && esDuoPerfecto,
                     CodigoEstrategia = producto.TipoEstrategiaCodigo
+
+
                 });
             }
             catch (Exception ex)
@@ -1556,7 +1569,7 @@ namespace Portal.Consultoras.Web.Controllers
                 };
                 
 
-                var mensajeCondicional = resultado.ListaMensajeCondicional != null && resultado.ListaMensajeCondicional.Any() ? resultado.ListaMensajeCondicional[0].MensajeRxP: null;
+                var mensajeCondicional = resultado.ListaMensajeCondicional != null && resultado.ListaMensajeCondicional.Any() ? resultado.ListaMensajeCondicional[0].MensajeRxP : null;
                 return Json(new
                 {
                     success = true,
