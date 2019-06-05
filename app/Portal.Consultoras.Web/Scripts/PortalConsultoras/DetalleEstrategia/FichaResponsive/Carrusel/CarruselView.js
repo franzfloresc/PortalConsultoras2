@@ -51,7 +51,7 @@ class CarruselView {
             speed: 260,
             slidesToShow: 3,
             slidesToScroll: 1,
-            variableWidth: false,
+            variableWidth: true,
             prevArrow: slickArrows[platform].prev,
             nextArrow: slickArrows[platform].next,
             responsive: [
@@ -84,7 +84,7 @@ class CarruselView {
                 break;
             }
         }).on("lazyLoadError", function (event, slick, image, imageSource) {
-            //$(image[0].parentNode).closest("article").addClass("caja_vertical");
+            //$(image[0]).attr("src", "/Content/Images/placeholder/img_placeholder_vertical.jpg");
         });
 
         $(this.divCarruselProducto).fadeIn();
