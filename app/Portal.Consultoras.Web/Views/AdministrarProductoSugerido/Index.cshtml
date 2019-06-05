@@ -130,18 +130,6 @@
             <span class="color_red" style="width: 5px;">*</span>
         </div>
         @* INI HD-4289 *@
-        @*<div class="div-3">
-                <div class="titG">Region:</div>
-                <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.RegionID, new SelectList(Model.lstRegion, "RegionID", "Nombre"), "-- Todas --", new { id = "ddlRegionModal", @class = "ddlRegion" })
-                </div>
-            </div>
-            <div class="div-3">
-                <div class="titG">Zona:</div>
-                <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.lstZona, "ZonaID", "Nombre"), "-- Todas --", new { id = "ddlZonaModal", @class = "ddlZona" })
-                </div>
-            </div>*@
         <div class="div-3">
             <div class="titG">Región/Zona:</div>
             <div class="treeview_content borde_redondeado">
@@ -267,11 +255,9 @@
             getImagesByNemotecnico: '@Url.Action("GetImagesByNemotecnico", "MatrizComercial")',
             numeroImagenesPorPagina: numeroImagenesPorPagina,
             expValidacionNemotecnico: @Html.Raw(Model.ExpValidacionNemotecnico),
-            actualizarDescripcionComercialAction: '@Url.Action("ActualizarDescripcionComercial", "MatrizComercial")',
-            listaZonas: new Array()
+            actualizarDescripcionComercialAction: '@Url.Action("ActualizarDescripcionComercial", "MatrizComercial")'
         });
         CargarDialog();
-       // CargarRegion();
         CargarEventos();
 
         editarDescripcionComercial = function editarDescripcionComercial(idImagen) {
@@ -566,31 +552,6 @@
 
     function VerMas(object, CodigoCompleto, CodigoIncompleto) {
         var td = object.parentElement;
-        //$(td).attr("title", CodigoCompleto);
-        //$(td).tooltip(
-        //    {
-        //        close: function (event, ui) {
-        //            var element = $(this);
-        //            ui.tooltip.hover(
-        //                function () {
-        //                    element.stop(true).fadeTo(4000, 1);
-        //                },
-        //                function () {
-        //                    element.fadeOut("400", function () {
-        //                        //element.remove();
-        //                    });
-        //                }
-        //            );
-        //            ui.tooltip.on("remove", function () {
-        //                //element.tooltip("destroy");
-        //            });
-        //        },
-        //        open: function (event, ui) {
-        //            ui.tooltip.animate({ top: ui.tooltip.position().top -5}, "fast");
-        //        }
-        //    }
-        //);
-        //$(td).tooltip("open");
         td.innerHTML = CodigoCompleto + "&nbsp;<a href='javascript:;' onclick=\"VerMenos(this,'" + CodigoCompleto + "','" + CodigoIncompleto + "');\" > ...Ver menos" + "</a>";
 
 
@@ -662,55 +623,8 @@
         });
     }
     //INI HD-4289
-    function CargarRegion(combo) {
 
-        var pais = $("#PaisIDUser").val() || 0;
-        combo = combo || ".ddlRegion";
-        var ddl = $(combo);
-        ddl.empty();
-        ddl.append($('<option/>', { value: "0", text: "-- Todas --" }));
-
-        CargarZonabyRegion("0", combo.replace("Region", "Zona"));
-
-        waitingDialog({});
-        $.getJSON(baseUrl + 'BaseAdm/ObtenerRegionZonaPorPais', { PaisID: pais }, function (data) {
-            if (!checkTimeout(data)) {
-                closeWaitingDialog();
-                return false;
-            }
-
-            data = data || new Object();
-            data.lstRegion = data.lstRegion || new Array();
-            productoSugeridoObj.listaZonas = data.lstZona || new Array();
-
-
-            data.lstRegion.forEach(function (item) {
-                ddl.append($('<option/>', { value: item.RegionID, text: item.Codigo }));
-            });
-
-
-        });
-        closeWaitingDialog();
-    }
-
-    function CargarZonabyRegion(IdRegion,combo) {
-
-        combo = combo || ".ddlZona";
-        var ddl = $(combo);
-        ddl.empty();
-        ddl.append($('<option/>', { value: "0", text: "-- Todas --" }));
-
-        if (IdRegion == "") return false;
-        waitingDialog({});
-
-        lstZona = productoSugeridoObj.listaZonas || new Array();
-        if (lstZona.length > 0) lstZona =lstZona.filter(x => x.RegionID == IdRegion);
-
-        lstZona.forEach(function (item) {
-            ddl.append($('<option/>', { value: item.ZonaID, text: item.Codigo }));
-        });
-        closeWaitingDialog();
-    }
+ 
 
     function ConfigurarArbol() {
         var pais = $("#PaisIDUser").val() || 0;
