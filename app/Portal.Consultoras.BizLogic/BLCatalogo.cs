@@ -109,7 +109,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     SetCatalogoRevistaMostrar(catalogoRevista, catalogoConfiguraciones);
                     SetCatalogoRevistaCodigoIssuu(codigoZona, catalogoRevista);
-                    if (catalogoRevista.MarcaID == 0)
+                    if (catalogoRevista.MarcaID == 0) 
                     {
                         ocurrioError = SetCatalogoRevistaFieldsInOembedIssuu(catalogoRevista);
                         if(ocurrioError)
@@ -419,7 +419,6 @@ namespace Portal.Consultoras.BizLogic
                 var url = string.Format(_urlIssuuList, _apiKeyIssuu, catalogoRevista.CodigoIssuu, signature);
 
                 var json = ObtenerObjetoIssue(url, catalogoRevista.PaisISO);
-
                 if (string.IsNullOrEmpty(json)) return OcurrioError;
 
 
@@ -429,7 +428,6 @@ namespace Portal.Consultoras.BizLogic
 
 
                 var doc = docs.FirstOrDefault();
-
                 if (doc == null) return OcurrioError;
 
                 var ndoc = doc["document"];
@@ -534,8 +532,7 @@ namespace Portal.Consultoras.BizLogic
                 accion = "JsonConvert.DeserializeObject<dynamic>(Json)";
                 var oIssuu = JsonConvert.DeserializeObject<dynamic>(Json);
                 accion = "(JArray)oIssuu.rsp._content.result._content";
-                result = (JArray)oIssuu.rsp._content.result._content;
-                
+                result = (JArray)oIssuu.rsp._content.result._content;                
             }
             catch
             {
