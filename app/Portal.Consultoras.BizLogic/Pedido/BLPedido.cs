@@ -282,6 +282,17 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             {
                                 mensajePersonalizado = observacion.Descripcion;
                             }
+                            else
+                            {
+                                //mensajePersonalizado = ListPedidoObservacion.First().Descripcion;\r\n
+                                mensajePersonalizado = "<ul> ";
+                                foreach (var item in ListPedidoObservacion)
+                                {
+                                    mensajePersonalizado = mensajePersonalizado + string.Concat("<li>"," - ",item.Descripcion,"</li>");
+                                }
+
+                                mensajePersonalizado = string.Concat(mensajePersonalizado + "</ul>");
+                            }
                         }
                         error = true;
                         break;
