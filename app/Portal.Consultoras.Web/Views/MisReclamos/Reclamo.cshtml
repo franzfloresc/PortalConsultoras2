@@ -56,7 +56,7 @@
                         <input type="hidden" id="hdfCUV" value="0" />
                         <select class="elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;"></select>
                         <div class="contenedor_descripcion_reclamo">
-                            <input type="text" placeholder="Ingresa el código o el nombre del producto" class="descripcion_reclamo campo_deshabilitado" id="ddlCuv" name="txtCUVDescripcion" required="required" />
+                            <input type="text" placeholder="Ingresa el código o el nombre del producto" data-codigo="" class="descripcion_reclamo campo_deshabilitado" id="ddlCuv" name="txtCUVDescripcion" required="required" />
                             <div class="border-radius-4 lista_resultados_busqueda_por_cuv_wrapper">
                                 <ul id="ResultadosBusquedaCUV" class="lista_resultados_busqueda_por_cuv"></ul>
                             </div>
@@ -100,24 +100,7 @@
                             <p class="text-bold">
                                 Búscalo en tus catálogos de Campaña
                                 <span id="spnNumeroCampaniaReclamo">15</span>:
-                            </p>
-                            @*<div class="text-center opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar">
-                                    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--codigo" value="" id="txtCUV2" placeholder="Código" />
-                                    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--descripcion" id="txtCUVDescripcion2" readonly value="" placeholder="Descripción del producto" />
-                                    <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--precio" id="txtCUVPrecio2" readonly value="" placeholder="Precio" />
-                                    <div class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad" data-cantidad-contenedor="">
-                                        <input type="hidden" id="hdMontoMinimoReclamo" />
-                                        <input type="hidden" id="hdCuvPrecio2">
-                                        <input type="hidden" id="hdParametriaCdr" value="0">
-                                        <input type="hidden" id="hdParametriaAbsCdr" value="1">
-                                        <input type="hidden" id="hdCdrWebDatos_Ssic">
-                                        <input type="text" name="Cantidad" id="txtCantidad2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid">
-                                        <div class="liquidacion_rango_right_pedido">
-                                            <a class="mas modificarPrecioMas" onclick="AgregarODisminuirCantidad(event,1)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                            <a class="menos modificarPrecioMenos" onclick="AgregarODisminuirCantidad(event,2)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                                        </div>
-                                    </div>
-                                </div>*@
+                            </p>                         
                             @*Valores de la parametría*@
                             <input type="hidden" id="hdMontoMinimoReclamo" />
                             <input type="hidden" id="hdCuvPrecio2">

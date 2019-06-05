@@ -70,9 +70,7 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     return sessionManager.GetCDRWebDetalle();
                 }
-
                 model = model ?? new MisReclamosModel();
-
                 List<ServiceCDR.BECDRWebDetalle> lista;
                 var entidad = new ServiceCDR.BECDRWebDetalle { CDRWebID = model.CDRWebID };
                 using (var sv = new CDRServiceClient())
@@ -81,18 +79,19 @@ namespace Portal.Consultoras.Web.Providers
                 }
                 if (lista.Any())
                 {
-                    lista.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado, paisId).Descripcion);
-                    lista.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado, paisId).Descripcion);
-                    lista.Update(p => p.FormatoPrecio1 = Util.DecimalToStringFormat(p.Precio, codigoIso));
-                    lista.Update(p => p.FormatoPrecio2 = Util.DecimalToStringFormat(p.Precio2, codigoIso));
-                    lista.Update(p => p.DetalleReemplazo = string.IsNullOrEmpty(p.XMLReemplazo) ? null : XMLToList(p.XMLReemplazo, codigoIso, paisId).ToArray());
+                    lista.Update(p => {
+                        p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado, paisId).Descripcion;
+                        p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado, paisId).Descripcion;
+                        p.Observacion = ObtenerObservacion(p.Observacion, p.MotivoRechazo, paisId, codigoIso);
+                        p.FormatoPrecio1 = Util.DecimalToStringFormat(p.Precio, codigoIso);
+                        p.FormatoPrecio2 = Util.DecimalToStringFormat(p.Precio2, codigoIso);
+                        p.DetalleReemplazo = string.IsNullOrEmpty(p.XMLReemplazo) ? null : XMLToList(p.XMLReemplazo, codigoIso, paisId).ToArray();
+                        });                  
                     sessionManager.SetCDRWebDetalle(lista);
                 }
                 else
-                {
                     sessionManager.SetCDRWebDetalle(null);
-                }
-
+  
                 return lista;
             }
             catch (Exception ex)
@@ -100,6 +99,24 @@ namespace Portal.Consultoras.Web.Providers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, "", codigoIso);
                 sessionManager.SetCDRWebDetalle(null);
                 return new List<ServiceCDR.BECDRWebDetalle>();
+            }
+        }
+
+        public string ObtenerObservacion(string defaultObservacion, string motivoRechazo, int paisID,string paisIso) {
+            var obs = defaultObservacion;
+            try
+            {
+                if (string.IsNullOrEmpty(motivoRechazo))
+                {
+                    return obs;
+                }
+                obs = ObtenerDescripcion(motivoRechazo, Constantes.TipoMensajeCDR.Motivo, paisID).Descripcion;
+                return string.IsNullOrEmpty(obs) ? defaultObservacion : obs;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", paisIso);
+                return defaultObservacion;
             }
         }
         public List<BECDRProductoComplementario> XMLToList(string xml, string codigoIso, int paisId)
