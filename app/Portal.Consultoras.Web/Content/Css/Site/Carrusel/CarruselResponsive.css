@@ -264,4 +264,8 @@
         font-size: 14px;
     }
     /*Fin UpSelling*/
+
+    .img_producto{
+        height: 90px;
+    }
 }
