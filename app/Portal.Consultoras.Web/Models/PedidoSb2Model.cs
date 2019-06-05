@@ -290,5 +290,38 @@ namespace Portal.Consultoras.Web.Models
         public string MensajeKitNuevas { get; set; }
 
         public bool EsConsultoraOficina { get; set; }
+        public decimal? GananciaRevista { get; set; }
+        public decimal? GananciaWeb { get; set; }
+        public decimal? GananciaOtros { get; set; }
+        public string FormatoGananciaRevista
+        {
+            get
+            {
+                if(GananciaRevista != null)
+                    return Util.DecimalToStringFormat(GananciaRevista.Value, CodigoIso);
+                else
+                    return Util.DecimalToStringFormat(0, CodigoIso);
+            }
+        }
+        public string FormatoGananciaWeb
+        {
+            get
+            {
+                if (GananciaWeb != null)
+                    return Util.DecimalToStringFormat(GananciaWeb.Value, CodigoIso);
+                else
+                    return Util.DecimalToStringFormat(0, CodigoIso);
+            }
+        }
+        public string FormatoGananciaOtros
+        {
+            get
+            {
+                if (GananciaOtros != null)
+                    return Util.DecimalToStringFormat(GananciaOtros.Value, CodigoIso);
+                else
+                    return Util.DecimalToStringFormat(0, CodigoIso);
+            }
+        }
     }
 }

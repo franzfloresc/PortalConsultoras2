@@ -321,7 +321,9 @@
                     lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
                 }
             }
-
+            @{
+                var TotalMontoGanancia = @Model.MontoAhorroCatalogo +  @Model.GananciaRevista + @Model.GananciaWeb + @Model.GananciaOtros;
+            }
             <div class="caja_guardar_pedido">
                 <div class="contenedor_guardadoPedido">
                     <div class="bloque_montosPedido">
@@ -342,7 +344,7 @@
                                                         @(cabezaEscala):
                                                     </span>
                                                     <span class="ganancia-total accent-color">
-                                                        S/ 454.80
+                                                        @Model.Simbolo @Model.FormatoGananciaRevista
                                                     </span>
                                                 </div>
                                             </div>
@@ -352,7 +354,7 @@
                                                         Catálogo
                                                     </span>
                                                     <span class="ganancia-total first-color">
-                                                        S/. 0000.00
+                                                        @Model.Simbolo @Model.MontoAhorroCatalogo
                                                     </span>
                                                 </div>
                                                 <div class="toggle-info">
@@ -360,7 +362,7 @@
                                                         Revista
                                                     </span>
                                                     <span class="ganancia-total first-color">
-                                                        S/. 0000.00
+                                                        @Model.Simbolo @Model.FormatoGananciaRevista
                                                     </span>
                                                 </div>
                                                 <div class="toggle-info">
@@ -368,7 +370,7 @@
                                                         Gana+ /Ofertas Digitales
                                                     </span>
                                                     <span class="ganancia-total first-color">
-                                                        S/. 0000.00
+                                                        @Model.Simbolo @Model.FormatoGananciaWeb
                                                     </span>
                                                 </div>
                                                 <div class="toggle-info">
@@ -376,7 +378,7 @@
                                                         Otros
                                                     </span>
                                                     <span class="ganancia-total first-color">
-                                                        S/. 0000.00
+                                                        @Model.Simbolo @Model.FormatoGananciaOtros
                                                     </span>
                                                 </div>
                                             </div>

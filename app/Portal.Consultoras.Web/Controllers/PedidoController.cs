@@ -196,6 +196,9 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MontoDescuento = pedidoWeb.DescuentoProl;
                     model.MontoEscala = pedidoWeb.MontoEscala;
                     model.TotalConDescuento = model.Total - model.MontoDescuento;
+                    model.GananciaRevista = pedidoWeb.GananciaRevista;
+                    model.GananciaWeb = pedidoWeb.GananciaWeb;
+                    model.GananciaOtros = pedidoWeb.GananciaOtros;
 
                     SessionManager.SetMontosProl(
                         new List<ObjMontosProl>
