@@ -698,6 +698,16 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("Partials/MantenimientoVideo", model);
         }
 
+        public string GetCarpetaPaisVideo()
+        {
+            string cadena = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
+            string[] arrCadena;
+            arrCadena = cadena.Split(',');
+            var carpetaPais = string.Format("{0}/{1}", arrCadena[0], userData.CodigoISO);
+
+            return carpetaPais;
+        }
+
         [HttpPost]
         public JsonResult ComponenteDatosVideoGuardar(AdministrarHistorialDetaListModel model)
         {            
@@ -735,19 +745,14 @@ namespace Portal.Consultoras.Web.Controllers
                         if (!Directory.Exists(Globals.RutaTemporales)) Directory.CreateDirectory(Globals.RutaTemporales);
                         model.file.SaveAs(_path);
 
-                        _name = Path.GetFileName(_path);                      
-
-
+                        _name = Path.GetFileName(_path);                
+                        
                         var nombreImagenAnterior = model.RutaContenido;
                         if (nombreImagenAnterior != null) {
-                            string cadena = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
-                            string[] arrCadena;
-                            arrCadena = cadena.Split(',');
-                            var carpetaPais = string.Format("{0}/{1}", arrCadena[0], userData.CodigoISO);
+                            var carpetaPais = GetCarpetaPaisVideo();
                             ConfigS3.DeleteFileS3(carpetaPais, nombreImagenAnterior);
                         }
                         
-
                         model.RutaContenido = SaveFileVideoS3(_name, true);
                     }
                    
@@ -765,6 +770,11 @@ namespace Portal.Consultoras.Web.Controllers
                         Tipo = Constantes.TipoContenido.Video
                     };
                     valRespuesta = sv.ContenidoAppDetaVideo(userData.PaisID, entidad);
+
+                    if (valRespuesta == 2 || valRespuesta == 3) {
+                        var carpetaPais = GetCarpetaPaisVideo();
+                        ConfigS3.DeleteFileS3(carpetaPais, model.RutaContenido);
+                    }
                 }
 
                 return Json(new

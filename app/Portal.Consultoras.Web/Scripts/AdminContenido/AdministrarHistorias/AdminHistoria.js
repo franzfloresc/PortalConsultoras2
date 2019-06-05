@@ -174,7 +174,7 @@ function IniDialogDetalle() {
                 formData.append("RutaContenido", RutaContenido);
                 formData.append("Campania", $("#ddlCampaniaVideo").val());
 
-                waitingDialog({});
+                
 
                 $.ajax({
                     dataType: "json",
@@ -184,9 +184,14 @@ function IniDialogDetalle() {
                     cache: false,
                     processData: false,
                     contentType: false, 
-                    success: function (data) {
-                      
+                    beforeSend: function () {
+                        waitingDialog({});
+                    },
+                    complete: function () {
                         closeWaitingDialog();
+                    },
+                    success: function (data) {                     
+                        
                         if (data.success) {
                             if (data.message == 1) {
                                 HideDialog("DialogMantenimientoVideo");
