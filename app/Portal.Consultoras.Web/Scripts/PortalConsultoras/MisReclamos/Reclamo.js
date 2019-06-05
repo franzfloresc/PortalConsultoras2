@@ -1018,7 +1018,7 @@ function CalcularMontoTotalTrueque(data) {
             }
 
             $.each(el.DetalleReemplazo, function (j, det) {
-                total = total + det.Precio;
+                total = total + det.Precio * det.Cantidad;
             });
             data.detalle[i].Total = total;
         });
@@ -1625,6 +1625,7 @@ function BuscarInfoCUV(e) {
                 .children("input[name=descripcion]").attr("data-descripcion", "").end()
                 .children("input[name=precio]").val("").end()
                 .children("input[name=precio]").attr("data-precio", "");
+            CalcularTotal();
             alert_msg(data.message);
             return false;
         }

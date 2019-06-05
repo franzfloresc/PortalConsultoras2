@@ -584,8 +584,8 @@
                            class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                            data-input="cantidad"
                            name="cantidad"
-                           onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
-                           onchange="misReclamosRegistro.Funciones.CalcularTotal();">
+                           @*onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"*@
+                           onchange="misReclamosRegistro.Funciones.ActualizarCantidad(event);">
                     <a class="cantidad_menos_home modificarPrecioMenos" onclick="misReclamosRegistro.Funciones.AgregarODisminuirCantidad(event, 2);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                     <a class="cantidad_mas_home modificarPrecioMas" onclick="misReclamosRegistro.Funciones.AgregarODisminuirCantidad(event, 1);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                 </div>

@@ -269,7 +269,7 @@ $(document).ready(function () {
                     $("#VistaPaso1y2").show();
                     $(me.Variables.DescripcionCuv).hide();
                     $(me.Variables.txtCuvMobile).fadeIn();
-                    $("#MensajeTenerEncuenta").hide(); 
+                    $("#MensajeTenerEncuenta").hide();
                     $(me.Variables.DescripcionCuv2).hide();
                     $(me.Variables.txtCuvMobile2).fadeIn();
                     $(me.Variables.txtCuvMobile).removeClass(me.Variables.deshabilitarControl);
@@ -615,6 +615,7 @@ $(document).ready(function () {
                             //limpiar control
                             $this.val("");
                             $this.attr("data-codigo", "").end().val("");
+                            me.Funciones.CalcularTotal();
                             messageInfoValidado(data.message);
                             return false;
                         }
@@ -1362,7 +1363,6 @@ $(document).ready(function () {
                     error: function (data, error) { }
                 });
             },
-
             CargarOperacion: function (callbackWhenFinish) {
                 var item = {
                     CampaniaID: $.trim($(me.Variables.ComboCampania).val()),
@@ -1392,7 +1392,6 @@ $(document).ready(function () {
                     }
                 });
             },
-
             DetalleGuardar: function (operacionId, callbackWhenFinish) {
                 var url = UrlDetalleGuardar;
                 var Complemento = [];
@@ -1458,7 +1457,6 @@ $(document).ready(function () {
                     }
                 });
             },
-
             DetalleCargar: function () {
                 var item = {
                     CDRWebID: $(me.Variables.hdCDRID).val() || 0,
@@ -1510,7 +1508,7 @@ $(document).ready(function () {
                         }
 
                         $.each(el.DetalleReemplazo, function (j, det) {
-                            total = total + det.Precio;
+                            total = total + det.Precio * det.Cantidad;
                         });
                         data.detalle[i].Total = total;
                     });
@@ -1526,7 +1524,6 @@ $(document).ready(function () {
                 if ($('#Paso3:visible').length > 0) $(me.Variables.divUltimasSolicitudes).hide();
                 else $(me.Variables.divUltimasSolicitudes).show();
             },
-
             ObtenerValorParametria: function (codigoSsic) {
                 var item = {
                     EstadoSsic: codigoSsic
@@ -1553,7 +1550,6 @@ $(document).ready(function () {
                     error: function (data, error) { }
                 });
             },
-
             ObtenerMontoProductosDevolver: function (codigoOperacion) {
                 var resultado = 0;
 
@@ -1637,7 +1633,6 @@ $(document).ready(function () {
 
                 return true;
             },
-
             SolicitudCDREnviar: function (callbackWhenFinish) {
                 var url = UrlSolicitudEnviar;
                 var sendData = {
@@ -1720,7 +1715,6 @@ $(document).ready(function () {
                     }
                 })
             },
-
             ControlSetError: function (inputId, spanId, message) {
                 if (IfNull(message, '') == '') {
                     $(inputId).css('border-color', '#b5b5b5');
@@ -1732,7 +1726,6 @@ $(document).ready(function () {
                     $(spanId).html(message);
                 }
             },
-
             PreEliminarDetalle: function (el) {
                 var pedidodetalleid = $.trim($(el).attr("data-pedidodetalleid"));
                 var grupoid = $.trim($(el).attr("data-detalle-grupoid"));
@@ -1751,7 +1744,6 @@ $(document).ready(function () {
                     me.Funciones.DetalleEliminar(item);
                 });
             },
-
             DetalleEliminar: function (objItem) {
                 ShowLoading();
                 jQuery.ajax({
@@ -1777,20 +1769,16 @@ $(document).ready(function () {
                     }
                 });
             },
-
             PopupPedido: function (pedidos) {
-
                 pedidos = pedidos || new Array();
                 SetHandlebars("#template-pedido", pedidos, "#divPedido");
                 if (pedidos.length > 0) {
                     listaPedidos = pedidos;
                 }
             },
-
             CancelarConfirmEnvioSolicitudCDR: function () {
                 $(me.Variables.divConfirmEnviarSolicitudCDR).hide();
             },
-
             ContinuarConfirmEnvioSolicitudCDR: function () {
                 $.when(me.Funciones.CancelarConfirmEnvioSolicitudCDR()).then(function () {
                     me.Funciones.ValidarTelefonoServer($.trim($(me.Variables.txtTelefono).val()), function (data) {
@@ -1851,7 +1839,6 @@ $(document).ready(function () {
                     });
                 });
             },
-
             EscogerSolucion: function (opcion) {
                 var tagCheck = $(me.Variables.divlistado_soluciones_cdr + " " + "input[type=checkbox]");
                 var tagDivInfo = $(me.Variables.infoOpcionesDeCambio);
@@ -1928,7 +1915,6 @@ $(document).ready(function () {
 
                 me.Funciones.CargarPropuesta(id);
             },
-
             AgregarEventoMostrarBotonSiguiente: function () {
                 $("#listaMotivos input[name=motivo-cdr]").on('click', function () {
                     var $btnSiguiente = $(me.Variables.btnSiguiente1);
@@ -1940,7 +1926,6 @@ $(document).ready(function () {
                     }
                 });
             },
-
             SetMontoCampaniaTotal: function () {
                 //$(me.Variables.wrpMobile).addClass(me.Variables.pb120);
                 $(me.Variables.spnSimboloMonedaReclamo).html(variablesPortal.SimboloMoneda);
@@ -1956,7 +1941,6 @@ $(document).ready(function () {
                 }
                 $(me.Variables.spnNumeroCampaniaReclamo).html(numeroCampania);
             },
-
             HideTags: function (arr) {
                 if ($.isArray(arr)) {
                     $(arr).each(function (i, el) {
@@ -1964,7 +1948,6 @@ $(document).ready(function () {
                     });
                 }
             },
-
             PreValidacionIrFinalizar: function () {
                 var id = "";
                 var tag = $(me.Variables.divlistado_soluciones_cdr + " " + "input[type=checkbox]");
@@ -1988,8 +1971,8 @@ $(document).ready(function () {
                 if (id === me.Variables.operaciones.trueque) {
                     if (!me.Funciones.ValidarPasoDosTrueque()) {
                         return { result: false, id: id };
-                    } 
-                }              
+                    }
+                }
 
                 //Devolución
                 if (id === me.Variables.operaciones.devolucion) {
@@ -2014,7 +1997,6 @@ $(document).ready(function () {
 
                 return { result: true, id: id };
             },
-
             CambiarEstadoBarraProgreso: function (paso) {
                 var tagContenedorBarraPasos = $('#barra_progreso .paso_reclamo');
                 var lineaProgresoPasos = $('.progreso_pasos');
@@ -2045,7 +2027,6 @@ $(document).ready(function () {
                     $(lineaProgresoPasos).css("width", "100%");
                 }
             },
-
             CargarMisReclamosDetalle: function (el) {
                 var elemento = $(el);
                 var _OrigenDetalle = "1";
@@ -2098,7 +2079,6 @@ $(document).ready(function () {
                     });
                 }
             },
-
             EliminarCUVTrueque: function (el) {
                 ShowLoading();
                 setTimeout(function () {
@@ -2107,7 +2087,6 @@ $(document).ready(function () {
                 }, 100);
                 CloseLoading();
             },
-
             CalcularTotal: function () {
                 var precioTotal = 0;
                 var items = $("#contenedorCuvTrueque .item-producto-cambio");
@@ -2130,11 +2109,16 @@ $(document).ready(function () {
                 if (opcion === 2) {
                     EstrategiaAgregarModule.DisminuirCantidad(event);
                 }
+                me.Funciones.ActualizarCantidad(event);
+                //var $el = $(event.target).parent().parent().find(me.Constantes.INPUT_NAME_CANTIDAD);
+                //$el.attr("data-cantidad", $el.val());
+                //me.Funciones.CalcularTotal();
+            },
+            ActualizarCantidad: function (event) {
                 var $el = $(event.target).parent().parent().find(me.Constantes.INPUT_NAME_CANTIDAD);
                 $el.attr("data-cantidad", $el.val());
                 me.Funciones.CalcularTotal();
             }
-
         };
 
         me.Inicializar = function () {
