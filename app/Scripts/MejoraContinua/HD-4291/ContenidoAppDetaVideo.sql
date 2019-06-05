@@ -1,6 +1,6 @@
 USE [BelcorpPeru_MC]
 GO
-/****** Object:  StoredProcedure [dbo].[ContenidoAppDetaInsert]    Script Date: 30/5/2019 12:04:21 ******/
+
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
