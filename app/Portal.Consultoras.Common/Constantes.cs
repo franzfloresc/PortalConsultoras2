@@ -4079,6 +4079,7 @@ namespace Portal.Consultoras.Common
             public const string CodigoGanaEnUnClick = "GANA_EN_UN_CLICK";
             public const int ProcAdd = 1;
             public const int ProcEdit = 2;
+            public const int ProcDelete = 3;
 
         }
     }

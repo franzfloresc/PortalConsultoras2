@@ -32,6 +32,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.UrlS3 = GetUrlS3();
                 ViewBag.UrlDetalleS3 = GetUrlDetalleS3();
+                ViewBag.UrlVideoS3 = GetUrlVideoS3();
                 model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID);
 
                 string HistAnchoAlto = CodigosTablaLogica(Constantes.DatosContenedorHistorias.HistAnchoAlto);
@@ -86,6 +87,12 @@ namespace Portal.Consultoras.Web.Controllers
             string MatrizAppConsultora = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
             return ConfigCdn.GetUrlCdnAppConsultoraDetalle(paisIso, MatrizAppConsultora);
         }
+        private string GetUrlVideoS3()
+        {
+            var paisIso = Util.GetPaisISO(userData.PaisID);
+            string MatrizAppConsultora = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
+            return ConfigCdn.GetUrlCdnAppConsultoraVideo(paisIso, MatrizAppConsultora);
+        }        
 
         [HttpPost]
         public ActionResult Update(AdministrarHistorialModel form)
@@ -439,6 +446,26 @@ namespace Portal.Consultoras.Web.Controllers
             return newfilename;
         }
 
+        private string SaveFileVideoS3(string imagenEstrategia, bool mantenerExtension = false)
+        {
+            imagenEstrategia = Util.Trim(imagenEstrategia);
+            if (imagenEstrategia == string.Empty)
+                return string.Empty;
+
+            var path = Path.Combine(Globals.RutaTemporales, imagenEstrategia);
+
+            string cadena = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
+            string[] arrCadena;
+            arrCadena = cadena.Split(',');
+            var carpetaPais = string.Format("{0}/{1}", arrCadena[0], userData.CodigoISO);
+
+            var time = string.Concat(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Minute, DateTime.Now.Millisecond);
+            var ext = !mantenerExtension ? ".png" : Path.GetExtension(path);
+            var newfilename = string.Concat(userData.CodigoISO, "_", time, "_", FileManager.RandomString(), ext);
+            ConfigS3.SetFileS3(path, carpetaPais, newfilename);
+            return newfilename;
+        }
+
         private IEnumerable<AdministrarHistorialDetaActModel> GetContenidoAppDetaActService(int Parent)
         {
 
@@ -600,6 +627,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     a.IdContenido.ToString(),
                                     a.Campania.ToString(),
                                     a.RutaContenido,
+                                    a.RutaContenido,
                                 }
                            }
                 };
@@ -633,6 +661,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return entidad;
         }
+
         [HttpGet]
         public ActionResult GetViewVideo()
         {
@@ -659,6 +688,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.IdContenidoDeta = entidad.IdContenidoDeta;
                 model.IdContenido = entidad.IdContenido;
                 model.Campania = entidad.Campania;
+                model.RutaContenido = entidad.RutaContenido;
             }
             catch (Exception ex)
             {
@@ -670,11 +700,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         [HttpPost]
         public JsonResult ComponenteDatosVideoGuardar(AdministrarHistorialDetaListModel model)
-        {
-            int valRespuesta = 0;
-            var allowedExtensions = new[] {".mp4" };
+        {            
             try
             {
+                int valRespuesta = 0;
+                var allowedExtensions = new[] { ".mp4" };
                 string _name = string.Empty;
                 if (model.file != null && model.file.ContentLength > 0)
                 {
@@ -692,7 +722,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json(new
                         {
                             success = false,
-                            message = "El tamaño máximo de archivo permitido es 20MB."
+                            message = "El tamaño máximo de archivo permitido es 30 MB."
                         });
                     }
                     else
@@ -705,15 +735,26 @@ namespace Portal.Consultoras.Web.Controllers
                         if (!Directory.Exists(Globals.RutaTemporales)) Directory.CreateDirectory(Globals.RutaTemporales);
                         model.file.SaveAs(_path);
 
-                        _name = Path.GetFileName(_path);
-                    }
-                }
+                        _name = Path.GetFileName(_path);                      
 
-                model.RutaContenido = SaveFileDetalleS3(_name, true);
+
+                        var nombreImagenAnterior = model.RutaContenido;
+                        if (nombreImagenAnterior != null) {
+                            string cadena = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
+                            string[] arrCadena;
+                            arrCadena = cadena.Split(',');
+                            var carpetaPais = string.Format("{0}/{1}", arrCadena[0], userData.CodigoISO);
+                            ConfigS3.DeleteFileS3(carpetaPais, nombreImagenAnterior);
+                        }
+                        
+
+                        model.RutaContenido = SaveFileVideoS3(_name, true);
+                    }
+                   
+                }                              
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
-
                     var entidad = new BEContenidoAppDeta
                     {
                         Proc = model.Proc,
@@ -724,7 +765,6 @@ namespace Portal.Consultoras.Web.Controllers
                         Tipo = Constantes.TipoContenido.Video
                     };
                     valRespuesta = sv.ContenidoAppDetaVideo(userData.PaisID, entidad);
-
                 }
 
                 return Json(new
@@ -744,12 +784,13 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public ActionResult ComponenteVideoEliminar(AdministrarHistorialDetaUpdModel entidad)
+        [HttpGet]
+        public ActionResult ComponenteVideoEliminar(AdministrarHistorialDetaListModel entidad)
         {
-            AdministrarHistorialDetaUpdModel modelo;
+            AdministrarHistorialDetaListModel modelo;
             try
             {
-                modelo = new AdministrarHistorialDetaUpdModel
+                modelo = new AdministrarHistorialDetaListModel
                 {
                     IdContenidoDeta = entidad.IdContenidoDeta,
                     IdContenido = entidad.IdContenido
@@ -758,10 +799,55 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                modelo = new AdministrarHistorialDetaUpdModel();
+                modelo = new AdministrarHistorialDetaListModel();
             }
             return PartialView("Partials/MantenimientoVideoEliminar", modelo);
         }
 
+        [HttpPost]
+        public JsonResult ComponenteVideoEliminarProceso(AdministrarHistorialDetaListModel form)
+        {          
+            try
+            {
+                int valRespuesta = 0;
+                var entidad = new BEContenidoAppDeta
+                {
+                    Proc = Constantes.DatosContenedorHistorias.ProcDelete,
+                    IdContenidoDeta = form.IdContenidoDeta,
+                    IdContenido = form.IdContenido
+
+                };
+                using (var sv = new ContenidoServiceClient())
+                {
+                    valRespuesta = sv.ContenidoAppDetaVideo(userData.PaisID, entidad);
+                }
+
+                if (valRespuesta == 0) {
+                    return Json(new
+                    {
+                        success = false,
+                        message = valRespuesta,
+                    });
+                }
+                else {
+                    return Json(new
+                    {
+                        success = true,
+                        message = valRespuesta,
+                    });
+                }
+              
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.StackTrace,
+                });
+            }
+        }
+        
     }
 }

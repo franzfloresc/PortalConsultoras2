@@ -26,8 +26,6 @@ Declare @numCampania AS int;
 SET @respuesta = 0;	
 	IF @Proc = 1
 		BEGIN
-
-
 			SET @OrdenActual = (select top 1 p.orden  from  dbo.ContenidoAppDeta p with(nolock) WHERE p.Estado = 1 and p.IdContenido = @IdContenido Order by p.Orden desc);
 			SET @CantContenido = (SELECT top 1 p.CantidadContenido FROM dbo.ContenidoApp p with(nolock) WHERE p.IdContenido = @IdContenido);
 			SET @numReg = (select COUNT(*) from  dbo.ContenidoAppDeta p with(nolock) WHERE p.Estado = 1 and IdContenido = @IdContenido and Campania = @Campania);
@@ -58,7 +56,6 @@ SET @respuesta = 0;
 		END
 	ELSE IF @Proc = 2
 		BEGIN
-				--print 'Se inserto campania';	
 					UPDATE dbo.ContenidoAppDeta
 					SET 
 					Campania = @Campania,
@@ -66,6 +63,23 @@ SET @respuesta = 0;
 					WHERE IdContenidoDeta = @IdContenidoDeta and IdContenido = @IdContenido;	
 					SET @respuesta = 1;		
 		END
+	ELSE IF @Proc = 3
+	BEGIN
+		UPDATE dbo.ContenidoAppDeta
+				SET 
+				Estado = 0
+				WHERE IdContenidoDeta = @IdContenidoDeta and IdContenido = @IdContenido;
+
+			SET @Orden = (select top 1  Orden
+			from  dbo.ContenidoAppDeta p with(nolock)
+				WHERE p.IdContenidoDeta = @IdContenidoDeta and IdContenido = @IdContenido);
+
+		UPDATE dbo.ContenidoAppDeta 
+				SET Orden = Orden - 1
+				WHERE Estado = 1 and IdContenido = @IdContenido and Orden > @Orden;
+
+		SET @respuesta = 1;
+	END
 	
 END
 

@@ -11,8 +11,7 @@ ALTER PROCEDURE [dbo].[ContenidoAppDetaList]
 	@Codigo varchar(150)
 AS
 BEGIN
-		IF @Codigo = 'HISTORIAS_RESUMEN'
-			BEGIN
+		IF @Codigo = 'HISTORIAS_RESUMEN'			
 			SELECT  
 				P.IdcontenidoDeta,P.Idcontenido,P.CodigoDetalle,
 				P.Descripcion,P.RutaContenido,P.Accion,P.Orden,
@@ -26,10 +25,8 @@ BEGIN
 			WHERE
 					P.IdContenido = @IdContenido AND
 					P.Estado = 1
-					order by P.Orden ASC;
-			END
-		ELSE IF @Codigo = 'GANA_EN_UN_CLICK'
-			BEGIN
+					order by P.Orden ASC;			
+		ELSE IF @Codigo = 'GANA_EN_UN_CLICK'			
 				 SELECT  
 					P.IdcontenidoDeta,P.Idcontenido,P.CodigoDetalle,
 					P.Descripcion,P.RutaContenido,P.Accion,P.Orden,
@@ -40,6 +37,4 @@ BEGIN
 						P.IdContenido = @IdContenido AND
 						P.Estado = 1
 						order by P.Orden ASC;
-			END
-	
 END

@@ -38,6 +38,7 @@
         UrlContenidoApp: baseUrl + 'AdministrarHistorias/GetContenidoApp',
         UrlGrillaEditarVideo: baseUrl + 'AdministrarHistorias/GetViewEditarVideo',
         UrlComponenteVideoEliminar: baseUrl + 'AdministrarHistorias/ComponenteVideoEliminar',
+        UrlComponenteVideoEliminarProceso: baseUrl + 'AdministrarHistorias/ComponenteVideoEliminarProceso',
     };
 
     var _accion = {
@@ -85,7 +86,7 @@
         if (cellvalue == null) {
             act = "";
         } else {
-            act = '<a href="' + urlDetalleS3 + cellvalue +'" target = "_blank">' + cellvalue + '</a>';
+            act = '<a href="' + UrlVideoS3 + cellvalue +'" target = "_blank">' + cellvalue + '</a>';
         }
         return act;
     };
@@ -317,7 +318,37 @@
             buttons:
             {
                 'Guardar': function () {
-                    _GuardarDatos(this);
+                    var IdContenidoDeta = $('#IdContenidoDetaVideoElim').val();
+                    var IdContenido = $('#IdContenidoVideoElim').val();
+                    var param = {
+                        IdContenidoDeta: IdContenidoDeta,
+                        IdContenido: IdContenido
+                    };
+
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: _url.UrlComponenteVideoEliminarProceso,
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(param),
+                        async: true,
+                        success: function (data) {
+                            if (data.success) {
+                                if (data.message == 1) {
+                                    HideDialog("DialogMantenimientoVideoEliminar");
+                                    _toastHelper.success(_texto.ProcesoConforme);
+                                    $('#tblVideoDet').trigger('reloadGrid');
+                                }                               
+
+                            } else {
+                                _toastHelper.error(_texto.ProcesoError);
+                            }
+
+                        },
+                        error: function (data, error) {
+                            _toastHelper.error(_texto.ProcesoError);
+                        }
+                    });
                 },
                 'Salir': function () {
                     HideDialog(_elemento.DialogVideoEliminar);
@@ -437,7 +468,7 @@
             mtype: 'GET',
             contentType: 'application/json; charset=utf-8',
             multiselect: false,
-            colNames: ['ID', 'Tipo', 'Orden', 'IdContenido', 'Campaña', 'Contenido', 'Opciones'],
+            colNames: ['ID', 'Tipo', 'Orden', 'IdContenido', 'Campaña', 'ContenidoHidden', 'Contenido', 'Opciones'],
             colModel: [
                 {
                     name: 'IdContenidoDeta',
@@ -472,7 +503,17 @@
                     resizable: false,
                     sortable: false,
                     align: 'center',
+                    hidden: true
+                },
+                {
+                    name: 'RutaContenidoUrl',
+                    index: 'RutaContenidoUrl',
+                    width: 50,
+                    resizable: false,
+                    sortable: false,
+                    align: 'center',
                     formatter: _GrillaUrlVideo
+                    
                 },
                 {
                     name: 'Opciones',
@@ -524,7 +565,8 @@
         var entidad = {
             IdContenidoDeta: row['IdContenidoDeta'],
             IdContenido: row['IdContenido'],
-            Campania: row['Campania']
+            Campania: row['Campania'],
+            RutaContenido: row['RutaContenido']
         };
         _RegistroObternerVideo(entidad);
     }

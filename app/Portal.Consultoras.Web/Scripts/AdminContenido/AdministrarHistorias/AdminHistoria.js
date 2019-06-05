@@ -7,7 +7,7 @@ var _obj_mensaje = {
     seleccionZonaRegion: "No se ha marcado ninguna zona o región.",
     seleccionSegmento: "No se ha marcado ningún Segmento.",
     ProcesoConforme: 'Se procesó con éxito su solicitud.',
-    ProcesoRegistroExistente: 'Campaña ya existe.',
+    ProcesoRegistroExistente: 'Campaña ingresada ya existe.',
     ProcesoCantidadMenor: 'La cantidad no puede ser menor que los registros en el detalle.',
     seleccionFile: "No seleccionó un archivo",
 }
@@ -154,7 +154,7 @@ function IniDialogDetalle() {
         buttons:
         {
             "Guardar": function () {  
-                
+                var RutaContenido = $("#RutaContenidoVideo").val();
                 var uploadFile = $('input[id="file"]').get(0).files[0];
 
                 if ($("#ddlCampaniaVideo").val() === "0") {
@@ -165,16 +165,13 @@ function IniDialogDetalle() {
                     showDialogMensaje(_obj_mensaje.seleccionFile, 'Alerta');
                     return false;
                 }
-
-                
-                //console.log("uploadFile", uploadFile);
-                //return false;
-                
+           
                 var formData = new FormData();
                 formData.append('file', uploadFile);
                 formData.append("Proc", $("#ProcVideo").val());
                 formData.append("IdContenidoDeta", $("#IdContenidoDetaVideo").val());
                 formData.append("IdContenido", $("#IdContenidoVideo").val());
+                formData.append("RutaContenido", RutaContenido);
                 formData.append("Campania", $("#ddlCampaniaVideo").val());
 
                 waitingDialog({});
@@ -188,7 +185,7 @@ function IniDialogDetalle() {
                     processData: false,
                     contentType: false, 
                     success: function (data) {
-                        console.log(data);
+                      
                         closeWaitingDialog();
                         if (data.success) {
                             if (data.message == 1) {
