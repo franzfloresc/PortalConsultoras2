@@ -140,7 +140,7 @@ namespace Portal.Consultoras.Web.Providers
                     obj.Estado = xmlNode["estado"].InnerText == "" ? 0 : Convert.ToInt32(xmlNode["estado"].InnerText);
                     obj.PrecioFormato = xmlNode["precio"].InnerText == "" ? "0" : Util.DecimalToStringFormat(Convert.ToDecimal(xmlNode["precio"].InnerText), codigoIso);
                     obj.CodigoMotivoRechazo = xmlNode["codigorechazo"].InnerText;
-                    obj.Observacion = xmlNode["codigorechazo"].InnerText == "" ? "" : ObtenerDescripcion(xmlNode["codigorechazo"].InnerText, Constantes.TipoMensajeCDR.Motivo, paisId).Descripcion;
+                    obj.Observacion = ObtenerObservacion(xmlNode["obs"].InnerText, xmlNode["codigorechazo"].InnerText, paisId, codigoIso);
                     lista.Add(obj);
                 }
             }
