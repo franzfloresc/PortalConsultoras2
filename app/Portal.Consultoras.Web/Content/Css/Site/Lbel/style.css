@@ -25562,7 +25562,8 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         justify-content: flex-start;
     }
 
-        .popup_productos_observados .content_listado_reclamo{
+        .popup_productos_observados .content_listado_reclamo,
+        .popup_productos_observados .producto_solicitud_row{
             align-items:center;
         }
 
