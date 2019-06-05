@@ -1109,14 +1109,24 @@ namespace Portal.Consultoras.Web
 
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante").Include(
-                "~/Scripts/jquery-1.11.2.min.js",
-                "~/Scripts/bootstrap.min.js",
                 "~/Scripts/owl.carousel.js",
-                "~/Scripts/PortalConsultoras/CaminoBrillante/index.js"));
+                "~/Scripts/PortalConsultoras/CaminoBrillante/index.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante/logros").Include(
+                "~/Scripts/PortalConsultoras/CaminoBrillante/logros.js"));
+
+            bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante/ofertas").Include(
+                "~/Scripts/PortalConsultoras/Cliente/Index.js",
+                "~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"));
+
+            bundles.Add(new ScriptBundle("~/Bundle/Js/bootstrap").Include(
+               "~/Scripts/bootstrap.js"));
+
 
             #endregion
             #region ArmaTuPack
-            
+
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/ArmaTuPack").Include(
                 "~/Content/Css/Site/ArmaTuPack/ArmaTuPack_Responsive.css",
                 "~/Content/Css/Site/ficha/SeleccionarTipo.css",

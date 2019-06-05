@@ -1495,6 +1495,11 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.AutorizaPedido = usuario.AutorizaPedido;
                     //FIN HD-3693
 
+                    //INI HD-3897
+                    usuarioModel.PuedeConfirmarAllEmail = usuario.PuedeConfirmarAllEmail;
+                    usuarioModel.PuedeConfirmarAllSms = usuario.PuedeConfirmarAllSms;
+                    //FIN HD-3897
+
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);
                     sessionManager.SetTieneLanX1(true);
