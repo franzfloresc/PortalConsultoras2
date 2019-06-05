@@ -49,16 +49,24 @@ class CarruselView {
             dots: false,
             infinite: false,
             speed: 260,
-            slidesToShow: isMobile() ? 1 : 3,
+            slidesToShow: 3,
             slidesToScroll: 1,
             variableWidth: false,
             prevArrow: slickArrows[platform].prev,
             nextArrow: slickArrows[platform].next,
             responsive: [
                 {
-                    breakpoint: 720,
+                    breakpoint: 900,
                     settings: {
-                        slidesToShow: 1
+                        slidesToShow: 2,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
                     }
                 }
             ]

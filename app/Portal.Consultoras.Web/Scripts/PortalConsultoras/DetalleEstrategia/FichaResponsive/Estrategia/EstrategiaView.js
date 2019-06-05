@@ -100,6 +100,28 @@
 
         return true;
     };
+
+    let _fixButtonAddProduct = function () {
+        const isMobile = window.matchMedia("(max-width:991px)").matches;
+        if (!isMobile) return;
+        var fixmeTop = $('.fixme_button').offset().top + 75;
+
+        var heghtWindow = $(window).height();
+
+        $(window).scroll(function () {
+            var currentScroll = $(window).scrollTop();
+            //console.log("currentScroll: " + currentScroll);
+            //console.log("heghtWindow: " + heghtWindow);
+            //console.log("fixmeTop: " + fixmeTop);
+            if (currentScroll + heghtWindow >= fixmeTop) {
+                $("#dvContenedorAgregar").removeClass("contenedor_fixed"); 
+            } else {
+                if (!($("#dvContenedorAgregar").hasClass("contenedor_fixed"))) {
+                    $("#dvContenedorAgregar").addClass("contenedor_fixed"); 
+                }
+            }
+        });
+    }
     
     var _showCarrusel = function(){
         $('#carousel_upselling').slick({
@@ -140,6 +162,7 @@
         renderRelojStyle: _renderRelojStyle,
         renderAgregar: _renderAgregar,
         showTitleAgregado: _showTitleAgregado,
-        showCarrusel : _showCarrusel
+        showCarrusel: _showCarrusel,
+        fixButtonAddProduct: _fixButtonAddProduct
     };
 };

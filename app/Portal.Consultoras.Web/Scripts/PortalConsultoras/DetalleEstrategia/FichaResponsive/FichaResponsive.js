@@ -32,18 +32,18 @@ var fichaEnriquecidaPresenter = FichaEnriquecidaPresenter({
 
 $(document).ready(function () {
     $("#data-estrategia").data("estrategia", detalleEstrategia.getEstrategia(params));
-    var estrategia = $("#data-estrategia").data("estrategia");
+    const estrategia = $("#data-estrategia").data("estrategia");
 
     estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
     componentesPresenter.onEstrategiaModelLoaded(estrategia);
 
     fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
 
-    let carruselModel = new CarruselModel(
+    const carruselModel = new CarruselModel(
         params.palanca,
         params.campania,
         params.cuv,
-       "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
+        "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
         params.origen,
         "Ficha",
         estrategia.DescripcionCompleta,
@@ -53,9 +53,9 @@ $(document).ready(function () {
         estrategia.Hermanos,
         estrategia.TieneStock);
 
-    let carruselPresenter = new CarruselPresenter();
+    const carruselPresenter = new CarruselPresenter();
 
-    let carruselView = new CarruselView(carruselPresenter);
+    const carruselView = new CarruselView(carruselPresenter);
 
     carruselPresenter.initialize(carruselModel, carruselView);
 });
