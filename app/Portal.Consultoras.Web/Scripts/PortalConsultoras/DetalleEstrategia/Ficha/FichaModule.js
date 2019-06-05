@@ -820,7 +820,6 @@ var FichaModule = (function (config) {
             }
 
             panelCliente.Abrir();
-            //console.log('_initCliente - DivPopupFichaResumida overflow hidden');
             $("#DivPopupFichaResumida").css("overflow", "hidden");
             isChangeCliente = true;
 

@@ -6,6 +6,10 @@
     };
 
     var _elements = {
+        btnAgregar: {
+            id: "#btnAgregalo",
+            classDesactivado:"btn_deshabilitado"
+        },
         breadcrumbs: {
             templateId: "#breadcrumbs-template",
             id: "#breadcrumbs",
@@ -153,6 +157,48 @@
         });
     };
 
+    var _validarDesactivadoGeneral = function (pEstrategia) {
+        if (pEstrategia.esEditable) {
+            $(_elements.btnAgregar.id).addClass(_elements.btnAgregar.classDesactivado);
+        } else {
+            $.each(pEstrategia.Hermanos, function (index, hermano) {
+                if (hermano.Hermanos && hermano.Hermanos.length > 0) {
+                    $(_elements.btnAgregar.id).addClass(_elements.btnAgregar.classDesactivado);
+                }
+            });
+        }
+
+    };
+    var _validarActivadoGeneral = function (pEstrategia) {
+        if (!pEstrategia.esEditable) {
+            $.each(pEstrategia.Hermanos, function (index, hermano) {
+                if (!(hermano.Hermanos && hermano.Hermanos.length > 0)) {
+                    $(_elements.btnAgregar.id).removeClass(_elements.btnAgregar.classDesactivado);
+                }
+            });
+        }
+
+    };
+
+    var _setEstrategiaTipoBotonAgregar = function (estrategia) {
+         pEstrategia = estrategia;
+         if (pEstrategia.TipoAccionAgregar <= 0) {
+             $(_elementos.agregar.id).hide();
+         }
+ 
+        if (pEstrategia.CodigoVariante === ConstantesModule.CodigoVariedad.IndividualVariable ||
+            pEstrategia.CodigoVariante === ConstantesModule.CodigoVariedad.CompuestaVariable ||
+            pEstrategia.CodigoVariante === ConstantesModule.CodigoVariedad.ComuestaFija) {
+             _validarDesactivadoGeneral(pEstrategia);
+         }
+        if (pEstrategia.CodigoVariante === ConstantesModule.CodigoVariedad.IndividualVariable ||
+            pEstrategia.CodigoVariante === ConstantesModule.CodigoVariedad.ComuestaFija) {
+             _validarActivadoGeneral(pEstrategia);
+         }
+ 
+         return true;
+    };
+
     return {
         setPresenter: _setPresenter,
         renderBreadcrumbs : _renderBreadcrumbs,
@@ -163,6 +209,7 @@
         renderAgregar: _renderAgregar,
         showTitleAgregado: _showTitleAgregado,
         showCarrusel: _showCarrusel,
-        fixButtonAddProduct: _fixButtonAddProduct
+        fixButtonAddProduct: _fixButtonAddProduct,
+        setEstrategiaTipoBotonAgregar: _setEstrategiaTipoBotonAgregar
     };
 };
