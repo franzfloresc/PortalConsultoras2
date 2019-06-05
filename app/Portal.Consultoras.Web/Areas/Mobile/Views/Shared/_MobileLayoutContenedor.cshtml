@@ -134,9 +134,6 @@
             <br />
             <br />
         </div>
-        <a title="Chat Messenger" class="d-block btn_chat_messenger_mobile" href="javascript: AbrirChatBot()">
-            <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
-        </a>
     </section>
 
     @if (!esIngresoUnico)
@@ -504,15 +501,18 @@
     </script>
     @RenderSection("scripts", required: false)
 
-@{
-    // ViewBag.HabilitarChatEmtelco : Oculta boton que lanza chat.
-    // Deberia ir dentro de la condicion de este if
-}
+    @{
+        // ViewBag.HabilitarChatEmtelco : Oculta boton que lanza chat.
+        // Deberia ir dentro de la condicion de este if
+    }
     @if (!esIngresoUnico)
     {
         <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
+        <a title="Chat Messenger" class="d-block btn_chat_messenger_mobile" href="javascript: AbrirChatBot()">
+            <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
+        </a>
     }
-    
+
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
     <script>
