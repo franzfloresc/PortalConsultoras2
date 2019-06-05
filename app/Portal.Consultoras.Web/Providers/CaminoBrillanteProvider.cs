@@ -374,82 +374,7 @@ namespace Portal.Consultoras.Web.Providers
         public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoShowRoom(UsuarioModel userData, int campaniaId, string codigoConsultora, bool esFacturacion = false, int tipoOferta = 1)
         {
             var listaProductoRetorno = new List<EstrategiaPersonalizadaProductoModel>();
-            /*
-            var cargo = SessionManager.ShowRoom.CargoOfertas ?? "0";
-
-            if (cargo == "1")
-            {
-                switch (tipoOferta)
-                {
-                    case 1:
-                        listaProductoRetorno = SessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPersonalizadaProductoModel>();
-                        break;
-                    case 2:
-                        listaProductoRetorno = SessionManager.ShowRoom.OfertasSubCampania ?? new List<EstrategiaPersonalizadaProductoModel>();
-                        listaProductoRetorno.ForEach(producto => { producto.EsSubcampania = true; });
-                        break;
-                    case 3:
-                        listaProductoRetorno = SessionManager.ShowRoom.OfertasPerdio ?? new List<EstrategiaPersonalizadaProductoModel>();
-                        break;
-                }
-
-                if (tipoOferta != 3)
-                {
-                    var listaPedidoDetalle = _pedidoWeb.ObtenerPedidoWebSetDetalleAgrupado();
-                    listaProductoRetorno.Update(x =>
-                    {
-                        x.IsAgregado = listaPedidoDetalle.Any(p => p.EstrategiaId == x.EstrategiaID);
-                    });
-                }
-
-                if (tipoOferta == 3)
-                    listaProductoRetorno = listaProductoRetorno.Where(x => x.TieneStock).ToList();
-
-                listaProductoRetorno = listaProductoRetorno.OrderBy(x => x.TieneStock, false).ToList();
-
-                if (!_ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.ShowRoom))
-                {
-                    SessionManager.ShowRoom.CargoOfertas = "0";
-                }
-
-                return listaProductoRetorno;
-            }
-
-            var listaProducto = GetShowRoomOfertasConsultora(userData);
-            //listaProducto.ForEach(x => x.TieneStock = true);
-
-            //if (listaProducto.Any())
-            //{
-            //    var validarDias = GetValidarDiasAntesStock(userData);
-            //    listaProducto = _consultaProlProvider.ActualizarEstrategiaStockPROL(listaProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora, validarDias);
-            //}
-
-            var listaProductoModel = ConsultarEstrategiasFormatoEstrategiaToModel1(listaProducto, userData.CodigoISO, userData.CampaniaID);
-
-            SetShowRoomOfertasInSession(listaProductoModel, userData);
-
-            switch (tipoOferta)
-            {
-                case 1:
-                    listaProductoRetorno = SessionManager.ShowRoom.Ofertas;
-                    break;
-                case 2:
-                    listaProductoRetorno = SessionManager.ShowRoom.OfertasSubCampania;
-                    break;
-                case 3:
-                    listaProductoRetorno = SessionManager.ShowRoom.OfertasPerdio;
-                    break;
-                default:
-                    listaProductoRetorno = SessionManager.ShowRoom.Ofertas;
-                    break;
-            }
-
-            if (tipoOferta == 3)
-                listaProductoRetorno = listaProductoRetorno.Where(x => x.TieneStock).ToList();
-
-            listaProductoRetorno = listaProductoRetorno.OrderBy(x => x.TieneStock, false).ToList();
-            */
-
+            
             return GetDesmostradoresCaminoBrillante(0, 0, "", "").LstDemostradores.Select(e => new EstrategiaPersonalizadaProductoModel() {
 
                 CodigoPalanca = "0",
@@ -470,19 +395,19 @@ namespace Portal.Consultoras.Web.Providers
                 DescripcionResumen = e.DescripcionCUV,
                 DescripcionCategoria = e.DescripcionCUV,
                 EsMultimarca = false,
-                EsOfertaIndependiente = true,
+                EsOfertaIndependiente = false,
                 EsSubcampania = false,
-                EstrategiaID = 0,
+                EstrategiaID = e.EstrategiaID.ToInt(),
                 FlagNueva = 0,
-                Ganancia = e.PrecioCatalogo,
-                GananciaString = "1",
+                Ganancia = e.PrecioCatalogo - e.PrecioValorizado,
+                GananciaString = (e.PrecioCatalogo  - e.PrecioValorizado).ToString(),
                 ImagenURL = e.FotoProductoMedium,
                 MarcaID = e.MarcaID,
-                Precio = e.PrecioValorizado,
-                Precio2 = e.PrecioCatalogo,
-                PrecioTachado = e.PrecioValorizadoFormat,
-                PrecioVenta = e.PrecioCatalogoFormat,
-                TextoLibre = "1",
+                Precio = e.PrecioCatalogo,
+                Precio2 = e.PrecioValorizado,
+                PrecioTachado = e.PrecioCatalogoFormat,
+                PrecioVenta = e.PrecioValorizadoFormat ,
+                TextoLibre = "",
                 TienePaginaProducto = false,
                 TienePaginaProductoMob = false,
                 TipoAccionAgregar = 2,

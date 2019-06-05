@@ -738,7 +738,7 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.Cuv = cuv;
             modelo.TieneCarrusel = GetValidationHasCarrusel(modelo.OrigenAgregar, palanca, esEditar);
             modelo.OrigenAgregarCarrusel = modelo.TieneCarrusel ? GetOrigenPedidoWebDetalle(origen, modelo.TieneCarrusel) : 0;
-            modelo.TieneCompartir = modelo.OrigenAgregar == 1181902 ? false : GetTieneCompartir(palanca, esEditar, modelo.OrigenAgregar);
+            modelo.TieneCompartir = modelo.OrigenAgregar == 0 ? false : GetTieneCompartir(palanca, esEditar, modelo.OrigenAgregar);
             modelo.Cantidad = 1;
             #endregion
 
