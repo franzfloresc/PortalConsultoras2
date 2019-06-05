@@ -250,16 +250,36 @@ namespace Portal.Consultoras.Web.Providers
 
         private CarruselCaminoBrillanteModel Format(CarruselCaminoBrillanteModel carrusel)
         {
+            if (carrusel != null && usuarioModel != null)
+            {
+                if (carrusel.Items != null) {
+                    carrusel.Items.Update(e => {
+                        e.PaisISO = usuarioModel.CodigoISO;
+                        e.CampaniaID = usuarioModel.CampaniaID;
+                    });
+                }
+            }
+            return carrusel;
+        }
+
+        /*
+        private CarruselCaminoBrillanteModel Format(CarruselCaminoBrillanteModel carrusel)
+        {
             if (carrusel != null)
             {
                 if (carrusel.Items == null) return carrusel;            
                 carrusel.Items.Update(e => {
-                    if (e.Kit != null) e.Kit.PaisISO = usuarioModel.CodigoISO;
-                    if (e.Demostrador != null) e.Demostrador.PaisISO = usuarioModel.CodigoISO;
+                    if (e is KitCaminoBrillanteModel) {
+                        ((KitCaminoBrillanteModel) e).PaisISO = usuarioModel.CodigoISO;
+                    } else if (e is DemostradorCaminoBrillanteModel)
+                    {
+                        ((DemostradorCaminoBrillanteModel)e).PaisISO = usuarioModel.CodigoISO;
+                    }
                 });
             }
             return carrusel;
         }
+        */
 
         /// <summary>
         /// Obtiene el Flag si tiene ofertas especiales
@@ -513,6 +533,26 @@ namespace Portal.Consultoras.Web.Providers
                 return null;
             }
         }
+
+        /*
+        private List<object> GetItemCarrusel(BECarruselCaminoBrillante carrusel) {
+            var lista = new List<object>();
+            if (carrusel.Items != null) {
+                foreach (var item in carrusel.Items)
+                {
+                    switch (item.TipoOferta) {
+                        case 2:
+                            lista.Add(Mapper.Map<DemostradorCaminoBrillanteModel>(item));
+                            break;
+                        case 1:
+                            lista.Add(Mapper.Map<KitCaminoBrillanteModel>(item));
+                            break;
+                    }
+                }
+            }
+            return lista;
+        }
+        */
 
         public MisGananciasCaminoBrillante GetMisGananciasCaminoBrillante() {
             var niveles = GetNivelesHistoricosConsultora() ?? new List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante>();

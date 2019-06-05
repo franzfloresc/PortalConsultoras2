@@ -168,12 +168,12 @@
         <section class="regular slider">
             {{#each Items}}
             <div class="revistadigital-landing">
-                {{#with Kit}}
-                {{> kit_template}}
-                {{/with}}
-                {{#with Demostrador}}
+                {{#iff TipoOferta '==' 2}}
                 {{> demostrador_template}}
-                {{/with}}
+                {{/iff}}
+                {{#iff TipoOferta '==' 1}}
+                {{> kit_template}}
+                {{/iff}}
             </div>
             {{/each}}
         </section>
