@@ -234,6 +234,7 @@ namespace Portal.Consultoras.Web.Providers
             if (items != null && usuarioModel != null) {
                 items.Update(e => {
                     e.PaisISO = usuarioModel.CodigoISO;
+                    e.CampaniaID = usuarioModel.CampaniaID;
                 });
             }
             return items;
@@ -245,6 +246,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 items.Update(e => {
                     e.PaisISO = usuarioModel.CodigoISO;
+                    e.CampaniaID = usuarioModel.CampaniaID;
                 });
             }
             return items;
@@ -370,6 +372,131 @@ namespace Portal.Consultoras.Web.Providers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
                 return null;
             }
+        }
+
+
+
+        public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoShowRoom(UsuarioModel userData, int campaniaId, string codigoConsultora, bool esFacturacion = false, int tipoOferta = 1)
+        {
+            var listaProductoRetorno = new List<EstrategiaPersonalizadaProductoModel>();
+            /*
+            var cargo = SessionManager.ShowRoom.CargoOfertas ?? "0";
+
+            if (cargo == "1")
+            {
+                switch (tipoOferta)
+                {
+                    case 1:
+                        listaProductoRetorno = SessionManager.ShowRoom.Ofertas ?? new List<EstrategiaPersonalizadaProductoModel>();
+                        break;
+                    case 2:
+                        listaProductoRetorno = SessionManager.ShowRoom.OfertasSubCampania ?? new List<EstrategiaPersonalizadaProductoModel>();
+                        listaProductoRetorno.ForEach(producto => { producto.EsSubcampania = true; });
+                        break;
+                    case 3:
+                        listaProductoRetorno = SessionManager.ShowRoom.OfertasPerdio ?? new List<EstrategiaPersonalizadaProductoModel>();
+                        break;
+                }
+
+                if (tipoOferta != 3)
+                {
+                    var listaPedidoDetalle = _pedidoWeb.ObtenerPedidoWebSetDetalleAgrupado();
+                    listaProductoRetorno.Update(x =>
+                    {
+                        x.IsAgregado = listaPedidoDetalle.Any(p => p.EstrategiaId == x.EstrategiaID);
+                    });
+                }
+
+                if (tipoOferta == 3)
+                    listaProductoRetorno = listaProductoRetorno.Where(x => x.TieneStock).ToList();
+
+                listaProductoRetorno = listaProductoRetorno.OrderBy(x => x.TieneStock, false).ToList();
+
+                if (!_ofertaBaseProvider.UsarSession(Constantes.TipoEstrategiaCodigo.ShowRoom))
+                {
+                    SessionManager.ShowRoom.CargoOfertas = "0";
+                }
+
+                return listaProductoRetorno;
+            }
+
+            var listaProducto = GetShowRoomOfertasConsultora(userData);
+            //listaProducto.ForEach(x => x.TieneStock = true);
+
+            //if (listaProducto.Any())
+            //{
+            //    var validarDias = GetValidarDiasAntesStock(userData);
+            //    listaProducto = _consultaProlProvider.ActualizarEstrategiaStockPROL(listaProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora, validarDias);
+            //}
+
+            var listaProductoModel = ConsultarEstrategiasFormatoEstrategiaToModel1(listaProducto, userData.CodigoISO, userData.CampaniaID);
+
+            SetShowRoomOfertasInSession(listaProductoModel, userData);
+
+            switch (tipoOferta)
+            {
+                case 1:
+                    listaProductoRetorno = SessionManager.ShowRoom.Ofertas;
+                    break;
+                case 2:
+                    listaProductoRetorno = SessionManager.ShowRoom.OfertasSubCampania;
+                    break;
+                case 3:
+                    listaProductoRetorno = SessionManager.ShowRoom.OfertasPerdio;
+                    break;
+                default:
+                    listaProductoRetorno = SessionManager.ShowRoom.Ofertas;
+                    break;
+            }
+
+            if (tipoOferta == 3)
+                listaProductoRetorno = listaProductoRetorno.Where(x => x.TieneStock).ToList();
+
+            listaProductoRetorno = listaProductoRetorno.OrderBy(x => x.TieneStock, false).ToList();
+            */
+
+            return GetDesmostradoresCaminoBrillante(0, 0, "", "").LstDemostradores.Select(e => new EstrategiaPersonalizadaProductoModel() {
+
+                CodigoPalanca = "0",
+                FotoProducto01 = e.FotoProductoMedium,
+                TieneStock = true,
+                CampaniaID = userData.CampaniaID,
+                ClaseBloqueada = "",
+                ClaseEstrategia = "",
+                CodigoCategoria = "",
+                CodigoEstrategia = e.CodigoEstrategia,
+                CodigoProducto = e.CUV,
+                CodigoVariante = "",
+                CUV2 = e.CUV2,
+                DescripcionCompleta = e.DescripcionCUV,
+                DescripcionCortada = e.DescripcionCUV,
+                DescripcionDetalle = e.DescripcionCUV,
+                DescripcionMarca = e.DescripcionMarca,
+                DescripcionResumen = e.DescripcionCUV,
+                DescripcionCategoria = e.DescripcionCUV,
+                EsMultimarca = false,
+                EsOfertaIndependiente = true,
+                EsSubcampania = false,
+                EstrategiaID = 0,
+                FlagNueva = 0,
+                Ganancia = e.PrecioCatalogo,
+                GananciaString = "1",
+                ImagenURL = e.FotoProductoMedium,
+                MarcaID = e.MarcaID,
+                Precio = e.PrecioValorizado,
+                Precio2 = e.PrecioCatalogo,
+                PrecioTachado = e.PrecioValorizadoFormat,
+                PrecioVenta = e.PrecioCatalogoFormat,
+                TextoLibre = "1",
+                TienePaginaProducto = false,
+                TienePaginaProductoMob = false,
+                TipoAccionAgregar = 2,
+
+            }).ToList();
+        }
+
+
+
         }
 
         public CarruselCaminoBrillanteModel GetCarruselCaminoBrillante() {

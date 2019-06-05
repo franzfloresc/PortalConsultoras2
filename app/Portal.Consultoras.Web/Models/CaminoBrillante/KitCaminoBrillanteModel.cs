@@ -5,6 +5,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
     public class KitCaminoBrillanteModel
     {
         public string PaisISO { private get; set; }
+        public int CampaniaID { get; set; }
         public string CUV { get; set; }
         public string DescripcionCUV { get; set; }
         public int MarcaID { get; set; }

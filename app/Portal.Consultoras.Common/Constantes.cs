@@ -290,6 +290,9 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
             public const string MasGanadoras = "201"; // No tiene referecia con BD, caso particular de OfertasParaMi 007
 
+            public const string CaminoBrillanteDemostradores = "301"; // // No tiene referecia con BD, caso particular
+            public const string CaminoBrillanteKits = "302"; // // No tiene referecia con BD, caso particular
+
             public const string NotParticipaProgramaNuevas = "0";
         }
 
@@ -304,6 +307,9 @@ namespace Portal.Consultoras.Common
             public const string ShowRoom = "SR";
             public const string HerramientasVenta = "HV";
             public const string ArmaTuPack = "ATP";
+            public const string CaminoBrillante = "CB";
+            public const string CaminoBrillanteDemostradores = "CBD";
+            public const string CaminoBrillanteKits = "CBK";
         }
 
         public static class TipoAccionAgregar
@@ -314,7 +320,6 @@ namespace Portal.Consultoras.Common
             public const int EligeOpcion = 3;
             public const int LoQuieres = 4;
             public const int LoQuieresInactivo = 5;
-
             public const int BannerCarrusel = 11;
 
         }
@@ -356,6 +361,9 @@ namespace Portal.Consultoras.Common
             public const string ParticipaProgramaNuevas = "ParticipaProgramaNuevas";
             public const string NotParticipaProgramaNuevas = "NotParticipaProgramaNuevas";
             public const string MasGanadoras = "Ganadoras";
+            public const string CaminoBrillante = "CaminoBrillante"; // No tiene referecia con BD
+            public const string CaminoBrillanteDemostradores = "CaminoBrillanteDemostradores"; // No tiene referecia con BD
+            public const string CaminoBrillanteKits = "CaminoBrillanteKits"; // No tiene referecia con BD
 
             private static Dictionary<string, string> _Palancas;
             public static Dictionary<string, string> Palancas
@@ -379,6 +387,8 @@ namespace Portal.Consultoras.Common
                         {TipoEstrategiaCodigo.ShowRoom, NombrePalanca.ShowRoom},
                         {TipoEstrategiaCodigo.HerramientasVenta, NombrePalanca.HerramientasVenta},
                         {TipoEstrategiaCodigo.NotParticipaProgramaNuevas, NombrePalanca.NotParticipaProgramaNuevas},
+                        {TipoEstrategiaCodigo.CaminoBrillanteDemostradores, NombrePalanca.CaminoBrillanteDemostradores},
+                        {TipoEstrategiaCodigo.CaminoBrillanteKits, NombrePalanca.CaminoBrillanteKits},
                     });
                 }
             }
@@ -406,6 +416,8 @@ namespace Portal.Consultoras.Common
                         {NombrePalanca.HerramientasVenta, TipoEstrategiaCodigo.HerramientasVenta},
                         {NombrePalanca.NotParticipaProgramaNuevas, TipoEstrategiaCodigo.NotParticipaProgramaNuevas},
                         {NombrePalanca.MasGanadoras, TipoEstrategiaCodigo.OfertasParaMi},
+                        {NombrePalanca.CaminoBrillanteDemostradores, TipoEstrategiaCodigo.CaminoBrillanteDemostradores}, 
+                        {NombrePalanca.CaminoBrillanteKits, TipoEstrategiaCodigo.CaminoBrillanteKits}, 
                     });
                 }
             }
@@ -1752,6 +1764,8 @@ namespace Portal.Consultoras.Common
             public const string DireccionEntrega = "DIRECCION_ENTREGA";
             public const string ArmaTuPack = "ATP";
             public const string CaminoBrillante = "CAMINOBRILLANTE";
+            public const string CaminoBrillanteDemostradores = "DEMOSTRADORES";
+            public const string CaminoBrillanteKits = "KITS";
             public const string CaminoBrillanteMsg = "HomeCaminoBrillante";
         }
 
@@ -2994,6 +3008,8 @@ namespace Portal.Consultoras.Common
             public const int MGObtenerProductos = 7;
             public const int SRObtenerProductos = 8;
             public const int ATPObtenerProductos = 9;
+            public const int CBDObtenerProductos = 10;
+            public const int CBKObtenerProductos = 11;
         };
 
         #region PagoEnLinea
