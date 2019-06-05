@@ -2800,7 +2800,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
 
                 lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
-
+                
                 if (!pedidoDetalle.Reservado)
                 {
                     listObjMontosProl = UpdateProl(usuario, lstDetalle, out ListMensajeCondicional);
@@ -3232,6 +3232,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 DescuentoProl = montoDescuento,
                 MontoEscala = montoEscala
             };
+
+            //TODO: incluir campos y parametros en el metodo UpdateMontosPedidoWeb y en el sp
             _pedidoWebBusinessLogic.UpdateMontosPedidoWeb(bePedidoWeb);
 
             if (!string.IsNullOrEmpty(codigoConcursosProl))

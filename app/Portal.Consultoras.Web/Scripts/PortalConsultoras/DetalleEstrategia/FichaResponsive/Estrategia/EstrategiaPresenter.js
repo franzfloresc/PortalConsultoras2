@@ -48,6 +48,8 @@ var EstrategiaPresenter = function (config) {
 
         if (!_config.estrategiaView.showTitleAgregado(model)) throw "estrategiaView don't show title Agregado.";
   
+        _config.estrategiaView.showCarrusel();
+
         return true;
     };
 
@@ -58,8 +60,9 @@ var EstrategiaPresenter = function (config) {
         if (!(typeof esFicha === "boolean")) throw  "esFicha is undefined";
         if (!(typeof esEditable === "boolean")) throw  "esEditable is undefined";
 
-        EstrategiaAgregarModule.EstrategiaAgregar(event, popup, limite, esFicha, esEditable);
+        var model = _estrategiaModel();
 
+        EstrategiaAgregarModule.EstrategiaAgregar(event, popup, limite, esFicha, esEditable, model);
     };
 
     return {

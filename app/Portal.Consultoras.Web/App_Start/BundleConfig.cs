@@ -1154,6 +1154,7 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Ficha/FichaRensponsive.css",
                 "~/Content/Css/Site/Ficha/SeleccionarTipoResponsive.css",
                 "~/Content/Css/Site/Ficha/FichaEnriquecidaResponsive.css",
+                "~/Content/Css/Site/Carrusel/CarruselResponsive.css",
                 "~/Content/Css/Site/flipclock.css"
             ));
             #endregion
