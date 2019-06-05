@@ -331,62 +331,54 @@
                             <div style="position:relative;">
                                 <div class="ganancia-estimada">
                                     <div class="panel-toggle">
-                                        
-
-                                            <div class="toggle-header">
-                                                <div class="toggle-switch closed">
-                                                    <div class="toggle-icon">
-
-                                                    </div>
-                                                </div>
-                                                <div class="toggle-info">
-                                                    <span class="ganancia-titulo accent-color">
-                                                        @(cabezaEscala):
-                                                    </span>
-                                                    <span class="ganancia-total accent-color">
-                                                        @Model.Simbolo @Model.FormatoGananciaRevista
-                                                    </span>
+                                        <div class="toggle-header">
+                                            <div class="toggle-switch closed">
+                                                <div class="toggle-icon">
                                                 </div>
                                             </div>
-                                            <div class="toggle-content">
-                                                <div class="toggle-info">
-                                                    <span class="ganancia-titulo first-color">
-                                                        Catálogo
-                                                    </span>
-                                                    <span class="ganancia-total first-color">
-                                                        @Model.Simbolo @Model.MontoAhorroCatalogo
-                                                    </span>
-                                                </div>
-                                                <div class="toggle-info">
-                                                    <span class="ganancia-titulo first-color">
-                                                        Revista
-                                                    </span>
-                                                    <span class="ganancia-total first-color">
-                                                        @Model.Simbolo @Model.FormatoGananciaRevista
-                                                    </span>
-                                                </div>
-                                                <div class="toggle-info">
-                                                    <span class="ganancia-titulo first-color">
-                                                        Gana+ /Ofertas Digitales
-                                                    </span>
-                                                    <span class="ganancia-total first-color">
-                                                        @Model.Simbolo @Model.FormatoGananciaWeb
-                                                    </span>
-                                                </div>
-                                                <div class="toggle-info">
-                                                    <span class="ganancia-titulo first-color">
-                                                        Otros
-                                                    </span>
-                                                    <span class="ganancia-total first-color">
-                                                        @Model.Simbolo @Model.FormatoGananciaOtros
-                                                    </span>
-                                                </div>
+                                            <div class="toggle-info">
+                                                <span class="ganancia-titulo accent-color">
+                                                    @(cabezaEscala):
+                                                </span>
+                                                <span class="ganancia-total accent-color">
+                                                    @Model.Simbolo @Model.FormatoGananciaRevista
+                                                </span>
                                             </div>
-                                            <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
-                                            <input type="hidden" id="hdePieEscala" value="@pieEscala" />
-                                            <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
-                                            <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
-                                        
+                                        </div>
+                                        <div class="toggle-content">
+                                            <div class="toggle-info">
+                                                <span class="ganancia-titulo first-color">
+                                                    Catálogo
+                                                </span>
+                                                <span class="ganancia-total first-color">
+                                                    @Model.Simbolo @Model.MontoAhorroCatalogo
+                                                </span>
+                                            </div>
+                                            <div class="toggle-info">
+                                                <span class="ganancia-titulo first-color">
+                                                    Revista
+                                                </span>
+                                                <span class="ganancia-total first-color">
+                                                    @Model.Simbolo @Model.FormatoGananciaRevista
+                                                </span>
+                                            </div>
+                                            <div class="toggle-info">
+                                                <span class="ganancia-titulo first-color">
+                                                    Gana+ /Ofertas Digitales
+                                                </span>
+                                                <span class="ganancia-total first-color">
+                                                    @Model.Simbolo @Model.FormatoGananciaWeb
+                                                </span>
+                                            </div>
+                                            <div class="toggle-info">
+                                                <span class="ganancia-titulo first-color">
+                                                    Otros
+                                                </span>
+                                                <span class="ganancia-total first-color">
+                                                    @Model.Simbolo @Model.FormatoGananciaOtros
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="contenedorCupon" style="width:100%;">
@@ -399,54 +391,49 @@
                                         <div class="texto_cupon_monto">Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00</div>
                                     </div>
                                 </div>
-                                <hr class="clear" />
-                                <hr class="separador_montos" />
-                                <div class="caja_montos_textos">
-                                    <div class="caja_montos_textos_sinDescuento">
-                                        <span>Subtotal:</span>
-                                        <span class="dscto_ofertasNiveles">Descuento ofertas por niveles:</span>
-                                    </div>
-                                    <br />
-                                    <p class="monto_con_descuento pMontoCliente default-color" style="display: none;">
-                                        <span id="spnNombreCliente"></span>
-                                    </p>
-                                    <div class="monto_total">
-                                        <span><b>Total:</b></span>
-                                    </div>
-                                    <br />
-                                    <div class="monto_ganancia default-color" style="text-transform:none">
-                                        <div class="info_extra_Validado abrir_popupMisGanancias">
-                                            <img src="/Content/Images/Esika/info-copy.png" onclick="MostrarDetalleGanancia();">
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="caja_montos_cantidades">
-
-                                    <div class="caja_montos_cantidades_sinDescuento">
-                                        <span data-pedidototal>@Model.Simbolo @Model.FormatoTotal</span>
-                                        <span data-montodescuento>@Model.Simbolo @Model.FormatoMontoDescuento</span>
-                                    </div>
-
-                                    <p class="monto_con_descuento pMontoCliente default-color" style="display: none;">
-                                        <span id="spnTotalCliente"></span>
-                                    </p>
-                                    <p class="monto_total">
-                                        <b>
-                                            @Model.Simbolo
-                                            <span id="sTotal" class="num" data-pedidocondescuento="">
-                                                @Model.FormatoTotalConDescuento
+                                <div class="ganancia-total">
+                                    <div class="ganancia-content">
+                                        <div class="ganancia-info">
+                                            <span class="ganancia-titulo first-color">
+                                                Subtotal:
                                             </span>
-                                        </b>
-                                    </p>
+                                            <span class="ganancia-total first-color" data-pedidototal>
+                                                @Model.Simbolo @Model.FormatoTotal
+                                            </span>
+                                        </div>
+                                        <div class="ganancia-info">
+                                            <span class="ganancia-titulo first-color">
+                                                Descuento ofertas por niveles:
+                                            </span>
+                                            <span class="ganancia-total first-color" data-montodescuento>
+                                                <i>@Model.Simbolo</i> @Model.FormatoMontoDescuento
+                                            </span>
+                                        </div>
+                                        <div class="ganancia-info">
+                                            <span class="ganancia-titulo first-color">
+                                                Total:
+                                            </span>
+                                            <span class="ganancia-total first-color" data-pedidocondescuento="">
+                                                <i>@Model.Simbolo</i> <span id="sTotal">@Model.FormatoTotalConDescuento</span>
 
-                                    <p class="monto_ganancia default-color">
-                                        <b>
-                                            @Model.Simbolo
-                                            <span id="spnMontoGanancia" data-ganancia="">@Model.FormatoMontoGanancia</span>
-                                        </b>
-                                    </p>
+                                            </span>
+                                        </div>
+                                        <div class="ganancia-info">
+                                            <span class="ganancia-titulo first-color">
+                                                <img src="/Content/Images/Esika/info-copy.png" onclick="MostrarDetalleGanancia();">
+                                                @(cabezaEscala):
+                                            </span>
+                                            <span class="ganancia-total first-color" data-pedidototal>
+                                                <i>@Model.Simbolo</i> <span id="spnMontoGanancia" data-ganancia="">@Model.FormatoMontoGanancia</span>
+
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
+                                <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
+                                <input type="hidden" id="hdePieEscala" value="@pieEscala" />
+                                <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
+                                <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
                             </div>
                         </div>
                     </div>

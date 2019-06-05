@@ -58,7 +58,7 @@
             *
         */
     .ganancia-estimada .panel-toggle {
-        padding-bottom: 30px;
+        /*padding-bottom: 30px;*/
         /*background-color: #f5f5f7;*/
     }
 
@@ -235,8 +235,8 @@
 
 /*================================*/
 .toggle-content {
-    display: flex;
-    flex-direction: column;
+    display: none;
+    
     transition: max-height 0.25s ease-out, opacity 0.25s ease-out, transform 0.3s ease-out;
     height: auto;
     overflow: hidden;    
@@ -253,6 +253,10 @@
         display: flex;
         justify-content: space-between;
     }
+.ganancia-estimada.opened .toggle-content {
+    display: flex;
+    flex-direction: column;
+}
 
 .toggle-content.closed {
     /* display: none;                 */
