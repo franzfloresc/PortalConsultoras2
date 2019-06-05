@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.CaminoBrillante;
+using Portal.Consultoras.Entities.OrdenYFiltros;
 using Portal.Consultoras.Entities.Pedido;
 using System.Collections.Generic;
 
@@ -15,7 +16,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         bool UpdEstragiaCaminiBrillante(BEEstrategia estrategia, int paisId, int campaniaId, int nivelId, string cuv);
         string ValAgregarCaminiBrillante(BEEstrategia estrategia, BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle);
         BEValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(BEUsuario entidad, string cuv);
-        List<BEOrdenFiltrosCaminoBrillante> GetFiltrosCaminoBrillante(int paisID);
+        BEOrdenFiltroConfiguracion GetFiltrosCaminoBrillante(int paisID, bool isApp);
         BECarruselCaminoBrillante GetCarruselCaminoBrillante(BEUsuario entidad);
+        BEOfertaCaminoBrillante GetOfertaCaminoBrillante(BEUsuario entidad, string CUV);
     }
 }

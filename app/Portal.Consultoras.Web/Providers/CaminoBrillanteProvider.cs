@@ -488,11 +488,7 @@ namespace Portal.Consultoras.Web.Providers
                 TipoAccionAgregar = 2,
 
             }).ToList();
-        }
-
-
-
-        }
+        }        
 
         public CarruselCaminoBrillanteModel GetCarruselCaminoBrillante() {
             try
