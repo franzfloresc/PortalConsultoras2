@@ -396,5 +396,23 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
+        public MisGananciasCaminoBrillante GetMisGananciasCaminoBrillante() {
+            var niveles = GetNivelesHistoricosConsultora() ?? new List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante>();
+            var misGanancias =  new MisGananciasCaminoBrillante() {               
+                SubTitulo = "Campañas",
+                Titulo = "Monto de mi pedido CXX-CYY",
+                MisGanancias = niveles.OrderBy(e => e.Campania)
+                            .Select(e => new MisGananciasCaminoBrillante.GananciaCampaniaCaminoBrillante() {
+                                LabelSerie = "C"+e.Campania.Substring(4,2),
+                                ValorSerie = decimal.Parse(e.MontoPedido),
+                                GananciaCampania = e.GananciaCampania,
+                                GananciaCampaniaFormat = Util.DecimalToStringFormat(e.GananciaCampania, usuarioModel.CodigoISO),
+                                GananciaPeriodo = e.GananciaPeriodo,
+                                GananciaPeriodoFormat = Util.DecimalToStringFormat(e.GananciaPeriodo, usuarioModel.CodigoISO),
+                            }).ToList()
+            };
+            return misGanancias;
+        }
+
     }
 }
