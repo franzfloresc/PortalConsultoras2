@@ -14,7 +14,7 @@
 
 <section class="seccion_ficha">
     <div id="ImagenDeFondo" class="imagen_fondo_detalle" @*style="background-image: url('https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019424344_dkvuwesndt.png');"*@></div>
-    <div class="contenedor_detalle container">
+    <div id="ContenedorFicha" class="contenedor_detalle container">
         <ul id="breadcrumbs" class="breadcumbs"></ul>
         <div class="row scontenedor_fichas" data-item="" data-tag-html="@ViewBag.Campania" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar" data-OrigenPedidoEditar="@Model.CodigoUbigeoPortal">
             <hidden id="data-estrategia" data-estrategia='@Html.Raw(Json.Encode(Model))'></hidden>
@@ -22,94 +22,21 @@
             <article class="col-12 col-md-7 ficha_detalle" @*style="padding-top:75px"*@>
                 <div class="ficha_detalle_cuerpo">
                     <div id="estrategia" class="row contenedor_nombre_precio"></div>
-                    @*<div class="descripcion_lanzamiento">
-                            <p>Déjate seducir por el dulce aroma de la noche</p>
-                            <ul class="descripcion_detalle_producto_tono">
-                                <li>- 200 ml. / 6,7 fl. oz</li>
-                                <li>- 200 ml. / 6,7 fl. oz</li>
-                            </ul>
-                        </div>*@
                     <div id="componentes" class="producto_componentes" data-codigovariante="@Model.CodigoVariante"></div>
-
-                    @*<div class="tiposytonos_componentes" style="display:none">
-                        <buttom class="tono_select_opt">
-                            Elige 1 opción
-                        </buttom>
-                        <div class="tonos_seleccionados">
-                            <ul class="tonos_seleccionados_item" data-tono="">
-                                <li class="imagen_seleccionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201906/E/productos/PE_200095507.jpg" alt=""></li>
-                                <li class="titulo_selecionado">
-                                    <span class="cantidad_producto_opt">x1 </span>
-                                    <span class="descripcion_tipo">Paradisso. Safari adventure</span>
-                                </li>
-                            </ul>
-
-                            <ul class="tonos_seleccionados_item" data-tono="">
-                                <li class="imagen_seleccionado"><img src="https://s3-sa-east-1.amazonaws.com/appcatalogo/PE/201906/E/productos/PE_200095507.jpg" alt=""></li>
-                                <li class="titulo_selecionado">
-                                    <span class="cantidad_producto_opt">x1 </span>
-                                    <span class="descripcion_tipo">Paradisso. Safari adventure</span>
-                                </li>
-                            </ul>
-
-                            <a class="btn_texto" href="">
-                                Cambiar opción
-                                <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt="">
-                            </a>
-                        </div>
-
-                        <div class="content_tonos_maquillaje">
-                            <div class="content_tono_detalle">
-                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-                            </div>
-                            <div class="content_tono_detalle">
-                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-                            </div>
-
-                            <div class="content_tono_detalle">
-                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-                            </div>
-                            <div class="content_tono_detalle">
-                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-                            </div>
-                            <div class="content_tono_detalle">
-                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-                            </div>
-                            <div class="content_tono_detalle">
-                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-                            </div>
-                            <div class="content_tono_detalle">
-                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-                            </div>
-                            <div class="content_tono_detalle">
-                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-                            </div>
-                            <div class="content_tono_detalle">
-                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-                            </div>
-                            <div class="content_tono_detalle tono_agotado">
-                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-                            </div>
-                            <div class="content_tono_detalle tono_agotado">
-                                <img src="https://somosbelcorpqa.s3.amazonaws.com/ImagenesPortal/SinImagenTonosyTipos.jpg">
-                            </div>
-                        </div>
-                    </div>*@
                 </div>
                 <!--Botón Agregar-->
-                <div id="dvContenedorAgregar" class="contenedor_agregar"></div>
+                <div class="fixme_button"></div>
+                <div id="dvContenedorAgregar" class="contenedor_agregar contendor_fixed"></div>
                 <!--Fin Botón Agregar-->
             </article>
         </div>
-
-        <div id="contenedor-tabs-ficha-enriquecida" class="ficha_enriquecida_contenedor"></div>
 
         @*<div id="compartir-estrategia" class="share" style="display:none"></div>*@
     </div>
 </section>
 
 <!--Comienza Up-Selling-->
-<section class="seccion_ficha" id="divFichaCarrusel">
+<section class="seccion_ficha" id="divFichaCarrusel" style="display: none">
     <div class="contenedor_detalle container">
         <h2 class="titulo_seccion" id="tituloCarrusel">Packs que contienen Magnat Select</h2>
         <div id="divFichaCarruselProducto" class="carousel_ficha">
@@ -118,6 +45,16 @@
     </div>
 </section>
 <!--Finaliza Up-Selling-->
+<!--Comienza Ficha enrriquecida-->
+<section class="seccion_ficha">
+    <div class="contenedor_detalle container">
+        <h2 class="titulo_seccion">Detalle de Producto</h2>
+        <div id="divFichaCarruselProducto" class="carousel_ficha">
+            <div id="contenedor-tabs-ficha-enriquecida" class="ficha_enriquecida_contenedor"></div>
+        </div>
+    </div>
+</section>
+<!--Fin Ficha enrriquecid-->
 @Html.Partial("~/Views/DetalleEstrategia/template-producto-carrusel-responsive.cshtml")
 
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Estrategia/breadcrumbs-template.cshtml")
@@ -154,6 +91,7 @@
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaView.js"></script>
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaPresenter.js"></script>
 
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesAnalyticsPresenter.js"></script>
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesPresenter.js"></script>
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesView.js"></script>
 
