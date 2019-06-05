@@ -154,4 +154,17 @@
 
 }
 
+.mensaje_validacion_campo {
+    color: #e81c36;
+    font-size:13px;
+    position:relative;
+    top:-2px;
+}
+
+.mensaje_validacion_campo--vistasActualizacion{
+    margin-top: 4px;
+    font-size: 13px;
+    top:0;
+}
+
 /* FIN - HD-3307 - TU VOZ ONLINE */

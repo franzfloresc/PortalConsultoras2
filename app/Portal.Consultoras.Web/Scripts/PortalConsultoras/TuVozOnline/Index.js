@@ -1,9 +1,12 @@
 ﻿var TuVozOnlineView = (function () {
+    'use strict';
+
     var me = {};
 
     var _elementos = {
         campoCorreoElectronico: '#NuevoCorreo',
         campoCorreoActualizado: '#correoActualizado',
+        campoError: '#ValidateCorreo',
         actualizarMail: '#btnActualizarMail',
         reenviarCorreo: '#btnReenviarCorreo',
         cambiarCorreo: '#btnCambiarCorreo',
@@ -17,6 +20,9 @@
             $(document).on("click", _elementos.reenviarCorreo, _eventos.actualizarEmail);
             $(document).on("click", _elementos.reenviarCorreo, _eventos.actualizarEmail);
             $(document).on("click", _elementos.cambiarCorreo, _eventos.cambiarCorreo);
+        },
+        showError: function(error) {
+             $(_elementos.campoError).html(error);
         }
     };
     var _eventos = {
@@ -30,7 +36,7 @@
         },
         actualizarEmail: function() {
             me.actualizarCorreoService.actualizarEnviarCorreo(function () {
-                var email = $(_elementos.campoCorreoElectronico).html();
+                var email = $(_elementos.campoCorreoElectronico).val();
                 $(_elementos.campoCorreoActualizado).html(email);
                 $(_elementos.vistaIngresoEmail).hide();
                 $(_elementos.vistaConfirmacion).show();
@@ -39,7 +45,8 @@
         cambiarCorreo: function() {
             $(_elementos.vistaConfirmacion).hide();
             $(_elementos.vistaIngresoEmail).show();
-            $(_elementos.campoCorreoElectronico).html('');
+            _funciones.showError('');
+            $(_elementos.campoCorreoElectronico).val('');
             $(_elementos.campoCorreoElectronico).focus();
         }
     }
