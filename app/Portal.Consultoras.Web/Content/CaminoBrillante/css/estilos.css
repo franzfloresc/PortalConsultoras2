@@ -2214,15 +2214,12 @@ div.opOrdenar {
 .text-bold {
     font-weight: bold;
 }
-
 .box-left-ganancias img {
     display: inline-block;
     position: relative;
-    /* margin-top: 4px; */
     top: 0px;
     min-width: 32px;
 }
-
 .box-left-ganancias span {
     margin-bottom: 23px;
     display: inline-block;
@@ -2264,12 +2261,16 @@ div.opOrdenar {
     -webkit-transition: all .3s ease;
     letter-spacing: .2px;
 }
-/*.regular.slider .mgtop .producto_img_home {
-    margin-top:20px;
-}*/
 .regular.slider .ficha__producto__kit .producto_img_home {
     margin-top: 27px;
 }
+.regular.slider .ficha__producto {
+    min-height:418px;
+}
+
+
+
+
 
 @media screen and (max-width: 950px) {
     .box-left-ganancias, .box-right-ganancias {

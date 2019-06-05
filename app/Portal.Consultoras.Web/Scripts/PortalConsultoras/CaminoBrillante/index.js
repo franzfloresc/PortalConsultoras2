@@ -150,80 +150,6 @@ function TagNivelBeneficios(pagina) {
         });
 }
 
-
-
-
-
-window.onload = function () {
-    var ctx = document.getElementById('canvas').getContext('2d');
-    window.myBar = new Chart(ctx, {
-        type: 'bar',
-        data: {
-
-            labels: ["C05", "C06", "C07", "C08", "C09", "C10"],
-            datasets: [
-                {
-
-                    label: "Unidad (Millones) ",
-                    backgroundColor: ["#ffdaf3", "#4f0036", "#ffdaf3", "#ffdaf3", "#ffdaf3", "#ffdaf3"],
-                    data: [2478, 3267, 734, 784, 433, 403]
-                }
-            ]
-        },
-
-
-
-        options: {
-            tooltips: {
-                enabled: false
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-
-                        fontColor: "#000",
-                        fontSize: 14
-                    },
-                    gridLines: {
-                        color: "#f7f7f7",
-                        lineWidth: 1,
-                        zeroLineColor: "#000",
-                        zeroLineWidth: 0
-                    }
-                }],
-
-                xAxes: [{
-                    ticks: {
-                        fontColor: "#000",
-                        fontSize: 14
-                    },
-                    gridLines: {
-                        color: "#f7f7f7",
-                        lineWidth: 1,
-                        zeroLineColor: "#000",
-                        zeroLineWidth: 0
-                    }
-                }]
-
-            },
-
-            legend: { display: false },
-            title: {
-                display: true
-            },
-            onClick: alertBox
-
-        }
-    });
-
-};
-
-function alertBox() {
-    alert("click");
-    $(".box-left-ganancias span").text("Hello world!");
-}
-
-
 function CargarCarrusel() {
     $.ajax({
         type: 'GET',
@@ -241,6 +167,102 @@ function CargarCarrusel() {
             cargandoRegistros = false;
         }
     });
+}
+
+function CargarCarrusel() {
+    $.ajax({
+        type: 'GET',
+        url: urlGetMisGanancias,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            if (checkTimeout(data)) {
+                ArmarMisGanancias(data);
+            }
+        },
+        error: function (data, error) { },
+        complete: function (data) {
+            closeWaitingDialog();
+        }
+    });
+}
+
+
+function ArmarMisGanancias(data) {
+    if (!data) return;
+
+    var ctx = document.getElementById('canvas').getContext('2d');
+
+    var labels = [];
+    var serie = [];
+
+    for (x = 0; x < data.MisGanancias.length; x++) {
+        var item = data.MisGanancias[x];
+        labels.push(item.LabelSerie);
+        serie.push(item.ValorSerie);
+    };
+
+    var myBar = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    backgroundColor: "#ffdaf3",
+                    data: serie
+                }
+            ]
+        },
+        options: {
+            tooltips: {
+                enabled: false
+            },
+            scales: {
+           
+                yAxes: [{
+                    ticks: {
+                        fontColor: "#000",
+                        fontSize: 14
+                    },
+                    gridLines: {
+                        color: "#f7f7f7",
+                        lineWidth: 1,
+                        zeroLineColor: "#000",
+                        zeroLineWidth: 0
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        fontColor: "#000",
+                        fontSize: 14
+                    },
+                    barPercentage: 0.6,
+                    gridLines: {
+                        color: "#f7f7f7",
+                        lineWidth: 1,
+                        zeroLineColor: "#000",
+                        zeroLineWidth: 0
+                    }
+                }]
+            },
+            legend: { display: false },
+            title: {
+                display: true
+            },
+        }
+    });
+
+    var onClickEvent = function (evt) {
+        var activePoints = myBar.getElementsAtEvent(evt);
+        if (activePoints.length > 0) {
+            var clickedElementindex = activePoints[0]["_index"];
+            var item = data.MisGanancias[clickedElementindex];
+            $("#ganancia-campania-nombre").text("Ganancia "+item.LabelSerie);
+            $("#ganancia-campania").text(variablesPortal.SimboloMoneda+" "+item.GananciaCampaniaFormat);
+            $("#ganancia-periodo").text(variablesPortal.SimboloMoneda+" "+item.GananciaPeriodoFormat);
+        }
+    };
+    $("#canvas").click( onClickEvent );
 }
 
 function ArmarCarrusel(data) {

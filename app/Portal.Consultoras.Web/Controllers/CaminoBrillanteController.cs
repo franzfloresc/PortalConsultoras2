@@ -239,5 +239,10 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(_caminoBrillanteProvider.GetCarruselCaminoBrillante(), JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetMisGanancias()
+        {
+            return Json(_caminoBrillanteProvider.GetMisGananciasCaminoBrillante(), JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
