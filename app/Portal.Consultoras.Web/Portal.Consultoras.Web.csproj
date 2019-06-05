@@ -1535,6 +1535,7 @@
     <Content Include="Content\Images\checkBuroSAC.svg" />
     <Content Include="Content\Images\Esika\club-gana-mas.gif" />
     <Content Include="Content\Images\Esika\favicon.ico" />
+    <Content Include="Content\Images\Esika\icono_check_esika_multimarca.svg" />
     <Content Include="Content\Images\Esika\nuevo-logo-esika-login-blanco.svg" />
     <Content Include="Content\Images\Esika\nuevo-logo-esika-login.svg" />
     <Content Include="Content\Images\Esika\nuevo-logo-esika.svg" />
@@ -1549,6 +1550,7 @@
     <Content Include="Content\Images\CaminoBrillante\medalla.PNG" />
     <Content Include="Content\Css\Site\Menu\MenuContenedorResponsive.css" />
     <Content Include="Content\Images\flecha_despliegue_campo_select.svg" />
+    <Content Include="Content\Images\icono_advertencia_notificacion_multimarca.svg" />
     <Content Include="Content\Images\icono_foco_activo.svg" />
     <Content Include="Content\Images\icono_mail_cdr_activo.svg" />
     <Content Include="Content\Images\icono_check_cdr.svg" />
