@@ -1214,7 +1214,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var tablaLogicaDatos = _tablaLogicaDatosBusinessLogic.GetList(paisID, ConsTablaLogica.CaminoBrillante.CaminoBrillanteFiltro) ?? new List<BETablaLogicaDatos>();
             if (tablaLogicaDatos.Count == 0) return null;
 
-            if (!isApp)
+            if (!isApp) { 
                 tablaLogicaDatos = tablaLogicaDatos.OrderBy(e => e.Descripcion).ToList();
                 var titulo = tablaLogicaDatos.FirstOrDefault(e => e.Codigo == "00");
                 if (titulo != null) {
