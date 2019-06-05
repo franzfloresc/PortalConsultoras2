@@ -134,6 +134,16 @@ namespace Portal.Consultoras.Entities
         [ViewProperty]
         public string ImagenProductoMedium { get; set; }
 
+        /* INI HD-4009 */
+        [DataMember]
+        [ViewProperty]
+        public string UnidadMedida { get; set; }
+
+        [DataMember]
+        [ViewProperty]
+        public string PUM { get; set; }
+        /* FIN HD-4009 */
+
         public BEOfertaProducto(IDataRecord row)
         {
             OfertaProductoID = row.ToInt32("OfertaProductoID");
@@ -167,6 +177,10 @@ namespace Portal.Consultoras.Entities
             DescripcionMarca = row.ToString("DescripcionMarca");
             DescripcionCategoria = row.ToString("DescripcionCategoria");
             DescripcionEstrategia = row.ToString("DescripcionEstrategia");
+            /* INI HD-4009 */
+            UnidadMedida = row.ToString("UnidadMedida");
+            PUM = row.ToString("PUM");
+            /* FIN HD-4009 */
         }
         public BEOfertaProducto()
         { }

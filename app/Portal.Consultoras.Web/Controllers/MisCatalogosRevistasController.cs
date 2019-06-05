@@ -53,6 +53,12 @@ namespace Portal.Consultoras.Web.Controllers
             /* FIN HD-3693 */
             ViewBag.ConsultoraBloqueada = userData.AutorizaPedido;
             ViewBag.UrlCatalogoPiloto = GetUrlCatalogoPiloto();
+            /* INI HD-4248 */
+            ViewBag.UrlCatalogoPiloto_WSP = GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.TipoWSP);
+            ViewBag.UrlCatalogoPiloto_FB = GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.TipoFB);
+            ViewBag.UrlCatalogoPiloto_MSN = GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.TipoMSN);
+            ViewBag.UrlCatalogoPiloto_EMAIL = GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.TipoEMAIL);
+            /* FIN HD-4248 */
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.FBAppId = _configuracionManagerProvider.GetConfiguracionManager(Constantes.Facebook.FB_AppId);
             ViewBag.TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva;
@@ -512,7 +518,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var url = GetUrlCatalogoPiloto();
+               
+                var url = GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.TipoEMAIL);
                 var urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png";
                 var urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail.png";
                 var urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail.png";
@@ -832,17 +839,30 @@ namespace Portal.Consultoras.Web.Controllers
             return campania >= campaniaInicio;
         }
 
-        private string GetUrlCatalogoPiloto()
+        private string GetUrlCatalogoPiloto(string tipo="")
         {
             /* INI HD-4015 */
-
             byte[] encbuff = Encoding.UTF8.GetBytes(userData.CodigoConsultora);
             var encripParams = Convert.ToBase64String(encbuff);
             var queryString = string.Format(Constantes.CatalogoPiloto.UrlParamEncrip, userData.CodigoISO.ToLower(), encripParams);
             /* FIN HD-4015 */
 
             var urlBase = _configuracionManagerProvider.GetConfiguracionManager(Constantes.CatalogoPiloto.UrlCatalogoPiloto);
-            return string.Format(Constantes.CatalogoPiloto.UrlCatalogo, urlBase, queryString);
+            var url=string.Format(Constantes.CatalogoPiloto.UrlCatalogo, urlBase, queryString);
+            /* INI HD-4248 */
+            string UrlCatalogoPiloto;
+            switch (tipo)
+            {
+                case Constantes.CatalogoPiloto.TipoWSP: UrlCatalogoPiloto = string.Format(Constantes.CatalogoPiloto.UrlCatalogo_WSP, url);break;
+                case Constantes.CatalogoPiloto.TipoFB: UrlCatalogoPiloto = string.Format(Constantes.CatalogoPiloto.UrlCatalogo_FB, url); break;
+                case Constantes.CatalogoPiloto.TipoMSN: UrlCatalogoPiloto = string.Format(Constantes.CatalogoPiloto.UrlCatalogo_MSN, url); break;
+                case Constantes.CatalogoPiloto.TipoEMAIL: UrlCatalogoPiloto = string.Format(Constantes.CatalogoPiloto.UrlCatalogo_EMAIL, url); break;
+                default:
+                    UrlCatalogoPiloto=url; break;
+
+
+            }
+            return UrlCatalogoPiloto;
         }
 
         private string GetTienePiloto(int paisId)

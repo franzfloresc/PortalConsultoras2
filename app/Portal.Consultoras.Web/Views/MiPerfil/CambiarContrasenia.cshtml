@@ -33,37 +33,37 @@ else
                 <span class="enlace_texto">Volver</span>
             </a>
             <div class="form_cambiar_contrasenia">
-                <fieldset class="grupo_form_cambio_datos text-uppercase">
+                <div class="grupo_form_cambio_datos grupo_form_cambio_datos--cambioContrasenia">
                     <div class="w-100">
                         <input id="txtContraseniaAnterior" name="txtContraseniaAnterior" class="w-100" type="password" value="" />
                         <label for="txtContraseniaAnterior" class="w-100">Contraseña Actual</label>
                         <a href="#" title="Ver password" class="enlace_ver_password icono_ver_password"></a>
                     </div>
-                </fieldset>
-                <fieldset class="grupo_form_cambio_datos text-uppercase">
+                </div>
+                <div class="grupo_form_cambio_datos grupo_form_cambio_datos--cambioContrasenia">
                     <div class="w-100">
                         <input id="txtNuevaContrasenia01" name="txtNuevaContrasenia01" class="w-100" type="password" value="" />
                         <label for="txtNuevaContrasenia01" class="w-100">Nueva contraseña</label>
                         <a href="#" title="Ver password" class="enlace_ver_password icono_ver_password"></a>
                     </div>
-                </fieldset>
-                <fieldset class="grupo_form_cambio_datos text-uppercase">
+                </div>
+                <div class="grupo_form_cambio_datos grupo_form_cambio_datos--cambioContrasenia">
                     <div class="w-100">
                         <input id="txtNuevaContrasenia02" name="txtNuevaContrasenia02" class="w-100" type="password" value="" />
                         <label for="txtNuevaContrasenia02" class="w-100">Repite la nueva contraseña</label>
                         <a href="#" title="Ver password" class="enlace_ver_password icono_ver_password"></a>
                     </div>
-                </fieldset>
-                <fieldset class="grupo_form_cambio_datos text-uppercase">
-                    <div class="w-50 text-left v-alignMiddle">
-                        <a href="@Url.Action("Index", "MiPerfil", new {area = ""})" title="Cancelar" class="enlace_cancelar">Cancelar</a>
+                </div>
+                <div class="grupo_form_cambio_datos grupo_form_cambio_datos--ctasCambioContrasenia">
+                    <div class="text-left">
+                        <a href="@Url.Action("Index", "MiPerfil", new {area = ""})" title="Cancelar" class="d-block border-radius-4 text-bold text-center btn_secundario btn_secundario--cancelar">Cancelar</a>
                     </div>
-                    <div class="w-50 text-right v-alignMiddle">
-                        <button type="button" class="btn_cambiar_contrasenia text-uppercase text-bold default-background-color mt-31" id="btnCambiarPass">
+                    <div class="text-right">
+                        <button type="button" class="d-block border-radius-4 text-bold btn_primario btn_primario--miPerfil" id="btnCambiarPass">
                             Cambiar
                         </button>
                     </div>
-                </fieldset>
+                </div>
             </div>
         </div>
         <div id="contentPassChange" class="contrasenia_actualizada text-center" style="display:none;">
