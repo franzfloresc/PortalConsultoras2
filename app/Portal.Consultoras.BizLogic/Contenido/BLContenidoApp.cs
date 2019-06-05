@@ -7,6 +7,8 @@ using System.Linq;
 using System.Configuration;
 using JWT;
 using System;
+using System.Net;
+using Portal.Consultoras.Common.Cryptography;
 
 namespace Portal.Consultoras.BizLogic.Contenido
 {
@@ -55,9 +57,9 @@ namespace Portal.Consultoras.BizLogic.Contenido
             });
 
             //Forma la URL de las imagenes
-            var restoContenido = listaContenido.Where(x => x.Codigo != Constantes.CodigoContenido.Lanzamiento).ToList();
+            var restoContenido = listaContenido.Where(x => x.Codigo != Constantes.CodigoContenido.Lanzamiento && x.Codigo != Constantes.CodigoContenido.TuVozOnline).ToList();
 
-            if (restoContenido != null)
+            if (restoContenido.Any())
             {
                 restoContenido.ForEach(x =>
                 {
@@ -97,29 +99,10 @@ namespace Portal.Consultoras.BizLogic.Contenido
 
             if (TuVozOnline != null)
             {
-                var datos = _tablaLogicaDatosBusinessLogic.GetListCache(itmFilter.PaisID, ConsTablaLogica.TuVozOnline.Id);
-                var dato = datos.FirstOrDefault(r => r.Codigo == ConsTablaLogica.TuVozOnline.PanelId);
-                var panelId = dato != null ? dato.Valor : string.Empty;
-
-                dato = datos.FirstOrDefault(r => r.Codigo == ConsTablaLogica.TuVozOnline.PanelKey);
-                var panelKey = dato != null ? dato.Valor : string.Empty;
-
-                //var secretKey = WebConfig.JsonWebTokenSecret;
-
-                //var data = new
-                //{
-                //    CodigoIso = itmFilter.CodigoISO,
-                //    Codigoconsultora = itmFilter.CodigoConsultora,
-                //    NumeroDocumento = itmFilter.NumeroDocumento.Length > 8 ? itmFilter.NumeroDocumento.Substring(2, 8) : itmFilter.NumeroDocumento
-                //};
-
-                //var token = JsonWebToken.Encode(data, secretKey, JwtHashAlgorithm.HS512);
-
-                ////Forma la URL de las imagenes
-                //TuVozOnline.DetalleContenido.ForEach(x =>
-                //{
-                //    x.RutaContenido = string.Concat(x.RutaContenido, token);
-                //});
+                var config = GetPanelConfig(itmFilter.PaisID);
+                TuVozOnline.DetalleContenido.ForEach(x => {
+                    x.RutaContenido = GetUrl(x.RutaContenido, config.Value, config.Key);
+                });
             }
 
             return listaContenido;
@@ -143,45 +126,21 @@ namespace Portal.Consultoras.BizLogic.Contenido
 
             var parameters = string.Format(Constantes.DatosTuVozOnline.FormatUrl,
                 currentTimeSeconds,
-                "",//user.PrimerNombre,
-                "", //user.PrimerApellido,
-                "",//user.EMail,
+                "Alexis",//user.PrimerNombre,
+                "Basilio", //user.PrimerApellido,
+                "alexisb1v1@gmail.com",//user.EMail,
                 DateTime.Now.Year,
                 "Yes",
-                "",//user.FechaNacimiento,
-                ""//user.CodigoISO
+                DateTime.Now,//user.FechaNacimiento,
+                "PE"//user.CodigoISO
             );
 
-            //var query = string.Format(baseUrl,
-            //    HttpUtility.UrlEncode(DesAlgorithm.Encrypt(parameters, panelKey)),
-            //    HmacShaAlgorithm.GetHash(parameters, panelKey),
-            //    panelId
-            //);
-
-            return string.Empty;
+            return string.Format(baseUrl,
+                WebUtility.UrlEncode(DesAlgorithm.Encrypt(parameters, panelKey)),
+                HmacShaAlgorithm.GetHash(parameters, panelKey),
+                panelId
+            );
         }
-
-        //public string GetUrl(User user, string panelId, string panelKey)
-        //{
-        //    var url = BasePath;
-        //    var currentTimeSeconds = Util.ToUnixTimespan(DateTime.Now);
-        //    var parameters = string.Format("{0}|{1}|{2}|{3}|Year={4}|Active={5}|Birthdate={6:dd-MM-yyyy}|Country={7}",
-        //        currentTimeSeconds,
-        //        user.PrimerNombre,
-        //        user.PrimerApellido,
-        //        user.EMail,
-        //        DateTime.Now.Year,
-        //        "Yes",
-        //        user.FechaNacimiento,
-        //        user.CodigoISO
-        //    );
-        //    var query = string.Format("?ID_STRING={0}&SIGNATURE={1}&id={2}",
-        //        HttpUtility.UrlEncode(DesAlgorithm.Encrypt(parameters, panelKey)),
-        //        HmacShaAlgorithm.GetHash(parameters, panelKey),
-        //        panelId
-        //    );
-        //    return url + query;
-        //}
 
     }
 }

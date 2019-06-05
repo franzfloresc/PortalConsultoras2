@@ -4033,7 +4033,7 @@ namespace Portal.Consultoras.Common
         public static class CodigoContenido
         {
             public const string Lanzamiento = "BONIFICACIONES_RESUMEN";
-            public const string TuVozOnline = "BONIFICACIONES_RESUMEN";
+            public const string TuVozOnline = "QUESTIONPROURL";
         }
 
         #region
