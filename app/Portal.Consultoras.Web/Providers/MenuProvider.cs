@@ -99,6 +99,16 @@ namespace Portal.Consultoras.Web.Providers
                 permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
             }
 
+            #region Camino Brillante
+
+            if ((!userSession.CaminoBrillante || userSession.TipoUsuario == Constantes.TipoUsuario.Postulante) 
+                && permisos.Where(e => e.Codigo != null).Any(p => p.Codigo == Constantes.CaminoBrillante.Menu.Permiso_CaminoBrillante)) {
+                permisos.Remove(permisos.Where(e => e.Codigo != null)
+                    .FirstOrDefault(p => p.Codigo == Constantes.CaminoBrillante.Menu.Permiso_CaminoBrillante));
+            }
+
+            #endregion
+
             var lstMenuModel = new List<PermisoModel>();
 
             foreach (var permiso in permisos)
@@ -331,6 +341,17 @@ namespace Portal.Consultoras.Web.Providers
                     menuConsultoraOnlineHijo.UrlItem = arrayUrlConsultoraOnlineHijo[esConsultoraOnline == -1 ? 0 : arrayUrlConsultoraOnlineHijo.Length - 1];
                 }
             }
+
+            #region Camino Brillante
+
+            if ((!userSession.CaminoBrillante || userSession.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                && lstMenuMobileModel.Where(e => e.Codigo != null).Any(p => p.Codigo == Constantes.CaminoBrillante.Menu.Permiso_CaminoBrillante))
+            {
+                lstMenuMobileModel.Remove(lstMenuMobileModel.Where(e => e.Codigo != null)
+                    .FirstOrDefault(p => p.Codigo == Constantes.CaminoBrillante.Menu.Permiso_CaminoBrillante));
+            }
+
+            #endregion
 
             var listadoMenuFinal = new List<MenuMobileModel>();
             foreach (var menu in lstMenuMobileModel)
