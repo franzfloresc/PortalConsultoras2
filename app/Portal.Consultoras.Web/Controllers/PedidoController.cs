@@ -199,6 +199,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.GananciaRevista = pedidoWeb.GananciaRevista;
                     model.GananciaWeb = pedidoWeb.GananciaWeb;
                     model.GananciaOtros = pedidoWeb.GananciaOtros;
+                    model.isShowGananciaConsultora = isCalculoGananaciaConsultora(pedidoWeb);
 
                     SessionManager.SetMontosProl(
                         new List<ObjMontosProl>
@@ -3395,6 +3396,17 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false
                 }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        /// <summary>
+        /// Requerimiento TESLA-28
+        /// [Ganancia] Cálculo Ganancia ofertas Catálogo*
+        /// </summary>
+        /// <returns></returns>
+        private bool isCalculoGananaciaConsultora(BEPedidoWeb pedidoWeb)
+        {
+            return pedidoWeb.GananciaRevista.HasValue ||
+                   pedidoWeb.GananciaWeb.HasValue || pedidoWeb.GananciaWeb.HasValue;
         }
     }
 }
