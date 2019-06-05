@@ -25610,6 +25610,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     .producto_solicitud {
         flex: 0 0 40%;
         max-width: 40%;
+        padding-right:20px;
     }
 
     .estado_producto_solicitud {

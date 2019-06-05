@@ -150,10 +150,10 @@
     border: 1px solid #000;
 }
 
-.field__checkbox__sb:checked + .label__checkbox__sb--multimarca {
-    background-color: #b9007e;
-    border: 1px solid #b9007e;
-}
+    .field__checkbox__sb:checked + .label__checkbox__sb--multimarca {
+        background-color: #b9007e;
+        border: 1px solid #b9007e;
+    }
 
 /* FIN - CHECKBOXES */
 
@@ -180,10 +180,10 @@
     transition: all 0.3s ease;
 }
 
-.field__checkbox__sb:checked + .tag__checkbox__sb {
-    color: #d21194;
-    border: 1px solid #d21194;
-}
+    .field__checkbox__sb:checked + .tag__checkbox__sb {
+        color: #d21194;
+        border: 1px solid #d21194;
+    }
 
 /* FIN - CHECKBOXES TIPO TAGS */
 

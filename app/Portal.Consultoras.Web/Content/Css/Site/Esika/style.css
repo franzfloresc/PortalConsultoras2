@@ -24659,12 +24659,21 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         padding-left:0;
     }
 
-    .popup_productos_observados .content_listado_reclamo {
+    .popup_productos_observados .content_listado_reclamo,
+    .popup_productos_observados .content_listado_reclamo--contenidoGrilla{
         justify-content: flex-start;
-        align-items: flex-start;
     }
 
-        .popup_productos_observados .pop_solicitud_producto--nom{
+        .popup_productos_observados .content_listado_reclamo{
+            align-items:center;
+        }
+
+        .popup_productos_observados .content_listado_reclamo--contenidoGrilla {
+            align-items: flex-start;
+        }
+
+        .popup_productos_observados .pop_solicitud_producto--nom,
+        .popup_productos_observados .pop_solicitud_tipo--nomSolucion{
             width:20%;
         }
 
@@ -24717,6 +24726,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     .producto_solicitud {
         flex: 0 0 40%;
         max-width: 40%;
+        padding-right:20px;
     }
 
     .estado_producto_solicitud {
