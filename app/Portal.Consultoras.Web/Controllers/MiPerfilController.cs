@@ -55,6 +55,10 @@ namespace Portal.Consultoras.Web.Controllers
             model.UsuarioPrueba = userData.UsuarioPrueba;
             model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
             model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
+            //INI HD-3897
+            model.FlgCheckSMS = beusuario.FlgCheckSMS;
+            model.FlgCheckEMAIL = beusuario.FlgCheckEMAIL;
+            //FIN HD-3897
 
             var bezona = _zonificacionProvider.GetZonaById(userData.PaisID, userData.ZonaID);
 
@@ -78,6 +82,10 @@ namespace Portal.Consultoras.Web.Controllers
             model.ServiceSMS = userData.PuedeEnviarSMS;
             model.ActualizaDatos = userData.PuedeActualizar;
             model.PaisID = userData.PaisID;
+            //INI HD-3897
+            model.PuedeConfirmarAllEmail = userData.PuedeConfirmarAllEmail;
+            model.PuedeConfirmarAllSms = userData.PuedeConfirmarAllSms;
+            //FIN HD-3897
 
             var paisesDigitoControl = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
             model.CodigoUsuarioReal = userData.CodigoUsuario;
@@ -138,10 +146,20 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ActualizarCorreo()
         {
+            ViewBag.IsConfirmar = 0;
             ViewBag.CorreoActual = userData.EMail;
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View();
         }
+        //INI HD-3897
+        public ActionResult ConfirmarCorreo()
+        {
+            ViewBag.IsConfirmar = 1;
+            ViewBag.CorreoActual = userData.EMail;
+            ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
+            return View("ActualizarCorreo");
+        }
+        //FIN HD-3897
 
         public JsonResult ActualizarEnviarCorreo(string correoNuevo)
         {
@@ -213,7 +231,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return RedirectToAction("Index");
             }
-
+            ViewBag.IsConfirmarCel = 0;
             ViewBag.Celular = userData.Celular;
 
             int numero;
@@ -223,7 +241,24 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View();
         }
+        //INI HD-3897
+        public ActionResult ConfirmarCelular()
+        {
+            if (!userData.PuedeActualizar || !userData.PuedeEnviarSMS)
+            {
+                return RedirectToAction("Index");
+            }
+            ViewBag.IsConfirmarCel = 1;
+            ViewBag.Celular = userData.Celular;
 
+            var numero = 0;
+            var valida = false;
+            Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
+            ViewBag.IniciaNumeroCelular = valida ? numero : -1;
+            ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
+            return View("ActualizarCelular");
+        }
+        //FIN HD-3897
         public ActionResult CambiarFotoPerfil()
         {
             return View();
@@ -663,9 +698,10 @@ namespace Portal.Consultoras.Web.Controllers
         public async Task<JsonResult> RegistrarPerfil(MisDatosModel model)
         {
             JsonResult response;
-
+            
             try
             {
+                model.Telefono = model.Telefono ?? "";
                 model.DatosExtra = new
                 {
                     userData.ZonaID,

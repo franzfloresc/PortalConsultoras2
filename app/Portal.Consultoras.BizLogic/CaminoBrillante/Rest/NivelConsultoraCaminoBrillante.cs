@@ -31,8 +31,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante.Rest
         [DataMember(Name = "CAMBIONIVEL")]
         public int CambioNivel { get; set; }
         [DataMember(Name = "PORCENTAJEINCREMENTO")]
-        public decimal? PorcentajeIncrementoFix { get; set; }
-        public int PorcentajeIncremento { get { return PorcentajeIncrementoFix.HasValue ? (int)(PorcentajeIncrementoFix.Value * 100) : 0; } }
+        public decimal? PorcentajeIncremento { get; set; }
         [DataMember(Name = "CONSTANCIA1")]
         public int Constancia1 { get; set; }
         [DataMember(Name = "CONSTANCIA2")]
@@ -53,6 +52,11 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante.Rest
         public string Periodo4 { get; set; }
         [DataMember(Name = "PERIODO5")]
         public string Periodo5 { get; set; }
+        [DataMember(Name = "VTACAMPRET")]
+        public decimal? VentaRetail { get; set; }
+        [DataMember(Name = "VTAACUMPERICAE")]
+        public decimal? VentaAcumulada { get; set; }
+        [DataMember(Name = "PUNTACUMPDR")]
+        public int? PuntajeAcumulado { get; set; }
     }
-
 }

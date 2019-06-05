@@ -24,6 +24,7 @@
     var nombreConsultoraSin = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
     var nroCampania = Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
     var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
+    var claseCajaProductoLiquidacion = "";
 }
 
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
@@ -1262,7 +1263,15 @@
 <script id="liquidacion-template" type="text/x-handlebars-template">
     {{#each this}}
     <div>
-        <div class="content_item_carrusel caja-borde">
+        @if (@ViewBag.CodigoISODL == Constantes.CodigosISOPais.Colombia)
+        {
+            claseCajaProductoLiquidacion = "content_item_carrusel--liquidacion";
+        }
+        else
+        {
+            claseCajaProductoLiquidacion = "";
+        }
+        <div class="content_item_carrusel caja-borde @claseCajaProductoLiquidacion">
             <input type="hidden" id="MarcaID" value="{{MarcaID}}" />
             <input type="hidden" id="PrecioOferta" value="{{PrecioOferta}}" />
             <input type="hidden" id="CUV" value="{{CUV}}" />
@@ -1281,6 +1290,12 @@
                 <p class="nombre_producto">
                     <b>{{Descripcion}}</b>
                 </p>
+                @*INI HD-4009*@
+                @if (@ViewBag.CodigoISODL == Constantes.CodigosISOPais.Colombia)
+                {
+                <div class="text-center {{#if ValPUM}}producto_pum{{else}}producto_pum_hidden{{/if}}"><span>{{UnidadMedida}} a </span>{{SimboloMoneda}}{{PUM}}</div>
+                }
+                @*FIN HD-4009*@
                 <div class="producto_precio">
                     <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioString}}</b></span>
                 </div>

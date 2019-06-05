@@ -23,5 +23,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante.Rest
         public string Beneficio4 { get; set; }
         [DataMember(Name = "BENEFICIO5")]
         public string Beneficio5 { get; set; }
+        [DataMember(Name = "PUNTNIVEL")]
+        public int Puntaje { get; set; }
     }
 }
