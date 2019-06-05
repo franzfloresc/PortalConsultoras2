@@ -1,15 +1,15 @@
 ﻿/* ESTILOS MARCA PAÍS */
 
 .default-color {
-    color:  #613c87;
+    color: #613c87;
 }
 
 .default-background {
-    background-color:  #613c87;
+    background-color: #613c87;
 }
 
 .default-background-color {
-    background-color:  #613c87;
+    background-color: #613c87;
 }
 
 .default-border-hover:hover {
@@ -59,6 +59,12 @@
 
 .text-uppercase {
     text-transform: uppercase;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
 }
 
 .text-thin {
@@ -67,6 +73,31 @@
 
 .text-regular {
     font-weight: 400;
+
+.btn_primario,
+.btn_secundario {
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.btn_primario {
+    color: #FFF;
+    background-color: #b9007e;
+    border: 1px solid #b9007e;
+}
+
+.btn_secundario {
+    color: #000;
+    border: 1px solid #000;
+    background-color: #FFF;
+}
+
+.border-radius-4 {
+    border-radius: 4px;
+}
+
 }
 
 .text-bold {
@@ -353,7 +384,7 @@
     border-radius: 10.5px;
     width: auto;
     height: 24px;
-    font-size:14px;
+    font-size: 14px;
     line-height: 23px;
     margin-bottom: 8px;
     padding-left: 8px;
