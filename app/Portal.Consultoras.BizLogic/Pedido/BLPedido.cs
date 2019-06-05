@@ -3259,11 +3259,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var codigosCatalogosRevista = GetCodigosCatalogoRevista();
             var itemsCatalogo = GetCodigosCatalogo();
 
-            var itemsWeb = pedidoWebSetDetalleAgrupado.Where(p => codigosCatalogosWeb.Contains(p.CodigoCatalago.ToString())).ToList();
-
-            var itemsRevista = pedidoWebSetDetalleAgrupado.Where(p => codigosCatalogosRevista.Contains(p.CodigoCatalago.ToString()) ||
+            var itemsWeb = pedidoWebSetDetalleAgrupado.Where(p => codigosCatalogosWeb.Contains(p.CodigoCatalago.ToString()) ||
                         (p.CodigoCatalago.ToString() == Constantes.ODSCodigoCatalogo.WebPortalFFVV && p.CodigoTipoOferta == "002") ||
                         (p.CodigoCatalago.ToString() == Constantes.ODSCodigoCatalogo.WebPortalFFVV && Convert.ToInt32(p.CodigoTipoOferta) > 200)).ToList();
+
+            var itemsRevista = pedidoWebSetDetalleAgrupado.Where(p => codigosCatalogosRevista.Contains(p.CodigoCatalago.ToString())).ToList();
 
             //obtener una lista excluyendo los items web, de revista y catalogo
             var itemsOtros = pedidoWebSetDetalleAgrupado
