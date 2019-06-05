@@ -1680,13 +1680,16 @@ li .productos__agregados {
     left: 24%;
     top: 14px;
     width: 21px;
-    height: 16px
+    height: 16px;
+    background: url(/Content/CaminoBrillante/imgs/add_to_cart2.svg) no-repeat center center;
 }
-
-.boton__agregalo--fichaProducto img {
-    max-width: 25px;
-    display: block
+.producto_desactivado .boton__agregalo--fichaProducto i {
+    background: url(/Content/CaminoBrillante/imgs/add-to-cart.svg) no-repeat center center;
 }
+    .boton__agregalo--fichaProducto img {
+        max-width: 25px;
+        display: block
+    }
 
 div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span {
     letter-spacing: 0;
