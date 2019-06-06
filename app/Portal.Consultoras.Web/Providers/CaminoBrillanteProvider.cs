@@ -227,9 +227,12 @@ namespace Portal.Consultoras.Web.Providers
 
         private List<DemostradorCaminoBrillanteModel> Format(List<DemostradorCaminoBrillanteModel> items)
         {
-            if (items != null && usuarioModel != null) {
-                items.Update(e => {
+            if (items != null && usuarioModel != null)
+            {
+                items.Update(e =>
+                {
                     e.PaisISO = usuarioModel.CodigoISO;
+                    e.CampaniaID = usuarioModel.CampaniaID;
                 });
             }
             return items;
@@ -239,8 +242,10 @@ namespace Portal.Consultoras.Web.Providers
         {
             if (items != null && usuarioModel != null)
             {
-                items.Update(e => {
+                items.Update(e =>
+                {
                     e.PaisISO = usuarioModel.CodigoISO;
+                    e.CampaniaID = usuarioModel.CampaniaID;
                 });
             }
             return items;
@@ -248,16 +253,38 @@ namespace Portal.Consultoras.Web.Providers
 
         private CarruselCaminoBrillanteModel Format(CarruselCaminoBrillanteModel carrusel)
         {
+            if (carrusel != null && usuarioModel != null)
+            {
+                if (carrusel.Items != null)
+                {
+                    carrusel.Items.Update(e =>
+                    {
+                        e.PaisISO = usuarioModel.CodigoISO;
+                        e.CampaniaID = usuarioModel.CampaniaID;
+                    });
+                }
+            }
+            return carrusel;
+        }
+
+        /*
+        private CarruselCaminoBrillanteModel Format(CarruselCaminoBrillanteModel carrusel)
+        {
             if (carrusel != null)
             {
                 if (carrusel.Items == null) return carrusel;            
                 carrusel.Items.Update(e => {
-                    if (e.Kit != null) e.Kit.PaisISO = usuarioModel.CodigoISO;
-                    if (e.Demostrador != null) e.Demostrador.PaisISO = usuarioModel.CodigoISO;
+                    if (e is KitCaminoBrillanteModel) {
+                        ((KitCaminoBrillanteModel) e).PaisISO = usuarioModel.CodigoISO;
+                    } else if (e is DemostradorCaminoBrillanteModel)
+                    {
+                        ((DemostradorCaminoBrillanteModel)e).PaisISO = usuarioModel.CodigoISO;
+                    }
                 });
             }
             return carrusel;
         }
+        */
 
         /// <summary>
         /// Obtiene el Flag si tiene ofertas especiales
@@ -277,7 +304,8 @@ namespace Portal.Consultoras.Web.Providers
             return usuarioModel.CaminoBrillante;
         }
 
-        public bool LoadCaminoBrillante() {
+        public bool LoadCaminoBrillante()
+        {
             try
             {
                 var nivel = GetNivelActual();
@@ -304,8 +332,8 @@ namespace Portal.Consultoras.Web.Providers
                     beUsuario.Zona = usuarioModel.CodigoZona;
                     beUsuario.Region = usuarioModel.CodigorRegion;
                     resumen = svc.GetConsultoraNivelCaminoBrillante(beUsuario);
-                }                
-                sessionManager.SetConsultoraCaminoBrillante(resumen);                
+                }
+                sessionManager.SetConsultoraCaminoBrillante(resumen);
             }
             return resumen;
         }
@@ -353,7 +381,7 @@ namespace Portal.Consultoras.Web.Providers
                 }
 
                 var oFiltro = new FiltrosCaminoBrillanteModel();
-                if(entidad.Filtros.Length > 0)
+                if (entidad.Filtros.Length > 0)
                     oFiltro.DatosFiltros = Mapper.Map<List<FiltrosDatosCaminoBrillante>>(entidad.Filtros[0].Opciones);
                 if (entidad.Ordenamientos.Length > 0)
                     oFiltro.DatosOrden = Mapper.Map<List<OrdenDatosCaminoBrillante>>(entidad.Ordenamientos[0].Opciones);
@@ -367,7 +395,55 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public CarruselCaminoBrillanteModel GetCarruselCaminoBrillante() {
+
+
+        public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoShowRoom(UsuarioModel userData, int campaniaId, string codigoConsultora, bool esFacturacion = false, int tipoOferta = 1)
+        {
+            var listaProductoRetorno = new List<EstrategiaPersonalizadaProductoModel>();
+
+            return GetDesmostradoresCaminoBrillante(0, 0, "", "").LstDemostradores.Select(e => new EstrategiaPersonalizadaProductoModel()
+            {
+
+                CodigoPalanca = "0",
+                FotoProducto01 = e.FotoProductoMedium,
+                TieneStock = true,
+                CampaniaID = userData.CampaniaID,
+                ClaseBloqueada = "",
+                ClaseEstrategia = "",
+                CodigoCategoria = "",
+                CodigoEstrategia = e.CodigoEstrategia,
+                CodigoProducto = e.CUV,
+                CodigoVariante = "",
+                CUV2 = e.CUV2,
+                DescripcionCompleta = e.DescripcionCUV,
+                DescripcionCortada = e.DescripcionCUV,
+                DescripcionDetalle = e.DescripcionCUV,
+                DescripcionMarca = e.DescripcionMarca,
+                DescripcionResumen = e.DescripcionCUV,
+                DescripcionCategoria = e.DescripcionCUV,
+                EsMultimarca = false,
+                EsOfertaIndependiente = false,
+                EsSubcampania = false,
+                EstrategiaID = e.EstrategiaID.ToInt(),
+                FlagNueva = 0,
+                Ganancia = e.PrecioCatalogo - e.PrecioValorizado,
+                GananciaString = (e.PrecioCatalogo - e.PrecioValorizado).ToString(),
+                ImagenURL = e.FotoProductoMedium,
+                MarcaID = e.MarcaID,
+                Precio = e.PrecioCatalogo,
+                Precio2 = e.PrecioValorizado,
+                PrecioTachado = e.PrecioCatalogoFormat,
+                PrecioVenta = e.PrecioValorizadoFormat,
+                TextoLibre = "",
+                TienePaginaProducto = false,
+                TienePaginaProductoMob = false,
+                TipoAccionAgregar = 2,
+
+            }).ToList();
+        }
+
+        public CarruselCaminoBrillanteModel GetCarruselCaminoBrillante()
+        {
             try
             {
                 using (var svc = new PedidoServiceClient())
@@ -391,14 +467,17 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public MisGananciasCaminoBrillante GetMisGananciasCaminoBrillante() {
+        public MisGananciasCaminoBrillante GetMisGananciasCaminoBrillante()
+        {
             var niveles = GetNivelesHistoricosConsultora() ?? new List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante>();
-            var misGanancias =  new MisGananciasCaminoBrillante() {               
+            var misGanancias = new MisGananciasCaminoBrillante()
+            {
                 SubTitulo = "Campañas",
                 Titulo = "Monto de mi pedido CXX-CYY",
                 MisGanancias = niveles.OrderBy(e => e.Campania)
-                            .Select(e => new MisGananciasCaminoBrillante.GananciaCampaniaCaminoBrillante() {
-                                LabelSerie = "C"+e.Campania.Substring(4,2),
+                            .Select(e => new MisGananciasCaminoBrillante.GananciaCampaniaCaminoBrillante()
+                            {
+                                LabelSerie = "C" + e.Campania.Substring(4, 2),
                                 ValorSerie = decimal.Parse(e.MontoPedido),
                                 GananciaCampania = e.GananciaCampania,
                                 GananciaCampaniaFormat = Util.DecimalToStringFormat(e.GananciaCampania, usuarioModel.CodigoISO),
@@ -409,7 +488,8 @@ namespace Portal.Consultoras.Web.Providers
             return misGanancias;
         }
 
-        public EstrategiaPersonalizadaProductoModel GetEstrategiaPersonalizadaProducto(string cuv) {
+        public EstrategiaPersonalizadaProductoModel GetEstrategiaPersonalizadaProducto(string cuv)
+        {
             try
             {
                 using (var svc = new PedidoServiceClient())
@@ -433,5 +513,9 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
+        public DetalleEstrategiaFichaModel GetDetalleEstrategiaFichaModel(string cuv)
+        {
+            return null;
+        }
     }
 }

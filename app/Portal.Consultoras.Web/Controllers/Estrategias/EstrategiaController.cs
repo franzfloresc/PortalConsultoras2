@@ -18,12 +18,14 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         protected OfertaBaseProvider _ofertaBaseProvider;
         protected ConfiguracionOfertasHomeProvider _configuracionOfertasHomeProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
+        private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
 
         public EstrategiaController()
         {
             _ofertaBaseProvider = new OfertaBaseProvider();
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
             _configuracionOfertasHomeProvider = new ConfiguracionOfertasHomeProvider();
+            _caminoBrillanteProvider = new CaminoBrillanteProvider();
         }
 
         #region Metodos Por Palanca
@@ -80,6 +82,18 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         public JsonResult ATPObtenerProductos(BusquedaProductoModel model)
         {
             return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.ATPObtenerProductos);
+        }
+
+        [HttpPost]
+        public JsonResult CBDObtenerProductos(BusquedaProductoModel model)
+        {
+            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.CBDObtenerProductos);
+        }
+
+        [HttpPost]
+        public JsonResult CBDKbtenerProductos(BusquedaProductoModel model)
+        {
+            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.CBKObtenerProductos);
         }
 
         [HttpGet]
@@ -277,6 +291,15 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                         listaSubCampania = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaEstrategiaSubCampania, listaPedido, userData.CodigoISO, userData.CampaniaID, 2, userData.esConsultoraLider, userData.Simbolo).OrderBy(x => x.TieneStock, false).ToList();
                         SessionManager.ShowRoom.CargoOfertas = "0";
                     }
+                }
+                else if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.CBDObtenerProductos || tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.CBKObtenerProductos)
+                {
+                    listModel = _caminoBrillanteProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
+                    cantidadTotal0 = listModel.Count;
+                    //listModel = _ofertaPersonalizadaProvider.ConsultarOfertasFiltrarSR(model, listModel, tipoConsulta);
+                    //listPerdio = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 3); /* Tiene Stock */
+                    listPerdio = listModel;
+                    //listaSubCampania = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 2);
                 }
                 else
                 {
