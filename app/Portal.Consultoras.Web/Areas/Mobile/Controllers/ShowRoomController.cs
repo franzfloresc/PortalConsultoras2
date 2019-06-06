@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var model = new ShowRoomBannerLateralModel();
             var zonaHoraria = 0d;
-            var fechaInicioCampania = DateTime.Now.Date;
+            var fechaInicioCampania = Util.GetDiaActual(userData.ZonaHoraria);
 
             if (userData != null)
             {
