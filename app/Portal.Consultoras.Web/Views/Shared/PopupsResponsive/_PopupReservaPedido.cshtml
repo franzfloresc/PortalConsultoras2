@@ -36,6 +36,56 @@
                 </button>
             </div>
         </div>
+        <div id="VistaPrecarga" class="spinner__wrapper" style="display:none;">
+            <div class="d-block center-block">
+                <svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="precarga__spinner">
+                    <symbol id="s--circle">
+                        <circle r="9" cx="15" cy="15"></circle>
+                    </symbol>
+                    <g class="spinner__circulos">
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                        <g class="spinner__circulo">
+                            <use xlink:href="#s--circle" class="u--circle" />
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <p class="w-100 d-block center-block text-center text-bold spinner__texto">
+                Cargando
+            </p>
+        </div>
         <div id="Paso2-ConfirmacionCorreo" style="display:none;">
             <div class="popup__somos__belcorp__cabecera">
                 <a onclick="javascript: $('#PopupReservaPedido').fadeOut(100, function () { $(this).trigger('close');})" title="Cerrar" class="popup__somos__belcorp__icono__cerrar popup__somos__belcorp__icono__cerrar--confirmaCorreo">
@@ -44,56 +94,6 @@
                 <div class="mt-53 popup__somos__belcorp__icono popup__somos__belcorp__icono--reservaPedido center-block">
                     <img src="@Url.Content("~/Content/Images/mensaje-icono.png")" alt="Confirma tu correo" />
                 </div>
-            </div>
-            <div>
-                <div class="d-block precarga__spinner__wrapper precarga__spinner__wrapper--actualizacionFiltros">
-                    <svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="precarga__spinner">
-                        <symbol id="s--circle">
-                            <circle r="9" cx="15" cy="15"></circle>
-                        </symbol>
-                        <g class="spinner__circulos">
-                            <g class="spinner__circulo">
-                                <use xlink:href="#s--circle" class="u--circle" />
-                            </g>
-                            <g class="spinner__circulo">
-                                <use xlink:href="#s--circle" class="u--circle" />
-                            </g>
-                            <g class="spinner__circulo">
-                                <use xlink:href="#s--circle" class="u--circle" />
-                            </g>
-                            <g class="spinner__circulo">
-                                <use xlink:href="#s--circle" class="u--circle" />
-                            </g>
-                            <g class="spinner__circulo">
-                                <use xlink:href="#s--circle" class="u--circle" />
-                            </g>
-                            <g class="spinner__circulo">
-                                <use xlink:href="#s--circle" class="u--circle" />
-                            </g>
-                            <g class="spinner__circulo">
-                                <use xlink:href="#s--circle" class="u--circle" />
-                            </g>
-                            <g class="spinner__circulo">
-                                <use xlink:href="#s--circle" class="u--circle" />
-                            </g>
-                            <g class="spinner__circulo">
-                                <use xlink:href="#s--circle" class="u--circle" />
-                            </g>
-                            <g class="spinner__circulo">
-                                <use xlink:href="#s--circle" class="u--circle" />
-                            </g>
-                            <g class="spinner__circulo">
-                                <use xlink:href="#s--circle" class="u--circle" />
-                            </g>
-                            <g class="spinner__circulo">
-                                <use xlink:href="#s--circle" class="u--circle" />
-                            </g>
-                        </g>
-                    </svg>
-                </div>
-                <p class="d-block mx-auto text-center text-bold precarga__texto">
-                    Cargando
-                </p>
             </div>
             <div class="text-center popup__somos__belcorp__contenido popup__somos__belcorp__contenido--confirmaCorreo">
                 <h2 class="popup__somos__belcorp__titulo popup__somos__belcorp__titulo--reservaPedido">
