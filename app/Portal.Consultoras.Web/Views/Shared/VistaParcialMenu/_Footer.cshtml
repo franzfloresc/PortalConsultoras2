@@ -24,7 +24,7 @@
         <br />
         <span>Escríbenos o llámanos a través de nuestra Central Telefónica</span>
     </a>
-    <a href="@Url.Action("Index", "TuVozOnline", new { area = ""})" role="outbound-link" region="Footer" parent="Tu Voz Online" title="TU VOZ ONLINE" class="footer_responde footer_enlace_tu_voz_online">
+    <a href="javascript:;" onclick="OpenUrlCallbackNewPage('@Url.Action("Index", "TuVozOnline", new { area = ""})','@Url.Action("RequiereNuevaPagina", "TuVozOnline", new { area = ""})', 0);" role="outbound-link" region="Footer" parent="Tu Voz Online" title="TU VOZ ONLINE" class="footer_responde footer_enlace_tu_voz_online">
         <img src="@Url.Content("~/Content/Images/icono_tu_voz_online.svg")" role="outbound-link" region="Footer" parent="Tu Voz Online" title="TU VOZ ONLINE" /><br />
         TU VOZ ONLINE <br />
         <span role="outbound-link" region="Footer" parent="Tu Voz Online" title="TU VOZ ONLINE">Queremos escuchar tu voz, estés donde estés</span>

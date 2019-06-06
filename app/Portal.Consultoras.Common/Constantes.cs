@@ -1520,6 +1520,7 @@ namespace Portal.Consultoras.Common
             public const string ContenedorOfertas = "ContenedorOfertas";
             public const string LiquidacionWeb = "LiquidacionWeb";
             public const string MiPerfil = "MiPerfil";
+            public const string TuVozOnline = "TuVozOnline";
         }
 
         public static class MenuPosicion

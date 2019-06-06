@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Controllers
             var user = userData;
             var beUsuario = await _miPerfilProvider.GetUsuario(user.PaisID, user.CodigoUsuario);
 
-            if (beUsuario == null || string.IsNullOrEmpty(beUsuario.EMail))
+            if (RequireEmail(beUsuario))
             {
                 ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(user.CodigoISO);
 
@@ -31,6 +31,23 @@ namespace Portal.Consultoras.Web.Controllers
             var url = provider.GetUrl(user, config.Value, config.Key);
 
             return Redirect(url);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> RequiereNuevaPagina()
+        {
+            var user = userData;
+            var beUsuario = await _miPerfilProvider.GetUsuario(user.PaisID, user.CodigoUsuario);
+            var inSamePage = RequireEmail(beUsuario);
+
+            return Json(new {
+                NewPage = inSamePage ? 0 : 1
+            });
+        }
+
+        private bool RequireEmail(ServiceUsuario.BEUsuario user)
+        {
+            return user == null || string.IsNullOrEmpty(user.EMail);
         }
     }
 }
