@@ -1,6 +1,4 @@
-﻿use BelcorpPeru_GANAMAS
-GO
-
+﻿
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania]
 	@CampaniaID INT
 	,@ConsultoraID BIGINT
