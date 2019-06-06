@@ -180,9 +180,9 @@ namespace Portal.Consultoras.Entities
             FechaFacturado = row.ToString("FechaFacturado");
             RecogerDNI = row.ToString("RecogerDNI");
             RecogerNombre = row.ToString("RecogerNombre");
-            if (DataRecord.HasColumn(row, "GananciaRevista")) { if (row["GananciaRevista"] != DBNull.Value) { GananciaRevista = row.ToDecimal("GananciaRevista"); } }
-            if (DataRecord.HasColumn(row, "GananciaWeb")) { if (row["GananciaWeb"] != DBNull.Value) { GananciaWeb = row.ToDecimal("GananciaWeb"); } }
-            if (DataRecord.HasColumn(row, "GananciaOtros")) { if (row["GananciaOtros"] != DBNull.Value) { GananciaOtros = row.ToDecimal("GananciaOtros"); } }
+            if (row.HasColumn("GananciaRevista")) { GananciaRevista = row.ToDecimal("GananciaRevista"); }
+            if (row.HasColumn("GananciaWeb")) { GananciaWeb = row.ToDecimal("GananciaWeb"); }
+            if (row.HasColumn("GananciaOtros")) { GananciaOtros = row.ToDecimal("GananciaOtros"); }
         }
     }
 }
