@@ -103,14 +103,13 @@ var ComponentesView = function () {
             bloquear:{
                 all: "[block-group]",
                 claseHabilitado : "active",
-                claseInhabilitado : "btn_deshabilitado",
+                claseInhabilitado : "btn_deshabilitado"
             },
             aplicarSeleccion : {
                 contenedor :"#contenedor-aplicar-seleccion",
                 id : "#btn-aplicar-seleccion",
                 claseHabilitado : "active",
-                claseInhabilitado : "btn_deshabilitado",
-
+                claseInhabilitado : "btn_deshabilitado"
             }
         }
     };
@@ -337,7 +336,7 @@ var ComponentesView = function () {
 
         $(id)
             .parents(_elements.componente.tono.opcionesSeleccionadas)
-            .data(_elements.componente.tono.dataDigitable, componente.FactorCuadre);
+            .data(_elements.componente.tono.opcionSeleccionada, componente.FactorCuadre);
             //.parents("[data-opciones-seleccionadas]")
             //.attr("data-opciones-seleccionadas", _componente.FactorCuadre);
 
@@ -363,8 +362,56 @@ var ComponentesView = function () {
         $(_elements.tiposTonosModal.tiposTonosSeleccionados.contenedor).hide();
     };
 
-    var _clearContainer = function(){
+    var _cleanContainer = function(){
         $(_elements.componente.id).empty();
+    };
+
+    var _verifyButtonAceptar = function(codigoVariante){
+        if (codigoVariante.in(ConstantesModule.CodigoVariedad.CompuestaVariable, ConstantesModule.CodigoVariedad.IndividualVariable)) {
+            var activa = true;
+            
+            $(_elements.componente.tono.opcionesSeleccionadas).each(function () {
+                if (parseInt($(this).data(_elements.componente.tono.opcionSeleccionada)) === 0 && parseInt($(this).data(_elements.componente.tono.dataDigitable)) === 1) 
+                    activa = false;
+            });
+
+            if (activa)
+                $(_elements.estrategia.btnAgregar.id).removeClass(_elements.tiposTonosModal.bloquear.claseInhabilitado);
+        }
+    };
+
+    var _showMessageTypeAndTonesSpent  = function (estrategia) {
+        var hijos = 0;
+        var cta = 0;
+
+        if (estrategia.CodigoVariante == ConstantesModule.CodigoVariedad.ComuestaFija) {
+            $.each(estrategia.Hermanos, function (i, obj) {
+                hijos++;
+                if (!obj.TieneStock) cta++;
+            });
+        }
+        else {
+            $.each(estrategia.Hermanos, function (i, obj) {
+                if (obj.Hermanos !== 'undefined' && obj.Hermanos.length > 0) {
+                    $.each(obj.Hermanos, function (j, k) {
+                        hijos++;
+                        if (!k.TieneStock) cta++;
+                    });
+                }
+                else {
+                    hijos++;
+                    if (!obj.TieneStock) cta++;
+                }
+            });
+        }
+
+        if (!estrategia.esEditable) {
+            if (hijos > 0 && cta > 0) {
+                if (cta < hijos) $('.xmsg-tonos-agotados').show();
+            }
+        }
+
+        return true;
     };
 
     return {
@@ -386,6 +433,8 @@ var ComponentesView = function () {
         renderResumen: _renderResumen,
         showBorderItemSelected: _showBorderItemSelected,
         cleanTiposTonosModal: _cleanTiposTonosModal,
-        clearContainer: _clearContainer
+        cleanContainer: _cleanContainer,
+        verifyButtonAceptar: _verifyButtonAceptar,
+        showMessageTypeAndTonesSpent: _showMessageTypeAndTonesSpent
     };
 };

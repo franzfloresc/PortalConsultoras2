@@ -511,8 +511,8 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     .caja_montos div.info_extra_Validado:hover .monto_resumenValidado {
         display: block;
     }
-
-    .caja_montos div {
+    .caja_montos .caja_montos_cantidades,
+    .caja_montos .caja_montos_textos {
         display: inline-block;
     }
 

@@ -8,7 +8,7 @@
     var _elements = {
         btnAgregar: {
             id: "#btnAgregalo",
-            classDesactivado:"btn_deshabilitado"
+            classDesactivado: "btn_deshabilitado"
         },
         breadcrumbs: {
             templateId: "#breadcrumbs-template",
@@ -55,7 +55,7 @@
         var backgroundImg = estrategia.TipoEstrategiaDetalle.ImgFichaFondoDesktop || "";
         var stampImg = estrategia.TipoEstrategiaDetalle.ImgFichaDesktop || "";
 
-        if(estrategia.isMobile){
+        if (estrategia.isMobile) {
             backgroundImg = estrategia.TipoEstrategiaDetalle.ImgFichaFondoMobile || "";
             stampImg = estrategia.TipoEstrategiaDetalle.ImgFichaMobile || "";
         }
@@ -65,7 +65,7 @@
 
         // stamp
         $(_elements.estrategia.stamp).css("background-image", 'url(' + stampImg + ')');
-        $(_elements.estrategia.stamp).css("padding-top","75px");
+        $(_elements.estrategia.stamp).css("padding-top", "75px");
 
         return true;
     };
@@ -113,16 +113,16 @@
             const fixmeTop = $(".fixme_button").offset().top + 75;
             const currentScroll = $(window).scrollTop();
             if (currentScroll + heightWindow >= fixmeTop) {
-                $("#dvContenedorAgregar").removeClass("contenedor_fixed"); 
+                $("#dvContenedorAgregar").removeClass("contenedor_fixed");
             } else {
                 if (!($("#dvContenedorAgregar").hasClass("contenedor_fixed"))) {
-                    $("#dvContenedorAgregar").addClass("contenedor_fixed"); 
+                    $("#dvContenedorAgregar").addClass("contenedor_fixed");
                 }
             }
         });
     }
-    
-    var _showCarrusel = function(){
+
+    var _showCarrusel = function () {
         $('#carousel_upselling').slick({
             lazyLoad: 'ondemand',
             infinite: false,
@@ -164,6 +164,7 @@
         }
 
     };
+
     var _validarActivadoGeneral = function (pEstrategia) {
         if (!pEstrategia.esEditable) {
             $.each(pEstrategia.Hermanos, function (index, hermano) {
@@ -176,41 +177,40 @@
     };
 
     var _setEstrategiaTipoBotonAgregar = function (estrategia) {
-         pEstrategia = estrategia;
-         if (pEstrategia.TipoAccionAgregar <= 0) {
-             $(_elementos.agregar.id).hide();
-         }
- 
+        pEstrategia = estrategia;
+        if (pEstrategia.TipoAccionAgregar <= 0) {
+            $(_elementos.agregar.id).hide();
+        }
+
         if (pEstrategia.CodigoVariante === ConstantesModule.CodigoVariedad.IndividualVariable ||
             pEstrategia.CodigoVariante === ConstantesModule.CodigoVariedad.CompuestaVariable ||
             pEstrategia.CodigoVariante === ConstantesModule.CodigoVariedad.ComuestaFija) {
-             _validarDesactivadoGeneral(pEstrategia);
-         }
+            _validarDesactivadoGeneral(pEstrategia);
+        }
         if (pEstrategia.CodigoVariante === ConstantesModule.CodigoVariedad.IndividualVariable ||
             pEstrategia.CodigoVariante === ConstantesModule.CodigoVariedad.ComuestaFija) {
-             _validarActivadoGeneral(pEstrategia);
-         }
- 
-         return true;
+            _validarActivadoGeneral(pEstrategia);
+        }
+
+        return true;
     };
 
-
-    var _clearContainer = function(){
+    var _cleanContainer = function () {
         $(_elements.breadcrumbs.id).empty();
         $(_elements.imagenEstrategia.id).empty();
         $(_elements.agregar.id).empty();
     };
-    
+
     return {
         setPresenter: _setPresenter,
-        renderBreadcrumbs : _renderBreadcrumbs,
-        renderEstrategia : _renderEstrategia,
+        renderBreadcrumbs: _renderBreadcrumbs,
+        renderEstrategia: _renderEstrategia,
         renderBackgroundAndStamp: _renderBackgroundAndStamp,
         renderReloj: _renderReloj,
         renderRelojStyle: _renderRelojStyle,
         renderAgregar: _renderAgregar,
         showTitleAgregado: _showTitleAgregado,
-        clearContainer: _clearContainer,
+        cleanContainer: _cleanContainer,
         showCarrusel: _showCarrusel,
         fixButtonAddProduct: _fixButtonAddProduct,
         setEstrategiaTipoBotonAgregar: _setEstrategiaTipoBotonAgregar
