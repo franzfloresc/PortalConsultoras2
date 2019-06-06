@@ -105,11 +105,13 @@
 
 /* INPUT TEXT */
 
+input[type="text"].text__field__sb,
 .text__field__sb {
     border-top: 0;
     border-left: 0;
     border-right: 0;
     border-bottom: 1px solid #b4b4b4;
+    border-radius: 0;
     height: 40px;
     background-color: transparent;
     position: relative;
@@ -124,7 +126,9 @@
     transition: all 0.3s ease;
 }
 
+    input[type="text"].text__field__sb:focus,
     .text__field__sb:focus,
+    input[type="text"].text__field__sb--withContent,
     .text__field__sb--withContent {
         border-bottom: 1px solid #000;
     }
@@ -435,6 +439,10 @@ input[type="checkbox"].switch__control,
     border-radius: 4px;
 }
 
+.mt-40 {
+    margin-top: 40px;
+}
+
 @media screen and (max-width:991px) and (orientation:landscape) {
 
     .mt-53 {
@@ -470,10 +478,12 @@ input[type="checkbox"].switch__control,
 
 .btn_primario,
 .btn_secundario {
+    font-family: 'Lato', sans-serif;
     height: 40px;
     line-height: 40px;
     font-size: 14px;
     letter-spacing: 0.5px;
+    cursor: pointer;
 }
 
 .btn_primario {
@@ -488,7 +498,24 @@ input[type="checkbox"].switch__control,
     background-color: #FFF;
 }
 
+.icono_success {
+    margin-bottom: 16px;
+}
 
+    .icono_success img {
+        width: 100%;
+        height: auto;
+        margin-left: 9px;
+        border: 0;
+    }
+
+.mensaje_success {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #b9007e;
+    line-height: 24px;
+    letter-spacing: 0.8px;
+}
 
 /* FIN - ESTILOS GENERALES UI */
 
@@ -519,7 +546,6 @@ input[type="checkbox"].switch__control,
     transition: all .3s ease;
     -moz-transition: all .3s ease;
     -o-transition: all .3s ease;
-    -ms-transition: all .3s ease;
     -webkit-transition: all .3s ease;
 }
 
@@ -621,7 +647,6 @@ input[type="checkbox"].switch__control,
     transition: all .3s ease;
     -moz-transition: all .3s ease;
     -o-transition: all .3s ease;
-    -ms-transition: all .3s ease;
     -webkit-transition: all .3s ease;
 }
 
