@@ -160,11 +160,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     }
                     #endregion
 
-                    if (reservado && pedidoDetalle.EsDuoPerfecto)
-                    {
-                        return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVA_DUO_COMPLETO_COMPLETO);
-                    }
-
                     pedidoDetalle.Reservado = reservado;
                     var respuestaT = PedidoAgregarProductoTransaction(pedidoDetalle);
 
@@ -467,6 +462,18 @@ namespace Portal.Consultoras.BizLogic.Pedido
             usuario.TieneValidacionMontoMaximo = _usuarioBusinessLogic.ConfiguracionPaisUsuario(usuario, Constantes.ConfiguracionPais.ValidacionMontoMaximo).TieneValidacionMontoMaximo;
 
             var tipoEstrategia = _tipoEstrategiaBusinessLogic.GetTipoEstrategiaById(usuario.PaisID, estrategia.TipoEstrategiaID);
+
+            #region Reserva
+            if (pedidoDetalle.Reservado && pedidoDetalle.EsDuoPerfecto)
+            {
+                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVA_DUO_COMPLETO_COMPLETO);
+            }
+
+            if (pedidoDetalle.Reservado && (tipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack))
+            {
+                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVA_ARMATUPACK_BLOQUEADO);
+            }
+            #endregion
 
             #region ArmaTuPack
             if (tipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack)
