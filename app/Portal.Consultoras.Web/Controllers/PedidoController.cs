@@ -199,7 +199,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.GananciaRevista = pedidoWeb.GananciaRevista;
                     model.GananciaWeb = pedidoWeb.GananciaWeb;
                     model.GananciaOtros = pedidoWeb.GananciaOtros;
-                    model.isShowGananciaConsultora = isCalculoGananaciaConsultora(pedidoWeb);
+                    model.IsShowGananciaConsultora = IsCalculoGananaciaConsultora(pedidoWeb);
 
                     SessionManager.SetMontosProl(
                         new List<ObjMontosProl>
@@ -3431,10 +3431,10 @@ namespace Portal.Consultoras.Web.Controllers
         /// [Ganancia] Cálculo Ganancia ofertas Catálogo*
         /// </summary>
         /// <returns></returns>
-        private bool isCalculoGananaciaConsultora(BEPedidoWeb pedidoWeb)
+        private bool IsCalculoGananaciaConsultora(BEPedidoWeb pedidoWeb)
         {
-            return pedidoWeb.GananciaRevista.HasValue ||
-                   pedidoWeb.GananciaWeb.HasValue || pedidoWeb.GananciaWeb.HasValue;
+            return pedidoWeb.GananciaRevista.HasValue &&
+                   pedidoWeb.GananciaWeb.HasValue && pedidoWeb.GananciaWeb.HasValue;
         }
     }
 }
