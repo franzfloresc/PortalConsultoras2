@@ -151,7 +151,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             }
                             else
                             {
-                                if (pedidoDetalle.Usuario.FechaFinFacturacion == DateTime.Today)
+                                if (pedidoDetalle.Usuario.FechaFinFacturacion == Util.GetDiaActual(pedidoDetalle.Usuario.ZonaHoraria))
                                 {
                                     return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVA_ULTIMO_DIA_FACTURACION);
                                 }
@@ -218,7 +218,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         }
                         else
                         {
-                            if(pedidoDetalle.Usuario.FechaFinFacturacion == DateTime.Today)
+                            if(pedidoDetalle.Usuario.FechaFinFacturacion == Util.GetDiaActual(pedidoDetalle.Usuario.ZonaHoraria))
                             {
                                 return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVA_ULTIMO_DIA_FACTURACION);
                             }
@@ -374,7 +374,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         }
                         else
                         {
-                            if (pedidoDetalle.Usuario.FechaFinFacturacion == DateTime.Today)
+                            if (pedidoDetalle.Usuario.FechaFinFacturacion == Util.GetDiaActual(pedidoDetalle.Usuario.ZonaHoraria))
                             {
                                 return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVA_ULTIMO_DIA_FACTURACION);
                             }

@@ -100,7 +100,7 @@ namespace Portal.Consultoras.Web.Providers
                 if (!string.IsNullOrEmpty(diasAntesStock))
                 {
                     var iDiasAntesStock = int.Parse(diasAntesStock);
-                    if (DateTime.Now.Date >= userData.FechaInicioCampania.AddDays(iDiasAntesStock))
+                    if (Util.GetDiaActual(userData.ZonaHoraria) >= userData.FechaInicioCampania.AddDays(iDiasAntesStock))
                     {
                         validar = true;
                     }

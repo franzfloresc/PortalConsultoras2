@@ -114,7 +114,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 SessionManager.SetPedidoValidado(false);
 
-                if ((configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == GetDiaActual()) &&
+                if ((configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == Util.GetDiaActual(userData.ZonaHoraria)) &&
                     !configuracionCampania.ModificaPedidoReservado &&
                     !configuracionCampania.ValidacionAbierta)
                 {
@@ -125,7 +125,7 @@ namespace Portal.Consultoras.Web.Controllers
                 userData.ZonaValida = configuracionCampania.ZonaValida;
 
                 model.FlagValidacionPedido = "0";
-                if ( (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == GetDiaActual()) &&
+                if ( (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == Util.GetDiaActual(userData.ZonaHoraria)) &&
                     configuracionCampania.ModificaPedidoReservado)
                 {
                     model.FlagValidacionPedido = "1";
@@ -1575,7 +1575,7 @@ namespace Portal.Consultoras.Web.Controllers
                     flagCorreo = resultado.EnviarCorreo ? "1" : "",
                     permiteOfertaFinal = listPermiteOfertaFinal.Contains(resultado.ResultadoReservaEnum),
                     mensajeCondicional,
-                    UltimoDiaFacturacion = (userData.FechaFacturacion == GetDiaActual())   //TESLA 7
+                    UltimoDiaFacturacion = (userData.FechaFacturacion == Util.GetDiaActual(userData.ZonaHoraria))
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -2344,7 +2344,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                 }
-                var pedidoReservado = (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado && userData.FechaFinCampania == GetDiaActual());
+                var pedidoReservado = (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado && userData.FechaFinCampania == Util.GetDiaActual(userData.ZonaHoraria));
                 var estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                 var mensaje = result.Mensaje;
                 //INI HD-3693
@@ -2355,7 +2355,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = estado,
                     pedidoReservado = pedidoReservado,
                     message = mensaje,
-                    UltimoDiaFacturacion = (userData.FechaFacturacion == GetDiaActual()),   //TESLA 7
+                    UltimoDiaFacturacion = (userData.FechaFacturacion == Util.GetDiaActual(userData.ZonaHoraria)),
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }

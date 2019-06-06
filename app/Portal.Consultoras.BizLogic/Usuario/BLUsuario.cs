@@ -502,7 +502,7 @@ namespace Portal.Consultoras.BizLogic
                     usuario.EstadoPedido = configuracionConsultora.EstadoPedido;
                     usuario.ValidacionAbierta = configuracionConsultora.ValidacionAbierta;
                     usuario.AceptacionConsultoraDA = configuracionConsultora.AceptacionConsultoraDA;
-                    usuario.DiaFacturacion = (DateTime.Now.Date - usuario.FechaInicioFacturacion).Days;
+                    usuario.DiaFacturacion = (Common.Util.GetDiaActual(usuario.ZonaHoraria) - usuario.FechaInicioFacturacion).Days;
                 }
 
                 if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
@@ -664,7 +664,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 usuario.GanaMasNativo = (tieneGanaMasNativo.Result.Select(x => x.Valor).FirstOrDefault() == "1");
-                usuario.EsUltimoDiaFacturacion = (usuario.FechaFinFacturacion - DateTime.Now.Date ).Days == 0;
+                usuario.EsUltimoDiaFacturacion = (usuario.FechaFinFacturacion - Common.Util.GetDiaActual(usuario.ZonaHoraria)).Days == 0;
 
 
                 return usuario;

@@ -3156,7 +3156,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 configuracionCampania = sv.GetEstadoPedido(PaisID, CampaniaID, ConsultoraID, ZonaID, RegionID);
             }
-            if (configuracionCampania != null) diaFacturacion = (DateTime.Now.Date - configuracionCampania.FechaInicioFacturacion).Days;
+            if (configuracionCampania != null) diaFacturacion = (Util.GetDiaActual(configuracionCampania.ZonaHoraria) - configuracionCampania.FechaInicioFacturacion).Days;
 
             return diaFacturacion;
         }
