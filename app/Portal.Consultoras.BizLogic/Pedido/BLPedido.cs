@@ -992,8 +992,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 //Eliminar Detalle
                 var responseCode = Constantes.PedidoValidacion.Code.SUCCESS;
-
-                var pedidoWeb = new BEPedidoWeb();
+                BEPedidoDetalleResult respuesta = null;
+                BEPedidoWeb pedidoWeb = null;
                 if (pedidoDetalle.Producto == null)
                 {
                     responseCode = await DeleteAll(usuario, pedidoDetalle);
@@ -1014,7 +1014,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var pedidoID = 0;
                     lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
 
-                    var respuesta = PedidoAgregar_EliminarUno(pedidoDetalle, lstDetalle);
+                    respuesta = PedidoAgregar_EliminarUno(pedidoDetalle, lstDetalle);
 
                     ListaMensajeCondicional.AddRange(respuesta.ListaMensajeCondicional);
 
@@ -1026,7 +1026,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 PedidoAgregar_DesReservarPedido(lstDetalle, pedidoDetalle.Producto, usuario);
                 var request = PedidoDetalleRespuesta(responseCode);
-                request.PedidoWeb = pedidoWeb;
+                request.PedidoWeb = pedidoWeb ?? respuesta.PedidoWeb;
 
                 ListaMensajeCondicional.AddRange(request.ListaMensajeCondicional);
 
