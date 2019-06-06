@@ -483,7 +483,6 @@ input[type="text"].text__field__sb,
     transition: all .3s ease;
     -moz-transition: all .3s ease;
     -o-transition: all .3s ease;
-    -ms-transition: all .3s ease;
     -webkit-transition: all .3s ease;
 }
 
@@ -585,7 +584,6 @@ input[type="text"].text__field__sb,
     transition: all .3s ease;
     -moz-transition: all .3s ease;
     -o-transition: all .3s ease;
-    -ms-transition: all .3s ease;
     -webkit-transition: all .3s ease;
 }
 
