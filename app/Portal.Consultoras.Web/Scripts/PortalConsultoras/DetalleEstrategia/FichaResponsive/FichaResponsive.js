@@ -36,8 +36,16 @@ var fichaEnriquecidaPresenter = FichaEnriquecidaPresenter({
 });
 
 $(document).ready(function () {
-    $("#data-estrategia").data("estrategia", detalleEstrategia.getEstrategia(params));
-    const estrategia = $("#data-estrategia").data("estrategia");
+    fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
+});
+
+fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded, function(){
+    estrategiaView.clearContainer();
+    componentesView.clearContainer();
+    
+    var estrategia = detalleEstrategia.getEstrategia(params);
+
+    $("#data-estrategia").data("estrategia", estrategia);
 
     estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
     componentesPresenter.onEstrategiaModelLoaded(estrategia);

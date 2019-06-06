@@ -3,8 +3,6 @@
 @model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
 
 @{
-    /**/
-
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
 }
 
@@ -19,7 +17,7 @@
         <div class="row scontenedor_fichas" data-item="" data-tag-html="@ViewBag.Campania" data-OrigenPedidoWeb="@Model.OrigenUrl" data-OrigenPedidoWebAgregar="@Model.OrigenAgregar" data-OrigenPedidoEditar="@Model.CodigoUbigeoPortal">
             <hidden id="data-estrategia" data-estrategia='@Html.Raw(Json.Encode(Model))'></hidden>
             <article id="imagen-estrategia" class="col-12 col-md-5 ficha_producto"></article>
-            <article class="col-12 col-md-7 ficha_detalle" @*style="padding-top:75px"*@>
+            <article class="col-12 col-md-7 ficha_detalle">
                 <div class="ficha_detalle_cuerpo">
                     <div id="estrategia" class="row contenedor_nombre_precio"></div>
                     <div id="componentes" class="producto_componentes" data-codigovariante="@Model.CodigoVariante"></div>
@@ -30,6 +28,8 @@
                 <!--Fin Botón Agregar-->
             </article>
         </div>
+
+        <div id="contenedor-tabs-ficha-enriquecida" class="ficha_enriquecida_contenedor"></div>
 
         @*<div id="compartir-estrategia" class="share" style="display:none"></div>*@
     </div>
@@ -78,12 +78,12 @@
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
 
     <script type="text/javascript">
-    var params = {
-        palanca: "@Model.Palanca",
-        campania: "@Model.Campania",
-        cuv: "@Model.Cuv",
-        origen: "@Model.OrigenUrl",
-    };
+        var params = {
+            palanca: "@Model.Palanca",
+            campania: "@Model.Campania",
+            cuv: "@Model.Cuv",
+            origen: "@Model.OrigenUrl",
+        };
     </script>
 
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js"></script>
@@ -103,7 +103,7 @@
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselPresenter.js"></script>
 
     @*<script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClientePresenter.js"></script>
-        <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClienteView.js"></script>*@
+    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClienteView.js"></script>*@
 
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsiveEvents.js"></script>
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsive.js"></script>

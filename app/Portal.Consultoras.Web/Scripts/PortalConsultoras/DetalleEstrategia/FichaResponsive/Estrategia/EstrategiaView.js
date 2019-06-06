@@ -194,6 +194,13 @@
          return true;
     };
 
+
+    var _clearContainer = function(){
+        $(_elements.breadcrumbs.id).empty();
+        $(_elements.imagenEstrategia.id).empty();
+        $(_elements.agregar.id).empty();
+    };
+    
     return {
         setPresenter: _setPresenter,
         renderBreadcrumbs : _renderBreadcrumbs,
@@ -203,6 +210,7 @@
         renderRelojStyle: _renderRelojStyle,
         renderAgregar: _renderAgregar,
         showTitleAgregado: _showTitleAgregado,
+        clearContainer: _clearContainer,
         showCarrusel: _showCarrusel,
         fixButtonAddProduct: _fixButtonAddProduct,
         setEstrategiaTipoBotonAgregar: _setEstrategiaTipoBotonAgregar

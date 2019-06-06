@@ -122,17 +122,21 @@ var ComponentesView = function () {
     var _renderComponentes = function (componente) {
         SetHandlebars(_elements.componente.templateId, componente, _elements.componente.id);
 
+        $(_elements.componente.id).off("click", _elements.componente.btnShowModal.all);
         $(_elements.componente.id).on("click", _elements.componente.btnShowModal.all, function (e) {
             e.preventDefault();
             var cuvComponent = $(e.target).data("component-cuv");
             _presenter.showTypesAndTonesModal(cuvComponent);
         });
 
+
         $(_elements.tiposTonosModal.btnCerrar.id).click(function (e) {
             e.preventDefault();
             _hideTypeAndTonesModal();
+            _presenter.removeTypeOrToneAssigned();
         });
 
+        $(_elements.tiposTonosModal.tiposTonos.id).off("click", _elements.tiposTonosModal.agregarTipoTono.all);
         $(_elements.tiposTonosModal.tiposTonos.id).on("click", _elements.tiposTonosModal.agregarTipoTono.all, function (e) {
             e.preventDefault();
             var grupo = $(e.target).data("grupo");
@@ -140,6 +144,7 @@ var ComponentesView = function () {
             _presenter.addTypeOrTone(grupo, cuv);
         });
 
+        $(_elements.tiposTonosModal.tiposTonos.id).off("click", _elements.tiposTonosModal.eliminarTipoTono.all);
         $(_elements.tiposTonosModal.tiposTonos.id).on("click", _elements.tiposTonosModal.eliminarTipoTono.all, function (e) {
             e.preventDefault();
             var grupo = $(e.target).data("grupo");
@@ -147,6 +152,7 @@ var ComponentesView = function () {
             _presenter.removeTypeOrTone(grupo, cuv);
         });
 
+        $(_elements.tiposTonosModal.tiposTonosSeleccionados.id).off("click", _elements.tiposTonosModal.eliminarTipoTono.all);
         $(_elements.tiposTonosModal.tiposTonosSeleccionados.id).on("click", _elements.tiposTonosModal.eliminarTipoTono.all, function (e) {
             e.preventDefault();
             var grupo = $(e.target).data("grupo");
@@ -155,6 +161,7 @@ var ComponentesView = function () {
             _presenter.removeTypeOrTone(grupo, cuv, indice);
         });
 
+        $(_elements.tiposTonosModal.id).off("click", _elements.tiposTonosModal.aplicarSeleccion.id);
         $(_elements.tiposTonosModal.id).on("click", _elements.tiposTonosModal.aplicarSeleccion.id, function (e) {
             e.preventDefault();
             var grupo = $(e.target).data("grupo");
@@ -277,10 +284,10 @@ var ComponentesView = function () {
                 arrows: false,
                 infinite: false
             });
-        }else{
-            $(_elements.tiposTonosModal.tiposTonosSeleccionados.id).slick("unslick");
-            $(_elements.tiposTonosModal.tiposTonosSeleccionados.id).html("");
-            $(_elements.tiposTonosModal.tiposTonosSeleccionados.contenedor).hide();
+        }
+        else
+        {
+            _cleanTiposTonosModal();
         }
 
         _updateModalHeight();
@@ -350,20 +357,15 @@ var ComponentesView = function () {
         return true;
     };
 
-    //var _verifyButtonActive = function () {
-    //    var show = true;
+    var _cleanTiposTonosModal = function(){
+        $(_elements.tiposTonosModal.tiposTonosSeleccionados.id).slick("unslick");
+        $(_elements.tiposTonosModal.tiposTonosSeleccionados.id).html("");
+        $(_elements.tiposTonosModal.tiposTonosSeleccionados.contenedor).hide();
+    };
 
-    //    $(_elements.componente.tono.opcionesSeleccionadas).each(function () {
-    //        if (parseInt($(this).data(_elements.componente.tono.opcionSeleccionada)) === 0 && parseInt($(this).data(_elements.componente.tono.dataDigitable)) === 1)
-    //            show = false;
-    //    });
-
-    //    // TODO: revisar
-    //    if (show)
-    //        $(_elements.estrategia.btnAgregar.id).removeClass(_elements.estrategia.btnAgregar.clase.bloqueado);
-
-    //    return true;
-    //};
+    var _clearContainer = function(){
+        $(_elements.componente.id).empty();
+    };
 
     return {
         setPresenter: _setPresenter,
@@ -383,6 +385,7 @@ var ComponentesView = function () {
         blockApplySelection: _blockApplySelection,
         renderResumen: _renderResumen,
         showBorderItemSelected: _showBorderItemSelected,
-        //verifyButtonActive: _verifyButtonActive
+        cleanTiposTonosModal: _cleanTiposTonosModal,
+        clearContainer: _clearContainer
     };
 };
