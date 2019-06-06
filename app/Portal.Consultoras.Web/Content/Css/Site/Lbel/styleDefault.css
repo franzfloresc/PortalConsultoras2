@@ -294,8 +294,8 @@ input[type="checkbox"].switch__control,
     }
 
     .btn__sb--disabled {
-        border: 1px solid #D1D1D4;
-        background-color: #D1D1D4;
+        border: 1px solid #D1D1D4!important;
+        background-color: #D1D1D4!important;
         pointer-events: none;
         cursor: not-allowed;
         color: #909094 !important;

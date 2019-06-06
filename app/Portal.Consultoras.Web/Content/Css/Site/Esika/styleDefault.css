@@ -272,8 +272,6 @@ input[type="text"].text__field__sb,
 .btn__sb__primary,
 .btn__sb__primary--multimarca {
     color: #FFF;
-    background-color: #b9007e;
-    border: 1px solid #b9007e;
 }
 
 .btn__sb__primary,
@@ -296,11 +294,11 @@ input[type="text"].text__field__sb,
 }
 
 .btn__sb--disabled {
-    border: 1px solid #D1D1D4;
-    background-color: #D1D1D4;
+    border: 1px solid #D1D1D4 !important;
+    background-color: #D1D1D4 !important;
     pointer-events: none;
     cursor: not-allowed;
-    color: #909094!important;
+    color: #909094 !important;
 }
 
 @media screen and (max-width:991px) {
@@ -438,6 +436,13 @@ input[type="text"].text__field__sb,
 
 .mt-40 {
     margin-top: 40px;
+}
+
+@media screen and (max-width:991px) and (orientation:landscape) {
+
+    .mt-53 {
+        margin-top: 53px !important;
+    }
 }
 
 /* FIN - HELPERS CSS */
