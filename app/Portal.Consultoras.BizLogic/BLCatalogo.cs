@@ -409,7 +409,7 @@ namespace Portal.Consultoras.BizLogic
 
         private bool SetCatalogoRevistaFieldsInOembedIssuu(BECatalogoRevista catalogoRevista)
         {
-            bool OcurrioError = true;
+            bool OcurrioError = false;
             try
             {
                 if (string.IsNullOrEmpty(catalogoRevista.CodigoIssuu)) return OcurrioError;
@@ -424,7 +424,7 @@ namespace Portal.Consultoras.BizLogic
 
                 var docs = TryCastResultApi(url, catalogoRevista.PaisISO, json, catalogoRevista.CodigoIssuu);
                 if (docs == null)
-                    return OcurrioError;
+                    return OcurrioError = true;
 
 
                 var doc = docs.FirstOrDefault();
@@ -438,11 +438,12 @@ namespace Portal.Consultoras.BizLogic
                 catalogoRevista.CatalogoDescripcion = Descripcion;
                 catalogoRevista.UrlVisor = string.Format(ServiceSettings.Instance.UrlIssuu, catalogoRevista.CodigoIssuu);
                 catalogoRevista.UrlImagen = string.Format("https://image.issuu.com/{0}/jpg/page_1_thumb_medium.jpg", ndoc["documentId"]);
-                OcurrioError = false;
+                
             }
-            catch (Exception e)
+            catch 
             {
-               Console.WriteLine(e.ToString());
+              
+               OcurrioError = true;
             }
            
             return OcurrioError;
