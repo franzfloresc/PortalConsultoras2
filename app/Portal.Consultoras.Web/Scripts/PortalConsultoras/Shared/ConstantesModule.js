@@ -204,6 +204,11 @@ var ConstantesModule = (function() {
         ToolTip: 2500
     }
 
+    var _tipoSeccion = {
+        Video: "01",
+        Texto: "02"
+    }
+
     return {
         CodigoPalanca: _codigoPalanca,
         TipoEstrategia: _codigoTipoEstrategia,
@@ -221,6 +226,7 @@ var ConstantesModule = (function() {
         GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia,
         MensajeAgregarPedido: _mensajeAgregarPedido,
         MensajeModificarPedido: _mensajeModificarPedido,
-        Tiempo: _tiempo
+        Tiempo: _tiempo,
+        TipoSeccion: _tipoSeccion
     }
 })();
