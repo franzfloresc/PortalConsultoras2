@@ -33,18 +33,17 @@
 .ganancia-estimada {
     
     position: absolute;
-    width: 50%;
-    left: 50%;
+    width: 48%;
+    left: 52%;
     height: 0;
     bottom: 0;
-    z-index: 1;
     
     transition: all 0.5s ease-out;
 }
-    .ganancia-estimada.opened{
-        bottom:100%;
-        left: 36%;
-        width : 67%;
+    .ganancia-estimada.opened {
+        bottom: 100%;
+        left: 43.5%;
+        width: 56.5%;
     }
     /*
             *
@@ -235,7 +234,7 @@
 
 /*================================*/
 .toggle-content {
-    display: none;
+    display: flex;
     
     transition: max-height 0.25s ease-out, opacity 0.25s ease-out, transform 0.3s ease-out;
     height: auto;
@@ -282,3 +281,57 @@
 }
 /*================================*/
 
+.ganancia-total {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.ganancia-total .ganancia-content {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+.ganancia-info {
+    display: flex;
+    justify-content: space-between;
+}
+.ganancia-info .ganancia-titulo {
+    font-size: 16px;
+}
+.ganancia-titulo img {
+    position: absolute;
+    margin-left: -30px;
+    cursor: pointer;
+}
+.titulo-up {
+    text-transform: uppercase;
+}
+.titulo-700 {
+    font-weight: 700;
+}
+.ganancia-info .ganancia-total {
+    font-size: 16px;
+    font-weight: 700;
+}
+.ganancia-total i {
+    font-style: normal;
+    padding-right: 3px;
+}
+
+.mb-80 {
+    margin-bottom: 80px;
+}
+.separator {
+    border-bottom: 1px solid black;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+}
+
+/* Color */
+.ganancia-info .accent-color{
+    color: #e81c36;
+}
+.ganancia-info .pb-2 {
+    padding-bottom: 5px;
+}
