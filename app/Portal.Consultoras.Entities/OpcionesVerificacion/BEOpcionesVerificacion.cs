@@ -65,8 +65,8 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
             OpcionContrasena = row.ToBoolean("OpcionContrasena");
             IntentosSms = row.ToInt32("IntentosSms");
             //INI HD-3897
-            OpcionConfirmarEmail = row.HasColumn("OpcionConfirmarEmail")  &&  row.ToBoolean("OpcionConfirmarEmail");
-            OpcionConfirmarSms = row.HasColumn("OpcionConfirmarSms") && row.ToBoolean("OpcionConfirmarSms");
+            OpcionConfirmarEmail = row.ToBoolean("OpcionConfirmarEmail");
+            OpcionConfirmarSms = row.ToBoolean("OpcionConfirmarSms");
             //FIN HD-3897
         }
     }

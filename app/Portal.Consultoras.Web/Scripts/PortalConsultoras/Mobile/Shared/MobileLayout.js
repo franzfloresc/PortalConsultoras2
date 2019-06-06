@@ -1124,6 +1124,7 @@ function VerificarVistaBannerApp() {
     return false;
 }
 
+
 function OcultarBannerApp() {
     $.ajax({
         type: 'GET',
@@ -1187,3 +1188,18 @@ function alert_msg_bloqueadas(message) {
 }
 //FIN HD-3693
 
+$('#alertDialogMensajes25seg').dialog({
+    autoOpen: false,
+    resizable: false,
+    modal: true,
+    closeOnEscape: false,
+    close: function (event, ui) {
+        HideDialog("alertDialogMensajes25seg");
+    },
+    beforeClose: function (event, ui) {
+        document.querySelector('.setBottom').style.transition = null
+    },
+    draggable: false,
+    dialogClass: 'setBottom',
+    position: "bottom"
+});

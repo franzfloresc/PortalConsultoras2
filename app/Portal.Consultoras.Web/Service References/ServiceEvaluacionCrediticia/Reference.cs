@@ -399,6 +399,256 @@ namespace Portal.Consultoras.Web.ServiceEvaluacionCrediticia {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DatosConsultoraBE", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE")]
+    [System.SerializableAttribute()]
+    public partial class DatosConsultoraBE : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodAutorizaPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodGeneroField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ErrorDatosGeneralesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FecNacimientoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdEstActividadField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreCompletoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PrimerApellidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PrimerNombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SegundoApellidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SegundoNombreField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodAutorizaPedido {
+            get {
+                return this.CodAutorizaPedidoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodAutorizaPedidoField, value) != true)) {
+                    this.CodAutorizaPedidoField = value;
+                    this.RaisePropertyChanged("CodAutorizaPedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodGenero {
+            get {
+                return this.CodGeneroField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodGeneroField, value) != true)) {
+                    this.CodGeneroField = value;
+                    this.RaisePropertyChanged("CodGenero");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ErrorDatosGenerales {
+            get {
+                return this.ErrorDatosGeneralesField;
+            }
+            set {
+                if ((this.ErrorDatosGeneralesField.Equals(value) != true)) {
+                    this.ErrorDatosGeneralesField = value;
+                    this.RaisePropertyChanged("ErrorDatosGenerales");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FecNacimiento {
+            get {
+                return this.FecNacimientoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FecNacimientoField, value) != true)) {
+                    this.FecNacimientoField = value;
+                    this.RaisePropertyChanged("FecNacimiento");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdEstActividad {
+            get {
+                return this.IdEstActividadField;
+            }
+            set {
+                if ((this.IdEstActividadField.Equals(value) != true)) {
+                    this.IdEstActividadField = value;
+                    this.RaisePropertyChanged("IdEstActividad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NombreCompleto {
+            get {
+                return this.NombreCompletoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreCompletoField, value) != true)) {
+                    this.NombreCompletoField = value;
+                    this.RaisePropertyChanged("NombreCompleto");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PrimerApellido {
+            get {
+                return this.PrimerApellidoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PrimerApellidoField, value) != true)) {
+                    this.PrimerApellidoField = value;
+                    this.RaisePropertyChanged("PrimerApellido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PrimerNombre {
+            get {
+                return this.PrimerNombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PrimerNombreField, value) != true)) {
+                    this.PrimerNombreField = value;
+                    this.RaisePropertyChanged("PrimerNombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SegundoApellido {
+            get {
+                return this.SegundoApellidoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SegundoApellidoField, value) != true)) {
+                    this.SegundoApellidoField = value;
+                    this.RaisePropertyChanged("SegundoApellido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SegundoNombre {
+            get {
+                return this.SegundoNombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SegundoNombreField, value) != true)) {
+                    this.SegundoNombreField = value;
+                    this.RaisePropertyChanged("SegundoNombre");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ConsultaCrediticiaBE", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE")]
+    [System.SerializableAttribute()]
+    public partial class ConsultaCrediticiaBE : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EnumEstadoCrediticioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ValidField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EnumEstadoCrediticio {
+            get {
+                return this.EnumEstadoCrediticioField;
+            }
+            set {
+                if ((this.EnumEstadoCrediticioField.Equals(value) != true)) {
+                    this.EnumEstadoCrediticioField = value;
+                    this.RaisePropertyChanged("EnumEstadoCrediticio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Valid {
+            get {
+                return this.ValidField;
+            }
+            set {
+                if ((this.ValidField.Equals(value) != true)) {
+                    this.ValidField = value;
+                    this.RaisePropertyChanged("Valid");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceEvaluacionCrediticia.IEvaluacionCrediticiaService")]
     public interface IEvaluacionCrediticiaService {
@@ -410,6 +660,14 @@ namespace Portal.Consultoras.Web.ServiceEvaluacionCrediticia {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticio", ReplyAction="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioRespon" +
             "se")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE> ConsultarServicioCrediticioAsync(string codigoISO, string usuario, string zona, string documento);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioChile", ReplyAction="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioChileR" +
+            "esponse")]
+        Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE ConsultarServicioCrediticioChile(string codigoISO, string usuario, string zona, string documento, string codSeccion);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioChile", ReplyAction="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioChileR" +
+            "esponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE> ConsultarServicioCrediticioChileAsync(string codigoISO, string usuario, string zona, string documento, string codSeccion);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioCO", ReplyAction="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioCOResp" +
             "onse")]
@@ -472,6 +730,18 @@ namespace Portal.Consultoras.Web.ServiceEvaluacionCrediticia {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioBO", ReplyAction="http://tempuri.org/IEvaluacionCrediticiaService/ConsultarServicioCrediticioBOResp" +
             "onse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE> ConsultarServicioCrediticioBOAsync(string codigoISO, string territorio, string numeroDocumento);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEvaluacionCrediticiaService/GetPersonaEquifax", ReplyAction="http://tempuri.org/IEvaluacionCrediticiaService/GetPersonaEquifaxResponse")]
+        Portal.Consultoras.Web.ServiceEvaluacionCrediticia.DatosConsultoraBE GetPersonaEquifax(string codigoISO, string tipoDoc, string numDoc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEvaluacionCrediticiaService/GetPersonaEquifax", ReplyAction="http://tempuri.org/IEvaluacionCrediticiaService/GetPersonaEquifaxResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceEvaluacionCrediticia.DatosConsultoraBE> GetPersonaEquifaxAsync(string codigoISO, string tipoDoc, string numDoc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEvaluacionCrediticiaService/ConsultaCrediticia", ReplyAction="http://tempuri.org/IEvaluacionCrediticiaService/ConsultaCrediticiaResponse")]
+        Portal.Consultoras.Web.ServiceEvaluacionCrediticia.ConsultaCrediticiaBE ConsultaCrediticia(string codigoISO, string tipoDoc, string numDoc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEvaluacionCrediticiaService/ConsultaCrediticia", ReplyAction="http://tempuri.org/IEvaluacionCrediticiaService/ConsultaCrediticiaResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceEvaluacionCrediticia.ConsultaCrediticiaBE> ConsultaCrediticiaAsync(string codigoISO, string tipoDoc, string numDoc);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -507,6 +777,14 @@ namespace Portal.Consultoras.Web.ServiceEvaluacionCrediticia {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE> ConsultarServicioCrediticioAsync(string codigoISO, string usuario, string zona, string documento) {
             return base.Channel.ConsultarServicioCrediticioAsync(codigoISO, usuario, zona, documento);
+        }
+        
+        public Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE ConsultarServicioCrediticioChile(string codigoISO, string usuario, string zona, string documento, string codSeccion) {
+            return base.Channel.ConsultarServicioCrediticioChile(codigoISO, usuario, zona, documento, codSeccion);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE> ConsultarServicioCrediticioChileAsync(string codigoISO, string usuario, string zona, string documento, string codSeccion) {
+            return base.Channel.ConsultarServicioCrediticioChileAsync(codigoISO, usuario, zona, documento, codSeccion);
         }
         
         public Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE ConsultarServicioCrediticioCO(string codigoISO, string TipoDocumento, string NumDocumento, string Apellido, string CodRegion, string CodZona, string Login) {
@@ -563,6 +841,22 @@ namespace Portal.Consultoras.Web.ServiceEvaluacionCrediticia {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceEvaluacionCrediticia.EvaluacionCrediticiaBE> ConsultarServicioCrediticioBOAsync(string codigoISO, string territorio, string numeroDocumento) {
             return base.Channel.ConsultarServicioCrediticioBOAsync(codigoISO, territorio, numeroDocumento);
+        }
+        
+        public Portal.Consultoras.Web.ServiceEvaluacionCrediticia.DatosConsultoraBE GetPersonaEquifax(string codigoISO, string tipoDoc, string numDoc) {
+            return base.Channel.GetPersonaEquifax(codigoISO, tipoDoc, numDoc);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceEvaluacionCrediticia.DatosConsultoraBE> GetPersonaEquifaxAsync(string codigoISO, string tipoDoc, string numDoc) {
+            return base.Channel.GetPersonaEquifaxAsync(codigoISO, tipoDoc, numDoc);
+        }
+        
+        public Portal.Consultoras.Web.ServiceEvaluacionCrediticia.ConsultaCrediticiaBE ConsultaCrediticia(string codigoISO, string tipoDoc, string numDoc) {
+            return base.Channel.ConsultaCrediticia(codigoISO, tipoDoc, numDoc);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceEvaluacionCrediticia.ConsultaCrediticiaBE> ConsultaCrediticiaAsync(string codigoISO, string tipoDoc, string numDoc) {
+            return base.Channel.ConsultaCrediticiaAsync(codigoISO, tipoDoc, numDoc);
         }
     }
 }

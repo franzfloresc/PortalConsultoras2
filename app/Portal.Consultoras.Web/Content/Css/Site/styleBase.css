@@ -1,0 +1,51 @@
+﻿/* 1. COLORES */
+
+/* 1.1 Textos */
+.color_defecto {
+    color: #000;
+}
+
+.primary_color {
+    color: #b9007e;
+}
+    
+.default_background {
+    background-color: #f5f5f7;
+}
+
+/* 1.2 Botones */
+.btn_primario {
+    color: #fff !important;
+    background-color: #b9007e;
+}
+
+    .btn_primario:hover {
+        color: #fff !important;
+    }
+
+
+.btn_defecto {
+    color: #fff !important;
+    background-color: #000 !important;
+}
+
+    .btn_defecto:hover {
+        color: #fff !important;
+    }
+
+.btn_deshabilitado {
+    background-color: #d1d1d4;
+    color: #909094 !important;
+    cursor: default;
+    pointer-events: none;
+}
+
+    .btn_deshabilitado .txt_cantidad_pedido{
+        color: #909094 !important;
+    }
+
+    .btn_deshabilitado .dibujar_linea::before,
+    .btn_deshabilitado .dibujar_linea::after {
+        border-color: #909094 !important;
+    }
+
