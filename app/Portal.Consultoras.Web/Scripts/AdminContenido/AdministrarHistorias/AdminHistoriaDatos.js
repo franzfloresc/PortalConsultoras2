@@ -545,7 +545,18 @@
     };
 
     var OcultarTab = function () {
-      $("#divGanaEnUnClickContenido").hide();
+        $(".contenido_tab").hide();
+        $("ul.tabs li:first").addClass("activa").show();
+        $(".contenido_tab:first").show();
+
+        $("ul.tabs li").click(function () {
+            $("ul.tabs li").removeClass("activa"); 
+            $(this).addClass("activa"); 
+            $(".contenido_tab").hide();
+            var activatab = $(this).find("a").attr("href"); 
+            $(activatab).fadeIn();
+            return false;
+        });
     }
 
     var _GrillaAccionesVideo = function (cellvalue, options, rowObject) {

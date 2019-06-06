@@ -16,7 +16,6 @@ jQuery(document).ready(function () {
     admHistoriaDatos.ini();
     IniDialogDetalle();
     UploadFile();
-    _bindingEvents();
 
     $.jgrid.extend({
         EditarOfertas: ModificarDetalle,
@@ -330,35 +329,6 @@ function UploadFile() {
                      
 
     return false;
-}
-
-var _bindingEvents = function () {
- 
-    $("body").on("click", "#divHistorias", _eventos.clickHistorias);
-    $("body").on("click", "#divGanaEnUnClick", _eventos.clickGanaEnUnClick);
-}
-
-var _eventos = {
-    clickHistorias: function () {
-        $(this).css("color", "white");
-        $(this).css("background", "#00A2E8");
-
-        $("#divGanaEnUnClick").css("color", "#702789");
-        $("#divGanaEnUnClick").css("background", "#D0D0D0");
-
-        $("#divHistoriaContenido").show();
-        $("#divGanaEnUnClickContenido").hide();
-    },
-    clickGanaEnUnClick: function () {
-        $(this).css("color", "white");
-        $(this).css("background", "#00A2E8");
-
-        $("#divHistorias").css("color", "#702789");
-        $("#divHistorias").css("background", "#D0D0D0");
-
-        $("#divGanaEnUnClickContenido").show();
-        $("#divHistoriaContenido").hide();
-    }
 }
 
 function NuevoVideo() {
