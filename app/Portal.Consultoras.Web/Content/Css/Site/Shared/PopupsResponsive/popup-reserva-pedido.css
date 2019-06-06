@@ -49,7 +49,7 @@
 }
 
 .popup__somos__belcorp__contenido--confirmaCorreo{
-    padding:0 111px 26px 111px;
+    padding:0 80px 26px 80px;
 }
 
 .popup__somos__belcorp__contenido--confirmaCorreo .popup__somos__belcorp__titulo--reservaPedido {
@@ -76,7 +76,7 @@
 }
 
 .form__group__fields--confirmaCorreo .text__field__sb {
-    width:inherit;
+    min-width:280px;
 }
 
 .popup__somos__belcorp__btn--actualizarCorreo {
