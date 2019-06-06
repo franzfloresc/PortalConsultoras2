@@ -1748,10 +1748,11 @@ function ActualizaGanancias(data) {
     
     data = data || "";
     if (data !== "") {
-        $('#div-ganancia-totalGananciaCatalogo').text('GG');
-        $('#div-ganancia-totalGananciaRevista').text('GG');
-        $('#div-ganancia-totalGananciaWeb').text('GG');
-        $('#div-ganancia-totalGananciaOtros').text('GG');
+        $('#div-ganancia-totalMontoGanancia').text(data.PedidoWeb.FormatoTotalMontoGananciaStr);
+        $('#div-ganancia-totalGananciaCatalogo').text(data.PedidoWeb.FormatoTotalMontoAhorroCatalogoStr);
+        $('#div-ganancia-totalGananciaRevista').text(data.PedidoWeb.FormatoTotalGananciaRevistaStr);
+        $('#div-ganancia-totalGananciaWeb').text(data.PedidoWeb.FormatoTotalGananciaWebStr);
+        $('#div-ganancia-totalGananciaOtros').text(data.PedidoWeb.FormatoTotalGananciaOtrosStr);
     }
 }
 function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, setId, esCuponNuevas) {
