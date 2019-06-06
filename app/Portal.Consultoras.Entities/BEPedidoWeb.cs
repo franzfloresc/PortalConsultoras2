@@ -171,6 +171,9 @@ namespace Portal.Consultoras.Entities
             FechaFacturado = row.ToString("FechaFacturado");
             RecogerDNI = row.ToString("RecogerDNI");
             RecogerNombre = row.ToString("RecogerNombre");
+            if (row["GananciaRevista"] != DBNull.Value) { GananciaRevista = row.ToDecimal("GananciaRevista"); }
+            if (row["GananciaWeb"] != DBNull.Value) { GananciaWeb = row.ToDecimal("GananciaWeb"); }
+            if (row["GananciaOtros"] != DBNull.Value) { GananciaOtros = row.ToDecimal("GananciaOtros"); }
         }
     }
 }
