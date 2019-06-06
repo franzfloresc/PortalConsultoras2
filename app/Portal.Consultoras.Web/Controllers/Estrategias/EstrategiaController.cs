@@ -294,7 +294,17 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 }
                 else if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.CBDObtenerProductos || tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.CBKObtenerProductos)
                 {
-                    listModel = _caminoBrillanteProvider.ObtenerOfertasCaminoBrillante();
+                    switch (tipoConsulta) {
+                        case Constantes.TipoConsultaOfertaPersonalizadas.CBKObtenerProductos:
+                            listModel = _caminoBrillanteProvider.ObtenerOfertasCaminoBrillante(Constantes.CaminoBrillante.TipoOferta.Kit);
+                            break;
+                        case Constantes.TipoConsultaOfertaPersonalizadas.CBDObtenerProductos:
+                            listModel = _caminoBrillanteProvider.ObtenerOfertasCaminoBrillante(Constantes.CaminoBrillante.TipoOferta.Demostrador);
+                            break;
+                        default:
+                            listModel = _caminoBrillanteProvider.ObtenerOfertasCaminoBrillante();
+                            break;
+                    }
                     cantidadTotal0 = listModel.Count;
                     listPerdio = listModel;
                 }
