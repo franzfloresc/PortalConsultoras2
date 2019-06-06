@@ -29,7 +29,7 @@
 
 .popup__somos__belcorp__icono--reservaPedido {
     width: 64px;
-    height: 63px;
+    height: auto;
     margin-bottom: 16px !important;
 }
 
