@@ -3415,10 +3415,11 @@ namespace Portal.Consultoras.Web.Controllers
         #region /*HD-4288 - Switch Consultora 100% */
 
         /// <summary>
-        /// Guarda lso cambios efectuados
+        /// Guarda los datos de la persona que recepcionará el pedido
         /// </summary>
-        /// <param name="te">GuardarRecepcionPedido</param>
-        /// <returns></returns>
+        /// <param name="nombreYApellido">Nombres de la persona que recibirá el pedido</param>
+        /// /// <param name="numeroDocumento">DNI de la persona que recibirá el pedido</param>
+        /// <returns>Retorna un valor que indica si la acción se realizó o no</returns>
         public JsonResult GuardarRecepcionPedidoRequest(string nombreYApellido, string numeroDocumento)
         {
             int result = 0;
@@ -3438,10 +3439,9 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         /// <summary>
-        /// Guarda lso cambios efectuados
+        /// Deshace los datos de la persona que recibirá el pedido
         /// </summary>
-        /// <param name="te">GuardarRecepcionPedido</param>
-        /// <returns></returns>
+        /// <returns>Un valor que deterina la acción</returns>
         public JsonResult DeshacerRecepcionPedidoRequest()
         {
             int result = 0;
@@ -3463,10 +3463,10 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         /// <summary>
-        /// Verifica si la consultoar es digital
+        /// Verifica si la consultoar es 100% digital
         /// </summary>
-        /// <param name="te">VerificarConsultoraDigital</param>
-        /// <returns></returns>
+        /// <param name="codigoConsultora">Cósigo de la consultora</param>
+        /// <returns>Retorna los datos de la consultora 100% digital</returns>
         public JsonResult VerificarConsultoraDigitalRequest(string codigoConsultora)
         {
             BEConsultora objConsultoraFicticiaModel =new BEConsultora();

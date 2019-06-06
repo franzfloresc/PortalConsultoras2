@@ -129,7 +129,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
             ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
             ViewBag.DataBarra = GetDataBarra(true, true);
-
+            ViewBag.CodigoConsultora = userData.CodigoConsultora;  /*HD-4288*/ 
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
 
             ViewBag.ActivarRecomendaciones = ObtenerFlagActivacionRecomendaciones();
@@ -689,4 +689,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
 
     }
+
 }

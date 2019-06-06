@@ -3028,8 +3028,8 @@ function CargarProductosRecomendados(item) {
 
 /*HD-4288 - Switch Consultora 100% */
 function doWhatYouNeed() {
-    
-    object = { codigoConsultora: $("#hdCodigoConsultora").val() }
+    debugger;
+ var   object = { codigoConsultora: $("#hdCodigoConsultora").val() }
 
     $.ajax({
         type: "POST",
@@ -3043,7 +3043,7 @@ function doWhatYouNeed() {
             if (checkTimeout(data)) {
                 if (data != null) {
                     if (data.IndicadorConsultoraDigital) {
-                        if (document.getElementById("bPedidoPaginarRegistrosTotal").innerHTML.length > 0 && document.getElementById("bPedidoPaginarRegistrosTotal") != undefined) {
+                        if (document.getElementById("bPedidoPaginarRegistrosTotal") != undefined && document.getElementById("bPedidoPaginarRegistrosTotal").innerHTML > 0 ) {
                             if (data.IndicadorRecepcion) {
                                 $("div.contenedor_info_recepcion_pedido").css("display", "flex");
                                 $(".info_recepcion_pedido").css("display", "block");
@@ -3094,7 +3094,6 @@ function DeshacerRecepcionpedido() {
         dataType: "json",
         cache: false,
         success: function (data) {
-            
             if (checkTimeout(data)) {
                 if (data > 0) {
                     $(".info_recepcion_pedido").css("display", "none");
@@ -3117,22 +3116,32 @@ function cargarDatosrecepcion(object) {
 
 
 function LimpiarCamposRecepcionPoput() {
-
+    $("#txtNombreYApellido").removeClass('text__field__sb--withContent');
+    $("#txtNumeroDocumento").removeClass('text__field__sb--withContent');
     document.getElementsByClassName("form__group__fields--nombreApellido")[0].children[2].textContent = "";
     document.getElementsByClassName("form__group__fields--numeroDocumento")[0].children[2].textContent = "";
     $("#txtNombreYApellido").val("");
     $("#txtNumeroDocumento").val("");
-    $(".btn__sb__primary--multimarca").addClass("btn__sb--disabled");
+    $(".btn__sb__primary--multimarca").addClass("btn__sb--disabled");  
+        
     object = {};
 }
 
 $(".popup__somos__belcorp__icono__cerrar--popupRecepcionPedido").click(function () {
-    ActualizarCheck();
+    ActualizarCheck(); 
 })
+
+$(".btn__sb--cambiarPersona").click(function () {
+    $("#txtNombreYApellido").addClass('text__field__sb--withContent');
+    $("#txtNumeroDocumento").addClass('text__field__sb--withContent');
+    $("#txtNombreYApellido").val(document.getElementsByClassName("datos__receptor__pedido")[0].children[0].textContent);
+    $("#txtNumeroDocumento").val(document.getElementsByClassName("datos__receptor__pedido")[0].children[1].textContent);
+    $(".btn__sb__primary--multimarca").removeClass("btn__sb--disabled");  
+});
 
 
 function ActualizarCheck() {
-    
+    LimpiarCamposRecepcionPoput();
     if ($(".info_recepcion_pedido").css("display") == "none") {
         $(".switch__control").prop("checked", false);
     }

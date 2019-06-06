@@ -8,6 +8,7 @@ var PopupRecepcionPedido = (function () {
     };
     var _funciones = {
         InicializarEventos: function () {
+            
             $(document).on("blur", _elementos.camposPopupRecepcionPedido, _eventos.CampoConDatos);
         },
     };
@@ -40,19 +41,13 @@ var PopupRecepcionPedido = (function () {
 $(document).ready(function () {
     PopupRecepcionPedido.Inicializar();
     /*HD-4288 - Switch Consultora 100% */
-    $("#PopupRecepcionPedido input:text").change(function (event) {
 
-        
+    $("#PopupRecepcionPedido input:text").keyup(function (event) {
         var id = event.target.id;
         var valor = event.target.value;
 
         if (id == "txtNombreYApellido") {
-            if (valor.length > 0) {
-                object.nombreYApellido = valor;
-                document.getElementsByClassName("form__group__fields--nombreApellido")[0].children[2].textContent = "";
-            } else {
-                object.nombreYApellido = "";
-                document.getElementsByClassName("form__group__fields--nombreApellido")[0].children[2].textContent = "Ingresar nombres y apellidos";
+            if (valor.length == 0) {
                 $(".btn__sb__primary--multimarca").addClass("btn__sb--disabled");
             }
 
@@ -61,30 +56,29 @@ $(document).ready(function () {
 
             if (valor.length > 0) {
                 if (valor.length != 8) {
-                    object.numeroDocumento = "";
                     document.getElementsByClassName("form__group__fields--numeroDocumento")[0].children[2].textContent = "Ingresar un DNI válido";
                     $(".btn__sb__primary--multimarca").addClass("btn__sb--disabled");
                     return;
                 } else {
                     document.getElementsByClassName("form__group__fields--numeroDocumento")[0].children[2].textContent = "";
-                    object.numeroDocumento = valor;
                 }
             } else {
-                object.numeroDocumento = "";
                 document.getElementsByClassName("form__group__fields--numeroDocumento")[0].children[2].textContent = "";
                 $(".btn__sb__primary--multimarca").addClass("btn__sb--disabled");
             }
-
-
         }
-        if (object.nombreYApellido.length > 0 && object.numeroDocumento.length) {
+
+        if ($("#txtNombreYApellido").val().length > 0 && ($("#txtNumeroDocumento").val().length ==8)) {
             $(".btn__sb__primary--multimarca").removeClass("btn__sb--disabled");
         }
 
     });
     /*HD-4288 - FIN*/
     $(".btn__sb__primary--multimarca").click(function () {
-        
+
+        object.nombreYApellido = $("#txtNombreYApellido").val();
+        object.numeroDocumento = $("#txtNumeroDocumento").val();
+
         $.ajax({
             type: "POST",
             url: URL_GUARDAR_RECEPCIONPEDIDO,
