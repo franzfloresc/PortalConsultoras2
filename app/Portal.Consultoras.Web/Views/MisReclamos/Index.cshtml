@@ -321,6 +321,11 @@
     {{#each detalle as |item|}}
     <div class="content_listado_reclamo {{#if_eq item.CodigoOperacion 'T'}} content_listado_reclamo--contenidoGrilla {{/if_eq}}" data-pedidodetalleid="{{item.CDRWebDetalleID}}">
         <div class="pop_solicitud_producto pop_solicitud_producto--nom">
+            {{#if_eq item.GrupoID ''}}
+
+            {{else}}
+            <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div><br />
+            {{/if_eq}}
             <span class="d-block">{{item.CUV}}</span>
             <span class="d-block text-bold">{{item.Descripcion}}</span>
             <span class="d-block">{{item.Cantidad}} unidades</span>

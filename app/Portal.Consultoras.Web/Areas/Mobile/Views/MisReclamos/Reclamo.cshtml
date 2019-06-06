@@ -228,22 +228,8 @@
                                    value=""
                                    data-codigo=""
                                    name="codigo"
-                                   placeholder="Código del producto" />
-                            @*<div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
-                                    <span class="texto_cantidad_productos tipografia_lato tipografia_lato_regular">Cantidad:</span>
-                                    <div id="divCantidad2">
-                                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad2" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
-                                               data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
-                                        <a class="cantidad_menos_home modificarPrecioMenos"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                                        <a class="cantidad_mas_home modificarPrecioMas"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                                    </div>
-                                </div>
-                                <div id="DescripcionCuv2" class="producto_cdr" style="font-size:15px; display:none;">
-                                    <span id="txtCuv2" class="text-bold codigo_producto_cdr">00411</span>
-                                    - <span id="txtDescripcionCuv2" class="text-bold nom_producto_cdr">Berrylicious shampoo rojo 375ml</span><br />
-                                    <span id="spnSimboloMonedaCuv2"></span> <span id="txtPrecioCuv2">0.00</span>
-                                    <a id="aCambiarProducto2" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">MODIFICAR PRODUCTO</a>
-                                </div>*@
+                                   maxlength="5"
+                                   placeholder="Código del producto" />                           
                         </div>
                         <div id="contenedorCuvTrueque" class="center-block lista_productos_a_cambiar">
 
@@ -462,47 +448,8 @@
                     </div>
                     <div class="detalle_solicitud_listado" id="divDetalleEnviar">
                     </div>
-                </div>
-                @*<a class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Ver solicitudes" href="@Url.Action("Index")">
-                        <span class="icono_arrow_left">
-                            <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver tus solicitudes" />
-                        </span>
-                        <span>VER TUS SOLICITUDES</span>
-                    </a>*@
-            </div>
-            @*<div id="Cambio3" style="display:none;">
-                    <div class="text-bold pregunta_inconveniente_producto tipografia_lato mb-23">
-                        Confirma tu elección
-                    </div>
-                    <div>
-                        <div class="contenedor_producto_cambio_por tipografia_lato">
-                            <span class="texto_producto_a_cambiar">Vas a cambiar:</span>
-                            <div class="producto_cdr tipografia_lato">
-                                <span id="spnCuv1" class="text-bold codigo_producto_cdr">00411</span> - <span id="spnDescripcionCuv1" class="text-bold nom_producto_cdr">Berrylicious shampoo rojo 375ml</span>
-                                <span class="cantidad_producto tipografia_lato_regular">
-                                    x<span id="spnCantidadCuv1">2</span> unidades
-                                </span>
-                            </div>
-                        </div>
-                        <div class="contenedor_producto_cambio_por tipografia_lato">
-                            <span class="texto_producto_a_cambiar">Por:</span>
-                            <div class="producto_cdr tipografia_lato">
-                                <span id="spnCuv2" class="text-bold codigo_producto_cdr">98765</span> - <span id="spnDescripcionCuv2" class="text-bold nom_producto_cdr">Máscara Full Size Negro</span>
-                                <span class="cantidad_producto tipografia_lato_regular">
-                                    x<span id="spnCantidadCuv2">2</span> unidades
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="info_importante_cdr tipografia_lato">
-                        <div class="titulo_info_cdr tipografia_lato_regular">
-                            TEN EN CUENTA
-                        </div>
-                        <div class="content_info_cdr tipografia_lato_regular">
-                            Es importante que le entregues al transportista el producto a cambiar en la entrega de tu siguiente pedido, en caso contrario, el cambio será anulado y se cargará nuevamente el monto a tu saldo.
-                        </div>
-                    </div>
-                </div>*@
+                </div>               
+            </div>          
         </div>
     </div>
 </div>
@@ -756,6 +703,19 @@
             <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div><br />
             {{/if_eq}}
             <b>{{item.Solicitud}}</b>
+            <div class="opcion_cdr_icono_wrapper">
+                {{#if_eq item.CodigoOperacion 'D'}}
+                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                {{else if_eq item.CodigoOperacion 'T'}}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                {{else if_eq item.CodigoOperacion 'C' }}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                {{else if_eq item.CodigoOperacion 'F' }}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                {{else if_eq item.CodigoOperacion 'G' }}
+                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                {{/if_eq}}
+            </div>
         </div>
         <div class="titulo_solicitud_cdr">
             {{#if_eq CodigoOperacion 'C'}}

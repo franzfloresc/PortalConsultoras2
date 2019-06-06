@@ -241,7 +241,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var lstCDRWeb = new List<ServicePedido.BECDRWeb>();
 
-                if (listaCDRWebCargaInicial.Any())
+                if (listaCDRWebCargaInicial != null)
                 {
                     foreach (var item in listaCDRWebCargaInicial)
                     {
@@ -1029,7 +1029,7 @@ namespace Portal.Consultoras.Web.Controllers
             SessionManager.SetCDRWebDetalle(null);
             var lista = _cdrProvider.CargarDetalle(model, userData.PaisID, userData.CodigoISO);
             int cantidadObservado = 0, cantidadAprobado = 0;
-            if (lista!= null)
+            if (lista != null)
             {
                 foreach (var item in lista)
                 {
@@ -1040,7 +1040,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
             }
-           
+
             return Json(new
             {
                 success = true,

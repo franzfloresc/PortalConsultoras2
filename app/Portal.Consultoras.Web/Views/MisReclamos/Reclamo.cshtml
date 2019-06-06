@@ -602,8 +602,23 @@
             <br />
             Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
         </div>
-        <div class="listado_solicitud_reclamo">
-            <b>{{item.Solicitud}}</b>
+        <div class="listado_solicitud_reclamo text-center">
+            <div class="listado_solicitud_reclamo_icono_solucion">
+                {{#if_eq item.CodigoOperacion 'D'}}
+                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'T'}}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'C' }}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'F' }}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'G' }}
+                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{/if_eq}}
+            </div>
+            <div class="text-center text-bold listado_solicitud_reclamo_descrip_solucion">
+                {{item.Solicitud}}
+            </div>
         </div>
         <div class="listado_solicitada_reclamo">
             {{#if_eq CodigoOperacion 'C'}}

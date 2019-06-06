@@ -145,6 +145,7 @@ $(document).ready(function () {
         if ($("#ddlCampania").val() != 0) {
             $(reclamo.form.resultadosBusquedaCuv).fadeIn(100);
             $(".lista_resultados_busqueda_por_cuv_wrapper").fadeIn(100);
+            $(".resultado_busqueda_por_cuv").fadeIn(100);
         }
     }).on("keyup", function () {
         if ($(this).val().length === 0) {
@@ -159,7 +160,7 @@ $(document).ready(function () {
             });
         }
     }).on("focusout", function () {
-        $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
+        $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);        
     });
 
     $("#IrSolicitudInicial").on("click", function () {
@@ -664,7 +665,7 @@ function ValidarPasoUno() {
     }
 
     var $lis = $("#ResultadosBusquedaCUV li");
-    if (!ValidarCUVYaIngresado($lis, $(reclamo.form.txtCuv).attr("data-codigo"))) {
+    if (!ValidarCUVYaIngresado($lis, $(reclamo.form.txtCuv).attr("data-codigo"),"data-value-cuv")) {
         $(reclamo.form.txtCuv).val("");
         $(reclamo.form.txtCuv).attr("data-codigo","");
         alert_msg("Por favor, ingrese un producto válido");
@@ -1624,7 +1625,7 @@ function BuscarInfoCUV(e) {
 
     var $elementsCUV = $("#contenedorCuvTrueque .item-producto-cambio");
     var $arrCuv = $elementsCUV.find("input[name=codigo]");
-    if (ValidarCUVYaIngresado($arrCuv, $this.val())) {
+    if (ValidarCUVYaIngresado($arrCuv, $this.val(),"data-codigo")) {
         $this.val("");
         alert_msg("El CUV se encuentra en la lista, puedes aumentar la cantidad.");
         return false;
@@ -1713,9 +1714,9 @@ function BuscarCUVCambiarServer(cuv, callbackWhenFinish) {
     });
 }
 
-function ValidarCUVYaIngresado(arrElements, cuv) {
+function ValidarCUVYaIngresado(arrElements, cuv,atributo) {
     var arrFilter = $.grep(arrElements, function (element, index) {
-        return $(element).attr("data-codigo") == cuv;
+        return $(element).attr(atributo) == cuv;
     });
     return arrFilter.length > 0;
 }
