@@ -341,9 +341,22 @@ $(document).ready(function () {
     });
 
     $("#divChatearConNosotros").click(function () {
-        if (typeof FB === 'undefined') return;
+        if ($('#hddHabilitarChatBot').val() === 'true') {
+            if (typeof FB === 'undefined') return;
 
-        FB.XFBML.parse();
+            FB.XFBML.parse();
+
+            return;
+        }
+
+        if ($('#hddHabilitarChatEmtelco').val() === 'false') {
+            $('#popupChatDisabled').show();
+            return;
+        }
+        $('#marca').css('display', 'block');
+        var connected = localStorage.getItem('connected');
+        var idBtn = connected ? '#btn_open' : '#btn_init';
+        $(idBtn).trigger("click");
     });
 
     $("body").keyup(function (evt) {
@@ -1038,6 +1051,7 @@ function RecuperarContrasenia() {
                 var telefonos;
                 var datos = response.data;
                 $("#hddHabilitarChatEmtelco").val(response.habilitarChatEmtelco);
+                $("#hddHabilitarChatBot").val(response.habilitarChatBot);
 
                 OcultarContenidoPopup();
                 var nroCelular = $.trim(datos.Celular);

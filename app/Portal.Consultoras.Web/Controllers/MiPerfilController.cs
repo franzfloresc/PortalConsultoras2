@@ -116,8 +116,13 @@ namespace Portal.Consultoras.Web.Controllers
                 p.Posicion.Trim().ToLower().Equals(Constantes.MenuPosicion.Body) && 
                 p.Codigo.Trim().ToLower().Equals(Constantes.MenuCodigo.MiPerfil.ToLower())
             ).ToList();
-            model.DireccionEntrega = await _miPerfilProvider.ObtenerDireccionPorConsultoraAsync(new DireccionEntregaModel { ConsultoraID = (int)userData.ConsultoraID , PaisID = userData.PaisID });
-            await BinderAsync(model.DireccionEntrega);
+
+            if (userData.TieneDireccionEntrega)
+            {
+                model.DireccionEntrega = await _miPerfilProvider.ObtenerDireccionPorConsultoraAsync(new DireccionEntregaModel { ConsultoraID = (int)userData.ConsultoraID , PaisID = userData.PaisID });
+                model.DireccionEntrega.DropDownUbigeo1 = await _miPerfilProvider.ObtenerUbigeoPrincipalAsync(userData.CodigoISO);
+            }
+
             model.PermisoMenu = new List<string>();
             foreach (var item in objMenu)
             {
@@ -133,12 +138,6 @@ namespace Portal.Consultoras.Web.Controllers
             model.CodigoConsultoraAsociada = userData.CodigoConsultora;
 
             return View(model);
-        }
-
-        private async Task BinderAsync(DireccionEntregaModel record)
-        {
-       
-            record.DropDownUbigeo1 = await _miPerfilProvider.ObtenerUbigeoPrincipalAsync(userData.CodigoISO);
         }
        
         [HttpGet]
