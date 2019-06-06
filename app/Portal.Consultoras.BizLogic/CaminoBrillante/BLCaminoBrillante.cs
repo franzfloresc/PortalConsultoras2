@@ -742,7 +742,14 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                         kit.DescripcionNivel = niveles.Where(e => e.CodigoNivel == _kitProvider.Nivel).Select(e => e.DescripcionNivel).SingleOrDefault();
                         kit.FotoProductoSmall = !string.IsNullOrEmpty(kit.FotoProductoSmall) ? ConfigCdn.GetUrlFileCdnMatriz(paisISO, kit.FotoProductoSmall) : string.Empty;
                         kit.FotoProductoMedium = !string.IsNullOrEmpty(kit.FotoProductoMedium) ? ConfigCdn.GetUrlFileCdnMatriz(paisISO, kit.FotoProductoMedium) : string.Empty;
-                        kit.Detalle = _kitProvider.Digitable == 1 ? GetDetalleKit(kits, kitsProvider.Where(e => e.Nivel == _kitProvider.Nivel).Select(e => e.Cuv).ToList()) ?? new List<BEKitCaminoBrillante>() : null;
+                        kit.Detalle = kitsProvider.Where(e => e.Nivel == _kitProvider.Nivel).Select(e => new BEKitComponenteCaminoBrillante()
+                        {
+                            Cuv = e.Cuv,
+                            Descripcion = e.Descripcion,
+                            DescripcionOferta = e.DescripcionOferta,
+                            Marca = e.Marca,
+                            Precio = e.Precio
+                        }).ToList();
                     }
                 });
 
@@ -777,11 +784,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             kitsEnPedido.AddRange(kitsHistoricos.Select(e => new BEKitsHistoricoConsultora() { CodigoKit = e.CodigoKit, CampaniaAtencion = e.CampaniaAtencion, CampaniaID = CampaniaId, FlagHistorico = true }));
 
             return kitsEnPedido;
-        }
-
-        private List<BEKitCaminoBrillante> GetDetalleKit(List<BEKitCaminoBrillante> kits, List<string> cuvs) {
-            if (cuvs == null) return null;
-            return kits.Where(e => cuvs.Contains(e.CUV) && e.FlagDigitable != 1).ToList();
         }
 
         #endregion
@@ -1287,7 +1289,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             };
         }
 
-        private BEOfertaCaminoBrillante ToBEOfertaCaminoBrillante(BEKitCaminoBrillante kit, bool loadDetale = true){
+        private BEOfertaCaminoBrillante ToBEOfertaCaminoBrillante(BEKitCaminoBrillante kit){
             return new BEOfertaCaminoBrillante()
             {
                 TipoOferta = Constantes.CaminoBrillante.TipoOferta.Kit,
@@ -1310,9 +1312,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 FlagSeleccionado = kit.FlagSeleccionado,
                 FlagDigitable = kit.FlagDigitable,
                 FlagHabilitado = kit.FlagHabilitado,
-                FlagHistorico = kit.FlagHistorico,
+                FlagHistorico = kit.FlagHistorico
                 //EsCatalogo = e.EsCatalogo
-                Detalle = (loadDetale && kit.Detalle != null) ? kit.Detalle.Select(e => ToBEOfertaCaminoBrillante(e, false)).ToList() : new List<BEOfertaCaminoBrillante>()
             };
         }
 
