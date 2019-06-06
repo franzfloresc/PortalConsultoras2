@@ -1,12 +1,9 @@
-﻿﻿@using Portal.Consultoras.Common
-
-<script id="tabs-ficha-enriquecida-template" type="text/x-handlebars-template">
-
+﻿<script id="tabs-ficha-enriquecida-template" type="text/x-handlebars-template">
     <div class="tabs">
         {{#each this.Secciones as |seccion|}}
         <input type="radio" name="tabs" id="tab{{@@index}}" {{#if @@first}} checked="checked" {{/if}}>
         <label for="tab{{@@index}}">{{seccion.Titulo}}</label>
-        {{#iff seccion.Tipo '==' '@Constantes.TipoSeccion.Texto' }}
+        {{#iff seccion.Tipo '==' '@Portal.Consultoras.Common.Constantes.TipoSeccion.Texto' }}
         <div class="tab">
             {{#each seccion.Detalles as |detalle|}}
             <h4>{{LowerCase detalle.Titulo}}</h4>
