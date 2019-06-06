@@ -742,7 +742,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                         kit.DescripcionNivel = niveles.Where(e => e.CodigoNivel == _kitProvider.Nivel).Select(e => e.DescripcionNivel).SingleOrDefault();
                         kit.FotoProductoSmall = !string.IsNullOrEmpty(kit.FotoProductoSmall) ? ConfigCdn.GetUrlFileCdnMatriz(paisISO, kit.FotoProductoSmall) : string.Empty;
                         kit.FotoProductoMedium = !string.IsNullOrEmpty(kit.FotoProductoMedium) ? ConfigCdn.GetUrlFileCdnMatriz(paisISO, kit.FotoProductoMedium) : string.Empty;
-                        kit.Detalle = _kitProvider.Digitable == 1 ? GetDetalleKit(kits, kitsProvider.Where(e => e.Nivel == _kitProvider.Nivel).Select(e => e.Cuv).ToList()) ?? new List<BEKitCaminoBrillante>() : new List<BEKitCaminoBrillante>();
+                        kit.Detalle = _kitProvider.Digitable == 1 ? GetDetalleKit(kits, kitsProvider.Where(e => e.Nivel == _kitProvider.Nivel).Select(e => e.Cuv).ToList()) ?? new List<BEKitCaminoBrillante>() : null;
                     }
                 });
 
@@ -781,7 +781,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         private List<BEKitCaminoBrillante> GetDetalleKit(List<BEKitCaminoBrillante> kits, List<string> cuvs) {
             if (cuvs == null) return null;
-            return kits.Where(e => cuvs.Contains(e.CUV)).ToList();
+            return kits.Where(e => cuvs.Contains(e.CUV) && e.FlagDigitable != 1).ToList();
         }
 
         #endregion
