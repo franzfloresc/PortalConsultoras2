@@ -21,7 +21,7 @@
                      data-tono-cuv="{{variedad.Cuv}}"
                      data-tono-nombre="{{variedad.NombreBulk}}"
                      data-tono-descripcion="{{variedad.NombreComercial}}">
-                    <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt=""></div>
+                    <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" onerror="this.onerror=null; this.src=urlSinImagenTiposyTonos" alt=""></div>
                     <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
                     <hr class="clear" />
                 </div>
@@ -46,7 +46,7 @@
                  data-tono-change="2"
                  data-tono-nombre="{{variedad.NombreBulk}}"
                  data-tono-descripcion="{{variedad.NombreComercial}}">
-                <img src="{{variedad.ImagenBulk}}" alt="">
+                 <img src="{{variedad.ImagenBulk}}" onerror="this.onerror=null; this.src=urlSinImagenTiposyTonos" alt="">
             </div>
             {{else}}
             <div id="fav_tono_{{variedad.Cuv}}"
@@ -55,7 +55,7 @@
                  data-tono-change="2"
                  data-tono-nombre="{{variedad.NombreBulk}}"
                  data-tono-descripcion="{{variedad.NombreComercial}}">
-                <img src="{{variedad.ImagenBulk}}" alt="">
+                 <img src="{{variedad.ImagenBulk}}" onerror="this.onerror=null; this.src=urlSinImagenTiposyTonos" alt="">
             </div>
             {{/if}}
             {{/each}}
@@ -143,7 +143,7 @@
                              data-tono-cuv="{{variedad.Cuv}}"
                              data-tono-nombre="{{variedad.NombreBulk}}"
                              data-tono-descripcion="{{variedad.NombreComercial}}">
-                            <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" alt="PRODUCTO"></div>
+                             <div class="tono_seleccionado"><img src="{{variedad.ImagenBulk}}" onerror="this.onerror=null; this.src=urlSinImagenTiposyTonos" alt="PRODUCTO"></div>
                             <div class="texto_tono_seleccionado">{{variedad.NombreBulk}}</div>
                             <hr class="clear">
                         </div>
