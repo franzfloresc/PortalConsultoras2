@@ -199,7 +199,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.GananciaRevista = pedidoWeb.GananciaRevista;
                     model.GananciaWeb = pedidoWeb.GananciaWeb;
                     model.GananciaOtros = pedidoWeb.GananciaOtros;
-                    model.isShowGananciaConsultora = IsCalculoGananaciaConsultora(pedidoWeb);
+                    model.IsShowGananciaConsultora = IsCalculoGananaciaConsultora(pedidoWeb);
 
                     SessionManager.SetMontosProl(
                         new List<ObjMontosProl>
