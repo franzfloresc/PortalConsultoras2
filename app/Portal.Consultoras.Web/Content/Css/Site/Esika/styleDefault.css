@@ -28,6 +28,17 @@
 
 /* COMPONENTES UI */
 
+/* ENLACES */
+
+.enlace__sb,
+.enlace__sb:hover,
+.enlace__sb:active {
+    color: #000;
+    text-decoration: underline;
+}
+
+/* FIN - ENLACES */
+
 /* FORMS */
 
 .form__group__fields {
@@ -93,12 +104,14 @@
 
 /* INPUT TEXT */
 
+input[type="text"].text__field__sb,
 .text__field__sb {
     border-top: 0;
     border-left: 0;
     border-right: 0;
     border-bottom: 1px solid #b4b4b4;
     height: 40px;
+    border-radius:0;
     background-color: transparent;
     position: relative;
     z-index: 2;
@@ -112,7 +125,9 @@
     transition: all 0.3s ease;
 }
 
+    input[type="text"].text__field__sb:focus,
     .text__field__sb:focus,
+    input[type="text"].text__field__sb--withContent,
     .text__field__sb--withContent {
         border-bottom: 1px solid #000;
     }
@@ -369,6 +384,10 @@
     border-radius: 4px;
 }
 
+.mt-40 {
+    margin-top: 40px;
+}
+
 /* FIN - HELPERS CSS */
 
 /* ESTILOS GENERALES UI */
@@ -393,6 +412,47 @@
 
 .bg__popups__default {
     background-color: rgba(0,0,0,.8);
+}
+
+.btn_primario,
+.btn_secundario {
+    font-family: 'Lato', sans-serif;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+
+.btn_primario {
+    color: #FFF;
+    background-color: #b9007e;
+    border: 1px solid #b9007e;
+}
+
+.btn_secundario {
+    color: #000;
+    border: 1px solid #000;
+    background-color: #FFF;
+}
+
+.icono_success {
+    margin-bottom: 16px;
+}
+
+    .icono_success img {
+        width: 100%;
+        height: auto;
+        margin-left: 9px;
+        border: 0;
+    }
+
+.mensaje_success {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #b9007e;
+    line-height: 24px;
+    letter-spacing: 0.8px;
 }
 
 /* FIN - ESTILOS GENERALES UI */
@@ -603,7 +663,3 @@
 }
 
 /* FIN - POPUP GENERAL (ACCIONES ACEPTAR Y CANCELAR) */
-
-.bg__popups__default{
-    background-color:rgba(0,0,0,.8);
-}

@@ -26,95 +26,18 @@
 
 /* FIN - ESTILOS MARCA PAÍS */
 
-/* HELPERS CSS */
-
-.d-block {
-    display: block;
-}
-
-.d-inline-block {
-    display: inline-block;
-}
-
-.d-flex {
-    display: flex;
-}
-
-.center-block {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.text-left {
-    text-align: left;
-}
-
-.text-right {
-    text-align: right;
-}
-
-.text-center {
-    text-align: center;
-}
-
-.text-uppercase {
-    text-transform: uppercase;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-}
-
-}
-
-.text-thin {
-    font-weight: 300;
-}
-
-.text-regular {
-    font-weight: 400;
-
-.btn_primario,
-.btn_secundario {
-    height: 40px;
-    line-height: 40px;
-    font-size: 14px;
-    letter-spacing: 0.5px;
-}
-
-.btn_primario {
-    color: #FFF;
-    background-color: #b9007e;
-    border: 1px solid #b9007e;
-}
-
-.btn_secundario {
-    color: #000;
-    border: 1px solid #000;
-    background-color: #FFF;
-}
-
-.border-radius-4 {
-    border-radius: 4px;
-}
-
-}
-
-.text-bold {
-    font-weight: 700;
-}
-
-.text-black {
-    font-weight: 900;
-}
-
-.border-radius-4 {
-    border-radius: 4px;
-}
-
-/* FIN - HELPERS CSS */
-
 /* COMPONENTES UI */
+
+/* ENLACES */
+
+.enlace__sb,
+.enlace__sb:hover,
+.enlace__sb:active {
+    color: #000;
+    text-decoration: underline;
+}
+
+/* FIN - ENLACES */
 
 /* FORMS */
 
@@ -181,11 +104,13 @@
 
 /* INPUT TEXT */
 
+input[type="text"].text__field__sb,
 .text__field__sb {
     border-top: 0;
     border-left: 0;
     border-right: 0;
     border-bottom: 1px solid #b4b4b4;
+    border-radius: 0;
     height: 40px;
     background-color: transparent;
     position: relative;
@@ -200,19 +125,73 @@
     transition: all 0.3s ease;
 }
 
+    input[type="text"].text__field__sb:focus,
     .text__field__sb:focus,
+    input[type="text"].text__field__sb--withContent,
     .text__field__sb--withContent {
         border-bottom: 1px solid #000;
     }
 
 /* FIN - INPUT TEXT */
 
+/* CHECKBOXES */
+
+.field__checkbox__sb:checked + .label__checkbox__sb,
+.field__checkbox__sb:checked + .label__checkbox__sb--active {
+    background-image: url(/Content/Images/icono_check_mi_perfil.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 13px;
+}
+
+.field__checkbox__sb:checked + .label__checkbox__sb {
+    background-color: #000;
+    border: 1px solid #000;
+}
+
+.field__checkbox__sb:checked + .label__checkbox__sb--multimarca {
+    background-color: #b9007e;
+    border: 1px solid #b9007e;
+}
+
+/* FIN - CHECKBOXES */
+
+/* CHECKBOXES TIPO TAGS */
+
+.tag__checkbox__sb {
+    display: flex !important;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px !important;
+    padding-top: 0 !important;
+    padding-left: 8px;
+    padding-right: 8px;
+    min-height: 48px;
+}
+
+.field__checkbox__sb + .tag__checkbox__sb {
+    color: #454549;
+    border: 1px solid #454549;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.field__checkbox__sb:checked + .tag__checkbox__sb {
+    color: #d21194;
+    border: 1px solid #d21194;
+}
+
+/* FIN - CHECKBOXES TIPO TAGS */
+
 /* VALIDATION MESSAGE */
 
 .validation__message {
     color: #e81c36;
     font-size: 11px;
-    margin-top:4px;
+    margin-top: 4px;
 }
 
 /* FIN - VALIDATION MESSAGE */
@@ -221,7 +200,7 @@
 
 .switch__control__descrip {
     color: #000;
-    font-size:14px;
+    font-size: 14px;
 }
 
 .switch__control__wrapper {
@@ -229,54 +208,54 @@
     position: relative;
     width: 48px;
     height: 28px;
-    margin-bottom:0;
+    margin-bottom: 0;
 }
 
-    input[type="checkbox"].switch__control,
-    .switch__control:checked + .switch__slider:after {
-        display: none !important;
+input[type="checkbox"].switch__control,
+.switch__control:checked + .switch__slider:after {
+    display: none !important;
 }
 
-    .switch__slider {
+.switch__slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    padding: 8px;
+    color: #fff;
+    border-radius: 16px;
+}
+
+    .switch__slider:before {
         position: absolute;
-        cursor: pointer;
+        content: "";
+        height: 22px;
+        width: 22px;
+        left: 4px;
+        z-index: 5;
+        margin: auto 0;
         top: 0;
-        left: 0;
-        right: 0;
         bottom: 0;
-        background-color: #ccc;
+        background-color: #FFF;
         -moz-transition: all 0.3s ease;
         -o-transition: all 0.3s ease;
         -webkit-transition: all 0.3s ease;
         transition: all 0.3s ease;
-        padding: 8px;
-        color: #fff;
-        border-radius: 16px;
+        border-radius: 14px;
     }
 
-        .switch__slider:before {
-            position: absolute;
-            content: "";
-            height: 22px;
-            width: 22px;
-            left: 4px;
-            z-index: 5;
-            margin: auto 0;
-            top: 0;
-            bottom: 0;
-            background-color: #FFF;
-            -webkit-transition: .4s;
-            transition: .4s;
-            border-radius: 14px;
-        }
+.switch__control:checked + .switch__slider {
+    background-color: #569c04;
+}
 
-        .switch__control:checked + .switch__slider {
-            background-color: #569c04;
-        }
-
-            .switch__control:checked + .switch__slider:before {
-                left: 22px;
-            }
+    .switch__control:checked + .switch__slider:before {
+        left: 22px;
+    }
 
 /* FIN - SWITCH */
 
@@ -290,37 +269,37 @@
     position: relative;
 }
 
-.btn__sb__primary,
-.btn__sb__primary--multimarca {
-    color: #FFF;
-}
+    .btn__sb__primary,
+    .btn__sb__primary--multimarca {
+        color: #FFF;
+    }
 
-.btn__sb__primary,
-.btn__sb__secondary {
-    border: 1px solid #000;
-}
+    .btn__sb__primary,
+    .btn__sb__secondary {
+        border: 1px solid #000;
+    }
 
-.btn__sb__primary {
-    background-color: #000;
-}
+    .btn__sb__primary {
+        background-color: #000;
+    }
 
-.btn__sb__primary--multimarca {
-    background-color: #B9007E;
-    border: 1px solid #B9007E;
-}
+    .btn__sb__primary--multimarca {
+        background-color: #B9007E;
+        border: 1px solid #B9007E;
+    }
 
-.btn__sb__secondary {
-    background-color: #FFF;
-    color: #000;
-}
+    .btn__sb__secondary {
+        background-color: #FFF;
+        color: #000;
+    }
 
-.btn__sb--disabled {
-    border: 1px solid #D1D1D4;
-    background-color: #D1D1D4;
-    pointer-events: none;
-    cursor: not-allowed;
-    color: #909094 !important;
-}
+    .btn__sb--disabled {
+        border: 1px solid #D1D1D4;
+        background-color: #D1D1D4;
+        pointer-events: none;
+        cursor: not-allowed;
+        color: #909094 !important;
+    }
 
 @media screen and (max-width:991px) {
 
@@ -400,6 +379,78 @@
 
 /* FIN - COMPONENTES UI */
 
+/* HELPERS CSS */
+
+.d-none {
+    display: none;
+}
+
+.d-block {
+    display: block;
+}
+
+.d-inline-block {
+    display: inline-block;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.center-block {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.text-thin {
+    font-weight: 300;
+}
+
+.text-regular {
+    font-weight: 400;
+}
+
+.text-bold {
+    font-weight: bold !important;
+}
+
+.text-black {
+    font-weight: 900;
+}
+
+.border-radius-4 {
+    border-radius: 4px;
+}
+
+.mt-40 {
+    margin-top: 40px;
+}
+
+@media screen and (max-width:991px) and (orientation:landscape) {
+
+    .mt-53 {
+        margin-top: 53px !important;
+    }
+}
+
+/* FIN - HELPERS CSS */
+
 /* ESTILOS GENERALES UI */
 
 .campo_deshabilitado {
@@ -422,6 +473,47 @@
 
 .bg__popups__default {
     background-color: rgba(0,0,0,.8);
+}
+
+.btn_primario,
+.btn_secundario {
+    font-family: 'Lato', sans-serif;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+
+.btn_primario {
+    color: #FFF;
+    background-color: #b9007e;
+    border: 1px solid #b9007e;
+}
+
+.btn_secundario {
+    color: #000;
+    border: 1px solid #000;
+    background-color: #FFF;
+}
+
+.icono_success {
+    margin-bottom: 16px;
+}
+
+    .icono_success img {
+        width: 100%;
+        height: auto;
+        margin-left: 9px;
+        border: 0;
+    }
+
+.mensaje_success {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #b9007e;
+    line-height: 24px;
+    letter-spacing: 0.8px;
 }
 
 /* FIN - ESTILOS GENERALES UI */
@@ -631,6 +723,3 @@
 }
 
 /* FIN - POPUP GENERAL (ACCIONES ACEPTAR Y CANCELAR) */
-.bg__popups__default {
-    background-color: rgba(0,0,0,.8);
-}
