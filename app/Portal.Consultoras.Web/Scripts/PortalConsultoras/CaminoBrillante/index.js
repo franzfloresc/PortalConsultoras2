@@ -213,12 +213,25 @@ function ArmarMisGanancias(data) {
         },
         options: {
             tooltips: {
-                enabled: false
+                //enabled: false
+                callbacks: {
+                    label: function (tooltipItem) {
+                        return + Number(tooltipItem.yLabel);
+                    }
+                }
             },
             scales: {
            
                 yAxes: [{
+                    //angleLines: {
+                    //    display: false
+                    //},
+                    //scaleLabel: {
+                    //    display: true
+                    //},
                     ticks: {
+                        display: false,
+                        padding: 0,
                         fontColor: "#000",
                         fontSize: 14
                     },
@@ -239,7 +252,7 @@ function ArmarMisGanancias(data) {
                         color: "#f7f7f7",
                         lineWidth: 1,
                         zeroLineColor: "#000",
-                        zeroLineWidth: 0
+                        zeroLineWidth: 1
                     }
                 }]
             },
