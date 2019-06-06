@@ -5,9 +5,9 @@ using Portal.Consultoras.Common.Serializer;
 using Portal.Consultoras.Data.CaminoBrillante;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.CaminoBrillante;
+using Portal.Consultoras.Entities.OrdenYFiltros;
 using Portal.Consultoras.Entities.Pedido;
 using System;
-using Portal.Consultoras.Entities.OrdenYFiltros;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
@@ -185,12 +185,14 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             }
 
             /* Calcular cuanto Falta */
-            niveles.Where(e => e.CodigoNivel == nivel.ToString() && e.CodigoNivel != "6").Update(e => {                
+            niveles.Where(e => e.CodigoNivel == nivel.ToString() && e.CodigoNivel != "6").Update(e =>
+            {
                 e.MontoFaltante = decimal.TryParse(e.MontoMinimo, out montoMinimo) ? (montoMinimo - montoPedido) : e.MontoFaltante;
             });
 
             /* Puntaje Acumulado en Nivel 6 */
-            niveles.Where(e => e.CodigoNivel == "6").Update(e => {
+            niveles.Where(e => e.CodigoNivel == "6").Update(e =>
+            {
                 e.PuntajeAcumulado = nivelActualConsutora.PuntajeAcumulado.HasValue ? nivelActualConsutora.PuntajeAcumulado : e.PuntajeAcumulado;
             });
 
@@ -885,7 +887,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             //Validación por Nivel
             var buildMessage = ValidarBusquedaCaminoBrillante_ValidacionNivel(entidad);
-            
+
             if (producto.Nivel.HasValue ? entidad.NivelCaminoBrillante < producto.Nivel.Value : false)
             {
                 return buildMessage(Enumeradores.ValidacionCaminoBrillante.CuvBloqueadoNivel, producto.Nivel.Value);
@@ -900,7 +902,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return BuildBEValidacionCaminoBrillante(Enumeradores.ValidacionCaminoBrillante.CuvPertenecePrograma, Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_IR_CAMINO_BRILLANTE);
         }
 
-        private BEValidacionCaminoBrillante ValidarBusquedaCaminoBrillante_Kits(BEUsuario entidad, BEProductoCaminoBrillante producto, Func<Enumeradores.ValidacionCaminoBrillante, int?, BEValidacionCaminoBrillante> buildMessage) {
+        private BEValidacionCaminoBrillante ValidarBusquedaCaminoBrillante_Kits(BEUsuario entidad, BEProductoCaminoBrillante producto, Func<Enumeradores.ValidacionCaminoBrillante, int?, BEValidacionCaminoBrillante> buildMessage)
+        {
             var kits = GetKits(entidad);
             if (kits.Any(e => e.FlagHistorico || e.FlagSeleccionado))
                 return BuildBEValidacionCaminoBrillante(Enumeradores.ValidacionCaminoBrillante.CuvYaAgregadoEnPeriodo, Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_USADO_CAMINO_BRILLANTE);
@@ -915,7 +918,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return null;
         }
 
-        private Func<Enumeradores.ValidacionCaminoBrillante, int?, BEValidacionCaminoBrillante> ValidarBusquedaCaminoBrillante_ValidacionNivel(BEUsuario entidad) {
+        private Func<Enumeradores.ValidacionCaminoBrillante, int?, BEValidacionCaminoBrillante> ValidarBusquedaCaminoBrillante_ValidacionNivel(BEUsuario entidad)
+        {
             Func<Enumeradores.ValidacionCaminoBrillante, int?, BEValidacionCaminoBrillante> buildMessage = (validacion, nivel) =>
             {
                 if (nivel.HasValue)
@@ -1164,10 +1168,12 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             var tablaLogicaDatos = _tablaLogicaDatosBusinessLogic.GetList(paisID, ConsTablaLogica.CaminoBrillante.CaminoBrillanteFiltro) ?? new List<BETablaLogicaDatos>();
             if (tablaLogicaDatos.Count == 0) return null;
 
-            if (!isApp) {
+            if (!isApp)
+            {
                 tablaLogicaDatos = tablaLogicaDatos.OrderBy(e => e.Descripcion).ToList();
                 var titulo = tablaLogicaDatos.FirstOrDefault(e => e.Codigo == "00");
-                if (titulo != null) {
+                if (titulo != null)
+                {
                     tablaLogicaDatos.Remove(titulo);
                     tablaLogicaDatos.Insert(0, titulo);
                 }
