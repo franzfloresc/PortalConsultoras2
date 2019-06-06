@@ -327,26 +327,27 @@ var ComponentesPresenter = function (config) {
                 selectedComponent = componente;
                 componente.resumenAplicados = componente.HermanosSeleccionados;
                 componente.resumenAplicadosVisualizar = _getResumenAplicadosVisualizar(componente.resumenAplicados);
-                //
+
                 componente.HermanosSeleccionados = [];
                 componente.cantidadSeleccionados = 0;
                 componente.cantidadFaltantes = componente.FactorCuadre;
                 componente.Hermanos = _updateTypeOrToneSelectedQuantity(componente.Hermanos, 0);
-                //
+
                 result = true;
                 result = result && _config.componentesView.renderResumen(componente);
-                //
+
                 if (ConstantesModule.CodigoVariedad.IndividualVariable === model.CodigoVariante) {
                     result = result && _config.componentesView.showBorderItemSelected(componente);
                 }
+
                 result = result && _config.componentesView.hideTypeAndTonesModal();
-                //
+
                 return false;
             }
         });
         
         _estrategiaModel(model);
-        //
+        _config.componentesView.verifyButtonAceptar(model.CodigoVariante);
 
         tipo = tipo || '';
         _config.analyticsPresenter.applySelectedAnalytics(selectedComponent, tipo);
@@ -400,6 +401,8 @@ var ComponentesPresenter = function (config) {
         _estrategiaModel(_estrategiaAnteriorModel());
     };
 
+    var _cleanContainer = _config.componentesView.cleanContainer;
+
     return {
         estrategiaModel: _estrategiaModel,
         onEstrategiaModelLoaded: _onEstrategiaModelLoaded,
@@ -409,6 +412,7 @@ var ComponentesPresenter = function (config) {
         removeTypeOrTone: _removeTypeOrTone,
         applySelectedTypesOrTones: _applySelectedTypesOrTones,
         changeAppliedTypesOrTones: _changeAppliedTypesOrTones,
-        removeTypeOrToneAssigned: _removeTypeOrToneAssigned
+        removeTypeOrToneAssigned: _removeTypeOrToneAssigned,
+        cleanContainer: _cleanContainer
     };
 };
