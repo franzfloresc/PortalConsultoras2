@@ -103,14 +103,13 @@ var ComponentesView = function () {
             bloquear:{
                 all: "[block-group]",
                 claseHabilitado : "active",
-                claseInhabilitado : "btn_deshabilitado",
+                claseInhabilitado : "btn_deshabilitado"
             },
             aplicarSeleccion : {
                 contenedor :"#contenedor-aplicar-seleccion",
                 id : "#btn-aplicar-seleccion",
                 claseHabilitado : "active",
-                claseInhabilitado : "btn_deshabilitado",
-
+                claseInhabilitado : "btn_deshabilitado"
             }
         }
     };
@@ -337,7 +336,7 @@ var ComponentesView = function () {
 
         $(id)
             .parents(_elements.componente.tono.opcionesSeleccionadas)
-            .data(_elements.componente.tono.dataDigitable, componente.FactorCuadre);
+            .data(_elements.componente.tono.opcionSeleccionada, componente.FactorCuadre);
             //.parents("[data-opciones-seleccionadas]")
             //.attr("data-opciones-seleccionadas", _componente.FactorCuadre);
 
@@ -363,8 +362,22 @@ var ComponentesView = function () {
         $(_elements.tiposTonosModal.tiposTonosSeleccionados.contenedor).hide();
     };
 
-    var _clearContainer = function(){
+    var _cleanContainer = function(){
         $(_elements.componente.id).empty();
+    };
+
+    var _verifyButtonAceptar = function(codigoVariante){
+        if (codigoVariante.in(ConstantesModule.CodigoVariedad.CompuestaVariable, ConstantesModule.CodigoVariedad.IndividualVariable)) {
+            var activa = true;
+            
+            $(_elements.componente.tono.opcionesSeleccionadas).each(function () {
+                if (parseInt($(this).data(_elements.componente.tono.opcionSeleccionada)) === 0 && parseInt($(this).data(_elements.componente.tono.dataDigitable)) === 1) 
+                    activa = false;
+            });
+
+            if (activa)
+                $(_elements.estrategia.btnAgregar.id).removeClass(_elements.tiposTonosModal.bloquear.claseInhabilitado);
+        }
     };
 
     return {
@@ -386,6 +399,7 @@ var ComponentesView = function () {
         renderResumen: _renderResumen,
         showBorderItemSelected: _showBorderItemSelected,
         cleanTiposTonosModal: _cleanTiposTonosModal,
-        clearContainer: _clearContainer
+        cleanContainer: _cleanContainer,
+        verifyButtonAceptar: _verifyButtonAceptar
     };
 };

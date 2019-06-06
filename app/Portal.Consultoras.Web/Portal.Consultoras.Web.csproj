@@ -1537,6 +1537,7 @@
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas.gif" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas_2.gif" />
+    <Content Include="Content\Css\Site\Pedido\GananciaEstimada.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-informacion-regalos.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\general-popups.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-cierre-sesion.css" />
@@ -4392,6 +4393,7 @@
     <Content Include="Scripts\PortalConsultoras\Shared\MainLayoutResponsive.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\MenuPortal.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\MenuContenedor.js" />
+    <Content Include="Scripts\PortalConsultoras\Shared\TogglePanel.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\TrackingJetlore.js" />
     <Content Include="Scripts\PortalConsultoras\ShowRoom\BannerInferior.js" />
     <Content Include="Scripts\PortalConsultoras\ShowRoom\Intriga.js" />

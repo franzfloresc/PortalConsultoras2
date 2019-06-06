@@ -69,8 +69,11 @@ var EstrategiaPresenter = function (config) {
         });
     };
 
+    var _cleanContainer = _config.estrategiaView.cleanContainer;
+
     return {
         onEstrategiaModelLoaded: _onEstrategiaModelLoaded,
-        onEstrategiaModelClick: _onEstrategiaModelClick
+        onEstrategiaModelClick: _onEstrategiaModelClick,
+        cleanContainer: _cleanContainer
     };
 };

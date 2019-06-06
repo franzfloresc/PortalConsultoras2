@@ -9,7 +9,7 @@ Alter procedure UpdateMontosPedidoWeb_SB2
  @PedidoSapId bigint = 0,
  @GananciaRevista money = null,
  @GananciaWeb money = null,
- @GananciaOtros money = null,
+ @GananciaOtros money = null	
 as  
 begin  
  update PedidoWeb   
@@ -20,8 +20,8 @@ begin
   MontoEscala = @MontoEscala,  
   VersionProl = iif(@VersionProl = 0, VersionProl, @VersionProl),  
   PedidoSapId = iif(@PedidoSapId = 0, PedidoSapId, @PedidoSapId),
-  GananciaRevista = GananciaRevista,
-  GananciaWeb = GananciaWeb,
-  GananciaOtros = GananciaOtros
+  GananciaRevista = @GananciaRevista,
+  GananciaWeb = @GananciaWeb,
+  GananciaOtros = @GananciaOtros
  where CampaniaID = @CampaniaID and ConsultoraID = @ConsultoraID;  
 end  

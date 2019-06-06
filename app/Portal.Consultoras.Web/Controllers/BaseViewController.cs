@@ -270,7 +270,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 bool tieneRevistaDigital = revistaDigital.TieneRevistaDigital();
                 bool productoPerteneceACampaniaActual = userData.CampaniaID == campania;
-                var area = IsMobile() ? "mobile" : string.Empty;
+                var area = Util.EsDispositivoMovil() ? "mobile" : string.Empty;
 
                 breadCrumbs.Inicio.Texto = MobileAppConfiguracion.EsAppMobile ? null : "Inicio";
                 breadCrumbs.Ofertas.Texto = tieneRevistaDigital && revistaDigital.EsSuscrita ? "Gana +" : "Ofertas Digitales";
@@ -698,7 +698,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (!_ofertaPersonalizadaProvider.TienePermisoPalanca(palanca))
                 return null;
 
-            var esMobile = IsMobile();
+            var esMobile = Util.EsDispositivoMovil();
             DetalleEstrategiaFichaModel modelo = GetEstrategiaInicial(palanca, campaniaId, cuv);
 
             if (modelo == null)

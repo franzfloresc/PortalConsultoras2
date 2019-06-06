@@ -1,4 +1,5 @@
-﻿/// <reference path="../Componentes/ComponentesView.js" />
+﻿/// <reference path="componentesanalyticspresenter.js" />
+/// <reference path="../Componentes/ComponentesView.js" />
 
 var ComponentesPresenter = function (config) {
     if (typeof config === "undefined" || config == null) throw "config is null or undefined";
@@ -288,7 +289,7 @@ var ComponentesPresenter = function (config) {
                     componenteAplicado.Cuv == opcionAplicada.Cuv) {
 
                     estaEnResumen = true;
-                    opcionAplicada.cantidadAplicada++;
+                    componenteAplicado.cantidadAplicada++;
                     //
                     return false;
                 }
@@ -316,7 +317,7 @@ var ComponentesPresenter = function (config) {
 
     var _applySelectedTypesOrTones = function (grupo, tipo) {
         if (typeof grupo === "undefined" || grupo === null) throw "grupo is null or undefined";
-
+        
         var result = false;
         var model = _estrategiaModel();
 
@@ -327,26 +328,27 @@ var ComponentesPresenter = function (config) {
                 selectedComponent = componente;
                 componente.resumenAplicados = componente.HermanosSeleccionados;
                 componente.resumenAplicadosVisualizar = _getResumenAplicadosVisualizar(componente.resumenAplicados);
-                //
+
                 componente.HermanosSeleccionados = [];
                 componente.cantidadSeleccionados = 0;
                 componente.cantidadFaltantes = componente.FactorCuadre;
                 componente.Hermanos = _updateTypeOrToneSelectedQuantity(componente.Hermanos, 0);
-                //
+
                 result = true;
                 result = result && _config.componentesView.renderResumen(componente);
-                //
+
                 if (ConstantesModule.CodigoVariedad.IndividualVariable === model.CodigoVariante) {
                     result = result && _config.componentesView.showBorderItemSelected(componente);
                 }
+
                 result = result && _config.componentesView.hideTypeAndTonesModal();
-                //
+
                 return false;
             }
         });
         
         _estrategiaModel(model);
-        //
+        _config.componentesView.verifyButtonAceptar(model.CodigoVariante);
 
         tipo = tipo || '';
         _config.analyticsPresenter.applySelectedAnalytics(selectedComponent, tipo);
@@ -369,7 +371,9 @@ var ComponentesPresenter = function (config) {
                 selectedComponent = componente;
                 result = true;
 
-                result = result && _config.componentesView.showTypesAndTonesModal();
+                result = result && 
+                    _config.componentesView.showTypesAndTonesModal() &&
+                    _config.componentesView.showComponentTypesAndTones(selectedComponent);
 
                 $.each(componente.resumenAplicados, function (idxOpcion, opcion) {
                     _addTypeOrTone(opcion.Grupo, opcion.Cuv);
@@ -400,6 +404,8 @@ var ComponentesPresenter = function (config) {
         _estrategiaModel(_estrategiaAnteriorModel());
     };
 
+    var _cleanContainer = _config.componentesView.cleanContainer;
+
     return {
         estrategiaModel: _estrategiaModel,
         onEstrategiaModelLoaded: _onEstrategiaModelLoaded,
@@ -409,6 +415,7 @@ var ComponentesPresenter = function (config) {
         removeTypeOrTone: _removeTypeOrTone,
         applySelectedTypesOrTones: _applySelectedTypesOrTones,
         changeAppliedTypesOrTones: _changeAppliedTypesOrTones,
-        removeTypeOrToneAssigned: _removeTypeOrToneAssigned
+        removeTypeOrToneAssigned: _removeTypeOrToneAssigned,
+        cleanContainer: _cleanContainer
     };
 };

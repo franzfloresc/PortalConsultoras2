@@ -1,6 +1,7 @@
 ﻿var FichaEnriquecidaView = function () {
 
     var _elements = {
+        seccionFichaEnriquecida: { id: "#divFichaEnriquecida" },
         tabsComponente: {
             templateId: "#tabs-ficha-enriquecida-template",
             id: "#contenedor-tabs-ficha-enriquecida",
@@ -18,11 +19,12 @@
 
     var _util = {
         setCarrusel: function (id) {
+            $(id).slick('unslick');
             $(id).slick({
                 infinite: false,
                 speed: 300,
                 centerMode: false,
-                variableWidth: true,
+                variableWidth: false,
                 slidesToShow: 3,
                 slidesToScroll: 1,
                 prevArrow:
@@ -35,7 +37,7 @@
                     "</a>",
                 responsive: [
                     {
-                        breakpoint: 768, settings: { slidesToShow: 1, slidesToScroll: 1, prevArrow: null, nextArrow: null }
+                        breakpoint: 768, settings: { slidesToShow: 1, slidesToScroll: 1, dots: true, variableWidth: false, }
                     }
                 ]
             });
@@ -58,18 +60,19 @@
         }
     }
 
-    var _renderFichaEnriquecida = function (componente, popup) {
+    var _renderFichaEnriquecida = function (componente, popup, seccion) {
         var contenedor = popup ? _elements.tabsComponente.contenedorPopup : _elements.tabsComponente.id;
         SetHandlebars(_elements.tabsComponente.templateId, componente, contenedor);
         _util.setCarrusel(_elements.carruselVideo.id);
         _util.setYoutubeId();
         _util.setYoutubeApi();
+        if (seccion) $(_elements.seccionFichaEnriquecida.id).show();
         return true;
     };
 
     var _showPopup = function (data) {
         SetHandlebars(_elements.popup.templateId, data, _elements.popup.contenedor);
-        _renderFichaEnriquecida(data, true);
+        _renderFichaEnriquecida(data, true, false);
         $("body").css("overflow", "hidden");
         $(_elements.popup.id).show();
         return true;
@@ -81,9 +84,19 @@
         return true;
     };
 
+    var _reloadCarruselVideos = function () {
+        if ($(_elements.carruselVideo.id).is(':visible')) {
+            $(_elements.carruselVideo.id).slick('setPosition', 0);
+        } else {
+            setTimeout(_reloadCarruselVideos, 50);
+        }
+        return true;
+    }
+
     return {
         renderFichaEnriquecida: _renderFichaEnriquecida,
         showPopup: _showPopup,
-        hidePopup: _hidePopup
+        hidePopup: _hidePopup,
+        reloadCarouselVideos: _reloadCarruselVideos
     };
 }
