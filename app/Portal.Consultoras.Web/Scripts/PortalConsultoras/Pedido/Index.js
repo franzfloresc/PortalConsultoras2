@@ -63,7 +63,7 @@ $(document).ready(function () {
         cerrar_popup_tutorial();
     });
 
- 
+
 
     $("body").click(function (e) {
         if (!$(e.target).closest(".ui-dialog").length) {
@@ -221,7 +221,7 @@ $(document).ready(function () {
                 .appendTo(ul);
     };
 
-    $("#txtCUV").on('input', function () {        
+    $("#txtCUV").on('input', function () {
         if (isNaN($("#txtCUV").val()) == true) {
             $("#txtCUV").val("");
             //document.getElementById('divObservaciones').style.display = 'block';
@@ -267,6 +267,7 @@ $(document).ready(function () {
         }
     });
     $("#btnValidarPROL").on("click", function (e) {
+
         if (gTipoUsuario == 2) { //Postulante
             var mesg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
             $("#dialog_MensajePostulante #tituloContenido").text("IMPORTANTE");
@@ -408,7 +409,7 @@ $(document).ready(function () {
             AbrirMensaje("Ingrese una cantidad mayor que cero.");
             return false;
         }
-        
+
         var cuv = $("#txtCUV").val();
         var esKit = $("#divListadoPedido").find("input[data-kit='True']") || $("#divListadoPedido").find("input[data-kit='true']") || [];
         if (esKit.length > 0) {
@@ -424,7 +425,7 @@ $(document).ready(function () {
             AbrirMensaje(mensajeNoAgregarLiquidacion);
             return false;
         }
-        
+
         var flagNueva = $.trim($("#hdFlagNueva").val());
         if (flagNueva == "0" || flagNueva == "") {
             var form = FuncionesGenerales.GetDataForm(this);
@@ -476,9 +477,9 @@ $(document).ready(function () {
     CrearDialogs();
     MostrarBarra();
     //INI HD-4200
-    ValidarSuscripcionSE(function () { CargarDetallePedido();},0);
+    ValidarSuscripcionSE(function () { CargarDetallePedido(); }, 0);
     //FIN HD-4200
-    
+
     CargarCarouselEstrategias();
     CargarAutocomplete();
     CargarDialogMesajePostulantePedido();
@@ -488,23 +489,21 @@ $(document).ready(function () {
 
     var myvar = setInterval(myTimer, 1000);
     var cont = 0;
-    function myTimer()
-    {
+    function myTimer() {
         if (cont <= 5) {
             cont++;
-            if (document.getElementById('divListaEstrategias').style.display == 'none')
-            {
+            if (document.getElementById('divListaEstrategias').style.display == 'none') {
                 MostrarBarra();
                 clearInterval(myvar);
             }
-             
-        } 
+
+        }
         else
             clearInterval(myvar);
-                 
+
     }
- 
-  
+
+
 
 
     $("#observaciones_alerta").dialog({
@@ -531,10 +530,10 @@ $(document).ready(function () {
         return false;
     });
 
-    
+
 });
 
-function CargarDetallePedido(page, rows, asyncrono) {    
+function CargarDetallePedido(page, rows, asyncrono) {
     $(".pMontoCliente").css("display", "none");
 
     $("#tbobyDetallePedido").html('<div><div style="width:100%;"><div style="text-align: center;"><br>Cargando Detalle de Productos<br><img src="' + urlLoad + '" /></div></div></div>');
@@ -601,7 +600,7 @@ function CargarDetallePedido(page, rows, asyncrono) {
                 var htmlPaginadorH = ArmarDetallePedidoPaginador(data);
 
                 data.footer = false;
-                var htmlPaginadorF = ArmarDetallePedidoPaginador(data);                
+                var htmlPaginadorF = ArmarDetallePedidoPaginador(data);
 
                 $("#paginadorCab").html(htmlPaginadorH);
                 $("#paginadorPie").html(htmlPaginadorF);
@@ -621,10 +620,10 @@ function CargarDetallePedido(page, rows, asyncrono) {
                     }
                 }
                 // camino brillante
-                
+
                 var filas = document.getElementById('tbListaPedido').children[1].getElementsByClassName('contenido_ingresoPedido mouse_encima');
 
-                
+
                 var Eskits = false;
                 if (filas != null) {
 
@@ -653,7 +652,7 @@ function CargarDetallePedido(page, rows, asyncrono) {
                         }
                     }
                 }
-                
+
             }
         })
         .fail(function (response, error) {
@@ -1680,8 +1679,8 @@ function CerrarProductoAgregado() {
 }
 
 function ValidDeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId, esElecMultipleNuevas) {
-    
-    
+
+
     ValidDeleteElectivoNuevas(
         cuv,
         esElecMultipleNuevas,
@@ -1924,6 +1923,12 @@ function EjecutarServicioPROL() {
             CerrarSplash();
             if (!checkTimeout(response)) return;
             if (!response.success) {
+                if (response.hasOwnProperty("PedidoPendiente")) {
+                    if (response.PedidoPendiente) {
+                        $("#PopupPedidosPendientes").fadeIn(250);
+                        return false;
+                    }
+                }
                 MostrarPopupErrorReserva(mensajeErrorReserva, false);
                 return;
             }
@@ -2919,7 +2924,7 @@ function ArmarPopupObsReserva(titulo, mensaje) {
 }
 
 function MostrarPopupErrorReserva(mensajePedido, esAviso) {
-    
+
     mostrarAlerta = typeof mostrarAlerta !== "undefined" ? mostrarAlerta : true;
 
     if (esAviso) ArmarPopupObsReserva("Aviso", mensajePedido);
@@ -2942,13 +2947,13 @@ function InsertarDemandaTotalReemplazoSugerido(cuvSugerido, precio, cantidad, es
     var _cuvprecio = esAceptado == true ? precio : DecimalToStringFormat($("#txtPrecioR").val());
     waitingDialog({});
     var model =
-        {
-            CUV: cuvbuscado,
-            CUVSugerido: cuvSugerido,
-            PrecioUnidad: _cuvprecio,
-            Cantidad: cantidad,
-            CuvEsAceptado: esAceptado
-        };
+    {
+        CUV: cuvbuscado,
+        CUVSugerido: cuvSugerido,
+        PrecioUnidad: _cuvprecio,
+        Cantidad: cantidad,
+        CuvEsAceptado: esAceptado
+    };
 
     jQuery.ajax({
         type: "POST",
@@ -3013,5 +3018,5 @@ function BloquearPantallaPedidoByPopupSugerido(valor) {
 
 function CargarProductosRecomendados(item) {
     ProductoRecomendadoModule.ObtenerProductos(item.CodigoCatalago, item.EstrategiaIDSicc, item.CUV, item.CodigoProducto);
-    
+
 }

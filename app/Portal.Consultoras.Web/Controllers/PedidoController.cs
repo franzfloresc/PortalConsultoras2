@@ -24,7 +24,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
- 
+
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -282,35 +282,16 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Pedidos Pendientes
 
                 ViewBag.MostrarPedidosPendientes = "0";
-                //ViewBag.LanzarTabConsultoraOnline = (lanzarTabConsultoraOnline) ? "1" : "0";
-
                 if (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig())
                 {
                     var paisesConsultoraOnline = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
                     if (paisesConsultoraOnline.Contains(userData.CodigoISO) && userData.EsConsultora())
                     {
-                        using (var svc = new UsuarioServiceClient())
+                        int cantidad = ObtenerCantidadPedidosPendientes();
+                        if (cantidad > 0)
                         {
-                            var cantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-                            if (cantPedidosPendientes > 0)
-                            {
-                                ViewBag.MostrarPedidosPendientes = "1";
-                                ViewBag.CantPedidosPendientes = cantPedidosPendientes;
-
-                                //using (var sv = new SACServiceClient())
-                                //{
-                                //    var motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
-                                //    ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
-                                //}
-
-
-                                //var olstMisPedidos =
-                                //    svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID)
-                                //        .ToList();
-
-                                //ViewBag.ListaPedidosPendientesCliente = olstMisPedidos;
-
-                            }
+                            ViewBag.MostrarPedidosPendientes = "1";
+                            ViewBag.CantPedidosPendientes = cantidad;
                         }
                     }
                 }
@@ -351,15 +332,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.MaxCaracteresRecomendaciones = ObtenerNumeroMaximoCaracteresRecomendaciones(false);
 
                 #region Camino Brillante 
-
                 ViewBag.KitsCaminoBrillante = _caminoBrillanteProvider.GetKitsCaminoBrillante().ToList();
-                //var consultoraNivel = SessionManager.GetConsultoraCaminoBrillante();
-                //var nivelConsultora = consultoraNivel.NivelConsultora.FirstOrDefault(e => e.EsActual);
-                //int nivel = 0;
-                //int periodo = 0;
-                //int.TryParse(nivelConsultora.Nivel ?? string.Empty, out nivel);
-                //int.TryParse(nivelConsultora.PeriodoCae ?? string.Empty, out periodo);
-
                 #endregion
 
             }
@@ -386,6 +359,24 @@ namespace Portal.Consultoras.Web.Controllers
             model.MensajeKitNuevas = _programaNuevasProvider.GetMensajeKit();
 
             return View("Index", model);
+        }
+
+        private int ObtenerCantidadPedidosPendientes()
+        {
+            int resultado = 0;
+            try
+            {
+                using (var svc = new UsuarioServiceClient())
+                {
+                    resultado = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+                resultado = 0;
+            }
+            return resultado;
         }
 
         private BEConfiguracionCampania GetConfiguracionCampania()
@@ -1024,7 +1015,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var revistaGana = ValidarDesactivaRevistaGana(userModel);
 
-               
+
 
                 productosModel.Add(new ProductoModel()
                 {
@@ -1058,10 +1049,10 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoCatalago = producto.CodigoCatalogo,
                     EstrategiaIDSicc = producto.EstrategiaIDSicc,
                     //INI HD-3908
-                    CodigoPalanca= (new OfertaPersonalizadaProvider()).getCodigoPalanca(producto.TipoEstrategiaCodigo),
-                    CampaniaID= userModel.CampaniaID
+                    CodigoPalanca = (new OfertaPersonalizadaProvider()).getCodigoPalanca(producto.TipoEstrategiaCodigo),
+                    CampaniaID = userModel.CampaniaID
                     //FIN HD-3908
-                    
+
                 });
             }
             catch (Exception ex)
@@ -1496,6 +1487,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                //Agregar aquí todas las validacioens
+                //1.- si tiene pedidos pendientes
+                var cantidad = ObtenerCantidadPedidosPendientes();
+                if (cantidad > 0)
+                    return Json(new { success = false, PedidoPendiente = true }, JsonRequestBehavior.AllowGet);
+
                 ActualizarEsDiaPROLyMostrarBotonValidarPedido(userData);
                 var input = Mapper.Map<BEInputReservaProl>(userData);
                 input.EnviarCorreo = enviarCorreo;
@@ -1563,7 +1560,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Enumeradores.ResultadoReserva.NoReservadoMontoMinimo
                 };
 
-                var mensajeCondicional = resultado.ListaMensajeCondicional != null && resultado.ListaMensajeCondicional.Any() ? resultado.ListaMensajeCondicional[0].MensajeRxP: null;
+                var mensajeCondicional = resultado.ListaMensajeCondicional != null && resultado.ListaMensajeCondicional.Any() ? resultado.ListaMensajeCondicional[0].MensajeRxP : null;
                 return Json(new
                 {
                     success = true,

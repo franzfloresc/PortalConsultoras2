@@ -1,5 +1,4 @@
 ﻿/// <reference path="../../pedido/pedidoprovider.js" />
-
 var tipoOfertaFinal_Log = "";
 var gap_Log = 0;
 var tipoOrigen = '2';
@@ -70,10 +69,10 @@ $(document).ready(function () {
     });
 
     //INI HD-4200
-    ValidarSuscripcionSE(function () { ValidarKitNuevas(function () { CargarPedido(true); }) },1);
-     //FIN HD-4200
-    
-   
+    ValidarSuscripcionSE(function () { ValidarKitNuevas(function () { CargarPedido(true); }) }, 1);
+    //FIN HD-4200
+
+
 
     $("#suma, #resta").click(function (event) {
         if (!ValidarPermiso(this)) {
@@ -225,7 +224,7 @@ function UpdateLiquidacionSegunTipoOfertaSis(obj, elementRow) {
 
         var CantidadSoli = (Cantidad - cantidadAnterior);
         //if (obj.TipoOfertaSisID) CantidadSoli = (Cantidad - cantidadAnterior);
-		obj.Stock = CantidadSoli;
+        obj.Stock = CantidadSoli;
 
         var param = ({
             CUV: obj.CUV,
@@ -796,7 +795,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
                 tooltip.show();
                 setTimeout(function () { tooltip.hide(); }, 4000);
             }
-            
+
             if (PROL == "0") {
                 detalleObj.CantidadTemporal = $(cantidadElement).val();
                 belcorp.mobile.pedido.setDetalleById(detalleObj);
@@ -804,7 +803,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             CargarPedido();
 
             if (data.mensajeCondicional) {
-	            AbrirMensajeImagen(data.mensajeCondicional);
+                AbrirMensajeImagen(data.mensajeCondicional);
             }
 
             if (data.modificoBackOrder) {
@@ -858,7 +857,7 @@ function SeparadorMiles(pnumero) {
 
     if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
 
-    for (var i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
+    for (var i = nuevoNumero.length - 1, j = 0; i >= 0; i-- , j++)
         resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
 
     if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
@@ -868,7 +867,6 @@ function SeparadorMiles(pnumero) {
 }
 
 function EjecutarPROL(cuvOfertaProl) {
-
     if (gTipoUsuario == '2') {
         var msgg = "Recuerda que este pedido no se va a facturar. Pronto podrás acceder a todos los beneficios de Somos Belcorp.";
         $('#popupInformacionSB2Malo').find('#mensajeInformacionSB2_Malo').text(msgg);
@@ -906,8 +904,14 @@ function EjecutarServicioPROL() {
             CloseLoading();
             if (!checkTimeout(response)) return;
             if (!response.success) {
+                if (response.hasOwnProperty("PedidoPendiente")) {
+                    if (response.PedidoPendiente) {
+                        $("#PopupPedidosPendientes").fadeIn(250);
+                        return false;
+                    }
+                }
                 messageInfoMalo(mensajeErrorReserva);
-                return;
+                return false;
             }
 
             if (response.mensajeCondicional) {
@@ -928,7 +932,7 @@ function EjecutarServicioPROLSinOfertaFinal() {
     pedidoProvider
         .ejecutarServicioProlPromise()
         .done(function (response) {
-            
+
             if (!checkTimeout(response)) return;
             if (!response.success) {
                 messageInfoMalo(mensajeErrorReserva);

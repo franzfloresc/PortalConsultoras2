@@ -1,8 +1,11 @@
-﻿
-<!-- MC - HD-4277 - POPUP PEDIDOS PENDIENTES POR APROBAR -->
-
+﻿@*MC - HD-4277 - POPUP PEDIDOS PENDIENTES POR APROBAR*@
 <link href="@Url.Content("~/Content/Css/Site/Shared/PopupsResponsive/general-popups.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/Css/Site/Shared/PopupsResponsive/popup-pedidos-pendientes.css")" rel="stylesheet" />
+
+@{
+    var isMobile = (bool)ViewData["isMobile"];
+    var toFrom = (isMobile) ? "mobile" : "";
+}
 
 <div class="popup__wrapper bg__popups__default" id="PopupPedidosPendientes">
     <div class="popup__somos__belcorp popup__somos__belcorp--pedidosPendientes">
@@ -21,12 +24,11 @@
             <p class="text-center popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--pedidosPendientes">
                 Para finalizar tu reserva <span class="text-bold">debes aprobar o rechazar</span> los pedidos que te han solicitado.
             </p>
-            <button class="center-block text-center text-bold multimarca-background-color popup__somos__belcorp__btn popup__somos__belcorp__btn--verPedidosPorAprobar"
-                    onclick="javascript:$('#PopupPedidosPendientes').fadeOut(100);">
+            <a class="center-block text-center text-bold multimarca-background-color popup__somos__belcorp__btn popup__somos__belcorp__btn--verPedidosPorAprobar"
+               href="@Url.Action("Pendientes","ConsultoraOnline",new { area = toFrom })">
                 Ver pedidos por aprobar
-            </button>
+            </a>
         </div>
     </div>
 </div>
-
-<!-- FIN - MC - HD-4277 - POPUP PEDIDOS PENDIENTES POR APROBAR -->
+@*FIN - MC - HD-4277 - POPUP PEDIDOS PENDIENTES POR APROBAR*@
