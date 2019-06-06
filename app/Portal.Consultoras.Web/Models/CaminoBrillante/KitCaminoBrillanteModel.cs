@@ -17,6 +17,23 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         public string FotoProductoMedium { get; set; }
         public bool FlagSeleccionado { get; set; }
         public bool FlagHabilitado { get; set; }
+
+        public string CodigoEstrategia
+        {
+            get
+            {
+                return "036";
+            }
+        }
+
+        public string CUV2
+        {
+            get
+            {
+                return CUV.ToString();
+            }
+        }
+
         public string FotoTagEnable
         {
             get

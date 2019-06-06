@@ -239,7 +239,7 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
         Cantidad: cantidad,
         TipoEstrategiaID: 0,
         EstrategiaID: "0",
-        OrigenPedidoWeb: origenPedidoWeb,
+        OrigenPedidoWeb: _origenPedidoWeb,
         TipoEstrategiaImagen: "",
         EsEditable: false,
         SetId: null,
@@ -359,5 +359,13 @@ function ObtenerFiltros() {
             cargandoRegistros = false;
         }
     });
+}
+
+function AbrirSplash() {
+    waitingDialog({});
+}
+
+function CerrarSplash() {
+    closeWaitingDialog();
 }
 

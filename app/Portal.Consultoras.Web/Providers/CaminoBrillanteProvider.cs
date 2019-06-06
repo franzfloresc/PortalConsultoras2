@@ -8,7 +8,6 @@ using AutoMapper;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
-using Portal.Consultoras.Web.HojaInscripcionODS;
 using Portal.Consultoras.Web.ServiceODS;
 
 namespace Portal.Consultoras.Web.Providers
@@ -259,7 +258,7 @@ namespace Portal.Consultoras.Web.Providers
         /// <summary>
         /// Obtiene Demostradores disponibles para la consultora
         /// </summary>
-        public DemostradoresPaginadoModel GetDesmostradoresCaminoBrillante(int cantRegistros, int regMostrados, string codOrdenar, string codFiltro)
+        public DemostradoresPaginadoModel GetDesmostradoresCaminoBrillante(int cantRegistros = 0, int regMostrados = 0, string codOrdenar = "", string codFiltro = "")
         {
             try
             {
@@ -474,18 +473,200 @@ namespace Portal.Consultoras.Web.Providers
 
         #endregion
 
+        #region Ficha Producto
 
-        public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoShowRoom(UsuarioModel userData, int campaniaId, string codigoConsultora, bool esFacturacion = false, int tipoOferta = 1)
+        /// <summary>
+        /// Obtener las Ofertas de Camino Brillante
+        /// </summary>
+        public List<EstrategiaPersonalizadaProductoModel> ObtenerOfertasCaminoBrillante(int tipoOferta = -1)
         {
-            var listaProductoRetorno = new List<EstrategiaPersonalizadaProductoModel>();
+            try
+            {
+                var ofertas = new List<EstrategiaPersonalizadaProductoModel>();
+                if (tipoOferta == -1 || tipoOferta == Constantes.CaminoBrillante.TipoOferta.Kit) {
+                    var kits = GetKitsCaminoBrillante() ?? new List<KitCaminoBrillanteModel>();
+                    ofertas.AddRange(kits.Select(e => ToEstrategiaPersonalizadaProductoModel(e)).ToList());
+                }
+                if (tipoOferta == -1 || tipoOferta == Constantes.CaminoBrillante.TipoOferta.Kit)
+                {
+                    var demostradores = (GetDesmostradoresCaminoBrillante() ?? new DemostradoresPaginadoModel()).LstDemostradores ?? new List<DemostradorCaminoBrillanteModel>();
+                    ofertas.AddRange(demostradores.Select(e => ToEstrategiaPersonalizadaProductoModel(e)).ToList());
+                }
+                return ofertas;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return null;
+            }           
+        }
 
-            return GetDesmostradoresCaminoBrillante(0, 0, "", "").LstDemostradores.Select(e => new EstrategiaPersonalizadaProductoModel()
+        /// <summary>
+        /// Obtener la estragia necesaria para la ficha Producto
+        /// </summary>
+        public DetalleEstrategiaFichaDisenoModel GetDetalleEstrategiaFichaModel(string cuv)
+        {
+            try
+            {
+                using (var svc = new PedidoServiceClient())
+                {
+                    var usuario = new ServicePedido.BEUsuario()
+                    {
+                        PaisID = usuarioModel.PaisID,
+                        CampaniaID = usuarioModel.CampaniaID,
+                        ConsultoraID = usuarioModel.ConsultoraID,
+                        CodigoConsultora = usuarioModel.CodigoConsultora,
+                        NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
+                    };
+
+                    return ToDetalleEstrategiaFichaDisenoModel(svc.GetOfertaCaminoBrillante(usuario, cuv));
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return null;
+            }
+        }
+
+        private DetalleEstrategiaFichaDisenoModel ToDetalleEstrategiaFichaDisenoModel(BEOfertaCaminoBrillante e, bool loadDetalle = true) {
+            return new DetalleEstrategiaFichaDisenoModel()
+            {
+                TipoOfertaCaminoBrillante = e.TipoOferta,
+                CodigoPalanca = "0",
+                FotoProducto01 = e.FotoProductoMedium,
+                TieneStock = true,
+                CampaniaID = usuarioModel.CampaniaID,
+                //ClaseBloqueada = "",
+                //ClaseEstrategia = "",
+                //CodigoCategoria = "",
+                CodigoEstrategia = e.CodigoEstrategia,
+                CodigoProducto = e.CUV,
+                //CodigoVariante = "",
+                CUV2 = e.CUV,
+                DescripcionCompleta = e.DescripcionCUV,
+                DescripcionCortada = e.DescripcionCUV,
+                DescripcionDetalle = e.DescripcionCUV,
+                DescripcionMarca = e.DescripcionMarca,
+                DescripcionResumen = e.DescripcionCUV,
+                DescripcionCategoria = e.DescripcionCUV,
+                EsMultimarca = false,
+                EsOfertaIndependiente = false,
+                EsSubcampania = false,
+                EstrategiaID = e.EstrategiaID.ToInt(),
+                FlagNueva = 0,
+                Ganancia = e.PrecioCatalogo - e.PrecioValorizado,
+                GananciaString = Util.DecimalToStringFormat(e.PrecioCatalogo - e.PrecioValorizado, usuarioModel.CodigoISO),                
+                ImagenURL = e.FotoProductoMedium,
+                MarcaID = e.MarcaID,
+                Precio = e.PrecioCatalogo,
+                Precio2 = e.PrecioValorizado,
+                PrecioTachado = Util.DecimalToStringFormat(e.PrecioCatalogo, usuarioModel.CodigoISO),
+                PrecioVenta = Util.DecimalToStringFormat(e.PrecioValorizado, usuarioModel.CodigoISO), 
+                //TextoLibre = "",
+                TienePaginaProducto = false,
+                TienePaginaProductoMob = false,
+                TipoAccionAgregar = 2,                
+                //OrigenAgregar = 
+                Hermanos = (loadDetalle && e.Detalle != null) ? e.Detalle.Select(d => ToEstrategiaComponenteModel(d)).ToList() : null
+            };
+        }
+
+        private EstrategiaComponenteModel ToEstrategiaComponenteModel(BEOfertaCaminoBrillante e) {
+            return new EstrategiaComponenteModel() {
+                //TipoOfertaCaminoBrillante = e.TipoOferta,
+                //CodigoPalanca = "0",
+                //FotoProducto01 = e.FotoProductoMedium,
+                TieneStock = true,
+                //CampaniaID = usuarioModel.CampaniaID,
+                //ClaseBloqueada = "",
+                //ClaseEstrategia = "",
+                //CodigoCategoria = "",
+                //CodigoEstrategia = e.CodigoEstrategia,
+                CodigoProducto = e.CUV,
+                //CodigoVariante = "",
+                //CUV2 = e.CUV,
+                //DescripcionCompleta = e.DescripcionCUV,
+                //DescripcionCortada = e.DescripcionCUV,
+                //DescripcionDetalle = e.DescripcionCUV,
+                DescripcionMarca = e.DescripcionMarca,
+                Descripcion = e.DescripcionCUV,
+
+                //DescripcionResumen = e.DescripcionCUV,
+                //DescripcionCategoria = e.DescripcionCUV,
+                //EsMultimarca = false,
+                //EsOfertaIndependiente = false,
+                //EsSubcampania = false,
+                //EstrategiaID = e.EstrategiaID.ToInt(),
+                //FlagNueva = 0,
+                //Ganancia = e.PrecioCatalogo - e.PrecioValorizado,
+                //GananciaString = Util.DecimalToStringFormat(e.PrecioCatalogo - e.PrecioValorizado, usuarioModel.CodigoISO),
+                //ImagenURL = e.FotoProductoMedium,
+                //MarcaID = e.MarcaID,
+                //Precio = e.PrecioCatalogo,
+                //Precio2 = e.PrecioValorizado,
+                //PrecioTachado = Util.DecimalToStringFormat(e.PrecioCatalogo, usuarioModel.CodigoISO),
+                //PrecioVenta = Util.DecimalToStringFormat(e.PrecioValorizado, usuarioModel.CodigoISO),
+                //TextoLibre = "",
+                //TienePaginaProducto = false,
+                //TienePaginaProductoMob = false,
+                //TipoAccionAgregar = 2,
+            };
+        }
+
+        private EstrategiaPersonalizadaProductoModel ToEstrategiaPersonalizadaProductoModel(KitCaminoBrillanteModel e)
+        {
+            return new EstrategiaPersonalizadaProductoModel()
             {
 
                 CodigoPalanca = "0",
                 FotoProducto01 = e.FotoProductoMedium,
                 TieneStock = true,
-                CampaniaID = userData.CampaniaID,
+                CampaniaID = usuarioModel.CampaniaID,
+                ClaseBloqueada = "",
+                ClaseEstrategia = "",
+                CodigoCategoria = "",
+                //CodigoEstrategia = e.CodigoEstrategia,
+                CodigoEstrategia = "36",
+                CodigoProducto = e.CUV,
+                CodigoVariante = "",
+                CUV2 = e.CUV,
+                DescripcionCompleta = e.DescripcionCUV,
+                DescripcionCortada = e.DescripcionCUV,
+                DescripcionDetalle = e.DescripcionCUV,
+                DescripcionMarca = e.DescripcionMarca,
+                DescripcionResumen = e.DescripcionCUV,
+                DescripcionCategoria = e.DescripcionCUV,
+                EsMultimarca = false,
+                EsOfertaIndependiente = false,
+                EsSubcampania = false,
+                //EstrategiaID = e.EstrategiaID.ToInt(),
+                EstrategiaID = 0,
+                FlagNueva = 0,
+                Ganancia = e.PrecioCatalogo - e.PrecioValorizado,
+                GananciaString = (e.PrecioCatalogo - e.PrecioValorizado).ToString(),
+                ImagenURL = e.FotoProductoMedium,
+                MarcaID = e.MarcaID,
+                Precio = e.PrecioCatalogo,
+                Precio2 = e.PrecioValorizado,
+                PrecioTachado = e.PrecioCatalogoFormat,
+                PrecioVenta = e.PrecioValorizadoFormat,
+                TextoLibre = "",
+                TienePaginaProducto = false,
+                TienePaginaProductoMob = false,
+                TipoAccionAgregar = 2,
+
+            };
+        }
+
+        private EstrategiaPersonalizadaProductoModel ToEstrategiaPersonalizadaProductoModel(DemostradorCaminoBrillanteModel e) {
+            return new EstrategiaPersonalizadaProductoModel()
+            {
+
+                CodigoPalanca = "0",
+                FotoProducto01 = e.FotoProductoMedium,
+                TieneStock = true,
+                CampaniaID = usuarioModel.CampaniaID,
                 ClaseBloqueada = "",
                 ClaseEstrategia = "",
                 CodigoCategoria = "",
@@ -517,58 +698,10 @@ namespace Portal.Consultoras.Web.Providers
                 TienePaginaProductoMob = false,
                 TipoAccionAgregar = 2,
 
-            }).ToList();
+            };
         }
 
-        public EstrategiaPersonalizadaProductoModel GetEstrategiaPersonalizadaProducto(string cuv)
-        {
-            try
-            {
-                using (var svc = new PedidoServiceClient())
-                {
-                    var usuario = new ServicePedido.BEUsuario()
-                    {
-                        PaisID = usuarioModel.PaisID,
-                        CampaniaID = usuarioModel.CampaniaID,
-                        ConsultoraID = usuarioModel.ConsultoraID,
-                        CodigoConsultora = usuarioModel.CodigoConsultora,
-                        NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
-                    };
-
-                    return Mapper.Map<EstrategiaPersonalizadaProductoModel>(svc.GetOfertaCaminoBrillante(usuario, cuv));
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
-                return null;
-            }
-        }
-
-        public DetalleEstrategiaFichaModel GetDetalleEstrategiaFichaModel(string cuv)
-        {
-            try
-            {
-                using (var svc = new PedidoServiceClient())
-                {
-                    var usuario = new ServicePedido.BEUsuario()
-                    {
-                        PaisID = usuarioModel.PaisID,
-                        CampaniaID = usuarioModel.CampaniaID,
-                        ConsultoraID = usuarioModel.ConsultoraID,
-                        CodigoConsultora = usuarioModel.CodigoConsultora,
-                        NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
-                    };
-
-                    return Mapper.Map<DetalleEstrategiaFichaModel>(svc.GetOfertaCaminoBrillante(usuario, cuv));
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
-                return null;
-            }
-        }
+        #endregion
 
     }
 }

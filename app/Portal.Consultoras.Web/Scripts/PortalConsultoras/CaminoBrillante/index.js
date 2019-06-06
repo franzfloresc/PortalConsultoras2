@@ -93,6 +93,21 @@ function Carusel() {
     })
 }
 
+$("#carrusel").on('click', '.boton_agregar_ofertas', function (e) {
+    debugger
+    var contenedor = $(this).parents('[data-item="BuscadorFichasProductos"]');
+    var obj = JSON.parse($(this).parents('[data-item="BuscadorFichasProductos"]').find('div [data-demostrador]').attr("data-demostrador"));
+    var cantidad = $(contenedor).find("#txtCantidad").val();
+    var tab = "Demostradores";
+    var a = $(contenedor).attr("#data-oferta");
+    if (cantidad <= 0) {
+        AbrirMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
+        CerrarSplash();
+    } else {
+        AgregarProducto(obj, cantidad, contenedor, tab, false);
+    }
+});
+
 function TagVerTodos(MisLogros) {
     dataLayer.push({
         'event': 'virtualEvent',
@@ -101,7 +116,6 @@ function TagVerTodos(MisLogros) {
         'label': '(not available)'
     });
 }
-
 
 function TagClickSeleccionNivel(nivelConsultora) {
     dataLayer.push({
@@ -200,25 +214,143 @@ function ArmarMisGanancias(data) {
         serie.push(item.ValorSerie);
     };
 
+
+    Chart.pluginService.register({
+        beforeRender: function (chart) {
+            if (chart.config.options.showAllTooltips) {
+                chart.pluginTooltips = [];
+                chart.config.data.datasets.forEach(function (dataset, i) {
+                    chart.getDatasetMeta(i).data.forEach(function (sector, j) {
+                        chart.pluginTooltips.push(new Chart.Tooltip({
+                            _chart: chart.chart,
+                            _chartInstance: chart,
+                            _data: chart.data,
+                            _options: chart.options.tooltips,
+                            _active: [sector]
+                        }, chart));
+                    });
+                });
+                chart.options.tooltips.enabled = false;
+            }
+        },
+        afterDraw: function (chart, easing) {
+            if (chart.config.options.showAllTooltips) {
+                if (!chart.allTooltipsOnce) {
+                    if (easing !== 1)
+                        return;
+                    chart.allTooltipsOnce = true;
+                }
+                chart.options.tooltips.enabled = true;
+                Chart.helpers.each(chart.pluginTooltips, function (tooltip) {
+                    tooltip.initialize();
+                    tooltip.update();
+                    tooltip.pivot();
+                    tooltip.transition(easing).draw();
+                });
+                chart.options.tooltips.enabled = false;
+            }
+        }
+    });
+
+    var backgroundColors = [
+        "#ffdaf3",
+        "#ffdaf3",
+        "#ffdaf3",
+        "#ffdaf3",
+        "#ffdaf3",
+        "#ffdaf3"
+
+    ];
+    var hoverBackgrounds = [
+        "#4f0036",
+        "#4f0036",
+        "#4f0036",
+        "#4f0036",
+        "#4f0036",
+        "#4f0036"
+    ];
     var myBar = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labels,
             datasets: [
                 {
-                    backgroundColor: "#ffdaf3",
+                    //backgroundColor: "#ffdaf3",
+                    backgroundColor: backgroundColors,
+                    hoverBackgroundColor: hoverBackgrounds,
+
+                    //backgroundColor: function (value) {
+                    //    if (value < 30) {
+                    //        return 'red';
+                    //    }
+                    //    return 'green';
+                    //},
                     data: serie
                 }
             ]
         },
         options: {
+            
+            onClick: function (evt, elements) {
+                var datasetIndex;
+                var dataset;
+
+                //dataset.backgroundColor[elements[3]._index] = '#4f0036',
+
+                if (elements.length) {
+                    var index = elements[0]._index;
+                    datasetIndex = elements[0]._datasetIndex;
+
+                    // Reset old state
+                    dataset = myBar.data.datasets[datasetIndex];
+                    dataset.backgroundColor = backgroundColors.slice();
+                    dataset.hoverBackgroundColor = hoverBackgrounds.slice();
+
+                    dataset.backgroundColor[index] = '#4f0036'; // click color
+                    dataset.hoverBackgroundColor[index] = '#4f0036';
+                } else {
+                    // remove hover styles
+                    for (datasetIndex = 0; datasetIndex < myBar.data.datasets.length; ++datasetIndex) {
+                        dataset = myBar.data.datasets[datasetIndex];
+                        dataset.backgroundColor = backgroundColors.slice();
+                        dataset.hoverBackgroundColor = hoverBackgrounds.slice();
+                    }
+                }
+
+                myBar.update();
+
+            },
             tooltips: {
-                enabled: false
+                mode: 'point',
+                titleFontSize: 9,
+                titleFontFamily: 'Helvetica',
+                titleFontStyle: 'normal',
+                titleMarginBottom: 1,
+                cornerRadius:0,
+                backgroundColor: '#fff',
+                titleFontColor: 'rgb(0, 0, 0)',
+                bodyFontColor: 'rgb(0, 0, 0)',
+                xPadding: 5,
+                yAlign: 'center',
+                xAlign: 'center',
+                callbacks: {
+                    label: function (tooltipItem) {
+                        return + Number(tooltipItem.yLabel);
+                    }
+                }
             },
             scales: {
-           
+
                 yAxes: [{
+                    //angleLines: {
+                    //    display: false
+                    //},
+                    //scaleLabel: {
+                    //    display: true
+                    //},
                     ticks: {
+                        display: false,
+                        padding: 0,
                         fontColor: "#000",
                         fontSize: 14
                     },
@@ -239,7 +371,7 @@ function ArmarMisGanancias(data) {
                         color: "#f7f7f7",
                         lineWidth: 1,
                         zeroLineColor: "#000",
-                        zeroLineWidth: 0
+                        zeroLineWidth: 1
                     }
                 }]
             },
@@ -247,9 +379,12 @@ function ArmarMisGanancias(data) {
             title: {
                 display: true
             },
+            responsive: true,
+            showAllTooltips: true,
+ 
         }
     });
-
+    
     var onClickEvent = function (evt) {
         var activePoints = myBar.getElementsAtEvent(evt);
         if (activePoints.length > 0) {
@@ -257,7 +392,7 @@ function ArmarMisGanancias(data) {
             var item = data.MisGanancias[clickedElementindex];
             $("#ganancia-campania-nombre").text("Ganancia "+item.LabelSerie);
             $("#ganancia-campania").text(variablesPortal.SimboloMoneda+" "+item.GananciaCampaniaFormat);
-            $("#ganancia-periodo").text(variablesPortal.SimboloMoneda+" "+item.GananciaPeriodoFormat);
+            $("#ganancia-periodo").text(variablesPortal.SimboloMoneda + " " + item.GananciaPeriodoFormat);
         }
     };
     $("#canvas").click( onClickEvent );
