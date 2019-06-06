@@ -3277,6 +3277,11 @@ namespace Portal.Consultoras.Common
             return displayTiempo;
         }
 
+        public static DateTime GetDiaActual(double zonaHoraria)
+        {
+            return DateTime.Now.AddHours(zonaHoraria).Date;
+        }
+
         public static int GetDiasFaltantesFacturacion(DateTime fechaInicioCampania, double zonaHoraria)
         {
             var fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
