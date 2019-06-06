@@ -673,6 +673,10 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@MontoEscala", DbType.Decimal, pedidoWeb.MontoEscala);
             Context.Database.AddInParameter(command, "@VersionProl", DbType.Byte, pedidoWeb.VersionProl);
             Context.Database.AddInParameter(command, "@PedidoSapId", DbType.Int64, pedidoWeb.PedidoSapId);
+            Context.Database.AddInParameter(command, "@GananciaRevista", DbType.Decimal, pedidoWeb.GananciaRevista);
+            Context.Database.AddInParameter(command, "@GananciaWeb", DbType.Decimal, pedidoWeb.GananciaWeb);
+            Context.Database.AddInParameter(command, "@GananciaOtros", DbType.Decimal, pedidoWeb.GananciaOtros);
+
             Context.ExecuteNonQuery(command);
         }
 

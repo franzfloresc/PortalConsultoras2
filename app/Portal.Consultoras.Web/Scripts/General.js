@@ -2177,7 +2177,6 @@ var GeneralModule = (function () {
         if (typeof validateIsMobile === "undefined") validateIsMobile = true;
 
         var destinationUrl = "/";
-
         if (validateIsMobile && _isMobile() && url.indexOf('Mobile/') == -1) destinationUrl += "Mobile/";
 
         url = $.trim(url);
