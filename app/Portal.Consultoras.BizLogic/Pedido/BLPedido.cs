@@ -1046,6 +1046,15 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
                 #endregion
 
+                //Validación de cuvs en Camino Brillante
+                #region Camino Brillante
+                var valCaminoBrillante = _bLCaminoBrillante.ValidarBusquedaCaminoBrillante(usuario, productoBuscar.CodigoDescripcion);
+                if (valCaminoBrillante.Validacion != Enumeradores.ValidacionCaminoBrillante.ProductoNoExiste)
+                {
+                    return ProductoBuscarRespuesta(valCaminoBrillante.Code, valCaminoBrillante.Mensaje);
+                }
+                #endregion
+
                 //Validación producto no existe
                 BEProductoBusqueda busqueda = new BEProductoBusqueda
                 {
