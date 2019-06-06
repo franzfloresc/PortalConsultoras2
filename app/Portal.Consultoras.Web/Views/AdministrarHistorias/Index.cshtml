@@ -113,14 +113,13 @@
                         </div>
 
                     }
+                    <hr /><br />
                     <div class="div-3">
                         <div class="input_horizontal">
                             <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" onclick="javaScript: NuevoDetalle('@Model.IdContenido');" />
-                            @*<input type="submit" value="Cargar" />*@
                         </div>
-                        <div class="titG">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            Campaña:
+                        <div class="titG">                            
+                            <div style="text-align: right;">Campaña:</div> 
                         </div>
                         <div class="selectP2 borde_redondeado">
                             @Html.DropDownList("Campania", new SelectList(Model.ListaCampanias, "CampaniaID", "NombreCorto"), "-- Todos --", new { id = "ddlCampania" })
