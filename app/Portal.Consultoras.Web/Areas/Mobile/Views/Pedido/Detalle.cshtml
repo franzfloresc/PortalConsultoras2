@@ -95,7 +95,7 @@
     </div>
 </div>
 
-<div class="btn_guardarPedido">
+<div class="btn_guardarPedido btn_guardarPedido--nuevoLookAndFeelEsika">
     <input type="submit" style="text-transform:none" value="@Model.Prol" id="btnGuardarPedido" name="btnGuardarPedido" onclick="EjecutarPROL();" />
 </div>
 
@@ -1069,7 +1069,7 @@
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
         var mensajeElecMultipleEliminar = '@string.Format(Constantes.ProgNuevas.Mensaje.ElecMultiple_ConfirmaEliminar, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre)';
         var urlObtenerComponentes = '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new { area = "" })';
-
+        var PedidoEscogeRegaloCarrusel = '@Constantes.OrigenPedidoWeb.MobilePedidoEscogeRegaloCarrusel';/*HD-3710*/
 
 
 

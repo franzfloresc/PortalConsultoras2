@@ -777,39 +777,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region LogDynamo
-
-        protected void RegistrarLogDynamoDB(string aplicacion, string rol, string pantallaOpcion, string opcionAccion, ServiceUsuario.BEUsuario entidad = null)
-        {
-            string ipCliente = GetIPCliente();
-            bool esMobile = EsDispositivoMovil();
-            _logDynamoProvider.RegistrarLogDynamoDB(userData, aplicacion, rol, pantallaOpcion, opcionAccion, ipCliente, esMobile);
-        }
-        protected void RegistrarLogDynamoDB(InLogUsabilidadModel Log)
-        {
-            try
-            {
-                Log = Log ?? new InLogUsabilidadModel();
-                Log.Fecha = "";
-                Log.Pais = userData.CodigoISO;
-                Log.Region = userData.CodigorRegion;
-                Log.Zona = userData.CodigoZona;
-                Log.Seccion = userData.SeccionAnalytics;
-                Log.Rol = Constantes.LogDynamoDB.RolConsultora;
-                Log.Campania = userData.CampaniaID.ToString();
-                Log.Usuario = userData.CodigoUsuario;
-                Log.DispositivoCategoria = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB";
-                Log.DispositivoID = GetIPCliente();
-                Log.Version = "2.0";
-                Log.JwtToken = userData.JwtToken;
-                Log.CodigoConsultora = userData.CodigoConsultora;
-                Log.CodigoISO = userData.CodigoISO;
-                _logDynamoProvider.RegistrarLogDynamoDB(Log);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-        }
+        
         protected void ActualizarDatosLogDynamoDB(MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
         {
             bool esMobile = EsDispositivoMovil();
@@ -1216,7 +1184,9 @@ namespace Portal.Consultoras.Web.Controllers
             int j = ViewBag.NombreConsultora.Trim().IndexOf(' ');
             if (j >= 0) ViewBag.NombreConsultora = ViewBag.NombreConsultora.Substring(0, j).Trim();
 
-            ViewBag.HabilitarChatEmtelco = _chatEmtelcoProvider.HabilitarChatEmtelco(userData.PaisID, esMobile);
+            var chats = _chatEmtelcoProvider.HabilitarChats(userData.PaisID, esMobile);
+            ViewBag.HabilitarChatEmtelco = chats.ChatEmtelco;
+            ViewBag.HabilitarChatBot = chats.ChatBot;
             ViewBag.NoReservoPedido = userData.EsDiasFacturacion && _pedidoWebProvider.RequiereCierreSessionValidado(_tablaLogicaProvider, userData.PaisID) && !_pedidoWebProvider.TienePedidoReservado(userData) && ObtenerPedidoWebDetalle().Count > 0;
             ViewBag.SessionTimeout = HttpContext.Session.Timeout;
 

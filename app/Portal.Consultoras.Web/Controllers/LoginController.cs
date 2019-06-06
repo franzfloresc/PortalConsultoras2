@@ -633,7 +633,15 @@ namespace Portal.Consultoras.Web.Controllers
             model.MostrarOpcion = obj.MostrarOpcion;
             model.OpcionChat = obj.OpcionChat;
             model.EsMobile = EsDispositivoMovil();
-            ViewBag.ChatBotPageId = new ConfiguracionManagerProvider().GetConfiguracionManager(Constantes.ConfiguracionManager.ChatBotPageId);
+
+            if (model.OpcionChat)
+            {
+                var provider = new ChatEmtelcoProvider();
+                var chats = provider.HabilitarChats(Util.GetPaisID(model.CodigoIso), EsDispositivoMovil());
+                ViewBag.HabilitarChatEmtelco = chats.ChatEmtelco.ToString();
+                ViewBag.HabilitarChatBot = chats.ChatBot.ToString();
+                ViewBag.ChatBotPageId = new ConfiguracionManagerProvider().GetConfiguracionManager(Constantes.ConfiguracionManager.ChatBotPageId);
+            }
 
             return View(model);
         }
@@ -1449,6 +1457,11 @@ namespace Portal.Consultoras.Web.Controllers
                     //INI HD-3693
                     usuarioModel.AutorizaPedido = usuario.AutorizaPedido;
                     //FIN HD-3693
+
+                    //INI HD-3897
+                    usuarioModel.PuedeConfirmarAllEmail = usuario.PuedeConfirmarAllEmail;
+                    usuarioModel.PuedeConfirmarAllSms = usuario.PuedeConfirmarAllSms;
+                    //FIN HD-3897
 
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);
@@ -2888,12 +2901,15 @@ namespace Portal.Consultoras.Web.Controllers
                     Session["DatosUsuario"] = oDatos;
                 }
 
-                var habilitarChatEmtelco = HabilitarChatEmtelco(paisID);
+                var provider = new ChatEmtelcoProvider();
+                var chats = provider.HabilitarChats(paisID, EsDispositivoMovil());
+
                 return Json(new
                 {
                     success = true,
                     data = oDatos,
-                    habilitarChatEmtelco,
+                    habilitarChatEmtelco = chats.ChatEmtelco,
+                    habilitarChatBot = chats.ChatBot,
                     message = "OK"
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -3075,32 +3091,6 @@ namespace Portal.Consultoras.Web.Controllers
             var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
             int paisID = Convert.ToInt32(TempData["PaisID"]);
             return await Redireccionar(paisID, oUsu.CodigoUsuario);
-        }
-
-        public bool HabilitarChatEmtelco(int paisId)
-        {
-            bool Mostrar = false;
-            BETablaLogicaDatos[] DataLogica;
-
-            using (var svc = new SACServiceClient())
-            {
-                DataLogica = svc.GetTablaLogicaDatos(paisId, ConsTablaLogica.ChatEmtelco.TablaLogicaId);
-
-            }
-            if (DataLogica.Any())
-            {
-                if (EsDispositivoMovil())
-                {
-                    if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("02")).Valor == "1")
-                        Mostrar = true;
-                }
-                else
-                {
-                    if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("01")).Valor == "1")
-                        Mostrar = true;
-                }
-            }
-            return Mostrar;
         }
 
         private int GetDiaFacturacion(int PaisID, int CampaniaID, long ConsultoraID, int ZonaID, int RegionID)

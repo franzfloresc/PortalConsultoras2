@@ -69,12 +69,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return View("Index", model);
         }
-
-        private async Task BinderAsync(DireccionEntregaModel record)
-        {
-
-            record.DropDownUbigeo1 = await _miPerfilProvider.ObtenerUbigeoPrincipalAsync(userData.CodigoISO);
-        }
         
         [HttpGet]
         public async Task<JsonResult> ObtenerUbigeoDependiente(int Nivel, int IdPadre)
@@ -96,10 +90,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult ActualizarCorreo()
         {
+            ViewBag.IsConfirmar = 0;
             ViewBag.CorreoActual = userData.EMail;
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View();
         }
+        //INI HD-3897
+        public ActionResult ConfirmarCorreo()
+        {
+            ViewBag.IsConfirmar = 1;
+            ViewBag.CorreoActual = userData.EMail;
+            ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
+            return View("ActualizarCorreo");
+        }
+        //FIN HD-3897
 
         public ActionResult ActualizarCelular()
         {
@@ -107,7 +111,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 return RedirectToAction("Index");
             }
-
+            ViewBag.IsConfirmarCel = 0;
             ViewBag.Celular = userData.Celular;
 
             var numero = 0;
@@ -117,8 +121,25 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View();
         }
+        //INI HD-3897
+        public ActionResult ConfirmarCelular()
+        {
+            if (!userData.PuedeActualizar || !userData.PuedeEnviarSMS)
+            {
+                return RedirectToAction("Index");
+            }
+            ViewBag.IsConfirmarCel = 1;
+            ViewBag.Celular = userData.Celular;
 
-        private async Task<MisDatosModel>  GetCargaInicial(BEUsuario beusuario)
+            var numero = 0;
+            var valida = false;
+            Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
+            ViewBag.IniciaNumeroCelular = valida ? numero : -1;
+            ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
+            return View("ActualizarCelular");
+        }
+        //FIN HD-3897
+        private async Task<MisDatosModel> GetCargaInicial(BEUsuario beusuario)
         {
             var model = new MisDatosModel();
             try
@@ -140,7 +161,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.UsuarioPrueba = userData.UsuarioPrueba;
                 model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
                 model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
-
+                //INI HD-3897
+                model.FlgCheckSMS = beusuario.FlgCheckSMS;
+                model.FlgCheckEMAIL = beusuario.FlgCheckEMAIL;
+                //FIN HD-3897
                 var bezona = _zonificacionProvider.GetZonaById(userData.PaisID, userData.ZonaID);
 
                 model.NombreGerenteZonal = bezona.NombreGerenteZona;
@@ -189,8 +213,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     p.Posicion.Trim().ToLower().Equals(Constantes.MenuPosicion.Body) &&
                     p.Codigo.Trim().ToLower().Equals(Constantes.MenuCodigo.MiPerfil.ToLower())
                 ).ToList();
-                model.DireccionEntrega = await _miPerfilProvider.ObtenerDireccionPorConsultoraAsync(new DireccionEntregaModel { ConsultoraID = (int)userData.ConsultoraID, PaisID = userData.PaisID });
-                await BinderAsync(model.DireccionEntrega);
+                
+                if (userData.TieneDireccionEntrega)
+                {
+                    model.DireccionEntrega = await _miPerfilProvider.ObtenerDireccionPorConsultoraAsync(new DireccionEntregaModel { ConsultoraID = (int)userData.ConsultoraID, PaisID = userData.PaisID });
+                    model.DireccionEntrega.DropDownUbigeo1 = await _miPerfilProvider.ObtenerUbigeoPrincipalAsync(userData.CodigoISO);
+                }
 
                 model.PermisoMenu = new List<string>();
                 foreach (var item in objMenu)

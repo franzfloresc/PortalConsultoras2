@@ -103,15 +103,15 @@ namespace Portal.Consultoras.Common
             }
         }
 
-        public static void EnviarMailProcesoActualizaMisDatos(string emailFrom, string emailTo, string titulo, string displayname, string logo, string nombre, string url, string fondo, string parametros)
+        public static void EnviarMailProcesoActualizaMisDatos(string emailFrom, string emailTo, string titulo, string displayname,  string nombre, string url, string parametros)
         {
             string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\mailing_proceso_actualizar_misdatos.html";
             string htmlTemplate = FileManager.GetContenido(templatePath);
 
-            htmlTemplate = htmlTemplate.Replace("#Logo#", logo);
+           // htmlTemplate = htmlTemplate.Replace("#Logo#", logo);--- HD-3897
             htmlTemplate = htmlTemplate.Replace("#Nombre#", nombre);
             htmlTemplate = htmlTemplate.Replace("#Url#", url);
-            htmlTemplate = htmlTemplate.Replace("#Fondo#", fondo);
+            //htmlTemplate = htmlTemplate.Replace("#Fondo#", fondo);--- HD-3897
             htmlTemplate = htmlTemplate.Replace("#Parametros#", parametros);
             
             Util.EnviarMailMasivoColas(emailFrom, emailTo, titulo, htmlTemplate, true, displayname);

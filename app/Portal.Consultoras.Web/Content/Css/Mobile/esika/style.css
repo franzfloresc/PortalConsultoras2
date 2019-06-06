@@ -4461,6 +4461,24 @@ table > thead > tr > th {
     cursor: pointer;
 }
 
+/* INI HD-4009 */
+.producto_pum,
+.producto_pum_hidden {
+    margin-top:5px;
+    margin-bottom:0;
+    font-size:12px;
+    min-height:17px;
+}
+
+    .producto_pum span {
+        color: #000;
+    }
+
+.producto_pum_hidden {
+    visibility: hidden;
+}
+/* FIN HD-4009 */
+
 .producto_precio_oferta {
     margin: 0;
     padding: 0;
@@ -14706,9 +14724,10 @@ a {
 }
 
 .opciones_regalo_carousel_programaNuevas.slick-initialized .slick-slide{
-    display:inline-block;
+    display:block;
+    /*display:inline-block;
     vertical-align:top;
-    float:none;
+    float:none;*/
     min-height:315px;
     padding-top:0!important;
     padding-bottom:25px!important;

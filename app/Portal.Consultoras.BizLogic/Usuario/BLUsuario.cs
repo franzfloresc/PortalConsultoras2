@@ -312,19 +312,6 @@ namespace Portal.Consultoras.BizLogic
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
                 }
 
-                if (Common.Util.IsUrl(usuario.FotoPerfil))
-                {
-                    if (Common.Util.ExisteUrlRemota(imagenS3))
-                    {
-                        usuario.FotoPerfilAncha = Common.Util.EsImagenAncha(imagenS3);
-                    }
-                    else
-                    {
-                        usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";
-                        usuario.FotoOriginalSinModificar = null;
-                    }
-                }
-
                 if (string.IsNullOrEmpty(usuario.FotoPerfil))
                 {
                     usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";
@@ -340,6 +327,10 @@ namespace Portal.Consultoras.BizLogic
                 var verificacion = new BLOpcionesVerificacion();
                 var verificacionResult = verificacion.GetOpcionesVerificacionCache(usuario.PaisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos);
                 usuario.PuedeEnviarSMS = (verificacionResult != null && verificacionResult.OpcionSms);
+                //INI HD-3897
+                usuario.PuedeConfirmarAllEmail = (verificacionResult != null && verificacionResult.OpcionConfirmarEmail);
+                usuario.PuedeConfirmarAllSms = (verificacionResult != null && verificacionResult.OpcionConfirmarSms);
+                //FIN HD-3897
 
                 return usuario;
             }
@@ -2050,11 +2041,9 @@ namespace Portal.Consultoras.BizLogic
             string[] parametros = new string[] { usuario.CodigoUsuario, usuario.PaisID.ToString(), correoNuevo };
             string paramQuerystring = Common.Util.Encrypt(string.Join(";", parametros));
             LogManager.SaveLog(new Exception(), usuario.CodigoUsuario, usuario.CodigoISO, " | data=" + paramQuerystring + " | parametros = " + string.Join("|", parametros));
-            bool esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(usuario.CodigoISO);
-            string logo = Globals.RutaCdn + (esEsika ? "/ImagenesPortal/Iconos/logo.png" : "/ImagenesPortal/Iconos/logod.png");
-            string fondo = (esEsika ? "e81c36" : "642f80");
 
-            MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, logo, nomconsultora, url, fondo, paramQuerystring);
+            MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname,  nomconsultora, url, paramQuerystring);
+        
         }
 
         public BERespuestaServicio RegistrarEnvioSms(

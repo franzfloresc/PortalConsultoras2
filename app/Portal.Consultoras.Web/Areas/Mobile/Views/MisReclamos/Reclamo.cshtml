@@ -527,7 +527,7 @@
 <div class="contenedor_popup_general" id="divConfirmEnviarSolicitudCDR" style="display:none;">
     <div class="popup_general">
         <div class="btn_cerrar_popup_general">
-            <a href="javascript:;" onclick="CancelarConfirmEnvioSolicitudCDR();">
+            <a href="javascript:;" onclick="misReclamosRegistro.Funciones.CancelarConfirmEnvioSolicitudCDR();">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
                 <span class="texto_btn_cerrar">CERRAR</span>
             </a>
@@ -630,10 +630,8 @@
         <div class="contenedor_info_cdr">
             <div class="listado_producto_reclamo">
                 {{#if_eq item.GrupoID ''}}
-
                 {{else}}
                 <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div><br />
-
                 {{/if_eq}}
                 <b>{{item.SolucionSolicitada}}</b><br />
                 {{item.CUV}} - {{item.Descripcion}}<br />
@@ -680,6 +678,10 @@
             Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
         </div>
         <div class="listado_solicitud_reclamo">
+            {{#if_eq item.GrupoID ''}}
+            {{else}}
+            <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div><br />
+            {{/if_eq}}
             <b>{{item.Solicitud}}</b>
         </div>
         <div class="titulo_solicitud_cdr">

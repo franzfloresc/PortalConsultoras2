@@ -112,7 +112,7 @@
 
     </header>
 
-    <section data-layout="contenido" 
+    <section data-layout="contenido"
              style="min-height: 380px;">
         <div id="contentmobile" data-content="">
 
@@ -153,9 +153,6 @@
             <br />
             <br />
         </div>
-        <a title="Chat Messenger" class="d-block btn_chat_messenger_mobile" href="javascript: AbrirChatBot()">
-            <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
-        </a>
     </section>
 
     <footer class="footer-page">
@@ -199,7 +196,7 @@
         var baseUrl = "@Url.Content("~")";
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
 
-       
+
 
         //INI SALUD-58
         var codigoConsultora = '@ViewBag.CodigoConsultoraDL';
@@ -247,6 +244,7 @@
         var emt_default_message = '@Html.Raw(ViewBag.MensajeChat)';
 
         var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
+        var habilitarChatBot = '@ViewBag.HabilitarChatBot';
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
@@ -517,6 +515,9 @@
     @if (!esIngresoUnico)
     {
         <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
+        <a title="Chat Messenger" class="d-block btn_chat_messenger_mobile" style="display: none;" href="javascript: AbrirChatBot()">
+            <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
+        </a>
     }
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
