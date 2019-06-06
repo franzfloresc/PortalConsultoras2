@@ -22,6 +22,10 @@
         max-width: 1222px;
     }
 
+    .layout__header--menuContenedorOfertas .slick-slider{
+        background-color:#FFF;
+    }
+
 .menu__contenedor__carrusel__wrapper {
     margin-bottom: 0;
 }
