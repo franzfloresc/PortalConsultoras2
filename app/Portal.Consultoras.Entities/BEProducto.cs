@@ -187,7 +187,7 @@ namespace Portal.Consultoras.Entities
             EstrategiaIDSicc = row.ToInt32("EstrategiaIDSicc");
 
             //INI HD-4200
-            Cantidad = (row.HasColumn("Cantidad") ? row.ToInt32("Cantidad") : 0);
+            Cantidad = row.ToInt32("Cantidad");
             //FIN HD-4200
         }
 
