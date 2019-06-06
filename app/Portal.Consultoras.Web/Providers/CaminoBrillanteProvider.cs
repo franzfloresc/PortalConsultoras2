@@ -18,6 +18,42 @@ namespace Portal.Consultoras.Web.Providers
         protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
         private UsuarioModel usuarioModel { get { return sessionManager.GetUserData(); } }
 
+        #region Validación y Carga
+
+        /// <summary>
+        /// Validación si puede acceder a Camino Brillante
+        /// </summary>
+        public bool ValidacionCaminoBrillante()
+        {
+            var informacion = GetConsultoraNivelCaminoBrillante();
+            if (informacion == null || informacion.NivelConsultora == null || usuarioModel == null || !informacion.NivelConsultora.Any()) return false;
+            return usuarioModel.CaminoBrillante;
+        }
+
+        /// <summary>
+        /// Carga Inicial de Camino Brillante
+        /// </summary>
+        public bool LoadCaminoBrillante()
+        {
+            try
+            {
+                var nivel = GetNivelActual();
+                var userModel = usuarioModel;
+                userModel.NivelCaminoBrillante = int.Parse(nivel.CodigoNivel);
+                sessionManager.SetUserData(userModel);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return false;
+            }
+            return true;
+        }
+
+        #endregion
+
+        #region Niveles
+
         /// <summary>
         /// Obtiene la escala de niveles del programa de Camino Brillante
         /// <paramref name="matchNivelConsultora"/>
@@ -59,6 +95,10 @@ namespace Portal.Consultoras.Web.Providers
                 return new List<NivelCaminoBrillanteModel>();
             }
         }
+
+        #endregion
+
+        #region Consultora
 
         /// <summary>
         /// Obtiene el Nivel Actual
@@ -142,6 +182,35 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         /// <summary>
+        /// Obtiene el Flag si tiene ofertas especiales
+        /// </summary>
+        public bool TieneOfertasEspeciales()
+        {
+            return (GetNivelActual() ?? new NivelCaminoBrillanteModel()).TieneOfertasEspeciales;
+        }
+
+        private BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante()
+        {
+            var resumen = sessionManager.GetConsultoraCaminoBrillante();
+            if (resumen == null)
+            {
+                using (var svc = new UsuarioServiceClient())
+                {
+                    var beUsuario = Mapper.Map<ServiceUsuario.BEUsuario>(usuarioModel);
+                    beUsuario.Zona = usuarioModel.CodigoZona;
+                    beUsuario.Region = usuarioModel.CodigorRegion;
+                    resumen = svc.GetConsultoraNivelCaminoBrillante(beUsuario);
+                }
+                sessionManager.SetConsultoraCaminoBrillante(resumen);
+            }
+            return resumen;
+        }
+
+        #endregion
+
+        #region Kits
+
+        /// <summary>
         /// Obtiene Kits disponibles para la consultora
         /// </summary>
         public List<KitCaminoBrillanteModel> GetKitsCaminoBrillante()
@@ -182,6 +251,10 @@ namespace Portal.Consultoras.Web.Providers
                 return new List<KitCaminoBrillanteModel>();
             }
         }
+
+        #endregion
+
+        #region Demostradores
 
         /// <summary>
         /// Obtiene Demostradores disponibles para la consultora
@@ -225,6 +298,10 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
+        #endregion
+
+        #region Util Format
+
         private List<DemostradorCaminoBrillanteModel> Format(List<DemostradorCaminoBrillanteModel> items)
         {
             if (items != null && usuarioModel != null)
@@ -267,76 +344,9 @@ namespace Portal.Consultoras.Web.Providers
             return carrusel;
         }
 
-        /*
-        private CarruselCaminoBrillanteModel Format(CarruselCaminoBrillanteModel carrusel)
-        {
-            if (carrusel != null)
-            {
-                if (carrusel.Items == null) return carrusel;            
-                carrusel.Items.Update(e => {
-                    if (e is KitCaminoBrillanteModel) {
-                        ((KitCaminoBrillanteModel) e).PaisISO = usuarioModel.CodigoISO;
-                    } else if (e is DemostradorCaminoBrillanteModel)
-                    {
-                        ((DemostradorCaminoBrillanteModel)e).PaisISO = usuarioModel.CodigoISO;
-                    }
-                });
-            }
-            return carrusel;
-        }
-        */
+        #endregion
 
-        /// <summary>
-        /// Obtiene el Flag si tiene ofertas especiales
-        /// </summary>
-        public bool TieneOfertasEspeciales()
-        {
-            return (GetNivelActual() ?? new NivelCaminoBrillanteModel()).TieneOfertasEspeciales;
-        }
-
-        /// <summary>
-        /// Validación si puede acceder a Camino Brillante
-        /// </summary>
-        public bool ValidacionCaminoBrillante()
-        {
-            var informacion = GetConsultoraNivelCaminoBrillante();
-            if (informacion == null || informacion.NivelConsultora == null || usuarioModel == null || !informacion.NivelConsultora.Any()) return false;
-            return usuarioModel.CaminoBrillante;
-        }
-
-        public bool LoadCaminoBrillante()
-        {
-            try
-            {
-                var nivel = GetNivelActual();
-                var userModel = usuarioModel;
-                userModel.NivelCaminoBrillante = int.Parse(nivel.CodigoNivel);
-                sessionManager.SetUserData(userModel);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
-                return false;
-            }
-            return true;
-        }
-
-        private BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante()
-        {
-            var resumen = sessionManager.GetConsultoraCaminoBrillante();
-            if (resumen == null)
-            {
-                using (var svc = new UsuarioServiceClient())
-                {
-                    var beUsuario = Mapper.Map<ServiceUsuario.BEUsuario>(usuarioModel);
-                    beUsuario.Zona = usuarioModel.CodigoZona;
-                    beUsuario.Region = usuarioModel.CodigorRegion;
-                    resumen = svc.GetConsultoraNivelCaminoBrillante(beUsuario);
-                }
-                sessionManager.SetConsultoraCaminoBrillante(resumen);
-            }
-            return resumen;
-        }
+        #region Busqueda CUV
 
         /// <summary>
         /// Validación CUV Camino Brillante
@@ -366,6 +376,13 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
+        #endregion
+
+        #region Orden y Filtros
+
+        /// <summary>
+        /// Filtros del Landing de Ofertas de Camino Brillante
+        /// </summary>
         public FiltrosCaminoBrillanteModel GetDatosOrdenFiltros()
         {
             try
@@ -395,6 +412,67 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
+        #endregion
+
+        #region Carrusel
+
+        /// <summary>
+        /// Carrusel de Camino Brillante
+        /// </summary>
+        public CarruselCaminoBrillanteModel GetCarruselCaminoBrillante()
+        {
+            try
+            {
+                using (var svc = new PedidoServiceClient())
+                {
+                    var usuario = new ServicePedido.BEUsuario()
+                    {
+                        PaisID = usuarioModel.PaisID,
+                        CampaniaID = usuarioModel.CampaniaID,
+                        ConsultoraID = usuarioModel.ConsultoraID,
+                        CodigoConsultora = usuarioModel.CodigoConsultora,
+                        NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
+                    };
+
+                    return Format(Mapper.Map<CarruselCaminoBrillanteModel>(svc.GetCarruselCaminoBrillante(usuario)));
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return null;
+            }
+        }
+
+        #endregion
+
+        #region Mis Ganancias
+
+        /// <summary>
+        /// Mis Ganancia de Camino Brillante
+        /// </summary>
+        public MisGananciasCaminoBrillante GetMisGananciasCaminoBrillante()
+        {
+            var niveles = GetNivelesHistoricosConsultora() ?? new List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante>();
+            var misGanancias = new MisGananciasCaminoBrillante()
+            {
+                SubTitulo = "Campañas",
+                Titulo = "Monto de mi pedido CXX-CYY",
+                MisGanancias = niveles.OrderBy(e => e.Campania)
+                            .Select(e => new MisGananciasCaminoBrillante.GananciaCampaniaCaminoBrillante()
+                            {
+                                LabelSerie = "C" + e.Campania.Substring(4, 2),
+                                ValorSerie = decimal.Parse(e.MontoPedido),
+                                GananciaCampania = e.GananciaCampania,
+                                GananciaCampaniaFormat = Util.DecimalToStringFormat(e.GananciaCampania, usuarioModel.CodigoISO),
+                                GananciaPeriodo = e.GananciaPeriodo,
+                                GananciaPeriodoFormat = Util.DecimalToStringFormat(e.GananciaPeriodo, usuarioModel.CodigoISO),
+                            }).ToList()
+            };
+            return misGanancias;
+        }
+
+        #endregion
 
 
         public List<EstrategiaPersonalizadaProductoModel> ObtenerListaProductoShowRoom(UsuarioModel userData, int campaniaId, string codigoConsultora, bool esFacturacion = false, int tipoOferta = 1)
@@ -440,52 +518,6 @@ namespace Portal.Consultoras.Web.Providers
                 TipoAccionAgregar = 2,
 
             }).ToList();
-        }
-
-        public CarruselCaminoBrillanteModel GetCarruselCaminoBrillante()
-        {
-            try
-            {
-                using (var svc = new PedidoServiceClient())
-                {
-                    var usuario = new ServicePedido.BEUsuario()
-                    {
-                        PaisID = usuarioModel.PaisID,
-                        CampaniaID = usuarioModel.CampaniaID,
-                        ConsultoraID = usuarioModel.ConsultoraID,
-                        CodigoConsultora = usuarioModel.CodigoConsultora,
-                        NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
-                    };
-
-                    return Format(Mapper.Map<CarruselCaminoBrillanteModel>(svc.GetCarruselCaminoBrillante(usuario)));
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
-                return null;
-            }
-        }
-
-        public MisGananciasCaminoBrillante GetMisGananciasCaminoBrillante()
-        {
-            var niveles = GetNivelesHistoricosConsultora() ?? new List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante>();
-            var misGanancias = new MisGananciasCaminoBrillante()
-            {
-                SubTitulo = "Campañas",
-                Titulo = "Monto de mi pedido CXX-CYY",
-                MisGanancias = niveles.OrderBy(e => e.Campania)
-                            .Select(e => new MisGananciasCaminoBrillante.GananciaCampaniaCaminoBrillante()
-                            {
-                                LabelSerie = "C" + e.Campania.Substring(4, 2),
-                                ValorSerie = decimal.Parse(e.MontoPedido),
-                                GananciaCampania = e.GananciaCampania,
-                                GananciaCampaniaFormat = Util.DecimalToStringFormat(e.GananciaCampania, usuarioModel.CodigoISO),
-                                GananciaPeriodo = e.GananciaPeriodo,
-                                GananciaPeriodoFormat = Util.DecimalToStringFormat(e.GananciaPeriodo, usuarioModel.CodigoISO),
-                            }).ToList()
-            };
-            return misGanancias;
         }
 
         public EstrategiaPersonalizadaProductoModel GetEstrategiaPersonalizadaProducto(string cuv)
