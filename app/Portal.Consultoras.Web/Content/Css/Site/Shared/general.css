@@ -61,12 +61,23 @@ button:focus{
 
 /* COMPONENTES UI */
 
+/* ENLACES */
+
+.enlace__sb,
+.enlace__sb:hover,
+.enlace__sb:active {
+    color: #000;
+    text-decoration: underline;
+}
+
+/* FIN - ENLACES */
+
 /* FORMS */
 
-.form__group__fields {
-    flex: 0 0 100%;
-    max-width: 100%;
-    position: relative;
+.form__group__fields{
+    flex:0 0 100%;
+    max-width:100%;
+    position:relative;
 }
 
 /* LABELS */
@@ -86,12 +97,12 @@ button:focus{
     transition: all 0.3s ease;
 }
 
-.text__field__sb:focus + .label__field__sb,
-.text__field__sb--withContent + .label__field__sb {
-    color: #000;
-    font-size: 11px;
-    top: -12px;
-}
+    .text__field__sb:focus + .label__field__sb,
+    .text__field__sb--withContent + .label__field__sb{
+        color: #000;
+        font-size: 11px;
+        top: -12px;
+    }
 
 .label__checkbox__sb {
     flex: 0 0 19px;
@@ -108,18 +119,19 @@ button:focus{
     transition: all 0.3s ease;
 }
 
-    .label__checkbox__sb + span {
-        font-size: 13px;
-        margin-top: -5px;
+    .label__checkbox__sb + span{
+        font-size:13px;
+        margin-top:-5px;
     }
 
-@media screen and (max-width:991px) {
+@media screen and (max-width:991px){
 
     .label__checkbox__sb + span {
         font-size: 13px;
         line-height: 18px;
-        margin-top: -4px;
+        margin-top:-4px;
     }
+
 }
 
 /* FIN - LABELS */
@@ -133,12 +145,12 @@ button:focus{
     border-bottom: 1px solid #b4b4b4;
     height: 40px;
     background-color: transparent;
-    position: relative;
-    z-index: 2;
-    font-size: 14px;
-    color: #000;
-    outline: none;
-    order: 0;
+    position:relative;
+    z-index:2;
+    font-size:14px;
+    color:#000;
+    outline:none;
+    order:0;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
@@ -146,21 +158,11 @@ button:focus{
 }
 
     .text__field__sb:focus,
-    .text__field__sb--withContent {
-        border-bottom: 1px solid #000;
+    .text__field__sb--withContent{
+        border-bottom:1px solid #000;
     }
 
 /* FIN - INPUT TEXT */
-
-/* VALIDATION MESSAGE */
-
-.validation__message {
-    color: #e81c36;
-    font-size: 11px;
-    margin-top: 4px;
-}
-
-/* FIN - VALIDATION MESSAGE */
 
 /* CHECKBOXES */
 
@@ -168,8 +170,8 @@ button:focus{
 .field__checkbox__sb:checked + .label__checkbox__sb--active {
     background-image: url(/Content/Images/icono_check_mi_perfil.svg);
     background-repeat: no-repeat;
-    background-position: center;
-    background-size: 13px;
+    background-position:center;
+    background-size:13px;
 }
 
 .field__checkbox__sb:checked + .label__checkbox__sb {
@@ -201,58 +203,135 @@ button:focus{
 .field__checkbox__sb + .tag__checkbox__sb {
     color: #454549;
     border: 1px solid #454549;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
-    .field__checkbox__sb:checked + .tag__checkbox__sb {
-        color: #d21194;
-        border: 1px solid #d21194;
-    }
+.field__checkbox__sb:checked + .tag__checkbox__sb {
+    color: #d21194;
+    border: 1px solid #d21194;
+}
 
 /* FIN - CHECKBOXES TIPO TAGS */
 
+/* VALIDATION MESSAGE */
+
+.validation__message {
+    color: #e81c36;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+/* FIN - VALIDATION MESSAGE */
+
+/* SWITCH */
+
+.switch__control__descrip {
+    color: #000;
+    font-size: 14px;
+}
+
+.switch__control__wrapper {
+    display: inline-block;
+    position: relative;
+    width: 48px;
+    height: 28px;
+    margin-bottom: 0;
+}
+
+input[type="checkbox"].switch__control,
+.switch__control:checked + .switch__slider:after {
+    display: none !important;
+}
+
+.switch__slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    padding: 8px;
+    color: #fff;
+    border-radius: 16px;
+}
+
+    .switch__slider:before {
+        position: absolute;
+        content: "";
+        height: 22px;
+        width: 22px;
+        left: 4px;
+        z-index: 5;
+        margin: auto 0;
+        top: 0;
+        bottom: 0;
+        background-color: #FFF;
+        -moz-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        border-radius: 14px;
+    }
+
+.switch__control:checked + .switch__slider {
+    background-color: #569c04;
+}
+
+    .switch__control:checked + .switch__slider:before {
+        left: 22px;
+    }
+
+/* FIN - SWITCH */
+
 /* BUTTONS */
 
-.btn__sb {
-    height: 40px;
-    line-height: 32px;
-    border: 0;
-    font-size: 14px;
-    position: relative;
+.btn__sb{
+    height:40px;
+    line-height:32px;
+    border:0;
+    font-size:14px;
+    position:relative;
 }
 
-.btn__sb__primary,
-.btn__sb__primary--multimarca {
-    color: #FFF;
-}
+    .btn__sb__primary,
+    .btn__sb__primary--multimarca{
+        color:#FFF;
+    }
 
-.btn__sb__primary,
-.btn__sb__secondary {
-    border: 1px solid #000;
-}
+    .btn__sb__primary,
+    .btn__sb__secondary{
+        border:1px solid #000;
+    }
 
-.btn__sb__primary {
-    background-color: #000;
-}
+    .btn__sb__primary{
+        background-color:#000;
+    }
 
-.btn__sb__primary--multimarca {
-    background-color: #B9007E;
-    border: 1px solid #B9007E;
-}
+    .btn__sb__primary--multimarca {
+        background-color: #B9007E;
+        border:1px solid #B9007E;
+    }
 
-.btn__sb__secondary {
-    background-color: #FFF;
-    color: #000;
-}
+    .btn__sb__secondary{
+        background-color:#FFF;
+        color:#000;
+    }
 
-.btn__sb--disabled {
-    border: 1px solid #D1D1D4;
-    background-color: #D1D1D4;
-    pointer-events: none;
-    cursor: not-allowed;
-    color: #909094;
-}
+    .btn__sb--disabled {
+        border: 1px solid #D1D1D4!important;
+        background-color: #D1D1D4!important;
+        pointer-events: none;
+        cursor: not-allowed;
+        color: #909094;
+    }
 
-@media screen and (max-width:991px) {
+@media screen and (max-width:991px){
 
     .btn__sb {
         position: fixed;
@@ -260,6 +339,7 @@ button:focus{
         right: 0;
         bottom: 16px;
     }
+
 }
 
 /* FIN - BUTTONS */
@@ -280,29 +360,33 @@ button:focus{
     transition: all 0.3s ease;
 }
 
-.notificacion__estado--exito span {
-    color: #569c04;
-}
+    .notificacion__estado--exito span {
+        color: #569c04;
+    }
 
-.notificacion__estado__img {
-    display: block;
-    width: 20px;
-    height: 20px;
-    margin-top: -1.2px;
-    margin-right: 4px;
-    margin-bottom: 0 !important;
-}
+    .notificacion__estado__img {
+        display: block;
+        width: 20px;
+        height: 20px;
+        margin-top: -1.2px;
+        margin-right: 4px;
+        margin-bottom: 0 !important;
+    }
 
-    .notificacion__estado__img img {
-        width: 100%;
-        height: auto;
+        .notificacion__estado__img img {
+            width: 100%;
+            height: auto;
+        }
+
+    .notificacion__estado--error span{
+        color:#e81c36;
     }
 
 /* FIN - NOTIFICACIONES */
 
 /* TAGS */
 
-.tag__sb {
+.tag_sb {
     display: inline-block;
     border-radius: 10.5px;
     width: auto;
@@ -314,7 +398,7 @@ button:focus{
     padding-right: 8px;
 }
 
-    .tag__sb--standard {
+    .tag_sb--standard {
         background-color: #000;
         color: #FFF;
     }
@@ -339,6 +423,14 @@ button:focus{
 
 .mb-30{
     margin-bottom:30px;
+}
+
+.mb-40{
+    margin-bottom:40px;
+}
+
+.mb-100{
+    margin-bottom:100px;
 }
 
 .pl-0{
@@ -373,16 +465,12 @@ button:focus{
     display:flex;
 }
 
+.text-bold{
+    font-weight:700;
+}
+
 .text-thin{
     font-weight:300;
-}
-
-.text-bold {
-    font-weight: 700;
-}
-
-.text-black {
-    font-weight: 900;
 }
 
 .text-underline{
@@ -428,6 +516,14 @@ button:focus{
 
 .full__height{
     height:100%;
+}
+
+.mt-40 {
+    margin-top: 40px;
+}
+
+.z__index__modal__nivel__alto {
+    z-index: 2147483647;
 }
 
 /* FIN - HELPERS CSS (DESKTOP) */
