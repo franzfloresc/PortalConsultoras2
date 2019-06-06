@@ -446,26 +446,7 @@ namespace Portal.Consultoras.Web.Controllers
             return newfilename;
         }
 
-        private string SaveFileVideoS3(string imagenEstrategia, bool mantenerExtension = false)
-        {
-            imagenEstrategia = Util.Trim(imagenEstrategia);
-            if (imagenEstrategia == string.Empty)
-                return string.Empty;
-
-            var path = Path.Combine(Globals.RutaTemporales, imagenEstrategia);
-
-            string cadena = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
-            string[] arrCadena;
-            arrCadena = cadena.Split(',');
-            var carpetaPais = string.Format("{0}/{1}", arrCadena[0], userData.CodigoISO);
-
-            var time = string.Concat(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Minute, DateTime.Now.Millisecond);
-            var ext = !mantenerExtension ? ".png" : Path.GetExtension(path);
-            var newfilename = string.Concat(userData.CodigoISO, "_", time, "_", FileManager.RandomString(), ext);
-            ConfigS3.SetFileS3(path, carpetaPais, newfilename);
-            return newfilename;
-        }
-
+       
         private IEnumerable<AdministrarHistorialDetaActModel> GetContenidoAppDetaActService(int Parent)
         {
 
@@ -708,6 +689,43 @@ namespace Portal.Consultoras.Web.Controllers
             return carpetaPais;
         }
 
+        private int SaveFileVideoS3(AdministrarHistorialDetaListModel model, string imagenEstrategia, bool mantenerExtension = false)
+        {
+            int valRespuesta = 0;
+            imagenEstrategia = Util.Trim(imagenEstrategia);
+            if (imagenEstrategia == string.Empty)
+                return 0;
+
+            var path = Path.Combine(Globals.RutaTemporales, imagenEstrategia);
+            var carpetaPais = GetCarpetaPaisVideo();
+
+            var time = string.Concat(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Minute, DateTime.Now.Millisecond);
+            var ext = !mantenerExtension ? ".png" : Path.GetExtension(path);
+            var newfilename = string.Concat(userData.CodigoISO, "_", time, "_", FileManager.RandomString(), ext);
+
+            model.RutaContenido = newfilename;
+            using (ContenidoServiceClient sv = new ContenidoServiceClient())
+            {
+                var entidad = new BEContenidoAppDeta
+                {
+                    Proc = model.Proc,
+                    IdContenidoDeta = model.IdContenidoDeta,
+                    IdContenido = model.IdContenido,
+                    RutaContenido = model.RutaContenido,
+                    Campania = model.Campania,
+                    Tipo = Constantes.TipoContenido.Video
+                };
+                valRespuesta = sv.ContenidoAppDetaVideo(userData.PaisID, entidad);
+
+                if (valRespuesta == 1) {
+                    ConfigS3.SetFileS3(path, carpetaPais, newfilename);
+                }
+            }
+
+            return valRespuesta;
+        }
+
+
         [HttpPost]
         public JsonResult ComponenteDatosVideoGuardar(AdministrarHistorialDetaListModel model)
         {            
@@ -752,30 +770,12 @@ namespace Portal.Consultoras.Web.Controllers
                             var carpetaPais = GetCarpetaPaisVideo();
                             ConfigS3.DeleteFileS3(carpetaPais, nombreImagenAnterior);
                         }
-                        
-                        model.RutaContenido = SaveFileVideoS3(_name, true);
+
+                        valRespuesta = SaveFileVideoS3(model, _name, true);
+
                     }
                    
                 }                              
-
-                using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                {
-                    var entidad = new BEContenidoAppDeta
-                    {
-                        Proc = model.Proc,
-                        IdContenidoDeta = model.IdContenidoDeta,
-                        IdContenido = model.IdContenido,
-                        RutaContenido = model.RutaContenido,
-                        Campania = model.Campania,
-                        Tipo = Constantes.TipoContenido.Video
-                    };
-                    valRespuesta = sv.ContenidoAppDetaVideo(userData.PaisID, entidad);
-
-                    if (valRespuesta == 2 || valRespuesta == 3) {
-                        var carpetaPais = GetCarpetaPaisVideo();
-                        ConfigS3.DeleteFileS3(carpetaPais, model.RutaContenido);
-                    }
-                }
 
                 return Json(new
                 {
