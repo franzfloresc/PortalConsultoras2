@@ -67,6 +67,19 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var fichaResponsiveEstaActivo = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            userData.PaisID,
+                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                            ConsTablaLogica.FlagFuncional.FichaResponsive,
+                            true
+                            );
+
+                if (fichaResponsiveEstaActivo)
+                {
+                    var urlFichaResponsive =string.Format( "/Detalles/{0}/{1}/{2}/{3}", palanca, campaniaId, cuv, origen);
+                    return Redirect(urlFichaResponsive);
+                }
+
                 var url = (Request.Url.Query).Split('?');
                 if (EsDispositivoMovil()
                     && url.Length > 1
