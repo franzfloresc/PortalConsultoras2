@@ -618,7 +618,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             return new EstrategiaPersonalizadaProductoModel()
             {
-
+                TipoOfertaCaminoBrillante = Constantes.CaminoBrillante.TipoOferta.Kit,
                 CodigoPalanca = "0",
                 FotoProducto01 = e.FotoProductoMedium,
                 TieneStock = true,
@@ -662,7 +662,7 @@ namespace Portal.Consultoras.Web.Providers
         private EstrategiaPersonalizadaProductoModel ToEstrategiaPersonalizadaProductoModel(DemostradorCaminoBrillanteModel e) {
             return new EstrategiaPersonalizadaProductoModel()
             {
-
+                TipoOfertaCaminoBrillante = Constantes.CaminoBrillante.TipoOferta.Demostrador,
                 CodigoPalanca = "0",
                 FotoProducto01 = e.FotoProductoMedium,
                 TieneStock = true,
