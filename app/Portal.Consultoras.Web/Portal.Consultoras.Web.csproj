@@ -5896,6 +5896,7 @@
     <Content Include="Views\CaminoBrillante\Partial\template_kit.cshtml" />
     <Content Include="Views\CaminoBrillante\Partial\template_demostrador.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_fbsdk.cshtml" />
+    <Content Include="Views\Shared\PopupsResponsive\_PopupInformacionRegalo.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
