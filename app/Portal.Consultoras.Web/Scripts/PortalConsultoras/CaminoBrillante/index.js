@@ -93,6 +93,21 @@ function Carusel() {
     })
 }
 
+$("#carrusel").on('click', '.boton_agregar_ofertas', function (e) {
+    debugger
+    var contenedor = $(this).parents('[data-item="BuscadorFichasProductos"]');
+    var obj = JSON.parse($(this).parents('[data-item="BuscadorFichasProductos"]').find('div [data-demostrador]').attr("data-demostrador"));
+    var cantidad = $(contenedor).find("#txtCantidad").val();
+    var tab = "Demostradores";
+    var a = $(contenedor).attr("#data-oferta");
+    if (cantidad <= 0) {
+        AbrirMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
+        CerrarSplash();
+    } else {
+        AgregarProducto(obj, cantidad, contenedor, tab, false);
+    }
+});
+
 function TagVerTodos(MisLogros) {
     dataLayer.push({
         'event': 'virtualEvent',
@@ -101,7 +116,6 @@ function TagVerTodos(MisLogros) {
         'label': '(not available)'
     });
 }
-
 
 function TagClickSeleccionNivel(nivelConsultora) {
     dataLayer.push({
