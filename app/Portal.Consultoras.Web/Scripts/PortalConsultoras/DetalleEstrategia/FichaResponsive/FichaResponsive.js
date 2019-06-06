@@ -1,5 +1,6 @@
 ﻿/// <reference path="estrategia/estrategiapresenter.js" />
 /// <reference path="componentes/componentespresenter.js" />
+/// <reference path="componentes/componentesanalyticspresenter.js" />
 /// <reference path="../../../general.js" />
 /// <reference path="../detalleestrategiaprovider.js" />
 /// <reference path="../../shared/analyticsportal.js" />
@@ -18,10 +19,14 @@ var estrategiaPresenter = EstrategiaPresenter({
     fichaResponsiveEvents: fichaResponsiveEvents
 });
 
+var componentesAnalyticsPresenter = ComponentesAnalyticsPresenter({
+    analyticsPortal: analyticsPortal
+});
+
 var componentesView = ComponentesView();
 var componentesPresenter = ComponentesPresenter({
     componentesView: componentesView,
-    analyticsPortal : analyticsPortal
+    componentesAnalyticsPresenter: componentesAnalyticsPresenter
 });
 componentesView.setPresenter(componentesPresenter);
 
@@ -31,28 +36,39 @@ var fichaEnriquecidaPresenter = FichaEnriquecidaPresenter({
 });
 
 $(document).ready(function () {
-    $("#data-estrategia").data("estrategia", detalleEstrategia.getEstrategia(params));
-    var estrategia = $("#data-estrategia").data("estrategia");
+    fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
+});
+
+fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded, function(){
+    estrategiaView.clearContainer();
+    componentesView.clearContainer();
+    
+    var estrategia = detalleEstrategia.getEstrategia(params);
+
+    $("#data-estrategia").data("estrategia", estrategia);
 
     estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
     componentesPresenter.onEstrategiaModelLoaded(estrategia);
 
     fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
-    let carruselModel = new CarruselModel(
+
+    const carruselModel = new CarruselModel(
         params.palanca,
         params.campania,
         params.cuv,
-       "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
+        "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
         params.origen,
         "Ficha",
         estrategia.DescripcionCompleta,
         estrategia.Hermanos.length,
         estrategia.CodigoProducto,
         estrategia.Precio2,
-        estrategia.Hermanos);
-    let carruselPresenter = new CarruselPresenter();
+        estrategia.Hermanos,
+        estrategia.TieneStock);
 
-    let carruselView = new CarruselView(carruselPresenter);
+    const carruselPresenter = new CarruselPresenter();
+
+    const carruselView = new CarruselView(carruselPresenter);
 
     carruselPresenter.initialize(carruselModel, carruselView);
 });
