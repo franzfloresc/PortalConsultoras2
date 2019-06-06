@@ -207,8 +207,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
         public BEResultadoReservaProl EjecutarReservaCrud(BEInputReservaProl input, bool crudreservado = false)
         {
             if (!input.ZonaValida) return new BEResultadoReservaProl { Reserva = true, ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
-            if (!input.ValidacionInteractiva) return new BEResultadoReservaProl { ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
-
+            if (!input.ValidacionInteractiva) return new BEResultadoReservaProl { ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };            
 
             try
             {
@@ -370,10 +369,11 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
         private void UpdatePedidoWebReservado(BEInputReservaProl input, BEResultadoReservaProl resultado, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
+
             var pedidoWeb = CreatePedidoWeb(resultado, input);
             decimal gananciaEstimada = 0;
             List<BEPedidoWebDetalle> listDetalleObservacion = null;
-
+            
             if (input.FechaHoraReserva)
             {
                 pedidoWeb.VersionProl = input.VersionProl;
@@ -393,10 +393,40 @@ namespace Portal.Consultoras.BizLogic.Reserva
             var daPedidoWeb = new DAPedidoWeb(input.PaisID);
             var daPedidoWebDetalle = new DAPedidoWebDetalle(input.PaisID);
             var daConcurso = new DAConcurso(input.PaisID);
+            var pedidoWebManager = new BLPedidoWeb();
+            var pedidoWebDetalleManager = new BLPedidoWebDetalle();
 
             TransactionOptions transOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
             {
+                var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+                {
+                    PaisId = input.PaisID,
+                    CampaniaId = input.CampaniaID,
+                    ConsultoraId = input.ConsultoraID,
+                    Consultora = input.NombreConsultora,
+                    CodigoPrograma = input.CodigoPrograma,
+                    NumeroPedido = input.ConsecutivoNueva,
+                    AgruparSet = true,
+                    NivelCaminoBrillante = 0
+                };
+
+                var beUsuario = new BEUsuario
+                {
+                    PaisID = input.PaisID,
+                    CampaniaID = input.CampaniaID,
+                    ConsultoraID = input.ConsultoraID,
+                    CodigoConsultora = input.CodigoConsultora
+                };
+
+                var pedidoWebDetalleAgrupado = pedidoWebDetalleManager.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros, true, false, false).ToList();
+                var pedidoWebConGanancia = pedidoWebManager.GetPedidoWebConCalculosGanancia(beUsuario, resultado.MontoAhorroCatalogo, resultado.MontoAhorroRevista, resultado.MontoDescuento, resultado.MontoEscala, pedidoWebDetalleAgrupado);
+
+
+                pedidoWeb.GananciaOtros = pedidoWebConGanancia.GananciaOtros;
+                pedidoWeb.GananciaRevista = pedidoWebConGanancia.GananciaRevista;
+                pedidoWeb.GananciaWeb = pedidoWebConGanancia.GananciaWeb;
+
                 daPedidoWeb.UpdateMontosPedidoWeb(pedidoWeb);
                 if (resultado.Reserva)
                 {
