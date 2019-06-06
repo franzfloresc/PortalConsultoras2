@@ -162,6 +162,10 @@ button:focus{
     height:100%;
 }
 
+.z__index__modal__nivel__alto {
+    z-index: 2147483647;
+}
+
 /* FIN - HELPERS CSS (DESKTOP) */
 
 /* ESTILOS MODIFICADORES JQUERY UI (PRECARGA PÁGINA RESULTADOS VERSIÓN DESKTOP) */
