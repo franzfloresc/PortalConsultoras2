@@ -844,8 +844,7 @@ $(document).ready(function () {
                                 me.Correo.irVista(config.VistaActual);
                             }
 
-                            var inputEmail = document.getElementById("NuevoCorreo");
-                            debugger;
+                            var inputEmail = document.getElementById("NuevoCorreo");                            
                             FuncionesGenerales.AutoCompletarEmailAPartirDeArroba(inputEmail);
                         },
                         error: function (data, error) {
@@ -922,8 +921,7 @@ $(document).ready(function () {
 
                     return arrayError;
                 },
-            postActualizarEnviarCorreo: function (data, fnSuccess) {
-                debugger;
+            postActualizarEnviarCorreo: function (data, fnSuccess) {                
                     nroIntentosCo = nroIntentosCo + 1;
                     var parametros = {
                         CantidadEnvios: nroIntentosCo,
@@ -980,16 +978,14 @@ $(document).ready(function () {
                     //    else if (config.VistaActual == 2) me.Correo.irVista(1);
                     //});
                     $('#btnCancelar').on('click', me.Correo.irPaginaPrevia);
-                    $('#btnReescribirCorreo').on('click', function () {
-                        debugger;
+                    $('#btnReescribirCorreo').on('click', function () {                        
                         if (config.IsConfirmar == 1) {
                             $('#NuevoCorreo').val(config.CorreoActual);
                             $('#NuevoCorreo').addClass('campo_con_datos');
                         } me.Correo.irVista(1);
                     });
 
-                    $('#btnReenviameInstruciones').on('click', function () {
-                        debugger;
+                    $('#btnReenviameInstruciones').on('click', function () {                        
                         var MsjSuccess = function () { $("#spnReenviarInstrucciones").show(); };
                         if (config.IsConfirmar == 1) {
                             me.Correo.postActualizarEnviarCorreo({ correoNuevo: config.CorreoActual }, MsjSuccess);
