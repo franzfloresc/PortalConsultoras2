@@ -282,6 +282,17 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             {
                                 mensajePersonalizado = observacion.Descripcion;
                             }
+                            else
+                            {
+                                //mensajePersonalizado = ListPedidoObservacion.First().Descripcion;\r\n
+                                mensajePersonalizado = "<ul> ";
+                                foreach (var item in ListPedidoObservacion)
+                                {
+                                    mensajePersonalizado = mensajePersonalizado + string.Concat("<li>"," - ",item.Descripcion,"</li>");
+                                }
+
+                                mensajePersonalizado = string.Concat(mensajePersonalizado + "</ul>");
+                            }
                         }
                         error = true;
                         break;
@@ -1269,6 +1280,15 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     if (numExclu != Enumeradores.ValidacionVentaExclusiva.ContinuaFlujo)
                         return ProductoBuscarRespuesta(Constantes.PedidoValidacion.Code.ERROR_PRODUCTO_NOPERTENECE_VENTAEXCLUSIVA);
 
+                }
+                #endregion
+
+                //Validación de cuvs en Camino Brillante
+                #region Camino Brillante
+                var valCaminoBrillante = _bLCaminoBrillante.ValidarBusquedaCaminoBrillante(usuario, productoBuscar.CodigoDescripcion);
+                if (valCaminoBrillante.Validacion != Enumeradores.ValidacionCaminoBrillante.ProductoNoExiste)
+                {
+                    return ProductoBuscarRespuesta(valCaminoBrillante.Code, valCaminoBrillante.Mensaje);
                 }
                 #endregion
 
