@@ -1345,10 +1345,14 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BECarruselCaminoBrillante GetCarruselCaminoBrillante(BEUsuario entidad);
 
+        [OperationContract]
+        BEOfertaCaminoBrillante GetOfertaCaminoBrillante(BEUsuario entidad, string CUV);
+
         #endregion
 
         [OperationContract]
         void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle);
+        
         //INI HD-4200
         [OperationContract]
         List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb);

@@ -18,5 +18,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         BEValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(BEUsuario entidad, string cuv);
         BEOrdenFiltroConfiguracion GetFiltrosCaminoBrillante(int paisID, bool isApp);
         BECarruselCaminoBrillante GetCarruselCaminoBrillante(BEUsuario entidad);
+        BEOfertaCaminoBrillante GetOfertaCaminoBrillante(BEUsuario entidad, string CUV);
     }
 }

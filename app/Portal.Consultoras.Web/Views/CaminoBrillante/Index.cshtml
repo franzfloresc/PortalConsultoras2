@@ -8,6 +8,11 @@
 
 @section css{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/CaminoBrillante")
+    <style>
+        div.content_responsive {
+            margin-top: 0px;
+        }
+    </style>
 }
 
 
@@ -114,7 +119,7 @@
                                     @if (nivel.EnterateMas == 1 || nivel.EnterateMas == 2)
                                     {
                                         <div class="box-enterate">
-                                            <a target="_blank" href="@Url.Action("EnterateMas", "CaminoBrillante", new { nivel = nivel.CodigoNivel  })">Enterate más</a>
+                                            <a target="_blank" href="@Url.Action("EnterateMas", "CaminoBrillante", new { nivel = nivel.CodigoNivel  })">Entérate más</a>
                                         </div>
                                     }
                                 </div>
@@ -163,12 +168,12 @@
         <section class="regular slider">
             {{#each Items}}
             <div class="revistadigital-landing">
-                {{#with Kit}}
-                {{> kit_template}}
-                {{/with}}
-                {{#with Demostrador}}
+                {{#iff TipoOferta '==' 2}}
                 {{> demostrador_template}}
-                {{/with}}
+                {{/iff}}
+                {{#iff TipoOferta '==' 1}}
+                {{> kit_template}}
+                {{/iff}}
             </div>
             {{/each}}
         </section>
@@ -205,7 +210,6 @@
     <script src="~/Scripts/Chart.min.js"></script>
 
 </div>
-
 <script src="~/Scripts/Chart.min.js"></script>
 
 @section scripts{

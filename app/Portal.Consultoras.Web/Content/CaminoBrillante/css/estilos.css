@@ -876,6 +876,10 @@ div .layout__view__breadcrumbs__wrapper, div .layout__view__title__wrapper {
 }
 
 
+#m_montoMinimo span em {
+    font-style: normal;
+}
+
 @media (min-width:576px) {
     .modal-dialog {
         max-width: 500px;
@@ -1404,6 +1408,20 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
     .text-down {
         line-height: 15px;
     }
+
+    #ddlfiltros {
+        width: 48%;
+        margin-left: 4%;
+        box-sizing: border-box;
+        display: block;
+    }
+
+    #ddlOrdenar {
+        width: 48%;
+        box-sizing: border-box;
+        display: block;
+        margin-left: 0;
+    }
     #ddlfiltros {
         width: 57%;
         margin-right: 3%;
@@ -1680,13 +1698,16 @@ li .productos__agregados {
     left: 24%;
     top: 14px;
     width: 21px;
-    height: 16px
+    height: 16px;
+    background: url(/Content/CaminoBrillante/imgs/add_to_cart2.svg) no-repeat center center;
 }
-
-.boton__agregalo--fichaProducto img {
-    max-width: 25px;
-    display: block
+.producto_desactivado .boton__agregalo--fichaProducto i {
+    background: url(/Content/CaminoBrillante/imgs/add-to-cart.svg) no-repeat center center;
 }
+    .boton__agregalo--fichaProducto img {
+        max-width: 25px;
+        display: block
+    }
 
 div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span {
     letter-spacing: 0;

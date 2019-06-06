@@ -1,5 +1,5 @@
 ﻿
-function OnClickFichaDetalle(e) {
+function OnClickFichaDetalle(e) {    
     //el objeto e debe ser establecido con target  (e.target)
     var infoCuvItem = EstrategiaAgregarModule.EstrategiaObtenerObj($(e));
     var codigoEstrategia = $.trim(infoCuvItem.CodigoEstrategia);
@@ -10,7 +10,6 @@ function OnClickFichaDetalle(e) {
     if (!OrigenPedidoWeb) {
         OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e), true);
     }
-
     var UrlDetalle = GetPalanca(codigoEstrategia, OrigenPedidoWeb);
 
     if (UrlDetalle === "" || UrlDetalle === "undefined" || UrlDetalle == null)
@@ -141,6 +140,12 @@ function GetPalanca(codigoEstrategia, origenPedidoWeb, esUrl) {
             break;
         case ConstantesModule.TipoEstrategia.NotParticipaProgramaNuevas:
             url += ConstantesModule.TipoEstrategiaTexto.NotParticipaProgramaNuevas;
+            break;
+        case ConstantesModule.TipoEstrategia.CaminoBrillanteDemostradores:
+            url += ConstantesModule.TipoEstrategiaTexto.CaminoBrillanteDemostradores;
+            break;
+        case ConstantesModule.TipoEstrategia.CaminoBrillanteKits:
+            url += ConstantesModule.TipoEstrategiaTexto.CaminoBrillanteKits;
             break;
         default:
             url = "";

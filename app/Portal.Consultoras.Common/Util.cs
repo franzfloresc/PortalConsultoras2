@@ -4040,6 +4040,12 @@ namespace Portal.Consultoras.Common
                 case Constantes.TipoEstrategiaCodigo.RevistaDigital:
                     tipoPersonalizacion = Constantes.ConfiguracionPais.RevistaDigital;
                     break;
+                case Constantes.TipoEstrategiaCodigo.CaminoBrillanteDemostradores:
+                    tipoPersonalizacion = Constantes.ConfiguracionPais.CaminoBrillanteDemostradores;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.CaminoBrillanteKits:
+                    tipoPersonalizacion = Constantes.ConfiguracionPais.CaminoBrillanteKits;
+                    break;
                 default:
                     break;
             }

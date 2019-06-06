@@ -2472,6 +2472,10 @@ namespace Portal.Consultoras.Service
             return _caminoBrillanteBusinessLogic.GetCarruselCaminoBrillante(entidad);
         }
 
+        public BEOfertaCaminoBrillante GetOfertaCaminoBrillante(BEUsuario entidad, string CUV) {
+            return _caminoBrillanteBusinessLogic.GetOfertaCaminoBrillante(entidad, CUV);
+        }
+
         #endregion
 
         public void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle)

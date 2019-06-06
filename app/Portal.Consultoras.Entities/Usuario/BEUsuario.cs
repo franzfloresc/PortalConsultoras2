@@ -36,6 +36,13 @@ namespace Portal.Consultoras.Entities
         [Column("TieneLoginExterno")]
         public int tieneLoginExterno { get; set; }
 
+        //INI HD-3897
+        [DataMember]
+        public bool FlgCheckSMS { get; set; }
+        [DataMember]
+        public bool FlgCheckEMAIL { get; set; }
+        //FIN HD-3897
+
         [Obsolete("Use MapUtil.MapToCollection")]
         public BEUsuario(IDataRecord row)
         {
@@ -74,6 +81,10 @@ namespace Portal.Consultoras.Entities
             TieneCDRExpress = row.ToBoolean("TieneCDRExpress");
             EsConsecutivoNueva = row.ToBoolean("EsConsecutivoNueva");
             IndicadorConsultoraDigital = row.ToInt32("IndicadorConsultoraDigital");
+            //INI HD-3897
+            FlgCheckSMS = row.HasColumn("FlgCheckSMS") && row.ToBoolean("FlgCheckSMS") ;
+            FlgCheckEMAIL = row.HasColumn("FlgCheckEMAIL") && row.ToBoolean("FlgCheckEMAIL");
+            //FIN HD-3897
         }
 
         [Obsolete("Use MapUtil.MapToCollection")]
@@ -981,5 +992,12 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public int NivelCaminoBrillante { get; set; }
+
+        //INI HD-3897
+        [DataMember]
+        public bool PuedeConfirmarAllEmail { get; set; }
+        [DataMember]
+        public bool PuedeConfirmarAllSms { get; set; }
+        //FIN HD-3897
     }
 }

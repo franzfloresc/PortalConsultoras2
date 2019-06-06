@@ -7,6 +7,7 @@ var offsetRegistrosDemo = 0;
 var offsetRegistrosKits = 0;
 var verMasKits = true;
 var verMasDemostradores = true;
+var i = 0; 
 var reservaResponse = {
     data: { Reserva: false }
 };

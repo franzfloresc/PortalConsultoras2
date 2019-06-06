@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.CaminoBrillante
@@ -61,6 +62,17 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         public bool FlagHabilitado { get; set; }
         [DataMember]
         public bool FlagHistorico { get; set; }
-      
+
+        public List<BEKitComponenteCaminoBrillante> Detalle { get; set; }
     }
+
+    [DataContract]
+    public class BEKitComponenteCaminoBrillante {
+        public string Cuv { get; set; }
+        public string Descripcion { get; set; }
+        public decimal Precio { get; set; }
+        public string Marca { get; set; }
+        public string DescripcionOferta { get; set; }
+    }
+
 }

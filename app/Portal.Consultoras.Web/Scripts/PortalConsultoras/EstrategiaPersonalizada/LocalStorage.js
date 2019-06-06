@@ -22,6 +22,10 @@
                 return _keyLocalStorage.HerramientasVenta + campania;
             case _tipoEstrategiaTexto.Ganadoras:
                 return _keyLocalStorage.Ganadoras + campania;
+            case _tipoEstrategiaTexto.CaminoBrillanteDemostradores:
+                return _keyLocalStorage.CaminoBrillanteDemostradores + campania;
+            case _tipoEstrategiaTexto.CaminoBrillanteKits:
+                return _keyLocalStorage.CaminoBrillanteKits + campania;
 
             default:
                 return null;
@@ -74,6 +78,12 @@
                 //case _tipoEstrategia.PackNuevas:
                 return _keyLocalStorage.DuoPerfecto;
             //FIN HD-3908
+            case _codigoPalanca.CBD:
+            case _tipoEstrategia.CaminoBrillanteDemostradores:
+                return _keyLocalStorage.CaminoBrillanteDemostradores;
+            case _codigoPalanca.CBK:
+            case _tipoEstrategia.CaminoBrillanteKits:
+                return _keyLocalStorage.CaminoBrillanteKits;
             default:
                 return null;
         }
@@ -133,6 +143,10 @@
                 return _urlObtenerEstrategia.HerrameintasVenta;
             case _tipoEstrategiaTexto.Ganadoras:
                 return _urlObtenerEstrategia.MasGanadoras;
+            case _tipoEstrategiaTexto.CaminoBrillanteDemostradores:
+                return _urlObtenerEstrategia.CaminoBrillanteDemostradores;
+            case _tipoEstrategiaTexto.CaminoBrillanteKits:
+                return _urlObtenerEstrategia.CaminoBrillanteKits;
             default:
                 return null;
         }
@@ -356,6 +370,8 @@ function ActualizarLocalStoragePalancas(cuv, valor) {
     ActualizarLocalStorageAgregado("PN", cuv, valor);
     ActualizarLocalStorageAgregado("DP", cuv, valor);
     //FIN HD-3908
+    ActualizarLocalStorageAgregado("CBD", cuv, valor);
+    ActualizarLocalStorageAgregado("CBK", cuv, valor);
 }
 
 function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
@@ -392,6 +408,12 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
         }
         else if (tipo == ConstantesModule.CodigoPalanca.DP) {
             lista = ConstantesModule.KeysLocalStorage.DuoPerfecto;
+        }
+        else if (tipo == ConstantesModule.CodigoPalanca.CBD) {
+            lista = ConstantesModule.KeysLocalStorage.CaminoBrillanteDemostrador;
+        }
+        else if (tipo == ConstantesModule.CodigoPalanca.CBK) {
+            lista = ConstantesModule.KeysLocalStorage.CaminoBrillanteKits;
         }
         //FIN HD-3908
         if (lista == "") {
