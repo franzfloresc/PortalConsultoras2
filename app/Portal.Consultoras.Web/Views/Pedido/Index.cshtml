@@ -324,335 +324,342 @@
             @{
                 var TotalMontoGanancia = @Model.MontoAhorroCatalogo +  @Model.GananciaRevista + @Model.GananciaWeb + @Model.GananciaOtros;
             }
-            <div class="caja_guardar_pedido">
-                <div class="contenedor_guardadoPedido">
-                    <div class="bloque_montosPedido">
-                        <div class="caja_montos">
-                            <div style="position: relative;">
-                                @if (Model.isShowGananciaConsultora)
-                                {
-                                    <div class="ganancia-estimada">
-                                        <div class="panel-toggle">
-                                            <div class="toggle-header">
-                                                <div class="toggle-switch closed">
-                                                    <div class="toggle-icon">
+        <div class="caja_guardar_pedido">
+            <div class="contenedor_guardadoPedido">
+                        <div class="bloque_montosPedido">
+                            <div class="caja_montos">
+                                <div style="position: relative;">
+                                    @if (!Model.isShowGananciaConsultora)
+                                    {
+                                        <div class="ganancia-estimada">
+                                            <div class="panel-toggle">
+                                                <div class="toggle-header">
+                                                    <div class="toggle-switch closed">
+                                                        <div class="toggle-icon">
+                                                        </div>
+                                                    </div>
+                                                    <div class="toggle-info">
+                                                        <span class="ganancia-titulo accent-color">
+                                                            @(cabezaEscala):
+                                                        </span>
+                                                        <span id="div-ganancia-total" class="ganancia-total accent-color">
+                                                            @Model.Simbolo <span id="div-ganancia-totalMontoGanancia">@Model.FormatoTotalMontoGanancia</span>
+                                                        </span>
                                                     </div>
                                                 </div>
-                                                <div class="toggle-info">
-                                                    <span class="ganancia-titulo accent-color">
-                                                        @(cabezaEscala):
-                                                    </span>
-                                                    <span id="div-ganancia-total" class="ganancia-total accent-color">
-                                                        @Model.Simbolo <span id="div-ganancia-totalMontoGanancia">@Model.FormatoTotalMontoGanancia</span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="toggle-content">
-                                                <div class="toggle-info">
-                                                    <span class="ganancia-titulo first-color">
-                                                        Catálogo
-                                                    </span>
-                                                    <span class="ganancia-total first-color">
-                                                        @Model.Simbolo <span id="div-ganancia-totalGananciaCatalogo">@Model.FormatoMontoAhorroCatalogo</span>
-                                                    </span>
-                                                </div>
-                                                <div class="toggle-info">
-                                                    <span class="ganancia-titulo first-color">
-                                                        Revista
-                                                    </span>
-                                                    <span class="ganancia-total first-color">
-                                                        @Model.Simbolo <span id="div-ganancia-totalGananciaRevista">@Model.FormatoGananciaRevista</span>
+                                                <div class="toggle-content">
+                                                    <div class="toggle-info">
+                                                        <span class="ganancia-titulo first-color">
+                                                            Catálogo
                                                         </span>
-                                                </div>
-                                                <div class="toggle-info">
-                                                    <span class="ganancia-titulo first-color">
-                                                        Gana+ /Ofertas Digitales
-                                                    </span>
-                                                    <span class="ganancia-total first-color">
-                                                        @Model.Simbolo <span id="div-ganancia-totalGananciaWeb">@Model.FormatoGananciaWeb</span>
-                                                    </span>
-                                                </div>
-                                                <div class="toggle-info">
-                                                    <span class="ganancia-titulo first-color">
-                                                        Otros
-                                                    </span>
-                                                    <span class="ganancia-total first-color">
-                                                        @Model.Simbolo <span id="div-ganancia-totalGananciaOtros">@Model.FormatoGananciaOtros</span>
-                                                    </span>
+                                                        <span class="ganancia-total first-color">
+                                                            @Model.Simbolo <span id="div-ganancia-totalGananciaCatalogo">@Model.FormatoMontoAhorroCatalogo</span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="toggle-info">
+                                                        <span class="ganancia-titulo first-color">
+                                                            Revista
+                                                        </span>
+                                                        <span class="ganancia-total first-color">
+                                                            @Model.Simbolo <span id="div-ganancia-totalGananciaRevista">@Model.FormatoGananciaRevista</span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="toggle-info">
+                                                        <span class="ganancia-titulo first-color">
+                                                            Gana+ /Ofertas Digitales
+                                                        </span>
+                                                        <span class="ganancia-total first-color">
+                                                            @Model.Simbolo <span id="div-ganancia-totalGananciaWeb">@Model.FormatoGananciaWeb</span>
+                                                        </span>
+                                                    </div>
+                                                    <div class="toggle-info">
+                                                        <span class="ganancia-titulo first-color">
+                                                            Otros
+                                                        </span>
+                                                        <span class="ganancia-total first-color">
+                                                            @Model.Simbolo <span id="div-ganancia-totalGananciaOtros">@Model.FormatoGananciaOtros</span>
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                }
-                                
+                                    }
 
-                                <div class="contenedorCupon" style="width: 100%;">
-                                    <div class="contenedorCuponConocelo content_pedido_cupon_monto" style="display: none;">
-                                        <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/cupon_gif_negro.gif")" alt="" /></div>
-                                        <div class="texto_cupon_monto">Tienes un dscto exclusivo para ti, <a id="linkConocerDescuento2" class="link_cupon_home" style="color: black;">conócelo aquí</a></div>
-                                    </div>
-                                    <div class="contenedorCuponInfo content_pedido_cupon_monto" style="display: none;" data-cupon-info-pedido="">
-                                        <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/cupon_gif_negro.gif")" alt="" /></div>
-                                        <div class="texto_cupon_monto">Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00</div>
-                                    </div>
-                                </div>
-                                <div class="ganancia-total">
-                                    <div class="ganancia-content">
-                                        <div class="ganancia-info">
-                                            <span class="ganancia-titulo first-color">
-                                                Subtotal:
-                                            </span>
-                                            <span class="ganancia-total first-color" data-pedidototal>
-                                                @Model.Simbolo @Model.FormatoTotal
-                                            </span>
-                                        </div>
-                                        <div class="ganancia-info">
-                                            <span class="ganancia-titulo first-color">
-                                                Descuento ofertas por niveles:
-                                            </span>
-                                            <span class="ganancia-total first-color" data-montodescuento>
-                                                <i>@Model.Simbolo</i> @Model.FormatoMontoDescuento
-                                            </span>
-                                        </div>
-                                        <div class="ganancia-info">
-                                            <span class="ganancia-titulo first-color">
-                                                Total:
-                                            </span>
-                                            <span class="ganancia-total first-color" data-pedidocondescuento="">
-                                                <i>@Model.Simbolo</i> <span id="sTotal">@Model.FormatoTotalConDescuento</span>
 
-                                            </span>
+                                    <div class="contenedorCupon" style="width: 100%;">
+                                        <div class="contenedorCuponConocelo content_pedido_cupon_monto" style="display: none;">
+                                            <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/cupon_gif_negro.gif")" alt="" /></div>
+                                            <div class="texto_cupon_monto">Tienes un dscto exclusivo para ti, <a id="linkConocerDescuento2" class="link_cupon_home" style="color: black;">conócelo aquí</a></div>
                                         </div>
-                                        @if (!Model.isShowGananciaConsultora)
-                                        {
+                                        <div class="contenedorCuponInfo content_pedido_cupon_monto" style="display: none;" data-cupon-info-pedido="">
+                                            <div class="icono_cupon_monto"><img src="@Url.Content("~/Content/Images/PL20/cupon_gif_negro.gif")" alt="" /></div>
+                                            <div class="texto_cupon_monto">Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00</div>
+                                        </div>
+                                    </div>
+                                    <div class="ganancia-total">
+                                        <div class="ganancia-content">
                                             <div class="ganancia-info">
                                                 <span class="ganancia-titulo first-color">
-                                                    <img src="/Content/Images/Esika/info-copy.png" onclick="MostrarDetalleGanancia();">
-                                                    @(cabezaEscala):
+                                                    TOTAL SIN DSCTO.
                                                 </span>
                                                 <span class="ganancia-total first-color" data-pedidototal>
-                                                    <i>@Model.Simbolo</i> <span id="spnMontoGanancia" data-ganancia="">@Model.FormatoMontoGanancia</span>
+                                                    @Model.Simbolo @Model.FormatoTotal
+                                                </span>
+                                            </div>
+                                            <div class="ganancia-info separator">
+                                                <span class="ganancia-titulo first-color">
+                                                    (-) Dscto. Ofertas Por Niveles
+                                                </span>
+                                                <span class="ganancia-total first-color" data-montodescuento>
+                                                    <i>@Model.Simbolo</i> @Model.FormatoMontoDescuento
+                                                </span>
+                                            </div>
+                                            <div class="ganancia-info pb-2">
+                                                <span class="ganancia-titulo titulo-up titulo-700">
+                                                    MONTO TOTAL :
+                                                </span>
+                                                <span class="ganancia-total first-color">
+                                                    <i>@Model.Simbolo</i> <span id="sTotal" data-pedidocondescuento="">@Model.FormatoTotalConDescuento</span>
 
                                                 </span>
                                             </div>
-                                        }
+                                            @if (Model.isShowGananciaConsultora)
+                                            {
+                                                <div class="ganancia-info">
+                                                    <span class="ganancia-titulo accent-color">
+                                                        <img src="/Content/Images/Esika/info-copy.png" onclick="MostrarDetalleGanancia();">
+                                                        @(cabezaEscala):
+                                                    </span>
+                                                    <span class="ganancia-total accent-color" data-pedidototal>
+                                                        <i>@Model.Simbolo</i> <span id="spnMontoGanancia" data-ganancia="">@Model.FormatoMontoGanancia</span>
+
+                                                    </span>
+                                                </div>
+                                            }
+                                        
+                                        </div>
                                     </div>
+                                    <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
+                                    <input type="hidden" id="hdePieEscala" value="@pieEscala" />
+                                    <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
+                                    <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
                                 </div>
-                                <input type="hidden" id="hdeCabezaEscala" value="@cabezaEscala" />
-                                <input type="hidden" id="hdePieEscala" value="@pieEscala" />
-                                <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
-                                <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
                             </div>
                         </div>
-                    </div>
-                    <div class="contenedor_btnGuardarPedido">
-                        @{
-                            string[] tooltips = (Model.ProlTooltip ?? "").Split('|');
-                            string tooltip1 = "";
-                            string tooltip2 = "";
-
-                            if (ViewBag.TipoUsuario == 2)
-                            {
-                                tooltip1 = "TE ENCUENTRAS UNA SESIÓN DE PRUEBA";
-                                tooltip2 = "Muy pronto podrás acceder a todos los beneficios de Somos Belcorp.";
-                            }
-                            else
-                            {
-                                tooltip1 = tooltips.Any() ? tooltips[0] : "";
-                                tooltip2 = tooltips.Count() > 1 ? tooltips[1] : "";
-                            }
-                        }
-                        @{
-                            if (ViewBag.TipoUsuario == 2)
-                            {
-                                <div class="tooltip_importanteGuardarPedido default-color" style="width:370px;">
-                                    <text>@tooltip1</text>
-                                    <span>@tooltip2</span>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="tooltip_importanteGuardarPedido default-color">
-                                    <text>@tooltip1</text>
-                                    <span>@tooltip2</span>
-                                </div>
-                            }
-                        }
-                        <div class="boton_guardarPedido">
-                            @if (Model.EstadoPedido == 1)
-                            {
-                                <button class="btn_ModificaPedido" onclick="javascript:ModificarPedido();" class="info_copy default-background-color">@Model.Prol</button>
-                            }
-                            else
-                            { <button id="btnValidarPROL" class="info_copy default-background-color">@Model.Prol</button>}
-
+                <div class="contenedor_btnGuardarPedido">
+                    @if (!Model.isShowGananciaConsultora)
+                    {
+                        <div class="mb-80">
                         </div>
-                    </div>
+                    }
+                    @{
+                        string[] tooltips = (Model.ProlTooltip ?? "").Split('|');
+                        string tooltip1 = "";
+                        string tooltip2 = "";
 
-                    <div id="divCondicionesCupon" style="display: none; color: #9b9b9b">
-                        <div style="margin-top: 19px;width: 42%;float:right;text-align:center;">*No incluye herramientas de venta</div>
-                        <div class="clearfix"></div>
+                        if (ViewBag.TipoUsuario == 2)
+                        {
+                            tooltip1 = "TE ENCUENTRAS UNA SESIÓN DE PRUEBA";
+                            tooltip2 = "Muy pronto podrás acceder a todos los beneficios de Somos Belcorp.";
+                        }
+                        else
+                        {
+                            tooltip1 = tooltips.Any() ? tooltips[0] : "";
+                            tooltip2 = tooltips.Count() > 1 ? tooltips[1] : "";
+                        }
+                    }
+                    @{
+                        if (ViewBag.TipoUsuario == 2)
+                        {
+                            <div class="tooltip_importanteGuardarPedido default-color" style="width: 370px;">
+                                <text>@tooltip1</text>
+                                <span>@tooltip2</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="tooltip_importanteGuardarPedido default-color">
+                                <text>@tooltip1</text>
+                                <span>@tooltip2</span>
+                            </div>
+                        }
+                    }
+                    <div class="boton_guardarPedido">
+                        @if (Model.EstadoPedido == 1)
+                        {
+                            <button class="btn_ModificaPedido" onclick="javascript:ModificarPedido();" class="info_copy default-background-color">@Model.Prol</button>
+                        }
+                        else
+                        {
+                            <button id="btnValidarPROL" class="info_copy default-background-color">@Model.Prol</button>}
+
+                    </div>
+                </div>
+
+                        <div id="divCondicionesCupon" style="display: none; color: #9b9b9b">
+                            <div style="margin-top: 19px; width: 42%; float: right; text-align: center;">*No incluye herramientas de venta</div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <div class="clear"></div>
+
                     </div>
 
                     <div class="clear"></div>
 
-                </div>
+                    <div id="divContendorPrincipal"></div>
 
-                <div class="clear"></div>
-
-                <div id="divContendorPrincipal"></div>
-
-                <div id="divNoValInteractiva" class="divNoValInteractiva" style="display:none;">
-                    <img src="/Content/Images/icons/warning.png">
-                    <span class="spnMensajeNoValInteractiva"></span>
-                    <img id="idImagenCerrar" src="/Content/Images/icons/close.png" style="padding-left: 35px;">
-                </div>
-            </div>
-            <!--Popup observaciones-->
-            <div id="observaciones_alerta" style="display: none;">
-                <div class="observaciones_alerta_blocks">
-
-                    <a class="close_buttom_alerta" href="">
-                        <img src="/Content/Images/close-icon.svg" alt="Alternate Text" />
-                    </a>
-                    <div class="header_observaciones_alerta">
-                        <ul>
-                            <li class="alert-observaciones"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
-                            <li><h3>OBSERVACIONES DEL PRODUCTO</h3></li>
-                        </ul>
-                        @*<p>Debes tener en cuenta que tu pedido ha sido reservado pero:</p>*@
+                    <div id="divNoValInteractiva" class="divNoValInteractiva" style="display: none;">
+                        <img src="/Content/Images/icons/warning.png">
+                        <span class="spnMensajeNoValInteractiva"></span>
+                        <img id="idImagenCerrar" src="/Content/Images/icons/close.png" style="padding-left: 35px;">
                     </div>
-                    <div class="descripcion_observaciones_alerta" id="desc_obs_alerta">
-                        @*<ul>
-                        <li>
-                            El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                            Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                        </li>
-                        <li>
-                            El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                            Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                        </li>
-                        <li>
-                            El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                            Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                        </li>
-
-                    </ul>*@
-                    </div>
-
                 </div>
-            </div>
-            <!-- fin Popup observaciones-->
+                <!--Popup observaciones-->
+                <div id="observaciones_alerta" style="display: none;">
+                    <div class="observaciones_alerta_blocks">
 
-            <div class="informacion_barra text-right">(*) Información referencial. Todo pedido realizado a través de la web está sujeto a stock. Algunos productos no suman a la escala de comisión. Guarda tu pedido para actualizar tu barra.</div>
-            <div class="contenedor_eliminacion_pedido">
-                <div class="datos_simplificacionCUV" style="display: none;">
-                    <p class="precio_total_sinDescuento">
-                        <span class="icon-advertencia"></span>
-                        <span>
-                            El precio total no incluye el descuento para ofertas con más de un precio (1x, 2x).<br />
-                        </span>
-                    </p>
-                </div>
-                <!-- Mostrar el link de eliminación de pedido solo si el pedido no está reservado-->
-                @if (Model.EstadoPedido != 1)
-                {
-                    <p class="texto_eliminar_pedido">
-                        <span class="texto_pedido_completo">
-                            Para eliminar el pedido completo <a href="javascript:;" class="link_eliminar_pedido default-color" title="Haz click aquí" onclick="MostrarEliminarPedidoTotal();">haz click aquí</a>
-                        </span>
-                    </p>
-                }
-
-                <div class="clear"></div>
-            </div>
-            <div class="clear"></div>
-            <div class="datos_para_movil" style="display: none;">
-                <p class="productos_ingresados_movil">
-                    <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="Alternate Text" /></span><b> Productos ingresados desde tu móvil.</b>
-                </p>
-            </div>
-
-            <div class="contenedor_banners">
-                <ul>
-                    <li data-id="1" data-name="Productos Descontinuados" data-position="pedido-inferior-1">
-                        <a onclick="AnalyticsBannersInferiores({ id: '1', name: 'Productos Descontinuados', position: 'pedido-inferior-1' })" href="@Model.accionBanner_01" title="Productos Descontinuados" target="_blank">
-                            <div class="imagen_banner_inferior">
-                                <img data-src="@Model.UrlBanner01" alt="Descúbrelos aquí" data-lazy-seccion-banner-pedido="" />
-                            </div>
-                            <div class="nombre_banner_inferior">DESCÚBRELOS AQUÍ</div>
+                        <a class="close_buttom_alerta" href="">
+                            <img src="/Content/Images/close-icon.svg" alt="Alternate Text" />
                         </a>
-                    </li>
+                        <div class="header_observaciones_alerta">
+                            <ul>
+                                <li class="alert-observaciones"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                                <li><h3>OBSERVACIONES DEL PRODUCTO</h3></li>
+                            </ul>
+                            @*<p>Debes tener en cuenta que tu pedido ha sido reservado pero:</p>*@
+                        </div>
+                        <div class="descripcion_observaciones_alerta" id="desc_obs_alerta">
+                            @*<ul>
+                            <li>
+                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                            </li>
+                            <li>
+                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                            </li>
+                            <li>
+                                El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                            </li>
 
-                    @if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)
+                        </ul>*@
+                        </div>
+
+                    </div>
+                </div>
+                <!-- fin Popup observaciones-->
+
+                <div class="informacion_barra text-right">(*) Información referencial. Todo pedido realizado a través de la web está sujeto a stock. Algunos productos no suman a la escala de comisión. Guarda tu pedido para actualizar tu barra.</div>
+                <div class="contenedor_eliminacion_pedido">
+                    <div class="datos_simplificacionCUV" style="display: none;">
+                        <p class="precio_total_sinDescuento">
+                            <span class="icon-advertencia"></span>
+                            <span>
+                                El precio total no incluye el descuento para ofertas con más de un precio (1x, 2x).<br />
+                            </span>
+                        </p>
+                    </div>
+                    <!-- Mostrar el link de eliminación de pedido solo si el pedido no está reservado-->
+                    @if (Model.EstadoPedido != 1)
                     {
-                        <li data-id="2" data-name="Monto Mínimo" data-position="pedido-inferior-2">
-                            <a onclick="AnalyticsBannersInferiores({ id: '2', name: 'Monto Mínimo', position: 'pedido-inferior-2' })" href="javascript:;" title="Monto Mínimo">
-                                <div class="imagen_banner_inferior">
-                                    <img data-src="@Model.UrlBanner02" alt="Monto Mínimo" data-lazy-seccion-banner-pedido="" />
-                                </div>
-                                <div class="nombre_banner_inferior">MONTO MÍNIMO</div>
-                            </a>
-                        </li>
-                    }
-                    else
-                    {
-                        <li data-id="3" data-name="Liquidaciones Web" data-position="pedido-inferior-3">
-                            <a onclick="AnalyticsBannersInferiores({ id: '3', name: 'Liquidaciones Web', position: 'pedido-inferior-3' })" href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")" title="Liquidaciones Web">
-                                <div class="imagen_banner_inferior">
-                                    <img data-src="@Model.UrlBanner02" alt="Entérate aquí" data-lazy-seccion-banner-pedido="" />
-                                </div>
-                                <div class="nombre_banner_inferior">ENTÉRATE AQUÍ</div>
-                            </a>
-                        </li>
+                        <p class="texto_eliminar_pedido">
+                            <span class="texto_pedido_completo">
+                                Para eliminar el pedido completo <a href="javascript:;" class="link_eliminar_pedido default-color" title="Haz click aquí" onclick="MostrarEliminarPedidoTotal();">haz click aquí</a>
+                            </span>
+                        </p>
                     }
 
-                    <li data-id="4" data-name="Productos Agotados" data-position="pedido-inferior-4">
-                        <a onclick="AnalyticsBannersInferiores({ id: '4', name: 'Productos Agotados', position: 'pedido-inferior-4' }); CargarProductoAgotados(1);" href="javascript:;" title="Productos Agotados">
-                            <div class="imagen_banner_inferior">
-                                <img data-src="@Model.UrlBanner03" alt="Infórmate aquí" data-lazy-seccion-banner-pedido="" />
-                            </div>
-                            <div class="nombre_banner_inferior">INFÓRMATE AQUÍ</div>
-                        </a>
-                    </li>
-                </ul>
+                    <div class="clear"></div>
+                </div>
                 <div class="clear"></div>
-            </div>
-            @*@if (ViewBag.MostrarPedidosPendientes == "1")
-                {
-                    <div id="infoPendientes" style="background:white; display: none;">
+                <div class="datos_para_movil" style="display: none;">
+                    <p class="productos_ingresados_movil">
+                        <span class="icon-mobile"><img src="@Url.Content("~/Content/Images/mobile-pedido.png")" alt="Alternate Text" /></span><b> Productos ingresados desde tu móvil.</b>
+                    </p>
+                </div>
 
-                        <div id="paginadorCabPend" class="cant_productos_y_paginador_wrapper_top">
-                        </div>
-                        <div class="content_datos_pendientes">
-                            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nombre de Cliente</div>
-                            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Origen</div>
+                <div class="contenedor_banners">
+                    <ul>
+                        <li data-id="1" data-name="Productos Descontinuados" data-position="pedido-inferior-1">
+                            <a onclick="AnalyticsBannersInferiores({ id: '1', name: 'Productos Descontinuados', position: 'pedido-inferior-1' })" href="@Model.accionBanner_01" title="Productos Descontinuados" target="_blank">
+                                <div class="imagen_banner_inferior">
+                                    <img data-src="@Model.UrlBanner01" alt="Descúbrelos aquí" data-lazy-seccion-banner-pedido="" />
+                                </div>
+                                <div class="nombre_banner_inferior">DESCÚBRELOS AQUÍ</div>
+                            </a>
+                        </li>
 
-                            <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Fecha Registro</div>
-                            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Precio Total</div>
-                            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Acción</div>
-                        </div>
-                        <div class="linea_separadora" style="margin-top:-1px"></div>
-                        <div>
-                            <div id="divPedidosPend"> </div>
-                        </div>
-                        <div id="paginadorPiePend" class="cant_productos_y_paginador_wrapper_bottom">
-                        </div>
-                        <div class="revision_pedidosAceptados">
-                            <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
-                            <span class="icono_consultoraOnline"></span>
-                            <span class="texto_misPedidosClientesOnline" style="cursor: pointer;" onclick="MostrarMisPedidosConsultoraOnline();">MIS PEDIDOS DEL <b>APP DE CATÁLOGOS</b></span>
-                        </div>
+                        @if (Model.CodigoIso == Constantes.CodigosISOPais.Venezuela)
+                        {
+                            <li data-id="2" data-name="Monto Mínimo" data-position="pedido-inferior-2">
+                                <a onclick="AnalyticsBannersInferiores({ id: '2', name: 'Monto Mínimo', position: 'pedido-inferior-2' })" href="javascript:;" title="Monto Mínimo">
+                                    <div class="imagen_banner_inferior">
+                                        <img data-src="@Model.UrlBanner02" alt="Monto Mínimo" data-lazy-seccion-banner-pedido="" />
+                                    </div>
+                                    <div class="nombre_banner_inferior">MONTO MÍNIMO</div>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li data-id="3" data-name="Liquidaciones Web" data-position="pedido-inferior-3">
+                                <a onclick="AnalyticsBannersInferiores({ id: '3', name: 'Liquidaciones Web', position: 'pedido-inferior-3' })" href="@Url.Action("OfertasLiquidacion", "OfertaLiquidacion")" title="Liquidaciones Web">
+                                    <div class="imagen_banner_inferior">
+                                        <img data-src="@Model.UrlBanner02" alt="Entérate aquí" data-lazy-seccion-banner-pedido="" />
+                                    </div>
+                                    <div class="nombre_banner_inferior">ENTÉRATE AQUÍ</div>
+                                </a>
+                            </li>
+                        }
 
-                        <div style="display: none;">
-                            @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmConsultoraOnline" }))
-                            {
-                                <input type="hidden" name="lanzarTabConsultoraOnline" value="true">
-                            }
-                        </div>
+                        <li data-id="4" data-name="Productos Agotados" data-position="pedido-inferior-4">
+                            <a onclick="AnalyticsBannersInferiores({ id: '4', name: 'Productos Agotados', position: 'pedido-inferior-4' }); CargarProductoAgotados(1);" href="javascript:;" title="Productos Agotados">
+                                <div class="imagen_banner_inferior">
+                                    <img data-src="@Model.UrlBanner03" alt="Infórmate aquí" data-lazy-seccion-banner-pedido="" />
+                                </div>
+                                <div class="nombre_banner_inferior">INFÓRMATE AQUÍ</div>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                @*@if (ViewBag.MostrarPedidosPendientes == "1")
+            {
+                <div id="infoPendientes" style="background:white; display: none;">
+
+                    <div id="paginadorCabPend" class="cant_productos_y_paginador_wrapper_top">
                     </div>
-                }*@
-        </div>
+                    <div class="content_datos_pendientes">
+                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nombre de Cliente</div>
+                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Origen</div>
+
+                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Fecha Registro</div>
+                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Precio Total</div>
+                        <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Acción</div>
+                    </div>
+                    <div class="linea_separadora" style="margin-top:-1px"></div>
+                    <div>
+                        <div id="divPedidosPend"> </div>
+                    </div>
+                    <div id="paginadorPiePend" class="cant_productos_y_paginador_wrapper_bottom">
+                    </div>
+                    <div class="revision_pedidosAceptados">
+                        <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
+                        <span class="icono_consultoraOnline"></span>
+                        <span class="texto_misPedidosClientesOnline" style="cursor: pointer;" onclick="MostrarMisPedidosConsultoraOnline();">MIS PEDIDOS DEL <b>APP DE CATÁLOGOS</b></span>
+                    </div>
+
+                    <div style="display: none;">
+                        @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmConsultoraOnline" }))
+                        {
+                            <input type="hidden" name="lanzarTabConsultoraOnline" value="true">
+                        }
+                    </div>
+                </div>
+            }*@
+            </div>
     </div>
 
     <div class="flexiPago_belcorp">
