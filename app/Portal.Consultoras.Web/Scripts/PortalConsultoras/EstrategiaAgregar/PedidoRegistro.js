@@ -1719,6 +1719,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
             CargarDetallePedido();
             var prevTotal = mtoLogroBarra;
             MostrarBarra(data);
+            ActualizaGanancias(data);  //TESLA-28
             showPopupNivelSuperado(data.DataBarra, prevTotal);
 
             if (data.modificoBackOrder) {
@@ -1743,7 +1744,15 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
     });
 }
 
-
+function ActualizaGanancias(data) {
+    data = ActualizaGanancias || "";
+    if (data !== "") {
+        $('#div-ganancia-totalGananciaCatalogo').text('GG');
+        $('#div-ganancia-totalGananciaRevista').text('GG');
+        $('#div-ganancia-totalGananciaWeb').text('GG');
+        $('#div-ganancia-totalGananciaOtros').text('GG');
+    }
+}
 function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, setId, esCuponNuevas) {
 	
     var rowElement = $(event.target).closest(".contenido_ingresoPedido");
