@@ -61,6 +61,17 @@ button:focus{
 
 /* COMPONENTES UI */
 
+/* ENLACES */
+
+.enlace__sb,
+.enlace__sb:hover,
+.enlace__sb:active {
+    color: #000;
+    text-decoration: underline;
+}
+
+/* FIN - ENLACES */
+
 /* FORMS */
 
 .form__group__fields {
@@ -183,6 +194,109 @@ button:focus{
 }
 
 /* FIN - CHECKBOXES */
+
+/* CHECKBOXES TIPO TAGS */
+
+.tag__checkbox__sb {
+    display: flex !important;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px !important;
+    padding-top: 0 !important;
+    padding-left: 8px;
+    padding-right: 8px;
+    min-height: 48px;
+}
+
+.field__checkbox__sb + .tag__checkbox__sb {
+    color: #454549;
+    border: 1px solid #454549;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.field__checkbox__sb:checked + .tag__checkbox__sb {
+    color: #d21194;
+    border: 1px solid #d21194;
+}
+
+/* FIN - CHECKBOXES TIPO TAGS */
+
+/* VALIDATION MESSAGE */
+
+.validation__message {
+    color: #e81c36;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+/* FIN - VALIDATION MESSAGE */
+
+/* SWITCH */
+
+.switch__control__descrip {
+    color: #000;
+    font-size: 14px;
+}
+
+.switch__control__wrapper {
+    display: inline-block;
+    position: relative;
+    width: 48px;
+    height: 28px;
+    margin-bottom: 0;
+}
+
+input[type="checkbox"].switch__control,
+.switch__control:checked + .switch__slider:after {
+    display: none !important;
+}
+
+.switch__slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    padding: 8px;
+    color: #fff;
+    border-radius: 16px;
+}
+
+    .switch__slider:before {
+        position: absolute;
+        content: "";
+        height: 22px;
+        width: 22px;
+        left: 4px;
+        z-index: 5;
+        margin: auto 0;
+        top: 0;
+        bottom: 0;
+        background-color: #FFF;
+        -moz-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        border-radius: 14px;
+    }
+
+.switch__control:checked + .switch__slider {
+    background-color: #569c04;
+}
+
+    .switch__control:checked + .switch__slider:before {
+        left: 22px;
+    }
+
+/* FIN - SWITCH */
 
 /* BUTTONS */
 
@@ -402,6 +516,14 @@ button:focus{
 
 .full__height{
     height:100%;
+}
+
+.mt-40 {
+    margin-top: 40px;
+}
+
+.z__index__modal__nivel__alto {
+    z-index: 2147483647;
 }
 
 /* FIN - HELPERS CSS (DESKTOP) */
