@@ -2964,6 +2964,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             lstReturn.ForEach(x =>
             {
                 x.FlagSeleccionado = objPedidoDetalle.olstBEPedidoWebDetalle.Any(y => y.CUV == x.CUV2) ? 1 : 0;
+                x.Precio2 = x.Precio2 == 0 ? x.PrecioUnitario : x.Precio2;
             });
 
             return lstReturn;
