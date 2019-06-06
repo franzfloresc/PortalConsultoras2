@@ -18,6 +18,7 @@
 
     var _util = {
         setCarrusel: function (id) {
+            $(id).slick('unslick');
             $(id).slick({
                 infinite: false,
                 speed: 300,
@@ -81,9 +82,19 @@
         return true;
     };
 
+    var _reloadCarruselVideos = function () {
+        if ($(_elements.carruselVideo.id).is(':visible')) {
+            $(_elements.carruselVideo.id).slick('setPosition', 0);
+        } else {
+            setTimeout(_reloadCarruselVideos, 50);
+        }
+        return true;
+    }
+
     return {
         renderFichaEnriquecida: _renderFichaEnriquecida,
         showPopup: _showPopup,
-        hidePopup: _hidePopup
+        hidePopup: _hidePopup,
+        reloadCarouselVideos: _reloadCarruselVideos
     };
 }

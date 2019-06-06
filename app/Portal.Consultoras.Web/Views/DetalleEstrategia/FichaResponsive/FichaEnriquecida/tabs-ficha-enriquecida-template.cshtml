@@ -5,7 +5,7 @@
     <div class="tabs">
         {{#each this.Secciones as |seccion|}}
         <input type="radio" name="tabs" id="tab{{@@index}}" {{#if @@first}} checked="checked" {{/if}}>
-        <label class="label_click" for="tab{{@@index}}">{{seccion.Titulo}}</label>
+        <label class="label_click" for="tab{{@@index}}" onclick="javascript:fichaEnriquecidaPresenter.reloadCarruselVideosFichaEnriquecida('{{seccion.Tipo}}')">{{seccion.Titulo}}</label>
         {{#iff seccion.Tipo '==' '@Constantes.TipoSeccion.Texto' }}
         <div class="tab">
             {{#each seccion.Detalles as |detalle|}}
