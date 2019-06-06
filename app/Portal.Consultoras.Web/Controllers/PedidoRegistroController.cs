@@ -405,7 +405,7 @@ namespace Portal.Consultoras.Web.Controllers
                         listCuvEliminar = pedidoDetalleResult.ListCuvEliminar.ToList(),
                         mensajeCondicional,
                         EsReservado = esReservado,
-                        PedidoWeb = actualizaModeloPedidoSb2Model(pedidoDetalleResult.PedidoWeb)
+                        PedidoWeb = ActualizaModeloPedidoSb2Model(pedidoDetalleResult.PedidoWeb)
                     }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -432,7 +432,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private PedidoSb2Model actualizaModeloPedidoSb2Model(BEPedidoWeb pedidoWeb)
+        private PedidoSb2Model ActualizaModeloPedidoSb2Model(BEPedidoWeb pedidoWeb)
         {
             var pedidoSb2Model = new PedidoSb2Model();
             if (pedidoWeb.GananciaRevista != null)
@@ -596,7 +596,7 @@ namespace Portal.Consultoras.Web.Controllers
                     cantidadTotalProductos = CantidadTotalProductos,
                     mensajeCondicional,
                     EsReservado = esReservado,
-                    PedidoWeb = actualizaModeloPedidoSb2Model(pedidoDetalleResult.PedidoWeb)
+                    PedidoWeb = ActualizaModeloPedidoSb2Model(pedidoDetalleResult.PedidoWeb)
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -708,7 +708,7 @@ namespace Portal.Consultoras.Web.Controllers
                 },
                 cantidadTotalProductos = olstPedidoWebDetalle.Sum(x => x.Cantidad),
                 EsReservado = esReservado,
-                PedidoWeb = actualizaModeloPedidoSb2Model(result.PedidoWeb)
+                PedidoWeb = ActualizaModeloPedidoSb2Model(result.PedidoWeb)
             }));
 
             return lastResult;
