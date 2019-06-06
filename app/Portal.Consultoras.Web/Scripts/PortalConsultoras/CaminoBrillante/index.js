@@ -311,7 +311,7 @@ function ArmarMisGanancias(data) {
                 bodyFontColor: 'rgb(0, 0, 0)',
                 xPadding: 2,
                 yPadding: 1,
-                yAlign: 'center',
+                yAlign: 'bottom',
                 xAlign: 'center',
                 custom: function (tooltip) {
                     if (!tooltip) return;
