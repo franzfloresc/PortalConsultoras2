@@ -312,19 +312,6 @@ namespace Portal.Consultoras.BizLogic
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
                 }
 
-                if (Common.Util.IsUrl(usuario.FotoPerfil))
-                {
-                    if (Common.Util.ExisteUrlRemota(imagenS3))
-                    {
-                        usuario.FotoPerfilAncha = Common.Util.EsImagenAncha(imagenS3);
-                    }
-                    else
-                    {
-                        usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";
-                        usuario.FotoOriginalSinModificar = null;
-                    }
-                }
-
                 if (string.IsNullOrEmpty(usuario.FotoPerfil))
                 {
                     usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";

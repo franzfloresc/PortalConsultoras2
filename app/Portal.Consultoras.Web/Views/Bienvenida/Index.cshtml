@@ -60,14 +60,7 @@
                     </div>
                 </div>
                 <div class="foto_perfil_home">
-                    @if (ViewBag.FotoPerfilAncha)
-                    {
-                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width: auto; height: 100%;" />
-                    }
-                    else
-                    {
-                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width: 100%; height: auto;" />
-                    }
+                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" onload="onLoadPhotoUser(this)" onerror="this.onerror=null; this.src='@Url.Content("~/Content/Images/icono_avatar.svg")'" alt="" />
                 </div>
             }
             <div class="clear"></div>

@@ -3347,7 +3347,7 @@ namespace Portal.Consultoras.Common
             }
 
             return result;
-        }
+        }        
 
         public static string GenerarRutaImagenResizeMedium(string rutaImagen)
         {
