@@ -332,6 +332,8 @@ function ArmarMisGanancias(data) {
 
                     ticks: {
                         display: false,
+                        suggestedMin: 20,
+                        suggestedMax: 20,
                         padding: 0,
                         fontColor: "#000",
                         fontSize: 14
