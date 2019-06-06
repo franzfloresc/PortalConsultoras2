@@ -64,8 +64,9 @@ var EstrategiaPresenter = function (config) {
         if (!(typeof esEditable === "boolean")) throw  "esEditable is undefined";
 
         var model = _estrategiaModel();
-
-        EstrategiaAgregarModule.EstrategiaAgregar(event, popup, limite, esFicha, esEditable, model);
+        EstrategiaAgregarModule.EstrategiaAgregar(event, popup, limite, esFicha, esEditable, model,function(){
+            fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
+        });
     };
 
     return {

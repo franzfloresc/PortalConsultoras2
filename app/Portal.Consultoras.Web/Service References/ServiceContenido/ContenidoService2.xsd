@@ -494,6 +494,7 @@
       <xs:element minOccurs="0" name="EsOFGanaMasZonaValida" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsOfertaFinalZonaValida" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsShowRoom" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsUltimoDiaFacturacion" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsZonaDemAnti" type="xs:int" />
       <xs:element minOccurs="0" name="EsquemaDAConsultora" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstadoPedido" type="xs:int" />
