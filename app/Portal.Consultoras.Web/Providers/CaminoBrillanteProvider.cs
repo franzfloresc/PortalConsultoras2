@@ -501,13 +501,6 @@ namespace Portal.Consultoras.Web.Providers
             }           
         }
 
-        /*
-        private EstrategiaPersonalizadaProductoModel GetEstrategiaPersonalizadaProducto(string cuv)
-        {            
-            return GetDetalleEstrategiaFichaModel(cuv);
-        }
-        */
-
         /// <summary>
         /// Obtener la estragia necesaria para la ficha Producto
         /// </summary>
