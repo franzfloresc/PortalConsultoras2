@@ -404,7 +404,8 @@ namespace Portal.Consultoras.Web.Controllers
                         formatoTotal = FormatoTotal,
                         listCuvEliminar = pedidoDetalleResult.ListCuvEliminar.ToList(),
                         mensajeCondicional,
-                        EsReservado = esReservado
+                        EsReservado = esReservado,
+                        PedidoWeb = pedidoDetalleResult.PedidoWeb
                     }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -558,7 +559,8 @@ namespace Portal.Consultoras.Web.Controllers
                     DataBarra = GetDataBarra(),
                     cantidadTotalProductos = CantidadTotalProductos,
                     mensajeCondicional,
-                    EsReservado = esReservado
+                    EsReservado = esReservado,
+                    PedidoWeb = pedidoDetalleResult.PedidoWeb
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -669,7 +671,8 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoAgrupado.TipoEstrategiaCodigo
                 },
                 cantidadTotalProductos = olstPedidoWebDetalle.Sum(x => x.Cantidad),
-                EsReservado = esReservado
+                EsReservado = esReservado,
+                PedidoWeb = result.PedidoWeb
             }));
 
             return lastResult;

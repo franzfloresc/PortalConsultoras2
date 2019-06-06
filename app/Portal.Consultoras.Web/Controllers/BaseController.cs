@@ -1154,7 +1154,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.TieneOfertaDelDia = _ofertaDelDiaProvider.CumpleOfertaDelDia(userData, GetControllerActual());
                 ViewBag.MostrarBannerSuperiorOdd = _ofertaDelDiaProvider.MostrarBannerSuperiorOdd(userData, GetControllerActual());
 
-                ViewBag.CaminoBrillante = ViewBag.CaminoBrillante ?? false;
+                //ViewBag.CaminoBrillante = ViewBag.CaminoBrillante ?? false;
             }
             catch (Exception ex)
             {
@@ -1296,7 +1296,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             controllerName = "," + controllerName.ToLower() + ",";
 
-            var controladores = ",,miscatalogosrevistas,busquedaproductos,tusclientes,detalleestrategia,";
+            var controladores = (",,miscatalogosrevistas,busquedaproductos,tusclientes,detalleestrategia,CaminoBrillante,").ToLower();
 
             if (controladores.Contains(controllerName)) return false;
 

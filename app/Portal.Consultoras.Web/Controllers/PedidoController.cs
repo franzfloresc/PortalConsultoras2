@@ -114,7 +114,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 SessionManager.SetPedidoValidado(false);
 
-                if ((configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == GetDiaActual()) &&
+                if ((configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == Util.GetDiaActual(userData.ZonaHoraria)) &&
                     !configuracionCampania.ModificaPedidoReservado &&
                     !configuracionCampania.ValidacionAbierta)
                 {
@@ -125,7 +125,7 @@ namespace Portal.Consultoras.Web.Controllers
                 userData.ZonaValida = configuracionCampania.ZonaValida;
 
                 model.FlagValidacionPedido = "0";
-                if ((configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == GetDiaActual()) &&
+                if ( (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == Util.GetDiaActual(userData.ZonaHoraria)) &&
                     configuracionCampania.ModificaPedidoReservado)
                 {
                     model.FlagValidacionPedido = "1";
@@ -196,6 +196,10 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MontoDescuento = pedidoWeb.DescuentoProl;
                     model.MontoEscala = pedidoWeb.MontoEscala;
                     model.TotalConDescuento = model.Total - model.MontoDescuento;
+                    model.GananciaRevista = pedidoWeb.GananciaRevista;
+                    model.GananciaWeb = pedidoWeb.GananciaWeb;
+                    model.GananciaOtros = pedidoWeb.GananciaOtros;
+                    model.isShowGananciaConsultora = isCalculoGananaciaConsultora(pedidoWeb);
 
                     SessionManager.SetMontosProl(
                         new List<ObjMontosProl>
@@ -1589,7 +1593,7 @@ namespace Portal.Consultoras.Web.Controllers
                     flagCorreo = resultado.EnviarCorreo ? "1" : "",
                     permiteOfertaFinal = listPermiteOfertaFinal.Contains(resultado.ResultadoReservaEnum),
                     mensajeCondicional,
-                    UltimoDiaFacturacion = (userData.FechaFacturacion == GetDiaActual())   //TESLA 7
+                    UltimoDiaFacturacion = (userData.FechaFacturacion == Util.GetDiaActual(userData.ZonaHoraria))
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -2358,7 +2362,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                 }
-                var pedidoReservado = (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado && userData.FechaFinCampania == GetDiaActual());
+                var pedidoReservado = (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado && userData.FechaFinCampania == Util.GetDiaActual(userData.ZonaHoraria));
                 var estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                 var mensaje = result.Mensaje;
                 //INI HD-3693
@@ -2369,7 +2373,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = estado,
                     pedidoReservado = pedidoReservado,
                     message = mensaje,
-                    UltimoDiaFacturacion = (userData.FechaFacturacion == GetDiaActual()),   //TESLA 7
+                    UltimoDiaFacturacion = (userData.FechaFacturacion == Util.GetDiaActual(userData.ZonaHoraria)),
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -3420,6 +3424,17 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false
                 }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        /// <summary>
+        /// Requerimiento TESLA-28
+        /// [Ganancia] Cálculo Ganancia ofertas Catálogo*
+        /// </summary>
+        /// <returns></returns>
+        private bool isCalculoGananaciaConsultora(BEPedidoWeb pedidoWeb)
+        {
+            return pedidoWeb.GananciaRevista.HasValue ||
+                   pedidoWeb.GananciaWeb.HasValue || pedidoWeb.GananciaWeb.HasValue;
         }
     }
 }

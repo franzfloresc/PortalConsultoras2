@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.SessionManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -25,6 +26,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public override ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
+            var fichaResponsiveEstaActivo = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            userData.PaisID,
+                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                            ConsTablaLogica.FlagFuncional.FichaResponsive,
+                            true
+                            );
+
+            if (fichaResponsiveEstaActivo)
+            {
+                var urlFichaResponsive = string.Format("/Detalles/{0}/{1}/{2}/{3}", palanca, campaniaId, cuv, origen);
+                return Redirect(urlFichaResponsive);
+            }
+
             return base.Ficha(palanca, campaniaId, cuv, origen);
         }
 

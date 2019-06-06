@@ -1,4 +1,5 @@
-﻿/// <reference path="../Componentes/ComponentesView.js" />
+﻿/// <reference path="componentesanalyticspresenter.js" />
+/// <reference path="../Componentes/ComponentesView.js" />
 
 var ComponentesPresenter = function (config) {
     if (typeof config === "undefined" || config == null) throw "config is null or undefined";
@@ -371,7 +372,9 @@ var ComponentesPresenter = function (config) {
                 selectedComponent = componente;
                 result = true;
 
-                result = result && _config.componentesView.showTypesAndTonesModal();
+                result = result && 
+                    _config.componentesView.showTypesAndTonesModal() &&
+                    _config.componentesView.showComponentTypesAndTones(selectedComponent);
 
                 $.each(componente.resumenAplicados, function (idxOpcion, opcion) {
                     _addTypeOrTone(opcion.Grupo, opcion.Cuv);
