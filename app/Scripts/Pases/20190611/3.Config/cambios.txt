@@ -1,0 +1,83 @@
+1.SB MicroServicios - Search
+	Agregar dentro de constantes:
+		Pum: ['GND', 'LAN', 'ODD', 'OPM', 'OPT', 'PAD', 'SR'],
+		CategoriasPum: ["Accesorios", "Moda", "Bijouterie", "Apoyo"]
+
+	Modificar dentro de papi.productAPI.porSap:
+		parametrosOut: '{codsap,destallamedidacatalogo,id,contenidoneto,umcontenido,largo,ancho,alto,unidadlongitud,destallamedidacatalogo,destitulopaso001,despaso001,destitulopaso002,despaso002,destitulopaso003,despaso003,destitulopaso004,despaso004,destitulodescubremas001,desdescubremas001,destitulodescubremas002,desdescubremas002,destitulodescubremas003,desdescubremas003,destitulotip001,destip001,destitulotip002,destip002,destitulotip003,destip003,destitulotip004,destip004,deslinkvideoId001,destextovideo001,deslinkvideoId002,destextovideo002,deslinkvideoId003,destextovideo003,deslinkvideoId004,destextovideo004,deslinkvideoId005,destextovideo005,codunidadnegocio}}'
+
+	Agregar a nivel raiz:
+		configuracionPais:[ 
+        {
+            paisIso: 'BO',
+            configuracion: {
+                CalculoPum: false
+            }
+        },
+        {
+            paisIso: 'CL',
+            configuracion:  {
+                CalculoPum: false
+            }
+        },
+        {
+            paisIso: 'CO',
+            configuracion: {
+                CalculoPum: true
+            }
+        },
+        {
+            paisIso: 'CR',
+            configuracion: {
+                CalculoPum: false
+            }
+        },
+        {
+            paisIso: 'DO',
+            configuracion: {
+                CalculoPum: false
+            }
+        },
+        {
+            paisIso: 'EC',
+            configuracion: {
+                CalculoPum: false
+            }
+        },
+        {
+            paisIso: 'GT',
+            configuracion: {
+                CalculoPum: false
+            }
+        },
+        {
+            paisIso: 'MX',
+            configuracion: {
+                CalculoPum: false
+            }
+        },
+        {
+            paisIso: 'PA',
+            configuracion:  {
+                CalculoPum: false
+            }
+        },
+        {
+            paisIso: 'PE',
+            configuracion: {
+                CalculoPum: false
+            }
+        },
+        {
+            paisIso: 'PR',
+            configuracion: {
+                CalculoPum: false
+            }
+        },
+        {
+            paisIso: 'SV',
+            configuracion: {
+                CalculoPum: false
+            }
+        },
+    ]
