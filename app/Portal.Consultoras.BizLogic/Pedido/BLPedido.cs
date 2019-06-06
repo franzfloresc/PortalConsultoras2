@@ -173,7 +173,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         var error = false;                        
 
                         if (reservado)
-                        {
+                        {                            
                             pedidoDetalle.Producto.CUV = respuestaT.CUV;
                             var respuestaReserva = _reservaBusinessLogic.EjecutarReservaCrud(pedidoDetalle.ReservaProl, true);
                             respuestaT = GetPedidoDetalleResultFromResultadoReservaProl(respuestaReserva, respuestaT, pedidoDetalle, out error);
@@ -992,8 +992,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 //Eliminar Detalle
                 var responseCode = Constantes.PedidoValidacion.Code.SUCCESS;
-
-                var pedidoWeb = new BEPedidoWeb();
+                BEPedidoDetalleResult respuesta = null;
+                BEPedidoWeb pedidoWeb = null;
                 if (pedidoDetalle.Producto == null)
                 {
                     responseCode = await DeleteAll(usuario, pedidoDetalle);
@@ -1014,7 +1014,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var pedidoID = 0;
                     lstDetalle = ObtenerPedidoWebDetalle(pedidoDetalleBuscar, out pedidoID);
 
-                    var respuesta = PedidoAgregar_EliminarUno(pedidoDetalle, lstDetalle);
+                    respuesta = PedidoAgregar_EliminarUno(pedidoDetalle, lstDetalle);
 
                     ListaMensajeCondicional.AddRange(respuesta.ListaMensajeCondicional);
 
@@ -1026,7 +1026,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 PedidoAgregar_DesReservarPedido(lstDetalle, pedidoDetalle.Producto, usuario);
                 var request = PedidoDetalleRespuesta(responseCode);
-                request.PedidoWeb = pedidoWeb;
+                request.PedidoWeb = pedidoWeb ?? respuesta.PedidoWeb;
 
                 ListaMensajeCondicional.AddRange(request.ListaMensajeCondicional);
 
@@ -1065,7 +1065,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
             result.MontoAhorroRevista = respuestaReserva.MontoAhorroRevista.ToString("#.00");
             result.DescuentoProl = respuestaReserva.MontoDescuento.ToString("#.00");
             result.MontoEscala = respuestaReserva.MontoEscala.ToString("#.00");
-            var pedidoWeb = GetPedidoWebConCalculosGanancia(pedidoDetalle.Usuario, respuestaReserva.MontoAhorroCatalogo, respuestaReserva.MontoAhorroRevista, respuestaReserva.MontoDescuento, respuestaReserva.MontoEscala);
+
+            int pedidoId = 0;
+            var pedidoWebAgrupado = _pedidoWebDetalleBusinessLogic.ObtenerPedidoWebSetDetalleAgrupado(pedidoDetalle.Usuario, out pedidoId);
+            var pedidoWeb = _pedidoWebBusinessLogic.GetPedidoWebConCalculosGanancia(pedidoDetalle.Usuario, respuestaReserva.MontoAhorroCatalogo, respuestaReserva.MontoAhorroRevista, respuestaReserva.MontoDescuento, respuestaReserva.MontoEscala, pedidoWebAgrupado);
             if(pedidoWeb != null)
             {
                 _pedidoWebBusinessLogic.UpdateMontosPedidoWeb(pedidoWeb);
@@ -3233,8 +3236,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 puntajes = string.Join("|", lstConcursos.Select(c => 0));
                 puntajesExigidos = string.Join("|", lstConcursos.Select(c => 0));
             }
-
-            pedidoWeb = GetPedidoWebConCalculosGanancia(usuario, montoAhorroCatalogo, montoAhorroRevista, montoDescuento, montoEscala);
+            int pedidoId = 0;
+            var pedidoWebDetalleAgrupado = _pedidoWebDetalleBusinessLogic.ObtenerPedidoWebSetDetalleAgrupado(usuario, out pedidoId);
+            pedidoWeb = _pedidoWebBusinessLogic.GetPedidoWebConCalculosGanancia(usuario, montoAhorroCatalogo, montoAhorroRevista, montoDescuento, montoEscala, pedidoWebDetalleAgrupado);
 
             //TODO: incluir campos y parametros en el metodo UpdateMontosPedidoWeb y en el sp
             _pedidoWebBusinessLogic.UpdateMontosPedidoWeb(pedidoWeb);
@@ -3248,86 +3252,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         private List<ObjMontosProl> UpdateProl(BEUsuario usuario, List<BEPedidoWebDetalle> lstDetalle, out List<BEMensajeProl> listMensajeCondicional) {
             var pedidoWeb = new BEPedidoWeb();
             return UpdateProlCrud(usuario,lstDetalle,out listMensajeCondicional, out pedidoWeb);
-        }
-
-
-        private BEPedidoWeb GetPedidoWebConCalculosGanancia(BEUsuario usuario, decimal montoAhorroCatalogo, decimal montoAhorroRevista, decimal montoDescuento, decimal montoEscala)
-        {
-            var pedidoWebSetDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, false, out int pedidoID);
-
-            var codigosCatalogosWeb = GetCodigosCatalogoWeb(false);
-            var codigosCatalogosRevista = GetCodigosCatalogoRevista();
-            var itemsCatalogo = GetCodigosCatalogo();
-
-            var itemsWeb = pedidoWebSetDetalleAgrupado.Where(p => codigosCatalogosWeb.Contains(p.CodigoCatalago.ToString()) ||
-                        (p.CodigoCatalago.ToString() == Constantes.ODSCodigoCatalogo.WebPortalFFVV && p.CodigoTipoOferta == "002") ||
-                        (p.CodigoCatalago.ToString() == Constantes.ODSCodigoCatalogo.WebPortalFFVV && Convert.ToInt32(p.CodigoTipoOferta) > 200)).ToList();
-
-            var itemsRevista = pedidoWebSetDetalleAgrupado.Where(p => codigosCatalogosRevista.Contains(p.CodigoCatalago.ToString())).ToList();
-
-            //obtener una lista excluyendo los items web, de revista y catalogo
-            var itemsOtros = pedidoWebSetDetalleAgrupado
-                .Where(p => !codigosCatalogosWeb.Contains(p.CodigoCatalago.ToString()))
-                .Where(p => !codigosCatalogosRevista.Contains(p.CodigoCatalago.ToString()))
-                .Where(p => p.CodigoCatalago.ToString() == Constantes.ODSCodigoCatalogo.WebPortalFFVV && (Convert.ToInt32(p.CodigoTipoOferta) < 200 && p.CodigoTipoOferta != "002"))
-                .Where(p => !itemsCatalogo.Contains(p.CodigoCatalago.ToString())).ToList();
-
-            var gananciaRevista = itemsRevista.Any() ? itemsRevista.Sum(p => p.Ganancia * p.Cantidad): 0;
-            var gananciaWeb = itemsWeb.Any() ? itemsWeb.Sum(p => p.Ganancia * p.Cantidad) : 0;
-            var gananciaOtros = itemsOtros.Any() ? itemsOtros.Sum(p => p.Ganancia * p.Cantidad) : 0;
-
-            var bePedidoWeb = new BEPedidoWeb
-            {
-                PaisID = usuario.PaisID,
-                CampaniaID = usuario.CampaniaID,
-                ConsultoraID = usuario.ConsultoraID,
-                CodigoConsultora = usuario.CodigoConsultora,
-                MontoAhorroCatalogo = montoAhorroCatalogo,
-                MontoAhorroRevista = montoAhorroRevista,
-                DescuentoProl = montoDescuento,
-                MontoEscala = montoEscala,
-                GananciaRevista = gananciaRevista,
-                GananciaWeb = gananciaWeb,
-                GananciaOtros = gananciaOtros
-            };
-
-            return bePedidoWeb;
-        }
-
-        private List<string> GetCodigosCatalogo()
-        {
-            return new List<string>
-            {
-                Constantes.ODSCodigoCatalogo.CatalogoCyzone,
-                Constantes.ODSCodigoCatalogo.CatalogoEbel,
-                Constantes.ODSCodigoCatalogo.CatalogoEsika,
-            };
-        }
-
-        private List<string> GetCodigosCatalogoRevista()
-        {
-            return new List<string>
-            {
-                Constantes.ODSCodigoCatalogo.RevistaSinLimites,
-                Constantes.ODSCodigoCatalogo.RevistaEbelMagazine,
-                Constantes.ODSCodigoCatalogo.RevistaEsikaTeCuenta,
-                Constantes.ODSCodigoCatalogo.RevistaCyzone,
-                Constantes.ODSCodigoCatalogo.RevistaBelcorp,
-            };            
-        }
-
-        private List<string> GetCodigosCatalogoWeb(bool incluirWebPortal = true)
-        {
-            var lista = new List<string>
-            {
-                Constantes.ODSCodigoCatalogo.WebShowRoom,
-                Constantes.ODSCodigoCatalogo.WebOfertasParaTi,
-                Constantes.ODSCodigoCatalogo.WebOfertasDelDia,
-            };
-            if (incluirWebPortal)
-                lista.Add(Constantes.ODSCodigoCatalogo.WebPortalFFVV);
-            return lista;
-        }
+        }        
 
         private string ConfigurarUrlServiceProl(string codigoISO)
         {
@@ -3664,26 +3589,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
         #region Sets
         private List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(BEUsuario usuario, out int pedidoID)
         {
-            return ObtenerPedidoWebSetDetalleAgrupado(usuario, false, out pedidoID);
+            return _pedidoWebDetalleBusinessLogic.ObtenerPedidoWebSetDetalleAgrupado(usuario, false, out pedidoID);
         }
         private List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(BEUsuario usuario, bool updLabelNuevas, out int pedidoID)
         {
-            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
-            {
-                PaisId = usuario.PaisID,
-                CampaniaId = usuario.CampaniaID,
-                ConsultoraId = usuario.ConsultoraID,
-                Consultora = usuario.Nombre,
-                CodigoPrograma = usuario.CodigoPrograma,
-                NumeroPedido = usuario.ConsecutivoNueva,
-                AgruparSet = true,
-                NivelCaminoBrillante = usuario.NivelCaminoBrillante
-            };
-
-            var detallesPedidoWeb = _pedidoWebDetalleBusinessLogic.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros, true, updLabelNuevas, true).ToList();
-            pedidoID = detallesPedidoWeb.Any() ? detallesPedidoWeb.FirstOrDefault().PedidoID : 0;
-
-            return detallesPedidoWeb;
+            return _pedidoWebDetalleBusinessLogic.ObtenerPedidoWebSetDetalleAgrupado(usuario, updLabelNuevas, out pedidoID);
         }
 
         private void PedidoAgregarProductoAgrupado(BEUsuario usuario, int pedidoID, int cantidad, string cuv, string cuvlist, int estrategiaId)
