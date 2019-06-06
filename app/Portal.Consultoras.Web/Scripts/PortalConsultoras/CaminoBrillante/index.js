@@ -200,20 +200,125 @@ function ArmarMisGanancias(data) {
         serie.push(item.ValorSerie);
     };
 
+
+    Chart.pluginService.register({
+        beforeRender: function (chart) {
+            if (chart.config.options.showAllTooltips) {
+                chart.pluginTooltips = [];
+                chart.config.data.datasets.forEach(function (dataset, i) {
+                    chart.getDatasetMeta(i).data.forEach(function (sector, j) {
+                        chart.pluginTooltips.push(new Chart.Tooltip({
+                            _chart: chart.chart,
+                            _chartInstance: chart,
+                            _data: chart.data,
+                            _options: chart.options.tooltips,
+                            _active: [sector]
+                        }, chart));
+                    });
+                });
+                chart.options.tooltips.enabled = false;
+            }
+        },
+        afterDraw: function (chart, easing) {
+            if (chart.config.options.showAllTooltips) {
+                if (!chart.allTooltipsOnce) {
+                    if (easing !== 1)
+                        return;
+                    chart.allTooltipsOnce = true;
+                }
+                chart.options.tooltips.enabled = true;
+                Chart.helpers.each(chart.pluginTooltips, function (tooltip) {
+                    tooltip.initialize();
+                    tooltip.update();
+                    tooltip.pivot();
+                    tooltip.transition(easing).draw();
+                });
+                chart.options.tooltips.enabled = false;
+            }
+        }
+    });
+
+    var backgroundColors = [
+        "#ffdaf3",
+        "#ffdaf3",
+        "#ffdaf3",
+        "#ffdaf3",
+        "#ffdaf3",
+        "#4f0036"
+
+    ];
+    var hoverBackgrounds = [
+        "#4f0036",
+        "#4f0036",
+        "#4f0036",
+        "#4f0036",
+        "#4f0036",
+        "#4f0036"
+    ];
     var myBar = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labels,
             datasets: [
                 {
-                    backgroundColor: "#ffdaf3",
+                    //backgroundColor: "#ffdaf3",
+                    backgroundColor: backgroundColors,
+                    hoverBackgroundColor: hoverBackgrounds,
+
+                    //backgroundColor: function (value) {
+                    //    if (value < 30) {
+                    //        return 'red';
+                    //    }
+                    //    return 'green';
+                    //},
                     data: serie
                 }
             ]
         },
         options: {
+            
+            onClick: function (evt, elements) {
+                var datasetIndex;
+                var dataset;
+
+                //dataset.backgroundColor[elements[3]._index] = '#4f0036',
+
+                if (elements.length) {
+                    var index = elements[0]._index;
+                    datasetIndex = elements[0]._datasetIndex;
+
+                    // Reset old state
+                    dataset = myBar.data.datasets[datasetIndex];
+                    dataset.backgroundColor = backgroundColors.slice();
+                    dataset.hoverBackgroundColor = hoverBackgrounds.slice();
+
+                    dataset.backgroundColor[index] = '#4f0036'; // click color
+                    dataset.hoverBackgroundColor[index] = '#4f0036';
+                } else {
+                    // remove hover styles
+                    for (datasetIndex = 0; datasetIndex < myBar.data.datasets.length; ++datasetIndex) {
+                        dataset = myBar.data.datasets[datasetIndex];
+                        dataset.backgroundColor = backgroundColors.slice();
+                        dataset.hoverBackgroundColor = hoverBackgrounds.slice();
+                    }
+                }
+
+                myBar.update();
+
+            },
             tooltips: {
-                //enabled: false
+                mode: 'point',
+                titleFontSize: 9,
+                titleFontFamily: 'Helvetica',
+                titleFontStyle: 'normal',
+                titleMarginBottom: 1,
+                cornerRadius:0,
+                backgroundColor: '#fff',
+                titleFontColor: 'rgb(0, 0, 0)',
+                bodyFontColor: 'rgb(0, 0, 0)',
+                xPadding: 5,
+                yAlign: 'center',
+                xAlign: 'center',
                 callbacks: {
                     label: function (tooltipItem) {
                         return + Number(tooltipItem.yLabel);
@@ -221,7 +326,7 @@ function ArmarMisGanancias(data) {
                 }
             },
             scales: {
-           
+
                 yAxes: [{
                     //angleLines: {
                     //    display: false
@@ -260,9 +365,12 @@ function ArmarMisGanancias(data) {
             title: {
                 display: true
             },
+            responsive: true,
+            showAllTooltips: true,
+ 
         }
     });
-
+    
     var onClickEvent = function (evt) {
         var activePoints = myBar.getElementsAtEvent(evt);
         if (activePoints.length > 0) {
@@ -270,7 +378,7 @@ function ArmarMisGanancias(data) {
             var item = data.MisGanancias[clickedElementindex];
             $("#ganancia-campania-nombre").text("Ganancia "+item.LabelSerie);
             $("#ganancia-campania").text(variablesPortal.SimboloMoneda+" "+item.GananciaCampaniaFormat);
-            $("#ganancia-periodo").text(variablesPortal.SimboloMoneda+" "+item.GananciaPeriodoFormat);
+            $("#ganancia-periodo").text(variablesPortal.SimboloMoneda + " " + item.GananciaPeriodoFormat);
         }
     };
     $("#canvas").click( onClickEvent );
