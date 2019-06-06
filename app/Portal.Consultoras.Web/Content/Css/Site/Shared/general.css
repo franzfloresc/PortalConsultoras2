@@ -429,6 +429,14 @@ input[type="checkbox"].switch__control,
     margin-bottom:30px;
 }
 
+.mb-40{
+    margin-bottom:40px;
+}
+
+.mb-100{
+    margin-bottom:100px;
+}
+
 .pl-0{
     padding-left:0;
 }
