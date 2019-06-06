@@ -91,7 +91,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         [HttpPost]
-        public JsonResult CBKObtenerProductos(BusquedaProductoModel model)
+        public JsonResult CBDKbtenerProductos(BusquedaProductoModel model)
         {
             return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.CBKObtenerProductos);
         }
@@ -296,7 +296,10 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 {
                     listModel = _caminoBrillanteProvider.ObtenerOfertasCaminoBrillante();
                     cantidadTotal0 = listModel.Count;
+                    //listModel = _ofertaPersonalizadaProvider.ConsultarOfertasFiltrarSR(model, listModel, tipoConsulta);
+                    //listPerdio = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 3); /* Tiene Stock */
                     listPerdio = listModel;
+                    //listaSubCampania = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 2);
                 }
                 else
                 {

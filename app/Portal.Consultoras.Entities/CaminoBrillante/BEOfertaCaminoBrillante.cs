@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.CaminoBrillante
 {
@@ -58,8 +57,5 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
 
         [DataMember]
         public int EsCatalogo { get; set; }
-
-        [DataMember]
-        public List<BEOfertaCaminoBrillante> Detalle { get; set; }
     }
 }
