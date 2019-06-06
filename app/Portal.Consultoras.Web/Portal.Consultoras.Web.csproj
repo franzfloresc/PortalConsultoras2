@@ -319,8 +319,8 @@
     <Compile Include="Models\AdministrarEstrategia\EstrategiaGrupoModel.cs" />
     <Compile Include="Models\ArmaTuPackModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
-    <Compile Include="Models\ElasticSearch\OutputProductosUpSelling.cs" />
     <Compile Include="Models\CaminoBrillante\FiltrosCaminoBrillanteModel.cs" />
+    <Compile Include="Models\ElasticSearch\OutputProductosUpSelling.cs" />
     <Compile Include="Models\ZonaValidacionTelefonicaModel.cs" />
     <Compile Include="Models\CDRProductoRespuestaServicioModel.cs" />
     <Compile Include="Models\ConfiguracionZonaModel.cs" />
@@ -5054,27 +5054,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService112.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePedido\PedidoService13.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePedido\PedidoService14.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePedido\PedidoService15.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePedido\PedidoService16.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePedido\PedidoService17.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePedido\PedidoService18.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ServicePedido\PedidoService19.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServicePedido\PedidoService2.xsd">
