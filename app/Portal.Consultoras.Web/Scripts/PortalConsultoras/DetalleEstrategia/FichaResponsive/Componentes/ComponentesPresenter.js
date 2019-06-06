@@ -288,7 +288,7 @@ var ComponentesPresenter = function (config) {
                     componenteAplicado.Cuv == opcionAplicada.Cuv) {
 
                     estaEnResumen = true;
-                    opcionAplicada.cantidadAplicada++;
+                    componenteAplicado.cantidadAplicada++;
                     //
                     return false;
                 }
@@ -316,7 +316,7 @@ var ComponentesPresenter = function (config) {
 
     var _applySelectedTypesOrTones = function (grupo, tipo) {
         if (typeof grupo === "undefined" || grupo === null) throw "grupo is null or undefined";
-
+        
         var result = false;
         var model = _estrategiaModel();
 
