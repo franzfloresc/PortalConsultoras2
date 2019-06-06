@@ -5,7 +5,7 @@
     <div class="tabs">
         {{#each this.Secciones as |seccion|}}
         <input type="radio" name="tabs" id="tab{{@@index}}" {{#if @@first}} checked="checked" {{/if}}>
-        <label for="tab{{@@index}}">{{seccion.Titulo}}</label>
+        <label class="label_click" for="tab{{@@index}}">{{seccion.Titulo}}</label>
         {{#iff seccion.Tipo '==' '@Constantes.TipoSeccion.Texto' }}
         <div class="tab">
             {{#each seccion.Detalles as |detalle|}}
@@ -23,7 +23,7 @@
                              data-youtube-key="{{detalle.Key}}"
                              data-youtube="{
                           height:'165',
-                          width:'300',
+                          width:'100%',
                           enablejsapi:1,
                           fs:0,
                           showinfo:0,

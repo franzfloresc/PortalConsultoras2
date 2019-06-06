@@ -22,7 +22,7 @@
                 infinite: false,
                 speed: 300,
                 centerMode: false,
-                variableWidth: true,
+                variableWidth: false,
                 slidesToShow: 3,
                 slidesToScroll: 1,
                 prevArrow:
@@ -35,7 +35,7 @@
                     "</a>",
                 responsive: [
                     {
-                        breakpoint: 768, settings: { slidesToShow: 1, slidesToScroll: 1, dots: true }
+                        breakpoint: 768, settings: { slidesToShow: 1, slidesToScroll: 1, dots: true, variableWidth: false, }
                     }
                 ]
             });
