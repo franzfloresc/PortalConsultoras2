@@ -65,7 +65,6 @@ $(document).ready(function () {
     detallePresenter.init();
 });
 
-
 armaTuPackDetalleEvents.subscribe(armaTuPackDetalleEvents.eventName.onGruposLoaded, function (packComponents) {
     cabeceraPresenter.onGruposLoaded(packComponents);
     gruposPresenter.onGruposLoaded(packComponents);
