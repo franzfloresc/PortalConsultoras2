@@ -20,29 +20,29 @@
     <Setting Name="Portal_Consultoras_Web_ServiceActualizarDatosPrueba_ProcesoMAEPortalConsultoraWebServiceImplService" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http://pelnx71.galileo.ebel:7777/ssiccpeesqas/services/ProcesoMAEPortalConsultoraWebService</Value>
     </Setting>
+    <Setting Name="Portal_Consultoras_Web_ServicioLMS_ws_server" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php</Value>
+    </Setting>
     <Setting Name="Portal_Consultoras_Web_ServiceOSBBelcorpConsultora_ConsultoraBS" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://osb.soa.galileo.ebel:8102/AppBelcorp-proConsultora-context-root/portConsultoraPSSOAP11?WSDL</Value>
+      <Value Profile="(Default)">http://172.16.229.103:8101/AppBelcorp-proConsultora-context-root/portConsultoraPSSOAP11?WSDL</Value>
     </Setting>
     <Setting Name="Portal_Consultoras_Web_ServiceOSBBelcorpPedido_PedidoBS" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://osb.soa.galileo.ebel:8102/AppBelcorp-proPedido-context-root/portPedidoPSSOAP11?WSDL</Value>
+      <Value Profile="(Default)">http://172.16.229.103:8101/AppBelcorp-proPedido-context-root/portPedidoPSSOAP11?WSDL</Value>
     </Setting>
     <Setting Name="Portal_Consultoras_Web_ServicePROLArchivoReserva_ReservaPedidos" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://prdelb-webprol-261815517.us-east-1.elb.amazonaws.com/WsRsrvExeEtl/ReservaPedidos.asmx</Value>
+      <Value Profile="(Default)">http://internal-QAELB-WEBPROL-182416748.us-east-1.elb.amazonaws.com/WsRsrvExeEtl/ReservaPedidos.asmx</Value>
+    </Setting>
+    <Setting Name="Portal_Consultoras_Web_ServiceLMS_ws_server" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php</Value>
+    </Setting>
+    <Setting Name="Portal_Consultoras_Web_ServiceGestionWebPROL_WsGestionWeb" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsGestionWebProl/WsGestionWeb.asmx</Value>
     </Setting>
     <Setting Name="Portal_Consultoras_Web_ServicePROLConsultas_wsConsulta" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/wsconsultasprol/wsConsulta.asmx</Value>
     </Setting>
     <Setting Name="Portal_Consultoras_Web_ServicesCalculosPROL_ServicesCalculoPrecioNiveles" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsServicesWebValidaciones/ServicesCalculosPROL.asmx</Value>
-    </Setting>
-    <Setting Name="Portal_Consultoras_Web_ServiceGestionWebPROL_WsGestionWeb" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsGestionWebProl/WsGestionWeb.asmx</Value>
-    </Setting>
-    <Setting Name="Portal_Consultoras_Web_ServicioLMS_ws_server" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php</Value>
-    </Setting>
-    <Setting Name="Portal_Consultoras_Web_ServiceLMS_ws_server" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php</Value>
     </Setting>
   </Settings>
 </SettingsFile>

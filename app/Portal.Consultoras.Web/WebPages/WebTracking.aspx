@@ -195,7 +195,7 @@
                                 <td>                                                                        
                                     <table style="width: 100%;"> <!--ESTILOS DE LA PRIMERA GRILLA-->
                                         <tr>
-                                            <td id="cellPedidos" runat="server" class="width_43" style="vertical-align: top; text-align: left">                                               
+                                            <td id="cellPedidos" runat="server" class="width_37 grilla_lista_mis_pedidos" style="vertical-align: top; text-align: left">                                               
                                                 <asp:Panel ID="pFiltros" runat="server" Width="100%"
                                                     ForeColor="#666666" GroupingText="Mis <b>pedidos</b>"
                                                     Font-Names="verdana" Font-Size="8pt" HorizontalAlign="Left">
@@ -309,7 +309,7 @@
                                                 </asp:Panel>
 
                                             </td>
-                                            <td class="width_50" style="vertical-align: super; text-align: center"><!--AÑADIR CLASE "width_100" PARA PÁGINA DE MIS PEDIDOS-->
+                                            <td class="width_50 grilla_seguimiento_pedido" style="vertical-align: super; text-align: center"><!--AÑADIR CLASE "width_100" PARA PÁGINA DE MIS PEDIDOS-->
                                                 <asp:Panel ID="pnlSeguimientoPedido" runat="server" Width="100%"
                                                     CssClass="qpanelBorder" ForeColor="#666666" GroupingText="Seguimiento <b>del Pedido</b>"
                                                      Font-Size="10pt" HorizontalAlign="Left">

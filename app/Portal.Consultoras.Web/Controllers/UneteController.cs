@@ -1411,6 +1411,77 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.HTMLSACUnete = getHTMLSACUnete("GestionParametros", null);
             return View("GestionParametros");
         }
+        public ActionResult ConfiguracionValidacionZona()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ConfiguracionValidacionZona", null);
+            return View("ConfiguracionValidacionZona");
+        }
+
+        [HttpPost]
+        public JsonResult ActualizarEstadoZona(ConfiguracionZonaModel model)
+        {
+            try
+            {
+                HojaInscripcionBelcorpPais.ParametroUneteBE parametroUnete = new HojaInscripcionBelcorpPais.ParametroUneteBE();
+                using (BelcorpPaisServiceClient sv = new BelcorpPaisServiceClient())
+                {
+                    if (model.ListaZonasValidacionActivas != null)
+                    {
+                        foreach (var item in model.ListaZonasValidacionActivas)
+                        {
+                                parametroUnete.IdParametroUnete = item.IdParametroUnete;
+                                parametroUnete.Estado = 1;
+                                sv.ActualizarEstadoParametroUnete(CodigoISO, parametroUnete);
+                            
+                        }
+                    }
+
+                    if (model.ListaZonasValidacionInactivas != null)
+                    {
+                        foreach (var item in model.ListaZonasValidacionInactivas)
+                        {
+                            parametroUnete.IdParametroUnete = item.IdParametroUnete;
+                            parametroUnete.Estado = 0;
+                            sv.ActualizarEstadoParametroUnete(CodigoISO, parametroUnete);
+
+                        }
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "La configuración de zonas fue realizada de manera satisfactoria.",
+                    extra = ""
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
+
+        public JsonResult GetConfiguracionValidacionZona(string filtroZonaId)
+        {
+            var response = getHTMLSACUnete("GetConfiguracionValidacionZona", "&filtroZonaId="+ filtroZonaId + "&codigoISO=" + CodigoISO);
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult DevolverSolicitud(int id)
         {
@@ -1586,8 +1657,26 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_ConsultarEstadoCrediticia");
         }
 
-        public ActionResult MostrarMensajeBuro(string respuestaBuro)
+        public ActionResult ConsultarEstadoTelefonico(int id)
         {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ConsultarEstadoTelefonico", "&id=" + id);
+            return PartialView("_ConsultarEstadoTelefonico");
+        }
+         
+        [HttpPost]
+        public JsonResult ConsultarEstadoTelefonico(int id, int idEstado)
+        {
+            bool actualizado;
+            using (var sv = new PortalServiceClient())
+            {
+                actualizado = sv.ActualizarEstado(CodigoISO, id, EnumsTipoParametro.EstadoTelefonico, idEstado);
+            }
+            RegistrarLogGestionSacUnete(id.ToString(), "CONSULTA TELEFONICA", "ASIGNAR");
+            return Json(actualizado, JsonRequestBehavior.AllowGet);
+        }
+
+public ActionResult MostrarMensajeBuro(string respuestaBuro)
+		{
             ViewBag.HTMLSACUnete = getHTMLSACUnete("MensajeRespuestaBuro", "&respuestaBuro=" + respuestaBuro);
             return PartialView("~/Views/Unete/_MensajeRespuestaBuro.cshtml");
         }
@@ -2062,6 +2151,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.TipoTarjeta ?? "",
                                    a.TarjetaNumero ?? "" ,
                                    a.PagoDeKitLogId.ToString(),
+                                   a.CodigoCIP ?? "",
                                    a.EstatusDetalle?? ""  ,
                                    a.Estatus ?? "",
                                    a.FechaProceso ==  null  ? "" : a.FechaProceso.Value.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
@@ -2117,6 +2207,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {"Tarjeta", "TipoTarjeta"},
                     {"Número de Trajeta", "TarjetaNumero"},
                     {"Número de Operación", "PagoDeKitLogId"},
+                    {"Código CIP", "CodigoCIP"},
                     {"Descripción de Transacción", "EstatusDetalle"},
                     {"Estado Transacción", "Estatus"},
                     {"Fecha Envio Sicc", "FechaProceso"},
@@ -2175,6 +2266,37 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
+        
+        public List<ServiceUnete.ParametroUneteBE> GetReporteZonas(int IdTipoParametroUnete)
+        {
+            ServiceUnete.ParametroUneteBE parametroUnete= new ServiceUnete.ParametroUneteBE();
+            List<ServiceUnete.ParametroUneteBE> result = new List<ServiceUnete.ParametroUneteBE>();
+            try
+            {
+                using (var sv = new PortalServiceClient())
+                {
+                    
+                    parametroUnete.IdParametroUnetePadre = IdTipoParametroUnete;
+                    parametroUnete.Estado = 1;
+                    foreach (var item in sv.ObtenerParametrosUneteFinal(CodigoISO, parametroUnete))
+                    {
+                        result.Add(item);
+                    }
+                    parametroUnete.Estado = 0;
+                    foreach (var item in sv.ObtenerParametrosUneteFinal(CodigoISO, parametroUnete))
+                    {
+                        result.Add(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+
+            }
+
+            return result;
+        }
 
         public ActionResult ExportarExcelFunnel(string CampaniaInicio, string CampaniaFin, string ReporteNombre)
         {
@@ -2195,6 +2317,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             ViewBag.ipRequest = Request.UserHostAddress;
             ViewBag.HTMLSACUnete = getHTMLSACUnete("ReporteFunnel", null);
+            return View();
+        }
+
+        public ActionResult ExportarExcelValidacionZona(string ReporteNombre, int idTipoParametroUnete)
+        {
+            List<ServiceUnete.ParametroUneteBE> result = GetReporteZonas(idTipoParametroUnete);
+            Dictionary<string, string> dic;
+            using (var sv = new PortalServiceClient())
+            {
+                dic = sv.GetDictionaryReporteZonas();
+            }
+            Util.ExportToExcel(ReporteNombre, result.Select(p => new { p.Nombre, p.Estado }).ToList(), dic);
             return View();
         }
 
@@ -2515,6 +2649,149 @@ namespace Portal.Consultoras.Web.Controllers
             return rpta;
         }
 
+        [HttpPost]
+        public string ZonasValidacionTelefonicaInsertar(HttpPostedFileBase uplArchivo, ZonaValidacionTelefonicaModel model)
+        {
+            model.CodigoISO = CodigoISO;
+            try
+            {
+                if (uplArchivo == null)
+                {
+                    return "El archivo especificado no existe.";
+                }
+                if (!Util.IsFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
+                {
+                    return "El archivo especificado no es un documento de tipo MS-Excel.";
+                }
+
+                string fileextension = Util.Trim(Path.GetExtension(uplArchivo.FileName));
+                if (!fileextension.ToLower().Equals(".xlsx"))
+                {
+                    return "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
+                }
+
+                string fileName = Guid.NewGuid().ToString();
+                string pathfaltante = Server.MapPath("~/Content/ArchivoZonaValidacion");
+                if (!Directory.Exists(pathfaltante)) Directory.CreateDirectory(pathfaltante);
+
+                var finalPath = Path.Combine(pathfaltante, fileName + fileextension);
+                uplArchivo.SaveAs(finalPath);
+
+                bool isCorrect = false;
+                ZonaValidacionTelefonicaModel prod = new ZonaValidacionTelefonicaModel();
+                IList<ZonaValidacionTelefonicaModel> lista = Util.ReadXmlFile(finalPath, prod, false, ref isCorrect);
+
+                foreach (var item in lista.ToList())
+                {
+                    if (item.ZonaSeccion == null) lista.Remove(item);
+                }
+                if (lista.Count == 0) isCorrect = false;
+
+                System.IO.File.Delete(finalPath);
+                if (!isCorrect) return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
+
+                var nivel = 0;
+                using (var sv = new PortalServiceClient())
+                {
+                    var parametros = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.Validaciones, default(int));
+                    var telefonoRequeridoParametro = parametros.FirstOrDefault(p => p.Nombre == "TelefonoRequerido");
+                    nivel = telefonoRequeridoParametro.IdParametroUnete;
+                }
+
+                List<ParametroUnete> listafinal = new List<ParametroUnete>();
+                foreach (var item in lista)
+                {
+                    var parametroTodos = new ParametroUnete
+                    {
+                        Nombre = item.ZonaSeccion,
+                        Descripcion = item.PasoLimite,
+                        Valor = 1,
+                        FK_IdTipoParametro = EnumsTipoParametro.Validaciones.ToInt(),
+                        FK_IdParametroUnete = nivel,
+                        Estado = 1
+                    };
+                    listafinal.Add(parametroTodos);
+                }
+
+                if (listafinal.Any())
+                {
+                    using (var sv = new PortalServiceClient())
+                    {
+                        sv.InsertarZonaValidacionTelefonica(model.CodigoISO, listafinal.ToArray());
+                    }
+
+                    return "Se realizo satisfactoriamente la carga de datos.";
+                }
+
+                return "No se Guardo ningun registro";
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+            }
+        }
+
+        public ActionResult ZonaValidacionTelefonica()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ZonaValidacionTelefonica", null);
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult ConsultarZonaValidacionTelefonica(ZonaValidacionTelefonicaModelSAC model)
+        {
+            model.CodigoISO = CodigoISO;
+            using (var sv = new PortalServiceClient())
+            {
+                var data = sv.ConsultarZonaValidacionTelefonica(model);
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        public ActionResult ExportarExcelZonaValidacionTelefonica()
+        {
+            ServiceUnete.ParametroUneteCollection lstSelect;
+            using (var sv = new PortalServiceClient())
+            {
+                var parametros = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.Validaciones, default(int));
+                var telefonoRequeridoParametro = parametros.FirstOrDefault(p => p.Nombre == "TelefonoRequerido");
+                lstSelect = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.Validaciones, telefonoRequeridoParametro.IdParametroUnete);
+            }
+
+            List<ZonaValidacionTelefonicaModel> items = new List<ZonaValidacionTelefonicaModel>();
+            foreach (var item in lstSelect)
+            {
+                var objNivel = new ZonaValidacionTelefonicaModel
+                {
+                    PasoLimite = item.Descripcion,
+                    ZonaSeccion = item.Nombre
+                };
+                items.Add(objNivel);
+            }
+
+            Dictionary<string, string> dic =
+                new Dictionary<string, string> { { "ZonaSeccion", "ZonaSeccion" }, { "PasoLimite", "PasoLimite" } };
+
+            Util.ExportToExcel("ReporteZonasValidacionTelefonica", items, dic);
+            return View();
+        }
+
+        public string EnviarContrasenia(string numerocelular, string tipoDocumento, string numeroDocumento, string correoElectronico, string nombre, string codigoconsultora, string numeroanterior, string correoanterior)
+        {
+            string rpta = "";
+            PortalServiceClient oservice = new PortalServiceClient();
+            rpta = oservice.EnviarContrasenia(CodigoISO, numerocelular, tipoDocumento, numeroDocumento, correoElectronico, nombre, codigoconsultora, numeroanterior, correoanterior);
+            oservice.Close();
+            return rpta;
+        }
+
         public string getHTMLSACUnete(string action, string urlParams)
         {
             string urlSacUente = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UneteURL);
@@ -2568,6 +2845,189 @@ namespace Portal.Consultoras.Web.Controllers
 
             return responseHtml;
         }
+
+
+        #region Kit Inicio
+
+        public ActionResult KitInicio()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("KitInicio", "&rol=" + userData.RolDescripcion);
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult KitInicioInit()
+        {
+            var _zonificacionProvider = new ZonificacionProvider();
+            var paisId = userData.PaisID;
+            try
+            {
+                var listas = new List<object>();
+                listas.Add(_zonificacionProvider.GetCampanias(paisId));
+                listas.Add(new PortalServiceClient().ObtenerParametrosUnete(userData.CodigoISO, EnumsTipoParametro.TipoKitInicio, 0));
+                return Json(listas);
+            }
+            catch
+            {
+                return Error();
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetKitInicio(int campanhia, int kit)
+        {
+            try
+            {
+                var enKit = new PortalServiceClient().GetKitInicioEdit(CodigoISO, campanhia, kit);
+                var en = new ENTKitInicio
+                {
+                    Codigo = enKit.Codigo,
+                    SAP = enKit.SAP,
+                    CUV = enKit.CUV,
+                    Precio = enKit.Precio,
+                    PrecioReal = enKit.PrecioReal,
+                    Cantidad = enKit.Cantidad,
+                    Orden = enKit.Orden,
+                    Descripcion = enKit.Descripcion,
+                    UrlImagen = enKit.UrlImagen,
+                    Catalogos = new List<ENTKitInicioCatalogo>(),
+                    Editable = enKit.Editable
+                };
+                if (enKit.Catalogos != null)
+                {
+                    foreach(var det in enKit.Catalogos)
+                    {
+                        en.Catalogos.Add(new ENTKitInicioCatalogo
+                        {
+                            Codigo = det.Codigo,
+                            SAP = det.SAP,
+                            CUV = det.CUV,
+                            Orden = det.Orden,
+                            NomOrden = det.DescOrden,
+                            CodMarca = det.TipoCatalogo,
+                            NomMarca = det.NomTipoCatalogo
+                        });
+                    }
+                }
+                return Json(en);
+            }
+            catch
+            {
+                return Error();
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetKitInicioCatalogo(int campanhia)
+        {
+            try
+            {
+                var enResponse = new PortalServiceClient().GetKitInicioCatalogosEdit(CodigoISO, campanhia, false);
+                var en = new ENTKitInicio
+                {
+                    Editable = enResponse.Editable,
+                    Catalogos = new List<ENTKitInicioCatalogo>()
+                };
+                foreach (var det in enResponse.Catalogos)
+                {
+                    en.Catalogos.Add(new ENTKitInicioCatalogo
+                    {
+                        Codigo = det.Codigo,
+                        SAP = det.SAP,
+                        CUV = det.CUV,
+                        Orden = det.Orden,
+                        NomOrden = det.DescOrden,
+                        CodMarca = det.TipoCatalogo,
+                        NomMarca = det.NomTipoCatalogo
+                    });
+                }
+                return Json(en);
+            }
+            catch
+            {
+                return Error();
+            }
+        }
+
+        [HttpPost]
+        public JsonResult SaveKitInicio(int config, ENTKitInicio en)
+        {
+            try
+            {
+                var enRequest = new KitInicioBE
+                {
+                    Precio = en.Precio,
+                    UrlImagen = en.UrlImagen,
+                    Descripcion = en.Descripcion,
+                    CUV = en.CUV,
+                    Orden = en.Orden,
+                    Tipo = en.Kit,
+                    PrecioReal = en.PrecioReal,
+                    Campanhia = en.Campanha,
+                    Cantidad = en.Cantidad,
+                    SAP = en.SAP,
+                    UsuModifica = userData.CodigoUsuario
+                };
+                if (en.Catalogos != null)
+                {
+                    var catalogos = new List<KitInicioCatalogoBE>();
+                    foreach (var c in en.Catalogos)
+                    {
+                        catalogos.Add(new KitInicioCatalogoBE
+                        {
+                            CUV = c.CUV,
+                            Orden = c.Orden,
+                            TipoCatalogo = c.CodMarca,
+                            SAP = c.SAP
+                        });
+                    }
+                    enRequest.Catalogos = catalogos.ToArray();
+                }
+                if (config == 1) new PortalServiceClient().SaveKitInicio(CodigoISO, enRequest);
+                else new PortalServiceClient().SaveKitInicioCatalogos(CodigoISO, enRequest);
+                return Json(true);
+            }
+            catch
+            {
+                return Error();
+            }
+        }
+
+        private JsonResult Error(string error = null)
+        {
+            Response.StatusCode = 500;
+            return Json(error ?? "Ocurrió un error");
+        }
+
+        public struct ENTKitInicio
+        {
+            public int Codigo { get; set; }
+            public int Campanha { get; set; }
+            public int Kit { get; set; }
+            public string SAP { get; set; }
+            public string CUV { get; set; }
+            public decimal Precio { get; set; }
+            public decimal PrecioReal { get; set; }
+            public float Cantidad { get; set; }
+            public float Orden { get; set; }
+            public string Descripcion { get; set; }
+            public string UrlImagen { get; set; }
+            public List<ENTKitInicioCatalogo> Catalogos { get; set; }
+            public bool Editable { get; set; }
+
+        }
+        public struct ENTKitInicioCatalogo
+        {
+            public int Codigo { get; set; }
+            public string SAP { get; set; }
+            public string CUV { get; set; }
+            public float Orden { get; set; }
+            public string NomOrden { get; set; }
+            public float CodMarca { get; set; }
+            public string NomMarca { get; set; }
+        }
+
+        #endregion Kit Inicio
     }
 
     public class ParameterPagodeKit

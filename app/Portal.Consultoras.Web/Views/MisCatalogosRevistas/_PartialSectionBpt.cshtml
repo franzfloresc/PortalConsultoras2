@@ -24,15 +24,15 @@
                     <div class="hblock_tit" style="font-size: 14px;"> @Html.Raw(configuracionPaisDatosModel.Valor1)</div>
                     <div style="font-size: 18px;">@Html.Raw(configuracionPaisDatosModel.Valor2)</div>
                 </div>
-                <div class="btn_diagonal btn_stroke_white" onclick="RedireccionarContenedorInformativa(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion);" style="top: 38px;">
-                    <div class="activar_boton_dorado_a_blanco" style="padding:0 0;">
-                        <a href="#"
-                           style="padding-left: 0;text-align: center; color:white; padding:0 0;" onclick="">
-                            SUSCRÍBETE GRATIS
-                        </a>
+                    <div class="btn_diagonal btn_stroke_white" onclick="RedireccionarContenedorInformativa('@CodigoUbigeoPortal.DesktopRevistaDigitalMobileCatalogoSeccion');" style="top: 38px;">
+                        <div class="activar_boton_dorado_a_blanco" style="padding:0 0;">
+                            <a href="#"
+                               style="padding-left: 0;text-align: center; color:white; padding:0 0;" onclick="">
+                                SUSCRÍBETE GRATIS
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
         </div>
         <hr class="clear" />
         <div style="height: 35px; background: #fff;"></div>
@@ -58,7 +58,7 @@ else if (revistaDigital.TieneRDI)
                     <div class="centrar_vertical">
                         <div class="centrar_cont_club">
                             <div class="activar_boton_esika_no_animado bg_activar_boton_no_animado">
-                                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion, '@Constantes.ConfiguracionPais.Inicio')">VER MÁS</a>
+                                <a href="javascript:RedireccionarContenedorComprar('@CodigoUbigeoPortal.DesktopRevistaDigitalMobileCatalogoSeccion', '@Constantes.ConfiguracionPais.Inicio')">VER MÁS</a>
                             </div>
                         </div>
                     </div>

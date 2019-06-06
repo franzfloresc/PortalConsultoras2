@@ -3,6 +3,7 @@ using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.CaminoBrillante;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.Search.RequestRecomendacion;
 using Portal.Consultoras.Entities.Usuario;
 using System;
 using System.Collections.Generic;
@@ -178,6 +179,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, long PedidoID);
+
+        [OperationContract]
+        IList<BEMisPedidosDetalle> GetMisPedidosDetallePendientesAll(int paisId, int campaniaId, long consultoraId);
 
         [OperationContract]
         int GetCantidadSolicitudesPedido(int PaisID, long ConsultoraId, int Campania);
@@ -422,6 +426,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         string ActualizarNovedadBuscador(int paisID, string codigoUsuario);
 
+        [OperationContract]
+        IList<BEEstrategia> GetRecomendados(RecomendadoRequest RecomendadoRequest);
+
         #region ActualizacionDatos
         [OperationContract]
         BERespuestaServicio EnviarSmsCodigo(int paisID, string codigoUsuario, string codigoConsultora, int campaniaID, bool esMobile, string celularActual, string celularNuevo);
@@ -469,5 +476,11 @@ namespace Portal.Consultoras.ServiceContracts
 
 
 
+
+        [OperationContract]
+        IList<BEMisPedidos> GetSolicitudesPedidoPendiente(int PaisID, long ConsultoraId, int Campania);
+
+        //[OperationContract]
+        //IList<string> GetSapFromCuvlist(string cuvList, int campaniaid, int paisId);
     }
 }

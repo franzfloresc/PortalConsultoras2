@@ -221,6 +221,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private string AnoCampaniaIngresoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AutorizaPedidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string BanderaImagenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -467,6 +470,12 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private string FlagActivacionSuscripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool FlgCheckEMAILField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool FlgCheckSMSField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FotoOriginalSinModificarField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -608,6 +617,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private string NivelField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NivelCaminoBrillanteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NivelEducacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -693,6 +705,12 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool PuedeActualizarEmailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PuedeConfirmarAllEmailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PuedeConfirmarAllSmsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool PuedeEnviarSMSField;
@@ -996,6 +1014,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((object.ReferenceEquals(this.AnoCampaniaIngresoField, value) != true)) {
                     this.AnoCampaniaIngresoField = value;
                     this.RaisePropertyChanged("AnoCampaniaIngreso");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AutorizaPedido {
+            get {
+                return this.AutorizaPedidoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AutorizaPedidoField, value) != true)) {
+                    this.AutorizaPedidoField = value;
+                    this.RaisePropertyChanged("AutorizaPedido");
                 }
             }
         }
@@ -2067,6 +2098,32 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool FlgCheckEMAIL {
+            get {
+                return this.FlgCheckEMAILField;
+            }
+            set {
+                if ((this.FlgCheckEMAILField.Equals(value) != true)) {
+                    this.FlgCheckEMAILField = value;
+                    this.RaisePropertyChanged("FlgCheckEMAIL");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool FlgCheckSMS {
+            get {
+                return this.FlgCheckSMSField;
+            }
+            set {
+                if ((this.FlgCheckSMSField.Equals(value) != true)) {
+                    this.FlgCheckSMSField = value;
+                    this.RaisePropertyChanged("FlgCheckSMS");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string FotoOriginalSinModificar {
             get {
                 return this.FotoOriginalSinModificarField;
@@ -2678,6 +2735,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NivelCaminoBrillante {
+            get {
+                return this.NivelCaminoBrillanteField;
+            }
+            set {
+                if ((this.NivelCaminoBrillanteField.Equals(value) != true)) {
+                    this.NivelCaminoBrillanteField = value;
+                    this.RaisePropertyChanged("NivelCaminoBrillante");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int NivelEducacion {
             get {
                 return this.NivelEducacionField;
@@ -3050,6 +3120,32 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((this.PuedeActualizarEmailField.Equals(value) != true)) {
                     this.PuedeActualizarEmailField = value;
                     this.RaisePropertyChanged("PuedeActualizarEmail");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PuedeConfirmarAllEmail {
+            get {
+                return this.PuedeConfirmarAllEmailField;
+            }
+            set {
+                if ((this.PuedeConfirmarAllEmailField.Equals(value) != true)) {
+                    this.PuedeConfirmarAllEmailField = value;
+                    this.RaisePropertyChanged("PuedeConfirmarAllEmail");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PuedeConfirmarAllSms {
+            get {
+                return this.PuedeConfirmarAllSmsField;
+            }
+            set {
+                if ((this.PuedeConfirmarAllSmsField.Equals(value) != true)) {
+                    this.PuedeConfirmarAllSmsField = value;
+                    this.RaisePropertyChanged("PuedeConfirmarAllSms");
                 }
             }
         }

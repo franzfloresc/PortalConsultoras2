@@ -250,7 +250,10 @@
             GPR = 2,
             Reservado = 3,
             HorarioRestringido = 4,
-            Facturado = 5
+            Facturado = 5,
+            //INI HD-3693
+            Bloqueado = 6
+            //FIN HD-3693
         }
 
         public enum TipoLogin
@@ -329,6 +332,20 @@
             AgregarYMostrarMensaje,
             Reemplazar,
             NoAgregarExcedioLimite
+        }
+
+        public enum MiAcademiaUrl
+        {
+            Cursos,
+            Video
+        }
+
+        public enum ValidacionCaminoBrillante
+        {
+            ProductoNoExiste = 1,
+            CuvPertenecePrograma = 2,
+            CuvYaAgregadoEnPeriodo = 3,
+            CuvBloqueadoNivel = 4
         }
     }
 }

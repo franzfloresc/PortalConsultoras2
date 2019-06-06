@@ -99,6 +99,16 @@ namespace Portal.Consultoras.Web.Providers
                 permisos.Remove(permisos.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
             }
 
+            #region Camino Brillante
+
+            if ((!userSession.CaminoBrillante || userSession.TipoUsuario == Constantes.TipoUsuario.Postulante) 
+                && permisos.Where(e => e.Codigo != null).Any(p => p.Codigo == Constantes.CaminoBrillante.Menu.Permiso_CaminoBrillante)) {
+                permisos.Remove(permisos.Where(e => e.Codigo != null)
+                    .FirstOrDefault(p => p.Codigo == Constantes.CaminoBrillante.Menu.Permiso_CaminoBrillante));
+            }
+
+            #endregion
+
             var lstMenuModel = new List<PermisoModel>();
 
             foreach (var permiso in permisos)
@@ -209,7 +219,7 @@ namespace Portal.Consultoras.Web.Providers
             return userSession;
         }
 
-        public string GetUrlImagenMenuOfertas(string codigoIso, RevistaDigitalModel revistaDigital)
+        public string GetUrlImagenMenuOfertas(string codigoIso, RevistaDigitalModel revistaDigital, bool isMobile = false)
         {
             var urlImagen = string.Empty;
             var tieneRevistaDigital = revistaDigital.TieneRevistaDigital();
@@ -230,7 +240,7 @@ namespace Portal.Consultoras.Web.Providers
 
             if (tieneRevistaDigital && !revistaDigital.EsSuscrita)
             {
-                urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
+                urlImagen = isMobile ? revistaDigital.LogoMenuOfertasNoActivaMobile : revistaDigital.LogoMenuOfertasNoActiva;
                 urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
@@ -241,7 +251,7 @@ namespace Portal.Consultoras.Web.Providers
 
             if (tieneRevistaDigital && revistaDigital.EsSuscrita)
             {
-                urlImagen = revistaDigital.LogoMenuOfertasActiva;
+                urlImagen = isMobile ? revistaDigital.LogoMenuOfertasActivaMobile : revistaDigital.LogoMenuOfertasActiva;
                 urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
@@ -251,7 +261,7 @@ namespace Portal.Consultoras.Web.Providers
 
             if (revistaDigital.TieneRDI)
             {
-                urlImagen = revistaDigital.LogoMenuOfertasNoActiva;
+                urlImagen = isMobile ? revistaDigital.LogoMenuOfertasNoActivaMobile : revistaDigital.LogoMenuOfertasNoActiva;
                 urlImagen = ConfigCdn.GetUrlFileCdnMatriz(codigoIso, urlImagen);
                 if (tieneEventoFestivoData)
                 {
@@ -332,6 +342,17 @@ namespace Portal.Consultoras.Web.Providers
                 }
             }
 
+            #region Camino Brillante
+
+            if ((!userSession.CaminoBrillante || userSession.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                && lstMenuMobileModel.Where(e => e.Codigo != null).Any(p => p.Codigo == Constantes.CaminoBrillante.Menu.Permiso_CaminoBrillante))
+            {
+                lstMenuMobileModel.Remove(lstMenuMobileModel.Where(e => e.Codigo != null)
+                    .FirstOrDefault(p => p.Codigo == Constantes.CaminoBrillante.Menu.Permiso_CaminoBrillante));
+            }
+
+            #endregion
+
             var listadoMenuFinal = new List<MenuMobileModel>();
             foreach (var menu in lstMenuMobileModel)
             {
@@ -357,6 +378,13 @@ namespace Portal.Consultoras.Web.Providers
                     continue;
                 }
 
+                /* INI HD-4086 */
+                if (menu.MenuMobileID == Constantes.MenuMobileId.Bonificaciones && userSession.PaisID == Constantes.PaisID.Peru)
+                {
+                    menu.Descripcion = menu.Descripcion.Replace("Bonificaciones", "Incentivos");
+                    menu.UrlItem = menu.UrlItem.Replace("Bonificaciones", "Incentivos");
+                }
+                /* FIN HD-4086 */
                 menu.ClaseMenu = "";
                 menu.ClaseMenuItem = "";
 
@@ -381,7 +409,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (menu.Codigo == Constantes.MenuCodigo.ContenedorOfertas.ToLower())
                 {
-                    menu.UrlImagen = GetUrlImagenMenuOfertas(userSession.CodigoISO, revistaDigital);
+                    menu.UrlImagen = GetUrlImagenMenuOfertas(userSession.CodigoISO, revistaDigital, true);
                 }
 
                 listadoMenuFinal.Add(menu);

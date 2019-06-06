@@ -147,8 +147,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             ViewBag.FBAppId = ConfigurationManager.AppSettings["FB_AppId"];
-
-
+            ViewBag.ChatBotPageId = new ConfiguracionManagerProvider().GetConfiguracionManager(Constantes.ConfiguracionManager.ChatBotPageId);
 
             return View(model);
         }
@@ -225,9 +224,6 @@ namespace Portal.Consultoras.Web.Controllers
                 TempData["serverPaisId"] = model.PaisID;
                 TempData["serverPaisISO"] = model.CodigoISO;
                 TempData["serverCodigoUsuario"] = model.CodigoUsuario;
-
-                if (model.PaisID == 0)
-                    model.PaisID = Util.GetPaisID(model.CodigoISO);
 
                 #region DesencriptarClaveSecreta
                 var PasswordCjs = ConfigurationManager.AppSettings.Get("CryptoJSPassword");
@@ -637,6 +633,8 @@ namespace Portal.Consultoras.Web.Controllers
             model.MostrarOpcion = obj.MostrarOpcion;
             model.OpcionChat = obj.OpcionChat;
             model.EsMobile = EsDispositivoMovil();
+            ViewBag.ChatBotPageId = new ConfiguracionManagerProvider().GetConfiguracionManager(Constantes.ConfiguracionManager.ChatBotPageId);
+
             return View(model);
         }
 
@@ -1448,6 +1446,15 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.PuedeEnviarSMS = usuario.PuedeEnviarSMS;
                     usuarioModel.FotoPerfilAncha = usuario.FotoPerfilAncha;
 
+                    //INI HD-3693
+                    usuarioModel.AutorizaPedido = usuario.AutorizaPedido;
+                    //FIN HD-3693
+
+                    //INI HD-3897
+                    usuarioModel.PuedeConfirmarAllEmail = usuario.PuedeConfirmarAllEmail;
+                    usuarioModel.PuedeConfirmarAllSms = usuario.PuedeConfirmarAllSms;
+                    //FIN HD-3897
+
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);
                     sessionManager.SetTieneLanX1(true);
@@ -1912,11 +1919,18 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 if (usuarioModel == null)
-                    throw new ArgumentNullException("usuarioModel", "No puede ser nulo");
-
+                {
+                    SetUserError();
+                    return usuarioModel;
+                }
+           
 
                 if (usuarioModel.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                    throw new ArgumentException("No se asigna configuracion pais para los Postulantes.");
+                {
+                    SetUserError();
+                    return usuarioModel;
+                }
+                    
 
                 var guiaNegocio = new GuiaNegocioModel();
                 var revistaDigitalModel = new RevistaDigitalModel();
@@ -2076,11 +2090,8 @@ namespace Portal.Consultoras.Web.Controllers
                     codigoConsultora = usuarioModel.CodigoConsultora;
                     pais = usuarioModel.PaisID.ToString();
                 }
+                SetUserError();
                 logManager.LogErrorWebServicesBusWrap(ex, codigoConsultora, pais, "LoginController.ConfiguracionPaisUsuario");
-                sessionManager.SetGuiaNegocio(new GuiaNegocioModel());
-                sessionManager.SetRevistaDigital(new RevistaDigitalModel());
-                sessionManager.SetConfiguracionesPaisModel(new List<ConfiguracionPaisModel>());
-                sessionManager.SetOfertaFinalModel(new OfertaFinalModel());
             }
 
             return usuarioModel;
@@ -2106,7 +2117,13 @@ namespace Portal.Consultoras.Web.Controllers
                 return usuario;
             }
         }
-
+        private void SetUserError()
+        {
+            sessionManager.SetGuiaNegocio(new GuiaNegocioModel());
+            sessionManager.SetRevistaDigital(new RevistaDigitalModel());
+            sessionManager.SetConfiguracionesPaisModel(new List<ConfiguracionPaisModel>());
+            sessionManager.SetOfertaFinalModel(new OfertaFinalModel());
+        }
         #endregion
 
         #region metodos normales
@@ -2151,6 +2168,9 @@ namespace Portal.Consultoras.Web.Controllers
                 revistaDigitalModel.MLogoComercialFondoNoActiva = GetValor2WithS3AndDelete(listaDatos, Constantes.ConfiguracionPaisDatos.RD.LogoComercialFondoNoActiva, codigoIso);
 
                 revistaDigitalModel.LogoMenuOfertasActiva = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActiva, codigoIso);
+                revistaDigitalModel.LogoMenuOfertasActivaMobile = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasActivaMobile, codigoIso);
+                revistaDigitalModel.LogoMenuOfertasNoActiva = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva, codigoIso);
+                revistaDigitalModel.LogoMenuOfertasNoActivaMobile = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActivaMobile, codigoIso);
                 revistaDigitalModel.LogoMenuOfertasNoActiva = GetValor1WithS3(listaDatos, Constantes.ConfiguracionPaisDatos.RD.LogoMenuOfertasNoActiva, codigoIso);
                 revistaDigitalModel.BloquearRevistaImpresaGeneral = GetValor1ToIntAndDelete(listaDatos, Constantes.ConfiguracionPaisDatos.RD.BloquearPedidoRevistaImp);
                 revistaDigitalModel.BloquearProductosSugeridos = GetValor1ToInt(listaDatos, Constantes.ConfiguracionPaisDatos.RD.BloquearSugerenciaProducto);
@@ -3069,7 +3089,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var svc = new SACServiceClient())
             {
-                DataLogica = svc.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.HabilitarChatEmtelco);
+                DataLogica = svc.GetTablaLogicaDatos(paisId, ConsTablaLogica.ChatEmtelco.TablaLogicaId);
 
             }
             if (DataLogica.Any())
@@ -3108,7 +3128,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var tablaLogica = new SACServiceClient())
             {
-                listaDescripciones = tablaLogica.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.NuevaDescripcionProductos).ToList();
+                listaDescripciones = tablaLogica.GetTablaLogicaDatos(paisId, ConsTablaLogica.DescripcionProducto.TablaLogicaId).ToList();
             }
 
             foreach (var item in listaDescripciones)

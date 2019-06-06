@@ -1512,6 +1512,11 @@ h4.re3 {
     padding: 30px 0;
 }
 
+    .block-seguimiento-content--mobile{
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
     .block-seguimiento-content .seg-item {
         position: relative;
         text-align: center;
@@ -1615,6 +1620,22 @@ h4.re3 {
     .block-seguimiento-content .seg-active .seg-hora {
         color: black;
     }
+
+.seg-hora--entregaProyectada {
+    width: auto;
+    position: relative;
+    margin: 0 auto;
+    left: -13px;
+    right: 0;
+    white-space: nowrap;
+}
+
+@media screen and (min-width:400px) and (max-width:991px) {
+
+    .seg-hora--entregaProyectada {
+        left: 2px;
+    }
+}
 
 .alert .close {
     color: #fff;
@@ -4416,6 +4437,24 @@ table > thead > tr > th {
     cursor: pointer;
 }
 
+/* INI HD-4009 */
+.producto_pum,
+.producto_pum_hidden {
+    margin-top: 5px;
+    margin-bottom: 0;
+    font-size: 12px;
+    min-height: 17px;
+}
+
+    .producto_pum span {
+        color: #000;
+    }
+
+.producto_pum_hidden {
+    visibility: hidden;
+}
+/* FIN HD-4009 */
+
 .producto_precio_oferta {
     margin: 0;
     padding: 0;
@@ -4447,6 +4486,21 @@ table > thead > tr > th {
     border-top: 1px solid #b0b0b0;
     border-bottom: 1px solid #b0b0b0;
     font-size: 11px;
+}
+
+
+.rango_cantidad_pedido_fijo {
+    -webkit-appearance: none;
+    border-radius: 0;
+    width: 100%;
+    height: 48px;
+    line-height: 48px;
+    background: transparent;
+    float: left;
+    text-align: center;
+    font-weight: 700;
+    border: 1px solid #b0b0b0;
+    color: rgb(84, 84, 84);
 }
 
 .cantidad_mas_home {
@@ -5486,6 +5540,7 @@ body {
     color: #000000;
     margin-top: 30px;
     margin-bottom: 15px;
+    text-align: center;
 }
 
 .contet_alert {
@@ -5861,6 +5916,7 @@ input[type='checkbox']:checked + span:after {
     .titulo_compartir {
         font-size: 16px;
         line-height: 28px;
+        text-align: center;
     }
 }
 /*CAMBIO FOOTER*/
@@ -9528,6 +9584,14 @@ span.icon-advertencia {
     float: left;
 }
 
+.content_cantidad_ficha_producto_fijo {
+    width: 48px;
+    margin-right: 5%;
+    background: white;
+    overflow: hidden;
+    float: left;
+}
+
 .btn_desactivado_general {
     background: #e5e5e5;
     border: 1px solid #d2d2d2;
@@ -9536,6 +9600,20 @@ span.icon-advertencia {
 
 .btn_agregar_ficha_producto {
     width: 50%;
+    height: 48px;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: white;
+    font-weight: 700;
+    display: block;
+    float: left;
+    text-align: center;
+    line-height: 47px;
+    background: black;
+}
+
+.btn_agregar_ficha_producto_fijo {
+    width: 70%;
     height: 48px;
     font-family: 'Lato';
     font-size: 14px;
@@ -14746,3 +14824,55 @@ span.icon-advertencia {
 /* FIN - POPUP LLEGASTE AL 30% DE DESCUENTO */
 
 /* FIN - PROGRAMA NUEVAS - ELIGE TU REGALO */
+
+/* HD-4214 - CHAT MESSENGER SOMOS BELCORP */
+
+.btn_chat_messenger_mobile {
+    background-color: #FFF;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    padding: 0px;
+    position: fixed;
+    bottom: 18pt;
+    right: 18pt;
+    top: auto;
+    z-index: 2147483646;
+    padding: 13px 17px 13px 17px;
+    -moz-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+    -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+    cursor:pointer;
+}
+
+    .btn_chat_messenger_mobile img {
+        width: 100%;
+        height: auto;
+    }
+
+.fb_dialog_content {
+    display:none;
+    position: relative !important;
+}
+
+.icono_chat_sb {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background-color: #FFF;
+    background-image: url(/Content/Images/icono-chat-sb.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    border-radius:100%;
+    z-index: 2000;
+}
+
+.fb_dialog_content iframe {
+    display: none !important;
+}
+
+/* FIN - HD-4214 - CHAT MESSENGER SOMOS BELCORP */

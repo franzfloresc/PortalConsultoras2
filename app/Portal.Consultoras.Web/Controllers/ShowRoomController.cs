@@ -112,15 +112,13 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     List<ServiceOferta.BEEstrategia> listaProducto = _ofertaPersonalizadaProvider.GetShowRoomOfertasConsultora(userData);
-                    listaProducto.ForEach(x => x.TieneStock = true);
+                    //listaProducto.ForEach(x => x.TieneStock = true);
 
-                    if (listaProducto.Any())
-                    {
-                        if (_ofertaPersonalizadaProvider.GetValidarDiasAntesStock(userData))
-                        {
-                            listaProducto = _ofertaPersonalizadaProvider.ActualizarEstrategiaStockPROL(listaProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
-                        }
-                    }
+                    //if (listaProducto.Any())
+                    //{
+                    //    listaProducto = _ofertaPersonalizadaProvider.ActualizarEstrategiaStockPROL(listaProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
+                    //}
+
                     List<EstrategiaPedidoModel> listaProductoModel = _ofertaPersonalizadaProvider.ConsultarEstrategiasFormatoEstrategiaToModel1(listaProducto, userData.CodigoISO, userData.CampaniaID);
 
                     List<EstrategiaPedidoModel> listaEstrategiaOfertas;

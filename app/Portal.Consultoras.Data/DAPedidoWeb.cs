@@ -346,6 +346,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@EsRechazado", DbType.AnsiString, BEPedidoDDWeb.EsRechazado);
             Context.Database.AddInParameter(command, "@FechaRegistroInicio", DbType.Date, BEPedidoDDWeb.FechaRegistroInicio);
             Context.Database.AddInParameter(command, "@FechaRegistroFin", DbType.Date, BEPedidoDDWeb.FechaRegistroFin);
+            Context.Database.AddInParameter(command, "@IndicadorConsultoraDigital", DbType.Int32,Convert.ToInt32( BEPedidoDDWeb.IndicadorConsultoraDigital));
 
             return Context.ExecuteReader(command);
         }
@@ -851,6 +852,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+
         public IDataReader GetConsultoraRegaloProgramaNuevas(int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraRegaloProgramaNuevas");
@@ -949,5 +951,27 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
             return Context.ExecuteReader(command);
         }
+
+        public void UpdDatoRecogerPor(BEPedidoWeb pedidoWebDetalle)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.ActualizaDatoRecogerPor"))
+            {
+                Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, pedidoWebDetalle.PedidoID);
+                Context.Database.AddInParameter(command, "@Documento", DbType.String, pedidoWebDetalle.RecogerDNI);
+                Context.Database.AddInParameter(command, "@RecogerNombre", DbType.String, pedidoWebDetalle.RecogerNombre);
+
+                Context.ExecuteNonQuery(command);
+            }
+        }
+
+        //INI HD-4200
+        public IDataReader GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCuvSuscripcionSE");
+            Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, bEPedidoWeb.CampaniaID);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, bEPedidoWeb.CodigoConsultora);
+            return Context.ExecuteReader(command);
+        }
+        //FIN HD-4200
     }
 }

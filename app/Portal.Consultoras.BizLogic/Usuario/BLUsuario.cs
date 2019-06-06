@@ -237,10 +237,10 @@ namespace Portal.Consultoras.BizLogic
                     BEValidacionDatos validacionDato;
                     using (var reader = dAValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(Constantes.TipoEnvioEmailSms.EnviarPorEmail, codigoUsuario))
                     {
-                        validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader, true, true);
+                        validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader, true, true);    
                     }
 
-                    if (validacionDato == null || validacionDato.DatoNuevo != email)
+                    if (validacionDato == null || validacionDato.DatoNuevo.ToLower() != email.ToLower())
                     {
                         return ActivacionEmailRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_ACTIVACION_NO_EXISTE);
                     }
@@ -252,13 +252,13 @@ namespace Portal.Consultoras.BizLogic
 
                     usuario = GetBasicSesionUsuario(paisID, codigoUsuario);
 
-                    if (!usuario.EMail.Contains(email) && daUsuario.ExistsUsuarioEmail(email)
+                    if (!usuario.EMail.ToLower(). Contains(email.ToLower()) && daUsuario.ExistsUsuarioEmail(email)
                         && daUsuario.ExistsUsuarioEmail(email))
                     {
                         return ActivacionEmailRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_ACTIVACION_DUPLICADO, belcorpResponde: _belcorpRespondeBusinessLogic.GetBelcorpResponde(paisID).FirstOrDefault());
                     }
 
-                    daUsuario.UpdUsuarioEmail(codigoUsuario, validacionDato.DatoNuevo, usuario.CampaniaID);
+                    daUsuario.UpdUsuarioEmail(codigoUsuario, validacionDato.DatoNuevo.ToLower(), usuario.CampaniaID);
                     validacionDato.Estado = Constantes.ValidacionDatosEstado.Activo;
                     validacionDato.UsuarioModificacion = codigoUsuario;
                     validacionDato.CampaniaActivacionEmail = usuario.CampaniaID;
@@ -321,12 +321,16 @@ namespace Portal.Consultoras.BizLogic
                 var tabla = new BLTablaLogicaDatos();
 
                 var valores = tabla.GetListCache(usuario.PaisID, Convert.ToInt16(ConsTablaLogica.ActualizacionDatosEnabled.TablaLogicaId));
-                var listado = valores.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(Constantes.TablaLogicaDato.ActualizaDatosEnabled));
+                var listado = valores.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(ConsTablaLogica.ActualizacionDatosEnabled.ActualizaDatosEnabled));
                 usuario.PuedeActualizar = Convert.ToBoolean(listado.Valor.ToInt());
 
                 var verificacion = new BLOpcionesVerificacion();
                 var verificacionResult = verificacion.GetOpcionesVerificacionCache(usuario.PaisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos);
                 usuario.PuedeEnviarSMS = (verificacionResult != null && verificacionResult.OpcionSms);
+                //INI HD-3897
+                usuario.PuedeConfirmarAllEmail = (verificacionResult != null && verificacionResult.OpcionConfirmarEmail);
+                usuario.PuedeConfirmarAllSms = (verificacionResult != null && verificacionResult.OpcionConfirmarSms);
+                //FIN HD-3897
 
                 return usuario;
             }
@@ -553,9 +557,9 @@ namespace Portal.Consultoras.BizLogic
                 var actualizaDatosTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.ActualizacionDatosEnabled.TablaLogicaId));
                 var actualizaDatosConfigTask = Task.Run(() => GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos));
                 var contratoAceptacionTask = Task.Run(() => GetContratoAceptacion(paisID, usuario.ConsultoraID));
-                var pagoEnLineaTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.ValoresPagoEnLinea));
+                var pagoEnLineaTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.PagoLinea.TablaLogicaId));
                 var tieneChatbotTask = Task.Run(() => usuario.TieneChatbot = TieneChatbot(paisID, usuario.CodigoConsultora));
-                var tieneGanaMasNativo = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, Constantes.TablaLogica.GanaMasNativo));
+                var tieneGanaMasNativo = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.GanaNativo.TablaLogicaId));
 
                 var lstConfiguracionPais = new List<string>();
                 lstConfiguracionPais.Add(Constantes.ConfiguracionPais.RevistaDigital);
@@ -627,7 +631,7 @@ namespace Portal.Consultoras.BizLogic
                 }
                 if (actualizaDatosTask.Result != null)
                 {
-                    var item = actualizaDatosTask.Result.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(Constantes.TablaLogicaDato.ActualizaDatosEnabled));
+                    var item = actualizaDatosTask.Result.FirstOrDefault(p => p.TablaLogicaDatosID == Convert.ToInt16(ConsTablaLogica.ActualizacionDatosEnabled.ActualizaDatosEnabled));
                     usuario.PuedeActualizar = (item != null && item.Valor == "1");
                 }
                 if (actualizaDatosConfigTask.Result != null)
@@ -649,7 +653,7 @@ namespace Portal.Consultoras.BizLogic
 
                 if (pagoEnLineaTask.Result != null)
                 {
-                    var enablePagoEnLineaApp = pagoEnLineaTask.Result.Where(e => e.TablaLogicaDatosID == Constantes.TablaLogicaDato.PagoEnLinea.Habilitar_App).Select(e => e.Valor).FirstOrDefault();
+                    var enablePagoEnLineaApp = pagoEnLineaTask.Result.Where(e => e.TablaLogicaDatosID == ConsTablaLogica.PagoLinea.Habilitar_App).Select(e => e.Valor).FirstOrDefault();
                     usuario.TienePagoEnLinea = (usuario.TienePagoEnLinea && enablePagoEnLineaApp == "1");
                 }
 
@@ -1956,7 +1960,7 @@ namespace Portal.Consultoras.BizLogic
                 if (!usuario.PuedeActualizar) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
                 if (string.IsNullOrEmpty(correoNuevo)) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_VACIO);
 
-                if (usuario.EMail != correoNuevo)
+                if (usuario.EMail.ToLower() != correoNuevo.ToLower())
                 {
                     var dAUsuario = new DAUsuario(usuario.PaisID);
                     if (dAUsuario.ExistsUsuarioEmail(correoNuevo)) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_YA_EXISTE);
@@ -1978,7 +1982,7 @@ namespace Portal.Consultoras.BizLogic
                         {
                             TipoEnvio = Constantes.TipoEnvioEmailSms.EnviarPorEmail,
                             DatoAntiguo = usuario.EMail,
-                            DatoNuevo = correoNuevo,
+                            DatoNuevo = correoNuevo.ToLower(),
                             CodigoUsuario = usuario.CodigoUsuario,
                             Estado = Constantes.ValidacionDatosEstado.Pendiente,
                             UsuarioCreacion = usuario.CodigoUsuario
@@ -1987,7 +1991,7 @@ namespace Portal.Consultoras.BizLogic
                     else
                     {
                         validacionDato.DatoAntiguo = usuario.EMail;
-                        validacionDato.DatoNuevo = correoNuevo;
+                        validacionDato.DatoNuevo = correoNuevo.ToLower();
                         validacionDato.Estado = Constantes.ValidacionDatosEstado.Pendiente;
                         validacionDato.UsuarioModificacion = usuario.CodigoUsuario;
                         dAValidacionDatos.UpdValidacionDatos(validacionDato);
@@ -2037,11 +2041,9 @@ namespace Portal.Consultoras.BizLogic
             string[] parametros = new string[] { usuario.CodigoUsuario, usuario.PaisID.ToString(), correoNuevo };
             string paramQuerystring = Common.Util.Encrypt(string.Join(";", parametros));
             LogManager.SaveLog(new Exception(), usuario.CodigoUsuario, usuario.CodigoISO, " | data=" + paramQuerystring + " | parametros = " + string.Join("|", parametros));
-            bool esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(usuario.CodigoISO);
-            string logo = Globals.RutaCdn + (esEsika ? "/ImagenesPortal/Iconos/logo.png" : "/ImagenesPortal/Iconos/logod.png");
-            string fondo = (esEsika ? "e81c36" : "642f80");
 
-            MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, logo, nomconsultora, url, fondo, paramQuerystring);
+            MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname,  nomconsultora, url, paramQuerystring);
+        
         }
 
         public BERespuestaServicio RegistrarEnvioSms(
@@ -3659,11 +3661,11 @@ namespace Portal.Consultoras.BizLogic
                     datosPerfil.Add(new BEUsuarioPerfil(reader));
             }
 
-            var tablaLogica = _tablaLogicaDatosBusinessLogic.GetList(paisID, Constantes.TablaLogica.MensajesToolTipPerfil);
+            var tablaLogica = _tablaLogicaDatosBusinessLogic.GetList(paisID, ConsTablaLogica.MensajesTooltipPerfil.TablaLogicaId);
             oMensaje.oDatosPerfil = datosPerfil;
-            oMensaje.MensajeAmbos = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmailSms).Select(b => b.Valor).FirstOrDefault();
-            oMensaje.MensajeCelular = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarSms).Select(b => b.Valor).FirstOrDefault();
-            oMensaje.MensajeEmail = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarEmail).Select(b => b.Valor).FirstOrDefault();
+            oMensaje.MensajeAmbos = tablaLogica.Where(a => a.TablaLogicaDatosID == ConsTablaLogica.MensajesTooltipPerfil.MensajeActualizarEmailSms).Select(b => b.Valor).FirstOrDefault();
+            oMensaje.MensajeCelular = tablaLogica.Where(a => a.TablaLogicaDatosID == ConsTablaLogica.MensajesTooltipPerfil.MensajeActualizarSms).Select(b => b.Valor).FirstOrDefault();
+            oMensaje.MensajeEmail = tablaLogica.Where(a => a.TablaLogicaDatosID == ConsTablaLogica.MensajesTooltipPerfil.MensajeActualizarEmail).Select(b => b.Valor).FirstOrDefault();
             oMensaje.MensajeFijo = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarFijo).Select(b => b.Valor).FirstOrDefault();
 
             return oMensaje;

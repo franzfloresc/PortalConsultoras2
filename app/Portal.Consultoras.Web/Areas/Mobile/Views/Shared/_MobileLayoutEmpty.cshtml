@@ -15,6 +15,9 @@
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
 
+    @*INI HD-3693*@
+    @Html.Partial("~/Views/Shared/PopupsResponsive/_PopupBloqueoPorSistema.cshtml")
+    @*FIN HD-3693*@
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
 
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
@@ -148,9 +151,11 @@
             <a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>Ok</b></a>
         </div>
     </div>
-
+    @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupMensajesInformacion.cshtml")
-
+    <a title="Chat Messenger" class="d-block btn_chat_messenger_mobile" href="javascript: AbrirChatBot()">
+        <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
+    </a>
     <div style="display:none">
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
     </div>
@@ -263,6 +268,9 @@
         var AplicarLogicaCantidadBotonVerTodos = '@ViewBag.AplicarLogicaCantidadBotonVerTodos'.toLowerCase();
         var urlDeshacerReservaPedidoReservado2 = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
         var MostrarPalabrasMenoresACuatro = '@ViewBag.MostrarPalabrasMenoresACuatro';
+        var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
+        var SessionTimeout = '@ViewBag.SessionTimeout';
+        var ChatBotUrlRef = '@ViewBag.ChatBotUrlRef';
     </script>
 
     <script type="text/javascript">

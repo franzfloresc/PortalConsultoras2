@@ -118,9 +118,9 @@ var menuModule = (function () {
             var listaMenu = $(elementos.menu2Li);
             var anchoTotal = 0;
             $.each(listaMenu, function (ind, menuCont) {
-                anchoTotal = anchoTotal + $(menuCont).innerWidth();
+                anchoTotal = anchoTotal + $(menuCont).innerWidth() + 1;
             });
-            var anchoMain = $(_elem.layout.header).innerWidth();
+            var anchoMain = $(_elem.layout.header).innerWidth() - 100;
             if (anchoTotal > anchoMain) {
                 return true;
             }
@@ -296,7 +296,7 @@ var menuModule = (function () {
                     + ConstantesModule.OrigenPedidoWebEstructura.Seccion.Carrusel;
             }
 
-            else if (url.includes(ConstantesModule.TipoEstrategia.DP)) {
+            else if (url.indexOf(ConstantesModule.TipoEstrategia.DP) > -1) {
                 OrigenPedidoWeb = ConstantesModule.OrigenPedidoWebEstructura.Dispositivo.Desktop
                     + ConstantesModule.OrigenPedidoWebEstructura.Pagina.Contenedor
                     + ConstantesModule.OrigenPedidoWebEstructura.Palanca.DuoPerfecto

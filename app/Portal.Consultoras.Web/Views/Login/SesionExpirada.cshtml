@@ -43,7 +43,7 @@
     var getUrlParam = '';
     var sPageURL = decodeURIComponent(window.location.search.substring(1));
     getUrlParam = getUrlParameter("utm_source");
-    if ((getUrlParam == 'SAPHybris') || (getUrlParam == 'SMS' && sPageURL.includes('VC'))) {
+    if ((getUrlParam == 'SAPHybris') || (getUrlParam == 'SMS' && (sPageURL.indexOf('VC') > -1) )) {
         $("body").addClass("icono_exclamacion");
         $('.fondo_oscuro').removeClass("fondo_oscuro"); 
         $("#id_Error_1").removeClass("fondo_oscuro"); 

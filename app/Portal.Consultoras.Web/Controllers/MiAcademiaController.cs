@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.MiAcademia;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceLMS;
 using System;
@@ -14,103 +16,84 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class MiAcademiaController : BaseController
     {
+        private readonly MiAcademiaProvider _miAcademiaProvider;
+
+        public MiAcademiaController()
+        {
+            _miAcademiaProvider = new MiAcademiaProvider(_configuracionManagerProvider);
+        }
+        public MiAcademiaController(MiAcademiaProvider miAcademiaProvider)
+        {
+            _miAcademiaProvider = miAcademiaProvider;
+        }
+
         public ActionResult Index()
         {
-            var IdCurso = 0;
-            var FlagVideo = 0;
-            var parametrosSap = "";
-
             try
             {
-                IdCurso = SessionManager.GetMiAcademia();
-                FlagVideo = SessionManager.GetMiAcademiaVideo();
-                parametrosSap = SessionManager.GetMiAcademiaParametro();
+                var idCurso = SessionManager.GetMiAcademia();
+                var flagVideo = SessionManager.GetMiAcademiaVideo();
+                var parametrosSap = SessionManager.GetMiAcademiaParametro();
                 SessionManager.SetMiAcademia(0);
                 SessionManager.SetMiAcademiaVideo(0);
 
                 string key = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
-                string urlLms = _configuracionManagerProvider.GetConfiguracionManager(IdCurso == 0 ? Constantes.ConfiguracionManager.UrlLMS : Constantes.ConfiguracionManager.CursosMarquesina);
-                string UrlCursoMiAcademiaVideo = _configuracionManagerProvider.GetConfiguracionManager(IdCurso == 0 ? Constantes.ConfiguracionManager.UrlLMS : Constantes.ConfiguracionManager.UrlCursoMiAcademiaVideo);
-                string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
                 string eMail = userData.EMail.Trim() == string.Empty ? eMailNoExiste : userData.EMail;
 
-                string nivelProyectado = "";
-                DataSet parametros;
-
-                string codigoClasificacion = userData.CodigoClasificacion;
-                string codigoSubClasificacion = userData.CodigoSubClasificacion;
-                string descripcionSubClasificacion = userData.DescripcionSubclasificacion;
-
-                using (ContenidoServiceClient csv = new ContenidoServiceClient())
+                var parametroUrl = new ParamUrlMiAcademiaModel
                 {
-                    parametros = csv.ObtenerParametrosSuperateLider(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-                }
-
-                if (parametros != null && parametros.Tables.Count > 0)
+                    IsoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora,
+                    CodigoClasificacion = userData.CodigoClasificacion,
+                    CodigoSubClasificacion = userData.CodigoSubClasificacion,
+                    DescripcionSubClasificacion = userData.DescripcionSubclasificacion,
+                    IdCurso = idCurso
+                };
+                
+                result getUser, createUser = new result();
+                using (ws_server svcLms = new ws_server())
                 {
-                    nivelProyectado = parametros.Tables[0].Rows[0][1].ToString();
-                }
-
-                ws_server svcLms = new ws_server();
-                result createUser = new result();
-
-                var getUser = svcLms.ws_serverget_user(isoUsuario, userData.CampaniaID.ToString(), key);
-                var token = getUser.token;
-
-                if (getUser.codigo == "002")
-                {
-                    createUser = svcLms.ws_servercreate_user(
-                        isoUsuario,
-                        userData.NombreConsultora,
-                        eMail,
-                        userData.CampaniaID.ToString(),
-                        userData.CodigorRegion,
-                        userData.CodigoZona,
-                        userData.SegmentoConstancia,
-                        userData.SeccionAnalytics,
-                        userData.Lider.ToString(),
-                        userData.NivelLider.ToString(),
-                        userData.CampaniaInicioLider,
-                        userData.SeccionGestionLider,
-                        nivelProyectado,
-                        key);
-                    token = createUser.token;
+                    getUser = svcLms.ws_serverget_user(parametroUrl.IsoUsuario, userData.CampaniaID.ToString(), key);
+                    parametroUrl.Token = getUser.token;
+                                        
+                    if (getUser.codigo == "002")
+                    {
+                        string nivelProyectado = _miAcademiaProvider.GetNivelProyectado(userData);
+                        createUser = svcLms.ws_servercreate_user(
+                            parametroUrl.IsoUsuario,
+                            userData.NombreConsultora,
+                            eMail,
+                            userData.CampaniaID.ToString(),
+                            userData.CodigorRegion,
+                            userData.CodigoZona,
+                            userData.SegmentoConstancia,
+                            userData.SeccionAnalytics,
+                            userData.Lider.ToString(),
+                            userData.NivelLider.ToString(),
+                            userData.CampaniaInicioLider,
+                            userData.SeccionGestionLider,
+                            nivelProyectado,
+                            key);
+                        parametroUrl.Token = createUser.token;
+                    }
                 }
 
                 var exito = !(getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
                               createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
-
-                if (parametrosSap.Length > 1 && parametrosSap.Contains("SAP"))
-                {
-                    urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
-                    urlLms = urlLms + "&" + parametrosSap;
-                    UrlCursoMiAcademiaVideo = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(UrlCursoMiAcademiaVideo, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
-                    UrlCursoMiAcademiaVideo = UrlCursoMiAcademiaVideo + "&" + parametrosSap;
-                }
-                else
-                {
-                    urlLms = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(urlLms, isoUsuario, token, userData.CodigoClasificacion, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
-                    UrlCursoMiAcademiaVideo = IdCurso == 0 ? String.Format(urlLms, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion) : String.Format(UrlCursoMiAcademiaVideo, isoUsuario, token, codigoClasificacion, codigoSubClasificacion, descripcionSubClasificacion, IdCurso);
-                }
-
                 if (exito)
                 {
-                    if (FlagVideo == 0)
-                    {
-                        return Redirect(urlLms);
-                    }
-                    else
-                    {
-                        return Redirect(UrlCursoMiAcademiaVideo);
-                    }
+                    var tipoUrl = flagVideo == 0 ? Enumeradores.MiAcademiaUrl.Cursos : Enumeradores.MiAcademiaUrl.Video;
+                    string url = _miAcademiaProvider.GetUrl(tipoUrl, parametroUrl);                    
+                    if (parametrosSap.Length > 1 && parametrosSap.Contains("SAP")) url = url + "&" + parametrosSap;
+
+                    return Redirect(url);
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
-            return View();
+            return View("Index");
         }
 
         public ActionResult Cursos(int idcurso)
@@ -164,17 +147,22 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var exito = !(getUser.codigo == "003" || getUser.codigo == "004" || getUser.codigo == "005" ||
                               createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
-
-                urlLms = String.Format(urlLms, isoUsuario, token, idcurso);
-
-                if (HttpContext.Request.UrlReferrer != null)
-                    return Redirect(exito ? urlLms : HttpContext.Request.UrlReferrer.AbsoluteUri);
+                if (exito)
+                {
+                    var parametroUrl = new ParamUrlMiAcademiaModel
+                    {
+                        IsoUsuario = isoUsuario,
+                        Token = token,
+                        IdCurso = idcurso
+                    };
+                    return Redirect(_miAcademiaProvider.GetUrl(Enumeradores.MiAcademiaUrl.Cursos, parametroUrl));
+                }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
-            return View();
+            return View("Index");
         }
 
         private List<MiCurso> ValidadCursosMA()

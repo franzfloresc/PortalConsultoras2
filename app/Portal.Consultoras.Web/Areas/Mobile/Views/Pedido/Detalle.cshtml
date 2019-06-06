@@ -383,6 +383,10 @@
                     {{/if}}
                 </div>
 
+                {{#if detalle.EsSuscripcionSE}}
+                <div class="info_copy" style="display:none">
+                </div>
+                {{else}}
                 {{#if detalle.EsKitNueva}}
                 <div class="icono_kitNuevas">
                     <a href="javascript:;" title="Ver Info Kit Nuevas">
@@ -401,6 +405,7 @@
                         <img src="@Url.Content("~/Content/Images/icono_editar.svg")" alt="Cambiar regalo" />
                     </a>
                 </div>
+                {{/if}}
                 {{/if}}
             </div>
             <div class="bloque_cantidades_precios_items_ingresados">
@@ -524,9 +529,9 @@
                 </div>
 
                 <div class="icono_eliminar_item_pedido">
-                    <a href="javascript:;" class="border_radius_4 icon_trash" title="Eliminar" 
-                       onclick="tooltipDelete(event,'{{PedidoDetalleID}}', '{{SetID}}');" 
-                       data-pedidodetalleid="{{detalle.PedidoDetalleID}}" 
+                    <a href="javascript:;" class="border_radius_4 icon_trash" title="Eliminar"
+                       onclick="tooltipDelete(event,'{{PedidoDetalleID}}', '{{SetID}}');"
+                       data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
                        data-setid="{{detalle.SetID}}"></a>
                 </div>
                 {{/unless}}
@@ -997,6 +1002,7 @@
 @{ Html.RenderPartial("_PopupEleccionRegalo");}
 @{ Html.RenderPartial("_PopupPremio");}
 @{ Html.RenderPartial("_PopupDescuento");}
+@{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupInformacionRegalo.cshtml");}
 <div id="DivPopupFichaResumida" class="Modal_Editar_Producto" style="display: none">
     @Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/FichaTemplate.cshtml")
 </div>
@@ -1026,6 +1032,11 @@
         var urlPedidoAceptarBackOrder = '@Url.Action("AceptarBackOrder", "Pedido", new { area = "" })';
 
         var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "PedidoRegistro", new { area = "" })';
+        //INI HD-4200
+        var urlValidarSuscripcionSE = '@Url.Action("ValidarSuscripcionSE", "PedidoRegistro", new { area = "" })';
+        //FIN HD-4200
+
+
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var fnEliminarProducto = null;
 
@@ -1058,7 +1069,7 @@
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
         var mensajeElecMultipleEliminar = '@string.Format(Constantes.ProgNuevas.Mensaje.ElecMultiple_ConfirmaEliminar, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre)';
         var urlObtenerComponentes = '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new { area = "" })';
-
+        var PedidoEscogeRegaloCarrusel = '@Constantes.OrigenPedidoWeb.MobilePedidoEscogeRegaloCarrusel';/*HD-3710*/
 
 
 

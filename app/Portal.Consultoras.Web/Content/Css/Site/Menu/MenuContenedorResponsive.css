@@ -69,8 +69,8 @@
 
 .menu__contenedor__carrusel__item {
     min-width: 98px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
 .menu__contenedor__carrusel__item:first-child {
@@ -100,6 +100,7 @@
     .menu__contenedor__carrusel__item__link p {
         font-size: 11px;
         letter-spacing:0.2px;
+        white-space:nowrap;
     }
 
     .menu__contenedor__carrusel__item__link.activado p,

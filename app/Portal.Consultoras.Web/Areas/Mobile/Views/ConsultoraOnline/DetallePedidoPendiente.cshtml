@@ -7,16 +7,10 @@
     var mobileConfiguracion = Html.MobileAppConfiguracion();
 }
 
-<style>
-    .agotado_consultora {
-        background: #f3f3f3;
-        padding: 10px 10px
-    }
-
-        .agotado_consultora img {
-            height: 36px
-        }
-</style>
+@section styles{
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/Bootstrap")
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/SugerenciaPendientes")
+}
 
 <script>
     var glbDispositivo = 3;
@@ -28,251 +22,223 @@
         <script>
             glbDispositivo = 2;
         </script>
-        <div class="titulo_mobile">
+        <div class="titulo_mobile" style="display:none;">
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
             &nbsp;&nbsp;PENDIENTES
         </div>
         <div class="pestana_esika"></div>
-        <div class="pestana_lbel"></div>
+        <div class="pestana_lbel" style="display: none;"></div>
     }
 }
 
-<div class="fondo_f2f2f2 triang_pe">
-    @{
-        var solicitud = Model.MiPedido;
-        var tiposoli = (solicitud.MarcaID == 0) ? 1 : 2;
-    }
+@{
 
-    <input type="hidden" id="solped_@solicitud.PedidoId" value="@solicitud.PedidoId|@solicitud.MarcaID|@solicitud.Campania|@solicitud.Cliente|@solicitud.Telefono|@solicitud.Direccion|@solicitud.Email||@solicitud.Leido|@solicitud.NumIteracion|@solicitud.CodigoUbigeo|@solicitud.FechaSolicitud|@solicitud.MedioContacto|@solicitud.FormatoPrecioTotal|@solicitud.SaldoHoras|@solicitud.FlagConsultora" />
+    var solicitud = Model.MiPedido;
+    //var tiposoli = (solicitud.MarcaID == 0) ? 1 : 2;
+}
 
-    @{
-        var contacto = solicitud.Cliente.Trim();
-        if (contacto.IndexOf(' ') != -1)
-        {
-            contacto = contacto.Substring(0, contacto.IndexOf(' '));
-        }
-    }
-
-    <div class="content_320">
-        <div class="tiempo_restante">          
-        </div>
-        <div class="contacte_cliente">CONTÁCTATE CON @contacto </div>
-        <div class="texto_detalle_pedido">
-            Confirma los productos, precios y forma de entrega. Luego elige cómo atenderás cada producto para que puedas aceptar todo el pedido.
-        </div>
-        <div class="content_dato_historial">
-            <span class="nom_his">Nombre</span>
-            <span class="nom_his_2" id="sc-nombre"><b>@solicitud.Cliente.ToUpper()</b></span>
-            <hr class="clear" />
-        </div>
-        <div class="content_dato_historial">
-            <span class="nom_his">Teléfono:</span>
-            <span class="nom_his_2">
-                <a href="tel:@solicitud.Telefono" onclick="return (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Mobile/i))!=null;">
-                    <b class="color_belcorp" style="vertical-align:top;" id="sc-telefono">@solicitud.Telefono</b>
-                    <span class="icono_telefono"></span>
-                </a>
-            </span>
-            <hr class="clear" />
-        </div>
-        <div class="content_dato_historial">
-            <span class="nom_his">Correo:</span>
-            <span class="nom_his_2"><b id="sc-correo">@solicitud.Email</b></span>
-            <hr class="clear" />
-        </div>
-        <div class="content_dato_historial">
-            <span class="nom_his">Dirección:</span>
-            <span class="nom_his_2"><b>@solicitud.Direccion</b></span>
-            <hr class="clear" />
-        </div>
-        @if (solicitud.MarcaID != 0)
-        {
-            <div class="content_dato_historial">
-                <span class="nom_his">Comentario:</span>
-                <span class="nom_his_2"><b>@solicitud.MensajeDelCliente</b></span>
+<!-- Agregado desplegado con tooltips y modals -->
+<div class="container-flex pending d-flex flex-column vh-100">
+    <!-- Pending title   -->
+    <div class="container pending-top">
+        <div class="row align-items-center mb-1">
+            <div class="col-10">
+                <h2 class="attend-title">Paso 1: Acepta los pedidos que deseas atender</h2>
             </div>
-        }
+            <div class="col-2">
+                <div class="attend-close">
+                    <a href="@Request.UrlReferrer"> <img class="attend-img_32" src="https://i.ibb.co/tPxhXbW/close-3x.png" alt="cerrar"></a>
+                </div>
+            </div>
+        </div>
     </div>
+    <!-- / Pending title   -->
 
-    <hr class="clear" />
-</div>
-<div class="wrapper_resumen_mobile" id="divSolicitudDetalles">
-
-    @foreach (var item in Model.ListaDetalle2)
-    {
-    <div class="detalle_pedido_reservado">
-        <input type="hidden" value="@item.PedidoDetalleId" id="soldet_@item.PedidoDetalleId" />
-        <input type="hidden" value="@item.CUV" id="soldet_cuv_@item.PedidoDetalleId" />        
-        <input type="hidden" value="@item.Producto" id="soldet_nom_@item.PedidoDetalleId" />
-        <input type="hidden" value="@item.PrecioUnitario" id="soldet_precio_@item.PedidoDetalleId" />
-        <input type="hidden" value="@item.Marca" id="soldet_mrc_@item.PedidoDetalleId" />
-        <div class="left_reservado" style="width:228px;">
-            @if (solicitud.MarcaID == 0)
+    <div class="overflow-y auto">
+        <!--  Pending subtitle  -->
+        <div class="pending-subtitle pending-bgGray">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <div class="mtb-16">
+                            <p class="text-14">@solicitud.Cliente</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="vc-box--content contact-info mt-2 text-right">
+                            <img src="~/Content/Images/Shared/svg/a-icon-call.svg">
+                            <a href="tel:@solicitud.Telefono" onclick="return (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Mobile/i))!=null;">
+                                <p style="margin-bottom: 16px;">@solicitud.Telefono</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- / Pending subtitle    -->
+        <!--  Orders  -->
+        <div class="container">
+            @foreach (var item in Model.ListaDetalle2)
             {
-                <div class="datos_Reservado">
-                    <span>@item.CUV</span>
-                    <span>@item.Producto</span>
+                <div id="vc_pedido_@item.CUV" class="container vc-box vc-box--shadow pedidos">
+                    <!--   Order title   -->
+
+                    <div class="row align-items-start">
+                        <div class="col-9">
+                            <div class=" vc-box">
+                                <div class="vc-box--header">
+                                    <span class="vc-box--title">@item.Producto</span>
+                                </div>
+                                <div class="vc-box--content">
+                                    <p style="margin-bottom: 16px;">@item.Tono</p>
+                                </div>
+
+                                <input type="hidden" class="pedidoId" value="@item.PedidoId" />
+                                <input type="hidden" class="cuv" value="@item.CUV" />
+                                <input type="hidden" class="cantidad" value="@item.Cantidad" />
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="vc-box">
+                                <div class="vc-box--action attend-delete">
+                                    <img class="attend-img_30" onclick="MostrarMensajedeRechazoPedido('@item.CUV')" src="https://i.ibb.co/jTXwndP/trash-3x.png" alt="Borrar">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  /Order title   -->
+                    <!--   Order Action   -->
+                    <div class="row align-items-center">
+                        <div class="col-4">
+                            <div class="vc-box ipt-tel">
+                                <input data-cantNew="@item.Cantidad" type="tel" maxlength="2" value="@item.Cantidad" placeholder="1" class="text-center text-14 text-700 ValidaNumeral ValidaPasteNumeral ValidaValor">
+                            </div>
+                        </div>
+
+                        <div class="col-8">
+                            <div id="texto_@item.CUV" class="vc-box text-white text-14 text-700">
+                                <a id="aceptar_@item.CUV" href="javascript:;" onclick="AceptarPedidoProducto('@item.CUV')" class="action-btn action-btn_border active">Aceptar</a>
+                            </div>
+
+                            @*<div class="vc-box text-700 text-14 text-black" style:none>
+                                    <a class="action-btn action-btn_border">Aceptado</a>
+                                </div>*@
+                        </div>
+
+                    </div>
+
+                    <!--   /Order Action   -->
+                    <!--  Order Delete Popup      -->
+
+                    <div id=@item.CUV class="row align-items-center" style="display:none;">
+                        <div class="col mt-16">
+                            <div class="tooltip-primary tooltip-arrow_top ptb-16 ">
+                                <div class="col-12">
+                                    <h6 class="text-14 text-black">¿Quieres eliminar este pedido?</h6>
+                                </div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col text-14 text-700">
+                                            <a href="javascript:;" onclick="OcultarMensajedeRechazoPedido('@item.CUV')" class="action-btn action-btn_refuse no-border">No, gracias</a>
+                                        </div>
+                                        <div class="col text-14 text-700">
+                                            <a href="javascript:;" onclick="EliminarSolicitudDetalle('@solicitud.PedidoId', '@item.CUV','C')" class="action-btn action-btn_continue active">Sí, eliminar</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  / Order Delete Popup      -->
                 </div>
             }
-            else
-            {
-                <div class="datos_Reservado">
-                    <span>@item.Producto</span>
+
+        </div>
+        <!-- / Orders    -->
+
+    </div>
+
+
+
+
+    <div id="mensajepedido" class="container position-absolute" style="display:none; bottom:0;">
+        <!--   Tooltip bottom     -->
+        <div class="row align-items-center position-relative action-continue" style="padding-right:16px;">
+            <div class="col mb-1">
+                <div class="tooltip-secondary tooltip-arrow_bottom ptb-16 ">
+                    <div class="col-12">
+                        <h6 class="text-14 text-black text-700 tooltip-info">Debes aceptar mínimo un pedido para continuar.</h6>
+                    </div>
                 </div>
-            }
-        </div>
-        <div class="right_reservado">
-            <div class="texto_reservado">CANT</div>
-            <div class="datos_Reservado" id="soldet_qty_@item.PedidoDetalleId"><b>@item.Cantidad</b></div>
-        </div>
-        <hr class="clear"><br>
-        <div class="left_reservado">
-            <div class="texto_reservado">
-                <span>Precio Unitario</span>
-                <span>Sub-total</span>
             </div>
         </div>
-        <div class="right_reservado">
-            <div class="texto_reservado">
-                <span>@ViewBag.Simbolo @item.FormatoPrecioUnitario</span>
-                <span>@ViewBag.Simbolo @item.FormatoPrecioTotal</span>
+        <!--  / Tooltip bottom      -->
+    </div>
+    <!--  / Action buttons  -->
+    <div class="bt-1 mt-auto ">
+        <div class="container pt-3 pb-3">
+            <div class="row">
+                <div class="col">
+                    <div class="vc-box text-14 text-700">
+                        <a href="#" class="action-btn action-btn_refuse" data-toggle="modal" data-target="#rechazarTodo">Rechazar todo</a>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="vc-box text-14 text-700">
+                        <a href="javascript:;" onclick="ContinuarPedido()" class="action-btn action-btn_continue active">Continuar</a>
+                    </div>
+                </div>
             </div>
         </div>
-        <hr class="clear">
-        @if (solicitud.MarcaID == 0)
-        {
-            if (@item.TieneStock == 1)
-            {
-                <select class="select_detalle ddlAtenderPedidosPend" id="soldet_tipoate_@item.PedidoDetalleId">
-                    <option value="" selected>¿CÓMO LO ATENDERÁS?</option>
-                    <option value="ingrped">INGRESAR A MI PEDIDO</option>
-                    <option value="ingrten">YA LO TENGO</option>
-                </select>
-            }
-            else
-            {
-                <span class="btn_ingreso_pedido" style="text-align: center;">AGOTADO</span>
-            }
-
-            if (item.TieneStock == 0)
-            {
-                <span class="agotado_consultora" style="font-size: 12px;"><img src="/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg" /> @item.MensajeValidacion</span>
-            }
-            else if (item.EstaEnRevista == 1)
-            {
-                <span class="agotado_consultora" style="font-size: 12px;"><img src="/Content/Images/RevistaDigital/icono_advertencia_notificacion_esika.svg" /> @item.MensajeValidacion</span>
-            }
-        }
     </div>
-    }
-
-    <div class="left_reservado">
-        <div class="importe_final" style="font-size:16px;"><b>TOTAL PEDIDO: </b> </div>
-    </div>
-    <div class="right_reservado">
-        <div class="importe_final" style="font-size:16px"><b>@ViewBag.Simbolo @solicitud.FormatoPrecioTotal</b></div>
-    </div>
-    <hr class="clear" />
-    <div class="linea_separadora_roja" style="margin-top:20px;"></div>
-    <a class="btn_acepto_pedido" href="javascript:;" onclick="AceptarPedido('@solicitud.PedidoId', '@tiposoli')">ACEPTO TODO EL PEDIDO</a>
-    <a class="btn_rechazo_pedido" href="javascript:;" onclick="javascript: RechazoPedidosPendientes(); $('#PedidoRechazado').show();">RECHAZO EL PEDIDO</a>
+    <!--  / Action buttons  -->
 </div>
 
-<div id="ComoloAtenderas" class="MensajeAlertaMobile">
-    <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript:DialogComoAtenderPedidoPend('Cerrar Pop up'); $('#ComoloAtenderas').hide();">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div class="icono_alerta exclamacion_icono_mobile"></div>
-        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-        <div class="mensaje_alerta">Por favor elige cómo atenderás todos los productos del pedido</div>
-        <a class="btn_ok_mobile" onclick="javascript:DialogComoAtenderPedidoPend('Ok'); $('#ComoloAtenderas').hide();">OK</a>
-    </div>
-</div>
+<!-- modal -->
+<div id="rechazarTodo" class="modal animated bounceIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-<div id="PedidoAceptado" class="MensajeAlertaMobile">
-    <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="CerrarMensajeAceptado();">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div class="icono_alerta check_icono_mobile"></div>
-        <div class="titulo_compartir">¡PEDIDO <b>ACEPTADO</b>!</div>
-        <div class="mensaje_alerta" id="detallePedidoAceptado">Has agregado 12 productos a tu pedido</div>
-        <a class="btn_ok_mobile" onclick="CerrarMensajeAceptado();">OK</a>
-    </div>
-</div>
+    <!-- dialog -->
+    <div class="modal-dialog">
 
-<div id="PedidoRechazado" class="MensajeAlertaMobile">
-    <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#PedidoRechazado').hide(); VasARechazarelPedido('cerrar');">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div class="icono_alerta exclamacion_icono_mobile"></div>
-        <div class="titulo_compartir">¿VAS A <b>RECHAZAR EL PEDIDO</b>?</div>
-        <div class="mensaje_alerta">Si rechazas el pedido vas a perderlo</div>
-        <div class="col-xs-12 col-sm-6">
-            <a class="btn_acepto_pedido" href="javascript:;" onclick="javascript: $('#PedidoRechazado').hide(); VasARechazarelPedido('No, Déjame verlo');">NO, DÉJAME VERLO</a>
+        <!-- content -->
+        <div class="modal-content">
+
+            <!-- header -->
+            <div class="modal-header">
+                <div class="" style="display: flex; justify-content: flex-end; width:100%">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <!--           <span aria-hidden="true">&times;</span> -->
+                        <img src="https://i.ibb.co/tPxhXbW/close-3x.png" style="height: 32px; width: 32px" alt="cerrar">
+                    </button>
+
+                </div>
+            </div>
+            <!-- header -->
+            <!-- body -->
+            <div class="modal-body" style=" margin-top: 76px;">
+                <div class="vc-box--action" style="display: flex; justify-content: center; align-items: center; width:100%">
+                    <img src="https://i.ibb.co/4jKbTqS/error-outline-3x.png" alt="error">
+                </div>
+                <p style="text-align: center; font-size: 18px; font-weight:700; width: 85%; margin: 0 auto;">¿Deseas rechazar todos los pedidos de tus clientes?</p>
+                <div style="font-size: 14px; letter-spacing: 1px; font-weight:700; margin: 24px 0; display: flex; justify-content: center; width:100%">
+                    <button class="btn btn-default" data-dismiss="modal" aria-label="Close" style="font-size: 14px; letter-spacing: 1px;font-weight:700;text-decoration:underline;">
+                        No, gracias
+                    </button>
+                    <button onclick="RechazarSolicitudCliente('@solicitud.PedidoId')" class="btn btn-primary" style="font-size: 14px; letter-spacing: 1px;font-weight:700; background-color: #b9007e; border: #b9007e; color: white;">
+                        Sí, Rechazar
+                    </button>
+                </div>
+            </div>
+            <!-- body -->
+            <!-- footer -->
+
         </div>
-        <div class="col-xs-12 col-sm-6">
-            <a class="btn_rechazo_pedido" href="javascript:;" onclick="javascript: $('#PedidoRechazadoDetalle').show();  VasARechazarelPedido('Sí, Rechazo el Pedido');">SÍ, RECHAZO EL PEDIDO</a>
-        </div>
+        <!-- footer -->
 
     </div>
-</div>
+    <!-- content -->
 
-<div id="AlertaPedidoReservado" class="MensajeAlertaMobile">
-    <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="CerrarAlertaPedidoReservado();">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div class="icono_alerta exclamacion_icono_mobile"></div>
-        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-        <div class="mensaje_alerta" id="MensajePedidoReservado">Ya tienes un pedido reservado para esta campaña</div>
-        <a class="btn_ok_mobile" onclick="CerrarAlertaPedidoReservado();">OK</a>
-    </div>
-</div>
-
-<div id="PedidoRechazadoDetalle" class="MensajeAlertaMobile" style="padding:10px;">
-    <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="RechazarPedido('@solicitud.PedidoId',2);">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div class="titulo_compartir"> <b>CUÉNTANOS POR QUÉ LO RECHAZASTE</b></div>
-        <div class="mensaje_alerta">Si rechazas el pedido vas a perderlo</div>
-
-        <div>
-            @foreach (var item in ViewBag.MotivosRechazo)
-            {
-                <div class="opcion_rechazo" data-id="@item.MotivoSolicitudID">@item.Motivo</div>
-            }
-        </div>
-        <textarea rows="10" class="comentario_rechazados" id="txtOtrosRechazo" readonly="readonly" maxlength="300"></textarea>
-        <a class="btn_acepto_pedido" href="#" onclick="RechazarPedido('@solicitud.PedidoId',1);">ENVIAR</a>
-    </div>
-</div>
-
-<div id="MensajePedidoRechazado" class="MensajeAlertaMobile">
-    <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="CerrarMensajeRechazado(2);">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div class="icono_alerta exclamacion_icono_mobile"></div>
-        <div class="titulo_compartir"><b>RECHAZASTE</b> EL PEDIDO</div>
-        <div class="mensaje_alerta">Ya está eliminado de tu lista de pendientes</div>
-        <a class="btn_ok_mobile" onclick="CerrarMensajeRechazado(1);">OK</a>
-    </div>
-</div>
-
-<div class="contenedor_popup_clientes modal" id="divAgregarCliente" style="display:none;">
-    <div class="popup_agregarCliente">
-        <div id="divDetalleCliente"></div>
-    </div>
 </div>
 
 @section scripts {
@@ -281,6 +247,7 @@
         var urlPendientes = '@Url.Action("Pendientes", "ConsultoraOnline")';
         var urlPedido = '@Url.Action("Index", "Pedido")';
         var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
+        var gTipoVista = 1;
     </script>
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/DetallePedidoPendiente.js")"></script>
