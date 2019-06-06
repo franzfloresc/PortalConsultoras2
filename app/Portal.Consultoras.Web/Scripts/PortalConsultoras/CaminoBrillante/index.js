@@ -244,7 +244,7 @@ function ArmarMisGanancias(data) {
         "#ffdaf3",
         "#ffdaf3",
         "#ffdaf3",
-        "#4f0036"
+        "#ffdaf3"
 
     ];
     var hoverBackgrounds = [
