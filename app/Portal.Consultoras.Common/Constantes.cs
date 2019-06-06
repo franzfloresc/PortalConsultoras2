@@ -4045,6 +4045,13 @@ namespace Portal.Consultoras.Common
                 public const string Esika = "02";
                 public const string Cyzone = "03";
             }
+
+            public static class TipoOferta
+            {
+                public const int Kit = 1;
+                public const int Demostrador = 2;
+            }
+
         }
 
         public static class CodigoContenido
