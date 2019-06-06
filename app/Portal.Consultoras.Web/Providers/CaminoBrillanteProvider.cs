@@ -654,7 +654,7 @@ namespace Portal.Consultoras.Web.Providers
                 TextoLibre = "",
                 TienePaginaProducto = false,
                 TienePaginaProductoMob = false,
-                TipoAccionAgregar = 2,
+                TipoAccionAgregar = 1,
 
             };
         }
@@ -685,8 +685,8 @@ namespace Portal.Consultoras.Web.Providers
                 EsSubcampania = false,
                 EstrategiaID = e.EstrategiaID.ToInt(),
                 FlagNueva = 0,
-                Ganancia = e.PrecioCatalogo - e.PrecioValorizado,
-                GananciaString = (e.PrecioCatalogo - e.PrecioValorizado).ToString(),
+                Ganancia = 0,
+                GananciaString = "0",
                 ImagenURL = e.FotoProductoMedium,
                 MarcaID = e.MarcaID,
                 Precio = e.PrecioCatalogo,

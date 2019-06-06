@@ -742,7 +742,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                         kit.DescripcionNivel = niveles.Where(e => e.CodigoNivel == _kitProvider.Nivel).Select(e => e.DescripcionNivel).SingleOrDefault();
                         kit.FotoProductoSmall = !string.IsNullOrEmpty(kit.FotoProductoSmall) ? ConfigCdn.GetUrlFileCdnMatriz(paisISO, kit.FotoProductoSmall) : string.Empty;
                         kit.FotoProductoMedium = !string.IsNullOrEmpty(kit.FotoProductoMedium) ? ConfigCdn.GetUrlFileCdnMatriz(paisISO, kit.FotoProductoMedium) : string.Empty;
-                        kit.Detalle = GetDetalleKit(kits, kitsProvider.Where(e => e.Nivel == _kitProvider.Nivel).Select(e => e.Cuv).ToList()) ?? new List<BEKitCaminoBrillante>();
+                        kit.Detalle = _kitProvider.Digitable == 1 ? GetDetalleKit(kits, kitsProvider.Where(e => e.Nivel == _kitProvider.Nivel).Select(e => e.Cuv).ToList()) ?? new List<BEKitCaminoBrillante>() : new List<BEKitCaminoBrillante>();
                     }
                 });
 

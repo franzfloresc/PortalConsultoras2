@@ -28981,6 +28981,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string DescripcionNivelField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServicePedido.BEKitCaminoBrillante[] DetalleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EstrategiaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -29142,6 +29145,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.DescripcionNivelField, value) != true)) {
                     this.DescripcionNivelField = value;
                     this.RaisePropertyChanged("DescripcionNivel");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServicePedido.BEKitCaminoBrillante[] Detalle {
+            get {
+                return this.DetalleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DetalleField, value) != true)) {
+                    this.DetalleField = value;
+                    this.RaisePropertyChanged("Detalle");
                 }
             }
         }
