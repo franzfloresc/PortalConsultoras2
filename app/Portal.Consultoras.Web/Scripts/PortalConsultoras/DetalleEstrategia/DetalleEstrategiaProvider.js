@@ -1,5 +1,11 @@
-﻿var DetalleEstrategiaProvider = function () {
+﻿var variablesPortal = variablesPortal || {};
+var localStorageModule = LocalStorageModule()
+
+var DetalleEstrategiaProvider = function () {
     var _urlDetalleEstrategia = ConstantesModule.UrlDetalleEstrategia;
+    var _codigoVariedad = ConstantesModule.CodigoVariedad;
+    var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
+    var _tipoAccionNavegar = ConstantesModule.TipoAccionNavegar;
 
     var _promiseObternerComponentes = function (params) {
         var dfd = $.Deferred();
@@ -65,7 +71,7 @@
 
     var _promiseObternerModelo = function (params) {
         var dfd = $.Deferred();
-
+        
         try {
 
             $.ajax({
@@ -117,10 +123,122 @@
         return dfd.promise();
     };
 
+    var _getEstrategia = function (params) {
+        var estrategia = {};
+        
+        _promiseObternerModelo({
+            palanca: params.palanca,
+            campaniaId: params.campania,
+            cuv: params.cuv,
+            origen: params.origen,
+            esEditable: params.esEditable
+        }).done(function (data) {
+            estrategia = data.data || {};
+            estrategia.Error = data.success === false;
+        }).fail(function (data, error) {
+            throw "DetalleEstrategiaProvider.getEstrategia";
+        });
+        estrategia.ConfiguracionContenedor = estrategia.ConfiguracionContenedor || {};
+        estrategia.BreadCrumbs = estrategia.BreadCrumbs || {};
+        //
+        var _objTipoPalanca = ConstantesModule.DiccionarioTipoEstrategia.find(function (x) { return x.texto === params.palanca });
+        var _fichaServicioApi = (variablesPortal.MsFichaEstrategias && _objTipoPalanca) ? (variablesPortal.MsFichaEstrategias.indexOf(_objTipoPalanca.codigo) > -1) : false;
+        //
+        if (!_fichaServicioApi && !estrategia.TieneSession) {
+            var estrategiaTmp = localStorageModule.ObtenerEstrategia(params.cuv, params.campania, params.palanca);
+
+            if ((typeof estrategia === "undefined" || estrategia === null) && params.palanca === _tipoEstrategiaTexto.OfertasParaMi) {
+                estrategiaTmp = localStorageModule.ObtenerEstrategia(params.cuv, params.campania, _tipoEstrategiaTexto.Ganadoras);
+            }
+
+            if (typeof estrategiaTmp === "undefined" || estrategiaTmp == null) throw "estrategia is null";
+
+            estrategia = $.extend(estrategia, estrategiaTmp);
+        }
+
+        if (!estrategia || !estrategia.EstrategiaID) throw 'no obtiene oferta desde api';
+
+        if (typeof estrategia.CodigoVariante != "undefined" &&
+            estrategia.CodigoVariante != null &&
+            estrategia.CodigoVariante != "") {
+            var paramsObtenerComponente = {
+                estrategiaId: estrategia.EstrategiaID,
+                cuv2: estrategia.CUV2,
+                campania: params.campania,
+                codigoVariante: estrategia.CodigoVariante,
+                codigoEstrategia: estrategia.CodigoEstrategia,
+                lstHermanos: estrategia.Hermanos
+            };
+
+            _promiseObternerComponentes(paramsObtenerComponente)
+                .done(function (data) {
+                    estrategia.Hermanos = data.componentes;
+                    estrategia.EsMultimarca = data.esMultimarca;
+                }).fail(function (data, error) {
+                    estrategia.Hermanos = [];
+                    estrategia.EsMultimarca = false;
+                    throw "DetalleEstrategiaProvider.GetEstrategia : promiseObternerComponentes";
+                });
+
+        }
+        else {
+            estrategia.Hermanos = [];
+            estrategia.EsMultimarca = false;
+        }
+
+        estrategia.Hermanos = estrategia.Hermanos || [];
+
+        //estrategia.esCampaniaSiguiente = estrategia.CampaniaID !== _obtenerCampaniaActual();
+        $.each(estrategia.Hermanos, function (idx, hermano) {
+            hermano = estrategia.Hermanos[idx];
+            //hermano.esCampaniaSiguiente = estrategia.esCampaniaSiguiente;
+        });
+
+        if (estrategia.Hermanos.length === 1) {
+            if (estrategia.Hermanos[0].Hermanos) {
+                if (estrategia.Hermanos[0].Hermanos.length > 0) {
+                    if (estrategia.Hermanos[0].FactorCuadre === 1) {
+                        estrategia.CodigoVariante = _codigoVariedad.IndividualVariable;
+                    }
+                }
+                else {
+                    estrategia.CodigoVariante = _codigoVariedad.ComuestaFija;
+                }
+            }
+            else {
+                estrategia.CodigoVariante = _codigoVariedad.ComuestaFija;
+            }
+
+        }
+        else if (estrategia.Hermanos.length > 1) {
+            if (estrategia.CodigoVariante === _codigoVariedad.IndividualVariable) {
+                estrategia.CodigoVariante = _codigoVariedad.ComuestaFija;
+            }
+        }
+        else if (estrategia.Hermanos.length === 0) {
+            estrategia.CodigoVariante = "";
+        }
+
+        estrategia.ClaseBloqueada = "btn_desactivado_general";
+        estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
+        estrategia.RangoInputEnabled = "disabled";
+        //estrategia.esEditable = _config.esEditable;
+        //estrategia.setId = _config.setId || 0;
+        //estrategia.TieneStock = _config.esEditable || estrategia.TieneStock;
+
+        //estrategia = $.extend(modeloFicha, estrategia);
+        estrategia.TipoPersonalizacion = estrategia.CodigoEstrategia;
+        estrategia.MostarTabsFichaEnriquecidaSinDetalle = estrategia.Hermanos.length == 1;
+        //
+
+        return estrategia;
+    };
+
     return {
         promiseObternerComponentes: _promiseObternerComponentes,
         promiseObternerDetallePedido: _promiseObternerDetallePedido,
         promiseObternerModelo: _promiseObternerModelo,
-        promiseObtenerEstrategiaFicha: _promiseObternerEstrategiaFicha
+        promiseObtenerEstrategiaFicha: _promiseObternerEstrategiaFicha,
+        getEstrategia: _getEstrategia
     };
 }();

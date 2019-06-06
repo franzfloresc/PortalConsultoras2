@@ -132,6 +132,7 @@ namespace Portal.Consultoras.Entities
 
         public BEPedidoWeb(IDataRecord row)
         {
+
             CampaniaID = row.ToInt32("CampaniaID");
             PedidoID = row.ToInt32("PedidoID");
             ConsultoraID = row.ToInt64("ConsultoraID");
