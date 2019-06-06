@@ -347,6 +347,10 @@ input[type="text"].text__field__sb,
         height: auto;
     }
 
+.notificacion_estado--error {
+    color: #e81c36;
+}
+
 @media screen and (max-width:991px) {
 
     .notificacion_estado_img {
