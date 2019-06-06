@@ -279,7 +279,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             }
                             else
                             {
-                                //mensajePersonalizado = ListPedidoObservacion.First().Descripcion;\r\n
                                 mensajePersonalizado = "<ul> ";
                                 foreach (var item in ListPedidoObservacion)
                                 {
@@ -308,10 +307,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_DEUDA;
                         error = true;
                         break;
-                    //case Enumeradores.ResultadoReserva.NoReservadoMontoPermitido:
-                    //    pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_OBS; //No existe una constante 
-                    //    error = true;
-                    //    break;
                     case Enumeradores.ResultadoReserva.Ninguno:
                         pedidoValidacionCode = Constantes.PedidoValidacion.Code.ERROR_RESERVA_NINGUNO;
                         error = true;
