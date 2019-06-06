@@ -40,8 +40,8 @@ $(document).ready(function () {
 });
 
 fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded, function(){
-    estrategiaView.clearContainer();
-    componentesView.clearContainer();
+    estrategiaPresenter.cleanContainer();
+    componentesPresenter.cleanContainer();
     
     var estrategia = detalleEstrategia.getEstrategia(params);
 
