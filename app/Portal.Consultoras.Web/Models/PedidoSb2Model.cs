@@ -328,7 +328,7 @@ namespace Portal.Consultoras.Web.Models
             get
             {
                 if (GananciaOtros != null && GananciaWeb != null && GananciaRevista != null)
-                    return Util.DecimalToStringFormat((GananciaOtros.Value + GananciaWeb.Value + GananciaRevista.Value), CodigoIso);
+                    return Util.DecimalToStringFormat((GananciaOtros.Value + GananciaWeb.Value + GananciaRevista.Value + MontoAhorroCatalogo ), CodigoIso);
                 else
                     return Util.DecimalToStringFormat(0, CodigoIso);
             }

@@ -3405,8 +3405,8 @@ namespace Portal.Consultoras.Web.Controllers
         /// <returns></returns>
         private bool isCalculoGananaciaConsultora(BEPedidoWeb pedidoWeb)
         {
-            return pedidoWeb.GananciaRevista.HasValue ||
-                   pedidoWeb.GananciaWeb.HasValue || pedidoWeb.GananciaWeb.HasValue;
+            return pedidoWeb.GananciaRevista.HasValue &&
+                   pedidoWeb.GananciaWeb.HasValue && pedidoWeb.GananciaWeb.HasValue;
         }
     }
 }

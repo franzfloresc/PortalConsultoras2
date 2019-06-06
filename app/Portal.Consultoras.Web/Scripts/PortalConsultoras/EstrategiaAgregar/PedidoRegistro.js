@@ -1745,7 +1745,8 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
 }
 
 function ActualizaGanancias(data) {
-    data = ActualizaGanancias || "";
+    
+    data = data || "";
     if (data !== "") {
         $('#div-ganancia-totalGananciaCatalogo').text('GG');
         $('#div-ganancia-totalGananciaRevista').text('GG');

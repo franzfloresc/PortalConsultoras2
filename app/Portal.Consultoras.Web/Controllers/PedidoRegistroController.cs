@@ -405,7 +405,7 @@ namespace Portal.Consultoras.Web.Controllers
                         listCuvEliminar = pedidoDetalleResult.ListCuvEliminar.ToList(),
                         mensajeCondicional,
                         EsReservado = esReservado,
-                        PedidoWeb = pedidoDetalleResult.PedidoWeb
+                        PedidoWeb = actualizaModeloPedidoSb2Model(pedidoDetalleResult.PedidoWeb)
                     }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -432,6 +432,14 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        private PedidoSb2Model actualizaModeloPedidoSb2Model(BEPedidoWeb pedidoWeb)
+        {
+            var pedidoSb2Model = new PedidoSb2Model();
+            pedidoSb2Model.GananciaRevista = pedidoWeb.GananciaRevista;
+            pedidoSb2Model.GananciaWeb = pedidoWeb.GananciaWeb;
+            pedidoSb2Model.GananciaOtros = pedidoWeb.GananciaOtros;
+            return pedidoSb2Model;
+        }
         [HttpPost]
         public async Task<JsonResult> AgergarPremioDefault()
         {
@@ -560,7 +568,7 @@ namespace Portal.Consultoras.Web.Controllers
                     cantidadTotalProductos = CantidadTotalProductos,
                     mensajeCondicional,
                     EsReservado = esReservado,
-                    PedidoWeb = pedidoDetalleResult.PedidoWeb
+                    PedidoWeb = actualizaModeloPedidoSb2Model(pedidoDetalleResult.PedidoWeb)
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -672,7 +680,7 @@ namespace Portal.Consultoras.Web.Controllers
                 },
                 cantidadTotalProductos = olstPedidoWebDetalle.Sum(x => x.Cantidad),
                 EsReservado = esReservado,
-                PedidoWeb = result.PedidoWeb
+                PedidoWeb = actualizaModeloPedidoSb2Model(result.PedidoWeb)
             }));
 
             return lastResult;
