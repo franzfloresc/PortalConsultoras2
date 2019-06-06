@@ -15,6 +15,8 @@ $(document).ready(function () {
         }
     });
 
+    InicializarMotivoRechazo();
+
 });
 
 function RechazarPedido(id, origenBoton) {
@@ -456,9 +458,11 @@ function AceptarPedidoProducto(id) {
 
 }
 
-function RechazarSolicitudCliente(pedidoId) {
+function RechazarSolicitudCliente(pedidoId, idMotivoRechazo, razonMotivoRechazo) {
     var obj = {
         pedidoId: pedidoId,
+        motivoRechazoId: idMotivoRechazo,
+        motivoRechazoTexto: razonMotivoRechazo
     };
 
     ShowLoading();
@@ -472,7 +476,10 @@ function RechazarSolicitudCliente(pedidoId) {
             CloseLoading();
 
             if (response.success) {
-                document.location.href = '/Mobile/ConsultoraOnline/Pendientes';
+
+                //vPendientes = response.Pendientes;
+                SeRechazoConExito();
+               // document.location.href = '/Mobile/ConsultoraOnline/Pendientes';
             }
             else {
                 alert(response.message);
@@ -635,3 +642,100 @@ $("body").on('change', ".ValidaValor", function (e) {
         $input.val(1);
     }
 });
+
+
+
+function MotivoRechazoSolicitudPedidoPend(pedidoId) {
+    $('#MotivosRechazo').removeClass('hide');
+    $('#MotivosRechazo').css('display', 'block');
+    $('#hdPedidoId').val(pedidoId);
+}
+
+function SeRechazoConExito() {
+    $('#MotivosRechazo-Paso1').css('display', 'none');
+    $('#MotivosRechazo-Paso2').css('display', 'flex');
+    setTimeout(function () {
+        CerrarModalMotivosRechazo();
+    }, 6000);
+}
+
+function CerrarModalMotivosRechazo() {
+    if ($('#MotivosRechazo-Paso2').is(':visible')) {
+        //$('#hdPedidoId').val('');
+        //$('#hdMotivoRechazoId').val('');
+        //$('#txtOtroMotivo').val('');
+        //$('#MotivosRechazo-Paso1').css('display', '');
+        //$('#MotivosRechazo-Paso2').css('display', 'none');
+        //$('[name="motivoRechazo"]').prop('checked', false);
+        //$('#OtroMotivo').prop('checked', false);
+        //$('#OtroMotivo').trigger("change");
+        //$('#MotivosRechazo').hide();
+
+        //$('#rechazarTodop').addClass('hide');
+        //$("#Paso1-Productos").hide();
+        //$('body').removeClass('visible');
+        //$(".modal-fondo").hide();
+
+        //document.location.href = '/ConsultoraOnline/Pendientes';
+        document.location.href = '/Mobile/ConsultoraOnline/Pendientes';
+
+        //var Pendientes = JSON.parse(vPendientes) || [];
+        //RenderizarPendientes(Pendientes);
+        //cambiaTabs();
+
+
+    } else {
+        $('#MotivosRechazo').fadeOut(100);
+    }
+}
+
+
+function InicializarMotivoRechazo() {
+
+    var btnContinuar = $('#btnConfirmaMotivo');
+    var checkOtroMotivo = $('#OtroMotivo');
+    var txtOtroMotivo = $('#txtOtroMotivo');
+    var rdoMotivos = $('[name="motivoRechazo"]');
+    var hdMotivoRechazoId = $('#hdMotivoRechazoId');
+
+
+    if (checkOtroMotivo.length) {
+        checkOtroMotivo.change(function () {
+            if ($('#OtroMotivo:checkbox:checked').length) {
+                $('[name="motivoRechazo"]').prop('checked', false);
+                txtOtroMotivo.prop('style', 'display:block');
+                btnContinuar.removeClass('btn__sb--disabled');
+                hdMotivoRechazoId.val(checkOtroMotivo.val());
+            } else {
+                txtOtroMotivo.prop('style', 'display:none !important');
+                btnContinuar.addClass('btn__sb--disabled');
+            }
+        });
+
+        checkOtroMotivo.trigger("change");
+    }
+
+
+    rdoMotivos.change(function () {
+        console.log('change motivo rechazo');
+        if (rdoMotivos.is(':checked')) {
+            if (checkOtroMotivo.length) {
+                checkOtroMotivo.prop('checked', false);
+                checkOtroMotivo.trigger("change");
+            }
+
+            btnContinuar.removeClass('btn__sb--disabled');
+        }
+        hdMotivoRechazoId.val($('[name="motivoRechazo"]:checked').val());
+    });
+
+    btnContinuar.click(function (e) {
+        var idPedido = $('#hdPedidoId').val().trim();
+        var idMotivoRechazo = hdMotivoRechazoId.val().trim();
+        var razonMotivoRechazo = (idMotivoRechazo == '11') ? txtOtroMotivo.val().trim() : '';
+
+        RechazarSolicitudCliente(idPedido, idMotivoRechazo, razonMotivoRechazo);
+    });
+
+
+}
