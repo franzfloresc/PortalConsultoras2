@@ -390,7 +390,7 @@ var EstrategiaAgregarModule = (function () {
             OrigenPedidoWeb: $.trim(origenPedidoWebEstrategia),
             TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
             FlagNueva: $.trim(estrategia.FlagNueva),
-            EsEditable: estrategia.esEditable,
+            EsEditable: estrategia.esEditable || esEditable,
             SetId: estrategia.setId || 0,
             EsDuoPerfecto: EsDuoPerfecto,
             ClienteID: _getClienteIdSelected()
