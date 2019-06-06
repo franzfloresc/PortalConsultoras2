@@ -294,7 +294,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 }
                 else if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.CBDObtenerProductos || tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.CBKObtenerProductos)
                 {
-                    listModel = _caminoBrillanteProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 1);
+                    listModel = _caminoBrillanteProvider.ObtenerOfertasCaminoBrillante();
                     cantidadTotal0 = listModel.Count;
                     //listModel = _ofertaPersonalizadaProvider.ConsultarOfertasFiltrarSR(model, listModel, tipoConsulta);
                     //listPerdio = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 3); /* Tiene Stock */

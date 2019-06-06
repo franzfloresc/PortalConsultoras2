@@ -96,5 +96,9 @@ namespace Portal.Consultoras.Web.Models
         /// Calculo del factor cuadre
         /// </summary>
         public int CantidadPack { get; set; }
+        /// <summary>
+        /// Tipo Oferta Camino Brillante
+        /// </summary>
+        public int TipoOfertaCaminoBrillante { get; set; }
     }
 }
