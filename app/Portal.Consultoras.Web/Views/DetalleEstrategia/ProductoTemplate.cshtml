@@ -89,7 +89,11 @@
                     </div>
                     <div class="contenedor_derecho">
                         {{#iff Precio '>' 0}}
-                        <div class="precio_valorizado">Precio catálogo: <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
+                            {{#iff TipoOfertaCaminoBrillante '==' 2}}
+                                <div class="precio_valorizado">Precio normal: <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
+                            {{else}}
+                                <div class="precio_valorizado">Precio catálogo: <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
+                            {{/iff}}
                         {{/iff}}
 
                         <ul class="precio_venta_oferta_list">
