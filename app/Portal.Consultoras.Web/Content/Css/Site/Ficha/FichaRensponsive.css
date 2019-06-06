@@ -640,7 +640,7 @@ ul.breadcumbs li a {
     .contenedor_fixed {
         position: fixed;
         z-index: 1;
-        bottom: 1px;
+        bottom: 0px;
         width: 100%;
         left: 0;
         background-color: #fff;

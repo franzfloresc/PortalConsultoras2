@@ -2,19 +2,19 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Portal.Consultoras.Web.Providers;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
-using Portal.Consultoras.Web.ServicesCalculosPROL;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -274,7 +274,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 else
                     model.Prol = "RESERVA TU PEDIDO";
 
-                
+
                 model.ProlTooltip = "Haz click aqui para reservar tu pedido";
 
                 if (diaActual <= userData.FechaInicioCampania)
@@ -339,7 +339,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.CampaniaActual = userData.CampaniaID.ToString();
             model.EMail = userData.EMail;
             model.Celular = userData.Celular;
-            
+
             ViewBag.paisISO = userData.CodigoISO;
             ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
 

@@ -43,6 +43,14 @@ var ComponentesPresenter = function (config) {
             _estrategiaInstance = value;
         }
     };
+    var _estrategiaAnteriorInstance = null;
+    var _estrategiaAnteriorModel = function (value) {
+        if (typeof value === "undefined") {
+            return _estrategiaAnteriorInstance;
+        } else if (value !== null) {
+            _estrategiaAnteriorInstance = JSON.parse(JSON.stringify(value));
+        }
+    };
 
     var _onEstrategiaModelLoaded = function (estrategiaModel) {
         _estrategiaModel(estrategiaModel);
@@ -59,6 +67,8 @@ var ComponentesPresenter = function (config) {
             throw "cuvComponente is null or undefined";
 
         var estrategia = _estrategiaModel();
+        _estrategiaAnteriorModel(estrategia); // Guarda el estado antes que se abra el popup
+        _config.componentesView.cleanTiposTonosModal(); // Se limpia la seleccion de tonos
         var selectedComponent = null;
         $.each(estrategia.Hermanos, function (cidx, component) {
             if (component.Cuv == cuvComponente) {
@@ -334,7 +344,7 @@ var ComponentesPresenter = function (config) {
                 return false;
             }
         });
-        //
+        
         _estrategiaModel(model);
         //
 
@@ -349,6 +359,9 @@ var ComponentesPresenter = function (config) {
 
         var result = false;
         var model = _estrategiaModel();
+
+        _estrategiaAnteriorModel(model); // Guarda el estado antes que se abra el popup
+        _config.componentesView.cleanTiposTonosModal(); // Se limpia la seleccion de tonos
 
         var selectedComponent = {};
         $.each(model.Hermanos, function (idxComponente, componente) {
@@ -383,6 +396,10 @@ var ComponentesPresenter = function (config) {
         return result;
     };
 
+    var _removeTypeOrToneAssigned = function(){
+        _estrategiaModel(_estrategiaAnteriorModel());
+    };
+
     return {
         estrategiaModel: _estrategiaModel,
         onEstrategiaModelLoaded: _onEstrategiaModelLoaded,
@@ -392,5 +409,6 @@ var ComponentesPresenter = function (config) {
         removeTypeOrTone: _removeTypeOrTone,
         applySelectedTypesOrTones: _applySelectedTypesOrTones,
         changeAppliedTypesOrTones: _changeAppliedTypesOrTones,
+        removeTypeOrToneAssigned: _removeTypeOrToneAssigned
     };
 };

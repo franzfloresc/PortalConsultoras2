@@ -692,6 +692,7 @@
       <xs:element minOccurs="0" name="EsOFGanaMasZonaValida" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsOfertaFinalZonaValida" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsShowRoom" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsUltimoDiaFacturacion" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsZonaDemAnti" type="xs:int" />
       <xs:element minOccurs="0" name="EsquemaDAConsultora" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstadoPedido" type="xs:int" />
@@ -708,6 +709,8 @@
       <xs:element minOccurs="0" name="FechaNacimiento" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaVencimiento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FlagActivacionSuscripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FlgCheckEMAIL" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FlgCheckSMS" type="xs:boolean" />
       <xs:element minOccurs="0" name="FotoOriginalSinModificar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FotoPerfil" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FotoPerfilAncha" type="xs:boolean" />
@@ -785,6 +788,8 @@
       <xs:element minOccurs="0" name="PuedeActualizar" type="xs:boolean" />
       <xs:element minOccurs="0" name="PuedeActualizarCelular" type="xs:boolean" />
       <xs:element minOccurs="0" name="PuedeActualizarEmail" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PuedeConfirmarAllEmail" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PuedeConfirmarAllSms" type="xs:boolean" />
       <xs:element minOccurs="0" name="PuedeEnviarSMS" type="xs:boolean" />
       <xs:element minOccurs="0" name="RecomendacionesConfiguracion" nillable="true" type="tns:ArrayOfBEConfiguracionPaisDatos" />
       <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
@@ -1028,6 +1033,7 @@
       <xs:element minOccurs="0" name="Flag" type="xs:int" />
       <xs:element minOccurs="0" name="FlagConsultoraOnline" type="xs:boolean" />
       <xs:element minOccurs="0" name="FlagNueva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Ganancia" type="xs:decimal" />
       <xs:element minOccurs="0" name="IPUsuario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
       <xs:element minOccurs="0" name="ImporteTotalPedido" type="xs:decimal" />
@@ -1108,6 +1114,9 @@
       <xs:element minOccurs="0" name="FechaProceso" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Flete" type="xs:decimal" />
+      <xs:element minOccurs="0" name="GananciaOtros" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="GananciaRevista" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="GananciaWeb" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="IPUsuario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImporteCredito" type="xs:decimal" />
       <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
@@ -1940,6 +1949,7 @@
       <xs:element minOccurs="0" name="NroOrden" type="xs:int" />
       <xs:element minOccurs="0" name="OfertaProductoID" type="xs:int" />
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
+      <xs:element minOccurs="0" name="PUM" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="PrecioOferta" type="xs:decimal" />
       <xs:element minOccurs="0" name="PrecioString" nillable="true" type="xs:string" />
@@ -1950,6 +1960,7 @@
       <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoOferta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
+      <xs:element minOccurs="0" name="UnidadMedida" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UnidadesPermitidas" type="xs:int" />
       <xs:element minOccurs="0" name="UsuarioModificacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UsuarioRegistro" nillable="true" type="xs:string" />

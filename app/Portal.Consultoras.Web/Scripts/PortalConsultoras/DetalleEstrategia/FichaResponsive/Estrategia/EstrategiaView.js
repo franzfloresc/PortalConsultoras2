@@ -108,11 +108,11 @@
     let _fixButtonAddProduct = function () {
         const isMobile = window.matchMedia("(max-width:991px)").matches;
         if (!isMobile) return;
-        var fixmeTop = $('.fixme_button').offset().top + 75;
-        var heghtWindow = $(window).height();
+        var heightWindow = $(window).height();
         $(window).scroll(function () {
+            const fixmeTop = $(".fixme_button").offset().top + 75;
             const currentScroll = $(window).scrollTop();
-            if (currentScroll + heghtWindow >= fixmeTop) {
+            if (currentScroll + heightWindow >= fixmeTop) {
                 $("#dvContenedorAgregar").removeClass("contenedor_fixed"); 
             } else {
                 if (!($("#dvContenedorAgregar").hasClass("contenedor_fixed"))) {
@@ -194,6 +194,13 @@
          return true;
     };
 
+
+    var _clearContainer = function(){
+        $(_elements.breadcrumbs.id).empty();
+        $(_elements.imagenEstrategia.id).empty();
+        $(_elements.agregar.id).empty();
+    };
+    
     return {
         setPresenter: _setPresenter,
         renderBreadcrumbs : _renderBreadcrumbs,
@@ -203,6 +210,7 @@
         renderRelojStyle: _renderRelojStyle,
         renderAgregar: _renderAgregar,
         showTitleAgregado: _showTitleAgregado,
+        clearContainer: _clearContainer,
         showCarrusel: _showCarrusel,
         fixButtonAddProduct: _fixButtonAddProduct,
         setEstrategiaTipoBotonAgregar: _setEstrategiaTipoBotonAgregar
