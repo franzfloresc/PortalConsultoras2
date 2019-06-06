@@ -2,7 +2,7 @@
 /* MC - HD-4277 - POPUP PEDIDOS PENDIENTES POR APROBAR */
 
 .popup__somos__belcorp--pedidosPendientes {
-    max-width: 473px;
+    max-width: 512px;
     min-height: 312px;
     padding: 58px 31px 30px;
 }
@@ -13,8 +13,8 @@
 }
 
 .popup__somos__belcorp__icono--pedidosPendientes {
-    width: 64px;
-    height: 64px;
+    width: 46px;
+    height: auto;
     margin-bottom: 16px !important;
 }
 
@@ -26,7 +26,7 @@
 
 .popup__somos__belcorp__mensaje--pedidosPendientes {
     margin-bottom: 40px !important;
-    max-width: 317px;
+    max-width: 328px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -38,8 +38,13 @@
     max-width: 216px;
 }
 
-@media screen and (max-width:991px) {
+.enlace__sb--verDespues{
+    margin-top:16px;
+    max-width:100px;
+    font-size:14px;
+}
 
+@media screen and (max-width:991px) {
     .popup__somos__belcorp--pedidosPendientes {
         width: 100% !important;
         height: 100%;

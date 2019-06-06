@@ -1532,6 +1532,7 @@
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\general-popups.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-cierre-sesion.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-pedidos-pendientes.css" />
+    <Content Include="Content\Images\alerta-icono.png" />
     <Content Include="Content\Images\checkBuroSAC.svg" />
     <Content Include="Content\Images\Esika\club-gana-mas.gif" />
     <Content Include="Content\Images\Esika\favicon.ico" />
