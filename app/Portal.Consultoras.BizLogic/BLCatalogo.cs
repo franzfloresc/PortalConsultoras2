@@ -112,10 +112,8 @@ namespace Portal.Consultoras.BizLogic
                     if (catalogoRevista.MarcaID == 0) 
                     {
                         ocurrioError = SetCatalogoRevistaFieldsInOembedIssuu(catalogoRevista);
-                        if(ocurrioError)
-                           return new List<BECatalogoRevista>();
-                    }
-                       
+                        if(ocurrioError) return new List<BECatalogoRevista>();
+                    }                       
                 }
 
                 SetCatalogoRevistaFieldsInSearchIssuu(listCatalogoRevista.Where(cr => cr.MarcaID != 0).ToList(), tamanioImagenIssu);
@@ -420,12 +418,9 @@ namespace Portal.Consultoras.BizLogic
 
                 var json = ObtenerObjetoIssue(url, catalogoRevista.PaisISO);
                 if (string.IsNullOrEmpty(json)) return OcurrioError;
-
-
+                
                 var docs = TryCastResultApi(url, catalogoRevista.PaisISO, json, catalogoRevista.CodigoIssuu);
-                if (docs == null)
-                    return OcurrioError = true;
-
+                if (docs == null) return OcurrioError = true;
 
                 var doc = docs.FirstOrDefault();
                 if (doc == null) return OcurrioError;
@@ -437,13 +432,12 @@ namespace Portal.Consultoras.BizLogic
                 catalogoRevista.CatalogoTitulo = titutlo;
                 catalogoRevista.CatalogoDescripcion = Descripcion;
                 catalogoRevista.UrlVisor = string.Format(ServiceSettings.Instance.UrlIssuu, catalogoRevista.CodigoIssuu);
-                catalogoRevista.UrlImagen = string.Format("https://image.issuu.com/{0}/jpg/page_1_thumb_medium.jpg", ndoc["documentId"]);
-                
+                catalogoRevista.UrlImagen = string.Format("https://image.issuu.com/{0}/jpg/page_1_thumb_medium.jpg", ndoc["documentId"]);                
             }
-            catch 
+            catch(Exception ex)
             {
-              
-               OcurrioError = true;
+                LogManager.SaveLog(ex, "", catalogoRevista.PaisISO);
+                OcurrioError = true;
             }
            
             return OcurrioError;
