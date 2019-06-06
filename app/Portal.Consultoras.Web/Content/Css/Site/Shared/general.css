@@ -429,6 +429,14 @@ input[type="checkbox"].switch__control,
     margin-bottom:30px;
 }
 
+.mb-40{
+    margin-bottom:40px;
+}
+
+.mb-100{
+    margin-bottom:100px;
+}
+
 .pl-0{
     padding-left:0;
 }
@@ -539,7 +547,7 @@ input[type="checkbox"].switch__control,
     background: #FFFFFF !important;
     color: #555 !important;
     border-radius: 0;
-    z-index: 99999999 !important;
+    z-index: 999999910 !important;
 }
 
 .ui-dialog .ui-dialog-titlebar {

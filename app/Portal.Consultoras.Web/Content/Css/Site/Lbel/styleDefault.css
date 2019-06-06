@@ -544,7 +544,6 @@ input[type="checkbox"].switch__control,
     transition: all .3s ease;
     -moz-transition: all .3s ease;
     -o-transition: all .3s ease;
-    -ms-transition: all .3s ease;
     -webkit-transition: all .3s ease;
 }
 
@@ -646,7 +645,6 @@ input[type="checkbox"].switch__control,
     transition: all .3s ease;
     -moz-transition: all .3s ease;
     -o-transition: all .3s ease;
-    -ms-transition: all .3s ease;
     -webkit-transition: all .3s ease;
 }
 
