@@ -24,10 +24,14 @@
                     Podrás conocer tu ganacia y el detalle de tu pedido.
                 </p>
                 <div class="center-block form__group__fields form__group__fields--confirmacionCorreoBoleta">
-                    <input id="txtCorreoElectronicoBoletaElectronica" type="text" class="d-block w-100 text-bold text__field__sb" name="txtCorreoElectronicoBoletaElectronica" value="" />
+                    <input id="txtCorreoElectronicoBoletaElectronica" type="text" class="d-block w-100 text-bold text__field__sb eventActPerfil_Auto" name="txtCorreoElectronicoBoletaElectronica" value="" />
                     <label for="txtCorreoElectronicoBoletaElectronica" class="d-block w-100 text-regular label__field__sb">Correo electrónico</label>
+                    <a href="" title="Editar" class="d-block enlace__editar__correo__reservaPedido" id="iconActivaEditar" style="display:none">
+                        <img src="@Url.Content("~/Content/Images/icono_edit.svg")" alt="Editar" />
+                    </a>
+                    <span id="ValidateCorreo" class="validation__message"></span>
                 </div>
-                <button class="center-block text-center text-bold multimarca-background-color popup__somos__belcorp__btn popup__somos__belcorp__btn--actualizarCorreo">
+                <button id="btnActualizarCorreo" class="center-block text-center text-bold multimarca-background-color popup__somos__belcorp__btn popup__somos__belcorp__btn--actualizarCorreo">
                     Actualizar
                 </button>
             </div>
@@ -50,14 +54,23 @@
                 </p>
                 <div class="d-inline-block form__group__fields form__group__fields--confirmaCorreo">
                     <input id="txtCorreoElectronicoPorConfirmar" type="text" class="d-block w-100 text-bold text__field__sb" name="txtCorreoElectronicoPorConfirmar" value="cambiodecorreo@example.com" />
-                    <a href="" title="Editar" class="d-block enlace__editar__correo__reservaPedido">
-                        <img src="@Url.Content("~/Content/Images/icono_edit.svg")" alt="Editar" />
-                    </a>
                 </div>
                 <p class="text-center popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--reenvioAlCorreo">
                     <span class="d-block">¿Aún no recibes nuestro correo?</span>
-                    <a href="#" class="d-block enlace__sb enlace__sb--reenviarCorreo" title="Reenviar el correo">Reenviar el correo</a>
+                    <a id="btnReenviameInstruciones" href="#" class="d-block enlace__sb enlace__sb--reenviarCorreo" title="Reenviar el correo">Reenviar el correo</a>
                 </p>
+                <div id="spnReenviarInstrucciones" class="notificacion_estado notificacion_estado--exito" style="display:none">
+                    <span class="notificacion_estado_img">
+                        <img src="@Url.Content("~/Content/Images/icono_confirmacion_con_fondo.svg")" alt="" />
+                    </span>
+                    <span class="text-bold">¡Listo! Se reenvió el correo.</span>
+                </div>
+                <div id="spnReenviarInstruccionesError" class="notificacion_estado notificacion_estado" style="display:none">
+                    <span class="notificacion_estado_img">
+                        <img src="@Url.Content("~/Content/Images/icono_confirmacion_con_fondo.svg")" alt="" />
+                    </span>
+                    <span  class="text-bold textError"></span>
+                </div>
             </div>
         </div>
     </div>

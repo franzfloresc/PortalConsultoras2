@@ -2104,9 +2104,10 @@ function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();
 
     //INI HD-4294
-    var flgConfirmarDatos= true;
-    if (flgConfirmarDatos) $("#PopupReservaPedido").show();
-    else {
+    if (!response.data.IsEmailConfirmado) {
+        new Pedido_ActualizarCorreo(configActualizarCorreo).Inicializar();
+
+    }else {
         $("#dialog_divReservaSatisfactoria").show();
         RedirigirPedidoValidado();
     }
@@ -2114,10 +2115,6 @@ function EjecutarAccionesReservaExitosa(response) {
 
 }
 
-
-function ReservaExistosaActualizacionDatos() {
-
-}
 
 function EliminarPedido() {
     AbrirSplash();

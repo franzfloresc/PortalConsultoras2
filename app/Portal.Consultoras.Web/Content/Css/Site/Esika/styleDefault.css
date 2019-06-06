@@ -290,13 +290,13 @@
         color: #000;
     }
 
-    .btn__sb--disabled {
-        border: 1px solid #D1D1D4;
-        background-color: #D1D1D4;
-        pointer-events: none;
-        cursor: not-allowed;
-        color: #909094!important;
-    }
+.btn__sb--disabled {
+    border: 1px solid #D1D1D4 !important;
+    background-color: #D1D1D4 !important;
+    pointer-events: none;
+    cursor: not-allowed;
+    color: #909094 !important;
+}
 
 @media screen and (max-width:991px) {
 
