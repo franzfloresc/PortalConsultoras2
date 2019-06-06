@@ -181,8 +181,8 @@ namespace Portal.Consultoras.Entities
             RecogerDNI = row.ToString("RecogerDNI");
             RecogerNombre = row.ToString("RecogerNombre");
             if (row.HasColumn("GananciaRevista")) { GananciaRevista = row.ToDecimal("GananciaRevista"); }
-            if (row.HasColumn("GananciaWeb")) { GananciaRevista = row.ToDecimal("GananciaWeb"); }
-            if (row.HasColumn("GananciaOtros")) { GananciaRevista = row.ToDecimal("GananciaOtros"); }
+            if (row.HasColumn("GananciaWeb")) { GananciaWeb = row.ToDecimal("GananciaWeb"); }
+            if (row.HasColumn("GananciaOtros")) { GananciaOtros = row.ToDecimal("GananciaOtros"); }
         }
     }
 }
