@@ -1551,6 +1551,7 @@
     <Content Include="Content\Images\CaminoBrillante\medalla.PNG" />
     <Content Include="Content\Css\Site\Menu\MenuContenedorResponsive.css" />
     <Content Include="Content\Images\flecha_despliegue_campo_select.svg" />
+    <Content Include="Content\Images\hands-up-icon.png" />
     <Content Include="Content\Images\icono_advertencia_notificacion_multimarca.svg" />
     <Content Include="Content\Images\icono_edit.svg" />
     <Content Include="Content\Images\icono_foco_activo.svg" />

@@ -378,6 +378,10 @@ input[type="checkbox"].switch__control,
             height: auto;
         }
 
+    .notificacion__estado--error span{
+        color:#e81c36;
+    }
+
 /* FIN - NOTIFICACIONES */
 
 /* TAGS */

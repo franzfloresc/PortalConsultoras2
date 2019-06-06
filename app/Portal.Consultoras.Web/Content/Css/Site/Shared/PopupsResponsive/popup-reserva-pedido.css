@@ -29,7 +29,7 @@
 
 .popup__somos__belcorp__icono--reservaPedido {
     width: 64px;
-    height: 64px;
+    height: 63px;
     margin-bottom: 16px !important;
 }
 
@@ -76,8 +76,7 @@
 }
 
 .form__group__fields--confirmaCorreo .text__field__sb {
-    min-width: 230px;
-    padding-right:30px;
+    width:inherit;
 }
 
 .popup__somos__belcorp__btn--actualizarCorreo {
@@ -102,6 +101,7 @@
     height: 24px;
     padding: 3px;
     cursor:pointer;
+    z-index:10;
 }
 
     .enlace__editar__correo__reservaPedido img{
