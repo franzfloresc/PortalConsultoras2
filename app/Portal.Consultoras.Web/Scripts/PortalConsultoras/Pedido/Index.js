@@ -1939,7 +1939,7 @@ function EjecutarServicioPROL() {
             CerrarSplash();
             if (!checkTimeout(response)) return;
             if (!response.success) {
-                debugger;
+                //debugger;
                 MostrarPopupErrorReserva(mensajeErrorReserva, false);
                 return;
             }
