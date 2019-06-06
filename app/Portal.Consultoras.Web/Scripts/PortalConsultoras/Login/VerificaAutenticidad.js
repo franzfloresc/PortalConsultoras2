@@ -73,8 +73,8 @@ $(document).ready(function () {
 
                 InicializarEventos: function () {
                     $('body').on('blur', '.grupo_form_cambio_datos input, .grupo_form_cambio_datos select', me.Eventos.LabelActivo);
-                    $('body').on('click', '#btnCambiarCelular', me.Eventos.EditarSms);
-                    $('body').on('click', '#btnCambiarEmail', me.Eventos.EditarCorreo);
+                    $('body').on('click', '#btnCambiarCelular', me.Eventos.EditarSms);                    
+                    $('body').on('click', '#btnCambiarEmail', me.Eventos.EditarCorreo );
 
                     /*---------INI Celular ----------------------------------- */
                     var body = $('body');
@@ -86,7 +86,7 @@ $(document).ready(function () {
                     }
                     //FIN HD-3897
                     body.on('click', '.enlace_cambiar_numero_celular', me.Eventos.BackEdiNumber);
-                    body.on('click', '.enlace_reenviar_instrucciones', me.Eventos.SendSmsCode);
+                    body.on('click', '#linkRenviarSms', me.Eventos.SendSmsCode);
                     body.on('keyup', '.campo_ingreso_codigo_sms', me.Eventos.ChangeCodeSms);
                     body.on('keydown', '.campo_ingreso_codigo_sms', me.Eventos.OnlyNumberCodeSms);
                     body.on('keydown', '#NuevoCelular', me.Eventos.OnlyNumberCodeSms);
@@ -97,7 +97,7 @@ $(document).ready(function () {
                     //INI HD-3897
                     $('.form_actualizar_celular input').on('keyup change', function () { me.Funciones.ActivaGuardar(); return $(this).val() });
                     $('#NuevoCelular').on('focusout', function () { me.Funciones.MensajeError(); });
-                    $('#btnVolver').on('click', function () {
+                    $('.btnVolver').on('click', function () {
                         if (irALogin) {
                             window.location.href = localData.UrlPaginaLogin;
                         } else {
@@ -115,7 +115,7 @@ $(document).ready(function () {
                     if ($('#hdn_PuedeActualizar').val() == '0' || $('#hdn_PuedeActualizar').val() == false) {
 
                         $('#btnCambiarCelular').bind('click', false);
-                        $('#btnCambiarEmail').bind('click', false);
+                        $('#btnCambiarEmail').bind('click', false);                        
                         //INI HD-3897
                         $('.btn_confirmar_dato').bind('click', false);
                         //FIN HD-3897
@@ -510,7 +510,7 @@ $(document).ready(function () {
                             1000);
                         setTimeout(function () {
                             /*window.location.href = localData._UrlPaginaPrevia;*/
-                            $("#btnVolver").trigger("click");
+                            $(".btnVolver").trigger("click");
                         },
                             3000);
 
@@ -832,8 +832,11 @@ $(document).ready(function () {
                             $('#divPaso1').hide();
                             $("#ActualizarCorreo").show();
 
-                            irALogin = false;
+                            irALogin = false;                            
 
+                            if ($(this).data("pag") ) {
+                                config.VistaActual = $(this).data("pag");
+                            }
 
                             if (config.IsConfirmar == 1) {
                                 me.Correo.postActualizarEnviarCorreo({ correoNuevo: config.CorreoActual }, me.Correo.irVista2(config.CorreoActual));
@@ -842,6 +845,7 @@ $(document).ready(function () {
                             }
 
                             var inputEmail = document.getElementById("NuevoCorreo");
+                            debugger;
                             FuncionesGenerales.AutoCompletarEmailAPartirDeArroba(inputEmail);
                         },
                         error: function (data, error) {
@@ -918,7 +922,8 @@ $(document).ready(function () {
 
                     return arrayError;
                 },
-                postActualizarEnviarCorreo: function (data, fnSuccess) {
+            postActualizarEnviarCorreo: function (data, fnSuccess) {
+                debugger;
                     nroIntentosCo = nroIntentosCo + 1;
                     var parametros = {
                         CantidadEnvios: nroIntentosCo,
@@ -976,6 +981,7 @@ $(document).ready(function () {
                     //});
                     $('#btnCancelar').on('click', me.Correo.irPaginaPrevia);
                     $('#btnReescribirCorreo').on('click', function () {
+                        debugger;
                         if (config.IsConfirmar == 1) {
                             $('#NuevoCorreo').val(config.CorreoActual);
                             $('#NuevoCorreo').addClass('campo_con_datos');
@@ -983,6 +989,7 @@ $(document).ready(function () {
                     });
 
                     $('#btnReenviameInstruciones').on('click', function () {
+                        debugger;
                         var MsjSuccess = function () { $("#spnReenviarInstrucciones").show(); };
                         if (config.IsConfirmar == 1) {
                             me.Correo.postActualizarEnviarCorreo({ correoNuevo: config.CorreoActual }, MsjSuccess);
@@ -995,7 +1002,10 @@ $(document).ready(function () {
 
                     //INI HD-3897
                     $('div[vista-id=1] input').on('keyup change', function () { me.Correo.activaGuardar(); return $(this).val() });
-                    $('#NuevoCorreo').on('focusout', function () { me.Correo.mensajeError(); });
+                    $('#NuevoCorreo').on('focusout', function () {
+                        setTimeout(function () { me.Correo.mensajeError(); }, 200);
+                        
+                    });
                     //FIN HD-3897
 
                     FuncionesGenerales.AvoidingCopyingAndPasting('NuevoCorreo');

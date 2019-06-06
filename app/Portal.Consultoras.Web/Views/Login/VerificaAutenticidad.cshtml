@@ -40,7 +40,7 @@
             <div class="fondo_negro_lateral"></div>
             <div class="titulo_interiores text-center">
                 <div class="pestana_lbel"></div>
-                <a title="Volver" class="enlace_volver_mobile">
+                <a title="Volver" class="btnVolver enlace_volver_mobile">
                     <img src="@Url.Content("~/Content/Images/icono_volver_mobile.svg")" alt="" />
                 </a>
                 <div class="inline-block v-alignMiddle">
@@ -62,7 +62,7 @@
     <section class="block vista_flujo_restablecer_contrasenia">
         <div class="block center-block wrapper_content_verificacion_autenticidad">
             <div class="block">
-                <a id="btnVolver" title="Volver" class="block enlace_volver_a_mi_perfil text-uppercase text-bold">
+                <a  title="Volver" class="btnVolver block enlace_volver_a_mi_perfil text-uppercase text-bold">
                     <span class="inline-block v-alignMiddle icono_back_arrow">
                         <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Volver" />
                     </span>
@@ -318,11 +318,11 @@
                     <p class="w-100 block envio_instrucciones_info mb-50">
                         <span class="w-100 block">Te hemos enviado un correo de confirmación a:</span>
                         <span class="w-100 block text-bold correo_actual" id="txtCorreoEnviado">@Model.CorreoEnmascarado</span>
-                        <a href="#" class="block enlace_cambiar_correo" title="Cambiar número">Cambia de correo</a>
+                        <a id="btnReescribirCorreo" href="javascript:" class="block enlace_cambiar_correo" title="Cambiar número" data-pag="1">Cambia de correo</a>
                     </p>
                     <div class="w-100 envio_instrucciones_info">
                         <span class="w-100 block">¿Aún no recibes nuestro correo?</span>
-                        <a id="linkRenviarCorreo" title="Reenvíenme las instrucciones" class="enlace_reenviar_instrucciones w-100 RecuperarPorCorreo">
+                        <a id="btnReenviameInstruciones" title="Reenvíenme las instrucciones" class="enlace_reenviar_instrucciones w-100 RecuperarPorCorreo">
                             Reenviar el correo
                         </a>
                     </div>
@@ -338,7 +338,7 @@
                                 Reenvíenme el código
                             </a>
                         </p>*@
-                    <button type="button" class="block w-100 center-block border-radius-4 text-bold btn_deshabilitado btn_primario btn_primario--miPerfil ContinuarBienvenida">
+                    <button type="button" class="block w-100 center-block border-radius-4 text-bold btn_deshabilitado btn_primario btn_primario--miPerfil ContinuarBienvenida" style="display:none;">
                         Ir a somos belcorp
                     </button>
                 </div>
