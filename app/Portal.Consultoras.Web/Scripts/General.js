@@ -901,6 +901,17 @@ function getMobilePrefixUrl() {
     return isUniqueUrl ? currentUrl.substring(uniqueIndexOfUrl, uniqueIndexOfUrl + uniquePrefix.length + 36) : "/mobile";
 }
 
+function onLoadPhotoUser(event) {
+    if (event.naturalWidth > event.naturalHeight) {
+        event.style.width = 'auto';
+        event.style.height = '100%';
+    }
+    else {
+        event.style.width = '100%';
+        event.style.height = 'auto';
+    }
+}
+
 function isPagina(pagina) {
     pagina = $.trim(pagina).toLowerCase();
     if (pagina == "") return false;

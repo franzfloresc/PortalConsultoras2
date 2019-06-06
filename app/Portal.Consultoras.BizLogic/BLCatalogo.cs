@@ -18,6 +18,7 @@ using System.Web.Script.Serialization;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Portal.Consultoras.Common.Exceptions;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -99,7 +100,7 @@ namespace Portal.Consultoras.BizLogic
         public List<BECatalogoRevista> GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania, Enumeradores.TamanioImagenIssu tamanioImagenIssu)
         {
             List<BECatalogoRevista> listCatalogoRevista;
-
+            bool ocurrioError = false;
             try
             {
                 var catalogoConfiguraciones = GetCatalogoConfiguracion(Util.GetPaisID(paisISO));
@@ -108,8 +109,11 @@ namespace Portal.Consultoras.BizLogic
                 {
                     SetCatalogoRevistaMostrar(catalogoRevista, catalogoConfiguraciones);
                     SetCatalogoRevistaCodigoIssuu(codigoZona, catalogoRevista);
-                    if (catalogoRevista.MarcaID == 0)
-                        SetCatalogoRevistaFieldsInOembedIssuu(catalogoRevista);
+                    if (catalogoRevista.MarcaID == 0) 
+                    {
+                        ocurrioError = SetCatalogoRevistaFieldsInOembedIssuu(catalogoRevista);
+                        if(ocurrioError) return new List<BECatalogoRevista>();
+                    }                       
                 }
 
                 SetCatalogoRevistaFieldsInSearchIssuu(listCatalogoRevista.Where(cr => cr.MarcaID != 0).ToList(), tamanioImagenIssu);
@@ -154,11 +158,13 @@ namespace Portal.Consultoras.BizLogic
         #region Private Functions
         private BECatalogoRevista GetCatalogoRevista(BECatalogoRevista catalogoRevista, string codigoZona)
         {
+            bool ocurrioError = false;
             try
             {
                 SetCatalogoRevistaCodigoIssuu(codigoZona, catalogoRevista);
-                SetCatalogoRevistaFieldsInOembedIssuu(catalogoRevista);
-                AjusteRevistaTituloDescripcion(catalogoRevista);
+                ocurrioError =SetCatalogoRevistaFieldsInOembedIssuu(catalogoRevista);
+                if(!ocurrioError)
+                  AjusteRevistaTituloDescripcion(catalogoRevista);
             }
             catch (Exception ex)
             {
@@ -399,34 +405,42 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        private void SetCatalogoRevistaFieldsInOembedIssuu(BECatalogoRevista catalogoRevista)
+        private bool SetCatalogoRevistaFieldsInOembedIssuu(BECatalogoRevista catalogoRevista)
         {
-            if (string.IsNullOrEmpty(catalogoRevista.CodigoIssuu)) return;
+            bool OcurrioError = false;
+            try
+            {
+                if (string.IsNullOrEmpty(catalogoRevista.CodigoIssuu)) return OcurrioError;
 
-            var signature = string.Format(_signatureIssuu, _secretKeyIssuu, _apiKeyIssuu, catalogoRevista.CodigoIssuu);
-            signature = Crypto.CreateMD5(signature).ToLower();
-            var url = string.Format(_urlIssuuList, _apiKeyIssuu, catalogoRevista.CodigoIssuu, signature);
+                var signature = string.Format(_signatureIssuu, _secretKeyIssuu, _apiKeyIssuu, catalogoRevista.CodigoIssuu);
+                signature = Crypto.CreateMD5(signature).ToLower();
+                var url = string.Format(_urlIssuuList, _apiKeyIssuu, catalogoRevista.CodigoIssuu, signature);
 
-            var json = ObtenerObjetoIssue(url, catalogoRevista.PaisISO);
+                var json = ObtenerObjetoIssue(url, catalogoRevista.PaisISO);
+                if (string.IsNullOrEmpty(json)) return OcurrioError;
+                
+                var docs = TryCastResultApi(url, catalogoRevista.PaisISO, json, catalogoRevista.CodigoIssuu);
+                if (docs == null) return OcurrioError = true;
 
-            if (string.IsNullOrEmpty(json)) return;
+                var doc = docs.FirstOrDefault();
+                if (doc == null) return OcurrioError;
 
-            var oIssuu = JsonConvert.DeserializeObject<dynamic>(json);
+                var ndoc = doc["document"];
+                string titutlo = ndoc.Value<string>("title");
+                string Descripcion = ndoc.Value<string>("name");
 
-            var docs = (JArray)oIssuu.rsp._content.result._content;
-
-            var doc = docs.FirstOrDefault();
-
-            if (doc == null) return;
-
-            var ndoc = doc["document"];
-            string titutlo = ndoc.Value<string>("title");
-            string Descripcion = ndoc.Value<string>("name");
-
-            catalogoRevista.CatalogoTitulo = titutlo;
-            catalogoRevista.CatalogoDescripcion = Descripcion;
-            catalogoRevista.UrlVisor = string.Format(ServiceSettings.Instance.UrlIssuu, catalogoRevista.CodigoIssuu);
-            catalogoRevista.UrlImagen = string.Format("https://image.issuu.com/{0}/jpg/page_1_thumb_medium.jpg", ndoc["documentId"]);
+                catalogoRevista.CatalogoTitulo = titutlo;
+                catalogoRevista.CatalogoDescripcion = Descripcion;
+                catalogoRevista.UrlVisor = string.Format(ServiceSettings.Instance.UrlIssuu, catalogoRevista.CodigoIssuu);
+                catalogoRevista.UrlImagen = string.Format("https://image.issuu.com/{0}/jpg/page_1_thumb_medium.jpg", ndoc["documentId"]);                
+            }
+            catch(Exception ex)
+            {
+                LogManager.SaveLog(ex, "", catalogoRevista.PaisISO);
+                OcurrioError = true;
+            }
+           
+            return OcurrioError;
         }
 
         private void AjusteRevistaTituloDescripcion(BECatalogoRevista catalogoRevista)
@@ -501,5 +515,31 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
+
+        private JArray TryCastResultApi(string Url, string CodigoISO, string Json, string CodigoIssue)
+        {
+            StringBuilder build = new StringBuilder();
+            JArray result = null;
+           
+            string accion = "";
+            try
+            {
+                accion = "JsonConvert.DeserializeObject<dynamic>(Json)";
+                var oIssuu = JsonConvert.DeserializeObject<dynamic>(Json);
+                accion = "(JArray)oIssuu.rsp._content.result._content";
+                result = (JArray)oIssuu.rsp._content.result._content;                
+            }
+            catch
+            {
+                build.AppendLine("Tracking =>TryCastResultApi");
+                build.AppendLine(string.Format("Url:{0}", Url));
+                build.AppendLine(string.Format("Json:{0}", Json));
+                build.AppendLine(string.Format("Accion:{0}", accion));
+                build.AppendLine(string.Format("CodigoIssue:{0}", CodigoIssue));
+                LogManager.SaveLog(new ClientInformationException(build.ToString()), "userTracking", CodigoISO);
+            }
+
+            return result;
+        }
     }
 }

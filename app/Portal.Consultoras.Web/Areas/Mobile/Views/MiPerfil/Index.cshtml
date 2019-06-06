@@ -65,14 +65,7 @@ else
                 <a href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" style="display: none;" id="volverBienvenida">Volver</a>
                 <a href="@Url.Action("CambiarFotoPerfil", "MiPerfil", new {area = "Mobile"})" title="Editar imagen" class="icono_camara multimarca-background-color"></a>
                 <div class="contenedor_foto_consultora">
-                    @if (ViewBag.FotoPerfilAncha)
-                    {
-                        <img src="@ViewBag.FotoPerfil" alt="Imagen Consultora" style="width: auto; height: 100%;" />
-                    }
-                    else
-                    {
-                        <img src="@ViewBag.FotoPerfil" alt="Imagen Consultora" style="width: 100%; height: auto;" />
-                    }
+                    <img src="@ViewBag.FotoPerfil" onload="onLoadPhotoUser(this)" onerror="this.onerror=null; this.src='@Url.Content("~/Content/Images/icono_avatar.svg")'" alt="Imagen Consultora" />
                 </div>
             </div>
             <div class="datos_consultora">

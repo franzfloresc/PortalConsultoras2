@@ -11,16 +11,9 @@
             <div class="borde_c borde_der_foto_consultora @(controllerAction == "bienvenidaindex" ? "posicion_der" : "")"></div>
             @if (ViewBag.FotoPerfilSinModificar != "")
             {
-                <div class="foto_consultora_menu">
-                    @if (ViewBag.FotoPerfilAncha == true)
-                    {
-                        <img id="imgFotoUsuarioHeader" class="mostrar_perfil" region="Superior" src="@ViewBag.FotoPerfil" alt="Foto de consultora" style="width:auto; height: 100%;">
-                    }
-                    else
-                    {
-                        <img id="imgFotoUsuarioHeader" class="mostrar_perfil" region="Superior" src="@ViewBag.FotoPerfil" alt="Foto de consultora" style="width:100%; height: auto;">
-                    }
-                </div>
+            <div class="foto_consultora_menu">
+                <img id="imgFotoUsuarioHeader" src="@ViewBag.FotoPerfil" onload="onLoadPhotoUser(this)" onerror="this.onerror=null; this.src='@Url.Content("~/Content/Images/icono_avatar.svg")'" class="mostrar_perfil" region="Superior" alt="Foto de consultora" />
+            </div>
             }            
         </div>
         <div class="campana visibilidadEnlaceMenu margenIzquierdoOpcionNotificacion @(controllerAction == "bienvenidaindex" ? "oculto" : "")">
