@@ -1208,8 +1208,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             if (tablaLogicaDatos.Count == 0) return null;
 
             return new List<BEOrdenGrupo>() { new BEOrdenGrupo() {
-                NombreGrupo = tablaLogicaDatos.Where(e => e.Codigo == "00").Select(e => e.Valor).FirstOrDefault(),
-                Opciones = tablaLogicaDatos.Where(e => (e.Codigo != "00" && isApp) || !isApp ).Select(e => new BEOrden() { Codigo = e.Codigo, Descripcion = e.Descripcion }).ToList()
+                NombreGrupo = tablaLogicaDatos.Where(e => e.Codigo == Constantes.CaminoBrillante.CodigoFiltros.SinFiltro).Select(e => e.Valor).FirstOrDefault(),
+                Opciones = tablaLogicaDatos.Where(e => (e.Codigo != Constantes.CaminoBrillante.CodigoFiltros.SinFiltro && isApp) || !isApp ).Select(e => new BEOrden() { Codigo = e.Codigo, Descripcion = e.Descripcion }).ToList()
             }};
         }
 
@@ -1221,7 +1221,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             if (!isApp)
             {
                 tablaLogicaDatos = tablaLogicaDatos.OrderBy(e => e.Descripcion).ToList();
-                var titulo = tablaLogicaDatos.FirstOrDefault(e => e.Codigo == "00");
+                var titulo = tablaLogicaDatos.FirstOrDefault(e => e.Codigo == Constantes.CaminoBrillante.CodigoFiltros.SinFiltro);
                 if (titulo != null)
                 {
                     tablaLogicaDatos.Remove(titulo);
@@ -1231,8 +1231,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             return new List<BEFiltroGrupo>() { new BEFiltroGrupo() {
                 Excluyente = true,
-                NombreGrupo = tablaLogicaDatos.Where(e => e.Codigo == "00").Select(e => e.Valor).FirstOrDefault(),
-                Opciones = tablaLogicaDatos.Where(e => (e.Codigo != "00" &&isApp) || !isApp ).Select(e => new BEFiltro() { Codigo = e.Codigo, Descripcion = e.Descripcion }).ToList()
+                NombreGrupo = tablaLogicaDatos.Where(e => e.Codigo == Constantes.CaminoBrillante.CodigoFiltros.SinFiltro).Select(e => e.Valor).FirstOrDefault(),
+                Opciones = tablaLogicaDatos.Where(e => (e.Codigo != Constantes.CaminoBrillante.CodigoFiltros.SinFiltro &&isApp) || !isApp ).Select(e => new BEFiltro() { Codigo = e.Codigo, Descripcion = e.Descripcion }).ToList()
             }};
         }
 
@@ -1264,7 +1264,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         {
             return new BEOfertaCaminoBrillante()
             {
-                TipoOferta = 2,
+                TipoOferta = Constantes.CaminoBrillante.TipoOferta.Demostrador,
                 EstrategiaID = demostrador.EstrategiaID,
                 CodigoEstrategia = demostrador.CodigoEstrategia,
                 TipoEstrategiaID = demostrador.TipoEstrategiaID,
@@ -1292,7 +1292,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         private BEOfertaCaminoBrillante ToBEOfertaCaminoBrillante(BEKitCaminoBrillante kit){
             return new BEOfertaCaminoBrillante()
             {
-                TipoOferta = 2,
+                TipoOferta = Constantes.CaminoBrillante.TipoOferta.Kit,
                 EstrategiaID = kit.EstrategiaID,
                 CodigoEstrategia = kit.CodigoEstrategia,
                 TipoEstrategiaID = kit.TipoEstrategiaID,

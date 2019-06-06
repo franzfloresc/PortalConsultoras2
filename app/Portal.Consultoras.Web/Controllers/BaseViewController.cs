@@ -828,10 +828,13 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 
-                else if (palanca == "CaminoBrillanteDemostradores") {
+                else if (palanca == "CaminoBrillanteDemostradores" || palanca == "CaminoBrillanteKits") {
+                    /*
                     var demostradores = _caminoBrillanteProvider.GetDesmostradoresCaminoBrillante(0,0,"","").LstDemostradores ?? new List<Models.CaminoBrillante.DemostradorCaminoBrillanteModel>();
                     modelo = demostradores.Where(e => e.CUV == cuv).Select(e => new DetalleEstrategiaFichaModel()
                     { }).FirstOrDefault() ?? modelo;
+                    */
+                    modelo = _caminoBrillanteProvider.GetDetalleEstrategiaFichaModel(cuv);
                 }
                 
              }
