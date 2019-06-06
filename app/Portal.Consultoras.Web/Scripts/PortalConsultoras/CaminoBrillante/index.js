@@ -378,9 +378,6 @@ function ArmarMisGanancias(data) {
         }
     };
     $("#canvas").click(onClickEvent);
-
-
-
 }
 
 function ArmarCarrusel(data) {
