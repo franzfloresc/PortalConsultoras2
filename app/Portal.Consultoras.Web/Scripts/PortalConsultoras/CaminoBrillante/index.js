@@ -94,20 +94,20 @@ function Carusel() {
 }
 
 $("#carrusel").on('click', '.boton_agregar_ofertas', function (e) {
-    debugger
+    var descTipoOferta = "";
+    var cantidad = 1;
     var contenedor = $(this).parents('[data-item="BuscadorFichasProductos"]');
-    var obj = JSON.parse($(this).parents('[data-item="BuscadorFichasProductos"]').find('div [data-demostrador]').attr("data-demostrador"));
-    var cantidad = $(contenedor).find("#txtCantidad").val();
-    var tab = "Demostradores";
-    var a = $(contenedor).attr("#data-oferta");
-    if (cantidad <= 0) {
-        AbrirMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
-        CerrarSplash();
-    } else {
-        AgregarProducto(obj, cantidad, contenedor, tab, false);
-    }
-});
+    var obj = JSON.parse($(contenedor).find('div [data-estrategia]').attr("data-estrategia"));
 
+    if (obj.TipoOferta == 1) {
+        descTipoOferta = "Kits";
+    } else if (obj.TipoOferta == 2){
+        descTipoOferta = "Demostradores";
+        var cantidad = $(contenedor).find("#txtCantidad").val();
+        if (cantidad <= 0) {
+            AbrirMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
+            CerrarSplash();
+        }
     }
     AgregarProducto(obj, cantidad, contenedor, descTipoOferta, false);
 });
