@@ -215,18 +215,20 @@ else if (ViewBag.Origen == "1")
                             {
                                 <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div>
                             }
-                            <span class="detalle_cod_producto">
-                                @item.CUV
-                            </span>
-                            <span class="text-bold detalle_nom_producto">
-                                @item.Descripcion
-                            </span>
-                            <span class="detalle_cantidad_producto">
-                                x @item.Cantidad unidades
-                            </span>
-                            <span class="detalle_precio_producto detalle_precio_producto--relative">
-                                @ViewBag.Simbolo @item.FormatoPrecio1
-                            </span>
+                            <div class="detalle_producto">
+                                <span class="detalle_cod_producto">
+                                    @item.CUV
+                                </span>
+                                <span class="text-bold detalle_nom_producto">
+                                    @item.Descripcion
+                                </span>
+                                <span class="detalle_cantidad_producto">
+                                    x @item.Cantidad unidades
+                                </span>
+                                <span class="detalle_precio_producto detalle_precio_producto--relative">
+                                    @ViewBag.Simbolo @item.FormatoPrecio1
+                                </span>
+                            </div>
                         </div>
                         <div class="detalle_cdr_solucion">
                             @if (item.CodigoOperacion.Equals("T"))
@@ -238,7 +240,7 @@ else if (ViewBag.Origen == "1")
                                 {
                                     foreach (var el in item.DetalleReemplazo)
                                     {
-                                        <div class="detalle_cod_producto_trueque">
+                                        <div class="detalle_producto">
                                             <span class="detalle_cod_producto">
                                                 @el.CUV
                                             </span>
@@ -256,18 +258,20 @@ else if (ViewBag.Origen == "1")
                                 }
                                 else
                                 {
-                                    <span class="detalle_cod_producto">
-                                        @item.CUV2
-                                    </span>
-                                    <span class="text-bold detalle_nom_producto">
-                                        @item.Descripcion2
-                                    </span>
-                                    <soan class="detalle_cantidad_producto">
-                                        x @item.Cantidad2 unidades
-                                    </soan>
-                                    <span class="detalle_precio_producto detalle_precio_producto--relative">
-                                        @ViewBag.Simbolo @item.FormatoPrecio2
-                                    </span>
+                                    <div class="detalle_producto">
+                                        <span class="detalle_cod_producto">
+                                            @item.CUV2
+                                        </span>
+                                        <span class="text-bold detalle_nom_producto">
+                                            @item.Descripcion2
+                                        </span>
+                                        <soan class="detalle_cantidad_producto">
+                                            x @item.Cantidad2 unidades
+                                        </soan>
+                                        <span class="detalle_precio_producto detalle_precio_producto--relative">
+                                            @ViewBag.Simbolo @item.FormatoPrecio2
+                                        </span>
+                                    </div>
                                 }
 
                             }

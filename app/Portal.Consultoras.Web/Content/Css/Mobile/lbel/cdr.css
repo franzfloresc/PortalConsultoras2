@@ -1889,23 +1889,28 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     margin-top: 16px;
 }
 
-.detalle_cod_producto_trueque {
+.detalle_producto {
     border-bottom: 1px solid #808080;
     padding-top: 16px;
     padding-bottom: 16px;
 }
 
-    .detalle_cdr_solucion > div:last-child {
-        border-bottom:0;
+    .detalle_producto:first-child{
+        padding-top:0;
+        padding-bottom:0;
     }
 
-.detalle_cdr_solucion_titulo,
+    .detalle_producto:last-child {
+        border-bottom: 0;
+    }
+
+/*.detalle_cdr_solucion_titulo,
 .detalle_cod_producto,
 .detalle_nom_producto,
 .detalle_cantidad_producto,
 .detalle_cdr_monto_devolucion {
     width: 68%;
-}
+}*/
 
 .detalle_cod_producto,
 .detalle_nom_producto,
