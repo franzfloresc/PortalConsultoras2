@@ -91,7 +91,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         [HttpPost]
-        public JsonResult CBDKbtenerProductos(BusquedaProductoModel model)
+        public JsonResult CBKObtenerProductos(BusquedaProductoModel model)
         {
             return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.CBKObtenerProductos);
         }
@@ -294,12 +294,19 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 }
                 else if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.CBDObtenerProductos || tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.CBKObtenerProductos)
                 {
-                    listModel = _caminoBrillanteProvider.ObtenerOfertasCaminoBrillante();
+                    switch (tipoConsulta) {
+                        case Constantes.TipoConsultaOfertaPersonalizadas.CBKObtenerProductos:
+                            listModel = _caminoBrillanteProvider.ObtenerOfertasCaminoBrillante(Constantes.CaminoBrillante.TipoOferta.Kit);
+                            break;
+                        case Constantes.TipoConsultaOfertaPersonalizadas.CBDObtenerProductos:
+                            listModel = _caminoBrillanteProvider.ObtenerOfertasCaminoBrillante(Constantes.CaminoBrillante.TipoOferta.Demostrador);
+                            break;
+                        default:
+                            listModel = _caminoBrillanteProvider.ObtenerOfertasCaminoBrillante();
+                            break;
+                    }
                     cantidadTotal0 = listModel.Count;
-                    //listModel = _ofertaPersonalizadaProvider.ConsultarOfertasFiltrarSR(model, listModel, tipoConsulta);
-                    //listPerdio = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 3); /* Tiene Stock */
                     listPerdio = listModel;
-                    //listaSubCampania = _ofertaPersonalizadaProvider.ObtenerListaProductoShowRoom(userData, userData.CampaniaID, userData.CodigoConsultora, userData.EsDiasFacturacion, 2);
                 }
                 else
                 {

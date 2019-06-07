@@ -2,8 +2,11 @@
 var scrollLogros = true
 
 $(document).ready(function () {
-    Handlebars.registerPartial("kit_template", $("#template-kit").html());
-    Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
+
+    if ($("#template-kit").length) {
+        Handlebars.registerPartial("kit_template", $("#template-kit").html());
+        Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
+    }
 
     CargarCarrusel();
     CargarGanancias();
@@ -331,7 +334,7 @@ function ArmarMisGanancias(data) {
                 titleFontColor: 'rgb(0, 0, 0)',
                 bodyFontColor: 'rgb(0, 0, 0)',
                 xPadding: 5,
-                yAlign: 'center',
+                yAlign: 'bottom',
                 xAlign: 'center',
                 callbacks: {
                     label: function (tooltipItem) {
@@ -350,6 +353,8 @@ function ArmarMisGanancias(data) {
                     //},
                     ticks: {
                         display: false,
+                        suggestedMin: 50,
+                        suggestedMax: 50,
                         padding: 0,
                         fontColor: "#000",
                         fontSize: 14

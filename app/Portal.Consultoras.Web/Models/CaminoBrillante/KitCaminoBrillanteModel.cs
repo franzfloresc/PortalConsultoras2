@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Common;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models.CaminoBrillante
 {
@@ -17,6 +18,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         public string FotoProductoMedium { get; set; }
         public bool FlagSeleccionado { get; set; }
         public bool FlagHabilitado { get; set; }
+        public List<KitCaminoBrillanteModel> Detalle { get; set; }
 
         public string CodigoEstrategia
         {
