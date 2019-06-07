@@ -154,33 +154,81 @@
         }
     }
 
+
+
+
     @if (@ViewBag.TieneOfertasEspeciales)
     {
         <div id="carrusel" style="margin-top:25px;"></div>
         @Html.Partial("Partial/template_kit")
         @Html.Partial("Partial/template_demostrador")
-<script id="template-carrusel" type="text/x-handlebars-template">
-    <div class="box-kit-demos">
-        <h2 class="title fleft">Kit y Demostradores</h2>
-        {{#if VerMas}}
-        <a href="@Url.Action("Ofertas", "CaminoBrillante")" class="ver-todos">Ver todos</a>
-        {{/if}}
-        <div class="clear"></div>
+        <script id="template-carrusel" type="text/x-handlebars-template">
+            <div class="box-kit-demos">
+                <h2 class="title fleft">Kit y Demostradores</h2>
+                {{#if VerMas}}
+                <a href="@Url.Action("Ofertas", "CaminoBrillante")" class="ver-todos">Ver todos</a>
+                {{/if}}
+                <div class="clear"></div>
 
-        <section class="regular slider">
-            {{#each Items}}
-            <div class="revistadigital-landing">
-                {{#iff TipoOferta '==' 2}}
-                {{> demostrador_template}}
-                {{/iff}}
-                {{#iff TipoOferta '==' 1}}
-                {{> kit_template}}
-                {{/iff}}
+                <section class="regular slider">
+                    {{#each Items}}
+                    <div class="revistadigital-landing">
+                        {{#iff TipoOferta '==' 2}}
+                        {{> demostrador_template}}
+                        {{/iff}}
+                        {{#iff TipoOferta '==' 1}}
+                        {{> kit_template}}
+                        {{/iff}}
+                    </div>
+                    {{/each}}
+                </section>
             </div>
-            {{/each}}
-        </section>
-    </div>
-</script>
+        </script>
+    }
+
+    @if (ViewBag.ResumenLogros != null)
+    {
+        var logro = ViewBag.ResumenLogros as LogroCaminoBrillanteModel;
+        <div id="cont-logros" class="cont-logros">
+            <h2 class="title" id="TituloLogros">@logro.Titulo</h2>
+            <div class="boxcenter">
+                <div class="owl-carousel owl-crec" id="Carusel-Logros">
+
+                    @foreach (var indicador in logro.Indicadores)
+                    {
+                        <div class="item">
+                            <input type="hidden" value="@indicador.Titulo" />
+                            <div class="shad box-@indicador.Titulo">
+                                <p class="text-bold">@indicador.Titulo</p>
+                                <span class="text-down">@indicador.Descripcion</span>
+                                <ul class="list-crec">
+                                    @foreach (var medalla in indicador.Medallas)
+                                    {
+                                        <li>
+                                            @if (medalla.Tipo == Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.CIRC)
+                                            {
+                                                var decorator = medalla.Estado ? "crec-activo" : "crec-inactivo";
+                                                <div class="circle-porcent @decorator">
+                                                    <span>@medalla.Valor</span>
+                                                </div>
+                                            }
+                                            else if (medalla.Tipo == Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PIE
+                                                || medalla.Tipo == Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.PED
+                                                || medalla.Tipo == Constantes.CaminoBrillante.Logros.Indicadores.Medallas.Codes.TIM)
+                                            {
+                                                <img src="@medalla.UrlMedalla" />
+                                            }
+                                            <p>@medalla.Titulo</p>
+                                        </li>
+                                    }
+                                </ul>
+                                <a onclick="TagVerTodos('@indicador.Codigo')" href="@Url.Action("Logros", "CaminoBrillante", new { opcion = indicador.Codigo })" class="btn-link">Ver todos</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
     }
 
     <div id="boxganancias">
@@ -194,12 +242,12 @@
             <div class="box-montos">
                 <p id="ganancia-campania-nombre" class="text-bold"></p>
                 <img src="https://s3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/BENEFICIOS/pago_diferido.svg">
-                <span id="ganancia-campania" ></span>
+                <span id="ganancia-campania"></span>
             </div>
             <div class="box-montos">
                 <p class="text-bold">Ganancia de periodo</p>
                 <img src="https://s3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/BENEFICIOS/pago_diferido.svg">
-                <span id="ganancia-periodo" ></span>
+                <span id="ganancia-periodo"></span>
             </div>
             <div class="clear"></div>
         </div>
