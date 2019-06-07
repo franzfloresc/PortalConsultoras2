@@ -216,7 +216,7 @@ function ArmarMisGanancias(data) {
     for (x = 0; x < data.MisGanancias.length; x++) {
         var item = data.MisGanancias[x];
         labels.push(item.LabelSerie);
-        serie.push(item.ValorSerie);
+        serie.push(item.ValorSerieFormat);
     };
 
 
