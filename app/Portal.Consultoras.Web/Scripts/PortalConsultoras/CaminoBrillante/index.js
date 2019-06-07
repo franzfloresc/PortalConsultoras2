@@ -3,6 +3,8 @@ var scrollLogros = true
 $("#a").hide;
 
 $(document).ready(function () {
+    
+    Carusel();
     Handlebars.registerPartial("kit_template", $("#template-kit").html());
     Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
 
