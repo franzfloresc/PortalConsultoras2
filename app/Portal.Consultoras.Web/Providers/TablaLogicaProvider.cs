@@ -12,12 +12,6 @@ namespace Portal.Consultoras.Web.Providers
     {
         protected ISessionManager sessionManager;
 
-        //public virtual ISessionManager VSessionManager
-        //{
-        //    get { return sessionManager; }
-        //    private set { sessionManager = value; }
-        //}
-
         public virtual void setSessionManager(ISessionManager sessionManager)
         {
             this.sessionManager = sessionManager;

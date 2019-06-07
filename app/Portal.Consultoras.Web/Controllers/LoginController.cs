@@ -92,12 +92,8 @@ namespace Portal.Consultoras.Web.Controllers
                         sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);
                         sessionManager.SetMiAcademiaParametro(urlSapParametro);
 
-                        //return RedirectToAction("Index", "MiAcademia");
                     }
 
-                    //return EsDispositivoMovil()
-                    //    ? RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
-                    //    : RedirectToAction("Index", "Bienvenida");
 
                     var esMobile = EsDispositivoMovil();
                     return IndexRedireccionar(misCursos, esMobile);
@@ -257,10 +253,6 @@ namespace Portal.Consultoras.Web.Controllers
                 TempData["serverCodigoUsuario"] = model.CodigoUsuario;
 
                 model.ClaveSecreta = DecryptCryptoClaveSecreta(model);
-                //#region DesencriptarClaveSecreta
-                //var PasswordCjs = ConfigurationManager.AppSettings.Get("CryptoJSPassword");
-                //model.ClaveSecreta = Util.DecryptCryptoJs(model.ClaveSecreta, PasswordCjs, model.Salt, model.Key, model.Iv);
-                //#endregion
 
                 var resultadoInicioSesion = await ObtenerResultadoInicioSesion(model);
 
@@ -343,51 +335,16 @@ namespace Portal.Consultoras.Web.Controllers
                     ? resultadoInicioSesion.Mensaje
                     : "Error al procesar la solicitud";
 
-                //if (Request.IsAjaxRequest())
-                //{
-                //    return Json(new
-                //    {
-                //        success = false,
-                //        message = errorMensaje
-                //    });
-                //}
-
-                //TempData["errorLogin"] = errorMensaje;
-                //return RedirectToAction("Index", "Login");
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, model.CodigoUsuario, model.CodigoISO);
                 errorMensaje = "Error al procesar la solicitud";
-
-                //if (Request.IsAjaxRequest())
-                //{
-                //    return Json(new
-                //    {
-                //        success = false,
-                //        message = errorMensaje
-                //    });
-                //}
-
-                //TempData["errorLogin"] = errorMensaje;
-                //return RedirectToAction("Index", "Login");
             }
             catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(ex, model.CodigoUsuario, model.CodigoISO, pasoLog);
                 errorMensaje = "Error al procesar la solicitud";
-
-                //if (Request.IsAjaxRequest())
-                //{
-                //    return Json(new
-                //    {
-                //        success = false,
-                //        message = errorMensaje
-                //    });
-                //}
-
-                //TempData["errorLogin"] = errorMensaje;
-                //return RedirectToAction("Index", "Login");
             }
 
 

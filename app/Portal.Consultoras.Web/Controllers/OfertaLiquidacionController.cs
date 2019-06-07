@@ -150,27 +150,13 @@ namespace Portal.Consultoras.Web.Controllers
                         /*HD-4329*/
                         if (!string.IsNullOrEmpty(item.ImagenProducto))
                         {
-                        
                             if (item.ImagenProducto.EndsWith(".gif", StringComparison.OrdinalIgnoreCase))
-                            {
-                                item.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, item.ImagenProducto);
-                                item.ImagenProductoSmall = item.ImagenProducto;
-                                item.ImagenProductoMedium = item.ImagenProducto;
-                            }
+                                SetearImagenesGIF(item);
                             else
-                            {
-                                item.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, item.ImagenProducto);
-                                item.ImagenProductoSmall = Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenSmall);
-                                item.ImagenProductoMedium = Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenMedium);
-                            }
+                                SetearImagenesPNG(item, extensionNombreImagenSmall, extensionNombreImagenMedium);
+
+                            item.PrecioString = Util.DecimalToStringFormat(item.PrecioOferta, userData.CodigoISO);
                         }
-                        else
-                        {
-                            item.ImagenProducto = string.Empty;
-                            item.ImagenProductoSmall = string.Empty;
-                            item.ImagenProductoMedium = string.Empty;
-                        }
-                        item.PrecioString = Util.DecimalToStringFormat(item.PrecioOferta, userData.CodigoISO);
                     }
                 }
             }
@@ -185,6 +171,24 @@ namespace Portal.Consultoras.Web.Controllers
                 verMas = estado
             }, JsonRequestBehavior.AllowGet);
         }
+
+      
+
+        private void SetearImagenesGIF(BEOfertaProducto item)
+        {
+            item.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, item.ImagenProducto);
+            item.ImagenProductoSmall = item.ImagenProducto;
+            item.ImagenProductoMedium = item.ImagenProducto;
+        }
+
+        private void SetearImagenesPNG(BEOfertaProducto item, string extensionNombreImagenSmall, string extensionNombreImagenMedium)
+        {
+            item.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, item.ImagenProducto);
+            item.ImagenProductoSmall = Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenSmall);
+            item.ImagenProductoMedium = Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenMedium);
+        }
+
+
 
         public List<OfertaProductoModel> GetListadoOfertasLiquidacion()
         {
