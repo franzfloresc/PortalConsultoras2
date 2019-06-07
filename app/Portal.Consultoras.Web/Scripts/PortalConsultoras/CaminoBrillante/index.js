@@ -214,7 +214,7 @@ function ArmarMisGanancias(data) {
     for (x = 0; x < data.MisGanancias.length; x++) {
         var item = data.MisGanancias[x];
         labels.push(item.LabelSerie);
-        serie.push(item.ValorSerie);
+        serie.push(item.ValorSerieFormat);
     };
 
 
@@ -278,16 +278,10 @@ function ArmarMisGanancias(data) {
             labels: labels,
             datasets: [
                 {
-                    //backgroundColor: "#ffdaf3",
+                    
                     backgroundColor: backgroundColors,
                     hoverBackgroundColor: hoverBackgrounds,
-
-                    //backgroundColor: function (value) {
-                    //    if (value < 30) {
-                    //        return 'red';
-                    //    }
-                    //    return 'green';
-                    //},
+                                   
                     data: serie
                 }
             ]
@@ -298,7 +292,6 @@ function ArmarMisGanancias(data) {
                 var datasetIndex;
                 var dataset;
 
-                //dataset.backgroundColor[elements[3]._index] = '#4f0036',
 
                 if (elements.length) {
                     var index = elements[0]._index;
@@ -389,7 +382,9 @@ function ArmarMisGanancias(data) {
  
         }
     });
-    
+
+
+
     var onClickEvent = function (evt) {
         var activePoints = myBar.getElementsAtEvent(evt);
         if (activePoints.length > 0) {
@@ -400,6 +395,9 @@ function ArmarMisGanancias(data) {
             $("#ganancia-periodo").text(variablesPortal.SimboloMoneda + " " + item.GananciaPeriodoFormat);
         }
     };
+
+    
+
     $("#canvas").click( onClickEvent );
 }
 

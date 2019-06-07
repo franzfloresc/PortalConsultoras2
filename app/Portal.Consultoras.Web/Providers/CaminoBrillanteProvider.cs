@@ -462,6 +462,7 @@ namespace Portal.Consultoras.Web.Providers
                             {
                                 LabelSerie = "C" + e.Campania.Substring(4, 2),
                                 ValorSerie = decimal.Parse(e.MontoPedido),
+                                ValorSerieFormat = Util.DecimalToStringFormat(e.MontoPedido, usuarioModel.CodigoISO),
                                 GananciaCampania = e.GananciaCampania,
                                 GananciaCampaniaFormat = Util.DecimalToStringFormat(e.GananciaCampania, usuarioModel.CodigoISO),
                                 GananciaPeriodo = e.GananciaPeriodo,
