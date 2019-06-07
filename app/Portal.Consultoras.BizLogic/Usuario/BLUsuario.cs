@@ -302,10 +302,10 @@ namespace Portal.Consultoras.BizLogic
                 usuario.FotoOriginalSinModificar = usuario.FotoPerfil;
                 usuario.FotoPerfilAncha = false;
 
-                var imagenS3 = usuario.FotoPerfil;
+                //var imagenS3 = usuario.FotoPerfil;
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                 {
-                    imagenS3 = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
+                    //imagenS3 = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
                 }
 

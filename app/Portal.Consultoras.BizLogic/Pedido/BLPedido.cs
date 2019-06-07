@@ -988,7 +988,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         public async Task<BEPedidoDetalleResult> PedidoDeleteProductoTransaction(BEPedidoDetalle pedidoDetalle)
         {
-            var ListaMensajeCondicional = new List<BEMensajeProl>();
             var respuesta = new BEPedidoDetalleResult();
             try
             {
@@ -1005,7 +1004,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 {
                     responseCode = await DeleteAll(usuario, pedidoDetalle);
 
-                    UpdateProl(usuario, lstDetalle, out ListaMensajeCondicional);
+                    List<BEMensajeProl> listaMensajeCondicional;
+                    UpdateProl(usuario, lstDetalle, out listaMensajeCondicional);
                 }
                 else
                 {

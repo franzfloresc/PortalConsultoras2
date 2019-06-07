@@ -420,7 +420,7 @@ namespace Portal.Consultoras.BizLogic
                 if (string.IsNullOrEmpty(json)) return OcurrioError;
                 
                 var docs = TryCastResultApi(url, catalogoRevista.PaisISO, json, catalogoRevista.CodigoIssuu);
-                if (docs == null) return OcurrioError = true;
+                if (docs == null) return OcurrioError;
 
                 var doc = docs.FirstOrDefault();
                 if (doc == null) return OcurrioError;
