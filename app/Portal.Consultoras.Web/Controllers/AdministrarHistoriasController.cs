@@ -6,9 +6,11 @@ using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
+using System.Web.Configuration;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -732,7 +734,11 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 int valRespuesta = 0;
-                int FileSize = 30 * 1024 * 1024;
+                int maxRequestLength = 0;
+                HttpRuntimeSection section = ConfigurationManager.GetSection("system.web/httpRuntime") as HttpRuntimeSection;
+                if (section != null)
+                    maxRequestLength = section.MaxRequestLength;
+                
                 var allowedExtensions = new[] { ".mp4" };
                 string _name = string.Empty;
                 if (model.file != null && model.file.ContentLength > 0)
@@ -746,7 +752,7 @@ namespace Portal.Consultoras.Web.Controllers
                             message = "El formato no es correcto. Vuelve a intentar, por favor."
                         });
                     }
-                    else if (model.file.ContentLength > FileSize)
+                    else if (model.file.ContentLength > maxRequestLength)
                     {
                         return Json(new
                         {
