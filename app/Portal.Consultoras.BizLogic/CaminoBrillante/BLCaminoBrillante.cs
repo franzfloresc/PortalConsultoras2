@@ -905,6 +905,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             if (kits == null && demostradores == null) return null;
 
             var carrusel = new BECarruselCaminoBrillante(); var iSize = size;
+
             /* Agregar el Kit Actual */
             if (kits != null)
             {
