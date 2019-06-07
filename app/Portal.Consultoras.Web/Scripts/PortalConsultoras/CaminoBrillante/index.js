@@ -93,6 +93,25 @@ function Carusel() {
     })
 }
 
+$("#carrusel").on('click', '.boton_agregar_ofertas', function (e) {
+    var descTipoOferta = "";
+    var cantidad = 1;
+    var contenedor = $(this).parents('[data-item="BuscadorFichasProductos"]');
+    var obj = JSON.parse($(contenedor).find('div [data-estrategia]').attr("data-estrategia"));
+
+    if (obj.TipoOferta == 1) {
+        descTipoOferta = "Kits";
+    } else if (obj.TipoOferta == 2){
+        descTipoOferta = "Demostradores";
+        var cantidad = $(contenedor).find("#txtCantidad").val();
+        if (cantidad <= 0) {
+            AbrirMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
+            CerrarSplash();
+        }
+    }
+    AgregarProducto(obj, cantidad, contenedor, descTipoOferta, false);
+});
+
 function TagVerTodos(MisLogros) {
     dataLayer.push({
         'event': 'virtualEvent',
@@ -101,7 +120,6 @@ function TagVerTodos(MisLogros) {
         'label': '(not available)'
     });
 }
-
 
 function TagClickSeleccionNivel(nivelConsultora) {
     dataLayer.push({
@@ -261,8 +279,16 @@ function ArmarMisGanancias(data) {
             labels: labels,
             datasets: [
                 {
+                    //backgroundColor: "#ffdaf3",
                     backgroundColor: backgroundColors,
                     hoverBackgroundColor: hoverBackgrounds,
+
+                    //backgroundColor: function (value) {
+                    //    if (value < 30) {
+                    //        return 'red';
+                    //    }
+                    //    return 'green';
+                    //},
                     data: serie
                 }
             ]
@@ -271,16 +297,18 @@ function ArmarMisGanancias(data) {
      
             showAllTooltips: true,
             onClick: function (evt, elements) {
-      
                 var datasetIndex;
                 var dataset;
-                
+
+                //dataset.backgroundColor[elements[3]._index] = '#4f0036',
+
                 if (elements.length) {
                    
                     backgroundColors[5] = '#ffdaf3'; 
                     var index = elements[0]._index;
                     datasetIndex = elements[0]._datasetIndex;
 
+                    // Reset old state
                     dataset = myBar.data.datasets[datasetIndex];
                     dataset.backgroundColor = backgroundColors.slice();
                     dataset.hoverBackgroundColor = hoverBackgrounds.slice();
@@ -289,18 +317,15 @@ function ArmarMisGanancias(data) {
                     dataset.backgroundColor[index] = '#4f0036'; 
                     
                     dataset.hoverBackgroundColor[index] = '#4f0036';
-
                 } else {
                     // remove hover styles
                     for (datasetIndex = 0; datasetIndex < myBar.data.datasets.length; ++datasetIndex) {
                         dataset = myBar.data.datasets[datasetIndex];
-
                         dataset.backgroundColor = backgroundColors.slice();
                         dataset.hoverBackgroundColor = hoverBackgrounds.slice();
-                         
                     }
                 }
-                
+
                 myBar.update();
 
             },
@@ -374,6 +399,7 @@ function ArmarMisGanancias(data) {
  
         }
     });
+    
 
     var item = data.MisGanancias[data.MisGanancias.length-1];
     $("#ganancia-campania-nombre").text("Ganancia " + item.LabelSerie);
@@ -392,7 +418,7 @@ function ArmarMisGanancias(data) {
             $("#ganancia-periodo").text(variablesPortal.SimboloMoneda + " " + item.GananciaPeriodoFormat);
         }
     };
-    $("#canvas").click(onClickEvent);
+    $("#canvas").click( onClickEvent );
 }
 
 function ArmarCarrusel(data) {
