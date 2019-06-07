@@ -87,7 +87,7 @@ namespace Portal.Consultoras.Web.Controllers
         private TempDataManager.TempDataManager _tempData;
 
 
-        
+
 
 
 
@@ -236,7 +236,7 @@ namespace Portal.Consultoras.Web.Controllers
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
         {
             return _pedidoWebProvider.ObtenerPedidoWebDetalle(EsOpt());
-            
+
         }
 
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(bool noSession = false)
@@ -276,7 +276,8 @@ namespace Portal.Consultoras.Web.Controllers
             return montosProl;
         }
 
-        protected void SetMontosProl(BEPedidoDetalleResult pedidoDetalleResult) {
+        protected void SetMontosProl(BEPedidoDetalleResult pedidoDetalleResult)
+        {
             SessionManager.SetMontosProl(new List<ObjMontosProl> {
                 new ObjMontosProl
                 {
@@ -382,9 +383,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                     mensaje = result.Mensaje;
-                    //INI HD-3693
+
                     if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Bloqueado) mensaje = Constantes.TipoPopupAlert.Bloqueado + result.Mensaje;
-                    //FIN HD-3693
+
                     return result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                 }
             }
@@ -814,7 +815,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region LogDynamo
-        
+
         protected void ActualizarDatosLogDynamoDB(MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
         {
             bool esMobile = EsDispositivoMovil();
@@ -1251,7 +1252,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var menuActivo = _menuContenedorProvider.GetMenuActivo(userData, revistaDigital, herramientasVenta, Request, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobileMenu);
                 ViewBag.MenuContenedorActivo = menuActivo;
                 ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobileMenu);
-               
+
             }
 
             var menuMobile = BuildMenuMobile(userData, revistaDigital);

@@ -174,7 +174,7 @@ namespace Portal.Consultoras.Common
 
             public const short CierreSessionValidado = 15301;
 
-           
+
         }
 
         public static class ParametrosNames
@@ -385,7 +385,7 @@ namespace Portal.Consultoras.Common
             public const string CDRParametria = "CDRParametria";
             public const string CDRWebDatos = "CDRWebDatos";
             public const string CDRExpressMensajes = "CDRExpressMensajes";
-            public const string CDRFlagIsSetsOrPacks = "CDRSetsYPacks"; //HD-3703 EINCA
+            public const string CDRFlagIsSetsOrPacks = "CDRSetsYPacks";
 
             // Tabla LOgica
             public const string TablaLogicaDatos = "TablaLogicaDatos";
@@ -735,7 +735,7 @@ namespace Portal.Consultoras.Common
 
             public const int DesktopPedidoOfertaFinal = 1261; // se mantiene para el metodo obtenerNuevaDescripcionProductoDetalle, grilla pedido
             public const int MobilePedidoOfertaFinal = 2261; // se mantiene para el metodo obtenerNuevaDescripcionProductoDetalle, grilla pedido
-            
+
             #region MasVendidos
             public const int MasVendidosDesktopHomeCarrusel = 1151;
             public const int MasVendidosDesktopProductPageFicha = 1611;
@@ -971,8 +971,7 @@ namespace Portal.Consultoras.Common
             public const int MobileContenedorShowroomFicha = 2080102;
             public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
 
-            /*HD-3710*/
-            public const int DesktopPedidoEscogeRegaloCarrusel = 1021801;   
+            public const int DesktopPedidoEscogeRegaloCarrusel = 1021801;
             public const int MobilePedidoEscogeRegaloCarrusel = 2021801;
             #endregion
 
@@ -1113,7 +1112,7 @@ namespace Portal.Consultoras.Common
             public const int AppBuscadorOPTDesplegableFicha = 4040002;
             public const int AppBuscadorOPTLandingFicha = 4100002;
             #endregion
-            
+
             public const int MobileArmaTuPackFicha = 2131502;
             public const int DesktopArmaTuPackFicha = 1131502;
 
@@ -1420,9 +1419,7 @@ namespace Portal.Consultoras.Common
         {
             public static readonly int CatalogosYRevistas = 1002;
             public static readonly int NecesitasAyuda = 1039;
-            /* INI HD-4086 */
             public static readonly int Bonificaciones = 1049;
-            /* FIN HD-4086 */
         }
 
         public static class BannerCodigo
@@ -1430,12 +1427,11 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RevistaDigital";
         }
 
-        //INI HD-3693
         public static class TipoPopupAlert
         {
             public const string Bloqueado = "HD3693~";
         }
-        //FIN HD-3693
+
         public static class IngresoExternoPagina
         {
             public const string EstadoCuenta = "ESTADOCUENTA";
@@ -1520,7 +1516,6 @@ namespace Portal.Consultoras.Common
             public const string UrlBase = "https://catalogodigital.somosbelcorp.com/";
             public const string UrlBaseQA = "http://ecatalogoqa.somosbelcorp.com/";
             public const string UrlCatalogoPiloto = "UrlCatalogoPiloto";
-            /* INI HD-4015 */
             public const string UrlParamEncrip = "{0}?consultant={1}";
             public const string UrlCatalogo = "{0}{1}";
             public const string UrlCatalogo_WSP = "{0}&utm_source=whatsapp&utm_medium=social&utm_campaign=catalogo_digital";
@@ -1532,7 +1527,6 @@ namespace Portal.Consultoras.Common
             public const string TipoFB = "FB";
             public const string TipoMSN = "MSN";
             public const string TipoEMAIL = "EMAIL";
-            /* FIN HD-4015 */
 
         }
 
@@ -2489,7 +2483,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_PRODUCTO_NOPERTENECE_VENTAEXCLUSIVA = "1113";
                 public const string ERROR_PRODUCTO_LIMITE_VENTA = "1114";
                 public const string ERROR_PRODUCTO_DUO_COMPLETO_COMPLETO = "1115";
-                public const string ERROR_PRODUCTO_KIT_CAMINO_BRILLANTE_USADO = "1116";                
+                public const string ERROR_PRODUCTO_KIT_CAMINO_BRILLANTE_USADO = "1116";
                 public const string ERROR_PRODUCTO_BLOQUEADO_CAMINO_BRILLANTE = "1117";
                 public const string ERROR_PRODUCTO_BLOQUEADO_NIVEL_CAMINO_BRILLANTE = "1118";
                 public const string ERROR_PRODUCTO_USADO_CAMINO_BRILLANTE = "1119";
@@ -2512,9 +2506,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_UNIDAD_SINSALDO = "2117";
                 public const string ERROR_UNIDAD_CONSALDO = "2118";
                 public const string ERROR_UNIDAD_SOBREPASA_STOCK = "2119";
-                //INI HD-3693
                 public const string ERROR_CONSULTORA_BLOQUEADA = "3693";
-                //FIN HD-3693
 
                 public const string ERROR_RESERVA_ARMATUPACK_BLOQUEADO = "2006";
                 public const string ERROR_RESERVA_DUO_COMPLETO_COMPLETO = "2007";
@@ -3648,7 +3640,6 @@ namespace Portal.Consultoras.Common
             public const int Reingreso = 9;
         }
 
-        //HD-3606 EINCA
         public static class SegPedidoSituacion
         {
             public const int PedidoRecibido = 1;
@@ -3664,7 +3655,8 @@ namespace Portal.Consultoras.Common
 
         public static class CaminoBrillante
         {
-            public static class Menu {
+            public static class Menu
+            {
                 public const string Permiso_CaminoBrillante = "CaminoBrillante";
             }
 
@@ -3920,14 +3912,14 @@ namespace Portal.Consultoras.Common
             public const string ingrgana = "ingrgana";
             public const string ingrten = "ingrten";
         }
-        
+
         public static class TipoContenido
         {
             public const string Imagen = "IMAGEN";
             public const string Video = "VIDEO";
             public const string Url = "URL";
         }
-        
+
         public static class DatosContenedorHistorias
         {
             public const short HistoriasLogicaId = 231;
@@ -3938,6 +3930,6 @@ namespace Portal.Consultoras.Common
             public const string HistAnchoAltoDetalle = "HistAnchoAltoDetalle";
             public const string HistUrlMiniatura = "HistUrlMiniatura";
             public const string HistLimitDetMensaje = "HistLimitDetMensaje";
-        }        
+        }
     }
 }

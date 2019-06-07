@@ -32,10 +32,10 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<EstrategiaPedidoModel, ServicePedido.BEEstrategia>()
                 .ForMember(t => t.EstrategiaDetalle, f => f.MapFrom(c => c.EstrategiaDetalle))
                 .ForMember(t => t.TipoEstrategia, f => f.MapFrom(c => c.TipoEstrategia))
-                .ForMember(t => t.EsSubCampania, f => f.MapFrom(c=>Convert.ToInt32(c.EsSubCampania)));
+                .ForMember(t => t.EsSubCampania, f => f.MapFrom(c => Convert.ToInt32(c.EsSubCampania)));
 
             Mapper.CreateMap<EstrategiaDetalleModelo, ServicePedido.BEEstrategiaDetalle>();
-            
+
             Mapper.CreateMap<TipoEstrategiaModelo, ServicePedido.BETipoEstrategia>()
                 .ForMember(t => t.FlagActivo, f => f.MapFrom(c => c.FlagActivo.ToInt()));
 
@@ -473,7 +473,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<OfertaFinalMontoMetaModel, UpSellingMontoMeta>();
 
             Mapper.CreateMap<ShowRoomEventoConsultoraModel, ServicePedido.BEShowRoomEventoConsultora>();
-            
+
             Mapper.CreateMap<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>();
             Mapper.CreateMap<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaDisenoModel>();
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEConsultoraProgramaNuevas>();
@@ -490,20 +490,19 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones, UsuarioOpcionesModel>();
 
             Mapper.CreateMap<CampaniaModel, BECampania>();
-            Mapper.CreateMap<BECampania,CampaniaModel> ();
+            Mapper.CreateMap<BECampania, CampaniaModel>();
 
             Mapper.CreateMap<PremioNuevaModel, BEPremioNuevas>();
             Mapper.CreateMap<BEPremioNuevas, PremioNuevaModel>();
-            
+
             Mapper.CreateMap<EstrategiaComponenteModel, ServicePedido.BEEstrategiaProducto>()
                .ForMember(t => t.CUV, f => f.MapFrom(c => c.Cuv))
                .ForMember(t => t.SAP, f => f.MapFrom(c => c.CodigoProducto))
                .ForMember(t => t.Precio, f => f.MapFrom(c => c.PrecioCatalogo))
                .ForMember(t => t.NombreMarca, f => f.MapFrom(c => c.DescripcionMarca));
 
-            //INI HD-4200
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEPedidoWeb>();
-            //FIN HD-4200
+
         }
     }
 }

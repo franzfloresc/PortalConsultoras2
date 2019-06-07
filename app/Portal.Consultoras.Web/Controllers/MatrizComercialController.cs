@@ -120,7 +120,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string UploadFoto(string foto, string preFileName, string carpetaPais)
         {
-            /*HD-4329*/
             string extension = ".png";
 
             if (!string.IsNullOrEmpty(foto))

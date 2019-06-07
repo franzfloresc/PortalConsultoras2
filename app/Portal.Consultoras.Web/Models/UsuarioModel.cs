@@ -414,13 +414,9 @@ namespace Portal.Consultoras.Web.Models
         public int NivelCaminoBrillante { get; set; }
         #endregion
 
-        //INI HD-3693
         public string AutorizaPedido { get; set; }
-        //FIN HD-3693
 
-        //INI HD-3897
         public bool PuedeConfirmarAllEmail { get; set; }
         public bool PuedeConfirmarAllSms { get; set; }
-        //FIN HD-3897
     }
 }

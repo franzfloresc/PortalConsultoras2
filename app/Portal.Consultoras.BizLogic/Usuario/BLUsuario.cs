@@ -234,7 +234,7 @@ namespace Portal.Consultoras.BizLogic
                     BEValidacionDatos validacionDato;
                     using (var reader = dAValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(Constantes.TipoEnvioEmailSms.EnviarPorEmail, codigoUsuario))
                     {
-                        validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader, true, true);    
+                        validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader, true, true);
                     }
 
                     if (validacionDato == null || validacionDato.DatoNuevo.ToLower() != email.ToLower())
@@ -249,7 +249,7 @@ namespace Portal.Consultoras.BizLogic
 
                     usuario = GetBasicSesionUsuario(paisID, codigoUsuario);
 
-                    if (!usuario.EMail.ToLower(). Contains(email.ToLower()) && daUsuario.ExistsUsuarioEmail(email)
+                    if (!usuario.EMail.ToLower().Contains(email.ToLower()) && daUsuario.ExistsUsuarioEmail(email)
                         && daUsuario.ExistsUsuarioEmail(email))
                     {
                         return ActivacionEmailRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_ACTIVACION_DUPLICADO, belcorpResponde: _belcorpRespondeBusinessLogic.GetBelcorpResponde(paisID).FirstOrDefault());
@@ -324,10 +324,8 @@ namespace Portal.Consultoras.BizLogic
                 var verificacion = new BLOpcionesVerificacion();
                 var verificacionResult = verificacion.GetOpcionesVerificacionCache(usuario.PaisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos);
                 usuario.PuedeEnviarSMS = (verificacionResult != null && verificacionResult.OpcionSms);
-                //INI HD-3897
                 usuario.PuedeConfirmarAllEmail = (verificacionResult != null && verificacionResult.OpcionConfirmarEmail);
                 usuario.PuedeConfirmarAllSms = (verificacionResult != null && verificacionResult.OpcionConfirmarSms);
-                //FIN HD-3897
 
                 return usuario;
             }
@@ -744,7 +742,7 @@ namespace Portal.Consultoras.BizLogic
             return daUsuario.ActualizarSMS(codigoConsultora, tipoEnvio, celularAnterior, celularActual);
         }
 
-     
+
 
         public int ValidaEstadoPopup(int paisID)
         {
@@ -767,7 +765,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daUsuario.ListarValidacionDatos(beValidacionDatos))
                 return reader.MapToCollection<BEValidacionDatos>();
         }
-       public List<BEValidacionDatos> GetTipoEnvioActivos(int paisID, string codigoUsuario)
+        public List<BEValidacionDatos> GetTipoEnvioActivos(int paisID, string codigoUsuario)
         {
             List<BEValidacionDatos> lista = new List<BEValidacionDatos>();
             var daUsuario = new DAUsuario(paisID);
@@ -778,18 +776,18 @@ namespace Portal.Consultoras.BizLogic
                 {
                     lista.Add(new BEValidacionDatos()
                     {
-                        TipoEnvio = reader[0] == DBNull.Value ? string.Empty: reader[0].ToString(),
+                        TipoEnvio = reader[0] == DBNull.Value ? string.Empty : reader[0].ToString(),
                         DatoNuevo = reader[1] == DBNull.Value ? string.Empty : reader[1].ToString(),
-                        DatoAntiguo = reader[2] == DBNull.Value ? string.Empty: reader[2].ToString(),
+                        DatoAntiguo = reader[2] == DBNull.Value ? string.Empty : reader[2].ToString(),
                         Estado = reader[3] == DBNull.Value ? string.Empty : reader[3].ToString(),
                     });
                 }
 
-            return lista;
-        }
+                return lista;
+            }
         }
 
-        public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora,  int paisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)
+        public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int paisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)
         {
             var daUsuario = new DAUsuario(paisID);
             return daUsuario.ActualizarValidacionDatos(isMobile, codigoConsultora, ipDispositivo, CodigoUsuario, tipoEnvio1, tipoEnvio2);
@@ -2041,8 +2039,8 @@ namespace Portal.Consultoras.BizLogic
             string paramQuerystring = Common.Util.Encrypt(string.Join(";", parametros));
             LogManager.SaveLog(new Exception(), usuario.CodigoUsuario, usuario.CodigoISO, " | data=" + paramQuerystring + " | parametros = " + string.Join("|", parametros));
 
-            MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname,  nomconsultora, url, paramQuerystring);
-        
+            MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, nomconsultora, url, paramQuerystring);
+
         }
 
         public BERespuestaServicio RegistrarEnvioSms(

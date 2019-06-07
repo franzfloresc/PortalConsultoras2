@@ -50,9 +50,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<CDRWebModel> listaCdrWebModel = new List<CDRWebModel>();
             try
             {
-                SessionManager.SetListaCDRWebCargaInicial(null);//HD-3412 EINCA
-                SessionManager.SetCDRPedidoFacturado(null); //HD-3412 EINCA
-                listaCdrWebModel = _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID, userData.PaisID);//HD-3412 EINCA
+                SessionManager.SetListaCDRWebCargaInicial(null);
+                SessionManager.SetCDRPedidoFacturado(null);
+                listaCdrWebModel = _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID, userData.PaisID);
                 var ObtenerCampaniaPedidosFacturados = _cdrProvider.CDRObtenerPedidoFacturadoCargaInicial(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
 
                 string urlPoliticaCdr = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
@@ -510,7 +510,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult BuscarMotivo(MisReclamosModel model)
         {
-            SessionManager.SetFlagIsSetsOrPack(null); //HD-3703 EINCA
+            SessionManager.SetFlagIsSetsOrPack(null);
             var lista = _cdrProvider.CargarMotivo(model, userData.FechaActualPais.Date, userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
             return Json(new
             {
@@ -926,7 +926,7 @@ namespace Portal.Consultoras.Web.Controllers
                         PedidoNumero = model.NumeroPedido,
                         ConsultoraID = Int32.Parse(userData.ConsultoraID.ToString()),
                         EsMovilOrigen = Convert.ToBoolean(model.EsMovilOrigen),
-                        CDRWebDetalle = arrComplemento, //HD-3703 EINCA
+                        CDRWebDetalle = arrComplemento,
                         TipoDespacho = model.TipoDespacho,
                         FleteDespacho = userData.EsConsecutivoNueva ? 0 : model.FleteDespacho,
                         MensajeDespacho = model.MensajeDespacho
@@ -1011,7 +1011,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidadDetalle = new ServiceCDR.BECDRWebDetalle { CDRWebDetalleID = model.CDRWebDetalleID, GrupoID = model.GrupoID };//HD-3703 EINCA
+                var entidadDetalle = new ServiceCDR.BECDRWebDetalle { CDRWebDetalleID = model.CDRWebDetalleID, GrupoID = model.GrupoID };
                 using (CDRServiceClient sv = new CDRServiceClient())
                 {
                     sv.DelCDRWebDetalle(userData.PaisID, entidadDetalle);

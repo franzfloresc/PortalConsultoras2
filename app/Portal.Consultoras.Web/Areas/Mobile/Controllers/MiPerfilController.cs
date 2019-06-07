@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     public class MiPerfilController : BaseMobileController
     {
         protected MiPerfilProvider _miperfil;
-		private readonly ZonificacionProvider _zonificacionProvider;
+        private readonly ZonificacionProvider _zonificacionProvider;
 
         public MiPerfilController()
         {
@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             model = await GetCargaInicial(beusuario);
-            
+
             return View(model);
         }
 
@@ -69,7 +69,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return View("Index", model);
         }
-        
+
         [HttpGet]
         public async Task<JsonResult> ObtenerUbigeoDependiente(int Nivel, int IdPadre)
         {
@@ -95,7 +95,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View();
         }
-        //INI HD-3897
+
         public ActionResult ConfirmarCorreo()
         {
             ViewBag.IsConfirmar = 1;
@@ -103,7 +103,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View("ActualizarCorreo");
         }
-        //FIN HD-3897
 
         public ActionResult ActualizarCelular()
         {
@@ -121,7 +120,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View();
         }
-        //INI HD-3897
+
         public ActionResult ConfirmarCelular()
         {
             if (!userData.PuedeActualizar || !userData.PuedeEnviarSMS)
@@ -138,7 +137,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View("ActualizarCelular");
         }
-        //FIN HD-3897
+
         private async Task<MisDatosModel> GetCargaInicial(BEUsuario beusuario)
         {
             var model = new MisDatosModel();
@@ -161,10 +160,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.UsuarioPrueba = userData.UsuarioPrueba;
                 model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
                 model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
-                //INI HD-3897
                 model.FlgCheckSMS = beusuario.FlgCheckSMS;
                 model.FlgCheckEMAIL = beusuario.FlgCheckEMAIL;
-                //FIN HD-3897
+
                 var bezona = _zonificacionProvider.GetZonaById(userData.PaisID, userData.ZonaID);
 
                 model.NombreGerenteZonal = bezona.NombreGerenteZona;
@@ -192,7 +190,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.CodigoUsuarioReal = userData.CodigoUsuario;
 
                 ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
-				ViewBag.PaisesDigitoControl = paisesDigitoControl;
+                ViewBag.PaisesDigitoControl = paisesDigitoControl;
 
                 #region limite Min - Max Telef
 
@@ -213,7 +211,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     p.Posicion.Trim().ToLower().Equals(Constantes.MenuPosicion.Body) &&
                     p.Codigo.Trim().ToLower().Equals(Constantes.MenuCodigo.MiPerfil.ToLower())
                 ).ToList();
-                
+
                 if (userData.TieneDireccionEntrega)
                 {
                     model.DireccionEntrega = await _miPerfilProvider.ObtenerDireccionPorConsultoraAsync(new DireccionEntregaModel { ConsultoraID = (int)userData.ConsultoraID, PaisID = userData.PaisID });
