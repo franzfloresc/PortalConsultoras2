@@ -1,5 +1,6 @@
 ﻿var scrollBeneficios = true
 var scrollLogros = true
+$("#a").hide;
 
 $(document).ready(function () {
     Handlebars.registerPartial("kit_template", $("#template-kit").html());
@@ -304,10 +305,10 @@ function ArmarMisGanancias(data) {
 
                 if (elements.length) {
                    
-                    backgroundColors[5] = '#ffdaf3'; 
+                     
                     var index = elements[0]._index;
                     datasetIndex = elements[0]._datasetIndex;
-
+                    backgroundColors[5] = '#ffdaf3';
                     // Reset old state
                     dataset = myBar.data.datasets[datasetIndex];
                     dataset.backgroundColor = backgroundColors.slice();
@@ -400,12 +401,16 @@ function ArmarMisGanancias(data) {
         }
     });
     
-
-    var item = data.MisGanancias[data.MisGanancias.length-1];
+    if (data.MisGanancias.length > 1) {
+        $("#a").show;
+    }
+    var item = data.MisGanancias[data.MisGanancias.length - 1];
+    var iteminicial = data.MisGanancias[0];
     $("#ganancia-campania-nombre").text("Ganancia " + item.LabelSerie);
     $("#ganancia-campania").text(variablesPortal.SimboloMoneda + " " + item.GananciaCampaniaFormat);
     $("#ganancia-periodo").text(variablesPortal.SimboloMoneda + " " + item.GananciaPeriodoFormat);
-    $("#campanavalor").text(item.LabelSerie);
+    $("#campanavalor-final").text(item.LabelSerie); 
+    $("#campanavalor-inicial").text(iteminicial.LabelSerie);
     
 
     var onClickEvent = function (evt) {
