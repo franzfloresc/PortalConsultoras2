@@ -732,6 +732,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 int valRespuesta = 0;
+                int FileSize = 30 * 1024 * 1024;
                 var allowedExtensions = new[] { ".mp4" };
                 string _name = string.Empty;
                 if (model.file != null && model.file.ContentLength > 0)
@@ -745,12 +746,12 @@ namespace Portal.Consultoras.Web.Controllers
                             message = "El formato no es correcto. Vuelve a intentar, por favor."
                         });
                     }
-                    else if (model.file.ContentLength > 30000000)
+                    else if (model.file.ContentLength > FileSize)
                     {
                         return Json(new
                         {
                             success = false,
-                            message = "El tamaño máximo de archivo permitido es 30 MB."
+                            message = "El tamaño máximo de archivo permitido es 30MB."
                         });
                     }
                     else
