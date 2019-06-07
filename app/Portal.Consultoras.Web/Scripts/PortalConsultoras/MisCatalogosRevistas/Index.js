@@ -246,7 +246,6 @@ var CompartirFacebookActual = function (catalogo, campaniaCatalogo, texto) {
         'label': campaniaCatalogo,
         'value': 0
     });
-    InsertarLogCatalogoDynamo('Facebook', campaniaCatalogo, catalogo, 1);
 
     FB.ui({
         method: 'share',
@@ -286,19 +285,6 @@ function getNumeroCampania(codigoCampania) {
 function getAnioCampania(codigoCampania) {
     codigoCampania = codigoCampania || '';
     return codigoCampania.substring(0, 4);
-}
-
-function InsertarLogCatalogoDynamo(opcionAccion, campaniaCatalogo, marca, cantidad) {
-    InsertarLogDymnamo(
-        'Catalogo-Compartir',
-        opcionAccion,
-        false,
-        [
-            { 'key': 'CampaniaCatalogo', 'value': campaniaCatalogo },
-            { 'key': 'Marca', 'value': marca },
-            { 'key': 'Cantidad', 'value': cantidad }
-        ]
-    );
 }
 
 function configurarContenedorExpoOfertas() {
@@ -348,7 +334,7 @@ function CargarCarruselCatalogo() {
     var htmlSection = "";
     var htmlCatalogo = "";
     var htmlCatalogoAppend = "";
-    //var totalItem = cantCat * cantCam;
+    var totalItem = cantCat * cantCam;
     var anio = "";
     var nro = "";
     isPilotoSeg = false;
@@ -385,6 +371,13 @@ function CargarCarruselCatalogo() {
                 //xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{isMovil}/g, isMovil);
                 //xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{FBAppId}/g, FBAppId);
 
+                /* INI HD-4248 */
+                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{WSP_textourl}/g, urlCatalogoPiloto_WSP);
+                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{FB_textourl}/g, urlCatalogoPiloto_FB);
+                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{MSN_textourl}/g, urlCatalogoPiloto_MSN);
+                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{EMAIL_textourl}/g, urlCatalogoPiloto_EMAIL);
+                /* FIN HD-4248 */
+
                 $("#idSection" + i).append(xHtmlItemCatalogoPasosActual);
                 $("#txtUrlActual").val(urlCatalogoPiloto);
                 $("#idSection" + i).addClass(" catalogos__campania--actual");
@@ -396,8 +389,8 @@ function CargarCarruselCatalogo() {
     }
 
     for (var i = 0; i < cantCam; i++) {
-
-        //htmlCatalogo = "";
+        
+        htmlCatalogo = "";
         htmlCatalogoAppend = "";
         nro = "";
         anio = "";
@@ -657,9 +650,13 @@ function GetCatalogosLinksByCampania(data, campania) {
 
             if (piloto == '1' && contDiv == 1) {
                 if (isMovil == "True")
-                    $("[data-accion='ms']").attr("href", "fb-messenger://share?link=" + encodeURIComponent(urlCatalogoPiloto) + "&app_id=" + encodeURIComponent(FBAppId));
+                    /* INI HD-4248 */
+                    $("[data-accion='ms']").attr("href", "fb-messenger://share?link=" + encodeURIComponent(urlCatalogoPiloto_MSN) + "&app_id=" + encodeURIComponent(FBAppId));
+                    /* FIN HD-4248 */
                 else {
-                    $("[data-accion='ms']").attr("href", "https://www.facebook.com/dialog/send?app_id=" + encodeURIComponent(FBAppId) + "&link=" + encodeURIComponent(urlCatalogoPiloto) + "&redirect_uri=" + window.location.href + "?catalogo_compartido_fb_messenger=1");
+                    /* INI HD-4248 */
+                    $("[data-accion='ms']").attr("href", "https://www.facebook.com/dialog/send?app_id=" + encodeURIComponent(FBAppId) + "&link=" + encodeURIComponent(urlCatalogoPiloto_MSN) + "&redirect_uri=" + window.location.href + "?catalogo_compartido_fb_messenger=1");
+                    /* FIN HD-4248 */
                     $("[data-accion='ms']").attr("target", "_self");
                 }
             }
@@ -827,7 +824,6 @@ function CatalogoEnviarEmail() {
             'label': 'Lbel',
             'value': clientes.length
         });
-        InsertarLogCatalogoDynamo('Email', campaniaEmail, 'Lbel', clientes.length);
     }
     if (_Flagchkesika == "1") {
         dataLayer.push({
@@ -837,7 +833,6 @@ function CatalogoEnviarEmail() {
             'label': 'Esika',
             'value': clientes.length
         });
-        InsertarLogCatalogoDynamo('Email', campaniaEmail, 'Esika', clientes.length);
     }
     if (_Flagchkcyzone == "1") {
         dataLayer.push({
@@ -847,7 +842,6 @@ function CatalogoEnviarEmail() {
             'label': 'Cyzone',
             'value': clientes.length
         });
-        InsertarLogCatalogoDynamo('Email', campaniaEmail, 'Cyzone', clientes.length);
     }
 
     jQuery.ajax({
@@ -911,7 +905,6 @@ function CatalogoEnviarEmailPiloto() {
         'label': campaniaEmail,
         'value': clientes.length
     });
-    InsertarLogCatalogoDynamo('Email', campaniaEmail, campaniaEmail, clientes.length);
 
     var mensaje = $("#comentarios").val();
     jQuery.ajax({
@@ -1103,7 +1096,7 @@ function MonstrarAlerta(texto) {
 
 function MarcarCompartirFbExitoso() {
 
-    if (window.location.search.includes("catalogo_compartido_fb_messenger")) {
+    if (window.location.search.indexOf("catalogo_compartido_fb_messenger") > -1) {
         dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Catálogos y revistas',

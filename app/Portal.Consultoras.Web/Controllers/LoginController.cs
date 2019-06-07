@@ -71,7 +71,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region ActionResult
 
-        #region Index
         [AllowAnonymous]
         public async Task<ActionResult> Index(string returnUrl = null)
         {
@@ -152,20 +151,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(model);
         }
-
-        public RedirectToRouteResult IndexRedireccionar(int cantCursos, bool esMobile)
-        {
-            if (cantCursos > 0)
-            {
-                return RedirectToAction("Index", "MiAcademia");
-            }
-
-            return esMobile
-                ? RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
-                : RedirectToAction("Index", "Bienvenida");
-        }
-
-   		[AllowAnonymous]
+        [AllowAnonymous]
         [HttpGet]
         [Route("Login/Login/{param?}")]
         public ActionResult Login(string param)
@@ -221,31 +207,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
         }
-
-        private LoginModel IndexEvento(LoginModel model)
-        {
-            model.ListaEventos = model.ListaEventos ?? new List<EventoFestivoModel>();
-            if (model.ListaEventos.Count == 0)
-                model.NombreClase = "fondo_estandar";
-            else
-            {
-                model.NombreClase = "fondo_festivo";
-
-                model.RutaEventoEsika =
-                (from g in model.ListaEventos
-                 where g.Nombre == Constantes.EventoFestivoNombre.FONDO_ESIKA
-                 select g.Personalizacion).FirstOrDefault();
-
-                model.RutaEventoLBel =
-                (from g in model.ListaEventos
-                 where g.Nombre == Constantes.EventoFestivoNombre.FONDO_LBEL
-                 select g.Personalizacion).FirstOrDefault();
-            }
-
-            return model;
-        }
-        
-        #endregion
 
         [AllowAnonymous]
         [HttpPost]
@@ -1489,6 +1450,11 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.AutorizaPedido = usuario.AutorizaPedido;
                     //FIN HD-3693
 
+                    //INI HD-3897
+                    usuarioModel.PuedeConfirmarAllEmail = usuario.PuedeConfirmarAllEmail;
+                    usuarioModel.PuedeConfirmarAllSms = usuario.PuedeConfirmarAllSms;
+                    //FIN HD-3897
+
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);
                     sessionManager.SetTieneLanX1(true);
@@ -2145,7 +2111,7 @@ namespace Portal.Consultoras.Web.Controllers
                     catch (Exception ex)
                     {
                         logManager.LogErrorWebServicesBusWrap(ex, usuario.CodigoConsultora, paisId.ToString(), string.Empty);
-                        pasoLog = "OcurriÃ³ un error al registrar log de ingreso al portal";
+                        pasoLog = "Ocurrió un error al registrar log de ingreso al portal";
                     }
                 }
                 return usuario;

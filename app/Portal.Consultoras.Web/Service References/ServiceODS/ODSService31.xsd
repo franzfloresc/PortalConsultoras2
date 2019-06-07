@@ -41,4 +41,45 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Enumeradores.ValidacionVentaExclusiva" nillable="true" type="tns:Enumeradores.ValidacionVentaExclusiva" />
+  <xs:simpleType name="Enumeradores.RechazoBannerUrl">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Ninguna" />
+      <xs:enumeration value="Deuda" />
+      <xs:enumeration value="ModificaPedido" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Enumeradores.RechazoBannerUrl" nillable="true" type="tns:Enumeradores.RechazoBannerUrl" />
+  <xs:simpleType name="Enumeradores.ValidacionCaminoBrillante">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ProductoNoExiste">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CuvPertenecePrograma">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CuvYaAgregadoEnPeriodo">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="CuvBloqueadoNivel">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Enumeradores.ValidacionCaminoBrillante" nillable="true" type="tns:Enumeradores.ValidacionCaminoBrillante" />
 </xs:schema>

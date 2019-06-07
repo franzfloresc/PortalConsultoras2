@@ -1096,6 +1096,10 @@ header {
     margin-bottom: 0;
 }
 
+.liquidacion_descripcion--paisColombia {
+    min-height: 68px;
+}
+
 .liquidacion_cantidad {
     margin-left: 15px;
     margin-right: 15px;
@@ -1141,6 +1145,20 @@ header {
         font-size: 13pt;
         color: #613c87;
     }
+
+/* INI HD-4009 */
+.liquidacion_pum,
+.liquidacion_pum_hidden {
+    margin-bottom: 0;
+    min-height:18px;
+}
+    .liquidacion_pum span {
+        color: #000;
+    }
+.liquidacion_pum_hidden {
+    visibility: hidden;
+}
+/* FIN HD-4009 */
 
 .liquidacion_rango_wrapper {
     margin: 0;
@@ -1683,6 +1701,22 @@ a.subir_carousel, a.bajar_carousel {
     padding-right: 5px;
     position: relative;
 }
+
+/* INI HD-4009 */
+.producto_pum,
+.producto_pum_hidden {
+    margin-bottom: 0;
+    min-height:18px;
+}
+
+    .producto_pum span {
+        color: #000;
+    }
+
+.producto_pum_hidden {
+    visibility: hidden;
+}
+/* FIN HD-4009 */
 
 .producto_precio_oferta {
     margin: 0;
@@ -17251,6 +17285,7 @@ label.checkpop.c_on {
     -webkit-transition-property: color;
     transition-property: color;
     transition-duration: .3s;
+    overflow: hidden;
 }
 
     .boton_home_guardar:hover {
@@ -17843,6 +17878,10 @@ label.checkpop.c_on {
     margin-bottom: 15px;
     background: white;
 }
+
+    .content_item_carrusel.content_item_carrusel--liquidacion {
+        height: 349px!important;
+    }
 
 .content_item_carrusel_width_ODD {
     width: 260px;

@@ -1515,7 +1515,7 @@ var AnalyticsPortalModule = (function () {
                 return;
             }
 
-            if (pagina.Pagina.includes("Landing"))
+            if (pagina.Pagina.indexOf("Landing") > -1)
                 _pagina = "Landing";
 
             switch (_pagina) {

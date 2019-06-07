@@ -4,10 +4,7 @@ var belcorp = belcorp || {};
 belcorp.settings = belcorp.settings || {};
 belcorp.settings.uniquePrefix = "/g/";
 
-var _ultimaMarca = "";
-
 jQuery(document).ready(function () {
-
     CreateLoading();
 
     if (typeof IsoPais === 'undefined' || IsoPais != 'PE')  {
@@ -36,13 +33,13 @@ jQuery(document).ready(function () {
         }
     }
 
-    //document.onkeydown = function (evt) {
-    //    evt = evt || window.event;
-    //    if (evt.keyCode == 27) {
-    //        if ($('.resultado_busqueda_producto').is(':visible')) {
-    //        }
-    //    }
-    //};
+    document.onkeydown = function (evt) {
+        evt = evt || window.event;
+        if (evt.keyCode == 27) {
+            if ($('.resultado_busqueda_producto').is(':visible')) {
+            }
+        }
+    };
 });
 
 (function ($) {
@@ -771,6 +768,18 @@ function CerrarLoad(opcion) {
 }
 
 function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
+    
+    var valor = mensaje.indexOf("Sin embargo hemos reservado");
+    /*HD-3710 - 9_10 (Pop up Lo sentimos - Click Botón - Cerrar Pop up lo sentimos) - Web, Mobile*/
+    if (valor != -1) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Carrito de Compras',
+            'action': 'alertDialogMensajes - Click Botón',
+            'label': 'Ok'
+        });
+    }
+
     try {
         mensaje = $.trim(mensaje);
         if (mensaje == "") {
@@ -830,86 +839,6 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('.ui-dialog .ui-button').focus();
         }
         CerrarLoad();
-    } catch (e) {
-
-    }
-}
-
-function AbrirMensaje25seg(mensaje, imagen) {
-    try {
-        var _dialogClass = '.setBottom',
-            _overlay = '.ui-widget-overlay'
-
-        mensaje = $.trim(mensaje);
-        if (mensaje == "") {
-            CerrarLoad();
-            return false;
-        }
-        //INI HD-3693
-        var msjBloq = validarpopupBloqueada(mensaje);
-        if (msjBloq != "") {
-            CerrarLoad();
-            alert_msg_bloqueadas(msjBloq);
-            return true;
-        }
-        //FIN HD-3693
-        imagen = imagen || ""
-
-        $("#pop_src").attr("src", "#")
-
-        if (imagen == "") {            
-            $("#pop_src").css("display", "none")                        
-        }
-        else {
-            $("#pop_src").attr("src", imagen)
-            $("#pop_src").css("display", "block")            
-        }
-        
-        
-        var isUrlMobile = isMobile();
-        if (isUrlMobile > 0) {                        
-            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
-            $('#alertDialogMensajes25seg').dialog("open");
-            $(_overlay).css('background', 'black')
-            $(_overlay).css('opacity', '0.85')
-
-            var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0])
-            _newTopDialog = _topWithoutPXAfterCreateDialog + 200,
-                _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
-        }
-        else {
-            
-            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);                    
-            $('#alertDialogMensajes25seg').dialog("open");
-            $(_overlay).css('background', 'black')
-            $(_overlay).css('opacity', '0.85')
-
-            var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0])
-                _newTopDialog = _topWithoutPXAfterCreateDialog + 200,
-                _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
-
-        }
-        CerrarLoad();
-        //Ocultar el scroll 
-        $("body").css("overflow", "hidden");  
-
-        setTimeout(function () {
-            document.querySelector(_dialogClass).style.transition = "top 1s ease"
-            _newTopDialog = _topWithoutPXAfterCreateDialog - 200
-            _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'            
-        }, 100)
-
-        setTimeout(function () {
-            $(_dialogClass).fadeOut(500, function () {
-                $('#alertDialogMensajes25seg').dialog("close");
-                $("body").css("overflow", "auto")
-            })
-        }, 2500)    
-
-        
-        var parameter = [["mensaje", mensaje], ["imagen", imagen]];
-        console.table(parameter);
-
     } catch (e) {
 
     }
@@ -1345,6 +1274,12 @@ function autoCompleteByCharacters(inp, arr, car) {
                 b.innerHTML += "<input type='hidden' value='" + valueInput + arr[i] + "'>";
                 b.addEventListener("click", function (e) {
                     inp.value = this.getElementsByTagName("input")[0].value;
+                    //INI HD-3897
+                    if ($(inp).hasClass("eventActPerfil_Auto")) {
+                        $(inp).trigger("change");
+                        $(inp).trigger("focusout");
+                    }
+                    //FIN HD-3897
                     closeAllLists();
                 });
                 a.appendChild(b);
@@ -1395,27 +1330,6 @@ function autoCompleteByCharacters(inp, arr, car) {
     document.addEventListener("click", function (e) {
         closeAllLists(e.target);
     });
-}
-
-function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
-    if (urlLogDynamo != "") {
-        jQuery.ajax({
-            type: "POST",
-            async: true,
-            //crossDomain: true,
-            url: baseUrl + 'Comun/InsertarLogDymnamo',
-            //url: urlLogDynamo + "Api/LogUsabilidad",
-            dataType: "json",
-            data: {
-                'Aplicacion': userData.aplicacion,
-                'PantallaOpcion': pantallaOpcion,
-                'OpcionAccion': opcionAccion,
-                'Extra': ToDictionary(extra)
-            },
-            success: function (result) { },
-            error: function (x, xh, xhr) { }
-        });
-    }
 }
 
 function ToDictionary(dic) {
@@ -2161,12 +2075,11 @@ var GeneralModule = (function () {
         return isUrlMobile;
     };
 
-    var _redirectTo = function (url, validateIsMobile) {
+    var _redirectTo = function (url) {
         if (typeof url === "undefined" || url === null || $.trim(url) === "") return false;
-        if (typeof validateIsMobile === "undefined") validateIsMobile = true;
 
         var destinationUrl = "/";
-        if (validateIsMobile && _isMobile() && url.indexOf('Mobile/') == -1) destinationUrl = destinationUrl + "Mobile/";
+        if (_isMobile()) destinationUrl = destinationUrl + "Mobile/";
         destinationUrl += url;
 
         window.location.href = destinationUrl;
@@ -2279,18 +2192,11 @@ var GeneralModule = (function () {
         }
     };
 
-    var _getLocationPathname = function (value) {
-        if (typeof value === "undefined") {
-            return window.location.pathname;
-        }
-    };
-
     return {
         isMobile: _isMobile,
         redirectTo: _redirectTo,
         abrirLoad: _abrirLoad,
-        cerrarLoad: _cerrarLoad,
-        getLocationPathname: _getLocationPathname
+        cerrarLoad: _cerrarLoad
     };
 }());
 //INI HD-3693
