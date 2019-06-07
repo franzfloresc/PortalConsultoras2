@@ -40,7 +40,7 @@ strong {
 .container {
     display: block;
     margin: 0 auto;
-    width: 92%;
+    width: 100%;
     max-width: 1000px;
 }
 
@@ -130,7 +130,6 @@ div .btn-principal {
     display: block;
     color: #fff !important;
     border-radius: 5px;
-
     border: 0;
     padding: 10px 20px;
     max-width: 175px;
@@ -408,123 +407,124 @@ div .owl-carousel .owl-stage-outer {
 
 
 @keyframes MovilprogressUno {
-        0% {
-            width: 0%;
-        }
-
-        100% {
-            width: 12%;
-        }
+    0% {
+        width: 0%;
     }
 
-    @keyframes MovilprogressDos {
-        0% {
-            width: 0%;
-        }
+    100% {
+        width: 12%;
+    }
+}
 
-        100% {
-            width: 32%;
-        }
+@keyframes MovilprogressDos {
+    0% {
+        width: 0%;
     }
 
-    @keyframes MovilprogressTres {
-        0% {
-            width: 0%;
-        }
+    100% {
+        width: 32%;
+    }
+}
 
-        100% {
-            width: 52%;
-        }
+@keyframes MovilprogressTres {
+    0% {
+        width: 0%;
     }
 
-    @keyframes MovilprogressCuatro {
-        0% {
-            width: 0%;
-        }
+    100% {
+        width: 52%;
+    }
+}
 
-        100% {
-            width: 72%;
-        }
+@keyframes MovilprogressCuatro {
+    0% {
+        width: 0%;
     }
 
-    @keyframes MovilprogressCinco {
-        0% {
-            width: 0%;
-        }
+    100% {
+        width: 72%;
+    }
+}
 
-        100% {
-            width: 92%;
-        }
+@keyframes MovilprogressCinco {
+    0% {
+        width: 0%;
     }
 
-    @keyframes MovilprogressSeis {
-        0% {
-            width: 0%;
-        }
-
-        100% {
-            width: 100%;
-        }
+    100% {
+        width: 92%;
     }
+}
+
+@keyframes MovilprogressSeis {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
 @keyframes MovilDosprogressUno {
-        0% {
-            width: 0%;
-        }
-
-        100% {
-            width: 13%;
-        }
+    0% {
+        width: 0%;
     }
 
-    @keyframes MovilDosprogressDos {
-        0% {
-            width: 0%;
-        }
+    100% {
+        width: 13%;
+    }
+}
 
-        100% {
-            width: 33%;
-        }
+@keyframes MovilDosprogressDos {
+    0% {
+        width: 0%;
     }
 
-    @keyframes MovilDosprogressTres {
-        0% {
-            width: 0%;
-        }
+    100% {
+        width: 33%;
+    }
+}
 
-        100% {
-            width: 53%;
-        }
+@keyframes MovilDosprogressTres {
+    0% {
+        width: 0%;
     }
 
-    @keyframes MovilDosprogressCuatro {
-        0% {
-            width: 0%;
-        }
+    100% {
+        width: 53%;
+    }
+}
 
-        100% {
-            width: 73%;
-        }
+@keyframes MovilDosprogressCuatro {
+    0% {
+        width: 0%;
     }
 
-    @keyframes MovilDosprogressCinco {
-        0% {
-            width: 0%;
-        }
+    100% {
+        width: 73%;
+    }
+}
 
-        100% {
-            width: 93%;
-        }
+@keyframes MovilDosprogressCinco {
+    0% {
+        width: 0%;
     }
 
-    @keyframes MovilDosprogressSeis {
-        0% {
-            width: 0%;
-        }
-
-        100% {
-            width: 100%;
-        }
+    100% {
+        width: 93%;
     }
+}
+
+@keyframes MovilDosprogressSeis {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
 
 
 .Progress:after {
@@ -840,45 +840,84 @@ div .layout__view__breadcrumbs__wrapper, div .layout__view__title__wrapper {
     display: block;
     width: 100%
 }
+
 .ficha__producto__agregar__producto div .cartbtn i {
     left: 11%;
 }
+
 .etiq-producto img {
     display: block;
     width: 100%;
 }
+
 .hide {
     display: none !important;
 }
+
 .revistadigital-landing {
     width: auto;
     padding: 0 10px 25px 10px;
     display: inline-block;
 }
+
 .ver-todos {
     color: black;
     text-decoration: underline;
     text-align: right;
     display: block;
     font-weight: bold;
-
     text-align: right;
     display: block;
     float: right;
     margin-bottom: 30px;
 }
+
 .fleft {
-    float:left;
-    margin-bottom:30px;
-}
-.slick-dots {
-    display:none;
+    float: left;
+    margin-bottom: 30px;
 }
 
+.slick-dots {
+    display: none;
+}
 
 #m_montoMinimo span em {
     font-style: normal;
 }
+
+.regular.slider .ficha__producto__kit .producto_img_home {
+    margin-top: 27px;
+}
+
+.regular.slider .ficha__producto {
+    min-height: 418px;
+}
+
+
+/*PRELOADING------------ */
+#overlayer {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 100000;
+    background: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media (min-width:576px) {
     .modal-dialog {
@@ -886,7 +925,7 @@ div .layout__view__breadcrumbs__wrapper, div .layout__view__title__wrapper {
         margin: 1.75rem auto
     }
 
-   
+
     .modal-sm {
         max-width: 300px
     }
@@ -1151,6 +1190,7 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
     .modal-dialog {
         margin: 1.5rem;
     }
+
     div.ui-dialog.ui-widget-content {
         width: 100% !important
     }
@@ -1422,6 +1462,7 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
         display: block;
         margin-left: 0;
     }
+
     #ddlfiltros {
         width: 57%;
         margin-right: 3%;
@@ -1429,14 +1470,28 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
         display: block;
         margin-left: 0;
     }
+
     #ddlOrdenar {
         width: 40%;
         box-sizing: border-box;
         display: block;
         margin-left: 0;
     }
+
     .slick-arrow {
-        display:none !important;
+        display: none !important;
+    }
+
+    .regular.slider .ficha__producto__kit {
+        height: 456px;
+    }
+
+        .regular.slider .ficha__producto__kit .flex-grow-1 {
+            margin-top: 53px;
+        }
+
+    .revistadigital-landing {
+        padding: 0 5px 25px 5px;
     }
 }
 
@@ -1532,8 +1587,6 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
         width: 100%;
         animation-name: MovilDosprogressSeis;
     }
-
-
 }
 
 .modal.fade:not(.show) {
@@ -1701,18 +1754,20 @@ li .productos__agregados {
     height: 16px;
     background: url(/Content/CaminoBrillante/imgs/add_to_cart2.svg) no-repeat center center;
 }
+
 .producto_desactivado .boton__agregalo--fichaProducto i {
     background: url(/Content/CaminoBrillante/imgs/add-to-cart.svg) no-repeat center center;
 }
-    .boton__agregalo--fichaProducto img {
-        max-width: 25px;
-        display: block
-    }
+
+.boton__agregalo--fichaProducto img {
+    max-width: 25px;
+    display: block
+}
 
 div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span {
     letter-spacing: 0;
     text-indent: 22px;
-    text-decoration:none;
+    text-decoration: none;
 }
 
 .boton__agregalo--fichaProducto .cartbtn {
@@ -1826,6 +1881,7 @@ div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span
     text-transform: inherit;
     font-size: 14px !important
 }
+
 .box-kit-demos {
     margin: 60px auto;
     margin-bottom: 35px;
@@ -1893,7 +1949,7 @@ div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span
                 color: #9e9e9e !important;
                 border-bottom: 2px solid #b9b9b9;
                 height: 53px;
-                display:block;
+                display: block;
             }
 
                 .op-menu-horizontal .subnavegador li a img {
@@ -1958,7 +2014,6 @@ div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span
     display: block !important;
     position: fixed;
     top: 60px;
-
     width: 100%;
     background-color: #fff;
     z-index: 5;
@@ -2015,11 +2070,13 @@ div .cartbtn {
     float: left;
     margin-top: 11px;
 }
+
 .clearboth:after {
-    content:"";
-    display:block;
-    clear:both !important;
+    content: "";
+    display: block;
+    clear: both !important;
 }
+
 @media (max-width:950px) {
     .op-menu-horizontal .subnavegador li {
         padding: 0 15px
@@ -2148,6 +2205,7 @@ ul li .menu__link--pedido {
 div.ui-dialog.ui-widget-content {
     z-index: 9999999900 !important
 }
+
 .marca_ept {
     height: 40px;
     color: #000;
@@ -2160,6 +2218,7 @@ div.ui-dialog.ui-widget-content {
     border-radius: 0px;
     border-color: rgb(169, 169, 169);
 }
+
 .box-enterate {
     display: block;
     margin: 0 auto;
@@ -2167,28 +2226,32 @@ div.ui-dialog.ui-widget-content {
     border-bottom: 1px solid #d6d6d6;
     max-width: 210px;
 }
-.box-enterate a {
-    text-align: center;
-    color: white;
-    position: relative;
-    display: block;
-    color: #fff !important;
-    border-radius: 5px;
-    border: 0;
-    padding: 10px 20px;
-    max-width: 205px;
-    text-align: center;
-    margin: 25px auto;
-    text-decoration: none;
-    background: #000;
-}
+
+    .box-enterate a {
+        text-align: center;
+        color: white;
+        position: relative;
+        display: block;
+        color: #fff !important;
+        border-radius: 5px;
+        border: 0;
+        padding: 10px 20px;
+        max-width: 205px;
+        text-align: center;
+        margin: 25px auto;
+        text-decoration: none;
+        background: #000;
+    }
+
 .content_responsive {
     margin-top: 140px;
 }
+
 div.opOrdenar {
     padding: 0 15px;
     padding-bottom: 0;
 }
+
 #m_montoMinimo span em {
     font-style: normal;
 }
@@ -2202,6 +2265,7 @@ div.opOrdenar {
     margin: 30px auto;
     margin-bottom: 40px;
 }
+
 .box-camb .text-bold, .owl-stage-outer .text-bold, .txt-benf .text-bold {
     color: #000;
     font-size: 14px;
@@ -2235,27 +2299,33 @@ div.opOrdenar {
 .text-bold {
     font-weight: bold;
 }
+
 .box-left-ganancias img {
     display: inline-block;
     position: relative;
     top: 0px;
     min-width: 32px;
 }
+
 .box-left-ganancias span {
     margin-bottom: 23px;
     display: inline-block;
     margin-left: 10px;
 }
+
 .box-right-ganancias span {
     display: inherit;
     text-align: right;
 }
+
 .producto_img_home {
     position: relative;
 }
-.producto_img_home:hover .ver_detalle_carrusel, .producto_img:hover .ver_detalle_carrusel, .content_img_carrusel_ODD:hover .ver_detalle_carrusel {
-    opacity: 1;
-}
+
+    .producto_img_home:hover .ver_detalle_carrusel, .producto_img:hover .ver_detalle_carrusel, .content_img_carrusel_ODD:hover .ver_detalle_carrusel {
+        opacity: 1;
+    }
+
 .ver_detalle_carrusel {
     text-align: center;
     display: block;
@@ -2274,19 +2344,13 @@ div.opOrdenar {
     right: 0;
     bottom: 10px;
     margin: 0 auto;
-    text-decoration:none;
+    text-decoration: none;
     transition: all .3s ease;
     -moz-transition: all .3s ease;
     -o-transition: all .3s ease;
     -ms-transition: all .3s ease;
     -webkit-transition: all .3s ease;
     letter-spacing: .2px;
-}
-.regular.slider .ficha__producto__kit .producto_img_home {
-    margin-top: 27px;
-}
-.regular.slider .ficha__producto {
-    min-height:418px;
 }
 
 
