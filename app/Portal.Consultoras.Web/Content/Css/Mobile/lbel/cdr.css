@@ -256,6 +256,10 @@
     letter-spacing: 0.5px;
 }
 
+.tag__sb--estadoSolicitud {
+    font-size: 12px;
+}
+
 .estado_pendiente,
 .estado_en_evaluacion {
     border: 1px solid #808080;
@@ -1889,18 +1893,21 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     margin-top: 16px;
 }
 
-.detalle_producto {
+.detalle_productos_solicitud_cdr {
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: nowrap;
     border-bottom: 1px solid #808080;
     padding-top: 16px;
     padding-bottom: 16px;
 }
 
-    .detalle_producto:first-child{
-        padding-top:0;
-        padding-bottom:0;
+    .detalle_productos_solicitud_cdr:first-child {
+        padding-top: 0;
+        padding-bottom: 0;
     }
 
-    .detalle_producto:last-child {
+    .detalle_productos_solicitud_cdr:last-child {
         border-bottom: 0;
     }
 

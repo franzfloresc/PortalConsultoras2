@@ -215,7 +215,7 @@ else if (ViewBag.Origen == "1")
                             {
                                 <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div>
                             }
-                            <div class="detalle_producto">
+                            <div class="detalle_productos_solicitud_cdr">
                                 <span class="detalle_cod_producto">
                                     @item.CUV
                                 </span>
@@ -240,25 +240,32 @@ else if (ViewBag.Origen == "1")
                                 {
                                     foreach (var el in item.DetalleReemplazo)
                                     {
-                                        <div class="detalle_producto">
-                                            <span class="detalle_cod_producto">
-                                                @el.CUV
-                                            </span>
-                                            <span class="text-bold detalle_nom_producto">
-                                                @el.Descripcion
-                                            </span>
-                                            <span class="detalle_cantidad_producto">
-                                                x @el.Cantidad unidades
-                                            </span>
-                                            <span class="detalle_precio_producto detalle_precio_producto--relative">
-                                                @el.Simbolo @el.PrecioFormato
-                                            </span>
+                                        <div class="d-flex detalle_productos_solicitud_cdr">
+                                            <div>
+                                                <span class="detalle_cod_producto">
+                                                    @el.CUV
+                                                </span>
+                                                <span class="text-bold detalle_nom_producto">
+                                                    @el.Descripcion
+                                                </span>
+                                                <span class="detalle_cantidad_producto">
+                                                    x @el.Cantidad unidades
+                                                </span>
+                                                <span class="detalle_precio_producto detalle_precio_producto--relative">
+                                                    @el.Simbolo @el.PrecioFormato
+                                                </span>
+                                            </div>
+                                            <div>
+                                                <span class="d-block text-bold text-uppercase tag_sb tag__sb--estadoSolicitud estado_rechazado">
+                                                    Rechazado
+                                                </span>
+                                            </div>
                                         </div>
                                     }
                                 }
                                 else
                                 {
-                                    <div class="detalle_producto">
+                                    <div class="detalle_productos_solicitud_cdr">
                                         <span class="detalle_cod_producto">
                                             @item.CUV2
                                         </span>
