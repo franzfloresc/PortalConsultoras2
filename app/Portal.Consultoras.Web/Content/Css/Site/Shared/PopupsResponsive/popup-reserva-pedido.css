@@ -119,6 +119,7 @@
         margin-bottom: 0;
         top: 0;
         min-height:0;
+        overflow:auto;
     }
 
         .popup__somos__belcorp--reservaPedido > div {
@@ -128,27 +129,19 @@
             height: 100%;
         }
 
-            .popup__somos__belcorp--reservaPedido > div:first-child {
-                justify-content: flex-end;
+            .popup__somos__belcorp--reservaPedido > div:last-child .popup__somos__belcorp__cabecera {
+                padding-top: 0;
             }
 
-            .popup__somos__belcorp--reservaPedido > div:last-child{
-                justify-content:center;
+            .popup__somos__belcorp__icono__cerrar--reservaPedido,
+            .popup__somos__belcorp__icono__cerrar--confirmaCorreo{
+                top: 13px;
             }
 
-                .popup__somos__belcorp--reservaPedido > div:last-child .popup__somos__belcorp__cabecera {
-                    padding-top: 0;
-                }
-
-            .popup__somos__belcorp__icono__cerrar--reservaPedido {
-                top: -58px;
-            }
-
-            .popup__somos__belcorp__icono__cerrar--confirmaCorreo {
-                top: -80px;
-            }
-
-        .popup__somos__belcorp__contenido--reservaPedido {
+        .popup__somos__belcorp__contenido.popup__somos__belcorp__contenido--reservaPedido {
+            width: 100%;
+            position: fixed;
+            bottom: 0;
             padding: 16px 16px 26px 16px;
         }     
         
@@ -173,10 +166,40 @@
 
 }
 
+@media screen and (min-height:613px), (max-height:650px) and (orientation:portrait) {
+
+    .popup__somos__belcorp__icono.popup__somos__belcorp__icono--reservaPedido,
+    .popup__somos__belcorp__icono.popup__somos__belcorp__icono__cerrar--confirmaCorreo {
+        margin-top: calc(100vh - 545px);
+    }
+
+}
+
+@media screen and (max-height:612px) and (orientation:portrait) {
+
+    .popup__somos__belcorp__icono.popup__somos__belcorp__icono--reservaPedido,
+    .popup__somos__belcorp__icono.popup__somos__belcorp__icono__cerrar--confirmaCorreo {
+        margin-top: calc(100vh - 469px);
+    }
+}
+
+@media screen and (max-height: 540px) and (orientation:portrait) {
+
+    .popup__somos__belcorp__icono.popup__somos__belcorp__icono--reservaPedido,
+    .popup__somos__belcorp__icono.popup__somos__belcorp__icono__cerrar--confirmaCorreo {
+        margin-top: 69px;
+    }
+
+    .popup__somos__belcorp__contenido.popup__somos__belcorp__contenido--reservaPedido {
+        position:relative;
+    }    
+}
+
 @media screen and (max-width:991px) and (orientation:landscape) {
 
     .popup__somos__belcorp.popup__somos__belcorp--reservaPedido {
         overflow: auto;
+        max-width:none;
     }
 
         .popup__somos__belcorp--reservaPedido > div:first-child,
@@ -195,6 +218,11 @@
         .popup__somos__belcorp__btn--actualizarCorreo {
             max-width: 320px;
         }
+
+        .popup__somos__belcorp__contenido.popup__somos__belcorp__contenido--reservaPedido{
+            position:relative;
+        }
+
 }
 
 /* FIN - MC - HD-4294 - VALIDAR CORREO EN EL PASE DE PEDIDO */
