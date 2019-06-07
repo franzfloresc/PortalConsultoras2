@@ -1217,9 +1217,9 @@ namespace Portal.Consultoras.Web.Providers
                     || tipo == 1
                     || tipo == 2
                     ? "revistadigital-landing" : "";
-                //INI HD-3908
+
                 prodModel.CodigoPalanca = getCodigoPalanca(estrategia.TipoEstrategia.Codigo);
-                //FIN HD-3908
+
                 prodModel.FotoProducto01 = estrategia.FotoProducto01;
                 prodModel.ImagenURL = estrategia.ImagenURL;
                 prodModel.DescripcionMarca = estrategia.DescripcionMarca;

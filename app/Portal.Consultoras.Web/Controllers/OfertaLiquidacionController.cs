@@ -147,7 +147,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     foreach (var item in lst)
                     {
-                        /*HD-4329*/
                         if (!string.IsNullOrEmpty(item.ImagenProducto))
                         {
                         
