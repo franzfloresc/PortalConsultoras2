@@ -104,6 +104,10 @@
     box-sizing: border-box;
 }
 
+    .fijarTituloMobile ~ .pestana_lbel {
+        z-index: 999;
+    }
+
 .pt-50 {
     padding-top: 50px;
 }
