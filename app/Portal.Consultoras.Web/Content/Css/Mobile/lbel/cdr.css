@@ -262,6 +262,7 @@
 
 .tag__sb--estadoSolicitud {
     font-size: 12px;
+    min-width: 92px;
 }
 
 .estado_pendiente,
