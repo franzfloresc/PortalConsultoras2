@@ -2,11 +2,8 @@
 var scrollLogros = true
 
 $(document).ready(function () {
-
-    if ($("#template-kit").length) {
-        Handlebars.registerPartial("kit_template", $("#template-kit").html());
-        Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
-    }
+    Handlebars.registerPartial("kit_template", $("#template-kit").html());
+    Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
 
     CargarCarrusel();
     CargarGanancias();
@@ -96,21 +93,6 @@ function Carusel() {
     })
 }
 
-$("#carrusel").on('click', '.boton_agregar_ofertas', function (e) {
-    debugger
-    var contenedor = $(this).parents('[data-item="BuscadorFichasProductos"]');
-    var obj = JSON.parse($(this).parents('[data-item="BuscadorFichasProductos"]').find('div [data-demostrador]').attr("data-demostrador"));
-    var cantidad = $(contenedor).find("#txtCantidad").val();
-    var tab = "Demostradores";
-    var a = $(contenedor).attr("#data-oferta");
-    if (cantidad <= 0) {
-        AbrirMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
-        CerrarSplash();
-    } else {
-        AgregarProducto(obj, cantidad, contenedor, tab, false);
-    }
-});
-
 function TagVerTodos(MisLogros) {
     dataLayer.push({
         'event': 'virtualEvent',
@@ -119,6 +101,7 @@ function TagVerTodos(MisLogros) {
         'label': '(not available)'
     });
 }
+
 
 function TagClickSeleccionNivel(nivelConsultora) {
     dataLayer.push({
@@ -261,7 +244,7 @@ function ArmarMisGanancias(data) {
         "#ffdaf3",
         "#ffdaf3",
         "#ffdaf3",
-        "#ffdaf3"
+        "#4f0036"
 
     ];
     var hoverBackgrounds = [
@@ -278,53 +261,52 @@ function ArmarMisGanancias(data) {
             labels: labels,
             datasets: [
                 {
-                    //backgroundColor: "#ffdaf3",
                     backgroundColor: backgroundColors,
                     hoverBackgroundColor: hoverBackgrounds,
-
-                    //backgroundColor: function (value) {
-                    //    if (value < 30) {
-                    //        return 'red';
-                    //    }
-                    //    return 'green';
-                    //},
                     data: serie
                 }
             ]
         },
         options: {
-            
+     
+            showAllTooltips: true,
             onClick: function (evt, elements) {
+      
                 var datasetIndex;
                 var dataset;
-
-                //dataset.backgroundColor[elements[3]._index] = '#4f0036',
-
+                
                 if (elements.length) {
+                   
+                    backgroundColors[5] = '#ffdaf3'; 
                     var index = elements[0]._index;
                     datasetIndex = elements[0]._datasetIndex;
 
-                    // Reset old state
                     dataset = myBar.data.datasets[datasetIndex];
                     dataset.backgroundColor = backgroundColors.slice();
                     dataset.hoverBackgroundColor = hoverBackgrounds.slice();
 
-                    dataset.backgroundColor[index] = '#4f0036'; // click color
+                   
+                    dataset.backgroundColor[index] = '#4f0036'; 
+                    
                     dataset.hoverBackgroundColor[index] = '#4f0036';
+
                 } else {
                     // remove hover styles
                     for (datasetIndex = 0; datasetIndex < myBar.data.datasets.length; ++datasetIndex) {
                         dataset = myBar.data.datasets[datasetIndex];
+
                         dataset.backgroundColor = backgroundColors.slice();
                         dataset.hoverBackgroundColor = hoverBackgrounds.slice();
+                         
                     }
                 }
-
+                
                 myBar.update();
 
             },
             tooltips: {
-                mode: 'point',
+                mode: 'line',
+                displayColors: false,
                 titleFontSize: 9,
                 titleFontFamily: 'Helvetica',
                 titleFontStyle: 'normal',
@@ -333,24 +315,27 @@ function ArmarMisGanancias(data) {
                 backgroundColor: '#fff',
                 titleFontColor: 'rgb(0, 0, 0)',
                 bodyFontColor: 'rgb(0, 0, 0)',
-                xPadding: 5,
+                xPadding: 2,
+                yPadding: 1,
                 yAlign: 'bottom',
                 xAlign: 'center',
+                custom: function (tooltip) {
+                    if (!tooltip) return;
+                    tooltip.displayColors = false;
+                },
                 callbacks: {
-                    label: function (tooltipItem) {
-                        return + Number(tooltipItem.yLabel);
+                    label: function (tooltipItem, data) {
+                        return  + tooltipItem.yLabel;
+                    },
+                    title: function (tooltipItem, data) {
+                        return;
                     }
                 }
             },
             scales: {
 
                 yAxes: [{
-                    //angleLines: {
-                    //    display: false
-                    //},
-                    //scaleLabel: {
-                    //    display: true
-                    //},
+
                     ticks: {
                         display: false,
                         suggestedMin: 50,
@@ -389,7 +374,14 @@ function ArmarMisGanancias(data) {
  
         }
     });
+
+    var item = data.MisGanancias[data.MisGanancias.length-1];
+    $("#ganancia-campania-nombre").text("Ganancia " + item.LabelSerie);
+    $("#ganancia-campania").text(variablesPortal.SimboloMoneda + " " + item.GananciaCampaniaFormat);
+    $("#ganancia-periodo").text(variablesPortal.SimboloMoneda + " " + item.GananciaPeriodoFormat);
+    $("#campanavalor").text(item.LabelSerie);
     
+
     var onClickEvent = function (evt) {
         var activePoints = myBar.getElementsAtEvent(evt);
         if (activePoints.length > 0) {
@@ -400,7 +392,7 @@ function ArmarMisGanancias(data) {
             $("#ganancia-periodo").text(variablesPortal.SimboloMoneda + " " + item.GananciaPeriodoFormat);
         }
     };
-    $("#canvas").click( onClickEvent );
+    $("#canvas").click(onClickEvent);
 }
 
 function ArmarCarrusel(data) {
@@ -428,3 +420,8 @@ function ArmarCarrusel(data) {
     });
     
 }
+
+
+$(window).load(function () {
+    $("#overlayer").delay(200).fadeOut("slow");
+})
