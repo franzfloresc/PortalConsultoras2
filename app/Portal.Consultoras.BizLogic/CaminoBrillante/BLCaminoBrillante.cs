@@ -899,7 +899,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         private BECarruselCaminoBrillante GetCarrusel(BEUsuario entidad, int size)
         {
-            var kits = GetKits(entidad); var demostradores = GetDemostradores(entidad, size, 0, string.Empty, string.Empty);
+            var kits = GetKits(entidad);
+            var demostradores = GetDemostradores(entidad, size, 0, string.Empty, string.Empty);
             if (kits == null && demostradores == null) return null;
 
             var carrusel = new BECarruselCaminoBrillante(); var iSize = size;
@@ -909,7 +910,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 var kitsTop = kits.Where(e => e.FlagHabilitado).OrderByDescending(e => e.CodigoNivel);
                 if (kitsTop.Any())
                 {
-                    carrusel.Items.Add(ToBEOfertaCaminoBrillante(kits.First()));
+                    carrusel.Items.Add(ToBEOfertaCaminoBrillante(kitsTop.First()));
                     iSize -= carrusel.Items.Count;
                 }
             }

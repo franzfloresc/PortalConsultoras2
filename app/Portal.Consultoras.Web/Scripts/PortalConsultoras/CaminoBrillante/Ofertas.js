@@ -134,7 +134,7 @@ function CargarKits() {
                     'ecommerce': {
                         'currencyCode': moneda,
                         'impressions': {
-                            'actionField': 'list: Kits',
+                            'actionField': 'list:' + 'Kits',
                             'products': productos                          
                         }
                     }
@@ -195,7 +195,7 @@ function CargarDemostradores() {
                     'ecommerce': {
                         'currencyCode': moneda,
                         'impressions': {
-                            'actionField': 'list: Demostradores',
+                            'actionField': 'list:' + 'Demostradores',
                             'products': productos
                         }
                     }
@@ -277,7 +277,7 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
                 'ecommerce': {
                     'currencyCode': moneda,
                     'add': {
-                        'actionField': 'list : ' + categoria ,
+                        'actionField': 'list:' + categoria ,
                         'products': [{
                             'name': nombre_producto,
                             'price': precio_producto,
