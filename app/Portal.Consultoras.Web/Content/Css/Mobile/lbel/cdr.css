@@ -1816,13 +1816,32 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .detalle_tipo_solicitud_titulo {
     margin-left: -20px;
     margin-right: -20px;
-    padding: 15px 20px;
-    border-top: 1px solid #979797;
-    border-bottom: 1px solid #979797;
+    padding-left: 20px;
+    padding-right: 20px;
+    min-height:54px;
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
     position: relative;
+    justify-content: flex-start;
+    align-items: center;
 }
 
-    .detalle_tipo_solicitud_titulo > div {
+    .detalle_tipo_solicitud_icono{
+        width:32px;
+        height:auto;
+        margin-right:16px;
+    }
+
+        .detalle_tipo_solicitud_icono img{
+            width:100%;
+            height:auto;
+        }
+
+    .detalle_tipo_solicitud_titulo span:last-child{
+        font-size:15px;
+    }
+
+    /*.detalle_tipo_solicitud_titulo > div {
         display: inline-block;
         vertical-align: middle;
     }
@@ -1833,7 +1852,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 
         .detalle_tipo_solicitud_titulo > div:last-child {
             width: 36%;
-        }
+        }*/
 
 .estado_solic_cdr {
     font-size: 13px;
@@ -1853,6 +1872,13 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .detalle_cdr_solucion > div {
     position: relative;
 }
+
+    .detalle_producto_cdr--flex{
+        display:flex;
+        flex-direction:row;
+        flex-wrap:nowrap;
+        justify-content:space-between;
+    }
 
 /*.detalle_producto_cdr,*/
 .detalle_cdr_solucion_titulo_trueque,
@@ -1889,6 +1915,10 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     right: 0;
 }
 
+    .detalle_precio_producto--relative{
+        position:relative;
+    }
+
 .datos_solicitud_cdr_consulta, .datos_solicitud_cdr_titulo, .estado_productos_cdr {
     display: block;
     text-align: center;
@@ -1897,6 +1927,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .datos_solicitud_cdr_consulta {
     background-color: #f7f7f7;
     position: relative;
+    margin-top:-26px;
     padding: 20px 0 20px 0;
 }
 
