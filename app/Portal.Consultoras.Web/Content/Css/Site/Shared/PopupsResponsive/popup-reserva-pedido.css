@@ -135,7 +135,7 @@
 
             .popup__somos__belcorp__icono__cerrar--reservaPedido,
             .popup__somos__belcorp__icono__cerrar--confirmaCorreo{
-                top: 13px;
+                top: 7px;
             }
 
         .popup__somos__belcorp__contenido.popup__somos__belcorp__contenido--reservaPedido {
@@ -170,7 +170,7 @@
 
     .popup__somos__belcorp__icono.popup__somos__belcorp__icono--reservaPedido,
     .popup__somos__belcorp__icono.popup__somos__belcorp__icono__cerrar--confirmaCorreo {
-        margin-top: calc(100vh - 545px);
+        margin-top: calc(100vh - 504px);
     }
 
 }
