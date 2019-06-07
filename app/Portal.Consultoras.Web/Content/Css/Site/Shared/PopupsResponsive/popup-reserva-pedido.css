@@ -27,10 +27,10 @@
     top: -25px;
 }
 
-.popup__somos__belcorp__icono--reservaPedido {
-    width: 64px;
+.popup__somos__belcorp__icono.popup__somos__belcorp__icono--reservaPedido {
+    width: 60px;
     height: auto;
-    margin-bottom: 16px !important;
+    margin-bottom: 16px;
 }
 
 .popup__somos__belcorp__titulo--reservaPedido,
@@ -222,6 +222,15 @@
         .popup__somos__belcorp__contenido.popup__somos__belcorp__contenido--reservaPedido{
             position:relative;
         }
+
+}
+
+@media screen and (min-width:992px) {
+
+    .popup__somos__belcorp__icono.popup__somos__belcorp__icono--reservaPedido,
+    .popup__somos__belcorp__icono.popup__somos__belcorp__icono__cerrar--confirmaCorreo {
+        margin-top: 0;
+    }
 
 }
 
