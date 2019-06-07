@@ -1808,7 +1808,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         }
 
     .detalle_tipo_solicitud_titulo span:last-child{
-        font-size:15px;
+        font-size:14.5px;
     }
 
     /*.detalle_tipo_solicitud_titulo > div {
