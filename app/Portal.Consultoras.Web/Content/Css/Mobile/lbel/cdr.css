@@ -1875,24 +1875,29 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 
     .detalle_producto_cdr--flex{
         display:flex;
-        flex-direction:row;
-        flex-wrap:wrap;
-        justify-content:space-between;
+        flex-direction:column;
+        flex-wrap:nowrap;
     }
 
-/*.detalle_producto_cdr,*/
+/*.detalle_producto_cdr,
 .detalle_cdr_solucion_titulo_trueque,
 .detalle_cod_producto_trueque {
     margin-bottom: 16px;
-}
+}*/
 
 .detalle_cdr_solucion_titulo_trueque {
     margin-top: 16px;
 }
 
-.detalle_cdr_solucion > div:last-child {
-    margin-bottom: 0;
+.detalle_cod_producto_trueque {
+    border-bottom: 1px solid #808080;
+    padding-top: 16px;
+    padding-bottom: 16px;
 }
+
+    .detalle_cdr_solucion > div:last-child {
+        border-bottom:0;
+    }
 
 .detalle_cdr_solucion_titulo,
 .detalle_cod_producto,
