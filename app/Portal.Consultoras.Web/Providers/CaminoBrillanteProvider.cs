@@ -569,6 +569,10 @@ namespace Portal.Consultoras.Web.Providers
 
         private EstrategiaComponenteModel ToEstrategiaComponenteModel(BEOfertaCaminoBrillante e) {
             return new EstrategiaComponenteModel() {
+                TieneStock = true,
+                CodigoProducto = e.CUV,
+                DescripcionMarca = e.DescripcionMarca,
+                Descripcion = e.DescripcionCUV,                
                 Cantidad = 1,
                 NombreComercial = e.DescripcionCUV,
             };
@@ -586,11 +590,11 @@ namespace Portal.Consultoras.Web.Providers
                 NombreComercial = e.DescripcionCUV, 
             };
         }
-
         private EstrategiaPersonalizadaProductoModel ToEstrategiaPersonalizadaProductoModel(KitCaminoBrillanteModel e, bool loadDetalle = true)
         {
             return new EstrategiaPersonalizadaProductoModel()
             {
+                TipoOfertaCaminoBrillante = Constantes.CaminoBrillante.TipoOferta.Kit,
                 CodigoPalanca = "0",
                 FotoProducto01 = e.FotoProductoMedium,
                 TieneStock = true,
@@ -634,7 +638,7 @@ namespace Portal.Consultoras.Web.Providers
         private EstrategiaPersonalizadaProductoModel ToEstrategiaPersonalizadaProductoModel(DemostradorCaminoBrillanteModel e) {
             return new EstrategiaPersonalizadaProductoModel()
             {
-
+                TipoOfertaCaminoBrillante = Constantes.CaminoBrillante.TipoOferta.Demostrador,
                 CodigoPalanca = "0",
                 FotoProducto01 = e.FotoProductoMedium,
                 TieneStock = true,

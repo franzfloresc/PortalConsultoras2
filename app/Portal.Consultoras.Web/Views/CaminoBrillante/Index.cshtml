@@ -20,7 +20,9 @@
 <link href="~/Content/Css/Site/FichaProductoResponsive/ficha-producto-responsive.css" rel="stylesheet" />
 
 
+
 <div id="overlayer"></div>
+
 <section data-layout="ubicacionWeb" class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
     <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
         <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
@@ -154,31 +156,31 @@
 
     @if (@ViewBag.TieneOfertasEspeciales)
     {
-        <div id="carrusel"></div>
+        <div id="carrusel" style="margin-top:40px;"></div>
         @Html.Partial("Partial/template_kit")
         @Html.Partial("Partial/template_demostrador")
-        <script id="template-carrusel" type="text/x-handlebars-template">
-            <div class="box-kit-demos">
-                <h2 class="title fleft">Kit y Demostradores</h2>
-                {{#if VerMas}}
-                <a href="@Url.Action("Ofertas", "CaminoBrillante")" class="ver-todos">Ver todos</a>
-                {{/if}}
-                <div class="clear"></div>
+<script id="template-carrusel" type="text/x-handlebars-template">
+    <div class="box-kit-demos">
+        <h2 class="title fleft">Kit y Demostradores</h2>
+        {{#if VerMas}}
+        <a href="@Url.Action("Ofertas", "CaminoBrillante")" class="ver-todos">Ver todos</a>
+        {{/if}}
+        <div class="clear"></div>
 
-                <section class="regular slider">
-                    {{#each Items}}
-                    <div class="revistadigital-landing">
-                        {{#iff TipoOferta '==' 2}}
-                        {{> demostrador_template}}
-                        {{/iff}}
-                        {{#iff TipoOferta '==' 1}}
-                        {{> kit_template}}
-                        {{/iff}}
-                    </div>
-                    {{/each}}
-                </section>
+        <section class="regular slider">
+            {{#each Items}}
+            <div class="revistadigital-landing">
+                {{#iff TipoOferta '==' 2}}
+                {{> demostrador_template}}
+                {{/iff}}
+                {{#iff TipoOferta '==' 1}}
+                {{> kit_template}}
+                {{/iff}}
             </div>
-        </script>
+            {{/each}}
+        </section>
+    </div>
+</script>
     }
 
     <div id="boxganancias">
@@ -192,12 +194,12 @@
             <div class="box-montos">
                 <p id="ganancia-campania-nombre" class="text-bold"></p>
                 <img src="https://s3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/BENEFICIOS/pago_diferido.svg">
-                <span id="ganancia-campania"></span>
+                <span id="ganancia-campania" ></span>
             </div>
             <div class="box-montos">
                 <p class="text-bold">Ganancia de periodo</p>
                 <img src="https://s3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/BENEFICIOS/pago_diferido.svg">
-                <span id="ganancia-periodo"></span>
+                <span id="ganancia-periodo" ></span>
             </div>
             <div class="clear"></div>
         </div>
@@ -218,7 +220,9 @@
 
     <script>
         var urlGetCarrusel = '@Url.Action("GetCarruselCaminoBrillante", "CaminoBrillante")';
-        var urlGetMisGanancias = '@Url.Action("GetMisGanancias", "CaminoBrillante")';
+        var urlGetMisGanancias = '@Url.Action("GetMisGanancias", "CaminoBrillante")';   
+        var urlAgregarUnico = '@Url.Action("PedidoAgregarProductoTransaction", "PedidoRegistro", new { area = "" })';
+        var _origenPedidoWeb = '@Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido';
     </script>
 
 }

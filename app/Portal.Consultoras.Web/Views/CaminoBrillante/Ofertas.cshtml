@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     //var Demostradores = ViewBag.Demostradores;
     var origenPedido = ViewBag.EsMobile ? Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido : Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido;
+    ViewBag.origenPedido = origenPedido;
 }
 
 <link href="@Url.Content("~/Content/Css/Site/BusquedaProductos/filtros-busqueda.css")" rel="stylesheet" />
@@ -95,7 +96,7 @@
         var urlGetKits = '@Url.Action("GetKits", "CaminoBrillante", new { area = "" })';
         var urlGetDemostradores = '@Url.Action("GetDemostradores", "CaminoBrillante", new { area = "" })';
         var urlAgregarUnico = '@Url.Action("PedidoAgregarProductoTransaction", "PedidoRegistro", new { area = "" })';
-        var origenPedidoWeb = @origenPedido;
+        var _origenPedidoWeb = @origenPedido;
         var nroRegistrosDemostradores = 12;
         var nroRegistrosKits = 12;
         var urlObtenerFiltros = '@Url.Action("GetFiltrosCaminoBrillante", "CaminoBrillante", new { area = "" })';

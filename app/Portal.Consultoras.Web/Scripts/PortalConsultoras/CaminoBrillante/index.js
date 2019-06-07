@@ -94,20 +94,20 @@ function Carusel() {
 }
 
 $("#carrusel").on('click', '.boton_agregar_ofertas', function (e) {
-    var cantidad = 1;
-    var descTipoOferta = "";
+    debugger
     var contenedor = $(this).parents('[data-item="BuscadorFichasProductos"]');
-    var obj = JSON.parse($(this).parents(contenedor).find('div [data-estrategia]').attr("data-estrategia"));
-    if (obj.TipoOferta == 1) {
-        descTipoOferta == "Kits";
+    var obj = JSON.parse($(this).parents('[data-item="BuscadorFichasProductos"]').find('div [data-demostrador]').attr("data-demostrador"));
+    var cantidad = $(contenedor).find("#txtCantidad").val();
+    var tab = "Demostradores";
+    var a = $(contenedor).attr("#data-oferta");
+    if (cantidad <= 0) {
+        AbrirMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
+        CerrarSplash();
+    } else {
+        AgregarProducto(obj, cantidad, contenedor, tab, false);
     }
-    else if (obj.TipoOferta == 2) {
-        cantidad = $(contenedor).find("#txtCantidad").val();
-        descTipoOferta = "Demostradores";
-        if (cantidad <= 0) {
-            AbrirMensaje("La cantigdad ingresada debe ser un número mayor que cero, verifique");
-            CerrarSplash();
-        } 
+});
+
     }
     AgregarProducto(obj, cantidad, contenedor, descTipoOferta, false);
 });
@@ -335,7 +335,6 @@ function ArmarMisGanancias(data) {
                 titleFontColor: 'rgb(0, 0, 0)',
                 bodyFontColor: 'rgb(0, 0, 0)',
                 xPadding: 5,
-                yAlign: 'center',
                 xAlign: 'center',
                 callbacks: {
                     label: function (tooltipItem) {

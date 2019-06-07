@@ -62,17 +62,8 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         public bool FlagHabilitado { get; set; }
         [DataMember]
         public bool FlagHistorico { get; set; }
-
-        public List<BEKitComponenteCaminoBrillante> Detalle { get; set; }
-    }
-
-    [DataContract]
-    public class BEKitComponenteCaminoBrillante {
-        public string Cuv { get; set; }
-        public string Descripcion { get; set; }
-        public decimal Precio { get; set; }
-        public string Marca { get; set; }
-        public string DescripcionOferta { get; set; }
+        [DataMember]
+        public List<BEKitCaminoBrillante> Detalle { get; set; }
     }
 
 }
