@@ -2004,11 +2004,12 @@
 
         //INI HD-4294
         var configActualizarCorreo = {
-            UrlActualizarEnviarCorreo: '@Url.Action("ActualizarEnviarCorreo", "Pedido", new { area = "" })',
-            MensajeError: '@Html.Raw(Constantes.MensajesError.ActivacionCorreo)',
-            MensajeReenvioExitoso: '@Html.Raw(Constantes.MensajesExito.UpdCorreoConsultora_Reenvio)',
-            CorreoActual: '@Model.EMail'
-        }
+        UrlActualizarEnviarCorreo: '@Url.Action("ActualizarEnviarCorreo", "Pedido", new { area = "" })',
+        UrlPedidoValidado: '@Url.Action("PedidoValidado", "Pedido", new { area = "" })',
+        MensajeError: '@Html.Raw(Constantes.MensajesError.ActivacionCorreo)',
+        MensajeReenvioExitoso: '@Html.Raw(Constantes.MensajesExito.UpdCorreoConsultora_Reenvio)',
+        CorreoActual: '@Model.EMail'
+        };
         //FIN HD-4294
 
 

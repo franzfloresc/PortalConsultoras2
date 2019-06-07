@@ -531,12 +531,6 @@ $(document).ready(function () {
         return false;
     });
 
-     //INI HD-4294
-    $("body").on("close", "#PopupReservaPedido", function () {
-        AbrirSplash();
-        location.href = baseUrl + "Pedido/PedidoValidado";
-    });
-    //FIN HD-429
 });
 
 function CargarDetallePedido(page, rows, asyncrono) {    

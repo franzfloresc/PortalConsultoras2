@@ -4,7 +4,7 @@
 
 <div class="popup__wrapper bg__popups__default" id="PopupReservaPedido">
     <div class="popup__somos__belcorp popup__somos__belcorp--reservaPedido">
-        <div id="Paso1-RegistroCorreo">
+        <div id="Paso1-RegistroCorreo" class="vistaPopup">
             <div class="popup__somos__belcorp__cabecera">
                 <a onclick="javascript: $('#PopupReservaPedido').fadeOut(100, function () { $(this).trigger('close');})" title="Cerrar" class="popup__somos__belcorp__icono__cerrar popup__somos__belcorp__icono__cerrar--reservaPedido">
                     <img src="@Url.Content("~/Content/Images/icono_cerrar_popup.svg")" alt="Cerrar Popup" />
@@ -26,8 +26,8 @@
                 <div class="center-block form__group__fields form__group__fields--confirmacionCorreoBoleta">
                     <input id="txtCorreoElectronicoBoletaElectronica" type="text" class="d-block w-100 text-bold text__field__sb eventActPerfil_Auto" name="txtCorreoElectronicoBoletaElectronica" value="" />
                     <label for="txtCorreoElectronicoBoletaElectronica" class="d-block w-100 text-regular label__field__sb">Correo electrónico</label>
-                    <a href="" title="Editar" class="d-block enlace__editar__correo__reservaPedido" id="iconActivaEditar" style="display:none">
-                        <img src="@Url.Content("~/Content/Images/icono_edit.svg")" alt="Editar" />
+                    <a href="#" title="Editar" class="d-block enlace__editar__correo__reservaPedido"  style="display:none" id="iconActivaEditar">
+                        <img src="@Url.Content("~/Content/Images/icono_edit.svg")" alt="Editar"  />
                     </a>
                     <span id="ValidateCorreo" class="validation__message"></span>
                 </div>
@@ -36,7 +36,7 @@
                 </button>
             </div>
         </div>
-        <div id="VistaPrecarga" class="spinner__wrapper" style="display:none;">
+        <div id="VistaPrecarga" class="spinner__wrapper vistaPopup" style="display:none;">
             <div class="d-block center-block">
                 <svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="precarga__spinner">
                     <symbol id="s--circle">
@@ -86,7 +86,7 @@
                 Cargando
             </p>
         </div>
-        <div id="Paso2-ConfirmacionCorreo" style="display:none;">
+        <div id="Paso2-ConfirmacionCorreo" style="display:none;" class="vistaPopup">
             <div class="popup__somos__belcorp__cabecera">
                 <a onclick="javascript: $('#PopupReservaPedido').fadeOut(100, function () { $(this).trigger('close');})" title="Cerrar" class="popup__somos__belcorp__icono__cerrar popup__somos__belcorp__icono__cerrar--confirmaCorreo">
                     <img src="@Url.Content("~/Content/Images/icono_cerrar_popup.svg")" alt="Cerrar Popup" />
@@ -103,7 +103,7 @@
                     Te enviamos un mensaje a:
                 </p>
                 <div class="w-100 d-inline-block form__group__fields form__group__fields--confirmaCorreo">
-                    <input id="txtCorreoElectronicoPorConfirmar" type="text" class="d-inline-block text-center text-bold text__field__sb" name="txtCorreoElectronicoPorConfirmar" value="cambiodecorreo@example.com" />
+                    <input id="txtCorreoElectronicoPorConfirmar" type="text" class="d-inline-block text-center text-bold text__field__sb" name="txtCorreoElectronicoPorConfirmar" value="cambiodecorreo@example.com" readonly/>
                 </div>
                 <p class="text-center popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--reenvioAlCorreo">
                     <span class="d-block">¿Aún no recibes nuestro correo?</span>
@@ -119,7 +119,7 @@
                     <span class="notificacion_estado_img">
                         <img src="@Url.Content("~/Content/Images/icono_alerta_cierre_sesion.svg")" alt="Error" />
                     </span>
-                    <span class="text-bold">Hubo un error al reenviar el correo, inténtalo de nuevo.</span>
+                    <span class="text-bold textError">Hubo un error al reenviar el correo, inténtalo de nuevo.</span>
                 </div>
             </div>
         </div>

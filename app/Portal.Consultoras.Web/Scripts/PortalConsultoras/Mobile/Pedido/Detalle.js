@@ -86,6 +86,8 @@ $(document).ready(function () {
         numactual = numactual < 1 ? 1 : numactual > 99 ? 99 : numactual;
         $("#txtCantidad").val(numactual);
     });
+
+
 });
 
 var pedidoProvider = PedidoProvider();
@@ -967,10 +969,17 @@ function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == '1') EnviarCorreoPedidoReservado();
     if (estaRechazado == "2") cerrarMensajeEstadoPedido();
 
-    messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>');
+    //messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>');
     //INI HD-4294
+    if (!response.data.IsEmailConfirmado) {
+        new Pedido_ActualizarCorreo(configActualizarCorreo).Inicializar();
+
+    } else {
+        $("#dialog_divReservaSatisfactoria").show();
+        RedirigirPedidoValidado();
+    }
     //FIN HD-4294
-    RedirigirPedidoValidado();
+
 }
 
 function ConstruirObservacionesPROL(model) {
