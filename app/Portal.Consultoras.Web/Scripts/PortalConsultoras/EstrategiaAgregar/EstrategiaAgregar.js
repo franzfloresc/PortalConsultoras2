@@ -538,6 +538,11 @@ var EstrategiaAgregarModule = (function () {
                    var prevTotal = mtoLogroBarra || 0;
                    var issetPopupPremio = $("#popupPremio").length > 0;
 
+                   var ActualizaGananciasLoad = typeof ActualizaGanancias === 'function';
+                   if (ActualizaGananciasLoad) {
+                       ActualizaGanancias(data);
+                   }
+
                    if ($("#divBarra").length > 0) {
                        MostrarBarra(data, destino);
 
