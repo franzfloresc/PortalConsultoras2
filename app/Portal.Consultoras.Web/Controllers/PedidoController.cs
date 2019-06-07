@@ -286,7 +286,6 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Pedidos Pendientes
 
                 ViewBag.MostrarPedidosPendientes = "0";
-                //ViewBag.LanzarTabConsultoraOnline = (lanzarTabConsultoraOnline) ? "1" : "0";
 
                 if (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig())
                 {
@@ -300,19 +299,6 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 ViewBag.MostrarPedidosPendientes = "1";
                                 ViewBag.CantPedidosPendientes = cantPedidosPendientes;
-
-                                //using (var sv = new SACServiceClient())
-                                //{
-                                //    var motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
-                                //    ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
-                                //}
-
-
-                                //var olstMisPedidos =
-                                //    svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID)
-                                //        .ToList();
-
-                                //ViewBag.ListaPedidosPendientesCliente = olstMisPedidos;
 
                             }
                         }
@@ -357,12 +343,6 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Camino Brillante 
 
                 ViewBag.KitsCaminoBrillante = _caminoBrillanteProvider.GetKitsCaminoBrillante().ToList();
-                //var consultoraNivel = SessionManager.GetConsultoraCaminoBrillante();
-                //var nivelConsultora = consultoraNivel.NivelConsultora.FirstOrDefault(e => e.EsActual);
-                //int nivel = 0;
-                //int periodo = 0;
-                //int.TryParse(nivelConsultora.Nivel ?? string.Empty, out nivel);
-                //int.TryParse(nivelConsultora.PeriodoCae ?? string.Empty, out periodo);
 
                 #endregion
 
