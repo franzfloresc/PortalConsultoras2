@@ -21,7 +21,7 @@
 
 
 
-<div id="overlayer"></div>
+<div id="overlayer"><div class="loadingScreen-mensaje"></div></div>
 
 <section data-layout="ubicacionWeb" class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
     <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
@@ -156,7 +156,7 @@
 
     @if (@ViewBag.TieneOfertasEspeciales)
     {
-        <div id="carrusel" style="margin-top:40px;"></div>
+        <div id="carrusel" style="margin-top:25px;"></div>
         @Html.Partial("Partial/template_kit")
         @Html.Partial("Partial/template_demostrador")
 <script id="template-carrusel" type="text/x-handlebars-template">
@@ -186,7 +186,7 @@
     <div id="boxganancias">
         <h2 class="title">Mis Ganancias</h2>
         <div class="box-right-ganancias">
-            <p class="text-bold">Monto de mi pedido C10</p>
+            <p class="text-bold">Monto de mi pedido <strong id="campanavalor-inicial"></strong> <strong id="a"> a </strong> <strong id="campanavalor-final"></strong></p>
             <canvas id="canvas"></canvas>
             <span class="text-bold">Campañas</span>
         </div>
