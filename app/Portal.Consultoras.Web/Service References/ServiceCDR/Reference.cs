@@ -2663,6 +2663,12 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/InsCDRWebDetalle", ReplyAction="http://tempuri.org/ICDRService/InsCDRWebDetalleResponse")]
         System.Threading.Tasks.Task<int> InsCDRWebDetalleAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/UpdCDRWebDetalle", ReplyAction="http://tempuri.org/ICDRService/UpdCDRWebDetalleResponse")]
+        int UpdCDRWebDetalle(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/UpdCDRWebDetalle", ReplyAction="http://tempuri.org/ICDRService/UpdCDRWebDetalleResponse")]
+        System.Threading.Tasks.Task<int> UpdCDRWebDetalleAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/DelCDRWebDetalle", ReplyAction="http://tempuri.org/ICDRService/DelCDRWebDetalleResponse")]
         int DelCDRWebDetalle(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity);
         
@@ -2877,6 +2883,14 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         public System.Threading.Tasks.Task<int> InsCDRWebDetalleAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity) {
             return base.Channel.InsCDRWebDetalleAsync(PaisID, entity);
+        }
+        
+        public int UpdCDRWebDetalle(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity) {
+            return base.Channel.UpdCDRWebDetalle(PaisID, entity);
+        }
+        
+        public System.Threading.Tasks.Task<int> UpdCDRWebDetalleAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity) {
+            return base.Channel.UpdCDRWebDetalleAsync(PaisID, entity);
         }
         
         public int DelCDRWebDetalle(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalle entity) {

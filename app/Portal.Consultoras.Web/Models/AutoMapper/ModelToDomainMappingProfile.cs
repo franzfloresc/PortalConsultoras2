@@ -500,6 +500,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             //INI HD-4200
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEPedidoWeb>();
             //FIN HD-4200
+            Mapper.CreateMap<ProductoComplementarioModel,ServiceCDR.BECDRProductoComplementario>();
         }
     }
 }

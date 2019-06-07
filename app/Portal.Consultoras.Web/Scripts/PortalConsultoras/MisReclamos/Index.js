@@ -1,12 +1,8 @@
 ﻿$(document).ready(function () {
     $(".verDetalle").on("click", function () {
         var elemento = $(this);
-
         var parent = $(elemento).parents(".content_listado_reclamo");
-
         var id = $(parent).find(".cdrweb_id").val();
-
-
         var pedidoId = $(parent).find(".cdrweb_pedidoid").val();
         var estado = $(parent).find(".cdrweb_estado").val();
         var formatoFechaCulminado = $(parent).find(".cdrweb_formatoFechaCulminado").val();
@@ -14,9 +10,6 @@
         var resumenResolucion = $(parent).find(".cdrweb_resumenresolucion").val();
         var consultoraSaldo = $(parent).find(".cdrweb_consultorasaldo").val();
         var mensajeDespacho = IfNull($(parent).find(".cdrweb_mensajedespacho").val(), '');
-
-        console.log(estado);
-
         $("#hdPedidoIdActual").val(pedidoId);
         $("#hdCDRWebID").val(id);
         var item = {
@@ -78,15 +71,10 @@
                 break;
         }
     });
-
-    //$(document).on('click', '[data-accion]', function () {
-    //    DetalleAccion(this);
-    //});
-
     $("#btnFinalizar").on("click", function () {
         var pedidoId = $("#hdPedidoIdActual").val();
         var id = $("#hdCDRWebID").val();
-        var lista = new Array();
+        var lista = [];
 
         $.each($("#divDetallePedidoCdrObservado .txtCantidad"), function (index, value) {
             var elemento = $(value);
@@ -115,12 +103,9 @@
 });
 
 function ObtenerDetalleCdr(item) {
-    $("#divDetallePedidoCdrObservado").html("");
-    $("#divDetallePedidoCdrAprobado").html("");
+    $("#divDetallePedidoCdrDetalle").html("");
     $("#divDetallePedidoCDR").html("");
-
     waitingDialog();
-
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'MisReclamos/DetalleCargar',
@@ -135,10 +120,14 @@ function ObtenerDetalleCdr(item) {
                 return false;
             }
             CalcularMontoTotalTrueque(data);
-            if (item.Estado == 4) {
-                if (data.cantobservado > 0) SetHandlebars("#template-detalle", data, "#divDetallePedidoCdrDetalle");
+            if (item.Estado == 3) {
+                SetHandlebars("#template-detalle", data, "#divDetallePedidoCDR");
             }
-            else SetHandlebars("#template-detalle-1", data, "#divDetallePedidoCDR");
+            if (item.Estado == 4) {
+                SetHandlebars("#template-detalle", data, "#divDetallePedidoCdrDetalle");
+            } else {
+                SetHandlebars("#template-detalle-1", data, "#divDetallePedidoCDR");
+            }
         },
         complete: closeWaitingDialog
     });
@@ -166,11 +155,32 @@ function CalcularMontoTotalTrueque(data) {
     }
 }
 
-function DetalleEliminar(objItem) {
+function EliminarDetalle(el) {
+
+    var pedidodetalleid = $.trim($(el).attr("data-pedidodetalleid"));
+    var grupoid = $.trim($(el).attr("data-detalle-grupoid"));
+    var cuv = $.trim($(el).attr("data-cuv"));
+
     var item = {
-        CDRWebDetalleID: objItem.CDRWebDetalleID
+        CDRWebDetalleID: pedidodetalleid,
+        GrupoID: grupoid,
+        CUV: cuv
     };
 
+    var functionEliminar = function () {
+        DetalleEliminar(item);
+    };
+
+    var msg = "";
+    if (grupoid.length > 0) {
+        msg = "Se eliminaran todos los registros relacionados al producto(Sets o Packs). ¿Deseas continuar?";
+    } else {
+        msg = "Se eliminará el registro seleccionado. ¿Deseas continuar ?";
+    }
+    messageConfirmacion("", msg, functionEliminar);
+}
+
+function DetalleEliminar(item) {
     var resultado = false;
 
     waitingDialog();
@@ -189,8 +199,14 @@ function DetalleEliminar(objItem) {
                 return false;
             }
 
-            if (data.success == true) {
+            if (data.success) {
                 resultado = true;
+                var item = {
+                    CDRWebID: $("#hdCDRWebID").val() || 0,
+                    PedidoID: $("#hdPedidoIdActual").val() || 0,
+                    Estado: 4
+                };
+                ObtenerDetalleCdr(item);
             }
         },
         error: function (data, error) {
@@ -199,6 +215,12 @@ function DetalleEliminar(objItem) {
     });
 
     return resultado;
+}
+
+function ActualizarCantidad(event) {
+    var $el = $(event.target).parent().parent().find(me.Constantes.INPUT_NAME_CANTIDAD);
+    $el.attr("data-cantidad", $el.val());
+    me.Funciones.CalcularTotal();
 }
 
 function ActualizarDetalleObservado(lista) {
@@ -231,3 +253,44 @@ function ActualizarDetalleObservado(lista) {
 
     return resultado;
 };
+
+function AgregarODisminuirCantidad(event, opcion) {
+
+    if (opcion === 1) {
+        EstrategiaAgregarModule.AdicionarCantidad(event);
+    }
+    if (opcion === 2) {
+        EstrategiaAgregarModule.DisminuirCantidad(event);
+    }
+    var $this = $(event.target);
+    var $parent = $this.parents(".producto_solicitud_row")
+
+    var $el_input = $parent.children(".acciones_solicitud").find("input[name=cantidad]");
+    var $el_span = $parent.children(".producto_solicitud").find("span[name=cantidad]");
+    $el_span.text($el_input.val());
+    $el_input.attr("data-cantidad", $el_input.val());
+    CalcularTotalPerItem($parent);
+}
+
+function ActualizarCantidad(event) {
+    var $this = $(event.target);
+    var $parent = $this.parents(".producto_solicitud_row");
+    var $val = $this.val();
+    var $el_span = $parent.children(".producto_solicitud").find("span[name=cantidad]");
+    $el_span.text($val);
+    $this.attr("data-cantidad", $val);
+    CalcularTotalPerItem($parent);
+}
+
+function CalcularTotalPerItem($parent) {
+    var $tagItem = $parent.parent(".pop_solicitud_solucion");
+    var $elementsCantPrice = $tagItem.find(".producto_solicitud");
+    var total = 0;
+    $.each($elementsCantPrice, function () {
+        var $this = $(this);
+        var cant = $this.find("span[name=cantidad]").text();
+        var price = $this.find("span[name=precio]").attr("data-precio");
+        total += parseInt(cant) * parseFloat(price);
+    });
+    $tagItem.find("span[name=total]").text(variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(total));
+}

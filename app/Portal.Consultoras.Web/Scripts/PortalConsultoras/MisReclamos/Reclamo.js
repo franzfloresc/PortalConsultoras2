@@ -42,7 +42,7 @@ $(document).ready(function () {
         $("#divMotivo").html("");
         $(reclamo.form.resultadosBusquedaCuv).empty(); //HD-7303 EINCA
         $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
-        $(reclamo.form.txtCuv).val("").attr("data-codigo","");
+        $(reclamo.form.txtCuv).val("").attr("data-codigo", "");
         if ($(this).val() == "0") {
             $("#ddlnumPedido").html("");
             $("#ddlnumPedido").hide();
@@ -160,7 +160,7 @@ $(document).ready(function () {
             });
         }
     }).on("focusout", function () {
-        $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);        
+        $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
     });
 
     $("#IrSolicitudInicial").on("click", function () {
@@ -506,7 +506,7 @@ function SeleccionarCUVBusqueda(tag) {
     $("#hdfCUV").val(cuv);
     $(reclamo.form.txtCuv).val(cuv + ' - ' + producto).attr("data-codigo", cuv);
     ObtenerDatosCuv();
-}   
+}
 
 function ValidarVisualizacionBannerResumen() {
     var cantidadDetalles = $("#spnCantidadUltimasSolicitadas").html();
@@ -665,9 +665,9 @@ function ValidarPasoUno() {
     }
 
     var $lis = $("#ResultadosBusquedaCUV li");
-    if (!ValidarCUVYaIngresado($lis, $(reclamo.form.txtCuv).attr("data-codigo"),"data-value-cuv")) {
+    if (!ValidarCUVYaIngresado($lis, $(reclamo.form.txtCuv).attr("data-codigo"), "data-value-cuv")) {
         $(reclamo.form.txtCuv).val("");
-        $(reclamo.form.txtCuv).attr("data-codigo","");
+        $(reclamo.form.txtCuv).attr("data-codigo", "");
         alert_msg("Por favor, ingrese un producto válido");
         return false;
     }
@@ -1503,7 +1503,6 @@ function AgregarODisminuirCantidad(event, opcion) {
     if (opcion === 2) {
         EstrategiaAgregarModule.DisminuirCantidad(event);
     }
-
     CalcularTotal();
 }
 
@@ -1625,7 +1624,7 @@ function BuscarInfoCUV(e) {
 
     var $elementsCUV = $("#contenedorCuvTrueque .item-producto-cambio");
     var $arrCuv = $elementsCUV.find("input[name=codigo]");
-    if (ValidarCUVYaIngresado($arrCuv, $this.val(),"data-codigo")) {
+    if (ValidarCUVYaIngresado($arrCuv, $this.val(), "data-codigo")) {
         $this.val("");
         alert_msg("El CUV se encuentra en la lista, puedes aumentar la cantidad.");
         return false;
@@ -1683,7 +1682,7 @@ function CalcularTotal() {
             precioTotal = precioTotal + parseFloat(precio) * parseInt(cantidad);
         }
     });
-    $("#spnImporteTotal2").text(DecimalToStringFormat(precioTotal));
+    $("#spnImporteTotal2").text(variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(precioTotal));
     $("#hdImporteTotal2").val(precioTotal);
     $("#MontoTotalProductoACambiar").fadeIn(100);
 }
@@ -1714,7 +1713,7 @@ function BuscarCUVCambiarServer(cuv, callbackWhenFinish) {
     });
 }
 
-function ValidarCUVYaIngresado(arrElements, cuv,atributo) {
+function ValidarCUVYaIngresado(arrElements, cuv, atributo) {
     var arrFilter = $.grep(arrElements, function (element, index) {
         return $(element).attr(atributo) == cuv;
     });

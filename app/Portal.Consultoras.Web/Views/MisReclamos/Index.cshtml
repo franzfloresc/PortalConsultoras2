@@ -1,6 +1,8 @@
 ﻿@using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.MisReclamosModel
 @{
+    /**/
+
     ViewBag.Title = "Cambios y devoluciones";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
@@ -222,8 +224,6 @@
         <div class="content_pop_grilla">
             <div id="divDetallePedidoCdrDetalle">
             </div>
-            <div id="divDetallePedidoCdrAprobado">
-            </div>
             <div class="linea_separadora_roja multimarca-background-color" style="height: 2px;"></div>
             <a href="#" id="btnFinalizar" class="d-block pull-right border-radius-4 text-bold text-center text-uppercase btn__sb btn__sb__primary--multimarca btn__sb--continuarEnvio">
                 Continuar
@@ -308,304 +308,236 @@
 </script>
 
 <script id="template-detalle" type="text/x-handlebars-template">
-    @*<div class="color-multimarca titulo_grilla titulo_grilla--productosObservados">PRODUCTOS OBSERVADOS:</div>*@
-    <div class="subtitulo_grilla subtitulo_grilla--productosObservados">Resuelve las observaciones y envía nuevamente la solicitud</div>
-    <div class="content_listado_reclamo">
-        <div class="pop_solicitud_producto text_gris_reclamo pop_solicitud_producto--nom">Producto</div>
-        <div class="text-center pop_solicitud_tipo text_gris_reclamo pop_solicitud_tipo--nomSolucion">Tipo de solicitud</div>
-        <div class="pop_solicitud_solucion text_gris_reclamo pop_solicitud_solucion--listadoProductos">Solución solicitada</div>
-        <div class="pop_solicitud_resolucion text_gris_reclamo pop_solicitud_resolucion--estado">Resolución</div>
-        <div class="text-center pop_solicitud_resolucion text_gris_reclamo pop_solicitud_solucion--acciones">Acciones</div>
-    </div>
-    <div class="linea_separadora"></div>
-    {{#each detalle as |item|}}
-    <div class="content_listado_reclamo {{#if_eq item.CodigoOperacion 'T'}} content_listado_reclamo--contenidoGrilla {{/if_eq}}" data-pedidodetalleid="{{item.CDRWebDetalleID}}">
-        <div class="pop_solicitud_producto pop_solicitud_producto--nom">
-            {{#if_eq item.GrupoID ''}}
+    <div>
+        <div class="subtitulo_grilla subtitulo_grilla--productosObservados">Resuelve las observaciones y envía nuevamente la solicitud</div>
+        <div class="content_listado_reclamo">
+            <div class="pop_solicitud_producto text_gris_reclamo pop_solicitud_producto--nom">Producto</div>
+            <div class="text-center pop_solicitud_tipo text_gris_reclamo pop_solicitud_tipo--nomSolucion">Tipo de solicitud</div>
+            <div class="pop_solicitud_solucion text_gris_reclamo pop_solicitud_solucion--listadoProductos">Solución solicitada</div>
+            <div class="pop_solicitud_resolucion text_gris_reclamo pop_solicitud_resolucion--estado">Resolución</div>
+            <div class="text-center pop_solicitud_resolucion text_gris_reclamo pop_solicitud_solucion--acciones">Acciones</div>
+        </div>
+        <div class="linea_separadora"></div>
+        {{#each detalle as |item|}}
+        <div class="content_listado_reclamo {{#if_eq item.CodigoOperacion 'T'}} content_listado_reclamo--contenidoGrilla {{/if_eq}}" data-pedidodetalleid="{{item.CDRWebDetalleID}}">
+            <div class="pop_solicitud_producto pop_solicitud_producto--nom">
+                {{#if_eq item.GrupoID ''}}
 
-            {{else}}
-            <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div><br />
-            {{/if_eq}}
-            <span class="d-block">{{item.CUV}}</span>
-            <span class="d-block text-bold">{{item.Descripcion}}</span>
-            <span class="d-block">{{item.Cantidad}} unidades</span>
-            <span class="d-block">Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}</span>
-        </div>
-        <div class="text-center pop_solicitud_tipo pop_solicitud_tipo--nomSolucion">
-            <div class="listado_solicitud_reclamo_icono_solucion">
-                {{#if_eq item.CodigoOperacion 'D'}}
-                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else}}
+                <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div><br />
+                {{/if_eq}}
+                <span class="d-block">{{item.CUV}}</span>
+                <span class="d-block text-bold">{{item.Descripcion}}</span>
+                <span class="d-block">{{item.Cantidad}} unidades</span>
+                <span class="d-block">Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}</span>
+            </div>
+            <div class="text-center pop_solicitud_tipo pop_solicitud_tipo--nomSolucion">
+                <div class="listado_solicitud_reclamo_icono_solucion">
+                    {{#if_eq item.CodigoOperacion 'D'}}
+                    <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                    {{else if_eq item.CodigoOperacion 'T'}}
+                    <img src="@Url.Content("~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                    {{else if_eq item.CodigoOperacion 'C' }}
+                    <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                    {{else if_eq item.CodigoOperacion 'F' }}
+                    <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                    {{else if_eq item.CodigoOperacion 'G' }}
+                    <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                    {{/if_eq}}
+                </div>
+                <div class="text-center text-bold">
+                    {{item.Solicitud}}
+                </div>
+            </div>
+            <div class="pop_solicitud_solucion pop_solicitud_solucion--listadoProductos--content">
+                {{#if_eq item.CodigoOperacion 'C'}}
+                <div class="d-flex w-100 producto_solicitud_row">
+                    <div class="d-block text-center producto_solicitud">{{item.SolucionSolicitada}}</div>
+                    {{#if_eq item.Estado '3'}}
+                    <div class="d-flex estado_producto_solicitud">
+                        <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoAceptado">Aprobado</div>
+                    </div>
+                    <div class="d-flex acciones_solicitud">
+                    </div>
+                    {{else}}
+                    <div class="d-flex estado_producto_solicitud">
+                        <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoRechazado">Rechazado</div>
+                        <div class="descripcion_estado_producto_solicitud">{{item.Observacion}}</div>
+                    </div>
+                    <div class="d-flex acciones_solicitud">
+                        <a data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-detalle-grupoid="{{item.GrupoID}}" href="javascript:void(0);" onclick="EliminarDetalle(this);" title="Eliminar" class="d-block enlace_eliminar_producto_rechazado">
+                            <img src="@Url.Content("~/Content/Images/Esika/icons-trash.svg")" alt="Eliminar" />
+                        </a>
+                    </div>
+                    {{/if_eq}}
+                </div>
+                {{else if_eq item.CodigoOperacion 'D'}}
+                <div class="d-flex w-100 producto_solicitud_row">
+                    <div class="d-block text-center producto_solicitud">{{item.SolucionSolicitada}}</div>
+                    {{#if_eq item.Estado '3'}}
+                    <div class="d-flex estado_producto_solicitud">
+                        <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoAceptado">Aprobado</div>
+                    </div>
+                    <div class="d-flex acciones_solicitud">
+                    </div>
+                    {{else}}
+                    <div class="d-flex estado_producto_solicitud">
+                        <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoRechazado">Rechazado</div>
+                        <div class="descripcion_estado_producto_solicitud">{{item.Observacion}}</div>
+                    </div>
+                    <div class="d-flex acciones_solicitud">
+                        <a data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-detalle-grupoid="{{item.GrupoID}}" href="javascript:void(0);" onclick="EliminarDetalle(this);" title="Eliminar" class="d-block enlace_eliminar_producto_rechazado">
+                            <img src="@Url.Content("~/Content/Images/Esika/icons-trash.svg")" alt="Eliminar" />
+                        </a>
+                    </div>
+                    {{/if_eq}}
+                </div>
+                {{else if_eq item.CodigoOperacion 'F'}}
+                <div class="d-flex w-100 producto_solicitud_row">
+                    <div class="d-block text-center producto_solicitud">{{item.SolucionSolicitada}}</div>
+                    {{#if_eq item.Estado '3'}}
+                    <div class="d-flex estado_producto_solicitud">
+                        <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoAceptado">Aprobado</div>
+                    </div>
+                    <div class="d-flex acciones_solicitud">
+                    </div>
+                    {{else}}
+                    <div class="d-flex estado_producto_solicitud">
+                        <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoRechazado">Rechazado</div>
+                        <div class="descripcion_estado_producto_solicitud">{{item.Observacion}}</div>
+                    </div>
+                    <div class="d-flex acciones_solicitud">
+                        <a data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-detalle-grupoid="{{item.GrupoID}}" href="javascript:void(0);" onclick="EliminarDetalle(this);" title="Eliminar" class="d-block enlace_eliminar_producto_rechazado">
+                            <img src="@Url.Content("~/Content/Images/Esika/icons-trash.svg")" alt="Eliminar" />
+                        </a>
+                    </div>
+                    {{/if_eq}}
+                </div>
+                {{else if_eq item.CodigoOperacion 'G'}}
+                <div class="d-flex w-100 producto_solicitud_row">
+                    <div class="d-block text-center producto_solicitud">{{item.SolucionSolicitada}}</div>
+                    {{#if_eq item.Estado '3'}}
+                    <div class="d-flex estado_producto_solicitud">
+                        <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoAceptado">Aprobado</div>
+                    </div>
+                    <div class="d-flex acciones_solicitud">
+                    </div>
+                    {{else}}
+                    <div class="d-flex estado_producto_solicitud">
+                        <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoRechazado">Rechazado</div>
+                        <div class="descripcion_estado_producto_solicitud">{{item.Observacion}}</div>
+                    </div>
+                    <div class="d-flex acciones_solicitud">
+                        <a data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-detalle-grupoid="{{item.GrupoID}}" href="javascript:void(0);" onclick="EliminarDetalle(this);" title="Eliminar" class="d-block enlace_eliminar_producto_rechazado">
+                            <img src="@Url.Content("~/Content/Images/Esika/icons-trash.svg")" alt="Eliminar" />
+                        </a>
+                    </div>
+                    {{/if_eq}}
+                </div>
                 {{else if_eq item.CodigoOperacion 'T'}}
-                <img src="@Url.Content("~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
-                {{else if_eq item.CodigoOperacion 'C' }}
-                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
-                {{else if_eq item.CodigoOperacion 'F' }}
-                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
-                {{else if_eq item.CodigoOperacion 'G' }}
-                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
-                {{/if_eq}}
-            </div>
-            <div class="text-center text-bold">
-                {{item.Solicitud}}
-            </div>
-        </div>
-        <div class="pop_solicitud_solucion pop_solicitud_solucion--listadoProductos--content">
-            {{#if_eq item.CodigoOperacion 'C'}}
-            <div class="d-flex w-100 producto_solicitud_row">
-                <div class="d-block text-center producto_solicitud">{{item.SolucionSolicitada}}</div>
-                {{#if_eq item.Estado '3'}}
-                    <div class="d-flex estado_producto_solicitud">
-                        <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoAceptado">Aprobado</div>
+                {{#if item.DetalleReemplazo}}
+                {{#each item.DetalleReemplazo as |subItem|}}
+                <div class="d-flex w-100 producto_solicitud_row">
+                    <div class="d-block producto_solicitud">
+                        <span class="d-block">{{subItem.CUV}}</span>
+                        <span class="d-block text-bold">{{subItem.Descripcion}}</span>
+                        <span class="d-block"><span name="cantidad">{{subItem.Cantidad}}</span>  unidades</span>
+                        <span class="d-block" name="precio" data-precio="{{subItem.Precio}}">Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}</span>
                     </div>
-                    <div class="d-flex acciones_solicitud">
-                    </div>
-                {{else}}
+                    {{#if_eq subItem.Estado '4'}}
                     <div class="d-flex estado_producto_solicitud">
+                        <input type="hidden" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-producto-type="grupal" value="{{subItem.CUV}}" />
                         <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoRechazado">Rechazado</div>
-                <div class="descripcion_estado_producto_solicitud">{{item.Observacion}}</div>
+                        <div class="descripcion_estado_producto_solicitud">{{subItem.Observacion}}</div>
                     </div>
                     <div class="d-flex acciones_solicitud">
-                        <a href="" title="Eliminar" class="d-block enlace_eliminar_producto_rechazado">
+                        <div class="rango_producto_observado" data-cantidad-contenedor="">
+                            <input style="background: white;"
+                                   type="text"
+                                   name="cantidad"
+                                   data-input="cantidad"
+                                   value="{{subItem.Cantidad}}"
+                                   data-cantidad="{{subItem.Cantidad}}"
+                                   onchange="ActualizarCantidad(event);"
+                                   maxlength="2"
+                                   class="txtCantidad liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" />
+                            <div class="liquidacion_rango_right_pedido" style="background: white;">
+                                <a class="mas" onclick="AgregarODisminuirCantidad(event,1)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                <a class="menos" onclick="AgregarODisminuirCantidad(event,2)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                            </div>
+                        </div>
+                        <a data-pedidodetalleid="{{item.CDRWebDetalleID}}"
+                           data-cuv="{{subItem.CUV}}" data-detalle-grupoid=""
+                           href="javascript:void(0);"
+                           onclick="EliminarDetalle(this);" title="Eliminar" class="d-block enlace_eliminar_producto_rechazado">
                             <img src="@Url.Content("~/Content/Images/Esika/icons-trash.svg")" alt="Eliminar" />
                         </a>
                     </div>
-                {{/if_eq}}
-            </div>
-            {{else if_eq item.CodigoOperacion 'D'}}
-            <div class="d-flex w-100 producto_solicitud_row">
-                <div class="d-block text-center producto_solicitud">{{item.SolucionSolicitada}}</div>
-                {{#if_eq item.Estado '3'}}
+                    {{else}}
                     <div class="d-flex estado_producto_solicitud">
                         <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoAceptado">Aprobado</div>
                     </div>
-                    <div class="d-flex acciones_solicitud">
-                    </div>
-                {{else}}
-                    <div class="d-flex estado_producto_solicitud">
-                        <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoRechazado">Rechazado</div>
-                <div class="descripcion_estado_producto_solicitud">{{item.Observacion}}</div>
-                    </div>
-                    <div class="d-flex acciones_solicitud">
-                        <a href="" title="Eliminar" class="d-block enlace_eliminar_producto_rechazado">
-                            <img src="@Url.Content("~/Content/Images/Esika/icons-trash.svg")" alt="Eliminar" />
-                        </a>
-                    </div>
-                {{/if_eq}}
-            </div>
-            {{else if_eq item.CodigoOperacion 'F'}}
-            <div class="d-flex w-100 producto_solicitud_row">
-                <div class="d-block text-center producto_solicitud">{{item.SolucionSolicitada}}</div>
-                {{#if_eq item.Estado '3'}}
-                    <div class="d-flex estado_producto_solicitud">
-                        <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoAceptado">Aprobado</div>
-                    </div>
-                    <div class="d-flex acciones_solicitud">
-                    </div>
-                {{else}}
-                    <div class="d-flex estado_producto_solicitud">
-                        <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoRechazado">Rechazado</div>
-                <div class="descripcion_estado_producto_solicitud">{{item.Observacion}}</div>
-                    </div>
-                    <div class="d-flex acciones_solicitud">
-                        <a href="" title="Eliminar" class="d-block enlace_eliminar_producto_rechazado">
-                            <img src="@Url.Content("~/Content/Images/Esika/icons-trash.svg")" alt="Eliminar" />
-                        </a>
-                    </div>
-                {{/if_eq}}
-            </div>
-            {{else if_eq item.CodigoOperacion 'G'}}
-            <div class="d-flex w-100 producto_solicitud_row">
-                <div class="d-block text-center producto_solicitud">{{item.SolucionSolicitada}}</div>
-                {{#if_eq item.Estado '3'}}
-                    <div class="d-flex estado_producto_solicitud">
-                        <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoAceptado">Aprobado</div>
-                    </div>
-                    <div class="d-flex acciones_solicitud">
-                    </div>
-                {{else}}
-                    <div class="d-flex estado_producto_solicitud">
-                        <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoRechazado">Rechazado</div>
-                <div class="descripcion_estado_producto_solicitud">{{item.Observacion}}</div>
-                    </div>
-                    <div class="d-flex acciones_solicitud">
-                        <a href="" title="Eliminar" class="d-block enlace_eliminar_producto_rechazado">
-                            <img src="@Url.Content("~/Content/Images/Esika/icons-trash.svg")" alt="Eliminar" />
-                        </a>
-                    </div>
-                {{/if_eq}}
-            </div>
-            {{else if_eq item.CodigoOperacion 'T'}}
-            {{#if item.DetalleReemplazo}}
-            {{#each item.DetalleReemplazo as |subItem|}}
-            <div class="d-flex w-100 producto_solicitud_row">
-                <div class="d-block producto_solicitud">
-                    <span class="d-block">{{subItem.CUV}}</span>
-                    <span class="d-block text-bold">{{subItem.Descripcion}}</span>
-                    <span class="d-block">{{subItem.Cantidad}} unidades</span>
-                    <span class="d-block">Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}</span>
+                    <div class="d-flex acciones_solicitud"></div>
+                    {{/if_eq}}
                 </div>
-                {{#if_eq subItem.Estado '4'}}
-                <div class="d-flex estado_producto_solicitud">
-                    <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoRechazado">Rechazado</div>
-                    <div class="descripcion_estado_producto_solicitud">{{subItem.Observacion}}</div>
-                </div>
-                <div class="d-flex acciones_solicitud">
-                    <div class="rango_producto_observado" data-cantidad-contenedor="">
-                        <input style="background: white;" type="text" name="Cantidad" data-input="cantidad" value="1" maxlength="2" class="txtCantidad liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid"
-                               attrKey="PreValidarCUV"
-                               onfocus=" SeleccionarContenido(this) " />
-                        <div class="liquidacion_rango_right_pedido" style="background: white;">
-                            <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                            <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                {{/each}}
+                <div class="text-bold text-uppercase producto_solicitud_row">Total: <span name="total">{{SimboloMoneda}} {{DecimalToStringFormat item.Total}}</span></div>
+                {{else}}
+                <div class="d-flex w-100 producto_solicitud_row">
+                    <div class="d-block producto_solicitud">
+                        <span class="d-block">{{item.CUV2}}</span>
+                        <span class="d-block text-bold">{{item.Descripcion2}}</span>
+                        <span class="d-block"><span name="cantidad">{{item.Cantidad}}</span> unidades</span>
+                        <span class="d-block" name="precio" data-precio="{{item.Precio2}}">Precio: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}</span>
+                    </div>
+                    {{#if_eq item.Estado '4'}}
+                    <div class="d-flex estado_producto_solicitud">
+                        <input data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-producto-type="indivudial" type="hidden" />
+                        <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoRechazado">Rechazado</div>
+                        <div class="descripcion_estado_producto_solicitud">
+                            {{item.Observacion}}
                         </div>
                     </div>
-                    <a href="" title="Eliminar" class="d-block enlace_eliminar_producto_rechazado">
-                        <img src="@Url.Content("~/Content/Images/Esika/icons-trash.svg")" alt="Eliminar" />
-                    </a>
-                </div>
-                {{else}}
-                <div class="d-flex estado_producto_solicitud">
-                    <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoAceptado">Aprobado</div>
-                </div>
-                <div class="d-flex acciones_solicitud"></div>
-                {{/if_eq}}
-            </div>
-            {{/each}}
-            <div class="text-bold text-uppercase producto_solicitud_row">Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}</div>
-            {{else}}
-            <div class="d-flex w-100 producto_solicitud_row">
-                <div class="d-block producto_solicitud">
-                    <span class="d-block">{{item.CUV2}}</span>
-                    <span class="d-block text-bold">{{item.Descripcion2}}</span>
-                    <span class="d-block">{{item.Cantidad2}} unidades</span>
-                    <span class="d-block">Precio: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}</span>
-                </div>
-                {{#if_eq item.Estado '4'}}
-                <div class="d-flex estado_producto_solicitud">
-                    <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoRechazado">Rechazado</div>
-                    <div class="descripcion_estado_producto_solicitud">
-                        {{#if_eq item.TipoMotivoRechazo '1'}}
-                        Debes eliminar este producto para procesar nuevamente tu solicitud.
-                        {{else if_eq item.TipoMotivoRechazo '2'}}
-                        @*Debes modificar la cantidad y/o eliminar este producto para procesar nuevamente tu solicitud.*@
-                        {{else}}
-                        Debes eliminar este producto para procesar nuevamente tu solicitud.
-                        {{/if_eq}}
+                    <div class="d-flex acciones_solicitud">
+                        <div class="rango_producto_observado" data-cantidad-contenedor="">
+                            <input style="background: white;"
+                                   type="text"
+                                   name="cantidad"
+                                   data-input="cantidad"
+                                   data-cantidad="{{item.Cantidad}}"
+                                   value="{{item.Cantidad}}"
+                                   onchange="ActualizarCantidad(event);"
+                                   maxlength="2" class="txtCantidad liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" />
+                            <div class="liquidacion_rango_right_pedido" style="background: white;">
+                                <a class="mas" onclick="AgregarODisminuirCantidad(event,1)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                <a class="menos" onclick="AgregarODisminuirCantidad(event,2)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                            </div>
+                        </div>
+                        <a data-pedidodetalleid="{{item.CDRWebDetalleID}}"
+                           data-detalle-grupoid="{{item.GrupoID}}"
+                           href="javascript:void(0);" onclick="EliminarDetalle(this);" title="Eliminar" class="d-block enlace_eliminar_producto_rechazado">
+                            <img src="@Url.Content("~/Content/Images/Esika/icons-trash.svg")" alt="Eliminar" />
+                        </a>
                     </div>
-                </div>
-                <div class="d-flex acciones_solicitud">
-                    <div class="rango_producto_observado" data-cantidad-contenedor="">
-                        <input style="background: white;" type="text" name="Cantidad" data-input="cantidad" value="1" maxlength="2" class="txtCantidad liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid"
-                               attrKey="PreValidarCUV"
-                               onfocus=" SeleccionarContenido(this) " />
-                        <div class="liquidacion_rango_right_pedido" style="background: white;">
-                            <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                            <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    {{else}}
+                    <div class="d-flex estado_producto_solicitud">
+                        <div class="tag_sb text-bold text-uppercase estado_texto EstadoAceptado">
+                            APROBADO
                         </div>
                     </div>
-                    <a href="" title="Eliminar" class="d-block enlace_eliminar_producto_rechazado">
-                        <img src="@Url.Content("~/Content/Images/Esika/icons-trash.svg")" alt="Eliminar" />
-                    </a>
+                    <div class="d-flex acciones_solicitud"></div>
+                    {{/if_eq}}
                 </div>
+                {{/if}}
                 {{else}}
-                <div class="d-flex estado_producto_solicitud">
-                    <div class="tag_sb text-bold text-uppercase estado_texto EstadoAceptado">
-                        APROBADO
-                    </div>
-                </div>
-                <div class="d-flex acciones_solicitud"></div>
+
                 {{/if_eq}}
             </div>
-            {{/if}}
-            {{else}}
-
-            {{/if_eq}}
         </div>
+        {{/each}}
     </div>
-    {{/each}}
 </script>
 
-<script id="template-detalle-2-aprobado" type="text/x-handlebars-template">
-    <div class="titulo_grilla">PRODUCTOS APROBADOS:</div>
-    <div class="content_listado_reclamo">
-        <div class="pop_solicitud_producto text_gris_reclamo">Producto</div>
-        <div class="pop_solicitud_tipo text_gris_reclamo">Tipo de solicitud</div>
-        <div class="pop_solicitud_solucion text_gris_reclamo">Solución solicitada:</div>
-        <div class="pop_solicitud_resolucion text_gris_reclamo">Resolución:</div>
-    </div>
-    <div class="linea_separadora"></div>
-
-    {{#each detalle as |item|}}
-    {{#if_eq item.Estado '3'}}
-    <div class="content_listado_reclamo">
-        <div class="pop_solicitud_producto">
-            {{item.CUV}}<br>
-            <b>{{item.Descripcion}}</b> <br>
-            {{item.Cantidad}} unidades<br>
-            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
-        </div>
-        <div class="pop_solicitud_tipo">
-            <div class="listado_solicitud_reclamo_icono_solucion">
-                {{#if_eq item.CodigoOperacion 'D'}}
-                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
-                {{else if_eq item.CodigoOperacion 'T'}}
-                <img src="@Url.Content("~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
-                {{else if_eq item.CodigoOperacion 'C' }}
-                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
-                {{else if_eq item.CodigoOperacion 'F' }}
-                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
-                {{else if_eq item.CodigoOperacion 'G' }}
-                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
-                {{/if_eq}}
-            </div>
-            <div style="text-align:center;">
-                <b>{{item.Solicitud}}</b>
-            </div>
-        </div>
-        <div class="pop_solicitud_solucion">
-            {{#if_eq CodigoOperacion 'C'}}
-            {{item.SolucionSolicitada}}
-            {{else if_eq CodigoOperacion 'D'}}
-            {{item.SolucionSolicitada}}
-            {{else if_eq CodigoOperacion 'F'}}
-            {{item.SolucionSolicitada}}
-            {{else if_eq CodigoOperacion 'G'}}
-            {{item.SolucionSolicitada}}
-            {{else if_eq CodigoOperacion 'T'}}
-            {{#if item.DetalleReemplazo}}
-            {{#each item.DetalleReemplazo as |subItem|}}
-            {{subItem.CUV}}
-            <br />
-            <b>{{subItem.Descripcion}}</b>
-            <br />
-            {{subItem.Cantidad}} unidades
-            <br />
-            Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}
-            <br />
-            {{/each}}
-            <br />
-            Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}
-            {{else}}
-            {{item.CUV2}}
-            <br />
-            <b>{{item.Descripcion2}}</b>
-            <br />
-            {{item.Cantidad2}} unidades
-            <br />
-            <br />
-            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
-            {{/if}}
-            {{else}}
-
-            {{/if_eq}}
-        </div>
-        <div class="pop_solicitud_resolucion"><span class="estado_texto EstadoAceptado">APROBADO</span></div>
-        <hr class="clear" />
-    </div>
-    {{/if_eq}}
-    {{/each}}
-</script>
-|
 @section scripts{
     <script type="text/javascript">
         var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
@@ -614,7 +546,7 @@
         var urlReclamo = '@Url.Action("Reclamo")';
         var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
     </script>
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/MisReclamos/Index.js")?v2"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/MisReclamos/Index.js")?v3"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
 }
 

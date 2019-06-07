@@ -32,6 +32,30 @@ namespace Portal.Consultoras.BizLogic.CDR
                 return 0;
             }
         }
+
+        public int UpdCDRWebDetalle(int PaisID, BECDRWebDetalle entity)
+        {
+            try
+            {
+                int retorno;
+                var daCdrWebDetalle = new DACDRWebDetalle(PaisID);
+                TransactionOptions oTransactionOptions = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted
+                };
+                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+                {
+                    retorno = daCdrWebDetalle.UpdCDRWebDetalle(entity);
+                    oTransactionScope.Complete();
+                }
+                return retorno;
+
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
         //HD-3703 EINCA
         public int InsCDRWebDetalle(int PaisID, List<BECDRWebDetalle> detalle)
         {
@@ -118,6 +142,9 @@ namespace Portal.Consultoras.BizLogic.CDR
                 return 0;
             }
         }
+
+        
+
         public List<BECDRWebDetalle> GetCDRWebDetalle(int PaisID, BECDRWebDetalle entity, int pedidoId)
         {
             var listaEntity = new List<BECDRWebDetalle>();

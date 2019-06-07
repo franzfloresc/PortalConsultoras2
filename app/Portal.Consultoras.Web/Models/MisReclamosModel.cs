@@ -82,7 +82,7 @@ namespace Portal.Consultoras.Web.Models
                         "<estado>{5}</estado>" +
                         "<codigorechazo>{6}</codigorechazo>" +
                         "<obs>{7}</obs>" +
-                        "</reemplazo>", item.CUV, item.Cantidad, item.Descripcion, item.Simbolo, item.Precio, item.Cantidad,item.CodigoMotivoRechazo,item.Observacion);
+                        "</reemplazo>", item.CUV, item.Cantidad, item.Descripcion, item.Simbolo, item.Precio, item.Estado, item.CodigoMotivoRechazo, item.Observacion);
                 }
                 sb.Append("</reemplazos>");
                 strOut = sb.ToString();

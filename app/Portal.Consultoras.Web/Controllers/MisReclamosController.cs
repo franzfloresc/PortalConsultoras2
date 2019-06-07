@@ -667,6 +667,13 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Lo sentirmos, ocurrió un error. Vuelva a interntar mas tarde.",
+                    data = respuestaServiceCdr,
+                    flagSetsOrPack = false,
+                }, JsonRequestBehavior.AllowGet);
             }
 
             #endregion
@@ -1057,11 +1064,17 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+
                 var entidadDetalle = new ServiceCDR.BECDRWebDetalle { CDRWebDetalleID = model.CDRWebDetalleID, GrupoID = model.GrupoID };//HD-3703 EINCA
-                using (CDRServiceClient sv = new CDRServiceClient())
+                var resultado = EliminarTrueque(model, entidadDetalle);
+                if (resultado == 0)
                 {
-                    sv.DelCDRWebDetalle(userData.PaisID, entidadDetalle);
+                    using (CDRServiceClient sv = new CDRServiceClient())
+                    {
+                        sv.DelCDRWebDetalle(userData.PaisID, entidadDetalle);
+                    }
                 }
+
                 return Json(new
                 {
                     success = true,
@@ -1078,6 +1091,39 @@ namespace Portal.Consultoras.Web.Controllers
                     detalle = ""
                 }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        private int EliminarTrueque(MisReclamosModel model, ServiceCDR.BECDRWebDetalle entidadDetalle)
+        {
+            int resultado = 0;
+            var detalle = SessionManager.GetCDRWebDetalle();
+            if (detalle != null)
+            {
+                var detalleTrueque = detalle.FirstOrDefault(a => a.CDRWebDetalleID == model.CDRWebDetalleID && !string.IsNullOrEmpty(a.XMLReemplazo));
+                if (detalleTrueque != null)
+                {
+                    var nuevoDetalleReemplazo = detalleTrueque.DetalleReemplazo.Where(a => a.CUV != model.CUV).ToList();
+                    if (nuevoDetalleReemplazo.Count > 0)
+                    {
+                        var nuevoDetalleReemplazoCDR = Mapper.Map<List<ServiceCDR.BECDRProductoComplementario>, List<ProductoComplementarioModel>>(nuevoDetalleReemplazo);
+                        var detalleXmlReemplazo = MisReclamosModel.ListToXML(nuevoDetalleReemplazoCDR);
+                        entidadDetalle.XMLReemplazo = detalleXmlReemplazo;
+                        using (CDRServiceClient sv = new CDRServiceClient())
+                        {
+                            resultado = sv.UpdCDRWebDetalle(userData.PaisID, entidadDetalle);
+                        }
+                    }
+                    else
+                    {
+                        using (CDRServiceClient sv = new CDRServiceClient())
+                        {
+                            resultado = sv.DelCDRWebDetalle(userData.PaisID, entidadDetalle);
+
+                        }
+                    }
+                }
+            }
+            return resultado;
         }
 
         public JsonResult SolicitudEnviar(MisReclamosModel model)
