@@ -1031,6 +1031,9 @@ $(document).ready(function () {
 
     $('#hrefTerminosMD').click(function () { me.Eventos.EnlaceTerminosCondiciones(); });
 
+    function ShowLoading() { $("#loading-spin").fadeIn(); }
+
+    function CloseLoading() { $("#loading-spin").fadeOut("fast"); }
 });
 
 
