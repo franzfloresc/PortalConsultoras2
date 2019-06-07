@@ -114,6 +114,7 @@ $("#carrusel").on('click', '.boton_agregar_ofertas', function (e) {
         }
     }
     AgregarProducto(obj, cantidad, contenedor, descTipoOferta, false);
+    if (obj.TipoOferta == 1) { $(contenedor).addClass("producto_desactivado");}
 });
 
 function TagVerTodos(MisLogros) {
