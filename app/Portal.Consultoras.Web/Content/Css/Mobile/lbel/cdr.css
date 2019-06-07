@@ -1911,6 +1911,10 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         border-bottom: 0;
     }
 
+.detalle_productos_solicitud_cdr--trueque > div:first-child {
+    margin-right: 16px;
+}
+
 /*.detalle_cdr_solucion_titulo,
 .detalle_cod_producto,
 .detalle_nom_producto,
