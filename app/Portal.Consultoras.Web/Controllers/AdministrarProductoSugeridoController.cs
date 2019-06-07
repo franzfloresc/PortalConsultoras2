@@ -104,7 +104,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 //INI HD-4289
                                 a.ConfiguracionZona,
                                 a.ConfiguracionZona.Replace(",",", "),
-                                a.ConfiguracionZona.Substring(0,19).Replace(",",", "),
+                                a.ConfiguracionZona.Substring(0,Math.Min(a.ConfiguracionZona.Length,19)).Replace(",",", "),
                                 //FIN HD-4289
                                 a.CUV,
                                 a.CUVSugerido,

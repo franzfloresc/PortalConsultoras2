@@ -44,29 +44,20 @@
                 <span class="color_red" style="width:5px;">*</span>
             </div>
             @* INI HD-4289 *@
-            @*<div class="div-3">
-                    <div class="titG">Region:</div>
-                    <div class="selectA borde_redondeado">
-                        @Html.DropDownListFor(model => model.RegionID, new SelectList(Model.lstRegion, "RegionID", "Nombre"), "-- Todas --", new { id = "ddlRegion", @class = "ddlRegion" })
-                    </div>
-                    <span class="color_red" style="width:5px;"></span>
-                    <div class="titG">Zona:</div>
-                    <div class="selectA borde_redondeado">
-                        @Html.DropDownListFor(model => model.ZonaID, new SelectList(Model.lstZona, "ZonaID", "Nombre"), "-- Todas --", new { id = "ddlZona", @class = "ddlZona" })
-                    </div>
-                </div>*@
             <div class="div-3">
                 <div class="titG">Región/Zona:</div>
                 <div class="treeview_content borde_redondeado">
                     <div id="arbolRegionZona" class="demo JERarbolRegionZona">
                     </div>
                 </div>
+                <span class="color_red" style="width:5px;margin-top: 200px;">*</span>
                 <div style="float:left">
                     <label id="lblSeleccionar">
                         <input type="checkbox" id="chkSeleccionar" />
 
                     </label>
                 </div>
+
                 <div style="float:left; margin-top:10px">
                     Seleccionar todo
                 </div>
@@ -136,6 +127,7 @@
                 <div id="arbolRegionZonaModal" class="demo JERarbolRegionZona">
                 </div>
             </div>
+            <span class="color_red" style="width:5px;margin-top: 200px;">*</span>
             <div style="float:left">
                 <label>
                     <input type="checkbox" id="chkSeleccionarModal" />
@@ -309,6 +301,10 @@
                 msjex += " - Debe seleccionar un país.\n";
             if ($("#ddlCampania").val() == "")
                 msjex += " - Debe seleccionar un campaña.\n";
+            //INI HD-4289
+            if ($("#ddlPais").val() != "" && GetZonas($("#arbolRegionZona")) == "")
+                msjex += "- Debe indicar la zona(s).\n";
+            //FIN HD-4289
 
             if (msjex != "") {
                 alert("Faltan ingresar datos obligatorios.");
@@ -646,9 +642,8 @@
                     complete: function () {
                         $("#arbolRegionZona").jstree("set_theme", "apple", "@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")");
 
-                            $.jstree._reference($("#arbolRegionZona")).uncheck_all();
-                            $("#chkSeleccionar").attr("checked", false);
-                            $('#arbolRegionZona').jstree('close_all');
+                        $.jstree._reference($("#arbolRegionZona")).check_all();
+                        $("#chkSeleccionar").attr("checked", true);
                     }
                 }
             },
@@ -698,16 +693,11 @@
                             });
                         } else {
                             $.jstree._reference($("#arbolRegionZonaModal")).check_all();
-                            var zonas = "";
                             $.jstree._reference($("#arbolRegionZonaModal")).get_checked(null, true).each(function () {
                                 if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
                                     return true;
                                 }
-                                zonas += this.id + ",";
                             });
-                            if (zonas != "") {
-                                zonas = zonas.substring(0, zonas.length - 1);
-                            }
                             $("#chkSeleccionarModal").attr("checked", true);
                         }
                         $('#arbolRegionZonaModal').jstree('close_all');
@@ -823,6 +813,10 @@
         if (jQuery.trim($('#txtOrdenModal').val()) == "")
             vMessage += "- Debe ingresar el orden.\n";
 
+        //INI HD-4289
+        if (GetZonas($("#arbolRegionZonaModal")) == "")
+            vMessage += "- Debe indicar la zona(s).\n";
+        //FIN HD-4289
         if (vMessage != "") {
             vMessage = "La información ingresada se encuentra incompleta. Por favor, revisar." + "\n" + vMessage;
         }
