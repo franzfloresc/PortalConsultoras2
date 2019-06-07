@@ -3,8 +3,11 @@ var scrollLogros = true
 $("#a").hide;
 
 $(document).ready(function () {
-    Handlebars.registerPartial("kit_template", $("#template-kit").html());
-    Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
+    Carusel();
+    if ($("#template-kit").length > 0) {
+        Handlebars.registerPartial("kit_template", $("#template-kit").html());
+        Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
+    }
 
     CargarCarrusel();
     CargarGanancias();
@@ -111,6 +114,7 @@ $("#carrusel").on('click', '.boton_agregar_ofertas', function (e) {
         }
     }
     AgregarProducto(obj, cantidad, contenedor, descTipoOferta, false);
+    if (obj.TipoOferta == 1) { $(contenedor).addClass("producto_desactivado");}
 });
 
 function TagVerTodos(MisLogros) {
@@ -187,6 +191,7 @@ function CargarCarrusel() {
 }
 
 function CargarGanancias() {
+    $("#boxganancias").hide();
     $.ajax({
         type: 'GET',
         url: urlGetMisGanancias,
@@ -205,8 +210,12 @@ function CargarGanancias() {
 }
 
 
-function ArmarMisGanancias(data) {
-    if (!data) return;
+function ArmarMisGanancias(data) {    
+    if (!data) {        
+        return;
+    }
+
+    $("#boxganancias").show();
 
     var ctx = document.getElementById('canvas').getContext('2d');
 

@@ -816,7 +816,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 PrecioCatalogo = e.PrecioCatalogo,
                 PrecioValorizado = e.PrecioValorizado,
                 TipoEstrategiaID = e.TipoEstrategiaID,
-                FlagSeleccionado = demostradoresEnPedido.Any(h => h.CUV == e.CUV)
+                FlagSeleccionado = demostradoresEnPedido.Any(h => h.CUV == e.CUV),
+                EsCatalogo = e.EsCatalogo
             }).ToList();
 
             return objDemostradores;
@@ -900,7 +901,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         private BECarruselCaminoBrillante GetCarrusel(BEUsuario entidad, int size)
         {
             var kits = GetKits(entidad);
-            var demostradores = GetDemostradores(entidad, size, 0, string.Empty, string.Empty);
+            var demostradores = GetDemostradores(entidad, 0, 0, string.Empty, string.Empty);
             if (kits == null && demostradores == null) return null;
 
             var carrusel = new BECarruselCaminoBrillante(); var iSize = size;
@@ -919,7 +920,13 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             if (demostradores != null)
             {
                 if (demostradores.LstDemostradores.Any())
-                    carrusel.Items.AddRange(demostradores.LstDemostradores.Take(iSize).Select(e => ToBEOfertaCaminoBrillante(e)));
+                {
+                    /* Catalogos */
+                    carrusel.Items.AddRange(demostradores.LstDemostradores.Where(e => e.EsCatalogo == 1).Take(2).Select(e => ToBEOfertaCaminoBrillante(e)));
+                    iSize = size - carrusel.Items.Count;
+                    /* Demostradores */
+                    carrusel.Items.AddRange(demostradores.LstDemostradores.Where(e => e.EsCatalogo != 1).Take(iSize).Select(e => ToBEOfertaCaminoBrillante(e)));
+                }
             }
 
             return carrusel;
