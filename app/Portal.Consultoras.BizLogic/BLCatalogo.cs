@@ -574,31 +574,7 @@ namespace Portal.Consultoras.BizLogic
 
         #endregion
 
-        private JArray TryCastResultApi(string Url, string CodigoISO, string Json, string CodigoIssue)
-        {
-            StringBuilder build = new StringBuilder();
-            JArray result = null;
-
-            string accion = "";
-            try
-            {
-                accion = "JsonConvert.DeserializeObject<dynamic>(Json)";
-                var oIssuu = JsonConvert.DeserializeObject<dynamic>(Json);
-                accion = "(JArray)oIssuu.rsp._content.result._content";
-                result = (JArray) oIssuu.rsp._content.result._content;
-            }
-            catch
-            {
-                build.AppendLine("Tracking =>TryCastResultApi");
-                build.AppendLine(string.Format("Url:{0}", Url));
-                build.AppendLine(string.Format("Json:{0}", Json));
-                build.AppendLine(string.Format("Accion:{0}", accion));
-                build.AppendLine(string.Format("CodigoIssue:{0}", CodigoIssue));
-                LogManager.SaveLog(new ClientInformationException(build.ToString()), "userTracking", CodigoISO);
-            }
-
-            return result;
-        }
+     
 
         private JArray GetIssuuObject(string url,string codigoIso , int paisId, string CodigoIssue , out bool error)
         {
@@ -629,7 +605,7 @@ namespace Portal.Consultoras.BizLogic
                 accion =  "(JArray)oIssuu.rsp._content.result._content";
                 result =  (JArray)oIssuu.rsp._content.result._content;
 
-                CacheManager<JArray>.AddDataElement(paisId, ECacheItem.ApiIssuuData, CodigoIssue, result);
+                CacheManager<JArray>.AddDataElement(paisId, ECacheItem.ApiIssuuData, CodigoIssue, result , new TimeSpan(7,0,0,0));
 
                
 
