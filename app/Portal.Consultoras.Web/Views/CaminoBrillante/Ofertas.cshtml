@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     //var Demostradores = ViewBag.Demostradores;
     var origenPedido = ViewBag.EsMobile ? Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido : Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido;
+    ViewBag.origenPedido = origenPedido;
 }
 
 <link href="@Url.Content("~/Content/Css/Site/BusquedaProductos/filtros-busqueda.css")" rel="stylesheet" />

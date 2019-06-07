@@ -90,7 +90,7 @@ namespace Portal.Consultoras.Web.Providers
                 mensaje += "NoMongo|";
 
                 List<BEEstrategiaProducto> listaBeEstrategiaProductos;
-                if (codigoTipoEstrategia == "36" || codigoTipoEstrategia == "35")
+                if (codigoTipoEstrategia == "036" || codigoTipoEstrategia == "035")
                     return estrategiaModelo.Hermanos;
                 else
                     listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);

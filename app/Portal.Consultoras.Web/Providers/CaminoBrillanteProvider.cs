@@ -594,6 +594,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             return new EstrategiaPersonalizadaProductoModel()
             {
+                TipoOfertaCaminoBrillante = Constantes.CaminoBrillante.TipoOferta.Kit,
                 CodigoPalanca = "0",
                 FotoProducto01 = e.FotoProductoMedium,
                 TieneStock = true,
