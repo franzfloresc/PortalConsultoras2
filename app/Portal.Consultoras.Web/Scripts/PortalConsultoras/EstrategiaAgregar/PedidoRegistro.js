@@ -1144,6 +1144,8 @@ var PedidoRegistroModule = function () {
 
                 CloseLoading();
 
+                ActualizaGanancias(data);
+
                 //INI HD-3908
                 if (_flagNueva && IsNullOrEmpty(data.mensajeAviso)) {
                     //try {
@@ -1319,6 +1321,8 @@ var PedidoRegistroModule = function () {
 
                 $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
 
+
+                ActualizaGanancias(data);
                 //INI HD-3908
                 if (_flagNueva && IsNullOrEmpty(data.mensajeAviso)) {
                     //try {
@@ -1416,6 +1420,7 @@ var PedidoRegistroModule = function () {
 
                     var prevTotal = mtoLogroBarra;
                     MostrarBarra(response);
+                    ActualizaGanancias(response);
                     showPopupNivelSuperado(response.DataBarra, prevTotal);
                     if (response.modificoBackOrder) showDialog("divBackOrderModificado");
                     CargarDetallePedido();

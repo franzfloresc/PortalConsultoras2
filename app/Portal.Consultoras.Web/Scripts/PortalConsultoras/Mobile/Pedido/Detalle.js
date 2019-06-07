@@ -502,6 +502,11 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
                     return false;
                 }
 
+                var ActualizaGananciasLoad = typeof ActualizaGanancias === 'function';
+                if (ActualizaGananciasLoad) {
+                    ActualizaGanancias(data);
+                }
+
                 MostrarBarra(data);
                 CargarPedido();
                 TrackingJetloreRemove(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
@@ -1264,4 +1269,16 @@ function AccionConfirmarModificarPedido() {
 			}
 		}
 	});
+}
+
+function ActualizaGanancias(data) {
+
+    data = data || "";
+    if (data !== "") {
+        $('#div-ganancia-totalMontoGanancia').text(data.PedidoWeb.FormatoTotalMontoGananciaStr);
+        $('#div-ganancia-totalGananciaCatalogo').text(data.PedidoWeb.FormatoTotalMontoAhorroCatalogoStr);
+        $('#div-ganancia-totalGananciaRevista').text(data.PedidoWeb.FormatoTotalGananciaRevistaStr);
+        $('#div-ganancia-totalGananciaWeb').text(data.PedidoWeb.FormatoTotalGananciaWebStr);
+        $('#div-ganancia-totalGananciaOtros').text(data.PedidoWeb.FormatoTotalGananciaOtrosStr);
+    }
 }
