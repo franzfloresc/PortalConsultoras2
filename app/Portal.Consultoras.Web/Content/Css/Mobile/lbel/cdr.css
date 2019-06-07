@@ -1876,7 +1876,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     .detalle_producto_cdr--flex{
         display:flex;
         flex-direction:row;
-        flex-wrap:nowrap;
+        flex-wrap:wrap;
         justify-content:space-between;
     }
 
