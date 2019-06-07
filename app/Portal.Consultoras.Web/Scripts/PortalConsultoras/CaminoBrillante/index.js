@@ -3,6 +3,7 @@ var scrollLogros = true
 $("#a").hide;
 
 $(document).ready(function () {
+    Carusel();
     if ($("#template-kit").length > 0) {
         Handlebars.registerPartial("kit_template", $("#template-kit").html());
         Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
@@ -223,7 +224,7 @@ function ArmarMisGanancias(data) {
     for (x = 0; x < data.MisGanancias.length; x++) {
         var item = data.MisGanancias[x];
         labels.push(item.LabelSerie);
-        serie.push(item.ValorSerie);
+        serie.push(item.ValorSerieFormat);
     };
 
 
