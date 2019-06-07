@@ -569,48 +569,10 @@ namespace Portal.Consultoras.Web.Providers
 
         private EstrategiaComponenteModel ToEstrategiaComponenteModel(BEOfertaCaminoBrillante e) {
             return new EstrategiaComponenteModel() {
-                //TipoOfertaCaminoBrillante = e.TipoOferta,
-                //CodigoPalanca = "0",
-                //FotoProducto01 = e.FotoProductoMedium,
                 TieneStock = true,
-                //CampaniaID = usuarioModel.CampaniaID,
-                //ClaseBloqueada = "",
-                //ClaseEstrategia = "",
-                //CodigoCategoria = "",
-                //CodigoEstrategia = e.CodigoEstrategia,
                 CodigoProducto = e.CUV,
-                //CodigoVariante = "",
-                //CUV2 = e.CUV,
-                //DescripcionCompleta = e.DescripcionCUV,
-                //DescripcionCortada = e.DescripcionCUV,
-                //DescripcionDetalle = e.DescripcionCUV,
                 DescripcionMarca = e.DescripcionMarca,
-                Descripcion = e.DescripcionCUV,
-
-                //DescripcionResumen = e.DescripcionCUV,
-                //DescripcionCategoria = e.DescripcionCUV,
-                //EsMultimarca = false,
-                //EsOfertaIndependiente = false,
-                //EsSubcampania = false,
-                //EstrategiaID = e.EstrategiaID.ToInt(),
-                //FlagNueva = 0,
-                //Ganancia = e.PrecioCatalogo - e.PrecioValorizado,
-                //GananciaString = Util.DecimalToStringFormat(e.PrecioCatalogo - e.PrecioValorizado, usuarioModel.CodigoISO),
-                //ImagenURL = e.FotoProductoMedium,
-                //MarcaID = e.MarcaID,
-                //Precio = e.PrecioCatalogo,
-                //Precio2 = e.PrecioValorizado,
-                //PrecioTachado = Util.DecimalToStringFormat(e.PrecioCatalogo, usuarioModel.CodigoISO),
-                //PrecioVenta = Util.DecimalToStringFormat(e.PrecioValorizado, usuarioModel.CodigoISO),
-                //TextoLibre = "",
-                //TienePaginaProducto = false,
-                //TienePaginaProductoMob = false,
-                //TipoAccionAgregar = 2,
-            };
-        }
-
-        private EstrategiaComponenteModel ToEstrategiaComponenteModel(BEOfertaCaminoBrillante e) {
-            return new EstrategiaComponenteModel() {
+                Descripcion = e.DescripcionCUV,                
                 Cantidad = 1,
                 NombreComercial = e.DescripcionCUV,
             };
