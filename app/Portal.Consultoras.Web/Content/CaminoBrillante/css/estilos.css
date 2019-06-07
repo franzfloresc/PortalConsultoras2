@@ -1679,6 +1679,12 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
     div.opOrdenar {
         padding: 0 15px;
     }
+    .regular.slider .ficha__producto {
+        min-height: 458px;
+    }
+    .box-left-ganancias span {
+        font-size:12px;
+    }
 }
 
 @media screen and (max-width:600px) {
@@ -2388,6 +2394,7 @@ div .ficha__producto__precio__normal {
 
     .box-montos:nth-child(2) {
         border: 0;
-        padding-left: 12%;
+        padding-left: 9%;
+        width: 50%;
     }
 }
