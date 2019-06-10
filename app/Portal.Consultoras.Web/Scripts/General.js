@@ -4,7 +4,9 @@ var belcorp = belcorp || {};
 belcorp.settings = belcorp.settings || {};
 belcorp.settings.uniquePrefix = "/g/";
 
-var _ultimaMarca = "";
+var _ultimaMarca = "",
+    _primeraMarca = "";
+var _esMultimarca = false;
 
 jQuery(document).ready(function () {
     CreateLoading();
@@ -440,6 +442,13 @@ jQuery(document).ready(function () {
                         return options.inverse(this);
                     }
                     else return options.fn(this);
+                }
+            });
+
+            Handlebars.registerHelper("ifVerificarMarca", function (marca, options) {
+                if (_primeraMarca !== marca && _esMultimarca) {
+                    _primeraMarca = marca;
+                    return options.fn(this);
                 }
             });
         }
