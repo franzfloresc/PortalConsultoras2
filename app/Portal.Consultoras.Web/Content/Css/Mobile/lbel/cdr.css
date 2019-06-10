@@ -1917,7 +1917,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     }
 
 .detalle_productos_solicitud_cdr--trueque > div:first-child {
-    width: 65%;
+    width: 61%;
     margin-right: 16px;
 }
 
@@ -1949,29 +1949,44 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .acciones_detalle_productos_solicitud_cdr,
 .acciones_detalle_productos_solicitud_cdr > div:last-child {
     align-items: center;
+    justify-content: center;
 }
 
 .acciones_detalle_productos_solicitud_cdr {
     margin-top: 16px;
     flex-direction: column;
     flex-wrap: nowrap;
-    justify-content: center;
-    min-height: 121px;
-    padding: 12px;
+    height:auto;
+    padding: 16px 12px;
     background-color: #f7f7f7;
+    position:relative;
 }
 
-    .acciones_detalle_productos_solicitud_cdr > div:first-child {
-        margin-bottom: 16px;
+    .acciones_detalle_productos_solicitud_cdr:before {
+        display: block;
+        content: "";
+        bottom: 100%;
+        left: 20px;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-color: rgba(136, 183, 213, 0);
+        border-bottom-color: #f7f7f7;
+        border-width: 8px;
+        margin-left: 0;
     }
 
-    .acciones_detalle_productos_solicitud_cdr > div:last-child{
-        justify-content:space-between;
+    .descripcion_acciones {
+        margin-bottom: 16px;
     }
 
     .control_cantidad_producto_cdr {
         min-width: 110px;
         background-color:#FFF;
+        margin-right:24px;
     }
 
         .control_cantidad_producto_cdr .cantidad_menos_home {
@@ -1980,9 +1995,9 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
             border-bottom-left-radius: 4px;
         }
 
-        .control_cantidad_producto_cdr .rango_cantidad_pedido {
-            font-size: 14px;
-            color: #000;
+        .control_cantidad_producto_cdr .rango_cantidad_pedido{
+            font-size:14px;
+            color:#000;
         }
 
         .control_cantidad_producto_cdr .cantidad_mas_home {
@@ -1991,6 +2006,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         }
 
         .enlace_eliminar_producto {
+            min-width:130px;
             height: 45px;
             align-items: center;
         }
