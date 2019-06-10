@@ -30207,6 +30207,21 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         width:36%;
     }
 
+        .pop_solicitud_solucion--listadoProductos > div {
+            padding-top: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #808080;
+        }
+
+            .pop_solicitud_solucion--listadoProductos > div:first-child {
+                padding-top: 0;
+            }
+
+            .pop_solicitud_solucion--listadoProductos > div:last-child {
+                border-bottom: 0;
+                padding-bottom: 0;
+            }
+
 .pop_solicitud_resolucion {
     width: 28.5%;
     /*padding-left: 4%;*/
