@@ -1878,8 +1878,9 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         border-bottom: 0;
     }
 
-.detalle_productos_solicitud_cdr--trueque > div:first-child{
-    margin-right:16px;
+.detalle_productos_solicitud_cdr--trueque > div:first-child {
+    width: 65%;
+    margin-right: 16px;
 }
 
 /*.detalle_cdr_solucion_titulo,
@@ -1906,6 +1907,70 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     .detalle_precio_producto--relative{
         position:relative;
     }
+
+.acciones_detalle_productos_solicitud_cdr,
+.acciones_detalle_productos_solicitud_cdr > div:last-child {
+    align-items: center;
+}
+
+.acciones_detalle_productos_solicitud_cdr {
+    margin-top: 16px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    min-height: 121px;
+    padding: 12px;
+    background-color: #f7f7f7;
+}
+
+    .acciones_detalle_productos_solicitud_cdr > div:first-child{
+        margin-bottom:16px;
+    }
+
+    .acciones_detalle_productos_solicitud_cdr > div:last-child {
+        justify-content: space-between;
+    }
+
+    .control_cantidad_producto_cdr {
+        min-width: 110px;
+        background-color:#FFF;
+    }
+
+        .control_cantidad_producto_cdr .cantidad_menos_home {
+            order: -1;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        .control_cantidad_producto_cdr .rango_cantidad_pedido{
+            font-size:14px;
+            color:#000;
+        }
+
+        .control_cantidad_producto_cdr .cantidad_mas_home {
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+        .enlace_eliminar_producto {
+            height: 45px;
+            align-items: center;
+        }
+
+            .enlace_eliminar_producto span{
+                font-size:13px;
+            }
+
+                .enlace_eliminar_producto_icono{
+                    width:19px;
+                    height:auto;
+                    margin-right:8px;
+                }
+
+                    .enlace_eliminar_producto_icono img{
+                        width:100%;
+                        height:auto;
+                    }
 
 .datos_solicitud_cdr_consulta, .datos_solicitud_cdr_titulo, .estado_productos_cdr {
     display: block;
