@@ -1285,7 +1285,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 //DescripcionNivel { get; set; }
                 PrecioValorizado = demostrador.PrecioValorizado,
                 PrecioCatalogo = demostrador.PrecioCatalogo,
-                //Ganancia = e.Gana
                 FotoProductoSmall = demostrador.FotoProductoSmall,
                 FotoProductoMedium = demostrador.FotoProductoMedium,
                 FlagSeleccionado = demostrador.FlagSeleccionado,
