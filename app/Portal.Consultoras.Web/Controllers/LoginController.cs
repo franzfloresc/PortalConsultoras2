@@ -1446,7 +1446,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     usuarioModel.PuedeActualizar = usuario.PuedeActualizar;
                     usuarioModel.PuedeEnviarSMS = usuario.PuedeEnviarSMS;
-                    usuarioModel.FotoPerfilAncha = usuario.FotoPerfilAncha;
 
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);

@@ -900,8 +900,6 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool PuedeEnviarSMS { get; set; }
         [DataMember]
-        public bool FotoPerfilAncha { get; set; }
-        [DataMember]
         [Column("IndicadorConsultoraOficina")]
         public bool EsConsultoraOficina { get; set; }
         [DataMember]
