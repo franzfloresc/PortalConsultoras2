@@ -50,9 +50,14 @@
                 {{/if}}
                 <div id="EtiquetaPackNuevas" class="contenedor_etiqueta_nuevo">
                     <div class="etiqueta_nuevo">
-                        {{#IsNullOrEmpty ImagenURL '!='}}
+                        {{#IsNullOrEmpty ImagenURL '!=' }}
+                        {{#iff TipoOfertaCaminoBrillante '>' 0}}
+                        <img src="" alt="" />
+                        {{else}}
                         <img src="{{ImagenURL}}" alt="" />
+                        {{/iff}}
                         {{/IsNullOrEmpty}}
+
                     </div>
                 </div>
             </div>
@@ -89,9 +94,8 @@
                     </div>
                     <div class="contenedor_derecho">
                         {{#iff Precio '>' 0}}
-                        {{#iff TipoOfertaCaminoBrillante '==' 2}}
-                        <div class="precio_valorizado">Precio normal: <span data-precio_valorizado="">{{ Ganancia }} {{SimboloMoneda}} {{PrecioTachado}}</span></div>
-                        <div class="precio_valorizado">Precio normal: <span data-precio_valorizado="">{{ Ganancia }} {{SimboloMoneda}} {{PrecioTachado}}</span></div>
+                        {{#iff TipoOfertaCaminoBrillante '>' 0}}
+                        <div class="precio_valorizado">Precio normal: <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
                         {{else}}
                         <div class="precio_valorizado">Precio catálogo: <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
                         {{/iff}}
@@ -111,11 +115,15 @@
 
                         {{#iff Ganancia '>' 0}}
                         <div class="ganancia">
+                            {{#iff TipoOfertaCaminoBrillante '>' 0}}
+                            Ganancia
+                            {{else}}
                             {{#iff CodigoVariante '!=' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
                             GANA
                             {{/iff}}
                             {{#iff CodigoVariante '==' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
                             GANA HASTA
+                            {{/iff}}
                             {{/iff}}
                             <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span>
                         </div>
