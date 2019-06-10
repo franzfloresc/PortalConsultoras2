@@ -35,7 +35,7 @@ namespace Portal.Consultoras.BizLogic
     public partial class BLUsuario : IUsuarioBusinessLogic
     {
         private string CodigoUsuarioLog = string.Empty;
-        private int PaisIDLog = 0;
+        private int PaisIDLog = 0; 
 
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;

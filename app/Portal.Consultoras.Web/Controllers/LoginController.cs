@@ -638,6 +638,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
+
         [HttpPost]
         public ActionResult checkExternalUser(string codigoISO, string proveedor, string appid)
         {
