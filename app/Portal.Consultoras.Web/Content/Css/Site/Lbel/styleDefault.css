@@ -644,6 +644,10 @@ input[type="checkbox"].switch__control,
     text-transform: uppercase;
 }
 
+.text-underline {
+    text-decoration: underline;
+}
+
 .text-thin {
     font-weight: 300;
 }
