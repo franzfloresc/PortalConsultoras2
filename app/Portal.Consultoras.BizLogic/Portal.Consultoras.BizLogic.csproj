@@ -96,6 +96,7 @@
     <Compile Include="App\IMenuAppBusinessLogic.cs" />
     <Compile Include="BLCategoria.cs" />
     <Compile Include="BLActivarPremioNuevas.cs" />
+    <Compile Include="BLContenidoAppHistoria.cs" />
     <Compile Include="BLHorario.cs" />
     <Compile Include="BLAdministrarEstrategia.cs" />
     <Compile Include="BLConfiguracionOfertasHome.cs" />
@@ -350,6 +351,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="ArmaTuPack\recomendados.json" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

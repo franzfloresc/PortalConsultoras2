@@ -855,6 +855,65 @@ button:focus{
 
 /* FIN - SECCIÓN CONTENIDO */
 
+/* HD-4214 - CHAT MESSENGER SOMOS BELCORP */
+
+.fb_dialog_content {
+    position: relative !important;
+}
+
+.icono_chat_sb {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background-color: #FFF;
+    background-image: url(/Content/Images/icono-chat-sb.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    border-radius: 100%;
+    z-index: 2000;
+}
+
+.fb_dialog_content iframe {
+    display: none !important;
+}
+
+@media screen and (max-width:991px){
+
+    .fb_dialog_content{
+        display:none;
+    }
+
+    .btn_chat_messenger_mobile {
+        background-color: #FFF;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        padding: 0px;
+        position: fixed;
+        bottom: 18pt;
+        right: 18pt;
+        top: auto;
+        z-index: 2147483647;
+        padding: 13px 17px 13px 17px;
+        -moz-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+        -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+        box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+        cursor: pointer;
+    }
+
+        .btn_chat_messenger_mobile img {
+            width: 100%;
+            height: auto;
+        }
+
+}
+
+/* FIN - HD-4214 - CHAT MESSENGER SOMOS BELCORP */
+
 /* CSS FIXES PARA INTERNET EXPLORER DESDE LA VERSIÓN 10 */
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none){
@@ -895,9 +954,13 @@ button:focus{
 
     /* VISTA BREADCRUMBS Y TITULO DE VISTA (VERSIÓN MOBILE) */
 
+    .layout__view__breadcrumbs__wrapper{
+        display:none!important;
+    }
+
     .layout__view__title,
-    .layout__view__title__text{
-        max-width:none;
+    .layout__view__title__text {
+        max-width: none;
     }
 
     .layout__view__title,

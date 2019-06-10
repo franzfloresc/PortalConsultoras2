@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
-using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.Oferta.ResponseOfertaGenerico;
 using Portal.Consultoras.Web.Models.ProgramaNuevas;
-using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceContenido;
@@ -17,8 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -29,7 +24,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
- 
+
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -287,13 +282,12 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Pedidos Pendientes
 
                 ViewBag.MostrarPedidosPendientes = "0";
-                ViewBag.LanzarTabConsultoraOnline = (lanzarTabConsultoraOnline) ? "1" : "0";
+                //ViewBag.LanzarTabConsultoraOnline = (lanzarTabConsultoraOnline) ? "1" : "0";
 
                 if (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig())
                 {
                     var paisesConsultoraOnline = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
-                    if (paisesConsultoraOnline.Contains(userData.CodigoISO)
-                        && userData.EsConsultora())
+                    if (paisesConsultoraOnline.Contains(userData.CodigoISO) && userData.EsConsultora())
                     {
                         using (var svc = new UsuarioServiceClient())
                         {
@@ -301,23 +295,23 @@ namespace Portal.Consultoras.Web.Controllers
                             if (cantPedidosPendientes > 0)
                             {
                                 ViewBag.MostrarPedidosPendientes = "1";
+                                ViewBag.CantPedidosPendientes = cantPedidosPendientes;
 
-                                using (var sv = new SACServiceClient())
-                                {
-                                    var motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
-                                    ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
-                                }
+                                //using (var sv = new SACServiceClient())
+                                //{
+                                //    var motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
+                                //    ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
+                                //}
 
 
-                                var olstMisPedidos =
-                                    svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID)
-                                        .ToList();
+                                //var olstMisPedidos =
+                                //    svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID)
+                                //        .ToList();
 
-                                ViewBag.ListaPedidosPendientesCliente = olstMisPedidos;
+                                //ViewBag.ListaPedidosPendientesCliente = olstMisPedidos;
 
                             }
                         }
-
                     }
                 }
 
@@ -336,12 +330,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.CampaniaActual = userData.CampaniaID;
                 model.Simbolo = userData.Simbolo;
+
                 #region Cupon
                 model.TieneCupon = userData.TieneCupon;
                 model.EMail = userData.EMail;
                 model.Celular = userData.Celular;
                 model.EmailActivo = userData.EMailActivo;
                 #endregion
+
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
                 ViewBag.CodigoConsultora = userData.CodigoConsultora;
@@ -357,12 +353,12 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Camino Brillante 
 
                 ViewBag.KitsCaminoBrillante = _caminoBrillanteProvider.GetKitsCaminoBrillante().ToList();
-                var consultoraNivel = SessionManager.GetConsultoraCaminoBrillante();
-                var nivelConsultora = consultoraNivel.NivelConsultora.FirstOrDefault(e => e.EsActual);
-                int nivel = 0;
-                int periodo = 0;
-                int.TryParse(nivelConsultora.Nivel ?? string.Empty, out nivel);
-                int.TryParse(nivelConsultora.PeriodoCae ?? string.Empty, out periodo);
+                //var consultoraNivel = SessionManager.GetConsultoraCaminoBrillante();
+                //var nivelConsultora = consultoraNivel.NivelConsultora.FirstOrDefault(e => e.EsActual);
+                //int nivel = 0;
+                //int periodo = 0;
+                //int.TryParse(nivelConsultora.Nivel ?? string.Empty, out nivel);
+                //int.TryParse(nivelConsultora.PeriodoCae ?? string.Empty, out periodo);
 
                 #endregion
 
@@ -995,6 +991,16 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
+                #region Camino Brillante
+                var valCaminoBrillante = _caminoBrillanteProvider.ValidarBusquedaCaminoBrillante(model.CUV);
+                
+                if (valCaminoBrillante.Validacion != Enumeradores.ValidacionCaminoBrillante.ProductoNoExiste) {
+                    productosModel.Add(GetValidacionProgramaNuevas(valCaminoBrillante.Mensaje));
+                    return Json(productosModel, JsonRequestBehavior.AllowGet);
+                }
+                
+                #endregion
+
                 var userModel = userData;
                 var productos = SelectProductoByCodigoDescripcionSearchRegionZona(model.CUV, userModel, 5, CRITERIO_BUSQUEDA_CUV_PRODUCTO);
                 var siExiste = productos.Any(p => p.CUV == model.CUV);
@@ -1028,6 +1034,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var revistaGana = ValidarDesactivaRevistaGana(userModel);
 
+
+
                 productosModel.Add(new ProductoModel()
                 {
                     CUV = producto.CUV.Trim(),
@@ -1058,7 +1066,12 @@ namespace Portal.Consultoras.Web.Controllers
                     EstrategiaID = producto.EstrategiaID,
                     EsCuponNuevas = esCuponNuevas,
                     CodigoCatalago = producto.CodigoCatalogo,
-                    EstrategiaIDSicc = producto.EstrategiaIDSicc
+                    EstrategiaIDSicc = producto.EstrategiaIDSicc,
+                    //INI HD-3908
+                    CodigoPalanca = (new OfertaPersonalizadaProvider()).getCodigoPalanca(producto.TipoEstrategiaCodigo),
+                    CampaniaID = userModel.CampaniaID
+                    //FIN HD-3908
+
                 });
             }
             catch (Exception ex)
@@ -1072,20 +1085,25 @@ namespace Portal.Consultoras.Web.Controllers
         private List<ServiceODS.BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(string codigoDescripcion, UsuarioModel userModel, int cantidadFilas, int criterioBusqueda)
         {
             List<ServiceODS.BEProducto> productos;
+            ServiceODS.BEProductoBusqueda busqueda = new BEProductoBusqueda
+            {
+                PaisID = userModel.PaisID,
+                CampaniaID = userModel.CampaniaID,
+                CodigoDescripcion = codigoDescripcion,
+                RegionID = userModel.RegionID,
+                ZonaID = userModel.ZonaID,
+                CodigoRegion = userModel.CodigorRegion,
+                CodigoZona = userModel.CodigoZona,
+                Criterio = criterioBusqueda,
+                RowCount = cantidadFilas,
+                ValidarOpt = true,
+                CodigoPrograma = userModel.CodigoPrograma,
+                NumeroPedido = userModel.ConsecutivoNueva + 1
+            };
 
             using (var odsServiceClient = new ODSServiceClient())
             {
-                productos = odsServiceClient.SelectProductoByCodigoDescripcionSearchRegionZona(
-                    userModel.PaisID,
-                    userModel.CampaniaID,
-                    codigoDescripcion,
-                    userModel.RegionID,
-                    userModel.ZonaID,
-                    userModel.CodigorRegion,
-                    userModel.CodigoZona,
-                    criterioBusqueda,
-                    cantidadFilas,
-                    true).ToList();
+                productos = odsServiceClient.SelectProductoByCodigoDescripcionSearchRegionZona(busqueda).ToList();
             }
 
             return productos;
@@ -1555,6 +1573,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Enumeradores.ResultadoReserva.NoReservadoMontoMinimo
                 };
 
+                var mensajeCondicional = resultado.ListaMensajeCondicional != null && resultado.ListaMensajeCondicional.Any() ? resultado.ListaMensajeCondicional[0].MensajeRxP : null;
                 return Json(new
                 {
                     success = true,
@@ -1571,7 +1590,8 @@ namespace Portal.Consultoras.Web.Controllers
                                         quantity = item.Cantidad
                                     },
                     flagCorreo = resultado.EnviarCorreo ? "1" : "",
-                    permiteOfertaFinal = listPermiteOfertaFinal.Contains(resultado.ResultadoReservaEnum)
+                    permiteOfertaFinal = listPermiteOfertaFinal.Contains(resultado.ResultadoReservaEnum),
+                    mensajeCondicional
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -2283,6 +2303,13 @@ namespace Portal.Consultoras.Web.Controllers
                         mensaje = result.Mensaje;
                         estado = true;
                     }
+                    //INI HD-3693
+                    if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Bloqueado)
+                    {
+                        mensaje = Constantes.TipoPopupAlert.Bloqueado + result.Mensaje;
+                        estado = true;
+                    }
+                    //FIN HD-3693
                 }
 
                 return Json(new
@@ -2328,7 +2355,9 @@ namespace Portal.Consultoras.Web.Controllers
                 var pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
                 var estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                 var mensaje = result.Mensaje;
-
+                //INI HD-3693
+                if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Bloqueado) mensaje = Constantes.TipoPopupAlert.Bloqueado + result.Mensaje;
+                //FIN HD-3693
                 return Json(new
                 {
                     success = estado,

@@ -249,6 +249,30 @@ namespace Portal.Consultoras.BizLogic
             daSolicitudCliente.RechazarSolicitudCliente(solicitudId, definitivo, opcionRechazo, razonMotivoRechazo);
         }
 
+        public void UpdSolicitudClienteDetalleEstado(int paisID, long solicitudId, string cuv, bool estado)
+        {
+            var daSolicitudCliente = new DASolicitudCliente(paisID);
+            daSolicitudCliente.UpdSolicitudClienteDetalleEstado(solicitudId, cuv, estado);
+        }
+
+        public void UpdSolicitudClienteDetalleCantidad(int paisID, long solicitudId, string cuv, int cantidad)
+        {
+            var daSolicitudCliente = new DASolicitudCliente(paisID);
+            daSolicitudCliente.UpdSolicitudClienteDetalleCantidad(solicitudId, cuv, cantidad);
+        }
+
+        public void UpdSolicitudClienteRechazar(int paisID, long solicitudId)
+        {
+            var daSolicitudCliente = new DASolicitudCliente(paisID);
+            daSolicitudCliente.UpdSolicitudClienteRechazar(solicitudId);
+        }
+
+        public void UpdSolicitudClienteRechazarPorCuv(int paisID, long solicitudId, string cuv)
+        {
+            var daSolicitudCliente = new DASolicitudCliente(paisID);
+            daSolicitudCliente.UpdSolicitudClienteRechazarPorCuv(solicitudId, cuv);
+        }
+        
         public BESolicitudNuevaConsultora ReasignarSolicitudCliente(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int opcionRechazo, string razonMotivoRechazo)
         {
             BESolicitudNuevaConsultora consultoraReasignada = null;

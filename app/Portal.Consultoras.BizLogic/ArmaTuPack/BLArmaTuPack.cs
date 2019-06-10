@@ -57,7 +57,7 @@ namespace Portal.Consultoras.BizLogic.ArmaTuPack
         }
         private List<BEProgramaArmaTuPack> GetListPrograma(int paisID)
         {
-            var listConfig = bLTablaLogicaDatos.GetListCache(paisID, Constantes.TablaLogica.ArmaTuPack);
+            var listConfig = bLTablaLogicaDatos.GetListCache(paisID, ConsTablaLogica.ArmaTuPack.TablaLogicaId);
 
             var listGrupos = GetListItemsConfig(listConfig, "Grupos");
             if (listGrupos.Count == 0) return new List<BEProgramaArmaTuPack>();

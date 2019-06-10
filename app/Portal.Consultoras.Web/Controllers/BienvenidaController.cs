@@ -216,12 +216,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                if (!SessionManager.GetActualizarDatosConsultora())
-                {
-                    RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
-                    SessionManager.SetActualizarDatosConsultora(true);
-                }
-
                 model.ShowRoomMostrarLista = (!ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado)).ToInt();
                 model.ShowRoomBannerUrl = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 model.TieneCupon = userData.TieneCupon;
@@ -253,10 +247,10 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 #region Camino al Éxito
-                var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoDestokp);
+                var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, ConsTablaLogica.CaminoAlExitoDesktop.TablaLogicaId);
                 if (LogicaCaminoExisto.Any())
                 {
-                    var CaminoExistoFirst = LogicaCaminoExisto.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.ActualizaEscalaDescuentoDestokp) ?? new TablaLogicaDatosModel();
+                    var CaminoExistoFirst = LogicaCaminoExisto.FirstOrDefault(x => x.TablaLogicaDatosID == ConsTablaLogica.CaminoAlExitoDesktop.ActualizaEscalaDescuentoDesktop) ?? new TablaLogicaDatosModel();
                     bool caminiExitoActive = (CaminoExistoFirst != null && CaminoExistoFirst.Valor != null) && CaminoExistoFirst.Valor.Equals("1");
                     if (caminiExitoActive)
                     {
@@ -265,12 +259,6 @@ namespace Portal.Consultoras.Web.Controllers
                         model.urlCaminoExito = accesoCaminoExito.Item2 ?? "";
                     }
                 }
-                #endregion
-
-                #region bonificaciones 
-
-                ViewBag.esConsultoraDigital = IndicadorConsultoraDigital();
-
                 #endregion
             }
             catch (FaultException ex)
@@ -2339,6 +2327,11 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "Error al obtener el estado del contrato."
                 }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public ActionResult KeepAlive()
+        {
+            return Content("OK");
         }
     }
 } 

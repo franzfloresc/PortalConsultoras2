@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="wsConsultaSoap", Namespace="http://tempuri.org/")]
@@ -856,8 +856,8 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -868,7 +868,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         
         private int estadoField;
         
-        /// <comentarios/>
+        /// <remarks/>
         public int Codsap {
             get {
                 return this.codsapField;
@@ -878,7 +878,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public int estado {
             get {
                 return this.estadoField;
@@ -889,8 +889,8 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -901,7 +901,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         
         private string descripcionField;
         
-        /// <comentarios/>
+        /// <remarks/>
         public string Tipo {
             get {
                 return this.tipoField;
@@ -911,7 +911,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string Descripcion {
             get {
                 return this.descripcionField;
@@ -922,8 +922,8 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -940,7 +940,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         
         private System.DateTime fechaingresoField;
         
-        /// <comentarios/>
+        /// <remarks/>
         public string codperiodo {
             get {
                 return this.codperiodoField;
@@ -950,7 +950,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string codsap {
             get {
                 return this.codsapField;
@@ -960,7 +960,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string cantidad {
             get {
                 return this.cantidadField;
@@ -970,7 +970,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string tipostock {
             get {
                 return this.tipostockField;
@@ -980,7 +980,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public System.DateTime fechaingreso {
             get {
                 return this.fechaingresoField;
@@ -991,8 +991,8 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1007,7 +1007,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         
         private string observacionField;
         
-        /// <comentarios/>
+        /// <remarks/>
         public string fechaproceso {
             get {
                 return this.fechaprocesoField;
@@ -1017,7 +1017,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string activaprol {
             get {
                 return this.activaprolField;
@@ -1027,7 +1027,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string ejecutoautoma {
             get {
                 return this.ejecutoautomaField;
@@ -1037,7 +1037,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string observacion {
             get {
                 return this.observacionField;
@@ -1048,8 +1048,8 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1070,7 +1070,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         
         private string correlativoField;
         
-        /// <comentarios/>
+        /// <remarks/>
         public string abrv {
             get {
                 return this.abrvField;
@@ -1080,7 +1080,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string serie {
             get {
                 return this.serieField;
@@ -1090,7 +1090,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string numpedido {
             get {
                 return this.numpedidoField;
@@ -1100,7 +1100,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string cuv {
             get {
                 return this.cuvField;
@@ -1110,7 +1110,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string cant {
             get {
                 return this.cantField;
@@ -1120,7 +1120,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string cuv_r {
             get {
                 return this.cuv_rField;
@@ -1130,7 +1130,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string correlativo {
             get {
                 return this.correlativoField;
@@ -1141,8 +1141,8 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1161,7 +1161,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         
         private string consumidoField;
         
-        /// <comentarios/>
+        /// <remarks/>
         public string campania {
             get {
                 return this.campaniaField;
@@ -1171,7 +1171,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string region {
             get {
                 return this.regionField;
@@ -1181,7 +1181,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string zona {
             get {
                 return this.zonaField;
@@ -1191,7 +1191,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string codsap {
             get {
                 return this.codsapField;
@@ -1201,7 +1201,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string reservado {
             get {
                 return this.reservadoField;
@@ -1211,7 +1211,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string consumido {
             get {
                 return this.consumidoField;
@@ -1222,8 +1222,8 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1252,7 +1252,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         
         private string activoField;
         
-        /// <comentarios/>
+        /// <remarks/>
         public string Nombre {
             get {
                 return this.nombreField;
@@ -1262,7 +1262,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string codigoventa {
             get {
                 return this.codigoventaField;
@@ -1272,7 +1272,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string descripcionproducto {
             get {
                 return this.descripcionproductoField;
@@ -1282,7 +1282,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string UrlImagen {
             get {
                 return this.urlImagenField;
@@ -1292,7 +1292,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string UrlVideo {
             get {
                 return this.urlVideoField;
@@ -1302,7 +1302,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string EsVideo {
             get {
                 return this.esVideoField;
@@ -1312,7 +1312,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string SubCategoria {
             get {
                 return this.subCategoriaField;
@@ -1322,7 +1322,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string CodigoMarca {
             get {
                 return this.codigoMarcaField;
@@ -1332,7 +1332,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string Campania {
             get {
                 return this.campaniaField;
@@ -1342,7 +1342,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string Pais {
             get {
                 return this.paisField;
@@ -1352,7 +1352,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string Activo {
             get {
                 return this.activoField;
@@ -1363,8 +1363,8 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1379,7 +1379,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         
         private string subpasoField;
         
-        /// <comentarios/>
+        /// <remarks/>
         public string proceso {
             get {
                 return this.procesoField;
@@ -1389,7 +1389,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string mensaje {
             get {
                 return this.mensajeField;
@@ -1399,7 +1399,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string paso {
             get {
                 return this.pasoField;
@@ -1409,7 +1409,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string subpaso {
             get {
                 return this.subpasoField;
@@ -1420,8 +1420,8 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1432,7 +1432,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         
         private string cantidadField;
         
-        /// <comentarios/>
+        /// <remarks/>
         public string Codsap {
             get {
                 return this.codsapField;
@@ -1442,7 +1442,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string Cantidad {
             get {
                 return this.cantidadField;
@@ -1453,8 +1453,8 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1469,7 +1469,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         
         private string operacionField;
         
-        /// <comentarios/>
+        /// <remarks/>
         public string codsap {
             get {
                 return this.codsapField;
@@ -1479,7 +1479,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string stockactual {
             get {
                 return this.stockactualField;
@@ -1489,7 +1489,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string stocknuevo {
             get {
                 return this.stocknuevoField;
@@ -1499,7 +1499,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string operacion {
             get {
                 return this.operacionField;
@@ -1510,8 +1510,8 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1532,7 +1532,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         
         private string duracionField;
         
-        /// <comentarios/>
+        /// <remarks/>
         public string pais {
             get {
                 return this.paisField;
@@ -1542,7 +1542,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string proceso {
             get {
                 return this.procesoField;
@@ -1552,7 +1552,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string estado {
             get {
                 return this.estadoField;
@@ -1562,7 +1562,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string fecha {
             get {
                 return this.fechaField;
@@ -1572,7 +1572,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string inicio {
             get {
                 return this.inicioField;
@@ -1582,7 +1582,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string finalizacion {
             get {
                 return this.finalizacionField;
@@ -1592,7 +1592,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string duracion {
             get {
                 return this.duracionField;
@@ -1603,8 +1603,8 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         }
     }
     
-    /// <comentarios/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1064.2")]
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3056.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1617,7 +1617,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
         
         private string fechastockField;
         
-        /// <comentarios/>
+        /// <remarks/>
         public string pais {
             get {
                 return this.paisField;
@@ -1627,7 +1627,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string fecha {
             get {
                 return this.fechaField;
@@ -1637,7 +1637,7 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
             }
         }
         
-        /// <comentarios/>
+        /// <remarks/>
         public string fechastock {
             get {
                 return this.fechastockField;
@@ -1649,11 +1649,11 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void ConsultaStockCompletedEventHandler(object sender, ConsultaStockCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ConsultaStockCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1675,11 +1675,11 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void ConsultarCargaCompletedEventHandler(object sender, ConsultarCargaCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ConsultarCargaCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1701,11 +1701,11 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void ConsultaJobProlCompletedEventHandler(object sender, ConsultaJobProlCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ConsultaJobProlCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1727,11 +1727,11 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void ConsultaJobStockProlCompletedEventHandler(object sender, ConsultaJobStockProlCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ConsultaJobStockProlCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1753,11 +1753,11 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void ConsultaArchivoStockCompletedEventHandler(object sender, ConsultaArchivoStockCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ConsultaArchivoStockCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1779,11 +1779,11 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void FechasPaisCompletedEventHandler(object sender, FechasPaisCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FechasPaisCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1805,11 +1805,11 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void FechasPaisJobCompletedEventHandler(object sender, FechasPaisJobCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FechasPaisJobCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1831,11 +1831,11 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void HorasCompletedEventHandler(object sender, HorasCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class HorasCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1857,11 +1857,11 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void ObtenerUnidadesReservadasCompletedEventHandler(object sender, ObtenerUnidadesReservadasCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ObtenerUnidadesReservadasCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1883,11 +1883,11 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void ConsultaLogErrorEtlCompletedEventHandler(object sender, ConsultaLogErrorEtlCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ConsultaLogErrorEtlCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1909,11 +1909,11 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void EjecutarJobCompletedEventHandler(object sender, EjecutarJobCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class EjecutarJobCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1935,11 +1935,11 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void DetenerJobCompletedEventHandler(object sender, DetenerJobCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class DetenerJobCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1961,11 +1961,11 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void AnalizadorCompletedEventHandler(object sender, AnalizadorCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class AnalizadorCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1987,11 +1987,11 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void EjecutarSqlCompletedEventHandler(object sender, EjecutarSqlCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class EjecutarSqlCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2013,11 +2013,11 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void ListaOfertaProlCompletedEventHandler(object sender, ListaOfertaProlCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ListaOfertaProlCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2039,11 +2039,11 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void ReporteStockxZonaCompletedEventHandler(object sender, ReporteStockxZonaCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ReporteStockxZonaCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2065,11 +2065,11 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void FileDetalleExplotadoCompletedEventHandler(object sender, FileDetalleExplotadoCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class FileDetalleExplotadoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2091,15 +2091,15 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void SubirFtpCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void WsDisponibilidadProlCompletedEventHandler(object sender, WsDisponibilidadProlCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class WsDisponibilidadProlCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2121,11 +2121,11 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void WsIStockFicticioCompletedEventHandler(object sender, WsIStockFicticioCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class WsIStockFicticioCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -2147,11 +2147,11 @@ namespace Portal.Consultoras.Web.ServicePROLConsultas {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     public delegate void ConsultaProlSapCompletedEventHandler(object sender, ConsultaProlSapCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1038.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3056.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ConsultaProlSapCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {

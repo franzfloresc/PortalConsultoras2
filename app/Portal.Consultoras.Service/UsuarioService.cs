@@ -8,6 +8,7 @@ using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.CaminoBrillante;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.Search.RequestRecomendacion;
 using Portal.Consultoras.Entities.Usuario;
 using Portal.Consultoras.ServiceContracts;
 using System;
@@ -345,6 +346,13 @@ namespace Portal.Consultoras.Service
             var blNotificaciones = new BLNotificaciones();
             return blNotificaciones.GetNotificacionesConsultoraDetallePedido(PaisID, ValAutomaticaPROLLogId, TipoOrigen);
         }
+ 
+
+        public IList<BEMisPedidos> GetSolicitudesPedidoPendiente(int PaisID, long ConsultoraId, int Campania)
+        {
+            var blMisPedidos = new BLConsultoraOnline();
+            return blMisPedidos.GetSolicitudesPedidoPendiente(PaisID, ConsultoraId, Campania);
+        }
 
         public IList<BEMisPedidos> GetMisPedidosConsultoraOnline(int PaisID, long ConsultoraId, int Campania)
         {
@@ -352,11 +360,29 @@ namespace Portal.Consultoras.Service
             return blMisPedidos.GetMisPedidos(PaisID, ConsultoraId, Campania);
         }
 
+        //public IList<string> GetSapFromCuvlist(string cuvList, int campaniaid, int paisId)
+        //{
+        //    var blMisPedidos = new BLConsultoraOnline();
+        //    return blMisPedidos.GetSapFromCuvlist(cuvList, campaniaid, paisId);
+        //}
+
         public IList<BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, long PedidoID)
         {
             var blMisPedidos = new BLConsultoraOnline();
             return blMisPedidos.GetMisPedidosDetalle(PaisID, PedidoID);
         }
+
+        public IList<BEMisPedidosDetalle> GetMisPedidosDetallePendientesAll(int paisId, int campaniaId, long consultoraId)
+        {
+            var blMisPedidos = new BLConsultoraOnline();
+            return blMisPedidos.GetMisPedidosDetalleAll(paisId, campaniaId, consultoraId);
+        }
+
+        //public IList<BEMisPedidos> GetMisPedidosConsultoraOnlineCliente(int PaisID, long Campania, long Cuv)
+        //{
+        //    var blMisPedidos = new BLConsultoraOnline();
+        //    return blMisPedidos.GetMisPedidosDetalleCliente(PaisID,Campania,Cuv);
+        //}
 
         public int GetCantidadSolicitudesPedido(int PaisID, long ConsultoraId, int Campania)
         {
@@ -908,6 +934,15 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.ActuaizarNovedadBuscador(paisID, codigoUsuario);
         }
+
+        #region Recomendados
+
+        public IList<BEEstrategia> GetRecomendados(RecomendadoRequest RecomendadoRequest)
+        {
+            var blMisPedidos = new BLConsultoraOnline();
+            return blMisPedidos.GetRecomendados(RecomendadoRequest);
+        }
+        #endregion
 
         #region Direccion de Entrega
         public BEDireccionEntrega ObtenerDireccionPorConsultora(BEDireccionEntrega direccion)

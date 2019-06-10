@@ -31,7 +31,11 @@ var ConstantesModule = (function () {
         HerramientasVenta: "HVLista",
         Lanzamiento: "LANLista",
         RevistaDigital: "RDLista",
-        Ganadoras: "MGLista"
+        Ganadoras: "MGLista",
+        //INI HD-3908
+        PackNuevas: "PNLista",
+        DuoPerfecto: "DPLista"
+        //FIN HD-3908
     }
 
     var _codigoVariedad = {
@@ -105,32 +109,12 @@ var ConstantesModule = (function () {
         LAN: "LAN",
         MG: "MG",
         SR: "SR",
-        ATP: "ATP",
-        PN: "PN",
-        DP: "DP"
+		ATP: "ATP",
+        DP: "DP",
+        //INI HD-3908
+        PN:"PN"
+        //FIN HD-3908
     };
-
-
-    /// los que no tienen TipoPersonalizacion se pone texto
-    var _TipoEstrategiaTipoPersonalizacion = [
-        { TipoEstrategia: "001", TipoPersonalizacion: "OPT", Nombre: "" },
-        { TipoEstrategia: "002", TipoPersonalizacion: "", Nombre: "PackNueva" },
-        { TipoEstrategia: "003", TipoPersonalizacion: "" },
-        { TipoEstrategia: "004", TipoPersonalizacion: "ATP" },
-        { TipoEstrategia: "005", TipoPersonalizacion: "LAN" },
-        { TipoEstrategia: "006", TipoPersonalizacion: "" },
-        { TipoEstrategia: "007", TipoPersonalizacion: "OPM" },
-        { TipoEstrategia: "008", TipoPersonalizacion: "PAD" },
-        { TipoEstrategia: "009", TipoPersonalizacion: "ODD" },
-        { TipoEstrategia: "010", TipoPersonalizacion: "GND" },
-        { TipoEstrategia: "011", TipoPersonalizacion: "HV" },
-        { TipoEstrategia: "020", TipoPersonalizacion: "", Nombre: "MasVendidos" },
-        { TipoEstrategia: "021", TipoPersonalizacion: "", Nombre: "ProgramaNuevas" },
-        { TipoEstrategia: "022", TipoPersonalizacion: "", Nombre: "Incentivos" },
-        { TipoEstrategia: "030", TipoPersonalizacion: "SR" },
-        { TipoEstrategia: "101", TipoPersonalizacion: "", Nombre: "RevistaDigital" },
-        { TipoEstrategia: "201", TipoPersonalizacion: "", Nombre: "MasGanadoras" }
-    ];
 
     var _urlObtenerEstrategia = {
         OfertaParaTi: "/Estrategia/OPTObtenerProductos",
@@ -231,12 +215,6 @@ var ConstantesModule = (function () {
             + _origenPedidoWebEstructura.Palanca.ArmaTuPack
             + _origenPedidoWebEstructura.Seccion.Ficha,
     };
-    var _codigoUbigeoPortal = {
-        GuionPedidoGuionFichaResumida: "--02--00",
-        GuionContenedorArmaTuPackGuion: "--0816--",
-        GuionContenedorArmaTuPack: "--12----",
-        GuionCarritoComprasGuionFichaResumida: "--02--09"
-    }; 
 
     var _tipoAccionNavegar = {
         BreadCrumbs: 1,
@@ -290,7 +268,6 @@ var ConstantesModule = (function () {
         UrlDetalleEstrategia: _urlDetalleEstrategia,
         UrlPedido: _urlPedido,
         DiccionarioTipoEstrategia: _diccionarioTipoEstrategia,
-        GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia,
-        CodigoUbigeoPortal: _codigoUbigeoPortal
+        GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia
     }
 })();

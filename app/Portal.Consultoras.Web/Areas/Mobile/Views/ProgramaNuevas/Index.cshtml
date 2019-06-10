@@ -18,7 +18,11 @@
 }
 
 @section styles{
-	@Styles.Render("~/Bundle/Css/Mobile/RevistaDigital-Landing")
+    @*INI HD-3908*@
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mobile/Ficha")
+    @*FIN HD-3908*@
+
+	@System.Web.Optimization.Styles.Render("~/Bundle/Css/Mobile/RevistaDigital-Landing")
 	<style>
 		.slct-box-filtro-mobile {
 			height: 40px;

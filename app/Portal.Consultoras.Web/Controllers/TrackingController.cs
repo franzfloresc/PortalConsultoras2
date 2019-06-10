@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string zonaID = userData.ZonaID.ToString();
                 string regionID = userData.RegionID.ToString();
 
-                string url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisId, codigoConsultora, mostrarAyudaWebTracking, paisIso, campanhaId,zonaID,regionID);
+                string url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisId, codigoConsultora, mostrarAyudaWebTracking, paisIso, campanhaId, zonaID, regionID);
 
                 ViewBag.URLWebTracking = url;
             }

@@ -1005,7 +1005,11 @@ namespace Portal.Consultoras.Web.Controllers
                 string mostrarAyudaWebTracking = Convert.ToInt32(true).ToString();
                 string paisISO = userData.CodigoISO.Trim();
                 string campanhaID = userData.CampaniaID.ToString();
-                url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisID, codigoConsultora, mostrarAyudaWebTracking, paisISO, campanhaID);
+                //HD-3606 EINCA
+                string zonaID = userData.ZonaID.ToString();
+                string regionID = userData.RegionID.ToString();
+
+                url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisID, codigoConsultora, mostrarAyudaWebTracking, paisISO, campanhaID, zonaID, regionID);
                 ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora, "Seguimiento Pedido");
                 return Json(url, JsonRequestBehavior.AllowGet);
             }

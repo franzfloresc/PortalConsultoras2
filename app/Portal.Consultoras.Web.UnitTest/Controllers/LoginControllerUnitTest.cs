@@ -109,13 +109,16 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 UsuarioModel usuario = null;
 
                 var result = controller.ConfiguracionPaisUsuario(usuario).Result;
-
-                LogManager.Verify(x => x.LogErrorWebServicesBusWrap(
-                    It.Is<Exception>(e => e.Message.Contains("No puede ser nulo")),
-                    It.IsAny<string>(),
-                    It.IsAny<string>(),
-                    It.Is<string>(s => s.Contains("LoginController.ConfiguracionPaisUsuario"))),
-                    Times.AtLeastOnce);
+                SessionManager.Verify(x => x.SetGuiaNegocio(It.IsAny<GuiaNegocioModel>()), Times.Once);
+                SessionManager.Verify(x => x.SetRevistaDigital(It.IsAny<RevistaDigitalModel>()), Times.Once);
+                SessionManager.Verify(x => x.SetConfiguracionesPaisModel(It.IsAny<List<ConfiguracionPaisModel>>()), Times.Once);
+                SessionManager.Verify(x => x.SetOfertaFinalModel(It.IsAny<OfertaFinalModel>()), Times.Once);
+                //LogManager.Verify(x => x.LogErrorWebServicesBusWrap(
+                //    It.Is<Exception>(e => e.Message.Contains("No puede ser nulo")),
+                //    It.IsAny<string>(),
+                //    It.IsAny<string>(),
+                //    It.Is<string>(s => s.Contains("LoginController.ConfiguracionPaisUsuario"))),
+                //    Times.AtLeastOnce);
                 Assert.IsNull(result);
             }
 
@@ -136,6 +139,24 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     It.IsAny<string>(),
                     It.Is<string>(s => s.Contains("LoginController.ConfiguracionPaisUsuario"))),
                     Times.AtLeastOnce);
+                Assert.IsNotNull(result);
+            }
+
+            [TestMethod]
+            public void ConfiguracionPaisUsuario_UsuarioEsPostulante_RetornaUsuarioNull()
+            {
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
+                var usuario = new UsuarioModel
+                {
+                    TipoUsuario = Constantes.TipoUsuario.Postulante
+                };
+
+                var result = controller.ConfiguracionPaisUsuario(usuario);
+
+                SessionManager.Verify(x => x.SetGuiaNegocio(It.IsAny<GuiaNegocioModel>()), Times.Once);
+                SessionManager.Verify(x => x.SetRevistaDigital(It.IsAny<RevistaDigitalModel>()), Times.Once);
+                SessionManager.Verify(x => x.SetConfiguracionesPaisModel(It.IsAny<List<ConfiguracionPaisModel>>()), Times.Once);
+                SessionManager.Verify(x => x.SetOfertaFinalModel(It.IsAny<OfertaFinalModel>()), Times.Once);
                 Assert.IsNotNull(result);
             }
 

@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div class="block-seguimiento-content">
+        <div class="block-seguimiento-content block-seguimiento-content--mobile">
             <div class="col-xs-12" style="padding-left: 0px; padding-right: 0px">
                 @if (estado01Recibido != null)
                 {
@@ -185,7 +185,7 @@
                                     }
                                     @if (!string.IsNullOrEmpty(estado05EntregaProyectada.HoraEstimadaDesdeHasta))
                                     {
-                                        <div class="seg-hora">@estado05EntregaProyectada.HoraEstimadaDesdeHasta</div>
+                                        <div class="seg-hora seg-hora--entregaProyectada">@estado05EntregaProyectada.HoraEstimadaDesdeHasta</div>
                                     }
                                 </div>
                                 <div class="seg-hora">

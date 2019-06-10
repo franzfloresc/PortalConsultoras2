@@ -363,13 +363,15 @@ namespace Portal.Consultoras.Web.Providers
             msPersonalizacionConfi.EstrategiaHabilitado = msPersonalizacionConfi.EstrategiaHabilitado ?? "";
             msPersonalizacionConfi.GuardaDataEnLocalStorage = msPersonalizacionConfi.GuardaDataEnLocalStorage ?? "";
             msPersonalizacionConfi.GuardaDataEnSession = msPersonalizacionConfi.GuardaDataEnSession ?? "";
+            msPersonalizacionConfi.EstrategiaDisponibleParaFicha = msPersonalizacionConfi.EstrategiaDisponibleParaFicha ?? "";
 
             return msPersonalizacionConfi;
         }
 
         public bool UsaFichaMsPersonalizacion(string tipoEstrategia)
         {
-            bool tipoEstrategiaHabilitado = _sessionManager.GetConfigMicroserviciosPersonalizacion().EstrategiaDisponibleParaFicha.Contains(tipoEstrategia);
+            var msPersonalizacionConfi = GetConfigMicroserviciosPersonalizacion();
+            bool tipoEstrategiaHabilitado = msPersonalizacionConfi.EstrategiaDisponibleParaFicha.Contains(tipoEstrategia);
             return tipoEstrategiaHabilitado;
         }
 

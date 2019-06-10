@@ -69,5 +69,9 @@ namespace Portal.Consultoras.Web.Models
         public string AppBannerInformativo { get; set; }
         public int AppOrden { get; set; }
         public int AppCantidadProductos { get; set; }
+        public string AppTextoBotonInicial { get; set; }
+        public string AppTextoBotonFinal { get; set; }
+        public string AppColorFondoBoton { get; set; }
+        public string AppColorTextoBoton { get; set; }
     }
 }

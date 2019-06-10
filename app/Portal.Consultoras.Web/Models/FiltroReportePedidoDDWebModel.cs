@@ -17,7 +17,7 @@
         public string Sord { get; set; }
         public int Page { get; set; }
         public int Rows { get; set; }
-
+        public int IndicadorConsultoraDigital { get; set; }
         public bool EsPrimeraBusqueda { get; set; }
         public string UniqueId
         {

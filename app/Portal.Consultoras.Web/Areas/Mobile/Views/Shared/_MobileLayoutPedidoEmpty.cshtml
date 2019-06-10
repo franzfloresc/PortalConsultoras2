@@ -130,7 +130,7 @@
             <a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>Ok</b></a>
         </div>
     </div>
-
+    @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupMensajesInformacion.cshtml")
 
     <div style="display:none">
@@ -210,6 +210,8 @@
         var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
         var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
         var esAppMobile = true;
+        var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
+        var SessionTimeout = '@ViewBag.SessionTimeout';
     </script>
 
     <script type="text/javascript">

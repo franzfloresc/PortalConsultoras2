@@ -15,6 +15,7 @@
       <xs:element minOccurs="0" name="ActualizarClave" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="AniosPermanencia" type="xs:int" />
       <xs:element minOccurs="0" name="AnoCampaniaIngreso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AutorizaPedido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="BanderaImagen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="BuscadorYFiltrosConfiguracion" nillable="true" type="tns:BEBuscadorYFiltrosConfiguracion" />
       <xs:element minOccurs="0" name="CambioClave" type="xs:boolean" />
@@ -97,6 +98,8 @@
       <xs:element minOccurs="0" name="FechaNacimiento" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaVencimiento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FlagActivacionSuscripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FlgCheckEMAIL" type="xs:boolean" />
+      <xs:element minOccurs="0" name="FlgCheckSMS" type="xs:boolean" />
       <xs:element minOccurs="0" name="FotoOriginalSinModificar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FotoPerfil" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FotoPerfilAncha" type="xs:boolean" />
@@ -144,6 +147,7 @@
       <xs:element minOccurs="0" name="MostrarAyudaWebTraking" type="xs:boolean" />
       <xs:element minOccurs="0" name="MostrarBotonValidar" type="xs:boolean" />
       <xs:element minOccurs="0" name="Nivel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NivelCaminoBrillante" type="xs:int" />
       <xs:element minOccurs="0" name="NivelEducacion" type="xs:int" />
       <xs:element minOccurs="0" name="NivelLider" type="xs:int" />
       <xs:element minOccurs="0" name="NivelProyectado" nillable="true" type="xs:string" />
@@ -173,6 +177,8 @@
       <xs:element minOccurs="0" name="PuedeActualizar" type="xs:boolean" />
       <xs:element minOccurs="0" name="PuedeActualizarCelular" type="xs:boolean" />
       <xs:element minOccurs="0" name="PuedeActualizarEmail" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PuedeConfirmarAllEmail" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PuedeConfirmarAllSms" type="xs:boolean" />
       <xs:element minOccurs="0" name="PuedeEnviarSMS" type="xs:boolean" />
       <xs:element minOccurs="0" name="RecomendacionesConfiguracion" nillable="true" type="tns:ArrayOfBEConfiguracionPaisDatos" />
       <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />

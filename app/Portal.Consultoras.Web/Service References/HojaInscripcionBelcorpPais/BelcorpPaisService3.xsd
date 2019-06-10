@@ -1,35 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" />
-  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" />
-  <xs:complexType name="PaisCollection">
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ParametroUneteBE">
     <xs:sequence>
-      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" maxOccurs="unbounded" name="PaisBE" nillable="true" type="q1:PaisBE" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:int" />
+      <xs:element minOccurs="0" name="FKIdParametroUnete" type="xs:int" />
+      <xs:element minOccurs="0" name="IdParametroUnete" type="xs:int" />
+      <xs:element minOccurs="0" name="IdParametroUnetePadre" type="xs:int" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Valor" nillable="true" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="PaisCollection" nillable="true" type="tns:PaisCollection" />
-  <xs:complexType name="TablaLogicaDatosCollection">
+  <xs:element name="ParametroUneteBE" nillable="true" type="tns:ParametroUneteBE" />
+  <xs:complexType name="PaisBE">
     <xs:sequence>
-      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" maxOccurs="unbounded" name="TablaLogicaDatos" nillable="true" type="q2:TablaLogicaDatos" />
+      <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:unsignedByte" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="TablaLogicaDatosCollection" nillable="true" type="tns:TablaLogicaDatosCollection" />
-  <xs:complexType name="ParametroUneteCollection">
+  <xs:element name="PaisBE" nillable="true" type="tns:PaisBE" />
+  <xs:complexType name="ConsultoraBE">
     <xs:sequence>
-      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" maxOccurs="unbounded" name="ParametroUneteBE" nillable="true" type="q3:ParametroUneteBE" />
+      <xs:element minOccurs="0" name="AutorizaPedido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoRol" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsConsultoraLider" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsJoven" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="IdEstadoActividad" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="NombreCompleto" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PrimerApellido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SeccionID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SegundoApellido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SegundoNombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ZonaID" nillable="true" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ParametroUneteCollection" nillable="true" type="tns:ParametroUneteCollection" />
-  <xs:complexType name="TipoBloqueoCollection">
+  <xs:element name="ConsultoraBE" nillable="true" type="tns:ConsultoraBE" />
+  <xs:complexType name="BelcorpRespondeBE">
     <xs:sequence>
-      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" maxOccurs="unbounded" name="TipoBloqueoBE" nillable="true" type="q4:TipoBloqueoBE" />
+      <xs:element minOccurs="0" name="Correo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Telefono1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Telefono2" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="TipoBloqueoCollection" nillable="true" type="tns:TipoBloqueoCollection" />
-  <xs:complexType name="CampaniaCollection">
+  <xs:element name="BelcorpRespondeBE" nillable="true" type="tns:BelcorpRespondeBE" />
+  <xs:complexType name="TipoBloqueoBE">
     <xs:sequence>
-      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" maxOccurs="unbounded" name="CampaniaBE" nillable="true" type="q5:CampaniaBE" />
+      <xs:element minOccurs="0" name="TipoBloqueo" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="CampaniaCollection" nillable="true" type="tns:CampaniaCollection" />
+  <xs:element name="TipoBloqueoBE" nillable="true" type="tns:TipoBloqueoBE" />
+  <xs:complexType name="GestionValidacionesParameter">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ListaZonasTelefonicasActivas" nillable="true" type="tns:ArrayOfParametroUneteBE" />
+      <xs:element minOccurs="0" name="ListaZonasTelefonicasInactivas" nillable="true" type="tns:ArrayOfParametroUneteBE" />
+      <xs:element minOccurs="0" name="ParametroCorreo" nillable="true" type="tns:ParametroUneteBE" />
+      <xs:element minOccurs="0" name="ParametroTelefono" nillable="true" type="tns:ParametroUneteBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GestionValidacionesParameter" nillable="true" type="tns:GestionValidacionesParameter" />
+  <xs:complexType name="ArrayOfParametroUneteBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ParametroUneteBE" nillable="true" type="tns:ParametroUneteBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfParametroUneteBE" nillable="true" type="tns:ArrayOfParametroUneteBE" />
+  <xs:complexType name="CampaniaBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaInicioFacturacion" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CampaniaBE" nillable="true" type="tns:CampaniaBE" />
 </xs:schema>
