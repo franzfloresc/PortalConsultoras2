@@ -272,7 +272,7 @@ function ArmarMisGanancias(data) {
             }
         }
     });
-
+  
     if (indexSeleccion != -1) {
         backgroundColors[indexSeleccion] = colorBarSelected;
     }
@@ -348,31 +348,33 @@ function ArmarMisGanancias(data) {
             scales: {
                 yAxes: [{
                     ticks: {
+                        display: true,
                         display: false,
-                        suggestedMin: 50,
-                        suggestedMax: 50,
+                        //suggestedMin: 50,
+                        suggestedMax: 20,
                         padding: 0,
+                        display: false,
                         fontColor: "#000",
                         fontSize: 14
                     },
                     gridLines: {
-                        color: "#f7f7f7",
-                        lineWidth: 1,
-                        zeroLineColor: "#000",
-                        zeroLineWidth: 0
+                        display: false,
+                        color: "#c1c1c1",
+  
                     }
                 }],
                 xAxes: [{
+                    display: true,
                     ticks: {
                         fontColor: "#000",
                         fontSize: 14
                     },
                     barPercentage: 0.6,
                     gridLines: {
-                        color: "#f7f7f7",
-                        lineWidth: 1,
-                        zeroLineColor: "#000",
-                        zeroLineWidth: 1
+                        display: false,
+                        color: "#000",
+           
+                   
                     }
                 }]
             },
@@ -396,7 +398,8 @@ function ArmarMisGanancias(data) {
     $("#ganancia-periodo").text(variablesPortal.SimboloMoneda + " " + item.GananciaPeriodoFormat);
     $("#campanavalor-final").text(item.LabelSerie); 
     $("#campanavalor-inicial").text(iteminicial.LabelSerie);
-    
+
+
 
     var onClickEvent = function (evt) {
         var activePoints = myBar.getElementsAtEvent(evt);
