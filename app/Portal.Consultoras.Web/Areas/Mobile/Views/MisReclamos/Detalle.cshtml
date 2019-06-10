@@ -260,15 +260,20 @@ else if (ViewBag.Origen == "1")
                                                 </span>
                                             </div>
                                             <div class="d-flex w-100 border-radius-4 acciones_detalle_productos_solicitud_cdr">
-                                                <div class="d-block descripcion_acciones">
-                                                    Debes modificar la cantidad y/o eliminar este producto para procesar nuevamente tu solicitud.
+                                                <div class="d-flex descripcion_acciones">
+                                                    <span class="d-inline-block descripcion_acciones_icono_alerta">
+                                                        <img src="@Url.Content("~/Content/Images/icono_alerta_cierre_sesion.svg")" alt="" />
+                                                    </span>
+                                                    <span class="d-inline-block">
+                                                        Debes modificar la cantidad y/o eliminar este producto para procesar nuevamente tu solicitud.
+                                                    </span>
                                                 </div>
                                                 <div class="d-flex w-100">
                                                     <div id="divCantidad" data-cantidad-contenedor="" class="d-flex control_cantidad_producto_cdr">
-                                                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad1" class="text-bold rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                                                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad1" class="d-flex text-bold rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                                                                data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
-                                                        <a class="cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                                                        <a class="cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                                                        <a class="d-flex cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                                                        <a class="d-flex cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                                                     </div>
                                                     <a href="" title="Eliminar producto" class="d-flex enlace_eliminar_producto">
                                                         <span class="d-inline-block enlace_eliminar_producto_icono">

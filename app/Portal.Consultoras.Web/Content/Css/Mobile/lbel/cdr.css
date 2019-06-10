@@ -1947,9 +1947,12 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     }
 
 .acciones_detalle_productos_solicitud_cdr,
-.acciones_detalle_productos_solicitud_cdr > div:last-child {
-    align-items: center;
+.acciones_detalle_productos_solicitud_cdr > div:last-child,
+.control_cantidad_producto_cdr .cantidad_menos_home,
+.control_cantidad_producto_cdr .cantidad_mas_home,
+.control_cantidad_producto_cdr .rango_cantidad_pedido {
     justify-content: center;
+    align-items: center;
 }
 
 .acciones_detalle_productos_solicitud_cdr {
@@ -1979,15 +1982,40 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         margin-left: 0;
     }
 
-    .descripcion_acciones {
-        margin-bottom: 16px;
+    .descripcion_acciones{
+        margin-bottom:16px;
+        align-items:baseline;
     }
 
+        .descripcion_acciones span,
+        .enlace_eliminar_producto span {
+            font-size:13px;
+        }
+
+        .descripcion_acciones_icono_alerta{
+            width: 35px;
+            height: 24px;
+            margin-right: 3px;
+        }
+
+            .descripcion_acciones_icono_alerta img,
+            .enlace_eliminar_producto_icono img {
+                width:100%;
+                height:auto;
+            }
+
     .control_cantidad_producto_cdr {
-        min-width: 110px;
+        width: 110px;
+        height:40px;
         background-color:#FFF;
         margin-right:24px;
     }
+
+        .control_cantidad_producto_cdr .cantidad_menos_home,
+        .control_cantidad_producto_cdr .cantidad_mas_home,
+        .control_cantidad_producto_cdr .rango_cantidad_pedido{
+            height:100%;
+        }
 
         .control_cantidad_producto_cdr .cantidad_menos_home {
             order: -1;
@@ -2011,20 +2039,11 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
             align-items: center;
         }
 
-            .enlace_eliminar_producto span{
-                font-size:13px;
+            .enlace_eliminar_producto_icono{
+                width:19px;
+                height:auto;
+                margin-right:8px;
             }
-
-                .enlace_eliminar_producto_icono{
-                    width:19px;
-                    height:auto;
-                    margin-right:8px;
-                }
-
-                    .enlace_eliminar_producto_icono img{
-                        width:100%;
-                        height:auto;
-                    }
 
 .datos_solicitud_cdr_consulta, .datos_solicitud_cdr_titulo, .estado_productos_cdr {
     display: block;
