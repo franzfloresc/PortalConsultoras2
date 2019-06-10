@@ -619,7 +619,8 @@ namespace Portal.Consultoras.Web.Providers
                 DescripcionMarca = e.DescripcionMarca,
                 Descripcion = e.DescripcionCUV,
                 Cantidad = 1,
-                NombreComercial = e.DescripcionCUV, 
+                NombreComercial = e.DescripcionCUV,
+                FactorCuadre = 1
             };
         }
         private EstrategiaPersonalizadaProductoModel ToEstrategiaPersonalizadaProductoModel(KitCaminoBrillanteModel e, bool loadDetalle = true)
@@ -677,6 +678,7 @@ namespace Portal.Consultoras.Web.Providers
                 Descripcion = e.DescripcionCUV,
                 Cantidad = 1,
                 NombreComercial = e.DescripcionCUV,
+                FactorCuadre = 1
             };
         }
 
@@ -693,7 +695,7 @@ namespace Portal.Consultoras.Web.Providers
                 CodigoCategoria = "",
                 CodigoEstrategia = "035",
                 CodigoProducto = e.CUV,
-                CodigoVariante = "",
+                CodigoVariante = "2002",
                 CUV2 = e.CUV2,
                 DescripcionCompleta = e.DescripcionCUV,
                 DescripcionCortada = e.DescripcionCUV,
