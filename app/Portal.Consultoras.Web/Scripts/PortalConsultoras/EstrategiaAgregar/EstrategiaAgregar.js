@@ -706,6 +706,10 @@ var EstrategiaAgregarModule = (function () {
                    FichaPartialModule.ShowDivFichaResumida(false);
                }
 
+                if (funcionResponsive != undefined) {
+                    funcionResponsive();
+                }
+
                return false;
            })
            .fail(function (data, error) {
