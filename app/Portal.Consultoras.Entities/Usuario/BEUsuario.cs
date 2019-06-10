@@ -82,8 +82,8 @@ namespace Portal.Consultoras.Entities
             EsConsecutivoNueva = row.ToBoolean("EsConsecutivoNueva");
             IndicadorConsultoraDigital = row.ToInt32("IndicadorConsultoraDigital");
             //INI HD-3897
-            FlgCheckSMS = row.HasColumn("FlgCheckSMS") && row.ToBoolean("FlgCheckSMS") ;
-            FlgCheckEMAIL = row.HasColumn("FlgCheckEMAIL") && row.ToBoolean("FlgCheckEMAIL");
+            FlgCheckSMS = row.ToBoolean("FlgCheckSMS") ;
+            FlgCheckEMAIL = row.ToBoolean("FlgCheckEMAIL");
             //FIN HD-3897
         }
 
@@ -993,6 +993,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int NivelCaminoBrillante { get; set; }
 
+        [DataMember]
+        public bool EsUltimoDiaFacturacion { get; set; }
+        
         //INI HD-3897
         [DataMember]
         public bool PuedeConfirmarAllEmail { get; set; }

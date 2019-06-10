@@ -1,0 +1,128 @@
+﻿@using Portal.Consultoras.Common
+
+<script id="agregar-estrategia-template" type="text/x-handlebars-template">
+    <div data-selecciontono="tooltip" class="popover top tooltip_agregar_desabilitado" role="tooltip" id="" style="display: none;">
+        <div class="arrow" style="left: 20%;"></div>
+        <div class="popover-content">
+            <ul class="list-inline popover_texto">
+                <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                <li>Debes elegir tus opciones para poder agregar la oferta.</li>
+            </ul>
+        </div>
+    </div>
+    <div data-limitepedido="tooltip" class="popover top tooltip_limite_pedidos" role="tooltip" id="" style="display: none;">
+        <div class="arrow"></div>
+        <div class="popover-content">
+            <ul class="list-inline popover_texto">
+                <li><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
+                <li>Lo sentimos <img class="tooltop-emoji" src="/Content/Images/Mobile/Esika/1f615.png"> Has llegado al límite de pedidos para esta oferta.</li>
+            </ul>
+        </div>
+    </div>
+
+    {{#iff TipoAccionAgregar '>' @Constantes.TipoAccionAgregar.SinBoton}}
+        {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.AgregaloPackNuevas'}}
+            {{#if TieneStock}}
+                <div id="idcontenedor_rangos" 
+                     data-cantidad-contenedor=""
+                     class="contenedor_fijo {{#if esCampaniaSiguiente}} {{ClaseBloqueadaRangos}} {{/if}}">
+                    <input class="txt_cantidad_pedido_fijo ValidaNumeral ValidaPasteNumeral"
+                           type="text"
+                           onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);"
+                           size="2"
+                           maxlength="2"
+                           id="txtCantidad"
+                           data-input="cantidad"
+                           data-cantidad-input="-"
+                           disabled="disabled"
+                           value="{{Cantidad}}"
+                           {{#if esCampaniaSiguiente}} {{RangoInputEnabled}} {{/if}}>
+                </div>
+                <a id="btnAgregalo"
+                    class="btn_agregalo btn_primario {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
+                    {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
+                    onclick="javascript: estrategiaPresenter.onEstrategiaModelClick(event, false, 0, true, {{EsEditable}}); ">
+                    Agrégalo
+                </a>
+            {{else}}
+                <div class="row" style="width: 100%; flex-grow: 1;">
+                    <div class="col-6 text-left">
+                        <div class="tag_agotago">Agotado</div>
+                    </div>
+                    <div class="col-6 text-right">
+                        <span class="msj_agotado">No hay stock disponible</span>
+                    </div>
+                </div>
+                @*<a id="btnAgregalo"
+                   class="boton_Agregalo_agotado btn_agregalo"
+                   style="pointer-events: none;">
+                    AGOTADO
+                </a>*@
+            {{/if}}
+        {{else}}
+            {{#if TieneStock}}
+                <div id="idcontenedor_rangos"
+                     data-cantidad-contenedor=""
+                     class="contenedor_rangos {{#if esCampaniaSiguiente}} {{ClaseBloqueadaRangos}} {{/if}}">
+                    <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                           type="text"
+                           onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);"
+                           size="2"
+                           maxlength="2"
+                           id="txtCantidad"
+                           data-input="cantidad"
+                           data-cantidad-input="-"
+                           value="{{Cantidad}}"
+                           {{#if esCampaniaSiguiente}} {{RangoInputEnabled}} {{/if}}>
+                    <div>
+                        <a class="txt_menos" 
+                           data-cantidad-agregar="-" 
+                           onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"
+                           {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}} {{/if}}">
+                            <div class="dibujar_linea dibujar_menos" {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}} {{/if}}"></div>
+                        </a>
+                        <a class="txt_mas" 
+                           data-cantidad-agregar="+" 
+                           onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"
+                           {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}} {{/if}}">
+                            <div class="dibujar_linea dibujar_mas" {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}} {{/if}}"></div>
+                        </a>
+                    </div>
+                </div>
+                <a id="btnAgregalo"
+                   onclick="javascript: estrategiaPresenter.onEstrategiaModelClick(event, false, 0, true, {{EsEditable}});"
+                   {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
+                   class="btn_agregalo btn_primario {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}">
+                    Agrégalo
+                </a>
+            {{else}}
+                <div class="row" style="width: 100%; flex-grow: 1;">
+                    <div class="col-6 text-left">
+                        <div class="tag_agotago">Agotado</div>
+                    </div>
+                    <div class="col-6 text-right">
+                        <span class="msj_agotado">No hay stock disponible</span>
+                    </div>
+                </div>
+                @*<a id="btnAgregalo"
+                   class="boton_Agregalo_agotado btn_agregalo"
+                   style="pointer-events: none;">AGOTADO</a>*@
+            {{/if}}
+        {{/iff}}
+    {{/iff}}
+
+    <div class="ficha_div_libre_agregado">
+        {{#iff TextoLibre '!=' ''}}
+            <div class="limit_pack"><span>!</span>{{TextoLibre}}</div>
+        {{/iff}}
+
+        <div id="ContenedorAgregado" class="ficha_agregado" style="display:none;">
+            <div class="txt_agregado" data-txt_agregado="">
+                <span class="span_agregado">AGREGADO</span>
+                <div class="check_agregado">
+                    <div class="dibujar_linea dibujar_check_agregado"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

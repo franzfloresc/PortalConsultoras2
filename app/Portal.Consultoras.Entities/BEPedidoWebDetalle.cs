@@ -64,7 +64,7 @@ namespace Portal.Consultoras.Entities
             EstrategiaId = row.ToInt32("EstrategiaId");
             CUVReemplazo = row.ToString("CUVReemplazo"); //HD-3703 EINCA
             //INI HD-4200
-            EsSuscripcionSE = (row.HasColumn("EsSuscripcionSE") ? row.ToBoolean("EsSuscripcionSE") : false);
+            EsSuscripcionSE = row.ToBoolean("EsSuscripcionSE");
             //FIN HD-4200
         }
 
@@ -125,8 +125,9 @@ namespace Portal.Consultoras.Entities
             EstrategiaId = row.ToInt32("EstrategiaId");
             CUVReemplazo = row.ToString("CUVReemplazo"); //HD-3703 EINCA
             //INI HD-4200
-            EsSuscripcionSE = (row.HasColumn("EsSuscripcionSE") ? row.ToBoolean("EsSuscripcionSE") : false);
+            EsSuscripcionSE = row.ToBoolean("EsSuscripcionSE");
             //FIN HD-4200
+            Ganancia = row.ToDecimal("Ganancia");
         }
 
         [DataMember]
@@ -369,5 +370,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool EsSuscripcionSE { get; set; }
         //FIN HD-4200
+        [DataMember]
+        public decimal Ganancia { get; set; }
     }
 }

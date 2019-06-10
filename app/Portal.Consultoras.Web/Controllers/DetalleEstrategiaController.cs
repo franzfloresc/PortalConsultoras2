@@ -27,12 +27,59 @@ namespace Portal.Consultoras.Web.Controllers
             : base(sesionManager, logManager, estrategiaComponenteProvider)
         {
         }
+        
+        [HttpGet]
+        public ActionResult FichaResponsive(string palanca, int campaniaId, string cuv, string origen)
+        {
+            try
+            {
+                var url = (Request.Url.Query).Split('?');
+                if (EsDispositivoMovil()
+                    && url.Length > 1
+                    && url[1].Contains("sap")
+                    && url[1].Contains("VC"))
+                {
+                    string sap = "&" + url[1].Substring(3);
+                    return RedirectToAction("Ficha", "DetalleEstrategia", new { area = "Mobile", palanca, campaniaId, cuv, origen, sap });
+                }
+
+                var modelo = new DetalleEstrategiaFichaModel
+                {
+                    Palanca = palanca,
+                    Campania = campaniaId,
+                    Cuv = cuv,
+                    OrigenUrl = origen
+                };
+                return View(modelo);
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "BaseViewController.Ficha");
+            }
+
+            return base.Redireccionar();
+
+        }
+
 
         [HttpGet]
         public override ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
             try
             {
+                var fichaResponsiveEstaActivo = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            userData.PaisID,
+                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                            ConsTablaLogica.FlagFuncional.FichaResponsive,
+                            true
+                            );
+
+                if (fichaResponsiveEstaActivo)
+                {
+                    var urlFichaResponsive =string.Format( "/Detalles/{0}/{1}/{2}/{3}", palanca, campaniaId, cuv, origen);
+                    return Redirect(urlFichaResponsive);
+                }
+
                 var url = (Request.Url.Query).Split('?');
                 if (EsDispositivoMovil()
                     && url.Length > 1

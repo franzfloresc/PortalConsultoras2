@@ -354,11 +354,14 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.EsEditable = model.EsEditable;
                 pedidoDetalle.SetID = model.SetId;
                 pedidoDetalle.OrigenSolicitud = "WebMobile";
+                pedidoDetalle.EsDuoPerfecto = model.EsDuoPerfecto;
                 var result = await DeletePremioIfReplace(model);
                 if (result != null && !result.Item1)
                 {
                     return result.Item2;
                 }
+
+                pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
 
                 var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
                 
@@ -367,7 +370,11 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoDetalleResult.MensajeRespuesta = Constantes.TipoPopupAlert.Bloqueado + pedidoDetalleResult.MensajeRespuesta;
                 //FIN HD-3693
 
-                if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+                var esReservado = 
+                    pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.ERROR_RESERVA_AGREGAR) 
+                    || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR);
+
+                if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS) || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR))
                 {
                     SessionManager.SetPedidoWeb(null);
                     SessionManager.SetDetallesPedido(null);
@@ -396,8 +403,10 @@ namespace Portal.Consultoras.Web.Controllers
                         total = Total,
                         formatoTotal = FormatoTotal,
                         listCuvEliminar = pedidoDetalleResult.ListCuvEliminar.ToList(),
-                        mensajeCondicional
-                }, JsonRequestBehavior.AllowGet);
+                        mensajeCondicional,
+                        EsReservado = esReservado,
+                        PedidoWeb = ActualizaModeloPedidoSb2Model(pedidoDetalleResult.PedidoWeb)
+                    }, JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
@@ -407,7 +416,8 @@ namespace Portal.Consultoras.Web.Controllers
                         message = string.IsNullOrEmpty(pedidoDetalleResult.MensajeRespuesta) ? "Ocurrió un error al ejecutar la operación" : pedidoDetalleResult.MensajeRespuesta,
                         tituloMensaje = pedidoDetalleResult.TituloMensaje,
                         mensajeAviso = pedidoDetalleResult.MensajeAviso,
-                        errorInsertarProducto = "1"
+                        errorInsertarProducto = "1",
+                        EsReservado = esReservado
                     }, JsonRequestBehavior.AllowGet);
                 }
             }
@@ -422,6 +432,42 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        private PedidoSb2Model ActualizaModeloPedidoSb2Model(BEPedidoWeb pedidoWeb)
+        {
+            var pedidoSb2Model = new PedidoSb2Model();
+            if (pedidoWeb.GananciaRevista != null)
+                pedidoSb2Model.FormatoTotalGananciaRevistaStr = Util.DecimalToStringFormat(pedidoWeb.GananciaRevista.Value, userData.CodigoISO);
+            else
+                pedidoSb2Model.FormatoTotalGananciaRevistaStr =
+                    Util.DecimalToStringFormat(0L, userData.CodigoISO);
+
+            if (pedidoWeb.GananciaWeb != null)
+                pedidoSb2Model.FormatoTotalGananciaWebStr = Util.DecimalToStringFormat(pedidoWeb.GananciaWeb.Value, userData.CodigoISO);
+            else
+                pedidoSb2Model.FormatoTotalGananciaWebStr =
+                    Util.DecimalToStringFormat(0, userData.CodigoISO);
+
+            if (pedidoWeb.GananciaOtros != null)
+                pedidoSb2Model.FormatoTotalGananciaOtrosStr = Util.DecimalToStringFormat(pedidoWeb.GananciaOtros.Value, userData.CodigoISO);
+            else
+                pedidoSb2Model.FormatoTotalGananciaOtrosStr =
+                    Util.DecimalToStringFormat(0, userData.CodigoISO);
+            
+            pedidoSb2Model.FormatoTotalMontoAhorroCatalogoStr = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo, userData.CodigoISO);
+            if (pedidoWeb.GananciaOtros != null)
+            {
+                if (pedidoWeb.GananciaWeb != null)
+                {
+                    if (pedidoWeb.GananciaRevista != null)
+                    {
+                        var totalSumarized = pedidoWeb.GananciaOtros.Value + pedidoWeb.GananciaWeb.Value + pedidoWeb.GananciaRevista.Value + pedidoWeb.MontoAhorroCatalogo;
+                        pedidoSb2Model.FormatoTotalMontoGananciaStr = Util.DecimalToStringFormat(totalSumarized, userData.CodigoISO);
+                    }
+                }
+            }
+
+            return pedidoSb2Model;
+        }
         [HttpPost]
         public async Task<JsonResult> AgergarPremioDefault()
         {
@@ -509,9 +555,14 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
 
             pedidoDetalle.OrigenSolicitud = "WebMobile";
+            pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
             var pedidoDetalleResult = _pedidoWebProvider.UpdatePedidoDetalle(pedidoDetalle);
 
-            if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS))
+            var esReservado =
+                pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.ERROR_RESERVA_AGREGAR) 
+                || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR);
+
+            if (pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS) || pedidoDetalleResult.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR))
             {
                 SessionManager.SetPedidoWeb(null);
                 SessionManager.SetDetallesPedido(null);
@@ -543,7 +594,9 @@ namespace Portal.Consultoras.Web.Controllers
                     modificoBackOrder = pedidoDetalleResult.ModificoBackOrder,
                     DataBarra = GetDataBarra(),
                     cantidadTotalProductos = CantidadTotalProductos,
-                    mensajeCondicional
+                    mensajeCondicional,
+                    EsReservado = esReservado,
+                    PedidoWeb = ActualizaModeloPedidoSb2Model(pedidoDetalleResult.PedidoWeb)
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -552,7 +605,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = string.IsNullOrEmpty(pedidoDetalleResult.MensajeRespuesta) ? "Ocurrió un error al ejecutar la operación" : pedidoDetalleResult.MensajeRespuesta
+                    message = string.IsNullOrEmpty(pedidoDetalleResult.MensajeRespuesta) ? "Ocurrió un error al ejecutar la operación" : pedidoDetalleResult.MensajeRespuesta,
+                    EsReservado = esReservado
                 }, JsonRequestBehavior.AllowGet);
             }
         }
@@ -567,8 +621,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private async Task<Tuple<bool, JsonResult>> DeleteTransactionInternal(int pedidoId, short pedidoDetalleId, int tipoOfertaSisId, string cuv, int cantidad, string clienteId, bool esBackOrder, int setId)
         {
-            var lastResult = new Tuple<bool, JsonResult>(false, Json(new { }));
-
             BEPedidoDetalle pedidoDetalle = new BEPedidoDetalle();
             pedidoDetalle.SetID = setId;
             pedidoDetalle.PedidoDetalleID = pedidoDetalleId;
@@ -599,16 +651,17 @@ namespace Portal.Consultoras.Web.Controllers
                     return new Tuple<bool, JsonResult>(false, ErrorJson(Constantes.MensajesError.DeletePedido_CuvNoExiste));
             }
 
+            pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
             var result = await _pedidoWebProvider.EliminarPedidoDetalle(pedidoDetalle);
 
             pedidoEliminado.DescripcionOferta = !string.IsNullOrEmpty(pedidoEliminado.DescripcionOferta)
                 ? pedidoEliminado.DescripcionOferta.Replace("[", "").Replace("]", "").Trim()
                 : "";
-
-            bool errorServer = false;
+            
             string tipo = string.Empty;
 
-            errorServer = result.CodigoRespuesta != Constantes.PedidoValidacion.Code.SUCCESS;
+            var errorServer = !(result.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS) || result.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR));
+            var esReservado = (result.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.ERROR_RESERVA_AGREGAR) || result.CodigoRespuesta.Equals(Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR));
             tipo = result.MensajeRespuesta;
 
             if (!errorServer)
@@ -632,8 +685,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             //Validar si el cuv sigue agregado
             var EsAgregado = ValidarEsAgregado(pedidoAgrupado);
-
-            lastResult = new Tuple<bool, JsonResult>(!errorServer, Json(new
+            
+            var lastResult = new Tuple<bool, JsonResult>(!errorServer, Json(new
             {
                 success = !errorServer,
                 message,
@@ -653,7 +706,9 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoAgrupado.EstrategiaId,
                     pedidoAgrupado.TipoEstrategiaCodigo
                 },
-                cantidadTotalProductos = olstPedidoWebDetalle.Sum(x => x.Cantidad)
+                cantidadTotalProductos = olstPedidoWebDetalle.Sum(x => x.Cantidad),
+                EsReservado = esReservado,
+                PedidoWeb = ActualizaModeloPedidoSb2Model(result.PedidoWeb)
             }));
 
             return lastResult;
