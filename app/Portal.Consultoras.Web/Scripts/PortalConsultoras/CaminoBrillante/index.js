@@ -391,7 +391,7 @@ function ArmarMisGanancias(data) {
     if (data.MisGanancias.length > 1) {
         $("#a").show;
     }
-    var item = data.MisGanancias[data.MisGanancias.length - 1];
+    var item = data.MisGanancias[indexSeleccion];
     var iteminicial = data.MisGanancias[0];
     $("#ganancia-campania-nombre").text("Ganancia " + item.LabelSerie);
     $("#ganancia-campania").text(variablesPortal.SimboloMoneda + " " + item.GananciaCampaniaFormat);
