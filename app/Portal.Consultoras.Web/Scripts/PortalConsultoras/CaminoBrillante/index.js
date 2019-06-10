@@ -223,6 +223,8 @@ function ArmarMisGanancias(data) {
     var backgroundColors = []; var hoverBackgrounds = [];
     var indexSeleccion = -1;
     var colorBar = "#ffdaf3"; var colorBarSelected = "#4f0036";
+    var sizeMinBar = 6;
+    var x = 0;
 
     for (x = 0; x < data.MisGanancias.length; x++) {
         var item = data.MisGanancias[x];
@@ -235,6 +237,14 @@ function ArmarMisGanancias(data) {
             indexSeleccion = x;
         }
     };
+
+    for (; x < sizeMinBar; x++) {
+        labels.push("");
+        serie.push(0);
+        titles.push("");
+        backgroundColors.push(colorBar);
+        hoverBackgrounds.push(colorBarSelected);
+    }
 
     Chart.pluginService.register({
         beforeRender: function (chart) {
@@ -275,6 +285,8 @@ function ArmarMisGanancias(data) {
   
     if (indexSeleccion != -1) {
         backgroundColors[indexSeleccion] = colorBarSelected;
+    } else {
+        $("#boxganancias").hide();
     }
 
     var myBar = new Chart(ctx, {
@@ -372,9 +384,7 @@ function ArmarMisGanancias(data) {
                     barPercentage: 0.6,
                     gridLines: {
                         display: false,
-                        color: "#000",
-           
-                   
+                        color: "#000",                   
                     }
                 }]
             },
@@ -388,18 +398,14 @@ function ArmarMisGanancias(data) {
         }
     });
     
-    if (data.MisGanancias.length > 1) {
-        $("#a").show;
-    }
     var item = data.MisGanancias[indexSeleccion];
     var iteminicial = data.MisGanancias[0];
     $("#ganancia-campania-nombre").text("Ganancia " + item.LabelSerie);
     $("#ganancia-campania").text(variablesPortal.SimboloMoneda + " " + item.GananciaCampaniaFormat);
     $("#ganancia-periodo").text(variablesPortal.SimboloMoneda + " " + item.GananciaPeriodoFormat);
-    $("#campanavalor-final").text(item.LabelSerie); 
-    $("#campanavalor-inicial").text(iteminicial.LabelSerie);
 
-
+    $("#titulo-ganancia").text(data.Titulo); 
+    $("#titulo-subtitulo").text(data.SubTitulo);     
 
     var onClickEvent = function (evt) {
         var activePoints = myBar.getElementsAtEvent(evt);
