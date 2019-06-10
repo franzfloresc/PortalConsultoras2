@@ -147,7 +147,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             return new BEConsultoraCaminoBrillante()
             {
-                NivelConsultora = nivelesConsultora.Select(e => new BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante()
+                NivelConsultora = CalcularMisGanancias(nivelesConsultora.Select(e => new BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante()
                 {
                     Campania = e.Campania,
                     FechaIngreso = e.FechaIngreso,
@@ -160,11 +160,20 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     PeriodoCae = e.PeriodoCae,
                     EsActual = (e == nivelConsultora),
                     PuntajeAcumulado = e.PuntajeAcumulado
-                }).OrderByDescending(e => e.Campania).ToList(),
+                }).OrderByDescending(e => e.Campania).ToList()),
                 Niveles = CalcularCuantoFalta(niveles, periodo, nivelConsultora, nivelesConsultora),
                 ResumenLogros = GetResumenLogros(entidad.PaisID, logros),
                 Logros = logros
             };
+        }
+
+        private List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante> CalcularMisGanancias(List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante> nivelesHistoricosConsultora) {
+            if(!nivelesHistoricosConsultora.Any()) return nivelesHistoricosConsultora;
+            /* Marcamos la Ultima Campania */
+            decimal montoPedido = 0;
+            var ultimoNivel = nivelesHistoricosConsultora.Where(e => decimal.TryParse(e.MontoPedido, out montoPedido) && montoPedido > 0).OrderByDescending(e => e.Campania).FirstOrDefault();
+            if (ultimoNivel != null) ultimoNivel.FlagSeleccionMisGanancias = true;
+            return nivelesHistoricosConsultora;
         }
 
         private List<BENivelCaminoBrillante> CalcularCuantoFalta(List<BENivelCaminoBrillante> niveles, BEPeriodoCaminoBrillante periodo, NivelConsultoraCaminoBrillante nivelActualConsutora, List<NivelConsultoraCaminoBrillante> consultoraHistoricos)

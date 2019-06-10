@@ -467,6 +467,7 @@ namespace Portal.Consultoras.Web.Providers
                                 GananciaCampaniaFormat = Util.DecimalToStringFormat(e.GananciaCampania, usuarioModel.CodigoISO),
                                 GananciaPeriodo = e.GananciaPeriodo,
                                 GananciaPeriodoFormat = Util.DecimalToStringFormat(e.GananciaPeriodo, usuarioModel.CodigoISO),
+                                FlagSeleccionMisGanancias = e.FlagSeleccionMisGanancias.HasValue ? e.FlagSeleccionMisGanancias.Value : false
                             }).ToList()
             };
             return misGanancias;

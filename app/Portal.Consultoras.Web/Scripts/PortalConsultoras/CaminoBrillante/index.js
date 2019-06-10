@@ -219,17 +219,22 @@ function ArmarMisGanancias(data) {
 
     var ctx = document.getElementById('canvas').getContext('2d');
 
-    var labels = [];
-    var serie = [];
-    var titles = [];
+    var labels = []; var serie = []; var titles = [];
+    var backgroundColors = []; var hoverBackgrounds = [];
+    var indexSeleccion = -1;
+    var colorBar = "#ffdaf3"; var colorBarSelected = "#4f0036";
 
     for (x = 0; x < data.MisGanancias.length; x++) {
         var item = data.MisGanancias[x];
         labels.push(item.LabelSerie);
         serie.push(item.ValorSerie);
         titles.push(item.ValorSerieFormat);
+        backgroundColors.push(colorBar);
+        hoverBackgrounds.push(colorBarSelected);
+        if (item.FlagSeleccionMisGanancias) {
+            indexSeleccion = x;
+        }
     };
-
 
     Chart.pluginService.register({
         beforeRender: function (chart) {
@@ -268,23 +273,10 @@ function ArmarMisGanancias(data) {
         }
     });
 
-    var backgroundColors = [
-        "#ffdaf3",
-        "#ffdaf3",
-        "#ffdaf3",
-        "#ffdaf3",
-        "#ffdaf3",
-        "#4f0036"
+    if (indexSeleccion != -1) {
+        backgroundColors[indexSeleccion] = colorBarSelected;
+    }
 
-    ];
-    var hoverBackgrounds = [
-        "#4f0036",
-        "#4f0036",
-        "#4f0036",
-        "#4f0036",
-        "#4f0036",
-        "#4f0036"
-    ];
     var myBar = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -297,29 +289,21 @@ function ArmarMisGanancias(data) {
                 }
             ]
         },
-        options: {
-     
+        options: {    
             showAllTooltips: true,
             onClick: function (evt, elements) {
                 var datasetIndex;
                 var dataset;
-
-                //dataset.backgroundColor[elements[3]._index] = '#4f0036',
                 if (elements.length) {
-                   
-                     
                     var index = elements[0]._index;
                     datasetIndex = elements[0]._datasetIndex;
-                    backgroundColors[5] = '#ffdaf3';
+                    backgroundColors[indexSeleccion] = colorBar;
                     // Reset old state
                     dataset = myBar.data.datasets[datasetIndex];
                     dataset.backgroundColor = backgroundColors.slice();
                     dataset.hoverBackgroundColor = hoverBackgrounds.slice();
-
-                   
-                    dataset.backgroundColor[index] = '#4f0036'; 
-                    
-                    dataset.hoverBackgroundColor[index] = '#4f0036';
+                    dataset.backgroundColor[index] = colorBarSelected;
+                    dataset.hoverBackgroundColor[index] = colorBarSelected;
                 } else {
                     // remove hover styles
                     for (datasetIndex = 0; datasetIndex < myBar.data.datasets.length; ++datasetIndex) {
@@ -328,9 +312,7 @@ function ArmarMisGanancias(data) {
                         dataset.hoverBackgroundColor = hoverBackgrounds.slice();
                     }
                 }
-
                 myBar.update();
-
             },
             tooltips: {
                 mode: 'line',
@@ -356,7 +338,7 @@ function ArmarMisGanancias(data) {
                         if (tooltipItem) {
                             return titles[tooltipItem.index];
                         }
-                        return  "" + tooltipItem.yLabel;
+                        return tooltipItem.yLabel;
                     },
                     title: function (tooltipItem, data) {
                         return;
@@ -364,9 +346,7 @@ function ArmarMisGanancias(data) {
                 }
             },
             scales: {
-
                 yAxes: [{
-
                     ticks: {
                         display: false,
                         suggestedMin: 50,
@@ -449,7 +429,6 @@ function ArmarCarrusel(data) {
             {
                 breakpoint: 768,
                 settings: {
-
                     slidesToShow: 2,
                 }
             }

@@ -10804,6 +10804,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             private string FechaIngresoField;
             
             [System.Runtime.Serialization.OptionalFieldAttribute()]
+            private System.Nullable<bool> FlagSeleccionMisGananciasField;
+            
+            [System.Runtime.Serialization.OptionalFieldAttribute()]
             private decimal GananciaAnualField;
             
             [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -10871,6 +10874,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                     if ((object.ReferenceEquals(this.FechaIngresoField, value) != true)) {
                         this.FechaIngresoField = value;
                         this.RaisePropertyChanged("FechaIngreso");
+                    }
+                }
+            }
+            
+            [System.Runtime.Serialization.DataMemberAttribute()]
+            public System.Nullable<bool> FlagSeleccionMisGanancias {
+                get {
+                    return this.FlagSeleccionMisGananciasField;
+                }
+                set {
+                    if ((this.FlagSeleccionMisGananciasField.Equals(value) != true)) {
+                        this.FlagSeleccionMisGananciasField = value;
+                        this.RaisePropertyChanged("FlagSeleccionMisGanancias");
                     }
                 }
             }
