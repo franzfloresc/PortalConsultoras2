@@ -460,14 +460,10 @@ namespace Portal.Consultoras.BizLogic
                 signature = Crypto.CreateMD5(signature).ToLower();
                 var url = string.Format(_urlIssuuList, _apiKeyIssuu, catalogoRevista.CodigoIssuu, signature);
                 var paisID = Util.GetPaisID(catalogoRevista.PaisISO);
-
-
-                var docs =   GetIssuuObject(url, catalogoRevista.PaisISO, paisID, catalogoRevista.CodigoIssuu , out OcurrioError);
-
-                if(docs == null)
-                    return OcurrioError;
-
-
+                
+                var docs = GetIssuuObject(url, catalogoRevista.PaisISO, paisID, catalogoRevista.CodigoIssuu , out OcurrioError);
+                if(docs == null) return OcurrioError;
+                
                 var doc = docs.FirstOrDefault();
                 if (doc == null) return OcurrioError;
 
@@ -477,10 +473,8 @@ namespace Portal.Consultoras.BizLogic
 
                 catalogoRevista.CatalogoTitulo = titutlo;
                 catalogoRevista.CatalogoDescripcion = Descripcion;
-                catalogoRevista.UrlVisor =
-                    string.Format(ServiceSettings.Instance.UrlIssuu, catalogoRevista.CodigoIssuu);
-                catalogoRevista.UrlImagen = string.Format("https://image.issuu.com/{0}/jpg/page_1_thumb_medium.jpg",
-                    ndoc["documentId"]);
+                catalogoRevista.UrlVisor = string.Format(ServiceSettings.Instance.UrlIssuu, catalogoRevista.CodigoIssuu);
+                catalogoRevista.UrlImagen = string.Format("https://image.issuu.com/{0}/jpg/page_1_thumb_medium.jpg", ndoc["documentId"]);
             }
             catch (Exception ex)
             {
@@ -573,27 +567,21 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #endregion
-
-     
-
-        private JArray GetIssuuObject(string url,string codigoIso , int paisId, string CodigoIssue , out bool error)
+        
+        private JArray GetIssuuObject(string url, string codigoIso , int paisId, string CodigoIssue , out bool error)
         {
             JArray result = null;
             string Json = string.Empty;
             string accion = string.Empty;
             error = false;
+
             try
             {
                 var Issue = CacheManager<JArray>.GetDataElement(paisId, ECacheItem.ApiIssuuData, CodigoIssue);
-                if (Issue != null)
-                {
-                    return Issue;
-                }
+                if (Issue != null) return Issue;
+
                 Json = ObtenerObjetoIssue(url, codigoIso);
-                if (string.IsNullOrEmpty(Json))
-                {
-                    return result;
-                }
+                if (string.IsNullOrEmpty(Json)) return result;
 
                 if (Json.IndexOf("error") > -1)
                 {
@@ -606,9 +594,6 @@ namespace Portal.Consultoras.BizLogic
                 result =  (JArray)oIssuu.rsp._content.result._content;
 
                 CacheManager<JArray>.AddDataElement(paisId, ECacheItem.ApiIssuuData, CodigoIssue, result , new TimeSpan(7,0,0,0));
-
-               
-
             }
             catch 
             {
