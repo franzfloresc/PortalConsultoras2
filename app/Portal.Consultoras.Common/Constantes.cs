@@ -4031,6 +4031,11 @@ namespace Portal.Consultoras.Common
                 }
             }
 
+            public static class CodigoNiveles
+            {
+                public const string Brillante = "6";
+            }
+
             public static class CodigosOrdenamiento
             {
                 public const string SinOrden = "00";

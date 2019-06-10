@@ -453,23 +453,43 @@ namespace Portal.Consultoras.Web.Providers
         public MisGananciasCaminoBrillante GetMisGananciasCaminoBrillante()
         {
             var niveles = GetNivelesHistoricosConsultora() ?? new List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante>();
+            var funcCampania = FuncToCampaniaShort();
             var misGanancias = new MisGananciasCaminoBrillante()
             {
                 SubTitulo = "Campañas",
-                Titulo = "Monto de mi pedido CXX-CYY",
+                Titulo = GetMisGananciasCaminoBrillante_Title(niveles, funcCampania),
                 MisGanancias = niveles.OrderBy(e => e.Campania)
                             .Select(e => new MisGananciasCaminoBrillante.GananciaCampaniaCaminoBrillante()
                             {
-                                LabelSerie = "C" + e.Campania.Substring(4, 2),
+                                LabelSerie = funcCampania(e.Campania),
                                 ValorSerie = decimal.Parse(e.MontoPedido),
                                 ValorSerieFormat = Util.DecimalToStringFormat(e.MontoPedido, usuarioModel.CodigoISO),
                                 GananciaCampania = e.GananciaCampania,
                                 GananciaCampaniaFormat = Util.DecimalToStringFormat(e.GananciaCampania, usuarioModel.CodigoISO),
                                 GananciaPeriodo = e.GananciaPeriodo,
                                 GananciaPeriodoFormat = Util.DecimalToStringFormat(e.GananciaPeriodo, usuarioModel.CodigoISO),
+                                FlagSeleccionMisGanancias = e.FlagSeleccionMisGanancias.HasValue ? e.FlagSeleccionMisGanancias.Value : false
                             }).ToList()
             };
             return misGanancias;
+        }
+
+        private string GetMisGananciasCaminoBrillante_Title(List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante> niveles, Func<string, string> funcCampania) {
+            var nivelesOrdenados = niveles.OrderBy(e => e.Campania).ToList();
+            if (!nivelesOrdenados.Any()) return string.Empty;
+            string end = nivelesOrdenados.Count() > 1 ? " a "+ funcCampania(nivelesOrdenados[nivelesOrdenados.Count - 1].Campania) : string.Empty;
+            return string.Format("Monto de mi pedido {0}{1}", funcCampania(nivelesOrdenados[0].Campania), end);
+        }
+
+        private Func<string, string> FuncToCampaniaShort()
+        {
+            string format = "C{0}";
+            return (campania) =>
+            {
+                if (campania == null) return string.Empty;
+                if (campania.Length < 6) return string.Empty;
+                return string.Format(format, campania.Substring(4,2));
+            };
         }
 
         #endregion
