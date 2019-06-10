@@ -100,6 +100,7 @@ input[type="radio"].field__checkbox__sb {
 }
 
 .btn__sb__primary--confirmar {
+    width:100%;
     position: sticky;
     position: -webkit-sticky;
     top: calc(100% - 57px);
@@ -161,16 +162,25 @@ input[type="radio"].field__checkbox__sb {
         max-width:100%;
     }
 
+    .btn__sb__primary--confirmar {
+        position: fixed;
+        width: 92%;
+        bottom: 16px;
+        left: 0;
+        right: 0;
+    }
+
 }
 
 @media screen and (max-width:991px) and (orientation:landscape) {
 
     .btn__sb__primary--confirmar {
+        width: 100%;
         position: relative;
         z-index: 5;
         margin-top: 56px;
         margin-bottom: 20px;
-        top:0;
+        top: 0;
     }
 
 }
