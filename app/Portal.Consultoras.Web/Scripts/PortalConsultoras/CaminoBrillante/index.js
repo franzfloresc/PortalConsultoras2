@@ -210,7 +210,7 @@ function CargarGanancias() {
 }
 
 
-function ArmarMisGanancias(data) {    
+function ArmarMisGanancias(data) { 
     if (!data) {        
         return;
     }
@@ -221,11 +221,13 @@ function ArmarMisGanancias(data) {
 
     var labels = [];
     var serie = [];
+    var titles = [];
 
     for (x = 0; x < data.MisGanancias.length; x++) {
         var item = data.MisGanancias[x];
         labels.push(item.LabelSerie);
-        serie.push(item.ValorSerieFormat);
+        serie.push(item.ValorSerie);
+        titles.push(item.ValorSerieFormat);
     };
 
 
@@ -289,16 +291,8 @@ function ArmarMisGanancias(data) {
             labels: labels,
             datasets: [
                 {
-                    //backgroundColor: "#ffdaf3",
                     backgroundColor: backgroundColors,
                     hoverBackgroundColor: hoverBackgrounds,
-
-                    //backgroundColor: function (value) {
-                    //    if (value < 30) {
-                    //        return 'red';
-                    //    }
-                    //    return 'green';
-                    //},
                     data: serie
                 }
             ]
@@ -311,7 +305,6 @@ function ArmarMisGanancias(data) {
                 var dataset;
 
                 //dataset.backgroundColor[elements[3]._index] = '#4f0036',
-
                 if (elements.length) {
                    
                      
@@ -360,7 +353,10 @@ function ArmarMisGanancias(data) {
                 },
                 callbacks: {
                     label: function (tooltipItem, data) {
-                        return  + tooltipItem.yLabel;
+                        if (tooltipItem) {
+                            return titles[tooltipItem.index];
+                        }
+                        return  "" + tooltipItem.yLabel;
                     },
                     title: function (tooltipItem, data) {
                         return;
