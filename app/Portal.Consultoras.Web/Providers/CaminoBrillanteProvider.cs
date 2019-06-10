@@ -563,9 +563,20 @@ namespace Portal.Consultoras.Web.Providers
                 TienePaginaProducto = false,
                 TienePaginaProductoMob = false,
                 TipoAccionAgregar = 2,                
-                Hermanos = (loadDetalle && e.Detalle != null) ? e.Detalle.Select(d => ToEstrategiaComponenteModel(d)).ToList() : null,
+                Hermanos = GetHermanos(e, loadDetalle)
 
             };
+        }
+
+        private List<EstrategiaComponenteModel> GetHermanos(BEOfertaCaminoBrillante e, bool loadDetalle) {
+            if (!loadDetalle) return null;
+            switch (e.TipoOferta) {
+                case Constantes.CaminoBrillante.TipoOferta.Kit:
+                    return e.Detalle != null ? e.Detalle.Select(d => ToEstrategiaComponenteModel(d)).ToList() : null;
+                case Constantes.CaminoBrillante.TipoOferta.Demostrador:
+                    return new List<EstrategiaComponenteModel>() { ToEstrategiaComponenteModel(e) };
+            }
+            return null;
         }
 
         private EstrategiaComponenteModel ToEstrategiaComponenteModel(BEOfertaCaminoBrillante e) {
@@ -619,8 +630,8 @@ namespace Portal.Consultoras.Web.Providers
                 //EstrategiaID = e.EstrategiaID.ToInt(),
                 EstrategiaID = 0,
                 FlagNueva = 0,
-                Ganancia = e.PrecioCatalogo - e.PrecioValorizado,
-                GananciaString = (e.PrecioCatalogo - e.PrecioValorizado).ToString(),
+                Ganancia =  e.PrecioValorizado - e.PrecioCatalogo,
+                GananciaString = Util.DecimalToStringFormat(e.PrecioValorizado - e.PrecioCatalogo, usuarioModel.CodigoISO),
                 ImagenURL = e.FotoProductoMedium,
                 MarcaID = e.MarcaID,
                 Precio = e.PrecioCatalogo,
@@ -633,6 +644,19 @@ namespace Portal.Consultoras.Web.Providers
                 TipoAccionAgregar = 1,
                 Hermanos = (loadDetalle && e.Detalle != null) ? e.Detalle.Select(d => ToEstrategiaComponenteModel(d)).ToList() : null,
                 
+            };
+        }
+
+        private EstrategiaComponenteModel ToEstrategiaComponenteModel(DemostradorCaminoBrillanteModel e)
+        {
+            return new EstrategiaComponenteModel()
+            {
+                TieneStock = true,
+                CodigoProducto = e.CUV,
+                DescripcionMarca = e.DescripcionMarca,
+                Descripcion = e.DescripcionCUV,
+                Cantidad = 1,
+                NombreComercial = e.DescripcionCUV,
             };
         }
 
@@ -674,7 +698,7 @@ namespace Portal.Consultoras.Web.Providers
                 TienePaginaProducto = false,
                 TienePaginaProductoMob = false,
                 TipoAccionAgregar = 2,
-
+                Hermanos = new List<EstrategiaComponenteModel>() { ToEstrategiaComponenteModel(e) }
             };
         }
 

@@ -22,11 +22,14 @@
                 {{/iff}}
             </div>
             <hr class="clear">
-
             {{#IsNullOrEmpty ImagenURL '!='}}
             <div id="EtiquetaPackNuevas" class="row label_producto">
                 <div class="col-md-12 col-sm-12 col-xs-12">
+                    {{#iff TipoOfertaCaminoBrillante '>' 0}}
+                    <img src="" alt="" />
+                    {{else}}
                     <img src="{{ImagenURL}}" alt="" />
+                    {{/iff}}
                 </div>
             </div>
             {{/IsNullOrEmpty}}
@@ -77,7 +80,7 @@
             {{#iff Precio '>' 0}}
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12 precio_producto">
-                    {{iff TipoOfertaCaminoBrillante '==' 2}}
+                    {{iff TipoOfertaCaminoBrillante '>' 0}}
                     <p>Precio normal <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
                     {{else}}
                     <p>Precio catálogo <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
@@ -101,12 +104,17 @@
                 {{#iff Ganancia '>' 0}}
                 <li class="gana_precio_producto">
                     <p class="ganancia">
+                        {{#iff TipoOfertaCaminoBrillante '>' 0}}
+                        Ganancia
+                        {{else}}
                         {{#iff CodigoVariante '!=' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
                         GANA
                         {{/iff}}
                         {{#iff CodigoVariante '==' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
                         GANA HASTA
-                        {{/iff}} {{SimboloMoneda}} {{GananciaString}}
+                        {{/iff}}
+                        {{/iff}}
+                        {{SimboloMoneda}} {{GananciaString}}
                     </p>
                 </li>
                 {{/iff}}
