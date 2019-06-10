@@ -933,7 +933,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 {
                     /* Catalogos */
                     var catalogos = demostradores.LstDemostradores.Where(e => e.EsCatalogo == 1).Take(2).Select(e => ToBEOfertaCaminoBrillante(e));                   
-                    iSize = size - carrusel.Items.Count + catalogos.Count();
+                    iSize = size - (carrusel.Items.Count + catalogos.Count());
                     /* Demostradores */
                     carrusel.Items.AddRange(demostradores.LstDemostradores.Where(e => e.EsCatalogo != 1).Take(iSize).Select(e => ToBEOfertaCaminoBrillante(e)));
                     carrusel.Items.AddRange(catalogos);
