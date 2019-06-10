@@ -1144,6 +1144,8 @@ var PedidoRegistroModule = function () {
 
                 CloseLoading();
 
+                ActualizaGanancias(data);
+
                 //INI HD-3908
                 if (_flagNueva && IsNullOrEmpty(data.mensajeAviso)) {
                     //try {
@@ -1310,6 +1312,8 @@ var PedidoRegistroModule = function () {
 
                 $("#hdErrorInsertarProducto").val(data.errorInsertarProducto);
 
+
+                ActualizaGanancias(data);
                 //INI HD-3908
                 if (_flagNueva && IsNullOrEmpty(data.mensajeAviso)) {
                     //try {
@@ -1407,6 +1411,7 @@ var PedidoRegistroModule = function () {
 
                     var prevTotal = mtoLogroBarra;
                     MostrarBarra(response);
+                    ActualizaGanancias(response);
                     showPopupNivelSuperado(response.DataBarra, prevTotal);
                     if (response.modificoBackOrder) showDialog("divBackOrderModificado");
                     CargarDetallePedido();
@@ -1736,12 +1741,14 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
 }
 
 function ActualizaGanancias(data) {
-    data = ActualizaGanancias || "";
+    
+    data = data || "";
     if (data !== "") {
-        $('#div-ganancia-totalGananciaCatalogo').text('GG');
-        $('#div-ganancia-totalGananciaRevista').text('GG');
-        $('#div-ganancia-totalGananciaWeb').text('GG');
-        $('#div-ganancia-totalGananciaOtros').text('GG');
+        $('#div-ganancia-totalMontoGanancia').text(data.PedidoWeb.FormatoTotalMontoGananciaStr);
+        $('#div-ganancia-totalGananciaCatalogo').text(data.PedidoWeb.FormatoTotalMontoAhorroCatalogoStr);
+        $('#div-ganancia-totalGananciaRevista').text(data.PedidoWeb.FormatoTotalGananciaRevistaStr);
+        $('#div-ganancia-totalGananciaWeb').text(data.PedidoWeb.FormatoTotalGananciaWebStr);
+        $('#div-ganancia-totalGananciaOtros').text(data.PedidoWeb.FormatoTotalGananciaOtrosStr);
     }
 }
 function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, setId, esCuponNuevas) {
