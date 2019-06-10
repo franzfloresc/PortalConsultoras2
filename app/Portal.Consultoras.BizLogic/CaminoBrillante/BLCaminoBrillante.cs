@@ -194,13 +194,13 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             }
 
             /* Calcular cuanto Falta */
-            niveles.Where(e => e.CodigoNivel == nivel.ToString() && e.CodigoNivel != "6").Update(e =>
+            niveles.Where(e => e.CodigoNivel == nivel.ToString() && e.CodigoNivel != Constantes.CaminoBrillante.CodigoNiveles.Brillante).Update(e =>
             {
                 e.MontoFaltante = decimal.TryParse(e.MontoMinimo, out montoMinimo) ? (montoMinimo - montoPedido) : e.MontoFaltante;
             });
 
             /* Puntaje Acumulado en Nivel 6 */
-            niveles.Where(e => e.CodigoNivel == "6").Update(e =>
+            niveles.Where(e => e.CodigoNivel == Constantes.CaminoBrillante.CodigoNiveles.Brillante).Update(e =>
             {
                 e.PuntajeAcumulado = nivelActualConsutora.PuntajeAcumulado.HasValue ? nivelActualConsutora.PuntajeAcumulado : e.PuntajeAcumulado;
             });
