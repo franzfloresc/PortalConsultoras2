@@ -362,7 +362,7 @@ function ArmarMisGanancias(data) {
                     ticks: {
                         display: true,
                         display: false,
-                        //suggestedMin: 50,
+                        suggestedMin: 50,
                         suggestedMax: 20,
                         padding: 0,
                         display: false,
