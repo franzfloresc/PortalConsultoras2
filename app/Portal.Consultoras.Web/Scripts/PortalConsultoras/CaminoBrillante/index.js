@@ -432,6 +432,7 @@ function ArmarMisGanancias(data) {
 }
 
 function ArmarCarrusel(data) {
+    if (data.Items.length == 0) return;
     var htmlDiv = SetHandlebars("#template-carrusel", data);
     $('#carrusel').append(htmlDiv);
     $('#carrusel').show();
