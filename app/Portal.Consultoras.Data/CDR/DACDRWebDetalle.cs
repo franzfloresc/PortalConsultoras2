@@ -77,6 +77,7 @@ namespace Portal.Consultoras.Data.CDR
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdCdrWebDetalleCantidadObservado");
             Context.Database.AddInParameter(command, "CDRWebDetalleID", DbType.Int32, entity.CDRWebDetalleID);
             Context.Database.AddInParameter(command, "Cantidad", DbType.Int32, entity.Cantidad);
+            Context.Database.AddInParameter(command, "DetalleXML", DbType.Xml, entity.XMLReemplazo);//HD-4017 EINCA 
 
             int result = Context.ExecuteNonQuery(command);
 

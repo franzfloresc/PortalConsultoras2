@@ -336,6 +336,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<MisReclamosModel, ServiceCDR.BECDRWebDetalle>()
                 .ForMember(t => t.CDRWebDetalleID, f => f.MapFrom(c => c.CDRWebDetalleID))
+                .ForMember(t=>t.DetalleReemplazo,f=>f.MapFrom(c=>c.Reemplazo))
                 .ForMember(t => t.Cantidad, f => f.MapFrom(c => c.Cantidad));
 
             Mapper.CreateMap<RolModel, ServiceSeguridad.BERol>()
@@ -500,7 +501,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             //INI HD-4200
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEPedidoWeb>();
             //FIN HD-4200
-            Mapper.CreateMap<ProductoComplementarioModel,ServiceCDR.BECDRProductoComplementario>();
+            Mapper.CreateMap<ProductoComplementarioModel, ServiceCDR.BECDRProductoComplementario>();
         }
     }
 }

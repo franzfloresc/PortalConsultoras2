@@ -75,20 +75,48 @@
         var pedidoId = $("#hdPedidoIdActual").val();
         var id = $("#hdCDRWebID").val();
         var lista = [];
+        var $tagsElements = $("#divDetallePedidoCdrDetalle .txtCantidad");
+        $.each($tagsElements, function () {
+            var $element = $(this);
+            var $data = $element.data("itemValues");
+            var tipo = $data.item_type;
+            var Id = $data.pedido_detalle_id;
+            var Cuv = $data.codigo_cuv;
+            var Cantidad = $element.val();
+            var Reemplazo = [];
+            var objGrupal = {}
+            if (tipo == "grupal") {
+                objGrupal = {
+                    cuv: Cuv,
+                    cantidad: Cantidad
+                }
+                Reemplazo.push(objGrupal);
+            }
+            arr = $.grep(lista, function (val, i) {
+                if (typeof (val.CDRWebDetalleID) !== "undefined") {
+                    return (val.CDRWebDetalleID == Id);
+                } else {
+                    return [];
+                }
+            });
+            if (arr.length == 0) {
+                var det = tipo == "grupal" ? Reemplazo : [];
+                var a = {
+                    CDRWebDetalleID: Id,
+                    Cantidad: tipo == "grupal" ? 0 : Cantidad,
+                    Reemplazo : det
+                };                
+                lista.push(a);
+            } else {
+                var arr = $.grep(lista, function (value, index) {
+                    return (value.CDRWebDetalleID == Id);
+                });
 
-        $.each($("#divDetallePedidoCdrObservado .txtCantidad"), function (index, value) {
-            var elemento = $(value);
-            var parent = $(elemento).parents(".content_listado_reclamo").eq(0);
-            var pedidoDetalleId = $(parent).attr("data-pedidodetalleid");
-            var cantidad = $(elemento).val();
-
-            var item = {
-                CDRWebDetalleID: pedidoDetalleId,
-                Cantidad: cantidad
-            };
-            lista.push(item);
+                if (arr.length > 0) {
+                    arr[0].Reemplazo.push(objGrupal);
+                }
+            }
         });
-
         var actualizado = ActualizarDetalleObservado(lista);
         if (actualizado) window.location.href = urlReclamo + "?p=" + pedidoId + "&c=" + id;
     });
@@ -128,6 +156,7 @@ function ObtenerDetalleCdr(item) {
             } else {
                 SetHandlebars("#template-detalle-1", data, "#divDetallePedidoCDR");
             }
+
         },
         complete: closeWaitingDialog
     });

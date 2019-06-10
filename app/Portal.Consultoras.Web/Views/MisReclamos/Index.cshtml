@@ -446,7 +446,6 @@
                     </div>
                     {{#if_eq subItem.Estado '4'}}
                     <div class="d-flex estado_producto_solicitud">
-                        <input type="hidden" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-producto-type="grupal" value="{{subItem.CUV}}" />
                         <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoRechazado">Rechazado</div>
                         <div class="descripcion_estado_producto_solicitud">{{subItem.Observacion}}</div>
                     </div>
@@ -456,6 +455,7 @@
                                    type="text"
                                    name="cantidad"
                                    data-input="cantidad"
+                                   data-item-values='{"item_type" : "grupal", "pedido_detalle_id" : "{{item.CDRWebDetalleID}}", "codigo_cuv" : "{{subItem.CUV}}"}'
                                    value="{{subItem.Cantidad}}"
                                    data-cantidad="{{subItem.Cantidad}}"
                                    onchange="ActualizarCantidad(event);"
@@ -492,7 +492,6 @@
                     </div>
                     {{#if_eq item.Estado '4'}}
                     <div class="d-flex estado_producto_solicitud">
-                        <input data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-producto-type="indivudial" type="hidden" />
                         <div class="tag_sb tag_sb--estado text-bold text-uppercase EstadoRechazado">Rechazado</div>
                         <div class="descripcion_estado_producto_solicitud">
                             {{item.Observacion}}
@@ -503,6 +502,7 @@
                             <input style="background: white;"
                                    type="text"
                                    name="cantidad"
+                                   data-item-values='{"item_type" : "indivudial", "pedido_detalle_id" : "{{item.CDRWebDetalleID}}", "codigo_cuv" : "{{item.CUV2}}"}'
                                    data-input="cantidad"
                                    data-cantidad="{{item.Cantidad}}"
                                    value="{{item.Cantidad}}"

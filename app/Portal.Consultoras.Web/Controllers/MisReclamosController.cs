@@ -1236,7 +1236,33 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var listaCdr = Mapper.Map<List<MisReclamosModel>, List<ServiceCDR.BECDRWebDetalle>>(lista);
+                var listaDetalle = SessionManager.GetCDRWebDetalle();
+                foreach (var item in listaCdr)
+                {
+                    if (item.DetalleReemplazo.Length > 0)
+                    {
+                        var DetalleReemplazoTrueque = item.DetalleReemplazo.ToList();
+                        var nuevoDetalleReemplazoCDR = Mapper.Map<List<ServiceCDR.BECDRProductoComplementario>, List<ProductoComplementarioModel>>(DetalleReemplazoTrueque);
+                        var lstDetalleSession = listaDetalle.FirstOrDefault(a => a.CDRWebDetalleID == item.CDRWebDetalleID).DetalleReemplazo;
 
+                        var obj = (from c in item.DetalleReemplazo
+                                   join d in lstDetalleSession on c.CUV equals d.CUV
+                                   select new ProductoComplementarioModel()
+                                   {
+                                       Cantidad = c.Cantidad,
+                                       CUV = d.CUV,
+                                       Descripcion = d.Descripcion,
+                                       CodigoMotivoRechazo = d.CodigoMotivoRechazo,
+                                       Estado = d.Estado,
+                                       Observacion = d.Observacion,
+                                       Precio = d.Precio,
+                                       Simbolo = d.Simbolo
+                                   }).ToList();
+                        item.XMLReemplazo = MisReclamosModel.ListToXML(obj);
+                    }
+                    
+                }
+                
                 bool ok;
                 using (CDRServiceClient sv = new CDRServiceClient())
                 {
