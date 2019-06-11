@@ -3,6 +3,11 @@
     string controllerAction = this.ViewContext.RouteData.Values["controller"].ToString() + this.ViewContext.RouteData.Values["action"].ToString();
     controllerAction = controllerAction.ToLower();
 
+    int cantidadPedidosPendientes = 0;
+    if (ViewBag.CantPedidosPendientes != null)
+    {
+        cantidadPedidosPendientes = ViewBag.CantPedidosPendientes;
+    }
 }
 
 <div data-menu-header="parte3" class="menu_esika_b" id="vpMenu">
@@ -21,7 +26,7 @@
                         <img id="imgFotoUsuarioHeader" class="mostrar_perfil" region="Superior" src="@ViewBag.FotoPerfil" alt="Foto de consultora" style="width:100%; height: auto;">
                     }
                 </div>
-            }            
+            }
         </div>
         <div class="campana visibilidadEnlaceMenu margenIzquierdoOpcionNotificacion @(controllerAction == "bienvenidaindex" ? "oculto" : "")">
             <a href="javascript:;" onclick="Notificaciones();" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
@@ -45,9 +50,28 @@
                 <div class="linea_blanca"></div>
                 <div id="SinProductos">
                     <div class="sin_productos">
-                        Todavía no has agregado
-                        <br />ningún producto a tu
-                        <br />pedido.
+                        @if (cantidadPedidosPendientes > 0)
+                        {
+                            bool plural = (cantidadPedidosPendientes > 1) ? true : false;
+                        <span>
+                            Tienes @cantidadPedidosPendientes @((plural) ? "Pedidos" : "Pedido")
+                            <br />  @((plural) ? "pendientes " : "pendiente ") por
+                            <br /> aprobar.
+                        </span>
+                        }
+                        else
+                        {
+                            <span>
+                                Todavía no has agregado
+                                <br /> ningún producto a tu
+                                <br /> pedido.
+                            </span>
+                        }
+
+
+
+
+
                     </div>
                     <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido esika">INGRESA TU PEDIDO</a>
                 </div>
