@@ -305,7 +305,7 @@ namespace Portal.Consultoras.BizLogic
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
                 else if (string.IsNullOrEmpty(usuario.FotoPerfil))
                 {
-                    usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";
+                    usuario.FotoPerfil = Constantes.ConfiguracionManager.DefaultPerfilImage;
                     usuario.FotoOriginalSinModificar = null;
                 }
 
