@@ -295,6 +295,10 @@ function ArmarMisGanancias(data) {
             labels: labels,
             datasets: [
                 {
+                    
+                    borderColor: "#ffdaf3",
+                    borderWidth: 0,
+                   
                     backgroundColor: backgroundColors,
                     hoverBackgroundColor: hoverBackgrounds,
                     data: serie
@@ -363,29 +367,37 @@ function ArmarMisGanancias(data) {
             scales: {
                 yAxes: [{
                     ticks: {
-                        display: true,
+                        
                         display: false,
                         suggestedMin: 50,
                         suggestedMax: 20,
                         padding: 0,
-                        display: false,
+                   
                         fontColor: "#000",
                         fontSize: 14
                     },
+                   
                     gridLines: {
+                      
+                        lineWidth: 0.8,
+                        zeroLineWidth:1,
                         display: false,
-                        color: "#c1c1c1",
+                        color: "#000",
   
                     }
                 }],
                 xAxes: [{
-                    display: true,
+                    
                     ticks: {
+                        
                         fontColor: "#000",
                         fontSize: 14
                     },
                     barPercentage: 0.6,
                     gridLines: {
+                        
+                        zeroLineWidth: 1,
+                        lineWidth: 0.8,
                         display: false,
                         color: "#000",                   
                     }
