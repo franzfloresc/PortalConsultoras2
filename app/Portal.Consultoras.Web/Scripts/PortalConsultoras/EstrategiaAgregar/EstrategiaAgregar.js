@@ -159,12 +159,16 @@ var EstrategiaAgregarModule = (function () {
     };
 
     var getOrigenPedidoWeb = function ($btnAgregar, esUrl) {
-        var origenPedidoWeb = (esUrl) ? $btnAgregar.parents(dataProperties.dataOrigenPedidoWeb).data("origenpedidoweb")
-            : (
-                $btnAgregar.parents(dataProperties.dataOrigenPedidoWeb).data("origenpedidowebagregar")
-                || $btnAgregar.parents(dataProperties.dataOrigenPedidoWeb).data("origenpedidoweb")
-            );
-        origenPedidoWeb = origenPedidoWeb || 0;
+        var origenAgregar = esUrl
+            ? '0'
+            : $btnAgregar.parents(dataProperties.dataOrigenPedidoWeb).attr("data-origenpedidowebagregar");
+
+        origenAgregar = origenAgregar || '0';
+        if (origenAgregar === '0') {
+            origenAgregar = $btnAgregar.parents(dataProperties.dataOrigenPedidoWeb).attr("data-origenpedidoweb");
+        }
+
+        var origenPedidoWeb = origenAgregar || 0;
         return origenPedidoWeb.toString();
     };
 
