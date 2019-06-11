@@ -47,7 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
 
             MisReclamosModel model = new MisReclamosModel();
-            List<CDRWebModel> listaCdrWebModel = new List<CDRWebModel>();
+            List<CDRWebModel> listaCdrWebModel;
             try
             {
                 SessionManager.SetListaCDRWebCargaInicial(null);
@@ -1650,15 +1650,14 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string html = htmlTemplateDetalleBase.Clone().ToString();
                 string etiquetaHtml = "";
-                if (cdrWebDetalle.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje || cdrWebDetalle.CodigoOperacion == Constantes.CodigoOperacionCDR.Devolucion)
+                if ((cdrWebDetalle.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje 
+                    || cdrWebDetalle.CodigoOperacion == Constantes.CodigoOperacionCDR.Devolucion )
+                    && (!string.IsNullOrEmpty(cdrWebDetalle.GrupoID)))
                 {
-                    if (!string.IsNullOrEmpty(cdrWebDetalle.GrupoID))
-                    {
                         etiquetaHtml = "<tr><td style = 'width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; font-weight: 700; vertical-align: top; color: #000; padding-right: 14px;'>" +
                                                              "<div style = 'display: block;border-radius: 10.5px;width: 87px;height: 27px;font-size: 14px;line-height: 27px;margin-top: 8px;padding-left: 8px;padding-right: 8px;background-color: #000;color: #fff;font-weight: 700; '>Set o Pack</div></td>" +
                                                              "<td rowspan = '2' style = 'width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; font-weight: 700;' >" + "</td>" + "</tr> ";
-                    }
-                    
+                   
                 }
                 html = html.Replace("#ETIQUETA_SET_PACK#", etiquetaHtml);
                 html = html.Replace("#FORMATO_CUV1#", cdrWebDetalle.CUV);
