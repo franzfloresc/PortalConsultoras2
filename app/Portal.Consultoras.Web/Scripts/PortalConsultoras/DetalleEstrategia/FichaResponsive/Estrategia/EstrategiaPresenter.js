@@ -20,7 +20,6 @@ var EstrategiaPresenter = function (config) {
             return _estrategiaInstance;
         } else if (value !== null) {
             value.isMobile = isMobile();
-
             _estrategiaInstance = value;
         }
     };
@@ -31,6 +30,8 @@ var EstrategiaPresenter = function (config) {
         _estrategiaModel(estrategiaModel);
 
         var model = _estrategiaModel();
+        
+        _config.estrategiaView.setEstrategiaAtributosHtml(model);
 
         if (!_config.estrategiaView.renderBreadcrumbs(model) ||
             !_config.estrategiaView.renderEstrategia(model)) throw "estrategiaView do not render model";
