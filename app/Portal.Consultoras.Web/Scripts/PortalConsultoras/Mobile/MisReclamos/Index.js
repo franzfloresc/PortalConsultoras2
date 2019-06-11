@@ -54,10 +54,6 @@ $(document).ready((function (cerrarRechazado) {
                         var _CantidadRechazados = $(elemento).find(me.Variables.cdrweb_CantidadRechazados).val();
 
                         if (_Estado === "1") {
-                            //if (mensajeCdrFueraDeFechaCompleto !== "") {
-                            //    messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
-                            //    return false;
-                            //}
                             if (mensajeGestionCdrInhabilitada !== "") {
                                 messageInfoValidado(mensajeGestionCdrInhabilitada);
                                 return false;
@@ -129,10 +125,6 @@ $(document).ready((function (cerrarRechazado) {
 
             me.Funciones = {
                 NuevaSolicitud: function () {
-                    //if (mensajeCdrFueraDeFechaCompleto !== "") {
-                    //    messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
-                    //    return false;
-                    //}
                     if (mensajeGestionCdrInhabilitada !== "") {
                         messageInfoValidado(mensajeGestionCdrInhabilitada);
                         return false;
@@ -143,7 +135,6 @@ $(document).ready((function (cerrarRechazado) {
                     window.location.href = url;
 
                 },
-
                 CargarMisReclamosDetalle: function (el) {
                     var elemento = $(el);
                     var _OrigenDetalle = "1";
@@ -156,10 +147,6 @@ $(document).ready((function (cerrarRechazado) {
                     var _CantidadRechazados = $(elemento).find(me.Variables.cdrweb_CantidadRechazados).val();
 
                     if (_Estado === "1") {
-                        //if (mensajeCdrFueraDeFechaCompleto !== "") {
-                        //    messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
-                        //    return false;
-                        //}
                         if (mensajeGestionCdrInhabilitada !== "") {
                             messageInfoValidado(mensajeGestionCdrInhabilitada);
                             return false;
@@ -198,7 +185,51 @@ $(document).ready((function (cerrarRechazado) {
                             }
                         });
                     }
-                }
+                },
+                PreEliminarDetalle: function (el) {
+                    var pedidodetalleid = $.trim($(el).attr("data-pedidodetalleid"));
+                    var grupoid = $.trim($(el).attr("data-detalle-grupoid"));
+                    var cuv = $.trim($(el).attr("data-cuv"));
+                    var item = {
+                        CDRWebDetalleID: pedidodetalleid,
+                        GrupoID: grupoid,
+                        CUV: cuv
+                    };
+                    var msg = "";
+                    if (grupoid.length > 0) {
+                        msg = "Se eliminaran todos los registros relacionados al producto(Sets o Packs). ¿Deseas continuar?";
+                    } else {
+                        msg = "Se eliminará el registro seleccionado. ¿Deseas continuar ?";
+                    }
+                    messageConfirmacion("confirmación", msg, function () {
+                        me.Funciones.DetalleEliminar(item);
+                    });
+                },
+                DetalleEliminar: function (objItem) {
+                    ShowLoading();
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: UrlDetalleEliminar,
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        data: JSON.stringify(objItem),
+                        async: true,
+                        cache: false,
+                        success: function (data) {
+                            CloseLoading();
+                            if (!checkTimeout(data)) {
+                                return false;
+                            }
+
+                            if (data.success) {
+                                window.location.href = baseUrl + "Mobile/MisReclamos/Detalle";
+                            }
+                        },
+                        error: function (data, error) {
+                            CloseLoading();
+                        }
+                    });
+                },
             };
 
             me.Inicializar = function () {
