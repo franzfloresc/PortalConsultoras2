@@ -17,6 +17,12 @@
     {
         <link href="@Url.Content("~/Content/Css/Mobile/lbel/cdr.css")" rel="stylesheet" />
     }
+
+    <style type="text/css">
+        .footer-page {
+            display:none;
+        }
+    </style>
 }
 
 @{
@@ -186,27 +192,27 @@ else if (ViewBag.Origen == "1")
     </div>
 
     <div class="wrapper_resumen_mobile tipografia_lato bloqueCDRDetalle">
-        <div id="MiDetalleCDR" class="detalle_solicitud_listado">
+        <div id="MiDetalleCDR" class="detalle_solicitud_listado mb-60">
             @{ foreach (var item in ViewBag.ListaDetalle)
                 {
                     <div class="d-flex text-bold detalle_tipo_solicitud_titulo">
-                         <span class="d-inline-block detalle_tipo_solicitud_icono">
+                        <span class="d-inline-block detalle_tipo_solicitud_icono">
                             <img src="@Url.Content("~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
-                         </span>
-                         <span class="d-inline-block text-uppercase">
-                             Cambiar por otro producto
+                        </span>
+                        <span class="d-inline-block text-uppercase">
+                            Cambiar por otro producto
                             @*@item.SolucionSolicitada*@
-                         </span>
+                        </span>
                         @*<div class="text-bold estado_solic_cdr">
-                            @if (item.Estado == 4)
-                            {<span class="text-bold estado_registro_solicitud_cdr estado_rechazado">RECHAZADO</span>}
-                            @if (item.Estado == 3)
-                            {<span class="text-bold estado_registro_solicitud_cdr estado_aprobado">APROBADO</span>}
-                            @if (item.Estado == 2)
-                            {<span class="text-bold estado_registro_solicitud_cdr estado_en_evaluacion">EN EVALUACION</span>}
-                            @if (item.Estado == 1)
-                            {<span class="text-bold estado_registro_solicitud_cdr estado_pendiente">PENDIENTE</span>}
-                        </div>*@
+                                @if (item.Estado == 4)
+                                {<span class="text-bold estado_registro_solicitud_cdr estado_rechazado">RECHAZADO</span>}
+                                @if (item.Estado == 3)
+                                {<span class="text-bold estado_registro_solicitud_cdr estado_aprobado">APROBADO</span>}
+                                @if (item.Estado == 2)
+                                {<span class="text-bold estado_registro_solicitud_cdr estado_en_evaluacion">EN EVALUACION</span>}
+                                @if (item.Estado == 1)
+                                {<span class="text-bold estado_registro_solicitud_cdr estado_pendiente">PENDIENTE</span>}
+                            </div>*@
                     </div>
                     <div class="detalle_tipo_solicitud">
                         <div class="detalle_producto_cdr detalle_producto_cdr--flex">
@@ -284,6 +290,12 @@ else if (ViewBag.Origen == "1")
                                                         </span>
                                                     </a>
                                                 </div>
+                                            </div>
+                                            <div class="btn_cta_wrapper">
+                                                <button id="btnSiguiente1"
+                                                        class="d-block text-uppercase text-bold tipografia_lato border-radius-4 btn__sb btn__sb__primary--multimarca btn__sb--continuarEnvio">
+                                                    Actualizar solicitud
+                                                </button>
                                             </div>
                                         </div>
                                     }

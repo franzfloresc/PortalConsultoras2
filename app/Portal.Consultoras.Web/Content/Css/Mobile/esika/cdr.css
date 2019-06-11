@@ -2007,6 +2007,12 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
                 margin-right:8px;
             }
 
+.btn__sb--continuarEnvio {
+    width: 92%;
+    position: relative;
+    bottom: 0;
+}
+
 .datos_solicitud_cdr_consulta, .datos_solicitud_cdr_titulo, .estado_productos_cdr {
     display: block;
     text-align: center;
