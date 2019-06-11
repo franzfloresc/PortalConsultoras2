@@ -1044,7 +1044,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 PedidoAgregar_DesReservarPedido(lstDetalle, pedidoDetalle.Producto, usuario);
                 var request = PedidoDetalleRespuesta(responseCode);
-                request.PedidoWeb = pedidoWeb ?? respuesta.PedidoWeb;
+                if (respuesta != null) request.PedidoWeb = respuesta.PedidoWeb;
 
                 ListaMensajeCondicional.AddRange(request.ListaMensajeCondicional);
 
