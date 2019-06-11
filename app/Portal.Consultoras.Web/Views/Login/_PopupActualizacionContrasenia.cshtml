@@ -3,32 +3,131 @@
 <link href="@Url.Content("~/Content/Css/Site/Esika/styleDefault.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/Css/Site/Login2/popup-actualizacion-contrasenia.css")" rel="stylesheet" />
 
-<div class="popup__wrapper bg__popups__default" id="PopupActualizacionContrasenia">
+<div class="popup__wrapper bg__popups__default" id="PopupActualizacionContrasenia" style="display:block;">
     <div class="popup__somos__belcorp popup__somos__belcorp--actualizacionContrasenia mostrarPopup">
         <div class="popup__somos__belcorp__contenido">
-            <p class="d-block text-center text-regular saludo__consultora">Hola Juanita</p>
-            <h1 class="d-block text-center popup__somos__belcorp__titulo popup__somos__belcorp__titulo--actualizacionContrasenia">
-                Actualiza tu contraseña
-            </h1>
-            <section class="d-flex form__actualizarContrasenia__wrapper">
-                <div class="center-block text-left form__group__fields form__group__fields--actualizacionContrasenia">
-                    <input id="txtNuevoPassword" type="password" class="d-block w-100 text-bold text__field__sb text__field__sb--withContent" name="txtNuevoPassword" value="" />
-                    <label for="txtNuevoPassword" class="d-block w-100 text-regular label__field__sb">Nueva contraseña</label>
-                    <!-- Cuando hay error se agrega la clase validation__error, si la validación es correcta se agrega la clase validation__success -->
-                    <span class="d-block validation__field validation__error" style="display:none;"></span>
-                    <span class="d-block validation__field validation__success">Contraseña válida</span>
-                    <!-- Fin - Cuando hay error se agrega la clase validation__error, si la validación es correcta se agrega la clase validation__success -->
+            <section id="Paso1ActualizacionPassword" class="paso__1__actualizacionContrasenia">
+                <p class="d-block text-center text-regular saludo__consultora">Hola Juanita</p>
+                <h1 class="d-block text-center popup__somos__belcorp__titulo popup__somos__belcorp__titulo--actualizacionContrasenia">
+                    Actualiza tu contraseña
+                </h1>
+                <section class="d-flex form__actualizarContrasenia__wrapper">
+                    <div class="center-block text-left form__group__fields form__group__fields--actualizacionContrasenia">
+                        <input id="txtNuevoPassword" type="password" class="d-block w-100 text-bold text__field__sb" name="txtNuevoPassword" value="" />
+                        <label for="txtNuevoPassword" class="d-block w-100 text-regular label__field__sb">Nueva contraseña</label>
+
+                        <!-- Este mensaje aparece cuando se hace focus en el campo de ingreso de password y se comienza a digitar y la cantidad de caracteres sea menor a 6 -->
+                        <span class="d-block w-100 validation__field">Usa 6 o más caracteres combinando letras y números</span>
+                        <!-- Fin - Este mensaje aparece cuando se hace focus en el campo de ingreso de password y se comienza a digitar y la cantidad de caracteres sea menor a 6 -->
+
+                        <!-- Cuando se llega a los 6 caracteres y no se cumple con las condiciones de password (error), agregar la clase validation__error -->
+                        <span class="d-block w-100 validation__field validation__error" style="display:none;"></span>
+                        <!-- Fin - Cuando se llega a los 6 caracteres y no se cumple con las condiciones de password (error), agregar la clase validation__error -->
+
+                        <!-- Cuando se llega a los 6 caracteres y se ha cumplido con las condiciones de password, agregar la clase validation__success -->
+                        <span class="d-block w-100 validation__field validation__success" style="display:none;">Contraseña válida</span>
+                        <!-- Fin - Cuando se llega a los 6 caracteres y se ha cumplido con las condiciones de password, agregar la clase validation__success -->
+
+                    </div>
+                    <div class="center-block text-left form__group__fields form__group__fields--actualizacionContrasenia">
+                        <input id="txtConfirmarNuevoPassword" type="password" class="d-block w-100 text-bold text__field__sb" name="txtConfirmarNuevoPassword" value="" />
+                        <label for="txtConfirmarNuevoPassword" class="d-block w-100 text-regular label__field__sb">Confirmar contraseña</label>
+
+                        <!-- Este mensaje aparece cuando se hace focus en el campo de ingreso de password y se comienza a digitar -->
+                        <span class="d-block w-100 validation__field">Vuelve a escribir tu nueva contraseña</span>
+                        <!-- Fin - Este mensaje aparece cuando se hace focus en el campo de ingreso de password y se comienza a digitar -->
+
+                        <!-- Cuando la contraseña no coincida (error), agregar la clase validation__error -->
+                        <span class="d-block w-100 validation__field validation__error" style="display:none;">Las contraseñas no coinciden</span>
+                        <!-- Fin - Cuando la contraseña no coincida (error), agregar la clase validation__error -->
+                        
+                        <!-- Cuando la contraseña coincida, agregar la clase validation__success -->
+                        <span class="d-block w-100 validation__field validation__success" style="display:none;">Las contraseñas coinciden</span>
+                        <!-- Fin - Cuando la contraseña coincida, agregar la clase validation__success -->
+                    </div>
+                    <button id="btnActualizarCorreo" class="d-block center-block border-radius-4 text-center text-bold btn__sb btn__sb--disabled btn__sb__primary--multimarca btn__sb--actualizarContrasenia">
+                        Actualizar
+                    </button>
+                </section>
+            </section>
+            <section id="VistaPrecarga" class="spinner__wrapper spinner__wrapper--actualizacionContrasenia" style="display:none;">
+                <div class="d-block center-block">
+                    <svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="precarga__spinner">
+                        <symbol id="s--circle">
+                            <circle r="9" cx="15" cy="15"></circle>
+                        </symbol>
+                        <g class="spinner__circulos">
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                            <g class="spinner__circulo">
+                                <use xlink:href="#s--circle" class="u--circle" />
+                            </g>
+                        </g>
+                    </svg>
                 </div>
-                <div class="center-block text-left form__group__fields form__group__fields--actualizacionContrasenia">
-                    <input id="txtConfirmarNuevoPassword" type="password" class="d-block w-100 text-bold text__field__sb text__field__sb--withContent" name="txtConfirmarNuevoPassword" value="" />
-                    <label for="txtConfirmarNuevoPassword" class="d-block w-100 text-regular label__field__sb">Confirmar contraseña</label>
-                    <!-- Cuando hay error se agrega la clase validation__error, si la validación es correcta se agrega la clase validation__success -->
-                    <span class="d-block validation__field validation__error" style="display:none;"></span>
-                    <span class="d-block validation__field validation__success">Las contraseñas coinciden</span>
-                    <!-- Fin - Cuando hay error se agrega la clase validation__error, si la validación es correcta se agrega la clase validation__success -->
+                <p class="w-100 d-block center-block text-center text-bold spinner__texto">
+                    Cargando
+                </p>
+            </section>
+            <section id="Paso2ActualizacionPassword" class="paso__2__actualizacionContrasenia" style="display:none;">
+                <div class="center-block popup__somos__belcorp__icono popup__somos__belcorp__icono--correo">
+                    <img src="@Url.Content("~/Content/Images/mensaje-icono.png")" alt="Confirma tu correo" />
                 </div>
-                <button id="btnActualizarCorreo" class="d-block center-block border-radius-4 text-center text-bold btn__sb btn__sb--disabled btn__sb__primary--multimarca btn__sb--actualizarContrasenia">
-                    Actualizar
+                <h2 class="d-block popup__somos__belcorp__titulo popup__somos__belcorp__titulo--envioCodigoConfirmacion">
+                    Confirma el cambio<br />
+                    de tu contraseña
+                </h2>
+                <p class="d-block text-center popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--envioCodigoConfirmacion">
+                    Te hemos enviado el código de confirmación a:
+                </p>
+                <div class="w-100 d-inline-block form__group__fields">
+                    <input id="txtCorreoAlCualSeEnvioCodigo" type="text" class="d-inline-block text-center text-bold text__field__sb text__field__sb--correoAlCualSeEnvioCodigo" name="txtCorreoAlCualSeEnvioCodigo" value="cambiodecorreo@example.com" readonly />
+                </div>
+                <h2 class="d-block popup__somos__belcorp__titulo popup__somos__belcorp__titulo--ingresoCodigoConfirmacion">
+                    Ingresa el código aquí
+                </h2>
+                <div class="d-flex center-block form__group__fields form__group__fields--ingresoCodigo">
+                    <input class="d-inline-block text-center text-bold text__field__sb text__field__sb--ingresoCodigo" type="tel" value="" />
+                    <input class="d-inline-block text-center text-bold text__field__sb text__field__sb--ingresoCodigo" type="tel" value="" />
+                    <input class="d-inline-block text-center text-bold text__field__sb text__field__sb--ingresoCodigo" type="tel" value="" />
+                    <input class="d-inline-block text-center text-bold text__field__sb text__field__sb--ingresoCodigo" type="tel" value="" />
+                    <input class="d-inline-block text-center text-bold text__field__sb text__field__sb--ingresoCodigo" type="tel" value="" />
+                    <input class="d-inline-block text-center text-bold text__field__sb text__field__sb--ingresoCodigo" type="tel" value="" />
+                </div>
+                <a id="btnReenviarCorreo" href="#" class="d-block center-block text-center enlace__sb enlace__sb--reenviarCorreo" title="Reenviar nuevamente el código">Reenviar nuevamente el código</a>
+                <button id="btnConfirmarCambioPassword" class="d-block center-block border-radius-4 text-center text-bold btn__sb btn__sb--disabled btn__sb__primary--multimarca btn__sb--actualizarContrasenia">
+                    Confirmar
                 </button>
             </section>
         </div>

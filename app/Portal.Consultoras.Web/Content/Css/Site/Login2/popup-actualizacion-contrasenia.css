@@ -15,10 +15,16 @@
     min-height: 312px;
     opacity: 0;
     font-family:'Lato', sans-serif;
+    position:relative;
+    letter-spacing:0.3px;
 }
 
     .mostrarPopup {
         opacity:1;
+    }
+
+    .paso__1__actualizacionContrasenia{
+        padding-top:85px;
     }
 
     .saludo__consultora{
@@ -26,24 +32,80 @@
         margin-bottom:8px;
     }
 
-    .popup__somos__belcorp__titulo.popup__somos__belcorp__titulo--actualizacionContrasenia{
+    .popup__somos__belcorp__titulo--actualizacionContrasenia,
+    .popup__somos__belcorp__titulo--envioCodigoConfirmacion,
+    .popup__somos__belcorp__titulo--ingresoCodigoConfirmacion{
         font-size:20px;
         color:#000;
+    }
+
+    .popup__somos__belcorp__titulo--actualizacionContrasenia{
         margin-bottom:52px!important;
     }
 
     .form__actualizarContrasenia__wrapper{
-        flex-wrap:wrap;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
 
     .form__group__fields--actualizacionContrasenia{
         margin-bottom:40px;
     }
 
-    .btn__sb--actualizarContrasenia{
+    .paso__2__actualizacionContrasenia{
+        padding-top:64px;
+    }
+
+    .popup__somos__belcorp__icono--correo{
+        width:60px;
+        height:auto;
+        margin-bottom:16px;
+    }
+
+    .popup__somos__belcorp__titulo--envioCodigoConfirmacion{
+        margin-bottom:12px!important;
+    }
+
+    .btn__sb--actualizarContrasenia,
+    .text__field__sb--correoAlCualSeEnvioCodigo,
+    .text__field__sb--ingresoCodigo{
         font-family:'Lato', sans-serif;
     }
 
+    .text__field__sb--correoAlCualSeEnvioCodigo{
+        width:auto;
+        min-width:286px;
+        margin-bottom:88px;
+    }
+
+    .popup__somos__belcorp__mensaje--envioCodigoConfirmacion{
+        color:#000;
+    }
+
+    .popup__somos__belcorp__titulo--ingresoCodigoConfirmacion{
+        margin-bottom:23px!important;
+    }
+
+    .form__group__fields--ingresoCodigo{
+        width:auto;
+        flex-direction:row;
+        flex-wrap:nowrap;
+        justify-content:space-evenly;
+        max-width:352px;
+        margin-bottom:3px;
+    }
+
+    .text__field__sb--ingresoCodigo{
+        width:44px;
+        font-size:24px;
+    }
+
+    .enlace__sb--reenviarCorreo{
+        font-size:13px;
+        height:45px;
+        line-height:45px;
+        cursor:pointer;
+    }
 
 @media screen and (min-width:992px) {
 
@@ -67,6 +129,14 @@
             transform: translate(0, 0);
         }
 
+        .spinner__wrapper--actualizacionContrasenia {
+            width:100%;
+            height:100%;
+            position:absolute;
+            top:0;
+            left:0;
+        }
+
 }
 
 @media screen and (max-width:991px){
@@ -80,13 +150,17 @@
         margin-bottom: 0;
         border-radius: 0;
         overflow: auto;
-        padding: 85px 24px 20px;
+        padding: 0 24px 20px;
     }
 
         .btn__sb--actualizarContrasenia{
             width:92%;
             max-width:100%;
             letter-spacing:0.5px;
+        }
+
+        .spinner__wrapper--actualizacionContrasenia {
+            position: fixed;
         }
 
 }
