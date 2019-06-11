@@ -39,7 +39,7 @@ else
         <div class="foto_consultora">
             <a href="@Url.Action("CambiarFotoPerfil", "MiPerfil", new { area = "" })" title="Editar imagen" class="icono_camara multimarca-background-color"></a>
             <div class="contenedor_foto_consultora">
-                <img id="imgFotoPerfilCambiar" src="@ViewBag.FotoPerfil" onload="onLoadPhotoUser(this)" onerror="this.onerror=null; this.src='@Url.Content("~/Content/Images/icono_avatar.svg")'" alt="Imagen Consultora" class="consultora_img"/>
+                <img id="imgFotoPerfilCambiar" src="@ViewBag.FotoPerfil" onload="onLoadPhotoUser(this)" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" alt="Imagen Consultora" class="consultora_img"/>
             </div>
         </div>
         <div class="datos_consultora_mi_perfil text-left">
