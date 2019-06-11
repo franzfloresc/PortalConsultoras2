@@ -1,4 +1,5 @@
 ﻿/// <reference path="../../../shared/constantesmodule.js" />
+/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaView.js" />
 
 var EstrategiaPresenter = function (config) {
     if (typeof config === "undefined" || config === null) throw "config is null or undefined";
@@ -47,9 +48,11 @@ var EstrategiaPresenter = function (config) {
         if (!_config.estrategiaView.renderAgregar(model)) throw "estrategiaView don't render agregar.";
 
         if (!_config.estrategiaView.showTitleAgregado(model)) throw "estrategiaView don't show title Agregado.";
+
+        if(!_config.estrategiaView.setEstrategiaTipoBotonAgregar(model)) throw "estrategiaView don't set type button Agregado.";
   
         _config.estrategiaView.showCarrusel();
-
+        _config.estrategiaView.fixButtonAddProduct();
         return true;
     };
 
@@ -61,12 +64,16 @@ var EstrategiaPresenter = function (config) {
         if (!(typeof esEditable === "boolean")) throw  "esEditable is undefined";
 
         var model = _estrategiaModel();
-
-        EstrategiaAgregarModule.EstrategiaAgregar(event, popup, limite, esFicha, esEditable, model);
+        EstrategiaAgregarModule.EstrategiaAgregar(event, popup, limite, esFicha, esEditable, model,function(){
+            fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
+        });
     };
+
+    var _cleanContainer = _config.estrategiaView.cleanContainer;
 
     return {
         onEstrategiaModelLoaded: _onEstrategiaModelLoaded,
-        onEstrategiaModelClick: _onEstrategiaModelClick
+        onEstrategiaModelClick: _onEstrategiaModelClick,
+        cleanContainer: _cleanContainer
     };
 };

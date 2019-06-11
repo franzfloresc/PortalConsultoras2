@@ -1767,6 +1767,11 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
 
             MostrarBarra(data);
 
+            var ActualizaGananciasLoad = typeof ActualizaGanancias === 'function';
+            if (ActualizaGananciasLoad) {
+                ActualizaGanancias(data);
+            }
+
             $("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
             microefectoPedidoGuardado();
             TrackingJetloreRemove(cantidad, $("#hdCampaniaCodigo").val(), cuv);
@@ -1939,6 +1944,7 @@ function EjecutarServicioPROL() {
             CerrarSplash();
             if (!checkTimeout(response)) return;
             if (!response.success) {
+                debugger;
                 MostrarPopupErrorReserva(mensajeErrorReserva, false);
                 return;
             }

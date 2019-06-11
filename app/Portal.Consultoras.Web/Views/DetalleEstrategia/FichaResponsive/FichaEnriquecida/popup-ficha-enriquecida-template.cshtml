@@ -36,7 +36,7 @@
                         {{/iff}}
                         {{#IsNullOrEmpty UnidadMedidaContenido '!='}}
                         {{#iff PrecioContenido '>' 0}}
-                        <div class="descripcion_item item_pum">{{UnidadMedidaContenido}} a {{SimboloMoneda}} {{DecimalToStringFormatWithoutRounding PrecioContenido}}</div>
+                        <div class="descripcion_item item_pum">{{UnidadMedidaContenido}} a {{SimboloMoneda}} {{PrecioContenidoStr}}</div>
                         {{/iff}}
                         {{/IsNullOrEmpty}}
                     </div>

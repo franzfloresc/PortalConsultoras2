@@ -492,6 +492,8 @@ function CatalogoEnviarEmail() {
         clientes.push(objCorreo);
     }
 
+
+
     if (_Flagchklbel == "1") {
         dataLayer.push({
             'event': 'virtualEvent',

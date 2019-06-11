@@ -375,10 +375,6 @@ jQuery(document).ready(function () {
                 return DecimalToStringFormat(context);
             });
 
-            Handlebars.registerHelper('DecimalToStringFormatWithoutRounding', function (context) {
-                return DecimalToStringFormat(context, false, true);
-            });
-
             Handlebars.registerHelper('DateTimeToStringFormat', function (context) {
                 if (context != null && context != '') {
                     var dateString = context.substr(6);
@@ -523,10 +519,9 @@ jQuery(document).ready(function () {
         return l_boolIsExist;
     };
 
-    DecimalToStringFormat = function (monto, noDecimal, sinRendondeo) {
+    DecimalToStringFormat = function (monto, noDecimal) {
         formatDecimalPais = formatDecimalPais || {};
         noDecimal = noDecimal || false;
-        sinRendondeo = sinRendondeo || false;
         var decimal = formatDecimalPais.decimal || ".";
         var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0);
         var miles = formatDecimalPais.miles || ",";
@@ -539,26 +534,20 @@ jQuery(document).ready(function () {
         var pEntera = $.trim(parseInt(montoOrig));
         var pDecimal = 0;
 
-        if (sinRendondeo) {
-            pDecimal = Math.floor(montoOrig * 100) / 100;
-            return pDecimal.toFixed(decimalCantidad);
-        } else {
-            pDecimal = $.trim((parseFloat(montoOrig) - parseFloat(pEntera)).toFixed(decimalCantidad));
-            pDecimal = pDecimal.length > 1 ? pDecimal.substring(2) : "";
-            pDecimal = decimalCantidad > 0 ? (decimal + pDecimal) : "";
+        pDecimal = $.trim((parseFloat(montoOrig) - parseFloat(pEntera)).toFixed(decimalCantidad));
+        pDecimal = pDecimal.length > 1 ? pDecimal.substring(2) : "";
+        pDecimal = decimalCantidad > 0 ? (decimal + pDecimal) : "";
 
-            var pEnteraFinal = "";
-            do {
-                var x = pEntera.length;
-                var sub = pEntera.substring(x, x - 3);
-                pEnteraFinal = (pEntera == sub ? sub : (miles + sub)) + pEnteraFinal;
-                pEntera = pEntera.substring(x - 3, 0);
+        var pEnteraFinal = "";
+        do {
+            var x = pEntera.length;
+            var sub = pEntera.substring(x, x - 3);
+            pEnteraFinal = (pEntera == sub ? sub : (miles + sub)) + pEnteraFinal;
+            pEntera = pEntera.substring(x - 3, 0);
 
-            } while (pEntera.length > 0);
+        } while (pEntera.length > 0);
 
-            return pEnteraFinal + pDecimal;
-        }
-
+        return pEnteraFinal + pDecimal; 
     };
 
     IsNullOrEmpty = function (texto) { return texto == null || texto === ''; };
@@ -936,8 +925,6 @@ function AbrirMensaje25seg(mensaje, imagen) {
 
 
         var parameter = [["mensaje", mensaje], ["imagen", imagen]];
-        console.log(parameter);
-
     } catch (e) {
 
     }
@@ -2179,7 +2166,6 @@ var GeneralModule = (function () {
         if (typeof validateIsMobile === "undefined") validateIsMobile = true;
 
         var destinationUrl = "/";
-
         if (validateIsMobile && _isMobile() && url.indexOf('Mobile/') == -1) destinationUrl += "Mobile/";
 
         url = $.trim(url);

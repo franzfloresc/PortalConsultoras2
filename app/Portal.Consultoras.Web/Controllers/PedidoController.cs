@@ -156,7 +156,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else // Periodo de facturacion
                 {
                     model.AccionBoton = "validar";
-                    if(model.EstadoPedido == 1) //Reservado
+                    if (model.EstadoPedido == 1) //Reservado
                         model.Prol = "MODIFICA TU PEDIDO";
                     else
                         model.Prol = "RESERVA TU PEDIDO";
@@ -196,6 +196,10 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MontoDescuento = pedidoWeb.DescuentoProl;
                     model.MontoEscala = pedidoWeb.MontoEscala;
                     model.TotalConDescuento = model.Total - model.MontoDescuento;
+                    model.GananciaRevista = pedidoWeb.GananciaRevista;
+                    model.GananciaWeb = pedidoWeb.GananciaWeb;
+                    model.GananciaOtros = pedidoWeb.GananciaOtros;
+                    model.IsShowGananciaConsultora = IsCalculoGananaciaConsultora(pedidoWeb);
 
                     SessionManager.SetMontosProl(
                         new List<ObjMontosProl>
@@ -970,12 +974,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Camino Brillante
                 var valCaminoBrillante = _caminoBrillanteProvider.ValidarBusquedaCaminoBrillante(model.CUV);
-                
-                if (valCaminoBrillante.Validacion != Enumeradores.ValidacionCaminoBrillante.ProductoNoExiste) {
+
+                if (valCaminoBrillante.Validacion != Enumeradores.ValidacionCaminoBrillante.ProductoNoExiste)
+                {
                     productosModel.Add(GetValidacionProgramaNuevas(valCaminoBrillante.Mensaje));
                     return Json(productosModel, JsonRequestBehavior.AllowGet);
                 }
-                
+
                 #endregion
 
                 var userModel = userData;
@@ -1061,7 +1066,7 @@ namespace Portal.Consultoras.Web.Controllers
                     EstrategiaIDSicc = producto.EstrategiaIDSicc,
                     //INI HD-3908
                     CodigoPalanca = (new OfertaPersonalizadaProvider()).getCodigoPalanca(producto.TipoEstrategiaCodigo),
-                    CampaniaID= userModel.CampaniaID,
+                    CampaniaID = userModel.CampaniaID,
                     //FIN HD-3908
                     EsDuoPerfecto = producto.FlagNueva == "1" && esDuoPerfecto,
                     CodigoEstrategia = producto.TipoEstrategiaCodigo
@@ -1567,7 +1572,7 @@ namespace Portal.Consultoras.Web.Controllers
                     Enumeradores.ResultadoReserva.ReservadoObservaciones,
                     Enumeradores.ResultadoReserva.NoReservadoMontoMinimo
                 };
-                
+
 
                 var mensajeCondicional = resultado.ListaMensajeCondicional != null && resultado.ListaMensajeCondicional.Any() ? resultado.ListaMensajeCondicional[0].MensajeRxP : null;
                 return Json(new
@@ -3419,6 +3424,17 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false
                 }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        /// <summary>
+        /// Requerimiento TESLA-28
+        /// [Ganancia] Cálculo Ganancia ofertas Catálogo*
+        /// </summary>
+        /// <returns></returns>
+        private bool IsCalculoGananaciaConsultora(BEPedidoWeb pedidoWeb)
+        {
+            return pedidoWeb.GananciaRevista.HasValue &&
+                   pedidoWeb.GananciaWeb.HasValue && pedidoWeb.GananciaWeb.HasValue;
         }
     }
 }

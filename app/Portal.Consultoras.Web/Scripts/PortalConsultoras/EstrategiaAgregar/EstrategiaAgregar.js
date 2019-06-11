@@ -93,8 +93,7 @@ var EstrategiaAgregarModule = (function () {
 
         var estrategia = {};
 
-        if (estrategiaTxt != "")
-        {
+        if (estrategiaTxt != "") {
             estrategia = JSON.parse(estrategiaTxt);
         }
 
@@ -251,10 +250,9 @@ var EstrategiaAgregarModule = (function () {
         }
 
         return clientId;
-    }
+    };
 
-    var estrategiaAgregar = function (event, popup, limite, esFicha, esEditable, estrategiaResponsive) {
-
+    var estrategiaAgregar = function (event, popup, limite, esFicha, esEditable, estrategiaResponsive, funcionResponsive) {
         popup = popup || false;
         limite = limite || 0;
         esEditable = esEditable || false;
@@ -264,7 +262,6 @@ var EstrategiaAgregarModule = (function () {
 
         var $btnAgregar = $(event.target);
         var origenPedidoWebEstrategia = getOrigenPedidoWeb($btnAgregar);
-        //#region ANALYTICS
 
         if (AnalyticsPortalModule != 'undefined') {
             var estrategiaAnalytics;
@@ -291,9 +288,7 @@ var EstrategiaAgregarModule = (function () {
                     }
                 }
             }
-
         }
-        //**FIN ANALYTICS virtualEvent *****
 
         var estrategia = estrategiaResponsive || getEstrategia($btnAgregar, origenPedidoWebEstrategia);
 
@@ -395,107 +390,107 @@ var EstrategiaAgregarModule = (function () {
             OrigenPedidoWeb: $.trim(origenPedidoWebEstrategia),
             TipoEstrategiaImagen: tipoEstrategiaImagen || 0,
             FlagNueva: $.trim(estrategia.FlagNueva),
-            EsEditable: estrategia.esEditable,
+            EsEditable: estrategia.esEditable || esEditable,
             SetId: estrategia.setId || 0,
             EsDuoPerfecto: EsDuoPerfecto,
             ClienteID: _getClienteIdSelected()
         };
 
         EstrategiaAgregarProvider
-           .pedidoAgregarProductoPromise(params)
-           .done(function (data) {
-               if (!checkTimeout(data)) {
-                   CerrarLoad();
-                   return false;
-               }
+            .pedidoAgregarProductoPromise(params)
+            .done(function (data) {
+                if (!checkTimeout(data)) {
+                    CerrarLoad();
+                    return false;
+                }
 
-               if (data.success === false) {
-                   //INI HD-3693
-                   //if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
-                   //else abrirMensajeEstrategia(data.message, esFicha);
-                   if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
-                   else {
-                       var msjBloq = validarpopupBloqueada(data.message);
-                       if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
-                       else abrirMensajeEstrategia(data.message, _config.esFicha);
-                   }
-                   //FIN HD-3693
+                if (data.success === false) {
+                    //INI HD-3693
+                    //if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
+                    //else abrirMensajeEstrategia(data.message, esFicha);
+                    if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
+                    else {
+                        var msjBloq = validarpopupBloqueada(data.message);
+                        if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                        else abrirMensajeEstrategia(data.message, _config.esFicha);
+                    }
+                    //FIN HD-3693
 
-                   CerrarLoad();
-                   return false;
-               }
-
-
-               var cuv = estrategia.CUV2;
-               if (cuv.substring(0, 3) == '999') {
-                   sessionStorage.setItem('cuvPack', cuv);
-               }
-
-               analyticsAgregar(event, origenPedidoWebEstrategia, estrategia);
-               
-               $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
+                    CerrarLoad();
+                    return false;
+                }
 
 
-               if (divAgregado != null) {
-                   if (typeof divAgregado.length != "undefined" && divAgregado.length > 0) {
-                       divAgregado.each(function (index, element) {
-                           $(element).show();
-                       });
-                   }
+                var cuv = estrategia.CUV2;
+                if (cuv.substring(0, 3) == '999') {
+                    sessionStorage.setItem('cuvPack', cuv);
+                }
 
-                   $(divAgregado).show();
+                analyticsAgregar(event, origenPedidoWebEstrategia, estrategia);
 
-                   if ($btnAgregar[0]) {
-                       var contenedorAgregado = $($btnAgregar).parent().find('#ContenedorAgregado')[0];
-
-                       if (!contenedorAgregado) {
-                           contenedorAgregado = $($btnAgregar).parent().parent().find('.contenedor_agregado');
-                       }
+                $btnAgregar.parents(dataProperties.dataItem).find(dataProperties.dataInputCantidad).val("1");
 
 
-                       if (contenedorAgregado) {
-                           $(contenedorAgregado).show();
-                       }
-                   }
-               }
+                if (divAgregado != null) {
+                    if (typeof divAgregado.length != "undefined" && divAgregado.length > 0) {
+                        divAgregado.each(function (index, element) {
+                            $(element).show();
+                        });
+                    }
+
+                    $(divAgregado).show();
+
+                    if ($btnAgregar[0]) {
+                        var contenedorAgregado = $($btnAgregar).parent().find('#ContenedorAgregado')[0];
+
+                        if (!contenedorAgregado) {
+                            contenedorAgregado = $($btnAgregar).parent().parent().find('.contenedor_agregado');
+                        }
 
 
-               //INI HD-3908
+                        if (contenedorAgregado) {
+                            $(contenedorAgregado).show();
+                        }
+                    }
+                }
 
-               ////Tooltip de agregado
-               //if (esFicha) {
-               //    try {
-               //        var $AgregadoTooltip = $(dataProperties.tooltip);
-               //        if (params.EsEditable) {
-               //            $AgregadoTooltip.find(dataProperties.tooltipMensaje1).html("¡Listo! ");
-               //            $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
-               //        }
-               //        $AgregadoTooltip.show();
-               //        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
-               //        ResumenOpcionesModule.LimpiarOpciones();
-               //    } catch (e) {
-               //        console.error(e);
-               //    }
 
-               //}
-               var esFichaT = ((estrategia.FlagNueva == 1 ? true : false) && IsNullOrEmpty(data.mensajeAviso)) || _config.esFicha;
+                //INI HD-3908
 
-               //Tooltip de agregado
-               if (esFichaT) {
-                   try {
-                       //var $AgregadoTooltip = $(dataProperties.tooltip);
-                       //if (params.EsEditable) {
-                       //    $AgregadoTooltip.find(dataProperties.tooltipMensaje1).html("¡Listo! ");
-                       //    $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
-                       //}
-                       //$AgregadoTooltip.show();
-                       setTimeout(function () {
-                           //$AgregadoTooltip.hide();
-                           if (typeof esAppMobile == 'undefined') {
-                               if (origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack) {
-                                   window.location = "/ofertas";
-                               } else if (origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack) {
-                                   window.location = "/mobile/ofertas";
+                ////Tooltip de agregado
+                //if (esFicha) {
+                //    try {
+                //        var $AgregadoTooltip = $(dataProperties.tooltip);
+                //        if (params.EsEditable) {
+                //            $AgregadoTooltip.find(dataProperties.tooltipMensaje1).html("¡Listo! ");
+                //            $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
+                //        }
+                //        $AgregadoTooltip.show();
+                //        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
+                //        ResumenOpcionesModule.LimpiarOpciones();
+                //    } catch (e) {
+                //        console.error(e);
+                //    }
+
+                //}
+                var esFichaT = ((estrategia.FlagNueva == 1 ? true : false) && IsNullOrEmpty(data.mensajeAviso)) || _config.esFicha;
+
+                //Tooltip de agregado
+                if (esFichaT) {
+                    try {
+                        //var $AgregadoTooltip = $(dataProperties.tooltip);
+                        //if (params.EsEditable) {
+                        //    $AgregadoTooltip.find(dataProperties.tooltipMensaje1).html("¡Listo! ");
+                        //    $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
+                        //}
+                        //$AgregadoTooltip.show();
+                        setTimeout(function () {
+                            //$AgregadoTooltip.hide();
+                            if (typeof esAppMobile == 'undefined') {
+                                if (origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack) {
+                                    window.location = "/ofertas";
+                                } else if (origenPedidoWebEstrategia === _OrigenPedido.MobileContenedorArmaTuPack) {
+                                    window.location = "/mobile/ofertas";
 
                                 }
                             } else {
@@ -534,6 +529,11 @@ var EstrategiaAgregarModule = (function () {
                    var destino = isPagina('pedido') ? '2' : '1';
                    var prevTotal = mtoLogroBarra || 0;
                    var issetPopupPremio = $("#popupPremio").length > 0;
+
+                   var ActualizaGananciasLoad = typeof ActualizaGanancias === 'function';
+                   if (ActualizaGananciasLoad) {
+                       ActualizaGanancias(data);
+                   }
 
                    if ($("#divBarra").length > 0) {
                        MostrarBarra(data, destino);
@@ -725,7 +725,7 @@ var EstrategiaAgregarModule = (function () {
             }
 
             if (!(typeof AnalyticsPortalModule === 'undefined')) {
-                
+
                 var origenModelo = _codigoOrigenPedidoWeb.GetOrigenModelo(origenPedidoWebEstrategia);
                 if (origenModelo.Pagina == _codigoOrigenPedidoWeb.CodigoEstructura.Pagina.ArmaTuPackDetalle) {
                     if (typeof (seleccionadosPresenter) !== 'undefined') {
@@ -745,7 +745,7 @@ var EstrategiaAgregarModule = (function () {
                 }
 
                 AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
-                
+
             }
 
             if (!(typeof TrackingJetloreAdd === 'undefined')) {
@@ -816,7 +816,7 @@ var EstrategiaAgregarModule = (function () {
 
     var habilitarBoton = function () {
         $(_elementos.btnAgregar.id).removeClass(_elementos.btnAgregar.classDesactivado);
-    }
+    };
 
     var _ValidarSeleccionTono = function (objInput, esFicha) {
         var attrClass = $.trim($(objInput).attr("class"));
@@ -848,7 +848,7 @@ var EstrategiaAgregarModule = (function () {
             return true;
         }
         return false;
-    }
+    };
 
     return {
         EstrategiaAgregar: estrategiaAgregar,
@@ -861,4 +861,5 @@ var EstrategiaAgregarModule = (function () {
         DeshabilitarBoton: deshabilitarBoton,
         HabilitarBoton: habilitarBoton
     };
+
 })();

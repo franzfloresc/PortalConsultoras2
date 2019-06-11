@@ -404,7 +404,8 @@ namespace Portal.Consultoras.Web.Controllers
                         formatoTotal = FormatoTotal,
                         listCuvEliminar = pedidoDetalleResult.ListCuvEliminar.ToList(),
                         mensajeCondicional,
-                        EsReservado = esReservado
+                        EsReservado = esReservado,
+                        PedidoWeb = ActualizaModeloPedidoSb2Model(pedidoDetalleResult.PedidoWeb)
                     }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -431,6 +432,42 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        private PedidoSb2Model ActualizaModeloPedidoSb2Model(BEPedidoWeb pedidoWeb)
+        {
+            var pedidoSb2Model = new PedidoSb2Model();
+            if (pedidoWeb.GananciaRevista != null)
+                pedidoSb2Model.FormatoTotalGananciaRevistaStr = Util.DecimalToStringFormat(pedidoWeb.GananciaRevista.Value, userData.CodigoISO);
+            else
+                pedidoSb2Model.FormatoTotalGananciaRevistaStr =
+                    Util.DecimalToStringFormat(0L, userData.CodigoISO);
+
+            if (pedidoWeb.GananciaWeb != null)
+                pedidoSb2Model.FormatoTotalGananciaWebStr = Util.DecimalToStringFormat(pedidoWeb.GananciaWeb.Value, userData.CodigoISO);
+            else
+                pedidoSb2Model.FormatoTotalGananciaWebStr =
+                    Util.DecimalToStringFormat(0, userData.CodigoISO);
+
+            if (pedidoWeb.GananciaOtros != null)
+                pedidoSb2Model.FormatoTotalGananciaOtrosStr = Util.DecimalToStringFormat(pedidoWeb.GananciaOtros.Value, userData.CodigoISO);
+            else
+                pedidoSb2Model.FormatoTotalGananciaOtrosStr =
+                    Util.DecimalToStringFormat(0, userData.CodigoISO);
+            
+            pedidoSb2Model.FormatoTotalMontoAhorroCatalogoStr = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo, userData.CodigoISO);
+            if (pedidoWeb.GananciaOtros != null)
+            {
+                if (pedidoWeb.GananciaWeb != null)
+                {
+                    if (pedidoWeb.GananciaRevista != null)
+                    {
+                        var totalSumarized = pedidoWeb.GananciaOtros.Value + pedidoWeb.GananciaWeb.Value + pedidoWeb.GananciaRevista.Value + pedidoWeb.MontoAhorroCatalogo;
+                        pedidoSb2Model.FormatoTotalMontoGananciaStr = Util.DecimalToStringFormat(totalSumarized, userData.CodigoISO);
+                    }
+                }
+            }
+
+            return pedidoSb2Model;
+        }
         [HttpPost]
         public async Task<JsonResult> AgergarPremioDefault()
         {
@@ -558,7 +595,8 @@ namespace Portal.Consultoras.Web.Controllers
                     DataBarra = GetDataBarra(),
                     cantidadTotalProductos = CantidadTotalProductos,
                     mensajeCondicional,
-                    EsReservado = esReservado
+                    EsReservado = esReservado,
+                    PedidoWeb = ActualizaModeloPedidoSb2Model(pedidoDetalleResult.PedidoWeb)
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -669,7 +707,8 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoAgrupado.TipoEstrategiaCodigo
                 },
                 cantidadTotalProductos = olstPedidoWebDetalle.Sum(x => x.Cantidad),
-                EsReservado = esReservado
+                EsReservado = esReservado,
+                PedidoWeb = ActualizaModeloPedidoSb2Model(result.PedidoWeb)
             }));
 
             return lastResult;
