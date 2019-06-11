@@ -333,14 +333,7 @@ namespace Portal.Consultoras.Web.Controllers
                         ConfigS3.DeleteFileS3(carpetaPais, userData.FotoOriginalSinModificar);
                     }
 
-                    var imagenS3 = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), nameImage);
                     userData.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), nameImage);
-
-                    if (Util.IsUrl(userData.FotoPerfil))
-                    {
-                        userData.FotoPerfilAncha = Util.EsImagenAncha(imagenS3);
-                        ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
-                    }
                     userData.FotoOriginalSinModificar = nameImage;
                     ViewBag.FotoPerfilSinModificar = nameImage;
 
@@ -376,8 +369,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 userData.FotoPerfil = "../../Content/Images/icono_avatar.svg";
                 userData.FotoOriginalSinModificar = null;
-                userData.FotoPerfilAncha = false;
-                ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
                 ViewBag.FotoPerfilSinModificar = "";
 
                 SessionManager.SetUserData(userData);

@@ -838,7 +838,7 @@ function SubirImagen(url, image) {
         success: function (data) {
             if (data.success) {
                 CerrarLoad();
-                alert('Su foto de perfil se cambio correctamente.');
+                alert('Su foto de perfil se cambió correctamente.');
                 window.location = url;
             } else {
                 alert('Hubo un error al cargar el archivo, intente nuevamente.');
