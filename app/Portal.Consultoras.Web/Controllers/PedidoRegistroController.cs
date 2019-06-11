@@ -311,6 +311,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Camino Brillante
                 if (_caminoBrillanteProvider.IsOrigenPedidoCaminoBrillante(model.OrigenPedidoWeb))
                 {
+                    model.CuvTonos = Util.Trim(model.CUV);
                     esCaminoBrillante = true;                    
                     SessionManager.SetDemostradoresCaminoBrillante(null);
                 }
