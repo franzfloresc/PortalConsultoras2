@@ -57,7 +57,7 @@ var ComponentesPresenter = function (config) {
         _estrategiaModel(estrategiaModel);
 
         if (!_config.componentesView.renderComponente(_estrategiaModel())) throw "componenteView do not render model";
-        if (!_config.componentesView.showMessageTypeAndTonesSpent(_estrategiaModel())) throw "Type and tones spented.";
+        // if (!_config.componentesView.showMessageTypeAndTonesSpent(_estrategiaModel())) throw "Type and tones spented.";
 
         return true;
     };

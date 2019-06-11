@@ -1517,6 +1517,7 @@
     <Content Include="Content\Css\Site\Esika\mi-perfil.css" />
     <Content Include="Content\Css\Site\Contenedor\OfertaDelDia.css" />
     <Content Include="Content\Css\Site\Esika\marca-pais-responsive.css" />
+    <Content Include="Content\Css\Site\Ficha\FichaResponsive.css" />
     <Content Include="Content\Css\Site\Notificacion.css" />
     <Content Include="Content\Css\Site\Esika\nuevo-look-and-feel.css" />
     <Content Include="Content\Css\Site\Esika\styleDefault.css" />
@@ -1526,7 +1527,6 @@
     <Content Include="Content\Css\Site\Ficha\Carrusel.css" />
     <Content Include="Content\Css\Site\Ficha\Esika\FichaEsika.css" />
     <Content Include="Content\Css\Site\Ficha\FichaEnriquecidaResponsive.css" />
-    <Content Include="Content\Css\Site\Ficha\FichaRensponsive.css" />
     <Content Include="Content\Css\Site\Ficha\Lbel\FichaLbel.css" />
     <Content Include="Content\Css\Site\Ficha\PopoverTooltip.css" />
     <Content Include="Content\Css\Site\Ficha\RedesSociales.css" />
@@ -1542,6 +1542,8 @@
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\general-popups.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-cierre-sesion.css" />
     <Content Include="Content\Css\Site\styleBase.css" />
+    <Content Include="Content\Images\add-to-cart-disable.png" />
+    <Content Include="Content\Images\add-to-cart-white.png" />
     <Content Include="Content\Images\checkBuroSAC.svg" />
     <Content Include="Content\Images\etiqueta_nuevo.svg" />
     <Content Include="Content\Images\Esika\club-gana-mas.gif" />

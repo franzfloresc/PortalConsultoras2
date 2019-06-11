@@ -400,7 +400,8 @@ var AnalyticsPortalModule = (function () {
 
         var pagina = "";
         var seccion = "";
-        if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselVerMas) {
+        if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselVerMas
+            || origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Ficha) {
             pagina = _getTextoSeccionSegunOrigen(origenEstructura);
         }
         else {

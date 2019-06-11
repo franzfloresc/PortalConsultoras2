@@ -6,6 +6,11 @@
     };
 
     var _elements = {
+        htmlAttrView: {
+            origenPedidoWebAgregar: 'data-OrigenPedidoWebAgregar',
+            origenPedidoEditar: 'data-OrigenPedidoEditar',
+            codigovariante: 'data-codigovariante'            
+        },
         btnAgregar: {
             id: "#btnAgregalo",
             classDesactivado: "btn_deshabilitado"
@@ -179,7 +184,7 @@
     var _setEstrategiaTipoBotonAgregar = function (estrategia) {
         pEstrategia = estrategia;
         if (pEstrategia.TipoAccionAgregar <= 0) {
-            $(_elementos.agregar.id).hide();
+            $(_elements.agregar.id).hide();
         }
 
         if (pEstrategia.CodigoVariante === ConstantesModule.CodigoVariedad.IndividualVariable ||
@@ -201,6 +206,16 @@
         $(_elements.agregar.id).empty();
     };
 
+    var _setValueAttrElementHtml = function (attrObj, value) {
+        $("[" + attrObj + "]").attr(attrObj, value);
+    };
+
+    var _setEstrategiaAtributosHtml = function (estrategia) {
+        _setValueAttrElementHtml(_elements.htmlAttrView.origenPedidoWebAgregar, estrategia.OrigenAgregar);
+        _setValueAttrElementHtml(_elements.htmlAttrView.origenPedidoEditar, estrategia.CodigoUbigeoPortal);
+        _setValueAttrElementHtml(_elements.htmlAttrView.codigovariante, estrategia.CodigoVariante);
+    };
+
     return {
         setPresenter: _setPresenter,
         renderBreadcrumbs: _renderBreadcrumbs,
@@ -213,6 +228,7 @@
         cleanContainer: _cleanContainer,
         showCarrusel: _showCarrusel,
         fixButtonAddProduct: _fixButtonAddProduct,
-        setEstrategiaTipoBotonAgregar: _setEstrategiaTipoBotonAgregar
+        setEstrategiaTipoBotonAgregar: _setEstrategiaTipoBotonAgregar,
+        setEstrategiaAtributosHtml: _setEstrategiaAtributosHtml
     };
 };
