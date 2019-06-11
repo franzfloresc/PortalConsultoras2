@@ -1177,6 +1177,14 @@ function seleccionRegaloProgramaNuevas() {
         return;
     }
 
+    var prevSelected = tpElectivos.premioSelected;
+    var defaultSelectedAgain = prevSelected != null && prevSelected.CuponElectivoDefault && prevSelected.CUV2 == premio.CUV2;
+    if (defaultSelectedAgain) {
+
+        setPremio(premio);
+        return;
+    }
+
     AgregarPremio(premio)
         .then(function (data) {
             if (!data) return;
