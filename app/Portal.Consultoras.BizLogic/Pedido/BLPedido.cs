@@ -279,13 +279,20 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             }
                             else
                             {
-                                mensajePersonalizado = "<ul> ";
-                                foreach (var item in ListPedidoObservacion)
+                                if (pedidoDetalle.IngresoExternoOrigen != null && pedidoDetalle.IngresoExternoOrigen.Equals(Constantes.IngresoExternoOrigen.Portal))
                                 {
-                                    mensajePersonalizado = mensajePersonalizado + string.Concat("<li>", " - ", item.Descripcion, "</li>");
-                                }
+                                    mensajePersonalizado = "<ul> ";
+                                    foreach (var item in ListPedidoObservacion)
+                                    {
+                                        mensajePersonalizado = mensajePersonalizado + string.Concat("<li>", " - ", item.Descripcion, "</li>");
+                                    }
 
-                                mensajePersonalizado = string.Concat(mensajePersonalizado + "</ul>");
+                                    mensajePersonalizado = string.Concat(mensajePersonalizado + "</ul>");
+                                }
+                                else
+                                {
+                                    mensajePersonalizado = ListPedidoObservacion[0].Descripcion;
+                                }
                             }
                         }
                         error = true;
@@ -319,6 +326,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             var respuesta = PedidoDetalleRespuesta(pedidoValidacionCode, mensajePersonalizado);
             respuesta.MensajeRespuesta = respuesta.MensajeRespuesta.Replace("Pedido no reservado", "Pedido reservado");
+            respuesta.ListPedidoObservacion = resultadoReservaProl.ListPedidoObservacion;
             if (!error)
             {
                 respuesta.CodigoRespuesta = Constantes.PedidoValidacion.Code.SUCCESS_RESERVA_AGREGAR;

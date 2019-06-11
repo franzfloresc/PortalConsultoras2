@@ -1469,6 +1469,7 @@ namespace Portal.Consultoras.Common
 
         public static class IngresoExternoOrigen
         {
+            public const string Portal = "3";
             public const string App = "4";
             public const string ChatBot = "5";
         }
