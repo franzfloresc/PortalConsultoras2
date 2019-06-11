@@ -188,11 +188,24 @@ input[type="text"].text__field__sb,
 
 /* VALIDATION MESSAGE */
 
-.validation__message{
-    color:#e81c36;
+.validation__message,
+.validation__field{
     font-size:11px;
     margin-top:4px;
 }
+
+.validation__field{
+    color:#808080;
+}
+    
+    .validation__message,
+    .validation__error{
+        color:#e81c36;
+    }
+
+    .validation__success{
+        color:#569c04;
+    }
 
 /* FIN - VALIDATION MESSAGE */
 

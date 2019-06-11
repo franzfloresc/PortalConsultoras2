@@ -1,0 +1,36 @@
+﻿
+<link href="@Url.Content("~/Content/Css/Site/Shared/PopupsResponsive/general-popups.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Site/Esika/styleDefault.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Site/Login2/popup-actualizacion-contrasenia.css")" rel="stylesheet" />
+
+<div class="popup__wrapper bg__popups__default" id="PopupActualizacionContrasenia">
+    <div class="popup__somos__belcorp popup__somos__belcorp--actualizacionContrasenia mostrarPopup">
+        <div class="popup__somos__belcorp__contenido">
+            <p class="d-block text-center text-regular saludo__consultora">Hola Juanita</p>
+            <h1 class="d-block text-center popup__somos__belcorp__titulo popup__somos__belcorp__titulo--actualizacionContrasenia">
+                Actualiza tu contraseña
+            </h1>
+            <section class="d-flex form__actualizarContrasenia__wrapper">
+                <div class="center-block text-left form__group__fields form__group__fields--actualizacionContrasenia">
+                    <input id="txtNuevoPassword" type="password" class="d-block w-100 text-bold text__field__sb text__field__sb--withContent" name="txtNuevoPassword" value="" />
+                    <label for="txtNuevoPassword" class="d-block w-100 text-regular label__field__sb">Nueva contraseña</label>
+                    <!-- Cuando hay error se agrega la clase validation__error, si la validación es correcta se agrega la clase validation__success -->
+                    <span class="d-block validation__field validation__error" style="display:none;"></span>
+                    <span class="d-block validation__field validation__success">Contraseña válida</span>
+                    <!-- Fin - Cuando hay error se agrega la clase validation__error, si la validación es correcta se agrega la clase validation__success -->
+                </div>
+                <div class="center-block text-left form__group__fields form__group__fields--actualizacionContrasenia">
+                    <input id="txtConfirmarNuevoPassword" type="password" class="d-block w-100 text-bold text__field__sb text__field__sb--withContent" name="txtConfirmarNuevoPassword" value="" />
+                    <label for="txtConfirmarNuevoPassword" class="d-block w-100 text-regular label__field__sb">Confirmar contraseña</label>
+                    <!-- Cuando hay error se agrega la clase validation__error, si la validación es correcta se agrega la clase validation__success -->
+                    <span class="d-block validation__field validation__error" style="display:none;"></span>
+                    <span class="d-block validation__field validation__success">Las contraseñas coinciden</span>
+                    <!-- Fin - Cuando hay error se agrega la clase validation__error, si la validación es correcta se agrega la clase validation__success -->
+                </div>
+                <button id="btnActualizarCorreo" class="d-block center-block border-radius-4 text-center text-bold btn__sb btn__sb--disabled btn__sb__primary--multimarca btn__sb--actualizarContrasenia">
+                    Actualizar
+                </button>
+            </section>
+        </div>
+    </div>
+</div>

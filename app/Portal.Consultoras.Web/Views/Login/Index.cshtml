@@ -247,8 +247,10 @@
                     <b id="menPrioridad2_llamada" style="display:none;">Puedes comunicarte con nosotros llamando a nuestra central telefónica:</b>
                     <span class="texto_disculpa menPrioridad3" style="display:none;">discúlpanos, en estos momentos no podemos atenderte.</span>
                     <b class="menPrioridad3" style="display:none;">Puedes comunicarte con nosotros llamando a nuestra central telefónica en el siguiente horario:</b>
-                    <span id="menAutenticacionNueva" class="texto_disculpa" style="display:none;">por ser la primera vez que ingresas, 
-                    para verificar la autenticidad te enviaremos un PIN a tu celular o a tu e-mail según la opción que elijas:</span>
+                    <span id="menAutenticacionNueva" class="texto_disculpa" style="display:none;">
+                        por ser la primera vez que ingresas,
+                        para verificar la autenticidad te enviaremos un PIN a tu celular o a tu e-mail según la opción que elijas:
+                    </span>
 
                 </div>
 
@@ -590,14 +592,14 @@
                 <div id="header-chatdisabled">
                     <div class="fondo_sesgado"></div>
                     <span id="tituloPopup-ChatDisabled">
-                       AVISO
+                        AVISO
                     </span>
                     <div class="indicador_lbel"></div>
                 </div>
                 <div class="mensaje_pop_up2">
                     <div class="contenedor_info_datos">
                         <div class="titulo_opcion_chatea_con_nosotros">Por el momento el chat en movil no esta disponible, favor de ingresar a través de un computador</div>
-                       
+
                     </div>
 
                 </div>
@@ -797,7 +799,7 @@
         </div>
     }
 
-    <div id="AvisoASP"  class="wrapper_enlace_AP">
+    <div id="AvisoASP" class="wrapper_enlace_AP">
         <div class="enlace_AP">
             <a href="javascript:void(0)" rel="menu-superior" title="Privacidad de Datos"><strong>PRIVACIDAD DE DATOS</strong></a>
         </div>
@@ -882,6 +884,7 @@
     </div>
 </div>
 
+@Html.Partial("~/Views/Login/_PopupActualizacionContrasenia.cshtml")
 
 <script type="text/javascript">
     var paisesEsika = '@System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika")';
@@ -998,7 +1001,7 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
-        function loginFB() {                       
+        function loginFB() {
             existeAccesoFacebook(function(){
                 /*
                 FB.login(
