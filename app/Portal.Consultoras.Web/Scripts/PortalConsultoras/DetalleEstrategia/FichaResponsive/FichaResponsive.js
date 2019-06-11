@@ -58,17 +58,14 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         params.cuv,
         "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
         params.origen,
-        "Ficha",
         estrategia.DescripcionCompleta,
-        estrategia.Hermanos.length,
         estrategia.CodigoProducto,
         estrategia.Precio2,
         estrategia.Hermanos,
         estrategia.TieneStock);
-
     const carruselPresenter = new CarruselPresenter();
-
     const carruselView = new CarruselView(carruselPresenter);
-
     carruselPresenter.initialize(carruselModel, carruselView);
+
+
 });

@@ -6,9 +6,7 @@ class CarruselModel
         cuv,
         urlDataCarrusel,
         origenPedidoWeb,
-        pantalla,
         tituloCarrusel,
-        cantidadPack,
         codigoProducto,
         precioProducto,
         productosHermanos,
@@ -19,9 +17,7 @@ class CarruselModel
         this.cuv = cuv || "";
         this.urlDataCarrusel = urlDataCarrusel || "";
         this.origenPedidoWeb = origenPedidoWeb || "";
-        this.pantalla = pantalla;
         this.tituloCarrusel = tituloCarrusel;
-        this.cantidadPack = cantidadPack;
         this.codigoProducto = codigoProducto;
         this.precioProducto = precioProducto;
         this.productosHermanos = productosHermanos;

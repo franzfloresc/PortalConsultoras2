@@ -105,11 +105,11 @@ class CarruselPresenter {
         if (this.model.palanca == ConstantesModule.TipoEstrategiaTexto.OfertaDelDia) {
             titulo = "Ver más ofertas ¡Solo Hoy!";
         } else {
-            if (this.model.cantidadPack > 1) {
+            if (this.model.productosHermanos.length > 1) {
                 titulo = "Packs parecidos con más productos";
             } else {
                 var componenteInicial = {};
-                if (this.model.cantidadPack === 1) {
+                if (this.model.productosHermanos.length === 1) {
                     componenteInicial = this.model.productosHermanos[0];
                 }
                 if (componenteInicial.FactorCuadre * componenteInicial.Cantidad === 1) {
