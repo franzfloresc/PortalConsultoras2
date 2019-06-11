@@ -594,7 +594,7 @@ namespace Portal.Consultoras.Web.Providers
                 case Constantes.CaminoBrillante.TipoOferta.Kit:
                     return e.Detalle != null ? e.Detalle.Select(d => ToEstrategiaComponenteModel(d)).ToList() : null;
                 case Constantes.CaminoBrillante.TipoOferta.Demostrador:
-                    return new List<EstrategiaComponenteModel>() { ToEstrategiaComponenteModel(e) };
+                    return e.Detalle != null ? e.Detalle.Select(d => ToEstrategiaComponenteModel(d)).ToList() : new List<EstrategiaComponenteModel>() { ToEstrategiaComponenteModel(e) };
             }
             return null;
         }
@@ -623,6 +623,7 @@ namespace Portal.Consultoras.Web.Providers
                 FactorCuadre = 1
             };
         }
+
         private EstrategiaPersonalizadaProductoModel ToEstrategiaPersonalizadaProductoModel(KitCaminoBrillanteModel e, bool loadDetalle = true)
         {
             return new EstrategiaPersonalizadaProductoModel()
@@ -722,6 +723,14 @@ namespace Portal.Consultoras.Web.Providers
                 TipoAccionAgregar = 2,
                 Hermanos = new List<EstrategiaComponenteModel>() { ToEstrategiaComponenteModel(e) }
             };
+        }
+
+        public bool IsOrigenPedidoCaminoBrillante(int origen) {
+            return origen == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
+                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
+                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Ficha ||
+                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha;
+
         }
 
         #endregion
