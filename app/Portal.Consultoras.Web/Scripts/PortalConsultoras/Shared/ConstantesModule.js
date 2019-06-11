@@ -75,8 +75,8 @@ var ConstantesModule = (function () {
         NotParticipaProgramaNuevas: "0",
         DuoPerfecto: "034",//HD-3473 EINCA
 
-        CaminoBrillanteDemostradores: "035", // // No tiene referecia con BD, GCP
-        CaminoBrillanteKits: "036" // // No tiene referecia con BD, GCP
+        CaminoBrillanteDemostradores: "035", // No tiene referecia con BD, GCP
+        CaminoBrillanteKits: "036" // No tiene referecia con BD, GCP
     }
 
     var _diccionarioTipoEstrategia = [
