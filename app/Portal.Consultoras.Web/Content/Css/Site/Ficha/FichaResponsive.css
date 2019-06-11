@@ -11,12 +11,16 @@
     margin: 0 auto;
     max-width: 1105px;
     padding-top: 32px;
-    padding-bottom: 15px;
+    padding-bottom: 30px;
     position: relative;
 }
 
-.ficha_producto{
-    padding-top:40px;
+#ContenedorFicha{
+    padding-bottom: 15px;
+}
+
+.ficha_producto {
+    padding-top: 40px;
 }
 
 .contenedor_fichas {
