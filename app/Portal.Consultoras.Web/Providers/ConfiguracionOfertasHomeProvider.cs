@@ -114,6 +114,13 @@ namespace Portal.Consultoras.Web.Providers
 
                     var seccion = SeccionModelo(entConf, revistaDigital, isMobile);
 
+                    var opwModelo = new OrigenPedidoWebModel
+                    {
+                        Dispositivo = isMobile ? ConsOrigenPedidoWeb.Dispositivo.Mobile : ConsOrigenPedidoWeb.Dispositivo.Desktop,
+                        Pagina = ConsOrigenPedidoWeb.Pagina.Contenedor,
+                        Seccion = ConsOrigenPedidoWeb.Seccion.Carrusel
+                    };
+
                     #region ConfiguracionPais.Codigo
 
                     switch (entConf.ConfiguracionPais.Codigo)
@@ -125,6 +132,7 @@ namespace Portal.Consultoras.Web.Providers
 
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "GuiaNegocio";
                             seccion.UrlObtenerProductos = "";
+                            opwModelo.Palanca = ConsOrigenPedidoWeb.Palanca.Gnd;
                             break;
                         case Constantes.ConfiguracionPais.ProgramaNuevas:
                             if (esElecMultiple) continue;
@@ -152,26 +160,29 @@ namespace Portal.Consultoras.Web.Providers
                             break;
                         case Constantes.ConfiguracionPais.OfertasParaTi:
                             seccion.UrlObtenerProductos = "Estrategia/OPTObtenerProductos";
-                            seccion.OrigenPedido =
-                                isMobile
-                                    ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiCarrusel
-                                    : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
-                            seccion.OrigenPedidoPopup =
-                                isMobile
-                                    ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiFicha
-                                    : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
+
+                            opwModelo.Palanca = ConsOrigenPedidoWeb.Palanca.OfertasParaTi;
+                            //seccion.OrigenPedido =
+                            //    isMobile
+                            //        ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiCarrusel
+                            //        : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
+                            //seccion.OrigenPedidoPopup =
+                            //    isMobile
+                            //        ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiFicha
+                            //        : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
                             seccion.VerMas = false;
                             break;
                         case Constantes.ConfiguracionPais.Lanzamiento:
                             seccion.UrlObtenerProductos = "Estrategia/LANObtenerProductos";
-                            seccion.OrigenPedido =
-                                isMobile
-                                    ? Constantes.OrigenPedidoWeb.MobileContenedorLanzamientosCarrusel
-                                    : Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosCarrusel;
-                            seccion.OrigenPedidoPopup =
-                                isMobile
-                                    ? Constantes.OrigenPedidoWeb.MobileContenedorLanzamientosFicha
-                                    : Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosFicha;
+                            opwModelo.Palanca = ConsOrigenPedidoWeb.Palanca.Lanzamientos;
+                            //seccion.OrigenPedido =
+                            //    isMobile
+                            //        ? Constantes.OrigenPedidoWeb.MobileContenedorLanzamientosCarrusel
+                            //        : Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosCarrusel;
+                            //seccion.OrigenPedidoPopup =
+                            //    isMobile
+                            //        ? Constantes.OrigenPedidoWeb.MobileContenedorLanzamientosFicha
+                            //        : Constantes.OrigenPedidoWeb.DesktopContenedorLanzamientosFicha;
                             seccion.VerMas = false;
                             break;
                         case Constantes.ConfiguracionPais.RevistaDigitalReducida:
@@ -181,8 +192,11 @@ namespace Portal.Consultoras.Web.Providers
                                                        ? "RevistaDigital/Revisar"
                                                        : "RevistaDigital/Comprar");
                             seccion.UrlObtenerProductos = "Estrategia/RDObtenerProductos";
-                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
-                            seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiFicha : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
+
+                            opwModelo.Palanca = ConsOrigenPedidoWeb.Palanca.OfertasParaTi;
+
+                            //seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiCarrusel;
+                            //seccion.OrigenPedidoPopup = isMobile ? Constantes.OrigenPedidoWeb.MobileContenedorOfertasParaTiFicha : Constantes.OrigenPedidoWeb.DesktopContenedorOfertasParaTiFicha;
                             seccion.VerMas = SessionManager.GetRevistaDigital().TieneLanding;
 
                             break;
@@ -191,15 +205,18 @@ namespace Portal.Consultoras.Web.Providers
                             if (seccion.UrlLandig == "")
                                 continue;
 
+                            opwModelo.Palanca = ConsOrigenPedidoWeb.Palanca.Showroom;
                             break;
                         case Constantes.ConfiguracionPais.OfertaDelDia:
                             var estrategiaODD = SessionManager.OfertaDelDia.Estrategia;
                             if (!estrategiaODD.TieneOfertaDelDia)
                                 continue;
-                            seccion.OrigenPedido =
-                                isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaCarrusel;
-                            seccion.OrigenPedidoPopup =
-                                isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaFicha;
+
+                            opwModelo.Palanca = ConsOrigenPedidoWeb.Palanca.OfertaDelDia;
+                            //seccion.OrigenPedido =
+                            //    isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaCarrusel;
+                            //seccion.OrigenPedidoPopup =
+                            //    isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorOfertaDelDiaFicha;
 
                             SessionManager.OfertaDelDia.Estrategia.ConfiguracionContenedor = seccion;
 
@@ -210,10 +227,12 @@ namespace Portal.Consultoras.Web.Providers
                                                 + (menuActivo.CampaniaId > userData.CampaniaID
                                                        ? "HerramientasVenta/Revisar"
                                                        : "HerramientasVenta/Comprar");
-                            seccion.OrigenPedido =
-                                isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorHerramientasdeVentaCarrusel;
-                            seccion.OrigenPedidoPopup =
-                                isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorHerramientasdeVentaCarrusel;
+
+                            opwModelo.Palanca = ConsOrigenPedidoWeb.Palanca.HerramientasVenta;
+                            //seccion.OrigenPedido =
+                            //    isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorHerramientasdeVentaCarrusel;
+                            //seccion.OrigenPedidoPopup =
+                            //    isMobile ? 0 : Constantes.OrigenPedidoWeb.DesktopContenedorHerramientasdeVentaCarrusel;
                             break;
                         case Constantes.ConfiguracionPais.MasGanadoras:
                             if (!revistaDigital.EsActiva)
@@ -223,14 +242,16 @@ namespace Portal.Consultoras.Web.Providers
 
                             seccion.UrlObtenerProductos = "Estrategia/MGObtenerProductos";
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "MasGanadoras";
-                            seccion.OrigenPedido =
-                                isMobile
-                                    ? Constantes.OrigenPedidoWeb.MobileContenedorGanadorasCarrusel
-                                    : Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel;
-                            seccion.OrigenPedidoPopup =
-                                isMobile
-                                    ? Constantes.OrigenPedidoWeb.MobileContenedorGanadorasFicha
-                                    : Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasFicha;
+
+                            opwModelo.Palanca = ConsOrigenPedidoWeb.Palanca.Ganadoras;
+                            //seccion.OrigenPedido =
+                            //    isMobile
+                            //        ? Constantes.OrigenPedidoWeb.MobileContenedorGanadorasCarrusel
+                            //        : Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasCarrusel;
+                            //seccion.OrigenPedidoPopup =
+                            //    isMobile
+                            //        ? Constantes.OrigenPedidoWeb.MobileContenedorGanadorasFicha
+                            //        : Constantes.OrigenPedidoWeb.DesktopContenedorGanadorasFicha;
                             seccion.VerMas = SessionManager.MasGanadoras.GetModel().TieneLanding;
                             break;
                         case Constantes.ConfiguracionPais.ArmaTuPack:
@@ -243,13 +264,16 @@ namespace Portal.Consultoras.Web.Providers
 
                             seccion.UrlObtenerProductos = "Estrategia/ATPObtenerProductos";
                             seccion.UrlLandig = "ArmaTuPack/Detalle";
-                            seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileArmaTuPackFicha : Constantes.OrigenPedidoWeb.DesktopArmaTuPackFicha;
+                            opwModelo.Palanca = ConsOrigenPedidoWeb.Palanca.ArmaTuPack;
+                            //seccion.OrigenPedido = isMobile ? Constantes.OrigenPedidoWeb.MobileArmaTuPackFicha : Constantes.OrigenPedidoWeb.DesktopArmaTuPackFicha;
                             seccion.VerMas = false;
                             seccion.CodigoUbigeoPortal = CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion;
                             break;
                     }
 
                     #endregion
+
+                    seccion.OrigenPedido = UtilOrigenPedidoWeb.ToInt(opwModelo);
 
                     #region TipoPresentacion
 
