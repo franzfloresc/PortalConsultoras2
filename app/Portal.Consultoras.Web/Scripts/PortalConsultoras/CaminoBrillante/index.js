@@ -316,13 +316,16 @@ function ArmarMisGanancias(data) {
                     dataset.hoverBackgroundColor = hoverBackgrounds.slice();
                     dataset.backgroundColor[index] = colorBarSelected;
                     dataset.hoverBackgroundColor[index] = colorBarSelected;
+                    // 
                 } else {
                     // remove hover styles
+                    /*
                     for (datasetIndex = 0; datasetIndex < myBar.data.datasets.length; ++datasetIndex) {
                         dataset = myBar.data.datasets[datasetIndex];
                         dataset.backgroundColor = backgroundColors.slice();
                         dataset.hoverBackgroundColor = hoverBackgrounds.slice();
                     }
+                    */
                 }
                 myBar.update();
             },

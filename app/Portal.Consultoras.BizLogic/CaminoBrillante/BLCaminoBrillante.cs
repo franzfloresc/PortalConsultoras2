@@ -1277,7 +1277,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return null;
         }
 
-        private BEOfertaCaminoBrillante ToBEOfertaCaminoBrillante(BEDemostradoresCaminoBrillante demostrador)
+        private BEOfertaCaminoBrillante ToBEOfertaCaminoBrillante(BEDemostradoresCaminoBrillante demostrador, bool loadDetalle = true)
         {
             return new BEOfertaCaminoBrillante()
             {
@@ -1301,7 +1301,8 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 //FlagDigitable = e.flag
                 //FlagHabilitado = e.fla
                 ///FlagHistorico = e.
-                EsCatalogo = demostrador.EsCatalogo
+                EsCatalogo = demostrador.EsCatalogo,
+                Detalle = loadDetalle ? new List<BEOfertaCaminoBrillante>() { ToBEOfertaCaminoBrillante(demostrador, false) } : null
             };
         }
 

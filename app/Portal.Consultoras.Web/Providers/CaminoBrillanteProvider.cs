@@ -594,7 +594,7 @@ namespace Portal.Consultoras.Web.Providers
                 case Constantes.CaminoBrillante.TipoOferta.Kit:
                     return e.Detalle != null ? e.Detalle.Select(d => ToEstrategiaComponenteModel(d)).ToList() : null;
                 case Constantes.CaminoBrillante.TipoOferta.Demostrador:
-                    return new List<EstrategiaComponenteModel>() { ToEstrategiaComponenteModel(e) };
+                    return e.Detalle != null ? e.Detalle.Select(d => ToEstrategiaComponenteModel(d)).ToList() : new List<EstrategiaComponenteModel>() { ToEstrategiaComponenteModel(e) };
             }
             return null;
         }
@@ -619,9 +619,11 @@ namespace Portal.Consultoras.Web.Providers
                 DescripcionMarca = e.DescripcionMarca,
                 Descripcion = e.DescripcionCUV,
                 Cantidad = 1,
-                NombreComercial = e.DescripcionCUV, 
+                NombreComercial = e.DescripcionCUV,
+                FactorCuadre = 1
             };
         }
+
         private EstrategiaPersonalizadaProductoModel ToEstrategiaPersonalizadaProductoModel(KitCaminoBrillanteModel e, bool loadDetalle = true)
         {
             return new EstrategiaPersonalizadaProductoModel()
@@ -677,6 +679,7 @@ namespace Portal.Consultoras.Web.Providers
                 Descripcion = e.DescripcionCUV,
                 Cantidad = 1,
                 NombreComercial = e.DescripcionCUV,
+                FactorCuadre = 1
             };
         }
 
@@ -693,7 +696,7 @@ namespace Portal.Consultoras.Web.Providers
                 CodigoCategoria = "",
                 CodigoEstrategia = "035",
                 CodigoProducto = e.CUV,
-                CodigoVariante = "",
+                CodigoVariante = "2002",
                 CUV2 = e.CUV2,
                 DescripcionCompleta = e.DescripcionCUV,
                 DescripcionCortada = e.DescripcionCUV,
@@ -720,6 +723,14 @@ namespace Portal.Consultoras.Web.Providers
                 TipoAccionAgregar = 2,
                 Hermanos = new List<EstrategiaComponenteModel>() { ToEstrategiaComponenteModel(e) }
             };
+        }
+
+        public bool IsOrigenPedidoCaminoBrillante(int origen) {
+            return origen == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
+                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
+                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Ficha ||
+                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha;
+
         }
 
         #endregion
