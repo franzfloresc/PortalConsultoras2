@@ -583,11 +583,6 @@ namespace Portal.Consultoras.BizLogic
                 Json = ObtenerObjetoIssue(url, codigoIso);
                 if (string.IsNullOrEmpty(Json)) return result;
 
-                if (Json.IndexOf("error") > -1)
-                {
-                    error = true;
-                    return result;
-                }
                 accion = "JsonConvert.DeserializeObject<dynamic>(Json)";
                 var oIssuu = JsonConvert.DeserializeObject<dynamic>(Json);
                 accion =  "(JArray)oIssuu.rsp._content.result._content";
