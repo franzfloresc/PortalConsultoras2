@@ -609,6 +609,7 @@ namespace Portal.Consultoras.Common
             public const string ChatbotSecret = "ChatbotSecret";
             public const string ChatBotPageId = "ChatBotPageId";
             public const string ChatBotUrl = "https://m.me/{0}?ref={1}";
+            public const string DefaultPerfilImage = "/Content/Images/icono_avatar.svg";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
@@ -2253,14 +2254,6 @@ namespace Portal.Consultoras.Common
             public const string ProgramaNuevasIndex = "/programanuevas/index";
             public const string DetalleMasGanadoras = "/detalle/ganadoras";
         }
-
-        public static class UrlDatsoPendientes
-        {
-            public const string MiPerfilDesktop = "/MiPerfil";
-            public const string MiPerfilMobile = "/Mobile/MiPerfil";
-        }
-
-
 
         public static class TipoVistaEstrategia
         {
