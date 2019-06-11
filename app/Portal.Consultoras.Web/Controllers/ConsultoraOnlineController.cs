@@ -1281,9 +1281,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (pedidoAux.FlagMedio == "01")
                 {
                     double totalPedido = 0;
-
-                    //String titulocliente = "Tu pedido ha sido CONFIRMADO por " + userData.PrimerNombre + " " +
-                    //                       userData.PrimerApellido + " - App de Catálogos Ésika, L'Bel y Cyzone";
+                    
                     StringBuilder mensajecliente = new StringBuilder();
                     mensajecliente.Append(
                         "<table width='100%' border='0' bgcolor='#ffffff' cellspacing='0' cellpadding='0' border-spacing='0' style='margin: 0; border: 0; border-collapse: collapse!important;'>");
@@ -1458,13 +1456,6 @@ namespace Portal.Consultoras.Web.Controllers
                     mensajecliente.Append("</tr>");
                     mensajecliente.Append("</tbody></table>");
 
-                    try
-                    {
-                    }
-                    catch (Exception ex)
-                    {
-                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    }
                 }
                 else
                 {
@@ -1476,14 +1467,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mensaje.AppendFormat(
                         "<td><p style='text-align: center;'><strong>{0}<br/>{1}<br/>Consultora</strong></p></td></tr></table>",
                         userData.NombreConsultora, userData.EMail);
-
-                    try
-                    {
-                    }
-                    catch (Exception ex)
-                    {
-                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    }
+                    
                 }
 
                 return Json(new
@@ -2156,7 +2140,6 @@ namespace Portal.Consultoras.Web.Controllers
                     var ids = lstCuv.Where(x => x.CUV == cuv).Select(x => x.PedidoId.ToString()).ToArray();
 
                     det.CantidadTotal = lstCuv.Sum(x => x.Cantidad);
-                    //det.PrecioTotal = (lstCuv.Sum(x => x.PrecioUnitario) * lstCuv.Sum(x => x.Cantidad));
                     det.PrecioTotal = (det.CantidadTotal * det.PrecioUnitario);
                     det.FormatoPrecioTotal = Util.DecimalToStringFormat(det.PrecioTotal.ToDecimal(), userData.CodigoISO);
                     det.ListaClientes = lstPedidos.Where(x => ids.Contains(x.PedidoId.ToString())).ToArray();
@@ -2952,17 +2935,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-               
-
                 pedidosSesion.ForEach(pedidoAux =>
                 {
 
                     if (pedidoAux.DetallePedido.Any(i => i.Elegido) && pedidoAux.FlagMedio == "01")
                     {
                         double totalPedido = 0;
-
-                        //String titulocliente = "Tu pedido ha sido CONFIRMADO por " + userData.PrimerNombre + " " +
-                        //                       userData.PrimerApellido + " - App de Catálogos Ésika, L'Bel y Cyzone";
+                        
                         StringBuilder mensajecliente = new StringBuilder();
                         mensajecliente.Append(
                             "<table width='100%' border='0' bgcolor='#ffffff' cellspacing='0' cellpadding='0' border-spacing='0' style='margin: 0; border: 0; border-collapse: collapse!important;'>");

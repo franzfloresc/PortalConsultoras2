@@ -186,12 +186,14 @@ var ResumenOpcionesModule = (function () {
             Label: ''
         }
 
-        cuvPadre = $.trim(cuvPadre);
+        //cuvPadre = $.trim(cuvPadre);
         componentes = componentes || [];
         $.each(componentes, function (idxComponente, componente) {
-            if (componente.cantidadSeleccionada > 0) {
-                modeloMarcar.Label = " " + componente.NombreComercial;
-            }
+            if (typeof componente !== 'undefined' && componente !== null) {
+                if (componente.cantidadSeleccionada > 0) {
+                    modeloMarcar.Label = " " + componente.NombreComercial;
+                }
+            }            
         });
 
         AnalyticsPortalModule.VirtualEventFichaAplicarCambio(modeloMarcar);

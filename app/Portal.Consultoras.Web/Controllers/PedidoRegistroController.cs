@@ -352,6 +352,7 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.SetID = model.SetId;
                 pedidoDetalle.OrigenSolicitud = "WebMobile";
                 pedidoDetalle.EsDuoPerfecto = model.EsDuoPerfecto;
+                pedidoDetalle.IngresoExternoOrigen = Constantes.IngresoExternoOrigen.Portal;
                 var result = await DeletePremioIfReplace(model);
                 if (result != null && !result.Item1)
                 {
@@ -511,6 +512,7 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoDetalle.ClienteDescripcion = model.Nombre;
             pedidoDetalle.IPUsuario = GetIPCliente();
             pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
+            pedidoDetalle.IngresoExternoOrigen = Constantes.IngresoExternoOrigen.Portal;
 
             pedidoDetalle.OrigenSolicitud = "WebMobile";
             pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
@@ -609,6 +611,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             pedidoDetalle.ReservaProl = Mapper.Map<BEInputReservaProl>(userData);
+            pedidoDetalle.IngresoExternoOrigen = Constantes.IngresoExternoOrigen.Portal;
             var result = await _pedidoWebProvider.EliminarPedidoDetalle(pedidoDetalle);
 
             pedidoEliminado.DescripcionOferta = !string.IsNullOrEmpty(pedidoEliminado.DescripcionOferta)
