@@ -678,10 +678,13 @@ input[type="checkbox"].switch__control,
         margin-top: 53px !important;
     }
 
+}
+
+@media screen and (max-width:991px) {
+
     .mb-60 {
         margin-bottom: 60px;
     }
-
 }
 
 /* FIN - HELPERS CSS */

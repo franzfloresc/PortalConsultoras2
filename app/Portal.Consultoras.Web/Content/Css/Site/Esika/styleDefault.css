@@ -678,6 +678,10 @@ input[type="text"].text__field__sb,
         margin-top: 53px !important;
     }
 
+}
+
+@media screen and (max-width:991px){
+
     .mb-60 {
         margin-bottom: 60px;
     }
