@@ -197,22 +197,30 @@ else if (ViewBag.Origen == "1")
                 {
                     <div class="d-flex text-bold detalle_tipo_solicitud_titulo">
                         <span class="d-inline-block detalle_tipo_solicitud_icono">
-                            <img src="@Url.Content("~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                            @if (item.CodigoOperacion.Equals("D"))
+                            {
+                                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                            }
+                            else if (item.CodigoOperacion.Equals("T"))
+                            {
+                                <img src="@Url.Content("~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                            }
+                            else if (item.CodigoOperacion.Equals("C"))
+                            {
+                                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                            }
+                            else if (item.CodigoOperacion.Equals("F"))
+                            {
+                                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                            }
+                            else if (item.CodigoOperacion.Equals("G"))
+                            {
+                                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                            }
                         </span>
                         <span class="d-inline-block text-uppercase">
-                            Cambiar por otro producto
-                            @*@item.SolucionSolicitada*@
+                            @item.SolucionSolicitada
                         </span>
-                        @*<div class="text-bold estado_solic_cdr">
-                                @if (item.Estado == 4)
-                                {<span class="text-bold estado_registro_solicitud_cdr estado_rechazado">RECHAZADO</span>}
-                                @if (item.Estado == 3)
-                                {<span class="text-bold estado_registro_solicitud_cdr estado_aprobado">APROBADO</span>}
-                                @if (item.Estado == 2)
-                                {<span class="text-bold estado_registro_solicitud_cdr estado_en_evaluacion">EN EVALUACION</span>}
-                                @if (item.Estado == 1)
-                                {<span class="text-bold estado_registro_solicitud_cdr estado_pendiente">PENDIENTE</span>}
-                            </div>*@
                     </div>
                     <div class="detalle_tipo_solicitud">
                         <div class="detalle_producto_cdr detalle_producto_cdr--flex">
@@ -281,7 +289,13 @@ else if (ViewBag.Origen == "1")
                                                         <a class="d-flex cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                                                         <a class="d-flex cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                                                     </div>
-                                                    <a href="" title="Eliminar producto" class="d-flex enlace_eliminar_producto">
+                                                    <a data-pedidodetalleid="@item.CDRWebDetalleID"
+                                                       data-detalle-grupoid="@item.GrupoID"
+                                                       data-cuv="@el.CUV"
+                                                       href="javascript:void(0);"
+                                                       onclick="misReclamos.Funciones.PreEliminarDetalle(this);"
+                                                       title="Eliminar producto"
+                                                       class="d-flex enlace_eliminar_producto">
                                                         <span class="d-inline-block enlace_eliminar_producto_icono">
                                                             <img src="@Url.Content("~/Content/Images/Esika/icons-trash.svg")" alt="Eliminar producto" />
                                                         </span>
@@ -332,4 +346,11 @@ else if (ViewBag.Origen == "1")
         </div>
 
     </div>
+}
+@section scripts{
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Index.js")"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
+    <script type="text/javascript">
+        var UrlDetalleEliminar = '@Url.Action("DetalleEliminar", "MisReclamos", new { area = "" })';
+    </script>
 }
