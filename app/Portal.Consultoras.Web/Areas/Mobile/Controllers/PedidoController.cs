@@ -295,11 +295,27 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             var pedidoWeb = ObtenerPedidoWeb();
+            var pedidoModel = new PedidoSb2Model
+            {
+                CodigoIso = userData.CodigoISO,
+                EstadoSimplificacionCuv = userData.EstadoSimplificacionCUV,
+                MontoAhorroCatalogo = pedidoWeb.MontoAhorroCatalogo,
+                GananciaRevista = pedidoWeb.GananciaRevista,
+                GananciaWeb = pedidoWeb.GananciaWeb,
+                GananciaOtros = pedidoWeb.GananciaOtros
+            };
 
             ViewBag.MontoAhorroCatalogo = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo, userData.CodigoISO);
             ViewBag.MontoAhorroRevista = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroRevista, userData.CodigoISO);
             ViewBag.MontoDescuento = Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO);
             ViewBag.GananciaEstimada = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo + pedidoWeb.MontoAhorroRevista, userData.CodigoISO);
+
+            ViewBag.FormatoTotalMontoGanancia = pedidoModel.FormatoTotalMontoGanancia;
+
+            ViewBag.FormatoMontoAhorroCatalogo = pedidoModel.FormatoMontoAhorroCatalogo;
+            ViewBag.FormatoGananciaRevista = pedidoModel.FormatoGananciaRevista;
+            ViewBag.FormatoGananciaWeb = pedidoModel.FormatoGananciaWeb;
+            ViewBag.FormatoGananciaOtros = pedidoModel.FormatoGananciaOtros;
 
             SessionManager.SetMontosProl(
                 new List<ObjMontosProl>
@@ -357,7 +373,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.Titulo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Mobile");
                 ViewBag.ColorFondo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ColorFondo1OfertaFinalRegalo", "Mobile");
             }
-
+            model.IsShowGananciaConsultora = IsCalculoGananaciaConsultora(pedidoWeb);
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
             model.MensajeKitNuevas = _programaNuevasProvider.GetMensajeKit();
             ViewBag.CantPedidoPendientes = _pedidoWebProvider.GetPedidoPendientes(userData);
@@ -705,6 +721,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             return DateTime.Now.AddHours(userData.ZonaHoraria);
         }
-
+        /// <summary>
+        /// Requerimiento TESLA-28
+        /// [Ganancia] Cálculo Ganancia ofertas Catálogo*
+        /// </summary>
+        /// <returns></returns>
+        private bool IsCalculoGananaciaConsultora(BEPedidoWeb pedidoWeb)
+        {
+            return pedidoWeb.GananciaRevista.HasValue &&
+                   pedidoWeb.GananciaWeb.HasValue && pedidoWeb.GananciaWeb.HasValue;
+        }
     }
 }
