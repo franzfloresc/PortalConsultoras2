@@ -253,12 +253,12 @@ else if (ViewBag.Origen == "1")
                     </div>
                     <div class="detalle_tipo_solicitud">
                         <div class="detalle_producto_cdr detalle_producto_cdr--flex">
-                            @if (item.GrupoID != "" && item.GrupoID != null)
-                            {
-                                <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div>
-                            }
-                            <div class="detalle_productos_solicitud_cdr">
-                                <div class="producto_solicitud">
+                            <div class="d-flex detalle_productos_solicitud_cdr detalle_productos_solicitud_cdr--otrosTipoDeSolicitud">
+                                <div>
+                                    @if (item.GrupoID != "" && item.GrupoID != null)
+                                    {
+                                        <span class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</span>
+                                    }
                                     <span class="detalle_cod_producto">
                                         @item.CUV
                                     </span>
@@ -272,15 +272,26 @@ else if (ViewBag.Origen == "1")
                                         @ViewBag.Simbolo @item.FormatoPrecio1
                                     </span>
                                 </div>
+                                @if (item.CodigoOperacion.Equals("C") || item.CodigoOperacion.Equals("D") || item.CodigoOperacion.Equals("F") || item.CodigoOperacion.Equals("G"))
+                                {
+                                    if (item.Estado == 3)
+                                    {
+                                        <div>
+                                            <span class="d-block text-center text-bold text-uppercase tag_sb tag__sb--estadoSolicitud estado_aprobado">
+                                                Aprobado
+                                            </span>
+                                        </div>
+                                    }
+                                }
                             </div>
                         </div>
                         <div class="detalle_cdr_solucion">
                             @if (item.CodigoOperacion.Equals("C") || item.CodigoOperacion.Equals("D") || item.CodigoOperacion.Equals("F") || item.CodigoOperacion.Equals("G"))
                             {
-                                <div class="text-bold detalle_cdr_solucion_titulo detalle_cdr_solucion_titulo_trueque">
+                                @*<div class="text-bold detalle_cdr_solucion_titulo detalle_cdr_solucion_titulo_trueque">
                                     @item.Solicitud :
-                                </div>
-                                <div class="d-flex detalle_productos_solicitud_cdr detalle_productos_solicitud_cdr--trueque">
+                                </div>*@
+                                <div class="d-flex detalle_productos_solicitud_cdr detalle_productos_solicitud_cdr--otrosTipoDeSolicitud">
                                     @if (item.Estado == 4)
                                     {
                                         <div>
@@ -315,18 +326,6 @@ else if (ViewBag.Origen == "1")
                                                 </a>
                                             </div>
                                         </div>
-                                    }
-                                    else if (item.Estado == 3)
-                                    {
-                                        <div>
-                                            <span class="d-block text-center text-bold text-uppercase tag_sb tag__sb--estadoSolicitud estado_aprobado">
-                                                Aprobado
-                                            </span>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div></div>
                                     }
                                 </div>
                             }
@@ -410,16 +409,11 @@ else if (ViewBag.Origen == "1")
                                                     </span>
                                                 </div>
                                             }
-                                            else
-                                            {
-                                                <div></div>
-                                            }
                                         </div>
                                     }
-                                    <div class="cls_total text-bold text-uppercase producto_solicitud_row">
+                                    <div class="cls_total text-bold text-uppercase total_precio_productos_trueque">
                                         Total: <span name="total">
-                                            @ViewBag.Simbolo @Util.DecimalToStringFormat(dic[item.CDRWebDetalleID],ViewBag.CodigoISODL)
-                                           
+                                            @ViewBag.Simbolo @Util.DecimalToStringFormat(dic[item.CDRWebDetalleID],ViewBag.CodigoISODL)                                           
                                         </span>
                                     </div>
                                 }

@@ -1916,6 +1916,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         border-bottom: 0;
     }
 
+.detalle_productos_solicitud_cdr--otrosTipoDeSolicitud > div:first-child,
 .detalle_productos_solicitud_cdr--trueque > div:first-child {
     width: 61%;
     margin-right: 16px;
@@ -1945,6 +1946,10 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     .detalle_precio_producto--relative{
         position:relative;
     }
+
+.total_precio_productos_trueque {
+    padding-top: 16px;
+}
 
 .acciones_detalle_productos_solicitud_cdr,
 .acciones_detalle_productos_solicitud_cdr > div:last-child,
@@ -1993,9 +1998,9 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         }
 
         .descripcion_acciones_icono_alerta{
-            width: 35px;
-            height: 24px;
-            margin-right: 3px;
+            width: 20px;
+            height: auto;
+            margin-right: 6px;
         }
 
             .descripcion_acciones_icono_alerta img,
