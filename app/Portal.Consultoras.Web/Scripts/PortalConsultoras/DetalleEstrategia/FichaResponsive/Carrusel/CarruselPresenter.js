@@ -1,12 +1,14 @@
-﻿"use strict";
+﻿/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselModel.js" />
+/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselView.js" />
+"use strict";
 
 class CarruselPresenter {
 
     initialize(model, view) {
         this.model = model;
         this.view = view;
-        this.view.ocultarElementos();
         this.view.setAttrHtml(this.model.origenPedidoWeb, this.model.origenAgregarCarrusel);
+        this.view.fijarObjetosCarrusel(this.model.tipoCarrusell);
         this.mostrarCarrusel();
     }
 
@@ -42,7 +44,7 @@ class CarruselPresenter {
             data.lista = this.cargarDatos();
             if (data.lista.length > 0) {
                 $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
-                this.view.crearPlantilla(data, this.obtenerTitulo(), data.lista.length);
+                this.view.crearPlantilla(data, this.obtenerTitulo());
             }
         }
         else {
@@ -60,7 +62,7 @@ class CarruselPresenter {
                         data.lista = response.result;
                         if (data.lista.length > 0) {
                             $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
-                            thisReference.view.crearPlantilla(data, thisReference.obtenerTitulo(), data.lista.length);
+                            thisReference.view.crearPlantilla(data, thisReference.obtenerTitulo());
                         }
                     }
                 }

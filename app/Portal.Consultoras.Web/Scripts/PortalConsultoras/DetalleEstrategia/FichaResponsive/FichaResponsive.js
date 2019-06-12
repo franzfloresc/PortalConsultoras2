@@ -52,7 +52,7 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
 
     fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
 
-    const carruselModel = new CarruselModel(
+    const carruselModelUpselling = new CarruselModel(
         params.palanca,
         params.campania,
         params.cuv,
@@ -63,10 +63,45 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         estrategia.CodigoProducto,
         estrategia.Precio2,
         estrategia.Hermanos,
-        estrategia.TieneStock);
-    const carruselPresenter = new CarruselPresenter();
-    const carruselView = new CarruselView(carruselPresenter);
-    carruselPresenter.initialize(carruselModel, carruselView);
+        estrategia.TieneStock,
+        "upselling");
+    const carruselPresenterUpselling = new CarruselPresenter();
+    const carruselViewUpselling = new CarruselView(carruselPresenterUpselling);
+    carruselPresenterUpselling.initialize(carruselModelUpselling, carruselViewUpselling);
+
+    const carruselModelCross = new CarruselModel(
+        params.palanca,
+        params.campania,
+        params.cuv,
+        "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
+        params.origen,
+        estrategia.OrigenAgregarCarrusel,
+        estrategia.DescripcionCompleta,
+        estrategia.CodigoProducto,
+        estrategia.Precio2,
+        estrategia.Hermanos,
+        estrategia.TieneStock,
+        "cross");
+    const carruselPresenterCross = new CarruselPresenter();
+    const carruselViewCross = new CarruselView(carruselPresenterCross);
+    carruselPresenterCross.initialize(carruselModelCross, carruselViewCross);
+
+    const carruselModelSugerido = new CarruselModel(
+        params.palanca,
+        params.campania,
+        params.cuv,
+        "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
+        params.origen,
+        estrategia.OrigenAgregarCarrusel,
+        estrategia.DescripcionCompleta,
+        estrategia.CodigoProducto,
+        estrategia.Precio2,
+        estrategia.Hermanos,
+        estrategia.TieneStock,
+        "sugerido");
+    const carruselPresenterSugerido = new CarruselPresenter();
+    const carruselViewSugerido = new CarruselView(carruselPresenterSugerido);
+    carruselPresenterSugerido.initialize(carruselModelSugerido, carruselViewSugerido);
 
 
 });
