@@ -1583,7 +1583,6 @@ var PedidoRegistroModule = function () {
 }();
 
 function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, esCuponNuevas, rowElement, txtLPCant, setId, txtLPTempCant) {
-
     var CliID = $(rowElement).find(".hdfLPCli").val();
     var CliDes = $(rowElement).find(".txtLPCli").val();
     var Cantidad = $(txtLPCant).val();
@@ -1597,9 +1596,9 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
     var StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
 
     var Unidad = $(rowElement).find(".hdfLPPrecioU").val();
-    var Total = DecimalToStringFormat(parseFloat(Cantidad * Unidad));
-    $(rowElement).find(".lblLPImpTotal").html(Total);
-    $(rowElement).find(".lblLPImpTotalMinimo").html(Total);
+    //var Total = DecimalToStringFormat(parseFloat(Cantidad * Unidad));
+    //$(rowElement).find(".lblLPImpTotal").html(Total);
+    //$(rowElement).find(".lblLPImpTotalMinimo").html(Total);
     var _mensajeModificarPedido = ConstantesModule.MensajeModificarPedido;
 
     var item = {
@@ -1736,7 +1735,6 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
 
 
 function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi, setId, esCuponNuevas) {
-	
     var rowElement = $(event.target).closest(".contenido_ingresoPedido");
     var txtLPCant = $(rowElement).find(".txtLPCant");
     var txtLPTempCant = $(rowElement).find(".txtLPTempCant");
@@ -1793,7 +1791,6 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
         data: JSON.stringify(param),
         async: true,
         success: function (datos) {
-
             if (checkTimeout(datos)) {
                 if (!datos.result) {
                     var regex = /(\d+)/g;
