@@ -229,7 +229,8 @@ var DetalleEstrategiaProvider = function () {
         //estrategia = $.extend(modeloFicha, estrategia);
         estrategia.TipoPersonalizacion = estrategia.CodigoEstrategia;
         estrategia.MostarTabsFichaEnriquecidaSinDetalle = estrategia.Hermanos.length == 1;
-        //
+
+        _esMultimarca = estrategia.EsMultimarca; // General.js/ifVerificarMarca
 
         return estrategia;
     };

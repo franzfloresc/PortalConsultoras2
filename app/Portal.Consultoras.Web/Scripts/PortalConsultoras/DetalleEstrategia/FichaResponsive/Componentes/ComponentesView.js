@@ -380,39 +380,39 @@ var ComponentesView = function () {
         }
     };
 
-    var _showMessageTypeAndTonesSpent  = function (estrategia) {
-        var hijos = 0;
-        var cta = 0;
+    // var _showMessageTypeAndTonesSpent  = function (estrategia) {
+    //     var hijos = 0;
+    //     var cta = 0;
 
-        if (estrategia.CodigoVariante == ConstantesModule.CodigoVariedad.ComuestaFija) {
-            $.each(estrategia.Hermanos, function (i, obj) {
-                hijos++;
-                if (!obj.TieneStock) cta++;
-            });
-        }
-        else {
-            $.each(estrategia.Hermanos, function (i, obj) {
-                if (obj.Hermanos !== 'undefined' && obj.Hermanos.length > 0) {
-                    $.each(obj.Hermanos, function (j, k) {
-                        hijos++;
-                        if (!k.TieneStock) cta++;
-                    });
-                }
-                else {
-                    hijos++;
-                    if (!obj.TieneStock) cta++;
-                }
-            });
-        }
+    //     if (estrategia.CodigoVariante == ConstantesModule.CodigoVariedad.ComuestaFija) {
+    //         $.each(estrategia.Hermanos, function (i, obj) {
+    //             hijos++;
+    //             if (!obj.TieneStock) cta++;
+    //         });
+    //     }
+    //     else {
+    //         $.each(estrategia.Hermanos, function (i, obj) {
+    //             if (obj.Hermanos !== 'undefined' && obj.Hermanos.length > 0) {
+    //                 $.each(obj.Hermanos, function (j, k) {
+    //                     hijos++;
+    //                     if (!k.TieneStock) cta++;
+    //                 });
+    //             }
+    //             else {
+    //                 hijos++;
+    //                 if (!obj.TieneStock) cta++;
+    //             }
+    //         });
+    //     }
 
-        if (!estrategia.esEditable) {
-            if (hijos > 0 && cta > 0) {
-                if (cta < hijos) $('.xmsg-tonos-agotados').show();
-            }
-        }
+    //     if (!estrategia.esEditable) {
+    //         if (hijos > 0 && cta > 0) {
+    //             if (cta < hijos) $('.xmsg-tonos-agotados').show();
+    //         }
+    //     }
 
-        return true;
-    };
+    //     return true;
+    // };
 
     return {
         setPresenter: _setPresenter,
@@ -434,7 +434,7 @@ var ComponentesView = function () {
         showBorderItemSelected: _showBorderItemSelected,
         cleanTiposTonosModal: _cleanTiposTonosModal,
         cleanContainer: _cleanContainer,
-        verifyButtonAceptar: _verifyButtonAceptar,
-        showMessageTypeAndTonesSpent: _showMessageTypeAndTonesSpent
+        verifyButtonAceptar: _verifyButtonAceptar
+        // showMessageTypeAndTonesSpent: _showMessageTypeAndTonesSpent
     };
 };

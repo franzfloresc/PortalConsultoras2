@@ -691,7 +691,8 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/PedidoDetalle").Include(
                 "~/Content/Css/Site/slick-pedido.css",
                 "~/Content/Css/Mobile/Pedido/PedidoGrilla.css",
-                "~/Content/Css/Mobile/Pedido/EditarProductoFicha.css"
+                "~/Content/Css/Mobile/Pedido/EditarProductoFicha.css",
+                "~/Content/Css/Site/Pedido/GananciaEstimada.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Catalogo").Include(
@@ -1172,7 +1173,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/Ficha").Include(
                 "~/Content/Css/Site/styleBase.css",
-                "~/Content/Css/Site/Ficha/FichaRensponsive.css",
+                "~/Content/Css/Site/Ficha/FichaResponsive.css",
                 "~/Content/Css/Site/Ficha/SeleccionarTipoResponsive.css",
                 "~/Content/Css/Site/Ficha/FichaEnriquecidaResponsive.css",
                 "~/Content/Css/Site/Carrusel/CarruselResponsive.css",

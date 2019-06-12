@@ -58,6 +58,7 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         params.cuv,
         "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
         params.origen,
+        estrategia.OrigenAgregarCarrusel,
         "Ficha",
         estrategia.DescripcionCompleta,
         estrategia.Hermanos.length,
