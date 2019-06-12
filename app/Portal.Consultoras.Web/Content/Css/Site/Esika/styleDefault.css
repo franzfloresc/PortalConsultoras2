@@ -25,8 +25,6 @@
     transition: all 0.3s ease;
 }
 
-}
-
 .multimarca-background-color {
     background-color: #b9007e !important;
 }
@@ -310,8 +308,7 @@ input[type="text"].text__field__sb,
         pointer-events: none;
         cursor: not-allowed;
         color: #909094!important;
-    color:#909094!important;
-}
+    }
 
 .btn_primario,
 .btn_secundario {
@@ -329,10 +326,6 @@ input[type="text"].text__field__sb,
         right: 0;
         bottom: 16px;
     }
-    border:1px solid #000;
-    background-color:#FFF;
-}
-
 }
 
 /* FIN - BUTTONS */

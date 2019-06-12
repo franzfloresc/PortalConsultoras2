@@ -25,8 +25,6 @@
     transition: all 0.3s ease;
 }
 
-}
-
 .multimarca-background-color {
     background-color: #b9007e !important;
 }
@@ -313,13 +311,13 @@ input[type="checkbox"].switch__control,
 }
 
 @media screen and (max-width:991px) {
-
     .btn__sb {
         position: fixed;
         left: 0;
         right: 0;
         bottom: 16px;
     }
+}
 .btn_primario {
     color: #FFF;
     border: 1px solid #b9007e;
