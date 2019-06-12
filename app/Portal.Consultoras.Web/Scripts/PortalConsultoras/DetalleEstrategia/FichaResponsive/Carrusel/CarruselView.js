@@ -10,9 +10,9 @@ class CarruselView {
         this.dataLazy = "img[data-lazy-seccion-revista-digital]";
         this.dataOrigenPedidoWeb = {
             busca: "[data-OrigenPedidoWeb]",
-                atributo: "data-OrigenPedidoWeb",
-                buscaAgregar: "[data-origenpedidowebagregar]",
-                atributoAgregar: "data-origenpedidowebagregar"
+            atributo: "data-OrigenPedidoWeb",
+            buscaAgregar: "[data-origenpedidowebagregar]",
+            atributoAgregar: "data-origenpedidowebagregar"
         }
     }
 
@@ -27,6 +27,16 @@ class CarruselView {
         $(this.idTituloCarrusel).html(titulo);
         $(this.divCarruselContenedor).show();
         this.marcarAnalytics(1, data);
+    }
+
+    
+    setValueAttrHtml(attrObj, value) {
+        $(this.divCarruselProducto).attr(attrObj, value);
+    }
+
+    setAttrHtml(origenIni, OrigenAgregar) {
+        this.setValueAttrHtml(this.dataOrigenPedidoWeb.atributo, origenIni);
+        this.setValueAttrHtml(this.dataOrigenPedidoWeb.atributoAgregar, OrigenAgregar);
     }
 
     mostrarSlicks(cantidadProdCarrusel) {
