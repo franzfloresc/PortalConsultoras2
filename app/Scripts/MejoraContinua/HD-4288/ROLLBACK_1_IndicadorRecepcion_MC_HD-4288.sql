@@ -9,6 +9,9 @@ IF  EXISTS (
 	)
 BEGIN
 	ALTER TABLE pedidoweb
+	DROP CONSTRAINT DF__PedidoWeb__IndicadorRecepcion
+
+	ALTER TABLE pedidoweb
     DROP COLUMN IndicadorRecepcion
 END
 GO
