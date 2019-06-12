@@ -564,7 +564,10 @@ $(document).ready(function () {
                     me.Funciones.ControlSetError(me.Variables.txtEmail, me.Variables.spnEmailError, '');
                 });
 
-                $(me.Variables.txtCuvMobile2).on('keyup', function () {
+                $(me.Variables.txtCuvMobile2).on('keyup', function (e) {
+                    if (e.keyCode == 17) // filtramos la tecla control
+                        return false;
+
                     var $this = $(this);
                     if ($this.val().length !== 5) {
                         $this.val($this.val().substring(0, 5));
@@ -596,9 +599,8 @@ $(document).ready(function () {
                         CampaniaID: CampaniaId,
                         PedidoID: PedidoId,
                         CDRWebID: $(me.Variables.hdCDRID).val(),
-                        CUV: $this.val()
+                        CUV: $this.val().substring(0, 5)
                     };
-
                     me.Funciones.BuscarCUVCambiarServer(sendData, function (data) {
                         if (!data.success) {
                             //limpiar control
@@ -607,23 +609,26 @@ $(document).ready(function () {
                             me.Funciones.CalcularTotal();
                             messageInfoValidado(data.message);
                             return false;
-                        }
-                        var datosCUV = data.producto[0];
-                        if (datosCUV.MarcaID !== 0) {
-                            $this.attr("data-codigo", datosCUV.CUV);
-                            var $template = $("#template-cuv-cambio");
+                        } else {
+                            var datosCUV = data.producto[0];
+                            if (datosCUV.MarcaID !== 0) {
 
-                            $template.find("span[name=codigo]").attr("data-codigo", datosCUV.CUV).end()
-                                .find("span[name=codigo]").text(datosCUV.CUV).end()
-                                .find("span[name=descripcion]").attr("data-descripcion", datosCUV.Descripcion).end()
-                                .find("span[name=descripcion]").text(datosCUV.Descripcion).end()
-                                .find("span[name=precio]").attr("data-precio", datosCUV.PrecioCatalogo).end()
-                                .find("span[name=precio]").text(variablesPortal.SimboloMoneda + DecimalToStringFormat(datosCUV.PrecioCatalogo));
-                            $("#contenedorCuvTrueque").append($template.html());
-                            $this.val("");
-                            me.Funciones.CalcularTotal();
+                                $this.attr("data-codigo", datosCUV.CUV);
+                                var $template = $("#template-cuv-cambio");
+
+                                $template.find("span[name=codigo]").attr("data-codigo", datosCUV.CUV).end()
+                                    .find("span[name=codigo]").text(datosCUV.CUV).end()
+                                    .find("span[name=descripcion]").attr("data-descripcion", datosCUV.Descripcion).end()
+                                    .find("span[name=descripcion]").text(datosCUV.Descripcion).end()
+                                    .find("span[name=precio]").attr("data-precio", datosCUV.PrecioCatalogo).end()
+                                    .find("span[name=precio]").text(variablesPortal.SimboloMoneda + DecimalToStringFormat(datosCUV.PrecioCatalogo));
+                                $("#contenedorCuvTrueque").append($template.html());
+                                $this.val("");
+                                me.Funciones.CalcularTotal();
+                            }
                         }
                     });
+
                 });
 
                 $(me.Variables.modificarPrecioMas).click(function (evt) {
@@ -1049,7 +1054,7 @@ $(document).ready(function () {
                     $(me.Variables.hdCDRID).val(CDRWebID);
                 }
             },
-          
+
             BuscarCUVCambiarServer: function (sendData, callbackWhenFinish) {
                 me.Funciones.callAjax(UrlBuscarCuvCambiar, sendData, function (data) {
                     if (!checkTimeout(data))
@@ -2043,9 +2048,9 @@ $(document).ready(function () {
                 }
             },
             EliminarCUVTrueque: function (el) {
-                    $(el).parent().parent().remove();
-                    me.Funciones.CalcularTotal();
-            },  
+                $(el).parent().parent().remove();
+                me.Funciones.CalcularTotal();
+            },
             CalcularTotal: function () {
                 var precioTotal = 0;
                 var items = $("#contenedorCuvTrueque .item-producto-cambio");

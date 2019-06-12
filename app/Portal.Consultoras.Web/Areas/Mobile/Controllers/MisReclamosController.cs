@@ -65,7 +65,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(model);
         }
 
-        public ActionResult Reclamo(int p = 0, int c = 0,int t = 1)
+        public ActionResult Reclamo(int p = 0, int c = 0, int t = 1)
         {
             var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
             var model = new MisReclamosModel
@@ -196,10 +196,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return RedirectToAction("Detalle", "MisReclamos", new { area = "Mobile" });
         }
 
-        public ActionResult Detalle()
+        public ActionResult Detalle(int e = 1)
         {
             var objCdr = SessionManager.GetListaCDRDetalle();
-
             if (objCdr != null)
             {
                 MisReclamosModel obj = new MisReclamosModel
@@ -227,21 +226,22 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 }
 
-
                 ViewBag.Origen = objCdr.OrigenCDRDetalle;
                 ViewBag.FormatoCampania = objCdr.FormatoCampaniaID;
                 ViewBag.FormatoFechaCulminado = objCdr.FormatoFechaCulminado;
 
                 string estadoAprobado = objCdr.CantidadAprobados == 1 ? objCdr.CantidadAprobados + " producto aprobado, " : objCdr.CantidadAprobados + " productos aprobados, ";
                 string estadoRechazado = objCdr.CantidadRechazados == 1 ? objCdr.CantidadRechazados + " rechazado" : objCdr.CantidadRechazados + " rechazados";
-
+                ViewBag.CantidadObservados = objCdr.CantidadRechazados;
                 ViewBag.EstadoProductos = estadoAprobado + estadoRechazado;
                 ViewBag.CDR_ID = objCdr.CDRWebID;
+                ViewBag.Pedido_ID = objCdr.PedidoID;
                 ViewBag.ListaDetalle = objCdr.ListaDetalle;
+                ViewBag.MostrarBotonActualizar = (e == Constantes.EstadoCDRWeb.Observado) ? true : false;
             }
 
             return View();
-        }     
+        }
 
         public JsonResult ValidarCargaDetalle(CDRWebModel model)
         {
@@ -326,14 +326,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return string.Format(textoFlete, userData.Simbolo, Util.DecimalToStringFormat(flete, userData.CodigoISO));
         }
 
-        public ActionResult GetReclamos(int o = 0) {
+        public ActionResult GetReclamos(int o = 0)
+        {
             SessionManager.SetListaCDRWebCargaInicial(null);
-            var misReclamos =  _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID, userData.PaisID);
+            var misReclamos = _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID, userData.PaisID);
             if (o > 0)
             {
                 misReclamos = misReclamos.Where(a => a.Estado == o).ToList();
             }
-            return PartialView("_ListaMisReclamos",misReclamos);
+            return PartialView("_ListaMisReclamos", misReclamos);
         }
     }
 }

@@ -38,6 +38,8 @@
     }
 }
 
+<input type="hidden" id="hdPedidoIdActual" value="@ViewBag.Pedido_ID" />
+<input type="hidden" id="hdCDRWebID" value="@ViewBag.CDR_ID" />
 
 @if (ViewBag.Origen == "0")
 {
@@ -229,18 +231,20 @@ else if (ViewBag.Origen == "1")
                                 <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div>
                             }
                             <div class="detalle_productos_solicitud_cdr">
-                                <span class="detalle_cod_producto">
-                                    @item.CUV
-                                </span>
-                                <span class="text-bold detalle_nom_producto">
-                                    @item.Descripcion
-                                </span>
-                                <span class="detalle_cantidad_producto">
-                                    x @item.Cantidad unidades
-                                </span>
-                                <span class="detalle_precio_producto detalle_precio_producto--relative">
-                                    @ViewBag.Simbolo @item.FormatoPrecio1
-                                </span>
+                                <div class="producto_solicitud">
+                                    <span class="detalle_cod_producto">
+                                        @item.CUV
+                                    </span>
+                                    <span class="text-bold detalle_nom_producto">
+                                        @item.Descripcion
+                                    </span>
+                                    <span class="detalle_cantidad_producto">
+                                        x @item.Cantidad unidades
+                                    </span>
+                                    <span class="detalle_precio_producto detalle_precio_producto--relative">
+                                        @ViewBag.Simbolo @item.FormatoPrecio1
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div class="detalle_cdr_solucion">
@@ -263,7 +267,8 @@ else if (ViewBag.Origen == "1")
                                                     <img src="@Url.Content("~/Content/Images/icono_alerta_cierre_sesion.svg")" alt="" />
                                                 </span>
                                                 <span class="d-inline-block">
-                                                    Eliminar este producto para procesar nuevamente tu solicitud.
+                                                    @item.Observacion
+                                                    @*Eliminar este producto para procesar nuevamente tu solicitud.*@
                                                 </span>
                                             </div>
                                             <div class="d-flex w-100">
@@ -291,7 +296,7 @@ else if (ViewBag.Origen == "1")
                                                 Aprobado
                                             </span>
                                         </div>
-                                    }                                    
+                                    }
                                     else
                                     {
                                         <div></div>
@@ -308,7 +313,7 @@ else if (ViewBag.Origen == "1")
                                     foreach (var el in item.DetalleReemplazo)
                                     {
                                         <div class="d-flex detalle_productos_solicitud_cdr detalle_productos_solicitud_cdr--trueque">
-                                            <div>
+                                            <div class="producto_solicitud">
                                                 <span class="detalle_cod_producto">
                                                     @el.CUV
                                                 </span>
@@ -316,9 +321,9 @@ else if (ViewBag.Origen == "1")
                                                     @el.Descripcion
                                                 </span>
                                                 <span class="detalle_cantidad_producto">
-                                                    x @el.Cantidad unidades
+                                                    x <span name="cantidad">@el.Cantidad</span> unidades
                                                 </span>
-                                                <span class="detalle_precio_producto detalle_precio_producto--relative">
+                                                <span class="detalle_precio_producto detalle_precio_producto--relative" name="precio" data-precio="@el.Precio">
                                                     @el.Simbolo @el.PrecioFormato
                                                 </span>
                                             </div>
@@ -335,11 +340,11 @@ else if (ViewBag.Origen == "1")
                                                             <img src="@Url.Content("~/Content/Images/icono_alerta_cierre_sesion.svg")" alt="" />
                                                         </span>
                                                         <span class="d-inline-block">
-                                                            Debes modificar la cantidad y/o eliminar este producto para procesar nuevamente tu solicitud.
+                                                            @el.Observacion
                                                         </span>
                                                     </div>
-                                                    <div class="d-flex w-100">
-                                                        <div id="divCantidad" data-cantidad-contenedor="" class="d-flex control_cantidad_producto_cdr">
+                                                    <div class="d-flex w-100 acciones_solicitud">
+                                                        <div data-cantidad-contenedor="" class="d-flex control_cantidad_producto_cdr">
                                                             <input type="tel"
                                                                    size="2"
                                                                    name="cantidad"
@@ -347,11 +352,11 @@ else if (ViewBag.Origen == "1")
                                                                    data-item-values='{"item_type" : "grupal", "pedido_detalle_id" : "@item.CDRWebDetalleID", "codigo_cuv" : "@el.CUV"}'
                                                                    value="@el.Cantidad"
                                                                    data-cantidad="@el.Cantidad"
-                                                                   onchange="ActualizarCantidad(event);"
+                                                                   onchange="misReclamos.Funciones.ActualizarCantidad(event);"
                                                                    maxlength="2"
-                                                                   class="d-flex text-bold rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral">
-                                                            <a class="d-flex cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                                                            <a class="d-flex cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                                                                   class="cls_cantidad d-flex text-bold rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral">
+                                                            <a class="d-flex cantidad_menos_home" onclick="misReclamos.Funciones.AgregarODisminuirCantidad(event,2)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                                                            <a class="d-flex cantidad_mas_home" onclick="misReclamos.Funciones.AgregarODisminuirCantidad(event,1)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                                                         </div>
                                                         <a data-pedidodetalleid="@item.CDRWebDetalleID"
                                                            data-detalle-grupoid="@item.GrupoID"
@@ -370,7 +375,7 @@ else if (ViewBag.Origen == "1")
                                                     </div>
                                                 </div>
                                             }
-                                            else if(item.Estado == 3)
+                                            else if (el.Estado == 3)
                                             {
                                                 <div>
                                                     <span class="d-block text-center text-bold text-uppercase tag_sb tag__sb--estadoSolicitud estado_aprobado">
@@ -384,12 +389,12 @@ else if (ViewBag.Origen == "1")
                                             }
                                         </div>
                                     }
-                                    <div class="text-bold text-uppercase producto_solicitud_row">Total: 234.234</div>
+                                    <div class="cls_total text-bold text-uppercase producto_solicitud_row">Total: <span name="total"></span></div>
                                 }
                                 else if (item.Estado == 4)
                                 {
                                     <div class="d-flex detalle_productos_solicitud_cdr detalle_productos_solicitud_cdr--trueque">
-                                        <div>
+                                        <div class="producto_solicitud">
                                             <span class="detalle_cod_producto">
                                                 @item.CUV
                                             </span>
@@ -397,9 +402,9 @@ else if (ViewBag.Origen == "1")
                                                 @item.Descripcion
                                             </span>
                                             <span class="detalle_cantidad_producto">
-                                                x @item.Cantidad unidades
+                                                x  <span name="cantidad">@item.Cantidad</span>  unidades
                                             </span>
-                                            <span class="detalle_precio_producto detalle_precio_producto--relative">
+                                            <span class="detalle_precio_producto detalle_precio_producto--relative" name="precio" data-precio="@item.Precio2">
                                                 @ViewBag.Simbolo @item.FormatoPrecio1
                                             </span>
                                         </div>
@@ -414,11 +419,11 @@ else if (ViewBag.Origen == "1")
                                                     <img src="@Url.Content("~/Content/Images/icono_alerta_cierre_sesion.svg")" alt="" />
                                                 </span>
                                                 <span class="d-inline-block">
-                                                    Debes modificar la cantidad y/o eliminar este producto para procesar nuevamente tu solicitud.
+                                                    @item.Observacion
                                                 </span>
                                             </div>
-                                            <div class="d-flex w-100">
-                                                <div id="divCantidad" data-cantidad-contenedor="" class="d-flex control_cantidad_producto_cdr">
+                                            <div class="d-flex w-100 acciones_solicitud">
+                                                <div data-cantidad-contenedor="" class="d-flex control_cantidad_producto_cdr">
                                                     <input type="tel"
                                                            size="2"
                                                            name="cantidad"
@@ -426,11 +431,11 @@ else if (ViewBag.Origen == "1")
                                                            data-item-values='{"item_type" : "indivudial", "pedido_detalle_id" : "@item.CDRWebDetalleID", "codigo_cuv" : "@item.CUV2"}'
                                                            value="@item.Cantidad2"
                                                            data-cantidad="@item.Cantidad2"
-                                                           onchange="ActualizarCantidad(event);"
+                                                           onchange="misReclamos.Funciones.ActualizarCantidad(event);"
                                                            maxlength="2"
-                                                           class="d-flex text-bold rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral">
-                                                    <a class="d-flex cantidad_menos_home" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                                                    <a class="d-flex cantidad_mas_home" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                                                           class="cls_cantidad d-flex text-bold rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral">
+                                                    <a class="d-flex cantidad_menos_home" onclick="misReclamos.Funciones.AgregarODisminuirCantidad(event,2)"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                                                    <a class="d-flex cantidad_mas_home" onclick="misReclamos.Funciones.AgregarODisminuirCantidad(event,1)"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                                                 </div>
                                                 <a data-pedidodetalleid="@item.CDRWebDetalleID"
                                                    data-detalle-grupoid="@item.GrupoID"
@@ -450,12 +455,47 @@ else if (ViewBag.Origen == "1")
                                         </div>
                                     </div>
                                 }
+                                else if (item.Estado == 3)
+                                {
+                                    <div class="d-flex detalle_productos_solicitud_cdr detalle_productos_solicitud_cdr--trueque">
+                                        <div class="producto_solicitud">
+                                            <span class="detalle_cod_producto">
+                                                @item.CUV2
+                                            </span>
+                                            <span class="text-bold detalle_nom_producto">
+                                                @item.Descripcion2
+                                            </span>
+                                            <span class="detalle_cantidad_producto">
+                                                x @item.Cantidad2 unidades
+                                            </span>
+                                            <span class="detalle_precio_producto detalle_precio_producto--relative">
+                                                @ViewBag.Simbolo @item.FormatoPrecio2
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="d-block text-center text-bold text-uppercase tag_sb tag__sb--estadoSolicitud estado_aprobado">
+                                                Aprobado
+                                            </span>
+                                        </div>
+                                    </div>
+                                }
                                 else
                                 {
-                                    <div>
-                                        <span class="d-block text-center text-bold text-uppercase tag_sb tag__sb--estadoSolicitud estado_aprobado">
-                                            Aprobado
-                                        </span>
+                                    <div class="d-flex detalle_productos_solicitud_cdr detalle_productos_solicitud_cdr--trueque">
+                                        <div class="detalle_productos_solicitud_cdr">
+                                            <span class="detalle_cod_producto">
+                                                @item.CUV2
+                                            </span>
+                                            <span class="text-bold detalle_nom_producto">
+                                                @item.Descripcion2
+                                            </span>
+                                            <span class="detalle_cantidad_producto">
+                                                x @item.Cantidad2 unidades
+                                            </span>
+                                            <span class="detalle_precio_producto detalle_precio_producto--relative">
+                                                @ViewBag.Simbolo @item.FormatoPrecio2
+                                            </span>
+                                        </div>
                                     </div>
                                 }
                             }
@@ -469,6 +509,17 @@ else if (ViewBag.Origen == "1")
                     </div>
                 }
             }
+            @if (ViewBag.CantidadObservados > 0 || ViewBag.MostrarBotonActualizar == true)
+            {
+                <div class="btn_cta_wrapper">
+                    <button id="btnActualizarSolicitud"
+                            class="d-block text-uppercase text-bold tipografia_lato border-radius-4 btn__sb btn__sb__primary--multimarca btn__sb--continuarEnvio">
+                        Actualizar solicitud
+                    </button>
+                </div>
+            }
+
+
         </div>
 
     </div>
@@ -477,6 +528,8 @@ else if (ViewBag.Origen == "1")
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Index.js")"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
     <script type="text/javascript">
-        var UrlDetalleEliminar = '@Url.Action("DetalleEliminar", "MisReclamos", new { area = "" })';
+    var UrlDetalleEliminar = '@Url.Action("DetalleEliminar", "MisReclamos", new { area = "" })';
+    var urlReclamo = '@Url.Action("Reclamo", "MisReclamos", new { area = "Mobile" } )';
+      var UrlDetalleActualizarObservado = '@Url.Action("DetalleActualizarObservado", "MisReclamos", new { area = "" } )';
     </script>
 }

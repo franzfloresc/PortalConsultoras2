@@ -75,7 +75,7 @@
         var pedidoId = $("#hdPedidoIdActual").val();
         var id = $("#hdCDRWebID").val();
         var lista = [];
-        var $tagsElements = $("#divDetallePedidoCdrDetalle .txtCantidad");
+        var $tagsElements = $("#divDetallePedidoCdrDetalle .cls_cantidad");
         $.each($tagsElements, function () {
             var $element = $(this);
             var $data = $element.data("itemValues");
@@ -104,8 +104,8 @@
                 var a = {
                     CDRWebDetalleID: Id,
                     Cantidad: tipo == "grupal" ? 0 : Cantidad,
-                    Reemplazo : det
-                };                
+                    Reemplazo: det
+                };
                 lista.push(a);
             } else {
                 var arr = $.grep(lista, function (value, index) {
@@ -120,7 +120,6 @@
         var actualizado = ActualizarDetalleObservado(lista);
         if (actualizado) window.location.href = urlReclamo + "?p=" + pedidoId + "&c=" + id;
     });
-
     $("#IrPaso1").on("click", function () {
         if (mensajeGestionCdrInhabilitada != '') {
             alert_msg(mensajeGestionCdrInhabilitada);
@@ -246,12 +245,6 @@ function DetalleEliminar(item) {
     return resultado;
 }
 
-function ActualizarCantidad(event) {
-    var $el = $(event.target).parent().parent().find(me.Constantes.INPUT_NAME_CANTIDAD);
-    $el.attr("data-cantidad", $el.val());
-    me.Funciones.CalcularTotal();
-}
-
 function ActualizarDetalleObservado(lista) {
     var resultado = false;
 
@@ -271,7 +264,7 @@ function ActualizarDetalleObservado(lista) {
                 return false;
             }
 
-            if (data.success == true) {
+            if (data.success) {
                 resultado = true;
             }
         },
@@ -292,7 +285,7 @@ function AgregarODisminuirCantidad(event, opcion) {
         EstrategiaAgregarModule.DisminuirCantidad(event);
     }
     var $this = $(event.target);
-    var $parent = $this.parents(".producto_solicitud_row")
+    var $parent = $this.parents(".producto_solicitud_row");
 
     var $el_input = $parent.children(".acciones_solicitud").find("input[name=cantidad]");
     var $el_span = $parent.children(".producto_solicitud").find("span[name=cantidad]");

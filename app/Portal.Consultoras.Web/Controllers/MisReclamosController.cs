@@ -1241,28 +1241,33 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     if (item.DetalleReemplazo.Length > 0)
                     {
-                        var DetalleReemplazoTrueque = item.DetalleReemplazo.ToList();
-                        var nuevoDetalleReemplazoCDR = Mapper.Map<List<ServiceCDR.BECDRProductoComplementario>, List<ProductoComplementarioModel>>(DetalleReemplazoTrueque);
-                        var lstDetalleSession = listaDetalle.FirstOrDefault(a => a.CDRWebDetalleID == item.CDRWebDetalleID).DetalleReemplazo;
+                        var lstDetalleSession = listaDetalle.FirstOrDefault(a => a.CDRWebDetalleID == item.CDRWebDetalleID).DetalleReemplazo.ToList();
+                        var lstDetalle = item.DetalleReemplazo.ToList();
 
-                        var obj = (from c in item.DetalleReemplazo
-                                   join d in lstDetalleSession on c.CUV equals d.CUV
+                        var obj = (from c in lstDetalleSession
+                                   join a in lstDetalle on c.CUV equals a.CUV into g
+                                   from d in g.DefaultIfEmpty()
                                    select new ProductoComplementarioModel()
                                    {
-                                       Cantidad = c.Cantidad,
-                                       CUV = d.CUV,
-                                       Descripcion = d.Descripcion,
-                                       CodigoMotivoRechazo = d.CodigoMotivoRechazo,
-                                       Estado = d.Estado,
-                                       Observacion = d.Observacion,
-                                       Precio = d.Precio,
-                                       Simbolo = d.Simbolo
+                                       Cantidad = (d == null) ? c.Cantidad : d.Cantidad,
+                                       CUV = c.CUV,
+                                       Descripcion = c.Descripcion,
+                                       CodigoMotivoRechazo = "",
+                                       Estado = 1,
+                                       Observacion = "",
+                                       Precio = c.Precio,
+                                       Simbolo = c.Simbolo
                                    }).ToList();
+
                         item.XMLReemplazo = MisReclamosModel.ListToXML(obj);
                     }
-                    
+                    else
+                    {
+
+                    }
+
                 }
-                
+
                 bool ok;
                 using (CDRServiceClient sv = new CDRServiceClient())
                 {
