@@ -11,7 +11,8 @@ class CarruselModel
         codigoProducto,
         precioProducto,
         productosHermanos,
-        tieneStock)
+        tieneStock,
+        tipoCarrusell)
     {
         this.palanca = palanca || "";
         this.campania = campania || "";
@@ -24,5 +25,6 @@ class CarruselModel
         this.precioProducto = precioProducto;
         this.productosHermanos = productosHermanos;
         this.tieneStock = tieneStock;
+        this.tipoCarrusell = tipoCarrusell;
     }
 }
