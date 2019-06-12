@@ -691,7 +691,8 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/PedidoDetalle").Include(
                 "~/Content/Css/Site/slick-pedido.css",
                 "~/Content/Css/Mobile/Pedido/PedidoGrilla.css",
-                "~/Content/Css/Mobile/Pedido/EditarProductoFicha.css"
+                "~/Content/Css/Mobile/Pedido/EditarProductoFicha.css",
+                "~/Content/Css/Site/Pedido/GananciaEstimada.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Catalogo").Include(
