@@ -147,6 +147,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                             if (!reservado)
                             {
+                                if (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA)
+                                {
+                                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, "Ya tienes un pedido reservado para esta campaña.");
+                                }
+
                                 return respuesta;
                             }
                             else
@@ -209,6 +214,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                         if (!reservado)
                         {
+                            if (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA)
+                            {
+                                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, "Ya tienes un pedido reservado para esta campaña.");
+                            }
+
                             return respuesta;
                         }
                         else
@@ -368,6 +378,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                         if (!reservado)
                         {
+                            if (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA)
+                            {
+                                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_RESERVADO_HORARIO_RESTRINGIDO, "Ya tienes un pedido reservado para esta campaña.");
+                            }
+
                             return respuesta;
                         }
                         else
