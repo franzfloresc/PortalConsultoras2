@@ -118,8 +118,10 @@
     <Compile Include="Cliente\IClienteBusinessLogic.cs" />
     <Compile Include="Comunicado\IComunicadoBusinessLogic.cs" />
     <Compile Include="Configuracion\BLConfiguracionPaisDatos.cs" />
+    <Compile Include="Configuracion\BLConfiguracionPaisFFVV.cs" />
     <Compile Include="Configuracion\IConfiguracionPaisBusinessLogic.cs" />
     <Compile Include="Configuracion\IConfiguracionPaisDatosBusinessLogic.cs" />
+    <Compile Include="Configuracion\IConfiguracionPaisFFVVDatosBusinessLogic.cs" />
     <Compile Include="Contenido\BLBelcorpResponde.cs" />
     <Compile Include="Contenido\BLContenidoApp.cs" />
     <Compile Include="Contenido\IBelcorpRespondeBusinessLogic.cs" />

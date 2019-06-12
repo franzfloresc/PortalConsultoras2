@@ -482,5 +482,11 @@ namespace Portal.Consultoras.ServiceContracts
 
         //[OperationContract]
         //IList<string> GetSapFromCuvlist(string cuvList, int campaniaid, int paisId);
+
+        [OperationContract]
+        List<BEConfiguracionPaisFFVVDatos> GetConfiguracionPaisFFVV(BEConfiguracionPaisFFVVDatos entidad);
+
+        [OperationContract]
+        List<BEParametroUnete> GetListZonasUnete(BEParametroUnete entidad);
     }
 }

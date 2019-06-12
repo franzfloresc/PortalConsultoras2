@@ -3139,5 +3139,30 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
+
+        public bool TieneActualizarContraseniaDefault(string codISO )
+        {
+            try
+            {
+                BEUsuarioDatos oVerificacion;
+                using (var sv = new UsuarioServiceClient())
+                {
+                    //oVerificacion = sv.GetActualizarContraseniaDefault(codISO);
+                }
+
+                //if (oVerificacion == null) return false;
+
+                //Session["DatosUsuario"] = oVerificacion;
+   
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, string.Empty, string.Empty, "LoginController.TieneActualizarContraseniaDefault");
+                return false;
+            }
+        }
+
+
     }
 }

@@ -449,6 +449,12 @@
   <wsdl:message name="IUsuarioService_GetSolicitudesPedidoPendiente_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetSolicitudesPedidoPendienteResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConfiguracionPaisFFVV_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPaisFFVV" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConfiguracionPaisFFVV_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPaisFFVVResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_Select_InputMessage">
     <wsdl:part name="parameters" element="tns:Select" />
   </wsdl:message>
@@ -1231,6 +1237,10 @@
     <wsdl:operation name="GetSolicitudesPedidoPendiente">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetSolicitudesPedidoPendiente" message="tns:IUsuarioService_GetSolicitudesPedidoPendiente_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetSolicitudesPedidoPendienteResponse" message="tns:IUsuarioService_GetSolicitudesPedidoPendiente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisFFVV">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisFFVV" message="tns:IUsuarioService_GetConfiguracionPaisFFVV_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisFFVVResponse" message="tns:IUsuarioService_GetConfiguracionPaisFFVV_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="Select">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/Select" message="tns:IUsuarioService_Select_InputMessage" />
@@ -2180,6 +2190,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetSolicitudesPedidoPendiente">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetSolicitudesPedidoPendiente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisFFVV">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisFFVV" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3561,6 +3580,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetSolicitudesPedidoPendiente">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetSolicitudesPedidoPendiente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPaisFFVV">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisFFVV" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

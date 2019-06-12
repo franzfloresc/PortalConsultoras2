@@ -29,13 +29,14 @@ using System.Threading.Tasks;
 using System.Transactions;
 using System.ServiceModel;
 using Portal.Consultoras.Data.CaminoBrillante;
+using Portal.Consultoras.BizLogic.Configuracion;
 
 namespace Portal.Consultoras.BizLogic
 {
     public partial class BLUsuario : IUsuarioBusinessLogic
     {
         private string CodigoUsuarioLog = string.Empty;
-        private int PaisIDLog = 0; 
+        private int PaisIDLog = 0;
 
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
         private readonly IConsultoraConcursoBusinessLogic _consultoraConcursoBusinessLogic;
@@ -237,7 +238,7 @@ namespace Portal.Consultoras.BizLogic
                     BEValidacionDatos validacionDato;
                     using (var reader = dAValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(Constantes.TipoEnvioEmailSms.EnviarPorEmail, codigoUsuario))
                     {
-                        validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader, true, true);    
+                        validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader, true, true);
                     }
 
                     if (validacionDato == null || validacionDato.DatoNuevo.ToLower() != email.ToLower())
@@ -252,7 +253,7 @@ namespace Portal.Consultoras.BizLogic
 
                     usuario = GetBasicSesionUsuario(paisID, codigoUsuario);
 
-                    if (!usuario.EMail.ToLower(). Contains(email.ToLower()) && daUsuario.ExistsUsuarioEmail(email)
+                    if (!usuario.EMail.ToLower().Contains(email.ToLower()) && daUsuario.ExistsUsuarioEmail(email)
                         && daUsuario.ExistsUsuarioEmail(email))
                     {
                         return ActivacionEmailRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_ACTIVACION_DUPLICADO, belcorpResponde: _belcorpRespondeBusinessLogic.GetBelcorpResponde(paisID).FirstOrDefault());
@@ -758,7 +759,7 @@ namespace Portal.Consultoras.BizLogic
             return daUsuario.ActualizarSMS(codigoConsultora, tipoEnvio, celularAnterior, celularActual);
         }
 
-     
+
 
         public int ValidaEstadoPopup(int paisID)
         {
@@ -781,7 +782,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daUsuario.ListarValidacionDatos(beValidacionDatos))
                 return reader.MapToCollection<BEValidacionDatos>();
         }
-       public List<BEValidacionDatos> GetTipoEnvioActivos(int paisID, string codigoUsuario)
+        public List<BEValidacionDatos> GetTipoEnvioActivos(int paisID, string codigoUsuario)
         {
             List<BEValidacionDatos> lista = new List<BEValidacionDatos>();
             var daUsuario = new DAUsuario(paisID);
@@ -792,18 +793,18 @@ namespace Portal.Consultoras.BizLogic
                 {
                     lista.Add(new BEValidacionDatos()
                     {
-                        TipoEnvio = reader[0] == DBNull.Value ? string.Empty: reader[0].ToString(),
+                        TipoEnvio = reader[0] == DBNull.Value ? string.Empty : reader[0].ToString(),
                         DatoNuevo = reader[1] == DBNull.Value ? string.Empty : reader[1].ToString(),
-                        DatoAntiguo = reader[2] == DBNull.Value ? string.Empty: reader[2].ToString(),
+                        DatoAntiguo = reader[2] == DBNull.Value ? string.Empty : reader[2].ToString(),
                         Estado = reader[3] == DBNull.Value ? string.Empty : reader[3].ToString(),
                     });
                 }
 
-            return lista;
-        }
+                return lista;
+            }
         }
 
-        public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora,  int paisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)
+        public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int paisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)
         {
             var daUsuario = new DAUsuario(paisID);
             return daUsuario.ActualizarValidacionDatos(isMobile, codigoConsultora, ipDispositivo, CodigoUsuario, tipoEnvio1, tipoEnvio2);
@@ -2055,8 +2056,8 @@ namespace Portal.Consultoras.BizLogic
             string paramQuerystring = Common.Util.Encrypt(string.Join(";", parametros));
             LogManager.SaveLog(new Exception(), usuario.CodigoUsuario, usuario.CodigoISO, " | data=" + paramQuerystring + " | parametros = " + string.Join("|", parametros));
 
-            MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname,  nomconsultora, url, paramQuerystring);
-        
+            MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, nomconsultora, url, paramQuerystring);
+
         }
 
         public BERespuestaServicio RegistrarEnvioSms(
@@ -4006,6 +4007,105 @@ namespace Portal.Consultoras.BizLogic
                 if (conTransaccion) ts.Dispose();
             }
         }
+
+
+        #region Verifica_Actualizar_Contraseña
+
+        public BEUsuarioDatos GetActualizarContraseniaDefault(string codISO)
+        {
+            BEUsuarioDatos oUsu = new BEUsuarioDatos();
+            try
+            {
+
+                BEConfiguracionPaisFFVVDatos config = new BEConfiguracionPaisFFVVDatos();
+                config.CodigoISO = codISO;
+                /*verificar si esta activado   FlagConfZonasUnete = 1     en  FFVV.ConfiguracionPaisesFFVV*/
+                List<BEConfiguracionPaisFFVVDatos> listaConfPaisFFVV = new BLConfiguracionPaisFFVV().GetList(config);
+                if (listaConfPaisFFVV.Count() == 0)
+                {
+                    return null;
+                }
+
+                BEParametroUnete parametroUnete = new BEParametroUnete();
+                parametroUnete.PaisID = Common.Util.GetPaisID(codISO);
+                bool tienezona = false;
+                /* verificar si la zona de la consultora pertenece a las zonas configuradas*/
+                List<BEParametroUnete> listaZonasActualizaContrasenia = new BLConfiguracionPaisFFVV().GetListZonasUnete(parametroUnete);
+                foreach (var item in listaZonasActualizaContrasenia)
+                {
+                    if (item.Nombre == oUsu.ZonaID.ToString())
+                    {
+                        tienezona = true;
+                    }
+                }
+
+                if (tienezona) return null;
+
+
+                ///*Verificando si tiene Verificacion*/
+                //var oUsu = GetUsuarioActualizarContraseniaDefault(paisID, CodigoUsuario);
+                //if (oUsu.Cantidad == 0) return null;
+                ///*Obteniendo Datos de Verificacion de Autenticidad*/
+                //var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
+                //if (opcion == null) return null;
+                ///*validando si tiene Zona*/
+                //if (opcion.TieneZonas)
+                //{
+                //    var tieneZona = new BLOpcionesVerificacion().GetZonasOpcionesVerificacion(paisID, oUsu.RegionID, oUsu.ZonaID);
+                //    if (tieneZona == null) return null;
+                //    if (!tieneZona.VerifAutenticidad) return null;
+                //}
+                ///*Validando si corresponde al Usuario*/
+                //if (opcion.lstFiltros.Count > 0)
+                //{
+                //    var usuFiltro = opcion.lstFiltros.FirstOrDefault(a => a.IdEstadoActividad == oUsu.IdEstadoActividad);
+                //    if (usuFiltro == null) return null;
+                //    /*Validando campania*/
+                //    if (!ValidaCampania(oUsu.campaniaID, usuFiltro.CampaniaInicio, usuFiltro.CampaniaFinal)) return null;
+                //    oUsu.MensajeSaludo = usuFiltro.MensajeSaludo;
+                //}
+
+                //oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion;
+                //if (opcion.OpcionEmail)
+                //{
+                //    oUsu.CorreoEnmascarado = Common.Util.EnmascararCorreo(oUsu.Correo);
+                //    oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmail;
+                //}
+                //if (opcion.OpcionSms)
+                //{
+                //    oUsu.CelularEnmascarado = Common.Util.EnmascararCelular(oUsu.Celular);
+                //    if (oUsu.MostrarOpcion == Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmail)
+                //        oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmailyCelular;
+                //    else
+                //        oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarCelular;
+                //}
+                //if (oUsu.MostrarOpcion == Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion) return null;
+                //oUsu.OpcionChat = opcion.OpcionChat;
+                //oUsu.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);
+                //oUsu.OrigenID = opcion.OrigenID;
+                //oUsu.OrigenDescripcion = opcion.OrigenDescripcion;
+                //oUsu.CodigoUsuario = CodigoUsuario;
+                //oUsu.CodigoIso = Common.Util.GetPaisISO(paisID);
+
+                return oUsu;
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex,oUsu.CodigoUsuario , Common.Util.GetPaisID(codISO));
+                return null;
+            }
+        }
+
+        private BEUsuarioDatos GetUsuarioActualizarContraseniaDefault(int paisID, string CodigoUsuario)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            var datos = new BEUsuarioDatos();
+            using (IDataReader rd = DAUsuario.GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario))
+                if (rd.Read()) datos = new BEUsuarioDatos(rd);
+            return datos;
+        }
+
+        #endregion
 
     }
 }

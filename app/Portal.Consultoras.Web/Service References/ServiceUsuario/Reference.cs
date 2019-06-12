@@ -227,6 +227,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDetalle))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEEstrategia))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisFFVVDatos))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais))]
     public partial class BaseEntidad : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -2613,6 +2614,269 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.ZonaHorariaField.Equals(value) != true)) {
                     this.ZonaHorariaField = value;
                     this.RaisePropertyChanged("ZonaHoraria");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEConfiguracionPaisFFVVDatos", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEConfiguracionPaisFFVVDatos : Portal.Consultoras.Web.ServiceUsuario.BaseEntidad {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodPaisField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoISOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DesarrolloNivelCumplimientoHabilitadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DiasCobranzaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EdicionFichaConsultoraHabilitadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FlagConfZonasUneteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FlagDigitoVerificadorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FlagGanaMasField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FlagGeoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FlagHannaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FlagPCField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FlagPDVField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FlagRDDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MaximoNumeroDigitosTelefonoTrabajoConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MinimoNumeroDigitosTelefonoTrabajoConsultoraField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodPais {
+            get {
+                return this.CodPaisField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodPaisField, value) != true)) {
+                    this.CodPaisField = value;
+                    this.RaisePropertyChanged("CodPais");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoISO {
+            get {
+                return this.CodigoISOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoISOField, value) != true)) {
+                    this.CodigoISOField = value;
+                    this.RaisePropertyChanged("CodigoISO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DesarrolloNivelCumplimientoHabilitado {
+            get {
+                return this.DesarrolloNivelCumplimientoHabilitadoField;
+            }
+            set {
+                if ((this.DesarrolloNivelCumplimientoHabilitadoField.Equals(value) != true)) {
+                    this.DesarrolloNivelCumplimientoHabilitadoField = value;
+                    this.RaisePropertyChanged("DesarrolloNivelCumplimientoHabilitado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DiasCobranza {
+            get {
+                return this.DiasCobranzaField;
+            }
+            set {
+                if ((this.DiasCobranzaField.Equals(value) != true)) {
+                    this.DiasCobranzaField = value;
+                    this.RaisePropertyChanged("DiasCobranza");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EdicionFichaConsultoraHabilitado {
+            get {
+                return this.EdicionFichaConsultoraHabilitadoField;
+            }
+            set {
+                if ((this.EdicionFichaConsultoraHabilitadoField.Equals(value) != true)) {
+                    this.EdicionFichaConsultoraHabilitadoField = value;
+                    this.RaisePropertyChanged("EdicionFichaConsultoraHabilitado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FlagConfZonasUnete {
+            get {
+                return this.FlagConfZonasUneteField;
+            }
+            set {
+                if ((this.FlagConfZonasUneteField.Equals(value) != true)) {
+                    this.FlagConfZonasUneteField = value;
+                    this.RaisePropertyChanged("FlagConfZonasUnete");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FlagDigitoVerificador {
+            get {
+                return this.FlagDigitoVerificadorField;
+            }
+            set {
+                if ((this.FlagDigitoVerificadorField.Equals(value) != true)) {
+                    this.FlagDigitoVerificadorField = value;
+                    this.RaisePropertyChanged("FlagDigitoVerificador");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FlagGanaMas {
+            get {
+                return this.FlagGanaMasField;
+            }
+            set {
+                if ((this.FlagGanaMasField.Equals(value) != true)) {
+                    this.FlagGanaMasField = value;
+                    this.RaisePropertyChanged("FlagGanaMas");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FlagGeo {
+            get {
+                return this.FlagGeoField;
+            }
+            set {
+                if ((this.FlagGeoField.Equals(value) != true)) {
+                    this.FlagGeoField = value;
+                    this.RaisePropertyChanged("FlagGeo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FlagHanna {
+            get {
+                return this.FlagHannaField;
+            }
+            set {
+                if ((this.FlagHannaField.Equals(value) != true)) {
+                    this.FlagHannaField = value;
+                    this.RaisePropertyChanged("FlagHanna");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FlagPC {
+            get {
+                return this.FlagPCField;
+            }
+            set {
+                if ((this.FlagPCField.Equals(value) != true)) {
+                    this.FlagPCField = value;
+                    this.RaisePropertyChanged("FlagPC");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FlagPDV {
+            get {
+                return this.FlagPDVField;
+            }
+            set {
+                if ((this.FlagPDVField.Equals(value) != true)) {
+                    this.FlagPDVField = value;
+                    this.RaisePropertyChanged("FlagPDV");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FlagRDD {
+            get {
+                return this.FlagRDDField;
+            }
+            set {
+                if ((this.FlagRDDField.Equals(value) != true)) {
+                    this.FlagRDDField = value;
+                    this.RaisePropertyChanged("FlagRDD");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ID {
+            get {
+                return this.IDField;
+            }
+            set {
+                if ((this.IDField.Equals(value) != true)) {
+                    this.IDField = value;
+                    this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MaximoNumeroDigitosTelefonoTrabajoConsultora {
+            get {
+                return this.MaximoNumeroDigitosTelefonoTrabajoConsultoraField;
+            }
+            set {
+                if ((this.MaximoNumeroDigitosTelefonoTrabajoConsultoraField.Equals(value) != true)) {
+                    this.MaximoNumeroDigitosTelefonoTrabajoConsultoraField = value;
+                    this.RaisePropertyChanged("MaximoNumeroDigitosTelefonoTrabajoConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MinimoNumeroDigitosTelefonoTrabajoConsultora {
+            get {
+                return this.MinimoNumeroDigitosTelefonoTrabajoConsultoraField;
+            }
+            set {
+                if ((this.MinimoNumeroDigitosTelefonoTrabajoConsultoraField.Equals(value) != true)) {
+                    this.MinimoNumeroDigitosTelefonoTrabajoConsultoraField = value;
+                    this.RaisePropertyChanged("MinimoNumeroDigitosTelefonoTrabajoConsultora");
                 }
             }
         }
@@ -9574,6 +9838,8 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisFFVVDatos))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisFFVVDatos[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConsultoraDatos))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioRol[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioRol))]
@@ -18135,6 +18401,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetSolicitudesPedidoPendiente", ReplyAction="http://tempuri.org/IUsuarioService/GetSolicitudesPedidoPendienteResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[]> GetSolicitudesPedidoPendienteAsync(int PaisID, long ConsultoraId, int Campania);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisFFVV", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisFFVVResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisFFVVDatos[] GetConfiguracionPaisFFVV(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisFFVVDatos entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisFFVV", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisFFVVResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisFFVVDatos[]> GetConfiguracionPaisFFVVAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisFFVVDatos entidad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Select", ReplyAction="http://tempuri.org/IUsuarioService/SelectResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario);
         
@@ -19229,6 +19501,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[]> GetSolicitudesPedidoPendienteAsync(int PaisID, long ConsultoraId, int Campania) {
             return base.Channel.GetSolicitudesPedidoPendienteAsync(PaisID, ConsultoraId, Campania);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisFFVVDatos[] GetConfiguracionPaisFFVV(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisFFVVDatos entidad) {
+            return base.Channel.GetConfiguracionPaisFFVV(entidad);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisFFVVDatos[]> GetConfiguracionPaisFFVVAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisFFVVDatos entidad) {
+            return base.Channel.GetConfiguracionPaisFFVVAsync(entidad);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario) {
