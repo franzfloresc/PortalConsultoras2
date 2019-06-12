@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.ProgramaNuevas;
 using Portal.Consultoras.Web.Providers;
@@ -2661,21 +2662,31 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!valorConfi) return 0;
 
-            if (
-                (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoProductoSugeridoCarrusel
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel)
-                || (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalCarrusel
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha)
-                || (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraLandingShowroomShowroomSubCampania
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomSubCampania
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomSubCampania)
-                || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackNuevas
+            var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(producto.OrigenPedidoWeb);
+            if (modeloOrigenPedido.Palanca == ConsOrigenPedidoWeb.Palanca.ProductoSugerido
+                || modeloOrigenPedido.Palanca == ConsOrigenPedidoWeb.Palanca.OfertaFinal
+                || (modeloOrigenPedido.Palanca == ConsOrigenPedidoWeb.Palanca.Showroom
+                    && modeloOrigenPedido.Seccion == ConsOrigenPedidoWeb.Seccion.SubCampania) 
                 )
+            {
                 return 0;
+            }
+
+            //if (
+            //    (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoProductoSugeridoCarrusel
+            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel)
+            //    || (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel
+            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha
+            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel
+            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha
+            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalCarrusel
+            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha)
+            //    || (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraLandingShowroomShowroomSubCampania
+            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomSubCampania
+            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomSubCampania)
+            //    || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackNuevas
+            //    )
+            //    return 0;
 
             switch (producto.TipoEstrategiaCodigo)
             {

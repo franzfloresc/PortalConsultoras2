@@ -4,6 +4,7 @@ using Portal.Consultoras.BizLogic.LimiteVenta;
 using Portal.Consultoras.BizLogic.ProgramaNuevas;
 using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Common.Serializer;
 using Portal.Consultoras.Data.ServiceCalculoPROL;
 using Portal.Consultoras.Data.ServicePROL;
@@ -130,12 +131,15 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     #region HorarioRestringido
 
                     var reservado = false;
-                    if (!(pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel
-                        || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha
-                        || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel
-                        || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha
-                        || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalCarrusel
-                        || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha))
+                    var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(pedidoDetalle.OrigenPedidoWeb);
+
+                    //if (!(pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel
+                    //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha
+                    //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel
+                    //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha
+                    //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalCarrusel
+                    //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha))
+                    if (modeloOrigenPedido.Palanca != ConsOrigenPedidoWeb.Palanca.OfertaFinal)
                     {
                         var respuesta = RespuestaModificarPedido(pedidoDetalle.Usuario);
                         if (respuesta != null)
@@ -489,9 +493,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             #region CaminoBrillante
 
-            if (pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
-                pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
-                pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido)
+            var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(pedidoDetalle.OrigenPedidoWeb);
+
+            //if (pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
+            //    pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
+            //    pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido)
+            if (modeloOrigenPedido.Palanca == ConsOrigenPedidoWeb.Palanca.OfertasEspeciales)
             {
                 if (_bLCaminoBrillante.UpdEstragiaCaminiBrillante(estrategia, usuario.PaisID, usuario.CampaniaID, usuario.NivelCaminoBrillante, pedidoDetalle.Producto.CUV))
                 {
@@ -1044,7 +1051,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 PedidoAgregar_DesReservarPedido(lstDetalle, pedidoDetalle.Producto, usuario);
                 var request = PedidoDetalleRespuesta(responseCode);
-                request.PedidoWeb = pedidoWeb ?? respuesta.PedidoWeb;
+                if (respuesta != null) request.PedidoWeb = respuesta.PedidoWeb;
 
                 ListaMensajeCondicional.AddRange(request.ListaMensajeCondicional);
 

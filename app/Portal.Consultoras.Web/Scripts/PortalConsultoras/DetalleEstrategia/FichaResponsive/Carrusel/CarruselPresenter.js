@@ -6,6 +6,7 @@ class CarruselPresenter {
         this.model = model;
         this.view = view;
         this.view.ocultarElementos();
+        this.view.setAttrHtml(this.model.origenPedidoWeb, this.model.origenAgregarCarrusel);
         this.mostrarCarrusel();
     }
 
