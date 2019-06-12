@@ -170,13 +170,13 @@ var ConstantesModule = (function() {
         obtenerModelo: '/DetalleEstrategia/ObtenerModelo',
         obtenerPedidoWebSetDetalle: '/Pedido/ObtenerPedidoWebSetDetalle',
         obtenerEstrategiaFicha: '/Estrategia/ObtenerOfertaFicha'
-    }
+    };
 
     var _urlPedido = {
         cargarDetallePedido: '/Pedido/CargarDetallePedido',
         ejecutarServicioProl: '/Pedido/EjecutarServicioPROL',
         updatePostulanteMensaje: '/Pedido/UpdatePostulanteMensaje'
-    }
+    };
 
     var _getTipoPersonalizacionByTipoEstrategia = function(codigoTipoEstrategia) {
 
@@ -194,20 +194,30 @@ var ConstantesModule = (function() {
     var _mensajeAgregarPedido = {
         normal: '¡Listo! Agregaste con éxito a tu pedido.',
         reservado: '¡Listo! Agregaste con éxito a tu pedido reservado.'
-    }
+    };
 
     var _mensajeModificarPedido = {
         normal: '¡Listo! Tu pedido ha sido modificado',
         reservado: '¡Listo! Tu pedido reservado ha sido modificado'
-    }
+    };
+
     var _tiempo = {
         ToolTip: 2500
-    }
+    };
 
     var _tipoSeccion = {
         Video: "01",
         Texto: "02"
-    }
+    };
+
+    
+    var _tipoPersonalizacion = {
+        Catalogo: "CAT",
+    };
+
+    var _tipoPersonalizacionTexto = {
+        Catalogo: "Catalogo",
+    };
 
     return {
         CodigoPalanca: _codigoPalanca,
@@ -227,6 +237,8 @@ var ConstantesModule = (function() {
         MensajeAgregarPedido: _mensajeAgregarPedido,
         MensajeModificarPedido: _mensajeModificarPedido,
         Tiempo: _tiempo,
-        TipoSeccion: _tipoSeccion
+        TipoSeccion: _tipoSeccion,
+        TipoPersonalizacion: _tipoPersonalizacion,
+        TipoPersonalizacionTexto: _tipoPersonalizacionTexto,
     }
 })();
