@@ -2,9 +2,12 @@
 var _switchControl = '.toggle-header'
 var _profit = '.toggle-content'
 var _earning = '.ganancia-estimada'
-document.querySelector(_switchControl).addEventListener('click', function () {
-    toggle(_switch)
-})
+
+if ($(_switchControl).length > 0) {
+    document.querySelector(_switchControl).addEventListener('click', function () {
+        toggle(_switch)
+    })
+}
 
 var toggle = function (_switch) {
     // Activa la animación del + a - y viceversa
