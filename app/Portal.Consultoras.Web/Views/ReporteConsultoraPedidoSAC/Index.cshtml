@@ -1,0 +1,166 @@
+﻿@model Portal.Consultoras.Web.Models.ReporteConsultoraPedidoSACModels
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    .disabled {
+        background: none repeat scroll 0 0 burlyWood;
+        cursor: default !important;
+    }
+</style>
+
+<script type="text/javascript">
+    var rutaImagenArchivoClientes = '@Url.Content("~/Content/Images/update.png")';
+    var rutaImagenCalendar = '@Url.Content("~/Content/Images/calendar.png")';
+
+    $(document).ready(function(){
+        IniFecha();
+
+
+
+
+
+
+        $("#ddlPais").change(function () {
+            debugger;
+            var Id = $(this).val();
+            if (Id != "") {
+                waitingDialog({});
+                $.ajaxSetup({ cache: false });
+                $.getJSON(baseUrl + 'BaseAdm/ObtenerCampaniasZonasRegionesPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
+                    if (checkTimeout(data)) {
+                        var ddlCampania = $("#ddlCampania");
+
+                        if (Id != "") {
+                            if (data.lstCampania.length > 0) {
+                                for (var item in data.lstCampania) {
+                                    if (data.lstCampania[item].CampaniaID) {
+                                        ddlCampania.append($('<option/>', {
+                                            value: data.lstCampania[item].CampaniaID,
+                                            text: data.lstCampania[item].Codigo
+                                        }));
+                                    }
+                                }
+                            }
+                        }
+                        closeWaitingDialog();
+                    }
+                });
+                jQuery("#list").jqGrid("clearGridData");
+            } else LimpiarDependencias(Id);
+        });
+
+
+    });
+
+    function IniFecha() {
+        $("#txtFechaFacturacion").datepicker({
+            showOn: "button",
+            buttonImage: rutaImagenCalendar,
+            buttonImageOnly: true,
+            dateFormat: 'dd/mm/yy'
+        }).mask('99/99/9999');
+    }
+</script>
+
+
+<div class="wrap_cab">
+    <div class="filtros">
+        <div class="elements">
+            <div class="div-2">
+                <h1>Carga de Pedidos Campaña</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper_reg">
+            <div class="DescargaParams">
+                <div class="celda">
+                    <span>País:</span>
+                    <div class="selectP2 borde_redondeado">
+                        @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
+                    </div>
+                </div>
+                <div class="celda">
+                    <span>Campaña:</span>
+                    <div class="selectP2 borde_redondeado">
+                        @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaCampania, "CampaniaID", "Codigo"), new { id = "ddlCampania" })
+                    </div>
+                </div>
+                <div class="celda">
+                    <span>Fecha Facturación:</span>
+                    <div class="calendar borde_redondeado">
+                        <input type="text" id="txtFechaFacturacion" />
+                    </div>
+                </div>
+                <div class="celda">
+                    <span></span>
+                    <div class="input_add_alert_left">
+                        <input type="button" name="" id="btnDescargar" value="Descargar" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="UltimaDescarga">
+                <span>Último proceso exitoso de descarga:</span>
+                <table id="UltimaDescargaInfo">
+                    <tr>
+                        <th></th>
+                        <th>Fecha/Hora</th>
+                    </tr>
+
+                    <tr>
+                        <td>Pedidos Web</td>
+                        <td><span id="FechaPedidoWeb"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Pedidos DD</td>
+                        <td><span id="FechaPedidoDD"></span></td>
+                    </tr>
+                </table>
+                <div class="textoDescarga">
+                    <img src='@Url.Content("~/Content/Images/faq.png")' alt="" />
+                    <span>
+                        Si ocurrió un problema con la última descarga de pedidos y deseas desmarcarlos, haz click
+                        <a id="btnDesmarcarUltimoPedido" href="#">aquí</a>
+                    </span>
+                </div>
+            </div>
+
+            <div id="DivDescargas" class="div-4" style="display:none">
+                <div class="noti3">
+                    Puede descargar los archivos generados haciendo click en los siguientes enlaces:<br />
+                    Cabecera: <a id="Aheader" href="#" onclick="DescargarCabecera()"></a><br />
+                    Detalle: <a id="Ddetail" href="#" onclick="DescargarDetalle()"></a><br />
+
+                    Actualización de Datos: <a id="Ddetail1" href="#" onclick="DescargarDetalleAct()"></a>
+                </div>
+            </div>
+            <div id="DivMensajeLideres" class="div-4" style="display: none">
+                <div id="DivMensajeNoti" class="noti3">
+                    Archivo generado correctamente, se crearon <span id="spCantidad"></span> registros de Líderes.
+                    Puede descargar el archivo generado haciendo clic en el siguiente enlace:<br />
+                    Archivo de Líderes: <a id="liderHeader" href="#" onclick="DescargarCabecera()"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" id="hdnfileHeader" name="hdnfileHeader" />
+    <input type="hidden" id="hdnfileDetail" name="hdnfileDetail" />
+    <input type="hidden" id="hdnfileDetailAct" name="hdnfileDetailAct" />
+
+
+</div>
+<div class="wrap">
+    <div class="container clearfix">
+        <div class="border-wrapper">
+            <table id="list"></table>
+            <div id="pager"></div>
+        </div>
+    </div>
+</div>
+<div id="loadingScreen"></div>
+

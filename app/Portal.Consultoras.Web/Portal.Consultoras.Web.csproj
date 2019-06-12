@@ -245,6 +245,7 @@
     <Compile Include="Controllers\CaminoBrillanteController.cs" />
     <Compile Include="Controllers\ProductoRecomendadoController.cs" />
     <Compile Include="Controllers\ArmaTuPackController.cs" />
+    <Compile Include="Controllers\ReporteConsultoraPedidoSACController.cs" />
     <Compile Include="CustomHelpers\Infraestructure\BundleExtention.cs" />
     <Compile Include="Controllers\TusClientesController.cs" />
     <Compile Include="Controllers\PremioNuevasController.cs" />
@@ -320,6 +321,7 @@
     <Compile Include="Models\ArmaTuPackModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
     <Compile Include="Models\CaminoBrillante\FiltrosCaminoBrillanteModel.cs" />
+    <Compile Include="Models\ReporteConsultoraPedidoSACModels.cs" />
     <Compile Include="Models\ZonaValidacionTelefonicaModel.cs" />
     <Compile Include="Models\CDRProductoRespuestaServicioModel.cs" />
     <Compile Include="Models\ConfiguracionZonaModel.cs" />
@@ -5892,6 +5894,7 @@
     <Content Include="Views\CaminoBrillanteAdministrar\AdministrarBeneficios.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_fbsdk.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupInformacionRegalo.cshtml" />
+    <Content Include="Views\ReporteConsultoraPedidoSAC\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
