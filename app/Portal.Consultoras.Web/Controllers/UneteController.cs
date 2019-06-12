@@ -2143,11 +2143,8 @@ public ActionResult MostrarMensajeBuro(string respuestaBuro)
                                    a.FechaPago ==  null  ? "" : a.FechaPago.Value.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
                                    a.HoraPago,
                                    a.FleteMonto.ToString(),
-                                   //a.iva.ToString(),
                                    a.TransaccionMontoPagadoTotal.ToString(),
                                    a.TransaccionMontoRecibido.ToString(),
-                                   /*a.CodigoRegion ?? "",
-                                   a.CodigoZona ?? "",*/
                                    a.TipoTarjeta ?? "",
                                    a.TarjetaNumero ?? "" ,
                                    a.PagoDeKitLogId.ToString(),

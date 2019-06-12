@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-//HD-3606 EINCA
+
 namespace Portal.Consultoras.Web.Models.Pedido
 {
     public class PedidoSeguimientoDetalleModel

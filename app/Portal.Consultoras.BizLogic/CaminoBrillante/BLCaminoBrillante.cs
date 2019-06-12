@@ -886,7 +886,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             //Validación por Nivel
             var buildMessage = ValidarBusquedaCaminoBrillante_ValidacionNivel(entidad);
             
-            if (producto.Nivel.HasValue ? entidad.NivelCaminoBrillante < producto.Nivel.Value : false)
+            if (producto.Nivel.HasValue && (entidad.NivelCaminoBrillante < producto.Nivel.Value))
             {
                 return buildMessage(Enumeradores.ValidacionCaminoBrillante.CuvBloqueadoNivel, producto.Nivel.Value);
             }
@@ -958,7 +958,9 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 var kits = GetKitsCache(PaisID, 0, CampaniaID) ?? new List<BEKitCaminoBrillante>();
                 kits.ForEach(e => valProducto(e, 1));
             }
-            catch (Exception) { }
+            catch (Exception) {
+                //
+            }
             return productos;
         }
 

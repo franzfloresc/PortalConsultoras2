@@ -444,9 +444,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Pedido/tooltip.js",
                 "~/Scripts/PortalConsultoras/ProductoRecomendado/ProductoRecomendadoModule.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
-                //INI HD-4200
                 "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js"
-                //FIN HD-4200
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/PedidoValidado").Include(
@@ -542,9 +540,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/ProductoRecomendado/ProductoRecomendadoModule.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
-                //INI HD-4200
                 "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js"
-               //FIN HD-4200
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/PedidoDetalle").Include(
@@ -558,9 +554,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Pedido/tooltip.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
-                //INI HD-4200
                 "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js",
-                //FIN HD-4200
                 "~/Scripts/PortalConsultoras/Pedido/barra.js"
             ));
 
