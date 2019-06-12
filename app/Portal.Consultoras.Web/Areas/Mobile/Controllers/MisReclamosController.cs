@@ -209,6 +209,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 SessionManager.SetCDRWebDetalle(null);
                 objCdr.ListaDetalle = _cdrProvider.CargarDetalle(obj, userData.PaisID, userData.CodigoISO);
+                objCdr.ListaDetalle.Update(a => a.SolucionSolicitada = _cdrProvider.ObtenerDescripcion(a.CodigoOperacion, Constantes.TipoMensajeCDR.Solucion, userData.PaisID).Descripcion);
                 int cantidadObservadoDetalleReemplazo = 0, cantidadAprobadoDetalleReemplazo = 0;
                 if (objCdr.ListaDetalle != null)
                 {

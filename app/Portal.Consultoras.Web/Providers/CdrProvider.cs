@@ -91,6 +91,8 @@ namespace Portal.Consultoras.Web.Providers
                 }
                 else
                     sessionManager.SetCDRWebDetalle(null);
+
+                
   
                 return lista;
             }

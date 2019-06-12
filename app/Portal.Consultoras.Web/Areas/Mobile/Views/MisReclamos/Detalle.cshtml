@@ -1,10 +1,37 @@
 ﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
 @using Portal.Consultoras.Web.CustomHelpers
+@using Portal.Consultoras.Common
+
 @{
 
     var layout = ViewContext.MobileLayout();
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     MobileAppConfiguracionModel mobileConfiguracion = Html.MobileAppConfiguracion();
+    var dic = new Dictionary<int, decimal>();
+    //calular el total de detalle trueque
+    if (ViewBag.Origen == "1")
+    {
+        var listado = ViewBag.ListaDetalle;
+
+
+        var total = 0;
+
+        if (listado != null)
+        {
+            foreach (var item in listado)
+            {
+                if (item.CodigoOperacion.Equals("T") && item.DetalleReemplazo != null)
+                {
+                    foreach (var obj in item.DetalleReemplazo)
+                    {
+                        total += Convert.ToDecimal(obj.Precio) * Convert.ToInt32(obj.Cantidad);
+                    }
+                    dic.Add(item.CDRWebDetalleID, total);
+                }
+            }
+        }
+
+    }
 }
 
 @section styles
@@ -221,7 +248,7 @@ else if (ViewBag.Origen == "1")
                             }
                         </span>
                         <span class="d-inline-block text-uppercase">
-                            @item.Solicitud
+                            @item.SolucionSolicitada
                         </span>
                     </div>
                     <div class="detalle_tipo_solicitud">
@@ -389,7 +416,12 @@ else if (ViewBag.Origen == "1")
                                             }
                                         </div>
                                     }
-                                    <div class="cls_total text-bold text-uppercase producto_solicitud_row">Total: <span name="total"></span></div>
+                                    <div class="cls_total text-bold text-uppercase producto_solicitud_row">
+                                        Total: <span name="total">
+                                            @ViewBag.Simbolo @Util.DecimalToStringFormat(dic[item.CDRWebDetalleID],ViewBag.CodigoISODL)
+                                           
+                                        </span>
+                                    </div>
                                 }
                                 else if (item.Estado == 4)
                                 {
