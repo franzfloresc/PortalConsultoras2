@@ -50,7 +50,25 @@
 
     .form__group__fields--actualizacionContrasenia{
         margin-bottom:40px;
+        position:relative;
     }
+
+    .enlace__verPassword{
+        width: 45px;
+        height: 45px;
+        position: absolute;
+        top: -5px;
+        right: -12px;
+        background-image: url(/Content/Images/ocultar-password.svg);
+        background-repeat: no-repeat;
+        background-size: 45%;
+        background-position: center;
+        cursor: pointer;
+    }
+
+        .enlace__verPassword--mostrar{
+            background-image: url(/Content/Images/mostrar-password.svg);
+        }
 
     .paso__2__actualizacionContrasenia{
         padding-top:64px;
@@ -71,6 +89,26 @@
     .text__field__sb--ingresoCodigo{
         font-family:'Lato', sans-serif;
     }
+
+    .form__group__fields--correoAlCualSeEnvio > div{
+        position:relative;
+    }
+
+        .enlace__editarCorreoElectronico{
+            width: 45px;
+            height:45px;
+            padding: 12px;
+            height: auto!important;
+            position: absolute;
+            top: -4px;
+            right: -14px;
+            box-sizing: border-box;
+        }
+
+            .enlace__editarCorreoElectronico img{
+                width:100%;
+                height:auto;
+            }
 
     .text__field__sb--correoAlCualSeEnvioCodigo{
         width:auto;
@@ -95,16 +133,32 @@
         margin-bottom:3px;
     }
 
-    .text__field__sb--ingresoCodigo{
-        width:44px;
-        font-size:24px;
-    }
+        .text__field__sb--ingresoCodigo{
+            width:44px;
+            font-size:24px;
+        }
 
     .enlace__sb--reenviarCorreo{
         font-size:13px;
         height:45px;
         line-height:45px;
         cursor:pointer;
+    }
+
+    .paso__3__actualizacionContrasenia{
+        padding-top:100px;
+    }
+
+    .popup__somos__belcorp__icono--actualizacionExitosa{
+        width: 88px;
+        height: auto;
+        padding-left: 23px;
+        margin-bottom: 24px;
+    }
+
+    .enlace__sb--irAMiPerfil{
+        position: relative;
+        top: -1px;
     }
 
 @media screen and (min-width:992px) {
@@ -162,6 +216,17 @@
         .spinner__wrapper--actualizacionContrasenia {
             position: fixed;
         }
+
+}
+
+@media screen and (max-height:500px) and (orientation:portrait) {
+
+    .btn__sb--actualizarContrasenia {
+        width:100%;
+        position:relative;
+        z-index: 2;
+        margin-top: 60px;
+    }
 
 }
 
