@@ -2697,7 +2697,12 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 MisPedidosModel model = new MisPedidosModel();
-                model = GetPendientes();
+                model = GetPendientes();                
+                var ContinuarExpPendientes = true;
+                if (pedidos.ListaPedidos == null || model.ListaPedidos.Count == 0)
+                {
+                    ContinuarExpPendientes = false;
+                }
 
                 var PendientesJson = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
                 {
@@ -2708,6 +2713,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     Pendientes = PendientesJson,
+                    continuarExpPendientes = ContinuarExpPendientes,
                     message = "OK"
                 }, JsonRequestBehavior.AllowGet);
             }

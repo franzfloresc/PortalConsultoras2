@@ -95,13 +95,13 @@ function RechazarPedido(id, origenBoton) {
 
 };
 
-function AceptarPedido(id, tipo) {    
+function AceptarPedido(id, tipo) {
     var isOk = true;
     var detalle = [];
     var ing = 0;
     var opciones = "";
 
-    $('div.detalle_pedido_reservado').each(function () {        
+    $('div.detalle_pedido_reservado').each(function () {
         var id = $(this).find("input[id*='soldet_']").val();
         var cant = $(this).find('#soldet_qty_' + id).text();
         var opt = $(this).find('#soldet_tipoate_' + id).val();
@@ -120,7 +120,7 @@ function AceptarPedido(id, tipo) {
         if (typeof opt !== 'undefined') {
             if (opt == "") {
                 $('#ComoloAtenderas').show();
-                isOk = false;                
+                isOk = false;
                 return false;
             }
             else {
@@ -182,7 +182,7 @@ function AceptarPedido(id, tipo) {
                             Tipo: tipo,
                             Ingresos: ing,
                             Dispositivo: glbDispositivo
-                        }                        
+                        }
                         if (response.codigo == 0) {
                             _pedido = pedido;
 
@@ -236,7 +236,7 @@ function ProcesarAceptarPedido(pedido) {
 
                     ActualizarGanancia(response.DataBarra);
                     $('#PedidoAceptado').show();
-                   
+
                     var opciones = "";
                     $.each(pedido.ListaDetalleModel, function (i, item) {
                         opciones = (opciones.length) ? (opciones + ", ") : opciones;
@@ -288,11 +288,11 @@ function ProcesarAceptarPedido(pedido) {
                         //INI HD-3693
                         //$('#MensajePedidoReservado').text(response.message);
                         //$('#AlertaPedidoReservado').show();
-                        var msjBloq  = validarpopupBloqueada(response.message);
+                        var msjBloq = validarpopupBloqueada(response.message);
                         if (msjBloq != "") {
                             alert_msg_bloqueadas(msjBloq);
                         }
-                        else{
+                        else {
 
                             $('#MensajePedidoReservado').text(response.message);
                             $('#AlertaPedidoReservado').show();
@@ -479,7 +479,7 @@ function RechazarSolicitudCliente(pedidoId, idMotivoRechazo, razonMotivoRechazo)
 
                 //vPendientes = response.Pendientes;
                 SeRechazoConExito();
-               // document.location.href = '/Mobile/ConsultoraOnline/Pendientes';
+                // document.location.href = '/Mobile/ConsultoraOnline/Pendientes';
             }
             else {
                 alert(response.message);
@@ -597,14 +597,24 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
         success: function (response) {
             CloseLoading();
             if (response.success) {
-
+                debugger;
+                var eliminoPedidoCompleto = true;
                 var Pendientes = JSON.parse(response.Pendientes) || [];
                 $.each(Pendientes.ListaPedidos, function (index, value) {
                     pedidos.push(value.PedidoId.toString());
                     $.each(value.DetallePedido, function (index, value) {
                         cuvs.push(value.CUV.toString());
                     });
+                    if (value.PedidoId.toString() == pedidoId.toString()) {
+                        eliminoPedidoCompleto = false
+                    }
                 });
+
+                if (eliminoPedidoCompleto) {
+                    ShowLoading();
+                    window.location.href = '/Mobile/ConsultoraOnline/Pendientes';
+                    return false;
+                }
                 // ocultar div
                 var id = "";
                 if (origen == 'C') {

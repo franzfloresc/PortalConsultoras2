@@ -574,6 +574,8 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
         success: function (response) {
             //CloseLoading();
             if (response.success) {
+                debugger;
+                var eliminoPedidoCompleto = true;
                 // ocultar div
                 var Pendientes = JSON.parse(response.Pendientes) || [];
                 $.each(Pendientes.ListaPedidos, function (index, value) {
@@ -581,7 +583,16 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
                     $.each(value.DetallePedido, function (index, value) {
                         cuvs.push(value.CUV.toString());
                     });
+                    if (value.PedidoId.toString() == pedidoId.toString()) {
+                        eliminoPedidoCompleto = false
+                    }
                 });
+
+                if (eliminoPedidoCompleto) {
+                    //ShowLoading();
+                    //window.location.href = '/ConsultoraOnline/Pendientes';
+                    //return false;
+                }
 
                 if (origen == 'C') {
                     var idCuv = '#vc_pedido_' + cuv;
