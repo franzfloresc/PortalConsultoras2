@@ -1529,6 +1529,7 @@
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas.gif" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas_2.gif" />
+    <Content Include="Content\Css\Site\Login2\popup-actualizacion-contrasenia.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-informacion-regalos.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\general-popups.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-cierre-sesion.css" />
@@ -1551,6 +1552,7 @@
     <Content Include="Content\Css\Site\Menu\MenuContenedorResponsive.css" />
     <Content Include="Content\Images\flecha_despliegue_campo_select.svg" />
     <Content Include="Content\Images\icono_advertencia_notificacion_multimarca.svg" />
+    <Content Include="Content\Images\icono_edit.svg" />
     <Content Include="Content\Images\icono_foco_activo.svg" />
     <Content Include="Content\Images\icono_mail_cdr_activo.svg" />
     <Content Include="Content\Images\icono_check_cdr.svg" />
@@ -1920,6 +1922,7 @@
     <Content Include="Content\Images\mas.svg" />
     <Content Include="Content\Images\menos-desplegable-icono.svg" />
     <Content Include="Content\Images\menos.svg" />
+    <Content Include="Content\Images\mensaje-icono.png" />
     <Content Include="Content\Images\mobile\Esika\bonificaciones_digital.png" />
     <Content Include="Content\Images\mobile\Esika\emoji-clapping-hands%403x.png" />
     <Content Include="Content\Images\mobile\icono_mas_footer_mobile.png" />
@@ -3693,6 +3696,7 @@
     <Content Include="Content\Images\MontoMinimoBannerVE.jpg" />
     <Content Include="Content\Images\MontoMinimoBannerVEC4.jpg" />
     <Content Include="Content\Images\more.png" />
+    <Content Include="Content\Images\mostrar-password.svg" />
     <Content Include="Content\Images\mujer-seccion-revista-bienvenida.png" />
     <Content Include="Content\Images\multi_facil.png" />
     <Content Include="Content\Images\nav-arrow.png" />
@@ -3709,6 +3713,7 @@
     <Content Include="Content\Images\no_image.gif" />
     <Content Include="Content\Images\nuevo-producto.png" />
     <Content Include="Content\Images\nuevo_tuclientes.svg" />
+    <Content Include="Content\Images\ocultar-password.svg" />
     <Content Include="Content\Images\oferta-sin-imagen-sin-fondo.svg" />
     <Content Include="Content\Images\oferta-sin-imagen.svg" />
     <Content Include="Content\Images\oferta-ultimo-minuto.png" />
@@ -5892,6 +5897,7 @@
     <Content Include="Views\CaminoBrillanteAdministrar\AdministrarBeneficios.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_fbsdk.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupInformacionRegalo.cshtml" />
+    <Content Include="Views\Login\_PopupActualizacionContrasenia.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
