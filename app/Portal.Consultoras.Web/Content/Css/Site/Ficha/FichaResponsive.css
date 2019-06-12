@@ -2,9 +2,15 @@
     background-color: #f5f5f7;
 }
 
-.seccion_ficha{
+.contenedor_seccion_fichas {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.seccion_ficha {
     background-color: #fff;
     margin-top: 12px;
+    width: 100%;
 }
 
 .contenedor_detalle {
