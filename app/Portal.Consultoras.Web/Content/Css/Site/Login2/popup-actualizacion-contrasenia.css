@@ -11,8 +11,6 @@
 
 .popup__somos__belcorp--actualizacionContrasenia {
     box-sizing:border-box;
-    max-width: 688px;
-    min-height: 312px;
     opacity: 0;
     font-family:'Lato', sans-serif;
     position:relative;
@@ -164,6 +162,9 @@
 @media screen and (min-width:992px) {
 
     .popup__somos__belcorp--actualizacionContrasenia {
+        top:0;
+        max-width: 556px;
+        min-height: 535px;
         -moz-transition: all 0.3s ease;
         -o-transition: all 0.3s ease;
         -webkit-transition: all 0.3s ease;
@@ -173,22 +174,50 @@
         -o-transform: translate(0, -70px);
         -webkit-transform: translate(0, -70px);
         transform: translate(0, -70px);
+        padding-bottom: 49px;
     }
 
         .mostrarPopup{
-            -moz-transform: translate(0, 0);
-            -ms-transform: translate(0, 0);
-            -o-transform: translate(0, 0);
-            -webkit-transform: translate(0, 0);
-            transform: translate(0, 0);
+            -moz-transform: translate(0, 32px);
+            -ms-transform: translate(0, 32px);
+            -o-transform: translate(0, 32px);
+            -webkit-transform: translate(0, 32px);
+            transform: translate(0, 32px);
         }
 
+        .popup__somos__belcorp__contenido--actualizacionContrasenia{
+            max-width:390px;
+        }
+
+            .paso__1__actualizacionContrasenia{
+                padding-top:96px;
+            }
+
+            .btn__sb--actualizarContrasenia {
+                min-width: 250px;
+            }
+
+            .paso__2__actualizacionContrasenia {
+                padding-top: 40px;
+            }
+
         .spinner__wrapper--actualizacionContrasenia {
-            width:100%;
-            height:100%;
-            position:absolute;
-            top:0;
-            left:0;
+            width: 100%;
+            height: 486px;
+            position: relative;
+            top: 24px;
+        }
+
+        .text__field__sb--correoAlCualSeEnvioCodigo{
+            margin-bottom:51px;
+        }
+
+        .enlace__sb--reenviarCorreo{
+            margin-bottom:32px;
+        }
+
+        .popup__somos__belcorp__mensaje--envioCodigoConfirmacion{
+            margin-bottom:48px;
         }
 
 }
