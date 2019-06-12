@@ -3018,22 +3018,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 pedidoDetalle.Producto = new BEProducto()
                 {
                     CUV = productRegalo.CUV2,
-                    PrecioCatalogo = productRegalo.Precio,
+                    PrecioCatalogo = productRegalo.Precio2 == 0 ? productRegalo.PrecioUnitario : productRegalo.Precio2,
+                    PrecioValorizado = productRegalo.Precio2 == 0 ? productRegalo.PrecioUnitario : productRegalo.Precio2,
                     TipoEstrategiaID = productRegalo.TipoEstrategiaID.ToString(),
-                    FlagNueva = "1",
+                    FlagNueva = productRegalo.FlagNueva.ToString(),
                     IndicadorMontoMinimo = productRegalo.IndicadorMontoMinimo,
                     MarcaID = productRegalo.MarcaID,
                     EstrategiaID = productRegalo.EstrategiaID
-                };
-
-                pedidoDetalle.Estrategia = new BEEstrategia()
-                {
-                    Cantidad = pedidoDetalle.Cantidad,
-                    DescripcionCUV2 = Util.Trim(productRegalo.DescripcionCUV2),
-                    FlagNueva = 0,
-                    TipoEstrategiaID = pedidoDetalle.Producto.TipoEstrategiaID.Trim() == string.Empty ? 0 : int.Parse(pedidoDetalle.Producto.TipoEstrategiaID.Trim()),
-                    CUV2 = pedidoDetalle.Producto.CUV,
-                    MarcaID = pedidoDetalle.Producto.MarcaID
                 };
 
                 objRerun = Insert(pedidoDetalle);
@@ -3065,6 +3056,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             lstReturn.ForEach(x =>
             {
                 x.FlagSeleccionado = objPedidoDetalle.olstBEPedidoWebDetalle.Any(y => y.CUV == x.CUV2) ? 1 : 0;
+                x.Precio2 = x.Precio2 == 0 ? x.PrecioUnitario : x.Precio2;
             });
 
             return lstReturn;
