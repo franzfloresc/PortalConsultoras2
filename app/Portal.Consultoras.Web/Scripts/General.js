@@ -492,12 +492,24 @@ jQuery(document).ready(function () {
         return l_boolIsExist;
     };
 
-    DecimalToStringFormat = function (monto, noDecimal) {
-        formatDecimalPais = formatDecimalPais || {};
-        noDecimal = noDecimal || false;
-        var decimal = formatDecimalPais.decimal || ".";
-        var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0);
-        var miles = formatDecimalPais.miles || ",";
+    DecimalPrecision = function(numero) {
+        var num = numero || 0;
+        var a = parseFloat(isNaN($.trim(numero)) ? "0" : $.trim(num));
+
+        if (!isFinite(a)) return 0;
+        var e = 1, p = 0;
+        while (Math.round(a * e) / e !== a) { e *= 10; p++; }
+
+        return p;
+    };
+
+    NumberToFormat = function(monto, options) {
+        var customFormat = {};
+        $.extend(customFormat, formatDecimalPais || {});
+        $.extend(customFormat, options || {});
+        var decimalCantidad = customFormat.decimalCantidad || 0;
+        var decimal = customFormat.decimal || ".";
+        var miles = customFormat.miles || ",";
 
         monto = monto || 0;
         var montoOrig = isNaN($.trim(monto)) ? "0" : $.trim(monto);
@@ -519,6 +531,14 @@ jQuery(document).ready(function () {
         } while (pEntera.length > 0);
 
         return pEnteraFinal + pDecimal;
+    };
+
+    DecimalToStringFormat = function (monto, noDecimal) {
+        formatDecimalPais = formatDecimalPais || {};
+        noDecimal = noDecimal || false;
+        var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0);
+
+        return NumberToFormat(monto, { decimalCantidad: decimalCantidad });
     };
 
     IsNullOrEmpty = function (texto) { return texto == null || texto === ''; };
