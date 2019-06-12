@@ -25,8 +25,6 @@
     transition: all 0.3s ease;
 }
 
-}
-
 .multimarca-background-color {
     background-color: #b9007e !important;
 }
@@ -199,11 +197,24 @@ input[type="text"].text__field__sb,
 
 /* VALIDATION MESSAGE */
 
-.validation__message{
-    color:#e81c36;
+.validation__message,
+.validation__field{
     font-size:11px;
     margin-top:4px;
 }
+
+.validation__field {
+    color: #808080;
+}
+    
+    .validation__message,
+    .validation__error{
+        color:#e81c36;
+    }
+
+    .validation__success{
+        color:#569c04;
+    }
 
 /* FIN - VALIDATION MESSAGE */
 
@@ -310,15 +321,6 @@ input[type="text"].text__field__sb,
         pointer-events: none;
         cursor: not-allowed;
         color: #909094!important;
-    color:#909094!important;
-}
-
-.btn_primario,
-.btn_secundario {
-    height: 40px;
-    line-height: 40px;
-    font-size: 14px;
-    letter-spacing: 0.5px;
     }
 
 @media screen and (max-width:991px) {
@@ -329,10 +331,6 @@ input[type="text"].text__field__sb,
         right: 0;
         bottom: 16px;
     }
-    border:1px solid #000;
-    background-color:#FFF;
-}
-
 }
 
 /* FIN - BUTTONS */
@@ -402,44 +400,6 @@ input[type="text"].text__field__sb,
         background-color: #000;
         color: #FFF;
     }
-
-.notificacion_estado {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    font-size: 15px;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-}
-
-    .notificacion_estado--exito {
-        color: #569c04;
-    }
-
-    .notificacion_estado_img{
-        display: block;
-        width: 20px;
-        height: 20px;
-        margin-top: 2px;
-        margin-right: 4px;
-        margin-bottom: 0!important;
-    }
-
-        .notificacion_estado_img img{
-            width:100%;
-            height:auto;
-        }
-
-@media screen and (max-width:991px){
-
-    .notificacion_estado_img{
-        margin-top:-1.2px;
-    }
-
-}
 
 /* FIN - TAGS */
 
