@@ -449,7 +449,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
                 //INI HD-4200
                 "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js"
-                //FIN HD-4200
+            //FIN HD-4200
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/PedidoValidado").Include(
@@ -549,7 +549,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
                 //INI HD-4200
                 "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js"
-               //FIN HD-4200
+            //FIN HD-4200
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/PedidoDetalle").Include(
@@ -828,7 +828,7 @@ namespace Portal.Consultoras.Web
             #endregion
 
             #region DetalleEstrategia
-            
+
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/EstrategiaAgregar").Include(
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/Shared/CodigoUbigeoPortal.js",
@@ -1168,7 +1168,32 @@ namespace Portal.Consultoras.Web
 
             #region FichaResponsive
             bundles.Add(new ScriptBundle("~/Bundle/Js/Responsive/Ficha").Include(
-                "~/Scripts/flipclock.js"
+
+                "~/Scripts/implements/youtube.js",
+                "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
+                "~/Scripts/PortalConsultoras/Shared/CodigoOrigenPedidoWeb.js",
+                "~/Scripts/PortalConsultoras/Shared/CodigoUbigeoPortal.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
+                "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
+
+                "~/Scripts/flipclock.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaView.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaPresenter.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesAnalyticsPresenter.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesPresenter.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesView.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesAnalyticsPresenter.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaEnriquecida/FichaEnriquecidaView.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaEnriquecida/FichaEnriquecidaPresenter.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/CarruselAyuda.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselModel.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselView.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselPresenter.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsiveEvents.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsive.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/Ficha").Include(
