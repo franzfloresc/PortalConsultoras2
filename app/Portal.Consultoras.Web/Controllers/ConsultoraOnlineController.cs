@@ -2915,12 +2915,15 @@ namespace Portal.Consultoras.Web.Controllers
                         //pedidoDetalle.SetID = model.SetId;
                         //var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
 
-                        listaClientesId.ForEach(clienteId =>
-                        {
-                            pedidoDetalle.ClienteID = clienteId;
-                            var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
-                            pedidoWebId = (pedidoDetalleResult.PedidoWebDetalle != null ? pedidoDetalleResult.PedidoWebDetalle.PedidoID : pedidoWebId);
-                        });
+                        var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
+                        pedidoWebId = (pedidoDetalleResult.PedidoWebDetalle != null ? pedidoDetalleResult.PedidoWebDetalle.PedidoID : pedidoWebId);
+
+                        //listaClientesId.ForEach(clienteId =>
+                        //{
+                        //    pedidoDetalle.ClienteID = clienteId;
+                        //    var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
+                        //    pedidoWebId = (pedidoDetalleResult.PedidoWebDetalle != null ? pedidoDetalleResult.PedidoWebDetalle.PedidoID : pedidoWebId);
+                        //});
 
                     });
 
