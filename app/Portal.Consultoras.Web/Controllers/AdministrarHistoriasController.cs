@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceContenido;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,11 @@ using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.Providers;
+using System.Threading.Tasks;
+using Portal.Consultoras.Web.ServiceContenido;
+using System.Configuration;
+using System.Net;
+using AutoMapper;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -23,8 +28,6 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             var model = new AdministrarHistorialModel();
-            string[] arrUrlMiniatura;
-            string[] arrHistAnchoAlto;
 
             try
             {
@@ -36,7 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID);
 
                 string HistAnchoAlto = CodigosTablaLogica(Constantes.DatosContenedorHistorias.HistAnchoAlto);
-                arrHistAnchoAlto = HistAnchoAlto.Split(',');
+                string[] arrHistAnchoAlto = HistAnchoAlto.Split(',');
                 model.Ancho = arrHistAnchoAlto[0];
                 model.Alto = arrHistAnchoAlto[1];
 
@@ -44,8 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new ServiceContenido.ContenidoServiceClient())
                 {
                     string CodigoHistoriasResumen = CodigosTablaLogica(Constantes.DatosContenedorHistorias.CodigoHistoriasResumen);
-                    entidad = sv.GetContenidoAppHistoria(userData.PaisID, CodigoHistoriasResumen);                    
-
+                    entidad = sv.GetContenidoAppHistoria(userData.PaisID, CodigoHistoriasResumen);
                     model.IdContenido = entidad.IdContenido;
                     model.Codigo = entidad.Codigo;
                     model.Descripcion = entidad.Descripcion;
@@ -56,14 +58,14 @@ namespace Portal.Consultoras.Web.Controllers
                 if (entidad.UrlMiniatura == string.Empty)
                 {
                     model.NombreImagenAnterior = Url.Content("~/Content/Images/") + "Question.png";
-                    model.NombreImagen = string.Empty;
                 }
                 else
                 {
-                    arrUrlMiniatura = entidad.UrlMiniatura.Split('/');
+                    var arrUrlMiniatura = entidad.UrlMiniatura.Split('/');
                     model.NombreImagenAnterior = ViewBag.UrlS3 + arrUrlMiniatura[5];
-                    model.NombreImagen = string.Empty;
+
                 }
+                model.NombreImagen = "";
                 return View(model);
             }
             catch (FaultException ex)
@@ -112,11 +114,11 @@ namespace Portal.Consultoras.Web.Controllers
                     using (ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
                     {
                         sv.UpdateContenidoApp(userData.PaisID, entidad);
-                    }
-                    return Json(new
-                    {
-                        success = true,
-                        message = "Se actualizó satisfactoriamente.",
+                }
+                return Json(new
+                {
+                    success = true,
+                    message = "Se actualizó satisfactoriamente.",
                         extra = string.Empty
                     });
                 }
@@ -127,8 +129,8 @@ namespace Portal.Consultoras.Web.Controllers
                         success = false,
                         message = "No seleccionó una imagen.",
                         extra = string.Empty
-                    });
-                }
+                });
+            }
 
 
             }
@@ -182,24 +184,19 @@ namespace Portal.Consultoras.Web.Controllers
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "No se pudo realizar la carga de la Imagen.",
-                    extra = string.Empty
-                });
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "No se pudo realizar la carga de la Imagen.",
-                    extra = string.Empty
+            }
+
+            return Json(new
+            {
+                success = false,
+                message = "No se pudo realizar la carga de la Imagen.",
+                extra = string.Empty
                 });
             }
-        }
 
         public JsonResult ComponenteListar(string sidx, string sord, int page, int rows, int IdContenido, string Campania)
         {
@@ -305,7 +302,7 @@ namespace Portal.Consultoras.Web.Controllers
             AdministrarHistorialDetaUpdModel modelo;
             try
             {
-                string url = GetUrlDetalleS3();
+               string url = GetUrlDetalleS3();
                 modelo = new AdministrarHistorialDetaUpdModel
                 {
                     IdContenidoDeta = entidad.IdContenidoDeta,
