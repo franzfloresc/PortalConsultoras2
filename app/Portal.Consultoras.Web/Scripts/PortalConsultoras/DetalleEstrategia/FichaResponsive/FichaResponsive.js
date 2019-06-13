@@ -8,6 +8,7 @@
 /// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselModel.js" />
 /// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselView.js" />
 
+console.log(1);
 var detalleEstrategia = DetalleEstrategiaProvider;
 var fichaResponsiveEvents = FichaResponsiveEvents();
 var analyticsPortal = AnalyticsPortalModule;
@@ -43,7 +44,7 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
     estrategiaPresenter.cleanContainer();
     componentesPresenter.cleanContainer();
     
-    var estrategia = detalleEstrategia.getEstrategia(params);
+    var estrategia = detalleEstrategia.promiseGetEstrategia(params);
 
     $("#data-estrategia").data("estrategia", estrategia);
 
