@@ -301,7 +301,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<ServiceUsuario.BEEventoFestivo, EventoFestivoModel>();
             Mapper.CreateMap<BETracking, SeguimientoMobileModel>();
-            Mapper.CreateMap<BETracking, PedidoSeguimientoModel>(); //HD-3606 EINCA
+            Mapper.CreateMap<BETracking, PedidoSeguimientoModel>();
 
 
             Mapper.CreateMap<ServiceCliente.BECliente, ClienteModel>();
