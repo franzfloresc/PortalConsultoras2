@@ -836,6 +836,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         {
             if (!estrategiaPersonalizadaProductoModels.Any()) return new List<EstrategiaPersonalizadaProductoModel>();
             var pedidos = SessionManager.GetDetallesPedido();
+            var sessionMg = SessionManager.MasGanadoras.GetModel();
 
             foreach (var item in estrategiaPersonalizadaProductoModels)
             {
@@ -848,13 +849,31 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 item.ClaseBloqueada = "";
                 item.ClaseEstrategia = "revistadigital-landing";
                 item.TipoAccionAgregar = _ofertaPersonalizadaProvider.TipoAccionAgregar(
-                    item.CodigoVariante == "2003" ? 1 : 0,
+                    item.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable ? 1 : 0,
                     item.CodigoEstrategia,
                     userData.esConsultoraLider,
-                    false,
+                    true,
                     item.CodigoVariante);
-                //item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, mobile, home, recomendaciones, item.MaterialGanancia, suscrita);
+
+                //falta considerar item.CodigoConsultora == ConsConsultora.CodigoConsultora.Forzadas
+                item.CodigoEstrategia =
+                    item.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                    && item.MaterialGanancia
+                    && sessionMg.TieneMG
+                    && revistaDigital.TieneRDC
+                    && revistaDigital.EsActiva
+                    ? Constantes.TipoEstrategiaCodigo.MasGanadoras
+                    : item.CodigoEstrategia;
+
             }
+
+            estrategiaPersonalizadaProductoModels = estrategiaPersonalizadaProductoModels
+                .Where(e =>
+                    e.TipoAccionAgregar == Constantes.TipoAccionAgregar.AgregaloPackNuevas
+                    || e.TipoAccionAgregar == Constantes.TipoAccionAgregar.AgregaloNormal
+                    || e.TipoAccionAgregar == Constantes.TipoAccionAgregar.EligeOpcion
+                )
+                .ToList();
 
             return estrategiaPersonalizadaProductoModels;
         }
