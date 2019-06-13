@@ -5,6 +5,7 @@ var directionsService;
 var searchBox;
 var _googleMap;
 var OperacionDb = { Insertar: "0", Editar: "1" };
+var Ubigeos = Ubigeos || [];
 
 $(document).ready(function () {
 
@@ -837,7 +838,7 @@ function SubirImagen(url, image) {
         success: function (data) {
             if (data.success) {
                 CerrarLoad();
-                alert('Su foto de perfil se cambio correctamente.');
+                alert('Su foto de perfil se cambió correctamente.');
                 window.location = url;
             } else {
                 alert('Hubo un error al cargar el archivo, intente nuevamente.');

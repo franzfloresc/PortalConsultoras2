@@ -322,6 +322,9 @@
 .mb-80 {
     margin-bottom: 80px;
 }
+.mb-60 {
+    margin-bottom: 60px;
+}
 .separator {
     border-bottom: 1px solid black;
     padding-bottom: 16px;
@@ -334,4 +337,36 @@
 }
 .ganancia-info .pb-2 {
     padding-bottom: 5px;
+}
+/* Responsive */
+@media (max-width: 600px) {
+    .toggle-content {
+        display: none;
+        padding-bottom: 10px;
+    }
+    .ganancia-estimada {
+        width: 80%;
+        left: 7%;
+        bottom: 75px;
+    }
+    .ganancia-estimada .ganancia-titulo,
+    .ganancia-estimada .ganancia-total {
+        font-size: 12px;
+    }
+    .ganancia-estimada.opened {
+        bottom: 10.5%;
+        left: 0;
+        width: 100%;
+    }
+    .ganancia-total {
+        justify-content: center;
+    }
+    .ganancia-total .ganancia-titulo,
+    .ganancia-total .ganancia-total{
+        font-size: 12px;
+    }
+    .ganancia-total .ganancia-content {
+        width: 70%;
+    }
+    
 }

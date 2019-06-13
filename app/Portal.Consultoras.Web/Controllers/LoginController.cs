@@ -83,7 +83,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
 
                 MisCursos();
-                
+
                 if (EsUsuarioAutenticado())
                 {
                     if (misCursos > 0)
@@ -92,12 +92,8 @@ namespace Portal.Consultoras.Web.Controllers
                         sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);
                         sessionManager.SetMiAcademiaParametro(urlSapParametro);
 
-                        //return RedirectToAction("Index", "MiAcademia");
                     }
 
-                    //return EsDispositivoMovil()
-                    //    ? RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
-                    //    : RedirectToAction("Index", "Bienvenida");
 
                     var esMobile = EsDispositivoMovil();
                     return IndexRedireccionar(misCursos, esMobile);
@@ -108,7 +104,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ListaEventos = await ObtenerEventoFestivo(0, Constantes.EventoFestivoAlcance.LOGIN, 0);
 
                 model = IndexEvento(model);
-                
+
                 if (EstaActivoBuscarIsoPorIp())
                 {
                     iso = Util.GetISObyIPAddress(ip);
@@ -163,7 +159,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return RedirectToAction("Index", "Login");
         }
-        
+
         private void MisCursos()
         {
             TempData["MiAcademia"] = 0;
@@ -235,7 +231,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return model;
         }
-        
+
         #endregion
 
         [AllowAnonymous]
@@ -257,10 +253,6 @@ namespace Portal.Consultoras.Web.Controllers
                 TempData["serverCodigoUsuario"] = model.CodigoUsuario;
 
                 model.ClaveSecreta = DecryptCryptoClaveSecreta(model);
-                //#region DesencriptarClaveSecreta
-                //var PasswordCjs = ConfigurationManager.AppSettings.Get("CryptoJSPassword");
-                //model.ClaveSecreta = Util.DecryptCryptoJs(model.ClaveSecreta, PasswordCjs, model.Salt, model.Key, model.Iv);
-                //#endregion
 
                 var resultadoInicioSesion = await ObtenerResultadoInicioSesion(model);
 
@@ -343,51 +335,16 @@ namespace Portal.Consultoras.Web.Controllers
                     ? resultadoInicioSesion.Mensaje
                     : "Error al procesar la solicitud";
 
-                //if (Request.IsAjaxRequest())
-                //{
-                //    return Json(new
-                //    {
-                //        success = false,
-                //        message = errorMensaje
-                //    });
-                //}
-
-                //TempData["errorLogin"] = errorMensaje;
-                //return RedirectToAction("Index", "Login");
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, model.CodigoUsuario, model.CodigoISO);
                 errorMensaje = "Error al procesar la solicitud";
-
-                //if (Request.IsAjaxRequest())
-                //{
-                //    return Json(new
-                //    {
-                //        success = false,
-                //        message = errorMensaje
-                //    });
-                //}
-
-                //TempData["errorLogin"] = errorMensaje;
-                //return RedirectToAction("Index", "Login");
             }
             catch (Exception ex)
             {
                 logManager.LogErrorWebServicesBusWrap(ex, model.CodigoUsuario, model.CodigoISO, pasoLog);
                 errorMensaje = "Error al procesar la solicitud";
-
-                //if (Request.IsAjaxRequest())
-                //{
-                //    return Json(new
-                //    {
-                //        success = false,
-                //        message = errorMensaje
-                //    });
-                //}
-
-                //TempData["errorLogin"] = errorMensaje;
-                //return RedirectToAction("Index", "Login");
             }
 
 
@@ -678,7 +635,15 @@ namespace Portal.Consultoras.Web.Controllers
             model.MostrarOpcion = obj.MostrarOpcion;
             model.OpcionChat = obj.OpcionChat;
             model.EsMobile = EsDispositivoMovil();
-            ViewBag.ChatBotPageId = new ConfiguracionManagerProvider().GetConfiguracionManager(Constantes.ConfiguracionManager.ChatBotPageId);
+
+            if (model.OpcionChat)
+            {
+                var provider = new ChatEmtelcoProvider();
+                var chats = provider.HabilitarChats(Util.GetPaisID(model.CodigoIso), EsDispositivoMovil());
+                ViewBag.HabilitarChatEmtelco = chats.ChatEmtelco.ToString();
+                ViewBag.HabilitarChatBot = chats.ChatBot.ToString();
+                ViewBag.ChatBotPageId = new ConfiguracionManagerProvider().GetConfiguracionManager(Constantes.ConfiguracionManager.ChatBotPageId);
+            }
 
             return View(model);
         }
@@ -1059,7 +1024,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (usuario != null)
                 {
-                    if(nivelCaminoBrillante != 0) usuario.NivelCaminoBrillante = nivelCaminoBrillante;
+                    if (nivelCaminoBrillante != 0) usuario.NivelCaminoBrillante = nivelCaminoBrillante;
 
                     #region
                     usuarioModel = new UsuarioModel();
@@ -1489,16 +1454,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                     usuarioModel.PuedeActualizar = usuario.PuedeActualizar;
                     usuarioModel.PuedeEnviarSMS = usuario.PuedeEnviarSMS;
-                    usuarioModel.FotoPerfilAncha = usuario.FotoPerfilAncha;
 
-                    //INI HD-3693
                     usuarioModel.AutorizaPedido = usuario.AutorizaPedido;
-                    //FIN HD-3693
-
-                    //INI HD-3897
                     usuarioModel.PuedeConfirmarAllEmail = usuario.PuedeConfirmarAllEmail;
                     usuarioModel.PuedeConfirmarAllSms = usuario.PuedeConfirmarAllSms;
-                    //FIN HD-3897
 
                     sessionManager.SetFlagLogCargaOfertas(HabilitarLogCargaOfertas(usuarioModel.PaisID));
                     sessionManager.SetTieneLan(true);
@@ -1520,7 +1479,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.CodigoSubClasificacion = usuario.CodigoSubClasificacion;
                     usuarioModel.DescripcionSubclasificacion = usuario.DescripcionSubClasificacion;
                     usuarioModel.NivelCaminoBrillante = usuario.NivelCaminoBrillante;
-                    
+
                 }
 
                 sessionManager.SetUserData(usuarioModel);
@@ -1968,14 +1927,14 @@ namespace Portal.Consultoras.Web.Controllers
                     SetUserError();
                     return usuarioModel;
                 }
-           
+
 
                 if (usuarioModel.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 {
                     SetUserError();
                     return usuarioModel;
                 }
-                    
+
 
                 var guiaNegocio = new GuiaNegocioModel();
                 var revistaDigitalModel = new RevistaDigitalModel();
@@ -2938,12 +2897,15 @@ namespace Portal.Consultoras.Web.Controllers
                     Session["DatosUsuario"] = oDatos;
                 }
 
-                var habilitarChatEmtelco = HabilitarChatEmtelco(paisID);
+                var provider = new ChatEmtelcoProvider();
+                var chats = provider.HabilitarChats(paisID, EsDispositivoMovil());
+
                 return Json(new
                 {
                     success = true,
                     data = oDatos,
-                    habilitarChatEmtelco,
+                    habilitarChatEmtelco = chats.ChatEmtelco,
+                    habilitarChatBot = chats.ChatBot,
                     message = "OK"
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -3125,32 +3087,6 @@ namespace Portal.Consultoras.Web.Controllers
             var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
             int paisID = Convert.ToInt32(TempData["PaisID"]);
             return await Redireccionar(paisID, oUsu.CodigoUsuario);
-        }
-
-        public bool HabilitarChatEmtelco(int paisId)
-        {
-            bool Mostrar = false;
-            BETablaLogicaDatos[] DataLogica;
-
-            using (var svc = new SACServiceClient())
-            {
-                DataLogica = svc.GetTablaLogicaDatos(paisId, ConsTablaLogica.ChatEmtelco.TablaLogicaId);
-
-            }
-            if (DataLogica.Any())
-            {
-                if (EsDispositivoMovil())
-                {
-                    if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("02")).Valor == "1")
-                        Mostrar = true;
-                }
-                else
-                {
-                    if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("01")).Valor == "1")
-                        Mostrar = true;
-                }
-            }
-            return Mostrar;
         }
 
         private int GetDiaFacturacion(int PaisID, int CampaniaID, long ConsultoraID, int ZonaID, int RegionID)
