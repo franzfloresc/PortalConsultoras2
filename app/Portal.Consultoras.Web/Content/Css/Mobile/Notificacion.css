@@ -1,0 +1,69 @@
+﻿/*
+    * Sitio : Mobile 
+    * Descripción : Para notificaciones en crear y modificar
+    * Dependencias : Crear estilos para cubrir la falta de Jquery-ui.css 
+*/
+
+#alertDialogMensajes25seg {
+    padding: 16px !important;
+    min-height: 78px !important;
+}
+
+.alert-align {
+    display: flex;
+    align-items: center
+}
+
+.setBottom {
+    display: flex;
+    align-items: center;
+    border-radius: 4px !important;
+}
+
+    .setBottom > .ui-dialog-titlebar.ui-corner-all {
+        display: none;
+    }
+
+    .setBottom .pop_pedido_mensaje {
+        color: #569C04;
+        font-size: 16px;
+        margin-top: 13px;
+    }
+
+.pop_image .img-fluid {
+    max-width: 100%;
+    height: auto;
+    width: 100px;
+}
+/*   
+    * Descripción  :  Agregar clases a falta de jquery.ui      
+*/
+.ui-widget-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100%;
+}
+
+.ui-dialog {
+    position: absolute;
+    padding: .2em;
+    width: 300px;
+    overflow: hidden;
+}
+
+    .ui-dialog.ui-widget-content {
+        width: auto !important;
+        background: #FFFFFF !important;
+        color: #555 !important;
+    }
+
+.snackbar-align {
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+}
+.ui-dialog.ui-widget-content {
+    z-index: 999999999 !important;
+}

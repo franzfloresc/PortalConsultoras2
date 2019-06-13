@@ -1,14 +1,9 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Entities.Oferta;
-
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Transactions;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -22,19 +17,20 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 var da = new DAContenidoApp(paisID);
-                    
+
                 var task1 = Task.Run(() =>
                 {
                     var entidad = new BEContenidoAppHistoria();
                     using (var reader = da.Get(Codigo))
                     {
-                        if (reader.Read()) {
+                        if (reader.Read())
+                        {
                             entidad = new BEContenidoAppHistoria(reader);
-                        } 
+                        }
                     }
                     return entidad;
                 });
-                
+
                 contenidoApp = task1.Result;
             }
             catch (Exception ex)
@@ -47,10 +43,17 @@ namespace Portal.Consultoras.BizLogic
 
         public void UpdateContenidoApp(int paisID, BEContenidoAppHistoria p)
         {
-            var da = new DAContenidoApp(paisID);
-            da.UpdContenidoApp(p);
+            try
+            {
+                var da = new DAContenidoApp(paisID);
+                da.UpdContenidoApp(p);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", "");
+                throw new Exception("Exception BLContenidoAppHistoria - UpdateContenidoApp", ex);
+            }
         }
-
 
         public List<BEContenidoAppList> GetList(int paisID, BEContenidoAppList entidad)
         {
@@ -74,14 +77,30 @@ namespace Portal.Consultoras.BizLogic
 
         public void InsertContenidoAppDeta(int paisID, BEContenidoAppDeta p)
         {
-            var da = new DAContenidoApp(paisID);
-            da.InsertContenidoAppDeta(p);
+            try
+            {
+               var da = new DAContenidoApp(paisID);
+               da.InsertContenidoAppDeta(p);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", "");
+                throw new Exception("Exception BLContenidoAppHistoria - InsertContenidoAppDeta", ex);
+            }
         }
 
         public int UpdateContenidoAppDeta(int paisID, BEContenidoAppDeta p)
         {
-            var da = new DAContenidoApp(paisID);
-            return da.UpdContenidoAppDeta(p);
+            try
+            {
+                var da = new DAContenidoApp(paisID);
+                return da.UpdContenidoAppDeta(p);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", "");
+                throw new Exception("Exception BLContenidoAppHistoria - UpdateContenidoAppDeta", ex);
+            }
         }
 
         public List<BEContenidoAppDetaAct> GetContenidoAppDetaActList(int paisID)

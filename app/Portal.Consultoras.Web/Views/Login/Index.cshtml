@@ -304,7 +304,8 @@
                                 <div id="divHoraiosAtencion" class="horarios_atencion">L-V: 8:00 a 20:00 y S: 08:00 a 18:00</div>
                             </div>
                         </div>
-                        <input type="hidden" id="hddHabilitarChatEmtelco" name="hddHabilitarChatEmtelco" value="" />
+                        <input type="hidden" id="hddHabilitarChatEmtelco" value="" />
+                        <input type="hidden" id="hddHabilitarChatBot" value="" />
                         <button class="btn_ingresar_chat" id="divChatearConNosotros">Ingresar al chat</button>
                     </div>
 
@@ -897,6 +898,7 @@
     var urlChatBelCorp = '@Url.Action("ChatBelcorp", "Login")';
     var urlIniciarLogin = '@Url.Action("Login", "Login")';
     var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
+    var habilitarChatBot = '@ViewBag.HabilitarChatBot';
     var cadena = '@System.Configuration.ConfigurationManager.AppSettings.Get("CryptoJSPassword")';
 </script>
 

@@ -18,8 +18,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BECDRWeb> GetCDRWebMobile(int PaisID, BECDRWeb entity);
-
-        //HD-3703 EINCA
+        
         [OperationContract(Name = "InsCDRWebDetalleList")]
         int InsCDRWebDetalle(int PaisID, List<BECDRWebDetalle> detalle);
 
@@ -31,7 +30,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int DelCDRWebDetalle(int PaisID, BECDRWebDetalle entity);
-        //HD-3703 EINCA
+
         [OperationContract(Name = "DelCDRWebDetalleList")]
         int DelCDRWebDetalle(int PaisID, List<BECDRWebDetalle> listDetalle);
 

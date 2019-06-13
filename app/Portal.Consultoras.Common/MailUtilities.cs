@@ -107,11 +107,9 @@ namespace Portal.Consultoras.Common
         {
             string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\mailing_proceso_actualizar_misdatos.html";
             string htmlTemplate = FileManager.GetContenido(templatePath);
-
-           // htmlTemplate = htmlTemplate.Replace("#Logo#", logo);--- HD-3897
+            
             htmlTemplate = htmlTemplate.Replace("#Nombre#", nombre);
             htmlTemplate = htmlTemplate.Replace("#Url#", url);
-            //htmlTemplate = htmlTemplate.Replace("#Fondo#", fondo);--- HD-3897
             htmlTemplate = htmlTemplate.Replace("#Parametros#", parametros);
             
             Util.EnviarMailMasivoColas(emailFrom, emailTo, titulo, htmlTemplate, true, displayname);
