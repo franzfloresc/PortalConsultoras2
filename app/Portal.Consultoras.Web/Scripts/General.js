@@ -36,13 +36,6 @@ jQuery(document).ready(function () {
         }
     }
 
-    //document.onkeydown = function (evt) {
-    //    evt = evt || window.event;
-    //    if (evt.keyCode == 27) {
-    //        if ($('.resultado_busqueda_producto').is(':visible')) {
-    //        }
-    //    }
-    //};
 });
 
 (function ($) {
@@ -524,7 +517,7 @@ jQuery(document).ready(function () {
         return l_boolIsExist;
     };
 
-    DecimalPrecision = function(numero) {
+    window.DecimalPrecision = function(numero) {
         var num = numero || 0;
         var a = parseFloat(isNaN($.trim(numero)) ? "0" : $.trim(num));
 
@@ -535,7 +528,7 @@ jQuery(document).ready(function () {
         return p;
     };
 
-    NumberToFormat = function(monto, options, sinRendondeo) {
+    window.NumberToFormat = function(monto, options, sinRendondeo) {
         sinRendondeo = sinRendondeo || false;
         var customFormat = {};
         $.extend(customFormat, formatDecimalPais || {});
