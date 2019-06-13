@@ -524,13 +524,25 @@ jQuery(document).ready(function () {
         return l_boolIsExist;
     };
 
-    DecimalToStringFormat = function (monto, noDecimal, sinRendondeo) {
-        formatDecimalPais = formatDecimalPais || {};
-        noDecimal = noDecimal || false;
+    DecimalPrecision = function(numero) {
+        var num = numero || 0;
+        var a = parseFloat(isNaN($.trim(numero)) ? "0" : $.trim(num));
+
+        if (!isFinite(a)) return 0;
+        var e = 1, p = 0;
+        while (Math.round(a * e) / e !== a) { e *= 10; p++; }
+
+        return p;
+    };
+
+    NumberToFormat = function(monto, options, sinRendondeo) {
         sinRendondeo = sinRendondeo || false;
-        var decimal = formatDecimalPais.decimal || ".";
-        var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0);
-        var miles = formatDecimalPais.miles || ",";
+        var customFormat = {};
+        $.extend(customFormat, formatDecimalPais || {});
+        $.extend(customFormat, options || {});
+        var decimalCantidad = customFormat.decimalCantidad || 0;
+        var decimal = customFormat.decimal || ".";
+        var miles = customFormat.miles || ",";
 
         monto = monto || 0;
         var montoOrig = isNaN($.trim(monto)) ? "0" : $.trim(monto);
@@ -560,6 +572,14 @@ jQuery(document).ready(function () {
             return pEnteraFinal + pDecimal;
         }
 
+    };
+
+    DecimalToStringFormat = function (monto, noDecimal, sinRendondeo) {
+        formatDecimalPais = formatDecimalPais || {};
+        noDecimal = noDecimal || false;
+        var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0);
+
+        return NumberToFormat(monto, { decimalCantidad: decimalCantidad }, sinRendondeo);
     };
 
     IsNullOrEmpty = function (texto) { return texto == null || texto === ''; };
