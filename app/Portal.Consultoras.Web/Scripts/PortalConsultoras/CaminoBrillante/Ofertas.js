@@ -17,6 +17,7 @@ var contadorkit = 0
 var contadordemo = 0
 var codOrdenar = "00";
 var codFiltro = "00";
+var t;
 
 var moneda = ($('#moneda').val());
 
@@ -24,8 +25,16 @@ $(document).ready(function () {
     Handlebars.registerPartial("kit_template", $("#template-kit").html());
     Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
 
+    if (t == 1) {
+        $("#Tab-Demostradores").trigger("click");
+    }
+
     CambiarOferta();
     Inicializar();
+
+    
+
+
 
     $("#ddlOrdenar").on("change", function () {
         codOrdenar = $("#ddlOrdenar").val();

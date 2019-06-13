@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         {
             get
             {
-                return "036";
+                return TipoOferta == 1 ? "036" : "035";
             }
         }
 
