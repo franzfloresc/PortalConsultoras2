@@ -21,6 +21,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string iso = userData.CodigoISO;
                 bool isDigital = IndicadorConsultoraDigital();
 
+
                 if (paisId == Constantes.PaisID.Peru && isDigital)
                 {
                     string NumeroDocumento = userData.DocumentoIdentidad;
