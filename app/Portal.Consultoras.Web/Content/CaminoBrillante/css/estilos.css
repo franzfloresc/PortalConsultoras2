@@ -69,9 +69,17 @@ strong {
 
 .box-beneficios {
     display: block;
-    margin-top: 20px
+    margin-top: 20px;
+    overflow: hidden;
+    height: 160px;
+    padding: 30px;
+    padding-top: 0;
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
 }
+.expand {
+    height: auto;
 
+}
     #m_montoFaltante:after, #m_montoMinimo:after, .box-beneficios:after, .boxcenter:after, .cont-ganancias:after, .cont-logros:after, .cont-textLograr:after, .indicador-nivel:after, .list-crec:after, .list-ganacias:after {
         content: "";
         display: block;
@@ -85,7 +93,7 @@ strong {
         margin: 20px 1%;
         margin-left: 0;
         min-height: 60px;
-        margin-bottom: 15px
+        margin-bottom: 0px
     }
 
         .box-beneficios li img {
@@ -1102,7 +1110,37 @@ div.opOrdenar {
     -webkit-transition: all .3s ease;
     letter-spacing: .2px;
 }
-
+.tog-vermas, .tog-vermenos {
+    display: block;
+    position: relative;
+    width: 66px;
+    cursor: pointer;
+    /* margin-top: 15px; */
+    margin: 0 auto;
+    margin-top: 20px;
+}
+.tog-vermenos {
+    width:80px;
+}
+    .tog-vermas:after, .tog-vermenos:after {
+        content: "";
+        display: block;
+        position: absolute;
+        margin: auto 0;
+        width: 10px;
+        height: 6px;
+        top: 4px;
+        right: 0;
+        bottom: 0;
+        border-top: 6px solid #000;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 4px solid transparent;
+    }
+    .tog-vermenos:after {
+        border-bottom: 6px solid #000;
+        border-top: inherit;
+    }
 
 
 
@@ -1380,8 +1418,15 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
     .pad-center {
         padding: 20px 60px
     }
+    .slick-list {
+        padding-left:0 !important;
+    }
 }
-
+/*@media screen and (max-width:768px) {
+    .slick-track {
+        margin-left: -173px;
+    }
+}*/
 @media screen and (max-width:620px) {
     .modal-dialog {
         margin: 1.5rem;
@@ -1725,6 +1770,9 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
     .cam-exito a {
         font-size: 13px
     }
+    /*.slick-track {
+        margin-left: -173px;
+    }*/
 }
 
 @media screen and (max-width:430px) {

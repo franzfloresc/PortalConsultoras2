@@ -449,19 +449,20 @@ function ArmarCarrusel(data) {
     $('#carrusel').show();
 
     $(".regular").slick({
-        dots: true,
-        infinite: true,
+        infinite: false,
         slidesToShow: 4,
+        centerMode: false,
+        centerPadding: "0px",
         slidesToScroll: 1,
+        initialSlide: 0,
         dots: false,
         prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
         nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+
         responsive: [
             {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 2,
-                }
+                breakpoint: 426,
+                settings: { slidesToShow: 2, slidesToScroll:1, centerPadding: "25px", centerMode: true, infinite: false, initialSlide: 1}
             }
         ]
     });
@@ -472,3 +473,14 @@ function ArmarCarrusel(data) {
 $(window).load(function () {
     $("#overlayer").delay(200).fadeOut("slow");
 })
+
+$(".tog-vermas").click(function () {
+    $(".box-beneficios").toggleClass("expand", 100, "easeOutQuad");
+    $(this).toggleClass("tog-vermenos");
+    if ($(".tog-vermas").hasClass("tog-vermenos")) {
+        $(this).text("Ver menos");
+    }
+    else {
+        $(this).text("Ver más");
+    }
+});
