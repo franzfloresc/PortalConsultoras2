@@ -729,8 +729,8 @@ namespace Portal.Consultoras.Web.Providers
                     origen == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
                     origen == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Ficha ||
                     origen == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha ||
-                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel ||
-                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel
+                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Ficha ||
+                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel
                     ;
 
         }
