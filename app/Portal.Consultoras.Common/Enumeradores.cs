@@ -251,9 +251,7 @@
             Reservado = 3,
             HorarioRestringido = 4,
             Facturado = 5,
-            //INI HD-3693
             Bloqueado = 6
-            //FIN HD-3693
         }
 
         public enum TipoLogin
@@ -338,6 +336,14 @@
         {
             Cursos,
             Video
+        }
+
+        public enum ValidacionCaminoBrillante
+        {
+            ProductoNoExiste = 1,
+            CuvPertenecePrograma = 2,
+            CuvYaAgregadoEnPeriodo = 3,
+            CuvBloqueadoNivel = 4
         }
     }
 }

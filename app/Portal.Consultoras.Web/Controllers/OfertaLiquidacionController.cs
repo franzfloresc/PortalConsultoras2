@@ -147,10 +147,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                     foreach (var item in lst)
                     {
-                        item.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, item.ImagenProducto);
-                        item.ImagenProductoSmall = string.IsNullOrEmpty(item.ImagenProducto) ? string.Empty : Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenSmall);
-                        item.ImagenProductoMedium = string.IsNullOrEmpty(item.ImagenProducto) ? string.Empty : Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenMedium);
-                        item.PrecioString = Util.DecimalToStringFormat(item.PrecioOferta, userData.CodigoISO);
+                        if (!string.IsNullOrEmpty(item.ImagenProducto))
+                        {
+                            if (item.ImagenProducto.EndsWith(".gif", StringComparison.OrdinalIgnoreCase))
+                                SetearImagenesGIF(item);
+                            else
+                                SetearImagenesPNG(item, extensionNombreImagenSmall, extensionNombreImagenMedium);
+
+                            item.PrecioString = Util.DecimalToStringFormat(item.PrecioOferta, userData.CodigoISO);
+                        }
                     }
                 }
             }
@@ -165,6 +170,24 @@ namespace Portal.Consultoras.Web.Controllers
                 verMas = estado
             }, JsonRequestBehavior.AllowGet);
         }
+
+      
+
+        private void SetearImagenesGIF(BEOfertaProducto item)
+        {
+            item.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, item.ImagenProducto);
+            item.ImagenProductoSmall = item.ImagenProducto;
+            item.ImagenProductoMedium = item.ImagenProducto;
+        }
+
+        private void SetearImagenesPNG(BEOfertaProducto item, string extensionNombreImagenSmall, string extensionNombreImagenMedium)
+        {
+            item.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, item.ImagenProducto);
+            item.ImagenProductoSmall = Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenSmall);
+            item.ImagenProductoMedium = Util.GenerarRutaImagenResize(item.ImagenProducto, extensionNombreImagenMedium);
+        }
+
+
 
         public List<OfertaProductoModel> GetListadoOfertasLiquidacion()
         {
