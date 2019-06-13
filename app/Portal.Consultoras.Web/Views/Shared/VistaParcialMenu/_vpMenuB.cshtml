@@ -49,31 +49,28 @@
                 <div class="flechita_info"></div>
                 <div class="linea_blanca"></div>
                 <div id="SinProductos">
-                    <div class="sin_productos">
-                        @if (cantidadPedidosPendientes > 0)
-                        {
-                            bool plural = (cantidadPedidosPendientes > 1) ? true : false;
-                        <span>
-                            Tienes @cantidadPedidosPendientes @((plural) ? "Pedidos" : "Pedido")
-                            <br />  @((plural) ? "pendientes " : "pendiente ") por
-                            <br /> aprobar.
-                        </span>
-                        }
-                        else
-                        {
+                    @if (cantidadPedidosPendientes > 0)
+                    {
+                        bool plural = (cantidadPedidosPendientes > 1) ? true : false;
+                        <div class="sin_productos">
+                             <span class="d-block text-left mensaje_cantidad_pedidos_pendientes_por_aprobar">
+                                Tienes @cantidadPedidosPendientes @((plural) ? "Pedidos" : "Pedido") @((plural) ? "pendientes " : "pendiente "),<br />
+                                apruébalos <a href="" title="Ir A Pedidos Pendientes" class="d-inline-block enlace__sb enlace__sb--irAPedidosPendientes">aquí.</a>
+                            </span>
+                        </div>
+                        <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido esika">Ver mi carrito</a>
+                    }
+                    else
+                    {
+                        <div class="sin_productos">
                             <span>
                                 Todavía no has agregado
                                 <br /> ningún producto a tu
                                 <br /> pedido.
                             </span>
-                        }
-
-
-
-
-
-                    </div>
-                    <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido esika">INGRESA TU PEDIDO</a>
+                        </div>
+                        <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido esika">INGRESA TU PEDIDO</a>
+                    }
                 </div>
                 <div id="carrito_items"></div>
             </div>
