@@ -43,7 +43,7 @@
 
         if (model.MostrarFichaEnriquecida &&
             model.MostarTabsFichaEnriquecidaSinDetalle &&
-            !_config.fichaEnriquecidaView.renderFichaEnriquecida(model.Hermanos[0], false, model.MostarTabsFichaEnriquecidaSinDetalle)) throw "fichaEnriquecidaView don't render ficha enriquecida.";
+            !_config.fichaEnriquecidaView.renderFichaEnriquecida(model.Hermanos[0], false)) throw "fichaEnriquecidaView don't render ficha enriquecida.";
 
         return true;
     }
