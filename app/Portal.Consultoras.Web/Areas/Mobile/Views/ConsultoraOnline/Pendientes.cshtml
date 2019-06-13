@@ -119,10 +119,10 @@
                                             }
                                             @if (item2.ListaClientes.Count() > 2)
                                             {
-                                                <p onclick="javascript: DetallePedidoPendienteClientesVerMas(@item2.CUV);">Ver más...</p>
+                                                <p onclick="javascript: DetallePedidoPendienteClientesVerMas('@item2.CUV');">Ver más...</p>
                                             }
-                                            <div class="vc-box--button">
-                                                <a class="vc-box--btn vc-box--title" onclick="javascript: DetallePedidoPendienteClientes(@item2.CUV);" @*href="@Url.Action("DetallePedidoPendienteClientes", "ConsultoraOnline", new { cuv = item2.CUV })"*@>Confirmar clientes</a>
+                                            <div class="vc-box--button" onclick="javascript: DetallePedidoPendienteClientes('@item2.CUV');">
+                                                <a href="javascript:void(0);" class="vc-box--btn vc-box--title" @*href="@Url.Action("DetallePedidoPendienteClientes", "ConsultoraOnline", new { cuv = item2.CUV })"*@>Confirmar clientes</a>
                                             </div>
 
                                         </div>
