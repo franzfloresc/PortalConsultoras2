@@ -512,7 +512,9 @@ namespace Portal.Consultoras.BizLogic
                     Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido,
                     Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido,
                     Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Ficha,
-                    Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha,
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel,
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel
 
                 };
                 var blCaminoBrillante = new BLCaminoBrillante();
