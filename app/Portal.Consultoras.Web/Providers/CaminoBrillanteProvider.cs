@@ -553,7 +553,7 @@ namespace Portal.Consultoras.Web.Providers
         private DetalleEstrategiaFichaDisenoModel ToDetalleEstrategiaFichaDisenoModel(BEOfertaCaminoBrillante e, bool loadDetalle = true) {
             return new DetalleEstrategiaFichaDisenoModel()
             {
-                CodigoEstrategia = "036",
+                CodigoEstrategia =  e.TipoOferta == 1 ? "036" : "035",
                 TipoOfertaCaminoBrillante = e.TipoOferta,
                 CodigoPalanca = "0",
                 FotoProducto01 = e.FotoProductoMedium,
@@ -730,7 +730,8 @@ namespace Portal.Consultoras.Web.Providers
                     origen == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Ficha ||
                     origen == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha ||
                     origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Ficha ||
-                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel
+                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel ||
+                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home
                     ;
 
         }
