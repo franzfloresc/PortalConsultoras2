@@ -11,9 +11,10 @@ var _esMultimarca = false;
 jQuery(document).ready(function () {
     CreateLoading();
 
-    if (typeof IsoPais === 'undefined' || IsoPais != 'PE') {
-        $('.btn_chat_messenger_mobile').hide();
+    if (typeof habilitarChatBot !== 'undefined' && habilitarChatBot === 'True') {
+        $('.btn_chat_messenger_mobile').show();
     }
+
     if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {
         GuardarIndicadorPedidoAutentico();
     }
@@ -785,7 +786,7 @@ function CerrarLoad(opcion) {
 }
 
 function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
-    
+
     var valor = mensaje.indexOf("Sin embargo hemos reservado");
     /*HD-3710 - 9_10 (Pop up Lo sentimos - Click Botón - Cerrar Pop up lo sentimos) - Web, Mobile*/
     if (valor != -1) {
@@ -1014,6 +1015,17 @@ function getMobilePrefixUrl() {
     var uniqueIndexOfUrl = currentUrl.indexOf(uniquePrefix);
     var isUniqueUrl = uniqueIndexOfUrl > 0;
     return isUniqueUrl ? currentUrl.substring(uniqueIndexOfUrl, uniqueIndexOfUrl + uniquePrefix.length + 36) : "/mobile";
+}
+
+function onLoadPhotoUser(event) {
+    if (event.naturalWidth > event.naturalHeight) {
+        event.style.width = 'auto';
+        event.style.height = '100%';
+    }
+    else {
+        event.style.width = '100%';
+        event.style.height = 'auto';
+    }
 }
 
 function isPagina(pagina) {

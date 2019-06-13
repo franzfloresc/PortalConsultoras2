@@ -5,7 +5,9 @@
         tabsComponente: {
             templateId: "#tabs-ficha-enriquecida-template",
             id: "#contenedor-tabs-ficha-enriquecida",
-            contenedorPopup: "#popup_tabs_ficha_enriquecida_contenedor"
+            contenedorPopup: "#popup_tabs_ficha_enriquecida_contenedor",
+            classTabs: ".tabs",
+            classInput: ".input"
         },
         popup: {
             templateId: "#popup-ficha-enriquecida-responsive",
@@ -16,6 +18,19 @@
             id: "#carrusel-video"
         }
     };
+
+    var cambiotab = function resizeTab() {
+        if (window.innerWidth > 960) {
+            $(_elements.tabsComponente.classTabs+" input").attr("type", "radio");
+            $(_elements.tabsComponente.classInput + ConstantesModule.TipoSeccion.Texto + ":first").attr("checked", "checked");
+        } else {
+            $(_elements.tabsComponente.classTabs + " input").attr("type", "checkbox");
+            $(_elements.tabsComponente.classTabs + " input").removeAttr("checked");
+            $(_elements.tabsComponente.classInput + ConstantesModule.TipoSeccion.Video).attr("checked", "checked");
+            _reloadCarruselVideos();
+        };
+    };
+
 
     var _util = {
         setCarrusel: function (id) {
@@ -60,19 +75,25 @@
         }
     }
 
-    var _renderFichaEnriquecida = function (componente, popup, seccion) {
+    var _renderFichaEnriquecida = function (componente, popup) {
         var contenedor = popup ? _elements.tabsComponente.contenedorPopup : _elements.tabsComponente.id;
         SetHandlebars(_elements.tabsComponente.templateId, componente, contenedor);
         _util.setCarrusel(_elements.carruselVideo.id);
         _util.setYoutubeId();
         _util.setYoutubeApi();
-        if (seccion) $(_elements.seccionFichaEnriquecida.id).show();
+        if (!popup && componente.Secciones.length > 0) $(_elements.seccionFichaEnriquecida.id).show();
+
+
+        cambiotab();
+        $(window).resize(function () {
+            cambiotab();
+        });
         return true;
     };
 
     var _showPopup = function (data) {
         SetHandlebars(_elements.popup.templateId, data, _elements.popup.contenedor);
-        _renderFichaEnriquecida(data, true, false);
+        _renderFichaEnriquecida(data, true);
         $("body").css("overflow", "hidden");
         $(_elements.popup.id).show();
         return true;
