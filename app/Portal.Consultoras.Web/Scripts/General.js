@@ -884,6 +884,45 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
     }
 }
 
+function AbrirAlert(mensaje, fnAceptar, fnCerrar) {
+    try {
+        var popup = $('#PopupGeneral');
+        var txtMensaje = $('.popup__somos__belcorp__mensaje--general');
+        if (popup.is(':visible')) {
+            popup.hide();
+        }
+
+        txtMensaje.text((mensaje) ? mensaje : '');
+
+        var botonesAceptar = $('#PopupGeneral #btnAceptar');
+        botonesAceptar.off('click');
+        if ($.isFunction(fnAceptar)) {
+            botonesAceptar.on('click', fnAceptar);
+        } else {
+            botonesAceptar.on('click', function () { popup.fadeOut(100)} );
+        }
+
+
+        var botonesCerrar = $('#PopupGeneral #btnCerrar');
+        botonesCerrar.off('click');
+        if ($.isFunction(fnCerrar)) {
+            botonesCerrar.on('click', fnCerrar);
+        } else {
+            botonesCerrar.on('click', function () { popup.fadeOut(100) } );            
+        }
+
+
+        popup.fadeIn(50);
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+function CerrarlAlert() {
+    $('#PopupGeneral').fadeOut(100);
+}
+
 function AbrirMensaje25seg(mensaje, imagen) {
     try {
         var _dialogClass = '.setBottom',

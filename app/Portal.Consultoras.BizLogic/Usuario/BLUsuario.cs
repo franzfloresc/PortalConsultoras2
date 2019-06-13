@@ -3096,14 +3096,14 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         #region Verificacion De Autenticidad
-        public BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb)
+        public BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb, bool flgCheckSMS, bool FlgCheckEmail)
         {
             if (verificacionWeb)
-                return GetVerificacionAutenticidad(paisID, CodigoUsuario);
+                return GetVerificacionAutenticidad(paisID, CodigoUsuario, flgCheckSMS, FlgCheckEmail);
             return GetVerificacionAutenticidadWS(paisID, CodigoUsuario);
         }
 
-        private BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario)
+        private BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool flgCheckSMS, bool FlgCheckEmail)
         {
             try
             {
@@ -3131,11 +3131,16 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion;
+                var smsCorreoValidado = false;
+
                 if (opcion.OpcionEmail)
                 {
                     oUsu.CorreoEnmascarado = Common.Util.EnmascararCorreo(oUsu.Correo);
                     oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmail;
+
+                    smsCorreoValidado = (opcion.OpcionSms) ? (flgCheckSMS && FlgCheckEmail) : (FlgCheckEmail);
                 }
+
                 if (opcion.OpcionSms)
                 {
                     oUsu.CelularEnmascarado = Common.Util.EnmascararCelular(oUsu.Celular);
@@ -3143,7 +3148,14 @@ namespace Portal.Consultoras.BizLogic
                         oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmailyCelular;
                     else
                         oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarCelular;
+                    smsCorreoValidado = (opcion.OpcionEmail) ? (flgCheckSMS && FlgCheckEmail) : (flgCheckSMS);
                 }
+
+                if (smsCorreoValidado)
+                {
+                    return null;
+                }
+
                 if (oUsu.MostrarOpcion == Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion) return null;
                 oUsu.OpcionChat = opcion.OpcionChat;
                 oUsu.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);
@@ -3272,20 +3284,42 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 if (CantidadEnvios >= 3) return false;
-                string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
-                string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
-                var esEsika = paisesEsika.Contains(paisISO);
+
                 string emailFrom = "no-responder@somosbelcorp.com";
                 string emailTo = oUsu.Correo;
-                string titulo = "(" + paisISO + ") Verificación de Autenticidad de Somosbelcorp";
-                string logo = (esEsika ? Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png" : Globals.RutaCdn + "/ImagenesPortal/Iconos/logod.png");
-                string nombrecorreo = oUsu.PrimerNombre.Trim();
+                string titulo = "Confirmación de Correo";
+                string displayname = oUsu.PrimerNombre;
+                string url = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+                string nomconsultora = oUsu.PrimerNombre; //(string.IsNullOrEmpty(beusuario.PrimerNombre) ? beusuario.PrimerNombre : beusuario.Sobrenombre);
 
-                string displayname = "Somos Belcorp";
-                string codigoGenerado = Common.Util.GenerarCodigoRandom();
-                Portal.Consultoras.Common.MailUtilities.EnviarMailPinAutenticacion(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, codigoGenerado);
-                if (CantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
-                InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorEmail, codigoGenerado);
+                string[] parametros = new string[] { oUsu.CodigoUsuario, Common.Util.GetPaisID(oUsu.CodigoIso).ToString(), oUsu.Correo };
+                string paramQuerystring = Common.Util.Encrypt(string.Join(";", parametros));
+                LogManager.SaveLog(new Exception(), oUsu.CodigoUsuario, oUsu.CodigoIso, " | data=" + paramQuerystring + " | parametros = " + string.Join("|", parametros));
+
+                //INI HD-3897//
+                //bool esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(usuario.CodigoISO);
+                //string logo = Globals.RutaCdn + (esEsika ? "/ImagenesPortal/Iconos/logo.png" : "/ImagenesPortal/Iconos/logod.png");
+                //string fondo = (esEsika ? "e81c36" : "642f80");
+
+                MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, nomconsultora, url, paramQuerystring);
+                //FIN HD-3897//
+
+
+
+                //string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
+                //string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
+                //var esEsika = paisesEsika.Contains(paisISO);
+                //string emailFrom = "no-responder@somosbelcorp.com";
+                //string emailTo = oUsu.Correo;
+                //string titulo = "(" + paisISO + ") Verificación de Autenticidad de Somosbelcorp";
+                //string logo = (esEsika ? Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png" : Globals.RutaCdn + "/ImagenesPortal/Iconos/logod.png");
+                //string nombrecorreo = oUsu.PrimerNombre.Trim();
+
+                //string displayname = "Somos Belcorp";
+                //string codigoGenerado = Common.Util.GenerarCodigoRandom();
+                //Portal.Consultoras.Common.MailUtilities.EnviarMailPinAutenticacion(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, codigoGenerado);
+                //if (CantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
+                //InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorEmail, codigoGenerado);
                 return true;
             }
             catch (Exception ex)
