@@ -1,4 +1,4 @@
-﻿var animacion = true;
+var animacion = true;
 var contadorNext = 2;
 var positionCarrousel = 0;
 var posicionInicial = 0;
