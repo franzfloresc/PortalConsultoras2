@@ -1,5 +1,4 @@
-﻿using Portal.Consultoras.Web.Models.DetalleEstrategia;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
@@ -83,7 +82,7 @@ namespace Portal.Consultoras.Web.Models
         // es para los diferentes botones que sale en la seccion de agrega, elegir tono, ...
         public int TipoEstrategiaID { get; set; }
 
-        public int TipoEstrategiaImagenMostrar { get; set; } // puede controlarse con el codigo de tipo estrategia
+        //public int TipoEstrategiaImagenMostrar { get; set; } // puede controlarse con el codigo de tipo estrategia
 
 
         public bool EsBannerProgNuevas { get; set; } // Se usa para mostrar carrusel en el carrusel de Ofertas
