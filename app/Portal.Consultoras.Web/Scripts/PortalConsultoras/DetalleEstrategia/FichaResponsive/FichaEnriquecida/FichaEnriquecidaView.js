@@ -17,6 +17,15 @@
         }
     };
 
+    var cambiotab = function resizeTab() {
+        if (window.innerWidth > 960) {
+            $(".tabs input").attr("type", "radio")
+        } else {
+            $(".tabs input").attr("type", "checkbox")
+        };
+    };
+
+
     var _util = {
         setCarrusel: function (id) {
             $(id).slick('unslick');
@@ -67,6 +76,12 @@
         _util.setYoutubeId();
         _util.setYoutubeApi();
         if (!popup && componente.Secciones.length > 0) $(_elements.seccionFichaEnriquecida.id).show();
+
+
+        cambiotab();
+        $(window).resize(function () {
+            cambiotab();
+        });
         return true;
     };
 
