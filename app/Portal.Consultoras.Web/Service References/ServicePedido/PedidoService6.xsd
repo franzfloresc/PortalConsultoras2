@@ -101,6 +101,7 @@
       <xs:element minOccurs="0" name="IPUsuario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Identifier" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="IngresoExternoOrigen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="LimiteVenta" type="xs:int" />
       <xs:element minOccurs="0" name="ObservacionPROL" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OfertaWeb" type="xs:boolean" />
@@ -159,15 +160,16 @@
       <xs:element minOccurs="0" name="GananciaRevista" nillable="true" type="xs:decimal" />
       <xs:element minOccurs="0" name="GananciaWeb" nillable="true" type="xs:decimal" />
       <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ListCuvEliminar" nillable="true" type="q5:ArrayOfstring" />
-      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" minOccurs="0" name="ListaMensajeCondicional" nillable="true" type="q6:ArrayOfBEMensajeProl" />
+      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" minOccurs="0" name="ListPedidoObservacion" nillable="true" type="q6:ArrayOfBEPedidoObservacion" />
+      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" minOccurs="0" name="ListaMensajeCondicional" nillable="true" type="q7:ArrayOfBEMensajeProl" />
       <xs:element minOccurs="0" name="MensajeAviso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ModificoBackOrder" type="xs:boolean" />
       <xs:element minOccurs="0" name="MontoAhorroCatalogo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MontoAhorroRevista" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MontoEscala" nillable="true" type="xs:string" />
-      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="PedidoWeb" nillable="true" type="q7:BEPedidoWeb" />
-      <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="PedidoWebDetalle" nillable="true" type="q8:BEPedidoWebDetalle" />
+      <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="PedidoWeb" nillable="true" type="q8:BEPedidoWeb" />
+      <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="PedidoWebDetalle" nillable="true" type="q9:BEPedidoWebDetalle" />
       <xs:element minOccurs="0" name="TituloMensaje" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
@@ -178,7 +180,7 @@
       <xs:element minOccurs="0" name="Criterio" type="xs:int" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="RowCount" type="xs:int" />
-      <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Usuario" nillable="true" type="q9:BEUsuario" />
+      <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Usuario" nillable="true" type="q10:BEUsuario" />
       <xs:element minOccurs="0" name="ValidarOpt" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
@@ -187,7 +189,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
-      <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Producto" nillable="true" type="q10:BEProducto" />
+      <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Producto" nillable="true" type="q11:BEProducto" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPedidoProducto" nillable="true" type="tns:BEPedidoProducto" />
@@ -199,8 +201,8 @@
   <xs:element name="BEConfiguracionPedido" nillable="true" type="tns:BEConfiguracionPedido" />
   <xs:complexType name="BEPedidoBarra">
     <xs:sequence>
-      <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ListaEscalaDescuento" nillable="true" type="q11:ArrayOfBEEscalaDescuento" />
-      <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ListaMensajeMeta" nillable="true" type="q12:ArrayOfBEMensajeMetaConsultora" />
+      <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ListaEscalaDescuento" nillable="true" type="q12:ArrayOfBEEscalaDescuento" />
+      <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ListaMensajeMeta" nillable="true" type="q13:ArrayOfBEMensajeMetaConsultora" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPedidoBarra" nillable="true" type="tns:BEPedidoBarra" />
@@ -208,7 +210,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CodigoRespuesta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MensajeRespuesta" nillable="true" type="xs:string" />
-      <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" minOccurs="0" name="ResultadoReserva" nillable="true" type="q13:BEResultadoReservaProl" />
+      <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" minOccurs="0" name="ResultadoReserva" nillable="true" type="q14:BEResultadoReservaProl" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPedidoReservaResult" nillable="true" type="tns:BEPedidoReservaResult" />

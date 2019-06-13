@@ -471,16 +471,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEValidacionDatos> ListarValidacionDatos(BEValidacionDatos beValidacionDatos);
-
-
-
-
-
-
+        
         [OperationContract]
         IList<BEMisPedidos> GetSolicitudesPedidoPendiente(int PaisID, long ConsultoraId, int Campania);
-
-        //[OperationContract]
-        //IList<string> GetSapFromCuvlist(string cuvList, int campaniaid, int paisId);
     }
 }
