@@ -38,6 +38,24 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEInputReservaProl" nillable="true" type="tns:BEInputReservaProl" />
+  <xs:complexType name="ArrayOfBEPedidoObservacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPedidoObservacion" nillable="true" type="tns:BEPedidoObservacion" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEPedidoObservacion" nillable="true" type="tns:ArrayOfBEPedidoObservacion" />
+  <xs:complexType name="BEPedidoObservacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Caso" type="xs:int" />
+      <xs:element minOccurs="0" name="CuvObs" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PedidoDetalleID" type="xs:int" />
+      <xs:element minOccurs="0" name="SetID" type="xs:int" />
+      <xs:element minOccurs="0" name="Tipo" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPedidoObservacion" nillable="true" type="tns:BEPedidoObservacion" />
   <xs:complexType name="ArrayOfBEMensajeProl">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEMensajeProl" nillable="true" type="tns:BEMensajeProl" />
@@ -84,22 +102,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEResultadoReservaProl" nillable="true" type="tns:BEResultadoReservaProl" />
-  <xs:complexType name="ArrayOfBEPedidoObservacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPedidoObservacion" nillable="true" type="tns:BEPedidoObservacion" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEPedidoObservacion" nillable="true" type="tns:ArrayOfBEPedidoObservacion" />
-  <xs:complexType name="BEPedidoObservacion">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Caso" type="xs:int" />
-      <xs:element minOccurs="0" name="CuvObs" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PedidoDetalleID" type="xs:int" />
-      <xs:element minOccurs="0" name="SetID" type="xs:int" />
-      <xs:element minOccurs="0" name="Tipo" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEPedidoObservacion" nillable="true" type="tns:BEPedidoObservacion" />
 </xs:schema>

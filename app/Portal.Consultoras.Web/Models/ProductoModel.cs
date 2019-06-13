@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -81,10 +79,9 @@ namespace Portal.Consultoras.Web.Models
         public bool EsDuoPerfecto { get; set; }
         public string CodigoEstrategia { get; set; }
 
-        //INI HD-3908
         public string CodigoPalanca { get; set; }
         public int CampaniaID { get; set; }
-        //FIN HD-3908
+
         public object Clone()
         {
             return this.MemberwiseClone();
