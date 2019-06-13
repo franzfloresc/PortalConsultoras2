@@ -1189,5 +1189,17 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         }
 
         #endregion
+
+        #region Configuracion
+        public List<BETablaLogicaDatos> GetCaminoBrillanteConfiguracion(int paisID)
+        {
+            return GetCaminoBrillanteConfiguracionCache(paisID);
+        }
+
+        private List<BETablaLogicaDatos> GetCaminoBrillanteConfiguracionCache(int paisID)
+        {
+            return _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.CaminoBrillante.CaminoBrillanteConfigurar) ?? new List<BETablaLogicaDatos>();
+        }
+        #endregion
     }
 }
