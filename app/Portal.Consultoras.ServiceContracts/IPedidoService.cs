@@ -1351,5 +1351,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb);
         //FIN HD-4200
+
+        [OperationContract]
+        bool InsertKitSE(BEUsuario usuario);
     }
 }

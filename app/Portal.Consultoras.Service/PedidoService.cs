@@ -2480,5 +2480,10 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.GetCuvSuscripcionSE(bEPedidoWeb);
         }
         //FIN HD-4200
+
+        public bool InsertKitSE(BEUsuario bEUsuario)
+        {
+            return _pedidoBusinessLogic.InsertKitSE(bEUsuario);
+        }
     }
 }
