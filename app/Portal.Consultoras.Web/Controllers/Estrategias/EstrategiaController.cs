@@ -203,21 +203,20 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         /// <param name="campania"></param>
         /// <param name="codigoISO"></param>
         /// <returns></returns>
-        [HttpPost]
-        public JsonResult ObtenerOfertaFicha(string cuv, string campania, string tipoEstrategia)
-        {
-            string message;
-            try
-            {
-                DetalleEstrategiaFichaModel model = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campania, tipoEstrategia, out message);
-
-                return Json(new { success = true, data = model, message }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message });
-            }
-        }
+        //[HttpPost]
+        //public JsonResult ObtenerOfertaFicha(string cuv, string campania, string tipoEstrategia)
+        //{
+        //    string message;
+        //    try
+        //    {
+        //        DetalleEstrategiaFichaModel model = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campania, tipoEstrategia, out message);
+        //        return Json(new { success = true, data = model, message }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message });
+        //    }
+        //}
 
         /// <summary>
         /// Función unificada

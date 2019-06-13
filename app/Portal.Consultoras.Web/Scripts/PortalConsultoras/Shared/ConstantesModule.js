@@ -168,9 +168,9 @@ var ConstantesModule = (function() {
         obtenerComponentes: '/DetalleEstrategia/ObtenerComponentes',
         obtenerComponenteDetalle: '/DetalleEstrategia/ObtenerComponenteDetalle',
         obtenerModelo: '/DetalleEstrategia/ObtenerModelo',
-        obtenerPedidoWebSetDetalle: '/Pedido/ObtenerPedidoWebSetDetalle',
-        obtenerEstrategiaFicha: '/Estrategia/ObtenerOfertaFicha'
-    };
+        obtenerPedidoWebSetDetalle: '/Pedido/ObtenerPedidoWebSetDetalle'
+        //obtenerEstrategiaFicha: '/Estrategia/ObtenerOfertaFicha'
+    }
 
     var _urlPedido = {
         cargarDetallePedido: '/Pedido/CargarDetallePedido',
