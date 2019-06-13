@@ -124,7 +124,7 @@ namespace Portal.Consultoras.Web.Providers
         public List<BECDRProductoComplementario> XMLToList(string xml, string codigoIso, int paisId)
         {
             if (string.IsNullOrEmpty(xml))
-                return null;
+                return new List<BECDRProductoComplementario>();
             var lista = new List<BECDRProductoComplementario>();
             try
             {

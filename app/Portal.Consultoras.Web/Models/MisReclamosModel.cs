@@ -94,7 +94,7 @@ namespace Portal.Consultoras.Web.Models
         public static List<ProductoComplementarioModel> XMLToList(string xml)
         {
             if (string.IsNullOrEmpty(xml))
-                return null;
+                return new List<ProductoComplementarioModel>();
             var lista = new List<ProductoComplementarioModel>();
             try
             {

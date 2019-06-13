@@ -238,7 +238,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.CDR_ID = objCdr.CDRWebID;
                 ViewBag.Pedido_ID = objCdr.PedidoID;
                 ViewBag.ListaDetalle = objCdr.ListaDetalle;
-                ViewBag.MostrarBotonActualizar = (e == Constantes.EstadoCDRWeb.Observado) ? true : false;
+                ViewBag.MostrarBotonActualizar = e == Constantes.EstadoCDRWeb.Observado;
             }
 
             return View();

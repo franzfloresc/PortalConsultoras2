@@ -921,17 +921,14 @@ namespace Portal.Consultoras.Web.Controllers
                     //Productos individuales
                     var xmlReemplazo = string.Empty;
                     Array.Resize(ref arrComplemento, 1);
-                    if (model.Operacion == Constantes.CodigoOperacionCDR.Trueque)
+                    if (model.Operacion == Constantes.CodigoOperacionCDR.Trueque && model.Reemplazo != null)
                     {
-                        if (model.Reemplazo.Any())
+                        if (model.Reemplazo.Count > 1)
+                            xmlReemplazo = MisReclamosModel.ListToXML(model.Reemplazo.ToList());
+                        else
                         {
-                            if (model.Reemplazo.Count > 1)
-                                xmlReemplazo = MisReclamosModel.ListToXML(model.Reemplazo.ToList());
-                            else
-                            {
-                                model.CUV2 = model.Reemplazo.FirstOrDefault().CUV;
-                                model.Cantidad2 = model.Reemplazo.FirstOrDefault().Cantidad;
-                            }
+                            model.CUV2 = model.Reemplazo.FirstOrDefault().CUV;
+                            model.Cantidad2 = model.Reemplazo.FirstOrDefault().Cantidad;
                         }
                     }
                     arrComplemento[0] = new ServiceCDR.BECDRWebDetalle()
@@ -1261,11 +1258,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                         item.XMLReemplazo = MisReclamosModel.ListToXML(obj);
                     }
-                    else
-                    {
-
-                    }
-
                 }
 
                 bool ok;
@@ -1814,7 +1806,6 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         string template = FileManager.GetContenido(templateUrlDetalleOperacionTruequeMultiplePath);
                         string htmlTemplateMultiple = template.Clone().ToString();
-                        var p = decimal.Round((decimal)item.Precio, 2);
                         if (!primeraFila)
                         {
                             htmlOperacion = htmlOperacion.Replace("#FORMATO_CUV2#", item.CUV);

@@ -274,7 +274,7 @@ function ActualizarDetalleObservado(lista) {
     });
 
     return resultado;
-};
+}
 
 function AgregarODisminuirCantidad(event, opcion) {
 

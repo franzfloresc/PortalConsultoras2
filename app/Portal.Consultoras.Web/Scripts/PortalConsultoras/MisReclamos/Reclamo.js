@@ -924,7 +924,7 @@ function ValidarPasoDosTrueque() {
     var ok = true;
     $.each($cuvs, function (i, el) {
         var $el = $(el);
-        if ($el.attr("data-codigo") === "" || ($el.attr("data-codigo") !== "" & $el.attr("data-codigo").length !== 5)) {
+        if ($el.attr("data-codigo") === "" || ($el.attr("data-codigo") !== "" && $el.attr("data-codigo").length !== 5)) {
             ok = false;
             return false;
         }
