@@ -2,7 +2,6 @@
 
 * {
     box-sizing: border-box;
-    /*font-family:'Lato';*/
     font-family: 'Lato', sans-serif !important;
     font-size: 14px;
     font-weight: 400;
@@ -45,8 +44,12 @@ button:focus{
 
 /* COLORES MARCA PAÍS */
 
-.color__multimarca{
-    color:#B9007E;
+.background__color__multimarca {
+    background-color: #B9007E;
+}
+
+.color__multimarca {
+    color: #B9007E;
 }
 
 .color__gray__multimarca{
