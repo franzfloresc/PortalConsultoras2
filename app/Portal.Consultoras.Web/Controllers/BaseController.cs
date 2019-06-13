@@ -12,6 +12,7 @@ using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
+using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
@@ -87,7 +88,7 @@ namespace Portal.Consultoras.Web.Controllers
         private TempDataManager.TempDataManager _tempData;
 
 
-        
+
 
 
 
@@ -236,7 +237,7 @@ namespace Portal.Consultoras.Web.Controllers
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
         {
             return _pedidoWebProvider.ObtenerPedidoWebDetalle(EsOpt());
-            
+
         }
 
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(bool noSession = false)
@@ -276,7 +277,8 @@ namespace Portal.Consultoras.Web.Controllers
             return montosProl;
         }
 
-        protected void SetMontosProl(BEPedidoDetalleResult pedidoDetalleResult) {
+        protected void SetMontosProl(BEPedidoDetalleResult pedidoDetalleResult)
+        {
             SessionManager.SetMontosProl(new List<ObjMontosProl> {
                 new ObjMontosProl
                 {
@@ -468,6 +470,26 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
+
+            #region pedidos_pendientes
+            ViewBag.CantidadPedidosPendientes = 0;
+            if (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig())
+            {
+                var paisesConsultoraOnline = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
+                if (paisesConsultoraOnline.Contains(userData.CodigoISO) && userData.EsConsultora())
+                {
+                    using (var svc = new UsuarioServiceClient())
+                    {
+                        var cantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                        if (cantPedidosPendientes > 0)
+                        {
+                            ViewBag.CantidadPedidosPendientes = cantPedidosPendientes;
+                        }
+                    }
+                }
+            }
+            #endregion
+
 
             return _menuProvider.SepararItemsMenu(userData.Menu);
         }
@@ -777,7 +799,7 @@ namespace Portal.Consultoras.Web.Controllers
         #endregion
 
         #region LogDynamo
-        
+
         protected void ActualizarDatosLogDynamoDB(MisDatosModel p_modelo, string p_origen, string p_aplicacion, string p_Accion, string p_CodigoConsultoraBuscado = "", string p_Seccion = "")
         {
             bool esMobile = EsDispositivoMovil();
@@ -1214,7 +1236,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var menuActivo = _menuContenedorProvider.GetMenuActivo(userData, revistaDigital, herramientasVenta, Request, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobileMenu);
                 ViewBag.MenuContenedorActivo = menuActivo;
                 ViewBag.MenuContenedor = _menuContenedorProvider.GetMenuContenedorByMenuActivoCampania(menuActivo.CampaniaId, userData.CampaniaID, userData, revistaDigital, guiaNegocio, SessionManager, _configuracionManagerProvider, _eventoFestivoProvider, _configuracionPaisProvider, _guiaNegocioProvider, _ofertaPersonalizadaProvider, _programaNuevasProvider, esMobileMenu);
-               
+
             }
 
             var menuMobile = BuildMenuMobile(userData, revistaDigital);

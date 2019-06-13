@@ -4,9 +4,9 @@
     controllerAction = controllerAction.ToLower();
 
     int cantidadPedidosPendientes = 0;
-    if (ViewBag.CantPedidosPendientes != null)
+    if (ViewBag.CantidadPedidosPendientes != null)
     {
-        cantidadPedidosPendientes = ViewBag.CantPedidosPendientes;
+        cantidadPedidosPendientes = ViewBag.CantidadPedidosPendientes;
     }
 }
 
@@ -54,8 +54,8 @@
                         bool plural = (cantidadPedidosPendientes > 1) ? true : false;
                         <div class="sin_productos">
                              <span class="d-block text-left mensaje_cantidad_pedidos_pendientes_por_aprobar">
-                                Tienes @cantidadPedidosPendientes @((plural) ? "Pedidos" : "Pedido") @((plural) ? "pendientes " : "pendiente "),<br />
-                                apruébalos <a href="" title="Ir A Pedidos Pendientes" class="d-inline-block enlace__sb enlace__sb--irAPedidosPendientes">aquí.</a>
+                                Tienes @cantidadPedidosPendientes @((plural) ? "Pedidos pendientes" : "Pedido pendiente"),<br />
+                                apruébalos <a href="@Url.Action("Pendientes","ConsultoraOnline")" title="Ir A Pedidos Pendientes" class="d-inline-block enlace__sb enlace__sb--irAPedidosPendientes">aquí.</a>
                             </span>
                         </div>
                         <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido esika">Ver mi carrito</a>
