@@ -524,6 +524,7 @@ namespace Portal.Consultoras.Entities
         public string PrimerNombre { get; set; }
 
         [DataMember]
+        [Column("PrimerApellido")]
         public string PrimerApellido { get; set; }
 
         [DataMember]
