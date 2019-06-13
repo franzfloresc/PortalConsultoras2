@@ -332,7 +332,7 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                         case Constantes.NombrePalanca.CaminoBrillanteDemostradores:
                             {
-                                breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "CaminoBrillante", area });
+                                breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "CaminoBrillante/Ofertas", area ,t=1});
                                 break;
                             }
                         case Constantes.NombrePalanca.CaminoBrillanteKits:
