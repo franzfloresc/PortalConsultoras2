@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (configuracionCampania.CampaniaID == 0)
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
 
-            if ((configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == getDiaActual())
+            if ((configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == Util.GetDiaActual(userData.ZonaHoraria))
                 && !configuracionCampania.ModificaPedidoReservado
                 && !configuracionCampania.ValidacionAbierta)
                 return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
@@ -226,7 +226,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (beConfiguracionCampania.CampaniaID == 0)
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
 
-            if ((beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == getDiaActual())
+            if ((beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == Util.GetDiaActual(userData.ZonaHoraria))
                 && !beConfiguracionCampania.ModificaPedidoReservado
                 && !beConfiguracionCampania.ValidacionAbierta)
                 return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
@@ -713,14 +713,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return resultado;
         }
-        /// <summary>
-        /// Fecha actual según el pais.
-        /// </summary>
-        /// <returns></returns>
-        private DateTime getDiaActual()
-        {
-            return DateTime.Now.AddHours(userData.ZonaHoraria);
-        }
+
         /// <summary>
         /// Requerimiento TESLA-28
         /// [Ganancia] Cálculo Ganancia ofertas Catálogo*
