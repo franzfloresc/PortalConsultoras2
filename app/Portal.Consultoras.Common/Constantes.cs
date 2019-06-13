@@ -1542,12 +1542,7 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RevistaDigital";
         }
 
-        //INI HD-3693
-        public static class TipoPopupAlert
-        {
-            public const string Bloqueado = "HD3693~";
-        }
-        //FIN HD-3693
+
         public static class IngresoExternoPagina
         {
             public const string EstadoCuenta = "ESTADOCUENTA";
@@ -3761,6 +3756,7 @@ namespace Portal.Consultoras.Common
         {
             public const int BoletaImpresa = 1;
             public const int CompartirWhatsApp = 2;
+            public const int NotificarWhatsApp = 3; /* HD-4358 */
         }
 
         public static class SegmentoDatami

@@ -2298,15 +2298,10 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new PedidoServiceClient())
                 {
                     var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, false, true);
-                    if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.HorarioRestringido)
+               
+                    if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.HorarioRestringido )
                     {
                         mensaje = result.Mensaje;
-                        estado = true;
-                    }
-                    //INI HD-3693
-                    if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Bloqueado)
-                    {
-                        mensaje = Constantes.TipoPopupAlert.Bloqueado + result.Mensaje;
                         estado = true;
                     }
                     //FIN HD-3693
@@ -2355,9 +2350,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
                 var estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                 var mensaje = result.Mensaje;
-                //INI HD-3693
-                if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Bloqueado) mensaje = Constantes.TipoPopupAlert.Bloqueado + result.Mensaje;
-                //FIN HD-3693
                 return Json(new
                 {
                     success = estado,

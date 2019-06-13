@@ -765,14 +765,7 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             CerrarLoad();
             return false;
         }
-        //INI HD-3693
-        var msjBloq = validarpopupBloqueada(mensaje);
-        if (msjBloq != "") {
-            CerrarLoad();
-            alert_msg_bloqueadas(msjBloq);
-            return true;
-        }
-        //FIN HD-3693
+
         titulo = titulo || "MENSAJE";
         var CONS_TIPO_ICONO = { ALERTA: 1, CHECK: 2 };
         var isUrlMobile = isMobile();
@@ -2178,13 +2171,7 @@ var GeneralModule = (function () {
         cerrarLoad: _cerrarLoad
     };
 }());
-//INI HD-3693
-function validarpopupBloqueada(message) {
-    if (message.indexOf("HD3693~") != -1) return message.split("~")[1];
-    else return "";
 
-}
-//FIN HD-3693
 
 function AbrirMensajeImagen(mensaje) {
     var popup = $('#PopupInformacionRegalo');
