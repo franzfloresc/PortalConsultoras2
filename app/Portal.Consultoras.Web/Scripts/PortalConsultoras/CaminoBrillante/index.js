@@ -474,13 +474,3 @@ $(window).load(function () {
     $("#overlayer").delay(200).fadeOut("slow");
 })
 
-$(".tog-vermas").click(function () {
-    $(".boxtom").slideToggle();
-    $(this).toggleClass("tog-vermenos");
-    if ($(".tog-vermas").hasClass("tog-vermenos")) {
-        $(this).text("Ver menos");
-    }
-    else {
-        $(this).text("Ver más");
-    }
-});
