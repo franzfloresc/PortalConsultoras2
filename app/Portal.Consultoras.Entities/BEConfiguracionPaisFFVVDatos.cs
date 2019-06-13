@@ -36,35 +36,35 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         [Column("FlagDigitoVerificador")]
-        public int FlagDigitoVerificador { get; set; }
+        public bool FlagDigitoVerificador { get; set; }
 
         [DataMember]
         [Column("FlagGeo")]
-        public int FlagGeo { get; set; }
+        public bool FlagGeo { get; set; }
 
         [DataMember]
         [Column("FlagHanna")]
-        public int FlagHanna { get; set; }
+        public bool FlagHanna { get; set; }
 
         [DataMember]
         [Column("FlagPC")]
-        public int FlagPC { get; set; }
+        public bool FlagPC { get; set; }
 
         [DataMember]
         [Column("FlagRDD")]
-        public int FlagRDD { get; set; }
+        public bool FlagRDD { get; set; }
 
         [DataMember]
         [Column("FlagGanaMas")]
-        public int FlagGanaMas { get; set; }
+        public bool FlagGanaMas { get; set; }
 
         [DataMember]
         [Column("FlagPDV")]
-        public int FlagPDV { get; set; }
+        public bool FlagPDV { get; set; }
 
         [DataMember]
         [Column("FlagConfZonasUnete")]
-        public int FlagConfZonasUnete { get; set; }
+        public bool FlagConfZonasUnete { get; set; }
 
 
 

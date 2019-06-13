@@ -4016,9 +4016,9 @@ namespace Portal.Consultoras.BizLogic
             BEUsuarioDatos oUsu = null;
             try
             {
-                oUsu = GetUsuarioActualizarContraseniaDefault(paisID,codigoUsuario);
+                oUsu = GetUsuarioActualizarContraseniaDefault(paisID, codigoUsuario);
                 BEConfiguracionPaisFFVVDatos config = new BEConfiguracionPaisFFVVDatos();
-                config.CodigoISO = oUsu.CodigoIso;
+                config.CodigoISO = Common.Util.GetPaisISO(paisID);
                 /*verificar si esta activado   FlagConfZonasUnete = 1     en  FFVV.ConfiguracionPaisesFFVV*/
                 List<BEConfiguracionPaisFFVVDatos> listaConfPaisFFVV = new BLConfiguracionPaisFFVV().GetList(config);
                 if (listaConfPaisFFVV.Count() == 0)
@@ -4031,15 +4031,20 @@ namespace Portal.Consultoras.BizLogic
                 bool tienezona = false;
                 /* verificar si la zona de la consultora pertenece a las zonas configuradas*/
                 List<BEParametroUnete> listaZonasActualizaContrasenia = new BLConfiguracionPaisFFVV().GetListZonasUnete(parametroUnete);
-                foreach (var item in listaZonasActualizaContrasenia)
+                var zonaDescripcion = new BLZonificacion().SelectZonaById(paisID, oUsu.ZonaID);
+                if (zonaDescripcion.Count > 0)
                 {
-                    if (item.Nombre == oUsu.ZonaID.ToString())
+                    foreach (var item in listaZonasActualizaContrasenia)
                     {
-                        tienezona = true;
+                        if (item.Nombre == zonaDescripcion.First().Codigo)
+                        {
+                            tienezona = true;
+                        }
                     }
                 }
 
-                if (tienezona) return null;
+
+                if (!tienezona) return null;
 
 
                 ///*Verificando si tiene Verificacion*/
@@ -4091,7 +4096,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog(ex,oUsu.CodigoUsuario , paisID);
+                LogManager.SaveLog(ex, codigoUsuario, paisID);
                 return null;
             }
         }
