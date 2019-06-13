@@ -121,11 +121,11 @@ namespace Portal.Consultoras.Web.Providers
                 return defaultObservacion;
             }
         }
-        public List<BECDRProductoComplementario> XMLToList(string xml, string codigoIso, int paisId)
+        public List<ServiceCDR.BECDRProductoComplementario> XMLToList(string xml, string codigoIso, int paisId)
         {
+            var lista = new List<ServiceCDR.BECDRProductoComplementario>();
             if (string.IsNullOrEmpty(xml))
-                return new List<BECDRProductoComplementario>();
-            var lista = new List<BECDRProductoComplementario>();
+                return lista;
             try
             {
                 XmlDocument xmlDocument = new XmlDocument();
@@ -149,7 +149,7 @@ namespace Portal.Consultoras.Web.Providers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, "", codigoIso);
-                lista = null;
+                return lista;
             }
             return lista;
         }
