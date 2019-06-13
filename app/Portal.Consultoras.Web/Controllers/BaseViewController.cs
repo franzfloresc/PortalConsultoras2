@@ -622,8 +622,8 @@ namespace Portal.Consultoras.Web.Controllers
         private bool EsProductoRecomendado(int origen)
         {
             var modelo = UtilOrigenPedidoWeb.GetModelo(origen.ToString());
-            if (origen == 0 || origenString.IsNullOrEmptyTrim()) return false;
-            
+            if (origen == 0 /*|| origenString.IsNullOrEmptyTrim()*/) return false; //CB-CORREGIR
+
             return modelo.Seccion.Equals(ConsOrigenPedidoWeb.Seccion.Recomendado) ||
                    modelo.Seccion.Equals(ConsOrigenPedidoWeb.Seccion.RecomendadoFicha);
         }
