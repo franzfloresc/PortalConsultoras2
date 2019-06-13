@@ -35,8 +35,8 @@ function MostrarBarra(datax, destino) {
     datax = datax || new Object();
     var data = datax.dataBarra || datax.DataBarra || dataBarra || new Object();
     dataBarra = data;
-
-    ConfiguradoRegalo = dataBarra.TippingPointBarra.InMinimo;
+    if (typeof (dataBarra.TippingPointBarra) !== "undefined")
+        ConfiguradoRegalo = dataBarra.TippingPointBarra.InMinimo;
 
     ActualizarGanancia(dataBarra);
     if (destino == '2') {
@@ -93,12 +93,17 @@ function MostrarBarra(datax, destino) {
     var wPrimer = 0;
     var vLogro = mt - md;
     var wMsgFin = 0;
-    var wmin = 45;    
+    var wmin = 45;
     if (!(mn == "0,00" || mn == "0.00" || mn == "0")) {
         wPrimer = wmin;
     }
     //HD-4066
-    var valTopTotal = destino == '2' && dataBarra.TippingPointBarra.Active && tp > 0 ? tp : mn;
+    var TippingPointBarraActive = false;
+    if (typeof (dataBarra.TippingPointBarra != "undefinied")) 
+        TippingPointBarraActive = dataBarra.TippingPointBarra.Active;
+    
+    var valTopTotal = destino == '2' && TippingPointBarraActive && tp > 0 ? tp : mn;
+
     if (vLogro > valTopTotal) vLogro = valTopTotal > me ? valTopTotal : me;
     listaEscalaDescuento = listaEscalaDescuento || new Array();
     var listaEscala = new Array();
@@ -197,7 +202,7 @@ function MostrarBarra(datax, destino) {
                 MontoHastaStr: data.MontoMinimoStr
             });
         }
-    }    
+    }
     mtoLogroBarra = vLogro;
 
     listaLimite = listaLimite || new Array();
@@ -406,7 +411,7 @@ function MostrarBarra(datax, destino) {
                         txtDetalle = indPuntoLimite != ind ? "" :
                             (variablesPortal.SimboloMoneda + "" + limite.MontoDesdeStr + " a " + variablesPortal.SimboloMoneda + "" + limite.MontoHastaStr);
                     }
-                 }
+                }
             }
 
             nombrePunto = limite.nombre2
@@ -2386,17 +2391,17 @@ function CalculoPosicionMinimoMaximoDestokp() {
                         var montoMaximo2 = dataBarra.ListaEscalaDescuento[i].MontoDesde
                         var AvancePorcentaje2 = CalculoPorcentajeAvance(montoMaximo2, montoMaximo);
                         if (IsoPais == 'CL' && dataBarra.ListaEscalaDescuento.length >= 5) {
-                           
+
                             avance = (dataBarra.ListaEscalaDescuento[i].MontoDesde - dataBarra.ListaEscalaDescuento[i - 1].MontoDesde)
 
                             if (avance <= 5000) {
                                 if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left =
                                     (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 + 0.2) + '%';
-                           
-                            } else 
+
+                            } else
                                 if (document.getElementById('barra_' + i.toString())) document.getElementById('barra_' + i.toString()).style.left = AvancePorcentaje2;
-                                var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 5) + '%'
-                                if (document.getElementById('punto_' + i.toString())) document.getElementById('punto_' + i.toString()).style.left = AvancePorcentajeP2;
+                            var AvancePorcentajeP2 = (AvancePorcentaje2.substring(0, AvancePorcentaje2.length - 1) * 1 - 5) + '%'
+                            if (document.getElementById('punto_' + i.toString())) document.getElementById('punto_' + i.toString()).style.left = AvancePorcentajeP2;
 
                         } else {
 
@@ -2405,7 +2410,7 @@ function CalculoPosicionMinimoMaximoDestokp() {
                             if (document.getElementById('punto_' + i.toString())) document.getElementById('punto_' + i.toString()).style.left = AvancePorcentajeP2;
 
                         }
-                        
+
                     }
                 }
 
@@ -2463,12 +2468,11 @@ function CalculoPosicionMinimoMaximoDestokp() {
         else {
             //aparicion de bandera
             if (dataBarra.ListaEscalaDescuento.length > 1) {
-                if (mtoLogroBarra > dataBarra.ListaEscalaDescuento[0].MontoDesde * 1 && mtoLogroBarra < dataBarra.ListaEscalaDescuento[dataBarra.ListaEscalaDescuento.length - 1].MontoDesde * 1)
-                {
+                if (mtoLogroBarra > dataBarra.ListaEscalaDescuento[0].MontoDesde * 1 && mtoLogroBarra < dataBarra.ListaEscalaDescuento[dataBarra.ListaEscalaDescuento.length - 1].MontoDesde * 1) {
 
-                        $(".barra_mensaje_meta_pedido").css('margin-bottom', '56px');
-                        document.getElementsByClassName('bandera_marcador')[0].style.display = 'block';
-                    
+                    $(".barra_mensaje_meta_pedido").css('margin-bottom', '56px');
+                    document.getElementsByClassName('bandera_marcador')[0].style.display = 'block';
+
                 }
                 else
                     document.getElementsByClassName('bandera_marcador')[0].style.display = 'none';
@@ -2704,11 +2708,11 @@ function ReordenarMontosBarra() {
             }
 
         } else {
-          
+
             if (IsoPais == 'BO' && barra.length >= 5) {
                 if (document.getElementById('punto_0') != null) document.getElementById('punto_0').style.left = (document.getElementById('barra_0').style.left.substring(0, document.getElementById('barra_0').style.left.length - 1) * 1 - 9) + '%'
                 if (document.getElementById('punto_' + i.toString()) != null) document.getElementById('punto_' + i.toString()).style.left = (document.getElementById('barra_' + i.toString()).style.left.substring(0, document.getElementById('barra_' + i.toString()).style.left.length - 1) * 1 - 5) + '%'
-              }
+            }
 
         }
     }

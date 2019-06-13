@@ -282,19 +282,12 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Pedidos Pendientes
 
                 ViewBag.MostrarPedidosPendientes = "0";
-                if (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig())
+                var cantidad = ObtenerCantidadPedidosPendientes();
+                if (cantidad > 0)
                 {
-                    var paisesConsultoraOnline = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
-                    if (paisesConsultoraOnline.Contains(userData.CodigoISO) && userData.EsConsultora())
-                    {
-                        int cantidad = ObtenerCantidadPedidosPendientes();
-                        if (cantidad > 0)
-                        {
-                            ViewBag.MostrarPedidosPendientes = "1";
-                            ViewBag.CantPedidosPendientes = cantidad;
-                        }
-                    }
-                }
+                    ViewBag.MostrarPedidosPendientes = "1";
+                    ViewBag.CantPedidosPendientes = cantidad;
+                }                
 
                 #endregion
 
@@ -366,10 +359,17 @@ namespace Portal.Consultoras.Web.Controllers
             int resultado = 0;
             try
             {
-                using (var svc = new UsuarioServiceClient())
+                if (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig())
                 {
-                    resultado = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-                }
+                    var paisesConsultoraOnline = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
+                    if (paisesConsultoraOnline.Contains(userData.CodigoISO) && userData.EsConsultora())
+                    {
+                        using (var svc = new UsuarioServiceClient())
+                        {
+                            resultado = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                        }
+                    }
+                }                
             }
             catch (Exception ex)
             {
