@@ -10,6 +10,7 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.HojaInscripcionODS;
 using Portal.Consultoras.Web.ServiceODS;
+using AutoMapper.Internal;
 
 namespace Portal.Consultoras.Web.Providers
 {
