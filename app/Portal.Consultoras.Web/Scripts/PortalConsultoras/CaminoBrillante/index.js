@@ -462,7 +462,7 @@ function ArmarCarrusel(data) {
         responsive: [
             {
                 breakpoint: 426,
-                settings: { slidesToShow: 2, slidesToScroll:1, centerPadding: "25px", centerMode: true, infinite: false, initialSlide: 1}
+                settings: { slidesToShow: 2, slidesToScroll:1, centerPadding: "25px",  infinite: false}
             }
         ]
     });
@@ -475,7 +475,7 @@ $(window).load(function () {
 })
 
 $(".tog-vermas").click(function () {
-    $(".box-beneficios").toggleClass("expand", 100, "easeOutQuad");
+    $(".boxtom").slideToggle();
     $(this).toggleClass("tog-vermenos");
     if ($(".tog-vermas").hasClass("tog-vermenos")) {
         $(this).text("Ver menos");
