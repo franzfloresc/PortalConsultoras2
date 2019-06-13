@@ -553,7 +553,7 @@ namespace Portal.Consultoras.Web.Providers
         private DetalleEstrategiaFichaDisenoModel ToDetalleEstrategiaFichaDisenoModel(BEOfertaCaminoBrillante e, bool loadDetalle = true) {
             return new DetalleEstrategiaFichaDisenoModel()
             {
-                CodigoEstrategia = "036",
+                CodigoEstrategia =  e.TipoOferta == 1 ? "036" : "035",
                 TipoOfertaCaminoBrillante = e.TipoOferta,
                 CodigoPalanca = "0",
                 FotoProducto01 = e.FotoProductoMedium,

@@ -283,7 +283,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha ||
                 pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel ||
                 pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Ficha ||
-                pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel
+                pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel ||
+                pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home
 
                 )
             {
