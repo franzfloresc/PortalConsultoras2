@@ -4049,6 +4049,7 @@ namespace Portal.Consultoras.Common
         public static class CodigoContenido
         {
             public const string Lanzamiento = "BONIFICACIONES_RESUMEN";
+            public const string TuVozOnline = "QUESTIONPROURL";
         }
 
         #region
@@ -4092,6 +4093,11 @@ namespace Portal.Consultoras.Common
             public const string HistAnchoAltoDetalle = "HistAnchoAltoDetalle";
             public const string HistUrlMiniatura = "HistUrlMiniatura";
             public const string HistLimitDetMensaje = "HistLimitDetMensaje";
+        }
+
+        public static class DatosTuVozOnline
+        {
+            public const string FormatUrl = "{0}|{1}|{2}|{3}|Year={4}|Active={5}|Birthdate={6:dd-MM-yyyy}|Country={7}";
         }
     }
 }
