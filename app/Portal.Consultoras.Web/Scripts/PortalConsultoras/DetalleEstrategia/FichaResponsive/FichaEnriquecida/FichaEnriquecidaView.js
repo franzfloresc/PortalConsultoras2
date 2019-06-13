@@ -5,7 +5,9 @@
         tabsComponente: {
             templateId: "#tabs-ficha-enriquecida-template",
             id: "#contenedor-tabs-ficha-enriquecida",
-            contenedorPopup: "#popup_tabs_ficha_enriquecida_contenedor"
+            contenedorPopup: "#popup_tabs_ficha_enriquecida_contenedor",
+            classTabs: ".tabs",
+            classInput: ".input"
         },
         popup: {
             templateId: "#popup-ficha-enriquecida-responsive",
@@ -19,9 +21,13 @@
 
     var cambiotab = function resizeTab() {
         if (window.innerWidth > 960) {
-            $(".tabs input").attr("type", "radio")
+            $(_elements.tabsComponente.classTabs+" input").attr("type", "radio");
+            $(_elements.tabsComponente.classInput + ConstantesModule.TipoSeccion.Texto + ":first").attr("checked", "checked");
         } else {
-            $(".tabs input").attr("type", "checkbox")
+            $(_elements.tabsComponente.classTabs + " input").attr("type", "checkbox");
+            $(_elements.tabsComponente.classTabs + " input").removeAttr("checked");
+            $(_elements.tabsComponente.classInput + ConstantesModule.TipoSeccion.Video).attr("checked", "checked");
+            _reloadCarruselVideos();
         };
     };
 
