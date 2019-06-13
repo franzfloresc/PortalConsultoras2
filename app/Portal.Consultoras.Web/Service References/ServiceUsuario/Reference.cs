@@ -228,6 +228,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisDatos))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEEstrategia))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisFFVVDatos))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEParametroUnete))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPais))]
     public partial class BaseEntidad : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -2877,6 +2878,29 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.MinimoNumeroDigitosTelefonoTrabajoConsultoraField.Equals(value) != true)) {
                     this.MinimoNumeroDigitosTelefonoTrabajoConsultoraField = value;
                     this.RaisePropertyChanged("MinimoNumeroDigitosTelefonoTrabajoConsultora");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEParametroUnete", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEParametroUnete : Portal.Consultoras.Web.ServiceUsuario.BaseEntidad {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nombre {
+            get {
+                return this.NombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreField, value) != true)) {
+                    this.NombreField = value;
+                    this.RaisePropertyChanged("Nombre");
                 }
             }
         }
@@ -9840,6 +9864,8 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEMisPedidosDetalle))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisFFVVDatos))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisFFVVDatos[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEParametroUnete))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEParametroUnete[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConsultoraDatos))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioRol[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEUsuarioRol))]
@@ -18407,6 +18433,18 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisFFVV", ReplyAction="http://tempuri.org/IUsuarioService/GetConfiguracionPaisFFVVResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisFFVVDatos[]> GetConfiguracionPaisFFVVAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisFFVVDatos entidad);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetListZonasUnete", ReplyAction="http://tempuri.org/IUsuarioService/GetListZonasUneteResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEParametroUnete[] GetListZonasUnete(Portal.Consultoras.Web.ServiceUsuario.BEParametroUnete entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetListZonasUnete", ReplyAction="http://tempuri.org/IUsuarioService/GetListZonasUneteResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEParametroUnete[]> GetListZonasUneteAsync(Portal.Consultoras.Web.ServiceUsuario.BEParametroUnete entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetActualizarContraseniaDefault", ReplyAction="http://tempuri.org/IUsuarioService/GetActualizarContraseniaDefaultResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos GetActualizarContraseniaDefault(int paisID, string codigoUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetActualizarContraseniaDefault", ReplyAction="http://tempuri.org/IUsuarioService/GetActualizarContraseniaDefaultResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos> GetActualizarContraseniaDefaultAsync(int paisID, string codigoUsuario);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Select", ReplyAction="http://tempuri.org/IUsuarioService/SelectResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario);
         
@@ -19509,6 +19547,22 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisFFVVDatos[]> GetConfiguracionPaisFFVVAsync(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionPaisFFVVDatos entidad) {
             return base.Channel.GetConfiguracionPaisFFVVAsync(entidad);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BEParametroUnete[] GetListZonasUnete(Portal.Consultoras.Web.ServiceUsuario.BEParametroUnete entidad) {
+            return base.Channel.GetListZonasUnete(entidad);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEParametroUnete[]> GetListZonasUneteAsync(Portal.Consultoras.Web.ServiceUsuario.BEParametroUnete entidad) {
+            return base.Channel.GetListZonasUneteAsync(entidad);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos GetActualizarContraseniaDefault(int paisID, string codigoUsuario) {
+            return base.Channel.GetActualizarContraseniaDefault(paisID, codigoUsuario);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos> GetActualizarContraseniaDefaultAsync(int paisID, string codigoUsuario) {
+            return base.Channel.GetActualizarContraseniaDefaultAsync(paisID, codigoUsuario);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario) {

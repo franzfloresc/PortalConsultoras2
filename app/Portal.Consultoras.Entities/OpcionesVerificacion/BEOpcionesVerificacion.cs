@@ -171,4 +171,6 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
             IntentosRestanteSms = -1;
         }
     }
+
+
 }

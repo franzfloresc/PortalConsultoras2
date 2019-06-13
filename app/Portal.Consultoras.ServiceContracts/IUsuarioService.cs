@@ -488,5 +488,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEParametroUnete> GetListZonasUnete(BEParametroUnete entidad);
+
+        [OperationContract]
+        BEUsuarioDatos GetActualizarContraseniaDefault(int paisID, string codigoUsuario);
     }
 }

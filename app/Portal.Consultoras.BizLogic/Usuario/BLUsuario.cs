@@ -4011,14 +4011,14 @@ namespace Portal.Consultoras.BizLogic
 
         #region Verifica_Actualizar_Contraseña
 
-        public BEUsuarioDatos GetActualizarContraseniaDefault(string codISO)
+        public BEUsuarioDatos GetActualizarContraseniaDefault(int paisID, string codigoUsuario)
         {
-            BEUsuarioDatos oUsu = new BEUsuarioDatos();
+            BEUsuarioDatos oUsu = null;
             try
             {
-
+                oUsu = GetUsuarioActualizarContraseniaDefault(paisID,codigoUsuario);
                 BEConfiguracionPaisFFVVDatos config = new BEConfiguracionPaisFFVVDatos();
-                config.CodigoISO = codISO;
+                config.CodigoISO = oUsu.CodigoIso;
                 /*verificar si esta activado   FlagConfZonasUnete = 1     en  FFVV.ConfiguracionPaisesFFVV*/
                 List<BEConfiguracionPaisFFVVDatos> listaConfPaisFFVV = new BLConfiguracionPaisFFVV().GetList(config);
                 if (listaConfPaisFFVV.Count() == 0)
@@ -4027,7 +4027,7 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 BEParametroUnete parametroUnete = new BEParametroUnete();
-                parametroUnete.PaisID = Common.Util.GetPaisID(codISO);
+                parametroUnete.PaisID = paisID;
                 bool tienezona = false;
                 /* verificar si la zona de la consultora pertenece a las zonas configuradas*/
                 List<BEParametroUnete> listaZonasActualizaContrasenia = new BLConfiguracionPaisFFVV().GetListZonasUnete(parametroUnete);
@@ -4091,7 +4091,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                LogManager.SaveLog(ex,oUsu.CodigoUsuario , Common.Util.GetPaisID(codISO));
+                LogManager.SaveLog(ex,oUsu.CodigoUsuario , paisID);
                 return null;
             }
         }
@@ -4100,7 +4100,7 @@ namespace Portal.Consultoras.BizLogic
         {
             var DAUsuario = new DAUsuario(paisID);
             var datos = new BEUsuarioDatos();
-            using (IDataReader rd = DAUsuario.GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario))
+            using (IDataReader rd = DAUsuario.GetUsuarioCambioClave(CodigoUsuario))
                 if (rd.Read()) datos = new BEUsuarioDatos(rd);
             return datos;
         }

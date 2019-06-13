@@ -981,6 +981,22 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfBEConfiguracionPaisFFVVDatos" nillable="true" type="tns:ArrayOfBEConfiguracionPaisFFVVDatos" />
+  <xs:complexType name="BEParametroUnete">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseEntidad">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="BEParametroUnete" nillable="true" type="tns:BEParametroUnete" />
+  <xs:complexType name="ArrayOfBEParametroUnete">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEParametroUnete" nillable="true" type="tns:BEParametroUnete" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEParametroUnete" nillable="true" type="tns:ArrayOfBEParametroUnete" />
   <xs:complexType name="BEConsultoraDatos">
     <xs:sequence>
       <xs:element minOccurs="0" name="AutorizaPedido" nillable="true" type="xs:string" />

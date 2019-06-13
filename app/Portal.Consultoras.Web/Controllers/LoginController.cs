@@ -389,6 +389,22 @@ namespace Portal.Consultoras.Web.Controllers
         public async Task<ActionResult> Redireccionar(int paisId, string codigoUsuario, string returnUrl = null,
             bool hizoLoginExterno = false)
         {
+
+
+            if (TieneActualizarContraseniaDefault(paisId, codigoUsuario))
+            {
+                if (Request.IsAjaxRequest())
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        redirectTo = Url.Action("ActualizarContrasenia", "Login")
+                    });
+                }
+                return RedirectToAction("ActualizarContrasenia", "Login");
+            }
+
+
             if (!Convert.ToBoolean(TempData["FlagPin"]) && TieneVerificacionAutenticidad(paisId, codigoUsuario))
             {
                 if (Request.IsAjaxRequest())
@@ -613,6 +629,33 @@ namespace Portal.Consultoras.Web.Controllers
 
         [AllowAnonymous]
         public ActionResult VerificaAutenticidad()
+        {
+            if (Session["DatosUsuario"] == null) return RedirectToAction("Index", "Login");
+            var obj = (BEUsuarioDatos)Session["DatosUsuario"];
+            var model = new BEUsuarioDatos();
+            model.PrimerNombre = obj.PrimerNombre;
+            model.MensajeSaludo = obj.MensajeSaludo;
+            model.CorreoEnmascarado = obj.CorreoEnmascarado;
+            model.CelularEnmascarado = obj.CelularEnmascarado;
+            model.OpcionCorreoDesabilitado = obj.OpcionCorreoDesabilitado;
+            model.OpcionSmsDesabilitado = obj.OpcionSmsDesabilitado;
+            model.HoraRestanteCorreo = obj.HoraRestanteCorreo;
+            model.HoraRestanteSms = obj.HoraRestanteSms;
+            model.IdEstadoActividad = obj.IdEstadoActividad;
+            model.CodigoIso = obj.CodigoIso;
+            model.PrimerNombre = obj.PrimerNombre;
+            model.CodigoUsuario = obj.CodigoUsuario;
+            model.Correo = obj.Correo;
+            model.MostrarOpcion = obj.MostrarOpcion;
+            model.OpcionChat = obj.OpcionChat;
+            model.EsMobile = EsDispositivoMovil();
+            ViewBag.ChatBotPageId = new ConfiguracionManagerProvider().GetConfiguracionManager(Constantes.ConfiguracionManager.ChatBotPageId);
+
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult ActualizarContrasenia()
         {
             if (Session["DatosUsuario"] == null) return RedirectToAction("Index", "Login");
             var obj = (BEUsuarioDatos)Session["DatosUsuario"];
@@ -3140,19 +3183,19 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        public bool TieneActualizarContraseniaDefault(string codISO )
+        public bool TieneActualizarContraseniaDefault(int paisID, string codigoUsuario)
         {
             try
             {
                 BEUsuarioDatos oVerificacion;
                 using (var sv = new UsuarioServiceClient())
                 {
-                    //oVerificacion = sv.GetActualizarContraseniaDefault(codISO);
+                    oVerificacion = sv.GetActualizarContraseniaDefault(paisID, codigoUsuario);
                 }
 
-                //if (oVerificacion == null) return false;
+                if (oVerificacion == null) return false;
 
-                //Session["DatosUsuario"] = oVerificacion;
+                Session["DatosUsuario"] = oVerificacion;
    
                 return true;
             }

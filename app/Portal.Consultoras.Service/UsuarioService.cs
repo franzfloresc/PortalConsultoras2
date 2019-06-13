@@ -1045,10 +1045,10 @@ namespace Portal.Consultoras.Service
             return bl.GetListZonasUnete(entidad);
         }
 
-        public BEUsuarioDatos GetActualizarContraseniaDefault(string CodISO)
+        public BEUsuarioDatos GetActualizarContraseniaDefault(int paisID, string codigoUsuario)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.GetActualizarContraseniaDefault(CodISO);
+            return BLUsuario.GetActualizarContraseniaDefault(paisID, codigoUsuario);
         }
         #endregion
 
