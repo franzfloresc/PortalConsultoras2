@@ -126,13 +126,13 @@ namespace Portal.Consultoras.BizLogic.Contenido
 
             var parameters = string.Format(Constantes.DatosTuVozOnline.FormatUrl,
                 currentTimeSeconds,
-                usuarioItem.PrimerNombre,//user.PrimerNombre,
-                usuarioItem.PrimerApellido, //user.PrimerApellido,
-                usuarioItem.EMail,//user.EMail,
+                usuarioItem.PrimerNombre,
+                usuarioItem.PrimerApellido,
+                usuarioItem.EMail,
                 DateTime.Now.Year,
                 "Yes",
-                usuarioItem.FechaNacimiento,//user.FechaNacimiento,
-                usuarioItem.CodigoISO//user.CodigoISO
+                usuarioItem.FechaNacimiento,
+                usuarioItem.CodigoISO
             );
 
             return string.Format(baseUrl,
