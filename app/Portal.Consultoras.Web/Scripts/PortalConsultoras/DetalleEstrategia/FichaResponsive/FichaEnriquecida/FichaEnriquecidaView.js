@@ -60,19 +60,19 @@
         }
     }
 
-    var _renderFichaEnriquecida = function (componente, popup, seccion) {
+    var _renderFichaEnriquecida = function (componente, popup) {
         var contenedor = popup ? _elements.tabsComponente.contenedorPopup : _elements.tabsComponente.id;
         SetHandlebars(_elements.tabsComponente.templateId, componente, contenedor);
         _util.setCarrusel(_elements.carruselVideo.id);
         _util.setYoutubeId();
         _util.setYoutubeApi();
-        if (seccion) $(_elements.seccionFichaEnriquecida.id).show();
+        if (!popup && componente.Secciones.length > 0) $(_elements.seccionFichaEnriquecida.id).show();
         return true;
     };
 
     var _showPopup = function (data) {
         SetHandlebars(_elements.popup.templateId, data, _elements.popup.contenedor);
-        _renderFichaEnriquecida(data, true, false);
+        _renderFichaEnriquecida(data, true);
         $("body").css("overflow", "hidden");
         $(_elements.popup.id).show();
         return true;
