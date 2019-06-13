@@ -34,6 +34,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.ResumenLogros = _caminoBrillanteProvider.GetLogroCaminoBrillante(Constantes.CaminoBrillante.Logros.RESUMEN);
                 ViewBag.TieneOfertasEspeciales = _caminoBrillanteProvider.TieneOfertasEspeciales();
                 ViewBag.SimboloMoneda = userData.Simbolo;
+                ViewBag.EsMobile = EsDispositivoMovil() || IsMobile();
 
                 if (ViewBag.TieneOfertasEspeciales)
                     ViewBag.Carrusel = _caminoBrillanteProvider.GetCarruselCaminoBrillante();
