@@ -10,7 +10,7 @@
   "author": "arquitecturaTD<arquitecturaTD@belcorp.biz>",
   "license": "MIT",
   "browserslist": [
-    ">0.25%",
+    "last 4 versions",
     "not ie <= 9"
   ],
   "devDependencies": {
