@@ -128,6 +128,13 @@ namespace Portal.Consultoras.Common
             return dtValue;
         }
 
+        public static decimal TruncarADecimales(decimal number, int digits)
+        {
+            decimal stepper = (decimal)(Math.Pow(10.0, (double)digits));
+            int temp = (int)(stepper * number);
+            return (decimal)temp / stepper;
+        }
+
         /// <summary>
         /// Valida si un objecto es de tipo numérico
         /// </summary>
