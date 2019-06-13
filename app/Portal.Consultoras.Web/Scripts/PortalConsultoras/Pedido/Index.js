@@ -30,9 +30,6 @@ var pedidoProvider = PedidoProvider();
 
 $(document).ready(function () {
     ValidarKitNuevas();
-
-    console.log("iniciando...!");
-
     var hdDataBarra = $("#hdDataBarra").val();
     if ($.trim(hdDataBarra) != "") {
         dataBarra = JSON.parse(hdDataBarra);
@@ -64,8 +61,6 @@ $(document).ready(function () {
     $(".cerrar_tutorial").click(function () {
         cerrar_popup_tutorial();
     });
-
-
 
     $("body").click(function (e) {
         if (!$(e.target).closest(".ui-dialog").length) {
@@ -505,9 +500,6 @@ $(document).ready(function () {
 
     }
 
-
-
-
     $("#observaciones_alerta").dialog({
         modal: true,
         draggable: false,
@@ -531,8 +523,13 @@ $(document).ready(function () {
         HideDialog("observaciones_alerta");
         return false;
     });
-
-
+    $(window).bind("load", function () { //se ejecuta al finalizar la carga de la página
+        if (typeof cantPedidosPendientes !== "undefined") {
+            setTimeout(function () {
+                $("#PopupPedidosPendientes").fadeIn(250);
+            }, 200);
+        }
+    });
 });
 
 function CargarDetallePedido(page, rows, asyncrono) {

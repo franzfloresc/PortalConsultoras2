@@ -85,6 +85,14 @@ $(document).ready(function () {
         numactual = numactual < 1 ? 1 : numactual > 99 ? 99 : numactual;
         $("#txtCantidad").val(numactual);
     });
+
+    $(window).bind("load", function () { //se ejecuta al finalizar la carga de la página
+        if (typeof cantPedidosPendientes !== "undefined") {
+            setTimeout(function () {
+                $("#PopupPedidosPendientes").fadeIn(250);
+            }, 200);
+        }
+    });
 });
 
 var pedidoProvider = PedidoProvider();

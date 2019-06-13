@@ -99,9 +99,9 @@ function MostrarBarra(datax, destino) {
     }
     //HD-4066
     var TippingPointBarraActive = false;
-    if (typeof (dataBarra.TippingPointBarra != "undefinied")) 
+    if (dataBarra.hasOwnProperty("TippingPointBarra"))
         TippingPointBarraActive = dataBarra.TippingPointBarra.Active;
-    
+
     var valTopTotal = destino == '2' && TippingPointBarraActive && tp > 0 ? tp : mn;
 
     if (vLogro > valTopTotal) vLogro = valTopTotal > me ? valTopTotal : me;
