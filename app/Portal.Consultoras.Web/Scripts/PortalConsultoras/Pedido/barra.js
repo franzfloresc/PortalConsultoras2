@@ -43,7 +43,7 @@ function MostrarBarra(datax, destino) {
     ActualizarGanancia(dataBarra);
     if (destino == '2') {
         initCarruselPremios(dataBarra);
-        if (datax.data && datax.data.CUV) {
+        if (datax.data && datax.data.CUV) {            
             trySetPremioElectivo(datax.data.CUV);
         } else {
             savePedidoDetails(datax);
@@ -923,9 +923,9 @@ function isTippingPointSuperado() {
 function checkPremioSelected(validateInCarrusel) {
     var details = tpElectivos.pedidoDetails;
     if (!details || details.length === 0) {
-        if (tpElectivos.premioSelected) {
-            setPremio(null);
-        }
+        //if (!tpElectivos.premioSelected) {
+        //    setPremio(null);
+        //}
 
         return;
     }
