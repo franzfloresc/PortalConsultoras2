@@ -279,6 +279,7 @@ $(document).ready(function () {
 
         e.stopPropagation(); //Para evitar que se cierre el popup de divObservacionesPROL
     });
+    
 
     $("body").on("mouseleave", ".cantidad_detalle_focus", function () {
         var rowElement = $(this).closest(".contenido_ingresoPedido");
@@ -475,6 +476,7 @@ $(document).ready(function () {
 
     CrearDialogs();
     MostrarBarra();
+
     //INI HD-4200
     ValidarSuscripcionSE(function () { CargarDetallePedido();},0);
     //FIN HD-4200
@@ -772,6 +774,17 @@ function CrearDialogs() {
         close: function (event, ui) {
             HideDialog("divConfirmValidarPROL");
         }
+    });
+    $("#divConfirmValidarPROL2").dialog({
+	    autoOpen: false,
+	    resizable: false,
+	    modal: true,
+	    closeOnEscape: true,
+	    width: 550,
+	    draggable: true,
+	    close: function (event, ui) {
+		    HideDialog("divConfirmValidarPROL");
+	    }
     });
 
     $("#divReservaSatisfactoria").dialog({
@@ -1490,6 +1503,8 @@ function ObservacionesProducto(item) {
     $("#hdTipoEstrategiaID").val(item.TipoEstrategiaID);
     $("#hdEsOfertaIndependiente").val(item.EsOfertaIndependiente);
     $("#OfertaTipoNuevo").val("");
+    $("#hdEsDuoPerfecto").val(item.EsDuoPerfecto);
+    $("#hdTipoEstrategiaCodigo").val(item.CodigoEstrategia);
 
     $("#txtCantidad").removeAttr("disabled");
     if (item.FlagNueva == 1) {
@@ -1677,7 +1692,6 @@ function CerrarProductoAgregado() {
 
 function ValidDeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cuv, cantidad, clienteId, cuvReco, esBackOrder, setId, esElecMultipleNuevas) {
 
-
     ValidDeleteElectivoNuevas(
         cuv,
         esElecMultipleNuevas,
@@ -1733,6 +1747,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         async: true,
         success: function (data) {
             CerrarSplash();
+
             if (!checkTimeout(data)) return false;
             if (data.success != true) {
                 btnSalirTlpDelete(window.event, pedidoDetalleId, setId);
@@ -1772,6 +1787,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
+                btnSalirTlpDelete(window.event, pedidoDetalleId, setId);
                 HideDialog("divVistaPrevia");
                 CerrarSplash();
             }
@@ -1915,6 +1931,7 @@ function EsValidoMontoTotalReserva() {
 }
 
 function EjecutarServicioPROL() {
+	
     PedidoProvider
         .PedidoEjecutarServicioProlPromise()
         .done(function (response) {
@@ -2095,7 +2112,13 @@ function MostrarMensajeProl(response, fnOfertaFinal) {
 function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();
     $("#dialog_divReservaSatisfactoria").show();
-    RedirigirPedidoValidado();
+    var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
+    
+    if (ultimoDiaFacturacion) {
+	    RedirigirPedidoValidado(); //Redirige PEDIDO VALIDADO
+    } else {
+	    location.reload();
+    }
 }
 
 function EliminarPedido() {
@@ -2704,7 +2727,7 @@ $.fn.CreateSelected = function (array, val, text, etiqueta, index) {
         }
 
         $.each(array, function (i, item) {
-            var objtemp = item;
+            //var objtemp = item;
             $(obj).append('<option value="' + item[val] + '">' + item[text] + "</option>");
         });
     } catch (e) {
@@ -2834,7 +2857,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                     CerrarSplash();
                     AbrirPopupPedidoReservado(data.message, "1");
                 }
-                else {
+                else if (data.UltimoDiaFacturacion) { //TESLA-7 REDIRECCIONA SOLO SI ES ULTIMO DIA, CIERRE FACTURACION 
                     AbrirSplash();
                     location.href = urlValidadoPedido;
                 }
@@ -2897,6 +2920,7 @@ function ProcesarActualizacionMostrarContenedorCupon() {
         }
     }
 }
+
 function closeDialogObservacionesProl() {
 
     var notExitoFromProl = $('#divMensajeObservacionesPROL').data('prop-NotExito');
@@ -3013,6 +3037,14 @@ function CargarProductosRecomendados(item) {
 
 }
 
+function ModificarPedido() {
+	showDialog("divConfirmValidarPROL2");
+}
+
+function CerrarDialogo(dialog) {
+	HideDialog(dialog);
+}
+
 function PedidosPendientesPorAprobar() {
 
     if (!(typeof AnalyticsPortalModule === 'undefined')) {
@@ -3020,4 +3052,3 @@ function PedidosPendientesPorAprobar() {
     }
     window.location.href = '/ConsultoraOnline/Pendientes';
 }
-

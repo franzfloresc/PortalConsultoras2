@@ -235,7 +235,7 @@ var FichaModule = (function (config) {
                 for (cant = 0; cant < o.FactorRepeticion; cant++) {
                     ListaOpcionesModule.SeleccionarOpcion(o.CUV);
                 }
-                ResumenOpcionesModule.AplicarOpciones();
+                ResumenOpcionesModule.AplicarOpciones(false, true);
             }
         });
 
@@ -543,10 +543,10 @@ var FichaModule = (function (config) {
 
         if (pEstrategia.TieneStock) {
             if (_config.esEditable) {
-                $(_elementos.btnAgregalo).html("MODIFICAR");
+                $(_elementos.btnAgregalo).html("Modificar");
             }
             else {
-                $(_elementos.btnAgregalo).html("AGRÉGALO");
+                $(_elementos.btnAgregalo).html("Agrégalo");
             }
         }
     };
@@ -777,12 +777,12 @@ var FichaModule = (function (config) {
             idTituloCarrusel: "#tituloCarrusel",
             divCarruselProducto: "#divFichaCarruselProducto",
             OrigenPedidoWeb: _config.origen,
+            usaLocalStorage: _config.usaLocalStorage,
             tituloCarrusel: modeloFicha.DescripcionCompleta,
-            cantidadPack: modeloFicha.Hermanos.length,
             codigoProducto: modeloFicha.CodigoProducto,
             precioProducto: modeloFicha.Precio2,
             productosHermanos: modeloFicha.Hermanos,
-            usaLocalStorage: _config.usaLocalStorage
+            tieneStock: modeloFicha.TieneStock
         });
 
         carruselModule.Inicializar();
@@ -879,14 +879,14 @@ var FichaModule = (function (config) {
         modeloFicha = _getEstrategia(modeloFicha);
         _modeloFicha(modeloFicha);
 
-        if (_modeloFicha().MostrarFichaResponsive &&
-            _modeloFicha().CodigoVariante == _codigoVariedad.ComuestaFija) {
-            var urlResponsive = _config.generalModule.getLocationPathname()/*.toLowerCase()*/;
-            urlResponsive = urlResponsive.replace("Detalle", "Detalles");
-            urlResponsive = urlResponsive.substr(1);
-            _config.generalModule.redirectTo(urlResponsive, _config.esMobile);
-            return;
-        }
+        //if (_modeloFicha().MostrarFichaResponsive &&
+        //    _modeloFicha().CodigoVariante == _codigoVariedad.ComuestaFija) {
+        //    var urlResponsive = _config.generalModule.getLocationPathname()/*.toLowerCase()*/;
+        //    urlResponsive = urlResponsive.replace("Detalle", "Detalles");
+        //    urlResponsive = urlResponsive.substr(1);
+        //    _config.generalModule.redirectTo(urlResponsive, _config.esMobile);
+        //    return;
+        //}
 
         _construirSeccionFicha();
         _construirSeccionEstrategia();

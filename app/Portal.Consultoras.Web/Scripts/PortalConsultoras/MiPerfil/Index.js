@@ -5,6 +5,7 @@ var directionsService;
 var searchBox;
 var _googleMap;
 var OperacionDb = { Insertar: "0", Editar: "1" };
+var Ubigeos = Ubigeos || [];
 
 $(document).ready(function () {
 
@@ -350,20 +351,20 @@ $(document).ready(function () {
                     $('.fondo_popup_ubicacion_direccion_entrega').fadeOut(150);
                     $('.popup_ubicacion_direccion_entrega').fadeOut(150);
                 },
-                
-            UbigeoChanged: function () {
-                var context = this;
-                var IdName = $(context).attr('id');
-                var Identity = IdName.substring(IdName.length - 1);
-                var IdDependiente = '#Ubigeo' + (parseInt(Identity) + 1);
-                var Nivel = $(context).attr('Nivel');
-                var IdPadre = $(context).val() == "" ? "" : $(context).val();
-                var optVal = $('#' + IdName + ' option:selected').val();
-                var optionSelected = $("option:selected", this).attr('value');
-                _googleMap.Funciones.LimpiarControlesMap();
-                if ($(IdDependiente)[0] == undefined)
-                    return;
-                   me.Funciones.ShowLoading();
+
+                UbigeoChanged: function () {
+                    var context = this;
+                    var IdName = $(context).attr('id');
+                    var Identity = IdName.substring(IdName.length - 1);
+                    var IdDependiente = '#Ubigeo' + (parseInt(Identity) + 1);
+                    var Nivel = $(context).attr('Nivel');
+                    var IdPadre = $(context).val() == "" ? "" : $(context).val();
+                    //var optVal = $('#' + IdName + ' option:selected').val();
+                    //var optionSelected = $("option:selected", this).attr('value');
+                    _googleMap.Funciones.LimpiarControlesMap();
+                    if ($(IdDependiente)[0] == undefined)
+                        return;
+                    me.Funciones.ShowLoading();
                     $.ajax({
                         url: UrlDrop,
                         type: 'GET',
@@ -837,7 +838,7 @@ function SubirImagen(url, image) {
         success: function (data) {
             if (data.success) {
                 CerrarLoad();
-                alert('Su foto de perfil se cambio correctamente.');
+                alert('Su foto de perfil se cambió correctamente.');
                 window.location = url;
             } else {
                 alert('Hubo un error al cargar el archivo, intente nuevamente.');
@@ -1108,13 +1109,13 @@ var GoogleMap = function () {
 
             marker.setPosition(place.geometry.location);
             marker.setVisible(true);
-            var address = '';
+            //var address = '';
             if (place.address_components) {
-                address = [
-                    (place.address_components[0] && place.address_components[0].short_name || ''),
-                    (place.address_components[1] && place.address_components[1].short_name || ''),
-                    (place.address_components[2] && place.address_components[2].short_name || '')
-                ].join(' ');
+                //address = [
+                //    (place.address_components[0] && place.address_components[0].short_name || ''),
+                //    (place.address_components[1] && place.address_components[1].short_name || ''),
+                //    (place.address_components[2] && place.address_components[2].short_name || '')
+                //].join(' ');
                 me.Propiedades.directionText = place.formatted_address;
                 $("#RouteDirection").html(place.formatted_address);
             }

@@ -54,19 +54,18 @@ function bindElments() {
 
 function AceptarPedidoPendiente() {
 
-	
-
     var btn = $('.btnAccion a.ghost')[0];
-     
+    var accionTipo = $(btn).parent().data('accion');
+
     if (btn) {
         var pedido = {
             Accion: 2,
             Dispositivo: glbDispositivo,
-            AccionTipo: $(btn).parent().data('accion'),
+            AccionTipo: accionTipo,
             ListaGana: $(btn).parent().data('accion') == 'ingrgana' ? $("#list-ofertas-ganamas").data('listagana') : [],
             OrigenTipoVista: gTipoVista
         }
-        
+
         waitingDialog();
         $.ajax({
             type: 'POST',
@@ -76,98 +75,105 @@ function AceptarPedidoPendiente() {
             data: JSON.stringify(pedido),
             async: true,
             success: function (response) {
-            /** Analytics **/
-            
-                MarcaAnalyticsClienteProducto($(btn).parent().data('accion') == "ingrgana" ? "Acepto Todo el Pedido - Por Gana+" :  "Acepto Todo el Pedido - Por catálogo");
-			/** Fin Analytics **/
-                
-			    closeWaitingDialog();
-			    if (checkTimeout(response)) {
-				    if (response.success) {
-					    
-					    if ($('#modal-confirmacion')[0]) {
-						    //$('#modal-confirmacion').addClass('on');
+                /** Analytics **/
 
-						    $("#contenedor-paso-2").hide();
-						    $("#modal-confirmacion").show();
-						    $("body").css('overflow', 'hidden');
-						    if (!response.continuarExpPendientes) {
-						        $("#btnIrPEdidoAprobar").parent().hide();
-						        $("#btnIrPedido").removeClass("ghost");
-						        $("#btnIrPedido").removeClass("color-dark");
-						        $("#btnIrPedido").addClass("second-color");
-						        $("#btnIrPedido").parent().addClass("mx-auto");
+                MarcaAnalyticsClienteProducto($(btn).parent().data('accion') == "ingrgana" ? "Acepto Todo el Pedido - Por Gana+" : "Acepto Todo el Pedido - Por catálogo");
+                /** Fin Analytics **/
 
-						    } else {
-						        $("#btnIrPEdidoAprobar").parent().show();
-						        $("#btnIrPedido").removeClass("second-color");
-						        $("#btnIrPedido").parent().removeClass("mx-auto");
-						        $("#btnIrPedido").addClass("ghost");
-						        $("#btnIrPedido").addClass("color-dark");
-						    }
-                            
-                        /**  Al visualizar el popup de la confirmación debe enviar los siguiente eventos **/
-                        
+                closeWaitingDialog();
+                if (checkTimeout(response)) {
+                    if (response.success) {
+
+                        if ($('#modal-confirmacion')[0]) {
+                            //$('#modal-confirmacion').addClass('on');
+
+                            var mensajeConfirmacion = (accionTipo == "ingrgana") ? "Has atendido el pedido por Gana+." : "Has atendido el pedido por Catálogo.";
+                            $("#mensajeConfirmacion").html(mensajeConfirmacion);
+
+                            $("#contenedor-paso-2").hide();
+                            $("#modal-confirmacion").show();
+                            $("body").css('overflow', 'hidden');
+                            if (!response.continuarExpPendientes) {
+                                $("#btnIrPEdidoAprobar").parent().hide();
+                                $("#btnIrPedido").removeClass("ghost");
+                                $("#btnIrPedido").removeClass("color-dark");
+                                $("#btnIrPedido").addClass("second-color");
+                                $("#btnIrPedido").parent().addClass("mx-auto");
+
+                            } else {
+                                $("#btnIrPEdidoAprobar").parent().show();
+                                $("#btnIrPedido").removeClass("second-color");
+                                $("#btnIrPedido").parent().removeClass("mx-auto");
+                                $("#btnIrPedido").addClass("ghost");
+                                $("#btnIrPedido").addClass("color-dark");
+                            }
+
+                            /**  Al visualizar el popup de la confirmación debe enviar los siguiente eventos **/
+
                             var lstproduct = [];
+
                             var listProductos = [];
+                            var pedidoSessionJson = JSON.parse(response.PedidosSesion);
+
                             if (response.ListaGana !== null) {
                                 listProductos = response.ListaGana || [];
                             } else {
-	                            listProductos = response.PedidosSesion[0].DetallePedido || [];
+                                listProductos = pedidoSessionJson[0].DetallePedido || [];
                             }
                             if (listProductos.length > 0) {
                                 listProductos.forEach(function (product) {
                                     if ($(btn).parent().data('accion') == "ingrgana") {  //por Gana+
-	                                    var itemProduct = {
+                                        var itemProduct = {
                                             "id": product.CUV2,
                                             "name": product.DescripcionCUV2,
                                             "price": product.PrecioString,
                                             "brand": product.DescripcionMarca,
-		                                    "category": "(not available)",
-		                                    "variant": "Estándar",
+                                            "category": "(not available)",
+                                            "variant": "Estándar",
                                             "quantity": product.Cantidad
-	                                    };
-	                                    lstproduct.push(itemProduct);
+                                        };
+                                        lstproduct.push(itemProduct);
                                     } else {        //Por Catálogo
-	                                    var itemProduct = {
-		                                    "id": product.CUV,
-		                                    "name": product.Producto,
+                                        var itemProduct = {
+                                            "id": product.CUV,
+                                            "name": product.Producto,
                                             "price": product.PrecioTotal.toFixed(2),
-		                                    "brand": product.Marca,
-		                                    "category": "(not available)",
-		                                    "variant": "Estándar",
-		                                    "quantity": product.Cantidad
-	                                    };
-	                                    lstproduct.push(itemProduct);
+                                            "brand": product.Marca,
+                                            "category": "(not available)",
+                                            "variant": "Estándar",
+                                            "quantity": product.Cantidad
+                                        };
+                                        lstproduct.push(itemProduct);
                                     }
-		                           
-	                            });
-	                            
-                                AnalyticsMarcacionPopupConfirmacion($(btn).parent().data('accion') === "ingrgana" ? "Por Gana+" : "Por catálogo", lstproduct );
+
+                                });
+
+                                AnalyticsMarcacionPopupConfirmacion($(btn).parent().data('accion') === "ingrgana" ? "Por Gana+" : "Por catálogo", lstproduct);
                             }
-					    } else {
-						    $('#popuplink').click();
-					    }
-					    CargarResumenCampaniaHeader(true);
-					    return false;
-				    } else {
-					    if (response.code == 1) {
-						    AbrirMensaje(response.message);
-					    } else if (response.code == 2) {
-						    $('#MensajePedidoReservado').text(response.message);
-						    $('#AlertaPedidoReservado').show();
-					    }
-				    }
-			    }
-		    },
-		    error: function(data, error) {
-			    closeWaitingDialog();
-			    if (checkTimeout(data)) {
-				    AbrirMensaje(
-					    "Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
-			    }
-		    }
-	    });
+                        } else {
+                            $('#popuplink').click();
+                        }
+                        CargarResumenCampaniaHeader(true);
+                        return false;
+                    } else {
+                        if (response.code == 1) {
+                            AbrirMensaje(response.message);
+                        } else if (response.code == 2) {
+                            //$('#MensajePedidoReservado').text(response.message);
+                            //$('#AlertaPedidoReservado').show();
+                            AbrirMensaje(response.message);
+                        }
+                    }
+                }
+            },
+            error: function (data, error) {
+                closeWaitingDialog();
+                if (checkTimeout(data)) {
+                    AbrirMensaje(
+                        "Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
+                }
+            }
+        });
 
     } else {
         var $MensajeTolTip = $("[data-tooltip=\"mensajepedidopaso2\"]");
@@ -179,13 +185,13 @@ function AceptarPedidoPendiente() {
 
 }
 function AnalyticsMarcacionPopupConfirmacion(strTipo, prod) {
-	if (!(typeof AnalyticsPortalModule === 'undefined')) {
+    if (!(typeof AnalyticsPortalModule === 'undefined')) {
         AnalyticsPortalModule.ClickTabPedidosPendientes("Pop up Pedido Aprobado", strTipo);
-        
+
         //var products = [];
-        
+
         AnalyticsPortalModule.ClickVistaAddToCardPedidoPendiente(strTipo, prod);
-	}
+    }
 }
 function cargarGaleria() {
     $('.conGanaMas').slick({
@@ -212,7 +218,7 @@ function cargarGaleria() {
 }
 
 function DetallePedidoPendienteClientes(cuv) {
-	
+
     if (!(typeof AnalyticsPortalModule === 'undefined')) {
         AnalyticsPortalModule.ClickBotonTabVistaProducto('In Tab Vista Producto - Click Botón', 'Confirmar Clientes');
     }
@@ -220,7 +226,7 @@ function DetallePedidoPendienteClientes(cuv) {
 }
 
 function DetallePedidoPendienteClientesVerMas(cuv) {
-    
+
     if (!(typeof AnalyticsPortalModule === 'undefined')) {
         AnalyticsPortalModule.ClickBotonTabVistaProducto('In Tab Vista Producto - Click Botón', 'Ver más');
     }
@@ -316,7 +322,7 @@ function MostrarMensajedeRechazoPedido(cuv) {
 function OcultarMensajedeRechazoPedido(cuv) {
     var mensaje = '#' + cuv;
     $(mensaje).hide();
-    
+
     MarcaAnalyticsClienteProducto("¿Quieres eliminar este pedido? - No, gracias");
     //document.location.href = urlPedido;
 }
@@ -521,7 +527,7 @@ function ContinuarPedido() {
                 //CloseLoading();
                 if (response.success) {
                     //marcacion analytics de Continuar
-                    
+
                     MarcaAnalyticsClienteProducto('Continuar');
 
                     $('#Paso1-Clientes').hide();
@@ -539,12 +545,15 @@ function ContinuarPedido() {
                     response.result.ListaCatalogo = newListaCatalogo;
 
                     SetHandlebars("#template-paso-2", response.result, "#contenedor-paso-2");
-                    //if (response.result.ListaGana.length == 0 || response.result.GananciaGana <= 0) {
-                    //    $('.porGanaMas').hide();
-                    //}
-                    if (response.result.TotalGana <= 0 || response.result.GananciaGana <= 0) {
-                        $('[data-ganancia-gana]').hide();
+                    if (response.result.ListaGana.length == 0) {
+                        $('.porGanaMas').hide();
                     }
+                    else {
+                        if (response.result.GananciaGana <= 0) {
+                            $('[data-ganancia-gana]').hide();
+                        }
+                    }
+
                     $('#contenedor-paso-2').show();
                     cargarGaleria()
                     bindElments();
@@ -591,7 +600,7 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
             //CloseLoading();
             if (response.success) {
                 // ocultar div
-                
+
                 MarcaAnalyticsClienteProducto('¿Quiere eliminar este pedido? - Sí, eliminar');
 
                 //Ajax
@@ -621,7 +630,7 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
                     }
                     else $(idPedido).hide();
                 }
-                
+
                 RenderizarPendientes(Pendientes);
                 cambiaTabs();
             }
@@ -649,20 +658,20 @@ function RechazarTodoConfirmado() {
 
 }
 function MarcaAnalyticsClienteProducto(label) {
-	var textAction = isTabOptionSelected() == 1
+    var textAction = isTabOptionSelected() == 1
         ? "Vista por Cliente - Pop up Paso 1" : isTabOptionSelected() == 2 ? "Vista por Producto - Pop up Paso 1" : isTabOptionSelected() == 3
-        ? "Vista por Cliente - Pop up Paso 2" : isTabOptionSelected() == 4 ? "Vista por Producto - Pop up Paso 2" : "";
+            ? "Vista por Cliente - Pop up Paso 2" : isTabOptionSelected() == 4 ? "Vista por Producto - Pop up Paso 2" : "";
 
-	if (textAction !== "") {
-		if (!(typeof AnalyticsPortalModule === 'undefined')) {
+    if (textAction !== "") {
+        if (!(typeof AnalyticsPortalModule === 'undefined')) {
             AnalyticsPortalModule.ClickTabPedidosPendientes(textAction, label);
-		}
-	}
+        }
+    }
 }
 function CerrarPopupConfirmacion() {
 
-	MarcaAnalyticsClienteProducto("Cerrar Pop up");
-    
+    MarcaAnalyticsClienteProducto("Cerrar Pop up");
+
     $("#modal-confirmacion").hide();
     $("#Paso1-Productos").hide();
     $("#Paso1-Clientes").hide();
@@ -695,15 +704,15 @@ function isTabOptionSelected() {
 
     if (isShowPopup) {
         //Verifica que este seleccinado el tab Cliente o Producto
-        var isClienteOrProducto = $("#Paso1-Productos").css("Display") == "block" ? true : $("#Paso1-Clientes").css("Display") === "block" ? true : false; 
+        var isClienteOrProducto = $("#Paso1-Productos").css("Display") == "block" ? true : $("#Paso1-Clientes").css("Display") === "block" ? true : false;
         if (isClienteOrProducto) {
-	        var SelectorOpen = $("#vpcp").find(".active").attr('href');
-	        return SelectorOpen.indexOf("cliente") > 0 ? 1 : 2;
+            var SelectorOpen = $("#vpcp").find(".active").attr('href');
+            return SelectorOpen.indexOf("cliente") > 0 ? 1 : 2;
         }
-        var isClienteOrProductoPaso2 = $("#contenedor-paso-2").css("Display") == "block" ? true : false; 
+        var isClienteOrProductoPaso2 = $("#contenedor-paso-2").css("Display") == "block" ? true : false;
         if (isClienteOrProductoPaso2) {
-	        var SelectorOpen = $("#vpcp").find(".active").attr('href');
-	        return SelectorOpen.indexOf("cliente") > 0 ? 3 : 4;
+            var SelectorOpen = $("#vpcp").find(".active").attr('href');
+            return SelectorOpen.indexOf("cliente") > 0 ? 3 : 4;
         }
     }
     return 0;

@@ -11,6 +11,7 @@ using Portal.Consultoras.Common;
 using System.Threading.Tasks;
 using Portal.Consultoras.Web.Controllers.Estrategias;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.Models.ElasticSearch;
 
 namespace Portal.Consultoras.Web.UnitTest.Controllers
 {
@@ -21,42 +22,55 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
         public class Carrusel : Base
         {
             protected Mock<TablaLogicaProvider> tablaLogicaProvider;
+            protected Mock<CarruselUpSellingProvider> carruselUpSellingProvider;
 
             [TestInitialize]
             public override void Test_Initialize()
             {
                 base.Test_Initialize();
-                tablaLogicaProvider = GetOfertaPersonalizadaProvider();
+                tablaLogicaProvider = getTablaLogicaDatosProvider();
+                carruselUpSellingProvider = getCarruselUpSellingProvider();
             }
 
-            protected virtual Mock<TablaLogicaProvider> GetOfertaPersonalizadaProvider()
+            protected virtual Mock<CarruselUpSellingProvider> getCarruselUpSellingProvider()
             {
-                tablaLogicaProvider = new Mock<TablaLogicaProvider>
-                {
-                    //CallBase = true
-                };
-                tablaLogicaProvider.Setup(x => x.GetTablaLogicaDatos(
+                carruselUpSellingProvider = new Mock<CarruselUpSellingProvider> { };
+                carruselUpSellingProvider.Setup(x => x.ObtenerProductosCarruselUpSelling(
+                    It.IsAny<string>(),
+                    It.IsAny<string[]>(),
+                    It.IsAny<double>()
+                    )).Returns(
+                        Task.FromResult(new OutputProductosUpSelling())
+                    );
+                return carruselUpSellingProvider;
+            }
+
+            protected virtual Mock<TablaLogicaProvider> getTablaLogicaDatosProvider()
+            {
+                tablaLogicaProvider = new Mock<TablaLogicaProvider> { };
+                tablaLogicaProvider.Setup(x => x.GetTablaLogicaDatoValorInt(
                     It.IsAny<int>(),
                     It.IsAny<short>(),
+                    It.IsAny<string>(),
                     It.IsAny<bool>()
-                    )).Returns(new List<TablaLogicaDatosModel> { new TablaLogicaDatosModel { Codigo= ":P"} });
+                    )).Returns(1);
 
                 return tablaLogicaProvider;
             }
 
             [TestMethod]
-            public void Carrusel_test()
+            public void CarruselObtener()
             {
                 //SessionManager.Setup(x => x.GetTablaLogicaDatos(It.IsAny<string>())).Returns(new TablaLogicaDatosModel { Codigo="" });
                 var controller = new EstrategiaController(SessionManager.Object, LogManager.Object, tablaLogicaProvider.Object);
                 var codigosProductos = new string[1];
                 codigosProductos[0] = "321564987";
 
-                var result = controller.FichaObtenerProductosUpSellingCarrusel("", "", codigosProductos,0);
+                var result = controller.FichaObtenerProductosCarrusel("", "");//, codigosProductos, 0);
 
                 Assert.IsNotNull(result);
             }
-            
+
         }
     }
 }

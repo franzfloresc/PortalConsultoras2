@@ -521,6 +521,9 @@ function ObservacionesProducto(item) {
     $("#hdfDescripcionEstrategia").val(item.DescripcionEstrategia);
     $("#hdfDescripcionMarca").val(item.DescripcionMarca);
     $("#hdLimiteVenta").val(item.LimiteVenta);
+    $("#hdEsOfertaIndependiente").val(item.EsOfertaIndependiente);
+    $("#hdEsDuoPerfecto").val(item.EsDuoPerfecto);
+    $("#hdTipoEstrategiaCodigo").val(item.CodigoEstrategia);
 
     $("#hdfIndicadorMontoMinimo").val(item.IndicadorMontoMinimo);
     $("#hdfMarcaID").val(item.MarcaID);

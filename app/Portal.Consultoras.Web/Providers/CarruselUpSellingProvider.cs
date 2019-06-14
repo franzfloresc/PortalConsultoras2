@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Providers
             _tablaLogicaProvider = new TablaLogicaProvider();
         }
 
-        public async Task<OutputProductosUpSelling> ObtenerProductosCarruselUpSelling(string[] codigosProductos, double precioProducto)
+        public virtual async Task<OutputProductosUpSelling> ObtenerProductosCarruselUpSelling(string cuv, string[] codigosProductos, double precioProducto)
         {
             try
             {
@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.Providers
                     ObtenerOrigen()
                 );
                 var cantidadProductosUpSelling = ObtenerCantidadProductosUpSelling();
-                var jsonData = GenerarJsonParaConsulta(userData, revistadigital, codigosProductos, cantidadProductosUpSelling, precioProducto);
+                var jsonData = GenerarJsonParaConsulta(userData, revistadigital, codigosProductos, cantidadProductosUpSelling, precioProducto, cuv);
 
                 return await PostAsync<OutputProductosUpSelling>(pathBuscador, jsonData);
             }
@@ -44,11 +44,18 @@ namespace Portal.Consultoras.Web.Providers
         private int ObtenerCantidadProductosUpSelling()
         {
             var userData = _sessionManager.GetUserData();
-            var cantidadProductos = _tablaLogicaProvider.GetTablaLogicaDatoValor(userData.PaisID, ConsTablaLogica.ConfiguracionesFicha.TablaLogicaId, ConsTablaLogica.ConfiguracionesFicha.CantidadProductosCarruselUpSelling, true);
-            return cantidadProductos.IsNullOrEmptyTrim() ? 0 : Convert.ToInt32(cantidadProductos);
+            var cantidadProductos = _tablaLogicaProvider.GetTablaLogicaDatoValorInt(userData.PaisID, 
+                ConsTablaLogica.ConfiguracionesFicha.TablaLogicaId, 
+                ConsTablaLogica.ConfiguracionesFicha.CantidadProductosUpSelling, true);
+            return cantidadProductos;
         }
 
-        private dynamic GenerarJsonParaConsulta(UsuarioModel usuarioModel, RevistaDigitalModel revistaDigital, string[] codigosProductos, int cantidadProductos, double precioProducto)
+        private dynamic GenerarJsonParaConsulta(UsuarioModel usuarioModel, 
+            RevistaDigitalModel revistaDigital, 
+            string[] codigosProductos, 
+            int cantidadProductos, 
+            double precioProducto,
+            string cuv)
         {
             var suscripcion = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
             var personalizaciones = "";
@@ -61,6 +68,7 @@ namespace Portal.Consultoras.Web.Providers
                 codigoConsultora = usuarioModel.CodigoConsultora,
                 codigoZona = usuarioModel.CodigoZona,
                 codigoProducto = codigosProductos,
+                cuv,
                 personalizaciones,
                 cantidadProductos,
                 precioProducto,

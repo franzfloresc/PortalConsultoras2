@@ -96,7 +96,6 @@ namespace Portal.Consultoras.Web.Controllers
                     if (string.IsNullOrWhiteSpace(certificado.NombreVista)) certificado.NombreVista = "~/Views/MisCertificados/NoAdeudoPdf.cshtml";
 
                     break;
-                //INI HD-3812
                 case Constantes.PaisID.CostaRica:
                 case Constantes.PaisID.Panama:
                 case Constantes.PaisID.ElSalvador:
@@ -110,7 +109,6 @@ namespace Portal.Consultoras.Web.Controllers
                     certificado.CertificadoId = 1;
                     certificado.NombreVista = "~/Views/MisCertificados/CAM_NoAdeudoPdf.cshtml";
                     break;
-                //FIN HD-3812
                 default:
                     certificado = null;
                     break;
@@ -157,7 +155,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     }
                     certificado.CertificadoId = 2;
-                    
+
                     if (userData.PaisID == Constantes.PaisID.RepublicaDominicana) certificado.NombreVista = "~/Views/MisCertificados/DO_ComercialPdf.cshtml";
                     if (userData.PaisID == Constantes.PaisID.PuertoRico) certificado.NombreVista = "~/Views/MisCertificados/PR_ComercialPdf.cshtml";
                     if (string.IsNullOrWhiteSpace(certificado.NombreVista)) certificado.NombreVista = "~/Views/MisCertificados/ComercialPdf.cshtml";
@@ -271,12 +269,11 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MensajeError = tmp.MensajeError;
                     model.NombreVista = tmp.NombreVista;
 
-                    //INI HD-3812
                     switch (userData.PaisID)
                     {
                         case Constantes.PaisID.CostaRica:
                             if (model.TipoDocumento == "CCI") model.TipoDocumento = "cédula de identidad";
-                            else if(model.TipoDocumento == "PASP") model.TipoDocumento = "pasaporte";
+                            else if (model.TipoDocumento == "PASP") model.TipoDocumento = "pasaporte";
                             break;
                         case Constantes.PaisID.Panama:
                             if (model.TipoDocumento == "C.Ext") model.TipoDocumento = "cédula externa";
@@ -284,7 +281,7 @@ namespace Portal.Consultoras.Web.Controllers
                             else if (model.TipoDocumento == "OTROS" || model.TipoDocumento == "DNI") model.TipoDocumento = "nro. de documento";
                             break;
                     }
-                    //FIN HD-3812
+
                     var numeroDocumento = model.NumeroDocumento;
                     switch (userData.PaisID)
                     {
@@ -292,7 +289,7 @@ namespace Portal.Consultoras.Web.Controllers
                             model.NumeroDocumento = numeroDocumento.Substring(numeroDocumento.Length - 8);
                             break;
                         case Constantes.PaisID.PuertoRico:
-                            var num= numeroDocumento.Substring(numeroDocumento.Length - 4);
+                            var num = numeroDocumento.Substring(numeroDocumento.Length - 4);
                             char pad = 'X';
                             model.NumeroDocumento = num.PadLeft(9, pad);
                             break;
@@ -331,7 +328,6 @@ namespace Portal.Consultoras.Web.Controllers
                             case Constantes.PaisID.Peru:
                                 model.Pais = "Peru";
                                 break;
-                            //INI HD-3812
                             case Constantes.PaisID.CostaRica:
                                 model.Pais = "CR";
                                 break;
@@ -344,7 +340,6 @@ namespace Portal.Consultoras.Web.Controllers
                             case Constantes.PaisID.ElSalvador:
                                 model.Pais = "ES";
                                 break;
-                            //FIN HD-3812
                             default:
                                 model.Pais = "";
                                 break;

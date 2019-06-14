@@ -33,9 +33,10 @@
              data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}"
              data-item-producto="true">
 
-        <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div style="display:none;">
+            <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
             <div data-estrategia="{{JSON2string item}}"></div>
+            <div data-imagen-producto="{{ImgSmall FotoProducto01}}"></div>
         </div>
 
         <a href="javascript:;" {{#if TieneStock}} {{else}} class="producto-agotado" {{/if}} 

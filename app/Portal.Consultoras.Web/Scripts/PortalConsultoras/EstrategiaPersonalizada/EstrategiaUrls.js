@@ -17,7 +17,7 @@ var FichaVerDetalle = (function () {
             OrigenPedidoWeb = EstrategiaAgregarModule.GetOrigenPedidoWeb($(e));
         }
 
-        OrigenPedidoWeb = getOrigenSegunCodigoEstrategia(OrigenPedidoWeb, codigoEstrategia);
+        OrigenPedidoWeb = CodigoOrigenPedidoWeb.GetCambioSegunTipoEstrategia(OrigenPedidoWeb, codigoEstrategia);
 
         var UrlDetalle = getPalanca(codigoEstrategia, OrigenPedidoWeb);
 
@@ -50,20 +50,6 @@ var FichaVerDetalle = (function () {
         }
 
         return '';
-    };
-
-    var getOrigenSegunCodigoEstrategia = function (origenPedidoWeb, codigoEstrategia) {
-
-        var origenModelo = CodigoOrigenPedidoWeb.GetOrigenModelo(origenPedidoWeb);
-        if (origenModelo.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling) {
-            var _objTipoPalanca = CodigoOrigenPedidoWeb.DiccionarioTipoEstrategia.find(function (x) {
-                return x.codigo === codigoEstrategia
-            }) || {};
-
-            origenModelo.Palanca = _objTipoPalanca.Palanca;
-        }
-
-        return origenModelo.Dispositivo + origenModelo.Pagina + origenModelo.Palanca + origenModelo.Seccion;
     };
 
     var getPalanca = function (codigoEstrategia, origenPedidoWeb, esUrl) {

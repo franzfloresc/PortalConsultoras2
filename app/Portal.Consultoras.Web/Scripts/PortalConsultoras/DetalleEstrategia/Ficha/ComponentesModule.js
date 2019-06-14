@@ -98,7 +98,7 @@ var ComponentesModule = (function () {
                 if (cta < hijos) $('.xmsg-tonos-agotados').show();
             }
         }
-    }
+    };
 
     var _mostrarModalElegirOpciones = function() {
         if (isMobile()) {
@@ -119,17 +119,17 @@ var ComponentesModule = (function () {
     };
 
     var SeleccionarComponente = function (cuv, abrir) {
-        
+
         if (typeof cuv === "undefined" ||
             cuv === null ||
             $.trim(cuv) === "") throw "param cuv is not defined or null";
 
         cuv = $.trim(cuv);
         abrir = abrir == undefined || abrir;
-        var componente = {}            
+        var componente = {}
         $.each(_estrategia.Hermanos, function (index, hermano) {
-            if (cuv === hermano.Cuv) { 
-                componente = _estrategia.Hermanos[index];   
+            if (cuv === hermano.Cuv) {
+                componente = _estrategia.Hermanos[index];
 
                 opcionesEvents.applyChanges("onComponentSelected", componente);
 
@@ -140,7 +140,7 @@ var ComponentesModule = (function () {
                 return false;
             }
         });
-        
+
         if (componente.resumenAplicados) {
             if (componente.resumenAplicados.length > 0) {
                 if (componente.FactorCuadre === 1) {
@@ -148,7 +148,7 @@ var ComponentesModule = (function () {
                 } else {
                     AnalyticsPortalModule.MarcarCambiarOpcionVariasOpciones(_estrategia);
                 }
-                
+
                 return false;
             }
         }
@@ -157,7 +157,7 @@ var ComponentesModule = (function () {
         } else {
             AnalyticsPortalModule.MarcarPopupEligeXOpciones(_estrategia);
         }
-    }
+    };
 
     var SeleccionarComponenteDinamico = function (cuv) {
         var componente = {};
@@ -175,10 +175,10 @@ var ComponentesModule = (function () {
                 return false;
             }
         });
-    }
+    };
 
     var SeleccionarPaletaOpcion = function (event, cuv) {
-        
+
         var $PaletaOpcion = $(event.target);
         var CuvPadre = $PaletaOpcion.length > 0 ? $PaletaOpcion.parents("[data-tono-div]").data("tono-div") : "";
 
@@ -191,9 +191,8 @@ var ComponentesModule = (function () {
             CuvPadre === null ||
             $.trim(CuvPadre) === "") throw "param CuvPadre is not defined or null";
         CuvPadre = $.trim(CuvPadre);
-        
+
         $.each(_estrategia.Hermanos, function (index, hermano) {
-            CuvPadre = $.trim(CuvPadre);
             if (CuvPadre === hermano.Cuv) {
                 var componente = {};
                 componente = _estrategia.Hermanos[index];
@@ -213,20 +212,18 @@ var ComponentesModule = (function () {
 
                 var callFromSeleccionarPaletaOpcion = true;
                 ResumenOpcionesModule.AplicarOpciones(callFromSeleccionarPaletaOpcion);
-                //Marcación Analytics (EPM-1442)
-                AnalyticsPortalModule.MarcarImagenProducto(_estrategia, componente.resumenAplicados);
+                //AnalyticsPortalModule.MarcarImagenProducto(_estrategia, componente.resumenAplicados);
 
                 return false;
             }
         });
-        
+
         return false;
-    }
+    };
     var LimpiarComponentes = function () {
         if (_estrategia.Hermanos) {
             $.each(_estrategia.Hermanos, function (index, hermano) {
-                if (hermano.Hermanos)
-                {
+                if (hermano.Hermanos) {
                     $.each(hermano.Hermanos, function (index, hijo) {
                         hijo.cantidadAplicada = 0;
                         hijo.cantidadSeleccionada = 0;
@@ -235,12 +232,12 @@ var ComponentesModule = (function () {
                 var resumenOpcionesContenedor = _elements.resumenOpciones.id + "-" + hermano.Cuv;
                 $(resumenOpcionesContenedor).siblings(_elements.tonosSelectOpt).show();
                 $(resumenOpcionesContenedor).hide();
-            
+
                 hermano.resumenAplicados = [];
                 hermano.HermanosSeleccionados = [];
             });
         }
-    }
+    };
     function getEstrategia() {
         return _estrategia;
     }

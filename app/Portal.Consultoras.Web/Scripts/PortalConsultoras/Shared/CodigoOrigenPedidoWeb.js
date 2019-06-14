@@ -9,7 +9,10 @@ var CodigoOrigenPedidoWeb = (function () {
         Dimension: 7,
         Dispositivo: {
             Desktop: '1',
-            Mobile: '2'
+            Mobile: '2',
+            Chatbot: '3',
+            AppConsultora: '4',
+            AppMaquillador: '5'
         },
         Pagina: {
             LandingHerramientasVenta: '00',
@@ -24,11 +27,13 @@ var CodigoOrigenPedidoWeb = (function () {
             Otras: '09',
             LandingBuscador: '10',
             LandingGanadoras: '11',
+            Maquillador: '12',
             ArmaTuPackDetalle: '13',
             LandingDuoPerfecto: '14',
             LandingPackNuevas: '15',
-            DuoPerfecto: '16',
-            PackNuevas: '17',
+            LandingOfertaDelDia: '16',
+            LandingCategoria: '17',
+            CaminoBrillante: '18',
             Ficha: '19'
         },
         Palanca: {
@@ -49,7 +54,9 @@ var CodigoOrigenPedidoWeb = (function () {
             Ganadoras: '14',
             ArmaTuPack: '15',
             DuoPerfecto: '16',
-            PackNuevas: '17'
+            PackNuevas: '17',
+            EscogeTuRegalo: '18',
+            OfertasEspeciales: '19'
         },
         Seccion: {
             Carrusel: '01',
@@ -62,7 +69,10 @@ var CodigoOrigenPedidoWeb = (function () {
             Recomendado: '08',
             RecomendadoFicha: '09',
             AppCatalogoPendienteDeAprobar: '10',
-            CatalogoPendienteDeAprobar: '11',
+            CatalogoDigitalPendienteDeAprobarCliente: '11',
+            AppMaquilladorPendienteDeAprobarCliente: '12',
+            CatalogoDigitalPendienteDeAprobarProducto: '13',
+            AppMaquilladorPendienteDeAprobarProducto: '14',
             CarruselUpselling: '15',
             FichaUpselling: '16',
         }
@@ -94,17 +104,32 @@ var CodigoOrigenPedidoWeb = (function () {
             + origenPedidoWebEstructura.Seccion.Ficha
     };
 
-    var getOrigenModelo = function (codigoOrigenPedido) {
+    var getOrigenModelo = function (origen) {
         try {
+
             var origenEstructura = {};
 
-            codigoOrigenPedido = $.trim(codigoOrigenPedido);
+            if (typeof origen === "object") {
+                origenEstructura = origen || {};
+            }
+            else {
+                origenEstructura.OrigenPedidoWeb = origen || "";
+            }
 
-            origenEstructura.Dispositivo = codigoOrigenPedido.substring(0, 1).trim();
-            origenEstructura.Pagina = codigoOrigenPedido.substring(1, 3).trim();
-            origenEstructura.Palanca = codigoOrigenPedido.substring(3, 5).trim();
-            origenEstructura.Seccion = codigoOrigenPedido.substring(5, 7).trim();
+            origenEstructura.OrigenPedidoWeb = (origenEstructura.OrigenPedidoWeb || "").toString().trim();
+            origenEstructura.CodigoPalanca = (origenEstructura.CodigoPalanca || "").toString().trim();
+            
+            var codigoOrigenPedido = origenEstructura.OrigenPedidoWeb;
 
+            origenEstructura.Dispositivo = (origenEstructura.Dispositivo || codigoOrigenPedido.substring(0, 1)).toString().trim();
+            origenEstructura.Pagina = (origenEstructura.Pagina || codigoOrigenPedido.substring(1, 3)).toString().trim();
+            origenEstructura.Palanca = (origenEstructura.Palanca || codigoOrigenPedido.substring(3, 5)).toString().trim();
+            origenEstructura.Seccion = (origenEstructura.Seccion || codigoOrigenPedido.substring(5, 7)).toString().trim();
+            
+            if (origenEstructura.Palanca == "" && origenEstructura.CodigoPalanca != "") {
+                origenEstructura.Palanca = _getIdPalancaSegunCodigo(origenEstructura.CodigoPalanca);
+            }
+            
             return origenEstructura;
 
         } catch (e) {
@@ -112,11 +137,25 @@ var CodigoOrigenPedidoWeb = (function () {
         }
     };
 
+    var getOrigenCambioSegunTipoEstrategia = function (origenPedidoWeb, codigoEstrategia) {
+
+        var origenModelo = getOrigenModelo(origenPedidoWeb);
+        if (origenModelo.Seccion == origenPedidoWebEstructura.Seccion.CarruselUpselling) {
+            var _objTipoPalanca = diccionarioTipoEstrategiaPalanca.find(function (x) {
+                return x.codigo === codigoEstrategia
+            }) || {};
+
+            origenModelo.Palanca = _objTipoPalanca.Palanca;
+        }
+
+        return origenModelo.Dispositivo + origenModelo.Pagina + origenModelo.Palanca + origenModelo.Seccion;
+    };
 
     return {
         CodigoEstructura: origenPedidoWebEstructura,
         MaestroCodigoOrigen: maestroCodigoOrigen,
         GetOrigenModelo: getOrigenModelo,
+        GetCambioSegunTipoEstrategia: getOrigenCambioSegunTipoEstrategia,
         DiccionarioTipoEstrategia: diccionarioTipoEstrategiaPalanca
     }
 })();
