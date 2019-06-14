@@ -854,10 +854,10 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region Verificacion de Autenticidad
-        public BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb, bool flgCheckSMS, bool FlgCheckEmail)
+        public BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.GetVerificacionAutenticidad(paisID, CodigoUsuario, verificacionWeb, flgCheckSMS, FlgCheckEmail); 
+            return BLUsuario.GetVerificacionAutenticidad(paisID, CodigoUsuario, verificacionWeb); 
         }
 
         public BERespuestaSMS EnviarSmsVerificacionAutenticidad(int paisID, BEUsuarioDatos oUsu)

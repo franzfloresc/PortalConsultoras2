@@ -3401,7 +3401,7 @@ var usuario = await GetUserData(paisId, codigoUsuario);
                 using (var sv = new UsuarioServiceClient())
                 {
                     beusuario = sv.Select(paisID, codigoUsuario);
-                    oVerificacion =  sv.GetVerificacionAutenticidad(paisID, codigoUsuario, true, beusuario.FlgCheckSMS, beusuario.FlgCheckEMAIL);
+                    oVerificacion =  sv.GetVerificacionAutenticidad(paisID, codigoUsuario, true);
                 }
 
                 if (oVerificacion == null) return false;

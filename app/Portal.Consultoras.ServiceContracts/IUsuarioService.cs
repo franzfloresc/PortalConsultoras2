@@ -396,7 +396,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region Pin Autenticidad
         [OperationContract]        
-        BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb, bool flgCheckSMS, bool FlgCheckEmail);
+        BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb);
         [OperationContract]
         BERespuestaSMS EnviarSmsVerificacionAutenticidad(int paisID, BEUsuarioDatos oUsu);
         #endregion
