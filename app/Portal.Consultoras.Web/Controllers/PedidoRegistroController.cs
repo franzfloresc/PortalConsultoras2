@@ -463,16 +463,12 @@ namespace Portal.Consultoras.Web.Controllers
                     Util.DecimalToStringFormat(0, userData.CodigoISO);
             
             pedidoSb2Model.FormatoTotalMontoAhorroCatalogoStr = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo, userData.CodigoISO);
-            if (pedidoWeb.GananciaOtros != null)
+            if (pedidoWeb.GananciaOtros != null
+                && pedidoWeb.GananciaWeb != null
+                && pedidoWeb.GananciaRevista != null)
             {
-                if (pedidoWeb.GananciaWeb != null)
-                {
-                    if (pedidoWeb.GananciaRevista != null)
-                    {
                         var totalSumarized = pedidoWeb.GananciaOtros.Value + pedidoWeb.GananciaWeb.Value + pedidoWeb.GananciaRevista.Value + pedidoWeb.MontoAhorroCatalogo;
                         pedidoSb2Model.FormatoTotalMontoGananciaStr = Util.DecimalToStringFormat(totalSumarized, userData.CodigoISO);
-                    }
-                }
             }
 
             return pedidoSb2Model;
