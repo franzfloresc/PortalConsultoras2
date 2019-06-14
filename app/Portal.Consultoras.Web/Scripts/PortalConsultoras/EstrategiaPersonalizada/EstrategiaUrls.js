@@ -140,6 +140,9 @@ var FichaVerDetalle = (function () {
             case ConstantesModule.TipoEstrategia.NotParticipaProgramaNuevas:
                 url += ConstantesModule.TipoEstrategiaTexto.NotParticipaProgramaNuevas;
                 break;
+            case ConstantesModule.TipoEstrategia.MasGanadoras:
+                url += ConstantesModule.TipoEstrategiaTexto.Ganadoras;
+                break;
             default:
                 url = "";
         }
