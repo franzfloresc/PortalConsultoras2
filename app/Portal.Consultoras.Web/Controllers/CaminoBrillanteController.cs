@@ -34,6 +34,10 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.ResumenLogros = _caminoBrillanteProvider.GetLogroCaminoBrillante(Constantes.CaminoBrillante.Logros.RESUMEN);
                 ViewBag.TieneOfertasEspeciales = _caminoBrillanteProvider.TieneOfertasEspeciales();
                 ViewBag.SimboloMoneda = userData.Simbolo;
+                ViewBag.EsMobile = EsDispositivoMovil() || IsMobile();
+
+                if (ViewBag.TieneOfertasEspeciales)
+                    ViewBag.Carrusel = _caminoBrillanteProvider.GetCarruselCaminoBrillante();
 
                 return View();
             }
@@ -230,5 +234,16 @@ namespace Portal.Consultoras.Web.Controllers
                 lista = oFiltro
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetCarruselCaminoBrillante()
+        {
+            return Json(_caminoBrillanteProvider.GetCarruselCaminoBrillante(), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetMisGanancias()
+        {
+            return Json(_caminoBrillanteProvider.GetMisGananciasCaminoBrillante(), JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

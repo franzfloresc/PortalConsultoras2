@@ -511,7 +511,16 @@ namespace Portal.Consultoras.BizLogic
                 var origenPedidoWeb = new int[] {
                     Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido,
                     Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido,
-                    Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido };
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido,
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Ficha,
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha,
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel,
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel,
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Ficha,
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel,
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home
+
+                };
                 var blCaminoBrillante = new BLCaminoBrillante();
                 listpedidoDetalle.Where(e => origenPedidoWeb.Contains(e.OrigenPedidoWeb)).ToList().ForEach(e => {                    
                     blCaminoBrillante.UpdFlagsKitsOrDemostradores(e, detParametros.PaisId, detParametros.CampaniaId, detParametros.NivelCaminoBrillante);

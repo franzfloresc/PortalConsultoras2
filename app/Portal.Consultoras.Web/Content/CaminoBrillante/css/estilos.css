@@ -40,13 +40,13 @@ strong {
 .container {
     display: block;
     margin: 0 auto;
-    width: 92%;
+    width: 100%;
     max-width: 1000px;
 }
 
 .subtitle, .title {
     display: block;
-    font-size: 24px;
+    font-size: 22px;
     color: #000;
     margin-bottom: 15px;
     font-weight: 700 !important;
@@ -57,7 +57,7 @@ strong {
 }
 
 .cont-benf {
-    margin-top: 30px
+    margin-top: 30px;
 }
 
 .text {
@@ -69,14 +69,17 @@ strong {
 
 .box-beneficios {
     display: block;
-    margin-top: 20px
+    margin-top: 20px;
+    overflow: hidden;
+
 }
 
-    #m_montoFaltante:after, #m_montoMinimo:after, .box-beneficios:after, .boxcenter:after, .cont-ganancias:after, .cont-logros:after, .cont-textLograr:after, .indicador-nivel:after, .list-crec:after, .list-ganacias:after {
-        content: "";
-        display: block;
-        clear: both
-    }
+
+#m_montoFaltante:after, #m_montoMinimo:after, .box-beneficios:after, .boxcenter:after, .cont-ganancias:after, .cont-logros:after, .cont-textLograr:after, .indicador-nivel:after, .list-crec:after, .list-ganacias:after{
+    content: "";
+    display: block;
+    clear: both
+}
 
     .box-beneficios li {
         width: 32%;
@@ -85,7 +88,7 @@ strong {
         margin: 20px 1%;
         margin-left: 0;
         min-height: 60px;
-        margin-bottom: 15px
+        margin-bottom: 0px
     }
 
         .box-beneficios li img {
@@ -130,7 +133,6 @@ div .btn-principal {
     display: block;
     color: #fff !important;
     border-radius: 5px;
-
     border: 0;
     padding: 10px 20px;
     max-width: 175px;
@@ -408,123 +410,124 @@ div .owl-carousel .owl-stage-outer {
 
 
 @keyframes MovilprogressUno {
-        0% {
-            width: 0%;
-        }
-
-        100% {
-            width: 12%;
-        }
+    0% {
+        width: 0%;
     }
 
-    @keyframes MovilprogressDos {
-        0% {
-            width: 0%;
-        }
+    100% {
+        width: 12%;
+    }
+}
 
-        100% {
-            width: 32%;
-        }
+@keyframes MovilprogressDos {
+    0% {
+        width: 0%;
     }
 
-    @keyframes MovilprogressTres {
-        0% {
-            width: 0%;
-        }
+    100% {
+        width: 32%;
+    }
+}
 
-        100% {
-            width: 52%;
-        }
+@keyframes MovilprogressTres {
+    0% {
+        width: 0%;
     }
 
-    @keyframes MovilprogressCuatro {
-        0% {
-            width: 0%;
-        }
+    100% {
+        width: 52%;
+    }
+}
 
-        100% {
-            width: 72%;
-        }
+@keyframes MovilprogressCuatro {
+    0% {
+        width: 0%;
     }
 
-    @keyframes MovilprogressCinco {
-        0% {
-            width: 0%;
-        }
+    100% {
+        width: 72%;
+    }
+}
 
-        100% {
-            width: 92%;
-        }
+@keyframes MovilprogressCinco {
+    0% {
+        width: 0%;
     }
 
-    @keyframes MovilprogressSeis {
-        0% {
-            width: 0%;
-        }
-
-        100% {
-            width: 100%;
-        }
+    100% {
+        width: 92%;
     }
+}
+
+@keyframes MovilprogressSeis {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
 @keyframes MovilDosprogressUno {
-        0% {
-            width: 0%;
-        }
-
-        100% {
-            width: 13%;
-        }
+    0% {
+        width: 0%;
     }
 
-    @keyframes MovilDosprogressDos {
-        0% {
-            width: 0%;
-        }
+    100% {
+        width: 13%;
+    }
+}
 
-        100% {
-            width: 33%;
-        }
+@keyframes MovilDosprogressDos {
+    0% {
+        width: 0%;
     }
 
-    @keyframes MovilDosprogressTres {
-        0% {
-            width: 0%;
-        }
+    100% {
+        width: 33%;
+    }
+}
 
-        100% {
-            width: 53%;
-        }
+@keyframes MovilDosprogressTres {
+    0% {
+        width: 0%;
     }
 
-    @keyframes MovilDosprogressCuatro {
-        0% {
-            width: 0%;
-        }
+    100% {
+        width: 53%;
+    }
+}
 
-        100% {
-            width: 73%;
-        }
+@keyframes MovilDosprogressCuatro {
+    0% {
+        width: 0%;
     }
 
-    @keyframes MovilDosprogressCinco {
-        0% {
-            width: 0%;
-        }
+    100% {
+        width: 73%;
+    }
+}
 
-        100% {
-            width: 93%;
-        }
+@keyframes MovilDosprogressCinco {
+    0% {
+        width: 0%;
     }
 
-    @keyframes MovilDosprogressSeis {
-        0% {
-            width: 0%;
-        }
-
-        100% {
-            width: 100%;
-        }
+    100% {
+        width: 93%;
     }
+}
+
+@keyframes MovilDosprogressSeis {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
 
 
 .Progress:after {
@@ -840,20 +843,280 @@ div .layout__view__breadcrumbs__wrapper, div .layout__view__title__wrapper {
     display: block;
     width: 100%
 }
+
 .ficha__producto__agregar__producto div .cartbtn i {
     left: 11%;
 }
+
 .etiq-producto img {
     display: block;
     width: 100%;
 }
+
 .hide {
     display: none !important;
+}
+
+.revistadigital-landing {
+    width: auto;
+    padding: 0 10px 25px 10px;
+    display: inline-block;
+}
+
+.ver-todos {
+    color: black;
+    text-decoration: underline;
+    text-align: right;
+    display: block;
+    font-weight: bold;
+    text-align: right;
+    display: block;
+    float: right;
+    margin-bottom: 30px;
+}
+
+.fleft {
+    float: left;
+    margin-bottom: 30px;
+}
+
+.slick-dots {
+    display: none;
 }
 
 #m_montoMinimo span em {
     font-style: normal;
 }
+
+.regular.slider .ficha__producto__kit .producto_img_home {
+    margin-top: 27px;
+}
+
+.regular.slider .ficha__producto {
+    min-height: 418px;
+}
+
+
+/*PRELOADING------------ */
+#overlayer {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 100000;
+    background: white;
+}
+    #overlayer .loadingScreen-mensaje {
+        position: fixed;
+        width: 30px;
+        height: 30px;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+    }
+
+
+
+
+
+
+
+
+div div .ficha__producto__descrip__marca__pais {
+    height: 14px
+}
+
+ul li .menu__link--pedido {
+    font-weight: 700
+}
+
+.desactive-mas-menos {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: gray;
+    opacity: .6;
+    cursor: not-allowed;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10
+}
+
+.desactivo {
+    pointer-events: none;
+    cursor: none;
+    text-decoration: none;
+    opacity: .4;
+}
+
+div.ui-dialog.ui-widget-content {
+    z-index: 9999999900 !important
+}
+
+.marca_ept {
+    height: 40px;
+    color: #000;
+    font-family: 'Lato';
+    padding-left: 7px;
+    font-size: 11px;
+    float: right;
+    letter-spacing: .3px;
+    margin-left: 10px;
+    border-radius: 0px;
+    border-color: rgb(169, 169, 169);
+}
+
+.box-enterate {
+    display: block;
+    margin: 0 auto;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #d6d6d6;
+    max-width: 210px;
+}
+
+    .box-enterate a {
+        text-align: center;
+        color: white;
+        position: relative;
+        display: block;
+        color: #fff !important;
+        border-radius: 5px;
+        border: 0;
+        padding: 10px 20px;
+        max-width: 205px;
+        text-align: center;
+        margin: 25px auto;
+        text-decoration: none;
+        background: #000;
+    }
+
+.content_responsive {
+    margin-top: 140px;
+}
+
+div.opOrdenar {
+    padding: 0 0;
+    padding-bottom: 0;
+}
+
+#m_montoMinimo span em {
+    font-style: normal;
+}
+
+
+/*STYLE GANANCIAS*/
+
+
+#boxganancias {
+    display: block;
+    margin: 30px auto;
+    margin-bottom: 40px;
+}
+
+.box-camb .text-bold, .owl-stage-outer .text-bold, .txt-benf .text-bold {
+    color: #000;
+    font-size: 14px;
+    text-align: left;
+    font-weight: 700;
+    line-height: 17px;
+    margin-bottom: 20px;
+}
+
+.box-left-ganancias, .box-right-ganancias {
+    display: block;
+    float: right;
+    width: 30%;
+    max-width: 300px;
+}
+
+.box-left-ganancias {
+    margin-top: 60px;
+}
+
+.box-right-ganancias {
+    width: 70%;
+    max-width: 700px;
+}
+    .box-right-ganancias strong {
+        font-weight: bold;
+    }
+    .box-left-ganancias p, .box-left-ganancias span {
+        margin-bottom: 10px;
+        display: block;
+    }
+
+.text-bold {
+    font-weight: bold;
+}
+
+.box-left-ganancias img {
+    display: inline-block;
+    position: relative;
+    top: 0px;
+    min-width: 32px;
+}
+
+.box-left-ganancias span {
+    margin-bottom: 23px;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.box-right-ganancias span {
+    display: inherit;
+    text-align: right;
+}
+
+.producto_img_home {
+    position: relative;
+}
+
+    .producto_img_home:hover .ver_detalle_carrusel, .producto_img:hover .ver_detalle_carrusel, .content_img_carrusel_ODD:hover .ver_detalle_carrusel {
+        opacity: 1;
+    }
+
+.ver_detalle_carrusel {
+    text-align: center;
+    display: block;
+    font-size: 11px;
+    position: absolute;
+    height: 40px;
+    line-height: 38px;
+    width: 55%;
+    font-weight: 700;
+    border: 1px solid #000;
+    border-radius: 2px;
+    font-family: 'Lato',sans-serif;
+    background: #fff;
+    opacity: 0;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    margin: 0 auto;
+    text-decoration: none;
+    transition: all .3s ease;
+    -moz-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    -ms-transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+    letter-spacing: .2px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 @media (min-width:576px) {
     .modal-dialog {
@@ -861,7 +1124,7 @@ div .layout__view__breadcrumbs__wrapper, div .layout__view__title__wrapper {
         margin: 1.75rem auto
     }
 
-   
+
     .modal-sm {
         max-width: 300px
     }
@@ -1120,12 +1383,18 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
     .pad-center {
         padding: 20px 60px
     }
-}
 
+}
+/*@media screen and (max-width:768px) {
+    .slick-track {
+        margin-left: -173px;
+    }
+}*/
 @media screen and (max-width:620px) {
     .modal-dialog {
         margin: 1.5rem;
     }
+
     div.ui-dialog.ui-widget-content {
         width: 100% !important
     }
@@ -1198,7 +1467,7 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
     }
 
     .subtitle, .title {
-        font-size: 20px
+        font-size: 22px;
     }
 
     .indicador-nivel, .two-colums {
@@ -1226,7 +1495,7 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
     }
 
     .box-beneficios li {
-        min-height: auto
+        min-height: inherit;
     }
 
     .subtitle {
@@ -1384,18 +1653,45 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
         line-height: 15px;
     }
 
-    #ddlfiltros {
-        width: 48%;
-        margin-left: 4%;
-        box-sizing: border-box;
-        display: block;
-    }
 
-    #ddlOrdenar {
-        width: 48%;
+    #ddlfiltros {
+        width: 50%;
         box-sizing: border-box;
         display: block;
         margin-left: 0;
+    }
+
+    #ddlOrdenar {
+        width: 47%;
+        box-sizing: border-box;
+        display: block;
+        margin-left: 0;
+        margin-right: 3%;
+    }
+
+    .slick-arrow {
+        display: none !important;
+    }
+
+    .regular.slider .ficha__producto__kit {
+        height: 456px;
+    }
+
+        .regular.slider .ficha__producto__kit .flex-grow-1 {
+            margin-top: 53px;
+        }
+
+    .revistadigital-landing {
+        padding: 0 5px 25px 5px;
+    }
+    div.opOrdenar {
+        padding: 0 15px;
+    }
+    .regular.slider .ficha__producto {
+        min-height: 458px;
+    }
+    .box-left-ganancias span {
+        font-size:12px;
     }
 }
 
@@ -1437,6 +1733,9 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
     .cam-exito a {
         font-size: 13px
     }
+    /*.slick-track {
+        margin-left: -173px;
+    }*/
 }
 
 @media screen and (max-width:430px) {
@@ -1458,6 +1757,13 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
 
     div .ficha__producto__descrip .boxheight {
         min-height: 17px !important
+    }
+    .slick-list {
+        padding: 0 15px !important;
+    }
+
+    .slick-track {
+        margin-left: -20px;
     }
 }
 
@@ -1491,8 +1797,6 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
         width: 100%;
         animation-name: MovilDosprogressSeis;
     }
-
-
 }
 
 .modal.fade:not(.show) {
@@ -1657,7 +1961,12 @@ li .productos__agregados {
     left: 24%;
     top: 14px;
     width: 21px;
-    height: 16px
+    height: 16px;
+    background: url(/Content/CaminoBrillante/imgs/add_to_cart2.svg) no-repeat center center;
+}
+
+.producto_desactivado .boton__agregalo--fichaProducto i {
+    background: url(/Content/CaminoBrillante/imgs/add-to-cart.svg) no-repeat center center;
 }
 
 .boton__agregalo--fichaProducto img {
@@ -1667,7 +1976,8 @@ li .productos__agregados {
 
 div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span {
     letter-spacing: 0;
-    text-indent: 22px
+    text-indent: 22px;
+    text-decoration: none;
 }
 
 .boton__agregalo--fichaProducto .cartbtn {
@@ -1782,6 +2092,15 @@ div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span
     font-size: 14px !important
 }
 
+.box-kit-demos {
+    margin: 40px auto;
+    margin-bottom: 35px;
+}
+
+
+
+
+
 @media (max-width:999px) {
     .lista__opciones__ordenamiento__y__filtrar {
         display: none
@@ -1840,7 +2159,7 @@ div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span
                 color: #9e9e9e !important;
                 border-bottom: 2px solid #b9b9b9;
                 height: 53px;
-                display:block;
+                display: block;
             }
 
                 .op-menu-horizontal .subnavegador li a img {
@@ -1905,7 +2224,6 @@ div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span
     display: block !important;
     position: fixed;
     top: 60px;
-
     width: 100%;
     background-color: #fff;
     z-index: 5;
@@ -1962,11 +2280,13 @@ div .cartbtn {
     float: left;
     margin-top: 11px;
 }
+
 .clearboth:after {
-    content:"";
-    display:block;
-    clear:both !important;
+    content: "";
+    display: block;
+    clear: both !important;
 }
+
 @media (max-width:950px) {
     .op-menu-horizontal .subnavegador li {
         padding: 0 15px
@@ -2063,76 +2383,36 @@ div .ficha__producto__precio__normal {
     }
 }
 
-div div .ficha__producto__descrip__marca__pais {
-    height: 14px
-}
 
-ul li .menu__link--pedido {
-    font-weight: 700
-}
 
-.desactive-mas-menos {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 100%;
-    background: gray;
-    opacity: .6;
-    cursor: not-allowed;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 10
-}
 
-.desactivo {
-    pointer-events: none;
-    cursor: none;
-    text-decoration: none;
-    opacity: .4;
-}
 
-div.ui-dialog.ui-widget-content {
-    z-index: 9999999900 !important
-}
-.marca_ept {
-    height: 40px;
-    color: #000;
-    font-family: 'Lato';
-    padding-left: 7px;
-    font-size: 11px;
-    float: right;
-    letter-spacing: .3px;
-    margin-left: 10px;
-    border-radius: 0px;
-    border-color: rgb(169, 169, 169);
-}
-.box-enterate {
-    display: block;
-    margin: 0 auto;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #d6d6d6;
-    max-width: 210px;
-}
-.box-enterate a {
-    text-align: center;
-    color: white;
-    position: relative;
-    display: block;
-    color: #fff !important;
-    border-radius: 5px;
-    border: 0;
-    padding: 10px 20px;
-    max-width: 205px;
-    text-align: center;
-    margin: 25px auto;
-    text-decoration: none;
-    background: #000;
-}
-.content_responsive {
-    margin-top: 140px;
-}
-div.opOrdenar {
-    padding: 0 15px;
-    padding-bottom: 0;
+
+@media screen and (max-width: 950px) {
+    .box-left-ganancias, .box-right-ganancias {
+        float: none;
+        margin: 15px auto;
+        width: 100%;
+    }
+
+    .box-left-ganancias {
+        max-width: 600px;
+    }
+
+    .box-montos {
+        width: 45%;
+        float: left;
+        margin-right: 2%;
+        border-right: 1px solid #a5a5a5;
+    }
+
+    .box-left-ganancias span {
+        margin-bottom: 10px;
+    }
+
+    .box-montos:nth-child(2) {
+        border: 0;
+        padding-left: 9%;
+        width: 50%;
+    }
 }

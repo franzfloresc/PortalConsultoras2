@@ -23,7 +23,9 @@ var ConstantesModule = (function() {
         LiquidacionWeb: "OfertasLiquidacion",
         GuiaNegocio: "GuiaNegocio",
         SR: "ShowRoom",
-        DuoPerfecto: "DuoPerfecto" //HD-3473 EINCA
+        DuoPerfecto: "DuoPerfecto", //HD-3473 EINCA
+        CaminoBrillanteDemostradores: "CaminoBrillanteDemostradores",
+        CaminoBrillanteKits: "CaminoBrillanteKits"
     }
 
     var _keysLocalStorage = {
@@ -34,8 +36,10 @@ var ConstantesModule = (function() {
         Ganadoras: "MGLista",
         //INI HD-3908
         PackNuevas: "PNLista",
-        DuoPerfecto: "DPLista"
+        DuoPerfecto: "DPLista",
         //FIN HD-3908
+        CaminoBrillanteDemostradores: "CBDLista",
+        CaminoBrillanteKits: "CBKLista"
     }
 
     var _codigoVariedad = {
@@ -69,7 +73,10 @@ var ConstantesModule = (function() {
         ProgramaNuevasRegalo: "044",
         ParticipaProgramaNuevas: "1",
         NotParticipaProgramaNuevas: "0",
-        DuoPerfecto: "034" //HD-3473 EINCA
+        DuoPerfecto: "034", //HD-3473 EINCA
+
+        CaminoBrillanteDemostradores: "035", // No tiene referecia con BD, GCP
+        CaminoBrillanteKits: "036" // No tiene referecia con BD, GCP
     }
 
     var _diccionarioTipoEstrategia = [
@@ -89,6 +96,8 @@ var ConstantesModule = (function() {
         { codigo: _codigoTipoEstrategia.ShowRoom, texto: _codigoTipoEstrategiaTexto.ShowRoom },
         { codigo: _codigoTipoEstrategia.RevistaDigital, texto: _codigoTipoEstrategiaTexto.RevistaDigital },
         { codigo: _codigoTipoEstrategia.MasGanadoras, texto: _codigoTipoEstrategiaTexto.Ganadoras },
+        { codigo: _codigoTipoEstrategia.CaminoBrillanteDemostradores, texto: _codigoTipoEstrategiaTexto.CaminoBrillanteDemostradores },
+        { codigo: _codigoTipoEstrategia.CaminoBrillanteKits, texto: _codigoTipoEstrategiaTexto.CaminoBrillanteKits },
     ];
 
     var _configuracionOferta = {
@@ -114,8 +123,10 @@ var ConstantesModule = (function() {
         ATP: "ATP",
         DP: "DP",
         //INI HD-3908
-        PN: "PN"
+        PN:"PN",
         //FIN HD-3908
+        CBD: "CBD",
+        CBK: "CBK"
     };
 
     var _urlObtenerEstrategia = {
@@ -124,13 +135,24 @@ var ConstantesModule = (function() {
         Lanzamiento: "/Estrategia/LANObtenerProductos",
         GuiaDeNegocioDigitalizada: "/Estrategia/GNDObtenerProductos",
         HerrameintasVenta: "/Estrategia/HVObtenerProductos",
-        MasGanadoras: "/Estrategia/MGObtenerProductos"
+        MasGanadoras: "/Estrategia/MGObtenerProductos",
+        CaminoBrillanteDemostradores: "/Estrategia/CBDObtenerProductos",
+        CaminoBrillanteKits: "/Estrategia/CBKObtenerProductos"
     };
 
     // en AnalyticsPortal.js tambiar actualizar los valores
 
+          //CB-CORREGIR  LandingCaminoBrillanteDemostradores: '16',  //GCP
+          //CB-CORREGIR  LandingCaminoBrillanteKits: '17'  //GCP
+          //CB-CORREGIR  CaminoBrillanteDemostradores: '18', // GCP
+          //CB-CORREGIR  CaminoBrillanteKits: '19' // GCP
 
     var _origenPedidoWeb = {
+
+        DesktopLandingCaminoBrillante : "1181901",
+        MobileLandingCaminoBrillante : "2181901",
+        CaminoBrillanteAppConsultorasPedido : "4181901",
+
         DesktopHomeOfertaDeliaBannerSuperior: "1010306",
         DesktopPedidoOfertaDelDiaBannerSuperior: "1020306",
         DesktopOtrasOfertaDelDiaBannerSuperior: "1090306",
