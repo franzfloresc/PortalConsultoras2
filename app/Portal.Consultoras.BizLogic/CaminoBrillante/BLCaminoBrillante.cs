@@ -790,7 +790,31 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         private List<BEKitCaminoBrillante> GetDetalleKit(List<BEKitCaminoBrillante> kits, List<string> cuvs) {
             if (cuvs == null) return null;
-            return kits.Where(e => cuvs.Contains(e.CUV) && e.FlagDigitable != 1).ToList();
+            return kits.Where(e => cuvs.Contains(e.CUV)).Select(e => new BEKitCaminoBrillante() {
+                CodigoEstrategia = e.CodigoEstrategia,
+                CodigoKit = e.CodigoKit,
+                CodigoNivel = e.CodigoNivel,
+                CodigoSap = e.CodigoSap,
+                CUV = e.CUV,
+                DescripcionCortaCUV = e.DescripcionCortaCUV,
+                DescripcionCUV = e.DescripcionCUV,
+                DescripcionMarca = e.DescripcionMarca,
+                DescripcionNivel = e.DescripcionNivel,
+                EstrategiaID = e.EstrategiaID,
+                Detalle = null,
+                FlagDigitable = e.FlagDigitable,
+                FlagHabilitado = e.FlagHabilitado,
+                FlagHistorico = e.FlagHistorico,
+                FlagSeleccionado = e.FlagSeleccionado,
+                FotoProductoMedium = e.FotoProductoMedium,
+                FotoProductoSmall = e.FotoProductoSmall,
+                Ganancia = e.Ganancia,
+                MarcaID = e.MarcaID,
+                OrigenPedidoWebFicha = e.OrigenPedidoWebFicha,
+                PrecioCatalogo = e.PrecioCatalogo,
+                PrecioValorizado = e.PrecioValorizado,
+                TipoEstrategiaID = e.TipoEstrategiaID
+            }).ToList();
         }
 
         #endregion

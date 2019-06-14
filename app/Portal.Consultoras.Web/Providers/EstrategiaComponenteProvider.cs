@@ -91,7 +91,10 @@ namespace Portal.Consultoras.Web.Providers
 
                 List<BEEstrategiaProducto> listaBeEstrategiaProductos;
                 if (codigoTipoEstrategia == "036" || codigoTipoEstrategia == "035")
+                {
+                    esMultimarca = codigoTipoEstrategia == "036";
                     return estrategiaModelo.Hermanos;
+                }
                 else
                     listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
 
