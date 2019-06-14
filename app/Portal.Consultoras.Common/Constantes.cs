@@ -1143,8 +1143,6 @@ namespace Portal.Consultoras.Common
             public const int CaminoBrillanteAppMobilePedido_Ficha = 4201901;
             public const int CaminoBrillanteAppMobilePedido_Carrusel = 4201902;
 
-
-
             #endregion
         }
 

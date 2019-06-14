@@ -1106,7 +1106,10 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/owl.carousel.js",
                 "~/Scripts/Chart.min.js",
                 "~/Scripts/PortalConsultoras/CaminoBrillante/index.js",
-                "~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"
+                "~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js",
+                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante/logros").Include(
@@ -1114,7 +1117,11 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante/ofertas").Include(
                 "~/Scripts/PortalConsultoras/Cliente/Index.js",
-                "~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"));
+                "~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js",
+                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
+                ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/bootstrap").Include(
                "~/Scripts/bootstrap.js"));
