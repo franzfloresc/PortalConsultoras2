@@ -43,6 +43,10 @@ jQuery(document).ready(function () {
     //        }
     //    }
     //};
+
+    $(".ImageLoadPhotoUser").on("load", function () {
+        onLoadPhotoUser(this);
+    });
 });
 
 (function ($) {

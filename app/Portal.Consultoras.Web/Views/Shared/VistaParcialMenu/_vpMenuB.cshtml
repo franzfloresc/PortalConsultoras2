@@ -12,7 +12,7 @@
             @if (ViewBag.FotoPerfilSinModificar != "")
             {
                 <div class="foto_consultora_menu">
-                    <img id="imgFotoUsuarioHeader" src="@ViewBag.FotoPerfil" onload="onLoadPhotoUser(this)" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" class="mostrar_perfil" region="Superior" alt="Foto de consultora" />
+                    <img id="imgFotoUsuarioHeader" src="@ViewBag.FotoPerfil" onerror="this.onerror=null; this.src='@Url.Content("~/Content/Images/icono_avatar.svg")'" class="mostrar_perfil ImageLoadPhotoUser" region="Superior" alt="Foto de consultora" />
                 </div>
             }            
         </div>
