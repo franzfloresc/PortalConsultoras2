@@ -1107,18 +1107,15 @@ namespace Portal.Consultoras.Web.Controllers
             pedidoAux.DetallePedido = olstMisPedidosDet.Where(x => x.PedidoId == pedidoAux.PedidoId).ToArray();
 
             int tipo;
-            //string marcaPedido;
 
             // 0=App Catalogos, >0=Portal Marca
             if (pedidoAux.MarcaID == 0)
             {
                 tipo = 1;
-                //marcaPedido = pedidoAux.MedioContacto;
             }
             else
             {
                 tipo = 2;
-                //marcaPedido = pedidoAux.Marca;
             }
 
             #region AceptarPedido
@@ -1281,14 +1278,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 SessionManager.SetDetallesPedido(null);
                 SessionManager.SetDetallesPedidoSetAgrupado(null);
-                //string emailDe = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
 
                 if (pedidoAux.FlagMedio == "01")
                 {
                     double totalPedido = 0;
-
-                    //String titulocliente = "Tu pedido ha sido CONFIRMADO por " + userData.PrimerNombre + " " +
-                    //                       userData.PrimerApellido + " - App de Catálogos Ésika, L'Bel y Cyzone";
+                    
                     StringBuilder mensajecliente = new StringBuilder();
                     mensajecliente.Append(
                         "<table width='100%' border='0' bgcolor='#ffffff' cellspacing='0' cellpadding='0' border-spacing='0' style='margin: 0; border: 0; border-collapse: collapse!important;'>");
@@ -1463,28 +1457,9 @@ namespace Portal.Consultoras.Web.Controllers
                     mensajecliente.Append("</tr>");
                     mensajecliente.Append("</tbody></table>");
 
-                    try
-                    {
-                        //if (pedido.Accion == 1)
-                        //{
-                        //    Util.EnviarMail3(emailDe, pedidoAux.Email, titulocliente, mensajecliente.ToString(), true,
-                        //        pedidoAux.Email);
-                        //}
-                        //else
-                        //{
-                        //    Util.EnviarMail3Mobile(emailDe, pedidoAux.Email, titulocliente, mensajecliente.ToString(),
-                        //        true, pedidoAux.Email);
-                        //}
-                    }
-                    catch (Exception ex)
-                    {
-                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    }
                 }
                 else
                 {
-                    //String titulo = "(" + userData.CodigoISO + ") Consultora que atenderá tu pedido de " +
-                    //                HttpUtility.HtmlDecode(marcaPedido);
                     StringBuilder mensaje = new StringBuilder();
                     mensaje.AppendFormat("<p>Hola {0},</br><br /><br />", HttpUtility.HtmlDecode(pedidoAux.Cliente));
                     mensaje.AppendFormat("{0}</p><br/>", mensajeaCliente);
@@ -1493,23 +1468,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mensaje.AppendFormat(
                         "<td><p style='text-align: center;'><strong>{0}<br/>{1}<br/>Consultora</strong></p></td></tr></table>",
                         userData.NombreConsultora, userData.EMail);
-
-                    try
-                    {
-                        //if (pedido.Accion == 1)
-                        //{
-                        //    Util.EnviarMail3(emailDe, pedidoAux.Email, titulo, mensaje.ToString(), true, string.Empty);
-                        //}
-                        //else
-                        //{
-                        //    Util.EnviarMail3Mobile(emailDe, pedidoAux.Email, titulo, mensaje.ToString(), true,
-                        //        string.Empty);
-                        //}
-                    }
-                    catch (Exception ex)
-                    {
-                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                    }
+                    
                 }
 
                 return Json(new
@@ -2122,103 +2081,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return UtilOrigenPedidoWeb.ToInt(modelo);
 
-            //var origenPedidoWeb = 0;
-
-            //if (dispositivo == 1) //DESKTOP
-            //{
-            //    if (flagMedio == Constantes.SolicitudCliente.FlagMedio.AppCatalogos)
-            //    {
-            //        if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoLbelAppCatalogoPendienteDeAprobar;
-            //        else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoEsikaAppCatalogoPendienteDeAprobar;
-            //        else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar;
-            //    }
-            //    else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.CatalogoDigital)
-            //    {
-            //        if (tipoVista == 1) // por cliente
-            //        {
-            //            if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar;
-            //            else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar;
-            //            else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar;
-            //        }
-            //        else
-            //        {
-            //            if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobarProducto;
-            //            else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobarProducto;
-            //            else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobarProducto;
-            //        }
-            //    }
-            //    else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual)
-            //    {
-            //        if (tipoVista == 1) // por cliente
-            //        {
-            //            if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoLbelMaquilladorPendienteDeAprobar;
-            //            else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoEsikaMaquilladorPendienteDeAprobar;
-            //            else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoCyzoneMaquilladorPendienteDeAprobar;
-            //        }
-            //        else
-            //        {
-            //            if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoLbelMaquilladorPendienteDeAprobarProducto;
-            //            else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoEsikaMaquilladorPendienteDeAprobarProducto;
-            //            else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopPedidoCatalogoCyzoneMaquilladorPendienteDeAprobarProducto;
-            //        }
-            //    }
-            //}
-            //else if (dispositivo == 2) //MOBILE
-            //{
-            //    if (flagMedio == Constantes.SolicitudCliente.FlagMedio.AppCatalogos)
-            //    {
-            //        if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoLbelAppCatalogoPendienteDeAprobar;
-            //        else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoEsikaAppCatalogoPendienteDeAprobar;
-            //        else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar;
-            //    }
-            //    else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.CatalogoDigital)
-            //    {
-            //        if (tipoVista == 1) // por cliente
-            //        {
-            //            if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar;
-            //            else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar;
-            //            else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar;
-            //        }
-            //        else
-            //        {
-            //            if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoLbelCatalogoDigitalPendienteDeAprobarProducto;
-            //            else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobarProducto;
-            //            else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobarProducto;
-            //        }
-            //    }
-            //    else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual)
-            //    {
-            //        if (tipoVista == 1) // por cliente
-            //        {
-            //            if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoLbelMaquilladorPendienteDeAprobar;
-            //            else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoEsikaMaquilladorPendienteDeAprobar;
-            //            else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoCyzoneMaquilladorPendienteDeAprobar;
-            //        }
-            //        else
-            //        {
-            //            if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoLbelMaquilladorPendienteDeAprobarProducto;
-            //            else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoEsikaMaquilladorPendienteDeAprobarProducto;
-            //            else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.MobilePedidoCatalogoCyzoneMaquilladorPendienteDeAprobarProducto;
-            //        }
-            //    }
-            //}
-            //else if (dispositivo == 3) //APP
-            //{
-            //    if (flagMedio == Constantes.SolicitudCliente.FlagMedio.AppCatalogos)
-            //    {
-            //        if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoCatalogoLbelAppCatalogoPendienteDeAprobar;
-            //        else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoCatalogoEsikaAppCataogoPendienteDeAprobar;
-            //        else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoCatalogoCyzoneAppCatalogoPendienteDeAprobar;
-            //    }
-            //    else if (flagMedio == Constantes.SolicitudCliente.FlagMedio.CatalogoDigital)
-            //    {
-            //        if (marcaID == Constantes.Marca.LBel) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoCatalogoLbelCatalogoDigitalPendienteDeAprobar;
-            //        else if (marcaID == Constantes.Marca.Esika) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoCatalogoEsikaCatalogoDigitalPendienteDeAprobar;
-            //        else if (marcaID == Constantes.Marca.Cyzone) origenPedidoWeb = Constantes.OrigenPedidoWeb.AppConsultoraPedidoCatalogoCyzoneCatalogoDigitalPendienteDeAprobar;
-            //    }
-            //}
-
-            //return origenPedidoWeb;
         }
         
         #region New Pedido Pendientes
@@ -2277,9 +2139,8 @@ namespace Portal.Consultoras.Web.Controllers
                     var lstCuv = lstPedidosDetalleAll.Where(x => x.CUV == cuv);
                     var det = lstPedidosDetalleAll.First(x => x.CUV == cuv);
                     var ids = lstCuv.Where(x => x.CUV == cuv).Select(x => x.PedidoId.ToString()).ToArray();
-                    //item.Cantidad = lst1.Count();
+
                     det.CantidadTotal = lstCuv.Sum(x => x.Cantidad);
-                    //det.PrecioTotal = (lstCuv.Sum(x => x.PrecioUnitario) * lstCuv.Sum(x => x.Cantidad));
                     det.PrecioTotal = (det.CantidadTotal * det.PrecioUnitario);
                     det.FormatoPrecioTotal = Util.DecimalToStringFormat(det.PrecioTotal.ToDecimal(), userData.CodigoISO);
                     det.ListaClientes = lstPedidos.Where(x => ids.Contains(x.PedidoId.ToString())).ToArray();
@@ -2294,7 +2155,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ListaProductos = lstByProductos;
                 objMisPedidos = model;
                 SessionManager.SetobjMisPedidos(objMisPedidos);
-                //model.RegistrosTotal = model.ListaPedidos.Count.ToString();
+               
 
                 return model;
             }
@@ -2352,14 +2213,14 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MiPedido = firstPedido;
 
                     lstPedidosDetatalle = CargarMisPedidosDetalleDatos(firstPedido.MarcaID, lstPedidosDetatalle);
-                    //SessionManager.SetobjMisPedidosDetalle(lstPedidosDetatalle);
+                   
                     SessionManager.SetobjMisPedidos(pedidos);
                     var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(lstPedidosDetatalle);
                     detallePedidos.Update(p => p.CodigoIso = userData.CodigoISO);
                     model.ListaDetalle2 = detallePedidos;
                 }
 
-                //model.RegistrosTotal = model.ListaDetalle2.Count.ToString();
+               
 
                 return Json(new
                 {
@@ -2398,7 +2259,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var arrIds = new List<string>();
-                //var lstdetalle = new List<BEMisPedidosDetalle>();
+               
 
                 foreach (var cab in pedidos.ListaPedidos)
                 {
@@ -2428,13 +2289,13 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                //var model1 = Mapper.Map<ClienteOnlineModel>(lstPedidos);
+               
                 model.ListaPedidos = lstPedidos.ToList();
-                //model.ListaPedidos[0].DetallePedido = lstdetalle.ToArray();
-                //model.RegistrosTotal = model.ListaPedidos.Count.ToString();
+               
+               
                 SessionManager.SetobjMisPedidos(model);
-                //SessionManager.SetobjMisPedidosDetalle(lstdetalle);
-                //ViewBag.CUVx = cuv;
+               
+               
 
                 return Json(new
                 {
@@ -2737,7 +2598,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //List<BEMisPedidosDetalle> pedidosdetalle = SessionManager.GetobjMisPedidosDetalle();
+               
                 MisPedidosModel model = new MisPedidosModel();
                 var pedidos = SessionManager.GetobjMisPedidos();
 
@@ -2775,7 +2636,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ListaPedidos = pedidos.ListaPedidos;
                 model.RegistrosTotal = model.ListaPedidos.Count.ToString();
                 SessionManager.SetobjMisPedidos(model);
-                //SessionManager.SetobjMisPedidosDetalle(Listadetalle);
+               
                 var modelList = PendientesMedioDeCompra();
                 Session["OrigenTipoVista"] = tipoVista;
 
@@ -2895,7 +2756,7 @@ namespace Portal.Consultoras.Web.Controllers
                         pedidoDetalle.Producto.TipoEstrategiaID = model.TipoEstrategiaID.ToString();
                         pedidoDetalle.Producto.TipoOfertaSisID = model.TipoOfertaSisID;
                         pedidoDetalle.Producto.ConfiguracionOfertaID = model.ConfiguracionOfertaID;
-                        //pedidoDetalle.Producto.CUV = Util.Trim(model.CuvTonos);
+                       
                         pedidoDetalle.Producto.IndicadorMontoMinimo = string.IsNullOrEmpty(model.IndicadorMontoMinimo.ToString()) ? 0 : Convert.ToInt32(model.IndicadorMontoMinimo);
                         pedidoDetalle.Producto.FlagNueva = model.FlagNueva.ToString();
                         pedidoDetalle.Producto.Descripcion = model.DescripcionCUV2 ?? "";
@@ -2903,25 +2764,20 @@ namespace Portal.Consultoras.Web.Controllers
                         pedidoDetalle.Cantidad = model.Cantidad == 0 ? 1 : Convert.ToInt32(model.Cantidad);
                         pedidoDetalle.PaisID = userData.PaisID;
                         pedidoDetalle.IPUsuario = GetIPCliente();
-                        //pedidoDetalle.OrigenPedidoWeb = GetOrigenPedidoWeb("", 0, 1);
+                       
                         pedidoDetalle.OrigenPedidoWeb = GetOrigenPedidoWeb(Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual, model.MarcaID, parametros.Dispositivo, parametros.OrigenTipoVista);
-                        //pedidoDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID);
+                       
                         pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
-                        //pedidoDetalle.EsCuponNuevas = model.EsCuponNuevas || model.FlagNueva == 1;
-                        //pedidoDetalle.EsSugerido = model.EsSugerido;
-                        //pedidoDetalle.EsKitNueva = model.EsKitNueva;
-                        //pedidoDetalle.EsKitNuevaAuto = model.EsKitNuevaAuto;
-                        //pedidoDetalle.OfertaWeb = model.OfertaWeb;
-                        //pedidoDetalle.EsEditable = model.EsEditable;
-                        //pedidoDetalle.SetID = model.SetId;
-                        //var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
+                       
+                        var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
+                        pedidoWebId = (pedidoDetalleResult.PedidoWebDetalle != null ? pedidoDetalleResult.PedidoWebDetalle.PedidoID : pedidoWebId);
 
-                        listaClientesId.ForEach(clienteId =>
-                        {
-                            pedidoDetalle.ClienteID = clienteId;
-                            var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
-                            pedidoWebId = (pedidoDetalleResult.PedidoWebDetalle != null ? pedidoDetalleResult.PedidoWebDetalle.PedidoID : pedidoWebId);
-                        });
+                        //listaClientesId.ForEach(clienteId =>
+                        //{
+                        //    pedidoDetalle.ClienteID = clienteId;
+                        //    var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
+                        //    pedidoWebId = (pedidoDetalleResult.PedidoWebDetalle != null ? pedidoDetalleResult.PedidoWebDetalle.PedidoID : pedidoWebId);
+                        //});
 
                     });
 
@@ -3043,8 +2899,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #region Email
 
-            //EnviarEmail(pedidosSesion, mensajeaCliente);
-
+           
             #endregion
 
             try
@@ -3084,31 +2939,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //string emailDe = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
-
                 pedidosSesion.ForEach(pedidoAux =>
                 {
-                    //int tipo;
-                    //string marcaPedido;
-
-                    // 0=App Catalogos, >0=Portal Marca
-                    //if (pedidoAux.MarcaID == 0)
-                    //{
-                    //    tipo = 1;
-                    //    marcaPedido = pedidoAux.MedioContacto;
-                    //}
-                    //else
-                    //{
-                    //    tipo = 2;
-                    //    marcaPedido = pedidoAux.Marca;
-                    //}
 
                     if (pedidoAux.DetallePedido.Any(i => i.Elegido) && pedidoAux.FlagMedio == "01")
                     {
                         double totalPedido = 0;
-
-                        //String titulocliente = "Tu pedido ha sido CONFIRMADO por " + userData.PrimerNombre + " " +
-                        //                       userData.PrimerApellido + " - App de Catálogos Ésika, L'Bel y Cyzone";
+                        
                         StringBuilder mensajecliente = new StringBuilder();
                         mensajecliente.Append(
                             "<table width='100%' border='0' bgcolor='#ffffff' cellspacing='0' cellpadding='0' border-spacing='0' style='margin: 0; border: 0; border-collapse: collapse!important;'>");
@@ -3283,28 +3120,9 @@ namespace Portal.Consultoras.Web.Controllers
                         mensajecliente.Append("</tr>");
                         mensajecliente.Append("</tbody></table>");
 
-                        //try
-                        //{
-                        //    if (parametros.Accion == 1)
-                        //    {
-                        //        Util.EnviarMail3(emailDe, pedidoAux.Email, titulocliente, mensajecliente.ToString(), true,
-                        //            pedidoAux.Email);
-                        //    }
-                        //    else
-                        //    {
-                        //        Util.EnviarMail3Mobile(emailDe, pedidoAux.Email, titulocliente, mensajecliente.ToString(),
-                        //            true, pedidoAux.Email);
-                        //    }
-                        //}
-                        //catch (Exception ex)
-                        //{
-                        //    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                        //}
                     }
                     else
                     {
-                        //String titulo = "(" + userData.CodigoISO + ") Consultora que atenderá tu pedido de " +
-                        //                HttpUtility.HtmlDecode(marcaPedido);
                         StringBuilder mensaje = new StringBuilder();
                         mensaje.AppendFormat("<p>Hola {0},</br><br /><br />", HttpUtility.HtmlDecode(pedidoAux.Cliente));
                         mensaje.AppendFormat("{0}</p><br/>", mensajeaCliente);
@@ -3314,22 +3132,6 @@ namespace Portal.Consultoras.Web.Controllers
                             "<td><p style='text-align: center;'><strong>{0}<br/>{1}<br/>Consultora</strong></p></td></tr></table>",
                             userData.NombreConsultora, userData.EMail);
 
-                        //try
-                        //{
-                        //    if (parametros.Accion == 1)
-                        //    {
-                        //        Util.EnviarMail3(emailDe, pedidoAux.Email, titulo, mensaje.ToString(), true, string.Empty);
-                        //    }
-                        //    else
-                        //    {
-                        //        Util.EnviarMail3Mobile(emailDe, pedidoAux.Email, titulo, mensaje.ToString(), true,
-                        //            string.Empty);
-                        //    }
-                        //}
-                        //catch (Exception ex)
-                        //{
-                        //    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                        //}
                     }
 
                 });
@@ -3409,7 +3211,6 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ListaGana = oListaGana;
                 model.TotalGana = oListaGana.Sum(x => x.Cantidad * x.Precio2);
                 model.GananciaGana = model.TotalCatalogo - model.TotalGana;
-                // ViewBag.PaisISOx = userData.CodigoISO;
 
                 return model;
             }

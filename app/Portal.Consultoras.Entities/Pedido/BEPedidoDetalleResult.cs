@@ -28,6 +28,8 @@ namespace Portal.Consultoras.Entities.Pedido
         [DataMember]
         public List<BEMensajeProl> ListaMensajeCondicional { get; set; }
         [DataMember]
+        public List<BEPedidoObservacion> ListPedidoObservacion { get; set; }
+        [DataMember]
         public string MontoAhorroCatalogo { get; set; }
         [DataMember]
         public string MontoAhorroRevista { get; set; }
