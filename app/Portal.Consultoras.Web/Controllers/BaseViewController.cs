@@ -535,9 +535,21 @@ namespace Portal.Consultoras.Web.Controllers
 
         private DetalleEstrategiaFichaModel GetEstrategiaInicial(string palanca, int campaniaId, string cuv)
         {
-            string codigoPalanca;
+            string codigoPalanca = string.Empty;
             bool esFichaApi = false;
-            bool tieneCodigoPalanca = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
+            bool tieneCodigoPalanca = false;
+
+            if(palanca != Constantes.NombreEstrategiaBuscador.Catalogo)
+            {
+                tieneCodigoPalanca = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
+            }
+
+            if(palanca == Constantes.NombreEstrategiaBuscador.Catalogo)
+            {
+                tieneCodigoPalanca = true;
+                codigoPalanca = Constantes.CodigoEstrategiaBuscador.Catalogo;
+            }
+
             if (tieneCodigoPalanca) esFichaApi = new OfertaBaseProvider().UsaFichaMsPersonalizacion(codigoPalanca);
 
             var modelo = new DetalleEstrategiaFichaModel();

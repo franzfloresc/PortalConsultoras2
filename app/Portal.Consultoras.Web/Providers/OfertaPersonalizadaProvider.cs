@@ -1585,8 +1585,11 @@ namespace Portal.Consultoras.Web.Providers
         //Falta revisar las casuiticas por palanca
         public bool TienePermisoPalanca(string palanca)
         {
-            var listaConfigPais = SessionManager.GetConfiguracionesPaisModel();
             bool tienePalanca = false;
+            if (palanca == Constantes.NombreEstrategiaBuscador.Catalogo) return true;
+            //
+            var listaConfigPais = SessionManager.GetConfiguracionesPaisModel();
+            //
             if (listaConfigPais == null || listaConfigPais.Count == 0) return tienePalanca;
             switch (palanca)
             {

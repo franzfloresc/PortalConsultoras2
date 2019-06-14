@@ -3870,6 +3870,9 @@ namespace Portal.Consultoras.Common
         {
             var tipoPersonalizacion = string.Empty;
 
+            if (codigoEstrategia == Constantes.CodigoEstrategiaBuscador.Catalogo)
+                return Constantes.CodigoEstrategiaBuscador.Catalogo;
+
             switch (codigoEstrategia)
             {
                 case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
