@@ -827,6 +827,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             } else {
                 mensaje = _mensajeModificarPedido.normal;
             }
+            ActualizaGanancias(data);          //Actualiza ganancias
 
             AbrirMensaje25seg(mensaje);
 
