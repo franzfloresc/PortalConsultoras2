@@ -1822,7 +1822,6 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
         padding-top: 25px;
     }
 }
-
 @media screen and (max-width:330px) {
     .medal-1 {
         width: 13%;

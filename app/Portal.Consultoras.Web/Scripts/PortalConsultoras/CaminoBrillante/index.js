@@ -469,7 +469,6 @@ function ArmarCarrusel(data) {
     
 }
 
-
 $(window).load(function () {
     $("#overlayer").delay(200).fadeOut("slow");
 })
