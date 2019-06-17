@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Service
             var mensaje = ValidarMensaje(paisID, codigoPadre);
             if (mensaje != "")
             {
-                throw new Exception(mensaje);
+                throw new ArgumentNullException(mensaje);
             }
 
             int idPais = Util.GetPaisID(paisID);

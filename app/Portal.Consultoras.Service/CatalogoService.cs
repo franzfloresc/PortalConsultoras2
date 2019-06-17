@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Service
             var mensaje = GetConsultoraCatalogoValidarMensaje(PaisISO, CodigoConsultora, paisId);
             if (mensaje != "")
             {
-                throw new Exception(mensaje);
+                throw new ArgumentNullException(mensaje);
             }
 
             #endregion
@@ -53,7 +53,7 @@ namespace Portal.Consultoras.Service
             var mensaje = ValidarMensaje(codigoPais, codigoUbigeo, marcaId);
             if (mensaje != "")
             {
-                throw new Exception(mensaje);
+                throw new ArgumentNullException(mensaje);
             }
 
             int idPais = Util.GetPaisID(codigoPais);
@@ -76,7 +76,7 @@ namespace Portal.Consultoras.Service
             var mensaje = ValidarMensaje(codigoPais, codigoUbigeo, marcaId);
             if (mensaje != "")
             {
-                throw new Exception(mensaje);
+                throw new ArgumentNullException(mensaje);
             }
 
             int idPais = Util.GetPaisID(codigoPais);
@@ -102,8 +102,8 @@ namespace Portal.Consultoras.Service
                 int idPais = Util.GetPaisID(codigoPais ?? "");
                 codigoTerritorioGeo = codigoTerritorioGeo ?? "";
 
-                if (idPais == 0) throw new Exception("El código de Pais recibido no es válido.");
-                if (codigoTerritorioGeo.Length != 13) throw new Exception("El codigo de TerritorioGeo recibido no es válido.");
+                if (idPais == 0) throw new ArgumentNullException("El código de Pais recibido no es válido.");
+                if (codigoTerritorioGeo.Length != 13) throw new ArgumentNullException("El codigo de TerritorioGeo recibido no es válido.");
 
                 string codigoRegion = codigoTerritorioGeo.Substring(0, 2);
                 string codigoZona = codigoTerritorioGeo.Substring(2, 4);
@@ -115,7 +115,7 @@ namespace Portal.Consultoras.Service
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, "", codigoPais);
-                throw new Exception("Ocurrió un error al intentar obtener las consultoras.");
+                throw new ArgumentNullException("Ocurrió un error al intentar obtener las consultoras.");
             }
         }
 
@@ -166,7 +166,7 @@ namespace Portal.Consultoras.Service
             {
                 if (codigoUbigeo.Length == 18) lista = new BLConsultoraCatalogo().GetConsultorasCatalogosPorUbigeoAndNombresAndApellidos(idPais, codigoUbigeo, nombres, apellidos, marcaId, tipoFiltroUbigeo);
                 else if (codigoUbigeo.Length == 12) lista = new BLConsultoraCatalogo().GetConsultorasCatalogosPorUbigeo12AndNombresAndApellidos(idPais, codigoUbigeo, nombres, apellidos, marcaId, tipoFiltroUbigeo);
-                else throw new Exception("La longitud del parámetro CodigoUbigeo debe ser 12 o 18");
+                else throw new ArgumentNullException("La longitud del parámetro CodigoUbigeo debe ser 12 o 18");
             }
             else
             {
@@ -193,7 +193,7 @@ namespace Portal.Consultoras.Service
                 if (codigoUbigeo.Length < limiteInferior)
                 {
                     var mensaje = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
-                    throw new Exception(mensaje);
+                    throw new ArgumentNullException(mensaje);
                 }
             }
         }

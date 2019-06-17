@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Service
 
             if (mensaje != "")
             {
-                throw new Exception(mensaje);
+                throw new ArgumentNullException(mensaje);
             }
 
             int idPais = Util.GetPaisID(codigoPais);
@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Service
                 if (codigoUbigeo.Length < limiteInferior)
                 {
                     string mensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
-                    throw new Exception(mensajeValidacion);
+                    throw new ArgumentNullException(mensajeValidacion);
                 }
             }
             int tipoFiltroUbigeo;
