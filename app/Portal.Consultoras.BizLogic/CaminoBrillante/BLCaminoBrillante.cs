@@ -1108,6 +1108,21 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #region Pedido
 
+        /// <summary>
+        /// Validar si el Origen de Pedido Web Pertenece a Camino Brillante
+        /// </summary>
+        public bool IsOrigenPedidoCaminoBrillante(int origenPedidoWeb)
+        {
+            return origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Ficha ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Ficha ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home
+                    ;
+        }
+
         public void UpdFlagsKitsOrDemostradores(BEPedidoWebDetalle bEPedidoWebDetalle, int paisId, int campaniaId, int nivelId)
         {
             if (nivelId == 0) return;

@@ -725,6 +725,9 @@ namespace Portal.Consultoras.Web.Providers
             };
         }
 
+        /// <summary>
+        /// Validar si el Origen de Pedido Web Pertenece a Camino Brillante
+        /// </summary>
         public bool IsOrigenPedidoCaminoBrillante(int origen) {
             return origen == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
                     origen == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
