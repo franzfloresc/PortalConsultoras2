@@ -154,10 +154,34 @@ var FichaVerDetalle = (function () {
         return url;
     }
 
+    var getUrlTipoPersonalizacion = function (tipoPersonalizacion) {
+
+        var url = "";
+
+        if (tipoPersonalizacion == null || typeof tipoPersonalizacion === "undefined") {
+            return url;
+        }
+        
+        url = isMobile() ? "/Mobile/Detalle/" : "/Detalle/";
+
+        switch (tipoPersonalizacion) {
+
+            case ConstantesModule.TipoPersonalizacion.Catalogo:
+                url += ConstantesModule.TipoPersonalizacionTexto.Catalogo + "/";
+                break;
+            
+            default:
+                url = "";
+        }
+
+        return url;
+    }
+
     return {
         OnClickFichaDetalle: onClickFichaDetalle,
         GetOrigenPedidoWebDetalle: getOrigenPedidoWebDetalle,
-        GetPalanca: getPalanca
+        GetPalanca: getPalanca,
+        GetUrlTipoPersonalizacion: getUrlTipoPersonalizacion
     }
 
 })();

@@ -240,6 +240,7 @@ namespace Portal.Consultoras.Common
 
 
             public const string Liquidacion = "LIQ"; // No tiene referecia con BD, para tenerlo dentro de codigo
+            public const string Catalogo = "CAT"; // No tiene referecia con BD, para tenerlo dentro de codigo
 
             public const string NotParticipaProgramaNuevas = "0";
         }
@@ -3479,6 +3480,11 @@ namespace Portal.Consultoras.Common
             public const string Liquidacion = "LIQ";
             public const string Catalogo = "CAT";
             public const string OfertaDelDia = "ODD";
+        }
+
+        public static class NombreEstrategiaBuscador
+        {
+            public const string Catalogo = "Catalogo";
         }
 
         public static class MetaConsultora

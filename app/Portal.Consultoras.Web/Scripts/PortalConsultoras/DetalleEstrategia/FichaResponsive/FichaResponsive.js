@@ -37,7 +37,11 @@ var fichaEnriquecidaPresenter = FichaEnriquecidaPresenter({
 });
 
 $(document).ready(function () {
-    fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
+    try {
+        fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
+    } catch (e) {
+        GeneralModule.redirectTo('/Ofertas', true);
+    }
 });
 
 fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded, function(){
@@ -45,6 +49,7 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
     componentesPresenter.cleanContainer();
     
     var estrategia = detalleEstrategia.promiseGetEstrategia(params);
+    if (estrategia.Error) GeneralModule.redirectTo('/Ofertas', true);
 
     $("#data-estrategia").data("estrategia", estrategia);
 
