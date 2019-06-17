@@ -46,7 +46,7 @@ strong {
 
 .subtitle, .title {
     display: block;
-    font-size: 24px;
+    font-size: 22px;
     color: #000;
     margin-bottom: 15px;
     font-weight: 700 !important;
@@ -57,7 +57,7 @@ strong {
 }
 
 .cont-benf {
-    margin-top: 30px
+    margin-top: 30px;
 }
 
 .text {
@@ -69,14 +69,17 @@ strong {
 
 .box-beneficios {
     display: block;
-    margin-top: 20px
+    margin-top: 20px;
+    overflow: hidden;
+
 }
 
-    #m_montoFaltante:after, #m_montoMinimo:after, .box-beneficios:after, .boxcenter:after, .cont-ganancias:after, .cont-logros:after, .cont-textLograr:after, .indicador-nivel:after, .list-crec:after, .list-ganacias:after {
-        content: "";
-        display: block;
-        clear: both
-    }
+
+#m_montoFaltante:after, #m_montoMinimo:after, .box-beneficios:after, .boxcenter:after, .cont-ganancias:after, .cont-logros:after, .cont-textLograr:after, .indicador-nivel:after, .list-crec:after, .list-ganacias:after{
+    content: "";
+    display: block;
+    clear: both
+}
 
     .box-beneficios li {
         width: 32%;
@@ -85,7 +88,7 @@ strong {
         margin: 20px 1%;
         margin-left: 0;
         min-height: 60px;
-        margin-bottom: 15px
+        margin-bottom: 0px
     }
 
         .box-beneficios li img {
@@ -1115,8 +1118,8 @@ div.opOrdenar {
 
 
 
-    @media (min-width:576px) {
-        .modal-dialog {
+@media (min-width:576px) {
+    .modal-dialog {
         max-width: 500px;
         margin: 1.75rem auto
     }
@@ -1380,8 +1383,13 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
     .pad-center {
         padding: 20px 60px
     }
-}
 
+}
+/*@media screen and (max-width:768px) {
+    .slick-track {
+        margin-left: -173px;
+    }
+}*/
 @media screen and (max-width:620px) {
     .modal-dialog {
         margin: 1.5rem;
@@ -1459,7 +1467,7 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
     }
 
     .subtitle, .title {
-        font-size: 20px
+        font-size: 22px;
     }
 
     .indicador-nivel, .two-colums {
@@ -1725,6 +1733,9 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
     .cam-exito a {
         font-size: 13px
     }
+    /*.slick-track {
+        margin-left: -173px;
+    }*/
 }
 
 @media screen and (max-width:430px) {
@@ -1746,6 +1757,13 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
 
     div .ficha__producto__descrip .boxheight {
         min-height: 17px !important
+    }
+    .slick-list {
+        padding: 0 15px !important;
+    }
+
+    .slick-track {
+        margin-left: -20px;
     }
 }
 

@@ -1005,7 +1005,6 @@ namespace Portal.Consultoras.Web.Controllers
                 string mostrarAyudaWebTracking = Convert.ToInt32(true).ToString();
                 string paisISO = userData.CodigoISO.Trim();
                 string campanhaID = userData.CampaniaID.ToString();
-                //HD-3606 EINCA
                 string zonaID = userData.ZonaID.ToString();
                 string regionID = userData.RegionID.ToString();
 

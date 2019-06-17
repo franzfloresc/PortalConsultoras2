@@ -265,6 +265,7 @@ body {
     display: block;
 }
 
+/* Botón Agregar*/
 .contenedor_rangos {
     border: solid 1px #b0b0b0;
     float: left;
@@ -366,8 +367,7 @@ body {
     color: #b9b9b9;
     cursor: default !important;
 }
-
-/* Ficha Check Agreado y texto Libre */
+/* Fin Botón Agregar*/
 
 .ficha_div_libre_agregado {
     padding-top: 15px;
@@ -1302,6 +1302,32 @@ ul.breadcumbs li a::before {
     opacity: .3;
 }
 
+/*.producto_nombre_descripcion{
+    text-align: left;
+}
+
+    .producto_nombre_descripcion h6 {
+        text-transform: capitalize !important;
+    }
+
+.precio_carrusel{
+    margin-top: 3px;
+}
+
+    .precio_carrusel span:last-child {
+        display: block;
+        font-weight: bold;
+        line-height: normal;
+    }*/
+
+.titulo_carrusel {
+    font-size: 18px;
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-left: 20px;
+}
 
 
 

@@ -2,7 +2,7 @@
 @using Portal.Consultoras.Common
 
 @{
-    ViewBag.CaminoBrillante = true;
+    //ViewBag.CaminoBrillante = true;
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     var origenPedido = ViewBag.EsMobile ? Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel : Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel;
     ViewBag.origenPedido = origenPedido;
@@ -64,25 +64,27 @@
             <div class="cont-benf" id="BeneficiosPrincipal">
                 <h2 class='title'>Mis beneficios</h2>
                 <ul class='box-beneficios' id='BeneficiosPrincipal'>
-                    @foreach (var beneficio in nivel.Beneficios as List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>)
-                    {
-                        <li>
-                            <img src='@beneficio.UrlIcono'>
-                            <div class="txt-benf">
-                                <p class="text-bold">
-                                    @if (string.IsNullOrEmpty(beneficio.Descripcion))
-                                    {
-                                        <span>@beneficio.NombreBeneficio</span>
-                                    }
-                                    else
-                                    {
-                                        @beneficio.NombreBeneficio<span>@beneficio.Descripcion</span>
-                                    }
-                                </p>
-                            </div>
-                        </li>
-                    }
+
+                        @foreach (var beneficio in nivel.Beneficios as List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>)
+            {
+                <li>
+                    <img src='@beneficio.UrlIcono'>
+                    <div class="txt-benf">
+                        <p class="text-bold">
+                            @if (string.IsNullOrEmpty(beneficio.Descripcion))
+                            {
+                                <span>@beneficio.NombreBeneficio</span>
+                            }
+                            else
+                            {
+                                @beneficio.NombreBeneficio<span>@beneficio.Descripcion</span>
+                            }
+                        </p>
+                    </div>
+                </li>
+            }
                 </ul>
+     
             </div>
         }
         else if (!nivel.EsPasado)

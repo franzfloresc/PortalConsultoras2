@@ -17,25 +17,28 @@ var contadorkit = 0
 var contadordemo = 0
 var codOrdenar = "00";
 var codFiltro = "00";
-var t;
+
 
 var moneda = ($('#moneda').val());
 
 $(document).ready(function () {  
     Handlebars.registerPartial("kit_template", $("#template-kit").html());
     Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
-
-    if (t == 1) {
-        $("#Tab-Demostradores").trigger("click");
-    }
-
-    CambiarOferta();
     Inicializar();
+    CambiarOferta();
 
+
+    var valores = getGET();
+    if (valores) {
+        contadorkit = 0;
+        $("#Tab-Demostradores").trigger("click");
+    } else {
+        contadorkit = 0;
+        
+        
+    }
+       
     
-
-
-
     $("#ddlOrdenar").on("change", function () {
         codOrdenar = $("#ddlOrdenar").val();
         $("#Demostradores").empty();
@@ -52,6 +55,16 @@ $(document).ready(function () {
         CargarDemostradores();
     });
 });
+
+function getGET() {
+    var loc = document.location.href;
+    if (loc.indexOf('?') > 0) {
+        var getString = loc.split('?')[1];
+        var GET = getString.split('&');
+        var get = {};
+        return get;
+    }
+}
 
 $("#Demostradores").on('click', '.boton_agregar_ofertas', function (e) {
     var contenedor = $(this).parents('[data-item="BuscadorFichasProductos"]');
@@ -310,10 +323,9 @@ function CambiarOferta() {
         $(window).scrollTop(TabUno);
         if (contadorkit == 0) { CargarKits(); }
         else {
-            LinkCargarOfertasToScroll();
+            $('#kits').empty();
             offsetRegistrosKits = 0;
             contadorkit = 0;
-            $('#kits').empty();
             CargarKits();
         }        
        

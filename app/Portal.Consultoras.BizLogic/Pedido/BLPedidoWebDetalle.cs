@@ -1,4 +1,5 @@
 using Portal.Consultoras.BizLogic.CaminoBrillante;
+using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.Exceptions;
@@ -516,7 +517,8 @@ namespace Portal.Consultoras.BizLogic
                     Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel,
                     Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel,
                     Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Ficha,
-                    Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel,
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home
 
                 };
                 var blCaminoBrillante = new BLCaminoBrillante();
@@ -725,12 +727,24 @@ namespace Portal.Consultoras.BizLogic
             var daPedidoWeb = new DAPedidoWeb(usuario.PaisID);
             var daPedidoWebDetalle = new DAPedidoWebDetalle(usuario.PaisID);
             var blReserva = new BLReserva();
-
+            var blPedido = new BLPedido();
             TransactionOptions oTransactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             try
             {
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
+                    
+                    var respuesta = blPedido.RespuestaModificarPedido(usuario);
+                    var reservado = false;
+                    if(respuesta != null)
+                    {
+                        reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);
+                        if (reservado)
+                        {
+                            //si está reservado no se permite eliminar el pedido
+                            return false;
+                        }
+                    }
                     daPedidoWebDetalle.DelPedidoWebDetalleMasivo(usuario.CampaniaID, pedidoId);
                     daPedidoWeb.UpdPedidoWebByEstadoConTotalesMasivo(usuario.CampaniaID, pedidoId, 201, false, 0, 0, usuario.CodigoUsuario);
                     daPedidoWeb.DelIndicadorPedidoAutenticoCompleto(new BEIndicadorPedidoAutentico { PedidoID = pedidoId, CampaniaID = usuario.CampaniaID });
