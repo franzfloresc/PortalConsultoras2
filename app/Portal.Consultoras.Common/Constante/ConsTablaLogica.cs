@@ -630,9 +630,5 @@ namespace Portal.Consultoras.Common
             public const string PanelId = "PANEL_ID";
             public const string PanelKey = "PANEL_KEY";
         }
-        public static class AdministradorHistoria
-        {
-            public const int TablaLogicaId = 231;
-        }
     }
 }
