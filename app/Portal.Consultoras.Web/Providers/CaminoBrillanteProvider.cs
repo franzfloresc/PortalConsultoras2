@@ -262,8 +262,6 @@ namespace Portal.Consultoras.Web.Providers
         {
             try
             {
-                var demostradores = new BEDemostradoresPaginado();
-
                 int nivel = 0;
                 var nivelConsultora = GetNivelActualConsultora();
                 if (nivelConsultora != null)
@@ -271,17 +269,18 @@ namespace Portal.Consultoras.Web.Providers
                     int.TryParse(nivelConsultora.Nivel, out nivel);
                 }
 
+                var usuario = new ServicePedido.BEUsuario()
+                {
+                    PaisID = usuarioModel.PaisID,
+                    CampaniaID = usuarioModel.CampaniaID,
+                    ConsultoraID = usuarioModel.ConsultoraID,
+                    CodigoConsultora = usuarioModel.CodigoConsultora,
+                    NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
+                };
+
+                BEDemostradoresPaginado demostradores;
                 using (var svc = new PedidoServiceClient())
                 {
-                    var usuario = new ServicePedido.BEUsuario()
-                    {
-                        PaisID = usuarioModel.PaisID,
-                        CampaniaID = usuarioModel.CampaniaID,
-                        ConsultoraID = usuarioModel.ConsultoraID,
-                        CodigoConsultora = usuarioModel.CodigoConsultora,
-                        NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
-                    };
-
                     demostradores = svc.GetDemostradoresCaminoBrillante(usuario, cantRegistros, regMostrados, codOrdenar, codFiltro);
                 }
 
@@ -567,7 +566,7 @@ namespace Portal.Consultoras.Web.Providers
                 DescripcionMarca = e.DescripcionMarca,
                 DescripcionResumen = e.DescripcionCUV,
                 DescripcionCategoria = e.DescripcionCUV,
-                EsMultimarca = false,
+                EsMultimarca = e.TipoOferta == 1,
                 EsOfertaIndependiente = false,
                 EsSubcampania = false,
                 EstrategiaID = e.EstrategiaID.ToInt(),
@@ -603,6 +602,7 @@ namespace Portal.Consultoras.Web.Providers
             return new EstrategiaComponenteModel() {
                 TieneStock = true,
                 CodigoProducto = e.CUV,
+                IdMarca = e.MarcaID,
                 DescripcionMarca = e.DescripcionMarca,
                 Descripcion = e.DescripcionCUV,                
                 Cantidad = 1,
@@ -617,6 +617,7 @@ namespace Portal.Consultoras.Web.Providers
                 TieneStock = true,
                 CodigoProducto = e.CUV,
                 DescripcionMarca = e.DescripcionMarca,
+                IdMarca = e.MarcaID,
                 Descripcion = e.DescripcionCUV,
                 Cantidad = 1,
                 NombreComercial = e.DescripcionCUV,
@@ -646,7 +647,7 @@ namespace Portal.Consultoras.Web.Providers
                 DescripcionMarca = e.DescripcionMarca,
                 DescripcionResumen = e.DescripcionCUV,
                 DescripcionCategoria = e.DescripcionCUV,
-                EsMultimarca = false,
+                EsMultimarca = true,
                 EsOfertaIndependiente = false,
                 EsSubcampania = false,
                 EstrategiaID = 0,
@@ -730,7 +731,8 @@ namespace Portal.Consultoras.Web.Providers
                     origen == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Ficha ||
                     origen == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha ||
                     origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Ficha ||
-                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel
+                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel ||
+                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home
                     ;
 
         }

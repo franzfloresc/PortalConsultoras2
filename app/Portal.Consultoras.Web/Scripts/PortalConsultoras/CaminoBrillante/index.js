@@ -449,26 +449,27 @@ function ArmarCarrusel(data) {
     $('#carrusel').show();
 
     $(".regular").slick({
-        dots: true,
-        infinite: true,
+        infinite: false,
         slidesToShow: 4,
+        centerMode: false,
+        centerPadding: "0px",
         slidesToScroll: 1,
+        initialSlide: 0,
         dots: false,
         prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
         nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+
         responsive: [
             {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 2,
-                }
+                breakpoint: 426,
+                settings: { slidesToShow: 2, slidesToScroll:1, centerPadding: "25px",  infinite: false}
             }
         ]
     });
     
 }
 
-
 $(window).load(function () {
     $("#overlayer").delay(200).fadeOut("slow");
 })
+

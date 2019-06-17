@@ -14,7 +14,7 @@ function LayoutHeader() {
 }
 
 function LayoutHeaderFin() {
-    var wtop = $("header").innerHeight();
+    var wtop = $("header").innerHeight() || 0;
     $("[data-content]").css("margin-top", (wtop) + "px");
 }
 
@@ -95,6 +95,7 @@ function LayoutMenuFin() {
     // caso no entre en el menu
     // poner en dos renglones
     if ($(idnMenuHeader).height() > 61) {
+        //
     }
 
     LayoutHeader();

@@ -91,7 +91,10 @@ namespace Portal.Consultoras.Web.Providers
 
                 List<BEEstrategiaProducto> listaBeEstrategiaProductos;
                 if (codigoTipoEstrategia == "036" || codigoTipoEstrategia == "035")
+                {
+                    esMultimarca = codigoTipoEstrategia == "036";
                     return estrategiaModelo.Hermanos;
+                }
                 else
                     listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
 
@@ -218,6 +221,7 @@ namespace Portal.Consultoras.Web.Providers
                 componenteModel.Cuv = Util.Trim(beEstrategiaProducto.CUV);
                 componenteModel.Cantidad = beEstrategiaProducto.Cantidad;
                 componenteModel.FactorCuadre = beEstrategiaProducto.FactorCuadre > 0 ? beEstrategiaProducto.FactorCuadre : 1;
+                componenteModel.CodigoProducto = beEstrategiaProducto.SAP;
 
                 listaEstrategiaComponenteProductos.Add(componenteModel);
             }

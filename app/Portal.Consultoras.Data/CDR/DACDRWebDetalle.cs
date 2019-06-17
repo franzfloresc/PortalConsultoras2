@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Data.CDR
             Context.Database.AddInParameter(command, "Cantidad", DbType.Int32, entity.Cantidad);
             Context.Database.AddInParameter(command, "CUV2", DbType.String, entity.CUV2);
             Context.Database.AddInParameter(command, "Cantidad2", DbType.Int32, entity.Cantidad2);
-            Context.Database.AddInParameter(command, "GrupoID", DbType.String, entity.GrupoID);//HD-3703 EINCA
+            Context.Database.AddInParameter(command, "GrupoID", DbType.String, entity.GrupoID);
             Context.Database.AddOutParameter(command, "RetornoID", DbType.Int32, 10);
 
             Context.ExecuteNonQuery(command);
@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Data.CDR
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelCDRWebDetalle");
             Context.Database.AddInParameter(command, "CDRWebDetalleID", DbType.Int32, entity.CDRWebDetalleID);
-            Context.Database.AddInParameter(command, "GrupoID", DbType.String, entity.GrupoID); //HD-3703 EINCA
+            Context.Database.AddInParameter(command, "GrupoID", DbType.String, entity.GrupoID);
 
 
             var result = Context.ExecuteNonQuery(command);

@@ -93,16 +93,9 @@
 
                     </div>
                     <div class="contenedor_derecho">
-                        {{#iff Precio '>' 0}}
-                        {{#iff TipoOfertaCaminoBrillante '>' 0}}
-                        <div class="precio_valorizado">Precio normal: <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
-                        {{else}}
-                        <div class="precio_valorizado">Precio catálogo: <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
-                        {{/iff}}
-                        {{/iff}}
 
                         <ul class="precio_venta_oferta_list">
-                            <li>Precio para ti:</li>
+                            <li><b>Precio para ti:</b></li>
                             <li>
                                 <span data-precio_venta_oferta="">
                                     {{#IsNullOrEmpty this.ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
@@ -113,10 +106,23 @@
                             </li>
                         </ul>
 
+                        {{#iff Precio '>' 0}}
+                        {{#iff TipoOfertaCaminoBrillante '==' 1}}
+                        <div class="precio_valorizado">Precio normal: <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
+                        {{else}}
+                        {{#iff TipoOfertaCaminoBrillante '==' 2}}
+                        <div class="precio_valorizado" >Precio: <span data-precio_valorizado="" style="text-decoration:line-through;">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
+                        {{else}}
+                        <div class="precio_valorizado">Precio catálogo: <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
+                        {{/iff}}
+                        {{/iff}}
+                        {{/iff}}
+
+
                         {{#iff Ganancia '>' 0}}
                         <div class="ganancia">
                             {{#iff TipoOfertaCaminoBrillante '>' 0}}
-                            Ganancia
+                            Gana hasta
                             {{else}}
                             {{#iff CodigoVariante '!=' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
                             GANA
@@ -278,4 +284,3 @@
         </div>
     </div>
 </script>
-

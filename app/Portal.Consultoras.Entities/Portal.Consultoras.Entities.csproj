@@ -108,6 +108,7 @@
     <Compile Include="BEPedidoWebDetalleParametros.cs" />
     <Compile Include="CDR\BECDRProductoComplementario.cs" />
     <Compile Include="Cliente\BEMovimientoDetalle.cs" />
+    <Compile Include="ComentariosProducto\BEComentarioProducto.cs" />
     <Compile Include="Comunicado\BEComunicadoSegmentacion.cs" />
     <Compile Include="Comunicado\BEComunicadoVista.cs" />
     <Compile Include="DENativeType.cs" />
