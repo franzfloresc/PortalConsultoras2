@@ -150,7 +150,7 @@
                                 </div>
                                 <div class="toggle-info">
                                     <span class="ganancia-titulo first-color">
-                                        Gana+ /Ofertas Digitales
+                                        Gana+ /Ofertas digitales
                                     </span>
                                     <span class="ganancia-total first-color">
                                         @Model.Simbolo <span id="div-ganancia-totalGananciaWeb">@ViewBag.FormatoGananciaWeb</span>
@@ -805,10 +805,14 @@
             Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.
         </span>
     </div>
-     @if (Model.IsShowGananciaConsultora)
-     {
-         <div class="mb-60"></div>
-     }
+    @if (Model.IsShowGananciaConsultora)
+    {
+        <div class="mb-60"></div>
+        if (Model.EstadoPedido == 1)
+        {
+            <div style="padding-top: 35px;margin-bottom: -20px;margin-top:-20px;"></div>
+        }
+    }
     <!-- Mostrar el link de eliminación de pedido solo si el pedido no está reservado-->
     @if (Model.EstadoPedido != 1)
     {
