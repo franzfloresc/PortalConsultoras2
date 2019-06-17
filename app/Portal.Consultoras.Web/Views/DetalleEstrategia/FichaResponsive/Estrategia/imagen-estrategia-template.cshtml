@@ -16,7 +16,17 @@
                     <img src="{{ImgUrl FotoProducto01}}" class="img-fluid" />
                     {{/if}}
                 </div>
+
+                {{#each this.FotosCarrusel as |foto|}}
                 <div class="contenedor_carrusel">
+                    {{#if isMobile}}
+                    <img src="{{ImgMedium foto}}" class="img-fluid" />
+                    {{else}}
+                    <img src="{{ImgUrl foto}}" class="img-fluid" />
+                    {{/if}}
+                </div>
+                {{/each}}
+                @*<div class="contenedor_carrusel">
                     {{#if isMobile}}
                     <img src="{{ImgMedium FotoProducto01}}" class="img-fluid" />
                     {{else}}
@@ -78,7 +88,7 @@
                     {{else}}
                     <img src="{{ImgUrl FotoProducto01}}" class="img-fluid" />
                     {{/if}}
-                </div>                
+                </div>*@
             </div>
         </div>
         <div class="col-lg-9 col-md-12 ">
@@ -90,7 +100,17 @@
                     <img src="{{ImgUrl FotoProducto01}}" />
                     {{/if}}
                 </div>
+
+                {{#each this.FotosCarrusel as |foto|}}
                 <div class="contenedor_carrusel">
+                    {{#if isMobile}}
+                    <img src="{{ImgMedium foto}}" />
+                    {{else}}
+                    <img src="{{ImgUrl foto}}" />
+                    {{/if}}
+                </div>
+                {{/each}}
+                @*<div class="contenedor_carrusel">
                     {{#if isMobile}}
                     <img src="{{ImgMedium FotoProducto01}}" />
                     {{else}}
@@ -152,7 +172,7 @@
                     {{else}}
                     <img src="{{ImgUrl FotoProducto01}}" />
                     {{/if}}
-                </div>
+                </div>*@
                 {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.IndividualConTonos,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
                 <p>* Foto Referencial</p>
                 {{/iff}}
