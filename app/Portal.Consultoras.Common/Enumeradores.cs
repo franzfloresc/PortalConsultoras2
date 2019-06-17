@@ -345,5 +345,12 @@
             CuvYaAgregadoEnPeriodo = 3,
             CuvBloqueadoNivel = 4
         }
+
+        public enum AppFuenteEstadoTelefonico
+        {
+            FFVV_WEB = 1,
+            FFVV_APP = 2,
+            SAC = 3
+        }
     }
 }

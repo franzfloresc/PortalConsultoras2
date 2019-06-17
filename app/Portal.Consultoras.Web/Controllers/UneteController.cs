@@ -1671,11 +1671,13 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 actualizado = sv.ActualizarEstado(CodigoISO, id, EnumsTipoParametro.EstadoTelefonico, idEstado);
             }
+            var urlClient = string.Format("EventoSPEstadoTelefonico/{0}/{1}/{2}/{3}/{4}", CodigoISO, id, (int)Enumeradores.EstadoPostulante.Todos, idEstado, (int)Enumeradores.AppFuenteEstadoTelefonico.SAC);
+            var resultado = (new RestApi()).GetAsync<EventoInsert>(urlClient);
             RegistrarLogGestionSacUnete(id.ToString(), "CONSULTA TELEFONICA", "ASIGNAR");
             return Json(actualizado, JsonRequestBehavior.AllowGet);
         }
 
-public ActionResult MostrarMensajeBuro(string respuestaBuro)
+        public ActionResult MostrarMensajeBuro(string respuestaBuro)
 		{
             ViewBag.HTMLSACUnete = getHTMLSACUnete("MensajeRespuestaBuro", "&respuestaBuro=" + respuestaBuro);
             return PartialView("~/Views/Unete/_MensajeRespuestaBuro.cshtml");
