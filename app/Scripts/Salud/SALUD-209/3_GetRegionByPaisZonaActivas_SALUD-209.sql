@@ -1,8 +1,9 @@
 ﻿USE BelcorpPeru
 GO
 
-IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = '[dbo].[GetRegionByPaisZonaActivas]')  
-DROP PROCEDURE [dbo].[GetRegionByPaisZonaActivas]  
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'GetRegionByPaisZonaActivas')  
+ DROP PROCEDURE [dbo].[GetRegionByPaisZonaActivas]  
+
 GO
 CREATE PROCEDURE [dbo].[GetRegionByPaisZonaActivas] 
 
