@@ -6,7 +6,6 @@ using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,13 +18,11 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private readonly PedidoSetProvider _pedidoSetProvider;
         protected ProductoFaltanteProvider _productoFaltanteProvider;
-        private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
 
         public PedidoRegistroController()
         {
             _pedidoSetProvider = new PedidoSetProvider();
             _productoFaltanteProvider = new ProductoFaltanteProvider();
-            _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
         }
 
         [HttpPost]
@@ -444,7 +441,7 @@ namespace Portal.Consultoras.Web.Controllers
                 CUV = premioDefault.CUV2,
                 TipoEstrategiaID = premioDefault.TipoEstrategiaID,
                 Cantidad = "1",
-                FlagNueva = "1"
+                FlagNueva = premioDefault.FlagNueva.ToString()
             });
 
             return Json(true);
