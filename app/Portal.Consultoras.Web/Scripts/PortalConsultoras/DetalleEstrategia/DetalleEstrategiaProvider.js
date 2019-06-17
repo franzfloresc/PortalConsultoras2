@@ -168,7 +168,11 @@ var DetalleEstrategiaProvider = function () {
             estrategia = $.extend(estrategia, estrategiaTmp);
         }
 
-        if (!estrategia || !estrategia.EstrategiaID) throw 'no obtiene oferta desde api';
+        if (!estrategia || (_objTipoPalanca.codigo != ConstantesModule.TipoPersonalizacion.Catalogo && !estrategia.EstrategiaID)) throw 'no obtiene oferta desde api';
+
+        if (_objTipoPalanca.codigo == ConstantesModule.TipoPersonalizacion.Catalogo) {
+            estrategia.BreadCrumbs.Palanca.Url += "?q=" + localStorage.getItem('valorBuscador');
+        }
 
         if (typeof estrategia.CodigoVariante != "undefined" &&
             estrategia.CodigoVariante != null &&

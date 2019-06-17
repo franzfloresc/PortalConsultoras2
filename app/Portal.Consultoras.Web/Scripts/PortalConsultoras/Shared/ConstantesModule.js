@@ -72,6 +72,14 @@ var ConstantesModule = (function() {
         DuoPerfecto: "034" //HD-3473 EINCA
     }
 
+    var _tipoPersonalizacion = {
+        Catalogo: "CAT",
+    };
+
+    var _tipoPersonalizacionTexto = {
+        Catalogo: "Catalogo",
+    };
+
     var _diccionarioTipoEstrategia = [
         { codigo: _codigoTipoEstrategia.OfertaParaTi, texto: _codigoTipoEstrategiaTexto.OfertaParaTi },
         { codigo: _codigoTipoEstrategia.PackNuevas, texto: _codigoTipoEstrategiaTexto.PackNuevas },
@@ -80,15 +88,13 @@ var ConstantesModule = (function() {
         { codigo: _codigoTipoEstrategia.OfertasParaMi, texto: _codigoTipoEstrategiaTexto.OfertasParaMi },
         { codigo: _codigoTipoEstrategia.PackAltoDesembolso, texto: _codigoTipoEstrategiaTexto.PackAltoDesembolso },
         { codigo: _codigoTipoEstrategia.OfertaDelDia, texto: _codigoTipoEstrategiaTexto.OfertaDelDia },
-        {
-            codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada,
-            texto: _codigoTipoEstrategiaTexto.GuiaDeNegocioDigitalizada
-        },
+        { codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada,texto: _codigoTipoEstrategiaTexto.GuiaDeNegocioDigitalizada },
         { codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada, texto: _codigoTipoEstrategiaTexto.GuiaNegocio },
         { codigo: _codigoTipoEstrategia.HerramientasVenta, texto: _codigoTipoEstrategiaTexto.HerramientasVenta },
         { codigo: _codigoTipoEstrategia.ShowRoom, texto: _codigoTipoEstrategiaTexto.ShowRoom },
         { codigo: _codigoTipoEstrategia.RevistaDigital, texto: _codigoTipoEstrategiaTexto.RevistaDigital },
         { codigo: _codigoTipoEstrategia.MasGanadoras, texto: _codigoTipoEstrategiaTexto.Ganadoras },
+        { codigo: _tipoPersonalizacion.Catalogo, texto: _tipoPersonalizacionTexto.Catalogo }
     ];
 
     var _configuracionOferta = {
@@ -208,15 +214,6 @@ var ConstantesModule = (function() {
     var _tipoSeccion = {
         Video: "01",
         Texto: "02"
-    };
-
-    
-    var _tipoPersonalizacion = {
-        Catalogo: "CAT",
-    };
-
-    var _tipoPersonalizacionTexto = {
-        Catalogo: "Catalogo",
     };
 
     return {
