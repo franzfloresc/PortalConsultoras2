@@ -2110,21 +2110,24 @@ function MostrarMensajeProl(response, fnOfertaFinal) {
 
 function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();
+
+    var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
     //INI HD-4294
     if (!response.data.IsEmailConfirmado) {
+       
+        configActualizarCorreo.UrlPedidoValidado = (!ultimoDiaFacturacion) ? configActualizarCorreo.UrlPedido: configActualizarCorreo.UrlPedidoValidado;
         new Pedido_ActualizarCorreo(configActualizarCorreo).Inicializar();
-
+   //FIN HD-4294
     }else {
         $("#dialog_divReservaSatisfactoria").show();
-    var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
     
-    if (ultimoDiaFacturacion) {
-	    RedirigirPedidoValidado(); //Redirige PEDIDO VALIDADO
-    } else {
-	    location.reload();
+        if (ultimoDiaFacturacion) {
+	        RedirigirPedidoValidado(); //Redirige PEDIDO VALIDADO
+        } else {
+	        location.reload();
+        }
     }
-    }
-    //FIN HD-4294
+ 
 
 }
 

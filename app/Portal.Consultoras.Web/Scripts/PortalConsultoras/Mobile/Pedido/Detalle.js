@@ -987,21 +987,25 @@ function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == '1') EnviarCorreoPedidoReservado();
     if (estaRechazado == "2") cerrarMensajeEstadoPedido();
 
-   //messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>');
+    var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
+
     //INI HD-4294
     if (!response.data.IsEmailConfirmado) {
+        configActualizarCorreo.UrlPedidoValidado = (!ultimoDiaFacturacion) ? configActualizarCorreo.UrlPedido: configActualizarCorreo.UrlPedidoValidado;
         new Pedido_ActualizarCorreo(configActualizarCorreo).Inicializar();
 
-    } else {
+    }
+    //FIN HD-4294
+    else {
         $("#dialog_divReservaSatisfactoria").show();
-        var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
+        
     	if (ultimoDiaFacturacion) {
 	    RedirigirPedidoValidado();
     	} else {
 	    location.reload();
     	}
     }
-    //FIN HD-4294
+    
 
 }
 
