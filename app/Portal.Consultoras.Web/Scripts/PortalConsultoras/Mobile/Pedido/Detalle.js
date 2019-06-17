@@ -997,8 +997,7 @@ function EjecutarAccionesReservaExitosa(response) {
     }
     //FIN HD-4294
     else {
-        $("#dialog_divReservaSatisfactoria").show();
-        
+        messageInfoBueno('<h3>Tu pedido fue reservado con &eacute;xito.</h3>');
     	if (ultimoDiaFacturacion) {
 	    RedirigirPedidoValidado();
     	} else {
