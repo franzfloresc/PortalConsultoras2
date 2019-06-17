@@ -659,6 +659,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (Session["DatosUsuario"] == null) return RedirectToAction("Index", "Login");
             var obj = (BEUsuarioDatos)Session["DatosUsuario"];
+
             var model = new BEUsuarioDatos();
             model.PrimerNombre = obj.PrimerNombre;
             model.MensajeSaludo = obj.MensajeSaludo;
@@ -1058,7 +1059,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (usuario != null)
                 {
-                    if(nivelCaminoBrillante != 0) usuario.NivelCaminoBrillante = nivelCaminoBrillante;
+                    if (nivelCaminoBrillante != 0) usuario.NivelCaminoBrillante = nivelCaminoBrillante;
 
                     #region
                     usuarioModel = new UsuarioModel();
@@ -1519,7 +1520,7 @@ namespace Portal.Consultoras.Web.Controllers
                     usuarioModel.CodigoSubClasificacion = usuario.CodigoSubClasificacion;
                     usuarioModel.DescripcionSubclasificacion = usuario.DescripcionSubClasificacion;
                     usuarioModel.NivelCaminoBrillante = usuario.NivelCaminoBrillante;
-                    
+
                 }
 
                 sessionManager.SetUserData(usuarioModel);
@@ -1967,14 +1968,14 @@ namespace Portal.Consultoras.Web.Controllers
                     SetUserError();
                     return usuarioModel;
                 }
-           
+
 
                 if (usuarioModel.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 {
                     SetUserError();
                     return usuarioModel;
                 }
-                    
+
 
                 var guiaNegocio = new GuiaNegocioModel();
                 var revistaDigitalModel = new RevistaDigitalModel();
@@ -3183,6 +3184,8 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
+        #region CambioConrasenia
+
         public bool TieneActualizarContraseniaDefault(int paisID, string codigoUsuario)
         {
             try
@@ -3196,7 +3199,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (oVerificacion == null) return false;
 
                 Session["DatosUsuario"] = oVerificacion;
-   
+                TempData["PaisID"] = paisID;
                 return true;
             }
             catch (Exception ex)
@@ -3205,6 +3208,50 @@ namespace Portal.Consultoras.Web.Controllers
                 return false;
             }
         }
+
+        [HttpPost]
+        public JsonResult CambiarContrasenia(string nuevaContrasenia, string codigoUsuario,string codigoISO)
+        {
+            int rslt = 0;
+            try
+            {
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    var result = sv.CambiarClaveUsuario(Util.GetPaisID(codigoISO), codigoISO, codigoUsuario,
+                           nuevaContrasenia, "", codigoUsuario, EAplicacionOrigen.MisDatosConsultora);
+
+                    rslt = result ? 2 : 1;
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = rslt
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, codigoUsuario, codigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un erro al actualizar la Contraseña, Intente nuevamente.",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, codigoUsuario, codigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un erro al actualizar la Contraseña, Intente nuevamente.",
+                    extra = ""
+                });
+            }
+        }
+        #endregion
+
 
 
     }

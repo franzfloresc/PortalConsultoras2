@@ -25,9 +25,20 @@
         <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/styleDefault.css")">
         <link rel="stylesheet" href="@Url.Content("~/Content/Css/Site/Lbel/verificacion-pin.css")">
     }
+
     @Styles.Render("~/Bundle/Css/Mixto/Content-Login")
 </head>
 <body>
     @Html.Partial("~/Views/Login/_PopupActualizacionContrasenia.cshtml")
 </body>
 </html>
+
+<script type="text/javascript">
+    var urlCambiaContrasenia = '@Url.Action("CambiarContrasenia", "Login")';
+
+    var emt_country = '@Model.CodigoIso';
+    var emt_id = '@Model.CodigoUsuario';
+</script>
+
+@Scripts.Render("~/Bundle/Js/Mixto/Login-ActualizarContrasenia")
+

@@ -4017,14 +4017,13 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 oUsu = GetUsuarioActualizarContraseniaDefault(paisID, codigoUsuario);
+                if (oUsu.Cantidad == 0) { return null; }
+
                 BEConfiguracionPaisFFVVDatos config = new BEConfiguracionPaisFFVVDatos();
                 config.CodigoISO = Common.Util.GetPaisISO(paisID);
                 /*verificar si esta activado   FlagConfZonasUnete = 1     en  FFVV.ConfiguracionPaisesFFVV*/
                 List<BEConfiguracionPaisFFVVDatos> listaConfPaisFFVV = new BLConfiguracionPaisFFVV().GetList(config);
-                if (listaConfPaisFFVV.Count() == 0)
-                {
-                    return null;
-                }
+                if (listaConfPaisFFVV.Count() == 0) { return null; }
 
                 BEParametroUnete parametroUnete = new BEParametroUnete();
                 parametroUnete.PaisID = paisID;
@@ -4039,6 +4038,7 @@ namespace Portal.Consultoras.BizLogic
                         if (item.Nombre == zonaDescripcion.First().Codigo)
                         {
                             tienezona = true;
+                            break;
                         }
                     }
                 }
@@ -4046,6 +4046,11 @@ namespace Portal.Consultoras.BizLogic
 
                 if (!tienezona) return null;
 
+
+                oUsu.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);                
+                //oUsu.OrigenDescripcion = opcion.OrigenDescripcion;
+                oUsu.CodigoUsuario = codigoUsuario;
+                oUsu.CodigoIso = Common.Util.GetPaisISO(paisID);
 
                 ///*Verificando si tiene Verificacion*/
                 //var oUsu = GetUsuarioActualizarContraseniaDefault(paisID, CodigoUsuario);
