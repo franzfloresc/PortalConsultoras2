@@ -332,9 +332,8 @@ function CargarCarruselCatalogo() {
     waitingDialog();
 
     var htmlSection = "";
-    var htmlCatalogo = "";
+    var htmlCatalogo;
     var htmlCatalogoAppend = "";
-    var totalItem = cantCat * cantCam;
     var anio = "";
     var nro = "";
     isPilotoSeg = false;
@@ -389,8 +388,6 @@ function CargarCarruselCatalogo() {
     }
 
     for (var i = 0; i < cantCam; i++) {
-        
-        htmlCatalogo = "";
         htmlCatalogoAppend = "";
         nro = "";
         anio = "";
