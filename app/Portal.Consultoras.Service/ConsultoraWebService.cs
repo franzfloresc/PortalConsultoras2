@@ -1,8 +1,8 @@
 ﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
-using System;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.Service
@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Service
 
             if (mensaje != "")
             {
-                throw new ArgumentNullException(mensaje);
+                throw new ClientInformationException(mensaje);
             }
 
             int idPais = Util.GetPaisID(codigoPais);
@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Service
                 if (codigoUbigeo.Length < limiteInferior)
                 {
                     string mensajeValidacion = string.Format("La longitud del parámetro CodigoUbigeo debe tener como valor mínimo {0}", limiteInferior);
-                    throw new ArgumentNullException(mensajeValidacion);
+                    throw new ClientInformationException(mensajeValidacion);
                 }
             }
             int tipoFiltroUbigeo;

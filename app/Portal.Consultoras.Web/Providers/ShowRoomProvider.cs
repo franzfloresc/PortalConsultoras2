@@ -6,7 +6,6 @@ using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Models.Search.ResponseEvento;
-using Portal.Consultoras.Web.Models.Search.ResponseEvento.Estructura;
 using Portal.Consultoras.Web.Models.Search.ResponseNivel;
 using Portal.Consultoras.Web.Models.Search.ResponseNivel.Estructura;
 using Portal.Consultoras.Web.ServicePedido;
@@ -21,6 +20,7 @@ using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
+    using Portal.Consultoras.Common.Exceptions;
     using Portal.Consultoras.Web.Models.Search.ResponseEvento.Estructura;
     /// <summary>
     /// Propiedades y metodos de ShowRoom
@@ -884,7 +884,7 @@ namespace Portal.Consultoras.Web.Providers
             GenericResponse respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
-                throw new ArgumentNullException(respuesta.Message);
+                throw new ClientInformationException(respuesta.Message);
 
             var modelo = new ShowRoomEventoConsultoraModel();
             if (respuesta.Result == null)
@@ -1036,7 +1036,7 @@ namespace Portal.Consultoras.Web.Providers
                 GenericResponse respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
                 if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
-                    throw new ArgumentNullException(respuesta.Message);
+                    throw new ClientInformationException(respuesta.Message);
             }
             else
             {

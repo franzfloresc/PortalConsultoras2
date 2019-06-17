@@ -1,7 +1,7 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -2030,7 +2029,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (cuponResult != null)
                 cuponModel = MapearBECuponACuponModel(cuponResult);
             else
-                throw new ArgumentNullException();
+                throw new ClientInformationException();
 
             return cuponModel;
         }

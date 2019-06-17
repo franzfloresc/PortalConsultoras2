@@ -1,17 +1,18 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.PagoEnLinea;
+using Portal.Consultoras.Web.Properties;
+using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceUsuario;
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.PagoEnLinea;
-using Portal.Consultoras.Web.Properties;
-using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -73,7 +74,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             if (!info.Birthdate.HasValue)
             {
-                throw new ArgumentNullException("Fecha de Nacimiento es requerido");
+                throw new ClientInformationException("Fecha de Nacimiento es requerido");
             }
 
             PagoVisaModel config = pago.PagoVisaModel;

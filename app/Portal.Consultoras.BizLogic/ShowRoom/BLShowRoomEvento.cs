@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.ShowRoom;
@@ -49,7 +50,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                throw new ArgumentNullException(ex.Message, ex);
+                throw new ClientInformationException(ex.Message, ex);
             }
         }
 
@@ -147,7 +148,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                throw new ArgumentNullException(ex.Message, ex);
+                throw new ClientInformationException(ex.Message, ex);
             }
         }
 
@@ -323,7 +324,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                throw new ArgumentNullException(ex.Message, ex);
+                throw new ClientInformationException(ex.Message, ex);
             }
         }
 

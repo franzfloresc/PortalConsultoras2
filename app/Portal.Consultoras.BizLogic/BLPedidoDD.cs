@@ -3,6 +3,7 @@
     using Common;
     using Data;
     using Entities;
+    using Portal.Consultoras.Common.Exceptions;
     using System;
     using System.Collections.Generic;
     using System.Data;
@@ -228,7 +229,7 @@
             }
             catch (Exception ex)
             {
-                throw new ArgumentNullException(ex.Message);
+                throw new ClientInformationException(ex.Message);
             }
         }
 
@@ -271,7 +272,7 @@
             }
             catch (Exception ex)
             {
-                throw new ArgumentNullException(ex.Message, ex);
+                throw new ClientInformationException(ex.Message, ex);
             }
         }
 
@@ -345,7 +346,7 @@
             }
             catch (Exception ex)
             {
-                throw new ArgumentNullException(ex.Message, ex);
+                throw new ClientInformationException(ex.Message, ex);
             }
         }
 
