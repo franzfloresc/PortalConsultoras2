@@ -1,0 +1,18 @@
+USE [BelcorpPeru_MC]
+GO
+IF EXISTS (
+	SELECT * 
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE  
+	O.NAME = 'Incentivo'
+	)
+BEGIN
+	ALTER TABLE Incentivo
+	DROP COLUMN Zona,
+		COLUMN Seccion
+END
+
+GO
+
