@@ -411,7 +411,6 @@ function MostrarBarra(datax, destino) {
             else {
                 if (caminoBrillante == "True") {
                     txtDscto = "";
-                    (variablesPortal.SimboloMoneda + "" + limite.MontoDesdeStr + " a más");
                 } else {
                     txtDscto = "DSCTO";
                     txtDetalle = indPuntoLimite != ind ? "" :
