@@ -17,28 +17,19 @@ var contadorkit = 0
 var contadordemo = 0
 var codOrdenar = "00";
 var codFiltro = "00";
-
+var getUrl;
 
 var moneda = ($('#moneda').val());
 
 $(document).ready(function () {  
     Handlebars.registerPartial("kit_template", $("#template-kit").html());
     Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
+
+    getUrl = getGET();
+
     Inicializar();
     CambiarOferta();
 
-
-    var valores = getGET();
-    if (valores) {
-        contadorkit = 0;
-        $("#Tab-Demostradores").trigger("click");
-    } else {
-        contadorkit = 0;
-        
-        
-    }
-       
-    
     $("#ddlOrdenar").on("change", function () {
         codOrdenar = $("#ddlOrdenar").val();
         $("#Demostradores").empty();
@@ -54,7 +45,11 @@ $(document).ready(function () {
         offsetRegistrosDemo = 0;
         CargarDemostradores();
     });
+
+    
+    
 });
+
 
 function getGET() {
     var loc = document.location.href;
@@ -310,46 +305,41 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
 }
 
 function CambiarOferta() {
-    $("#Tab-kits").trigger("click");    
-    $('#Tab-kits').click(function () {
-        $('#kits').show();
-        $('#Demostradores').hide();
-        $('.opOrdenar').hide();
-        $("#Tab-kits").addClass("activado-dorado");
-        $("#Tab-Demostradores").removeClass("activado-dorado");
-        $("#divresultadosDemostradores").hide();
-        $("#divresultadosKit").show();
-        document.body.scrollTop = TabUno;
-        $(window).scrollTop(TabUno);
-        if (contadorkit == 0) { CargarKits(); }
-        else {
-            $('#kits').empty();
-            offsetRegistrosKits = 0;
-            contadorkit = 0;
-            CargarKits();
-        }        
-       
-    });
 
-    $('#Tab-Demostradores').click(function () {        
-        $('.opOrdenar').show();
-        $('#Demostradores').show();
-        $('#kits').hide();
-        $("#Tab-kits").removeClass("activado-dorado");
-        $("#Tab-Demostradores").addClass("activado-dorado");
-        $("#divresultadosKit").hide();
-        $("#divresultadosDemostradores").show();
-        document.body.scrollTop = TabDos;
-        $(window).scrollTop(TabDos);  
-        if (contadordemo == 0) {
-            ObtenerFiltros();
-            CargarDemostradores();
-        }
-        else {
-            LinkCargarOfertasToScroll();
-            TagListaProductos(dataDemostradores, 'Demostradores');
-        }
-    });
+    if (getUrl) {
+        tabDemostradores();
+    } else
+    { 
+        $("#Tab-kits").trigger("click");
+        $('#Tab-kits').click(function () {
+            $('#kits').show();
+            $('#Demostradores').hide();
+            $('.opOrdenar').hide();
+            $("#Tab-kits").addClass("activado-dorado");
+            $("#Tab-Demostradores").removeClass("activado-dorado");
+            $("#divresultadosDemostradores").hide();
+            $("#divresultadosKit").show();
+            document.body.scrollTop = TabUno;
+            $(window).scrollTop(TabUno);
+            if (contadorkit == 0) { CargarKits(); }
+            else {
+                $('#kits').empty();
+                offsetRegistrosKits = 0;
+                contadorkit = 0;
+                CargarKits();
+            }
+
+        });
+
+        $('#Tab-Demostradores').click(function () {
+            tabDemostradores();
+        });
+        tabDemostradores();
+       
+    } 
+
+
+    
 }
 
 function ObtenerFiltros() {
@@ -389,3 +379,29 @@ function CerrarSplash() {
     closeWaitingDialog();
 }
 
+function tabDemostradores() {
+    offsetRegistrosKits = 0;
+    contadorkit = 0;
+   
+
+    $('.opOrdenar').show();
+    $('#Demostradores').show();
+    $("#Tab-Demostradores").addClass("activado-dorado");
+    $("#divresultadosDemostradores").show();
+    document.body.scrollTop = TabDos;
+    $(window).scrollTop(TabDos);
+    if (contadordemo == 0) {
+        ObtenerFiltros();
+        CargarDemostradores();
+    }
+    else {
+        LinkCargarOfertasToScroll();
+        TagListaProductos(dataDemostradores, 'Demostradores');
+    }
+
+    $('#kits').empty();
+    $('#kits').hide();
+    $("#Tab-kits").removeClass("activado-dorado");
+    $("#divresultadosKit").hide();
+    $("#divresultadosKit").empty();
+}
