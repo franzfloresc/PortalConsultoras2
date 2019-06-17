@@ -14,13 +14,8 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre
-
-from ods.Region r
-where exists(
-  select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA' 
-)
-and r.EstadoActivo =1
+select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre from ods.Region r
+where exists(select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA') and r.EstadoActivo =1
 END
 GO
 
@@ -40,13 +35,8 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre
-
-from ods.Region r
-where exists(
-  select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA' 
-)
-and r.EstadoActivo =1
+select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre from ods.Region r
+where exists(select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA') and r.EstadoActivo =1
 END
 GO
 
@@ -66,13 +56,8 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre
-
-from ods.Region r
-where exists(
-  select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA' 
-)
-and r.EstadoActivo =1
+select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre from ods.Region r
+where exists(select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA') and r.EstadoActivo =1
 END
 GO
 
@@ -92,13 +77,8 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre
-
-from ods.Region r
-where exists(
-  select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA' 
-)
-and r.EstadoActivo =1
+select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre from ods.Region r
+where exists(select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA') and r.EstadoActivo =1
 END
 GO
 
@@ -118,13 +98,8 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre
-
-from ods.Region r
-where exists(
-  select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA' 
-)
-and r.EstadoActivo =1
+select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre from ods.Region r
+where exists(select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA') and r.EstadoActivo =1
 END
 GO
 
@@ -144,13 +119,8 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre
-
-from ods.Region r
-where exists(
-  select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA' 
-)
-and r.EstadoActivo =1
+select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre from ods.Region r
+where exists(select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA') and r.EstadoActivo =1
 END
 GO
 
@@ -170,13 +140,8 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre
-
-from ods.Region r
-where exists(
-  select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA' 
-)
-and r.EstadoActivo =1
+select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre from ods.Region r
+where exists(select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA') and r.EstadoActivo =1
 END
 GO
 
@@ -196,13 +161,8 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre
-
-from ods.Region r
-where exists(
-  select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA' 
-)
-and r.EstadoActivo =1
+select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre from ods.Region r
+where exists(select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA') and r.EstadoActivo =1
 END
 GO
 
@@ -222,13 +182,8 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre
-
-from ods.Region r
-where exists(
-  select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA' 
-)
-and r.EstadoActivo =1
+select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre from ods.Region r
+where exists(select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA') and r.EstadoActivo =1
 END
 GO
 
@@ -248,13 +203,8 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre
-
-from ods.Region r
-where exists(
-  select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA' 
-)
-and r.EstadoActivo =1
+select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre from ods.Region r
+where exists(select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA') and r.EstadoActivo =1
 END
 GO
 
@@ -274,13 +224,8 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre
-
-from ods.Region r
-where exists(
-  select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA' 
-)
-and r.EstadoActivo =1
+select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre from ods.Region r
+where exists(select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA') and r.EstadoActivo =1
 END
 GO
 
@@ -300,13 +245,8 @@ BEGIN
 	SET NOCOUNT ON;
 
     -- Insert statements for procedure here
-select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre
-
-from ods.Region r
-where exists(
-  select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA' 
-)
-and r.EstadoActivo =1
+select r.RegionID, r.PaisID, r.Codigo, r.Descripcion AS  Nombre from ods.Region r
+where exists(select 1 from ods.Zona z where Z.RegionID = r.RegionID  and z.EstadoActivo =1 and Z.Nombre != 'CERRADA') and r.EstadoActivo =1
 END
 GO
 
