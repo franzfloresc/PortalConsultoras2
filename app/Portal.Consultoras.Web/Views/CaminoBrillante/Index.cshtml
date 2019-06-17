@@ -61,62 +61,62 @@
     {
         if (nivel.EsActual)
         {
-            <div class="cont-benf" id="BeneficiosPrincipal">
-                <h2 class='title'>Mis beneficios</h2>
-                <ul class='box-beneficios' id='BeneficiosPrincipal'>
-                    @if (nivel.BeneficiosShow != null)
-                    {
-                        <div class="boxtog">
-                            <ul>
-                                @foreach (var beneficio in nivel.BeneficiosShow as List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>)
-                                {
-                                    <li>
-                                        <img src='@beneficio.UrlIcono'>
-                                        <div class="txt-benf">
-                                            <p class="text-bold">
-                                                @if (string.IsNullOrEmpty(beneficio.Descripcion))
-                                                {
-                                                    <span>@beneficio.NombreBeneficio</span>
-                                                }
-                                                else
-                                                {
-                                                    @beneficio.NombreBeneficio<span>@beneficio.Descripcion</span>
-                                                }
-                                            </p>
-                                        </div>
-                                    </li>
-                                }
-                            </ul>
-                        </div>
-                    }
-                    @if (nivel.BeneficiosHide != null)
-                    {
-                        <div class="boxtom">
-                            <ul>
-                                @foreach (var beneficio in nivel.BeneficiosHide as List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>)
-                                {
-                                    <li>
-                                        <img src='@beneficio.UrlIcono'>
-                                        <div class="txt-benf">
-                                            <p class="text-bold">
-                                                @if (string.IsNullOrEmpty(beneficio.Descripcion))
-                                                {
-                                                    <span>@beneficio.NombreBeneficio</span>
-                                                }
-                                                else
-                                                {
-                                                    @beneficio.NombreBeneficio<span>@beneficio.Descripcion</span>
-                                                }
-                                            </p>
-                                        </div>
-                                    </li>
-                                }
-                            </ul>
-                        </div>
-                    }
-                </ul>
-                <p class="tog-vermas text-bold">Ver más</p>
-            </div>
+    <div class="cont-benf" id="BeneficiosPrincipal">
+        <h2 class='title tit-benef'><img src="https://S3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/NIVELES/NIVEL_01_A.svg">Mis beneficios</h2>
+        <div class='box-beneficios' id='BeneficiosPrincipal'>
+            @if (nivel.BeneficiosShow != null)
+            {
+                <div class="boxtog">
+                    <ul>
+                        @foreach (var beneficio in nivel.BeneficiosShow as List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>)
+                        {
+                            <li>
+                                <img src='@beneficio.UrlIcono'>
+                                <div class="txt-benf">
+                                    <p class="text-bold">
+                                        @if (string.IsNullOrEmpty(beneficio.Descripcion))
+                                        {
+                                            <span>@beneficio.NombreBeneficio</span>
+                                        }
+                                        else
+                                        {
+                                            @beneficio.NombreBeneficio<span>@beneficio.Descripcion</span>
+                                        }
+                                    </p>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+            @if (nivel.BeneficiosHide != null)
+            {
+                <div class="boxtom">
+                    <ul>
+                        @foreach (var beneficio in nivel.BeneficiosHide as List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>)
+                        {
+                            <li>
+                                <img src='@beneficio.UrlIcono'>
+                                <div class="txt-benf">
+                                    <p class="text-bold">
+                                        @if (string.IsNullOrEmpty(beneficio.Descripcion))
+                                        {
+                                            <span>@beneficio.NombreBeneficio</span>
+                                        }
+                                        else
+                                        {
+                                            @beneficio.NombreBeneficio<span>@beneficio.Descripcion</span>
+                                        }
+                                    </p>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+        <p class="tog-vermas text-bold">Ver más</p>
+    </div>
         }
         else if (!nivel.EsPasado)
         {
