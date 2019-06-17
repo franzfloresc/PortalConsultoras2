@@ -18,9 +18,9 @@ namespace Portal.Consultoras.BizLogic.ArmaTuPack
         }
         public BLArmaTuPack() : this(new BLTablaLogicaDatos()) { }
 
-        public bool CuvEstaEnLimite(int paisID, int campaniaID, string zona, string cuv, int cantidadIngresada, int cantidadActual)
+        public bool CuvEstaEnLimite(int paisId, int campaniaId, string zona, string cuv, int cantidadIngresada, int cantidadActual)
         {
-            var dicCuvListZona = GetDictionaryCuvZonaListCache(paisID, campaniaID.ToString());
+            var dicCuvListZona = GetDictionaryCuvZonaListCache(paisId, campaniaId.ToString());
             if (!dicCuvListZona.ContainsKey(cuv)) return false;
 
             var listZona = dicCuvListZona[cuv];
@@ -31,15 +31,15 @@ namespace Portal.Consultoras.BizLogic.ArmaTuPack
             return false;
         }
 
-        private Dictionary<string, List<string>> GetDictionaryCuvZonaListCache(int paisID, string campaniaID)
+        private Dictionary<string, List<string>> GetDictionaryCuvZonaListCache(int paisId, string campaniaId)
         {
-            return CacheManager<Dictionary<string, List<string>>>.ValidateDataElement(paisID, ECacheItem.CuvListZonaArmaTuPack, campaniaID.ToString(), () => GetDictionaryCuvListZona(paisID, campaniaID), new TimeSpan(7, 0, 0, 0));
+            return CacheManager<Dictionary<string, List<string>>>.ValidateDataElement(paisId, ECacheItem.CuvListZonaArmaTuPack, campaniaId.ToString(), () => GetDictionaryCuvListZona(paisId, campaniaId), new TimeSpan(7, 0, 0, 0));
         }
-        private Dictionary<string, List<string>> GetDictionaryCuvListZona(int paisID, string campaniaID)
+        private Dictionary<string, List<string>> GetDictionaryCuvListZona(int paisId, string campaniaId)
         {
             var dicCuvListZona = new Dictionary<string, List<string>>();
 
-            var listProgramaCampania = GetListProgramaCache(paisID).Where(p => p.ListCampania.Contains(campaniaID)).ToList();
+            var listProgramaCampania = GetListProgramaCache(paisId).Where(p => p.ListCampania.Contains(campaniaId)).ToList();
             foreach(var programa in listProgramaCampania)
             {
                 foreach (var cuv in programa.ListCuv)
@@ -51,13 +51,13 @@ namespace Portal.Consultoras.BizLogic.ArmaTuPack
             return dicCuvListZona;
         }
 
-        private List<BEProgramaArmaTuPack> GetListProgramaCache(int paisID)
+        private List<BEProgramaArmaTuPack> GetListProgramaCache(int paisId)
         {
-            return CacheManager<List<BEProgramaArmaTuPack>>.ValidateDataElement(paisID, ECacheItem.ProgramaArmaTuPack, "", () => GetListPrograma(paisID), new TimeSpan(7, 0, 0, 0));
+            return CacheManager<List<BEProgramaArmaTuPack>>.ValidateDataElement(paisId, ECacheItem.ProgramaArmaTuPack, "", () => GetListPrograma(paisId), new TimeSpan(7, 0, 0, 0));
         }
-        private List<BEProgramaArmaTuPack> GetListPrograma(int paisID)
+        private List<BEProgramaArmaTuPack> GetListPrograma(int paisId)
         {
-            var listConfig = bLTablaLogicaDatos.GetListCache(paisID, ConsTablaLogica.ArmaTuPack.TablaLogicaId);
+            var listConfig = bLTablaLogicaDatos.GetListCache(paisId, ConsTablaLogica.ArmaTuPack.TablaLogicaId);
 
             var listGrupos = GetListItemsConfig(listConfig, "Grupos");
             if (listGrupos.Count == 0) return new List<BEProgramaArmaTuPack>();
