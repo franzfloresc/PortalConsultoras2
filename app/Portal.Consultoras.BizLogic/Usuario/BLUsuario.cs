@@ -3096,14 +3096,14 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         #region Verificacion De Autenticidad
-        public BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb, bool flgCheckSMS, bool FlgCheckEmail)
+        public BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb)
         {
             if (verificacionWeb)
-                return GetVerificacionAutenticidad(paisID, CodigoUsuario, flgCheckSMS, FlgCheckEmail);
+                return GetVerificacionAutenticidad(paisID, CodigoUsuario);
             return GetVerificacionAutenticidadWS(paisID, CodigoUsuario);
         }
 
-        private BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool flgCheckSMS, bool FlgCheckEmail)
+        private BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario)
         {
             try
             {
@@ -3132,6 +3132,13 @@ namespace Portal.Consultoras.BizLogic
 
                 oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion;
                 var smsCorreoValidado = false;
+
+
+                BEUsuario beusuario = Select(paisID, CodigoUsuario);
+
+                var flgCheckSMS =   (beusuario != null)? beusuario.FlgCheckSMS : true;
+                var FlgCheckEmail = (beusuario != null) ? beusuario.FlgCheckEMAIL : true;
+
 
                 if (opcion.OpcionEmail)
                 {

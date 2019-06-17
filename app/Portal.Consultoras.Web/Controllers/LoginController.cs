@@ -120,16 +120,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (EstaActivoBuscarIsoPorIp())
                 {
+                    ip = GetIpCliente();
                     iso = Util.GetISObyIPAddress(ip);
 
                     if (string.IsNullOrEmpty(iso))
                     {
                         ip = IP_DEFECTO;
                         iso = ISO_DEFECTO;
-                    }
-                    else
-                    {
-                        ip = GetIpCliente();
                     }
                 }
 
@@ -3421,7 +3418,7 @@ var usuario = await GetUserData(paisId, codigoUsuario);
                 using (var sv = new UsuarioServiceClient())
                 {
                     beusuario = sv.Select(paisID, codigoUsuario);
-                    oVerificacion =  sv.GetVerificacionAutenticidad(paisID, codigoUsuario, true, beusuario.FlgCheckSMS, beusuario.FlgCheckEMAIL);
+                    oVerificacion =  sv.GetVerificacionAutenticidad(paisID, codigoUsuario, true);
                 }
 
                 if (oVerificacion == null) return false;

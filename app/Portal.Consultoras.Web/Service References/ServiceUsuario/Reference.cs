@@ -4800,6 +4800,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool EsShowRoomField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsUltimoDiaFacturacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EsZonaDemAntiField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -6260,6 +6263,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.EsShowRoomField.Equals(value) != true)) {
                     this.EsShowRoomField = value;
                     this.RaisePropertyChanged("EsShowRoom");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsUltimoDiaFacturacion {
+            get {
+                return this.EsUltimoDiaFacturacionField;
+            }
+            set {
+                if ((this.EsUltimoDiaFacturacionField.Equals(value) != true)) {
+                    this.EsUltimoDiaFacturacionField = value;
+                    this.RaisePropertyChanged("EsUltimoDiaFacturacion");
                 }
             }
         }
@@ -17970,10 +17986,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<bool> VerificarIgualdadCodigoIngresadoAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, string codigoIngresado, bool soloValidar);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidad", ReplyAction="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidadResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb, bool flgCheckSMS, bool FlgCheckEmail);
+        Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidad", ReplyAction="http://tempuri.org/IUsuarioService/GetVerificacionAutenticidadResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos> GetVerificacionAutenticidadAsync(int paisID, string CodigoUsuario, bool verificacionWeb, bool flgCheckSMS, bool FlgCheckEmail);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos> GetVerificacionAutenticidadAsync(int paisID, string CodigoUsuario, bool verificacionWeb);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/EnviarSmsVerificacionAutenticidad", ReplyAction="http://tempuri.org/IUsuarioService/EnviarSmsVerificacionAutenticidadResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BERespuestaSMS EnviarSmsVerificacionAutenticidad(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu);
@@ -19015,12 +19031,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.VerificarIgualdadCodigoIngresadoAsync(paisID, oUsu, codigoIngresado, soloValidar);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb, bool flgCheckSMS, bool FlgCheckEmail) {
-            return base.Channel.GetVerificacionAutenticidad(paisID, CodigoUsuario, verificacionWeb, flgCheckSMS, FlgCheckEmail);
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb) {
+            return base.Channel.GetVerificacionAutenticidad(paisID, CodigoUsuario, verificacionWeb);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos> GetVerificacionAutenticidadAsync(int paisID, string CodigoUsuario, bool verificacionWeb, bool flgCheckSMS, bool FlgCheckEmail) {
-            return base.Channel.GetVerificacionAutenticidadAsync(paisID, CodigoUsuario, verificacionWeb, flgCheckSMS, FlgCheckEmail);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos> GetVerificacionAutenticidadAsync(int paisID, string CodigoUsuario, bool verificacionWeb) {
+            return base.Channel.GetVerificacionAutenticidadAsync(paisID, CodigoUsuario, verificacionWeb);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BERespuestaSMS EnviarSmsVerificacionAutenticidad(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu) {

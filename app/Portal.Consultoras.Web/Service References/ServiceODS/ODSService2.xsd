@@ -5,6 +5,7 @@
   <xs:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" />
   <xs:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.LimiteVenta" />
+  <xs:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillante" />
   <xs:element name="GetProductoComercialByListaCuv">
     <xs:complexType>
       <xs:sequence>
@@ -863,6 +864,21 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q50="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" minOccurs="0" name="EditarResult" nillable="true" type="q50:BEPremioNuevas" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarBusquedaCaminoBrillante">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q51="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q51:BEUsuario" />
+        <xs:element minOccurs="0" name="cuv" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarBusquedaCaminoBrillanteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q52="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillante" minOccurs="0" name="ValidarBusquedaCaminoBrillanteResult" nillable="true" type="q52:BEValidacionCaminoBrillante" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -43,7 +43,7 @@ function MostrarBarra(datax, destino) {
     ActualizarGanancia(dataBarra);
     if (destino == '2') {
         initCarruselPremios(dataBarra);
-        if (datax.data && datax.data.CUV) {
+        if (datax.data && datax.data.CUV) {            
             trySetPremioElectivo(datax.data.CUV);
         } else {
             savePedidoDetails(datax);
@@ -923,9 +923,9 @@ function isTippingPointSuperado() {
 function checkPremioSelected(validateInCarrusel) {
     var details = tpElectivos.pedidoDetails;
     if (!details || details.length === 0) {
-        if (tpElectivos.premioSelected) {
-            setPremio(null);
-        }
+        //if (!tpElectivos.premioSelected) {
+        //    setPremio(null);
+        //}
 
         return;
     }
@@ -1191,6 +1191,14 @@ function seleccionRegaloProgramaNuevas() {
     var premio = getPremioByCuv(cuv);
 
     if (!premio) {
+        return;
+    }
+
+    var prevSelected = tpElectivos.premioSelected;
+    var defaultSelectedAgain = prevSelected != null && prevSelected.CuponElectivoDefault && prevSelected.CUV2 == premio.CUV2;
+    if (defaultSelectedAgain) {
+
+        setPremio(premio);
         return;
     }
 
