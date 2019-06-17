@@ -509,16 +509,16 @@ namespace Portal.Consultoras.BizLogic
             #region Camino Brillante
             if (updLabelCaminoBrillante) {
                 var origenPedidoWeb = new int[] {
-                    Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido,
                     Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido,
                     Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido,
-                    Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Ficha,
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido,
                     Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha,
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Ficha,
                     Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel,
                     Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel,
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home,
                     Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Ficha,
-                    Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel,
-                    Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel
 
                 };
                 var blCaminoBrillante = new BLCaminoBrillante();

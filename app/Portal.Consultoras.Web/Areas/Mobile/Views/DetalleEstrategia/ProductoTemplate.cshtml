@@ -82,33 +82,39 @@
 
             {{#iff Precio '>' 0}}
             <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 precio_producto">
-                    {{iff TipoOfertaCaminoBrillante '>' 0}}
-                    <p>Precio normal <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
-                    {{else}}
-                    <p>Precio catálogo <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
-                    {{/iff}}
-                </div>
+
+                <p>
+                    <b>Precio para ti</b>
+                    <b>
+                        {{#IsNullOrEmpty ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
+                    </b>
+                </p>
+                {{#each ListaPrecioNiveles as |itemNivel|}}
+                <span class="subprecio">{{itemNivel}}</span>
+                {{/each}}
+
+
             </div>
             {{/iff}}
 
             <ul class="list_style_none precio">
                 <li class="precio_producto">
-                    <p>
-                        Precio para ti
-                        <b>
-                            {{#IsNullOrEmpty ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
-                        </b>
-                    </p>
-                    {{#each ListaPrecioNiveles as |itemNivel|}}
-                    <span class="subprecio">{{itemNivel}}</span>
-                    {{/each}}
+                    <div class="col-md-12 col-sm-12 col-xs-12 precio_producto">
+                        {{iff TipoOfertaCaminoBrillante '>' 0}}
+                        <p>Precio normal <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
+                        {{else}}
+                        <p>Precio catálogo <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
+                        {{/iff}}
+                    </div>
+
+                    
                 </li>
+
                 {{#iff Ganancia '>' 0}}
                 <li class="gana_precio_producto">
                     <p class="ganancia">
                         {{#iff TipoOfertaCaminoBrillante '>' 0}}
-                        Ganancia
+                        Ganancia hasta
                         {{else}}
                         {{#iff CodigoVariante '!=' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
                         GANA
