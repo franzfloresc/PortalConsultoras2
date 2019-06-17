@@ -1003,7 +1003,7 @@
 @{ Html.RenderPartial("_PopupPremio");}
 @{ Html.RenderPartial("_PopupDescuento");}
 @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupInformacionRegalo.cshtml");}
-@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupPedidosPendientes.cshtml", new ViewDataDictionary { { "isMobile" , true } })
+@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupPedidoGuardado.cshtml", new ViewDataDictionary { { "isMobile" , true } })
 <div id="DivPopupFichaResumida" class="Modal_Editar_Producto" style="display: none">
     @Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/FichaTemplate.cshtml")
 </div>
