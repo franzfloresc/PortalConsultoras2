@@ -304,7 +304,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ArgumentNullException("Error al enviar correo electronico:" + ex.Message);
             }
             finally
             {
@@ -362,7 +362,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ArgumentNullException("Error al enviar correo electronico:" + ex.Message);
             }
             finally
             {
@@ -440,7 +440,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ArgumentNullException("Error al enviar correo electronico:" + ex.Message);
             }
             finally
             {
@@ -502,7 +502,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ArgumentNullException("Error al enviar correo electronico:" + ex.Message);
             }
             finally
             {
@@ -560,7 +560,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ArgumentNullException("Error al enviar correo electronico:" + ex.Message);
             }
             finally
             {
@@ -658,7 +658,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ArgumentNullException("Error al enviar correo electronico:" + ex.Message);
             }
             return true;
         }
@@ -712,7 +712,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ArgumentNullException("Error al enviar correo electronico:" + ex.Message);
             }
             finally
             {
@@ -776,7 +776,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ArgumentNullException("Error al enviar correo electronico:" + ex.Message);
             }
             finally
             {
@@ -835,7 +835,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception)
             {
-                throw new ApplicationException("Error al enviar correo electronico");
+                throw new ArgumentNullException("Error al enviar correo electronico");
             }
             return true;
         }
@@ -884,7 +884,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception)
             {
-                throw new ApplicationException("Error al enviar correo electronico");
+                throw new ArgumentNullException("Error al enviar correo electronico");
             }
             return true;
         }
@@ -954,13 +954,13 @@ namespace Portal.Consultoras.Common
                     }
                     catch (Exception ex)
                     {
-                        throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                        throw new ArgumentNullException("Error al enviar correo electronico:" + ex.Message);
                     }
                 });
             }
             catch (Exception)
             {
-                throw new ApplicationException("Error al enviar correo electronico");
+                throw new ArgumentNullException("Error al enviar correo electronico");
             }
             return true;
         }
@@ -2613,7 +2613,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception)
             {
-                throw new Exception("Hubo un error en obtener el País");
+                throw new ArgumentNullException("Hubo un error en obtener el País");
             }
             return (iso == null ? string.Empty : iso);
         }
@@ -3959,13 +3959,13 @@ namespace Portal.Consultoras.Common
             var iv = Convert.FromBase64String(Iv);
             if (!Enumerable.SequenceEqual(iv, crypto.IV))
             {
-                throw new Exception("IVs do not match");
+                throw new ArgumentNullException("IVs do not match");
             }
 
             var key = Convert.FromBase64String(Key);
             if (!Enumerable.SequenceEqual(key, crypto.Key))
             {
-                throw new Exception("Keys do not match");
+                throw new ArgumentNullException("Keys do not match");
             }
 
             var plainText = crypto.Decrypt(cipherText);
