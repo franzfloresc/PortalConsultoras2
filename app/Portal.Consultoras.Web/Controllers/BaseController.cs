@@ -1436,7 +1436,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (ResultadoValidacion) URLCaminoExisto = string.Format("{0}{1}/{2}/{3}", URLConfig, userData.CodigoISO, userData.CampaniaID, Util.Security.ToMd5(userData.CodigoConsultora));
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 ResultadoValidacion = false;
             }
@@ -1508,7 +1508,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                     r = SessionManager.GetConsultoraDigital().Value;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 r = false;
             }
