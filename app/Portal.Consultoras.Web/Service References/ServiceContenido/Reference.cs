@@ -8970,6 +8970,15 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private string DescripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DetaAccionDescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DetaCodigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DetaCodigoDetalleDescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EstadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -9044,6 +9053,45 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
                     this.DescripcionField = value;
                     this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DetaAccionDescripcion {
+            get {
+                return this.DetaAccionDescripcionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DetaAccionDescripcionField, value) != true)) {
+                    this.DetaAccionDescripcionField = value;
+                    this.RaisePropertyChanged("DetaAccionDescripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DetaCodigo {
+            get {
+                return this.DetaCodigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DetaCodigoField, value) != true)) {
+                    this.DetaCodigoField = value;
+                    this.RaisePropertyChanged("DetaCodigo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DetaCodigoDetalleDescripcion {
+            get {
+                return this.DetaCodigoDetalleDescripcionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DetaCodigoDetalleDescripcionField, value) != true)) {
+                    this.DetaCodigoDetalleDescripcionField = value;
+                    this.RaisePropertyChanged("DetaCodigoDetalleDescripcion");
                 }
             }
         }
@@ -9964,7 +10012,13 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         private string RutaContenidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SeccionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ZonaField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -10107,6 +10161,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Seccion {
+            get {
+                return this.SeccionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SeccionField, value) != true)) {
+                    this.SeccionField = value;
+                    this.RaisePropertyChanged("Seccion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Tipo {
             get {
                 return this.TipoField;
@@ -10115,6 +10182,19 @@ namespace Portal.Consultoras.Web.ServiceContenido {
                 if ((object.ReferenceEquals(this.TipoField, value) != true)) {
                     this.TipoField = value;
                     this.RaisePropertyChanged("Tipo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Zona {
+            get {
+                return this.ZonaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ZonaField, value) != true)) {
+                    this.ZonaField = value;
+                    this.RaisePropertyChanged("Zona");
                 }
             }
         }

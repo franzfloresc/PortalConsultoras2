@@ -247,9 +247,9 @@ function GetCatalogosLinksByCampania(data, campania) {
 
     for (var i = 0; i < cantCat; i++) {
         var tagCat = i == 0 && data.estadoLbel != 1 ? tagLbel
-            : i == 1 && data.estadoCyzone != 1 ? tagCyzone
-                : i == 2 && data.estadoEsika != 1 ? tagEsika
-                    : "";
+        : i == 1 && data.estadoCyzone != 1 ? tagCyzone
+        : i == 2 && data.estadoEsika != 1 ? tagEsika
+        : "";
 
         if (tagCat == "") {
             cont++;
@@ -258,8 +258,8 @@ function GetCatalogosLinksByCampania(data, campania) {
 
         var estado = i == 0 && data.estadoLbel != 1 ? "1"
             : i == 1 && data.estadoCyzone != 1 ? "1"
-                : i == 2 && data.estadoEsika != 1 ? "1"
-                    : "0";
+            : i == 2 && data.estadoEsika != 1 ? "1"
+            : "0";
 
         defered[tagCat] = jQuery.Deferred();
 
@@ -375,23 +375,23 @@ function CargarTodosCorreo() {
 }
 
 function SeleccionarCatalogo() {
-
-    //var flagMarca;
+    
+    var flagMarca;
     var Marcas = $.trim(MarcaCatalogo).split('&');
-    //var campania = $("#hdCampaniaActual").val();
-    //var Marca = '#';
+    var campania = $("#hdCampaniaActual").val();
+    var Marca = '#';
 
     if (Marcas[0] == 'esika') {
-        //Marca = '#' + campania + '_Esika' 
+        Marca = '#' + campania + '_Esika' 
         $(window).scrollTop(600);
     }
     if (Marcas[0] == 'lbel') {
-        //Marca = '#' + campania + '_Lbel' 
-        //Marca2 = '#' + campania + '_Lbel' + '_WS' 
+        Marca = '#' + campania + '_Lbel' 
+        Marca2 = '#' + campania + '_Lbel' + '_WS' 
         $(window).scrollTop(200);
     }
     if (Marcas[0] == 'cyzone') {
-        //Marca = '#' + campania + '_Cyzone' 
+        Marca = '#' + campania + '_Cyzone' 
         $(window).scrollTop(1000);
     }
 }
