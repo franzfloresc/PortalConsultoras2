@@ -51,7 +51,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, "", "");
-                throw new Exception("Exception BLContenidoAppHistoria - UpdateContenidoApp", ex);
+                throw new ArgumentNullException("Exception BLContenidoAppHistoria - UpdateContenidoApp", ex);
             }
         }
 
@@ -85,7 +85,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, "", "");
-                throw new Exception("Exception BLContenidoAppHistoria - InsertContenidoAppDeta", ex);
+                throw new ArgumentNullException("Exception BLContenidoAppHistoria - InsertContenidoAppDeta", ex);
             }
         }
 
@@ -99,7 +99,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, "", "");
-                throw new Exception("Exception BLContenidoAppHistoria - UpdateContenidoAppDeta", ex);
+                throw new ArgumentNullException("Exception BLContenidoAppHistoria - UpdateContenidoAppDeta", ex);
             }
         }
 

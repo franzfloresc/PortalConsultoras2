@@ -3852,7 +3852,7 @@ namespace Portal.Consultoras.BizLogic
 
                     if (lst[0] == "0")
                     {
-                        throw new Exception(lst[2]);
+                        throw new ArgumentNullException(lst[2]);
                     }
 
                     /*Insertar dirección entrega*/
@@ -3879,7 +3879,7 @@ namespace Portal.Consultoras.BizLogic
                                 objActualizarFlagBoleta.Add(new ConsultoraFlagImpBoleta { codigoConsultora = usuario.CodigoConsultora, indImprimeBoleta = flagBolImp, indImprimePaquete = flagBolImp });
                                 var result = svr.actualizaFlagImpBoletas(objActualizarFlagBoleta.ToArray());
                                 if (result.estado == 1)
-                                    throw new Exception(result.mensaje);
+                                    throw new ArgumentNullException(result.mensaje);
                             }
 
                         }
@@ -3969,7 +3969,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
                     var result = svr.actualizacionDireccionEntrega(CodigoIsoSicc, Direccionexterna);
-                    if (result.codigo == "2") throw new Exception(result.mensaje);
+                    if (result.codigo == "2") throw new ArgumentNullException(result.mensaje);
                 }
 
                 if (conTransaccion) ts.Complete();
@@ -3977,7 +3977,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 if (conTransaccion) LogManager.SaveLog(ex, direccionEntrega.ConsultoraID, direccionEntrega.PaisID);
-                throw new Exception("Exception BLUsuario - RegistrarDireccionEntrega", ex);
+                throw new ArgumentNullException("Exception BLUsuario - RegistrarDireccionEntrega", ex);
             }
             finally
             {

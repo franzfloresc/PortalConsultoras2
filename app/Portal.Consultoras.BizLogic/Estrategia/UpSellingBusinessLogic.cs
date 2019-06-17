@@ -52,7 +52,7 @@ namespace Portal.Consultoras.BizLogic.Estrategia
             {
                 var upSellingOriginal = _upSellingDataAccess.Obtener(upSelling.UpSellingId);
                 if (upSellingOriginal == null)
-                    throw new NullReferenceException("UpSelling no encontrado");
+                    throw new ArgumentNullException("UpSelling no encontrado");
 
                 var upSellingsByCampana = _upSellingDataAccess.Obtener(null, upSelling.CodigoCampana);
                 if (upSellingsByCampana.Any(us => us.CodigoCampana == upSelling.CodigoCampana && us.UpSellingId != upSelling.UpSellingId))
@@ -136,7 +136,7 @@ namespace Portal.Consultoras.BizLogic.Estrategia
                 var upSelling = _upSellingDataAccess.Obtener(upSellingId);
 
                 if (upSelling == null)
-                    throw new NullReferenceException("UpSelling no encontrado");
+                    throw new ArgumentNullException("UpSelling no encontrado");
 
                 upSelling.Regalos = _upSellingDataAccess.ObtenerDetalles(upSelling.UpSellingId);
                 var rowsDetailAffected = EliminarDetalle(upSelling.Regalos.Select(upSellingDetalle => upSellingDetalle.UpSellingDetalleId));
@@ -172,7 +172,7 @@ namespace Portal.Consultoras.BizLogic.Estrategia
             {
                 var result = _upSellingDataAccess.EliminarDetalle(upSellingDetalleId);
                 if (result != 1)
-                    throw new NullReferenceException("Id no encontrado " + upSellingDetalleId);
+                    throw new ArgumentNullException("Id no encontrado " + upSellingDetalleId);
 
                 counter += result;
             });
@@ -185,7 +185,7 @@ namespace Portal.Consultoras.BizLogic.Estrategia
             var model = _upSellingDataAccess.ObtenerDetalle(upSellingDetalleId);
 
             if (model == default(UpSellingDetalle))
-                throw new NullReferenceException("Detalle no encontrado");
+                throw new ArgumentNullException("Detalle no encontrado");
 
             return model;
         }

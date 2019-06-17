@@ -228,7 +228,7 @@
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new ArgumentNullException(ex.Message);
             }
         }
 
@@ -271,7 +271,7 @@
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message, ex);
+                throw new ArgumentNullException(ex.Message, ex);
             }
         }
 
@@ -345,7 +345,7 @@
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message, ex);
+                throw new ArgumentNullException(ex.Message, ex);
             }
         }
 

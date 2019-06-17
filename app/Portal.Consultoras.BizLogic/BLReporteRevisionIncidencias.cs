@@ -45,7 +45,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                throw new Exception(Common.LogManager.GetMensajeError(ex));
+                throw new ArgumentNullException(Common.LogManager.GetMensajeError(ex));
             }
         }
 

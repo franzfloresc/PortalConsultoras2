@@ -49,7 +49,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message, ex);
+                throw new ArgumentNullException(ex.Message, ex);
             }
         }
 
@@ -147,7 +147,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message, ex);
+                throw new ArgumentNullException(ex.Message, ex);
             }
         }
 
@@ -323,7 +323,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message, ex);
+                throw new ArgumentNullException(ex.Message, ex);
             }
         }
 

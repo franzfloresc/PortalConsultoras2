@@ -297,7 +297,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     cliente.CodigoRespuesta = Constantes.ClienteValidacion.Code.ErrorGeneral;
                     LogManager.SaveLog(ex, consultoraId, paisID);
-                    throw new Exception(Common.LogManager.GetMensajeError(ex));
+                    throw new ArgumentNullException(Common.LogManager.GetMensajeError(ex));
                 }
             }
 
