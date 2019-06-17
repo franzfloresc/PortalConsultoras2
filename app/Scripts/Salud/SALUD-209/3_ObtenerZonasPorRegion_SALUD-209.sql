@@ -5,23 +5,15 @@ IF EXISTS (SELECT * FROM sys.procedures where name ='ObtenerZonasPorRegion' and 
 DROP PROCEDURE dbo.ObtenerZonasPorRegion
 GO
 CREATE PROCEDURE  dbo.ObtenerZonasPorRegion
-	-- Add the parameters for the stored procedure here
 		@RegionID int
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
+
 	SET NOCOUNT ON;
-SELECT	
-	        Z.Codigo,
-			Z.ZonaID,
-			Z.RegionID ,
-			Z.Nombre 
+    SELECT	Z.Codigo,Z.ZonaID,Z.RegionID,Z.Nombre 
 	FROM	ODS.Zona Z
 	INNER JOIN ODS.Region R ON Z.RegionID=R.RegionID
-	WHERE		Z.RegionID = @RegionID AND 
-				Z.EstadoActivo = 1 AND 
-				Z.Nombre != 'CERRADA' 
+	WHERE		Z.RegionID = @RegionID AND Z.EstadoActivo = 1 AND Z.Nombre != 'CERRADA' 
 END
 GO
 
@@ -32,23 +24,15 @@ IF EXISTS (SELECT * FROM sys.procedures where name ='ObtenerZonasPorRegion' and 
 DROP PROCEDURE dbo.ObtenerZonasPorRegion
 GO
 CREATE PROCEDURE  dbo.ObtenerZonasPorRegion
-	-- Add the parameters for the stored procedure here
 		@RegionID int
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
+
 	SET NOCOUNT ON;
-SELECT	
-	        Z.Codigo,
-			Z.ZonaID,
-			Z.RegionID ,
-			Z.Nombre 
+    SELECT	Z.Codigo,Z.ZonaID,Z.RegionID,Z.Nombre 
 	FROM	ODS.Zona Z
 	INNER JOIN ODS.Region R ON Z.RegionID=R.RegionID
-	WHERE		Z.RegionID = @RegionID AND 
-				Z.EstadoActivo = 1 AND 
-				Z.Nombre != 'CERRADA' 
+	WHERE		Z.RegionID = @RegionID AND Z.EstadoActivo = 1 AND Z.Nombre != 'CERRADA' 
 END
 GO
 
@@ -59,23 +43,15 @@ IF EXISTS (SELECT * FROM sys.procedures where name ='ObtenerZonasPorRegion' and 
 DROP PROCEDURE dbo.ObtenerZonasPorRegion
 GO
 CREATE PROCEDURE  dbo.ObtenerZonasPorRegion
-	-- Add the parameters for the stored procedure here
 		@RegionID int
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
+
 	SET NOCOUNT ON;
-SELECT	
-	        Z.Codigo,
-			Z.ZonaID,
-			Z.RegionID ,
-			Z.Nombre 
+    SELECT	Z.Codigo,Z.ZonaID,Z.RegionID,Z.Nombre 
 	FROM	ODS.Zona Z
 	INNER JOIN ODS.Region R ON Z.RegionID=R.RegionID
-	WHERE		Z.RegionID = @RegionID AND 
-				Z.EstadoActivo = 1 AND 
-				Z.Nombre != 'CERRADA' 
+	WHERE		Z.RegionID = @RegionID AND Z.EstadoActivo = 1 AND Z.Nombre != 'CERRADA' 
 END
 GO
 
@@ -86,23 +62,15 @@ IF EXISTS (SELECT * FROM sys.procedures where name ='ObtenerZonasPorRegion' and 
 DROP PROCEDURE dbo.ObtenerZonasPorRegion
 GO
 CREATE PROCEDURE  dbo.ObtenerZonasPorRegion
-	-- Add the parameters for the stored procedure here
 		@RegionID int
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
+
 	SET NOCOUNT ON;
-SELECT	
-	        Z.Codigo,
-			Z.ZonaID,
-			Z.RegionID ,
-			Z.Nombre 
+    SELECT	Z.Codigo,Z.ZonaID,Z.RegionID,Z.Nombre 
 	FROM	ODS.Zona Z
 	INNER JOIN ODS.Region R ON Z.RegionID=R.RegionID
-	WHERE		Z.RegionID = @RegionID AND 
-				Z.EstadoActivo = 1 AND 
-				Z.Nombre != 'CERRADA' 
+	WHERE		Z.RegionID = @RegionID AND Z.EstadoActivo = 1 AND Z.Nombre != 'CERRADA' 
 END
 GO
 
@@ -113,23 +81,15 @@ IF EXISTS (SELECT * FROM sys.procedures where name ='ObtenerZonasPorRegion' and 
 DROP PROCEDURE dbo.ObtenerZonasPorRegion
 GO
 CREATE PROCEDURE  dbo.ObtenerZonasPorRegion
-	-- Add the parameters for the stored procedure here
 		@RegionID int
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
+
 	SET NOCOUNT ON;
-SELECT	
-	        Z.Codigo,
-			Z.ZonaID,
-			Z.RegionID ,
-			Z.Nombre 
+    SELECT	Z.Codigo,Z.ZonaID,Z.RegionID,Z.Nombre 
 	FROM	ODS.Zona Z
 	INNER JOIN ODS.Region R ON Z.RegionID=R.RegionID
-	WHERE		Z.RegionID = @RegionID AND 
-				Z.EstadoActivo = 1 AND 
-				Z.Nombre != 'CERRADA' 
+	WHERE		Z.RegionID = @RegionID AND Z.EstadoActivo = 1 AND Z.Nombre != 'CERRADA' 
 END
 GO
 
@@ -140,23 +100,15 @@ IF EXISTS (SELECT * FROM sys.procedures where name ='ObtenerZonasPorRegion' and 
 DROP PROCEDURE dbo.ObtenerZonasPorRegion
 GO
 CREATE PROCEDURE  dbo.ObtenerZonasPorRegion
-	-- Add the parameters for the stored procedure here
 		@RegionID int
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
+
 	SET NOCOUNT ON;
-SELECT	
-	        Z.Codigo,
-			Z.ZonaID,
-			Z.RegionID ,
-			Z.Nombre 
+    SELECT	Z.Codigo,Z.ZonaID,Z.RegionID,Z.Nombre 
 	FROM	ODS.Zona Z
 	INNER JOIN ODS.Region R ON Z.RegionID=R.RegionID
-	WHERE		Z.RegionID = @RegionID AND 
-				Z.EstadoActivo = 1 AND 
-				Z.Nombre != 'CERRADA' 
+	WHERE		Z.RegionID = @RegionID AND Z.EstadoActivo = 1 AND Z.Nombre != 'CERRADA' 
 END
 GO
 
@@ -167,23 +119,15 @@ IF EXISTS (SELECT * FROM sys.procedures where name ='ObtenerZonasPorRegion' and 
 DROP PROCEDURE dbo.ObtenerZonasPorRegion
 GO
 CREATE PROCEDURE  dbo.ObtenerZonasPorRegion
-	-- Add the parameters for the stored procedure here
 		@RegionID int
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
+
 	SET NOCOUNT ON;
-SELECT	
-	        Z.Codigo,
-			Z.ZonaID,
-			Z.RegionID ,
-			Z.Nombre 
+    SELECT	Z.Codigo,Z.ZonaID,Z.RegionID,Z.Nombre 
 	FROM	ODS.Zona Z
 	INNER JOIN ODS.Region R ON Z.RegionID=R.RegionID
-	WHERE		Z.RegionID = @RegionID AND 
-				Z.EstadoActivo = 1 AND 
-				Z.Nombre != 'CERRADA' 
+	WHERE		Z.RegionID = @RegionID AND Z.EstadoActivo = 1 AND Z.Nombre != 'CERRADA' 
 END
 GO
 
@@ -194,23 +138,15 @@ IF EXISTS (SELECT * FROM sys.procedures where name ='ObtenerZonasPorRegion' and 
 DROP PROCEDURE dbo.ObtenerZonasPorRegion
 GO
 CREATE PROCEDURE  dbo.ObtenerZonasPorRegion
-	-- Add the parameters for the stored procedure here
 		@RegionID int
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
+
 	SET NOCOUNT ON;
-SELECT	
-	        Z.Codigo,
-			Z.ZonaID,
-			Z.RegionID ,
-			Z.Nombre 
+    SELECT	Z.Codigo,Z.ZonaID,Z.RegionID,Z.Nombre 
 	FROM	ODS.Zona Z
 	INNER JOIN ODS.Region R ON Z.RegionID=R.RegionID
-	WHERE		Z.RegionID = @RegionID AND 
-				Z.EstadoActivo = 1 AND 
-				Z.Nombre != 'CERRADA' 
+	WHERE		Z.RegionID = @RegionID AND Z.EstadoActivo = 1 AND Z.Nombre != 'CERRADA' 
 END
 GO
 
@@ -221,23 +157,15 @@ IF EXISTS (SELECT * FROM sys.procedures where name ='ObtenerZonasPorRegion' and 
 DROP PROCEDURE dbo.ObtenerZonasPorRegion
 GO
 CREATE PROCEDURE  dbo.ObtenerZonasPorRegion
-	-- Add the parameters for the stored procedure here
 		@RegionID int
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
+
 	SET NOCOUNT ON;
-SELECT	
-	        Z.Codigo,
-			Z.ZonaID,
-			Z.RegionID ,
-			Z.Nombre 
+    SELECT	Z.Codigo,Z.ZonaID,Z.RegionID,Z.Nombre 
 	FROM	ODS.Zona Z
 	INNER JOIN ODS.Region R ON Z.RegionID=R.RegionID
-	WHERE		Z.RegionID = @RegionID AND 
-				Z.EstadoActivo = 1 AND 
-				Z.Nombre != 'CERRADA' 
+	WHERE		Z.RegionID = @RegionID AND Z.EstadoActivo = 1 AND Z.Nombre != 'CERRADA' 
 END
 GO
 
@@ -248,23 +176,15 @@ IF EXISTS (SELECT * FROM sys.procedures where name ='ObtenerZonasPorRegion' and 
 DROP PROCEDURE dbo.ObtenerZonasPorRegion
 GO
 CREATE PROCEDURE  dbo.ObtenerZonasPorRegion
-	-- Add the parameters for the stored procedure here
 		@RegionID int
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
+
 	SET NOCOUNT ON;
-SELECT	
-	        Z.Codigo,
-			Z.ZonaID,
-			Z.RegionID ,
-			Z.Nombre 
+    SELECT	Z.Codigo,Z.ZonaID,Z.RegionID,Z.Nombre 
 	FROM	ODS.Zona Z
 	INNER JOIN ODS.Region R ON Z.RegionID=R.RegionID
-	WHERE		Z.RegionID = @RegionID AND 
-				Z.EstadoActivo = 1 AND 
-				Z.Nombre != 'CERRADA' 
+	WHERE		Z.RegionID = @RegionID AND Z.EstadoActivo = 1 AND Z.Nombre != 'CERRADA' 
 END
 GO
 
@@ -275,23 +195,15 @@ IF EXISTS (SELECT * FROM sys.procedures where name ='ObtenerZonasPorRegion' and 
 DROP PROCEDURE dbo.ObtenerZonasPorRegion
 GO
 CREATE PROCEDURE  dbo.ObtenerZonasPorRegion
-	-- Add the parameters for the stored procedure here
 		@RegionID int
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
+
 	SET NOCOUNT ON;
-SELECT	
-	        Z.Codigo,
-			Z.ZonaID,
-			Z.RegionID ,
-			Z.Nombre 
+    SELECT	Z.Codigo,Z.ZonaID,Z.RegionID,Z.Nombre 
 	FROM	ODS.Zona Z
 	INNER JOIN ODS.Region R ON Z.RegionID=R.RegionID
-	WHERE		Z.RegionID = @RegionID AND 
-				Z.EstadoActivo = 1 AND 
-				Z.Nombre != 'CERRADA' 
+	WHERE		Z.RegionID = @RegionID AND Z.EstadoActivo = 1 AND Z.Nombre != 'CERRADA' 
 END
 GO
 
@@ -302,23 +214,15 @@ IF EXISTS (SELECT * FROM sys.procedures where name ='ObtenerZonasPorRegion' and 
 DROP PROCEDURE dbo.ObtenerZonasPorRegion
 GO
 CREATE PROCEDURE  dbo.ObtenerZonasPorRegion
-	-- Add the parameters for the stored procedure here
 		@RegionID int
 AS
 BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
+
 	SET NOCOUNT ON;
-SELECT	
-	        Z.Codigo,
-			Z.ZonaID,
-			Z.RegionID ,
-			Z.Nombre 
+    SELECT	Z.Codigo,Z.ZonaID,Z.RegionID,Z.Nombre 
 	FROM	ODS.Zona Z
 	INNER JOIN ODS.Region R ON Z.RegionID=R.RegionID
-	WHERE		Z.RegionID = @RegionID AND 
-				Z.EstadoActivo = 1 AND 
-				Z.Nombre != 'CERRADA' 
+	WHERE		Z.RegionID = @RegionID AND Z.EstadoActivo = 1 AND Z.Nombre != 'CERRADA' 
 END
 GO
 
