@@ -401,7 +401,7 @@ namespace Portal.Consultoras.Web.Controllers
         public async Task<ActionResult> Redireccionar(int paisId, string codigoUsuario, string returnUrl = null,
             bool hizoLoginExterno = false)
         {
-            
+
 
             if (!Convert.ToBoolean(TempData["FlagPin"]) && TieneVerificacionAutenticidad(paisId, codigoUsuario))
             {
@@ -419,7 +419,7 @@ namespace Portal.Consultoras.Web.Controllers
             Session["DatosUsuario"] = null;
 
             pasoLog = "Login.Redireccionar";
-var usuario = await GetUserData(paisId, codigoUsuario);
+            var usuario = await GetUserData(paisId, codigoUsuario);
 
             if (usuario == null)
             {
@@ -3254,18 +3254,7 @@ var usuario = await GetUserData(paisId, codigoUsuario);
             int paisID = Convert.ToInt32(TempData["PaisID"]);
             try
             {
-                //BERespuestaServicio respuesta;
-                //BEUsuario usuario = new BEUsuario();
-                //UsuarioModel usuarioModel = new UsuarioModel();
-                //using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                //{
-                //    usuarioModel = await GetUserData(Util.GetPaisID(oUsu.CodigoIso), oUsu.CodigoUsuario);
-                //    //usuario.
-                //    respuesta = sv.ActualizarEmail(usuario, oUsu.Correo);
-                //}
-                //string tipoEnvio = Constantes.TipoEnvio.EMAIL.ToString();
-                //ActualizarValidacionDatosUnique(EsDispositivoMovil(), userData.CodigoUsuario, tipoEnvio);
-
+                
                 UsuarioModel userData = new UsuarioModel();
                 userData = await GetUserData(Util.GetPaisID(oUsu.CodigoIso), oUsu.CodigoUsuario);
                 BERespuestaServicio respuesta;
@@ -3418,7 +3407,7 @@ var usuario = await GetUserData(paisId, codigoUsuario);
                 using (var sv = new UsuarioServiceClient())
                 {
                     beusuario = sv.Select(paisID, codigoUsuario);
-                    oVerificacion =  sv.GetVerificacionAutenticidad(paisID, codigoUsuario, true);
+                    oVerificacion = sv.GetVerificacionAutenticidad(paisID, codigoUsuario, true);
                 }
 
                 if (oVerificacion == null) return false;
