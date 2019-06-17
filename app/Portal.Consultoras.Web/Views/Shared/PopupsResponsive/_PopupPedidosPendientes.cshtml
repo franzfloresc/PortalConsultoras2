@@ -15,23 +15,33 @@
             </a>
         </div>
         <div class="popup__somos__belcorp__contenido text-center">
-            <div class="popup__somos__belcorp__icono popup__somos__belcorp__icono--pedidosPendientes center-block">
-                <img src="@Url.Content("~/Content/Images/alerta-icono.png")" alt="Tienes pedidos pendientes" />
+            <div id="GuardastePedidoConExito" class="d-flex guardaste__tu__pedido--wrapper">
+                <div class="popup__somos__belcorp__icono popup__somos__belcorp__icono--pedidoGuardadoConExito center-block">
+                    <img class="w-100" src="@Url.Content("~/Content/Images/success_icon.svg")" alt="Guardaste tu pedido con éxito" />
+                </div>
+                <h2 class="popup__somos__belcorp__titulo popup__somos__belcorp__titulo--pedidoGuardadoConExito">
+                    ¡Guardaste tu pedido con éxito!
+                </h2>
             </div>
-            <h2 class="popup__somos__belcorp__titulo popup__somos__belcorp__titulo--pedidosPendientes">
-                Tienes pedidos pendientes
-            </h2>
-            <p class="text-center popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--pedidosPendientes">
-                Para que puedan ser agregados a tu pedido, debes aceptarlos o en caso no los quieras, debes rechazarlos.
-            </p>
-            <a class="center-block text-center text-bold multimarca-background-color popup__somos__belcorp__btn popup__somos__belcorp__btn--verPedidosPorAprobar"
-               href="@Url.Action("Pendientes","ConsultoraOnline",new { area = toFrom })">
-                Ver pedidos por aprobar
-            </a>
-            <a class="d-block center-block text-center text-bold enlace__sb enlace__sb--verDespues" title="Lo veré después"
-               onclick="javascript:$('#PopupPedidosPendientes').fadeOut(100);">
-                Lo veré después
-            </a>
+            <div id="PedidosPendientesAlGuardarPedido" style="display:none;">
+                <div class="popup__somos__belcorp__icono popup__somos__belcorp__icono--pedidosPendientes center-block">
+                    <img src="@Url.Content("~/Content/Images/alerta-icono.png")" alt="Tienes pedidos pendientes" />
+                </div>
+                <h2 class="popup__somos__belcorp__titulo popup__somos__belcorp__titulo--pedidosPendientes">
+                    Tienes 2 pedidos por aprobar
+                </h2>
+                <p class="text-center popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--pedidosPendientes">
+                    Recuerda que perderás los pedidos si no los apruebas.
+                </p>
+                <a class="center-block text-center text-bold multimarca-background-color popup__somos__belcorp__btn popup__somos__belcorp__btn--verPedidosPorAprobar"
+                   href="@Url.Action("Pendientes","ConsultoraOnline",new { area = toFrom })">
+                    Ver pedidos por aprobar
+                </a>
+                <a class="d-block center-block text-center text-bold enlace__sb enlace__sb--verDespues" title="Lo veré después"
+                   onclick="javascript:$('#PopupPedidosPendientes').fadeOut(100);">
+                    Lo veré después
+                </a>
+            </div>
         </div>
     </div>
 </div>

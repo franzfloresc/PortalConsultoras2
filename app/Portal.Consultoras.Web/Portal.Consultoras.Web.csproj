@@ -3997,6 +3997,7 @@
     <Content Include="Content\Images\star_reco.png" />
     <Content Include="Content\Images\stok.png" />
     <Content Include="Content\Images\subirimagen.png" />
+    <Content Include="Content\Images\success_icon.svg" />
     <Content Include="Content\Images\telefono_menu.png" />
     <Content Include="Content\Images\temp\985192d0-3635-4083-a96f-19722361af68.jpg" />
     <Content Include="Content\Images\timer-sprite.png" />
