@@ -80,6 +80,9 @@
                     <input type="hidden" id="hdfCodigoPalanca" />
                     <input type="hidden" id="hdfCampaniaID" />
                     @*FIN HD-3908 *@
+                    <input id="hdEsOfertaIndependiente" type="hidden" value="0" />
+                    <input id="hdTipoEstrategiaCodigo" type="hidden" value="0" />
+                    <input id="hdEsDuoPerfecto" type="hidden" value="0" />
 
                 </div>
                 <div id="divProductoObservaciones"></div>
@@ -543,6 +546,7 @@
         var viewBagAmbiente = '@ViewBag.Ambiente';
         var correo = '@Model.EMail';
         var celular = '@Model.Celular';
+        var EstadoPedido = @Model.EstadoPedido;
 
         var VirtualCoachCuv = '@ViewBag.VirtualCoachCuv';
         var VirtualCoachCampana = '@ViewBag.VirtualCoachCampana' || 0;
