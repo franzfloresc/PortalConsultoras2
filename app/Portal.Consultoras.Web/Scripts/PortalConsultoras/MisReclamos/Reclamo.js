@@ -488,7 +488,7 @@ function BuscarCUV() {
                 $(reclamo.form.resultadosBusquedaCuv).empty();
                 var divPadre = $(reclamo.form.resultadosBusquedaCuv);
                 $(data.detalle).each(function (index, item) {
-                    divPadre.append('<li class="resultado_busqueda_por_cuv" data-value-cantidad="' + item.Cantidad + '"  data-value-producto="' + item.DescripcionProd + '" data-value-cuv="' + item.CUV + '"><div onclick="SeleccionarCUVBusqueda($(this).parent());" class="resultado_busqueda_por_cuv_enlace" title="' + item.DescripcionProd + '"><div class="resultado_busqueda_por_cuv_datos_imagen"><img src="/Content/Images/oferta-sin-imagen-sin-fondo.svg" alt="' + item.DescripcionProd + '" /></div><div class="resultado_busqueda_por_cuv_datos_prod">' + '<div class="resultado_busqueda_por_cuv_codigo_prod">' + item.CUV + '</div>' + '<div class="resultado_busqueda_por_cuv_descrip_prod">' + item.DescripcionProd + '</div>' + '</div></div></li>');
+                    divPadre.append('<li onclick="SeleccionarCUVBusqueda(event);" class="resultado_busqueda_por_cuv" data-value-cantidad="' + item.Cantidad + '"  data-value-producto="' + item.DescripcionProd + '" data-value-cuv="' + item.CUV + '"><div class="resultado_busqueda_por_cuv_enlace" title="' + item.DescripcionProd + '"><div class="resultado_busqueda_por_cuv_datos_imagen"><img src="/Content/Images/oferta-sin-imagen-sin-fondo.svg" alt="' + item.DescripcionProd + '" /></div><div class="resultado_busqueda_por_cuv_datos_prod">' + '<div class="resultado_busqueda_por_cuv_codigo_prod">' + item.CUV + '</div>' + '<div class="resultado_busqueda_por_cuv_descrip_prod">' + item.DescripcionProd + '</div>' + '</div></div></li>');
                 });
             }
         },
@@ -499,10 +499,10 @@ function BuscarCUV() {
     });
 }
 
-function SeleccionarCUVBusqueda(tag) {
-    var el = $(tag)[0];
-    var cuv = $(el).attr('data-value-cuv');
-    var producto = $(el).attr('data-value-producto');
+function SeleccionarCUVBusqueda(event) {  
+    var $el = $(event.currentTarget);
+    var cuv = $el.attr("data-value-cuv");
+    var producto = $el.attr("data-value-producto");
     $("#hdfCUV").val(cuv);
     $(reclamo.form.txtCuv).val(cuv + ' - ' + producto).attr("data-codigo", cuv);
     ObtenerDatosCuv();
