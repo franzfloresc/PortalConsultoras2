@@ -2,9 +2,10 @@
 @using Portal.Consultoras.Common
 
 @{
-    ViewBag.CaminoBrillante = true;
+    //ViewBag.CaminoBrillante = true;
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     var origenPedido = ViewBag.EsMobile ? Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel : Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel;
+    ViewBag.origenPedido = origenPedido;
 }
 
 @section css{
@@ -61,8 +62,8 @@
         if (nivel.EsActual)
         {
             <div class="cont-benf" id="BeneficiosPrincipal">
-                <h2 class='title tit-benef'><img src="https://S3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/NIVELES/NIVEL_01_A.svg">Mis beneficios</h2>
-                <div class='box-beneficios' id='BeneficiosPrincipal'>
+                <h2 class='title'>Mis beneficios</h2>
+                <ul class='box-beneficios' id='BeneficiosPrincipal'>
                     @if (nivel.BeneficiosShow != null)
                     {
                         <div class="boxtog">
@@ -192,10 +193,9 @@
 
     @if (@ViewBag.TieneOfertasEspeciales)
     {
-
         <div class="ficha" data-item="CarruselFichasProductos"></div>
-
-        <div class="camino_brillante" data-estrategia="{{JSON2string this}}" >
+        <div class="camino_brillante">
+            <div class="camino_brillante" data-estrategia="{{JSON2string this}}">  </div>
             <div id="carrusel" style="margin-top:25px;"></div>
             @Html.Partial("Partial/template_kit")
             @Html.Partial("Partial/template_demostrador")
@@ -299,17 +299,17 @@
     <script src="~/Scripts/Chart.min.js"></script>
 
 </div>
-        <script src="~/Scripts/Chart.min.js"></script>
+<script src="~/Scripts/Chart.min.js"></script>
 
-        @section scripts{
-            @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
-            @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
+@section scripts{
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
 
-            <script>
+    <script>
         var urlGetCarrusel = '@Url.Action("GetCarruselCaminoBrillante", "CaminoBrillante")';
         var urlGetMisGanancias = '@Url.Action("GetMisGanancias", "CaminoBrillante")';
         var urlAgregarUnico = '@Url.Action("PedidoAgregarProductoTransaction", "PedidoRegistro", new { area = "" })';
         var _origenPedidoWeb = '@Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido';
-            </script>
+    </script>
 
-        }
+}
