@@ -417,7 +417,7 @@ namespace Portal.Consultoras.Web.Controllers
         public DetalleEstrategiaFichaModel FichaModelo(string palanca, int campaniaId, string cuv, string origen, bool esEditar = false)
         {
             if (_ofertaPersonalizadaProvider == null)
-                throw new NullReferenceException("_ofertaPersonalizadaProvider can not be null");
+                throw new ArgumentNullException("_ofertaPersonalizadaProvider can not be null");
 
             if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv))
             {

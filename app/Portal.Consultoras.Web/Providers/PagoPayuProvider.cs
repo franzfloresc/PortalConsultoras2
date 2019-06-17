@@ -73,7 +73,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             if (!info.Birthdate.HasValue)
             {
-                throw new Exception("Fecha de Nacimiento es requerido");
+                throw new ArgumentNullException("Fecha de Nacimiento es requerido");
             }
 
             PagoVisaModel config = pago.PagoVisaModel;

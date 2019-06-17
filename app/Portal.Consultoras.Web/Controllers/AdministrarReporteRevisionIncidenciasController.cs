@@ -142,7 +142,7 @@ namespace Portal.Consultoras.Web.Controllers
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
-                throw new Exception(ModelState.ToString());
+                throw new ArgumentNullException(ModelState.ToString());
             }
             catch (Exception ex)
             {

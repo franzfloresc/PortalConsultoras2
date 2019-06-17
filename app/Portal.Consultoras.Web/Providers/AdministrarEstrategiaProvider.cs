@@ -386,7 +386,7 @@ namespace Portal.Consultoras.Web.Providers
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
-                throw new Exception(respuesta.Message);
+                throw new ArgumentNullException(respuesta.Message);
             }
         }
 
@@ -404,7 +404,7 @@ namespace Portal.Consultoras.Web.Providers
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
-                throw new Exception(respuesta.Message);
+                throw new ArgumentNullException(respuesta.Message);
             }
         }
 
@@ -496,7 +496,7 @@ namespace Portal.Consultoras.Web.Providers
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
             {
-                throw new Exception(respuesta.Message);
+                throw new ArgumentNullException(respuesta.Message);
             }
         }
 
@@ -534,7 +534,7 @@ namespace Portal.Consultoras.Web.Providers
             if (respuesta == null) return null;
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
-                throw new Exception(respuesta.Message);
+                throw new ArgumentNullException(respuesta.Message);
 
             if (respuesta.Result != null)
             {
@@ -592,7 +592,7 @@ namespace Portal.Consultoras.Web.Providers
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
-                throw new Exception(respuesta.Message);
+                throw new ArgumentNullException(respuesta.Message);
         }
 
         public void EditarTipoEstrategia(ServicePedido.BETipoEstrategia entidad, string pais)
@@ -608,7 +608,7 @@ namespace Portal.Consultoras.Web.Providers
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
-                throw new Exception(respuesta.Message);
+                throw new ArgumentNullException(respuesta.Message);
         }
 
         public List<EstrategiaMDbAdapterModel> Listar(List<string> estrategiasIds, string pais)
@@ -648,7 +648,7 @@ namespace Portal.Consultoras.Web.Providers
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(taskApi.Result);
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
-                throw new Exception(respuesta.Message);
+                throw new ArgumentNullException(respuesta.Message);
         }
 
         public List<ShowRoomEventoModelo> ConsultarShowRoom(string pais, int campaniaId)
@@ -688,7 +688,7 @@ namespace Portal.Consultoras.Web.Providers
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
-                throw new Exception(respuesta.Message);
+                throw new ArgumentNullException(respuesta.Message);
         }
 
         public int UploadFileSetStrategyShowroom(ServicePedido.BEEstrategiaMasiva m, List<ServicePedido.BEEstrategia> l, string TipoEstrategiaCodigo)
@@ -860,7 +860,7 @@ namespace Portal.Consultoras.Web.Providers
             var respuesta = JsonConvert.DeserializeObject<GenericResponse>(taskApi.Result);
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
-                throw new Exception(respuesta.Message);
+                throw new ArgumentNullException(respuesta.Message);
         }
 
         public void RegistrarEventoPersonalizacion(string pais, string eventoId, string _id, List<ShowRoomPersonalizacionModel> lstPersonalizacion)

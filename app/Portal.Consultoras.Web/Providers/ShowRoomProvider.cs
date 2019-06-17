@@ -884,7 +884,7 @@ namespace Portal.Consultoras.Web.Providers
             GenericResponse respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
-                throw new Exception(respuesta.Message);
+                throw new ArgumentNullException(respuesta.Message);
 
             var modelo = new ShowRoomEventoConsultoraModel();
             if (respuesta.Result == null)
@@ -1036,7 +1036,7 @@ namespace Portal.Consultoras.Web.Providers
                 GenericResponse respuesta = JsonConvert.DeserializeObject<GenericResponse>(content);
 
                 if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
-                    throw new Exception(respuesta.Message);
+                    throw new ArgumentNullException(respuesta.Message);
             }
             else
             {

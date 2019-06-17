@@ -2030,7 +2030,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (cuponResult != null)
                 cuponModel = MapearBECuponACuponModel(cuponResult);
             else
-                throw new Exception();
+                throw new ArgumentNullException();
 
             return cuponModel;
         }
