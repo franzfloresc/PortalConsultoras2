@@ -6,6 +6,8 @@ var CodigoOrigenPedidoWeb = (function () {
     var codigoTipoEstrategia = ConstantesModule.TipoEstrategia;
 
     var origenPedidoWebEstructura = {
+        IncorrectoDispositivo: "0",
+        Incorrecto: "99",
         Dimension: 7,
         Dispositivo: {
             Desktop: '1',
@@ -81,14 +83,18 @@ var CodigoOrigenPedidoWeb = (function () {
     var diccionarioTipoEstrategiaPalanca = [
         { codigo: codigoTipoEstrategia.OfertaParaTi, Palanca: origenPedidoWebEstructura.Palanca.OfertasParaTi },
         { codigo: codigoTipoEstrategia.PackNuevas, Palanca: origenPedidoWebEstructura.Palanca.PackNuevas },
+        { codigo: codigoTipoEstrategia.ArmaTuPack, Palanca: origenPedidoWebEstructura.Palanca.ArmaTuPack },
         { codigo: codigoTipoEstrategia.Lanzamiento, Palanca: origenPedidoWebEstructura.Palanca.Lanzamientos },
         { codigo: codigoTipoEstrategia.OfertasParaMi, Palanca: origenPedidoWebEstructura.Palanca.OfertasParaTi },
         { codigo: codigoTipoEstrategia.PackAltoDesembolso, Palanca: origenPedidoWebEstructura.Palanca.OfertasParaTi },
         { codigo: codigoTipoEstrategia.OfertaDelDia, Palanca: origenPedidoWebEstructura.Palanca.OfertaDelDia },
         { codigo: codigoTipoEstrategia.GuiaDeNegocioDigitalizada, Palanca: origenPedidoWebEstructura.Palanca.GND },
         { codigo: codigoTipoEstrategia.HerramientasVenta, Palanca: origenPedidoWebEstructura.Palanca.HerramientasVenta },
+        { codigo: codigoTipoEstrategia.IncentivosProgramaNuevas, Palanca: origenPedidoWebEstructura.Palanca.PackNuevas },
         { codigo: codigoTipoEstrategia.ShowRoom, Palanca: origenPedidoWebEstructura.Palanca.Showroom },
         { codigo: codigoTipoEstrategia.MasGanadoras, Palanca: origenPedidoWebEstructura.Palanca.Ganadoras },
+        { codigo: codigoTipoEstrategia.ProgramaNuevasRegalo, Palanca: origenPedidoWebEstructura.Palanca.EscogeTuRegalo },
+        { codigo: codigoTipoEstrategia.DuoPerfecto, Palanca: origenPedidoWebEstructura.Palanca.DuoPerfecto }
     ];
 
 
@@ -145,7 +151,7 @@ var CodigoOrigenPedidoWeb = (function () {
                 return x.codigo === codigoEstrategia
             }) || {};
 
-            origenModelo.Palanca = _objTipoPalanca.Palanca;
+            origenModelo.Palanca = _objTipoPalanca.Palanca || origenPedidoWebEstructura.Incorrecto;
         }
 
         return origenModelo.Dispositivo + origenModelo.Pagina + origenModelo.Palanca + origenModelo.Seccion;
