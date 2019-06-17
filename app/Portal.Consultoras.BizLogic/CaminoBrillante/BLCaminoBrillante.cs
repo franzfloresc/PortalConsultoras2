@@ -1302,11 +1302,20 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             }
             return null;
         }
-        
+
         #region Configuracion
-        public List<BETablaLogicaDatos> GetCaminoBrillanteConfiguracion(int paisID)
+        public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, string esApp)
         {
-            return GetCaminoBrillanteConfiguracionCache(paisID);
+            var oTablaLogica = GetCaminoBrillanteConfiguracionCache(paisID);
+            if (oTablaLogica == null) return null;
+            if (esApp == "1") oTablaLogica = oTablaLogica.Where(a => a.Codigo.Contains(Constantes.CaminoBrillante.Configuracion.App)).ToList();
+            else oTablaLogica = oTablaLogica.Where(a => a.Codigo.Contains(Constantes.CaminoBrillante.Configuracion.SomosBelcorp)).ToList();
+            return oTablaLogica.Select(x => new BEConfiguracionCaminoBrillante()
+            {
+                Codigo = x.Codigo,
+                Descripcion = x.Descripcion,
+                Valor = x.Valor
+            }).ToList();
         }
 
         private List<BETablaLogicaDatos> GetCaminoBrillanteConfiguracionCache(int paisID)

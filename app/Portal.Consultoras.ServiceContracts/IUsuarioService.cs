@@ -453,7 +453,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(BEUsuario entidad);
 
         [OperationContract]
-        List<BETablaLogicaDatos> GetCaminoBrillanteConfiguracion(int paisID);
+        List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, string esApp);
         #endregion
 
         [OperationContract]

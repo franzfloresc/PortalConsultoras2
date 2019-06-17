@@ -3916,6 +3916,17 @@ namespace Portal.Consultoras.Common
                 public const int Demostrador = 2;
             }
 
+            public static class Configuracion
+            {
+                public const string App = "app";
+                public const string SomosBelcorp = "sb";
+
+                public const string sb_carrusel = "sb_carrusel";
+                public const string sb_ganancias = "sb_ganancias";
+                public const string App_carrusel = "app_carrusel";
+                public const string App_ganancias = "app_ganancias";
+                
+            }
         }
 
         public static class CodigoContenido
