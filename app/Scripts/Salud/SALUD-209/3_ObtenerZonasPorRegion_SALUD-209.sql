@@ -1,13 +1,8 @@
 ﻿USE BelcorpPeru
 GO
 
-IF EXISTS (
-	SELECT * FROM sys.objects 
-	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[PROCEDURE]') 
-	AND type in (N'P', N'PC')
-) 
-	DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = '[dbo].[ObtenerZonasPorRegion]')  
+DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]  
 GO
 CREATE PROCEDURE  ObtenerZonasPorRegion
 	-- Add the parameters for the stored procedure here
@@ -33,13 +28,8 @@ GO
 USE BelcorpMexico
 GO
 
-IF EXISTS (
-	SELECT * FROM sys.objects 
-	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[PROCEDURE]') 
-	AND type in (N'P', N'PC')
-) 
-	DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = '[dbo].[ObtenerZonasPorRegion]')  
+DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]  
 GO
 CREATE PROCEDURE  ObtenerZonasPorRegion
 	-- Add the parameters for the stored procedure here
@@ -65,13 +55,8 @@ GO
 USE BelcorpColombia
 GO
 
-IF EXISTS (
-	SELECT * FROM sys.objects 
-	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[PROCEDURE]') 
-	AND type in (N'P', N'PC')
-) 
-	DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = '[dbo].[ObtenerZonasPorRegion]')  
+DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]  
 GO
 CREATE PROCEDURE  ObtenerZonasPorRegion
 	-- Add the parameters for the stored procedure here
@@ -97,13 +82,8 @@ GO
 USE BelcorpSalvador
 GO
 
-IF EXISTS (
-	SELECT * FROM sys.objects 
-	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[PROCEDURE]') 
-	AND type in (N'P', N'PC')
-) 
-	DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = '[dbo].[ObtenerZonasPorRegion]')  
+DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]  
 GO
 CREATE PROCEDURE  ObtenerZonasPorRegion
 	-- Add the parameters for the stored procedure here
@@ -129,13 +109,8 @@ GO
 USE BelcorpPuertoRico
 GO
 
-IF EXISTS (
-	SELECT * FROM sys.objects 
-	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[PROCEDURE]') 
-	AND type in (N'P', N'PC')
-) 
-	DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = '[dbo].[ObtenerZonasPorRegion]')  
+DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]  
 GO
 CREATE PROCEDURE  ObtenerZonasPorRegion
 	-- Add the parameters for the stored procedure here
@@ -161,13 +136,8 @@ GO
 USE BelcorpPanama
 GO
 
-IF EXISTS (
-	SELECT * FROM sys.objects 
-	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[PROCEDURE]') 
-	AND type in (N'P', N'PC')
-) 
-	DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = '[dbo].[ObtenerZonasPorRegion]')  
+DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]  
 GO
 CREATE PROCEDURE  ObtenerZonasPorRegion
 	-- Add the parameters for the stored procedure here
@@ -193,13 +163,8 @@ GO
 USE BelcorpGuatemala
 GO
 
-IF EXISTS (
-	SELECT * FROM sys.objects 
-	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[PROCEDURE]') 
-	AND type in (N'P', N'PC')
-) 
-	DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = '[dbo].[ObtenerZonasPorRegion]')  
+DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]  
 GO
 CREATE PROCEDURE  ObtenerZonasPorRegion
 	-- Add the parameters for the stored procedure here
@@ -225,13 +190,8 @@ GO
 USE BelcorpEcuador
 GO
 
-IF EXISTS (
-	SELECT * FROM sys.objects 
-	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[PROCEDURE]') 
-	AND type in (N'P', N'PC')
-) 
-	DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = '[dbo].[ObtenerZonasPorRegion]')  
+DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]  
 GO
 CREATE PROCEDURE  ObtenerZonasPorRegion
 	-- Add the parameters for the stored procedure here
@@ -257,13 +217,8 @@ GO
 USE BelcorpDominicana
 GO
 
-IF EXISTS (
-	SELECT * FROM sys.objects 
-	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[PROCEDURE]') 
-	AND type in (N'P', N'PC')
-) 
-	DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = '[dbo].[ObtenerZonasPorRegion]')  
+DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]  
 GO
 CREATE PROCEDURE  ObtenerZonasPorRegion
 	-- Add the parameters for the stored procedure here
@@ -289,13 +244,8 @@ GO
 USE BelcorpCostaRica
 GO
 
-IF EXISTS (
-	SELECT * FROM sys.objects 
-	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[PROCEDURE]') 
-	AND type in (N'P', N'PC')
-) 
-	DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = '[dbo].[ObtenerZonasPorRegion]')  
+DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]  
 GO
 CREATE PROCEDURE  ObtenerZonasPorRegion
 	-- Add the parameters for the stored procedure here
@@ -321,13 +271,8 @@ GO
 USE BelcorpChile
 GO
 
-IF EXISTS (
-	SELECT * FROM sys.objects 
-	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[PROCEDURE]') 
-	AND type in (N'P', N'PC')
-) 
-	DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = '[dbo].[ObtenerZonasPorRegion]')  
+DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]  
 GO
 CREATE PROCEDURE  ObtenerZonasPorRegion
 	-- Add the parameters for the stored procedure here
@@ -353,13 +298,8 @@ GO
 USE BelcorpBolivia
 GO
 
-IF EXISTS (
-	SELECT * FROM sys.objects 
-	WHERE object_id = 
-	OBJECT_ID(N'[dbo].[PROCEDURE]') 
-	AND type in (N'P', N'PC')
-) 
-	DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = '[dbo].[ObtenerZonasPorRegion]')  
+DROP PROCEDURE [dbo].[ObtenerZonasPorRegion]  
 GO
 CREATE PROCEDURE  ObtenerZonasPorRegion
 	-- Add the parameters for the stored procedure here
