@@ -17,8 +17,7 @@ namespace Portal.Consultoras.Common.Cryptography
         {
             var bytes = Encoding.UTF8.GetBytes(keyString);
 
-            var cryptoProvider = new DESCryptoServiceProvider { Mode = CipherMode.ECB };
-            using (cryptoProvider)
+            using (DESCryptoServiceProvider cryptoProvider = new DESCryptoServiceProvider { Mode = CipherMode.ECB })
             {
                 var memoryStream = new MemoryStream();
                 var cryptoStream = new CryptoStream(memoryStream,
@@ -49,8 +48,7 @@ namespace Portal.Consultoras.Common.Cryptography
         {
             var bytes = Encoding.UTF8.GetBytes(keyString);
 
-            var cryptoProvider = new DESCryptoServiceProvider { Mode = CipherMode.ECB };
-            using (cryptoProvider)
+            using (DESCryptoServiceProvider cryptoProvider = new DESCryptoServiceProvider { Mode = CipherMode.ECB })
             {
                 var memoryStream = new MemoryStream(Convert.FromBase64String(encString));
                 var cryptoStream = new CryptoStream(memoryStream,

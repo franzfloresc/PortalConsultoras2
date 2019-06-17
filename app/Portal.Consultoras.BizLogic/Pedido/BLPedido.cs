@@ -4049,7 +4049,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         EsKitNueva = true
                     };
 
-                    var result = PedidoInsertar(usuario, detalle, lstDetalle, true);
+                    PedidoInsertar(usuario, detalle, lstDetalle, true);
                 }
             }
 
