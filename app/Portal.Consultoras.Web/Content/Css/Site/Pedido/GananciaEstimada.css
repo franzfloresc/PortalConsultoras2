@@ -345,10 +345,8 @@
         display: none;
         padding-bottom: 10px;
     }
-    .ganancia-estimada {
-        /*width: 90%;
-        left: 10px;
-        bottom: 75px;*/
+    .ganancia-estimada {        
+        
         width: 78%;
         left: 25px;
         bottom: 74px;
@@ -379,5 +377,16 @@
     .ganancia-total [data-cantidadproducto] {
         padding-right: 2px;
     }
+    .toggle-info .ganancia-titulo {
+        text-align: left;        
+    }
+    .ganancia-total [data-cantidadproducto] {
+        padding-right: 2px;
+    }
     
+}
+/* FIX TESLA 154 */
+/* Color por pais*/
+.toggle-info.lbel .accent-color {
+    color: #613c87;
 }
