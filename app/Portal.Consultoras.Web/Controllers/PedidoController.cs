@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.Internal;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.Models;
@@ -1587,14 +1588,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        /// <summary>
-        /// Fecha actual según el pais.
-        /// </summary>
-        /// <returns></returns>
-        private DateTime GetDiaActual()
-        {
-            return DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-        }
         public async Task<JsonResult> EnviarCorreoPedidoReservado()
         {
             try

@@ -593,32 +593,38 @@
             var codigoCuv = model.CUV;
             var origenPedidoWeb = model.OrigenPedidoWeb;
             var descripcionProducto = model.DescripcionCompleta;
-
+            var tipoPersonalizacionProducto = model.TipoPersonalizacion;
+            
             var codigo = ['030', '005', '001', '007', '008', '009', '010', '011'];
+            var tipoPersonalizacion = ["CAT"];
 
             localStorage.setItem('valorBuscador', _config.textoBusqueda);
 
+            var UrlDetalle = "";
+            var UrlGeneral = "";
             if (codigo.indexOf(codigoEstrategia) >= 0) {
                 var UrlDetalle = FichaVerDetalle.GetPalanca(codigoEstrategia, origenPedidoWeb);
-                var UrlGeneral = "";
-
-                if (UrlDetalle == "") return false;
-
-                UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + origenPedidoWeb;
-
-                if (_config.isMobile) {
-                    UrlGeneral = "/Mobile" + UrlDetalle;
-                } else {
-                    UrlGeneral = UrlDetalle;
-                }
-
-                window.location = UrlGeneral;
-
-                if (!(typeof AnalyticsPortalModule === 'undefined'))
-                    AnalyticsPortalModule.MarcaEligeTuOpcionBuscador(descripcionProducto + ' - ' + _config.textoBusqueda);
-
-                return true;
             }
+            if (UrlDetalle == "" && tipoPersonalizacion.indexOf(tipoPersonalizacionProducto) >= 0) {
+                UrlDetalle = FichaVerDetalle.GetUrlTipoPersonalizacion(tipoPersonalizacionProducto);
+            }
+
+            if (UrlDetalle == "") return false;
+
+            UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + origenPedidoWeb;
+
+            if (_config.isMobile) {
+                UrlGeneral = "/Mobile" + UrlDetalle;
+            } else {
+                UrlGeneral = UrlDetalle;
+            }
+
+            window.location = UrlGeneral;
+
+            if (!(typeof AnalyticsPortalModule === 'undefined'))
+                AnalyticsPortalModule.MarcaEligeTuOpcionBuscador(descripcionProducto + ' - ' + _config.textoBusqueda);
+
+            return true;
         },
         FiltrosSelecionados: function (e) {
             e.preventDefault();

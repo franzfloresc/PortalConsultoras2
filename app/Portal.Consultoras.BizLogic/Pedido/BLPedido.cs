@@ -294,13 +294,15 @@ namespace Portal.Consultoras.BizLogic.Pedido
                             {
                                 if (pedidoDetalle.IngresoExternoOrigen != null && pedidoDetalle.IngresoExternoOrigen.Equals(Constantes.IngresoExternoOrigen.Portal))
                                 {
-                                    mensajePersonalizado = "<ul> ";
+                                    var txtBuilMsjPers = new StringBuilder();
+                                    txtBuilMsjPers.Append("<ul> ");
                                     foreach (var item in ListPedidoObservacion)
                                     {
-                                        mensajePersonalizado = mensajePersonalizado + string.Concat("<li>", " - ", item.Descripcion, "</li>");
+                                        txtBuilMsjPers.Append(string.Concat("<li>", " - ", item.Descripcion, "</li>"));
                                     }
+                                    txtBuilMsjPers.Append("</ul>");
 
-                                    mensajePersonalizado = string.Concat(mensajePersonalizado + "</ul>");
+                                    mensajePersonalizado = txtBuilMsjPers.ToString();
                                 }
                                 else
                                 {
@@ -337,6 +339,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 }
             }
 
+            resultadoReservaProl = resultadoReservaProl ?? new BEResultadoReservaProl();
             var respuesta = PedidoDetalleRespuesta(pedidoValidacionCode, mensajePersonalizado);
             respuesta.MensajeRespuesta = respuesta.MensajeRespuesta.Replace("Pedido no reservado", "Pedido reservado");
             respuesta.ListPedidoObservacion = resultadoReservaProl.ListPedidoObservacion;
@@ -780,7 +783,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             List<ObjMontosProl> listObjMontosProl;
             BEPedidoWeb pedidoWeb;
 
-            var transactionExitosa = AdministradorPedido(usuario, pedidoDetalle, pedidowebdetalles, estrategia, Componentes, Constantes.PedidoAccion.INSERT, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder, out ListaMensajeCondicional, out listObjMontosProl,out pedidoWeb);
+            var transactionExitosa = AdministradorPedido(usuario, pedidoDetalle, pedidowebdetalles, estrategia, Componentes, Constantes.PedidoAccion.INSERT, out mensajeObs, out listCuvEliminar, out TituloMensaje, out modificoBackOrder, out ListaMensajeCondicional, out listObjMontosProl, out pedidoWeb);
 
             var response = PedidoDetalleRespuesta(transactionExitosa ? Constantes.PedidoValidacion.Code.SUCCESS : Constantes.PedidoValidacion.Code.ERROR_GRABAR, mensajeObs);
             response.ListCuvEliminar = listCuvEliminar;
@@ -1021,7 +1024,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         public async Task<BEPedidoDetalleResult> PedidoDeleteProductoTransaction(BEPedidoDetalle pedidoDetalle)
         {
-            var respuesta = new BEPedidoDetalleResult();
             try
             {
                 var usuario = pedidoDetalle.Usuario;
@@ -1032,6 +1034,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 //Eliminar Detalle
                 var responseCode = Constantes.PedidoValidacion.Code.SUCCESS;
+                var respuesta = new BEPedidoDetalleResult();
                 BEPedidoWeb pedidoWeb = null;
                 if (pedidoDetalle.Producto == null)
                 {
@@ -1063,7 +1066,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 PedidoAgregar_DesReservarPedido(lstDetalle, pedidoDetalle.Producto, usuario);
                 var request = PedidoDetalleRespuesta(responseCode);
-                if (respuesta != null) request.PedidoWeb = respuesta.PedidoWeb;
+                request.PedidoWeb = pedidoWeb ?? respuesta.PedidoWeb;
 
                 return request;
             }
@@ -1104,7 +1107,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             int pedidoId = 0;
             var pedidoWebAgrupado = _pedidoWebDetalleBusinessLogic.ObtenerPedidoWebSetDetalleAgrupado(pedidoDetalle.Usuario, out pedidoId);
             var pedidoWeb = _pedidoWebBusinessLogic.GetPedidoWebConCalculosGanancia(pedidoDetalle.Usuario, respuestaReserva.MontoAhorroCatalogo, respuestaReserva.MontoAhorroRevista, respuestaReserva.MontoDescuento, respuestaReserva.MontoEscala, pedidoWebAgrupado);
-            if(pedidoWeb != null)
+            if (pedidoWeb != null)
             {
                 _pedidoWebBusinessLogic.UpdateMontosPedidoWeb(pedidoWeb);
             }
@@ -3285,10 +3288,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return lista;
         }
 
-        private List<ObjMontosProl> UpdateProl(BEUsuario usuario, List<BEPedidoWebDetalle> lstDetalle, out List<BEMensajeProl> listMensajeCondicional) {
-            var pedidoWeb = new BEPedidoWeb();
-            return UpdateProlCrud(usuario,lstDetalle,out listMensajeCondicional, out pedidoWeb);
-        }        
+        private void UpdateProl(BEUsuario usuario, List<BEPedidoWebDetalle> lstDetalle, out List<BEMensajeProl> listMensajeCondicional)
+        {
+            BEPedidoWeb pedidoWeb;
+            UpdateProlCrud(usuario, lstDetalle, out listMensajeCondicional, out pedidoWeb);
+        }
 
         private string ConfigurarUrlServiceProl(string codigoISO)
         {

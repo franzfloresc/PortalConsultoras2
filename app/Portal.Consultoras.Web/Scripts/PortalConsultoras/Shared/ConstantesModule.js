@@ -46,6 +46,7 @@ var ConstantesModule = (function() {
 
     // es homologo a DB TipoEstrategia, campo Codigo
     // es homologo a constantes.TipoEstrategiaCodigo
+    // agregar a CodigoOrigenPedidoWeb diccionarioTipoEstrategiaPalanca
     // antiguo var _constantesPalanca = {
     var _codigoTipoEstrategia = {
         OfertaParaTi: "001",
@@ -54,7 +55,6 @@ var ConstantesModule = (function() {
         ArmaTuPack: "004",
         Lanzamiento: "005",
         OfertasParaMi: "007",
-        MasGanadoras: "007", // No tiene referecia con BD, caso particular de OfertasParaMi 007
         PackAltoDesembolso: "008",
         OfertaDelDia: "009",
         GuiaDeNegocioDigitalizada: "010",
@@ -65,12 +65,21 @@ var ConstantesModule = (function() {
         ShowRoom: "030",
 
         RevistaDigital: "101", // No tiene referencia con BD, caso particular de OfertasParaMi 007
+        MasGanadoras: "201", // No tiene referecia con BD, caso particular de OfertasParaMi 007
 
         ProgramaNuevasRegalo: "044",
         ParticipaProgramaNuevas: "1",
         NotParticipaProgramaNuevas: "0",
         DuoPerfecto: "034" //HD-3473 EINCA
     }
+
+    var _tipoPersonalizacion = {
+        Catalogo: "CAT",
+    };
+
+    var _tipoPersonalizacionTexto = {
+        Catalogo: "Catalogo",
+    };
 
     var _diccionarioTipoEstrategia = [
         { codigo: _codigoTipoEstrategia.OfertaParaTi, texto: _codigoTipoEstrategiaTexto.OfertaParaTi },
@@ -80,15 +89,13 @@ var ConstantesModule = (function() {
         { codigo: _codigoTipoEstrategia.OfertasParaMi, texto: _codigoTipoEstrategiaTexto.OfertasParaMi },
         { codigo: _codigoTipoEstrategia.PackAltoDesembolso, texto: _codigoTipoEstrategiaTexto.PackAltoDesembolso },
         { codigo: _codigoTipoEstrategia.OfertaDelDia, texto: _codigoTipoEstrategiaTexto.OfertaDelDia },
-        {
-            codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada,
-            texto: _codigoTipoEstrategiaTexto.GuiaDeNegocioDigitalizada
-        },
+        { codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada,texto: _codigoTipoEstrategiaTexto.GuiaDeNegocioDigitalizada },
         { codigo: _codigoTipoEstrategia.GuiaDeNegocioDigitalizada, texto: _codigoTipoEstrategiaTexto.GuiaNegocio },
         { codigo: _codigoTipoEstrategia.HerramientasVenta, texto: _codigoTipoEstrategiaTexto.HerramientasVenta },
         { codigo: _codigoTipoEstrategia.ShowRoom, texto: _codigoTipoEstrategiaTexto.ShowRoom },
         { codigo: _codigoTipoEstrategia.RevistaDigital, texto: _codigoTipoEstrategiaTexto.RevistaDigital },
         { codigo: _codigoTipoEstrategia.MasGanadoras, texto: _codigoTipoEstrategiaTexto.Ganadoras },
+        { codigo: _tipoPersonalizacion.Catalogo, texto: _tipoPersonalizacionTexto.Catalogo }
     ];
 
     var _configuracionOferta = {
@@ -176,7 +183,7 @@ var ConstantesModule = (function() {
         cargarDetallePedido: '/Pedido/CargarDetallePedido',
         ejecutarServicioProl: '/Pedido/EjecutarServicioPROL',
         updatePostulanteMensaje: '/Pedido/UpdatePostulanteMensaje'
-    }
+    };
 
     var _getTipoPersonalizacionByTipoEstrategia = function(codigoTipoEstrategia) {
 
@@ -194,20 +201,21 @@ var ConstantesModule = (function() {
     var _mensajeAgregarPedido = {
         normal: '¡Listo! Agregaste con éxito a tu pedido.',
         reservado: '¡Listo! Agregaste con éxito a tu pedido reservado.'
-    }
+    };
 
     var _mensajeModificarPedido = {
         normal: '¡Listo! Tu pedido ha sido modificado',
         reservado: '¡Listo! Tu pedido reservado ha sido modificado'
-    }
+    };
+
     var _tiempo = {
         ToolTip: 2500
-    }
+    };
 
     var _tipoSeccion = {
         Video: "01",
         Texto: "02"
-    }
+    };
 
     return {
         CodigoPalanca: _codigoPalanca,
@@ -227,6 +235,8 @@ var ConstantesModule = (function() {
         MensajeAgregarPedido: _mensajeAgregarPedido,
         MensajeModificarPedido: _mensajeModificarPedido,
         Tiempo: _tiempo,
-        TipoSeccion: _tipoSeccion
+        TipoSeccion: _tipoSeccion,
+        TipoPersonalizacion: _tipoPersonalizacion,
+        TipoPersonalizacionTexto: _tipoPersonalizacionTexto,
     }
 })();
