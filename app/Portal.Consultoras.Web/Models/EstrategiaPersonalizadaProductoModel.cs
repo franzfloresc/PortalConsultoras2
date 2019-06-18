@@ -99,5 +99,9 @@ namespace Portal.Consultoras.Web.Models
         /// Tipo Oferta Camino Brillante
         /// </summary>
         public int TipoOfertaCaminoBrillante { get; set; }
+
+        // para elastic, devuelve un bool
+        // true = MaterialGanancia == 1
+        public bool MaterialGanancia { get; set; }
     }
 }

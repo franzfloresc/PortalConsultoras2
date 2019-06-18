@@ -145,6 +145,9 @@ var FichaVerDetalle = (function () {
         case ConstantesModule.TipoEstrategia.CaminoBrillanteKits:
             url += ConstantesModule.TipoEstrategiaTexto.CaminoBrillanteKits;
                 break;
+            case ConstantesModule.TipoEstrategia.MasGanadoras:
+                url += ConstantesModule.TipoEstrategiaTexto.Ganadoras;
+                break;
             default:
                 url = "";
         }
