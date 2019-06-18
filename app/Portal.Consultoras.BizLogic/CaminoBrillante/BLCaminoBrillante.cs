@@ -735,6 +735,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 var cuvsStringList = kitsProvider.Select(e => e.Cuv).Distinct().ToList().Serialize();
                 var kits = new DACaminoBrillante(paisId).GetKitsCaminoBrillante(periodoId, campaniaId, cuvsStringList).MapToCollection<BEKitCaminoBrillante>(closeReaderFinishing: true);
                 var paisISO = Util.GetPaisISO(paisId);
+                var comparator = getOrderFunc(paisId);
                 kits.ForEach(kit =>
                 {
                     var _kitProvider = kitsProvider.FirstOrDefault(e => e.Cuv == kit.CUV);
@@ -751,7 +752,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                         kit.DescripcionNivel = niveles.Where(e => e.CodigoNivel == _kitProvider.Nivel).Select(e => e.DescripcionNivel).SingleOrDefault();
                         kit.FotoProductoSmall = !string.IsNullOrEmpty(kit.FotoProductoSmall) ? ConfigCdn.GetUrlFileCdnMatriz(paisISO, kit.FotoProductoSmall) : string.Empty;
                         kit.FotoProductoMedium = !string.IsNullOrEmpty(kit.FotoProductoMedium) ? ConfigCdn.GetUrlFileCdnMatriz(paisISO, kit.FotoProductoMedium) : string.Empty;
-                        kit.Detalle = _kitProvider.Digitable == 1 ? GetDetalleKit(kits, kitsProvider.Where(e => e.Nivel == _kitProvider.Nivel).Select(e => e.Cuv).ToList()) ?? new List<BEKitCaminoBrillante>() : null;
+                        kit.Detalle = _kitProvider.Digitable == 1 ? GetDetalleKit(kits, kitsProvider.Where(e => e.Nivel == _kitProvider.Nivel).Select(e => e.Cuv).ToList(), comparator) ?? new List<BEKitCaminoBrillante>() : null;
                     }
                 });
 
@@ -788,9 +789,9 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return kitsEnPedido;
         }
 
-        private List<BEKitCaminoBrillante> GetDetalleKit(List<BEKitCaminoBrillante> kits, List<string> cuvs) {
+        private List<BEKitCaminoBrillante> GetDetalleKit(List<BEKitCaminoBrillante> kits, List<string> cuvs, Comparison<BEKitCaminoBrillante> comparator) {
             if (cuvs == null) return null;
-            return kits.Where(e => cuvs.Contains(e.CUV)).Select(e => new BEKitCaminoBrillante() {
+            var detalle = kits.Where(e => cuvs.Contains(e.CUV)).Select(e => new BEKitCaminoBrillante() {
                 CodigoEstrategia = e.CodigoEstrategia,
                 CodigoKit = e.CodigoKit,
                 CodigoNivel = e.CodigoNivel,
@@ -815,6 +816,20 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 PrecioValorizado = e.PrecioValorizado,
                 TipoEstrategiaID = e.TipoEstrategiaID
             }).ToList();
+            detalle.Sort(comparator);
+            return detalle;
+        }
+
+        private Comparison<BEKitCaminoBrillante> getOrderFunc(int paisId) {
+            var paisISO = Util.GetPaisIsoHanna(paisId);
+            var isPaisEsika = Common.Settings.ServiceSettings.Instance.PaisesEsika.Contains(paisISO);
+            var orden = isPaisEsika ? new int[] { 1, 2, 3 } : new int[] { 2, 1, 3 }; //Buscar en el Config
+            return (a, b) => {                
+                var valA = orden.Contains(a.MarcaID) ? Array.IndexOf(orden, a.MarcaID) : -1;
+                var valB = orden.Contains(b.MarcaID) ? Array.IndexOf(orden, b.MarcaID) : -1;
+                if (valA == valB) return 0;
+                return (valA > valB) ? 1 : -1;
+            };
         }
 
         #endregion
