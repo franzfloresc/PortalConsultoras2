@@ -4030,7 +4030,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             //Agrega los CUV del kit SC
             foreach (var item in lstKitSE)
             {
-                if (lstDetalle.Any(x => x.CUV == item.CUV))
+                if (!lstDetalle.Any(x => x.CUV == item.CUV))
                 {
                     var detalle = new BEPedidoDetalle()
                     {
@@ -4050,7 +4050,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                         EsKitNueva = true
                     };
 
-                    var result = PedidoInsertar(usuario, detalle, lstDetalle, true);
+                    PedidoInsertar(usuario, detalle, lstDetalle, true);
                 }
             }
 
