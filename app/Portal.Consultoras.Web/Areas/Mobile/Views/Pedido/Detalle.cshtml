@@ -23,7 +23,7 @@
 <input type="hidden" id="hdEsConsultoraNueva" value="@Model.EsConsultoraNueva.ToString()" />
 <input type="hidden" id="hdListaEscala" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra.ListaEscalaDescuento)" />
 <input type="hidden" id="hdMontoMinimo" value="@Model.MontoMinimo" />
-
+<input type="hidden" id="hdCodigoConsultora" value="@ViewBag.CodigoConsultora" />
 <div class="contenedor_producto">
     <div class="content_320 ingresoPedidom">
         <input id="hdAccionBotonProl" type="hidden" value="@ViewBag.AccionBoton" />
@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <!-- HD-4288 - SWITCH CONSULTORA 100% DIGITAL -->
-                <div class="d-block contenedor_info_recepcion_pedido">
+                <div class="d-block contenedor_info_recepcion_pedido" style="display:none;">
                     <div class="border-radius-4 text-left">
                         <div class="d-block w-100 switch__control__contenedor">
                             <span class="switch__control__descrip">Quiero que otra persona reciba por mí este pedido</span>

@@ -1210,8 +1210,8 @@ function PedidosPendientesPorAprobar() {
 
 /*HD-4288 - Switch Consultora 100% --- */
 function doWhatYouNeed() {
-    var   object = { codigoConsultora: localStorage.getItem("CodigoConsultora")}
-
+    var object = { codigoConsultora: $("#hdCodigoConsultora").val() }
+    
     $.ajax({
         type: "POST",
         url: URL_VERIFICAR_CONSULTORA_DIGITAL,

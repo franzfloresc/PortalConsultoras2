@@ -3028,7 +3028,6 @@ function CargarProductosRecomendados(item) {
 
 /*HD-4288 - Switch Consultora 100% */
 function doWhatYouNeed() {
-    debugger;
  var   object = { codigoConsultora: $("#hdCodigoConsultora").val() }
 
     $.ajax({
