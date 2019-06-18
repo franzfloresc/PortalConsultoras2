@@ -412,7 +412,7 @@ namespace Portal.Consultoras.Common
 
             public const string ListaEstrategia = "ListadoEstrategiaPedido";
 
-            public const string ProductoTemporal = "ProductoTemporal";
+            //public const string ProductoTemporal = "ProductoTemporal";
             public const string MenuContenedorActivo = "MenuContenedorActivo";
 
             public const string RevistaDigital = "RevistaDigital";
