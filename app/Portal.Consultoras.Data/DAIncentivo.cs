@@ -36,7 +36,7 @@ namespace Portal.Consultoras.Data
             cmd.Parameters.Add("@ArchivoPDF", SqlDbType.VarChar).Value = entidad.ArchivoPDF;
             cmd.Parameters.Add("@Url", SqlDbType.VarChar).Value = entidad.Url;
             cmd.Parameters.Add("@Zona", SqlDbType.VarChar).Value = entidad.Zona;
-            cmd.Parameters.Add("@Seccion", SqlDbType.VarChar).Value = entidad.Seccion;
+            cmd.Parameters.Add("@Segmento", SqlDbType.VarChar).Value = entidad.Segmento;
 
             return Context.ExecuteNonQuery(cmd);
         }
@@ -57,7 +57,7 @@ namespace Portal.Consultoras.Data
             cmd.Parameters.Add("@ArchivoPDF", SqlDbType.VarChar).Value = entidad.ArchivoPDF;
             cmd.Parameters.Add("@Url", SqlDbType.VarChar).Value = entidad.Url;
             cmd.Parameters.Add("@Zona", SqlDbType.VarChar).Value = entidad.Zona;
-            cmd.Parameters.Add("@Seccion", SqlDbType.VarChar).Value = entidad.Seccion;
+            cmd.Parameters.Add("@Segmento", SqlDbType.VarChar).Value = entidad.Segmento;
 
             return Context.ExecuteNonQuery(cmd);
         }

@@ -8,12 +8,12 @@ IF NOT EXISTS (
 	WHERE  
     O.NAME = 'Incentivo'
 	AND C.NAME = 'Zona'
-	AND C.NAME = 'Seccion'
+	AND C.NAME = 'Segmento'
 	)
 BEGIN
 	ALTER TABLE Incentivo
 	ADD Zona varchar(MAX) NULL,
-		Seccion varchar(MAX) NULL
+		Segmento varchar(MAX) NULL
 END
 
 GO

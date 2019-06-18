@@ -153,7 +153,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.Url,
                                    a.ArchivoPDF,
                                    a.Zona,
-                                   a.Seccion
+                                   a.Segmento
                                 }
                            }
                 };

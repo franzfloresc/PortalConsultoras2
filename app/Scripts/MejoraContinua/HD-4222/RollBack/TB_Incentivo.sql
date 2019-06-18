@@ -11,7 +11,7 @@ IF EXISTS (
 BEGIN
 	ALTER TABLE Incentivo
 	DROP COLUMN Zona,
-		COLUMN Seccion
+		COLUMN Segmento
 END
 
 GO

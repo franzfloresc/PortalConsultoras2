@@ -230,12 +230,16 @@
                             }
                         });
 
+                        if (SegmentoInterno == "") {
+                            message += "- No se ha marcado ningún Segmento.\n";
+                        }
+
                         if (SegmentoInterno != "") {
                             SegmentoInterno = SegmentoInterno.substring(0, SegmentoInterno.length - 1);
-                            $("#Seccion").val(SegmentoInterno);
+                            $("#Segmento").val(SegmentoInterno);
                         }
                         else {
-                            $("#Seccion").val("");
+                            $("#Segmento").val("");
                         }
 
                         var zonas = "";
@@ -245,6 +249,11 @@
                             }
                             zonas += this.id + ",";
                         });
+
+                        if (zonas == "") {
+                            message += "- No se ha marcado ninguna zona o región.\n";
+                        }
+
                         if (zonas != "") {
                             zonas = zonas.substring(0, zonas.length - 1);
                             $("#Zona").val(zonas);
@@ -283,7 +292,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['IncentivoID', 'PaisID', 'CampaniaIDInicio', 'CampaniaIDFin', 'ArchivoPortada', 'CampañaInicio', 'CampañaFin', 'Titulo', 'Subtitulo', 'Portada', 'Url', 'ArchivoPDF', 'Opcion', 'UrlOculto', 'ArchivoPDFOculto', 'ZonaOculto', 'SeccionOculto'],
+            colNames: ['IncentivoID', 'PaisID', 'CampaniaIDInicio', 'CampaniaIDFin', 'ArchivoPortada', 'CampañaInicio', 'CampañaFin', 'Titulo', 'Subtitulo', 'Portada', 'Url', 'ArchivoPDF', 'Opcion', 'UrlOculto', 'ArchivoPDFOculto', 'ZonaOculto', 'SegmentoOculto'],
             colModel: [
                 { name: 'IncentivoID', index: 'IncentivoID', width: 0, editable: true, resizable: false, hidden: true },
                 { name: 'PaisID', index: 'PaisID', width: 0, editable: true, resizable: false, hidden: true },
@@ -301,7 +310,7 @@
                 { name: 'UrlOculto', index: 'UrlOculto', width: 30, editable: true, resizable: false, hidden: true },
                 { name: 'ArchivoPDFOculto', index: 'ArchivoPDF', width: 30, editable: true, resizable: false, hidden: true },
                 { name: 'ZonaOculto', index: 'ZonaOculto', width: 30, editable: true, resizable: false, hidden: true },
-                { name: 'SeccionOculto', index: 'SeccionOculto', width: 30, editable: true, resizable: false, hidden: true }
+                { name: 'SegmentoOculto', index: 'SegmentoOculto', width: 30, editable: true, resizable: false, hidden: true }
             ],
             jsonReader:
                 {
@@ -389,7 +398,7 @@
                 $('#ArchivoPortada').val($("#gvwIncentivos").jqGrid('getCell', Id, 'ArchivoPortada'));
                 $('#ArchivoPortadaAnterior').val($("#gvwIncentivos").jqGrid('getCell', Id, 'ArchivoPortada'));
                 $('#Zona').val($("#gvwIncentivos").jqGrid('getCell', Id, 'ZonaOculto'));
-                $('#Seccion').val($("#gvwIncentivos").jqGrid('getCell', Id, 'SeccionOculto'));
+                $('#Segmento').val($("#gvwIncentivos").jqGrid('getCell', Id, 'SegmentoOculto'));
 
                 if ($.trim($("#ArchivoPortada").val()) != "") {
                     $('#imgPreviaLogo').attr('src', $("#ArchivoPortada").val());
@@ -507,7 +516,7 @@
         $('#ArchivoPDF').val("");
         $('#Url').val("");
         $('#Zona').val("");
-        $('#Seccion').val("");
+        $('#Segmento').val("");
 
         var control = $("#flArchivoPDF");
         control.replaceWith(control = control.clone(true));
@@ -535,7 +544,7 @@
                         }
                     }
 
-                    var segmentosVal = $("#Seccion").val();
+                    var segmentosVal = $("#Segmento").val();
                     if (segmentosVal != "") {
                         var segmentosInternos = segmentosVal.split(',');
                         $("#ddlSegmento").find('input[type="checkbox"]').each(function () {
@@ -657,7 +666,7 @@
         @Html.Hidden("IncentivoID")
         @Html.Hidden("PaisID")
         @Html.Hidden("Zona")
-        @Html.Hidden("Seccion")
+        @Html.Hidden("Segmento")
         <div class="div-3">
             <div class="titB">País:</div>
             <div class="selectA borde_redondeado">
@@ -670,8 +679,8 @@
         </div>
         <div class="div-3">
             <div class="titB">Portada:</div>
-            <div class="selectA borde_redondeado aligncenter" style="height: 240px;">
-                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="imgPreviaLogo" style="max-width: 220px; max-height: 220px;" />
+            <div class="selectA borde_redondeado aligncenter" style="height: 200px;">
+                <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="imgPreviaLogo" style="max-width: 220px; max-height: 140px;" />
             </div>
             <div style="float: left; width: 368px;">
                 <div class="div-3">

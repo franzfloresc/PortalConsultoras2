@@ -17110,7 +17110,7 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string PaisNombreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string SeccionField;
+        private string SegmentoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SubtituloField;
@@ -17278,14 +17278,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Seccion {
+        public string Segmento {
             get {
-                return this.SeccionField;
+                return this.SegmentoField;
             }
             set {
-                if ((object.ReferenceEquals(this.SeccionField, value) != true)) {
-                    this.SeccionField = value;
-                    this.RaisePropertyChanged("Seccion");
+                if ((object.ReferenceEquals(this.SegmentoField, value) != true)) {
+                    this.SegmentoField = value;
+                    this.RaisePropertyChanged("Segmento");
                 }
             }
         }
