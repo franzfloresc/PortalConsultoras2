@@ -86,7 +86,7 @@ namespace Portal.Consultoras.Common.OrigenPedidoWeb
             public const string FichaUpselling = "16";
         }
 
-        public const string IncorrectoDispositivo = "99";
+        public const string IncorrectoDispositivo = "0";
         public const string Incorrecto = "99";
 
         /// <summary>

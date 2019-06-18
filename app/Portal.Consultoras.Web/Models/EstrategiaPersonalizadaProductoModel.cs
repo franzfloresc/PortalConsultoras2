@@ -95,6 +95,10 @@ namespace Portal.Consultoras.Web.Models
         /// Calculo del factor cuadre
         /// </summary>
         public int CantidadPack { get; set; }
+
+        // para elastic, devuelve un bool
+        // true = MaterialGanancia == 1
+        public bool MaterialGanancia { get; set; }
         /// <summary>
         /// Tipo Oferta Camino Brillante
         /// </summary>
