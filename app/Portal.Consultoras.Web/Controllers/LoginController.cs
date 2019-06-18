@@ -107,16 +107,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (EstaActivoBuscarIsoPorIp())
                 {
+                    ip = GetIpCliente();
                     iso = Util.GetISObyIPAddress(ip);
 
                     if (string.IsNullOrEmpty(iso))
                     {
                         ip = IP_DEFECTO;
                         iso = ISO_DEFECTO;
-                    }
-                    else
-                    {
-                        ip = GetIpCliente();
                     }
                 }
 
