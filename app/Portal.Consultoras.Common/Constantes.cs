@@ -1136,8 +1136,11 @@ namespace Portal.Consultoras.Common
             public const int CaminoBrillanteDesktopPedido_Ficha = 1181902;
             public const int CaminoBrillanteMobilePedido_Ficha = 2181902;
 
-            public const int CaminoBrillanteDesktopPedido_Carrusel = 1201901;
+            public const int CaminoBrillanteDesktopPedido_Carrusel = 1201901; 
             public const int CaminoBrillanteMobilePedido_Carrusel = 2201901;
+
+            public const int CaminoBrillanteDesktopPedido_Carrusel_Ficha = 1201902;
+            public const int CaminoBrillanteMobilePedido_Carrusel_Ficha = 2201902;
 
             public const int CaminoBrillanteAppMobilePedido_Home = 4181902;
             public const int CaminoBrillanteAppMobilePedido_Ficha = 4201901;

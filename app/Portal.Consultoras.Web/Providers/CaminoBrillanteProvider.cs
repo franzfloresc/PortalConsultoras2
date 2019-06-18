@@ -725,6 +725,9 @@ namespace Portal.Consultoras.Web.Providers
             };
         }
 
+        /// <summary>
+        /// Validar si el Origen de Pedido Web Pertenece a Camino Brillante
+        /// </summary>
         public bool IsOrigenPedidoCaminoBrillante(int origen) {
             return origen == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
                     origen == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
@@ -732,7 +735,9 @@ namespace Portal.Consultoras.Web.Providers
                     origen == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha ||
                     origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Ficha ||
                     origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel ||
-                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home
+                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home ||
+                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel_Ficha ||
+                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel_Ficha
                     ;
 
         }
