@@ -119,8 +119,8 @@ namespace Portal.Consultoras.Web.Providers
                     switch (entConf.ConfiguracionPais.Codigo)
                     {
                         case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
-                            var guiaNegocio = SessionManager.GetGuiaNegocio();
-                            if (!GuiaNegocio.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
+                            var guiaNegocioSession = SessionManager.GetGuiaNegocio();
+                            if (!GuiaNegocio.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocioSession, revistaDigital))
                                 continue;
 
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "GuiaNegocio";
