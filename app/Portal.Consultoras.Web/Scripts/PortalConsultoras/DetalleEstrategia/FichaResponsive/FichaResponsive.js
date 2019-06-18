@@ -69,45 +69,45 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
             estrategia.CodigoProducto,
             estrategia.Precio2,
             estrategia.Hermanos,
-        estrategia.TieneStock,
-        ConstantesModule.TipoVentaIncremental.UpSelling);
-    const carruselPresenterUpselling = new CarruselPresenter();
-    const carruselViewUpselling = new CarruselView(carruselPresenterUpselling);
-    carruselPresenterUpselling.initialize(carruselModelUpselling, carruselViewUpselling);
+            estrategia.TieneStock,
+            ConstantesModule.TipoVentaIncremental.UpSelling);
+        const carruselPresenterUpselling = new CarruselPresenter();
+        const carruselViewUpselling = new CarruselView(carruselPresenterUpselling);
+        carruselPresenterUpselling.initialize(carruselModelUpselling, carruselViewUpselling);
 
-    const carruselModelCross = new CarruselModel(
-        params.palanca,
-        params.campania,
-        params.cuv,
-        "/Estrategia/FichaObtenerProductosIncremental",
-        params.origen,
-        estrategia.OrigenAgregarCarrusel,
-        estrategia.DescripcionCompleta,
-        estrategia.CodigoProducto,
-        estrategia.Precio2,
-        estrategia.Hermanos,
-        estrategia.TieneStock,
-        ConstantesModule.TipoVentaIncremental.CrossSelling);
-    const carruselPresenterCross = new CarruselPresenter();
-    const carruselViewCross = new CarruselView(carruselPresenterCross);
-    carruselPresenterCross.initialize(carruselModelCross, carruselViewCross);
+        const carruselModelCross = new CarruselModel(
+            params.palanca,
+            params.campania,
+            params.cuv,
+            "/Estrategia/FichaObtenerProductosIncremental",
+            params.origen,
+            estrategia.OrigenAgregarCarrusel,
+            estrategia.DescripcionCompleta,
+            estrategia.CodigoProducto,
+            estrategia.Precio2,
+            estrategia.Hermanos,
+            estrategia.TieneStock,
+            ConstantesModule.TipoVentaIncremental.CrossSelling);
+        const carruselPresenterCross = new CarruselPresenter();
+        const carruselViewCross = new CarruselView(carruselPresenterCross);
+        carruselPresenterCross.initialize(carruselModelCross, carruselViewCross);
 
-    const carruselModelSugerido = new CarruselModel(
-        params.palanca,
-        params.campania,
-        params.cuv,
-        "/Estrategia/FichaObtenerProductosIncremental",
-        params.origen,
-        estrategia.OrigenAgregarCarrusel,
-        estrategia.DescripcionCompleta,
-        estrategia.CodigoProducto,
-        estrategia.Precio2,
-        estrategia.Hermanos,
-        estrategia.TieneStock,
-        ConstantesModule.TipoVentaIncremental.Sugerido);
-    const carruselPresenterSugerido = new CarruselPresenter();
-    const carruselViewSugerido = new CarruselView(carruselPresenterSugerido);
-    carruselPresenterSugerido.initialize(carruselModelSugerido, carruselViewSugerido);
+        const carruselModelSugerido = new CarruselModel(
+            params.palanca,
+            params.campania,
+            params.cuv,
+            "/Estrategia/FichaObtenerProductosIncremental",
+            params.origen,
+            estrategia.OrigenAgregarCarrusel,
+            estrategia.DescripcionCompleta,
+            estrategia.CodigoProducto,
+            estrategia.Precio2,
+            estrategia.Hermanos,
+            estrategia.TieneStock,
+            ConstantesModule.TipoVentaIncremental.Sugerido);
+        const carruselPresenterSugerido = new CarruselPresenter();
+        const carruselViewSugerido = new CarruselView(carruselPresenterSugerido);
+        carruselPresenterSugerido.initialize(carruselModelSugerido, carruselViewSugerido);
     }
     catch (error) {
         if (typeof error === "string") {
@@ -118,4 +118,6 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         }
         GeneralModule.redirectTo("ofertas");
     }
+
+    CerrarLoad();
 });
