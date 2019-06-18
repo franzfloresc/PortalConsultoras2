@@ -81,32 +81,32 @@
             if (nivel.EsActual)
             {
                 <div class="cont-benf" id="BeneficiosPrincipal">
-        <h2 class='title tit-benef'><img src="@nivel.UrlImagenNivelFull"> Beneficios de @nivel.DescripcionNivel</h2>
+                    <h2 class='title tit-benef'><img src="@nivel.UrlImagenNivelFull"> Beneficios de @nivel.DescripcionNivel</h2>
                     <div class='box-beneficios' id='BeneficiosPrincipal'>
                         @if (nivel.BeneficiosShow != null)
-                    @foreach (var beneficio in nivel.Beneficios as List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>)
+                        {
                             <div class="boxtog">
                                 <ul>
                                     @foreach (var beneficio in nivel.BeneficiosShow as List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>)
-                    {
-                        <li>
-                            <img src='@beneficio.UrlIcono'>
-                            <div class="txt-benf">
-                                <p class="text-bold">
-                                    @if (string.IsNullOrEmpty(beneficio.Descripcion))
                                     {
-                                        <span>@beneficio.NombreBeneficio</span>
-                                    }
-                                    else
-                                    {
-                                        @beneficio.NombreBeneficio<span>@beneficio.Descripcion</span>
-                                    }
-                                </p>
-                            </div>
-                        </li>
-                    }
-                                </ul>
-                            </div>
+                            <li>
+                                <img src='@beneficio.UrlIcono'>
+                                <div class="txt-benf">
+                                    <p class="text-bold">
+                                        @if (string.IsNullOrEmpty(beneficio.Descripcion))
+                                        {
+                                            <span>@beneficio.NombreBeneficio</span>
+                                        }
+                                        else
+                                        {
+                                            @beneficio.NombreBeneficio<span>@beneficio.Descripcion</span>
+                                        }
+                                    </p>
+                                </div>
+                            </li>
+                                        }
+                                    </ul>
+                                </div>
                         }
                         @if (nivel.BeneficiosHide != null)
                         {
