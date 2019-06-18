@@ -1333,16 +1333,11 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 MarcaID = demostrador.MarcaID,
                 CodigoMarca = demostrador.CodigoMarca,
                 DescripcionMarca = demostrador.DescripcionMarca,
-                //CodigoNivel = e.cod
-                //DescripcionNivel { get; set; }
                 PrecioValorizado = demostrador.PrecioValorizado,
                 PrecioCatalogo = demostrador.PrecioCatalogo,
                 FotoProductoSmall = demostrador.FotoProductoSmall,
                 FotoProductoMedium = demostrador.FotoProductoMedium,
                 FlagSeleccionado = demostrador.FlagSeleccionado,
-                //FlagDigitable = e.flag
-                //FlagHabilitado = e.fla
-                ///FlagHistorico = e.
                 EsCatalogo = demostrador.EsCatalogo,
                 Detalle = loadDetalle ? new List<BEOfertaCaminoBrillante>() { ToBEOfertaCaminoBrillante(demostrador, false) } : null
             };
@@ -1359,7 +1354,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 DescripcionCUV = kit.DescripcionCUV,
                 DescripcionCortaCUV = kit.DescripcionCortaCUV,
                 MarcaID = kit.MarcaID,
-                //CodigoMarca = e.CodigoMarca,
                 DescripcionMarca = kit.DescripcionMarca,
                 CodigoNivel = kit.CodigoNivel,
                 DescripcionNivel = kit.DescripcionNivel,
@@ -1372,7 +1366,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                 FlagDigitable = kit.FlagDigitable,
                 FlagHabilitado = kit.FlagHabilitado,
                 FlagHistorico = kit.FlagHistorico,
-                //EsCatalogo = e.EsCatalogo
                 Detalle = (loadDetale && kit.Detalle != null) ? kit.Detalle.Select(e => ToBEOfertaCaminoBrillante(e, false)).ToList() : new List<BEOfertaCaminoBrillante>()
             };
         }
