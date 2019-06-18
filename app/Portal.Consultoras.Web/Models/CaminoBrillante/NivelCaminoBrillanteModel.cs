@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Models.CaminoBrillante
 {
@@ -36,6 +37,24 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         }
         public int Puntaje { get; set; }
         public int? PuntajeAcumulado { get; set; }
+
+        public List<BeneficioCaminoBrillanteModel> BeneficiosShow
+        {
+            get
+            {
+                if (Beneficios == null) return null;
+                return Beneficios.Take(3).ToList();
+            }
+        }
+
+        public List<BeneficioCaminoBrillanteModel> BeneficiosHide
+        {
+            get
+            {
+                if (Beneficios == null) return null;
+                return Beneficios.Skip(3).ToList();
+            }
+        }
 
         public class BeneficioCaminoBrillanteModel{
 
