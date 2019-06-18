@@ -1210,7 +1210,7 @@ function PedidosPendientesPorAprobar() {
 
 /*HD-4288 - Switch Consultora 100% --- */
 function doWhatYouNeed() {
-    var object = { codigoConsultora: $("#hdCodigoConsultora").val() }
+    var object = { codigoConsultora: userData.codigoConsultora }
     
     $.ajax({
         type: "POST",

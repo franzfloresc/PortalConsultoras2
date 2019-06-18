@@ -350,7 +350,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
             model.MensajeKitNuevas = _programaNuevasProvider.GetMensajeKit();
             ViewBag.CantPedidoPendientes = _pedidoWebProvider.GetPedidoPendientes(userData);
-            ViewBag.CodigoConsultora = userData.CodigoConsultora;
             ViewBag.DataBarra = GetDataBarra(true, true);//OG
             return View(model);
         }

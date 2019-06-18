@@ -340,7 +340,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
-                ViewBag.CodigoConsultora = userData.CodigoConsultora;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 var ofertaFinal = SessionManager.GetOfertaFinalModel();
                 ViewBag.OfertaFinalEstado = ofertaFinal.Estado;
