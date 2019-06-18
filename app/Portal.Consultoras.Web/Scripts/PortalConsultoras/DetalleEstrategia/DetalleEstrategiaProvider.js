@@ -194,6 +194,24 @@ var DetalleEstrategiaProvider = function () {
                 .done(function (data) {
                     estrategia.Hermanos = data.componentes;
                     estrategia.EsMultimarca = data.esMultimarca;
+
+                    $.each(estrategia.Hermanos, function (idx, componente) {
+
+                        //componente.FotosCarrusel = ['https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png'];
+
+                        if (estrategia.Cuv === componente.Cuv) {
+                            estrategia.FotosCarrusel = componente.FotosCarrusel || [];
+                        }
+                    });
+
                 }).fail(function (data, error) {
                     estrategia.Hermanos = [];
                     estrategia.EsMultimarca = false;
