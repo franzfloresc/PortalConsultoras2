@@ -84,27 +84,27 @@
         <h2 class='title tit-benef'><img src="@nivel.UrlImagenNivelFull"> Beneficios de @nivel.DescripcionNivel</h2>
                     <div class='box-beneficios' id='BeneficiosPrincipal'>
                         @if (nivel.BeneficiosShow != null)
-                        {
+                    @foreach (var beneficio in nivel.Beneficios as List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>)
                             <div class="boxtog">
                                 <ul>
                                     @foreach (var beneficio in nivel.BeneficiosShow as List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>)
+                    {
+                        <li>
+                            <img src='@beneficio.UrlIcono'>
+                            <div class="txt-benf">
+                                <p class="text-bold">
+                                    @if (string.IsNullOrEmpty(beneficio.Descripcion))
                                     {
-                                        <li>
-                                            <img src='@beneficio.UrlIcono'>
-                                            <div class="txt-benf">
-                                                <p class="text-bold">
-                                                    @if (string.IsNullOrEmpty(beneficio.Descripcion))
-                                                    {
-                                                        <span>@beneficio.NombreBeneficio</span>
-                                                    }
-                                                    else
-                                                    {
-                                                        @beneficio.NombreBeneficio<span>@beneficio.Descripcion</span>
-                                                    }
-                                                </p>
-                                            </div>
-                                        </li>
+                                        <span>@beneficio.NombreBeneficio</span>
                                     }
+                                    else
+                                    {
+                                        @beneficio.NombreBeneficio<span>@beneficio.Descripcion</span>
+                                    }
+                                </p>
+                            </div>
+                        </li>
+                    }
                                 </ul>
                             </div>
                         }
@@ -207,10 +207,9 @@
             }
         }
 
-
-
-
-        @if (@ViewBag.TieneOfertasEspeciales)
+    @if (ViewBag.TieneOfertasEspeciales)
+    {
+        if (ViewBag.TieneCarrusel == "1")
         {
             <div class="ficha" data-item="CarruselFichasProductos"></div>
             <div class="camino_brillante">
@@ -220,13 +219,13 @@
                 @Html.Partial("Partial/template_demostrador")
                 <script id="template-carrusel" type="text/x-handlebars-template">
                     <div class="box-kit-demos">
-
+    
                         <h2 class="title fleft">Kits y demostradores</h2>
                         {{#if VerMas}}
                         <a href="@Url.Action("Ofertas", "CaminoBrillante")" class="ver-todos">Ver todos</a>
                         {{/if}}
                         <div class="clear"></div>
-
+    
                         <section class="regular slider">
                             {{#each Items}}
                             <div class="revistadigital-landing">
@@ -243,6 +242,11 @@
                 </script>
             </div>
         }
+        else
+        {
+            <a id="OfertasEspeciales" href="@Url.Action("Ofertas", "CaminoBrillante")" class="btn-principal">Ver ofertas</a>
+        }    
+    }
 
         @if (ViewBag.ResumenLogros != null)
         {
@@ -289,6 +293,8 @@
             </div>
         }
 
+    @if (ViewBag.TieneGanancias == "1")
+    {
         <div id="boxganancias">
             <h2 class="title">Mis ganancias</h2>
             <div class="box-right-ganancias">
@@ -311,8 +317,7 @@
             </div>
             <div class="clear"></div>
         </div>
-
-
+    }
 
         @*<script src="~/Scripts/jquery-1.11.2.js"></script>*@
         <script src="~/Scripts/Chart.min.js"></script>
