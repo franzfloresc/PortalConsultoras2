@@ -341,7 +341,7 @@ var AnalyticsPortalModule = (function () {
         });
 
         if (obj == undefined && origenEstructura.CodigoPalanca != "") {
-            var obj = _origenPedidoWebEstructura.Palanca.find(function (element) {
+            obj = _origenPedidoWebEstructura.Palanca.find(function (element) {
                 return element.CodigoPalanca == origenEstructura.CodigoPalanca;
             });
         }
@@ -1304,7 +1304,7 @@ var AnalyticsPortalModule = (function () {
             "label": modelo.label
         };
 
-        console.log(_evento.virtualEvent, objMarcar);
+        // console.log(_evento.virtualEvent, objMarcar);
         dataLayer.push(objMarcar);
 
         return true;

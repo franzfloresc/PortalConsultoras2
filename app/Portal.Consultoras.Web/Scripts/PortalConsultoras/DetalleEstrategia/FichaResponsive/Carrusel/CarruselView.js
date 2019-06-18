@@ -3,10 +3,11 @@ class CarruselView {
     constructor(presenter) {
         this.presenter = presenter;
 
-        this.divCarruselProducto = "#divFichaCarruselProducto";
-        this.idPlantillaProducto = "#template-producto-carrusel-responsive";
         this.divCarruselContenedor = "#divFichaCarrusel";
-        this.idTituloCarrusel = "#tituloCarrusel";
+        this.divCarruselProducto = ".carrusel_seccion";
+        this.idPlantillaProducto = "#template-producto-carrusel-responsive";
+        this.idTituloCarrusel = ".titulo_seccion";
+
         this.dataLazy = "img[data-lazy-seccion-revista-digital]";
         this.dataOrigenPedidoWeb = {
             busca: "[data-OrigenPedidoWeb]",
@@ -16,19 +17,18 @@ class CarruselView {
         }
     }
 
-    ocultarElementos() {
-        $(this.divCarruselProducto).fadeOut();
-        $(this.divCarruselContenedor).hide();
+    fijarObjetosCarrusel(tipo) {
+        this.divCarruselContenedor = this.divCarruselContenedor + "_" + tipo;
+        this.divCarruselProducto = this.divCarruselContenedor + " " + this.divCarruselProducto;
+        this.idTituloCarrusel = this.divCarruselContenedor + " " + this.idTituloCarrusel;
     }
-
-    crearPlantilla(data, titulo, cantidadProdCarrusel) {
+    crearPlantilla(data, titulo) {
         SetHandlebars(this.idPlantillaProducto, data, this.divCarruselProducto);
-        this.mostrarSlicks(cantidadProdCarrusel);
+        this.mostrarSlicks();
         $(this.idTituloCarrusel).html(titulo);
         $(this.divCarruselContenedor).show();
         this.marcarAnalytics(1, data);
     }
-
     
     setValueAttrHtml(attrObj, value) {
         $(this.divCarruselProducto).attr(attrObj, value);
@@ -39,7 +39,7 @@ class CarruselView {
         this.setValueAttrHtml(this.dataOrigenPedidoWeb.atributoAgregar, OrigenAgregar);
     }
 
-    mostrarSlicks(cantidadProdCarrusel) {
+    mostrarSlicks() {
         const platform = !isMobile() ? "desktop" : "mobile";
         const slickArrows = {
             mobile: {

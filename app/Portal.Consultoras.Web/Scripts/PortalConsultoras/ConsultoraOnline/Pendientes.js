@@ -122,8 +122,9 @@ function AceptarPedidoPendiente() {
                             }
                             if (listProductos.length > 0) {
                                 listProductos.forEach(function (product) {
+                                    var itemProduct = {};
                                     if ($(btn).parent().data('accion') == "ingrgana") {  //por Gana+
-                                        var itemProduct = {
+                                        itemProduct = {
                                             "id": product.CUV2,
                                             "name": product.DescripcionCUV2,
                                             "price": product.PrecioString,
@@ -132,9 +133,8 @@ function AceptarPedidoPendiente() {
                                             "variant": "Estándar",
                                             "quantity": product.Cantidad
                                         };
-                                        lstproduct.push(itemProduct);
                                     } else {        //Por Catálogo
-                                        var itemProduct = {
+                                        itemProduct = {
                                             "id": product.CUV,
                                             "name": product.Producto,
                                             "price": product.PrecioTotal.toFixed(2),
@@ -143,8 +143,9 @@ function AceptarPedidoPendiente() {
                                             "variant": "Estándar",
                                             "quantity": product.Cantidad
                                         };
-                                        lstproduct.push(itemProduct);
                                     }
+
+                                    lstproduct.push(itemProduct);
 
                                 });
 
@@ -706,13 +707,13 @@ function isTabOptionSelected() {
         //Verifica que este seleccinado el tab Cliente o Producto
         var isClienteOrProducto = $("#Paso1-Productos").css("Display") == "block" ? true : $("#Paso1-Clientes").css("Display") === "block" ? true : false;
         if (isClienteOrProducto) {
-            var SelectorOpen = $("#vpcp").find(".active").attr('href');
-            return SelectorOpen.indexOf("cliente") > 0 ? 1 : 2;
+            var selectorOpen = $("#vpcp").find(".active").attr('href') || "";
+            return selectorOpen.indexOf("cliente") > 0 ? 1 : 2;
         }
         var isClienteOrProductoPaso2 = $("#contenedor-paso-2").css("Display") == "block" ? true : false;
         if (isClienteOrProductoPaso2) {
-            var SelectorOpen = $("#vpcp").find(".active").attr('href');
-            return SelectorOpen.indexOf("cliente") > 0 ? 3 : 4;
+            var selectorOpen2 = $("#vpcp").find(".active").attr('href') || "";
+            return selectorOpen2.indexOf("cliente") > 0 ? 3 : 4;
         }
     }
     return 0;

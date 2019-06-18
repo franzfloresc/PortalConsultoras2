@@ -40,7 +40,7 @@ var EstrategiaAgregarModule = (function () {
         dataItemTagAgregar: "[data-item-tag=\"agregar\"]",
         dataItemTagFondo: "[data-item-tag=\"fotofondo\"]",
         dataItemTagVerDetalle: "[data-item-tag=\"verdetalle\"]",
-        dataItemAccionVerDetalle: "[data-item-accion=\"verdetalle\"]",
+        //dataItemAccionVerDetalle: "[data-item-accion=\"verdetalle\"]",
         dataItemTagContenido: "[data-item-tag=\"contenido\"]",
         dataTono: "[data-tono]",
         dataTonoSelect: "[data-tono-select]",
@@ -203,7 +203,7 @@ var EstrategiaAgregarModule = (function () {
                 dataItemHtml.find(dataProperties.dataItemTagAgregar).remove();
                 dataItemHtml.find(dataProperties.dataItemTagFondo).remove();
                 dataItemHtml.find(dataProperties.dataItemTagVerDetalle).remove();
-                dataItemHtml.find(dataProperties.dataItemAccionVerDetalle).remove();
+                //dataItemHtml.find(dataProperties.dataItemAccionVerDetalle).remove();
                 dataItemHtml.find(dataProperties.dataItemTagContenido).removeAttr("onclick");
                 dataItemHtml.find(dataProperties.dataItemTagContenido).css("position", "initial");
                 dataItemHtml.find(dataProperties.dataItemTagContenido).attr("class", "");
@@ -247,11 +247,11 @@ var EstrategiaAgregarModule = (function () {
         var clientId = 0;
 
         var $divFichaReumida = $('#DivPopupFichaResumida');
-        if (typeof $divFichaReumida !== "undefined" || $divFichaReumida !== null) {
+        
             if ($divFichaReumida.find("#hfClienteId").length > 0) {
                 clientId = $($divFichaReumida.find("#hfClienteId")[0]).val();
             }
-        }
+        
 
         return clientId;
     };

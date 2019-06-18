@@ -310,7 +310,6 @@ function ProcesarAceptarPedido(pedido) {
     });
 }
 
-var ClienteDetalleOK = null;
 function showClienteDetalle(pcliente, pClienteDetalleOK) {
     var url = urlClienteDetalle;
 

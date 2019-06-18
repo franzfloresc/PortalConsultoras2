@@ -1,15 +1,16 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.DetalleEstrategia;
+using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -103,42 +104,42 @@ namespace Portal.Consultoras.Web.Controllers
             return model;
         }
 
-        public ActionResult RDDetalleModel(string cuv, int campaniaId)
-        {
-            var modelo = SessionManager.GetProductoTemporal();
-            if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
-            {
-                return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-            }
+        //public ActionResult RDDetalleModel(string cuv, int campaniaId)
+        //{
+        //    var modelo = SessionManager.GetProductoTemporal();
+        //    if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
+        //    {
+        //        return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
+        //    }
 
-            if (!revistaDigital.TieneRevistaDigital())
-            {
-                return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-            }
+        //    if (!revistaDigital.TieneRevistaDigital())
+        //    {
+        //        return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
+        //    }
 
-            if (_ofertaPersonalizadaProvider.EsCampaniaFalsa(modelo.CampaniaID))
-            {
-                return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-            }
-            if (modelo.EstrategiaID <= 0)
-            {
-                return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-            }
+        //    if (_ofertaPersonalizadaProvider.EsCampaniaFalsa(modelo.CampaniaID))
+        //    {
+        //        return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
+        //    }
+        //    if (modelo.EstrategiaID <= 0)
+        //    {
+        //        return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
+        //    }
 
-            modelo.TipoEstrategiaDetalle = modelo.TipoEstrategiaDetalle ?? new EstrategiaDetalleModelo();
-            modelo.ListaDescripcionDetalle = modelo.ListaDescripcionDetalle ?? new List<string>();
+        //    modelo.TipoEstrategiaDetalle = modelo.TipoEstrategiaDetalle ?? new EstrategiaDetalleModelo();
+        //    modelo.ListaDescripcionDetalle = modelo.ListaDescripcionDetalle ?? new List<string>();
 
-            ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
+        //    ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
 
-            var dato = _ofertasViewProvider.ObtenerPerdioTitulo(modelo.CampaniaID, IsMobile());
-            ViewBag.TieneProductosPerdio = dato.Estado;
-            ViewBag.PerdioTitulo = dato.Valor1;
-            ViewBag.PerdioSubTitulo = dato.Valor2;
+        //    var dato = _ofertasViewProvider.ObtenerPerdioTitulo(modelo.CampaniaID, IsMobile());
+        //    ViewBag.TieneProductosPerdio = dato.Estado;
+        //    ViewBag.PerdioTitulo = dato.Valor1;
+        //    ViewBag.PerdioSubTitulo = dato.Valor2;
 
-            ViewBag.Campania = campaniaId;
-            return View(modelo);
+        //    ViewBag.Campania = campaniaId;
+        //    return View(modelo);
 
-        }
+        //}
 
         #endregion
 
@@ -335,6 +336,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 : (Url.Action("Index", new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.MasGanadoras);
 
                             break;
+                        case Constantes.NombreEstrategiaBuscador.Catalogo:
+                            breadCrumbs.Ofertas.Texto = string.Empty;
+                            breadCrumbs.Ofertas.Url = "#";
+                            breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "BusquedaProductos" });
+                            break;
                     }
                 }
 
@@ -361,7 +367,8 @@ namespace Portal.Consultoras.Web.Controllers
                 { Constantes.NombrePalanca.GuiaDeNegocioDigitalizada, "Guía De Negocio" },
                 { Constantes.NombrePalanca.HerramientasVenta, "Demostradores" },
                 { Constantes.NombrePalanca.MasGanadoras, "Las más ganadoras" },
-                { Constantes.NombrePalanca.PackNuevas, _programaNuevasProvider.TieneDuoPerfecto() ? "Dúo Perfecto" : "Programa Nuevas" }
+                { Constantes.NombrePalanca.PackNuevas, _programaNuevasProvider.TieneDuoPerfecto() ? "Dúo Perfecto" : "Programa Nuevas" },
+                { Constantes.NombreEstrategiaBuscador.Catalogo, "Catálogos" },
             };
 
             return nombresPalancas.ContainsKey(palanca) ? nombresPalancas[palanca] : string.Empty;
@@ -417,7 +424,7 @@ namespace Portal.Consultoras.Web.Controllers
         public DetalleEstrategiaFichaModel FichaModelo(string palanca, int campaniaId, string cuv, string origen, bool esEditar = false)
         {
             if (_ofertaPersonalizadaProvider == null)
-                throw new NullReferenceException("_ofertaPersonalizadaProvider can not be null");
+                throw new ClientInformationException("_ofertaPersonalizadaProvider can not be null");
 
             if (!_ofertaPersonalizadaProvider.EnviaronParametrosValidos(palanca, campaniaId, cuv))
             {
@@ -430,8 +437,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return null;
 
             var esMobile = Util.EsDispositivoMovil();
-            DetalleEstrategiaFichaModel modelo = GetEstrategiaInicial(palanca, campaniaId, cuv);
 
+            DetalleEstrategiaFichaModel modelo = GetEstrategiaInicial(palanca, campaniaId, cuv);
             if (modelo == null)
             {
                 modelo = new DetalleEstrategiaFichaModel
@@ -535,9 +542,21 @@ namespace Portal.Consultoras.Web.Controllers
 
         private DetalleEstrategiaFichaModel GetEstrategiaInicial(string palanca, int campaniaId, string cuv)
         {
-            string codigoPalanca;
+            string codigoPalanca = string.Empty;
             bool esFichaApi = false;
-            bool tieneCodigoPalanca = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
+            bool tieneCodigoPalanca = false;
+
+            if(palanca != Constantes.NombreEstrategiaBuscador.Catalogo)
+            {
+                tieneCodigoPalanca = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
+            }
+
+            if(palanca == Constantes.NombreEstrategiaBuscador.Catalogo)
+            {
+                tieneCodigoPalanca = true;
+                codigoPalanca = Constantes.CodigoEstrategiaBuscador.Catalogo;
+            }
+
             if (tieneCodigoPalanca) esFichaApi = new OfertaBaseProvider().UsaFichaMsPersonalizacion(codigoPalanca);
 
             var modelo = new DetalleEstrategiaFichaModel();

@@ -71,7 +71,7 @@ var DetalleEstrategiaProvider = function () {
 
     var _promiseObternerModelo = function (params) {
         var dfd = $.Deferred();
-        
+
         try {
 
             $.ajax({
@@ -127,7 +127,7 @@ var DetalleEstrategiaProvider = function () {
         var sigueTexto = '_getEstrategia';
         console.log(sigueTexto);
         var estrategia = {};
-        
+
         _promiseObternerModelo({
             palanca: params.palanca,
             campaniaId: params.campania,
@@ -139,7 +139,11 @@ var DetalleEstrategiaProvider = function () {
             estrategia.Error = data.success === false;
         }).fail(function (data, error) {
             throw "DetalleEstrategiaProvider._getEstrategia";
-            });
+        });
+
+        if (estrategia.Error !== false) {
+            return estrategia;
+        }
 
         sigueTexto += '_promiseObternerModelo';
         console.log(sigueTexto);
@@ -168,7 +172,11 @@ var DetalleEstrategiaProvider = function () {
             estrategia = $.extend(estrategia, estrategiaTmp);
         }
 
-        if (!estrategia || !estrategia.EstrategiaID) throw 'no obtiene oferta desde api';
+        if (!estrategia || (_objTipoPalanca.codigo != ConstantesModule.TipoPersonalizacion.Catalogo && !estrategia.EstrategiaID)) throw 'no obtiene oferta desde api';
+
+        if (_objTipoPalanca.codigo == ConstantesModule.TipoPersonalizacion.Catalogo) {
+            estrategia.BreadCrumbs.Palanca.Url += "?q=" + localStorage.getItem('valorBuscador');
+        }
 
         if (typeof estrategia.CodigoVariante != "undefined" &&
             estrategia.CodigoVariante != null &&
@@ -186,6 +194,24 @@ var DetalleEstrategiaProvider = function () {
                 .done(function (data) {
                     estrategia.Hermanos = data.componentes;
                     estrategia.EsMultimarca = data.esMultimarca;
+
+                    $.each(estrategia.Hermanos, function (idx, componente) {
+
+                        //componente.FotosCarrusel = ['https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png'];
+
+                        if (estrategia.Cuv === componente.Cuv) {
+                            estrategia.FotosCarrusel = componente.FotosCarrusel || [];
+                        }
+                    });
+
                 }).fail(function (data, error) {
                     estrategia.Hermanos = [];
                     estrategia.EsMultimarca = false;
