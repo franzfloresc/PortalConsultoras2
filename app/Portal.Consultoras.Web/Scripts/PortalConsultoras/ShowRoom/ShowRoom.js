@@ -9,6 +9,7 @@ var showRoomOrigenInsertar = showRoomOrigenInsertar || 0;
 
 $(document).ready(function () {
     var array_impresions_tactica_desktop = [];
+    var divs = null;
     if (tipoOrigenPantalla == 11) {
         $(".verDetalleCompraPorCompra").click(function () {
             var padre = $(this).parents("[data-item]")[0];
@@ -69,34 +70,8 @@ $(document).ready(function () {
         });
 
         //marca google analytics*******************************
-        var divs = $(".content_ficha_compra").find("[data-campos]");
+        divs = $(".content_ficha_compra").find("[data-campos]");
 
-        $(divs).each(function (index, value) {
-            var existe = false;
-            var id = $(value).find(".valorCuv").val();
-            $(array_impresions_tactica_desktop).each(function (ind, val) {
-                if (val.id == id)
-                    existe = true;
-            });
-
-            if (!existe) {
-                array_impresions_tactica_desktop.push({
-                    name: $(value).find(".DescripcionProd").val(),
-                    id: id,
-                    price: $(value).find(".clasePrecioUnidad").val(),
-                    category: 'NO DISPONIBLE',
-                    brand: $(value).find(".DescripcionMarca").val(),
-                    position: $(value).find(".posicionEstrategia").val(),
-                    list: 'Ofertas Showroom'
-                });
-            }
-        });
-        dataLayer.push({
-            'event': 'productImpression',
-            'ecommerce': {
-                'impressions': array_impresions_tactica_desktop
-            }
-        });
     }
     else if (tipoOrigenPantalla == 21) { // Mobile Oferta Detalle
         $(".verDetalleCompraPorCompra").click(function () {
@@ -184,7 +159,11 @@ $(document).ready(function () {
             EstablecerLazyCarruselAfterChange('.content_compra_carrusel');
         });
 
-        var divs = $(".content_pop_compra").find("[data-campos]");
+        divs = $(".content_pop_compra").find("[data-campos]");
+
+    }
+
+    if (divs) {
 
         $(divs).each(function (index, value) {
             var existe = false;
@@ -213,7 +192,6 @@ $(document).ready(function () {
                 'impressions': array_impresions_tactica_desktop
             }
         });
-
     }
 
     $("#btn_descubre_mobile").on("click", function () {

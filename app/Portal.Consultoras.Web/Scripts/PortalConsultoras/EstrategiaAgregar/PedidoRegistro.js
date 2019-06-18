@@ -1184,8 +1184,7 @@ var PedidoRegistroModule = function () {
                 $("#divResumenPedido").show();
                 $("footer").show();
                 $(".footer-page").css({ "margin-bottom": "0px" });
-
-                var cuv = $("#hdfCUV").val();
+                
                 CargarCarouselEstrategias();
 
                 PedidoOnSuccess();
@@ -1597,11 +1596,7 @@ function UpdateTransaction(CantidadActual, CampaniaID, PedidoID, PedidoDetalleID
     if (CliDes.length == 0) { CliID = 0; }
 
     var StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
-
-    var Unidad = $(rowElement).find(".hdfLPPrecioU").val();
-    //var Total = DecimalToStringFormat(parseFloat(Cantidad * Unidad));
-    //$(rowElement).find(".lblLPImpTotal").html(Total);
-    //$(rowElement).find(".lblLPImpTotalMinimo").html(Total);
+    
     var _mensajeModificarPedido = ConstantesModule.MensajeModificarPedido;
 
     var item = {
@@ -1753,7 +1748,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
     var txtLPCant = $(rowElement).find(".txtLPCant");
     var txtLPTempCant = $(rowElement).find(".txtLPTempCant");
     AbrirSplash();
-    var CantidadAnti, PROL, CliID, CliDes, Cantidad, DesProd, Flag, StockNuevo, PrecioUnidad;
+    var CantidadAnti;
     if (HorarioRestringido()) {
         CantidadAnti = $(txtLPTempCant).val();
         $(txtLPCant).val(CantidadAnti);
@@ -1788,7 +1783,7 @@ function UpdateLiquidacion(event, CampaniaID, PedidoID, PedidoDetalleID, TipoOfe
     }
 
     var CantidadSoli = (cant - cantAnti);
-    PrecioUnidad = $(rowElement).find(".hdfLPPrecioU").val();
+    var PrecioUnidad = $(rowElement).find(".hdfLPPrecioU").val();
     var param = ({
         CUV: CUV,
         PrecioUnidad: PrecioUnidad,
