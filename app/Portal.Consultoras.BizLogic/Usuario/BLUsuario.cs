@@ -3108,10 +3108,10 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 /*Verificando si tiene Verificacion*/
-                var oUsu = GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario);
+                BEUsuarioDatos oUsu = GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario);
                 if (oUsu.Cantidad == 0) return null;
                 /*Obteniendo Datos de Verificacion de Autenticidad*/
-                var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
+                BEOpcionesVerificacion opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
                 if (opcion == null) return null;
                 /*validando si tiene Zona*/
                 if (opcion.TieneZonas)
@@ -3131,14 +3131,35 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion;
-                var smsCorreoValidado = false;
+
 
 
                 BEUsuario beusuario = Select(paisID, CodigoUsuario);
 
-                var flgCheckSMS =   (beusuario != null)? beusuario.FlgCheckSMS : true;
-                var FlgCheckEmail = (beusuario != null) ? beusuario.FlgCheckEMAIL : true;
+                return GetVerificacionAutenticidadSMSEmail(beusuario, opcion, oUsu, paisID, CodigoUsuario);
 
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, CodigoUsuario, Common.Util.GetPaisISO(paisID));
+                return null;
+            }
+        }
+
+
+        private BEUsuarioDatos GetVerificacionAutenticidadSMSEmail(BEUsuario beusuario, BEOpcionesVerificacion opcion, BEUsuarioDatos oUsu, int paisID, string CodigoUsuario)
+        {
+            try
+            {
+                var smsCorreoValidado = false;
+                var flgCheckSMS = true;
+                var FlgCheckEmail = true;
+
+                if (beusuario != null)
+                {
+                    flgCheckSMS = beusuario.FlgCheckSMS;
+                    FlgCheckEmail = beusuario.FlgCheckEMAIL;
+                }
 
                 if (opcion.OpcionEmail)
                 {
@@ -3173,11 +3194,12 @@ namespace Portal.Consultoras.BizLogic
                 GetOpcionHabilitar(paisID, Constantes.VerificacionAutenticidad.Origen, ref oUsu);
                 return oUsu;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                LogManager.SaveLog(ex, CodigoUsuario, Common.Util.GetPaisISO(paisID));
+
                 return null;
             }
+
         }
 
         private BEUsuarioDatos GetVerificacionAutenticidadWS(int paisID, string CodigoUsuario)
