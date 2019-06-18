@@ -26,6 +26,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         protected CarruselUpSellingProvider _carruselUpSellingProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
         protected VentaIncrementalProvider _ventaIncrementalProvider;
+        protected ConsultaProlProvider _consultaProlProvider;
 
         public EstrategiaController()
         {
@@ -34,6 +35,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             _configuracionOfertasHomeProvider = new ConfiguracionOfertasHomeProvider();
             _carruselUpSellingProvider = new CarruselUpSellingProvider();
             _ventaIncrementalProvider = new VentaIncrementalProvider();
+            _consultaProlProvider = new ConsultaProlProvider();
         }
 
         public EstrategiaController(ISessionManager sesionManager, ILogManager logManager, TablaLogicaProvider tablaLogicaProvider)
@@ -832,24 +834,24 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         {
             try
             {
-                if (cuv.IsNullOrEmptyTrim()) return Json(new { success = false });
+                if (cuv.IsNullOrEmptyTrim() || !_ventaIncrementalProvider.ValidarActivacion(userData.PaisID, tipo))
+                    return Json(new { success = false });
 
-                if(!_ventaIncrementalProvider.validarActivacion(tipo)) return Json(new { success = false });
+                var listaProductos = await _ventaIncrementalProvider.ObtenerProductosIncremental(cuv, tipo);
+                if (!listaProductos.Any())
+                    return Json(new { success = false });
 
-                var dataProductosCarruselUpSelling = await _ventaIncrementalProvider.ObtenerProductosIncremental(cuv, tipo);
+                listaProductos = ValidacionResultadosProductos(listaProductos).ToList();
+                listaProductos = _consultaProlProvider.ActualizarEstrategiaStockPROL(listaProductos,
+                    userData.CodigoISO,
+                    userData.CampaniaID, 
+                    userData.CodigoConsultora,
+                    _consultaProlProvider.GetValidarDiasAntesStock(userData));
 
-                if (!dataProductosCarruselUpSelling.success) return Json(new { success = false });
-
-                List<EstrategiaPersonalizadaProductoModel> listaProductos;
-                if (tipo.Equals(Constantes.TipoVentaIncremental.CrossSelling)) listaProductos = (List<EstrategiaPersonalizadaProductoModel>) (dataProductosCarruselUpSelling.result.crosssell ?? new List<EstrategiaPersonalizadaProductoModel>());
-                else listaProductos = (List<EstrategiaPersonalizadaProductoModel>)(dataProductosCarruselUpSelling.result.suggested ?? new List<EstrategiaPersonalizadaProductoModel>());
-
-                var listaProductosValidados = ValidacionResultadosProductos(listaProductos).ToList();
-                var listaOfertasModel = _ofertaPersonalizadaProvider.RevisarCamposParaMostrar(listaProductosValidados, true);
                 return Json(new
                 {
                     success = true,
-                    result = listaOfertasModel
+                    result = listaProductos
                 });
             }
             catch (Exception ex)
@@ -874,8 +876,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 item.CampaniaID = userData.CampaniaID;
                 item.PrecioVenta = Util.DecimalToStringFormat(item.Precio2.ToDecimal(), userData.CodigoISO);
                 item.PrecioTachado = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO);
-                item.ClaseBloqueada = "";
-                item.ClaseEstrategia = "revistadigital-landing";
                 item.TipoAccionAgregar = _ofertaPersonalizadaProvider.TipoAccionAgregar(
                     item.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable ? 1 : 0,
                     item.CodigoEstrategia,

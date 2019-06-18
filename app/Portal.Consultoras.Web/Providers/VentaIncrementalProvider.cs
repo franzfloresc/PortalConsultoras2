@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.ElasticSearch;
+using Portal.Consultoras.Web.Models.Search.ResponseOferta;
 using Portal.Consultoras.Web.SessionManager;
 
 namespace Portal.Consultoras.Web.Providers
@@ -23,30 +25,39 @@ namespace Portal.Consultoras.Web.Providers
             _tablaLogicaProvider = new TablaLogicaProvider();
         }
 
-        public bool validarActivacion(string tipo)
+        public bool ValidarActivacion(int paisId, string tipo)
         {
-            //Todo: validacion de carruseles
-            return true;
+            var codeFuncionalidad = "";
+            if (tipo.Equals(Constantes.TipoVentaIncremental.CrossSelling))
+                codeFuncionalidad = ConsTablaLogica.ConfiguracionesFicha.FuncionalidadCrossSelling;
+            else if (tipo.Equals(Constantes.TipoVentaIncremental.Sugerido))
+                codeFuncionalidad = ConsTablaLogica.ConfiguracionesFicha.FuncionalidadSugerido;
+
+            var valor = _tablaLogicaProvider.GetTablaLogicaDatoValorInt(paisId,
+                ConsTablaLogica.ConfiguracionesFicha.TablaLogicaId,
+                codeFuncionalidad, true);
+
+            return valor != 0;
         }
 
-        public virtual async Task<OutputProductosIncremental> ObtenerProductosIncremental(string cuv, string tipo)
+        public virtual async Task<List<EstrategiaPersonalizadaProductoModel>> ObtenerProductosIncremental(string cuv, string tipo)
         {
-            try
-            {
-                var userData = _sessionManager.GetUserData();
-                var path = string.Format(Constantes.PersonalizacionOfertasService.UrlVentaIncremental,
-                    userData.CodigoISO,
-                    userData.CampaniaID,
-                    ObtenerOrigen()
-                );
-                var jsonData = GenerarJsonParaConsulta(userData.CodigoConsultora, cuv, tipo);
+            var userData = _sessionManager.GetUserData();
+            var path = string.Format(Constantes.PersonalizacionOfertasService.UrlVentaIncremental,
+                userData.CodigoISO,
+                userData.CampaniaID,
+                ObtenerOrigen()
+            );
+            var jsonData = GenerarJsonParaConsulta(userData.CodigoConsultora, cuv, tipo);
+            OutputOfertaIncremental response = await PostAsyncMicroservicioSearch<OutputOfertaIncremental>(path, jsonData);
 
-                return await PostAsyncMicroservicioSearch<OutputProductosIncremental>(path, jsonData);
-            }
-            catch (Exception)
-            {
-                return new OutputProductosIncremental();
-            }
+            if (!response.success) return new List<EstrategiaPersonalizadaProductoModel>();
+
+            if (tipo.Equals(Constantes.TipoVentaIncremental.CrossSelling))
+                return (List<EstrategiaPersonalizadaProductoModel>) (response.result.crosssell ?? new List<EstrategiaPersonalizadaProductoModel>());
+            if (tipo.Equals(Constantes.TipoVentaIncremental.Sugerido))
+                return (List<EstrategiaPersonalizadaProductoModel>)(response.result.suggested ?? new List<EstrategiaPersonalizadaProductoModel>());
+            return new List<EstrategiaPersonalizadaProductoModel>();
         }
 
         private dynamic GenerarJsonParaConsulta(string codigoConsultora, string cuv, string tipo)
