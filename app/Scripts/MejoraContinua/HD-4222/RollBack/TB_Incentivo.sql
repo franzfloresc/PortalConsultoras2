@@ -1,11 +1,12 @@
-USE [BelcorpPeru_MC]
+GO
+USE BelcorpPeru
 GO
 IF EXISTS (
-	SELECT * 
+	SELECT *
 	FROM SYS.COLUMNS C
 	JOIN SYS.OBJECTS  O
 	ON C.[OBJECT_ID] = O.[OBJECT_ID]
-	WHERE  
+	WHERE
 	O.NAME = 'Incentivo'
 	)
 BEGIN
@@ -15,4 +16,190 @@ BEGIN
 END
 
 GO
+USE BelcorpMexico
+GO
+IF EXISTS (
+	SELECT *
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE
+	O.NAME = 'Incentivo'
+	)
+BEGIN
+	ALTER TABLE Incentivo
+	DROP COLUMN Zona,
+		COLUMN Segmento
+END
 
+GO
+USE BelcorpColombia
+GO
+IF EXISTS (
+	SELECT *
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE
+	O.NAME = 'Incentivo'
+	)
+BEGIN
+	ALTER TABLE Incentivo
+	DROP COLUMN Zona,
+		COLUMN Segmento
+END
+
+GO
+USE BelcorpSalvador
+GO
+IF EXISTS (
+	SELECT *
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE
+	O.NAME = 'Incentivo'
+	)
+BEGIN
+	ALTER TABLE Incentivo
+	DROP COLUMN Zona,
+		COLUMN Segmento
+END
+
+GO
+USE BelcorpPuertoRico
+GO
+IF EXISTS (
+	SELECT *
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE
+	O.NAME = 'Incentivo'
+	)
+BEGIN
+	ALTER TABLE Incentivo
+	DROP COLUMN Zona,
+		COLUMN Segmento
+END
+
+GO
+USE BelcorpPanama
+GO
+IF EXISTS (
+	SELECT *
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE
+	O.NAME = 'Incentivo'
+	)
+BEGIN
+	ALTER TABLE Incentivo
+	DROP COLUMN Zona,
+		COLUMN Segmento
+END
+
+GO
+USE BelcorpGuatemala
+GO
+IF EXISTS (
+	SELECT *
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE
+	O.NAME = 'Incentivo'
+	)
+BEGIN
+	ALTER TABLE Incentivo
+	DROP COLUMN Zona,
+		COLUMN Segmento
+END
+
+GO
+USE BelcorpEcuador
+GO
+IF EXISTS (
+	SELECT *
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE
+	O.NAME = 'Incentivo'
+	)
+BEGIN
+	ALTER TABLE Incentivo
+	DROP COLUMN Zona,
+		COLUMN Segmento
+END
+
+GO
+USE BelcorpDominicana
+GO
+IF EXISTS (
+	SELECT *
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE
+	O.NAME = 'Incentivo'
+	)
+BEGIN
+	ALTER TABLE Incentivo
+	DROP COLUMN Zona,
+		COLUMN Segmento
+END
+
+GO
+USE BelcorpCostaRica
+GO
+IF EXISTS (
+	SELECT *
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE
+	O.NAME = 'Incentivo'
+	)
+BEGIN
+	ALTER TABLE Incentivo
+	DROP COLUMN Zona,
+		COLUMN Segmento
+END
+
+GO
+USE BelcorpChile
+GO
+IF EXISTS (
+	SELECT *
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE
+	O.NAME = 'Incentivo'
+	)
+BEGIN
+	ALTER TABLE Incentivo
+	DROP COLUMN Zona,
+		COLUMN Segmento
+END
+
+GO
+USE BelcorpBolivia
+GO
+IF EXISTS (
+	SELECT *
+	FROM SYS.COLUMNS C
+	JOIN SYS.OBJECTS  O
+	ON C.[OBJECT_ID] = O.[OBJECT_ID]
+	WHERE
+	O.NAME = 'Incentivo'
+	)
+BEGIN
+	ALTER TABLE Incentivo
+	DROP COLUMN Zona,
+		COLUMN Segmento
+END
+
+GO

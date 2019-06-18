@@ -59,7 +59,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        segmentoId = (userData.SegmentoInternoID == null) ? userData.SegmentoID : (int)userData.SegmentoInternoID;
+                        segmentoId = userData.SegmentoInternoID ?? userData.SegmentoID;
                     }
                     string segmentoServicio = segmentoId.ToString();
 
