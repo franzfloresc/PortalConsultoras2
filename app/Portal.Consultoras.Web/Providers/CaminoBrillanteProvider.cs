@@ -9,6 +9,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.ServiceSAC;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -744,5 +745,19 @@ namespace Portal.Consultoras.Web.Providers
 
         #endregion
 
+        #region Configuracion
+        public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion()
+        {
+            var lst = sessionManager.GetConfiguracionCaminoBrillante();
+            if (lst == null || lst.Count == 0)
+            {
+                using (var svc = new UsuarioServiceClient())
+                    lst = svc.GetCaminoBrillanteConfiguracion(usuarioModel.PaisID, "0").ToList();
+
+                if (lst != null) sessionManager.SetConfiguracionCaminoBrillante(lst);
+            }            
+            return lst;
+        }
+        #endregion
     }
 }
