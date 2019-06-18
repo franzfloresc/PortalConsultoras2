@@ -183,17 +183,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult virtualCoach(string param = "")
         {
-            try
-            {
-                string cuv = param.Substring(0, 5);
-                string campanaId = param.Substring(5, 6);
-                int campana = Convert.ToInt32(campanaId);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-            }
-
             var url = (Request.Url.Query).Split('?');
             if (url.Length > 1 && url[1].Contains("sap"))
             {
@@ -204,7 +193,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", param }));
             }
-
         }
 
         public ActionResult Detalle(bool autoReservar = false)
