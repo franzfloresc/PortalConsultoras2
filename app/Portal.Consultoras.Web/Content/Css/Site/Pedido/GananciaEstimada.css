@@ -91,11 +91,12 @@
                 * Padre : Header
                 *
             */
-.ganancia-estimada.opened .toggle-header .toggle-switch {    
+.ganancia-estimada.opened .toggle-header .toggle-switch {
     position: relative;
     left: -5px;
-    top: -15px;
+    top: -13px;
     transform: scale(.6);
+    transition: transform 0.5s ease-in-out;
 }
 .toggle-header .toggle-switch {
     left: -10px;
@@ -344,17 +345,17 @@
         display: none;
         padding-bottom: 10px;
     }
-    .ganancia-estimada {
-        width: 80%;
-        left: 7%;
-        bottom: 75px;
+    .ganancia-estimada {        
+        width: 78%;
+        left: 25px;
+        bottom: 74px;
     }
     .ganancia-estimada .ganancia-titulo,
     .ganancia-estimada .ganancia-total {
         font-size: 12px;
     }
     .ganancia-estimada.opened {
-        bottom: 10.5%;
+        bottom: 175px;
         left: 0;
         width: 100%;
     }
@@ -368,5 +369,16 @@
     .ganancia-total .ganancia-content {
         width: 70%;
     }
+    .toggle-info .ganancia-titulo {
+        text-align: left;        
+    }
+    .ganancia-total [data-cantidadproducto] {
+        padding-right: 2px;
+    }
     
+}
+/* FIX TESLA 154 */
+/* Color por pais*/
+.toggle-info.lbel .accent-color {
+    color: #613c87;
 }
