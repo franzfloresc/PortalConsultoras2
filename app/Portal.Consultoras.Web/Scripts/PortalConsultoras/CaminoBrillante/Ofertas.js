@@ -26,12 +26,11 @@ $(document).ready(function () {
     Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
 
     getUrl = getGET();
-
     Inicializar();
     CambiarOferta();
 
     if (getUrl) {
-        cargandoRegistros = false;
+        cargandoRegistros = true;
         offsetRegistrosDemo = 0;
         contadordemo = 0;
         TabDos = 0;
@@ -120,7 +119,7 @@ function ValidarCargaOfertas() {
 
     if ($('#kits').is(':visible')) {
         waitingDialog();
-        CargarKits();
+        $(window).scrollTop(TabUno);
     } else if ($('#Demostradores').is(':visible'))
         CargarDemostradores();        
 }
