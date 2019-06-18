@@ -42,36 +42,56 @@ var estrategia = null;
 
 $(document).ready(function () {
     fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
-
-    const carruselModel = new CarruselModel(
-        params.palanca,
-        params.campania,
-        params.cuv,
-        "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
-        params.origen,
-        estrategia.OrigenAgregarCarrusel,
-        "Ficha",
-        estrategia.DescripcionCompleta,
-        estrategia.Hermanos.length,
-        estrategia.CodigoProducto,
-        estrategia.Precio2,
-        estrategia.Hermanos,
-        estrategia.TieneStock
-    );
-
-    carruselPresenter.initialize(carruselModel, carruselView);
 });
 
-fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded, function(){
-    estrategiaPresenter.cleanContainer();
-    componentesPresenter.cleanContainer();
-    
-    estrategia = detalleEstrategia.getEstrategia(params);
+fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded, function () {
+    try {
+        estrategiaPresenter.cleanContainer();
+        componentesPresenter.cleanContainer();
 
-    $("#data-estrategia").data("estrategia", estrategia);
+        var estrategia = detalleEstrategia.promiseGetEstrategia(params);
 
-    estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
-    componentesPresenter.onEstrategiaModelLoaded(estrategia);
+        if (estrategia.Error !== false) {
+            GeneralModule.redirectTo("ofertas");
+        }
 
-    fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
+        $("#data-estrategia").data("estrategia", estrategia);
+
+        estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
+        componentesPresenter.onEstrategiaModelLoaded(estrategia);
+
+        fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
+
+        const carruselModel = new CarruselModel(
+            params.palanca,
+            params.campania,
+            params.cuv,
+            "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
+            params.origen,
+            estrategia.OrigenAgregarCarrusel,
+            "Ficha",
+            estrategia.DescripcionCompleta,
+            estrategia.Hermanos.length,
+            estrategia.CodigoProducto,
+            estrategia.Precio2,
+            estrategia.Hermanos,
+            estrategia.TieneStock);
+
+        const carruselPresenter = new CarruselPresenter();
+
+        const carruselView = new CarruselView(carruselPresenter);
+
+        carruselPresenter.initialize(carruselModel, carruselView);
+    }
+    catch (error) {
+        if (typeof error === "string") {
+            window.onerror(error);
+        }
+        else if (typeof error === "object") {
+            registrarLogErrorElastic(error);
+        }
+        GeneralModule.redirectTo("ofertas");
+    }
+
+    CerrarLoad();
 });

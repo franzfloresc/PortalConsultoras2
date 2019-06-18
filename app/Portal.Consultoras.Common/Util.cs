@@ -4,6 +4,8 @@ using MaxMind.Db;
 using MaxMind.Util;
 using Microsoft.IdentityModel.Protocols.WSIdentity;
 using Microsoft.IdentityModel.Protocols.WSTrust;
+using Portal.Consultoras.Common.Exceptions;
+using Portal.Consultoras.Common.OrigenPedidoWeb;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -28,8 +30,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
-using Portal.Consultoras.Entities;
-using Portal.Consultoras.Common.OrigenPedidoWeb;
 
 namespace Portal.Consultoras.Common
 {
@@ -304,7 +304,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -362,7 +362,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -440,7 +440,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -502,7 +502,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -560,7 +560,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -658,7 +658,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             return true;
         }
@@ -712,7 +712,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -776,7 +776,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -835,7 +835,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception)
             {
-                throw new ApplicationException("Error al enviar correo electronico");
+                throw new ClientInformationException("Error al enviar correo electronico");
             }
             return true;
         }
@@ -884,7 +884,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception)
             {
-                throw new ApplicationException("Error al enviar correo electronico");
+                throw new ClientInformationException("Error al enviar correo electronico");
             }
             return true;
         }
@@ -954,13 +954,13 @@ namespace Portal.Consultoras.Common
                     }
                     catch (Exception ex)
                     {
-                        throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                        throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
                     }
                 });
             }
             catch (Exception)
             {
-                throw new ApplicationException("Error al enviar correo electronico");
+                throw new ClientInformationException("Error al enviar correo electronico");
             }
             return true;
         }
@@ -2613,7 +2613,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception)
             {
-                throw new Exception("Hubo un error en obtener el País");
+                throw new ClientInformationException("Hubo un error en obtener el País");
             }
             return (iso == null ? string.Empty : iso);
         }
@@ -2633,7 +2633,7 @@ namespace Portal.Consultoras.Common
 
         public static bool CheckIsImage(string contentType, string allowSubtypes)
         {
-            if (contentType == null) throw new ArgumentNullException("contentType", "Este parametro es obligatorio");
+            if (contentType == null) throw new ClientInformationException("contentType Este parametro es obligatorio");
             var result = contentType.StartsWith("image/");
             if (result && allowSubtypes != null)
             {
@@ -3948,6 +3948,11 @@ namespace Portal.Consultoras.Common
             return result;
         }
 
+        public static string OrigenSegunDispositivo()
+        {
+            return EsDispositivoMovil() ? "sb-mobile" : "sb-desktop";
+        }
+
         public static string DecryptCryptoJs(string CipherText, string Password, string Salt, string Key, string Iv)
         {
             var cipherText = Convert.FromBase64String(CipherText);
@@ -3959,13 +3964,13 @@ namespace Portal.Consultoras.Common
             var iv = Convert.FromBase64String(Iv);
             if (!Enumerable.SequenceEqual(iv, crypto.IV))
             {
-                throw new Exception("IVs do not match");
+                throw new ClientInformationException("IVs do not match");
             }
 
             var key = Convert.FromBase64String(Key);
             if (!Enumerable.SequenceEqual(key, crypto.Key))
             {
-                throw new Exception("Keys do not match");
+                throw new ClientInformationException("Keys do not match");
             }
 
             var plainText = crypto.Decrypt(cipherText);
