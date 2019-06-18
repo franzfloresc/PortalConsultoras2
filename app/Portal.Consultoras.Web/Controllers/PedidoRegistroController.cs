@@ -446,7 +446,7 @@ namespace Portal.Consultoras.Web.Controllers
                 CUV = premioDefault.CUV2,
                 TipoEstrategiaID = premioDefault.TipoEstrategiaID,
                 Cantidad = "1",
-                FlagNueva = "1"
+                FlagNueva = premioDefault.FlagNueva.ToString()
             });
 
             return Json(true);
