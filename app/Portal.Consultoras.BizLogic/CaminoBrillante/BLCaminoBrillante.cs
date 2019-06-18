@@ -742,8 +742,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     {
                         kit.CodigoKit = _kitProvider.CodigoKit;
                         kit.CodigoSap = _kitProvider.CodigoSap;
-                        kit.DescripcionCUV = _kitProvider.Descripcion;
-                        kit.DescripcionCortaCUV = _kitProvider.Descripcion;
+                        kit.DescripcionCortaCUV = kit.DescripcionCUV;
                         kit.PrecioCatalogo = _kitProvider.Precio;
                         kit.FlagDigitable = _kitProvider.Digitable;
                         kit.CodigoNivel = _kitProvider.Nivel;
