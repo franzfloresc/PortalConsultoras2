@@ -421,9 +421,9 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
         CliID = 0;
     }
 
-    var Cantidad = CantidadModi;
+    //var Cantidad = CantidadModi;
     var PrecioUnidad = detalleObj.PrecioUnidad;
-    var Total = DecimalToStringFormat(parseFloat(Cantidad * PrecioUnidad));
+    var Total = DecimalToStringFormat(parseFloat(CantidadModi * PrecioUnidad));
     $(elementRow).find(".ImporteTotal").html(Total);
 
     var item = {
@@ -431,7 +431,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
         PedidoID: PedidoID,
         PedidoDetalleID: PedidoDetalleID,
         ClienteID: CliID,
-        Cantidad: Cantidad,
+        Cantidad: CantidadModi,
         PrecioUnidad: PrecioUnidad,
         ClienteDescripcion: CliDes,
         DescripcionProd: DesProd,
@@ -744,7 +744,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBa
     }
 
     var PrecioUnidad = detalleObj.PrecioUnidad;
-    var Cantidad = $(cantidadElement).val();
+    //var Cantidad = $(cantidadElement).val();
     var Total = DecimalToStringFormat(parseFloat(Cantidad * PrecioUnidad));
     $(elementRow).find(".ImporteTotal").html(Total);
 

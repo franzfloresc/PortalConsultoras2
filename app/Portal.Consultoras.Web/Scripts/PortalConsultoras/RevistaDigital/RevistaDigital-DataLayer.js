@@ -487,13 +487,13 @@ var rdAnalyticsModule = (function () {
         }
     }
 
-    function VerDetalleLan(estrategia) {
-        try {
-            _productClickPush(_text.rdDetalleMisOfertas, estrategia);
-        } catch (e) {
-            console.log(_text.exception + e);
-        }
-    }
+    //function VerDetalleLan(estrategia) {
+    //    try {
+    //        _productClickPush(_text.rdDetalleMisOfertas, estrategia);
+    //    } catch (e) {
+    //        console.log(_text.exception + e);
+    //    }
+    //}
 
     function CompartirProducto(tipo, url, name) {
         try {
@@ -596,7 +596,7 @@ var rdAnalyticsModule = (function () {
         Inscripcion: Inscripcion,
         MostrarPopup: MostrarPopup,
         CompartirProducto: CompartirProducto,
-        VerDetalleLan: VerDetalleLan,
+        //VerDetalleLan: VerDetalleLan,
         VerDetalleBloqueada: VerDetalleBloqueada,
         AgregarProductoDeshabilitado: AgregarProductoDeshabilitado,
         VerDetalleComprar: VerDetalleComprar,

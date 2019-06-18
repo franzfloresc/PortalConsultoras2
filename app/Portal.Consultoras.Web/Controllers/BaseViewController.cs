@@ -104,42 +104,42 @@ namespace Portal.Consultoras.Web.Controllers
             return model;
         }
 
-        public ActionResult RDDetalleModel(string cuv, int campaniaId)
-        {
-            var modelo = SessionManager.GetProductoTemporal();
-            if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
-            {
-                return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-            }
+        //public ActionResult RDDetalleModel(string cuv, int campaniaId)
+        //{
+        //    var modelo = SessionManager.GetProductoTemporal();
+        //    if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
+        //    {
+        //        return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
+        //    }
 
-            if (!revistaDigital.TieneRevistaDigital())
-            {
-                return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-            }
+        //    if (!revistaDigital.TieneRevistaDigital())
+        //    {
+        //        return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
+        //    }
 
-            if (_ofertaPersonalizadaProvider.EsCampaniaFalsa(modelo.CampaniaID))
-            {
-                return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-            }
-            if (modelo.EstrategiaID <= 0)
-            {
-                return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-            }
+        //    if (_ofertaPersonalizadaProvider.EsCampaniaFalsa(modelo.CampaniaID))
+        //    {
+        //        return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
+        //    }
+        //    if (modelo.EstrategiaID <= 0)
+        //    {
+        //        return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
+        //    }
 
-            modelo.TipoEstrategiaDetalle = modelo.TipoEstrategiaDetalle ?? new EstrategiaDetalleModelo();
-            modelo.ListaDescripcionDetalle = modelo.ListaDescripcionDetalle ?? new List<string>();
+        //    modelo.TipoEstrategiaDetalle = modelo.TipoEstrategiaDetalle ?? new EstrategiaDetalleModelo();
+        //    modelo.ListaDescripcionDetalle = modelo.ListaDescripcionDetalle ?? new List<string>();
 
-            ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
+        //    ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
 
-            var dato = _ofertasViewProvider.ObtenerPerdioTitulo(modelo.CampaniaID, IsMobile());
-            ViewBag.TieneProductosPerdio = dato.Estado;
-            ViewBag.PerdioTitulo = dato.Valor1;
-            ViewBag.PerdioSubTitulo = dato.Valor2;
+        //    var dato = _ofertasViewProvider.ObtenerPerdioTitulo(modelo.CampaniaID, IsMobile());
+        //    ViewBag.TieneProductosPerdio = dato.Estado;
+        //    ViewBag.PerdioTitulo = dato.Valor1;
+        //    ViewBag.PerdioSubTitulo = dato.Valor2;
 
-            ViewBag.Campania = campaniaId;
-            return View(modelo);
+        //    ViewBag.Campania = campaniaId;
+        //    return View(modelo);
 
-        }
+        //}
 
         #endregion
 
