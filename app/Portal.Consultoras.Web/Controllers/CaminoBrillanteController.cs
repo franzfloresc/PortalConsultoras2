@@ -62,7 +62,7 @@ namespace Portal.Consultoras.Web.Controllers
             var esCrecimiento = opcionUpper == Constantes.CaminoBrillante.Logros.CRECIMIENTO;
             ViewBag.Informacion = esCrecimiento ? informacion.Logros[0] : informacion.Logros[1];
             ViewBag.Vista = esCrecimiento ? "Crecimiento" : "Compromiso";
-            //ViewBag.CaminoBrillante = true;
+
             return View();
         }
 

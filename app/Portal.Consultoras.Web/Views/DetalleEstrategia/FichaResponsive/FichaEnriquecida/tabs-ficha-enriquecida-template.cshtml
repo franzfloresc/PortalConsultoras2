@@ -1,7 +1,7 @@
 ﻿<script id="tabs-ficha-enriquecida-template" type="text/x-handlebars-template">
     <div class="tabs">
         {{#each this.Secciones as |seccion|}}
-        <input type="radio" name="tabs" id="tab{{@@index}}" {{#if @@first}} checked="checked" {{/if}}>
+        <input type="radio" name="tabs" id="tab{{@@index}}" class="input{{seccion.Tipo}}" {{#if @@first}} checked="checked" {{/if}}>
         <label class="label_click" for="tab{{@@index}}" onclick="javascript:fichaEnriquecidaPresenter.reloadCarruselVideosFichaEnriquecida('{{seccion.Tipo}}')">{{seccion.Titulo}}</label>
         {{#iff seccion.Tipo '==' '@Portal.Consultoras.Common.Constantes.TipoSeccion.Texto' }}
         <div class="tab">

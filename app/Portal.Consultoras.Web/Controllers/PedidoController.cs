@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.Internal;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.Models;
@@ -126,7 +127,7 @@ namespace Portal.Consultoras.Web.Controllers
                 userData.ZonaValida = configuracionCampania.ZonaValida;
 
                 model.FlagValidacionPedido = "0";
-                if ( (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == Util.GetDiaActual(userData.ZonaHoraria)) &&
+                if ((configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == Util.GetDiaActual(userData.ZonaHoraria)) &&
                     configuracionCampania.ModificaPedidoReservado)
                 {
                     model.FlagValidacionPedido = "1";
@@ -291,7 +292,6 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Pedidos Pendientes
 
                 ViewBag.MostrarPedidosPendientes = "0";
-                //ViewBag.LanzarTabConsultoraOnline = (lanzarTabConsultoraOnline) ? "1" : "0";
 
                 if (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig())
                 {
@@ -305,19 +305,6 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 ViewBag.MostrarPedidosPendientes = "1";
                                 ViewBag.CantPedidosPendientes = cantPedidosPendientes;
-
-                                //using (var sv = new SACServiceClient())
-                                //{
-                                //    var motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
-                                //    ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
-                                //}
-
-
-                                //var olstMisPedidos =
-                                //    svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID)
-                                //        .ToList();
-
-                                //ViewBag.ListaPedidosPendientesCliente = olstMisPedidos;
 
                             }
                         }
@@ -362,12 +349,6 @@ namespace Portal.Consultoras.Web.Controllers
                 #region Camino Brillante 
 
                 ViewBag.KitsCaminoBrillante = _caminoBrillanteProvider.GetKitsCaminoBrillante().ToList();
-                //var consultoraNivel = SessionManager.GetConsultoraCaminoBrillante();
-                //var nivelConsultora = consultoraNivel.NivelConsultora.FirstOrDefault(e => e.EsActual);
-                //int nivel = 0;
-                //int periodo = 0;
-                //int.TryParse(nivelConsultora.Nivel ?? string.Empty, out nivel);
-                //int.TryParse(nivelConsultora.PeriodoCae ?? string.Empty, out periodo);
 
                 #endregion
 
@@ -1065,10 +1046,8 @@ namespace Portal.Consultoras.Web.Controllers
                     EsCuponNuevas = esCuponNuevas,
                     CodigoCatalago = producto.CodigoCatalogo,
                     EstrategiaIDSicc = producto.EstrategiaIDSicc,
-                    //INI HD-3908
                     CodigoPalanca = (new OfertaPersonalizadaProvider()).getCodigoPalanca(producto.TipoEstrategiaCodigo),
                     CampaniaID = userModel.CampaniaID,
-                    //FIN HD-3908
                     EsDuoPerfecto = producto.FlagNueva == "1" && esDuoPerfecto,
                     CodigoEstrategia = producto.TipoEstrategiaCodigo
 
@@ -1609,14 +1588,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        /// <summary>
-        /// Fecha actual según el pais.
-        /// </summary>
-        /// <returns></returns>
-        private DateTime GetDiaActual()
-        {
-            return DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-        }
         public async Task<JsonResult> EnviarCorreoPedidoReservado()
         {
             try
@@ -2314,13 +2285,12 @@ namespace Portal.Consultoras.Web.Controllers
                         mensaje = result.Mensaje;
                         estado = true;
                     }
-                    //INI HD-3693
+
                     if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Bloqueado)
                     {
                         mensaje = Constantes.TipoPopupAlert.Bloqueado + result.Mensaje;
                         estado = true;
                     }
-                    //FIN HD-3693
                 }
 
                 return Json(new
@@ -2366,9 +2336,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var pedidoReservado = (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado && userData.FechaFinCampania == Util.GetDiaActual(userData.ZonaHoraria));
                 var estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                 var mensaje = result.Mensaje;
-                //INI HD-3693
                 if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Bloqueado) mensaje = Constantes.TipoPopupAlert.Bloqueado + result.Mensaje;
-                //FIN HD-3693
+
                 return Json(new
                 {
                     success = estado,

@@ -10,6 +10,7 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.HojaInscripcionODS;
 using Portal.Consultoras.Web.ServiceODS;
+using AutoMapper.Internal;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -190,8 +191,6 @@ namespace Portal.Consultoras.Web.Providers
         {
             try
             {
-                var demostradores = new BEDemostradoresPaginado();
-
                 int nivel = 0;
                 var nivelConsultora = GetNivelActualConsultora();
                 if (nivelConsultora != null)
@@ -199,17 +198,18 @@ namespace Portal.Consultoras.Web.Providers
                     int.TryParse(nivelConsultora.Nivel, out nivel);
                 }
 
+                var usuario = new ServicePedido.BEUsuario()
+                {
+                    PaisID = usuarioModel.PaisID,
+                    CampaniaID = usuarioModel.CampaniaID,
+                    ConsultoraID = usuarioModel.ConsultoraID,
+                    CodigoConsultora = usuarioModel.CodigoConsultora,
+                    NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
+                };
+
+                BEDemostradoresPaginado demostradores;
                 using (var svc = new PedidoServiceClient())
                 {
-                    var usuario = new ServicePedido.BEUsuario()
-                    {
-                        PaisID = usuarioModel.PaisID,
-                        CampaniaID = usuarioModel.CampaniaID,
-                        ConsultoraID = usuarioModel.ConsultoraID,
-                        CodigoConsultora = usuarioModel.CodigoConsultora,
-                        NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
-                    };
-
                     demostradores = svc.GetDemostradoresCaminoBrillante(usuario, cantRegistros, regMostrados, codOrdenar, codFiltro);
                 }
 

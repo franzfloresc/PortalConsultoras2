@@ -1,5 +1,6 @@
 ﻿/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselModel.js" />
 /// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselView.js" />
+/// <reference path="~/Scripts/PortalConsultoras/Shared/ConstantesModule.js" />
 "use strict";
 
 class CarruselPresenter {
@@ -39,21 +40,11 @@ class CarruselPresenter {
         var data = {
             lista: []
         };
-
-        if (this.model.palanca === ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
-            data.lista = this.cargarDatos();
-            if (data.lista.length > 0) {
-                $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
-                this.view.crearPlantilla(data, this.obtenerTitulo());
-            }
-        }
-        else {
-            const codigosProductos = this.obtenerCodigoProductos();
+        if (this.model.tipoCarrusell === ConstantesModule.TipoVentaIncremental.CrossSelling ||
+            this.model.tipoCarrusell === ConstantesModule.TipoVentaIncremental.Sugerido) {
             const param = {
-                cuvExcluido: this.model.cuv,
-                palanca: this.model.palanca,
-                codigosProductos: codigosProductos,
-                precioProducto: this.model.precioProducto
+                cuv: this.model.cuv,
+                tipo: this.model.tipoCarrusell
             };
             const thisReference = this;
             this.promiseObternerDataCarrusel(param).done(function (response) {
@@ -67,6 +58,35 @@ class CarruselPresenter {
                     }
                 }
             });
+        } else {
+            if (this.model.palanca === ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
+                data.lista = this.cargarDatos();
+                if (data.lista.length > 0) {
+                    $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
+                    this.view.crearPlantilla(data, this.obtenerTitulo());
+                }
+            }
+            else {
+                const codigosProductos = this.obtenerCodigoProductos();
+                const param = {
+                    cuvExcluido: this.model.cuv,
+                    palanca: this.model.palanca,
+                    codigosProductos: codigosProductos,
+                    precioProducto: this.model.precioProducto
+                };
+                const thisReference = this;
+                this.promiseObternerDataCarrusel(param).done(function (response) {
+                    if (response) {
+                        if (response.success) {
+                            data.lista = response.result;
+                            if (data.lista.length > 0) {
+                                $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
+                                thisReference.view.crearPlantilla(data, thisReference.obtenerTitulo());
+                            }
+                        }
+                    }
+                });
+            }
         }
     }
 

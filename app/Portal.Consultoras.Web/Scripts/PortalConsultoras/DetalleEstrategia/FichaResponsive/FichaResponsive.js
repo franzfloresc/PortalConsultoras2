@@ -8,6 +8,7 @@
 /// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselModel.js" />
 /// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselView.js" />
 
+console.log(1);
 var detalleEstrategia = DetalleEstrategiaProvider;
 var fichaResponsiveEvents = FichaResponsiveEvents();
 var analyticsPortal = AnalyticsPortalModule;
@@ -36,14 +37,19 @@ var fichaEnriquecidaPresenter = FichaEnriquecidaPresenter({
 });
 
 $(document).ready(function () {
-    fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
+    try {
+        fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
+    } catch (e) {
+        GeneralModule.redirectTo('/Ofertas', true);
+    }
 });
 
 fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded, function(){
     estrategiaPresenter.cleanContainer();
     componentesPresenter.cleanContainer();
     
-    var estrategia = detalleEstrategia.getEstrategia(params);
+    var estrategia = detalleEstrategia.promiseGetEstrategia(params);
+    if (estrategia.Error) GeneralModule.redirectTo('/Ofertas', true);
 
     $("#data-estrategia").data("estrategia", estrategia);
 
@@ -64,7 +70,7 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         estrategia.Precio2,
         estrategia.Hermanos,
         estrategia.TieneStock,
-        "upselling");
+        ConstantesModule.TipoVentaIncremental.UpSelling);
     const carruselPresenterUpselling = new CarruselPresenter();
     const carruselViewUpselling = new CarruselView(carruselPresenterUpselling);
     carruselPresenterUpselling.initialize(carruselModelUpselling, carruselViewUpselling);
@@ -73,7 +79,7 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         params.palanca,
         params.campania,
         params.cuv,
-        "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
+        "/Estrategia/FichaObtenerProductosIncremental",
         params.origen,
         estrategia.OrigenAgregarCarrusel,
         estrategia.DescripcionCompleta,
@@ -81,7 +87,7 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         estrategia.Precio2,
         estrategia.Hermanos,
         estrategia.TieneStock,
-        "cross");
+        ConstantesModule.TipoVentaIncremental.CrossSelling);
     const carruselPresenterCross = new CarruselPresenter();
     const carruselViewCross = new CarruselView(carruselPresenterCross);
     carruselPresenterCross.initialize(carruselModelCross, carruselViewCross);
@@ -90,7 +96,7 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         params.palanca,
         params.campania,
         params.cuv,
-        "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
+        "/Estrategia/FichaObtenerProductosIncremental",
         params.origen,
         estrategia.OrigenAgregarCarrusel,
         estrategia.DescripcionCompleta,
@@ -98,10 +104,8 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         estrategia.Precio2,
         estrategia.Hermanos,
         estrategia.TieneStock,
-        "sugerido");
+        ConstantesModule.TipoVentaIncremental.Sugerido);
     const carruselPresenterSugerido = new CarruselPresenter();
     const carruselViewSugerido = new CarruselView(carruselPresenterSugerido);
     carruselPresenterSugerido.initialize(carruselModelSugerido, carruselViewSugerido);
-
-
 });
