@@ -9,7 +9,7 @@ namespace Portal.Consultoras.Web.Models
             UsuarioOpciones = new List<UsuarioOpcionesModel>();
             this.DireccionEntrega = new DireccionEntregaModel();
         }
-      
+
         public string PaisISO { get; set; }
         public string CodigoUsuario { get; set; }
         public string CodigoUsuarioReal { get; set; }
@@ -44,7 +44,7 @@ namespace Portal.Consultoras.Web.Models
         public int PaisID { get; set; }
         public int IniciaNumeroCelular { get; set; }
         public int IndicadorConsultoraDigital { get; set; }
-        public List<string> PermisoMenu { get; set; }        
+        public List<string> PermisoMenu { get; set; }
         public List<UsuarioOpcionesModel> UsuarioOpciones { get; set; }
 
         public DireccionEntregaModel DireccionEntrega { get; set; }
@@ -52,11 +52,10 @@ namespace Portal.Consultoras.Web.Models
         public dynamic DatosExtra { get; set; }
         public bool TieneDireccionEntrega { get; set; }
         public bool TienePermisosCuenta { get; set; }
-        //INI HD-3897
+
         public bool FlgCheckSMS { get; set; }
         public bool PuedeConfirmarAllEmail { get; set; }
         public bool PuedeConfirmarAllSms { get; set; }
         public bool FlgCheckEMAIL { get; set; }
-        //FIN HD-3897
     }
 }

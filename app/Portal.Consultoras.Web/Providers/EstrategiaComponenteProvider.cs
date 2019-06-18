@@ -82,7 +82,7 @@ namespace Portal.Consultoras.Web.Providers
                 listaEstrategiaComponente.ForEach(c =>
                 {
                     c.TieneDetalleSeccion = (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>()).Any() && c.Cabecera != null;
-                    var formateo = Math.Truncate(100 * c.PrecioContenido) / 100;
+                    var formateo = Util.TruncarADecimales(c.PrecioContenido.ToDecimal(), 2);
                     c.PrecioContenidoStr = formateo.ToString("n2", CultureInfo.CreateSpecificCulture(string.Format("es-{0}", userData.CodigoISO)));
                 });
 

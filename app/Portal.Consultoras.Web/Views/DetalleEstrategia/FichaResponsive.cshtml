@@ -14,11 +14,11 @@
     <div id="ImagenDeFondo" class="imagen_fondo_detalle" @*style="background-image: url('https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2019424344_dkvuwesndt.png');"*@></div>
     <div id="ContenedorFicha" class="contenedor_detalle container">
         <ul id="breadcrumbs" class="breadcumbs"></ul>
-        <div class="row scontenedor_fichas" 
-             data-item="" 
-             data-tag-html="@Model.Campania" 
-             data-OrigenPedidoWeb="@Model.OrigenUrl" 
-             data-OrigenPedidoWebAgregar="@Model.OrigenAgregar" 
+        <div class="row scontenedor_fichas"
+             data-item=""
+             data-tag-html="@Model.Campania"
+             data-OrigenPedidoWeb="@Model.OrigenUrl"
+             data-OrigenPedidoWebAgregar="@Model.OrigenAgregar"
              data-OrigenPedidoEditar="@Model.CodigoUbigeoPortal">
             <div style="display:none;">
                 <hidden id="data-estrategia" data-estrategia='@Html.Raw(Json.Encode(Model))'></hidden>
@@ -40,18 +40,16 @@
 <!--Comienza Up-Selling-->
 <section class="seccion_ficha" id="divFichaCarrusel" style="display: none">
     <div class="contenedor_detalle container">
-        <h2 class="titulo_seccion" id="tituloCarrusel">Packs que contienen Magnat Select</h2>
-        <div id="divFichaCarruselProducto" class="carousel_ficha">
-
-        </div>
+        <h2 class="titulo_seccion" id="tituloCarrusel"></h2>
+        <div id="divFichaCarruselProducto" class="carousel_ficha"></div>
     </div>
 </section>
 <!--Finaliza Up-Selling-->
 <!--Comienza Ficha enrriquecida-->
-<section class="seccion_ficha"  id="divFichaEnriquecida" style="display: none">
+<section class="seccion_ficha" id="divFichaEnriquecida" style="display: none">
     <div class="contenedor_detalle container">
         <h2 class="titulo_seccion">Detalle de producto</h2>
-        <div id="divFichaCarruselProducto" class="carousel_ficha">
+        <div class="carousel_ficha">
             <div id="contenedor-tabs-ficha-enriquecida" class="ficha_enriquecida_contenedor"></div>
         </div>
     </div>
@@ -74,10 +72,6 @@
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/resumen-componente-template.cshtml")
 
 @section scripts{
-    @System.Web.Optimization.Scripts.Render("~/Scripts/flipclock.js")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
 
     <script type="text/javascript">
         var params = {
@@ -88,25 +82,7 @@
         };
     </script>
 
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js"></script>
-
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaView.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaPresenter.js"></script>
-
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesAnalyticsPresenter.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesPresenter.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesView.js"></script>
-
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaEnriquecida/FichaEnriquecidaView.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaEnriquecida/FichaEnriquecidaPresenter.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/CarruselAyuda.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselModel.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselView.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselPresenter.js"></script>
-
-    @*<script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClientePresenter.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClienteView.js"></script>*@
-
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsiveEvents.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsive.js"></script>
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Responsive/Ficha")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
 }

@@ -49,6 +49,7 @@ $(document).ready(function () {
         params.cuv,
         "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
         params.origen,
+        estrategia.OrigenAgregarCarrusel,
         "Ficha",
         estrategia.DescripcionCompleta,
         estrategia.Hermanos.length,

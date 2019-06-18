@@ -413,7 +413,13 @@ var AnalyticsPortalModule = (function () {
         pagina = pagina || "";
         seccion = seccion || "";
 
-        var palanca = _getTextoPalancaSegunOrigen(origenEstructura) || "";
+        var palanca = ''
+        if (origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.FichaUpselling
+            && origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling
+        ) {
+            palanca = _getTextoPalancaSegunOrigen(origenEstructura);
+        }
+        palanca = palanca || "";
 
         var separador = " - ";
         var texto = contendor;

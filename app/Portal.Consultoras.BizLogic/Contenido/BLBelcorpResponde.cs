@@ -147,11 +147,6 @@ namespace Portal.Consultoras.BizLogic
                     col1.Append(separar);
                     col2.Append(separar);
                     col3.Append(separar);
-
-                    //arrayColumnas[0] += string.Concat(objDato.RegionId.ToString(), separar);
-                    //arrayColumnas[1] += string.Concat(objDato.ZonaId.ToString(), separar);
-                    //arrayColumnas[2] += string.Concat(objDato.Estado.ToString(), separar);
-                    //arrayColumnas[3] += string.Concat(objDato.Consultoraid.ToString(), separar);
                 }
 
                 arrayColumnas[0] = col0.ToString();
