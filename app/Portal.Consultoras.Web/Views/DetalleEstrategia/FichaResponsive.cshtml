@@ -91,10 +91,6 @@
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/resumen-componente-template.cshtml")
 
 @section scripts{
-    @System.Web.Optimization.Scripts.Render("~/Scripts/flipclock.js")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")
 
     <script type="text/javascript">
         var params = {
@@ -105,25 +101,7 @@
         };
     </script>
 
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/DetalleEstrategiaProvider.js"></script>
-
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaView.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Estrategia/EstrategiaPresenter.js"></script>
-
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesAnalyticsPresenter.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesPresenter.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Componentes/ComponentesView.js"></script>
-
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaEnriquecida/FichaEnriquecidaView.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaEnriquecida/FichaEnriquecidaPresenter.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/CarruselAyuda.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselModel.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselView.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselPresenter.js"></script>
-
-    @*<script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClientePresenter.js"></script>
-        <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Cliente/ClienteView.js"></script>*@
-
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsiveEvents.js"></script>
-    <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaResponsive.js"></script>
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Responsive/Ficha")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
 }

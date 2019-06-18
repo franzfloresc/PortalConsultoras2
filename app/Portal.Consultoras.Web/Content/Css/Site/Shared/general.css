@@ -162,6 +162,10 @@ button:focus{
     height:100%;
 }
 
+.z__index__modal__nivel__alto {
+    z-index: 2147483647;
+}
+
 /* FIN - HELPERS CSS (DESKTOP) */
 
 /* ESTILOS MODIFICADORES JQUERY UI (PRECARGA PÁGINA RESULTADOS VERSIÓN DESKTOP) */
@@ -175,7 +179,8 @@ button:focus{
     background: #FFFFFF !important;
     color: #555 !important;
     border-radius: 0;
-    z-index: 999999999 !important;
+    z-index: 999999999 !important; /* cambio de equipo gana mas */
+    /*z-index: 999999910 !important;*/  /* cambio de equipo ? */
 }
 
 .ui-dialog .ui-dialog-titlebar {

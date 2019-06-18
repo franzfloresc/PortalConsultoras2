@@ -91,11 +91,12 @@
                 * Padre : Header
                 *
             */
-.ganancia-estimada.opened .toggle-header .toggle-switch {    
+.ganancia-estimada.opened .toggle-header .toggle-switch {
     position: relative;
     left: -5px;
-    top: -15px;
+    top: -13px;
     transform: scale(.6);
+    transition: transform 0.5s ease-in-out;
 }
 .toggle-header .toggle-switch {
     left: -10px;
@@ -322,6 +323,9 @@
 .mb-80 {
     margin-bottom: 80px;
 }
+.mb-60 {
+    margin-bottom: 60px;
+}
 .separator {
     border-bottom: 1px solid black;
     padding-bottom: 16px;
@@ -334,4 +338,46 @@
 }
 .ganancia-info .pb-2 {
     padding-bottom: 5px;
+}
+/* Responsive */
+@media (max-width: 600px) {
+    .toggle-content {
+        display: none;
+        padding-bottom: 10px;
+    }
+    .ganancia-estimada {
+        /*width: 90%;
+        left: 10px;
+        bottom: 75px;*/
+        width: 78%;
+        left: 25px;
+        bottom: 74px;
+    }
+    .ganancia-estimada .ganancia-titulo,
+    .ganancia-estimada .ganancia-total {        
+        font-size: 12px;
+    }
+    .ganancia-estimada .ganancia-titulo {
+        text-align: left;
+        margin-right: 20px;
+    }
+    .ganancia-estimada.opened {
+        bottom: 175px;
+        left: 0;
+        width: 100%;
+    }
+    .ganancia-total {
+        justify-content: center;
+    }
+    .ganancia-total .ganancia-titulo,
+    .ganancia-total .ganancia-total{
+        font-size: 12px;
+    }
+    .ganancia-total .ganancia-content {
+        width: 70%;
+    }
+    .ganancia-total [data-cantidadproducto] {
+        padding-right: 2px;
+    }
+    
 }

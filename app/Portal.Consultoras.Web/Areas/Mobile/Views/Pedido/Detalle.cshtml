@@ -24,6 +24,60 @@
 <input type="hidden" id="hdListaEscala" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra.ListaEscalaDescuento)" />
 <input type="hidden" id="hdMontoMinimo" value="@Model.MontoMinimo" />
 
+
+@{
+    string cabezaEscala = null, pieEscala = null;
+    string lbl1Ganancia = null, lbl2Ganancia = null;
+
+    if (Model.CodigoISO == Constantes.CodigosISOPais.Peru ||
+                Model.CodigoISO == Constantes.CodigosISOPais.Colombia ||
+                Model.CodigoISO == Constantes.CodigosISOPais.Ecuador ||
+                Model.CodigoISO == Constantes.CodigosISOPais.Guatemala ||
+                Model.CodigoISO == Constantes.CodigosISOPais.Salvador ||
+                Model.CodigoISO == Constantes.CodigosISOPais.Dominicana ||
+                Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico)
+    {
+        cabezaEscala = "Ganancia estimada";
+        pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+        lbl1Ganancia = "Mis descuentos";
+        lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+    }
+    else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)
+    {
+        cabezaEscala = "Ganancia estimada";
+        pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+        lbl1Ganancia = "Mis descuentos";
+        lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
+    }
+    else if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)
+    {
+        cabezaEscala = "Comisión y ahorro total";
+        pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+        lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
+        lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
+    }
+    else if (Model.CodigoISO == Constantes.CodigosISOPais.Venezuela)
+    {
+        cabezaEscala = "Oportunidad de ahorro total";
+        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+        lbl1Ganancia = "Por tus compras de productos de catalogo";
+        lbl2Ganancia = "Por tus comprar de productos de revista";
+    }
+    else if (Model.CodigoISO == Constantes.CodigosISOPais.Bolivia)
+    {
+        cabezaEscala = "Ganancia estimada";
+        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
+        lbl1Ganancia = "Mis descuentos";
+        lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
+    }
+    else if (Model.CodigoISO == Constantes.CodigosISOPais.CostaRica)
+    {
+        cabezaEscala = "Oportunidad de ahorro total";
+        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
+        lbl1Ganancia = "Mis descuentos";
+        lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
+    }
+}
 <div class="contenedor_producto">
     <div class="content_320 ingresoPedidom">
         <input id="hdAccionBotonProl" type="hidden" value="@ViewBag.AccionBoton" />
@@ -58,6 +112,62 @@
                     </div>
                 </div>
                 <div id="divPedidoTotalInferior"></div>
+
+                @if (Model.IsShowGananciaConsultora)
+                {
+                    <div class="ganancia-estimada">
+                        <div class="panel-toggle">
+                            <div class="toggle-header">
+                                <div class="toggle-switch closed">
+                                    <div class="toggle-icon">
+                                    </div>
+                                </div>
+                                <div class="toggle-info">
+                                    <span class="ganancia-titulo accent-color">
+                                        @(cabezaEscala) :
+                                    </span>
+                                    <span id="div-ganancia-total" class="ganancia-total accent-color">
+                                        @Model.Simbolo <span id="div-ganancia-totalMontoGanancia">@ViewBag.FormatoTotalMontoGanancia</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="toggle-content">
+                                <div class="toggle-info">
+                                    <span class="ganancia-titulo first-color">
+                                        Catálogo
+                                    </span>
+                                    <span class="ganancia-total first-color">
+                                        @Model.Simbolo <span id="div-ganancia-totalGananciaCatalogo">@ViewBag.FormatoMontoAhorroCatalogo</span>
+                                    </span>
+                                </div>
+                                <div class="toggle-info">
+                                    <span class="ganancia-titulo first-color">
+                                        Guía de negocio
+                                    </span>
+                                    <span class="ganancia-total first-color">
+                                        @Model.Simbolo <span id="div-ganancia-totalGananciaRevista">@ViewBag.FormatoGananciaRevista</span>
+                                    </span>
+                                </div>
+                                <div class="toggle-info">
+                                    <span class="ganancia-titulo first-color">
+                                        Gana+ /Ofertas digitales
+                                    </span>
+                                    <span class="ganancia-total first-color">
+                                        @Model.Simbolo <span id="div-ganancia-totalGananciaWeb">@ViewBag.FormatoGananciaWeb</span>
+                                    </span>
+                                </div>
+                                <div class="toggle-info">
+                                    <span class="ganancia-titulo first-color">
+                                        Otros
+                                    </span>
+                                    <span class="ganancia-total first-color">
+                                        @Model.Simbolo <span id="div-ganancia-totalGananciaOtros">@ViewBag.FormatoGananciaOtros</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
 
@@ -103,7 +213,7 @@
     </div>
 </div>
 
-<div class="btn_guardarPedido">
+<div class="btn_guardarPedido btn_guardarPedido--nuevoLookAndFeelEsika">
     @if (Model.EstadoPedido == 1)
     {
         <input type="submit" style="text-transform: none" value="@Model.Prol" id="btnModificarPedidoMobile" onclick="ShowPopupQuestionModificarPedido();" />
@@ -169,7 +279,7 @@
             Al hacer click en el botón <b>"Continuar"</b> se perderá la reserva de tus productos. Recuerda, que si lo modificas debes volver a validar.
         </div>
         <div style="text-align: center; margin-top: 30px;">
-            <input id="btnValidarConfirm" type="button" value="Cancelar" onclick="$('#popupInformacionSB2Question').hide();" class="input_modifica_horizontal_popup_pedido" style="width: 120px; margin-left: 0;" />            
+            <input id="btnValidarConfirm" type="button" value="Cancelar" onclick="$('#popupInformacionSB2Question').hide();" class="input_modifica_horizontal_popup_pedido" style="width: 120px; margin-left: 0;" />
             <input id="btnNoValidarConfirm" type="button" value="Continuar" onclick="AccionConfirmarModificarPedido()" class="input_modifica_horizontal_popup_pedido" style="width: 120px; margin-left: 20px;" />
         </div>
     </div>
@@ -220,60 +330,6 @@
         </div>
     </div>
 </div>
-
-@{
-    string cabezaEscala = null, pieEscala = null;
-    string lbl1Ganancia = null, lbl2Ganancia = null;
-
-    if (Model.CodigoISO == Constantes.CodigosISOPais.Peru ||
-                Model.CodigoISO == Constantes.CodigosISOPais.Colombia ||
-                Model.CodigoISO == Constantes.CodigosISOPais.Ecuador ||
-                Model.CodigoISO == Constantes.CodigosISOPais.Guatemala ||
-                Model.CodigoISO == Constantes.CodigosISOPais.Salvador ||
-                Model.CodigoISO == Constantes.CodigosISOPais.Dominicana ||
-                Model.CodigoISO == Constantes.CodigosISOPais.PuertoRico)
-    {
-        cabezaEscala = "Ganancia estimada";
-        pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
-        lbl1Ganancia = "Mis descuentos";
-        lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
-    }
-    else if (Model.CodigoISO == Constantes.CodigosISOPais.Mexico || Model.CodigoISO == Constantes.CodigosISOPais.Panama)
-    {
-        cabezaEscala = "Ganancia estimada";
-        pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
-        lbl1Ganancia = "Mis descuentos";
-        lbl2Ganancia = "Ganancia estimada *(Revista y otros)";
-    }
-    else if (Model.CodigoISO == Constantes.CodigosISOPais.Chile)
-    {
-        cabezaEscala = "Comisión y ahorro total";
-        pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; <br>Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
-        lbl1Ganancia = "Mis descuentos (-)10% retencion comisión liquida";
-        lbl2Ganancia = "Ahorro estimado *(Guia de negocio y otros)";
-    }
-    else if (Model.CodigoISO == Constantes.CodigosISOPais.Venezuela)
-    {
-        cabezaEscala = "Oportunidad de ahorro total";
-        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-        lbl1Ganancia = "Por tus compras de productos de catalogo";
-        lbl2Ganancia = "Por tus comprar de productos de revista";
-    }
-    else if (Model.CodigoISO == Constantes.CodigosISOPais.Bolivia)
-    {
-        cabezaEscala = "Ganancia estimada";
-        pieEscala = "Ganancia total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros";
-        lbl1Ganancia = "Mis descuentos";
-        lbl2Ganancia = "Ganancia estimada *(Guia de negocio y otros)";
-    }
-    else if (Model.CodigoISO == Constantes.CodigosISOPais.CostaRica)
-    {
-        cabezaEscala = "Oportunidad de ahorro total";
-        pieEscala = "Oportunidad de Ahorro Total = Ahorro estimado proveniente de sus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros";
-        lbl1Ganancia = "Mis descuentos";
-        lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
-    }
-}
 
 <!--PopUp pedido Observacion-->
 <div class="modal fade" id="observacionPedido" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -631,44 +687,116 @@
 
 </script>
 <script id="template-pedidototal-inferior" type="text/x-handlebars-template">
+    <div class="ganancia-total">
+        <div class="ganancia-content">
+            <div class="ganancia-info">
+                <span class="ganancia-titulo titulo-up first-color">
+                    Has agregado:
+                </span>
+                <span class="ganancia-total first-color">
+                    <span data-cantidadproducto="">{{TotalProductos}}</span> Unidad(es)
+                </span>
 
-    <div class="separador"></div>
-    <div style="margin-left: -28px;">
-        <div class="textos_resumen">
-            <span style="margin-left:30px;">Has agregado :</span>
-            <span>
-                <div class="info_validado">
-                    <img src="/Content/Images/Esika/info-copy.png" />
-                    <div class="tooltip_validado_importe">
-                        <div class="left_reservado">
-                            <div class="datos_Reservado">
-                                <span>Subtotal: </span>
-                                <span>Descuento ofertas por niveles:</span>
+            </div>
+            <div class="ganancia-info">
+                <span class="ganancia-titulo first-color">
+                    Total sin descuento.
+                </span>
+                <span class="ganancia-total first-color">
+                    {{SimboloMoneda}} {{FormatoTotal}}
+                </span>
+            </div>
+            <div class="ganancia-info separator">
+                <span class="ganancia-titulo first-color">
+                    (-) Dscto. Ofertas Por Niveles
+                </span>
+                <span class="ganancia-total first-color">
+                    {{SimboloMoneda}} {{FormatoMontoDescuento}}
+                </span>
+            </div>
+            <div class="ganancia-info pb-2">
+                <span class="ganancia-titulo titulo-up titulo-700">
+                    MONTO TOTAL :
+                </span>
+                <span class="ganancia-total first-color">
+                    <span>{{SimboloMoneda}} <span data-pedidocondescuento="">{{FormatoTotalConDescuento}}</span></span>
+                </span>
+            </div>
+            @if (!Model.IsShowGananciaConsultora)
+            {
+                <div class="ganancia-info">
+                    <span class="ganancia-titulo accent-color">
+
+                        <div class="info_validado">
+                            <img src="/Content/Images/Esika/info-copy.png" />
+                            <div class="tooltip_validado_importe">
+                                <div class="left_reservado">
+                                    <div class="datos_Reservado">
+                                        <span>Subtotal: </span>
+                                        <span>Descuento ofertas por niveles:</span>
+                                    </div>
+                                </div>
+                                <div class="right_reservado">
+                                    <div class="datos_Reservado">
+                                        <span data-pedidototal="">{{SimboloMoneda}} {{FormatoTotal}}</span>
+                                        @*<span data-montodescuento="">{{SimboloMoneda}} {{#iff FormatoMontoDescuento '>' 0}}-{{/iff}}{{FormatoMontoDescuento}}</span>*@
+                                        <span data-montodescuento="">{{SimboloMoneda}} {{FormatoMontoDescuento}}</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="right_reservado">
-                            <div class="datos_Reservado">
-                                <span data-pedidototal="">{{SimboloMoneda}} {{FormatoTotal}}</span>
-                                @*<span data-montodescuento="">{{SimboloMoneda}} {{#iff FormatoMontoDescuento '>' 0}}-{{/iff}}{{FormatoMontoDescuento}}</span>*@
-                                <span data-montodescuento="">{{SimboloMoneda}} {{FormatoMontoDescuento}}</span>
+
+                        @(cabezaEscala) :
+                    </span>
+                    <span class="ganancia-total accent-color">
+                        <span class="mi_ganancia">{{SimboloMoneda}} <span data-ganancia="">{{FormatoMontoGanancia}}</span></span>
+                    </span>
+                </div>
+            }
+
+        </div>
+    </div>
+
+
+    <!-- Experiencia anterior
+        <div class="separador"></div>
+        <div style="margin-left: -28px;">
+            <div class="textos_resumen">
+                <span style="margin-left:30px;">Has agregado :</span>
+                <span>
+                    <div class="info_validado">
+                        <img src="/Content/Images/Esika/info-copy.png" />
+                        <div class="tooltip_validado_importe">
+                            <div class="left_reservado">
+                                <div class="datos_Reservado">
+                                    <span>Subtotal: </span>
+                                    <span>Descuento ofertas por niveles:</span>
+                                </div>
+                            </div>
+                            <div class="right_reservado">
+                                <div class="datos_Reservado">
+                                    <span data-pedidototal="">{{SimboloMoneda}} {{FormatoTotal}}</span>
+                                    @*<span data-montodescuento="">{{SimboloMoneda}} {{#iff FormatoMontoDescuento '>' 0}}-{{/iff}}{{FormatoMontoDescuento}}</span>*@
+                                    <span data-montodescuento="">{{SimboloMoneda}} {{FormatoMontoDescuento}}</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                Total :
-            </span>
+                    Total :
+                </span>
 
-            <div class="mi_ganancia" style="margin-left: 30px; text-transform:none">
-                @(cabezaEscala) :
+                <div class="mi_ganancia" style="margin-left: 30px; text-transform:none">
+                    @(cabezaEscala) :
+                </div>
+            </div>
+
+            <div class="montos_resumen">
+                <span><b data-cantidadproducto="">{{TotalProductos}}</b>&nbsp;&nbsp;Unidad(es)</span>
+                <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
+                <span class="mi_ganancia"><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-ganancia="">{{FormatoMontoGanancia}}</b></span>
             </div>
         </div>
-
-        <div class="montos_resumen">
-            <span><b data-cantidadproducto="">{{TotalProductos}}</b>&nbsp;&nbsp;Unidad(es)</span>
-            <span><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-pedidocondescuento="">{{FormatoTotalConDescuento}}</b></span>
-            <span class="mi_ganancia"><b>{{SimboloMoneda}}&nbsp;&nbsp;</b><b data-ganancia="">{{FormatoMontoGanancia}}</b></span>
-        </div>
-    </div>
+        Experiencia anterior -->
 
     <div class="mensajes_adicionales_ingresoPedido" id="iconoAdvertenciaNotificacion" style="display: none;">
         <span class="icono_advertencia_notificacion"></span>
@@ -677,6 +805,14 @@
             Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.
         </span>
     </div>
+    @if (Model.IsShowGananciaConsultora)
+    {
+        <div class="mb-60"></div>
+        if (Model.EstadoPedido == 1)
+        {
+            <div style="padding-top: 35px;margin-bottom: -20px;margin-top:-20px;"></div>
+        }
+    }
     <!-- Mostrar el link de eliminación de pedido solo si el pedido no está reservado-->
     @if (Model.EstadoPedido != 1)
     {

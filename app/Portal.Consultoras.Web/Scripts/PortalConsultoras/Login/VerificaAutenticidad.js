@@ -100,9 +100,23 @@ $(document).ready(function () {
         });
 
     $("#aChatearConNosotros").click(function () {
-        if (typeof FB === 'undefined') return;
+        if ($('#hddHabilitarChatBot').val() === 'True') {
+            if (typeof FB === 'undefined') return;
 
-        FB.XFBML.parse();
+            FB.XFBML.parse();
+
+            return;
+        }
+
+        if ($('#hddHabilitarChatEmtelco').val() === 'False') {
+            return;
+        }
+
+        $('#marca').css('display', 'block');
+
+        var connected = localStorage.getItem('connected');
+        var idBtn = connected ? '#btn_open' : '#btn_init';
+        $(idBtn).trigger("click");
     });
 
     $("#divVolver").click(function () {
