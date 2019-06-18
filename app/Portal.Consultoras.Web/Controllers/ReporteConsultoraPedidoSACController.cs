@@ -44,7 +44,54 @@ namespace Portal.Consultoras.Web.Controllers
             return View(reporteConsultoraPedidoSACModels);
         }
 
-        [HttpPost]
+        [HttpGet]
+        public async Task<JsonResult> ObtenerUltimaDescargaPedidoSinMarcar()
+        {
+            var usuario = userData ?? new UsuarioModel();
+
+            try
+            {
+                var lst = new List<BEPedidoDescarga>();
+
+                using (var srv = new PedidoServiceClient())
+                {
+                    var ultimaDescargaPedido = await srv.ObtenerUltimaDescargaPedidoSinMarcarAsync(usuario.PaisID);
+                    lst.Add(ultimaDescargaPedido);
+                }
+
+                var data = new
+                {
+                    total = 1,
+                    page = 1,
+                    records = lst.Count,
+                    rows = (from tbl in lst
+                            select new
+                            {
+                                FechaHoraInicio = tbl.FechaHoraInicio.ToString(),
+                                FechaHoraFin = tbl.FechaHoraFin.ToString(),
+                                Estado = tbl.Estado,
+                                Mensaje = tbl.Mensaje,
+                                NumeroPedidos = string.Format(" Web: {0}<br> DD: {1}", tbl.NumeroPedidosWeb, tbl.NumeroPedidosDD),
+                                TipoProceso = tbl.TipoProceso,
+                                FechaFacturacion = tbl.FechaFacturacion.ToShortDateString(),
+                                Desmarcado = (tbl.Desmarcado) ? "Pedido Desmarcado" : string.Empty,
+                                NroLote = tbl.NroLote
+                            })
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, usuario.CodigoConsultora, usuario.CodigoISO);
+            }
+
+            return Json(null, JsonRequestBehavior.AllowGet);
+
+
+
+            
+            [HttpPost]
         public JsonResult RealizarDescargaSinMarcar(DescargarPedidoModel model)
         {
             int tipoCronogramaID = 1; /*Regular*/

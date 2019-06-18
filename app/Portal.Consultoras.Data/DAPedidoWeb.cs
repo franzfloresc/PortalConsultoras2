@@ -910,6 +910,13 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaPedido");
             return Context.ExecuteReader(command);
         }
+
+        public IDataReader ObtenerUltimaDescargaPedidoSinMarcar()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaPedidoSinMarcar");
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader DesmarcarUltimaDescargaPedido()
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DesmarcarUltimaDescargaPedido");

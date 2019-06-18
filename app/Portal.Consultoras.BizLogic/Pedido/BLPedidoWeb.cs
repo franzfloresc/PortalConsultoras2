@@ -290,8 +290,8 @@ namespace Portal.Consultoras.BizLogic
                     (codigoPais == Constantes.CodigosISOPais.Colombia && tmpCronograma == 2) ? "DA" : "";
                 string postfixDetailTemplate = (codigoPais == Constantes.CodigosISOPais.Colombia && tmpCronograma == 2) ? "DA" : "";
 
-                var headerTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.OrderHeaderTemplate + postfixHeaderTemplate]);
-                var detailTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.OrderDetailTemplate + postfixDetailTemplate]);
+                var headerTemplate = ParseTemplateSinMarcar(ConfigurationManager.AppSettings[element.OrderHeaderTemplate + postfixHeaderTemplate]);
+                var detailTemplate = ParseTemplateSinMarcar(ConfigurationManager.AppSettings[element.OrderDetailTemplate + postfixDetailTemplate]);
 
                 daPedidoWeb = new DAPedidoWeb(paisID);
 
@@ -1471,7 +1471,7 @@ namespace Portal.Consultoras.BizLogic
                 switch (field.FieldName)
                 {
                     case "PAIS": item = codigoPais; break;
-                    case "CAMPANIA": item = row["CampaniaID"].ToString(); break;
+                    case "CAMPANIA": item = row["LogCampaniaID"].ToString(); break;
                     case "CONSULTORA": item = row["CodigoConsultora"].ToString(); break;
                     case "PREIMPRESO": item = row["PedidoID"].ToString(); break;
                     case "CLIENTES": item = row["Clientes"].ToString(); break;
@@ -1579,6 +1579,23 @@ namespace Portal.Consultoras.BizLogic
             for (int index = 0; index < parts.Length; index++)
             {
                 var templateField = new TemplateField(parts[index]);
+                if (!descargaActDatosv2 && camposActDatosv2.Contains(templateField.FieldName)) continue;
+                listTemplate.Add(templateField);
+            }
+            return listTemplate.ToArray();
+        }
+
+
+        private TemplateField[] ParseTemplateSinMarcar(string templateText, bool descargaActDatosv2 = true)
+        {
+            List<string> camposActDatosv2 = new List<string> { "TELEFONOTRABAJO", "LATITUD", "LONGITUD" };
+            string[] parts = templateText.Split(';');
+            var listTemplate = new List<TemplateField>();
+
+            for (int index = 0; index < parts.Length; index++)
+            {
+                var templateField = new TemplateField(parts[index]);
+                if (templateField.FieldName == "CAMPANIA") templateField.Size = 10;
                 if (!descargaActDatosv2 && camposActDatosv2.Contains(templateField.FieldName)) continue;
                 listTemplate.Add(templateField);
             }
@@ -2618,6 +2635,19 @@ namespace Portal.Consultoras.BizLogic
             return pedidoDescarga;
         }
 
+        public BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int PaisID)
+        {
+            BEPedidoDescarga pedidoDescarga = new BEPedidoDescarga();
+            DAPedidoWeb daPedidoWeb = new DAPedidoWeb(PaisID);
+
+            using (IDataReader reader = daPedidoWeb.ObtenerUltimaDescargaPedidoSinMarcar())
+                while (reader.Read())
+                {
+                    pedidoDescarga = new BEPedidoDescarga(reader);
+                }
+            return pedidoDescarga;
+        }
+
         public void DeshacerUltimaDescargaPedido(int PaisID)
         {
             DAPedidoWeb daPedidoWeb = new DAPedidoWeb(PaisID);
@@ -3043,6 +3073,7 @@ namespace Portal.Consultoras.BizLogic
         public int Size
         {
             get { return size; }
+            set { size = value; } /*HD-4327*/
         }
     }
 }

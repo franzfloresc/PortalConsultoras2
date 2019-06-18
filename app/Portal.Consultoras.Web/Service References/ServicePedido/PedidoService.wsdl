@@ -29,26 +29,32 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Usuario" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd12" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd13" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Producto" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd14" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.PagoEnLinea" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd15" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillante" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd16" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.OrdenYFiltros" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.OrdenYFiltros" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Usuario" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd12" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd13" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd14" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Producto" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd15" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.PagoEnLinea" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd16" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillante" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd17" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd18" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Cupon" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd19" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IPedidoService_GetFiltrosCaminoBrillante_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFiltrosCaminoBrillante" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetFiltrosCaminoBrillante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFiltrosCaminoBrillanteResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_UpdDatoRecogerPor_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdDatoRecogerPor" />
   </wsdl:message>
@@ -60,6 +66,12 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetCuvSuscripcionSE_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCuvSuscripcionSEResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteValidacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteValidacion" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteValidacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteValidacionResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetReporteCuvResumido_InputMessage">
     <wsdl:part name="parameters" element="tns:GetReporteCuvResumido" />
@@ -565,12 +577,6 @@
   <wsdl:message name="IPedidoService_GetDemostradoresCaminoBrillante_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDemostradoresCaminoBrillanteResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetFiltrosCaminoBrillante_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetFiltrosCaminoBrillante" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetFiltrosCaminoBrillante_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetFiltrosCaminoBrillanteResponse" />
-  </wsdl:message>
   <wsdl:message name="IPedidoService_EliminarShowRoomEvento_InputMessage">
     <wsdl:part name="parameters" element="tns:EliminarShowRoomEvento" />
   </wsdl:message>
@@ -829,6 +835,12 @@
   <wsdl:message name="IPedidoService_ObtenerUltimaDescargaPedido_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerUltimaDescargaPedidoResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerUltimaDescargaPedidoSinMarcar_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerUltimaDescargaPedidoSinMarcar" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerUltimaDescargaPedidoSinMarcar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerUltimaDescargaPedidoSinMarcarResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_DeshacerUltimaDescargaPedido_InputMessage">
     <wsdl:part name="parameters" element="tns:DeshacerUltimaDescargaPedido" />
   </wsdl:message>
@@ -1074,12 +1086,6 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_InsertarCuponConsultorasXML_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertarCuponConsultorasXMLResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetReporteValidacion_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetReporteValidacion" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetReporteValidacion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetReporteValidacionResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_RegistrarAsistenciaCompartamos_InputMessage">
     <wsdl:part name="parameters" element="tns:RegistrarAsistenciaCompartamos" />
@@ -2612,6 +2618,10 @@
     <wsdl:part name="parameters" element="tns:DelCrossSellingProductoResponse" />
   </wsdl:message>
   <wsdl:portType name="IPedidoService">
+    <wsdl:operation name="GetFiltrosCaminoBrillante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetFiltrosCaminoBrillante" message="tns:IPedidoService_GetFiltrosCaminoBrillante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetFiltrosCaminoBrillanteResponse" message="tns:IPedidoService_GetFiltrosCaminoBrillante_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdDatoRecogerPor">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdDatoRecogerPor" message="tns:IPedidoService_UpdDatoRecogerPor_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdDatoRecogerPorResponse" message="tns:IPedidoService_UpdDatoRecogerPor_OutputMessage" />
@@ -2619,6 +2629,10 @@
     <wsdl:operation name="GetCuvSuscripcionSE">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCuvSuscripcionSE" message="tns:IPedidoService_GetCuvSuscripcionSE_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetCuvSuscripcionSEResponse" message="tns:IPedidoService_GetCuvSuscripcionSE_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteValidacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteValidacion" message="tns:IPedidoService_GetReporteValidacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteValidacionResponse" message="tns:IPedidoService_GetReporteValidacion_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetReporteCuvResumido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteCuvResumido" message="tns:IPedidoService_GetReporteCuvResumido_InputMessage" />
@@ -2956,10 +2970,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillante" message="tns:IPedidoService_GetDemostradoresCaminoBrillante_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetDemostradoresCaminoBrillanteResponse" message="tns:IPedidoService_GetDemostradoresCaminoBrillante_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetFiltrosCaminoBrillante">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetFiltrosCaminoBrillante" message="tns:IPedidoService_GetFiltrosCaminoBrillante_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetFiltrosCaminoBrillanteResponse" message="tns:IPedidoService_GetFiltrosCaminoBrillante_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="EliminarShowRoomEvento">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/EliminarShowRoomEvento" message="tns:IPedidoService_EliminarShowRoomEvento_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/EliminarShowRoomEventoResponse" message="tns:IPedidoService_EliminarShowRoomEvento_OutputMessage" />
@@ -3132,6 +3142,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedido" message="tns:IPedidoService_ObtenerUltimaDescargaPedido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedidoResponse" message="tns:IPedidoService_ObtenerUltimaDescargaPedido_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerUltimaDescargaPedidoSinMarcar">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedidoSinMarcar" message="tns:IPedidoService_ObtenerUltimaDescargaPedidoSinMarcar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedidoSinMarcarResponse" message="tns:IPedidoService_ObtenerUltimaDescargaPedidoSinMarcar_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="DeshacerUltimaDescargaPedido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DeshacerUltimaDescargaPedido" message="tns:IPedidoService_DeshacerUltimaDescargaPedido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DeshacerUltimaDescargaPedidoResponse" message="tns:IPedidoService_DeshacerUltimaDescargaPedido_OutputMessage" />
@@ -3295,10 +3309,6 @@
     <wsdl:operation name="InsertarCuponConsultorasXML">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarCuponConsultorasXML" message="tns:IPedidoService_InsertarCuponConsultorasXML_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarCuponConsultorasXMLResponse" message="tns:IPedidoService_InsertarCuponConsultorasXML_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetReporteValidacion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteValidacion" message="tns:IPedidoService_GetReporteValidacion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteValidacionResponse" message="tns:IPedidoService_GetReporteValidacion_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="RegistrarAsistenciaCompartamos">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/RegistrarAsistenciaCompartamos" message="tns:IPedidoService_RegistrarAsistenciaCompartamos_InputMessage" />
@@ -4323,6 +4333,15 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPedidoService" type="tns:IPedidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetFiltrosCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetFiltrosCaminoBrillante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdDatoRecogerPor">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdDatoRecogerPor" style="document" />
       <wsdl:input>
@@ -4334,6 +4353,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCuvSuscripcionSE">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCuvSuscripcionSE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteValidacion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteValidacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5097,15 +5125,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetFiltrosCaminoBrillante">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetFiltrosCaminoBrillante" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="EliminarShowRoomEvento">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/EliminarShowRoomEvento" style="document" />
       <wsdl:input>
@@ -5493,6 +5512,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerUltimaDescargaPedidoSinMarcar">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedidoSinMarcar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="DeshacerUltimaDescargaPedido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/DeshacerUltimaDescargaPedido" style="document" />
       <wsdl:input>
@@ -5855,15 +5883,6 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarCuponConsultorasXML">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarCuponConsultorasXML" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetReporteValidacion">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteValidacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8170,6 +8189,15 @@
   <wsdl:binding name="BasicHttpsBinding_IPedidoService" type="tns:IPedidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IPedidoService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetFiltrosCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetFiltrosCaminoBrillante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="UpdDatoRecogerPor">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdDatoRecogerPor" style="document" />
       <wsdl:input>
@@ -8181,6 +8209,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCuvSuscripcionSE">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCuvSuscripcionSE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteValidacion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteValidacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8944,15 +8981,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetFiltrosCaminoBrillante">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetFiltrosCaminoBrillante" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="EliminarShowRoomEvento">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/EliminarShowRoomEvento" style="document" />
       <wsdl:input>
@@ -9340,6 +9368,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerUltimaDescargaPedidoSinMarcar">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedidoSinMarcar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="DeshacerUltimaDescargaPedido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/DeshacerUltimaDescargaPedido" style="document" />
       <wsdl:input>
@@ -9702,15 +9739,6 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarCuponConsultorasXML">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarCuponConsultorasXML" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetReporteValidacion">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteValidacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

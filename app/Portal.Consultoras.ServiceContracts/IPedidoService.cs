@@ -959,6 +959,11 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEPedidoDescarga ObtenerUltimaDescargaPedido(int PaisID);
 
+
+
+        [OperationContract]
+        BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int PaisID);
+
         [OperationContract]
         void DeshacerUltimaDescargaPedido(int PaisID);
         [OperationContract]
