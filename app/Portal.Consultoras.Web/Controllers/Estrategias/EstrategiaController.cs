@@ -836,16 +836,9 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 if(!_ventaIncrementalProvider.validarActivacion(tipo)) return Json(new { success = false });
 
-                var dataProductosCarruselUpSelling =
-                    await _ventaIncrementalProvider.ObtenerProductosIncremental(cuv, tipo);
+                var dataProductosCarruselUpSelling = await _ventaIncrementalProvider.ObtenerProductosIncremental(cuv, tipo);
 
-                if (!dataProductosCarruselUpSelling.success)
-                {
-                    return Json(new OutputProductosUpSelling()
-                    {
-                        result = new List<EstrategiaPersonalizadaProductoModel>()
-                    });
-                }
+                if (!dataProductosCarruselUpSelling.success) return Json(new { success = false });
 
                 List<EstrategiaPersonalizadaProductoModel> listaProductos;
                 if (tipo.Equals(Constantes.TipoVentaIncremental.CrossSelling)) listaProductos = (List<EstrategiaPersonalizadaProductoModel>) (dataProductosCarruselUpSelling.result.crosssell ?? new List<EstrategiaPersonalizadaProductoModel>());

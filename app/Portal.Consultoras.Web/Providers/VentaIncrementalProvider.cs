@@ -16,7 +16,6 @@ namespace Portal.Consultoras.Web.Providers
     public class VentaIncrementalProvider : OfertaBaseProvider
     {
         protected static TablaLogicaProvider _tablaLogicaProvider;
-        private const string contentType = "application/json";
         private readonly ISessionManager _sessionManager = SessionManager.SessionManager.Instance;
 
         public VentaIncrementalProvider()
