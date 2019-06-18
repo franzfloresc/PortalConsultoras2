@@ -483,3 +483,8 @@ $(".tog-vermas").click(function () {
         $(this).text("Ver más");
     }
 });
+
+$(document).ready(function ($) {
+    var widthbarra = 90;
+    $('.new-bar').width(widthbarra + '%');
+});
