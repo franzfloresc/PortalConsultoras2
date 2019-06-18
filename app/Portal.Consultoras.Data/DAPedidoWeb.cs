@@ -131,6 +131,38 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
+        #region HD-4327
+        //public int InsPedidoDescargaSinMarcar(DateTime FechaFactura, byte Estado, int tipoCronograma, string usuario, out int NroLote)
+        //{
+        //    DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsPedidoDescarga");
+        //    Context.Database.AddInParameter(command, "@FechaFactura", DbType.Date, FechaFactura);
+        //    Context.Database.AddInParameter(command, "@Estado", DbType.Byte, Estado);
+        //    Context.Database.AddInParameter(command, "@TipoCronograma", DbType.Int32, tipoCronograma);
+        //    Context.Database.AddInParameter(command, "@Usuario", DbType.AnsiString, usuario);
+        //    Context.Database.AddOutParameter(command, "@NroLote", DbType.Int32, 4);
+
+        //    int result = Context.ExecuteNonQuery(command);
+        //    NroLote = Convert.ToInt32(command.Parameters["@NroLote"].Value);
+        //    return result;
+        //} 
+
+
+
+        public int InsPedidoDescargaSinMarcar(int campanaId, byte Estado, int tipoCronograma, string usuario, out int NroLote)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsPedidoDescargaSinMarcar");
+            Context.Database.AddInParameter(command, "@Estado", DbType.Byte, Estado);
+            Context.Database.AddInParameter(command, "@TipoCronograma", DbType.Int32, tipoCronograma);
+            Context.Database.AddInParameter(command, "@CampanaId", DbType.Int32, campanaId);
+            Context.Database.AddInParameter(command, "@Usuario", DbType.AnsiString, usuario);
+            Context.Database.AddOutParameter(command, "@NroLote", DbType.Int32, 4);
+
+            int result = Context.ExecuteNonQuery(command);
+            NroLote = Convert.ToInt32(command.Parameters["@NroLote"].Value);
+            return result;
+        }
+        #endregion
+
         private void InsLogPedidoDescargaDetalle(DataSet dsPedidos)
         {
             if (dsPedidos != null)
@@ -181,6 +213,65 @@ namespace Portal.Consultoras.Data
             }
         }
 
+
+        private void InsLogPedidoDescargaSinMarcar(DataSet dsPedidos)
+        {
+            if (dsPedidos != null)
+            {
+                var dtPedidosCabecera = dsPedidos.Tables[0];
+
+                if (dtPedidosCabecera.Rows.Count != 0)
+                {
+                    SqlBulkCopy oSqlBulkCopyCabecera = new SqlBulkCopy(Context.Database.ConnectionString);
+                    oSqlBulkCopyCabecera.DestinationTableName = "LogCargaPedidoSinMarcar";
+
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("LogCampaniaid", "Campaniaid");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("LogNroLote", "NroLote");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("PedidoID", "PedidoID");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("LogCantidad", "Cantidad");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("Origen", "Origen");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("LogCodigoUsuarioProceso", "CodigoUsuarioProceso");
+                    oSqlBulkCopyCabecera.ColumnMappings.Add("VersionProl", "VersionProl");
+
+                    oSqlBulkCopyCabecera.WriteToServer(dtPedidosCabecera);
+                    oSqlBulkCopyCabecera.Close();
+
+                    InsLogPedidoDescargaDetalleSinMarcar(dsPedidos);
+                }
+            }
+        }
+
+
+        private void InsLogPedidoDescargaDetalleSinMarcar(DataSet dsPedidos)
+        {
+            if (dsPedidos != null)
+            {
+                var dtPedidosDetalle = dsPedidos.Tables[1];
+
+                if (dtPedidosDetalle.Rows.Count > 0)
+                {
+                    SqlBulkCopy oSqlBulkCopyDetalle = new SqlBulkCopy(Context.Database.ConnectionString);
+                    oSqlBulkCopyDetalle.DestinationTableName = "LogCargaPedidoDetalleSinMarcar";
+
+                    oSqlBulkCopyDetalle.ColumnMappings.Add("LogCampaniaid", "Campaniaid");
+                    oSqlBulkCopyDetalle.ColumnMappings.Add("LogNroLote", "NroLote");
+                    oSqlBulkCopyDetalle.ColumnMappings.Add("PedidoID", "PedidoID");
+                    oSqlBulkCopyDetalle.ColumnMappings.Add("CodigoVenta", "CUV");
+                    oSqlBulkCopyDetalle.ColumnMappings.Add("Cantidad", "Cantidad");
+
+                    oSqlBulkCopyDetalle.WriteToServer(dtPedidosDetalle);
+                    oSqlBulkCopyDetalle.Close();
+                }
+            }
+        }
+
+        public void InsLogPedidoDescargaWebDDSinMarcar(DataSet dsPedidosWeb, DataSet dsPedidosDD)
+        {
+            this.InsLogPedidoDescargaSinMarcar(dsPedidosWeb);
+            this.InsLogPedidoDescargaSinMarcar(dsPedidosDD);
+        }
+
+
         public void InsLogPedidoDescargaWebDD(DataSet dsPedidosWeb, DataSet dsPedidosDD)
         {
             this.InsLogPedidoDescarga(dsPedidosWeb);
@@ -190,6 +281,13 @@ namespace Portal.Consultoras.Data
         public int UpdLogPedidoDescargaWebDD(int nroLote)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdLogCargaPedidoCantidadDetalle");
+            Context.Database.AddInParameter(command, "@nroLote", DbType.Int32, nroLote);
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public int UpdLogPedidoDescargaWebDDSinMarcar(int nroLote)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdLogCargaPedidoCantidadDetalleSinMarcar");
             Context.Database.AddInParameter(command, "@nroLote", DbType.Int32, nroLote);
             return Context.ExecuteNonQuery(command);
         }
@@ -238,7 +336,7 @@ namespace Portal.Consultoras.Data
 
         public int UpdPedidoDescargaGuardoS3(int nroLote, bool guardoS3, string mensaje, string mensajeExcepcion)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoDescargaGuardoS3");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoDescargaGuardoS3SinMarcar");
             Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
             Context.Database.AddInParameter(command, "@GuardoS3", DbType.Boolean, guardoS3);
             Context.Database.AddInParameter(command, "@Mensaje", DbType.String, mensaje);
@@ -323,15 +421,49 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public int ValidarCargadePedidos(int TipoCronograma, int MarcaPedido, DateTime FechaFactura)
+        public int ValidarCargadePedidos(int tipoCronograma, int campanaId, DateTime fechaFactura)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarCargadePedido");
-            Context.Database.AddInParameter(command, "@TipoCronograma", DbType.Int32, TipoCronograma);
-            Context.Database.AddInParameter(command, "@MarcaPedido", DbType.Int32, MarcaPedido);
-            Context.Database.AddInParameter(command, "@FechaFactura", DbType.DateTime, FechaFactura);
+            Context.Database.AddInParameter(command, "@TipoCronograma", DbType.Int32, tipoCronograma); 
+            Context.Database.AddInParameter(command, "@MarcaPedido", DbType.Int32, campanaId);
+            Context.Database.AddInParameter(command, "@FechaFactura", DbType.DateTime, fechaFactura);
             int result = int.Parse(Context.ExecuteScalar(command).ToString());
             return result;
         }
+
+        #region HD-4327
+        public DataSet GetPedidoWebByFechaFacturacionSinMarcar(int campanaId, int tmpCronograma, int nroLote)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebByFechaFacturacion_SinMarcar_SB2");
+            command.CommandTimeout = 400;
+            Context.Database.AddInParameter(command, "@CampanaId", DbType.Int32, campanaId);
+            Context.Database.AddInParameter(command, "@TipoCronograma", DbType.Int32, tmpCronograma);
+            Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+
+            return Context.ExecuteDataSet(command);
+        }
+
+        public DataSet GetDatosConsultoraProcesoCargaSinMarcar(string Usuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetDatosConsultoraProcesoCargaSinMarcar");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, Usuario);
+            return Context.ExecuteDataSet(command);
+        }
+
+
+        public int ValidarCargadePedidosSinMarcar(int tipoCronograma, int campanaId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarCargadePedidoSinMarcar");
+            Context.Database.AddInParameter(command, "@TipoCronograma", DbType.Int32, tipoCronograma);
+            Context.Database.AddInParameter(command, "@CampanaId", DbType.Int32, campanaId);
+            int result = int.Parse(Context.ExecuteScalar(command).ToString());
+            return result;
+        }
+
+        #endregion
+
+
+
 
         public IDataReader GetPedidosWebNoFacturados(BEPedidoDDWeb BEPedidoDDWeb)
         {
@@ -346,7 +478,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@EsRechazado", DbType.AnsiString, BEPedidoDDWeb.EsRechazado);
             Context.Database.AddInParameter(command, "@FechaRegistroInicio", DbType.Date, BEPedidoDDWeb.FechaRegistroInicio);
             Context.Database.AddInParameter(command, "@FechaRegistroFin", DbType.Date, BEPedidoDDWeb.FechaRegistroFin);
-            Context.Database.AddInParameter(command, "@IndicadorConsultoraDigital", DbType.Int32,Convert.ToInt32( BEPedidoDDWeb.IndicadorConsultoraDigital));
+            Context.Database.AddInParameter(command, "@IndicadorConsultoraDigital", DbType.Int32, Convert.ToInt32(BEPedidoDDWeb.IndicadorConsultoraDigital));
 
             return Context.ExecuteReader(command);
         }

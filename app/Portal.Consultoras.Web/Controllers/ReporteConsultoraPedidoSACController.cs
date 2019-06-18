@@ -45,27 +45,20 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult RealizarDescarga(DescargarPedidoModel model)
+        public JsonResult RealizarDescargaSinMarcar(DescargarPedidoModel model)
         {
-            string mensaje = string.Empty;
+            int tipoCronogramaID = 1; /*Regular*/
             try
             {
-                if (model.FechaFacturacion.ToShortDateString() == "01/01/0001")
-                    mensaje += "La Fecha de Inicio de Facturación no tiene el formato correcto, verifique dd/MM/yyyy. \n";
-                if ((DateTime)SqlDateTime.MinValue > model.FechaFacturacion)
-                    mensaje += "La Fecha de Facturación Miníma aceptada es " + SqlDateTime.MinValue + ". \n";
-                if (mensaje != string.Empty) return ErrorJson(mensaje);
-
-                int marcarPedido = model.TipoCronogramaID.ToInt();
-                string descProceso = ((Enumeradores.TipoDescargaPedidos)model.TipoCronogramaID).ToString();
+                string descProceso = ((Enumeradores.TipoDescargaPedidos)tipoCronogramaID).ToString();
 
                 string[] file;
                 using (var pedidoService = new PedidoServiceClient())
                 {
-                    int contadorCarga = pedidoService.ValidarCargadePedidos(model.PaisID, model.TipoCronogramaID, marcarPedido, model.FechaFacturacion);
+                    int contadorCarga = pedidoService.ValidarCargadePedidosSinMarcar(model.PaisID, model.CampanaId, tipoCronogramaID);
                     if (contadorCarga != 0) return ErrorJson("Existe una carga de pedidos en proceso para la fecha y tipo de cronograma seleccionado.");
 
-                    file = pedidoService.DescargaPedidosWeb(model.PaisID, model.FechaFacturacion, model.TipoCronogramaID, marcarPedido == 1, userData.NombreConsultora, descProceso);
+                    file = pedidoService.DescargaPedidosWebSinMarcar(model.PaisID, model.CampanaId, tipoCronogramaID, userData.NombreConsultora, descProceso);
                 }
                 if (file.Length != 3) return SuccessJson("El proceso de carga de pedidos ha finalizado satisfactoriamente.");
 

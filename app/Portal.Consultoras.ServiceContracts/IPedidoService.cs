@@ -68,6 +68,15 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int ValidarCargadePedidos(int paisID, int TipoCronograma, int MarcaPedido, DateTime FechaFactura);
 
+        #region HD-4327
+
+        [OperationContract]
+        int ValidarCargadePedidosSinMarcar(int paisID, int campanaId, int tipoCronograma);
+
+        [OperationContract]
+        string[] DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma,  string usuario, string descripcionProceso);
+        #endregion
+
         [OperationContract]
         string[] DescargaPedidosWeb(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario, string descripcionProceso);
 

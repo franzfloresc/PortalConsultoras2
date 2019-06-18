@@ -225,6 +225,32 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.ValidarCargadePedidos(paisID, TipoCronograma, MarcaPedido, FechaFactura);
         }
 
+
+        #region HD-4327
+        public int ValidarCargadePedidosSinMarcar(int paisID, int campanaId, int tipoCronograma)
+        {
+            return BLPedidoWeb.ValidarCargadePedidosSinMarcar(paisID, campanaId, tipoCronograma);
+        }
+
+        public string[] DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma,  string usuario, string descripcionProceso)
+        {
+            try
+            {
+                return BLPedidoWeb.DescargaPedidosWebSinMarcar(paisID, campanaId, tipoCronograma, usuario, descripcionProceso);
+            }
+            catch (BizLogicException ex)
+            {
+                throw new FaultException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", "");
+                throw new FaultException("Error desconocido.");
+            }
+        }
+        #endregion
+
+
         public IList<BECuvProgramaNueva> GetCuvProgramaNueva(int paisID)
         {
             return BLPedidoWeb.GetCuvProgramaNueva(paisID);
@@ -2479,6 +2505,7 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.GetCuvSuscripcionSE(bEPedidoWeb);
         }
+
         //FIN HD-4200
     }
 }
