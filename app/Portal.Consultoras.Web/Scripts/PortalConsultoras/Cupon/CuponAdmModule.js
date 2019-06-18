@@ -773,18 +773,7 @@
             }
         });
     };
-
-    var _setearValoresEditarCupon = function (cuponId, tipo, descripcion, estado) {
-        var activo = (estado.toLowerCase() == 'true');
-        var idTipo = (tipo.toUpperCase() == CONTANSTES_CUPON.NOMBRE_TIPO_MONTO ? CONTANSTES_CUPON.CODIGO_TIPO_MONTO : CONTANSTES_CUPON.CODIGO_TIPO_PORCENTAJE);
-
-        $(elements.hdCuponId).val(cuponId);
-        $(elements.ddlTipoCupon + ' option[value=' + idTipo + ']').prop('selected', true);
-        $(elements.txtDescripcion).val(descripcion);
-        $(elements.chckActivo).prop("checked", activo);
-        $(elements.contenedorCheckActivo).show();
-    };
-
+    
     var _listarCampaniasPromise = function (paisId) {
         var d = $.Deferred();
 

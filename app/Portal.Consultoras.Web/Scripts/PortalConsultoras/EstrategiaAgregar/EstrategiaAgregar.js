@@ -479,6 +479,7 @@ var EstrategiaAgregarModule = (function () {
                 //}
                 var esFichaT = ((estrategia.FlagNueva == 1 ? true : false) && IsNullOrEmpty(data.mensajeAviso)) || _config.esFicha;
 
+                var mensaje = '';
                 //Tooltip de agregado
                 if (esFichaT) {
                     try {
@@ -509,7 +510,6 @@ var EstrategiaAgregarModule = (function () {
                                 ResumenOpcionesModule.LimpiarOpciones()
                             };
                         } else {
-                            var mensaje = '';
 
                             if (data.EsReservado === true) {
                                 mensaje = _mensajeAgregarPedido.reservado;
@@ -658,8 +658,7 @@ var EstrategiaAgregarModule = (function () {
                         
                    }
                }
-
-               var mensaje = '';
+                
                if (esEditable === false) {
                    if (data.EsReservado === true) {
                        mensaje = _mensajeAgregarPedido.reservado;

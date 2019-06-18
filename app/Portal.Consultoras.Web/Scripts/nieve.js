@@ -29,7 +29,6 @@ function mostrarLluvia() {
 
     closeImagenRain = 0;
     if (listaIconoLluvia != null) {
-        var par = 0;
         $.each(listaIconoLluvia, function (index, value) {
             newObject(value, heightIcon, widthIcon);
         });
