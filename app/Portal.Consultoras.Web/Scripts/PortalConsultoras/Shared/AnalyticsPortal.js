@@ -341,7 +341,7 @@ var AnalyticsPortalModule = (function () {
         });
 
         if (obj == undefined && origenEstructura.CodigoPalanca != "") {
-            var obj = _origenPedidoWebEstructura.Palanca.find(function (element) {
+            obj = _origenPedidoWebEstructura.Palanca.find(function (element) {
                 return element.CodigoPalanca == origenEstructura.CodigoPalanca;
             });
         }
