@@ -31,6 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Niveles = _caminoBrillanteProvider.GetNivelesCaminoBrillante(true);
                 ViewBag.NivelActual = (_caminoBrillanteProvider.GetNivelActualConsultora() ??
                                          new ServiceUsuario.BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante()).Nivel;
+                ViewBag.NivelSiguiente = _caminoBrillanteProvider.GetNivelSiguienteConsultora();
                 ViewBag.ResumenLogros = _caminoBrillanteProvider.GetLogroCaminoBrillante(Constantes.CaminoBrillante.Logros.RESUMEN);
                 ViewBag.TieneOfertasEspeciales = _caminoBrillanteProvider.TieneOfertasEspeciales();
                 ViewBag.SimboloMoneda = userData.Simbolo;

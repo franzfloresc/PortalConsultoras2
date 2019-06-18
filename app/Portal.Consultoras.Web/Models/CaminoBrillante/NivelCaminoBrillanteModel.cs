@@ -56,6 +56,12 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
             }
         }
 
+        public decimal MontoAlcanzado { get {
+                var _montoMinimo = decimal.Parse(MontoMinimo);
+                if(!MontoFaltante.HasValue) return _montoMinimo;
+                return _montoMinimo - MontoFaltante.Value;
+            } }
+
         public class BeneficioCaminoBrillanteModel{
 
             public string CodigoNivel { get; set; }

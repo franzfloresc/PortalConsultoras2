@@ -6,6 +6,7 @@
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     var origenPedido = ViewBag.EsMobile ? Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel : Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel;
     ViewBag.origenPedido = origenPedido;
+    var nivelSiguiente = ViewBag.NivelSiguiente;
 }
 
 @section css{
@@ -59,22 +60,28 @@
     </div>
 
 
-    <div class="box-pg-bar">
-        <div id="progress-b">
-            <div class="progress-barnew">
-                <div class="new-bar">
-                    <span class="tip-valor">S/1000</span>
+    @if (nivelSiguiente != null)
+    {
+        <div class="box-pg-bar">
+            <div id="progress-b">
+                <div class="progress-barnew">
+                    <div class="new-bar">
+                        <span class="tip-valor">@ViewBag.SimboloMoneda  @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoAlcanzado), @ViewBag.CodigoISODL)</span>
+                    </div>
+                    <img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" />
                 </div>
-                <img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" />
+                <div class="valor-final">
+                    <p>@ViewBag.SimboloMoneda  @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoMinimo), @ViewBag.CodigoISODL)</p>
+                    <span>@nivelSiguiente.DescripcionNivel</span>
+                </div>
+                @if (nivelSiguiente.MontoFaltante != null)
+                {
+                <p class="etiq-falta">Te falta @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoFaltante), @ViewBag.CodigoISODL) para cambiar a <span>Nivel @nivelSiguiente.DescripcionNivel</span></p>
+                }
             </div>
-            <div class="valor-final">
-                <p>S/1000</p>
-                <span>Topacio</span>
-            </div>
-
-            <p class="etiq-falta">Te falta S/50 para cambiar a <span>Nivel Coral</span></p>
         </div>
-    </div>
+    }
+
 
         @foreach (var nivel in @ViewBag.Niveles as List<NivelCaminoBrillanteModel>)
         {
