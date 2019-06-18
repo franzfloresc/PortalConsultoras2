@@ -10,6 +10,7 @@ using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServicePROLConsultas;
 using Portal.Consultoras.Web.SessionManager;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         protected ConfiguracionOfertasHomeProvider _configuracionOfertasHomeProvider;
         protected CarruselUpSellingProvider _carruselUpSellingProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
-       
+        protected VentaIncrementalProvider _ventaIncrementalProvider;
 
         public EstrategiaController()
         {
@@ -32,6 +33,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
             _configuracionOfertasHomeProvider = new ConfiguracionOfertasHomeProvider();
             _carruselUpSellingProvider = new CarruselUpSellingProvider();
+            _ventaIncrementalProvider = new VentaIncrementalProvider();
         }
 
         public EstrategiaController(ISessionManager sesionManager, ILogManager logManager, TablaLogicaProvider tablaLogicaProvider)
@@ -824,6 +826,46 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
             }
         }
+
+        [HttpPost]
+        public async Task<JsonResult> FichaObtenerProductosIncremental(string cuv, string tipo)
+        {
+            try
+            {
+                if (cuv.IsNullOrEmptyTrim()) return Json(new { success = false });
+
+                if(!_ventaIncrementalProvider.validarActivacion(tipo)) return Json(new { success = false });
+
+                var dataProductosCarruselUpSelling =
+                    await _ventaIncrementalProvider.ObtenerProductosIncremental(cuv, tipo);
+
+                if (!dataProductosCarruselUpSelling.success)
+                {
+                    return Json(new OutputProductosUpSelling()
+                    {
+                        result = new List<EstrategiaPersonalizadaProductoModel>()
+                    });
+                }
+
+                List<EstrategiaPersonalizadaProductoModel> listaProductos;
+                if (tipo.Equals(Constantes.TipoVentaIncremental.CrossSelling)) listaProductos = (List<EstrategiaPersonalizadaProductoModel>) (dataProductosCarruselUpSelling.result.crosssell ?? new List<EstrategiaPersonalizadaProductoModel>());
+                else listaProductos = (List<EstrategiaPersonalizadaProductoModel>)(dataProductosCarruselUpSelling.result.suggested ?? new List<EstrategiaPersonalizadaProductoModel>());
+
+                var listaProductosValidados = ValidacionResultadosProductos(listaProductos).ToList();
+                var listaOfertasModel = _ofertaPersonalizadaProvider.RevisarCamposParaMostrar(listaProductosValidados, true);
+                return Json(new
+                {
+                    success = true,
+                    result = listaOfertasModel
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
+            }
+        }
+
 
         private IList<EstrategiaPersonalizadaProductoModel> ValidacionResultadosProductos(IList<EstrategiaPersonalizadaProductoModel> estrategiaPersonalizadaProductoModels)
         {
