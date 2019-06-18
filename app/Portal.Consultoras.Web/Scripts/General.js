@@ -917,9 +917,7 @@ function AbrirMensaje25seg(mensaje, imagen) {
                 $("body").css("overflow", "auto")
             })
         }, 3000)
-
-
-        var parameter = [["mensaje", mensaje], ["imagen", imagen]];
+        
     } catch (e) {
 
     }
