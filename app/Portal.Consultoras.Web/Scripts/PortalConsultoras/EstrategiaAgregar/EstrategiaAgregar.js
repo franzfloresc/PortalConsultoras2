@@ -247,11 +247,11 @@ var EstrategiaAgregarModule = (function () {
         var clientId = 0;
 
         var $divFichaReumida = $('#DivPopupFichaResumida');
-        if (typeof $divFichaReumida !== "undefined" || $divFichaReumida !== null) {
+        
             if ($divFichaReumida.find("#hfClienteId").length > 0) {
                 clientId = $($divFichaReumida.find("#hfClienteId")[0]).val();
             }
-        }
+        
 
         return clientId;
     };

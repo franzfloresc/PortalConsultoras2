@@ -71,7 +71,7 @@ var DetalleEstrategiaProvider = function () {
 
     var _promiseObternerModelo = function (params) {
         var dfd = $.Deferred();
-        
+
         try {
 
             $.ajax({
@@ -127,7 +127,7 @@ var DetalleEstrategiaProvider = function () {
         var sigueTexto = '_getEstrategia';
         console.log(sigueTexto);
         var estrategia = {};
-        
+
         _promiseObternerModelo({
             palanca: params.palanca,
             campaniaId: params.campania,
@@ -139,7 +139,11 @@ var DetalleEstrategiaProvider = function () {
             estrategia.Error = data.success === false;
         }).fail(function (data, error) {
             throw "DetalleEstrategiaProvider._getEstrategia";
-            });
+        });
+
+        if (estrategia.Error !== false) {
+            return estrategia;
+        }
 
         sigueTexto += '_promiseObternerModelo';
         console.log(sigueTexto);
