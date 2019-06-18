@@ -24,7 +24,7 @@ var moneda = ($('#moneda').val());
 $(document).ready(function () {  
     Handlebars.registerPartial("kit_template", $("#template-kit").html());
     Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
-
+    CargarKits();
     getUrl = getGET();
     Inicializar();
     CambiarOferta();
