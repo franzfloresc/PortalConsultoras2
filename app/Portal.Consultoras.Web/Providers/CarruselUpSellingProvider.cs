@@ -1,11 +1,8 @@
-﻿using Portal.Consultoras.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.ElasticSearch;
+using System;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -57,7 +54,7 @@ namespace Portal.Consultoras.Web.Providers
             double precioProducto,
             string cuv)
         {
-            var suscripcion = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
+            var suscripcion = revistaDigital.EsActiva;
             var personalizaciones = "";
             var buscadorConfig = _sessionManager.GetBuscadorYFiltrosConfig();
             if (buscadorConfig != null)
