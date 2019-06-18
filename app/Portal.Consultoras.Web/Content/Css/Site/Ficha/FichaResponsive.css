@@ -555,7 +555,7 @@ ul.breadcumbs li a {
 .contenedor_ficha_agotado divFichaCarrusel_sugerido {
     order: 1;
 }
-/*Ubicación del carrucel*/
+/* FIn ubicación del carrucel*/
 
 @media (min-width: 960px) {
     .contenedor_etiqueta_odd .clock_odd {
