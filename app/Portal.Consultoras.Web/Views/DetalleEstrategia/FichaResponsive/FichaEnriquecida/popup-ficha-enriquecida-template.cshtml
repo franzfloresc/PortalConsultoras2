@@ -42,84 +42,53 @@
                     </div>
                 </div>
                 <div class="col-12 col-lg-5">
+
+                    {{#iff this.FotosCarrusel.length '==' 0 }}
+                    <div class="contenedor_imagen">
+                        <div>
+                            <img src={{ImgUrl ImagenBulk}}>
+                        </div>
+                        <p>* Foto Referencial</p>
+                    </div>
+                    {{else}}
                     <div class="row no-gutters">
                         <div class="col-3 d-none d-sm-none d-md-none d-lg-block">
                             <div class="contenedor_imagen_thumbnail slider-nav-detail">
+
                                 <div class="contenedor_carrusel">
                                     <img src="{{ImgUrl ImagenBulk}}" class="img-fluid" />
                                 </div>
+
+                                {{#each this.FotosCarrusel as |foto|}}
                                 <div class="contenedor_carrusel">
-                                    <img src="{{ImgUrl ImagenBulk}}" class="img-fluid" />
+                                    <img src="{{ImgUrl foto}}" class="img-fluid" />
                                 </div>
-                                <div class="contenedor_carrusel">
-                                    <img src="{{ImgUrl ImagenBulk}}" class="img-fluid" />
-                                </div>
-                                <div class="contenedor_carrusel">
-                                    <img src="{{ImgUrl ImagenBulk}}" class="img-fluid" />
-                                </div>
-                                <div class="contenedor_carrusel">
-                                    <img src="{{ImgUrl ImagenBulk}}" class="img-fluid" />
-                                </div>
-                                <div class="contenedor_carrusel">
-                                    <img src="{{ImgUrl ImagenBulk}}" class="img-fluid" />
-                                </div>
-                                <div class="contenedor_carrusel">
-                                    <img src="{{ImgUrl ImagenBulk}}" class="img-fluid" />
-                                </div>
-                                <div class="contenedor_carrusel">
-                                    <img src="{{ImgUrl ImagenBulk}}" class="img-fluid" />
-                                </div>
-                                <div class="contenedor_carrusel">
-                                    <img src="{{ImgUrl ImagenBulk}}" class="img-fluid" />
-                                </div>
-                                <div class="contenedor_carrusel">
-                                    <img src="{{ImgUrl ImagenBulk}}" class="img-fluid" />
-                                </div>
+                                {{/each}}
                             </div>
                         </div>
                         <div class="col-lg-9 col-md-12 ">
                             <div class="contenedor_imagen slider-for-detail">
-                                <div class="contenedor_carrusel">
-                                    <img src={{ImgUrl ImagenBulk}}>
-                                </div>
-                                <div class="contenedor_carrusel">
-                                    <img src={{ImgUrl ImagenBulk}}>
-                                </div>
-                                <div class="contenedor_carrusel">
-                                    <img src={{ImgUrl ImagenBulk}}>
-                                </div>
-                                <div class="contenedor_carrusel">
-                                    <img src={{ImgUrl ImagenBulk}}>
-                                </div>
-                                <div class="contenedor_carrusel">
-                                    <img src={{ImgUrl ImagenBulk}}>
-                                </div>
-                                <div class="contenedor_carrusel">
-                                    <img src={{ImgUrl ImagenBulk}}>
-                                </div>
-                                <div class="contenedor_carrusel">
-                                    <img src={{ImgUrl ImagenBulk}}>
-                                </div>
-                                <div class="contenedor_carrusel">
-                                    <img src={{ImgUrl ImagenBulk}}>
-                                </div>
-                                <div class="contenedor_carrusel">
-                                    <img src={{ImgUrl ImagenBulk}}>
-                                </div>
+
                                 <div class="contenedor_carrusel">
                                     <img src={{ImgUrl ImagenBulk}}>
                                 </div>
 
+                                {{#each this.FotosCarrusel as |foto|}}
+                                <div class="contenedor_carrusel">
+                                    <img src="{{ImgUrl foto}}" />
+                                </div>
+                                {{/each}}
                             </div>
                             <p>* Foto Referencial</p>
                         </div>
-                    </div>                        
+                    </div>
+                    {{/iff}}
                 </div>
-            </div>
+                    </div>
 
-            <div id="popup_tabs_ficha_enriquecida_contenedor" class="popup_tabs_ficha">
-                
-            </div>
-        </div>
+                    <div id="popup_tabs_ficha_enriquecida_contenedor" class="popup_tabs_ficha">
+
+                    </div>
+                </div>
     </section>
 </script>

@@ -176,19 +176,19 @@ var DetalleEstrategiaProvider = function () {
                     estrategia.EsMultimarca = data.esMultimarca;
 
                     $.each(estrategia.Hermanos, function (idx, componente) {
+
+                        //componente.FotosCarrusel = ['https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                        //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png'];
+
                         if (estrategia.Cuv === componente.Cuv) {
                             estrategia.FotosCarrusel = componente.FotosCarrusel || [];
-                            estrategia.FotosCarrusel = ['https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
-                                'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
-                                'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
-                                'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
-                                'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
-                                'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
-                                'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
-                                'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
-                                'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
-                                'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
-                                'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png'];
                         }
                     });
 
