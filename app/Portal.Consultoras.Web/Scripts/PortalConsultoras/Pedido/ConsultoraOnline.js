@@ -251,12 +251,14 @@ function CargarPopupPedidoPend(page, rows, pedidoId, estado) {
                             }
 
                             var htmlPaginadorPendH = '';
+                            var html = '';
+                            var html2 = '';
                             var jsonDetallePedido = PaginacionDetallePedido(data.ListaDetalle, data.Pagina, data.Registros);
                             if (t == 1) {
-                                var html = SetHandlebars("#popup-pedidopend-template", d1);
+                                html = SetHandlebars("#popup-pedidopend-template", d1);
                                 $('#divPopupPedidoPend').html(html);
 
-                                var html2 = SetHandlebars("#detalle-pedidopend-template", jsonDetallePedido);
+                                html2 = SetHandlebars("#detalle-pedidopend-template", jsonDetallePedido);
                                 $('#divDetPedidoPend').html(html2);
 
                                 data.footer = true;
@@ -268,11 +270,11 @@ function CargarPopupPedidoPend(page, rows, pedidoId, estado) {
                                 $('#popup_pendientes').show();
                             }
                             else {
-                                var html = SetHandlebars("#popup2-pedidopend-template", d1);
+                                html = SetHandlebars("#popup2-pedidopend-template", d1);
                                 $('#divPopup2PedidoPend').html(html);
                                 $(".cubre2").css({ 'height': '245px' });
 
-                                var html2 = SetHandlebars("#detalle2-pedidopend-template", jsonDetallePedido);
+                                html2 = SetHandlebars("#detalle2-pedidopend-template", jsonDetallePedido);
                                 $('#divDet2PedidoPend').html(html2);
 
                                 data.footer = true;
@@ -316,9 +318,10 @@ function CargarPopupPedidoPend(page, rows, pedidoId, estado) {
             }
 
             var htmlPaginadorPendH = '';
+            var html2 = '';
             var jsonDetallePedido = PaginacionDetallePedido(data.ListaDetalle, obj.page, obj.rows);
             if (t == 1) {
-                var html2 = SetHandlebars("#detalle-pedidopend-template", jsonDetallePedido);
+                html2 = SetHandlebars("#detalle-pedidopend-template", jsonDetallePedido);
                 $('#divDetPedidoPend').html(html2);
 
                 data.footer = true;
@@ -330,7 +333,7 @@ function CargarPopupPedidoPend(page, rows, pedidoId, estado) {
                 CargarCombosPedidoDetallePoput(jsonDetallePedido, obj.page, obj.rows);
             }
             else {
-                var html2 = SetHandlebars("#detalle2-pedidopend-template", jsonDetallePedido);
+                html2 = SetHandlebars("#detalle2-pedidopend-template", jsonDetallePedido);
                 $('#divDet2PedidoPend').html(html2);
 
                 data.footer = true;

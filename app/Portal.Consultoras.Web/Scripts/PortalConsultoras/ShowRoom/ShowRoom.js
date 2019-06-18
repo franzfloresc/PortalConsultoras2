@@ -8,6 +8,7 @@ var origenPedidoWebCarrusel = origenPedidoWebCarrusel || 0;
 var showRoomOrigenInsertar = showRoomOrigenInsertar || 0;
 
 $(document).ready(function () {
+    var array_impresions_tactica_desktop = [];
     if (tipoOrigenPantalla == 11) {
         $(".verDetalleCompraPorCompra").click(function () {
             var padre = $(this).parents("[data-item]")[0];
@@ -69,7 +70,6 @@ $(document).ready(function () {
 
         //marca google analytics*******************************
         var divs = $(".content_ficha_compra").find("[data-campos]");
-        var array_impresions_tactica_desktop = [];
 
         $(divs).each(function (index, value) {
             var existe = false;
@@ -185,7 +185,6 @@ $(document).ready(function () {
         });
 
         var divs = $(".content_pop_compra").find("[data-campos]");
-        var array_impresions_tactica_desktop = [];
 
         $(divs).each(function (index, value) {
             var existe = false;
