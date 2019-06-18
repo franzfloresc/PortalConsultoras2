@@ -209,6 +209,12 @@ var ConstantesModule = (function() {
         Texto: "02"
     }
 
+    var _tipoVentaIncremental = {
+        CrossSelling: "CrossSell",
+        Sugerido: "Suggested",
+        UpSelling: "UpSelling"
+    }
+
     return {
         CodigoPalanca: _codigoPalanca,
         TipoEstrategia: _codigoTipoEstrategia,
@@ -227,6 +233,7 @@ var ConstantesModule = (function() {
         MensajeAgregarPedido: _mensajeAgregarPedido,
         MensajeModificarPedido: _mensajeModificarPedido,
         Tiempo: _tiempo,
-        TipoSeccion: _tipoSeccion
+        TipoSeccion: _tipoSeccion,
+        TipoVentaIncremental: _tipoVentaIncremental
     }
 })();

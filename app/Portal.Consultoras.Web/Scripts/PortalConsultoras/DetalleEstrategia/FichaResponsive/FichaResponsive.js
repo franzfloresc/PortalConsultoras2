@@ -64,7 +64,7 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         estrategia.Precio2,
         estrategia.Hermanos,
         estrategia.TieneStock,
-        "upselling");
+        ConstantesModule.TipoVentaIncremental.UpSelling);
     const carruselPresenterUpselling = new CarruselPresenter();
     const carruselViewUpselling = new CarruselView(carruselPresenterUpselling);
     carruselPresenterUpselling.initialize(carruselModelUpselling, carruselViewUpselling);
@@ -73,7 +73,7 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         params.palanca,
         params.campania,
         params.cuv,
-        "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
+        "/Estrategia/FichaObtenerProductosIncremental",
         params.origen,
         estrategia.OrigenAgregarCarrusel,
         estrategia.DescripcionCompleta,
@@ -81,7 +81,7 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         estrategia.Precio2,
         estrategia.Hermanos,
         estrategia.TieneStock,
-        "cross");
+        ConstantesModule.TipoVentaIncremental.CrossSelling);
     const carruselPresenterCross = new CarruselPresenter();
     const carruselViewCross = new CarruselView(carruselPresenterCross);
     carruselPresenterCross.initialize(carruselModelCross, carruselViewCross);
@@ -90,7 +90,7 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         params.palanca,
         params.campania,
         params.cuv,
-        "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
+        "/Estrategia/FichaObtenerProductosIncremental",
         params.origen,
         estrategia.OrigenAgregarCarrusel,
         estrategia.DescripcionCompleta,
@@ -98,10 +98,8 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         estrategia.Precio2,
         estrategia.Hermanos,
         estrategia.TieneStock,
-        "sugerido");
+        ConstantesModule.TipoVentaIncremental.Sugerido);
     const carruselPresenterSugerido = new CarruselPresenter();
     const carruselViewSugerido = new CarruselView(carruselPresenterSugerido);
     carruselPresenterSugerido.initialize(carruselModelSugerido, carruselViewSugerido);
-
-
 });

@@ -3384,6 +3384,11 @@ namespace Portal.Consultoras.Common
             /// Evento/listarconsultora/{pais}/{campania}/{codigoConsultora}
             /// </summary>
             public const string UrlObtenerEventoConsultora = "Evento/listarconsultora/{0}/{1}/{2}";
+
+            /// <summary>
+            /// Ventaincremental/{isoPais}/{campaniaId}/{origen}
+            /// </summary>
+            public const string UrlVentaIncremental = "Ventaincremental/{0}/{1}/{2}";
             #endregion
 
             #region Personalizacion
@@ -4125,6 +4130,13 @@ namespace Portal.Consultoras.Common
             public const string CatalogoEbel = "9";
             public const string CatalogoCyzone = "10";
             public const string CatalogoEsika = "13";
+        }
+
+        public static class TipoVentaIncremental
+        {
+            public const string CrossSelling = "CrossSell";
+            public const string Sugerido = "Suggested";
+            public const string UpSelling = "UpSelling";
         }
     }
 }

@@ -870,6 +870,7 @@
     <Compile Include="Providers\ConfiguracionPaisProvider.cs" />
     <Compile Include="Providers\ConsultaProlProvider.cs" />
     <Compile Include="Providers\ConsultoraOnlineProvider.cs" />
+    <Compile Include="Providers\VentaIncrementalProvider.cs" />
     <Compile Include="Providers\EstadoCuentaProvider.cs" />
     <Compile Include="Providers\EstrategiaComponenteProvider.cs" />
     <Compile Include="Providers\EventoFestivoProvider.cs" />
