@@ -476,6 +476,7 @@ namespace Portal.Consultoras.Common
             public const string KitCaminoBrillante = "KitCaminoBrillante";
             public const string DemostradoresCaminoBrillante = "DemostradoresCaminoBrillante";
             public const string FiltrosCaminoBrillante = "FiltrosCaminoBrillante";
+            public const string ConfiguracionCaminoBrillante = "ConfiguracionCaminoBrillante";
         }
 
         public static class ConfiguracionManager

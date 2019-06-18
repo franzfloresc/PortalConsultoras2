@@ -743,12 +743,14 @@ namespace Portal.Consultoras.Web.Providers
         #region Configuracion
         public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion()
         {
-            var lst = new List<BEConfiguracionCaminoBrillante>();
-            using (var svc = new UsuarioServiceClient())
+            var lst = sessionManager.GetConfiguracionCaminoBrillante();
+            if (lst == null || lst.Count == 0)
             {
-                lst = svc.GetCaminoBrillanteConfiguracion(usuarioModel.PaisID, "0").ToList();
-            }
+                using (var svc = new UsuarioServiceClient())
+                    lst = svc.GetCaminoBrillanteConfiguracion(usuarioModel.PaisID, "0").ToList();
 
+                if (lst != null) sessionManager.SetConfiguracionCaminoBrillante(lst);
+            }            
             return lst;
         }
         #endregion

@@ -52,7 +52,6 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return _RedirectToAction("Index", "Bienvenida");
             }
-
         }
 
         public ActionResult Logros(string opcion)
