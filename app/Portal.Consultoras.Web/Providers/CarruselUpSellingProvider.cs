@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
-    public class CarruselUpSellingProvider:BuscadorBaseProvider
+    public class CarruselUpSellingProvider : BuscadorBaseProvider
     {
         protected TablaLogicaProvider _tablaLogicaProvider;
 
@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 return await PostAsync<OutputProductosUpSelling>(pathBuscador, jsonData);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new OutputProductosUpSelling();
             }
@@ -41,16 +41,16 @@ namespace Portal.Consultoras.Web.Providers
         private int ObtenerCantidadProductosUpSelling()
         {
             var userData = _sessionManager.GetUserData();
-            var cantidadProductos = _tablaLogicaProvider.GetTablaLogicaDatoValorInt(userData.PaisID, 
-                ConsTablaLogica.ConfiguracionesFicha.TablaLogicaId, 
+            var cantidadProductos = _tablaLogicaProvider.GetTablaLogicaDatoValorInt(userData.PaisID,
+                ConsTablaLogica.ConfiguracionesFicha.TablaLogicaId,
                 ConsTablaLogica.ConfiguracionesFicha.CantidadProductosUpSelling, true);
             return cantidadProductos;
         }
 
-        private dynamic GenerarJsonParaConsulta(UsuarioModel usuarioModel, 
-            RevistaDigitalModel revistaDigital, 
-            string[] codigosProductos, 
-            int cantidadProductos, 
+        private dynamic GenerarJsonParaConsulta(UsuarioModel usuarioModel,
+            RevistaDigitalModel revistaDigital,
+            string[] codigosProductos,
+            int cantidadProductos,
             double precioProducto,
             string cuv)
         {

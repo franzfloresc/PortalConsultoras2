@@ -8,7 +8,6 @@
 /// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselModel.js" />
 /// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselView.js" />
 
-console.log(1);
 var detalleEstrategia = DetalleEstrategiaProvider;
 var fichaResponsiveEvents = FichaResponsiveEvents();
 var analyticsPortal = AnalyticsPortalModule;
@@ -44,31 +43,32 @@ $(document).ready(function () {
     }
 });
 
-fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded, function(){
-    estrategiaPresenter.cleanContainer();
-    componentesPresenter.cleanContainer();
-    
-    var estrategia = detalleEstrategia.promiseGetEstrategia(params);
-    if (estrategia.Error) GeneralModule.redirectTo('/Ofertas', true);
+fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded, function () {
+    try {
+        estrategiaPresenter.cleanContainer();
+        componentesPresenter.cleanContainer();
 
-    $("#data-estrategia").data("estrategia", estrategia);
+        var estrategia = detalleEstrategia.promiseGetEstrategia(params);
+        if (estrategia.Error) GeneralModule.redirectTo('/Ofertas', true);
 
-    estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
-    componentesPresenter.onEstrategiaModelLoaded(estrategia);
+        $("#data-estrategia").data("estrategia", estrategia);
 
-    fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
+        estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
+        componentesPresenter.onEstrategiaModelLoaded(estrategia);
 
-    const carruselModelUpselling = new CarruselModel(
-        params.palanca,
-        params.campania,
-        params.cuv,
-        "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
-        params.origen,
-        estrategia.OrigenAgregarCarrusel,
-        estrategia.DescripcionCompleta,
-        estrategia.CodigoProducto,
-        estrategia.Precio2,
-        estrategia.Hermanos,
+        fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
+
+        const carruselModelUpselling = new CarruselModel(
+            params.palanca,
+            params.campania,
+            params.cuv,
+            "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
+            params.origen,
+            estrategia.OrigenAgregarCarrusel,
+            estrategia.DescripcionCompleta,
+            estrategia.CodigoProducto,
+            estrategia.Precio2,
+            estrategia.Hermanos,
         estrategia.TieneStock,
         ConstantesModule.TipoVentaIncremental.UpSelling);
     const carruselPresenterUpselling = new CarruselPresenter();
@@ -108,4 +108,14 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
     const carruselPresenterSugerido = new CarruselPresenter();
     const carruselViewSugerido = new CarruselView(carruselPresenterSugerido);
     carruselPresenterSugerido.initialize(carruselModelSugerido, carruselViewSugerido);
+    }
+    catch (error) {
+        if (typeof error === "string") {
+            window.onerror(error);
+        }
+        else if (typeof error === "object") {
+            registrarLogErrorElastic(error);
+        }
+        GeneralModule.redirectTo("ofertas");
+    }
 });

@@ -747,8 +747,7 @@
                 var extensiones = ['csv'];
                 var message = '';
 
-                var get_ext = fileValue.split('.');
-                get_ext = get_ext.reverse();
+                var get_ext = fileValue.split('.').reverse();
 
                 if ($.inArray(get_ext[0].toLowerCase(), extensiones) == -1 && fileValue.length > 0)
                     message = message + '- El tipo de archivo es inválido, asegúrese de seleccionar con extensión (csv).';
