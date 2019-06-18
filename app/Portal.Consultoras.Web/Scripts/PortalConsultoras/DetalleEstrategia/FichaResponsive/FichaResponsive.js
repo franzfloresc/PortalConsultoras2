@@ -42,6 +42,23 @@ var estrategia = null;
 
 $(document).ready(function () {
     fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
+
+    const carruselModel = new CarruselModel(
+        params.palanca,
+        params.campania,
+        params.cuv,
+        "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
+        params.origen,
+        estrategia.OrigenAgregarCarrusel,
+        "Ficha",
+        estrategia.DescripcionCompleta,
+        estrategia.Hermanos.length,
+        estrategia.CodigoProducto,
+        estrategia.Precio2,
+        estrategia.Hermanos,
+        estrategia.TieneStock);
+
+    carruselPresenter.initialize(carruselModel, carruselView);
 });
 
 fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded, function () {
@@ -49,7 +66,7 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         estrategiaPresenter.cleanContainer();
         componentesPresenter.cleanContainer();
 
-        var estrategia = detalleEstrategia.promiseGetEstrategia(params);
+        estrategia = detalleEstrategia.promiseGetEstrategia(params);
 
         if (estrategia.Error !== false) {
             GeneralModule.redirectTo("ofertas");
@@ -61,27 +78,6 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         componentesPresenter.onEstrategiaModelLoaded(estrategia);
 
         fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
-
-        const carruselModel = new CarruselModel(
-            params.palanca,
-            params.campania,
-            params.cuv,
-            "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
-            params.origen,
-            estrategia.OrigenAgregarCarrusel,
-            "Ficha",
-            estrategia.DescripcionCompleta,
-            estrategia.Hermanos.length,
-            estrategia.CodigoProducto,
-            estrategia.Precio2,
-            estrategia.Hermanos,
-            estrategia.TieneStock);
-
-        const carruselPresenter = new CarruselPresenter();
-
-        const carruselView = new CarruselView(carruselPresenter);
-
-        carruselPresenter.initialize(carruselModel, carruselView);
     }
     catch (error) {
         if (typeof error === "string") {
