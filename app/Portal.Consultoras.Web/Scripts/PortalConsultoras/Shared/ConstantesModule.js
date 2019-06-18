@@ -150,9 +150,16 @@ var ConstantesModule = (function() {
 
     var _origenPedidoWeb = {
 
-        DesktopLandingCaminoBrillante : "1181901",
-        MobileLandingCaminoBrillante : "2181901",
-        CaminoBrillanteAppConsultorasPedido : "4181901",
+        CaminoBrillanteDesktopPedido : "1181901",
+        CaminoBrillanteMobilePedido : "2181901",
+        CaminoBrillanteAppConsultorasPedido: "4181901",
+        CaminoBrillanteDesktopPedido_Ficha : "1181902",
+        CaminoBrillanteMobilePedido_Ficha : "2181902",
+        CaminoBrillanteDesktopPedido_Carrusel: "1201901",
+        CaminoBrillanteMobilePedido_Carrusel: "2201901",
+        CaminoBrillanteAppMobilePedido_Home: "4181902",
+        CaminoBrillanteAppMobilePedido_Home: "4201901",
+        CaminoBrillanteAppMobilePedido_Carrusel: "4201902",
 
         DesktopHomeOfertaDeliaBannerSuperior: "1010306",
         DesktopPedidoOfertaDelDiaBannerSuperior: "1020306",

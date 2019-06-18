@@ -18,12 +18,14 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private readonly PedidoSetProvider _pedidoSetProvider;
         protected ProductoFaltanteProvider _productoFaltanteProvider;
+        private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
         private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
 
         public PedidoRegistroController()
         {
             _pedidoSetProvider = new PedidoSetProvider();
             _productoFaltanteProvider = new ProductoFaltanteProvider();
+            _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
             _caminoBrillanteProvider = new CaminoBrillanteProvider();
         }
 
