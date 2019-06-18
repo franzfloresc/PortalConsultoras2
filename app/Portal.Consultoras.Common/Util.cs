@@ -3948,6 +3948,11 @@ namespace Portal.Consultoras.Common
             return result;
         }
 
+        public static string OrigenSegunDispositivo()
+        {
+            return EsDispositivoMovil() ? "sb-mobile" : "sb-desktop";
+        }
+
         public static string DecryptCryptoJs(string CipherText, string Password, string Salt, string Key, string Iv)
         {
             var cipherText = Convert.FromBase64String(CipherText);
