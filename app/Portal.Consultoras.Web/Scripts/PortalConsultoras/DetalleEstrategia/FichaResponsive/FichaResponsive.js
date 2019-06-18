@@ -35,22 +35,13 @@ var fichaEnriquecidaPresenter = FichaEnriquecidaPresenter({
     fichaEnriquecidaView: fichaEnriquecidaView
 });
 
+const carruselView = new CarruselView();
+const carruselPresenter = new CarruselPresenter();
+
+var estrategia = null;
+
 $(document).ready(function () {
     fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
-});
-
-fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded, function(){
-    estrategiaPresenter.cleanContainer();
-    componentesPresenter.cleanContainer();
-    
-    var estrategia = detalleEstrategia.getEstrategia(params);
-
-    $("#data-estrategia").data("estrategia", estrategia);
-
-    estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
-    componentesPresenter.onEstrategiaModelLoaded(estrategia);
-
-    fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
 
     const carruselModel = new CarruselModel(
         params.palanca,
@@ -64,11 +55,22 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         estrategia.CodigoProducto,
         estrategia.Precio2,
         estrategia.Hermanos,
-        estrategia.TieneStock);
-
-    const carruselPresenter = new CarruselPresenter();
-
-    const carruselView = new CarruselView(carruselPresenter);
+        estrategia.TieneStock
+    );
 
     carruselPresenter.initialize(carruselModel, carruselView);
+});
+
+fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded, function(){
+    estrategiaPresenter.cleanContainer();
+    componentesPresenter.cleanContainer();
+    
+    estrategia = detalleEstrategia.getEstrategia(params);
+
+    $("#data-estrategia").data("estrategia", estrategia);
+
+    estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
+    componentesPresenter.onEstrategiaModelLoaded(estrategia);
+
+    fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
 });

@@ -1298,7 +1298,7 @@ var AnalyticsPortalModule = (function () {
             "label": modelo.label
         };
 
-        console.log(_evento.virtualEvent, objMarcar);
+        // console.log(_evento.virtualEvent, objMarcar);
         dataLayer.push(objMarcar);
 
         return true;
