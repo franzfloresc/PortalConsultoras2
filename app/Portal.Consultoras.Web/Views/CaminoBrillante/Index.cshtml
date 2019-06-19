@@ -169,13 +169,13 @@
                 @Html.Partial("Partial/template_demostrador")
                 <script id="template-carrusel" type="text/x-handlebars-template">
                     <div class="box-kit-demos">
-    
+
                         <h2 class="title fleft">Kits y demostradores</h2>
                         {{#if VerMas}}
                         <a href="@Url.Action("Ofertas", "CaminoBrillante")" class="ver-todos">Ver todos</a>
                         {{/if}}
                         <div class="clear"></div>
-    
+
                         <section class="regular slider">
                             {{#each Items}}
                             <div class="revistadigital-landing">
@@ -195,7 +195,7 @@
         else
         {
             <a id="OfertasEspeciales" href="@Url.Action("Ofertas", "CaminoBrillante")" class="btn-principal">Ver ofertas</a>
-        }    
+        }
     }
 
     @if (ViewBag.ResumenLogros != null)
@@ -268,22 +268,20 @@
             <div class="clear"></div>
         </div>
     }
-
-    @*<script src="~/Scripts/jquery-1.11.2.js"></script>*@
-    <script src="~/Scripts/Chart.min.js"></script>
-
 </div>
-<script src="~/Scripts/Chart.min.js"></script>
 
 @section scripts{
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
-
     <script>
         var urlGetCarrusel = '@Url.Action("GetCarruselCaminoBrillante", "CaminoBrillante")';
         var urlGetMisGanancias = '@Url.Action("GetMisGanancias", "CaminoBrillante")';
         var urlAgregarUnico = '@Url.Action("PedidoAgregarProductoTransaction", "PedidoRegistro", new { area = "" })';
         var _origenPedidoWeb = '@Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido';
+        var TineCarrusel = '@ViewBag.TieneCarrusel';
+        var TieneGanancias = '@ViewBag.TieneGanancias';
     </script>
 
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/Carrusel")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/Ganancias")
 }
