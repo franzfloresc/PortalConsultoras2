@@ -3,14 +3,17 @@ var scrollLogros = true
 $("#a").hide;
 
 $(document).ready(function () {
-    Carusel();
-    if ($("#template-kit").length > 0) {
-        Handlebars.registerPartial("kit_template", $("#template-kit").html());
-        Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
+    if (TineCarrusel == '1') {
+        Carusel();    
+        if ($("#template-kit").length > 0) {
+            Handlebars.registerPartial("kit_template", $("#template-kit").html());
+            Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
+        }
+        CargarCarrusel();
     }
-
-    CargarCarrusel();
-    CargarGanancias();
+    if (TieneGanancias == '1') {
+        CargarGanancias();
+    }
 
     var nivelactual = $("#hfNivelActual").val();
     for (var i = 1; i <= nivelactual; i++)
@@ -57,7 +60,6 @@ $(window).on("scroll", function () {
 
 function Carusel() {
     var owl = $('.owl-crec');
-
 
     owl.owlCarousel({
         stagePadding: 35,
@@ -214,7 +216,6 @@ function ArmarMisGanancias(data) {
     if (!data) {        
         return;
     }
-
     $("#boxganancias").show();
 
     var ctx = document.getElementById('canvas').getContext('2d');
