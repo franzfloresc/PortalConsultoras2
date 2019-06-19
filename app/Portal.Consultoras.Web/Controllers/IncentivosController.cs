@@ -64,9 +64,7 @@ namespace Portal.Consultoras.Web.Controllers
                     string segmentoServicio = segmentoId.ToString();
 
 
-                    string zonaIdStr = "," + userData.ZonaID.ToString().Trim() + ",";
-                    lstTemp.Where(p => p.Zona != string.Empty).Update(p => p.Zona = "," + p.Zona + ",");
-                    lstTemp = lstTemp.Where(p => p.Zona == string.Empty || p.Zona.Contains(zonaIdStr)).ToList();
+                    lstTemp = lstTemp.Where(p => p.Zona == string.Empty || p.Zona.Contains(userData.ZonaID.ToString())).ToList();
                     List<BEIncentivo> lst = lstTemp.Where(p => p.Segmento == "-1" || p.Segmento.Contains(segmentoServicio)).ToList();
 
                     if (lst != null && lst.Count > 0)
