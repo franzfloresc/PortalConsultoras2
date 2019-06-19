@@ -480,6 +480,7 @@ a{
 
     .grupo_form_cambio_datos--confirmacionPendiente {
         background-color: #f5f5f5;
+        flex-wrap:wrap!important;
     }
 
         .grupo_form_cambio_datos--confirmacionPendiente label{
@@ -755,6 +756,17 @@ a{
     margin-bottom:33px;
 }
 
+.notificaciones__whatsapp__checkbox .permiso_cuenta_opcion {
+    margin-bottom: 0;
+    margin-top: 16px;
+}
+
+.notificaciones__whatsapp__checkbox .permiso_cuenta_opcion_label{
+    position:relative;
+    top:2px!important;
+    min-height:18px;
+}
+
 .permisos_cuenta_titulo,
 .terminos_y_condiciones_wrapper ~ .datos_obligatorios {
     color: #808080;
@@ -773,6 +785,10 @@ a{
     font-size:13px;
 }
 
+.permisos_cuenta_opciones {
+    position: relative;
+}
+
 .grupo_input_actualizarMisDatos .checkbox_condiciones_wrapper,
 .permiso_cuenta_opcion{
     display:flex;
@@ -780,8 +796,8 @@ a{
 }
 
 .checkbox_condiciones_checkbox,
-.permiso_cuenta_opcion_checkbox{
-    display:none;
+.permiso_cuenta_opcion_checkbox {
+    display: none;
 }
 
 .checkbox_condiciones_label,
@@ -802,9 +818,13 @@ a{
     background-position: center;
 }
 
+    .permiso_cuenta_opcion_label:before{
+        display:none!important;
+    }
+
 .checkbox_condiciones_checkbox:checked + .checkbox_condiciones_label,
 .permiso_cuenta_opcion_checkbox:checked + .permiso_cuenta_opcion_label{
-    background-color:#b9007e;
+    background-color:#b9007e!important;
     border: 1px solid #b9007e;
 }
 
