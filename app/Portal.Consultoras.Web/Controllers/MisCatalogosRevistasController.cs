@@ -12,7 +12,6 @@ using System.Linq;
 using System.Net;
 using System.ServiceModel;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -47,13 +46,15 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CodigoRevistaAnterior = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.CodigoRevistaSiguiente = _issuuProvider.GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
             clienteModel.PartialSectionBpt = _configuracionPaisDatosProvider.GetPartialSectionBptModel(Constantes.OrigenPedidoWeb.SectionBptDesktopCatalogo);
-                        
+
             ViewBag.Piloto = GetTienePiloto(userData.PaisID);
-            /* INI HD-3693 */
-            ViewBag.Piloto = (ViewBag.Piloto=="1")?((ViewBag.Piloto == userData.AutorizaPedido) ?"1":"0"):"0";
-            /* FIN HD-3693 */
+            ViewBag.Piloto = (ViewBag.Piloto == "1") ? ((ViewBag.Piloto == userData.AutorizaPedido) ? "1" : "0") : "0";
             ViewBag.ConsultoraBloqueada = userData.AutorizaPedido;
             ViewBag.UrlCatalogoPiloto = GetUrlCatalogoPiloto();
+            ViewBag.UrlCatalogoPiloto_WSP = GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.TipoWSP);
+            ViewBag.UrlCatalogoPiloto_FB = GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.TipoFB);
+            ViewBag.UrlCatalogoPiloto_MSN = GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.TipoMSN);
+            ViewBag.UrlCatalogoPiloto_EMAIL = GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.TipoEMAIL);
             ViewBag.EsConsultoraNueva = userData.EsConsultoraNueva;
             ViewBag.FBAppId = _configuracionManagerProvider.GetConfiguracionManager(Constantes.Facebook.FB_AppId);
             ViewBag.TieneSeccionRevista = !revistaDigital.TieneRDC || !revistaDigital.EsActiva;
@@ -155,7 +156,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult GetCatalogosPilotoSeg(int campania)
         {
             bool data, outPilotoSeg;
- 
+
             _issuuProvider.GetCatalogoCodigoIssuu(campania.ToString(), Constantes.Marca.LBel, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
             data = outPilotoSeg;
             _issuuProvider.GetCatalogoCodigoIssuu(campania.ToString(), Constantes.Marca.Esika, userData.CodigoISO, userData.CodigoZona, out outPilotoSeg);
@@ -512,8 +513,9 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult EnviarEmailPiloto(List<CatalogoClienteModel> ListaCatalogosCliente, string Mensaje, string Campania)
         {
             try
-            {                
-                var url = GetUrlCatalogoPiloto();
+            {
+
+                var url = GetUrlCatalogoPiloto(Constantes.CatalogoPiloto.TipoEMAIL);
                 var urlImagenLogo = Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png";
                 var urlIconEmail = Globals.RutaCdn + "/ImagenesPortal/Iconos/mensaje_mail.png";
                 var urlIconTelefono = Globals.RutaCdn + "/ImagenesPortal/Iconos/celu_mail.png";
@@ -833,17 +835,28 @@ namespace Portal.Consultoras.Web.Controllers
             return campania >= campaniaInicio;
         }
 
-        private string GetUrlCatalogoPiloto()
+        private string GetUrlCatalogoPiloto(string tipo = "")
         {
-            /* INI HD-4015 */
-
             byte[] encbuff = Encoding.UTF8.GetBytes(userData.CodigoConsultora);
             var encripParams = Convert.ToBase64String(encbuff);
             var queryString = string.Format(Constantes.CatalogoPiloto.UrlParamEncrip, userData.CodigoISO.ToLower(), encripParams);
-            /* FIN HD-4015 */
 
             var urlBase = _configuracionManagerProvider.GetConfiguracionManager(Constantes.CatalogoPiloto.UrlCatalogoPiloto);
-            return string.Format(Constantes.CatalogoPiloto.UrlCatalogo, urlBase, queryString);
+            var url = string.Format(Constantes.CatalogoPiloto.UrlCatalogo, urlBase, queryString);
+
+            string UrlCatalogoPiloto;
+            switch (tipo)
+            {
+                case Constantes.CatalogoPiloto.TipoWSP: UrlCatalogoPiloto = string.Format(Constantes.CatalogoPiloto.UrlCatalogo_WSP, url); break;
+                case Constantes.CatalogoPiloto.TipoFB: UrlCatalogoPiloto = string.Format(Constantes.CatalogoPiloto.UrlCatalogo_FB, url); break;
+                case Constantes.CatalogoPiloto.TipoMSN: UrlCatalogoPiloto = string.Format(Constantes.CatalogoPiloto.UrlCatalogo_MSN, url); break;
+                case Constantes.CatalogoPiloto.TipoEMAIL: UrlCatalogoPiloto = string.Format(Constantes.CatalogoPiloto.UrlCatalogo_EMAIL, url); break;
+                default:
+                    UrlCatalogoPiloto = url; break;
+
+
+            }
+            return UrlCatalogoPiloto;
         }
 
         private string GetTienePiloto(int paisId)
@@ -875,16 +888,18 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Json(url);
         }
+
         private string GetStringIssuRevista(string codigoCampania)
-        {            
-            var lista = new BECatalogoRevista();
+        {
+            BECatalogoRevista entidad;
             using (ClienteServiceClient sv = new ClienteServiceClient())
             {
-                lista = sv.GetListCatalogoRevistaPublicadoWithTitulo(userData.CodigoISO, userData.CodigoZona, Convert.ToInt32(codigoCampania)).FirstOrDefault(l => l.MarcaDescripcion == "Revista");
+                var lista = sv.GetListCatalogoRevistaPublicadoWithTitulo(userData.CodigoISO, userData.CodigoZona, Convert.ToInt32(codigoCampania));
+                entidad = lista.FirstOrDefault(l => l.MarcaDescripcion == "Revista") ?? new BECatalogoRevista();
             }
-            if (string.IsNullOrEmpty(lista.UrlImagen)) return Constantes.CatalogoImagenDefault.Revista;
+            if (string.IsNullOrEmpty(entidad.UrlImagen)) return Constantes.CatalogoImagenDefault.Revista;
 
-            return lista.UrlImagen;
+            return entidad.UrlImagen;
         }
     }
 }

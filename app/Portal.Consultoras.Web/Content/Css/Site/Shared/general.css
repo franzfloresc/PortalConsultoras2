@@ -539,7 +539,8 @@ input[type="checkbox"].switch__control,
     background: #FFFFFF !important;
     color: #555 !important;
     border-radius: 0;
-    z-index: 999999910 !important;
+    z-index: 999999999 !important; /* cambio de equipo gana mas */
+    /*z-index: 999999910 !important;*/  /* cambio de equipo ? */
 }
 
 .ui-dialog .ui-dialog-titlebar {
@@ -1203,7 +1204,7 @@ input[type="checkbox"].switch__control,
 /* SECCIÓN CONTENIDO */
 
 .layout__content{
-    margin-top:60px;
+    /*margin-top:60px;*/
     padding:20px 15px;
     min-height:calc(100vh - 207px);
     position:relative;

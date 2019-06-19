@@ -271,7 +271,8 @@
         color: #FFF !important;
     }
 
-    .btn_agregarPedido.btn_agregarPedido--nuevoLookAndFeelEsika input{
+    .btn_agregarPedido.btn_agregarPedido--nuevoLookAndFeelEsika input,
+    .btn_guardarPedido.btn_guardarPedido--nuevoLookAndFeelEsika input {
         background-color: #FF335A;
     }
 

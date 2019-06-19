@@ -23,9 +23,9 @@
         max-width: 1222px;
     }
 
-.menu__contenedor__carrusel__wrapper {
-    margin-bottom: 0;
-}
+    .menu__contenedor__carrusel__wrapper {
+        margin-bottom: 0;
+    }
 
     .menu__contenedor__carrusel__wrapper,
     .menu__contenedor__carrusel__wrapper .slick-arrow,

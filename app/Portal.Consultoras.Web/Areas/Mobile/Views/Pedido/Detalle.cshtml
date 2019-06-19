@@ -36,7 +36,15 @@
                     }
                 }
                 <h2 class="nombre_campania_pedido">
-                    Mi pedido
+                    @if (Model.EstadoPedido == 1)
+                    {
+                        <span>Mi pedido reservado</span>
+                    }
+                    else
+                    {
+                        <span>Mi pedido</span>
+                    }
+
                     <span>@Model.DescripcionCampaniaActual</span>
                 </h2>
                 <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
@@ -95,8 +103,15 @@
     </div>
 </div>
 
-<div class="btn_guardarPedido">
-    <input type="submit" style="text-transform:none" value="@Model.Prol" id="btnGuardarPedido" name="btnGuardarPedido" onclick="EjecutarPROL();" />
+<div class="btn_guardarPedido btn_guardarPedido--nuevoLookAndFeelEsika">
+    @if (Model.EstadoPedido == 1)
+    {
+        <input type="submit" style="text-transform: none" value="@Model.Prol" id="btnModificarPedidoMobile" onclick="ShowPopupQuestionModificarPedido();" />
+    }
+    else
+    {
+        <input type="submit" style="text-transform: none" value="@Model.Prol" id="btnGuardarPedido" name="btnGuardarPedido" onclick="EjecutarPROL();" />
+    }
 </div>
 
 <div class="MensajeAlertaMobile" id="popup-observaciones-prol" style="display:none;">
@@ -140,10 +155,26 @@
 
         <div style="text-align: center; margin-top: 18px;">
             <input id="btnEliminarPedidoCompletoNo" type="button" value="No, gracias" onclick="EliminarPedidoTotalNo()" class="input_modifica_horizontal_cancelar" style="width: 100px; margin-left: 0;" />
-            <input id="btnEliminarPedidoCompletoSi" type="button" value="SÍ, ELIMINAR" onclick="EliminarPedidoTotalSi()" class="input_modifica_horizontal" style="width: 100px; margin-left: 20px;" />
+            <input id="btnEliminarPedidoCompletoSi" type="button" value="SÍ, ELIMINAR" onclick="EliminarPedidoTotalSi()" class="input_modifica_horizontal_popup_pedido" style="width: 100px; margin-left: 20px;" />
         </div>
     </div>
 </div>
+
+<div id="popupInformacionSB2Question" class="MensajeAlertaMobile" style="display: none;">
+    <div class="content_mensajeAlerta">
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+        <div class="mensaje_alerta">
+            Al hacer click en el botón <b>"Continuar"</b> se perderá la reserva de tus productos. Recuerda, que si lo modificas debes volver a validar.
+        </div>
+        <div style="text-align: center; margin-top: 30px;">
+            <input id="btnValidarConfirm" type="button" value="Cancelar" onclick="$('#popupInformacionSB2Question').hide();" class="input_modifica_horizontal_popup_pedido" style="width: 120px; margin-left: 0;" />            
+            <input id="btnNoValidarConfirm" type="button" value="Continuar" onclick="AccionConfirmarModificarPedido()" class="input_modifica_horizontal_popup_pedido" style="width: 120px; margin-left: 20px;" />
+        </div>
+    </div>
+</div>
+
 
 <div id="MensajeLograste" class="MensajeAlertaMobile" style="display:none;">
     <div class="content_mensajeAlerta">
@@ -400,11 +431,13 @@
                     </div>
                 </div>
                 {{else iff detalle.LockPremioElectivo}}
+                {{#iff EsPedidoReservado '==' false}}
                 <div class="icono_cambiar_regalo_programaNuevas">
                     <a href="javascript:;" title="Cambiar regalo" onclick="javascript: cargarPopupEleccionRegalo();">
                         <img src="@Url.Content("~/Content/Images/icono_editar.svg")" alt="Cambiar regalo" />
                     </a>
                 </div>
+                {{/iff}}
                 {{/if}}
                 {{/if}}
             </div>
@@ -644,13 +677,16 @@
             Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.
         </span>
     </div>
-
-    <div class="mensaje_eliminarPedido">
-        <span>
-            Para eliminar el pedido completo
-            <a href="javascript:;" title="Haz click aquí" onclick="PedidoDetalleEliminarTodoConfirmar()">haz click aquí</a>
-        </span>
-    </div>
+    <!-- Mostrar el link de eliminación de pedido solo si el pedido no está reservado-->
+    @if (Model.EstadoPedido != 1)
+    {
+        <div class="mensaje_eliminarPedido">
+            <span>
+                Para eliminar el pedido completo
+                <a href="javascript:;" title="Haz click aquí" onclick="PedidoDetalleEliminarTodoConfirmar()">haz click aquí</a>
+            </span>
+        </div>
+    }
 
 
 </script>
@@ -1061,6 +1097,7 @@
         var paginaOrigenCupon = 21;
         var correo = '@Model.EMail';
         var celular = '@Model.Celular';
+        var EstadoPedido = @Model.EstadoPedido;
 
         var consultoraRegaloPN = '@ViewBag.ConsultoraTieneRegaloPN';
         var ofertaFinalEstado = '@ViewBag.OfertaFinalEstado';
@@ -1072,7 +1109,7 @@
         var mensajeSinConexionReserva = '@Constantes.MensajesError.SinConexion_Reserva';
         var mensajeElecMultipleEliminar = '@string.Format(Constantes.ProgNuevas.Mensaje.ElecMultiple_ConfirmaEliminar, Constantes.ProgNuevas.Mensaje.Electivo_PromocionNombre)';
         var urlObtenerComponentes = '@Url.Action("ObtenerComponentes", "DetalleEstrategia", new { area = "" })';
-
+        var PedidoEscogeRegaloCarrusel = '@Constantes.OrigenPedidoWeb.MobilePedidoEscogeRegaloCarrusel';/*HD-3710*/
 
 
 
