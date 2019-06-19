@@ -2922,7 +2922,7 @@ function ProcesarActualizacionMostrarContenedorCupon() {
         }
     }
 }
-function closeDialogObservacionesProl(event) {
+function closeDialogObservacionesProl() {
     var notExitoFromProl = $('#divMensajeObservacionesPROL').data('prop-NotExito');
     if (!notExitoFromProl)
         if (!(typeof AnalyticsPortalModule === 'undefined'))
