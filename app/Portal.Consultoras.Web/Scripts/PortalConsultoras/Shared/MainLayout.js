@@ -175,7 +175,7 @@ $(document).ready(function () {
         width: 400,
         draggable: true,
         buttons: {
-            "Aceptar": function () {
+            "Entendido": function () {
                 HideDialog("alertDialogMensajes");
             }
         }
