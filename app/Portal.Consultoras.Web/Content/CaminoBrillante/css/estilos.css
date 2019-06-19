@@ -2046,17 +2046,7 @@ div .cartbtn {
     clear: both !important;
 }
 
-div .op-menu-horizontal {
-    height: 50px
-}
 
-    div .op-menu-horizontal .subnavegador li {
-        width: 50%;
-        display: block;
-        float: left;
-        text-align: center;
-        line-height: 50px
-    }
 
 
 
@@ -2544,7 +2534,17 @@ div .ficha__producto__precio__normal {
         margin-left: 13px
     }
 
+    div .op-menu-horizontal {
+        height: 50px
+    }
 
+        div .op-menu-horizontal .subnavegador li {
+            width: 50%;
+            display: block;
+            float: left;
+            text-align: center;
+            line-height: 50px
+        }
 }
 
 @media screen and (max-width:600px) {
