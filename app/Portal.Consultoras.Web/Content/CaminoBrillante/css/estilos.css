@@ -1134,6 +1134,7 @@ div.opOrdenar {
     margin-top: 20px;
     text-decoration:underline;
 }
+
 .tog-vermenos {
     width:80px;
 }
@@ -1337,34 +1338,41 @@ div.opOrdenar {
     left: -2px;
     border-radius: 8px;
 }
-.tp-cor {
+.tp-1 {
+    background: #b66fa6;
+}
+
+    .tp-1:before {
+        background: #b66fa6;
+    }
+.tp-2 {
     background: #cd5b5b;
 }
-.tp-cor:before {
+.tp-2:before {
     background: #cd5b5b;
 }
-.tp-amb {
+.tp-3 {
     background: #e8b74b;
 }
-.tp-amb:before {
+.tp-3:before {
     background: #e8b74b;
 }
-.tp-per {
+.tp-4 {
     background: #db9e8a;
 }
-.tp-per:before {
+.tp-4:before {
     background: #db9e8a;
 }
-.tp-top {
+.tp-5 {
     background: #2d7ab0;
 }
-.tp-top:before {
+.tp-5:before {
     background: #2d7ab0;
 }
-.tp-bri {
+.tp-6 {
     background: #b19260;
 }
-.tp-bri:before {
+.tp-6:before {
     background: #b19260;
 }
 button.close {
@@ -2046,17 +2054,7 @@ div .cartbtn {
     clear: both !important;
 }
 
-div .op-menu-horizontal {
-    height: 50px
-}
 
-    div .op-menu-horizontal .subnavegador li {
-        width: 50%;
-        display: block;
-        float: left;
-        text-align: center;
-        line-height: 50px
-    }
 
 
 
@@ -2544,7 +2542,17 @@ div .ficha__producto__precio__normal {
         margin-left: 13px
     }
 
+    div .op-menu-horizontal {
+        height: 50px
+    }
 
+        div .op-menu-horizontal .subnavegador li {
+            width: 50%;
+            display: block;
+            float: left;
+            text-align: center;
+            line-height: 50px
+        }
 }
 
 @media screen and (max-width:600px) {
