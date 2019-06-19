@@ -42,6 +42,8 @@ $(document).ready(function () {
                 $('body').on('click', '#CerrarPopupUbicacionDireccionEntrega', me.Eventos.CerrarPopupUbicacionDireccionEntrega);
                 $('body').on('click', '#btnConfirmarUbicacionDireccionEntrega', me.Eventos.ConfirmarUbicacionDireccionEntrega);
                 $('body').on('change', '#Ubigeo1,#Ubigeo2', me.Eventos.UbigeoChanged);
+                //INI HD-4358
+                //$('body').on('keyup', '#txtCelularMD', me.Eventos.HabilitarCheck);
 
             },
 
@@ -104,9 +106,9 @@ $(document).ready(function () {
                         $("#btn_confirmar_dato_sms").show();
 
                     }
-                        //------btnConfirmar
-                        if ($('#txtCelularMD').val().trim() == "") $("#btn_confirmar_dato_sms").hide();
-                        else if ($('#hdn_PuedeConfirmarAllSms').val()) $("#btn_confirmar_dato_sms").show();
+                    //------btnConfirmar
+                    if ($('#txtCelularMD').val().trim() == "") $("#btn_confirmar_dato_sms").hide();
+                    else if ($('#hdn_PuedeConfirmarAllSms').val()) $("#btn_confirmar_dato_sms").show();
 
                     //EMAIL
                     if ($("#hdn_FlgCheckEMAIL").val()) {
@@ -121,9 +123,9 @@ $(document).ready(function () {
 
                     }
 
-                        //------btnConfirmar
-                        if ($('#txtEMailMD').val().trim() == "") $("#btn_confirmar_dato_email").hide();
-                        else if ($('#hdn_PuedeConfirmarAllEmail').val()) $("#btn_confirmar_dato_email").show();
+                    //------btnConfirmar
+                    if ($('#txtEMailMD').val().trim() == "") $("#btn_confirmar_dato_email").hide();
+                    else if ($('#hdn_PuedeConfirmarAllEmail').val()) $("#btn_confirmar_dato_email").show();
 
                 } else {
                     $("#grupo_form_cambio_datos_email_opcionemail").hide();
@@ -386,6 +388,18 @@ $(document).ready(function () {
                         }
                     });
 
+                },
+                HabilitarCheck: function () {
+                    if ($("#txtCelularMD").val() != "") {
+                        $(".optCelCheckbox").prop("checked", true);
+                        $(".optCelCheckbox").prop("disabled", false);
+                    } else {
+                        $(".optCelCheckbox").prop("checked", false);
+                        $(".optCelCheckbox").prop("disabled", true);
+                    }
+
+
+
                 }
             },
             me.Inicializar = function () {
@@ -404,6 +418,8 @@ $(document).ready(function () {
                 me.Funciones.ValidacionDireccion();
                 if ($('#Operacion').val() == OperacionDb.Editar)
                     me.Funciones.ModoEdicion();
+
+                // INI HD-4358
             }
     }
 
@@ -607,6 +623,18 @@ function actualizarDatos() {
                 OpcionesUsuarioId: $(this).attr("data-tipoOpcion")
             })
         });
+
+        //HD-4358
+        $(".optCelCheckbox").each(function () {
+            if (typeof  $(this).attr("disabled")=="undefined") { 
+                permisos.push({
+                    Codigo: $(this).attr("id"),
+                    CheckBox: this.checked,
+                    OpcionesUsuarioId: $(this).attr("data-tipoOpcion")
+                })
+             }
+        });
+        //HD-4358
     }
     /*** Fin Seccion Permisos Cuenta ***/
 
