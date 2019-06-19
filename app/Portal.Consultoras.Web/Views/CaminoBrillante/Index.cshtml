@@ -68,20 +68,18 @@
                     <div class="new-bar" data-min="@ViewBag.NivelActual.MontoMinimo" data-max="@nivelSiguiente.MontoMinimo" data-cur="@nivelSiguiente.MontoAlcanzado">
                         @if (nivelSiguiente.MontoAlcanzado > 0)
                         {
-                        <div class="box-cent-valor">
-                            <i class="arrowtop"></i>
-                            <div class="box-mostrarvalor">
-
-                                <span class="tip-valor">@ViewBag.SimboloMoneda  @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoAlcanzado), @ViewBag.CodigoISODL)</span>
+                            <div class="box-cent-valor">
+                                <i class="arrowtop"></i>
+                                <div class="box-mostrarvalor">
+                                    <span class="tip-valor">@ViewBag.SimboloMoneda  @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoAlcanzado), @ViewBag.CodigoISODL)</span>
+                                </div>
                             </div>
-                        </div>
                                 }
                                 else
                                 {
-                        <div class="box-cent-valor">
-                            <i class="arrowtop"></i>
-                        </div>
-
+                            <div class="box-cent-valor">
+                                <i class="arrowtop"></i>
+                            </div>
                                 }
                             </div>
                             <img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" />

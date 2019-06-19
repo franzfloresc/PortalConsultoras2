@@ -62,6 +62,9 @@ strong {
     padding-top: 20px;
     padding-bottom: 15px;
     border-bottom: 1px solid #e2e2e2;
+    margin-bottom: 35px;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .text {
@@ -2545,6 +2548,7 @@ div .ficha__producto__precio__normal {
         margin-left: 13px
     }
 
+
 }
 
 @media screen and (max-width:600px) {
@@ -2652,6 +2656,8 @@ div .ficha__producto__precio__normal {
         box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
         border-bottom: 0;
         padding-top: 25px;
+        padding-left: 20px;
+         padding-right: 20px;
     }
     .progress-barnew {
         width: 58%;
@@ -2675,8 +2681,6 @@ div .ficha__producto__precio__normal {
     }
 
 }
-
-
 
 @media screen and (max-width:330px) {
     .medal-1 {
