@@ -5,10 +5,10 @@ using Portal.Consultoras.Common.Serializer;
 using Portal.Consultoras.Data.CaminoBrillante;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.CaminoBrillante;
-using Portal.Consultoras.Entities.OrdenYFiltros;
 using Portal.Consultoras.Entities.Pedido;
 using System;
 using System.Collections.Generic;
+using Portal.Consultoras.Entities.OrdenYFiltros;
 using System.Data;
 using System.Globalization;
 using System.Linq;
@@ -1074,6 +1074,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             {
                 return false;
             }
+
         }
 
         public string ValAgregarCaminiBrillante(BEEstrategia estrategia, BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle)

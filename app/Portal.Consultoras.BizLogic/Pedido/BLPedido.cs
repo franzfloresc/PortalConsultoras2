@@ -1,4 +1,3 @@
-using Microsoft.Practices.EnterpriseLibrary.Common.Utility;
 using Portal.Consultoras.BizLogic.ArmaTuPack;
 using Portal.Consultoras.BizLogic.CaminoBrillante;
 using Portal.Consultoras.BizLogic.LimiteVenta;
@@ -4030,7 +4029,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             //Agrega los CUV del kit SC
             foreach (var item in lstKitSE)
             {
-                if (!lstDetalle.Any(x => x.CUV == item.CUV))
+                if (lstDetalle.Any(x => x.CUV == item.CUV))
                 {
                     var detalle = new BEPedidoDetalle()
                     {
@@ -4057,6 +4056,5 @@ namespace Portal.Consultoras.BizLogic.Pedido
             return true;
         }
         #endregion
-
     }
 }

@@ -10,11 +10,6 @@ using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using System.Threading.Tasks;
-using Portal.Consultoras.Web.ServiceContenido;
-using System.Configuration;
-using System.Net;
-using AutoMapper;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -49,6 +44,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     string CodigoHistoriasResumen = CodigosTablaLogica(Constantes.DatosContenedorHistorias.CodigoHistoriasResumen);
                     entidad = sv.GetContenidoAppHistoria(userData.PaisID, CodigoHistoriasResumen);
+
                     model.IdContenido = entidad.IdContenido;
                     model.Codigo = entidad.Codigo;
                     model.Descripcion = entidad.Descripcion;
@@ -116,10 +112,10 @@ namespace Portal.Consultoras.Web.Controllers
                     using (ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
                     {
                         sv.UpdateContenidoApp(userData.PaisID, entidad);
-                }
-                return Json(new
-                {
-                    success = true,
+                    }
+                    return Json(new
+                    {
+                        success = true,
                         message = "Se actualizó satisfactoriamente.",
                         extra = string.Empty
                     });
@@ -131,8 +127,8 @@ namespace Portal.Consultoras.Web.Controllers
                         success = false,
                         message = "No seleccionó una imagen.",
                         extra = string.Empty
-                });
-            }
+                    });
+                }
 
 
             }
@@ -264,7 +260,7 @@ namespace Portal.Consultoras.Web.Controllers
             AdministrarHistorialDetaUpdModel modelo;
             try
             {
-               string url = GetUrlDetalleS3();
+                string url = GetUrlDetalleS3();
                 modelo = new AdministrarHistorialDetaUpdModel
                 {
                     IdContenidoDeta = entidad.IdContenidoDeta,
