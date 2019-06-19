@@ -17,14 +17,16 @@
     border-color: #613c87 !important;
 }
 
-.multimarca-background-color {
-    background-color: #b9007e !important;
+.color-multimarca {
+    color: #b9007e!important;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
 
+.multimarca-background-color {
+    background-color: #b9007e !important;
 }
 
 .multimarca-border-color {
@@ -195,11 +197,24 @@ input[type="text"].text__field__sb,
 
 /* VALIDATION MESSAGE */
 
-.validation__message {
-    color: #e81c36;
-    font-size: 11px;
-    margin-top: 4px;
+.validation__message,
+.validation__field{
+    font-size:11px;
+    margin-top:4px;
 }
+
+.validation__field {
+    color: #808080;
+}
+    
+    .validation__message,
+    .validation__error{
+        color:#e81c36;
+    }
+
+    .validation__success{
+        color:#569c04;
+    }
 
 /* FIN - VALIDATION MESSAGE */
 
@@ -316,22 +331,6 @@ input[type="checkbox"].switch__control,
         right: 0;
         bottom: 16px;
     }
-.btn_primario {
-    color: #FFF;
-    border: 1px solid #b9007e;
-}
-
-.btn_secundario {
-    color: #000;
-    border: 1px solid #000;
-    background-color: #FFF;
-}
-
-.border-radius-4 {
-    border-radius: 4px;
-}
-
-.multimarca-background-color {
 }
 
 /* FIN - BUTTONS */
@@ -401,43 +400,6 @@ input[type="checkbox"].switch__control,
         background-color: #000;
         color: #FFF;
     }
-
-.notificacion_estado {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    font-size: 15px;
-    -moz-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    -webkit-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-}
-
-    .notificacion_estado--exito {
-        color: #569c04;
-    }
-
-    .notificacion_estado_img{
-        display: block;
-        width: 20px;
-        height: 20px;
-        margin-top: 2px;
-        margin-right: 4px;
-        margin-bottom: 0!important;
-    }
-
-        .notificacion_estado_img img{
-            width:100%;
-            height:auto;
-        }
-
-@media screen and (max-width:991px) {
-
-    .notificacion_estado_img {
-        margin-top: -1.2px;
-    }
-}
 
 /* FIN - TAGS */
 
@@ -699,6 +661,10 @@ input[type="checkbox"].switch__control,
     text-transform: uppercase;
 }
 
+.text-underline {
+    text-decoration: underline;
+}
+
 .text-thin {
     font-weight: 300;
 }
@@ -727,6 +693,14 @@ input[type="checkbox"].switch__control,
 
     .mt-53 {
         margin-top: 53px !important;
+    }
+
+}
+
+@media screen and (max-width:991px) {
+
+    .mb-60 {
+        margin-bottom: 60px;
     }
 }
 
