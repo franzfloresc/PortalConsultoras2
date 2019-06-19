@@ -1,7 +1,8 @@
 ﻿
 /* MC - HD-4277 - POPUP PEDIDO GUARDADO Y PEDIDOS PENDIENTES POR APROBAR */
 
-.popup__somos__belcorp--pedidosPendientes {
+.popup__somos__belcorp--pedidosPendientes,
+.popup__somos__belcorp--pedidoGuardadoConExito {
     max-width: 512px;
     height: 330px;
     padding: 58px 31px 51px;
@@ -25,6 +26,8 @@
     .popup__somos__belcorp__icono--pedidoGuardadoConExito {
         width: 64px;
         height: auto;
+        position: relative;
+        left: 10px!important;
         margin-bottom: 29px !important;
     }
 
@@ -50,8 +53,8 @@
     }
 
     .enlace__sb--verDespues{
-        margin-top:16px;
-        max-width:100px;
+        margin-top:9px;
+        width:auto;
         font-size:14px;
     }
 
@@ -91,7 +94,8 @@
 
 @media screen and (max-width:991px) {
 
-    .popup__somos__belcorp--pedidosPendientes {
+    .popup__somos__belcorp--pedidosPendientes,
+    .popup__somos__belcorp--pedidoGuardadoConExito {
         width: 100% !important;
         height: 100%;
         max-width: none;
@@ -101,8 +105,17 @@
         margin-bottom: 0 !important;
     }
 
-        .popup__somos__belcorp--pedidosPendientes .popup__somos__belcorp__icono__cerrar {
+    .popup__somos__belcorp--pedidoGuardadoConExito{
+        padding-top:100px;
+    }
+
+        .popup__somos__belcorp--pedidosPendientes .popup__somos__belcorp__icono__cerrar,
+        .popup__somos__belcorp--pedidoGuardadoConExito .popup__somos__belcorp__icono__cerrar{
             top: -56px;
+        }
+
+        .popup__somos__belcorp__icono--pedidoGuardadoConExito{
+            margin-bottom: 6px !important;
         }
 
 }
