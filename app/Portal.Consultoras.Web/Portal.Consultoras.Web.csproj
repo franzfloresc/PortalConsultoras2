@@ -1467,10 +1467,10 @@
     <Content Include="Content\CaminoBrillante\imgs\add_to_cart2.svg" />
     <Content Include="Content\CaminoBrillante\imgs\bg-modal.png" />
     <Content Include="Content\CaminoBrillante\imgs\brillo.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\down.svg" />
     <Content Include="Content\CaminoBrillante\imgs\flag.svg" />
     <Content Include="Content\CaminoBrillante\imgs\icon-s.svg" />
-    <Content Include="Content\CaminoBrillante\imgs\rounded1.svg" />
-    <Content Include="Content\CaminoBrillante\imgs\rounded2.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\up.svg" />
     <Content Include="Content\CaminoBrillante\Mobile.css" />
     <Content Include="Content\Css\Button\style.css" />
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
