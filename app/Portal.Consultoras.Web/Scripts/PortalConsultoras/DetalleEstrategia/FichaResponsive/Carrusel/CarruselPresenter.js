@@ -8,8 +8,8 @@ class CarruselPresenter {
     initialize(model, view) {
         this.model = model;
         this.view = view;
-        this.view.setAttrHtml(this.model.origenPedidoWeb, this.model.origenAgregarCarrusel);
         this.view.fijarObjetosCarrusel(this.model.tipoCarrusell);
+        this.view.setAttrHtml(this.model.origenPedidoWeb, this.model.origenAgregarCarrusel);
         this.mostrarCarrusel();
     }
 

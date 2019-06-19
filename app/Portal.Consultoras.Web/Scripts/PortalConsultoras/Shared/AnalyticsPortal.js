@@ -216,7 +216,11 @@ var AnalyticsPortalModule = (function () {
             { "Codigo": "13", "TextoList": "Catalogo Digital Pendiente de Aprobar Producto" },
             { "Codigo": "14", "TextoList": "App Maquillador Pendiente de Aprobar Producto" },
             { "Codigo": "15", "TextoList": "Carrusel Upselling" },
-            { "Codigo": "16", "TextoList": "Ficha Upselling" }
+            { "Codigo": "16", "TextoList": "Ficha Upselling" },
+            { "Codigo": "18", "TextoList": "Carrusel CrossSelling" },
+            { "Codigo": "19", "TextoList": "Ficha CrossSelling" },
+            { "Codigo": "20", "TextoList": "Carrusel Sugeridos" },
+            { "Codigo": "21", "TextoList": "Ficha Sugeridos" }
         ]
     }
 
@@ -416,6 +420,10 @@ var AnalyticsPortalModule = (function () {
         var palanca = ''
         if (origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.FichaUpselling
             && origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling
+            && origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.FichaCrossSelling
+            && origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselCrossSelling
+            &&origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.FichaSugeridos
+            && origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselSugeridos
         ) {
             palanca = _getTextoPalancaSegunOrigen(origenEstructura);
         }
@@ -725,7 +733,9 @@ var AnalyticsPortalModule = (function () {
         $.each(lista, function (index, item) {
             if (index < cantidadMostrar) {
                 var paramList = parametroList;
-                if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling) {
+                if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling ||
+                    origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselCrossSelling ||
+                    origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselSugeridos) {
                     var origenEstructuraNueva = CodigoOrigenPedidoWeb.GetCambioSegunTipoEstrategia(origenMapper, item.CodigoEstrategia);
                     paramList = _getParametroListSegunOrigen(origenEstructuraNueva);
                 }
