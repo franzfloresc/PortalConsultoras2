@@ -21,7 +21,7 @@ var CarruselAyuda = function () {
     var _obtenerSlideMostrar = function (slick, currentSlide, nextSlide) {
 
         var indexMostrar = nextSlide == undefined ? currentSlide : nextSlide;
-        var indexActive = -1;
+        //var indexActive = -1;
 
         var cantActive = $(slick.$slider).find('.slick-active').length;
         var indexCurrent = parseInt($(slick.$slider).find('.slick-current').attr("data-slick-index"));

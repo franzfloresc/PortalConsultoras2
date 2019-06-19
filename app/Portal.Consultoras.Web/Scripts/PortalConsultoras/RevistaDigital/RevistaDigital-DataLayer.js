@@ -186,22 +186,22 @@ var rdAnalyticsModule = (function () {
         });
     };
 
-    var _promotionClickPush = function (name, position, creative) {
-        dataLayer.push({
-            "event": _event.promotionClick,
-            "ecommerce": {
-                "promoView": {
-                    "promotions": [
-                        {
-                            "id": "1",
-                            "name": name.trim(),
-                            "position": position,
-                            "creative": creative
-                        }]
-                }
-            }
-        });
-    }
+    //var _promotionClickPush = function (name, position, creative) {
+    //    dataLayer.push({
+    //        "event": _event.promotionClick,
+    //        "ecommerce": {
+    //            "promoView": {
+    //                "promotions": [
+    //                    {
+    //                        "id": "1",
+    //                        "name": name.trim(),
+    //                        "position": position,
+    //                        "creative": creative
+    //                    }]
+    //            }
+    //        }
+    //    });
+    //}
 
     var _promotionViewPush = function (name, position, creative) {
         dataLayer.push({

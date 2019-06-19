@@ -610,7 +610,7 @@ function GetCatalogosLinksByCampania(data, campania) {
         var elemItem = "[data-cam='" + campania + "'][data-cat='" + tagCat + "']";
         $(elemItem).attr("data-estado", estado);
 
-        var codigoISSUU = '', urlCat, urlTexto;
+        var codigoISSUU = '', urlCat;
         $.each(data.listCatalogo, function (key, catalogo) {
             if (catalogo.marcaCatalogo.toLowerCase() == tagCat.toLowerCase()) {
                 codigoISSUU = catalogo.DocumentID;
