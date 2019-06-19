@@ -3025,6 +3025,110 @@ public ActionResult MostrarMensajeBuro(string respuestaBuro)
         }
 
         #endregion Kit Inicio
+
+        [HttpPost]
+        public JsonResult ConsultarSolicitudPrePostulante(GestionaPrePostulanteModelSAC model)
+        {
+            var result = new paginacionGrid();
+            try
+            {
+                model.CodigoIso = CodigoISO;
+                using (var sv = new PortalServiceClient())
+                {
+
+                    result = sv.ConsultarSolicitudPrePostulante(model);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ConsultarUbicacionPrePostulante(int id, string nombreCompleto, string celular)
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ConsultarUbicacionPrePostulante",
+                "&id=" + id + "&nombreCompleto=" + nombreCompleto + "&celular=" + celular);
+            return PartialView("_ConsultarUbicacionPrePostulante");
+        }
+
+
+        [HttpPost]
+        public ActionResult GrabarDatosDireccionPrePostulante(EditarDireccionModel model)
+        {
+           
+            ViewBag.HTMLSACUnete = PostHTMLSACUnete("GrabarDatosDireccionPrePostulante", model);
+
+            RegistrarLogGestionSacUnete(model.SolicitudPrePostulanteID.ToString(), "CONSULTAR UBICACION PRE POSTULANTE", "GRABAR DIRECCION PREPOSTULANTE");
+            return PartialView("_TemplateMensaje");
+        }
+
+        [HttpPost]
+        public int RechazarSolicitudPrePostulante( string codigoISO, int solicitudPrePostulanteID)
+        {
+            int result = 0;
+
+            try
+            {
+                using (var sv = new PortalServiceClient())
+                {
+                   result= sv.RechazarSolicitudPrePostulante(codigoISO, solicitudPrePostulanteID);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorUtilities.AddLog(ex);
+            }
+                
+            return result;
+        }
+
+        public ActionResult EditarDireccionManualmentePrePostulante(int id)
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("EditarDireccionManualmentePrePostulante", "&id=" + id);
+            return PartialView("_EditarDireccionManualmente");
+        }
+
+        [HttpPost]
+        public ActionResult EditarDireccionManualmentePrePostulante(EditarDireccionManualmenteModel model)
+        {
+            ViewBag.HTMLSACUnete = PostHTMLSACUnete("EditarDireccionManualmentePrePostulante", model);
+            RegistrarLogGestionSacUnete(model.SolicitudPrePostulanteID.ToString(), "CONSULTAR UBICACION", "EDITAR DIRECCION MANUALMENTE");
+            return PartialView("_EditarDireccionManualmente");
+        }
+
+        public ActionResult ConfirmarPosicionPrePostulante(int id, decimal latitud,
+           decimal longitud, string direccionCorrecta, string direccionCadena, string region, string comuna,
+           string codregion, string codzona, string codseccion, string codterritorio, string direccion)
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ConfirmarPosicionPrePostulante",
+                "&id=" + id +
+                "&latitud=" + latitud +
+                "&longitud=" + longitud +
+                "&direccionCorrecta=" + direccionCorrecta +
+                "&direccionCadena=" + direccionCadena +
+                "&region=" + region +
+                "&comuna=" + comuna +
+                "&codregion=" + codregion +
+                "&codzona=" + codzona +
+                "&codseccion=" + codseccion +
+                "&codterritorio=" + codterritorio +
+                "&direccion=" + direccion);
+
+            return PartialView("_ConfirmarPosicionPrePostulante");
+        }
+
+        [HttpPost]
+        public JsonResult ConsultarUbicacionPrePostulante(ConfirmarPosicionModelPrePostulante model)
+        {
+            var response = PostHTMLSACUnete("ConsultarUbicacionPrePostulante", model);
+            RegistrarLogGestionSacUnete(model.id.ToString(), "CONSULTAR UBICACION PRE POSTULANTE", "GRABAR POSICION PREPOSTULANTE");
+            return Json(response == "true", JsonRequestBehavior.AllowGet);
+        }
     }
 
     public class ParameterPagodeKit
