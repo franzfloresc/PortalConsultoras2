@@ -596,7 +596,7 @@ var rdAnalyticsModule = (function () {
         FiltrarProducto: FiltrarProducto,
         Tabs: Tabs,
         Access: Access,
-        /ContendorSection: ContendorSection,
+        //ContendorSection: ContendorSection,
         IrEnterate: IrEnterate,
         GuardarDatos: GuardarDatos,
         ClickArrowLan: ClickArrowLan,
