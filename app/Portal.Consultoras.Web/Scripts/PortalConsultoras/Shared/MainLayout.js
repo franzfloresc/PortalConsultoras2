@@ -181,6 +181,22 @@ $(document).ready(function () {
         }
     });
 
+    $('#alertDialogMensajes25seg').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: false,
+        close: function (event, ui) {
+            HideDialog("alertDialogMensajes25seg");
+        },
+        beforeClose: function (event, ui) {
+            document.querySelector('.setBottom').style.transition = null
+        },
+        draggable: false,
+        dialogClass: 'setBottom',
+        position: "bottom"
+    });
+
     $('#ModalFeDeErratas').dialog({
         autoOpen: false,
         resizable: false,
@@ -311,15 +327,23 @@ $(document).ready(function () {
 
     $("body").on('click', '.belcorpChat', function (e) {
         e.preventDefault();
-        if (IsoPais == "PE") {
+        if (typeof habilitarChatEmtelco === 'undefined') {
+            return false;
+        }
+
+        if (habilitarChatEmtelco == 'True') {
+            var connected = localStorage.getItem('connected');
+            var idBtn = connected ? '#btn_open' : '#btn_init';
+            $(idBtn).trigger("click");
+
+            return false;
+        }
+
+        if (habilitarChatBot === 'True') {
             if (typeof FB !== "undefined") {
                 FB.CustomerChat.showDialog();
             }
-            return false;
         }
-        var connected = localStorage.getItem('connected');
-        var idBtn = connected ? '#btn_open' : '#btn_init';
-        $(idBtn).trigger("click");
 
         return false;
     });

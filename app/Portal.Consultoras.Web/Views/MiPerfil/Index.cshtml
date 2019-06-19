@@ -39,14 +39,7 @@ else
         <div class="foto_consultora">
             <a href="@Url.Action("CambiarFotoPerfil", "MiPerfil", new { area = "" })" title="Editar imagen" class="icono_camara multimarca-background-color"></a>
             <div class="contenedor_foto_consultora">
-                @if (ViewBag.FotoPerfilAncha)
-                {
-                    <img id="imgFotoPerfilCambiar" src="@ViewBag.FotoPerfil" alt="Imagen Consultora" class="consultora_img" style="width: auto; height: 100%" />
-                }
-                else
-                {
-                    <img id="imgFotoPerfilCambiar" src="@ViewBag.FotoPerfil" alt="Imagen Consultora" class="consultora_img" style="width: 100%; height: auto;" />
-                }
+                <img id="imgFotoPerfilCambiar" src="@ViewBag.FotoPerfil" onload="onLoadPhotoUser(this)" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" alt="Imagen Consultora" class="consultora_img"/>
             </div>
         </div>
         <div class="datos_consultora_mi_perfil text-left">
@@ -449,8 +442,10 @@ else
         var LocationCountry = '@ViewBag.LocationCountry';
         var EsMobile = '@ViewBag.EsMobile';
         var UrlDrop = '@Url.Action("ObtenerUbigeoDependiente")';
-        var Ubigeos = { Ubigeo1: '@Model.DireccionEntrega.Ubigeo1', Ubigeo2: '@Model.DireccionEntrega.Ubigeo2', Ubigeo3: '@Model.DireccionEntrega.Ubigeo3' }
-      
+        @if (Model.TieneDireccionEntrega)
+        {
+            @:var Ubigeos = { Ubigeo1: '@Model.DireccionEntrega.Ubigeo1', Ubigeo2: '@Model.DireccionEntrega.Ubigeo2', Ubigeo3: '@Model.DireccionEntrega.Ubigeo3'};
+        }
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?client=gme-cetcosa&v=weekly&callback=initMapa&libraries=places,directions"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MiPerfil/Base.js")?v=3"></script>

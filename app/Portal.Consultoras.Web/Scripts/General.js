@@ -4,12 +4,15 @@ var belcorp = belcorp || {};
 belcorp.settings = belcorp.settings || {};
 belcorp.settings.uniquePrefix = "/g/";
 
+var _ultimaMarca = "";
+
 jQuery(document).ready(function () {
     CreateLoading();
 
-    if (typeof IsoPais === 'undefined' || IsoPais != 'PE')  {
-        $('.btn_chat_messenger_mobile').hide();
+    if (typeof habilitarChatBot !== 'undefined' && habilitarChatBot === 'True') {
+        $('.btn_chat_messenger_mobile').show();
     }
+
     if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {
         GuardarIndicadorPedidoAutentico();
     }
@@ -33,13 +36,13 @@ jQuery(document).ready(function () {
         }
     }
 
-    document.onkeydown = function (evt) {
-        evt = evt || window.event;
-        if (evt.keyCode == 27) {
-            if ($('.resultado_busqueda_producto').is(':visible')) {
-            }
-        }
-    };
+    //document.onkeydown = function (evt) {
+    //    evt = evt || window.event;
+    //    if (evt.keyCode == 27) {
+    //        if ($('.resultado_busqueda_producto').is(':visible')) {
+    //        }
+    //    }
+    //};
 });
 
 (function ($) {
@@ -84,8 +87,10 @@ jQuery(document).ready(function () {
 
     $.fn.CleanWhitespace = function () {
         var textNodes = this.contents().filter(
-            function () { return (this.nodeType == 3 && !/\S/.test(this.nodeValue)); })
-            .remove();
+            function () {
+                return (this.nodeType == 3 && !/\S/.test(this.nodeValue));
+            }
+        ).remove();
         return this;
     };
 
@@ -363,8 +368,16 @@ jQuery(document).ready(function () {
                 return context.toUpperCase();
             });
 
+            Handlebars.registerHelper('LowerCase', function (context) {
+                return context.toLowerCase();
+            });
+
             Handlebars.registerHelper('DecimalToStringFormat', function (context) {
                 return DecimalToStringFormat(context);
+            });
+
+            Handlebars.registerHelper('DecimalToStringFormatWithoutRounding', function (context) {
+                return DecimalToStringFormat(context, false, true);
             });
 
             Handlebars.registerHelper('DateTimeToStringFormat', function (context) {
@@ -411,6 +424,25 @@ jQuery(document).ready(function () {
                 return JSON.stringify(context).replace(/"/g, '&quot;');
             });
 
+            Handlebars.registerHelper("ifVerificarMarcaLast", function (marca, esMultiMarca, options) {
+                if (esMultiMarca) {
+                    if (_ultimaMarca === "" || _ultimaMarca === marca) {
+                        _ultimaMarca = marca;
+                        return options.inverse(this);
+                    }
+                    else {
+                        _ultimaMarca = marca;
+                        return options.fn(this);
+                    }
+                }
+                else {
+                    if (_ultimaMarca === "") {
+                        _ultimaMarca = marca;
+                        return options.inverse(this);
+                    }
+                    else return options.fn(this);
+                }
+            });
         }
     };
 
@@ -492,9 +524,10 @@ jQuery(document).ready(function () {
         return l_boolIsExist;
     };
 
-    DecimalToStringFormat = function (monto, noDecimal) {
+    DecimalToStringFormat = function (monto, noDecimal, sinRendondeo) {
         formatDecimalPais = formatDecimalPais || {};
         noDecimal = noDecimal || false;
+        sinRendondeo = sinRendondeo || false;
         var decimal = formatDecimalPais.decimal || ".";
         var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0);
         var miles = formatDecimalPais.miles || ",";
@@ -505,20 +538,28 @@ jQuery(document).ready(function () {
         decimalCantidad = isNaN(decimalCantidad) ? 0 : parseInt(decimalCantidad);
 
         var pEntera = $.trim(parseInt(montoOrig));
-        var pDecimal = $.trim((parseFloat(montoOrig) - parseFloat(pEntera)).toFixed(decimalCantidad));
-        pDecimal = pDecimal.length > 1 ? pDecimal.substring(2) : "";
-        pDecimal = decimalCantidad > 0 ? (decimal + pDecimal) : "";
+        var pDecimal = 0;
 
-        var pEnteraFinal = "";
-        do {
-            var x = pEntera.length;
-            var sub = pEntera.substring(x, x - 3);
-            pEnteraFinal = (pEntera == sub ? sub : (miles + sub)) + pEnteraFinal;
-            pEntera = pEntera.substring(x - 3, 0);
+        if (sinRendondeo) {
+            pDecimal = Math.floor(montoOrig * 100) / 100;
+            return pDecimal.toFixed(decimalCantidad);
+        } else {
+            pDecimal = $.trim((parseFloat(montoOrig) - parseFloat(pEntera)).toFixed(decimalCantidad));
+            pDecimal = pDecimal.length > 1 ? pDecimal.substring(2) : "";
+            pDecimal = decimalCantidad > 0 ? (decimal + pDecimal) : "";
 
-        } while (pEntera.length > 0);
+            var pEnteraFinal = "";
+            do {
+                var x = pEntera.length;
+                var sub = pEntera.substring(x, x - 3);
+                pEnteraFinal = (pEntera == sub ? sub : (miles + sub)) + pEnteraFinal;
+                pEntera = pEntera.substring(x - 3, 0);
 
-        return pEnteraFinal + pDecimal;
+            } while (pEntera.length > 0);
+
+            return pEnteraFinal + pDecimal;
+        }
+
     };
 
     IsNullOrEmpty = function (texto) { return texto == null || texto === ''; };
@@ -747,7 +788,7 @@ function CerrarLoad(opcion) {
 }
 
 function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
-    
+
     var valor = mensaje.indexOf("Sin embargo hemos reservado");
     /*HD-3710 - 9_10 (Pop up Lo sentimos - Click Botón - Cerrar Pop up lo sentimos) - Web, Mobile*/
     if (valor != -1) {
@@ -815,6 +856,86 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
 
         }
         CerrarLoad();
+    } catch (e) {
+
+    }
+}
+
+function AbrirMensaje25seg(mensaje, imagen) {
+    try {
+        var _dialogClass = '.setBottom',
+            _overlay = '.ui-widget-overlay'
+
+        mensaje = $.trim(mensaje);
+        if (mensaje == "") {
+            CerrarLoad();
+            return false;
+        }
+        //INI HD-3693
+        var msjBloq = validarpopupBloqueada(mensaje);
+        if (msjBloq != "") {
+            CerrarLoad();
+            alert_msg_bloqueadas(msjBloq);
+            return true;
+        }
+        //FIN HD-3693
+        imagen = imagen || "";
+
+        $("#pop_src").attr("src", "#")
+
+        if (imagen == "") {
+            $("#pop_src").css("display", "none")
+        }
+        else {
+            $("#pop_src").attr("src", imagen)
+            $("#pop_src").css("display", "block")
+        }
+
+
+        var isUrlMobile = isMobile();
+        if (isUrlMobile > 0) {
+            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
+            $('#alertDialogMensajes25seg').dialog("open");
+            $(_overlay).css('background', 'black')
+            $(_overlay).css('opacity', '0.85')
+
+            var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0])
+            _newTopDialog = _topWithoutPXAfterCreateDialog + 200,
+                _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
+        }
+        else {
+
+            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
+            $('#alertDialogMensajes25seg').dialog("open");
+            $(_overlay).css('background', 'black')
+            $(_overlay).css('opacity', '0.85')
+
+            var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0])
+            _newTopDialog = _topWithoutPXAfterCreateDialog + 200,
+                _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
+
+        }
+        CerrarLoad();
+        //Ocultar el scroll 
+        $("body").css("overflow", "hidden");
+
+        setTimeout(function () {
+            document.querySelector(_dialogClass).style.transition = "top 1s ease"
+            _newTopDialog = _topWithoutPXAfterCreateDialog - 100
+            _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
+        }, 100)
+
+        setTimeout(function () {
+            $(_dialogClass).fadeOut(500, function () {
+                $('#alertDialogMensajes25seg').dialog("close");
+                $("body").css("overflow", "auto")
+            })
+        }, 3000)
+
+
+        var parameter = [["mensaje", mensaje], ["imagen", imagen]];
+        console.log(parameter);
+
     } catch (e) {
 
     }
@@ -895,6 +1016,17 @@ function getMobilePrefixUrl() {
     var uniqueIndexOfUrl = currentUrl.indexOf(uniquePrefix);
     var isUniqueUrl = uniqueIndexOfUrl > 0;
     return isUniqueUrl ? currentUrl.substring(uniqueIndexOfUrl, uniqueIndexOfUrl + uniquePrefix.length + 36) : "/mobile";
+}
+
+function onLoadPhotoUser(event) {
+    if (event.naturalWidth > event.naturalHeight) {
+        event.style.width = 'auto';
+        event.style.height = '100%';
+    }
+    else {
+        event.style.width = '100%';
+        event.style.height = 'auto';
+    }
 }
 
 function isPagina(pagina) {
@@ -2051,11 +2183,17 @@ var GeneralModule = (function () {
         return isUrlMobile;
     };
 
-    var _redirectTo = function (url) {
+    var _redirectTo = function (url, validateIsMobile) {
         if (typeof url === "undefined" || url === null || $.trim(url) === "") return false;
+        if (typeof validateIsMobile === "undefined") validateIsMobile = true;
 
         var destinationUrl = "/";
-        if (_isMobile()) destinationUrl = destinationUrl + "Mobile/";
+
+        if (validateIsMobile && _isMobile() && url.indexOf('Mobile/') == -1) destinationUrl += "Mobile/";
+
+        url = $.trim(url);
+        url = url[0] === '/' ? url.substr(1) : url;
+
         destinationUrl += url;
 
         window.location.href = destinationUrl;
@@ -2168,11 +2306,18 @@ var GeneralModule = (function () {
         }
     };
 
+    var _getLocationPathname = function (value) {
+        if (typeof value === "undefined") {
+            return window.location.pathname;
+        }
+    };
+
     return {
         isMobile: _isMobile,
         redirectTo: _redirectTo,
         abrirLoad: _abrirLoad,
-        cerrarLoad: _cerrarLoad
+        cerrarLoad: _cerrarLoad,
+        getLocationPathname: _getLocationPathname
     };
 }());
 

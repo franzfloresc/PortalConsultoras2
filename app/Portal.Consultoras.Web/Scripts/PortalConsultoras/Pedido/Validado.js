@@ -13,11 +13,11 @@
         draggable: true,
         title: ":: Mensaje ::",
         buttons:
-        {
-            "Aceptar": function () {
-                HideDialog("DialogMensajes");
+            {
+                "Aceptar": function () {
+                    HideDialog("DialogMensajes");
+                }
             }
-        }
     });
 
     $('#divConfirmValidarPROL').dialog({
@@ -209,7 +209,7 @@ $.fn.CreateSelected = function (array, val, text, etiqueta, index) {
         }
 
         $.each(array, function (i, item) {
-            var objtemp = item;
+            //var objtemp = item;
             $(obj).append('<option value="' + item[val] + '">' + item[text] + '</option>');
         });
     } catch (e) {
