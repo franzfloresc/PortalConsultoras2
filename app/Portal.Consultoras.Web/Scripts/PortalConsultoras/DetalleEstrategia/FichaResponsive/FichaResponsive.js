@@ -4,9 +4,7 @@
 /// <reference path="../../../general.js" />
 /// <reference path="../detalleestrategiaprovider.js" />
 /// <reference path="../../shared/analyticsportal.js" />
-/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselPresenter.js" />
-/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselModel.js" />
-/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselView.js" />
+/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselInicializar.js" />
 
 var detalleEstrategia = DetalleEstrategiaProvider;
 var fichaResponsiveEvents = FichaResponsiveEvents();
@@ -34,31 +32,16 @@ var fichaEnriquecidaView = FichaEnriquecidaView();
 var fichaEnriquecidaPresenter = FichaEnriquecidaPresenter({
     fichaEnriquecidaView: fichaEnriquecidaView
 });
-
-const carruselView = new CarruselView();
-const carruselPresenter = new CarruselPresenter();
-
-var estrategia = null;
+var estrategia = {};
 
 $(document).ready(function () {
-    fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
-
-    const carruselModel = new CarruselModel(
-        params.palanca,
-        params.campania,
-        params.cuv,
-        "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
-        params.origen,
-        estrategia.OrigenAgregarCarrusel,
-        "Ficha",
-        estrategia.DescripcionCompleta,
-        estrategia.Hermanos.length,
-        estrategia.CodigoProducto,
-        estrategia.Precio2,
-        estrategia.Hermanos,
-        estrategia.TieneStock);
-
-    carruselPresenter.initialize(carruselModel, carruselView);
+    try {
+        fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
+        let carruselInicializar = new CarruselInicializar();
+        carruselInicializar.crearCarruseles(params, estrategia);
+    } catch (e) {
+        GeneralModule.redirectTo('/Ofertas', true);
+    }
 });
 
 fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded, function () {
@@ -66,11 +49,8 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         estrategiaPresenter.cleanContainer();
         componentesPresenter.cleanContainer();
 
-        estrategia = detalleEstrategia.promiseGetEstrategia(params);
-
-        if (estrategia.Error !== false) {
-            GeneralModule.redirectTo("ofertas");
-        }
+    	estrategia = detalleEstrategia.promiseGetEstrategia(params);
+        if (estrategia.Error) GeneralModule.redirectTo('/Ofertas', true);
 
         $("#data-estrategia").data("estrategia", estrategia);
 
