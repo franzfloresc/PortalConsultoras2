@@ -43,7 +43,7 @@ function MostrarBarra(datax, destino) {
     ActualizarGanancia(dataBarra);
     if (destino == '2') {
         initCarruselPremios(dataBarra);
-        if (datax.data && datax.data.CUV) {
+        if (datax.data && datax.data.CUV) {            
             trySetPremioElectivo(datax.data.CUV);
         } else {
             savePedidoDetails(datax);
@@ -923,9 +923,9 @@ function isTippingPointSuperado() {
 function checkPremioSelected(validateInCarrusel) {
     var details = tpElectivos.pedidoDetails;
     if (!details || details.length === 0) {
-        if (tpElectivos.premioSelected) {
-            setPremio(null);
-        }
+        //if (!tpElectivos.premioSelected) {
+        //    setPremio(null);
+        //}
 
         return;
     }
@@ -2412,11 +2412,10 @@ function CalculoPosicionMinimoMaximoDestokp() {
                     if (i == 0) {
                         var montoMaximo1 = dataBarra.ListaEscalaDescuento[i].MontoDesde;
                         var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMaximo1, montoMaximo);
-
-                        document.getElementById('barra_0').style.left = AvancePorcentaje1;
+                        $('#barra_0').css('left', AvancePorcentaje1);
 
                         AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 9) + '%';
-                        document.getElementById('punto_0').style.left = AvancePorcentajeP1;
+                        $('#punto_0').css('left', AvancePorcentajeP1);
 
                     } else {
                         var montoMaximo2 = dataBarra.ListaEscalaDescuento[i].MontoDesde;
@@ -2498,11 +2497,10 @@ function CalculoPosicionMinimoMaximoDestokp() {
                 if (mtoLogroBarra > dataBarra.ListaEscalaDescuento[0].MontoDesde * 1 && mtoLogroBarra < dataBarra.ListaEscalaDescuento[dataBarra.ListaEscalaDescuento.length - 1].MontoDesde * 1) {
 
                     $(".barra_mensaje_meta_pedido").css('margin-bottom', '56px');
-                    document.getElementsByClassName('bandera_marcador')[0].style.display = 'block';
-
+                    $('.bandera_marcador').show();
+                } else {
+                    $('.bandera_marcador').hide();
                 }
-                else
-                    document.getElementsByClassName('bandera_marcador')[0].style.display = 'none';
             }
         }
         ReordenarMontosBarra();

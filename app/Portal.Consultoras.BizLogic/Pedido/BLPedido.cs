@@ -4029,7 +4029,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             //Agrega los CUV del kit SC
             foreach (var item in lstKitSE)
             {
-                if (!lstDetalle.Any(x => x.CUV == item.CUV))
+                if (lstDetalle.Any(x => x.CUV == item.CUV))
                 {
                     var detalle = new BEPedidoDetalle()
                     {

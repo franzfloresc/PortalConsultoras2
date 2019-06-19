@@ -703,5 +703,6 @@ namespace Portal.Consultoras.BizLogic
 
             return EstrategiasRecomendadas;
         }
+
     }
 }
