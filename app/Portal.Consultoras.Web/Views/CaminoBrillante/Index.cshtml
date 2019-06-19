@@ -337,17 +337,20 @@
     }
 </div>
 
-@section scripts{
-    <script>
-    var urlGetCarrusel = '@Url.Action("GetCarruselCaminoBrillante", "CaminoBrillante")';
-    var urlGetMisGanancias = '@Url.Action("GetMisGanancias", "CaminoBrillante")';
-    var urlAgregarUnico = '@Url.Action("PedidoAgregarProductoTransaction", "PedidoRegistro", new { area = "" })';
-    var _origenPedidoWeb = '@Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido';
-        var TineCarrusel = '@ViewBag.TieneCarrusel';
-        var TieneGanancias = '@ViewBag.TieneGanancias';
-    </script>
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/Carrusel")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/Ganancias")
-}
+    @section scripts{
+        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
+        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
+
+        <script>
+            var urlGetCarrusel = '@Url.Action("GetCarruselCaminoBrillante", "CaminoBrillante")';
+            var urlGetMisGanancias = '@Url.Action("GetMisGanancias", "CaminoBrillante")';
+            var urlAgregarUnico = '@Url.Action("PedidoAgregarProductoTransaction", "PedidoRegistro", new { area = "" })';
+            var _origenPedidoWeb = '@Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido';
+
+            /* temporal Eliminar con el Homologado  */
+            function isMobile() {
+                return "True" === "@ViewBag.EsMobile";
+            }
+        </script>
+
+    }
