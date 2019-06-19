@@ -58,7 +58,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
-        [HttpGet]
+        [HttpPost]
         public ActionResult Consultar(string sidx, string sord, int page, int rows, string obj)
         {
             AdministrarProductoSugeridoModel objProdSug = Newtonsoft.Json.JsonConvert.DeserializeObject<AdministrarProductoSugeridoModel>(obj);
@@ -340,22 +340,22 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetZonificacionJerarquia(pais.GetValueOrDefault());
             }
-            JsTreeModel[] tree = lst.Distinct<BEZonificacionJerarquia>(new BEZonificacionJerarquiaComparer()).Select(
-                                    r => new JsTreeModel
+            JsTreeModel3[] tree = lst.Distinct<BEZonificacionJerarquia>(new BEZonificacionJerarquiaComparer()).Select(
+                                    r => new JsTreeModel3
                                     {
                                         data = r.RegionNombre,
-                                        attr = new JsTreeAttribute
+                                        attr = new JsTreeAttribute3
                                         {
-                                            id = r.RegionId * 1000,
+                                            id = r.RegionCodigo,
                                             selected = false
                                         },
                                         children = lst.Where(i => i.RegionId == r.RegionId).Select(
-                                                        z => new JsTreeModel
+                                                        z => new JsTreeModel3
                                                         {
                                                             data = z.ZonaNombre,
-                                                            attr = new JsTreeAttribute
+                                                            attr = new JsTreeAttribute3
                                                             {
-                                                                id = Convert.ToInt32(z.ZonaCodigo),
+                                                                id = z.ZonaCodigo,
                                                                 selected = false
                                                             }
                                                         }).ToArray()

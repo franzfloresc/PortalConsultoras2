@@ -462,7 +462,7 @@
                 obj: JSON.stringify(item)
 
             } ,
-            mtype: 'GET',
+            mtype: 'POST',
             colNames: ['Id', 'Campaña', 'ConfiguracionZona', 'Código Zona text','Código Zona', 'CUV Agotado', 'CUV Sugerido', 'Orden', 'ImagenProducto', 'Estado', 'MostrarAgotado', 'Foto', 'Opciones'],
             colModel: [
                 { name: 'ProductoSugeridoID', index: 'ProductoSugeridoID', width: 0, key: true, hidden: true },
@@ -684,13 +684,14 @@
                             for (i = 0; i < strZonasArreglo.length; i++) {
                                 $("#arbolRegionZonaModal").jstree("check_node", "#" + strZonasArreglo[i], true);
                             }
-                            $("#arbolRegionZonaModal").attr("checked", true);
+
                             $.jstree._reference($("#arbolRegionZonaModal")).get_unchecked(null, true).each(function () {
                                 if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
                                     return true;
                                 }
                                 $("#chkSeleccionarModal").attr("checked", false);
                             });
+                           
                         } else {
                             $.jstree._reference($("#arbolRegionZonaModal")).check_all();
                             $.jstree._reference($("#arbolRegionZonaModal")).get_checked(null, true).each(function () {
