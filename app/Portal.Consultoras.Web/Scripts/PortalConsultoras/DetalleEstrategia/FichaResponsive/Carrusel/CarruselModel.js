@@ -8,11 +8,11 @@ class CarruselModel
         origenPedidoWeb,
         origenAgregarCarrusel,
         tituloCarrusel,
-        codigoProducto,
-        precioProducto,
         productosHermanos,
         tieneStock,
-        tipoCarrusell)
+        tipoCarrusell,
+        codigoProducto,
+        precioProducto)
     {
         this.palanca = palanca || "";
         this.campania = campania || "";

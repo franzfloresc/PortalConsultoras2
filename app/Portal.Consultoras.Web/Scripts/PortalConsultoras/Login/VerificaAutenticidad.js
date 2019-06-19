@@ -276,7 +276,7 @@ function ContinuarLogin(CambioClave)
         param = "?verCambioClave=1" 
 
     waitingDialog();
-    var o = 1;
+    //var o = 1;
     $.ajax({
         type: 'POST',
         url: urlContinuarLogin,

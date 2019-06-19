@@ -77,6 +77,10 @@ var CodigoOrigenPedidoWeb = (function () {
             AppMaquilladorPendienteDeAprobarProducto: '14',
             CarruselUpselling: '15',
             FichaUpselling: '16',
+            CarruselCrossSelling: '18',
+            FichaCrossSelling: '19',
+            CarruselSugeridos: '20',
+            FichaSugeridos: '21'
         }
     };
 
