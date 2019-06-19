@@ -20,6 +20,7 @@
             if (cantPedidosPendientes > 0 && esDiaProl) {
                 $("#spnCantidadPendientes").text(cantPedidosPendientes);
                 $("#verDespues").hide();
+                $("#accionIgnorar").show();
                 setTimeout(function () {
                     $("#PopupPedidosPendientes").fadeIn(250);
                 }, 200);

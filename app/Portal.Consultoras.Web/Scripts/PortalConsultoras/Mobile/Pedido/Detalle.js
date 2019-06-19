@@ -934,13 +934,7 @@ function EjecutarServicioPROL() {
         success: function (response) {
             CloseLoading();
             if (!checkTimeout(response)) return;
-            if (!response.success) {
-                if (response.hasOwnProperty("PedidoPendiente")) {
-                    if (response.PedidoPendiente) {
-                        $("#PopupPedidosPendientes").fadeIn(250);
-                        return false;
-                    }
-                }
+            if (!response.success) {               
                 messageInfoMalo(mensajeErrorReserva);
                 return false;
             }
@@ -989,10 +983,29 @@ function RespuestaEjecutarServicioPROL(response, fnOfertaFinal) {
     if (cumpleOferta) {
         return;
     }
-
-    if (!response.data.Reserva) {
-        ShowPopupObservacionesReserva();
-        return;
+    var res = response.data;
+    if (!res.Reserva) {
+        if (res.hasOwnProperty("MostrarMensajeExito")) {
+            console.info(res.MostrarMensajeExito);
+            if (res.MostrarMensajeExito) {
+                var idPedidoGuardado = "#PopupPedidoGuardado", idPedidoPendiente = "#PopupPedidosPendientes", accionIgnorar = "#accionIgnorar";
+                $(accionIgnorar).hide();
+                $(idPedidoGuardado).fadeIn(250);
+                setContainerLluvia(idPedidoGuardado);
+                mostrarLluvia();
+                setTimeout(function () {
+                    var cantidad = res.hasOwnProperty("CantPedidosPendientes") ? res.CantPedidosPendientes : 0;
+                    $(idPedidoGuardado).fadeOut(250);
+                    if (cantidad > 0) {
+                        $(idPedidoPendiente).fadeIn(200);
+                    }
+                }, 3750);
+                return false;
+            }
+        } else {
+            ShowPopupObservacionesReserva();
+            return false;
+        }
     }
 
     EjecutarAccionesReservaExitosa(response);
@@ -1022,9 +1035,13 @@ function ConstruirObservacionesPROL(model) {
     else if (!model.ValidacionInteractiva) messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
     else {
         mensajeBloqueante = false;
-
         if (model.ObservacionRestrictiva) CrearPopupObservaciones(model);
-        else ArmarPopupObsReserva(true, '!LO <b>LOGRASTE</b>!', 'Tu pedido fue guardado con &eacute;xito. Recuerda, al final de tu campa&ntilde;a valida tu pedido para reservar tus productos.');
+        else {
+            model.MostrarMensajeExito = true;
+            $("#spnCantidadPendientes").text(model.CantPedidosPendientes);
+            //ArmarPopupObsReserva(true, '!LO <b>LOGRASTE</b>!', 'Tu pedido fue guardado con &eacute;xito. Recuerda, al final de tu campa&ntilde;a valida tu pedido para reservar tus productos.');
+        }
+
     }
 
     CargarPedido();
