@@ -897,18 +897,18 @@ function AbrirMensaje25seg(mensaje, imagen) {
         $(_overlay).css('background', 'black')
         $(_overlay).css('opacity', '0.85')
 
-        var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0])
-        _newTopDialog = _topWithoutPXAfterCreateDialog + 200,
-            _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
+        var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0]);
+        var _newTopDialog = _topWithoutPXAfterCreateDialog + 200;
+        var _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px';
         
         CerrarLoad();
         //Ocultar el scroll 
         $("body").css("overflow", "hidden");
 
         setTimeout(function () {
-            document.querySelector(_dialogClass).style.transition = "top 1s ease"
-            _newTopDialog = _topWithoutPXAfterCreateDialog - 100
-            _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
+            document.querySelector(_dialogClass).style.transition = "top 1s ease";
+            _newTopDialog = _topWithoutPXAfterCreateDialog - 100;
+            _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px';
         }, 100)
 
         setTimeout(function () {

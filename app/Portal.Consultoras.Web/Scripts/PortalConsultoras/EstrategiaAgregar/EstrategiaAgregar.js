@@ -281,7 +281,7 @@ var EstrategiaAgregarModule = (function () {
             if (origenModelo.Pagina == _codigoOrigenPedidoWeb.CodigoEstructura.Pagina.ArmaTuPackDetalle) {
                 if (typeof (seleccionadosPresenter) !== 'undefined') {
                     if (seleccionadosPresenter.packComponents() !== 'undefined') {
-                        var seleccionados = seleccionadosPresenter.packComponents().componentesSeleccionados;
+                        //var seleccionados = seleccionadosPresenter.packComponents().componentesSeleccionados;
                         estrategiaAnalytics = JSON.parse($("#data-estrategia").attr("data-estrategia"));
                         var codigoubigeoportal = estrategiaAnalytics.CodigoUbigeoPortal;
 

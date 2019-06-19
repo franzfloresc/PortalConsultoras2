@@ -1,6 +1,6 @@
 ﻿var showUser = false;
-var val_Usuario = false;
-var val_Password = false;
+//var val_Usuario = false;
+//var val_Password = false;
 
 window.history.forward(0);
 
@@ -14,8 +14,8 @@ $(document).ready(function () {
     LocalStorageLimpiar();
 
     $(".DropDown").change(function () {
-        val_Usuario = false;
-        val_Password = false;
+        //val_Usuario = false;
+        //val_Password = false;
         EjecutarMensajes();
     });
 
