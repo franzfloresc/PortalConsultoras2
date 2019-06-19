@@ -4,9 +4,6 @@
 /// <reference path="../../../general.js" />
 /// <reference path="../detalleestrategiaprovider.js" />
 /// <reference path="../../shared/analyticsportal.js" />
-/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselPresenter.js" />
-/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselModel.js" />
-/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselView.js" />
 /// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselInicializar.js" />
 
 var detalleEstrategia = DetalleEstrategiaProvider;
@@ -48,17 +45,30 @@ $(document).ready(function () {
     }
 });
 
-fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded, function(){
-    estrategiaPresenter.cleanContainer();
-    componentesPresenter.cleanContainer();
-    
-    estrategia = detalleEstrategia.promiseGetEstrategia(params);
-    if (estrategia.Error) GeneralModule.redirectTo('/Ofertas', true);
+fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded, function () {
+    try {
+        estrategiaPresenter.cleanContainer();
+        componentesPresenter.cleanContainer();
 
-    $("#data-estrategia").data("estrategia", estrategia);
+    	estrategia = detalleEstrategia.promiseGetEstrategia(params);
+        if (estrategia.Error) GeneralModule.redirectTo('/Ofertas', true);
 
-    estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
-    componentesPresenter.onEstrategiaModelLoaded(estrategia);
+        $("#data-estrategia").data("estrategia", estrategia);
 
-    fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
+        estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
+        componentesPresenter.onEstrategiaModelLoaded(estrategia);
+
+        fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
+    }
+    catch (error) {
+        if (typeof error === "string") {
+            window.onerror(error);
+        }
+        else if (typeof error === "object") {
+            registrarLogErrorElastic(error);
+        }
+        GeneralModule.redirectTo("ofertas");
+    }
+
+    CerrarLoad();
 });

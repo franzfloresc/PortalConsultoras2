@@ -123,8 +123,9 @@ function AceptarPedidoPendiente(id, tipo) {
                         }
                         if (listProductos.length > 0) {
                             listProductos.forEach(function (product) {
+                                var itemProduct = {};
                                 if ($(btn).parent().data('accion') == "ingrgana") {  //por Gana+
-                                    var itemProduct = {
+                                    itemProduct = {
                                         "id": product.CUV2,
                                         "name": product.DescripcionCUV2,
                                         "price": product.PrecioString,
@@ -133,9 +134,8 @@ function AceptarPedidoPendiente(id, tipo) {
                                         "variant": "Estándar",
                                         "quantity": product.Cantidad
                                     };
-                                    lstproduct.push(itemProduct);
                                 } else {        //Por Catálogo
-                                    var itemProduct = {
+                                    itemProduct = {
                                         "id": product.CUV,
                                         "name": product.Producto,
                                         "price": product.PrecioTotal.toFixed(2),
@@ -144,8 +144,8 @@ function AceptarPedidoPendiente(id, tipo) {
                                         "variant": "Estándar",
                                         "quantity": product.Cantidad
                                     };
-                                    lstproduct.push(itemProduct);
                                 }
+                                lstproduct.push(itemProduct);
 
                             });
 
@@ -179,11 +179,10 @@ function AceptarPedidoPendiente(id, tipo) {
         setTimeout(function () { $MensajeTolTip.hide(); }, 2000);
 
         var option = location.search.split('option=')[1];
-        if (option === "P") //Producto
-            var option = location.search.split('option=')[1];
+
         if (option === "P") //Producto
             MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 2", "Alerta: Debes elegir como atender el pedido para aprobarlo");
-        if (option === "C") //Cliente
+        else if (option === "C") //Cliente
             MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 2", "Alerta: Debes elegir como atender el pedido para aprobarlo");
     }
 

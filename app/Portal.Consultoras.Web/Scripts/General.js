@@ -891,31 +891,16 @@ function AbrirMensaje25seg(mensaje, imagen) {
             $("#pop_src").attr("src", imagen)
             $("#pop_src").css("display", "block")
         }
+        
+        $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
+        $('#alertDialogMensajes25seg').dialog("open");
+        $(_overlay).css('background', 'black')
+        $(_overlay).css('opacity', '0.85')
 
-
-        var isUrlMobile = isMobile();
-        if (isUrlMobile > 0) {
-            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
-            $('#alertDialogMensajes25seg').dialog("open");
-            $(_overlay).css('background', 'black')
-            $(_overlay).css('opacity', '0.85')
-
-            var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0])
-            _newTopDialog = _topWithoutPXAfterCreateDialog + 200,
-                _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
-        }
-        else {
-
-            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
-            $('#alertDialogMensajes25seg').dialog("open");
-            $(_overlay).css('background', 'black')
-            $(_overlay).css('opacity', '0.85')
-
-            var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0])
-            _newTopDialog = _topWithoutPXAfterCreateDialog + 200,
-                _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
-
-        }
+        var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0])
+        _newTopDialog = _topWithoutPXAfterCreateDialog + 200,
+            _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
+        
         CerrarLoad();
         //Ocultar el scroll 
         $("body").css("overflow", "hidden");
@@ -932,9 +917,7 @@ function AbrirMensaje25seg(mensaje, imagen) {
                 $("body").css("overflow", "auto")
             })
         }, 3000)
-
-
-        var parameter = [["mensaje", mensaje], ["imagen", imagen]];
+        
     } catch (e) {
 
     }

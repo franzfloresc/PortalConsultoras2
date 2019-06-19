@@ -161,11 +161,9 @@ function fnDialog() {
     });
 }
 function DesactivarPremio(rowId) {
-
-    //HD-3756 HABILITA PREMIOS
-    var premio = {};
+    
     var rowData = $("#list").jqGrid('getRowData', rowId);
-    Premio = rowData;
+    var Premio = rowData;
 
     if (Premio.ActivePremioAuto == 'false' && Premio.ActivePremioElectivo == 'false') return;
     var elimina = confirm('¿Está seguro que desea deshabilitar el premio?');

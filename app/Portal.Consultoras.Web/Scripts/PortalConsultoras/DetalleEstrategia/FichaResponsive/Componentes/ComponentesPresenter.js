@@ -215,19 +215,18 @@ var ComponentesPresenter = function (config) {
     var _removeSelectedItem = function (selectedItems, selectedItem, selectedIndex) {
         if (typeof selectedItems == "undefined" || typeof selectedItem == "undefined") return selectedItems;
 
-        if (typeof selectedIndex == undefined) {
-            var tmp = $.extend(true, [], selectedItems);
-            tmp = tmp.reverse();
-            selectedIndex = -1;
-            $.each(tmp, function (idxTmpSelectedItem, tmpSelectedItem) {
-                if (selectedItem.Grupo == tmpSelectedItem.Grupo && selectedItem.Cuv == tmpSelectedItem.Cuv) {
-                    selectedIndex = idxTmpSelectedItem;
-                    return false;
-                }
-            });
-
-            if (selectedIndex >= 0) selectedIndex = selectedItems.length - selectedIndex - 1;
-        }
+        //if (typeof selectedIndex == undefined) {
+        //    var tmp = $.extend(true, [], selectedItems);
+        //    tmp = tmp.reverse();
+        //    selectedIndex = -1;
+        //    $.each(tmp, function (idxTmpSelectedItem, tmpSelectedItem) {
+        //        if (selectedItem.Grupo == tmpSelectedItem.Grupo && selectedItem.Cuv == tmpSelectedItem.Cuv) {
+        //            selectedIndex = idxTmpSelectedItem;
+        //            return false;
+        //        }
+        //    });
+        //    if (selectedIndex >= 0) selectedIndex = selectedItems.length - selectedIndex - 1;
+        //}
 
         selectedItems.splice(selectedIndex, 1);
 
