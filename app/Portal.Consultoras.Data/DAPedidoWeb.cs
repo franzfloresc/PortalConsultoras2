@@ -346,7 +346,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@EsRechazado", DbType.AnsiString, BEPedidoDDWeb.EsRechazado);
             Context.Database.AddInParameter(command, "@FechaRegistroInicio", DbType.Date, BEPedidoDDWeb.FechaRegistroInicio);
             Context.Database.AddInParameter(command, "@FechaRegistroFin", DbType.Date, BEPedidoDDWeb.FechaRegistroFin);
-            Context.Database.AddInParameter(command, "@IndicadorConsultoraDigital", DbType.Int32,Convert.ToInt32( BEPedidoDDWeb.IndicadorConsultoraDigital));
+            Context.Database.AddInParameter(command, "@IndicadorConsultoraDigital", DbType.Int32, Convert.ToInt32(BEPedidoDDWeb.IndicadorConsultoraDigital));
 
             return Context.ExecuteReader(command);
         }
@@ -963,7 +963,6 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        //INI HD-4200
         public IDataReader GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCuvSuscripcionSE");
@@ -971,6 +970,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, bEPedidoWeb.CodigoConsultora);
             return Context.ExecuteReader(command);
         }
-        //FIN HD-4200
+
     }
 }

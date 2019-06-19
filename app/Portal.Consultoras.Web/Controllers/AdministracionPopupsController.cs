@@ -203,7 +203,6 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         string filePath = path + Path.GetFileName(frmData.FileName);
                         filename = Path.GetFileName(frmData.FileName);
-                        //string extension = Path.GetExtension(frmData.FileName);
                         frmData.SaveAs(filePath);
                         int contador = 0;
                         string csvData = System.IO.File.ReadAllText(filePath);
