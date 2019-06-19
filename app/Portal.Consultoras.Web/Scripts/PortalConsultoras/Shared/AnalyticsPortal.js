@@ -78,11 +78,11 @@ var AnalyticsPortalModule = (function () {
             { "CountryCode": "PR", "Code": "USD" },
             { "CountryCode": "SV", "Code": "SVC" }
         ],
-        seccionesPalanca: [
-            { "CodigoSeccion": "ODD", "Palanca": "Oferta Del Día" },
-            { "CodigoSeccion": "SR", "Palanca": "Showroom" },
-            { "CodigoSeccion": "DP", "Palanca": "Dúo Perfecto" }
-        ],
+        //seccionesPalanca: [
+        //    { "CodigoSeccion": "ODD", "Palanca": "Oferta Del Día" },
+        //    { "CodigoSeccion": "SR", "Palanca": "Showroom" },
+        //    { "CodigoSeccion": "DP", "Palanca": "Dúo Perfecto" }
+        //],
         origenpedidoWeb: [
             { "CodigoPalanca": "00", "Palanca": "Ofertas Para Ti" },
             { "CodigoPalanca": "01", "Palanca": "Showroom" },
@@ -345,7 +345,7 @@ var AnalyticsPortalModule = (function () {
         });
 
         if (obj == undefined && origenEstructura.CodigoPalanca != "") {
-            var obj = _origenPedidoWebEstructura.Palanca.find(function (element) {
+            obj = _origenPedidoWebEstructura.Palanca.find(function (element) {
                 return element.CodigoPalanca == origenEstructura.CodigoPalanca;
             });
         }
@@ -1314,7 +1314,7 @@ var AnalyticsPortalModule = (function () {
             "label": modelo.label
         };
 
-        console.log(_evento.virtualEvent, objMarcar);
+        // console.log(_evento.virtualEvent, objMarcar);
         dataLayer.push(objMarcar);
 
         return true;
@@ -1425,17 +1425,17 @@ var AnalyticsPortalModule = (function () {
         }
     };
 
-    var _getPalancaBySeccion = function (codigoSeccion) {
-        try {
+    //var _getPalancaBySeccion = function (codigoSeccion) {
+    //    try {
 
-            var seccion = _constantes.seccionesPalanca.find(function (element) {
-                return element.CodigoSeccion == codigoSeccion;
-            });
-            return seccion != undefined ? seccion.Palanca : _texto.notavaliable;
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    };
+    //        var seccion = _constantes.seccionesPalanca.find(function (element) {
+    //            return element.CodigoSeccion == codigoSeccion;
+    //        });
+    //        return seccion != undefined ? seccion.Palanca : _texto.notavaliable;
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //};
 
     var getPalancaByOrigenPedido = function (codigoOrigenPedido) {
         try {
@@ -1475,7 +1475,6 @@ var AnalyticsPortalModule = (function () {
                 return element.CodigoPagina == codigoPagina;
             });
 
-            var esVerMas = typeof seccion !== "undefined" ? seccion.Seccion == "Carrusel Ver Más" : false;
             var esFicha = typeof seccion !== "undefined" ? seccion.Seccion == "Ficha" : false;
             var esCarrusel = false;
             if (!(event == null)) {
@@ -2100,9 +2099,6 @@ var AnalyticsPortalModule = (function () {
     };
 
     function fnObtenerContenedor(event) {
-
-        var estoyEnLaFicha = typeof fichaModule !== "undefined";
-        var esLanding = typeof listaSeccion === 'undefined';
         var esRevisar = window.actionName == "revisar";
         var contenedor = "";
 

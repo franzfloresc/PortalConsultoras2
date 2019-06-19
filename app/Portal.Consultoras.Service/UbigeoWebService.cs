@@ -1,8 +1,8 @@
 ﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
-using System;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.Service
@@ -18,7 +18,7 @@ namespace Portal.Consultoras.Service
             var mensaje = ValidarMensaje(paisID, codigoPadre);
             if (mensaje != "")
             {
-                throw new Exception(mensaje);
+                throw new ClientInformationException(mensaje);
             }
 
             int idPais = Util.GetPaisID(paisID);

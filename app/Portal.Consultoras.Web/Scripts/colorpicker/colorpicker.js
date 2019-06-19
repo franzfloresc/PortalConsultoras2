@@ -283,7 +283,7 @@
 				return hex;
 			}, 
 			HexToRGB = function (hex) {
-				var hex = parseInt(((hex.indexOf('#') > -1) ? hex.substring(1) : hex), 16);
+				hex = parseInt(((hex.indexOf('#') > -1) ? hex.substring(1) : hex), 16);
 				return {r: hex >> 16, g: (hex & 0x00FF00) >> 8, b: (hex & 0x0000FF)};
 			},
 			HexToHSB = function (hex) {
@@ -299,9 +299,7 @@
 				var max = Math.max(rgb.r, rgb.g, rgb.b);
 				var delta = max - min;
 				hsb.b = max;
-				if (max != 0) {
-					
-				}
+				
 				hsb.s = max != 0 ? 255 * delta / max : 0;
 				if (hsb.s != 0) {
 					if (rgb.r == max) {

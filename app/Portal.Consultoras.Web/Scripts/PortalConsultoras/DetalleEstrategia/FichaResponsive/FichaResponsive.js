@@ -4,11 +4,8 @@
 /// <reference path="../../../general.js" />
 /// <reference path="../detalleestrategiaprovider.js" />
 /// <reference path="../../shared/analyticsportal.js" />
-/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselPresenter.js" />
-/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselModel.js" />
-/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselView.js" />
+/// <reference path="~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselInicializar.js" />
 
-console.log(1);
 var detalleEstrategia = DetalleEstrategiaProvider;
 var fichaResponsiveEvents = FichaResponsiveEvents();
 var analyticsPortal = AnalyticsPortalModule;
@@ -35,77 +32,43 @@ var fichaEnriquecidaView = FichaEnriquecidaView();
 var fichaEnriquecidaPresenter = FichaEnriquecidaPresenter({
     fichaEnriquecidaView: fichaEnriquecidaView
 });
+var estrategia = {};
 
 $(document).ready(function () {
     try {
         fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
+        debugger;
+        let carruselInicializar = new CarruselInicializar();
+        carruselInicializar.crearCarruseles(params, estrategia);
     } catch (e) {
         GeneralModule.redirectTo('/Ofertas', true);
     }
 });
 
-fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded, function(){
-    estrategiaPresenter.cleanContainer();
-    componentesPresenter.cleanContainer();
-    
-    var estrategia = detalleEstrategia.promiseGetEstrategia(params);
-    if (estrategia.Error) GeneralModule.redirectTo('/Ofertas', true);
+fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded, function () {
+    try {
+        estrategiaPresenter.cleanContainer();
+        componentesPresenter.cleanContainer();
 
-    $("#data-estrategia").data("estrategia", estrategia);
+    	estrategia = detalleEstrategia.promiseGetEstrategia(params);
+        if (estrategia.Error) GeneralModule.redirectTo('/Ofertas', true);
 
-    estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
-    componentesPresenter.onEstrategiaModelLoaded(estrategia);
+        $("#data-estrategia").data("estrategia", estrategia);
 
-    fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
+        estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
+        componentesPresenter.onEstrategiaModelLoaded(estrategia);
 
-    const carruselModelUpselling = new CarruselModel(
-        params.palanca,
-        params.campania,
-        params.cuv,
-        "/Estrategia/FichaObtenerProductosUpSellingCarrusel",
-        params.origen,
-        estrategia.OrigenAgregarCarrusel,
-        estrategia.DescripcionCompleta,
-        estrategia.CodigoProducto,
-        estrategia.Precio2,
-        estrategia.Hermanos,
-        estrategia.TieneStock,
-        ConstantesModule.TipoVentaIncremental.UpSelling);
-    const carruselPresenterUpselling = new CarruselPresenter();
-    const carruselViewUpselling = new CarruselView(carruselPresenterUpselling);
-    carruselPresenterUpselling.initialize(carruselModelUpselling, carruselViewUpselling);
+        fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
+    }
+    catch (error) {
+        if (typeof error === "string") {
+            window.onerror(error);
+        }
+        else if (typeof error === "object") {
+            registrarLogErrorElastic(error);
+        }
+        GeneralModule.redirectTo("ofertas");
+    }
 
-    const carruselModelCross = new CarruselModel(
-        params.palanca,
-        params.campania,
-        params.cuv,
-        "/Estrategia/FichaObtenerProductosIncremental",
-        params.origen,
-        estrategia.OrigenAgregarCarruselCroselling,
-        estrategia.DescripcionCompleta,
-        estrategia.CodigoProducto,
-        estrategia.Precio2,
-        estrategia.Hermanos,
-        estrategia.TieneStock,
-        ConstantesModule.TipoVentaIncremental.CrossSelling);
-    const carruselPresenterCross = new CarruselPresenter();
-    const carruselViewCross = new CarruselView(carruselPresenterCross);
-    carruselPresenterCross.initialize(carruselModelCross, carruselViewCross);
-
-    const carruselModelSugerido = new CarruselModel(
-        params.palanca,
-        params.campania,
-        params.cuv,
-        "/Estrategia/FichaObtenerProductosIncremental",
-        params.origen,
-        estrategia.OrigenAgregarCarruselSugeridos,
-        estrategia.DescripcionCompleta,
-        estrategia.CodigoProducto,
-        estrategia.Precio2,
-        estrategia.Hermanos,
-        estrategia.TieneStock,
-        ConstantesModule.TipoVentaIncremental.Sugerido);
-    const carruselPresenterSugerido = new CarruselPresenter();
-    const carruselViewSugerido = new CarruselView(carruselPresenterSugerido);
-    carruselPresenterSugerido.initialize(carruselModelSugerido, carruselViewSugerido);
+    CerrarLoad();
 });

@@ -618,8 +618,8 @@ namespace Portal.Consultoras.Common
             public const short TablaLogicaId = 15;
             public const string FuncionalidadUpSelling = "FuncionalidadUpSelling";
             public const string CantidadProductosUpSelling = "CantidadProductosUpSelling";
-            public const string FuncionalidadCrossSelling = "FuncionalidadUpSelling";
-            public const string FuncionalidadSugeridosSelling = "FuncionalidadUpSelling";
+            public const string FuncionalidadCrossSelling = "FuncionalidadCrossSelling";
+            public const string FuncionalidadSugerido = "FuncionalidadSugerido";
         }
 
         public static class AdministradorHistoria

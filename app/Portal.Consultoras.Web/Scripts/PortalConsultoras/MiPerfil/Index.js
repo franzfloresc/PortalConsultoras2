@@ -572,14 +572,12 @@ function actualizarDatos() {
 
         if (Ubigeo1 == "") {
             $('#btnGuardar')[0].disabled = false;
-            var item = $('label[for="Ubigeo1"]').text();
-            alert("Debe seleccionar " + item + ".");
+            alert("Debe seleccionar " + $('label[for="Ubigeo1"]').text() + ".");
             return false;
         }
         if (Ubigeo2 == "") {
             $('#btnGuardar')[0].disabled = false;
-            var item = $('label[for="Ubigeo2"]').text();
-            alert("Debe seleccionar " + item + ".");
+            alert("Debe seleccionar " + $('label[for="Ubigeo2"]').text() + ".");
             return false;
         }
 
