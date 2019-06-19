@@ -833,7 +833,6 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
         }
         else {
 
-            $('#alertDialogMensajes').parents('.ui-dialog').addClass('border-radius-4 general_dialog');
             $('#alertDialogMensajes .terminos_title_2').html(titulo);
             $('#alertDialogMensajes .pop_pedido_mensaje').html(mensaje);
             showDialogSinScroll("alertDialogMensajes");

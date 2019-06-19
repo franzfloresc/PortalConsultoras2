@@ -980,8 +980,13 @@ input[type="text"].text__field__sb,
 
 /*  POPUP GENÉRICO */
 
-.general_dialog{
-    max-width:404.78px;
+.ui-dialog,
+.general_dialog {
+    border-radius: 4px;
+}
+
+.general_dialog {
+    min-width: 404.78px !important;
 }
 
 .alert_dialog_icono {
@@ -1004,13 +1009,15 @@ input[type="text"].text__field__sb,
 }
 
 .general_dialog + .ui-dialog-buttonpane .ui-state-default span,
+.ui-dialog .ui-dialog-buttonpane .ui-state-default span,
 .btn__sb--entendido {
-    font-size: 12px !important;
+    font-size: 12px!important;
+    min-width: 200px;
     height: 40px !important;
     line-height: 18px !important;
     background-color: #B9007E !important;
     border: 1px solid #B9007E !important;
-    border-radius:4px!important;
+    border-radius: 4px !important;
 }
 
 /* FIN - POPUP GENÉRICO */

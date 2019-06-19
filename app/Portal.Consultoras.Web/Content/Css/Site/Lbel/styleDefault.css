@@ -979,8 +979,13 @@ input[type="checkbox"].switch__control,
 
 /*  POPUP GENÉRICO */
 
+.ui-dialog,
 .general_dialog {
-    max-width: 404.78px;
+    border-radius: 4px;
+}
+
+.general_dialog {
+    min-width: 404.78px !important;
 }
 
 .alert_dialog_icono {
@@ -1003,13 +1008,17 @@ input[type="checkbox"].switch__control,
 }
 
 .general_dialog + .ui-dialog-buttonpane .ui-state-default span,
+.ui-dialog .ui-dialog-buttonpane .ui-state-default span,
 .btn__sb--entendido {
-    font-size: 12px !important;
+    font-family:'Lato', sans-serif;
+    font-size: 14px !important;
+    min-width: 200px;
     height: 40px !important;
     line-height: 18px !important;
     background-color: #B9007E !important;
     border: 1px solid #B9007E !important;
     border-radius: 4px !important;
+    letter-spacing:normal;
 }
 
 /* FIN - POPUP GENÉRICO */
