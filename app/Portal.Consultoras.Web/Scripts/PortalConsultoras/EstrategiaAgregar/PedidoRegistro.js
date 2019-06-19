@@ -466,7 +466,7 @@ var PedidoRegistroModule = function () {
                 CargarCantidadProductosPedidos();
 
                 TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
-
+                
                 //debugger;
                 var imagenProducto = article.find("[data-imagen-producto]").attr("data-imagen-producto");
 
