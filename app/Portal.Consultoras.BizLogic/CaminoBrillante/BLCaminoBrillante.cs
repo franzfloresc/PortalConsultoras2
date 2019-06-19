@@ -742,8 +742,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     {
                         kit.CodigoKit = _kitProvider.CodigoKit;
                         kit.CodigoSap = _kitProvider.CodigoSap;
-                        kit.DescripcionCUV = _kitProvider.Descripcion;
-                        kit.DescripcionCortaCUV = _kitProvider.Descripcion;
+                        kit.DescripcionCortaCUV = kit.DescripcionCUV;
                         kit.PrecioCatalogo = _kitProvider.Precio;
                         kit.FlagDigitable = _kitProvider.Digitable;
                         kit.CodigoNivel = _kitProvider.Nivel;
@@ -1108,6 +1107,23 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #region Pedido
 
+        /// <summary>
+        /// Validar si el Origen de Pedido Web Pertenece a Camino Brillante
+        /// </summary>
+        public bool IsOrigenPedidoCaminoBrillante(int origenPedidoWeb)
+        {
+            return origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Ficha ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Ficha ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home || 
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel_Ficha ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel_Ficha
+                    ;
+        }
+
         public void UpdFlagsKitsOrDemostradores(BEPedidoWebDetalle bEPedidoWebDetalle, int paisId, int campaniaId, int nivelId)
         {
             if (nivelId == 0) return;
@@ -1302,6 +1318,27 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             }
             return null;
         }
+
+        #region Configuracion
+        public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, string esApp)
+        {
+            var oTablaLogica = GetCaminoBrillanteConfiguracionCache(paisID);
+            if (oTablaLogica == null) return null;
+            if (esApp == "1") oTablaLogica = oTablaLogica.Where(a => a.Codigo.Contains(Constantes.CaminoBrillante.Configuracion.App)).ToList();
+            else oTablaLogica = oTablaLogica.Where(a => a.Codigo.Contains(Constantes.CaminoBrillante.Configuracion.SomosBelcorp)).ToList();
+            return oTablaLogica.Select(x => new BEConfiguracionCaminoBrillante()
+            {
+                Codigo = x.Codigo,
+                Descripcion = x.Descripcion,
+                Valor = x.Valor
+            }).ToList();
+        }
+
+        private List<BETablaLogicaDatos> GetCaminoBrillanteConfiguracionCache(int paisID)
+        {
+            return _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.CaminoBrillante.CaminoBrillanteConfigurar) ?? new List<BETablaLogicaDatos>();
+        }
+        #endregion
 
         private BEOfertaCaminoBrillante ToBEOfertaCaminoBrillante(BEDemostradoresCaminoBrillante demostrador, bool loadDetalle = true)
         {

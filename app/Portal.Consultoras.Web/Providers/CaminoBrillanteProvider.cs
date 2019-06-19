@@ -9,6 +9,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.ServiceSAC;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -150,6 +151,30 @@ namespace Portal.Consultoras.Web.Providers
                 if (consultoraCaminoBrillante == null) return null;
 
                 return consultoraCaminoBrillante.NivelConsultora.FirstOrDefault(x => x.EsActual);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Obtiene el nivel Siguiente de la Consultora en el programa de Camino Brillante
+        /// </summary>
+        public NivelCaminoBrillanteModel GetNivelSiguienteConsultora()
+        {
+            try
+            {
+                var oConsultora = GetConsultoraNivelCaminoBrillante();
+                if (oConsultora == null || oConsultora.Niveles == null) return null;
+
+                var codigoNivel = oConsultora.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault();
+                int codNivel = 0;
+                if (!int.TryParse(codigoNivel, out codNivel)) return null;
+                codigoNivel = string.Format("{0}",codNivel + 1);
+
+                return Mapper.Map<NivelCaminoBrillanteModel>(oConsultora.Niveles.FirstOrDefault(x => x.CodigoNivel == codigoNivel));
             }
             catch (Exception ex)
             {
@@ -725,6 +750,9 @@ namespace Portal.Consultoras.Web.Providers
             };
         }
 
+        /// <summary>
+        /// Validar si el Origen de Pedido Web Pertenece a Camino Brillante
+        /// </summary>
         public bool IsOrigenPedidoCaminoBrillante(int origen) {
             return origen == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
                     origen == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
@@ -732,12 +760,28 @@ namespace Portal.Consultoras.Web.Providers
                     origen == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha ||
                     origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Ficha ||
                     origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel ||
-                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home
+                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home ||
+                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel_Ficha ||
+                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel_Ficha
                     ;
 
         }
 
         #endregion
 
+        #region Configuracion
+        public List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion()
+        {
+            var lst = sessionManager.GetConfiguracionCaminoBrillante();
+            if (lst == null || lst.Count == 0)
+            {
+                using (var svc = new UsuarioServiceClient())
+                    lst = svc.GetCaminoBrillanteConfiguracion(usuarioModel.PaisID, "0").ToList();
+
+                if (lst != null) sessionManager.SetConfiguracionCaminoBrillante(lst);
+            }            
+            return lst;
+        }
+        #endregion
     }
 }

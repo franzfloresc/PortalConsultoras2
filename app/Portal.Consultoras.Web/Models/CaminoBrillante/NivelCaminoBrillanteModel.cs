@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -55,6 +56,12 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
                 return Beneficios.Skip(3).ToList();
             }
         }
+
+        public decimal MontoAlcanzado { get {
+                var _montoMinimo = decimal.Parse(MontoMinimo);
+                if(!MontoFaltante.HasValue) return _montoMinimo;
+                return Math.Max(0,_montoMinimo - MontoFaltante.Value);
+            } }
 
         public class BeneficioCaminoBrillanteModel{
 
