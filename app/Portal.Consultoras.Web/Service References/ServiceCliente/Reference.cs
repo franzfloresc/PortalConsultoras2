@@ -1907,6 +1907,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private bool FlagNuevaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal GananciaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IPUsuarioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2627,6 +2630,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.FlagNuevaField.Equals(value) != true)) {
                     this.FlagNuevaField = value;
                     this.RaisePropertyChanged("FlagNueva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Ganancia {
+            get {
+                return this.GananciaField;
+            }
+            set {
+                if ((this.GananciaField.Equals(value) != true)) {
+                    this.GananciaField = value;
+                    this.RaisePropertyChanged("Ganancia");
                 }
             }
         }

@@ -17,7 +17,7 @@ var procesoSms = false;
 var procesoEmail = false;
 var PrimerNombre = "";
 
-$(document).ready(function () {
+$(document).ready(function () {    
     $(window).resize(function () {
         //resize just happened, pixels changed
         resizeNameUserExt();

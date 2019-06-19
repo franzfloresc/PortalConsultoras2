@@ -494,6 +494,7 @@
       <xs:element minOccurs="0" name="EsOFGanaMasZonaValida" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsOfertaFinalZonaValida" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsShowRoom" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsUltimoDiaFacturacion" type="xs:boolean" />
       <xs:element minOccurs="0" name="EsZonaDemAnti" type="xs:int" />
       <xs:element minOccurs="0" name="EsquemaDAConsultora" type="xs:boolean" />
       <xs:element minOccurs="0" name="EstadoPedido" type="xs:int" />
@@ -514,7 +515,6 @@
       <xs:element minOccurs="0" name="FlgCheckSMS" type="xs:boolean" />
       <xs:element minOccurs="0" name="FotoOriginalSinModificar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FotoPerfil" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FotoPerfilAncha" type="xs:boolean" />
       <xs:element minOccurs="0" name="GPRBannerMensaje" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="GPRBannerTitulo" nillable="true" type="xs:string" />
       <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" minOccurs="0" name="GPRBannerUrl" type="q3:Enumeradores.RechazoBannerUrl" />
@@ -851,6 +851,9 @@
           <xs:element minOccurs="0" name="Campania" type="xs:int" />
           <xs:element minOccurs="0" name="CodigoDetalle" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DetaAccionDescripcion" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DetaCodigo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DetaCodigoDetalleDescripcion" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
           <xs:element minOccurs="0" name="IdContenido" type="xs:int" />
           <xs:element minOccurs="0" name="IdContenidoDeta" type="xs:int" />
@@ -883,7 +886,9 @@
       <xs:element minOccurs="0" name="Orden" type="xs:int" />
       <xs:element minOccurs="0" name="Proc" type="xs:int" />
       <xs:element minOccurs="0" name="RutaContenido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Seccion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Tipo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Zona" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEContenidoAppDeta" nillable="true" type="tns:BEContenidoAppDeta" />
