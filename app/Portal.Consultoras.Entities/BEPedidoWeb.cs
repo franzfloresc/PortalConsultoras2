@@ -129,13 +129,13 @@ namespace Portal.Consultoras.Entities
         public string RecogerNombre { get; set; }
 
         [DataMember]
-        public decimal? GananciaRevista { get; set; }
+        public decimal GananciaRevista { get; set; }
 
         [DataMember]
-        public decimal? GananciaWeb { get; set; }
+        public decimal GananciaWeb { get; set; }
 
         [DataMember]
-        public decimal? GananciaOtros { get; set; }
+        public decimal GananciaOtros { get; set; }
 
         public BEPedidoWeb() { }
 
@@ -180,9 +180,9 @@ namespace Portal.Consultoras.Entities
             FechaFacturado = row.ToString("FechaFacturado");
             RecogerDNI = row.ToString("RecogerDNI");
             RecogerNombre = row.ToString("RecogerNombre");
-            if (row.HasColumn("GananciaRevista")) { GananciaRevista = row.ToDecimal("GananciaRevista"); }
-            if (row.HasColumn("GananciaWeb")) { GananciaWeb = row.ToDecimal("GananciaWeb"); }
-            if (row.HasColumn("GananciaOtros")) { GananciaOtros = row.ToDecimal("GananciaOtros"); }
+            GananciaRevista = row.ToDecimal("GananciaRevista");
+            GananciaWeb = row.ToDecimal("GananciaWeb");
+            GananciaOtros = row.ToDecimal("GananciaOtros");
         }
     }
 }

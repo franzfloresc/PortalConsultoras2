@@ -9,6 +9,7 @@ if ($(_switchControl).length > 0) {
     })
 }
 
+
 var toggle = function (_switch) {
     // Activa la animación del + a - y viceversa
     document.querySelector(_switch).classList.toggle('opened')

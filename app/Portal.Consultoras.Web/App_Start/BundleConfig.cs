@@ -423,7 +423,8 @@ namespace Portal.Consultoras.Web
             //Tener en cuenta : se esta usando en pedidoFic.
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/PedidoValidado").Include(
                 "~/Content/Css/Site/style-pedido.css",
-                "~/Content/Css/Site/Pedido/PedidoGrilla.css"
+                "~/Content/Css/Site/Pedido/PedidoGrilla.css",
+                "~/Content/Css/Site/Pedido/GananciaEstimada.css"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/SB2-Pedido").Include(
@@ -452,7 +453,8 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/PedidoValidado").Include(
                "~/Scripts/PortalConsultoras/Pedido/Validado.js",
-                "~/Scripts/PortalConsultoras/Pedido/barra.js"
+                "~/Scripts/PortalConsultoras/Pedido/barra.js",
+                "~/Scripts/PortalConsultoras/Shared/TogglePanel.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/OfertaDelDia").Include(
