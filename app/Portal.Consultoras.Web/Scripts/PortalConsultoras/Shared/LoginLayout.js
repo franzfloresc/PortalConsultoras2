@@ -290,7 +290,7 @@ function LocalStorageLimpiar() {
             localStorage.setItem('ConfigParams', itemChatEConfigParams);
         }
 
-        if (typeof (itemSurvicateStorage) !== 'undefined' && itemSurvicateStorage !== null) {
+        if (typeof (itemSurvicateStorage) !== 'undefined' && itemSurvicateStorage != null) {
             SetItemLocalStorageSurvicate(itemSurvicateStorage);
         }
 
