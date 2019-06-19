@@ -4267,6 +4267,7 @@
     <Content Include="Scripts\PortalConsultoras\ConsultoraOnline\assets\bootstrap.min.js" />
     <Content Include="Scripts\PortalConsultoras\ConsultoraOnline\DetallePedidoPendiente.js" />
     <Content Include="Scripts\PortalConsultoras\ConsultoraOnline\Pendientes.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Carrusel\CarruselInicializar.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Carrusel\CarruselModel.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Carrusel\CarruselPresenter.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Carrusel\CarruselView.js" />
