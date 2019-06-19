@@ -284,7 +284,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var actionOfertas = productoPerteneceACampaniaActual ? "Index" : "Revisar";
                 breadCrumbs.Ofertas.Url = Url.Action(actionOfertas, new { controller = "Ofertas", area });
 
-                if (breadCrumbs.Palanca.Texto == "Demostradores" || breadCrumbs.Palanca.Texto == "Kits")
+                if (palanca == "CaminoBrillanteKits" || palanca == "CaminoBrillanteDemostradores")
                 {
                     breadCrumbs.Ofertas.Texto = "Camino Brillante";
                     breadCrumbs.Palanca.Texto = GetNombresPalancas(palanca);

@@ -1132,6 +1132,7 @@ div.opOrdenar {
     cursor: pointer;
     margin: 0 auto;
     margin-top: 20px;
+    text-decoration:underline;
 }
 
 .tog-vermenos {
@@ -1144,17 +1145,13 @@ div.opOrdenar {
         margin: auto 0;
         width: 10px;
         height: 6px;
-        top: 4px;
+        top: 3px;
         right: 0;
         bottom: 0;
-        border-top: 6px solid #000;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-bottom: 4px solid transparent;
+        background: url(/Content/CaminoBrillante/imgs/down.svg) no-repeat center center;
     }
     .tog-vermenos:after {
-        border-bottom: 6px solid #000;
-        border-top: inherit;
+        background: url(/Content/CaminoBrillante/imgs/up.svg) no-repeat center center;
     }
 .tit-benef {
     position: relative;
@@ -2057,17 +2054,7 @@ div .cartbtn {
     clear: both !important;
 }
 
-div .op-menu-horizontal {
-    height: 50px
-}
 
-    div .op-menu-horizontal .subnavegador li {
-        width: 50%;
-        display: block;
-        float: left;
-        text-align: center;
-        line-height: 50px
-    }
 
 
 
@@ -2555,7 +2542,17 @@ div .ficha__producto__precio__normal {
         margin-left: 13px
     }
 
+    div .op-menu-horizontal {
+        height: 50px
+    }
 
+        div .op-menu-horizontal .subnavegador li {
+            width: 50%;
+            display: block;
+            float: left;
+            text-align: center;
+            line-height: 50px
+        }
 }
 
 @media screen and (max-width:600px) {
