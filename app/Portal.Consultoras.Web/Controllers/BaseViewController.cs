@@ -336,6 +336,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 : (Url.Action("Index", new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.MasGanadoras);
 
                             break;
+                        case Constantes.NombreEstrategiaBuscador.Catalogo:
+                            breadCrumbs.Ofertas.Texto = string.Empty;
+                            breadCrumbs.Ofertas.Url = "#";
+                            breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "BusquedaProductos" });
+                            break;
                     }
                 }
 
@@ -362,7 +367,8 @@ namespace Portal.Consultoras.Web.Controllers
                 { Constantes.NombrePalanca.GuiaDeNegocioDigitalizada, "Guía De Negocio" },
                 { Constantes.NombrePalanca.HerramientasVenta, "Demostradores" },
                 { Constantes.NombrePalanca.MasGanadoras, "Las más ganadoras" },
-                { Constantes.NombrePalanca.PackNuevas, _programaNuevasProvider.TieneDuoPerfecto() ? "Dúo Perfecto" : "Programa Nuevas" }
+                { Constantes.NombrePalanca.PackNuevas, _programaNuevasProvider.TieneDuoPerfecto() ? "Dúo Perfecto" : "Programa Nuevas" },
+                { Constantes.NombreEstrategiaBuscador.Catalogo, "Catálogos" },
             };
 
             return nombresPalancas.ContainsKey(palanca) ? nombresPalancas[palanca] : string.Empty;
@@ -394,8 +400,13 @@ namespace Portal.Consultoras.Web.Controllers
                 if (modeloOrigen.Palanca != ConsOrigenPedidoWeb.Palanca.Lanzamientos)
                 {
                     modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Ficha;
-                    if (tipo == ConsOrigenPedidoWeb.Seccion.CarruselUpselling) // agregar los 'or' para crosSelling
+                    codigoSeccion = tipo;
+                }
+                else
+                {
+                    if (tipo == ConsOrigenPedidoWeb.Seccion.CarruselCrossSelling || tipo == ConsOrigenPedidoWeb.Seccion.CarruselSugeridos)
                     {
+                        modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Ficha;
                         codigoSeccion = tipo;
                     }
                 }
@@ -407,6 +418,16 @@ namespace Portal.Consultoras.Web.Controllers
             else if (modeloOrigen.Seccion == ConsOrigenPedidoWeb.Seccion.CarruselUpselling)
             {
                 codigoSeccion = ConsOrigenPedidoWeb.Seccion.FichaUpselling;
+                modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Ficha;
+            }
+            else if (modeloOrigen.Seccion == ConsOrigenPedidoWeb.Seccion.CarruselCrossSelling)
+            {
+                codigoSeccion = ConsOrigenPedidoWeb.Seccion.FichaCrossSelling;
+                modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Ficha;
+            }
+            else if (modeloOrigen.Seccion == ConsOrigenPedidoWeb.Seccion.CarruselSugeridos)
+            {
+                codigoSeccion = ConsOrigenPedidoWeb.Seccion.FichaSugeridos;
                 modeloOrigen.Pagina = ConsOrigenPedidoWeb.Pagina.Ficha;
             }
             modeloOrigen.Seccion = codigoSeccion;
@@ -431,8 +452,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return null;
 
             var esMobile = Util.EsDispositivoMovil();
-            DetalleEstrategiaFichaModel modelo = GetEstrategiaInicial(palanca, campaniaId, cuv);
 
+            DetalleEstrategiaFichaModel modelo = GetEstrategiaInicial(palanca, campaniaId, cuv);
             if (modelo == null)
             {
                 modelo = new DetalleEstrategiaFichaModel
@@ -463,6 +484,8 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.Cuv = cuv;
             modelo.TieneCarrusel = GetValidationHasCarrusel(modelo.OrigenAgregar, esEditar);
             modelo.OrigenAgregarCarrusel = modelo.TieneCarrusel ? GetFichaOrigenPedidoWeb(origen, ConsOrigenPedidoWeb.Seccion.CarruselUpselling, modelo.TieneCarrusel) : 0;
+            modelo.OrigenAgregarCarruselCroselling = modelo.TieneCarrusel ? GetFichaOrigenPedidoWeb(origen, ConsOrigenPedidoWeb.Seccion.CarruselCrossSelling, modelo.TieneCarrusel) : 0;
+            modelo.OrigenAgregarCarruselSugeridos = modelo.TieneCarrusel ? GetFichaOrigenPedidoWeb(origen, ConsOrigenPedidoWeb.Seccion.CarruselSugeridos, modelo.TieneCarrusel) : 0;
             modelo.TieneCompartir = GetTieneCompartir(palanca, esEditar, modelo.OrigenAgregar);
             modelo.Cantidad = 1;
             #endregion
@@ -536,9 +559,21 @@ namespace Portal.Consultoras.Web.Controllers
 
         private DetalleEstrategiaFichaModel GetEstrategiaInicial(string palanca, int campaniaId, string cuv)
         {
-            string codigoPalanca;
+            string codigoPalanca = string.Empty;
             bool esFichaApi = false;
-            bool tieneCodigoPalanca = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
+            bool tieneCodigoPalanca = false;
+
+            if(palanca != Constantes.NombreEstrategiaBuscador.Catalogo)
+            {
+                tieneCodigoPalanca = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
+            }
+
+            if(palanca == Constantes.NombreEstrategiaBuscador.Catalogo)
+            {
+                tieneCodigoPalanca = true;
+                codigoPalanca = Constantes.CodigoEstrategiaBuscador.Catalogo;
+            }
+
             if (tieneCodigoPalanca) esFichaApi = new OfertaBaseProvider().UsaFichaMsPersonalizacion(codigoPalanca);
 
             var modelo = new DetalleEstrategiaFichaModel();
