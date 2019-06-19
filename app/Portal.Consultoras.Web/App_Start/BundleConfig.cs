@@ -18,8 +18,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/jquery-1.11.2.js",
                 "~/Scripts/jquery-ui-1.9.2.custom.js",
                 "~/Scripts/jquery.custom-scrollbar.js",
-                "~/Scripts/PortalConsultoras/Shared/LoginLayout.js"
-                //"~/Scripts/LogError.js"
+                "~/Scripts/PortalConsultoras/Shared/LoginLayout.js",
+                "~/Scripts/LogError.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-Contenedor").Include(
@@ -91,7 +91,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/respond.min.js",
                 "~/Scripts/trans-banner.js",
                 "~/Scripts/jquery.tmpl.js",
-                //"~/Scripts/LogError.js",
+                "~/Scripts/LogError.js",
                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
                 "~/Scripts/PortalConsultoras/Shared/CodigoOrigenPedidoWeb.js",
                 "~/Scripts/AdminContenido/General.js"
@@ -119,7 +119,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/slick.js",
                 "~/Scripts/jquery.lazy.js",
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
-                //"~/Scripts/LogError.js",
+                "~/Scripts/LogError.js",
                 "~/Scripts/menu.js",
                 "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
                 "~/Scripts/General.js",
@@ -151,7 +151,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/slick.js",
                 "~/Scripts/jquery.lazy.js",
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
-                //"~/Scripts/LogError.js",
+                "~/Scripts/LogError.js",
                 "~/Scripts/menu.js",
                 "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
                 "~/Scripts/General.js",
@@ -174,13 +174,13 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/fingerprint2.js",
                 "~/Scripts/PortalConsultoras/Shared/General/RedesSociales.js",
-                "~/Scripts/General.js"
-                //"~/Scripts/LogError.js"
+                "~/Scripts/General.js",
+                "~/Scripts/LogError.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/PageResponsive").Include(
                 "~/Scripts/handlebars.js",
-                //"~/Scripts/LogError.js",
+                "~/Scripts/LogError.js",
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Shared/Menu.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayoutResponsive.js",
@@ -367,7 +367,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
                 "~/Scripts/PortalConsultoras/Shared/ConstantesModule.js",
                 "~/Scripts/PortalConsultoras/Shared/CodigoOrigenPedidoWeb.js",
-                //"~/Scripts/LogError.js",
+                "~/Scripts/LogError.js",
                 "~/Scripts/flipclock.js",
                 "~/Scripts/slick.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
