@@ -486,6 +486,11 @@ $(".tog-vermas").click(function () {
 });
 
 $(document).ready(function ($) {
-    var widthbarra = 90;
-    $('.new-bar').width(widthbarra + '%');
+    var progreso = $("#bar-progreso");
+    if (progreso.length > 0) {
+        var maxBar = $(progreso).data("max");
+        var curBar = $(progreso).data("cur");
+        var perc = (curBar / maxBar)*100;
+        $('.new-bar').width(perc + '%');
+    }
 });
