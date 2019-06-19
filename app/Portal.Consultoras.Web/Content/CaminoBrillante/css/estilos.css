@@ -599,7 +599,9 @@ div .owl-carousel .owl-stage-outer {
 #ProgressBar .brillante em {
     color: #000
 }
-
+#ProgressBar .activo em {
+    font-weight: bold;
+}
 #ProgressBar .pt1 {
     display: block;
     left: -3%
