@@ -791,10 +791,13 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             }
         }
         else {
+
+            $('#alertDialogMensajes').parents('.ui-dialog').addClass('border-radius-4 general_dialog');
             $('#alertDialogMensajes .terminos_title_2').html(titulo);
             $('#alertDialogMensajes .pop_pedido_mensaje').html(mensaje);
             showDialogSinScroll("alertDialogMensajes");
 
+            $('.ui-dialog .ui-state-default span').addClass('border-radius-4 btn__sb btn__sb__primary--multimarca btn__sb--entendido');
             $('.ui-dialog .ui-button').off('click');
             $('.ui-dialog .ui-icon-closethick').off('click');
 
@@ -809,6 +812,7 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             });
 
             $('.ui-dialog .ui-button').focus();
+
         }
         CerrarLoad();
     } catch (e) {
