@@ -14,6 +14,7 @@ namespace Portal.Consultoras.Web.Models
         public DateTime FechaFacturacion { get; set; }
         public int TipoCronogramaID { get; set; }
         public int CampanaId { get; set; }
+        public int NroLote { get; set; }
         public bool FlagPedidos { get; set; }
         public IEnumerable<PaisModel> listaPaises { get; set; }
     }

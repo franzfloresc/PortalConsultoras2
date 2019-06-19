@@ -232,11 +232,11 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.ValidarCargadePedidosSinMarcar(paisID, campanaId, tipoCronograma);
         }
 
-        public string[] DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma,  string usuario, string descripcionProceso)
+        public bool DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma,  string usuario, int nroLote)
         {
             try
             {
-                return BLPedidoWeb.DescargaPedidosWebSinMarcar(paisID, campanaId, tipoCronograma, usuario, descripcionProceso);
+                return BLPedidoWeb.DescargaPedidosWebSinMarcar(paisID, campanaId, tipoCronograma, usuario, nroLote);
             }
             catch (BizLogicException ex)
             {
@@ -1802,6 +1802,13 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.ObtenerUltimaDescargaExitosa(PaisID);
         }
 
+        public BEPedidoDescarga ObtenerUltimaDescargaExitosaSinMarcar(int PaisID)
+        {
+            return BLPedidoWeb.ObtenerUltimaDescargaExitosaSinMarcar(PaisID);
+        }
+
+
+
         public void DeshacerUltimaDescargaPedido(int PaisID)
         {
             BLPedidoWeb.DeshacerUltimaDescargaPedido(PaisID);
@@ -2446,6 +2453,22 @@ namespace Portal.Consultoras.Service
             try
             {
                 _pedidoWebBusinessLogic.DescargaPedidosCliente(paisID, nroLote, codigoUsuario);
+            }
+            catch (BizLogicException ex)
+            {
+                throw new FaultException(ex.Message);
+            }
+            catch (Exception)
+            {
+                throw new FaultException("Error desconocido.");
+            }
+        }
+
+        public void DescargaPedidosClienteSinMarcar(int paisID, int campaniaid, int nroLote, string codigoUsuario)
+        {
+            try
+            {
+                _pedidoWebBusinessLogic.DescargaPedidosClienteSinMarcar(paisID,campaniaid, nroLote, codigoUsuario);
             }
             catch (BizLogicException ex)
             {

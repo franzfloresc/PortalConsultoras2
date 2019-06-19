@@ -148,7 +148,7 @@ namespace Portal.Consultoras.Data
 
 
 
-        public int InsPedidoDescargaSinMarcar(int campanaId, byte Estado, int tipoCronograma, string usuario, out int NroLote)
+        public int InsPedidoDescargaSinMarcar(int campanaId, byte Estado, int tipoCronograma, string usuario, out int nuevoNroLote)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsPedidoDescargaSinMarcar");
             Context.Database.AddInParameter(command, "@Estado", DbType.Byte, Estado);
@@ -158,7 +158,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddOutParameter(command, "@NroLote", DbType.Int32, 4);
 
             int result = Context.ExecuteNonQuery(command);
-            NroLote = Convert.ToInt32(command.Parameters["@NroLote"].Value);
+            nuevoNroLote = Convert.ToInt32(command.Parameters["@NroLote"].Value);
             return result;
         }
         #endregion
@@ -184,6 +184,15 @@ namespace Portal.Consultoras.Data
                     oSqlBulkCopyDetalle.Close();
                 }
             }
+        }
+
+        public int DeleteLogPedidoDescargasSinMarcar(int nroLote)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DeletePedidoDescargaSinMarcar");
+            Context.Database.AddOutParameter(command, "@NroLote", DbType.Int32, nroLote);
+
+            int result = Context.ExecuteNonQuery(command);
+            return result;
         }
 
         private void InsLogPedidoDescarga(DataSet dsPedidos)
@@ -241,6 +250,10 @@ namespace Portal.Consultoras.Data
             }
         }
 
+        public void DeleteLogPedidoDescargaSinMarcar(int nroLote)
+        {
+            throw new NotImplementedException();
+        }
 
         private void InsLogPedidoDescargaDetalleSinMarcar(DataSet dsPedidos)
         {
@@ -265,8 +278,17 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public void InsLogPedidoDescargaWebDDSinMarcar(DataSet dsPedidosWeb, DataSet dsPedidosDD)
+        public int UpdMensajeDescargaWebDDSinMarcar(int nuevoNroLote, string mensajeTerminado, int estadoTerminado)
         {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdMensajeDescargaWebDDSinMarcar");
+            Context.Database.AddInParameter(command, "@NuevoNroLote", DbType.Int32, nuevoNroLote);
+            Context.Database.AddInParameter(command, "@MensajeTerminado", DbType.String, mensajeTerminado);
+            Context.Database.AddInParameter(command, "@EstadoTerminado", DbType.Int32, estadoTerminado);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public void InsLogPedidoDescargaWebDDSinMarcar(DataSet dsPedidosWeb, DataSet dsPedidosDD) { 
             this.InsLogPedidoDescargaSinMarcar(dsPedidosWeb);
             this.InsLogPedidoDescargaSinMarcar(dsPedidosDD);
         }
@@ -285,10 +307,10 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        public int UpdLogPedidoDescargaWebDDSinMarcar(int nroLote)
+        public int UpdLogPedidoDescargaWebDDSinMarcar(int nuevoNroLote)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdLogCargaPedidoCantidadDetalleSinMarcar");
-            Context.Database.AddInParameter(command, "@nroLote", DbType.Int32, nroLote);
+            Context.Database.AddInParameter(command, "@nroLote", DbType.Int32, nuevoNroLote);
             return Context.ExecuteNonQuery(command);
         }
 
@@ -303,6 +325,22 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteDataSet(command);
         }
+
+
+        public DataSet DescargaPedidosClienteSinMarcar(int nroLote)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetLogCargaPedidoClienteSinMarcar");
+            command.CommandTimeout = 400;
+            Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+
+            return Context.ExecuteDataSet(command);
+        }
+
+
+
+
+
+
 
         public int UpdPedidoWebIndicadorEnviado(int NroLote, bool FirmarPedido, byte Estado, string Mensaje, string mensajeExcepcion, string NombreArchivoCabecera, string NombreArchivoDetalle, string NombreServer)
         {
@@ -319,6 +357,21 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
+
+        public int UpdPedidoWebIndicadorEnviadoSinMarcar(int nuevoNroLote, bool FirmarPedido, byte Estado, string Mensaje, string mensajeExcepcion, string NombreArchivoCabecera, string NombreArchivoDetalle, string NombreServer)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoWebIndicadorEnviadoSinMarcar");
+            Context.Database.AddInParameter(command, "@NuevoNroLote", DbType.Int32, nuevoNroLote);
+            Context.Database.AddInParameter(command, "@FirmarPedido", DbType.Boolean, FirmarPedido);
+            Context.Database.AddInParameter(command, "@Estado", DbType.Byte, Estado);
+            Context.Database.AddInParameter(command, "@Mensaje", DbType.String, Mensaje);
+            Context.Database.AddInParameter(command, "@MensajeExcepcion", DbType.String, mensajeExcepcion);
+            Context.Database.AddInParameter(command, "@NombreArchivoCabecera", DbType.String, NombreArchivoCabecera);
+            Context.Database.AddInParameter(command, "@NombreArchivoDetalle", DbType.String, NombreArchivoDetalle);
+            Context.Database.AddInParameter(command, "@NombreServer", DbType.String, NombreServer);
+
+            return Context.ExecuteNonQuery(command);
+        }
         /// <summary>
         /// Marca los cupones de los pedidos web como usuados.
         /// </summary>
@@ -336,6 +389,17 @@ namespace Portal.Consultoras.Data
 
         public int UpdPedidoDescargaGuardoS3(int nroLote, bool guardoS3, string mensaje, string mensajeExcepcion)
         {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoDescargaGuardoS3");
+            Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+            Context.Database.AddInParameter(command, "@GuardoS3", DbType.Boolean, guardoS3);
+            Context.Database.AddInParameter(command, "@Mensaje", DbType.String, mensaje);
+            Context.Database.AddInParameter(command, "@MensajeExcepcion", DbType.String, mensajeExcepcion);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public int UpdPedidoDescargaGuardoS3SinMarcar(int nroLote, bool guardoS3, string mensaje, string mensajeExcepcion)
+        {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoDescargaGuardoS3SinMarcar");
             Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
             Context.Database.AddInParameter(command, "@GuardoS3", DbType.Boolean, guardoS3);
@@ -344,6 +408,7 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteNonQuery(command);
         }
+
 
         public IDataReader GetEstadoPedido(int CampaniaID, long ConsultoraID)
         {
@@ -443,10 +508,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteDataSet(command);
         }
 
-        public DataSet GetDatosConsultoraProcesoCargaSinMarcar(string Usuario)
+        public DataSet GetDatosConsultoraProcesoCargaSinMarcar(string Usuario, int nroLote, int estado, int nuevoNroLote)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetDatosConsultoraProcesoCargaSinMarcar");
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, Usuario);
+            Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+            Context.Database.AddInParameter(command, "@Estado", DbType.Int32, estado);
+            Context.Database.AddInParameter(command, "@NuevoNroLote", DbType.Int32, nuevoNroLote);
+
             return Context.ExecuteDataSet(command);
         }
 
@@ -710,9 +779,33 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
+        public int UpdDatosConsultoraIndicadorEnviadoSinMarcar(int nuevoNroLote, byte Estado, string Mensaje, string mensajeExcepcion, string NombreArchivo, string NombreServer)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdDatosConsultoraIndicadorEnviadoSinMarcar");
+            Context.Database.AddInParameter(command, "@NuevoNroLote", DbType.Int32, nuevoNroLote);
+            Context.Database.AddInParameter(command, "@Estado", DbType.Byte, Estado);
+            Context.Database.AddInParameter(command, "@Mensaje", DbType.String, Mensaje);
+            Context.Database.AddInParameter(command, "@MensajeExcepcion", DbType.String, mensajeExcepcion);
+            Context.Database.AddInParameter(command, "@NombreArchivo", DbType.String, NombreArchivo);
+            Context.Database.AddInParameter(command, "@NombreServer", DbType.String, NombreServer);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
         public int UpdConsultoraDescargaGuardoS3(int nroLote, bool guardoS3, string mensaje, string mensajeExcepcion)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdConsultoraDescargaGuardoS3");
+            Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+            Context.Database.AddInParameter(command, "@GuardoS3", DbType.Boolean, guardoS3);
+            Context.Database.AddInParameter(command, "@Mensaje", DbType.String, mensaje);
+            Context.Database.AddInParameter(command, "@MensajeExcepcion", DbType.String, mensajeExcepcion);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public int UpdConsultoraDescargaGuardoS3SinMarcar(int nroLote, bool guardoS3, string mensaje, string mensajeExcepcion)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdConsultoraDescargaGuardoS3SinMarcar");
             Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
             Context.Database.AddInParameter(command, "@GuardoS3", DbType.Boolean, guardoS3);
             Context.Database.AddInParameter(command, "@Mensaje", DbType.String, mensaje);
@@ -929,6 +1022,12 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(Command);
         }
 
+        public IDataReader ObtenerUltimaDescargaExitosaSinMarcar()
+        {
+            DbCommand Command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaExitosa");
+            return Context.ExecuteReader(Command);
+        }
+
         public int InsIndicadorPedidoAutentico(BEIndicadorPedidoAutentico entidad)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsIndicadorPedidoAutentico");
@@ -1090,6 +1189,15 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
             return Context.ExecuteReader(command);
         }
+
+        //public IDataReader DescargaPedidosClienteSinMarcar(int nroLote)
+        //{
+        //    DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetLogCargaPedidoClienteSinMarcar");
+        //    Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
+        //    return Context.ExecuteReader(command);
+        //}
+
+
 
         public void UpdDatoRecogerPor(BEPedidoWeb pedidoWebDetalle)
         {

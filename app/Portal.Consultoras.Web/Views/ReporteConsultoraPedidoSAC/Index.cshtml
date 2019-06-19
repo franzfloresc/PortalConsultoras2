@@ -11,44 +11,18 @@
 </style>
 
 <script type="text/javascript">
+    var NRO_LOTE = 0;
     var rutaImagenArchivoClientes = '@Url.Content("~/Content/Images/update.png")';
     var rutaImagenCalendar = '@Url.Content("~/Content/Images/calendar.png")';
 
     $(document).ready(function(){
-
+        fnGrilla();
         $("#btnDescargar").data('click', false);
         $("#btnDescargar").click(function () {
             RealizarDescarga($(this));
         });
 
-        $("#ddlPais").change(function () {
-            debugger;
-            var Id = $(this).val();
-            if (Id != "") {
-                waitingDialog({});
-                $.ajaxSetup({ cache: false });
-                $.getJSON(baseUrl + 'BaseAdm/ObtenerCampaniasZonasRegionesPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
-                    if (checkTimeout(data)) {
-                        var ddlCampania = $("#ddlCampania");
-
-                        if (Id != "") {
-                            if (data.lstCampania.length > 0) {
-                                for (var item in data.lstCampania) {
-                                    if (data.lstCampania[item].CampaniaID) {
-                                        ddlCampania.append($('<option/>', {
-                                            value: data.lstCampania[item].CampaniaID,
-                                            text: data.lstCampania[item].Codigo
-                                        }));
-                                    }
-                                }
-                            }
-                        }
-                        closeWaitingDialog();
-                    }
-                });
-                jQuery("#list").jqGrid("clearGridData");
-            } else LimpiarDependencias(Id);
-        });
+        $("#ddlPais").attr("disabled", true);
     });
 
 
@@ -68,6 +42,15 @@
             return false;
         }
         else {
+            // Click anterior
+            // Si ya se clickeo anteriormente y aun no termina proceso.
+            if ($btnClick.data('click')) {
+                alert("Esperando finalización de proceso anterior.");
+                return;
+            }
+
+            // Si no hay clicks anteriores pendientes
+            // Seguimos en este click
             $btnClick.data('click', true);
 
             var waiting = {
@@ -78,7 +61,8 @@
 
             var JsonData = {
                 PaisID: $("#ddlPais").val(),
-                CampanaId: $("#ddlCampania").val()
+                CampanaId: $("#ddlCampania").val(),
+                NroLote: NRO_LOTE
             };
 
                 $.ajax({
@@ -90,7 +74,7 @@
                     async: true,
                     success: function (data) {
                         if (!checkTimeout(data)) return;
-
+                        
                         closeWaitingDialog();
                         alert(data.message);
                         if (!data.success) return;
@@ -116,6 +100,122 @@
                 });
         }
     }
+
+    function ShowActionsArchivoClientes(cellvalue, options, rowObject) {
+
+        var Des = "";
+        if (rowObject.NroLote == 0) {
+            Des = "<img disabled  src='" + rutaImagenArchivoClientes + "' alt='Generar Archivo Clientes' title='Generar Archivo Clientes' border='0' style='cursor:pointer' />";
+        } else { 
+            Des = "<img   src='" + rutaImagenArchivoClientes + "' alt='Generar Archivo Clientes' title='Generar Archivo Clientes' border='0' style='cursor:pointer' />";
+            NRO_LOTE = rowObject.NroLote;
+        }
+        return Des;
+    }
+
+    function fnGrilla() {
+        
+        jQuery("#list").jqGrid({
+            url: baseUrl + "ReporteConsultoraPedidoSAC/ObtenerUltimaDescargaPedidoSinMarcar",
+            hidegrid: false,
+            datatype: 'json',
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['Fecha/Hora Inicio', 'Fecha/Hora Fin', 'Estado', 'Mensaje', 'Número de pedidos','Archivo Clientes', 'NroLote'],
+            colModel: [
+                { name: 'FechaHoraInicio', index: 'FechaHoraInicio', width: 22, editable: false, resizable: false, align: "center" },
+                { name: 'FechaHoraFin', index: 'FechaHoraFin', width: 22, editable: false, resizable: false, align: "center" },
+                { name: 'Estado', index: 'Estado', width: 15, editable: false, resizable: true, align: "center" },
+                { name: 'Mensaje', index: 'Mensaje', width: 30, editable: false, resizable: true },
+                { name: 'NumeroPedidos', index: 'NumeroPedidos', width: 20, editable: true, resizable: false },
+                { name: 'ArchivoClientes', index: 'ArchivoClientes', width: 22, editable: false, resizable: false, hidden: false, align: "center", formatter: ShowActionsArchivoClientes },
+                { name: 'NroLote', index: 'NroLote', hidden: true, },
+            ],
+            jsonReader:
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: false,
+                    id: "NroLote"
+                },
+            loadtext: 'Cargando datos...',
+            emptyrecords: 'No hay resultados',
+            height: 'auto',
+            width: 930,
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () {
+            },
+            //gridComplete: function () {
+            //    obtenerUltimaDescargaExitosa();
+            //},
+            cache: false,
+            cmTemplate: { sortable: false },
+            onCellSelect: function (rowId, iCol, content, event) {
+                if (iCol == 8) ArchivoClientes(rowId);
+            }
+        });
+    }
+
+
+
+    function obtenerUltimaDescargaExitosa() {
+        
+        waitingDialog({});
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'ReporteConsultoraPedidoSAC/ObtenerUltimaDescargaExitosaSinMarcar',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            async: true,
+            cache: false,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    alert("Error del Sistema.");
+                }
+            }
+        });
+    }
+
+
+    function ArchivoClientes(rowId) {
+        
+        var waiting = {
+            message: 'Espere unos minutos, por favor...',
+            title: 'Ejecutando Proceso'
+        }
+        waitingDialog(waiting);
+
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'ReporteConsultoraPedidoSAC/DescargarArchivoClienteSinMarcar',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: "{nroLote: " + rowId + ", campaniaid: " + $("#ddlCampania").val()  + "}",
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert(data.mensaje);
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert("Error del Sistema.");
+                }
+            }
+        });
+    }
 </script>
 
 
@@ -135,7 +235,7 @@
                 <div class="celda">
                     <span>País:</span>
                     <div class="selectP2 borde_redondeado">
-                        @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
+                        @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), new { id = "ddlPais" })
                     </div>
                 </div>
                 <div class="celda">
@@ -151,25 +251,6 @@
                         <input type="button" name="" id="btnDescargar" value="Descargar" />
                     </div>
                 </div>
-            </div>
-
-            <div class="UltimaDescarga">
-                <span>Último proceso exitoso de descarga:</span>
-                <table id="UltimaDescargaInfo">
-                    <tr>
-                        <th></th>
-                        <th>Fecha/Hora</th>
-                    </tr>
-
-                    <tr>
-                        <td>Pedidos Web</td>
-                        <td><span id="FechaPedidoWeb"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Pedidos DD</td>
-                        <td><span id="FechaPedidoDD"></span></td>
-                    </tr>
-                </table>
             </div>
         </div>
     </div>

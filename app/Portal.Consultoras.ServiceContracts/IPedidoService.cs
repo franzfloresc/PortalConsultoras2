@@ -74,7 +74,7 @@ namespace Portal.Consultoras.ServiceContracts
         int ValidarCargadePedidosSinMarcar(int paisID, int campanaId, int tipoCronograma);
 
         [OperationContract]
-        string[] DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma,  string usuario, string descripcionProceso);
+        bool DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma,  string usuario, int nroLote);
         #endregion
 
         [OperationContract]
@@ -970,6 +970,9 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID);
 
         [OperationContract]
+        BEPedidoDescarga ObtenerUltimaDescargaExitosaSinMarcar(int PaisID);
+
+        [OperationContract]
         int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas);
 
         [OperationContract]
@@ -1318,6 +1321,12 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario);
+
+
+        [OperationContract]
+        void DescargaPedidosClienteSinMarcar(int paisID, int campaniaid, int nroLote, string codigoUsuario);
+
+
 
         [OperationContract]
         bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia, string campaniaID);

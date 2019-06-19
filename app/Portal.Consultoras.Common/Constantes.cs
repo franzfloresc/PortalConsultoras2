@@ -5,6 +5,41 @@ namespace Portal.Consultoras.Common
 {
     public class Constantes
     {
+
+        /*HD-4327*/
+        public static class TipoProceso
+        {
+            public const int Regular = 1;
+            public const int DemandaAnticipada = 2;
+            public const int DemandaAnticipadaPRD = 3;
+            public const int FIC = 4;
+            public const int GenerarLideres = 5;
+        }
+
+        public static class EstadoProcesoDescargaregular
+        {
+            public const string Terminado = "Terminado";
+            public const string Error = "Con error";
+        }
+
+        public static class MensajeProcesoDescargaregular
+        {
+            public const string Terminado = "El proceso terminó satisfactoriamente";
+            public const string Error = "El proceso tuvo complicaciones";
+        }
+
+        public static class EstadoValorProcesoDescargaregular
+        {
+            public const int Terminado = 1;
+            public const int Error = 2;
+            public const int EnProceso = 0;
+        }
+
+       /*FIN*/
+
+
+
+
         public static class TipoSeccion
         {
             public const string Video = "01";
@@ -1032,7 +1067,7 @@ namespace Portal.Consultoras.Common
             public const int MobileContenedorLanzamientosCarrusel = 2080201; // Esta en duro en rdAnalyticsModule
 
             /*HD-3710*/
-            public const int DesktopPedidoEscogeRegaloCarrusel = 1021801;   
+        public const int DesktopPedidoEscogeRegaloCarrusel = 1021801;   
             public const int MobilePedidoEscogeRegaloCarrusel = 2021801;
             #endregion
 
