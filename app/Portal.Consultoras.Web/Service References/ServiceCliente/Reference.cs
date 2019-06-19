@@ -1907,6 +1907,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private bool FlagNuevaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal GananciaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IPUsuarioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2627,6 +2630,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.FlagNuevaField.Equals(value) != true)) {
                     this.FlagNuevaField = value;
                     this.RaisePropertyChanged("FlagNueva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Ganancia {
+            get {
+                return this.GananciaField;
+            }
+            set {
+                if ((this.GananciaField.Equals(value) != true)) {
+                    this.GananciaField = value;
+                    this.RaisePropertyChanged("Ganancia");
                 }
             }
         }
@@ -6243,6 +6259,12 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/MovimientoDetalleActualizar", ReplyAction="http://tempuri.org/IClienteService/MovimientoDetalleActualizarResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.ResponseTypeOfArrayOfBEMovimientoDetalleGaf1LoLd> MovimientoDetalleActualizarAsync(int paisId, Portal.Consultoras.Web.ServiceCliente.BEMovimientoDetalle[] movimientoDetalle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/GetUrlThumbnail", ReplyAction="http://tempuri.org/IClienteService/GetUrlThumbnailResponse")]
+        string GetUrlThumbnail(string codigoIso, string documento);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/GetUrlThumbnail", ReplyAction="http://tempuri.org/IClienteService/GetUrlThumbnailResponse")]
+        System.Threading.Tasks.Task<string> GetUrlThumbnailAsync(string codigoIso, string documento);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -6582,6 +6604,14 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.ResponseTypeOfArrayOfBEMovimientoDetalleGaf1LoLd> MovimientoDetalleActualizarAsync(int paisId, Portal.Consultoras.Web.ServiceCliente.BEMovimientoDetalle[] movimientoDetalle) {
             return base.Channel.MovimientoDetalleActualizarAsync(paisId, movimientoDetalle);
+        }
+        
+        public string GetUrlThumbnail(string codigoIso, string documento) {
+            return base.Channel.GetUrlThumbnail(codigoIso, documento);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetUrlThumbnailAsync(string codigoIso, string documento) {
+            return base.Channel.GetUrlThumbnailAsync(codigoIso, documento);
         }
     }
 }

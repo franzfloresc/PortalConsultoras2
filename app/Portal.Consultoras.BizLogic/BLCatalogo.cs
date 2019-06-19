@@ -603,5 +603,58 @@ namespace Portal.Consultoras.BizLogic
             }
             return result;
         }
+
+        public string GetUrlThumbnail(string codigoIso, string documento)
+        {
+            string _thumbnail = string.Empty;
+            string _url = string.Empty;
+            string _accion = string.Empty;
+            try
+            {
+                var paisID = Util.GetPaisID(codigoIso);
+                var _issue = CacheManager<string>.GetDataElement(paisID, ECacheItem.UrlThumbnail, documento);
+                if (_issue != null)
+                    return _issue;
+
+
+                string _templateUrl = @"https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/{0}";
+                _url = string.Format(_templateUrl, documento);
+                string resultApi = CallApiIssuu(_url, codigoIso);
+
+                if (string.IsNullOrEmpty(resultApi))
+                    return _thumbnail;
+
+                _accion = "new JavaScriptSerializer().Deserialize<object>(resultApi)";
+                dynamic item = new JavaScriptSerializer().Deserialize<object>(resultApi);
+                _accion = "item['thumbnail_url']";
+                _thumbnail = item["thumbnail_url"];
+
+                CacheManager<string>.AddDataElement(paisID, ECacheItem.UrlThumbnail, documento, _thumbnail, new TimeSpan(7, 0, 0, 0));
+            }
+            catch
+            {
+                StringBuilder build = new StringBuilder();
+                build.AppendLine("Tracking => GetUrlThumbnail");
+                build.AppendLine(string.Format("Url:{0}", _url));
+                build.AppendLine(string.Format("Accion:{0}", _accion));
+            }
+
+            return _thumbnail;
+        }
+        private string CallApiIssuu(string url, string codigoIso)
+        {
+            try
+            {
+                var response = httpClient.GetAsync(url).Result;
+                response.EnsureSuccessStatusCode();
+
+                return response.Content.ReadAsStringAsync().Result;
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, url, codigoIso);
+                return string.Empty;
+            }
+        }
     }
 }
