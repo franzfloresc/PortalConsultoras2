@@ -1133,17 +1133,19 @@ div.opOrdenar {
         margin: auto 0;
         width: 10px;
         height: 6px;
-        top: 4px;
+        top: 3px;
         right: 0;
         bottom: 0;
-        border-top: 6px solid #000;
+        background: url(/Content/CaminoBrillante/imgs/rounded1.svg) no-repeat center center;
+        /*border-top: 6px solid #000;
         border-left: 5px solid transparent;
         border-right: 5px solid transparent;
-        border-bottom: 4px solid transparent;
+        border-bottom: 4px solid transparent;*/
     }
     .tog-vermenos:after {
-        border-bottom: 6px solid #000;
-        border-top: inherit;
+        background: url(/Content/CaminoBrillante/imgs/rounded2.svg) no-repeat center center;
+        /*border-bottom: 6px solid #000;
+        border-top: inherit;*/
     }
 .tit-benef {
     position: relative;
