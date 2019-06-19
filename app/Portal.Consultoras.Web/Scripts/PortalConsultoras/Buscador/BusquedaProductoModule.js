@@ -596,12 +596,12 @@
 
             if (codigo.indexOf(codigoEstrategia) >= 0) {
                 var UrlDetalle = FichaVerDetalle.GetPalanca(codigoEstrategia, origenPedidoWeb);
-                var UrlGeneral = "";
 
                 if (UrlDetalle == "") return false;
 
                 UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + origenPedidoWeb;
 
+                var UrlGeneral = "";
                 if (_config.isMobile) {
                     UrlGeneral = "/Mobile" + UrlDetalle;
                 } else {
