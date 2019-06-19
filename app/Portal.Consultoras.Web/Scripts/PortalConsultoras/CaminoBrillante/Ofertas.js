@@ -9,7 +9,7 @@ var offsetRegistrosDemo = 0;
 var offsetRegistrosKits = 0;
 var verMasKits = true;
 var verMasDemostradores = true;
-var i = 0; 
+var i = 0;
 var reservaResponse = {
     data: { Reserva: false }
 };
@@ -21,10 +21,10 @@ var getUrl;
 
 var moneda = ($('#moneda').val());
 
-$(document).ready(function () {  
+$(document).ready(function () {
     Handlebars.registerPartial("kit_template", $("#template-kit").html());
     Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
-
+    CargarKits();
     getUrl = getGET();
     Inicializar();
     CambiarOferta();
@@ -38,7 +38,7 @@ $(document).ready(function () {
         $("#Tab-Demostradores").trigger("click");
         TabDos = $(window).scrollTop();
         $('#kits').addClass("hide");
-    } 
+    }
 
     $("#ddlOrdenar").on("change", function () {
         codOrdenar = $("#ddlOrdenar").val();
@@ -56,8 +56,8 @@ $(document).ready(function () {
         CargarDemostradores();
     });
 
-    
-    
+
+
 });
 
 
@@ -79,10 +79,10 @@ $("#Demostradores").on('click', '.boton_agregar_ofertas', function (e) {
     if (cantidad <= 0) {
         AbrirMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
         CerrarSplash();
-         } else {
-            AgregarProducto(obj, cantidad, contenedor, tab, false);
-        }
-    
+    } else {
+        AgregarProducto(obj, cantidad, contenedor, tab, false);
+    }
+
 });
 
 $("#kits").on('click', '.boton_agregar_ofertas', function (e) {
@@ -121,7 +121,7 @@ function ValidarCargaOfertas() {
         waitingDialog();
         $(window).scrollTop(TabUno);
     } else if ($('#Demostradores').is(':visible'))
-        CargarDemostradores();        
+        CargarDemostradores();
 }
 
 function TagListaProductos(data, lista) {
@@ -154,17 +154,17 @@ function TagListaProductos(data, lista) {
 }
 
 function CargarKits() {
-    
+
     $.ajax({
         type: 'GET',
         url: urlGetKits,
-        data: { offset: offsetRegistrosKits, cantidadregistros: nroRegistrosKits},
+        data: { offset: offsetRegistrosKits, cantidadregistros: nroRegistrosKits },
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
 
-                if (data.lista.length > 0) ArmarOfertaKits(data.lista);   
+                if (data.lista.length > 0) ArmarOfertaKits(data.lista);
                 contadorkit = contadorkit + data.lista.length;
                 verMasKits = data.verMas;
                 $(window).scroll(CargarOfertasScroll);
@@ -176,7 +176,7 @@ function CargarKits() {
                 return dataKits;
             }
         },
-        
+
         error: function (data, error) { },
         complete: function (data) {
             closeWaitingDialog();
@@ -191,20 +191,20 @@ function CargarDemostradores() {
     $.ajax({
         type: 'GET',
         url: urlGetDemostradores,
-        data: { cantRegistros: nroRegistrosDemostradores, regMostrados: offsetRegistrosDemo, codOrdenar: codOrdenar, codFiltro: codFiltro},
+        data: { cantRegistros: nroRegistrosDemostradores, regMostrados: offsetRegistrosDemo, codOrdenar: codOrdenar, codFiltro: codFiltro },
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
-                if (data.lista.length > 0) ArmarOfertaDemostradores(data.lista);    
+                if (data.lista.length > 0) ArmarOfertaDemostradores(data.lista);
                 contadordemo = contadordemo + data.lista.length;
-                verMasDemostradores = data.verMas;   
+                verMasDemostradores = data.verMas;
                 $(window).scroll(CargarOfertasScroll);
                 if (!verMasDemostradores) UnlinkCargarOfertasToScroll();
                 offsetRegistrosDemo += nroRegistrosDemostradores;
                 $("#divresultadosDemostradores").html("Mostrando " + contadordemo + " de " + data.total);
                 dataDemostradores = data;
-                TagListaProductos(dataDemostradores,'Demostradores');
+                TagListaProductos(dataDemostradores, 'Demostradores');
             }
         },
         error: function (data, error) { },
@@ -215,17 +215,16 @@ function CargarDemostradores() {
 }
 
 function ArmarOfertaDemostradores(data) {
-    
+
 
     var htmlDiv = SetHandlebars("#template-Demostradores", data);
     $('#Demostradores').append(htmlDiv);
     $('#Demostradores').show();
 
-    
+
 }
 
-function ArmarOfertaKits(data)
-{
+function ArmarOfertaKits(data) {
     var htmlDiv = SetHandlebars("#template-Kits", data);
     $('#kits').append(htmlDiv);
     $('#kits').show();
@@ -287,7 +286,7 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
                 CerrarSplash();
                 AbrirMensaje(data.message);
             }
-            
+
             dataLayer.push({
                 'event': 'addToCart',
                 'ecommerce': {
@@ -309,57 +308,57 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
 
         },
         error: function (data, error) {
-            
+
         }
     });
 }
 
 function CambiarOferta() {
-        $("#Tab-kits").trigger("click");
-        $('#Tab-kits').click(function () {
-            $('#kits').removeClass("hide");
-            $('#kits').addClass("boxgrid");
-            $('#Demostradores').hide();
-            $('.opOrdenar').hide();
-            $("#Tab-kits").addClass("activado-dorado");
-            $("#Tab-Demostradores").removeClass("activado-dorado");
-            $("#divresultadosDemostradores").hide();
-            $("#divresultadosKit").show();
-                
-            document.body.scrollTop = TabUno;
-            $(window).scrollTop(TabUno);
-            if (contadorkit == 0) { CargarKits(); }
-            else {
-                $('#kits').empty();
-                offsetRegistrosKits = 0;
-                contadorkit = 0;
-                CargarKits();
-            }
+    $("#Tab-kits").trigger("click");
+    $('#Tab-kits').click(function () {
+        $('#kits').removeClass("hide");
+        $('#kits').addClass("boxgrid");
+        $('#Demostradores').hide();
+        $('.opOrdenar').hide();
+        $("#Tab-kits").addClass("activado-dorado");
+        $("#Tab-Demostradores").removeClass("activado-dorado");
+        $("#divresultadosDemostradores").hide();
+        $("#divresultadosKit").show();
 
-        });
+        document.body.scrollTop = TabUno;
+        $(window).scrollTop(TabUno);
+        if (contadorkit == 0) { CargarKits(); }
+        else {
+            $('#kits').empty();
+            offsetRegistrosKits = 0;
+            contadorkit = 0;
+            CargarKits();
+        }
+
+    });
 
     $('#Tab-Demostradores').click(function () {
-            $('#kits').hide();
-            $('#kits').removeClass("boxgrid");
-            $('#kits').addClass("hide");
-            $("#Tab-kits").removeClass("activado-dorado");
-            $("#divresultadosKit").hide();
-            $('.opOrdenar').show();
-            $('#Demostradores').show();
-            $("#Tab-Demostradores").addClass("activado-dorado");
-            $("#divresultadosDemostradores").show();
-            document.body.scrollTop = TabDos;
-            $(window).scrollTop(TabDos);
-            if (contadordemo == 0) {
-                ObtenerFiltros();
-                CargarDemostradores();
-            }
-            else {
-                LinkCargarOfertasToScroll();
-                TagListaProductos(dataDemostradores, 'Demostradores');
-            }
-        });
-    
+        $('#kits').hide();
+        $('#kits').removeClass("boxgrid");
+        $('#kits').addClass("hide");
+        $("#Tab-kits").removeClass("activado-dorado");
+        $("#divresultadosKit").hide();
+        $('.opOrdenar').show();
+        $('#Demostradores').show();
+        $("#Tab-Demostradores").addClass("activado-dorado");
+        $("#divresultadosDemostradores").show();
+        document.body.scrollTop = TabDos;
+        $(window).scrollTop(TabDos);
+        if (contadordemo == 0) {
+            ObtenerFiltros();
+            CargarDemostradores();
+        }
+        else {
+            LinkCargarOfertasToScroll();
+            TagListaProductos(dataDemostradores, 'Demostradores');
+        }
+    });
+
 }
 
 function ObtenerFiltros() {
