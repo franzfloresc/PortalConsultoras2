@@ -162,6 +162,10 @@
         line-height: normal;
     }
 
+.popover_texto li:last-child{
+    width: 85%;
+}
+
 .tooltip_agregado {
     width: 292px;
     max-width: 292px;

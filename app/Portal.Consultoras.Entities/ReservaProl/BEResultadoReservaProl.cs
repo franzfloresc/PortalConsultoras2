@@ -86,5 +86,9 @@ namespace Portal.Consultoras.Entities.ReservaProl
             Error = true;
             Aviso = aviso;
         }
+        public BEResultadoReservaProl(string mensajeError, bool aviso, Enumeradores.ResultadoReserva resultadoReserva) :this(mensajeError, aviso)
+        {
+            ResultadoReservaEnum = resultadoReserva;
+        }
     }
 }

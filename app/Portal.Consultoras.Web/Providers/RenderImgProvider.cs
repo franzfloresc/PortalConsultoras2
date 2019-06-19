@@ -223,7 +223,6 @@ namespace Portal.Consultoras.Web.Providers
                     var soloExtension = Path.GetExtension(urlImagen);
                     var fileName = string.Concat(soloImagen, tipo, soloExtension);
                     var rutaImagenResize = ConfigS3.GetUrlFileHistDetalle(codigoIso, fileName, cadena);
-                    //var rutaImagenResize = ConfigS3.GetUrlFileS3Matriz(codigoIso, fileName);
 
                     var entidad = new EntidadMagickResize
                     {
