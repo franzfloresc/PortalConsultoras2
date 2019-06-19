@@ -1132,6 +1132,7 @@ div.opOrdenar {
     cursor: pointer;
     margin: 0 auto;
     margin-top: 20px;
+    text-decoration:underline;
 }
 .tog-vermenos {
     width:80px;
@@ -1143,17 +1144,13 @@ div.opOrdenar {
         margin: auto 0;
         width: 10px;
         height: 6px;
-        top: 4px;
+        top: 3px;
         right: 0;
         bottom: 0;
-        border-top: 6px solid #000;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-bottom: 4px solid transparent;
+        background: url(/Content/CaminoBrillante/imgs/down.svg) no-repeat center center;
     }
     .tog-vermenos:after {
-        border-bottom: 6px solid #000;
-        border-top: inherit;
+        background: url(/Content/CaminoBrillante/imgs/up.svg) no-repeat center center;
     }
 .tit-benef {
     position: relative;
