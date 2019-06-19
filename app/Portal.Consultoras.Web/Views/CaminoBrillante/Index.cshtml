@@ -65,8 +65,15 @@
         <div class="box-pg-bar">
             <div id="progress-b">
                 <div class="progress-barnew">
-                    <div class="new-bar">
-                        <span class="tip-valor">@ViewBag.SimboloMoneda  @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoAlcanzado), @ViewBag.CodigoISODL)</span>
+                    <div class="new-bar" data-min="@ViewBag.NivelActual.MontoMinimo" data-max="@nivelSiguiente.MontoMinimo" data-cur="@nivelSiguiente.MontoAlcanzado" >
+                        @if (nivelSiguiente.MontoAlcanzado > 0)
+                        {
+                            <span class="tip-valor">@ViewBag.SimboloMoneda  @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoAlcanzado), @ViewBag.CodigoISODL)</span>
+                        }
+                        else
+                        {
+                            <span class="tip-valor"></span>
+                        }
                     </div>
                     <img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" />
                 </div>
