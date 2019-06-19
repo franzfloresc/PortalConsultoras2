@@ -337,8 +337,8 @@
                     <div class="bloque_montosPedido">
                         <div class="caja_montos">
                             <div style="position: relative;">
-                                @if (Model.IsShowGananciaConsultora)
-                                {
+                                @*@if (Model.IsShowGananciaConsultora)
+                                {*@
                                     <div class="ganancia-estimada">
                                         <div class="panel-toggle">
                                             <div class="toggle-header">
@@ -374,7 +374,7 @@
                                                 </div>
                                                 <div class="toggle-info">
                                                     <span class="ganancia-titulo first-color">
-                                                        Gana+ /Ofertas digitales
+                                                        @ViewBag.LabelGananciaWeb
                                                     </span>
                                                     <span class="ganancia-total first-color">
                                                         @Model.Simbolo <span id="div-ganancia-totalGananciaWeb">@Model.FormatoGananciaWeb</span>
@@ -391,7 +391,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                }
+                                   @*}*@
 
 
                                 <div class="contenedorCupon" style="width: 100%;">
@@ -431,7 +431,7 @@
 
                                             </span>
                                         </div>
-                                        @if (!Model.IsShowGananciaConsultora)
+                                        @*@if (!Model.IsShowGananciaConsultora)
                                         {
                                             <div class="ganancia-info">
                                                 <span class="ganancia-titulo accent-color @colorEstilo">
@@ -443,7 +443,7 @@
 
                                                 </span>
                                             </div>
-                                        }
+                                        }*@
 
                                     </div>
                                 </div>
@@ -455,11 +455,11 @@
                         </div>
                     </div>
                     <div class="contenedor_btnGuardarPedido">
-                        @if (Model.IsShowGananciaConsultora)
-                        {
+                        @*@if (Model.IsShowGananciaConsultora)
+                        {*@
                             <div class="mb-80">
                             </div>
-                        }
+                        @*}*@
                         @{
                             string[] tooltips = (Model.ProlTooltip ?? "").Split('|');
                             string tooltip1 = "";

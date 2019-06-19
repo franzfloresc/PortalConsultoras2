@@ -8,13 +8,13 @@ if ($(_earning).length > 0) {
         toggle(_switch)
     })
 
+
     var toggle = function (_switch) {
         // Activa la animación del + a - y viceversa
         document.querySelector(_switch).classList.toggle('opened')
         // Activa la informacion
         document.querySelector(_profit).classList.toggle('opened')
         document.querySelector(_earning).classList.toggle('opened')
-
     }
 
     var isToggleOpen = function (_switch) {
