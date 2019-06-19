@@ -43,7 +43,7 @@ $(document).ready(function () {
                 $('body').on('click', '#btnConfirmarUbicacionDireccionEntrega', me.Eventos.ConfirmarUbicacionDireccionEntrega);
                 $('body').on('change', '#Ubigeo1,#Ubigeo2', me.Eventos.UbigeoChanged);
                 //INI HD-4358
-                //$('body').on('keyup', '#txtCelularMD', me.Eventos.HabilitarCheck);
+               $('body').on('keyup', '#txtCelularMD', me.Eventos.HabilitarCheck);
 
             },
 

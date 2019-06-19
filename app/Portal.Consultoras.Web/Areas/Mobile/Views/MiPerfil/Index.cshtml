@@ -236,6 +236,21 @@ else
                                         <!-- INICIO - Este el mensaje de validación que se muestra si la consultora no tiene registrado o está pendiente de confirmación un número de celular -->
                                         <span class="d-block text-bold mensaje_validacion_campo" style="display:none;">Aún falta confirmar tu número</span>
                                         <!-- FIN - Este el mensaje de validación que se muestra si la consultora no tiene registrado o está pendiente de confirmación un número de celular -->
+                                        <!--INI HD-4358 -->
+                                        @{
+                                            var itemNotiWsp = Model.UsuarioOpciones.FirstOrDefault(x => x.OpcionesUsuarioId == Constantes.OpcionesUsuario.NotificacionWhatsApp);
+
+                                        }
+                                        @if (itemNotiWsp != null)
+                                        {
+                                            var readOnlyNotiWsp = string.IsNullOrEmpty(Model.Celular);
+                                            var checkNotiWsp = !string.IsNullOrEmpty(Model.Celular) && itemNotiWsp.CheckBox;
+
+                                            <input class="optCelCheckbox" type="checkbox" data-tipoOpcion="@itemNotiWsp.OpcionesUsuarioId" name="@itemNotiWsp.Codigo" id="@itemNotiWsp.Codigo" checked="@checkNotiWsp" disabled="@readOnlyNotiWsp" />
+                                            <span class="d-block">@itemNotiWsp.Descripcion</span>
+
+                                        }
+                                        <!--FIN HD-4358 -->
                                     </div>
                                     <div id="grupo_form_cambio_datos_sms_opcionsms">
                                         <a id="btnCambiarCelular" href="@Url.Action("ActualizarCelular", "MiPerfil", new { area = "Mobile" })" title="Cambiar" class="d-block enlace_cambiar_dato text-center">
@@ -361,6 +376,9 @@ else
                     <div class="permisos_cuenta_opciones divCheckbox">
                         @foreach (var item in Model.UsuarioOpciones)
                         {
+                            /* HD-4358 */
+                            if (item.OpcionesUsuarioId != Constantes.OpcionesUsuario.NotificacionWhatsApp)
+                            {
                             <div class="permiso_cuenta_opcion">
                                 <div class="permiso_cuenta_opcion_descripcion">
                                     @item.Opcion
@@ -371,6 +389,7 @@ else
                                     <label for="@item.Codigo" class="permiso_cuenta_opcion_label"></label>
                                 </div>
                             </div>
+                            }
                         }
                     </div>
                 </div>
