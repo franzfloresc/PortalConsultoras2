@@ -6,6 +6,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
     public class PedidoDetalleMobileModel
     {
+        public PedidoDetalleMobileModel()
+        {
+            CantPedidosPendientes = 0;
+        }
         public List<PedidoDetalleMobileDetalleModel> Detalle { get; set; }
         public decimal Total { get; set; }
 
@@ -152,5 +156,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public bool MostrarPopupPrecargados { get; set; }
 
         public string MensajeKitNuevas { get; set; }
+
+        public bool EsDiaProl { get; set; }
+
+        public int CantPedidosPendientes { get; set; }
     }
 }

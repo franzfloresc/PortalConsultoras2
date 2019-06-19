@@ -7,6 +7,10 @@ namespace Portal.Consultoras.Web.Models
 {
     public class PedidoDetalleModel
     {
+        public PedidoDetalleModel()
+        {
+            CantPedidosPendientes = 0;
+        }
         public int CampaniaID { set; get; }
         public int PedidoID { set; get; }
         public Int16 PedidoDetalleID { set; get; }
@@ -109,5 +113,9 @@ namespace Portal.Consultoras.Web.Models
         public string TotalConDsctoFormato { get; set; }
 
         public int OrigenPedidoWeb { get; set; }
+
+        public bool EsDiaProl { get; set; }
+
+        public int CantPedidosPendientes { get; set; }
     }
 }

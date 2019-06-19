@@ -493,7 +493,6 @@ $(document).ready(function () {
                 MostrarBarra();
                 clearInterval(myvar);
             }
-
         }
         else
             clearInterval(myvar);
@@ -523,11 +522,16 @@ $(document).ready(function () {
         HideDialog("observaciones_alerta");
         return false;
     });
+
     $(window).bind("load", function () { //se ejecuta al finalizar la carga de la página
-        if (typeof cantPedidosPendientes !== "undefined") {
-            setTimeout(function () {
-                $("#PopupPedidosPendientes").fadeIn(250);
-            }, 200);
+        if (typeof cantPedidosPendientes !== "undefined" && typeof esDiaProl !== "undefined") {
+            if (cantPedidosPendientes > 0 && esDiaProl) {
+                $("#spnCantidadPendientes").text(cantPedidosPendientes);
+                $("#accionIgnorar").hide();
+                setTimeout(function () {
+                    $("#PopupPedidosPendientes").fadeIn(250);
+                }, 200);
+            }
         }
     });
 });
@@ -1922,16 +1926,11 @@ function EjecutarServicioPROL() {
             CerrarSplash();
             if (!checkTimeout(response)) return;
             if (!response.success) {
-                if (response.hasOwnProperty("PedidoPendiente")) {
-                    if (response.PedidoPendiente) {
-                        $("#PopupPedidosPendientes").fadeIn(250);
-                        return false;
-                    }
-                }
                 MostrarPopupErrorReserva(mensajeErrorReserva, false);
-                return;
+                return false;
             }
 
+            //abre el mensaje de la olla
             if (response.mensajeCondicional) {
                 AbrirMensajeImagen(response.mensajeCondicional);
             }
@@ -1941,7 +1940,6 @@ function EjecutarServicioPROL() {
             AnalyticsPortalModule.MarcarGuardaTuPedido();
 
             if (RespuestaEjecutarServicioPROL(response.data)) return;
-
             MostrarMensajeProl(response, function () { return CumpleOfertaFinalMostrar(response); });
         })
         .fail(function (data, error) {
@@ -1978,7 +1976,6 @@ function EjecutarServicioPROLSinOfertaFinal() {
 }
 
 function RespuestaEjecutarServicioPROL(data, inicio) {
-
     if (data.ErrorProl) {
         MostrarPopupErrorReserva(data.ListaObservacionesProl[0].Descripcion, data.AvisoProl);
         return true;
@@ -1995,15 +1992,14 @@ function RespuestaEjecutarServicioPROL(data, inicio) {
     }
     else {
         mensajeBloqueante = false;
-
         if (data.ObservacionRestrictiva) {
             CrearPopupObservaciones(data, inicio);
         }
         else {
             $('#divMensajeObservacionesPROL').data('prop-NotExito', data.ObservacionRestrictiva);
-            ArmarPopupObsReserva("¡Lo lograste! Tu pedido fue guardado con éxito", "");
+            data.MostrarMensajeExito = true;
+            $("#spnCantidadPendientes").text(data.CantPedidosPendientes);
         }
-
     }
 
     AlmacenarRespuestaReservaEnHidden(data);
@@ -2090,13 +2086,35 @@ function ActualizarBtnGuardar(data) {
 function MostrarMensajeProl(response, fnOfertaFinal) {
     var cumpleOferta = fnOfertaFinal(response);
     if (cumpleOferta) return;
-
-    if (!response.data.Reserva) {
-        ShowPopupObservacionesReserva();
-        return;
+    var res = response.data;
+    if (!res.Reserva) {
+        if (res.hasOwnProperty("MostrarMensajeExito")) {
+            console.info(res.MostrarMensajeExito);
+            if (res.MostrarMensajeExito) {
+                var idPedidoGuardado = "#PopupPedidoGuardado", idPedidoPendiente = "#PopupPedidosPendientes", accionIgnorar = "#accionIgnorar";
+                $(accionIgnorar).hide();
+                $(idPedidoGuardado).fadeIn(250);
+                setContainerLluvia(idPedidoGuardado);
+                mostrarLluvia();
+                setTimeout(function () {
+                    var cantidad = res.hasOwnProperty("CantPedidosPendientes") ? res.CantPedidosPendientes : 0;
+                    $(idPedidoGuardado).fadeOut(250);
+                    if (cantidad > 0) {
+                        $(idPedidoPendiente).fadeIn(200);
+                    }
+                }, 3750);
+                return false;
+            }
+        } else {
+            ShowPopupObservacionesReserva();
+            return false;
+        }
     }
-
     EjecutarAccionesReservaExitosa(response);
+}
+
+function CerrarPopUpGrabadoConExito() {
+
 }
 
 function EjecutarAccionesReservaExitosa(response) {
@@ -2904,17 +2922,12 @@ function ProcesarActualizacionMostrarContenedorCupon() {
         }
     }
 }
-function closeDialogObservacionesProl() {
-
+function closeDialogObservacionesProl(event) {
     var notExitoFromProl = $('#divMensajeObservacionesPROL').data('prop-NotExito');
-
     if (!notExitoFromProl)
         if (!(typeof AnalyticsPortalModule === 'undefined'))
             AnalyticsPortalModule.MarcaGuardarPedidoExito(arrayProductosGuardadoExito);
-
-
-    HideDialog("divObservacionesPROL");
-
+    HideDialog("divObservacionesPROL");   
 }
 
 function ArmarPopupObsReserva(titulo, mensaje) {

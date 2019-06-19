@@ -63,7 +63,7 @@
         min-height:208px;
     }
 
-@media screen and (min-width:992px) {
+/*@media screen and (min-width:992px) {
 
     .popup__somos__belcorp--pedidosPendientes {
         -moz-transition: all 0.3s ease;
@@ -87,7 +87,7 @@
             opacity: 1;
         }
 
-}
+}*/
 
 @media screen and (max-width:991px) {
 

@@ -1003,7 +1003,8 @@
 @{ Html.RenderPartial("_PopupPremio");}
 @{ Html.RenderPartial("_PopupDescuento");}
 @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupInformacionRegalo.cshtml");}
-@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupPedidoGuardado.cshtml", new ViewDataDictionary { { "isMobile" , true } })
+@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupPedidoGuardado.cshtml", new ViewDataDictionary { { "isMobile", true } })
+@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupPedidosPendientes.cshtml", new ViewDataDictionary { { "isMobile", true } })
 <div id="DivPopupFichaResumida" class="Modal_Editar_Producto" style="display: none">
     @Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/FichaTemplate.cshtml")
 </div>
@@ -1018,6 +1019,7 @@
         var ofertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
         var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
         var cantPedidosPendientes = '@ViewBag.CantPedidoPendientes';//HD-4277 EINCA
+        var esDiaProl  = @Html.Raw(Json.Encode(Model.EsDiaProl)); 
         var urlEjecutarServicioPROL = '@Url.Action("EjecutarServicioPROL", "Pedido", new {area = ""})';
         var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new {area = "Mobile"})';
         var urlHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';

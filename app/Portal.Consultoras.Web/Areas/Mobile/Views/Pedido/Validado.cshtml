@@ -98,7 +98,7 @@
                     <div class="left_reservado" style="width:235px;">
                         <div class="datos_Reservado">
                             <span> @item.CUV </span>
-                            <span>@(item.SetIdentifierNumber > 0?"# " + item.SetIdentifierNumber.ToString() : "")   @item.DescripcionProd</span>
+                            <span>@(item.SetIdentifierNumber > 0 ? "# " + item.SetIdentifierNumber.ToString() : "")   @item.DescripcionProd</span>
                         </div>
                         <div class="texto_reservado">Cliente: @item.Nombre</div>
                     </div>
@@ -242,6 +242,7 @@
         </div>
     </div>
 </div>
+@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupPedidosPendientes.cshtml", new ViewDataDictionary { { "isMobile", false } })
 
 @section Scripts{
     <script type="text/javascript">
@@ -249,6 +250,9 @@
 
         var urlDeshacerReservaPedidoReservado = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
         var urlIngresarPedido = '@Url.Action("Detalle", "Pedido", new {area = "Mobile"})';
+
+        var cantPedidosPendientes = '@Model.CantPedidosPendientes';//HD-4277 EINCA
+        var esDiaProl  = @Html.Raw(Json.Encode(Model.EsDiaProl)); 
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Validado.js")"></script>
 }

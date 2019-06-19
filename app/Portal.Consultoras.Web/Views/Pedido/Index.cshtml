@@ -196,6 +196,7 @@
         <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
         <input type="hidden" id="hdfTotal" value="@Model.Total" />
         <input type="hidden" id="hdfTotalCliente" value="@Model.TotalCliente" />
+        <input type="hidden" id="hdEsDiaProl" value="@Model.EsDiaProl" />
 
         <div class="content_T_T" style="position:relative; z-index:100">
             <div class="bloque_left"></div>
@@ -775,7 +776,7 @@
         </div>
         <div class="div-3" style="text-align: center;">
             <div id="DivObsBut">
-                <input id="btnCerrar" type="button" value="Cerrar" onclick="closeDialogObservacionesProl()" class="input_modifica_horizontal" style="margin-left: 0;" />
+                <input id="btnCerrar" type="button" data-cantidad-pendientes="" value="Cerrar" onclick="closeDialogObservacionesProl(event)" class="input_modifica_horizontal" style="margin-left: 0;" />
             </div>
         </div>
     </div>
@@ -1922,8 +1923,8 @@
 
 </script>
 
-@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupPedidoGuardado.cshtml", new ViewDataDictionary { { "isMobile" , false } })
-
+@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupPedidoGuardado.cshtml", new ViewDataDictionary { { "isMobile", false } })
+@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupPedidosPendientes.cshtml", new ViewDataDictionary { { "isMobile", false } })
 @section scripts{
 
     <script type="text/javascript">
@@ -1952,8 +1953,9 @@
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new {area = ""})';
         var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new {area = ""})';
         var constConfiguracionOfertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
-        //var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';     
+        //var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
         var cantPedidosPendientes = '@ViewBag.CantPedidosPendientes';
+        var esDiaProl  = @Html.Raw(Json.Encode(Model.EsDiaProl)); 
         var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
         var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
         var urlPedido = '@Url.Action("Index", "Pedido")';

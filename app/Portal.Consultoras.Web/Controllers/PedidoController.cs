@@ -177,6 +177,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+                model.EsDiaProl = userData.DiaPROL;
+
                 #endregion
 
                 #region Pedido Web y Detalle
@@ -287,7 +289,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     ViewBag.MostrarPedidosPendientes = "1";
                     ViewBag.CantPedidosPendientes = cantidad;
-                }                
+                }
 
                 #endregion
 
@@ -369,7 +371,7 @@ namespace Portal.Consultoras.Web.Controllers
                             resultado = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
                         }
                     }
-                }                
+                }
             }
             catch (Exception ex)
             {
@@ -1487,11 +1489,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //Agregar aquí todas las validacioens
-                //1.- si tiene pedidos pendientes
-                var cantidad = ObtenerCantidadPedidosPendientes();
-                if (cantidad > 0)
-                    return Json(new { success = false, PedidoPendiente = true }, JsonRequestBehavior.AllowGet);
+
 
                 ActualizarEsDiaPROLyMostrarBotonValidarPedido(userData);
                 var input = Mapper.Map<BEInputReservaProl>(userData);
@@ -1549,7 +1547,8 @@ namespace Portal.Consultoras.Web.Controllers
                     Total = listPedidoWebDetalle.Sum(d => d.ImporteTotal),
                     EsDiaProl = userData.DiaPROL,
                     CodigoIso = userData.CodigoISO,
-                    CodigoMensajeProl = resultado.CodigoMensaje
+                    CodigoMensajeProl = resultado.CodigoMensaje,
+                    CantPedidosPendientes = ObtenerCantidadPedidosPendientes()
                 };
                 model.TotalConDescuento = model.Total - model.MontoDescuento;
                 SetMensajesBotonesProl(model);
@@ -1561,6 +1560,7 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 var mensajeCondicional = resultado.ListaMensajeCondicional != null && resultado.ListaMensajeCondicional.Any() ? resultado.ListaMensajeCondicional[0].MensajeRxP : null;
+
                 return Json(new
                 {
                     success = true,
@@ -1893,6 +1893,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
+            model.EsDiaProl = userData.DiaPROL;
+
             #region Banners
 
             var urlCarpeta = WebConfigurationManager.AppSettings["Banners"] + "/IngresoPedido/" + userData.CodigoISO;
@@ -1916,6 +1918,8 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
+
+            model.CantPedidosPendientes = ObtenerCantidadPedidosPendientes();
 
             return View(model);
         }

@@ -8,6 +8,10 @@ namespace Portal.Consultoras.Web.Models
 {
     public class PedidoSb2Model
     {
+        public PedidoSb2Model()
+        {
+            CantPedidosPendientes = 0;
+        }
         public string CodigoIso { get; set; }
 
         public bool EstadoSimplificacionCuv { get; set; }
@@ -290,5 +294,6 @@ namespace Portal.Consultoras.Web.Models
         public string MensajeKitNuevas { get; set; }
 
         public bool EsConsultoraOficina { get; set; }
+        public int CantPedidosPendientes { get; set; }
     }
 }
