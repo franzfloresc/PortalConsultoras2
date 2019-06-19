@@ -2532,7 +2532,7 @@ namespace Portal.Consultoras.BizLogic
             var itemsOtros = pedidoWebSetDetalleAgrupado
                 .Where(p => !codigosCatalogosWeb.Contains(p.CodigoCatalago.ToString()))
                 .Where(p => !codigosCatalogosRevista.Contains(p.CodigoCatalago.ToString()))
-                .Where(p => p.CodigoCatalago.ToString() == Constantes.ODSCodigoCatalogo.WebPortalFFVV && (Convert.ToInt32(p.CodigoTipoOferta) < 200 && p.CodigoTipoOferta != "002"))
+                .Where(p => p.CodigoCatalago.ToString() != Constantes.ODSCodigoCatalogo.WebPortalFFVV && (Convert.ToInt32(p.CodigoTipoOferta) < 200 && p.CodigoTipoOferta != "002"))
                 .Where(p => !itemsCatalogo.Contains(p.CodigoCatalago.ToString())).ToList();
 
             var gananciaRevista = itemsRevista.Any() ? itemsRevista.Sum(p => p.Ganancia * p.Cantidad) : 0;
