@@ -54,9 +54,12 @@
 
     .enlace__sb--verDespues{
         margin-top:9px;
-        width:auto;
-        font-size:14px;
     }
+
+        .enlace__sb--verDespues span {
+            width: auto;
+            font-size: 14px;
+        }
 
     .guardaste__tu__pedido--wrapper{
         flex-direction:column;
