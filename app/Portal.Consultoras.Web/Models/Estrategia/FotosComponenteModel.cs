@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Portal.Consultoras.Web.Models.Estrategia
+﻿namespace Portal.Consultoras.Web.Models.Estrategia
 {
+    using System;
+    using System.Collections.Generic;
+
+    [Serializable]
     public class FotosComponenteModel
     {
         public List<String> FotoProductoFondoBlanco { get; set; }
