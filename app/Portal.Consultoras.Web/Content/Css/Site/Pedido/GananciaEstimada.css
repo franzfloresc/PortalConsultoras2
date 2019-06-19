@@ -390,3 +390,13 @@
 .toggle-info.lbel .accent-color {
     color: #613c87;
 }
+
+/* Para pedido validado*/
+.bloque_montosPedido {
+    display: flex;
+    justify-content: flex-end;
+}
+.caja_montos.PedidoValidado {
+    
+    width: 74%;
+}
