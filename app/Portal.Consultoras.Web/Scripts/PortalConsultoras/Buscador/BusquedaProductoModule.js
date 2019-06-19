@@ -599,7 +599,7 @@
             var UrlDetalle = "";
             var UrlGeneral = "";
             if (codigo.indexOf(codigoEstrategia) >= 0) {
-                var UrlDetalle = FichaVerDetalle.GetPalanca(codigoEstrategia, origenPedidoWeb);
+                UrlDetalle = FichaVerDetalle.GetPalanca(codigoEstrategia, origenPedidoWeb);
             }
             if (UrlDetalle == "" && tipoPersonalizacion.indexOf(tipoPersonalizacionProducto) >= 0) {
                 UrlDetalle = FichaVerDetalle.GetUrlTipoPersonalizacion(tipoPersonalizacionProducto);
