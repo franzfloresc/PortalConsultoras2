@@ -5,7 +5,7 @@ var DetalleEstrategiaProvider = function () {
     var _urlDetalleEstrategia = ConstantesModule.UrlDetalleEstrategia;
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
-    var _tipoAccionNavegar = ConstantesModule.TipoAccionNavegar;
+    //var _tipoAccionNavegar = ConstantesModule.TipoAccionNavegar;
 
     var _promiseObternerComponentes = function (params) {
         var dfd = $.Deferred();

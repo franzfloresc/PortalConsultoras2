@@ -366,7 +366,7 @@ function UpdateLiquidacionTipoOfertaSis(urls, obj, elementRow) {
                 return false;
             }
 
-            var PrecioUnidad = obj.PrecioUnidad;
+            //var PrecioUnidad = obj.PrecioUnidad;
             var Unidad = $(cantidadElement).val();
             var Total = DecimalToStringFormat(parseFloat(cantidadActual * Unidad));
             $(elementRow).find(".ImporteTotal").html(Total);
