@@ -7,7 +7,7 @@ end
 go
 if  exists(select column_name from INFORMATION_SCHEMA.columns where table_name = 'ProductoSugerido' and column_name = 'ConfiguracionZona')
 begin
-    declare @aux varchar(max)=(select  Codigo+',' from ods.zona for xml path (''))
+    declare @aux varchar(max)=(select  Codigo+',' from ods.zona where EstadoActivo=1 for xml path (''))
 	update ProductoSugerido set ConfiguracionZona=LEFT(@aux,LEN(@aux)-1)
 end
 
@@ -22,7 +22,7 @@ end
 go
 if  exists(select column_name from INFORMATION_SCHEMA.columns where table_name = 'ProductoSugerido' and column_name = 'ConfiguracionZona')
 begin
-    declare @aux varchar(max)=(select  Codigo+',' from ods.zona for xml path (''))
+    declare @aux varchar(max)=(select  Codigo+',' from ods.zona where EstadoActivo=1 for xml path (''))
 	update ProductoSugerido set ConfiguracionZona=LEFT(@aux,LEN(@aux)-1)
 end
 
@@ -37,7 +37,7 @@ end
 go
 if  exists(select column_name from INFORMATION_SCHEMA.columns where table_name = 'ProductoSugerido' and column_name = 'ConfiguracionZona')
 begin
-    declare @aux varchar(max)=(select  Codigo+',' from ods.zona for xml path (''))
+    declare @aux varchar(max)=(select  Codigo+',' from ods.zona where EstadoActivo=1 for xml path (''))
 	update ProductoSugerido set ConfiguracionZona=LEFT(@aux,LEN(@aux)-1)
 end
 
@@ -52,7 +52,7 @@ end
 go
 if  exists(select column_name from INFORMATION_SCHEMA.columns where table_name = 'ProductoSugerido' and column_name = 'ConfiguracionZona')
 begin
-    declare @aux varchar(max)=(select  Codigo+',' from ods.zona for xml path (''))
+    declare @aux varchar(max)=(select  Codigo+',' from ods.zona where EstadoActivo=1 for xml path (''))
 	update ProductoSugerido set ConfiguracionZona=LEFT(@aux,LEN(@aux)-1)
 end
 
@@ -67,7 +67,7 @@ end
 go
 if  exists(select column_name from INFORMATION_SCHEMA.columns where table_name = 'ProductoSugerido' and column_name = 'ConfiguracionZona')
 begin
-    declare @aux varchar(max)=(select  Codigo+',' from ods.zona for xml path (''))
+    declare @aux varchar(max)=(select  Codigo+',' from ods.zona where EstadoActivo=1 for xml path (''))
 	update ProductoSugerido set ConfiguracionZona=LEFT(@aux,LEN(@aux)-1)
 end
 
@@ -82,7 +82,7 @@ end
 go
 if  exists(select column_name from INFORMATION_SCHEMA.columns where table_name = 'ProductoSugerido' and column_name = 'ConfiguracionZona')
 begin
-    declare @aux varchar(max)=(select  Codigo+',' from ods.zona for xml path (''))
+    declare @aux varchar(max)=(select  Codigo+',' from ods.zona where EstadoActivo=1 for xml path (''))
 	update ProductoSugerido set ConfiguracionZona=LEFT(@aux,LEN(@aux)-1)
 end
 
@@ -97,7 +97,7 @@ end
 go
 if  exists(select column_name from INFORMATION_SCHEMA.columns where table_name = 'ProductoSugerido' and column_name = 'ConfiguracionZona')
 begin
-    declare @aux varchar(max)=(select  Codigo+',' from ods.zona for xml path (''))
+    declare @aux varchar(max)=(select  Codigo+',' from ods.zona where EstadoActivo=1 for xml path (''))
 	update ProductoSugerido set ConfiguracionZona=LEFT(@aux,LEN(@aux)-1)
 end
 
@@ -112,7 +112,7 @@ end
 go
 if  exists(select column_name from INFORMATION_SCHEMA.columns where table_name = 'ProductoSugerido' and column_name = 'ConfiguracionZona')
 begin
-    declare @aux varchar(max)=(select  Codigo+',' from ods.zona for xml path (''))
+    declare @aux varchar(max)=(select  Codigo+',' from ods.zona where EstadoActivo=1 for xml path (''))
 	update ProductoSugerido set ConfiguracionZona=LEFT(@aux,LEN(@aux)-1)
 end
 
@@ -127,7 +127,7 @@ end
 go
 if  exists(select column_name from INFORMATION_SCHEMA.columns where table_name = 'ProductoSugerido' and column_name = 'ConfiguracionZona')
 begin
-    declare @aux varchar(max)=(select  Codigo+',' from ods.zona for xml path (''))
+    declare @aux varchar(max)=(select  Codigo+',' from ods.zona where EstadoActivo=1 for xml path (''))
 	update ProductoSugerido set ConfiguracionZona=LEFT(@aux,LEN(@aux)-1)
 end
 
@@ -142,7 +142,7 @@ end
 go
 if  exists(select column_name from INFORMATION_SCHEMA.columns where table_name = 'ProductoSugerido' and column_name = 'ConfiguracionZona')
 begin
-    declare @aux varchar(max)=(select  Codigo+',' from ods.zona for xml path (''))
+    declare @aux varchar(max)=(select  Codigo+',' from ods.zona where EstadoActivo=1 for xml path (''))
 	update ProductoSugerido set ConfiguracionZona=LEFT(@aux,LEN(@aux)-1)
 end
 
@@ -157,7 +157,7 @@ end
 go
 if  exists(select column_name from INFORMATION_SCHEMA.columns where table_name = 'ProductoSugerido' and column_name = 'ConfiguracionZona')
 begin
-    declare @aux varchar(max)=(select  Codigo+',' from ods.zona for xml path (''))
+    declare @aux varchar(max)=(select  Codigo+',' from ods.zona where EstadoActivo=1 for xml path (''))
 	update ProductoSugerido set ConfiguracionZona=LEFT(@aux,LEN(@aux)-1)
 end
 
@@ -172,7 +172,7 @@ end
 go
 if  exists(select column_name from INFORMATION_SCHEMA.columns where table_name = 'ProductoSugerido' and column_name = 'ConfiguracionZona')
 begin
-    declare @aux varchar(max)=(select  Codigo+',' from ods.zona for xml path (''))
+    declare @aux varchar(max)=(select  Codigo+',' from ods.zona where EstadoActivo=1 for xml path (''))
 	update ProductoSugerido set ConfiguracionZona=LEFT(@aux,LEN(@aux)-1)
 end
 
