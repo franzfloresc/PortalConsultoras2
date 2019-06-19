@@ -797,7 +797,6 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('#alertDialogMensajes .pop_pedido_mensaje').html(mensaje);
             showDialogSinScroll("alertDialogMensajes");
 
-            $('.ui-dialog .ui-state-default span').addClass('border-radius-4 btn__sb btn__sb__primary--multimarca btn__sb--entendido');
             $('.ui-dialog .ui-button').off('click');
             $('.ui-dialog .ui-icon-closethick').off('click');
 
