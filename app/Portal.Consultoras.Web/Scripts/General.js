@@ -96,7 +96,7 @@ jQuery(document).ready(function () {
         return this;
     };
 
-    Clone = function (obj) {
+    var Clone = function (obj) {
         if (obj == null || typeof (obj) != 'object')
             return obj;
         var temp = obj.constructor();
@@ -149,7 +149,7 @@ jQuery(document).ready(function () {
         };
     }
 
-    Right = function (str, n) {
+    var Right = function (str, n) {
         if (n <= 0)
             return "";
         else if (n > String(str).length)
@@ -160,7 +160,7 @@ jQuery(document).ready(function () {
         }
     };
 
-    Left = function (str, n) {
+    var Left = function (str, n) {
         if (n <= 0)
             return "";
         else if (n > String(str).length)
@@ -208,7 +208,7 @@ jQuery(document).ready(function () {
         return array;
     };
 
-    HandlebarsRegisterHelper = function () {
+    var HandlebarsRegisterHelper = function () {
         if (typeof (Handlebars) != "undefined") {
 
             Handlebars.registerHelper('if_eq', function (a, b, opts) {
@@ -451,7 +451,7 @@ jQuery(document).ready(function () {
         }
     };
 
-    SetHandlebarsHtml = function (urlTemplate, modelo, idHtml) {
+    var SetHandlebarsHtml = function (urlTemplate, modelo, idHtml) {
         if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
 
@@ -484,7 +484,7 @@ jQuery(document).ready(function () {
         return "";
 
     };
-    SetHandlebars = function (idTemplate, data, idHtml) {
+    var SetHandlebars = function (idTemplate, data, idHtml) {
         if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
 
@@ -502,7 +502,7 @@ jQuery(document).ready(function () {
         return "";
     };
 
-    SetFormatDecimalPais = function (miles, decimal, decimalCantidad) {
+    var SetFormatDecimalPais = function (miles, decimal, decimalCantidad) {
         if (miles != undefined && decimal == undefined && decimalCantidad == undefined) {
             var listaDatos = miles.split("|");
             if (listaDatos.length < 2)
@@ -520,7 +520,7 @@ jQuery(document).ready(function () {
         formatDecimalPais.decimalCantidad = decimalCantidad || 2;
     };
 
-    IsDecimalExist = function (p_decimalNumber) {
+    var IsDecimalExist = function (p_decimalNumber) {
         var l_boolIsExist = true;
 
         if (p_decimalNumber % 1 == 0)
@@ -529,7 +529,7 @@ jQuery(document).ready(function () {
         return l_boolIsExist;
     };
 
-    DecimalToStringFormat = function (monto, noDecimal) {
+    var DecimalToStringFormat = function (monto, noDecimal) {
         formatDecimalPais = formatDecimalPais || {};
         noDecimal = noDecimal || false;
         var decimal = formatDecimalPais.decimal || ".";
@@ -560,7 +560,7 @@ jQuery(document).ready(function () {
         return pEnteraFinal + pDecimal; 
     };
 
-    IsNullOrEmpty = function (texto) { return texto == null || texto === ''; };
+    var IsNullOrEmpty = function (texto) { return texto == null || texto === ''; };
 
     $(document).scroll(function () {
         try {
@@ -568,7 +568,7 @@ jQuery(document).ready(function () {
         } catch (e) { }
     });
 
-    RemoverRepetidos = function (lista, campo) {
+    var RemoverRepetidos = function (lista, campo) {
         campo = $.trim(campo);
         var newLista = [];
         var arrAux = [];
@@ -1194,7 +1194,7 @@ function ActualizarGanancia(data) {
     }, 500);
 }
 
-FuncionesGenerales = {
+var FuncionesGenerales = {
     containsObject: function (obj, array) {
         var i;
         for (i = 0; i < array.length; i++) {
