@@ -61,7 +61,6 @@ namespace Portal.Consultoras.Web.Models
         public string Total { get; set; }
         public string Total_Minimo { get; set; }
         public string Total_Cliente { get; set; }
-        public bool EsDiaPROL { get; set; }
         public bool EsModificacion { get; set; }
         public bool ZonaValida { get; set; }
         public int TipoOfertaSisID { get; set; }
