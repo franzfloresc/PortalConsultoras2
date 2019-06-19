@@ -379,7 +379,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.CantPedidoPendientes = _pedidoWebProvider.GetPedidoPendientes(userData);
 
             ViewBag.DataBarra = GetDataBarra(true, true);//OG
-            ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Gana+ /Ofertas digitales";
+            ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Ofertas digitales";
             return View(model);
         }
 

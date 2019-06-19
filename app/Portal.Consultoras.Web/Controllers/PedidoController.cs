@@ -392,7 +392,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             model.MensajeKitNuevas = _programaNuevasProvider.GetMensajeKit();
-            ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Gana+ /Ofertas digitales";
+            ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Ofertas digitales";
 
             return View("Index", model);
         }
