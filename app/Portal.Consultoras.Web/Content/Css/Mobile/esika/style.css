@@ -14724,9 +14724,10 @@ a {
 }
 
 .opciones_regalo_carousel_programaNuevas.slick-initialized .slick-slide{
-    display:inline-block;
+    display:block;
+    /*display:inline-block;
     vertical-align:top;
-    float:none;
+    float:none;*/
     min-height:315px;
     padding-top:0!important;
     padding-bottom:25px!important;
@@ -15040,3 +15041,16 @@ a {
 }
 
 /* FIN - HD-4214 - CHAT MESSENGER SOMOS BELCORP */
+
+.input_modifica_horizontal_popup_pedido {
+    text-transform: uppercase;
+    width: 115px !important;
+    height: 45px;
+    letter-spacing: .5px;
+    color: white;
+    font-size: 13px;
+    border-radius: 4px;
+    background-color: #e81c36;
+    border: none;
+    font-weight: bold;
+}
