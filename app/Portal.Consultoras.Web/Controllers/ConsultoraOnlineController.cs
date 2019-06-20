@@ -877,166 +877,166 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        [HttpPost]
-        public JsonResult CargarMisPedidos(string sidx, string sord, int page, int rows)
-        {
-            try
-            {
-                List<BEMisPedidos> olstMisPedidos;
-                MisPedidosModel model = new MisPedidosModel();
+        //[HttpPost]
+        //public JsonResult CargarMisPedidos(string sidx, string sord, int page, int rows)
+        //{
+        //    try
+        //    {
+        //        List<BEMisPedidos> olstMisPedidos;
+        //        MisPedidosModel model = new MisPedidosModel();
 
-                using (UsuarioServiceClient svc = new UsuarioServiceClient())
-                {
-                    olstMisPedidos =
-                        svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID)
-                            .ToList();
-                }
+        //        using (UsuarioServiceClient svc = new UsuarioServiceClient())
+        //        {
+        //            olstMisPedidos =
+        //                svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID)
+        //                    .ToList();
+        //        }
 
-                if (olstMisPedidos.Count > 0)
-                {
-                    olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);
+        //        if (olstMisPedidos.Count > 0)
+        //        {
+        //            olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);
 
-                    if (olstMisPedidos.Count > 0)
-                    {
-                        olstMisPedidos.ToList().ForEach(y =>
-                            y.FormartoFechaSolicitud = y.FechaSolicitud.ToString("dd") + " de " +
-                                                       y.FechaSolicitud.ToString("MMMM", new CultureInfo("es-ES")));
-                        olstMisPedidos.ToList().ForEach(y =>
-                            y.FormatoPrecioTotal = Util.DecimalToStringFormat(y.PrecioTotal, userData.CodigoISO));
+        //            if (olstMisPedidos.Count > 0)
+        //            {
+        //                olstMisPedidos.ToList().ForEach(y =>
+        //                    y.FormartoFechaSolicitud = y.FechaSolicitud.ToString("dd") + " de " +
+        //                                               y.FechaSolicitud.ToString("MMMM", new CultureInfo("es-ES")));
+        //                olstMisPedidos.ToList().ForEach(y =>
+        //                    y.FormatoPrecioTotal = Util.DecimalToStringFormat(y.PrecioTotal, userData.CodigoISO));
 
-                        model.ListaPedidos = olstMisPedidos;
+        //                model.ListaPedidos = olstMisPedidos;
 
-                        objMisPedidos = model;
-                        SessionManager.SetobjMisPedidos(objMisPedidos);
+        //                objMisPedidos = model;
+        //                SessionManager.SetobjMisPedidos(objMisPedidos);
 
-                        var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora).ToList();
+        //                var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora).ToList();
 
-                        if (lstClientesExistentes.Count == olstMisPedidos.Count)
-                        {
-                            model.FechaPedidoReciente = "24:00:00";
-                        }
-                        else
-                        {
-                            var pedidoReciente = olstMisPedidos.Where(x => !x.FlagConsultora)
-                                .OrderBy(x => x.FechaSolicitud).First();
+        //                if (lstClientesExistentes.Count == olstMisPedidos.Count)
+        //                {
+        //                    model.FechaPedidoReciente = "24:00:00";
+        //                }
+        //                else
+        //                {
+        //                    var pedidoReciente = olstMisPedidos.Where(x => !x.FlagConsultora)
+        //                        .OrderBy(x => x.FechaSolicitud).First();
 
-                            DateTime starDate = DateTime.Now;
-                            DateTime endDate = pedidoReciente.FechaSolicitud.AddDays(1);
+        //                    DateTime starDate = DateTime.Now;
+        //                    DateTime endDate = pedidoReciente.FechaSolicitud.AddDays(1);
 
-                            TimeSpan ts = endDate - starDate;
-                            model.FechaPedidoReciente = ts.Hours.ToString().PadLeft(2, '0') + ":" +
-                                                        ts.Minutes.ToString().PadLeft(2, '0') + ":" +
-                                                        ts.Seconds.ToString().PadLeft(2, '0');
+        //                    TimeSpan ts = endDate - starDate;
+        //                    model.FechaPedidoReciente = ts.Hours.ToString().PadLeft(2, '0') + ":" +
+        //                                                ts.Minutes.ToString().PadLeft(2, '0') + ":" +
+        //                                                ts.Seconds.ToString().PadLeft(2, '0');
 
-                        }
+        //                }
 
-                        BEGrid grid = new BEGrid(sidx, sord, page, rows);
-                        BEPager pag = Util.PaginadorGenerico(grid, model.ListaPedidos);
+        //                BEGrid grid = new BEGrid(sidx, sord, page, rows);
+        //                BEPager pag = Util.PaginadorGenerico(grid, model.ListaPedidos);
 
-                        model.ListaPedidos = model.ListaPedidos.Skip((grid.CurrentPage - 1) * grid.PageSize)
-                            .Take(grid.PageSize).ToList();
+        //                model.ListaPedidos = model.ListaPedidos.Skip((grid.CurrentPage - 1) * grid.PageSize)
+        //                    .Take(grid.PageSize).ToList();
 
-                        model.Registros = grid.PageSize.ToString();
-                        model.RegistrosTotal = pag.RecordCount.ToString();
-                        model.Pagina = pag.CurrentPage.ToString();
-                        model.PaginaDe = pag.PageCount.ToString();
-                    }
-                    else
-                    {
-                        model.RegistrosTotal = "0";
-                        model.Pagina = "0";
-                        model.PaginaDe = "0";
-                    }
-                }
-                else
-                {
-                    model.RegistrosTotal = "0";
-                    model.Pagina = "0";
-                    model.PaginaDe = "0";
-                }
+        //                model.Registros = grid.PageSize.ToString();
+        //                model.RegistrosTotal = pag.RecordCount.ToString();
+        //                model.Pagina = pag.CurrentPage.ToString();
+        //                model.PaginaDe = pag.PageCount.ToString();
+        //            }
+        //            else
+        //            {
+        //                model.RegistrosTotal = "0";
+        //                model.Pagina = "0";
+        //                model.PaginaDe = "0";
+        //            }
+        //        }
+        //        else
+        //        {
+        //            model.RegistrosTotal = "0";
+        //            model.Pagina = "0";
+        //            model.PaginaDe = "0";
+        //        }
 
-                model.TipoPaginador = Constantes.ClasificadorPedido.PedidoDetallePendiente;
+        //        model.TipoPaginador = Constantes.ClasificadorPedido.PedidoDetallePendiente;
 
-                return Json(new
-                {
-                    success = true,
-                    message = "OK",
-                    data = model
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    data = ""
-                });
-            }
-        }
+        //        return Json(new
+        //        {
+        //            success = true,
+        //            message = "OK",
+        //            data = model
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = ex.Message,
+        //            data = ""
+        //        });
+        //    }
+        //}
 
-        [HttpPost]
-        public JsonResult CargarMisPedidosDetalle(string sidx, string sord, int page, int rows, int pedidoId)
-        {
-            try
-            {
-                List<BEMisPedidosDetalle> olstMisPedidosDet;
-                MisPedidosDetalleModel model = new MisPedidosDetalleModel();
+        //[HttpPost]
+        //public JsonResult CargarMisPedidosDetalle(string sidx, string sord, int page, int rows, int pedidoId)
+        //{
+        //    try
+        //    {
+        //        List<BEMisPedidosDetalle> olstMisPedidosDet;
+        //        MisPedidosDetalleModel model = new MisPedidosDetalleModel();
 
-                using (UsuarioServiceClient svc = new UsuarioServiceClient())
-                {
-                    olstMisPedidosDet = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, pedidoId).ToList();
-                }
+        //        using (UsuarioServiceClient svc = new UsuarioServiceClient())
+        //        {
+        //            olstMisPedidosDet = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, pedidoId).ToList();
+        //        }
 
-                if (olstMisPedidosDet.Count > 0)
-                {
-                    MisPedidosModel consultoraOnlineMisPedidos = SessionManager.GetobjMisPedidos();
-                    long pedidoIdAux = Convert.ToInt64(pedidoId);
-                    var pedido =
-                        consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == pedidoIdAux) ??
-                        new BEMisPedidos();
+        //        if (olstMisPedidosDet.Count > 0)
+        //        {
+        //            MisPedidosModel consultoraOnlineMisPedidos = SessionManager.GetobjMisPedidos();
+        //            long pedidoIdAux = Convert.ToInt64(pedidoId);
+        //            var pedido =
+        //                consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == pedidoIdAux) ??
+        //                new BEMisPedidos();
 
-                    SessionManager.SetobjMisPedidosDetalle(olstMisPedidosDet);
+        //            SessionManager.SetobjMisPedidosDetalle(olstMisPedidosDet);
 
-                    olstMisPedidosDet = CargarMisPedidosDetalleDatos(pedido.MarcaID, olstMisPedidosDet);
+        //            olstMisPedidosDet = CargarMisPedidosDetalleDatos(pedido.MarcaID, olstMisPedidosDet);
 
-                    model.ListaDetalle = olstMisPedidosDet;
+        //            model.ListaDetalle = olstMisPedidosDet;
 
-                    BEGrid grid = new BEGrid(sidx, sord, page, rows);
-                    BEPager pag = Util.PaginadorGenerico(grid, model.ListaDetalle);
+        //            BEGrid grid = new BEGrid(sidx, sord, page, rows);
+        //            BEPager pag = Util.PaginadorGenerico(grid, model.ListaDetalle);
 
-                    model.Registros = grid.PageSize.ToString();
-                    model.RegistrosTotal = pag.RecordCount.ToString();
-                    model.Pagina = pag.CurrentPage.ToString();
-                    model.PaginaDe = pag.PageCount.ToString();
-                }
-                else
-                {
-                    model.RegistrosTotal = "0";
-                    model.Pagina = "0";
-                    model.PaginaDe = "0";
-                }
-                model.TipoPaginador = Constantes.ClasificadorPedido.PedidoDetallePoputPendiente;
+        //            model.Registros = grid.PageSize.ToString();
+        //            model.RegistrosTotal = pag.RecordCount.ToString();
+        //            model.Pagina = pag.CurrentPage.ToString();
+        //            model.PaginaDe = pag.PageCount.ToString();
+        //        }
+        //        else
+        //        {
+        //            model.RegistrosTotal = "0";
+        //            model.Pagina = "0";
+        //            model.PaginaDe = "0";
+        //        }
+        //        model.TipoPaginador = Constantes.ClasificadorPedido.PedidoDetallePoputPendiente;
 
-                return Json(new
-                {
-                    success = true,
-                    message = "OK",
-                    data = model
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    data = ""
-                });
-            }
-        }
+        //        return Json(new
+        //        {
+        //            success = true,
+        //            message = "OK",
+        //            data = model
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = ex.Message,
+        //            data = ""
+        //        });
+        //    }
+        //}
 
         public ActionResult ObtenerPagina(string Pagina)
         {

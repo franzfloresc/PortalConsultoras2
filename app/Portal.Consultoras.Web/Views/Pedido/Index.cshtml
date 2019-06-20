@@ -2038,9 +2038,9 @@
 
         var activarRecomendaciones = '@ViewBag.ActivarRecomendaciones';
         var maxCaracteresRecomendaciones = '@ViewBag.MaxCaracteresRecomendaciones';
-        var ClasPedidoPopupPedidoPend = '@Constantes.ClasificadorPedido.PedidoDetallePoputPendiente';
+        @*var ClasPedidoPopupPedidoPend = '@Constantes.ClasificadorPedido.PedidoDetallePoputPendiente';
         var ClasPedidoDetalle = '@Constantes.ClasificadorPedido.PedidoDetalle';
-        var ClasPedidoDetallePendiente = '@Constantes.ClasificadorPedido.PedidoDetallePendiente';
+        var ClasPedidoDetallePendiente = '@Constantes.ClasificadorPedido.PedidoDetallePendiente';*@
         var kitsCaminoBrillante = '@ViewBag.KitsCaminoBrillante';
         var PedidoEscogeRegaloCarrusel = '@Constantes.OrigenPedidoWeb.DesktopPedidoEscogeRegaloCarrusel';/*HD-3710*/
 
@@ -2052,10 +2052,10 @@
             mobileDevice = true;
         </script>
     }
-    @if (ViewBag.MostrarPedidosPendientes == "1")
+    @*@if (ViewBag.MostrarPedidosPendientes == "1")
     {
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ConsultoraOnline.js")"></script>
-    }
+    }*@
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FichaProducto/Index.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=2"></script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
