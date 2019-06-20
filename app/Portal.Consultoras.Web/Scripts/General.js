@@ -2394,7 +2394,16 @@ function AbrirMensajeImagen(mensaje) {
 }
 
 function AbrirChatBot() {
+    var mobile = isMobile();
+    if (mobile && typeof FB !== 'undefined') {
+        FB.CustomerChat.showDialog();
+    }
+
     if (typeof ChatBotUrlRef === 'undefined') return;
 
-    window.location.href = ChatBotUrlRef;
+    if (mobile) {
+        window.location.href = ChatBotUrlRef;
+    } else {
+        window.open(ChatBotUrlRef);
+    }
 }

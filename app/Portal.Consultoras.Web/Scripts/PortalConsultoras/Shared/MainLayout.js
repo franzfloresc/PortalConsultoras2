@@ -340,9 +340,7 @@ $(document).ready(function () {
         }
 
         if (habilitarChatBot === 'True') {
-            if (typeof FB !== "undefined") {
-                FB.CustomerChat.showDialog();
-            }
+            AbrirChatBot();
         }
 
         return false;
