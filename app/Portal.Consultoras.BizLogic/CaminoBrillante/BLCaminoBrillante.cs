@@ -197,6 +197,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             niveles.Where(e => e.CodigoNivel == nivel.ToString() && e.CodigoNivel != Constantes.CaminoBrillante.CodigoNiveles.Brillante).Update(e =>
             {
                 e.MontoFaltante = decimal.TryParse(e.MontoMinimo, out montoMinimo) ? (montoMinimo - montoPedido) : e.MontoFaltante;
+                e.MontoAcumulado = montoPedido;
             });
 
             /* Puntaje Acumulado en Nivel 6 */

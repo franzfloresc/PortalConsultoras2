@@ -11,6 +11,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         public string DescripcionNivel { get; set; }
         public string MontoMinimo { get; set; }
         public string MontoMaximo { get; set; }
+        public decimal? MontoAcumulado { get; set; }
         public decimal? MontoFaltante { get; set; }
         public bool TieneOfertasEspeciales { get; set; }
         public int EnterateMas { get; set; }
@@ -58,9 +59,9 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         }
 
         public decimal MontoAlcanzado { get {
-                var _montoMinimo = decimal.Parse(MontoMinimo);
-                if(!MontoFaltante.HasValue) return _montoMinimo;
-                return Math.Max(0,_montoMinimo - MontoFaltante.Value);
+                if (MontoAcumulado == null) return 0;
+                if (MontoAcumulado.HasValue) return MontoAcumulado.Value;
+                return 0;
             } }
 
         public class BeneficioCaminoBrillanteModel{

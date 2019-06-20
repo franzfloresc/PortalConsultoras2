@@ -488,9 +488,12 @@ $(".tog-vermas").click(function () {
 $(document).ready(function ($) {
     var progreso = $("#bar-progreso");
     if (progreso.length > 0) {
+        var minBar = $(progreso).data("min");
         var maxBar = $(progreso).data("max");
         var curBar = $(progreso).data("cur");
         var perc = (curBar / maxBar)*100;
         $('.new-bar').width(perc + '%');
+        var perc_min = (minBar / maxBar) * 100;
+        $('.tope').css("left", perc_min+"%");
     }
 });
