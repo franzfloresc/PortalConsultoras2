@@ -330,27 +330,27 @@ div .owl-carousel .owl-stage-outer {
 }
 
 .medal-1 {
-    width: 20%;
+    width: 0%;
     animation-name: progressUno
 }
 
 .medal-2 {
-    width: 40%;
+    width: 20%;
     animation-name: progressDos
 }
 
 .medal-3 {
-    width: 60%;
+    width: 40%;
     animation-name: progressTres
 }
 
 .medal-4 {
-    width: 80%;
+    width: 60%;
     animation-name: progressCuatro
 }
 
 .medal-5 {
-    width: 100%;
+    width: 80%;
     animation-name: progressCinco
 }
 
@@ -2362,32 +2362,32 @@ div .ficha__producto__precio__normal {
     }
 
     .medal-1 {
-        width: 12%;
+        width: 0%;
         animation-name: MovilprogressUno;
     }
 
     .medal-2 {
-        width: 32%;
+        width: 12%;
         animation-name: MovilprogressDos;
     }
 
     .medal-3 {
-        width: 52%;
+        width: 32%;
         animation-name: MovilprogressTres;
     }
 
     .medal-4 {
-        width: 72%;
+        width: 52%;
         animation-name: MovilprogressCuatro;
     }
 
     .medal-5 {
-        width: 92%;
+        width: 72%;
         animation-name: MovilprogressCinco;
     }
 
     .medal-6 {
-        width: 100%;
+        width: 92%;
         animation-name: MovilprogressSeis;
     }
 
@@ -2688,32 +2688,32 @@ div .ficha__producto__precio__normal {
 
 @media screen and (max-width:330px) {
     .medal-1 {
-        width: 13%;
+        width: 0%;
         animation-name: MovilDosprogressUno;
     }
 
     .medal-2 {
-        width: 33%;
+        width: 13%;
         animation-name: MovilDosprogressDos;
     }
 
     .medal-3 {
-        width: 53%;
+        width: 33%;
         animation-name: MovilDosprogressTres;
     }
 
     .medal-4 {
-        width: 73%;
+        width: 53%;
         animation-name: MovilDosprogressCuatro;
     }
 
     .medal-5 {
-        width: 93%;
+        width: 73%;
         animation-name: MovilDosprogressCinco;
     }
 
     .medal-6 {
-        width: 100%;
+        width: 93%;
         animation-name: MovilDosprogressSeis;
     }
 }
