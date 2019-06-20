@@ -1,6 +1,7 @@
 using AutoMapper;
 using ClosedXML.Excel;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.CustomHelpers;
@@ -2453,7 +2454,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 if (revistaDigitalModel == null)
-                    throw new ArgumentNullException("revistaDigitalModel", "no puede ser nulo");
+                    throw new ClientInformationException("revistaDigitalModel no puede ser nulo");
 
                 if (listaDatos == null || !listaDatos.Any() || string.IsNullOrEmpty(codigoIso))
                     return revistaDigitalModel;
@@ -2542,13 +2543,13 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 if (revistaDigital == null)
-                    throw new ArgumentNullException("revistaDigital", "no puede ser nulo");
+                    throw new ClientInformationException("revistaDigital no puede ser nulo");
 
                 if (listaDatos == null)
-                    throw new ArgumentNullException("listaDatos", "no puede ser nulo");
+                    throw new ClientInformationException("listaDatos no puede ser nulo");
 
                 if (paisIso == null)
-                    throw new ArgumentNullException("paisIso", "no puede ser nulo");
+                    throw new ClientInformationException("paisIso no puede ser nulo");
 
                 revistaDigital.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
 
@@ -3097,10 +3098,10 @@ namespace Portal.Consultoras.Web.Controllers
             string nombreConsultora)
         {
             if (revistaDigital == null)
-                throw new ArgumentNullException("revistaDigital", "No puede ser nulo.");
+                throw new ClientInformationException("revistaDigital No puede ser nulo.");
 
             if (string.IsNullOrWhiteSpace(nombreConsultora))
-                throw new ArgumentNullException("nombreConsultora", "No puede ser nulo o vacío.");
+                throw new ClientInformationException("nombreConsultora No puede ser nulo o vacío.");
 
             if (revistaDigital.ConfiguracionPaisDatos == null) return revistaDigital;
 

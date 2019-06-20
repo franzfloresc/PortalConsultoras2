@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using System;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServicePedido;
 using System.Collections.Generic;
@@ -290,5 +291,54 @@ namespace Portal.Consultoras.Web.Models
         public string MensajeKitNuevas { get; set; }
 
         public bool EsConsultoraOficina { get; set; }
+        public decimal? GananciaRevista { get; set; }
+        public decimal? GananciaWeb { get; set; }
+        public decimal? GananciaOtros { get; set; }
+        public string FormatoGananciaRevista
+        {
+            get
+            {
+                if(GananciaRevista != null)
+                    return Util.DecimalToStringFormat(GananciaRevista.Value, CodigoIso);
+                else
+                    return Util.DecimalToStringFormat(Decimal.Zero, CodigoIso);
+            }
+        }
+        public string FormatoGananciaWeb
+        {
+            get
+            {
+                if (GananciaWeb != null)
+                    return Util.DecimalToStringFormat(GananciaWeb.Value, CodigoIso);
+                else
+                    return Util.DecimalToStringFormat(Decimal.Zero, CodigoIso);
+            }
+        }
+        public string FormatoGananciaOtros
+        {
+            get
+            {
+                if (GananciaOtros != null)
+                    return Util.DecimalToStringFormat(GananciaOtros.Value, CodigoIso);
+                else
+                    return Util.DecimalToStringFormat(Decimal.Zero, CodigoIso);
+            }
+        }
+        public string FormatoTotalMontoGanancia
+        {
+            get
+            {
+                if (GananciaOtros != null && GananciaWeb != null && GananciaRevista != null)
+                    return Util.DecimalToStringFormat((GananciaOtros.Value + GananciaWeb.Value + GananciaRevista.Value + MontoAhorroCatalogo ), CodigoIso);
+                else
+                    return Util.DecimalToStringFormat(Decimal.Zero, CodigoIso);
+            }
+        }
+        public string FormatoTotalGananciaOtrosStr { get; set; }
+        public string FormatoTotalGananciaRevistaStr { get; set; }
+        public string FormatoTotalGananciaWebStr { get; set; }
+        public string FormatoTotalMontoAhorroCatalogoStr { get; set; }
+        public string FormatoTotalMontoGananciaStr { get; set; }
+        //public bool IsShowGananciaConsultora { get; set; }
     }
 }

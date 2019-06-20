@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Infraestructure;
 using Portal.Consultoras.Web.Models;
@@ -77,7 +78,16 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.IsMobile = esMobile;
             modelo.CodigoUbigeoPortal = CodigoUbigeoPortal.GuionContenedorArmaTuPack;
 
-            modelo.OrigenAgregar = esMobile ? Constantes.OrigenPedidoWeb.MobileArmaTuPackFicha : Constantes.OrigenPedidoWeb.DesktopArmaTuPackFicha;
+
+            var modeloOrigenPedido = new OrigenPedidoWebModel
+            {
+                Dispositivo = esMobile ? ConsOrigenPedidoWeb.Dispositivo.Mobile : ConsOrigenPedidoWeb.Dispositivo.Desktop,
+                Pagina = ConsOrigenPedidoWeb.Pagina.ArmaTuPackDetalle,
+                Palanca = ConsOrigenPedidoWeb.Palanca.ArmaTuPack,
+                Seccion = ConsOrigenPedidoWeb.Seccion.Ficha
+            };
+
+            modelo.OrigenAgregar = UtilOrigenPedidoWeb.ToInt(modeloOrigenPedido);
 
             return View(modelo);
         }

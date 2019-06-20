@@ -412,7 +412,7 @@ namespace Portal.Consultoras.Common
 
             public const string ListaEstrategia = "ListadoEstrategiaPedido";
 
-            public const string ProductoTemporal = "ProductoTemporal";
+            //public const string ProductoTemporal = "ProductoTemporal";
             public const string MenuContenedorActivo = "MenuContenedorActivo";
 
             public const string RevistaDigital = "RevistaDigital";
@@ -3930,6 +3930,32 @@ namespace Portal.Consultoras.Common
         public static class DatosTuVozOnline
         {
             public const string FormatUrl = "{0}|{1}|{2}|{3}|Year={4}|Active={5}|Birthdate={6:dd-MM-yyyy}|Country={7}";
+        }
+
+        /// <summary>
+        /// Contiene los valores de los codigo de catalogo segun ODS.Catalogo.
+        /// </summary>
+        /// <remarks>
+        /// Provisionalmente contiene los que se utilizan para el calculo de ganancia.
+        /// En el futuro se pueden agregar los restante segú la necesidad.
+        /// </remarks>
+        public static class ODSCodigoCatalogo
+        {
+            //REVISTAS
+            public const string RevistaSinLimites = "6";
+            public const string RevistaEbelMagazine = "14";
+            public const string RevistaEsikaTeCuenta = "15";
+            public const string RevistaCyzone = "18";
+            public const string RevistaBelcorp = "24";
+            //WEB
+            public const string WebPortalFFVV = "35";
+            public const string WebShowRoom = "44";
+            public const string WebOfertasParaTi = "45";
+            public const string WebOfertasDelDia = "46";
+            //CATALOGOS
+            public const string CatalogoEbel = "9";
+            public const string CatalogoCyzone = "10";
+            public const string CatalogoEsika = "13";
         }
     }
 }
