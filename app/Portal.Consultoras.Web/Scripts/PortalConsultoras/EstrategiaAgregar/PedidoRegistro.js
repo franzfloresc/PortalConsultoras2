@@ -753,9 +753,9 @@ var PedidoRegistroModule = function () {
                     }
 
                     if (_mensajeRespuestaError(data)) {
-                        if (!IsNullOrEmpty(data.message)) {
-                            AbrirMensaje(data.message);
-                        }
+                        //if (!IsNullOrEmpty(data.message)) {
+                        //    AbrirMensaje(data.message);
+                        //} *** HD-4450
                         return false;
                     }
 

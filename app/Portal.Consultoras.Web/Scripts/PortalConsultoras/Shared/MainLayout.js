@@ -689,7 +689,7 @@ function ValidarCorreoComunidad(tipo) {
 
 function alert_msg(message, titulo, funcion) {
     titulo = titulo || "MENSAJE";
-    $('#alertDialogMensajes .terminos_title_2').html(titulo);
+    //$('#alertDialogMensajes .terminos_title_2').html(titulo);***HD-4450
     $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
     if (typeof funcion == "function") {
         $("#alertDialogMensajes").dialog("option", "buttons", {

@@ -807,7 +807,7 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             return false;
         }
 
-        titulo = titulo || "MENSAJE";
+        titulo = titulo || "Aviso";//***HD-4450
         var CONS_TIPO_ICONO = { ALERTA: 1, CHECK: 2 };
         var isUrlMobile = isMobile();
         if (isUrlMobile > 0) {
@@ -823,7 +823,7 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             }
             $('#mensajeInformacionvalidado').html(mensaje);
             $('#popupInformacionValidado').show();
-            $('#popupInformacionValidado #bTagTitulo').html(titulo);
+            $('#popupInformacionValidado #bTagTitulo').html(titulo); 
 
             if ($.isFunction(fnAceptar)) {
                 var botonesCerrar = $('#popupInformacionValidado .btn_ok_mobile,.cerrar_popMobile');
@@ -833,7 +833,7 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
         }
         else {
 
-            $('#alertDialogMensajes .terminos_title_2').html(titulo);
+            $('#alertDialogMensajes .terminos_title_2').html(titulo); ///**HD-4450
             $('#alertDialogMensajes .pop_pedido_mensaje').html(mensaje);
             showDialogSinScroll("alertDialogMensajes");
 
