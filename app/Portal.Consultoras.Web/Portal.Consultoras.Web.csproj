@@ -1539,7 +1539,6 @@
     <Content Include="Content\Css\Site\Images\gif_de_ofertas.gif" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas_2.gif" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-informacion-regalos.css" />
-    <Content Include="Content\Css\Site\Shared\PopupsResponsive\general-popups.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-cierre-sesion.css" />
     <Content Include="Content\Css\Site\styleBase.css" />
     <Content Include="Content\Images\checkBuroSAC.svg" />
@@ -1579,7 +1578,6 @@
     <Content Include="Content\Images\icono_confirmacion_con_fondo.svg" />
     <Content Include="Content\Images\icono_notificacion_negativa.svg" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-actualizacion-correo.css" />
-    <Content Include="Content\Images\icono_cerrar_popup.svg" />
     <Content Include="Content\Images\icono_correo.svg" />
     <Content Include="Content\Images\icono_celular.svg" />
     <Content Include="Content\Images\icono_confirmacion.svg" />
@@ -4304,6 +4302,7 @@
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Index.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaProgramaNuevas\Mensaje.js" />
     <Content Include="Scripts\PortalConsultoras\Login\VerificaAutenticidad.js" />
+    <Content Include="Scripts\PortalConsultoras\Login\VerificaAutenticidadBase.js" />
     <Content Include="Scripts\PortalConsultoras\MailConfirmacion\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCamapaniaJS.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />
@@ -5941,6 +5940,7 @@
     <Content Include="Views\AdministracionMedallaBrillante\Index.cshtml" />
     <Content Include="Views\ConsultoraOnline\Pendientes.cshtml" />
     <Content Include="Views\CaminoBrillanteAdministrar\AdministrarBeneficios.cshtml" />
+    <Content Include="Views\Shared\PopupsResponsive\_PopupGeneral.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_fbsdk.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupInformacionRegalo.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive.cshtml" />
