@@ -251,13 +251,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected List<ObjMontosProl> ServicioProl_CalculoMontosProl(bool session = true)
         {
-            if (session && SessionManager.GetMontosProl() != null)
-            {
-                if (SessionManager.GetMontosProl()[0].MontoTotalDescuento != null)
-                {
-                    return SessionManager.GetMontosProl();
-                }
-            }
+            if (session && SessionManager.GetMontosProl() != null) return SessionManager.GetMontosProl();
 
             var montosProl = new List<ObjMontosProl> { new ObjMontosProl() };
 
