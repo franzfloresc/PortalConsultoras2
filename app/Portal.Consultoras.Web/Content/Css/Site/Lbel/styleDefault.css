@@ -17,6 +17,14 @@
     border-color: #613c87 !important;
 }
 
+.color-multimarca {
+    color: #b9007e!important;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
 .multimarca-background-color {
     background-color: #b9007e !important;
 }
@@ -189,10 +197,30 @@ input[type="text"].text__field__sb,
 
 /* VALIDATION MESSAGE */
 
-.validation__message {
-    color: #e81c36;
-    font-size: 11px;
-    margin-top: 4px;
+.validation__message,
+.validation__field{
+    font-size:11px;
+    margin-top:4px;
+}
+
+.validation__field {
+    color: #808080;
+}
+    
+    .validation__message,
+    .validation__error{
+        color:#e81c36;
+    }
+
+    .validation__success{
+        color:#569c04;
+    }
+
+/* FIN - VALIDATION MESSAGE */
+
+/* SWITCH */
+
+.switch__control__descrip {
 }
 
 /* FIN - VALIDATION MESSAGE */
@@ -244,6 +272,153 @@ input[type="text"].text__field__sb,
 .switch__control__descrip {
     color: #000;
     font-size: 14px;
+}
+
+.switch__control__wrapper {
+    display: inline-block;
+    position: relative;
+    width: 48px;
+    height: 28px;
+    margin-bottom: 0;
+}
+
+input[type="checkbox"].switch__control,
+.switch__control:checked + .switch__slider:after {
+    display: none !important;
+}
+
+.switch__slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    padding: 8px;
+    color: #fff;
+    border-radius: 16px;
+}
+
+    .switch__slider:before {
+        position: absolute;
+        content: "";
+        height: 22px;
+        width: 22px;
+        left: 4px;
+        z-index: 5;
+        margin: auto 0;
+        top: 0;
+        bottom: 0;
+        background-color: #FFF;
+        -moz-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        border-radius: 14px;
+    }
+
+.switch__control:checked + .switch__slider {
+    background-color: #569c04;
+}
+
+    .switch__control:checked + .switch__slider:before {
+        left: 22px;
+    }
+
+/* FIN - SWITCH */
+
+/* BUTTONS */
+
+.btn__sb {
+    height: 40px;
+    line-height: 32px;
+    border: 0;
+    font-size: 14px;
+    position: relative;
+}
+
+    .btn__sb__primary,
+    .btn__sb__primary--multimarca {
+        color: #FFF;
+    }
+
+    .btn__sb__primary,
+    .btn__sb__secondary {
+        border: 1px solid #000;
+    }
+
+    .btn__sb__primary {
+        background-color: #000;
+    }
+
+    .btn__sb__primary--multimarca {
+        background-color: #B9007E;
+        border: 1px solid #B9007E;
+    }
+
+    .btn__sb__secondary {
+        background-color: #FFF;
+        color: #000;
+    }
+
+    .btn__sb--disabled {
+        border: 1px solid #D1D1D4!important;
+        background-color: #D1D1D4!important;
+        pointer-events: none;
+        cursor: not-allowed;
+        color: #909094 !important;
+    }
+
+@media screen and (max-width:991px) {
+
+    .btn__sb {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 16px;
+    }
+}
+
+/* FIN - BUTTONS */
+
+/* FIN - FORMS */
+
+/* NOTIFICACIONES */
+
+.notificacion_estado {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.notificacion_estado--exito {
+    color: #569c04;
+}
+
+.notificacion_estado_img {
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    margin-right: 4px;
+    margin-bottom: 0 !important;
+}
+
+    .notificacion_estado_img img {
+        width: 100%;
+        height: auto;
+    }
+
+.notificacion_estado--error {
+    color: #e81c36;
 }
 
 .switch__control__wrapper {
@@ -729,6 +904,85 @@ input[type="checkbox"].switch__control,
 
 /* FIN - SPINNER */
 
+/* FIN - COMPONENTES UI */
+
+/* HELPERS CSS */
+
+.d-none {
+    display: none;
+}
+
+.d-block {
+    display: block;
+}
+
+.d-inline-block {
+    display: inline-block;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.center-block {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.text-underline {
+    text-decoration: underline;
+}
+
+.text-thin {
+    font-weight: 300;
+}
+
+.text-regular {
+    font-weight: 400;
+}
+
+.text-bold {
+    font-weight: bold !important;
+}
+
+.text-black {
+    font-weight: 900;
+}
+
+.border-radius-4 {
+    border-radius: 4px;
+}
+
+.mt-40 {
+    margin-top: 40px;
+}
+
+.spinner__texto {
+    margin-top: 25px;
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: #000;
+    max-width: 357px;
+}
+
+/* FIN - SPINNER */
+
 .notificacion_estado--exito {
     color: #569c04;
 }
@@ -846,6 +1100,13 @@ input[type="checkbox"].switch__control,
 
     .mt-53 {
         margin-top: 53px !important;
+    }
+}
+
+@media screen and (max-width:991px) {
+
+    .mb-60 {
+        margin-bottom: 60px;
     }
 }
 

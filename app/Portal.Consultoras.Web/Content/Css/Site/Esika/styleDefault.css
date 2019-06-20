@@ -2,19 +2,27 @@
 /* ESTILOS MARCA PAÍS */
 
 .default-color {
-    color: #e81c36;
+    color:  #e81c36;
 }
 
 .default-background {
-    background-color: #e81c36;
+    background-color:  #e81c36;
 }
 
 .default-background-color {
-    background-color: #e81c36;
+    background-color:  #e81c36;
 }
 
 .default-border-hover:hover {
     border-color: #e81c36 !important;
+}
+
+.color-multimarca{
+    color:#b9007e!important;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .multimarca-background-color {
@@ -171,6 +179,72 @@ input[type="text"].text__field__sb,
     min-height: 48px;
 }
 
+.field__checkbox__sb + .tag__checkbox__sb {
+    color: #454549;
+    border: 1px solid #454549;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+    .field__checkbox__sb:checked + .tag__checkbox__sb {
+        color: #d21194;
+        border: 1px solid #d21194;
+    }
+
+/* FIN - CHECKBOXES TIPO TAGS */
+
+/* VALIDATION MESSAGE */
+
+.validation__message,
+.validation__field{
+    font-size:11px;
+    margin-top:4px;
+}
+
+.validation__field {
+    color: #808080;
+}
+    
+    .validation__message,
+    .validation__error{
+        color:#e81c36;
+    }
+
+    .validation__success{
+        color:#569c04;
+    }
+
+/* FIN - VALIDATION MESSAGE */
+
+/* SWITCH */
+
+.switch__control__descrip {
+    color: #000;
+    font-size: 14px;
+}
+
+.switch__control__wrapper {
+    display: inline-block;
+    position: relative;
+    width: 48px;
+    height: 28px;
+    margin-bottom: 0;
+}
+
+.tag__checkbox__sb {
+    display: flex !important;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px !important;
+    padding-top: 0 !important;
+    padding-left: 8px;
+    padding-right: 8px;
+    min-height: 48px;
+}
+
 .bg__popups__default {
     background-color: rgba(0,0,0,.8);
 }
@@ -313,9 +387,6 @@ input[type="text"].text__field__sb,
         right: 0;
         bottom: 16px;
     }
-}
-.border-radius-4{
-    border-radius:4px;
 }
 
 .field__checkbox__sb:checked + .tag__checkbox__sb {
@@ -502,7 +573,7 @@ input[type="checkbox"].switch__control,
 /* TAGS */
 
 
-/* NOTIFICACIONES */
+/* TAGS */
 
 /* FIN - TAGS */
 
@@ -723,9 +794,6 @@ input[type="checkbox"].switch__control,
 
 /* FIN - SPINNER */
 
-.notificacion_estado--exito {
-    color: #569c04;
-}
 
 .notificacion_estado_img {
     display: block;
@@ -741,11 +809,73 @@ input[type="checkbox"].switch__control,
         height: auto;
     }
 
-@media screen and (max-width:991px) {
+/* FIN - COMPONENTES UI */
 
-    .notificacion_estado_img {
-        margin-top: -1.2px;
-    }
+/* HELPERS CSS */
+
+.d-none {
+    display: none;
+}
+
+.d-block {
+    display: block;
+}
+
+.d-inline-block {
+    display: inline-block;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.center-block {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.text-underline {
+    text-decoration: underline;
+}
+
+.text-thin {
+    font-weight: 300;
+}
+
+.text-regular {
+    font-weight: 400;
+}
+
+.text-bold {
+    font-weight: bold !important;
+}
+
+.text-black {
+    font-weight: 900;
+}
+
+.border-radius-4 {
+    border-radius: 4px;
+}
+
+.mt-40 {
+    margin-top: 40px;
 }
 
 /* FIN - NOTIFICACIONES */
@@ -832,9 +962,6 @@ input[type="checkbox"].switch__control,
     border-radius: 4px;
 }
 
-.mt-40 {
-    margin-top: 40px;
-}
 
 .text-black {
     font-weight: 900;
@@ -848,6 +975,13 @@ input[type="checkbox"].switch__control,
 
     .mt-53 {
         margin-top: 53px !important;
+    }
+}
+
+@media screen and (max-width:991px) {
+
+    .mb-60 {
+        margin-bottom: 60px;
     }
 }
 
