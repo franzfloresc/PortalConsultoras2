@@ -2886,6 +2886,7 @@ function ConfirmarModificar() {
                 }
                 else {
                     closeWaitingDialog();
+                    HideDialog("divConfirmValidarPROL2");
                     messageInfoError(data.message);
                 }
             }
