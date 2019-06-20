@@ -10,7 +10,7 @@ jQuery(document).ready(function () {
     CreateLoading();
 
     if (typeof habilitarChatBot !== 'undefined' && habilitarChatBot === 'True') {
-        $('.btn_chat_messenger_mobile').show();
+        $('.btn_chat_messenger').show();
     }
 
     if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {

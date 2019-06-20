@@ -222,6 +222,7 @@ $(document).ready(function () {
             $(this).next().fadeIn(100);
             $(this).next().css('display', 'flex');
         }
+        $('.btn_chat_messenger').fadeOut(100);
 
     });
 
@@ -1067,8 +1068,10 @@ function ocultarTooltipCompartirCatalogo(e) {
         if ((!compartirCatalogoArea.is(e.target) && compartirCatalogoArea.has(e.target).length === 0)) {
             if (tooltipOpcionesCompartirCatalogoParteSuperior.is(':visible')) {
                 tooltipOpcionesCompartirCatalogoParteSuperior.fadeOut(100);
+                $('.btn_chat_messenger').fadeIn(100);
             } else {
                 tooltipOpcionesCompartirCatalogoParteInferior.fadeOut(100);
+                $('.btn_chat_messenger').fadeIn(100);
             }
         }
     }
@@ -1077,6 +1080,7 @@ function ocultarTooltipCompartirCatalogo(e) {
 function ocultarTooltipCompartirCatalogoMobile() {
     $('.opciones__compartir__catalogos').fadeOut(100);
     $(this).fadeOut(100);
+    $('.btn_chat_messenger').fadeIn(100);
 }
 
 // mensaje alerta

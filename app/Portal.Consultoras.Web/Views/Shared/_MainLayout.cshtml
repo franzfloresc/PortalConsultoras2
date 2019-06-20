@@ -130,7 +130,8 @@
                 return this.indexOf(searchString, position) === position;
             };
         }
-    </script>
+
+/**/</script>
 
     <header class="header--nuevoLookAndFeelEsika">
         @if (ViewBag.MostrarBannerPostulante == true)
@@ -203,6 +204,10 @@
             </footer>
         </div>
     </div>
+
+    <a title="Chat Messenger" class="d-block btn_chat_messenger" style="display:none;" href="javascript: AbrirChatBot()">
+        <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
+    </a>
 
     @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBuscadorResultado.cshtml")
@@ -278,9 +283,9 @@
             s.parentNode.insertBefore(trme, s);
         })();
     </script>
-   
+
     @RenderSection("scripts", required: false)
-    
+
     @{ Html.RenderPartial("VistaParcialMainLayout/_fbsdk");}
     <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
 
