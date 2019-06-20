@@ -86,6 +86,8 @@ $(document).ready(function () {
         numactual = numactual < 1 ? 1 : numactual > 99 ? 99 : numactual;
         $("#txtCantidad").val(numactual);
     });
+
+
 });
 
 var pedidoProvider = PedidoProvider();
@@ -985,13 +987,25 @@ function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == '1') EnviarCorreoPedidoReservado();
     if (estaRechazado == "2") cerrarMensajeEstadoPedido();
 
-    messageInfoBueno('<h3>Tu pedido fue reservado con &eacute;xito.</h3>');
     var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
-    if (ultimoDiaFacturacion) {
-	    RedirigirPedidoValidado();
-    } else {
-	    location.reload();
+
+    //INI HD-4294
+    if (!response.data.IsEmailConfirmado) {
+        configActualizarCorreo.UrlPedidoValidado = (!ultimoDiaFacturacion) ? configActualizarCorreo.UrlPedido: configActualizarCorreo.UrlPedidoValidado;
+        new Pedido_ActualizarCorreo(configActualizarCorreo).Inicializar();
+
     }
+    //FIN HD-4294
+    else {
+        messageInfoBueno('<h3>Tu pedido fue reservado con &eacute;xito.</h3>');
+    	if (ultimoDiaFacturacion) {
+	    RedirigirPedidoValidado();
+    	} else {
+	    location.reload();
+    	}
+    }
+    
+
 }
 
 function ConstruirObservacionesPROL(model) {

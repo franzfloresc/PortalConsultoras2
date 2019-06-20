@@ -444,7 +444,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Pedido/tooltip.js",
                 "~/Scripts/PortalConsultoras/ProductoRecomendado/ProductoRecomendadoModule.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
-                "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js"
+                "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js",// HD-4200
+                "~/Scripts/PortalConsultoras/Pedido/ActualizarCorreoPedido.js" // HD-4294
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/PedidoValidado").Include(
@@ -541,7 +542,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/ProductoRecomendado/ProductoRecomendadoModule.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
-                "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js"
+                "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js", //HD-4200
+                "~/Scripts/PortalConsultoras/Pedido/ActualizarCorreoPedido.js" // HD-4294
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/PedidoDetalle").Include(
@@ -555,7 +557,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Pedido/tooltip.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
-                "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js",
+                "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js", //HD-4200
+                "~/Scripts/PortalConsultoras/Pedido/ActualizarCorreoPedido.js", // HD-4294
                 "~/Scripts/PortalConsultoras/Pedido/barra.js"
             ));
 

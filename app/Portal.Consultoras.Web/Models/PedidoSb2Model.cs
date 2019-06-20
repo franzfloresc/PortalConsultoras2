@@ -290,5 +290,9 @@ namespace Portal.Consultoras.Web.Models
         public string MensajeKitNuevas { get; set; }
 
         public bool EsConsultoraOficina { get; set; }
+
+        //INI HD-4294
+        public bool IsEmailConfirmado { get; set; }
+        //FIN HD-4294
     }
 }

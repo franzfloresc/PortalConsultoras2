@@ -1539,6 +1539,10 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoMensajeProl = resultado.CodigoMensaje
                 };
                 model.TotalConDescuento = model.Total - model.MontoDescuento;
+                //INI HD-4294
+                model.IsEmailConfirmado = IsEmailConfirmado();
+                model.EMail = userData.EMail;
+                //FIN HD-4294
                 SetMensajesBotonesProl(model);
 
                 var listPermiteOfertaFinal = new List<Enumeradores.ResultadoReserva> {
@@ -1581,15 +1585,59 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+        //INI HD-4294
+        public bool IsEmailConfirmado() { 
+                bool flag = false;
+            try
+            {
+                using (var sv = new UsuarioServiceClient())
+                {
+                    flag = sv.Select(userData.PaisID, userData.CodigoUsuario).FlgCheckEMAIL;
+                }
+            }
+            catch (Exception ex)
+            {
+                flag = false;
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return flag;
+        }
+        public JsonResult ActualizarEnviarCorreo(string correoNuevo)
+        {
+            try
+            {
+                ServiceUsuario.BERespuestaServicio respuesta;
+                ServiceUsuario.BEUsuario usuario = Mapper.Map<ServiceUsuario.BEUsuario>(userData);
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    respuesta = sv.ActualizarEmail(usuario, correoNuevo);
+                }
+                string tipoEnvio = Constantes.TipoEnvio.EMAIL.ToString();
+                ActualizarValidacionDatosUnique(EsDispositivoMovil(), userData.CodigoUsuario, tipoEnvio);
+                return Json(new { success = respuesta.Succcess, message = respuesta.Message });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson(Constantes.MensajesError.UpdCorreoConsultora);
+            }
+        }
+         private void ActualizarValidacionDatosUnique(bool isMobile, string codigoUsuario, string tipoEnvio)
+        {
+            var request = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
+            string ipDispositivo = request.ClientIPFromRequest(skipPrivate: true);
+            ipDispositivo = ipDispositivo == null ? String.Empty : ipDispositivo;
 
-        /// <summary>
-        /// Fecha actual según el pais.
-        /// </summary>
-        /// <returns></returns>
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            {
+                sv.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoUsuario, userData.PaisID, codigoUsuario, tipoEnvio, string.Empty);
+            }
+        }
         private DateTime GetDiaActual()
         {
             return DateTime.Now.AddHours(userData.ZonaHoraria).Date;
         }
+        //FIN HD-4294
         public async Task<JsonResult> EnviarCorreoPedidoReservado()
         {
             try
@@ -3397,5 +3445,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+
     }
 }
