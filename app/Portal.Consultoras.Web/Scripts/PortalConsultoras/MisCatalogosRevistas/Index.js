@@ -218,11 +218,11 @@ $(document).ready(function () {
             $('.background__opciones__compartir__catalogos').css('display', 'flex');
             $(this).next().fadeIn(100);
             $(this).next().css('display', 'flex');
+            $('.btn_chat_messenger').fadeOut(100);
         } else {
             $(this).next().fadeIn(100);
             $(this).next().css('display', 'flex');
         }
-        $('.btn_chat_messenger').fadeOut(100);
 
     });
 
