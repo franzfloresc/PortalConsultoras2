@@ -2,12 +2,10 @@
     var self = {};
     
     self.eventName = {
-        onFichaResponsiveLoaded: "onFichaResponsiveLoaded",
-        onCarruselDisplay: "onCarruselDisplay"
+        onFichaResponsiveLoaded: "onFichaResponsiveLoaded"
     };
 
     registerEvent.call(self, self.eventName.onFichaResponsiveLoaded);
-    registerEvent.call(self, self.eventName.onCarruselDisplay);
 
     return self;
 };

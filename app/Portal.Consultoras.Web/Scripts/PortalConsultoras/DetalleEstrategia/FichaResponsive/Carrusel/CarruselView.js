@@ -20,10 +20,10 @@ class CarruselView {
             id:"#divFichaEnriquecida",
             capa: "divFichaEnriquecida"
         };
-        this.divFichaCarrusel_Suggested = {
-            id:"#divFichaCarrusel_Suggested",
-            capa: "divFichaCarrusel_Suggested"
-        };
+        // this.divFichaCarrusel_Suggested = {
+        //     id:"#divFichaCarrusel_Suggested",
+        //     capa: "divFichaCarrusel_Suggested"
+        // };
         this.divCarrusel = {
             id: [
                 "#divFichaCarrusel_UpSelling", 
