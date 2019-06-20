@@ -174,6 +174,7 @@ var DetalleEstrategiaProvider = function () {
                 .done(function (data) {
                     estrategia.Hermanos = data.componentes;
                     estrategia.EsMultimarca = data.esMultimarca;
+                    estrategia.FotosCarrusel = [];
 
                     $.each(estrategia.Hermanos, function (idx, componente) {
 
@@ -186,7 +187,7 @@ var DetalleEstrategiaProvider = function () {
                         //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
                         //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
                         //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png'];
-                        estrategia.FotosCarrusel = [];
+
                         if (estrategia.Cuv === componente.Cuv) {
                             //if (typeof componente.FotosCarrusel != "undefined" && componente.FotosCarrusel != null && componente.FotosCarrusel.length > 0) {
                             //    estrategia.FotosCarrusel = componente.FotosCarrusel || [];
@@ -206,7 +207,7 @@ var DetalleEstrategiaProvider = function () {
             estrategia.Hermanos = [];
             estrategia.EsMultimarca = false;
         }
-
+        estrategia.FotosCarrusel = estrategia.FotosCarrusel || [];
         estrategia.Hermanos = estrategia.Hermanos || [];
 
         //estrategia.esCampaniaSiguiente = estrategia.CampaniaID !== _obtenerCampaniaActual();

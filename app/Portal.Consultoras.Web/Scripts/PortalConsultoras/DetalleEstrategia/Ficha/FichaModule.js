@@ -453,6 +453,28 @@ var FichaModule = (function (config) {
             _config.componenteDetalleModule.VerDetalleIndividual(estrategia);
         }
 
+        if (typeof estrategia.Hermanos != "undefined" && estrategia.Hermanos != null) {
+            $.each(estrategia.Hermanos, function (idx, componente) {
+
+                //componente.FotosCarrusel = ['https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
+                //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png'];
+                if (estrategia.Cuv === componente.Cuv) {
+                    //if (typeof componente.FotosCarrusel != "undefined" && componente.FotosCarrusel != null && componente.FotosCarrusel.length > 0) {
+                    //    estrategia.FotosCarrusel = componente.FotosCarrusel || [];
+                    //}
+                    estrategia.FotosCarrusel = componente.FotosCarrusel || [];
+                }
+            });
+        }
+
+        estrategia.FotosCarrusel = estrategia.FotosCarrusel || [];
         _setHandlebars(_template.producto, estrategia);
         /*TESLA-97*/
 
