@@ -170,9 +170,10 @@
     .contenedor_imagen .slick-dots li {
         position: relative;
         display: inline-block;
-        margin: 0 3px;
+        margin: 0 4px;
         padding: 0;
         cursor: pointer;
+        width: auto; /* Conflicto con slick-pedido.css [line:170px] */
     }
 
         .contenedor_imagen .slick-dots li button {
@@ -181,7 +182,7 @@
             display: block;
             width: 8px;
             height: 8px;
-            padding: 3px;
+            padding: 3.5px;
             cursor: pointer;
             color: transparent;
             border: 1px solid #979797;
@@ -204,4 +205,8 @@
     flex-wrap: wrap;
     flex-direction: column-reverse;
     flex-flow: wrap;
+}
+/*[Fixs]*/
+.slick-dots li button:before {
+    content: ""; /* conflicto en slick-pedido.css [line:202] */
 }
