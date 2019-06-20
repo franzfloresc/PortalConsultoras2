@@ -11,6 +11,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         public string Simbolo { get; set; }
         public decimal MontoDeuda { get; set; }
         public DateTime FechaVencimiento { get; set; }
+        public int AplicaPorcentaje { get; set; }
 
         public decimal PorcentajeGastosAdministrativos { get; set; }
 
@@ -83,11 +84,27 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
             }
         }
 
-        public decimal MontoGastosAdministrativos
+        public decimal MontoGastosAdministrativosBruto
         {
             get
             {
                 return decimal.Round(MontoDeuda * (PorcentajeGastosAdministrativos / 100), 2);
+            }
+        }
+
+        public string MontoGastosAdministrativosBrutoString
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(MontoGastosAdministrativosBruto, CodigoIso);
+            }
+        }
+       
+        public decimal MontoGastosAdministrativos
+        {
+            get
+            {
+                return AplicaPorcentaje == 1 ? decimal.Round(MontoDeuda * (PorcentajeGastosAdministrativos / 100), 2) : 0;
             }
         }
 
@@ -103,7 +120,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         {
             get
             {
-                return decimal.Round(MontoDeuda * (1 + PorcentajeGastosAdministrativos / 100), 2);
+                return AplicaPorcentaje == 1 ? decimal.Round(MontoDeuda * (1 + PorcentajeGastosAdministrativos / 100), 2) : decimal.Round(MontoDeuda, 2);
             }
         }
 
@@ -127,6 +144,7 @@ namespace Portal.Consultoras.Web.Models.PagoEnLinea
         public string TipoPago { get; set; }
         public string NumeroReferencia { get; set; }
         public bool EsMobile { get; set; }
+        public string Bancos { get; set; }
 
         public PagoEnLineaModel()
         {

@@ -1,11 +1,9 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,6 +54,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult MetodoPago()
         {
+            string bancos = string.Empty;
             if (!userData.TienePagoEnLinea)
                 return RedirectToAction("Index", "Bienvenida");
 
@@ -63,21 +62,17 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ListaMetodoPago = _pagoEnLineaProvider.ObtenerListaMetodoPago()
             };
-            SessionManager.SetDatosPagoVisa(model);
 
-            return View(model);
-        }
-
-        [HttpPost]
-        public string ObtenerBancos()
-        {
-            string bancos = "";
             using (var ps = new PedidoServiceClient())
             {
                 bancos = ps.ObtenerPagoEnLineaURLPaginasBancos(userData.PaisID);
 
             }
-            return bancos;
+
+            model.Bancos = bancos;
+            SessionManager.SetDatosPagoVisa(model);
+
+            return View(model);
         }
 
         [HttpGet]

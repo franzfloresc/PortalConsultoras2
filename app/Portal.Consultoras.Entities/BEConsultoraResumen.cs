@@ -52,6 +52,9 @@ namespace Portal.Consultoras.Entities
 
             [DataMember]
             public int Cantidadproductos { get; set; }
+
+            [DataMember]
+            public int CantidadProductosPedido { get; set; }
         }
 
         [DataContract]
@@ -105,6 +108,8 @@ namespace Portal.Consultoras.Entities
                 Pedido.Cantidadclientes = row.GetColumn<int>("CantidadclientesPedido");
             if (row.HasColumn("CantidadproductosPedido"))
                 Pedido.Cantidadproductos = row.GetColumn<int>("CantidadproductosPedido");
+            if (row.HasColumn("ProductosPedido"))
+                Pedido.CantidadProductosPedido = row.GetColumn<int>("ProductosPedido");
         }
     }
 }

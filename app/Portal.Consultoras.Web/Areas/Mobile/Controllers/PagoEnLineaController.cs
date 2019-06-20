@@ -38,6 +38,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult MetodoPago()
         {
+            string bancos = string.Empty;
             if (!userData.TienePagoEnLinea)
                 return RedirectToAction("Index", "Bienvenida");
 
@@ -45,23 +46,18 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 ListaMetodoPago = _pagoEnLineaProvider.ObtenerListaMetodoPago()
             };
+
+            using (var ps = new PedidoServiceClient())
+            {
+                bancos = ps.ObtenerPagoEnLineaURLPaginasBancos(userData.PaisID);
+
+            }
+
+            model.Bancos = bancos;
             SessionManager.SetDatosPagoVisa(model);
 
             return View(model);
         }
-
-
-        [HttpPost]
-        public string ObtenerBancos()
-        {
-            string bancos = "";
-            using (var ps = new PedidoServiceClient())
-            {
-                bancos = ps.ObtenerPagoEnLineaURLPaginasBancos(userData.PaisID);
-            }
-            return bancos;
-        }
-
 
         [HttpGet]
         public ActionResult PasarelaPago()

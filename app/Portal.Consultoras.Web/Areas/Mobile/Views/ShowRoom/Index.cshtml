@@ -38,7 +38,7 @@
 
 <div class="wrapper_resumen_mobile">
     <div id="orderby-filter">
-        <div id="content-orderby" style="margin-top: 15px;">
+        <div id="content-orderby" style="padding-top: 15px;">
             @if (Model.FiltersBySorting != null)
             {
                 <select id="orderby-price" class="select-ffc">
@@ -311,7 +311,10 @@ else
             <input type="hidden" class="DescripcionMarca" value="{{oferta.DescripcionMarca}}" />
             <input type="hidden" class="posicionEstrategia" value="{{oferta.Posicion}}" />
         </div>
-        <div style="display:none;"><div data-estrategia="{{JSON2string oferta}}"></div></div>
+        <div style="display:none;">
+            <div data-estrategia="{{JSON2string oferta}}"></div>
+            <div data-imagen-producto="{{ImgSmall oferta.FotoProducto01}}"></div>
+        </div>
         <div data-compartir-campos="" style="display:none;">
             <input type="hidden" class="CUV" value="{{oferta.CUV2}}" />
             <input type="hidden" class="rsFBMensaje" value="" />
@@ -346,11 +349,11 @@ else
             <div class="nombre_set_producto_hoy">{{{oferta.Contenido}}}</div>
             <div class="content_redes_ficha" data-item="">
                 @if (mobileConfiguracion.MostrarHipervinculo)
-                {
-                    <div class="texto_redes">Comparte este producto con tus clientes:</div>
-                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
-                }
+            {
+                <div class="texto_redes">Comparte este producto con tus clientes:</div>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+        }
             </div>
         </div>
     </div>

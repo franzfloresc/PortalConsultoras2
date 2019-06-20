@@ -72,7 +72,7 @@
 </head>
 <body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="" style="height: 750px;">
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManagerBody.cshtml")
-    
+
     @Html.Partial("~/Views/Shared/VistaParcialMenu/_SACMenu.cshtml")
 
     <div id="cont_contenido" style="">
@@ -84,7 +84,12 @@
         </div>
     </div>
 
+    <div id="DialogMensajeAdm" style="display:none;">
+        <div class="Content_modal" id="mensajeMostrar"></div>
+    </div>
+
     <div class="clear"></div>
+
     <div id="footer">
         @Html.Partial("~/Views/Shared/VistaParcialMenu/_SACFooter.cshtml")
     </div>

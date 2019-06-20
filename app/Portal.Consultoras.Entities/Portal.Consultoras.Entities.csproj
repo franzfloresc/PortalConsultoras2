@@ -61,6 +61,13 @@
     <Compile Include="AsesoraOnline\BEAsesoraOnline.cs" />
     <Compile Include="Auditoria.cs" />
     <Compile Include="BEBuscadorYFiltros.cs" />
+    <Compile Include="BEContenidoAppDetaAct.cs" />
+    <Compile Include="BEContenidoAppHistoria.cs" />
+    <Compile Include="BEBeneficiosCaminoBrillante.cs" />
+    <Compile Include="BEContenidoAppDetalle.cs" />
+    <Compile Include="BEContenidoAppDeta.cs" />
+    <Compile Include="BEContenidoAppList.cs" />
+    <Compile Include="BEContenidoApp.cs" />
     <Compile Include="BeReporteContrato.cs" />
     <Compile Include="BEContrato.cs" />
     <Compile Include="BEReporteRevisionIncidencias.cs" />
@@ -82,14 +89,29 @@
     <Compile Include="BEValidacionDatos.cs" />
     <Compile Include="BEPremiosProgramaNuevas.cs" />
     <Compile Include="BuscadorYFiltros\BEBuscadorYFiltrosConfiguracion.cs" />
+    <Compile Include="BuscadorYFiltros\BEFiltroBuscador.cs" />
+    <Compile Include="CaminoBrillante\BEConsultoraCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\BEDesmostradoresCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\BEOrdenFiltrosCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\BEKitsHistoricoConsultora.cs" />
+    <Compile Include="CaminoBrillante\BELogroCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\BEConfiguracionMedallaCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\BENivelCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\BEKitCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\BEPeriodoCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\BEProductoCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\BEValidacionCaminoBrillante.cs" />
     <Compile Include="CargaMasiva\BECargaMasivaImagenes.cs" />
     <Compile Include="BEMiCertificado.cs" />
     <Compile Include="BEPedidoWebDetalleParametros.cs" />
+    <Compile Include="CDR\BECDRProductoComplementario.cs" />
     <Compile Include="Cliente\BEMovimientoDetalle.cs" />
+    <Compile Include="ComentariosProducto\BEComentarioProducto.cs" />
     <Compile Include="Comunicado\BEComunicadoSegmentacion.cs" />
     <Compile Include="Comunicado\BEComunicadoVista.cs" />
     <Compile Include="DENativeType.cs" />
     <Compile Include="Estrategia\EstrategiaComponente.cs" />
+    <Compile Include="Oferta\BEConfiguracionOfertasHomeApp.cs" />
     <Compile Include="OpcionesVerificacion\BECodigoGenerado.cs" />
     <Compile Include="OpcionesVerificacion\BEFiltrosOpcionesVerificacion.cs" />
     <Compile Include="OpcionesVerificacion\BEOpcionesVerificacion.cs" />
@@ -98,14 +120,20 @@
     <Compile Include="Oferta\BEGuiaNegocio.cs" />
     <Compile Include="Oferta\BEOfertaDelDia.cs" />
     <Compile Include="Oferta\BEOfertaFinal.cs" />
+    <Compile Include="OrdenYFiltros\BEFiltro.cs" />
+    <Compile Include="OrdenYFiltros\BEOrden.cs" />
+    <Compile Include="OrdenYFiltros\BEOrdenFiltroConfiguracion.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLinea.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaBanco.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaVisa.cs" />
+    <Compile Include="Pedido\BEDireccionEntrega.cs" />
     <Compile Include="Pedido\BEPedidoReservaResult.cs" />
     <Compile Include="Producto\BEBuscadorResponse.cs" />
+    <Compile Include="ProgramaNuevas\BEPremioNuevas.cs" />
     <Compile Include="LimiteVenta\BERespValidarLimiteVenta.cs" />
     <Compile Include="Producto\BEProductoRecomendado.cs" />
     <Compile Include="ProgramaNuevas\BENivelesProgramaNuevas.cs" />
+    <Compile Include="ProgramaNuevas\BEProductoEstraProgNuevas.cs" />
     <Compile Include="ProgramaNuevas\BERespValidarElectivos.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaMedioPago.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaPasarelaCampos.cs" />
@@ -120,6 +148,7 @@
     <Compile Include="Pedido\BEPedidoBarra.cs" />
     <Compile Include="Pedido\BEPedidoBuscar.cs" />
     <Compile Include="ProgramaNuevas\BEConsultoraProgramaNuevas.cs" />
+    <Compile Include="ReservaProl\BEMensajeProl.cs" />
     <Compile Include="ReservaProl\BEPedidoWebDetalleExplotado.cs" />
     <Compile Include="Estrategia\BEConfiguracionProgramaNuevasApp.cs" />
     <Compile Include="Estrategia\BEEstrategiaMasiva.cs" />
@@ -313,6 +342,15 @@
     <Compile Include="DEPedidoWebDetalleObs.cs" />
     <Compile Include="RevistaDigital\BERevistaDigitalSuscripcion.cs" />
     <Compile Include="Cupon\BECuponConsultora.cs" />
+    <Compile Include="Search\RequestRecomendacion\Estructura\Configuracion.cs" />
+    <Compile Include="Search\RequestRecomendacion\Estructura\ProductoSolicitado.cs" />
+    <Compile Include="Search\RequestRecomendacion\RecomendadoRequest.cs" />
+    <Compile Include="Search\ResponseRecomendacion\Estructura\Componente.cs" />
+    <Compile Include="Search\ResponseRecomendacion\Estructura\Estrategia.cs" />
+    <Compile Include="Search\ResponseRecomendacion\Estructura\EstrategiaDetalle.cs" />
+    <Compile Include="Search\ResponseRecomendacion\Estructura\Grupo.cs" />
+    <Compile Include="Search\ResponseRecomendacion\OutputOfertaLista.cs" />
+    <Compile Include="Search\Response\ResponseStatus.cs" />
     <Compile Include="ShowRoom\BEShowRoomCategoria.cs" />
     <Compile Include="ShowRoom\BEShowRoomCompraPorCompra.cs" />
     <Compile Include="ShowRoom\BEShowRoomNivel.cs" />
@@ -411,6 +449,7 @@
     <Compile Include="ShowRoom\BEShowRoomPersonalizacionNivel.cs" />
     <Compile Include="ShowRoom\BEShowRoomTipoOferta.cs" />
     <Compile Include="BEUsuarioConfiguracion.cs" />
+    <Compile Include="Usuario\BEUsuarioOpciones.cs" />
     <Compile Include="Usuario\BEUsuarioPerfil.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -419,7 +458,9 @@
       <Name>Portal.Consultoras.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="AdministracionPoput\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

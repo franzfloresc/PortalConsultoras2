@@ -52,7 +52,7 @@
     </section>
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpLoadingMobile.cshtml")
-   
+
     @Scripts.Render("~/Bundle/Js/Mobile/MobileLayout")
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
@@ -257,16 +257,30 @@
         };
         var usuarioNombre = '@ViewBag.UsuarioNombre';
         var OrigenDesktopODD = 0;
+
+        //INI SALUD-58
+        var codigoConsultora = '@ViewBag.CodigoConsultoraDL';
+        var pseudoParamNotif = '@ViewBag.PseudoParamNotif';
+        var inicial = localStorage.getItem('KeyPseudoParam');
+        if (inicial === 'undefinied' || inicial === undefined || inicial === null)
+            localStorage.setItem('KeyPseudoParam', pseudoParamNotif); //se almacena por primera vez
+        //FIN SALUD-58
     </script>
     @RenderSection("scripts", required: false)
-    @if (TempData.ContainsKey("PixelCodigoIso"))
-    {
-        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
-        <script>
-            var pixelAnalytics = Analytics();
-            pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
-        </script>
-        @TempData.Remove("PixelCodigoIso");
-    }
+
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
+    <script>
+        var pixelAnalytics = Analytics({ pixelId : '@Constantes.Facebook.FB_Pixel'});
+
+            @if (TempData.ContainsKey("PixelCodigoIso"))
+            {
+                @:pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
+                TempData.Remove("PixelCodigoIso");
+            }
+        pixelAnalytics.invocarPageViewPixelById();
+    </script>
+
+    <script type="text/javascript" id="lightning_bolt" src="//cdn-akamai.mookie1.com/LB/LightningBolt.js"></script>
+
 </body>
 </html>

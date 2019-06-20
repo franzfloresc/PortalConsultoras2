@@ -18,6 +18,12 @@ namespace Portal.Consultoras.Web.Providers
     public class ConsultaProlProvider
     {
         private readonly static HttpClient httpClient = new HttpClient();
+        protected TablaLogicaProvider _tablaLogicaProvider;
+
+        public ConsultaProlProvider()
+        {
+            _tablaLogicaProvider = new TablaLogicaProvider();
+        }
 
         static ConsultaProlProvider()
         {
@@ -83,7 +89,27 @@ namespace Portal.Consultoras.Web.Providers
             return "";
         }
 
-        public List<BEEstrategia> ActualizarEstrategiaStockPROL(List<BEEstrategia> lista, string paisISO, int campaniaID, string codigoConsultora)
+        public bool GetValidarDiasAntesStock(UsuarioModel userData)
+        {
+            var validar = false;
+            var lstTablaLogicaDatos = _tablaLogicaProvider.GetTablaLogicaDatos(userData.PaisID, ConsTablaLogica.OfertasConsultora.TablaLogicaId, true);
+            if (lstTablaLogicaDatos.Any())
+            {
+                var diasAntesStock = lstTablaLogicaDatos.FirstOrDefault(t => t.Codigo == ConsTablaLogica.OfertasConsultora.DiasAntesStock).Valor;
+
+                if (!string.IsNullOrEmpty(diasAntesStock))
+                {
+                    var iDiasAntesStock = int.Parse(diasAntesStock);
+                    if (Util.GetDiaActual(userData.ZonaHoraria) >= userData.FechaInicioCampania.AddDays(iDiasAntesStock))
+                    {
+                        validar = true;
+                    }
+                }
+            }
+            return validar;
+        }
+
+        public List<BEEstrategia> ActualizarEstrategiaStockPROL(List<BEEstrategia> lista, string paisISO, int campaniaID, string codigoConsultora, bool esFacturacion)
         {
             if (lista.Count == 0) return lista;
 
@@ -95,7 +121,8 @@ namespace Portal.Consultoras.Web.Providers
                     PaisISO = paisISO,
                     CampaniaID = campaniaID,
                     ListaCUVs = listaCUVs,
-                    FlagDetalle = Constantes.ConsultaPROL.StockPadre
+                    FlagDetalle = Constantes.ConsultaPROL.StockPadre,
+                    EsFacturacion = esFacturacion
                 };
 
                 string requestUrl = Constantes.ConsultaPROL.ConsultaStockProl;
@@ -116,7 +143,7 @@ namespace Portal.Consultoras.Web.Providers
                         var temp = respuesta.FirstOrDefault(r => r.COD_VENTA_PADRE == x.CUV2);
                         if (temp != null)
                         {
-                            x.TieneStock = (temp.STOCK == 1);
+                            x.TieneStock = temp.STOCK == 1;
                         }
                     });
                 }
@@ -130,18 +157,61 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public List<EstrategiaComponenteModel> ActualizarComponenteStockPROL(List<EstrategiaComponenteModel> lista ,string cuvPadre,string paisISO, int campaniaID, string codigoConsultora)
+        public bool TieneStockPROLEstrategia(string cuv, string paisISO, int campaniaID, string codigoConsultora)
         {
-            if (lista.Count == 0) return lista;
-
+            bool result = false;
             try
             {
                 ConsultaStockModel stock = new ConsultaStockModel
                 {
                     PaisISO = paisISO,
                     CampaniaID = campaniaID,
+                    ListaCUVs = cuv,
+                    FlagDetalle = Constantes.ConsultaPROL.StockPadre
+                };
+
+                string requestUrl = Constantes.ConsultaPROL.ConsultaStockProl;
+                string jsonParameters = JsonConvert.SerializeObject(stock);
+                var taskApi = Task.Run(() => RespMSConsultaProl(jsonParameters, requestUrl, "post", codigoConsultora, paisISO));
+                Task.WhenAll(taskApi);
+                string content = taskApi.Result;
+                var respuesta = JsonConvert.DeserializeObject<List<RespuestaStockModel>>(content);
+
+                if (respuesta.Count == 0)
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(new Exception("ConsultaProlProvider_ActualizarEstrategiaStockPROL: Null content"), codigoConsultora, paisISO);
+                }
+                else
+                {
+                    var temp = respuesta.FirstOrDefault(r => r.COD_VENTA_PADRE == cuv);
+                    if (temp != null)
+                    {
+                        result = (temp.STOCK == 1);
+                    }
+                }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, codigoConsultora, paisISO);
+                return false;
+            }
+        }
+
+        public List<EstrategiaComponenteModel> ActualizarComponenteStockPROL(List<EstrategiaComponenteModel> lista, string cuvPadre, string paisISO, int campaniaID, string codigoConsultora, bool esFacturacion)
+        {
+            try
+            {
+                if (!lista.Any()) return lista;
+
+                ConsultaStockModel stock = new ConsultaStockModel
+                {
+                    PaisISO = paisISO,
+                    CampaniaID = campaniaID,
                     ListaCUVs = cuvPadre,
-                    FlagDetalle = Constantes.ConsultaPROL.StockHijo
+                    FlagDetalle = Constantes.ConsultaPROL.StockHijo,
+                    EsFacturacion = esFacturacion
                 };
 
                 string requestUrl = Constantes.ConsultaPROL.ConsultaStockProl;

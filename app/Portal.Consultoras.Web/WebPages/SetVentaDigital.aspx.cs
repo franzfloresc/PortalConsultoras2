@@ -12,9 +12,6 @@ namespace Portal.Consultoras.Web.WebPages
 {
     public partial class SetVentaDigital : System.Web.UI.Page
     {
-        //public static string ImagenCuv = "";
-        //public static string NombreProducto = "";
-
         protected void Page_Load(object sender, EventArgs e)
         {
             string id = Request.QueryString["id"];

@@ -32,13 +32,51 @@
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System" />
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Mobile" />
-      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
-      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Producto" />
-      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
-      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Oferta" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Producto" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.BuscadorYFiltros" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Comunicado" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="ISACService_EnviarSolicitudClienteaGZ_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarSolicitudClienteaGZ" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_EnviarSolicitudClienteaGZ_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarSolicitudClienteaGZResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_BuscarSolicitudAnuladasRechazadas_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuscarSolicitudAnuladasRechazadas" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_BuscarSolicitudAnuladasRechazadas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuscarSolicitudAnuladasRechazadasResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DetalleSolicitudAnuladasRechazadas_InputMessage">
+    <wsdl:part name="parameters" element="tns:DetalleSolicitudAnuladasRechazadas" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_DetalleSolicitudAnuladasRechazadas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DetalleSolicitudAnuladasRechazadasResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ObtenerConfiguracionPortal_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerConfiguracionPortal" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ObtenerConfiguracionPortal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerConfiguracionPortalResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ActualizarConfiguracionPortal_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarConfiguracionPortal" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ActualizarConfiguracionPortal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarConfiguracionPortalResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetInformacionCursoLiderDescarga_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInformacionCursoLiderDescarga" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetInformacionCursoLiderDescarga_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInformacionCursoLiderDescargaResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_GetEstadoSolicitudCliente_InputMessage">
     <wsdl:part name="parameters" element="tns:GetEstadoSolicitudCliente" />
   </wsdl:message>
@@ -200,6 +238,12 @@
   </wsdl:message>
   <wsdl:message name="ISACService_ListarSeccionConfiguracionOfertasHome_OutputMessage">
     <wsdl:part name="parameters" element="tns:ListarSeccionConfiguracionOfertasHomeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ListarSeccionConfiguracionOfertasApp_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarSeccionConfiguracionOfertasApp" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ListarSeccionConfiguracionOfertasApp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarSeccionConfiguracionOfertasAppResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_ActualizarDescripcionEstrategia_InputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarDescripcionEstrategia" />
@@ -435,6 +479,12 @@
   <wsdl:message name="ISACService_GetOrdenamientoFiltrosBuscador_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetOrdenamientoFiltrosBuscadorResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_GetFiltroBuscador_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFiltroBuscador" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetFiltroBuscador_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFiltroBuscadorResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_SelectFeErratas_InputMessage">
     <wsdl:part name="parameters" element="tns:SelectFeErratas" />
   </wsdl:message>
@@ -596,6 +646,12 @@
   </wsdl:message>
   <wsdl:message name="ISACService_ObtenerComunicadoPorConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerComunicadoPorConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ObtenerSegmentacionInformativaPorConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSegmentacionInformativaPorConsultora" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ObtenerSegmentacionInformativaPorConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSegmentacionInformativaPorConsultoraResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_ObtenerOrdenPopUpMostrar_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerOrdenPopUpMostrar" />
@@ -843,6 +899,30 @@
   <wsdl:message name="ISACService_RechazarSolicitudCliente_OutputMessage">
     <wsdl:part name="parameters" element="tns:RechazarSolicitudClienteResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_UpdSolicitudClienteDetalleEstado_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdSolicitudClienteDetalleEstado" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdSolicitudClienteDetalleEstado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdSolicitudClienteDetalleEstadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdSolicitudClienteDetalleCantidad_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdSolicitudClienteDetalleCantidad" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdSolicitudClienteDetalleCantidad_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdSolicitudClienteDetalleCantidadResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdSolicitudClienteRechazar_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdSolicitudClienteRechazar" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdSolicitudClienteRechazar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdSolicitudClienteRechazarResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdSolicitudClienteRechazarPorCuv_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdSolicitudClienteRechazarPorCuv" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdSolicitudClienteRechazarPorCuv_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdSolicitudClienteRechazarPorCuvResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_ReasignarSolicitudCliente_InputMessage">
     <wsdl:part name="parameters" element="tns:ReasignarSolicitudCliente" />
   </wsdl:message>
@@ -866,42 +946,6 @@
   </wsdl:message>
   <wsdl:message name="ISACService_GetMotivosRechazo_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetMotivosRechazoResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_EnviarSolicitudClienteaGZ_InputMessage">
-    <wsdl:part name="parameters" element="tns:EnviarSolicitudClienteaGZ" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_EnviarSolicitudClienteaGZ_OutputMessage">
-    <wsdl:part name="parameters" element="tns:EnviarSolicitudClienteaGZResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_BuscarSolicitudAnuladasRechazadas_InputMessage">
-    <wsdl:part name="parameters" element="tns:BuscarSolicitudAnuladasRechazadas" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_BuscarSolicitudAnuladasRechazadas_OutputMessage">
-    <wsdl:part name="parameters" element="tns:BuscarSolicitudAnuladasRechazadasResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DetalleSolicitudAnuladasRechazadas_InputMessage">
-    <wsdl:part name="parameters" element="tns:DetalleSolicitudAnuladasRechazadas" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_DetalleSolicitudAnuladasRechazadas_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DetalleSolicitudAnuladasRechazadasResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_ObtenerConfiguracionPortal_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerConfiguracionPortal" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_ObtenerConfiguracionPortal_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerConfiguracionPortalResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_ActualizarConfiguracionPortal_InputMessage">
-    <wsdl:part name="parameters" element="tns:ActualizarConfiguracionPortal" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_ActualizarConfiguracionPortal_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ActualizarConfiguracionPortalResponse" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetInformacionCursoLiderDescarga_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetInformacionCursoLiderDescarga" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetInformacionCursoLiderDescarga_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetInformacionCursoLiderDescargaResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_GetCronogramaByCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCronogramaByCampania" />
@@ -1414,6 +1458,30 @@
     <wsdl:part name="parameters" element="tns:DeleteIncentivoResponse" />
   </wsdl:message>
   <wsdl:portType name="ISACService">
+    <wsdl:operation name="EnviarSolicitudClienteaGZ">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZ" message="tns:ISACService_EnviarSolicitudClienteaGZ_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZResponse" message="tns:ISACService_EnviarSolicitudClienteaGZ_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BuscarSolicitudAnuladasRechazadas">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/BuscarSolicitudAnuladasRechazadas" message="tns:ISACService_BuscarSolicitudAnuladasRechazadas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/BuscarSolicitudAnuladasRechazadasResponse" message="tns:ISACService_BuscarSolicitudAnuladasRechazadas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DetalleSolicitudAnuladasRechazadas">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DetalleSolicitudAnuladasRechazadas" message="tns:ISACService_DetalleSolicitudAnuladasRechazadas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DetalleSolicitudAnuladasRechazadasResponse" message="tns:ISACService_DetalleSolicitudAnuladasRechazadas_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerConfiguracionPortal">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ObtenerConfiguracionPortal" message="tns:ISACService_ObtenerConfiguracionPortal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ObtenerConfiguracionPortalResponse" message="tns:ISACService_ObtenerConfiguracionPortal_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarConfiguracionPortal">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ActualizarConfiguracionPortal" message="tns:ISACService_ActualizarConfiguracionPortal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ActualizarConfiguracionPortalResponse" message="tns:ISACService_ActualizarConfiguracionPortal_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInformacionCursoLiderDescarga">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetInformacionCursoLiderDescarga" message="tns:ISACService_GetInformacionCursoLiderDescarga_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetInformacionCursoLiderDescargaResponse" message="tns:ISACService_GetInformacionCursoLiderDescarga_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetEstadoSolicitudCliente">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetEstadoSolicitudCliente" message="tns:ISACService_GetEstadoSolicitudCliente_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetEstadoSolicitudClienteResponse" message="tns:ISACService_GetEstadoSolicitudCliente_OutputMessage" />
@@ -1521,6 +1589,10 @@
     <wsdl:operation name="ListarSeccionConfiguracionOfertasHome">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasHome" message="tns:ISACService_ListarSeccionConfiguracionOfertasHome_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasHomeResponse" message="tns:ISACService_ListarSeccionConfiguracionOfertasHome_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarSeccionConfiguracionOfertasApp">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasApp" message="tns:ISACService_ListarSeccionConfiguracionOfertasApp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasAppResponse" message="tns:ISACService_ListarSeccionConfiguracionOfertasApp_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ActualizarDescripcionEstrategia">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ActualizarDescripcionEstrategia" message="tns:ISACService_ActualizarDescripcionEstrategia_InputMessage" />
@@ -1678,6 +1750,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetOrdenamientoFiltrosBuscador" message="tns:ISACService_GetOrdenamientoFiltrosBuscador_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetOrdenamientoFiltrosBuscadorResponse" message="tns:ISACService_GetOrdenamientoFiltrosBuscador_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetFiltroBuscador">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetFiltroBuscador" message="tns:ISACService_GetFiltroBuscador_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetFiltroBuscadorResponse" message="tns:ISACService_GetFiltroBuscador_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="SelectFeErratas">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectFeErratas" message="tns:ISACService_SelectFeErratas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectFeErratasResponse" message="tns:ISACService_SelectFeErratas_OutputMessage" />
@@ -1785,6 +1861,10 @@
     <wsdl:operation name="ObtenerComunicadoPorConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ObtenerComunicadoPorConsultora" message="tns:ISACService_ObtenerComunicadoPorConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ObtenerComunicadoPorConsultoraResponse" message="tns:ISACService_ObtenerComunicadoPorConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSegmentacionInformativaPorConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ObtenerSegmentacionInformativaPorConsultora" message="tns:ISACService_ObtenerSegmentacionInformativaPorConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ObtenerSegmentacionInformativaPorConsultoraResponse" message="tns:ISACService_ObtenerSegmentacionInformativaPorConsultora_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerOrdenPopUpMostrar">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ObtenerOrdenPopUpMostrar" message="tns:ISACService_ObtenerOrdenPopUpMostrar_InputMessage" />
@@ -1950,6 +2030,22 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/RechazarSolicitudCliente" message="tns:ISACService_RechazarSolicitudCliente_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/RechazarSolicitudClienteResponse" message="tns:ISACService_RechazarSolicitudCliente_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="UpdSolicitudClienteDetalleEstado">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdSolicitudClienteDetalleEstado" message="tns:ISACService_UpdSolicitudClienteDetalleEstado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdSolicitudClienteDetalleEstadoResponse" message="tns:ISACService_UpdSolicitudClienteDetalleEstado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdSolicitudClienteDetalleCantidad">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdSolicitudClienteDetalleCantidad" message="tns:ISACService_UpdSolicitudClienteDetalleCantidad_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdSolicitudClienteDetalleCantidadResponse" message="tns:ISACService_UpdSolicitudClienteDetalleCantidad_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdSolicitudClienteRechazar">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdSolicitudClienteRechazar" message="tns:ISACService_UpdSolicitudClienteRechazar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdSolicitudClienteRechazarResponse" message="tns:ISACService_UpdSolicitudClienteRechazar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdSolicitudClienteRechazarPorCuv">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdSolicitudClienteRechazarPorCuv" message="tns:ISACService_UpdSolicitudClienteRechazarPorCuv_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdSolicitudClienteRechazarPorCuvResponse" message="tns:ISACService_UpdSolicitudClienteRechazarPorCuv_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ReasignarSolicitudCliente">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ReasignarSolicitudCliente" message="tns:ISACService_ReasignarSolicitudCliente_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ReasignarSolicitudClienteResponse" message="tns:ISACService_ReasignarSolicitudCliente_OutputMessage" />
@@ -1965,30 +2061,6 @@
     <wsdl:operation name="GetMotivosRechazo">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetMotivosRechazo" message="tns:ISACService_GetMotivosRechazo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetMotivosRechazoResponse" message="tns:ISACService_GetMotivosRechazo_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="EnviarSolicitudClienteaGZ">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZ" message="tns:ISACService_EnviarSolicitudClienteaGZ_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZResponse" message="tns:ISACService_EnviarSolicitudClienteaGZ_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="BuscarSolicitudAnuladasRechazadas">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/BuscarSolicitudAnuladasRechazadas" message="tns:ISACService_BuscarSolicitudAnuladasRechazadas_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/BuscarSolicitudAnuladasRechazadasResponse" message="tns:ISACService_BuscarSolicitudAnuladasRechazadas_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="DetalleSolicitudAnuladasRechazadas">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/DetalleSolicitudAnuladasRechazadas" message="tns:ISACService_DetalleSolicitudAnuladasRechazadas_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/DetalleSolicitudAnuladasRechazadasResponse" message="tns:ISACService_DetalleSolicitudAnuladasRechazadas_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerConfiguracionPortal">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ObtenerConfiguracionPortal" message="tns:ISACService_ObtenerConfiguracionPortal_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ObtenerConfiguracionPortalResponse" message="tns:ISACService_ObtenerConfiguracionPortal_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarConfiguracionPortal">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ActualizarConfiguracionPortal" message="tns:ISACService_ActualizarConfiguracionPortal_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ActualizarConfiguracionPortalResponse" message="tns:ISACService_ActualizarConfiguracionPortal_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetInformacionCursoLiderDescarga">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetInformacionCursoLiderDescarga" message="tns:ISACService_GetInformacionCursoLiderDescarga_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetInformacionCursoLiderDescargaResponse" message="tns:ISACService_GetInformacionCursoLiderDescarga_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetCronogramaByCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCronogramaByCampania" message="tns:ISACService_GetCronogramaByCampania_InputMessage" />
@@ -2333,6 +2405,60 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISACService" type="tns:ISACService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EnviarSolicitudClienteaGZ">
+      <soap:operation soapAction="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZ" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarSolicitudAnuladasRechazadas">
+      <soap:operation soapAction="http://tempuri.org/ISACService/BuscarSolicitudAnuladasRechazadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DetalleSolicitudAnuladasRechazadas">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DetalleSolicitudAnuladasRechazadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerConfiguracionPortal">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerConfiguracionPortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarConfiguracionPortal">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarConfiguracionPortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInformacionCursoLiderDescarga">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetInformacionCursoLiderDescarga" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetEstadoSolicitudCliente">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetEstadoSolicitudCliente" style="document" />
       <wsdl:input>
@@ -2569,6 +2695,15 @@
     </wsdl:operation>
     <wsdl:operation name="ListarSeccionConfiguracionOfertasHome">
       <soap:operation soapAction="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasHome" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarSeccionConfiguracionOfertasApp">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasApp" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2927,6 +3062,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetFiltroBuscador">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetFiltroBuscador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="SelectFeErratas">
       <soap:operation soapAction="http://tempuri.org/ISACService/SelectFeErratas" style="document" />
       <wsdl:input>
@@ -3163,6 +3307,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerComunicadoPorConsultora">
       <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerComunicadoPorConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSegmentacionInformativaPorConsultora">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerSegmentacionInformativaPorConsultora" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3539,6 +3692,42 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdSolicitudClienteDetalleEstado">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdSolicitudClienteDetalleEstado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdSolicitudClienteDetalleCantidad">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdSolicitudClienteDetalleCantidad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdSolicitudClienteRechazar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdSolicitudClienteRechazar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdSolicitudClienteRechazarPorCuv">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdSolicitudClienteRechazarPorCuv" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ReasignarSolicitudCliente">
       <soap:operation soapAction="http://tempuri.org/ISACService/ReasignarSolicitudCliente" style="document" />
       <wsdl:input>
@@ -3568,60 +3757,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetMotivosRechazo">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetMotivosRechazo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EnviarSolicitudClienteaGZ">
-      <soap:operation soapAction="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZ" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="BuscarSolicitudAnuladasRechazadas">
-      <soap:operation soapAction="http://tempuri.org/ISACService/BuscarSolicitudAnuladasRechazadas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DetalleSolicitudAnuladasRechazadas">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DetalleSolicitudAnuladasRechazadas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerConfiguracionPortal">
-      <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerConfiguracionPortal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarConfiguracionPortal">
-      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarConfiguracionPortal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetInformacionCursoLiderDescarga">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetInformacionCursoLiderDescarga" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4398,6 +4533,60 @@
   <wsdl:binding name="BasicHttpsBinding_ISACService" type="tns:ISACService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_ISACService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="EnviarSolicitudClienteaGZ">
+      <soap:operation soapAction="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZ" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarSolicitudAnuladasRechazadas">
+      <soap:operation soapAction="http://tempuri.org/ISACService/BuscarSolicitudAnuladasRechazadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DetalleSolicitudAnuladasRechazadas">
+      <soap:operation soapAction="http://tempuri.org/ISACService/DetalleSolicitudAnuladasRechazadas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerConfiguracionPortal">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerConfiguracionPortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarConfiguracionPortal">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarConfiguracionPortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInformacionCursoLiderDescarga">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetInformacionCursoLiderDescarga" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetEstadoSolicitudCliente">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetEstadoSolicitudCliente" style="document" />
       <wsdl:input>
@@ -4634,6 +4823,15 @@
     </wsdl:operation>
     <wsdl:operation name="ListarSeccionConfiguracionOfertasHome">
       <soap:operation soapAction="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasHome" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarSeccionConfiguracionOfertasApp">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasApp" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4992,6 +5190,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetFiltroBuscador">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetFiltroBuscador" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="SelectFeErratas">
       <soap:operation soapAction="http://tempuri.org/ISACService/SelectFeErratas" style="document" />
       <wsdl:input>
@@ -5228,6 +5435,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerComunicadoPorConsultora">
       <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerComunicadoPorConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerSegmentacionInformativaPorConsultora">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerSegmentacionInformativaPorConsultora" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5604,6 +5820,42 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdSolicitudClienteDetalleEstado">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdSolicitudClienteDetalleEstado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdSolicitudClienteDetalleCantidad">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdSolicitudClienteDetalleCantidad" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdSolicitudClienteRechazar">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdSolicitudClienteRechazar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdSolicitudClienteRechazarPorCuv">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdSolicitudClienteRechazarPorCuv" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ReasignarSolicitudCliente">
       <soap:operation soapAction="http://tempuri.org/ISACService/ReasignarSolicitudCliente" style="document" />
       <wsdl:input>
@@ -5633,60 +5885,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetMotivosRechazo">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetMotivosRechazo" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="EnviarSolicitudClienteaGZ">
-      <soap:operation soapAction="http://tempuri.org/ISACService/EnviarSolicitudClienteaGZ" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="BuscarSolicitudAnuladasRechazadas">
-      <soap:operation soapAction="http://tempuri.org/ISACService/BuscarSolicitudAnuladasRechazadas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DetalleSolicitudAnuladasRechazadas">
-      <soap:operation soapAction="http://tempuri.org/ISACService/DetalleSolicitudAnuladasRechazadas" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerConfiguracionPortal">
-      <soap:operation soapAction="http://tempuri.org/ISACService/ObtenerConfiguracionPortal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarConfiguracionPortal">
-      <soap:operation soapAction="http://tempuri.org/ISACService/ActualizarConfiguracionPortal" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetInformacionCursoLiderDescarga">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetInformacionCursoLiderDescarga" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

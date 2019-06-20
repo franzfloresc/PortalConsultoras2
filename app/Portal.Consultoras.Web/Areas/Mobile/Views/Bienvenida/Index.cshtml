@@ -18,10 +18,17 @@
     Model.NombreConsultora = Util.SubStr(Model.NombreConsultora, 0).ToUpper();
     var nombreConsultoraSin = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
 
+    var esDigital = ViewBag.esConsultoraDigital == null ? false : ViewBag.esConsultoraDigital;
 }
+
+
+<link href="~/Content/CaminoBrillante/Mobile.css" rel="stylesheet" />
+
+
 
 @section styles{
     <style type="text/css">
+
         body {
             background: #FFF !important;
         }
@@ -33,6 +40,9 @@
         }
     </style>
     @Styles.Render("~/Bundle/Css/Desktop/CcsBienvenida")
+    @*INI HD-3908*@
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mobile/Ficha")
+    @*FIN HD-3908*@
 }
 
 <div id="tutorialesMobile" style="display:none;">
@@ -98,15 +108,9 @@
                     </div>
                 </div>
                 <div class="foto_usuaria_mobile">
-                    @if (ViewBag.FotoPerfilAncha)
-                    {
-                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:auto; height:100%;" />
-                    }
-                    else
-                    {
-                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto;" />
-                    }
+                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" onload="onLoadPhotoUser(this)" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" alt="" />
                 </div>
+
             }
         </div>
         <div class="content_resumen_dato_mobile" style="text-align:left">
@@ -133,7 +137,7 @@
             else if (Model.RevistaDigital.TieneRDC && Model.RevistaDigital.EsSuscrita && !Model.RevistaDigital.EsActiva)
             {
                 <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                    ¡Bienvenida a <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Gana+</a> @nombreConsultora
+                    ¡Bienvenida a <a href="javascript:RedireccionarContenedorComprar('@CodigoUbigeoPortal.MobileRevistaDigitalResumenBelcorp', '@Constantes.ConfiguracionPais.RevistaDigital')"> Gana+</a> @nombreConsultora
                 </div>
             }
             else if (Model.RevistaDigital.TieneRDC && Model.RevistaDigital.EsSuscrita && Model.RevistaDigital.EsActiva)
@@ -143,9 +147,9 @@
 
                 if (CampaniaEfectiva.Equals(CampaniaActual))
                 {
-                    <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                        ¡Bienvenida a <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> Gana+</a> @nombreConsultora
-                    </div>
+                <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
+                    ¡Bienvenida a <a href="javascript:RedireccionarContenedorComprar('@CodigoUbigeoPortal.MobileRevistaDigitalResumenBelcorp', '@Constantes.ConfiguracionPais.RevistaDigital')"> Gana+</a> @nombreConsultora
+                </div>
                 }
                 else
                 {
@@ -229,23 +233,25 @@
     <a role="link" region="Central" parent="Mira el Video de Bienvenida" title="Mira el Video de Bienvenida" class="btn_seguirp_mobile ver_video_introductorio" href="javascript:;">MIRA EL VIDEO DE BIENVENIDA</a>
 
 </div>
+<br />
 
 <div class="wrapper_resumen_mobile">
-
-    <!-- INICIO - ENLACE CAMINO AL ÉXITO -->
-    @if (Model.TieneCaminoExito)
+    @if (Model.TieneCaminoBrillante && !string.IsNullOrEmpty(Model.UrlLogoCaminoBrillante))
     {
-        <div class="content_320">
-            <div class="camino_al_exito text-center text-uppercase">
-                Camino al éxito
+        <div class="items_belcorp cam-exito">
+            @{ if (!string.IsNullOrEmpty(Model.UrlLogoCaminoBrillante))
+                {
+                    <img src="@Model.UrlLogoCaminoBrillante" style="max-width: 80px;" />
+                }
+            }
+            <div class="mb-left">
+                <p class="toptext">Camino Brillante</p>
+
+                <a href="@Url.Action("Index", "CaminoBrillante", new { area = "" })">Mis beneficios</a>
             </div>
-            <a class="enlace_ver_mas_sobre_camino_al_exito text-center" href="@Model.urlCaminoExito" target="_blank" title="Ver más">
-                Ver más
-            </a>
         </div>
-        <div class="linea_separadora_mobile" style="margin-top:4px;"></div>
+        <div class="linea_separadora_mobile" style="margin-top:16px"></div>
     }
-    <!-- FIN - ENLACE CAMINO AL ÉXITO -->
 
     <div class="content_320">
         <div class="item1_mobile">
@@ -287,8 +293,12 @@
                     @Util.DecimalToStringFormat(Convert.ToDecimal(Model.MontoAhorroCatalogo + Model.MontoAhorroRevista), Model.CodigoISO)
                 </span>
             </div>
-            <div role="link" region="Central" parent="Ganancia Estimada Total" title="Pedido ingresado" class="texto_inferior" style="text-decoration:underline;"><a href="@Url.Action("Index", "Pedido")">Pedido ingresado: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span></a></div>
-
+            <div role="link" region="Central" parent="Ganancia Estimada Total" title="Pedido ingresado" class="texto_inferior" style="text-decoration:underline;">
+                <a href="@Url.Action("Index", "Pedido")">
+                    Pedido ingresado: @Model.Simbolo <span class="js-span-pedidoingresado">@Util.DecimalToStringFormat(Model.MontoPedido, Model.CodigoISO)</span>
+                </a>
+            </div>
+            <a role="link" region="Central" title="Ver más" class="btn_borde_black mt-23 mb-0" href="@Url.Action("Index", "EscalaDescuentos", new { area = "" })"> VER M&Aacute;S</a>
         </div>
     </div>
     <div class="linea_separadora_mobile" style="margin-top:16px"></div>
@@ -301,15 +311,7 @@
                 @Model.Simbolo <span>@Util.DecimalToStringFormat(Model.MontoDeuda, Model.CodigoISO)</span>
             </div>
             <div class="texto_inferior js-div-vencimiento">Vencimiento: <span>@Model.FechaVencimiento</span></div>
-            @if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
-            {
-                <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("MetodoPago","PagoEnLinea")">
-                    <div class="texto_btn_pago_en_linea">
-                        <span>PAGA EN LÍNEA</span>
-                    </div>
-                </a>
-            }
-            else
+            @if (Model.MostrarPagoEnLinea)
             {
                 if (Model.PaisID == Constantes.PaisID.Chile)
                 {
@@ -322,6 +324,14 @@
                 else if (Model.PaisID == Constantes.PaisID.PuertoRico)
                 {
                     <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("Index", "Paypal", new { area = "Mobile" })"> PAGA EN L&Iacute;NEA</a>
+                }
+                else if (Model.TienePagoEnLinea)
+                {
+                    <a role="link" region="Central" parent="Mi Estado de Cuenta" title="Paga en línea" class="btn_paga_online_mobile" href="@Url.Action("MetodoPago","PagoEnLinea")">
+                        <div class="texto_btn_pago_en_linea">
+                            <span>PAGA EN L&Iacute;NEA</span>
+                        </div>
+                    </a>
                 }
             }
         </div>
@@ -357,10 +367,10 @@
 {
     <div class="wrapper_resumen_mobile">
         <div class="comartir_home_mobile">
-            HAZ CRECER TU NEGOCIO CON<br />
-            EL APP DE CATÁLOGOS
+            COMPARTE TU CATÁLOGO DIGITAL<br />
+            Y GANA MÁS
             <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
-               class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">ENTÉRATE MÁS</a>
+               class="btn_compartelos" href="@Url.Action("Index", "MisCatalogosRevistas", new { area = "" })">ENTÉRATE MÁS</a>
 
             @if (Model.IsConsultoraOnline != -1)
             {
@@ -404,7 +414,7 @@
             }
         </div>
         <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
-           class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">
+           class="btn_compartelos" href="@Url.Action("Index", "MisCatalogosRevistas", new { area = "" })">
             <div class="imagen_catalogo celular_esika"><img data-src="@Model.UrlImagenAppCatalogo" alt="-" data-lazy-seccion-banner-home="" /></div>
         </a>
         <hr class="clear" />
@@ -447,7 +457,7 @@
         }
     </div>
     <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia" class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">
-        <div class="imagen_catalogo video_esika">
+        <div class="imagen_catalogo video_esika imagen_miAcademia--nuevoLookAndFeelEsika">
             <img data-src="@Model.UrlImagenMiAcademia" alt="-" data-lazy-seccion-banner-home="" />
         </div>
     </a>
@@ -485,9 +495,45 @@
         <hr class="clear" />
         <div class="linea_separadora_mobile mg_bottom"></div>
     </div>
+</div>
 
-</div>
-</div>
+
+@if (esDigital)
+{
+    /* INI HD-4086 */
+    if(Model.CodigoISO == Constantes.CodigosISOPais.Peru) { 
+    <div class="wrapper_resumen_mobile">
+        <div class="comartir_home_mobile">
+            INCENTIVOS
+            <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
+               class="btn_compartelos" href="@Url.Action("IndexExterno", "Incentivos", new { area = "Mobile" })">VER MAS</a>
+        </div>
+        <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
+           class="btn_compartelos" href="@Url.Action("IndexExterno", "Incentivos", new { area = "Mobile" })">
+            <div class="imagen_catalogo bonificaciones_digital"></div>
+        </a>
+        <hr class="clear" />
+        <div class="linea_separadora_mobile"></div>
+    </div>
+   /* FIN HD-4086 */
+  } else{
+    <div class="wrapper_resumen_mobile">
+        <div class="comartir_home_mobile">
+            BONIFICACIONES
+            <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
+               class="btn_compartelos" href="@Url.Action("IndexExterno", "Bonificaciones", new { area = "Mobile" })">VER MAS</a>
+        </div>
+        <a role = "link" region= "Central" parent= "Comparte tus Catálogos" title= "Comparte tus Catálogos"
+           class="btn_compartelos" href="@Url.Action("IndexExterno", "Bonificaciones", new { area = "Mobile" })">
+            <div class="imagen_catalogo bonificaciones_digital"></div>
+        </a>
+        <hr class="clear" />
+        <div class="linea_separadora_mobile"></div>
+    </div>
+    }
+}
+
+
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
 <input type="hidden" id="hdPosicion" value="0" />
 <div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; overflow: hidden;">
@@ -682,7 +728,7 @@
         </div>
     </div>
 </div>
-<div class="btn_agregarPedido boton_ingresa_tu_pedido_navidenio">
+<div class="btn_agregarPedido btn_agregarPedido--nuevoLookAndFeelEsika">
     <form>
         <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';" name="btnAgregarPedido" value="INGRESA TU PEDIDO" />
     </form>
@@ -786,13 +832,14 @@
         <div class="detalle_popup_comunicado">
         </div>
         <div class="pie_popup_comunicado">
-            <div style="display:table">
+            <div style="display:table; width:100%;">
                 <div style="display:table-row">
-                    <div style="display:table-cell">
-                        <input type="checkbox" /><div class="check"></div>
+                    <div style="display:table-cell; display:none;">
+                        <input type="checkbox" />
+                        <div class="check"></div>
                     </div>
                     <div class="check_text">
-                        No volver a mostrar este comunicado
+                        <a href="#" class="enlace_no_volver_a_mostrar_comunicado">No volver a mostrar este anuncio</a>
                     </div>
                 </div>
             </div>
@@ -802,6 +849,10 @@
 
 <!--FIN-->
 <!-- POPUP VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE  -->
+
+<!-- POPUP ACTUALIZACIÓN DE CORREO ECUADOR -->
+@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupActualizacionCorreo.cshtml")
+<!-- FIN - POPUP ACTUALIZACIÓN DE CORREO ECUADOR -->
 
 <div class="contenedor_fondo_popup" id="popupVerificacionCorreoElectronicoPendiente" style="display:none;">
     <div class="popup_correo_pendiente_de_confirmar w-100 text-center">
@@ -863,14 +914,11 @@
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
 
-        var tipoOrigenEstrategia = 2; 
+        var tipoOrigenEstrategia = 2;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertaDelDiaCarrusel';
+        var origenPedidoWebDuoPerfecto = @Constantes.OrigenPedidoWeb.MobileHomeDuoPerfectoCarrusel;
+        var origenPedidoWebPackNuevas = @Constantes.OrigenPedidoWeb.MobileHomePackNuevasCarrusel;
         var noMostrarPopUpRevistaDig = '@Model.RevistaDigital.NoVolverMostrar';
-
-        var vbFotoPerfil = '@ViewBag.FotoPerfil';
-        if (vbFotoPerfil != null && vbFotoPerfil != "") {
-            $('.content_foto').show();
-        }
 
         var viewBagCampaniaActual = '@Model.CampaniaActual';
         var tieneCupon = '@Model.TieneCupon';

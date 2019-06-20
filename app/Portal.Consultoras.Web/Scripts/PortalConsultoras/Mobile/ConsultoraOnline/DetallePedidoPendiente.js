@@ -5,6 +5,7 @@ var ClienteDetalleOK = null;
 $(document).ready(function () {
 
     $('.opcion_rechazo').on('click', function () {
+	    
         $('.opcion_rechazo').removeClass('opcion_rechazo_select');
         $(this).addClass('opcion_rechazo_select');
         if ($(this).data('id') == 11) {
@@ -17,7 +18,22 @@ $(document).ready(function () {
 
 });
 
-function RechazarPedido(id) {
+function RechazarPedido(id, origenBoton) {
+	
+    var opcionRechazo = ($('.opcion_rechazo_select').text()) ? $('.opcion_rechazo_select').text() : "";
+    if (origenBoton) {
+        switch (origenBoton) {
+            case 1: /*boton enviar*/
+                DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up ¡Cuéntanos porqué lo Rechazaste! - Click Botón Enviar', opcionRechazo);
+                break;
+            case 2:/*boton cerrar*/
+                DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up ¡Cuéntanos porqué lo Rechazaste!', 'cerrar');
+                break;
+            default:
+                break;
+        }
+    }
+
 
     var optr = $('.opcion_rechazo_select').data('id');
     if (typeof optr == 'undefined') {
@@ -58,6 +74,7 @@ function RechazarPedido(id) {
                     $('#PedidoRechazado').hide();
                     $('#PedidoRechazadoDetalle').hide();
                     $('#MensajePedidoRechazado').show();
+                    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Pedido Rechazado', opcionRechazo);
                 }
                 else {
                     $('#PedidoRechazado').hide();
@@ -78,21 +95,32 @@ function RechazarPedido(id) {
 
 };
 
-function AceptarPedido(id, tipo) {
+function AceptarPedido(id, tipo) {    
     var isOk = true;
     var detalle = [];
     var ing = 0;
+    var opciones = "";
 
-    $('div.detalle_pedido_reservado').each(function () {
+    $('div.detalle_pedido_reservado').each(function () {        
         var id = $(this).find("input[id*='soldet_']").val();
         var cant = $(this).find('#soldet_qty_' + id).text();
         var opt = $(this).find('#soldet_tipoate_' + id).val();
+        var cuv = $(this).find("input[id*='soldet_cuv_']").val();
+        var nombre = $(this).find("input[id*='soldet_nom_']").val();
+        var precio = $(this).find("input[id*='soldet_precio_']").val();
+        var marca = $(this).find("input[id*='soldet_mrc_']").val();
+        var opcion = $(this).find("#soldet_tipoate_" + id + " option[value='" + opt + "']").text();
         var k = 0;
+
+
+
+        opciones = (opciones.length) ? (opciones + ", ") : opciones;
+        opciones = opciones + opcion;
 
         if (typeof opt !== 'undefined') {
             if (opt == "") {
                 $('#ComoloAtenderas').show();
-                isOk = false;
+                isOk = false;                
                 return false;
             }
             else {
@@ -106,11 +134,21 @@ function AceptarPedido(id, tipo) {
         if (typeof id !== 'undefined' && id !== "") {
             var d = {
                 PedidoDetalleId: id,
-                OpcionAcepta: k
+                OpcionAcepta: k,
+                Nombre: nombre,
+                Precio: precio,
+                Marca: marca,
+                CUV: cuv,
+                Categoria: 'No Disponible',
+                Variante: 'Estándar',
+                Cantidad: cant,
+                OpcionCod: opt,
+                OpcionString: opcion
             }
             detalle.push(d);
         }
     });
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - PopUp Pedidos Pendientes', 'Click Botón', 'Acepto Todo el Pedido - ' + opciones);
 
     if (isOk && detalle.length > 0) {
         var name = $('#sc-nombre').text();
@@ -144,8 +182,7 @@ function AceptarPedido(id, tipo) {
                             Tipo: tipo,
                             Ingresos: ing,
                             Dispositivo: glbDispositivo
-                        }
-
+                        }                        
                         if (response.codigo == 0) {
                             _pedido = pedido;
 
@@ -199,14 +236,67 @@ function ProcesarAceptarPedido(pedido) {
 
                     ActualizarGanancia(response.DataBarra);
                     $('#PedidoAceptado').show();
+                   
+                    var opciones = "";
+                    $.each(pedido.ListaDetalleModel, function (i, item) {
+                        opciones = (opciones.length) ? (opciones + ", ") : opciones;
+                        opciones += item.OpcionString;
+                    });
+                    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Pedido Aceptado', opciones);
+
+                    var PedidosIngresarAMiPedido = $.grep(pedido.ListaDetalleModel, function (n, i) {
+                        return n.OpcionCod === 'ingrped';
+                    });
+
+
+                    if (PedidosIngresarAMiPedido.length) {
+                        var productos = [];
+
+                        $.each(PedidosIngresarAMiPedido, function (i, item) {
+                            var producto = {}
+                            producto["name"] = item.Nombre;
+                            producto["price"] = item.Precio;
+                            producto["brand"] = item.Marca;
+                            producto["id"] = item.CUV;
+                            producto["category"] = item.Categoria;
+                            producto["variant"] = item.Variante;
+                            producto["quantity"] = item.Cantidad;
+
+                            productos.push(producto);
+                        });
+
+                        dataLayer.push({
+                            'event': 'addToCart',
+                            'ecommerce': {
+                                'currencyCode': AnalyticsPortalModule.GetCurrencyCode(),
+                                'add': {
+                                    'actionField': { 'list': 'Pedidos Pendientes - Pedidos Aceptados' },
+                                    'products': productos
+                                }
+                            }
+                        });
+
+                    }
+
                 }
                 else {
                     if (response.code == 1) {
                         AbrirMensaje(response.message);
                     }
                     else if (response.code == 2) {
-                        $('#MensajePedidoReservado').text(response.message);
-                        $('#AlertaPedidoReservado').show();
+
+                        //INI HD-3693
+                        //$('#MensajePedidoReservado').text(response.message);
+                        //$('#AlertaPedidoReservado').show();
+                        var msjBloq  = validarpopupBloqueada(response.message);
+                        if (msjBloq != "") {
+                            alert_msg_bloqueadas(msjBloq);
+                        }
+                        else{
+
+                            $('#MensajePedidoReservado').text(response.message);
+                            $('#AlertaPedidoReservado').show();
+                        }
                     }
                 }
             }
@@ -248,7 +338,19 @@ function showClienteDetalle(pcliente, pClienteDetalleOK) {
     });
 }
 
-function CerrarMensajeRechazado() {
+function CerrarMensajeRechazado(origenBoton) {
+    if (origenBoton) {
+        switch (origenBoton) {
+            case 1: /*boton ok*/
+                DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Pedido Rechazado - Click Botón', 'Ok');
+                break;
+            case 2:/*boton cerrar*/
+                DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Pedido Rechazado', 'cerrar');
+                break;
+            default:
+                break;
+        }
+    }
     document.location.href = urlPendientes;
 }
 
@@ -298,3 +400,350 @@ function CerrarAlertaPedidoReservado() {
     $('#AlertaPedidoReservado').hide();
     document.location.href = urlPedido;
 }
+
+function RechazoPedidosPendientes() {
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Detalle Pedidos Pendientes', 'Click Botón', 'Rechazo el Pedido');
+}
+
+function AceptoTodoElPedidoTipoAtencion() {
+	var tipoAtencion = "";
+
+    if ($('.ddlAtenderPedidosPend').prop('selectedIndex') > 0) {
+        tipoAtencion = $('.ddlAtenderPedidosPend').text();
+    }
+
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Click Botón', 'Acepto Todo el Pedido - ' + tipoAtencion);
+}
+
+function DialogComoAtenderPedidoPend(etiqueta) {
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Alerta: No escogió tipo de Atención', etiqueta);
+}
+
+function VasARechazarelPedido(etiqueta) {
+    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up ¿Vas a Rechazar el Pedido? - Click Botón', etiqueta);
+}
+
+function PedidoAceptado() {
+
+}
+
+function MostrarMensajedeRechazoPedido(cuv, option) {
+    var mensaje = '#' + cuv;
+    $(mensaje).show();
+    
+    if (option === "P") //Producto
+    {
+	    MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", "Eliminar");
+    }
+    if (option === "C") //Cliente
+    {
+	    MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", "Eliminar");
+    }
+    
+}
+
+function OcultarMensajedeRechazoPedido(cuv, option) {
+    var mensaje = '#' + cuv;
+    $(mensaje).hide();
+    if (option === "P") //Producto
+    {
+	    MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", "¿Quieres eliminar este pedido? - No, gracias");
+    }
+    if (option === "C") //Cliente
+    {
+        MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", "¿Quieres eliminar este pedido? - No, gracias");
+    }
+}
+
+function AceptarPedidoProducto(id, option) {
+
+    var texto = '#texto_' + id;
+    var aceptado = '#aceptar_' + id;
+    if ($(aceptado).hasClass("active")) {
+        $(texto).removeClass('text-white');
+        $(texto).addClass('text-black');
+        $(aceptado).removeClass('active');
+        $(aceptado).text('Aceptado');
+
+        if (option === "P") //Producto
+        {
+	        MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", "Aceptado");
+        }
+        if (option === "C") //Cliente
+        {
+	        MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", "Aceptado");
+        }
+    }
+    else {
+        $(texto).removeClass('text-black');
+        $(texto).addClass('text-white');
+        $(aceptado).addClass('active');
+        $(aceptado).text('Aceptar');
+        //document.location.href = urlPedido;
+        
+    }
+
+}
+
+function RechazarSolicitudCliente(pedidoId, option) {
+    var obj = {
+        pedidoId: pedidoId,
+    };
+    if (option === "P") //Producto
+    {
+        MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", '¿Desea Rechazar todos los pedidos de tus clientes? - Sí, gracias');
+    }
+    if (option === "C") //Cliente
+    {
+        MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", '¿Desea Rechazar todos los pedidos de tus clientes? - Sí, gracias');
+    }
+
+    ShowLoading();
+    $.ajax({
+        type: "POST",
+        url: "/ConsultoraOnline/RechazarSolicitudCliente",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(obj),
+        success: function (response) {
+            CloseLoading();
+
+            if (response.success) {
+                document.location.href = '/Mobile/ConsultoraOnline/Pendientes';
+            }
+            else {
+                alert(response.message);
+            }
+        },
+        error: function (err) {
+            CloseLoading();
+            console.log(err);
+        }
+    });
+}
+
+function RechazarSolicitudClientePorCuv(cuv, option) {
+	
+    var obj = {
+        cuv: cuv,
+    };
+    if (option === "P") //Producto
+    {
+	    MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", '¿Desea Rechazar todos los pedidos de tus clientes? - Sí, gracias');
+    }
+    if (option === "C") //Cliente
+    {
+	    MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", '¿Desea Rechazar todos los pedidos de tus clientes? - Sí, gracias');
+    }
+    ShowLoading();
+    $.ajax({
+        type: "POST",
+        url: "/ConsultoraOnline/RechazarSolicitudClientePorCuv",
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(obj),
+        success: function (response) {
+            CloseLoading();
+            if (response.success) {
+                document.location.href = '/Mobile/ConsultoraOnline/Pendientes';
+            }
+            else {
+                alert(response.message);
+            }
+        },
+        error: function (err) {
+            CloseLoading();
+            console.log(err);
+        }
+    });
+
+}
+
+function ContinuarPedido(option) {
+    var lstDetalle = [];
+    ShowLoading();
+
+    $('.pedidos').each(function () {
+
+        if ($(this).find('a[id*="aceptar_"]').hasClass('active') == false) {
+            //$(aceptado).addClass('active');
+            var pedidoId = $(this).find(".pedidoId").val();
+            var cuv = $(this).find(".cuv").val();
+            //var cantidad = $(this).find(".cantidad").val();
+            var cantNew = $(this).find('[data-cantNew]').val();
+
+            var detalle = {
+                PedidoId: pedidoId,
+                CUV: cuv,
+                Cantidad: cantNew
+            }
+            lstDetalle.push(detalle);
+        }
+    });
+
+    var obj = {
+        lstDetalle: lstDetalle,
+        tipoVista: gTipoVista
+    };
+
+    if (lstDetalle.length > 0) {
+        $.ajax({
+            type: "POST",
+            url: "/ConsultoraOnline/ContinuarPedidos",
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            //data: JSON.stringify(lstDetalle),
+            data: JSON.stringify(obj),
+            success: function (response) {
+	            //marcacion analytics de Continuar
+	            if (option === "P") //Producto
+	            {
+		            MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", 'Continuar');
+	            }
+	            if (option === "C") //Cliente
+	            {
+                    MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", 'Continuar');
+	            }
+                CloseLoading();
+                if (response.success) {
+                    document.location.href = '/Mobile/ConsultoraOnline/PendientesMedioDeCompra?option=' + option;
+                }
+                else {
+                    alert(response.message);
+                }
+            },
+            error: function (err) {
+                CloseLoading();
+                console.log(err);
+            }
+        });
+    }
+    else {
+        
+        if (option === "P") //Producto
+        {
+            MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", 'Alerta: Debes aceptar un pedido mínimo');
+        }
+        if (option === "C") //Cliente
+        {
+            MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", 'Alerta: Debes aceptar un pedido mínimo');
+        }
+	    
+        CloseLoading();
+        $('#mensajepedido').show();
+        setTimeout(function () { $('#mensajepedido').hide(); }, 2000);
+    }
+}
+
+function RechazarTodo(option) {
+	
+	if (option === "P") //Producto
+	{
+        MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", "Rechazar Todo");
+	}
+	if (option === "C") //Cliente
+	{
+        MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", "Rechazar Todo");
+	}
+}
+
+function RechazarTodoConfirmacion(option) {
+	
+	if (option === "P") //Producto
+	{
+        MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", '¿Desea Rechazar todos los pedidos de tus clientes? - No, gracias');
+	}
+	if (option === "C") //Cliente
+	{
+        MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", '¿Desea Rechazar todos los pedidos de tus clientes? - No, gracias');
+	}
+}
+
+function cerrandoPopupMobileProducto() {
+    MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", "Cerrar Pop up");
+}
+function cerrandoPopupMobileCliente() {
+    MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", "Cerrar Pop up");
+}
+function MarcaAnalyticsClienteProducto(action, label) {
+	var textAction = action;
+	if (!(typeof AnalyticsPortalModule === 'undefined')) {
+			AnalyticsPortalModule.ClickTabPedidosPendientes(textAction, label);
+		}
+	
+}
+
+function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
+    var obj = {
+        pedidoId: pedidoId,
+        cuv: cuv
+    };
+
+    var pedidos = [];
+    var cuvs = [];
+
+    ShowLoading();
+    $.ajax({
+        type: "POST",
+        url: "/ConsultoraOnline/EliminarSolicitudDetalle",
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(obj),
+        success: function (response) {
+            CloseLoading();
+            if (response.success) {
+	            
+                //Analytics
+                if (origen === "P") //Producto
+                {
+                    MarcaAnalyticsClienteProducto("Vista por Producto - Pop up Paso 1", "¿Quieres eliminar este pedido? - Sí, eliminar");
+                }
+                if (origen === "C") //Cliente
+                {
+                    MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", "¿Quieres eliminar este pedido? - Sí, eliminar");
+                }
+
+                var Pendientes = JSON.parse(response.Pendientes) || [];
+                $.each(Pendientes.ListaPedidos, function (index, value) {
+                    pedidos.push(value.PedidoId.toString());
+                    $.each(value.DetallePedido, function (index, value) {
+                        cuvs.push(value.CUV.toString());
+                    });
+                });
+                // ocultar div
+                var id = "";
+                if (origen == 'C') {
+                    id = '#vc_pedido_' + cuv;
+                    $(id).hide();
+                    if ($("#contentmobile").find('.pedidos').length == 1) {
+                        window.location.href = "/Mobile/ConsultoraOnline/Pendientes";
+                    }
+                } else if (origen == 'P') {
+                    id = '#vp_pedido_' + pedidoId;
+                    $(id).hide();
+                    if ($("#contentmobile").find('.pedidos').length == 1) {
+                        window.location.href = "/Mobile/ConsultoraOnline/Pendientes";
+                    }
+                }
+            }
+            else {
+                alert(response.message);
+            }
+        },
+        error: function (err) {
+            CloseLoading();
+            console.log(err);
+        }
+    });
+
+}
+
+$("body").on('change', ".ValidaValor", function (e) {
+    var $input = $(this);
+    var previousVal = $input.val();
+
+    if (previousVal == 0) {
+
+        $input.val(1);
+    }
+});

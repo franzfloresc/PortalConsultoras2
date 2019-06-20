@@ -39,7 +39,7 @@
                 <p class="segundo-texto">
                     @Html.Raw(configuracionPaisDatosModel.Valor2)
                 </p>
-              <a class="boton-suscrito" href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">VER OFERTAS</a>
+                <a class="boton-suscrito" href="javascript:RedireccionarContenedorComprar('@CodigoUbigeoPortal.DesktopPedidoRevistaDigital', '@Constantes.ConfiguracionPais.RevistaDigital')">VER OFERTAS</a>
             </div>
 
             @if (revistaDigital.EsActiva)
@@ -80,7 +80,7 @@
                 <p class="primer-texto" style="text-transform:none; font-size: 15px; margin: 0 0 1.5em 0;">
                     @Html.Raw(configuracionPaisDatosModel.Valor1) @Html.Raw(configuracionPaisDatosModel.Valor2)
                 </p>
-                <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion)">VER MÁS</a>
+                <a href="javascript:RedireccionarContenedorComprar('@CodigoUbigeoPortal.DesktopPedidoRevistaDigital')">VER MÁS</a>
             </div>
 
             @if (revistaDigital.EsActiva)
@@ -121,7 +121,7 @@ else if (revistaDigital.TieneRDI)
         <div class="club_gana_mas_pedido">
             <div class="logo_club no-suscrito"></div>
             <p class="primer-texto" style="text-transform:none; font-size: 15px; margin: 0 0 1.5em 0;"> @Html.Raw(configuracionPaisDatosModel.Valor1)</p>
-            <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion)">VER MÁS</a>
+            <a href="javascript:RedireccionarContenedorComprar('@CodigoUbigeoPortal.DesktopPedidoRevistaDigital')">VER MÁS</a>
         </div>
         @Html.Partial("~/Views/Pedido/template-seccion-opt.cshtml", 
             new ViewDataDictionary

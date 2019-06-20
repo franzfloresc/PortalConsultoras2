@@ -6,7 +6,7 @@ using System.Data.Common;
 
 namespace Portal.Consultoras.Data
 {
-    public enum EDbSource : int
+    public enum EDbSource
     {
         Portal = 1,
         ODS = 2,

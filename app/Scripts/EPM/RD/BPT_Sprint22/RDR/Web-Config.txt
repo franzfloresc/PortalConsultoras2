@@ -1,4 +1,0 @@
-Nuevo
-
-<add key="RevistaPiloto_Zonas_RDR_2_CO" value="2604,2606,2610,2625,2612,2613,2614,2623" />
-

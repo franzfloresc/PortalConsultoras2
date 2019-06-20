@@ -1,0 +1,13 @@
+1.SB2 Web
+	Actualizar:
+		<add key="PaisesMicroservicioPersonalizacion" value="PE,CL,CR,CO,MX,EC" /> (Excepto PRD)
+		<add key="PaisesCatalogoWhatsUp" value="PE,MX,CR,CO,EC,CL,BO"/> (Excepto PRD)
+
+2.SB2 WCF
+	Agregar:
+		<add key="ServicioDireccionEntregaSicc" value="http://pelnx2044:7003/ssiccclespdp/services/ProcesoMAEActualizarDireccionEntregaWebService?wsdl"/> (Diferente en PRD)
+		<add key="ServicioActualizarBoletaImp" value="http://pelnx2044:7003/ssiccclespdp/services/ProcesoMAEActualizaFlagImpBoletasWebService?wsdl"/> (Diferente en PRD)
+		
+3.Microservicio Sync
+	Actualizar:
+		"Paises": "PE,CL,CO,CR,MX,EC" (Excepto PRD)

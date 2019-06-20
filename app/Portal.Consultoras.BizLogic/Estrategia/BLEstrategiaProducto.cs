@@ -63,6 +63,5 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
-
     }
 }

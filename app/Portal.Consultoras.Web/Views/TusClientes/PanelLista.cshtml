@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Mis clientes";
+    Layout = null;
+}
+
+<input id="hfBaseUrl" type="hidden" value="@Url.Content("~")" />
+<input id="hfUrlFrmRegistro" type="hidden" value="@Url.Action("PanelMantener","TusClientes")" />
+
+<input id="hfPaisID" type="hidden" />
+<input id="hfClienteID" type="hidden" />
+<input id="hfCodigoCliente" type="hidden" />
+<input id="hfNombreCliente" type="hidden" />
+<input id="hfNombre" type="hidden" />
+
+
+<div style="height: auto;">
+    <div class="seleccion_header_Clientes" id="contendor-titulo-opciones" data-panelcliente-seccion="cabecera">
+        <div class="seleccion_header">
+            <div>ASIGNAR A OTRO CLIENTE</div>
+            <button id="btnPanelListaCerrar" class="button_cerrar_Clientes">
+                <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
+            </button>
+        </div>
+    </div>
+    <div data-panelcliente-seccion="funciones">
+        <div class="clientes-funciones">
+            <div class="buscar_clientes">
+                <input type="text" name="search" value="" placeholder="Buscar cliente" id="txtPanelListaBusqueda" />
+                <img id="btnBuscarCliente" src="/Content/Images/icono_buscador.svg" alt="" />
+            </div>
+            <div class="clientes_lista">
+                <h3 id="btnPanelListaAgregar">NUEVO CLIENTE +</h3>
+                <input id="btnPanelListaAceptar" type="button" value="Aceptar selección" style="display:none;" />
+            </div>
+        </div>
+    </div>
+    <div data-panelcliente-seccion="lista">
+        <div class="seleccion_main_Clientes clientes-items">
+            <div id="handlebars_contenedor1"></div>
+        </div>
+    </div>
+    <!-- INIT: Panel cliente-->
+    <div id="PanelClienteRegistro" class="Form-AgregarCliente" style="display:none;">
+        <div id="PanelClienteRegistro_contenedor"></div>
+    </div>
+    <!-- END: Panel cliente-->
+</div>
+
+
+<script id="handlebars_plantilla1" type="text/x-handlebars-template">
+    <ul>
+        {{#iff miData.length '==' '0'}}
+            {{#iff mostrarNoTieneClientes '==' 'true'}}
+            No tienes clientes registrados.
+            {{else}}
+            <li class="cliente-list">
+                No se encontraron clientes.
+            </li>
+            {{/iff}}
+        {{else}}
+            {{#each miData}}
+            <li class="cliente-list" onclick="panelListaModule.seleccionarRegistro({{PaisID}}, {{ClienteID}}, '{{CodigoCliente}}', '{{NombreCliente}}', '{{Nombre}}')">
+                {{Nombre}}
+            </li>
+            {{/each}}
+        {{/iff}}
+    </ul>
+</script>
+
+

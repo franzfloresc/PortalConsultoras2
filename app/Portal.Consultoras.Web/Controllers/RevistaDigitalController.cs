@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                ViewBag.variableEstrategia = GetVariableEstrategia();
+                ViewBag.variableEstrategia = GetEstrategiaHabilitado();
                 return RDViewLanding(1);
             }
             catch (Exception ex)
@@ -472,9 +472,11 @@ namespace Portal.Consultoras.Web.Controllers
                 revistaDigital.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
                 revistaDigital.EsSuscrita = revistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
                 revistaDigital.EsActiva = revistaDigital.SuscripcionEfectiva.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
+                armaTuPack.TieneAtp = revistaDigital.EsActiva;
                 revistaDigital.NoVolverMostrar = true; // se puede copiar la logica del login
 
                 SessionManager.SetRevistaDigital(revistaDigital);
+                SessionManager.SetArmaTuPack(armaTuPack);
                 userData.MenuMobile = null;
                 userData.Menu = null;
                 SessionManager.SetMenuContenedor(null);

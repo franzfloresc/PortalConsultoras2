@@ -8,6 +8,7 @@ namespace Portal.Consultoras.BizLogic
     {
         int DeleteTipoEstrategia(BETipoEstrategia entidad);
         List<BETipoEstrategia> GetTipoEstrategias(BETipoEstrategia entidad);
+        BETipoEstrategia GetTipoEstrategiaById(int paisId, int tipoEntidadId);
         int InsertTipoEstrategia(BETipoEstrategia entidad);
     }
 }

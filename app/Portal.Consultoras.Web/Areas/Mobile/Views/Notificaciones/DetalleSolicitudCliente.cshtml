@@ -349,6 +349,7 @@
                             $('#DiagloBotonCancelar').modal('show');
 
                             $.post('@Url.Action("ActualizarEstadoNotificacion", "Notificaciones", new { area = "" })' + "?ProcesoId=" + ProcesoId + "&TipoOrigen=" + TipoOrigen, function (data) {
+                                localStorage.setItem('KeyPseudoParam', new Date().getTime());//SALUD-58
                             });
                         }
                     }

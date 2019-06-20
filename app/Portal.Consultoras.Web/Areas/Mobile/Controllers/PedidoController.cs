@@ -1,4 +1,4 @@
-﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Models;
@@ -14,6 +14,7 @@ using System.Web.Routing;
 using Portal.Consultoras.Web.Providers;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
+using Portal.Consultoras.Web.ServicesCalculosPROL;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -43,7 +44,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (configuracionCampania.CampaniaID == 0)
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
 
-            if (configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
+            if ((configuracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == getDiaActual())
                 && !configuracionCampania.ModificaPedidoReservado
                 && !configuracionCampania.ValidacionAbierta)
                 return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
@@ -69,6 +70,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 userData.PedidoID = detallesPedidoWeb[0].PedidoID;
                 SessionManager.SetUserData(userData);
             }
+
+            SessionManager.SetMontosProl(
+                new List<ObjMontosProl>
+                {
+                    new ObjMontosProl
+                    {
+                        AhorroCatalogo = pedidoWeb.MontoAhorroCatalogo.ToString(),
+                        AhorroRevista = pedidoWeb.MontoAhorroRevista.ToString(),
+                        MontoTotalDescuento = pedidoWeb.DescuentoProl.ToString(),
+                        MontoEscala = pedidoWeb.MontoEscala.ToString()
+                    }
+                }
+            );
 
             model.PaisId = userData.PaisID;
             model.CodigoIso = userData.CodigoISO;
@@ -102,6 +116,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var mobileConfiguracion = this.GetUniqueSession<MobileAppConfiguracionModel>("MobileAppConfiguracion");
             model.ClienteId = mobileConfiguracion.ClienteID;
             model.Nombre = string.Empty;
+
+            model.EstadoPedido = EsPedidoReservado(configuracionCampania).ToInt();
 
             if (isMobileApp && model.ListaClientes.Any(x => x.ClienteID == mobileConfiguracion.ClienteID))
             {
@@ -167,17 +183,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult virtualCoach(string param = "")
         {
-            try
-            {
-                string cuv = param.Substring(0, 5);
-                string campanaId = param.Substring(5, 6);
-                int campana = Convert.ToInt32(campanaId);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
-            }
-
             var url = (Request.Url.Query).Split('?');
             if (url.Length > 1 && url[1].Contains("sap"))
             {
@@ -188,12 +193,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", param }));
             }
-
         }
 
         public ActionResult Detalle(bool autoReservar = false)
         {
             SessionManager.SetObservacionesProl(null);
+            SessionManager.SetPedidoWeb(null);
             SessionManager.SetDetallesPedido(null);
             SessionManager.SetDetallesPedidoSetAgrupado(null);
 
@@ -209,7 +214,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (beConfiguracionCampania.CampaniaID == 0)
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
 
-            if (beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
+            if ((beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado && userData.FechaFinCampania == getDiaActual())
                 && !beConfiguracionCampania.ModificaPedidoReservado
                 && !beConfiguracionCampania.ValidacionAbierta)
                 return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
@@ -224,8 +229,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 FlagValidacionPedido = beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
                                        && beConfiguracionCampania.ModificaPedidoReservado
                     ? "1"
-                    : "0"
+                    : "0",
+                EstadoPedido = (beConfiguracionCampania.EstadoPedido != Constantes.EstadoPedido.Pendiente && !beConfiguracionCampania.ValidacionAbierta).ToInt()
             };
+
+            model.EstadoPedido = EsPedidoReservado(beConfiguracionCampania).ToInt();
 
             ValidarStatusCampania(beConfiguracionCampania);
 
@@ -236,7 +244,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (!userData.DiaPROL)  // Periodo de venta
             {
                 ViewBag.AccionBoton = "guardar";
-                model.Prol = "GUARDA TU PEDIDO";
+                model.Prol = "Guardar tu pedido";
                 model.ProlTooltip = "Es importante que guardes tu pedido";
                 model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
@@ -249,7 +257,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             else // Periodo de facturacion
             {
                 ViewBag.AccionBoton = "validar";
-                model.Prol = "RESERVA TU PEDIDO";
+                if (model.EstadoPedido == 1) //Reservado
+                    model.Prol = "MODIFICA TU PEDIDO";
+                else
+                    model.Prol = "RESERVA TU PEDIDO";
+
+                
                 model.ProlTooltip = "Haz click aqui para reservar tu pedido";
 
                 if (diaActual <= userData.FechaInicioCampania)
@@ -270,10 +283,24 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             var pedidoWeb = ObtenerPedidoWeb();
+
             ViewBag.MontoAhorroCatalogo = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo, userData.CodigoISO);
             ViewBag.MontoAhorroRevista = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroRevista, userData.CodigoISO);
             ViewBag.MontoDescuento = Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO);
             ViewBag.GananciaEstimada = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo + pedidoWeb.MontoAhorroRevista, userData.CodigoISO);
+
+            SessionManager.SetMontosProl(
+                new List<ObjMontosProl>
+                {
+                    new ObjMontosProl
+                    {
+                        AhorroCatalogo = pedidoWeb.MontoAhorroCatalogo.ToString(),
+                        AhorroRevista = pedidoWeb.MontoAhorroRevista.ToString(),
+                        MontoTotalDescuento = pedidoWeb.DescuentoProl.ToString(),
+                        MontoEscala = pedidoWeb.MontoEscala.ToString()
+                    }
+                }
+            );
 
             model.PaisID = userData.PaisID;
 
@@ -300,12 +327,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.CampaniaActual = userData.CampaniaID.ToString();
             model.EMail = userData.EMail;
             model.Celular = userData.Celular;
+            
             ViewBag.paisISO = userData.CodigoISO;
             ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
 
             ViewBag.NombreConsultora = userData.Sobrenombre;
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                model.Prol = "GUARDA TU PEDIDO";
+                model.Prol = "GUARDAR TU PEDIDO";
             var ofertaFinalModel = SessionManager.GetOfertaFinalModel();
             ViewBag.OfertaFinalEstado = ofertaFinalModel.Estado;
             ViewBag.OfertaFinalAlgoritmo = ofertaFinalModel.Algoritmo;
@@ -320,7 +348,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
             model.MensajeKitNuevas = _programaNuevasProvider.GetMensajeKit();
+            ViewBag.CantPedidoPendientes = _pedidoWebProvider.GetPedidoPendientes(userData);
 
+            ViewBag.DataBarra = GetDataBarra(true, true);//OG
             return View(model);
         }
 
@@ -352,7 +382,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
             }
 
-            List<BEPedidoWebDetalle> lstPedidoWebDetalle = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado(EsOpt(), false);
+            List<BEPedidoWebDetalle> lstPedidoWebDetalle = _pedidoWebProvider.ObtenerPedidoWebSetDetalleAgrupado();
 
             BEPedidoWeb bePedidoWebByCampania = ObtenerPedidoWeb();
 
@@ -428,7 +458,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (!userData.DiaPROL)  // Periodo de venta
             {
-                model.Prol = "GUARDA TU PEDIDO";
+                model.Prol = "GUARDAR TU PEDIDO";
                 model.ProlTooltip = "Es importante que guardes tu pedido";
                 model.ProlTooltip += string.Format("|Puedes realizar cambios hasta el {0}", fechaFacturacionFormat);
 
@@ -501,7 +531,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.ModificacionPedidoProl = 0;
 
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
-                model.Prol = "GUARDA TU PEDIDO";
+                model.Prol = "GUARDAR TU PEDIDO";
 
             return View(model);
         }
@@ -655,7 +685,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return resultado;
         }
-
+        /// <summary>
+        /// Fecha actual según el pais.
+        /// </summary>
+        /// <returns></returns>
+        private DateTime getDiaActual()
+        {
+            return DateTime.Now.AddHours(userData.ZonaHoraria);
+        }
 
     }
 }

@@ -2,6 +2,8 @@
 using Portal.Consultoras.Entities.Mobile;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.Producto;
+using Portal.Consultoras.Entities.Oferta;
+using Portal.Consultoras.Entities.BuscadorYFiltros;
 
 using System;
 using System.Collections.Generic;
@@ -331,6 +333,8 @@ namespace Portal.Consultoras.ServiceContracts
         #region Buscador
         [OperationContract]
         Dictionary<string, string> GetOrdenamientoFiltrosBuscador(int paisID);
+        [OperationContract]
+        List<BEFiltroBuscador> GetFiltroBuscador(int paisID, int tablaLogicaDatosID);
         #endregion
 
         #region "Fe de Erratas"
@@ -437,6 +441,10 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion,
             string CodigoZona, int IdEstadoActividad);
+
+        [OperationContract]
+        List<BEComunicado> ObtenerSegmentacionInformativaPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion,
+         string CodigoZona, int IdEstadoActividad);
 
         [OperationContract]
         List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID);
@@ -591,6 +599,18 @@ namespace Portal.Consultoras.ServiceContracts
         void RechazarSolicitudCliente(int paisID, long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo);
 
         [OperationContract]
+        void UpdSolicitudClienteDetalleEstado(int paisID, long solicitudId, string cuv, bool estado);
+
+        [OperationContract]
+        void UpdSolicitudClienteDetalleCantidad(int paisID, long solicitudId, string cuv, int cantidad);
+
+        [OperationContract]
+        void UpdSolicitudClienteRechazar(int paisID, long solicitudId);
+
+        [OperationContract]
+        void UpdSolicitudClienteRechazarPorCuv(int paisID, long solicitudId, string cuv);
+
+        [OperationContract]
         BESolicitudNuevaConsultora ReasignarSolicitudCliente(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int opcionRechazo, string razonMotivoRechazo);
 
         [OperationContract]
@@ -705,6 +725,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BEConfiguracionOfertasHome> ListarSeccionConfiguracionOfertasHome(int paisId, int campaniaId);
+
+        [OperationContract]
+        IList<BEConfiguracionOfertasHomeApp> ListarSeccionConfiguracionOfertasApp(int paisId, int campaniaId);
         #endregion
 
         #region Estrategia

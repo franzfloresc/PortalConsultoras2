@@ -217,7 +217,8 @@ function fnDeshabilitar(rowId) {
 
     var rowData = $("#list").jqGrid('getRowData', rowId);
     var params = {
-        EstrategiaID: rowData.EstrategiaID
+        EstrategiaID: rowData.EstrategiaID,
+        tipoEstrategiaCodigo: 'NoMongo'
     };
 
     waitingDialog({});

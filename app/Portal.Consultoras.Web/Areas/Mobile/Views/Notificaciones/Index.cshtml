@@ -1,9 +1,17 @@
-﻿@using Portal.Consultoras.Web.CustomHelpers
+﻿@using Portal.Consultoras.Common;
+@using Portal.Consultoras.Web.CustomHelpers
 @using Portal.Consultoras.Web.Models
 @model NotificacionesModel
-
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    if (Model.Origen == int.Parse(Constantes.IngresoExternoOrigen.ChatBot))
+    {
+        Layout = "~/Areas/Mobile/Views/Shared/_ChatboMobileLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    }
+
 }
 
 @section styles{
@@ -22,14 +30,24 @@
         }
     </style>
 }
-<div class="titulo_mobile">
-    @{ var mobileConfiguracion = Html.MobileAppConfiguracion();
+
+@if (Model.Origen == int.Parse(Constantes.IngresoExternoOrigen.ChatBot))
+{
+    <div class="titulo_mobile">MIS NOTIFICACIONES</div>
+}
+else
+{
+    <div class="titulo_mobile">
+    @{
+        var mobileConfiguracion = Html.MobileAppConfiguracion();
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
-        } }
+        }
+    }
     &nbsp;&nbsp;&nbsp;&nbsp;MIS NOTIFICACIONES
 </div>
+}
 <div class="pestana_esika"></div>
 <div class="pestana_lbel"></div>
 @if (Model.ListaNotificaciones.Count == 0)
@@ -50,10 +68,10 @@ else
             {
                 var estilo = item.Visualizado ? "" : "no_leido";
 
-                <li class="@estilo" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso', this)">
+                <li class="@estilo" onclick="VisualizarPopup('@item.ProcesoId','@item.Observaciones','@item.Estado','@item.FacturaHoy.ToString()','@item.FechaFacturacion.Day','@item.FechaFacturacion.Month','@item.Visualizado.ToString()','@item.Asunto','@item.Proceso', this, '@item.CampaniaId')">
 
                     <div class="text-noti">
-                        <div class="upper">
+                        <div  >
 
                             @if (item.FlagProcedencia == true)
                             {
@@ -66,10 +84,10 @@ else
 
 
 
-                            CAMPAÑA
+                            
                             @if (item.CampaniaId > 0)
                             {
-                                @(item.CampaniaId.ToString().Substring(4) + " " + item.CampaniaId.ToString().Substring(0, 4))
+                                @("C" +item.CampaniaId.ToString().Substring(4) + " " + item.CampaniaId.ToString().Substring(0, 4))
                             }
 
                         </div>
@@ -97,6 +115,7 @@ else
         var urlListarDetalleCDR = '@Url.Action("DetalleCDR", "Notificaciones", new { area = "Mobile"})';
         var urlListarDetalleCDRCulminado = '@Url.Action("DetalleNotificacionesCDR", "Notificaciones", new { area = "Mobile" })';
         var urlListarPayOnline = '@Url.Action("DetallePagoEnLinea", "Notificaciones", new { area = "Mobile" })';
+        localStorage.setItem('KeyPseudoParam', new Date().getTime()); //SALUD-58
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Notificaciones/Index.js")"></script>
 }

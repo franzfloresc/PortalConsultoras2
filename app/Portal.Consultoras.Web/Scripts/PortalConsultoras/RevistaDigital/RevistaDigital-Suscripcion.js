@@ -6,7 +6,7 @@ $(document).ready(function () {
     var clickabrir = 1;
 
     if (isMobile()) {
-        
+
         $(".preguntas-frecuentes-cont-sus ul.preg-frecuentes li a.abrir-preg-frecuente").click(function () {
             $(".preguntas-frecuentes-cont-sus ul.preg-frecuentes ul").slideToggle();
 
@@ -15,8 +15,7 @@ $(document).ready(function () {
                 $(".preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.nodespliegue").css("display", "block");
                 clickabrir = 0;
             }
-            else
-            {
+            else {
                 $(".preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.nodespliegue").css("display", "none");
                 $(".preguntas-frecuentes-cont-sus .contenedor-mobile-fix span.despliegue").css("display", "block");
                 clickabrir = 1;
@@ -32,25 +31,24 @@ $(document).ready(function () {
                 $(this).find("span.nodespliegue").css("display", "block");
                 clickabrir = 0;
             }
-            else
-            {
+            else {
                 $(this).find("span.despliegue").css("display", "block");
                 $(this).find("span.nodespliegue").css("display", "none");
                 clickabrir = 1;
             }
         });
     }
-  
+
 });
 
-function ScrollUser(anchor, alto) {
-    var topMenu = ($("#seccion-fixed-menu").position() || {}).top || 0;
-    if (topMenu > 0)
-        alto = alto + $("#seccion-fixed-menu").height() + 10;
+//function ScrollUser(anchor, alto) {
+//    var topMenu = ($("#seccion-fixed-menu").position() || {}).top || 0;
+//    if (topMenu > 0)
+//        alto = alto + $("#seccion-fixed-menu").height() + 10;
 
-    alto = (jQuery(anchor).offset() || {}).top - alto;
-    return alto;
-}
+//    alto = (jQuery(anchor).offset() || {}).top - alto;
+//    return alto;
+//}
 
 function RDPopupMobileCerrar() {
 
@@ -98,10 +96,17 @@ function RDSuscripcion() {
                 RDActualizarTipoAccionAgregar(data.revistaDigital, key);
             }
 
-            $("#PopRDSuscripcion").css("display", "block"); // Confirmar datos
-            $(".popup_confirmacion_datos .form-datos input").keyup(); //to update button style
+            if (typeof esAppMobile == 'undefined') {
 
-           return false;
+                $("#PopRDSuscripcion").css("display", "block"); // Confirmar datos
+                $(".popup_confirmacion_datos .form-datos input").keyup(); //to update button 
+
+            } else if (esAppMobile) {
+                window.location = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/ConfirmacionAPP";
+            }
+
+            return false;
+
         },
         function (xhr, status, error) {
             CerrarLoad();
@@ -120,7 +125,7 @@ function RDSuscripcionPromise() {
         async: true
     });
 
-    promise.done(function(response) {
+    promise.done(function (response) {
         d.resolve(response);
     });
 
@@ -129,10 +134,71 @@ function RDSuscripcionPromise() {
     return d.promise();
 }
 
-function RDDesuscripcion() {
-    
-    AbrirLoad();
+
+function RDDesuscripcion_pregunta() {
+
     rdAnalyticsModule.CancelarSuscripcion();
+    $('#alerta_cancelar_suscripcion').show();
+    $('#pregunta').show();
+    $('#frmMotivoDesuscripcion').find('input:checked').click();
+    $('#opciones').hide();
+}
+
+function RDDesuscripcion_cerrar(e) {
+    if (e)
+        if (revistaDigital.EsSuscrita)
+            rdAnalyticsModule.DesuscripcionPopup(e.innerHTML);
+        else {
+
+            var MensajeEncuesta = "";
+            for (var i = 0; i < $('#frmMotivoDesuscripcion').find('input:checked').parent().length; i++) {
+                if (i === 0) {
+                    MensajeEncuesta = $('#frmMotivoDesuscripcion').find('input:checked').parent()[i].id
+                }
+                else
+                    MensajeEncuesta = MensajeEncuesta + '|' + $('#frmMotivoDesuscripcion').find('input:checked').parent()[i].id
+            }
+
+            rdAnalyticsModule.CancelarSuscripcionEncuesta(MensajeEncuesta);
+        }
+
+    else
+        if (revistaDigital.EsSuscrita)
+            rdAnalyticsModule.DesuscripcionPopupCerrar("Cerrar Popup");
+        else
+            rdAnalyticsModule.DesuscripcionPopupCerrar("Cerrar Encuesta");
+
+    $('#pregunta').show();
+    $('#opciones').hide();
+
+    if (!revistaDigital.EsSuscrita) {
+        window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
+    }
+    $('#alerta_cancelar_suscripcion').hide();
+}
+
+
+
+
+function RDDesuscripcion_check() {
+
+    if ($('#frmMotivoDesuscripcion').find('input:checked ~ .checkmark_desuscrita')[0])
+        $('#btnDesuscrita').removeClass('disable');
+    else
+        $('#btnDesuscrita').addClass('disable');
+}
+
+function RDDesuscripcion_motivos(e) {
+    rdAnalyticsModule.DesuscripcionPopup(e.innerHTML);
+    RDDesuscripcion(e);
+}
+
+
+
+function RDDesuscripcion(e) {
+
+    AbrirLoad();
+
     $.ajax({
         type: "POST",
         url: baseUrl + "RevistaDigital/Desuscripcion",
@@ -154,8 +220,10 @@ function RDDesuscripcion() {
                 var key = lsListaRD + data.CampaniaID;
                 RDActualizarTipoAccionAgregar(data.revistaDigital, key);
             }
+            revistaDigital = data.revistaDigital;
+            $('#pregunta').hide();
+            $('#opciones').show();
 
-            window.location.href = (isMobile() ? "/Mobile" : "") + "/Ofertas";
         },
         error: function (data, error) {
             CerrarLoad();
@@ -170,7 +238,6 @@ function MostrarTerminos() {
         win.focus();
     } else {
         //Browser has blocked it
-        //console.log("Habilitar mostrar popup");
     }
 }
 
@@ -178,12 +245,9 @@ function RedireccionarContenedorComprar(origenWeb, codigo) {
     origenWeb = $.trim(origenWeb);
     if (origenWeb !== "")
         rdAnalyticsModule.Access(origenWeb);
-    
-    if (!(typeof AnalyticsPortalModule === 'undefined'))
-        AnalyticsPortalModule.MarcaVerOfertas(origenWeb);
 
     codigo = $.trim(codigo);
-    window.location = (isMobileNative.any() ? "/Mobile" : "") + "/Ofertas" + (codigo !== "" ? "#" + codigo : "");
+    window.location = (isMobileNative.any() || isMobile() ? "/Mobile" : "") + "/Ofertas" + (codigo !== "" ? "#" + codigo : "");
 }
 
 function RedireccionarContenedorInformativa(origenWeb) {

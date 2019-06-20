@@ -1,0 +1,29 @@
+﻿@*MC - HD-3693 - POPUP BLOQUE POR SISTEMA*@
+<link href="@Url.Content("~/Content/Css/Site/Shared/PopupsResponsive/general-popups.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Site/Shared/PopupsResponsive/popup-bloqueo-sistema.css")" rel="stylesheet" />
+
+<div class="popup__wrapper bg__popups__default" id="PopupBloqueoPorSistema">
+    <div class="popup__somos__belcorp popup__somos__belcorp--bloqueoSistema">
+        <div class="popup__somos__belcorp__cabecera">
+            <a onclick="javascript:$('#PopupBloqueoPorSistema').fadeOut(100);" title="Cerrar" class="popup__somos__belcorp__icono__cerrar popup__somos__belcorp__icono__cerrar--bloqueoSistema">
+                <img src="@Url.Content("~/Content/Images/icono_cerrar_popup.svg")" alt="Cerrar Popup" />
+            </a>
+        </div>
+        <div class="popup__somos__belcorp__contenido text-center">
+            <div class="popup__somos__belcorp__icono popup__somos__belcorp__icono--bloqueoSistema center-block">
+                <img src="@Url.Content("~/Content/Images/icono_notificacion_negativa.svg")" alt="Estás bloqueada por el sistema" />
+            </div>
+            <h2 class="popup__somos__belcorp__titulo popup__somos__belcorp__titulo--bloqueoSistema">
+                Estás bloqueada por el sistema
+            </h2>
+            <p class="text-center popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--bloqueoSistema message_text_bloqueada">
+                Si deseas mayor información contáctate con el call center.
+            </p>
+            <button class="center-block text-center text-bold multimarca-background-color popup__somos__belcorp__btn popup__somos__belcorp__btn--entendido"
+                    onclick="javascript:$('#PopupBloqueoPorSistema').fadeOut(100);">
+                Entendido
+            </button>
+        </div>
+    </div>
+</div>
+@*FIN - MC - HD-3693 - POPUP BLOQUE POR SISTEMA*@

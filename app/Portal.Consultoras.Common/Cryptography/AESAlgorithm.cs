@@ -14,6 +14,38 @@ namespace Portal.Consultoras.PublicService.Cryptography
         private const string initVector = "@1B2c3D4e5F6g7H8"; // must be 16 bytes
         private const int keySize = 256;                      // can be 192 or 128
 
+        private static Random random = new Random();
+        private const char DELIMITER = ']';
+
+        private static byte[] generateBytes(int length)
+        {            
+            byte[] b = new byte[length];
+            random.NextBytes(b);
+            return b;
+        }
+
+        /// <summary>
+        /// Extensión para encriptar un String con un SecretKey Fija
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="key">SecretKey Fija</param>
+        public static string EncryptToAES(string value, string key){
+            byte[] keyBytes = Convert.FromBase64String(key);
+            byte[] ivBytes = generateBytes(16);
+            byte[] valueBytes = Encoding.UTF8.GetBytes(value);
+
+            AesManaged tdes = new AesManaged();
+            tdes.Key = keyBytes;
+            tdes.Mode = CipherMode.CBC;
+            tdes.Padding = PaddingMode.PKCS7;
+            tdes.IV = ivBytes;
+
+            var crypt = tdes.CreateEncryptor();
+            var cipherBytes = crypt.TransformFinalBlock(valueBytes, 0, valueBytes.Length);
+
+            return string.Format("{0}"+DELIMITER+"{1}", Convert.ToBase64String(ivBytes), Convert.ToBase64String(cipherBytes));
+        }
+
         public static string Encrypt(string plainText)
         {
             return Encrypt(plainText, passPhrase, saltValue, hashAlgorithm, passwordIterations, initVector, keySize);
@@ -254,7 +286,7 @@ namespace Portal.Consultoras.PublicService.Cryptography
             using (CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
             {
                 // Since at this point we don't know what the size of decrypted data
-                // will be, allocate the buffer long enough to hold ciphertext;
+                // will be, allocate the buffer long enough to hold ciphertext
                 // plaintext is never longer than ciphertext.
                 byte[] plainTextBytes = new byte[cipherTextBytes.Length];
 

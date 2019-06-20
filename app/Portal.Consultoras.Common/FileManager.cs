@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Portal.Consultoras.Common
 {
-    public class FileManager
+    public static class FileManager
     {
         private const string Path = "\\";
         private const string TempPath = "\\";

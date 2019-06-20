@@ -17,7 +17,7 @@ var procesoSms = false;
 var procesoEmail = false;
 var PrimerNombre = "";
 
-$(document).ready(function () {
+$(document).ready(function () {    
     $(window).resize(function () {
         //resize just happened, pixels changed
         resizeNameUserExt();
@@ -174,11 +174,11 @@ $(document).ready(function () {
     });
 
     Inicializar();
-    
+
     $('#frmLogin').on('submit', function (e) {
         if ($('#popupRestaurarClave').is(':visible')) {
             return false;
-        }       
+        }
         // validation code here
         var valid = true;
         CodigoISO = $('#ddlPais').val();
@@ -207,7 +207,14 @@ $(document).ready(function () {
         preventClick(1, true);
         $('#btnLoginFB').prop('disabled', true);
         limpiar_local_storage();
+
+        var dataToSend = encriptarCryptoJS(Contrasenia, cadena);
+        $('#hdeSalt').val(dataToSend.salt);
+        $('#hdeCiphertext').val(dataToSend.ciphertext);
+        $('#hdeKey').val(dataToSend.key);
+        $('#hdeIv').val(dataToSend.iv);
     });
+
     $("#txtUsuario").keypress(
         function (evt) {
             var charCode = getCharCodeKeyPress(evt);
@@ -334,6 +341,14 @@ $(document).ready(function () {
     });
 
     $("#divChatearConNosotros").click(function () {
+        if ($('#hddHabilitarChatBot').val() === 'true') {
+            if (typeof FB === 'undefined') return;
+
+            FB.XFBML.parse();
+
+            return;
+        }
+
         if ($('#hddHabilitarChatEmtelco').val() === 'false') {
             $('#popupChatDisabled').show();
             return;
@@ -393,9 +408,55 @@ $(document).ready(function () {
         tipoOpcion = 3
         if (PaisID != 0 && telefonoCentral != "")
             RecuperarContrasenia();
-    }); 
+    });
 });
 
+function encriptarCryptoJS(password, cadena) {
+
+    var bytesInSalt = 128 / 8;
+    var salt = CryptoJS.lib.WordArray.random(bytesInSalt);
+    var skey = getKeyAndIV(cadena, salt);
+    var data = CryptoJS.AES.encrypt(password, skey.key, { iv: skey.iv, padding: CryptoJS.pad.Pkcs7 });
+    var dataToSend = {
+        salt: salt.toString(CryptoJS.enc.Base64),
+        ciphertext: data.ciphertext.toString(CryptoJS.enc.Base64),
+        key: data.key.toString(CryptoJS.enc.Base64),
+        iv: data.iv.toString(CryptoJS.enc.Base64)
+    }
+
+    return dataToSend;
+}
+
+function wordArraySubArray(array, index, length) {
+    var hex = array.toString(CryptoJS.enc.Hex);
+    var subHex = hex.substr(index * 2, length * 2);
+    return CryptoJS.enc.Hex.parse(subHex);
+};
+
+function getKeyAndIV(password, salt) {
+
+    var ivBitLength = 128;
+    var keyBitLength = 256;
+
+    var ivByteLength = ivBitLength / 8;
+    var keyByteLength = keyBitLength / 8;
+
+    var ivWordLength = ivBitLength / 32;
+    var keyWordLength = keyBitLength / 32;
+
+    var totalWordLength = ivWordLength + keyWordLength;
+
+    var iterations = 1000;
+    var allBits = CryptoJS.PBKDF2(password, salt, { keySize: totalWordLength, iterations: iterations });
+
+    var iv128Bits = wordArraySubArray(allBits, 0, ivByteLength);
+    var key256Bits = wordArraySubArray(allBits, ivByteLength, keyByteLength);
+
+    return {
+        iv: iv128Bits,
+        key: key256Bits
+    };
+};
 
 function Inicializar() {
     $(".cboPaisCambioClave").trigger('change');
@@ -654,7 +715,7 @@ function AbrirMensajeLogin(tipo, close) {
 
 function ValidarFormulario() {
     $('#hdfContrasenia').val($('#txtContrasenia').val());
-$('#SubmitButton').click();
+    $('#SubmitButton').click();
 }
 
 function AsignarHojaEstilos() {
@@ -669,7 +730,7 @@ function AsignarHojaEstilos() {
         document.title = ' ÉSIKA ';
         $("link[data-id='iconPagina']").attr("href", "/Content/Images/Esika/favicon.ico");
 
-        $currentLink.attr('href', UrlStyles.esika/*$currentBelcorpStyle.data("srcesika")*/);
+        $currentLink.attr('href', UrlStyles.esika);
 
         Fondofestivo("hddFondoFestivoEsika");
 
@@ -681,7 +742,7 @@ function AsignarHojaEstilos() {
         document.title = " L'BEL ";
         $("link[data-id='iconPagina']").attr("href", "/Content/Images/Lbel/favicon.ico");
 
-        $currentLink.attr('href', UrlStyles.lbel /*$currentBelcorpStyle.data("srclbel")*/);
+        $currentLink.attr('href', UrlStyles.lbel);
 
         Fondofestivo("hddFondoFestivoLebel");
 
@@ -692,7 +753,7 @@ function AsignarHojaEstilos() {
         document.title = ' ÉSIKA ';
         $("link[data-id='iconPagina']").attr("href", "/Content/Images/Esika/favicon.ico");
 
-        $currentLink.attr('href', UrlStyles.esika/*$currentBelcorpStyle.data("srcesika")*/);
+        $currentLink.attr('href', UrlStyles.esika);
 
         Fondofestivo("hddFondoFestivoEsika");
 
@@ -790,8 +851,13 @@ function login2() {
     $('#ddlPais').val(CodigoISO);
     $('#txtUsuario').val(CodigoUsuario);
     $('#txtContrasenia').val(Contrasenia);
-
     $('#HdePaisID').val(PaisID);
+
+    var dataToSend = encriptarCryptoJS(Contrasenia, cadena);
+    $('#hdeSalt').val(dataToSend.salt);
+    $('#hdeCiphertext').val(dataToSend.ciphertext);
+    $('#hdeKey').val(dataToSend.key);
+    $('#hdeIv').val(dataToSend.iv);
 
     waitingDialog();
 
@@ -805,15 +871,20 @@ function login2() {
         dataType: 'json',
         //contentType: 'application/json; charset=utf-8',
         success: function (response) {
+
             var resul = "";
             if (response.data != null) {
+                analytics.invocarCompleteRegistrationPixel();
+
                 var datos = response.data;
                 $('#popupAsociarUsuarioExt').hide()
                 MostrarPopupPin(datos);
                 limpiar_local_storage();
                 closeWaitingDialog();
 
+
             } else if (response.success) {
+                analytics.invocarCompleteRegistrationPixel();
                 if (response.redirectTo !== "") {
                     analytics.invocarEventoPixel("FacebookLoginLogin");
                     limpiar_local_storage();
@@ -949,18 +1020,18 @@ function Fondofestivo(id) {
 }
 
 function RecuperarContrasenia() {
-   PaisID = $("#cboPaisCambioClave").val();
-   if (PaisID == '0') {
-   alert("Debe seleccionar un pais.");
-   return false;
-   }
+    PaisID = $("#cboPaisCambioClave").val();
+    if (PaisID == '0') {
+        alert("Debe seleccionar un pais.");
+        return false;
+    }
 
-   var nombreDato = $(".cboPaisCambioClave option:selected").attr("data-campoclave");
-   CodigoUsuario = $("#txtCorreoElectronico").val();
-   if (CodigoUsuario == "") {
-   alert("Debe ingresar " + nombreDato)
-   return false;
-   }       
+    var nombreDato = $(".cboPaisCambioClave option:selected").attr("data-campoclave");
+    CodigoUsuario = $("#txtCorreoElectronico").val();
+    if (CodigoUsuario == "") {
+        alert("Debe ingresar " + nombreDato)
+        return false;
+    }
 
     waitingDialog();
 
@@ -969,7 +1040,7 @@ function RecuperarContrasenia() {
         url: urlGetRestaurarClave,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify({ paisID: PaisID, valorRestaurar: CodigoUsuario, prioridad: tipoOpcion}),
+        data: JSON.stringify({ paisID: PaisID, valorRestaurar: CodigoUsuario, prioridad: tipoOpcion }),
         async: true,
         success: function (response) {
             if (response.success) {
@@ -980,28 +1051,28 @@ function RecuperarContrasenia() {
                 var telefonos;
                 var datos = response.data;
                 $("#hddHabilitarChatEmtelco").val(response.habilitarChatEmtelco);
+                $("#hddHabilitarChatBot").val(response.habilitarChatBot);
 
                 OcultarContenidoPopup();
-                var nroCelular = $.trim(datos.Celular);
-                var email = $.trim(datos.Correo);
+                //var nroCelular = $.trim(datos.Celular);
+                //var email = $.trim(datos.Correo);
                 var primerNombre = $.trim(datos.PrimerNombre);
 
                 var tituloPopup = "CAMBIO DE <b>CONTRASEÑA</b>"
                 $("#tituloPopup").empty();
                 $("#tituloPopup").append(tituloPopup);
-                var nomConsultora = "<b>" + primerNombre + ", </b>no te preocupes."                 
+                var nomConsultora = "<b>" + primerNombre + ", </b>no te preocupes."
 
                 $("#spnNombreConsultora").append(nomConsultora);
 
-                $("#linkvolverInicio").hide();  
+                $("#linkvolverInicio").hide();
                 $("#vermasopciones1").hide();
 
                 $(".MenCorreoEnviado_Pin").hide()
                 $(".pMenCorreoEnviado_RC").show();
                 correoRecuperar = datos.CorreoEnmascarado;
 
-                if (datos.Correo != "")
-                {
+                if (datos.Correo != "") {
                     if (datos.OpcionCorreoDesabilitado == "1") {
 
                         BloqueaOpcionCorreo(datos.HoraRestanteCorreo);
@@ -1011,8 +1082,7 @@ function RecuperarContrasenia() {
                     }
                 }
 
-                if (datos.Celular != "")
-                {
+                if (datos.Celular != "") {
                     if (datos.OpcionSmsDesabilitado == "1") {
 
                         BloqueaOpcionSms(datos.HoraRestanteSms);
@@ -1021,9 +1091,8 @@ function RecuperarContrasenia() {
                         ActivaOpcionSms();
                     }
                 }
-                
-                switch (datos.MostrarOpcion)
-                {
+
+                switch (datos.MostrarOpcion) {
                     case 1:
                         {
                             $(".EmailEmascarado").html(datos.CorreoEnmascarado);
@@ -1066,7 +1135,7 @@ function RecuperarContrasenia() {
                         } break;
 
                     case 4:
-                        {                
+                        {
                             //set variables nuevo chat
                             emt_client_type = datos.IdEstadoActividad;
                             emt_country = datos.CodigoIso;
@@ -1076,7 +1145,7 @@ function RecuperarContrasenia() {
                             emt_type = '1';
                             emt_device = ' ';
                             //fin set variables nuevo chat
-                        
+
                             $("#hdCodigoConsultora").val(datos.CodigoUsuario);
                             $("#divHoraiosAtencion").html(datos.descripcionHorario);
 
@@ -1085,10 +1154,10 @@ function RecuperarContrasenia() {
                             $("#menPrioridad2_chat").show();
                             $("#prioridad2_chat").show();
                             $("#vermasopciones1").hide();
-                        } break;                        
+                        } break;
 
                     case 5:
-                        {     
+                        {
                             if (datos.EsMobile) {
                                 $(".fonoMobile").remove();
                                 var htmlFono = "<a class='central_telefonica fonoMobile' href='tel:#CELULAR#' onclick='return (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Mobile/i))!=null;'>";
@@ -1145,7 +1214,7 @@ function RecuperarContrasenia() {
                             $("#prioridad3").show();
                             $("#vermasopciones1").hide();
                         }
-                        break;                                            
+                        break;
                 }
 
                 $("#popup1").hide();
@@ -1306,7 +1375,7 @@ function ProcesaEnvioSMS() {
                 $("#1cDigito").focus();
             }
             else {
-                nroIntentosSms = nroIntentosSms - 1;                
+                nroIntentosSms = nroIntentosSms - 1;
                 setTimeout(function () { alert("No se ha podido enviar el mensaje de texto. Intentelo mas tarde."); }, 1000);
             }
             closeWaitingDialog();
@@ -1342,8 +1411,7 @@ function Regresar() {
     $("#popupRestaurarClave").show();
 }
 
-function OcultarContenidoPopup()
-{
+function OcultarContenidoPopup() {
     $("#menPrioridad1").hide();
     $("#menPrioridad1_correo").hide();
     $("#menPrioridad1_sms").hide();

@@ -1,9 +1,13 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Bl_Conte = Portal.Consultoras.BizLogic.Contenido;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Comunicado;
 using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
+using System.Runtime.Serialization.Json;
 using System.ServiceModel;
 
 namespace Portal.Consultoras.Service
@@ -13,12 +17,16 @@ namespace Portal.Consultoras.Service
         private readonly BLNavidadConsultora _BLNavidadConsultora;
         private readonly BLItemCarruselInicio _BLItemCarruselInicio;
         private readonly BLMailing _BLMailing;
+        private readonly Bl_Conte.IContenidoAppResumenBusinessLogic _BLContenidoAppResumenBusinessLogic;
+        private readonly BLBelcorpResponde _BLBelcorpResponde;
 
         public ContenidoService()
         {
             _BLNavidadConsultora = new BLNavidadConsultora();
             _BLItemCarruselInicio = new BLItemCarruselInicio();
             _BLMailing = new BLMailing();
+            _BLContenidoAppResumenBusinessLogic = new Bl_Conte.BLContenidoApp();
+            _BLBelcorpResponde = new BLBelcorpResponde();
         }
 
         #region Gestion Banners
@@ -161,7 +169,7 @@ namespace Portal.Consultoras.Service
         {
             var blResumenCampania = new BLResumenCampania();
             //solucion a error en producción :Parameters to 'GetFlexipago' have the same names but not the same order as the method arguments.
-            return blResumenCampania.GetFlexipago(paisID, ConsultoraID , CampaniaID);
+            return blResumenCampania.GetFlexipago(paisID, ConsultoraID, CampaniaID);
         }
 
         public IList<BEResumenCampania> GetDeudaTotal(int paisID, int ConsultoraID)
@@ -484,11 +492,121 @@ namespace Portal.Consultoras.Service
         {
             return _BLMailing.ObtenerCorreoEmisor(PaisID);
         }
-        #endregion
-
-        #region Miembros de IContenidoService
 
         #endregion
+
+        #region Gestor de Poputs
+        public List<BEComunicado> GetListaPopup(int Estado, string Campania, int Paginas, int Filas, int PaisID)
+        {
+            return _BLBelcorpResponde.GetListaPopup(Estado, Campania, Paginas, Filas, PaisID);
+        }
+        public BEComunicado GetDetallePopup(int Comunicadoid, int PaisId)
+        {
+            return _BLBelcorpResponde.GetDetallePopup(Comunicadoid, PaisId);
+        }
+
+        public int GuardarPopups(string tituloPrincipal, string descripcion, string UrlImagen, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSVJson, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion, int PaisId)
+        {
+            List<BEComunicadoSegmentacion> listdatosCSV = new List<BEComunicadoSegmentacion>();
+            if (datosCSVJson != "null")
+            {
+                MemoryStream ms = new MemoryStream(System.Text.ASCIIEncoding.ASCII.GetBytes(datosCSVJson));
+                ms.Position = 0;
+                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(List<BEComunicadoSegmentacion>));
+                listdatosCSV = (List<BEComunicadoSegmentacion>)ser.ReadObject(ms);
+            }
+            return _BLBelcorpResponde.GuardarPopups(tituloPrincipal, descripcion, UrlImagen, fechaMaxima, fechaMinima, checkDesktop, checkMobile, accionID, listdatosCSV, comunicadoId, nombreArchivo, codigoCampania, descripcionAccion, PaisId);
+        }
+
+        public int ActualizaOrden(string Comunicado, string Orden, int PaisId)
+        {
+            return _BLBelcorpResponde.ActualizaOrden(Comunicado, Orden, PaisId);
+        }
+
+        public int EliminarArchivoCsv(int Comunicadoid, int PaisId)
+        {
+            return _BLBelcorpResponde.EliminarArchivoCsv(Comunicadoid, PaisId);
+        }
+
+
+        public int EliminarArchivoCsvValidador( int PaisId)
+        {
+            return _BLBelcorpResponde.EliminarArchivoCsvValidador(PaisId);
+        }
+
+
+
+        public int CargaEstadoValidadorDatos(int PaisId)
+        {
+            return _BLBelcorpResponde.CargaEstadoValidadorDatos(PaisId);
+        }
+
+        public int GuardarPopupsValidador(bool checkDesktop, string datosCSV, int PaisID)
+        {
+            List<BEComunicadoSegmentacion> listdatosCSV = new List<BEComunicadoSegmentacion>();
+            if (datosCSV != "null")
+            {
+                MemoryStream ms = new MemoryStream(System.Text.ASCIIEncoding.ASCII.GetBytes(datosCSV));
+                ms.Position = 0;
+                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(List<BEComunicadoSegmentacion>));
+                listdatosCSV = (List<BEComunicadoSegmentacion>)ser.ReadObject(ms);
+            }
+            return _BLBelcorpResponde.GuardarPopupsValidador( checkDesktop, listdatosCSV,  PaisID);
+        }
+
+        public List<BEComunicadoSegmentacion> GetCargaListadoPopupValidador(int PaisID)
+        {
+            return _BLBelcorpResponde.GetCargaListadoPopupValidador(PaisID);
+        }
+
+      
+        #endregion
+
+        public List<BEContenidoApp> GetContenidoApp(BEUsuario itmFilter, string codigoBanner)
+        {
+            return _BLContenidoAppResumenBusinessLogic.GetContenidoApp(itmFilter, codigoBanner);
+        }
+
+        public void CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle)
+        {
+            _BLContenidoAppResumenBusinessLogic.CheckContenidoApp(itmFilter, idContenidoDetalle);
+        }
+        public BEContenidoAppHistoria GetContenidoAppHistoria(int paisID, string Codigo)
+        {
+            var bl = new BLContenidoAppHistoria();
+            return bl.Get(paisID, Codigo);
+        }
+
+        public void UpdateContenidoApp(int paisID, BEContenidoAppHistoria formularioDato)
+        {
+            var bl = new BLContenidoAppHistoria();
+            bl.UpdateContenidoApp(paisID, formularioDato);
+        }
+       
+        public List<BEContenidoAppList> ListContenidoApp(int paisID, BEContenidoAppList entidad)
+        {
+            var bl = new BLContenidoAppHistoria();
+            return bl.GetList(paisID, entidad);
+        }
+        
+        public void InsertContenidoAppDeta(int paisID, BEContenidoAppDeta p)
+        {
+            var bl = new BLContenidoAppHistoria();
+            bl.InsertContenidoAppDeta(paisID, p);
+        }
+
+        public int UpdateContenidoAppDeta(int paisID, BEContenidoAppDeta p)
+        {
+            var bl = new BLContenidoAppHistoria();
+           return bl.UpdateContenidoAppDeta(paisID, p);
+        }
+
+        public List<BEContenidoAppDetaAct> GetContenidoAppDetaActList(int paisID)
+        {
+            var bl = new BLContenidoAppHistoria();
+            return bl.GetContenidoAppDetaActList(paisID);
+        }
+
 
     }
 }

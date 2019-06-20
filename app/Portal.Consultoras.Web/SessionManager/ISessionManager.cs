@@ -1,8 +1,11 @@
 ﻿using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.Models.MisCertificados;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
+using Portal.Consultoras.Web.Models.ProgramaNuevas;
+using Portal.Consultoras.Web.Models.Recomendaciones;
 using Portal.Consultoras.Web.ServiceCDR;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -13,8 +16,7 @@ using Portal.Consultoras.Web.SessionManager.OfertaDelDia;
 using Portal.Consultoras.Web.SessionManager.ShowRoom;
 using System;
 using System.Collections.Generic;
-using Portal.Consultoras.Web.Models.Recomendaciones;
-using Portal.Consultoras.Web.Models.Estrategia;
+using Portal.Consultoras.Web.Models.CaminoBrillante;
 
 namespace Portal.Consultoras.Web.SessionManager
 {
@@ -32,26 +34,26 @@ namespace Portal.Consultoras.Web.SessionManager
 
         #region CDR
 
-        List<BECDRWebDetalle> GetCDRWebDetalle();
-        
-        void SetCDRWebDetalle(List<BECDRWebDetalle> datos);
-        
-        List<BECDRWeb> GetCdrWeb();
+        List<ServiceCDR.BECDRWebDetalle> GetCDRWebDetalle();
 
-        void SetCdrWeb(List<BECDRWeb> datos);
-        
+        void SetCDRWebDetalle(List<ServiceCDR.BECDRWebDetalle> datos);
+
+        List<ServiceCDR.BECDRWeb> GetCdrWeb();
+
+        void SetCdrWeb(List<ServiceCDR.BECDRWeb> datos);
+
         List<CampaniaModel> GetCdrCampanias();
 
         void SetCdrCampanias(List<CampaniaModel> datos);
-        
+
         List<BECDRParametria> GetCdrParametria();
 
         void SetCdrParametria(List<BECDRParametria> datos);
-        
+
         List<BECDRWebDatos> GetCdrWebDatos();
 
         void SetCdrWebDatos(List<BECDRWebDatos> datos);
-        
+
         List<BECDRWebDescripcion> GetCdrDescripcion();
 
         void SetCdrDescripcion(List<BECDRWebDescripcion> datos);
@@ -59,7 +61,22 @@ namespace Portal.Consultoras.Web.SessionManager
         List<BECDRWebMotivoOperacion> GetCdrMotivoOperacion();
 
         void SetCdrMotivoOperacion(List<BECDRWebMotivoOperacion> datos);
+
+        int? GetNroPedidosCDRConfig();
+
+        void SetNroPedidosCDRConfig(int cantidad);
+
+        List<CDRWebModel> GetListaCDRWebCargaInicial();
+
+        void SetListaCDRWebCargaInicial(List<CDRWebModel> lista);
+
+        bool? GetFlagIsSetsOrPack();
+
+        void SetFlagIsSetsOrPack(bool? flag);
+
         #endregion
+
+
 
         BEPedidoWeb GetPedidoWeb();
 
@@ -194,13 +211,13 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetStartSession(DateTime startSession);
 
         DateTime GetStartSession();
-        
+
         IShowRoom ShowRoom { get; }
 
         void SetDatosPagoVisa(PagoEnLineaModel model);
 
         PagoEnLineaModel GetDatosPagoVisa();
-        
+
         void SetListadoEstadoCuenta(List<EstadoCuentaModel> model);
 
         List<EstadoCuentaModel> GetListadoEstadoCuenta();
@@ -212,7 +229,11 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetEstrategiaSR(Models.Estrategia.ShowRoom.ConfigModel data);
 
         Models.Estrategia.ShowRoom.ConfigModel GetEstrategiaSR();
-        
+
+        void SetArmaTuPack(ArmaTuPackModel data);
+
+        ArmaTuPackModel GetArmaTuPack();
+
         void SetBEEstrategia(string key, List<ServiceOferta.BEEstrategia> data);
 
         List<ServiceOferta.BEEstrategia> GetBEEstrategia(string key);
@@ -245,7 +266,7 @@ namespace Portal.Consultoras.Web.SessionManager
 
         bool GetPedidoValidado();
 
-        void setBEUsuarioModel (List<ServiceUsuario.BEUsuario> model);
+        void setBEUsuarioModel(List<ServiceUsuario.BEUsuario> model);
 
         List<ServiceUsuario.BEUsuario> getBEUsuarioModel();
 
@@ -261,7 +282,14 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMensajeKitNuevas(string mensajeKit);
         int GetLimElectivosProgNuevas();
         void SetLimElectivosProgNuevas(int limElectivos);
-
+        List<PremioElectivoModel> GetListPremioElectivo();
+        void SetListPremioElectivo(List<PremioElectivoModel> listPremioElectivo);
+        Dictionary<string, PremioProgNuevasOFModel> GetDictPremioProgNuevasOF();
+        void SetDictPremioProgNuevasOF(Dictionary<string, PremioProgNuevasOFModel> dictPremioProgNuevasOF);
+        
+        bool GetProcesoSuscripcionSE();
+        void SetProcesoSuscripcionSE(bool proceso);
+        
         void SetBuscadorYFiltrosConfig(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
 
         BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltrosConfig();
@@ -284,10 +312,6 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetPrimeraVezSessionMobile(dynamic val);
 
         dynamic GetPrimeraVezSessionMobile();
-
-        void SetIngresoPortalConsultoras(bool val);
-
-        dynamic GetIngresoPortalConsultoras();
 
         void SetConsultoraNuevaBannerAppMostrar(dynamic val);
 
@@ -312,6 +336,10 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetobjMisPedidosDetalle(List<BEMisPedidosDetalle> val);
 
         List<BEMisPedidosDetalle> GetobjMisPedidosDetalle();
+
+        void SetobjMisPedidosCliente(List<BEMisPedidos> val);
+
+        List<BEMisPedidos> GetobjMisPedidosCliente();
 
         void SetobjMisPedidosDetalleVal(List<ServiceODS.BEProducto> val);
 
@@ -346,14 +374,6 @@ namespace Portal.Consultoras.Web.SessionManager
 
         CDRWebModel GetListaCDRDetalle();
 
-        void SetfechaGetNotificacionesSinLeer(dynamic val);
-
-        dynamic GetfechaGetNotificacionesSinLeer();
-
-        void SetcantidadGetNotificacionesSinLeer(dynamic val);
-
-        dynamic GetcantidadGetNotificacionesSinLeer();
-
         void SetPedidoFIC(List<BEPedidoFICDetalle> val);
 
         List<BEPedidoFICDetalle> GetPedidoFIC();
@@ -377,10 +397,6 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetcarpetaPais(string val);
 
         string GetcarpetaPais();
-
-        void SetCdrPedidosFacturado(List<ServicePedido.BEPedidoWeb> datos);
-
-        List<ServicePedido.BEPedidoWeb> GetCdrPedidosFacturado();
 
         void SetCDRMotivoOperacion(List<BECDRWebMotivoOperacion> val);
 
@@ -410,10 +426,6 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<BEShowRoomOferta> GetListaProductoShowRoomCpc();
 
-        void SetActualizarDatosConsultora(bool val);
-
-        bool GetActualizarDatosConsultora();
-
         void SetSuenioNavidad(int val);
 
         int GetSuenioNavidad();
@@ -442,10 +454,6 @@ namespace Portal.Consultoras.Web.SessionManager
 
         string GetZonaCodigoEliminar();
 
-        void SetIngresoPortalLideres(bool val);
-
-        bool GetIngresoPortalLideres();
-
         void Seterrores(List<MatrizCampaniaModel> val);
 
         List<MatrizCampaniaModel> Geterrores();
@@ -465,10 +473,6 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMisPedidosDetallePorCampaniaPedidoId(int val);
 
         int GetMisPedidosDetallePorCampaniaPedidoId();
-
-        void SetCDRExpressMensajes(List<BETablaLogicaDatos> val);
-
-        List<BETablaLogicaDatos> GetCDRExpressMensajes();
 
         void SetOcultarBannerTop(bool val);
 
@@ -491,15 +495,34 @@ namespace Portal.Consultoras.Web.SessionManager
         List<List<BEEstadoServicio>> GetListaRango();
 
         BEUsuarioDatos GetDatosUsuario();
-        
-        IMasGanadoras MasGanadoras { get;  }
+
+        IMasGanadoras MasGanadoras { get; }
         bool GetMostrarBannerNuevas();
 
         void SetMostrarBannerNuevas(bool mostrarBannerNuevas);
-        
-        void SetJwtApiSomosBelcorp(string token);
-        
-        string GetJwtApiSomosBelcorp();
 
+        void SetJwtApiSomosBelcorp(string token);
+
+        string GetJwtApiSomosBelcorp();
+        void SetUsuarioOpciones(List<UsuarioOpcionesModel> val);
+        List<UsuarioOpcionesModel> GetUsuarioOpciones();
+
+        void SetConsultoraDigital(bool val);
+        bool? GetConsultoraDigital();
+        
+        void SetConsultoraCaminoBrillante(BEConsultoraCaminoBrillante val);
+        BEConsultoraCaminoBrillante GetConsultoraCaminoBrillante();
+
+        void SetKitCaminoBrillante(List<BEKitCaminoBrillante> val);
+        List<BEKitCaminoBrillante> GetKitCaminoBrillante();
+
+        void SetDemostradoresCaminoBrillante(List<BEDemostradoresCaminoBrillante> val);
+        List<BEDemostradoresCaminoBrillante> GetDemostradoresCaminoBrillante();
+
+        void SetChatbotToken(string val);
+        string GetChatbotToken();
+        
+        void SetFiltrosCaminoBrillante(BEOrdenFiltroConfiguracion val);
+        BEOrdenFiltroConfiguracion GetFiltrosCaminoBrillante();
     }
 }

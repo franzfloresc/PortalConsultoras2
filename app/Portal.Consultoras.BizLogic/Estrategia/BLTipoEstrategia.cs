@@ -3,6 +3,7 @@ using Portal.Consultoras.Entities;
 using Portal.Consultoras.Common;
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -28,6 +29,21 @@ namespace Portal.Consultoras.BizLogic
             {
                 return reader.MapToCollection<BETipoEstrategia>();
             }
+        }
+
+        public BETipoEstrategia GetTipoEstrategiaById(int paisId, int tipoEntidadId)
+        {
+            if (tipoEntidadId > 0)
+            {
+                var tipoEstrategia = new BETipoEstrategia
+                {
+                    TipoEstrategiaID = tipoEntidadId,
+                    PaisID = paisId
+                };
+                var lista = GetTipoEstrategias(tipoEstrategia);
+                return lista.FirstOrDefault() ?? new BETipoEstrategia();
+            }
+            return new BETipoEstrategia();
         }
     }
 }

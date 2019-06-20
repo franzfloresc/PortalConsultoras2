@@ -1,0 +1,115 @@
+﻿@model Portal.Consultoras.Web.Models.ClienteModel
+
+<div>
+    <div class="seleccion_header">
+        <button type="button"
+                onclick="tusClientesModule.ocultarEditarCliente();"
+                id="btnPanelListaCerrar_todo" class="button_cerrar_Clientes">
+            <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
+        </button>
+        <h3>AGREGAR CLIENTE</h3>
+    </div>
+
+    <form action="" method="post" class="Formulario-AgregarCliente">
+        @Html.HiddenFor(model => model.ClienteID)
+        @Html.HiddenFor(model => model.CodigoCliente)
+
+        <div class="ImputForm-item">
+            @Html.TextBoxFor(model => model.NombreCliente,
+           new
+           {
+               placeholder = "",
+               maxlength = "20",
+               @class = "input-nombre",
+               autocomplete = "off",
+               onkeypress = "return FuncionesGenerales.ValidarSoloLetras(event);"
+           })
+            <label>Nombre</label>
+            <div class="bar-imput"></div>
+            <span class="input-requerido">*</span>
+        </div>
+        <div class="noti mensaje_producto_noExiste" id="divNotiNombre" style="display:none;">
+            <div class="noti_message red_texto_size">
+                <span class="icono_advertencia_notificacion"></span>
+                <span class="descripcion_mensaje">
+                    Por favor ingresa un nombre válido.
+                </span>
+            </div>
+        </div>
+
+        <div class="ImputForm-item">
+            @Html.TextBoxFor(model => model.ApellidoCliente,
+           new
+           {
+               placeholder = "",
+               maxlength = "20",
+               @class = "input-nombre",
+               autocomplete = "off",
+               onkeypress = "return FuncionesGenerales.ValidarSoloLetras(event);"
+           })
+            <label>Apellidos</label>
+            <div class="bar-imput"></div>
+            <span class="input-requerido">*</span>
+        </div>
+
+        <div class="ImputForm-item">
+            @Html.TextBoxFor(model => model.Telefono,
+           new
+           {
+               placeholder = "",
+               maxlength = "20",
+               @class = "input-number",
+               autocomplete = "off",
+               onkeypress = "return FuncionesGenerales.ValidarSoloNumeros(event);"
+           })
+            <label>Teléfono Fijo</label>
+            <div class="bar-imput"></div>
+            <span class="input-requerido">*</span>
+        </div>
+
+        <div class="ImputForm-item">
+            @Html.TextBoxFor(model => model.Celular,
+           new
+           {
+               placeholder = "",
+               maxlength = "20",
+               @class = "input-number",
+               autocomplete = "off",
+               onkeypress = "return FuncionesGenerales.ValidarSoloNumeros(event);"
+           })
+            <label>Celular</label>
+            <div class="bar-imput"></div>
+            <span class="input-requerido">*</span>
+        </div>
+
+        <div class="ImputForm-item">
+            @Html.TextBoxFor(model => model.eMail,
+           new
+           {
+               placeholder = "",
+               maxlength = "80",
+               @class = "input-correo",
+               autocomplete = "off",
+               onkeypress = "return FuncionesGenerales.ValidarCorreo(event);"
+           })
+            <label>Correo Electrónico (Opcional)</label>
+            <div class="bar-imput"></div>
+        </div>
+        <div class="noti mensaje_producto_noExiste" id="divNotiCorreo" style="display:none;">
+            <div class="noti_message red_texto_size">
+                <span class="icono_advertencia_notificacion"></span>
+                <span class="descripcion_mensaje">
+                    El correo ingresado <b>no existe.</b> <br />
+                    Por favor ingresa un correo válido.
+                </span>
+            </div>
+        </div>
+
+        <input type="button" class="btnCliente_agregar" id="btnPanelMantenerAgregar" value="Agregar" />
+        <br />
+        <br />
+        <div id="divValidationSummary" style="display:none;">* Debes Ingresar al menos un teléfono de contacto</div>
+
+    </form>
+</div>
+

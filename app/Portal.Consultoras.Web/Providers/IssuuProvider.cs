@@ -1,15 +1,20 @@
-﻿using Portal.Consultoras.Common;
+﻿using System.Collections.Generic;
+using Portal.Consultoras.Common;
 using System.Linq;
+using Portal.Consultoras.Web.Models;
 
 namespace Portal.Consultoras.Web.Providers
 {
     public class IssuuProvider
     {
+        private List<TablaLogicaDatosModel> _segmentacion;
         protected ConfiguracionManagerProvider _configuracionManager;
+        protected TablaLogicaProvider _tablaLogicaProvider;
 
         public IssuuProvider()
         {
             _configuracionManager = new ConfiguracionManagerProvider();
+            _tablaLogicaProvider = new TablaLogicaProvider();
         }
 
         public string GetCatalogoCodigoIssuu(string campania, int idMarcaCatalogo, string codigoISO, string codigoZona, out bool outPilotoSeg)
@@ -19,13 +24,14 @@ namespace Portal.Consultoras.Web.Providers
             string CodeGrup = null;
             string nroCampania = string.Empty;
             string anioCampania = string.Empty;
-            string codigo = null;
-            string requestUrl = null;
+            string codigo;
+            string requestUrl;
             bool esRevistaPiloto = false;
-            string Grupos = null;
-            string marcas = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Marca_Piloto + codigoISO + campania) ?? "";
-            bool esMarcaEspecial = false;
+            string Grupos;
+            bool esMarcaEspecial;
             outPilotoSeg = false;
+            var config = GetConfigSegmentacion(codigoISO);
+            string marcas = _tablaLogicaProvider.GetValueByCode(config, Constantes.ConfiguracionManager.Catalogo_Marca_Piloto + codigoISO + campania);
 
             switch (idMarcaCatalogo)
             {
@@ -46,19 +52,19 @@ namespace Portal.Consultoras.Web.Providers
                     break;
             }
 
-            Grupos = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Piloto_Grupos + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + codigoISO + campania);
-            esMarcaEspecial = marcas.Split(new char[1] { ',' }).Select(marca => marca.Trim()).Contains(nombreCatalogoConfig);
+            Grupos = _tablaLogicaProvider.GetValueByCode(config, Constantes.ConfiguracionManager.Catalogo_Piloto_Grupos + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + codigoISO + campania);
+            esMarcaEspecial = marcas.Split(',').Select(marca => marca.Trim()).Contains(nombreCatalogoConfig);
 
 
             if (!string.IsNullOrEmpty(Grupos))
             {
                 foreach (var grupo in Grupos.Split(','))
                 {
-                    var zonas = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.Catalogo_Piloto_Zonas + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + codigoISO + campania + Constantes.ConfiguracionManager.SubGuion + grupo);
-                    esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(codigoZona);
+                    var zonas = _tablaLogicaProvider.GetValueByCode(config, Constantes.ConfiguracionManager.Catalogo_Piloto_Zonas + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + codigoISO + campania + Constantes.ConfiguracionManager.SubGuion + grupo);
+                    esRevistaPiloto = zonas.Split(',').Select(zona => zona.Trim()).Contains(codigoZona);
                     if (esRevistaPiloto)
                     {
-                        CodeGrup = grupo.Trim().ToString();
+                        CodeGrup = grupo.Trim();
                         break;
                     }
                 }
@@ -88,23 +94,24 @@ namespace Portal.Consultoras.Web.Providers
 
         public string GetRevistaCodigoIssuu(string campania, bool tieneRDCR, string codigoISO, string codigoZona)
         {
-            string codigo = null;
-            string requestUrl = null;
+            string codigo;
+            string requestUrl;
             bool esRevistaPiloto = false;
-            var Grupos = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Grupos + codigoISO + campania);
             string codeGrupo = null;
             string nroCampania = string.Empty;
             string anioCampania = string.Empty;
+            var config = GetConfigSegmentacion(codigoISO);
+            var Grupos = _tablaLogicaProvider.GetValueByCode(config, Constantes.ConfiguracionManager.RevistaPiloto_Grupos + codigoISO + campania);
 
             if (!string.IsNullOrEmpty(Grupos))
             {
                 foreach (var grupo in Grupos.Split(','))
                 {
-                    var zonas = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.RevistaPiloto_Zonas + codigoISO + campania + "_" + grupo);
-                    esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(codigoZona);
+                    var zonas = _tablaLogicaProvider.GetValueByCode(config, Constantes.ConfiguracionManager.RevistaPiloto_Zonas + codigoISO + campania + "_" + grupo);
+                    esRevistaPiloto = zonas.Split(',').Select(zona => zona.Trim()).Contains(codigoZona);
                     if (esRevistaPiloto)
                     {
-                        codeGrupo = grupo.Trim().ToString();
+                        codeGrupo = grupo.Trim();
                         break;
                     }
                 }
@@ -137,7 +144,10 @@ namespace Portal.Consultoras.Web.Providers
                     return codigoRevista;
 
                 string tipo = "1";
-                if (_configuracionManager.GetConfiguracionManagerContains(Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + codigoISO, codigoZona))
+                var config = GetConfigSegmentacion(codigoISO);
+                var zonas = _tablaLogicaProvider.GetValueByCode(config, Constantes.ConfiguracionManager.RevistaPiloto_Zonas_RDR_2 + codigoISO);
+
+                if (zonas.Contains(codigoZona))
                 {
                     tipo = "2";
                 }
@@ -147,5 +157,27 @@ namespace Portal.Consultoras.Web.Providers
             }
             return codigoRevista;
         }
+
+        private List<TablaLogicaDatosModel> GetConfigSegmentacion(string codigoIso)
+        {
+            if (_segmentacion == null)
+            {
+                _segmentacion = _tablaLogicaProvider.GetTablaLogicaDatos(
+                    Util.GetPaisID(codigoIso),
+                    Constantes.ConfiguracionManager.RevistaCatalogoTablaLogicaId);
+
+            }
+
+            return _segmentacion;
+        }
+
+        public string GetStringIssuRevista(string codigoRevista, bool isEmbed = true) {
+            var url = string.Format("https://issuu.com/somosbelcorp/docs/{0}", codigoRevista);
+            if (isEmbed) {
+                url += "?mode=embed";
+            }
+            return url;
+        }
+
     }
 }

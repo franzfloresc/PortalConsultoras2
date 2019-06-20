@@ -13,6 +13,7 @@
     margin-left: auto;
     margin-right: auto;
     max-width: 98%;
+    border: none;
 }
 
 .popover.top {
@@ -31,9 +32,6 @@
     margin-left: -10px;
 }
 
-.popover-content {
-    padding: 9px 14px;
-}
 
 .popover > .arrow,
 .popover > .arrow:after {
@@ -150,13 +148,22 @@
     padding: 17px 10px;
 }
 
+.popover-content span {
+    font-weight:bold;
+}
+
 .list-inline {
     margin-bottom: 0px;
 }
 
-.list-inline li{
-    vertical-align: middle;
-    display: inline-block;
+    .list-inline li {
+        vertical-align: middle;
+        display: inline-block;
+        line-height: normal;
+    }
+
+.popover_texto li:last-child{
+    width: 85%;
 }
 
 .tooltip_agregado {
@@ -166,7 +173,7 @@
     text-align: center;
     margin-right: 0;
     top: 66px;
-    right: 135px;
+    right: 131px;
     font-weight: bold;
 }
 
@@ -174,3 +181,24 @@
     left: 93% !important;
 }
 
+.icon_alerta {
+    width: 21px;
+    margin-right: 4px;
+    display: block;
+}
+
+.tooltop-emoji {
+    width: 19px;
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+    margin: 0px 2px;
+}
+
+
+@media screen and (max-width:960px) {
+    .tooltip_agregado {
+        right: 3px;
+        z-index: 9;
+    }
+}

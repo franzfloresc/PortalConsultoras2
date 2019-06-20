@@ -22,7 +22,7 @@
 </style>
 
 <div class="btn_cerrar_agregarUnidades">
-    <a href="javascript:;" onclick="CloseAgregarCliente();">
+    <a href="javascript:;" onclick="CloseAgregarCliente(2);">
         <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
         <span class="texto_btn_cerrar">CERRAR</span>
     </a>
@@ -82,8 +82,7 @@ else
         $('#divAgregarCliente').modal({ backdrop: 'static', keyboard: false })
 
             $("#btnGuardar").on("click", function (e) {
-                e.preventDefault();
-
+                e.preventDefault();                
                 $("#divValidationSummary").html("");
                 if (jQuery.trim($('#Telefono').val()) == "" && jQuery.trim($('#Celular').val()) == "") {
                     $("#divValidationSummary").html("* Debes Ingresar al menos un teléfono de contacto");
@@ -127,16 +126,25 @@ else
                                 item.CodigoCliente = data.extra.split("|")[0];
                                 item.ClienteID = data.extra.split("|")[1];
 
-                                messageInfo(data.message, function () {
+                                messageInfo(data.message, function (e) {                                    
+                                    if ($(e.target.parentElement).attr('class').indexOf("cerrar_popMobile") > -1) { /*click en cerrar pop up*/
+                                        DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Pop up Registro Cliente Satisfactorio', 'Cerrar');
+                                    } else if ($(e.target).attr('class').indexOf("btn-aceptar") > -1) {  /*click en Aceptar*/
+                                        DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Pop up Registro Cliente Satisfactorio', 'Aceptar');
+                                    }
                                     item.Insertado = data.insertado;
                                     if ($.isFunction(ClienteDetalleOK)) ClienteDetalleOK(item);
                                 });
-                                CloseAgregarCliente();
+                                CloseAgregarCliente(1);
+
+
                             }
                             else {
                                 CloseLoading();
                                 messageInfo(data.message);
                             }
+
+
                         }
                     },
                     error: function (data, error) {
@@ -148,7 +156,20 @@ else
                 });
             });
 
-        function CloseAgregarCliente() {
+    function CloseAgregarCliente(origenBoton) {
+
+        if (origenBoton) {
+            switch (origenBoton) {
+                case 1: /*boton Guardar*/
+                    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Agregar Cliente', 'guardar');
+                    break
+                case 2: /*boton Cerrar*/
+                    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Agregar Cliente', 'cerrar');
+                    break;
+                default:
+                    break;
+            }
+        }
             $("#divAgregarCliente").modal("hide");
         }
 </script>

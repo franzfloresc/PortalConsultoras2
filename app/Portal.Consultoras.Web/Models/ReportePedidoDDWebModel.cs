@@ -34,5 +34,7 @@ namespace Portal.Consultoras.Web.Models
         public string vsortorder { set; get; }
         public string vrowNum { set; get; }
         public string MotivoRechazo { get; set; }
+
+        public string IndicadorConsultoraDigital { get; set; }
     }
 }

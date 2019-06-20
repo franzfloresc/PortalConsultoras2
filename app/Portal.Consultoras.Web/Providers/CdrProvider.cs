@@ -12,15 +12,17 @@ namespace Portal.Consultoras.Web.Providers
     public class CdrProvider
     {
         protected readonly ISessionManager sessionManager;
-        
+        protected TablaLogicaProvider _tablaLogicaProvider;
+
         public CdrProvider()
         {
             sessionManager = SessionManager.SessionManager.Instance;
+            _tablaLogicaProvider = new TablaLogicaProvider();
         }
-        
-        public List<BECDRWeb> CargarBECDRWeb(MisReclamosModel model, int paisId, long consultoraId)
+
+        public List<ServiceCDR.BECDRWeb> CargarBECDRWeb(MisReclamosModel model, int paisId, long consultoraId)
         {
-            List<BECDRWeb> entidadLista;
+            List<ServiceCDR.BECDRWeb> entidadLista;
             try
             {
                 if (sessionManager.GetCdrWeb() != null)
@@ -28,7 +30,7 @@ namespace Portal.Consultoras.Web.Providers
                     return sessionManager.GetCdrWeb();
                 }
 
-                var entidad = new BECDRWeb
+                var entidad = new ServiceCDR.BECDRWeb
                 {
                     CampaniaID = model.CampaniaID,
                     PedidoID = model.PedidoID,
@@ -51,13 +53,13 @@ namespace Portal.Consultoras.Web.Providers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, consultoraId.ToString(), paisId.ToString());
                 sessionManager.SetCdrWeb(null);
-                entidadLista = new List<BECDRWeb>();
+                entidadLista = new List<ServiceCDR.BECDRWeb>();
             }
 
             return entidadLista;
         }
 
-        public List<BECDRWebDetalle> CargarDetalle(MisReclamosModel model, int paisId, string codigoIso)
+        public List<ServiceCDR.BECDRWebDetalle> CargarDetalle(MisReclamosModel model, int paisId, string codigoIso)
         {
             try
             {
@@ -68,25 +70,33 @@ namespace Portal.Consultoras.Web.Providers
 
                 model = model ?? new MisReclamosModel();
 
-                List<BECDRWebDetalle> lista;
-                var entidad = new BECDRWebDetalle { CDRWebID = model.CDRWebID };
+                List<ServiceCDR.BECDRWebDetalle> lista;
+                var entidad = new ServiceCDR.BECDRWebDetalle { CDRWebID = model.CDRWebID };
                 using (var sv = new CDRServiceClient())
                 {
                     lista = sv.GetCDRWebDetalle(paisId, entidad, model.PedidoID).ToList();
                 }
 
-                lista.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado, paisId).Descripcion);
-                lista.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado, paisId).Descripcion);
-                lista.Update(p => p.FormatoPrecio1 = Util.DecimalToStringFormat(p.Precio, codigoIso));
-                lista.Update(p => p.FormatoPrecio2 = Util.DecimalToStringFormat(p.Precio2, codigoIso));
-                sessionManager.SetCDRWebDetalle(lista);
+                if (lista.Any())
+                {
+                    lista.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado, paisId).Descripcion);
+                    lista.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado, paisId).Descripcion);
+                    lista.Update(p => p.FormatoPrecio1 = Util.DecimalToStringFormat(p.Precio, codigoIso));
+                    lista.Update(p => p.FormatoPrecio2 = Util.DecimalToStringFormat(p.Precio2, codigoIso));
+                    sessionManager.SetCDRWebDetalle(lista);
+                }
+                else
+                {
+                    sessionManager.SetCDRWebDetalle(null);
+                }
+
                 return lista;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, "", codigoIso);
                 sessionManager.SetCDRWebDetalle(null);
-                return new List<BECDRWebDetalle>();
+                return new List<ServiceCDR.BECDRWebDetalle>();
             }
         }
 
@@ -122,25 +132,13 @@ namespace Portal.Consultoras.Web.Providers
                 return listaRetorno;
             }
         }
-        
+
         public void CargarInformacion(int paisId, int campaniaId, long consultoraId)
         {
             sessionManager.SetCDRWebDetalle(null);
             sessionManager.SetCdrWeb(null);
 
-            var listaMotivoOperacion = CargarMotivoOperacion(paisId);
-            // get max dias => plazo para hacer reclamo
-            // calcular las campañas existentes en ese rango de dias
-            // obtener todos pedidos facturados de esas campañas existentes
-
-            var maxDias = 0;
-            if (listaMotivoOperacion.Any())
-            {
-                maxDias += int.Parse(listaMotivoOperacion.Max(m => m.CDRTipoOperacion.NumeroDiasAtrasOperacion).ToString());
-            }
-
-            var listaPedidoFacturados = CargarPedidosFacturados(paisId, campaniaId, consultoraId, maxDias);
-            sessionManager.SetCDRPedidoFacturado(listaPedidoFacturados);
+            List<BEPedidoWeb> listaPedidoFacturados = CDRObtenerPedidoFacturadoCargaInicial(paisId, campaniaId, consultoraId);
 
             var listaCampanias = new List<CampaniaModel>();
             var campania = new CampaniaModel
@@ -149,6 +147,7 @@ namespace Portal.Consultoras.Web.Providers
                 NombreCorto = "¿En qué campaña lo solicitaste?"
             };
             listaCampanias.Add(campania);
+
             foreach (var facturado in listaPedidoFacturados)
             {
                 var existe = listaCampanias.Where(c => c.CampaniaID == facturado.CampaniaID) ?? new List<CampaniaModel>();
@@ -166,6 +165,23 @@ namespace Portal.Consultoras.Web.Providers
 
             CargarParametriaCdr(paisId);
             CargarCdrWebDatos(paisId);
+        }
+
+        public List<BEPedidoWeb> CDRObtenerPedidoFacturadoCargaInicial(int paisId, int campaniaId, long consultoraId)
+        {
+            var listaMotivoOperacion = CargarMotivoOperacion(paisId);
+            // get max dias => plazo para hacer reclamo
+            // calcular las campañas existentes en ese rango de dias
+            // obtener todos pedidos facturados de esas campañas existentes
+
+            var maxDias = 0;
+            if (listaMotivoOperacion.Any())
+            {
+                maxDias += int.Parse(listaMotivoOperacion.Max(m => m.CDRTipoOperacion.NumeroDiasAtrasOperacion).ToString());
+            }
+
+            var listaPedidoFacturados = CargarPedidosFacturados(paisId, campaniaId, consultoraId, maxDias);
+            return listaPedidoFacturados;
         }
 
         public List<BECDRParametria> CargarParametriaCdr(int paisId)
@@ -217,15 +233,39 @@ namespace Portal.Consultoras.Web.Providers
             var listaFiltro = listaMotivoOperacion.Where(mo => mo.CDRTipoOperacion.NumeroDiasAtrasOperacion >= differenceInDays).ToList();
             return listaFiltro.OrderBy(p => p.Prioridad).ToList();
         }
-        
+
         public List<BEPedidoWeb> CargarPedidosFacturados(int paisId, int campaniaId, long consultoraId, int maxDias = 0)
         {
             try
             {
-                if (sessionManager.GetCdrPedidosFacturado() != null)
+                if (sessionManager.GetCDRPedidoFacturado() != null)
                 {
-                    return sessionManager.GetCdrPedidosFacturado();
+                    return sessionManager.GetCDRPedidoFacturado();
                 }
+
+                var CDRWebCargaInicial = sessionManager.GetListaCDRWebCargaInicial();
+
+                var listaCDRWeb = new List<ServicePedido.BECDRWeb>();
+
+
+                if (CDRWebCargaInicial.Any())
+                {
+                    foreach (var item in CDRWebCargaInicial)
+                    {
+                        var obj = new ServicePedido.BECDRWeb()
+                        {
+                            PedidoID = item.PedidoID,
+                            Estado = item.Estado,
+                            CampaniaID = item.CampaniaID,
+                            CantidadDetalle = item.CantidadDetalle,
+                            CDRWebID = item.CDRWebID,
+                            CDRWebDetalle = null,
+                            PedidoNumero = item.PedidoNumero
+                        };
+                        listaCDRWeb.Add(obj);
+                    }
+                }
+
 
                 if (maxDias <= 0) return new List<BEPedidoWeb>();
 
@@ -233,19 +273,29 @@ namespace Portal.Consultoras.Web.Providers
                 using (var sv = new PedidoServiceClient())
                 {
                     listaPedidoFacturados = sv.GetPedidosFacturadoSegunDias(paisId, campaniaId, consultoraId, maxDias).ToList();
+
                 }
 
-                sessionManager.SetCdrPedidosFacturado(listaPedidoFacturados);
+                if (listaPedidoFacturados.Any())
+                {
+                    foreach (var item in listaPedidoFacturados)
+                    {
+                        var lst = listaCDRWeb.Where(a => a.PedidoID == item.PedidoID && a.CampaniaID == item.CampaniaID);
+                        item.BECDRWeb = (lst == null) ? null : lst.ToArray();
+                    }
+                }
+
+                sessionManager.SetCDRPedidoFacturado(listaPedidoFacturados);
                 return listaPedidoFacturados;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, consultoraId.ToString(), paisId.ToString());
-                sessionManager.SetCdrPedidosFacturado(null);
+                sessionManager.SetCDRPedidoFacturado(null);
                 return new List<BEPedidoWeb>();
             }
         }
-        
+
         public BECDRWebDescripcion ObtenerDescripcion(string codigoSsic, string tipo, int paisId)
         {
             codigoSsic = Util.SubStr(codigoSsic, 0);
@@ -306,6 +356,7 @@ namespace Portal.Consultoras.Web.Providers
             var cdrDiasAntesFacturacion = 0;
             var cdrWebDatos = ObtenerCdrWebDatosByCodigo(Constantes.CdrWebDatos.DiasAntesFacturacion, paisId);
             if (cdrWebDatos != null) int.TryParse(cdrWebDatos.Valor, out cdrDiasAntesFacturacion);
+
             if (diasFaltantes <= cdrDiasAntesFacturacion) return Constantes.CdrWebMensajes.FueraDeFecha;
 
             return string.Empty;
@@ -379,7 +430,7 @@ namespace Portal.Consultoras.Web.Providers
                 return new List<BECDRWebMotivoOperacion>();
             }
         }
-        
+
         private int CumpleRangoCampaniaCDR(int paisId, int campaniaId, long consultoraId)
         {
             var listaMotivoOperacion = CargarMotivoOperacion(paisId);
@@ -395,6 +446,107 @@ namespace Portal.Consultoras.Web.Providers
 
             var listaPedidoFacturados = CargarPedidosFacturados(paisId, campaniaId, consultoraId, maxDias);
             return (listaPedidoFacturados.Count > 0).ToInt();
+        }
+
+        public bool ValidarCantidadSolicitudesPerPedido(List<CDRWebModel> ListaCDRWeb, List<BEPedidoWeb> ListaCampaniaPedido, int? CantidadPedidosConfig)
+        {
+            bool result = true;
+
+            int[] arrEstadosConteo = { Constantes.EstadoCDRWeb.Enviado, Constantes.EstadoCDRWeb.Aceptado };
+
+            //Obtenemos el nro pedidos campania
+            var listaCampaniaPedido = ListaCampaniaPedido.GroupBy(a => new { a.PedidoID, a.CampaniaID })
+                .Select(b => new PedidosEstadoCDRWeb { CampaniaID = b.Key.CampaniaID, PedidoID = b.Key.PedidoID, Cantidad = 0 })
+                .OrderByDescending(c => c.CampaniaID).ToList();
+
+            //Si no hay PedidoCDR
+            if (!listaCampaniaPedido.Any()) { result = false; return result; }
+
+            //filtrar ListaCDRWeb solo los pedidos facturados
+            var ListaCDRWebFiltrado = (from c in ListaCDRWeb
+                                       join d in ListaCampaniaPedido on c.PedidoID equals d.PedidoID
+                                       select c).ToList();
+
+
+            //Obtenemos el nro de PedidosCDRWeb que contabilizan
+            var pedidoscdrestados = ListaCDRWebFiltrado.Where(a => arrEstadosConteo.Contains(a.Estado))
+                .GroupBy(a => new { a.CampaniaID, a.PedidoID })
+                .Select(a => new PedidosEstadoCDRWeb
+                {
+                    CampaniaID = a.Key.CampaniaID,
+                    PedidoID = a.Key.PedidoID,
+                    Cantidad = a.Count()
+                }).ToList();
+
+            //Resultado final calculando la cantidad de todos las Solicitudes por pedido CDR
+            var final = (from c in listaCampaniaPedido
+                         join a in pedidoscdrestados on new { c.CampaniaID, c.PedidoID }
+                         equals new { a.CampaniaID, a.PedidoID } into g
+                         from d in g.DefaultIfEmpty()
+                         select new PedidosEstadoCDRWeb
+                         {
+                             CampaniaID = c.CampaniaID,
+                             PedidoID = c.PedidoID,
+                             Cantidad = (d == null || d.Cantidad == null) ? 0 : d.Cantidad
+                         }).ToList();
+
+            if (final != null)
+            {
+                foreach (var item in final)
+                    if (item.Cantidad < CantidadPedidosConfig) { result = false; break; }
+            }
+            return result;
+        }
+
+        public List<CDRWebModel> ObtenerCDRWebCargaInicial(long consultoraID, int paisID)
+        {
+            if (sessionManager.GetListaCDRWebCargaInicial() != null)
+            {
+                return sessionManager.GetListaCDRWebCargaInicial();
+            }
+
+            List<CDRWebModel> listaCdrWebModel;
+            using (CDRServiceClient cdr = new CDRServiceClient())
+            {
+                var beCdrWeb = new ServiceCDR.BECDRWeb { ConsultoraID = consultoraID };
+
+                var listaReclamo = cdr.GetCDRWeb(paisID, beCdrWeb).ToList();
+
+                listaCdrWebModel = AutoMapper.Mapper.Map<List<ServiceCDR.BECDRWeb>, List<CDRWebModel>>(listaReclamo);
+            }
+
+
+            sessionManager.SetListaCDRWebCargaInicial(listaCdrWebModel);
+            return listaCdrWebModel;
+        }
+
+        public int? GetNroSolicitudesReclamoPorPedido(int paisID, string codigoConsultora, string codigoISO)
+        {
+            int result = 0;
+
+            try
+            {
+                if (sessionManager.GetNroPedidosCDRConfig() != null)
+                {
+                    return sessionManager.GetNroPedidosCDRConfig();
+                }
+
+                result = _tablaLogicaProvider.GetTablaLogicaDatoValorInt(paisID, ConsTablaLogica.NroSolicitudePedido.TablaLogicaId, ConsTablaLogica.NroSolicitudePedido.Cod01);
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, codigoConsultora, codigoISO);
+            }
+            sessionManager.SetNroPedidosCDRConfig(result);
+            return result;
+        }
+
+        private class PedidosEstadoCDRWeb
+        {
+            public int CampaniaID { get; set; }
+            public int PedidoID { get; set; }
+            public int? Cantidad { get; set; }
         }
     }
 }

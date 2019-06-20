@@ -2,9 +2,104 @@
 
 /* INICIO VISTA LISTA DE SOLICITUDES CDR */
 
+.fijarTituloMobileLbel {
+    z-index: 1000!important;
+    overflow: initial;
+}
+
+    .fijarTituloMobileLbel:after {
+        display: block;
+        background: url(/Content/Images/Mobile/Lbel/pestana_lbel.png) no-repeat top center;
+        width: 290px;
+        margin: 0 auto;
+        top: 101%;
+        left: 0;
+        right: 0;
+        height: 20px;
+        margin-top: -3px;
+        position: absolute;
+        margin-bottom: 9px;
+        z-index: 999;
+        content: "";
+    }
+
+.mensaje_sin_solicitudes_registradas_wrapper {
+    margin-top: 50px;
+}
+
+.mensaje_sin_solicitudes_registradas_icono {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 13px auto;
+}
+
+    .mensaje_sin_solicitudes_registradas_icono img {
+        width: 100%;
+        height: auto;
+    }
+
+.mensaje_sin_solicitudes_registradas {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.tabs_vista_cdr_wrapper {
+    margin-left: -15px;
+    margin-right: -15px;
+    position: sticky;
+    position: -webkit-sticky;
+    z-index: 999;
+    top: 0;
+    background-color: #FFF;
+}
+
+    .tabs_vista_cdr,
+    .tab_vista_cdr_enlace_contenido{
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction:row;
+        flex-direction: row;
+        -ms-flex-wrap:nowrap;
+        flex-wrap: nowrap;
+        justify-content:center;
+        align-items:center;
+    }
+
+        .tab_vista_cdr {
+            width: 50%;
+            height: 53px;
+            border-right:1px solid #FFF;
+            list-style-type:none;
+        }
+
+            .tab_vista_cdr--activo .barra_estado_tab_cdr {
+                background-color: #b9007e;
+            }
+
+            .tab_vista_cdr_enlace_contenido{
+                height:100%;
+                position:relative;
+                font-size:13px;
+            }
+
+                .barra_estado_tab_cdr {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 3px;
+                    background-color: #808080;
+                    -moz-transition: all 0.3s ease;
+                    -o-transition: all 0.3s ease;
+                    -webkit-transition: all 0.3s ease;
+                    transition: all 0.3s ease;
+                }
+
 .fijarTituloMobile {
-    position: fixed;
-    z-index: 2000;
+    position: sticky;
+    position: -webkit-sticky;
+    top:0;
+    z-index: 998;
     padding-left: 8px;
     box-sizing: border-box;
 }
@@ -22,7 +117,7 @@
 }
 
 .btn_agrega_otro_reclamo {
-    display: block;
+    display: none;
     margin-top: 41px;
     margin-bottom: 95px;
 }
@@ -84,18 +179,52 @@
     height: auto;
     margin-top: 30px;
     margin-bottom: 52px;
-    padding: 0 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 50px;
+}
+
+.titulo_solicitudes_registradas {
+    margin-top: 0;
+    margin-bottom: 23px;
+    font-size: 18px;
+}
+
+.campo_orden_solicitudes_cdr_wrapper label {
+    font-weight: 400;
+    color: #808080;
+    position: absolute;
+    top: 1px;
+    left: 2px;
+    width:30%;
+    height: 42px;
+    line-height: 43px;
+    background-color: #FFF;
+    padding-left: 14px;
 }
 
 .registro_solicitud_cdr {
-    display: block;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction:row;
+    flex-direction: row;
+    -ms-flex-wrap:nowrap;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
     height: auto;
-    min-height: 63px;
-    border-top: 1px solid #979797;
-    padding: 17px 0;
-    text-align: left;
+    min-height: 70px;
+    margin-bottom: 16px;
+    padding: 12px 15px;
     position: relative;
+    -moz-box-shadow: 0 2px 1px rgba(144,144,148,.20), 0 1px 2px rgba(144,144,148,.14), 0 0 5px rgba(144,144,148, .12);
+    -webkit-box-shadow: 0 2px 1px rgba(144,144,148,.20), 0 1px 2px rgba(144,144,148,.14), 0 0 5px rgba(144,144,148, .12);
+    box-shadow: 0 2px 1px rgba(144,144,148,.20), 0 1px 2px rgba(144,144,148,.14), 0 0 5px rgba(144,144,148, .12);
 }
+
+    .registro_solicitud_cdr:last-child{
+        margin-bottom:0;
+    }
 
 .datos_solicitud_cdr {
     display: block;
@@ -116,40 +245,48 @@
 
 .estado_registro_solicitud_cdr {
     display: block;
-    width: 82.6px;
-    height: 22px;
-    position: absolute;
-    top: 19px;
-    right: 27px;
-    font-family: 'Lato';
+    min-width: 93.48px;
+    height: 24px;
+    font-family: 'Lato', sans-serif;
     font-size: 11px;
     text-align: center;
-    line-height: 21px;
+    line-height: 22px;
     text-transform: uppercase;
+    border-radius: 10.5px;
+    letter-spacing: 0.5px;
 }
 
-.estado_pendiente {
-    border: 1px solid #c1c1c1;
-    color: #c1c1c1;
+.estado_pendiente,
+.estado_en_evaluacion {
+    border: 1px solid #808080;
+    color: #808080;
 }
 
-.estado_observado {
-    border: 1px solid #613c87;
-    color: #613c87;
+.estado_observado,
+.estado_en_evaluacion {
+    border: 1px solid #B9007E;
+    color: #B9007E;
 }
 
-.estado_rechazado, .estado_aprobado {
+.estado_rechazado,
+.estado_aprobado,
+.estado_enviado {
     color: #fff;
 }
 
+.estado_enviado {
+    border: 1px solid #626262;
+    background-color: #626262;
+}
+
 .estado_rechazado {
-    border: 1px solid #777777;
-    background: #777777;
+    border: 1px solid #E81C36;
+    background-color: #E81C36;
 }
 
 .estado_aprobado {
-    border: 1px solid #a18328;
-    background: #a18328;
+    border: 1px solid #569C04;
+    background: #569C04;
 }
 
 .icono_busqueda {
@@ -186,7 +323,12 @@
     text-align: center;
 }
 
+.contenedor_proceso_registro_cdr {
+    margin-bottom: 100px;
+}
+
 .pasos_proceso_registro {
+    display: -ms-flexbox;
     display: flex;
     width: 158px;
     justify-content: space-between;
@@ -196,24 +338,28 @@
 
 .icono_paso {
     vertical-align: middle;
-    width: 28.7px;
-    height: 28.7px;
+    width: 32px;
+    height: 32px;
     border-radius: 100%;
     background: #fff;
-    border: 1px solid #000;
+    border: 1px solid #d1d1d4;
     position: relative;
     z-index: 2;
 }
 
     .icono_paso img {
         position: relative;
-        top: -1px;
-        left: -1.4px;
+        width: 56%;
+        top: 3.5px;
+        left: 0px;
     }
 
 .icono_paso_activo {
-    background: #642f80;
-    border: 1px solid #642f80;
+    border: 1px solid #b9007e;
+}
+
+.icono_paso_completado {
+    background: #b9007e;
 }
 
 .linea_conexion_pasos {
@@ -235,7 +381,12 @@
     position: relative;
 }
 
+    .pregunta_inconveniente_producto.Registro2 {
+        margin-top: 36px;
+    }
+
 .mi_solicitud_cdr {
+    display:none;
     position: absolute;
     width: 35px;
     height: 35px;
@@ -279,34 +430,65 @@
 }
 
 .campos_registro_solicitud_cdr {
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
 }
 
+.campo_orden_solicitudes_cdr_wrapper,
 .formulario_inscripcion_cdr {
     display: block;
     font-size: 14px;
+    position:relative;
 }
 
-    .formulario_inscripcion_cdr select, .formulario_inscripcion_cdr input[type='text'] {
+    .campo_orden_solicitudes_cdr_wrapper select,
+    .formulario_inscripcion_cdr select,
+    .formulario_inscripcion_cdr input[type='text'] {
         display: block;
         margin: 0 auto;
-        width: 276px;
         height: 45px;
-        border: solid 1px #b5b5b5;
+        border: solid 1px #d1d1d4;
         padding-left: 15px;
+        padding-right: 41px;
         margin-bottom: 28px;
         -webkit-appearance: none;
+        -moz-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+    }
+    
+    .campo_orden_solicitudes_cdr_wrapper select{
+        width:100%;
     }
 
+    .formulario_inscripcion_cdr select,
     .formulario_inscripcion_cdr input[type='text']{
-        color:#808080;
+        width:276px;
     }
 
+        .campo_orden_solicitudes_cdr_wrapper select:focus,
+        .formulario_inscripcion_cdr select:focus,
+        .formulario_inscripcion_cdr input[type='text']:focus {
+            border: 1px solid #000;
+        }
+
+    .formulario_inscripcion_cdr input[type='text'] {
+        color: #000;
+        background-repeat: no-repeat;
+        background-position: 96% center;
+        background-size: 18px;
+    }
+
+    .formulario_inscripcion_cdr--paso1 #cuvmobile {
+        background-image: url(/Content/Images/icono_buscador.svg);
+    }
+
+    .campo_orden_solicitudes_cdr_wrapper select,
     .formulario_inscripcion_cdr select {
         color:#000;
-        background: url('/Content/Images/mobile/dropdown-arrow.png');
+        background: url('/Content/Images/flecha_despliegue_campo_select.svg');
         background-repeat: no-repeat;
-        background-position: 95.5% center;
+        background-position: 97% center;
     }
 
 .content_eligeTuPedido, .lista_pedidos_para_seleccionar {
@@ -367,14 +549,87 @@
 
 .texto_cantidad_productos {
     display: block;
-    color: #888;
+    color: #808080;
     margin-bottom: 7px;
+    letter-spacing:0.5px;
 }
 
 .contenedor_campo_cantidad_productos {
     width: 281px;
     margin: 0 auto;
 }
+
+    .contenedor_campo_cantidad_productos > div {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction:row;
+        flex-direction: row;
+        -ms-flex-wrap:nowrap;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-left: 0;
+    }
+
+    .contenedor_campo_cantidad_productos .cantidad_menos_home,
+    .contenedor_campo_cantidad_productos .cantidad_mas_home,
+    .contenedor_campo_cantidad_productos .rango_cantidad_pedido {
+        height: 45px;
+        line-height: 45px;
+        float: none;
+        transition: all .3s ease;
+        -moz-transition: all .3s ease;
+        -o-transition: all .3s ease;
+        -webkit-transition: all .3s ease;
+    }
+
+    .contenedor_campo_cantidad_productos .cantidad_menos_home,
+    .contenedor_campo_cantidad_productos .cantidad_mas_home {
+        border: 1px solid #d1d1d4;
+        position:relative;
+    }
+
+        .contenedor_campo_cantidad_productos .cantidad_menos_home img,
+        .contenedor_campo_cantidad_productos .cantidad_mas_home img {
+            display: block;
+            position: absolute;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+    .contenedor_campo_cantidad_productos .rango_cantidad_pedido {
+        border-top: 1px solid #d1d1d4;
+        border-bottom: 1px solid #d1d1d4;
+    }
+
+    .contenedor_campo_cantidad_productos .cantidad_menos_home {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        order: -1;
+    }
+
+    .contenedor_campo_cantidad_productos .rango_cantidad_pedido {
+        order: 0;
+    }
+
+    .contenedor_campo_cantidad_productos .cantidad_mas_home {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        order: 1;
+    }
+
+    .contenedor_campo_cantidad_productos .rango_cantidad_pedido:focus {
+        border-top: 1px solid #000;
+        border-bottom: 1px solid #000;
+    }
+
+        .contenedor_campo_cantidad_productos .rango_cantidad_pedido:focus + .cantidad_menos_home,
+        .contenedor_campo_cantidad_productos .rango_cantidad_pedido:focus + .cantidad_menos_home + .cantidad_mas_home {
+            border: 1px solid #000;
+        }
 
 .enlace_solicitudes_anteriores, .enlace_quiero_ver_otra_alternativa {
     display: block;
@@ -406,14 +661,14 @@
     display: block;
     width: 100%;
     max-width: 274px;
-    margin: 0 auto 24px auto;
+    margin: 0 auto 30px auto;
 }
 
 .enlace_cambiar_producto {
     display: block;
     font-size: 12px;
     text-decoration: underline;
-    margin-top: 8px;
+    margin-top: 14px;
     cursor:pointer;
 }
 
@@ -465,26 +720,93 @@
         font-size: 13px;
     }
 
+.btn_cta_wrapper {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction:row;
+    flex-direction: row;
+    -ms-flex-wrap:wrap;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 1000;
+    background-color: #F5F5F5;
+    width: 100%;
+    height: 66px;
+    -moz-box-shadow: 0 -1px 4px rgba(216, 216, 216, 1);
+    -webkit-box-shadow: 0 -1px 4px rgba(216, 216, 216, 1);
+    box-shadow: 0 -1px 4px rgba(216, 216, 216, 1);
+}
+
+.vistas_cdr {
+    position: relative;
+    z-index: 997;
+}
+
+#VistaPaso1y2 {
+    position: relative;
+    z-index: 1000;
+}
+
+#VistaPaso3 {
+    position: relative;
+    z-index: 999;
+}
+
 .btn_cta_cdr {
     display: block;
     position: fixed;
     bottom: 0;
     width: 100%;
     height: 54px;
-    background: #642f80;
+    background: #B9007E;
     color: #fff;
     z-index: 998;
-    letter-spacing: .4px;
+    letter-spacing: 1px;
     border: none;
+    cursor:pointer;
 }
+
+    .btn_cta_cdr--agregarSolicitud,
+    .btn_cta_cdr--siguiente,
+    .btn_cta_cdr--finalizaSolicitud{
+        position: relative;
+        height: 45px;
+    }
+
+    .btn_cta_cdr--siguiente,
+    .btn_cta_cdr--finalizaSolicitud{
+        display: inline-block;
+    }
+
+    .btn_cta_cdr--agregarSolicitud,
+    .btn_cta_cdr--finalizaSolicitud{
+        width:90%;
+        max-width: 325px;
+    }
+
+    .btn_cta_cdr--agregarSolicitud{
+        display: -ms-flexbox;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .btn_cta_cdr--siguiente {
+        background-color: #000;
+        max-width: 276px;
+    }
 
 .listado_soluciones_cdr, .solucion_cdr {
     display: block;
 }
 
-.listado_soluciones_cdr {
+/*.listado_soluciones_cdr {
     margin-bottom: 35px;
-}
+}*/
 
 .solucion_cdr {
     margin: 0 auto;
@@ -515,8 +837,314 @@
         color: #fff;
     }
 
+.lista_opciones_cdr {
+    list-style-type: none;
+}
+
+.opcion_cdr,
+.opcion_cdr_seleccionada_campo_busqueda {
+    display: inline-block;
+}
+
+.opcion_cdr,
+.opcion_cdr_seleccionada_campo_busqueda {
+    vertical-align: middle;
+}
+
+.opcion_cdr {
+    width: 98px;
+    height: 118px;
+    margin-right: 8px;
+    border: 1px solid #808080;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+    .opcion_cdr:last-child {
+        margin-right: 0;
+    }
+
+.opcion_cdr_seleccionada {
+    border: 2px solid #000;
+    -moz-box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
+    -webkit-box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
+    box-shadow: 1px 1px 10px -2px rgba(0,0,0,.7);
+}
+
+.opcion_cdr_enlace,
+.opcion_cdr_seleccionada_terminos_entrega_producto_wrapper,
+.opcion_cdr_seleccionada_terminos_entrega_producto_set_wrapper {
+    position: relative;
+}
+
+.opcion_cdr_enlace {
+    display: block;
+    padding: 8px 6px 11px 6px;
+    height: 100%;
+    cursor:pointer;
+}
+
+.opcion_cdr_icono_wrapper {
+    height: 32px;
+    margin-top: 12px;
+    margin-bottom: 9px;
+}
+
+    .opcion_cdr--devolucion .opcion_cdr_icono_wrapper {
+        margin-bottom:23px;
+    }
+
+.opcion_cdr_icono {
+    display: block;
+    width: auto;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 21px;
+}
+
+    .opcion_cdr:last-child .opcion_cdr_icono{
+        height:90%;
+    }
+
+.opcion_cdr_icono--solicitudReclamo {
+    margin-bottom: 0;
+}
+
+.opcion_cdr_seleccion_wrapper {
+    font-size: 11px;
+}
+
+.opcion_cdr_checkbox {
+    display: block;
+    background-color: #FFF;
+    border: 1px solid #000;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    cursor: pointer;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+input[type="checkbox"]:checked + .opcion_cdr_checkbox {
+    background-color: #000;
+    background-image: url(/Content/Images/icono_check_cdr.svg);
+    background-position: center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.opcion_cdr_seleccionada_info_wrapper {
+    margin-bottom: 32px;
+}
+
+.opcion_cdr_seleccionada_info--cambiarPorOtroProducto p,
+.opcion_cdr_seleccionada_info--devolucionCasoSetProducto p,
+.opcion_cdr_seleccionada_campo_busqueda,
+.opcion_cdr_seleccionada_terminos_entrega_producto_texto,
+.opcion_cdr_seleccionada_info--cambioMismoProducto p,
+.opcion_cdr_seleccionada_info--envioProducto p,
+.opcion_cdr_seleccionada_info--devolucionDinero p {
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+
+.opcion_cdr_seleccionada_info--cambioMismoProducto p:first-child,
+.opcion_cdr_seleccionada_info--envioProducto p:first-child{
+    margin-bottom: 20px;
+}
+
+.opcion_cdr_seleccionada_info--cambiarPorOtroProducto p {
+    margin-bottom: 12px;
+}
+
+    .opcion_cdr_seleccionada_info--cambiarPorOtroProducto p:first-child {
+        margin-bottom: 20px;
+    }
+
+.opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar,
+.opcion_cdr_seleccionada_info--cambioMismoProducto,
+.opcion_cdr_seleccionada_info--cambiarPorOtroProducto,
+.opcion_cdr_seleccionada_info--devolucionCasoSetProducto,
+.opcion_cdr_seleccionada_info--devolucionDinero {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda {
+    border: 1px solid #000;
+    height: 40px;
+    margin-right: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-family: 'Lato', sans-serif;
+    line-height: 40px;
+    color: #000;
+}
+
+    .opcion_cdr_seleccionada_campo_busqueda::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+        color: #808080;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda::-moz-placeholder { /* Firefox 19+ */
+        color: #808080;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda:-ms-input-placeholder { /* IE 10+ */
+        color: #808080;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda:-moz-placeholder { /* Firefox 18- */
+        color: #808080;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda:last-child {
+        margin-right: 0;
+    }
+
+.opcion_cdr_seleccionada_campo_busqueda--codigo,
+.opcion_cdr_seleccionada_campo_busqueda--precio {
+    width: 130px;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda--descripcion {
+    width: 261px;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad {
+    min-width: 60px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_cantidad_pedido,
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_right_pedido,
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos {
+        border-left: 0;
+        border-bottom: 0;
+        border-top: 0;
+        border-radius: 0;
+        height: 100%;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_cantidad_pedido {
+        border-right: 1px solid #000 !important;
+        padding-bottom: 3px;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad.btn_deshabilitado .liquidacion_rango_cantidad_pedido {
+        border-right: 1px solid rgba(128, 128, 128, 0.5) !important;
+        opacity: 0.5;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_right_pedido {
+        border-right: 0;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .mas,
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos {
+        height: 47%;
+        position: relative;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad.btn_deshabilitado .mas,
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad.btn_deshabilitado .menos {
+        opacity: 0.5;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .mas {
+        border-bottom: 1px solid #000;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad.btn_deshabilitado .mas {
+        border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad img {
+        position: absolute;
+        margin: auto;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .mas img {
+        left: 0.5px;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos img {
+        left: -1.5px;
+    }
+
+.opcion_cdr_seleccionada_info--devolucionCasoSetProducto {
+    margin-bottom: 8px;
+}
+
+.opcion_cdr_seleccionada_terminos_entrega_producto_set_wrapper {
+    margin-top: 18px;
+}
+
+.producto_set_lista,
+.opcion_cdr_checkbox--terminosEntregaProductoSet,
+.opcion_cdr_seleccionada_terminos_entrega_producto_texto {
+    display: inline-block;
+}
+
+.producto_nom,
+.producto_set_lista {
+    margin-top: 8px;
+}
+
+    .producto_nom,
+    .producto_nom span,
+    .producto_set_lista span {
+        margin-bottom: 5px;
+    }
+
+        .producto_nom,
+        .producto_nom span,
+        .producto_set_lista span,
+        .cantidad_und_producto {
+            display: block;
+        }
+
+.producto_set_lista {
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.opcion_cdr_checkbox--terminosEntregaProductoSet,
+.opcion_cdr_seleccionada_terminos_entrega_producto_texto {
+    vertical-align: top;
+}
+
+.opcion_cdr_checkbox--terminosEntregaProductoSet {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    top: 5px;
+    right: 0;
+    margin-right: 8px;
+}
+
+.opcion_cdr_seleccionada_terminos_entrega_producto_texto {
+    width: 89%;
+    line-height: 20px;
+}
+
 .mb-23 {
     margin-bottom: 23px;
+}
+
+.mb-29{
+    margin-bottom:29px;
 }
 
 .mb-39 {
@@ -601,7 +1229,11 @@
     padding: 15px 0 25px 0;
     width: 100%;
     max-width: 312px;
-    border-bottom: 1px solid #000;
+    margin-top:32px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-top: 1px solid #808080;
+    border-bottom: 1px solid #808080;
 }
 
 .titulo_info_cdr {
@@ -609,7 +1241,7 @@
 }
 
 .titulo_info_cdr, .content_info_cdr {
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .titulo_revision_resumen {
@@ -618,9 +1250,98 @@
 }
 
 .content_solicitud_cdr{
-    padding-top:9px;
-    padding-bottom:32px;
+    padding-top:24px;
+    padding-bottom:24px;
 }
+
+    .UltimasSolicitudes .content_solicitud_cdr {
+        border-top: 1px solid #d8d8d8;
+    }
+
+    .UltimasSolicitudes .content_solicitud_cdr:last-child {
+        border-bottom: 1px solid #d8d8d8;
+    }
+
+.content_pasos {
+    width: 170px;
+    margin: 32px auto 32px auto;
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: space-between;
+    z-index: 4;
+}
+
+    .content_pasos_linea {
+        position: absolute;
+        width: 99%;
+        height: 1px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        background-color: #808080;
+        z-index: -1;
+    }
+
+        .progreso_pasos {
+            width: 0%;
+            height: 100%;
+        }
+
+    .paso_reclamo {
+        position: relative;
+        width: 32px;
+        height: 32px;
+        background: white;
+        border: 1px solid #979797;
+        border-radius: 100px;
+        font-size: 20px;
+        font-family: 'Lato', sans-serif;
+        color: white;
+        font-weight: 700;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .paso_reclamo_1,
+    .paso_reclamo_2,
+    .paso_reclamo_3 {
+        background-size: 56% !important;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+    }
+
+        .paso_reclamo_1.paso_active_reclamo {
+            background-image: url(/Content/Images/icono_cosmeticos.svg);
+        }
+
+    .paso_reclamo_2 {
+        background-image: url(/Content/Images/icono_foco.svg);
+    }
+
+        .paso_reclamo_2.paso_active_reclamo {
+            background-image: url(/Content/Images/icono_foco_activo.svg);
+        }
+
+    .paso_reclamo_3 {
+        background-image: url(/Content/Images/icono_mail_cdr.svg);
+    }
+
+        .paso_reclamo_3.paso_active_reclamo {
+            background-image: url(/Content/Images/icono_mail_cdr_activo.svg);
+        }
+
+    .paso_active_reclamo,
+    .paso_reclamo_completado {
+        border: 1px solid #b9007e;
+    }
+
+    .paso_reclamo_completado {
+        background-color: #b9007e;
+        background-image: url(/Content/Images/icono_check_cdr.svg);
+    }
 
 .contenedor_info_cdr {
     width: 87%;
@@ -680,10 +1401,9 @@
 .validacion_datos {
     display: block;
     margin-bottom: 36px;
-    padding-top:32px;
-    padding-bottom:32px;
-    border-top: 1px solid #808080;
-    border-bottom: 1px solid #642f80;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #000;
 }
 
 .validacion_seccion_titulo {
@@ -700,10 +1420,31 @@
     font-size: 13px;
 }
 
-.validacion_seccion_datos div label, .validacion_seccion_datos div input[type='text'] {
+.validacion_seccion_datos div {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+    -ms-flex-wrap:nowrap;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+    .correo_reclamo_error {
+        align-self: flex-start;
+        color: red;
+        padding-left: 28px;
+        margin-top: 8px;
+    }
+
+.validacion_seccion_datos div label,
+.validacion_seccion_datos div input[type='text'] {
     display: block;
-    color: #888;
     font-size: 14px;
+}
+
+.validacion_seccion_datos div label {
+    color: #808080;
 }
 
 .validacion_seccion_datos div input[type='text'] {
@@ -711,10 +1452,23 @@
     width: 100%;
     max-width: 276px;
     height: 45px;
-    border: 1px solid #b5b5b5;
+    border: 1px solid #d1d4d4;
     padding: 0 10px;
-    border-radius:4px;
+    border-radius: 4px;
+    color: #000;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
+
+    .validacion_seccion_datos div input[type='text']:focus + label {
+        color: #000!important;
+    }
+
+    .validacion_seccion_datos div input[type='text']:focus{
+        border:1px solid #000!important;
+    }
 
 .mb-27 {
     margin-bottom: 27px;
@@ -725,25 +1479,30 @@
     margin-bottom: 39px;
 }
 
+    .content_politica_devolucion label {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: row-reverse;
+        flex-direction: row-reverse;
+        -ms-flex-wrap:nowrap;
+        flex-wrap: nowrap;
+        justify-content: center;
+    }
+
     .tipo_envio_checkbox input[type="radio"],
-    .content_politica_devolucion input[type='checkbox']
-    {
+    .content_politica_devolucion input[type='checkbox'] {
         display: none;
     }
 
         .tipo_envio_checkbox input[type="radio"] + label span,
-        .content_politica_devolucion input[type='checkbox'] + label span, .content_politica_devolucion a
-        {
+        .content_politica_devolucion input[type='checkbox'] + label span, .content_politica_devolucion a {
             display: inline-block;
             vertical-align: middle;
         }
 
         .tipo_envio_checkbox input[type="radio"] + label span,
-        .content_politica_devolucion input[type='checkbox'] + label span
-        {
-            border:1px solid #d8d8d8;
-            background-color: #d8d8d8;
-            background-image:url('/Content/Images/Lbel/icono_input_radio_cdr.svg');
+        .content_politica_devolucion input[type='checkbox'] + label span {
+            background-image: url('/Content/Images/Esika/icono_input_radio_cdr.svg');
             background-repeat: no-repeat;
             position: relative;
             top: 1px;
@@ -754,35 +1513,35 @@
             -webkit-transition: background-color .3s ease;
         }
 
-        .content_politica_devolucion input[type='checkbox'] + label span{
-            width:18px;
-            height:18px;
-            border-radius:4px;
+        .content_politica_devolucion input[type='checkbox'] + label span {
+            border: 1px solid #000;
+            background-color: #FFF;
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
             background-position: center 2px;
-            margin-left:7px;
+            margin-right: 8px;
         }
 
-        .tipo_envio_checkbox input[type="radio"] + label span{
+        .tipo_envio_checkbox input[type="radio"] + label span {
+            border: 1px solid #d8d8d8;
+            background-color: #d8d8d8;
             width: 26px;
             height: 26px;
             background-position: center 6px;
             border-radius: 100%;
-            margin-right: 7px;
+            margin-right: 8px;
         }
 
-        .tipo_envio_checkbox input[type="radio"]:checked + label span,
-        .content_politica_devolucion input[type='checkbox']:checked + label span
-        {
-            border-color: #642f80;
-            background-color:#FFF;
+        .content_politica_devolucion input[type='checkbox']:checked + label span {
+            border-color: #000;
+            background-color: #000;
         }
 
-        .content_politica_devolucion input[type='checkbox']:checked + label span{
-            background-color:#642f80;
-        }
-
-        .tipo_envio_checkbox input[type="radio"]:checked + label span{
+        .tipo_envio_checkbox input[type="radio"]:checked + label span {
             background-position: center -19.5px;
+            border-color: #B9007E;
+            background-color: #FFF;
         }
 
     .content_politica_devolucion a, .content_politica_devolucion a:hover {
@@ -941,6 +1700,8 @@
 }
 
 .detalle_solicitud_listado {
+    padding-left: 6px;
+    padding-right: 6px;
     font-size: 15px;
 }
 
@@ -988,7 +1749,7 @@
 .detalle_cantidad_producto,
 .detalle_cdr_monto_devolucion {
     margin-bottom: 2px;
-    width: 75%;
+    width: 68%;
 }
 
 .detalle_precio_producto {
@@ -1006,7 +1767,7 @@
     background: #f7f7f7;
     position: relative;
     top: -26px;
-    padding: 22px 0 18px 0;
+    padding: 32px 0 18px 0;
     margin-bottom: 4px;
 }
 
@@ -1313,61 +2074,119 @@
     height:auto;
 }
 
-.buscar_producto_cdr_contenido_popup{
-    padding:40px 37px;
-}
+/*.buscar_producto_cdr_contenido_popup{
+    padding:40px 0;
+}*/
 
-.campo_busqueda_codigo_o_descripcion_producto
-{
-    width:100%;
-    border: 1px solid #808080;
-    border-radius: 4px;
-    padding: 6px 10px 10px 19px;
+.campo_busqueda_codigo_o_descripcion_producto {
+    width: 100%;
     font-family: 'Lato', sans-serif;
-    font-size:15px;
-    color:#000;
-    height:47px;
-    background-color:#FFF;
-    background-image:url(../../../Images/icono_lupa_gris.svg);
-    background-repeat:no-repeat;
-    background-position:95% center;
+    font-size: 15px;
+    color: #000;
+    height: 47px;
+    background-color: #FFF;
+    background-image: url(/Content/Images/icono_lupa_gris.svg);
+    background-repeat: no-repeat;
+    background-position: 98% center;
 }
 
-.lista_coincidencias_busqueda_productos{
-    margin-top: 34px;
+.campo_busqueda_codigo_o_descripcion_producto_wrapper {
+    display: block;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+    height: 66px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction:row;
+    flex-direction: row;
+    align-items: center;
+    border-bottom: 1px solid #d8d8d8;
+    position: fixed;
+    top: 0;
+    background-color: #FFF;
+    z-index: 2;
+}
+
+.lista_coincidencias_busqueda_productos {
+    margin-top: 66px;
     list-style-type: none;
-    height: 331px;
+    height: auto;
     padding-right: 10px;
     overflow: auto;
 }
 
-.coincidencia_busqueda_producto{
-    min-height:66px;
-    padding-top:21px;
-    padding-bottom:22px;
-    border-bottom:1px solid #D8D8D8;
-    color:#000;
+.coincidencia_busqueda_producto {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction:row;
+    flex-direction: row;
+    -ms-flex-wrap:nowrap;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 80px;
+    border-bottom: 1px solid #b0b0b0;
+    color: #000;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
-.coincidencia_busqueda_producto:last-child{
-    border-bottom:0;
+    .coincidencia_busqueda_producto:last-child {
+        border-bottom: 0;
+    }
+
+.coincidencia_busqueda_producto_inactivo {
+    color: #808080;
 }
 
-.coincidencia_busqueda_producto_inactivo{
-    color:#808080;
+.resultado_busqueda_por_cuv_datos_imagen,
+.resultado_busqueda_por_cuv_datos_prod {
+    display: inline-block;
+    vertical-align: middle;
 }
 
-.coincidencia_busqueda_producto div{
-    display:inline-block;
-    vertical-align:middle;
+.resultado_busqueda_por_cuv_datos_imagen {
+    height: 56px;
+    margin-right: 16px;
 }
 
-.coincidencia_busqueda_producto div:first-child{
-    width:26%;
+    .resultado_busqueda_por_cuv_datos_imagen img {
+        width: auto;
+        height: 100%;
+    }
+
+.resultado_busqueda_por_cuv_datos_prod {
+    width: 83%;
 }
 
-.coincidencia_busqueda_producto div:last-child{
-    width:72%;
+.resultado_busqueda_por_cuv_codigo_prod {
+    color: #808080;
+}
+
+.resultado_busqueda_por_cuv_codigo_prod,
+.resultado_busqueda_por_cuv_descrip_prod {
+    font-size: 13px;
+}
+
+.enlace_cerrar_popup {
+    margin-right: 16px;
+    cursor: pointer;
+}
+
+@media screen and (orientation:landscape){
+
+    .mensaje_sin_solicitudes_registradas_wrapper {
+        margin-top: 24px;
+    }
+
+}
+
+@media screen and (max-width:343px) {
+
+    .opcion_cdr {
+        width: 90px;
+    }
 }
 
 /* FIN - POUP BUSCAR PRODUCTO CDR */

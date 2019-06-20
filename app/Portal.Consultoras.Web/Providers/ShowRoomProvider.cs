@@ -1,37 +1,32 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Response;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
+using Portal.Consultoras.Web.Models.Search.ResponseEvento;
+using Portal.Consultoras.Web.Models.Search.ResponseEvento.Estructura;
+using Portal.Consultoras.Web.Models.Search.ResponseNivel;
+using Portal.Consultoras.Web.Models.Search.ResponseNivel.Estructura;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
-    using Portal.Consultoras.Common.Response;
-    using Portal.Consultoras.Web.Models.Estrategia;
-    using Portal.Consultoras.Web.Models.Search.ResponseEvento;
-    using Portal.Consultoras.Web.Models.Search.ResponseNivel;
-    using System;
-    using System.Text;
-
+    using Portal.Consultoras.Web.Models.Search.ResponseEvento.Estructura;
     /// <summary>
     /// Propiedades y metodos de ShowRoom
     /// </summary>
     public class ShowRoomProvider : OfertaBaseProvider
     {
-        private const string ImageUrlCode = "bar_in_img";
-        private const string RedirectCode = "bar_in_url";
-        private const string EnabledCode = "bar_in_act";
-        private const string NoUrlAllowed = "bar_in_no";
-        private const short Pl50Key = 98;
         const int SHOWROOM_ESTADO_ACTIVO = 1;
 
         private readonly TablaLogicaProvider _tablaLogicaProvider;
@@ -77,18 +72,18 @@ namespace Portal.Consultoras.Web.Providers
         /// <returns>Configuracion de Banner inferior</returns>
         public IBannerInferiorConfiguracion ObtenerBannerConfiguracion(int paisId)
         {
-            var pl50configs = _tablaLogicaProvider.ObtenerConfiguracion(paisId, Pl50Key);
-            var enabledObject = pl50configs.FirstOrDefault(c => c.Codigo == EnabledCode);
-            var redirectUrlObject = pl50configs.FirstOrDefault(c => c.Codigo == RedirectCode);
-            var imageUrlObject = pl50configs.FirstOrDefault(c => c.Codigo == ImageUrlCode);
-            var NoUrlPermitidasObject = pl50configs.FirstOrDefault(c => c.Codigo == NoUrlAllowed);
+            var pl50configs = _tablaLogicaProvider.GetTablaLogicaDatos(paisId, ConsTablaLogica.Plan20.TablaLogicaId);
+            var enabledObject = _tablaLogicaProvider.GatCampoValorBool(pl50configs, ConsTablaLogica.Plan20.EnabledCode);
+            var redirectUrlObject = _tablaLogicaProvider.GetValueByCode(pl50configs, ConsTablaLogica.Plan20.RedirectCode);
+            var imageUrlObject = _tablaLogicaProvider.GetValueByCode(pl50configs, ConsTablaLogica.Plan20.ImageUrlCode);
+            var NoUrlPermitidasObject = _tablaLogicaProvider.GetValueByCode(pl50configs, ConsTablaLogica.Plan20.NoUrlAllowed);
 
             return new BannerInferiorConfiguracion
             {
-                Activo = enabledObject != null && bool.Parse(enabledObject.Valor),
-                UrlImagen = imageUrlObject != null ? imageUrlObject.Valor : string.Empty,
-                UrlRedireccion = redirectUrlObject != null ? redirectUrlObject.Valor : string.Empty,
-                RutasParcialesExcluidas = NoUrlPermitidasObject != null ? NoUrlPermitidasObject.Valor.Split(';') : new string[0]
+                Activo = enabledObject,
+                UrlImagen = imageUrlObject,
+                UrlRedireccion = redirectUrlObject,
+                RutasParcialesExcluidas = NoUrlPermitidasObject != "" ? NoUrlPermitidasObject.Split(';') : new string[0]
             };
         }
 
@@ -124,11 +119,13 @@ namespace Portal.Consultoras.Web.Providers
         {
             try
             {
+
+                
                 if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
-                    ShowRoomEventoConsultoraModel eventoConsultora = ObtenerEventoConsultoraApi(model.CodigoISO, model.CampaniaID, model.GetCodigoConsultora());
-
-                    if (eventoConsultora == null)
+                    bool eventoConsultoraNull = false;
+                    ShowRoomEventoConsultoraModel eventoConsultora = ObtenerEventoConsultoraApi(model.CodigoISO, model.CampaniaID, model.GetCodigoConsultora(), out eventoConsultoraNull);
+                    if (eventoConsultoraNull)
                     {
                         eventoConsultora = RegistrarEventoConsultoraApi(showRoomEventoModel.EventoID, false);
                     }
@@ -242,18 +239,18 @@ namespace Portal.Consultoras.Web.Providers
 
         private OutputEvento ApiEventoPersonalizacion(UsuarioModel model)
         {
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerEvento, model.CodigoISO, model.CampaniaID);
-
-            Task<string> taskApi = Task.Run(() => RespSBMicroservicios(string.Empty,
-                                                                  requestUrl,
-                                                                  Constantes.MetodosHTTP.Get,
-                                                                  model,
-                                                                  Constantes.MicroServicio.PersonalizacionSearch));
-            Task.WhenAll(taskApi);
-            string jsonString = taskApi.Result;
-
             try
             {
+                string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerEvento, model.CodigoISO, model.CampaniaID);
+
+                Task<string> taskApi = Task.Run(() => RespSBMicroservicios(string.Empty,
+                                                                      requestUrl,
+                                                                      Constantes.MetodosHTTP.Get,
+                                                                      model,
+                                                                      Constantes.MicroServicio.PersonalizacionSearch));
+                Task.WhenAll(taskApi);
+                string jsonString = taskApi.Result;
+
                 OutputEvento respuesta = JsonConvert.DeserializeObject<OutputEvento>(jsonString);
 
                 if (respuesta == null)
@@ -263,7 +260,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
                 {
-                    Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, model.CodigoISO);
+                    Common.LogManager.SaveLog(new Exception(respuesta.Message), model.CodigoConsultora, model.CodigoISO);
                     return new OutputEvento();
                 }
 
@@ -278,14 +275,15 @@ namespace Portal.Consultoras.Web.Providers
 
         private ShowRoomEventoModel ObtieneEventoModel(IList<Models.Search.ResponseEvento.Estructura.Evento> eventoConsultora)
         {
-            ShowRoomEventoModel modelo = new ShowRoomEventoModel();
-            if (eventoConsultora == null)
-            {
-                return modelo;
-            }
+            var modelo = new ShowRoomEventoModel();
 
             try
             {
+                if (eventoConsultora == null)
+                {
+                    return modelo;
+                }
+
                 foreach (Models.Search.ResponseEvento.Estructura.Evento evento in eventoConsultora)
                 {
                     modelo.CampaniaID = evento.CampaniaId;
@@ -312,14 +310,15 @@ namespace Portal.Consultoras.Web.Providers
 
         private List<ShowRoomPersonalizacionModel> ObtienePersonalizacionesModel(IList<Models.Search.ResponseEvento.Estructura.PersonalizacionNivel> personalizacionConsultora)
         {
-            List<ShowRoomPersonalizacionModel> modelo = new List<ShowRoomPersonalizacionModel>();
-            if (personalizacionConsultora == null)
-            {
-                return modelo;
-            }
+            var modelo = new List<ShowRoomPersonalizacionModel>();
 
             try
             {
+                if (personalizacionConsultora == null)
+                {
+                    return modelo;
+                }
+
                 foreach (Models.Search.ResponseEvento.Estructura.PersonalizacionNivel personalizacionNivel in personalizacionConsultora)
                 {
                     ShowRoomPersonalizacionModel personalizacion = new ShowRoomPersonalizacionModel
@@ -402,57 +401,63 @@ namespace Portal.Consultoras.Web.Providers
 
         public void CargarEventoPersonalizacion(UsuarioModel model)
         {
-            var configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
+            var configEstrategiaSR = new ConfigModel();
             try
             {
-                if (!configEstrategiaSR.CargoEntidadEventoPersonalizacion)
+                configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
+
+                if (model == null || configEstrategiaSR.CargoEntidadEventoPersonalizacion)
                 {
-                    _sessionManager.SetEsShowRoom("0");
-                    _sessionManager.SetMostrarShowRoomProductos("0");
-                    _sessionManager.SetMostrarShowRoomProductosExpiro("0");
-
-                    if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
-                    {
-                        OutputEvento eventoPersonalizacions = ApiEventoPersonalizacion(model);
-
-                        configEstrategiaSR.BeShowRoom = ObtieneEventoModel(eventoPersonalizacions.Result);
-                        configEstrategiaSR.ListaPersonalizacionConsultora = ObtienePersonalizacionesModel(eventoPersonalizacions.Result.FirstOrDefault().PersonalizacionNivel);
-                    }
-                    else
-                    {
-                        configEstrategiaSR.BeShowRoom = GetShowRoomEventoByCampaniaId(model);
-                        configEstrategiaSR.ListaPersonalizacionConsultora = GetShowRoomPersonalizacion(model);
-
-                    }
-
-                    if (model.CampaniaID != 0)
-                    {
-                        if (configEstrategiaSR.BeShowRoom != null &&
-                            configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
-                        {
-                            CargarNivelShowRoom(model);
-                            ActualizarValorPersonalizacionesShowRoom(model, configEstrategiaSR);
-
-                            _sessionManager.SetEsShowRoom("1");
-                            var fechaHoy = model.FechaHoy;
-
-                            if (fechaHoy >= model.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes).Date
-                                && fechaHoy <= model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
-                            {
-                                _sessionManager.SetMostrarShowRoomProductos("1");
-                            }
-
-                            if (fechaHoy > model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
-                            {
-                                _sessionManager.SetMostrarShowRoomProductosExpiro("1");
-                                configEstrategiaSR.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
-                            }
-                        }
-                    }
-                    configEstrategiaSR.CargoEntidadEventoPersonalizacion = configEstrategiaSR.BeShowRoom != null &&
-                                                                           configEstrategiaSR.ListaPersonalizacionConsultora != null;
-                    _sessionManager.SetEstrategiaSR(configEstrategiaSR);
+                    return;
                 }
+
+                _sessionManager.SetEsShowRoom("0");
+                _sessionManager.SetMostrarShowRoomProductos("0");
+                _sessionManager.SetMostrarShowRoomProductosExpiro("0");
+                  
+                if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.ShowRoom))
+                {
+                    OutputEvento eventoPersonalizacions = ApiEventoPersonalizacion(model);
+
+                    configEstrategiaSR.BeShowRoom = ObtieneEventoModel(eventoPersonalizacions.Result);
+                        
+                    IList<Evento> eventos = eventoPersonalizacions.Result ?? new List<Evento>();
+                    Evento personalizacionNivel = eventos.FirstOrDefault() ?? new Evento();
+                    configEstrategiaSR.ListaPersonalizacionConsultora = ObtienePersonalizacionesModel(personalizacionNivel.PersonalizacionNivel);
+                }
+                else
+                {
+                    configEstrategiaSR.BeShowRoom = GetShowRoomEventoByCampaniaId(model);
+                    configEstrategiaSR.ListaPersonalizacionConsultora = GetShowRoomPersonalizacion(model);
+                }
+
+                if (model.CampaniaID != 0
+                    && configEstrategiaSR.BeShowRoom != null
+                    && configEstrategiaSR.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
+                {
+                    CargarNivelShowRoom(model);
+                    ActualizarValorPersonalizacionesShowRoom(model, configEstrategiaSR);
+
+                    _sessionManager.SetEsShowRoom("1");
+                    var fechaHoy = model.FechaHoy;
+
+                    if (fechaHoy >= model.FechaInicioCampania.AddDays(-configEstrategiaSR.BeShowRoom.DiasAntes).Date
+                        && fechaHoy <= model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
+                    {
+                        _sessionManager.SetMostrarShowRoomProductos("1");
+                    }
+
+                    if (fechaHoy > model.FechaInicioCampania.AddDays(configEstrategiaSR.BeShowRoom.DiasDespues).Date)
+                    {
+                        _sessionManager.SetMostrarShowRoomProductosExpiro("1");
+                        configEstrategiaSR.ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel>();
+                    }
+                }
+
+                configEstrategiaSR.CargoEntidadEventoPersonalizacion = configEstrategiaSR.BeShowRoom != null &&
+                                                                       configEstrategiaSR.ListaPersonalizacionConsultora != null;
+                _sessionManager.SetEstrategiaSR(configEstrategiaSR);
+
             }
             catch (Exception ex)
             {
@@ -466,7 +471,6 @@ namespace Portal.Consultoras.Web.Providers
         public void CargarEntidadesShowRoom(UsuarioModel model)
         {
             ConfigModel configEstrategiaSR = _sessionManager.GetEstrategiaSR() ?? new ConfigModel();
-            MSPersonalizacionConfiguracionModel msPersonalizacionModel = new MSPersonalizacionConfiguracionModel();
 
             try
             {
@@ -882,7 +886,12 @@ namespace Portal.Consultoras.Web.Providers
             if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
                 throw new Exception(respuesta.Message);
 
-            ShowRoomEventoConsultoraModel modelo = new ShowRoomEventoConsultoraModel();
+            var modelo = new ShowRoomEventoConsultoraModel();
+            if (respuesta.Result == null)
+            {
+                return modelo;
+            }
+
             dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(respuesta.Result.ToString());
             modelo.EventoConsultoraID = Convert.ToInt32(data.eventoConsultoraId);
             modelo.EventoID = Convert.ToInt32(data.eventoId);
@@ -895,40 +904,40 @@ namespace Portal.Consultoras.Web.Providers
             return modelo;
         }
 
-        public ShowRoomEventoConsultoraModel ObtenerEventoConsultoraApi(string pais, int codigoCampania, string codigoConsultora)
+        public ShowRoomEventoConsultoraModel ObtenerEventoConsultoraApi(string pais, int codigoCampania, string codigoConsultora , out bool eventoConsultoraNull)
         {
             UsuarioModel userData = _sessionManager.GetUserData();
-
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerEventoConsultora, pais, codigoCampania, codigoConsultora);
-
-            Task<string> taskApi = Task.Run(() => RespSBMicroservicios(string.Empty,
-                                                                      requestUrl,
-                                                                      Constantes.MetodosHTTP.Get,
-                                                                      userData,
-                                                                      Constantes.MicroServicio.PersonalizacionSearch));
-
-            Task.WhenAll(taskApi);
-            string jsonString = taskApi.Result;
-
+            eventoConsultoraNull = false;
             try
             {
+
+                string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerEventoConsultora, pais, codigoCampania, codigoConsultora);
+
+                Task<string> taskApi = Task.Run(() => RespSBMicroservicios(string.Empty,
+                                                                          requestUrl,
+                                                                          Constantes.MetodosHTTP.Get,
+                                                                          userData,
+                                                                          Constantes.MicroServicio.PersonalizacionSearch));
+
+                Task.WhenAll(taskApi);
+                string jsonString = taskApi.Result;
                 OutputEventoConsultora respuesta = JsonConvert.DeserializeObject<OutputEventoConsultora>(jsonString);
 
                 if (respuesta == null)
                 {
-                    Common.LogManager.SaveLog(new Exception("Servicio no responde"), string.Empty, pais);
-                    throw new Exception();
+                    Common.LogManager.SaveLog(new Exception("Servicio no responde"), userData.CodigoConsultora, pais);
+                    return null;
                 }
 
                 if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
                 {
-                    Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, pais);
-                    throw new Exception(respuesta.Message);
+                    Common.LogManager.SaveLog(new Exception(respuesta.Message), userData.CodigoConsultora, pais);
+                    return null;
                 }
 
                 ShowRoomEventoConsultoraModel modelo = new ShowRoomEventoConsultoraModel();
 
-                if (respuesta.Result != null && respuesta.Result.Count() > 0)
+                if (respuesta.Result != null && respuesta.Result.Any())
                 {
                     foreach (Models.Search.ResponseEvento.Estructura.EventoConsultora eventoConsultora in respuesta.Result.DefaultIfEmpty())
                     {
@@ -940,37 +949,38 @@ namespace Portal.Consultoras.Web.Providers
                         modelo.MostrarPopup = eventoConsultora.MostrarPopup;
                         modelo.MostrarPopupVenta = eventoConsultora.MostrarPopupVenta;
                     }
-
                     return modelo;
                 }
-
-                return null;
 
             }
             catch (Exception ex)
             {
                 Common.LogManager.SaveLog(ex, string.Empty, pais);
-                throw ex;
+                return null;
             }
+
+            eventoConsultoraNull = true;
+            return null;
         }
 
         public List<ShowRoomNivelModel> ObtenerNivelApi(string pais)
         {
             UsuarioModel userData = _sessionManager.GetUserData();
-            List<ShowRoomNivelModel> niveles = new List<ShowRoomNivelModel>();
-
-            string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerNivel, pais);
-
-            Task<string> taskApi = Task.Run(() => RespSBMicroservicios(string.Empty,
-                                                                       requestUrl,
-                                                                       Constantes.MetodosHTTP.Get,
-                                                                       userData,
-                                                                       Constantes.MicroServicio.PersonalizacionSearch));
-            Task.WhenAll(taskApi);
-            string jsonString = taskApi.Result;
 
             try
             {
+                List<ShowRoomNivelModel> niveles = new List<ShowRoomNivelModel>();
+
+                string requestUrl = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerNivel, pais);
+
+                Task<string> taskApi = Task.Run(() => RespSBMicroservicios(string.Empty,
+                                                                           requestUrl,
+                                                                           Constantes.MetodosHTTP.Get,
+                                                                           userData,
+                                                                           Constantes.MicroServicio.PersonalizacionSearch));
+                Task.WhenAll(taskApi);
+                string jsonString = taskApi.Result;
+
                 OutputNivel respuesta = JsonConvert.DeserializeObject<OutputNivel>(jsonString);
 
                 if (respuesta == null)
@@ -980,9 +990,11 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (!respuesta.Success || !respuesta.Message.Equals(Constantes.EstadoRespuestaServicio.Success))
                 {
-                    Common.LogManager.SaveLog(new Exception(respuesta.Message), string.Empty, pais);
+                    Common.LogManager.SaveLog(new Exception(respuesta.Message), userData.CodigoConsultora, pais);
                     return new List<ShowRoomNivelModel>();
                 }
+
+                respuesta.Result = respuesta.Result ?? new List<Nivel>();
 
                 foreach (Models.Search.ResponseNivel.Estructura.Nivel nivel in respuesta.Result)
                 {
@@ -1000,7 +1012,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             catch (Exception ex)
             {
-                Common.LogManager.SaveLog(ex, string.Empty, pais);
+                Common.LogManager.SaveLog(ex, userData.CodigoConsultora, pais);
                 return new List<ShowRoomNivelModel>();
             }
         }

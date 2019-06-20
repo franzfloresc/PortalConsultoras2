@@ -2,8 +2,7 @@
 .contenido-popup-nuevo-2017 {
     display: table-cell;
     vertical-align: middle;
-    color: white;
-    text-transform: uppercase;
+    color: white; 
     text-align: center;
     margin: auto;
 }

@@ -1,5 +1,4 @@
-﻿//var tieneMicroefecto = false;
-var animacion = true;
+﻿var animacion = true;
 $(document).ready(function () {
     $('#txtClienteDescripcion').autocomplete({
         source: baseUrl + "Pedido/AutocompleteByCliente",
@@ -282,7 +281,6 @@ function InsertarProducto(form) {
             if (checkTimeout(response)) {
                 if (response.success == true) {
                     $("#hdErrorInsertarProducto").val(response.errorInsertarProducto);
-                    //tieneMicroefecto = true;
                     CargarDetallePedido();
                 } else {
                     alert(response.message);
@@ -296,37 +294,6 @@ function InsertarProducto(form) {
         error: function (response, x, xh, xhr) { }
     });
 }
-
-//function MostrarMicroEfecto() {
-//    if (animacion) {
-//        animacion = false;
-//        var obj = $("#frmInsertPedido");
-//        var button = $("#btnAgregar", obj);
-//        var efecto = '<div class="btn_animado"><img src="' + urlImagenMicroEfecto + '" alt="" /></div>';
-//        var trFirst = $("#tbobyDetallePedido tr:first-child");
-
-//        $("body").prepend(efecto);
-
-//        $(".btn_animado").css({
-//            'top': button.offset().top,
-//            'left': button.offset().left
-//        }).show().animate({
-//            'top': trFirst.offset().top,
-//            'left': trFirst.offset().left + (trFirst.width() / 2),
-//            'opacity': 0
-//        }, 1500, 'swing', function () {
-//            $(this).remove();
-
-//            trFirst.addClass("no_mostrar");
-
-//            $(".no_mostrar").fadeIn();
-
-//            trFirst.removeClass("no_mostrar");
-//            animacion = true;
-//            tieneMicroefecto = false;
-//        });
-//    }
-//}
 
 function ActualizarMontosPedido(formatoTotal, total, formatoTotalCliente) {
     if (formatoTotal != undefined) $("#sTotal").html(formatoTotal);
@@ -730,7 +697,13 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                     CerrarSplash();
                 } else {
                     CerrarSplash();
-                    alert(response.message);
+                    
+                    //INI HD-3693
+                    //alert(response.message);
+                    var msjBloq = validarpopupBloqueada(response.message);
+                    if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                    else alert(response.message);
+                    //FIN HD-3693
                 }
             }
 

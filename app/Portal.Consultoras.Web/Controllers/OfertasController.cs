@@ -57,7 +57,7 @@ namespace Portal.Consultoras.Web.Controllers
                     MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile),
 
                     IconoLLuvia = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop),
-                    VariablesEstrategia = GetVariableEstrategia(),
+                    VariablesEstrategia = GetEstrategiaHabilitado(),
                     Vc_SinProducto = SessionManager.GetUrlVc()
                 };
 
@@ -87,7 +87,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ListaSeccion = _confiOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, esMobile),
                     MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile),
                     MensajeProductoBloqueado2 = _ofertasViewProvider.HVMensajeProductoBloqueado(herramientasVenta, esMobile),
-                    VariablesEstrategia = GetVariableEstrategia()
+                    VariablesEstrategia = GetEstrategiaHabilitado()
                 };
 
                 return View("Index", modelo);

@@ -1,7 +1,7 @@
-#addin "nuget:?package=Cake.Sonar"
-#tool "nuget:?package=MSBuild.SonarQube.Runner.Tool"
-#addin "nuget:?package=Cake.SonarScanner"
-#addin nuget:?package=Cake.Git
+#addin nuget:?package=Cake.Sonar&version=1.1.18
+#tool  nuget:?package=MSBuild.SonarQube.Runner.Tool&version=4.3.1
+#addin nuget:?package=Cake.SonarScanner&version=1.1.0
+#addin nuget:?package=Cake.Git&version=0.19.0
 
 ///////////////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -26,7 +26,7 @@ Setup(ctx =>
    // Executed BEFORE the first task.
    var repositoryDirectoryPath = DirectoryPath.FromString("../");
    var currentBranch = GitBranchCurrent(repositoryDirectoryPath);
-   branch = currentBranch.FriendlyName;
+   branch = "DEV";//currentBranch.FriendlyName;
    var commit = GitLog(repositoryDirectoryPath, 1).FirstOrDefault();
    if (commit != null) {
        hash = commit.Sha.Substring(0, 11);
@@ -94,7 +94,7 @@ Task("SonarBegin")
         Password = sonarPassword,
         Version = hash,
         Exclusions = "**/*.js,**/*.css,**/emt_chat/**,*UnitTest/**"
-        // Branch = branch // Require https://docs.sonarqube.org/display/PLUG/Branch+Plugin
+        // Branch = branch
     });
 });
 
@@ -116,12 +116,13 @@ Task("SonarJS")
             {"sonar.login", sonarLogin},
             {"sonar.password", sonarPassword},
             {"sonar.branch", branch},
+            {"sonar.projectVersion", hash},
             {"project.settings", "../sonar-project-js.properties"},
         }
     });
 });
 
-// Require: https://github.com/racodond/sonar-css-plugin
+// Require: https://docs.sonarqube.org/display/PLUG/SonarCSS
 Task("SonarCSS")
     .Does(() => 
 {

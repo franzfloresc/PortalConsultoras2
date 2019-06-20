@@ -112,7 +112,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
                     TipoObservacion = detalleWeb.TipoObservacion,
                     ListObservacionProl = (detalleWeb.ObservacionPROL ?? "").Split('|').Where(o => !string.IsNullOrEmpty(o)).ToList(),
                     EsBackOrder = detalleWeb.EsBackOrder,
-                    AceptoBackOrder = detalleWeb.AceptoBackOrder
+                    AceptoBackOrder = detalleWeb.AceptoBackOrder,
+                    SetIdentifierNumber = detalleWeb.SetIdentifierNumber
+                    
                 });
             }
         }

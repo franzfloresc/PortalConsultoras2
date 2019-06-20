@@ -1,5 +1,8 @@
+using Portal.Consultoras.BizLogic.CaminoBrillante;
+using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
@@ -171,6 +174,8 @@ namespace Portal.Consultoras.BizLogic
                     Constantes.ConfiguracionOferta.Accesorizate,
                     pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
 
+           
+
             if (pedidowebdetalle.IndicadorPedidoAutentico != null)
             {
                 try
@@ -178,9 +183,19 @@ namespace Portal.Consultoras.BizLogic
                     var indPedidoAutentico = pedidowebdetalle.IndicadorPedidoAutentico;
                     indPedidoAutentico.PedidoID = pedidowebdetalle.PedidoID;
                     indPedidoAutentico.PedidoDetalleID = bePedidoWebDetalle.PedidoDetalleID;
-                    indPedidoAutentico.IndicadorToken = AESAlgorithm.Decrypt(indPedidoAutentico.IndicadorToken);
-
-                    daPedidoWeb.InsIndicadorPedidoAutentico(indPedidoAutentico);
+                    
+                    if (TryDecryptError(indPedidoAutentico.IndicadorToken))
+                    {
+                        
+                        string message = string.Format("Tracking Decrypt=> OrigenSolicitud:{0},Token:{1}", pedidowebdetalle.OrigenSolicitud ?? "Null", indPedidoAutentico.IndicadorToken ?? "Null");
+                        LogManager.SaveLog(new ClientInformationException(message), pedidowebdetalle.CodigoUsuarioCreacion, pedidowebdetalle.PaisID);
+                    }
+                    else
+                    {
+                        indPedidoAutentico.IndicadorToken = AESAlgorithm.Decrypt(indPedidoAutentico.IndicadorToken);
+                        daPedidoWeb.InsIndicadorPedidoAutentico(indPedidoAutentico);
+                    }
+                    
                 }
                 catch (Exception ex)
                 {
@@ -190,7 +205,7 @@ namespace Portal.Consultoras.BizLogic
 
             return bePedidoWebDetalle;
         }
-        
+
         public void UpdPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
         {
             var daPedidoWeb = new DAPedidoWeb(pedidowebdetalle.PaisID);
@@ -215,7 +230,7 @@ namespace Portal.Consultoras.BizLogic
                             new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockActualizar(pedidowebdetalle.TipoOfertaSisID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Stock, pedidowebdetalle.Flag);
                             break;
                     }
-
+                    
                     if (pedidowebdetalle.IndicadorPedidoAutentico != null)
                     {
                         try
@@ -245,8 +260,8 @@ namespace Portal.Consultoras.BizLogic
             var daPedidoWeb = new DAPedidoWeb(pedidowebdetalle.PaisID);
             var daPedidoWebDetalle = new DAPedidoWebDetalle(pedidowebdetalle.PaisID);
 
-            daPedidoWebDetalle.UpdPedidoWebDetalle(pedidowebdetalle); 
-            
+            daPedidoWebDetalle.UpdPedidoWebDetalle(pedidowebdetalle);
+
 
             switch (pedidowebdetalle.TipoOfertaSisID)
             {
@@ -281,7 +296,7 @@ namespace Portal.Consultoras.BizLogic
                         Clientes, ImporteTotalPedido,
                         usuario.CodigoUsuario);
         }
-        
+
         public short UpdPedidoWebDetalleMasivo(List<BEPedidoWebDetalle> pedidowebdetalle)
         {
             short updated = 0;
@@ -436,7 +451,13 @@ namespace Portal.Consultoras.BizLogic
         {
             return GetPedidoWebDetalleByCampania(detParametros, true, false);
         }
+
         public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros detParametros, bool consultoraOnLine, bool updLabelNuevas)
+        {
+            return GetPedidoWebDetalleByCampania(detParametros, consultoraOnLine, updLabelNuevas, false);
+        }
+
+        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(BEPedidoWebDetalleParametros detParametros, bool consultoraOnLine, bool updLabelNuevas, bool updLabelCaminoBrillante)
         {
             var listpedidoDetalle = new List<BEPedidoWebDetalle>();
             var daPedidoWebDetalle = new DAPedidoWebDetalle(detParametros.PaisId);
@@ -483,7 +504,39 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
             }
-            #endregion            
+            #endregion
+
+            #region Camino Brillante
+            if (updLabelCaminoBrillante) {
+                var origenPedidoWeb = new int[] {
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido,
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido,
+                    Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido };
+                var blCaminoBrillante = new BLCaminoBrillante();
+                listpedidoDetalle.Where(e => origenPedidoWeb.Contains(e.OrigenPedidoWeb)).ToList().ForEach(e => {                    
+                    blCaminoBrillante.UpdFlagsKitsOrDemostradores(e, detParametros.PaisId, detParametros.CampaniaId, detParametros.NivelCaminoBrillante);
+                });
+            }
+            #endregion
+
+            if (WebConfig.SetIdentifierNumberFlag == "1" && detParametros.AgruparSet)
+            {
+                var PedidoDetalleIdentifierNumber = listpedidoDetalle.Where(x => x.EstrategiaId != 0).Reverse().GroupBy(x => new { x.ClienteID, x.EstrategiaId }).Where(x => x.Count() > 1)
+               .Select(g => new { g, count = g.Count() })
+               .SelectMany(t => t.g.Select(b => b)
+                                   .Zip(Enumerable.Range(1, t.count), (j, i) => new BEPedidoWebDetalle
+                                   {
+                                       ClienteID = j.ClienteID,
+                                       EstrategiaId = j.EstrategiaId,
+                                       SetID = j.SetID,
+                                       SetIdentifierNumber = i
+                                   })).ToList();
+
+                foreach (var item in PedidoDetalleIdentifierNumber)
+                {
+                    listpedidoDetalle.Where(x => x.SetID == item.SetID).Update(x => { x.SetIdentifierNumber = item.SetIdentifierNumber; });
+                }
+            }
 
             return listpedidoDetalle;
         }
@@ -665,12 +718,24 @@ namespace Portal.Consultoras.BizLogic
             var daPedidoWeb = new DAPedidoWeb(usuario.PaisID);
             var daPedidoWebDetalle = new DAPedidoWebDetalle(usuario.PaisID);
             var blReserva = new BLReserva();
-
+            var blPedido = new BLPedido();
             TransactionOptions oTransactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
             try
             {
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
+                    
+                    var respuesta = blPedido.RespuestaModificarPedido(usuario);
+                    var reservado = false;
+                    if(respuesta != null)
+                    {
+                        reservado = (respuesta.CodigoRespuesta == Constantes.PedidoValidacion.Code.SUCCESS_RESERVA);
+                        if (reservado)
+                        {
+                            //si está reservado no se permite eliminar el pedido
+                            return false;
+                        }
+                    }
                     daPedidoWebDetalle.DelPedidoWebDetalleMasivo(usuario.CampaniaID, pedidoId);
                     daPedidoWeb.UpdPedidoWebByEstadoConTotalesMasivo(usuario.CampaniaID, pedidoId, 201, false, 0, 0, usuario.CodigoUsuario);
                     daPedidoWeb.DelIndicadorPedidoAutenticoCompleto(new BEIndicadorPedidoAutentico { PedidoID = pedidoId, CampaniaID = usuario.CampaniaID });
@@ -822,17 +887,17 @@ namespace Portal.Consultoras.BizLogic
                 return false;
             }
         }
-         
+
 
         public bool UpdatePedidoWebSetTransaction(BEPedidoDetalle pedidowebdetalle, int paisId, int setId, int cantidad)
         {
-                var result = false;
+            var result = false;
 
-                DAPedidoWebDetalle daPedidoWebDetalle = new DAPedidoWebDetalle(paisId);
-                result = daPedidoWebDetalle.UpdCantidadPedidoWebSet(setId, cantidad);
-                daPedidoWebDetalle.UpdPedidoWebSetCliente(pedidowebdetalle);
+            DAPedidoWebDetalle daPedidoWebDetalle = new DAPedidoWebDetalle(paisId);
+            result = daPedidoWebDetalle.UpdCantidadPedidoWebSet(setId, cantidad);
+            daPedidoWebDetalle.UpdPedidoWebSetCliente(pedidowebdetalle);
 
-               return result;
+            return result;
         }
 
         public List<BEPedidoWebSetDetalle> GetPedidoWebSetDetalle(int paisID, int campania, long consultoraId)
@@ -849,7 +914,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = daPedidoWebDetalle.ObtenerCuvSetDetalle(campaniaID, consultoraID, pedidoID, ListaSet))
                 while (reader.Read())
                 {
-                    if (DataRecord.HasColumn(reader, "SetID") && (DataRecord.HasColumn(reader, "CUV")))
+                    if (DataRecord.HasColumn(reader, "SetID") && DataRecord.HasColumn(reader, "CUV"))
                     {
                         listaBePedidoWebDetalle.Add(new BEPedidoWebDetalle() { CUV = Convert.ToString(reader["CUV"]), SetID = Convert.ToInt32(reader["SetID"]) });
                     }
@@ -857,6 +922,24 @@ namespace Portal.Consultoras.BizLogic
             return listaBePedidoWebDetalle;
         }
 
+        private bool TryDecryptError(string token)
+        {
+            bool Notdecrypt = false;
+            
+            try
+            {
+                AESAlgorithm.Decrypt(token);
+                
+            }
+            catch
+            {
+                Notdecrypt = true;
+               
+               
+            }
+
+            return Notdecrypt;
+        }
 
     }
 }

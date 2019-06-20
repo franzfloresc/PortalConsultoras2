@@ -12,7 +12,8 @@ namespace Portal.Consultoras.Common
         private static readonly string BUCKET_NAME_QAS = System.Configuration.ConfigurationManager.AppSettings["BUCKET_NAME_QAS"];
         private static readonly string ROOT_DIRECTORY = System.Configuration.ConfigurationManager.AppSettings["ROOT_DIRECTORY"];
         private static readonly string URL_S3 = System.Configuration.ConfigurationManager.AppSettings["URL_S3"];
-        
+
+
         public static string GetUrlFileS3(string carpetaPais, string fileName, string carpetaAnterior = "")
         {
             fileName = (fileName ?? "").Trim();
@@ -208,10 +209,69 @@ namespace Portal.Consultoras.Common
 
                 return url;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
-        }        
+        }
+
+        public static string GetUrlFileHistDetalle(string isoPais, string fileName, string cadena)
+        {
+            string[] arrCadena;
+            arrCadena = cadena.Split(',');
+            var carpetaPais = string.Format("{0}/{1}/{2}", arrCadena[0], isoPais, arrCadena[1]);
+
+            return GetUrlFileS3(carpetaPais, fileName);
+        }
+
+        public static string SetFileS3URL(string path, string carpetaPais, string fileName, bool actualizar = false)
+        {
+            return SetFileS3URL(path, carpetaPais, fileName, true, true, false, actualizar);
+        }
+
+        public static string SetFileS3URL(string path, string carpetaPais, string fileName, bool archivoPublico, bool EliminarArchivo, bool throwException, bool actualizar = false)
+        {
+            try
+            {
+                var root = string.IsNullOrEmpty(ROOT_DIRECTORY) ? "" : ROOT_DIRECTORY + "/";
+                var carpeta = string.IsNullOrEmpty(carpetaPais) ? "" : carpetaPais + "/";
+
+                if (fileName == "")
+                    return string.Empty;
+
+                if (File.Exists(path) || actualizar)
+                {
+                    var inputStream = new FileStream(path, FileMode.Open);
+
+                    var request = new PutObjectRequest
+                    {
+                        BucketName = BUCKET_NAME,
+                        Key = root + carpeta + fileName,
+                        InputStream = inputStream
+                    };
+
+                    if (archivoPublico)
+                        request.CannedACL = Amazon.S3.S3CannedACL.PublicRead;
+
+                    using (var client = Amazon.AWSClientFactory.CreateAmazonS3Client(ConfigS3.MY_AWS_ACCESS_KEY_ID, ConfigS3.MY_AWS_SECRET_KEY, Amazon.RegionEndpoint.USEast1))
+                    {
+                        client.PutObject(request);
+                    }
+
+                    if (EliminarArchivo)
+                        File.Delete(path);
+                }
+
+                return string.Concat("https://",BUCKET_NAME,"." , URL_S3.Split('/')[2].ToString(),"/",(root + carpeta + fileName));
+            }
+            catch
+            {
+                if (throwException) throw;
+                return string.Empty;
+            }
+        }
+
+
+
     }
 }

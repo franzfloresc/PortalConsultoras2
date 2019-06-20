@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities
@@ -50,5 +52,32 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [Column("UsuarioModificacion")]
         public string UsuarioModificacion { get; set; }
+
+        [DataMember]
+        [Column("FechaInicio")]
+        public string FechaInicio { get; set; }
+
+        [DataMember]
+        [Column("FechaFin")]
+        public string FechaFin { get; set; }
+
+        [DataMember]
+        [Column("PaisID")]
+        public int PaisID { get; set; }
+
+        [DataMember]
+        [Column("IpDispositivo")]
+        public string IpDispositivo { get; set; }
+
+        [DataMember]
+        [Column("Dispositivo")]
+        public bool Dispositivo { get; set; }
+
+
+        [DataMember]
+        [Column("DescripcionDispositivo")]
+        public string DescripcionDispositivo { get; set; }
+
+
     }
 }

@@ -1,0 +1,5 @@
+configuración:
+1. Buscar archivo BundleAnalyzer.exe.config
+2. actualizar el valor de la llave RutaApp con la ruta de su aplicativo.
+3. si la versión de system.web.optimization es menor a 1.1 actualizar a la versión 1.1.
+4. ejecutar BundleAnalyzer.exe.

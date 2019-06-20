@@ -45,9 +45,17 @@
         public string FlagNueva { get; set; }
 
         public int LimiteVenta { get; set; }
-        
+
         public bool EsCuponNuevas { get; set; }
 
         public bool EsKitNuevaAuto { get; set; }
+
+        public bool EsEditable { get; set; }
+        public int SetId { get; set; }
+
+        public bool EsDuoPerfecto { get; set; }
+
+        public bool EsSuscripcionSE { get; set; }
+
     }
 }

@@ -70,5 +70,7 @@ namespace Portal.Consultoras.Entities.ReservaProl
         public string CodigoPrograma { get; set; }
         [DataMember]
         public int ConsecutivoNueva { get; set; }
+        [DataMember]
+        public bool BoletaImpresa { get; set; }
     }
 }

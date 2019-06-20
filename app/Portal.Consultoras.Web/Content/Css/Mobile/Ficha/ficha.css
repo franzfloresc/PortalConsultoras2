@@ -97,6 +97,12 @@ ul.breadcumbs li:last-child a {
     text-transform:uppercase;
 }
 
+.descripcion_item {
+    font-weight: normal;
+    text-transform: none
+}
+
+
 .precio_producto p {
     font-size: 13px;
     font-weight: normal;
@@ -135,7 +141,7 @@ ul.breadcumbs li:last-child a {
     font-weight: bold;
     letter-spacing: 0.5px;
     color: #000000;
-    margin: 12px 0px 14px 0px;
+    margin: 12px 0px 10px 0px;
     line-height: normal;
 }
 
@@ -228,7 +234,7 @@ ul.breadcumbs li:last-child a {
 }
 
 .precio li:first-child {
-    padding-right: 11px;
+    padding-right: 8px;
 }
 
 .precio li:last-child {
@@ -417,61 +423,7 @@ ul.breadcumbs li:last-child a {
     margin-left: 4px;
 }
 /* Fin Seleccionar tono*/
-/* Tabs */
-.tabs ul.tabs {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-}
 
-.tabs ul.tabs li a, .tab_title {
-    padding: 20px 0px;
-    display: block;
-    font-size: 13px;
-    font-weight: bold;
-    line-height: normal;
-    letter-spacing: 2.5px;
-    color: #000000;
-    background: url(/Content/Images/mobile/Esika/down-arrow.svg);
-    background-repeat: no-repeat;
-    background-position: center right 10px;
-    background-size: 11px;
-    cursor: pointer;
-}
-
-.tabs ul.tabs li .active {
-    background: url(/Content/Images/mobile/Esika/top-arrow.svg);
-    background-repeat: no-repeat;
-    background-position: center right 10px;
-    background-size: 11px;
-}
-
-.tabs ul.tabs li a:hover {
-    text-decoration: none;
-}
-
-.tabs ul.tabs li, .tab_item {
-    width: 100%;
-    display: block;
-}
-
-.tabs ul.tabs li:last-child {
-    border-top: none !important;
-}
-
-.tabs ul.tabs li ul {
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    padding-bottom: 20px;
-    display: none;
-}
-
-.tabs li:nth-child(1) {
-    border-top: 1px solid #ccc;
-}
-
-/* fin Tabs */
 .content_producto_compuesto::after {
     content: "";
     clear: both;
@@ -520,6 +472,10 @@ ul.breadcumbs li:last-child a {
 
 .btn_agregar_ficha_producto, .content_cantidad_ficha_producto {
     border-radius: 4px;
+}
+
+.btn_agregar_ficha_producto_fijo {
+    width: 70% !important;
 }
 
 .cantidad_menos_home {
@@ -695,4 +651,27 @@ ul.breadcumbs li:last-child a {
     clear: both;
     margin-left: 15px;
 }
-  
+
+.btn_detalle {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 12px 0px 0px;
+    display: inline-block;
+}
+
+    .btn_detalle img {
+        width: 20px;
+        transform: rotate(-90deg);
+        margin-left: -4px;
+        margin-top: -2px;
+    }
+
+.titulo_carrusel {
+    font-size: 16px;
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-left: 20px;
+    text-align: left !important;
+}

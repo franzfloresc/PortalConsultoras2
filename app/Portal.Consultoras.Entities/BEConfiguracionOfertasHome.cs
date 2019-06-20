@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
-using System;
+using Portal.Consultoras.Entities.Oferta;
+
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -94,6 +95,18 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public BEConfiguracionPais ConfiguracionPais { get; set; }
 
+        [DataMember]
+        public BEConfiguracionOfertasHomeApp ConfiguracionOfertasHomeApp { get; set; }
+
+        [DataMember]
+        public string BotonTexto1 { get; set; }
+        [DataMember]
+        public string BotonTexto2 { get; set; }
+        [DataMember]
+        public string BotonColor { get; set; }
+        [DataMember]
+        public string BotonColorTexto { get; set; }
+         
         public BEConfiguracionOfertasHome(IDataRecord row)
         {
             ConfiguracionOfertasHomeID = row.ToInt32("ConfiguracionOfertasHomeID");
@@ -126,12 +139,17 @@ namespace Portal.Consultoras.Entities
             DesktopActivo = row.ToBoolean("DesktopActivo");
             MobileActivo = row.ToBoolean("MobileActivo");
             UrlSeccion = row.ToString("UrlSeccion");
+            BotonTexto1 = row.ToString("BotonTexto1");
+            BotonTexto2 = row.ToString("BotonTexto2");
+            BotonColor = row.ToString("BotonColor");
+            BotonColorTexto = row.ToString("BotonColorTexto");
             ConfiguracionPais = new BEConfiguracionPais();
-            ConfiguracionPais.Codigo = row.ToString("Codigo", "");
+            ConfiguracionPais.Codigo = row.ToString("Codigo", string.Empty);
         }
 
         public BEConfiguracionOfertasHome()
         {
+
         }
     }
 }

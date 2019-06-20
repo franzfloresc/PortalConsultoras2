@@ -1,0 +1,143 @@
+﻿
+@{
+    //ViewBag.CaminoBrillante = true;
+    Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
+    var data = ViewBag.Informacion;
+    var categoria = ViewBag.Vista;
+}
+
+@section css{
+    <link href="~/Content/CaminoBrillante/css/estilos.css" rel="stylesheet" />
+    <style>
+        div.content_responsive {
+            margin-top: 0px;
+        }
+    </style>
+}
+
+<section data-layout="ubicacionWeb" class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
+    <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
+        <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
+            <li class="layout__view__breadcrumb">
+                <a id="is-mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" title="Home">Home</a>
+                <a id="is-desktop" href="@Url.Action("Index", "Bienvenida")" title="Home">Home</a>
+            </li>
+            <li class="layout__view__breadcrumb">
+                <a href="@Url.Action("Index","CaminoBrillante")" class="d-block" title="CaminoBrillante">Camino Brillante</a>
+            </li>
+            <li class="layout__view__breadcrumb layout__view__breadcrumb--active__view">
+                <span class="d-block">@ViewBag.Vista</span>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<br />
+<div class="container" id="logros"></div>
+<br />
+
+<script id="template-logros" type="text/x-handlebars-template">
+    <h2 class="title">{{Titulo}}</h2>
+    {{#IsNullOrEmpty Descripcion '!='}}
+    {{/IsNullOrEmpty}}
+    {{#each Indicadores}}
+    <div class="box-camb">
+        <input type="hidden" id="txttitulo" value="{{Titulo}}" />
+        <p class="text-bold">{{Titulo}}</p>
+        <div class="cambio-crec">
+            {{#each Medallas }}
+            <div class="itm">
+                {{#if_eq Tipo 'PIE'}}
+                <div class="circle-porcent imgpizz">
+                    <img src="{{UrlMedalla}}" />
+                </div>
+                {{else if_eq Tipo 'CIRC'}}
+                <div class="circle-porcent {{#if Estado}}crec-activo{{else}}crec-inactivo{{/if}}">
+                    <span>{{Valor}}</span>
+                </div>
+                {{else if_eq Tipo 'NIV'}}
+                <div class="circle-porcent imgpizz">
+                    <img src="{{UrlMedalla}}" />
+                </div>
+                {{else if_eq Tipo 'PED'}}
+                <div class="circle-porcent imgpizz">
+                    <img src="{{UrlMedalla}}" />
+                </div>
+                {{else if_eq Tipo 'TIME'}}
+                <div class="circle-porcent imgpizz">
+                    <img src="{{UrlMedalla}}" />
+                </div>
+                {{/if_eq}}
+
+                {{#if_eq Tipo 'NIV'}}
+                {{else}}
+                <a href="#" class="inactivo">{{Titulo}}</a>
+                {{/if_eq}}
+
+                {{#if Estado}}
+                <span class="como-log inactivo">{{Subtitulo}}</span>
+                {{else}}
+                <span data-toggle="modal" class=" como-log {{#IsNullOrEmpty ModalTitulo}}{{#IsNullOrEmpty ModalDescripcion}}inactivo{{/IsNullOrEmpty}}{{/IsNullOrEmpty}}"
+                      {{#IsNullOrEmpty ModalTitulo '!='}} {{#IsNullOrEmpty ModalDescripcion '!='}}
+                      data-target="#medalla-{{../Codigo}}-{{@Html.Raw("@index")}}"
+                      onclick="ComoLograrlo('@Html.Raw(data.Titulo)','{{../Titulo}}','{{ModalTitulo}}','{{ModalDescripcion}}')"
+                      {{/IsNullOrEmpty}} {{/IsNullOrEmpty}}>{{Subtitulo}}</span>
+                {{#IsNullOrEmpty ModalTitulo '!='}}
+                {{#IsNullOrEmpty ModalDescripcion '!='}}
+                <div class="modal fade" id="medalla-{{../Codigo}}-{{@Html.Raw("@index")}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" onloadeddata="PopupComoLograrlo('@Html.Raw(data.Titulo)','{{Titulo}}')">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CerrarComoLograrlo('@Html.Raw(data.Titulo)','{{../Titulo}}','{{ModalTitulo}}')">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <div class="modal-body pad-center">
+                                <div class="indicador-nivel">
+                                    {{#if_eq Tipo 'PIE'}}
+                                    <div class="circle-porcent imgpizz crec-activo">
+                                        <img src="{{UrlMedallaFull}}" />
+                                    </div>
+                                    {{else if_eq Tipo 'CIRC'}}
+                                    <div class="circle-porcent crec-activo">
+                                        <span>{{Valor}}</span>
+                                    </div>
+                                    {{else if_eq Tipo 'NIV'}}
+                                    <div class="circle-porcent imgpizz crec-activo">
+                                        <img src='{{UrlMedallaFull}}'>
+                                    </div>
+                                    {{else if_eq Tipo 'PED'}}
+                                    <div class="circle-porcent imgpizz crec-activo">
+                                        <img src="{{UrlMedallaFull}}" />
+                                    </div>
+                                    {{else if_eq Tipo 'TIME'}}
+                                    <div class="circle-porcent imgpizz crec-activo">
+                                        <img src="{{UrlMedallaFull}}" />
+                                    </div>
+                                    {{/if_eq}}
+                                    <div class="left-mod">
+                                        <h2>{{ModalTitulo}}</h2>
+                                        <p>{{{ModalDescripcion}}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/IsNullOrEmpty}}
+                {{/IsNullOrEmpty}}
+                {{/if}}
+            </div>
+            {{/each}}
+        </div>
+    </div>
+    {{/each}}
+    <div class="clear"></div>
+</script>
+
+@section scripts{
+    <script>
+        var urlGetLogros = '@Url.Action("GetLogros", "CaminoBrillante")';
+        var categoriaLogro = "@categoria";
+    </script>
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/logros")
+}

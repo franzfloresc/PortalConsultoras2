@@ -177,7 +177,6 @@ hr{
 }
 
 .btn__compartir--slider + .opciones__compartir__catalogos{
-    left:-104px;
     z-index:3;
 }
 
@@ -336,9 +335,9 @@ hr{
     display:none;
     justify-content: space-evenly;
     background-color: #FFF;
-    width:420px;
+    width:460px;
     position:absolute;
-    left: -100px;
+    left: -124px;
     bottom: 55px;
     padding:20px 27px;
     height: 72px;
@@ -400,8 +399,9 @@ hr{
     height:32px;
 }
 
-.opcion__compartir__catalogo--facebookMessenger {
-    height: 43px;
+.opcion__compartir__catalogo--facebookMessenger{
+    height:37px;   
+    margin-right:4px;
 }
 
 .opcion__compartir__catalogo--copiarEnlace {
@@ -511,7 +511,7 @@ hr{
     margin: 0 auto;
     height: auto;
     position: relative;
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
 }
 
 .hblock_text div{
@@ -568,7 +568,7 @@ hr{
 }
 
 .titulo_compartir{
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
     font-weight: 300;
     line-height: .82;
     text-align: center;
@@ -584,7 +584,7 @@ hr{
 }
 
 .Label_compartir {
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
     font-size: 16px;
     font-weight: 400;
     line-height: 1;
@@ -597,22 +597,35 @@ hr{
 .mostrar_todos {
     display: block;
     float: right;
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
     font-size: 12px;
     font-weight: 400;
     line-height: 1;
     color: #000000;
     padding-left: 14px;
     text-decoration: underline!important;
-    background: url('/Content/Images/Esika/indicador_pedido.png') no-repeat;
-    background-position: 0 2px;
+    position:relative;
+}
+
+.mostrar_todos:before {
+	right: 93%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-left-color: #b9007e;
+    border-width: 5px;
+    margin-top: -5px;
 }
 
 .text_compartir {
     width: 100%;
     height: 106px;
     padding: 20px;
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
     font-size: 13px;
     line-height: 1.54;
     color: black;
@@ -621,24 +634,34 @@ hr{
     margin-bottom: 15px;
 }
 
+.tag-editor .tag a i{
+    line-height:17px;
+}
+
 .btn_enviar_correo {
     width: 176px;
     height: 45px;
-    background-color: #e81c36;
+    background-color: #b9007e;
     text-align: center;
     display: block;
     float: right;
-    color: white!important;
+    color: white !important;
     line-height: 45px;
     font-weight: 700;
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
     font-size: 13px;
     margin-top: 35px;
     margin-bottom: 35px;
+    border-radius: 4px;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
     .btn_enviar_correo:hover{
-        color:#FFF;
+        color:#FFF!important;
+        opacity:0.8;
     }
 
 .inputradio {
@@ -670,8 +693,8 @@ input[type='checkbox']:checked + span:after {
     width: 10px;
     height: 10px;
     left: 2px;
-    background: #e81c36;
-    color: #e81c36;
+    background-color: #b9007e;
+    color: #b9007e;
     font-size: 10px;
 }
 
@@ -679,7 +702,7 @@ input[type='checkbox']:checked + span:after {
     float: left;
     margin-left: 5px;
     margin-right: 34px;
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
     font-size: 13px;
     margin-top: 16px;
     cursor: pointer;
@@ -706,7 +729,7 @@ input[type='checkbox']:checked + span:after {
     width: 100%;
     height: 100%;
     background: transparent url(/Content/Images/bg_popups.png) repeat left top;
-    z-index: 1020;
+    z-index: 3001;
     display: none;
 }
 
@@ -735,22 +758,23 @@ input[type='checkbox']:checked + span:after {
     width: 55px;
     height: 55px;
     margin: 0 auto;
+    background-size: 100%;
+    background-position:center;
+    background-repeat:no-repeat;
 }
 
 .icono_check_alerta {
-    background: url(/Content/Images/Esika/icono_check_esika.png) center center no-repeat;
-    background-size: 100%;
+    background-image: url(/Content/Images/Esika/icono_check_esika_multimarca.svg);
 }
 
 .icono_exclamacion_alerta{
-    background: url(/Content/Images/Esika/icono_advertencia.png) center center no-repeat;
-    background-size: 100%;
+    background-image: url(/Content/Images/icono_advertencia_notificacion_multimarca.svg);
 }
 
 .texto_mensaje_alerta,
 .texto_mensaje_alerta span
 {
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
     font-weight: 300;
     font-size: 28px;
     margin-top: 15px;
@@ -759,7 +783,7 @@ input[type='checkbox']:checked + span:after {
 }
 
 .sub_texto_alerta {
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
     font-weight: 400;
     font-size: 16px;
     text-align: center;
@@ -774,11 +798,16 @@ input[type='checkbox']:checked + span:after {
     line-height: 45px;
     margin: auto;
     margin-top: 30px;
-    background: #e81c36;
-    font-family: 'Lato';
+    background-color: #b9007e;
+    font-family: 'Lato', sans-serif;
     font-weight: 900;
     text-align: center;
     font-size: 13px;
+    border-radius: 4px;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .btn_ok_alerta,
@@ -786,6 +815,10 @@ input[type='checkbox']:checked + span:after {
 {
     color: #fff!important;
 }
+
+    .btn_ok_alerta:hover{
+        opacity:0.8;
+    }
 
 /* FIN - POPUP MENSAJES ALERTA */
 
@@ -830,6 +863,10 @@ input[type='checkbox']:checked + span:after {
         -o-transition: all 0.3s ease;
         -webkit-transition: all 0.3s ease;
         transition: all 0.3s ease;
+    }
+
+    .indicador__catalogos__revistas.indicador__catalogos__revistas--activo{
+        background-color: #b9007e;
     }
 
     .info__catalogos__revistas{
@@ -1059,7 +1096,7 @@ input[type='checkbox']:checked + span:after {
         bottom: 17px;
         z-index: 3;
         height: auto;
-        padding:15px 51px;
+        padding:15px 22px;
     }
 
     .opcion__compartir__catalogo{
@@ -1088,14 +1125,17 @@ input[type='checkbox']:checked + span:after {
         height: 30px;
     }
 
+    .opcion__compartir__catalogo--facebookMessenger{
+        margin-right:3px;
+    }
+
     .opcion__compartir__catalogo--facebookMessenger img{
         margin-top:5px;
-        height:33px;
+        height:34px;
     }
 
     .opcion__compartir__catalogo--copiarEnlace{
         margin-top:18px;
-        margin-left:0;
     }
 
     .mi__revista__y__marquesina__rd__wrapper{
@@ -1218,18 +1258,30 @@ input[type='checkbox']:checked + span:after {
 
 }
 
-@media screen and (min-width:409px) and (max-width:991px){
+@media screen and (min-width:491px) and (max-width:991px){
+
+    .opciones__compartir__catalogos{
+        padding:18px 25px 20px 25px;
+    }
 
     .opcion__compartir__catalogo--copiarEnlace{
-        margin-top:0;
+        margin-top:4px;
     }
 
 }
 
-@media screen and (min-width:377px) and (max-width:991px){
+@media screen and (min-width:377px) and (max-width:490px){
 
     .opciones__compartir__catalogos{
-        padding:20px 40px;
+        padding:18px 50px 20px 50px;
+    }
+
+}
+
+@media screen and (min-width:0) and (max-width:490px){
+
+    .opcion__compartir__catalogo--copiarEnlace{
+        margin-left:0;
     }
 
 }

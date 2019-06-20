@@ -18,6 +18,24 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ConsultarServicioCrediticioChile">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="usuario" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="zona" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="documento" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="codSeccion" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultarServicioCrediticioChileResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarServicioCrediticioChileResult" nillable="true" type="q2:EvaluacionCrediticiaBE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ConsultarServicioCrediticioCO">
     <xs:complexType>
       <xs:sequence>
@@ -34,7 +52,7 @@
   <xs:element name="ConsultarServicioCrediticioCOResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarServicioCrediticioCOResult" nillable="true" type="q2:EvaluacionCrediticiaBE" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarServicioCrediticioCOResult" nillable="true" type="q3:EvaluacionCrediticiaBE" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -50,7 +68,23 @@
   <xs:element name="ConsultarServicioCrediticioPeruResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarServicioCrediticioPeruResult" nillable="true" type="q3:EvaluacionCrediticiaBE" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarServicioCrediticioPeruResult" nillable="true" type="q4:EvaluacionCrediticiaBE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultarServicioCrediticioDatosPeru">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tipoIdentificacion" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="numeroDocumento" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultarServicioCrediticioDatosPeruResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarServicioCrediticioDatosPeruResult" nillable="true" type="q5:EvaluacionCrediticiaDatosBE" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -67,7 +101,7 @@
   <xs:element name="ConsultarServicioCrediticioPeruZonaResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarServicioCrediticioPeruZonaResult" nillable="true" type="q4:EvaluacionCrediticiaBE" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarServicioCrediticioPeruZonaResult" nillable="true" type="q6:EvaluacionCrediticiaBE" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -83,7 +117,7 @@
   <xs:element name="ConsultarServicioCrediticioCamResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarServicioCrediticioCamResult" nillable="true" type="q5:EvaluacionCrediticiaBE" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarServicioCrediticioCamResult" nillable="true" type="q7:EvaluacionCrediticiaBE" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -99,7 +133,7 @@
   <xs:element name="ConsultarServicioCrediticioCaribeResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarServicioCrediticioCaribeResult" nillable="true" type="q6:EvaluacionCrediticiaBE" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarServicioCrediticioCaribeResult" nillable="true" type="q8:EvaluacionCrediticiaBE" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -115,7 +149,39 @@
   <xs:element name="ConsultarServicioCrediticioBOResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarServicioCrediticioBOResult" nillable="true" type="q7:EvaluacionCrediticiaBE" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultarServicioCrediticioBOResult" nillable="true" type="q9:EvaluacionCrediticiaBE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPersonaEquifax">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tipoDoc" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="numDoc" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPersonaEquifaxResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="GetPersonaEquifaxResult" nillable="true" type="q10:DatosConsultoraBE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaCrediticia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="tipoDoc" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="numDoc" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ConsultaCrediticiaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ConsultaCrediticiaResult" nillable="true" type="q11:ConsultaCrediticiaBE" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

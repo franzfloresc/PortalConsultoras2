@@ -1,0 +1,158 @@
+﻿/* ESTILOS GENERALES POPUPS SOMOS BELCORP */
+
+.popup__wrapper {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5000;
+    overflow: auto;
+}
+
+.popup__somos__belcorp,
+.popup__somos__belcorp__icono,
+.popup__somos__belcorp__btn,
+.popup__somos__belcorp__enlace--noVolverAMostrar {
+    margin: 0 auto;
+}
+
+.popup__somos__belcorp {
+    width: 100%;
+    top: 90px;
+    background-color: #FFF;
+}
+
+.popup__somos__belcorp,
+.popup__somos__belcorp__btn {
+    border-radius: 4px;
+}
+
+.popup__somos__belcorp,
+.popup__somos__belcorp__cabecera,
+.popup__somos__belcorp__contenido {
+    position: relative;
+}
+
+    .popup__somos__belcorp--general{
+        max-width: 420px;
+        padding: 40px;
+        min-height: 247px;
+    }
+
+.popup__somos__belcorp__icono__cerrar img,
+.popup__somos__belcorp__icono img {
+    width: 100%;
+    height: auto;
+}
+
+.popup__somos__belcorp__icono__cerrar {
+    display: block!important;
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    padding: 11px;
+}
+
+    .popup__somos__belcorp--general .popup__somos__belcorp__icono__cerrar {
+        right: -37px;
+        top: -36px;
+    }
+
+.popup__somos__belcorp__titulo,
+.popup__somos__belcorp__mensaje,
+.popup__somos__belcorp__btn,
+.popup__somos__belcorp__titulo,
+.popup__somos__belcorp__enlace {
+    text-align: center;
+}
+
+.popup__somos__belcorp__titulo,
+.popup__somos__belcorp__mensaje {
+    font-family: 'Lato', sans-serif !important;
+}
+
+.popup__somos__belcorp__titulo,
+.popup__somos__belcorp__btn,
+.popup__somos__belcorp__enlace {
+    font-weight: bold !important;
+}
+
+.popup__somos__belcorp__titulo {
+    display: block;
+    margin-bottom: 0 !important;
+    line-height: 25px;
+}
+
+.popup__somos__belcorp__mensaje,
+.popup__somos__belcorp__btn,
+.popup__somos__belcorp__enlace {
+    display: block;
+    font-size: 14px;
+}
+
+.popup__somos__belcorp__mensaje {
+    font-weight: 400;
+    line-height: 18px;
+}
+
+    .popup__somos__belcorp__mensaje--general{
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+.popup__somos__belcorp__btn,
+.popup__somos__belcorp__enlace {
+    height: 40px;
+    line-height: 40px;
+    letter-spacing: 1px;
+}
+
+.popup__somos__belcorp__btn {
+    width:100%;
+    border: 0;
+}
+
+.popup__somos__belcorp__enlace:hover {
+    color: #000;
+    text-decoration: underline;
+}
+
+.popup__somos__belcorp__enlace--noVolverAMostrar {
+    margin: 0 auto;
+    display: block;
+    position: absolute;
+    bottom: -37px;
+    left: 0;
+    right: 0;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+
+    .popup__somos__belcorp__enlace--noVolverAMostrar,
+    .popup__somos__belcorp__enlace--noVolverAMostrar:hover {
+        color: #FFF;
+        font-weight: 300 !important;
+        text-decoration: underline;
+    }
+
+.btn__sb--general{
+    min-width:200px;
+}
+
+@media screen and (max-width:991px) {
+    .popup__somos__belcorp {
+        width: 90%;
+        position: relative;
+        top: 70px;
+        margin-bottom: 70px;
+    }
+
+    .btn__sb.btn__sb--general{
+        position:relative;
+    }
+
+}
+
+/* FIN - ESTILOS GENERALES POPUPS SOMOS BELCORP */

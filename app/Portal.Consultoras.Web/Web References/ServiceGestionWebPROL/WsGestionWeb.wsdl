@@ -42,8 +42,9 @@
         <s:sequence>
           <s:element minOccurs="0" maxOccurs="1" name="cuv" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="precio" type="s:string" />
-          <s:element minOccurs="0" maxOccurs="1" name="cantidad" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="precio" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="cantidad" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="digitable" type="s:int" />
         </s:sequence>
       </s:complexType>
       <s:element name="GetCdrWebConsulta_Reclamo">
@@ -65,6 +66,38 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetCdrWeb_Reclamo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pais" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="periodo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="codconsultora" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="cuv" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="cantidad" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="zona" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCdrWeb_ReclamoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCdrWeb_ReclamoResult" type="tns:ArrayOfRptCdrReclamo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfRptCdrReclamo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="RptCdrReclamo" nillable="true" type="tns:RptCdrReclamo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RptCdrReclamo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="LProductosComplementos" type="tns:ArrayOfProductosComplementos" />
+          <s:element minOccurs="0" maxOccurs="1" name="Codigo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Estrategia" type="s:int" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="ConsultaStockBySap">
         <s:complexType>
           <s:sequence>
@@ -266,6 +299,12 @@
   <wsdl:message name="GetCdrWebConsulta_ReclamoSoapOut">
     <wsdl:part name="parameters" element="tns:GetCdrWebConsulta_ReclamoResponse" />
   </wsdl:message>
+  <wsdl:message name="GetCdrWeb_ReclamoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCdrWeb_Reclamo" />
+  </wsdl:message>
+  <wsdl:message name="GetCdrWeb_ReclamoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCdrWeb_ReclamoResponse" />
+  </wsdl:message>
   <wsdl:message name="ConsultaStockBySapSoapIn">
     <wsdl:part name="parameters" element="tns:ConsultaStockBySap" />
   </wsdl:message>
@@ -311,6 +350,10 @@
       <wsdl:input message="tns:GetCdrWebConsulta_ReclamoSoapIn" />
       <wsdl:output message="tns:GetCdrWebConsulta_ReclamoSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetCdrWeb_Reclamo">
+      <wsdl:input message="tns:GetCdrWeb_ReclamoSoapIn" />
+      <wsdl:output message="tns:GetCdrWeb_ReclamoSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="ConsultaStockBySap">
       <wsdl:input message="tns:ConsultaStockBySapSoapIn" />
       <wsdl:output message="tns:ConsultaStockBySapSoapOut" />
@@ -349,6 +392,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCdrWebConsulta_Reclamo">
       <soap:operation soapAction="http://tempuri.org/GetCdrWebConsulta_Reclamo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCdrWeb_Reclamo">
+      <soap:operation soapAction="http://tempuri.org/GetCdrWeb_Reclamo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -424,6 +476,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCdrWebConsulta_Reclamo">
       <soap12:operation soapAction="http://tempuri.org/GetCdrWebConsulta_Reclamo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCdrWeb_Reclamo">
+      <soap12:operation soapAction="http://tempuri.org/GetCdrWeb_Reclamo" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

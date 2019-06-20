@@ -77,13 +77,12 @@ namespace Portal.Consultoras.Common
                     logError.IsoPais = Util.GetPaisISO(int.Parse(logError.IsoPais));
                 }
 
-                RegistrarArchivoTexto(logError, pathFile);
-                RegistrarDynamoDB(logError);
+
                 RegistrarElastic(logError);
             }
             catch (Exception)
             {
-                //EventLog.WriteEntry("SomosBelcorp - LogManager", string.Format("Mensaje: {0} \nTrace: {1}", ex.Message, ex.StackTrace), EventLogEntryType.Error);
+                //
             }
         }
 
@@ -119,99 +118,9 @@ namespace Portal.Consultoras.Common
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                EventLog.WriteEntry("SomosBelcorp - LogManager", string.Format("Mensaje: {0} \nTrace: {1}", ex.Message, ex.StackTrace), EventLogEntryType.Error);
-            }
-        }
-
-        private static void RegistrarDynamoDB(LogError logError)
-        {
-            var dataString = string.Empty;
-            try
-            {
-                var urlRequest = string.Empty;
-                var browserRequest = string.Empty;
-                var ctrl = string.Empty;
-                var acti = string.Empty;
-                string Token = string.Empty;
-                if (HttpContext.Current != null && HttpContext.Current.Request != null)
-                {
-                    urlRequest = HttpContext.Current.Request.Url.ToString();
-                    browserRequest = HttpContext.Current.Request.UserAgent;
-
-                    var routeValues = HttpContext.Current.Request.RequestContext.RouteData.Values;
-                    ctrl = routeValues.ContainsKey("controller") ? routeValues["controller"].ToString() : "CtrlNoRoute";
-                    acti = routeValues.ContainsKey("action") ? routeValues["action"].ToString() : "ActiNoRoute";
-                    Token = (string)HttpContext.Current.Session[Constantes.ConstSession.JwtApiSomosBelcorp] ?? "";
-                }
-
-                var exceptionMessage = string.Empty;
-                var exceptionStackTrace = string.Empty;
-
-                if (logError.Exception != null)
-                {
-                    exceptionMessage = logError.Exception.Message;
-                    exceptionStackTrace = logError.Exception.StackTrace;
-
-                    var innerException = logError.Exception.InnerException;
-                    while (innerException != null)
-                    {
-                        exceptionStackTrace = logError.Exception.ToString();
-                        exceptionMessage = string.Format("{0}, InnerException: {1}", exceptionMessage, innerException.Message);
-
-                        innerException = innerException.InnerException;
-                    }
-                }
-
-                var data = new
-                {
-                    Aplicacion = Constantes.LogDynamoDB.AplicacionPortalConsultoras,
-                    Pais = logError.IsoPais,
-                    Usuario = logError.CodigoUsuario,
-                    Mensaje = exceptionMessage,
-                    StackTrace = exceptionStackTrace,
-
-                    CurrentUrl = urlRequest,
-                    ControllerName = ctrl.ToLower(),
-                    ActionName = acti.ToLower(),
-
-                    Extra = new Dictionary<string, string>() {
-                        { "Origen", logError.Origen },
-                        //{ "Url", urlRequest },
-                        { "Browser", browserRequest },
-                        { "TipoTrace", "LogManager" },
-                        { "Server", Environment.MachineName }
-                    }
-                };
-
-                var urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
-
-                if (string.IsNullOrEmpty(urlApi)) return;
-
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    httpClient.BaseAddress = new Uri(urlApi);
-                    httpClient.DefaultRequestHeaders.Accept.Clear();
-                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    dataString = JsonConvert.SerializeObject(data);
-
-                    HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
-                    //httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer { Globals.JwtToken }");
-                    httpClient.DefaultRequestHeaders.Add("Authorization", string.Format("Bearer {0}", Token));
-                    HttpResponseMessage response = httpClient.PostAsync("Api/LogError", contentPost).GetAwaiter().GetResult();
-
-                    var noQuitar = response.IsSuccessStatusCode;
-                }
-            }
-            catch (Exception ex)
-            {
-                logError.Exception = ex;
-                logError.InformacionAdicional = dataString;
-                logError.Titulo = "Seguimiento de Errores DynamoDB";
-
-                RegistrarArchivoTexto(logError);
+                //
             }
         }
 
@@ -247,9 +156,9 @@ namespace Portal.Consultoras.Common
 
                 }
 
-                string className;
-                string methodName;
-                string application;
+                string className = string.Empty;
+                string methodName = string.Empty;
+                string application = string.Empty;
 
                 if (logError.Origen.Equals("Servidor"))
                 {
@@ -257,8 +166,12 @@ namespace Portal.Consultoras.Common
 
                     StackTrace st = new StackTrace(logError.Exception, true);
                     StackFrame frame = st.GetFrame(st.FrameCount - 1);
-                    className = frame.GetMethod().DeclaringType.Name;
-                    methodName = frame.GetMethod().Name;
+                    if (frame != null)
+                    {
+                        className = frame.GetMethod().DeclaringType.Name;
+                        methodName = frame.GetMethod().Name;
+                    }
+
                 }
                 else
                 {
@@ -312,7 +225,6 @@ namespace Portal.Consultoras.Common
                 logError.Exception = ex;
                 logError.InformacionAdicional = dataString;
                 logError.Titulo = "Seguimiento de Errores Elastic";
-
                 RegistrarArchivoTexto(logError);
             }
         }
@@ -330,7 +242,7 @@ namespace Portal.Consultoras.Common
             var exceptionMessage = "";
             try
             {
-                var separador = " | ";
+                var separador = "\n";
 
                 if (ex != null)
                 {
@@ -340,7 +252,11 @@ namespace Portal.Consultoras.Common
                     var innerException = ex.InnerException;
                     while (innerException != null)
                     {
-                        exceptionMessage = string.Format("{0}, InnerException: {1}", exceptionMessage, innerException.Message);
+                        exceptionMessage = string.Format("{0}" + separador + "Message: {1}" + separador + "InnerException: {2}", 
+                            exceptionMessage, 
+                            innerException.Message, 
+                            innerException.StackTrace);
+
                         innerException = innerException.InnerException;
                     }
                 }

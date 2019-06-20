@@ -28,7 +28,7 @@
             <div style="float: left">
 
                 {{#iff prod.TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
-                <a class="btn_agrega_set_dia" onclick="javascript:OnClickFichaDetalle(event.target);">
+                <a class="btn_agrega_set_dia" onclick="javascript:FichaVerDetalle.OnClickFichaDetalle(event.target);">
                     <img style="width: 17px" src="/Content/Images/click-icon-white.svg" alt="" />
                     ELIGE TU OPCIÓN
                 </a>
@@ -43,11 +43,11 @@
 
             </div>
             @*<a class="btn_detalle_hoy" data-odd-cantidad="{{CantidadProductos}}" onclick="OfertaDelDiaModule.IrContenedorOfertas();">*@
-                <a class="btn_detalle_hoy" data-odd-cantidad="{{CantidadProductos}}"  onclick="javascript: menuModule.sectionClick('/Ofertas#ODD', 'BotonVerMas', this);">                
-                    <div class="circulo_hoy"><span id="odd_simbolo_ver_ofertas">+</span></div>
-                    <div class="texto_detalle_set">{{TextoVerDetalle}}</div>
-                </a>
-</div>
+            <a class="btn_detalle_hoy" data-odd-cantidad="{{CantidadProductos}}" onclick="javascript: menuModule.sectionClick('/Ofertas#ODD', 'BotonVerMas', this);">
+                <div class="circulo_hoy"><span id="odd_simbolo_ver_ofertas">+</span></div>
+                <div class="texto_detalle_set">{{TextoVerDetalle}}</div>
+            </a>
+        </div>
         <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia(this);">x</a>
     </div>
 

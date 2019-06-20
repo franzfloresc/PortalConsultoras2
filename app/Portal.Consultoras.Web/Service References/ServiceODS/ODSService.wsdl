@@ -34,6 +34,10 @@
       <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
       <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" />
       <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.LimiteVenta" />
+      <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Pedido" />
+      <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
+      <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Usuario" />
+      <xsd:import schemaLocation="http://localhost:41615/ODSService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillante" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IODSService_GetProductoComercialByListaCuv_InputMessage">
@@ -306,6 +310,12 @@
   <wsdl:message name="IODSService_GetLimElectivosProgNuevas_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetLimElectivosProgNuevasResponse" />
   </wsdl:message>
+  <wsdl:message name="IODSService_GetListCuvProgNuevasEstrategia_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListCuvProgNuevasEstrategia" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_GetListCuvProgNuevasEstrategia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListCuvProgNuevasEstrategiaResponse" />
+  </wsdl:message>
   <wsdl:message name="IODSService_ValidarVentaExclusiva_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarVentaExclusiva" />
   </wsdl:message>
@@ -323,6 +333,30 @@
   </wsdl:message>
   <wsdl:message name="IODSService_CuvArmaTuPackEstaEnLimite_OutputMessage">
     <wsdl:part name="parameters" element="tns:CuvArmaTuPackEstaEnLimiteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_ListarPremioNuevasPaginado_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarPremioNuevasPaginado" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_ListarPremioNuevasPaginado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarPremioNuevasPaginadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_Insertar_InputMessage">
+    <wsdl:part name="parameters" element="tns:Insertar" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_Insertar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarResponse" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_Editar_InputMessage">
+    <wsdl:part name="parameters" element="tns:Editar" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_Editar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditarResponse" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_ValidarBusquedaCaminoBrillante_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarBusquedaCaminoBrillante" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_ValidarBusquedaCaminoBrillante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarBusquedaCaminoBrillanteResponse" />
   </wsdl:message>
   <wsdl:portType name="IODSService">
     <wsdl:operation name="GetProductoComercialByListaCuv">
@@ -505,6 +539,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetLimElectivosProgNuevas" message="tns:IODSService_GetLimElectivosProgNuevas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetLimElectivosProgNuevasResponse" message="tns:IODSService_GetLimElectivosProgNuevas_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetListCuvProgNuevasEstrategia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/GetListCuvProgNuevasEstrategia" message="tns:IODSService_GetListCuvProgNuevasEstrategia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/GetListCuvProgNuevasEstrategiaResponse" message="tns:IODSService_GetListCuvProgNuevasEstrategia_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ValidarVentaExclusiva">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidarVentaExclusiva" message="tns:IODSService_ValidarVentaExclusiva_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ValidarVentaExclusivaResponse" message="tns:IODSService_ValidarVentaExclusiva_OutputMessage" />
@@ -516,6 +554,22 @@
     <wsdl:operation name="CuvArmaTuPackEstaEnLimite">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimite" message="tns:IODSService_CuvArmaTuPackEstaEnLimite_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimiteResponse" message="tns:IODSService_CuvArmaTuPackEstaEnLimite_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarPremioNuevasPaginado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ListarPremioNuevasPaginado" message="tns:IODSService_ListarPremioNuevasPaginado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ListarPremioNuevasPaginadoResponse" message="tns:IODSService_ListarPremioNuevasPaginado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Insertar">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/Insertar" message="tns:IODSService_Insertar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/InsertarResponse" message="tns:IODSService_Insertar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Editar">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/Editar" message="tns:IODSService_Editar_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/EditarResponse" message="tns:IODSService_Editar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarBusquedaCaminoBrillante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ValidarBusquedaCaminoBrillante" message="tns:IODSService_ValidarBusquedaCaminoBrillante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ValidarBusquedaCaminoBrillanteResponse" message="tns:IODSService_ValidarBusquedaCaminoBrillante_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IODSService" type="tns:IODSService">
@@ -925,6 +979,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetListCuvProgNuevasEstrategia">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetListCuvProgNuevasEstrategia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ValidarVentaExclusiva">
       <soap:operation soapAction="http://tempuri.org/IODSService/ValidarVentaExclusiva" style="document" />
       <wsdl:input>
@@ -945,6 +1008,42 @@
     </wsdl:operation>
     <wsdl:operation name="CuvArmaTuPackEstaEnLimite">
       <soap:operation soapAction="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimite" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarPremioNuevasPaginado">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ListarPremioNuevasPaginado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Insertar">
+      <soap:operation soapAction="http://tempuri.org/IODSService/Insertar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Editar">
+      <soap:operation soapAction="http://tempuri.org/IODSService/Editar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarBusquedaCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ValidarBusquedaCaminoBrillante" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1361,6 +1460,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetListCuvProgNuevasEstrategia">
+      <soap:operation soapAction="http://tempuri.org/IODSService/GetListCuvProgNuevasEstrategia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ValidarVentaExclusiva">
       <soap:operation soapAction="http://tempuri.org/IODSService/ValidarVentaExclusiva" style="document" />
       <wsdl:input>
@@ -1381,6 +1489,42 @@
     </wsdl:operation>
     <wsdl:operation name="CuvArmaTuPackEstaEnLimite">
       <soap:operation soapAction="http://tempuri.org/IODSService/CuvArmaTuPackEstaEnLimite" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarPremioNuevasPaginado">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ListarPremioNuevasPaginado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Insertar">
+      <soap:operation soapAction="http://tempuri.org/IODSService/Insertar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Editar">
+      <soap:operation soapAction="http://tempuri.org/IODSService/Editar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarBusquedaCaminoBrillante">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ValidarBusquedaCaminoBrillante" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

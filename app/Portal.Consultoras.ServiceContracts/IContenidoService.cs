@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Comunicado;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -278,6 +279,61 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         string ObtenerCorreoEmisor(int PaisID);
 
+        #endregion
+
+        [OperationContract]
+        List<BEContenidoApp> GetContenidoApp(BEUsuario itmFilter, string codigoBanner);
+        
+        [OperationContract]
+        BEContenidoAppHistoria GetContenidoAppHistoria(int paisID, string Codigo);
+
+        [OperationContract]
+        void CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle);
+        
+        [OperationContract]
+        void UpdateContenidoApp(int paisID, BEContenidoAppHistoria formularioDato);
+
+        [OperationContract]
+        List<BEContenidoAppList> ListContenidoApp(int paisID, BEContenidoAppList entidad);
+
+        [OperationContract]
+        void InsertContenidoAppDeta(int paisID, BEContenidoAppDeta p);
+
+        [OperationContract]
+        int UpdateContenidoAppDeta(int paisID, BEContenidoAppDeta p);
+
+        [OperationContract]
+        List<BEContenidoAppDetaAct> GetContenidoAppDetaActList(int paisID);
+
+        #region Gestor de Poputs
+        [OperationContract]
+        List<BEComunicado> GetListaPopup(int Estado, string Campania, int Paginas, int Filas, int PaisID);
+
+        [OperationContract]
+        BEComunicado GetDetallePopup(int Comunicadoid, int PaisID);
+
+        [OperationContract]
+        int GuardarPopups(string tituloPrincipal, string descripcion, string Url, string fechaMaxima, string fechaMinima, bool checkDesktop, bool checkMobile, int accionID, string datosCSV, string comunicadoId, string nombreArchivo, string codigoCampania, string descripcionAccion, int PaisID);
+
+        [OperationContract]
+        int GuardarPopupsValidador(bool checkDesktop, string datosCSV, int PaisID);
+
+            
+        [OperationContract]
+        int ActualizaOrden(string Comunicado, string Orden, int PaisID);
+
+        [OperationContract]
+        int EliminarArchivoCsv(int Comunicadoid, int PaisID);
+
+        [OperationContract]
+        int EliminarArchivoCsvValidador( int PaisID);
+
+        [OperationContract]
+        int CargaEstadoValidadorDatos(int PaisID);
+
+
+        [OperationContract]
+        List<BEComunicadoSegmentacion> GetCargaListadoPopupValidador(int PaisID);
         #endregion
     }
 }

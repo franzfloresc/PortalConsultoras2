@@ -568,5 +568,29 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
+
+        public List<BEEstrategia> GetEstrategiaPremiosElectivos(int paisId, string codigoPrograma, int anioCampana, string codigoNivel)
+        {
+            var listaEstrategias = new List<BEEstrategia>();
+            try
+            {
+                var da = new DAEstrategia(paisId);
+                
+                using (IDataReader reader = da.GetPremiosElectivos(codigoPrograma, anioCampana, codigoNivel))
+                {
+                    while (reader.Read())
+                    {
+                        listaEstrategias.Add(new BEEstrategia(reader));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, string.Empty, paisId);
+            }
+
+            return listaEstrategias;
+        }
+
     }
 }

@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.SessionManager;
+using Portal.Consultoras.Web.Models.DetalleEstrategia;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -25,7 +27,42 @@ namespace Portal.Consultoras.Web.Controllers
             : base(sesionManager, logManager, estrategiaComponenteProvider)
         {
         }
+        
+        [HttpGet]
+        public ActionResult FichaResponsive(string palanca, int campaniaId, string cuv, string origen)
+        {
+            try
+            {
+                var url = (Request.Url.Query).Split('?');
+                if (EsDispositivoMovil()
+                    && url.Length > 1
+                    && url[1].Contains("sap")
+                    && url[1].Contains("VC"))
+                {
+                    string sap = "&" + url[1].Substring(3);
+                    return RedirectToAction("Ficha", "DetalleEstrategia", new { area = "Mobile", palanca, campaniaId, cuv, origen, sap });
+                }
 
+                var modelo = new DetalleEstrategiaFichaModel
+                {
+                    Palanca = palanca,
+                    Campania = campaniaId,
+                    Cuv = cuv,
+                    OrigenUrl = origen
+                };
+                return View(modelo);
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoConsultora, userData.CodigoISO, "BaseViewController.Ficha");
+            }
+
+            return base.Redireccionar();
+
+        }
+
+
+        [HttpGet]
         public override ActionResult Ficha(string palanca, int campaniaId, string cuv, string origen)
         {
             try
@@ -46,9 +83,38 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return base.Ficha(palanca, campaniaId, cuv, origen);
-            
+
         }
 
+        [HttpPost]
+        public JsonResult ObtenerModelo(string palanca, int campaniaId, string cuv, string origen, bool esEditable = false)
+        {
+            try
+            {
+                var modelo = FichaModelo(palanca, campaniaId, cuv, origen, esEditable);
+
+                if (modelo != null)
+                {
+                    return Json(new
+                    {
+                        success = !modelo.Error,
+                        data = modelo
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return Json(new
+            {
+                success = false
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public JsonResult ObtenerComponentes(string estrategiaId, string cuv2, string campania, string codigoVariante, string codigoEstrategia = "", List<EstrategiaComponenteModel> lstHermanos = null)
         {
             try
@@ -65,13 +131,13 @@ namespace Portal.Consultoras.Web.Controllers
                 bool esMultimarca = false;
                 string mensaje = "";
                 var componentes = _estrategiaComponenteProvider.GetListaComponentes(estrategiaModelo, codigoEstrategia, out esMultimarca, out mensaje);
-
+   
                 return Json(new
                 {
                     success = true,
                     esMultimarca,
                     componentes,
-                    mensaje
+                    mensaje,
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -85,5 +151,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
         }
+
     }
 }

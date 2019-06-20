@@ -1425,17 +1425,17 @@
     text-transform:uppercase;
 }
 
-.enlace_ver_mas_opciones_banca_por_internet:after{
-    display: inline-block;
-    vertical-align: middle;
-    content: "";
-    background-image: url(../../../Images/flecha-despliegue.svg);
-    background-size: 100%;
-    background-repeat: no-repeat;
-    width: 10px;
-    height: 9px;
-    margin-left: 6px;
-}
+    .enlace_ver_mas_opciones_banca_por_internet:after {
+        display: inline-block;
+        vertical-align: middle;
+        content: "";
+        background-image: url(/Content/Images/flecha-despliegue.svg);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        width: 10px;
+        height: 9px;
+        margin-left: 6px;
+    }
 
 .segundo_listado{
     display:none;
@@ -1596,6 +1596,7 @@
     height: 45px !important;
 }
 
-
-
 /* FIN - POPUP TÉRMINOS Y CONDICIONES */
+.childs-tachado > * {
+    text-decoration: line-through;
+}

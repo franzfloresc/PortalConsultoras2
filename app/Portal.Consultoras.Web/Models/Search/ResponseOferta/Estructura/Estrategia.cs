@@ -21,7 +21,9 @@
         public int Orden { get; set; }
         public bool FlagEstrella { get; set; }
         public bool TieneVariedad { get; set; }
-        public IList<Componente> Componentes { get; set; }
+        public List<Componente> Componentes { get; set; }
+        public EstrategiaComponenteCabecera Cabecera { get; set; }
+        public List<EstrategiaComponenteSeccion> Secciones { get; set; }        
         public int TipoEstrategiaId { get; set; }
         public string DescripcionTipoEstrategia { get; set; }
         public string CodigoTipoEstrategia { get; set; }
@@ -39,5 +41,28 @@
         public int FlagRevista { get; set; }
         public int TipoEstrategiaImagenMostrar { get; set; }
         public string Niveles { get; set; }
+        
+        /// <summary>
+        /// Calculo del factor cuadre
+        /// </summary>
+        public int CantidadPack { get; set; }
+
+        public string FotoProducto01 { get; set; }
+        public string GananciaString { get; set; }
+        public string DescripcionMarca { get; set; }
+        public string PrecioTachado { get; set; }
+        public string PrecioVenta { get; set; }
+        public bool TieneStock { get; set; }
+        public string DescripcionCompleta { get; set; }
+        public string DescripcionCortada { get; set; }
+        public string DescripcionDetalle { get; set; }
+        public string DescripcionResumen { get; set; }
+        public string TipoPersonalizacion { get; set; }
+        public bool EsMultiMarca { get; set; }
+        public List<string> ListaDescripcionDetalle { get; set; }
+        public EstrategiaDetalleModelo TipoEstrategiaDetalle { get; set; }
+        public List<string> ListaPrecioNiveles { get; set; }
+
+        public string ImagenEtiqueta { get; set; }
     }
 }

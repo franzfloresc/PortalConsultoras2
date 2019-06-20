@@ -130,7 +130,25 @@ namespace Portal.Consultoras.BizLogic
             }
             return true;
         }
-        
-        
+
+        public List<BEConfiguracionPaisDatos> GetListAll(BEConfiguracionPaisDatos entidad)
+        {
+            var lista = new List<BEConfiguracionPaisDatos>();
+
+            try
+            {
+                using (var reader = new DAConfiguracionPaisDatos(entidad.PaisID).GetListAll(entidad))
+                {
+                    lista = reader.MapToCollection<BEConfiguracionPaisDatos>(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, string.Empty, entidad.PaisID.ToString());
+            }
+
+            return lista;
+        }
+
     }
 }

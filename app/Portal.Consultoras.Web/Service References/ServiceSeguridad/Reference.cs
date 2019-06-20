@@ -778,6 +778,9 @@ namespace Portal.Consultoras.Web.ServiceSeguridad {
         private string DescripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int FlagMenuNuevoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int MenuAppIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -875,6 +878,19 @@ namespace Portal.Consultoras.Web.ServiceSeguridad {
                 if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
                     this.DescripcionField = value;
                     this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FlagMenuNuevo {
+            get {
+                return this.FlagMenuNuevoField;
+            }
+            set {
+                if ((this.FlagMenuNuevoField.Equals(value) != true)) {
+                    this.FlagMenuNuevoField = value;
+                    this.RaisePropertyChanged("FlagMenuNuevo");
                 }
             }
         }

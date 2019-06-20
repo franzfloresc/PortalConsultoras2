@@ -25,7 +25,6 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "CodigoSeccion", DbType.String, entity.ConfiguracionPais.Detalle.CodigoSeccion);
                 Context.Database.AddInParameter(command, "CodigoConsultora", DbType.String, entity.ConfiguracionPais.Detalle.CodigoConsultora);
 
-
                 return Context.ExecuteReader(command);
             }
         }
@@ -90,6 +89,16 @@ namespace Portal.Consultoras.Data
 
             int result = Context.ExecuteNonQuery(command);
             return result;
+        }
+
+        public IDataReader GetListAll(BEConfiguracionPaisDatos entity)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.GetConfiguracionPaisDatosAll"))
+            {
+                Context.Database.AddInParameter(command, "ConfiguracionPaisID", DbType.String, entity.ConfiguracionPaisID);
+
+                return Context.ExecuteReader(command);
+            }
         }
     }
 }

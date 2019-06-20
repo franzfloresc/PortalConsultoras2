@@ -75,6 +75,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int CampaniaApp { get; set; }
 
+        [DataMember]
+        public string DescripcionGrupo { get; set; }
+
         public BEEstrategiaProducto(IDataRecord row)
         {
             EstrategiaProductoID = DataRecord.GetColumn<int>(row, "EstrategiaProductoID");

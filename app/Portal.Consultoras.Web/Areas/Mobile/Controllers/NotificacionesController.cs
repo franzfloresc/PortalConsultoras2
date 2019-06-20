@@ -34,11 +34,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index()
         {
-            SessionManager.SetfechaGetNotificacionesSinLeer(null);
-            SessionManager.SetcantidadGetNotificacionesSinLeer(null);
-
             var model = new NotificacionesModel { ListaNotificaciones = ObtenerNotificaciones() };
             return View(model);
+        }
+
+        public ActionResult IndexExterno(int IdOrigen = 0)
+        {
+            var model = new NotificacionesModel { ListaNotificaciones = ObtenerNotificaciones() };
+            model.Origen = IdOrigen;
+            return View("Index", model);
         }
 
         public ActionResult DetalleSolicitudCliente(long SolicitudId)
@@ -214,11 +218,52 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult ListarObservaciones(long ProcesoId, int TipoOrigen)
+        public ActionResult ListarObservaciones(long ProcesoId, int TipoOrigen, string Campania)
         {
             List<BENotificacionesDetalle> lstObservaciones;
             List<BENotificacionesDetallePedido> lstObservacionesPedido;
             _notificacionProvider.GetNotificacionesValAutoProl(ProcesoId, TipoOrigen, userData.PaisID, out lstObservaciones, out lstObservacionesPedido);
+
+
+            if (!string.IsNullOrEmpty(Campania))
+            {
+                int campaniaId = int.Parse(Campania);
+
+                var parametros = new BEPedidoWebDetalleParametros
+                {
+                    PaisId = userData.PaisID,
+                    CampaniaId = campaniaId,
+                    ConsultoraId = userData.ConsultoraID,
+                    Consultora = userData.NombreConsultora,
+                    EsBpt = true,
+                    CodigoPrograma = userData.CodigoPrograma,
+                    NumeroPedido = userData.ConsecutivoNueva,
+                    AgruparSet = true
+                };
+                List<ServicePedido.BEPedidoWebDetalle> detallesPedidoWeb;
+                using (var pedidoServiceClient = new PedidoServiceClient())
+                {
+                    detallesPedidoWeb = pedidoServiceClient.SelectByCampania(parametros).ToList();
+                }
+
+
+                var hayPedidoSet = detallesPedidoWeb.Where(x => x.SetID > 0).ToList();
+                var listadoHijos = new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle>();
+                if (hayPedidoSet.Any())
+                {
+
+                    var lstSetId = string.Empty;
+
+                    var pedidoId = detallesPedidoWeb.FirstOrDefault().PedidoID;
+
+                    lstSetId = string.Join(",", detallesPedidoWeb.Where(x => x.SetID > 0).Select(e => e.SetID));
+                    using (var sv = new PedidoServiceClient())
+                    {
+                        listadoHijos = sv.ObtenerCuvSetDetalle(userData.PaisID, campaniaId, userData.ConsultoraID, pedidoId, lstSetId).ToList();
+                    }
+                }
+                lstObservacionesPedido = _notificacionProvider.AgruparNotificaciones(lstObservacionesPedido, detallesPedidoWeb, listadoHijos, Campania);
+            }
 
             var model = new NotificacionesMobileModel();
             model.ListaNotificacionesDetalle = lstObservaciones;
@@ -246,7 +291,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.Total = model.SubTotal + model.Descuento;
             }
             else model.Total = model.ListaNotificacionesDetallePedido.Sum(p => p.ImporteTotal);
-            model.DecimalToString = _notificacionProvider.CreateConverterDecimalToString(userData.PaisID);
 
             return View("ListadoObservaciones", model);
         }
@@ -340,9 +384,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             if (Proceso == "CDR" || Proceso == "CDR-CULM")
             {
-                var cdrWeb = new BECDRWeb();
+                var cdrWeb = new ServiceCDR.BECDRWeb();
                 var logCdrWeb = new BELogCDRWeb();
-                var listaCdrWebDetalle = new List<BECDRWebDetalle>();
+                var listaCdrWebDetalle = new List<ServiceCDR.BECDRWebDetalle>();
                 using (CDRServiceClient sv = new CDRServiceClient())
                 {
                     if (Proceso == "CDR")

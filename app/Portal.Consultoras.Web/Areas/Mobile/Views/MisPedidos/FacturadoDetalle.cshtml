@@ -12,7 +12,18 @@
             <div class="panel-heading" data-toggle="collapse" href="#collapse_@(pedido.CampaniaID)_@(pedido.ClienteID)">
                 <div class="sections-1">
                     <div class="sections-client">@pedido.NombreCliente</div>
-                    <div class="sections-subtitle">@pedido.CantidadPedido @(pedido.CantidadPedido == 1 ? "unidad ingresada" : "unidades ingresadas")</div>
+                    @*<div class="sections-subtitle">@pedido.CantidadPedido @(pedido.CantidadPedido == 1 ? "unidad ingresada" : "unidades ingresadas")</div>*@
+                    <div class="sections-subtitle">
+                        @*Cantidad: @pedido.CantidadPedido*@
+                        @if (@pedido.CantidadPedido > 1)
+                        {
+                            @:Cantidad: @pedido.CantidadPedido unidades
+                        }
+                        else
+                        {
+                            @:Cantidad: @pedido.CantidadPedido unidad
+                        }
+                    </div>
                 </div>
                 <div class="sections-2">
                     <div class="sections-right">
@@ -34,7 +45,14 @@
                             </div>
                             <div class="sections-4">
                                 <div class="producto-cantidad">
-                                    CANT: @pedidoDetalle.Cantidad
+                                    @if (@pedidoDetalle.Cantidad > 1)
+                                    {
+                                        @:Cant: @pedidoDetalle.Cantidad unidades
+                                    }
+                                    else
+                                    {
+                                        @:Cant: @pedidoDetalle.Cantidad unidad
+                                    }
                                 </div>
                                 <div class="producto-precio">
                                     @pedidoDetalle.PrecioUnidad

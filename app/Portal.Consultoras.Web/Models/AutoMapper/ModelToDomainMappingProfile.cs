@@ -7,7 +7,10 @@ using System;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Models.PagoEnLinea;
+using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.Models.AdministracionPoput;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -29,10 +32,10 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<EstrategiaPedidoModel, ServicePedido.BEEstrategia>()
                 .ForMember(t => t.EstrategiaDetalle, f => f.MapFrom(c => c.EstrategiaDetalle))
                 .ForMember(t => t.TipoEstrategia, f => f.MapFrom(c => c.TipoEstrategia))
-                .ForMember(t => t.EsSubCampania, f => f.MapFrom(c=>Convert.ToInt32(c.EsSubCampania)));
+                .ForMember(t => t.EsSubCampania, f => f.MapFrom(c => Convert.ToInt32(c.EsSubCampania)));
 
             Mapper.CreateMap<EstrategiaDetalleModelo, ServicePedido.BEEstrategiaDetalle>();
-            
+
             Mapper.CreateMap<TipoEstrategiaModelo, ServicePedido.BETipoEstrategia>()
                 .ForMember(t => t.FlagActivo, f => f.MapFrom(c => c.FlagActivo.ToInt()));
 
@@ -87,18 +90,24 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.FechaFinFacturacion, f => f.MapFrom(c => c.FechaFinCampania))
                 .ForMember(t => t.MontoMinimoFlexipago, f => f.Ignore())
                 .ForMember(t => t.OfertaDelDia, f => f.Ignore())
+                .ForMember(t => t.HoraInicio, f => f.MapFrom(c => c.HoraInicioReserva))
+                .ForMember(t => t.HoraFin, f => f.MapFrom(c => c.HoraFinReserva))
                 .ForMember(t => t.beOfertaFinal, f => f.Ignore());
 
             Mapper.CreateMap<UsuarioModel, ServiceUsuario.BEUsuario>()
                 .ForMember(t => t.FechaInicioFacturacion, f => f.MapFrom(c => c.FechaInicioCampania))
                 .ForMember(t => t.FechaFinFacturacion, f => f.MapFrom(c => c.FechaFinCampania))
                 .ForMember(t => t.MontoMinimoFlexipago, f => f.Ignore())
+                .ForMember(t => t.HoraInicio, f => f.MapFrom(c => c.HoraInicioReserva))
+                .ForMember(t => t.HoraFin, f => f.MapFrom(c => c.HoraFinReserva))
                 .ForMember(t => t.OfertaDelDia, f => f.Ignore())
                 .ForMember(t => t.beOfertaFinal, f => f.Ignore());
 
             Mapper.CreateMap<AdministrarPalancaModel, ServiceSAC.BEConfiguracionPais>();
             Mapper.CreateMap<ConfiguracionPaisDatosModel, ServiceUsuario.BEConfiguracionPaisDatos>();
-            Mapper.CreateMap<AdministrarOfertasHomeModel, BEConfiguracionOfertasHome>();
+            Mapper.CreateMap<AdministrarOfertasHomeModel, BEConfiguracionOfertasHome>()
+                .ForMember(t => t.ConfiguracionOfertasHomeApp, f => f.MapFrom(c => c.AdministrarOfertasHomeAppModel));
+            Mapper.CreateMap<AdministrarOfertasHomeAppModel, BEConfiguracionOfertasHomeApp>();
             Mapper.CreateMap<DescripcionEstrategiaModel, BEDescripcionEstrategia>();
 
             Mapper.CreateMap<FiltroReportePedidoDDWebModel, BEPedidoDDWeb>()
@@ -464,22 +473,36 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<OfertaFinalMontoMetaModel, UpSellingMontoMeta>();
 
             Mapper.CreateMap<ShowRoomEventoConsultoraModel, ServicePedido.BEShowRoomEventoConsultora>();
-            
-            Mapper.CreateMap<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>();
 
+            Mapper.CreateMap<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaModel>();
+            Mapper.CreateMap<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaDisenoModel>();
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEConsultoraProgramaNuevas>();
-            
+            Mapper.CreateMap<UsuarioModel, ServiceODS.BEConsultoraProgramaNuevas>();
+
             Mapper.CreateMap<PagoEnLineaTipoPagoModel, BEPagoEnLineaTipoPago>();
             Mapper.CreateMap<PagoEnLineaMedioPagoModel, BEPagoEnLineaMedioPago>();
             Mapper.CreateMap<PagoEnLineaMedioPagoDetalleModel, BEPagoEnLineaMedioPagoDetalle>();
             Mapper.CreateMap<PagoEnLineaTipoPasarelaModel, BEPagoEnLineaTipoPasarela>();
             Mapper.CreateMap<PagoEnLineaPasarelaCamposModel, BEPagoEnLineaPasarelaCampos>();
-            
+            Mapper.CreateMap<DireccionEntregaModel, Portal.Consultoras.Web.ServiceUsuario.BEDireccionEntrega>();
+            Mapper.CreateMap<Portal.Consultoras.Web.ServiceUsuario.BEDireccionEntrega, DireccionEntregaModel>();
+            Mapper.CreateMap<UsuarioOpcionesModel, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones>();
+            Mapper.CreateMap<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioOpciones, UsuarioOpcionesModel>();
+
+            Mapper.CreateMap<CampaniaModel, BECampania>();
+            Mapper.CreateMap<BECampania, CampaniaModel>();
+
+            Mapper.CreateMap<PremioNuevaModel, BEPremioNuevas>();
+            Mapper.CreateMap<BEPremioNuevas, PremioNuevaModel>();
+
             Mapper.CreateMap<EstrategiaComponenteModel, ServicePedido.BEEstrategiaProducto>()
                .ForMember(t => t.CUV, f => f.MapFrom(c => c.Cuv))
                .ForMember(t => t.SAP, f => f.MapFrom(c => c.CodigoProducto))
                .ForMember(t => t.Precio, f => f.MapFrom(c => c.PrecioCatalogo))
                .ForMember(t => t.NombreMarca, f => f.MapFrom(c => c.DescripcionMarca));
+
+            Mapper.CreateMap<UsuarioModel, ServicePedido.BEPedidoWeb>();
+
         }
     }
 }

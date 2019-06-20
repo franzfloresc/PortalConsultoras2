@@ -1,7 +1,13 @@
-﻿namespace Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura
+﻿using System.Collections.Generic;
+
+namespace Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura
 {
     public class Componente
     {
+        public EstrategiaComponenteCabecera Cabecera { get; set; }
+        public List<EstrategiaComponenteSeccion> Secciones { get; set; }
+        public List<Componente> Hermanos { get; set; }
+         
         public string _id { get; set; }
         public string CuvPadre { get; set; }
         public string CampaniaId { get; set; }
@@ -31,5 +37,9 @@
         public string Volumen { get; set; }
         public string ImagenBulk { get; set; }
         public string NombreBulk { get; set; }
+        public string DescripcionPlural { get; set; }
+        public string DescripcionSingular { get; set; }
+        public string UnidadMedidaContenido { get; set; }
+        public double PrecioContenido { get; set; }
     }
 }

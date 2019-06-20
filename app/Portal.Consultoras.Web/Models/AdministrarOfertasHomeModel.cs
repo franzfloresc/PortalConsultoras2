@@ -35,7 +35,12 @@ namespace Portal.Consultoras.Web.Models
 
         public int DesktopOrdenBpt { get; set; }
         public int MobileOrdenBpt { get; set; }
-
+         
+        public string BotonTexto1 { get; set; }    
+        public string BotonTexto2 { get; set; }    
+        public string BotonColor { get; set; }    
+        public string BotonColorTexto { get; set; }
+         
         public int PaisID { get; set; }
         public ConfiguracionPaisModel ConfiguracionPais { get; set; }
         public IEnumerable<PaisModel> ListaPaises { set; get; }
@@ -43,11 +48,30 @@ namespace Portal.Consultoras.Web.Models
         public IEnumerable<TipoEstrategiaModel> ListaTipoEstrategia { get; set; }
         public IEnumerable<ConfiguracionPaisModel> ListaConfiguracionPais { get; set; }
         public IEnumerable<TablaLogicaDatosModel> ListaTipoPresentacion { get; set; }
+        public AdministrarOfertasHomeAppModel AdministrarOfertasHomeAppModel { get; set; }
 
         public AdministrarOfertasHomeModel()
         {
-            DesktopTipoEstrategia = "";
-            MobileTipoEstrategia = "";
+            DesktopTipoEstrategia = string.Empty;
+            MobileTipoEstrategia = string.Empty;
+            AdministrarOfertasHomeAppModel = new AdministrarOfertasHomeAppModel();
         }
+    }
+
+    public class AdministrarOfertasHomeAppModel
+    {
+        public int ConfiguracionOfertasHomeAppID { get; set; }
+        public bool AppActivo { get; set; }
+        public string AppTitulo { get; set; }
+        public string AppSubTitulo { get; set; }
+        public string AppColorFondo { get; set; }
+        public string AppColorTexto { get; set; }
+        public string AppBannerInformativo { get; set; }
+        public int AppOrden { get; set; }
+        public int AppCantidadProductos { get; set; }
+        public string AppTextoBotonInicial { get; set; }
+        public string AppTextoBotonFinal { get; set; }
+        public string AppColorFondoBoton { get; set; }
+        public string AppColorTextoBoton { get; set; }
     }
 }

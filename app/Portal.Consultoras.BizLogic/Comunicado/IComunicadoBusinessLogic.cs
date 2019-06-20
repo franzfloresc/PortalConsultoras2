@@ -10,6 +10,7 @@ namespace Portal.Consultoras.BizLogic
         void ActualizarVisualizoComunicado(int PaisId, string CodigoConsultora, int ComunicadoId);
         void InsertarDonacionConsultora(int PaisId, string CodigoISO, string CodigoConsultora, string Campania, string IPUsuario);
         List<BEComunicado> ObtenerComunicadoPorConsultora(int paisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion, string CodigoZona, int IdEstadoActividad);
+        List<BEComunicado> ObtenerSegmentacionInformativaPorConsultora(int paisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion, string CodigoZona, int IdEstadoActividad);
         void UpdComunicadoByConsultora(int paisID, string CodigoConsultora);
     }
 }

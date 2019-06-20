@@ -1,10 +1,10 @@
 ﻿
-.bc_menu_estrategia {
+/*.bc_menu_estrategia {
     background-color: #000;
     background-position: center !important;
-}
+}*/
 
-    .bc_menu_estrategia .texto-info p {
+    /*.bc_menu_estrategia .texto-info p {
         margin-bottom: 3px;
         font-weight: bolder;
         color: white;
@@ -16,23 +16,23 @@
         text-align: center;
         display: block;
         margin-bottom: 0px;
-    }
+    }*/
 
-        .bc_menu_estrategia .texto-info p img {
+        /*.bc_menu_estrategia .texto-info p img {
             width: 107px;
             position: relative;
             top: 6px;
             margin-left: 5px;
-        }
+        }*/
 
-    .bc_menu_estrategia .texto-info span {
+    /*.bc_menu_estrategia .texto-info span {
         margin-bottom: 0;
         color: white;
         font-size: 11px;
         font-family: 'Lato', sans-serif;
         text-transform: uppercase;
         letter-spacing: 1px;
-    }
+    }*/
 
 
 .bc_plantilla-banner {
@@ -534,13 +534,13 @@ div.content_estrategia_carrusel article a.dorado {
     text-align: center;
 }
 
-@media (max-width: 1100px) {
+/*@media (max-width: 1100px) {
     .bc_menu_estrategia .logo {
         width: 13%;
     }
-}
+}*/
 
-@media (max-width: 950px) {
+/*@media (max-width: 950px) {
 
     .bc_menu_estrategia .logo {
         width: 15%;
@@ -553,14 +553,14 @@ div.content_estrategia_carrusel article a.dorado {
     .bc_menu_estrategia .texto-info span {
         font-size: 9px;
     }
-}
+}*/
 
-@media (max-width: 850px) {
+/*@media (max-width: 850px) {
 
     .bc_menu_estrategia .logo {
         width: 17%;
     }
-}
+}*/
 
 .ocultar {
     display: none

@@ -43,7 +43,27 @@ namespace Portal.Consultoras.Web.UnitTest
 
         protected void ConfigureUserDataWithCampaniaActual(int campaniaId)
         {
-            SessionManager.Setup(x => x.GetUserData()).Returns(new UsuarioModel() { CampaniaID = campaniaId, NroCampanias = 18, PaisID = Constantes.PaisID.Peru, CodigoISO = Constantes.CodigosISOPais.Peru });
+            SessionManager.Setup(x => x.GetUserData()).Returns(
+                new UsuarioModel()
+                {
+                    CampaniaID = campaniaId,
+                    NroCampanias = 18,
+                    PaisID = Constantes.PaisID.Peru,
+                    CodigoISO = Constantes.CodigosISOPais.Peru
+                });
+        }
+
+        protected void ConfigureUserDataWithCampaniaActualAndConsultoraId(int campaniaId,long consultoraId)
+        {
+            SessionManager.Setup(x => x.GetUserData()).Returns(
+                new UsuarioModel()
+                {
+                    CampaniaID = campaniaId,
+                    NroCampanias = 18,
+                    PaisID = Constantes.PaisID.Peru,
+                    CodigoISO = Constantes.CodigosISOPais.Peru,
+                    ConsultoraID = consultoraId
+                });
         }
 
         protected void SetupRevistaDigitalInSession(bool esSuscrita, bool esActiva)

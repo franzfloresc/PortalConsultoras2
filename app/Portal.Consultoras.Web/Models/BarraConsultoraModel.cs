@@ -39,5 +39,5 @@ namespace Portal.Consultoras.Web.Models
         public IList<BEMensajeMetaConsultora> ListaMensajeMeta { get; set; }
 
         public BarraTippingPoint TippingPointBarra  { get; set; }
-}
+    }
 }

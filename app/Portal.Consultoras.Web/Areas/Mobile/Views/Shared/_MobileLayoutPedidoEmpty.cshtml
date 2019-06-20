@@ -125,12 +125,12 @@
             </a>
             <hr class="clear">
             <div class="icono_alerta check_icono_mobile"></div>
-            <div class="titulo_compartir">¡LO <b>LOGRASTE</b>!</div>
+            <div class="titulo_compartir">¡Lo <b>lograste</b>!</div>
             <div id="mensajeInformacionSB2Bueno" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>OK</b></a>
+            <a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>Ok</b></a>
         </div>
     </div>
-
+    @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupMensajesInformacion.cshtml")
 
     <div style="display:none">
@@ -155,7 +155,15 @@
     var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
     var campaniaNro = parseInt(campaniaCodigo) - campaniaAnio * 100;
 
-    var IsoPais = '@ViewBag.CodigoISODL';
+        var IsoPais = '@ViewBag.CodigoISODL';
+
+     //INI SALUD-58
+    var codigoConsultora = '@ViewBag.CodigoConsultoraDL';
+    var pseudoParamNotif = '@ViewBag.PseudoParamNotif';
+    var inicial = localStorage.getItem('KeyPseudoParam');
+    if (inicial === 'undefinied' || inicial === undefined || inicial === null)
+        localStorage.setItem('KeyPseudoParam', pseudoParamNotif); //se almacena por primera vez
+    //FIN SALUD-58
 
     //Postulante
     var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';
@@ -202,6 +210,8 @@
         var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
         var NovedadBuscadorVisitasUsuario = '@ViewBag.NovedadBuscador';
         var esAppMobile = true;
+        var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
+        var SessionTimeout = '@ViewBag.SessionTimeout';
     </script>
 
     <script type="text/javascript">
@@ -395,16 +405,19 @@
     </script>
 
     @RenderSection("scripts", required: false)
-    @if (TempData.ContainsKey("PixelCodigoIso"))
-    {
-        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
-        <script>
-        var pixelAnalytics = Analytics();
-        pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
-        </script>
-        @TempData.Remove("PixelCodigoIso");
-    }
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
+    <script>
 
+        var pixelAnalytics = Analytics({ pixelId : '@Constantes.Facebook.FB_Pixel'});
+
+            @if (TempData.ContainsKey("PixelCodigoIso"))
+            {
+                @:pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
+                TempData.Remove("PixelCodigoIso");
+            }
+        pixelAnalytics.invocarPageViewPixelById();
+    </script>
+    <script type="text/javascript" id="lightning_bolt" src="//cdn-akamai.mookie1.com/LB/LightningBolt.js"></script>
     @{
         if (TempData.ContainsKey("LimpiarLocalStorage"))
         {

@@ -15,6 +15,9 @@
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_GoogleOptimize.cshtml")
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpTagManager.cshtml")
 
+    @*INI HD-3693*@
+    @Html.Partial("~/Views/Shared/PopupsResponsive/_PopupBloqueoPorSistema.cshtml")
+    @*FIN HD-3693*@
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css'>
 
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
@@ -143,14 +146,13 @@
             </a>
             <hr class="clear">
             <div class="icono_alerta check_icono_mobile"></div>
-            <div class="titulo_compartir">¡LO <b>LOGRASTE</b>!</div>
+            <div class="titulo_compartir">¡Lo <b>lograste</b>!</div>
             <div id="mensajeInformacionSB2Bueno" class="mensaje_alerta"></div>
-            <a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>OK</b></a>
+            <a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>Ok</b></a>
         </div>
     </div>
-
+    @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupMensajesInformacion.cshtml")
-
     <div style="display:none">
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
     </div>
@@ -173,6 +175,14 @@
         var campaniaNro = parseInt(campaniaCodigo) - campaniaAnio * 100;
 
         var IsoPais = '@ViewBag.CodigoISODL';
+
+         //INI SALUD-58
+        var codigoConsultora = '@ViewBag.CodigoConsultoraDL';
+        var pseudoParamNotif = '@ViewBag.PseudoParamNotif';
+        var inicial = localStorage.getItem('KeyPseudoParam');
+        if (inicial === 'undefinied' || inicial === undefined || inicial === null)
+            localStorage.setItem('KeyPseudoParam', pseudoParamNotif); //se almacena por primera vez
+        //FIN SALUD-58
 
         //Postulante
         var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';
@@ -227,12 +237,6 @@
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var urlLogElastic = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogElastic"]';
         var patternElastic = '@System.Configuration.ConfigurationManager.AppSettings["PatternElastic"]';
-
-        var vbFotoPerfil = '@ViewBag.FotoPerfil';
-        if (vbFotoPerfil != null && vbFotoPerfil != "") {
-            $('.foto_menu').show();
-        }
-
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
         var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
         var OrigenDesktopODD = 0;
@@ -246,6 +250,7 @@
         var controllerName = '@ViewContext.RouteData.GetRequiredString("controller")';
         var oBannerApp = @Html.Raw(@Json.Encode(ViewBag.BannerApp));
         var CaracteresBuscador = '@ViewBag.CaracteresBuscador';
+         var CaracteresBuscadorNumerico = '@ViewBag.CaracteresBuscadorNumerico';
         var TotalCaracteresEnListaBuscador = '@ViewBag.CaracteresBuscadorMostrar';
         var TotalResultadosBuscador = '@ViewBag.TotalListadorBuscador';
         var CantidadVecesInicioSesionNovedad = '@ViewBag.CantidadVecesInicioSesionNovedad';
@@ -253,6 +258,10 @@
         var esAppMobile = true;
         var AplicarLogicaCantidadBotonVerTodos = '@ViewBag.AplicarLogicaCantidadBotonVerTodos'.toLowerCase();
         var urlDeshacerReservaPedidoReservado2 = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
+        var MostrarPalabrasMenoresACuatro = '@ViewBag.MostrarPalabrasMenoresACuatro';
+        var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
+        var SessionTimeout = '@ViewBag.SessionTimeout';
+        var ChatBotUrlRef = '@ViewBag.ChatBotUrlRef';
     </script>
 
     <script type="text/javascript">
@@ -447,16 +456,20 @@
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     @RenderSection("scripts", required: false)
-    @if (TempData.ContainsKey("PixelCodigoIso"))
-    {
-        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
-        <script>
-            var pixelAnalytics = Analytics();
-            pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
-        </script>
-        @TempData.Remove("PixelCodigoIso");
-    }
 
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
+    <script>
+
+        var pixelAnalytics = Analytics({ pixelId : '@Constantes.Facebook.FB_Pixel'});
+
+            @if (TempData.ContainsKey("PixelCodigoIso"))
+            {
+                @:pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
+                TempData.Remove("PixelCodigoIso");
+            }
+        pixelAnalytics.invocarPageViewPixelById();
+    </script>
+    <script type="text/javascript" id="lightning_bolt" src="//cdn-akamai.mookie1.com/LB/LightningBolt.js"></script>
     @{
         if (TempData.ContainsKey("LimpiarLocalStorage"))
         {

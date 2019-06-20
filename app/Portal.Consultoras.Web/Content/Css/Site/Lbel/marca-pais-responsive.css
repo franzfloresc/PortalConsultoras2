@@ -20,7 +20,7 @@
 }
 
 .menu__link--pedido{
-    background-image:url(/Content/images/lbel/vineta_indicador.png);
+    background-image:url(/Content/Images/lbel/vineta_indicador.png);
 }
 
 .pestana__marca__pais{
@@ -29,12 +29,16 @@
     background-color: #FFF;
     background-image:url(/Content/Images/Lbel/pestana_lbel.png);
     top: -3px;
-    left: 15.7%;
+    left: 134px;
     background-size: cover;
 }
 
 .submenu__lista--miNegocio{
     top:51px;
+}
+
+.submenu__lista--miNegocioConEnlaceMisEventos{
+    width:1080px;
 }
 
 .submenu__lista--miAsesorBelleza{
@@ -182,7 +186,6 @@
     cursor: pointer;
 }
 
-
 .bg_activar_boton_no_animado:hover {
     background-color: #000;
 }
@@ -294,9 +297,9 @@
 
 /* MIS CATÁLOGOS Y REVISTAS (DESKTOP) */
 
-.layout__content{
+/*.layout__content{
     margin-top:15px;
-}
+}*/
 
 .catalogos__campania--actual .catalogos__por__campania__item__imagen--esika{
     left: -33px;
@@ -323,10 +326,6 @@
 /* MIS CATÁLOGOS Y REVISTAS (MOBILE) */
 
 @media screen and (max-width:991px){
-
-    .indicador__catalogos__revistas.indicador__catalogos__revistas--activo{
-        background-color:#642f80;
-    }
 
     .tabs__catalogos__revistas{
         background-color:#ffffff;

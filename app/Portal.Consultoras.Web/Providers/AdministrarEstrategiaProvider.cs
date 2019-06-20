@@ -1,7 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using AutoMapper;
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.Response;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.AdministrarEstrategia;
 using Portal.Consultoras.Web.Models.Config.ResponseReporte;
 using Portal.Consultoras.Web.Models.Config.ResponseReporte.Estructura;
 using Portal.Consultoras.Web.Models.Estrategia;
@@ -21,18 +23,29 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class AdministrarEstrategiaProvider
     {
-        private readonly static HttpClient httpClientMicroservicioSync = new HttpClient();
+        private readonly static HttpClient httpClientMicroservicioSync;
 
         private readonly ISessionManager sessionManager = SessionManager.SessionManager.Instance;
+        protected OfertaBaseProvider _ofertaBaseProvider;
+        protected readonly EstrategiaGrupoProvider _estrategiaGrupoProvider;
+
 
         static AdministrarEstrategiaProvider()
         {
             if (!string.IsNullOrEmpty(WebConfig.UrlMicroservicioPersonalizacionSync))
             {
+                httpClientMicroservicioSync = new HttpClient();
                 httpClientMicroservicioSync.BaseAddress = new Uri(WebConfig.UrlMicroservicioPersonalizacionSync);
                 httpClientMicroservicioSync.DefaultRequestHeaders.Accept.Clear();
                 httpClientMicroservicioSync.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             }
+        }
+
+
+        public AdministrarEstrategiaProvider()
+        {
+            _ofertaBaseProvider = new OfertaBaseProvider();
+            _estrategiaGrupoProvider = new EstrategiaGrupoProvider();
         }
 
         private static async Task<string> RespSBMicroservicios(string jsonParametros, string requestUrlParam, string responseType, UsuarioModel userData)
@@ -68,7 +81,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (response != null && !response.IsSuccessStatusCode)
                 {
-                    LogManager.LogManager.LogErrorWebServicesBus(new Exception("OfertaDelDiaProvider_respSBMicroservicios:" + response.StatusCode.ToString()), userData.CodigoConsultora, userData.CodigoISO);
+                    LogManager.LogManager.LogErrorWebServicesBus(new Exception("AdministrarEstrategiaProvider_RespSBMicroservicios:" + response.StatusCode.ToString()), userData.CodigoConsultora, userData.CodigoISO);
                     return "";
                 }
 
@@ -78,7 +91,7 @@ namespace Portal.Consultoras.Web.Providers
 
                     if (string.IsNullOrEmpty(content))
                     {
-                        LogManager.LogManager.LogErrorWebServicesBus(new Exception("OfertaDelDiaProvider_respSBMicroservicios: Null content"), userData.CodigoConsultora, userData.CodigoISO);
+                        LogManager.LogManager.LogErrorWebServicesBus(new Exception("AdministrarEstrategiaProvider_RespSBMicroservicios: Null content"), userData.CodigoConsultora, userData.CodigoISO);
                         return "";
                     }
                     return content;
@@ -138,6 +151,42 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     _id = d._id,
                     FlagConfig = d.FlagConfig,
+                    //Componentes = Mapper.Map<List<WaEstrategiaComponenteModel>, List<ServicePedido.BEEstrategiaProducto>>(d.Componentes ?? new List<WaEstrategiaComponenteModel>()),
+                    Componentes = d.Componentes.Select(x => new ServicePedido.BEEstrategiaProducto
+                    {
+                        CodigoEstrategia = x.CodigoEstrategia.ToString(),
+                        CUV2 = x.CuvPadre,
+                        CUV = x.Cuv,
+
+                        Precio = x.PrecioUnitario.ToDecimal(),
+                        PrecioValorizado = x.PrecioValorizado.ToDecimal(),
+                        Campania = x.CampaniaId.ToInt(),
+                        //CampaniaApp = x.,
+                        Cantidad = x.Cantidad,
+                        Digitable = x.IndicadorDigitable ? 1 : 0,
+                        EstrategiaID = x.EstrategiaId,
+                        EstrategiaProductoID = x.EstrategiaProductoId,
+                        FactorCuadre = x.FactorCuadre,
+                        IdMarca = x.MarcaId,
+                        Orden = x.Orden,
+                        //PaisID = x.,
+                        //Activo = x.Activo,
+                        //CodigoError = x.,
+                        //CodigoErrorObs = x.,
+                        Descripcion = x.Descripcion,
+                        Descripcion1 = x.Descripcion1,
+                        Grupo = x.Grupo.ToString(),
+                        ImagenBulk = x.ImagenBulk,
+                        ImagenProducto = x.ImagenProducto,
+                        NombreBulk = x.NombreBulk,
+                        NombreComercial = x.NombreComercial,
+                        NombreMarca = x.NombreMarca,
+                        NombreProducto = x.NombreProducto,
+                        SAP = x.CodigoSap,
+                        UsuarioCreacion = x.UsuarioCreacion,
+                        UsuarioModificacion = x.UsuarioModificacion,
+                        Volumen = x.Volumen
+                    }).ToList() ?? new List<ServicePedido.BEEstrategiaProducto>(),
                     BEEstrategia = new ServicePedido.BEEstrategia
                     {
                         ID = index + 1,
@@ -185,7 +234,9 @@ namespace Portal.Consultoras.Web.Providers
                         ImgFichaMobile = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ImgFichaMobile, d.EstrategiaDetalle),
                         ImgFichaFondoMobile = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ImgFichaFondoMobile, d.EstrategiaDetalle),
                         UrlVideoDesktop = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.UrlVideoDesktop, d.EstrategiaDetalle),
-                        UrlVideoMobile = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.UrlVideoMobile, d.EstrategiaDetalle)
+                        UrlVideoMobile = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.UrlVideoMobile, d.EstrategiaDetalle),
+                        ImgFondoApp = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ImgFondoApp, d.EstrategiaDetalle),
+                        ColorTextoApp = GetValorEstrategiaDetalle(Constantes.EstrategiaDetalleCamposID.ColorTextoApp, d.EstrategiaDetalle)
                     }
 
                 }).ToList();
@@ -279,6 +330,47 @@ namespace Portal.Consultoras.Web.Providers
                 listaEstrategias.AddRange(mapList);
             }
             return listaEstrategias;
+        }
+
+        public virtual List<ServicePedido.BEEstrategiaProducto> GetEstrategiaProductoService(string isoPais, string estrategiaId, string codigoTipoEstrategia)
+        {
+            List<ServicePedido.BEEstrategiaProducto> lst;
+            codigoTipoEstrategia = Util.Trim(codigoTipoEstrategia);
+            var palancaMongoPrueba = codigoTipoEstrategia != ""
+                && Constantes.TipoEstrategiaCodigo.ArmaTuPack == codigoTipoEstrategia;
+
+            if (palancaMongoPrueba && _ofertaBaseProvider.UsarMsPersonalizacion(isoPais, codigoTipoEstrategia, false))
+            {
+                lst = FiltrarEstrategia(estrategiaId, isoPais)
+                    .Select(x => x.Componentes)
+                    .FirstOrDefault();
+            }
+            else
+            {
+                int paisId = Util.GetPaisID(isoPais);
+                var estrategiaX = new ServicePedido.BEEstrategia() { PaisID = paisId, EstrategiaID = Int32.Parse(estrategiaId) };
+
+                using (var sv = new PedidoServiceClient())
+                {
+                    lst = sv.GetEstrategiaProducto(estrategiaX).ToList();
+                }
+            }
+            return lst;
+        }
+
+
+        public virtual List<EstrategiaGrupoModel> GetEstrategiaGrupoService(string isoPais, string estrategiaId, string codigoTipoEstrategia)
+        {
+            var estrategiaGrupoLista = new List<EstrategiaGrupoModel>();
+            codigoTipoEstrategia = Util.Trim(codigoTipoEstrategia);
+
+            var palancaMongoPrueba = codigoTipoEstrategia != ""
+                && Constantes.TipoEstrategiaCodigo.ArmaTuPack == codigoTipoEstrategia;
+            if (palancaMongoPrueba && _ofertaBaseProvider.UsarMsPersonalizacion(isoPais, codigoTipoEstrategia, false))
+            {
+                estrategiaGrupoLista = _estrategiaGrupoProvider.ObtenerEstrategiaGrupo(estrategiaId, isoPais);
+            }
+            return estrategiaGrupoLista;
         }
 
         public void RegistrarEstrategia(ServicePedido.BEEstrategia entidad, string pais)
@@ -410,6 +502,11 @@ namespace Portal.Consultoras.Web.Providers
 
         public bool ActivarDesactivarEstrategias(List<string> estrategiasActivas, List<string> estrategiasInactivas, string usuario, string pais, string tipo)
         {
+            if (!estrategiasActivas.Any() && !estrategiasInactivas.Any())
+            {
+                return true;
+            }
+
             UsuarioModel userData = sessionManager.GetUserData();
             string jsonParametersActivas = JsonConvert.SerializeObject(estrategiasActivas);
 
@@ -660,39 +757,56 @@ namespace Portal.Consultoras.Web.Providers
             return Convert.ToInt32(respuesta.Result);
         }
 
-        public int GuardarShowRoom(ShowRoomEventoModel o)
+        public int GuardarShowRoom(ShowRoomEventoModel evento)
         {
             UsuarioModel userData = sessionManager.GetUserData();
 
-            string p = JsonConvert.SerializeObject(new
+            try
             {
-                _id = o._id,
-                eventoId = o.EventoID,
-                campaniaId = o.CampaniaID,
-                nombre = o.Nombre,
-                tema = o.Tema,
-                diasAntes = o.DiasAntes,
-                diasDespues = o.DiasDespues,
-                numeroPerfiles = o.NumeroPerfiles,
-                usuarioCreacion = userData.CodigoUsuario,
-                UsuarioModificacion = userData.CodigoUsuario,
-                tieneCategoria = o.TieneCategoria,
-                tieneCompraXcompra = o.TieneCompraXcompra,
-                tieneSubCampania = o.TieneSubCampania,
-                tienePersonalizacion = o.TienePersonalizacion,
-                Estado = o.Estado
-            });
 
-            var taskApi = Task.Run(() => RespSBMicroservicios(
-                p,
-                string.Format(Constantes.PersonalizacionOfertasService.UrlGuardarShowRoom, userData.CodigoISO),
-                "post",
-                userData));
-            Task.WhenAll(taskApi);
+                string p = JsonConvert.SerializeObject(new
+                {
+                    _id = evento._id,
+                    eventoId = evento.EventoID,
+                    campaniaId = evento.CampaniaID,
+                    nombre = evento.Nombre,
+                    tema = evento.Tema,
+                    diasAntes = evento.DiasAntes,
+                    diasDespues = evento.DiasDespues,
+                    numeroPerfiles = evento.NumeroPerfiles,
+                    usuarioCreacion = userData.CodigoUsuario,
+                    UsuarioModificacion = userData.CodigoUsuario,
+                    tieneCategoria = evento.TieneCategoria,
+                    tieneCompraXcompra = evento.TieneCompraXcompra,
+                    tieneSubCampania = evento.TieneSubCampania,
+                    tienePersonalizacion = evento.TienePersonalizacion,
+                    Estado = evento.Estado
+                });
 
-            var respuesta = JsonConvert.DeserializeObject<GenericResponse>(taskApi.Result);
+                var url = string.Format(Constantes.PersonalizacionOfertasService.UrlGuardarShowRoom, userData.CodigoISO);
 
-            return Convert.ToInt32(respuesta.Result);
+                var taskApi = Task.Run(() => RespSBMicroservicios(
+                    p,
+                    url,
+                    "post",
+                    userData));
+                Task.WhenAll(taskApi);
+
+                if (taskApi.Result != null && taskApi.Result != "")
+                {
+                    var respuesta = JsonConvert.DeserializeObject<GenericResponse>(taskApi.Result);
+                    if (respuesta != null)
+                    {
+                        return Convert.ToInt32(respuesta.Result);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return 0;
         }
 
         public int UpdateShowRoomEvento(ShowRoomEventoModel o)
@@ -979,7 +1093,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 reporteValidacionShowroom.ListaPersonalizacion.Add(data);
             }
-            
+
             return reporteValidacionShowroom;
         }
 
@@ -999,7 +1113,9 @@ namespace Portal.Consultoras.Web.Providers
                 ImgFichaMobile = entidad.ImgFichaMobile,
                 ImgFichaFondoMobile = entidad.ImgFichaFondoMobile,
                 UrlVideoDesktop = entidad.UrlVideoDesktop,
-                UrlVideoMobile = entidad.UrlVideoMobile
+                UrlVideoMobile = entidad.UrlVideoMobile,
+                ImgFondoApp = entidad.ImgFondoApp,
+                ColorTextoApp = entidad.ColorTextoApp
             };
 
             return estrategiaDetalle;
@@ -1067,6 +1183,16 @@ namespace Portal.Consultoras.Web.Providers
             {
                 TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.UrlVideoMobile,
                 Valor = entidad.UrlVideoMobile
+            });
+            estrategiaDetalle.Add(new WaEstrategiaDetalleModel()
+            {
+                TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.ImgFondoApp,
+                Valor = entidad.ImgFondoApp
+            });
+            estrategiaDetalle.Add(new WaEstrategiaDetalleModel()
+            {
+                TablaLogicaDatosID = Constantes.EstrategiaDetalleCamposID.ColorTextoApp,
+                Valor = entidad.ColorTextoApp
             });
             return estrategiaDetalle;
         }

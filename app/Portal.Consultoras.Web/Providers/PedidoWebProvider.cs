@@ -1,6 +1,8 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
@@ -25,6 +27,13 @@ namespace Portal.Consultoras.Web.Providers
             this._configuracionManager = configuracionManagerProvider;
         }
 
+        /// <summary>
+        /// Solo Obtiene resultado de dbo.PedidoWeb
+        /// </summary>
+        /// <param name="paisId"></param>
+        /// <param name="campaniaId">Codigo Campaña: ejm 201901</param>
+        /// <param name="consultoraId"></param>
+        /// <returns></returns>
         public virtual BEPedidoWeb ObtenerPedidoWeb(int paisId, int campaniaId, long consultoraId)
         {
             var pedidoWeb = (BEPedidoWeb)null;
@@ -56,13 +65,12 @@ namespace Portal.Consultoras.Web.Providers
             return pedidoWeb;
         }
 
+        #region PedidoWebDetalle - PedidoWebSet Agrupado
+
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle(int esOpt)
         {
             var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
             var userData = sessionManager.GetUserData();
-            var pedidoValidado = sessionManager.GetPedidoValidado();
-            var revistaDigital = sessionManager.GetRevistaDigital();
-            var suscripcionActiva = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
 
             try
             {
@@ -74,22 +82,12 @@ namespace Portal.Consultoras.Web.Providers
                 detallesPedidoWeb = sessionManager.GetDetallesPedido();
                 if (detallesPedidoWeb == null)
                 {
-                    using (var pedidoServiceClient = new PedidoServiceClient())
-                    {
-                        var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
-                        {
-                            PaisId = userData.PaisID,
-                            CampaniaId = userData.CampaniaID,
-                            ConsultoraId = userData.ConsultoraID,
-                            Consultora = userData.NombreConsultora,
-                            CodigoPrograma = userData.CodigoPrograma,
-                            NumeroPedido = userData.ConsecutivoNueva
-                        };
-
-                        detallesPedidoWeb = pedidoServiceClient.SelectByCampaniaWithLabelProgNuevas(bePedidoWebDetalleParametros).ToList();
-                    }
+                    detallesPedidoWeb = ObtenerPedidoWebDetalleService(userData, false);
                 }
 
+                var pedidoValidado = sessionManager.GetPedidoValidado();
+                var revistaDigital = sessionManager.GetRevistaDigital();
+                var suscripcionActiva = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
                 foreach (var item in detallesPedidoWeb)
                 {
                     item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
@@ -118,38 +116,28 @@ namespace Portal.Consultoras.Web.Providers
             return detallesPedidoWeb;
         }
 
-        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(int esOpt, bool noSession = false)
+        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(bool noSession = false)
         {
             var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
             var userData = sessionManager.GetUserData();
 
             try
             {
-                var pedidoValidado = sessionManager.GetPedidoValidado();
-                var revistaDigital = sessionManager.GetRevistaDigital();
-                var suscripcionActiva = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
+                if (userData == null)
+                {
+                    return new List<BEPedidoWebDetalle>();
+                }
 
                 detallesPedidoWeb = sessionManager.GetDetallesPedidoSetAgrupado();
 
                 if (detallesPedidoWeb == null || noSession)
                 {
-                    using (var pedidoServiceClient = new PedidoServiceClient())
-                    {
-
-                        var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
-                        {
-                            PaisId = userData.PaisID,
-                            CampaniaId = userData.CampaniaID,
-                            ConsultoraId = userData.ConsultoraID,
-                            Consultora = userData.NombreConsultora,
-                            CodigoPrograma = userData.CodigoPrograma,
-                            NumeroPedido = userData.ConsecutivoNueva,
-                            AgruparSet = true
-                        };
-
-                        detallesPedidoWeb = pedidoServiceClient.SelectByCampaniaWithLabelProgNuevas(bePedidoWebDetalleParametros).ToList();
-                    }
+                    detallesPedidoWeb = ObtenerPedidoWebDetalleService(userData, true);
                 }
+
+                var pedidoValidado = sessionManager.GetPedidoValidado();
+                var revistaDigital = sessionManager.GetRevistaDigital();
+                var suscripcionActiva = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
 
                 foreach (var item in detallesPedidoWeb)
                 {
@@ -179,6 +167,20 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             return detallesPedidoWeb;
+        }
+        
+        public bool TienePedidoReservado(UsuarioModel user)
+        {
+            using (var sv = new PedidoServiceClient())
+            {
+                return sv.GetEsPedidoReservado(user.PaisID, user.CampaniaID, user.UsuarioPrueba == 1 ? user.AceptacionConsultoraDA : user.ConsultoraID);
+            }
+        }
+
+        public bool RequiereCierreSessionValidado(TablaLogicaProvider provider, int paisId)
+        {
+            var value = provider.GetTablaLogicaDatoValor(paisId, Constantes.TablaLogica.CierreSessionValidado, Constantes.TablaLogicaDato.CierreSessionValidado, true);
+            return value == "1";
         }
 
         private List<BEPedidoWebDetalle> PedidoConObservaciones(List<BEPedidoWebDetalle> pedido, List<ObservacionModel> observaciones)
@@ -271,9 +273,74 @@ namespace Portal.Consultoras.Web.Providers
 
             descripcion = Util.obtenerNuevaDescripcionProductoDetalle(item.ConfiguracionOfertaID, pedidoValidado,
                 item.FlagConsultoraOnline, item.OrigenPedidoWeb, lista, suscripcion, item.TipoEstrategiaCodigo, item.MarcaID,
-                item.CodigoCatalago, item.DescripcionOferta, item.EsCuponNuevas, item.EsElecMultipleNuevas);
+                item.CodigoCatalago, item.DescripcionOferta, item.EsCuponNuevas, item.EsElecMultipleNuevas, item.EsPremioElectivo, item.EsCuponIndependiente, item.OrigenPedidoWeb,
+                item.EsKitCaminoBrillante || item.EsDemCaminoBrillante);
 
             return descripcion;
+        }
+
+        private List<BEPedidoWebDetalle> ObtenerPedidoWebDetalleService(UsuarioModel userModel, bool agruparSet)
+        {
+            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+            {
+                PaisId = userModel.PaisID,
+                CampaniaId = userModel.CampaniaID,
+                ConsultoraId = userModel.ConsultoraID,
+                Consultora = userModel.NombreConsultora,
+                CodigoPrograma = userModel.CodigoPrograma,
+                NumeroPedido = userModel.ConsecutivoNueva,
+                AgruparSet = agruparSet,
+                NivelCaminoBrillante = userModel.NivelCaminoBrillante
+            };
+
+            List<BEPedidoWebDetalle> detallesPedidoWeb;
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                detallesPedidoWeb = pedidoServiceClient.SelectByCampaniaWithLabelProgNuevas(bePedidoWebDetalleParametros).ToList();
+            }
+            return detallesPedidoWeb;
+        }
+
+        #endregion
+
+        public virtual List<BEPedidoWebDetalle> GetDetallePedidoAgrupadoByCampania(int campaniaId)
+        {
+            List<BEPedidoWebDetalle> detallePedidoWeb;
+            var userData = sessionManager.GetUserData();
+
+            try
+            {
+                using (var pedidoServiceClient = new PedidoServiceClient())
+                {
+
+                    var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+                    {
+                        PaisId = userData.PaisID,
+                        CampaniaId = campaniaId,
+                        ConsultoraId = userData.ConsultoraID,
+                        Consultora = userData.NombreConsultora,
+                        CodigoPrograma = userData.CodigoPrograma,
+                        NumeroPedido = userData.ConsecutivoNueva,
+                        AgruparSet = true
+                    };
+
+                    detallePedidoWeb = pedidoServiceClient.SelectByCampania(bePedidoWebDetalleParametros).ToList();
+                }
+
+                foreach (var item in detallePedidoWeb)
+                {
+                    item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
+                    item.Nombre = string.IsNullOrEmpty(item.Nombre) ? "Para mí" : item.Nombre;
+                }
+            }
+            catch (Exception ex)
+            {
+                detallePedidoWeb = new List<BEPedidoWebDetalle>();
+
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return detallePedidoWeb;
         }
 
         public BEPedidoDetalleResult InsertPedidoDetalle(BEPedidoDetalle pedidoDetalle)
@@ -309,6 +376,14 @@ namespace Portal.Consultoras.Web.Providers
             return pedidoDetalleResult;
         }
 
+        public async Task EliminarPedidoWebDetalle(BEPedidoWebDetalle pedidoDetalle)
+        {
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                await pedidoServiceClient.DelPedidoWebDetalleAsync(pedidoDetalle);
+            }
+        }
+
         public bool EsHoraReserva(UsuarioModel usuario, DateTime fechaHora)
         {
             if (!usuario.DiaPROL)
@@ -328,6 +403,26 @@ namespace Portal.Consultoras.Web.Providers
             return true;
         }
 
+        public int GetPedidoPendientes(UsuarioModel usuario)
+        {
+            if (_configuracionManager.GetMostrarPedidosPendientesFromConfig())
+            {
+                var paisesConsultoraOnline = _configuracionManager.GetPaisesConConsultoraOnlineFromConfig();
+                if (paisesConsultoraOnline.Contains(usuario.CodigoISO)
+                    && usuario.EsConsultora())
+                {
+                    using (var svc = new UsuarioServiceClient())
+                    {
+                        var cantPedidosPendientes = svc.GetCantidadSolicitudesPedido(usuario.PaisID, usuario.ConsultoraID, usuario.CampaniaID);
+
+                        return cantPedidosPendientes;
+                    }
+                }
+            }
+
+            return 0;
+        }
+
         private int BuildFechaNoHabil(UsuarioModel usuario)
         {
             var result = 0;
@@ -341,5 +436,29 @@ namespace Portal.Consultoras.Web.Providers
 
             return result;
         }
+
+        #region Suscripcion SE
+        public List<BEProducto> GetCuvsSuscripcionSE()
+        {
+            var userData = sessionManager.GetUserData();
+            List<BEProducto> lista;
+            try
+            {
+                var consultoraSE = Mapper.Map<BEPedidoWeb>(userData);
+                using (var sv = new PedidoServiceClient())
+                {
+                    lista=sv.GetCuvSuscripcionSE(consultoraSE).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                lista=null;
+            }
+
+            return lista ?? new List<BEProducto>();
+        }
+        #endregion Suscripcion SE
+
     }
 }

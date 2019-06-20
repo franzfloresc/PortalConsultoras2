@@ -15,7 +15,7 @@
 </style>
 
 <div class="btn_cerrar_agregarUnidades">
-    <a href="javascript:;" onclick="CerrarClienteDetalle();">
+    <a href="javascript:;" onclick="CerrarClienteDetalle(1);">
         <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
         <span class="texto_btn_cerrar">CERRAR</span>
     </a>
@@ -58,8 +58,8 @@
             </span>
         </div>
     </div>
-    <input type="button" class="btnCliente_cancelar" name="cancelar" value="CANCELAR" onclick="CerrarClienteDetalle();" />
-    <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" onclick="MantenerClienteDetalle();" />
+    <input type="button" class="btnCliente_cancelar" name="cancelar" value="CANCELAR" onclick="CerrarClienteDetalle(2);" />
+    <input type="button" class="btnCliente_agregar btnCliente_agregar--vistaPedido" name="agregarCliente" value="GUARDAR" onclick="MantenerClienteDetalle();" />
     <br />
     <br />
     <br />
@@ -79,7 +79,7 @@
     });
 
     $(".input-number").keypress(function (e) {
-       
+        
         $(this).val($(this).val().replace(/[^\d].+/, ""));
         if ((e.which < 48 || e.which > 57)) e.preventDefault();
     });
@@ -158,17 +158,26 @@
                 if (checkTimeout(data)) {
                     if (data.success == true) {
                         CerrarSplash();
-
                         item.CodigoCliente = data.extra.split("|")[0];
-                        item.ClienteID = data.extra.split("|")[1];
+                        item.ClienteID = data.extra.split("|")[1];                        
+                        AbrirMensaje(data.message, null, function (e) {                                                             
+                            var clase = $(e.target).attr('class');  
+                            if (clase.indexOf("ui-icon-closethick") > -1) { /*click en cerrar pop up*/
+                                DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Pop up Registro Cliente Satisfactorio', 'Cerrar');
+                            } else if (clase.includes("ui-button-text")) {  /*click en Aceptar*/
+                                DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Pop up Registro Cliente Satisfactorio', 'Aceptar');
+                            }
 
-                        AbrirMensaje(data.message, null, function () {
                             flagClienteDetalle = false;
 
                             if ($.isFunction(ClienteDetalleOK)) ClienteDetalleOK(item);
                         });
 
                         $('#divAgregarCliente').hide();
+
+                        if (id == 0) {
+                            DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Agregar Cliente', 'Guardar');
+                        }
                     }
                     else {
                         alert(data.message);
@@ -185,7 +194,7 @@
         });
     }
 
-    function CerrarClienteDetalle() {
+    function CerrarClienteDetalle(origen) {
         $('#divAgregarCliente').hide();
         $('#divNotiNombre').hide();
         $('#divNotiCorreo').hide();
@@ -193,6 +202,19 @@
         flagClienteDetalle = false;
 
         if ($.isFunction(ClienteDetalleCANCEL)) ClienteDetalleCANCEL();
+
+        if (origen) {
+            switch (origen) {
+                case 1:  /*origen boton cerrar*/
+                    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Agregar Cliente', 'Cerrar');
+                    break;
+                case 2:  /*origen boton cancelar*/
+                    DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras - Pedidos Pendientes', 'Pop up Agregar Cliente', 'Cancelar');
+                    break;
+
+                default:
+            }
+        }
 
         return false;
     }

@@ -536,10 +536,25 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
                 ServiceODS.BEProducto producto;
+                ServiceODS.BEProductoBusqueda busqueda = new BEProductoBusqueda
+                {
+                    PaisID = userData.PaisID,
+                    CampaniaID = userData.CampaniaID,
+                    CodigoDescripcion = dataProl.cuv_revista,
+                    RegionID = userData.RegionID,
+                    ZonaID = userData.ZonaID,
+                    CodigoRegion = userData.CodigorRegion,
+                    CodigoZona = userData.CodigoZona,
+                    Criterio = 1,
+                    RowCount = 1,
+                    ValidarOpt = false,
+                    CodigoPrograma = userData.CodigoPrograma,
+                    NumeroPedido = userData.ConsecutivoNueva + 1
+                };
+
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    producto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, userData.CampaniaID, dataProl.cuv_revista,
-                        userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, false).FirstOrDefault() ?? new ServiceODS.BEProducto();
+                    producto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(busqueda).FirstOrDefault() ?? new ServiceODS.BEProducto();
                 }
 
                 var txtGanancia = userData.CodigoISO == Constantes.CodigosISOPais.Peru ? "Gana" :
@@ -579,15 +594,16 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                int id;
+                int id = 0;
 
-                BEProductoCompartido entidad = AutoMapper.Mapper.Map<ProductoCompartidoModel, BEProductoCompartido>(ProCompModel);
-                using (ODSServiceClient svc = new ODSServiceClient())
+                var entidad = AutoMapper.Mapper.Map<BEProductoCompartido>(ProCompModel);
+                entidad.PaisID = userData.PaisID;
+                entidad.PcCampaniaID = userData.CampaniaID;
+
+                using (var svc = new ODSServiceClient())
                 {
-                    entidad.PaisID = userData.PaisID;
-                    entidad.PcCampaniaID = userData.CampaniaID;
-
-                    id = svc.InsProductoCompartido(entidad);
+                    var result = svc.InsProductoCompartido(entidad);
+                    id = result.Id;
                 }
 
                 return Json(new

@@ -6,6 +6,8 @@ using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.Mobile;
 using Portal.Consultoras.Entities.Producto;
+using Portal.Consultoras.Entities.Oferta;
+using Portal.Consultoras.Entities.BuscadorYFiltros;
 using Portal.Consultoras.ServiceContracts;
 
 using System;
@@ -760,17 +762,20 @@ namespace Portal.Consultoras.Service
         #region Tabla Logica Datos
         public List<BETablaLogicaDatos> GetTablaLogicaDatos(int paisID, Int16 TablaLogicaID)
         {
-            return BLTablaLogicaDatos.GetList(paisID, TablaLogicaID);
+            return BLTablaLogicaDatos.GetListCache(paisID, TablaLogicaID);
         }
         #endregion
 
         #region Buscador
-
         public Dictionary<string,string> GetOrdenamientoFiltrosBuscador(int paisID)
         {
             return _buscadorBusinessLogic.GetOrdenamientoFiltrosBuscador(paisID);
         }
 
+        public List<BEFiltroBuscador> GetFiltroBuscador(int paisID, int tablaLogicaDatosID)
+        {
+            return _buscadorBusinessLogic.GetFiltroBuscador(paisID, tablaLogicaDatosID);
+        }
         #endregion
 
         #region Fe de Erratas
@@ -1106,6 +1111,12 @@ namespace Portal.Consultoras.Service
             return _comunicadoBusinessLogic.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora, TipoDispositivo, CodigoRegion, CodigoZona, IdEstadoActividad);
         }
 
+        public List<BEComunicado> ObtenerSegmentacionInformativaPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo, string CodigoRegion,
+          string CodigoZona, int IdEstadoActividad)
+        {
+            return _comunicadoBusinessLogic.ObtenerSegmentacionInformativaPorConsultora(PaisID, CodigoConsultora, TipoDispositivo, CodigoRegion, CodigoZona, IdEstadoActividad);
+        }
+
         public List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID)
         {
             return BLPopupPais.ObtenerOrdenPopUpMostrar(PaisID).ToList();
@@ -1229,6 +1240,26 @@ namespace Portal.Consultoras.Service
         public void RechazarSolicitudCliente(int paisID, long solicitudId, bool definitivo, int opcionRechazo, string razonMotivoRechazo)
         {
             BLSolicitudCliente.RechazarSolicitudCliente(paisID, solicitudId, definitivo, opcionRechazo, razonMotivoRechazo);
+        }
+
+        public void UpdSolicitudClienteDetalleEstado(int paisID, long solicitudId, string cuv, bool estado)
+        {
+            BLSolicitudCliente.UpdSolicitudClienteDetalleEstado(paisID, solicitudId, cuv, estado);
+        }
+
+        public void UpdSolicitudClienteDetalleCantidad(int paisID, long solicitudId, string cuv, int cantidad)
+        {
+            BLSolicitudCliente.UpdSolicitudClienteDetalleCantidad(paisID, solicitudId, cuv, cantidad);
+        }
+
+        public void UpdSolicitudClienteRechazar(int paisID, long solicitudId)
+        {
+            BLSolicitudCliente.UpdSolicitudClienteRechazar(paisID, solicitudId);
+        }
+
+        public void UpdSolicitudClienteRechazarPorCuv(int paisID, long solicitudId, string cuv)
+        {
+            BLSolicitudCliente.UpdSolicitudClienteRechazarPorCuv(paisID, solicitudId, cuv);
         }
 
         public BESolicitudNuevaConsultora ReasignarSolicitudCliente(int paisID, long solicitudId, string codigoUbigeo, string campania, int marcaId, int opcionRechazo, string razonMotivoRechazo)
@@ -1432,6 +1463,11 @@ namespace Portal.Consultoras.Service
         {
             var bl = new BLConfiguracionOfertasHome();
             return bl.GetListarSeccion(paisId, campaniaId);
+        }
+        public IList<BEConfiguracionOfertasHomeApp> ListarSeccionConfiguracionOfertasApp(int paisId, int campaniaId)
+        {
+            var bl = new BLConfiguracionOfertasHome();
+            return bl.GetListarSeccionAPP(paisId, campaniaId);
         }
         #endregion
 

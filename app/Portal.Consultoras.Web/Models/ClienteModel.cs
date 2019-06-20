@@ -37,5 +37,7 @@ namespace Portal.Consultoras.Web.Models
 
         public string NombreCliente { get; set; }
         public string ApellidoCliente { get; set; }
+
+        public string Origen { get; set; }
     }
 }

@@ -96,6 +96,19 @@ namespace Portal.Consultoras.Web.Controllers
                     if (string.IsNullOrWhiteSpace(certificado.NombreVista)) certificado.NombreVista = "~/Views/MisCertificados/NoAdeudoPdf.cshtml";
 
                     break;
+                case Constantes.PaisID.CostaRica:
+                case Constantes.PaisID.Panama:
+                case Constantes.PaisID.ElSalvador:
+                case Constantes.PaisID.Guatemala:
+                    certificado.Nombre = "Constancia No Adeudo";
+                    if (userData.MontoDeuda > 0)
+                    {
+                        certificado.MensajeError = "Tu cuenta tiene saldo pendiente, no es posible expedir un certificado de " + certificado.Nombre;
+                        break;
+                    }
+                    certificado.CertificadoId = 1;
+                    certificado.NombreVista = "~/Views/MisCertificados/CAM_NoAdeudoPdf.cshtml";
+                    break;
                 default:
                     certificado = null;
                     break;
@@ -142,7 +155,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     }
                     certificado.CertificadoId = 2;
-                    
+
                     if (userData.PaisID == Constantes.PaisID.RepublicaDominicana) certificado.NombreVista = "~/Views/MisCertificados/DO_ComercialPdf.cshtml";
                     if (userData.PaisID == Constantes.PaisID.PuertoRico) certificado.NombreVista = "~/Views/MisCertificados/PR_ComercialPdf.cshtml";
                     if (string.IsNullOrWhiteSpace(certificado.NombreVista)) certificado.NombreVista = "~/Views/MisCertificados/ComercialPdf.cshtml";
@@ -251,11 +264,23 @@ namespace Portal.Consultoras.Web.Controllers
                         beMiCertificado = listaData.FirstOrDefault(x => x.TipoCert == tipo);
                         model = Mapper.Map<MiCertificadoModel>(beMiCertificado);
                     }
-
                     model.CertificadoId = tmp.CertificadoId;
                     model.Nombre = tmp.Nombre;
                     model.MensajeError = tmp.MensajeError;
                     model.NombreVista = tmp.NombreVista;
+
+                    switch (userData.PaisID)
+                    {
+                        case Constantes.PaisID.CostaRica:
+                            if (model.TipoDocumento == "CCI") model.TipoDocumento = "cédula de identidad";
+                            else if (model.TipoDocumento == "PASP") model.TipoDocumento = "pasaporte";
+                            break;
+                        case Constantes.PaisID.Panama:
+                            if (model.TipoDocumento == "C.Ext") model.TipoDocumento = "cédula externa";
+                            else if (model.TipoDocumento == "PSSPT") model.TipoDocumento = "pasaporte";
+                            else if (model.TipoDocumento == "OTROS" || model.TipoDocumento == "DNI") model.TipoDocumento = "nro. de documento";
+                            break;
+                    }
 
                     var numeroDocumento = model.NumeroDocumento;
                     switch (userData.PaisID)
@@ -264,7 +289,7 @@ namespace Portal.Consultoras.Web.Controllers
                             model.NumeroDocumento = numeroDocumento.Substring(numeroDocumento.Length - 8);
                             break;
                         case Constantes.PaisID.PuertoRico:
-                            var num= numeroDocumento.Substring(numeroDocumento.Length - 4);
+                            var num = numeroDocumento.Substring(numeroDocumento.Length - 4);
                             char pad = 'X';
                             model.NumeroDocumento = num.PadLeft(9, pad);
                             break;
@@ -302,6 +327,18 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             case Constantes.PaisID.Peru:
                                 model.Pais = "Peru";
+                                break;
+                            case Constantes.PaisID.CostaRica:
+                                model.Pais = "CR";
+                                break;
+                            case Constantes.PaisID.Guatemala:
+                                model.Pais = "GT";
+                                break;
+                            case Constantes.PaisID.Panama:
+                                model.Pais = "PA";
+                                break;
+                            case Constantes.PaisID.ElSalvador:
+                                model.Pais = "ES";
                                 break;
                             default:
                                 model.Pais = "";

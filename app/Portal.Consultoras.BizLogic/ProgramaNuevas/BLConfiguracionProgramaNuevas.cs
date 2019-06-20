@@ -1,6 +1,5 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
-using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Estrategia;
 using Portal.Consultoras.Entities.ProgramaNuevas;
@@ -55,29 +54,32 @@ namespace Portal.Consultoras.BizLogic
             return "";
         }
 
-        public BEConsultoraRegaloProgramaNuevas GetRegaloProgramaNuevas(BEConsultoraProgramaNuevas consultoraNuevas, BEConfiguracionProgramaNuevas confProgNuevas)
+        public BEConsultoraRegaloProgramaNuevas GetPremioAutomatico(int paisID, int campaniaId, string codigoPrograma, string codigoNivel)
         {
-            confProgNuevas.Campania = consultoraNuevas.CampaniaID.ToString();
-            confProgNuevas.CodigoNivel = GetCodigoNivel(consultoraNuevas);
-
-            using (var reader = new DAConfiguracionProgramaNuevas(consultoraNuevas.PaisID).GetRegaloProgramaNuevas(confProgNuevas))
+            var confProgNuevas = new BEConfiguracionProgramaNuevas {
+                CodigoPrograma = codigoPrograma,
+                Campania = campaniaId.ToString(),
+                CodigoNivel = codigoNivel
+            };
+            
+            using (var reader = new DAConfiguracionProgramaNuevas(paisID).GetPremioAutomatico(confProgNuevas))
             {
-                return reader.MapToObject<BEConsultoraRegaloProgramaNuevas>(true);
+                return reader.MapToObject<BEConsultoraRegaloProgramaNuevas>(true, true);
             }
         }
-
-        public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, int consecutivoNueva)
+        public List<BEConsultoraRegaloProgramaNuevas> GetListPremioElectivo(int paisID, int campaniaId, string codigoPrograma, string codigoNivel)
         {
-            var consultoraNuevas = new BEConsultoraProgramaNuevas { PaisID = paisID, CampaniaID = campaniaId, CodigoConsultora = codigoConsultora, ConsecutivoNueva = consecutivoNueva };
-            var configuracion = Get(consultoraNuevas);
-            if (configuracion.IndExigVent != "1") return null;
-
-            var regalo = GetRegaloProgramaNuevas(consultoraNuevas, configuracion);
-            if (regalo == null) return null;
-
-            regalo.CodigoNivel = GetCodigoNivel(consultoraNuevas);
-            regalo.TippingPoint = configuracion.MontoVentaExigido;
-            return regalo;
+            var confProgNuevas = new BEConfiguracionProgramaNuevas
+            {
+                CodigoPrograma = codigoPrograma,
+                Campania = campaniaId.ToString(),
+                CodigoNivel = codigoNivel
+            };
+            
+            using (var reader = new DAConfiguracionProgramaNuevas(paisID).GetListPremioElectivo(confProgNuevas))
+            {
+                return reader.MapToCollection<BEConsultoraRegaloProgramaNuevas>(closeReaderFinishing: true);
+            }
         }
 
         public string GetCodigoNivel(BEConsultoraProgramaNuevas consultoraNuevas)

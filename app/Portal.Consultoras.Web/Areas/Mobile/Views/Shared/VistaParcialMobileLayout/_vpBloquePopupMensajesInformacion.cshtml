@@ -24,7 +24,7 @@
     </div>
 </div>
 
-<div id="popupInformacionValidado" class="MensajeAlertaMobile" style="display:none;">
+<div id="popupInformacionValidado" class="MensajeAlertaMobile pedido detalle" style="display:none;">
     <div class="content_mensajeAlerta">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionValidado').hide();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
@@ -32,9 +32,20 @@
         <hr class="clear">
         <div class="icono_alerta exclamacion_icono_mobile" style="display: none;"></div>
         <div class="icono_alerta check_icono_mobile" style="display: none;"></div>
-        <div class="titulo_compartir"><b id="bTagTitulo">MENSAJE</b></div>
-        <div id="mensajeInformacionvalidado" class="mensaje_alerta"></div>
+        <div class="contet_alert">
+            <div class="titulo_compartir"><b id="bTagTitulo">MENSAJE</b></div>
+            <div id="mensajeInformacionvalidado" class="mensaje_alerta"></div>
+        </div>
         <a href="javascript:;" onclick="$('#popupInformacionValidado').hide();" class="btn_ok_mobile"><b>OK</b></a>
+    </div>
+</div>
+
+<div id="alertDialogMensajes25seg" style="display: none;">
+    <div class="snackbar-align">
+        <div class="pop_image">
+            <img src="#" alt="Imagen" id="pop_src" class="img-fluid" />
+        </div>
+        <div class="pop_pedido_mensaje" style="max-height: 200px;"></div>
     </div>
 </div>
 
@@ -52,7 +63,7 @@
         <div style="text-align: center; margin-top: 30px;">
             <a href="javascript:;"
                onclick="$('#popupInformacionConfirmacion').hide();"
-               class="btn_ok_mobile btn_ok_mobile-inline"
+               class="btn_ok_mobile btn_ok_mobile-inline cancelar-mobile"
                style="width: 100px; margin-left: 0">
                 <b>Cancelar</b>
             </a>
@@ -127,9 +138,9 @@
         </a>
         <hr class="clear">
         <div class="icono_alerta check_icono_mobile"></div>
-        <div class="titulo_compartir">¡LO <b>LOGRASTE</b>!</div>
+        <div class="titulo_compartir">¡Lo <b>lograste</b>!</div>
         <div id="mensajeInformacionSB2Bueno" class="mensaje_alerta"></div>
-        <a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>OK</b></a>
+        <a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>Ok</b></a>
     </div>
 </div>
 

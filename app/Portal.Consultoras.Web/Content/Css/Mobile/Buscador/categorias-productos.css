@@ -1,0 +1,167 @@
+﻿
+.seccion_categorias_productos_busqueda_wrapper{
+    padding:20px;
+}
+
+.seccion_categorias_productos_busqueda_titulo{
+    margin-top:0;
+    margin-bottom:21px;
+    font-size:20px;
+}
+
+.listado_categorias_productos_busqueda{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-auto-rows: auto;
+    grid-auto-flow: row dense;
+    grid-gap: 12px;
+    list-style-type:none;
+}
+
+.categoria_producto,
+.categoria_producto_fondo_estado,
+.categoria_producto_enlace
+{
+    border-radius:4px;
+}
+
+.categoria_producto{
+    height:80px;
+    position:relative;
+    overflow:hidden;
+}
+
+    .categoria_producto img {
+        height: 80px;
+        -o-object-fit: cover;
+        object-fit: cover;
+        -o-object-position: right bottom;
+        object-position: right bottom;
+        z-index: 1;
+    }
+
+.categoria_full_width{
+    grid-column: span 4;
+}
+
+.categoria_half_width{
+    grid-column: span 2;
+}
+
+.categoria_full_width img{
+    width:100vw;
+}
+
+.categoria_half_width img{
+    width:50vw;
+}
+
+.categoria_sin_productos_disponibles .categoria_producto_fondo_estado{
+    background-color:#d5d6da;
+    opacity:0.95;
+}
+
+.categoria_producto img,
+.categoria_producto_fondo_estado
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.categoria_producto_fondo_estado{
+   background-color:rgba(0,0,0,.45);
+   z-index:2;
+}
+
+.categoria_producto_fondo_estado,
+.categoria_producto_enlace
+{
+    width:100%;
+    height:100%;
+}
+
+.categoria_sin_productos_disponibles .categoria_producto_enlace{
+    cursor:not-allowed;
+}
+
+.categoria_producto_enlace {
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    justify-content: flex-end;
+    -ms-flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    padding: 12px;
+    cursor: pointer;
+    position: relative;
+    z-index: 3;
+}
+
+.categoria_sin_productos_disponibles .titulo_categoria_producto_busqueda,
+.categoria_sin_productos_disponibles .cantidad_productos_por_categoria_busqueda
+{
+    color:#8a8a8a;
+}
+
+.titulo_categoria_producto_busqueda,
+.cantidad_productos_por_categoria_busqueda
+{
+    color:#FFF;
+}
+
+.titulo_categoria_producto_busqueda{
+    font-size:15px;
+    line-height:18px;
+}
+
+.cantidad_productos_por_categoria_busqueda{
+    font-size:13px;
+}
+
+@media all and (-ms-high-contrast: none),(-ms-high-contrast: active) {
+
+    .listado_categorias_productos_busqueda {
+        display: flex;
+        -ms-flex-direction: row;
+        -webkit-flex-direction: row;
+        flex-direction: row;
+        justify-content: space-between;
+        -ms-flex-wrap: wrap;
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+
+    .categoria_full_width {
+        -ms-flex: 0 0 100%;
+        -webkit-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+        order: -1;
+    }
+
+    .categoria_half_width {
+        -ms-flex: 0 0 50%;
+        -webkit-flex: 0 0 calc(50% - 6.5px);
+        flex: 0 0 calc(50% - 6.5px);
+        max-width: calc(50% - 6.5px);
+        order: 0;
+    }
+
+    .categoria_producto{
+        margin-bottom:12px;
+    }
+
+    .categoria_full_width img,
+    .categoria_half_width img
+    {
+        width:auto;
+    }
+
+    .categoria_producto img{
+        left:auto;
+        right:-95px;
+    }
+
+}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -10,7 +11,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var oddModel = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData);
+                bool persistenciaTd = false;
+
+                if (this.IsMobile() && !EsControladorOrigen(Constantes.Controlador.Pedido))
+                {
+                    persistenciaTd = true;
+                }
+
+                var oddModel = _ofertaDelDiaProvider.GetOfertaDelDiaConfiguracion(userData, persistenciaTd);
 
                 if (oddModel != null)
                 {
@@ -32,6 +40,21 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "No se pudo procesar la solicitud"
                 }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        private bool EsControladorOrigen(string controlador)
+        {
+            bool result = false;
+            string[] segmentos = HttpContext.Request.UrlReferrer.Segments;
+            foreach (string item in segmentos)
+            {
+                if (item.Contains(controlador + "/"))
+                {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
         }
 
     }

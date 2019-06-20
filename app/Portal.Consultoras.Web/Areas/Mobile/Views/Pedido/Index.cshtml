@@ -13,8 +13,12 @@
 }
 @section styles
 {
+    @*INI HD-3908*@
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mobile/Ficha")
+    @*FIN HD-3908*@
     @Styles.Render("~/Bundle/Css/Mobile/Pedido")
 }
+
 <div class="wrapper_resumen_mobile sin_padding">
     @if (!mobileConfiguracion.EsAppMobile)
     {
@@ -24,7 +28,9 @@
         </div>
     }
 
-    <div class="banner_ingresoPedido nuevaAlturaBanner" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center center;">
+    <input type="hidden" id="hdfSimbolo" value="@Model.Simbolo" />
+    <input type="hidden" id="hdfTotal" value="@Model.Total" />
+    <div class="banner_ingresoPedido nuevaAlturaBanner banner_ingresoPedido--nuevoLookAndFeel" style="background-image: url(@ViewBag.UrlFranjaNegra);">
         <div class="content_320 ingresoPedido">
             <form>
                 @Html.Hidden("txtClienteId", Model.ClienteId)
@@ -41,9 +47,7 @@
             </form>
         </div>
     </div>
-
     <div class="franja_inferior_banner_pedido"></div>
-
     <div style="display:none;" class="mensaje_ingreso_cuvs" id="divMensajeCUV">
         <a id="btnCerrarMensaje" class="cerrar_mensajeMobile" style="display:none;" href="javascript:;" onclick="javascript: CerrarMensajeCuv();">
             <img src="@Url.Content("~/Content/Images/mobile/Esika/cerrar_04.png")" alt="-" />
@@ -52,9 +56,9 @@
         <span id="divMensaje" class="mensaje_productoCUV">
         </span>
     </div>
-
     <div class="contenedor_producto">
-        <div class="content_320 ingresoPedidom">
+        <div class="content_320 ingresoPedidom quitarPaddingSuperior" id="divContentBarra">
+            @Html.Partial("~/Areas/Mobile/Views/Util/_barra.cshtml")
             <div class="producto_por_agregar_wrapper" id="divProductoMantenedor" style="display: none;">
                 <div style="display: none;">
                     <input type="hidden" id="hdfCUV" />
@@ -72,10 +76,17 @@
                     <input type="hidden" id="hdCuvEnSession" value="@Session["CUVProductoDesctacado"]" />
                     <input type="hidden" id="hdfValorFlagNueva" />
                     <input type="hidden" id="hdLimiteVenta" />
+                    @*INI HD-3908 *@
+                    <input type="hidden" id="hdfCodigoPalanca" />
+                    <input type="hidden" id="hdfCampaniaID" />
+                    @*FIN HD-3908 *@
+                    <input id="hdEsOfertaIndependiente" type="hidden" value="0" />
+                    <input id="hdTipoEstrategiaCodigo" type="hidden" value="0" />
+                    <input id="hdEsDuoPerfecto" type="hidden" value="0" />
 
                 </div>
                 <div id="divProductoObservaciones"></div>
-                <div class="producto_por_agregar"  id="divProductoInformacion">
+                <div class="producto_por_agregar" id="divProductoInformacion">
                     <div class="producto_por_agregar_info_wrapper">
                         <div class="producto_por_agregar_imagen">
                             <img src="@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")" alt="" />
@@ -107,33 +118,33 @@
             <div id="divProductosRecomendados" class="divProductosRecomendados"></div>
             @Html.Partial("~/Views/ProductoRecomendado/_template_producto.cshtml")
             @*<div >
-                <div>
-                    <div class="nombreProducto" ></div>
-                    <div class="precioProducto">
-                        <span ></span>
-                        <span class="precioOferta" ></span>
-                    </div>
-                    <div class="contenedor_cantidadProductos">
-                        <span class="textoCantidad">CANTIDAD:</span>
-                        <div>
-                            <span class="signo_menos" id="resta">
-                                <img src="/Content/Images/Mobile/Esika/menos.png">
-                            </span>
-                            <div class="campo_cantidadProductos">
-                                <input type="tel" name="cantidad" value="1" id="txtCantidad" min="1" max="99" maxlength="2" oninput="FuncionesGenerales.MaxLengthCheck(this,2);" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                    <div>
+                        <div class="nombreProducto" ></div>
+                        <div class="precioProducto">
+                            <span ></span>
+                            <span class="precioOferta" ></span>
+                        </div>
+                        <div class="contenedor_cantidadProductos">
+                            <span class="textoCantidad">CANTIDAD:</span>
+                            <div>
+                                <span class="signo_menos" id="resta">
+                                    <img src="/Content/Images/Mobile/Esika/menos.png">
+                                </span>
+                                <div class="campo_cantidadProductos">
+                                    <input type="tel" name="cantidad" value="1" id="txtCantidad" min="1" max="99" maxlength="2" oninput="FuncionesGenerales.MaxLengthCheck(this,2);" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                                </div>
+                                <span class="signo_mas" id="suma">
+                                    <img src="/Content/Images/Mobile/Esika/mas.png">
+                                </span>
+                                <div class="clear"></div>
                             </div>
-                            <span class="signo_mas" id="suma">
-                                <img src="/Content/Images/Mobile/Esika/mas.png">
-                            </span>
-                            <div class="clear"></div>
                         </div>
                     </div>
-                </div>
-            </div>*@
+                </div>*@
             <div id="divResumenPedido">
                 <div class="contenedor_resumenPedido montosIngresoPedido">
                     <div class="textos_resumen">
-                        <span id="lblProductosResumen" style="margin-left: 30px;">HAS AGREGADO :</span>
+                        <span id="lblProductosResumen" style="margin-left: 30px;">Has agregado:</span>
                         <span id="lblTotalResumen">
 
                             <div class="info_validado">
@@ -141,8 +152,8 @@
                                 <div class="tooltip_validado_importe">
                                     <div class="left_reservado">
                                         <div class="datos_Reservado">
-                                            <span>Total sin Dscto. </span>
-                                            <span>Dscto por niveles</span>
+                                            <span>Subtotal: </span>
+                                            <span>Descuento ofertas por niveles:</span>
                                         </div>
                                     </div>
                                     <div class="right_reservado">
@@ -155,7 +166,7 @@
                             </div>
 
 
-                            MONTO TOTAL :
+                            Total:
                         </span>
                         @{
                             string cabezaEscala = null, pieEscala = null;
@@ -217,17 +228,17 @@
                         <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
                         <input type="hidden" id="hdfEsBusquedaSR" />
                         <input type="hidden" id="hdfEstrategiaId" value="0" />
-                        <span class="mi_ganancia" style="margin-left:30px;">@(cabezaEscala.ToUpper().Trim()) :</span>
+                        <span class="mi_ganancia" style="margin-left:30px;">@(cabezaEscala.Trim()) :</span>
                     </div>
 
                     <div class="montos_resumen">
-                        <span><b data-cantidadproducto="">@Model.CantidadProductos</b>&nbsp;&nbsp;UNIDADES</span>
+                        <span><b data-cantidadproducto="">@Model.CantidadProductos</b>&nbsp;&nbsp;Unidad(es)</span>
                         <span><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-pedidocondescuento="">@Model.MontoConDsctoStr</b></span>
                         <span class="mi_ganancia"><b>@Model.Simbolo&nbsp;&nbsp;</b><b data-ganancia="">@Model.GananciaFormat</b></span>
                     </div>
                 </div>
                 <button type="button" class="btn_verMiPedido boton_ingresa_tu_pedido_navidenio">
-                    VER MI PEDIDO
+                    Ver mi pedido
                 </button>
             </div>
 
@@ -252,8 +263,8 @@
     </div>
 
     @*<div class="btn_agregarPedido">
-        <input type="submit" value="AGRÉGALO A TU PEDIDO" id="btnAgregarProducto" name="btnAgregarProducto" style="display:none;" />
-    </div>*@
+            <input type="submit" value="AGRÉGALO A TU PEDIDO" id="btnAgregarProducto" name="btnAgregarProducto" style="display:none;" />
+        </div>*@
 
     <div class="alert alert-success alert-full" style="display: none;" id="divMensajeProductoAgregado">
         <img src="@Url.Content("~/Content/Images/mobile/img-icon/alert-success.png")" alt="Alert" class="img-responsive" />
@@ -396,7 +407,7 @@
             </div>
             <div class="producto_nombre_descripcion">
                 <h6>{{DescripcionMarca}}</h6>
-                <p class="nombre_producto">{{Descripcion}}</p>
+                <p class="nombre_producto nombre_producto_sugerido">{{Descripcion}}</p>
                 <div class="producto_precio">
                     <span class="producto_precio_oferta"><b>@Model.Simbolo {{PrecioCatalogoString}}</b></span>
                 </div>
@@ -415,16 +426,41 @@
     {{/each}}
 </script>
 
+<div id="popupLimiteLineaCredito" class="popup_limite_lineaCredito w-100 text-center" style="display:none;">
+    <div class="popup_limite_lineaCredito_header w-100">
+        <a class="icono_cerrar_popup_eleccion_regalo_programaNuevas" title="Cerrar" href="javascript:;" onclick="javascript: $('#popupLimiteLineaCredito').fadeOut(200);">
+            <img src="@Url.Content("~/Content/Images/btn_cerrar_popup_color_negro.svg")" alt="Cerrar" />
+        </a>
+    </div>
+    <div class="popup_limite_lineaCredito_contenido w-100">
+        <div class="icono_popup_limite_lineaCredito">
+            <img src="@Url.Content("~/Content/Images/icono_popup_limite_credito.svg")" alt="Límite Línea de crédito" />
+        </div>
+        <div class="mensaje_popup_limite_lineaCredito">
+            <h4 class="titulo_mensaje_popup text-center">No puedes agregar más productos</h4>
+            <p class="descripcion_mensaje_popup text-center">El límite de tu línea de crédito es S/ 500</p>
+        </div>
+    </div>
+</div>
 
 <div class="PopMobile1" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
 
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
+@{ Html.RenderPartial("_PopupEleccionRegalo");}
+@{ Html.RenderPartial("_PopupPremio");}
+@{ Html.RenderPartial("_PopupDescuento");}
+@{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupInformacionRegalo.cshtml");}
+
+<div id="DivPopupFichaResumida" class="Modal_Editar_Producto" style="display: none">
+    @Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/FichaTemplate.cshtml")
+</div>
+@Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpLoadingMobile.cshtml")
 
 @section scripts
 {
-<script type="text/javascript">
+    <script type="text/javascript">
 
         var mensajeCUVNoExiste = "Lo sentimos, el producto solicitado no existe.";
         var mensajeCUVAgotado = "Lo sentimos, este producto está agotado.";
@@ -461,6 +497,9 @@
         var urlCarruselNext = "@Url.Content("~/Content/Images/mobile/Esika/next.png")";
 
         var urlValidarKitNuevas = '@Url.Action("ValidarKitNuevas", "PedidoRegistro", new { area = "" })';
+        //INI HD-4200
+        var urlValidarSuscripcionSE = '@Url.Action("ValidarSuscripcionSE", "PedidoRegistro", new { area = "" })';
+        //FIN HD-4200
         var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new { area = "" })';
         var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new { area = "" })';
         var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new { area = "" })';
@@ -475,18 +514,19 @@
         var productoAgotado = false;
 
         var tipoOrigenEstrategia = 21;
+        var paginaOrigenCupon = 21;
 
         var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
         var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes));
         var urlImagenListaCliente = '@Url.Content("~/Content/Images/arrow.png")';
 
         var tieneCupon = '@Model.TieneCupon';
-        var paginaOrigenCupon = 21;
         var tieneMasVendidos = @Model.TieneMasVendidos;
         var esEmailActivo = '@Model.EmailActivo';
         var viewBagCampaniaActual = '@Model.CampaniaActual';
-        var tipoOrigenEstrategia = 21;
         var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiCarrusel;
+        var origenPedidoWebDuoPerfecto = @Constantes.OrigenPedidoWeb.MobilePedidoDuoPerfectoCarrusel;
+        var origenPedidoWebPackNuevas = @Constantes.OrigenPedidoWeb.MobilePedidoPackNuevasCarrusel;
         var origenPedidoWebFichaProducto = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTiFicha;
         var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel;
         var origenPedidoWebMobilePedido = @Constantes.OrigenPedidoWeb.MobilePedidoDigitado;
@@ -494,15 +534,28 @@
         var viewBagAmbiente = '@ViewBag.Ambiente';
         var correo = '@Model.EMail';
         var celular = '@Model.Celular';
+        var EstadoPedido = @Model.EstadoPedido;
 
         var VirtualCoachCuv = '@ViewBag.VirtualCoachCuv';
         var VirtualCoachCampana = '@ViewBag.VirtualCoachCampana' || 0;
         var dataBarra = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(ViewBag.DataBarra).ToString().Replace("'", @"\'"))');
         var listaMensajeMeta = dataBarra == null ? null : dataBarra.ListaMensajeMeta;
         var urlInsertarDemandaTotalReemplazoSugerido = '@Url.Action("InsertarDemandaTotalReemplazoSugerido", "Pedido", new { area = "" })';
+
         var activarRecomendaciones = '@ViewBag.ActivarRecomendaciones';
         var maxCaracteresRecomendaciones = '@ViewBag.MaxCaracteresRecomendaciones';
-</script>
+        var PedidoEscogeRegaloCarrusel = '@Constantes.OrigenPedidoWeb.MobilePedidoEscogeRegaloCarrusel';/*HD-3710*/
+
+        var listaIconoLluvia = [
+            '@Url.Content("~/Content/Images/lluvia/ov-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/ov-r.svg")',
+            '@Url.Content("~/Content/Images/lluvia/sq-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/sq-r.svg")',
+            '@Url.Content("~/Content/Images/lluvia/trg-d.svg")',
+            '@Url.Content("~/Content/Images/lluvia/trg-r.svg")',
+        ];
+        var noIniciarLluvia = true;
+    </script>
 
     @if (mobileConfiguracion.EsAppMobile)
     {
@@ -517,6 +570,9 @@
     }
 
     @Scripts.Render("~/Bundle/Js/Mobile/Pedido")
+    @Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
+    @Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
+    @Scripts.Render("~/Bundle/Js/Mixto/Ficha")
 
     @if (Model.MostrarPopupPrecargados)
     {
@@ -524,5 +580,5 @@
             $(document).ready(function () { messageInfoValidado('@Html.Raw(Constantes.RecuperacionPedido.Mensaje)'); });
         </script>
     }
-    <script></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=2"></script>
 }

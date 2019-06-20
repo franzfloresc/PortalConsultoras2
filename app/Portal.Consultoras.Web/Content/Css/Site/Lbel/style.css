@@ -37,6 +37,14 @@ body {
         display: none;
     }
 
+input, button, ul, li, a {
+    font-family: 'Lato', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Lato', sans-serif !important;
+}
+
 .SubHeader {
     background: #fff;
 }
@@ -277,7 +285,6 @@ header {
 
 .menu_socia_empresaria > .new_menu {
     margin-left: 2%;
-    margin-top: 21px;
 }
 
 .nav_principal li:hover > ul {
@@ -292,10 +299,11 @@ header {
     position: absolute;
     top: 39px;
     margin-left: -90px;
-    width: 977px;
+    width: 920px;
     height: auto;
-    padding-left: 65px;
-    padding-right: 60px;
+    padding-left: 60px;
+    padding-right: 32px;
+    padding-bottom: 13px;
     display: none;
     background: rgba(255,255,255,.95) url('/Content/Images/Esika/fondo.png');
     -webkit-box-shadow: -4px 4px 11px -5px rgba(120,120,120,1);
@@ -304,8 +312,13 @@ header {
     z-index:3;
 }
 
+.sub_menu_home_con_enlace_misEventos {
+    width: 1056px;
+}
+
 .sub_menu_home2 {
     position: absolute;
+    z-index:1;
     left: -150px;
     display: none;
     top: 39px;
@@ -323,6 +336,9 @@ header {
     width: 100%;
     height: 1px;
     background: black;
+    position:absolute;
+    top:0;
+    left:0;
 }
 
 .pestana_esika {
@@ -342,7 +358,7 @@ header {
 .content_left_menu {
     float: left;
     margin-right: 35px;
-    margin-top: 40px;
+    margin-top: 35px;
 }
 
 .menu_titulo {
@@ -365,9 +381,9 @@ header {
 }
 
 .menu_imagen {
-    margin-top: 40px;
-    margin-right: 45px;
-    margin-left: 13px;
+    margin-top: 34px;
+    margin-right: 27px;
+    /*margin-left: 13px;*/
     float: left;
     width: 180px;
     height: 143px;
@@ -377,6 +393,10 @@ header {
 
     .menu_imagen img {
         width: 100%;
+    }
+
+    .menu_imagen:last-child{
+        margin-right:0;
     }
 
 .titulo_imagen {
@@ -476,7 +496,29 @@ header {
 }
 
     .footer_responde img {
-        margin-bottom: 10px;
+        margin-bottom: 8px;
+    }
+
+    .footer_enlace_belcorp_responde img,
+    .footer_enlace_comunidad_virtual img
+    {
+        height:41px;
+    }
+
+    .footer_enlace_tu_voz_online img{
+        margin-top: 6px;
+        height: 35px;
+    }
+
+    .footer_enlace_catalogos img{
+        margin-top: 7px;
+        margin-bottom:11px;
+        height: 33px;
+    }
+
+    .footer_enlace_noticias img{
+        margin-top: 4px;
+        height: 37px;
     }
 
     .footer_responde span {
@@ -1054,6 +1096,10 @@ header {
     margin-bottom: 0;
 }
 
+.liquidacion_descripcion--paisColombia {
+    min-height: 68px;
+}
+
 .liquidacion_cantidad {
     margin-left: 15px;
     margin-right: 15px;
@@ -1099,6 +1145,20 @@ header {
         font-size: 13pt;
         color: #613c87;
     }
+
+/* INI HD-4009 */
+.liquidacion_pum,
+.liquidacion_pum_hidden {
+    margin-bottom: 0;
+    min-height:18px;
+}
+    .liquidacion_pum span {
+        color: #000;
+    }
+.liquidacion_pum_hidden {
+    visibility: hidden;
+}
+/* FIN HD-4009 */
 
 .liquidacion_rango_wrapper {
     margin: 0;
@@ -1642,6 +1702,22 @@ a.subir_carousel, a.bajar_carousel {
     position: relative;
 }
 
+/* INI HD-4009 */
+.producto_pum,
+.producto_pum_hidden {
+    margin-bottom: 0;
+    min-height:18px;
+}
+
+    .producto_pum span {
+        color: #000;
+    }
+
+.producto_pum_hidden {
+    visibility: hidden;
+}
+/* FIN HD-4009 */
+
 .producto_precio_oferta {
     margin: 0;
     padding: 0;
@@ -2005,6 +2081,13 @@ a.subir_carousel, a.bajar_carousel {
         font-family: 'Lato';
         font-size: 13px;
     }
+
+        .popup_agregarCliente .btnCliente_agregar--vistaPedido {
+            margin-top: 0;
+            border-radius: 0;
+            line-height: normal;
+        }
+
 /* POPUP PRODUCTOS AGOTADOS */
 .contenedor_popup_productosAgotados {
     display: block;
@@ -2527,7 +2610,7 @@ a.subir_carousel, a.bajar_carousel {
 }
 
 .contenedor_popup_error {
-    z-index: 2000;
+    z-index: 99999999;
 }
 
 .fondo_tutorial {
@@ -3397,7 +3480,7 @@ a.subir_carousel, a.bajar_carousel {
 }
 
 .grupo_input_actualizarMisDatos:nth-child(3) {
-    margin-bottom: 10px;
+    margin-bottom: 14px;
 }
 
 .grupo_input_actualizarMisDatos:nth-child(4) {
@@ -3454,7 +3537,8 @@ a.subir_carousel, a.bajar_carousel {
     }
 
 .texto_terminosCondiciones {
-    font-size: 12px !important;
+    font-size: 13px !important;
+    letter-spacing: 0.2px;
     padding-left: 25px;
     position: relative;
 }
@@ -3474,8 +3558,9 @@ a.subir_carousel, a.bajar_carousel {
         margin-right: 10px;
         margin-bottom: 10px;
         border-radius: 3px;
-        background: #fff;
-        border: 2px solid #bababa;
+        /*background: transparent; border: 1px solid #FFF;*/
+        background: #fff; /*HD-3680 ---P.S.O*/
+        border: 2px solid #bababa; /*HD-3680 ---P.S.O*/
         cursor: pointer;
         z-index: 10;
     }
@@ -4416,6 +4501,10 @@ a.subir_carousel, a.bajar_carousel {
 
 .mostrar_perfil {
     display: block;
+}
+
+.new_menu a:hover {
+    text-decoration: underline;
 }
 
 .boton-home a {
@@ -6112,7 +6201,6 @@ ul.type-6 li {
 
 .color_marca {
     color: #613c87;
-    text-transform: uppercase;
 }
 
 .red_texto {
@@ -15687,6 +15775,12 @@ body, html {
     color: white;
 }
 
+.enlace__noVolverAVerAnuncio {
+    position: relative;
+    margin-top: 0;
+    bottom: 0;
+}
+
 .caja-traslado {
     position: absolute;
     width: 214px;
@@ -17191,6 +17285,7 @@ label.checkpop.c_on {
     -webkit-transition-property: color;
     transition-property: color;
     transition-duration: .3s;
+    overflow: hidden;
 }
 
     .boton_home_guardar:hover {
@@ -17456,7 +17551,7 @@ label.checkpop.c_on {
 .precio_ganancia {
     text-align: center;
     font-size: 10px;
-    font-size: 9px\9;
+    font-size: 9px;
     font-family: 'lato';
     margin-top: -6px;
     width: 68px;
@@ -17562,18 +17657,18 @@ label.checkpop.c_on {
     font-weight:900;
 }
 
-.enlace_camino_al_exito::after{
-    position: absolute;
-    top: -6px;
-    right: 53px;
-    content: "";
-    background-image: url(../../../Images/Lbel/estrellas.png);
-    background-position: right top;
-    background-repeat: no-repeat;
-    background-size: 100%;
-    width: 24px;
-    height: 27px;
-}
+    .enlace_camino_al_exito::after {
+        position: absolute;
+        top: -6px;
+        right: 53px;
+        content: "";
+        background-image: url(/Content/Images/Lbel/estrellas.png);
+        background-position: right top;
+        background-repeat: no-repeat;
+        background-size: 100%;
+        width: 24px;
+        height: 27px;
+    }
 
 .mis_datos {
     font-family: 'lato';
@@ -17784,6 +17879,10 @@ label.checkpop.c_on {
     background: white;
 }
 
+    .content_item_carrusel.content_item_carrusel--liquidacion {
+        height: 349px!important;
+    }
+
 .content_item_carrusel_width_ODD {
     width: 260px;
 }
@@ -17847,6 +17946,10 @@ label.checkpop.c_on {
 
 .nombre_producto {
     height: 40px;
+}
+
+.nombre_producto_sugerido {
+    height: 60px;
 }
 
 .boton_Agregalo_home {
@@ -20356,6 +20459,9 @@ color:white;
         margin-top: 0;
         padding-top: 3px;
         padding-bottom: 0;
+    }
+    .paginador_notificaciones{
+        float: right;
     }
 
         .acordion_titulo .mostrarPaginadorPedidos.inferior .flecha_paginador_atras {
@@ -23602,16 +23708,18 @@ input[type='checkbox']:checked + span:after {
     font-family: 'lato';
     font-size: 10pt;
 }
+
 /*BARRA ESCALA DESCUENTO*/
 .content_BarrMensaje {
-    height: 40px;
+    min-height: 25px;
     float: left;
-    padding-left: 10px;
-    padding-right: 15px;
+    padding-left: 0;
+    padding-bottom:7px;
     border-bottom: 1px solid black;
 }
 
 .mensaje_barra {
+    display:none!important;
     width: 161px;
     Font-family: 'Lato';
     font-size: 12px;
@@ -23624,40 +23732,56 @@ input[type='checkbox']:checked + span:after {
     Font-family: 'Lato';
     font-size: 12px;
     color: black;
+    min-width:161px;
 }
 
 .monto_minimo_barra {
     width: 90px;
     height: 38px;
     position: relative;
-    float: left;
-    Font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
     font-size: 12px;
     font-weight: 400;
     line-height: 1.08;
     text-align: center;
     color: black;
-    margin-top: 10px;
+    margin-top: 19px;
 }
 
-.linea_indicador_barra {
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    width: 1px;
+.linea_indicador_barra{
+    width:0.15em;
+}
+
+.linea_indicador_barra,
+.linea_indicador_barra_vista_bienvenida
+{
     height: 8px;
     background: #979797;
     position: absolute;
-    bottom: 0;
+    top:0;
     z-index: 100;
+}
+
+.linea_indicador_barra_vista_bienvenida {
+    width: 1px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 31px;
+}
+
+.barra_mensaje_meta_pedido{
+    margin-bottom:56px;
 }
 
 .bandera_marcador {
     width: 21px;
     height: 44px;
-    float: left;
     margin-top: 4px;
     background: url('/Content/Images/Mobile/Lbel/bandera.png') no-repeat;
+    position:absolute;
+    right: -19px;
+    bottom: 13px;
 }
 
 .BarraPosicion {
@@ -23672,8 +23796,7 @@ input[type='checkbox']:checked + span:after {
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-    height: 16.8px;
-    overflow: hidden;
+    height: 14px;
     border: solid 1px rgb(234,234,234);
 }
 
@@ -23710,7 +23833,7 @@ input[type='checkbox']:checked + span:after {
     -webkit-border-radius: 10px;
     height: 100%;
     display: block;
-    width: 85%;
+    width: 0;
     background: rgba(97,60,135,1);
     background: -moz-linear-gradient(left, rgba(97,60,135,1) 0, rgba(232,28,54,1) 100%);
     background: -webkit-gradient(left top, right top, color-stop(0, rgba(97,60,135,1)), color-stop(100%, rgba(232,28,54,1)));
@@ -23733,7 +23856,8 @@ input[type='checkbox']:checked + span:after {
     color: #8e8e8e;
     font-family: 'Lato';
     font-size: 10px;
-    margin-top: 5px;
+    margin-top: 15px;
+    margin-bottom:33px;
     text-align: center;
 }
 
@@ -23746,18 +23870,30 @@ input[type='checkbox']:checked + span:after {
     background: url('/Content/Images/Mobile/Esika/flechita_barra.png') no-repeat;
 }
 
-.tippingPoint {
-    height: 25px;
-    width: 24px;
+.tippingPoint,
+.icono_celebracion
+{
+    display:block;
     margin: 0 auto;
-    background: url('/Content/Images/tippingPointActivo.svg') no-repeat;
+    background-size:100%;
+    position:relative;
+}
+
+.tippingPoint{
+    width: 28px;
+    height: 31px;
+    background: url(/Content/Images/icono_regalo.png) no-repeat;
     background-size:100%;
 }
 
-    .tippingPoint.activo {
+.icono_celebracion{
+    width:65px;
+}
+
+    /*.tippingPoint.activo {
         background: url('/Content/Images/tippingPointActivo.svg') no-repeat;
         background-size:100%;
-    }
+    }*/
 
 /*PEDIDO VALIDADO*/
 .cod_venta_listado {
@@ -23859,6 +23995,10 @@ input[type='checkbox']:checked + span:after {
 .icono_check_alerta {
     background: url('/Content/Images/Lbel/icono_check_lbel.svg') no-repeat;
     background-size: 80%;
+}
+
+.icono_check_alerta--paso3 {
+    background-size: 100%;
 }
 
 .texto_mensaje_alerta {
@@ -24394,13 +24534,11 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 
 
-        .contenedor_item_descripcion span::after {
+        /*.contenedor_item_descripcion span::after {
             content: '..';
-        }
+        }*/
 
-        .contenedor_item_descripcion span::after {
-            content: '..';
-        }
+        
 
 
     .contenedor_item_descripcion a {
@@ -24799,7 +24937,10 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
         }
 
 .dscto_ofertasNiveles {
-    margin-left: 20px;
+    /* 
+    GANAZG-176 
+      margin-left: 20px; 
+    */
 }
 
 .separador_montos {
@@ -24835,8 +24976,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     .contenido_misGanancias h6 {
         font-size: 13px;
         font-weight: 900 !important;
-        color: #642f80;
-        text-transform: uppercase;
+        color: #642f80; 
     }
 
 .contenedor_montos_sinDescuento {
@@ -25277,7 +25417,8 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     width: 43%;
     font-weight: 700;
     border: 1px solid black;
-    font-family: 'Lato';
+    border-radius:2px;
+    font-family: 'Lato', sans-serif;
     background: #fff;
     opacity: 0;
     left: 0;
@@ -25291,6 +25432,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     -webkit-transition: all .3s ease;
     letter-spacing: .2px;
 }
+
 /* POPUP IMAGEN PERFIL PROCESO RECORTE */
 .popup_img_perfil {
     display: block;
@@ -25533,6 +25675,7 @@ span.datoPedidoCliente {
     font-weight: normal;
     padding-left: 16px;
     padding-bottom: 40px;
+    margin-top: 15px;
 }
 
     .revision_pedidosAceptados .texto_revisaPedidos {
@@ -25870,7 +26013,7 @@ a#cierreMotivoRechazo img {
     position: absolute;
     padding: 0 8px;
     background: #fff;
-    height: 80px;
+    height: auto;
     min-width: 200px;
     margin-top: -58px;
     z-index: 9;
@@ -26086,6 +26229,7 @@ div.motivoRechazo textarea {
         margin-left: 56px;
         padding-left: 5px;
         border-left: 1px solid #d4d4d4;
+        height: 100%;
     }
 
 .margen-sup {
@@ -26801,11 +26945,23 @@ div.motivoRechazo textarea {
 }
 
 .franja_noVolverMostrar {
-    border-top: 1px solid #000;
-    padding: 14px 20px 3px 20px;
-    margin-top: -7px;
+    padding: 0;
+    margin-top: 0;
     position: relative;
+    top: 38px;
+    color: #FFF;
 }
+
+.enlace_no_volver_a_mostrar_comunicado,
+.enlace_no_volver_a_mostrar_comunicado:hover {
+    color: #FFF;
+    font-size: 13px;
+    font-weight: 300 !important;
+    letter-spacing: 0.5px;
+    text-decoration: underline;
+    text-transform:uppercase;
+}
+
 /*POP UP CATALOGO PERSONALIZADO*/
 .mod-ofer2 .linea_encabezado_popupCatalogoPersonalizado {
     display: inline-block;
@@ -28018,46 +28174,84 @@ div.motivoRechazo textarea {
     width: 310px;
     margin: 34px auto 60px auto;
     position: relative;
-    display: flex;
-    display: -webkit-flex;
-    display: -moz-flex;
     display: -ms-flexbox;
-    display: -o-flex;
+    display: flex;
     justify-content: space-between;
     z-index: 4;
 }
 
-.content_pasos_linea {
-    position: absolute;
-    width: 99%;
-    height: 2px;
-    top:0;
-    left: 0;
-    right:0;
-    bottom:0;
-    width: 310px;
-    margin: auto;
-    background: #d1d1d1;
-    z-index:-1;
-}
+    .content_pasos_linea {
+        position: absolute;
+        width: 99%;
+        height: 1px;
+        top:0;
+        left: 0;
+        right:0;
+        bottom:0;
+        width: 310px;
+        margin: auto;
+        background: #808080;
+        z-index:-1;
+    }
 
-.paso_reclamo {
-    width: 36px;
-    height: 36px;
-    background: white;
-    border: 1px solid black;
-    border-radius: 100px;
-    -webkit-border-radius: 100px;
-    -o-border-radius: 100px;
-    -moz-border-radius: 100px;
-    -ms-border-radius: 100px;
-    font-size: 20px;
-    font-family: 'Lato';
-    color: white;
-    font-weight: 700;
-    text-align: center;
-    overflow: hidden;
-}
+        .progreso_pasos {
+            width: 0%;
+            height: 100%;
+        }
+
+    .paso_reclamo {
+        position: relative;
+        width: 43px;
+        height: 43px;
+        background: white;
+        border: 1px solid #979797;
+        border-radius: 100px;
+        font-size: 20px;
+        font-family: 'Lato', sans-serif;
+        color: white;
+        font-weight: 700;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .paso_reclamo_1,
+    .paso_reclamo_2,
+    .paso_reclamo_3 {
+        background-size: 56% !important;
+        background-repeat: no-repeat !important;
+        background-position: center !important;
+    }
+
+        .paso_reclamo_1.paso_active_reclamo {
+            background-image: url(/Content/Images/icono_cosmeticos.svg);
+        }
+
+    .paso_reclamo_2 {
+        background-image: url(/Content/Images/icono_foco.svg);
+    }
+
+        .paso_reclamo_2.paso_active_reclamo {
+            background-image: url(/Content/Images/icono_foco_activo.svg);
+        }
+
+    .paso_reclamo_3 {
+        background-image: url(/Content/Images/icono_mail_cdr.svg);
+    }
+
+        .paso_reclamo_3.paso_active_reclamo {
+            background-image: url(/Content/Images/icono_mail_cdr_activo.svg);
+        }
+
+    .paso_active_reclamo {
+        background: #FFF;
+        border: 1px solid #b9007e;
+    }
+
+    .paso_reclamo_completado {
+        background-color: #b9007e;
+        border: 1px solid #b9007e;
+        background-image: url(/Content/Images/icono_check_cdr.svg);
+    }
 
 .content_reclamo {
     width:100%;
@@ -28073,6 +28267,41 @@ div.motivoRechazo textarea {
     color: black;
     margin-bottom: 35px;
     margin-top: 25px;
+}
+
+.subtitulo_reclamo_motivo {
+    font-size: 16px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.enlace__regresar_paso_anterior,
+.enlace__regresar_paso_anterior span {
+    display: inline-block;
+}
+
+.enlace__regresar_paso_anterior {
+    width: 200px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    margin-bottom:60px;
+}
+
+    .enlace__regresar_paso_anterior span {
+        vertical-align: middle;
+    }
+
+    .enlace__regresar_paso_anterior:hover span:last-child {
+        text-decoration: underline;
+    }
+
+.icono_back_arrow {
+    width: 18px;
+    height: 31px;
+    margin-top: 1px;
+    margin-right: 8px;
 }
 
 .select_reclamo,
@@ -28098,15 +28327,15 @@ div.motivoRechazo textarea {
 .precio_reclamo,
 .rango_reclamo
 {
-    border: 1px solid #808080;
+    border: 1px solid #000;
     border-radius: 4px;
     padding: 6px 10px 10px 16px;
     font-family: 'Lato', sans-serif;
-    font-size:16px;
+    font-size:14px;
     color:#000;
     margin-right:22px;
-    line-height: 47px;
-    height:47px;
+    line-height: 40px;
+    height:40px;
 }
 
 .select_reclamo,
@@ -28124,11 +28353,10 @@ div.motivoRechazo textarea {
 }
 
 .select_reclamo,
-.elige_num_pedido
-{
-    background-image:url(/Content/Images/flecha-campo-select.svg);
-    background-repeat:no-repeat;
-    background-position:95.8% center;
+.elige_num_pedido {
+    background-image: url(/Content/Images/flecha_despliegue_campo_select.svg);
+    background-repeat: no-repeat;
+    background-position: 97.3% center;
 }
 
 .elige_num_pedido{
@@ -28143,9 +28371,100 @@ div.motivoRechazo textarea {
     display:none;
 }
 
-.contenedor_descripcion_reclamo{
-    position:relative;
-    margin-right:22px;
+.contenedor_descripcion_reclamo {
+    position: relative;
+    margin-right: 8px;
+    z-index: 24;
+}
+
+.lista_resultados_busqueda_por_cuv_wrapper {
+    display: none;
+    background-color: #FFF;
+    border-top: 1px solid #FFF;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    position: absolute;
+    width: 100%;
+    top: 36px;
+    z-index: 2;
+    padding: 8px 10px 0 0;
+}
+
+.lista_resultados_busqueda_por_cuv {
+    min-height: 0;
+    max-height: 200px;
+    overflow: auto;
+    margin-bottom: 15px;
+}
+
+    .lista_resultados_busqueda_por_cuv::-webkit-scrollbar-track {
+        background-color: #e2e2e2;
+        border-radius: 4px;
+    }
+
+.resultado_busqueda_por_cuv {
+    border-bottom: 1px solid #b5b5b5;
+}
+
+    .resultado_busqueda_por_cuv:last-child {
+        border-bottom: none;
+    }
+
+        .resultado_busqueda_por_cuv:last-child .resultado_busqueda_por_cuv_enlace {
+            padding-bottom: 0;
+        }
+
+.resultado_busqueda_por_cuv_enlace {
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    min-height: 80px;
+    padding-left: 15px;
+    padding-right: 15px;
+    cursor: pointer;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+    .resultado_busqueda_por_cuv_enlace:hover {
+        background-color: #f3f3f3;
+    }
+
+.resultado_busqueda_por_cuv_datos_imagen,
+.resultado_busqueda_por_cuv_datos_prod {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.resultado_busqueda_por_cuv_datos_imagen {
+    height: 56px;
+    margin-right: 16px;
+}
+
+    .resultado_busqueda_por_cuv_datos_imagen img {
+        width: auto;
+        height: 100%;
+    }
+
+.resultado_busqueda_por_cuv_datos_prod {
+    width: 83%;
+}
+
+.resultado_busqueda_por_cuv_codigo_prod {
+    color: #808080;
+    margin-bottom: 3px;
+}
+
+.resultado_busqueda_por_cuv_codigo_prod,
+.resultado_busqueda_por_cuv_descrip_prod {
+    font-size: 13px;
 }
 
 .descripcion_reclamo_fake_placeholder{
@@ -28158,7 +28477,7 @@ div.motivoRechazo textarea {
     left: 20px;
     height: 47px;
     line-height: 44px;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .contenedor_descripcion_reclamo,
@@ -28185,7 +28504,7 @@ div.motivoRechazo textarea {
         width: 100%;
         height: 95%;
         padding: 6px 10px 10px 20px;
-        line-height: 30px;
+        line-height: 24px;
     }
 
 .descripcion_reclamo + .chosen-container .chosen-single,
@@ -28235,20 +28554,21 @@ div.motivoRechazo textarea {
     color:#000;
 }
 
-.descripcion_reclamo + .chosen-container .chosen-search-input[type="text"]{
-    display:block;
-    height:100%;
-    font-family:'Lato', sans-serif;
-    padding-left:18px;
-    padding-right:18px;
-    padding-top:1px;
-    border:1px solid#000;
-    background-color:#FBFBFB;
-    font-size:16px;
-    background-image:url(../../../Images/icono_lupa.svg);
-    background-repeat:no-repeat;
-    background-position:97% center;
-}
+    .descripcion_reclamo + .chosen-container .chosen-search-input[type="text"] {
+        display: block;
+        height: 100%;
+        font-family: 'Lato', sans-serif;
+        padding-left: 18px;
+        padding-right: 18px;
+        padding-top: 1px;
+        border:0;
+        /*background-color:#FBFBFB;*/
+        background-color:#FFF;
+        font-size:14px;
+        background-image: url(/Content/Images/icono_lupa.svg);
+        background-repeat: no-repeat;
+        background-position: 97% center;
+    }
 
 .descripcion_reclamo + .chosen-container .chosen-results{
     height:113px;
@@ -28266,7 +28586,7 @@ div.motivoRechazo textarea {
 }
 
 .descripcion_reclamo + .chosen-container .active-result {
-    font-size:16px;
+    font-size:14px;
     margin-bottom:8px;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
@@ -28297,65 +28617,449 @@ div.motivoRechazo textarea {
 }
 
 .rango_reclamo {
-    width:80px;
-    margin-right:0;
-    padding:0;
+    width: 80px;
+    margin-right: 0;
+    padding: 0;
 }
 
-.rango_reclamo .liquidacion_rango_cantidad_pedido{
-    width:70.5%;
-    border-top:0;
-    border-bottom:0;
-    border-left:0;
-    border-right:1px solid #808080!important;
+    .rango_reclamo .liquidacion_rango_cantidad_pedido,
+    .rango_reclamo .liquidacion_rango_right_pedido {
+        height: 100%;
+    }
+
+    .rango_reclamo .liquidacion_rango_cantidad_pedido {
+        width: 70.5%;
+        border-top: 0;
+        border-bottom: 0;
+        border-left: 0;
+        border-right: 1px solid #000 !important;
+        padding-bottom: 3px;
+    }
+
+    .rango_reclamo.campo_deshabilitado .liquidacion_rango_cantidad_pedido {
+        border-right: 1px solid rgba(128, 128, 128, 0.5) !important;
+        opacity: 0.5;
+    }
+
+    .rango_reclamo .liquidacion_rango_right_pedido,
+    .rango_reclamo .mas,
+    .rango_reclamo .menos {
+        position: relative;
+        padding-top: 0;
+    }
+
+    .rango_reclamo .liquidacion_rango_right_pedido,
+    .rango_reclamo .menos {
+        border: 0;
+    }
+
+    .rango_reclamo .mas,
+    .rango_reclamo .menos {
+        margin-top: 0;
+        height: 50%;
+    }
+
+    .rango_reclamo.campo_deshabilitado .mas,
+    .rango_reclamo.campo_deshabilitado .menos {
+        opacity: 0.5;
+    }
+
+    .rango_reclamo .mas {
+        border-bottom: 1px solid #000;
+    }
+
+    .rango_reclamo.campo_deshabilitado .mas {
+        border-bottom: 1px solid rgba(128, 128, 128, 0.5) !important;
+    }
+
+    .rango_reclamo .mas img,
+    .rango_reclamo .menos img {
+        position: absolute;
+        margin: auto;
+        bottom: 0;
+        right: 0;
+    }
+
+    .rango_reclamo .mas img {
+        top: 2.5px;
+        left: 2px;
+    }
+
+    .rango_reclamo .menos img {
+        top: -2.5px;
+        left: 0;
+    }
+
+.lista_opciones_cdr {
+    list-style-type: none;
+    margin-bottom: 41px;
 }
 
-.rango_reclamo .liquidacion_rango_right_pedido,
-.rango_reclamo .mas,
-.rango_reclamo .menos
-{
-    position:relative;
-    padding-top:0;
+.opcion_cdr,
+.opcion_cdr_seleccionada_campo_busqueda,
+.validacion_datos_correo_electronico,
+.validacion_datos_celular_contacto {
+    display: inline-block;
 }
 
-.rango_reclamo .liquidacion_rango_right_pedido,
-.rango_reclamo .menos
-{
-    border:0;
+.validacion_datos_wrapper {
+    border-bottom: 1px solid #000;
 }
 
-.rango_reclamo .mas,
-.rango_reclamo .menos
-{
-    margin-top:0;
-    height:22.5px;
+    .validacion_datos_correo_electronico,
+    .validacion_datos_celular_contacto {
+        vertical-align: top;
+    }
+
+        .validacion_datos_correo_electronico > div,
+        .validacion_datos_celular_contacto > div {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction:column;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .validacion_datos_correo_electronico .texto_correo,
+        .validacion_datos_celular_contacto .texto_correo {
+            order: -1;
+        }
+
+.opcion_cdr,
+.opcion_cdr_seleccionada_campo_busqueda {
+    vertical-align: middle;
 }
 
-.rango_reclamo .mas{
-    border-bottom:1px solid #808080;
+.opcion_cdr {
+    width: 156px;
+    height: 154px;
+    border-radius: 4px;
+    margin-right: 16px;
+    border: 1px solid #808080;
 }
 
-.rango_reclamo .mas img,
-.rango_reclamo .menos img
-{
-    position:absolute;
-    margin:auto;
-    bottom:0;
-    right:0;
+    .opcion_cdr:last-child {
+        margin-right: 0;
+    }
+
+.opcion_cdr_enlace,
+.opcion_cdr_seleccionada_terminos_entrega_producto_wrapper,
+.opcion_cdr_seleccionada_terminos_entrega_producto_set_wrapper {
+    position: relative;
 }
 
-.rango_reclamo .mas img{
-    top:2.5px;
-    left:2px;
+.opcion_cdr_enlace {
+    padding: 15px;
+    height: 100%;
 }
 
-.rango_reclamo .menos img{
-    top:-2.5px;
-    left:0;
+.opcion_cdr_icono_wrapper {
+    height: 46px;
+    margin-top: 24px;
+    margin-bottom: 15px;
 }
+
+.opcion_cdr_icono {
+    display: block;
+    width: auto;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 21px;
+}
+
+.opcion_cdr_icono--solicitudReclamo {
+    margin-bottom: 0;
+}
+
+.opcion_cdr_checkbox {
+    display: block;
+    background-color: #FFF;
+    border: 1px solid #000;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 10px;
+    right: 11px;
+    cursor: pointer;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+input[type="checkbox"]:checked + .opcion_cdr_checkbox {
+    background-color: #000;
+    background-image: url(/Content/Images/icono_check_cdr.svg);
+    background-position: center;
+    background-size: 100%;
+    background-repeat:no-repeat;
+}
+
+.opcion_cdr_seleccionada_info_wrapper{
+    margin-bottom:30px;
+}
+
+.opcion_cdr_seleccionada_info--cambiarPorOtroProducto p,
+.opcion_cdr_seleccionada_info--devolucionCasoSetProducto p,
+.opcion_cdr_seleccionada_campo_busqueda,
+.opcion_cdr_seleccionada_terminos_entrega_producto_texto,
+.opcion_cdr_seleccionada_info--cambioMismoProducto p,
+.opcion_cdr_seleccionada_info--envioProducto p,
+.opcion_cdr_seleccionada_info--devolucionDinero p {
+    font-size: 14px;
+    letter-spacing: 0.1px;
+}
+
+.opcion_cdr_seleccionada_info--cambiarPorOtroProducto p {
+    margin-bottom: 12px;
+}
+
+.opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar,
+.opcion_cdr_seleccionada_info--cambioMismoProducto,
+.opcion_cdr_seleccionada_info--envioProducto,
+.opcion_cdr_seleccionada_info--devolucionDinero {
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda {
+    border: 1px solid #000;
+    height: 40px;
+    margin-right: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-family: 'Lato', sans-serif;
+    line-height: 40px;
+    color: #000;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #808080;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda::-moz-placeholder { /* Firefox 19+ */
+    color: #808080;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda:-ms-input-placeholder { /* IE 10+ */
+    color: #808080;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda:-moz-placeholder { /* Firefox 18- */
+    color: #808080;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda:last-child {
+    margin-right: 0;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda--codigo,
+.opcion_cdr_seleccionada_campo_busqueda--precio {
+    width: 130px;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda--descripcion {
+    width: 261px;
+}
+
+.opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad {
+    min-width:60px;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_cantidad_pedido,
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_right_pedido,
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos {
+        border-left: 0;
+        border-bottom: 0;
+        border-top: 0;
+        border-radius: 0;
+        height: 100%;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_cantidad_pedido {
+        border-right: 1px solid #000 !important;
+        padding-bottom:3px;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad.btn_deshabilitado .liquidacion_rango_cantidad_pedido {
+        border-right: 1px solid rgba(128, 128, 128, 0.5);
+        opacity: 0.5;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .liquidacion_rango_right_pedido {
+        border-right: 0;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .mas,
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos {
+        height: 47%;
+        position: relative;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad.btn_deshabilitado .mas,
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad.btn_deshabilitado .menos {
+        opacity: 0.5;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .mas {
+        border-bottom: 1px solid #000;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad.btn_deshabilitado .mas {
+        border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad img {
+        position: absolute;
+        margin: auto;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .mas img {
+        left: 0.5px;
+    }
+
+    .opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad .menos img {
+        left: -1.5px;
+    }
+
+.opcion_cdr_seleccionada_info--devolucionCasoSetProducto {
+    margin-bottom: 8px;
+}
+
+.opcion_cdr_seleccionada_terminos_entrega_producto_set_wrapper {
+    margin-top: 18px;
+}
+
+.producto_set_lista,
+.opcion_cdr_checkbox--terminosEntregaProductoSet,
+.opcion_cdr_seleccionada_terminos_entrega_producto_texto {
+    display: inline-block;
+}
+
+.producto_nom,
+.producto_set_lista {
+    margin-top: 8px;
+}
+
+    .producto_nom,
+    .producto_nom span,
+    .producto_set_lista span {
+        margin-bottom: 5px;
+    }
+
+    .producto_nom,
+    .producto_nom span,
+    .producto_set_lista span,
+    .cantidad_und_producto {
+        display: block;
+    }
+
+.producto_set_lista {
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.opcion_cdr_checkbox--terminosEntregaProductoSet,
+.opcion_cdr_seleccionada_terminos_entrega_producto_texto {
+    vertical-align: middle;
+}
+
+.opcion_cdr_checkbox--terminosEntregaProductoSet {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    top: 0;
+    right: 0;
+    margin-right: 8px;
+}
+
+.opcion_cdr_seleccionada_terminos_entrega_producto_texto {
+    line-height: 20px;
+}
+
+.info_devolucion_a_tener_en_cuenta {
+    display: inline-block;
+    max-width: 628px;
+    margin-bottom: 16px;
+    border-top: 1px solid #808080;
+    border-bottom: 1px solid #808080;
+}
+
+    .info_devolucion_a_tener_en_cuenta_mensaje {
+        font-family: 'Lato';
+        text-align: center;
+        font-size: 13px;
+        margin-top: 22px;
+        margin-bottom: 22px;
+    }
+
+        .info_devolucion_a_tener_en_cuenta_mensaje span {
+            display: block;
+            font-size: 12px;
+        }
+
+            .info_devolucion_a_tener_en_cuenta_mensaje span:first-child {
+                font-weight: bold;
+                margin-bottom: 6px;
+            }
+
+            .info_devolucion_a_tener_en_cuenta_mensaje span:last-child {
+                letter-spacing: normal;
+                line-height: 19px;
+            }
+
+/*.ui-dialog {
+    border-radius: 4px !important;
+}
+
+    .terminos_title_2{
+        font-size:18px!important;
+    }
+
+    .pop_pedido_mensaje {
+        margin-left: auto;
+        margin-right: auto;
+        font-size:14px;
+        font-weight:400;
+    }
+
+        .pop_pedido_mensaje p{
+            line-height:21px;
+        }
+
+    .input_modifica_horizontal{
+        display:inline-block;
+        vertical-align:middle;
+        min-width: 152px;
+        line-height: 38px;
+        height: 40px;
+        border-radius: 4px;
+    }
+
+        .input_modifica_horizontal:first-child {
+            color: #000;
+            background-color: #FFF;
+            border: 1px solid #000;
+        }
+
+        .input_modifica_horizontal:last-child {
+            color: #FFF;
+            background-color: #b9007e;
+            border: 1px solid #b9007e;
+        }
+
+        .input_modifica_horizontal:last-child {
+            margin-left: 16px!important;
+        }*/
 
 .btn_no_stock {
-    font-family: 'LAto';
+    font-family: 'Lato', sans-serif;
     font-size: 13px;
     text-decoration: underline;
     margin-top: 30px;
@@ -28367,7 +29071,7 @@ div.motivoRechazo textarea {
 }
 
 .btn_si_stock {
-    font-family: 'LAto';
+    font-family: 'Lato', sans-serif;
     font-size: 13px;
     font-weight: 700;
     display: block;
@@ -28379,11 +29083,11 @@ div.motivoRechazo textarea {
     background: #613c87;
     line-height: 45px;
     float: left;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .btn_si_stock_cdr {
-    font-family: 'LAto';
+    font-family: 'Lato', sans-serif;
     font-size: 13px;
     font-weight: 700;
     float: right;
@@ -28395,12 +29099,8 @@ div.motivoRechazo textarea {
     color: white;
     background: #613c87;
     line-height: 45px;
-    cursor:pointer;
-}
-
-.paso_active_reclamo {
-    background: #613c87;
-    border: 0;
+    cursor: pointer;
+    letter-spacing:0.5px;
 }
 
 *::-webkit-input-placeholder {
@@ -28430,19 +29130,18 @@ div.motivoRechazo textarea {
 
 .content_motivo_select {
     width: 100%;
-    margin-right: 10%;
-    float: left;
-    margin-bottom: 20px;
 }
 
 .reclamo_motivo_select {
+    display: -ms-flexbox;
     display: flex;
     justify-content: center;
     align-content: center;
+    -ms-flex-direction: column;
     flex-direction: column;
     width: 48%;
     height: 50px;
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
     font-size: 14px;
     padding-left: 50px;
     background: url('https://cdn1-prd.somosbelcorp.com/ImagenesPortal/Iconos/selector_reclamo.png') no-repeat;
@@ -28453,7 +29152,7 @@ div.motivoRechazo textarea {
     margin-right: 4%;
 }
 
-    .reclamo_motivo_select:nth-child(2n) {
+    .reclamo_motivo_select:nth-child(odd) {
         margin-right: 0;
     }
 
@@ -28469,29 +29168,24 @@ div.motivoRechazo textarea {
     background-position: 20px 17px;
 }
 
-.btn_solucion_reclamo {
-    float: left;
-    width: 270px;
-    height: 45px;
-    border: 1px solid black;
-    line-height: 45px;
-    font-family: 'Lato';
-    font-size: 13px;
-    font-weight: bold;
-    text-align: center;
-    margin-right: 36px;
-    margin-bottom: 10px;
-    cursor:pointer;
+.btn_cdr {
+    display: block;
+    width: 217px;
+    height: 40px;
+    background-color: #000;
+    color: #FFF;
+    border: 1px solid #000;
+    line-height: 38px;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    margin: 20px auto 40px auto;
+    cursor: pointer;
+    letter-spacing: 0.5px;
 }
 
-    .btn_solucion_reclamo:last-child {
-        margin-right: 0;
-    }
-
-    .btn_solucion_reclamo:hover {
-        background: black;
-        color: white;
-    }
+.btn_ir_paso_2 {
+    margin-top: 52px;
+}
 
 .subtitulo_reclamo_light {
     font-family: 'Lato';
@@ -28524,13 +29218,12 @@ div.motivoRechazo textarea {
 }
 
 .total_precio_reclamo {
-    float: right;
-    width: 33%;
-    margin-top: 15px;
-    margin-bottom: 20px;
+    display: inline-block;
+    width: auto;
+    margin-bottom: 0;
     font-family: 'Lato';
-    font-size: 15px;
-    color: #888888;
+    font-size: 17px;
+    color: #000;
 }
 
 .btn_paso_anterior {
@@ -28589,13 +29282,30 @@ div.motivoRechazo textarea {
 }
 
 .content_listado_reclamo {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction:row;
+    flex-direction: row;
+    -ms-flex-wrap:nowrap;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
     position: relative;
     overflow: hidden;
-    border-bottom: 1px solid #c9c9c9;
+    border-bottom: 1px solid #d8d8d8;
 }
 
-    .content_listado_reclamo:last-child {
+    /*.content_listado_reclamo:last-child {
         border-bottom: 0;
+    }*/
+
+    .content_listado_reclamo--header {
+        border-bottom: 1px solid #000;
+        border-top: 1px solid #000;
+    }
+
+    .content_listado_reclamo--contenido {
+        border-bottom: 1px solid #d8d8d8;
     }
 
 .listado_producto_reclamo, .listado_solicitud_reclamo, .listado_solicitada_reclamo, .listado_eliminar_reclamo {
@@ -28609,12 +29319,35 @@ div.motivoRechazo textarea {
 }
 
 .listado_producto_reclamo {
-    width: 40%;
+    width: 37%;
     padding-right: 15px;
 }
 
 .listado_solicitud_reclamo {
-    width: 22%;
+    width: 17%;
+    margin-right: 100px;
+}
+
+.listado_solicitud_reclamo--paso3 {
+    margin-right: 85px;
+}
+
+.listado_solicitud_reclamo_icono_solucion,
+.listado_solicitud_reclamo_descrip_solucion {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.listado_solicitud_reclamo_icono_solucion {
+    width: auto;
+    height: 40px;
+    margin-bottom: 7px;
+}
+
+.listado_solicitud_reclamo_descrip_solucion {
+    font-size: 14px;
+    max-width: 103px;
+    line-height: 17px;
 }
 
 .listado_solicitada_reclamo {
@@ -28622,7 +29355,7 @@ div.motivoRechazo textarea {
 }
 
 .listado_eliminar_reclamo {
-    width: 12%;
+    width: 11%;
     text-align: center;
 }
 
@@ -28631,6 +29364,66 @@ div.motivoRechazo textarea {
     padding-bottom: 15px;
     font-size: 13px;
     font-weight: 300;
+}
+
+.tooltip_confirmacion_eliminacion_producto_grilla,
+.tooltip_acciones_eliminacion_producto {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.tooltip_confirmacion_eliminacion_producto_grilla {
+    display: none;
+    justify-content: space-between;
+    height: 86px;
+    background-color: #ebebeb;
+    margin-bottom: 20px;
+    position: relative;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+    .tooltip_confirmacion_eliminacion_producto_grilla:before {
+        bottom: 100%;
+        left: 50px;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-color: rgba(136, 183, 213, 0);
+        border-bottom-color: #ebebeb;
+        border-width: 10px;
+        z-index: 2;
+    }
+
+.btn_acciones {
+    height: 45px;
+    color: #FFF;
+}
+
+.btn_acciones--eliminar {
+    width: 130px;
+}
+
+.tooltip_informacion_eliminacion_producto_texto,
+.enlace_tooltip_informacion {
+    display: block;
+}
+
+.tooltip_informacion_eliminacion_producto_texto {
+    margin: 0;
+    font-size: 14px;
+}
+
+.enlace_tooltip_informacion {
+    font-size: 13px;
+    text-decoration: underline;
+    margin-right: 20px;
+    cursor: pointer;
 }
 
 .subtitulo_listado {
@@ -28652,39 +29445,54 @@ div.motivoRechazo textarea {
 .correo_reclamo {
     width: 276px;
     height: 45px;
-    border: 1px solid #cccccc;
-    font-family: 'Lato';
+    border: 1px solid #808080;
+    font-family: 'Lato', sans-serif;
     font-size: 15px;
-    color: #b5b5b5;
+    color: #000;
     line-height: 45px;
     float: left;
-    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
     margin-left: 50px;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease 0.3s ease;
 }
 
+    .correo_reclamo:focus {
+        border-color: #000;
+    }
+
+    .correo_reclamo:focus + .texto_correo {
+        color: #000;
+    }
+
 .correo_reclamo_error {
-    margin-bottom: 20px;
     display: inline-block;
     width: 270px;
-    margin-left: 60px;
+    margin-left: 49px;
+    margin-bottom: 20px;
+    text-align: left;
 }
 
     .correo_reclamo_error span {
+        display: block;
         font-family: 'Lato';
         font-size: 14px;
         color: red;
-        line-height: 14px;
-        margin-top: 5px;
+        line-height: 18px;
+        margin-top: -8px;
     }
 
 .texto_correo {
     display: block;
-    margin-left: 60px;
-    font-family: 'Lato';
+    margin-left: 51px;
+    font-family: 'Lato', sans-serif;
     font-size: 15px;
-    color: #b5b5b5;
+    color: #808080;
     margin-top: 18px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 }
 
 .politica_reclamos {
@@ -28706,25 +29514,26 @@ div.motivoRechazo textarea {
 }
 
 .politica_reclamos_icono {
-    background-image: url('/Content/Images/check_terminos_cdr.svg');
-    background-repeat:no-repeat;
-    background-position:center;
-    background-color:#d6d6d6;
-    width:20px;
-    height:20px;
-    margin-top:4.5px;
-    margin-right:6px;
-    border-radius:4px;
-    background-size: 65%;
+    background-image: url(/Content/Images/icono_check_cdr.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #FFF;
+    border: 1px solid #000;
+    width: 20px;
+    height: 20px;
+    margin-top: 4.5px;
+    margin-right: 6px;
+    border-radius: 4px;
+    background-size: 100%;
     -moz-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     -webkit-transition: all 0.3s ease;
     transition: all 0.3s ease;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .politica_reclamos_icono_active {
-    background-color:#642f80;
+    background-color:#000;
 }
 
 .politica_reclamos_texto a{
@@ -28811,7 +29620,7 @@ div.motivoRechazo textarea {
 }
 
 .btn_ver_solicitudes {
-    font-family: 'LAto';
+    font-family: 'Lato', sans-serif;
     font-size: 14px;
     color: black;
     font-weight: 700;
@@ -28824,6 +29633,10 @@ div.motivoRechazo textarea {
     background: url('/Content/Images/Esika/icono_solicitud.png') no-repeat;
     background-position: 0 4px;
 }
+
+    .btn_ver_solicitudes--paso3{
+        margin-bottom:60px;
+    }
 
 .UltimasSolicitudes {
     position: absolute;
@@ -28991,13 +29804,19 @@ div.motivoRechazo textarea {
     margin-top: 43px;
 }
 
-.listado_fecha_general, .listado_campana_general, .listado_solicitud_general, .listado_resolucion_general, .listado_resumen_general, .listado_estado_general {
-    font-family: 'Lato';
-    font-size: 15px;
-    padding-top: 30px;
+.listado_fecha_general,
+.listado_campana_general,
+.listado_solicitud_general,
+.listado_resolucion_general,
+.listado_resumen_general,
+.listado_estado_general {
     display: inline-block;
-    padding-bottom: 15px;
     vertical-align: top;
+    font-family: 'Lato', sans-serif;
+    font-size: 13px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    letter-spacing: 0.5px;
 }
 
 .listado_solicitud_general, .listado_resolucion_general {
@@ -29024,7 +29843,7 @@ div.motivoRechazo textarea {
 
 .icono_resumen_resolucion {
     background: url('/Content/Images/RevistaDigital/icono_advertencia_notificacion.svg') no-repeat top left;
-    background-position: 0 33px;
+    background-position: 0 center;
     background-size:7%;
 }
 
@@ -29043,35 +29862,37 @@ div.motivoRechazo textarea {
     cursor: pointer;
 }
 
-.listado_estado_general div .estado_texto {
-    font-weight: 600;
-    font-size: 13px;
+.listado_estado_general div .estado_texto,
+.pop_solicitud_resolucion .estado_texto {
+    font-weight: 700;
+    font-size: 12px;
     display: inline-block;
     margin: 0;
-    padding: 3px 7px;
+    padding-left: 12px;
+    padding-right: 12px;
     vertical-align: middle;
-    margin-right: 15px;
-    width: 110px;
+    margin-right: 16px;
+    min-width: 105px;
+    height: 24px;
+    line-height: 22px;
+    letter-spacing: 0.5px;
+    border-radius: 10.5px;
 }
 
 .estado_detalleIngresado {
     background: #e7e7e7;
 }
 
-.listado_estado_general div:hover .icono_verDetalle {
-    margin-top: -10px;
-    opacity: .4;
-}
-
 .listado_estado_general div .icono_verDetalle {
-    width: 21px;
     display: block;
+    margin:auto 0;
+    width: 21px;
+    height:21px;
     position: absolute;
-    top: 50%;
-    left: 56%;
+    top: 0;
+    bottom:0;
+    left: 82%;
     opacity: 1;
-    margin-top: -5px;
-    margin-left: 46.5px !important;
     transition: all .3s ease;
     -moz-transition: all .3s ease;
     -o-transition: all .3s ease;
@@ -29079,13 +29900,44 @@ div.motivoRechazo textarea {
     -webkit-transition: all .3s ease;
 }
 
+    .listado_estado_general div:hover .icono_verDetalle {
+        opacity: .4;
+    }
+
 .icono_verDetalle img {
     width: 100%;
 }
 
+.EstadoEnviado,
+.EstadoAceptado,
 .EstadoRechazado {
-    background: #626262;
-    color: white;
+    color: #FFF;
+}
+
+.EstadoPendiente {
+    border: 1px solid #808080;
+    color: #808080;
+}
+
+.EstadoEnviado {
+    border:1px solid #626262;
+    background-color: #626262;
+}
+
+.EstadoAceptado {
+    border: 1px solid #569C04;
+    background-color: #569C04;
+}
+
+.EstadoObservado {
+    border: 1px solid #B9007E;
+    color: #B9007E;
+    background-color: #FFF;
+}
+
+.EstadoRechazado {
+    border: 1px solid #e81c36;
+    background-color: #e81c36;
 }
 
 .fondo_f7f7f7 {
@@ -29104,37 +29956,42 @@ div.motivoRechazo textarea {
     font-size: 14px;
     color: black;
     text-align: center;
-    margin-bottom: 11px;
+    margin-bottom: 24px;
 }
 
-.pop_solicitud_producto, .pop_solicitud_tipo, .pop_solicitud_solucion, .pop_solicitud_resolucion {
+.pop_solicitud_producto,
+.pop_solicitud_tipo,
+.pop_solicitud_solucion,
+.pop_solicitud_resolucion {
     float: left;
-    font-family: 'Lato';
+    font-family: 'Lato', sans-serif;
     line-height: 19px;
     font-size: 15px;
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left:16px;
+    padding-right:16px;
     color: black;
 }
 
 .pop_solicitud_producto {
     width: 32%;
-    padding-left: 2%;
+    /*padding-left: 2%;*/
 }
 
 .pop_solicitud_tipo {
     width: 16%;
-    padding-left: 1%;
+    /*padding-left: 1%;*/
 }
 
 .pop_solicitud_solucion {
     width: 22.5%;
-    padding-left: 1%;
+    /*padding-left: 1%;*/
 }
 
 .pop_solicitud_resolucion {
     width: 28.5%;
-    padding-left: 4%;
+    /*padding-left: 4%;*/
 }
 
 .texto_estado_solicitud {
@@ -32638,10 +33495,6 @@ height:30px;
     background: #fff;
 }
 
-.reclamo_motivo_select:nth-child(2n) {
-    margin-right: 0;
-}
-
 .height_min {
     min-height: 267px;
 }
@@ -33633,12 +34486,15 @@ height:30px;
     z-index: 1;
 }
 /*EPD-1919 INICIO*/
+
 .content_tipo_despacho {
     margin-top: 25px;
     margin-bottom: 15px;
     font-family: 'Lato';
     font-size: 15px;
     text-align: left;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
 }
 
 .cdr_tipo_despacho_icono {
@@ -34030,10 +34886,17 @@ height:30px;
 
 /* MEJORA CONTINUA CONSULTORAS - HD-2212 - PROGRAMA DE NUEVAS: MOSTRAR IMAGEN DEL REGALO EN LA BARRA DE DESCUENTOS */
 
-.monto_meta_tippingPoint{
-    margin-top:2px;
-    font-size:12px;
-    color:#e81c36;
+#divBarraMensajeLogrado{
+    display:inline-block;
+    position:relative;
+}
+
+.monto_meta_tippingPoint {
+    margin-top: 2px;
+    font-size: 12px;
+    color: #b9007e;
+    position:relative;
+    top:-50px;
 }
 
 .contenedor_tippingPoint {
@@ -34193,6 +35056,18 @@ height:30px;
     font-weight:bold;
 }
 
+/**OG*/
+#divBarraLimite {
+    position: relative !important;
+    height: 51px;
+}
+
+.EscalaDescuento {
+    /*float: none !important;*/
+    position: absolute;
+    left: 0;
+}
+
 /* FIN - MEJORA CONTINUA CONSULTORAS - HD-2212 - PROGRAMA DE NUEVAS: MOSTRAR IMAGEN DEL REGALO EN LA BARRA DE DESCUENTOS */
 
 /* STYLE OF AUTOCOMPLETE */
@@ -34247,3 +35122,583 @@ height:30px;
 }
 
 /* FIN - MC-HD-2936 - DÚO PERFECTO AJUSTES POPUP */
+
+/* PROGRAMA NUEVAS - ELIGE TU REGALO */
+
+.microEfecto_regaloPendienteEleccion{
+    display: none;
+    top: -1px;
+    left: 37.5px;
+    z-index: -1;
+}
+
+.microEfecto_regaloPendienteEleccion .circulo-1,
+.microEfecto_regaloPendienteEleccion .circulo-2,
+.microEfecto_regaloPendienteEleccion .circulo-3
+{
+    border:1px solid #321342;
+}
+
+.monto_regaloTippingPoint{
+    display: block;
+    color: #642f80;
+    position: absolute;
+    min-width: 50px;
+    left: -12px;
+}
+
+.monto_regaloTippingPoint:before{
+    background-color: #642f80;
+    top: -7px!important;
+}
+
+.contenedor_barra_mobile{
+    margin-bottom:38px;
+}
+
+.mensaje_meta{
+    font-size:15px;
+    padding-left:1px;
+    margin-bottom:26px;
+    text-align:left;
+}
+
+.icono_cambiar_regalo_programaNuevas{
+    width: 40px;
+    padding: 10px;
+    position: relative;
+    margin-left: -14px;
+    top: 0;
+    right: -10px;
+}
+
+.icono_cambiar_regalo_programaNuevas a{
+    display:block;
+}
+
+.icono_cambiar_regalo_programaNuevas img{
+    width:100%;
+    height:auto;
+}
+
+.tooltip_informativo_condicion_regalo_programaNuevas{
+    display: block;
+    position: relative;
+    width: 151px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 12px;
+    background-color: #f8f8f8;
+    color: #000;
+    text-align: center!important;
+    margin-top: 8px;
+    margin-bottom: -5px!important;
+    z-index: 1000;
+    border-radius: 4px;
+}
+
+.tooltip_informativo_condicion_regalo_programaNuevas:before{
+    display:block;
+    content:"";
+    bottom: 100%;
+	left: 50%;
+	border: solid transparent;
+    height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+    border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #f8f8f8;
+	border-width: 7px;
+	margin-left: -64px;
+}
+
+/* POPUP ELIGE TU REGALO DEL PROGRAMA NUEVAS */
+
+.popup_eleccion_regalo_programaNuevas,
+.popup_meta_regalo_programaNuevas,
+.popup_treinta_y_cinco_descuento
+{
+    padding-top:41px;
+    padding-bottom:33px;
+    height: 100%;
+    overflow:auto!important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #FFF;
+    z-index: 1000;
+}
+
+.popup_eleccion_regalo_programaNuevas_header,
+.popup_treinta_y_cinco_descuento_header
+{
+    height:182px;
+}
+
+.popup_eleccion_regalo_programaNuevas_header,
+.popup_treinta_y_cinco_descuento_header,
+.popup_eleccion_regalo_programaNuevas_contenido,
+.popup_treinta_y_cinco_descuento_contenido
+{
+    max-width:1020px;
+}
+
+.popup_eleccion_regalo_programaNuevas_header,
+.popup_eleccion_regalo_programaNuevas_contenido,
+.popup_treinta_y_cinco_descuento_header,
+.popup_treinta_y_cinco_descuento_contenido,
+.icono_regalo_popup_programaNuevas,
+.icono_regalo_popup_meta_regalo,
+.titulo_popup_eleccion_regalo_programaNuevas,
+.opciones_regalo_carousel_programaNuevas,
+.enlace_elegir_otro_regalo
+{
+    margin:0 auto;
+}
+
+.icono_regalo_popup_programaNuevas,
+.icono_regalo_popup_programaNuevas img,
+.icono_celebracion_popup_descuento,
+.icono_celebracion_popup_descuento img
+{
+    width:60px;
+    height:auto;
+}
+
+.titulo_popup_eleccion_regalo_programaNuevas,
+.titulo_popup_meta_regalo_programaNuevas,
+.titulo_popup_treinta_y_cinco_descuento
+{
+    margin-left:auto;
+    margin-right:auto;
+    max-width:446px;
+    line-height:32px;
+    margin-top:14px;
+    margin-bottom:15px;
+    color:#000;
+}
+
+.titulo_popup_eleccion_regalo_programaNuevas span,
+.titulo_popup_meta_regalo_programaNuevas span,
+.titulo_popup_treinta_y_cinco_descuento span
+{
+    font-family: 'Lato', sans-serif;
+    letter-spacing:0.2px;
+}
+
+.mensaje_titulo_popup_eleccion_regalo{
+    display: block;
+}
+
+.mensaje_titulo_popup_eleccion_regalo,
+.mensaje_titulo_popup_regalo_elegido,
+.titulo_popup_meta_regalo_programaNuevas span:first-child,
+.titulo_popup_treinta_y_cinco_descuento span:first-child
+{
+    font-size:26px;
+    font-weight:bold;
+}
+
+.titulo_popup_eleccion_regalo_programaNuevas span:last-child,
+.titulo_popup_meta_regalo_programaNuevas span:last-child,
+.titulo_popup_treinta_y_cinco_descuento span:last-child
+{
+    display:block;
+    font-size:20px;
+}
+
+.mensaje_titulo_popup_regalo_elegido{
+    display:none;
+}
+
+.opciones_regalo_programaNuevas_wrapper{
+    min-height: 358px;
+    background-color: #FFF;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 21px;
+    padding-top: 40px;
+    padding-bottom: 48px;
+}
+
+.opciones_regalo_carousel_programaNuevas .ver_anterior_regalo,
+.opciones_regalo_carousel_programaNuevas .ver_siguiente_regalo
+{   
+    height:100%;
+}
+
+.ver_anterior_regalo,
+.ver_siguiente_regalo
+{
+    height: 250px;
+    padding-top: 122px;
+    position: absolute;
+    background: #fff;
+    z-index: 1000;
+}
+
+.ver_anterior_regalo{
+    left:-49px;
+}
+
+.ver_siguiente_regalo{
+    right:-49px;
+}
+
+.btn_seguir_comprando,
+.btn_escoger_o_cambiar_regalo
+{
+    display:block;
+    width:100%;
+    margin:0 auto;
+    border:0.1em solid #000;
+    height:56px;
+    line-height:56px;
+    font-size:14px;
+    font-weight:bold;
+    background-color:#FFF;
+    border-radius:4px;
+}
+
+    .btn_seguir_comprando,
+    .btn_escoger_o_cambiar_regalo,
+    .btn_seguir_comprando:hover,
+    .btn_escoger_o_cambiar_regalo:hover
+    {
+        text-decoration:none;
+        color:#000;
+    }
+
+.btn_seguir_comprando{
+    max-width:380px;
+}
+
+.btn_escoger_o_cambiar_regalo{
+    max-width:220px;
+}
+
+.opciones_regalo_carousel_programaNuevas.slick-slider{
+    margin-top:2px;
+}
+
+.opciones_regalo_carousel_programaNuevas.slick-initialized .slick-slide,
+.opciones_regalo_carousel_programaNuevas .slick-track
+{
+    display:inline-block;
+}
+
+.opciones_regalo_carousel_programaNuevas .slick-track{
+    min-width:765px;
+    min-height:332px;
+}
+
+.opciones_regalo_carousel_programaNuevas.slick-initialized .slick-slide{
+    vertical-align:top;
+    float:none;
+    min-width:235px;
+    height:315px;
+    padding-top:0!important;
+    padding-bottom:25px!important;
+}
+
+.opcion_regalo_carousel_programaNuevas {
+    background-color: #FFF;
+    border: 1px solid #D8D8D8;
+    width: 220px;
+    margin-left: 10px;
+    margin-right: 10px;
+    -moz-box-shadow: 0 6px 18px -8px rgba(103,103,103,0.5);
+    -webkit-box-shadow: 0 6px 18px -8px rgba(103,103,103,0.5);
+    box-shadow: 0 6px 18px -8px rgba(103,103,103,0.5);
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.opcion_regalo_carousel_elegido{
+    border:1px solid #000;
+    opacity:1;
+}
+
+.opcion_regalo_inactivo .btn_elegir_regalo{
+    background-color:#808080;
+    border:1px solid #808080;
+    pointer-events:none;
+    cursor:not-allowed;
+}
+
+.img_regalo_carousel{
+    padding-top:25px;
+    height:145px;
+    margin-bottom:12px;
+}
+
+.img_regalo_carousel img{
+    width:auto;
+    height:100%;
+}
+
+.popup_eleccion_regalo_programaNuevas .marca_producto{
+    font-size:14px;
+    font-weight:300;
+    letter-spacing:0.2px;
+    color:#000;
+    margin-bottom:2px;
+}
+
+.descrip_regalo_carousel,
+.btn_elegir_regalo
+{
+    font-size:16px;
+    font-weight:bold;
+}
+
+.descrip_regalo_carousel {
+    letter-spacing: 0.24px;
+    height: 51px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.btn_elegir_regalo{
+    font-family:'Lato', sans-serif;
+    width:185px;
+    height:45px;
+    background-color:#000;
+    border:1px solid #000;
+    color:#FFF;
+    border-radius:4px;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.icono_cerrar_popup_eleccion_regalo_programaNuevas,
+.icono_cerrar_popup_treinta_y_cinco_descuento
+{
+    position: fixed;
+    top: 29px;
+    right: 29px;
+    width: 28px;
+    text-decoration: none;
+}
+
+.icono_cerrar_popup_eleccion_regalo_programaNuevas img,
+.icono_check_regalo_elegido img,
+.icono_cerrar_popup_treinta_y_cinco_descuento img
+{
+    width:100%;
+    height:auto;
+}
+
+.enlace_elegir_otro_regalo{
+    display:none;
+    max-width: 150px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 5px;
+    font-size: 16px;
+    font-weight:bold;
+    color: #000;
+    height: 45px;
+    line-height: 45px;
+}
+
+.mensaje_regalo_elegido {
+    display:none;
+    margin-top: 27px;
+}
+
+.icono_check_regalo_elegido,
+.texto_regalo_elegido
+{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.icono_check_regalo_elegido{
+    width:9px;
+    margin-bottom:-3px;
+    margin-right:6px;
+}
+
+.texto_regalo_elegido{
+    font-size:14px;
+    font-weight:800;
+}
+
+/* FIN - POPUP ELIGE TU REGALO DEL PROGRAMA NUEVAS */
+
+/* POPUP FELICITACIONES META REGALO */
+
+.icono_regalo_popup_meta_regalo,
+.icono_regalo_popup_meta_regalo img
+{
+    width:60px;
+    height:auto;
+}
+
+.icono_regalo_popup_meta_regalo {
+    margin-bottom: 33px;
+}
+
+.titulo_popup_meta_regalo_programaNuevas span:first-child,
+.titulo_popup_treinta_y_cinco_descuento span:first-child
+{
+    line-height:10px;
+    text-transform:uppercase;
+}
+
+.titulo_popup_meta_regalo_programaNuevas span:last-child,
+.titulo_popup_treinta_y_cinco_descuento span:last-child
+{
+    margin-top:21px;
+    line-height:25px;
+}
+
+.popup_meta_regalo_programaNuevas .popup_meta_regalo_programaNuevas_contenido,
+.popup_treinta_y_cinco_descuento .popup_treinta_y_cinco_descuento_contenido
+{
+    position:absolute;
+    margin:0 auto;
+    top:128px;
+    left:0;
+    right:0;
+    bottom:0;
+    height:346px;
+}
+
+/* FIN - POPUP FELICITACIONES META REGALO */
+
+/* POPUP LÍMITE DE LÍNEA DE CRÉDITO */
+
+.popup_limite_lineaCredito{
+    position:fixed;
+    top:-17px;
+    width:100%;
+    height:100%;
+    background-color:#FFF;
+    z-index:2000;
+}
+
+.popup_limite_lineaCredito_contenido{
+    position:absolute;
+    margin:auto;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    height:230px;
+}
+
+.icono_popup_limite_lineaCredito{
+    margin:0 auto 35px auto;
+    width:70px;
+    height:auto;
+}
+
+.icono_popup_limite_lineaCredito img{
+    width:100%;
+    height:auto;
+}
+
+.mensaje_popup_limite_lineaCredito{
+    margin:0 auto;
+}
+
+.titulo_mensaje_popup{
+    font-size:20px;
+    font-weight:bold;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.descripcion_mensaje_popup{
+    font-size:16px;
+    margin-bottom:0;
+}
+
+@media screen and (max-width:350px){
+
+    .titulo_mensaje_popup{
+        font-size:18px;
+    }
+
+    .descripcion_mensaje_popup{
+        font-size:14px;
+    }
+
+}
+
+/* FIN - POPUP LÍMITE DE LÍNEA DE CRÉDITO */
+
+/* POPUP LLEGASTE AL 30% DE DESCUENTO */
+
+.titulo_popup_treinta_y_cinco_descuento span:first-child{
+    font-size:15px;
+}
+
+.titulo_popup_treinta_y_cinco_descuento span:last-child{
+    margin-top:12px;
+    font-size:30px;
+}
+
+.icono_celebracion_popup_descuento{
+    padding-left:7px;
+    margin-top:31px;
+    margin-bottom:20px;
+}
+
+.icono_celebracion_popup_descuento img{
+    width:65px;
+}
+
+
+
+
+
+
+
+.filtros__lista-handleBar input[type='checkbox']:checked + span:after {
+    content: inherit !important;
+    color:transparent;
+    background:transparent;
+
+}
+
+
+/* FIN - POPUP LLEGASTE AL 30% DE DESCUENTO */
+
+/* FIN - PROGRAMA NUEVAS - ELIGE TU REGALO */
+
+/* HD-4214 - CHAT MESSENGER SOMOS BELCORP */
+
+.fb_dialog_content {
+    position: relative!important;
+}
+
+.icono_chat_sb {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background-color: #FFF;
+    background-image: url(/Content/Images/icono-chat-sb.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    border-radius: 100%;
+    z-index: 2000;
+}
+
+.fb_dialog_content iframe {
+    display: none !important;
+}
+
+/* FIN - HD-4214 - CHAT MESSENGER SOMOS BELCORP */

@@ -21,9 +21,9 @@
         @for (int i = 0; i < Model.ListaPedidoCliente.Count; i++)
         {
             <a id="tab_@i" href="javascript:;" class="mytab @( i == 0 ? "active" : "")" style="width: @(100.00 / Model.ListaPedidoCliente.Count)%">
-                CAMPAÑA
+                @*CAMPAÑA*@
                 <br />
-                <b>@(Model.ListaPedidoCliente[i].CampaniaID.ToString().Substring(4))</b>
+                <b>C@(Model.ListaPedidoCliente[i].CampaniaID.ToString().Substring(4))</b>
                 @(Model.ListaPedidoCliente[i].CampaniaID.ToString().Substring(0, 4))
             </a>
             <input id="htab_@i" type="hidden" value="@Model.ListaPedidoCliente[i].CampaniaID" />
@@ -52,7 +52,7 @@
                         <div id="collapseOne_@(i + "_" + item2.ClienteID)" class="panel-collapse @collapse" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body posr">
                                 <div class="list-table-new">
-                                    <ul class="list-table-title upper">
+                                    <ul class="list-table-title">
                                         <li>Productos <span class="table-title-right">Cant</span></li>
                                     </ul>
                                     <ul class="list-table-body">
@@ -61,11 +61,13 @@
                                             <li>
                                                 <div class="posr">
                                                     <div class="table-width">
-                                                        <div class="upper">@Html.DisplayTextFor(modelItem => @item3.DescripcionProd)</div>
+                                                        <div class="upper">
+                                                        @(item3.SetIdentifierNumber > 0 ? "#" + item3.SetIdentifierNumber + "-" : "")
+                                                        @Html.DisplayTextFor(modelItem => @item3.DescripcionProd)</div>
                                                         <div class="mb-10">
                                                             <div>@Html.DisplayTextFor(modelItem => item3.CUV)</div>
                                                         </div>
-                                                        Precio Unitario
+                                                        Precio unitario
                                                         @if (Model.PaisID == Constantes.PaisID.Colombia)
                                                         {
                                                             @Model.Simbolo @(string.Format("{0:#,##0}", item3.PrecioUnidad).Replace(',', '.'))
@@ -75,7 +77,8 @@
                                                             @Model.Simbolo @(string.Format("{0:#,##0.00}", item3.PrecioUnidad))
                                                         }
                                                         <br />
-                                                        <div class="upper">
+                                                        @*<div class="upper">*@
+                                                        <div>
                                                             <strong>Subtotal </strong>
                                                             @if (Model.PaisID == Constantes.PaisID.Colombia)
                                                             {
@@ -106,7 +109,8 @@
                                         <table class="table">
                                             <tbody>
                                                 <tr>
-                                                    <td class="upper" style="padding-top:30px;"><strong>Total Pedido</strong></td>
+                                                    @*<td class="upper" style="padding-top:30px;"><strong>Total Pedido</strong></td>*@
+                                                    <td style="padding-top:30px;"><strong>Total</strong></td>
                                                     <td class="text-right" style="padding-top: 30px;">
                                                         <b>@Model.Simbolo @totalPedido</b>
                                                     </td>
@@ -127,26 +131,28 @@
 
         if (Model.ListaPedidoCliente[i].TieneDescuentoCuv)
         {
-            <div id="parteSubTotal_@i" class="block-info text-center" style="margin-top: -10px;">
-                SUBTOTAL<br />
+            <div id="parteSubTotal_@i" class="block-info text-center" style="margin-top: -10px;text-transform: capitalize">
+                Subtotal<br />
                 <div class="text-lg">@Model.Simbolo @Model.ListaPedidoCliente[i].SubtotalString</div>
             </div>
-            <div id="parteDescuento_@i" class="block-info text-center" style="margin-top: -10px;">
-                DESCUENTO OFERTAS CON MAS DE UN PRECIO<br />
+            <div id="parteDescuento_@i" class="block-info text-center" style="margin-top: -10px;text-transform: capitalize">
+                @*DESCUENTO OFERTAS CON MAS DE UN PRECIO<br />*@
+                <span style="text-transform: capitalize">Descuentos</span><span style="text-transform: lowercase"> ofertas por niveles</span><br />
                 <div class="text-lg">@Model.Simbolo @Model.ListaPedidoCliente[i].DescuentoString</div>
             </div>
         }
-        <div id="parteFinal_@i" class="block-info text-center" style="margin-top: -10px;">
-            TOTAL PEDIDO <br />
-            <div class="text-lg">@Model.Simbolo @Model.ListaPedidoCliente[i].ImporteTotalString</div>
-        </div>
+            <div id="parteFinal_@i" class="block-info text-center" style="margin-top: -10px;text-transform: capitalize">
+            @*TOTAL PEDIDO <br />*@
+            Total <br />
+                <div class="text-lg">@Model.Simbolo @Model.ListaPedidoCliente[i].ImporteTotalString</div>
+            </div>
     }
     <br />
 
 </div>
 <hr class="clear" />
-<a href="javascript:;" class="btn_editar_pedido" onclick="onEnviarCorreoConsultora();">
-    Enviar listado a mi correo
+<a href="javascript:;" class="btn_editar_pedido" onclick="onEnviarCorreoConsultora();" style="text-transform:none">
+    Enviar a mi correo
 </a>
 
 

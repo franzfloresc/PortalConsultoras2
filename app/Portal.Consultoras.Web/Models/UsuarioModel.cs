@@ -1,7 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.Models.ProgramaNuevas;
 using System;
 using System.Collections.Generic;
 
@@ -69,6 +68,10 @@ namespace Portal.Consultoras.Web.Models
             this.TieneCDRExpress = false;
             this.PopupBienvenidaCerrado = false;
             this.FotoPerfil = string.Empty;
+
+            this.CodigoClasificacion = string.Empty;
+            this.CodigoSubClasificacion = string.Empty;
+            this.DescripcionSubclasificacion = string.Empty;
         }
 
         public string Celular { get; set; }
@@ -92,7 +95,7 @@ namespace Portal.Consultoras.Web.Models
         public string NombreConsultora { get; set; }
         public string CodigoConsultora { get; set; }
         public string CodigoUsuario { get; set; }
-        
+
         /// <summary>
         /// Codigo Campaña
         /// </summary>
@@ -318,7 +321,7 @@ namespace Portal.Consultoras.Web.Models
             get { return FechaHoy >= FechaInicioCampania.Date && FechaHoy <= FechaFinCampania.Date; }
         }
 
-        
+
 
         public bool HizoLoginExterno { get; set; }
         public bool TieneLoginExterno { get; set; }
@@ -331,7 +334,7 @@ namespace Portal.Consultoras.Web.Models
         public int MensajePedidoMobile { get; set; }
 
         public ConsultoraOnlineMenuResumenModel ConsultoraOnlineMenuResumen { get; set; }
-        public ConsultoraRegaloProgramaNuevasModel ConsultoraRegaloProgramaNuevas { get; set; }
+        public ConfigPremioProgNuevasModel ConfigPremioProgNuevas { get; set; }
         public List<MenuMobileModel> MenuMobile { get; set; }
 
         public int OfertaFinal { get; set; }
@@ -347,19 +350,20 @@ namespace Portal.Consultoras.Web.Models
         public string CodigosRevistaImpresa { get; set; }
         public string CodigoPrograma { get; set; }
         public int ConsecutivoNueva { get; set; }
+        public bool TieneDireccionEntrega { get; set; }
 
         public DateTime FechaHoy
         {
             get { return DateTime.Now.AddHours(ZonaHoraria).Date; }
-        } 
+        }
 
         public string FotoPerfil { get; set; }
 
         public string CodigoUsuarioHost { get; set; }
-        
+
         public bool TienePagoEnLinea { get; set; }
         public string DocumentoIdentidad { get; set; }
-        
+
         public double CompraVDirectaCer { get; set; }
         public double IVACompraVDirectaCer { get; set; }
         public double RetailCer { get; set; }
@@ -368,8 +372,7 @@ namespace Portal.Consultoras.Web.Models
         public double IvaTotalCer { get; set; }
         public string FotoOriginalSinModificar { get; set; }
         public bool PuedeEnviarSMS { get; set; }
-        public bool PuedeActualizar { get; set; }
-        public bool FotoPerfilAncha { get; set; }
+        public bool PuedeActualizar { get; set; }        
         public string MensajeChat { get; set; }
         public double PromedioVenta { get; set; }
 
@@ -391,12 +394,28 @@ namespace Portal.Consultoras.Web.Models
         public bool EsConsultora()
         {
             return RolID == Constantes.Rol.Consultora;
-        }        
+        }
 
         public int DiaFacturacion { get; set; }
         public Dictionary<string, string> NuevasDescripcionesBuscador { get; set; }
         public int NovedadBuscador { get; set; }
         public int IndicadorConsultoraDummy { get; set; }
-        
+        public bool CaminoBrillante { get; set; }
+        public string CaminoBrillanteMsg { get; set; }
+        public string PseudoParamNotif { get; set; }
+
+        public string CodigoClasificacion { get; set; }
+        public string CodigoSubClasificacion { get; set; }
+        public string DescripcionSubclasificacion { get; set; }
+
+
+        #region Camino Brillante
+        public int NivelCaminoBrillante { get; set; }
+        #endregion
+
+        public string AutorizaPedido { get; set; }
+
+        public bool PuedeConfirmarAllEmail { get; set; }
+        public bool PuedeConfirmarAllSms { get; set; }
     }
 }

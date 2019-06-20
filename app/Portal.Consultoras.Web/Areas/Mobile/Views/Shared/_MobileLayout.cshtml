@@ -2,7 +2,6 @@
 @using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models;
 
-
 @{
     ShowRoomBannerLateralModel showRoomBannerLateral = new ShowRoomBannerLateralModel();
     if (ViewBag.MostrarShowRoomBannerLateral == true) { showRoomBannerLateral = ViewBag.ShowRoomBannerLateral; }
@@ -73,7 +72,7 @@
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpAlertaPedidosOnline.cshtml")
 
-    <header id="new-header">
+    <header id="new-header" class="header--nuevoLookAndFeelEsika--mobile">
         @if (ViewBag.mostrarBannerPostulante == true)
         {
             @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloqueMensajesPostulante.cshtml")
@@ -105,16 +104,16 @@
             <div class="banner_app"><div>X</div></div>
         }
 
-
         @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileMenu/_MobileMenu.cshtml", new ViewDataDictionary {
-        { "vbEsContenedor", 0 },
-        { "vbEsMostrarBuscadorYFiltros", ViewBag.MostrarBuscadorYFiltros }
-    })
-
+            { "vbEsContenedor", 0 },
+            { "vbEsMostrarBuscadorYFiltros", ViewBag.MostrarBuscadorYFiltros },
+            { "PaisAnalytics", ViewBag.PaisAnalytics}
+        })
 
     </header>
 
-    <section style="min-height: 380px;">
+    <section data-layout="contenido"
+             style="min-height: 380px;">
         <div id="contentmobile" data-content="">
 
             @if (ViewBag.MostrarBannerPL20 == true && ViewBag.MostrarBannerOtros == false)
@@ -146,7 +145,7 @@
                     </div>
                 }
             }
-            <div id="mob-content-layout">
+            <div data-layout="body" id="mob-content-layout">
                 @RenderBody()
             </div>
         </div>
@@ -162,12 +161,15 @@
     </footer>
 
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpLoadingMobile.cshtml")
-
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupMensajesInformacion.cshtml")
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupPostulante.cshtml")
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupComunidad.cshtml")
     @Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupSesionFinalizada.cshtml")
+    @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
 
+    @*INI HD-3693*@
+    @Html.Partial("~/Views/Shared/PopupsResponsive/_PopupBloqueoPorSistema.cshtml")
+    @*FIN HD-3693*@
     <div style="display:none">
         <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
     </div>
@@ -193,6 +195,18 @@
         @*var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';*@
         var baseUrl = "@Url.Content("~")";
         var tipoOfertaFinalCatalogoPersonalizado = '@Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore';
+
+
+
+        //INI SALUD-58
+        var codigoConsultora = '@ViewBag.CodigoConsultoraDL';
+        var pseudoParamNotif = '@ViewBag.PseudoParamNotif';
+        var inicial = localStorage.getItem('KeyPseudoParam');
+        if (inicial === 'undefinied' || inicial === undefined || inicial === null)
+            localStorage.setItem('KeyPseudoParam', pseudoParamNotif); //se almacena por primera vez
+        //FIN SALUD-58
+
+
 
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         //var esPaisTrackingJetlore = '@ViewBag.PaisesConTrackingJetlore';
@@ -230,6 +244,7 @@
         var emt_default_message = '@Html.Raw(ViewBag.MensajeChat)';
 
         var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
+        var habilitarChatBot = '@ViewBag.HabilitarChatBot';
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
@@ -249,10 +264,6 @@
             'pais': '@ViewBag.AnalyticsPais',
             'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
         };
-        var vbFotoPerfil = '@ViewBag.FotoPerfil';
-        if (vbFotoPerfil != null && vbFotoPerfil != "") {
-            $('.foto_menu').show();
-        }
 
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
         var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
@@ -274,6 +285,9 @@
         }
         window.controllerName = '@ctrl.ToLower()';
         window.actionName     = '@acti.ToLower()';
+        var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
+        var SessionTimeout = '@ViewBag.SessionTimeout';
+        var ChatBotUrlRef = '@ViewBag.ChatBotUrlRef';
     </script>
 
     @if (ViewBag.MostrarBannerSuperiorOdd == true) // TieneOfertaDelDia
@@ -281,8 +295,8 @@
         @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mobile/OfertaDelDia")
         <script type="text/javascript">
             $(document).ready(function () {
-            OfertaDelDiaModule.Inicializar();
-        });
+                OfertaDelDiaModule.Inicializar();
+            });
         </script>
     }
 
@@ -490,120 +504,40 @@
     </script>
     @RenderSection("scripts", required: false)
 
-
     @{
         // ViewBag.HabilitarChatEmtelco : Oculta boton que lanza chat.
-        // Deberia ir dentro de la condicion de este if?
-        if (!esIngresoUnico)
-        {
-            <link href="@Url.Content("~/emt_chat/css/style-client.css")" rel="stylesheet">
-            <link rel="stylesheet" href="@Url.Content("~/emt_chat/css/font-awesome.min.css")">
-            <div class="CMXD-containment-wrapper"></div>
-            <div id="marca">
-                <div class="CMXD-btn-help">
-                    <div id="btn_init" class="CMXD-help" style="display:none;"></div>
-                    <div id="btn_open" class="CMXD-open" style="display: none"></div>
-                </div>
-                <div class="container-movil"></div>
-                <div id="CMXD-container-chat" class="CMXD-container-chat" style="display: none">
-                    <div class="CMXD-header-chat">
-                        <i class="fa fa-comments-o" aria-hidden="true"></i> CHAT EN LÍNEA
-                        <div class="CMXD-icons">
-                            <a class="display-a" id="btn_minimize" href="">
-                                <i class="fa fa-minus" aria-hidden="true"></i>
-                            </a>
-                            <a class="display-a" id="btn_wClose" href="" style="display: none">
-                                <i class="fa fa-times" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                        <hr class="CMXD-line">
-                    </div>
-                    <div id="chat">
-                        <div id="interaction" class="CMXD-container-welcome" style="display: none">
-                            <div class='chat-wrapper'>
-                                <div id="transcript" class='chat-message padding container-chat'></div>
-                            </div>
-                            <div id="slideDownTranscript" class="message-end CMXD-animate2">
-                                <span class="fa fa-angle-double-down"></span>
-                            </div>
-                            <div class="container-txt">
-                                <textarea class="txtarea" rows="2" id="Entry" placeholder="Escribe un Mensaje..."></textarea>
-                                <a class="" href="">
-                                    <div class="send send2" id="btn_Send">
-                                        <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
-                                        <br>Enviar
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div id="loading" class="pop-up">
-                            <div class="CMXD-container-welcome">
-                                <div class="CMXD-img-welcome">
-                                    <img id="loading_image" src="" alt="">
-                                </div>
-                                <div id="loading_title" class="CMXD-welcome"> Bienvenida a nuestro <br>chat en línea </div>
-                                <div id="loading_description" class="CMXD-description"> En un momento uno de nuestros asesores estará contigo </div>
-                            </div>
-                        </div>
-                        <div id="schedule" class="pop-up">
-                            <div class="CMXD-container-welcome">
-                                <div class="CMXD-img-welcome">
-                                    <img id="schedule_image" src="" alt="Imagen fuera de horario">
-                                </div>
-                                <div id="schedule_title" class="CMXD-welcome"> </div>
-                                <div id="schedule_description" class="CMXD-description"> </div>
-                            </div>
-                        </div>
-                        <div id="Error" class="pop-up">
-                            <div class="CMXD-container-welcome">
-                                <div class="CMXD-img-welcome">
-                                    <img id="Error_image" src="" alt="">
-                                </div>
-                                <div class="CMXD-welcome"> Error de conexión </div>
-                                <div class="CMXD-description">
-                                    En estos momentos no es posible establecer conexión. Por favor intenta más tarde. <br /><br />
-                                    <a href="" class="btn-no display-a" id="btn_mclose"> OK</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="alert" class="pop-up">
-                            <div class="CMXD-container-welcome">
-                                <div class="CMXD-img-welcome">
-                                    <img id="alert_image" src="" alt="">
-                                </div>
-                                <div class="CMXD-welcome"> ¿Desea cerrar la sesión de chat? </div>
-                                <div class="CMXD-description">
-                                    <a href="" class="btn-yes display-a" id="btn_close"> Si</a>
-                                    <a href="" class="btn-no display-a" id="btn_nwClose"> No</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="poll" class="pop-up">
-                        <div class="CMXD-container-welcome">
-                            <div id="poll_title" class="CMXD-welcome"> <br />Encuesta de Satisfacción </div>
-                            <div id="poll_description" class="CMXD-description"> </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <script type="text/javascript" src="@Url.Content("~/emt_chat/js/gen.js")?v1"></script>
-        }
+        // Deberia ir dentro de la condicion de este if
+    }
+    @if (!esIngresoUnico)
+    {
+        <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
+        <a title="Chat Messenger" class="d-block btn_chat_messenger_mobile" style="display: none;" href="javascript: AbrirChatBot()">
+            <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
+        </a>
     }
 
-    @if (TempData.ContainsKey("PixelCodigoIso"))
-    {
-        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
-        <script>
-            var pixelAnalytics = Analytics();
-            pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
-        </script>
-        @TempData.Remove("PixelCodigoIso");
-    }
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")
+    <script>
+
+        var pixelAnalytics = Analytics({ pixelId : '@Constantes.Facebook.FB_Pixel'});
+
+            @if (TempData.ContainsKey("PixelCodigoIso"))
+            {
+                @:pixelAnalytics.invocarEventoPixelById('@(TempData["PixelMarcacion"])', '@(TempData["PixelId"])');
+                TempData.Remove("PixelCodigoIso");
+            }
+        pixelAnalytics.invocarPageViewPixelById();
+    </script>
+    <script type="text/javascript" id="lightning_bolt" src="//cdn-akamai.mookie1.com/LB/LightningBolt.js"></script>
 
     <script>
         $.ajaxSetup({
-            beforeSend: function (xhr) {
+            beforeSend: function (xhr, settings) {
+                var isOtherDomain = settings && settings.crossDomain;
+                if (isOtherDomain) {
+                    return;
+                }
+
                 xhr.setRequestHeader("isMobile", isMobile());
             }
         });

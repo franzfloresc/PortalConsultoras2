@@ -17,12 +17,12 @@ namespace Portal.Consultoras.BizLogic
         List<BEProductoDescripcion> GetProductoDescripcionByCUVandCampania(int paisID, int campaniaID, string CUV);
         IList<BEProductoDescripcion> GetProductosByCampaniaCuv(int paisID, int anioCampania, string codigoVenta);
         IList<BEProducto> GetProductoSugeridoByCUV(int paisID, int campaniaID, int consultoraID, string cuv, int regionID, int zonaID, string codigoRegion, string codigoZona);
-        int InsProductoCompartido(BEProductoCompartido ProComp);
+        BEProductoCompartidoResult InsProductoCompartido(BEProductoCompartido ProComp);
         IList<BEProducto> SearchListProductoChatbotByCampaniaRegionZona(string paisISO, int campaniaID, int regionID, int zonaID, string codigoRegion, string codigoZona, string textoBusqueda, int criterio, int rowCount);
         IList<BEProducto> SearchSmartListProductoByCampaniaRegionZonaDescripcion(string paisISO, int campaniaID, int zonaID, string codigoRegion, string codigoZona, string textoBusqueda, int rowCount);
         IList<BEProducto> SelectProductoByCodigoDescripcion(int paisID, int campaniaID, string codigoDescripcion, int criterio, int rowCount);
         IList<BEProducto> SelectProductoByCodigoDescripcionSearch(int paisID, int campaniaID, string codigoDescripcion, int criterio, int rowCount);
-        IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID, string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio, int rowCount, bool validarOpt);
+        IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(BEProductoBusqueda busqueda);
         IList<BEProducto> SelectProductoByListaCuvSearchRegionZona(int paisID, int campaniaID, string listaCuv, int regionID, int zonaID, string codigoRegion, string codigoZona, bool validarOpt);
         IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv);
         int UpdProductoDescripcion(BEProductoDescripcion producto, string codigoUsuario);

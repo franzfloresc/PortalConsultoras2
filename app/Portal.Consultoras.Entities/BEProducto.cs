@@ -1,4 +1,3 @@
-using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
 using System;
 using System.Data;
@@ -132,6 +131,15 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool TieneOfertasRelacionadas { get; set; }
 
+        [DataMember]
+        public string MensajeOfertaFinal { get; set; }
+
+        [DataMember]
+        public decimal RestanteTippingPoint { get; set; }
+
+        [DataMember]
+        public int Cantidad { get; set; }
+
         public BEProducto(IDataRecord row)
         {
             CUV = row.ToString("CUV");
@@ -174,6 +182,8 @@ namespace Portal.Consultoras.Entities
             EstrategiaID = row.ToInt32("EstrategiaID", 0);
             CodigoEstrategia = row.ToString("CodigoEstrategia");
             EstrategiaIDSicc = row.ToInt32("EstrategiaIDSicc");
+
+            Cantidad = row.ToInt32("Cantidad");
         }
 
         //Refactor Inheritance

@@ -2,10 +2,12 @@
 var showDisplayODD = 0;
 var ventanaChat = null;
 
+
 $(document).ready(function () {
+
     LayoutHeader();
     LayoutMenu();
-
+    CargarCantidadNotificacionesSinLeer();
     OcultarChatEmtelco();
 
     $(document).on('click', function () {
@@ -77,6 +79,11 @@ $(document).ready(function () {
         if (!$(e.target).closest('.popup_agregarUnidades').length) {
             if ($('#dialog_SesionMainLayout').is(':visible')) {
                 $('#dialog_SesionMainLayout').hide();
+                window.location.href = "Login";
+            }
+
+            if ($('#PopupCierreSesion').is(':visible')) {
+                $('#PopupCierreSesion').hide();
                 window.location.href = "Login";
             }
         }
@@ -155,7 +162,7 @@ $(document).ready(function () {
     HandlebarsRegisterHelper();
     SetFormatDecimalPais(formatDecimalPaisMain);
     CargarResumenCampaniaHeader();
-    CargarCantidadNotificacionesSinLeer();
+
 
     $('#alertDialogMensajes').dialog({
         autoOpen: false,
@@ -172,6 +179,22 @@ $(document).ready(function () {
                 HideDialog("alertDialogMensajes");
             }
         }
+    });
+
+    $('#alertDialogMensajes25seg').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: false,
+        close: function (event, ui) {
+            HideDialog("alertDialogMensajes25seg");
+        },
+        beforeClose: function (event, ui) {
+            document.querySelector('.setBottom').style.transition = null
+        },
+        draggable: false,
+        dialogClass: 'setBottom',
+        position: "bottom"
     });
 
     $('#ModalFeDeErratas').dialog({
@@ -214,11 +237,11 @@ $(document).ready(function () {
         draggable: true,
         title: "Comunidad SomosBelcorp",
         buttons:
-            {
-                "Aceptar": function () {
-                    HideDialog("DialogMensajesCom");
-                }
+        {
+            "Aceptar": function () {
+                HideDialog("DialogMensajesCom");
             }
+        }
     });
 
     $('#divMensajeConfirmacion').dialog({
@@ -270,6 +293,7 @@ $(document).ready(function () {
         }
     });
 
+
     $("body").on("keypress", ".ValidaNumeral", function (e) {
         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
             return false;
@@ -303,10 +327,23 @@ $(document).ready(function () {
 
     $("body").on('click', '.belcorpChat', function (e) {
         e.preventDefault();
+        if (typeof habilitarChatEmtelco === 'undefined') {
+            return false;
+        }
 
-        var connected = localStorage.getItem('connected');
-        var idBtn = connected ? '#btn_open' : '#btn_init';
-        $(idBtn).trigger("click");
+        if (habilitarChatEmtelco == 'True') {
+            var connected = localStorage.getItem('connected');
+            var idBtn = connected ? '#btn_open' : '#btn_init';
+            $(idBtn).trigger("click");
+
+            return false;
+        }
+
+        if (habilitarChatBot === 'True') {
+            if (typeof FB !== "undefined") {
+                FB.CustomerChat.showDialog();
+            }
+        }
 
         return false;
     });
@@ -333,21 +370,47 @@ function AbrirVentanaBelcorpChat(url) {
 function messageInfoError(message, titulo, fnAceptar) {
     message = $.trim(message);
     if (message != "") {
-        $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
-        $('#dialog_ErrorMainLayout').show();
 
-        $('#dialog_ErrorMainLayout .btn_ok').off('click');
-        $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
+        //$('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
+        //$('#dialog_ErrorMainLayout').show();
 
-        $('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
-            $('#dialog_ErrorMainLayout').hide();
-            if ($.isFunction(fnAceptar)) fnAceptar();
-        });
+        //$('#dialog_ErrorMainLayout .btn_ok').off('click');
+        //$('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
 
-        $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
-            $('#dialog_ErrorMainLayout').hide();
-            if ($.isFunction(fnAceptar)) fnAceptar();
-        });
+        //$('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
+        //    $('#dialog_ErrorMainLayout').hide();
+        //    if ($.isFunction(fnAceptar)) fnAceptar();
+        //});
+
+        //$('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
+        //    $('#dialog_ErrorMainLayout').hide();
+        //    if ($.isFunction(fnAceptar)) fnAceptar();
+        //});
+
+        //INI HD-3693
+        var msjBloq = validarpopupBloqueada(message);
+        if (msjBloq != "") {
+            alert_msg_bloqueadas(msjBloq);
+        } else {
+            $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
+            $('#dialog_ErrorMainLayout').show();
+
+            $('#dialog_ErrorMainLayout .btn_ok').off('click');
+            $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
+
+            $('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
+                $('#dialog_ErrorMainLayout').hide();
+                if ($.isFunction(fnAceptar)) fnAceptar();
+            });
+
+            $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
+                $('#dialog_ErrorMainLayout').hide();
+                if ($.isFunction(fnAceptar)) fnAceptar();
+            });
+        }
+        //FIN HD-3693
+
+
     }
 }
 
@@ -406,22 +469,29 @@ function CargarResumenCampaniaHeader(showPopup) {
 }
 
 function CargarCantidadNotificacionesSinLeer() {
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + "Notificaciones/GetNotificacionesSinLeer",
-        data: '',
-        cache: false,
+    var sparam = localStorage.getItem('KeyPseudoParam'); //SALUD-58
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + "Notificaciones/GetNotificacionesSinLeer?pseudoParam=" + sparam + "&codigoUsuario=" + codigoConsultora + "",
+        data: {},
+        cache: true,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
+
                 if (data.cantidadNotificaciones > 0) {
+                    $('#mensajeSinNotificaciones').hide();
+                    $('#mensajeNotificaciones').show();
+
                     $(document).find(".js-notificaciones2").html(data.cantidadNotificaciones);
                     $(document).find(".js-notificaciones").html(data.cantidadNotificaciones);
                     $(document).find(".js-notificaciones").addClass("notificaciones_activas");
                     $(document).find(".js-cantidad_notificaciones").html(data.cantidadNotificaciones);
                 } else {
-                    $(document).find(".aviso_mensajes").html('NO <b>TIENES MENSAJES SIN LEER</b>');
+                    $('#mensajeSinNotificaciones').show();
+                    $('#mensajeNotificaciones').hide();
+                    $(document).find(".aviso_mensajes").html('No <b>tienes notificaciones nuevas</b>');
                     $(document).find(".js-notificaciones").html(0);
                     $(document).find(".js-notificaciones").removeClass("notificaciones_activas");
                     $(document).find("#mensajeNotificaciones").html("No tienes notificaciones. ");
@@ -431,7 +501,7 @@ function CargarCantidadNotificacionesSinLeer() {
             }
         },
         error: function (data, error) { }
-    });
+    })
 }
 
 function AbrirModalFeErratas() {
@@ -481,7 +551,7 @@ function SeparadorMiles(pnumero) {
 
     if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
 
-    for (var i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
+    for (var i = nuevoNumero.length - 1, j = 0; i >= 0; i-- , j++)
         resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
 
     if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));
@@ -648,6 +718,7 @@ function alert_msg_com(message) {
     $('#DialogMensajesCom .message_text').html(message);
     $('#DialogMensajesCom').dialog('open');
 }
+
 
 function AbrirModalRegistroComunidad() {
 
@@ -1134,7 +1205,7 @@ function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
     return qty;
 }
 
-function messageConfirmacion(title, message, fnAceptar) {
+function messageConfirmacion(title, message, fnAceptar, fnCancelar) {
     title = $.trim(title);
     if (title == "")
         title = "MENSAJE";
@@ -1150,6 +1221,10 @@ function messageConfirmacion(title, message, fnAceptar) {
     if ($.isFunction(fnAceptar)) {
         $('#divMensajeConfirmacion .btnMensajeAceptar').off('click');
         $('#divMensajeConfirmacion .btnMensajeAceptar').on('click', fnAceptar);
+    }
+    if ($.isFunction(fnCancelar)) {
+        $('#divMensajeConfirmacion .btnMensajeCancelar').off('click');
+        $('#divMensajeConfirmacion .btnMensajeCancelar').on('click', fnCancelar);
     }
 }
 
@@ -1214,3 +1289,9 @@ function OcultarChatEmtelco() {
         $(".CMXD-help").hide();
     }
 }
+//INI HD-3693
+function alert_msg_bloqueadas(message) {
+    $('#PopupBloqueoPorSistema .message_text_bloqueada').html(message);
+    $('#PopupBloqueoPorSistema').show();
+}
+//FIN HD-3693

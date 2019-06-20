@@ -53,6 +53,8 @@ namespace Portal.Consultoras.Web.Models.MisCertificados
             }
         }
 
+        public string PaisID { get; set; }
+
         #endregion
     }
 }

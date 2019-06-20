@@ -37,14 +37,14 @@ var rdAnalyticsModule = (function () {
     },
 
     _origenWeb = {
-        home: "1101", // solo para RedireccionarContenedorComprar
-        homeLan: "1103", // solo para RedireccionarContenedorComprar
-        catalogo: "1401", // solo para RedireccionarContenedorComprar
-        pedido: "1201", // solo para RedireccionarContenedorComprar
-        homeMobile: "2101", // solo para RedireccionarContenedorComprar
-        homeLanMobile: "2103", // solo para RedireccionarContenedorComprar
-        catalogoMobile: "2401", // solo para RedireccionarContenedorComprar
-        pedidoMobile: "2201", // solo para RedireccionarContenedorComprar
+        //home: "1101", // solo para RedireccionarContenedorComprar
+        //homeLan: "1103", // solo para RedireccionarContenedorComprar
+        //catalogo: "1401", // solo para RedireccionarContenedorComprar
+        //pedido: "1201", // solo para RedireccionarContenedorComprar
+        //homeMobile: "2101", // solo para RedireccionarContenedorComprar
+        //homeLanMobile: "2103", // solo para RedireccionarContenedorComprar
+        //catalogoMobile: "2401", // solo para RedireccionarContenedorComprar
+        //pedidoMobile: "2201", // solo para RedireccionarContenedorComprar
         rdLan: "1070001", // anterior "1721",
         rdOfertas: "1070001", // anterior "1711",
         rdDetalle: "1080202", // anterior "1731",
@@ -117,6 +117,7 @@ var rdAnalyticsModule = (function () {
         borrar: "Borrar Filtros",
         popupEnterate: "Popup Entérate aquí",
         popupSuscripcion: "Popup Suscripción",
+        popupDesuscripcion: "Popup Desuscripción",
         clickFlechas: "Lo nuevo - Click Flechas"
     },
     _tabCode = {
@@ -153,6 +154,35 @@ var rdAnalyticsModule = (function () {
             "category": category +' - '+ action,
             "action": "Click Botón",
             "label": label
+        });
+    };
+
+    var _popupDesuscripcion = function (category, action, label) {
+
+        dataLayer.push({
+            "event": _event.virtual,
+            "category": category + ' - ' + action,
+            "action": "Click Botón",
+            "label": label
+        });
+    };
+
+    var _popupDesuscripcionCerrar = function (category, action, label) {
+
+        dataLayer.push({
+            "event": _event.virtual,
+            "category": category + ' - ' + action,
+            "action": "Click Botón",
+            "label": label
+        });
+    };
+    var _popupDesuscripcionEnviar = function (category, action, label) {
+
+        dataLayer.push({
+            "event": _event.virtual,
+            "category": category + ' - ' + action,
+            "action": "Click Botón Enviar Encuesta",
+            "label":  label
         });
     };
 
@@ -251,30 +281,59 @@ var rdAnalyticsModule = (function () {
         try {
             var origenWebString = origenWeb.toString();
             switch (origenWebString) {
-                case _origenWeb.home:
-                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
-                    break;
-                case _origenWeb.catalogo:
+                //case _origenWeb.home:
+                //    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
+                //    break;
+                //case _origenWeb.catalogo:
+                //    _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
+                //    break;
+                //case _origenWeb.pedido:
+                //    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
+                //    break;
+                //case _origenWeb.homeLan:
+                //    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verLan);
+                //    break;
+                //case _origenWeb.homeLanMobile:
+                //    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verLan);
+                //    break;
+                //case _origenWeb.homeMobile:
+                //    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
+                //    break;
+                //case _origenWeb.catalogoMobile:
+                //    _virtualEventPush(_seccionWeb.catalogoMobile, _text.epm, _action.clickBanner);
+                //    break;
+                //case _origenWeb.pedidoMobile:
+                //    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
+                //    break;
+                 
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.MobileRevistaDigitalMobileCatalogoSeccion:
                     _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
                     break;
-                case _origenWeb.pedido:
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.DesktopRevistaDigitalMobileCatalogoSeccion:
+                    _virtualEventPush(_seccionWeb.catalogo, _text.epm, _action.clickBanner);
+                    break;
+                    
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.MobileRevistaDigitalHomeSeccion:
+                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
+                    break;
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.DesktopRevistaDigitalHomeSeccion:
+                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
+                    break;
+
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.MobileRevistaDigitalResumenBelcorp:
+                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
+                    break;
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.DesktopRevistaDigitalResumenBelcorp:
+                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verMas);
+                    break;
+                  
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.MobilePedidoRevistaDigital:
                     _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
                     break;
-                case _origenWeb.homeLan:
-                    _virtualEventPush(_seccionWeb.home, _text.epm, _action.verLan);
+                case CodigoUbigeoPortal.MaestroCodigoUbigeo.DesktopPedidoRevistaDigital:
+                    _virtualEventPush(_seccionWeb.pedido, _text.epm, _action.verMas);
                     break;
-                case _origenWeb.homeLanMobile:
-                    _virtualEventPush(_seccionWeb.homeMobile, _text.epm, _action.verLan);
-                    break;
-                case _origenWeb.homeMobile:
-                    _virtualEventPush(_seccionWeb.homeMobile, _text.epm, _action.clickBanner);
-                    break;
-                case _origenWeb.catalogoMobile:
-                    _virtualEventPush(_seccionWeb.catalogoMobile, _text.epm, _action.clickBanner);
-                    break;
-                case _origenWeb.pedidoMobile:
-                    _virtualEventPush(_seccionWeb.pedidoMobile, _text.epm, _action.clickBanner);
-                    break;
+               
             }
         } catch (e) {
             console.log(_text.exception + e);
@@ -465,6 +524,7 @@ var rdAnalyticsModule = (function () {
         _virtualEventPush(_category.ganaMas, _action.suscripcionExitosa, _text.notAvailable);
     }
 
+
     function MostrarPopup() {
         _promotionViewPush(_text.roInscribirme, _text.popup, _text.banner);
     }
@@ -503,6 +563,19 @@ var rdAnalyticsModule = (function () {
         _virtualEventPush(_text.epm, _action.clickEnBoton, _action.cancelarInscripcion);
     }
 
+    function CancelarSuscripcionEncuesta(texto) {
+
+        _popupDesuscripcionEnviar(_text.epm, _action.popupDesuscripcion, texto);
+    }
+
+    function DesuscripcionPopup(texto) {
+        _popupDesuscripcion(_text.epm, _action.popupDesuscripcion,texto);
+    }
+
+    function DesuscripcionPopupCerrar(texto) {
+        _popupDesuscripcionCerrar(_text.epm, _action.popupDesuscripcion, texto);
+    }
+
     function ContendorSection(titulo) {
         _virtualEventPush(_text.contenedor + " - Home", _capitalizeFirstLetter(titulo.toLowerCase()) + " - Click Botón", _action.verMas);
     }
@@ -515,6 +588,7 @@ var rdAnalyticsModule = (function () {
     }
     
     return {
+        CancelarSuscripcionEncuesta: CancelarSuscripcionEncuesta,
         CancelarSuscripcion: CancelarSuscripcion,
         IrCancelarSuscripcion: IrCancelarSuscripcion,
         CerrarPopUp: CerrarPopUp,
@@ -533,7 +607,9 @@ var rdAnalyticsModule = (function () {
         ContendorSection: ContendorSection,
         IrEnterate: IrEnterate,
         GuardarDatos: GuardarDatos,
-        ClickArrowLan: ClickArrowLan
+        ClickArrowLan: ClickArrowLan,
+        DesuscripcionPopup: DesuscripcionPopup,
+        DesuscripcionPopupCerrar: DesuscripcionPopupCerrar
         
     };
 })();

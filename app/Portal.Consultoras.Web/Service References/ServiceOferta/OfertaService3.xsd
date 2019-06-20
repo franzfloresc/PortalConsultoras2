@@ -6,6 +6,11 @@
         <xs:sequence>
           <xs:element minOccurs="0" name="Activo" type="xs:int" />
           <xs:element minOccurs="0" name="AgregarEnMatriz" type="xs:boolean" />
+          <xs:element minOccurs="0" name="AppOfertasHomeImgAlto" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AppOfertasHomeImgAncho" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AppOfertasHomeImgExtension" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AppOfertasHomeMsjFormato" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="AppOfertasHomeMsjMedida" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CUV1" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
@@ -13,6 +18,7 @@
           <xs:element minOccurs="0" name="CantComenAprob" type="xs:int" />
           <xs:element minOccurs="0" name="CantComenRecom" type="xs:int" />
           <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
+          <xs:element minOccurs="0" name="CantidadPack" type="xs:int" />
           <xs:element minOccurs="0" name="CodigoAgrupacion" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
@@ -22,7 +28,9 @@
           <xs:element minOccurs="0" name="CodigoSAP" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="CodigoTipoEstrategia" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ColorFondo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ColorTextoApp" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ConsultoraID" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CuponElectivoDefault" type="xs:boolean" />
           <xs:element minOccurs="0" name="DescripcionCUV2" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DescripcionCategoria" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DescripcionCortaCUV2" nillable="true" type="xs:string" />
@@ -49,6 +57,7 @@
           <xs:element minOccurs="0" name="FlagMostrarImg" type="xs:int" />
           <xs:element minOccurs="0" name="FlagNueva" type="xs:int" />
           <xs:element minOccurs="0" name="FlagRevista" type="xs:int" />
+          <xs:element minOccurs="0" name="FlagSeleccionado" type="xs:int" />
           <xs:element minOccurs="0" name="FlagTextoLibre" type="xs:int" />
           <xs:element minOccurs="0" name="FlagValidarImagen" type="xs:int" />
           <xs:element minOccurs="0" name="FotoProducto01" nillable="true" type="xs:string" />
@@ -66,6 +75,7 @@
           <xs:element minOccurs="0" name="ImgFichaFondoDesktop" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ImgFichaFondoMobile" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ImgFichaMobile" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ImgFondoApp" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ImgFondoDesktop" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ImgFondoMobile" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ImgHomeDesktop" nillable="true" type="xs:string" />
@@ -123,12 +133,14 @@
   <xs:element name="BaseEntidad" nillable="true" type="tns:BaseEntidad" />
   <xs:complexType name="BEEstrategiaDetalle">
     <xs:sequence>
+      <xs:element minOccurs="0" name="ColorTextoApp" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
       <xs:element minOccurs="0" name="FlagIndividual" type="xs:boolean" />
       <xs:element minOccurs="0" name="ImgFichaDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFichaFondoDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFichaFondoMobile" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFichaMobile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImgFondoApp" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFondoDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFondoMobile" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgHomeDesktop" nillable="true" type="xs:string" />
@@ -158,6 +170,7 @@
       <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionGrupo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Digitable" type="xs:int" />
       <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
       <xs:element minOccurs="0" name="EstrategiaProductoID" type="xs:int" />

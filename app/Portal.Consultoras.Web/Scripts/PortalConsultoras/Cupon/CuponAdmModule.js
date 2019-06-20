@@ -192,18 +192,18 @@
             draggable: true,
             title: "Cupón",
             buttons:
-            {
-                "Grabar": function () {
-                    if ($(elements.hdCuponId).val() == "") {
-                        _guardarCupon(mantCuponDialog);
-                    } else {
-                        _actualizarCupon(mantCuponDialog);
+                {
+                    "Grabar": function () {
+                        if ($(elements.hdCuponId).val() == "") {
+                            _guardarCupon(mantCuponDialog);
+                        } else {
+                            _actualizarCupon(mantCuponDialog);
+                        }
+                    },
+                    "Cancelar": function () {
+                        HideDialog(elements.popupMantenimientoCupon);
                     }
-                },
-                "Cancelar": function () {
-                    HideDialog(elements.popupMantenimientoCupon);
                 }
-            }
         });
     };
 
@@ -217,18 +217,18 @@
             draggable: true,
             title: "Consultora",
             buttons:
-            {
-                "Grabar": function () {
-                    if ($(elements.hdCuponConsultoraId).val() == "") {
-                        _guardarCuponConsultora(mantCuponConsultoraDialog);
-                    } else {
-                        _actualizarCuponConsultora(mantCuponConsultoraDialog);
+                {
+                    "Grabar": function () {
+                        if ($(elements.hdCuponConsultoraId).val() == "") {
+                            _guardarCuponConsultora(mantCuponConsultoraDialog);
+                        } else {
+                            _actualizarCuponConsultora(mantCuponConsultoraDialog);
+                        }
+                    },
+                    "Cancelar": function () {
+                        HideDialog(elements.popupMantenimientoCuponConsultora);
                     }
-                },
-                "Cancelar": function () {
-                    HideDialog(elements.popupMantenimientoCuponConsultora);
                 }
-            }
         });
     };
 
@@ -242,14 +242,14 @@
             draggable: true,
             title: "Carga",
             buttons:
-            {
-                "Grabar": function () {
-                    _procesarCargaMasivaCuponConsultora();
-                },
-                "Cancelar": function () {
-                    HideDialog(elements.popupMantenimientoCargaCuponConsultora);
+                {
+                    "Grabar": function () {
+                        _procesarCargaMasivaCuponConsultora();
+                    },
+                    "Cancelar": function () {
+                        HideDialog(elements.popupMantenimientoCargaCuponConsultora);
+                    }
                 }
-            }
         });
     };
 
@@ -504,15 +504,15 @@
                 { name: 'Options', width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: _showActionsEventoCupon }
             ],
             jsonReader:
-            {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
-                repeatitems: false,
-                cell: "",
-                id: "id"
-            },
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: false,
+                    cell: "",
+                    id: "id"
+                },
             pager: jQuery('#pagerEvento'),
             loadtext: 'Cargando datos...',
             recordtext: "{0} - {1} de {2} Registros",
@@ -545,7 +545,7 @@
         if (existeJGridTablaCuponConsultoras) {
             var parametros = jQuery(elements.tablaCuponConsultoras).jqGrid("getGridParam", "postData");
             parametros.PaisID = function () { return $(elements.ddlPais).val() },
-            parametros.CuponID = function () { return cuponId; }
+                parametros.CuponID = function () { return cuponId; }
         }
 
         jQuery(elements.tablaCuponConsultoras).jqGrid({
@@ -566,15 +566,15 @@
                 { name: 'Options', width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: _showActionsEventoCuponConsultora }
             ],
             jsonReader:
-            {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
-                repeatitems: false,
-                cell: "",
-                id: "id"
-            },
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: false,
+                    cell: "",
+                    id: "id"
+                },
             pager: jQuery('#pagerEvento'),
             loadtext: 'Cargando datos...',
             recordtext: "{0} - {1} de {2} Registros",
@@ -745,10 +745,9 @@
 
                 var fileValue = $(elements.flCuponConsultora).val();
                 var extensiones = ['csv'];
-                var get_ext;
                 var message = '';
 
-                get_ext = fileValue.split('.');
+                var get_ext = fileValue.split('.');
                 get_ext = get_ext.reverse();
 
                 if ($.inArray(get_ext[0].toLowerCase(), extensiones) == -1 && fileValue.length > 0)

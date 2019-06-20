@@ -10,19 +10,22 @@
 
 @if (menuActivo.MostrarMenuFlotante)
 {
-    <div class="op-menu-horizonta-fixed" data-menu-codigo="@menuActivo.Codigo" data-layout-menu2="">
+    <div class="op-menu-horizonta-fixed" 
+         data-menu-codigo="@menuActivo.Codigo" 
+         data-layout="menuContenedor"
+         data-layout-menu2="">
         @if (menuList.Any())
         {
 
             <div class="op-menu-horizontal">
                 <ul class="subnavegador"
                     data-es-suscrita="@ViewBag.EsSuscrita.ToString().ToLower()"
-                    data-es-activa="@ViewBag.EsActiva.ToString().ToLower()">
+                    data-es-activa="@ViewBag.EsActiva.ToString().ToLower()"
+                    data-activo-codigo="@menuActivo.Codigo">
 
                     @foreach (var menuhijo in menuList)
                     {
                         var claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activado" : string.Empty;
-
                         if (ViewBag.EsSuscrita)
                         {
                             claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "default-dorado activado-dorado" : "default-dorado";
@@ -78,7 +81,6 @@
                             }
                             @if (!string.IsNullOrEmpty(menuhijo.DesktopTituloMenu))
                             {
-
                                 <a href="javascript:void(0);" 
                                    class="@claseActivo" 
                                    role="menu"

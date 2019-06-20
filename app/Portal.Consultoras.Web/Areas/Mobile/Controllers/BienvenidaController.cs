@@ -1,15 +1,13 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.Models;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -18,11 +16,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
         private readonly BienvenidaProvider _bienvenidaProvider;
         protected TablaLogicaProvider _tablaLogica;
+        private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
         public BienvenidaController()
         {
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
             _tablaLogica = new TablaLogicaProvider();
             _bienvenidaProvider = new BienvenidaProvider();
+            _caminoBrillanteProvider = new CaminoBrillanteProvider();
         }
 
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
@@ -107,12 +107,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 model.CambioClave = userData.CambioClave;
 
-                if (SessionManager.GetIngresoPortalConsultoras() == null)
-                {
-                    RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
-                    SessionManager.SetIngresoPortalConsultoras(true);
-                }
-
                 model.PrimeraVezSession = 0;
                 if (SessionManager.GetPrimeraVezSessionMobile() == null)
                 {
@@ -121,20 +115,34 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 ViewBag.VerSeccion = verSeccion;
-                
+
                 model.TipoPopUpMostrar = _bienvenidaProvider.ObtenerTipoPopUpMostrar(EsDispositivoMovil());
 
                 model.TienePagoEnLinea = userData.TienePagoEnLinea;
                 model.ConsultoraNuevaBannerAppMostrar = SessionManager.GetConsultoraNuevaBannerAppMostrar();
                 model.MostrarPagoEnLinea = (userData.MontoDeuda > 0);
 
+                #region Camino Brillante
+                if (userData.CaminoBrillante)
+                {
+                    model.TieneCaminoBrillante = userData.CaminoBrillante;
+
+                    _caminoBrillanteProvider.LoadCaminoBrillante();
+                    var nivelConsultoraCaminoBrillante = _caminoBrillanteProvider.GetNivelActual();
+                    if (nivelConsultoraCaminoBrillante != null)
+                    {
+                        model.CaminoBrillanteMsg = userData.CaminoBrillanteMsg.Replace("{0}", "<b>" + nivelConsultoraCaminoBrillante.DescripcionNivel + "</b>");
+                        model.UrlLogoCaminoBrillante = nivelConsultoraCaminoBrillante.UrlImagenNivelFull;
+                    }
+                }
+                #endregion
 
                 #region Camino al Exito
 
-                var LogicaCaminoExisto = _tablaLogica.ObtenerConfiguracion(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoMobile);
+                var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, ConsTablaLogica.CaminoAlExitoMobile.TablaLogicaId);
                 if (LogicaCaminoExisto.Any())
                 {
-                    var CaminoExistoFirst = LogicaCaminoExisto.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.ActualizaEscalaDescuentoMobile) ?? new TablaLogicaDatosModel();
+                    var CaminoExistoFirst = LogicaCaminoExisto.FirstOrDefault(x => x.TablaLogicaDatosID == ConsTablaLogica.CaminoAlExitoMobile.ActualizaEscalaDescuentoMobile) ?? new TablaLogicaDatosModel();
                     bool caminiExitoActive = (CaminoExistoFirst.Valor != null) && CaminoExistoFirst.Valor.Equals("1");
                     if (caminiExitoActive)
                     {
@@ -145,7 +153,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 #endregion
-
             }
             catch (FaultException ex)
             {
@@ -224,7 +231,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private int ObtenerActivacionAppCatalogoWhastUp()
         {
             bool paisesCatalogoWhatsUp = _configuracionManagerProvider.GetConfiguracionManagerContains(Constantes.ConfiguracionManager.PaisesCatalogoWhatsUp, userData.CodigoISO);
-            
+
             return paisesCatalogoWhatsUp.ToInt();
         }
 
@@ -234,7 +241,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             nombreConsultoraFav = Util.SubStr(nombreConsultoraFav, 0, 1).ToUpper() + Util.SubStr(nombreConsultoraFav.ToLower(), 1);
             return nombreConsultoraFav;
         }
-        
+
         [HttpPost]
         public JsonResult ValidacionConsultoraDA()
         {
@@ -323,7 +330,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 var lstComunicados = _comunicadoProvider.ObtenerComunicadoPorConsultora(userData, EsDispositivoMovil());
-                lstComunicados = lstComunicados.Where(x => Constantes.Comunicado.Extraordinarios.IndexOf(x.Descripcion) == -1).ToList();
+                lstComunicados = lstComunicados.Where(x => x.TipoComunicado == Constantes.Comunicado.TipoComunicado.PopUp).ToList();
+
                 if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();
 
                 return Json(new
@@ -459,6 +467,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        
+
     }
 }

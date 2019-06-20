@@ -150,73 +150,6 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        //[HttpPost]
-        //public JsonResult InsertOfertaWebPortal(PedidoDetalleModel model)
-        //{
-        //    try
-        //    {
-        //        BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
-
-        //        entidad.PaisID = userData.PaisID;
-        //        entidad.ConsultoraID = userData.ConsultoraID;
-        //        entidad.CampaniaID = userData.CampaniaID;
-        //        entidad.TipoOfertaSisID = Constantes.ConfiguracionOferta.Flexipago;
-        //        entidad.IPUsuario = userData.IPUsuario;
-
-        //        entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
-        //        entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
-        //        entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
-
-        //        using (PedidoServiceClient sv = new PedidoServiceClient())
-        //        {
-        //            sv.InsPedidoWebDetalleOferta(entidad);
-        //        }
-
-        //        UpdPedidoWebMontosPROL();
-
-        //        BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico
-        //        {
-        //            PedidoID = entidad.PedidoID,
-        //            CampaniaID = entidad.CampaniaID,
-        //            PedidoDetalleID = entidad.PedidoDetalleID,
-        //            IndicadorIPUsuario = GetIPCliente(),
-        //            IndicadorFingerprint = "",
-        //            IndicadorToken = (SessionManager.GetTokenPedidoAutentico() != null)
-        //                ? SessionManager.GetTokenPedidoAutentico().ToString()
-        //                : ""
-        //        };
-
-        //        InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
-
-        //        return Json(new
-        //        {
-        //            success = true,
-        //            message = "Se agregó la Oferta satisfactoriamente.",
-        //            extra = ""
-        //        });
-        //    }
-        //    catch (FaultException ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = ex.Message,
-        //            extra = ""
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = ex.Message,
-        //            extra = ""
-        //        });
-        //    }
-        //}
-
         [HttpPost]
         public JsonResult UpdateOfertaWebPortal(PedidoDetalleModel model)
         {
@@ -509,7 +442,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenerImagenesByCodigoSAP(int paisID, string codigoSAP)
         {
             List<BEMatrizComercial> lst;
-            
+
             List<BEMatrizComercial> lstFinal = new List<BEMatrizComercial>();
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -633,7 +566,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 BEPager pag = Util.PaginadorGenerico(grid, lst);
                 string iso = Util.GetPaisISO(PaisID);
-                
+
                 lst.Update(x => x.ImagenProducto = ConfigCdn.GetUrlFileCdnMatriz(iso, x.ImagenProducto));
                 lst.Update(x => x.ISOPais = iso);
                 lst.Update(x => x.TipoOfertaSisID = Constantes.ConfiguracionOferta.Flexipago);
@@ -964,7 +897,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-        
+
         public JsonResult ObtenerCampaniasYConfiguracionPorPais(int PaisID)
         {
             IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);

@@ -10,6 +10,21 @@ namespace Portal.Consultoras.Common
 
         #region Propiedades
 
+        public static string RutaCDN
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["RutaCDN"] ?? string.Empty;
+            }
+        }
+
+        public static string JsonWebTokenSecret
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["JsonWebTokenSecretKey"] ?? string.Empty;
+            }
+        }
         public static string PaisesEsika
         {
             get
@@ -152,6 +167,55 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        public static string HistoriaUrlMiniatura
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HistUrlMiniatura"] ?? string.Empty;
+            }
+        }
+
+        public static string HistAnchoAltoDetalle
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HistAnchoAltoDetalle"] ?? string.Empty;
+            }
+        }
+
+        public static string HistLimitDetMensaje
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HistLimitDetMensaje"] ?? string.Empty;
+            }
+        }
+
+        public static string CodigoHist
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["CodigoHist"] ?? string.Empty;
+            }
+        }
+
+        public static string HistAnchoAlto
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["HistAnchoAlto"] ?? string.Empty;
+            }
+        }
+        #endregion
+
+        #region Flags
+        public static string SetIdentifierNumberFlag
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["SetIdentifierNumberFlag"] ?? string.Empty;
+            }
+        }
         #endregion
 
         public static string GetByTagName(string tagName)
@@ -159,6 +223,20 @@ namespace Portal.Consultoras.Common
             return ConfigurationManager.AppSettings[tagName] ?? string.Empty;
         }
 
-    
+        public static string ServicioDireccionEntregaSicc
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["ServicioDireccionEntregaSicc"] ?? string.Empty;
+            }
+        }
+
+        public static string ServicioActualizarBoletaImp
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["ServicioActualizarBoletaImp"] ?? string.Empty;
+            }
+        }
     }
 }

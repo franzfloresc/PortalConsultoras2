@@ -6,6 +6,9 @@
 @section styles{
 
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mixto/CssBienvenida")
+    @*INI HD-3908*@
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Ficha")
+    @*FIN HD-3908*@
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/Site-AsesoraOnline")
 
     <style type="text/css">
@@ -21,6 +24,7 @@
     var nombreConsultoraSin = Util.SubStrCortarNombre(Model.NombreConsultora, 10, "");
     var nroCampania = Util.SubStr(Model.CampaniaActual.ToString(), 4, 2);
     var revistaDigital = Model.PartialSectionBpt.RevistaDigital ?? new RevistaDigitalModel();
+    var claseCajaProductoLiquidacion = "";
 }
 
 <input type="hidden" id="hdTipoEstrategiaID" value="0" />
@@ -56,14 +60,7 @@
                     </div>
                 </div>
                 <div class="foto_perfil_home">
-                    @if (ViewBag.FotoPerfilAncha)
-                    {
-                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width: auto; height: 100%;" />
-                    }
-                    else
-                    {
-                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width: 100%; height: auto;" />
-                    }
+                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" onload="onLoadPhotoUser(this)" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" alt="" />
                 </div>
             }
             <div class="clear"></div>
@@ -79,7 +76,7 @@
             else if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
             {
                 <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                    ¡Feliz Cumpleaños @nombreConsultora 
+                    ¡Feliz Cumpleaños @nombreConsultora
                 </div>
             }
             else if (!string.IsNullOrEmpty(ViewBag.SaludoFestivo))
@@ -92,9 +89,10 @@
             else if (revistaDigital.TieneRDC && revistaDigital.EsSuscrita && !revistaDigital.EsActiva)
             {
                 <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                    ¡Bienvenida a 
-                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
-                     Gana+</a>
+                    ¡Bienvenida a
+                    <a href="javascript:RedireccionarContenedorComprar('@CodigoUbigeoPortal.DesktopRevistaDigitalResumenBelcorp', '@Constantes.ConfiguracionPais.RevistaDigital')">
+                        Gana+
+                    </a>
                     <br />@nombreConsultora
                 </div>
             }
@@ -105,24 +103,25 @@
 
                 if (CampaniaEfectiva.Equals(CampaniaActual))
                 {
-                    <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                        ¡Bienvenida a 
-                        <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')"> 
-                        Gana+</a>
-                        <br />@nombreConsultora
-                    </div>
+                <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
+                    ¡Bienvenida a
+                    <a href="javascript:RedireccionarContenedorComprar('@CodigoUbigeoPortal.DesktopRevistaDigitalResumenBelcorp', '@Constantes.ConfiguracionPais.RevistaDigital')">
+                        Gana+
+                    </a>
+                    <br />@nombreConsultora
+                </div>
                 }
                 else
                 {
                     <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                        ¡Hola @nombreConsultora 
+                        ¡Hola @nombreConsultora
                     </div>
                 }
             }
             else
             {
                 <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                    ¡Hola @nombreConsultora 
+                    ¡Hola @nombreConsultora
                 </div>
             }
             <hr class="clear" />
@@ -136,7 +135,7 @@
             </div>
         </div>
         <div class="pedido_resumen_home">
-            <a role="link" region="Cuerpo" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" class="boton_home_guardar boton_ingresa_tu_pedido_navidenio" href="@Url.Action("Index", "Pedido")">INGRESA TU PEDIDO</a>
+            <a role="link" region="Cuerpo" parent="Ingresa tu Pedido" title="Ingresa tu Pedido" class="boton_home_guardar boton_home_guardar--nuevoLookAndFeelEsika" href="@Url.Action("Index", "Pedido")">INGRESA TU PEDIDO</a>
         </div>
         <div class="socia_negocio_home">
             <div class="notificaciones_resumen">
@@ -145,8 +144,7 @@
                     <p class="notificaciones notificaciones_existentes js-notificaciones" onclick="Notificaciones();">0</p>
                 </a>
             </div>
-            <div class="mensajes_home"><span id="mensajeNotificaciones">Tienes <span class="js-cantidad_notificaciones">-</span> notificaciones sin leer. </span><a role="link" region="Cuerpo" parent="Ver Notificaciones" title="Abrir" onclick="Notificaciones();">ABRIR</a></div>
-
+            <div class="mensajes_home"><span id="mensajeSinNotificaciones">No tienes notificaciones.</span> <span id="mensajeNotificaciones" style="display:none">Tienes <span class="js-cantidad_notificaciones">-</span> notificación(es) nueva(s). </span><a role="link" region="Cuerpo" parent="Ver Notificaciones" title="Abrir" onclick="Notificaciones();">ABRIR</a></div>
             <hr class="clear" />
             @if (Model.TieneCaminoExito)
             {
@@ -169,6 +167,18 @@
         <div class="clear"></div>
     </div>
     <hr class="clear" />
+    @if (Model.TieneCaminoBrillante && !string.IsNullOrEmpty(Model.UrlLogoCaminoBrillante))
+    {
+        <link href="~/Content/CaminoBrillante/Content.css" rel="stylesheet" />
+        <div class="items_belcorp cam-exito">
+            <img src="@Model.UrlLogoCaminoBrillante" /> 
+            <p class="toptext">Camino Brillante</p>
+            <p id="TextoCaminoBrillante">
+                @Html.Raw(Model.CaminoBrillanteMsg)
+            </p>
+            <a href="@Url.Action("Index", "CaminoBrillante", new { area = "" })">Ver Beneficios</a>
+        </div>
+    }
     <div class="items_belcorp">
         @{
             string verUltmPagos = Model.PaisID == Constantes.PaisID.Chile ||
@@ -200,22 +210,15 @@
         </div>
 
         <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Ver mis Últimos Pagos" class="boton_ultimos_movimientos" style="@(ultPg)" href="@Url.Action("Index", "MisPagos")"> VER MIS ÚLTIMOS MOVIMIENTOS</a>
-        @{  
+        @{
             var marginTopFacturaE = "";
             marginTopFacturaE = verUltmPagos == "1" ? "margin-top: 0px" : marginTopFacturaE;
-            var marginTopPagoLinea = Model.TieneFacturacionElectronica == true ? "margin-top: 10px;" : "";
-            if (Model.TienePagoEnLinea && Model.MostrarPagoEnLinea)
-            {
-                <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea"
-                    href="@Url.Action("MetodoPago","PagoEnLinea")" class="btn_paga_online btn_100_paga"
-                    style="margin-top: 12px;">PAGA EN L&Iacute;NEA</a><!-- AGREGAR LA CLASES="btn_100_paga"-->
-                marginTopFacturaE = "margin-top: 10px";
-            }
-            else
+            var marginTopPagoLinea = Model.TieneFacturacionElectronica ? "margin-top: 10px;" : "";
+            if (Model.MostrarPagoEnLinea)
             {
                 if (Model.PaisID == Constantes.PaisID.Chile)
                 {
-                    <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="javascript:;"  style="@marginTopPagoLinea" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a>
+                    <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="javascript:;" style="@marginTopPagoLinea" onclick="RedirectPagaEnLineaAnalytics();"> PAGA EN L&Iacute;NEA</a>
                     marginTopFacturaE = "margin-top: 10px";
                 }
                 else if (Model.PaisID == Constantes.PaisID.Colombia)
@@ -226,6 +229,13 @@
                 else if (Model.PaisID == Constantes.PaisID.PuertoRico)
                 {
                     <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea" class="btn_paga_online btn_100_paga" href="@Url.Action("Index", "Paypal")" style="@marginTopPagoLinea"> PAGA EN L&Iacute;NEA</a>
+                    marginTopFacturaE = "margin-top: 10px";
+                }
+                else if (Model.TienePagoEnLinea)
+                {
+                    <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Paga en línea"
+                       href="@Url.Action("MetodoPago","PagoEnLinea")" class="btn_paga_online btn_100_paga"
+                       style="margin-top: 12px;">PAGA EN L&Iacute;NEA</a>
                     marginTopFacturaE = "margin-top: 10px";
                 }
             }
@@ -406,7 +416,7 @@
         <div class="titulo_carrusel_liquidacion">
             @ViewBag.TituloLiqWeb.ToUpper()
         </div>
-        <a role="link" region="Cuerpo" parent="Liquidaciones web" title="Ver más" class="ver_mas_liquidaciones" 
+        <a role="link" region="Cuerpo" parent="Liquidaciones web" title="Ver más" class="ver_mas_liquidaciones"
            onclick="javascript: menuModule.sectionClick('/OfertaLiquidacion/OfertasLiquidacion', 'BotonVerMasLiquidacion', this);">VER M&Aacute;S +</a>
 
         <hr class="clear" />
@@ -725,7 +735,7 @@
                 <div class="grupo_input_actualizarMisDatos">
                     <div>
                         <label>Celular</label>
-                        <input type="text" name="celular"  value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelular')" />
+                        <input type="text" name="celular" value="@Model.Celular" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelular')" />
                     </div>
                     <div>
                         <label>Otro teléfono</label>
@@ -817,7 +827,7 @@
     </div>
     <!-- FIN POPUP ACEPTACIÓN DE CONTRATO -->
     <!-- POPUP ACEPTACIÓN DE CONTRATO (COLOMBIA) -->
-    <div id="popupAceptacionContrato"  class="popup_aceptacionTerminosYCondicionesContrato" style="display:none;">
+    <div id="popupAceptacionContrato" class="popup_aceptacionTerminosYCondicionesContrato" style="display:none;">
         <div class="contenido_popUp">
             <div class="icono_contrato"></div>
             <h1 class="titulo_aceptacionTerminosYCondicionesContrato">
@@ -1259,7 +1269,15 @@
 <script id="liquidacion-template" type="text/x-handlebars-template">
     {{#each this}}
     <div>
-        <div class="content_item_carrusel caja-borde">
+        @if (@ViewBag.CodigoISODL == Constantes.CodigosISOPais.Colombia)
+        {
+            claseCajaProductoLiquidacion = "content_item_carrusel--liquidacion";
+        }
+        else
+        {
+            claseCajaProductoLiquidacion = "";
+        }
+        <div class="content_item_carrusel caja-borde @claseCajaProductoLiquidacion">
             <input type="hidden" id="MarcaID" value="{{MarcaID}}" />
             <input type="hidden" id="PrecioOferta" value="{{PrecioOferta}}" />
             <input type="hidden" id="CUV" value="{{CUV}}" />
@@ -1278,6 +1296,12 @@
                 <p class="nombre_producto">
                     <b>{{Descripcion}}</b>
                 </p>
+                @*INI HD-4009*@
+                @if (@ViewBag.CodigoISODL == Constantes.CodigosISOPais.Colombia)
+                {
+                <div class="text-center {{#if ValPUM}}producto_pum{{else}}producto_pum_hidden{{/if}}"><span>{{UnidadMedida}} a </span>{{SimboloMoneda}}{{PUM}}</div>
+                }
+                @*FIN HD-4009*@
                 <div class="producto_precio">
                     <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioString}}</b></span>
                 </div>
@@ -1287,10 +1311,10 @@
                 </a>
                 {{else}}
                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">
-                    <input type="text" value="1" size="2" maxlength="2"  data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" />
+                    <input type="text" value="1" size="2" maxlength="2" data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" />
                     <div class="liquidacion_rango_right_pedido">
                         <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-                        <a class="menos"  onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+                        <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
                     </div>
                 </div>
                 <a class="boton_Agregalo_home js-agregar-liquidacion">
@@ -1491,7 +1515,7 @@
                 <div class="liquidacion_rango_home" data-cantidad-contenedor="">
                     <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral" data-cantidad-input="revista">
                     <div class="liquidacion_rango_right_pedido">
-                        <a class="mas"  onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
                         <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
@@ -1811,17 +1835,17 @@
             </a>
         </div>
         <div class="franja_noVolverMostrar">
-            <form>
+            <a href="#" id="chkMostrarComunicado_{{idComunicado}}" class="enlace_no_volver_a_mostrar_comunicado">No volver a mostrar este anuncio</a>
+            <form style="display:none;">
                 <div class="checkbox_condiciones">
                     <input type="checkbox" name="condiciones" id="chkMostrarComunicado_{{idComunicado}}" />
                     <label for="chkMostrarComunicado_{{idComunicado}}" class="texto_terminosCondiciones">
-                        <span style="display:inline-block; margin-top:1px;">No volver a mostrar</span>
+                        <span style="display:inline-block; margin-top:1px;">No volver a mostrar este anuncio</span>
                     </label>
                 </div>
             </form>
         </div>
     </div>
-
 </script>
 
 <script id="template-fichaproductofav" type="text/x-handlebars-template">
@@ -1924,19 +1948,21 @@
             <img src="/Content/Images/cerrar_04_blanco.png" alt="">
         </a>
         <div class="saludo_consultora_showroom">Valeria YA COMENZÓ LA</div>
-
-        <div class="check_01">
+        <img class="imagen_dias_intriga" src="" onclick="VerShowRoomVenta()" style="cursor: pointer;" />
+        <div class="check_01 enlace__noVolverAVerAnuncio">
             <label class="checkpop2">
                 <a id="cbNoMostrarPopupShowRoomVenta" onclick="NoMostrarPopupShowRoomIntrigaVenta('V')">NO VOLVER A VER ESTE ANUNCIO</a>
             </label>
         </div>
-        <img class="imagen_dias_intriga" src="@Url.Content("~/Content/Images/showroom/POPUP_COMPRAR.png")" onclick="VerShowRoomVenta()" style="cursor: pointer;" />
     </div>
 
 </div>
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaste.cshtml")
+<!-- POPUP ACTUALIZACIÓN DE CORREO ECUADOR -->
+@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupActualizacionCorreo.cshtml")
+<!-- FIN - POPUP ACTUALIZACIÓN DE CORREO ECUADOR -->
 
 @if (revistaDigital.TieneRDS == true)
 {
@@ -1953,6 +1979,8 @@
 </script>
 
 @System.Web.Optimization.Scripts.Render("~/Scripts/PortalConsultoras/Bienvenida/AsesoraOnline.js")
+
+
 
 @section scripts{
     <script type="text/javascript">
@@ -2028,6 +2056,8 @@
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "" })';
         var tipoOrigenEstrategia = 1;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiCarrusel';
+        var origenPedidoWebDuoPerfecto = @Constantes.OrigenPedidoWeb.DesktopHomeDuoPerfectoCarrusel;
+        var origenPedidoWebPackNuevas = @Constantes.OrigenPedidoWeb.DesktopHomePackNuevasCarrusel;
 
         var urlOfertasIndex = '@Url.Action("Index", "ShowRoom")';
         var urlShowRoomIntriga = '@Url.Action("Intriga", "ShowRoom")';
@@ -2058,6 +2088,7 @@
         var showPopupMisDatos = '@(Model.ShowPopupMisDatos ? 1 : 0)';
         var popupInicialCerrado = '@(Model.PopupInicialCerrado ? 1 : 0)';
         var popupCambioClave = '@Model.OpcionCambiaClave';
+        var caminoBrillante = '@Model.TieneCaminoBrillante';
 
         var asesoraOnlineObj = AsesoraOnline({
             asesoraOnlineUrl: '@Url.Action("Index", "AsesoraOnline")',
@@ -2077,9 +2108,5 @@
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Bienvenida")
 
-<script src="~/Scripts/PortalConsultoras/Bienvenida/PopusJS.js?v=4.2"></script> 
-<script>
-        MostrarPopusEnOrden('@Model.TipoPopUpMostrar', '@Model.VioVideoBienvenidaModel', '@Model.VioTutorialDesktop','@Model.CambioClave');
-</script>
-
+    <script src="~/Scripts/PortalConsultoras/Bienvenida/PopusJS.js?v=4.2"></script>
 }

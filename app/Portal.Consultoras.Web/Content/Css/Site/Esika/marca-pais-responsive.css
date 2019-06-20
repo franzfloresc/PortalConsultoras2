@@ -2,10 +2,14 @@
 
 /* HEADER */
 
-.header__marca__pais img{
-    width:auto;
-    height:100%;
-    margin-top:-1px;
+.header__marca__pais{
+    width:90px;
+}
+
+.header__marca__pais img {
+    width: 100%;
+    height: auto;
+    margin-top: -7px;
 }
 
 .icono__actualizarDatos,
@@ -16,8 +20,8 @@
     background-color:#e81c36;
 }
 
-.menu__link--pedido{
-    background-image:url(../../../images/esika/vineta_indicador.png);
+.menu__link--pedido {
+    background-image: url(/Content/images/esika/vineta_indicador.png);
 }
 
 .menu__item--campaniaActual{
@@ -33,11 +37,15 @@
     background-size: 20px;
     background-position: center 1px;
     top:-17px;
-    left:16.2%;
+    left:137px;
 }
 
 .submenu__lista--miNegocio{
     top:54px;
+}
+
+.submenu__lista--miNegocioConEnlaceMisEventos{
+    width:1080px;
 }
 
 .submenu__lista--miAsesorBelleza{
@@ -130,10 +138,15 @@
         /*background-position:59% center;*/
     }
 
-    .header__marca__pais picture {
-        margin-top: 3px;
-        height:27px;
-    }
+        .header__marca__pais picture {
+            margin-top: 9px;
+            height: 31px;
+        }
+
+        .header__marca__pais img{
+            width:auto;
+            height:100%;
+        }
 
 }
 
@@ -219,9 +232,9 @@
 
 /* MIS CATÁLOGOS Y REVISTAS (DESKTOP) */
 
-.layout__content{
+/*.layout__content{
     margin-top:28px;
-}
+}*/
 
 .catalogos__campania--actual .catalogos__por__campania__item__imagen--esika{
     min-height:346px;
@@ -248,10 +261,6 @@
 /* MIS CATÁLOGOS Y REVISTAS (MOBILE) */
 
 @media screen and (max-width:991px){
-
-    .indicador__catalogos__revistas.indicador__catalogos__revistas--activo{
-        background-color:#e81c36;
-    }
 
     .tabs__catalogos__revistas{
         background-color:#f2f2f2;

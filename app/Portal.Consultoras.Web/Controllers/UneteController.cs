@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.GestionPasos;
 using Portal.Consultoras.Web.HojaInscripcionBelcorpPais;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceUnete;
+using Portal.Consultoras.Web.ValidacionesUnete;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -23,6 +24,10 @@ using System.Web;
 using System.Web.Mvc;
 using ConsultoraBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE;
 using Pais = Portal.Consultoras.Common.Constantes.CodigosISOPais;
+using Portal.Consultoras.Web.Providers;
+using System.Threading.Tasks;
+using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Web.ServiceZonificacion;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1406,6 +1411,77 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.HTMLSACUnete = getHTMLSACUnete("GestionParametros", null);
             return View("GestionParametros");
         }
+        public ActionResult ConfiguracionValidacionZona()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ConfiguracionValidacionZona", null);
+            return View("ConfiguracionValidacionZona");
+        }
+
+        [HttpPost]
+        public JsonResult ActualizarEstadoZona(ConfiguracionZonaModel model)
+        {
+            try
+            {
+                HojaInscripcionBelcorpPais.ParametroUneteBE parametroUnete = new HojaInscripcionBelcorpPais.ParametroUneteBE();
+                using (BelcorpPaisServiceClient sv = new BelcorpPaisServiceClient())
+                {
+                    if (model.ListaZonasValidacionActivas != null)
+                    {
+                        foreach (var item in model.ListaZonasValidacionActivas)
+                        {
+                                parametroUnete.IdParametroUnete = item.IdParametroUnete;
+                                parametroUnete.Estado = 1;
+                                sv.ActualizarEstadoParametroUnete(CodigoISO, parametroUnete);
+                            
+                        }
+                    }
+
+                    if (model.ListaZonasValidacionInactivas != null)
+                    {
+                        foreach (var item in model.ListaZonasValidacionInactivas)
+                        {
+                            parametroUnete.IdParametroUnete = item.IdParametroUnete;
+                            parametroUnete.Estado = 0;
+                            sv.ActualizarEstadoParametroUnete(CodigoISO, parametroUnete);
+
+                        }
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "La configuración de zonas fue realizada de manera satisfactoria.",
+                    extra = ""
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
+
+        public JsonResult GetConfiguracionValidacionZona(string filtroZonaId)
+        {
+            var response = getHTMLSACUnete("GetConfiguracionValidacionZona", "&filtroZonaId="+ filtroZonaId + "&codigoISO=" + CodigoISO);
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult DevolverSolicitud(int id)
         {
@@ -1581,6 +1657,30 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_ConsultarEstadoCrediticia");
         }
 
+        public ActionResult ConsultarEstadoTelefonico(int id)
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ConsultarEstadoTelefonico", "&id=" + id);
+            return PartialView("_ConsultarEstadoTelefonico");
+        }
+         
+        [HttpPost]
+        public JsonResult ConsultarEstadoTelefonico(int id, int idEstado)
+        {
+            bool actualizado;
+            using (var sv = new PortalServiceClient())
+            {
+                actualizado = sv.ActualizarEstado(CodigoISO, id, EnumsTipoParametro.EstadoTelefonico, idEstado);
+            }
+            RegistrarLogGestionSacUnete(id.ToString(), "CONSULTA TELEFONICA", "ASIGNAR");
+            return Json(actualizado, JsonRequestBehavior.AllowGet);
+        }
+
+public ActionResult MostrarMensajeBuro(string respuestaBuro)
+		{
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("MensajeRespuestaBuro", "&respuestaBuro=" + respuestaBuro);
+            return PartialView("~/Views/Unete/_MensajeRespuestaBuro.cshtml");
+        }
+
         [HttpPost]
         public JsonResult ConsultarEstadoCrediticia(int id, int idEstado)
         {
@@ -1608,60 +1708,76 @@ namespace Portal.Consultoras.Web.Controllers
             using (var sv = new PortalServiceClient())
             {
                 var solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
-
                 switch (solicitudPostulante.PaisID)
                 {
-                    //Mexico
-                    case 9:
-                        fechaFormato = solicitudPostulante.FechaNacimiento.Value.ToString("yyyy-MM-dd");
-                        var lugaresNivel1 = sv.ObtenerParametrosUnete(Constantes.CodigosISOPais.Mexico, EnumsTipoParametro.LugarNivel1, 0);
-                        if (solicitudPostulante.Direccion.Contains("|"))
+                    case Constantes.PaisID.Mexico:
+                        if (solicitudPostulante.ReferenciaEntrega != null)
                         {
-
-                            tercieriaDireccion = solicitudPostulante.Direccion.Split('|');
-                            ciudad = tercieriaDireccion[0];
-                            calleNumero = tercieriaDireccion[2];
-                        }
-                        foreach (var item in lugaresNivel1)
-                        {
-                            if (item.Nombre.Equals(solicitudPostulante.LugarPadre))
+                            fechaFormato = solicitudPostulante.FechaNacimiento.Value.ToString("yyyy-MM-dd");
+                            var lugaresNivel1 = sv.ObtenerParametrosUnete(Constantes.CodigosISOPais.Mexico, EnumsTipoParametro.LugarNivel1, 0);
+                            if (solicitudPostulante.Direccion.Contains("|"))
                             {
-                                abreviationZona = item.Descripcion;
+
+                                tercieriaDireccion = solicitudPostulante.Direccion.Split('|');
+                                ciudad = tercieriaDireccion[0];
+                                calleNumero = tercieriaDireccion[2];
+                            }
+                            foreach (var item in lugaresNivel1)
+                            {
+                                if (item.Nombre.Equals(solicitudPostulante.LugarPadre))
+                                {
+                                    abreviationZona = item.Descripcion;
+                                }
+                            }
+
+                            if (!string.IsNullOrEmpty(solicitudPostulante.CodigoZona))
+                            {
+                                codigoZona = solicitudPostulante.CodigoZona;
+                            }
+                            else
+                            {
+                                codigoZona = "9999";
+                            }
+
+                            urlClient = string.Format("/api/ValidacionCrediticiaExterna/Get?codigoISO={0}&numeroDocumento={1}&apellido={2}&codZona={3}&apellidoMaterno={4}&nombres={5}&fechaNacimiento={6}&direccion={7}&delegacionMunicipio={8}&ciudad={9}&estado={10}&cp={11}&tarjetaDeCredito={12}&creditoHipotecario={13}&creditoAutomotriz={14}&tipoIdentificacion={15}",
+                                             Constantes.CodigosISOPais.Mexico, solicitudPostulante.NumeroDocumento, solicitudPostulante.ApellidoPaterno, codigoZona, solicitudPostulante.ApellidoMaterno, solicitudPostulante.PrimerNombre + ' ' + solicitudPostulante.SegundoNombre, fechaFormato, calleNumero, solicitudPostulante.LugarHijo, ciudad, abreviationZona, Convert.ToInt32(solicitudPostulante.CodigoPostal).ToString("D5"), String.Empty, String.Empty, String.Empty, solicitudPostulante.TipoDocumento);
+                            ConsultaCrediticiaExternaMX respuesta = (new Common.Rest()).GetAsync<ConsultaCrediticiaExternaMX>(urlClient);
+                            respuestaBuro = string.IsNullOrWhiteSpace(respuesta.Resultado) ? String.Empty : respuesta.Resultado;
+
+
+                            switch (respuestaBuro)
+                            {
+                                case "R01":
+
+                                    string[] arrayReferenciaEntrega;
+                                    if (solicitudPostulante.ReferenciaEntrega != null)
+                                    {
+                                        arrayReferenciaEntrega = solicitudPostulante.ReferenciaEntrega.Split('|');
+                                        solicitudPostulante.ReferenciaEntrega = arrayReferenciaEntrega[0] + "|" + arrayReferenciaEntrega[1] + "|" + arrayReferenciaEntrega[2] + "|" + "R01";
+
+                                    }
+                                    sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
+
+                                    break;
+                                case "R03":
+                                    solicitudPostulante.EstadoBurocrediticio = 3;
+                                    solicitudPostulante.SubEstadoPostulante = 11;
+                                    solicitudPostulante.TipoRechazo = "9";
+                                    solicitudPostulante.EstadoPostulante = 4;
+                                    solicitudPostulante.Direccion = null;
+                                    solicitudPostulante.ReferenciaEntrega = null;
+                                    sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
+                                    EnviarCorreoRechazoBuro(solicitudPostulante);
+                                    break;
                             }
                         }
-
-                        if (!string.IsNullOrEmpty(solicitudPostulante.CodigoZona)) { codigoZona = solicitudPostulante.CodigoZona; } else { codigoZona = "9999"; };
-                        
-                        urlClient = string.Format("/api/ValidacionCrediticiaExterna/Get?codigoISO={0}&numeroDocumento={1}&apellido={2}&codZona={3}&apellidoMaterno={4}&nombres={5}&fechaNacimiento={6}&direccion={7}&delegacionMunicipio={8}&ciudad={9}&estado={10}&cp={11}&tarjetaDeCredito={12}&creditoHipotecario={13}&creditoAutomotriz={14}&tipoIdentificacion={15}",
-                                         Constantes.CodigosISOPais.Mexico, solicitudPostulante.NumeroDocumento, solicitudPostulante.ApellidoPaterno, codigoZona, solicitudPostulante.ApellidoMaterno, solicitudPostulante.PrimerNombre + ' ' + solicitudPostulante.SegundoNombre, fechaFormato, calleNumero, solicitudPostulante.LugarHijo, ciudad, abreviationZona, Convert.ToInt32(solicitudPostulante.CodigoPostal).ToString("D5"), String.Empty, String.Empty, String.Empty, solicitudPostulante.TipoDocumento);
-
-
-                        ConsultaCrediticiaExternaMX respuesta = (new Common.Rest()).GetAsync<ConsultaCrediticiaExternaMX>(urlClient);
-
-
-                        respuestaBuro = string.IsNullOrWhiteSpace(respuesta.Resultado) ? String.Empty : respuesta.Resultado;
-                        switch (respuestaBuro)
+                        else
                         {
-                            case "R01":
-
-                                string[] arrayReferenciaEntrega;
-
-                                arrayReferenciaEntrega = solicitudPostulante.ReferenciaEntrega.Split('|');
-                                solicitudPostulante.ReferenciaEntrega = arrayReferenciaEntrega[0] + "|" + arrayReferenciaEntrega[1] + "|" + arrayReferenciaEntrega[2] + "|" + "R01";
-                                sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
-
-                                break;
-                            case "R03":
-                                solicitudPostulante.EstadoBurocrediticio = 3;
-                                solicitudPostulante.SubEstadoPostulante = 11;
-                                solicitudPostulante.TipoRechazo = "9";
-                                solicitudPostulante.EstadoPostulante = 4;
-                                solicitudPostulante.Direccion = null;
-                                solicitudPostulante.ReferenciaEntrega = null;
-                                sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
-
-                                break;
+                            respuestaBuro = "R01";
+                            solicitudPostulante.ReferenciaEntrega = "R01";
+                            sv.ActualizarReferenciaEntregaSAC(solicitudPostulante);
                         }
+
                         break;
 
                     default:
@@ -1672,6 +1788,25 @@ namespace Portal.Consultoras.Web.Controllers
             RegistrarLogGestionSacUnete(id.ToString(), "CONSULTA BURO EXTERNO", "ASIGNAR");
             return Json(respuestaBuro, JsonRequestBehavior.AllowGet);
         }
+
+        public void EnviarCorreoRechazoBuro(SolicitudPostulante solicitante)
+        {
+            using (var sv = new ValidacionesUneteClient())
+            {
+                var parametro = new EmailParameter
+                {
+                    TipoEmail = EnumsTipoEmail.RechazoBuro,
+                    Marca = EnumsMarca.Lbel,
+                    Nombre = solicitante.PrimerNombre,
+                    CorreoElectronico = solicitante.CorreoElectronico
+                };
+
+                sv.EnviarEmail(parametro);
+            }
+
+        }
+
+
 
         [HttpPost]
         public ActionResult GrabarDatosDireccion(EditarDireccionModel model)
@@ -1771,7 +1906,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var sv = new PortalServiceClient())
             {
-               List<SolicitudPostulanteBE> lst = sv.ConsultarTipoPostulante(codigoIso, fechaInicioSolicitud.ToString("yyyy/MM/dd"), fechaFinSolicitud.ToString("yyyy/MM/dd")).ToList();
+                List<SolicitudPostulanteBE> lst = sv.ConsultarTipoPostulante(codigoIso, fechaInicioSolicitud.ToString("yyyy/MM/dd"), fechaFinSolicitud.ToString("yyyy/MM/dd")).ToList();
 
                 BEGrid grid = new BEGrid
                 {
@@ -1826,7 +1961,7 @@ namespace Portal.Consultoras.Web.Controllers
             using (var sv = new PortalServiceClient())
             {
                 List<SolicitudPostulanteBE> lst = sv.ConsultarTipoPostulante(codigoIso, fechaInicioSolicitud.ToString("yyyy/MM/dd"), fechaFinSolicitud.ToString("yyyy/MM/dd")).ToList();
-               
+
                 Dictionary<string, string> dic = new Dictionary<string, string>
                 {
                     {"Id Postulante", "SolicitudPostulanteID"},
@@ -1854,6 +1989,233 @@ namespace Portal.Consultoras.Web.Controllers
             var nombreRol = userData.RolDescripcion;
             ViewBag.HTMLSACUnete = getHTMLSACUnete("GestionaPostulante", "&rol=" + nombreRol);
             return View();
+        }
+
+        public ActionResult ReportePagoKit()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ReportePagoKit", "&rol=" + userData.RolDescripcion);
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CargaInicialPagoKit()
+        {
+            ZonificacionProvider _zonificacionProvider = new ZonificacionProvider();
+
+            List<object> ListaController = new List<object>();
+
+            try
+            {
+                int paisId = userData.PaisID;
+
+                ListaController.Add(_zonificacionProvider.GetCampanias(paisId));
+
+                ListaController.Add(_zonificacionProvider.GetRegiones(paisId));
+
+                var ListaEstado = await ParametroUnete(EnumsTipoParametro.Pagokit);
+
+                ListaController.Add(ListaEstado);
+
+                ListaController.Add(await getCampañaActual(paisId));
+
+                return Json(new
+                {
+                    success = true,
+                    data = ListaController
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> getCargarZonas(int idRegion)
+        {
+            try
+            {
+                int paisId = userData.PaisID;
+
+                using (var srv = new ZonificacionServiceClient())
+                {
+                    var lista = await srv.SelectAllZonasAsync(paisId);
+
+                    List<BEZona> zonas = lista.Where(x => x.RegionID == idRegion).ToList();
+
+                    return Json(new
+                    {
+                        success = true,
+                        data = zonas
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                });
+            }
+        }
+
+        private async Task<int> getCampañaActual(int paisId)
+        {
+            using (SACServiceClient sv = new SACServiceClient())
+            {
+                int campaniaIdActual = await sv.GetCampaniaFacturacionPaisAsync(paisId);
+
+                return campaniaIdActual;
+            }
+        }
+
+        private async Task<ServiceUnete.ParametroUneteCollection> ParametroUnete(EnumsTipoParametro enumsTipoParametro)
+        {
+            using (var sv = new PortalServiceClient())
+            {
+                ServiceUnete.ParametroUneteCollection parametroUneteBEs = await sv.ObtenerParametrosUneteAsync(userData.CodigoISO, enumsTipoParametro, 0);
+                return parametroUneteBEs;
+            }
+        }
+
+        public async Task<ActionResult> ListarPagodeKit(string sidx, string sord, int page, int rows,
+                string codigoiso,
+                int idcampaña,
+                string documentoidentidad,
+                int idestado,
+                string fpagoinicio,
+                string fpagofin,
+                string fprocesoinicio,
+                string fprocesofin)
+        {
+            string[] parameter = new string[9];
+
+            parameter[0] = Convert.ToString(idcampaña);
+            parameter[1] = string.Empty;
+            parameter[2] = string.Empty;
+            parameter[3] = documentoidentidad;
+            parameter[4] = Convert.ToString(idestado);
+            parameter[5] = string.IsNullOrEmpty(fpagoinicio) ? null : Convert.ToDateTime(fpagoinicio).ToString("yyyy/MM/dd");
+            parameter[6] = string.IsNullOrEmpty(fpagofin) ? null : Convert.ToDateTime(fpagofin).ToString("yyyy/MM/dd");
+            parameter[7] = string.IsNullOrEmpty(fprocesoinicio) ? null : Convert.ToDateTime(fprocesoinicio).ToString("yyyy/MM/dd");
+            parameter[8] = string.IsNullOrEmpty(fprocesofin) ? null : Convert.ToDateTime(fprocesofin).ToString("yyyy/MM/dd");
+
+            using (var sv = new PortalServiceClient())
+            {
+                var lst = await sv.ConsultarPagodeKitLogAsync(codigoiso, parameter);
+
+                BEGrid grid = new BEGrid
+                {
+                    PageSize = rows,
+                    CurrentPage = page,
+                    SortColumn = sidx,
+                    SortOrder = sord
+                };
+
+                IEnumerable<ReportePagoDeKitLog> items = lst.ToList<ReportePagoDeKitLog>();
+
+                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+
+                BEPager pag = Util.PaginadorGenerico(grid, lst.ToList<ReportePagoDeKitLog>());
+
+                var data = new
+                {
+                    total = pag.PageCount,
+                    page = pag.CurrentPage,
+                    records = pag.RecordCount,
+                    rows = from a in items
+                           select new
+                           {
+                               id = a.PagoDeKitLogId,
+                               cell = new string[]
+                               {
+                                   a.CampaniaId.ToString(),
+                                   a.MetodoPagoId,
+                                   a.PagoId.ToString(),
+                                   a.NombresCompletos,
+                                   a.CodigoConsultora ?? "",
+                                   a.NumeroDocumento ?? "",
+                                   a.FechaPago ==  null  ? "" : a.FechaPago.Value.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
+                                   a.HoraPago,
+                                   a.FleteMonto.ToString(),
+                                   a.TransaccionMontoPagadoTotal.ToString(),
+                                   a.TransaccionMontoRecibido.ToString(),
+                                   a.TipoTarjeta ?? "",
+                                   a.TarjetaNumero ?? "" ,
+                                   a.PagoDeKitLogId.ToString(),
+                                   a.CodigoCIP ?? "",
+                                   a.EstatusDetalle?? ""  ,
+                                   a.Estatus ?? "",
+                                   a.FechaProceso ==  null  ? "" : a.FechaProceso.Value.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
+                                   a.HoraProceso ?? "",
+                                   a.Origen
+                                }
+                           }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult ExportarPagokitLog(
+            string codigo,
+            int Campaña,
+            int Estado,
+            string CodigoConsutlora,
+            string FechaInicioPago,
+            string FechaFinPago,
+            string FechaInicioProceso,
+            string FechaFinProceso)
+        {
+
+            using (var sv = new PortalServiceClient())
+            {
+
+                string[] parameter = new string[9];
+
+                parameter[0] = Convert.ToString(Campaña);
+                parameter[1] = string.Empty;
+                parameter[2] = string.Empty;
+                parameter[3] = CodigoConsutlora;
+                parameter[4] = Convert.ToString(Estado);
+                parameter[5] = Convert.ToDateTime(FechaInicioPago).ToString("yyyy/MM/dd");
+                parameter[6] = Convert.ToDateTime(FechaFinPago).ToString("yyyy/MM/dd");
+                parameter[7] = string.IsNullOrEmpty(FechaInicioProceso) ? null : Convert.ToDateTime(FechaInicioProceso).ToString("yyyy/MM/dd");
+                parameter[8] = string.IsNullOrEmpty(FechaFinProceso) ? null : Convert.ToDateTime(FechaFinProceso).ToString("yyyy/MM/dd");
+
+                List<ReportePagoDeKitLog> lst = sv.ConsultarPagodeKitLog(codigo, parameter).ToList();
+                Dictionary<string, string> dic = new Dictionary<string, string>
+                {
+                    {"Campaña", "CampaniaId"},
+                    {"Metodo Pago", "MetodoPagoId"},
+                    {"Pago", "PagoId"},
+                    {"Nombre Consultora", "NombresCompletos"},
+                    {"Código Consultora", "CodigoConsultora"},
+                    {"Número Documento", "NumeroDocumento"},
+                    {"Fecha Pago", "FechaPago"},
+                    {"Hora Pago", "HoraPago"},
+                    {"Flete", "FleteMonto"},
+                    {"Monto Pagado Total", "TransaccionMontoPagadoTotal"},
+                    {"Monto Recibido", "TransaccionMontoRecibido"},
+                    {"Tarjeta", "TipoTarjeta"},
+                    {"Número de Trajeta", "TarjetaNumero"},
+                    {"Número de Operación", "PagoDeKitLogId"},
+                    {"Código CIP", "CodigoCIP"},
+                    {"Descripción de Transacción", "EstatusDetalle"},
+                    {"Estado Transacción", "Estatus"},
+                    {"Fecha Envio Sicc", "FechaProceso"},
+                    {"Hora Envio Sicc", "HoraProceso"},
+                    {"Origen", "Origen"},
+                };
+
+                Util.ExportToExcel("Reporte Pagokit", lst, dic);
+                return View();
+            }
+
         }
 
         [HttpPost]
@@ -1901,6 +2263,37 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
+        
+        public List<ServiceUnete.ParametroUneteBE> GetReporteZonas(int IdTipoParametroUnete)
+        {
+            ServiceUnete.ParametroUneteBE parametroUnete= new ServiceUnete.ParametroUneteBE();
+            List<ServiceUnete.ParametroUneteBE> result = new List<ServiceUnete.ParametroUneteBE>();
+            try
+            {
+                using (var sv = new PortalServiceClient())
+                {
+                    
+                    parametroUnete.IdParametroUnetePadre = IdTipoParametroUnete;
+                    parametroUnete.Estado = 1;
+                    foreach (var item in sv.ObtenerParametrosUneteFinal(CodigoISO, parametroUnete))
+                    {
+                        result.Add(item);
+                    }
+                    parametroUnete.Estado = 0;
+                    foreach (var item in sv.ObtenerParametrosUneteFinal(CodigoISO, parametroUnete))
+                    {
+                        result.Add(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+
+            }
+
+            return result;
+        }
 
         public ActionResult ExportarExcelFunnel(string CampaniaInicio, string CampaniaFin, string ReporteNombre)
         {
@@ -1921,6 +2314,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             ViewBag.ipRequest = Request.UserHostAddress;
             ViewBag.HTMLSACUnete = getHTMLSACUnete("ReporteFunnel", null);
+            return View();
+        }
+
+        public ActionResult ExportarExcelValidacionZona(string ReporteNombre, int idTipoParametroUnete)
+        {
+            List<ServiceUnete.ParametroUneteBE> result = GetReporteZonas(idTipoParametroUnete);
+            Dictionary<string, string> dic;
+            using (var sv = new PortalServiceClient())
+            {
+                dic = sv.GetDictionaryReporteZonas();
+            }
+            Util.ExportToExcel(ReporteNombre, result.Select(p => new { p.Nombre, p.Estado }).ToList(), dic);
             return View();
         }
 
@@ -2241,6 +2646,149 @@ namespace Portal.Consultoras.Web.Controllers
             return rpta;
         }
 
+        [HttpPost]
+        public string ZonasValidacionTelefonicaInsertar(HttpPostedFileBase uplArchivo, ZonaValidacionTelefonicaModel model)
+        {
+            model.CodigoISO = CodigoISO;
+            try
+            {
+                if (uplArchivo == null)
+                {
+                    return "El archivo especificado no existe.";
+                }
+                if (!Util.IsFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
+                {
+                    return "El archivo especificado no es un documento de tipo MS-Excel.";
+                }
+
+                string fileextension = Util.Trim(Path.GetExtension(uplArchivo.FileName));
+                if (!fileextension.ToLower().Equals(".xlsx"))
+                {
+                    return "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
+                }
+
+                string fileName = Guid.NewGuid().ToString();
+                string pathfaltante = Server.MapPath("~/Content/ArchivoZonaValidacion");
+                if (!Directory.Exists(pathfaltante)) Directory.CreateDirectory(pathfaltante);
+
+                var finalPath = Path.Combine(pathfaltante, fileName + fileextension);
+                uplArchivo.SaveAs(finalPath);
+
+                bool isCorrect = false;
+                ZonaValidacionTelefonicaModel prod = new ZonaValidacionTelefonicaModel();
+                IList<ZonaValidacionTelefonicaModel> lista = Util.ReadXmlFile(finalPath, prod, false, ref isCorrect);
+
+                foreach (var item in lista.ToList())
+                {
+                    if (item.ZonaSeccion == null) lista.Remove(item);
+                }
+                if (lista.Count == 0) isCorrect = false;
+
+                System.IO.File.Delete(finalPath);
+                if (!isCorrect) return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
+
+                var nivel = 0;
+                using (var sv = new PortalServiceClient())
+                {
+                    var parametros = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.Validaciones, default(int));
+                    var telefonoRequeridoParametro = parametros.FirstOrDefault(p => p.Nombre == "TelefonoRequerido");
+                    nivel = telefonoRequeridoParametro.IdParametroUnete;
+                }
+
+                List<ParametroUnete> listafinal = new List<ParametroUnete>();
+                foreach (var item in lista)
+                {
+                    var parametroTodos = new ParametroUnete
+                    {
+                        Nombre = item.ZonaSeccion,
+                        Descripcion = item.PasoLimite,
+                        Valor = 1,
+                        FK_IdTipoParametro = EnumsTipoParametro.Validaciones.ToInt(),
+                        FK_IdParametroUnete = nivel,
+                        Estado = 1
+                    };
+                    listafinal.Add(parametroTodos);
+                }
+
+                if (listafinal.Any())
+                {
+                    using (var sv = new PortalServiceClient())
+                    {
+                        sv.InsertarZonaValidacionTelefonica(model.CodigoISO, listafinal.ToArray());
+                    }
+
+                    return "Se realizo satisfactoriamente la carga de datos.";
+                }
+
+                return "No se Guardo ningun registro";
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+            }
+        }
+
+        public ActionResult ZonaValidacionTelefonica()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ZonaValidacionTelefonica", null);
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult ConsultarZonaValidacionTelefonica(ZonaValidacionTelefonicaModelSAC model)
+        {
+            model.CodigoISO = CodigoISO;
+            using (var sv = new PortalServiceClient())
+            {
+                var data = sv.ConsultarZonaValidacionTelefonica(model);
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        public ActionResult ExportarExcelZonaValidacionTelefonica()
+        {
+            ServiceUnete.ParametroUneteCollection lstSelect;
+            using (var sv = new PortalServiceClient())
+            {
+                var parametros = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.Validaciones, default(int));
+                var telefonoRequeridoParametro = parametros.FirstOrDefault(p => p.Nombre == "TelefonoRequerido");
+                lstSelect = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.Validaciones, telefonoRequeridoParametro.IdParametroUnete);
+            }
+
+            List<ZonaValidacionTelefonicaModel> items = new List<ZonaValidacionTelefonicaModel>();
+            foreach (var item in lstSelect)
+            {
+                var objNivel = new ZonaValidacionTelefonicaModel
+                {
+                    PasoLimite = item.Descripcion,
+                    ZonaSeccion = item.Nombre
+                };
+                items.Add(objNivel);
+            }
+
+            Dictionary<string, string> dic =
+                new Dictionary<string, string> { { "ZonaSeccion", "ZonaSeccion" }, { "PasoLimite", "PasoLimite" } };
+
+            Util.ExportToExcel("ReporteZonasValidacionTelefonica", items, dic);
+            return View();
+        }
+
+        public string EnviarContrasenia(string numerocelular, string tipoDocumento, string numeroDocumento, string correoElectronico, string nombre, string codigoconsultora, string numeroanterior, string correoanterior)
+        {
+            string rpta = "";
+            PortalServiceClient oservice = new PortalServiceClient();
+            rpta = oservice.EnviarContrasenia(CodigoISO, numerocelular, tipoDocumento, numeroDocumento, correoElectronico, nombre, codigoconsultora, numeroanterior, correoanterior);
+            oservice.Close();
+            return rpta;
+        }
+
         public string getHTMLSACUnete(string action, string urlParams)
         {
             string urlSacUente = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UneteURL);
@@ -2294,5 +2842,202 @@ namespace Portal.Consultoras.Web.Controllers
 
             return responseHtml;
         }
+
+
+        #region Kit Inicio
+
+        public ActionResult KitInicio()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("KitInicio", "&rol=" + userData.RolDescripcion);
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult KitInicioInit()
+        {
+            var _zonificacionProvider = new ZonificacionProvider();
+            var paisId = userData.PaisID;
+            try
+            {
+                var listas = new List<object>();
+                listas.Add(_zonificacionProvider.GetCampanias(paisId));
+                listas.Add(new PortalServiceClient().ObtenerParametrosUnete(userData.CodigoISO, EnumsTipoParametro.TipoKitInicio, 0));
+                return Json(listas);
+            }
+            catch
+            {
+                return Error();
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetKitInicio(int campanhia, int kit)
+        {
+            try
+            {
+                var enKit = new PortalServiceClient().GetKitInicioEdit(CodigoISO, campanhia, kit);
+                var en = new ENTKitInicio
+                {
+                    Codigo = enKit.Codigo,
+                    SAP = enKit.SAP,
+                    CUV = enKit.CUV,
+                    Precio = enKit.Precio,
+                    PrecioReal = enKit.PrecioReal,
+                    Cantidad = enKit.Cantidad,
+                    Orden = enKit.Orden,
+                    Descripcion = enKit.Descripcion,
+                    UrlImagen = enKit.UrlImagen,
+                    Catalogos = new List<ENTKitInicioCatalogo>(),
+                    Editable = enKit.Editable
+                };
+                if (enKit.Catalogos != null)
+                {
+                    foreach(var det in enKit.Catalogos)
+                    {
+                        en.Catalogos.Add(new ENTKitInicioCatalogo
+                        {
+                            Codigo = det.Codigo,
+                            SAP = det.SAP,
+                            CUV = det.CUV,
+                            Orden = det.Orden,
+                            NomOrden = det.DescOrden,
+                            CodMarca = det.TipoCatalogo,
+                            NomMarca = det.NomTipoCatalogo
+                        });
+                    }
+                }
+                return Json(en);
+            }
+            catch
+            {
+                return Error();
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetKitInicioCatalogo(int campanhia)
+        {
+            try
+            {
+                var enResponse = new PortalServiceClient().GetKitInicioCatalogosEdit(CodigoISO, campanhia, false);
+                var en = new ENTKitInicio
+                {
+                    Editable = enResponse.Editable,
+                    Catalogos = new List<ENTKitInicioCatalogo>()
+                };
+                foreach (var det in enResponse.Catalogos)
+                {
+                    en.Catalogos.Add(new ENTKitInicioCatalogo
+                    {
+                        Codigo = det.Codigo,
+                        SAP = det.SAP,
+                        CUV = det.CUV,
+                        Orden = det.Orden,
+                        NomOrden = det.DescOrden,
+                        CodMarca = det.TipoCatalogo,
+                        NomMarca = det.NomTipoCatalogo
+                    });
+                }
+                return Json(en);
+            }
+            catch
+            {
+                return Error();
+            }
+        }
+
+        [HttpPost]
+        public JsonResult SaveKitInicio(int config, ENTKitInicio en)
+        {
+            try
+            {
+                var enRequest = new KitInicioBE
+                {
+                    Precio = en.Precio,
+                    UrlImagen = en.UrlImagen,
+                    Descripcion = en.Descripcion,
+                    CUV = en.CUV,
+                    Orden = en.Orden,
+                    Tipo = en.Kit,
+                    PrecioReal = en.PrecioReal,
+                    Campanhia = en.Campanha,
+                    Cantidad = en.Cantidad,
+                    SAP = en.SAP,
+                    UsuModifica = userData.CodigoUsuario
+                };
+                if (en.Catalogos != null)
+                {
+                    var catalogos = new List<KitInicioCatalogoBE>();
+                    foreach (var c in en.Catalogos)
+                    {
+                        catalogos.Add(new KitInicioCatalogoBE
+                        {
+                            CUV = c.CUV,
+                            Orden = c.Orden,
+                            TipoCatalogo = c.CodMarca,
+                            SAP = c.SAP
+                        });
+                    }
+                    enRequest.Catalogos = catalogos.ToArray();
+                }
+                if (config == 1) new PortalServiceClient().SaveKitInicio(CodigoISO, enRequest);
+                else new PortalServiceClient().SaveKitInicioCatalogos(CodigoISO, enRequest);
+                return Json(true);
+            }
+            catch
+            {
+                return Error();
+            }
+        }
+
+        private JsonResult Error(string error = null)
+        {
+            Response.StatusCode = 500;
+            return Json(error ?? "Ocurrió un error");
+        }
+
+        public struct ENTKitInicio
+        {
+            public int Codigo { get; set; }
+            public int Campanha { get; set; }
+            public int Kit { get; set; }
+            public string SAP { get; set; }
+            public string CUV { get; set; }
+            public decimal Precio { get; set; }
+            public decimal PrecioReal { get; set; }
+            public float Cantidad { get; set; }
+            public float Orden { get; set; }
+            public string Descripcion { get; set; }
+            public string UrlImagen { get; set; }
+            public List<ENTKitInicioCatalogo> Catalogos { get; set; }
+            public bool Editable { get; set; }
+
+        }
+        public struct ENTKitInicioCatalogo
+        {
+            public int Codigo { get; set; }
+            public string SAP { get; set; }
+            public string CUV { get; set; }
+            public float Orden { get; set; }
+            public string NomOrden { get; set; }
+            public float CodMarca { get; set; }
+            public string NomMarca { get; set; }
+        }
+
+        #endregion Kit Inicio
+    }
+
+    public class ParameterPagodeKit
+    {
+        public int idcampaña { get; set; }
+        public int idregion { get; set; }
+        public int idzona { get; set; }
+        public string documentoidentidad { get; set; }
+        public int idestado { get; set; }
+        public int codigoiso { get; set; }
+        public string fpagoinicio { get; set; }
+        public string fpagofin { get; set; }
+        public string fprocesoinicio { get; set; }
+        public string fprocesofin { get; set; }
     }
 }

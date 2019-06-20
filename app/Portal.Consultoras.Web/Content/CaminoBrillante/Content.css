@@ -1,0 +1,77 @@
+﻿
+.content_belcorp {
+    max-width: 1200px;
+}
+
+.items_belcorp {
+    width: 24%;
+    margin-right: 1%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.item_catalogo {
+    width: 24%;
+}
+
+.titulo_home_belcorp {
+    width: 82%;
+    margin-left: 4%;
+}
+
+.btn_100_facturacion {
+    background-position: 14% 4px;
+}
+
+
+.cam-exito img {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    max-width: 65px !important;
+    width: 65px;
+}
+
+    .cam-exito p {
+        color: black;
+        font-size: 14px;
+        text-align: center;
+        font-family: 'lato';
+        margin-bottom: 12px;
+    }
+
+    .cam-exito strong {
+        font-weight: bold;
+    }
+
+    .cam-exito a {
+        text-align: center;
+        display: block;
+        text-transform: uppercase;
+        color: black;
+        border: 1px solid #000;
+        background: white;
+        max-width: 260px;
+        padding: 11px 15px;
+        font-weight: bold;
+        font-size: 14px;
+        font-family: 'lato';
+        text-decoration: none;
+        margin: 17px auto;
+        margin-top: 17px;
+        margin-bottom: 10px;
+        transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+    }
+        .cam-exito a:hover {
+            background: black;
+            color: white;
+        }
+    .cam-exito .toptext {
+        font-size: 17px;
+        font-weight: bold;
+        margin-bottom: 3px;
+    }

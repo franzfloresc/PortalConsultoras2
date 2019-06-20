@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 await _productoRecomendadoProvider.GetPersonalizacion(userData, true, true);
-                recomendacionesModel = await _productoRecomendadoProvider.ObtenerRecomendaciones(cuv, codigoProducto);
+                recomendacionesModel = await _productoRecomendadoProvider.ObtenerRecomendaciones(cuv, codigoProducto, IsMobile());
 
                 if (!_productoRecomendadoProvider.ValidarCantidadMinima(recomendacionesModel))
                     return Json(new RecomendacionesModel(), JsonRequestBehavior.AllowGet);

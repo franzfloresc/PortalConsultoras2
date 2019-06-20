@@ -1,12 +1,8 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities.Pedido;
+using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Entities.Estrategia;
-using Portal.Consultoras.Entities.Pedido;
 
 namespace Portal.Consultoras.Data.Pedido
 {
@@ -28,7 +24,7 @@ namespace Portal.Consultoras.Data.Pedido
                 return data;
             }
         }
-
+        
         public IEnumerable<BEPedidoWebSetDetalle> ObtenerDetalles(int setId)
         {
             using (var command = Context.Database.GetStoredProcCommand("dbo.PedidoWebSetDetalle_Select"))

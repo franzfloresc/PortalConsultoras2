@@ -49,6 +49,8 @@ namespace Portal.Consultoras.Web.Models
         public string UrlVideoDesktop { get; set; }
         public string UrlVideoMobile { get; set; }
 
+        public string ImgFondoApp { get; set; }
+        public string ColorTextoApp { get; set; }
         #endregion
 
         public string PrecioAnt { get; set; }

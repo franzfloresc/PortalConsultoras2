@@ -27,6 +27,41 @@ var cantCamRev = 3;
 var aCamRev = new Array();
 
 $(document).ready(function () {
+    window.fbAsyncInit = function () {/*setear valor a  FBAppId desde la vista :   var FBAppId = '@ViewBag.FBAppId'; */
+        FB.init({
+            appId: FBAppId,
+            cookie: true,
+            xfbml: true,
+            version: 'v3.0'
+        });
+
+        if (typeof IsoPais !== 'undefined' && IsoPais == 'PE') {
+            FB.Event.subscribe('customerchat.load', function() {
+                setTimeout(function () {
+                    $('.fb_dialog_content').append('<div class="icono_chat_sb"></div>');
+                    $('body').on('click', '.icono_chat_sb', function (e) {
+                        FB.CustomerChat.showDialog();
+                    });
+                }, 2000);
+            });
+        }
+
+        FB.getLoginStatus(function (response) {
+            if (response.status === 'connected') {
+                getInfoFB(1);
+            }
+        });
+
+    };
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    MarcarCompartirFbExitoso();
 
     configurarContenedorExpoOfertas();
     campSelect = getNumeroCampania(getCodigoCampaniaActual());
@@ -198,7 +233,37 @@ $(document).ready(function () {
 
     // Fin - Eventos que se utilizan en vista responsive
 
+
+
 });
+
+// catalogo compartir por Facebook actual
+var CompartirFacebookActual = function (catalogo, campaniaCatalogo, texto) {
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Catálogos y revistas',
+        'action': 'Catálogo Digital - Compartir FB - clic botón',
+        'label': campaniaCatalogo,
+        'value': 0
+    });
+
+    FB.ui({
+        method: 'share',
+        href: texto,
+    }, function (response) {
+        if (response && !response.error_code) {
+            dataLayer.push({
+                'event': 'virtualEvent',
+                'category': 'Catálogos y revistas',
+                'action': 'Catálogo Digital - Compartir FB',
+                'label': campaniaCatalogo,
+            });
+        } else {
+            console.log('Error al publicar via facebook')
+        }
+    });
+}
+
 
 function getCodigoCampaniaAnterior() {
     return $.trim($("#hdCampaniaAnterior").val()) || '';
@@ -220,19 +285,6 @@ function getNumeroCampania(codigoCampania) {
 function getAnioCampania(codigoCampania) {
     codigoCampania = codigoCampania || '';
     return codigoCampania.substring(0, 4);
-}
-
-function InsertarLogCatalogoDynamo(opcionAccion, campaniaCatalogo, marca, cantidad) {
-    InsertarLogDymnamo(
-        'Catalogo-Compartir',
-        opcionAccion,
-        false,
-        [
-            { 'key': 'CampaniaCatalogo', 'value': campaniaCatalogo },
-            { 'key': 'Marca', 'value': marca },
-            { 'key': 'Cantidad', 'value': cantidad }
-        ]
-    );
 }
 
 function configurarContenedorExpoOfertas() {
@@ -280,9 +332,8 @@ function CargarCarruselCatalogo() {
     waitingDialog();
 
     var htmlSection = "";
-    var htmlCatalogo = "";
+    var htmlCatalogo;
     var htmlCatalogoAppend = "";
-    var totalItem = cantCat * cantCam;
     var anio = "";
     var nro = "";
     isPilotoSeg = false;
@@ -301,7 +352,7 @@ function CargarCarruselCatalogo() {
         }
 
         var xhtmlSection = "#xhtmlSection";
-        if (i == 1 && piloto == '1' && isPilotoSeg == false)  xhtmlSection = "#xhtmlSectionActual";
+        if (i == 1 && piloto == '1' && isPilotoSeg == false) xhtmlSection = "#xhtmlSectionActual";
         htmlSection = $(xhtmlSection).html();
         htmlSection = htmlSection.replace(/{sectionid}/g, 'idSection' + i);
         htmlSection = htmlSection.replace(/{divCatalogo}/g, 'divCatalogo' + i);
@@ -309,15 +360,24 @@ function CargarCarruselCatalogo() {
         $("#divSection").append(htmlSection);
 
         if (i == 0) $("#idSection" + i).addClass(" catalogos__campania--anterior");
-        else if (i == 1) {            
+        else if (i == 1) {
             if (piloto == '1' && isPilotoSeg == false) {
                 var xHtmlItemCatalogoPasosActual = "#xHtmlItemCatalogoPasosActual";
                 xHtmlItemCatalogoPasosActual = $(xHtmlItemCatalogoPasosActual).html();
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{tipoCatalogoTodo}/g, tagTodo);
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{campania}/g, anio + nro);
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{textourl}/g, urlCatalogoPiloto);
+                //xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{isMovil}/g, isMovil);
+                //xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{FBAppId}/g, FBAppId);
 
-                $("#idSection" + i).append(xHtmlItemCatalogoPasosActual);                
+                /* INI HD-4248 */
+                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{WSP_textourl}/g, urlCatalogoPiloto_WSP);
+                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{FB_textourl}/g, urlCatalogoPiloto_FB);
+                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{MSN_textourl}/g, urlCatalogoPiloto_MSN);
+                xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{EMAIL_textourl}/g, urlCatalogoPiloto_EMAIL);
+                /* FIN HD-4248 */
+
+                $("#idSection" + i).append(xHtmlItemCatalogoPasosActual);
                 $("#txtUrlActual").val(urlCatalogoPiloto);
                 $("#idSection" + i).addClass(" catalogos__campania--actual");
             } else {
@@ -325,11 +385,9 @@ function CargarCarruselCatalogo() {
             }
         }
         else if (i == 2) $("#idSection" + i).addClass(" catalogos__campania--siguiente");
-    }    
+    }
 
     for (var i = 0; i < cantCam; i++) {
-        
-        htmlCatalogo = "";
         htmlCatalogoAppend = "";
         nro = "";
         anio = "";
@@ -338,15 +396,15 @@ function CargarCarruselCatalogo() {
 
         if (i == 1 && piloto == '1') isPilotoSeg = GetCatalogosPilotoSeg(getCodigoCampaniaActual());
 
-        if (i < cantCat/3) {
+        if (i < cantCat / 3) {
             anio = getAnioCampania(getCodigoCampaniaAnterior());
             nro = getNumeroCampania(getCodigoCampaniaAnterior());
         }
-        else if (i < (cantCat * 2)/3) {
+        else if (i < (cantCat * 2) / 3) {
             anio = getAnioCampania(getCodigoCampaniaActual());
             nro = getNumeroCampania(getCodigoCampaniaActual());
         }
-        else if (i < (cantCat * 3)/3) {
+        else if (i < (cantCat * 3) / 3) {
             anio = getAnioCampania(getCodigoCampaniaSiguiente());
             nro = getNumeroCampania(getCodigoCampaniaSiguiente());
         }
@@ -383,16 +441,16 @@ function CargarCarruselCatalogo() {
             htmlCatalogo = htmlCatalogo.replace(/{estado}/g, "0");
             htmlCatalogoAppend = htmlCatalogoAppend + htmlCatalogo;
         }
-               
-        $("#divCatalogo" + i).append(htmlCatalogoAppend);               
+
+        $("#divCatalogo" + i).append(htmlCatalogoAppend);
     }
 
     for (var i = 0; i < cantCat; i++) {
         $("#divCatalogo" + i + " [data-cat='Lbel']").addClass(" catalogos__por__campania__item__imagen--lbel");
         $("#divCatalogo" + i + " [data-cat='Esika']").addClass(" catalogos__por__campania__item__imagen--esika");
-        $("#divCatalogo" + i + " [data-cat='Cyzone']").addClass(" catalogos__por__campania__item__imagen--cyzone");       
+        $("#divCatalogo" + i + " [data-cat='Cyzone']").addClass(" catalogos__por__campania__item__imagen--cyzone");
     }
-    
+
     closeWaitingDialog();
 }
 
@@ -421,9 +479,9 @@ function FinRenderCatalogo() {
         campSelectI = campSelectI || 1;
         $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);
         for (var i = 0; i < cantCam; i++) {
-            $("#divCatalogo" + i +" > div > div").show();
+            $("#divCatalogo" + i + " > div > div").show();
         }
-        
+
         CatalogoMostrar(0);
         closeWaitingDialog();
     }
@@ -431,7 +489,7 @@ function FinRenderCatalogo() {
 
 function ColumnasDeshabilitadasxPais(valor, accion, label) {
     waitingDialog();
-    
+
     if (typeof (accion) !== 'undefined') {
         SetGoogleAnalytics("", accion, label);
     }
@@ -477,7 +535,33 @@ function ObtenerEstadoCatalogo(campana, defered) {
 function CopiarEnlaceActual(catalogo, campania) {
 
     var copyText = $('#txtUrlActual');
-    copyText.select();
+
+    if (isMobileNative.iOS()) {
+        var el = copyText.get(0);
+        var editable = el.contentEditable;
+        var readOnly = el.readOnly;
+        el.contentEditable = true;
+        el.readOnly = false;
+        var range = document.createRange();
+        range.selectNodeContents(el);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        el.setSelectionRange(0, 999999);
+        el.contentEditable = editable;
+        el.readOnly = readOnly;
+    }
+    else
+        copyText.select();
+
+    //se agrego vento push - HD-3964
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Catálogos y revistas',
+        'action': 'Catálogo Digital - Copiar Enlace - clic botón',
+        'label': campania
+    });
+    // fin 
 
     try {
         var successful = document.execCommand('copy');
@@ -491,7 +575,7 @@ function CopiarEnlaceActual(catalogo, campania) {
 function GetCatalogosLinksByCampania(data, campania) {
     waitingDialog();
     $.ajaxSetup({ cache: false });
-    
+
     var contDiv;
     for (var i = 0; i < aCam.length; i++) {
         if (campania == aCam[i]) {
@@ -502,7 +586,7 @@ function GetCatalogosLinksByCampania(data, campania) {
 
     var idCat = "#divCatalogo" + contDiv;
 
-    for (var i = 0; i < cantCat; i++) {        
+    for (var i = 0; i < cantCat; i++) {
 
         isPilotoSeg = false;
         var tagCat = i == 0 && data.estadoLbel != 1 ? tagLbel
@@ -531,7 +615,7 @@ function GetCatalogosLinksByCampania(data, campania) {
             }
         });
 
-        cont++;        
+        cont++;
         if (codigoISSUU == '') {
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("href", linkCat[tagCat]);
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("onclick", "SetGoogleAnalytics('','Ver catálogo','" + tagCat + "')");
@@ -560,6 +644,19 @@ function GetCatalogosLinksByCampania(data, campania) {
             $(idCat).find(elemItem).find("[data-accion='face']").attr("title", 'FB-' + tagCat + ' C' + n + a);
             $(idCat).find(elemItem).find("[data-tipo='img']").attr("title", 'Ver-' + tagCat + ' C' + n + a);
             $(idCat).find(elemItem).find("[data-accion='whatsapp']").attr("href", "https://api.whatsapp.com/send?text=" + urlCatWS);
+
+            if (piloto == '1' && contDiv == 1) {
+                if (isMovil == "True")
+                    /* INI HD-4248 */
+                    $("[data-accion='ms']").attr("href", "fb-messenger://share?link=" + encodeURIComponent(urlCatalogoPiloto_MSN) + "&app_id=" + encodeURIComponent(FBAppId));
+                    /* FIN HD-4248 */
+                else {
+                    /* INI HD-4248 */
+                    $("[data-accion='ms']").attr("href", "https://www.facebook.com/dialog/send?app_id=" + encodeURIComponent(FBAppId) + "&link=" + encodeURIComponent(urlCatalogoPiloto_MSN) + "&redirect_uri=" + window.location.href + "?catalogo_compartido_fb_messenger=1");
+                    /* FIN HD-4248 */
+                    $("[data-accion='ms']").attr("target", "_self");
+                }
+            }
         }
     }
     FinRenderCatalogo();
@@ -607,9 +704,9 @@ function CatalogoMostrar(accion, btn) {
             $(btn).hide();
         }
     }
-    
+
     var catEsika = $('.catalogos__por__campania__item__imagen--esika').is(':visible');
-    if (window.matchMedia('(min-width:992px)').matches){
+    if (window.matchMedia('(min-width:992px)').matches) {
         if (!catEsika) {
             $('.catalogos__por__campania__item__imagenes > .content_carrusel_catalogo').css('max-width', '70' + '%');
             $('.catalogos__por__campania__item__imagen').css('min-width', '241.45' + 'px');
@@ -714,7 +811,7 @@ function CatalogoEnviarEmail() {
         }
         clientes.push(objCorreo);
     }
-    
+
     var mensaje = $("#comentarios").val();
     if (_Flagchklbel == "1") {
         dataLayer.push({
@@ -724,7 +821,6 @@ function CatalogoEnviarEmail() {
             'label': 'Lbel',
             'value': clientes.length
         });
-        InsertarLogCatalogoDynamo('Email', campaniaEmail, 'Lbel', clientes.length);
     }
     if (_Flagchkesika == "1") {
         dataLayer.push({
@@ -734,7 +830,6 @@ function CatalogoEnviarEmail() {
             'label': 'Esika',
             'value': clientes.length
         });
-        InsertarLogCatalogoDynamo('Email', campaniaEmail, 'Esika', clientes.length);
     }
     if (_Flagchkcyzone == "1") {
         dataLayer.push({
@@ -744,7 +839,6 @@ function CatalogoEnviarEmail() {
             'label': 'Cyzone',
             'value': clientes.length
         });
-        InsertarLogCatalogoDynamo('Email', campaniaEmail, 'Cyzone', clientes.length);
     }
 
     jQuery.ajax({
@@ -756,7 +850,7 @@ function CatalogoEnviarEmail() {
         async: true,
         success: function (data) {
             closeWaitingDialog();
-            $('#CompartirCorreo').hide();
+            $('#CompartirCorreo').fadeOut(100);
             if (checkTimeout(data)) {
                 if (data.success) {
                     MonstrarAlerta(data.message);
@@ -771,7 +865,7 @@ function CatalogoEnviarEmail() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            $('#CompartirCorreo').hide();
+            $('#CompartirCorreo').fadeOut(100);
             if (checkTimeout(data)) {
                 MonstrarExclamacion("ERROR");
             }
@@ -800,7 +894,7 @@ function CatalogoEnviarEmailPiloto() {
         }
         clientes.push(objCorreo);
     }
-    
+
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Catálogos y revistas',
@@ -808,7 +902,6 @@ function CatalogoEnviarEmailPiloto() {
         'label': campaniaEmail,
         'value': clientes.length
     });
-    InsertarLogCatalogoDynamo('Email', campaniaEmail, campaniaEmail, clientes.length);
 
     var mensaje = $("#comentarios").val();
     jQuery.ajax({
@@ -820,13 +913,28 @@ function CatalogoEnviarEmailPiloto() {
         async: true,
         success: function (data) {
             closeWaitingDialog();
-            $('#CompartirCorreo').hide();
+            $('#CompartirCorreo').fadeOut(100);
             if (checkTimeout(data)) {
                 if (data.success) {
                     MonstrarAlerta(data.message);
+
+                    /*evento luego de enviar el correo satisfacoriamente - HD-3694*/
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Catálogos y revistas',
+                        'action': 'Catálogo digital - Compartir email',
+                        'label': campaniaEmail,
+                        'value': 1,
+                        'gtm.uniqueEventId': 7292
+                    });
+
+
                     if (data.extra == "R") {
                         location.href = '/Bienvenida';
                     }
+
+
+
                 }
                 else {
                     MonstrarExclamacion(data.message);
@@ -835,7 +943,7 @@ function CatalogoEnviarEmailPiloto() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            $('#CompartirCorreo').hide();
+            $('#CompartirCorreo').fadeOut(100);
             if (checkTimeout(data)) {
                 MonstrarExclamacion("ERROR");
             }
@@ -929,7 +1037,8 @@ function getUrlImagenPortadaRevistaPromise(codigoCampania) {
     var defered = jQuery.Deferred();
 
     var data = JSON.stringify({
-        codigoRevista: RevistaCodigoIssuu[codigoCampania]
+        //codigoRevista: RevistaCodigoIssuu[codigoCampania],
+        codigoCampania: codigoCampania
     });
     jQuery.ajax({
         type: 'POST',
@@ -974,10 +1083,22 @@ function ocultarTooltipCompartirCatalogoMobile() {
 
 function MonstrarExclamacion(texto) {
     $("#mensaje_exclamacion #mensaje_exclamacion_texto").html(texto);
-    $("#mensaje_exclamacion").show();
+    $("#mensaje_exclamacion").fadeIn(100);
 }
 
 function MonstrarAlerta(texto) {
     $("#mensaje_alerta #mensaje_alerta_texto").html(texto);
-    $("#mensaje_alerta").show();
+    $("#mensaje_alerta").fadeIn(100);
+}
+
+function MarcarCompartirFbExitoso() {
+
+    if (window.location.search.indexOf("catalogo_compartido_fb_messenger") > -1) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Catálogos y revistas',
+            'action': 'Catálogo Digital - Compartir FB - Messenger',
+            'label': campaniaCodigo
+        });
+    }
 }

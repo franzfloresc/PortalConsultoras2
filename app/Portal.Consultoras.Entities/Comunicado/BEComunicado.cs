@@ -49,5 +49,54 @@ namespace Portal.Consultoras.Entities
         public bool SegmentacionEstadoActividad { get; set; }
         [DataMember]
         public List<BEComunicadoVista> Vistas { get; set; }
+        [DataMember]
+        [Column("TipoComunicado")]
+        public int TipoComunicado { get; set; }
+
+        [DataMember]
+        [Column("FechaInicio")]
+        public string FechaInicio { get; set; }
+
+        [DataMember]
+        [Column("FechaFin")]
+        public string FechaFin { get; set; }
+
+        [DataMember]
+        [Column("Titulo")]
+        public string Titulo { get; set; }
+
+        [DataMember]
+        [Column("Activo")]
+        public bool Activo { get; set; }
+
+        [DataMember]
+        [Column("Numero")]
+        public int Numero { get; set; }
+
+        [DataMember]
+        [Column("NombreArchivoCCV")]
+        public string NombreArchivoCCV { get; set; }
+
+        [DataMember]
+        [Column("TipoDispositivo")]
+        public int TipoDispositivo { get; set; }
+
+        [DataMember]
+        [Column("PaginasMaximas")]
+        public int PaginasMaximas { get; set; }
+
+        [DataMember]
+        [Column("Comentario")]
+        public string Comentario { get; set; }
+
     }
+
+
+
+
+
+
+
+
+
 }

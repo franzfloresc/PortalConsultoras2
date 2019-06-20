@@ -54,7 +54,10 @@ namespace Portal.Consultoras.Web.Providers
             {
                 var result = client.ObtenerPedidoWebSet(paisId, setId);
                 if (result != null)
+                {
+                    result.ClienteNombre = result.ClienteId > 0 ? result.ClienteNombre : "Para mí";
                     return AutoMapper.Mapper.Map<BEPedidoWebSet, PedidoWebSetModel>(result);
+                }
             }
 
             return null;
