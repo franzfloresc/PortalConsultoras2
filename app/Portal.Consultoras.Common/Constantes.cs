@@ -3894,6 +3894,7 @@ namespace Portal.Consultoras.Common
 
             public static class CodigoNiveles
             {
+                public const string Topacio = "5";
                 public const string Brillante = "6";
             }
 
