@@ -187,23 +187,11 @@ namespace Portal.Consultoras.Web.Providers
         public async Task<string> GetUrlThumbnail(string codigoIso , string codigoRevista)
         {
             string _urlPortada = string.Empty;
-            try
-            {
-                using (var sv = new ClienteServiceClient())
-                {
-                    _urlPortada = await sv.GetUrlThumbnailAsync(codigoIso, codigoRevista);
-                }
-            }
-            catch (FaultException ex)
-            {
-                throw ex;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
 
-
+            using (var sv = new ClienteServiceClient())
+            {
+                 _urlPortada = await sv.GetUrlThumbnailAsync(codigoIso, codigoRevista);
+            }
             return _urlPortada;
         }
     }

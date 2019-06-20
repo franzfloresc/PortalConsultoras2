@@ -637,6 +637,7 @@ namespace Portal.Consultoras.BizLogic
                 build.AppendLine("Tracking => GetUrlThumbnail");
                 build.AppendLine(string.Format("Url:{0}", _url));
                 build.AppendLine(string.Format("Accion:{0}", _accion));
+                LogManager.SaveLog(new ClientInformationException(build.ToString()), "userTracking", codigoIso);
             }
 
             return _thumbnail;

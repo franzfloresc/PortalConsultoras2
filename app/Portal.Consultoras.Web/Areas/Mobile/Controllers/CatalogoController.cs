@@ -93,21 +93,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return Json(data, JsonRequestBehavior.AllowGet);
         }
-
-       
-
-        private string GetStringIssuRevista(string codigoRevista)
-        {
-            string stringIssuuRevista;
-            using (var client = new WebClient())
-            {
-                var urlIssuuRevista = string.Format("https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/{0}", codigoRevista);
-                stringIssuuRevista = client.DownloadString(urlIssuuRevista);
-            }
-
-            return stringIssuuRevista;
-        }
-
         public ActionResult MiRevista(string campaniaRevista)
         {
             ViewBag.Campania = campaniaRevista;
@@ -123,7 +108,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 codigoRevista = _issuuProvider.GetRevistaCodigoIssuuRDR(codigoRevista, revistaDigital.TieneRDCR, userData.CodigoISO, userData.CodigoZona);
                 url = await _issuuProvider.GetUrlThumbnail(userData.CodigoISO, codigoRevista);
-                if (string.IsNullOrEmpty(url)) url = urlNotFound;
+                if (string.IsNullOrEmpty(url))
+                    url = urlNotFound;
+                else
+                {
+
+                    HttpContext.Response.Cache.SetCacheability(HttpCacheability.Server); 
+                    HttpContext.Response.Cache.SetExpires(DateTime.Now.AddDays(1)); 
+                    HttpContext.Response.Cache.SetValidUntilExpires(true);
+                    HttpContext.Response.Cache.VaryByParams["codigoRevista"] = true;
+
+                }
             }
             catch (FaultException faulException)
             {
@@ -138,7 +133,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return Json(url);
         }
-
-       
     }
 }
