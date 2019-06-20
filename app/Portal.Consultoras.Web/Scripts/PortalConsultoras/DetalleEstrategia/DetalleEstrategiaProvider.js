@@ -125,7 +125,7 @@ var DetalleEstrategiaProvider = function () {
 
     var _getEstrategia = function (params) {
         var sigueTexto = '_getEstrategia';
-        console.log(sigueTexto);
+        // console.log(sigueTexto);
         var estrategia = {};
 
         _promiseObternerModelo({
@@ -146,7 +146,7 @@ var DetalleEstrategiaProvider = function () {
         }
 
         sigueTexto += '_promiseObternerModelo';
-        console.log(sigueTexto);
+        // console.log(sigueTexto);
         estrategia.ConfiguracionContenedor = estrategia.ConfiguracionContenedor || {};
         estrategia.BreadCrumbs = estrategia.BreadCrumbs || {};
         //
@@ -154,12 +154,12 @@ var DetalleEstrategiaProvider = function () {
         var _fichaServicioApi = (variablesPortal.MsFichaEstrategias && _objTipoPalanca) ? (variablesPortal.MsFichaEstrategias.indexOf(_objTipoPalanca.codigo) > -1) : false;
         //
         sigueTexto += '_objTipoPalanca + _fichaServicioApi';
-        console.log(sigueTexto, _fichaServicioApi + "-" + estrategia.TieneSession);
+        // console.log(sigueTexto, _fichaServicioApi + "-" + estrategia.TieneSession);
         if (!_fichaServicioApi && !estrategia.TieneSession) {
             var estrategiaTmp = localStorageModule.ObtenerEstrategia(params.cuv, params.campania, params.palanca);
 
             sigueTexto += 'estrategiaTmp';
-            console.log(sigueTexto, estrategiaTmp);
+            // console.log(sigueTexto, estrategiaTmp);
 
             if ((typeof estrategiaTmp === "undefined" || estrategiaTmp === null) && estrategia.Palanca === _tipoEstrategiaTexto.OfertasParaMi) {
                 estrategiaTmp = localStorageModule.ObtenerEstrategia(params.cuv, params.campania, _tipoEstrategiaTexto.Ganadoras);
