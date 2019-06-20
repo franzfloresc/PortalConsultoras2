@@ -1020,6 +1020,23 @@ input[type="checkbox"].switch__control,
     border-radius: 4px !important;
     letter-spacing: normal;
     text-transform: initial !important;
+    position:relative;
+}
+
+@media screen and (max-width:991px) {
+
+    .general_dialog{
+        min-width:0!important;
+    }
+
+        .btn__sb--entendido {
+            top: 0;
+            bottom: 0;
+            line-height: 40px !important;
+            margin-top: 24px;
+            margin-bottom: 13px;
+        }
+
 }
 
 /* FIN - POPUP GENÉRICO */

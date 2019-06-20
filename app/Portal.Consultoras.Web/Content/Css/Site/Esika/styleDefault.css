@@ -1011,7 +1011,8 @@ input[type="text"].text__field__sb,
 .general_dialog + .ui-dialog-buttonpane .ui-state-default span,
 .ui-dialog .ui-dialog-buttonpane .ui-state-default span,
 .btn__sb--entendido {
-    font-size: 12px !important;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px !important;
     min-width: 200px;
     height: 40px !important;
     line-height: 18px !important;
@@ -1020,6 +1021,22 @@ input[type="text"].text__field__sb,
     border-radius: 4px !important;
     letter-spacing: normal;
     text-transform: initial !important;
+    position: relative;
+}
+
+@media screen and (max-width:991px) {
+
+    .general_dialog{
+        min-width:0!important;
+    }
+
+        .btn__sb--entendido {
+            top: 0;
+            bottom: 0;
+            line-height: 40px !important;
+            margin-top: 24px;
+            margin-bottom: 13px;
+        }
 }
 
 /* FIN - POPUP GENÉRICO */
