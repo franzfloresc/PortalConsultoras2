@@ -4812,7 +4812,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceCliente\ClienteService.disco" />
     <None Include="Service References\ServiceCliente\ClienteService3.xsd">
       <SubType>Designer</SubType>
     </None>
