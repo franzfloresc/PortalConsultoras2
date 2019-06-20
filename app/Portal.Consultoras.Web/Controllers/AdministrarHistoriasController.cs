@@ -3,17 +3,13 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceContenido;
+using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using System.Threading.Tasks;
-using Portal.Consultoras.Web.ServiceContenido;
-using System.Configuration;
-using System.Net;
-using AutoMapper;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -21,9 +17,9 @@ namespace Portal.Consultoras.Web.Controllers
     {
         protected TablaLogicaProvider _tablaLogica;
         public AdministrarHistoriasController()
-        { 
+        {
             _tablaLogica = new TablaLogicaProvider();
-        }     
+        }
 
         public ActionResult Index()
         {
@@ -39,7 +35,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID);
 
                 string HistAnchoAlto = CodigosTablaLogica(Constantes.DatosContenedorHistorias.HistAnchoAlto);
-                string[] arrHistAnchoAlto = HistAnchoAlto.Split(',');
+                var arrHistAnchoAlto = HistAnchoAlto.Split(',');
                 model.Ancho = arrHistAnchoAlto[0];
                 model.Alto = arrHistAnchoAlto[1];
 
@@ -48,6 +44,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     string CodigoHistoriasResumen = CodigosTablaLogica(Constantes.DatosContenedorHistorias.CodigoHistoriasResumen);
                     entidad = sv.GetContenidoAppHistoria(userData.PaisID, CodigoHistoriasResumen);
+
                     model.IdContenido = entidad.IdContenido;
                     model.Codigo = entidad.Codigo;
                     model.Descripcion = entidad.Descripcion;
@@ -58,12 +55,13 @@ namespace Portal.Consultoras.Web.Controllers
                 if (entidad.UrlMiniatura == string.Empty)
                 {
                     model.NombreImagenAnterior = Url.Content("~/Content/Images/") + "Question.png";
+                    model.NombreImagen = string.Empty;
                 }
                 else
                 {
                     var arrUrlMiniatura = entidad.UrlMiniatura.Split('/');
                     model.NombreImagenAnterior = ViewBag.UrlS3 + arrUrlMiniatura[5];
-
+                    model.NombreImagen = string.Empty;
                 }
                 model.NombreImagen = "";
                 return View(model);
@@ -114,11 +112,11 @@ namespace Portal.Consultoras.Web.Controllers
                     using (ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
                     {
                         sv.UpdateContenidoApp(userData.PaisID, entidad);
-                }
-                return Json(new
-                {
-                    success = true,
-                    message = "Se actualizó satisfactoriamente.",
+                    }
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Se actualizó satisfactoriamente.",
                         extra = string.Empty
                     });
                 }
@@ -129,8 +127,8 @@ namespace Portal.Consultoras.Web.Controllers
                         success = false,
                         message = "No seleccionó una imagen.",
                         extra = string.Empty
-                });
-            }
+                    });
+                }
 
 
             }
@@ -155,48 +153,6 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
-        [HttpPost]
-        public ActionResult InsertDet(AdministrarHistorialModel form)
-        {
-            try
-            {
-                var entidad = new BEContenidoAppDeta
-                {
-                    IdContenido = form.IdContenido,
-                    RutaContenido = "1.jpg",
-                    Tipo = Constantes.TipoContenido.Imagen
-                };
-
-                using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                {
-                    sv.InsertContenidoAppDeta(userData.PaisID, entidad);
-                }
-
-
-                return Json(new
-                {
-                    success = true,
-                    message = "Se inserto satisfactoriamente.",
-                    extra = string.Empty
-                });
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-
-            return Json(new
-            {
-                success = false,
-                message = "No se pudo realizar la carga de la Imagen.",
-                extra = string.Empty
-                });
-            }
 
         public JsonResult ComponenteListar(string sidx, string sord, int page, int rows, int IdContenido, string Campania)
         {
@@ -225,14 +181,16 @@ namespace Portal.Consultoras.Web.Controllers
                                     a.IdContenidoDeta.ToString(),
                                     a.Tipo,
                                     a.Orden.ToString(),
-                                    a.RutaContenido,
                                     a.IdContenido.ToString(),
                                     a.Campania.ToString(),
-                                    a.Region,
                                     a.Zona,
                                     a.Seccion,
                                     a.Accion,
-                                    a.CodigoDetalle
+                                    a.CodigoDetalle,
+                                    a.DetaCodigo,
+                                    a.DetaAccionDescripcion,
+                                    a.DetaCodigoDetalleDescripcion,
+                                    a.RutaContenido,
                                 }
                            }
                 };
@@ -246,9 +204,9 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private IEnumerable<ServiceContenido.BEContenidoAppList> ComponenteListarDetService(int IdContenido, string Campania)
+        private IEnumerable<BEContenidoAppList> ComponenteListarDetService(int IdContenido, string Campania)
         {
-            List<ServiceContenido.BEContenidoAppList> listaEntidad = new List<ServiceContenido.BEContenidoAppList>();
+            List<BEContenidoAppList> listaEntidad = new List<BEContenidoAppList>();
 
             try
             {
@@ -302,7 +260,7 @@ namespace Portal.Consultoras.Web.Controllers
             AdministrarHistorialDetaUpdModel modelo;
             try
             {
-               string url = GetUrlDetalleS3();
+                string url = GetUrlDetalleS3();
                 modelo = new AdministrarHistorialDetaUpdModel
                 {
                     IdContenidoDeta = entidad.IdContenidoDeta,
@@ -360,7 +318,6 @@ namespace Portal.Consultoras.Web.Controllers
             model.ListaAccion = GetContenidoAppDetaActService(0);
             model.ListaCodigoDetalle = GetContenidoAppDetaActService(1);
 
-
             BEContenidoAppHistoria entidad;
             using (var sv = new ContenidoServiceClient())
             {
@@ -394,8 +351,9 @@ namespace Portal.Consultoras.Web.Controllers
                         Campania = model.Campania,
                         Accion = model.Accion,
                         CodigoDetalle = model.CodigoDetalle,
-                        Tipo = Constantes.TipoContenido.Imagen
-
+                        Tipo = Constantes.TipoContenido.Imagen,
+                        Zona = model.Zona,
+                        Seccion = model.Seccion
                     };
 
                     sv.InsertContenidoAppDeta(userData.PaisID, entidad);
@@ -432,7 +390,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string MatrizAppConsultora = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
                 string codeHist = CodigosTablaLogica(Constantes.DatosContenedorHistorias.CodigoHist);
-                var urlImagen = ConfigS3.GetUrlFileHistDetalle(userData.CodigoISO, model.RutaContenido, MatrizAppConsultora);               
+                var urlImagen = ConfigS3.GetUrlFileHistDetalle(userData.CodigoISO, model.RutaContenido, MatrizAppConsultora);
                 new Providers.RenderImgProvider().ImagenesResizeProcesoAppHistDetalle(urlImagen, userData.CodigoISO, userData.PaisID, codeHist, MatrizAppConsultora);
             }
 
@@ -529,7 +487,8 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Accion = entidad.Accion;
                 model.CodigoDetalle = entidad.CodigoDetalle;
                 model.CUV = entidad.CodigoDetalle;
-
+                model.Zona = entidad.Zona;
+                model.Seccion = entidad.Seccion;
             }
             catch (Exception ex)
             {
@@ -547,6 +506,63 @@ namespace Portal.Consultoras.Web.Controllers
                 return listFind.Descripcion;
             else
                 return string.Empty;
+        }
+
+        public JsonResult ObtenerSegmento(int? PaisId)
+        {
+            PaisId = userData.PaisID;
+            IEnumerable<BESegmentoBanner> lst;
+
+            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            {
+                if (PaisId == Constantes.PaisID.Venezuela)
+                {
+                    lst = sv.GetSegmentoBanner(PaisId.GetValueOrDefault());
+                }
+                else
+                {
+                    lst = sv.GetSegmentoInternoBanner(PaisId.GetValueOrDefault());
+                }
+            }
+
+            return Json(new
+            {
+                listasegmento = lst
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CargarArbolRegionesZonas(int? pais)
+        {
+            pais = userData.PaisID;
+            if (pais.GetValueOrDefault() == 0)
+                return Json(null, JsonRequestBehavior.AllowGet);
+
+            IList<BEZonificacionJerarquia> lst;
+            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            {
+                lst = sv.GetZonificacionJerarquia(pais.GetValueOrDefault());
+            }
+            JsTreeModel[] tree = lst.Distinct<BEZonificacionJerarquia>(new BEZonificacionJerarquiaComparer()).Select(
+                                    r => new JsTreeModel
+                                    {
+                                        data = r.RegionNombre,
+                                        attr = new JsTreeAttribute
+                                        {
+                                            id = r.RegionId * 1000,
+                                            selected = false
+                                        },
+                                        children = lst.Where(i => i.RegionId == r.RegionId).Select(
+                                                        z => new JsTreeModel
+                                                        {
+                                                            data = z.ZonaNombre,
+                                                            attr = new JsTreeAttribute
+                                                            {
+                                                                id = z.ZonaId,
+                                                                selected = false
+                                                            }
+                                                        }).ToArray()
+                                    }).ToArray();
+            return Json(tree, JsonRequestBehavior.AllowGet);
         }
     }
 }
