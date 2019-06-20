@@ -2397,16 +2397,16 @@ function AbrirMensajeImagen(mensaje) {
 }
 
 function AbrirChatBot() {
-    var mobile = isMobile();
-    if (mobile && typeof FB !== 'undefined') {
+    var esDesktop = !isMobile();
+    if (esDesktop && typeof FB !== 'undefined') {
         FB.CustomerChat.showDialog();
     }
 
     if (typeof ChatBotUrlRef === 'undefined') return;
 
-    if (mobile) {
-        window.location.href = ChatBotUrlRef;
-    } else {
+    if (esDesktop) {
         window.open(ChatBotUrlRef);
+    } else {
+        window.location.href = ChatBotUrlRef;
     }
 }
