@@ -1,4 +1,3 @@
-using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
 using System;
 using System.Data;
@@ -138,10 +137,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal RestanteTippingPoint { get; set; }
 
-        //INI HD-4200
         [DataMember]
         public int Cantidad { get; set; }
-        //FIN HD-4200
 
         public BEProducto(IDataRecord row)
         {
@@ -186,9 +183,7 @@ namespace Portal.Consultoras.Entities
             CodigoEstrategia = row.ToString("CodigoEstrategia");
             EstrategiaIDSicc = row.ToInt32("EstrategiaIDSicc");
 
-            //INI HD-4200
-            Cantidad = (row.HasColumn("Cantidad") ? row.ToInt32("Cantidad") : 0);
-            //FIN HD-4200
+            Cantidad = row.ToInt32("Cantidad");
         }
 
         //Refactor Inheritance

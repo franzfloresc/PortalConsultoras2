@@ -1523,6 +1523,21 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="EnvioCorreoValidacion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="numeroDocumento" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EnvioCorreoValidacionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="EnvioCorreoValidacionResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetKitInicioEdit">
     <xs:complexType>
       <xs:sequence>
@@ -1579,6 +1594,36 @@
   <xs:element name="SaveKitInicioCatalogosResponse">
     <xs:complexType>
       <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarCampoFormularioSimplificadoSolicitudPrepostulante">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CodigoIso" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="Campo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarCampoFormularioSimplificadoSolicitudPrepostulanteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarCampoFormularioSimplificadoSolicitudPrepostulanteResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarSolicitantePrePostulante">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CodigoIso" nillable="true" type="xs:string" />
+        <xs:element xmlns:q112="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="formularioSimplificado" nillable="true" type="q112:FormularioSimplificadoBE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertarSolicitantePrePostulanteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsertarSolicitantePrePostulanteResult" type="xs:decimal" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
 </xs:schema>

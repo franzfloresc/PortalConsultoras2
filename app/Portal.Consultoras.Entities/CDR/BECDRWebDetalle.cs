@@ -61,9 +61,9 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public string FormatoPrecio2 { get; set; }
         [DataMember]
-        public string GrupoID { get; set; } //HD-3703 EINCA
+        public string GrupoID { get; set; }
         [DataMember]
-        public string CUVReemplazo { get; set; } //HD-3703 EINCA
+        public string CUVReemplazo { get; set; }
 
         public BECDRWebDetalle()
         { }
@@ -89,8 +89,8 @@ namespace Portal.Consultoras.Entities.CDR
             Precio2 = row.ToDecimal("Precio2");
             SolucionSolicitada = row.ToString("SolucionSolicitada");
             TipoMotivoRechazo = row.ToInt32("TipoMotivoRechazo");
-            GrupoID = row.ToString("GrupoID");//HD-3703 EINCA
-            CUVReemplazo = row.ToString("CUVReemplazo");//HD-3703 EINCA
+            GrupoID = row.ToString("GrupoID");
+            CUVReemplazo = row.ToString("CUVReemplazo");
         }
     }
 

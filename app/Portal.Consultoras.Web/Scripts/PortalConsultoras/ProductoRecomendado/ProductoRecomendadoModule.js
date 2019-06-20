@@ -93,31 +93,20 @@
                 }
 
             }).on('afterChange', function (event, slick, currentSlide) {
+                
+                if (!(typeof AnalyticsPortalModule === 'undefined')) {
+                    var data = localStorage.getItem('arrayRecomendaciones');
+                    var index = $("#carouselProductosRecomendados").find('.slick-active').last().data('slick-index');
 
-                var data = localStorage.getItem('arrayRecomendaciones');
-                var index = $("#carouselProductosRecomendados").find('.slick-active').last().data('slick-index');
-
-                if (direccion === 'next') {
-
-                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    if (direccion === 'next') {
                         AnalyticsPortalModule.MarcaRecomendacionesFlechaSiguiente();
-
-                    if (!(typeof AnalyticsPortalModule === 'undefined'))
-                        AnalyticsPortalModule.MarcaProductImpressionViewRecomendaciones(JSON.parse(data), index);
-
-                }
-                else {
-
-                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    }
+                    else {
+                        index = index - 2;
                         AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
-
-                    index = index - 2;
-
-                    if (!(typeof AnalyticsPortalModule === 'undefined'))
-                        AnalyticsPortalModule.MarcaProductImpressionViewRecomendaciones(JSON.parse(data), index);
-
+                    }
+                    AnalyticsPortalModule.MarcaProductImpressionViewRecomendaciones(JSON.parse(data), index);
                 }
-
             });
         },
         ArmarCarruselProductosRecomendadosMobile: function () {
@@ -152,32 +141,25 @@
 
             }).on('afterChange', function (event, slick, currentSlide) {
 
-                var data = localStorage.getItem('arrayRecomendaciones');
-                var index = $("#carouselProductosRecomendados").find('.slick-active').last().data('slick-index');
+                if (!(typeof AnalyticsPortalModule === 'undefined')) {
 
-                if (direccion === 'next') {
+                    var data = localStorage.getItem('arrayRecomendaciones');
+                    var index = $("#carouselProductosRecomendados").find('.slick-active').last().data('slick-index');
 
-                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    if (direccion === 'next') {
                         AnalyticsPortalModule.MarcaRecomendacionesFlechaSiguiente();
-
-                    if (!(typeof AnalyticsPortalModule === 'undefined'))
-                        AnalyticsPortalModule.MarcaProductImpressionViewRecomendaciones(JSON.parse(data), index);
-
-                }
-                else {
-
-                    if (!(typeof AnalyticsPortalModule === 'undefined'))
+                    }
+                    else {
                         AnalyticsPortalModule.MarcaRecomendacionesFlechaAnterior();
+                    }
 
-                    if (!(typeof AnalyticsPortalModule === 'undefined'))
-                        AnalyticsPortalModule.MarcaProductImpressionViewRecomendaciones(JSON.parse(data), index);
-
+                    AnalyticsPortalModule.MarcaProductImpressionViewRecomendaciones(JSON.parse(data), index);
                 }
 
 
             });
         },
-        ValidarRecomendadosEstaActivo: function(codigoCatalogo, estrategiaIdSicc) {
+        ValidarRecomendadosEstaActivo: function (codigoCatalogo, estrategiaIdSicc) {
             if (_config.isActive === "1") {
                 if ((codigoCatalogo === 9 || codigoCatalogo === 10 || codigoCatalogo === 13) &&
                     (estrategiaIdSicc === 2001)) {
