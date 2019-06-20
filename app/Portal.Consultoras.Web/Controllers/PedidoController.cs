@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.ProgramaNuevas;
 using Portal.Consultoras.Web.Providers;
@@ -196,6 +197,10 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MontoDescuento = pedidoWeb.DescuentoProl;
                     model.MontoEscala = pedidoWeb.MontoEscala;
                     model.TotalConDescuento = model.Total - model.MontoDescuento;
+                    model.GananciaRevista = pedidoWeb.GananciaRevista;
+                    model.GananciaWeb = pedidoWeb.GananciaWeb;
+                    model.GananciaOtros = pedidoWeb.GananciaOtros;
+                    //model.IsShowGananciaConsultora = IsCalculoGananaciaConsultora(pedidoWeb);
 
                     SessionManager.SetMontosProl(
                         new List<ObjMontosProl>
@@ -368,6 +373,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             model.MensajeKitNuevas = _programaNuevasProvider.GetMensajeKit();
+            ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Ofertas digitales";
 
             return View("Index", model);
         }
@@ -1582,14 +1588,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        /// <summary>
-        /// Fecha actual según el pais.
-        /// </summary>
-        /// <returns></returns>
-        private DateTime GetDiaActual()
-        {
-            return DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-        }
         public async Task<JsonResult> EnviarCorreoPedidoReservado()
         {
             try
@@ -2633,21 +2631,31 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!valorConfi) return 0;
 
-            if (
-                (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoProductoSugeridoCarrusel
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel)
-                || (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalCarrusel
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha)
-                || (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraLandingShowroomShowroomSubCampania
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomSubCampania
-                || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomSubCampania)
-                || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackNuevas
+            var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(producto.OrigenPedidoWeb);
+            if (modeloOrigenPedido.Palanca == ConsOrigenPedidoWeb.Palanca.ProductoSugerido
+                || modeloOrigenPedido.Palanca == ConsOrigenPedidoWeb.Palanca.OfertaFinal
+                || (modeloOrigenPedido.Palanca == ConsOrigenPedidoWeb.Palanca.Showroom
+                    && modeloOrigenPedido.Seccion == ConsOrigenPedidoWeb.Seccion.SubCampania) 
                 )
+            {
                 return 0;
+            }
+
+            //if (
+            //    (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoProductoSugeridoCarrusel
+            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel)
+            //    || (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel
+            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha
+            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel
+            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha
+            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalCarrusel
+            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha)
+            //    || (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraLandingShowroomShowroomSubCampania
+            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomSubCampania
+            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomSubCampania)
+            //    || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackNuevas
+            //    )
+            //    return 0;
 
             switch (producto.TipoEstrategiaCodigo)
             {
@@ -3397,5 +3405,16 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        /// <summary>
+        /// Requerimiento TESLA-28
+        /// [Ganancia] Cálculo Ganancia ofertas Catálogo*
+        /// </summary>
+        /// <returns></returns>
+        //private bool IsCalculoGananaciaConsultora(BEPedidoWeb pedidoWeb)
+        //{
+        //    return pedidoWeb.GananciaRevista.HasValue &&
+        //           pedidoWeb.GananciaWeb.HasValue && pedidoWeb.GananciaWeb.HasValue;
+        //}
     }
 }

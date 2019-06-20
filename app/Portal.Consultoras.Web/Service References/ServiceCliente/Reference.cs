@@ -628,6 +628,15 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private decimal FleteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal GananciaOtrosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal GananciaRevistaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal GananciaWebField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IPUsuarioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1007,6 +1016,45 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.FleteField.Equals(value) != true)) {
                     this.FleteField = value;
                     this.RaisePropertyChanged("Flete");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal GananciaOtros {
+            get {
+                return this.GananciaOtrosField;
+            }
+            set {
+                if ((this.GananciaOtrosField.Equals(value) != true)) {
+                    this.GananciaOtrosField = value;
+                    this.RaisePropertyChanged("GananciaOtros");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal GananciaRevista {
+            get {
+                return this.GananciaRevistaField;
+            }
+            set {
+                if ((this.GananciaRevistaField.Equals(value) != true)) {
+                    this.GananciaRevistaField = value;
+                    this.RaisePropertyChanged("GananciaRevista");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal GananciaWeb {
+            get {
+                return this.GananciaWebField;
+            }
+            set {
+                if ((this.GananciaWebField.Equals(value) != true)) {
+                    this.GananciaWebField = value;
+                    this.RaisePropertyChanged("GananciaWeb");
                 }
             }
         }
