@@ -91,19 +91,30 @@
                
                 {{#iff componente.Digitable '==' '1'}}
                     {{#iff ../Hermanos.length '==' 1}}
-                        <div data-tono="" data-tono-select="{{componente.Cuv}}" data-tono-digitable="{{componente.Digitable}}" style="display: none;">
-                            <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.IdMarca}}" />
-                            <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
-                            <input type="hidden" name="nameDigitable" id="Estrategia_hd_Digitable" value="{{componente.Digitable}}" />
-                            <input type="hidden" name="nameGrupo" id="Estrategia_hd_Grupo" value="{{componente.Grupo}}" />
-                        </div>
-                    {{/iff}}    
+                        {{#iff TipoPersonalizacion '==' 'CAT'}}
+                            <p>:P</p>
+                            <div data-tono="" data-tono-select="{{componente.Cuv}}" data-tono-digitable="{{componente.Digitable}}" style="display: none;">
+                                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.IdMarca}}" />
+                                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
+                                <input type="hidden" name="nameDigitable" id="Estrategia_hd_Digitable" value="{{componente.Digitable}}" />
+                                <input type="hidden" name="nameGrupo" id="Estrategia_hd_Grupo" value="{{componente.Grupo}}" />
+                            </div>
+                        {{/iff}}
+                    {{/iff}} 
+                
                     {{#iff ../Hermanos.length '>' 1}}
                         <button type="button" class="tono_select_opt" data-tono-change="1" btn-show-types-tones-modal data-component-cuv="{{componente.Cuv}}">
                             {{componente.selectComponentText}}
                         </button>
                         <div id="resumen-opciones-{{componente.Cuv}}" class="tonos_seleccionados" style="display:none;"></div>
                     {{/iff}}
+                {{else}}
+                    <div data-tono="" data-tono-select="{{componente.Cuv}}" data-tono-digitable="{{componente.Digitable}}" style="display: none;">
+                        <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{componente.IdMarca}}" />
+                        <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{componente.PrecioCatalogo}}" />
+                        <input type="hidden" name="nameDigitable" id="Estrategia_hd_Digitable" value="{{componente.Digitable}}" />
+                        <input type="hidden" name="nameGrupo" id="Estrategia_hd_Grupo" value="{{componente.Grupo}}" />
+                    </div>
                 {{/iff}}
             </div>
         {{/each}}

@@ -275,8 +275,8 @@ var DetalleEstrategiaProvider = function () {
                 estrategia.DescripcionCompleta = descripcionCompleta;
                 if (estrategia.Hermanos.length > 0) estrategia.Hermanos[0].NombreComercial = descripcionCompleta;
             }
-            //localStorage.removeItem(key);
         }
+        
 
         return estrategia;
     };
