@@ -1915,6 +1915,7 @@ namespace Portal.Consultoras.BizLogic
             usuarioOpciones.OpcionesUsuarioId = Constantes.OpcionesUsuario.CompartirWhatsApp;
             usuarioOpciones.CheckBox = usuario.NotificacionesWhatsapp;
 
+
             try
             {
                 if (usuario.EMail != string.Empty)
