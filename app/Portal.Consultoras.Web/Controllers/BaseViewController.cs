@@ -368,7 +368,7 @@ namespace Portal.Consultoras.Web.Controllers
                 { Constantes.NombrePalanca.HerramientasVenta, "Demostradores" },
                 { Constantes.NombrePalanca.MasGanadoras, "Las más ganadoras" },
                 { Constantes.NombrePalanca.PackNuevas, _programaNuevasProvider.TieneDuoPerfecto() ? "Dúo Perfecto" : "Programa Nuevas" },
-                { Constantes.NombreEstrategiaBuscador.Catalogo, "Catálogos" },
+                { Constantes.NombreEstrategiaBuscador.Catalogo, "Búsqueda" },
             };
 
             return nombresPalancas.ContainsKey(palanca) ? nombresPalancas[palanca] : string.Empty;
