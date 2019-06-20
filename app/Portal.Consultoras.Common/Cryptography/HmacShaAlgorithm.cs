@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Common.Cryptography
                 byte[] hashCode = hmac.ComputeHash(textBytes);
                 string hash = BitConverter.ToString(hashCode).Replace("-", "");
 
-                return hash.ToLower(); 
+                return hash.ToLower();
             }
         }
     }

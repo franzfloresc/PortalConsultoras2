@@ -17,8 +17,7 @@ namespace Portal.Consultoras.Common.Cryptography
         {
             var bytes = Encoding.UTF8.GetBytes(keyString);
 
-            var cryptoProvider = new DESCryptoServiceProvider {Mode = CipherMode.ECB};
-            using (cryptoProvider)
+            using (var cryptoProvider = new DESCryptoServiceProvider { Mode = CipherMode.ECB })
             {
                 var memoryStream = new MemoryStream();
                 var cryptoStream = new CryptoStream(memoryStream,
@@ -34,7 +33,7 @@ namespace Portal.Consultoras.Common.Cryptography
                         cryptoStream.FlushFinalBlock();
                         writer.Flush();
                         return Convert.ToBase64String(memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
-                    } 
+                    }
                 }
             }
         }
@@ -49,8 +48,7 @@ namespace Portal.Consultoras.Common.Cryptography
         {
             var bytes = Encoding.UTF8.GetBytes(keyString);
 
-            var cryptoProvider = new DESCryptoServiceProvider {Mode = CipherMode.ECB};
-            using (cryptoProvider)
+            using (var cryptoProvider = new DESCryptoServiceProvider { Mode = CipherMode.ECB })
             {
                 var memoryStream = new MemoryStream(Convert.FromBase64String(encString));
                 var cryptoStream = new CryptoStream(memoryStream,
@@ -58,7 +56,7 @@ namespace Portal.Consultoras.Common.Cryptography
                                         CryptoStreamMode.Read);
                 using (var reader = new StreamReader(cryptoStream))
                 {
-                    return reader.ReadToEnd(); 
+                    return reader.ReadToEnd();
                 }
             }
         }

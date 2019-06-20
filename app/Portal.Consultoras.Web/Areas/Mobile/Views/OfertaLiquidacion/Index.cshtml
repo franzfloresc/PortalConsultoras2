@@ -66,7 +66,7 @@
 @{
     if (!mobileConfiguracion.EsAppMobile)
     {
-        <div class="btn_agregarPedido">
+        <div class="btn_agregarPedido btn_agregarPedido--nuevoLookAndFeelEsika">
             <form>
                 <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';" name="btnAgregarPedido" value="INGRESA TU PEDIDO" />
             </form>
@@ -78,18 +78,21 @@
     {{#each this}}
     <div class="content_item_home">
         <div class="liquidacion_item" data-idposicion="{{Posicion}}">
-            <input type="hidden" class="TipoOfertaSisID" value="{{TipoOfertaSisID}}" />
-            <input type="hidden" class="OfertaProductoID" value="{{OfertaProductoID}}" />
-            <input type="hidden" class="claseConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
-            <input type="hidden" class="claseMarcaID" value="{{MarcaID}}" />
-            <input type="hidden" class="valorCUV" value="{{CUV}}" />
-            <input type="hidden" class="clasePrecioUnidad" value="{{PrecioOferta}}" />
-            <input type="hidden" class="Stock" value="{{Stock}}" />
-            <input type="hidden" class="DescripcionProd" value="{{Descripcion}}" />
-            <input type="hidden" class="DescripcionMarca" value="{{DescripcionMarca}}" />
-            <input type="hidden" class="DescripcionCategoria" value="{{DescripcionCategoria}}" />
-            <input type="hidden" class="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-            <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
+            <div style="display: none;">
+                <input type="hidden" class="TipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+                <input type="hidden" class="OfertaProductoID" value="{{OfertaProductoID}}" />
+                <input type="hidden" class="claseConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+                <input type="hidden" class="claseMarcaID" value="{{MarcaID}}" />
+                <input type="hidden" class="valorCUV" value="{{CUV}}" />
+                <input type="hidden" class="clasePrecioUnidad" value="{{PrecioOferta}}" />
+                <input type="hidden" class="Stock" value="{{Stock}}" />
+                <input type="hidden" class="DescripcionProd" value="{{Descripcion}}" />
+                <input type="hidden" class="DescripcionMarca" value="{{DescripcionMarca}}" />
+                <input type="hidden" class="DescripcionCategoria" value="{{DescripcionCategoria}}" />
+                <input type="hidden" class="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
+                <div data-imagen-producto="{{ImagenProductoSmall}}"></div>
+            </div>
             <div class="producto_img_mobile">
                 <img data-src="{{ImagenProductoSmall}}" data-lazy-seccion-liquidacion="" />
             </div>
@@ -140,7 +143,7 @@
         var DesktopLiquidacion = @Constantes.OrigenPedidoWeb.DesktopLandingLiquidacionLiquidacionCarrusel;
         var MobileLiquidacion = @Constantes.OrigenPedidoWeb.MobileLandingLiquidacionLiquidacionCarrusel;
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/OfertaLiquidacion/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/OfertaLiquidacion/Index.js")?v2"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js")"></script>
 }

@@ -1,14 +1,14 @@
 ﻿jQuery(document).ready(function () {
-   
+
     RegistrarConstrains();
     RegistrarEventos();
-   
+
 });
 function RegistrarConstrains() {
 
     $("#CodigoPrograma").on('keypress', function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
-        var inputVal = $(this).val();
+        //var inputVal = $(this).val();
         var keyChar = String.fromCharCode(charCode);
         var re = /[0-9]/;
         return re.test(keyChar);
@@ -93,7 +93,7 @@ function RegistrarEventos() {
                 closeWaitingDialog();
             }
         });
-    
+
     });
 
 
