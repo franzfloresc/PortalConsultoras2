@@ -813,13 +813,13 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
         if (isUrlMobile > 0) {
             $('.icono_alerta').hide();
             if (tipoIcono == CONS_TIPO_ICONO.ALERTA) {
-                $('.icono_alerta.exclamacion_icono_mobile').show();
+                $('.icono_alerta.alert_dialog_icono').show();//***HD-4450
             }
             if (tipoIcono == CONS_TIPO_ICONO.CHECK) {
                 $('.icono_alerta.check_icono_mobile').show();
             }
             if (tipoIcono == undefined || tipoIcono == null) {
-                $('.icono_alerta.exclamacion_icono_mobile').show();
+                $('.icono_alerta.alert_dialog_icono').show();//***HD-4450
             }
             $('#mensajeInformacionvalidado').html(mensaje);
             $('#popupInformacionValidado').show();
@@ -833,7 +833,7 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
         }
         else {
 
-            $('#alertDialogMensajes .terminos_title_2').html(titulo); ///**HD-4450
+            $('#alertDialogMensajes .terminos_title_2').html(titulo);
             $('#alertDialogMensajes .pop_pedido_mensaje').html(mensaje);
             showDialogSinScroll("alertDialogMensajes");
 
