@@ -15,6 +15,18 @@ $(document).ready(function () {
         CargarGanancias();
     }
 
+    //Barra monto Acumulado
+    if (TieneMontoAcumulado == '1') {
+        var progreso = $("#bar-progreso");
+        if (progreso.length > 0) {
+            var maxBar = $(progreso).data("max");
+            var curBar = $(progreso).data("cur");
+            var perc = (curBar / maxBar) * 100;
+            $('.new-bar').width(perc + '%');
+        }
+    }
+    //fin
+    
     var nivelactual = $("#hfNivelActual").val();
     for (var i = 1; i <= nivelactual; i++)
         $(".pt" + i).addClass("activo");
@@ -485,12 +497,12 @@ $(".tog-vermas").click(function () {
     }
 });
 
-$(document).ready(function ($) {
-    var progreso = $("#bar-progreso");
-    if (progreso.length > 0) {
-        var maxBar = $(progreso).data("max");
-        var curBar = $(progreso).data("cur");
-        var perc = (curBar / maxBar)*100;
-        $('.new-bar').width(perc + '%');
-    }
-});
+//$(document).ready(function ($) {
+//    var progreso = $("#bar-progreso");
+//    if (progreso.length > 0) {
+//        var maxBar = $(progreso).data("max");
+//        var curBar = $(progreso).data("cur");
+//        var perc = (curBar / maxBar)*100;
+//        $('.new-bar').width(perc + '%');
+//    }
+//});
