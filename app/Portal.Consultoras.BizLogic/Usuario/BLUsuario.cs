@@ -549,7 +549,6 @@ namespace Portal.Consultoras.BizLogic
                 var pagoEnLineaTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.PagoLinea.TablaLogicaId));
                 var tieneChatbotTask = Task.Run(() => usuario.TieneChatbot = TieneChatbot(paisID, usuario.CodigoConsultora));
                 var tieneGanaMasNativo = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.GanaNativo.TablaLogicaId));
-                var opcionesUsuario = Task.Run(() => GetUsuarioOpciones(paisID, usuario.CodigoUsuario));
 
                 var lstConfiguracionPais = new List<string>();
                 lstConfiguracionPais.Add(Constantes.ConfiguracionPais.RevistaDigital);
@@ -650,13 +649,7 @@ namespace Portal.Consultoras.BizLogic
                 usuario.GanaMasNativo = (tieneGanaMasNativo.Result.Select(x => x.Valor).FirstOrDefault() == "1");
                 usuario.EsUltimoDiaFacturacion = (usuario.FechaFinFacturacion - Common.Util.GetDiaActual(usuario.ZonaHoraria)).Days == 0;
 
-                //Para mostrar u ocultar el check de notificaciones de Whatsapp 
-                var opcionesUsuarioConfig = opcionesUsuario.Result.FirstOrDefault(x => x.OpcionesUsuarioId == Constantes.OpcionesUsuario.CompartirWhatsApp);
-                usuario.ActivaNotificacionesWhatsapp = (opcionesUsuarioConfig != null);
 
-                if (opcionesUsuarioConfig != null)
-                    usuario.NotificacionesWhatsapp = opcionesUsuarioConfig.CheckBox;
-                
                 return usuario;
             }
             catch (Exception ex)
@@ -1910,11 +1903,6 @@ namespace Portal.Consultoras.BizLogic
         {
             string resultado = string.Empty;
 
-            var DAUsuario = new DAUsuario(usuario.PaisID);
-            var usuarioOpciones = new BEUsuarioOpciones();
-            usuarioOpciones.OpcionesUsuarioId = Constantes.OpcionesUsuario.CompartirWhatsApp;
-            usuarioOpciones.CheckBox = usuario.NotificacionesWhatsapp;
-
             try
             {
                 if (usuario.EMail != string.Empty)
@@ -1928,7 +1916,6 @@ namespace Portal.Consultoras.BizLogic
                     else
                     {
                         this.UpdateDatos(usuario, CorreoAnterior);
-                        if(usuario.ActivaNotificacionesWhatsapp) DAUsuario.InsertarUsuarioOpciones(usuarioOpciones, usuario.CodigoUsuario);
 
                         if (usuario.EMail != CorreoAnterior)
                         {
@@ -1937,7 +1924,6 @@ namespace Portal.Consultoras.BizLogic
                         }
                         else
                         {
-                            
                             resultado = string.Format("{0}|{1}|{2}|0", "1", "3", "- Sus datos se actualizaron correctamente");
                         }
                     }
@@ -1945,7 +1931,6 @@ namespace Portal.Consultoras.BizLogic
                 else if (usuario.PaisID == Constantes.PaisID.Colombia || usuario.PaisID == Constantes.PaisID.Chile)
                 {
                     this.UpdateDatos(usuario, CorreoAnterior);
-                    if (usuario.ActivaNotificacionesWhatsapp) DAUsuario.InsertarUsuarioOpciones(usuarioOpciones, usuario.CodigoUsuario);
                     resultado = string.Format("{0}|{1}|{2}|0", "1", "3", "- Sus datos se actualizaron correctamente");
                 }
             }
@@ -3123,10 +3108,10 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 /*Verificando si tiene Verificacion*/
-                var oUsu = GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario);
+                BEUsuarioDatos oUsu = GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario);
                 if (oUsu.Cantidad == 0) return null;
                 /*Obteniendo Datos de Verificacion de Autenticidad*/
-                var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
+                BEOpcionesVerificacion opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
                 if (opcion == null) return null;
                 /*validando si tiene Zona*/
                 if (opcion.TieneZonas)
@@ -3146,14 +3131,35 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion;
-                var smsCorreoValidado = false;
+
 
 
                 BEUsuario beusuario = Select(paisID, CodigoUsuario);
 
-                var flgCheckSMS = (beusuario != null) ? beusuario.FlgCheckSMS : true;
-                var FlgCheckEmail = (beusuario != null) ? beusuario.FlgCheckEMAIL : true;
+                return GetVerificacionAutenticidadSMSEmail(beusuario, opcion, oUsu, paisID, CodigoUsuario);
 
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, CodigoUsuario, Common.Util.GetPaisISO(paisID));
+                return null;
+            }
+        }
+
+
+        private BEUsuarioDatos GetVerificacionAutenticidadSMSEmail(BEUsuario beusuario, BEOpcionesVerificacion opcion, BEUsuarioDatos oUsu, int paisID, string CodigoUsuario)
+        {
+            try
+            {
+                var smsCorreoValidado = false;
+                var flgCheckSMS = true;
+                var FlgCheckEmail = true;
+
+                if (beusuario != null)
+                {
+                    flgCheckSMS = beusuario.FlgCheckSMS;
+                    FlgCheckEmail = beusuario.FlgCheckEMAIL;
+                }
 
                 if (opcion.OpcionEmail)
                 {
@@ -3188,11 +3194,12 @@ namespace Portal.Consultoras.BizLogic
                 GetOpcionHabilitar(paisID, Constantes.VerificacionAutenticidad.Origen, ref oUsu);
                 return oUsu;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                LogManager.SaveLog(ex, CodigoUsuario, Common.Util.GetPaisISO(paisID));
+
                 return null;
             }
+
         }
 
         private BEUsuarioDatos GetVerificacionAutenticidadWS(int paisID, string CodigoUsuario)
