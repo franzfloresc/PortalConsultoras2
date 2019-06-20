@@ -186,8 +186,11 @@ var DetalleEstrategiaProvider = function () {
                         //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
                         //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
                         //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png'];
-
+                        estrategia.FotosCarrusel = [];
                         if (estrategia.Cuv === componente.Cuv) {
+                            //if (typeof componente.FotosCarrusel != "undefined" && componente.FotosCarrusel != null && componente.FotosCarrusel.length > 0) {
+                            //    estrategia.FotosCarrusel = componente.FotosCarrusel || [];
+                            //}
                             estrategia.FotosCarrusel = componente.FotosCarrusel || [];
                         }
                     });
