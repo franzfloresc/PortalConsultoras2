@@ -100,7 +100,7 @@ namespace Portal.Consultoras.Web.Providers
                 if (!string.IsNullOrEmpty(diasAntesStock))
                 {
                     var iDiasAntesStock = int.Parse(diasAntesStock);
-                    if (DateTime.Now.Date >= userData.FechaInicioCampania.AddDays(iDiasAntesStock))
+                    if (Util.GetDiaActual(userData.ZonaHoraria) >= userData.FechaInicioCampania.AddDays(iDiasAntesStock))
                     {
                         validar = true;
                     }
@@ -143,7 +143,7 @@ namespace Portal.Consultoras.Web.Providers
                         var temp = respuesta.FirstOrDefault(r => r.COD_VENTA_PADRE == x.CUV2);
                         if (temp != null)
                         {
-                            x.TieneStock = (temp.STOCK == 1 ? true : false);
+                            x.TieneStock = temp.STOCK == 1;
                         }
                     });
                 }

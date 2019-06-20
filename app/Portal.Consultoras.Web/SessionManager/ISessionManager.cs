@@ -61,7 +61,6 @@ namespace Portal.Consultoras.Web.SessionManager
         List<BECDRWebMotivoOperacion> GetCdrMotivoOperacion();
 
         void SetCdrMotivoOperacion(List<BECDRWebMotivoOperacion> datos);
-        #endregion
 
         int? GetNroPedidosCDRConfig();
 
@@ -70,6 +69,14 @@ namespace Portal.Consultoras.Web.SessionManager
         List<CDRWebModel> GetListaCDRWebCargaInicial();
 
         void SetListaCDRWebCargaInicial(List<CDRWebModel> lista);
+
+        bool? GetFlagIsSetsOrPack();
+
+        void SetFlagIsSetsOrPack(bool? flag);
+
+        #endregion
+
+
 
         BEPedidoWeb GetPedidoWeb();
 
@@ -279,7 +286,10 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetListPremioElectivo(List<PremioElectivoModel> listPremioElectivo);
         Dictionary<string, PremioProgNuevasOFModel> GetDictPremioProgNuevasOF();
         void SetDictPremioProgNuevasOF(Dictionary<string, PremioProgNuevasOFModel> dictPremioProgNuevasOF);
-
+        
+        bool GetProcesoSuscripcionSE();
+        void SetProcesoSuscripcionSE(bool proceso);
+        
         void SetBuscadorYFiltrosConfig(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
 
         BuscadorYFiltrosConfiguracionModel GetBuscadorYFiltrosConfig();
@@ -302,10 +312,6 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetPrimeraVezSessionMobile(dynamic val);
 
         dynamic GetPrimeraVezSessionMobile();
-
-        void SetIngresoPortalConsultoras(bool val);
-
-        dynamic GetIngresoPortalConsultoras();
 
         void SetConsultoraNuevaBannerAppMostrar(dynamic val);
 
@@ -420,10 +426,6 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<BEShowRoomOferta> GetListaProductoShowRoomCpc();
 
-        void SetActualizarDatosConsultora(bool val);
-
-        bool GetActualizarDatosConsultora();
-
         void SetSuenioNavidad(int val);
 
         int GetSuenioNavidad();
@@ -451,10 +453,6 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetZonaCodigoEliminar(string val);
 
         string GetZonaCodigoEliminar();
-
-        void SetIngresoPortalLideres(bool val);
-
-        bool GetIngresoPortalLideres();
 
         void Seterrores(List<MatrizCampaniaModel> val);
 
@@ -518,7 +516,13 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetKitCaminoBrillante(List<BEKitCaminoBrillante> val);
         List<BEKitCaminoBrillante> GetKitCaminoBrillante();
 
-        void SetDemostradoresCaminoBrillante(List<BEDesmostradoresCaminoBrillante> val);
-        List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante();
+        void SetDemostradoresCaminoBrillante(List<BEDemostradoresCaminoBrillante> val);
+        List<BEDemostradoresCaminoBrillante> GetDemostradoresCaminoBrillante();
+
+        void SetChatbotToken(string val);
+        string GetChatbotToken();
+        
+        void SetFiltrosCaminoBrillante(BEOrdenFiltroConfiguracion val);
+        BEOrdenFiltroConfiguracion GetFiltrosCaminoBrillante();
     }
 }

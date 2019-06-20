@@ -56,17 +56,27 @@ function EstructurarDataProgramasBelcorp(array) {
             item.urlImgBeneficios = urlS3Raiz + "MisBeneficios/" + codigoISO_MB + "/brillante.png";
             item.DetalleDesripcion = "Todo lo que logras merece un reconocimiento </br><b>¡y una gran celebración!</b>";
             item.Descripcion = "<b>BRILLANTE</b> " + anioActual;
-        } else if (item.Descripcion.trim() == "Familia Protegida" || (codigoISO_MB == 'EC' && item.Descripcion == 'Familia Primero')) {
+        }
+        else if (item.Descripcion.trim() == "Camino Brillante") {
+            item.urlImgBeneficios = urlS3Raiz + "MisBeneficios/" + codigoISO_MB + "/camino_brillante.png";
+            item.DetalleDesripcion = "Un nuevo programa que premiará tu crecimiento";
+            item.Descripcion = "";
+        }
+        else if (item.Descripcion.trim() == "Familia Protegida" ||
+            (codigoISO_MB == 'EC' && item.Descripcion == 'Familia Primero')) {
             item.Descripcion = "";
             item.urlImgBeneficios = urlS3Raiz + "MisBeneficios/" + codigoISO_MB + "/familiaprotegida.png";
-            item.DetalleDesripcion = "Programa de ayuda económica para ti, tus hijos y esposo en caso de hospitalización y fallecimiento.";
+            item.DetalleDesripcion =
+                "Programa de ayuda económica para ti, tus hijos y esposo en caso de hospitalización y fallecimiento.";
         } else if (item.Descripcion.trim() == "Flexipago") {
             item.Descripcion = "";
             item.urlImgBeneficios = urlS3Raiz + "MisBeneficios/" + codigoISO_MB + "/flexipago.png";
-            item.DetalleDesripcion = "El crédito de Belcorp que te permitirá pasar pedidos más grandes y poder pagarlos hasta en 3 partes.";
+            item.DetalleDesripcion =
+                "El crédito de Belcorp que te permitirá pasar pedidos más grandes y poder pagarlos hasta en 3 partes.";
         } else if (item.Descripcion.trim() == "Programa Nuevas") {
             item.urlImgBeneficios = urlS3Raiz + "MisBeneficios/" + codigoISO_MB + "/programanuevas.png";
-            item.DetalleDesripcion = "<b>Gana desde el comienzo</b> con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de Ésika y más.";
+            item.DetalleDesripcion =
+                "<b>Gana desde el comienzo</b> con las mejores herramientas para tu negocio: productos ganadores, demostradores, fichas de los TOP de Ésika y más.";
             item.Descripcion = "PROGRAMA <b>NUEVAS</b>";
         }
     });

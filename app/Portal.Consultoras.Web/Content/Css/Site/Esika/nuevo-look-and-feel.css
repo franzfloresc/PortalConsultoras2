@@ -1,0 +1,319 @@
+﻿
+/*  HD-4065 - CAMBIO DE LOOK AND FEEL DE ÉSIKA */
+
+.header--nuevoLookAndFeelEsika,
+.boton_home_guardar--nuevoLookAndFeelEsika,
+.header--nuevoLookAndFeelEsika .ver_pedido,
+.header--nuevoLookAndFeelEsika--mobile,
+.layout__header--nuevoLookAndFeelEsika,
+.layout__header--nuevoLookAndFeelEsika .btn__productos__agregados--IngresarPedido,
+.pedido_ingreso_c2--nuevoLookAndFeelEsika .pedido_agregado,
+.layout__header--nuevoLookAndFeelEsika .btn__productos__agregados--verMiPedido {
+    background-color: #FF335A !important;
+}
+
+.header--nuevoLookAndFeelEsika .ver_pedido,
+.boton_home_guardar--nuevoLookAndFeelEsika,
+.layout__header--nuevoLookAndFeelEsika .btn__productos__agregados--IngresarPedido,
+.layout__header--nuevoLookAndFeelEsika .btn__productos__agregados--verMiPedido{
+    border-radius:4px;
+}
+
+.boton_home_guardar--nuevoLookAndFeelEsika{
+    border:2px solid #FF335A!important;
+}
+
+    .boton_home_guardar--nuevoLookAndFeelEsika:hover {
+        color:#FF335A !important;
+    }
+
+.header--nuevoLookAndFeelEsika .new_menu .pestana_esika,
+.layout__header--nuevoLookAndFeelEsika .pestana__marca__pais {
+    background: none;
+}
+
+.header--nuevoLookAndFeelEsika .new_menu_a,
+.header--nuevoLookAndFeelEsika .boton_cerrar_s a,
+.layout__header--nuevoLookAndFeelEsika .menu__link,
+.layout__header--nuevoLookAndFeelEsika .num__cantidad__prod {
+    color: #FFF !important;
+}
+
+.header--nuevoLookAndFeelEsika .sub_menu_home1 .new_menu_a{
+    color:#000;
+}
+
+.header--nuevoLookAndFeelEsika .boton_cam,
+.header--nuevoLookAndFeelEsika .notificaciones_existentes,
+.layout__header--nuevoLookAndFeelEsika .menu__item--campaniaActual,
+.layout__header--nuevoLookAndFeelEsika .menu__item--campaniaActual span {
+    background-color: #FFE8A2;
+    color: #FF335A;
+}
+
+.header--nuevoLookAndFeelEsika .linea_menu{
+    display:none;
+}
+
+.header--nuevoLookAndFeelEsika .sub_menu_home1:before,
+.layout__header--nuevoLookAndFeelEsika .submenu__lista--miNegocio:before{
+    bottom: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-color: rgba(255, 255, 255, 0);
+    border-bottom-color: #FFF;
+    margin-left: -1px;
+}
+
+.header--nuevoLookAndFeelEsika .sub_menu_home1:before {
+    left: 11.5%;
+    border-width: 10px;
+}
+
+.header--nuevoLookAndFeelEsika .sub_menu_home2{
+    top:29px;
+}
+
+.layout__header--nuevoLookAndFeelEsika .submenu__lista--miNegocio:before {
+    left: 12.5%;
+    border-width: 13px;
+}
+
+.layout__header--nuevoLookAndFeelEsika .submenu__lista--miAsesorBelleza{
+    margin-top:3px;
+}
+
+.header--nuevoLookAndFeelEsika .flecha_menu,
+.layout__header--nuevoLookAndFeelEsika .submenu__lista--miNegocio,
+.layout__header--nuevoLookAndFeelEsika .submenu__lista--miAsesorBelleza {
+    border-top: 4px solid #FFF;
+}
+
+.layout__header--nuevoLookAndFeelEsika .menu__link--conSubmenu:after {
+    border-top: 6px solid #FFF;
+}
+
+.header--nuevoLookAndFeelEsika .sub_menu_home1 .flecha_menu {
+    border-top: 4px solid #000;
+}
+
+.header--nuevoLookAndFeelEsika .buscador_productos,
+.layout__header--nuevoLookAndFeelEsika .buscador__productos{
+    border: 1px solid #FFF;
+}
+
+.header--nuevoLookAndFeelEsika .buscador_productos_sin_enlace_menu_socia_empresaria_vista_pedido{
+    width:24%;
+}
+
+.header--nuevoLookAndFeelEsika .tutoriales_svg {
+    background: url('/Content/Images/icono-tutorial-blanco.svg') no-repeat;
+    background-position: left 3px;
+}
+
+.header--nuevoLookAndFeelEsika .cart_compras{
+    cursor:pointer;
+}
+
+.header--nuevoLookAndFeelEsika .cart_compras:hover,
+.header--nuevoLookAndFeelEsika .cart_compras .flechita_info {
+    background-color: #FFF;
+}
+
+.header--nuevoLookAndFeelEsika .cart_compras.visibilidadEnlaceMenu:hover{
+    background-color:transparent;
+}
+
+.header--nuevoLookAndFeelEsika .cart_compras:hover a{
+    position:relative;
+    z-index:2000;
+}
+
+.header--nuevoLookAndFeelEsika .cart_compras .campana_svg{
+    background: url('/Content/Images/icono-carrito-compra-blanco.svg') no-repeat;
+    background-position: left 4px;
+    background-size: 103%;
+}
+
+.header--nuevoLookAndFeelEsika .cart_compras:hover .campana_svg {
+    background: url('/Content/Images/icono_carrito.svg') no-repeat;
+    background-position: left 4px;
+    background-size: 103%;
+}
+
+.header--nuevoLookAndFeelEsika--mobile .notificaciones_mobiles,
+.layout__header--nuevoLookAndFeelEsika .notificaciones__cantidad--iconoNotificaciones{
+    background-color: #FFE8A2;
+    color: #FF335A;
+}
+
+.header--nuevoLookAndFeelEsika .cart_compras .campana_svg + .notificaciones{
+    color:#FFF;
+}
+
+.header--nuevoLookAndFeelEsika .cart_compras .campana_svg + .notificaciones,
+.header--nuevoLookAndFeelEsika .campana .mensaje_svg + .notificaciones {
+    width: 22px !important;
+    border-radius: 100%;
+    line-height: 19px;
+}
+
+.header--nuevoLookAndFeelEsika .info_cam{
+    margin-left:-256px;
+}
+
+.header--nuevoLookAndFeelEsika .campana .mensaje_svg,
+.header--nuevoLookAndFeelEsika .campana:hover .mensaje_svg {
+    background: url('/Content/Images/icono_notificaciones_blanco.svg') no-repeat !important;
+    background-position: 0 5px !important;
+}
+
+.layout__header--nuevoLookAndFeelEsika .menu__link--carrito:before {
+    background-image: url('/Content/Images/icono_carrito.svg');
+    background-position: 15px 14.3px;
+    background-repeat: no-repeat;
+    z-index: 7;
+}
+
+.layout__header--nuevoLookAndFeelEsika .menu__item--carrito:hover .num__cantidad__prod {
+    z-index: 8;
+}
+
+.franja_negra.franja_negra--nuevoLookAndFeelEsika,
+.banner_ingresoPedido.banner_ingresoPedido--nuevoLookAndFeel {
+    background-color: #ffded7;
+}
+
+.franja_negra.franja_negra--nuevoLookAndFeelEsika {
+    height: 203px;
+    background-position:66% center;
+}
+
+.pedido_ingreso_c2--nuevoLookAndFeelEsika .pedido_ingreso_datos input,
+.pedido_ingreso_c2--nuevoLookAndFeelEsika .liquidacion_rango_right_pedido {
+    border: 1px solid #000;
+}
+
+.pedido_ingreso_c2--nuevoLookAndFeelEsika .liquidacion_rango_wrapper_pedido input {
+    border-left: 1px solid #000 !important;
+}
+
+.pedido_ingreso_c2--nuevoLookAndFeelEsika .liquidacion_rango_right_pedido .mas {
+    border-bottom: 1px solid #000;
+}
+
+.titulo_principal_interiores.titulo_principal_interiores--nuevoLookAndFeelEsika {
+    font-weight: 400 !important;
+}
+    
+    .ubicacion_web span,
+    .titulo_principal_interiores.titulo_principal_interiores--nuevoLookAndFeelEsika strong,
+    .pedido_ingreso_datos .pedidos_cliente.pedidos_cliente--nuevoLookAndFeelEsika {
+        font-weight: 700 !important;
+    }
+
+.header--nuevoLookAndFeelEsika .sub_menu_home1 .new_menu_a,
+.header--nuevoLookAndFeelEsika .cart_compras:hover .campana_svg + .notificaciones,
+.ubicacion_web.ubicacion_web--nuevoLookAndFeelEsika span,
+.ubicacion_web.ubicacion_web--nuevoLookAndFeelEsika a,
+.ubicacion_web.ubicacion_web--nuevoLookAndFeelEsika a:hover,
+.titulo_principal_interiores.titulo_principal_interiores--nuevoLookAndFeelEsika,
+.pedido_ingreso_datos_icono_mas--nuevoLookAndFeelEsika,
+.pedido_ingreso_datos .pedidos_cliente.pedidos_cliente--nuevoLookAndFeelEsika,
+.layout__header--nuevoLookAndFeelEsika .menu__item--carrito:hover .num__cantidad__prod {
+    color: #000 !important;
+}
+
+.layout__header--nuevoLookAndFeelEsika .menu__item--lateralDerechoIcono[data-title="Notificaciones"]{
+    min-width:63px;
+}
+
+.ubicacion_web a {
+    font-weight: 400;
+}
+
+.header--nuevoLookAndFeelEsika--mobile .menu_icon_wrapper img {
+    width: 22px !important;
+    height: auto;
+}
+
+@media screen and (max-width:991px){
+
+    .banner_ingresoPedido.banner_ingresoPedido--nuevoLookAndFeel {
+        background-position: 87% center;
+    }
+
+    .header--nuevoLookAndFeelEsika--mobile .menu_icon_wrapper {
+        width: 59.66px;
+        height: 42px;
+        padding-right: 0;
+        margin-right: -8px;
+        top:2.5px;
+    }
+
+    .header--nuevoLookAndFeelEsika--mobile .campana_svg_mobile {
+        background: url(/Content/Images/icono_notificaciones_blanco.svg) no-repeat;
+        background-position: center 1px;
+        width: 20px;
+        height: 19px;
+        margin-right: 14px;
+        top: -3px;
+    }
+
+    .header--nuevoLookAndFeelEsika--mobile .campana_mobile .icon-shop-belcorp:before,
+    .header--nuevoLookAndFeelEsika--mobile .num-menu-shop {
+        color: #FFF !important;
+    }
+
+    .btn_agregarPedido.btn_agregarPedido--nuevoLookAndFeelEsika input,
+    .btn_guardarPedido.btn_guardarPedido--nuevoLookAndFeelEsika input {
+        background-color: #FF335A;
+    }
+
+    .menu_mobile_belcorp[data-codigo="contenedorofertas"]{
+        height:63px;
+    }
+
+        .menu_mobile_belcorp[data-codigo="contenedorofertas"] img{
+            height:38px;
+        }
+
+    .layout__header--nuevoLookAndFeelEsika .menu__link {
+        color: #000 !important;
+    }
+
+    .layout__header--nuevoLookAndFeelEsika .menu__link--conSubmenu:after {
+        border-top: 6px solid #000;
+    }
+
+    .layout__header--nuevoLookAndFeelEsika .submenu__lista--miNegocio{
+        border-top:none;
+    }
+
+    .layout__header--nuevoLookAndFeelEsika .submenu__lista--miNegocio:before{
+        display:none;
+    }
+
+    .layout__header--nuevoLookAndFeelEsika .menu__item[data-title="OFERTAS"] {
+        height: 66.47px;
+    }
+
+        .layout__header--nuevoLookAndFeelEsika .menu__item[data-title="OFERTAS"] .menu__link{
+            height:100%;
+        }
+
+        .layout__header--nuevoLookAndFeelEsika .menu__item[data-title="OFERTAS"] img {
+            height: 38px;
+        }
+
+    .layout__header--nuevoLookAndFeelEsika .menu__item--lateralDerechoIcono[data-title="Notificaciones"] {
+        min-width: 0;
+    }
+
+}
+
+/*  FIN - HD-4065 - CAMBIO DE LOOK AND FEEL DE ÉSIKA */

@@ -1781,6 +1781,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private string CUVPadreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CUVReemplazoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CampaniaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1883,6 +1886,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private bool EsSugeridoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsSuscripcionSEField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private short EstadoItemField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1899,6 +1905,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool FlagNuevaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal GananciaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IPUsuarioField;
@@ -1956,6 +1965,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int OrigenPedidoWebField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string OrigenSolicitudField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PaisIDField;
@@ -2072,6 +2084,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((object.ReferenceEquals(this.CUVPadreField, value) != true)) {
                     this.CUVPadreField = value;
                     this.RaisePropertyChanged("CUVPadre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CUVReemplazo {
+            get {
+                return this.CUVReemplazoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CUVReemplazoField, value) != true)) {
+                    this.CUVReemplazoField = value;
+                    this.RaisePropertyChanged("CUVReemplazo");
                 }
             }
         }
@@ -2519,6 +2544,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsSuscripcionSE {
+            get {
+                return this.EsSuscripcionSEField;
+            }
+            set {
+                if ((this.EsSuscripcionSEField.Equals(value) != true)) {
+                    this.EsSuscripcionSEField = value;
+                    this.RaisePropertyChanged("EsSuscripcionSE");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public short EstadoItem {
             get {
                 return this.EstadoItemField;
@@ -2592,6 +2630,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.FlagNuevaField.Equals(value) != true)) {
                     this.FlagNuevaField = value;
                     this.RaisePropertyChanged("FlagNueva");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal Ganancia {
+            get {
+                return this.GananciaField;
+            }
+            set {
+                if ((this.GananciaField.Equals(value) != true)) {
+                    this.GananciaField = value;
+                    this.RaisePropertyChanged("Ganancia");
                 }
             }
         }
@@ -2839,6 +2890,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.OrigenPedidoWebField.Equals(value) != true)) {
                     this.OrigenPedidoWebField = value;
                     this.RaisePropertyChanged("OrigenPedidoWeb");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string OrigenSolicitud {
+            get {
+                return this.OrigenSolicitudField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.OrigenSolicitudField, value) != true)) {
+                    this.OrigenSolicitudField = value;
+                    this.RaisePropertyChanged("OrigenSolicitud");
                 }
             }
         }
@@ -3122,6 +3186,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private string CUV2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CUVReemplazoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CantidadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3153,6 +3220,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FormatoPrecio2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string GrupoIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MotivoRechazoField;
@@ -3233,6 +3303,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((object.ReferenceEquals(this.CUV2Field, value) != true)) {
                     this.CUV2Field = value;
                     this.RaisePropertyChanged("CUV2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CUVReemplazo {
+            get {
+                return this.CUVReemplazoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CUVReemplazoField, value) != true)) {
+                    this.CUVReemplazoField = value;
+                    this.RaisePropertyChanged("CUVReemplazo");
                 }
             }
         }
@@ -3376,6 +3459,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((object.ReferenceEquals(this.FormatoPrecio2Field, value) != true)) {
                     this.FormatoPrecio2Field = value;
                     this.RaisePropertyChanged("FormatoPrecio2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string GrupoID {
+            get {
+                return this.GrupoIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.GrupoIDField, value) != true)) {
+                    this.GrupoIDField = value;
+                    this.RaisePropertyChanged("GrupoID");
                 }
             }
         }

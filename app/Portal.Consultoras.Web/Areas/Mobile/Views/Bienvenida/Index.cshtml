@@ -108,14 +108,7 @@
                     </div>
                 </div>
                 <div class="foto_usuaria_mobile">
-                    @if (ViewBag.FotoPerfilAncha)
-                    {
-                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:auto; height:100%;" />
-                    }
-                    else
-                    {
-                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width:100%; height:auto;" />
-                    }
+                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" onload="onLoadPhotoUser(this)" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" alt="" />
                 </div>
 
             }
@@ -243,7 +236,7 @@
 <br />
 
 <div class="wrapper_resumen_mobile">
-    @if (Model.TieneCaminoBrillante)
+    @if (Model.TieneCaminoBrillante && !string.IsNullOrEmpty(Model.UrlLogoCaminoBrillante))
     {
         <div class="items_belcorp cam-exito">
             @{ if (!string.IsNullOrEmpty(Model.UrlLogoCaminoBrillante))
@@ -464,7 +457,7 @@
         }
     </div>
     <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia" class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">
-        <div class="imagen_catalogo video_esika">
+        <div class="imagen_catalogo video_esika imagen_miAcademia--nuevoLookAndFeelEsika">
             <img data-src="@Model.UrlImagenMiAcademia" alt="-" data-lazy-seccion-banner-home="" />
         </div>
     </a>
@@ -735,7 +728,7 @@
         </div>
     </div>
 </div>
-<div class="btn_agregarPedido boton_ingresa_tu_pedido_navidenio">
+<div class="btn_agregarPedido btn_agregarPedido--nuevoLookAndFeelEsika">
     <form>
         <input type="button" onclick="location.href = '@Url.Action("Index", "Pedido", new { area = "Mobile" })';" name="btnAgregarPedido" value="INGRESA TU PEDIDO" />
     </form>
@@ -926,11 +919,6 @@
         var origenPedidoWebDuoPerfecto = @Constantes.OrigenPedidoWeb.MobileHomeDuoPerfectoCarrusel;
         var origenPedidoWebPackNuevas = @Constantes.OrigenPedidoWeb.MobileHomePackNuevasCarrusel;
         var noMostrarPopUpRevistaDig = '@Model.RevistaDigital.NoVolverMostrar';
-
-        var vbFotoPerfil = '@ViewBag.FotoPerfil';
-        if (vbFotoPerfil != null && vbFotoPerfil != "") {
-            $('.content_foto').show();
-        }
 
         var viewBagCampaniaActual = '@Model.CampaniaActual';
         var tieneCupon = '@Model.TieneCupon';

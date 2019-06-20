@@ -31,12 +31,14 @@
         <input type="hidden" id="hdMontoMinimoPedido" value="@Model.MontoMinimo" />
     </div>
     <div class="content_general_reclamos" id="divProcesoReclamo">
-        <div style="display: block;">
-            <div class="content_pasos">
-                <div class="content_pasos_linea"></div>
-                <div class="paso_reclamo paso_active_reclamo" id="Selector1" data-paso="1"><span><img src="@Url.Content("~/Content/Images/Esika/cdr_paso1_activo.png")" /></span></div>
-                <div class="paso_reclamo" id="Selector2" data-paso="2"><span><img src="@Url.Content("~/Content/Images/Esika/cdr_paso2.png")" /></span></div>
-                <div class="paso_reclamo" id="Selector3" data-paso="3"><span><img src="@Url.Content("~/Content/Images/Esika/cdr_paso3.png")" /></span></div>
+        <div id="contenedor_paso" style="display: block;">
+            <div id="barra_progreso" class="content_pasos">
+                <div class="content_pasos_linea">
+                    <div class="multimarca-background-color progreso_pasos"></div>
+                </div>
+                <div class="paso_reclamo paso_reclamo_1 paso_active_reclamo" id="Selector1" data-paso="1"></div>
+                <div class="paso_reclamo paso_reclamo_2" id="Selector2" data-paso="2"></div>
+                <div class="paso_reclamo paso_reclamo_3" id="Selector3" data-paso="3"></div>
             </div>
             <div class="content_reclamo" id="Paso1">
                 <div class="text-center">
@@ -47,13 +49,16 @@
                         <input type="hidden" id="txtNumeroPedido" value="@Model.NumeroPedido" />
                         <input type="hidden" id="txtPrecioUnidad" />
                         <input type="hidden" id="hdImporteTotalPedido" />
-                        <input type="hidden" id="hdtxtCUVDescripcion" />
+                        <input type="hidden" id="hdfCUVDescripcion" />
+                        <input type="hidden" id="hdfCUV" value="0" />
                         <select class="elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;"></select>
                         <div class="contenedor_descripcion_reclamo">
-                            <select class="chosen-select descripcion_reclamo" data-placeholder="¿Qué código o Descripción del producto tiene?" id="ddlCuv" name="txtCUVDescripcion" required="required"></select>
-                            <span class="descripcion_reclamo_fake_placeholder">¿Qué código o Descripción del producto tiene?</span>
+                            <input type="text" placeholder="Ingresa el código o el nombre del producto" class="descripcion_reclamo campo_deshabilitado" id="ddlCuv" name="txtCUVDescripcion" required="required" autocomplete="off" />
+                            <div class="border-radius-4 lista_resultados_busqueda_por_cuv_wrapper">
+                                <ul id="ResultadosBusquedaCUV" class="lista_resultados_busqueda_por_cuv"></ul>
+                            </div>
                         </div>
-                        <div class="rango_reclamo" data-cantidad-contenedor="">
+                        <div class="rango_reclamo campo_deshabilitado" data-cantidad-contenedor="" id="RangoCantidad">
                             <input type="text" name="Cantidad" id="txtCantidad" data-input="cantidad" value="1" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid" onfocus="SeleccionarContenido(this) ">
                             <div class="liquidacion_rango_right_pedido">
                                 <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
@@ -64,116 +69,102 @@
                 </div>
                 <hr class="clear" />
                 <div>
-                    <div class="subtitulo_reclamo">¿Cuál fue el inconveniente?</div>
-                    <hr class="clear" />
                     <div class="content_motivo_wrapper">
                         <div class="content_motivo_select" id="divMotivo"></div>
                         <div class="clear"></div>
                     </div>
                 </div>
-                <hr class="clear" />
-                <div class="linea_separadora_roja" style="height: 2px;"></div>
-                <span class="btn_si_stock_cdr" style="width: 296px;" id="IrPAso2">SIGUIENTE</span>
-                <hr class="clear" />
+                <div class="text-center">
+                    <button type="button" class="border-radius-4 text-bold btn_cdr btn_ir_paso_2" id="IrPAso2">Siguiente</button>
+                </div>
                 <br />
             </div>
-            <div class="content_reclamo" id="Paso2">
-                <div class="content_reclamo" id="Cambio1" style="display: none; max-width: 890px;">
-                    <div class="subtitulo_reclamo">Escoge una solución</div>
-                    <div id="divOperacion">
-                    </div>
-                    <hr class="clear" />
-                    <span class="btn_paso_anterior" id="RegresarPaso1">REGRESAR</span>
+            <div class="text-center content_reclamo" id="Paso2" style="display: none; max-width: 890px;">
+                @*<div class="content_reclamo" id="Cambio1" style="display: none; max-width: 890px;">
+                    </div>*@
+                <div class="subtitulo_reclamo">Escoge una solución</div>
+                <div id="divOperacion" class="text-center lista_opciones_cdr_wrapper">
                 </div>
-                <div class="content_reclamo" id="Cambio2" style="display: none;">
-                    <div class="subtitulo_reclamo_light">ELEGISTE</div>
-                    <div class="titulo_belcorp_reclamo">CAMBIARLO POR OTRO PRODUCTO</div>
-                    <div class="linea_gris" style="height: 1px;"></div>
-                    <div class="texto_reclamo">
-                        <input type="hidden" id="hdMontoMinimoReclamo" />
-                        Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas (<span id="spnSimboloMonedaReclamo">S/.</span><span id="spnMontoMinimoReclamoFormato">15</span>)<br />
-                        Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo">15</span>:
-                    </div>
-                    <div class="text-center">
-                        <input type="text" placeholder="Código" class="codigo_reclamo ValidaNumeral ValidaPasteNumeral valid" id="txtCUV2" />
-                        <input type="text" placeholder="Descripción del producto" id="txtCUVDescripcion2" readonly="readonly" class="descripcion_reclamo" style="width: 369px;" />
-                        <input type="text" placeholder="Precio" class="precio_reclamo" id="txtCUVPrecio2" readonly="readonly" />
-                        <input type="hidden" id="hdCuvPrecio2" />
-                        <input type="hidden" id="hdParametriaCdr" />
-                        <input type="hidden" id="hdParametriaAbsCdr" />
-                        <input type="hidden" id="hdCuvPrecio2" />
-
-                        <input type="hidden" id="hdCdrWebDatos_Ssic" />
-                        <div class="rango_reclamo" data-cantidad-contenedor="">
-                            <input type="text" name="Cantidad" id="txtCantidad2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid"
-                                   @*onkeypress=" PreValidarCUV(event); "*@
-                                   attrKey="PreValidarCUV"
-                                   onfocus=" SeleccionarContenido(this) ">
-                            <div class="liquidacion_rango_right_pedido">
-                                <a class="mas modificarPrecioMas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                                <a class="menos modificarPrecioMenos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                            </div>
-                        </div>
-                    </div>
-                    <hr class="clear" />
-                    <div class="total_precio_reclamo">
-                        <input type="hidden" id="hdImporteTotal2" />
-                        Total: <span id="spnImporteTotal2"></span>
-                    </div>
-                    <hr class="clear" />
-                    <div class="linea_separadora_roja" style="height: 2px;"></div>
-                    <a class="btn_paso_anterior" href="javascript:;" id="RegresarPaso2">REGRESAR</a>
-                    <a class="btn_si_stock_cdr" href="javascript:;" style="width: 296px;" id="CambioProducto2">CÁMBIALO POR ESTE PRODUCTO</a>
-                    <hr class="clear" />
-                </div>
-                <div id="Cambio3">
-                    <div class="content_reclamo" data-tipo-confirma="cambio" style="display: none;">
-                        <div class="subtitulo_reclamo">Confirma tu elección</div>
-                        <div data-detalle-confirma="" data-detalle-confirma-tipo2="cambio2">
-                            <div class="content_resumen_cambio">
-                                <div class="titulo_resumen">VAS A CAMBIAR:</div>
-                                <div class="descri_producto_reclamo">
-                                    <span id="spnCuv1">00411</span> <br />
-                                    <b><span id="spnDescripcionCuv1">Berrylicious shampoo rojo 375 ml</span></b><br />
-                                    x<span id="spnCantidadCuv1">2</span> unidades
+                <div id="infoOpcionesDeCambio" class="text-center" style="display:none;">
+                    <div id="OpcionCambioPorOtroProducto" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
+                        <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
+                        <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambiarPorOtroProducto">
+                            <p>Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas (<span id="spnSimboloMonedaReclamo">S/.</span><span id="spnMontoMinimoReclamoFormato">15</span>)</p>
+                            <p class="text-bold">
+                                Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo">15</span>:
+                            </p>
+                            <div class="text-center opcion_cdr_seleccionada_campos_busqueda_producto_a_cambiar">
+                                <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--codigo" value="" id="txtCUV2" placeholder="Código" />
+                                <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--descripcion" id="txtCUVDescripcion2" readonly value="" placeholder="Descripción del producto" />
+                                <input type="text" class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--precio" id="txtCUVPrecio2" readonly value="" placeholder="Precio" />
+                                <div class="border-radius-4 opcion_cdr_seleccionada_campo_busqueda opcion_cdr_seleccionada_campo_busqueda--seleccionCantidad" data-cantidad-contenedor="">
+                                    <input type="hidden" id="hdMontoMinimoReclamo" />
+                                    <input type="hidden" id="hdCuvPrecio2">
+                                    <input type="hidden" id="hdParametriaCdr" value="0">
+                                    <input type="hidden" id="hdParametriaAbsCdr" value="1">
+                                    <input type="hidden" id="hdCdrWebDatos_Ssic">
+                                    <input type="text" name="Cantidad" id="txtCantidad2" value="1" data-input="cantidad" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral valid">
+                                    <div class="liquidacion_rango_right_pedido">
+                                        <a class="mas modificarPrecioMas" onclick="AgregarODisminuirCantidad(event,1)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                        <a class="menos modificarPrecioMenos" onclick="AgregarODisminuirCantidad(event,2)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="indicador_reclamo"></div>
-                            <div class="content_resumen_cambio">
-                                <div class="titulo_resumen">POR:</div>
-                                <div class="descri_producto_reclamo">
-                                    <span id="spnCuv2">00411</span> <br />
-                                    <b><span id="spnDescripcionCuv2">Berrylicious shampoo rojo 375 ml</span></b><br />
-                                    x<span id="spnCantidadCuv2">2</span> unidades
-                                </div>
+                            <div id="MontoTotalProductoACambiar" class="text-bold total_precio_reclamo" style="display:none;">
+                                <input type="hidden" id="hdImporteTotal2" />
+                                Total: <span id="spnImporteTotal2"></span>
                             </div>
                         </div>
-                        <hr class="clear" />
-                        <div class="linea_gris"></div>
-                        <div class="mensaje_advertencia_reclamo">
-                            <span style="margin-bottom: 10px; display: block">TEN EN CUENTA: </span>
-                            <span id="spnMensajeTenerEnCuentaCambio"></span>
-                        </div>
-                        <div class="linea_separadora_roja" style="height: 2px;"></div>
-                        <a class="btn_paso_anterior" href="javascript:;" id="RegresarCambio1">REGRESAR</a>
-                        <a class="btn_si_stock_cdr" href="javascript:;" style="width: 296px;" id="IrPaso3" data-cambiopaso="3">ACEPTAR LA SOLUCIÓN</a>
-                        <hr class="clear" />
+                        <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE CAMBIAR POR OTRO PRODUCTO -->
                     </div>
-                    <div class="content_reclamo" data-tipo-confirma="canje" style="display: none;">
-                        <div class="subtitulo_reclamo" style="margin-bottom: 15px;">Te proponemos la siguiente solución</div>
-                        <div data-detalle-confirma="" class="descripcion_eleccion_cdr tipografia_lato tipografia_lato_regular">
+                    <div id="OpcionCambioMismoProducto" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
+                        <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambioMismoProducto">
+                            <p class="text-bold">Vamos a reenviarte el mismo producto:</p>
+                            <p class="text-bold">
+                                <span id="spnDescProdDevolucionC" class="text-bold producto_nom"></span>
+                                <span id="spnCantidadC" class="text-bold cantidad_und_producto">x Unidades</span>
+                            </p>
                         </div>
-                        <br />
-                        <div class="linea_gris" style="height: 1px;"></div>
-                        <div class="mensaje_advertencia_reclamo">
-                            <span style="margin-bottom: 10px; display: block">TENER EN CUENTA: </span>
-                            <span id="spnMensajeTenerEnCuentaCanje"></span>
-                        </div>
-                        <div class="linea_separadora_roja" style="height: 2px;"></div>
-                        <span class="btn_paso_anterior" id="RegresarCanje1">REGRESAR</span>
-                        <span class="btn_si_stock_cdr" style="width: 296px;" id="IrPaso3" data-cambiopaso="3">ACEPTAR LA SOLUCIÓN</span>
-                        <hr class="clear" />
                     </div>
+                    <div id="OpcionEnvioDelProducto" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
+                        <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--envioProducto">
+                            <p class="text-bold">Vamos a enviarte el siguiente producto:</p>
+                            <p class="text-bold">
+                                <span class="text-bold producto_nom" id="spnDescripcionProductoOpcionF"></span>
+                                <span id="spnCantidadF">x Unidades</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div id="OpcionDevolucionDinero" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
+                        <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--devolucionDinero">
+                            <p class="text-bold">Vamos a descontar el siguiente producto en tu próximo pedido:</p>
+                            <p class="text-bold">
+                                <span class="text-bold producto_nom" id="spnDescripcionProductoOpcionG"></span>
+                                <span id="spnCantidadG">x Unidades</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div id="OpcionDevolucion" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
+                        <!-- INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
+                        <div id="divDevolucionSetsOrPack" class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--devolucionCasoSetProducto">
+                        </div>
+                        <!-- FIN - INFORMACIÓN CUANDO SE SELECCIONA LA OPCIÓN DE DEVOLUCIÓN Y EL PRODUCTO FORMA PARTE DE UN SET -->
+                    </div>
+                </div>
+                <div id="MensajeTenerEncuenta" class="info_devolucion_a_tener_en_cuenta">
+                    <div class="info_devolucion_a_tener_en_cuenta_mensaje">
+                        <span style="margin-bottom: 10px; display: block">TENER EN CUENTA: </span>
+                        <span id="spnMensajeTenerCuenta"></span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a id="btnIrPaso3" class="border-radius-4 text-bold btn_cdr btn_solucion_reclamo" href="javascript:void(0);" style="display:none;" onclick="IrAFinalizar()">Siguiente</a>
+                    <a id="btnRegresarPasoUno" class="enlace__regresar_paso_anterior" title="Regresar a paso anterior">
+                        <span class="icono_back_arrow">
+                            <img src="@Url.Content("~/Content/Images/icono_volver.svg")" alt="Regresar a paso anterior" />
+                        </span>
+                        <span class="text-bold">Regresar a paso anterior</span>
+                    </a>
                 </div>
             </div>
             <div class="content_reclamo" id="Paso3" style="display: none;">
@@ -182,13 +173,12 @@
                     Asegúrate tener todos los incovenientes registrados porque <b>sólo puedes hacer @Model.CantidadReclamosPorPedido solicitud web por pedido</b>
                 </div>
                 <div>
-                    <div class="content_listado_reclamo">
-                        <div class="listado_producto_reclamo text_gris_reclamo">PRODUCTO</div>
-                        <div class="listado_solicitud_reclamo text_gris_reclamo">SOLICITUD</div>
-                        <div class="listado_solicitada_reclamo text_gris_reclamo">SOLUCION SOLICITADA</div>
-                        <div class="listado_eliminar_reclamo text_gris_reclamo">ELIMINAR</div>
+                    <div class="content_listado_reclamo content_listado_reclamo--header">
+                        <div class="text-bold listado_producto_reclamo">PRODUCTO</div>
+                        <div class="text-bold listado_solicitud_reclamo text-center">SOLICITUD</div>
+                        <div class="text-bold listado_solicitada_reclamo">SOLUCION SOLICITADA</div>
+                        <div class="text-bold listado_eliminar_reclamo">ELIMINAR</div>
                     </div>
-                    <div class="linea_separadora"></div>
                     <div id="divDetallePaso3">
                     </div>
                 </div>
@@ -196,7 +186,6 @@
                 @if (Model.TieneCDRExpress)
                 {
                     <div id="TipoDespacho">
-                        <div class="linea_separadora_roja" style="height: 2px;"></div>
                         <div class="content_tipo_despacho">
                             <div style="padding-bottom:10px">
                                 <div id="btnDespachoNormal" class="cdr_tipo_despacho_icono_active"></div>
@@ -225,42 +214,47 @@
                     <input type="hidden" id="hdTieneCDRExpress" value="@(Model.TieneCDRExpress ? 1 : 0)" />
                     <input type="hidden" id="hdFleteDespacho" value="@Model.FleteDespacho" />
                 </div>
-
-                <div class="linea_separadora_roja" style="height: 2px;"></div>
                 <div class="subtitulo_listado">VALIDA TUS DATOS</div>
                 <div class="texto_valida_datos">En caso de necesitar contactarnos contigo, lo haremos a través de:</div>
-                <div class="float_left">
-                    <span class="texto_correo">Correo Electrónico</span>
-                    <input type="hidden" id="hdEmail" value="@Model.Email" />
-                    <input type="text" name="txtEmail" id="txtEmail" value="@Model.Email" class="correo_reclamo" onkeydown="return limitarMaximo(event,this.value,100,'txtTelefono')" />
-                    <br />
-                    <div class="correo_reclamo_error">
-                        <span id="spnEmailError" style="display: none;">
-                            *Correo Electrónico incorrecto
-                        </span>
+                <div class="text-center validacion_datos_wrapper">
+                    <div class="validacion_datos_correo_electronico">
+                        <div>
+                            <input type="text" name="txtEmail" id="txtEmail" value="@Model.Email" class="border-radius-4 correo_reclamo" onkeydown="return limitarMaximo(event,this.value,100,'txtTelefono')" />
+                            <span class="text-left texto_correo">Correo Electrónico</span>
+                        </div>
+                        <input type="hidden" id="hdEmail" value="@Model.Email" />
+                        <br />
+                        <div class="correo_reclamo_error">
+                            <span id="spnEmailError" style="display: none;">
+                                *Correo Electrónico incorrecto
+                            </span>
+                        </div>
                     </div>
-                </div>
-                <div class="float_left">
-                    <span class="texto_correo">Celular de contacto</span>
-                    <input type="hidden" id="hdTelefono" value="@Model.Telefono" />
-                    <input type="text" name="txtTelefono" id="txtTelefono" value="@Model.Telefono" class="correo_reclamo" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefono')" />
-                    <br />
-                    <div class="correo_reclamo_error">
-                        <span id="spnTelefonoError" style="display: none;">
-                            *Teléfono incorrecto
-                        </span>
+                    <div class="validacion_datos_celular_contacto">
+                        <div>
+                            <input type="text" name="txtTelefono" id="txtTelefono" value="@Model.Telefono" class="border-radius-4 correo_reclamo" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefono')" />
+                            <span class="text-left texto_correo">Celular de contacto</span>
+                        </div>
+                        <input type="hidden" id="hdTelefono" value="@Model.Telefono" />
+                        <br />
+                        <div class="correo_reclamo_error">
+                            <span id="spnTelefonoError" style="display: none;">
+                                *Teléfono incorrecto
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <hr class="clear" />
-                <div class="linea_separadora_roja" style="height: 2px;"></div>
                 <div class="politica_reclamos">
                     <div id="btnAceptoPoliticas" class="politica_reclamos_icono"></div>
                     <div class="politica_reclamos_texto">
                         <a href="@Model.UrlPoliticaCdr" target="_blank" style="display: inline;">Acepto la política de cambios y devoluciones</a>
                     </div>
                 </div>
-                <a class="btn_agrega_otro_reclamo" id="IrSolicitudInicial">AGREGA OTRO PRODUCTO A LA SOLICITUD</a>
-                <a class="btn_si_stock_cdr" href="javascript:;" style="width: 296px; margin-top: 2px;" id="IrSolicitudEnviada">FINALIZA Y ENVÍA TU SOLICITUD</a>
+                <div class="text-right">
+                    <a class="border-radius-4 btn_agrega_otro_reclamo" id="IrSolicitudInicial">AGREGA OTRO PRODUCTO A LA SOLICITUD</a>
+                    <a class="border-radius-4 multimarca-background-color btn_si_stock_cdr" href="javascript:;" style="width: 296px; margin-top: 2px;" id="IrSolicitudEnviada">FINALIZA Y ENVÍA TU SOLICITUD</a>
+                </div>
                 <hr class="clear" />
             </div>
         </div>
@@ -270,14 +264,14 @@
             <br />
             <div id="divDetalleUltimasSolicitudes" class="detalle_solicitudes_wrapper">
             </div>
-            <a class="btn_ver_solicitudes" id="btn_ver_solicitudes" href="javascript:void(0);" onclick="CambioPaso(3)" style="width:100px;margin-top:11px;">IR AL FINAL</a>
+            <a class="btn_ver_solicitudes" id="btn_ver_solicitudes btn_ver_solicitudes--paso3" href="javascript:void(0);" onclick="CambiarVistaPaso(reclamo.pasos.tres_finalizar_envio_solicitud);" style="width:100px;margin-top:11px;">IR AL FINAL</a>
         </div>
 
     </div>
 
     <div class="content_reclamo" id="SolicitudEnviada" style="display:none;  margin-right: auto;">
         <br /><br />
-        <div class="icono_mensaje_alerta icono_check_alerta"></div>
+        <div class="icono_mensaje_alerta icono_check_alerta icono_check_alerta--paso3"></div>
         <div class="texto_mensaje_alerta" id="mensaje_exclamacion_titulo">¡SOLICITUD<b> ENVIADA</b>!</div>
         <div class="sub_texto_alerta" id="mensaje_exclamacion_texto">Vamos a evaluarla y en un plazo de 30 minutos te enviaremos una respuesta a tu correo electrónico</div>
         <div class="content_btn_imprimir">
@@ -299,7 +293,7 @@
             <div class="grilla_detalle_reclamo">
                 <div class="content_listado_reclamo">
                     <div class="listado_producto_reclamo text_gris_reclamo">PRODUCTO</div>
-                    <div class="listado_solicitud_reclamo text_gris_reclamo">SOLICITUD</div>
+                    <div class="listado_solicitud_reclamo listado_solicitud_reclamo--paso3 text_gris_reclamo">SOLICITUD</div>
                     <div class="listado_solicitada_reclamo text_gris_reclamo">SOLUCION SOLICITADA</div>
                 </div>
                 <div id="divDetalleEnviar">
@@ -333,7 +327,7 @@
         </div>
         <div class="contenido_popUp contenido_popUp_general">
             <span class="mensaje_popup_general">
-                Asegúrate de tener todos los incovenientes registrados <strong>porque s&oacute;lo puedes hacer <span id="txtCantidadPedidoConfig"></span> solicitud web por pedido.</strong><br/><br />
+                Asegúrate de tener todos los incovenientes registrados <strong>porque s&oacute;lo puedes hacer <span id="txtCantidadPedidoConfig"></span> solicitud web por pedido.</strong><br /><br />
                 ¿Deseas continuar?
             </span>
             <div class="grupo_botones_popup_general">
@@ -364,14 +358,40 @@
     {{/each}}
 </script>
 <script id="template-motivo" type="text/x-handlebars-template">
+    <div class="subtitulo_reclamo subtitulo_reclamo_motivo">¿Cuál fue el inconveniente?</div>
     {{#each this as |item|}}
     <div class="reclamo_motivo_select" id="{{item.CodigoReclamo}}">{{item.DescripcionReclamo}}</div>
     {{/each}}
 </script>
 <script id="template-operacion" type="text/x-handlebars-template">
-    {{#each this as |item|}}
-    <span class="btn_solucion_reclamo" id="{{item.CodigoOperacion}}" data-tipo="{{item.Tipo}}">{{item.CDRTipoOperacion.DescripcionOperacion}}</span>
-    {{/each}}
+    <ul class="text-center lista_opciones_cdr">
+        {{#each this as |item|}}
+        <li class="opcion_cdr border-radius-4">
+            <a title="{{item.CDRTipoOperacion.DescripcionOperacion}}" class="text-center opcion_cdr_enlace">
+                <div class="opcion_cdr_icono_wrapper">
+                    {{#if_eq item.CodigoOperacion 'D'}}
+                    <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                    {{else if_eq item.CodigoOperacion 'T'}}
+                    <img src="@Url.Content("~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                    {{else if_eq item.CodigoOperacion 'C' }}
+                    <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                    {{else if_eq item.CodigoOperacion 'F' }}
+                    <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                    {{else if_eq item.CodigoOperacion 'G' }}
+                    <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono" />
+                    {{/if_eq}}
+                </div>
+                <div class="text-bold opcion_cdr_seleccion_wrapper">
+                    <input id="{{item.CodigoOperacion}}" style="display:none!important;" type="checkbox" onchange="EscogerSolucion(this,event)" data-tipo="{{item.Tipo}}">
+                    {{item.CDRTipoOperacion.DescripcionOperacion}}
+                    <label for="{{item.CodigoOperacion}}" class="border-radius-4 opcion_cdr_checkbox">
+                    </label>
+                </div>
+            </a>
+        </li>
+        {{/each}}
+    </ul>
+
 </script>
 <script id="template-confirmacion" type="text/x-handlebars-template">
     {{#iff CUV2 '!=' ''}}
@@ -401,17 +421,39 @@
 </script>
 <script id="template-detalle-paso3" type="text/x-handlebars-template">
     {{#each detalle as |item|}}
-    <div class="content_listado_reclamo" data-item="{{item.CUV}}">
+    <div class="content_listado_reclamo content_listado_reclamo--content" data-item="{{item.CUV}}">
         <div style="display:none;">
             <input type="hidden" name="id" value="{{item.CDRWebDetalleID}}" />
         </div>
         <div class="listado_producto_reclamo">
+            {{#if_eq item.GrupoID ''}}
+
+            {{else}}
+            <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div><br />
+            {{/if_eq}}
             {{item.CUV}}<br />
             <b>{{item.Descripcion}}</b> <br />
             {{item.Cantidad}} unidades<br />
             Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
         </div>
-        <div class="listado_solicitud_reclamo"><b>{{item.Solicitud}}</b></div>
+        <div class="listado_solicitud_reclamo text-center">
+            <div class="listado_solicitud_reclamo_icono_solucion">
+                {{#if_eq item.CodigoOperacion 'D'}}
+                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'T'}}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'C' }}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'F' }}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'G' }}
+                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{/if_eq}}
+            </div>
+            <div class="text-center text-bold listado_solicitud_reclamo_descrip_solucion">
+                {{item.Solicitud}}
+            </div>
+        </div>
         <div class="listado_solicitada_reclamo">
             {{#if_eq CodigoOperacion 'C'}}
             {{item.SolucionSolicitada}}
@@ -427,10 +469,18 @@
             {{item.Cantidad2}} unidades<br />
             Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
             {{else}}
+
             {{/if_eq}}
         </div>
         <div class="listado_eliminar_reclamo">
-            <a data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x" style="background-image: url('/Content/Images/Esika/tacho-copy.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
+            <a data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-detalle-grupoid="{{item.GrupoID}}" href="javascript:void(0);" onclick="EliminarDetalle(this);" style="background-image: url('/Content/Images/Esika/tacho-copy.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;" title="Eliminar"></a>
+        </div>
+        <div class="border-radius-4 tooltip_confirmacion_eliminacion_producto_grilla">
+            <p id="EliminarProductoMsg" class="tooltip_informacion_eliminacion_producto_texto">¿Quieres eliminar este producto de tu solicitud?</p>
+            <div class="tooltip_acciones_eliminacion_producto">
+                <a title="No, gracias" class="text-bold enlace_tooltip_informacion">No, gracias</a>
+                <button type="button" class="border-radius-4 default-background-color btn_accion_principal btn_acciones--eliminar">Si, eliminar</button>
+            </div>
         </div>
     </div>
     {{/each}}
@@ -442,6 +492,11 @@
             <input type="hidden" name="id" value="{{item.CDRWebDetalleID}}" />
         </div>
         <div class="listado_producto_reclamo">
+            {{#if_eq item.GrupoID ''}}
+
+            {{else}}
+            <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div><br />
+            {{/if_eq}}
             {{item.CUV}}<br />
             <b>{{item.Descripcion}}</b> <br />
             {{item.Cantidad}} unidades<br />
@@ -480,11 +535,46 @@
             </div>
         </div>
         <div class="float_left">
-            <a data-accion="x" data-pedidodetalleid="{{item.CDRWebDetalleID}}" style="background-image: url('/Content/Images/Esika/tacho-copy.png');background-repeat:no-repeat;width: 17px;height: 22px;margin: 0 auto; opacity:0.5;" title="Eliminar"></a>
+            <a data-accion="x" data-detalle-grupoid="{{item.GrupoID}}" data-pedidodetalleid="{{item.CDRWebDetalleID}}" href="javascript:void(0);" onclick="EliminarDetalle(this);" style="background-image: url('/Content/Images/Esika/tacho-copy.png');background-repeat:no-repeat;width: 17px;height: 22px;margin: 0 auto; opacity:0.5;" title="Eliminar"></a>
         </div>
     </div>
     {{/each}}
 </script>
+
+@*HD-3703 EINCA*@
+<script id="template-opcion-devolucion" type="text/x-handlebars-template">
+    <div>
+        {{#if DataRespuestaServicio}}
+        <p class="text-bold">El producto <span class="text-bold producto_set_nom">{{ProductoSeleccionado.CUV}} - {{ProductoSeleccionado.Descripcion}} (<span id="spnCantidadDVarios">x Unidades</span> </span>) pertenece al pack:</p>
+        <p class="text-left producto_set_lista">
+            {{#each DataRespuestaServicio as |item|}}
+            <span class="text-bold">{{item.cuv}} - {{item.descripcion}}</span>
+            {{/each}}
+        </p>
+        <div class="text-center text-bold opcion_cdr_seleccionada_terminos_entrega_producto_set_wrapper">
+            <input id="TerminosEntregaProductoSet" checked style="display:none!important;" type="checkbox" disabled="disabled">
+            <label for="TerminosEntregaProductoSet" class="border-radius-4 opcion_cdr_checkbox opcion_cdr_checkbox--terminosEntregaProductoSet">
+            </label>
+            <span class="text-left default-color opcion_cdr_seleccionada_terminos_entrega_producto_texto">
+                Recuerda al devolver el producto se deberá entregar<br />
+                <span class="text-uppercase">todos los productos que contiene el pack </span> mencionado.
+            </span>
+        </div>
+        {{else}}
+        <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--envioProducto">
+            <p class="text-bold">Vas a devolver el siguiente producto:</p>
+            <p class="text-bold">
+                <span class="text-bold producto_nom" id="spnDescripcionProductoOpcionD">{{ProductoSeleccionado.CUV}} - {{ProductoSeleccionado.Descripcion}}</span>
+                <span id="spnCantidadIndividual">x Unidades</span>
+            </p>
+        </div>
+        {{/if}}
+    </div>
+</script>
+
+
+
+
 @section scripts{
 
     <script type="text/javascript">
@@ -500,7 +590,7 @@
         var OrigenCDR = false;
     </script>
     <script src="@Url.Content("~/Scripts/chosen.jquery.js")"></script>
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/MisReclamos/Reclamo.js")?v3"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/MisReclamos/Reclamo.js")?v4"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
 }
 

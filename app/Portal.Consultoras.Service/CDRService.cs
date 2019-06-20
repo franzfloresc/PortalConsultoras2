@@ -67,6 +67,12 @@ namespace Portal.Consultoras.Service
             return BLCDRWebDetalle.DelCDRWebDetalle(PaisID, entity);
         }
 
+        public int DelCDRWebDetalle(int PaisID, List<BECDRWebDetalle> listDetalle)
+        {
+            return BLCDRWebDetalle.DelCDRWebDetalle(PaisID, listDetalle);
+        }
+
+
         public List<BECDRWebDetalle> GetCDRWebDetalle(int PaisID, BECDRWebDetalle entity, int pedidoId)
         {
             return BLCDRWebDetalle.GetCDRWebDetalle(PaisID, entity, pedidoId);
@@ -167,5 +173,9 @@ namespace Portal.Consultoras.Service
             return BLCDRWebDetalle.ValCUVEnProcesoReclamo(paisId, pedidoId,cuv);
         }
 
+        public int InsCDRWebDetalle(int PaisID, List<BECDRWebDetalle> detalle)
+        {
+            return BLCDRWebDetalle.InsCDRWebDetalle(PaisID, detalle);
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.CaminoBrillante = true;
+    //ViewBag.CaminoBrillante = true;
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     var data = ViewBag.Informacion;
     var categoria = ViewBag.Vista;
@@ -8,6 +8,11 @@
 
 @section css{
     <link href="~/Content/CaminoBrillante/css/estilos.css" rel="stylesheet" />
+    <style>
+        div.content_responsive {
+            margin-top: 0px;
+        }
+    </style>
 }
 
 <section data-layout="ubicacionWeb" class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
@@ -37,6 +42,7 @@
     {{/IsNullOrEmpty}}
     {{#each Indicadores}}
     <div class="box-camb">
+        <input type="hidden" id="txttitulo" value="{{Titulo}}" />
         <p class="text-bold">{{Titulo}}</p>
         <div class="cambio-crec">
             {{#each Medallas }}
@@ -74,14 +80,14 @@
                 <span data-toggle="modal" class=" como-log {{#IsNullOrEmpty ModalTitulo}}{{#IsNullOrEmpty ModalDescripcion}}inactivo{{/IsNullOrEmpty}}{{/IsNullOrEmpty}}"
                       {{#IsNullOrEmpty ModalTitulo '!='}} {{#IsNullOrEmpty ModalDescripcion '!='}}
                       data-target="#medalla-{{../Codigo}}-{{@Html.Raw("@index")}}"
-                      onclick="ComoLograrlo('@Html.Raw(data.Titulo)','{{Titulo}}','{{ModalTitulo}}','{{ModalDescripcion}}')"
+                      onclick="ComoLograrlo('@Html.Raw(data.Titulo)','{{../Titulo}}','{{ModalTitulo}}','{{ModalDescripcion}}')"
                       {{/IsNullOrEmpty}} {{/IsNullOrEmpty}}>{{Subtitulo}}</span>
                 {{#IsNullOrEmpty ModalTitulo '!='}}
                 {{#IsNullOrEmpty ModalDescripcion '!='}}
                 <div class="modal fade" id="medalla-{{../Codigo}}-{{@Html.Raw("@index")}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" onloadeddata="PopupComoLograrlo('@Html.Raw(data.Titulo)','{{Titulo}}')">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CerrarComoLograrlo('@Html.Raw(data.Titulo)','{{Titulo}}')">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="CerrarComoLograrlo('@Html.Raw(data.Titulo)','{{../Titulo}}','{{ModalTitulo}}')">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             <div class="modal-body pad-center">
@@ -132,8 +138,6 @@
         var urlGetLogros = '@Url.Action("GetLogros", "CaminoBrillante")';
         var categoriaLogro = "@categoria";
     </script>
-
-    <script src="~/Scripts/jquery-1.11.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/PortalConsultoras/CaminoBrillante/logros.js"></script>
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/logros")
 }

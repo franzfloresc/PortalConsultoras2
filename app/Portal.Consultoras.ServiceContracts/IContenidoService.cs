@@ -285,22 +285,26 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEContenidoApp> GetContenidoApp(BEUsuario itmFilter, string codigoBanner);
         
         [OperationContract]
-        BEContenidoAppHistoria GetContenidoAppHistoria(string Codigo);
+        BEContenidoAppHistoria GetContenidoAppHistoria(int paisID, string Codigo);
 
         [OperationContract]
         void CheckContenidoApp(BEUsuario itmFilter, int idContenidoDetalle);
         
         [OperationContract]
-        void UpdateContenidoApp(BEContenidoAppHistoria formularioDato);
+        void UpdateContenidoApp(int paisID, BEContenidoAppHistoria formularioDato);
 
         [OperationContract]
-        List<BEContenidoAppList> ListContenidoApp(BEContenidoAppList entidad);
+        List<BEContenidoAppList> ListContenidoApp(int paisID, BEContenidoAppList entidad);
 
         [OperationContract]
-        void InsertContenidoAppDeta(BEContenidoAppDeta p);
+        void InsertContenidoAppDeta(int paisID, BEContenidoAppDeta p);
 
         [OperationContract]
-        int UpdateContenidoAppDeta(BEContenidoAppDeta p);
+        int UpdateContenidoAppDeta(int paisID, BEContenidoAppDeta p);
+
+        [OperationContract]
+        List<BEContenidoAppDetaAct> GetContenidoAppDetaActList(int paisID);
+
         #region Gestor de Poputs
         [OperationContract]
         List<BEComunicado> GetListaPopup(int Estado, string Campania, int Paginas, int Filas, int PaisID);

@@ -36,6 +36,11 @@ namespace Portal.Consultoras.Entities
         [Column("TieneLoginExterno")]
         public int tieneLoginExterno { get; set; }
 
+        [DataMember]
+        public bool FlgCheckSMS { get; set; }
+        [DataMember]
+        public bool FlgCheckEMAIL { get; set; }
+
         [Obsolete("Use MapUtil.MapToCollection")]
         public BEUsuario(IDataRecord row)
         {
@@ -74,6 +79,8 @@ namespace Portal.Consultoras.Entities
             TieneCDRExpress = row.ToBoolean("TieneCDRExpress");
             EsConsecutivoNueva = row.ToBoolean("EsConsecutivoNueva");
             IndicadorConsultoraDigital = row.ToInt32("IndicadorConsultoraDigital");
+            FlgCheckSMS = row.ToBoolean("FlgCheckSMS");
+            FlgCheckEMAIL = row.ToBoolean("FlgCheckEMAIL");
         }
 
         [Obsolete("Use MapUtil.MapToCollection")]
@@ -245,9 +252,7 @@ namespace Portal.Consultoras.Entities
             EsConsultoraOficina = row.ToInt32("IndicadorConsultoraOficina") == 1;
             PromedioVenta = row.ToDouble("PromedioVenta");
             NovedadBuscador = row.ToInt32("NovedadBuscador");
-            //INI HD-3693
             AutorizaPedido = row.ToString("AutorizaPedido");
-            //FIN HD-3693
             CodigoClasificacion = row.ToString("CodigoClasificacion");
             CodigoSubClasificacion = row.ToString("CodigoSubClasificacion");
             DescripcionSubClasificacion = row.ToString("DescripcionSubClasificacion");
@@ -524,6 +529,7 @@ namespace Portal.Consultoras.Entities
         public string PrimerNombre { get; set; }
 
         [DataMember]
+        [Column("PrimerApellido")]
         public string PrimerApellido { get; set; }
 
         [DataMember]
@@ -903,8 +909,6 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool PuedeEnviarSMS { get; set; }
         [DataMember]
-        public bool FotoPerfilAncha { get; set; }
-        [DataMember]
         [Column("IndicadorConsultoraOficina")]
         public bool EsConsultoraOficina { get; set; }
         [DataMember]
@@ -949,10 +953,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool GanaMasNativo { get; set; }
 
-        //INI HD-3693
         [DataMember]
         public string AutorizaPedido { get; set; }
-        //FIN HD-3693
+
         public BEUsuario(IDataRecord row, bool Tipo, bool ValidaHorario)
         {
             ConsultoraID = row.ToInt64("ConsultoraID");
@@ -965,9 +968,9 @@ namespace Portal.Consultoras.Entities
             EsZonaDemAnti = row.ToInt32("EsZonaDemAnti");
             if (DataRecord.HasColumn(row, "HoraCierreZonaDemAnti")) HoraCierreZonaDemAnti = DbConvert.ToTimeSpan(row["HoraCierreZonaDemAnti"]);
             if (DataRecord.HasColumn(row, "HoraCierreZonaNormal")) HoraCierreZonaNormal = DbConvert.ToTimeSpan(row["HoraCierreZonaNormal"]);
-            //INI HD-3693
+
             AutorizaPedido = row.ToString("AutorizaPedido");
-            //FIN HD-3693
+
         }
 
         [DataMember]
@@ -981,5 +984,14 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public int NivelCaminoBrillante { get; set; }
+
+        [DataMember]
+        public bool EsUltimoDiaFacturacion { get; set; }
+
+        [DataMember]
+        public bool PuedeConfirmarAllEmail { get; set; }
+        [DataMember]
+        public bool PuedeConfirmarAllSms { get; set; }
+
     }
 }

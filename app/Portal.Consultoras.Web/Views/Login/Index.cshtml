@@ -7,10 +7,6 @@
     var mensajeError = "";
 }
 
-<body>
-    
-</body>
-
 <input type="hidden" id="PaginaLogin" />
 
 <div id="FormsSignInContentPopup">
@@ -308,7 +304,8 @@
                                 <div id="divHoraiosAtencion" class="horarios_atencion">L-V: 8:00 a 20:00 y S: 08:00 a 18:00</div>
                             </div>
                         </div>
-                        <input type="hidden" id="hddHabilitarChatEmtelco" name="hddHabilitarChatEmtelco" value="" />
+                        <input type="hidden" id="hddHabilitarChatEmtelco" value="" />
+                        <input type="hidden" id="hddHabilitarChatBot" value="" />
                         <button class="btn_ingresar_chat" id="divChatearConNosotros">Ingresar al chat</button>
                     </div>
 
@@ -901,6 +898,7 @@
     var urlChatBelCorp = '@Url.Action("ChatBelcorp", "Login")';
     var urlIniciarLogin = '@Url.Action("Login", "Login")';
     var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
+    var habilitarChatBot = '@ViewBag.HabilitarChatBot';
     var cadena = '@System.Configuration.ConfigurationManager.AppSettings.Get("CryptoJSPassword")';
 </script>
 
@@ -956,7 +954,11 @@
         }
     </script>
 }
-
+<div class="fb-customerchat"
+     page_id="@ViewBag.ChatBotPageId"
+     greeting_dialog_display="show"
+     greeting_dialog_delay="0">
+</div>
 @section scripts {
     <script src="~/Scripts/handlebars.js"></script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Js-Login")
@@ -968,8 +970,17 @@
             FB.init({
                 appId: fbAppId,
                 cookie: true,
-                xfbml: true,
-                version: 'v3.0'
+                xfbml: false,
+                version: 'v3.3'
+            });
+
+            FB.Event.subscribe('customerchat.load', function() {
+                setTimeout(function () {
+                    $('.fb_dialog_content').append('<div class="icono_chat_sb"></div>');
+                    $('body').on('click', '.icono_chat_sb', function (e) {
+                        FB.CustomerChat.showDialog();
+                    });
+                }, 2000);
             });
 
             FB.getLoginStatus(function (response) {
@@ -985,7 +996,7 @@
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) { return; }
             js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js";
+            js.src = "https://connect.facebook.net/es_LA/sdk/xfbml.customerchat.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 

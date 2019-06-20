@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ServiceModel;
 using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Entities.LimiteVenta;
+using Portal.Consultoras.Entities.CaminoBrillante;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -21,9 +22,7 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEProducto> SelectProductoByCodigoDescripcion(int paisID, int campaniaID, string codigoDescripcion, int criterio, int rowCount);
 
         [OperationContract]
-        IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID,
-            string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio,
-            int rowCount, bool validarOpt);
+        IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(BEProductoBusqueda busqueda);
 
         [OperationContract]
         IList<BEProducto> SearchListProductoChatbotByCampaniaRegionZona(string paisISO, int campaniaID,
@@ -203,5 +202,11 @@ namespace Portal.Consultoras.ServiceContracts
         BEPremioNuevas Insertar(BEPremioNuevas premio);
         [OperationContract]
         BEPremioNuevas Editar(BEPremioNuevas premio);
+
+        #region ProgramaNuevas
+        [OperationContract]
+        BEValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(BEUsuario entidad, string cuv);
+        #endregion
+
     }
 }
