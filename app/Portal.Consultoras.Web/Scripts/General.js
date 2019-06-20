@@ -869,14 +869,6 @@ function AbrirMensaje25seg(mensaje, imagen) {
             CerrarLoad();
             return false;
         }
-        //INI HD-3693
-        var msjBloq = validarpopupBloqueada(mensaje);
-        if (msjBloq != "") {
-            CerrarLoad();
-            alert_msg_bloqueadas(msjBloq);
-            return true;
-        }
-        //FIN HD-3693
         imagen = imagen || "";
 
         $("#pop_src").attr("src", "#")
