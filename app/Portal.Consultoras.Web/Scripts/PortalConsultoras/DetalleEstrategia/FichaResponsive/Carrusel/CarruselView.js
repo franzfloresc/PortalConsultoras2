@@ -157,7 +157,7 @@ class CarruselView {
         var orden = 0;
         var _this = this;
 
-        _this.hiddenSinStock(model);
+        // _this.hiddenSinStock(model);
 
         $.each($(this.divCarruselFicha.ficha), function(indice, elemento){
             $(elemento).css("order", "");
@@ -178,16 +178,16 @@ class CarruselView {
         });
     }
 
-    hiddenSinStock(model) {
-        var _this = this;
+    // hiddenSinStock(model) {
+    //     var _this = this;
 
-        if (!model.tieneStock && _this.filterFichaVisible(_this.divFichaCarrusel_Suggested.capa)) {
-            this.divCarrusel.id.forEach(function (ficha) {
-                $(ficha).hide();
-            });
+    //     if (!model.tieneStock && _this.filterFichaVisible(_this.divFichaCarrusel_Suggested.capa)) {
+    //         this.divCarrusel.id.forEach(function (ficha) {
+    //             $(ficha).hide();
+    //         });
 
-            $(_this.divFichaCarrusel_Suggested.id).show();
-        }
-    }
+    //         $(_this.divFichaCarrusel_Suggested.id).show();
+    //     }
+    // }
 
 }
