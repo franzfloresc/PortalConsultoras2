@@ -1,4 +1,6 @@
-﻿
+﻿@using Portal.Consultoras.Web.Models
+@model Portal.Consultoras.Web.Models.ActualizaContrasenia
+
 <link href="@Url.Content("~/Content/Css/Site/Shared/PopupsResponsive/general-popups.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/Css/Site/Esika/styleDefault.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/Css/Site/Login2/popup-actualizacion-contrasenia.css")" rel="stylesheet" />
@@ -6,56 +8,99 @@
 <div class="popup__wrapper bg__popups__default" id="PopupActualizacionContrasenia" style="display:block;">
     <div class="popup__somos__belcorp popup__somos__belcorp--actualizacionContrasenia mostrarPopup">
         <div class="d-block center-block popup__somos__belcorp__contenido popup__somos__belcorp__contenido--actualizacionContrasenia">
-            <section id="Paso1ActualizacionPassword" class="paso__1__actualizacionContrasenia">
+            <section id="Paso1ActualizacionPassword" class="paso__1__actualizacionContrasenia seccion">
                 <p class="d-block text-center text-regular saludo__consultora">Hola @Model.PrimerNombre</p>
                 <h1 class="d-block text-center popup__somos__belcorp__titulo popup__somos__belcorp__titulo--actualizacionContrasenia">
                     Actualiza tu contraseña
                 </h1>
-                <section class="d-flex form__actualizarContrasenia__wrapper">
-                    <div class="center-block text-left form__group__fields form__group__fields--actualizacionContrasenia">
-                        <!-- Este mensaje contiene el icono para mostrar y ocultar contraseña, agregar clase  enlace__verPassword--mostrar para cambiar el icono correspondiente, y quitar clase para volver a icono por default -->
-                        <a id="MostrarOcultarPassword" title="Mostrar/Ocultar Password" class="d-block enlace__verPassword"></a>
-                        <!-- Fin - Este mensaje contiene el icono para mostrar y ocultar contraseña, agregar clase  enlace__verPassword--mostrar para cambiar el icono correspondiente, y quitar clase para volver a icono por default -->
-                        <input id="txtNuevoPassword" type="password" class="d-block w-100 text-bold text__field__sb" name="txtNuevoPassword" value="" />
-                        <label for="txtNuevoPassword" class="d-block w-100 text-regular label__field__sb">Nueva contraseña</label>
+                @*<section class="d-flex form__actualizarContrasenia__wrapper">
+            <div class="center-block text-left form__group__fields form__group__fields--actualizacionContrasenia">
+                <!-- Este mensaje contiene el icono para mostrar y ocultar contraseña, agregar clase  enlace__verPassword--mostrar para cambiar el icono correspondiente, y quitar clase para volver a icono por default -->
+                <a id="MostrarOcultarPassword" title="Mostrar/Ocultar Password" class="d-block enlace__verPassword"></a>
+                <!-- Fin - Este mensaje contiene el icono para mostrar y ocultar contraseña, agregar clase  enlace__verPassword--mostrar para cambiar el icono correspondiente, y quitar clase para volver a icono por default -->
+                <input id="txtNuevoPassword" type="password" class="d-block w-100 text-bold text__field__sb" name="txtNuevoPassword" value="" />
+                <label for="txtNuevoPassword" class="d-block w-100 text-regular label__field__sb">Nueva contraseña</label>
 
-                        <!-- Este mensaje aparece cuando se hace focus en el campo de ingreso de password y se comienza a digitar y la cantidad de caracteres sea menor a 6 -->
-                        <span class="d-block w-100 validation__field" style="display:none;">Usa 6 o más caracteres combinando letras y números</span>
-                        <!-- Fin - Este mensaje aparece cuando se hace focus en el campo de ingreso de password y se comienza a digitar y la cantidad de caracteres sea menor a 6 -->
+                <!-- Este mensaje aparece cuando se hace focus en el campo de ingreso de password y se comienza a digitar y la cantidad de caracteres sea menor a 6 -->
+                <span class="d-block w-100 validation__field" style="display:none;">Usa 6 o más caracteres combinando letras y números</span>
+                <!-- Fin - Este mensaje aparece cuando se hace focus en el campo de ingreso de password y se comienza a digitar y la cantidad de caracteres sea menor a 6 -->
+                <!-- Cuando se llega a los 6 caracteres o se pasa al siguiente campo (Confirmar Contraseña) y no se cumple con las condiciones de password (error), agregar la clase validation__error -->
+                <span class="d-block w-100 validation__field validation__error validation__error1" style="display:none;">La contraseña debe tener 6 o más caracteres combinado con letras y números</span>
+                <!-- Fin - Cuando se llega a los 6 caracteres o se pasa al siguiente campo (Confirmar Contraseña) y no se cumple con las condiciones de password (error), agregar la clase validation__error -->
+                <!-- Cuando se llega a los 6 caracteres y se ha cumplido con las condiciones de password, agregar la clase validation__success -->
+                <span class="d-block w-100 validation__field validation__success" style="display:none;">Contraseña válida</span>
+                <!-- Fin - Cuando se llega a los 6 caracteres y se ha cumplido con las condiciones de password, agregar la clase validation__success -->
 
-                        <!-- Cuando se llega a los 6 caracteres o se pasa al siguiente campo (Confirmar Contraseña) y no se cumple con las condiciones de password (error), agregar la clase validation__error -->
-                        <span class="d-block w-100 validation__field validation__error" style="display:none;">La contraseña debe tener 6 o más caracteres combinado con letras y números</span>
-                        <!-- Fin - Cuando se llega a los 6 caracteres o se pasa al siguiente campo (Confirmar Contraseña) y no se cumple con las condiciones de password (error), agregar la clase validation__error -->
+            </div>
+            <div class="center-block text-left form__group__fields form__group__fields--actualizacionContrasenia">
+                <a id="MostrarOcultarPassword" title="Mostrar/Ocultar Password" class="d-block enlace__verPassword"></a>
+                <input id="txtConfirmarNuevoPassword" type="password" class="d-block w-100 text-bold text__field__sb" name="txtConfirmarNuevoPassword" value="" />
+                <label for="txtConfirmarNuevoPassword" class="d-block w-100 text-regular label__field__sb">Confirmar contraseña</label>
 
-                        <!-- Cuando se llega a los 6 caracteres y se ha cumplido con las condiciones de password, agregar la clase validation__success -->
-                        <span class="d-block w-100 validation__field validation__success" style="display:none;">Contraseña válida</span>
-                        <!-- Fin - Cuando se llega a los 6 caracteres y se ha cumplido con las condiciones de password, agregar la clase validation__success -->
+                <!-- Este mensaje aparece cuando se hace focus en el campo de ingreso de password y se comienza a digitar -->
+                <span class="d-block w-100 validation__field" style="display:none;">Vuelve a escribir tu nueva contraseña</span>
+                <!-- Fin - Este mensaje aparece cuando se hace focus en el campo de ingreso de password y se comienza a digitar -->
+                <!-- Cuando la contraseña no coincida (error), agregar la clase validation__error -->
+                <span class="d-block w-100 validation__field validation__error" style="display:none;">Las contraseñas no coinciden</span>
+                <!-- Fin - Cuando la contraseña no coincida (error), agregar la clase validation__error -->
+                <!-- Cuando la contraseña coincida, agregar la clase validation__success -->
+                <span class="d-block w-100 validation__field validation__success" style="display:none;">Las contraseñas coinciden</span>
+                <!-- Fin - Cuando la contraseña coincida, agregar la clase validation__success -->
 
-                    </div>
-                    <div class="center-block text-left form__group__fields form__group__fields--actualizacionContrasenia">
-                        <a id="MostrarOcultarPassword" title="Mostrar/Ocultar Password" class="d-block enlace__verPassword"></a>
-                        <input id="txtConfirmarNuevoPassword" type="password" class="d-block w-100 text-bold text__field__sb" name="txtConfirmarNuevoPassword" value="" />
-                        <label for="txtConfirmarNuevoPassword" class="d-block w-100 text-regular label__field__sb">Confirmar contraseña</label>
+            </div>
+            <button id="btnActualizarCorreo" class="d-block center-block border-radius-4 text-center text-bold btn__sb btn__sb--disabled btn__sb__primary--multimarca btn__sb--actualizarContrasenia">
+                Actualizar
+            </button>
+        </section>*@
+                @using (Html.BeginForm("CambiarContrasenia", "Login", FormMethod.Post, new { id = "formContrasenia" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.CodigoUsuario, new { @Value = Model.CodigoUsuario })
+                    @Html.HiddenFor(m => m.CodigoIso, new { @Value = Model.CodigoIso })                    
+                    <section class="d-flex form__actualizarContrasenia__wrapper">
+                        <div class="center-block text-left form__group__fields form__group__fields--actualizacionContrasenia">
+                            <!-- Este mensaje contiene el icono para mostrar y ocultar contraseña, agregar clase  enlace__verPassword--mostrar para cambiar el icono correspondiente, y quitar clase para volver a icono por default -->
+                            <a id="MostrarOcultarPassword" title="Mostrar/Ocultar Password" class="d-block enlace__verPassword"></a>
+                            <!-- Fin - Este mensaje contiene el icono para mostrar y ocultar contraseña, agregar clase  enlace__verPassword--mostrar para cambiar el icono correspondiente, y quitar clase para volver a icono por default -->
+                            @Html.PasswordFor(m => m.Contrasenia, new { @class = "d-block w-100 text-bold text__field__sb contrasenia" })
+                            @*<input id="txtNuevoPassword" type="password" class="d-block w-100 text-bold text__field__sb" name="txtNuevoPassword" value="" />*@
+                            <label for="txtNuevoPassword" class="d-block w-100 text-regular label__field__sb">Nueva contraseña</label>
+                            <!-- Este mensaje aparece cuando se hace focus en el campo de ingreso de password y se comienza a digitar y la cantidad de caracteres sea menor a 6 -->
+                            <span class="d-block w-100 validation__field" style="display:none;"></span>
+                            <!-- Fin - Este mensaje aparece cuando se hace focus en el campo de ingreso de password y se comienza a digitar y la cantidad de caracteres sea menor a 6 -->
+                            <!-- Cuando se llega a los 6 caracteres o se pasa al siguiente campo (Confirmar Contraseña) y no se cumple con las condiciones de password (error), agregar la clase validation__error -->
+                            <span class="d-block w-100 validation__field validation__error validation__error1">@Html.ValidationMessageFor(m => m.Contrasenia)</span>
+                            <!-- Fin - Cuando se llega a los 6 caracteres o se pasa al siguiente campo (Confirmar Contraseña) y no se cumple con las condiciones de password (error), agregar la clase validation__error -->
+                            <!-- Cuando se llega a los 6 caracteres y se ha cumplido con las condiciones de password, agregar la clase validation__success -->
+                            <span class="d-block w-100 validation__field validation__success" style="display:none;">Contraseña válida</span>
+                            <!-- Fin - Cuando se llega a los 6 caracteres y se ha cumplido con las condiciones de password, agregar la clase validation__success -->
 
-                        <!-- Este mensaje aparece cuando se hace focus en el campo de ingreso de password y se comienza a digitar -->
-                        <span class="d-block w-100 validation__field" style="display:none;">Vuelve a escribir tu nueva contraseña</span>
-                        <!-- Fin - Este mensaje aparece cuando se hace focus en el campo de ingreso de password y se comienza a digitar -->
+                        </div>
+                        <div class="center-block text-left form__group__fields form__group__fields--actualizacionContrasenia">
+                            <a id="MostrarOcultarPassword" title="Mostrar/Ocultar Password" class="d-block enlace__verPassword"></a>
+                            @Html.PasswordFor(m => m.ConfirmaContrasenia, new { @class = "d-block w-100 text-bold text__field__sb contrasenia" })
+                            @*<input id="txtConfirmarNuevoPassword" type="password" class="d-block w-100 text-bold text__field__sb" name="txtConfirmarNuevoPassword" value="" />*@
+                            <label for="txtConfirmarNuevoPassword" class="d-block w-100 text-regular label__field__sb">Confirmar contraseña</label>
 
-                        <!-- Cuando la contraseña no coincida (error), agregar la clase validation__error -->
-                        <span class="d-block w-100 validation__field validation__error" style="display:none;">Las contraseñas no coinciden</span>
-                        <!-- Fin - Cuando la contraseña no coincida (error), agregar la clase validation__error -->
-                        
-                        <!-- Cuando la contraseña coincida, agregar la clase validation__success -->
-                        <span class="d-block w-100 validation__field validation__success" style="display:none;">Las contraseñas coinciden</span>
-                        <!-- Fin - Cuando la contraseña coincida, agregar la clase validation__success -->
+                            <!-- Este mensaje aparece cuando se hace focus en el campo de ingreso de password y se comienza a digitar -->
+                            <span class="d-block w-100 validation__field" style="display:none;">Vuelve a escribir tu nueva contraseña</span>
+                            <!-- Fin - Este mensaje aparece cuando se hace focus en el campo de ingreso de password y se comienza a digitar -->
+                            <!-- Cuando la contraseña no coincida (error), agregar la clase validation__error -->
+                            <span class="d-block w-100 validation__field validation__error">@Html.ValidationMessageFor(m => m.ConfirmaContrasenia)</span>
+                            <!-- Fin - Cuando la contraseña no coincida (error), agregar la clase validation__error -->
+                            <!-- Cuando la contraseña coincida, agregar la clase validation__success -->
+                            <span class="d-block w-100 validation__field validation__success" style="display:none;">Las contraseñas coinciden</span>
+                            <!-- Fin - Cuando la contraseña coincida, agregar la clase validation__success -->
 
-                    </div>
-                    <button id="btnActualizarCorreo" class="d-block center-block border-radius-4 text-center text-bold btn__sb btn__sb--disabled btn__sb__primary--multimarca btn__sb--actualizarContrasenia">
-                        Actualizar
-                    </button>
-                </section>
+                        </div>
+
+                        <button type="button" id="btnActualizarCorreo" class="d-block center-block border-radius-4 text-center text-bold btn__sb btn__sb--disabled btn__sb__primary--multimarca btn__sb--actualizarContrasenia">
+                            Actualizar
+                        </button>
+                    </section>
+                }
             </section>
-            <section id="VistaPrecarga" class="spinner__wrapper spinner__wrapper--actualizacionContrasenia" style="display:none;">
+            <section id="VistaPrecarga" class="spinner__wrapper spinner__wrapper--actualizacionContrasenia seccion" style="display:none;">
                 <div class="d-block center-block">
                     <svg viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" class="precarga__spinner">
                         <symbol id="s--circle">
@@ -105,7 +150,7 @@
                     Cargando
                 </p>
             </section>
-            <section id="Paso2ActualizacionPassword" class="paso__2__actualizacionContrasenia" style="display:none;">
+            <section id="Paso2ActualizacionPassword" class="paso__2__actualizacionContrasenia seccion" style="display:none;">
                 <div class="center-block popup__somos__belcorp__icono popup__somos__belcorp__icono--correo">
                     <img src="@Url.Content("~/Content/Images/mensaje-icono.png")" alt="Confirma tu correo" />
                 </div>
@@ -128,19 +173,19 @@
                     Ingresa el código aquí
                 </h2>
                 <div class="d-flex center-block form__group__fields form__group__fields--ingresoCodigo">
-                    <input class="d-inline-block text-center text-bold text__field__sb text__field__sb--ingresoCodigo" type="tel" value="" />
-                    <input class="d-inline-block text-center text-bold text__field__sb text__field__sb--ingresoCodigo" type="tel" value="" />
-                    <input class="d-inline-block text-center text-bold text__field__sb text__field__sb--ingresoCodigo" type="tel" value="" />
-                    <input class="d-inline-block text-center text-bold text__field__sb text__field__sb--ingresoCodigo" type="tel" value="" />
-                    <input class="d-inline-block text-center text-bold text__field__sb text__field__sb--ingresoCodigo" type="tel" value="" />
-                    <input class="d-inline-block text-center text-bold text__field__sb text__field__sb--ingresoCodigo" type="tel" value="" />
+                    <input id="1sDigito" data-tipo="1" class="d-inline-block text-center text-bold text__field__sb text__field__sb--ingresoCodigo campo_ingreso_codigo" type="tel" value="" maxlength="1" />
+                    <input id="2sDigito" data-tipo="1" class="d-inline-block text-center text-bold text__field__sb text__field__sb--ingresoCodigo campo_ingreso_codigo" type="tel" value="" maxlength="1" />
+                    <input id="3sDigito" data-tipo="1" class="d-inline-block text-center text-bold text__field__sb text__field__sb--ingresoCodigo campo_ingreso_codigo" type="tel" value="" maxlength="1" />
+                    <input id="4sDigito" data-tipo="1" class="d-inline-block text-center text-bold text__field__sb text__field__sb--ingresoCodigo campo_ingreso_codigo" type="tel" value="" maxlength="1" />
+                    <input id="5sDigito" data-tipo="1" class="d-inline-block text-center text-bold text__field__sb text__field__sb--ingresoCodigo campo_ingreso_codigo" type="tel" value="" maxlength="1" />
+                    <input id="6sDigito" data-tipo="1" class="d-inline-block text-center text-bold text__field__sb text__field__sb--ingresoCodigo campo_ingreso_codigo" type="tel" value="" maxlength="1" />
                 </div>
                 <a id="btnReenviarCorreo" href="#" class="d-block center-block text-center enlace__sb enlace__sb--reenviarCorreo" title="Reenviar nuevamente el código">Reenviar nuevamente el código</a>
-                <button id="btnConfirmarCambioPassword" class="d-block center-block border-radius-4 text-center text-bold btn__sb btn__sb--disabled btn__sb__primary--multimarca btn__sb--actualizarContrasenia">
+                <button id="btnConfirmarCambioPassword" class="d-block center-block border-radius-4 text-center text-bold btn__sb  btn__sb__primary--multimarca btn__sb--disabled  btn__sb--actualizarContrasenia">
                     Confirmar
                 </button>
             </section>
-            <section id="Paso3" class="paso__3__actualizacionContrasenia" style="display:none;">
+            <section id="Paso3" class="paso__3__actualizacionContrasenia seccion" style="display:none;">
                 <div class="center-block popup__somos__belcorp__icono popup__somos__belcorp__icono--actualizacionExitosa">
                     <img src="@Url.Content("~/Content/Images/success_icon.svg")" alt="Actualización exitosa" />
                 </div>
@@ -150,7 +195,7 @@
                 <p class="d-block text-center popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--envioCodigoConfirmacion">
                     Recuerda que puedes completar tu perfil <a href="#" id="" title="Ir A Mi Perfil" class="d-inline-block text-bold color-multimarca enlace__sb enlace__sb--irAMiPerfil">aquí</a>
                 </p>
-                <button id="IrASomosBelcorp" class="d-block center-block border-radius-4 text-center text-bold btn__sb btn__sb--disabled btn__sb__primary--multimarca btn__sb--actualizarContrasenia">
+                <button id="IrASomosBelcorp" class="d-block center-block border-radius-4 text-center text-bold btn__sb btn__sb__primary--multimarca btn__sb--actualizarContrasenia">
                     Ir a Somos Belcorp
                 </button>
             </section>

@@ -959,14 +959,14 @@
           <xs:element minOccurs="0" name="DesarrolloNivelCumplimientoHabilitado" type="xs:int" />
           <xs:element minOccurs="0" name="DiasCobranza" type="xs:int" />
           <xs:element minOccurs="0" name="EdicionFichaConsultoraHabilitado" type="xs:int" />
-          <xs:element minOccurs="0" name="FlagConfZonasUnete" type="xs:int" />
-          <xs:element minOccurs="0" name="FlagDigitoVerificador" type="xs:int" />
-          <xs:element minOccurs="0" name="FlagGanaMas" type="xs:int" />
-          <xs:element minOccurs="0" name="FlagGeo" type="xs:int" />
-          <xs:element minOccurs="0" name="FlagHanna" type="xs:int" />
-          <xs:element minOccurs="0" name="FlagPC" type="xs:int" />
-          <xs:element minOccurs="0" name="FlagPDV" type="xs:int" />
-          <xs:element minOccurs="0" name="FlagRDD" type="xs:int" />
+          <xs:element minOccurs="0" name="FlagConfZonasUnete" type="xs:boolean" />
+          <xs:element minOccurs="0" name="FlagDigitoVerificador" type="xs:boolean" />
+          <xs:element minOccurs="0" name="FlagGanaMas" type="xs:boolean" />
+          <xs:element minOccurs="0" name="FlagGeo" type="xs:boolean" />
+          <xs:element minOccurs="0" name="FlagHanna" type="xs:boolean" />
+          <xs:element minOccurs="0" name="FlagPC" type="xs:boolean" />
+          <xs:element minOccurs="0" name="FlagPDV" type="xs:boolean" />
+          <xs:element minOccurs="0" name="FlagRDD" type="xs:boolean" />
           <xs:element minOccurs="0" name="ID" type="xs:int" />
           <xs:element minOccurs="0" name="MaximoNumeroDigitosTelefonoTrabajoConsultora" type="xs:int" />
           <xs:element minOccurs="0" name="MinimoNumeroDigitosTelefonoTrabajoConsultora" type="xs:int" />

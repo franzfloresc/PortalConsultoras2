@@ -79,7 +79,7 @@ $(document).ready(function () {
 
     $(".campo_ingreso_codigo_sms").keyup(
         function (e) {  
-                $(".IconoError").hide();
+               // $(".IconoError").hide();
                 var oID = $(this).attr("id");
                 var a = oID.substring(1, 2);
 
@@ -96,7 +96,7 @@ $(document).ready(function () {
                 if ($("#6" + a + "Digito").val() == "")
                     return false;                
                 var CodigosmsIngresado = $("#1" + a + "Digito").val() + $("#2" + a + "Digito").val() + $("#3" + a + "Digito").val() + $("#4" + a + "Digito").val() + $("#5" + a + "Digito").val() + $("#6" + a + "Digito").val();
-                VerificarCodigo(CodigosmsIngresado);
+                //VerificarCodigo(CodigosmsIngresado);
         });
 
     $("#aChatearConNosotros").click(function () {

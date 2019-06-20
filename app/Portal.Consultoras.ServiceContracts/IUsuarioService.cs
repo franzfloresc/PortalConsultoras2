@@ -362,10 +362,10 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania,
             bool usuarioPrueba, int aceptacionConsultoraDA);
-        
+
         [OperationContract]
         BEUsuarioChatEmtelco GetUsuarioChatEmtelco(int paisID, string codigoUsuario);
-        
+
         #region TerminosCondiciones
         [OperationContract]
         bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
@@ -422,7 +422,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEBuscadorYFiltros> listaProductos(int paisID, int CampaniaID, int filas, string CodigoDescripcion, int regionId, int zonaId, int codigoRegion, int codigoZona);
-        
+
         [OperationContract]
         string ActualizarNovedadBuscador(int paisID, string codigoUsuario);
 
@@ -454,7 +454,7 @@ namespace Portal.Consultoras.ServiceContracts
         #endregion
 
         [OperationContract]
-        int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario,string tipoEnvio1, string tipoEnvio2);
+        int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2);
 
         [OperationContract]
         int ActualizarSMS(int PaisID, string codigoConsultora, string tipoEnvio, string celularAnterior, string celularActual);
@@ -491,5 +491,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEUsuarioDatos GetActualizarContraseniaDefault(int paisID, string codigoUsuario);
+
+        [OperationContract]
+        bool ProcesaEnvioEmailCambiaContrasenia(int paisID, BEUsuarioDatos oUsu);
     }
 }

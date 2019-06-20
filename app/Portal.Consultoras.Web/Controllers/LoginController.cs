@@ -660,24 +660,30 @@ namespace Portal.Consultoras.Web.Controllers
             if (Session["DatosUsuario"] == null) return RedirectToAction("Index", "Login");
             var obj = (BEUsuarioDatos)Session["DatosUsuario"];
 
-            var model = new BEUsuarioDatos();
-            model.PrimerNombre = obj.PrimerNombre;
-            model.MensajeSaludo = obj.MensajeSaludo;
-            model.CorreoEnmascarado = obj.CorreoEnmascarado;
-            model.CelularEnmascarado = obj.CelularEnmascarado;
-            model.OpcionCorreoDesabilitado = obj.OpcionCorreoDesabilitado;
-            model.OpcionSmsDesabilitado = obj.OpcionSmsDesabilitado;
-            model.HoraRestanteCorreo = obj.HoraRestanteCorreo;
-            model.HoraRestanteSms = obj.HoraRestanteSms;
-            model.IdEstadoActividad = obj.IdEstadoActividad;
-            model.CodigoIso = obj.CodigoIso;
-            model.PrimerNombre = obj.PrimerNombre;
-            model.CodigoUsuario = obj.CodigoUsuario;
-            model.Correo = obj.Correo;
-            model.MostrarOpcion = obj.MostrarOpcion;
-            model.OpcionChat = obj.OpcionChat;
-            model.EsMobile = EsDispositivoMovil();
+            var usuario = new BEUsuarioDatos();
+            usuario.PrimerNombre = obj.PrimerNombre;
+            usuario.MensajeSaludo = obj.MensajeSaludo;
+            usuario.CorreoEnmascarado = obj.CorreoEnmascarado;
+            usuario.CelularEnmascarado = obj.CelularEnmascarado;
+            usuario.OpcionCorreoDesabilitado = obj.OpcionCorreoDesabilitado;
+            usuario.OpcionSmsDesabilitado = obj.OpcionSmsDesabilitado;
+            usuario.HoraRestanteCorreo = obj.HoraRestanteCorreo;
+            usuario.HoraRestanteSms = obj.HoraRestanteSms;
+            usuario.IdEstadoActividad = obj.IdEstadoActividad;
+            usuario.CodigoIso = obj.CodigoIso;
+            usuario.PrimerNombre = obj.PrimerNombre;
+            usuario.CodigoUsuario = obj.CodigoUsuario;
+            usuario.Correo = obj.Correo;
+            usuario.MostrarOpcion = obj.MostrarOpcion;
+            usuario.OpcionChat = obj.OpcionChat;
+            usuario.EsMobile = EsDispositivoMovil();
             ViewBag.ChatBotPageId = new ConfiguracionManagerProvider().GetConfiguracionManager(Constantes.ConfiguracionManager.ChatBotPageId);
+
+
+            var model = new ActualizaContrasenia();
+            model.PrimerNombre = usuario.PrimerNombre;
+            model.CodigoIso = usuario.CodigoIso;
+            model.CodigoUsuario = usuario.CodigoUsuario;
 
             return View(model);
         }
@@ -3209,18 +3215,27 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost]
-        public JsonResult CambiarContrasenia(string nuevaContrasenia, string codigoUsuario,string codigoISO)
+        [ValidateAntiForgeryToken]
+        //public JsonResult CambiarContrasenia(string nuevaContrasenia, string codigoUsuario,string codigoISO)
+        public ActionResult CambiarContrasenia(ActualizaContrasenia actualizaContrasenia)
         {
             int rslt = 0;
             try
             {
+                var result = false;
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    var result = sv.CambiarClaveUsuario(Util.GetPaisID(codigoISO), codigoISO, codigoUsuario,
-                           nuevaContrasenia, "", codigoUsuario, EAplicacionOrigen.MisDatosConsultora);
+                    result = sv.CambiarClaveUsuario(Util.GetPaisID(actualizaContrasenia.CodigoIso), actualizaContrasenia.CodigoIso, actualizaContrasenia.CodigoUsuario,
+                           actualizaContrasenia.Contrasenia, "", actualizaContrasenia.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
 
                     rslt = result ? 2 : 1;
+                }
+
+                if (result == true)
+                {
+                    Session["DatosUsuario"] = null;
                 }
 
                 return Json(new
@@ -3231,7 +3246,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, codigoUsuario, codigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, actualizaContrasenia.CodigoUsuario, actualizaContrasenia.CodigoIso);
                 return Json(new
                 {
                     success = false,
@@ -3241,7 +3256,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, codigoUsuario, codigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, actualizaContrasenia.CodigoUsuario, actualizaContrasenia.CodigoIso);
                 return Json(new
                 {
                     success = false,
@@ -3250,6 +3265,43 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public JsonResult RecibirPinCambioContrasenia()
+        {
+            var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
+            if (oUsu == null) return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
+            int paisID = Common.Util.GetPaisID(oUsu.CodigoIso);
+            try
+            {
+                TempData["PaisID"] = paisID;
+                bool EstadoEnvio = false;
+                //oUsu.EsMobile = EsDispositivoMovil();
+
+                using (var svc = new UsuarioServiceClient())
+                {
+                    EstadoEnvio = svc.ProcesaEnvioEmailCambiaContrasenia(paisID, oUsu);
+                }
+                return Json(new
+                {
+                    success = EstadoEnvio,
+                    menssage = "",
+                    correo = oUsu.Correo
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsu.CodigoUsuario, Util.GetPaisISO(paisID));
+                return Json(new
+                {
+                    success = false,
+                    menssage = "Sucedio un Error al enviar el SMS. Intentelo mas tarde"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
         #endregion
 
 

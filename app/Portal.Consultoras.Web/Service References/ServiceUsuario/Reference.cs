@@ -2642,28 +2642,28 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int EdicionFichaConsultoraHabilitadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int FlagConfZonasUneteField;
+        private bool FlagConfZonasUneteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int FlagDigitoVerificadorField;
+        private bool FlagDigitoVerificadorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int FlagGanaMasField;
+        private bool FlagGanaMasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int FlagGeoField;
+        private bool FlagGeoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int FlagHannaField;
+        private bool FlagHannaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int FlagPCField;
+        private bool FlagPCField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int FlagPDVField;
+        private bool FlagPDVField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int FlagRDDField;
+        private bool FlagRDDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IDField;
@@ -2740,7 +2740,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int FlagConfZonasUnete {
+        public bool FlagConfZonasUnete {
             get {
                 return this.FlagConfZonasUneteField;
             }
@@ -2753,7 +2753,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int FlagDigitoVerificador {
+        public bool FlagDigitoVerificador {
             get {
                 return this.FlagDigitoVerificadorField;
             }
@@ -2766,7 +2766,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int FlagGanaMas {
+        public bool FlagGanaMas {
             get {
                 return this.FlagGanaMasField;
             }
@@ -2779,7 +2779,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int FlagGeo {
+        public bool FlagGeo {
             get {
                 return this.FlagGeoField;
             }
@@ -2792,7 +2792,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int FlagHanna {
+        public bool FlagHanna {
             get {
                 return this.FlagHannaField;
             }
@@ -2805,7 +2805,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int FlagPC {
+        public bool FlagPC {
             get {
                 return this.FlagPCField;
             }
@@ -2818,7 +2818,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int FlagPDV {
+        public bool FlagPDV {
             get {
                 return this.FlagPDVField;
             }
@@ -2831,7 +2831,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int FlagRDD {
+        public bool FlagRDD {
             get {
                 return this.FlagRDDField;
             }
@@ -18445,6 +18445,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetActualizarContraseniaDefault", ReplyAction="http://tempuri.org/IUsuarioService/GetActualizarContraseniaDefaultResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos> GetActualizarContraseniaDefaultAsync(int paisID, string codigoUsuario);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContraseniaResponse")]
+        bool ProcesaEnvioEmailCambiaContrasenia(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContraseniaResponse")]
+        System.Threading.Tasks.Task<bool> ProcesaEnvioEmailCambiaContraseniaAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Select", ReplyAction="http://tempuri.org/IUsuarioService/SelectResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario);
         
@@ -19563,6 +19569,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos> GetActualizarContraseniaDefaultAsync(int paisID, string codigoUsuario) {
             return base.Channel.GetActualizarContraseniaDefaultAsync(paisID, codigoUsuario);
+        }
+        
+        public bool ProcesaEnvioEmailCambiaContrasenia(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu) {
+            return base.Channel.ProcesaEnvioEmailCambiaContrasenia(paisID, oUsu);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ProcesaEnvioEmailCambiaContraseniaAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu) {
+            return base.Channel.ProcesaEnvioEmailCambiaContraseniaAsync(paisID, oUsu);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario) {

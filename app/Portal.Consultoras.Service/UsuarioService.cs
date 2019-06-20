@@ -1050,6 +1050,12 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.GetActualizarContraseniaDefault(paisID, codigoUsuario);
         }
+
+        public bool ProcesaEnvioEmailCambiaContrasenia(int paisID, BEUsuarioDatos oUsu)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ProcesaEnvioEmailCambiaContrasenia(paisID, oUsu);
+        }
         #endregion
 
 

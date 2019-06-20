@@ -434,7 +434,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
                 //INI HD-4200
                 "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js"
-                //FIN HD-4200
+            //FIN HD-4200
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/PedidoValidado").Include(
@@ -507,6 +507,9 @@ namespace Portal.Consultoras.Web
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/Login-ActualizarContrasenia").Include(
                 "~/Scripts/jquery-1.11.2.js",
                 "~/Scripts/jquery-ui-1.9.2.custom.js",
+
+                "~/Scripts/jquery.validate.js",
+                "~/Scripts/jquery.validate.unobtrusive.js",                
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Login/ActualizarContrasenia.js"
             ));
@@ -539,7 +542,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
                 //INI HD-4200
                 "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js"
-               //FIN HD-4200
+            //FIN HD-4200
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/PedidoDetalle").Include(
@@ -815,7 +818,7 @@ namespace Portal.Consultoras.Web
             #endregion
 
             #region DetalleEstrategia
-            
+
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/EstrategiaAgregar").Include(
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregarProvider.js",
                 "~/Scripts/PortalConsultoras/Shared/CodigoUbigeoPortal.js",
@@ -835,7 +838,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/OpcionesSeleccionadasModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/TituloOpcionesSeleccionadasModule.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/ResumenOpcionesModule.js",
-                
+
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/Shared/CodigoUbigeoPortal.js",
                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",

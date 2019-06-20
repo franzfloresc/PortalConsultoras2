@@ -4047,7 +4047,7 @@ namespace Portal.Consultoras.BizLogic
                 if (!tienezona) return null;
 
 
-                oUsu.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);                
+                oUsu.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);
                 //oUsu.OrigenDescripcion = opcion.OrigenDescripcion;
                 oUsu.CodigoUsuario = codigoUsuario;
                 oUsu.CodigoIso = Common.Util.GetPaisISO(paisID);
@@ -4113,6 +4113,42 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader rd = DAUsuario.GetUsuarioCambioClave(CodigoUsuario))
                 if (rd.Read()) datos = new BEUsuarioDatos(rd);
             return datos;
+        }
+
+        public bool ProcesaEnvioEmailCambiaContrasenia(int paisID, BEUsuarioDatos oUsu)
+        {
+            try
+            {
+                try
+                {                    
+                    string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
+                    string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
+                    var esEsika = paisesEsika.Contains(paisISO);
+                    string emailFrom = "no-responder@somosbelcorp.com";
+                    string emailTo = oUsu.Correo;
+                    string titulo = "(" + paisISO + ") Cambio de clave de Somosbelcorp";
+                    string logo = (esEsika ? Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png" : Globals.RutaCdn + "/ImagenesPortal/Iconos/logod.png");
+                    string nombrecorreo = oUsu.PrimerNombre.Trim();
+
+                    string displayname = "Somos Belcorp";
+                    string codigoGenerado = Common.Util.GenerarCodigoRandom();
+                    Portal.Consultoras.Common.MailUtilities.EnviarMailPinAutenticacion(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, codigoGenerado);
+                    //if (CantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
+                    InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorEmail, codigoGenerado);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    LogManager.SaveLog(ex, oUsu.CodigoUsuario, paisID);
+                    return false;
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, string.Empty, Common.Util.GetPaisISO(paisID));
+                return false;
+            }
         }
 
         #endregion

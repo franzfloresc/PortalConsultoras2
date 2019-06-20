@@ -103,6 +103,7 @@ namespace Portal.Consultoras.Common
             }
         }
 
+
         public static void EnviarMailProcesoActualizaMisDatos(string emailFrom, string emailTo, string titulo, string displayname,  string nombre, string url, string parametros)
         {
             string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\mailing_proceso_actualizar_misdatos.html";
