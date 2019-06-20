@@ -1233,7 +1233,7 @@ div.opOrdenar {
 }
 .box-cent-valor {
     position: absolute;
-    right: 0;
+    right:-6px;
     top: 12px;
 }
 .arrowtop {
