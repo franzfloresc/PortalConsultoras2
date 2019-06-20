@@ -3,15 +3,30 @@ var scrollLogros = true
 $("#a").hide;
 
 $(document).ready(function () {
-    Carusel();
-    if ($("#template-kit").length > 0) {
-        Handlebars.registerPartial("kit_template", $("#template-kit").html());
-        Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
+    if (TineCarrusel == '1') {
+        Carusel();    
+        if ($("#template-kit").length > 0) {
+            Handlebars.registerPartial("kit_template", $("#template-kit").html());
+            Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
+        }
+        CargarCarrusel();
+    }
+    if (TieneGanancias == '1') {
+        CargarGanancias();
     }
 
-    CargarCarrusel();
-    CargarGanancias();
-
+    //Barra monto Acumulado
+    if (TieneMontoAcumulado == '1') {
+        var progreso = $("#bar-progreso");
+        if (progreso.length > 0) {
+            var maxBar = $(progreso).data("max");
+            var curBar = $(progreso).data("cur");
+            var perc = (curBar / maxBar) * 100;
+            $('.new-bar').width(perc + '%');
+        }
+    }
+    //fin
+    
     var nivelactual = $("#hfNivelActual").val();
     for (var i = 1; i <= nivelactual; i++)
         $(".pt" + i).addClass("activo");
@@ -57,7 +72,6 @@ $(window).on("scroll", function () {
 
 function Carusel() {
     var owl = $('.owl-crec');
-
 
     owl.owlCarousel({
         stagePadding: 35,
@@ -214,7 +228,6 @@ function ArmarMisGanancias(data) {
     if (!data) {        
         return;
     }
-
     $("#boxganancias").show();
 
     var ctx = document.getElementById('canvas').getContext('2d');
@@ -485,6 +498,14 @@ $(".tog-vermas").click(function () {
 });
 
 $(document).ready(function ($) {
-    var widthbarra = 90;
-    $('.new-bar').width(widthbarra + '%');
+    var progreso = $("#bar-progreso");
+    if (progreso.length > 0) {
+        var minBar = $(progreso).data("min");
+        var maxBar = $(progreso).data("max");
+        var curBar = $(progreso).data("cur");
+        var perc = (curBar / maxBar)*100;
+        $('.new-bar').width(perc + '%');
+        var perc_min = (minBar / maxBar) * 100;
+        $('.tope').css("left", perc_min+"%");
+    }
 });

@@ -160,6 +160,30 @@ namespace Portal.Consultoras.Web.Providers
         }
 
         /// <summary>
+        /// Obtiene el nivel Siguiente de la Consultora en el programa de Camino Brillante
+        /// </summary>
+        public NivelCaminoBrillanteModel GetNivelSiguienteConsultora()
+        {
+            try
+            {
+                var oConsultora = GetConsultoraNivelCaminoBrillante();
+                if (oConsultora == null || oConsultora.Niveles == null) return null;
+
+                var codigoNivel = oConsultora.NivelConsultora.Where(x => x.EsActual).Select(z => z.Nivel).FirstOrDefault();
+                int codNivel = 0;
+                if (!int.TryParse(codigoNivel, out codNivel)) return null;
+                codigoNivel = string.Format("{0}",codNivel + 1);
+
+                return Mapper.Map<NivelCaminoBrillanteModel>(oConsultora.Niveles.FirstOrDefault(x => x.CodigoNivel == codigoNivel));
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return null;
+            }
+        }
+
+        /// <summary>
         /// Obtiene Logros Consultora
         /// </summary>
         public LogroCaminoBrillanteModel GetLogroCaminoBrillante(string key)
