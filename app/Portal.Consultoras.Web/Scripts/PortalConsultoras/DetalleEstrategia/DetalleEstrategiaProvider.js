@@ -174,10 +174,6 @@ var DetalleEstrategiaProvider = function () {
 
         if (!estrategia || (_objTipoPalanca.codigo != ConstantesModule.TipoPersonalizacion.Catalogo && !estrategia.EstrategiaID)) throw 'no obtiene oferta desde api';
 
-        if (_objTipoPalanca.codigo == ConstantesModule.TipoPersonalizacion.Catalogo) {
-            estrategia.BreadCrumbs.Palanca.Url += "?q=" + localStorage.getItem('valorBuscador');
-        }
-
         if (typeof estrategia.CodigoVariante != "undefined" &&
             estrategia.CodigoVariante != null &&
             estrategia.CodigoVariante != "") {
@@ -269,6 +265,18 @@ var DetalleEstrategiaProvider = function () {
         estrategia.MostarTabsFichaEnriquecidaSinDetalle = estrategia.Hermanos.length == 1;
 
         _esMultimarca = estrategia.EsMultimarca; // General.js/ifVerificarMarca
+
+        if (_objTipoPalanca.codigo == ConstantesModule.TipoPersonalizacion.Catalogo) {
+            estrategia.BreadCrumbs.Palanca.Url += "?q=" + localStorage.getItem('valorBuscador');
+            //
+            var key = ConstantesModule.KeysLocalStorage.DescripcionProductoCatalogo(estrategia.Campania, estrategia.CUV2);
+            var descripcionCompleta = localStorage.getItem(key);
+            if (descripcionCompleta != '') {
+                estrategia.DescripcionCompleta = descripcionCompleta;
+                if (estrategia.Hermanos.length > 0) estrategia.Hermanos[0].NombreComercial = descripcionCompleta;
+            }
+            //localStorage.removeItem(key);
+        }
 
         return estrategia;
     };
