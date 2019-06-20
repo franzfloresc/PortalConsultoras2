@@ -241,6 +241,14 @@
         border-bottom:0;
     }
 
+        .footer__item__content__list--siguenos .footer__item__content:first-child {
+            padding-right: 0;
+        }
+
+        .footer__item__content__list--siguenos .footer__item__content:last-child {
+            padding-right: 2px;
+        }
+
     .footer__item__link__text{
         display:none!important;
     }
