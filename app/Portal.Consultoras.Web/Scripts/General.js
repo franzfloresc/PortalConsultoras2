@@ -10,6 +10,9 @@ jQuery(document).ready(function () {
     CreateLoading();
 
     if (typeof habilitarChatBot !== 'undefined' && habilitarChatBot === 'True') {
+        if (window.matchMedia("(max-width:991px)").matches) {
+            $('.btn_chat_messenger').draggable();
+        }
         $('.btn_chat_messenger').show();
     }
 

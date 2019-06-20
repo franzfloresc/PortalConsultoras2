@@ -213,7 +213,7 @@
             }
 
             @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
-        
+
             <div class="content_responsive" data-layout="body">
                 @RenderBody()
             </div>
@@ -328,5 +328,6 @@
         pixelAnalytics.invocarPageViewPixelById();
     </script>
     <script type="text/javascript" id="lightning_bolt" src="//cdn-akamai.mookie1.com/LB/LightningBolt.js"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.ui.touch-punch.min.js")"></script>
 </body>
 </html>
