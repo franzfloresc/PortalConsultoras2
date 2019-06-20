@@ -28,18 +28,21 @@
 </div>
 
 <div id="popupInformacionValidado" class="MensajeAlertaMobile pedido detalle" style="display:none;">
-    <div class="content_mensajeAlerta">
+    <div class="content_mensajeAlerta general_dialog">
         <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionValidado').hide();">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
         </a>
-        <hr class="clear">
-        <div class="icono_alerta exclamacion_icono_mobile" style="display: none;"></div>
+        @*<hr class="clear">*@
+        @*<div class="icono_alerta exclamacion_icono_mobile" style="display: none;"></div>*@
+        <div class="d-block center-block alert_dialog_icono">
+            <img src="@Url.Content("~/Content/Images/alerta-icono.png")" alt="Aviso" />
+        </div>
         <div class="icono_alerta check_icono_mobile" style="display: none;"></div>
         <div class="contet_alert">
-            <div class="titulo_compartir"><b id="bTagTitulo">MENSAJE</b></div>
-            <div id="mensajeInformacionvalidado" class="mensaje_alerta"></div>
+            <div class="titulo_compartir alert_dialog_title"><span id="bTagTitulo" class="d-block text-bold">MENSAJE</span></div>
+            <div id="mensajeInformacionvalidado" class="mensaje_alerta alert_dialog_message"></div>
         </div>
-        <a href="javascript:;" onclick="$('#popupInformacionValidado').hide();" class="btn_ok_mobile"><b>OK</b></a>
+        <a href="javascript:;" onclick="$('#popupInformacionValidado').hide();" class="btn_ok_mobile d-block center-block border-radius-4 text-bold btn__sb btn__sb__primary btn__sb__primary--multimarca btn__sb--entendido">Entendido</a>
     </div>
 </div>
 
