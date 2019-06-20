@@ -351,10 +351,13 @@
         left: 25px;
         bottom: 74px;
     }
-    .ganancia-estimada .ganancia-titulo,
-    .ganancia-estimada .ganancia-total {        
-        font-size: 12px;
+    .ganancia-estimada.PedidoValidado{
+        bottom:0;
     }
+        .ganancia-estimada .ganancia-titulo,
+        .ganancia-estimada .ganancia-total {
+            font-size: 12px;
+        }
     .ganancia-estimada .ganancia-titulo {
         text-align: left;
         margin-right: 20px;
@@ -380,9 +383,27 @@
     .toggle-info .ganancia-titulo {
         text-align: left;        
     }
-    .ganancia-total [data-cantidadproducto] {
+    .ganancia-total [data-cantidadproducto], .par-2{
         padding-right: 2px;
     }
+    /* (¯`·.¸¸.·´¯`·.¸¸.-> [ Inicio ] <-.¸¸.·´¯`·.¸¸.·´¯) */
+    /*             [Para Pedido Validado - Mobile]        */
+    .contenedor-ganancias {
+        margin-top: 20px;
+        margin-bottom: 60px;
+    }
+    .contenedor-ganancias .ganancia-total .ganancia-content,
+    .contenedor-ganancias .ganancia-estimada {
+        
+        width: 80%;
+    }
+        .contenedor-ganancias .ganancia-estimada.opened {
+            width: 94%;
+            bottom: 100px;
+            left: 10px;
+        }
+        
+    /* (¯`·.¸¸.·´¯`·.¸¸.-> [ fin ] <-.¸¸.·´¯`·.¸¸.·´¯) */
     
 }
 /* FIX TESLA 154 */
@@ -390,3 +411,14 @@
 .toggle-info.lbel .accent-color {
     color: #613c87;
 }
+
+/* Para pedido validado*/
+.bloque_montosPedido {
+    display: flex;
+    justify-content: flex-end;
+}
+.caja_montos.PedidoValidado {    
+    width: 74%;
+}
+
+

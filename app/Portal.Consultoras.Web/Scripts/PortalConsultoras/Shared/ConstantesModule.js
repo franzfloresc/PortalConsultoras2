@@ -34,8 +34,12 @@ var ConstantesModule = (function() {
         Ganadoras: "MGLista",
         //INI HD-3908
         PackNuevas: "PNLista",
-        DuoPerfecto: "DPLista"
+        DuoPerfecto: "DPLista",
         //FIN HD-3908
+        DescripcionProductoCatalogo: function (codigoCampania, codigoCuv) {
+            var key = 'producto-catalogo-descripcion-' + codigoCampania + '-' + codigoCuv;
+            return key;
+        }
     }
 
     var _codigoVariedad = {

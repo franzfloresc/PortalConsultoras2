@@ -186,22 +186,22 @@ var rdAnalyticsModule = (function () {
         });
     };
 
-    var _promotionClickPush = function (name, position, creative) {
-        dataLayer.push({
-            "event": _event.promotionClick,
-            "ecommerce": {
-                "promoView": {
-                    "promotions": [
-                        {
-                            "id": "1",
-                            "name": name.trim(),
-                            "position": position,
-                            "creative": creative
-                        }]
-                }
-            }
-        });
-    }
+    //var _promotionClickPush = function (name, position, creative) {
+    //    dataLayer.push({
+    //        "event": _event.promotionClick,
+    //        "ecommerce": {
+    //            "promoView": {
+    //                "promotions": [
+    //                    {
+    //                        "id": "1",
+    //                        "name": name.trim(),
+    //                        "position": position,
+    //                        "creative": creative
+    //                    }]
+    //            }
+    //        }
+    //    });
+    //}
 
     var _promotionViewPush = function (name, position, creative) {
         dataLayer.push({
@@ -378,71 +378,71 @@ var rdAnalyticsModule = (function () {
         }
     }
 
-    function AgregarProducto(origenWeb, estrategia, popup) {
-        if (!popup) {
-            popup = false;
-        }
-        try {
-            var origenWebString = origenWeb.toString();
-            switch (origenWebString) {
-                case _origenWeb.rdLan:
-                    if (popup) _addToCartPush(_text.rdBannerDetPrincipal, estrategia);
-                    else _addToCartPush(_text.rdBannerPrincipal, estrategia);
-                    break;
-                case _origenWeb.rdLanMobile:
-                    if (popup) _addToCartPush(_text.rdBannerDetPrincipal, estrategia);
-                    else _addToCartPush(_text.rdBannerPrincipal, estrategia);
-                    break;
-                case _origenWeb.rdOfertas:
-                    if (!popup) _addToCartPush(_text.rdMisOfertas, estrategia);
-                    else _addToCartPush(_text.rdDetalleMisOfertas, estrategia);
-                    break;
-                case _origenWeb.rdOfertasMobile:
-                    if (!popup) _addToCartPush(_text.rdMisOfertas, estrategia);
-                    else _addToCartPush(_text.rdDetalleMisOfertas, estrategia);
-                    break;
-                case _origenWeb.rdDetalle:
-                    _addToCartPush(_text.rdDetalleProducto, estrategia);
-                    break;
-                case _origenWeb.rdDetalleMobile:
-                    _addToCartPush(_text.rdDetalleProducto, estrategia);
-                    break;
-                default:
-                    _addToCartPush(_text.rdHome, estrategia);
-            }
-        } catch (e) {
-            console.log(_text.exception + e);
-        }
-    }
+    //function AgregarProducto(origenWeb, estrategia, popup) {
+    //    if (!popup) {
+    //        popup = false;
+    //    }
+    //    try {
+    //        var origenWebString = origenWeb.toString();
+    //        switch (origenWebString) {
+    //            case _origenWeb.rdLan:
+    //                if (popup) _addToCartPush(_text.rdBannerDetPrincipal, estrategia);
+    //                else _addToCartPush(_text.rdBannerPrincipal, estrategia);
+    //                break;
+    //            case _origenWeb.rdLanMobile:
+    //                if (popup) _addToCartPush(_text.rdBannerDetPrincipal, estrategia);
+    //                else _addToCartPush(_text.rdBannerPrincipal, estrategia);
+    //                break;
+    //            case _origenWeb.rdOfertas:
+    //                if (!popup) _addToCartPush(_text.rdMisOfertas, estrategia);
+    //                else _addToCartPush(_text.rdDetalleMisOfertas, estrategia);
+    //                break;
+    //            case _origenWeb.rdOfertasMobile:
+    //                if (!popup) _addToCartPush(_text.rdMisOfertas, estrategia);
+    //                else _addToCartPush(_text.rdDetalleMisOfertas, estrategia);
+    //                break;
+    //            case _origenWeb.rdDetalle:
+    //                _addToCartPush(_text.rdDetalleProducto, estrategia);
+    //                break;
+    //            case _origenWeb.rdDetalleMobile:
+    //                _addToCartPush(_text.rdDetalleProducto, estrategia);
+    //                break;
+    //            default:
+    //                _addToCartPush(_text.rdHome, estrategia);
+    //        }
+    //    } catch (e) {
+    //        console.log(_text.exception + e);
+    //    }
+    //}
 
     // se utilizaba en el popup de ver detalle, ahora es la ficha
-    function VerDetalleComprar(origenWeb, estrategia) {
-        try {
-            var origenWebString = origenWeb.toString();
-            switch (origenWebString) {
-                case _origenWeb.rdLan:
-                    _productClickPush(_text.rdBannerPrincipal, estrategia);
-                    break;
-                case _origenWeb.rdLanMobile:
-                    _productClickPush(_text.rdBannerPrincipal, estrategia);
-                    break;
-                case _origenWeb.rdOfertas:
-                    _productClickPush(_text.rdMisOfertas, estrategia);
-                    break;
-                case _origenWeb.rdOfertasMobile:
-                    _productClickPush(_text.rdMisOfertas, estrategia);
-                    break;
-                case _origenWeb.rdDetalle:
-                    _productClickPush(_text.rdDetalleProducto, estrategia);
-                    break;
-                case _origenWeb.rdDetalleMobile:
-                    _productClickPush(_text.rdDetalleProducto, estrategia);
-                    break;
-            }
-        } catch (e) {
-            console.log(_text.exception + e);
-        }
-    }
+    //function VerDetalleComprar(origenWeb, estrategia) {
+    //    try {
+    //        var origenWebString = origenWeb.toString();
+    //        switch (origenWebString) {
+    //            case _origenWeb.rdLan:
+    //                _productClickPush(_text.rdBannerPrincipal, estrategia);
+    //                break;
+    //            case _origenWeb.rdLanMobile:
+    //                _productClickPush(_text.rdBannerPrincipal, estrategia);
+    //                break;
+    //            case _origenWeb.rdOfertas:
+    //                _productClickPush(_text.rdMisOfertas, estrategia);
+    //                break;
+    //            case _origenWeb.rdOfertasMobile:
+    //                _productClickPush(_text.rdMisOfertas, estrategia);
+    //                break;
+    //            case _origenWeb.rdDetalle:
+    //                _productClickPush(_text.rdDetalleProducto, estrategia);
+    //                break;
+    //            case _origenWeb.rdDetalleMobile:
+    //                _productClickPush(_text.rdDetalleProducto, estrategia);
+    //                break;
+    //        }
+    //    } catch (e) {
+    //        console.log(_text.exception + e);
+    //    }
+    //}
 
     function AgregarProductoDeshabilitado(origenWeb, campania, name, popup) {
         try {
@@ -451,24 +451,16 @@ var rdAnalyticsModule = (function () {
             var origenWebString = origenWeb.toString();
             switch (origenWebString) {
                 case _origenWeb.rdLan:
-                    if (popup) _virtualEventPush(category, _text.rdAgregarBannerDetPrincipal, label);
-                    else _virtualEventPush(category, _text.rdAgregarBannerPrincipal, label);
-                    break;
                 case _origenWeb.rdLanMobile:
                     if (popup) _virtualEventPush(category, _text.rdAgregarBannerDetPrincipal, label);
                     else _virtualEventPush(category, _text.rdAgregarBannerPrincipal, label);
                     break;
                 case _origenWeb.rdOfertas:
-                    if (popup) _virtualEventPush(category, _text.rdAgregarDetalleMisOfertas, label);
-                    _virtualEventPush(category, _text.rdAgregarMisOfertas, label);
-                    break;
                 case _origenWeb.rdOfertasMobile:
                     if (popup) _virtualEventPush(category, _text.rdAgregarDetalleMisOfertas, label);
                     _virtualEventPush(category, _text.rdAgregarMisOfertas, label);
                     break;
                 case _origenWeb.rdDetalle:
-                    _virtualEventPush(category, _text.rdAgregarDetalleProducto, label);
-                    break;
                 case _origenWeb.rdDetalleMobile:
                     _virtualEventPush(category, _text.rdAgregarDetalleProducto, label);
                     break;
@@ -478,14 +470,14 @@ var rdAnalyticsModule = (function () {
         }
     }
 
-    function VerDetalleBloqueada(campania, name) {
-        try {
-            var label = campania + " - " + name;
-            _virtualEventPush(_text.epm, "Ver producto", label);
-        } catch (e) {
-            console.log(_text.exception + e);
-        }
-    }
+    //function VerDetalleBloqueada(campania, name) {
+    //    try {
+    //        var label = campania + " - " + name;
+    //        _virtualEventPush(_text.epm, "Ver producto", label);
+    //    } catch (e) {
+    //        console.log(_text.exception + e);
+    //    }
+    //}
 
     //function VerDetalleLan(estrategia) {
     //    try {
@@ -520,9 +512,9 @@ var rdAnalyticsModule = (function () {
         }
     }
 
-    function SuscripcionExistosa() {
-        _virtualEventPush(_category.ganaMas, _action.suscripcionExitosa, _text.notAvailable);
-    }
+    //function SuscripcionExistosa() {
+    //    _virtualEventPush(_category.ganaMas, _action.suscripcionExitosa, _text.notAvailable);
+    //}
 
 
     function MostrarPopup() {
@@ -555,9 +547,9 @@ var rdAnalyticsModule = (function () {
         _virtualEventPush(_category.ganaMas, _action.popupSuscripcion, _text.guardarDatos);
     }
 
-    function IrCancelarSuscripcion() {
-        _virtualEventPush(_text.ro, _action.clickCancelar, _text.banner);
-    }
+    //function IrCancelarSuscripcion() {
+    //    _virtualEventPush(_text.ro, _action.clickCancelar, _text.banner);
+    //}
 
     function CancelarSuscripcion() {
         _virtualEventPush(_text.epm, _action.clickEnBoton, _action.cancelarInscripcion);
@@ -576,9 +568,9 @@ var rdAnalyticsModule = (function () {
         _popupDesuscripcionCerrar(_text.epm, _action.popupDesuscripcion, texto);
     }
 
-    function ContendorSection(titulo) {
-        _virtualEventPush(_text.contenedor + " - Home", _capitalizeFirstLetter(titulo.toLowerCase()) + " - Click Botón", _action.verMas);
-    }
+    //function ContendorSection(titulo) {
+    //    _virtualEventPush(_text.contenedor + " - Home", _capitalizeFirstLetter(titulo.toLowerCase()) + " - Click Botón", _action.verMas);
+    //}
     
     function IrEnterate() {
         _virtualEventPush(_category.ganaMas, _action.popupEnterate, _text.enterate);
@@ -590,21 +582,21 @@ var rdAnalyticsModule = (function () {
     return {
         CancelarSuscripcionEncuesta: CancelarSuscripcionEncuesta,
         CancelarSuscripcion: CancelarSuscripcion,
-        IrCancelarSuscripcion: IrCancelarSuscripcion,
+        //IrCancelarSuscripcion: IrCancelarSuscripcion,
         CerrarPopUp: CerrarPopUp,
-        SuscripcionExistosa: SuscripcionExistosa,
+        //SuscripcionExistosa: SuscripcionExistosa,
         Inscripcion: Inscripcion,
         MostrarPopup: MostrarPopup,
         CompartirProducto: CompartirProducto,
         //VerDetalleLan: VerDetalleLan,
-        VerDetalleBloqueada: VerDetalleBloqueada,
+        //VerDetalleBloqueada: VerDetalleBloqueada,
         AgregarProductoDeshabilitado: AgregarProductoDeshabilitado,
-        VerDetalleComprar: VerDetalleComprar,
-        AgregarProducto: AgregarProducto,
+        //VerDetalleComprar: VerDetalleComprar,
+        //AgregarProducto: AgregarProducto,
         FiltrarProducto: FiltrarProducto,
         Tabs: Tabs,
         Access: Access,
-        ContendorSection: ContendorSection,
+        //ContendorSection: ContendorSection,
         IrEnterate: IrEnterate,
         GuardarDatos: GuardarDatos,
         ClickArrowLan: ClickArrowLan,
