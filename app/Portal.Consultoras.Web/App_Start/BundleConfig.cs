@@ -1094,23 +1094,21 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/General.js"
             ));
 
-
             #region CaminoBrillante
             bundles.Add(new StyleBundle("~/Bundle/Css/CaminoBrillante").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/CaminoBrillante/css/estilos.css",
                 "~/Scripts/owl.carousel.2.0.0-beta.2.4/assets/owl.carousel.css"));
 
-
             bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante").Include(
-                "~/Scripts/owl.carousel.js",
-                "~/Scripts/Chart.min.js",
                 "~/Scripts/PortalConsultoras/CaminoBrillante/index.js",
-                "~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js",
-                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
-                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
-                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
-                ));
+                "~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"));
+
+            bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante/Carrusel").Include(
+                "~/Scripts/owl.carousel.js"));
+
+            bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante/Ganancias").Include(
+                "~/Scripts/chartjs.js"));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante/logros").Include(
                 "~/Scripts/PortalConsultoras/CaminoBrillante/logros.js"));
@@ -1125,8 +1123,6 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/bootstrap").Include(
                "~/Scripts/bootstrap.js"));
-
-
             #endregion
 
             #region ArmaTuPack

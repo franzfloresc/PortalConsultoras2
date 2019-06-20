@@ -29,8 +29,12 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!_caminoBrillanteProvider.ValidacionCaminoBrillante()) return _RedirectToAction("Index", "Bienvenida");
 
                 ViewBag.Niveles = _caminoBrillanteProvider.GetNivelesCaminoBrillante(true);
+                /*
                 ViewBag.NivelActual = (_caminoBrillanteProvider.GetNivelActualConsultora() ??
                                          new ServiceUsuario.BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante()).Nivel;
+                */
+                ViewBag.NivelActual = _caminoBrillanteProvider.GetNivelActual();
+                ViewBag.NivelSiguiente = _caminoBrillanteProvider.GetNivelSiguienteConsultora();
                 ViewBag.ResumenLogros = _caminoBrillanteProvider.GetLogroCaminoBrillante(Constantes.CaminoBrillante.Logros.RESUMEN);
                 ViewBag.TieneOfertasEspeciales = _caminoBrillanteProvider.TieneOfertasEspeciales();
                 ViewBag.SimboloMoneda = userData.Simbolo;
@@ -40,6 +44,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var lst = _caminoBrillanteProvider.GetCaminoBrillanteConfiguracion();
                 ViewBag.TieneCarrusel = lst.Any(x => x.Codigo == Constantes.CaminoBrillante.Configuracion.sb_carrusel && x.Valor == "1") == true ? "1" : "0";
                 ViewBag.TieneGanancias = lst.Any(x => x.Codigo == Constantes.CaminoBrillante.Configuracion.sb_ganancias && x.Valor == "1") == true ? "1" : "0";
+                ViewBag.TieneMontoAcumulado = lst.Any(x => x.Codigo == Constantes.CaminoBrillante.Configuracion.sb_barraMontoAcumulado && x.Valor == "1") == true ? "1" : "0";
                 #endregion
 
                 if (ViewBag.TieneOfertasEspeciales)

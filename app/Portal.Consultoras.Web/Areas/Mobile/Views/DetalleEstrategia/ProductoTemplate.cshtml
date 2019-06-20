@@ -100,21 +100,18 @@
             <ul class="list_style_none precio">
                 <li class="precio_producto">
                     <div class="col-md-12 col-sm-12 col-xs-12 precio_producto">
-                        {{iff TipoOfertaCaminoBrillante '>' 0}}
+                        {{#iff TipoOfertaCaminoBrillante '>' 0}}
                         <p>Precio normal <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
                         {{else}}
                         <p>Precio catálogo <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
                         {{/iff}}
-                    </div>
-
-                    
+                    </div>                    
                 </li>
-
                 {{#iff Ganancia '>' 0}}
                 <li class="gana_precio_producto">
                     <p class="ganancia">
                         {{#iff TipoOfertaCaminoBrillante '>' 0}}
-                        Ganancia hasta
+                        Gana hasta
                         {{else}}
                         {{#iff CodigoVariante '!=' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
                         GANA
