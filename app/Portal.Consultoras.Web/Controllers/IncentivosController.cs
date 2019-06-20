@@ -63,7 +63,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     string segmentoServicio = segmentoId.ToString();
 
-
                     lstTemp = lstTemp.Where(p => p.Zona == string.Empty || p.Zona.Contains(userData.ZonaID.ToString())).ToList();
                     List<BEIncentivo> lst = lstTemp.Where(p => p.Segmento == "-1" || p.Segmento.Contains(segmentoServicio)).ToList();
 
