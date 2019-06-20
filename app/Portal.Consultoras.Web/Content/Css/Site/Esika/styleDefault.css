@@ -1024,6 +1024,15 @@ input[type="text"].text__field__sb,
     position: relative;
 }
 
+.close_button_dialog {
+    right: 16px !important;
+}
+
+    .close_button_dialog .popup__somos__belcorp__icono__cerrar img {
+        width: 100%;
+        height: auto;
+    }
+
 @media screen and (max-width:991px) {
 
     .general_dialog{
