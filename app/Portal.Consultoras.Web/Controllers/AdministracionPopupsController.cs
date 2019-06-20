@@ -1,21 +1,13 @@
-﻿using AutoMapper;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.AdministracionPoput;
-using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceContenido;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel;
-using System.Web.Mvc;
-using Portal.Consultoras.Service;
-using Portal.Consultoras.Web.ServiceSAC;
-using System.Web;
 using System.IO;
-using System.Web.Script.Serialization;
-using System.Runtime.Serialization.Json;
-using System.Drawing;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -105,7 +97,7 @@ namespace Portal.Consultoras.Web.Controllers
                 listComunicadoModelSegmentacion.Add(
                     new SegmentacionComunicadoModel()
                     {
-                        CodigoRegion =item.CodigoRegion,
+                        CodigoRegion = item.CodigoRegion,
                         CodigoZona = item.CodigoRegion,
                         IdEstadoActividad = Convert.ToInt32(item.IdEstadoActividad),
                         CodigoConsultora = item.CodigoConsultora
@@ -124,12 +116,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
+                ServiceContenido.BEComunicado objetoContenidoService;
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
-                    var objetoContenidoService = sv.GetDetallePopup(Comunicadoid, userData.PaisID);
-                    objetoComunicadoModel = GetAutoMapperManualObjeto(objetoContenidoService);
+                    objetoContenidoService = sv.GetDetallePopup(Comunicadoid, userData.PaisID);
                 }
-
+                objetoComunicadoModel = GetAutoMapperManualObjeto(objetoContenidoService);
             }
             catch (Exception ex)
             {
@@ -143,7 +135,6 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult CargaEstadoValidadorDatos()
         {
             int estado = 0;
-            ComunicadoModel objetoComunicadoModel;
 
             try
             {
@@ -156,7 +147,6 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                objetoComunicadoModel = new ComunicadoModel();
             }
 
             return Json(estado, JsonRequestBehavior.AllowGet);
@@ -166,7 +156,6 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult GetGuardarPopupValidador()
         {
-            string UrlImagen = string.Empty;
             int result = 0;
             try
             {
@@ -192,7 +181,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult GetCargarArchivoCSV()
         {
             List<Archivo> listArchivo = new List<Archivo>();
-            string filePath = string.Empty, filename = string.Empty;
+            var filename = string.Empty;
 
             try
             {
@@ -202,42 +191,37 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (frmData != null)
                     {
-                        if (frmData.FileName.EndsWith(".csv"))
-                        {
-                            string path = Server.MapPath("~/Uploads/");
-                            if (!Directory.Exists(path))
-                            {
-                                Directory.CreateDirectory(path);
-
-                            }
-                            filePath = path + Path.GetFileName(frmData.FileName);
-                            filename = Path.GetFileName(frmData.FileName);
-                            string extension = Path.GetExtension(frmData.FileName);
-                            frmData.SaveAs(filePath);
-                            int contador = 0;
-                            string csvData = System.IO.File.ReadAllText(filePath);
-                            foreach (string row in csvData.Split('\n'))
-                            {
-                                if (contador != 0)
-                                {
-                                    if (!string.IsNullOrEmpty(row))
-                                    {
-                                        listArchivo.Add(new Archivo()
-                                        {
-                                            RegionId = row.Split(","[0])[0].Replace("\r", ""),
-                                            ZonaId = row.Split(","[0])[1].Replace("\r", ""),
-                                            Estado = row.Split(","[0])[2].Replace("\r", ""),
-                                            Consultoraid = row.Split(","[0])[3].Replace("\r", "")
-                                        });
-                                    }
-                                }
-                                contador += 1;
-                            }
-                        }
-                        else
+                        if (!frmData.FileName.EndsWith(".csv"))
                         {
                             return Json(new { dataerror = true, archivo = "Este formato de archivo no es compatible" });
                         }
+
+                        string path = Server.MapPath("~/Uploads/");
+                        if (!Directory.Exists(path))
+                        {
+                            Directory.CreateDirectory(path);
+                        }
+                        string filePath = path + Path.GetFileName(frmData.FileName);
+                        filename = Path.GetFileName(frmData.FileName);
+                        frmData.SaveAs(filePath);
+                        int contador = 0;
+                        string csvData = System.IO.File.ReadAllText(filePath);
+                        foreach (string row in csvData.Split('\n'))
+                        {
+                            if (contador != 0 && !string.IsNullOrEmpty(row))
+                            {
+                                listArchivo.Add(new Archivo()
+                                {
+                                    RegionId = row.Split(","[0])[0].Replace("\r", ""),
+                                    ZonaId = row.Split(","[0])[1].Replace("\r", ""),
+                                    Estado = row.Split(","[0])[2].Replace("\r", ""),
+                                    Consultoraid = row.Split(","[0])[3].Replace("\r", "")
+                                });
+
+                            }
+                            contador += 1;
+                        }
+                        
                     }
                 }
 
@@ -252,7 +236,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult EliminarArchivoCsv(int Comunicadoid)
         {
-            List<ComunicadoModel> listaComunicadoModel;
             int respuesta = 0;
             try
             {
@@ -264,7 +247,6 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                listaComunicadoModel = new List<ComunicadoModel>();
             }
 
             return Json(respuesta, JsonRequestBehavior.AllowGet);
@@ -272,7 +254,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public JsonResult EliminarArchivoCsvValidador()
         {
-            List<ComunicadoModel> listaComunicadoModel;
             int respuesta = 0;
             try
             {
@@ -284,7 +265,6 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                listaComunicadoModel = new List<ComunicadoModel>();
             }
 
             return Json(respuesta, JsonRequestBehavior.AllowGet);
@@ -318,9 +298,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new { success = false, message = "Hubo un error al cargar el archivo, intente nuevamente." }, "text/html");
             }
         }
-
-
-
 
 
         private string GetGuardarImagenServidor(string imagenActual, string imagenAnterior)
@@ -370,11 +347,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private ComunicadoModel GetAutoMapperManualObjeto(ServiceContenido.BEComunicado objetoContenidoService)
         {
-            ComunicadoModel objComunicadoModel = new ComunicadoModel();
-
-            objComunicadoModel = new ComunicadoModel()
+            var objComunicadoModel = new ComunicadoModel()
             {
-
                 ComunicadoId = Convert.ToInt32(objetoContenidoService.ComunicadoId),
                 Descripcion = objetoContenidoService.Descripcion,
                 Activo = objetoContenidoService.Activo,

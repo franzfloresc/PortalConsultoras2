@@ -189,33 +189,39 @@
                 </div>
                 @Html.Partial("~/Views/Shared/VistaParcialResponisve/_MenuContenedorResponsive.cshtml")
             </header>
-
-            if (!string.IsNullOrEmpty(ViewBag.Title))
-            {
-                <section data-layout="ubicacionWeb"
-                         class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
-                    <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
-                        <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
-                            <li class="layout__view__breadcrumb">
-                                <a href="@Url.Action("Index", "Bienvenida")" class="d-block" title="Home">Home</a>
-                            </li>
-                            <li class="layout__view__breadcrumb layout__view__breadcrumb--active__view">
-                                <span class="d-block">@ViewBag.Title</span>
-                            </li>
-                        </ul>
-                    </div>
-                </section>
-            }
         }
 
-        @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
+        <div data-content="">
+            @if (!ViewContext.EsIngresoUnico())
+            {
+                if (!string.IsNullOrEmpty(ViewBag.Title))
+                {
+                    <section data-layout="ubicacionWeb"
+                             class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
+                        <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
+                            <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
+                                <li class="layout__view__breadcrumb">
+                                    <a href="@Url.Action("Index", "Bienvenida")" class="d-block" title="Home">Home</a>
+                                </li>
+                                <li class="layout__view__breadcrumb layout__view__breadcrumb--active__view">
+                                    <span class="d-block">@ViewBag.Title</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                }
+            }
 
-        <div class="content_responsive" data-layout="body">
-            @RenderBody()
+            @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
+        
+            <div class="content_responsive" data-layout="body">
+                @RenderBody()
+            </div>
+            <a title="Chat Messenger" class="mostrarEnMobile btn_chat_messenger_mobile" style="display: none;" href="javascript: AbrirChatBot()">
+                <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
+            </a>
         </div>
-        <a title="Chat Messenger" class="mostrarEnMobile btn_chat_messenger_mobile" href="javascript: AbrirChatBot()">
-            <img src="@Url.Content("~/Content/Images/icono-chat-sb.svg")" alt="Chat Messenger" />
-        </a>
+
         @Html.Partial("~/Views/Shared/_FooterResponsive.cshtml")
     </div>
 
@@ -258,6 +264,7 @@
         var codigoAnclaOdd = '@Constantes.ConfiguracionPais.OfertaDelDia';
         var OrigenDesktopODD = 0;
         var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
+        var habilitarChatBot = '@ViewBag.HabilitarChatBot';
         var CaracteresBuscador = '@ViewBag.CaracteresBuscador';
          var CaracteresBuscadorNumerico = '@ViewBag.CaracteresBuscadorNumerico';
         var TotalCaracteresEnListaBuscador = '@ViewBag.CaracteresBuscadorMostrar';

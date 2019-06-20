@@ -160,11 +160,22 @@
                     <img data-src="{{ImagenProducto}}" class="imagen_producto" data-lazy-seccion-liquidacion="" />
                 </div>
                 <h1 class="liquidacion_titulo_item">{{DescripcionMarca}}</h1>
-                <p class="liquidacion_descripcion">{{Descripcion}}</p>
+                @if (ViewBag.ISO == Constantes.CodigosISOPais.Colombia)
+                {
+                    <p class="liquidacion_descripcion liquidacion_descripcion--paisColombia">{{Descripcion}}</p>
+                    @*INI - HD-4009*@
+                    <p class="text-center {{#if ValPUM}}liquidacion_pum{{else}}liquidacion_pum_hidden{{/if}}">
+                        <span>{{UnidadMedida}} a </span>@ViewBag.Simbolo{{PUM}}
+                    </p>
+                    @*FIN - HD-4009 *@
+                }
+                else
+                {
+                    <p class="liquidacion_descripcion">{{Descripcion}}</p>
+                }
                 <div class="liquidacion_precio_tachado"></div>
                 <div class="liquidacion_precio"><span>@ViewBag.Simbolo<span id="precio_oferta">{{PrecioString}}</span></span></div>
                 <hr class="clear" />
-
                 {{#if TieneTallaColor}}
                 <a class="boton_liquidacion js-boton_tonotalla" tipo-tonotalla="{{TipoTallaColor}}" data-array-tonostallas="{{TallaColor}}" style="width:218px!important;">
                     {{TextoBotonTallaColor}}
@@ -192,7 +203,7 @@
         var DesktopLiquidacion = @Constantes.OrigenPedidoWeb.DesktopLandingLiquidacionLiquidacionCarrusel;
         var MobileLiquidacion = @Constantes.OrigenPedidoWeb.MobileLandingLiquidacionLiquidacionCarrusel;
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertaLiquidacion/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertaLiquidacion/Index.js")?v2"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js")"></script>
 }

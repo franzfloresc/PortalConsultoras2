@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Common;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models.CaminoBrillante
 {
@@ -31,5 +32,11 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
                 return PrecioCatalogo.ToString();
             }
         }
+    }
+
+    public class DemostradoresPaginadoModel
+    {
+        public List<DemostradorCaminoBrillanteModel> LstDemostradores { get; set; }
+        public int Total { get; set; }
     }
 }
