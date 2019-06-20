@@ -46,10 +46,11 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        public ActionResult RemoveCache(string controller, string action , string area ="")
+        public ActionResult RemoveCache(string cont, string act , string are ="")
         {
-            var url = Url.Action(controller, action, new { Area = area });
-            HttpResponse.RemoveOutputCacheItem(url);
+            var url = Url.Action(act, cont, new { Area = are });
+            if(!string.IsNullOrEmpty(url))
+                HttpResponse.RemoveOutputCacheItem(url);
             return new EmptyResult();
         }
 
