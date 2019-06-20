@@ -43,7 +43,6 @@ var menuModule = (function () {
     var urlIni;
     var navbarHeight;
     var seccionFixedMenuHeigt;
-    var scr = false;
 
     var _var = {
         Mobile: false,

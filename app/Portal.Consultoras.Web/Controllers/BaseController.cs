@@ -1,10 +1,10 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Infraestructure.Excel;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
@@ -496,10 +496,10 @@ namespace Portal.Consultoras.Web.Controllers
         public List<PermisoModel> BuildMenu(UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
             if (userData == null)
-                throw new ArgumentNullException("userData");
+                throw new ClientInformationException("userData");
 
             if (revistaDigital == null)
-                throw new ArgumentNullException("revistaDigital");
+                throw new ClientInformationException("revistaDigital");
 
             if (userData.Menu == null)
             {
@@ -534,10 +534,10 @@ namespace Portal.Consultoras.Web.Controllers
         public List<MenuMobileModel> BuildMenuMobile(UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
             if (userData == null)
-                throw new ArgumentNullException("userData");
+                throw new ClientInformationException("userData");
 
             if (revistaDigital == null)
-                throw new ArgumentNullException("revistaDigital");
+                throw new ClientInformationException("revistaDigital");
 
             if (userData.MenuMobile != null ||
                 userData.RolID != Constantes.Rol.Consultora)
@@ -1457,7 +1457,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (ResultadoValidacion) URLCaminoExisto = string.Format("{0}{1}/{2}/{3}", URLConfig, userData.CodigoISO, userData.CampaniaID, Util.Security.ToMd5(userData.CodigoConsultora));
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 ResultadoValidacion = false;
             }
@@ -1529,7 +1529,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                     r = SessionManager.GetConsultoraDigital().Value;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 r = false;
             }

@@ -48,7 +48,7 @@
         {{#each this.Hermanos as |componente|}}
         {{#IsNullOrEmpty componente.UnidadMedidaContenido '!='}}
         {{#iff componente.PrecioContenido '>' 0}}
-        <div class="descripcion_item item_pum">{{componente.UnidadMedidaContenido}} a {{SimboloMoneda}} {{DecimalToStringFormatWithoutRounding componente.PrecioContenido}}</div>
+        <div class="descripcion_item item_pum">{{componente.UnidadMedidaContenido}} a {{SimboloMoneda}} {{componente.PrecioContenidoStr}}</div>
         {{/iff}}
         {{/IsNullOrEmpty}}
         {{/each}}

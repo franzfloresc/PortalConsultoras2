@@ -33,19 +33,28 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEKitCaminoBrillante" nillable="true" type="tns:BEKitCaminoBrillante" />
-  <xs:complexType name="ArrayOfBEDesmostradoresCaminoBrillante">
+  <xs:complexType name="BEDemostradoresPaginado">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEDesmostradoresCaminoBrillante" nillable="true" type="tns:BEDesmostradoresCaminoBrillante" />
+      <xs:element minOccurs="0" name="LstDemostradores" nillable="true" type="tns:ArrayOfBEDemostradoresCaminoBrillante" />
+      <xs:element minOccurs="0" name="Total" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfBEDesmostradoresCaminoBrillante" nillable="true" type="tns:ArrayOfBEDesmostradoresCaminoBrillante" />
-  <xs:complexType name="BEDesmostradoresCaminoBrillante">
+  <xs:element name="BEDemostradoresPaginado" nillable="true" type="tns:BEDemostradoresPaginado" />
+  <xs:complexType name="ArrayOfBEDemostradoresCaminoBrillante">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEDemostradoresCaminoBrillante" nillable="true" type="tns:BEDemostradoresCaminoBrillante" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEDemostradoresCaminoBrillante" nillable="true" type="tns:ArrayOfBEDemostradoresCaminoBrillante" />
+  <xs:complexType name="BEDemostradoresCaminoBrillante">
     <xs:sequence>
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoMarca" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionCUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionCortaCUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionMarca" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsCatalogo" type="xs:int" />
       <xs:element minOccurs="0" name="EstrategiaID" type="xs:int" />
       <xs:element minOccurs="0" name="FlagSeleccionado" type="xs:boolean" />
       <xs:element minOccurs="0" name="FotoProductoMedium" nillable="true" type="xs:string" />
@@ -56,5 +65,5 @@
       <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="BEDesmostradoresCaminoBrillante" nillable="true" type="tns:BEDesmostradoresCaminoBrillante" />
+  <xs:element name="BEDemostradoresCaminoBrillante" nillable="true" type="tns:BEDemostradoresCaminoBrillante" />
 </xs:schema>

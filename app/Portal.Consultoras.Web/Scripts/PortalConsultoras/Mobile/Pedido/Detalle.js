@@ -368,7 +368,7 @@ function UpdateLiquidacionTipoOfertaSis(urls, obj, elementRow) {
                 return false;
             }
 
-            var PrecioUnidad = obj.PrecioUnidad;
+            //var PrecioUnidad = obj.PrecioUnidad;
             var Unidad = $(cantidadElement).val();
             var Total = DecimalToStringFormat(parseFloat(cantidadActual * Unidad));
             $(elementRow).find(".ImporteTotal").html(Total);
@@ -423,9 +423,9 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
         CliID = 0;
     }
 
-    var Cantidad = CantidadModi;
+    //var Cantidad = CantidadModi;
     var PrecioUnidad = detalleObj.PrecioUnidad;
-    var Total = DecimalToStringFormat(parseFloat(Cantidad * PrecioUnidad));
+    var Total = DecimalToStringFormat(parseFloat(CantidadModi * PrecioUnidad));
     $(elementRow).find(".ImporteTotal").html(Total);
 
     var item = {
@@ -433,7 +433,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
         PedidoID: PedidoID,
         PedidoDetalleID: PedidoDetalleID,
         ClienteID: CliID,
-        Cantidad: Cantidad,
+        Cantidad: CantidadModi,
         PrecioUnidad: PrecioUnidad,
         ClienteDescripcion: CliDes,
         DescripcionProd: DesProd,
@@ -502,6 +502,11 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
                 if (data.success != true) {
                     messageInfoError(data.message);
                     return false;
+                }
+
+                var ActualizaGananciasLoad = typeof ActualizaGanancias === 'function';
+                if (ActualizaGananciasLoad) {
+                    ActualizaGanancias(data);
                 }
 
                 MostrarBarra(data);
@@ -741,7 +746,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBa
     }
 
     var PrecioUnidad = detalleObj.PrecioUnidad;
-    var Cantidad = $(cantidadElement).val();
+    //var Cantidad = $(cantidadElement).val();
     var Total = DecimalToStringFormat(parseFloat(Cantidad * PrecioUnidad));
     $(elementRow).find(".ImporteTotal").html(Total);
 
@@ -824,6 +829,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             } else {
                 mensaje = _mensajeModificarPedido.normal;
             }
+            ActualizaGanancias(data);          //Actualiza ganancias
 
             AbrirMensaje25seg(mensaje);
 
@@ -1278,4 +1284,16 @@ function AccionConfirmarModificarPedido() {
 			}
 		}
 	});
+}
+
+function ActualizaGanancias(data) {
+
+    data = data || "";
+    if (data !== "") {
+        $('#div-ganancia-totalMontoGanancia').text(data.PedidoWeb.FormatoTotalMontoGananciaStr);
+        $('#div-ganancia-totalGananciaCatalogo').text(data.PedidoWeb.FormatoTotalMontoAhorroCatalogoStr);
+        $('#div-ganancia-totalGananciaRevista').text(data.PedidoWeb.FormatoTotalGananciaRevistaStr);
+        $('#div-ganancia-totalGananciaWeb').text(data.PedidoWeb.FormatoTotalGananciaWebStr);
+        $('#div-ganancia-totalGananciaOtros').text(data.PedidoWeb.FormatoTotalGananciaOtrosStr);
+    }
 }
