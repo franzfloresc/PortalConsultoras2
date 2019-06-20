@@ -58,16 +58,14 @@
     {
         if (nivelSiguiente.CodigoNivel == Constantes.CaminoBrillante.CodigoNiveles.Brillante || ViewBag.NivelActual.CodigoNivel == Constantes.CaminoBrillante.CodigoNiveles.Brillante)
         {
-            <div>Brillante</div>
+            <div style="display:none" >Brillante</div>
         }
         else
         {
-            <div class="box-pg-bar">
+            <div style="display:none" class="box-pg-bar">
                 <div id="progress-b">
                     <div class="progress-barnew">
                         <div id="bar-progreso" class="new-bar" data-min="@ViewBag.NivelActual.MontoMinimo" data-max="@nivelSiguiente.MontoMinimo" data-cur="@nivelSiguiente.MontoAlcanzado">
-                            <b>@nivelSiguiente.MontoAlcanzado</b>
-                            <b>@ViewBag.NivelActual.MontoAlcanzado</b>
                             @if (nivelSiguiente.MontoAlcanzado > 0)
                             {
                                 <div class="box-cent-valor">
