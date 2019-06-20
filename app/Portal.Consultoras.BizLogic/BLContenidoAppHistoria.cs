@@ -17,7 +17,7 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 var da = new DAContenidoApp(paisID);
-
+                    
                 var task1 = Task.Run(() =>
                 {
                     var entidad = new BEContenidoAppHistoria();
@@ -43,17 +43,10 @@ namespace Portal.Consultoras.BizLogic
 
         public void UpdateContenidoApp(int paisID, BEContenidoAppHistoria p)
         {
-            try
-            {
-                var da = new DAContenidoApp(paisID);
-                da.UpdContenidoApp(p);
-            }
-            catch (Exception ex)
-            {
-                LogManager.SaveLog(ex, "", "");
-                throw new Exception("Exception BLContenidoAppHistoria - UpdateContenidoApp", ex);
-            }
+            var da = new DAContenidoApp(paisID);
+            da.UpdContenidoApp(p);
         }
+
 
         public List<BEContenidoAppList> GetList(int paisID, BEContenidoAppList entidad)
         {
@@ -77,30 +70,14 @@ namespace Portal.Consultoras.BizLogic
 
         public void InsertContenidoAppDeta(int paisID, BEContenidoAppDeta p)
         {
-            try
-            {
-               var da = new DAContenidoApp(paisID);
-               da.InsertContenidoAppDeta(p);
-            }
-            catch (Exception ex)
-            {
-                LogManager.SaveLog(ex, "", "");
-                throw new Exception("Exception BLContenidoAppHistoria - InsertContenidoAppDeta", ex);
-            }
+            var da = new DAContenidoApp(paisID);
+            da.InsertContenidoAppDeta(p);
         }
 
         public int UpdateContenidoAppDeta(int paisID, BEContenidoAppDeta p)
         {
-            try
-            {
-                var da = new DAContenidoApp(paisID);
-                return da.UpdContenidoAppDeta(p);
-            }
-            catch (Exception ex)
-            {
-                LogManager.SaveLog(ex, "", "");
-                throw new Exception("Exception BLContenidoAppHistoria - UpdateContenidoAppDeta", ex);
-            }
+            var da = new DAContenidoApp(paisID);
+            return da.UpdContenidoAppDeta(p);
         }
 
         public List<BEContenidoAppDetaAct> GetContenidoAppDetaActList(int paisID)
