@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.Common;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -42,12 +41,11 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         [DataMember]
         public List<BEFiltrosOpcionesVerificacion> lstFiltros { get; set; }
 
-        //INI HD-3897
         [DataMember]
         public bool OpcionConfirmarEmail { get; set; }
         [DataMember]
         public bool OpcionConfirmarSms { get; set; }
-        //FIN HD-3897
+
         public BEOpcionesVerificacion()
         { }
 
@@ -65,10 +63,8 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
             TieneAlcanse = row.ToBoolean("TieneAlcanse");
             OpcionContrasena = row.ToBoolean("OpcionContrasena");
             IntentosSms = row.ToInt32("IntentosSms");
-            //INI HD-3897
-            OpcionConfirmarEmail = row.HasColumn("OpcionConfirmarEmail")  &&  row.ToBoolean("OpcionConfirmarEmail");
-            OpcionConfirmarSms = row.HasColumn("OpcionConfirmarSms") && row.ToBoolean("OpcionConfirmarSms");
-            //FIN HD-3897
+            OpcionConfirmarEmail = row.ToBoolean("OpcionConfirmarEmail");
+            OpcionConfirmarSms = row.ToBoolean("OpcionConfirmarSms");
         }
     }
 

@@ -45,7 +45,7 @@
         public string FlagNueva { get; set; }
 
         public int LimiteVenta { get; set; }
-        
+
         public bool EsCuponNuevas { get; set; }
 
         public bool EsKitNuevaAuto { get; set; }
@@ -53,8 +53,9 @@
         public bool EsEditable { get; set; }
         public int SetId { get; set; }
 
-        //INI HD-4200
-        public bool EsSuscripcionSE{ get; set; }
-        //FIN HD-4200
+        public bool EsDuoPerfecto { get; set; }
+
+        public bool EsSuscripcionSE { get; set; }
+
     }
 }

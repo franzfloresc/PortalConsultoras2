@@ -1,22 +1,20 @@
 ﻿using JWT;
 using Newtonsoft.Json;
-
 using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.BizLogic.RevistaDigital;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
-using Portal.Consultoras.Data.ServiceActualizarFlagBoletaImpresa;
 using Portal.Consultoras.Data.Hana;
+using Portal.Consultoras.Data.ServiceActualizarFlagBoletaImpresa;
 using Portal.Consultoras.Data.ServiceDirecciondeEntrega;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
-using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.ProgramaNuevas;
+using Portal.Consultoras.Entities.RevistaDigital;
 using Portal.Consultoras.Entities.Usuario;
 using Portal.Consultoras.PublicService.Cryptography;
-
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -24,11 +22,10 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.ServiceModel;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Transactions;
-using System.ServiceModel;
-using Portal.Consultoras.Data.CaminoBrillante;
 using Portal.Consultoras.BizLogic.Configuracion;
 
 namespace Portal.Consultoras.BizLogic
@@ -304,31 +301,12 @@ namespace Portal.Consultoras.BizLogic
                 usuario.EsConsultoraNueva = EsConsultoraNueva(usuario);
                 new BLUsuario().UpdUsuarioProgramaNuevas(usuario);
                 usuario.FotoOriginalSinModificar = usuario.FotoPerfil;
-                usuario.FotoPerfilAncha = false;
 
-                var imagenS3 = usuario.FotoPerfil;
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
-                {
-                    imagenS3 = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
-                }
-
-                if (Common.Util.IsUrl(usuario.FotoPerfil))
+                else if (string.IsNullOrEmpty(usuario.FotoPerfil))
                 {
-                    if (Common.Util.ExisteUrlRemota(imagenS3))
-                    {
-                        usuario.FotoPerfilAncha = Common.Util.EsImagenAncha(imagenS3);
-                    }
-                    else
-                    {
-                        usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";
-                        usuario.FotoOriginalSinModificar = null;
-                    }
-                }
-
-                if (string.IsNullOrEmpty(usuario.FotoPerfil))
-                {
-                    usuario.FotoPerfil = "../../Content/Images/icono_avatar.svg";
+                    usuario.FotoPerfil = Constantes.ConfiguracionManager.DefaultPerfilImage;
                     usuario.FotoOriginalSinModificar = null;
                 }
 
@@ -341,10 +319,8 @@ namespace Portal.Consultoras.BizLogic
                 var verificacion = new BLOpcionesVerificacion();
                 var verificacionResult = verificacion.GetOpcionesVerificacionCache(usuario.PaisID, Constantes.OpcionesDeVerificacion.OrigenActulizarDatos);
                 usuario.PuedeEnviarSMS = (verificacionResult != null && verificacionResult.OpcionSms);
-                //INI HD-3897
                 usuario.PuedeConfirmarAllEmail = (verificacionResult != null && verificacionResult.OpcionConfirmarEmail);
                 usuario.PuedeConfirmarAllSms = (verificacionResult != null && verificacionResult.OpcionConfirmarSms);
-                //FIN HD-3897
 
                 return usuario;
             }
@@ -510,7 +486,7 @@ namespace Portal.Consultoras.BizLogic
                     usuario.EstadoPedido = configuracionConsultora.EstadoPedido;
                     usuario.ValidacionAbierta = configuracionConsultora.ValidacionAbierta;
                     usuario.AceptacionConsultoraDA = configuracionConsultora.AceptacionConsultoraDA;
-                    usuario.DiaFacturacion = (DateTime.Now.Date - usuario.FechaInicioFacturacion).Days;
+                    usuario.DiaFacturacion = (Common.Util.GetDiaActual(usuario.ZonaHoraria) - usuario.FechaInicioFacturacion).Days;
                 }
 
                 if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
@@ -672,6 +648,8 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 usuario.GanaMasNativo = (tieneGanaMasNativo.Result.Select(x => x.Valor).FirstOrDefault() == "1");
+                usuario.EsUltimoDiaFacturacion = (usuario.FechaFinFacturacion - Common.Util.GetDiaActual(usuario.ZonaHoraria)).Days == 0;
+
 
                 return usuario;
             }
@@ -3131,10 +3109,10 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 /*Verificando si tiene Verificacion*/
-                var oUsu = GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario);
+                BEUsuarioDatos oUsu = GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario);
                 if (oUsu.Cantidad == 0) return null;
                 /*Obteniendo Datos de Verificacion de Autenticidad*/
-                var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
+                BEOpcionesVerificacion opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
                 if (opcion == null) return null;
                 /*validando si tiene Zona*/
                 if (opcion.TieneZonas)
@@ -3154,11 +3132,44 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion;
+
+
+
+                BEUsuario beusuario = Select(paisID, CodigoUsuario);
+
+                return GetVerificacionAutenticidadSMSEmail(beusuario, opcion, oUsu, paisID, CodigoUsuario);
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, CodigoUsuario, Common.Util.GetPaisISO(paisID));
+                return null;
+            }
+        }
+
+
+        private BEUsuarioDatos GetVerificacionAutenticidadSMSEmail(BEUsuario beusuario, BEOpcionesVerificacion opcion, BEUsuarioDatos oUsu, int paisID, string CodigoUsuario)
+        {
+            try
+            {
+                var smsCorreoValidado = false;
+                var flgCheckSMS = true;
+                var FlgCheckEmail = true;
+
+                if (beusuario != null)
+                {
+                    flgCheckSMS = beusuario.FlgCheckSMS;
+                    FlgCheckEmail = beusuario.FlgCheckEMAIL;
+                }
+
                 if (opcion.OpcionEmail)
                 {
                     oUsu.CorreoEnmascarado = Common.Util.EnmascararCorreo(oUsu.Correo);
                     oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmail;
+
+                    smsCorreoValidado = (opcion.OpcionSms) ? (flgCheckSMS && FlgCheckEmail) : (FlgCheckEmail);
                 }
+
                 if (opcion.OpcionSms)
                 {
                     oUsu.CelularEnmascarado = Common.Util.EnmascararCelular(oUsu.Celular);
@@ -3166,7 +3177,14 @@ namespace Portal.Consultoras.BizLogic
                         oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmailyCelular;
                     else
                         oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarCelular;
+                    smsCorreoValidado = (opcion.OpcionEmail) ? (flgCheckSMS && FlgCheckEmail) : (flgCheckSMS);
                 }
+
+                if (smsCorreoValidado)
+                {
+                    return null;
+                }
+
                 if (oUsu.MostrarOpcion == Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion) return null;
                 oUsu.OpcionChat = opcion.OpcionChat;
                 oUsu.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);
@@ -3177,11 +3195,12 @@ namespace Portal.Consultoras.BizLogic
                 GetOpcionHabilitar(paisID, Constantes.VerificacionAutenticidad.Origen, ref oUsu);
                 return oUsu;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                LogManager.SaveLog(ex, CodigoUsuario, Common.Util.GetPaisISO(paisID));
+
                 return null;
             }
+
         }
 
         private BEUsuarioDatos GetVerificacionAutenticidadWS(int paisID, string CodigoUsuario)
@@ -3295,20 +3314,42 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 if (CantidadEnvios >= 3) return false;
-                string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
-                string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
-                var esEsika = paisesEsika.Contains(paisISO);
+
                 string emailFrom = "no-responder@somosbelcorp.com";
                 string emailTo = oUsu.Correo;
-                string titulo = "(" + paisISO + ") Verificación de Autenticidad de Somosbelcorp";
-                string logo = (esEsika ? Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png" : Globals.RutaCdn + "/ImagenesPortal/Iconos/logod.png");
-                string nombrecorreo = oUsu.PrimerNombre.Trim();
+                string titulo = "Confirmación de Correo";
+                string displayname = oUsu.PrimerNombre;
+                string url = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+                string nomconsultora = oUsu.PrimerNombre; //(string.IsNullOrEmpty(beusuario.PrimerNombre) ? beusuario.PrimerNombre : beusuario.Sobrenombre);
 
-                string displayname = "Somos Belcorp";
-                string codigoGenerado = Common.Util.GenerarCodigoRandom();
-                Portal.Consultoras.Common.MailUtilities.EnviarMailPinAutenticacion(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, codigoGenerado);
-                if (CantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
-                InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorEmail, codigoGenerado);
+                string[] parametros = new string[] { oUsu.CodigoUsuario, Common.Util.GetPaisID(oUsu.CodigoIso).ToString(), oUsu.Correo };
+                string paramQuerystring = Common.Util.Encrypt(string.Join(";", parametros));
+                LogManager.SaveLog(new Exception(), oUsu.CodigoUsuario, oUsu.CodigoIso, " | data=" + paramQuerystring + " | parametros = " + string.Join("|", parametros));
+
+                //INI HD-3897//
+                //bool esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(usuario.CodigoISO);
+                //string logo = Globals.RutaCdn + (esEsika ? "/ImagenesPortal/Iconos/logo.png" : "/ImagenesPortal/Iconos/logod.png");
+                //string fondo = (esEsika ? "e81c36" : "642f80");
+
+                MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, nomconsultora, url, paramQuerystring);
+                //FIN HD-3897//
+
+
+
+                //string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
+                //string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
+                //var esEsika = paisesEsika.Contains(paisISO);
+                //string emailFrom = "no-responder@somosbelcorp.com";
+                //string emailTo = oUsu.Correo;
+                //string titulo = "(" + paisISO + ") Verificación de Autenticidad de Somosbelcorp";
+                //string logo = (esEsika ? Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png" : Globals.RutaCdn + "/ImagenesPortal/Iconos/logod.png");
+                //string nombrecorreo = oUsu.PrimerNombre.Trim();
+
+                //string displayname = "Somos Belcorp";
+                //string codigoGenerado = Common.Util.GenerarCodigoRandom();
+                //Portal.Consultoras.Common.MailUtilities.EnviarMailPinAutenticacion(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, codigoGenerado);
+                //if (CantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
+                //InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorEmail, codigoGenerado);
                 return true;
             }
             catch (Exception ex)
@@ -4000,7 +4041,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 if (conTransaccion) LogManager.SaveLog(ex, direccionEntrega.ConsultoraID, direccionEntrega.PaisID);
-                throw ex;
+                throw new Exception("Exception BLUsuario - RegistrarDireccionEntrega", ex);
             }
             finally
             {
