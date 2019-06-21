@@ -1350,5 +1350,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb);
 
+
+        [OperationContract]
+        bool InsertKitSE(BEUsuario usuario);
     }
 }
