@@ -1384,7 +1384,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 true, pedidoAux.Email);
                         }
                     }
-                    catch (Exception e) {
+                    catch (Exception e)
+                    {
 
                     }
                 }
@@ -2036,7 +2037,7 @@ namespace Portal.Consultoras.Web.Controllers
             return UtilOrigenPedidoWeb.ToInt(modelo);
 
         }
-        
+
         #region New Pedido Pendientes
 
         public ActionResult Pendientes()
@@ -2109,7 +2110,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ListaProductos = lstByProductos;
                 objMisPedidos = model;
                 SessionManager.SetobjMisPedidos(objMisPedidos);
-               
+
 
                 return model;
             }
@@ -2167,14 +2168,14 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MiPedido = firstPedido;
 
                     lstPedidosDetatalle = CargarMisPedidosDetalleDatos(firstPedido.MarcaID, lstPedidosDetatalle);
-                   
+
                     SessionManager.SetobjMisPedidos(pedidos);
                     var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(lstPedidosDetatalle);
                     detallePedidos.Update(p => p.CodigoIso = userData.CodigoISO);
                     model.ListaDetalle2 = detallePedidos;
                 }
 
-               
+
 
                 return Json(new
                 {
@@ -2213,7 +2214,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 var arrIds = new List<string>();
-               
+
 
                 foreach (var cab in pedidos.ListaPedidos)
                 {
@@ -2243,13 +2244,13 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-               
+
                 model.ListaPedidos = lstPedidos.ToList();
-               
-               
+
+
                 SessionManager.SetobjMisPedidos(model);
-               
-               
+
+
 
                 return Json(new
                 {
@@ -2363,7 +2364,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult RechazarSolicitudCliente(string pedidoId)
+        public JsonResult RechazarSolicitudCliente(string pedidoId, int motivoRechazoId, string motivoRechazoTexto)
         {
             try
             {
@@ -2388,9 +2389,28 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
-                using (ServiceSAC.SACServiceClient svc = new ServiceSAC.SACServiceClient())
+                string medio = String.Empty;
+                switch (pedido.FlagMedio)
                 {
-                    svc.UpdSolicitudClienteRechazar(userData.PaisID, pedido.PedidoId);
+                    case Constantes.SolicitudCliente.FlagMedio.AppCatalogos:
+                        medio = "App Catálogo";
+                        break;
+                    case Constantes.SolicitudCliente.FlagMedio.WebMarcas:
+                        medio = "Web Marcas";
+                        break;
+                    case Constantes.SolicitudCliente.FlagMedio.CatalogoDigital:
+                        medio = "Catálogo Digital";
+                        break;
+                    case Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual:
+                        medio = "Maquillador Virtual";
+                        break;
+                    default:
+                        break;
+                }
+
+                using (SACServiceClient svc = new SACServiceClient())
+                {
+                    svc.UpdSolicitudClienteRechazar(userData.PaisID, pedido.PedidoId, motivoRechazoId, motivoRechazoTexto);
                 }
 
                 MisPedidosModel model = GetPendientes();
@@ -2525,6 +2545,11 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 MisPedidosModel model = GetPendientes();
+                var ContinuarExpPendientes = true;
+                if (pedidos.ListaPedidos == null || model.ListaPedidos.Count == 0)
+                {
+                    ContinuarExpPendientes = false;
+                }
 
                 var PendientesJson = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
                 {
@@ -2535,6 +2560,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     Pendientes = PendientesJson,
+                    continuarExpPendientes = ContinuarExpPendientes,
                     message = "OK"
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -2554,7 +2580,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-               
+
                 MisPedidosModel model = new MisPedidosModel();
                 var pedidos = SessionManager.GetobjMisPedidos();
 
@@ -2567,6 +2593,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
+                //var flgMedio = Constantes.SolicitudCliente.FlagMedio.AppCatalogos;
                 foreach (var det in lstDetalle)
                 {
                     foreach (var cab in pedidos.ListaPedidos)
@@ -2592,7 +2619,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.ListaPedidos = pedidos.ListaPedidos;
                 model.RegistrosTotal = model.ListaPedidos.Count.ToString();
                 SessionManager.SetobjMisPedidos(model);
-               
+
                 var modelList = PendientesMedioDeCompra();
                 Session["OrigenTipoVista"] = tipoVista;
 
@@ -2616,6 +2643,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult AceptarPedidoPendiente(ConsultoraOnlinePedidoModel parametros)
         {
+            BEMisPedidos pedidoAux = new BEMisPedidos();
             string mensajeR;
 
             string mensajeaCliente =
@@ -2652,7 +2680,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         if (xclienteId == 0)
                         {
-                            var pedidoAux = pedidosSesion.FirstOrDefault(x => x.Email == pedido.Email);
+                            pedidoAux = pedidosSesion.FirstOrDefault(x => x.Email == pedido.Email);
                             var beCliente = new ServiceCliente.BECliente
                             {
                                 ConsultoraID = userData.ConsultoraID,
@@ -2712,7 +2740,7 @@ namespace Portal.Consultoras.Web.Controllers
                         pedidoDetalle.Producto.TipoEstrategiaID = model.TipoEstrategiaID.ToString();
                         pedidoDetalle.Producto.TipoOfertaSisID = model.TipoOfertaSisID;
                         pedidoDetalle.Producto.ConfiguracionOfertaID = model.ConfiguracionOfertaID;
-                       
+
                         pedidoDetalle.Producto.IndicadorMontoMinimo = string.IsNullOrEmpty(model.IndicadorMontoMinimo.ToString()) ? 0 : Convert.ToInt32(model.IndicadorMontoMinimo);
                         pedidoDetalle.Producto.FlagNueva = model.FlagNueva.ToString();
                         pedidoDetalle.Producto.Descripcion = model.DescripcionCUV2 ?? "";
@@ -2720,9 +2748,9 @@ namespace Portal.Consultoras.Web.Controllers
                         pedidoDetalle.Cantidad = model.Cantidad == 0 ? 1 : Convert.ToInt32(model.Cantidad);
                         pedidoDetalle.PaisID = userData.PaisID;
                         pedidoDetalle.IPUsuario = GetIPCliente();
-                       
+
                         pedidoDetalle.OrigenPedidoWeb = GetOrigenPedidoWeb(Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual, model.MarcaID, parametros.Dispositivo, parametros.OrigenTipoVista);
-                       
+
                         pedidoDetalle.Identifier = SessionManager.GetTokenPedidoAutentico() != null ? SessionManager.GetTokenPedidoAutentico().ToString() : string.Empty;
 
                         var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
@@ -2902,7 +2930,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (pedidoAux.DetallePedido.Any(i => i.Elegido) && pedidoAux.FlagMedio == "01")
                     {
                         double totalPedido = 0;
-                        
+
                         StringBuilder mensajecliente = new StringBuilder();
                         mensajecliente.Append(
                             "<table width='100%' border='0' bgcolor='#ffffff' cellspacing='0' cellpadding='0' border-spacing='0' style='margin: 0; border: 0; border-collapse: collapse!important;'>");
