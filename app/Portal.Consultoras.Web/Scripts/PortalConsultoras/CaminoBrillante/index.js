@@ -3,12 +3,14 @@ var scrollLogros = true
 $("#a").hide;
 
 $(document).ready(function () {
+
     if (TineCarrusel == '1') {
         Carusel();    
         if ($("#template-kit").length > 0) {
             Handlebars.registerPartial("kit_template", $("#template-kit").html());
             Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
         }
+        
         CargarCarrusel();
     }
     if (TieneGanancias == '1') {
@@ -43,10 +45,36 @@ $(document).ready(function () {
 
     $('#loadingScreen').hide();
 });
+
 $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');
-    
+
+    if (typeof history.pushState === "function") {
+        history.pushState("jibberish", null, null);
+        window.onpopstate = function () {
+            history.pushState('newjibberish', null, null);
+            
+        };
+    }
+    else {
+        
+        window.onhashchange = function () {
+            
+            if (!ignoreHashChange) {
+                ignoreHashChange = true;
+                window.location.hash = Math.random();
+              
+            }
+            else {
+                ignoreHashChange = false;
+            }
+        };
+    }
 });
+
+window.onbeforeunload = function (e) {
+    CargarCarrusel();
+}
 
 $(window).on("scroll", function () {
     
@@ -245,7 +273,7 @@ function ArmarMisGanancias(data) {
         serie.push(item.ValorSerie);
         titles.push(item.ValorSerieFormat);
         backgroundColors.push(colorBar);
-        hoverBackgrounds.push(colorBarSelected);
+        //hoverBackgrounds.push(colorBarSelected);
         if (item.FlagSeleccionMisGanancias) {
             indexSeleccion = x;
         }
@@ -256,7 +284,7 @@ function ArmarMisGanancias(data) {
         serie.push(0);
         titles.push("");
         backgroundColors.push(colorBar);
-        hoverBackgrounds.push(colorBarSelected);
+        //hoverBackgrounds.push(colorBarSelected);
     }
 
     Chart.pluginService.register({
@@ -313,7 +341,7 @@ function ArmarMisGanancias(data) {
                     borderWidth: 0,
                    
                     backgroundColor: backgroundColors,
-                    hoverBackgroundColor: hoverBackgrounds,
+                    //hoverBackgroundColor: hoverBackgrounds,
                     data: serie
                 }
             ]
@@ -330,9 +358,9 @@ function ArmarMisGanancias(data) {
                     // Reset old state
                     dataset = myBar.data.datasets[datasetIndex];
                     dataset.backgroundColor = backgroundColors.slice();
-                    dataset.hoverBackgroundColor = hoverBackgrounds.slice();
+                    //dataset.hoverBackgroundColor = hoverBackgrounds.slice();
                     dataset.backgroundColor[index] = colorBarSelected;
-                    dataset.hoverBackgroundColor[index] = colorBarSelected;
+                    //dataset.hoverBackgroundColor[index] = colorBarSelected;
                     // 
                 } else {
                     // remove hover styles
@@ -462,7 +490,7 @@ function ArmarCarrusel(data) {
     $('#carrusel').show();
 
     $(".regular").slick({
-        infinite: false,
+        infinite: true,
         slidesToShow: 4,
         centerMode: false,
         centerPadding: "0px",
@@ -475,7 +503,7 @@ function ArmarCarrusel(data) {
         responsive: [
             {
                 breakpoint: 426,
-                settings: { slidesToShow: 2, slidesToScroll:1, centerPadding: "25px",  infinite: false}
+                settings: { slidesToShow: 2, slidesToScroll: 2, centerPadding: "25px",  infinite: true}
             }
         ]
     });
