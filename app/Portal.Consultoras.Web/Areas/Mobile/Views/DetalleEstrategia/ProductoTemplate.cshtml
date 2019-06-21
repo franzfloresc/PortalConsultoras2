@@ -1,5 +1,16 @@
 ﻿@using Portal.Consultoras.Common
 
+<style>
+    .precio_producto .precio_producto {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .gana_precio_producto {
+        position: relative;
+        top: -3px;
+    }
+</style>
+
 <script id="ficha_producto_template" type="text/x-handlebars-template">
     <div data-OrigenPedidoWeb="{{OrigenUrl}}" data-OrigenPedidoWebAgregar="{{OrigenAgregar}}" data-OrigenPedidoEditar="{{CodigoUbigeoPortal}}">
 
@@ -82,13 +93,17 @@
 
             {{#iff Precio '>' 0}}
             <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
 
-                <p>
-                    <b>Precio para ti</b>
-                    <b>
-                        {{#IsNullOrEmpty ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
-                    </b>
-                </p>
+                    <p>
+                        <b>Precio para ti</b>
+                        <b>
+                            {{#IsNullOrEmpty ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
+                        </b>
+                    </p>
+
+                </div>
+
                 {{#each ListaPrecioNiveles as |itemNivel|}}
                 <span class="subprecio">{{itemNivel}}</span>
                 {{/each}}
@@ -111,7 +126,7 @@
                 <li class="gana_precio_producto">
                     <p class="ganancia">
                         {{#iff TipoOfertaCaminoBrillante '>' 0}}
-                        Gana hasta
+                        GANA HASTA
                         {{else}}
                         {{#iff CodigoVariante '!=' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
                         GANA
