@@ -1907,8 +1907,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            model.EsDiaProl = userData.DiaPROL;
-
             #region Banners
 
             var urlCarpeta = WebConfigurationManager.AppSettings["Banners"] + "/IngresoPedido/" + userData.CodigoISO;
@@ -1932,8 +1930,6 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
-
-            model.CantPedidosPendientes = ObtenerCantidadPedidosPendientes();
 
             return View(model);
         }

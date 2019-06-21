@@ -497,8 +497,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
 
-            model.EsDiaProl = userData.DiaPROL;
-
             #region kitNueva
             BEKitNueva[] kitNueva;
             int esColaborador;
@@ -548,8 +546,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 model.Prol = "GUARDAR TU PEDIDO";
-
-            model.CantPedidosPendientes = _pedidoWebProvider.GetPedidoPendientes(userData);
 
             return View(model);
         }

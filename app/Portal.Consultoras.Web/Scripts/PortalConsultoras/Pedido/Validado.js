@@ -75,19 +75,6 @@
         CargarProductoAgotados(0);
     });
 
-    $(window).bind("load", function () { //se ejecuta al finalizar la carga de la página
-        if (typeof cantPedidosPendientes !== "undefined" && typeof esDiaProl !== "undefined") {
-            if (cantPedidosPendientes > 0 && esDiaProl) {
-                $("#spnCantidadPendientes").text(cantPedidosPendientes);
-                $("#verDespues").hide();
-                $("#accionIgnorar").show();
-                setTimeout(function () {
-                    $("#PopupPedidosPendientes").fadeIn(250);
-                }, 200);
-            }
-        }
-    });
-
     CargarListado();
 
 });

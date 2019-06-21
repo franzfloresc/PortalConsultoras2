@@ -242,17 +242,12 @@
         </div>
     </div>
 </div>
-@Html.Partial("~/Views/Shared/PopupsResponsive/_PopupPedidosPendientes.cshtml", new ViewDataDictionary { { "isMobile", false } })
-
 @section Scripts{
     <script type="text/javascript">
         var modificacionPedidoProl = '@Model.ModificacionPedidoProl';
 
         var urlDeshacerReservaPedidoReservado = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
         var urlIngresarPedido = '@Url.Action("Detalle", "Pedido", new {area = "Mobile"})';
-
-        var cantPedidosPendientes = '@Model.CantPedidosPendientes';//HD-4277 EINCA
-        var esDiaProl  = @Html.Raw(Json.Encode(Model.EsDiaProl)); 
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Validado.js")"></script>
 }
