@@ -3,12 +3,14 @@ var scrollLogros = true
 $("#a").hide;
 
 $(document).ready(function () {
+
     if (TineCarrusel == '1') {
         Carusel();    
         if ($("#template-kit").length > 0) {
             Handlebars.registerPartial("kit_template", $("#template-kit").html());
             Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
         }
+        
         CargarCarrusel();
     }
     if (TieneGanancias == '1') {
@@ -31,10 +33,39 @@ $(document).ready(function () {
 
     $('#loadingScreen').hide();
 });
+
 $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');
-    
+
+    if (typeof history.pushState === "function") {
+        history.pushState("jibberish", null, null);
+        window.onpopstate = function () {
+            history.pushState('newjibberish', null, null);
+            
+        };
+    }
+    else {
+        alert("boton atras")
+        window.onhashchange = function () {
+            
+            if (!ignoreHashChange) {
+                ignoreHashChange = true;
+                window.location.hash = Math.random();
+                // Detect and redirect change here
+                // Works in older FF and IE9
+                // * it does mess with your hash symbol (anchor?) pound sign
+                // delimiter on the end of the URL
+            }
+            else {
+                ignoreHashChange = false;
+            }
+        };
+    }
 });
+
+window.onbeforeunload = function (e) {
+    CargarCarrusel();
+}
 
 $(window).on("scroll", function () {
     
