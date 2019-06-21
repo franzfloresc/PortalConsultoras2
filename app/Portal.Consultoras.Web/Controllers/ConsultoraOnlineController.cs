@@ -1277,6 +1277,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 SessionManager.SetDetallesPedido(null);
                 SessionManager.SetDetallesPedidoSetAgrupado(null);
+                string emailDe =
+                        _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
+
 
                 if (pedidoAux.FlagMedio != null)
                 {
@@ -1380,6 +1383,9 @@ namespace Portal.Consultoras.Web.Controllers
                             Util.EnviarMailPedidoPendienteRechazado(emailDe, pedidoAux.Email, titulocliente, mensajecliente.ToString(),
                                 true, pedidoAux.Email);
                         }
+                    }
+                    catch (Exception e) {
+
                     }
                 }
                 //else
