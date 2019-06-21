@@ -146,6 +146,7 @@ $(document).ready(function () {
             $(reclamo.form.resultadosBusquedaCuv).fadeIn(100);
             $(".lista_resultados_busqueda_por_cuv_wrapper").fadeIn(100);
             $(".resultado_busqueda_por_cuv").fadeIn(100);
+            $(".lista_resultados_busqueda_por_cuv_wrapper").focus();
         }
     }).on("keyup", function () {
         if ($(this).val().length === 0) {
@@ -159,8 +160,10 @@ $(document).ready(function () {
                 $(this).toggle($(this).attr("data-value-cuv").indexOf(texto) > -1 || $(this).attr("data-value-producto").indexOf(texto.toUpperCase()) > -1);
             });
         }
-    }).on("focusout", function () {
-        $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
+    }).on("blur", function () {
+        setTimeout(function () {
+            $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
+        }, 50);
     });
 
     $("#IrSolicitudInicial").on("click", function () {
@@ -487,9 +490,7 @@ function BuscarCUV() {
                 $(reclamo.form.txtCuv).html("");
                 $(reclamo.form.resultadosBusquedaCuv).empty();
                 var divPadre = $(reclamo.form.resultadosBusquedaCuv);
-                $(data.detalle).each(function (index, item) {
-                    divPadre.append('<li onclick="SeleccionarCUVBusqueda(event);" class="resultado_busqueda_por_cuv" data-value-cantidad="' + item.Cantidad + '"  data-value-producto="' + item.DescripcionProd + '" data-value-cuv="' + item.CUV + '"><div class="resultado_busqueda_por_cuv_enlace" title="' + item.DescripcionProd + '"><div class="resultado_busqueda_por_cuv_datos_imagen"><img src="/Content/Images/oferta-sin-imagen-sin-fondo.svg" alt="' + item.DescripcionProd + '" /></div><div class="resultado_busqueda_por_cuv_datos_prod">' + '<div class="resultado_busqueda_por_cuv_codigo_prod">' + item.CUV + '</div>' + '<div class="resultado_busqueda_por_cuv_descrip_prod">' + item.DescripcionProd + '</div>' + '</div></div></li>');
-                });
+                SetHandlebars("#template-listado-cuv", data.detalle, divPadre);
             }
         },
         error: function (data, error) {
@@ -499,12 +500,13 @@ function BuscarCUV() {
     });
 }
 
-function SeleccionarCUVBusqueda(event) {  
+function SeleccionarCUVBusqueda(event) {
     var $el = $(event.currentTarget);
     var cuv = $el.attr("data-value-cuv");
     var producto = $el.attr("data-value-producto");
     $("#hdfCUV").val(cuv);
     $(reclamo.form.txtCuv).val(cuv + ' - ' + producto).attr("data-codigo", cuv);
+    $(".lista_resultados_busqueda_por_cuv_wrapper").fadeOut(100);
     ObtenerDatosCuv();
 }
 
@@ -1455,6 +1457,7 @@ function EscogerSolucion(opcion, event) {
         $contenedor.empty();
         $contenedor.append($("#template-cuv-cambio").html());
         $('#OpcionCambioPorOtroProducto').fadeIn(200);
+        $("#MontoTotalProductoACambiar").hide();
         SetMontoCampaniaTotal();
     } else if (id == reclamo.operacion.canje) {
         $('#OpcionCambioMismoProducto').fadeIn(200);

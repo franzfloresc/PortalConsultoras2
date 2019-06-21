@@ -664,7 +664,7 @@
                     <span class="d-block">{{subItem.CUV}}</span>
                     <span class="text-bold d-block">{{subItem.Descripcion}}</span>
                     <span class="d-block">{{subItem.Cantidad}} unidades</span>
-                    <span class="d-block">Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}</span>
+                    <span class="d-block">Costo: {{SimboloMoneda}} {{subItem.PrecioFormato}}</span>
                 </div>
                 {{/each}}
                 <div class="text-bold monto_total_opcion_trueque">Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}</div>
@@ -736,7 +736,7 @@
                 <br />
                 {{subItem.Cantidad}} unidades
                 <br />
-                Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}
+                Costo: {{SimboloMoneda}} {{subItem.PrecioFormato}}
             </div>
             {{/each}}
             <div class="text-bold">Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}</div>

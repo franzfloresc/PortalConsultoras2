@@ -79,21 +79,22 @@ namespace Portal.Consultoras.Web.Providers
                 }
                 if (lista.Any())
                 {
-                    lista.Update(p => {
+                    lista.Update(p =>
+                    {
                         p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado, paisId).Descripcion;
                         p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado, paisId).Descripcion;
                         p.Observacion = ObtenerObservacion(p.Observacion, p.MotivoRechazo, paisId, codigoIso);
                         p.FormatoPrecio1 = Util.DecimalToStringFormat(p.Precio, codigoIso);
                         p.FormatoPrecio2 = Util.DecimalToStringFormat(p.Precio2, codigoIso);
                         p.DetalleReemplazo = string.IsNullOrEmpty(p.XMLReemplazo) ? null : XMLToList(p.XMLReemplazo, codigoIso, paisId).ToArray();
-                        });                  
+                    });
                     sessionManager.SetCDRWebDetalle(lista);
                 }
                 else
                     sessionManager.SetCDRWebDetalle(null);
 
-                
-  
+
+
                 return lista;
             }
             catch (Exception ex)
@@ -104,7 +105,8 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public string ObtenerObservacion(string defaultObservacion, string motivoRechazo, int paisID,string paisIso) {
+        public string ObtenerObservacion(string defaultObservacion, string motivoRechazo, int paisID, string paisIso)
+        {
             var obs = defaultObservacion;
             try
             {
@@ -140,7 +142,7 @@ namespace Portal.Consultoras.Web.Providers
                     obj.Precio = xmlNode["precio"].InnerText == "" ? 0 : Convert.ToDecimal(xmlNode["precio"].InnerText);
                     obj.Simbolo = xmlNode["simbolo"].InnerText;
                     obj.Estado = xmlNode["estado"].InnerText == "" ? 0 : Convert.ToInt32(xmlNode["estado"].InnerText);
-                    obj.PrecioFormato = xmlNode["precio"].InnerText == "" ? "0" : Util.DecimalToStringFormat(Convert.ToDecimal(xmlNode["precio"].InnerText), codigoIso);
+                    obj.PrecioFormato = xmlNode["precio"].InnerText == "" ? "0" : Util.DecimalToStringFormat(Convert.ToDecimal(xmlNode["precio"].InnerText) * (xmlNode["cantidad"].InnerText == "" ? 0 : Convert.ToInt32(xmlNode["cantidad"].InnerText)), codigoIso);
                     obj.CodigoMotivoRechazo = xmlNode["codigorechazo"].InnerText;
                     obj.Observacion = ObtenerObservacion(xmlNode["obs"].InnerText, xmlNode["codigorechazo"].InnerText, paisId, codigoIso);
                     lista.Add(obj);

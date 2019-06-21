@@ -100,7 +100,7 @@
                             <p class="text-bold">
                                 Búscalo en tus catálogos de Campaña
                                 <span id="spnNumeroCampaniaReclamo">15</span>:
-                            </p>                         
+                            </p>
                             @*Valores de la parametría*@
                             <input type="hidden" id="hdMontoMinimoReclamo" />
                             <input type="hidden" id="hdCuvPrecio2">
@@ -421,6 +421,23 @@
     <div class="pop_pedido_mensaje"></div>
 </div>
 
+
+<script id="template-listado-cuv" type="text/x-handlebars-template">
+    {{#each this as |item|}}
+    <li onclick="SeleccionarCUVBusqueda(event);" class="resultado_busqueda_por_cuv" data-value-cantidad="{{item.Cantidad}}" data-value-producto="{{item.DescripcionProd}}" data-value-cuv="{{item.CUV}}">
+        <div class="resultado_busqueda_por_cuv_enlace" title="{{item.DescripcionProd}}">
+            <div class="resultado_busqueda_por_cuv_datos_imagen">
+                <img src="/Content/Images/oferta-sin-imagen-sin-fondo.svg" alt="{{item.DescripcionProd}}">
+            </div>
+            <div class="resultado_busqueda_por_cuv_datos_prod">
+                <div class="resultado_busqueda_por_cuv_codigo_prod">{{item.CUV}}</div>
+                <div class="resultado_busqueda_por_cuv_descrip_prod">{{item.DescripcionProd}}</div>
+            </div>
+        </div>
+    </li>
+    {{/each}}
+</script>
+
 <script id="template-pedido" type="text/x-handlebars-template">
     {{#each this as |item|}}
     <a class="btn_pedido_white" data-pedido-id="{{item.PedidoID}}" id="{{item.PedidoID}}" onclick="PopupPedidoSeleccionar(this);">
@@ -552,7 +569,7 @@
                 <br />
                 {{subItem.Cantidad}} unidades
                 <br />
-                Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}
+                Costo: {{SimboloMoneda}} {{subItem.PrecioFormato}}
             </div>
             {{/each}}
             <div class="text-bold">Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}</div>
@@ -564,7 +581,7 @@
             {{item.Cantidad2}} unidades
             <br />
             Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
-            {{/if}}            
+            {{/if}}
             {{else}}
 
             {{/if_eq}}
@@ -630,7 +647,7 @@
             {{else if_eq CodigoOperacion 'G'}}
             {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'T'}}
-             {{#if item.DetalleReemplazo}}
+            {{#if item.DetalleReemplazo}}
             {{#each item.DetalleReemplazo as |subItem|}}
             {{subItem.CUV}}
             <br />
@@ -638,11 +655,11 @@
             <br />
             {{subItem.Cantidad}} unidades
             <br />
-            Precio: {{SimboloMoneda}} {{DecimalToStringFormat subItem.Precio}}
+            Costo: {{SimboloMoneda}} {{subItem.PrecioFormato}}
             <br />
             {{/each}}
             <br />
-             Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}
+            Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}
             {{else}}
             {{item.CUV2}}
             <br />
@@ -652,7 +669,7 @@
             <br />
             <br />
             Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
-            {{/if}}            
+            {{/if}}
             {{else}}
 
             {{/if_eq}}
