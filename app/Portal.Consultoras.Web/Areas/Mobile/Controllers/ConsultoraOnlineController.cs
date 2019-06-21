@@ -24,7 +24,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private readonly ConsultoraOnlineProvider _consultoraOnlineProvider;
         private const int refrescoGetCantidadPedidos = 30;
-        //MisPedidosModel objMisPedidos;
         readonly bool isEsika = false;
 
         #endregion
@@ -971,7 +970,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
 
                     model.ListaProductos = lstByProductos;
-                    //objMisPedidos = model;
                     SessionManager.SetobjMisPedidos(model);
                     model.RegistrosTotal = model.ListaPedidos.Count.ToString();
                 }

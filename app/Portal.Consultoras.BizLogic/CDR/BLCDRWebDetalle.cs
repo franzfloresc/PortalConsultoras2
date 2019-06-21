@@ -56,7 +56,6 @@ namespace Portal.Consultoras.BizLogic.CDR
                 return 0;
             }
         }
-        //HD-3703 EINCA
         public int InsCDRWebDetalle(int PaisID, List<BECDRWebDetalle> detalle)
         {
             try
@@ -110,7 +109,7 @@ namespace Portal.Consultoras.BizLogic.CDR
                 return 0;
             }
         }
-        //HD-3703 EINCA
+
         public int DelCDRWebDetalle(int PaisID, List<BECDRWebDetalle> listDetalle)
         {
             try

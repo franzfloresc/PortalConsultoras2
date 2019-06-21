@@ -47,12 +47,12 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
 
             MisReclamosModel model = new MisReclamosModel();
-            List<CDRWebModel> listaCdrWebModel = new List<CDRWebModel>();
+            List<CDRWebModel> listaCdrWebModel;
             try
             {
-                SessionManager.SetListaCDRWebCargaInicial(null);//HD-3412 EINCA
-                SessionManager.SetCDRPedidoFacturado(null); //HD-3412 EINCA
-                listaCdrWebModel = _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID, userData.PaisID);//HD-3412 EINCA
+                SessionManager.SetListaCDRWebCargaInicial(null);
+                SessionManager.SetCDRPedidoFacturado(null);
+                listaCdrWebModel = _cdrProvider.ObtenerCDRWebCargaInicial(userData.ConsultoraID, userData.PaisID);
                 var ObtenerCampaniaPedidosFacturados = _cdrProvider.CDRObtenerPedidoFacturadoCargaInicial(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
 
                 string urlPoliticaCdr = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlPoliticasCDR) ?? "{0}";
@@ -538,7 +538,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
         public JsonResult BuscarMotivo(MisReclamosModel model)
         {
-            SessionManager.SetFlagIsSetsOrPack(null); //HD-3703 EINCA
+            SessionManager.SetFlagIsSetsOrPack(null);
             var lista = _cdrProvider.CargarMotivo(model, userData.FechaActualPais.Date, userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
             return Json(new
             {
@@ -964,7 +964,7 @@ namespace Portal.Consultoras.Web.Controllers
                         PedidoNumero = model.NumeroPedido,
                         ConsultoraID = Int32.Parse(userData.ConsultoraID.ToString()),
                         EsMovilOrigen = Convert.ToBoolean(model.EsMovilOrigen),
-                        CDRWebDetalle = arrComplemento, //HD-3703 EINCA
+                        CDRWebDetalle = arrComplemento,
                         TipoDespacho = model.TipoDespacho,
                         FleteDespacho = userData.EsConsecutivoNueva ? 0 : model.FleteDespacho,
                         MensajeDespacho = model.MensajeDespacho
@@ -1062,7 +1062,6 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
 
-                var entidadDetalle = new ServiceCDR.BECDRWebDetalle { CDRWebDetalleID = model.CDRWebDetalleID, GrupoID = model.GrupoID };//HD-3703 EINCA
                 var resultado = EliminarTrueque(model, entidadDetalle);
                 if (resultado == 0)
                 {
@@ -1766,15 +1765,14 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 string html = htmlTemplateDetalleBase.Clone().ToString();
                 string etiquetaHtml = "";
-                if (cdrWebDetalle.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje || cdrWebDetalle.CodigoOperacion == Constantes.CodigoOperacionCDR.Devolucion)
+                if ((cdrWebDetalle.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje 
+                    || cdrWebDetalle.CodigoOperacion == Constantes.CodigoOperacionCDR.Devolucion )
+                    && (!string.IsNullOrEmpty(cdrWebDetalle.GrupoID)))
                 {
-                    if (!string.IsNullOrEmpty(cdrWebDetalle.GrupoID))
-                    {
                         etiquetaHtml = "<tr><td style = 'width: 55%; text-align: left; font-family: 'Calibri'; font-size: 16px; font-weight: 700; vertical-align: top; color: #000; padding-right: 14px;'>" +
                                                              "<div style = 'display: block;border-radius: 10.5px;width: 87px;height: 27px;font-size: 14px;line-height: 27px;margin-top: 8px;padding-left: 8px;padding-right: 8px;background-color: #000;color: #fff;font-weight: 700; '>Set o Pack</div></td>" +
                                                              "<td rowspan = '2' style = 'width: 45%; text-align: left; font-family: 'Calibri'; font-size: 16px; vertical-align: top; color: black; font-weight: 700;' >" + "</td>" + "</tr> ";
-                    }
-
+                   
                 }
                 html = html.Replace("#ETIQUETA_SET_PACK#", etiquetaHtml);
                 html = html.Replace("#FORMATO_CUV1#", cdrWebDetalle.CUV);

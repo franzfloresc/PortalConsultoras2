@@ -71,7 +71,7 @@ namespace Portal.Consultoras.Service
         {
             return BLCDRWebDetalle.DelCDRWebDetalle(PaisID, entity);
         }
-        //HD-3703 EINCA
+
         public int DelCDRWebDetalle(int PaisID, List<BECDRWebDetalle> listDetalle)
         {
             return BLCDRWebDetalle.DelCDRWebDetalle(PaisID, listDetalle);
@@ -177,7 +177,7 @@ namespace Portal.Consultoras.Service
         {
             return BLCDRWebDetalle.ValCUVEnProcesoReclamo(paisId, pedidoId,cuv);
         }
-        //HD-3703 EINCA
+
         public int InsCDRWebDetalle(int PaisID, List<BECDRWebDetalle> detalle)
         {
             return BLCDRWebDetalle.InsCDRWebDetalle(PaisID, detalle);
