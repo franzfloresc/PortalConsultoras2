@@ -466,8 +466,7 @@ var PedidoRegistroModule = function () {
                 CargarCantidadProductosPedidos();
 
                 TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
-
-                //debugger;
+                
                 var imagenProducto = article.find("[data-imagen-producto]").attr("data-imagen-producto");
 
                 var mensaje = '';
@@ -1231,8 +1230,7 @@ var PedidoRegistroModule = function () {
                     })
                 }
 
-                //divProductoInformacion
-                //debugger;
+                //divProductoInformacion                
                 var imagenProducto = null;
                 var objDataImg = $('#divProductoInformacion').find('div.producto_por_agregar_imagen').find('img');
                 if (objDataImg !== 'undefined' && objDataImg !== null) {

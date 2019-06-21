@@ -366,8 +366,7 @@ function RenderizarPendientes(Pendientes) {
 function MotivoRechazoSolicitudPedidoPend(pedidoId) {
     $('#MotivosRechazo').removeClass('hide');
     $('#MotivosRechazo').css('display', 'block');
-    $('#hdPedidoId').val(pedidoId);
-    debugger;
+    $('#hdPedidoId').val(pedidoId);    
 }
 
 function SeRechazoConExito() {
@@ -411,8 +410,7 @@ function OcultarMotivoRechazoPedidoPend() {
     $('#MotivosRechazo').css('display', 'none');
 }
 
-function RechazarSolicitudCliente(pedidoId, idMotivoRechazo, razonMotivoRechazo) {
-    debugger;
+function RechazarSolicitudCliente(pedidoId, idMotivoRechazo, razonMotivoRechazo) {    
     var obj = {
         pedidoId: pedidoId,
         motivoRechazoId: idMotivoRechazo,
@@ -422,8 +420,7 @@ function RechazarSolicitudCliente(pedidoId, idMotivoRechazo, razonMotivoRechazo)
     MarcaAnalyticsClienteProducto('¿Desea Rechazar todos los pedidos de tus clientes? - Sí, rechazar');
 
     //ShowLoading();
-    AbrirLoad();
-    debugger;
+    AbrirLoad();    
     $.ajax({
         type: "POST",
         url: "/ConsultoraOnline/RechazarSolicitudCliente",
@@ -653,8 +650,7 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
         data: JSON.stringify(obj),
         success: function (response) {
             //CloseLoading();
-            if (response.success) {
-                debugger;
+            if (response.success) {                
                 var eliminoPedidoCompleto = true;
                 // ocultar div
 
@@ -847,8 +843,7 @@ function InicializarMotivoRechazo() {
         hdMotivoRechazoId.val($('[name="motivoRechazo"]:checked').val());
     });
 
-    btnContinuar.click(function (e) {
-        debugger;
+    btnContinuar.click(function (e) {        
         var idPedido = $('#hdPedidoId').val().trim();
         var idMotivoRechazo = hdMotivoRechazoId.val().trim();
         var razonMotivoRechazo = (idMotivoRechazo == '11') ? txtOtroMotivo.val().trim() : '';
