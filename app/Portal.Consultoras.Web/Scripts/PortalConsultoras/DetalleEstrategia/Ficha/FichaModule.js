@@ -1050,6 +1050,29 @@ var FichaPartialModule = (function () {
                 })
             }
 
+            // Para versión Mobile
+            if ($(".slider-for-detail-mobile").length > 0){
+                $('.slider-for-detail-mobile').slick({
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    arrows: false,
+                    infinite: false,
+                    dots: false,
+                    fade: true,
+                    cssEase: 'linear',
+                    responsive: [
+
+                        {
+                            breakpoint: 992,
+                            settings: {
+                                dots: true,
+                                fade: false
+                            }
+                        }
+                    ]
+                })
+            }
+
             /*Tesla-97*/
         }
         else {
