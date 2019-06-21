@@ -1061,7 +1061,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-
+                var entidadDetalle = new ServiceCDR.BECDRWebDetalle { CDRWebDetalleID = model.CDRWebDetalleID, GrupoID = model.GrupoID };
                 var resultado = EliminarTrueque(model, entidadDetalle);
                 if (resultado == 0)
                 {
