@@ -635,6 +635,21 @@ namespace Portal.Consultoras.Web.SessionManager
                 return 0;
         }
 
+        public void SetMiAcademiaPdf(int value)
+        {
+            HttpContext.Current.Session["FlagAcademiaPdf"] = value;
+        }
+
+        public int GetMiAcademiaPdf()
+        {
+            if (HttpContext.Current.Session["FlagAcademiaPdf"] != null)
+
+                return (int)HttpContext.Current.Session["FlagAcademiaPdf"];
+            else
+                return 0;
+        }
+
+
         public void SetMiAcademiaParametro(string value)
         {
             HttpContext.Current.Session["SapParametros"] = value;
