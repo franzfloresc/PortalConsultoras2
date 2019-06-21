@@ -867,7 +867,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Ficha/RedesSociales.css",
                 "~/Content/Css/Site/Ficha/PopoverTooltip.css",
                 "~/Content/Css/Site/Ficha/SeleccionarTipo.css",
-                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css",
+                "~/Content/Css/Site/Ficha/FichaCarrusel.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Ficha-Esika").Include(
@@ -888,7 +889,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
                 "~/Content/Css/Mobile/Ficha/SeleccionarTipo.css",
                 "~/Content/Css/Mobile/Clientes/Asignarcliente.css",
-                "~/Content/Css/Mobile/Ficha/FichaEnriquecida.css"
+                "~/Content/Css/Mobile/Ficha/FichaEnriquecida.css",
+                "~/Content/Css/Site/Ficha/FichaCarrusel.css"
 
             ));
 

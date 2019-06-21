@@ -34,11 +34,7 @@
 
                 {{#each this.FotosCarrusel as |foto|}}
                 <div class="contenedor_carrusel">
-                    {{#if isMobile}}
-                    <img src="{{ImgMedium foto}}" class="img-fluid" />
-                    {{else}}
-                    <img src="{{ImgUrl foto}}" class="img-fluid" />
-                    {{/if}}
+                    <img src="{{foto}}" class="img-fluid" />
                 </div>
                 {{/each}}
             </div>
@@ -55,11 +51,7 @@
 
                 {{#each this.FotosCarrusel as |foto|}}
                 <div class="contenedor_carrusel">
-                    {{#if isMobile}}
-                    <img src="{{ImgMedium foto}}" />
-                    {{else}}
-                    <img src="{{ImgUrl foto}}" />
-                    {{/if}}
+                    <img src="{{foto}}" />
                 </div>
                 {{/each}}
                 {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.IndividualConTonos,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
