@@ -1,10 +1,13 @@
 ﻿var FichaEnriquecidaView = function () {
 
     var _elements = {
+        seccionFichaEnriquecida: { id: "#divFichaEnriquecida" },
         tabsComponente: {
             templateId: "#tabs-ficha-enriquecida-template",
             id: "#contenedor-tabs-ficha-enriquecida",
-            contenedorPopup: "#popup_tabs_ficha_enriquecida_contenedor"
+            contenedorPopup: "#popup_tabs_ficha_enriquecida_contenedor",
+            classTabs: ".tabs",
+            classInput: ".input"
         },
         popup: {
             templateId: "#popup-ficha-enriquecida-responsive",
@@ -16,13 +19,27 @@
         }
     };
 
+    var cambiotab = function resizeTab() {
+        if (window.innerWidth > 960) {
+            $(_elements.tabsComponente.classTabs+" input").attr("type", "radio");
+            $(_elements.tabsComponente.classInput + ConstantesModule.TipoSeccion.Texto + ":first").attr("checked", "checked");
+        } else {
+            $(_elements.tabsComponente.classTabs + " input").attr("type", "checkbox");
+            $(_elements.tabsComponente.classTabs + " input").removeAttr("checked");
+            $(_elements.tabsComponente.classInput + ConstantesModule.TipoSeccion.Video).attr("checked", "checked");
+            _reloadCarruselVideos();
+        };
+    };
+
+
     var _util = {
         setCarrusel: function (id) {
+            $(id).slick('unslick');
             $(id).slick({
                 infinite: false,
                 speed: 300,
                 centerMode: false,
-                variableWidth: true,
+                variableWidth: false,
                 slidesToShow: 3,
                 slidesToScroll: 1,
                 prevArrow:
@@ -35,7 +52,7 @@
                     "</a>",
                 responsive: [
                     {
-                        breakpoint: 768, settings: { slidesToShow: 1, slidesToScroll: 1, prevArrow: null, nextArrow: null }
+                        breakpoint: 768, settings: { slidesToShow: 1, slidesToScroll: 1, dots: true, variableWidth: false, }
                     }
                 ]
             });
@@ -64,6 +81,13 @@
         _util.setCarrusel(_elements.carruselVideo.id);
         _util.setYoutubeId();
         _util.setYoutubeApi();
+        if (!popup && componente.Secciones.length > 0) $(_elements.seccionFichaEnriquecida.id).show();
+
+
+        cambiotab();
+        $(window).resize(function () {
+            cambiotab();
+        });
         return true;
     };
 
@@ -81,9 +105,19 @@
         return true;
     };
 
+    var _reloadCarruselVideos = function () {
+        if ($(_elements.carruselVideo.id).is(':visible')) {
+            $(_elements.carruselVideo.id).slick('setPosition', 0);
+        } else {
+            setTimeout(_reloadCarruselVideos, 50);
+        }
+        return true;
+    }
+
     return {
         renderFichaEnriquecida: _renderFichaEnriquecida,
         showPopup: _showPopup,
-        hidePopup: _hidePopup
+        hidePopup: _hidePopup,
+        reloadCarouselVideos: _reloadCarruselVideos
     };
 }
