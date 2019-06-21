@@ -57,16 +57,13 @@ $(window).on("load", function () {
         };
     }
     else {
-        alert("boton atras")
+        
         window.onhashchange = function () {
             
             if (!ignoreHashChange) {
                 ignoreHashChange = true;
                 window.location.hash = Math.random();
-                // Detect and redirect change here
-                // Works in older FF and IE9
-                // * it does mess with your hash symbol (anchor?) pound sign
-                // delimiter on the end of the URL
+              
             }
             else {
                 ignoreHashChange = false;
