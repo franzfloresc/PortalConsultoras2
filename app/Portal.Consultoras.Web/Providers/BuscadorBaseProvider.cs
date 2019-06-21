@@ -85,7 +85,7 @@ namespace Portal.Consultoras.Web.Providers
                 var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV).ToList();
                 var labelAgregado = "";
 
-                if (pedidoAgregado.Any())
+                if (pedidoAgregado!= null  && pedidoAgregado.Any())
                 {
                     labelAgregado = "Agregado";
                 }

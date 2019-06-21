@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -25,7 +26,7 @@ namespace Portal.Consultoras.Web.Controllers
                 await _buscadorYFiltrosProvider.GetPersonalizacion(userData, true, true);
                 productosModel = await _buscadorYFiltrosProvider.GetBuscador(model);
                 productosModel.productos = _buscadorYFiltrosProvider.ValidacionProductoAgregado(
-                    productosModel.productos, 
+                    productosModel.productos ?? new List<Productos>(), 
                     SessionManager.GetDetallesPedido(), 
                     userData, 
                     revistaDigital, 
