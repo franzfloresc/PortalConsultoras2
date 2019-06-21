@@ -2,15 +2,15 @@
 /* ESTILOS MARCA PAÍS */
 
 .default-color {
-    color:  #e81c36;
+    color: #e81c36;
 }
 
 .default-background {
-    background-color:  #e81c36;
+    background-color: #e81c36;
 }
 
 .default-background-color {
-    background-color:  #e81c36;
+    background-color: #e81c36;
 }
 
 .default-border-hover:hover {
@@ -18,7 +18,7 @@
 }
 
 .multimarca-background-color {
-    background-color: #b9007e!important;
+    background-color: #b9007e !important;
 }
 
 .multimarca-border-color {
@@ -149,6 +149,19 @@ input[type="text"].text__field__sb,
     background-color: #000;
     border: 1px solid #000;
 }
+
+.tag__checkbox__sb {
+    display: flex !important;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px !important;
+    padding-top: 0 !important;
+    padding-left: 8px;
+    padding-right: 8px;
+    min-height: 48px;
+}
+
 
 .field__checkbox__sb:checked + .label__checkbox__sb--multimarca {
     background-color: #b9007e;
@@ -312,6 +325,142 @@ input[type="text"].text__field__sb,
     }
 }
 
+.border-radius-4{
+    border-radius:4px;
+}
+
+.field__checkbox__sb:checked + .tag__checkbox__sb {
+    color: #d21194;
+    border: 1px solid #d21194;
+}
+
+/* FIN - CHECKBOXES TIPO TAGS */
+
+/* VALIDATION MESSAGE */
+
+.validation__message {
+    color: #e81c36;
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+/* FIN - VALIDATION MESSAGE */
+
+/* SWITCH */
+
+.switch__control__descrip {
+    color: #000;
+    font-size: 14px;
+}
+
+.switch__control__wrapper {
+    display: inline-block;
+    position: relative;
+    width: 48px;
+    height: 28px;
+    margin-bottom: 0;
+}
+
+input[type="checkbox"].switch__control,
+.switch__control:checked + .switch__slider:after {
+    display: none !important;
+}
+
+.switch__slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    padding: 8px;
+    color: #fff;
+    border-radius: 16px;
+}
+
+    .switch__slider:before {
+        position: absolute;
+        content: "";
+        height: 22px;
+        width: 22px;
+        left: 4px;
+        z-index: 5;
+        margin: auto 0;
+        top: 0;
+        bottom: 0;
+        background-color: #FFF;
+        -moz-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        border-radius: 14px;
+    }
+
+.switch__control:checked + .switch__slider {
+    background-color: #569c04;
+}
+
+    .switch__control:checked + .switch__slider:before {
+        left: 22px;
+    }
+
+/* FIN - SWITCH */
+
+/* BUTTONS */
+
+.btn__sb {
+    height: 40px;
+    line-height: 32px;
+    border: 0;
+    font-size: 14px;
+    position: relative;
+}
+
+.btn__sb__primary,
+.btn__sb__primary--multimarca {
+    color: #FFF;
+}
+
+.btn__sb__primary,
+.btn__sb__secondary {
+    border: 1px solid #000;
+}
+
+.btn__sb__primary {
+    background-color: #000;
+}
+
+.btn__sb__primary--multimarca {
+    background-color: #B9007E;
+    border: 1px solid #B9007E;
+}
+
+.btn__sb__secondary {
+    background-color: #FFF;
+    color: #000;
+}
+
+.btn__sb--disabled {
+    border: 1px solid #D1D1D4;
+    background-color: #D1D1D4;
+    pointer-events: none;
+    cursor: not-allowed;
+    color: #909094 !important;
+}
+
+@media screen and (max-width:991px) {
+
+    .btn__sb {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 16px;
+    }
+}
+
 /* FIN - BUTTONS */
 
 /* FIN - FORMS */
@@ -375,9 +524,138 @@ input[type="text"].text__field__sb,
     padding-right: 8px;
 }
 
-    .tag_sb--standard {
-        background-color: #000;
-        color: #FFF;
+.tag_sb--standard {
+    background-color: #000;
+    color: #FFF;
+}
+
+/* FIN - TAGS */
+
+/* FIN - COMPONENTES UI */
+
+/* HELPERS CSS */
+
+.d-none {
+    display: none;
+}
+
+.d-block {
+    display: block;
+}
+
+.d-inline-block {
+    display: inline-block;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.center-block {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-uppercase {
+    text-transform: uppercase;
+}
+
+.text-thin {
+    font-weight: 300;
+}
+
+.text-regular {
+    font-weight: 400;
+}
+
+.text-bold {
+    font-weight: bold !important;
+}
+
+.text-black {
+    font-weight: 900;
+}
+
+.border-radius-4 {
+    border-radius: 4px;
+}
+
+@media screen and (max-width:991px) and (orientation:landscape) {
+
+    .mt-53 {
+        margin-top: 53px !important;
+    }
+}
+
+/* FIN - HELPERS CSS */
+
+/* ESTILOS GENERALES UI */
+
+.campo_deshabilitado {
+    border: 1px solid rgba(128, 128, 128, 0.5) !important;
+    background-color: rgba(216, 216, 216, 0.5) !important;
+    line-height: 45px;
+    pointer-events: none;
+    cursor: not-allowed !important;
+    color: rgba(128, 128, 128, 0.5) !important;
+}
+
+.btn_deshabilitado {
+    border: 1px solid #D1D1D4 !important;
+    background-color: #D1D1D4 !important;
+    line-height: 45px;
+    pointer-events: none;
+    cursor: not-allowed !important;
+    color: #909094 !important;
+}
+
+.bg__popups__default {
+    background-color: rgba(0,0,0,.8);
+}
+
+.btn_primario,
+.btn_secundario {
+    font-family: 'Lato', sans-serif;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+
+.btn_primario {
+    color: #FFF;
+    background-color: #b9007e;
+    border: 1px solid #b9007e;
+}
+
+.btn_secundario {
+    color: #000;
+    border: 1px solid #000;
+    background-color: #FFF;
+}
+
+.icono_success {
+    margin-bottom: 16px;
+}
+
+    .icono_success img {
+        width: 100%;
+        height: auto;
+        margin-left: 9px;
+        border: 0;
     }
 
 /* FIN - TAGS */
@@ -946,7 +1224,3 @@ input[type="text"].text__field__sb,
 }
 
 /* FIN - POPUP GENERAL (ACCIONES ACEPTAR Y CANCELAR) */
-
-.bg__popups__default{
-    background-color:rgba(0,0,0,.8);
-}

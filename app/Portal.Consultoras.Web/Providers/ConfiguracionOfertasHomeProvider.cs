@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
@@ -118,8 +119,8 @@ namespace Portal.Consultoras.Web.Providers
                     switch (entConf.ConfiguracionPais.Codigo)
                     {
                         case Constantes.ConfiguracionPais.GuiaDeNegocioDigitalizada:
-                            var guiaNegocio = SessionManager.GetGuiaNegocio();
-                            if (!GuiaNegocio.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocio, revistaDigital))
+                            var guiaNegocioSession = SessionManager.GetGuiaNegocio();
+                            if (!GuiaNegocio.GNDValidarAcceso(userData.esConsultoraLider, guiaNegocioSession, revistaDigital))
                                 continue;
 
                             seccion.UrlLandig = (isMobile ? "/Mobile/" : "/") + "GuiaNegocio";
@@ -470,9 +471,18 @@ namespace Portal.Consultoras.Web.Providers
             if (!ShowRoom.ValidarIngresoShowRoom(false))
                 return seccion;
 
+            var modelo = new OrigenPedidoWebModel
+            {
+                Dispositivo = esMobile ? ConsOrigenPedidoWeb.Dispositivo.Mobile : ConsOrigenPedidoWeb.Dispositivo.Desktop,
+                Pagina = ConsOrigenPedidoWeb.Pagina.Contenedor,
+                Palanca = ConsOrigenPedidoWeb.Palanca.Showroom,
+                Seccion = ConsOrigenPedidoWeb.Seccion.Carrusel
+            };
+
             seccion.UrlObtenerProductos = "Estrategia/SRObtenerProductos";
-            seccion.OrigenPedido = esMobile ? Constantes.OrigenPedidoWeb.MobileContenedorShowroomCarrusel : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomCarrusel;
-            seccion.OrigenPedidoPopup = esMobile ? Constantes.OrigenPedidoWeb.MobileContenedorShowroomFicha : Constantes.OrigenPedidoWeb.DesktopContenedorShowroomFicha;
+            seccion.OrigenPedido = UtilOrigenPedidoWeb.ToInt(modelo);
+            modelo.Seccion = ConsOrigenPedidoWeb.Seccion.Ficha;
+            seccion.OrigenPedidoPopup = UtilOrigenPedidoWeb.ToInt(modelo);
             seccion.VerMas = SessionManager.ShowRoom.TieneLanding;
 
             var urlMobiel = esMobile ? "/Mobile/" : "/";

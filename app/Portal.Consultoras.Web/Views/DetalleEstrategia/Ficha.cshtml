@@ -1,4 +1,5 @@
 ﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Providers
 @model Portal.Consultoras.Web.Models.DetalleEstrategiaFichaModel
 
 @{
@@ -19,6 +20,7 @@
     var modelCampania = "@Model.Campania";
     var modelCuv = "@Model.Cuv";
     var modelOrigen = "@Model.OrigenUrl";
+    var urlSinImagenTiposyTonos = '@System.Configuration.ConfigurationManager.AppSettings.Get(Constantes.ConfiguracionManager.urlSinImagenTiposyTonos)';
     </script>
     <script src="~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/Ficha.js"></script>
 }

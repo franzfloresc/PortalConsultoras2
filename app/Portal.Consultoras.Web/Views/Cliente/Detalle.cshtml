@@ -79,7 +79,7 @@
     });
 
     $(".input-number").keypress(function (e) {
-       
+        
         $(this).val($(this).val().replace(/[^\d].+/, ""));
         if ((e.which < 48 || e.which > 57)) e.preventDefault();
     });
@@ -162,7 +162,7 @@
                         item.ClienteID = data.extra.split("|")[1];                        
                         AbrirMensaje(data.message, null, function (e) {                                                             
                             var clase = $(e.target).attr('class');  
-                            if (clase.includes("ui-icon-closethick")) { /*click en cerrar pop up*/
+                            if (clase.indexOf("ui-icon-closethick") > -1) { /*click en cerrar pop up*/
                                 DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Pop up Registro Cliente Satisfactorio', 'Cerrar');
                             } else if (clase.includes("ui-button-text")) {  /*click en Aceptar*/
                                 DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Pop up Registro Cliente Satisfactorio', 'Aceptar');

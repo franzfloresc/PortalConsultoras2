@@ -4,13 +4,15 @@ var belcorp = belcorp || {};
 belcorp.settings = belcorp.settings || {};
 belcorp.settings.uniquePrefix = "/g/";
 
-jQuery(document).ready(function () {
+var _ultimaMarca = "";
 
+jQuery(document).ready(function () {
     CreateLoading();
 
-    if (typeof IsoPais === 'undefined' || IsoPais != 'PE')  {
-        $('.btn_chat_messenger_mobile').hide();
+    if (typeof habilitarChatBot !== 'undefined' && habilitarChatBot === 'True') {
+        $('.btn_chat_messenger_mobile').show();
     }
+
     if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {
         GuardarIndicadorPedidoAutentico();
     }
@@ -34,13 +36,6 @@ jQuery(document).ready(function () {
         }
     }
 
-    document.onkeydown = function (evt) {
-        evt = evt || window.event;
-        if (evt.keyCode == 27) {
-            if ($('.resultado_busqueda_producto').is(':visible')) {
-            }
-        }
-    };
 });
 
 (function ($) {
@@ -85,8 +80,10 @@ jQuery(document).ready(function () {
 
     $.fn.CleanWhitespace = function () {
         var textNodes = this.contents().filter(
-            function () { return (this.nodeType == 3 && !/\S/.test(this.nodeValue)); })
-            .remove();
+            function () {
+                return (this.nodeType == 3 && !/\S/.test(this.nodeValue));
+            }
+        ).remove();
         return this;
     };
 
@@ -364,8 +361,16 @@ jQuery(document).ready(function () {
                 return context.toUpperCase();
             });
 
+            Handlebars.registerHelper('LowerCase', function (context) {
+                return context.toLowerCase();
+            });
+
             Handlebars.registerHelper('DecimalToStringFormat', function (context) {
                 return DecimalToStringFormat(context);
+            });
+
+            Handlebars.registerHelper('DecimalToStringFormatWithoutRounding', function (context) {
+                return DecimalToStringFormat(context, false, true);
             });
 
             Handlebars.registerHelper('DateTimeToStringFormat', function (context) {
@@ -411,7 +416,26 @@ jQuery(document).ready(function () {
             Handlebars.registerHelper('json', function (context) {
                 return JSON.stringify(context).replace(/"/g, '&quot;');
             });
-             
+
+            Handlebars.registerHelper("ifVerificarMarcaLast", function (marca, esMultiMarca, options) {
+                if (esMultiMarca) {
+                    if (_ultimaMarca === "" || _ultimaMarca === marca) {
+                        _ultimaMarca = marca;
+                        return options.inverse(this);
+                    }
+                    else {
+                        _ultimaMarca = marca;
+                        return options.fn(this);
+                    }
+                }
+                else {
+                    if (_ultimaMarca === "") {
+                        _ultimaMarca = marca;
+                        return options.inverse(this);
+                    }
+                    else return options.fn(this);
+                }
+            });
         }
     };
 
@@ -493,12 +517,25 @@ jQuery(document).ready(function () {
         return l_boolIsExist;
     };
 
-    DecimalToStringFormat = function (monto, noDecimal) {
-        formatDecimalPais = formatDecimalPais || {};
-        noDecimal = noDecimal || false;
-        var decimal = formatDecimalPais.decimal || ".";
-        var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0);
-        var miles = formatDecimalPais.miles || ",";
+    window.DecimalPrecision = function(numero) {
+        var num = numero || 0;
+        var a = parseFloat(isNaN($.trim(numero)) ? "0" : $.trim(num));
+
+        if (!isFinite(a)) return 0;
+        var e = 1, p = 0;
+        while (Math.round(a * e) / e !== a) { e *= 10; p++; }
+
+        return p;
+    };
+
+    window.NumberToFormat = function(monto, options, sinRendondeo) {
+        sinRendondeo = sinRendondeo || false;
+        var customFormat = {};
+        $.extend(customFormat, formatDecimalPais || {});
+        $.extend(customFormat, options || {});
+        var decimalCantidad = customFormat.decimalCantidad || 0;
+        var decimal = customFormat.decimal || ".";
+        var miles = customFormat.miles || ",";
 
         monto = monto || 0;
         var montoOrig = isNaN($.trim(monto)) ? "0" : $.trim(monto);
@@ -506,20 +543,36 @@ jQuery(document).ready(function () {
         decimalCantidad = isNaN(decimalCantidad) ? 0 : parseInt(decimalCantidad);
 
         var pEntera = $.trim(parseInt(montoOrig));
-        var pDecimal = $.trim((parseFloat(montoOrig) - parseFloat(pEntera)).toFixed(decimalCantidad));
-        pDecimal = pDecimal.length > 1 ? pDecimal.substring(2) : "";
-        pDecimal = decimalCantidad > 0 ? (decimal + pDecimal) : "";
+        var pDecimal = 0;
 
-        var pEnteraFinal = "";
-        do {
-            var x = pEntera.length;
-            var sub = pEntera.substring(x, x - 3);
-            pEnteraFinal = (pEntera == sub ? sub : (miles + sub)) + pEnteraFinal;
-            pEntera = pEntera.substring(x - 3, 0);
+        if (sinRendondeo) {
+            pDecimal = Math.floor(montoOrig * 100) / 100;
+            return pDecimal.toFixed(decimalCantidad);
+        } else {
+            pDecimal = $.trim((parseFloat(montoOrig) - parseFloat(pEntera)).toFixed(decimalCantidad));
+            pDecimal = pDecimal.length > 1 ? pDecimal.substring(2) : "";
+            pDecimal = decimalCantidad > 0 ? (decimal + pDecimal) : "";
 
-        } while (pEntera.length > 0);
+            var pEnteraFinal = "";
+            do {
+                var x = pEntera.length;
+                var sub = pEntera.substring(x, x - 3);
+                pEnteraFinal = (pEntera == sub ? sub : (miles + sub)) + pEnteraFinal;
+                pEntera = pEntera.substring(x - 3, 0);
 
-        return pEnteraFinal + pDecimal;
+            } while (pEntera.length > 0);
+
+            return pEnteraFinal + pDecimal;
+        }
+
+    };
+
+    DecimalToStringFormat = function (monto, noDecimal, sinRendondeo) {
+        formatDecimalPais = formatDecimalPais || {};
+        noDecimal = noDecimal || false;
+        var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0);
+
+        return NumberToFormat(monto, { decimalCantidad: decimalCantidad }, sinRendondeo);
     };
 
     IsNullOrEmpty = function (texto) { return texto == null || texto === ''; };
@@ -748,6 +801,18 @@ function CerrarLoad(opcion) {
 }
 
 function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
+
+    var valor = mensaje.indexOf("Sin embargo hemos reservado");
+    /*HD-3710 - 9_10 (Pop up Lo sentimos - Click Botón - Cerrar Pop up lo sentimos) - Web, Mobile*/
+    if (valor != -1) {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Carrito de Compras',
+            'action': 'alertDialogMensajes - Click Botón',
+            'label': 'Ok'
+        });
+    }
+
     try {
         mensaje = $.trim(mensaje);
         if (mensaje == "") {
@@ -807,6 +872,125 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('.ui-dialog .ui-button').focus();
         }
         CerrarLoad();
+    } catch (e) {
+
+    }
+}
+
+function AbrirAlert(mensaje, fnAceptar, fnCerrar) {
+    try {
+        var popup = $('#PopupGeneral');
+        var txtMensaje = $('.popup__somos__belcorp__mensaje--general');
+        if (popup.is(':visible')) {
+            popup.hide();
+        }
+
+        txtMensaje.text((mensaje) ? mensaje : '');
+
+        var botonesAceptar = $('#PopupGeneral #btnAceptar');
+        botonesAceptar.off('click');
+        if ($.isFunction(fnAceptar)) {
+            botonesAceptar.on('click', fnAceptar);
+        } else {
+            botonesAceptar.on('click', function () { popup.fadeOut(100)} );
+        }
+
+
+        var botonesCerrar = $('#PopupGeneral #btnCerrar');
+        botonesCerrar.off('click');
+        if ($.isFunction(fnCerrar)) {
+            botonesCerrar.on('click', fnCerrar);
+        } else {
+            botonesCerrar.on('click', function () { popup.fadeOut(100) } );            
+        }
+
+
+        popup.fadeIn(50);
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+function CerrarlAlert() {
+    $('#PopupGeneral').fadeOut(100);
+}
+
+function AbrirMensaje25seg(mensaje, imagen) {
+    try {
+        var _dialogClass = '.setBottom',
+            _overlay = '.ui-widget-overlay'
+
+        mensaje = $.trim(mensaje);
+        if (mensaje == "") {
+            CerrarLoad();
+            return false;
+        }
+        //INI HD-3693
+        var msjBloq = validarpopupBloqueada(mensaje);
+        if (msjBloq != "") {
+            CerrarLoad();
+            alert_msg_bloqueadas(msjBloq);
+            return true;
+        }
+        //FIN HD-3693
+        imagen = imagen || "";
+
+        $("#pop_src").attr("src", "#")
+
+        if (imagen == "") {
+            $("#pop_src").css("display", "none")
+        }
+        else {
+            $("#pop_src").attr("src", imagen)
+            $("#pop_src").css("display", "block")
+        }
+
+
+        var isUrlMobile = isMobile();
+        if (isUrlMobile > 0) {
+            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
+            $('#alertDialogMensajes25seg').dialog("open");
+            $(_overlay).css('background', 'black')
+            $(_overlay).css('opacity', '0.85')
+
+            var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0])
+            _newTopDialog = _topWithoutPXAfterCreateDialog + 200,
+                _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
+        }
+        else {
+
+            $('#alertDialogMensajes25seg .pop_pedido_mensaje').html(mensaje);
+            $('#alertDialogMensajes25seg').dialog("open");
+            $(_overlay).css('background', 'black')
+            $(_overlay).css('opacity', '0.85')
+
+            var _topWithoutPXAfterCreateDialog = parseInt(document.querySelector(_dialogClass).style.top.split('px')[0])
+            _newTopDialog = _topWithoutPXAfterCreateDialog + 200,
+                _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
+
+        }
+        CerrarLoad();
+        //Ocultar el scroll 
+        $("body").css("overflow", "hidden");
+
+        setTimeout(function () {
+            document.querySelector(_dialogClass).style.transition = "top 1s ease"
+            _newTopDialog = _topWithoutPXAfterCreateDialog - 100
+            _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px'
+        }, 100)
+
+        setTimeout(function () {
+            $(_dialogClass).fadeOut(500, function () {
+                $('#alertDialogMensajes25seg').dialog("close");
+                $("body").css("overflow", "auto")
+            })
+        }, 3000)
+
+
+        var parameter = [["mensaje", mensaje], ["imagen", imagen]];
+        console.log(parameter);
+
     } catch (e) {
 
     }
@@ -887,6 +1071,17 @@ function getMobilePrefixUrl() {
     var uniqueIndexOfUrl = currentUrl.indexOf(uniquePrefix);
     var isUniqueUrl = uniqueIndexOfUrl > 0;
     return isUniqueUrl ? currentUrl.substring(uniqueIndexOfUrl, uniqueIndexOfUrl + uniquePrefix.length + 36) : "/mobile";
+}
+
+function onLoadPhotoUser(event) {
+    if (event.naturalWidth > event.naturalHeight) {
+        event.style.width = 'auto';
+        event.style.height = '100%';
+    }
+    else {
+        event.style.width = '100%';
+        event.style.height = 'auto';
+    }
 }
 
 function isPagina(pagina) {
@@ -1242,6 +1437,12 @@ function autoCompleteByCharacters(inp, arr, car) {
                 b.innerHTML += "<input type='hidden' value='" + valueInput + arr[i] + "'>";
                 b.addEventListener("click", function (e) {
                     inp.value = this.getElementsByTagName("input")[0].value;
+                    //INI HD-3897
+                    if ($(inp).hasClass("eventActPerfil_Auto")) {
+                        $(inp).trigger("change");
+                        $(inp).trigger("focusout");
+                    }
+                    //FIN HD-3897
                     closeAllLists();
                 });
                 a.appendChild(b);
@@ -1292,27 +1493,6 @@ function autoCompleteByCharacters(inp, arr, car) {
     document.addEventListener("click", function (e) {
         closeAllLists(e.target);
     });
-}
-
-function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
-    if (urlLogDynamo != "") {
-        jQuery.ajax({
-            type: "POST",
-            async: true,
-            //crossDomain: true,
-            url: baseUrl + 'Comun/InsertarLogDymnamo',
-            //url: urlLogDynamo + "Api/LogUsabilidad",
-            dataType: "json",
-            data: {
-                'Aplicacion': userData.aplicacion,
-                'PantallaOpcion': pantallaOpcion,
-                'OpcionAccion': opcionAccion,
-                'Extra': ToDictionary(extra)
-            },
-            success: function (result) { },
-            error: function (x, xh, xhr) { }
-        });
-    }
 }
 
 function ToDictionary(dic) {
@@ -1701,22 +1881,22 @@ function odd_google_analytics_product_click(name, id, price, brand, variant, pos
     dataLayer.push({
         'event': 'productClick',
         'ecommerce':
-        {
-            'click':
             {
-                'actionField': { 'list': listName },
-                'products':
-                    [{
-                        'name': name,
-                        'id': id,
-                        'price': price,
-                        'brand': brand,
-                        'category': 'No disponible',
-                        'variant': variant,
-                        'position': position
-                    }]
+                'click':
+                    {
+                        'actionField': { 'list': listName },
+                        'products':
+                            [{
+                                'name': name,
+                                'id': id,
+                                'price': price,
+                                'brand': brand,
+                                'category': 'No disponible',
+                                'variant': variant,
+                                'position': position
+                            }]
+                    }
             }
-        }
     });
 }
 
@@ -2038,15 +2218,15 @@ var GeneralModule = (function () {
     "use strict";
 
     var _elements = {
-        loading :{
-            spin : {
-                id : "loading-spin"
+        loading: {
+            spin: {
+                id: "loading-spin"
             },
-            loadingScreen:{
-                id : "loadingScreen",
-                class : {
-                    titulo : "loadingScreen-titulo",
-                    mensaje : "loadingScreen-mensaje"
+            loadingScreen: {
+                id: "loadingScreen",
+                class: {
+                    titulo: "loadingScreen-titulo",
+                    mensaje: "loadingScreen-mensaje"
                 }
             }
         }
@@ -2058,11 +2238,17 @@ var GeneralModule = (function () {
         return isUrlMobile;
     };
 
-    var _redirectTo = function (url) {
+    var _redirectTo = function (url, validateIsMobile) {
         if (typeof url === "undefined" || url === null || $.trim(url) === "") return false;
+        if (typeof validateIsMobile === "undefined") validateIsMobile = true;
 
         var destinationUrl = "/";
-        if (_isMobile()) destinationUrl = destinationUrl + "Mobile/";
+
+        if (validateIsMobile && _isMobile() && url.indexOf('Mobile/') == -1) destinationUrl += "Mobile/";
+
+        url = $.trim(url);
+        url = url[0] === '/' ? url.substr(1) : url;
+
         destinationUrl += url;
 
         window.location.href = destinationUrl;
@@ -2079,10 +2265,10 @@ var GeneralModule = (function () {
     var _createLoading = function () {
         if ($("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.titulo).length !== 0 ||
             $("#" + _elements.loading.loadingScreen.id).find("." + _elements.loading.loadingScreen.class.mensaje).length !== 0) return false;
-    
+
         $("#" + _elements.loading.loadingScreen.id).append("<div class=\"" + _elements.loading.loadingScreen.class.titulo + "\"></div>");
         $("#" + _elements.loading.loadingScreen.id).append("<div class=\"" + _elements.loading.loadingScreen.class.mensaje + "\"></div>");
-    
+
         $("#" + _elements.loading.loadingScreen.id).dialog({
             autoOpen: false,
             dialogClass: "loadingScreenWindow",
@@ -2100,7 +2286,7 @@ var GeneralModule = (function () {
     var waitingDialog = function (params) {
         try {
             if (!$("#" + _elements.loading.loadingScreen.id)) {
-                $(document.body).append("<div id=\"" +_elements.loading.loadingScreen.id + "\"></div>");
+                $(document.body).append("<div id=\"" + _elements.loading.loadingScreen.id + "\"></div>");
             }
 
             if (!$("#" + _elements.loading.loadingScreen.id).hasClass('ui-dialog-content')) {
@@ -2121,7 +2307,7 @@ var GeneralModule = (function () {
 
     var _hideDialog = function (dialogId) {
         try {
-    
+
             dialogId = (dialogId || "").trim();
             if (dialogId != "") {
                 dialogId = dialogId[0] == "#" ? dialogId : ("#" + dialogId);
@@ -2131,7 +2317,7 @@ var GeneralModule = (function () {
         catch (err) {
             console.log('HideDialog - log - ', err);
         }
-    
+
         $("body").css("overflow", "auto");
         return false;
     };
@@ -2175,18 +2361,25 @@ var GeneralModule = (function () {
         }
     };
 
+    var _getLocationPathname = function (value) {
+        if (typeof value === "undefined") {
+            return window.location.pathname;
+        }
+    };
+
     return {
         isMobile: _isMobile,
         redirectTo: _redirectTo,
         abrirLoad: _abrirLoad,
-        cerrarLoad: _cerrarLoad
+        cerrarLoad: _cerrarLoad,
+        getLocationPathname: _getLocationPathname
     };
 }());
 //INI HD-3693
 function validarpopupBloqueada(message) {
-    if (message.indexOf("HD3693~")!=-1) return message.split("~")[1];
+    if (message.indexOf("HD3693~") != -1) return message.split("~")[1];
     else return "";
-    
+
 }
 //FIN HD-3693
 
