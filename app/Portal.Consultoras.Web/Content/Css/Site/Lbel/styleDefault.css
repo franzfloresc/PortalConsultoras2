@@ -373,6 +373,7 @@ input[type="checkbox"].switch__control,
         right: 0;
         bottom: 16px;
     }
+}
 /* FIN - BUTTONS */
 
 /* FIN - FORMS */
@@ -854,24 +855,25 @@ input[type="checkbox"].switch__control,
 
 .mt-40 {
     margin-top: 40px;
-@media screen and (max-width:991px) and (orientation:landscape) {
-
-    .mt-53 {
-        margin-top: 53px !important;
 }
+    @media screen and (max-width:991px) and (orientation:landscape) {
 
-@media screen and (max-width:991px) {
+        .mt-53 {
+            margin-top: 53px !important;
+        }
+    }
 
-    .mb-60 {
-        margin-bottom: 60px;
-	}
-}
+    @media screen and (max-width:991px) {
 
+        .mb-60 {
+            margin-bottom: 60px;
+        }
+    }
 
     .notificacion_estado_img {
         margin-top: -1.2px;
     }
-}
+
 
 /* FIN - NOTIFICACIONES */
 

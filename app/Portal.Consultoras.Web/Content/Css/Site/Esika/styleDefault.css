@@ -175,7 +175,6 @@ input[type="text"].text__field__sb,
     min-height: 48px;
 }
 
-}
 
 .bg__popups__default {
     background-color: rgba(0,0,0,.8);
@@ -294,6 +293,7 @@ input[type="text"].text__field__sb,
     border: 0;
     font-size: 14px;
     position: relative;
+}
     .btn__sb__primary,
     .btn__sb__primary--multimarca {
         color: #FFF;
@@ -334,7 +334,7 @@ input[type="text"].text__field__sb,
         right: 0;
         bottom: 16px;
     }
-
+}
 .border-radius-4{
     border-radius:4px;
 }
@@ -509,6 +509,7 @@ input[type="checkbox"].switch__control,
 
 .notificacion_estado--error {
     color: #e81c36;
+}
 @media screen and (max-width:991px) {
 
     .notificacion_estado_img {
@@ -927,6 +928,7 @@ input[type="checkbox"].switch__control,
 
     .mb-60 {
         margin-bottom: 60px;
+    }
 }
 
 /* FIN - HELPERS CSS */
