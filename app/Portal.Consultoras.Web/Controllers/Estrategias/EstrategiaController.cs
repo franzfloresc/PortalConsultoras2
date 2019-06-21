@@ -814,7 +814,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     });
                 }
 
-                var listaProductosValidados = ValidacionResultadosProductos(dataProductosCarruselUpSelling.result).ToList();
+                var listaProductosValidados = ValidacionResultadosProductos(dataProductosCarruselUpSelling.result, Constantes.TipoVentaIncremental.UpSelling).ToList();
                 var listaOfertasModel = _ofertaPersonalizadaProvider.RevisarCamposParaMostrar(listaProductosValidados, true);
                 return Json(new
                 {
@@ -841,7 +841,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 if (!listaProductos.Any())
                     return Json(new { success = false });
 
-                listaProductos = ValidacionResultadosProductos(listaProductos).ToList();
+                listaProductos = ValidacionResultadosProductos(listaProductos, tipo).ToList();
                 listaProductos = _consultaProlProvider.ActualizarEstrategiaStockPROL(listaProductos,
                     userData.CodigoISO,
                     userData.CampaniaID, 
@@ -862,7 +862,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
 
-        private IList<EstrategiaPersonalizadaProductoModel> ValidacionResultadosProductos(IList<EstrategiaPersonalizadaProductoModel> estrategiaPersonalizadaProductoModels)
+        private IList<EstrategiaPersonalizadaProductoModel> ValidacionResultadosProductos(IList<EstrategiaPersonalizadaProductoModel> estrategiaPersonalizadaProductoModels, string tipoVentaIncremental)
         {
             if (!estrategiaPersonalizadaProductoModels.Any()) return new List<EstrategiaPersonalizadaProductoModel>();
             var pedidos = SessionManager.GetDetallesPedido();
@@ -880,7 +880,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     item.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable ? 1 : 0,
                     item.CodigoEstrategia,
                     userData.esConsultoraLider,
-                    true,
+                    tipoVentaIncremental == Constantes.TipoVentaIncremental.UpSelling,
                     item.CodigoVariante);
 
                 //falta considerar item.CodigoConsultora == ConsConsultora.CodigoConsultora.Forzadas
