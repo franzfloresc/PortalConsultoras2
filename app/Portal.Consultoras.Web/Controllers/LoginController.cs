@@ -3301,6 +3301,35 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [AllowAnonymous]
+        [HttpPost]
+        public JsonResult ContraseniaRepetida(ActualizaContrasenia actualizaContrasenia)
+        {
+            var result = false;
+            try
+            {
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    result = sv.ContraseniaRepetida(Util.GetPaisID(actualizaContrasenia.CodigoIso), actualizaContrasenia.CodigoUsuario, actualizaContrasenia.Contrasenia);
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    repetido = result,
+                    menssage = (result) ? "Ingresar una contraseña diferente a la anterior" : "Contraseña válida"
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, actualizaContrasenia.CodigoUsuario, actualizaContrasenia.CodigoIso);
+                return Json(new
+                {
+                    success = false,
+                    menssage = "Error al validar contraseña repetida"
+                }, JsonRequestBehavior.AllowGet); ;
+            }
+        }
 
         #endregion
 

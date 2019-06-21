@@ -1056,6 +1056,12 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.ProcesaEnvioEmailCambiaContrasenia(paisID, oUsu);
         }
+
+        public bool ContraseniaRepetida(int paisID, string codigoUsuario, string contrasenia)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ContraseniaRepetida(paisID, codigoUsuario,contrasenia);
+        }
         #endregion
 
 

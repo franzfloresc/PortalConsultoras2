@@ -18451,6 +18451,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContraseniaResponse")]
         System.Threading.Tasks.Task<bool> ProcesaEnvioEmailCambiaContraseniaAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ContraseniaRepetida", ReplyAction="http://tempuri.org/IUsuarioService/ContraseniaRepetidaResponse")]
+        bool ContraseniaRepetida(int paisID, string codigoUsuario, string contrasenia);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ContraseniaRepetida", ReplyAction="http://tempuri.org/IUsuarioService/ContraseniaRepetidaResponse")]
+        System.Threading.Tasks.Task<bool> ContraseniaRepetidaAsync(int paisID, string codigoUsuario, string contrasenia);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Select", ReplyAction="http://tempuri.org/IUsuarioService/SelectResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario);
         
@@ -19577,6 +19583,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<bool> ProcesaEnvioEmailCambiaContraseniaAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu) {
             return base.Channel.ProcesaEnvioEmailCambiaContraseniaAsync(paisID, oUsu);
+        }
+        
+        public bool ContraseniaRepetida(int paisID, string codigoUsuario, string contrasenia) {
+            return base.Channel.ContraseniaRepetida(paisID, codigoUsuario, contrasenia);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ContraseniaRepetidaAsync(int paisID, string codigoUsuario, string contrasenia) {
+            return base.Channel.ContraseniaRepetidaAsync(paisID, codigoUsuario, contrasenia);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario) {

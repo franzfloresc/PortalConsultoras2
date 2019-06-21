@@ -494,5 +494,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool ProcesaEnvioEmailCambiaContrasenia(int paisID, BEUsuarioDatos oUsu);
+
+        [OperationContract]
+        bool ContraseniaRepetida(int paisID, string codigoUsuario, string contrasenia);
     }
 }

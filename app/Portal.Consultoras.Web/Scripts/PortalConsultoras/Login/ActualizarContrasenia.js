@@ -15,10 +15,8 @@ function Inicializar() {
             return false;
         }
         event.preventDefault();
-        //if (!ValidacionContrasenia) {
-        //    return false;
-        //}
-        RecibirPinVerficiacionCorreo();
+
+        ContraseniaRepetida();
     });
 
     $("#btnConfirmarCambioPassword").click(function () {
@@ -242,47 +240,41 @@ function CambiarContrasenia() {
     });
 }
 
-function ValidacionContrasenia() {
-    $('.validation__error1').hide();
-    var resu = true;
 
-    var newPassword01 = $("#Contrasenia").val();
-    var newPassword02 = $("#ConfirmaContrasenia").val();
-
-    if (newPassword01.length < 6) {
-        $('.validation__error1').show();
-        resu = false;
+function ContraseniaRepetida() {
+    $(".seccion").hide();
+    $("#VistaPrecarga").show();
+    var actualizaContrasenia = {
+        CodigoIso: $('#CodigoIso').val(),
+        CodigoUsuario: $('#CodigoUsuario').val(),
+        Contrasenia: $('#Contrasenia').val()
     }
-    if (!TieneLetras(newPassword01) || !TieneNumeros(newPassword01)) {
-        $('.validation__error1').show();
-        resu = false;
-    }
+    debugger;
+    jQuery.ajax({
+        type: 'POST',
+        url: urlContraseniaRepetida,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(actualizaContrasenia),
+        async: true,
+        success: function (data) {
+            $(".seccion").hide();
+            if (!data.repetido) {
+                RecibirPinVerficiacionCorreo();
+            } else {
+                $(".seccion").hide();                
+                $("#Paso1ActualizacionPassword").show();
+                alert(data.menssage);
+            }                       
 
-    return resu;
-}
-
-function TieneLetras(valorBusqueda) {
-    var letras = "abcdefghyjklmnñopqrstuvwxyzáéíóú";
-    var esAlfaNumerico = false;
-    valorBusqueda = valorBusqueda.toLowerCase();
-    for (i = 0; i < valorBusqueda.length; i++) {
-        if (letras.indexOf(valorBusqueda.charAt(i), 0) != -1) {
-            esAlfaNumerico = true;
-            break;
+        },
+        error: function (data, error) {           
+            if (checkTimeout(data)) {
+                $(".seccion").hide();
+                alert("Error al validar contraseña");
+                $("#Paso1ActualizacionPassword").show();
+            }
         }
-    }
-    return esAlfaNumerico;
-}
+    });
 
-function TieneNumeros(valorBusqueda) {
-    var letras = "0123456789";
-    var tieneNumeros = false;
-    valorBusqueda = valorBusqueda.toLowerCase();
-    for (i = 0; i < valorBusqueda.length; i++) {
-        if (letras.indexOf(valorBusqueda.charAt(i), 0) != -1) {
-            tieneNumeros = true;
-            break;
-        }
-    }
-    return tieneNumeros;
 }

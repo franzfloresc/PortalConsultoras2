@@ -4151,6 +4151,30 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
+        public bool ContraseniaRepetida(int paisID, string codigoUsuario, string contrasenia)
+        {
+            bool validaLogin = false;
+            string paisIso = string.Empty;
+
+            try
+            {
+                paisIso = Common.Util.GetPaisISO(paisID);
+                paisIso = (!string.IsNullOrEmpty(paisIso)) ? paisIso : paisID.ToString();
+                var daUsuario = new DAUsuario(paisID);
+
+                using (IDataReader reader = daUsuario.ContraseniaRepetida(codigoUsuario, contrasenia))
+                {
+                    if (reader.Read())
+                        validaLogin = reader.GetBoolean(0);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, codigoUsuario, paisIso);
+            }
+
+            return validaLogin;
+        }
         #endregion
 
     }
