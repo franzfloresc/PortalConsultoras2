@@ -613,6 +613,10 @@ namespace Portal.Consultoras.Common
             public const short CaminoBrillanteOrden = 175;
         }
 
+        public static class AdministradorHistoria
+        {
+            public const int TablaLogicaId = 231;
+        }
         public static class ConfiguracionesFicha
         {
             public const short TablaLogicaId = 15;
@@ -622,9 +626,12 @@ namespace Portal.Consultoras.Common
             public const string FuncionalidadSugerido = "FuncionalidadSugerido";
         }
 
-        public static class AdministradorHistoria
+        public static class TuVozOnline
         {
-            public const int TablaLogicaId = 231;
+            public const short Id = 172;
+            public const string PanelId = "PANEL_ID";
+            public const string PanelKey = "PANEL_KEY";
         }
+
     }
 }

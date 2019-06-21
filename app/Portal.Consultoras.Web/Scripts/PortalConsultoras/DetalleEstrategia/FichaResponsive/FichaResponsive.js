@@ -32,6 +32,7 @@ var fichaEnriquecidaView = FichaEnriquecidaView();
 var fichaEnriquecidaPresenter = FichaEnriquecidaPresenter({
     fichaEnriquecidaView: fichaEnriquecidaView
 });
+
 var estrategia = {};
 
 $(document).ready(function () {
