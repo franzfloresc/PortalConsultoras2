@@ -136,13 +136,17 @@ namespace Portal.Consultoras.Web.Providers
                 foreach (XmlNode xmlNode in xmlNodeList)
                 {
                     BECDRProductoComplementario obj = new BECDRProductoComplementario();
+                    var cantidad = xmlNode["cantidad"].InnerText == "" ? 0 : Convert.ToInt32(xmlNode["cantidad"].InnerText);
+                    var precio  = xmlNode["precio"].InnerText == "" ? 0 : Convert.ToDecimal(xmlNode["precio"].InnerText);
+                    var estado = xmlNode["estado"].InnerText == "" ? 0 : Convert.ToInt32(xmlNode["estado"].InnerText);
+
                     obj.CUV = xmlNode["cuv"].InnerText;
                     obj.Descripcion = xmlNode["descripcion"].InnerText;
-                    obj.Cantidad = xmlNode["cantidad"].InnerText == "" ? 0 : Convert.ToInt32(xmlNode["cantidad"].InnerText);
-                    obj.Precio = xmlNode["precio"].InnerText == "" ? 0 : Convert.ToDecimal(xmlNode["precio"].InnerText);
+                    obj.Cantidad = cantidad;
+                    obj.Precio = precio;
                     obj.Simbolo = xmlNode["simbolo"].InnerText;
-                    obj.Estado = xmlNode["estado"].InnerText == "" ? 0 : Convert.ToInt32(xmlNode["estado"].InnerText);
-                    obj.PrecioFormato = xmlNode["precio"].InnerText == "" ? "0" : Util.DecimalToStringFormat(Convert.ToDecimal(xmlNode["precio"].InnerText) * (xmlNode["cantidad"].InnerText == "" ? 0 : Convert.ToInt32(xmlNode["cantidad"].InnerText)), codigoIso);
+                    obj.Estado = estado;
+                    obj.PrecioFormato = Util.DecimalToStringFormat(precio * cantidad, codigoIso);
                     obj.CodigoMotivoRechazo = xmlNode["codigorechazo"].InnerText;
                     obj.Observacion = ObtenerObservacion(xmlNode["obs"].InnerText, xmlNode["codigorechazo"].InnerText, paisId, codigoIso);
                     lista.Add(obj);
