@@ -3353,7 +3353,7 @@ namespace Portal.Consultoras.Common
             }
 
             return result;
-        }        
+        }
 
         public static string GenerarRutaImagenResizeMedium(string rutaImagen)
         {
@@ -3657,7 +3657,7 @@ namespace Portal.Consultoras.Common
                         result = lista[Constantes.NuevoCatalogoProducto.CATALOGOCYZONE];
                         break;
                     default:
-                        if(marcaId == Constantes.Marca.Esika)
+                        if (marcaId == Constantes.Marca.Esika)
                         {
                             result = lista[Constantes.NuevoCatalogoProducto.CATALOGOESIKA];
                         }
@@ -3770,39 +3770,39 @@ namespace Portal.Consultoras.Common
             }
             else
             {
-                    switch (origenPedido)
-                    {
-                        case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal:
-                        case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal:
-                        case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel:
-                        case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha:
-                        case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel:
-                        case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha:
-                            result = "";
-                            break;
-                        default:
-                            result = obtenerNuevaDescripcionProducto(lista, suscripcion, "", tipoEstrategiaCodigo, marcaId, codigoCatalogo);
+                switch (origenPedido)
+                {
+                    case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal:
+                    case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal:
+                    case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel:
+                    case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha:
+                    case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel:
+                    case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha:
+                        result = "";
+                        break;
+                    default:
+                        result = obtenerNuevaDescripcionProducto(lista, suscripcion, "", tipoEstrategiaCodigo, marcaId, codigoCatalogo);
 
-                            if (result == "") result = descripcion;
+                        if (result == "") result = descripcion;
 
-                            if (string.IsNullOrWhiteSpace(result))
+                        if (string.IsNullOrWhiteSpace(result))
+                        {
+                            switch (ofertaId)
                             {
-                                switch (ofertaId)
-                                {
-                                    case Constantes.TipoOferta.Liquidacion:
-                                        result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
-                                        break;
-                                    case Constantes.TipoOferta.Flexipago:
-                                        result = lista[Constantes.NuevoCatalogoProducto.OFERTASFLEXIPAGO];
-                                        break;
-                                    default:
-                                        result = "";
-                                        break;
-                                }
+                                case Constantes.TipoOferta.Liquidacion:
+                                    result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
+                                    break;
+                                case Constantes.TipoOferta.Flexipago:
+                                    result = lista[Constantes.NuevoCatalogoProducto.OFERTASFLEXIPAGO];
+                                    break;
+                                default:
+                                    result = "";
+                                    break;
                             }
+                        }
 
-                            break;
-                    }
+                        break;
+                }
             }
 
             return result;
@@ -3833,7 +3833,7 @@ namespace Portal.Consultoras.Common
 
         public static int obtenerCodigoOrigenWebApp(string codigoEstrategia, string codigoTipoEstrategia, int marcaId, bool desplegable, bool landing, bool ficha, bool fichaCarrusel, bool materialGanancia)
         {
-           
+
             if (desplegable == landing)
             {
                 return 0;
@@ -3964,6 +3964,20 @@ namespace Portal.Consultoras.Common
             var plainText = crypto.Decrypt(cipherText);
 
             return Encoding.UTF8.GetString(plainText);
+        }
+
+        public static int convertirAEstadoBuro(int estado)
+        {
+            switch (estado)
+            {
+                case (int)Enumeradores.EstadoBuroSAC.SI_PUEDE_SER_CONSULTORA_Datacredito_con_error_de_escritura_en_sus_BD:
+                    return (int)Enumeradores.EstadoBurocrediticio.PuedeSerConsultora;
+                case (int)Enumeradores.EstadoBuroSAC.SI_PUEDE_SER_CONSULTORA_Documento_existe_en_fuentes_oficiales:
+                    return (int)Enumeradores.EstadoBurocrediticio.PuedeSerConsultora;
+                case (int)Enumeradores.EstadoBuroSAC.SI_PUEDE_SER_CONSULTORA_Nombres_o_Apellidos_corresponden_al_Documento:
+                    return (int)Enumeradores.EstadoBurocrediticio.PuedeSerConsultora;
+                default: return estado;
+            }
         }
     }
 
