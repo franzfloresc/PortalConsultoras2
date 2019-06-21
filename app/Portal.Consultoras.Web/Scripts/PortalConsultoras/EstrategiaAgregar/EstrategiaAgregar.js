@@ -281,7 +281,7 @@ var EstrategiaAgregarModule = (function () {
             if (origenModelo.Pagina == _codigoOrigenPedidoWeb.CodigoEstructura.Pagina.ArmaTuPackDetalle) {
                 if (typeof (seleccionadosPresenter) !== 'undefined') {
                     if (seleccionadosPresenter.packComponents() !== 'undefined') {
-                        var seleccionados = seleccionadosPresenter.packComponents().componentesSeleccionados;
+                        //var seleccionados = seleccionadosPresenter.packComponents().componentesSeleccionados;
                         estrategiaAnalytics = JSON.parse($("#data-estrategia").attr("data-estrategia"));
                         var codigoubigeoportal = estrategiaAnalytics.CodigoUbigeoPortal;
 
@@ -398,6 +398,10 @@ var EstrategiaAgregarModule = (function () {
             SetId: estrategia.setId || 0,
             EsDuoPerfecto: EsDuoPerfecto,
             ClienteID: _getClienteIdSelected()
+        };
+
+        if (estrategia.CodigoEstrategia == ConstantesModule.TipoPersonalizacion.Catalogo) {
+            params.PrecioUnidad = estrategia.Precio2;
         };
 
         EstrategiaAgregarProvider

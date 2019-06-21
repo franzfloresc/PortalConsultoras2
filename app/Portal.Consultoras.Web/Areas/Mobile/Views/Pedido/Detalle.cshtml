@@ -120,8 +120,8 @@
                 </div>
                 <div id="divPedidoTotalInferior"></div>
 
-                @if (Model.IsShowGananciaConsultora)
-                {
+                @*@if (Model.IsShowGananciaConsultora)
+                {*@
                     <div class="ganancia-estimada">
                         <div class="panel-toggle">
                             <div class="toggle-header">
@@ -157,7 +157,7 @@
                                 </div>
                                 <div class="toggle-info">
                                     <span class="ganancia-titulo first-color">
-                                        Gana+ /Ofertas digitales
+                                        @ViewBag.LabelGananciaWeb
                                     </span>
                                     <span class="ganancia-total first-color">
                                         @Model.Simbolo <span id="div-ganancia-totalGananciaWeb">@ViewBag.FormatoGananciaWeb</span>
@@ -174,7 +174,7 @@
                             </div>
                         </div>
                     </div>
-                }
+                @*}*@
             </div>
         </div>
 
@@ -729,7 +729,7 @@
                     <span>{{SimboloMoneda}} <span data-pedidocondescuento="">{{FormatoTotalConDescuento}}</span></span>
                 </span>
             </div>
-            @if (!Model.IsShowGananciaConsultora)
+            @*@if (!Model.IsShowGananciaConsultora)
             {
                 <div class="ganancia-info">
                     <span class="ganancia-titulo accent-color">
@@ -745,7 +745,7 @@
                                 <div class="right_reservado">
                                     <div class="datos_Reservado">
                                         <span data-pedidototal="">{{SimboloMoneda}} {{FormatoTotal}}</span>
-                                        @*<span data-montodescuento="">{{SimboloMoneda}} {{#iff FormatoMontoDescuento '>' 0}}-{{/iff}}{{FormatoMontoDescuento}}</span>*@
+                                        <span data-montodescuento="">{{SimboloMoneda}} {{#iff FormatoMontoDescuento '>' 0}}-{{/iff}}{{FormatoMontoDescuento}}</span>
                                         <span data-montodescuento="">{{SimboloMoneda}} {{FormatoMontoDescuento}}</span>
                                     </div>
                                 </div>
@@ -758,7 +758,7 @@
                         <span class="mi_ganancia">{{SimboloMoneda}} <span data-ganancia="">{{FormatoMontoGanancia}}</span></span>
                     </span>
                 </div>
-            }
+            }*@
         </div>
     </div>
 
@@ -810,14 +810,14 @@
             Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.
         </span>
     </div>
-    @if (Model.IsShowGananciaConsultora)
-    {
+    @*@if (Model.IsShowGananciaConsultora)
+    {*@
         <div class="mb-60"></div>
-        if (Model.EstadoPedido == 1)
+        @if (Model.EstadoPedido == 1)
         {
             <div style="padding-top: 35px;margin-bottom: -20px;margin-top:-20px;"></div>
         }
-    }
+    @*}*@
     <!-- Mostrar el link de eliminación de pedido solo si el pedido no está reservado-->
     @if (Model.EstadoPedido != 1)
     {

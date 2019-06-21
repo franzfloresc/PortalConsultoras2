@@ -201,7 +201,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.GananciaRevista = pedidoWeb.GananciaRevista;
                     model.GananciaWeb = pedidoWeb.GananciaWeb;
                     model.GananciaOtros = pedidoWeb.GananciaOtros;
-                    model.IsShowGananciaConsultora = IsCalculoGananaciaConsultora(pedidoWeb);
+                    //model.IsShowGananciaConsultora = IsCalculoGananaciaConsultora(pedidoWeb);
 
                     SessionManager.SetMontosProl(
                         new List<ObjMontosProl>
@@ -374,6 +374,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             model.MensajeKitNuevas = _programaNuevasProvider.GetMensajeKit();
+            ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Ofertas digitales";
 
             return View("Index", model);
         }
@@ -3411,10 +3412,10 @@ namespace Portal.Consultoras.Web.Controllers
         /// [Ganancia] Cálculo Ganancia ofertas Catálogo*
         /// </summary>
         /// <returns></returns>
-        private bool IsCalculoGananaciaConsultora(BEPedidoWeb pedidoWeb)
-        {
-            return pedidoWeb.GananciaRevista.HasValue &&
-                   pedidoWeb.GananciaWeb.HasValue && pedidoWeb.GananciaWeb.HasValue;
-        }
+        //private bool IsCalculoGananaciaConsultora(BEPedidoWeb pedidoWeb)
+        //{
+        //    return pedidoWeb.GananciaRevista.HasValue &&
+        //           pedidoWeb.GananciaWeb.HasValue && pedidoWeb.GananciaWeb.HasValue;
+        //}
     }
 }

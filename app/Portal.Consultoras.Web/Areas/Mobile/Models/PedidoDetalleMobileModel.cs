@@ -152,6 +152,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public bool MostrarPopupPrecargados { get; set; }
 
         public string MensajeKitNuevas { get; set; }
-        public bool IsShowGananciaConsultora { get; set; }
+        //public bool IsShowGananciaConsultora { get; set; }
     }
 }

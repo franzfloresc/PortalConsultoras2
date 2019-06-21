@@ -32,12 +32,12 @@ var fichaEnriquecidaView = FichaEnriquecidaView();
 var fichaEnriquecidaPresenter = FichaEnriquecidaPresenter({
     fichaEnriquecidaView: fichaEnriquecidaView
 });
+
 var estrategia = {};
 
 $(document).ready(function () {
     try {
         fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
-        debugger;
         let carruselInicializar = new CarruselInicializar();
         carruselInicializar.crearCarruseles(params, estrategia);
     } catch (e) {

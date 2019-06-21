@@ -1,5 +1,6 @@
 ﻿"use strict";
 class CarruselView {
+
     constructor(presenter) {
         this.presenter = presenter;
 
@@ -15,6 +16,32 @@ class CarruselView {
             buscaAgregar: "[data-origenpedidowebagregar]",
             atributoAgregar: "data-origenpedidowebagregar"
         }
+        this.fichaEnriquecida = {
+            id:"#divFichaEnriquecida",
+            capa: "divFichaEnriquecida"
+        };
+        // this.divFichaCarrusel_Suggested = {
+        //     id:"#divFichaCarrusel_Suggested",
+        //     capa: "divFichaCarrusel_Suggested"
+        // };
+        this.divCarrusel = {
+            id: [
+                "#divFichaCarrusel_UpSelling", 
+                // "#divFichaEnriquecida", 
+                "#divFichaCarrusel_CrossSell", 
+                "#divFichaCarrusel_Suggested"
+            ],
+            capa: [
+                "divFichaCarrusel_UpSelling", 
+                // "divFichaEnriquecida", 
+                "divFichaCarrusel_CrossSell", 
+                "divFichaCarrusel_Suggested"
+            ]
+        };
+        this.divCarruselFicha = {
+            ficha: ".contenedor_seccion_fichas .seccion_ficha",
+            visible: ".contenedor_seccion_fichas .seccion_ficha:not(:hidden)"
+        }
     }
 
     fijarObjetosCarrusel(tipo) {
@@ -22,6 +49,7 @@ class CarruselView {
         this.divCarruselProducto = this.divCarruselContenedor + " " + this.divCarruselProducto;
         this.idTituloCarrusel = this.divCarruselContenedor + " " + this.idTituloCarrusel;
     }
+
     crearPlantilla(data, titulo) {
         SetHandlebars(this.idPlantillaProducto, data, this.divCarruselProducto);
         this.mostrarSlicks();
@@ -118,4 +146,48 @@ class CarruselView {
             CarruselAyuda.MarcarAnalyticsChange(slick, currentSlide, nextSlide, origen);
         }
     }
+
+    filterFichaVisible(ficha){
+        return $(this.divCarruselFicha.visible).filter(function (indice, elemento) {
+            return elemento.id === ficha;
+        })[0];
+    }
+
+    reorderFichaCarrusel(model){
+        var orden = 0;
+        var _this = this;
+
+        // _this.hiddenSinStock(model);
+
+        $.each($(this.divCarruselFicha.ficha), function(indice, elemento){
+            $(elemento).css("order", "");
+        });
+
+        this.divCarrusel.capa.forEach(function (ficha) {
+            var encontrado = _this.filterFichaVisible(ficha);
+            if (encontrado != undefined) {
+                $(encontrado).css("order", orden);
+
+                if (orden == 0 && _this.filterFichaVisible(_this.fichaEnriquecida.capa) != undefined) {
+                    $(_this.fichaEnriquecida.id).css("order", orden + 1);
+                    orden++;
+                }
+
+                orden++;
+            }
+        });
+    }
+
+    // hiddenSinStock(model) {
+    //     var _this = this;
+
+    //     if (!model.tieneStock && _this.filterFichaVisible(_this.divFichaCarrusel_Suggested.capa)) {
+    //         this.divCarrusel.id.forEach(function (ficha) {
+    //             $(ficha).hide();
+    //         });
+
+    //         $(_this.divFichaCarrusel_Suggested.id).show();
+    //     }
+    // }
+
 }
