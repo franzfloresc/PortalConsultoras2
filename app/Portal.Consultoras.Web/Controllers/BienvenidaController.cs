@@ -216,12 +216,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                if (!SessionManager.GetActualizarDatosConsultora())
-                {
-                    RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
-                    SessionManager.SetActualizarDatosConsultora(true);
-                }
-
                 model.ShowRoomMostrarLista = (!ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado)).ToInt();
                 model.ShowRoomBannerUrl = _showRoomProvider.ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 model.TieneCupon = userData.TieneCupon;
@@ -253,10 +247,10 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 #region Camino al Éxito
-                var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.EscalaDescuentoDestokp);
+                var LogicaCaminoExisto = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, ConsTablaLogica.CaminoAlExitoDesktop.TablaLogicaId);
                 if (LogicaCaminoExisto.Any())
                 {
-                    var CaminoExistoFirst = LogicaCaminoExisto.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.ActualizaEscalaDescuentoDestokp) ?? new TablaLogicaDatosModel();
+                    var CaminoExistoFirst = LogicaCaminoExisto.FirstOrDefault(x => x.TablaLogicaDatosID == ConsTablaLogica.CaminoAlExitoDesktop.ActualizaEscalaDescuentoDesktop) ?? new TablaLogicaDatosModel();
                     bool caminiExitoActive = (CaminoExistoFirst != null && CaminoExistoFirst.Valor != null) && CaminoExistoFirst.Valor.Equals("1");
                     if (caminiExitoActive)
                     {
@@ -265,12 +259,6 @@ namespace Portal.Consultoras.Web.Controllers
                         model.urlCaminoExito = accesoCaminoExito.Item2 ?? "";
                     }
                 }
-                #endregion
-
-                #region bonificaciones 
-
-                ViewBag.esConsultoraDigital = IndicadorConsultoraDigital();
-
                 #endregion
             }
             catch (FaultException ex)
@@ -2106,33 +2094,24 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (resultadoActivoPopup == 1)
                         {
-                            if (userData.PaisID == Convert.ToInt32(Constantes.PaisID.Peru))
-                                ValidacionDatos = ValidacionPerfilConsultoraPeru(obj);
-                            else
-                                ValidacionDatos = ValidacionPerfilConsultorOtrosPaises(obj);
+                            ValidacionDatos = userData.PaisID == Convert.ToInt32(Constantes.PaisID.Peru) ? ValidacionPerfilConsultoraPeru(obj) : ValidacionPerfilConsultorOtrosPaises(obj);
                         }
                         else
                         {
-                            if (userData.PaisID == Convert.ToInt32(Constantes.PaisID.Peru))
-                                ValidacionDatos = ValidacionPerfilConsultoraToolTip(obj, pagina);
-                            else
-                                ValidacionDatos = ValidacionPerfilConsultorOtrosPaises(obj);
+                            ValidacionDatos = userData.PaisID == Convert.ToInt32(Constantes.PaisID.Peru) ? ValidacionPerfilConsultoraToolTip(obj, pagina) : ValidacionPerfilConsultorOtrosPaises(obj);
                         }
                     }
                     else
                         ValidacionDatos = ValidacionPerfilConsultoraToolTip(obj, pagina);
 
-                    if (EsDispositivoMovil()) urlMuestraPopup = Constantes.UrlDatsoPendientes.MiPerfilMobile;
-                    else urlMuestraPopup = Constantes.UrlDatsoPendientes.MiPerfilDesktop;
+                    urlMuestraPopup = Url.Action("Index", "MiPerfil", EsDispositivoMovil() ? new { area="Mobile" } : new { area="" });
 
-                    return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1].ToString(), tipoMostrador = resultadoActivoPopup, urlDispositivo = urlMuestraPopup }, JsonRequestBehavior.AllowGet);
+                    return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1], tipoMostrador = resultadoActivoPopup, urlDispositivo = urlMuestraPopup }, JsonRequestBehavior.AllowGet);
                 }
-                else
-                {
-                    ValidacionDatos[0] = "0";
-                    ValidacionDatos[1] = string.Empty;
-                }
-                return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1].ToString(), tipoMostrador = resultadoActivoPopup, urlDispositivo = urlMuestraPopup }, JsonRequestBehavior.AllowGet);
+
+                ValidacionDatos[0] = "0";
+                ValidacionDatos[1] = string.Empty;
+                return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1], tipoMostrador = resultadoActivoPopup, urlDispositivo = urlMuestraPopup }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)
@@ -2339,6 +2318,11 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "Error al obtener el estado del contrato."
                 }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public ActionResult KeepAlive()
+        {
+            return Content("OK");
         }
     }
 } 

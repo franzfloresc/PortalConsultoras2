@@ -38,11 +38,10 @@ namespace Portal.Consultoras.Web.Controllers
                 string mostrarAyudaWebTracking = Convert.ToInt32(usuario.MostrarAyudaWebTraking).ToString();
                 string paisIso = userData.CodigoISO.Trim();
                 string campanhaId = userData.CampaniaID.ToString();
-                //HD-3606 EINCA
                 string zonaID = userData.ZonaID.ToString();
                 string regionID = userData.RegionID.ToString();
 
-                string url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisId, codigoConsultora, mostrarAyudaWebTracking, paisIso, campanhaId,zonaID,regionID);
+                string url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisId, codigoConsultora, mostrarAyudaWebTracking, paisIso, campanhaId, zonaID, regionID);
 
                 ViewBag.URLWebTracking = url;
             }

@@ -1,13 +1,11 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Portal.Consultoras.Web.Providers
 {
     public class ChatEmtelcoProvider
     {
-        protected readonly TablaLogicaProvider _tablaLogicaProvider;
+        private readonly TablaLogicaProvider _tablaLogicaProvider;
 
         public ChatEmtelcoProvider() : this(new TablaLogicaProvider())
         {
@@ -18,25 +16,17 @@ namespace Portal.Consultoras.Web.Providers
             _tablaLogicaProvider = tablaLogicaProvider;
         }
 
-
-
-        public bool HabilitarChatEmtelco(int paisId, bool esMobile)
+        public ChatActivation HabilitarChats(int paisId, bool esMobile)
         {
-            bool Mostrar = false;
-            List<TablaLogicaDatosModel> DataLogica = _tablaLogicaProvider.GetTablaLogicaDatos(paisId, Constantes.TablaLogica.HabilitarChatEmtelco, false);
+            var datos = _tablaLogicaProvider.GetTablaLogicaDatos(paisId, ConsTablaLogica.ChatEmtelco.TablaLogicaId);
 
-            if (esMobile)
+            var result = new ChatActivation
             {
-                if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("02")).Valor == "1")
-                    Mostrar = true;
-            }
-            else
-            {
-                if (DataLogica.FirstOrDefault(x => x.Codigo.Equals("01")).Valor == "1")
-                    Mostrar = true;
-            }
+                ChatEmtelco = _tablaLogicaProvider.GetValueByCode(datos, esMobile ? "02": "01") == "1",
+                ChatBot = _tablaLogicaProvider.GetValueByCode(datos, esMobile ? "05": "04") == "1"
+            };
 
-            return Mostrar;
+            return result;
         }
     }
 }

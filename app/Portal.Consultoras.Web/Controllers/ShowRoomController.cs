@@ -23,27 +23,6 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Intriga()
         {
             return RedirectToAction("Index", "Ofertas");
-
-            /*
-            if (!ValidarIngresoShowRoom(true))
-            {
-                return RedirectToAction("Index", "Bienvenida");
-            }
-
-            var model = ObtenerPrimeraOfertaShowRoom();
-            if (model == null) return RedirectToAction("Index", "Bienvenida");
-
-            //model.Simbolo = userData.Simbolo;
-            //model.CodigoISO = userData.CodigoISO;
-            //model.Suscripcion = (configEstrategiaSR.BeShowRoomConsultora ?? new ShowRoomEventoConsultoraModel()).Suscripcion;
-            //model.EMail = userData.EMail;
-            //model.EMailActivo = userData.EMailActivo;
-            //model.Celular = userData.Celular;
-            //model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-            //model.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == model.CUV) ? "block" : "none";
-
-            return View(model);
-            */
         }
 
         public ActionResult Index(string query)
@@ -98,7 +77,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ShowRoomEventoModel showRoomEventoModel = CargarValoresModel();
 
-                List<EstrategiaPersonalizadaProductoModel> listaShowRoomOfertas = new List<EstrategiaPersonalizadaProductoModel>();
+                List<EstrategiaPersonalizadaProductoModel> listaShowRoomOfertas;
 
                 if (_showRoomProvider.UsarSession(Constantes.TipoEstrategiaCodigo.ShowRoom))
                 {
@@ -112,25 +91,15 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     List<ServiceOferta.BEEstrategia> listaProducto = _ofertaPersonalizadaProvider.GetShowRoomOfertasConsultora(userData);
-                    listaProducto.ForEach(x => x.TieneStock = true);
-
-                    if (listaProducto.Any())
-                    {
-                        if (_ofertaPersonalizadaProvider.GetValidarDiasAntesStock(userData))
-                        {
-                            listaProducto = _ofertaPersonalizadaProvider.ActualizarEstrategiaStockPROL(listaProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora);
-                        }
-                    }
+                    
                     List<EstrategiaPedidoModel> listaProductoModel = _ofertaPersonalizadaProvider.ConsultarEstrategiasFormatoEstrategiaToModel1(listaProducto, userData.CodigoISO, userData.CampaniaID);
 
                     List<EstrategiaPedidoModel> listaEstrategiaOfertas;
                     List<EstrategiaPedidoModel> listaEstrategiaSubCampania;
-                    var listaEstrategiaOfertasPerdio = new List<EstrategiaPedidoModel>();
-
+                    
                     if (revistaDigital.ActivoMdo && !revistaDigital.EsActiva)
                     {
                         listaEstrategiaOfertas = listaProductoModel.Where(x => !x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
-                        listaEstrategiaOfertasPerdio = listaProductoModel.Where(x => !x.EsSubCampania && x.FlagRevista != Constantes.FlagRevista.Valor0).ToList();
                         listaEstrategiaSubCampania = listaProductoModel.Where(x => x.EsSubCampania && x.FlagRevista == Constantes.FlagRevista.Valor0).ToList();
                     }
                     else

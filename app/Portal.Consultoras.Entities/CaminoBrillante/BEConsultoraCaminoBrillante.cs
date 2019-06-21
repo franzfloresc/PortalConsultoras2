@@ -21,7 +21,8 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         /// </summary>
         public List<BELogroCaminoBrillante> Logros { get; set; }
 
-        public class BENivelConsultoraCaminoBrillante {
+        public class BENivelConsultoraCaminoBrillante
+        {
 
             /// <summary>
             /// Obtiene el periodo al que pertence la consultora de acuerdo a su campaña
@@ -63,6 +64,10 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
             /// Flag Nivel Actual 
             /// </summary>
             public bool EsActual { get; set; }
+            /// <summary>
+            /// Puntaje Acumulado 
+            /// </summary>
+            public int? PuntajeAcumulado { get; set; }
         }
 
     }

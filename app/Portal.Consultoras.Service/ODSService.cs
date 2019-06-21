@@ -1,8 +1,10 @@
 ﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.BizLogic.ArmaTuPack;
+using Portal.Consultoras.BizLogic.CaminoBrillante;
 using Portal.Consultoras.BizLogic.LimiteVenta;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.CaminoBrillante;
 using Portal.Consultoras.Entities.LimiteVenta;
 using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.ServiceContracts;
@@ -21,6 +23,7 @@ namespace Portal.Consultoras.Service
         private readonly BLConsultora BLConsultora;
         private readonly BLTipoMeta BLTipoMeta;
         private readonly BLUbigeo BLUbigeo;
+        private readonly ICaminoBrillanteBusinessLogic caminoBrillanteBusinessLogic;
 
         public ODSService()
         {
@@ -32,6 +35,7 @@ namespace Portal.Consultoras.Service
             BLTipoMeta = new BLTipoMeta();
             BLUbigeo = new BLUbigeo();
             BLArmaTuPack = new BLArmaTuPack();
+            caminoBrillanteBusinessLogic = new BLCaminoBrillante();
         }
 
         public IList<BEMensajeCUV> GetMensajesCUVsByPaisAndCampania(int CampaniaID, int paisID)
@@ -111,12 +115,9 @@ namespace Portal.Consultoras.Service
             return new BLConsultora().GetSaldoActualConsultora(paisID, Codigo);
         }
 
-        public IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(int paisID, int campaniaID,
-            string codigoDescripcion, int RegionID, int ZonaID, string CodigoRegion, string CodigoZona, int criterio,
-            int rowCount, bool validarOpt)
+        public IList<BEProducto> SelectProductoByCodigoDescripcionSearchRegionZona(BEProductoBusqueda busqueda)
         {
-            return BLProducto.SelectProductoByCodigoDescripcionSearchRegionZona(paisID, campaniaID, codigoDescripcion,
-                RegionID, ZonaID, CodigoRegion, CodigoZona, criterio, rowCount, validarOpt);
+            return BLProducto.SelectProductoByCodigoDescripcionSearchRegionZona(busqueda);
         }
 
         public IList<BEProducto> SearchListProductoChatbotByCampaniaRegionZona(string paisISO, int campaniaID,
@@ -342,5 +343,12 @@ namespace Portal.Consultoras.Service
         {
             return BLProgramaNuevas.Editar(premio);
         }
+
+        #region ProgramaNuevas
+        public BEValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(BEUsuario entidad, string cuv) {
+            return caminoBrillanteBusinessLogic.ValidarBusquedaCaminoBrillante(entidad, cuv);
+        }
+        #endregion
+
     }
 }

@@ -216,8 +216,6 @@ $(document).ready(function () {
 
     });
 
-
-    //GetNivelConsultoraCaminoBrillante();
     CrearDialogs();
     CargarCarouselEstrategias();
     if (_validartieneMasVendidos() === 1) {
@@ -412,7 +410,6 @@ $(document).ready(function () {
     });
 
     $("#divCarruselLiquidaciones").on('click', '.js-agregar-liquidacion', function (e) {
-        
         if (!$(this).hasClass("no_accionar")) {
             agregarProductoAlCarrito(this);
         }
@@ -450,7 +447,7 @@ $(document).ready(function () {
         CargarProductoLiquidacionPopup(objProducto, objHidden);
     });
     $(document).on('click', '.js-agregar-popup-liquidacion', function () {
-        
+
         var contenedor = $(this).parents('#divTonosTallas');
         PedidoRegistroModule.AgregarProductoLiquidacionBienvenida(contenedor);
     });
@@ -616,9 +613,9 @@ function mostrarVideoIntroductorio() {
         primeraVezVideo = false;
         return true;
 
-        if (viewBagVioTutorialSalvavidas == '0') {
-            mostrarUbicacionTutorial(false, false);
-        }
+        //if (viewBagVioTutorialSalvavidas == '0') {
+        //    mostrarUbicacionTutorial(false, false);
+        //}
     } catch (e) {
 
     }
@@ -749,6 +746,11 @@ function EstructurarDataCarouselLiquidaciones(array) {
             item.TextoBotonTallaColor = "";
             item.TieneTallaColor = false;
         }
+        /* INI HD-4009 */
+        item.ValPUM = (item.UnidadMedida == "" || item.PUM == "") ? false : true;
+        item.UnidadMedida = item.UnidadMedida.toLowerCase();
+        /* FIN HD-4009 */
+
     });
 
     return array;
@@ -2270,8 +2272,8 @@ function NoMostrarPopupShowRoomIntrigaVenta(tipo) {
         },
         error: function (response, error) {
             if (checkTimeout(response)) {
-                closeWaitingDialog();              
-            }   
+                closeWaitingDialog();
+            }
             click_no_volver_a_ver_este_anuncio_PopShowroomVenta();
             $('#PopShowroomVenta').hide();
         }
@@ -2533,8 +2535,7 @@ function ActualizarVisualizoComunicado(comunicadoId) {
         data: JSON.stringify(params),
         contentType: 'application/json',
         success: function (data) {
-            if (checkTimeout(data)) {
-            }
+            //
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -2796,7 +2797,7 @@ function click_no_volver_a_ver_este_anuncio_PopShowroomVenta() {
 }
 
 function MostrarPopupInicial() {
-    
+
     if (showPopupMisDatos == '1' || popupCambioClave == "1") {
         CargarMisDatos();
         return;
@@ -2908,8 +2909,7 @@ function ConsultarEmailPendiente() {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
         success: function (data) {
-            if (checkTimeout(data))
-            {
+            if (checkTimeout(data)) {
                 /*En este caso se mostrarà el tooltip*/
                 if (parseInt(data.tipoMostrador) == 0) {
                     if (data.mensaje.length > 0) {
@@ -2920,7 +2920,7 @@ function ConsultarEmailPendiente() {
                         document.getElementsByClassName('popup__wrapper')[0].style.display = 'none';
                         document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'none';
                     }
-                 /*En este caso se mostrarà el popup*/
+                    /*En este caso se mostrarà el popup*/
                 } else {
                     document.getElementsByClassName('tooltip_info_revision_correo')[0].style.display = 'none';
                     var hrefUrl = document.getElementById('hrfUrl');
@@ -2933,7 +2933,7 @@ function ConsultarEmailPendiente() {
                         document.getElementsByClassName('popup__wrapper')[0].style.display = 'block';
                         document.getElementById("mensaje").innerHTML = "";
                         document.getElementById("mensaje").innerHTML = data.mensaje;
-                  
+
                     }
                 }
             }

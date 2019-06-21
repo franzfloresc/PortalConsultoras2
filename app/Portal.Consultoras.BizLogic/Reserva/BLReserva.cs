@@ -1,10 +1,8 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
-using Portal.Consultoras.Data.ServicePROL;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Entities.ProgramaNuevas;
 using Portal.Consultoras.Entities.ReservaProl;
-
+using Portal.Consultoras.Entities.Usuario;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,12 +12,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
-using Portal.Consultoras.Entities.Usuario;
 
 namespace Portal.Consultoras.BizLogic.Reserva
 {
     public class BLReserva : IReservaBusinessLogic
     {
+        private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
+        public BLReserva() : this(new BLTablaLogicaDatos())
+        { }
+        public BLReserva(ITablaLogicaDatosBusinessLogic tablaLogicaDatosBusinessLogic)
+        {
+            _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
+        }
+
         #region Public Functions
 
         public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo)
@@ -54,11 +59,13 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 throw;
             }
         }
-        
+
         public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
         {
+            if (usuario.AutorizaPedido == "0") return _tablaLogicaDatosBusinessLogic.GetList(usuario.PaisID, Constantes.TablaLogica.MsjPopupBloqueadas).FirstOrDefault(a => a.Codigo == "01").Valor;
+
             if (usuario.IndicadorGPRSB == 1) return string.Format("En este momento nos encontramos facturando tu pedido de C{0}, inténtalo más tarde", usuario.CampaniaID.Substring(4, 2));
-            
+
             var codigoUsuario = usuario.UsuarioPrueba == 1 ? usuario.ConsultoraAsociada : usuario.CodigoUsuario;
             bool validacionAbierta = tipo == "PV";
             short estado = validacionAbierta ? Constantes.EstadoPedido.Procesado : Constantes.EstadoPedido.Pendiente;
@@ -152,7 +159,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                     SegmentoInternoID = (usuario.SegmentoInternoID == null ? 0 : Convert.ToInt32(usuario.SegmentoInternoID)),
                     CodigoPrograma = usuario.CodigoPrograma,
                     ConsecutivoNueva = usuario.ConsecutivoNueva
-                    
+
                 };
 
                 if (usuario.TieneHana == 1)
@@ -185,20 +192,28 @@ namespace Portal.Consultoras.BizLogic.Reserva
             }
         }
 
-        public async Task<BEResultadoReservaProl> EjecutarReserva(BEInputReservaProl input)
+        public async Task<BEResultadoReservaProl> EjecutarReserva(BEInputReservaProl input, bool crudreservado = false)
+        {
+            return await Task.Run(() => EjecutarReservaCrud(input, crudreservado));
+        }
+
+        public BEResultadoReservaProl EjecutarReservaCrud(BEInputReservaProl input, bool crudreservado = false)
         {
             if (!input.ZonaValida) return new BEResultadoReservaProl { Reserva = true, ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
             if (!input.ValidacionInteractiva) return new BEResultadoReservaProl { ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
+
+
             try
             {
                 var listDetalle = GetPedidoWebDetalleReserva(input, false);
                 var listDetalleSinBackOrder = listDetalle.Where(d => !d.AceptoBackOrder).ToList();
-                if (!listDetalleSinBackOrder.Any()) return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_SinDetalle, true);
+                if (!listDetalleSinBackOrder.Any())
+                    return new BEResultadoReservaProl(Constantes.MensajesError.Reserva_SinDetalle, true, Enumeradores.ResultadoReserva.NoReservadoMontoMinimo);
 
                 input.PedidoID = listDetalle[0].PedidoID;
                 input.VersionProl = GetVersionProl(input.PaisID);
                 var reservaExternaBL = NewReservaExternaBL(input.VersionProl);
-                BEResultadoReservaProl resultado = await reservaExternaBL.ReservarPedido(input, listDetalleSinBackOrder);
+                BEResultadoReservaProl resultado = reservaExternaBL.ReservarPedido(input, listDetalleSinBackOrder).GetAwaiter().GetResult();
                 if (resultado.Error) return resultado;
 
                 resultado.MontoGanancia = resultado.MontoAhorroCatalogo + resultado.MontoAhorroRevista;
@@ -210,15 +225,20 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 resultado.RefreshPedido = true;
                 resultado.RefreshMontosProl = true;
                 resultado.PedidoID = input.PedidoID;
-                resultado.EnviarCorreo = DebeEnviarCorreoReservaProl(input, resultado);
 
-                if (input.EnviarCorreo && resultado.EnviarCorreo)
+                if (!crudreservado)
                 {
-                    var listaDetalleAgrupado = GetPedidoWebDetalleReserva(input, true);
+                    resultado.EnviarCorreo = DebeEnviarCorreoReservaProl(input, resultado);
 
-                    try { EnviarCorreoReservaProl(input, listaDetalleAgrupado); }
-                    catch (Exception ex) { LogManager.SaveLog(ex, input.CodigoUsuario, input.PaisISO); }                    
+                    if (input.EnviarCorreo && resultado.EnviarCorreo)
+                    {
+                        var listaDetalleAgrupado = GetPedidoWebDetalleReserva(input, true);
+
+                        try { EnviarCorreoReservaProl(input, listaDetalleAgrupado); }
+                        catch (Exception ex) { LogManager.SaveLog(ex, input.CodigoUsuario, input.PaisISO); }
+                    }
                 }
+
                 return resultado;
             }
             catch (Exception ex)
@@ -254,11 +274,11 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 return false;
             }
         }
-        
+
         #endregion
 
         #region Private Functions
-        
+
         private void UpdateDiaPROLAndEsHoraReserva(BEUsuario usuario)
         {
             DateTime fechaHoraActual = DateTime.Now.AddHours(usuario.ZonaHoraria);
@@ -383,7 +403,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                     daPedidoWeb.UpdPedidoWebDesReserva(input.CampaniaID, input.PedidoID, Constantes.EstadoPedido.Pendiente, false, input.CodigoUsuario, false);
                 }
                 daPedidoWebDetalle.UpdListBackOrderPedidoWebDetalle(input.CampaniaID, input.PedidoID, resultado.ListDetalleBackOrder);
-                
+
                 if (!string.IsNullOrEmpty(resultado.ListaConcursosCodigos))
                 {
                     daConcurso.ActualizarInsertarPuntosConcurso(input.CodigoConsultora, input.CampaniaID.ToString(), resultado.ListaConcursosCodigos, resultado.ListaConcursosPuntaje, resultado.ListaConcursosPuntajeExigido);
@@ -417,7 +437,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
                 ObservacionPROL = observacion.Descripcion
             };
         }
-        
+
         private decimal CalcularGananciaEstimada(int paisId, int campaniaId, int pedidoId, decimal totalPedido)
         {
             var bLFactorGanancia = new BLFactorGanancia();
@@ -448,7 +468,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             });
             return productosIndicadorDscto.Sum(p => p.MontoDscto);
         }
-        
+
         private bool DebeEnviarCorreoReservaProl(BEInputReservaProl input, BEResultadoReservaProl resultado)
         {
             if (!resultado.Reserva || input.Email.IsNullOrEmptyTrim()) return false;
@@ -514,11 +534,12 @@ namespace Portal.Consultoras.BizLogic.Reserva
             {
                 mailBody.AppendFormat("<tr> <td style = 'width: 50%; font-family: Arial; font-size: 13px; color: {0}; font-weight:700; padding-left: 14%; text-align:left; padding-bottom: 20px; padding-top: 5px' > Comisión y ahorro total: </td>", colorStyle);
             }
-            else if(input.PaisID == Constantes.PaisID.CostaRica)
+            else if (input.PaisID == Constantes.PaisID.CostaRica)
             {
                 mailBody.AppendFormat("<tr> <td style = 'width: 50%; font-family: Arial; font-size: 13px; color: {0}; font-weight:700; padding-left: 14%; text-align:left; padding-bottom: 20px; padding-top: 5px' > Oportunidad de ahorro total: </td>", colorStyle);
             }
-            else {
+            else
+            {
                 mailBody.AppendFormat("<tr> <td style = 'width: 50%; font-family: Arial; font-size: 13px; color: {0}; font-weight:700; padding-left: 14%; text-align:left; padding-bottom: 20px; padding-top: 5px' > Ganancia estimada: </td>", colorStyle);
             }
 
@@ -558,7 +579,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
 
                     }
                 }
-                //FIN HD-3757
+
                 mailBody.AppendFormat("<tr> <td colspan = '2' style = 'width: 100%; text-align: left; color: #4d4d4e; font-family: Arial; font-size: 13px; padding-top: 2px;' > Cliente: {0} </td></tr>", !string.IsNullOrEmpty(pedidoDetalle.Nombre) ? CultureInfo.InvariantCulture.TextInfo.ToTitleCase(pedidoDetalle.Nombre.ToLower()) : CultureInfo.InvariantCulture.TextInfo.ToTitleCase(input.Sobrenombre.ToLower()));
                 mailBody.AppendFormat("<tr><td colspan = '2' style = 'width: 100%; text-align: left; color: #4d4d4e; font-family: Arial; font-size: 13px; padding-top: 2px;' > Cantidad: {0} </td></tr>", pedidoDetalle.Cantidad);
                 mailBody.Append(rowPrecioUnitario);
@@ -603,7 +624,7 @@ namespace Portal.Consultoras.BizLogic.Reserva
             }
             else
             {
-               mailBody.AppendFormat("<tr><td style = 'width: 50%; font-family: Arial; font-size: 13px; color: {0}; font-weight:700; padding-left: 10px; text-align:left; padding-bottom: 13px; padding-top: 5px;' > Ganancia estimada:</td>", colorStyle);
+                mailBody.AppendFormat("<tr><td style = 'width: 50%; font-family: Arial; font-size: 13px; color: {0}; font-weight:700; padding-left: 10px; text-align:left; padding-bottom: 13px; padding-top: 5px;' > Ganancia estimada:</td>", colorStyle);
 
             }
             mailBody.AppendFormat("<td style = 'width: 50%; font-family: Arial; font-size: 13px; font-weight: 700; color: {0}; padding-right:10px; text-align:right; padding-bottom: 13px; padding-top: 5px;' > {2}{1}</td></tr>", colorStyle, _gananciaEstimada, simbolo);

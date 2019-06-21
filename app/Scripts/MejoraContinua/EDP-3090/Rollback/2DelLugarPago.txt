@@ -1,6 +1,0 @@
-Alter procedure [dbo].[DelLugarPago]
-  @LugarPagoID int
-as 
-  delete LugarPago
-  where LugarPagoID = @LugarPagoID  
-   go 

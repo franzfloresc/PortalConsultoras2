@@ -372,8 +372,7 @@ namespace Portal.Consultoras.Web.Models
         public double IvaTotalCer { get; set; }
         public string FotoOriginalSinModificar { get; set; }
         public bool PuedeEnviarSMS { get; set; }
-        public bool PuedeActualizar { get; set; }
-        public bool FotoPerfilAncha { get; set; }
+        public bool PuedeActualizar { get; set; }        
         public string MensajeChat { get; set; }
         public double PromedioVenta { get; set; }
 
@@ -414,5 +413,9 @@ namespace Portal.Consultoras.Web.Models
         public int NivelCaminoBrillante { get; set; }
         #endregion
 
+        public string AutorizaPedido { get; set; }
+
+        public bool PuedeConfirmarAllEmail { get; set; }
+        public bool PuedeConfirmarAllSms { get; set; }
     }
 }

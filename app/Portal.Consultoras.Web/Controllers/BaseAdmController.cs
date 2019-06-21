@@ -3,6 +3,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -46,7 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenerCampaniasNemotecnicoPorPais(int PaisID)
         {
             IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
-            string habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoProductoSugerido);
+            string habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(PaisID, ConsTablaLogica.Plan20.TablaLogicaId, ConsTablaLogica.Plan20.BusquedaNemotecnicoProductoSugerido);
             return Json(new
             {
                 lista = lst,
@@ -101,6 +102,45 @@ namespace Portal.Consultoras.Web.Controllers
             IEnumerable<CampaniaModel> lst = _zonificacionProvider.GetCampanias(PaisID);
             IEnumerable<ZonaModel> lstZonas = _zonificacionProvider.GetZonas(PaisID);
             IEnumerable<RegionModel> lstRegiones = _zonificacionProvider.GetRegiones(PaisID);
+            return Json(new
+            {
+                lstCampania = lst,
+                lstZona = lstZonas.OrderBy(p => p.Codigo),
+                lstRegion = lstRegiones.OrderBy(p => p.Codigo),
+            }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public async Task<JsonResult> GetZonasByRegion(int PaisID ,int RegionID)
+
+        {
+            IEnumerable<ZonaModel> lstZonas;
+            if (RegionID == -1)
+            {
+                 lstZonas = await _zonificacionProvider.GetZonasAsync(PaisID);
+            }
+            else
+            {
+
+                lstZonas = await _zonificacionProvider.GetZonasByRegionAsync(PaisID, RegionID);
+
+            }
+
+            
+            
+            return Json(new
+            {
+
+                listaZonas = lstZonas.OrderBy(p => p.Codigo),
+           
+            }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        [OutputCache(Duration = 3000, VaryByParam = "*", Location = System.Web.UI.OutputCacheLocation.Server)]
+        public async Task<JsonResult> ObtenerCampaniasZonasRegionesPorPaisAsync(int PaisID)
+        {
+            IEnumerable<CampaniaModel> lst = await _zonificacionProvider.GetCampaniasAsync(PaisID);
+            IEnumerable<ZonaModel> lstZonas = await _zonificacionProvider.GetZonasAsync(PaisID);
+            IEnumerable<RegionModel> lstRegiones = await _zonificacionProvider.GetRegionesAsync(PaisID);
             return Json(new
             {
                 lstCampania = lst,

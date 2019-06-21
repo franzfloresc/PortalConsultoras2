@@ -1,5 +1,0 @@
-Proyecto: PortalConsultoras2
-
-Capa WCF
-========
-* Agregar (revisar si no existe): <add key="PaisesFraccionKitNuevas" value="MX;CL;BO" />

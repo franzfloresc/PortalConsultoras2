@@ -81,6 +81,11 @@ $(document).ready(function () {
                 $('#dialog_SesionMainLayout').hide();
                 window.location.href = "Login";
             }
+
+            if ($('#PopupCierreSesion').is(':visible')) {
+                $('#PopupCierreSesion').hide();
+                window.location.href = "Login";
+            }
         }
     });
 
@@ -176,6 +181,22 @@ $(document).ready(function () {
         }
     });
 
+    $('#alertDialogMensajes25seg').dialog({
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: false,
+        close: function (event, ui) {
+            HideDialog("alertDialogMensajes25seg");
+        },
+        beforeClose: function (event, ui) {
+            document.querySelector('.setBottom').style.transition = null
+        },
+        draggable: false,
+        dialogClass: 'setBottom',
+        position: "bottom"
+    });
+
     $('#ModalFeDeErratas').dialog({
         autoOpen: false,
         resizable: false,
@@ -216,11 +237,11 @@ $(document).ready(function () {
         draggable: true,
         title: "Comunidad SomosBelcorp",
         buttons:
-            {
-                "Aceptar": function () {
-                    HideDialog("DialogMensajesCom");
-                }
+        {
+            "Aceptar": function () {
+                HideDialog("DialogMensajesCom");
             }
+        }
     });
 
     $('#divMensajeConfirmacion').dialog({
@@ -272,6 +293,7 @@ $(document).ready(function () {
         }
     });
 
+
     $("body").on("keypress", ".ValidaNumeral", function (e) {
         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
             return false;
@@ -305,10 +327,23 @@ $(document).ready(function () {
 
     $("body").on('click', '.belcorpChat', function (e) {
         e.preventDefault();
+        if (typeof habilitarChatEmtelco === 'undefined') {
+            return false;
+        }
 
-        var connected = localStorage.getItem('connected');
-        var idBtn = connected ? '#btn_open' : '#btn_init';
-        $(idBtn).trigger("click");
+        if (habilitarChatEmtelco == 'True') {
+            var connected = localStorage.getItem('connected');
+            var idBtn = connected ? '#btn_open' : '#btn_init';
+            $(idBtn).trigger("click");
+
+            return false;
+        }
+
+        if (habilitarChatBot === 'True') {
+            if (typeof FB !== "undefined") {
+                FB.CustomerChat.showDialog();
+            }
+        }
 
         return false;
     });
@@ -335,21 +370,47 @@ function AbrirVentanaBelcorpChat(url) {
 function messageInfoError(message, titulo, fnAceptar) {
     message = $.trim(message);
     if (message != "") {
-        $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
-        $('#dialog_ErrorMainLayout').show();
 
-        $('#dialog_ErrorMainLayout .btn_ok').off('click');
-        $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
+        //$('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
+        //$('#dialog_ErrorMainLayout').show();
 
-        $('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
-            $('#dialog_ErrorMainLayout').hide();
-            if ($.isFunction(fnAceptar)) fnAceptar();
-        });
+        //$('#dialog_ErrorMainLayout .btn_ok').off('click');
+        //$('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
 
-        $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
-            $('#dialog_ErrorMainLayout').hide();
-            if ($.isFunction(fnAceptar)) fnAceptar();
-        });
+        //$('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
+        //    $('#dialog_ErrorMainLayout').hide();
+        //    if ($.isFunction(fnAceptar)) fnAceptar();
+        //});
+
+        //$('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
+        //    $('#dialog_ErrorMainLayout').hide();
+        //    if ($.isFunction(fnAceptar)) fnAceptar();
+        //});
+
+        //INI HD-3693
+        var msjBloq = validarpopupBloqueada(message);
+        if (msjBloq != "") {
+            alert_msg_bloqueadas(msjBloq);
+        } else {
+            $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
+            $('#dialog_ErrorMainLayout').show();
+
+            $('#dialog_ErrorMainLayout .btn_ok').off('click');
+            $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
+
+            $('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
+                $('#dialog_ErrorMainLayout').hide();
+                if ($.isFunction(fnAceptar)) fnAceptar();
+            });
+
+            $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
+                $('#dialog_ErrorMainLayout').hide();
+                if ($.isFunction(fnAceptar)) fnAceptar();
+            });
+        }
+        //FIN HD-3693
+
+
     }
 }
 
@@ -657,6 +718,7 @@ function alert_msg_com(message) {
     $('#DialogMensajesCom .message_text').html(message);
     $('#DialogMensajesCom').dialog('open');
 }
+
 
 function AbrirModalRegistroComunidad() {
 
@@ -1227,3 +1289,9 @@ function OcultarChatEmtelco() {
         $(".CMXD-help").hide();
     }
 }
+//INI HD-3693
+function alert_msg_bloqueadas(message) {
+    $('#PopupBloqueoPorSistema .message_text_bloqueada').html(message);
+    $('#PopupBloqueoPorSistema').show();
+}
+//FIN HD-3693

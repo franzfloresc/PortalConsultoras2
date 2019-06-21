@@ -132,10 +132,19 @@ $(function () {
 
     $("body").on('click', '.belcorpChat, .indicador_ayuda', function (e) {
         e.preventDefault();
+        if (typeof habilitarChatEmtelco === 'undefined') {
+            return false;
+        }
 
-        var connected = localStorage.getItem('connected');
-        var idBtn = connected ? '#btn_open' : '#btn_init';
-        $(idBtn).trigger("click");
+        if (habilitarChatEmtelco === 'True') {
+            var connected = localStorage.getItem('connected');
+            var idBtn = connected ? '#btn_open' : '#btn_init';
+            $(idBtn).trigger("click");
+        }
+
+        if (habilitarChatBot === 'True') {
+            AbrirChatBot();
+        }
 
         return false;
     });
@@ -409,7 +418,12 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 else fnRedireccionar();
             }
             else if (mostrarAlerta == true) {
-                AbrirMensaje(data.message);
+                //INI HD-3693
+                //AbrirMensaje(data.message);
+                var msjBloq = validarpopupBloqueada(data.message);
+                if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
+                else AbrirMensaje(data.message);
+                //FIN HD-3693
             }
         },
         error: function (error) {
@@ -761,7 +775,14 @@ function messageInfo(message, fnAceptar) {
     if (message == "") {
         return false;
     }
-
+    //INI HD-3693
+    var msjBloq = validarpopupBloqueada(message);
+    if (msjBloq != "") {
+        CerrarLoad();
+        alert_msg_bloqueadas(msjBloq);
+        return true;
+    }
+        //FIN HD-3693
     $('#mensajeInformacion').html(message);
     $('#popupInformacion').show();
 
@@ -1103,6 +1124,7 @@ function VerificarVistaBannerApp() {
     return false;
 }
 
+
 function OcultarBannerApp() {
     $.ajax({
         type: 'GET',
@@ -1155,3 +1177,29 @@ function CloseDialog(pop) {
     pop = pop || "box-pop-up";
     $("#" + pop).hide();
 } 
+
+function CerrarSesion() {
+    location.href = baseUrl + 'Login/LogOut';
+}
+//INI HD-3693
+function alert_msg_bloqueadas(message) {
+    $('#PopupBloqueoPorSistema .message_text_bloqueada').html(message);
+    $('#PopupBloqueoPorSistema').show();
+}
+//FIN HD-3693
+
+$('#alertDialogMensajes25seg').dialog({
+    autoOpen: false,
+    resizable: false,
+    modal: true,
+    closeOnEscape: false,
+    close: function (event, ui) {
+        HideDialog("alertDialogMensajes25seg");
+    },
+    beforeClose: function (event, ui) {
+        document.querySelector('.setBottom').style.transition = null
+    },
+    draggable: false,
+    dialogClass: 'setBottom',
+    position: "bottom"
+});

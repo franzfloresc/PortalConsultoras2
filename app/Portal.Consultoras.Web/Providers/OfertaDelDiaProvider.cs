@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.OfertaDelDia))
                 {
-                    var diaInicio = DateTime.Now.Date.Subtract(model.FechaInicioCampania.Date).Days;
+                    var diaInicio = Util.GetDiaActual(model.ZonaHoraria).Subtract(model.FechaInicioCampania.Date).Days;
 
                     string pathOferta = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
                        model.CodigoISO,
@@ -83,13 +83,12 @@ namespace Portal.Consultoras.Web.Providers
                 ofertasDelDia = new List<ServiceOferta.BEEstrategia>();
             }
 
+            // validar stock PROL
             if (ofertasDelDia.Any())
             {
                 ofertasDelDia.ForEach(x => x.TieneStock = true);
-                if (GetValidarDiasAntesStock(model))
-                {
-                    ofertasDelDia = _consultaProlProvider.ActualizarEstrategiaStockPROL(ofertasDelDia, model.CodigoISO, model.CampaniaID, model.CodigoConsultora);
-                }
+                var validarDias = _consultaProlProvider.GetValidarDiasAntesStock(model);
+                ofertasDelDia = _consultaProlProvider.ActualizarEstrategiaStockPROL(ofertasDelDia, model.CodigoISO, model.CampaniaID, model.CodigoConsultora, validarDias);
             }
 
             return ofertasDelDia;
@@ -261,8 +260,8 @@ namespace Portal.Consultoras.Web.Providers
                 //switch uso Session ODD
                 if (!UsarSession(Constantes.TipoEstrategiaCodigo.OfertaDelDia)) tempDataManager.SetListODD(oddSession.ListaOferta);
 
-                var colorFondoBanner = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionOdd.ColorFondoBanner) ?? new TablaLogicaDatosModel();
-                var coloFondoDisplay = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == Constantes.TablaLogicaDato.PersonalizacionOdd.ColorFondoDisplay) ?? new TablaLogicaDatosModel();
+                var colorFondoBanner = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == ConsTablaLogica.PersonalizacionOdd.ColorFondoBanner) ?? new TablaLogicaDatosModel();
+                var coloFondoDisplay = personalizacionesOdd.FirstOrDefault(x => x.TablaLogicaDatosID == ConsTablaLogica.PersonalizacionOdd.ColorFondoDisplay) ?? new TablaLogicaDatosModel();
 
                 oddSession.TextoVerDetalle = oddSession.ListaOferta.Any() ? oddSession.ListaOferta.Count > 1 ? "VER MÁS OFERTAS" : "VER OFERTA" : "";
 
@@ -342,24 +341,6 @@ namespace Portal.Consultoras.Web.Providers
 
             return result;
         }
-
-        private bool GetValidarDiasAntesStock(UsuarioModel userData)
-        {
-            var validar = false;
-            var lstTablaLogicaDatos = _tablaLogicaProvider.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.StockDiasAntes, true);
-            if (lstTablaLogicaDatos.Any())
-            {
-                var diasAntesStock = lstTablaLogicaDatos.FirstOrDefault().Valor;
-                if (!string.IsNullOrEmpty(diasAntesStock))
-                {
-                    var iDiasAntesStock = int.Parse(diasAntesStock);
-                    if (DateTime.Now.Date >= userData.FechaInicioCampania.AddDays(iDiasAntesStock))
-                    {
-                        validar = true;
-                    }
-                }
-            }
-            return validar;
-        }
+    
     }
 }

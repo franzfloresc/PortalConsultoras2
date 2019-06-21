@@ -163,6 +163,13 @@ namespace Portal.Consultoras.Service
         {
             return BLZonificacion.GetSegmentoInternoBanner(PaisID);
         }
-
+        public IList<BEZona> GetZonasByRegion(int PaisID , int RegionID)
+        {
+            return BLZonificacion.GetZonasByRegion(PaisID , RegionID);
+        }
+        public IList<BERegion> GetRegionByPaisZonaActivas(int PaisID)
+        {
+            return BLZonificacion.GetRegionByPaisZonaActivas(PaisID);
+        }
     }
 }

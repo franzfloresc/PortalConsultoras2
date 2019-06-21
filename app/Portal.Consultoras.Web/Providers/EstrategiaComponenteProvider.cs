@@ -129,10 +129,8 @@ namespace Portal.Consultoras.Web.Providers
                     }
                 });
 
-                if (GetValidarDiasAntesStock(userData))
-                {
-                    _consultaProlProvider.ActualizarComponenteStockPROL(listaEstrategiaComponente, cuv2, userData.CodigoISO, campania, userData.GetCodigoConsultora());
-                }
+                var validarDias = _consultaProlProvider.GetValidarDiasAntesStock(userData);
+                _consultaProlProvider.ActualizarComponenteStockPROL(listaEstrategiaComponente, cuv2, userData.CodigoISO, campania, userData.GetCodigoConsultora(), validarDias);
             }
 
             return listaEstrategiaComponente;
@@ -217,6 +215,7 @@ namespace Portal.Consultoras.Web.Providers
                 componenteModel.Cuv = Util.Trim(beEstrategiaProducto.CUV);
                 componenteModel.Cantidad = beEstrategiaProducto.Cantidad;
                 componenteModel.FactorCuadre = beEstrategiaProducto.FactorCuadre > 0 ? beEstrategiaProducto.FactorCuadre : 1;
+                componenteModel.CodigoProducto = beEstrategiaProducto.SAP;
 
                 listaEstrategiaComponenteProductos.Add(componenteModel);
             }
@@ -280,53 +279,8 @@ namespace Portal.Consultoras.Web.Providers
                     break;
             }
 
-            listaEstrategiaComponenteProductos = EstrategiaComponenteImagenNoDisponible(listaEstrategiaComponenteProductos);
-
             return listaEstrategiaComponenteProductos;
-        }
-
-        private List<EstrategiaComponenteModel> EstrategiaComponenteImagenNoDisponible(List<EstrategiaComponenteModel> listaEstrategiaComponenteProductos)
-        {
-
-            foreach (var componente in listaEstrategiaComponenteProductos)
-            {
-                if (componente.Hermanos != null && componente.Hermanos.Any())
-                {
-                    foreach (var item in componente.Hermanos)
-                    {
-                        if (String.IsNullOrEmpty(item.ImagenBulk))
-                        {
-                            item.ImagenBulk = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.urlSinImagenTiposyTonos);
-                        }
-                        else if (!ExisteS3Imgage(item.ImagenBulk))
-                        {
-                            item.ImagenBulk = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.urlSinImagenTiposyTonos);
-                        }
-                    }
-                }
-            }
-
-            return listaEstrategiaComponenteProductos;
-        }
-
-        private bool ExisteS3Imgage(string ImageUrl)
-        {
-            bool existe = false;
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ImageUrl);
-                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-                {
-                    existe = response.StatusCode == HttpStatusCode.OK;
-                }
-            }
-            catch
-            {
-                //
-            }
-
-            return existe;
-        }
+        }        
 
         private string GetNombreComercial(EstrategiaComponenteModel componenteModel, BEEstrategiaProducto beEstrategiaProducto, bool esMs)
         {
@@ -470,23 +424,5 @@ namespace Portal.Consultoras.Web.Providers
             return _paiseLBel.Any(x => x == _paisISO);
         }
 
-        private bool GetValidarDiasAntesStock(UsuarioModel userData)
-        {
-            var validar = false;
-            var lstTablaLogicaDatos = _tablaLogicaProvider.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.StockDiasAntes, true);
-            if (lstTablaLogicaDatos.Any())
-            {
-                var diasAntesStock = lstTablaLogicaDatos.FirstOrDefault().Valor;
-                if (!string.IsNullOrEmpty(diasAntesStock))
-                {
-                    var iDiasAntesStock = int.Parse(diasAntesStock);
-                    if (DateTime.Now.Date >= userData.FechaInicioCampania.AddDays(iDiasAntesStock))
-                    {
-                        validar = true;
-                    }
-                }
-            }
-            return validar;
-        }
     }
 }

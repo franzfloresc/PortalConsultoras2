@@ -9,6 +9,7 @@ var CodigoUbigeoPortal = (function () {
     };
 
     var estructuraUbigeo = {
+        Guion: '--',
         Dispositivo: {
             Desktop: '01',
             Mobile: '02'
@@ -26,7 +27,8 @@ var CodigoUbigeoPortal = (function () {
             Otras: '09',
             LandingBuscador: '10',
             LandingGanadoras: '11',
-            ArmaTuPack: '12'
+            ArmaTuPack: '12',
+            MisCatalogosRevista:'13'
         },
         SeccionFuncional: {
             OfertasParaTi: '00',
@@ -45,7 +47,8 @@ var CodigoUbigeoPortal = (function () {
             CatalogoCyzone: '13',
             Ganadoras: '14',
             Grilla: '15',
-            ArmatuPack: '16'
+            ArmatuPack: '16',
+            ResumenBelcorp : "17"
         },
         Seccion: {
             Carrusel: '01',
@@ -122,6 +125,31 @@ var CodigoUbigeoPortal = (function () {
 
         ]
     };
+
+    var maestroCodigoUbigeo = {
+        GuionPedidoGuionFichaResumida: estructuraUbigeo.Guion + estructuraUbigeo.Pagina.Pedido + estructuraUbigeo.Guion + estructuraUbigeo.SeccionFuncional.OfertasParaTi, //"--02--00",
+        GuionContenedorArmaTuPackGuion: "--0816--",
+        GuionContenedorArmaTuPack: "--12----",
+        GuionCarritoComprasGuionFichaResumida: "--02--09",
+
+        /*RevistaDigitalMobileCatalogoSeccion = 2401*/
+        MobileRevistaDigitalMobileCatalogoSeccion: estructuraUbigeo.Dispositivo.Mobile + estructuraUbigeo.Pagina.MisCatalogosRevista + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
+        DesktopRevistaDigitalMobileCatalogoSeccion: estructuraUbigeo.Dispositivo.Desktop + estructuraUbigeo.Pagina.MisCatalogosRevista + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
+
+        /*RevistaDigitalMobileHomeSeccion = 2101*/
+        MobileRevistaDigitalHomeSeccion: estructuraUbigeo.Dispositivo.Mobile + estructuraUbigeo.Pagina.Home + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
+        DesktopRevistaDigitalHomeSeccion: estructuraUbigeo.Dispositivo.Desktop + estructuraUbigeo.Pagina.Home + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
+
+        /*RevistaDigitalMobileHomeSeccion = 2101*/
+        MobileRevistaDigitalResumenBelcorp: estructuraUbigeo.Dispositivo.Mobile + estructuraUbigeo.Pagina.Home + estructuraUbigeo.SeccionFuncional.ResumenBelcorp + estructuraUbigeo.Guion,
+        DesktopRevistaDigitalResumenBelcorp: estructuraUbigeo.Dispositivo.Desktop + estructuraUbigeo.Pagina.Home + estructuraUbigeo.SeccionFuncional.ResumenBelcorp + estructuraUbigeo.Guion,
+
+        /*RevistaDigitalDesktopPedidoSeccion = 1201*/
+        MobilePedidoRevistaDigital: estructuraUbigeo.Dispositivo.Mobile + estructuraUbigeo.Pagina.Pedido + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion,
+        DesktopPedidoRevistaDigital: estructuraUbigeo.Dispositivo.Desktop + estructuraUbigeo.Pagina.Pedido + estructuraUbigeo.SeccionFuncional.OfertasParaTi + estructuraUbigeo.Guion
+
+    }
+
 
     var getEstructuraSegunCodigoUbigeo = function (codigo) {
         var origenEstructura = {};
@@ -243,6 +271,7 @@ var CodigoUbigeoPortal = (function () {
     }
 
     return {
+        MaestroCodigoUbigeo: maestroCodigoUbigeo,
         EstructuraUbigeo: estructuraUbigeo,
         GetEstructuraSegunCodigo: getEstructuraSegunCodigoUbigeo,
         GetTextoSegunCodigo: getTextoSegunCodigoUbigeo

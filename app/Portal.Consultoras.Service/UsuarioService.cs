@@ -8,6 +8,7 @@ using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.CaminoBrillante;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.Search.RequestRecomendacion;
 using Portal.Consultoras.Entities.Usuario;
 using Portal.Consultoras.ServiceContracts;
 using System;
@@ -345,6 +346,13 @@ namespace Portal.Consultoras.Service
             var blNotificaciones = new BLNotificaciones();
             return blNotificaciones.GetNotificacionesConsultoraDetallePedido(PaisID, ValAutomaticaPROLLogId, TipoOrigen);
         }
+ 
+
+        public IList<BEMisPedidos> GetSolicitudesPedidoPendiente(int PaisID, long ConsultoraId, int Campania)
+        {
+            var blMisPedidos = new BLConsultoraOnline();
+            return blMisPedidos.GetSolicitudesPedidoPendiente(PaisID, ConsultoraId, Campania);
+        }
 
         public IList<BEMisPedidos> GetMisPedidosConsultoraOnline(int PaisID, long ConsultoraId, int Campania)
         {
@@ -356,6 +364,12 @@ namespace Portal.Consultoras.Service
         {
             var blMisPedidos = new BLConsultoraOnline();
             return blMisPedidos.GetMisPedidosDetalle(PaisID, PedidoID);
+        }
+
+        public IList<BEMisPedidosDetalle> GetMisPedidosDetallePendientesAll(int paisId, int campaniaId, long consultoraId)
+        {
+            var blMisPedidos = new BLConsultoraOnline();
+            return blMisPedidos.GetMisPedidosDetalleAll(paisId, campaniaId, consultoraId);
         }
 
         public int GetCantidadSolicitudesPedido(int PaisID, long ConsultoraId, int Campania)
@@ -908,6 +922,15 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.ActuaizarNovedadBuscador(paisID, codigoUsuario);
         }
+
+        #region Recomendados
+
+        public IList<BEEstrategia> GetRecomendados(RecomendadoRequest RecomendadoRequest)
+        {
+            var blMisPedidos = new BLConsultoraOnline();
+            return blMisPedidos.GetRecomendados(RecomendadoRequest);
+        }
+        #endregion
 
         #region Direccion de Entrega
         public BEDireccionEntrega ObtenerDireccionPorConsultora(BEDireccionEntrega direccion)
