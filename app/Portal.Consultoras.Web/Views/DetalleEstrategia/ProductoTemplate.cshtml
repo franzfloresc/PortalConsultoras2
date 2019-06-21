@@ -28,7 +28,7 @@
                             </div>
                             {{#each this.FotosCarrusel as |foto|}}
                             <div class="contenedor_carrusel">
-                                <img src="{{ImgUrl foto}}" class="img-fluid" />
+                                <img src="{{foto}}" class="img-fluid" />
                             </div>
                             {{/each}}
                         </div>
@@ -40,11 +40,13 @@
                             </div>
                             {{#each this.FotosCarrusel as |foto|}}
                             <div class="contenedor_carrusel">
-                                <img src="{{ImgUrl foto}}">
+                                <img src="{{foto}}">
                             </div>
                             {{/each}}
                         </div>
+                        {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.IndividualConTonos,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
                         <p>* Foto Referencial</p>
+                        {{/iff}}
                     </div>
                 </div>
             </div>
