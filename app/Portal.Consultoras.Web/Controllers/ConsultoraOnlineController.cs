@@ -3,9 +3,11 @@ using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Pedido;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
@@ -2051,6 +2053,13 @@ namespace Portal.Consultoras.Web.Controllers
                 model.RegistrosTotal = "0";
                 return RedirectToAction("Index", "Pedido", new { area = "" });
             }
+
+            using (var sv = new SACServiceClient())
+            {
+                var motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
+                ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
+            }
+
             return View(model);
         }
 
@@ -2364,6 +2373,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
+        //public JsonResult RechazarSolicitudCliente(string pedidoId)
         public JsonResult RechazarSolicitudCliente(string pedidoId, int motivoRechazoId, string motivoRechazoTexto)
         {
             try
@@ -2544,7 +2554,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetobjMisPedidos(pedidos);
                 }
 
-                MisPedidosModel model = GetPendientes();
+                MisPedidosModel model = GetPendientes();                
                 var ContinuarExpPendientes = true;
                 if (pedidos.ListaPedidos == null || model.ListaPedidos.Count == 0)
                 {
