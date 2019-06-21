@@ -69,6 +69,7 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         estrategia = detalleEstrategia.promiseGetEstrategia(params);
 
         if (estrategia.Error !== false) {
+            GeneralModule.consoleLog(estrategia);
             GeneralModule.redirectTo("ofertas");
         }
 
@@ -80,6 +81,7 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
     }
     catch (error) {
+        GeneralModule.consoleLog(error);
         if (typeof error === "string") {
             window.onerror(error);
         }

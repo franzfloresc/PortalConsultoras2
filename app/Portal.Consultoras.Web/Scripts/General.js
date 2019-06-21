@@ -2294,12 +2294,17 @@ var GeneralModule = (function () {
         }
     };
 
+    var _consoleLog = function (log) {
+        console.log(log);
+    };
+
     return {
         isMobile: _isMobile,
         redirectTo: _redirectTo,
         abrirLoad: _abrirLoad,
         cerrarLoad: _cerrarLoad,
-        getLocationPathname: _getLocationPathname
+        getLocationPathname: _getLocationPathname,
+        consoleLog: _consoleLog
     };
 }());
 //INI HD-3693
