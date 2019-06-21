@@ -4802,9 +4802,6 @@ namespace Portal.Consultoras.Web.ServiceODS {
         private string FotoPerfilField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool FotoPerfilAnchaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string GPRBannerMensajeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -6478,19 +6475,6 @@ namespace Portal.Consultoras.Web.ServiceODS {
                 if ((object.ReferenceEquals(this.FotoPerfilField, value) != true)) {
                     this.FotoPerfilField = value;
                     this.RaisePropertyChanged("FotoPerfil");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool FotoPerfilAncha {
-            get {
-                return this.FotoPerfilAnchaField;
-            }
-            set {
-                if ((this.FotoPerfilAnchaField.Equals(value) != true)) {
-                    this.FotoPerfilAnchaField = value;
-                    this.RaisePropertyChanged("FotoPerfilAncha");
                 }
             }
         }
