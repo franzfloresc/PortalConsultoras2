@@ -754,8 +754,11 @@ var EstrategiaAgregarModule = (function () {
                         }
                     }
                 }
-
-                AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
+                if (estrategia.CodigoPalanca == "CAT" && origenModelo.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Ficha) //Catálogo y en ficha resposive
+                {
+                    AnalyticsPortalModule.MarcaAnadirCarritoCatalogo(event, origenPedidoWebEstrategia, estrategia);
+                } else
+                    AnalyticsPortalModule.MarcaAnadirCarritoGenerico(event, origenPedidoWebEstrategia, estrategia);
 
             }
 

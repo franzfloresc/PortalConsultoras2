@@ -707,7 +707,15 @@ var AnalyticsPortalModule = (function () {
 
         }
     }
-
+    var marcaAnadirCarritoCatalogo = function (event, codigoOrigenPedido, estrategia) {
+        try {
+            
+            var parametroList = _getParametroListSegunOrigen(codigoOrigenPedido);
+             marcarAddToCart(estrategia, parametroList);
+        } catch (e) {
+            Console.log(e);
+        }
+    }
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Evento Add To Cart
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -2826,6 +2834,7 @@ var AnalyticsPortalModule = (function () {
         MarcaEliminaClickArmaTuPack: marcaEliminaClickArmaTuPack,
         //MarcarAddCarArmaTuPack: marcarAddCarArmaTuPack,
         MarcaClickAgregarArmaTuPack: marcaClickAgregarArmaTuPack,
-        MarcaClickCerrarPopupArmaTuPack: marcaClickCerrarPopupArmaTuPack
+        MarcaClickCerrarPopupArmaTuPack: marcaClickCerrarPopupArmaTuPack,
+        MarcaAnadirCarritoCatalogo: marcaAnadirCarritoCatalogo
     }
 })();
