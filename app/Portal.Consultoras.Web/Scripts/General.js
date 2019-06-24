@@ -38,13 +38,6 @@ jQuery(document).ready(function () {
         }
     }
 
-    //document.onkeydown = function (evt) {
-    //    evt = evt || window.event;
-    //    if (evt.keyCode == 27) {
-    //        if ($('.resultado_busqueda_producto').is(':visible')) {
-    //        }
-    //    }
-    //};
 });
 
 (function ($) {
@@ -183,6 +176,50 @@ jQuery(document).ready(function () {
             $(".loadingScreenWindow").css("top", (($(window).height() / 2) + $(document).scrollTop() - $(".loadingScreenWindow").height()) + "px");
         } catch (e) { }
     });
+
+    window.DecimalPrecision = function (numero) {
+        var num = numero || 0;
+        var a = parseFloat(isNaN($.trim(numero)) ? "0" : $.trim(num));
+
+        if (!isFinite(a)) return 0;
+        var e = 1, p = 0;
+        while (Math.round(a * e) / e !== a) { e *= 10; p++; }
+
+        return p;
+    };
+
+    window.NumberToFormat = function (monto, options) {
+        var customFormat = {};
+        $.extend(customFormat, formatDecimalPais || {});
+        $.extend(customFormat, options || {});
+        var decimalCantidad = customFormat.decimalCantidad || 0;
+        var decimal = customFormat.decimal || ".";
+        var miles = customFormat.miles || ",";
+
+        monto = monto || 0;
+        var montoOrig = isNaN($.trim(monto)) ? "0" : $.trim(monto);
+
+        decimalCantidad = isNaN(decimalCantidad) ? 0 : parseInt(decimalCantidad);
+
+        var pEntera = $.trim(parseInt(montoOrig));
+        var pDecimal = 0;
+
+        pDecimal = $.trim((parseFloat(montoOrig) - parseFloat(pEntera)).toFixed(decimalCantidad));
+        pDecimal = pDecimal.length > 1 ? pDecimal.substring(2) : "";
+        pDecimal = decimalCantidad > 0 ? (decimal + pDecimal) : "";
+
+        var pEnteraFinal = "";
+        do {
+            var x = pEntera.length;
+            var sub = pEntera.substring(x, x - 3);
+            pEnteraFinal = (pEntera == sub ? sub : (miles + sub)) + pEnteraFinal;
+            pEntera = pEntera.substring(x - 3, 0);
+
+        } while (pEntera.length > 0);
+
+        return pEnteraFinal + pDecimal;
+
+    };
 
 })(jQuery);
 
@@ -540,32 +577,9 @@ function IsDecimalExist(p_decimalNumber) {
 function DecimalToStringFormat(monto, noDecimal) {
     formatDecimalPais = formatDecimalPais || {};
     noDecimal = noDecimal || false;
-    var decimal = formatDecimalPais.decimal || ".";
     var decimalCantidad = noDecimal ? 0 : (formatDecimalPais.decimalCantidad || 0);
-    var miles = formatDecimalPais.miles || ",";
 
-    monto = monto || 0;
-    var montoOrig = isNaN($.trim(monto)) ? "0" : $.trim(monto);
-
-    decimalCantidad = isNaN(decimalCantidad) ? 0 : parseInt(decimalCantidad);
-
-    var pEntera = $.trim(parseInt(montoOrig));
-    var pDecimal = 0;
-
-    pDecimal = $.trim((parseFloat(montoOrig) - parseFloat(pEntera)).toFixed(decimalCantidad));
-    pDecimal = pDecimal.length > 1 ? pDecimal.substring(2) : "";
-    pDecimal = decimalCantidad > 0 ? (decimal + pDecimal) : "";
-
-    var pEnteraFinal = "";
-    do {
-        var x = pEntera.length;
-        var sub = pEntera.substring(x, x - 3);
-        pEnteraFinal = (pEntera == sub ? sub : (miles + sub)) + pEnteraFinal;
-        pEntera = pEntera.substring(x - 3, 0);
-
-    } while (pEntera.length > 0);
-
-    return pEnteraFinal + pDecimal;
+    return NumberToFormat(monto, { decimalCantidad: decimalCantidad });
 }
 
 function IsNullOrEmpty(texto) { return texto == null || texto === ''; }
@@ -861,6 +875,45 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
     } catch (e) {
 
     }
+}
+
+function AbrirAlert(mensaje, fnAceptar, fnCerrar) {
+    try {
+        var popup = $('#PopupGeneral');
+        var txtMensaje = $('.popup__somos__belcorp__mensaje--general');
+        if (popup.is(':visible')) {
+            popup.hide();
+        }
+
+        txtMensaje.text((mensaje) ? mensaje : '');
+
+        var botonesAceptar = $('#PopupGeneral #btnAceptar');
+        botonesAceptar.off('click');
+        if ($.isFunction(fnAceptar)) {
+            botonesAceptar.on('click', fnAceptar);
+        } else {
+            botonesAceptar.on('click', function () { popup.fadeOut(100) });
+        }
+
+
+        var botonesCerrar = $('#PopupGeneral #btnCerrar');
+        botonesCerrar.off('click');
+        if ($.isFunction(fnCerrar)) {
+            botonesCerrar.on('click', fnCerrar);
+        } else {
+            botonesCerrar.on('click', function () { popup.fadeOut(100) });
+        }
+
+
+        popup.fadeIn(50);
+
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+function CerrarlAlert() {
+    $('#PopupGeneral').fadeOut(100);
 }
 
 function AbrirMensaje25seg(mensaje, imagen) {
@@ -2294,12 +2347,17 @@ var GeneralModule = (function () {
         }
     };
 
+    var _consoleLog = function (log) {
+        console.log(log);
+    };
+
     return {
         isMobile: _isMobile,
         redirectTo: _redirectTo,
         abrirLoad: _abrirLoad,
         cerrarLoad: _cerrarLoad,
-        getLocationPathname: _getLocationPathname
+        getLocationPathname: _getLocationPathname,
+        consoleLog: _consoleLog
     };
 }());
 //INI HD-3693

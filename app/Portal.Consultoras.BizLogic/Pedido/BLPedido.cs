@@ -1503,6 +1503,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (usuario.CodigoPrograma != string.Empty && usuario.ConsecutivoNueva > 0)
                     lstDetalle.Where(x => x.FlagNueva && x.EsCuponNuevas)
                         .Update(x => x.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvElecMultiple(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, x.CUV));
+
+                //Web set y detalle
+                lstDetalle.Where(filtro => filtro.SetID > 0).Update(detalle =>
+                {
+                    detalle.PedidoWebSet = _pedidoWebSetBusinessLogic.Obtener(usuario.PaisID, detalle.SetID);
+                });
             }
             catch (Exception ex)
             {
@@ -4005,5 +4011,65 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
         #endregion
 
+        #region InserKitSE
+        public bool InsertKitSE(BEUsuario usuario)
+        {
+            //Retorna Lista de Kits
+            BEPedidoWeb bEPedidoWeb = new BEPedidoWeb()
+            {
+                PaisID = usuario.PaisID,
+                CampaniaID = usuario.CampaniaID,
+                CodigoConsultora = usuario.CodigoConsultora
+            };
+
+            var lstKitSE = _pedidoWebBusinessLogic.GetCuvSuscripcionSE(bEPedidoWeb);
+
+            //Valida que se tenga kits para la consultora
+            if (!lstKitSE.Any()) return false;
+
+            //Validamos si ya exite en el pedido.
+            var bePedidoWebDetalleParametros = new BEPedidoBuscar
+            {
+                PaisID = usuario.PaisID,
+                CampaniaID = usuario.CampaniaID,
+                ConsultoraID = usuario.ConsultoraID,
+                NombreConsultora = usuario.Nombre,
+                CodigoPrograma = usuario.CodigoPrograma,
+                ConsecutivoNueva = usuario.ConsecutivoNueva,
+            };
+
+            var PedidoID = 0;
+            var lstDetalle = ObtenerPedidoWebDetalle(bePedidoWebDetalleParametros, out PedidoID);
+
+            //Agrega los CUV del kit SC
+            foreach (var item in lstKitSE)
+            {
+                if (lstDetalle.Any(x => x.CUV == item.CUV))
+                {
+                    var detalle = new BEPedidoDetalle()
+                    {
+                        PaisID = usuario.PaisID,
+                        Cantidad = 1,
+                        Producto = new BEProducto()
+                        {
+                            CUV = item.CUV,
+                            PrecioCatalogo = item.PrecioCatalogo,
+                            TipoEstrategiaID = item.TipoEstrategiaID.ToString(),
+                            TipoOfertaSisID = 0,
+                            ConfiguracionOfertaID = 0,
+                            IndicadorMontoMinimo = item.IndicadorMontoMinimo,
+                            MarcaID = item.MarcaID,
+                        },
+                        Usuario = usuario,
+                        EsKitNueva = true
+                    };
+
+                    PedidoInsertar(usuario, detalle, lstDetalle, true);
+                }
+            }
+
+            return true;
+        }
+        #endregion
     }
 }
