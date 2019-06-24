@@ -16,16 +16,12 @@ namespace Portal.Consultoras.Common
             public const int GenerarLideres = 5;
         }
 
-        public static class EstadoProcesoDescargaregular
-        {
-            public const string Terminado = "Terminado";
-            public const string Error = "Con error";
-        }
-
         public static class MensajeProcesoDescargaregular
         {
             public const string Terminado = "El proceso terminó satisfactoriamente";
             public const string Error = "El proceso tuvo complicaciones";
+            public const string respuestaexito = "a";
+            public const string respuestanoCarga = "b";
         }
 
         public static class EstadoValorProcesoDescargaregular

@@ -68,15 +68,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int ValidarCargadePedidos(int paisID, int TipoCronograma, int MarcaPedido, DateTime FechaFactura);
 
-        #region HD-4327
-
-        [OperationContract]
-        int ValidarCargadePedidosSinMarcar(int paisID, int campanaId, int tipoCronograma);
-
-        [OperationContract]
-        bool DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma,  string usuario, int nroLote);
-        #endregion
-
         [OperationContract]
         string[] DescargaPedidosWeb(int paisID, DateTime fechaFacturacion, int tipoCronograma, bool marcarPedido, string usuario, string descripcionProceso);
 
@@ -962,15 +953,9 @@ namespace Portal.Consultoras.ServiceContracts
 
 
         [OperationContract]
-        BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int PaisID);
-
-        [OperationContract]
         void DeshacerUltimaDescargaPedido(int PaisID);
         [OperationContract]
         BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID);
-
-        [OperationContract]
-        BEPedidoDescarga ObtenerUltimaDescargaExitosaSinMarcar(int PaisID);
 
         [OperationContract]
         int ActivarDesactivarEstrategias(int PaisID, string Usuario, string EstrategiasActivas, string EstrategiasDesactivas);
@@ -1323,10 +1308,6 @@ namespace Portal.Consultoras.ServiceContracts
         void DescargaPedidosCliente(int paisID, int nroLote, string codigoUsuario);
 
 
-        [OperationContract]
-        void DescargaPedidosClienteSinMarcar(int paisID, int campaniaid, int nroLote, string codigoUsuario);
-
-
 
         [OperationContract]
         bool LimpiarCacheRedis(int paisID, string codigoTipoEstrategia, string campaniaID);
@@ -1374,5 +1355,17 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb);
         //FIN HD-4200
+
+        #region HD-4327
+        [OperationContract]
+        string DescargaPedidosClienteSinMarcar(int paisID, int campaniaid, int nroLote, string codigoUsuario);
+
+        [OperationContract]
+        string DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote, DateTime fechaFacturacion);
+
+        [OperationContract]
+        BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int PaisID);
+
+        #endregion
     }
 }

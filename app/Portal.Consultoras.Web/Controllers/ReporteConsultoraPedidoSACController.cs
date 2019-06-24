@@ -5,6 +5,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.ServiceModel;
@@ -16,7 +17,7 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class ReporteConsultoraPedidoSACController : BaseAdmController
     {
-        // GET: ReporteConsultoraPedidoSAC
+        #region HD-4327
         public async Task<ActionResult> Index()
         {
             var reporteConsultoraPedidoSACModels = new ReporteConsultoraPedidoSACModels();
@@ -24,9 +25,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                ////if (!UsuarioModel.HasAcces(ViewBag.Permiso, "ReporteConsultoraPedidoSAC/Index"))
-                //    return RedirectToAction("Index", "Bienvenida");
-
                 reporteConsultoraPedidoSACModels.listaPaises = await DropDowListPaises(usuario.PaisID);
                 reporteConsultoraPedidoSACModels.listaCampania = ObtenerListCampaniasPorPaisOUsuario(usuario.PaisID);
             }
@@ -37,7 +35,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(reporteConsultoraPedidoSACModels);
         }
-
         private async Task<IEnumerable<PaisModel>> DropDowListPaises(int paisID)
         {
             using (var sv = new ZonificacionServiceClient())
@@ -46,29 +43,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return Mapper.Map<IEnumerable<PaisModel>>(lst.Where(x => x.PaisID == paisID));
             }
         }
-
-            
-
-
-        //public ActionResult ObtenerUltimaDescargaExitosaSinMarcar()
-        //{
-        //    BEPedidoDescarga ultimaDescarga;
-        //    using (PedidoServiceClient sv = new PedidoServiceClient())
-        //    {
-        //        ultimaDescarga = sv.ObtenerUltimaDescargaExitosaSinMarcar(userData.PaisID);
-        //    }
-
-            //    return Json(new
-            //    {
-            //        success = true,
-            //        descarga = new
-            //        {
-            //            FechaEnvio = ultimaDescarga.FechaEnvio.ToString(),
-            //            FechaProceso = ultimaDescarga.FechaProceso.ToString()
-            //        }
-            //    });
-            //}
-
 
         [HttpGet]
         public async Task<JsonResult> ObtenerUltimaDescargaPedidoSinMarcar()
@@ -113,24 +87,24 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(null, JsonRequestBehavior.AllowGet);
         }
 
-
-
         [HttpPost]
         public async Task<JsonResult> DescargarArchivoClienteSinMarcar(int nroLote, int campaniaid)
         {
+            string mensajeFinal = string.Empty;
+            string rutaDescargaArchivo = ConfigurationManager.AppSettings["OrderDownloadPath"];
             var usuario = userData ?? new UsuarioModel();
 
             try
             {
                 using (var srv = new PedidoServiceClient())
                 {
-                    await srv.DescargaPedidosClienteSinMarcarAsync(usuario.PaisID, campaniaid, nroLote, usuario.CodigoUsuario);
+                    mensajeFinal= await srv.DescargaPedidosClienteSinMarcarAsync(usuario.PaisID, campaniaid, nroLote, usuario.CodigoUsuario);
                 }
-
+                
                 var data = new
                 {
                     success = true,
-                    mensaje = "El proceso de carga de pedidos por cliente ha finalizado satisfactoriamente."
+                    mensaje = mensajeFinal
                 };
 
                 return Json(data, JsonRequestBehavior.AllowGet);
@@ -147,28 +121,22 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-
         [HttpPost]
         public JsonResult RealizarDescargaSinMarcar(DescargarPedidoModel model)
         {
             int tipoCronogramaID = Constantes.TipoProceso.Regular; 
             try
             {
-
-                bool file;
+                string file=string.Empty;
                 using (var pedidoService = new PedidoServiceClient())
                 {
-                   // int contadorCarga = pedidoService.ValidarCargadePedidosSinMarcar(model.PaisID, model.CampanaId, tipoCronogramaID);
-                   // if (contadorCarga != 0) return ErrorJson("Existe una carga de pedidos en proceso para la fecha y tipo de cronograma seleccionado.");
-
-                    file = pedidoService.DescargaPedidosWebSinMarcar(model.PaisID, model.CampanaId, tipoCronogramaID, userData.NombreConsultora,model.NroLote);
+                    file = pedidoService.DescargaPedidosWebSinMarcar(model.PaisID, model.CampanaId, tipoCronogramaID, userData.NombreConsultora,model.NroLote, model.FechaFacturacion);
                 }
-
 
                 return Json(new
                 {
-                    success = file,
-                    message = "El proceso de carga de pedidos ha finalizado satisfactoriamente.",
+                    success = file
+                   
                 });
             }
             catch (FaultException ex)
@@ -177,8 +145,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return ErrorJson(ex.Message);
             }
         }
-            
-
-
-        }
+        #endregion
+    }
 }
