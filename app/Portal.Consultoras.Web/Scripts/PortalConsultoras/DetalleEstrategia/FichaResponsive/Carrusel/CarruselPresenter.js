@@ -67,7 +67,7 @@ class CarruselPresenter {
                 if (data.lista.length > 0) {
                     $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
                     this.view.crearPlantilla(data, this.obtenerTitulo());
-                    this.view.reorderFichaCarrusel(thisReference.model);
+                    this.view.reorderFichaCarrusel(this.model);
                 }
             }
             else {
