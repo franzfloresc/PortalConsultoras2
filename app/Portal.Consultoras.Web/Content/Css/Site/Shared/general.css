@@ -42,6 +42,21 @@ button:focus{
 
 /* FIN - ESTILOS GENERALES */
 
+
+.color__multimarca{
+    color:#B9007E;
+}
+
+.color__gray__multimarca{
+    color:#808080;
+}
+
+.background__color__gray__multimarca{
+    background-color:#808080;
+}
+
+/* FIN - COLORES MARCA PAÍS */
+
 /* COMPONENTES UI */
 
 /* ENLACES */
