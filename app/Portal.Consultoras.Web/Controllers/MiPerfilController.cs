@@ -668,7 +668,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-
         public string CancelarAtualizacionEmail(string tipoEnvio)
         {
             try

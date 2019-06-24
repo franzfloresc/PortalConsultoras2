@@ -125,7 +125,7 @@ var DetalleEstrategiaProvider = function () {
 
     var _getEstrategia = function (params) {
         var sigueTexto = '_getEstrategia';
-        console.log(sigueTexto);
+        // console.log(sigueTexto);
         var estrategia = {};
 
         _promiseObternerModelo({
@@ -138,6 +138,7 @@ var DetalleEstrategiaProvider = function () {
             estrategia = data.data || {};
             estrategia.Error = data.success === false;
         }).fail(function (data, error) {
+            GeneralModule.consoleLog(['_promiseObternerModelo', data, error]);
             throw "DetalleEstrategiaProvider._getEstrategia";
         });
 
@@ -146,7 +147,7 @@ var DetalleEstrategiaProvider = function () {
         }
 
         sigueTexto += '_promiseObternerModelo';
-        console.log(sigueTexto);
+        // console.log(sigueTexto);
         estrategia.ConfiguracionContenedor = estrategia.ConfiguracionContenedor || {};
         estrategia.BreadCrumbs = estrategia.BreadCrumbs || {};
         //
@@ -154,12 +155,12 @@ var DetalleEstrategiaProvider = function () {
         var _fichaServicioApi = (variablesPortal.MsFichaEstrategias && _objTipoPalanca) ? (variablesPortal.MsFichaEstrategias.indexOf(_objTipoPalanca.codigo) > -1) : false;
         //
         sigueTexto += '_objTipoPalanca + _fichaServicioApi';
-        console.log(sigueTexto, _fichaServicioApi + "-" + estrategia.TieneSession);
+        // console.log(sigueTexto, _fichaServicioApi + "-" + estrategia.TieneSession);
         if (!_fichaServicioApi && !estrategia.TieneSession) {
             var estrategiaTmp = localStorageModule.ObtenerEstrategia(params.cuv, params.campania, params.palanca);
 
             sigueTexto += 'estrategiaTmp';
-            console.log(sigueTexto, estrategiaTmp);
+            // console.log(sigueTexto, estrategiaTmp);
 
             if ((typeof estrategiaTmp === "undefined" || estrategiaTmp === null) && estrategia.Palanca === _tipoEstrategiaTexto.OfertasParaMi) {
                 estrategiaTmp = localStorageModule.ObtenerEstrategia(params.cuv, params.campania, _tipoEstrategiaTexto.Ganadoras);
@@ -190,6 +191,7 @@ var DetalleEstrategiaProvider = function () {
                 .done(function (data) {
                     estrategia.Hermanos = data.componentes;
                     estrategia.EsMultimarca = data.esMultimarca;
+                    estrategia.FotosCarrusel = [];
 
                     $.each(estrategia.Hermanos, function (idx, componente) {
 
@@ -204,6 +206,9 @@ var DetalleEstrategiaProvider = function () {
                         //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png'];
 
                         if (estrategia.Cuv === componente.Cuv) {
+                            //if (typeof componente.FotosCarrusel != "undefined" && componente.FotosCarrusel != null && componente.FotosCarrusel.length > 0) {
+                            //    estrategia.FotosCarrusel = componente.FotosCarrusel || [];
+                            //}
                             estrategia.FotosCarrusel = componente.FotosCarrusel || [];
                         }
                     });
@@ -211,6 +216,8 @@ var DetalleEstrategiaProvider = function () {
                 }).fail(function (data, error) {
                     estrategia.Hermanos = [];
                     estrategia.EsMultimarca = false;
+
+                    GeneralModule.consoleLog(['_promiseObternerComponentes', data, error]);
                     throw "DetalleEstrategiaProvider._GetEstrategia : promiseObternerComponentes";
                 });
 
@@ -219,7 +226,7 @@ var DetalleEstrategiaProvider = function () {
             estrategia.Hermanos = [];
             estrategia.EsMultimarca = false;
         }
-
+        estrategia.FotosCarrusel = estrategia.FotosCarrusel || [];
         estrategia.Hermanos = estrategia.Hermanos || [];
 
         //estrategia.esCampaniaSiguiente = estrategia.CampaniaID !== _obtenerCampaniaActual();

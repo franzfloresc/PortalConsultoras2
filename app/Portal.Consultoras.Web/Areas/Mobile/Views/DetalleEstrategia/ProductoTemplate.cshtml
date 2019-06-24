@@ -11,12 +11,32 @@
         <div id="ImagenDeFondo" class="bg_imagen_producto" data-estadoregistro=""></div>
         <div class="container box-container">
             <div class="row imagen_producto ">
+                {{#iff this.FotosCarrusel.length '==' 0 }}
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <img src="{{ImgMedium FotoProducto01}}" />
                 </div>
                 <div id="FichaImagenProducto" style="display: none;">
                     <img src="{{ImgMedium FotoProducto01}}" />
                 </div>
+                {{else}}
+                <div class="container">
+                    <div class="row FichaCarrusel">
+                        <div class="col-lg-9 col-md-12 ">
+                            <div class="contenedor_imagen slider-for-detail-mobile">
+                                <div class="contenedor_carrusel">
+                                    <img src="{{ImgMedium FotoProducto01}}">
+                                </div>
+                                {{#each this.FotosCarrusel as |foto|}}
+                                <div class="contenedor_carrusel">
+                                    <img src="{{foto}}">
+                                </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/iff}}
+
                 {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.IndividualConTonos,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
                 <hr class="clear">
                 <div id="contenedor_foto_referencial" class="texto_referencial">

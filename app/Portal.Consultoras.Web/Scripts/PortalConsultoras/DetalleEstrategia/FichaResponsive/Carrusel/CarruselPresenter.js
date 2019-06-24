@@ -34,7 +34,6 @@ class CarruselPresenter {
     }
 
     mostrarCarrusel() {
-
         if (this.validarStock()) return;
 
         var data = {
@@ -57,6 +56,8 @@ class CarruselPresenter {
                             thisReference.view.crearPlantilla(data, thisReference.obtenerTitulo());
                         }
                     }
+
+                    thisReference.view.reorderFichaCarrusel(thisReference.model);
                 }
             });
         } else {
@@ -66,6 +67,7 @@ class CarruselPresenter {
                 if (data.lista.length > 0) {
                     $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
                     this.view.crearPlantilla(data, this.obtenerTitulo());
+                    this.view.reorderFichaCarrusel(this.model);
                 }
             }
             else {
@@ -82,6 +84,7 @@ class CarruselPresenter {
                         data.lista = response.result;
                         $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
                         thisReference.view.crearPlantilla(data, thisReference.obtenerTitulo());
+                        thisReference.view.reorderFichaCarrusel(thisReference.model);
                     }
                 });
             }
