@@ -804,22 +804,16 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     return FichaObtenerProductosCarrusel(cuvExcluido, palanca);
                 }
 
-                var dataProductosCarruselUpSelling = await _carruselUpSellingProvider.ObtenerProductosCarruselUpSelling(cuvExcluido, codigosProductos, precioProducto);
+                var listaProductos = await _carruselUpSellingProvider.ObtenerProductosCarruselUpSelling(cuvExcluido, codigosProductos, precioProducto);
+                if (!listaProductos.Any())
+                    return Json(new { success = false });
 
-                if (!dataProductosCarruselUpSelling.success)
-                {
-                    return Json(new OutputProductosUpSelling()
-                    {
-                        result = new List<EstrategiaPersonalizadaProductoModel>()
-                    });
-                }
-
-                var listaProductosValidados = ValidacionResultadosProductos(dataProductosCarruselUpSelling.result).ToList();
-                var listaOfertasModel = _ofertaPersonalizadaProvider.RevisarCamposParaMostrar(listaProductosValidados, true);
+                listaProductos = ValidacionResultadosProductos(listaProductos).ToList();
+                listaProductos = _ofertaPersonalizadaProvider.RevisarCamposParaMostrar(listaProductos, true);
                 return Json(new
                 {
                     success = true,
-                    result = listaOfertasModel
+                    result = listaProductos
                 });
             }
             catch (Exception ex)
