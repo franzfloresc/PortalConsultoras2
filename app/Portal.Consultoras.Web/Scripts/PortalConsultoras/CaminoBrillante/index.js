@@ -48,7 +48,7 @@ $(document).ready(function () {
 
 $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');
-
+    location.reload(true);
     if (typeof history.pushState === "function") {
         history.pushState("jibberish", null, null);
         window.onpopstate = function () {
