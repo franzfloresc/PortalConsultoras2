@@ -4,6 +4,26 @@ $("#a").hide;
 
 $(document).ready(function () {
 
+    if (typeof history.pushState === "function") {
+        history.pushState("jibberish", null, null);
+        window.onpopstate = function () {
+            history.pushState('newjibberish', null, null);
+
+        };
+    }
+    else {
+        window.onhashchange = function () {
+
+            if (!ignoreHashChange) {
+                ignoreHashChange = true;
+                window.location.hash = Math.random();
+            }
+            else {
+                ignoreHashChange = false;
+            }
+        };
+    }
+
     if (TineCarrusel == '1') {
         Carusel();    
         if ($("#template-kit").length > 0) {
@@ -48,7 +68,7 @@ $(document).ready(function () {
 
 $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');
-
+    location.reload(true);
     if (typeof history.pushState === "function") {
         history.pushState("jibberish", null, null);
         window.onpopstate = function () {
@@ -57,7 +77,6 @@ $(window).on("load", function () {
         };
     }
     else {
-        alert("boton atras")
         window.onhashchange = function () {
             
             if (!ignoreHashChange) {
