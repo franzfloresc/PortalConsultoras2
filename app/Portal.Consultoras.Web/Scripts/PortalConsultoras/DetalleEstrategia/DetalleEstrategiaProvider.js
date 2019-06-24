@@ -138,6 +138,7 @@ var DetalleEstrategiaProvider = function () {
             estrategia = data.data || {};
             estrategia.Error = data.success === false;
         }).fail(function (data, error) {
+            GeneralModule.consoleLog(['_promiseObternerModelo', data, error]);
             throw "DetalleEstrategiaProvider._getEstrategia";
         });
 
@@ -215,6 +216,8 @@ var DetalleEstrategiaProvider = function () {
                 }).fail(function (data, error) {
                     estrategia.Hermanos = [];
                     estrategia.EsMultimarca = false;
+
+                    GeneralModule.consoleLog(['_promiseObternerComponentes', data, error]);
                     throw "DetalleEstrategiaProvider._GetEstrategia : promiseObternerComponentes";
                 });
 
