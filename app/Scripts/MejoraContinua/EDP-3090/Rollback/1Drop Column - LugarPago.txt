@@ -1,9 +1,0 @@
-IF EXISTS(SELECT 1 FROM sys.columns WHERE Name = N'TextoPago' AND Object_ID = Object_ID(N'dbo.LugarPago'))
-BEGIN
-    Alter table LugarPago drop column TextoPago
-END
-go
-IF EXISTS(SELECT 1 FROM sys.columns WHERE Name = N'Posicion' AND Object_ID = Object_ID(N'dbo.LugarPago'))
-BEGIN
-    Alter table LugarPago drop column Posicion 
-END

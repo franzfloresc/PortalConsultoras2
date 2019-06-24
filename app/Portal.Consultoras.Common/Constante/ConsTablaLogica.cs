@@ -20,6 +20,7 @@ namespace Portal.Consultoras.Common
             public const int TablaLogicaId = 158;
             public const string MisClientes = "MisClientes";
             public const string FichaEnriquecida = "FichaEnriquecida";
+            public const string FichaResponsive = "FichaResponsive";
         }
 
         public static class MotivoFlexipago
@@ -607,11 +608,28 @@ namespace Portal.Consultoras.Common
             public const short CaminoBrillanteLogros = 166;
             public const short CaminoBrillanteIndicadores = 167;
             public const short CaminoBrillanteOfertasEspeciales = 168;
+            public const short CaminoBrillanteEnterateMas = 173;
+            public const short CaminoBrillanteFiltro = 174;
+            public const short CaminoBrillanteOrden = 175;
         }
 
         public static class AdministradorHistoria
         {
             public const int TablaLogicaId = 231;
         }
+        public static class ConfiguracionesFicha
+        {
+            public const short TablaLogicaId = 15;
+            public const string FuncionalidadUpSelling = "FuncionalidadUpSelling";
+            public const string CantidadProductosUpSelling = "CantidadProductosUpSelling";
+        }
+
+        public static class TuVozOnline
+        {
+            public const short Id = 172;
+            public const string PanelId = "PANEL_ID";
+            public const string PanelKey = "PANEL_KEY";
+        }
+
     }
 }

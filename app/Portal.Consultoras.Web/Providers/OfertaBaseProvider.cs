@@ -48,8 +48,7 @@ namespace Portal.Consultoras.Web.Providers
             var taskApi = Task.Run(() => ObtenerOfertaDesdeApi(cuv, campania, tipoEstrategia, codigoIso));
             Task.WhenAll(taskApi);
             Estrategia estrategia = taskApi.Result ?? new Estrategia();
-            var modeloEstrategia = new DetalleEstrategiaFichaModel();
-            modeloEstrategia = Mapper.Map<Estrategia, DetalleEstrategiaFichaModel>(estrategia ?? new Estrategia());
+            var modeloEstrategia = Mapper.Map<Estrategia, DetalleEstrategiaFichaModel>(estrategia ?? new Estrategia());
             return modeloEstrategia;
         }
 
@@ -74,15 +73,15 @@ namespace Portal.Consultoras.Web.Providers
 
             string jsonString = await httpResponse.Content.ReadAsStringAsync();
             httpResponse.Dispose();
-            if (Util.Trim(jsonString) == string.Empty)
-            {
-                return estrategia;
-            }
 
-            OutputOferta respuesta = new OutputOferta();
             try
             {
-                respuesta = JsonConvert.DeserializeObject<OutputOferta>(jsonString);
+                if (Util.Trim(jsonString) == string.Empty)
+                {
+                    return estrategia;
+                }
+
+                OutputOferta respuesta = JsonConvert.DeserializeObject<OutputOferta>(jsonString);
                 estrategia = respuesta.Result ?? new Estrategia();
             }
             catch (Exception ex)
@@ -111,8 +110,7 @@ namespace Portal.Consultoras.Web.Providers
                 return estrategias;
             }
 
-            var respuesta = new OutputOfertaLista();
-            var listaSinPrecio2 = new List<string>();
+            OutputOfertaLista respuesta;
             try
             {
                 respuesta = JsonConvert.DeserializeObject<OutputOfertaLista>(jsonString);
@@ -129,13 +127,14 @@ namespace Portal.Consultoras.Web.Providers
                 return estrategias;
             }
 
-            string codTipoEstrategia = string.Empty, codCampania = string.Empty;
             respuesta.Result = respuesta.Result ?? new List<Models.Search.ResponseOferta.Estructura.Estrategia>();
-            if (respuesta.Result == null)
+            if (respuesta.Result.Count == 0)
             {
                 return estrategias;
             }
 
+            var listaSinPrecio2 = new List<string>();
+            string codTipoEstrategia = string.Empty, codCampania = string.Empty;
             foreach (Models.Search.ResponseOferta.Estructura.Estrategia item in respuesta.Result)
             {
                 try
@@ -318,44 +317,6 @@ namespace Portal.Consultoras.Web.Providers
             return nombreOferta;
         }
 
-        public bool UsarMsPersonalizacion(string pais, string tipoEstrategia, bool dbDefault = false)
-        {
-            if (dbDefault) return false;
-
-            var configMs = GetConfigMicroserviciosPersonalizacion();
-
-            bool paisHabilitado = configMs.PaisHabilitado.Contains(pais);
-            bool tipoEstrategiaHabilitado = configMs.EstrategiaHabilitado.Contains(tipoEstrategia);
-
-            return paisHabilitado && tipoEstrategiaHabilitado;
-        }
-
-        public bool UsarMsPersonalizacion(string tipoEstrategia)
-        {
-            bool tipoEstrategiaHabilitado = GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado.Contains(tipoEstrategia);
-            return tipoEstrategiaHabilitado;
-        }
-
-        public bool UsarLocalStorage(string tipoEstrategia)
-        {
-            var configMs = GetConfigMicroserviciosPersonalizacion();
-            if (configMs.GuardaDataEnLocalStorage.IsNullOrEmptyTrim())
-                return false;
-
-            bool usaLocalStorage = configMs.GuardaDataEnLocalStorage.Contains(tipoEstrategia);
-            return usaLocalStorage;
-        }
-
-        public bool UsarSession(string tipoEstrategia)
-        {
-            var configMs = GetConfigMicroserviciosPersonalizacion();
-            if (configMs.GuardaDataEnSession.IsNullOrEmptyTrim())
-                return false;
-
-            bool usaSession = configMs.GuardaDataEnSession.Contains(tipoEstrategia);
-            return usaSession;
-        }
-
         public MSPersonalizacionConfiguracionModel GetConfigMicroserviciosPersonalizacion()
         {
             var msPersonalizacionConfi = _sessionManager.GetConfigMicroserviciosPersonalizacion();
@@ -368,8 +329,61 @@ namespace Portal.Consultoras.Web.Providers
             return msPersonalizacionConfi;
         }
 
+        public bool UsarMsPersonalizacion(string pais, string tipoEstrategia, bool dbDefault = false)
+        {
+            if (dbDefault) return false;
+            pais = Util.Trim(pais);
+            tipoEstrategia = Util.Trim(tipoEstrategia);
+            if (pais == "" || tipoEstrategia == "") return false;
+
+            var configMs = GetConfigMicroserviciosPersonalizacion();
+
+            bool paisHabilitado = configMs.PaisHabilitado.Contains(pais);
+            bool tipoEstrategiaHabilitado = configMs.EstrategiaHabilitado.Contains(tipoEstrategia);
+
+            return paisHabilitado && tipoEstrategiaHabilitado;
+        }
+
+        public bool UsarMsPersonalizacion(string tipoEstrategia)
+        {
+            tipoEstrategia = Util.Trim(tipoEstrategia);
+            if (tipoEstrategia == "") return false;
+
+            bool tipoEstrategiaHabilitado = GetConfigMicroserviciosPersonalizacion().EstrategiaHabilitado.Contains(tipoEstrategia);
+            return tipoEstrategiaHabilitado;
+        }
+
+        public bool UsarLocalStorage(string tipoEstrategia)
+        {
+            tipoEstrategia = Util.Trim(tipoEstrategia);
+            if (tipoEstrategia == "") return false;
+
+            var configMs = GetConfigMicroserviciosPersonalizacion();
+            if (configMs.GuardaDataEnLocalStorage.IsNullOrEmptyTrim())
+                return false;
+
+            bool usaLocalStorage = configMs.GuardaDataEnLocalStorage.Contains(tipoEstrategia);
+            return usaLocalStorage;
+        }
+
+        public bool UsarSession(string tipoEstrategia)
+        {
+            tipoEstrategia = Util.Trim(tipoEstrategia);
+            if (tipoEstrategia == "") return false;
+
+            var configMs = GetConfigMicroserviciosPersonalizacion();
+            if (configMs.GuardaDataEnSession.IsNullOrEmptyTrim())
+                return false;
+
+            bool usaSession = configMs.GuardaDataEnSession.Contains(tipoEstrategia);
+            return usaSession;
+        }
+
         public bool UsaFichaMsPersonalizacion(string tipoEstrategia)
         {
+            tipoEstrategia = Util.Trim(tipoEstrategia);
+            if (tipoEstrategia == "") return false;
+
             var msPersonalizacionConfi = GetConfigMicroserviciosPersonalizacion();
             bool tipoEstrategiaHabilitado = msPersonalizacionConfi.EstrategiaDisponibleParaFicha.Contains(tipoEstrategia);
             return tipoEstrategiaHabilitado;

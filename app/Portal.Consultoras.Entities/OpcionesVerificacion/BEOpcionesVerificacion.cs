@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.Common;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
@@ -41,6 +40,11 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
         [DataMember]
         public List<BEFiltrosOpcionesVerificacion> lstFiltros { get; set; }
 
+        [DataMember]
+        public bool OpcionConfirmarEmail { get; set; }
+        [DataMember]
+        public bool OpcionConfirmarSms { get; set; }
+
         public BEOpcionesVerificacion()
         { }
 
@@ -58,6 +62,8 @@ namespace Portal.Consultoras.Entities.OpcionesVerificacion
             TieneAlcanse = row.ToBoolean("TieneAlcanse");
             OpcionContrasena = row.ToBoolean("OpcionContrasena");
             IntentosSms = row.ToInt32("IntentosSms");
+            OpcionConfirmarEmail = row.ToBoolean("OpcionConfirmarEmail");
+            OpcionConfirmarSms = row.ToBoolean("OpcionConfirmarSms");
         }
     }
 

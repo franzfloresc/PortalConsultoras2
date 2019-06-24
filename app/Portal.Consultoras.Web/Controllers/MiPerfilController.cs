@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
     public class MiPerfilController : BaseController
     {
         protected MiPerfilProvider _miperfil;
-		private readonly ZonificacionProvider _zonificacionProvider;
+        private readonly ZonificacionProvider _zonificacionProvider;
 
         public MiPerfilController()
         {
@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (var sv = new UsuarioServiceClient())
             {
-                beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);                
+                beusuario = sv.Select(userData.PaisID, userData.CodigoUsuario);
             }
 
             if (beusuario == null)
@@ -47,8 +47,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             model.PaisISO = userData.CodigoISO;
-                ViewBag.LocationCountry = userData.CodigoISO;
-                ViewBag.EsMobile = EsDispositivoMovil();
+            ViewBag.LocationCountry = userData.CodigoISO;
+            ViewBag.EsMobile = EsDispositivoMovil();
             model.NombreCompleto = beusuario.Nombre;
             model.NombreGerenteZonal = userData.NombreGerenteZonal;
             model.EMail = beusuario.EMail;
@@ -65,6 +65,9 @@ namespace Portal.Consultoras.Web.Controllers
             model.NombreArchivoContrato = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.Contrato_ActualizarDatos + userData.CodigoISO);
             model.IndicadorConsultoraDigital = beusuario.IndicadorConsultoraDigital;
 
+            model.FlgCheckSMS = beusuario.FlgCheckSMS;
+            model.FlgCheckEMAIL = beusuario.FlgCheckEMAIL;
+
             var bezona = _zonificacionProvider.GetZonaById(userData.PaisID, userData.ZonaID);
 
             model.NombreGerenteZonal = bezona.NombreGerenteZona;
@@ -80,13 +83,15 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-           
+
             model.DigitoVerificador = beusuario.DigitoVerificador;
             model.CodigoUsuario = userData.CodigoUsuario;
             model.Zona = userData.CodigoZona;
             model.ServiceSMS = userData.PuedeEnviarSMS;
             model.ActualizaDatos = userData.PuedeActualizar;
             model.PaisID = userData.PaisID;
+            model.PuedeConfirmarAllEmail = userData.PuedeConfirmarAllEmail;
+            model.PuedeConfirmarAllSms = userData.PuedeConfirmarAllSms;
 
             var paisesDigitoControl = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.PaisesDigitoControl);
             model.CodigoUsuarioReal = userData.CodigoUsuario;
@@ -104,19 +109,24 @@ namespace Portal.Consultoras.Web.Controllers
             Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
             model.IniciaNumeroCelular = valida ? numero : -1;
 
-            var objMenu = ((List<PermisoModel>)ViewBag.Permiso).Where(p => 
-                p.Posicion.Trim().ToLower().Equals(Constantes.MenuPosicion.Body) && 
+            var objMenu = ((List<PermisoModel>)ViewBag.Permiso).Where(p =>
+                p.Posicion.Trim().ToLower().Equals(Constantes.MenuPosicion.Body) &&
                 p.Codigo.Trim().ToLower().Equals(Constantes.MenuCodigo.MiPerfil.ToLower())
             ).ToList();
-            model.DireccionEntrega = await _miPerfilProvider.ObtenerDireccionPorConsultoraAsync(new DireccionEntregaModel { ConsultoraID = (int)userData.ConsultoraID , PaisID = userData.PaisID });
-            await BinderAsync(model.DireccionEntrega);
+
+            if (userData.TieneDireccionEntrega)
+            {
+                model.DireccionEntrega = await _miPerfilProvider.ObtenerDireccionPorConsultoraAsync(new DireccionEntregaModel { ConsultoraID = (int)userData.ConsultoraID, PaisID = userData.PaisID });
+                model.DireccionEntrega.DropDownUbigeo1 = await _miPerfilProvider.ObtenerUbigeoPrincipalAsync(userData.CodigoISO);
+            }
+
             model.PermisoMenu = new List<string>();
             foreach (var item in objMenu)
             {
-                foreach(var subitem in item.SubMenus)
+                foreach (var subitem in item.SubMenus)
                 {
                     model.PermisoMenu.Add(subitem.Descripcion);
-                }                    
+                }
             }
 
             model.UsuarioOpciones = _miperfil.GetUsuarioOpciones(userData.PaisID, userData.CodigoUsuario, true);
@@ -127,16 +137,10 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        private async Task BinderAsync(DireccionEntregaModel record)
-        {
-       
-            record.DropDownUbigeo1 = await _miPerfilProvider.ObtenerUbigeoPrincipalAsync(userData.CodigoISO);
-        }
-       
         [HttpGet]
         public async Task<JsonResult> ObtenerUbigeoDependiente(int Nivel, int IdPadre)
         {
-            var records = await _miPerfilProvider.ObtenerUbigeoDependiente(userData.CodigoISO,Nivel,IdPadre);
+            var records = await _miPerfilProvider.ObtenerUbigeoDependiente(userData.CodigoISO, Nivel, IdPadre);
             return Json(records, JsonRequestBehavior.AllowGet);
 
         }
@@ -147,9 +151,18 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ActualizarCorreo()
         {
+            ViewBag.IsConfirmar = 0;
             ViewBag.CorreoActual = userData.EMail;
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View();
+        }
+
+        public ActionResult ConfirmarCorreo()
+        {
+            ViewBag.IsConfirmar = 1;
+            ViewBag.CorreoActual = userData.EMail;
+            ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
+            return View("ActualizarCorreo");
         }
 
         public JsonResult ActualizarEnviarCorreo(string correoNuevo)
@@ -222,7 +235,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return RedirectToAction("Index");
             }
-
+            ViewBag.IsConfirmarCel = 0;
             ViewBag.Celular = userData.Celular;
 
             var numero = 0;
@@ -231,6 +244,23 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.IniciaNumeroCelular = valida ? numero : -1;
             ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
             return View();
+        }
+
+        public ActionResult ConfirmarCelular()
+        {
+            if (!userData.PuedeActualizar || !userData.PuedeEnviarSMS)
+            {
+                return RedirectToAction("Index");
+            }
+            ViewBag.IsConfirmarCel = 1;
+            ViewBag.Celular = userData.Celular;
+
+            var numero = 0;
+            var valida = false;
+            Util.ObtenerIniciaNumeroCelular(userData.PaisID, out valida, out numero);
+            ViewBag.IniciaNumeroCelular = valida ? numero : -1;
+            ViewBag.UrlPdfTerminosyCondiciones = _revistaDigitalProvider.GetUrlTerminosCondicionesDatosUsuario(userData.CodigoISO);
+            return View("ActualizarCelular");
         }
 
         public ActionResult CambiarFotoPerfil()
@@ -303,14 +333,7 @@ namespace Portal.Consultoras.Web.Controllers
                         ConfigS3.DeleteFileS3(carpetaPais, userData.FotoOriginalSinModificar);
                     }
 
-                    var imagenS3 = string.Concat(ConfigS3.GetUrlS3(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), nameImage);
                     userData.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), nameImage);
-
-                    if (Util.IsUrl(userData.FotoPerfil))
-                    {
-                        userData.FotoPerfilAncha = Util.EsImagenAncha(imagenS3);
-                        ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
-                    }
                     userData.FotoOriginalSinModificar = nameImage;
                     ViewBag.FotoPerfilSinModificar = nameImage;
 
@@ -346,8 +369,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 userData.FotoPerfil = "../../Content/Images/icono_avatar.svg";
                 userData.FotoOriginalSinModificar = null;
-                userData.FotoPerfilAncha = false;
-                ViewBag.FotoPerfilAncha = userData.FotoPerfilAncha;
                 ViewBag.FotoPerfilSinModificar = "";
 
                 SessionManager.SetUserData(userData);
@@ -422,7 +443,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-             
+
                 var entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
                 var correoAnterior = model.CorreoAnterior;
 
@@ -500,7 +521,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return vRetorno;
         }
-      
+
 
         [HttpPost]
         public JsonResult CambiarConsultoraPass(string OldPassword, string NewPassword)
@@ -647,7 +668,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-
         public string CancelarAtualizacionEmail(string tipoEnvio)
         {
             try
@@ -676,6 +696,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
+                model.Telefono = model.Telefono ?? "";
                 model.DatosExtra = new
                 {
                     userData.ZonaID,
@@ -688,7 +709,8 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 model.CodigoConsultoraAsociada = userData.CodigoConsultora;
-                if (model.DireccionEntrega != null) {
+                if (model.DireccionEntrega != null)
+                {
                     model.DireccionEntrega.PaisID = userData.PaisID;
                     model.DireccionEntrega.CodigoConsultora = userData.CodigoConsultora;
                     model.DireccionEntrega.CampaniaID = userData.CampaniaID;
@@ -697,12 +719,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ActualizarSMS(userData.PaisID, userData.CodigoUsuario, userData.Celular, model.Celular);
                 ActualizarFijo(userData.PaisID, userData.CodigoUsuario, userData.Telefono, model.Telefono);
-                ActualizarValidacionDatos(EsDispositivoMovil(), userData.CodigoUsuario,model.EMail, model.Celular, model.Telefono);
+                ActualizarValidacionDatos(EsDispositivoMovil(), userData.CodigoUsuario, model.EMail, model.Celular, model.Telefono);
                 resultado = await _miPerfilProvider.RegistrarAsync(model);
                 ActualizarDatosLogDynamoDB(model, "MI PERFIL", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Modificacion");
                 var lst = resultado.Split('|');
 
-                if ( lst[0] == "0")
+                if (lst[0] == "0")
                 {
                     response = Json(new
                     {
@@ -738,8 +760,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             return response;
         }
-        
-        public void ActualizarValidacionDatos(bool isMobile,string codigoConsultora, string emailNuevo, string celularNuevo, string fijoNuevo )
+
+        public void ActualizarValidacionDatos(bool isMobile, string codigoConsultora, string emailNuevo, string celularNuevo, string fijoNuevo)
         {
             var listTipoEnvio = new List<string>();
             if (emailNuevo != userData.EMail) listTipoEnvio.Add(Constantes.TipoEnvio.EMAIL);
@@ -749,7 +771,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             string tipoEnvio1, tipoEnvio2 = string.Empty;
             if (listTipoEnvio.Count == 3) tipoEnvio1 = Constantes.TipoEnvio.TODO;
-            else {
+            else
+            {
                 tipoEnvio1 = listTipoEnvio[0];
                 if (listTipoEnvio.Count == 2) tipoEnvio2 = listTipoEnvio[1];
             }

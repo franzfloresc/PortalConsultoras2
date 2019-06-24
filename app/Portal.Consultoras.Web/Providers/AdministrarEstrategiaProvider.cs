@@ -81,7 +81,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (response != null && !response.IsSuccessStatusCode)
                 {
-                    LogManager.LogManager.LogErrorWebServicesBus(new Exception("OfertaDelDiaProvider_respSBMicroservicios:" + response.StatusCode.ToString()), userData.CodigoConsultora, userData.CodigoISO);
+                    LogManager.LogManager.LogErrorWebServicesBus(new Exception("AdministrarEstrategiaProvider_RespSBMicroservicios:" + response.StatusCode.ToString()), userData.CodigoConsultora, userData.CodigoISO);
                     return "";
                 }
 
@@ -91,7 +91,7 @@ namespace Portal.Consultoras.Web.Providers
 
                     if (string.IsNullOrEmpty(content))
                     {
-                        LogManager.LogManager.LogErrorWebServicesBus(new Exception("OfertaDelDiaProvider_respSBMicroservicios: Null content"), userData.CodigoConsultora, userData.CodigoISO);
+                        LogManager.LogManager.LogErrorWebServicesBus(new Exception("AdministrarEstrategiaProvider_RespSBMicroservicios: Null content"), userData.CodigoConsultora, userData.CodigoISO);
                         return "";
                     }
                     return content;
@@ -757,39 +757,56 @@ namespace Portal.Consultoras.Web.Providers
             return Convert.ToInt32(respuesta.Result);
         }
 
-        public int GuardarShowRoom(ShowRoomEventoModel o)
+        public int GuardarShowRoom(ShowRoomEventoModel evento)
         {
             UsuarioModel userData = sessionManager.GetUserData();
 
-            string p = JsonConvert.SerializeObject(new
+            try
             {
-                _id = o._id,
-                eventoId = o.EventoID,
-                campaniaId = o.CampaniaID,
-                nombre = o.Nombre,
-                tema = o.Tema,
-                diasAntes = o.DiasAntes,
-                diasDespues = o.DiasDespues,
-                numeroPerfiles = o.NumeroPerfiles,
-                usuarioCreacion = userData.CodigoUsuario,
-                UsuarioModificacion = userData.CodigoUsuario,
-                tieneCategoria = o.TieneCategoria,
-                tieneCompraXcompra = o.TieneCompraXcompra,
-                tieneSubCampania = o.TieneSubCampania,
-                tienePersonalizacion = o.TienePersonalizacion,
-                Estado = o.Estado
-            });
 
-            var taskApi = Task.Run(() => RespSBMicroservicios(
-                p,
-                string.Format(Constantes.PersonalizacionOfertasService.UrlGuardarShowRoom, userData.CodigoISO),
-                "post",
-                userData));
-            Task.WhenAll(taskApi);
+                string p = JsonConvert.SerializeObject(new
+                {
+                    _id = evento._id,
+                    eventoId = evento.EventoID,
+                    campaniaId = evento.CampaniaID,
+                    nombre = evento.Nombre,
+                    tema = evento.Tema,
+                    diasAntes = evento.DiasAntes,
+                    diasDespues = evento.DiasDespues,
+                    numeroPerfiles = evento.NumeroPerfiles,
+                    usuarioCreacion = userData.CodigoUsuario,
+                    UsuarioModificacion = userData.CodigoUsuario,
+                    tieneCategoria = evento.TieneCategoria,
+                    tieneCompraXcompra = evento.TieneCompraXcompra,
+                    tieneSubCampania = evento.TieneSubCampania,
+                    tienePersonalizacion = evento.TienePersonalizacion,
+                    Estado = evento.Estado
+                });
 
-            var respuesta = JsonConvert.DeserializeObject<GenericResponse>(taskApi.Result);
+                var url = string.Format(Constantes.PersonalizacionOfertasService.UrlGuardarShowRoom, userData.CodigoISO);
 
-            return Convert.ToInt32(respuesta.Result);
+                var taskApi = Task.Run(() => RespSBMicroservicios(
+                    p,
+                    url,
+                    "post",
+                    userData));
+                Task.WhenAll(taskApi);
+
+                if (taskApi.Result != null && taskApi.Result != "")
+                {
+                    var respuesta = JsonConvert.DeserializeObject<GenericResponse>(taskApi.Result);
+                    if (respuesta != null)
+                    {
+                        return Convert.ToInt32(respuesta.Result);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return 0;
         }
 
         public int UpdateShowRoomEvento(ShowRoomEventoModel o)
@@ -1076,7 +1093,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 reporteValidacionShowroom.ListaPersonalizacion.Add(data);
             }
-            
+
             return reporteValidacionShowroom;
         }
 
