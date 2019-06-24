@@ -456,20 +456,16 @@ var FichaModule = (function (config) {
         if (typeof estrategia.Hermanos != "undefined" && estrategia.Hermanos != null) {
             $.each(estrategia.Hermanos, function (idx, componente) {
 
-                //componente.FotosCarrusel = ['https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
-                //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
-                //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
-                //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
-                //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
-                //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
-                //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
-                //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png',
-                //    'https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoFondoBlancoWebRedes/200090430.png'];
-                if (estrategia.Cuv === componente.Cuv) {
-                    //if (typeof componente.FotosCarrusel != "undefined" && componente.FotosCarrusel != null && componente.FotosCarrusel.length > 0) {
-                    //    estrategia.FotosCarrusel = componente.FotosCarrusel || [];
-                    //}
-                    estrategia.FotosCarrusel = componente.FotosCarrusel || [];
+                if (estrategia.CodigoEstrategia == ConstantesModule.TipoPersonalizacion.Catalogo) {
+                    componente.FotosCarrusel = [];
+                } else {
+                    componente.FotosCarrusel = componente.FotosCarrusel || [];
+                }
+
+                if (estrategia.CodigoVariante == ConstantesModule.CodigoVariedad.IndividualVariable) {
+                    if (estrategia.Cuv === componente.Cuv) {
+                        estrategia.FotosCarrusel = componente.FotosCarrusel;
+                    }
                 }
             });
         }
