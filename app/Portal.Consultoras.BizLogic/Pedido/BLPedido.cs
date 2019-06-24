@@ -1503,6 +1503,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 if (usuario.CodigoPrograma != string.Empty && usuario.ConsecutivoNueva > 0)
                     lstDetalle.Where(x => x.FlagNueva && x.EsCuponNuevas)
                         .Update(x => x.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvElecMultiple(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, x.CUV));
+
+                //Web set y detalle
+                lstDetalle.Where(filtro => filtro.SetID > 0).Update(detalle =>
+                {
+                    detalle.PedidoWebSet = _pedidoWebSetBusinessLogic.Obtener(usuario.PaisID, detalle.SetID);
+                });
             }
             catch (Exception ex)
             {

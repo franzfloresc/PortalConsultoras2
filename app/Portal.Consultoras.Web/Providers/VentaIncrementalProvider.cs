@@ -6,11 +6,13 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using AutoMapper;
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.ElasticSearch;
 using Portal.Consultoras.Web.Models.Search.ResponseOferta;
+using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 using Portal.Consultoras.Web.SessionManager;
 
 namespace Portal.Consultoras.Web.Providers
@@ -52,11 +54,10 @@ namespace Portal.Consultoras.Web.Providers
             OutputOfertaIncremental response = await PostAsyncMicroservicioSearch<OutputOfertaIncremental>(path, jsonData);
 
             if (!response.success) return new List<EstrategiaPersonalizadaProductoModel>();
-
             if (tipo.Equals(Constantes.TipoVentaIncremental.CrossSelling))
-                return (List<EstrategiaPersonalizadaProductoModel>) (response.result.crosssell ?? new List<EstrategiaPersonalizadaProductoModel>());
+                return Mapper.Map<List<Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(response.result.crosssell ?? new List<Estrategia>());
             if (tipo.Equals(Constantes.TipoVentaIncremental.Sugerido))
-                return (List<EstrategiaPersonalizadaProductoModel>)(response.result.suggested ?? new List<EstrategiaPersonalizadaProductoModel>());
+                return Mapper.Map<List<Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(response.result.suggested ?? new List<Estrategia>());
             return new List<EstrategiaPersonalizadaProductoModel>();
         }
 
