@@ -18,8 +18,8 @@
         public int LimiteVenta { get; set; }
         public string TextoLibre { get; set; }
         public bool FlagNueva { get; set; }
-        public int? Orden { get; set; }
-        public bool? FlagEstrella { get; set; }
+        public int Orden { get; set; }
+        public bool FlagEstrella { get; set; }
         public bool TieneVariedad { get; set; }
         public List<Componente> Componentes { get; set; }
         public EstrategiaComponenteCabecera Cabecera { get; set; }
@@ -28,13 +28,13 @@
         public string DescripcionTipoEstrategia { get; set; }
         public string CodigoTipoEstrategia { get; set; }
         public string ImagenEstrategia { get; set; }
-        public bool? FlagActivo { get; set; }
-        public bool? FlagRecoPerfil { get; set; }
-        public bool? FlagMostrarImg { get; set; }
+        public bool FlagActivo { get; set; }
+        public bool FlagRecoPerfil { get; set; }
+        public bool FlagMostrarImg { get; set; }
         public int MarcaId { get; set; }
         public string MarcaDescripcion { get; set; }
         public string CodigoProducto { get; set; }
-        public bool? IndicadorMontoMinimo { get; set; }
+        public bool IndicadorMontoMinimo { get; set; }
         public bool EsSubCampania { get; set; }
         public IList<EstrategiaDetalle> EstrategiaDetalle { get; set; }
         public int DiaInicio { get; set; }
