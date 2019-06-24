@@ -678,18 +678,23 @@ var AnalyticsPortalModule = (function () {
             var textoPagina = _getTextoPaginaSegunOrigen(origenEstructura);
 
             if (textoPagina === "Landing Buscador") {
-                var model = {
-                    'DescripcionCompleta': estrategia.DescripcionCompleta,
-                    'CUV': estrategia.CUV2,
-                    'Precio': estrategia.Precio2,
-                    'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
-                    'MarcaId': estrategia.MarcaID,
-                    'Cantidad': estrategia.Cantidad,
-                    'Palanca': estrategia.Palanca
-                };
-                var valorBuscar = localStorage.getItem('valorBuscador');
-                AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
-                return;
+                if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Ficha
+                    && !(origenEstructura.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.CatalogoLbel
+                        || origenEstructura.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.CatalogoEsika
+                        || origenEstructura.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.CatalogoCyzone)) {
+                    var model = {
+                        'DescripcionCompleta': estrategia.DescripcionCompleta,
+                        'CUV': estrategia.CUV2,
+                        'Precio': estrategia.Precio2,
+                        'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
+                        'MarcaId': estrategia.MarcaID,
+                        'Cantidad': estrategia.Cantidad,
+                        'Palanca': estrategia.Palanca
+                    };
+                    var valorBuscar = localStorage.getItem('valorBuscador');
+                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
+                    return;
+                }
             }
 
             var parametroList = _getParametroListSegunOrigen(codigoOrigenPedido);
@@ -707,7 +712,6 @@ var AnalyticsPortalModule = (function () {
 
         }
     }
-
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Evento Add To Cart
     ////////////////////////////////////////////////////////////////////////////////////////
