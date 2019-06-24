@@ -225,32 +225,6 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.ValidarCargadePedidos(paisID, TipoCronograma, MarcaPedido, FechaFactura);
         }
 
-
-        #region HD-4327
-        public int ValidarCargadePedidosSinMarcar(int paisID, int campanaId, int tipoCronograma)
-        {
-            return BLPedidoWeb.ValidarCargadePedidosSinMarcar(paisID, campanaId, tipoCronograma);
-        }
-
-        public bool DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma,  string usuario, int nroLote)
-        {
-            try
-            {
-                return BLPedidoWeb.DescargaPedidosWebSinMarcar(paisID, campanaId, tipoCronograma, usuario, nroLote);
-            }
-            catch (BizLogicException ex)
-            {
-                throw new FaultException(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                LogManager.SaveLog(ex, "", "");
-                throw new FaultException("Error desconocido.");
-            }
-        }
-        #endregion
-
-
         public IList<BECuvProgramaNueva> GetCuvProgramaNueva(int paisID)
         {
             return BLPedidoWeb.GetCuvProgramaNueva(paisID);
@@ -1791,23 +1765,12 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.ObtenerUltimaDescargaPedido(PaisID);
         }
 
-        /*HD-4327*/
-        public BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int PaisID)
-        {
-            return BLPedidoWeb.ObtenerUltimaDescargaPedidoSinMarcar(PaisID);
-        }
+    
 
         public BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID)
         {
             return BLPedidoWeb.ObtenerUltimaDescargaExitosa(PaisID);
         }
-
-        public BEPedidoDescarga ObtenerUltimaDescargaExitosaSinMarcar(int PaisID)
-        {
-            return BLPedidoWeb.ObtenerUltimaDescargaExitosaSinMarcar(PaisID);
-        }
-
-
 
         public void DeshacerUltimaDescargaPedido(int PaisID)
         {
@@ -2464,22 +2427,7 @@ namespace Portal.Consultoras.Service
             }
         }
 
-        public void DescargaPedidosClienteSinMarcar(int paisID, int campaniaid, int nroLote, string codigoUsuario)
-        {
-            try
-            {
-                _pedidoWebBusinessLogic.DescargaPedidosClienteSinMarcar(paisID,campaniaid, nroLote, codigoUsuario);
-            }
-            catch (BizLogicException ex)
-            {
-                throw new FaultException(ex.Message);
-            }
-            catch (Exception)
-            {
-                throw new FaultException("Error desconocido.");
-            }
-        }
-
+       
         public BEEstrategia GetEstrategiaPremiosTippingPoint(int paisID, string codigoPrograma, int anioCampana, string codigoNivel)
         {
             return blEstrategia.GetEstrategiaPremiosTippingPoint(paisID, codigoPrograma, anioCampana, codigoNivel);
@@ -2536,5 +2484,47 @@ namespace Portal.Consultoras.Service
         }
 
         //FIN HD-4200
+
+
+        #region HD-4327
+        public string DescargaPedidosClienteSinMarcar(int paisID, int campaniaid, int nroLote, string codigoUsuario)
+        {
+            try
+            {
+                return _pedidoWebBusinessLogic.DescargaPedidosClienteSinMarcar(paisID, campaniaid, nroLote, codigoUsuario);
+            }
+            catch (BizLogicException ex)
+            {
+                throw new FaultException(ex.Message);
+            }
+            catch (Exception)
+            {
+                throw new FaultException("Error desconocido.");
+            }
+        }
+
+        public string DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote, DateTime fechaFacturacion)
+        {
+            try
+            {
+                return BLPedidoWeb.DescargaPedidosWebSinMarcar(paisID, campanaId, tipoCronograma, usuario, nroLote, fechaFacturacion);
+            }
+            catch (BizLogicException ex)
+            {
+                throw new FaultException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", "");
+                throw new FaultException("Error desconocido.");
+            }
+        }
+
+        public BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int PaisID)
+        {
+            return BLPedidoWeb.ObtenerUltimaDescargaPedidoSinMarcar(PaisID);
+        }
+        #endregion
+
     }
 }
