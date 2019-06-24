@@ -7,8 +7,7 @@ $(document).ready(function () {
 
 
 function Inicializar() {
-    $("#btnActualizarCorreo").click(function (event) {
-        debugger;
+    $("#btnActualizarCorreo").click(function (event) {        
 
         var form = $("#formContrasenia").valid();
         if (!form) {
@@ -108,8 +107,7 @@ function Inicializar() {
 
 function RecibirPinVerficiacionCorreo(reenvio) {
     $(".seccion").hide();
-    $("#VistaPrecarga").show();
-    debugger;
+    $("#VistaPrecarga").show();    
     jQuery.ajax({
         type: 'POST',
         url: urlRecibirPinCambioContrasenia,
@@ -189,8 +187,7 @@ function VerificarCodigo(CodIngresado) {
 
 }
 
-function CambiarContrasenia() {
-    debugger;
+function CambiarContrasenia() {    
     $(".seccion").hide();
     $("#VistaPrecarga").show();
 
@@ -248,8 +245,7 @@ function ContraseniaRepetida() {
         CodigoIso: $('#CodigoIso').val(),
         CodigoUsuario: $('#CodigoUsuario').val(),
         Contrasenia: $('#Contrasenia').val()
-    }
-    debugger;
+    }    
     jQuery.ajax({
         type: 'POST',
         url: urlContraseniaRepetida,
