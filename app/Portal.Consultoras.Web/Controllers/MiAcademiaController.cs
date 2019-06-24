@@ -33,16 +33,17 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var idCurso = SessionManager.GetMiAcademia();
                 var flagVideo = SessionManager.GetMiAcademiaVideo();
+                var flagPdf = SessionManager.GetMiAcademiaPdf();
                 var parametrosSap = SessionManager.GetMiAcademiaParametro();
                 SessionManager.SetMiAcademia(0);
                 SessionManager.SetMiAcademiaVideo(0);
-
+                SessionManager.SetMiAcademiaPdf(0);
                 var isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 var resultToken = _miAcademiaProvider.GetToken(userData, isoUsuario);
 
                 if (resultToken.Success)
                 {
-                    var tipoUrl = flagVideo == 0 ? Enumeradores.MiAcademiaUrl.Cursos : Enumeradores.MiAcademiaUrl.Video;
+                    var tipoUrl = flagVideo == 0 && flagPdf == 0 ? Enumeradores.MiAcademiaUrl.Cursos : flagPdf == 0 ? Enumeradores.MiAcademiaUrl.Video : Enumeradores.MiAcademiaUrl.Pdf;
                     var parametroUrl = _miAcademiaProvider.NewParametroUrl(userData, isoUsuario, resultToken.Data, idCurso);
                     string url = _miAcademiaProvider.GetUrl(tipoUrl, parametroUrl);                    
                     if (parametrosSap.Length > 1 && parametrosSap.Contains("SAP")) url = url + "&" + parametrosSap;

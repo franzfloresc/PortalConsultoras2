@@ -44,6 +44,7 @@ namespace Portal.Consultoras.Web.Controllers
         private string pasoLog;
         private int misCursos = 0;
         private int flagMiAcademiaVideo = 0;
+        private int flagMiAcademiaPdf = 0;
         private string urlSapParametro = "";
 
         private readonly string IP_DEFECTO = "190.187.154.154";
@@ -103,6 +104,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         sessionManager.SetMiAcademia(misCursos);
                         sessionManager.SetMiAcademiaVideo(flagMiAcademiaVideo);
+                        sessionManager.SetMiAcademiaPdf(flagMiAcademiaPdf);
                         sessionManager.SetMiAcademiaParametro(urlSapParametro);
 
                     }
@@ -174,6 +176,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             TempData["MiAcademia"] = 0;
             TempData["FlagAcademiaVideo"] = 0;
+            TempData["FlagAcademiaPdf"] = 0;
             TempData["SapParametros"] = "";
             var url = (Request.Url.OriginalString).Split('?');
             if (url.Length > 1)
@@ -190,12 +193,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                 }
                 else
-                if (url9.Contains("MIACADEMIA") && url9.Contains("SAP"))
                 {
-                    urlSapParametro = url9.Remove(0, 15);
-                    TempData["SapParametros"] = url9.Remove(0, 15);
-                }
 
+                    if (url9.Contains("MIACADEMIAPDF") && url9.Contains("SAP"))
+                    {
+                        urlSapParametro = url9.Remove(0, 19);
+                        TempData["SapParametros"] = url9.Remove(0, 19);
+                    }
+                    else
+                       if (url9.Contains("MIACADEMIA") && url9.Contains("SAP"))
+                        {
+                            urlSapParametro = url9.Remove(0, 15);
+                            TempData["SapParametros"] = url9.Remove(0, 15);
+                        }                     
+
+                }
                 TempData["FlagAcademiaVideo"] = 1;
 
                 if (Util.IsNumeric(MiId[0]))
@@ -210,10 +222,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                     else
                     {
-                        TempData["FlagAcademiaVideo"] = 0;
-                        flagMiAcademiaVideo = 0;
+                        if (url9.Contains("MIACADEMIAPDF"))  //PPC
+                        {
+                            TempData["FlagAcademiaPdf"] = 1;   //PPC
+                            flagMiAcademiaPdf = 1;
+                            TempData["FlagAcademiaVideo"] = 0;
+                            flagMiAcademiaVideo = 0;
+                        }
+                        else  //PPC
+                        {
+                            TempData["FlagAcademiaVideo"] = 0;
+                            flagMiAcademiaVideo = 0;
+                            TempData["FlagAcademiaPdf"] = 0;   //PPC
+                            flagMiAcademiaPdf = 0;
+                        }
                     }
-
 
                 }
             }

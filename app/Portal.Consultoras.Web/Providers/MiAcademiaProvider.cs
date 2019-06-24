@@ -56,6 +56,7 @@ namespace Portal.Consultoras.Web.Providers
             {
                 case Enumeradores.MiAcademiaUrl.Cursos: return Constantes.ConfiguracionManager.CursosMarquesina;
                 case Enumeradores.MiAcademiaUrl.Video: return Constantes.ConfiguracionManager.UrlCursoMiAcademiaVideo;
+                case Enumeradores.MiAcademiaUrl.Pdf: return Constantes.ConfiguracionManager.UrlCursoMiAcademiaPdf;
                 default: return "";
             }
         }

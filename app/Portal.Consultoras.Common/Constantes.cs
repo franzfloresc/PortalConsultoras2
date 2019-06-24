@@ -556,6 +556,7 @@ namespace Portal.Consultoras.Common
             public const string UrlLMS = "UrlLMS";
             public const string CursosMarquesina = "CursosMarquesina";
             public const string UrlCursoMiAcademiaVideo = "UrlCursoMiAcademiaVideo";
+            public const string UrlCursoMiAcademiaPdf = "UrlCursoMiAcademiaPdf";
             public const string UrlMisCursos = "UrlMisCursos";
             public const string TokenMisCursos = "TokenMisCursos";
             public const string UrlCursoMiAcademia = "UrlCursoMiAcademia";
