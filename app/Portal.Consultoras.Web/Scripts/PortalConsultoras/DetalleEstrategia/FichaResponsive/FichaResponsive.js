@@ -43,6 +43,8 @@ var estrategia = null;
 $(document).ready(function () {
     fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
 
+    analyticsPortal.MarcaVisualizarDetalleProducto(estrategia);
+
     const carruselModel = new CarruselModel(
         params.palanca,
         params.campania,
