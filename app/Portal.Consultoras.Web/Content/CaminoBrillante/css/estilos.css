@@ -330,27 +330,27 @@ div .owl-carousel .owl-stage-outer {
 }
 
 .medal-1 {
-    width: 20%;
+    width: 0%;
     animation-name: progressUno
 }
 
 .medal-2 {
-    width: 40%;
+    width: 20%;
     animation-name: progressDos
 }
 
 .medal-3 {
-    width: 60%;
+    width: 40%;
     animation-name: progressTres
 }
 
 .medal-4 {
-    width: 80%;
+    width: 60%;
     animation-name: progressCuatro
 }
 
 .medal-5 {
-    width: 100%;
+    width: 80%;
     animation-name: progressCinco
 }
 
@@ -365,7 +365,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 20%;
+        width: 0;
     }
 }
 
@@ -375,7 +375,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 40%;
+        width: 20%;
     }
 }
 
@@ -385,7 +385,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 60%;
+        width: 40%;
     }
 }
 
@@ -395,7 +395,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 80%;
+        width: 60%;
     }
 }
 
@@ -405,7 +405,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 100%;
+        width: 80%;
     }
 }
 
@@ -427,7 +427,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 12%;
+        width: 0%;
     }
 }
 
@@ -437,7 +437,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 32%;
+        width: 20%;
     }
 }
 
@@ -447,7 +447,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 52%;
+        width: 40%;
     }
 }
 
@@ -457,7 +457,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 72%;
+        width: 60%;
     }
 }
 
@@ -467,7 +467,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 92%;
+        width: 80%;
     }
 }
 
@@ -487,7 +487,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 13%;
+        width: 0%;
     }
 }
 
@@ -497,7 +497,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 33%;
+        width: 21%;
     }
 }
 
@@ -507,7 +507,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 53%;
+        width: 41%;
     }
 }
 
@@ -517,7 +517,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 73%;
+        width: 61%;
     }
 }
 
@@ -527,7 +527,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 93%;
+        width: 81%;
     }
 }
 
@@ -550,7 +550,7 @@ div .owl-carousel .owl-stage-outer {
 }
 .Progress:after {
     position: absolute;
-    top: -3px;
+    top: -5px;
     right: 0;
     content: "";
     display: block;
@@ -1136,7 +1136,7 @@ div.opOrdenar {
 }
 
 .tog-vermenos {
-    width:80px;
+    width:84px;
 }
     .tog-vermas:after, .tog-vermenos:after {
         content: "";
@@ -1233,7 +1233,7 @@ div.opOrdenar {
 }
 .box-cent-valor {
     position: absolute;
-    right: 0;
+    right:-6px;
     top: 12px;
 }
 .arrowtop {
@@ -1273,6 +1273,7 @@ div.opOrdenar {
         display: block;
         text-align: left;
         margin-top: -5px;
+        font-size: 13px;
     }
 
 .flagimg {
@@ -1335,7 +1336,7 @@ div.opOrdenar {
     background: #cd5b5b;
     position: absolute;
     top: 0;
-    left: -2px;
+    left: -3px;
     border-radius: 8px;
 }
 .tp-1 {
@@ -2362,27 +2363,27 @@ div .ficha__producto__precio__normal {
     }
 
     .medal-1 {
-        width: 12%;
+        width: 0%;
         animation-name: MovilprogressUno;
     }
 
     .medal-2 {
-        width: 32%;
+        width: 20%;
         animation-name: MovilprogressDos;
     }
 
     .medal-3 {
-        width: 52%;
+        width: 40%;
         animation-name: MovilprogressTres;
     }
 
     .medal-4 {
-        width: 72%;
+        width: 60%;
         animation-name: MovilprogressCuatro;
     }
 
     .medal-5 {
-        width: 92%;
+        width: 80%;
         animation-name: MovilprogressCinco;
     }
 
@@ -2553,6 +2554,15 @@ div .ficha__producto__precio__normal {
             text-align: center;
             line-height: 50px
         }
+    .tog-vermas, .tog-vermenos {
+        width: 60px;
+    }
+    .tog-vermenos {
+        width: 78px;
+    }
+    .tog-vermas:after, .tog-vermenos:after {
+        top: 1px;
+    }
 }
 
 @media screen and (max-width:600px) {
@@ -2688,27 +2698,27 @@ div .ficha__producto__precio__normal {
 
 @media screen and (max-width:330px) {
     .medal-1 {
-        width: 13%;
+        width: 0%;
         animation-name: MovilDosprogressUno;
     }
 
     .medal-2 {
-        width: 33%;
+        width: 21%;
         animation-name: MovilDosprogressDos;
     }
 
     .medal-3 {
-        width: 53%;
+        width: 41%;
         animation-name: MovilDosprogressTres;
     }
 
     .medal-4 {
-        width: 73%;
+        width: 61%;
         animation-name: MovilDosprogressCuatro;
     }
 
     .medal-5 {
-        width: 93%;
+        width: 81%;
         animation-name: MovilDosprogressCinco;
     }
 

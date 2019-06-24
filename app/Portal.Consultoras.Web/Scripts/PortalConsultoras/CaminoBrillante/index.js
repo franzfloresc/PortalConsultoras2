@@ -4,26 +4,6 @@ $("#a").hide;
 
 $(document).ready(function () {
 
-    if (typeof history.pushState === "function") {
-        history.pushState("jibberish", null, null);
-        window.onpopstate = function () {
-            history.pushState('newjibberish', null, null);
-
-        };
-    }
-    else {
-        window.onhashchange = function () {
-
-            if (!ignoreHashChange) {
-                ignoreHashChange = true;
-                window.location.hash = Math.random();
-            }
-            else {
-                ignoreHashChange = false;
-            }
-        };
-    }
-
     if (TineCarrusel == '1') {
         Carusel();    
         if ($("#template-kit").length > 0) {
@@ -77,15 +57,13 @@ $(window).on("load", function () {
         };
     }
     else {
+        
         window.onhashchange = function () {
             
             if (!ignoreHashChange) {
                 ignoreHashChange = true;
                 window.location.hash = Math.random();
-                // Detect and redirect change here
-                // Works in older FF and IE9
-                // * it does mess with your hash symbol (anchor?) pound sign
-                // delimiter on the end of the URL
+              
             }
             else {
                 ignoreHashChange = false;
@@ -295,7 +273,7 @@ function ArmarMisGanancias(data) {
         serie.push(item.ValorSerie);
         titles.push(item.ValorSerieFormat);
         backgroundColors.push(colorBar);
-        hoverBackgrounds.push(colorBarSelected);
+        //hoverBackgrounds.push(colorBarSelected);
         if (item.FlagSeleccionMisGanancias) {
             indexSeleccion = x;
         }
@@ -306,7 +284,7 @@ function ArmarMisGanancias(data) {
         serie.push(0);
         titles.push("");
         backgroundColors.push(colorBar);
-        hoverBackgrounds.push(colorBarSelected);
+        //hoverBackgrounds.push(colorBarSelected);
     }
 
     Chart.pluginService.register({
@@ -363,7 +341,7 @@ function ArmarMisGanancias(data) {
                     borderWidth: 0,
                    
                     backgroundColor: backgroundColors,
-                    hoverBackgroundColor: hoverBackgrounds,
+                    //hoverBackgroundColor: hoverBackgrounds,
                     data: serie
                 }
             ]
@@ -380,9 +358,9 @@ function ArmarMisGanancias(data) {
                     // Reset old state
                     dataset = myBar.data.datasets[datasetIndex];
                     dataset.backgroundColor = backgroundColors.slice();
-                    dataset.hoverBackgroundColor = hoverBackgrounds.slice();
+                    //dataset.hoverBackgroundColor = hoverBackgrounds.slice();
                     dataset.backgroundColor[index] = colorBarSelected;
-                    dataset.hoverBackgroundColor[index] = colorBarSelected;
+                    //dataset.hoverBackgroundColor[index] = colorBarSelected;
                     // 
                 } else {
                     // remove hover styles
@@ -512,7 +490,7 @@ function ArmarCarrusel(data) {
     $('#carrusel').show();
 
     $(".regular").slick({
-        infinite: false,
+        infinite: true,
         slidesToShow: 4,
         centerMode: false,
         centerPadding: "0px",
@@ -525,7 +503,7 @@ function ArmarCarrusel(data) {
         responsive: [
             {
                 breakpoint: 426,
-                settings: { slidesToShow: 2, slidesToScroll:1, centerPadding: "25px",  infinite: false}
+                settings: { slidesToShow: 2, slidesToScroll: 2, centerPadding: "25px",  infinite: true}
             }
         ]
     });
