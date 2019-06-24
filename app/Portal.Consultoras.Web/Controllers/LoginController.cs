@@ -3557,6 +3557,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (result == true)
                 {
+
                     Session["DatosUsuario"] = null;
                 }
 
