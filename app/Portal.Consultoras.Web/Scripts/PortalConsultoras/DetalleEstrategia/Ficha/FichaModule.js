@@ -461,13 +461,11 @@ var FichaModule = (function (config) {
                 } else {
                     componente.FotosCarrusel = componente.FotosCarrusel || [];
                 }
-
-                if (estrategia.CodigoVariante == ConstantesModule.CodigoVariedad.IndividualVariable) {
-                    if (estrategia.Cuv === componente.Cuv) {
-                        estrategia.FotosCarrusel = componente.FotosCarrusel;
-                    }
-                }
             });
+
+            if (estrategia.Hermanos.length === 1) {
+                estrategia.FotosCarrusel = estrategia.Hermanos[0].FotosCarrusel;
+            }
         }
 
         estrategia.FotosCarrusel = estrategia.FotosCarrusel || [];
