@@ -2212,6 +2212,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.RegistrosTotal = "0";
                 return RedirectToAction("Index", "Pedido", new { area = "" });
             }
+            ViewBag.CantidadPedidosPendientes = model.ListaPedidos.Count;
             return View(model);
         }
 
