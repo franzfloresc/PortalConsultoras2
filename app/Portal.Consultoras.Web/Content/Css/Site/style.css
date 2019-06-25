@@ -12369,11 +12369,15 @@ label.checkpop {
     justify-content: space-between;
 }
 
+.verDirecciones__container .contenedor_dirrecciones_cercanas {
+    width: 55%;
+}
+
     .verDirecciones__container .mapa {
         position: relative;
         overflow: hidden;
-        height: 450px !important;
-        width: 50%;
+        height: 480px !important;
+        width: 40%;
     }
 
     .verDirecciones__container .contenedor_dirrecciones_cercanas ul {
