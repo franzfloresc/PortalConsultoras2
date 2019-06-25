@@ -336,13 +336,11 @@ function ArmarMisGanancias(data) {
         data: {
             labels: labels,
             datasets: [
-                {
-                    
+                {                    
                     borderColor: "#ffdaf3",
-                    borderWidth: 0,
-                   
+                    borderWidth: 0,                   
                     backgroundColor: backgroundColors,
-                    //hoverBackgroundColor: hoverBackgrounds,
+                    hoverBackgroundColor: backgroundColors,
                     data: serie
                 }
             ]
@@ -358,10 +356,12 @@ function ArmarMisGanancias(data) {
                     backgroundColors[indexSeleccion] = colorBar;
                     // Reset old state
                     dataset = myBar.data.datasets[datasetIndex];
+
                     dataset.backgroundColor = backgroundColors.slice();
-                    //dataset.hoverBackgroundColor = hoverBackgrounds.slice();
+                    dataset.hoverBackgroundColor = dataset.backgroundColor;
+
                     dataset.backgroundColor[index] = colorBarSelected;
-                    //dataset.hoverBackgroundColor[index] = colorBarSelected;
+                    dataset.hoverBackgroundColor[index] = colorBarSelected;
                     // 
                 } else {
                     // remove hover styles
