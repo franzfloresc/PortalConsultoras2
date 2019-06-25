@@ -4,7 +4,8 @@ var listaGana = [];
 var gTipoVista = 0;
 
 $(document).ready(function () {
-    cambiaTabs();
+    cambiaTabs();    
+    $("#vpMenu .info_cam").remove();
 });
 
 function bindElments() {
