@@ -1231,36 +1231,6 @@ namespace Portal.Consultoras.Web.Controllers
                             userData.CodigoISO);
                     }
                 }
-                //else
-                //{
-                //    String titulo = "(" + userData.CodigoISO + ") Consultora que atenderá tu pedido de " +
-                //                    HttpUtility.HtmlDecode(marcaPedido);
-                //    StringBuilder mensaje = new StringBuilder();
-                //    mensaje.AppendFormat("<p>Hola {0},</br><br /><br />", HttpUtility.HtmlDecode(pedidoAux.Cliente));
-                //    mensaje.AppendFormat("{0}</p><br/>", mensajeaCliente);
-                //    mensaje.Append("<br/>Saludos,<br/><br />");
-                //    mensaje.Append("<table><tr><td><img src=\"cid:{0}\" /></td>");
-                //    mensaje.AppendFormat(
-                //        "<td><p style='text-align: center;'><strong>{0}<br/>{1}<br/>Consultora</strong></p></td></tr></table>",
-                //        userData.NombreConsultora, userData.EMail);
-
-                //    try
-                //    {
-                //        if (pedido.Accion == 1)
-                //        {
-                //            Util.EnviarMail3(emailDe, pedidoAux.Email, titulo, mensaje.ToString(), true, string.Empty);
-                //        }
-                //        else
-                //        {
-                //            Util.EnviarMail3Mobile(emailDe, pedidoAux.Email, titulo, mensaje.ToString(), true,
-                //                string.Empty);
-                //        }
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                //    }
-                //}
 
                 return Json(new
                 {
@@ -1324,9 +1294,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (NumIteracion == numIteracionMaximo)
                 {
-                    sv.RechazarSolicitudCliente(paisId, SolicitudId, true, OpcionRechazo, RazonMotivoRechazo);
-
-                    double totalPedido = 0;
+                    sv.RechazarSolicitudCliente(paisId, SolicitudId, true, OpcionRechazo, RazonMotivoRechazo);                   
 
                     var titulocliente = "Tu pedido ha sido RECHAZADO por " + userData.PrimerNombre + " " +
                                            userData.PrimerApellido + " - " + medio;
@@ -2232,25 +2200,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
-                string medio = String.Empty;
-                switch (pedido.FlagMedio)
-                {
-                    case Constantes.SolicitudCliente.FlagMedio.AppCatalogos:
-                        medio = "App Catálogo";
-                        break;
-                    case Constantes.SolicitudCliente.FlagMedio.WebMarcas:
-                        medio = "Web Marcas";
-                        break;
-                    case Constantes.SolicitudCliente.FlagMedio.CatalogoDigital:
-                        medio = "Catálogo Digital";
-                        break;
-                    case Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual:
-                        medio = "Maquillador Virtual";
-                        break;
-                    default:
-                        break;
-                }
-
                 using (SACServiceClient svc = new SACServiceClient())
                 {
                     svc.UpdSolicitudClienteRechazar(userData.PaisID, pedido.PedidoId, motivoRechazoId, motivoRechazoTexto);
@@ -2435,8 +2384,7 @@ namespace Portal.Consultoras.Web.Controllers
                         det.Elegido = false;
                     }
                 }
-
-                //var flgMedio = Constantes.SolicitudCliente.FlagMedio.AppCatalogos;
+                
                 foreach (var det in lstDetalle)
                 {
                     foreach (var cab in pedidos.ListaPedidos)
