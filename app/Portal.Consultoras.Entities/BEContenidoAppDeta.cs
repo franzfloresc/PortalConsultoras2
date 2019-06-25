@@ -45,5 +45,11 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int Campania { get; set; }
 
+        [DataMember]
+        public string Zona { get; set; }
+
+        [DataMember]
+        public string Seccion { get; set; }
+
     }
 }

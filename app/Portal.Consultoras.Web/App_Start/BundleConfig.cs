@@ -511,6 +511,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/jquery-1.11.2.js",
                 "~/Scripts/jquery-ui-1.9.2.custom.js",
                 "~/Scripts/General.js",
+                "~/Scripts/PortalConsultoras/Login/VerificaAutenticidadBase.js",
                 "~/Scripts/PortalConsultoras/Login/VerificaAutenticidad.js"
             ));
 

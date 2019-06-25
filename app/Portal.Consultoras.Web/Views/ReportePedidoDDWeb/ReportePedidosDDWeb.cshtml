@@ -12,7 +12,7 @@
             if (Id != null) {
                 waitingDialog({});
                 $.ajaxSetup({ cache: false });
-                $.getJSON(baseUrl + 'BaseAdm/ObtenerCampaniasZonasRegionesPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
+                $.getJSON(baseUrl + 'BaseAdm/ObtenerCampaniasZonasRegionesPorPaisAsync', { PaisID: Id == "" ? 0 : Id }, function (data) {
                     if (checkTimeout(data)) {
                         LimpiarDependencias(Id);
                         if (Id != "") {
@@ -56,21 +56,23 @@
             }
         });
         $('#ddlRegion').change(function () {
-            var Id = $(this).val();
+            var Id = $(this).val() == "" ? -1 : $(this).val();
             if (Id != null) {
                 waitingDialog({});
                 $.ajaxSetup({ cache: false });
                 $.ajax({
                     type: 'GET',
-                    url: baseUrl + 'ReportePedidoDDWeb/ObtenerZonasByRegion',
-                    data: "PaisID=" + $("#ddlPais").val() + "&RegionID=" + (Id == "" ? -1 : Id),
+                    url: baseUrl + 'ReportePedidoDDWeb/GetZonasByRegion',
+                    //data: "PaisID=" + $("#ddlPais").val() + "&RegionID=" + (Id == "" ? -1 : Id),
+                    data: { PaisID : $("#ddlPais").val(), RegionID :Id},
                     cache: false,
                     dataType: 'Json',
                     success: function (data) {
                         if (checkTimeout(data)) {
+                            debugger;
                             var ddlZona = $('#ddlZona');
                             ddlZona.empty();
-                            if (data.listaZonas.length > 0) {
+                            //if (data.listaZonas.length > 0) {
                                 ddlZona.append($('<option/>', {
                                     value: "",
                                     text: "-- Todas --"
@@ -83,7 +85,7 @@
                                         }));
                                     }
                                 }
-                            }
+                            //}
                             closeWaitingDialog();
                         }
                     },
