@@ -58,6 +58,7 @@ namespace Portal.Consultoras.Web.WebPages
                     txtcodigousuario.Text = codigousuario;
                     txtcontrasenaanterior.Text = fechasolicitud;
                     txtmarca.Text = esEsika ? "esika" : "lbel";
+                    txtpatronRegex.Text = Common.Constantes.Regex.CadenaRegexPassword;
                 }
             }
         }
@@ -90,14 +91,16 @@ namespace Portal.Consultoras.Web.WebPages
                         return serializer.Serialize(new
                         {
                             success = true,
-                            url = urlportal
+                            url = urlportal,
+                            message = result
                         });
                     }
 
                     return serializer.Serialize(new
                     {
                         success = false,
-                        urlportal = urlportal
+                        url = urlportal,
+                        message = result
                     });
                 }
             }
