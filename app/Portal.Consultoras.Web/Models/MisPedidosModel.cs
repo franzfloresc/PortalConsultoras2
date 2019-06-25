@@ -15,7 +15,6 @@ namespace Portal.Consultoras.Web.Models
         public string Pagina { get; set; }
         public string PaginaDe { get; set; }
         public string FechaPedidoReciente { get; set; }
-        //public string TipoPaginador { get; set; }
 
         public List<BEMisPedidosDetalle> ListaDetalle { get; set; }
         public List<MisPedidosDetalleModel> ListaDetalleModel { get; set; }

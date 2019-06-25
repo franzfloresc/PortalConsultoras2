@@ -879,167 +879,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        //[HttpPost]
-        //public JsonResult CargarMisPedidos(string sidx, string sord, int page, int rows)
-        //{
-        //    try
-        //    {
-        //        List<BEMisPedidos> olstMisPedidos;
-        //        MisPedidosModel model = new MisPedidosModel();
-
-        //        using (UsuarioServiceClient svc = new UsuarioServiceClient())
-        //        {
-        //            olstMisPedidos =
-        //                svc.GetMisPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID, userData.CampaniaID)
-        //                    .ToList();
-        //        }
-
-        //        if (olstMisPedidos.Count > 0)
-        //        {
-        //            olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);
-
-        //            if (olstMisPedidos.Count > 0)
-        //            {
-        //                olstMisPedidos.ToList().ForEach(y =>
-        //                    y.FormartoFechaSolicitud = y.FechaSolicitud.ToString("dd") + " de " +
-        //                                               y.FechaSolicitud.ToString("MMMM", new CultureInfo("es-ES")));
-        //                olstMisPedidos.ToList().ForEach(y =>
-        //                    y.FormatoPrecioTotal = Util.DecimalToStringFormat(y.PrecioTotal, userData.CodigoISO));
-
-        //                model.ListaPedidos = olstMisPedidos;
-
-        //                objMisPedidos = model;
-        //                SessionManager.SetobjMisPedidos(objMisPedidos);
-
-        //                var lstClientesExistentes = olstMisPedidos.Where(x => x.FlagConsultora).ToList();
-
-        //                if (lstClientesExistentes.Count == olstMisPedidos.Count)
-        //                {
-        //                    model.FechaPedidoReciente = "24:00:00";
-        //                }
-        //                else
-        //                {
-        //                    var pedidoReciente = olstMisPedidos.Where(x => !x.FlagConsultora)
-        //                        .OrderBy(x => x.FechaSolicitud).First();
-
-        //                    DateTime starDate = DateTime.Now;
-        //                    DateTime endDate = pedidoReciente.FechaSolicitud.AddDays(1);
-
-        //                    TimeSpan ts = endDate - starDate;
-        //                    model.FechaPedidoReciente = ts.Hours.ToString().PadLeft(2, '0') + ":" +
-        //                                                ts.Minutes.ToString().PadLeft(2, '0') + ":" +
-        //                                                ts.Seconds.ToString().PadLeft(2, '0');
-
-        //                }
-
-        //                BEGrid grid = new BEGrid(sidx, sord, page, rows);
-        //                BEPager pag = Util.PaginadorGenerico(grid, model.ListaPedidos);
-
-        //                model.ListaPedidos = model.ListaPedidos.Skip((grid.CurrentPage - 1) * grid.PageSize)
-        //                    .Take(grid.PageSize).ToList();
-
-        //                model.Registros = grid.PageSize.ToString();
-        //                model.RegistrosTotal = pag.RecordCount.ToString();
-        //                model.Pagina = pag.CurrentPage.ToString();
-        //                model.PaginaDe = pag.PageCount.ToString();
-        //            }
-        //            else
-        //            {
-        //                model.RegistrosTotal = "0";
-        //                model.Pagina = "0";
-        //                model.PaginaDe = "0";
-        //            }
-        //        }
-        //        else
-        //        {
-        //            model.RegistrosTotal = "0";
-        //            model.Pagina = "0";
-        //            model.PaginaDe = "0";
-        //        }
-
-        //        model.TipoPaginador = Constantes.ClasificadorPedido.PedidoDetallePendiente;
-
-        //        return Json(new
-        //        {
-        //            success = true,
-        //            message = "OK",
-        //            data = model
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = ex.Message,
-        //            data = ""
-        //        });
-        //    }
-        //}
-
-        //[HttpPost]
-        //public JsonResult CargarMisPedidosDetalle(string sidx, string sord, int page, int rows, int pedidoId)
-        //{
-        //    try
-        //    {
-        //        List<BEMisPedidosDetalle> olstMisPedidosDet;
-        //        MisPedidosDetalleModel model = new MisPedidosDetalleModel();
-
-        //        using (UsuarioServiceClient svc = new UsuarioServiceClient())
-        //        {
-        //            olstMisPedidosDet = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, pedidoId).ToList();
-        //        }
-
-        //        if (olstMisPedidosDet.Count > 0)
-        //        {
-        //            MisPedidosModel consultoraOnlineMisPedidos = SessionManager.GetobjMisPedidos();
-        //            long pedidoIdAux = Convert.ToInt64(pedidoId);
-        //            var pedido =
-        //                consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == pedidoIdAux) ??
-        //                new BEMisPedidos();
-
-        //            SessionManager.SetobjMisPedidosDetalle(olstMisPedidosDet);
-
-        //            olstMisPedidosDet = CargarMisPedidosDetalleDatos(pedido.MarcaID, olstMisPedidosDet);
-
-        //            model.ListaDetalle = olstMisPedidosDet;
-
-        //            BEGrid grid = new BEGrid(sidx, sord, page, rows);
-        //            BEPager pag = Util.PaginadorGenerico(grid, model.ListaDetalle);
-
-        //            model.Registros = grid.PageSize.ToString();
-        //            model.RegistrosTotal = pag.RecordCount.ToString();
-        //            model.Pagina = pag.CurrentPage.ToString();
-        //            model.PaginaDe = pag.PageCount.ToString();
-        //        }
-        //        else
-        //        {
-        //            model.RegistrosTotal = "0";
-        //            model.Pagina = "0";
-        //            model.PaginaDe = "0";
-        //        }
-        //        model.TipoPaginador = Constantes.ClasificadorPedido.PedidoDetallePoputPendiente;
-
-        //        return Json(new
-        //        {
-        //            success = true,
-        //            message = "OK",
-        //            data = model
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        return Json(new
-        //        {
-        //            success = false,
-        //            message = ex.Message,
-        //            data = ""
-        //        });
-        //    }
-        //}
-
         public ActionResult ObtenerPagina(string Pagina)
         {
             objMisPedidos = SessionManager.GetobjMisPedidos();
@@ -1386,9 +1225,10 @@ namespace Portal.Consultoras.Web.Controllers
                                 true, pedidoAux.Email);
                         }
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
-
+                        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora,
+                            userData.CodigoISO);
                     }
                 }
                 //else
@@ -1449,14 +1289,14 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult RechazarPedido(long SolicitudId, int NumIteracion, string CodigoUbigeo, string Campania,
             int MarcaId, int OpcionRechazo, string RazonMotivoRechazo, string typeAction = null)
         {
-            int paisId = userData.PaisID;
-            DateTime fechaActual = DateTime.Now;
+            var paisId = userData.PaisID;
+            var fechaActual = DateTime.Now;
 
-            using (ServiceSAC.SACServiceClient sv = new ServiceSAC.SACServiceClient())
+            using (var sv = new ServiceSAC.SACServiceClient())
             {
                 MisPedidosModel consultoraOnlineMisPedidos = SessionManager.GetobjMisPedidos();
 
-                ServiceSAC.BETablaLogicaDatos[] tablalogicaDatos = sv.GetTablaLogicaDatos(paisId, 56);
+                var tablalogicaDatos = sv.GetTablaLogicaDatos(paisId, 56);
                 var numIteracionMaximo =
                     Convert.ToInt32(tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5601).Codigo);
 
@@ -1464,7 +1304,7 @@ namespace Portal.Consultoras.Web.Controllers
                     consultoraOnlineMisPedidos.ListaPedidos.FirstOrDefault(p => p.PedidoId == SolicitudId) ??
                     new BEMisPedidos();
 
-                string medio = String.Empty;
+                var medio = string.Empty;
                 switch (pedido.FlagMedio)
                 {
                     case Constantes.SolicitudCliente.FlagMedio.AppCatalogos:
@@ -1479,8 +1319,6 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual:
                         medio = "Maquillador Virtual";
                         break;
-                    default:
-                        break;
                 }
 
 
@@ -1488,15 +1326,11 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     sv.RechazarSolicitudCliente(paisId, SolicitudId, true, OpcionRechazo, RazonMotivoRechazo);
 
-
-
-                    //if (pedido.FlagMedio == "01")
-                    //{
                     double totalPedido = 0;
 
-                    String titulocliente = "Tu pedido ha sido RECHAZADO por " + userData.PrimerNombre + " " +
+                    var titulocliente = "Tu pedido ha sido RECHAZADO por " + userData.PrimerNombre + " " +
                                            userData.PrimerApellido + " - " + medio;
-                    StringBuilder mensajecliente = new StringBuilder();
+                    var mensajecliente = new StringBuilder();
 
                     mensajecliente.Append("<div style='display:block;margin-left:auto;margin-right:auto;width:100%;'>");
                     mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0' width='600'>");
@@ -1572,22 +1406,21 @@ namespace Portal.Consultoras.Web.Controllers
                         LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora,
                             userData.CodigoISO);
                     }
-                    //}
                 }
                 else   /*Reasigna una nueva consultora*/
                 {
                     try
                     {
-                        String estadoPedido = "RECHAZADO por ";
+                        var estadoPedido = "RECHAZADO por ";
 
-                        ServiceSAC.BESolicitudNuevaConsultora nuevaConsultora = sv.ReasignarSolicitudCliente(paisId,
+                        var nuevaConsultora = sv.ReasignarSolicitudCliente(paisId,
                             SolicitudId, CodigoUbigeo, Campania, MarcaId, OpcionRechazo, RazonMotivoRechazo);
 
                         if (nuevaConsultora != null)
                         {
                             estadoPedido = "REASIGNADO ";
 
-                            ServiceSAC.BESolicitudCliente beSolicitudCliente =
+                            var beSolicitudCliente =
                                 sv.GetSolicitudCliente(paisId, SolicitudId);
                             fechaActual = beSolicitudCliente.FechaModificacion;
                             HttpRequestBase request = this.HttpContext.Request;
@@ -1607,10 +1440,10 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
 
-                        String consultora = (nuevaConsultora != null) ? (nuevaConsultora.Nombre) : (userData.PrimerNombre + " " + userData.PrimerApellido);
+                        var consultora = (nuevaConsultora != null) ? (nuevaConsultora.Nombre) : (userData.PrimerNombre + " " + userData.PrimerApellido);
 
-                        String titulocliente = "Tu pedido ha sido " + estadoPedido + consultora + " - " + medio;
-                        StringBuilder mensajecliente = new StringBuilder();
+                        var titulocliente = "Tu pedido ha sido " + estadoPedido + consultora + " - " + medio;
+                        var mensajecliente = new StringBuilder();
 
                         mensajecliente.Append("<div style='display:block;margin-left:auto;margin-right:auto;width:100%;'>");
                         mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0' width='600'>");
@@ -3223,7 +3056,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (pedidoAux.FlagMedio != null)
             {
-                string medio = String.Empty;
+                var medio = string.Empty;
                 switch (pedidoAux.FlagMedio)
                 {
                     case Constantes.SolicitudCliente.FlagMedio.AppCatalogos:
@@ -3238,16 +3071,11 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual:
                         medio = "Maquillador Virtual";
                         break;
-                    default:
-                        break;
                 }
 
-
-                double totalPedido = 0;
-
-                String titulocliente = "Tu pedido ha sido CONFIRMADO por " + userData.PrimerNombre + " " +
+                var titulocliente = "Tu pedido ha sido CONFIRMADO por " + userData.PrimerNombre + " " +
                                        userData.PrimerApellido + " - " + medio;
-                StringBuilder mensajecliente = new StringBuilder();
+                var mensajecliente = new StringBuilder();
 
                 mensajecliente.Append("<div style='display:block;margin-left:auto;margin-right:auto;width:100%;'>");
                 mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0' width='600'>");
@@ -3344,15 +3172,13 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual:
                     medio = "Maquillador Virtual";
                     break;
-                default:
-                    break;
             }
 
 
-            String consultora = (userData.PrimerNombre + " " + userData.PrimerApellido);
+            var consultora = (userData.PrimerNombre + " " + userData.PrimerApellido);
 
-            String titulocliente = "Tu pedido ha sido RECHAZADO por " + consultora + " - " + medio;
-            StringBuilder mensajecliente = new StringBuilder();
+            var titulocliente = "Tu pedido ha sido RECHAZADO por " + consultora + " - " + medio;
+            var mensajecliente = new StringBuilder();
 
             mensajecliente.Append("<div style='display:block;margin-left:auto;margin-right:auto;width:100%;'>");
             mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0' width='600'>");
