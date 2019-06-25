@@ -33,6 +33,15 @@ var FichaVerDetalle = (function () {
             AnalyticsPortalModule.MarcaVerDetalleProducto(e, OrigenPedidoWeb, UrlDetalle);
         }
 
+        if (typeof LocalStorageListado != 'undefined') {
+            var modeloEstrategiaTemporal = {
+                Origen: OrigenPedidoWeb,
+                Cuv: codigoCuv,
+                Estrategia: infoCuvItem
+            };
+            LocalStorageListado(ConstantesModule.KeysLocalStorage.EstrategiaTemporal, modeloEstrategiaTemporal);
+        }
+
         window.location = UrlDetalle;
 
         return true;
