@@ -26,5 +26,6 @@ namespace Portal.Consultoras.Web.Models
         public bool CuvEsAceptado { get; set; }
         public int Cantidad { get; set; }
         public decimal PrecioUnidad { get; set; }
+        public bool ImagenAppCatalogo { get; set; }
     }
 }

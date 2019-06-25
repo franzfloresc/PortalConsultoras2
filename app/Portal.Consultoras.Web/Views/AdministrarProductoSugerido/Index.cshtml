@@ -603,6 +603,7 @@
             DescripcionComercial: $('#txtDescripcionProductoComercial').val(),
             ImagenProducto: imagen,
             PaisID: paisID,
+            ImagenAppCatalogo : $("#chkImagenProductoAppCatalogo").prop("checked"),
             MostrarAgotado: $('#chkMostrarAgotado').length ? $('#chkMostrarAgotado').attr('checked') ? 1 : 0 : 0
         };
         jQuery.ajax({
