@@ -2651,10 +2651,7 @@ namespace Portal.Consultoras.BizLogic
                     else valor = valor + Constantes.MensajeProcesoDescargaregular.respuestanoCarga;
 
                     daPedidoWeb.UpdLogPedidoDescargaWebDDSinMarcar(nuevoNroLote);
-                    if (valor !="bb")
-                    {
-                        daPedidoWeb.DeleteLogPedidoDescargasSinMarcar(nroLote, nuevoNroLote, valor);
-                    }
+                    daPedidoWeb.DeleteLogPedidoDescargasSinMarcar(nroLote, nuevoNroLote, valor);
                     transaction.Complete();
                 }
                 mensaje = CapturarMensaje(valor);
