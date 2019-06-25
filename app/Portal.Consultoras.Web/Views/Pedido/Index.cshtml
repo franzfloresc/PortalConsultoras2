@@ -1006,7 +1006,8 @@
                     </div>
                     <div class="clear"></div>
                 </div>
-                <div style="margin-left:27px; margin-right:27px; position:relative;">
+                <div id="ProductoSugeridoCarruselWrapper" style="margin-left:27px; margin-right:27px; position:relative;">
+                    <div class="producto_imagen_zoom"></div>
                     <div class="slider center" id="divCarruselSugerido" style="float:left;height:auto;">
                     </div>
                     <div class="clear"></div>
@@ -1557,7 +1558,55 @@
             </div>
             <div>
                 <div class="producto_imagen">
-                    <img src="{{ImagenProductoSugerido}}" alt="" />
+                    <img src="{{ImagenProductoSugerido}}" alt="" class="producto_imagen_thumbnail" />
+                </div>
+                <div class="producto_nombre_descripcion">
+                    <h6>{{DescripcionMarca}}</h6>
+                    <p class="nombre_producto nombre_producto_sugerido" style="display: inline-table;" title="{{Descripcion}}">
+                        <b>{{Descripcion}}</b>
+                    </p>
+                    <div class="producto_precio">
+                        <span class="producto_precio_oferta"><b>{{SimboloMoneda}} {{PrecioCatalogoString}}</b></span>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+            <div class="contenedor_cantidad_producto">
+                <div class="liquidacion_rango_wrapper_pedido" data-cantidad-contenedor="">
+                    <input type="text" id="txtCantidad" maxlength="2" value="1" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad">
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a href="#" title="Agregar" class="boton_elegirAgregar agregarSugerido">AGREGAR</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="sugerido" data-item="producto">
+        <div class="producto_carousel">
+            <div style="display: none;">
+                <input type="hidden" class="hdSugeridoCuv" value="{{CUV}}" />
+                <input type="hidden" class="hdSugeridoTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
+                <input type="hidden" class="hdSugeridoConfiguracionOfertaID" value="{{ConfiguracionOfertaID}}" />
+                <input type="hidden" class="hdSugeridoIndicadorMontoMinimo" value="{{IndicadorMontoMinimo}}" />
+                <input type="hidden" class="hdSugeridoTipo" value="1" />
+                <input type="hidden" class="hdSugeridoMarcaID" value="{{MarcaID}}" />
+                <input type="hidden" class="hdSugeridoPrecioUnidad" value="{{PrecioCatalogo}}" />
+                <input type="hidden" class="hdSugeridoDescripcionProd" value="{{Descripcion}}" />
+                <input type="hidden" class="hdSugeridoPagina" value="0" />
+                <input type="hidden" class="hdSugeridoDescripcionCategoria" value="{{DescripcionCategoria}}" />
+                <input type="hidden" class="hdSugeridoDescripcionMarca" value="{{DescripcionMarca}}" />
+                <input type="hidden" class="hdSugeridoDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                <input type="hidden" class="hdPosicionSugerido" value="{{posicion}}" />
+                <input type="hidden" class="hdTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
+            </div>
+            <div>
+                <div class="producto_imagen">
+                    <img src="{{ImagenProductoSugerido}}" alt="" class="producto_imagen_thumbnail" />
                 </div>
                 <div class="producto_nombre_descripcion">
                     <h6>{{DescripcionMarca}}</h6>
@@ -1947,7 +1996,7 @@
 
 @section scripts{
 
-<script type="text/javascript">
+    <script type="text/javascript">
         var arregloProductos;
         var cantProductosLoad = '@Model.ListaEstrategias.Count';
         var constConfiguracionOfertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
@@ -2044,7 +2093,7 @@
         var kitsCaminoBrillante = '@ViewBag.KitsCaminoBrillante';
         var PedidoEscogeRegaloCarrusel = '@Constantes.OrigenPedidoWeb.DesktopPedidoEscogeRegaloCarrusel';/*HD-3710*/
 
-</script>
+    </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)
     {
@@ -2057,6 +2106,7 @@
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ConsultoraOnline.js")"></script>
     }
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FichaProducto/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ProductoSugeridoZoom.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=2"></script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Ficha")

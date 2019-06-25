@@ -1388,6 +1388,9 @@ function ObtenerProductosSugeridos(CUV) {
             $("#divCarruselSugerido").prepend($(".js-slick-prev-h"));
             $("#divCarruselSugerido").prepend($(".js-slick-next-h"));
             TagManagerCarruselSugeridosInicio(data);
+            setTimeout(function () {
+                productoSugeridoZoom.init('#ProductoSugeridoCarruselWrapper');
+            }, 1000);
 
         },
         error: function (data, error) {
