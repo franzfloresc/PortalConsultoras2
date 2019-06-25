@@ -2207,7 +2207,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 MisPedidosModel model = GetPendientes();
 
-                EnviarEmailPedidoRechazado(pedido);
+                var pedidoSession = pedidos.ListaPedidos.FirstOrDefault();
+                System.Threading.Tasks.Task.Factory.StartNew(() =>
+                {
+                    EnviarEmailPedidoRechazado(pedidoSession);
+                });
+                
 
                 var PendientesJson = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
                 {
@@ -2673,8 +2678,11 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             #region Email
-
-            EnviarEmailPedidoAceptado(pedidosSesion.FirstOrDefault());
+            var pedidoSession = pedidosSesion.FirstOrDefault();
+            System.Threading.Tasks.Task.Factory.StartNew(() =>
+            {
+                EnviarEmailPedidoAceptado(pedidoSession);
+            });            
 
             #endregion
 
