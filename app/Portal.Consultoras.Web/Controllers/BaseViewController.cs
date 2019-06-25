@@ -579,7 +579,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var tipo = Constantes.TipoAccionNavegar.SinBoton;
 
-            if (esMobile && origen.ToString().StartsWith(Constantes.IngresoExternoOrigen.App))
+            if (!esEditar && esMobile && origen.ToString().StartsWith(Constantes.IngresoExternoOrigen.App))
             {
                 return tipo;
             }
