@@ -186,6 +186,14 @@ var DetalleEstrategiaProvider = function () {
                 lstHermanos: estrategia.Hermanos
             };
 
+            //if (estrategia.Hermanos.length === 1) {
+            //    if (estrategia.Hermanos[0].Hermanos) {
+            //        if (estrategia.Hermanos[0].Hermanos.length > 0) {
+            //            if (estrategia.Hermanos[0].FactorCuadre === 1) {
+            //                estrategia.CodigoVariante = _codigoVariedad.IndividualVariable;
+            //            }
+            //        }
+
             _promiseObternerComponentes(paramsObtenerComponente)
                 .done(function (data) {
                     estrategia.Hermanos = data.componentes;
@@ -199,13 +207,11 @@ var DetalleEstrategiaProvider = function () {
                             } else {
                                 componente.FotosCarrusel = componente.FotosCarrusel || [];
                             }
-
-                            if (estrategia.CodigoVariante == ConstantesModule.CodigoVariedad.IndividualVariable) {
-                                if (estrategia.Cuv === componente.Cuv) {
-                                    estrategia.FotosCarrusel = componente.FotosCarrusel;
-                                }
-                            }
                         });
+
+                        if (estrategia.Hermanos.length === 1) {
+                            estrategia.FotosCarrusel = estrategia.Hermanos[0].FotosCarrusel;
+                        }
                     }
 
                 }).fail(function (data, error) {
