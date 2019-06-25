@@ -1861,6 +1861,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
             }
 
+            ViewBag.CantidadPedidosPendientes = model.ListaPedidos.Count;
             return View(model);
         }
 
