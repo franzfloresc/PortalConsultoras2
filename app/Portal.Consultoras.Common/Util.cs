@@ -962,7 +962,7 @@ namespace Portal.Consultoras.Common
             return Util.EnviarMailMasivoColas2(strDe, strPara, strTitulo, strMensaje, isHTML, tags, null);
         }
 
-        public static bool EnviarMailBase(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string strBcc, string displayNameDe)
+        public static bool EnviarMailBase(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string displayNameDe)
         {
             if (string.IsNullOrEmpty(strPara))
                 return true;

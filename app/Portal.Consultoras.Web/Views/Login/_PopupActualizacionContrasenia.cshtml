@@ -10,14 +10,14 @@
         <div class="d-block center-block popup__somos__belcorp__contenido popup__somos__belcorp__contenido--actualizacionContrasenia">
             <section id="Paso1ActualizacionPassword" class="paso__1__actualizacionContrasenia seccion">
                 <p class="d-block text-center text-regular saludo__consultora">Hola @Model.PrimerNombre</p>
-                <h1 class="d-block text-center popup__somos__belcorp__titulo popup__somos__belcorp__titulo--actualizacionContrasenia">
+                <h1 class="d-block text-center popup__somos__belcorp__titulo popup__somos__belcorp__titulo--actualizacionContrasenia" style="margin-bottom:25px!important;">
                     Actualiza tu contraseña
-                </h1>             
+                </h1>
                 @using (Html.BeginForm("CambiarContrasenia", "Login", FormMethod.Post, new { id = "formContrasenia" }))
                 {
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(m => m.CodigoUsuario, new { @Value = Model.CodigoUsuario })
-                    @Html.HiddenFor(m => m.CodigoIso, new { @Value = Model.CodigoIso })                    
+                    @Html.HiddenFor(m => m.CodigoIso, new { @Value = Model.CodigoIso })
                     <section class="d-flex form__actualizarContrasenia__wrapper">
                         <div class="center-block text-left form__group__fields form__group__fields--actualizacionContrasenia">
                             <!-- Este mensaje contiene el icono para mostrar y ocultar contraseña, agregar clase  enlace__verPassword--mostrar para cambiar el icono correspondiente, y quitar clase para volver a icono por default -->
@@ -154,11 +154,19 @@
                     ¡Actualización exitosa!
                 </h2>
                 <p class="d-block text-center popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--envioCodigoConfirmacion">
-                    Recuerda que puedes completar tu perfil <a href="#" id="" title="Ir A Mi Perfil" class="d-inline-block text-bold color-multimarca enlace__sb enlace__sb--irAMiPerfil">aquí</a>
+                    @using (Html.BeginForm("IrSobosBelcorpMiPerfil", "Login", FormMethod.Post, new { id = "formIrSomosBelcorp2" }))
+                    {
+                        <span>Recuerda que puedes completar tu perfil</span><a href="javascript:$('form#formIrSomosBelcorp2').submit();" id="" title="Ir A Mi Perfil" class="d-inline-block text-bold color-multimarca enlace__sb enlace__sb--irAMiPerfil">aquí</a>
+                    }
+
                 </p>
-                <button id="IrASomosBelcorp" class="d-block center-block border-radius-4 text-center text-bold btn__sb btn__sb__primary--multimarca btn__sb--actualizarContrasenia">
-                    Ir a Somos Belcorp
-                </button>
+                @using (Html.BeginForm("IrSobosBelcorp", "Login", FormMethod.Post, new { id = "formIrSomosBelcorp" }))
+                {
+                    <button type="submit" id="IrASomosBelcorp" class="d-block center-block border-radius-4 text-center text-bold btn__sb btn__sb__primary--multimarca btn__sb--actualizarContrasenia">
+                        Ir a Somos Belcorp
+                    </button>
+                }
+
             </section>
         </div>
     </div>

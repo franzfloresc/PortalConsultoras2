@@ -7,7 +7,7 @@ $(document).ready(function () {
 
 
 function Inicializar() {
-    $("#btnActualizarCorreo").click(function (event) {        
+    $("#btnActualizarCorreo").click(function (event) {
 
         var form = $("#formContrasenia").valid();
         if (!form) {
@@ -20,7 +20,7 @@ function Inicializar() {
 
     $("#btnConfirmarCambioPassword").click(function () {
         if (CodigoIngresado.length < 6) {
-            alert('Complete el código');
+            AbrirAlert('Complete el código');
             return false;
         }
         VerificarCodigo(CodigoIngresado);
@@ -36,7 +36,7 @@ function Inicializar() {
                 $("#" + nextfocus + indicadorID + "Digito").focus();
                 return true;
             } else {
-                alert("Ingrese solo números.")
+                AbrirAlert('Ingrese solo números');
                 return false;
             }
         });
@@ -63,7 +63,7 @@ function Inicializar() {
             var a = oID.substring(1, 2);
             $('#btnConfirmarCambioPassword').addClass('btn__sb--disabled');
             if ($("#1" + a + "Digito").val() == "")
-                return false; 
+                return false;
             if ($("#2" + a + "Digito").val() == "")
                 return false;
             if ($("#3" + a + "Digito").val() == "")
@@ -88,7 +88,7 @@ function Inicializar() {
         } else {
             boton.addClass('btn__sb--disabled');
         }
-    }); 
+    });
 
     $('#btnReenviarCorreo').click(function () {
         RecibirPinVerficiacionCorreo(true);
@@ -96,6 +96,15 @@ function Inicializar() {
 
     $('#IrASomosBelcorp').click(function () {
         window.location = urlLogin;
+    });
+
+    $('.contrasenia').bind('input', function () {
+        var thiss = $(this);
+        if (thiss.val().trim() == '') {
+            thiss.removeClass('text__field__sb--withContent');
+        } else {
+            thiss.addClass('text__field__sb--withContent');
+        }
     });
 }
 
@@ -107,7 +116,7 @@ function Inicializar() {
 
 function RecibirPinVerficiacionCorreo(reenvio) {
     $(".seccion").hide();
-    $("#VistaPrecarga").show();    
+    $("#VistaPrecarga").show();
     jQuery.ajax({
         type: 'POST',
         url: urlRecibirPinCambioContrasenia,
@@ -123,20 +132,20 @@ function RecibirPinVerficiacionCorreo(reenvio) {
             if (reenvio) {
                 $('.campo_ingreso_codigo').val('');
                 $('#btnConfirmarCambioPassword').addClass('btn__sb--disabled');
-                alert('Se reenvió el nuevo código');
+                AbrirAlert('Se reenvió el nuevo código');
             }
-            
+
         },
         error: function (data, error) {
             if (reenvio) {
                 $(".seccion").hide();
-                alert("Error al reenviar el código");
+                AbrirAlert('Error al reenviar el código');
                 $("#Paso2ActualizacionPassword").show();
                 return;
             }
             if (checkTimeout(data)) {
                 $(".seccion").hide();
-                alert("Error en el Cambio de Contraseña");
+                AbrirAlert('Error en el Cambio de Contraseña');
                 $("#Paso1ActualizacionPassword").show();
             }
         }
@@ -148,7 +157,7 @@ function VerificarCodigo(CodIngresado) {
     if (!form) {
         $(".seccion").hide();
         $("#Paso1ActualizacionPassword").show();
-        alert('Error al validar la contraseña, vuelva a intentar')
+        AbrirAlert('Error al validar la contraseña, vuelva a intentar');
         return false;
     }
 
@@ -168,7 +177,7 @@ function VerificarCodigo(CodIngresado) {
         success: function (data) {
             if (!data.success) {
                 $(".seccion").hide()
-                alert("Error en la verificacion de código");
+                AbrirAlert('Error en la verificacion de código');
                 $("#Paso2ActualizacionPassword").show();
                 return false;
             }
@@ -178,7 +187,7 @@ function VerificarCodigo(CodIngresado) {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                alert("Error en la verificacion de código");
+                AbrirAlert('Error en la verificacion de código');
                 $(".seccion").hide()
                 $("#Paso2ActualizacionPassword").show();
             }
@@ -187,7 +196,7 @@ function VerificarCodigo(CodIngresado) {
 
 }
 
-function CambiarContrasenia() {    
+function CambiarContrasenia() {
     $(".seccion").hide();
     $("#VistaPrecarga").show();
 
@@ -196,7 +205,7 @@ function CambiarContrasenia() {
         url: urlCambiaContrasenia,
         dataType: 'json',
         //contentType: 'application/json; charset=utf-8',
-        data:$("#formContrasenia").serialize(),  
+        data: $("#formContrasenia").serialize(),
         async: true,
         cache: false,
         //headers: { RequestVerificationToken: token },
@@ -206,11 +215,11 @@ function CambiarContrasenia() {
                     if (data.message == "0") {
                         $("#Contrasenia").val('');
                         $("#ConfirmaContrasenia").val('');
-                        alert("La contraseña anterior ingresada es inválida");
+                        AbrirAlert('La contraseña anterior ingresada es inválida');
                     } else if (data.message == "1") {
                         $("#Contrasenia").val('');
                         $("#ConfirmaContrasenia").val('');
-                        alert("Hubo un error al intentar cambiar la contraseña, por favor intente nuevamente.");
+                        AbrirAlert('Hubo un error al intentar cambiar la contraseña, por favor intente nuevamente');
                     } else if (data.message == "2") {
                         $("#Contrasenia").val('');
                         $("#ConfirmaContrasenia").val('');
@@ -221,7 +230,7 @@ function CambiarContrasenia() {
                         //$(".campos_actualizarDatos").fadeIn(200);
                         $(".seccion").hide();
                         $("#Paso3").show();
-                        alert("Se cambió satisfactoriamente la contraseña.");
+                        AbrirAlert('Se cambió satisfactoriamente la contraseña');
                     }
                     return false;
                 }
@@ -231,7 +240,7 @@ function CambiarContrasenia() {
             if (checkTimeout(data)) {
                 $(".seccion").hide()
                 $("#Paso2ActualizacionPassword").show();
-                alert("Error en el Cambio de Contraseña");
+                AbrirAlert('Error en el Cambio de Contraseña');
             }
         }
     });
@@ -245,7 +254,7 @@ function ContraseniaRepetida() {
         CodigoIso: $('#CodigoIso').val(),
         CodigoUsuario: $('#CodigoUsuario').val(),
         Contrasenia: $('#Contrasenia').val()
-    }    
+    }
     jQuery.ajax({
         type: 'POST',
         url: urlContraseniaRepetida,
@@ -258,16 +267,16 @@ function ContraseniaRepetida() {
             if (!data.repetido) {
                 RecibirPinVerficiacionCorreo();
             } else {
-                $(".seccion").hide();                
+                $(".seccion").hide();
                 $("#Paso1ActualizacionPassword").show();
-                alert(data.menssage);
-            }                       
+                AbrirAlert(data.menssage);
+            }
 
         },
-        error: function (data, error) {           
+        error: function (data, error) {
             if (checkTimeout(data)) {
                 $(".seccion").hide();
-                alert("Error al validar contraseña");
+                AbrirAlert('Error al validar contraseña');
                 $("#Paso1ActualizacionPassword").show();
             }
         }

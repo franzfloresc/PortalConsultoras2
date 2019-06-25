@@ -36,6 +36,7 @@ using Portal.Consultoras.Web.Infraestructure.Validator.Phone;
 using Portal.Consultoras.Common.Validator;
 using BEUsuario = Portal.Consultoras.Web.ServiceUsuario.BEUsuario;
 using BERespuestaServicio = Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio;
+using System.Text;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -677,7 +678,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.FlgCheckEMAIL = beusuario.FlgCheckEMAIL;
             ViewBag.PuedeConfirmarAllEmail = userData.PuedeConfirmarAllEmail;
             ViewBag.PuedeConfirmarAllSms = userData.PuedeConfirmarAllSms;
-            
+
             if (model.OpcionChat)
             {
                 var provider = new ChatEmtelcoProvider();
@@ -693,6 +694,7 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public ActionResult ActualizarContrasenia()
         {
+            Session["DatosUsuarioRedirect"] = null;
             if (Session["DatosUsuario"] == null) return RedirectToAction("Index", "Login");
             var obj = (BEUsuarioDatos)Session["DatosUsuario"];
 
@@ -3303,7 +3305,7 @@ namespace Portal.Consultoras.Web.Controllers
             int paisID = Convert.ToInt32(TempData["PaisID"]);
             try
             {
-                
+
                 UsuarioModel userData = new UsuarioModel();
                 userData = await GetUserData(Util.GetPaisID(oUsu.CodigoIso), oUsu.CodigoUsuario);
                 BERespuestaServicio respuesta;
@@ -3555,9 +3557,11 @@ namespace Portal.Consultoras.Web.Controllers
                     rslt = result ? 2 : 1;
                 }
 
+                EnviarEmailCambioContrasenia(result);
+
                 if (result == true)
                 {
-
+                    Session["DatosUsuarioRedirect"] = Session["DatosUsuario"];
                     Session["DatosUsuario"] = null;
                 }
 
@@ -3653,6 +3657,139 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet); ;
             }
         }
+
+        public void EnviarEmailCambioContrasenia(bool exito)
+        {
+            var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
+            int paisID = Common.Util.GetPaisID(oUsu.CodigoIso);
+
+            try
+            {
+                string paisISO = Util.GetPaisISO(paisID);
+
+                string emailFrom = "no-responder@somosbelcorp.com";
+                string emailTo = oUsu.Correo;
+                string titulo = "Cambio de contrase&ntilde;a de Somosbelcorp";
+
+                string nombrecorreo = oUsu.PrimerNombre.Trim();
+                string displayname = "Somos Belcorp";
+
+
+                StringBuilder mensajecliente = new StringBuilder();
+
+                mensajecliente.Append("<div style='display:block;margin-left:auto;margin-right:auto;width:100%;'>");
+                mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0' width='600'>");
+                mensajecliente.Append("<tr>");
+                mensajecliente.Append("<td height='70' style='background: #b11437; background:linear-gradient(to right, #b11437, #55046d);'>");
+                mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0'>");
+                mensajecliente.Append("<tr>");
+                mensajecliente.Append("<td width='93' height='70'>&nbsp;</td>");
+                mensajecliente.Append("<td width='425' height='70'>");
+                mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0' width='425'>");
+                mensajecliente.Append("<tr>");
+                mensajecliente.Append("<td width='98' height='70'><img src='https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/nuevo-logo-esika.png' width='98' height='36' style='display:block; width:98px; height:36px; margin-bottom:13px;' alt='&Eacute;sika'></td>");
+                mensajecliente.Append("<td width='55' height='70'>&nbsp;</td><td width='107' height='70'><img src='https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-lbel.png' width='105.92' height='22.27' style='display:block; width:105.92px; height:22.27px;' alt='Lbel'></td>");
+                mensajecliente.Append("<td width='46' height='70'>&nbsp;</td><td width='116' height='70'><img src='https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-cyzone.png' width='100.91' height='31.75' style='display:block; width:100.91px; height:31.75px;margin-top:4px;' alt='Cyzone'></td>");
+                mensajecliente.Append("</tr>");
+                mensajecliente.Append("</table>");
+                mensajecliente.Append("</td>");
+                mensajecliente.Append("<td width='78' height='70'>&nbsp;</td>");
+                mensajecliente.Append("</tr>");
+                mensajecliente.Append("</table>");
+                mensajecliente.Append("</td>");
+                mensajecliente.Append("</tr>");
+                mensajecliente.Append("<tr>");
+                mensajecliente.Append("<td>");
+
+                mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0'>");
+                mensajecliente.Append("<tr><td width = '100%' height = '64' colspan = '3' > &nbsp;</td></tr>");
+                mensajecliente.Append("<tr>");
+                mensajecliente.Append("<td width='256' height='88'>&nbsp;</td>");
+                mensajecliente.Append("<td width='88' height='88'>");
+                mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0' width='88'>");
+                mensajecliente.Append("<tr>");
+                if (exito)
+                {
+                    mensajecliente.Append("<td width='88' height='88'><img src='https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/icono-notificacion-positiva.png' width='88' height='88' style='display:block; width:88px; height:88px;' alt='Pedido rechazado'></td>");
+                }
+                else
+                {
+                    mensajecliente.Append("<td width='88' height='88'><img src='https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/icono-notificacion-negativa.png' width='88' height='88' style='display:block; width:88px; height:88px;' alt='Pedido rechazado'></td>");
+                }
+
+                mensajecliente.Append("</tr>");
+                mensajecliente.Append("</table>");
+                mensajecliente.Append("</td>");
+                mensajecliente.Append("<td width='256' height='88'> &nbsp;</td>");
+                mensajecliente.Append("</tr>");
+                mensajecliente.Append("<tr><td width='100%' height='32' colspan='3'>&nbsp;</td></tr>");
+                mensajecliente.Append("<tr>");
+                mensajecliente.Append("<td align='center' width='100%' colspan='3'>");
+                mensajecliente.Append("<h5 style='display:block; text-align:center; margin-top:0; margin-bottom:0; font-family:Lato, Arial, Helvetica, Arial, sans-serif; font-size:16px; font-weight:bold; color:#000;'>");
+                if (exito)
+                {
+                    mensajecliente.Append(nombrecorreo + ", tu contrase&ntilde;a ha sido modificada.");
+                }
+                else
+                {
+                    mensajecliente.Append(nombrecorreo + ", tu contrase&ntilde;a no se ha podido modificar.");
+                }
+
+                mensajecliente.Append("</h5>");
+                mensajecliente.Append("</td>");
+                mensajecliente.Append("</tr>");
+                mensajecliente.Append("<tr>");
+                mensajecliente.Append("<td align='center' width='100%' colspan='3'>");
+
+                mensajecliente.Append("</td>");
+                mensajecliente.Append("</tr>");
+                mensajecliente.Append("</table>");
+
+                mensajecliente.Append("</td>");
+                mensajecliente.Append("</tr>");
+                mensajecliente.Append("<tr><td width='100%' height='163'>&nbsp;</td></tr>");
+                mensajecliente.Append("</table>");
+                mensajecliente.Append("</div>");
+
+                Util.EnviarMailBase(emailFrom, emailTo, titulo, mensajecliente.ToString(), true,
+                    displayname);
+
+
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsu.CodigoUsuario, Util.GetPaisISO(paisID));
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> IrSobosBelcorp()
+        {
+            var oUsu = (BEUsuarioDatos)Session["DatosUsuarioRedirect"];
+            int paisID = Common.Util.GetPaisID(oUsu.CodigoIso);
+            if (oUsu == null)
+            {
+                RedirectToAction("Login");
+            }
+            return await Redireccionar(paisID, oUsu.CodigoUsuario, null);
+
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> IrSobosBelcorpMiPerfil()
+        {
+            var oUsu = (BEUsuarioDatos)Session["DatosUsuarioRedirect"];
+            int paisID = Common.Util.GetPaisID(oUsu.CodigoIso);
+            if (oUsu == null)
+            {
+                RedirectToAction("Login");
+            }
+            var urlPerfil = Url.Action("Index", "MiPerfil");
+            return await Redireccionar(paisID, oUsu.CodigoUsuario, urlPerfil);
+
+        }
+
 
         #endregion
 
