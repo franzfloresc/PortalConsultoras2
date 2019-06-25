@@ -2202,7 +2202,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (SACServiceClient svc = new SACServiceClient())
                 {
-                    svc.UpdSolicitudClienteRechazar(userData.PaisID, pedido.PedidoId);
+                    svc.UpdSolicitudClienteRechazar(userData.PaisID, pedido.PedidoId, motivoRechazoId, motivoRechazoTexto);
                 }
 
                 MisPedidosModel model = GetPendientes();
