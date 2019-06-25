@@ -1876,14 +1876,8 @@ namespace Portal.Consultoras.BizLogic
                 message += Constantes.MensajesError.IngreseLaContrasenia;
             if (Common.Util.Trim(contrasena).Length <= 6)
                 message += Constantes.MensajesError.AlMenosTotalCaracteres;
-            //if (!Regex.IsMatch(contrasena, pattern.Split('¦')[0]))
-            //    message += Constantes.MensajesError.AlMenosLetraMayuscula;
-            //if (!Regex.IsMatch(contrasena, pattern.Split('¦')[1]))
-            //    message += Constantes.MensajesError.AlMenosLetraMinuscula;
             if (!Regex.IsMatch(contrasena, pattern.Split('¦')[2]))
                 message += Constantes.MensajesError.AlMenosDigito;
-            //if (!Regex.IsMatch(contrasena, pattern.Split('¦')[3]))
-            //    message += Constantes.MensajesError.AlMenosCaracterEspecial;
             if (!Regex.IsMatch(contrasena, pattern.Split('¦')[4]))
                 message += Constantes.MensajesError.AlMenosLetra;
 
