@@ -1034,14 +1034,13 @@ var AnalyticsPortalModule = (function () {
     ////////////////////////////////////////////////////////////////////////////////////////
     // Ini - Analytics Evento Product Details
     ////////////////////////////////////////////////////////////////////////////////////////
-    var marcaVisualizarDetalleProducto = function (data) {
+    var marcaVisualizarDetalleProducto = function (item) {
         try {
             if (_constantes.isTest)
                 alert("Marcación clic visualizar detalle producto.");
 
             var products = [];
-
-            var item = data;
+            
             var product = {
                 "id": item.CUV2,
                 "name": item.DescripcionCompleta,
@@ -1052,6 +1051,7 @@ var AnalyticsPortalModule = (function () {
             };
             products.push(product);
 
+            GeneralModule.consoleLog(['marcaVisualizarDetalleProducto', item, product]);
 
             dataLayer.push({
                 'event': _evento.productDetails,

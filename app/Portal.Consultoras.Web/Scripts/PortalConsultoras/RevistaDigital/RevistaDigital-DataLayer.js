@@ -220,50 +220,6 @@ var rdAnalyticsModule = (function () {
         });
     }
 
-    var _addToCartPush = function (list, estrategia) {
-        dataLayer.push({
-            "event": _event.addToCart,
-            "ecommerce": {
-                "currencyCode": "PEN",
-                "add": {
-                    "actionField": { "list": list },
-                    "products": [
-                        {
-                            "name": (estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada).trim(),
-                            "price": estrategia.Precio2.toString(),
-                            "brand": estrategia.DescripcionMarca,
-                            "id": estrategia.CUV2,
-                            "category": _text.noDisponible,
-                            "variant": (estrategia.DescripcionEstrategia === undefined) ? _text.estandar : estrategia.DescripcionEstrategia,
-                            "quantity": parseInt(estrategia.Cantidad)
-                        }
-                    ]
-                }
-            }
-        });
-    }
-
-    var _productClickPush = function (list, estrategia) {
-        dataLayer.push({
-            "event": _event.productClick,
-            "ecommerce": {
-                "currencyCode": "PEN",
-                "click": {
-                    "actionField": { "list": list },
-                    "products": [{
-                        "name": (estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada).trim(),
-                        "id": estrategia.CUV2,
-                        "price": estrategia.Precio2.toString(),
-                        "brand": estrategia.DescripcionMarca,
-                        "category": _text.noDisponible,
-                        "variant": (estrategia.DescripcionEstrategia === undefined) ? _text.estandar : estrategia.DescripcionEstrategia,
-                        "position": parseInt(estrategia.posicionItem === undefined ? estrategia.Posicion : estrategia.posicionItem)
-                    }]
-                }
-            }
-        });
-    }
-
     var _socialEventPush = function (socialNetwork, socialAction, socialUrl) {
         dataLayer.push({
             'event': _event.socialEvent,
@@ -271,10 +227,6 @@ var rdAnalyticsModule = (function () {
             'socialAction': socialAction,
             'socialUrl': socialUrl
         });
-    }
-    
-    var _capitalizeFirstLetter = function(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
     function Access(origenWeb) {
@@ -378,72 +330,6 @@ var rdAnalyticsModule = (function () {
         }
     }
 
-    //function AgregarProducto(origenWeb, estrategia, popup) {
-    //    if (!popup) {
-    //        popup = false;
-    //    }
-    //    try {
-    //        var origenWebString = origenWeb.toString();
-    //        switch (origenWebString) {
-    //            case _origenWeb.rdLan:
-    //                if (popup) _addToCartPush(_text.rdBannerDetPrincipal, estrategia);
-    //                else _addToCartPush(_text.rdBannerPrincipal, estrategia);
-    //                break;
-    //            case _origenWeb.rdLanMobile:
-    //                if (popup) _addToCartPush(_text.rdBannerDetPrincipal, estrategia);
-    //                else _addToCartPush(_text.rdBannerPrincipal, estrategia);
-    //                break;
-    //            case _origenWeb.rdOfertas:
-    //                if (!popup) _addToCartPush(_text.rdMisOfertas, estrategia);
-    //                else _addToCartPush(_text.rdDetalleMisOfertas, estrategia);
-    //                break;
-    //            case _origenWeb.rdOfertasMobile:
-    //                if (!popup) _addToCartPush(_text.rdMisOfertas, estrategia);
-    //                else _addToCartPush(_text.rdDetalleMisOfertas, estrategia);
-    //                break;
-    //            case _origenWeb.rdDetalle:
-    //                _addToCartPush(_text.rdDetalleProducto, estrategia);
-    //                break;
-    //            case _origenWeb.rdDetalleMobile:
-    //                _addToCartPush(_text.rdDetalleProducto, estrategia);
-    //                break;
-    //            default:
-    //                _addToCartPush(_text.rdHome, estrategia);
-    //        }
-    //    } catch (e) {
-    //        console.log(_text.exception + e);
-    //    }
-    //}
-
-    // se utilizaba en el popup de ver detalle, ahora es la ficha
-    //function VerDetalleComprar(origenWeb, estrategia) {
-    //    try {
-    //        var origenWebString = origenWeb.toString();
-    //        switch (origenWebString) {
-    //            case _origenWeb.rdLan:
-    //                _productClickPush(_text.rdBannerPrincipal, estrategia);
-    //                break;
-    //            case _origenWeb.rdLanMobile:
-    //                _productClickPush(_text.rdBannerPrincipal, estrategia);
-    //                break;
-    //            case _origenWeb.rdOfertas:
-    //                _productClickPush(_text.rdMisOfertas, estrategia);
-    //                break;
-    //            case _origenWeb.rdOfertasMobile:
-    //                _productClickPush(_text.rdMisOfertas, estrategia);
-    //                break;
-    //            case _origenWeb.rdDetalle:
-    //                _productClickPush(_text.rdDetalleProducto, estrategia);
-    //                break;
-    //            case _origenWeb.rdDetalleMobile:
-    //                _productClickPush(_text.rdDetalleProducto, estrategia);
-    //                break;
-    //        }
-    //    } catch (e) {
-    //        console.log(_text.exception + e);
-    //    }
-    //}
-
     function AgregarProductoDeshabilitado(origenWeb, campania, name, popup) {
         try {
             var category = _text.epm;
@@ -469,23 +355,6 @@ var rdAnalyticsModule = (function () {
             console.log(_text.exception + e);
         }
     }
-
-    //function VerDetalleBloqueada(campania, name) {
-    //    try {
-    //        var label = campania + " - " + name;
-    //        _virtualEventPush(_text.epm, "Ver producto", label);
-    //    } catch (e) {
-    //        console.log(_text.exception + e);
-    //    }
-    //}
-
-    //function VerDetalleLan(estrategia) {
-    //    try {
-    //        _productClickPush(_text.rdDetalleMisOfertas, estrategia);
-    //    } catch (e) {
-    //        console.log(_text.exception + e);
-    //    }
-    //}
 
     function CompartirProducto(tipo, url, name) {
         try {
@@ -568,10 +437,6 @@ var rdAnalyticsModule = (function () {
         _popupDesuscripcionCerrar(_text.epm, _action.popupDesuscripcion, texto);
     }
 
-    //function ContendorSection(titulo) {
-    //    _virtualEventPush(_text.contenedor + " - Home", _capitalizeFirstLetter(titulo.toLowerCase()) + " - Click Botón", _action.verMas);
-    //}
-    
     function IrEnterate() {
         _virtualEventPush(_category.ganaMas, _action.popupEnterate, _text.enterate);
     }

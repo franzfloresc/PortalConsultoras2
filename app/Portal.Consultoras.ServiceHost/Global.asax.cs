@@ -9,10 +9,7 @@ namespace Portal.Consultoras.ServiceHost
     {
         protected void Application_Start()
         {
-            if (ServicePointManager.SecurityProtocol.HasFlag(SecurityProtocolType.Tls12) == false)
-            {
-                ServicePointManager.SecurityProtocol = ServicePointManager.SecurityProtocol | SecurityProtocolType.Tls12;
-            }
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
         }
        
 
