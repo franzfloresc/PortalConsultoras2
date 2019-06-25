@@ -553,10 +553,11 @@ namespace Portal.Consultoras.Common
             public const string WebTrackingConfirmacion = "WebTrackingConfirmacion";
             public const string URL_ABCProductos = "URL_ABCProductos";
             public const string secret_key = "secret_key";
-            public const string UrlLMS = "UrlLMS";
-            public const string CursosMarquesina = "CursosMarquesina";
-            public const string UrlCursoMiAcademiaVideo = "UrlCursoMiAcademiaVideo";
-            public const string UrlCursoMiAcademiaPdf = "UrlCursoMiAcademiaPdf";
+            public const string UrlMiAcademia = "UrlMiAcademia";
+            public const string ParamAcadListCurso = "ParamAcadListCurso";
+            public const string ParamAcadCurso = "ParamAcadCurso";
+            public const string ParamAcadVideo = "ParamAcadVideo";
+            public const string ParamAcadPdf = "ParamAcadPdf";
             public const string UrlMisCursos = "UrlMisCursos";
             public const string TokenMisCursos = "TokenMisCursos";
             public const string UrlCursoMiAcademia = "UrlCursoMiAcademia";

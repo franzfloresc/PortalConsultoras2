@@ -37,7 +37,8 @@ namespace Portal.Consultoras.Web.Providers
         public string GetUrl(Enumeradores.MiAcademiaUrl tipoUrl, ParamUrlMiAcademiaModel parametroUrl)
         {
             string keyUrl = GetKeyUrl(parametroUrl.IdCurso, tipoUrl);
-            string url = _configuracionManager.GetConfiguracionManager(keyUrl);
+            string url = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlMiAcademia) +
+                _configuracionManager.GetConfiguracionManager(keyUrl);
 
             return string.Format(
                 url,
@@ -51,12 +52,12 @@ namespace Portal.Consultoras.Web.Providers
         }
         private string GetKeyUrl(int idCurso, Enumeradores.MiAcademiaUrl tipoUrl)
         {
-            if (idCurso == 0) return Constantes.ConfiguracionManager.UrlLMS;
+            if (idCurso == 0) return Constantes.ConfiguracionManager.ParamAcadListCurso;
             switch (tipoUrl)
             {
-                case Enumeradores.MiAcademiaUrl.Cursos: return Constantes.ConfiguracionManager.CursosMarquesina;
-                case Enumeradores.MiAcademiaUrl.Video: return Constantes.ConfiguracionManager.UrlCursoMiAcademiaVideo;
-                case Enumeradores.MiAcademiaUrl.Pdf: return Constantes.ConfiguracionManager.UrlCursoMiAcademiaPdf;
+                case Enumeradores.MiAcademiaUrl.Cursos: return Constantes.ConfiguracionManager.ParamAcadCurso;
+                case Enumeradores.MiAcademiaUrl.Video: return Constantes.ConfiguracionManager.ParamAcadVideo;
+                case Enumeradores.MiAcademiaUrl.Pdf: return Constantes.ConfiguracionManager.ParamAcadPdf;
                 default: return "";
             }
         }
