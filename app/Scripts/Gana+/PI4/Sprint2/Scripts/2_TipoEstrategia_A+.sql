@@ -1,7 +1,10 @@
+锘縂O
 USE BelcorpPeru
 GO
 
+
 DELETE FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
+
 INSERT INTO [dbo].[TipoEstrategia]
            ([DescripcionEstrategia]
            ,[ImagenEstrategia]
@@ -27,7 +30,7 @@ INSERT INTO [dbo].[TipoEstrategia]
            ('Las mas ganadoras'
            ,''
            ,9
-           ,0
+           ,1
            ,''
            ,GETDATE()
            ,''
@@ -42,15 +45,18 @@ INSERT INTO [dbo].[TipoEstrategia]
            ,''
            ,0
            ,0
-           ,'Las m醩 ganadoras'
-           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci髇 de ofertas.')
---SELECT * FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
-GO
+           ,'Las m谩s ganadoras'
+           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci贸n de ofertas.')
 
+
+
+GO
 USE BelcorpMexico
 GO
 
+
 DELETE FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
+
 INSERT INTO [dbo].[TipoEstrategia]
            ([DescripcionEstrategia]
            ,[ImagenEstrategia]
@@ -76,7 +82,7 @@ INSERT INTO [dbo].[TipoEstrategia]
            ('Las mas ganadoras'
            ,''
            ,9
-           ,0
+           ,1
            ,''
            ,GETDATE()
            ,''
@@ -91,15 +97,18 @@ INSERT INTO [dbo].[TipoEstrategia]
            ,''
            ,0
            ,0
-           ,'Las m醩 ganadoras'
-           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci髇 de ofertas.')
---SELECT * FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
-GO
+           ,'Las m谩s ganadoras'
+           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci贸n de ofertas.')
 
+
+
+GO
 USE BelcorpColombia
 GO
 
+
 DELETE FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
+
 INSERT INTO [dbo].[TipoEstrategia]
            ([DescripcionEstrategia]
            ,[ImagenEstrategia]
@@ -125,7 +134,7 @@ INSERT INTO [dbo].[TipoEstrategia]
            ('Las mas ganadoras'
            ,''
            ,9
-           ,0
+           ,1
            ,''
            ,GETDATE()
            ,''
@@ -140,15 +149,18 @@ INSERT INTO [dbo].[TipoEstrategia]
            ,''
            ,0
            ,0
-           ,'Las m醩 ganadoras'
-           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci髇 de ofertas.')
---SELECT * FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
-GO
+           ,'Las m谩s ganadoras'
+           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci贸n de ofertas.')
 
+
+
+GO
 USE BelcorpSalvador
 GO
 
+
 DELETE FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
+
 INSERT INTO [dbo].[TipoEstrategia]
            ([DescripcionEstrategia]
            ,[ImagenEstrategia]
@@ -174,7 +186,7 @@ INSERT INTO [dbo].[TipoEstrategia]
            ('Las mas ganadoras'
            ,''
            ,9
-           ,0
+           ,1
            ,''
            ,GETDATE()
            ,''
@@ -189,15 +201,18 @@ INSERT INTO [dbo].[TipoEstrategia]
            ,''
            ,0
            ,0
-           ,'Las m醩 ganadoras'
-           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci髇 de ofertas.')
---SELECT * FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
-GO
+           ,'Las m谩s ganadoras'
+           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci贸n de ofertas.')
 
+
+
+GO
 USE BelcorpPuertoRico
 GO
 
+
 DELETE FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
+
 INSERT INTO [dbo].[TipoEstrategia]
            ([DescripcionEstrategia]
            ,[ImagenEstrategia]
@@ -223,7 +238,7 @@ INSERT INTO [dbo].[TipoEstrategia]
            ('Las mas ganadoras'
            ,''
            ,9
-           ,0
+           ,1
            ,''
            ,GETDATE()
            ,''
@@ -238,15 +253,18 @@ INSERT INTO [dbo].[TipoEstrategia]
            ,''
            ,0
            ,0
-           ,'Las m醩 ganadoras'
-           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci髇 de ofertas.')
---SELECT * FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
-GO
+           ,'Las m谩s ganadoras'
+           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci贸n de ofertas.')
 
+
+
+GO
 USE BelcorpPanama
 GO
 
+
 DELETE FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
+
 INSERT INTO [dbo].[TipoEstrategia]
            ([DescripcionEstrategia]
            ,[ImagenEstrategia]
@@ -272,7 +290,7 @@ INSERT INTO [dbo].[TipoEstrategia]
            ('Las mas ganadoras'
            ,''
            ,9
-           ,0
+           ,1
            ,''
            ,GETDATE()
            ,''
@@ -287,15 +305,18 @@ INSERT INTO [dbo].[TipoEstrategia]
            ,''
            ,0
            ,0
-           ,'Las m醩 ganadoras'
-           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci髇 de ofertas.')
---SELECT * FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
-GO
+           ,'Las m谩s ganadoras'
+           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci贸n de ofertas.')
 
+
+
+GO
 USE BelcorpGuatemala
 GO
 
+
 DELETE FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
+
 INSERT INTO [dbo].[TipoEstrategia]
            ([DescripcionEstrategia]
            ,[ImagenEstrategia]
@@ -321,7 +342,7 @@ INSERT INTO [dbo].[TipoEstrategia]
            ('Las mas ganadoras'
            ,''
            ,9
-           ,0
+           ,1
            ,''
            ,GETDATE()
            ,''
@@ -336,15 +357,18 @@ INSERT INTO [dbo].[TipoEstrategia]
            ,''
            ,0
            ,0
-           ,'Las m醩 ganadoras'
-           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci髇 de ofertas.')
---SELECT * FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
-GO
+           ,'Las m谩s ganadoras'
+           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci贸n de ofertas.')
 
+
+
+GO
 USE BelcorpEcuador
 GO
 
+
 DELETE FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
+
 INSERT INTO [dbo].[TipoEstrategia]
            ([DescripcionEstrategia]
            ,[ImagenEstrategia]
@@ -370,7 +394,7 @@ INSERT INTO [dbo].[TipoEstrategia]
            ('Las mas ganadoras'
            ,''
            ,9
-           ,0
+           ,1
            ,''
            ,GETDATE()
            ,''
@@ -385,15 +409,18 @@ INSERT INTO [dbo].[TipoEstrategia]
            ,''
            ,0
            ,0
-           ,'Las m醩 ganadoras'
-           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci髇 de ofertas.')
---SELECT * FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
-GO
+           ,'Las m谩s ganadoras'
+           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci贸n de ofertas.')
 
+
+
+GO
 USE BelcorpDominicana
 GO
 
+
 DELETE FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
+
 INSERT INTO [dbo].[TipoEstrategia]
            ([DescripcionEstrategia]
            ,[ImagenEstrategia]
@@ -419,7 +446,7 @@ INSERT INTO [dbo].[TipoEstrategia]
            ('Las mas ganadoras'
            ,''
            ,9
-           ,0
+           ,1
            ,''
            ,GETDATE()
            ,''
@@ -434,15 +461,18 @@ INSERT INTO [dbo].[TipoEstrategia]
            ,''
            ,0
            ,0
-           ,'Las m醩 ganadoras'
-           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci髇 de ofertas.')
---SELECT * FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
-GO
+           ,'Las m谩s ganadoras'
+           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci贸n de ofertas.')
 
+
+
+GO
 USE BelcorpCostaRica
 GO
 
+
 DELETE FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
+
 INSERT INTO [dbo].[TipoEstrategia]
            ([DescripcionEstrategia]
            ,[ImagenEstrategia]
@@ -468,7 +498,7 @@ INSERT INTO [dbo].[TipoEstrategia]
            ('Las mas ganadoras'
            ,''
            ,9
-           ,0
+           ,1
            ,''
            ,GETDATE()
            ,''
@@ -483,15 +513,18 @@ INSERT INTO [dbo].[TipoEstrategia]
            ,''
            ,0
            ,0
-           ,'Las m醩 ganadoras'
-           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci髇 de ofertas.')
---SELECT * FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
-GO
+           ,'Las m谩s ganadoras'
+           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci贸n de ofertas.')
 
+
+
+GO
 USE BelcorpChile
 GO
 
+
 DELETE FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
+
 INSERT INTO [dbo].[TipoEstrategia]
            ([DescripcionEstrategia]
            ,[ImagenEstrategia]
@@ -517,7 +550,7 @@ INSERT INTO [dbo].[TipoEstrategia]
            ('Las mas ganadoras'
            ,''
            ,9
-           ,0
+           ,1
            ,''
            ,GETDATE()
            ,''
@@ -532,15 +565,18 @@ INSERT INTO [dbo].[TipoEstrategia]
            ,''
            ,0
            ,0
-           ,'Las m醩 ganadoras'
-           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci髇 de ofertas.')
---SELECT * FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
-GO
+           ,'Las m谩s ganadoras'
+           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci贸n de ofertas.')
 
+
+
+GO
 USE BelcorpBolivia
 GO
 
+
 DELETE FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
+
 INSERT INTO [dbo].[TipoEstrategia]
            ([DescripcionEstrategia]
            ,[ImagenEstrategia]
@@ -566,7 +602,7 @@ INSERT INTO [dbo].[TipoEstrategia]
            ('Las mas ganadoras'
            ,''
            ,9
-           ,0
+           ,1
            ,''
            ,GETDATE()
            ,''
@@ -581,8 +617,9 @@ INSERT INTO [dbo].[TipoEstrategia]
            ,''
            ,0
            ,0
-           ,'Las m醩 ganadoras'
-           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci髇 de ofertas.')
---SELECT * FROM [dbo].[TipoEstrategia] WHERE Codigo = 'LMG'
-GO
+           ,'Las m谩s ganadoras'
+           ,'Este producto es una oferta digital. Te invitamos a que revises tu secci贸n de ofertas.')
 
+
+
+GO
