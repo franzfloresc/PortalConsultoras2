@@ -39,6 +39,11 @@ namespace Portal.Consultoras.Web.Controllers
             get { return userData.CodigoISO; }
         }
 
+        public string Usuario
+        {
+            get { return userData.UsuarioNombre; }
+        }
+
         public ActionResult InscribePostulante()
         {
             var user = userData;
@@ -1693,7 +1698,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     actualizado = sv.ActualizarEstado(CodigoISO, id, EnumsTipoParametro.EstadoBurocrediticio, idEstadoBuro);
                 }
-                var urlClient = string.Format("portal/EventoSPEstadoBuro/{0}/{1}/{2}/{3}", CodigoISO, id, (int)Enumeradores.EstadoPostulante.Todos, idEstado);
+                var urlClient = string.Format("portal/EventoSPEstadoBuro/{0}/{1}/{2}/{3}/{4}", CodigoISO, id, (int)Enumeradores.EstadoPostulante.Todos, idEstado, Usuario);
                 var resultado = (new RestApi()).GetAsync<EventoInsert>(urlClient);
             }
             else {
