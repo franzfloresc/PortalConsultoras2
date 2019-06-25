@@ -4,6 +4,7 @@ using Portal.Consultoras.Common;
 using System;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceLMS;
+using System.Web.UI;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -245,6 +246,7 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public JsonResult GetCarruselCaminoBrillante()
         {
             return Json(_caminoBrillanteProvider.GetCarruselCaminoBrillante(), JsonRequestBehavior.AllowGet);
