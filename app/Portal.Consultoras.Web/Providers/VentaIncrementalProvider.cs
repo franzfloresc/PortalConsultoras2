@@ -55,19 +55,23 @@ namespace Portal.Consultoras.Web.Providers
 
             if (!response.success) return new List<EstrategiaPersonalizadaProductoModel>();
             if (tipo.Equals(Constantes.TipoVentaIncremental.CrossSelling))
-                return Mapper.Map<List<Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(response.result.crosssell ?? new List<Estrategia>());
+                return Mapper.Map<List<Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(response.result.cross ?? new List<Estrategia>());
             if (tipo.Equals(Constantes.TipoVentaIncremental.Sugerido))
-                return Mapper.Map<List<Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(response.result.suggested ?? new List<Estrategia>());
+                return Mapper.Map<List<Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(response.result.sug ?? new List<Estrategia>());
             return new List<EstrategiaPersonalizadaProductoModel>();
         }
 
         private dynamic GenerarJsonParaConsulta(string codigoConsultora, string cuv, string tipo)
         {
+            var nombreTipo = "";
+            if (tipo.Equals(Constantes.TipoVentaIncremental.CrossSelling)) nombreTipo = "cross";
+            if (tipo.Equals(Constantes.TipoVentaIncremental.Sugerido)) nombreTipo = "sug";
+
             return new
             {
                 codigoConsultora,
                 cuv,
-                segmento = new[]{tipo}
+                segmento = new[]{ nombreTipo }
             };
         }
 
