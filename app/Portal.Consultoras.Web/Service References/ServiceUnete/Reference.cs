@@ -129,7 +129,7 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         ContraseniaAleatoriaConfiguracionZona = 47,
 
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        DistanciaLimiteZonaSeccion = 53,
+        DistanciaLimiteZonaSeccion = 53
     }
 
     [System.Diagnostics.DebuggerStepThroughAttribute()]
