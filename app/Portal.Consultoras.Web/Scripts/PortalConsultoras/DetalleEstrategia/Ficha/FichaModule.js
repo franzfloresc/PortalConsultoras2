@@ -453,7 +453,26 @@ var FichaModule = (function (config) {
             _config.componenteDetalleModule.VerDetalleIndividual(estrategia);
         }
 
+        if (typeof estrategia.Hermanos != "undefined" && estrategia.Hermanos != null) {
+            $.each(estrategia.Hermanos, function (idx, componente) {
+
+                if (estrategia.CodigoEstrategia == ConstantesModule.TipoPersonalizacion.Catalogo) {
+                    componente.FotosCarrusel = [];
+                } else {
+                    componente.FotosCarrusel = componente.FotosCarrusel || [];
+                }
+            });
+
+            if (estrategia.Hermanos.length === 1) {
+                estrategia.FotosCarrusel = estrategia.Hermanos[0].FotosCarrusel;
+            }
+        }
+
+        estrategia.FotosCarrusel = estrategia.FotosCarrusel || [];
         _setHandlebars(_template.producto, estrategia);
+        /*TESLA-97*/
+
+        /*TESLA-97*/
 
         // TODO: falta implementar en ficha responsive
         _setEstrategiaTipoBoton(estrategia);
@@ -986,6 +1005,69 @@ var FichaPartialModule = (function () {
         if (isShow) {
             $('body').css('overflow', 'hidden');
             $('#DivPopupFichaResumida').show();
+        /*Tesla-97*/
+            if ($(".slider-nav-detail").length > 0) {
+                $('.slider-nav-detail').slick({
+                    slidesToShow: 10,
+                    slidesToScroll: 1,
+
+                    asNavFor: '.slider-for-detail',
+                    dots: false,
+                    infinite: false,
+                    arrows: false,
+                    centerMode: true,
+                    focusOnSelect: true,
+                    vertical: true
+                });
+            }
+            if ($(".slider-for-detail").length > 0) {
+                $('.slider-for-detail').slick({
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    arrows: false,
+                    asNavFor: '.slider-nav-detail',
+
+                    infinite: false,
+                    dots: false,
+                    fade: true,
+                    cssEase: 'linear',
+                    responsive: [
+
+                        {
+                            breakpoint: 992,
+                            settings: {
+                                dots: true,
+                                fade: false
+                            }
+                        }
+                    ]
+                })
+            }
+
+            // Para versión Mobile
+            if ($(".slider-for-detail-mobile").length > 0){
+                $('.slider-for-detail-mobile').slick({
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    arrows: false,
+                    infinite: false,
+                    dots: false,
+                    fade: true,
+                    cssEase: 'linear',
+                    responsive: [
+
+                        {
+                            breakpoint: 992,
+                            settings: {
+                                dots: true,
+                                fade: false
+                            }
+                        }
+                    ]
+                })
+            }
+
+            /*Tesla-97*/
         }
         else {
             $("[data-ficha-contenido='ofertadeldia-template-style']").html("");

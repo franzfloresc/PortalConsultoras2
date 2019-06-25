@@ -172,8 +172,8 @@ var DetalleEstrategiaProvider = function () {
             }
 
         }
-
-        if (!estrategia || !estrategia.EstrategiaID) throw 'no obtiene oferta desde api';
+        
+        if (!estrategia || (_objTipoPalanca.codigo != ConstantesModule.TipoPersonalizacion.Catalogo && !estrategia.EstrategiaID)) throw 'no obtiene oferta desde api';
 
         if (typeof estrategia.CodigoVariante != "undefined" &&
             estrategia.CodigoVariante != null &&
@@ -187,10 +187,34 @@ var DetalleEstrategiaProvider = function () {
                 lstHermanos: estrategia.Hermanos
             };
 
+            //if (estrategia.Hermanos.length === 1) {
+            //    if (estrategia.Hermanos[0].Hermanos) {
+            //        if (estrategia.Hermanos[0].Hermanos.length > 0) {
+            //            if (estrategia.Hermanos[0].FactorCuadre === 1) {
+            //                estrategia.CodigoVariante = _codigoVariedad.IndividualVariable;
+            //            }
+            //        }
+
             _promiseObternerComponentes(paramsObtenerComponente)
                 .done(function (data) {
                     estrategia.Hermanos = data.componentes;
                     estrategia.EsMultimarca = data.esMultimarca;
+
+                    if (typeof estrategia.Hermanos != "undefined" && estrategia.Hermanos != null) {
+                        $.each(estrategia.Hermanos, function (idx, componente) {
+
+                            if (estrategia.CodigoEstrategia === ConstantesModule.TipoPersonalizacion.Catalogo) {
+                                componente.FotosCarrusel = [];
+                            } else {
+                                componente.FotosCarrusel = componente.FotosCarrusel || [];
+                            }
+                        });
+
+                        if (estrategia.Hermanos.length === 1) {
+                            estrategia.FotosCarrusel = estrategia.Hermanos[0].FotosCarrusel;
+                        }
+                    }
+
                 }).fail(function (data, error) {
                     estrategia.Hermanos = [];
                     estrategia.EsMultimarca = false;
@@ -204,7 +228,7 @@ var DetalleEstrategiaProvider = function () {
             estrategia.Hermanos = [];
             estrategia.EsMultimarca = false;
         }
-
+        estrategia.FotosCarrusel = estrategia.FotosCarrusel || [];
         estrategia.Hermanos = estrategia.Hermanos || [];
         
         $.each(estrategia.Hermanos, function (idx, hermano) {
@@ -243,6 +267,18 @@ var DetalleEstrategiaProvider = function () {
         estrategia.MostarTabsFichaEnriquecidaSinDetalle = estrategia.Hermanos.length == 1;
 
         _esMultimarca = estrategia.EsMultimarca; // General.js/ifVerificarMarca
+
+        if (_objTipoPalanca.codigo == ConstantesModule.TipoPersonalizacion.Catalogo) {
+            estrategia.BreadCrumbs.Palanca.Url += "?q=" + localStorage.getItem('valorBuscador');
+            //
+            var key = ConstantesModule.KeysLocalStorage.DescripcionProductoCatalogo(estrategia.Campania, estrategia.CUV2);
+            var descripcionCompleta = localStorage.getItem(key);
+            if (descripcionCompleta != '') {
+                estrategia.DescripcionCompleta = descripcionCompleta;
+                if (estrategia.Hermanos.length > 0) estrategia.Hermanos[0].NombreComercial = descripcionCompleta;
+            }
+        }
+        
 
         return estrategia;
     };

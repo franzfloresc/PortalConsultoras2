@@ -867,7 +867,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Ficha/RedesSociales.css",
                 "~/Content/Css/Site/Ficha/PopoverTooltip.css",
                 "~/Content/Css/Site/Ficha/SeleccionarTipo.css",
-                "~/Content/Css/Site/ProductoListado/CajaProducto.css"
+                "~/Content/Css/Site/ProductoListado/CajaProducto.css",
+                "~/Content/Css/Site/Ficha/FichaCarrusel.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Ficha-Esika").Include(
@@ -888,7 +889,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
                 "~/Content/Css/Mobile/Ficha/SeleccionarTipo.css",
                 "~/Content/Css/Mobile/Clientes/Asignarcliente.css",
-                "~/Content/Css/Mobile/Ficha/FichaEnriquecida.css"
+                "~/Content/Css/Mobile/Ficha/FichaEnriquecida.css",
+                "~/Content/Css/Site/Ficha/FichaCarrusel.css"
 
             ));
 
@@ -1186,6 +1188,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaEnriquecida/FichaEnriquecidaView.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/FichaEnriquecida/FichaEnriquecidaPresenter.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/Ficha/CarruselAyuda.js",
+                "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselInicializar.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselModel.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselView.js",
                 "~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Carrusel/CarruselPresenter.js",

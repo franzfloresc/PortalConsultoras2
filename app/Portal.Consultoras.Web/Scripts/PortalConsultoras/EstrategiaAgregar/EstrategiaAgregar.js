@@ -400,6 +400,10 @@ var EstrategiaAgregarModule = (function () {
             ClienteID: _getClienteIdSelected()
         };
 
+        if (estrategia.CodigoEstrategia == ConstantesModule.TipoPersonalizacion.Catalogo) {
+            params.PrecioUnidad = estrategia.Precio2;
+        };
+
         EstrategiaAgregarProvider
             .pedidoAgregarProductoPromise(params)
             .done(function (data) {

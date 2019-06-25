@@ -212,7 +212,11 @@ var AnalyticsPortalModule = (function () {
             { "Codigo": "13", "TextoList": "Catalogo Digital Pendiente de Aprobar Producto" },
             { "Codigo": "14", "TextoList": "App Maquillador Pendiente de Aprobar Producto" },
             { "Codigo": "15", "TextoList": "Carrusel Upselling" },
-            { "Codigo": "16", "TextoList": "Ficha Upselling" }
+            { "Codigo": "16", "TextoList": "Ficha Upselling" },
+            { "Codigo": "18", "TextoList": "Carrusel CrossSelling" },
+            { "Codigo": "19", "TextoList": "Ficha CrossSelling" },
+            { "Codigo": "20", "TextoList": "Carrusel Sugeridos" },
+            { "Codigo": "21", "TextoList": "Ficha Sugeridos" }
         ]
     }
 
@@ -412,6 +416,10 @@ var AnalyticsPortalModule = (function () {
         var palanca = ''
         if (origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.FichaUpselling
             && origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling
+            && origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.FichaCrossSelling
+            && origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselCrossSelling
+            &&origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.FichaSugeridos
+            && origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselSugeridos
         ) {
             palanca = _getTextoPalancaSegunOrigen(origenEstructura);
         }
@@ -670,18 +678,23 @@ var AnalyticsPortalModule = (function () {
             var textoPagina = _getTextoPaginaSegunOrigen(origenEstructura);
 
             if (textoPagina === "Landing Buscador") {
-                var model = {
-                    'DescripcionCompleta': estrategia.DescripcionCompleta,
-                    'CUV': estrategia.CUV2,
-                    'Precio': estrategia.Precio2,
-                    'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
-                    'MarcaId': estrategia.MarcaID,
-                    'Cantidad': estrategia.Cantidad,
-                    'Palanca': estrategia.Palanca
-                };
-                var valorBuscar = localStorage.getItem('valorBuscador');
-                AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
-                return;
+                if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Ficha
+                    && !(origenEstructura.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.CatalogoLbel
+                        || origenEstructura.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.CatalogoEsika
+                        || origenEstructura.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.CatalogoCyzone)) {
+                    var model = {
+                        'DescripcionCompleta': estrategia.DescripcionCompleta,
+                        'CUV': estrategia.CUV2,
+                        'Precio': estrategia.Precio2,
+                        'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
+                        'MarcaId': estrategia.MarcaID,
+                        'Cantidad': estrategia.Cantidad,
+                        'Palanca': estrategia.Palanca
+                    };
+                    var valorBuscar = localStorage.getItem('valorBuscador');
+                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
+                    return;
+                }
             }
 
             var parametroList = _getParametroListSegunOrigen(codigoOrigenPedido);
@@ -699,7 +712,6 @@ var AnalyticsPortalModule = (function () {
 
         }
     }
-
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Evento Add To Cart
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -721,7 +733,9 @@ var AnalyticsPortalModule = (function () {
         $.each(lista, function (index, item) {
             if (index < cantidadMostrar) {
                 var paramList = parametroList;
-                if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling) {
+                if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling ||
+                    origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselCrossSelling ||
+                    origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselSugeridos) {
                     var origenEstructuraNueva = CodigoOrigenPedidoWeb.GetCambioSegunTipoEstrategia(origenMapper, item.CodigoEstrategia);
                     paramList = _getParametroListSegunOrigen(origenEstructuraNueva);
                 }
