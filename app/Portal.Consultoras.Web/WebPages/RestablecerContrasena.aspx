@@ -115,7 +115,6 @@
         var patronRegex = "";
         $(document).ready(function () {
             patronRegex = $("#txtpatronRegex").val();
-            alert(patronRegex);
             //Asignar hojas de estilo
             if ($('#txtmarca').val() == 'lbel') {
                 $("body").css("visibility", "hidden");
