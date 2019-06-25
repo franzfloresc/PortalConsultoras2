@@ -734,25 +734,10 @@ function CambiarContrasenia() {
     if (newPassword01.length <= 6)
         vMessage += "- La Nueva Contraseña debe de tener mínimo 7 caracteres.\n";
     
-    //var pMayus = patronRegex.split('¦')[0];
-    //if (newPassword01.match(pMayus) == null) {
-    //    vMessage += "- La Nueva Contraseña debe de tener al menos una letra en mayúscula.\n";
-    //}    
-
-    //var pMinu = patronRegex.split('¦')[1];
-    //if (newPassword01.match(pMinu) == null) {
-    //    vMessage += "- La Nueva Contraseña debe de tener al menos una letra en minúscula.\n";
-    //}
-
     var pDigi = patronRegex.split('¦')[2];
     if (newPassword01.match(pDigi) == null) {
         vMessage += "- La Nueva Contraseña debe de tener al menos un dígito.\n";
     }
-
-    //var pEspe = patronRegex.split('¦')[3];
-    //if (newPassword01.match(pEspe) == null) {
-    //    vMessage += "- La Nueva Contraseña debe de tener al menos un carácter especial.\n";
-    //}
 
     var pLetra = patronRegex.split('¦')[4];
     if (newPassword01.match(pLetra) == null) {
