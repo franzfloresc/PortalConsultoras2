@@ -111,7 +111,7 @@
                         <div class="precio_valorizado">Precio normal: <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
                         {{else}}
                         {{#iff TipoOfertaCaminoBrillante '==' 2}}
-                        <div class="precio_valorizado" >Precio: <span data-precio_valorizado="" style="text-decoration:line-through;">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
+                        <div class="precio_valorizado">Precio: <span data-precio_valorizado="" style="text-decoration:line-through;">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
                         {{else}}
                         <div class="precio_valorizado">Precio catálogo: <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
                         {{/iff}}
@@ -202,6 +202,17 @@
                 {{#iff TipoAccionAgregar '>' @Constantes.TipoAccionAgregar.SinBoton}}
                 {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.AgregaloPackNuevas'}}
                 {{#if TieneStock}}
+                {{#iff TipoOfertaCaminoBrillante '==' 1}}
+                <div class="contenedor_fijo" id="idcontenedor_rangos" data-cantidad-contenedor="" style="display:none">
+                    <input class="txt_cantidad_pedido_fijo ValidaNumeral ValidaPasteNumeral"
+                           type="text"
+                           value="{{Cantidad}}"
+                           onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);"
+                           id="txtCantidad"
+                           data-input="cantidad"
+                           data-cantidad-input="-">
+                </div>
+                {{else}}
                 <div class="contenedor_fijo {{#if esCampaniaSiguiente}} {{ClaseBloqueadaRangos}} {{/if}}" id="idcontenedor_rangos" data-cantidad-contenedor="">
                     <input class="txt_cantidad_pedido_fijo ValidaNumeral ValidaPasteNumeral"
                            {{#if esCampaniaSiguiente}} {{RangoInputEnabled}} {{/if}}
@@ -215,6 +226,7 @@
                            data-cantidad-input="-"
                            disabled="disabled">
                 </div>
+                {{/iff}}
                 <a id="btnAgregalo"
                    class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
                    {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
