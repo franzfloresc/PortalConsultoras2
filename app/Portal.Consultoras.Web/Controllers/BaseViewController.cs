@@ -286,6 +286,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (palanca == "CaminoBrillanteKits" || palanca == "CaminoBrillanteDemostradores")
                 {
+                    area = "";
                     breadCrumbs.Ofertas.Texto = "Camino Brillante";
                     breadCrumbs.Palanca.Texto = GetNombresPalancas(palanca);
                     breadCrumbs.Ofertas.Url = Url.Action("Index", new { controller = "CaminoBrillante", area });
