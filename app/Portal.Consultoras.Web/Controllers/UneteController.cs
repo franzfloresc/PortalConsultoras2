@@ -1187,7 +1187,6 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
-        //HD-4400
         #region DistanciaLimite
         public ActionResult DistanciaLimiteZonaSeccion()
         {
@@ -1321,42 +1320,27 @@ namespace Portal.Consultoras.Web.Controllers
                 List<ParametroUnete> listafinal = new List<ParametroUnete>();
                 if (isCorrect)
                 {
-                    bool zonaSeccionValida = false;
                     int distanciaLimiteItem = 0;
                     bool itemEsNumerico = false;
                     foreach (var item in lista)
                     {
-                        ServiceUnete.Comun resultadoValidacion;
-                        using (var sv = new PortalServiceClient())
+                        itemEsNumerico = int.TryParse(item.DistanciaLimite, out distanciaLimiteItem);
+                        if (itemEsNumerico && distanciaLimiteItem > 0)
                         {
-                            resultadoValidacion = sv.ValidarZonaSeccion(CodigoISO, item.ZonaSeccion);
-                        }
-                        zonaSeccionValida = resultadoValidacion.IdParametroUnete == 1 ? true : false;
-                        if (zonaSeccionValida)
-                        {
-                            itemEsNumerico = int.TryParse(item.DistanciaLimite, out distanciaLimiteItem);
-                            if (itemEsNumerico && distanciaLimiteItem > 0)
+                            var parametroTodos = new ParametroUnete
                             {
-                                var parametroTodos = new ParametroUnete
-                                {
-                                    Nombre = item.ZonaSeccion,
-                                    Descripcion = "Distancia límite",
-                                    Valor = distanciaLimiteItem,
-                                    FK_IdTipoParametro = EnumsTipoParametro.DistanciaLimiteZonaSeccion.ToInt(),
-                                    Estado = 1
-                                };
-                                listafinal.Add(parametroTodos);
-                            }
-                            else
-                            {
-                                return "Error en distancia límite. Sólo se permiten valores numéricos enteros positivos.";
-                            }
+                                Nombre = item.ZonaSeccion,
+                                Descripcion = "Distancia límite",
+                                Valor = distanciaLimiteItem,
+                                FK_IdTipoParametro = EnumsTipoParametro.DistanciaLimiteZonaSeccion.ToInt(),
+                                Estado = 1
+                            };
+                            listafinal.Add(parametroTodos);
                         }
                         else
                         {
-                            return resultadoValidacion.Nombre;
+                            return "Error en distancia límite. Sólo se permiten valores numéricos enteros positivos.";
                         }
-
                     }
 
                     if (listafinal.Any())
@@ -1390,7 +1374,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion DistanciaLimite
-        //Fin
 
         public ActionResult NivelesGeograficos()
         {
