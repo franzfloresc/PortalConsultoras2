@@ -42,24 +42,23 @@
         });
     }
 
-    var _exportarExcel = function () {
-        if ($("#ddlPais").val() == "") {
-            alert("Debe seleccionar el País, verifique.");
-            return false;
-        }
-        if ($("#ddlCampania").val() == "") {
-            alert("Debe seleccionar la Campaña, verifique.");
-            return false;
-        }
-        if ($("#ddlTipoEstrategia").val() == "") {
-            alert("Debe seleccionar el tipo de estrategia, verifique.");
-            return false;
-        }
-
-        setTimeout(function () {
-            _downloadAttachExcel();
-        }, 0);
-    }
+    //var _exportarExcel = function () {
+    //    if ($("#ddlPais").val() == "") {
+    //        alert("Debe seleccionar el País, verifique.");
+    //        return false;
+    //    }
+    //    if ($("#ddlCampania").val() == "") {
+    //        alert("Debe seleccionar la Campaña, verifique.");
+    //        return false;
+    //    }
+    //    if ($("#ddlTipoEstrategia").val() == "") {
+    //        alert("Debe seleccionar el tipo de estrategia, verifique.");
+    //        return false;
+    //    }
+    //    setTimeout(function () {
+    //        _downloadAttachExcel();
+    //    }, 0);
+    //}
 
     var _downloadAttachExcel = function () {
         var content = _config.urlExportarExcel +
@@ -102,11 +101,11 @@
         document.body.appendChild(iframe_);
     }
 
-    var _paginador = Paginador({
-        elementId: "matriz-" +
-            "imagen" +
-            "es-paginacion"
-    });
+    //var _paginador = Paginador({
+    //    elementId: "matriz-" +
+    //        "imagen" +
+    //        "es-paginacion"
+    //});
 
     var _basicFieldsValidation = function () {
         if ($("#ddlTipo").val() == "") {
@@ -213,7 +212,7 @@
             _obtenerCampanias();
             _bindingEvents();
             _fnGrilla();
-            
+
         });
     }
 
@@ -589,10 +588,10 @@
     var _fnEstrategiasConsultora = function () {
 
         var fechaConsulta = $("#txtFechaConsulta").val();
-        var tipoEstrategia = $("#ddlTipoEstrategia").val();
+        //var tipoEstrategia = $("#ddlTipoEstrategia").val();
 
         if (fechaConsulta == "") fechaConsulta = "01/01/1990";
-        if (tipoEstrategia == "") tipoEstrategia = 0;
+        //if (tipoEstrategia == "") tipoEstrategia = 0;
 
         jQuery("#list").jqGrid({
             url: baseUrl + "AdministrarReporteRevisionIncidencias/ConsultarReporteEstrategiasConsultora",

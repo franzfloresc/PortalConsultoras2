@@ -28,7 +28,7 @@ var aCamRev = new Array();
 
 $(document).ready(function () {
     if (!window.hasOwnProperty("MarcaCatalogo")) {
-        Object.defineProperty(window, 'MarcaCatalogo', { value: ''});
+        Object.defineProperty(window, 'MarcaCatalogo', { value: '' });
     }
     aCam.push($("#hdCampaniaAnterior").val());
     aCam.push($("#hdCampaniaActual").val());
@@ -43,11 +43,11 @@ $(document).ready(function () {
 
     $('#campaniaRevista').val(rCampSelect);
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
-        
+
         $("[data-tag-html]").hide();
         var tag = $(this).attr("data-tag") || "";
         var obj = $("[data-tag-html='" + tag + "']");
-        
+
         if (tag === "Revistas") TagManagerPaginasVirtuales();
 
         $.each(obj, function (ind, objTag) {
@@ -73,7 +73,7 @@ $(document).ready(function () {
     CargarCarruselCatalogo();
     ColumnasDeshabilitadasxPais();
     CargarTodosCorreo();
-        
+
     $("#divCatalogo a[data-button_carrusel='carrusel'] > img").click(function (e) {
 
         var img = $(this).attr("id") || "";
@@ -134,10 +134,10 @@ $(document).ready(function () {
 });
 
 function CargarCarruselCatalogo() {
-    
+
     ShowLoading();
 
-    
+
     var totalItem = cantCat * cantCam;
 
     $("#divCatalogo").children()
@@ -208,7 +208,7 @@ function ColumnasDeshabilitadasxPais(valor, accion, label) {
     });
 }
 
-var meDone =function (data, camp) {
+var meDone = function (data, camp) {
     if (data != null) GetCatalogosLinksByCampania(data, camp);
     else cont += cantCat;
 }
@@ -237,12 +237,12 @@ function GetCatalogosLinksByCampania(data, campania) {
     ShowLoading();
     $.ajaxSetup({ cache: false });
 
-   
+
 
     var defered = new Object();
 
-    
-    
+
+
     var idCat = "#divCatalogo";
 
     for (var i = 0; i < cantCat; i++) {
@@ -266,7 +266,7 @@ function GetCatalogosLinksByCampania(data, campania) {
         var elemItem = "[data-cam='" + campania + "'][data-cat='" + tagCat + "']";
         $(idCat).find(elemItem).find("[data-tipo='content']").hide();
         $(elemItem).attr("data-estado", estado);
-        
+
         var codigoISSUU = '', urlCat;
         $.each(data.listCatalogo, function (key, catalogo) {
             if (catalogo.marcaCatalogo.toLowerCase() == tagCat.toLowerCase()) {
@@ -341,12 +341,12 @@ function FinRenderCatalogo() {
         $('[data-tag-html="Catalogos"] .titulo_catalogo').text("CATÁLOGOS C-" + campSelect);
         $("#divCatalogo > div > div").show();
         CatalogoMostrar(0);
-        CloseLoading();        
+        CloseLoading();
         SeleccionarCatalogo();
     }
 }
 function CargarTodosCorreo() {
-    
+
     listaCorreo = listaCorreo || new Array();
     if (listaCorreo.length > 0) {
         return listaCorreo;
@@ -374,30 +374,15 @@ function CargarTodosCorreo() {
     });
 }
 
-function SeleccionarCatalogo() {
-    
-    var flagMarca;
+function SeleccionarCatalogo() {    
     var Marcas = $.trim(MarcaCatalogo).split('&');
-    var campania = $("#hdCampaniaActual").val();
-    var Marca = '#';
 
-
-    if (Marcas[0] == 'esika') {
-        Marca = '#' + campania + '_Esika' 
-        $(window).scrollTop(600);
-    } 
-    if (Marcas[0] == 'lbel') {
-        Marca = '#' + campania + '_Lbel' 
-        Marca2 = '#' + campania + '_Lbel' + '_WS' 
-        $(window).scrollTop(200);
-    } 
-    if (Marcas[0] == 'cyzone') {
-        Marca = '#' + campania + '_Cyzone' 
-        $(window).scrollTop(1000);
-    } 
+    if (Marcas[0] == 'esika') $(window).scrollTop(600);
+    else if (Marcas[0] == 'lbel') $(window).scrollTop(200);
+    else if (Marcas[0] == 'cyzone') $(window).scrollTop(1000);
 }
 
-function CatalogoMostrar(accion, btn) {    
+function CatalogoMostrar(accion, btn) {
     campSelectI = accion == -1 ? campSelectI - 1 : accion == 1 ? campSelectI + 1 : campSelectI;
     campSelectI = campSelectI <= 0 ? 0 : campSelectI >= cantCam - 1 ? cantCam - 1 : campSelectI;
 
@@ -428,11 +413,11 @@ function CatalogoMostrar(accion, btn) {
 function renderItemCliente(event, ui) {
     var htmlTag = ''
         + '<a>'
-                + '<div class="content_datos_c">'
-                    + '<div class="nombre_compartir">{nombre}</div>'
-                    + '<div class="correo_compartir">{email}</div>'
-                + '</div>'
-    + '</a>';
+        + '<div class="content_datos_c">'
+        + '<div class="nombre_compartir">{nombre}</div>'
+        + '<div class="correo_compartir">{email}</div>'
+        + '</div>'
+        + '</a>';
     $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
         var htmlTagAdd = htmlTag.replace('{nombre}', item.nombre);
         htmlTagAdd = htmlTagAdd.replace('{email}', item.email);
@@ -464,7 +449,7 @@ function CatalogoEnviarEmail() {
     var _Flagchklbel = "0";
     var _Flagchkcyzone = "0";
     var _Flagchkesika = "0";
-   
+
 
     var clientes = new Array();
     for (var i = 0; i < correoEnviar.length; i++) {
@@ -488,7 +473,7 @@ function CatalogoEnviarEmail() {
             _Flagchklbel = objCorreo.LBel;
             _Flagchkesika = objCorreo.Esika;
             _Flagchkcyzone = objCorreo.Cyzone;
-           
+
         }
         clientes.push(objCorreo);
     }
@@ -520,7 +505,7 @@ function CatalogoEnviarEmail() {
             'value': clientes.length
         });
     }
-    
+
     var mensaje = $("#comentarios").val();
     jQuery.ajax({
         type: 'POST',
@@ -632,7 +617,7 @@ function RevistaMostrar(accion, btn) {
 }
 
 function TagManagerPaginasVirtuales() {
-    
+
     var urlPrefix = getMobilePrefixUrl();
     dataLayer.push({
         'event': 'virtualPage',

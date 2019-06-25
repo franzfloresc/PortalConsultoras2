@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 if (UsarMsPersonalizacion(model.CodigoISO, Constantes.TipoEstrategiaCodigo.OfertaDelDia))
                 {
-                    var diaInicio = DateTime.Now.Date.Subtract(model.FechaInicioCampania.Date).Days;
+                    var diaInicio = Util.GetDiaActual(model.ZonaHoraria).Subtract(model.FechaInicioCampania.Date).Days;
 
                     string pathOferta = string.Format(Constantes.PersonalizacionOfertasService.UrlObtenerOfertas,
                        model.CodigoISO,

@@ -5242,10 +5242,10 @@ img.icon-80 {
     pointer-events: none;
 }
 
-.card--box__info,
+/*.card--box__info,
 .btn--arrow {
     pointer-events: none;
-}
+}*/
 
 .modal-fondo {
     position: fixed;

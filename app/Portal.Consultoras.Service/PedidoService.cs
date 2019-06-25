@@ -1187,7 +1187,7 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().ValidarCUVsRecomendados(entidad);
         }
-        
+
         public string ValidarStockEstrategia(BEEstrategia entidad)
         {
             return new BLEstrategia().ValidarStockEstrategia(entidad);
@@ -1865,7 +1865,7 @@ namespace Portal.Consultoras.Service
         {
             return new BLReserva().EnviarCorreoReservaProl(input);
         }
-        
+
         public string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo)
         {
             return new BLReserva().CargarSesionAndDeshacerPedidoValidado(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, tipo);
@@ -2328,12 +2328,12 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoBusinessLogic.InsertKitInicio(usuario);
         }
-        
+
         public BEConfiguracionPedido GetConfiguracionPedido(int paisID, string codigoUsuario, int campaniaID, string region, string zona)
         {
             return _pedidoBusinessLogic.GetConfiguracion(paisID, codigoUsuario, campaniaID, region, zona);
         }
-        
+
         public async Task<BEPedidoReservaResult> ReservaPedido(BEUsuario usuario)
         {
             return await _pedidoBusinessLogic.Reserva(usuario);
@@ -2471,16 +2471,20 @@ namespace Portal.Consultoras.Service
         }
 
         #endregion
-        
+
         public void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle)
         {
             _pedidoWebBusinessLogic.UpdDatoRecogerPor(pedidowebdetalle);
         }
 
-        //INI HD-4200
         public List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb)
         {
             return BLPedidoWeb.GetCuvSuscripcionSE(bEPedidoWeb);
+        }
+
+ 			public bool InsertKitSE(BEUsuario usuario)
+        {
+            return _pedidoBusinessLogic.InsertKitSE(usuario);
         }
 
         //FIN HD-4200

@@ -41,16 +41,16 @@
                 {{#if EsBannerProgNuevas}}
                     <div data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
                         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-        @*<a href="@Url.Action("Index", "ProgramaNuevas" )">*@
-        <a href="javascript:void(0);" onclick="javascript:CarruselAyuda.MarcaAnalycticCarruselProgramasNuevas(this,'@Url.Action("Index", "ProgramaNuevas")');">
-        <div class="content_item_carrusel content_item_carrusel_prog_nuevas" style="cursor:pointer;">
-            <img src="{{ImagenURL}}" alt="" class="clubganamas_logo" />
-            <div class="container_text">
-                <p class="primero">ELIGE DOS PRODUCTOS</p>
-                <p class="segundo">Y ARMA TU DÚO PERFECTO</p>
-                <p class="boton">ELEGIR AHORA</p>
-            </div>
-        </div>
+                        @*<a href="@Url.Action("Index", "ProgramaNuevas" )">*@
+                        <a href="javascript:void(0);" onclick="javascript:CarruselAyuda.MarcaAnalycticCarruselProgramasNuevas(this,'@Url.Action("Index", "ProgramaNuevas")');">
+                        <div class="content_item_carrusel content_item_carrusel_prog_nuevas" style="cursor:pointer;">
+                            <img src="{{ImagenURL}}" alt="" class="clubganamas_logo" />
+                            <div class="container_text">
+                                <p class="primero">ELIGE DOS PRODUCTOS</p>
+                                <p class="segundo">Y ARMA TU DÚO PERFECTO</p>
+                                <p class="boton">ELEGIR AHORA</p>
+                            </div>
+                        </div>
                         </a>
                     </div>
                 {{else}}
@@ -79,13 +79,16 @@
                                         style="cursor:pointer;"
                                      {{/iff}}
                                  {{/iff}}>
-                                <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
+                                <div style="display:none;">
+                                    <div data-estrategia="{{JSON2string item}}"></div>
+                                    <div data-imagen-producto="{{ImgUrl FotoProducto01}}"></div>
+                                </div>
                                 <div data-item-tag="contenido"
                                     {{#iff EsSubcampania '==' false}}
                                         {{#iff TipoAccionAgregar 'ContainsArray' '[@Constantes.TipoAccionAgregar.LoQuieres,@Constantes.TipoAccionAgregar.LoQuieresInactivo]' }}
                                             onclick="javascript:VerPopupExpGanaMas();"
                                         {{else}}
-                                            onclick="javascript:OnClickFichaDetalle(event.target);"
+                                            onclick="javascript:FichaVerDetalle.OnClickFichaDetalle(event.target);"
                                         {{/iff}}
                                     {{/iff}}>
                                     <div class="producto_img_home" data-item-tag="foto">
@@ -230,7 +233,7 @@
                                             {{/iff}}
                                             {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.EligeOpcion'}}
                                                 {{#if TieneStock}}
-                                                    <div {{#iff ClaseBloqueada '==' ''}} onclick="javascript:OnClickFichaDetalle(event.target);" {{/iff}}>
+                                                    <div {{#iff ClaseBloqueada '==' ''}} onclick="javascript:FichaVerDetalle.OnClickFichaDetalle(event.target);" {{/iff}}>
                                                         <div class="texto_elige_tono"></div>
                                                         <div class="clear"></div>
                                                         <a class="btn_elige_tono js-no-popup {{ClaseBloqueada}}" data-item-tag="eligetuopcion">
