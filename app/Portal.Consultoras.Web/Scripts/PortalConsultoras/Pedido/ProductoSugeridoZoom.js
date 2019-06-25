@@ -12,7 +12,7 @@
                 imagenThumbnail.addEventListener('mouseenter', function (e) {
                     this.parentNode.parentNode.parentNode.classList.add('alternarOverflow');
                     this.parentNode.parentNode.parentNode.parentNode.classList.add('zIndexSuperior');
-                    imagenZoom.style.position.left = imagenThumbnail.style.width + 75;
+                    imagenZoom.style.left = (imagenThumbnail.getBoundingClientRect().left - 40) + 'px';
                     imagenZoom.classList.add('mostrarImagenZoom');
                     imagenZoom.style.backgroundImage = 'url(' + imagenThumbnail.src + ')';
                     imagenZoom.style.backgroundSize = "250%";

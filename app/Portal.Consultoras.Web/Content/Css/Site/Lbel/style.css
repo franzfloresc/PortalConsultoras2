@@ -2604,7 +2604,7 @@ a.subir_carousel, a.bajar_carousel {
         top: 0;
         background-color: #FFF;
         border: 1px solid #808080;
-        z-index: 2;
+        z-index: 2000;
         background-repeat: no-repeat;
         opacity: 0;
         -moz-transition: all 0.3s ease;
