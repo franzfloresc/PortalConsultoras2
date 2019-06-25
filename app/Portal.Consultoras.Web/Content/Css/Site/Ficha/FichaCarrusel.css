@@ -116,6 +116,12 @@
     max-height: 300px;
     max-width: 100% !important;
 }
+/*Patch - tesla - tamaño imagen en carrusel */
+.contenedor_imagen.slider-for .contenedor_carrusel img,
+.contenedor_imagen.slider-for-detail .contenedor_carrusel img {
+    max-height: 100%;
+}
+
 .contenedor_imagen{
     display: block;
 }
@@ -131,12 +137,21 @@
     .contenedor_imagen_thumbnail .contenedor_carrusel.slick-slide {
         border: 1px solid #979797;
         width: 40px !important;
+        height: 47px !important;
         margin: 3px;
         filter: brightness(50%);
         background-color: rgba(0,0,0,.5);
         transition: filter .5s ease;
         cursor: pointer;
     }
+        .contenedor_imagen_thumbnail .contenedor_carrusel.slick-slide img {
+            /* Tesla fix 96 */
+            justify-content: center;
+            flex-flow: column;
+            object-fit: cover;
+            height: 100% !important;
+            /* Tesla fix 96 */
+        }
 
     .contenedor_imagen_thumbnail .slick-slide.slick-current {
         border: 1px solid #979797;
@@ -149,6 +164,11 @@
     flex-direction: column;
     height: auto !important;
         */
+    }
+    /*Corregir extra altura */
+    .slider-nav .slick-list.draggable,
+    .slider-nav-detail .slick-list.draggable {
+        height: auto !important;
     }
 
 /* Puntos - Carrusel */
