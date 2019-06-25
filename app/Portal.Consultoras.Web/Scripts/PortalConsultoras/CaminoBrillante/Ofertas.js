@@ -136,6 +136,7 @@ function TagListaProductos(data, lista) {
             'brand': product.DescripcionMarca,
             'category': lista,
             'variant': 'Estándar',
+            'list': lista,
             'position': i + 1,
         }
         productos.push(productoAnalicits);
@@ -146,7 +147,6 @@ function TagListaProductos(data, lista) {
         'ecommerce': {
             'currencyCode': moneda,
             'impressions': {
-                'actionField': { 'list': lista },
                 'products': productos
             }
         }
@@ -172,7 +172,7 @@ function CargarKits() {
                 offsetRegistrosKits += nroRegistrosKits;
                 $("#divresultadosKit").html("Mostrando " + contadorkit + " de " + data.total);
                 dataKits = data;
-                TagListaProductos(dataKits, 'Kits');
+                TagListaProductos(dataKits, 'kits');
                 return dataKits;
             }
         },
