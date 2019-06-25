@@ -567,8 +567,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 tieneCodigoPalanca = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
             }
-
-            if(palanca == Constantes.NombreEstrategiaBuscador.Catalogo)
+            else
             {
                 tieneCodigoPalanca = true;
                 codigoPalanca = Constantes.CodigoEstrategiaBuscador.Catalogo;
