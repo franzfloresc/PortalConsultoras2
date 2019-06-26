@@ -6994,6 +6994,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private bool FlagConsultoraDigitalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool FlagPagoPendienteKitField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string Flag_CAField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -8066,6 +8069,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((this.FlagConsultoraDigitalField.Equals(value) != true)) {
                     this.FlagConsultoraDigitalField = value;
                     this.RaisePropertyChanged("FlagConsultoraDigital");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool FlagPagoPendienteKit {
+            get {
+                return this.FlagPagoPendienteKitField;
+            }
+            set {
+                if ((this.FlagPagoPendienteKitField.Equals(value) != true)) {
+                    this.FlagPagoPendienteKitField = value;
+                    this.RaisePropertyChanged("FlagPagoPendienteKit");
                 }
             }
         }
@@ -12837,6 +12853,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string SeccionOrigenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ShowAprobarField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ShowConsultarUbicacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -13548,6 +13567,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.SeccionOrigenField, value) != true)) {
                     this.SeccionOrigenField = value;
                     this.RaisePropertyChanged("SeccionOrigen");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ShowAprobar {
+            get {
+                return this.ShowAprobarField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ShowAprobarField, value) != true)) {
+                    this.ShowAprobarField = value;
+                    this.RaisePropertyChanged("ShowAprobar");
                 }
             }
         }
