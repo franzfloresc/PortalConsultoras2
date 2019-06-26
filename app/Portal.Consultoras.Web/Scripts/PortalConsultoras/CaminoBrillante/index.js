@@ -147,7 +147,7 @@ $("#carrusel").on('click', '.boton_agregar_ofertas', function (e) {
     var obj = JSON.parse($(contenedor).find('div [data-estrategia]').attr("data-estrategia"));
 
     if (obj.TipoOferta == 1) {
-        descTipoOferta = "Kits";
+        descTipoOferta = "kits";
     } else if (obj.TipoOferta == 2){
         descTipoOferta = "Demostradores";
         var cantidad = $(contenedor).find("#txtCantidad").val();
