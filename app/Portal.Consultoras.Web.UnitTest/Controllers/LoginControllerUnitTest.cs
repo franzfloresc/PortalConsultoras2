@@ -1,15 +1,17 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.SessionManager;
 using Portal.Consultoras.Web.UnitTest.Attributes;
+using Portal.Consultoras.Web.UnitTest.Extensions;
 using System;
 using System.Collections.Generic;
-using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Common;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.UnitTest.Controllers
 {
@@ -31,7 +33,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             public void GetUserData_WhenPaidIdIsZero_ThrowArgumentException()
             {
                 // Arrange
-                var controller = new LoginController(LogManager.Object,SessionManager.Object);
+                var controller = new LoginController(LogManager.Object, SessionManager.Object);
 
                 // Act
                 var result = controller.GetUserData(0, string.Empty, 0).Result;
@@ -54,23 +56,23 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
 
             class LoginControllerStub : LoginController
             {
-                public LoginControllerStub(ILogManager logManager,ISessionManager sessionManager):base(logManager,sessionManager)
+                public LoginControllerStub(ILogManager logManager, ISessionManager sessionManager) : base(logManager, sessionManager)
                 {
 
                 }
 
                 protected override async Task<ServiceUsuario.BEUsuario> GetUsuarioAndLogsIngresoPortal(int paisId, string codigoUsuario, int refrescarDatos)
                 {
-                    return  await Task.Factory.StartNew(() =>
-                    {
-                        var usuario = new BEUsuario();
-                        usuario.CodigoISO = "PE";
-                        usuario.RolID = Constantes.Rol.Consultora;
-                        usuario.CampaniaID = 201715;
-                        usuario.NroCampanias = 18;
-                        return usuario;
-                    });                  
-                }                
+                    return await Task.Factory.StartNew(() =>
+                   {
+                       var usuario = new BEUsuario();
+                       usuario.CodigoISO = "PE";
+                       usuario.RolID = Constantes.Rol.Consultora;
+                       usuario.CampaniaID = 201715;
+                       usuario.NroCampanias = 18;
+                       return usuario;
+                   });
+                }
 
                 protected override async Task<List<ConfiguracionPaisModel>> GetConfiguracionPais(UsuarioModel usuarioModel)
                 {
@@ -79,7 +81,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                         var list = new List<ConfiguracionPaisModel>();
                         list.Add(new ConfiguracionPaisModel { Codigo = "GND" });
                         return list;
-                    });                    
+                    });
                 }
             }
 
@@ -90,9 +92,9 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var controller = new LoginControllerStub(LogManager.Object, SessionManager.Object);
 
                 // Act
-       
+
                 var result = controller.GetUserData(1, "041395737", 0).Result;
-                
+
                 // Assert
                 Assert.IsNotNull(result);
                 Assert.AreEqual(true, result.TieneGND);
@@ -177,7 +179,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                         return list;
                     });
 
-                    
+
                 }
 
                 protected override async Task<List<BEConfiguracionPaisDatos>> GetConfiguracionPaisDatos(UsuarioModel usuarioModel)
@@ -187,7 +189,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                         var list = new List<BEConfiguracionPaisDatos>();
                         //
                         return list;
-                    });                    
+                    });
                 }
 
                 protected override void ActualizarSubscripciones(RevistaDigitalModel revistaDigitalModel, UsuarioModel usuarioModel)
@@ -198,12 +200,12 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             [TestMethod]
             public void ConfiguracionPaisUsuario_EstaActivoRevistaDigitalYRevistaDigitalIntriga_EscribeEnLog()
             {
-                var controller = new LoginControllerStub(LogManager.Object,SessionManager.Object);
+                var controller = new LoginControllerStub(LogManager.Object, SessionManager.Object);
                 var usuario = new UsuarioModel
                 {
                     TipoUsuario = Constantes.TipoUsuario.Consultora,
                     NombreConsultora = "UnNombre",
-                    Sobrenombre= "UnSobreNombre"
+                    Sobrenombre = "UnSobreNombre"
                 };
 
                 var result = controller.ConfiguracionPaisUsuario(usuario).Result;
@@ -232,7 +234,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                         list.Add(new ConfiguracionPaisModel { Codigo = Constantes.ConfiguracionPais.RevistaDigitalIntriga });
                         return list;
                     });
-                    
+
                 }
 
                 protected override async Task<List<BEConfiguracionPaisDatos>> GetConfiguracionPaisDatos(UsuarioModel usuarioModel)
@@ -242,7 +244,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                         var list = new List<BEConfiguracionPaisDatos>();
                         //
                         return list;
-                    });                    
+                    });
                 }
 
                 protected override void ActualizarSubscripciones(RevistaDigitalModel revistaDigitalModel, UsuarioModel usuarioModel)
@@ -282,7 +284,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     It.Is<Exception>(e => e.Message.Contains("no puede ser nulo")),
                     It.IsAny<string>(),
                     It.IsAny<string>(),
-                    It.Is<string>( s => s.Contains("LoginController.ConfiguracionPaisDatosRevistaDigital"))), 
+                    It.Is<string>(s => s.Contains("LoginController.ConfiguracionPaisDatosRevistaDigital"))),
                     Times.AtLeastOnce);
             }
 
@@ -978,7 +980,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var revistaModel = (RevistaDigitalModel)null;
 
-                controller.FormatTextConfiguracionPaisDatosModel(revistaModel,string.Empty);
+                controller.FormatTextConfiguracionPaisDatosModel(revistaModel, string.Empty);
             }
 
             [TestMethod]
@@ -995,8 +997,9 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             public void FormatTextConfiguracionPaisDatosModel_RevistaDigitalModelNoTieneConfiguracionDatos_ReturnRevistaDigitalModel()
             {
                 var controller = new LoginController(LogManager.Object, SessionManager.Object);
-                var revistaModel = new RevistaDigitalModel {
-                    ConfiguracionPaisDatos=null
+                var revistaModel = new RevistaDigitalModel
+                {
+                    ConfiguracionPaisDatos = null
                 };
 
                 var result = controller.FormatTextConfiguracionPaisDatosModel(revistaModel, "NombreConsultora");
@@ -1010,7 +1013,7 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 var controller = new LoginController(LogManager.Object, SessionManager.Object);
                 var revistaModel = new RevistaDigitalModel
                 {
-                    NombreConsultora="Consultora de Prueba" ,                   
+                    NombreConsultora = "Consultora de Prueba",
                     ConfiguracionPaisDatos = new List<ConfiguracionPaisDatosModel> {
                         new ConfiguracionPaisDatosModel{
                             Codigo = Constantes.ConfiguracionPaisDatos.RDI.DBienvenidaIntriga,

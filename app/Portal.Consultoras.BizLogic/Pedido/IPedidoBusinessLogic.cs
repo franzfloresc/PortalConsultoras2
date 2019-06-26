@@ -34,6 +34,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         BEPedidoDetalleResult ValidaRegaloPedido(BEPedidoDetalle pedidoDetalle);
         BEPedidoDetalleResult AgregaRegaloDefault(BEPedidoDetalle pedidoDetalle);
         List<BEEstrategia> ListaRegalosApp(BEUsuario usuario);
-
+        BEPedidoDetalleResult RespuestaModificarPedido(BEUsuario usuario);
+        bool InsertKitSE(BEUsuario usuario);
     }
 }
