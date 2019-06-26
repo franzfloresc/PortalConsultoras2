@@ -23,7 +23,13 @@
         },
         showError: function(error) {
              $(_elementos.campoError).html(error);
-        }
+        },
+        ValidarCampoFormularioConDatosAlCargarVista: function () {
+            var campoFormulario = $('.text__field__sb');
+            if ($(campoFormulario).val()) {
+                $(campoFormulario).addClass('text__field__sb--withContent');
+            }
+        },
     };
     var _eventos = {
         CampoConDatos: function (e) {
@@ -55,6 +61,7 @@
     function Inicializar(mailService) {
         me.actualizarCorreoService = mailService;
         _funciones.InicializarEventos();
+        _funciones.ValidarCampoFormularioConDatosAlCargarVista();
 
         var inputEmail = document.getElementById('NuevoCorreo');
         FuncionesGenerales.AvoidingCopyingAndPasting('NuevoCorreo');
