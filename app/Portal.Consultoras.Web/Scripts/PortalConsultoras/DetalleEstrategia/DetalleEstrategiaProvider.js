@@ -5,7 +5,6 @@ var DetalleEstrategiaProvider = function () {
     var _urlDetalleEstrategia = ConstantesModule.UrlDetalleEstrategia;
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
-    //var _tipoAccionNavegar = ConstantesModule.TipoAccionNavegar;
 
     var _promiseObternerComponentes = function (params) {
         var dfd = $.Deferred();
@@ -100,32 +99,10 @@ var DetalleEstrategiaProvider = function () {
         }
         return dfd.promise();
     };
-
-    //var _promiseObternerEstrategiaFicha = function (params) {
-    //    var dfd = $.Deferred();
-
-    //    $.ajax({
-    //        type: "POST",
-    //        url: _urlDetalleEstrategia.obtenerEstrategiaFicha,
-    //        dataType: "json",
-    //        contentType: "application/json; charset=utf-8",
-    //        data: JSON.stringify(params),
-    //        async: false,
-    //        cache: false,
-    //        success: function (data) {
-    //            dfd.resolve(data);
-    //        },
-    //        error: function (data, error) {
-    //            dfd.reject(data, error);
-    //        }
-    //    });
-
-    //    return dfd.promise();
-    //};
-
+    
     var _getEstrategia = function (params) {
         var sigueTexto = '_getEstrategia';
-        // console.log(sigueTexto);
+        console.log(sigueTexto, params);
         var estrategia = {};
 
         _promiseObternerModelo({
@@ -141,13 +118,9 @@ var DetalleEstrategiaProvider = function () {
             GeneralModule.consoleLog(['_promiseObternerModelo', data, error]);
             throw "DetalleEstrategiaProvider._getEstrategia";
         });
-
-        if (estrategia.Error !== false) {
-            return estrategia;
-        }
-
+        
         sigueTexto += '_promiseObternerModelo';
-        // console.log(sigueTexto);
+        console.log(sigueTexto);
         estrategia.ConfiguracionContenedor = estrategia.ConfiguracionContenedor || {};
         estrategia.BreadCrumbs = estrategia.BreadCrumbs || {};
         //
@@ -155,12 +128,12 @@ var DetalleEstrategiaProvider = function () {
         var _fichaServicioApi = (variablesPortal.MsFichaEstrategias && _objTipoPalanca) ? (variablesPortal.MsFichaEstrategias.indexOf(_objTipoPalanca.codigo) > -1) : false;
         //
         sigueTexto += '_objTipoPalanca + _fichaServicioApi';
-        // console.log(sigueTexto, _fichaServicioApi + "-" + estrategia.TieneSession);
+        console.log(sigueTexto, _fichaServicioApi + "-" + estrategia.TieneSession);
         if (!_fichaServicioApi && !estrategia.TieneSession) {
             var estrategiaTmp = localStorageModule.ObtenerEstrategia(params.cuv, params.campania, params.palanca);
 
             sigueTexto += 'estrategiaTmp';
-            // console.log(sigueTexto, estrategiaTmp);
+            console.log(sigueTexto, estrategiaTmp);
 
             if ((typeof estrategiaTmp === "undefined" || estrategiaTmp === null) && estrategia.Palanca === _tipoEstrategiaTexto.OfertasParaMi) {
                 estrategiaTmp = localStorageModule.ObtenerEstrategia(params.cuv, params.campania, _tipoEstrategiaTexto.Ganadoras);
@@ -168,11 +141,38 @@ var DetalleEstrategiaProvider = function () {
                 console.log(sigueTexto, estrategiaTmp);
             }
 
-            if (typeof estrategiaTmp === "undefined" || estrategiaTmp == null) throw "estrategia is null";
+            if (typeof estrategiaTmp === "undefined" || estrategiaTmp == null) {
 
-            estrategia = $.extend(estrategia, estrategiaTmp);
+                estrategia.Error = true;
+                //throw "estrategia is null";
+            }
+            else {
+                estrategia = $.extend(estrategia, estrategiaTmp);
+            }
+
         }
 
+        if (estrategia.Error) {
+
+            var estrategiaTemporal = null;
+            if (typeof LocalStorageListadoObtenerJson != 'undefined') {
+                estrategiaTemporal = LocalStorageListadoObtenerJson(ConstantesModule.KeysLocalStorage.EstrategiaTemporal, null, 1);
+            }
+
+            if (estrategiaTemporal == null) {
+                return estrategia;
+            }
+
+            if (estrategiaTemporal.Origen == params.origen && estrategiaTemporal.Cuv == params.cuv) {
+                estrategia = $.extend(estrategia, estrategiaTemporal.Estrategia);
+                estrategia.Error = false;
+            }
+            else {
+                return estrategia;
+            }
+
+        }
+        
         if (!estrategia || (_objTipoPalanca.codigo != ConstantesModule.TipoPersonalizacion.Catalogo && !estrategia.EstrategiaID)) throw 'no obtiene oferta desde api';
 
         if (typeof estrategia.CodigoVariante != "undefined" &&
@@ -230,11 +230,9 @@ var DetalleEstrategiaProvider = function () {
         }
         estrategia.FotosCarrusel = estrategia.FotosCarrusel || [];
         estrategia.Hermanos = estrategia.Hermanos || [];
-
-        //estrategia.esCampaniaSiguiente = estrategia.CampaniaID !== _obtenerCampaniaActual();
+        
         $.each(estrategia.Hermanos, function (idx, hermano) {
             hermano = estrategia.Hermanos[idx];
-            //hermano.esCampaniaSiguiente = estrategia.esCampaniaSiguiente;
         });
 
         if (estrategia.Hermanos.length === 1) {
@@ -265,11 +263,6 @@ var DetalleEstrategiaProvider = function () {
         estrategia.ClaseBloqueada = "btn_desactivado_general";
         estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
         estrategia.RangoInputEnabled = "disabled";
-        //estrategia.esEditable = _config.esEditable;
-        //estrategia.setId = _config.setId || 0;
-        //estrategia.TieneStock = _config.esEditable || estrategia.TieneStock;
-
-        //estrategia = $.extend(modeloFicha, estrategia);
         estrategia.TipoPersonalizacion = estrategia.CodigoEstrategia;
         estrategia.MostarTabsFichaEnriquecidaSinDetalle = estrategia.Hermanos.length == 1;
 
@@ -294,7 +287,6 @@ var DetalleEstrategiaProvider = function () {
         promiseObternerComponentes: _promiseObternerComponentes,
         promiseObternerDetallePedido: _promiseObternerDetallePedido,
         promiseObternerModelo: _promiseObternerModelo,
-        //promiseObtenerEstrategiaFicha: _promiseObternerEstrategiaFicha,
         promiseGetEstrategia: _getEstrategia
     };
 }();
