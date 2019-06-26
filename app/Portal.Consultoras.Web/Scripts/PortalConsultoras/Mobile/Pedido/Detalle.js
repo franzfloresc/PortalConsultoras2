@@ -1015,7 +1015,13 @@ function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == '1') EnviarCorreoPedidoReservado();
     if (estaRechazado == "2") cerrarMensajeEstadoPedido();
 
-    messageInfoBueno('<h3>Tu pedido fue reservado con &eacute;xito.</h3>');
+    var idPedidoGuardado = "#PopupPedidoGuardado", msgReservado = "#msgPedidoReservado", msgGuardado = "#msgPedidoGuardado";
+    $(msgGuardado).hide();
+    $(msgReservado).show();
+
+    setContainerLluvia(idPedidoGuardado);
+    mostrarLluvia();
+    $(idPedidoGuardado).fadeIn(250);
     var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
     if (ultimoDiaFacturacion) {
 	    RedirigirPedidoValidado();

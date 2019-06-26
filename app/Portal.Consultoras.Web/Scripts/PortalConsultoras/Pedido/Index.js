@@ -277,7 +277,7 @@ $(document).ready(function () {
 
         e.stopPropagation(); //Para evitar que se cierre el popup de divObservacionesPROL
     });
-    
+
 
     $("body").on("mouseleave", ".cantidad_detalle_focus", function () {
         var rowElement = $(this).closest(".contenido_ingresoPedido");
@@ -782,15 +782,15 @@ function CrearDialogs() {
         }
     });
     $("#divConfirmValidarPROL2").dialog({
-	    autoOpen: false,
-	    resizable: false,
-	    modal: true,
-	    closeOnEscape: true,
-	    width: 550,
-	    draggable: true,
-	    close: function (event, ui) {
-		    HideDialog("divConfirmValidarPROL");
-	    }
+        autoOpen: false,
+        resizable: false,
+        modal: true,
+        closeOnEscape: true,
+        width: 550,
+        draggable: true,
+        close: function (event, ui) {
+            HideDialog("divConfirmValidarPROL");
+        }
     });
 
     $("#divReservaSatisfactoria").dialog({
@@ -986,17 +986,6 @@ function ValidarDescripcion() {
         $("#divMensaje").text("");
     }
 }
-
-//function PreValidarCUV(event) {
-
-//    event = event || window.event;
-
-//    if (event.keyCode == 13) {
-//        if ($("#btnAgregar")[0].disabled == false) {
-//            PedidoRegistroModule.AgregarProductoListadoPasePedido();
-//        }
-//    }
-//}
 
 function SeleccionarContenido(control) {
     control.select();
@@ -1759,7 +1748,7 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
             if (data.success != true) {
                 btnSalirTlpDelete(window.event, pedidoDetalleId, setId);
                 messageInfoError(data.message);
-                
+
                 return false;
             }
 
@@ -1938,7 +1927,7 @@ function EsValidoMontoTotalReserva() {
 }
 
 function EjecutarServicioPROL() {
-	
+
     PedidoProvider
         .PedidoEjecutarServicioProlPromise()
         .done(function (response) {
@@ -2138,13 +2127,18 @@ function CerrarPopUpGrabadoConExito() {
 
 function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();
-    $("#dialog_divReservaSatisfactoria").show();
+    var idPedidoGuardado = "#PopupPedidoGuardado", msgReservado = "#msgPedidoReservado", msgGuardado = "#msgPedidoGuardado";
+    $(msgGuardado).hide();
+    $(msgReservado).show();
+    setContainerLluvia(idPedidoGuardado);
+    mostrarLluvia();
+    $(idPedidoGuardado).fadeIn(250);
     var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
-    
+
     if (ultimoDiaFacturacion) {
-	    RedirigirPedidoValidado(); //Redirige PEDIDO VALIDADO
+        RedirigirPedidoValidado(); //Redirige PEDIDO VALIDADO
     } else {
-	    location.reload();
+        location.reload();
     }
 }
 
@@ -2686,12 +2680,12 @@ function CargarProductoAgotados(identificador) {
         CargarFiltrosProductoAgotados();
 
     var data =
-        {
-            cuv: $("#producto-faltante-busqueda-cuv").val(),
-            descripcion: $("#producto-faltante-busqueda-descripcion").val(),
-            categoria: $("#ddlCategoriaProductoAgotado").val() == null ? "" : $("#ddlCategoriaProductoAgotado").val(),
-            revista: $("#ddlCatalogoRevistaProductoAgotado").val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text()
-        };
+    {
+        cuv: $("#producto-faltante-busqueda-cuv").val(),
+        descripcion: $("#producto-faltante-busqueda-descripcion").val(),
+        categoria: $("#ddlCategoriaProductoAgotado").val() == null ? "" : $("#ddlCategoriaProductoAgotado").val(),
+        revista: $("#ddlCatalogoRevistaProductoAgotado").val() == "" ? "" : $("#ddlCatalogoRevistaProductoAgotado option:selected").text()
+    };
 
     AbrirSplash();
     jQuery.ajax({
@@ -2878,7 +2872,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 restringido = false;
                 return false;
             }
-            
+
             if (data.pedidoReservado) {
                 if (mostrarAlerta == true) {
                     CerrarSplash();
@@ -2953,7 +2947,7 @@ function closeDialogObservacionesProl() {
     if (!notExitoFromProl)
         if (!(typeof AnalyticsPortalModule === 'undefined'))
             AnalyticsPortalModule.MarcaGuardarPedidoExito(arrayProductosGuardadoExito);
-    HideDialog("divObservacionesPROL");   
+    HideDialog("divObservacionesPROL");
 }
 
 function ArmarPopupObsReserva(titulo, mensaje) {
@@ -3060,11 +3054,11 @@ function CargarProductosRecomendados(item) {
 }
 
 function ModificarPedido() {
-	showDialog("divConfirmValidarPROL2");
+    showDialog("divConfirmValidarPROL2");
 }
 
 function CerrarDialogo(dialog) {
-	HideDialog(dialog);
+    HideDialog(dialog);
 }
 
 function PedidosPendientesPorAprobar() {
