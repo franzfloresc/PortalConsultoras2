@@ -327,6 +327,19 @@ function AgregarProducto(data, cantidad, contenedor, tab, isKit) {
                     $('.ficha__producto__tag_disable').removeClass("hide");
                     $('.ficha__producto__tag_disable').show();
                 }
+               
+                var _mensajeAgregarPedido = ConstantesModule.MensajeAgregarPedido;
+                //var imagenProducto = 
+
+                var mensaje = '';
+                if (data.EsReservado === true) {
+                    mensaje = _mensajeAgregarPedido.reservado;
+                } else {
+                    mensaje = _mensajeAgregarPedido.normal;
+                }
+
+                AbrirMensaje25seg(mensaje, "");
+
                 CerrarSplash();
                 CargarResumenCampaniaHeader(true);
             } else {
