@@ -1911,6 +1911,12 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.MontoAhorroRevista = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroRevista, userData.CodigoISO);
             ViewBag.MontoDescuento = Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO);
 
+            model.CodigoIso = userData.CodigoISO;
+            model.MontoAhorroCatalogo = pedidoWeb.MontoAhorroCatalogo;
+            model.GananciaRevista = pedidoWeb.GananciaRevista;
+            model.GananciaWeb = pedidoWeb.GananciaWeb;
+            model.GananciaOtros = pedidoWeb.GananciaOtros;
+
             var horaCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             var diaActual = DateTime.Today.Add(horaCierrePortal);
             var fechaFacturacionFormat = userData.FechaInicioCampania.Day + " de " + Util.NombreMes(userData.FechaInicioCampania.Month);
@@ -1963,6 +1969,7 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
+            ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Ofertas digitales";
 
             return View(model);
         }
