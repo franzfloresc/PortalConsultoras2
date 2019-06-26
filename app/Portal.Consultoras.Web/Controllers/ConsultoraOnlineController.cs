@@ -2659,22 +2659,11 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult AceptarPedidoPendiente(ConsultoraOnlinePedidoModel parametros)
         {
-            string mensajeR;
-
             string mensajeaCliente =
                 string.Format(
                     "Gracias por haber escogido a {0} como tu Consultora. Pronto se pondrá en contacto contigo para coordinar la hora y lugar de entrega.",
                     userData.NombreConsultora);
-            var noPasa = ReservadoEnHorarioRestringido(out mensajeR);
-            if (noPasa)
-            {
-                return Json(new
-                {
-                    success = false,
-                    message = mensajeR,
-                    code = 2
-                }, JsonRequestBehavior.AllowGet);
-            }
+           
 
             var pedidosSesion = SessionManager.GetobjMisPedidos().ListaPedidos;
 
