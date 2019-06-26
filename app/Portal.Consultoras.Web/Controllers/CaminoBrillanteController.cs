@@ -46,6 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.TieneCarrusel = lst.Any(x => x.Codigo == Constantes.CaminoBrillante.Configuracion.sb_carrusel && x.Valor == "1") == true ? "1" : "0";
                 ViewBag.TieneGanancias = lst.Any(x => x.Codigo == Constantes.CaminoBrillante.Configuracion.sb_ganancias && x.Valor == "1") == true ? "1" : "0";
                 ViewBag.TieneMontoAcumulado = lst.Any(x => x.Codigo == Constantes.CaminoBrillante.Configuracion.sb_barraMontoAcumulado && x.Valor == "1") == true ? "1" : "0";
+                ViewBag.TieneEnterateMas = lst.Any(x => x.Codigo == Constantes.CaminoBrillante.Configuracion.sb_enterateMas && x.Valor == "1") == true ? "1" : "0";
                 #endregion
 
                 if (ViewBag.TieneOfertasEspeciales)
