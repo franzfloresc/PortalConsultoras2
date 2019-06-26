@@ -550,7 +550,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
                 "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js", //HD-4200
-                "~/Scripts/PortalConsultoras/Pedido/ActualizarCorreoPedido.js" // HD-4294
+                "~/Scripts/PortalConsultoras/Pedido/ActualizarCorreoPedido.js", // HD-4294
+                "~/Scripts/PortalConsultoras/Shared/TogglePanel.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mobile/PedidoDetalle").Include(
@@ -565,7 +566,6 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
                 "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js", //HD-4200
-                "~/Scripts/PortalConsultoras/Shared/TogglePanel.js",
                 "~/Scripts/PortalConsultoras/Pedido/ActualizarCorreoPedido.js", // HD-4294
                 "~/Scripts/PortalConsultoras/Pedido/barra.js"
             ));

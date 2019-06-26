@@ -182,7 +182,7 @@
                                 Catálogo
                             </span>
                             <span class="ganancia-total first-color">
-                                @Model.Simbolo <span id="div-ganancia-totalGananciaCatalogo">@ViewBag.FormatoMontoAhorroCatalogo</span>
+                                @Model.Simbolo <span id="div-ganancia-totalGananciaCatalogo">@Model.FormatoMontoAhorroCatalogo</span>
                             </span>
                         </div>
                         <div class="toggle-info">
@@ -190,15 +190,15 @@
                                 Guía de negocio
                             </span>
                             <span class="ganancia-total first-color">
-                                @Model.Simbolo <span id="div-ganancia-totalGananciaRevista">@ViewBag.FormatoGananciaRevista</span>
+                                @Model.Simbolo <span id="div-ganancia-totalGananciaRevista">@Model.FormatoGananciaRevista</span>
                             </span>
                         </div>
                         <div class="toggle-info">
                             <span class="ganancia-titulo first-color">
-                                Gana+ /Ofertas digitales
+                                @ViewBag.LabelGananciaWeb
                             </span>
                             <span class="ganancia-total first-color">
-                                @Model.Simbolo <span id="div-ganancia-totalGananciaWeb">@ViewBag.FormatoGananciaWeb</span>
+                                @Model.Simbolo <span id="div-ganancia-totalGananciaWeb">@Model.FormatoGananciaWeb</span>
                             </span>
                         </div>
                         <div class="toggle-info">
@@ -206,7 +206,7 @@
                                 Otros
                             </span>
                             <span class="ganancia-total first-color">
-                                @Model.Simbolo <span id="div-ganancia-totalGananciaOtros">@ViewBag.FormatoGananciaOtros</span>
+                                @Model.Simbolo <span id="div-ganancia-totalGananciaOtros">@Model.FormatoGananciaOtros</span>
                             </span>
                         </div>
                     </div>

@@ -759,6 +759,7 @@ $("body").on('change', ".ValidaValor", function (e) {
 
 
 function MotivoRechazoSolicitudPedidoPend(pedidoId, option) {
+    $('#rechazarTodo').hide();
     $('#MotivosRechazo').removeClass('hide');
     $('#MotivosRechazo').css('display', 'block');
     $('#hdPedidoId').val(pedidoId);
@@ -771,6 +772,11 @@ function MotivoRechazoSolicitudPedidoPend(pedidoId, option) {
     {
         MarcaAnalyticsClienteProducto("Vista por Cliente - Pop up Paso 1", '¿Desea Rechazar todos los pedidos de tus clientes? - Sí, gracias');
     }
+}
+
+function CerrarMotivoRechazo() {
+    $('#MotivosRechazo').fadeOut(100);
+    $('#rechazarTodo').show();
 }
 
 function SeRechazoConExito() {
