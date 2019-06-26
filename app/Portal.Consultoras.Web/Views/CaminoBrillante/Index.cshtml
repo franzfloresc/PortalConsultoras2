@@ -200,11 +200,14 @@
                                             <p id="m_montoFaltante"><b>Tu puntaje es:</b><span style='float: right'>@nivel.PuntajeAcumulado puntos</span></p>
                                         }
                                     </div>
-                                    @if (nivel.EnterateMas == 1 || nivel.EnterateMas == 2)
+                                    @if (ViewBag.TieneEnterateMas == "1")
                                     {
-                                        <div class="box-enterate">
-                                            <a target="_blank" href="@Url.Action("EnterateMas", "CaminoBrillante", new { nivel = nivel.CodigoNivel  })">Entérate más</a>
-                                        </div>
+                                        if (nivel.EnterateMas == 1 || nivel.EnterateMas == 2)
+                                        {
+                                            <div class="box-enterate">
+                                                <a target="_blank" href="@Url.Action("EnterateMas", "CaminoBrillante", new { nivel = nivel.CodigoNivel  })">Entérate más</a>
+                                            </div>
+                                        }
                                     }
                                 </div>
                             </div>
