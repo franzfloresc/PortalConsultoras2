@@ -662,42 +662,102 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
+    //var marcaAnadirCarritoGenerico = function (event, codigoOrigenPedido, estrategia) {
+    //    try {
+
+    //        var origenEstructura = _getEstructuraOrigenPedidoWeb(codigoOrigenPedido);
+
+    //        var textoPagina = _getTextoPaginaSegunOrigen(origenEstructura);
+
+    //        if (textoPagina === "Landing Buscador") {
+    //            var model = {
+    //                'DescripcionCompleta': estrategia.DescripcionCompleta,
+    //                'CUV': estrategia.CUV2,
+    //                'Precio': estrategia.Precio2,
+    //                'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
+    //                'MarcaId': estrategia.MarcaID,
+    //                'Cantidad': estrategia.Cantidad,
+    //                'Palanca': estrategia.Palanca
+    //            };
+    //            var valorBuscar = localStorage.getItem('valorBuscador');
+    //            AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
+    //            return;
+    //        }
+
+    //        var parametroList = _getParametroListSegunOrigen(codigoOrigenPedido);
+
+    //        var marco = false;
+    //        var marcarTipoTono = origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.ArmaTuPackDetalle;
+    //        if (marcarTipoTono) {
+    //            marco = marcarAddToCartListaTipoTono(estrategia, parametroList);
+    //        }
+    //        else {
+    //            marco = marcarAddToCart(estrategia, parametroList);
+    //        }
+
+    //    } catch (e) {
+
+    //    }
+    //}
+
     var marcaAnadirCarritoGenerico = function (event, codigoOrigenPedido, estrategia) {
         try {
 
             var origenEstructura = _getEstructuraOrigenPedidoWeb(codigoOrigenPedido);
-
-            var textoPagina = _getTextoPaginaSegunOrigen(origenEstructura);
-
-            if (textoPagina === "Landing Buscador") {
+            
+            if (origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Buscador
+                || origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.LandingBuscador) {
                 var model = {
                     'DescripcionCompleta': estrategia.DescripcionCompleta,
                     'CUV': estrategia.CUV2,
                     'Precio': estrategia.Precio2,
+                    'DescripcionMarca': estrategia.CUV2,
                     'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
                     'MarcaId': estrategia.MarcaID,
                     'Cantidad': estrategia.Cantidad,
                     'Palanca': estrategia.Palanca
                 };
                 var valorBuscar = localStorage.getItem('valorBuscador');
-                AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
+                marcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
                 return;
             }
-
-            var parametroList = _getParametroListSegunOrigen(codigoOrigenPedido);
-
+            
             var marco = false;
             var marcarTipoTono = origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.ArmaTuPackDetalle;
             if (marcarTipoTono) {
+                var parametroList = _getParametroListSegunOrigen(codigoOrigenPedido);
                 marco = marcarAddToCartListaTipoTono(estrategia, parametroList);
             }
             else {
-                marco = marcarAddToCart(estrategia, parametroList);
+                marco = marcaAnadirCarrito(codigoOrigenPedido, estrategia);
             }
+
+            return marco;
 
         } catch (e) {
 
         }
+    }
+
+
+    var marcaAnadirCarrito = function (codigoOrigen, producto) {
+
+        try {
+            if (_constantes.isTest)
+                alert("Marcación clic añadir al carrito.");
+
+            var origenEstructura = _getEstructuraOrigenPedidoWeb(codigoOrigenPedido);
+
+            var textoPalanca = _getTextoPalancaSegunOrigen(origenEstructura);
+            var textoContenedor = _getTextoContenedorSegunOrigen(origenEstructura);
+            
+            var list = textoContenedor + " - " + textoPalanca;
+            return marcarAddToCart(producto, list);
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+        return false
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -1040,7 +1100,7 @@ var AnalyticsPortalModule = (function () {
                 alert("Marcación clic visualizar detalle producto.");
 
             var products = [];
-            
+
             var product = {
                 "id": item.CUV2,
                 "name": item.DescripcionCompleta,
