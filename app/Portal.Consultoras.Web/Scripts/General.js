@@ -2400,6 +2400,8 @@ function AbrirChatBot() {
     var esDesktop = !isMobile();
     if (esDesktop && typeof FB !== 'undefined') {
         FB.CustomerChat.showDialog();
+        
+        return;
     }
 
     if (typeof ChatBotUrlRef === 'undefined') return;

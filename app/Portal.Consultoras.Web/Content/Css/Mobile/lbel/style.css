@@ -14851,15 +14851,6 @@ span.icon-advertencia {
         height: auto;
     }
 
-.fb_dialog_content {
-    display:none;
-    position: relative !important;
-}
-
-.fb_dialog_content iframe {
-    display: none !important;
-}
-
 /* FIN - HD-4214 - CHAT MESSENGER SOMOS BELCORP */
 
 .input_modifica_horizontal_popup_pedido {

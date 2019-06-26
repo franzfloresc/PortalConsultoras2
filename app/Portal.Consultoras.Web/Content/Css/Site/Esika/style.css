@@ -36027,13 +36027,8 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         height:auto;
     }
 
-.fb_dialog_content {
-    display:none;
-    position: relative !important;
-}
-
-.fb_dialog_content iframe {
-    display: none !important;
+.fb_dialog {
+    left: -200pt;
 }
 
 /* FIN - HD-4214 - CHAT MESSENGER SOMOS BELCORP */

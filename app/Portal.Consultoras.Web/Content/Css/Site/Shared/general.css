@@ -1214,13 +1214,8 @@ input[type="checkbox"].switch__control,
         height:auto;
     }
 
-.fb_dialog_content {
-    display:none;
-    position: relative !important;
-}
-
-.fb_dialog_content iframe {
-    display: none !important;
+.fb_dialog {
+    left: -200pt;
 }
 
 @media screen and (max-width:991px){
