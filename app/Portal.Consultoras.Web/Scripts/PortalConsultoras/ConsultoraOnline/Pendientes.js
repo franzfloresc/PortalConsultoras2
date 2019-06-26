@@ -7,6 +7,7 @@ var vPendientes = [];
 $(document).ready(function () {
     cambiaTabs();
     InicializarMotivoRechazo();
+	$("#vpMenu .info_cam").remove();
 });
 
 function bindElments() {
