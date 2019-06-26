@@ -1,8 +1,8 @@
 ﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models.CaminoBrillante
+
 @{
-    //ViewBag.CaminoBrillante = true;
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
-    //var Demostradores = ViewBag.Demostradores;
     var origenPedido = ViewBag.EsMobile ? Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido : Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido;
     ViewBag.origenPedido = origenPedido;
 }
@@ -17,11 +17,10 @@
     <div class="op-menu-horizontal">
         <ul class="subnavegador" data-es-suscrita="" data-es-activa="">
             <li data-campania="" data-activo="1" data-codigo="" data-es-ancla="">
-                <a href="javascript:void(0);" class="default-dorado activado-dorado" id="Tab-kits">Kits</a>
+                <a href="javascript:void(0)" class="default-dorado activado-dorado" id="Tab-kits">Kits</a>
             </li>
             <li data-campania="" data-activo="1" data-codigo="" data-es-ancla="">
-                <a href="javascript:void(0);"
-                   class="default-dorado" id="Tab-Demostradores">Demostradores</a>
+                <a class="default-dorado" id="Tab-Demostradores">Demostradores</a>
             </li>
         </ul>
     </div>
@@ -67,14 +66,26 @@
 </div>
 
 <style>
-    .hide { display: none; }
-    .boxgrid {
-        display:grid!important;
+    .hide {
+        display: none;
     }
-    #ddlfiltros option, #ddlOrdenar option, #ddlfiltros, #ddlOrdenar { text-transform: uppercase; }
-    #ddlfiltros option, #ddlOrdenar option { padding: 4px; font-size: 12px; }
-    #ddlfiltros, #ddlOrdenar { font-size: 12px; }
 
+    .boxgrid {
+        display: grid !important;
+    }
+
+    #ddlfiltros option, #ddlOrdenar option, #ddlfiltros, #ddlOrdenar {
+        text-transform: uppercase;
+    }
+
+        #ddlfiltros option, #ddlOrdenar option {
+            padding: 4px;
+            font-size: 12px;
+        }
+
+    #ddlfiltros, #ddlOrdenar {
+        font-size: 12px;
+    }
 </style>
 
 @Html.Partial("Partial/template_kit")
@@ -105,5 +116,10 @@
         var nroRegistrosDemostradores = 12;
         var nroRegistrosKits = 12;
         var urlObtenerFiltros = '@Url.Action("GetFiltrosCaminoBrillante", "CaminoBrillante", new { area = "" })';
+
+        function isMobile() {
+                return "True" === "@ViewBag.EsMobile";
+        }
+
     </script>
 }
