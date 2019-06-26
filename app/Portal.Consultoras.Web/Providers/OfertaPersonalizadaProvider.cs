@@ -288,25 +288,19 @@ namespace Portal.Consultoras.Web.Providers
         {
             var retorno = 0;
 
-            if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos)
+            switch (tipo)
             {
-                retorno = 2;
-            }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.GNDObtenerProductos)
-            {
-                retorno = 2;
-            }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.HVObtenerProductos)
-            {
-                retorno = 2;
-            }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.LANObtenerProductos)
-            {
-                retorno = TieneProductosPerdio(model.CampaniaID).ToInt();
-            }
-            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.OPTObtenerProductos)
-            {
-                retorno = 0;
+                case Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos:
+                case Constantes.TipoConsultaOfertaPersonalizadas.GNDObtenerProductos:
+                case Constantes.TipoConsultaOfertaPersonalizadas.HVObtenerProductos:
+                    retorno = 2;
+                    break;
+                case Constantes.TipoConsultaOfertaPersonalizadas.LANObtenerProductos:
+                    retorno = TieneProductosPerdio(model.CampaniaID).ToInt();
+                    break;
+                case Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos:
+                    retorno = revistaDigital.EsActiva ? 2 : 1;
+                    break;
             }
 
             return retorno;
@@ -350,7 +344,7 @@ namespace Portal.Consultoras.Web.Providers
                     respuesta = true;
                     break;
                 case Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos:
-                    respuesta = _sessionManager.MasGanadoras.GetModel().TieneMG && revistaDigital.EsActiva;
+                    respuesta = _sessionManager.MasGanadoras.GetModel().TieneMG;
                     break;
                 case Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos:
                     respuesta = _showRoomProvider.ValidarIngresoShowRoom(false);
@@ -412,7 +406,7 @@ namespace Portal.Consultoras.Web.Providers
 
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.OfertaWeb, campaniaId));
 
-                    if (_sessionManager.MasGanadoras.GetModel().TieneMG && revistaDigital.EsActiva)
+                    if (_sessionManager.MasGanadoras.GetModel().TieneMG)
                     {
                         listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile,
                             Constantes.TipoEstrategiaCodigo.RevistaDigital,
@@ -462,6 +456,10 @@ namespace Portal.Consultoras.Web.Providers
                 case Constantes.TipoEstrategiaCodigo.MasGanadoras:
                     List<BEEstrategia> lstTmp = ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.RevistaDigital,
                         campaniaId, false, Constantes.MasGanadoras.ObtenerOpmSoloForzadasMG1);
+                    lstTmp.ForEach(e => {
+                        e.TipoEstrategia = e.TipoEstrategia ?? new ServiceOferta.BETipoEstrategia();
+                        e.TipoEstrategia.Codigo = Constantes.TipoEstrategiaCodigo.MasGanadoras;
+                    });
                     listEstrategia.AddRange(lstTmp.Where(x => x.FlagRevista == Constantes.FlagRevista.Valor2)
                         .OrderBy(x => x.Orden));
                     listEstrategia.AddRange(lstTmp.Where(x => x.FlagRevista != Constantes.FlagRevista.Valor2)
@@ -970,6 +968,10 @@ namespace Portal.Consultoras.Web.Providers
                     }
 
                     break;
+                case Constantes.TipoEstrategiaCodigo.MasGanadoras:
+                    tipo = revistaDigital.EsNoSuscritaInactiva() ? Constantes.TipoAccionAgregar.LoQuieres : tipo;
+                    tipo = revistaDigital.EsSuscritaInactiva() ? Constantes.TipoAccionAgregar.LoQuieresInactivo : tipo;
+                    break;
             }
             return tipo;
         }
@@ -1210,7 +1212,8 @@ namespace Portal.Consultoras.Web.Providers
                 prodModel.ClaseEstrategia =
                     (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
                     || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento
-                    || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi)
+                    || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                    || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.MasGanadoras)
                     || (
                         (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
                         || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
@@ -1248,7 +1251,7 @@ namespace Portal.Consultoras.Web.Providers
                 prodModel.Ganancia = estrategia.Ganancia;
                 prodModel.GananciaString = estrategia.GananciaString;
                 prodModel.TieneStock = estrategia.TieneStock;
-
+                
                 prodModel.TipoAccionAgregar = TipoAccionAgregar(
                     estrategia.TieneVariedad,
                     estrategia.TipoEstrategia.Codigo,

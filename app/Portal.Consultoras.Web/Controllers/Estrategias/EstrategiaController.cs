@@ -424,7 +424,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     case Constantes.TipoConsultaOfertaPersonalizadas.MGObtenerProductos:
                         {
                             var session = SessionManager.MasGanadoras.GetModel();
-                            var tieneLanding = ActualizarSession_TieneLanding(session.TieneLanding, cantidadTotal);
+                            var tieneLanding = ActualizarSession_TieneLanding(session.TieneLanding, cantidadTotal, Constantes.ConfiguracionPais.MasGanadoras);
                             if (!tieneLanding)
                             {
                                 session.TieneLanding = tieneLanding;
@@ -437,14 +437,14 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     case Constantes.TipoConsultaOfertaPersonalizadas.SRObtenerProductos:
                         {
                             var session = SessionManager.ShowRoom;
-                            session.TieneLanding = ActualizarSession_TieneLanding(session.TieneLanding, cantidadTotal);
+                            session.TieneLanding = ActualizarSession_TieneLanding(session.TieneLanding, cantidadTotal, Constantes.ConfiguracionPais.ShowRoom);
                             break;
                         }
 
                     case Constantes.TipoConsultaOfertaPersonalizadas.RDObtenerProductos:
                         {
                             var session = SessionManager.GetRevistaDigital();
-                            session.TieneLanding = ActualizarSession_TieneLanding(session.TieneLanding, cantidadTotal);
+                            session.TieneLanding = ActualizarSession_TieneLanding(session.TieneLanding, cantidadTotal, Constantes.ConfiguracionPais.RevistaDigital);
                             break;
                         }
 
@@ -469,12 +469,12 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             }
         }
 
-        private bool ActualizarSession_TieneLanding(bool tieneLanding, int cantidadTotal)
+        private bool ActualizarSession_TieneLanding(bool tieneLanding, int cantidadTotal, string codigoConfiguracionOfertasHome)
         {
             if (tieneLanding)
             {
                 var seccionesContenedor = _configuracionOfertasHomeProvider.ObtenerConfiguracionSeccion(revistaDigital, IsMobile());
-                var entConf = seccionesContenedor.FirstOrDefault(s => s.Codigo == Constantes.ConfiguracionPais.RevistaDigital) ?? new ConfiguracionSeccionHomeModel();
+                var entConf = seccionesContenedor.FirstOrDefault(s => s.Codigo == codigoConfiguracionOfertasHome) ?? new ConfiguracionSeccionHomeModel();
                 var cantidad = entConf.CantidadMostrar;
                 if (cantidadTotal <= cantidad)
                 {
@@ -861,7 +861,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         {
             if (!estrategiaPersonalizadaProductoModels.Any()) return new List<EstrategiaPersonalizadaProductoModel>();
             var pedidos = SessionManager.GetDetallesPedido();
-            var sessionMg = SessionManager.MasGanadoras.GetModel();
 
             foreach (var item in estrategiaPersonalizadaProductoModels)
             {
@@ -878,15 +877,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     tipoVentaIncremental == Constantes.TipoVentaIncremental.UpSelling,
                     item.CodigoVariante);
 
-                //falta considerar item.CodigoConsultora == ConsConsultora.CodigoConsultora.Forzadas
-                item.CodigoEstrategia =
-                    item.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                    && item.MaterialGanancia
-                    && sessionMg.TieneMG
-                    && revistaDigital.TieneRDC
-                    && revistaDigital.EsActiva
-                    ? Constantes.TipoEstrategiaCodigo.MasGanadoras
-                    : item.CodigoEstrategia;
+                item.CodigoEstrategia = CambioPalancaMg(item);
 
             }
 
@@ -899,6 +890,17 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 .ToList();
 
             return estrategiaPersonalizadaProductoModels;
+        }
+
+        private string CambioPalancaMg(EstrategiaPersonalizadaProductoModel item)
+        {
+                return item.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                        && item.MaterialGanancia
+                        && MasGanadoras.TieneMG
+                        && revistaDigital.TieneRDC
+                        && revistaDigital.EsActiva
+                        ? Constantes.TipoEstrategiaCodigo.MasGanadoras
+                        : item.CodigoEstrategia;
         }
         #endregion
     }
