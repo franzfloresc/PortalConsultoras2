@@ -3927,9 +3927,11 @@ namespace Portal.Consultoras.Common
                 public const string sb_carrusel = "sb_carrusel";
                 public const string sb_ganancias = "sb_ganancias";
                 public const string sb_barraMontoAcumulado = "sb_barraMonto";
-                public const string App_carrusel = "app_carrusel";
-                public const string App_ganancias = "app_ganancias";
-                public const string App_barraMontoAcumulado = "app_barraMonto";
+                public const string sb_enterateMas = "sb_enterateMas";
+                public const string app_carrusel = "app_carrusel";
+                public const string app_ganancias = "app_ganancias";
+                public const string app_barraMontoAcumulado = "app_barraMonto";
+                public const string app_enterateMas = "app_enterateMas";
             }
         }
 
