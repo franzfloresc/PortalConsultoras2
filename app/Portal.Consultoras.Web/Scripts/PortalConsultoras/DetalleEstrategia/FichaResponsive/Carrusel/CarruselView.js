@@ -137,13 +137,15 @@ class CarruselView {
             || $(this.divCarruselProducto).parents(this.dataOrigenPedidoWeb.buscaAgregar).attr(this.dataOrigenPedidoWeb.atributoAgregar)
             || $(this.divCarruselProducto).parents(this.dataOrigenPedidoWeb.busca).attr(this.dataOrigenPedidoWeb.atributo);
 
+        var origenModelo = CodigoOrigenPedidoWeb.GetOrigenModelo(origen);
         if (tipo === 1) {
-            CarruselAyuda.MarcarAnalyticsInicio(this.divCarruselProducto, data.lista, origen);
+            CarruselAyuda.MarcarAnalyticsInicio(this.divCarruselProducto, data.lista, origenModelo);
         }
         else if (tipo === 2) {
-            const estrategia = CarruselAyuda.ObtenerEstrategiaSlick(slick, currentSlide, nextSlide);
+            const estrategia = CarruselAyuda.ObtenerEstrategiaSlick(slick, currentSlide, nextSlide, origenModelo);
             origen = CodigoOrigenPedidoWeb.GetCambioSegunTipoEstrategia(origen, estrategia.CodigoEstrategia);
-            CarruselAyuda.MarcarAnalyticsChange(slick, currentSlide, nextSlide, origen);
+            origenModelo = CodigoOrigenPedidoWeb.GetOrigenModelo(origen);
+            CarruselAyuda.MarcarAnalyticsChange(slick, currentSlide, nextSlide, origenModelo);
         }
     }
 
