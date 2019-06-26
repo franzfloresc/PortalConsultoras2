@@ -10,7 +10,7 @@
 
 <div id="MotivosRechazo" class="mobile hide motivos__rechazo__modal" style="display:block;">
     <div id="MotivosRechazo-Paso1">
-        <a class="enlace__cerrar__modal__motivos__rechazo" onclick="javascript:$('#MotivosRechazo').fadeOut(100);" alt="Cerrar"></a>
+        <a class="enlace__cerrar__modal__motivos__rechazo" onclick="javascript:CerrarMotivoRechazo();" alt="Cerrar"></a>
         <h2 class="d-block text-bold motivo__rechazo__modal__titulo">¿A qué se debe el rechazo del pedido?</h2>
         <ul class="w-100 d-flex lista__motivos__rechazo">
             @foreach (var motivoRechazo in ViewBag.MotivosRechazo)
