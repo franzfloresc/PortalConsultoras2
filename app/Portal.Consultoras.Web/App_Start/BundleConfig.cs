@@ -565,6 +565,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
                 "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js", //HD-4200
+                "~/Scripts/PortalConsultoras/Shared/TogglePanel.js",
                 "~/Scripts/PortalConsultoras/Pedido/ActualizarCorreoPedido.js", // HD-4294
                 "~/Scripts/PortalConsultoras/Pedido/barra.js"
             ));
@@ -685,7 +686,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/RevistaDigital/Bienvenido-Pedido-Catalogo.css",
                 "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
                 "~/Content/Css/Mobile/Pedido/PedidoGrilla.css",
-                "~/Content/Css/Mobile/Pedido/EditarProductoFicha.css"
+                "~/Content/Css/Mobile/Pedido/EditarProductoFicha.css",
+                "~/Content/Css/Site/Pedido/GananciaEstimada.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/PedidoDetalle").Include(

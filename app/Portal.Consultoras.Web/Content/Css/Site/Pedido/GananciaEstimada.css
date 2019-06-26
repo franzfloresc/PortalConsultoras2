@@ -402,7 +402,24 @@
             bottom: 100px;
             left: 10px;
         }
-        
+
+    /* (¯`·.¸¸.·´¯`·.¸¸.-> [ Inicio ] <-.¸¸.·´¯`·.¸¸.·´¯) */
+    /*             [Para Pedido Index - Mobile]        */
+    .PedidoMobile.ganancia-total .ganancia-content {
+        width: 90%;
+    }
+
+    .PedidoMobile.ganancia-estimada {
+        width: 90%;
+        left: 15px;
+        bottom: 120px;
+    }
+
+    .ganancia-estimada.PedidoMobile.opened {
+        bottom: 100%;
+        width: 100%;
+        left: 0;
+    }
     /* (¯`·.¸¸.·´¯`·.¸¸.-> [ fin ] <-.¸¸.·´¯`·.¸¸.·´¯) */
     
 }
