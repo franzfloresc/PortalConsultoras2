@@ -1047,6 +1047,23 @@ function isMobile() {
     return isUrlMobile;
 }
 
+function isMobileBrowser() {
+    if (sessionStorage.desktop)
+        return false;
+    else if (localStorage.mobile)
+        return true;
+    var mobile = [
+        'iphone', 'ipad', 'android', 'blackberry', 'nokia', 'opera mini', 'windows mobile', 'windows phone',
+        'iemobile'
+    ];
+    for (var i = 0; i < mobile.length; i++) {
+        if (navigator.userAgent.toLowerCase().indexOf(mobile[i].toLowerCase()) > 0)
+            return true;
+    }
+
+    return false;
+}
+
 var isMobileNative = {
     Android: function () {
         return navigator.userAgent.match(/Android/i);
@@ -2397,7 +2414,7 @@ function AbrirMensajeImagen(mensaje) {
 }
 
 function AbrirChatBot() {
-    var esDesktop = !isMobile();
+    var esDesktop = !isMobileBrowser();
     if (esDesktop && typeof FB !== 'undefined') {
         FB.CustomerChat.showDialog();
         
