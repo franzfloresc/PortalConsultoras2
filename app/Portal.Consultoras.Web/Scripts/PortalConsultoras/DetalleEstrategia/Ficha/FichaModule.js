@@ -56,13 +56,13 @@ var panelCliente = ClientePanelModule({
 //Función para breadcumb
 function eventBreadCumb(url, titulo) {
 
-    var codigoPalanca = fichaModule.GetEstrategia().CodigoPalanca || "";
-    if (typeof AnalyticsPortalModule !== 'undefined') {
-        if (codigoPalanca === ConstantesModule.CodigoPalanca.MG) {
-            AnalyticsPortalModule.ClickOnBreadcrumb(url, codigoPalanca, titulo);
-            return;
-        }
-    }
+    //var codigoPalanca = fichaModule.GetEstrategia().CodigoPalanca || "";
+    //if (typeof AnalyticsPortalModule !== 'undefined') {
+    //    if (codigoPalanca === ConstantesModule.CodigoPalanca.MG) {
+    //        AnalyticsPortalModule.ClickOnBreadcrumb(url, codigoPalanca, titulo);
+    //        return;
+    //    }
+    //}
 
     document.location = url;
 }
