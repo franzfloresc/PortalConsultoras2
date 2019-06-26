@@ -395,27 +395,33 @@ var AnalyticsPortalModule = (function () {
         var contendor = _getTextoContenedorSegunOrigen(origenEstructura) || "";
 
         var pagina = "";
+        var palanca = ''
         var seccion = "";
+
         if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselVerMas
             || origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Ficha) {
             pagina = _getTextoSeccionSegunOrigen(origenEstructura);
         }
         else {
             pagina = _getTextoPaginaSegunOrigen(origenEstructura);
-            if (origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel) {
-                seccion = _getTextoSeccionSegunOrigen(origenEstructura);
-            }
-        }
-        pagina = pagina || "";
-        seccion = seccion || "";
 
-        var palanca = ''
+            //if (origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Carrusel) {
+            //    seccion = _getTextoSeccionSegunOrigen(origenEstructura);
+            //}
+        }
+
         if (origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.FichaUpselling
             && origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling
         ) {
             palanca = _getTextoPalancaSegunOrigen(origenEstructura);
         }
+        else {
+            seccion = _getTextoSeccionSegunOrigen(origenEstructura);
+        }
+
+        pagina = pagina || "";
         palanca = palanca || "";
+        seccion = seccion || "";
 
         var separador = " - ";
         var texto = contendor;
@@ -704,7 +710,7 @@ var AnalyticsPortalModule = (function () {
         try {
 
             var origenEstructura = _getEstructuraOrigenPedidoWeb(codigoOrigenPedido);
-            
+
             if (origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Buscador
                 || origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.LandingBuscador) {
                 var model = {
@@ -721,7 +727,7 @@ var AnalyticsPortalModule = (function () {
                 marcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
                 return;
             }
-            
+
             var marco = false;
             var marcarTipoTono = origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.ArmaTuPackDetalle;
             if (marcarTipoTono) {
@@ -750,7 +756,7 @@ var AnalyticsPortalModule = (function () {
 
             var textoPalanca = _getTextoPalancaSegunOrigen(origenEstructura);
             var textoContenedor = _getTextoContenedorSegunOrigen(origenEstructura);
-            
+
             var list = textoContenedor + " - " + textoPalanca;
             return marcarAddToCart(producto, list);
 
@@ -2745,6 +2751,7 @@ var AnalyticsPortalModule = (function () {
 
     return {
 
+        TextoOrigenEstructura: _origenPedidoWebEstructura,
         GetTextoSegunOrigen: _getParametroListSegunOrigen,
 
         // Ini - Analytics Virtual Event Ficha
