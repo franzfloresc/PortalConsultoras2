@@ -103,6 +103,7 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Logros", "CaminoBrillante", new { opcion = "COMPROMISO" });
         }
 
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public JsonResult GetKits(int offset, int cantidadRegistros)
         {
             var lstKits = _caminoBrillanteProvider.GetKitsCaminoBrillante();
@@ -179,6 +180,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(_caminoBrillanteProvider.GetLogroCaminoBrillante(category.ToUpper()), JsonRequestBehavior.AllowGet);
         }
 
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         [HttpPost]
         public JsonResult ObtenerKits(int offset, int cantidadRegistros)
         {
