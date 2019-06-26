@@ -332,13 +332,6 @@
             NoAgregarExcedioLimite
         }
 
-        public enum MiAcademiaUrl
-        {
-            Cursos,
-            Video,
-            Pdf
-        }
-
         public enum ValidacionCaminoBrillante
         {
             ProductoNoExiste = 1,

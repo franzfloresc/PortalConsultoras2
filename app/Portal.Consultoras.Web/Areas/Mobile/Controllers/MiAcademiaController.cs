@@ -40,7 +40,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (resultToken.Success)
                 {
                     var parametroUrl = _miAcademiaProvider.NewParametroUrl(userData, isoUsuario, resultToken.Data, idCurso);
-                    return Redirect(_miAcademiaProvider.GetUrl(Enumeradores.MiAcademiaUrl.Cursos, parametroUrl));
+                    return Redirect(_miAcademiaProvider.GetUrlMiAcademia(parametroUrl));
                 }
             }
             catch (Exception ex)
@@ -63,7 +63,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (resultToken.Success)
                 {
                     var parametroUrl = _miAcademiaProvider.NewParametroUrl(userData, isoUsuario, resultToken.Data, idCurso);
-                    return Redirect(_miAcademiaProvider.GetUrl(Enumeradores.MiAcademiaUrl.Cursos, parametroUrl));
+                    return Redirect(_miAcademiaProvider.GetUrlMiAcademia(parametroUrl));
                 }
             }
             catch (Exception ex)
@@ -85,7 +85,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (resultToken.Success)
                 {
                     var parametroUrl = _miAcademiaProvider.NewParametroUrl(userData, isoUsuario, resultToken.Data, idcurso);
-                    return Redirect(_miAcademiaProvider.GetUrl(Enumeradores.MiAcademiaUrl.Cursos, parametroUrl));
+                    return Redirect(_miAcademiaProvider.GetUrlMiAcademia(parametroUrl));
                 }
             }
             catch (Exception ex)
@@ -94,79 +94,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             return View("Index");
         }
-
-        private List<MiCurso> ValidadCursosMA()
-        {
-            try
-            {
-                string urlMc = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlMisCursos);
-                string token = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.TokenMisCursos);
-                string urlCurso = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlCursoMiAcademia);
-                string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
-                int max = 4;
-                if (ViewBag.CodigoISODL == Constantes.CodigosISOPais.Venezuela) max = 3;
-                urlMc = String.Format(urlMc, isoUsuario);
-
-                using (WebClient client = new WebClient())
-                {
-                    client.Proxy = null;
-                    client.Headers.Add("Content-Type", "application/json");
-                    client.Headers.Add("token", token);
-                    string json = client.DownloadString(urlMc);
-
-                    if (!string.IsNullOrEmpty(json) && !json.Contains("Token not Valid"))
-                    {
-                        var model = JsonConvert.DeserializeObject<RootMiCurso>(json);
-                        model.Cursos = model.Cursos ?? new List<MiCurso>();
-                        var lstCursos = model.Cursos.OrderBy(x => x.estado).Take(max).ToList();
-
-                        lstCursos.Update(x => x.url = String.Format(urlCurso, x.id));
-
-                        return lstCursos.ToList();
-
-                    }
-                    else
-                    {
-                        return new List<MiCurso>();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return new List<MiCurso>();
-            }
-        }
-
-        public JsonResult GetMisCursos()
-        {
-            try
-            {
-                List<MiCurso> misCursosMa = ValidadCursosMA();
-                if (misCursosMa.Any())
-                {
-                    return Json(new
-                    {
-                        success = true,
-                        data = misCursosMa,
-                    }, JsonRequestBehavior.AllowGet);
-                }
-
-                return Json(new
-                {
-                    success = false,
-                    message = "Token not Valid",
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
     }
 }

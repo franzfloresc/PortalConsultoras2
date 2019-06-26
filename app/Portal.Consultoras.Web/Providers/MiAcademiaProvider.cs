@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceLMS;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -34,30 +35,41 @@ namespace Portal.Consultoras.Web.Providers
             };
         }
 
-        public string GetUrl(Enumeradores.MiAcademiaUrl tipoUrl, ParamUrlMiAcademiaModel parametroUrl)
+        public string GetUrl(string relUrl)
         {
-            string keyUrl = GetKeyUrl(parametroUrl.IdCurso, tipoUrl);
-            string url = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlMiAcademia) +
-                _configuracionManager.GetConfiguracionManager(keyUrl);
-
-            return string.Format(
-                url,
-                parametroUrl.IsoUsuario,
-                parametroUrl.Token,
-                parametroUrl.CodigoClasificacion,
-                parametroUrl.CodigoSubClasificacion,
-                parametroUrl.DescripcionSubClasificacion,
-                parametroUrl.IdCurso
-            );
+            return _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlBaseMiAcademia) +
+                _configuracionManager.GetConfiguracionManager(relUrl);
         }
-        private string GetKeyUrl(int idCurso, Enumeradores.MiAcademiaUrl tipoUrl)
+
+        public string GetUrlMiAcademia(ParamUrlMiAcademiaModel parametroUrl)
         {
-            if (idCurso == 0) return Constantes.ConfiguracionManager.ParamAcadListCurso;
-            switch (tipoUrl)
+            string keyParamUrl = GetKeyParamMiAcademia(parametroUrl);
+            var listParam = new List<string> { Constantes.MiAcademia.ParamUrl.Usuario, Constantes.MiAcademia.ParamUrl.Token };
+            listParam.AddRange(_configuracionManager.GetConfiguracionManager(keyParamUrl).Split(','));
+            var dicParam = listParam.Distinct().ToDictionary(p => p, p => GetValueParam(p, parametroUrl));
+
+            string url = GetUrl(Constantes.ConfiguracionManager.RelUrlMiAcademia);
+            return Util.Http.AddParamsToUrl(url, dicParam);
+        }
+        private string GetKeyParamMiAcademia(ParamUrlMiAcademiaModel parametroUrl)
+        {
+            if (parametroUrl.IdCurso == 0) return Constantes.ConfiguracionManager.ParamAcadListCurso;
+            if(parametroUrl.FlagPdf) return Constantes.ConfiguracionManager.ParamAcadPdf;
+            if (parametroUrl.FlagVideo) return Constantes.ConfiguracionManager.ParamAcadVideo;
+            return Constantes.ConfiguracionManager.ParamAcadCurso;
+        }
+        private string GetValueParam(string param, ParamUrlMiAcademiaModel parametroUrl)
+        {
+            switch (param)
             {
-                case Enumeradores.MiAcademiaUrl.Cursos: return Constantes.ConfiguracionManager.ParamAcadCurso;
-                case Enumeradores.MiAcademiaUrl.Video: return Constantes.ConfiguracionManager.ParamAcadVideo;
-                case Enumeradores.MiAcademiaUrl.Pdf: return Constantes.ConfiguracionManager.ParamAcadPdf;
+                case Constantes.MiAcademia.ParamUrl.Usuario: return parametroUrl.IsoUsuario;
+                case Constantes.MiAcademia.ParamUrl.Token: return parametroUrl.Token;
+                case Constantes.MiAcademia.ParamUrl.CodClasif: return parametroUrl.CodigoClasificacion;
+                case Constantes.MiAcademia.ParamUrl.CodSubClasif: return parametroUrl.CodigoSubClasificacion;
+                case Constantes.MiAcademia.ParamUrl.DescSubClasif: return parametroUrl.DescripcionSubClasificacion;
+                case Constantes.MiAcademia.ParamUrl.Curso:
+                case Constantes.MiAcademia.ParamUrl.Video:
+                case Constantes.MiAcademia.ParamUrl.Pdf: return parametroUrl.IdCurso.ToString();
                 default: return "";
             }
         }

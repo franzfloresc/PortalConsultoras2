@@ -214,7 +214,7 @@ namespace Portal.Consultoras.Web.Controllers
                         paramMiAcademia.IdCurso = int.Parse(nivelCB.EnterateMasParam);
                     }
                                        
-                    return Redirect(_miAcademiaProvider.GetUrl(Enumeradores.MiAcademiaUrl.Cursos, paramMiAcademia));
+                    return Redirect(_miAcademiaProvider.GetUrlMiAcademia(paramMiAcademia));
                 case 2:
                     return Redirect(_issuuProvider.GetStringIssuRevista(nivelCB.EnterateMasParam, true));
             }

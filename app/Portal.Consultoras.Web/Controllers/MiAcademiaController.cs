@@ -38,16 +38,18 @@ namespace Portal.Consultoras.Web.Controllers
                 SessionManager.SetMiAcademia(0);
                 SessionManager.SetMiAcademiaVideo(0);
                 SessionManager.SetMiAcademiaPdf(0);
+
                 var isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
                 var resultToken = _miAcademiaProvider.GetToken(userData, isoUsuario);
 
                 if (resultToken.Success)
                 {
-                    var tipoUrl = flagVideo == 0 && flagPdf == 0 ? Enumeradores.MiAcademiaUrl.Cursos : flagPdf == 0 ? Enumeradores.MiAcademiaUrl.Video : Enumeradores.MiAcademiaUrl.Pdf;
                     var parametroUrl = _miAcademiaProvider.NewParametroUrl(userData, isoUsuario, resultToken.Data, idCurso);
-                    string url = _miAcademiaProvider.GetUrl(tipoUrl, parametroUrl);                    
-                    if (parametrosSap.Length > 1 && parametrosSap.Contains("SAP")) url = url + "&" + parametrosSap;
+                    parametroUrl.FlagVideo = flagVideo != 0;
+                    parametroUrl.FlagPdf = flagPdf != 0;
 
+                    string url = _miAcademiaProvider.GetUrlMiAcademia(parametroUrl);                    
+                    if (parametrosSap.Length > 1 && parametrosSap.Contains("SAP")) url = url + "&" + parametrosSap;
                     return Redirect(url);
                 }
             }
@@ -68,7 +70,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (resultToken.Success)
                 {
                     var parametroUrl = _miAcademiaProvider.NewParametroUrl(userData, isoUsuario, resultToken.Data, idcurso);
-                    return Redirect(_miAcademiaProvider.GetUrl(Enumeradores.MiAcademiaUrl.Cursos, parametroUrl));
+                    return Redirect(_miAcademiaProvider.GetUrlMiAcademia(parametroUrl));
                 }
             }
             catch (Exception ex)
@@ -82,13 +84,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                string urlMc = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlMisCursos);
-                string token = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.TokenMisCursos);
-                string urlCurso = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.UrlCursoMiAcademia);
+                string urlMc = _miAcademiaProvider.GetUrl(Constantes.ConfiguracionManager.RelUrlMisCursos);
                 string isoUsuario = userData.CodigoISO + '-' + userData.CodigoConsultora;
-                int max = 4;
-                if (ViewBag.CodigoISODL == Constantes.CodigosISOPais.Venezuela) max = 3;
                 urlMc = String.Format(urlMc, isoUsuario);
+
+                string urlCurso = _miAcademiaProvider.GetUrl(Constantes.ConfiguracionManager.RelUrlCursoMiAcademia);
+                string token = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.TokenMisCursos);
+                int max = 4;
 
                 using (WebClient client = new WebClient())
                 {
@@ -101,24 +103,18 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var model = JsonConvert.DeserializeObject<RootMiCurso>(json);
                         model.Cursos = model.Cursos ?? new List<MiCurso>();
+
                         var lstCursos = model.Cursos.OrderBy(x => x.estado).Take(max).ToList();
-
-                        lstCursos.Update(x => x.url = String.Format(urlCurso, x.id));
-
+                        lstCursos.Update(x => x.url = string.Format(urlCurso, x.id));
                         return lstCursos.ToList();
-
-                    }
-                    else
-                    {
-                        return new List<MiCurso>();
                     }
                 }
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return new List<MiCurso>();
             }
+            return new List<MiCurso>();
         }
 
         public JsonResult GetMisCursos()

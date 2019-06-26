@@ -12,7 +12,7 @@ namespace Portal.Consultoras.Web.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.6.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.8.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -102,6 +102,49 @@ namespace Portal.Consultoras.Web.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://172.16.229.103:8101/AppBelcorp-proConsultora-context-root/portConsultoraPS" +
+            "SOAP11?WSDL")]
+        public string Portal_Consultoras_Web_ServiceOSBBelcorpConsultora_ConsultoraBS {
+            get {
+                return ((string)(this["Portal_Consultoras_Web_ServiceOSBBelcorpConsultora_ConsultoraBS"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://172.16.229.103:8101/AppBelcorp-proPedido-context-root/portPedidoPSSOAP11?W" +
+            "SDL")]
+        public string Portal_Consultoras_Web_ServiceOSBBelcorpPedido_PedidoBS {
+            get {
+                return ((string)(this["Portal_Consultoras_Web_ServiceOSBBelcorpPedido_PedidoBS"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://internal-QAELB-WEBPROL-182416748.us-east-1.elb.amazonaws.com/WsRsrvExeEtl/" +
+            "ReservaPedidos.asmx")]
+        public string Portal_Consultoras_Web_ServicePROLArchivoReserva_ReservaPedidos {
+            get {
+                return ((string)(this["Portal_Consultoras_Web_ServicePROLArchivoReserva_ReservaPedidos"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php")]
+        public string Portal_Consultoras_Web_ServiceLMS_ws_server {
+            get {
+                return ((string)(this["Portal_Consultoras_Web_ServiceLMS_ws_server"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
         [global::System.Configuration.DefaultSettingValueAttribute("http://qaielb-webprol-1875224445.us-east-1.elb.amazonaws.com/WsGestionWebProl/WsG" +
             "estionWeb.asmx")]
         public string Portal_Consultoras_Web_ServiceGestionWebPROL_WsGestionWeb {
@@ -129,49 +172,6 @@ namespace Portal.Consultoras.Web.Properties {
         public string Portal_Consultoras_Web_ServicesCalculosPROL_ServicesCalculoPrecioNiveles {
             get {
                 return ((string)(this["Portal_Consultoras_Web_ServicesCalculosPROL_ServicesCalculoPrecioNiveles"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://osb.soa.galileo.ebel:8102/AppBelcorp-proConsultora-context-root/portConsul" +
-            "toraPSSOAP11?WSDL")]
-        public string Portal_Consultoras_Web_ServiceOSBBelcorpConsultora_ConsultoraBS {
-            get {
-                return ((string)(this["Portal_Consultoras_Web_ServiceOSBBelcorpConsultora_ConsultoraBS"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://osb.soa.galileo.ebel:8102/AppBelcorp-proPedido-context-root/portPedidoPSSO" +
-            "AP11?WSDL")]
-        public string Portal_Consultoras_Web_ServiceOSBBelcorpPedido_PedidoBS {
-            get {
-                return ((string)(this["Portal_Consultoras_Web_ServiceOSBBelcorpPedido_PedidoBS"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://prdelb-webprol-261815517.us-east-1.elb.amazonaws.com/WsRsrvExeEtl/ReservaP" +
-            "edidos.asmx")]
-        public string Portal_Consultoras_Web_ServicePROLArchivoReserva_ReservaPedidos {
-            get {
-                return ((string)(this["Portal_Consultoras_Web_ServicePROLArchivoReserva_ReservaPedidos"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://miscursos.somosbelcorp.com/auth/consultoralogin/ws_server.php")]
-        public string Portal_Consultoras_Web_ServiceLMS_ws_server {
-            get {
-                return ((string)(this["Portal_Consultoras_Web_ServiceLMS_ws_server"]));
             }
         }
     }
