@@ -66,7 +66,6 @@ $(document).ready(function () {
     
 });
 
-
 function getGET() {
     var loc = document.location.href;
     if (loc.indexOf('?') > 0) {
@@ -76,7 +75,6 @@ function getGET() {
         return get;
     }
 }
-
 
 $("#Tab-kits").on("click", function () {
     if (contadorkit == 0) {
@@ -103,7 +101,6 @@ $("#Tab-kits").on("click", function () {
 
     
 });
-
 
 $("#Tab-Demostradores").on("click", function () {
     contadorkit = 0;
