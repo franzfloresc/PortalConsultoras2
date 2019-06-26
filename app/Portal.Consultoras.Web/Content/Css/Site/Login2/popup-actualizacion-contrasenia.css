@@ -224,7 +224,7 @@
 
 @media screen and (max-width:991px){
 
-    .popup__somos__belcorp--actualizacionContrasenia {
+    .popup__somos__belcorp.popup__somos__belcorp--actualizacionContrasenia {
         width: 100%;
         height: 100%;
         max-width: 100%;
@@ -248,7 +248,7 @@
 
 }
 
-@media screen and (max-height:500px) and (orientation:portrait) {
+@media screen and (max-height:500px) and (orientation:landscape) {
 
     .btn__sb--actualizarContrasenia {
         width:100%;
