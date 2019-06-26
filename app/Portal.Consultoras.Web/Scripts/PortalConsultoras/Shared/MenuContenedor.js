@@ -208,9 +208,9 @@ var menuModule = (function () {
                 }, 1000);
             }
 
-            if (typeof AnalyticsPortalModule !== "undefined") {
-                AnalyticsPortalModule.ClickTabGanadoras(codigo);
-            }
+            //if (typeof AnalyticsPortalModule !== "undefined") {
+            //    AnalyticsPortalModule.ClickTabGanadoras(codigo);
+            //}
 
             url = $.trim(url);
             url = url[0] !== "/" ? "/" + url : url;

@@ -1,0 +1,232 @@
+﻿/*FIcha Carrusel No responsive*/
+/*Marcado General*/
+.FichaCarrusel{
+    /*border: 1px solid red;*/
+    display: flex;
+}
+.FichaCarrusel .slick-list.draggable{
+    padding: 0 !important;
+}
+/* Heredados de bootstrap */
+.no-gutters > [class*=col-] {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.img-fluid {
+    max-width: 100% !important; /* Por conflicto con Style Linea 20658 max-width: initial */
+    height: auto;
+}
+/*Ficha Carrusel Mini Grid Framework*/
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* [HIDDENS]*/
+.d-none {
+    display: none !important;
+}
+@media (min-width: 576px) {
+    .d-sm-none {
+        display: none !important;
+    }
+}
+@media (min-width: 768px){
+    .d-md-none {
+        display: none !important;
+    }
+}
+@media (min-width: 992px) {
+    .d-lg-block {
+        display: block !important;
+    }
+}
+/* [END] */
+/* [CONTAINERS] */
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto
+}
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px
+    }
+}
+
+/* [END] */
+
+/* [ROWS]*/
+.col-3 {
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;
+}
+
+.col-lg-9, .col-md-12 {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+}
+
+
+
+@media (min-width: 768px) {
+    .col-md-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-lg-9 {
+        -ms-flex: 0 0 75%;
+        flex: 0 0 75%;
+        max-width: 75%;
+    }
+}
+/* [END]*/
+
+
+/* Heredados de ficha responsive */
+.contenedor_imagen img {
+    
+    text-align: center;
+    max-height: 300px;
+    max-width: 100% !important;
+}
+/*Patch - tesla - tamaño imagen en carrusel */
+.contenedor_imagen.slider-for .contenedor_carrusel img,
+.contenedor_imagen.slider-for-detail .contenedor_carrusel img {
+    max-height: 100%;
+}
+
+.contenedor_imagen{
+    display: block;
+}
+/* Dots */
+/* Puntos - Carrusel */
+.contenedor_imagen_thumbnail {
+    /*
+    position: absolute;    
+    z-index: 10;
+    */
+}
+
+    .contenedor_imagen_thumbnail .contenedor_carrusel.slick-slide {
+        border: 1px solid #979797;
+        width: 40px !important;
+        height: 47px !important;
+        margin: 3px;
+        filter: brightness(50%);
+        background-color: rgba(0,0,0,.5);
+        transition: filter .5s ease;
+        cursor: pointer;
+    }
+        .contenedor_imagen_thumbnail .contenedor_carrusel.slick-slide img {
+            /* Tesla fix 96 */
+            justify-content: center;
+            flex-flow: column;
+            object-fit: cover;
+            height: 100% !important;
+            /* Tesla fix 96 */
+        }
+
+    .contenedor_imagen_thumbnail .slick-slide.slick-current {
+        border: 1px solid #979797;
+        filter: brightness(100%);
+        background-color: transparent;
+    }
+
+    .contenedor_imagen_thumbnail .slick-track {
+        /*display: flex;
+    flex-direction: column;
+    height: auto !important;
+        */
+    }
+    /*Corregir extra altura */
+    .slider-nav .slick-list.draggable,
+    .slider-nav-detail .slick-list.draggable {
+        height: auto !important;
+    }
+
+/* Puntos - Carrusel */
+.contenedor_imagen .slick-dots li button {
+    border: 1px solid #979797;
+}
+
+.contenedor_imagen .slick-dots {
+    position: absolute;
+    bottom: -25px;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+}
+
+    .contenedor_imagen .slick-dots li {
+        position: relative;
+        display: inline-block;
+        margin: 0 4px;
+        padding: 0;
+        cursor: pointer;
+        width: auto; /* Conflicto con slick-pedido.css [line:170px] */
+    }
+
+        .contenedor_imagen .slick-dots li button {
+            font-size: 0;
+            line-height: 0;
+            display: block;
+            width: 8px;
+            height: 8px;
+            padding: 3.5px;
+            cursor: pointer;
+            color: transparent;
+            border: 1px solid #979797;
+            border-radius: 50%;
+            outline: none;
+            background: transparent;
+        }
+
+        .contenedor_imagen .slick-dots li.slick-active button {
+            background-color: #979797 !important;
+        }
+
+@media (max-width: 600px) {
+    .contenedor_imagen_thumbnail {
+        display: none;
+    }
+}
+
+.contenedor_imagen_thumbnail .contenedor_carrusel:nth-child(6) {
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+    flex-flow: wrap;
+}
+/*[Fixs]*/
+.slick-dots li button:before {
+    content: ""; /* conflicto en slick-pedido.css [line:202] */
+}

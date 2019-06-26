@@ -435,6 +435,9 @@ var BuscadorModule = (function () {
             }
             if (UrlDetalle == "" && tipoPersonalizacion.indexOf(tipoPersonalizacionProducto) >= 0) {
                 UrlDetalle = FichaVerDetalle.GetUrlTipoPersonalizacion(tipoPersonalizacionProducto);
+                //
+                var key = ConstantesModule.KeysLocalStorage.DescripcionProductoCatalogo(codigoCampania, codigoCuv);
+                if (descripcionProducto != '') localStorage.setItem(key, descripcionProducto);
             }
 
             if (UrlDetalle === "") return false;

@@ -32,11 +32,14 @@ var fichaEnriquecidaView = FichaEnriquecidaView();
 var fichaEnriquecidaPresenter = FichaEnriquecidaPresenter({
     fichaEnriquecidaView: fichaEnriquecidaView
 });
+
 var estrategia = {};
 
 $(document).ready(function () {
     try {
         fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
+        analyticsPortal.MarcaVisualizarDetalleProducto(estrategia);
+
         let carruselInicializar = new CarruselInicializar();
         carruselInicializar.crearCarruseles(params, estrategia);
     } catch (e) {
@@ -50,7 +53,10 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         componentesPresenter.cleanContainer();
 
     	estrategia = detalleEstrategia.promiseGetEstrategia(params);
-        if (estrategia.Error) GeneralModule.redirectTo('/Ofertas', true);
+        if (estrategia.Error){  
+            GeneralModule.consoleLog(estrategia);
+            GeneralModule.redirectTo('/Ofertas', true);
+        }
 
         $("#data-estrategia").data("estrategia", estrategia);
 
@@ -60,6 +66,7 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
     }
     catch (error) {
+        GeneralModule.consoleLog(error);
         if (typeof error === "string") {
             window.onerror(error);
         }

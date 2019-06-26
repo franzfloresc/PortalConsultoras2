@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Web.Models.Search.ResponseOferta
 
     public class ResultProductos
     {
-        public IList<EstrategiaPersonalizadaProductoModel> crosssell { get; set; }
-        public IList<EstrategiaPersonalizadaProductoModel> suggested { get; set; }
+        public List<Estructura.Estrategia> cross { get; set; }
+        public List<Estructura.Estrategia> sug { get; set; }
     }
 }
