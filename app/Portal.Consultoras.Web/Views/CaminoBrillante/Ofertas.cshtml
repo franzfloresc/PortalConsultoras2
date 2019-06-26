@@ -1,8 +1,8 @@
 ﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models.CaminoBrillante
+
 @{
-    //ViewBag.CaminoBrillante = true;
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
-    //var Demostradores = ViewBag.Demostradores;
     var origenPedido = ViewBag.EsMobile ? Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido : Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido;
     ViewBag.origenPedido = origenPedido;
 }
@@ -20,7 +20,7 @@
                 <a href="javascript:void(0)" class="default-dorado activado-dorado" id="Tab-kits">Kits</a>
             </li>
             <li data-campania="" data-activo="1" data-codigo="" data-es-ancla="">
-                <a  class="default-dorado" id="Tab-Demostradores">Demostradores</a>
+                <a class="default-dorado" id="Tab-Demostradores">Demostradores</a>
             </li>
         </ul>
     </div>
@@ -30,7 +30,7 @@
     <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
         <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
             <li class="layout__view__breadcrumb">
-                <a id="is-mobile"  href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" title="Home">Home</a>
+                <a id="is-mobile" href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" title="Home">Home</a>
                 <a id="is-desktop" href="@Url.Action("Index", "Bienvenida")" title="Home">Home</a>
             </li>
             <li class="layout__view__breadcrumb">
@@ -66,14 +66,26 @@
 </div>
 
 <style>
-    .hide { display: none; }
-    .boxgrid {
-        display:grid!important;
+    .hide {
+        display: none;
     }
-    #ddlfiltros option, #ddlOrdenar option, #ddlfiltros, #ddlOrdenar { text-transform: uppercase; }
-    #ddlfiltros option, #ddlOrdenar option { padding: 4px; font-size: 12px; }
-    #ddlfiltros, #ddlOrdenar { font-size: 12px; }
 
+    .boxgrid {
+        display: grid !important;
+    }
+
+    #ddlfiltros option, #ddlOrdenar option, #ddlfiltros, #ddlOrdenar {
+        text-transform: uppercase;
+    }
+
+        #ddlfiltros option, #ddlOrdenar option {
+            padding: 4px;
+            font-size: 12px;
+        }
+
+    #ddlfiltros, #ddlOrdenar {
+        font-size: 12px;
+    }
 </style>
 
 @Html.Partial("Partial/template_kit")
@@ -104,5 +116,10 @@
         var nroRegistrosDemostradores = 12;
         var nroRegistrosKits = 12;
         var urlObtenerFiltros = '@Url.Action("GetFiltrosCaminoBrillante", "CaminoBrillante", new { area = "" })';
+
+        function isMobile() {
+                return "True" === "@ViewBag.EsMobile";
+        }
+
     </script>
 }
