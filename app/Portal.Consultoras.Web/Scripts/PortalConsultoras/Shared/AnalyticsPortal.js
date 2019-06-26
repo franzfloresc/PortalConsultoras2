@@ -51,7 +51,7 @@ var AnalyticsPortalModule = (function () {
         SR: "SR",
         ODD: "ODD",
         GND: "GND",
-        MG: "MG",
+        //MG: "MG",
         Ficha: "FICHA",
         DP: "DP"
     };
@@ -418,7 +418,7 @@ var AnalyticsPortalModule = (function () {
             && origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling
             && origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.FichaCrossSelling
             && origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselCrossSelling
-            &&origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.FichaSugeridos
+            && origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.FichaSugeridos
             && origenEstructura.Seccion != CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselSugeridos
         ) {
             palanca = _getTextoPalancaSegunOrigen(origenEstructura);
@@ -670,14 +670,51 @@ var AnalyticsPortalModule = (function () {
         }
     }
 
+    //var marcaAnadirCarritoGenerico = function (event, codigoOrigenPedido, estrategia) {
+    //    try {
+
+    //        var origenEstructura = _getEstructuraOrigenPedidoWeb(codigoOrigenPedido);
+
+    //        var textoPagina = _getTextoPaginaSegunOrigen(origenEstructura);
+
+    //        if (textoPagina === "Landing Buscador") {
+    //            var model = {
+    //                'DescripcionCompleta': estrategia.DescripcionCompleta,
+    //                'CUV': estrategia.CUV2,
+    //                'Precio': estrategia.Precio2,
+    //                'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
+    //                'MarcaId': estrategia.MarcaID,
+    //                'Cantidad': estrategia.Cantidad,
+    //                'Palanca': estrategia.Palanca
+    //            };
+    //            var valorBuscar = localStorage.getItem('valorBuscador');
+    //            AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
+    //            return;
+    //        }
+
+    //        var parametroList = _getParametroListSegunOrigen(codigoOrigenPedido);
+
+    //        var marco = false;
+    //        var marcarTipoTono = origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.ArmaTuPackDetalle;
+    //        if (marcarTipoTono) {
+    //            marco = marcarAddToCartListaTipoTono(estrategia, parametroList);
+    //        }
+    //        else {
+    //            marco = marcarAddToCart(estrategia, parametroList);
+    //        }
+
+    //    } catch (e) {
+
+    //    }
+    //}
+
     var marcaAnadirCarritoGenerico = function (event, codigoOrigenPedido, estrategia) {
         try {
 
             var origenEstructura = _getEstructuraOrigenPedidoWeb(codigoOrigenPedido);
-
-            var textoPagina = _getTextoPaginaSegunOrigen(origenEstructura);
-
-            if (textoPagina === "Landing Buscador") {
+            
+            if (origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.Buscador
+                || origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.LandingBuscador) {
                 if (origenEstructura.Seccion == CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.Ficha
                     && !(origenEstructura.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.CatalogoLbel
                         || origenEstructura.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.CatalogoEsika
@@ -686,32 +723,55 @@ var AnalyticsPortalModule = (function () {
                         'DescripcionCompleta': estrategia.DescripcionCompleta,
                         'CUV': estrategia.CUV2,
                         'Precio': estrategia.Precio2,
+                        'DescripcionMarca': estrategia.CUV2,
                         'CodigoTipoEstrategia': estrategia.CodigoEstrategia,
                         'MarcaId': estrategia.MarcaID,
                         'Cantidad': estrategia.Cantidad,
                         'Palanca': estrategia.Palanca
                     };
                     var valorBuscar = localStorage.getItem('valorBuscador');
-                    AnalyticsPortalModule.MarcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
+                    marcaAnadirCarritoBuscador(model, "Ficha de producto", valorBuscar);
                     return;
                 }
             }
-
-            var parametroList = _getParametroListSegunOrigen(codigoOrigenPedido);
-
+            
             var marco = false;
             var marcarTipoTono = origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.ArmaTuPackDetalle;
             if (marcarTipoTono) {
+                var parametroList = _getParametroListSegunOrigen(codigoOrigenPedido);
                 marco = marcarAddToCartListaTipoTono(estrategia, parametroList);
             }
             else {
-                marco = marcarAddToCart(estrategia, parametroList);
+                marco = marcaAnadirCarrito(codigoOrigenPedido, estrategia);
             }
+
+            return marco;
 
         } catch (e) {
 
         }
     }
+
+    var marcaAnadirCarrito = function (codigoOrigen, producto) {
+
+        try {
+            if (_constantes.isTest)
+                alert("Marcación clic añadir al carrito.");
+
+            var origenEstructura = _getEstructuraOrigenPedidoWeb(codigoOrigenPedido);
+
+            var textoPalanca = _getTextoPalancaSegunOrigen(origenEstructura);
+            var textoContenedor = _getTextoContenedorSegunOrigen(origenEstructura);
+            
+            var list = textoContenedor + " - " + textoPalanca;
+            return marcarAddToCart(producto, list);
+
+        } catch (e) {
+            console.log(_texto.excepcion + e);
+        }
+        return false
+    }
+
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Evento Add To Cart
     ////////////////////////////////////////////////////////////////////////////////////////
@@ -1054,7 +1114,7 @@ var AnalyticsPortalModule = (function () {
                 alert("Marcación clic visualizar detalle producto.");
 
             var products = [];
-            
+
             var product = {
                 "id": item.CUV2,
                 "name": item.DescripcionCompleta,
@@ -2466,33 +2526,32 @@ var AnalyticsPortalModule = (function () {
         _virtualEventPush(_getDirection(direction));
     }
 
-    function clickOnBreadcrumb(url, codigoPalanca, titulo) {
+    //function clickOnBreadcrumb(url, codigoPalanca, titulo) {
+    //    try {
+    //        if (codigoPalanca === _codigoSeccion.MG)
+    //            dataLayer.push({
+    //                "event": _evento.virtualEvent,
+    //                "category": _texto.fichaProducto,
+    //                "action": 'Breadcrumb - Clic en Botón',
+    //                "label": titulo || "",
+    //                'eventCallback': function () {
+    //                    document.location = url;
+    //                }
+    //            });
+    //    } catch (e) {
+    //        console.log(_texto.excepcion + e);
+    //    }
+    //}
 
-        try {
-            if (codigoPalanca === _codigoSeccion.MG)
-                dataLayer.push({
-                    "event": _evento.virtualEvent,
-                    "category": _texto.fichaProducto,
-                    "action": 'Breadcrumb - Clic en Botón',
-                    "label": titulo || "",
-                    'eventCallback': function () {
-                        document.location = url;
-                    }
-                });
-        } catch (e) {
-            console.log(_texto.excepcion + e);
-        }
-    }
-
-    function clickTabGanadoras(codigo) {
-        if (codigo === _codigoSeccion.MG)
-            dataLayer.push({
-                "event": _evento.virtualEvent,
-                "category": fnObtenerContenedor(),
-                "action": 'Clic tab',
-                "label": 'Las Más Ganadoras'
-            });
-    }
+    //function clickTabGanadoras(codigo) {
+    //    if (codigo === _codigoSeccion.MG)
+    //        dataLayer.push({
+    //            "event": _evento.virtualEvent,
+    //            "category": fnObtenerContenedor(),
+    //            "action": 'Clic tab',
+    //            "label": 'Las Más Ganadoras'
+    //        });
+    //}
 
     ////////////////////////////////////////////////////////////////////////////////////////
     // Fin - Analytics Ganadoras
@@ -2797,9 +2856,9 @@ var AnalyticsPortalModule = (function () {
         // Ini - Analytics Ganadoras
         MarcarClickMasOfertasPromotionClickMG: marcarClickMasOfertasPromotionClickMG,
         ClickArrowMG: clickArrowMG,
-        ClickOnBreadcrumb: clickOnBreadcrumb,
+        //ClickOnBreadcrumb: clickOnBreadcrumb,
         //ClickAddCartFicha: clickAddCartFicha,// no se utiliza
-        ClickTabGanadoras: clickTabGanadoras,
+        //ClickTabGanadoras: clickTabGanadoras,
         // Fin - Analytics Ganadoras
 
         // Ini - Analytics PedidoPendientes

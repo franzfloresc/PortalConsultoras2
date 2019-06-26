@@ -56,13 +56,13 @@ var panelCliente = ClientePanelModule({
 //Función para breadcumb
 function eventBreadCumb(url, titulo) {
 
-    var codigoPalanca = fichaModule.GetEstrategia().CodigoPalanca || "";
-    if (typeof AnalyticsPortalModule !== 'undefined') {
-        if (codigoPalanca === ConstantesModule.CodigoPalanca.MG) {
-            AnalyticsPortalModule.ClickOnBreadcrumb(url, codigoPalanca, titulo);
-            return;
-        }
-    }
+    //var codigoPalanca = fichaModule.GetEstrategia().CodigoPalanca || "";
+    //if (typeof AnalyticsPortalModule !== 'undefined') {
+    //    if (codigoPalanca === ConstantesModule.CodigoPalanca.MG) {
+    //        AnalyticsPortalModule.ClickOnBreadcrumb(url, codigoPalanca, titulo);
+    //        return;
+    //    }
+    //}
 
     document.location = url;
 }
@@ -461,13 +461,11 @@ var FichaModule = (function (config) {
                 } else {
                     componente.FotosCarrusel = componente.FotosCarrusel || [];
                 }
-
-                if (estrategia.CodigoVariante == ConstantesModule.CodigoVariedad.IndividualVariable) {
-                    if (estrategia.Cuv === componente.Cuv) {
-                        estrategia.FotosCarrusel = componente.FotosCarrusel;
-                    }
-                }
             });
+
+            if (estrategia.Hermanos.length === 1) {
+                estrategia.FotosCarrusel = estrategia.Hermanos[0].FotosCarrusel;
+            }
         }
 
         estrategia.FotosCarrusel = estrategia.FotosCarrusel || [];

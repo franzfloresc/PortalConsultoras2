@@ -1080,7 +1080,7 @@ namespace Portal.Consultoras.BizLogic
             BEConfiguracionCampania configuracion = null;
 
             var daPedidoWeb = new DAPedidoWeb(PaisID);
-            int estado = 201;
+            int estado = Constantes.EstadoPedido.Pendiente;
             bool modifica = false;
             bool validacionAbierta = false;
 
@@ -1239,13 +1239,13 @@ namespace Portal.Consultoras.BizLogic
                 lstPedidos = new List<BEPedidoDDWeb>();
                 if (lstPedidosWeb.Count > 0)
                 {
-                    lstPedidosWeb.Where(x => x.EstadoValidacionNombre == "NO").Update(x => x.EstadoValidacion = 201);
-                    lstPedidosWeb.Where(x => x.EstadoValidacionNombre == "SI").Update(x => x.EstadoValidacion = 202);
+                    lstPedidosWeb.Where(x => x.EstadoValidacionNombre == "NO").Update(x => x.EstadoValidacion = Constantes.EstadoPedido.Pendiente);
+                    lstPedidosWeb.Where(x => x.EstadoValidacionNombre == "SI").Update(x => x.EstadoValidacion = Constantes.EstadoPedido.Procesado);
                     lstPedidos.AddRange(lstPedidosWeb);
                 }
                 if (lstPedidosDd.Count > 0)
                 {
-                    lstPedidosDd.Update(x => x.EstadoValidacion = 201);
+                    lstPedidosDd.Update(x => x.EstadoValidacion = Constantes.EstadoPedido.Pendiente);
                     lstPedidosDd.Update(x => x.EstadoValidacionNombre = "NO");
                     lstPedidos.AddRange(lstPedidosDd);
                 }
