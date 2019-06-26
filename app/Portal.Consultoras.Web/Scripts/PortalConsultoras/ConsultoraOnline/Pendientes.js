@@ -364,6 +364,7 @@ function RenderizarPendientes(Pendientes) {
 }
 
 function MotivoRechazoSolicitudPedidoPend(pedidoId) {
+    $('#rechazarTodo').hide();
     $('#MotivosRechazo').removeClass('hide');
     $('#MotivosRechazo').css('display', 'block');
     $('#hdPedidoId').val(pedidoId);    
@@ -449,6 +450,7 @@ function RechazarSolicitudCliente(pedidoId, idMotivoRechazo, razonMotivoRechazo)
         },
         error: function (err) {
             //CloseLoading();
+            CerrarLoad()
             console.log(err);
         }
     });
@@ -481,6 +483,7 @@ function ActualizarPendientes() {
         },
         error: function (err) {
             //CloseLoading();
+            CerrarLoad();
             console.log(err);
         }
     });
@@ -853,4 +856,7 @@ function InicializarMotivoRechazo() {
 
 
 }
-
+function CerrarMotivoRechazo() {
+    $('#MotivosRechazo').fadeOut(100);
+    $('#rechazarTodo').show();
+}
