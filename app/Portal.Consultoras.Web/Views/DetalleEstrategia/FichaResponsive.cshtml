@@ -6,7 +6,9 @@
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
 }
 
-@System.Web.Optimization.Styles.Render("~/Bundle/Css/Responsive/Ficha")
+@section css{
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Responsive/Ficha")
+}
 
 <style data-ficha-contenido="ofertadeldia-template-style"></style>
 

@@ -43,6 +43,8 @@ var estrategia = null;
 $(document).ready(function () {
     fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
 
+    analyticsPortal.MarcaVisualizarDetalleProducto(estrategia);
+
     const carruselModel = new CarruselModel(
         params.palanca,
         params.campania,
@@ -69,6 +71,7 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         estrategia = detalleEstrategia.promiseGetEstrategia(params);
 
         if (estrategia.Error !== false) {
+            GeneralModule.consoleLog(estrategia);
             GeneralModule.redirectTo("ofertas");
         }
 
@@ -80,6 +83,7 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
     }
     catch (error) {
+        GeneralModule.consoleLog(error);
         if (typeof error === "string") {
             window.onerror(error);
         }
