@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Providers
         private const string contentType = "application/json";
         private static readonly HttpClient httpClientBuscador = new HttpClient();
         private static readonly HttpClient httpClientMicroserviceSearch = new HttpClient();
-        
+
         static BuscadorBaseProvider()
         {
             if (!string.IsNullOrEmpty(WebConfig.RutaServiceBuscadorAPI)) SetHttpClientBuscador();
@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Providers
             httpClientMicroserviceSearch.DefaultRequestHeaders.Accept.Clear();
             httpClientMicroserviceSearch.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(contentType));
         }
-        
+
         public async Task<string> ObtenerPersonalizaciones(string path)
         {
             var httpResponse = await httpClientBuscador.GetAsync(path);
@@ -90,11 +90,13 @@ namespace Portal.Consultoras.Web.Providers
                     labelAgregado = "Agregado";
                 }
 
+                item.CodigoTipoEstrategia = CambioPalancaMg(item, revistaDigital);
+
                 item.CampaniaID = userData.CampaniaID;
                 item.PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo);
                 item.ValorizadoString = Util.DecimalToStringFormat(item.Valorizado.ToDecimal(), userData.CodigoISO, userData.Simbolo);
                 item.DescripcionEstrategia = Util.obtenerNuevaDescripcionProducto(userData.NuevasDescripcionesBuscador, suscripcionActiva, item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, 0, true);
-                item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, mobile, home, recomendaciones, item.MaterialGanancia,suscrita);
+                item.OrigenPedidoWeb = Util.obtenerCodigoOrigenWeb(item.TipoPersonalizacion, item.CodigoTipoEstrategia, item.MarcaId, mobile, home, recomendaciones, item.MaterialGanancia, suscrita);
                 item.Agregado = labelAgregado;
                 item.Stock = !item.Stock;
                 item.DescripcionCompleta = item.Descripcion;
@@ -102,6 +104,18 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             return productos;
+        }
+
+        private string CambioPalancaMg(Productos item, RevistaDigitalModel revistaDigital)
+        {
+            var masGanadoras = _sessionManager.MasGanadoras.GetModel();
+            return item.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                    && item.MaterialGanancia
+                    && masGanadoras.TieneMG
+                    && revistaDigital.TieneRDC
+                    && revistaDigital.EsActiva
+                    ? Constantes.TipoEstrategiaCodigo.MasGanadoras
+                    : item.CodigoTipoEstrategia;
         }
 
         private async Task<string> GetPersonalizacion(UsuarioModel usuario, int indicadorConsultoraDummy)
@@ -140,14 +154,14 @@ namespace Portal.Consultoras.Web.Providers
             var configBuscador = _sessionManager.GetBuscadorYFiltrosConfig();
             if (validarIndicadorConsultoraDummy)
             {
-                if (configBuscador == null || 
+                if (configBuscador == null ||
                     configBuscador.IndicadorConsultoraDummy == 0 ||
                     configBuscador.PersonalizacionDummy != null) return result;
-                
+
                 result = await GetPersonalizacion(usuario, configBuscador.IndicadorConsultoraDummy);
-                
+
                 if (!persistInSession) return result;
-                
+
                 configBuscador.PersonalizacionDummy = result ?? "";
                 _sessionManager.SetBuscadorYFiltrosConfig(configBuscador);
             }
