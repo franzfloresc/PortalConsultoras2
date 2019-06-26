@@ -83,7 +83,7 @@ var DetalleEstrategiaProvider = function () {
                 cache: false,
                 success: function (data) {
                     //if (data.success) {
-                        dfd.resolve(data);
+                    dfd.resolve(data);
                     //}
                     //else {
                     //    dfd.reject(data);
@@ -99,7 +99,7 @@ var DetalleEstrategiaProvider = function () {
         }
         return dfd.promise();
     };
-    
+
     var _getEstrategia = function (params) {
         var sigueTexto = '_getEstrategia';
         console.log(sigueTexto, params);
@@ -118,15 +118,15 @@ var DetalleEstrategiaProvider = function () {
             GeneralModule.consoleLog(['_promiseObternerModelo', data, error]);
             throw "DetalleEstrategiaProvider._getEstrategia";
         });
-        
+
         sigueTexto += '_promiseObternerModelo';
         console.log(sigueTexto);
         estrategia.ConfiguracionContenedor = estrategia.ConfiguracionContenedor || {};
         estrategia.BreadCrumbs = estrategia.BreadCrumbs || {};
-        //
+
         var _objTipoPalanca = ConstantesModule.DiccionarioTipoEstrategia.find(function (x) { return x.texto === params.palanca });
         var _fichaServicioApi = (variablesPortal.MsFichaEstrategias && _objTipoPalanca) ? (variablesPortal.MsFichaEstrategias.indexOf(_objTipoPalanca.codigo) > -1) : false;
-        //
+
         sigueTexto += '_objTipoPalanca + _fichaServicioApi';
         console.log(sigueTexto, _fichaServicioApi + "-" + estrategia.TieneSession);
         if (!_fichaServicioApi && !estrategia.TieneSession) {
@@ -172,8 +172,10 @@ var DetalleEstrategiaProvider = function () {
             }
 
         }
-        
+
         if (!estrategia || (_objTipoPalanca.codigo != ConstantesModule.TipoPersonalizacion.Catalogo && !estrategia.EstrategiaID)) throw 'no obtiene oferta desde api';
+
+        estrategia.TextoLibre = estrategia.TextoLibre || '';
 
         if (typeof estrategia.CodigoVariante != "undefined" &&
             estrategia.CodigoVariante != null &&
@@ -230,7 +232,7 @@ var DetalleEstrategiaProvider = function () {
         }
         estrategia.FotosCarrusel = estrategia.FotosCarrusel || [];
         estrategia.Hermanos = estrategia.Hermanos || [];
-        
+
         $.each(estrategia.Hermanos, function (idx, hermano) {
             hermano = estrategia.Hermanos[idx];
         });
@@ -278,7 +280,7 @@ var DetalleEstrategiaProvider = function () {
                 if (estrategia.Hermanos.length > 0) estrategia.Hermanos[0].NombreComercial = descripcionCompleta;
             }
         }
-        
+
 
         return estrategia;
     };
