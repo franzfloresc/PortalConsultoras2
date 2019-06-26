@@ -10,8 +10,6 @@
             imagenesThumbnail.forEach(function (imagenThumbnail) {
 
                 imagenThumbnail.addEventListener('mouseenter', function (e) {
-                    this.parentNode.parentNode.parentNode.classList.add('alternarOverflow');
-                    this.parentNode.parentNode.parentNode.parentNode.classList.add('zIndexSuperior');
                     imagenZoom.style.left = (imagenThumbnail.getBoundingClientRect().left - 40) + 'px';
                     imagenZoom.classList.add('mostrarImagenZoom');
                     imagenZoom.style.backgroundImage = 'url(' + imagenThumbnail.src + ')';
@@ -38,8 +36,6 @@
                 }, false);
 
                 imagenThumbnail.parentNode.addEventListener('mouseleave', function (e) {
-                    this.parentNode.parentNode.classList.remove('alternarOverflow');
-                    this.parentNode.parentNode.parentNode.classList.remove('zIndexSuperior');
                     imagenZoom.classList.remove('mostrarImagenZoom');
                 }, false);
 

@@ -2603,7 +2603,7 @@ a.subir_carousel, a.bajar_carousel {
         height: 0;
         top: 0;
         background-color: #FFF;
-        border: 1px solid #808080;
+        border: 1px solid #d8d8d8;
         z-index: 2000;
         background-repeat: no-repeat;
         opacity: 0;
@@ -2611,10 +2611,12 @@ a.subir_carousel, a.bajar_carousel {
         -o-transition: all 0.3s ease;
         -webkit-transition: all 0.3s ease;
         transition: all 0.3s ease;
+        -moz-box-shadow: rgba(0, 0, 0, 0.25) 0px 7px 8px -3px;
+        -webkit-box-shadow: rgba(0, 0, 0, 0.25) 0px 7px 8px -3px;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 7px 8px -3px;
     }
 
     .sugerido .producto_imagen{
-        overflow:initial!important;
         cursor:pointer;
     }
 
@@ -2623,15 +2625,6 @@ a.subir_carousel, a.bajar_carousel {
             width: 330px;
             height: 330px;
         }
-
-    .zIndexSuperior{
-        position:relative;
-        z-index:2;
-    }
-
-    .alternarOverflow{
-        overflow:initial!important;
-    }
 
 /* POPUP INVITACIÓN FLEXIPAGO */
 .contenedor_popup_agregarUnidades, .contenedor_popup_ofertaFinal, .contenedor_popup_detalleCarousel, .contenedor_popup_misDatos, .contenedor_fondo_popup {
