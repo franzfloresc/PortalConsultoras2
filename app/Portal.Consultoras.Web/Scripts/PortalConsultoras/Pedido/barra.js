@@ -620,13 +620,6 @@ function MostrarBarra(datax, destino) {
     if (mn == 0 && vLogro == 0 && !belcorp.barra.settings.isMobile) {
         $("#divBarra #divBarraMensajeLogrado").hide();
 
-        var montoPedidoIngresado = 0;
-        var valorTexto = $.trim($('#spanPedidoIngresado').text().split(' ')[1]);
-
-        if (valorTexto.length > 0) {
-            montoPedidoIngresado = parseFloat(valorTexto);
-        }
-
         if (TieneMontoMaximo()) { // se trata como tipinpoing
             if (dataBarra.TippingPointBarra.Active != null && dataBarra.TippingPointBarra.Active != false) {
                 document.getElementById('punto_0').style = '';
@@ -647,7 +640,7 @@ function MostrarBarra(datax, destino) {
                     document.getElementById('punto_1').className = 'EscalaDescuento';
                 }
             }
-        } else {
+        } else if (destino == "2") {
             for (var x = 0; x < dataBarra.ListaEscalaDescuento.length; x++) {
                 if (x == 0) {
                     if (document.getElementById('punto_0')) document.getElementById('punto_0').style = '';
