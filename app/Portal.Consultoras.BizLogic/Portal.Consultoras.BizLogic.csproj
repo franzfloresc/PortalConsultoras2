@@ -382,6 +382,12 @@
     <Content Include="Templates\mailing_proceso_Pin_Autenticacion.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Templates\mailing_proceso_actualiza_contrasenia.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\mailing_proceso_Pin_Autenticacion2.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Templates\mailing_proceso_recuperar_contrasenia.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

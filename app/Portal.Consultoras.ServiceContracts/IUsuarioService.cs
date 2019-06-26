@@ -488,6 +488,12 @@ namespace Portal.Consultoras.ServiceContracts
         bool ProcesaEnvioEmailCambiaContrasenia(int paisID, BEUsuarioDatos oUsu);
 
         [OperationContract]
+        bool ProcesaEnvioEmailCambiaContrasenia2(int paisID, BEUsuarioDatos oUsu);
+
+        [OperationContract]
+        bool ProcesaEnviarMailActualizaContraseniaFinalizado(int paisID, BEUsuarioDatos oUsu, bool esOk);
+
+        [OperationContract]
         bool ContraseniaRepetida(int paisID, string codigoUsuario, string contrasenia);
     }
 }

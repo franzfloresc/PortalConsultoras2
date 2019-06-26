@@ -4192,6 +4192,75 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
+        public bool ProcesaEnvioEmailCambiaContrasenia2(int paisID, BEUsuarioDatos oUsu)
+        {
+            try
+            {
+                try
+                {
+                    string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
+                    string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
+                    var esEsika = paisesEsika.Contains(paisISO);
+                    string emailFrom = "no-responder@somosbelcorp.com";
+                    string emailTo = oUsu.Correo;
+                    string titulo = "(" + paisISO + ") Cambio de clave de Somosbelcorp";                    
+                    string nombrecorreo = oUsu.PrimerNombre.Trim();
+
+                    string displayname = "Somos Belcorp";
+                    string codigoGenerado = Common.Util.GenerarCodigoRandom();
+                    Portal.Consultoras.Common.MailUtilities.EnviarMailPinAutenticacion2(emailFrom, emailTo, titulo, displayname, nombrecorreo, codigoGenerado);
+                    //if (CantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
+                    InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorEmail, codigoGenerado);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    LogManager.SaveLog(ex, oUsu.CodigoUsuario, paisID);
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, string.Empty, Common.Util.GetPaisISO(paisID));
+                return false;
+            }
+        }
+
+        public bool ProcesaEnviarMailActualizaContraseniaFinalizado(int paisID, BEUsuarioDatos oUsu, bool esOk)
+        {
+            try
+            {
+                try
+                {
+                    string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
+                    string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
+                    var esEsika = paisesEsika.Contains(paisISO);
+                    string emailFrom = "no-responder@somosbelcorp.com";
+                    string emailTo = oUsu.Correo;
+                    string titulo = "(" + paisISO + ") Cambio de clave de Somosbelcorp";
+                    string nombrecorreo = oUsu.PrimerNombre.Trim();
+
+                    string displayname = "Somos Belcorp";
+                    string codigoGenerado = Common.Util.GenerarCodigoRandom();
+                    Portal.Consultoras.Common.MailUtilities.EnviarMailActualizaContrasenia(emailFrom, emailTo, titulo, displayname, nombrecorreo, esOk);                                        
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    LogManager.SaveLog(ex, oUsu.CodigoUsuario, paisID);
+                    return false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, string.Empty, Common.Util.GetPaisISO(paisID));
+                return false;
+            }
+        }
+
+
         public bool ContraseniaRepetida(int paisID, string codigoUsuario, string contrasenia)
         {
             bool validaLogin = false;

@@ -18451,6 +18451,22 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContraseniaResponse")]
         System.Threading.Tasks.Task<bool> ProcesaEnvioEmailCambiaContraseniaAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2Response")]
+        bool ProcesaEnvioEmailCambiaContrasenia2(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2Response")]
+        System.Threading.Tasks.Task<bool> ProcesaEnvioEmailCambiaContrasenia2Async(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnviarMailActualizaContraseniaFinalizad" +
+            "o", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnviarMailActualizaContraseniaFinalizad" +
+            "oResponse")]
+        bool ProcesaEnviarMailActualizaContraseniaFinalizado(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, bool esOk);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ProcesaEnviarMailActualizaContraseniaFinalizad" +
+            "o", ReplyAction="http://tempuri.org/IUsuarioService/ProcesaEnviarMailActualizaContraseniaFinalizad" +
+            "oResponse")]
+        System.Threading.Tasks.Task<bool> ProcesaEnviarMailActualizaContraseniaFinalizadoAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, bool esOk);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ContraseniaRepetida", ReplyAction="http://tempuri.org/IUsuarioService/ContraseniaRepetidaResponse")]
         bool ContraseniaRepetida(int paisID, string codigoUsuario, string contrasenia);
         
@@ -19583,6 +19599,22 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<bool> ProcesaEnvioEmailCambiaContraseniaAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu) {
             return base.Channel.ProcesaEnvioEmailCambiaContraseniaAsync(paisID, oUsu);
+        }
+        
+        public bool ProcesaEnvioEmailCambiaContrasenia2(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu) {
+            return base.Channel.ProcesaEnvioEmailCambiaContrasenia2(paisID, oUsu);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ProcesaEnvioEmailCambiaContrasenia2Async(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu) {
+            return base.Channel.ProcesaEnvioEmailCambiaContrasenia2Async(paisID, oUsu);
+        }
+        
+        public bool ProcesaEnviarMailActualizaContraseniaFinalizado(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, bool esOk) {
+            return base.Channel.ProcesaEnviarMailActualizaContraseniaFinalizado(paisID, oUsu, esOk);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ProcesaEnviarMailActualizaContraseniaFinalizadoAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioDatos oUsu, bool esOk) {
+            return base.Channel.ProcesaEnviarMailActualizaContraseniaFinalizadoAsync(paisID, oUsu, esOk);
         }
         
         public bool ContraseniaRepetida(int paisID, string codigoUsuario, string contrasenia) {

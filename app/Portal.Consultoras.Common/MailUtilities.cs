@@ -103,6 +103,47 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        public static void EnviarMailPinAutenticacion2(string emailFrom, string emailTo, string titulo, string displayname, string nombre, string Pin)
+        {
+            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\mailing_proceso_Pin_Autenticacion2.html";
+            string htmlTemplate = FileManager.GetContenido(templatePath);
+            
+            htmlTemplate = htmlTemplate.Replace("#Nombre#", nombre);
+            htmlTemplate = htmlTemplate.Replace("#Pin#", Pin);
+
+            try { Util.EnviarMailBase(emailFrom, emailTo, string.Empty, titulo, htmlTemplate, true, displayname); }
+            catch
+            {
+                //
+            }
+        }
+
+        public static void EnviarMailActualizaContrasenia(string emailFrom, string emailTo, string titulo, string displayname, string nombre, bool esOk)
+        {
+            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\mailing_proceso_actualiza_contrasenia.html";
+            string htmlTemplate = FileManager.GetContenido(templatePath);
+
+            var mensaje = ", tu contrase&ntilde;a ha sido modificada.";
+            var urlOk = "https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/icono-notificacion-positiva.png";
+
+            if (!esOk)
+            {
+                mensaje = ", tu contrase&ntilde;a no se ha podido modificar.";
+                urlOk = "https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/icono-notificacion-negativa.png";
+            }
+
+            mensaje = nombre + mensaje;
+
+            htmlTemplate = htmlTemplate.Replace("#urlOk#", urlOk);
+            htmlTemplate = htmlTemplate.Replace("#mensaje#", mensaje);
+
+            try { Util.EnviarMailBase(emailFrom, emailTo, string.Empty, titulo, htmlTemplate, true, displayname); }
+            catch
+            {
+                //
+            }
+        }
+
 
         public static void EnviarMailProcesoActualizaMisDatos(string emailFrom, string emailTo, string titulo, string displayname,  string nombre, string url, string parametros)
         {

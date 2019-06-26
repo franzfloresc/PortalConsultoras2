@@ -473,6 +473,18 @@
   <wsdl:message name="IUsuarioService_ProcesaEnvioEmailCambiaContrasenia_OutputMessage">
     <wsdl:part name="parameters" element="tns:ProcesaEnvioEmailCambiaContraseniaResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_ProcesaEnvioEmailCambiaContrasenia2_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesaEnvioEmailCambiaContrasenia2" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ProcesaEnvioEmailCambiaContrasenia2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesaEnvioEmailCambiaContrasenia2Response" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ProcesaEnviarMailActualizaContraseniaFinalizado_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesaEnviarMailActualizaContraseniaFinalizado" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ProcesaEnviarMailActualizaContraseniaFinalizado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ProcesaEnviarMailActualizaContraseniaFinalizadoResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_ContraseniaRepetida_InputMessage">
     <wsdl:part name="parameters" element="tns:ContraseniaRepetida" />
   </wsdl:message>
@@ -1277,6 +1289,14 @@
     <wsdl:operation name="ProcesaEnvioEmailCambiaContrasenia">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia" message="tns:IUsuarioService_ProcesaEnvioEmailCambiaContrasenia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContraseniaResponse" message="tns:IUsuarioService_ProcesaEnvioEmailCambiaContrasenia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnvioEmailCambiaContrasenia2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2" message="tns:IUsuarioService_ProcesaEnvioEmailCambiaContrasenia2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2Response" message="tns:IUsuarioService_ProcesaEnvioEmailCambiaContrasenia2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnviarMailActualizaContraseniaFinalizado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnviarMailActualizaContraseniaFinalizado" message="tns:IUsuarioService_ProcesaEnviarMailActualizaContraseniaFinalizado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ProcesaEnviarMailActualizaContraseniaFinalizadoResponse" message="tns:IUsuarioService_ProcesaEnviarMailActualizaContraseniaFinalizado_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ContraseniaRepetida">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ContraseniaRepetida" message="tns:IUsuarioService_ContraseniaRepetida_InputMessage" />
@@ -2266,6 +2286,24 @@
     </wsdl:operation>
     <wsdl:operation name="ProcesaEnvioEmailCambiaContrasenia">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnvioEmailCambiaContrasenia2">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnviarMailActualizaContraseniaFinalizado">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnviarMailActualizaContraseniaFinalizado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3692,6 +3730,24 @@
     </wsdl:operation>
     <wsdl:operation name="ProcesaEnvioEmailCambiaContrasenia">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnvioEmailCambiaContrasenia2">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnvioEmailCambiaContrasenia2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProcesaEnviarMailActualizaContraseniaFinalizado">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ProcesaEnviarMailActualizaContraseniaFinalizado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

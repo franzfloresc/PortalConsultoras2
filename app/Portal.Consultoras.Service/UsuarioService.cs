@@ -1045,6 +1045,17 @@ namespace Portal.Consultoras.Service
             return BLUsuario.ProcesaEnvioEmailCambiaContrasenia(paisID, oUsu);
         }
 
+        public bool ProcesaEnvioEmailCambiaContrasenia2(int paisID, BEUsuarioDatos oUsu)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ProcesaEnvioEmailCambiaContrasenia2(paisID, oUsu);
+        }
+
+        public bool ProcesaEnviarMailActualizaContraseniaFinalizado(int paisID, BEUsuarioDatos oUsu, bool esOk) {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ProcesaEnviarMailActualizaContraseniaFinalizado(paisID, oUsu,esOk);
+        }
+
         public bool ContraseniaRepetida(int paisID, string codigoUsuario, string contrasenia)
         {
             var BLUsuario = new BLUsuario();

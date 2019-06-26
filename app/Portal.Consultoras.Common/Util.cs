@@ -961,6 +961,80 @@ namespace Portal.Consultoras.Common
         {
             return Util.EnviarMailMasivoColas2(strDe, strPara, strTitulo, strMensaje, isHTML, tags, null);
         }
+        public static bool EnviarMailBase(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML, string displayNameDe = null, bool IndicadorSimplificacionCUV = false)
+        {
+            if (string.IsNullOrEmpty(strPara))
+                return false;
+
+            if (strPara.ToLower().Contains("ñ") || strPara.ToLower().Contains("á") || strPara.ToLower().Contains("é") ||
+                strPara.ToLower().Contains("í") || strPara.ToLower().Contains("ó") || strPara.ToLower().Contains("ú"))
+                return false;
+
+            RegexUtilities emailutil = new RegexUtilities();
+            if (!emailutil.IsValidEmail(strPara))
+                return false;
+
+            string strServidor = ParseString(ConfigurationManager.AppSettings["SMPTServer"]);
+            string strUsuario = ParseString(ConfigurationManager.AppSettings["SMPTUser"]);
+            string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
+
+            MailMessage objMail = new MailMessage();
+            objMail.SubjectEncoding = System.Text.Encoding.UTF8;
+            SmtpClient objClient = new SmtpClient(strServidor);
+
+            AlternateView avHtml = AlternateView.CreateAlternateViewFromString(strMensaje, null, MediaTypeNames.Text.Html);
+
+            objMail.To.Add(strPara);
+            objMail.From = string.IsNullOrEmpty(displayNameDe)
+                ? new MailAddress(strDe)
+                : new MailAddress(strDe, displayNameDe);
+
+            objMail.Subject = strTitulo;
+            if (FileExists(HttpContext.Current.Request.MapPath("/Content/Images/indicador.png")) && FileExists(HttpContext.Current.Request.MapPath("/Content/Images/belcorp_logo.png")))
+            {
+                LinkedResource iconoSimplificacion = new LinkedResource(HttpContext.Current.Request.MapPath("../Content/Images/indicador.png"), MediaTypeNames.Image.Gif);
+                LinkedResource logo = new LinkedResource(HttpContext.Current.Request.MapPath("../Content/Images/belcorp_logo.png"), MediaTypeNames.Image.Gif);
+                logo.ContentId = "Logo";
+                avHtml.LinkedResources.Add(logo);
+
+                objMail.AlternateViews.Add(avHtml);
+
+
+                if (IndicadorSimplificacionCUV)
+                {
+                    iconoSimplificacion.ContentId = "IconoIndicador";
+                    avHtml.LinkedResources.Add(iconoSimplificacion);
+                    objMail.Body =  String.Format(strMensaje, iconoSimplificacion.ContentId) ;
+                }
+                else
+                {
+                    objMail.Body = strMensaje ;
+                }
+            }
+            else
+            {
+                objMail.AlternateViews.Add(avHtml);
+                objMail.Body =  strMensaje;
+            }
+            objMail.IsBodyHtml = isHTML;
+            NetworkCredential credentials = new NetworkCredential(strUsuario, strPassword);
+            objClient.EnableSsl = true;
+            objClient.Credentials = credentials;
+
+            try
+            {
+                objClient.Send(objMail);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+            }
+            finally
+            {
+                objMail.Dispose();
+            }
+            return true;
+        }
 
         public static bool EnviarMailBase(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string displayNameDe)
         {

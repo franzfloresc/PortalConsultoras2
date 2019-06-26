@@ -18,6 +18,7 @@ namespace Portal.Consultoras.Web.Models
         public string PrimerNombre { get; set; }
         public string CodigoIso { get; set; }
         public string CodigoUsuario { get; set; }
+        public bool EsMobile { get; set; }
         [Required]
         [Display(Name = "Nueva Contraseña")]
         [DataType(DataType.Password)]

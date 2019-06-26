@@ -154,13 +154,14 @@
                     ¡Actualización exitosa!
                 </h2>
                 <p class="d-block text-center popup__somos__belcorp__mensaje popup__somos__belcorp__mensaje--envioCodigoConfirmacion">
-                    @using (Html.BeginForm("IrSobosBelcorpMiPerfil", "Login", FormMethod.Post, new { id = "formIrSomosBelcorp2" }))
+                    @using (Html.BeginForm("IrSomosBelcorp", "Login", FormMethod.Post, new { id = "formIrSomosBelcorp2" }))
                     {
-                        <span>Recuerda que puedes completar tu perfil</span><a href="javascript:$('form#formIrSomosBelcorp2').submit();" id="" title="Ir A Mi Perfil" class="d-inline-block text-bold color-multimarca enlace__sb enlace__sb--irAMiPerfil">aquí</a>
+                        <input type="hidden" name="redirectUrl" value="@Url.Action("Index","MiPerfil",new { area=Model.EsMobile?"Mobile":""})" />
+                        <span>Recuerda que puedes completar tu perfil </span><a href="javascript:$('form#formIrSomosBelcorp2').submit();" id="" title="Ir A Mi Perfil" class="d-inline-block text-bold color-multimarca enlace__sb enlace__sb--irAMiPerfil">aquí</a>
                     }
 
                 </p>
-                @using (Html.BeginForm("IrSobosBelcorp", "Login", FormMethod.Post, new { id = "formIrSomosBelcorp" }))
+                @using (Html.BeginForm("IrSomosBelcorp", "Login", FormMethod.Post, new { id = "formIrSomosBelcorp" }))
                 {
                     <button type="submit" id="IrASomosBelcorp" class="d-block center-block border-radius-4 text-center text-bold btn__sb btn__sb__primary--multimarca btn__sb--actualizarContrasenia">
                         Ir a Somos Belcorp
