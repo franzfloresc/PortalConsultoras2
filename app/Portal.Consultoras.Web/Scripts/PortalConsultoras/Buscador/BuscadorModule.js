@@ -297,6 +297,16 @@ var BuscadorModule = (function () {
                         });
 
                         SetHandlebars("#js-ResultadoBuscador", r.productos, "#ResultadoBuscador");
+                        if ($('.searchCarousel').length > 0) {
+                            const settings = {
+                                dots: false,
+                                infinite: false,
+                                arrows: true,
+                                prevArrow: '<div class="arrow prev"><div class="arrow-top"></div><div class="arrow-bottom"></div></div>',
+                                nextArrow: '<div class="arrow next"><div class="arrow-top"></div><div class="arrow-bottom"></div></div>',
+                            }
+                            $('.searchCarousel').slick(settings); /* [Tesla-178 - Search Carousel] / start carousel */
+                        }
 
                         setTimeout(function () {
                             if ($(".busqueda_sin_resultados").is(":visible")) {
@@ -304,7 +314,12 @@ var BuscadorModule = (function () {
                             }
                             $(".spinner").fadeOut(150);
                             $("#ResultadoBuscador").delay(50);
-                            $("#ResultadoBuscador").fadeIn(100);
+                            $("#ResultadoBuscador").fadeIn(100, function () {
+                                
+                                if ($('.searchCarousel').length > 0) {
+                                    $('.searchCarousel').slick('setPosition'); /* [Tesla-178 - Search Carousel] / Recalculate position slick */
+                                }
+                            });
                             if (!_config.isMobile) {
                                 $(".lista_resultados_busqueda_productos").animate({
                                     'min-height': $("#ResultadoBuscador").height() + 29

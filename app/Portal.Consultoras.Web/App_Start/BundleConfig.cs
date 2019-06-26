@@ -247,7 +247,9 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Pedido/PedidoInfo.css",
                "~/Content/Css/Site/Pedido/EditarProductoFicha.css",
                "~/Content/Css/Site/Notificacion.css",
-               "~/Content/Css/Site/Esika/nuevo-look-and-feel.css"
+               "~/Content/Css/Site/Esika/nuevo-look-and-feel.css",
+               "~/Content/Css/Site/Shared/Buscador/BuscadorCarrusel.css"
+
                ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Site-AsesoraOnline").Include(
@@ -281,7 +283,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/Lbel/buscador-filtros.css",
                "~/Content/Css/Site/Pedido/PedidoInfo.css",
                "~/Content/Css/Site/Pedido/EditarProductoFicha.css",
-               "~/Content/Css/Site/Notificacion.css"
+               "~/Content/Css/Site/Notificacion.css",
+               "~/Content/Css/Site/Shared/Buscador/BuscadorCarrusel.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/Site-Lbel-Contenedor").Include(
