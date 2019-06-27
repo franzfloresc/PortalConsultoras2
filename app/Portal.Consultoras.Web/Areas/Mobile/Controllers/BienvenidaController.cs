@@ -152,7 +152,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                 }
 
-                #endregion
+                #endregion              
             }
             catch (FaultException ex)
             {

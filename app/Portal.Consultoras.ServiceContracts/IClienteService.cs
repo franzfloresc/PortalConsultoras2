@@ -130,5 +130,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         ResponseType<List<BEMovimientoDetalle>> MovimientoDetalleActualizar(int paisId, List<BEMovimientoDetalle> movimientoDetalle);
 
+        [OperationContract]
+        string GetUrlThumbnail(string codigoIso, string documento);
+
     }
 }
