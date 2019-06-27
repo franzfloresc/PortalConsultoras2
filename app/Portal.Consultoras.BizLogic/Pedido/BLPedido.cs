@@ -1441,23 +1441,30 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 {
                     lstDetalle.Where(x => x.ClienteID == 0).Update(x => x.Nombre = usuario.Nombre);
 
-                    lstDetalle.Update(x => x.DescripcionEstrategia = Util.obtenerNuevaDescripcionProductoDetalle(
-                        x.ConfiguracionOfertaID,
-                        pedidoValidado,
-                        x.FlagConsultoraOnline,
-                        x.OrigenPedidoWeb,
-                        lista,
-                        suscritaActiva,
-                        x.TipoEstrategiaCodigo,
-                        x.MarcaID,
-                        x.CodigoCatalago,
-                        x.DescripcionOferta,
-                        x.EsCuponNuevas,
-                        x.EsElecMultipleNuevas,
-                        x.EsPremioElectivo,
-                        x.EsCuponIndependiente,
-                        null,
-                        x.EsKitCaminoBrillante || x.EsDemCaminoBrillante));
+                    lstDetalle.Update(x =>
+                    {
+                        x.DescripcionEstrategia = Util.obtenerNuevaDescripcionProductoDetalle(
+                                                        x.ConfiguracionOfertaID,
+                                                        pedidoValidado,
+                                                        x.FlagConsultoraOnline,
+                                                        x.OrigenPedidoWeb,
+                                                        lista,
+                                                        suscritaActiva,
+                                                        x.TipoEstrategiaCodigo,
+                                                        x.MarcaID,
+                                                        x.CodigoCatalago,
+                                                        x.DescripcionOferta,
+                                                        x.EsCuponNuevas,
+                                                        x.EsElecMultipleNuevas,
+                                                        x.EsPremioElectivo,
+                                                        x.EsCuponIndependiente,
+                                                        null,
+                                                        x.EsKitCaminoBrillante || x.EsDemCaminoBrillante);
+
+                        var lstCatalogos = Util.GetCodigosCatalogo();
+                        var esCatalogo = lstCatalogos.Any(item => item == x.CodigoCatalago.ToString());
+                        x.TipoPersonalizacion = esCatalogo ? Constantes.CodigoEstrategiaBuscador.Catalogo : Util.GetTipoPersonalizacionByCodigoEstrategia(x.TipoEstrategiaCodigo);
+                    });
 
                     lstDetalle.Where(x => x.EsKitNueva).Update(x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.DescripcionKitInicio);
                     lstDetalle.Where(x => x.IndicadorOfertaCUV && x.TipoEstrategiaID == 0 && !x.EsKitCaminoBrillante && !x.EsDemCaminoBrillante)

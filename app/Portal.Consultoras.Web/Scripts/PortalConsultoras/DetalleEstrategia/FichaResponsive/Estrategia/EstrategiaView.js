@@ -27,7 +27,7 @@
             templateId: "#estrategia-template",
             id: "#estrategia",
             background: "#ImagenDeFondo",
-            stamp: "#ImagenDeFondo",
+            stamp: ".ficha_detalle",
         },
         compartirEstrategia: {
             templateId: "#compartir-estrategia-template",
