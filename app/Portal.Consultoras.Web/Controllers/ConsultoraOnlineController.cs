@@ -2363,7 +2363,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pedidoSession = pedidos.ListaPedidos.FirstOrDefault();
 
-                EnviarEmailPedidoRechazado(pedidoSession);
+                EnviarEmailPedidoRechazado(pedidoSession,false);
 
 
                 var PendientesJson = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
@@ -2831,7 +2831,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #region Email
             var pedidoSession = pedidosSesion.FirstOrDefault();
-            EnviarEmailPedidoAceptado(pedidoSession);
+            EnviarEmailPedidoRechazado(pedidoSession,true);
 
             #endregion
 
@@ -3266,7 +3266,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        public void EnviarEmailPedidoRechazado(BEMisPedidos pedido)
+        public void EnviarEmailPedidoRechazado(BEMisPedidos pedido,bool aceptado)
         {
             string medio = String.Empty;
             switch (pedido.FlagMedio)
@@ -3298,14 +3298,12 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 string emailDe =
-                    _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);                
+                    _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
 
                 string displayname = "Somos Belcorp";
 
-                System.Threading.Tasks.Task.Factory.StartNew(() =>
-                {
-                    MailUtilities.EnviarMailPedidoRechazadoAceptado(emailDe, pedido.Email, titulocliente,displayname,consultora,cliente,false);
-                });
+                MailUtilities.EnviarMailPedidoRechazadoAceptado(emailDe, pedido.Email, titulocliente, displayname, consultora, cliente, aceptado);
+
             }
             catch (Exception ex)
             {

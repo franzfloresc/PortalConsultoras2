@@ -1098,7 +1098,10 @@ namespace Portal.Consultoras.Common
 
             try
             {
-                objClient.Send(objMail);
+                System.Threading.Tasks.Task.Factory.StartNew(() =>
+                {
+                    objClient.Send(objMail);
+                });
             }
             catch (Exception ex)
             {
