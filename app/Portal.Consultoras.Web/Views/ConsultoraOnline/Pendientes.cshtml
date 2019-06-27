@@ -5,10 +5,12 @@
 
 @section styles{
     @System.Web.Optimization.Styles.Render("~/Bundle/Css/Desktop/SugerenciaPendientes")
+    <link href="@Url.Content("~/Content/Css/Site/ConsultoraOnline/MotivosRechazo.css")" rel="stylesheet" />
 }
 
 @{
     ViewBag.Title = "Pendientes";
+    IEnumerable<MisPedidosMotivoRechazoModel> ListaMotivosRechazo = ViewBag.MotivosRechazo;
 }
 <script id="template-paso-1-Clientes" type="text/x-handlebars-template">
     <div class="container-fluid pr-0">
@@ -328,9 +330,6 @@
             </div>
         </div>
     </article>
-
-
-
     <div id="rechazarTodop" class="mobile hide rechazar">
         <div class="container position-sticky top">
             <div class="row align-items-center">
@@ -349,12 +348,15 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col ml-3"><a class="btn ghost no-border full" onclick="RechazarTodoConfirmado()" data-action="not-reject">No, gracias</a></div>
-                    <div class="col mr-3"><a class="btn full second-color" onclick="RechazarSolicitudCliente('{{this.MiPedido.PedidoId}}')">Sí, rechazar</a></div>
+                    @*<div class="col mr-3"><a class="btn full second-color" onclick="RechazarSolicitudCliente('{{this.MiPedido.PedidoId}}')">Sí, rechazar</a></div>*@
+                    <div class="col mr-3"><a class="btn full second-color" onclick="MotivoRechazoSolicitudPedidoPend('{{this.MiPedido.PedidoId}}')">Sí, rechazar</a></div>
                 </div>
             </div>
         </div>
     </div>
+
 </script>
+@Html.Partial("~/Views/ConsultoraOnline/_MotivosRechazo.cshtml")
 <!-- Modal confirmación  -->
 <div id="modal-confirmacion" class="center modal-exito" style="display:none;">
     <div class="modal center column pb-5">
