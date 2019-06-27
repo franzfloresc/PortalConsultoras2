@@ -248,7 +248,7 @@
 
 }
 
-@media screen and (max-height:500px) and (orientation:landscape) {
+@media screen and (max-height:560px) {
 
     .btn__sb--actualizarContrasenia {
         width:100%;
