@@ -308,6 +308,7 @@ namespace Portal.Consultoras.Common
             public const string ParticipaProgramaNuevas = "ParticipaProgramaNuevas";
             public const string NotParticipaProgramaNuevas = "NotParticipaProgramaNuevas";
             public const string MasGanadoras = "Ganadoras";
+            public const string Catalogo = "Catalogo"; // No tiene referecia con BD
 
             private static Dictionary<string, string> _Palancas;
             public static Dictionary<string, string> Palancas
@@ -358,6 +359,7 @@ namespace Portal.Consultoras.Common
                         {NombrePalanca.HerramientasVenta, TipoEstrategiaCodigo.HerramientasVenta},
                         {NombrePalanca.NotParticipaProgramaNuevas, TipoEstrategiaCodigo.NotParticipaProgramaNuevas},
                         {NombrePalanca.MasGanadoras, TipoEstrategiaCodigo.OfertasParaMi},
+                        {NombrePalanca.Catalogo, TipoEstrategiaCodigo.Catalogo}
                     });
                 }
             }
@@ -3481,10 +3483,10 @@ namespace Portal.Consultoras.Common
             public const string OfertaDelDia = "ODD";
         }
 
-        public static class NombreEstrategiaBuscador
-        {
-            public const string Catalogo = "Catalogo";
-        }
+        //public static class NombreEstrategiaBuscador
+        //{
+        //    public const string Catalogo = "Catalogo";
+        //}
 
         public static class MetaConsultora
         {

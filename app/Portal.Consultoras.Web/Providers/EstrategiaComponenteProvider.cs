@@ -140,7 +140,7 @@ namespace Portal.Consultoras.Web.Providers
         public List<EstrategiaComponenteModel> FormatterEstrategiaComponentes(List<EstrategiaComponenteModel> listaEstrategiaComponente, string cuv2, int campania, bool esApiFicha = false)
         {
             var userData = SessionManager.GetUserData();
-
+            listaEstrategiaComponente = listaEstrategiaComponente ?? new List<EstrategiaComponenteModel>();
             if (listaEstrategiaComponente.Any())
             {
                 listaEstrategiaComponente.ForEach(x =>
@@ -176,8 +176,7 @@ namespace Portal.Consultoras.Web.Providers
 
             return listaProducto;
         }
-
-
+        
         private List<BEEstrategiaProducto> GetEstrategiaProductos(EstrategiaPersonalizadaProductoModel estrategiaModelo)
         {
             var listaProducto = new List<BEEstrategiaProducto>();
