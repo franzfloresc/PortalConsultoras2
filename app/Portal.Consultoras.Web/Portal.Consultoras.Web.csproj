@@ -1468,6 +1468,7 @@
     <Content Include="Content\CaminoBrillante\imgs\bannerlogros.png" />
     <Content Include="Content\CaminoBrillante\imgs\bg-modal.png" />
     <Content Include="Content\CaminoBrillante\imgs\brillo.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\corazon.png" />
     <Content Include="Content\CaminoBrillante\imgs\down.svg" />
     <Content Include="Content\CaminoBrillante\imgs\flag.svg" />
     <Content Include="Content\CaminoBrillante\imgs\icon-s.svg" />

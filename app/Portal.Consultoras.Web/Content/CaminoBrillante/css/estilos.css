@@ -2095,6 +2095,115 @@ div .ficha__producto__precio__normal {
     display: block
 }
 
+/*Estilos para logros*/
+
+.top-boxlogros {
+    display: block;
+    margin: 30px auto;
+}
+
+.avat-logros {
+    display: block;
+    margin: 0 auto;
+    max-width: 40px;
+}
+
+.top-anios, .frase-logros {
+    display: block;
+    margin: 6px auto;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    color: black;
+}
+
+    .top-anios img {
+        display: inline-block;
+        max-width: 15px;
+        margin-right: 8px;
+        background: silver;
+        position: relative;
+        /* margin-top: 2px; */
+        top: 3px;
+    }
+
+.frase-logros {
+    font-style: italic;
+}
+
+.bar-logros {
+    margin: 0 auto;
+    margin-top: 50px;
+    display: block;
+    width: 98%;
+    max-width: 1000px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid #e2e2e2;
+}
+
+    .bar-logros:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+
+    .bar-logros li {
+        border-right: 2px solid #e2e2e2;
+        display: block;
+        float: left;
+        padding: 0 3px;
+        width: 33.3%;
+        box-sizing: border-box;
+    }
+
+        .bar-logros li:last-child {
+            border: 0;
+        }
+
+    .bar-logros span, .bar-logros p {
+        display: block;
+        text-align: center;
+        font-size: 17px;
+        line-height: 19px;
+    }
+
+    .bar-logros p {
+        margin-top: 8px;
+        display: block;
+        font-weight: bold;
+    }
+
+.foto_perfil_home {
+    width: 99px;
+    height: 98px;
+    border-radius: 100px;
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    position: relative;
+    /* float: left; */
+    margin: 10px auto;
+    background-color: rgba(229,229,229,1);
+    border-radius: 100%;
+    overflow: hidden;
+}
+
+    .foto_perfil_home img {
+        width: 100%;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2562,6 +2671,14 @@ div .ficha__producto__precio__normal {
     }
     .tog-vermas:after, .tog-vermenos:after {
         top: 1px;
+    }
+    .bar-logros span, .bar-logros p {
+        width: 90px;
+        margin: 0 auto;
+        margin-bottom:15px;
+    }
+    .bar-logros {
+        padding-bottom: 8px;
     }
 }
 
