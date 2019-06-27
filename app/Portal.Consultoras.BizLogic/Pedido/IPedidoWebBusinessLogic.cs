@@ -76,5 +76,6 @@ namespace Portal.Consultoras.BizLogic
         List<BEPedidoWeb> GetPedidosIngresadoFacturadoApp(int paisID, int consultoraID, int campaniaID, string codigoConsultora, int usuarioPrueba, string consultoraAsociada, int top, bool mostrarPaqueteDocumentario);
         void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle);
         List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb BEPedidoWeb);
+        BEPedidoWeb GetPedidoWebConCalculosGanancia(BEUsuario usuario, decimal montoAhorroCatalogo, decimal montoAhorroRevista, decimal montoDescuento, decimal montoEscala, List<BEPedidoWebDetalle> pedidoWebSetDetalleAgrupado);
     }
 }

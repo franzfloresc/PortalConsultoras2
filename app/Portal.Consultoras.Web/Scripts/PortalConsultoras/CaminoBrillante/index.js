@@ -145,7 +145,7 @@ $("#carrusel").on('click', '.boton_agregar_ofertas', function (e) {
     var cantidad = 1;
     var contenedor = $(this).parents('[data-item="BuscadorFichasProductos"]');
     var obj = JSON.parse($(contenedor).find('div [data-estrategia]').attr("data-estrategia"));
-
+    var imagenProducto = obj.FotoProductoMedium;
     if (obj.TipoOferta == 1) {
         descTipoOferta = "kits";
     } else if (obj.TipoOferta == 2){
@@ -156,7 +156,7 @@ $("#carrusel").on('click', '.boton_agregar_ofertas', function (e) {
             CerrarSplash();
         }
     }
-    AgregarProducto(obj, cantidad, contenedor, descTipoOferta, false);
+    AgregarProducto(obj, cantidad, imagenProducto, contenedor, descTipoOferta, false);
     if (obj.TipoOferta == 1) { $(contenedor).addClass("producto_desactivado");}
 });
 

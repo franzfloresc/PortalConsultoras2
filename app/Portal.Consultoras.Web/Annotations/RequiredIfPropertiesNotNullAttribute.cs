@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Portal.Consultoras.Common.Exceptions;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
@@ -52,7 +52,7 @@ namespace Portal.Consultoras.Web.Annotations
 
             if (validationContext == null)
             {
-                throw new ArgumentNullException("validationContext");
+                throw new ClientInformationException("validationContext");
             }
 
             if (!string.IsNullOrEmpty(this.OtherProperty) && !string.IsNullOrEmpty(OtherPropertyValue.ToString()))

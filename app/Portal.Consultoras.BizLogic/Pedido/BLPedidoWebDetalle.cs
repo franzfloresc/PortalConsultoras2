@@ -937,5 +937,29 @@ namespace Portal.Consultoras.BizLogic
             return Notdecrypt;
         }
 
+        public List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(BEUsuario usuario, out int pedidoID)
+        {
+            return ObtenerPedidoWebSetDetalleAgrupado(usuario, false, out pedidoID);
+        }
+        public List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(BEUsuario usuario, bool updLabelNuevas, out int pedidoID)
+        {
+            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+            {
+                PaisId = usuario.PaisID,
+                CampaniaId = usuario.CampaniaID,
+                ConsultoraId = usuario.ConsultoraID,
+                Consultora = usuario.Nombre,
+                CodigoPrograma = usuario.CodigoPrograma,
+                NumeroPedido = usuario.ConsecutivoNueva,
+                AgruparSet = true,
+                NivelCaminoBrillante = usuario.NivelCaminoBrillante
+            };
+
+            var detallesPedidoWeb = GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros, true, updLabelNuevas, true).ToList();
+            pedidoID = detallesPedidoWeb.Any() ? detallesPedidoWeb.FirstOrDefault().PedidoID : 0;
+
+            return detallesPedidoWeb;
+        }
+
     }
 }

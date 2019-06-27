@@ -11,11 +11,13 @@ namespace Portal.Consultoras.Web.Providers
     public class ProductoRecomendadoProvider : BuscadorBaseProvider
     {
         protected RecomendacionesConfiguracionModel _recomendacionesConfiguracion;
+        protected ConsultaProlProvider _consultaProlProvider;
 
         public ProductoRecomendadoProvider()
         {
             _sessionManager = SessionManager.SessionManager.Instance;
             _recomendacionesConfiguracion = _sessionManager.GetRecomendacionesConfig();
+            _consultaProlProvider = new ConsultaProlProvider();
         }
 
         public async Task<RecomendacionesModel> ObtenerRecomendaciones(string cuv, string codigoProducto, bool esMobile)
@@ -62,6 +64,8 @@ namespace Portal.Consultoras.Web.Providers
             var suscripcion = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
             var personalizaciones = "";
             var buscadorConfig = _sessionManager.GetBuscadorYFiltrosConfig();
+            var esFacturacion = _consultaProlProvider.GetValidarDiasAntesStock(usuarioModel);
+
             if (buscadorConfig != null)
                 personalizaciones = buscadorConfig.PersonalizacionDummy ?? "";
             
@@ -82,7 +86,8 @@ namespace Portal.Consultoras.Web.Providers
                     rdi = revistaDigital.TieneRDI.ToString(),
                     rdr = revistaDigital.TieneRDCR.ToString(),
                     diaFacturacion = usuarioModel.DiaFacturacion,
-                    mostrarProductoConsultado = esMobile.ToString()
+                    mostrarProductoConsultado = esMobile.ToString(),
+                    esFacturacion
                 }
             };
         }
