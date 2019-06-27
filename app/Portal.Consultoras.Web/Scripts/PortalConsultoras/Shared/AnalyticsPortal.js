@@ -752,7 +752,7 @@ var AnalyticsPortalModule = (function () {
             if (_constantes.isTest)
                 alert("Marcación clic añadir al carrito.");
 
-            var origenEstructura = _getEstructuraOrigenPedidoWeb(codigoOrigenPedido);
+            var origenEstructura = _getEstructuraOrigenPedidoWeb(codigoOrigen);
 
             var textoPalanca = _getTextoPalancaSegunOrigen(origenEstructura);
             var textoContenedor = _getTextoContenedorSegunOrigen(origenEstructura);
