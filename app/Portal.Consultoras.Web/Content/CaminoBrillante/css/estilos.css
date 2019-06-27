@@ -2096,7 +2096,95 @@ div .ficha__producto__precio__normal {
 }
 
 
+.tabs {
+    margin: 0;
+    padding: 0;
+}
 
+    .tabs li {
+        float: left;
+        border: 1px solid #999;
+        border-bottom: none;
+        background: #e0e0e0;
+    }
+/*
+.tabs li a {
+ display: block;
+ padding: 10px 20px;
+ font-size: 16px;
+ color: #000;
+ text-decoration: none;
+}*/
+
+
+
+/*.tab_container {
+ border: 1px solid #999;
+ border-top: none;
+ background: #fff;
+}*/
+
+.tab_content {
+    padding: 20px;
+    font-size: 16px;
+}
+
+.tab-content.current {
+    animation-name: fade;
+    animation-iteration-count: 1;
+    animation-duration: 1s;
+}
+
+.tab-content {
+    display: none;
+}
+
+    .tab-content.current {
+        display: block;
+    }
+
+.msj-boxnivel {
+    padding: 15px;
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+}
+
+    .msj-boxnivel p, .msj-boxnivel span {
+        color: black;
+        text-align: center;
+        font-size: 13px;
+        display: block;
+        font-weight: bold;
+    }
+
+    .msj-boxnivel p {
+        font-size: 18px;
+        margin-top: 0;
+    }
+
+    .msj-boxnivel span {
+        font-size: 12px;
+        font-weight: normal;
+    }
+
+        .msj-boxnivel span strong {
+            font-weight: bold;
+        }
+
+.bg-1 {
+    background: #fcf5e7;
+}
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
 
 
 
