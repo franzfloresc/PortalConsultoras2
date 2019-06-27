@@ -45,7 +45,7 @@
             @foreach (var nivel in @ViewBag.Niveles as List<NivelCaminoBrillanteModel>)
             {
                 var decorador = nivel.EsPasado ? "" : "onclick=\"TagMostrarPopupNivel('" + nivel.DescripcionNivel + "');\" data-toggle=\"modal\" data-target=\"#Nivel_" + nivel.CodigoNivel + "_Bnf\"";
-                var estilos = "pt" + nivel.CodigoNivel + (nivel.EsActual ? " brillante": "");
+                var estilos = "pt" + nivel.CodigoNivel + (nivel.EsActual ? " brillante" : "");
                 <span class='point @estilos' @Html.Raw(decorador) onclick='TagClickSeleccionNivel("@nivel.DescripcionNivel")'>
                     <img src=@nivel.UrlImagenNivel>
                     <em>@nivel.DescripcionNivel</em>
@@ -322,36 +322,52 @@
             </div>
         </div>
     }
+</div>
 
-    @if (ViewBag.TieneGanancias == "1")
-    {
-        <div id="boxganancias">
-            <h2 class="title">Mis ganancias</h2>
-            <div class="box-right-ganancias">
-                <p id="titulo-ganancia" class="text-bold"></p>
-                <canvas id="canvas"></canvas>
-                <span id="titulo-subtitulo" class="text-bold"></span>
-            </div>
-            <div class="box-left-ganancias">
-                <div class="box-montos">
-                    <p id="ganancia-campania-nombre" class="text-bold"></p>
-                    <img src="https://s3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/BENEFICIOS/pago_diferido.svg">
-                    <span id="ganancia-campania"></span>
+<div class="container bglogros">
+    <div class="banner-logros">
+        <img src="~/Content/CaminoBrillante/imgs/mobile-logros.svg" class="img-log"/>
+        <div class="right-banner">
+            <h2>Tus logros</h2>
+            <p>Todo tu esfuerzo tiene grandes resultados.</p>
+            <a href="">Ver logros</a>
+        </div>
+    </div>
+</div>
+
+
+    <div class="container">
+
+
+        @if (ViewBag.TieneGanancias == "1")
+        {
+            <div id="boxganancias">
+                <h2 class="title">Mis ganancias</h2>
+                <div class="box-right-ganancias">
+                    <p id="titulo-ganancia" class="text-bold"></p>
+                    <canvas id="canvas"></canvas>
+                    <span id="titulo-subtitulo" class="text-bold"></span>
                 </div>
-                <div class="box-montos">
-                    <p class="text-bold">Ganancia de periodo</p>
-                    <img src="https://s3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/BENEFICIOS/pago_diferido.svg">
-                    <span id="ganancia-periodo"></span>
+                <div class="box-left-ganancias">
+                    <div class="box-montos">
+                        <p id="ganancia-campania-nombre" class="text-bold"></p>
+                        <img src="https://s3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/BENEFICIOS/pago_diferido.svg">
+                        <span id="ganancia-campania"></span>
+                    </div>
+                    <div class="box-montos">
+                        <p class="text-bold">Ganancia de periodo</p>
+                        <img src="https://s3.amazonaws.com/somosbelcorpqa/Iconos/CAMINOBRILLANTE/BENEFICIOS/pago_diferido.svg">
+                        <span id="ganancia-periodo"></span>
+                    </div>
+                    <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
             </div>
-            <div class="clear"></div>
-        </div>
-    }
-</div>
+        }
+    </div>
 
-@section scripts{
-    <script>
+    @section scripts{
+        <script>
         var urlGetCarrusel = '@Url.Action("GetCarruselCaminoBrillante", "CaminoBrillante")';
         var urlGetMisGanancias = '@Url.Action("GetMisGanancias", "CaminoBrillante")';
         var urlAgregarUnico = '@Url.Action("PedidoAgregarProductoTransaction", "PedidoRegistro", new { area = "" })';
@@ -363,10 +379,10 @@
             function isMobile() {
                 return "True" === "@ViewBag.EsMobile";
             }
-    </script>
+        </script>
 
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/Carrusel")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/Ganancias")
-}
+        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
+        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
+        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/Carrusel")
+        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/Ganancias")
+    }
