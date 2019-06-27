@@ -141,10 +141,10 @@ function SeccionCargarProductos(objConsulta) {
         if (!varContenedor.CargoRevista) {
             varContenedor.CargoRevista = true;
 
-            var tipoEstrategiaHabilitado = typeof variableEstrategia.TipoEstrategiaHabilitado == "string" && variableEstrategia.TipoEstrategiaHabilitado.indexOf(_constantesPalanca.RevistaDigital) > -1
-            if (!tipoEstrategiaHabilitado) {
+            if (!GetTipoEstrategiaHabilitado(_constantesPalanca.RevistaDigital)) {
                 guardaEnLS = false;
             }
+            
             OfertaCargarProductos({
                 VarListaStorage: "RDLista",
                 UrlCargarProductos: baseUrl + objConsulta.UrlObtenerProductos,
@@ -159,10 +159,11 @@ function SeccionCargarProductos(objConsulta) {
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.HV) {
         if (!varContenedor.CargoHv) {
             varContenedor.CargoHv = true;
-            var tipoEstrategiaHabilitado = typeof variableEstrategia.TipoEstrategiaHabilitado == "string" && variableEstrategia.TipoEstrategiaHabilitado.indexOf(_constantesPalanca.HerramientasVenta) > -1
-            if (!tipoEstrategiaHabilitado) {
+
+            if (!GetTipoEstrategiaHabilitado(_constantesPalanca.HerramientasVenta)) {
                 guardaEnLS = false;
             }
+
             OfertaCargarProductos({
                 VarListaStorage: "HVLista",
                 UrlCargarProductos: baseUrl + objConsulta.UrlObtenerProductos,
@@ -190,10 +191,11 @@ function SeccionCargarProductos(objConsulta) {
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.LAN) {
         if (!varContenedor.CargoLan) {
             varContenedor.CargoLan = true;
-            var tipoEstrategiaHabilitado = typeof variableEstrategia.TipoEstrategiaHabilitado == "string" && variableEstrategia.TipoEstrategiaHabilitado.indexOf(_constantesPalanca.Lanzamiento) > -1
-            if (!tipoEstrategiaHabilitado) {
+
+            if (!GetTipoEstrategiaHabilitado(_constantesPalanca.Lanzamiento)) {
                 guardaEnLS = false;
             }
+
             OfertaCargarProductos({
                 VarListaStorage: listaLAN,
                 UrlCargarProductos: baseUrl + objConsulta.UrlObtenerProductos,
@@ -249,6 +251,11 @@ function SeccionCargarProductos(objConsulta) {
         error: function (error, x) {
         }
     });
+}
+
+function GetTipoEstrategiaHabilitado(tipoEstrategia) {
+    var tipoEstrategiaHabilitado = typeof variableEstrategia.TipoEstrategiaHabilitado == "string" && variableEstrategia.TipoEstrategiaHabilitado.indexOf(tipoEstrategia) > -1;
+    return tipoEstrategiaHabilitado;
 }
 
 function SeccionMostrarProductos(data) {

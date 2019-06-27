@@ -92,6 +92,15 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private decimal FleteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal GananciaOtrosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal GananciaRevistaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal GananciaWebField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IPUsuarioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -471,6 +480,45 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.FleteField.Equals(value) != true)) {
                     this.FleteField = value;
                     this.RaisePropertyChanged("Flete");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal GananciaOtros {
+            get {
+                return this.GananciaOtrosField;
+            }
+            set {
+                if ((this.GananciaOtrosField.Equals(value) != true)) {
+                    this.GananciaOtrosField = value;
+                    this.RaisePropertyChanged("GananciaOtros");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal GananciaRevista {
+            get {
+                return this.GananciaRevistaField;
+            }
+            set {
+                if ((this.GananciaRevistaField.Equals(value) != true)) {
+                    this.GananciaRevistaField = value;
+                    this.RaisePropertyChanged("GananciaRevista");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal GananciaWeb {
+            get {
+                return this.GananciaWebField;
+            }
+            set {
+                if ((this.GananciaWebField.Equals(value) != true)) {
+                    this.GananciaWebField = value;
+                    this.RaisePropertyChanged("GananciaWeb");
                 }
             }
         }
@@ -4065,6 +4113,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool AceptoContratoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ActivaNotificacionesWhatsappField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ActivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4494,6 +4545,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string NombrePaisField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool NotificacionesWhatsappField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NovedadBuscadorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4818,6 +4872,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.AceptoContratoField.Equals(value) != true)) {
                     this.AceptoContratoField = value;
                     this.RaisePropertyChanged("AceptoContrato");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ActivaNotificacionesWhatsapp {
+            get {
+                return this.ActivaNotificacionesWhatsappField;
+            }
+            set {
+                if ((this.ActivaNotificacionesWhatsappField.Equals(value) != true)) {
+                    this.ActivaNotificacionesWhatsappField = value;
+                    this.RaisePropertyChanged("ActivaNotificacionesWhatsapp");
                 }
             }
         }
@@ -6677,6 +6744,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.NombrePaisField, value) != true)) {
                     this.NombrePaisField = value;
                     this.RaisePropertyChanged("NombrePais");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool NotificacionesWhatsapp {
+            get {
+                return this.NotificacionesWhatsappField;
+            }
+            set {
+                if ((this.NotificacionesWhatsappField.Equals(value) != true)) {
+                    this.NotificacionesWhatsappField = value;
+                    this.RaisePropertyChanged("NotificacionesWhatsapp");
                 }
             }
         }
@@ -19335,6 +19415,15 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string DescuentoProlField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> GananciaOtrosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> GananciaRevistaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> GananciaWebField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string[] ListCuvEliminarField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -19360,6 +19449,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MontoEscalaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServicePedido.BEPedidoWeb PedidoWebField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle PedidoWebDetalleField;
@@ -19425,6 +19517,45 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.DescuentoProlField, value) != true)) {
                     this.DescuentoProlField = value;
                     this.RaisePropertyChanged("DescuentoProl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> GananciaOtros {
+            get {
+                return this.GananciaOtrosField;
+            }
+            set {
+                if ((this.GananciaOtrosField.Equals(value) != true)) {
+                    this.GananciaOtrosField = value;
+                    this.RaisePropertyChanged("GananciaOtros");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> GananciaRevista {
+            get {
+                return this.GananciaRevistaField;
+            }
+            set {
+                if ((this.GananciaRevistaField.Equals(value) != true)) {
+                    this.GananciaRevistaField = value;
+                    this.RaisePropertyChanged("GananciaRevista");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> GananciaWeb {
+            get {
+                return this.GananciaWebField;
+            }
+            set {
+                if ((this.GananciaWebField.Equals(value) != true)) {
+                    this.GananciaWebField = value;
+                    this.RaisePropertyChanged("GananciaWeb");
                 }
             }
         }
@@ -19542,6 +19673,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.MontoEscalaField, value) != true)) {
                     this.MontoEscalaField = value;
                     this.RaisePropertyChanged("MontoEscala");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoWeb PedidoWeb {
+            get {
+                return this.PedidoWebField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PedidoWebField, value) != true)) {
+                    this.PedidoWebField = value;
+                    this.RaisePropertyChanged("PedidoWeb");
                 }
             }
         }
