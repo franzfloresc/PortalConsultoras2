@@ -406,16 +406,16 @@ var OfertaDelDiaModule = function () {
         return false;
     };
 
-    var ConstruirDescripcionOferta = function (arrDescripcion) {
-        var descripcion = "";
-        $.each(arrDescripcion,
-            function (index, value) {
-                value = value.replace("<br />", "");
-                value = value.replace("<br/>", "");
-                descripcion += "+ " + value + "<br />";
-            });
-        return descripcion;
-    };
+    //var ConstruirDescripcionOferta = function (arrDescripcion) {
+    //    var descripcion = "";
+    //    $.each(arrDescripcion,
+    //        function (index, value) {
+    //            value = value.replace("<br />", "");
+    //            value = value.replace("<br/>", "");
+    //            descripcion += "+ " + value + "<br />";
+    //        });
+    //    return descripcion;
+    //};
 
     //var AsignarPosicionAListaOfertas = function (listaOfertas) {
     //    var posicion = 0;
