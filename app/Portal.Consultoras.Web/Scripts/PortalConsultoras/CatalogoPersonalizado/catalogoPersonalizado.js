@@ -25,7 +25,7 @@ $(document).ready(function () {
 
         agregarProductoAlCarrito(this);
 
-        var contenedor = $(this).parents("[data-item='catalogopersonalizado']");
+        //var contenedor = $(this).parents("[data-item='catalogopersonalizado']");
     });
     $(document).on('click', '#boton_vermas', function () {
         CargarCatalogoPersonalizado();

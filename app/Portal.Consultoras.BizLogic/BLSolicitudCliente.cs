@@ -261,10 +261,10 @@ namespace Portal.Consultoras.BizLogic
             daSolicitudCliente.UpdSolicitudClienteDetalleCantidad(solicitudId, cuv, cantidad);
         }
 
-        public void UpdSolicitudClienteRechazar(int paisID, long solicitudId)
+        public void UpdSolicitudClienteRechazar(int paisID, long solicitudId, int motivoRechazoId, string motivoRechazoTexto)
         {
             var daSolicitudCliente = new DASolicitudCliente(paisID);
-            daSolicitudCliente.UpdSolicitudClienteRechazar(solicitudId);
+            daSolicitudCliente.UpdSolicitudClienteRechazar(solicitudId , motivoRechazoId, motivoRechazoTexto);
         }
 
         public void UpdSolicitudClienteRechazarPorCuv(int paisID, long solicitudId, string cuv)

@@ -60,46 +60,46 @@
     //    }, 0);
     //}
 
-    var _downloadAttachExcel = function () {
-        var content = _config.urlExportarExcel +
-            "?CampaniaID=" +
-            $("#ddlCampania").val() +
-            "&TipoEstrategiaID=" +
-            $('#ddlTipoEstrategia').find(':selected').data('id');
+    //var _downloadAttachExcel = function () {
+    //    var content = _config.urlExportarExcel +
+    //        "?CampaniaID=" +
+    //        $("#ddlCampania").val() +
+    //        "&TipoEstrategiaID=" +
+    //        $('#ddlTipoEstrategia').find(':selected').data('id');
 
-        var iframe_ = document.createElement("iframe");
-        iframe_.style.display = "none";
-        iframe_.setAttribute("src", content);
+    //    var iframe_ = document.createElement("iframe");
+    //    iframe_.style.display = "none";
+    //    iframe_.setAttribute("src", content);
 
-        iframe_.onload = function () {
-            closeWaitingDialog();
-        };
+    //    iframe_.onload = function () {
+    //        closeWaitingDialog();
+    //    };
 
-        if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) {
-            // Si es Internet Explorer
-            iframe_.onreadystatechange = function () {
-                switch (this.readyState) {
-                    case "loading":
-                        waitingDialog({});
-                        break;
-                    case "complete":
-                    case "interactive":
-                    case "uninitialized":
-                        closeWaitingDialog();
-                        break;
-                    default:
-                        closeWaitingDialog();
-                        break;
-                }
-            };
-        }
-        else {
-            $(iframe_).ready(function () {
-            });
-        }
+    //    if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) {
+    //        // Si es Internet Explorer
+    //        iframe_.onreadystatechange = function () {
+    //            switch (this.readyState) {
+    //                case "loading":
+    //                    waitingDialog({});
+    //                    break;
+    //                case "complete":
+    //                case "interactive":
+    //                case "uninitialized":
+    //                    closeWaitingDialog();
+    //                    break;
+    //                default:
+    //                    closeWaitingDialog();
+    //                    break;
+    //            }
+    //        };
+    //    }
+    //    else {
+    //        $(iframe_).ready(function () {
+    //        });
+    //    }
 
-        document.body.appendChild(iframe_);
-    }
+    //    document.body.appendChild(iframe_);
+    //}
 
     //var _paginador = Paginador({
     //    elementId: "matriz-" +
