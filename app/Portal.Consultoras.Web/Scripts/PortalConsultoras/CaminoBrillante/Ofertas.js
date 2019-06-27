@@ -22,13 +22,10 @@ var getUrl;
 var moneda = ($('#moneda').val());
 
 $(document).ready(function () {
-
-    //Handlebars.registerPartial("kit_template", $("#template-kit").html());
-    Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
-   
+    Handlebars.registerPartial("kit_template", $("#template-kit").html());
+    Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());    
     getUrl = getGET();
     Inicializar();
-    //CambiarOferta();
 
     if (getUrl) {
         cargandoRegistros = true;
@@ -209,7 +206,6 @@ function TagListaProductos(data, lista) {
 }
 
 function CargarKits() {
-
     $.ajax({
         type: 'GET',
         url: urlGetKits,

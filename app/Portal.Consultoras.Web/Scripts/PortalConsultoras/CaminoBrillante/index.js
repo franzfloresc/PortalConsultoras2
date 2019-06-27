@@ -26,31 +26,23 @@ $(document).ready(function () {
         };
     }
 
-    if (TineCarrusel === '1') {
-        Carusel();    
-        if ($("#template-kit").length > 0) {
-            debugger
-            Handlebars.registerPartial("kit_template", $("#template-kit").html());
-            Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
-        }
-        
-        CargarCarrusel();
+    Carusel();    
+    if ($("#template-kit").length > 0) {
+        Handlebars.registerPartial("kit_template", $("#template-kit").html());
+        Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
     }
-    if (TieneGanancias === '1') {
-        CargarGanancias();
+    if (TineCarrusel == "1") CargarCarrusel();    
+
+    if (TieneGanancias == "1") CargarGanancias();
+
+    var progreso = $("#bar-progreso");
+    if (progreso.length > 0) {
+        var maxBar = $(progreso).data("max");
+        var curBar = $(progreso).data("cur");
+        var perc = (curBar / maxBar) * 100;
+        $('.new-bar').width(perc + '%');
     }
 
-    //Barra monto Acumulado
-    if (TieneMontoAcumulado == '1') {
-        var progreso = $("#bar-progreso");
-        if (progreso.length > 0) {
-            var maxBar = $(progreso).data("max");
-            var curBar = $(progreso).data("cur");
-            var perc = (curBar / maxBar) * 100;
-            $('.new-bar').width(perc + '%');
-        }
-    }
-    //fin
     
     var nivelactual = $("#hfNivelActual").val();
     for (var i = 1; i <= nivelactual; i++)
@@ -75,9 +67,9 @@ $(window).on("load", function () {
 });
 
 window.onbeforeunload = function (e) {
-    if (TineCarrusel === '1') {
+    //if (TineCarrusel === '1') {
         CargarCarrusel();
-    }    
+    //}    
 }
 
 $(window).on("scroll", function () {
@@ -224,7 +216,7 @@ function CargarCarrusel() {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
-            if (checkTimeout(data)) {
+            if (checkTimeout(data)) {                
                 ArmarCarrusel(data);
             }
         },
