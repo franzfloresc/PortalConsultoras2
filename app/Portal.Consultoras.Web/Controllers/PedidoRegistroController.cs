@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServiceODS;
@@ -74,8 +75,16 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoCrudModel.PrecioUnidad = producto.PrecioCatalogo;
                 pedidoCrudModel.CUV = producto.CUV;
                 pedidoCrudModel.ConfiguracionOfertaID = producto.ConfiguracionOfertaID;
-                pedidoCrudModel.OrigenPedidoWeb = Constantes.OrigenPedidoWeb.DesktopHomeBannersCarrusel;
                 pedidoCrudModel.TipoEstrategiaID = Int32.TryParse(producto.TipoEstrategiaID, out outVal) ? Int32.Parse(producto.TipoEstrategiaID) : 0;
+                
+                var modeloOrigenPedido = new OrigenPedidoWebModel
+                {
+                    Dispositivo = ConsOrigenPedidoWeb.Dispositivo.Desktop,
+                    Pagina = ConsOrigenPedidoWeb.Pagina.Home,
+                    Palanca = ConsOrigenPedidoWeb.Palanca.Banners,
+                    Seccion = ConsOrigenPedidoWeb.Seccion.Carrusel
+                };
+                pedidoCrudModel.OrigenPedidoWeb = UtilOrigenPedidoWeb.ToInt(modeloOrigenPedido);
 
                 return await PedidoAgregarProductoTransaction(pedidoCrudModel);
 
@@ -236,6 +245,9 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
                 #endregion
+
+
+                var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(model.OrigenPedidoWeb);
 
                 #region VirtualCoach
                 if (model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.VirtualCoachDesktopPedido ||
@@ -399,7 +411,8 @@ namespace Portal.Consultoras.Web.Controllers
                         formatoTotal = FormatoTotal,
                         listCuvEliminar = pedidoDetalleResult.ListCuvEliminar.ToList(),
                         mensajeCondicional,
-                        EsReservado = esReservado
+                        EsReservado = esReservado,
+                        PedidoWeb = ActualizaModeloPedidoSb2Model(pedidoDetalleResult.PedidoWeb)
                     }, JsonRequestBehavior.AllowGet);
                 }
                 else
@@ -426,6 +439,19 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        private PedidoSb2Model ActualizaModeloPedidoSb2Model(BEPedidoWeb pedidoWeb)
+        {
+            var pedidoSb2Model = new PedidoSb2Model();
+            pedidoSb2Model.FormatoTotalGananciaRevistaStr = Util.DecimalToStringFormat(pedidoWeb.GananciaRevista, userData.CodigoISO);
+            pedidoSb2Model.FormatoTotalGananciaWebStr = Util.DecimalToStringFormat(pedidoWeb.GananciaWeb, userData.CodigoISO);
+            pedidoSb2Model.FormatoTotalGananciaOtrosStr = Util.DecimalToStringFormat(pedidoWeb.GananciaOtros, userData.CodigoISO);
+
+            pedidoSb2Model.FormatoTotalMontoAhorroCatalogoStr = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo, userData.CodigoISO);
+            var totalSumarized = pedidoWeb.GananciaOtros + pedidoWeb.GananciaWeb + pedidoWeb.GananciaRevista + pedidoWeb.MontoAhorroCatalogo;
+            pedidoSb2Model.FormatoTotalMontoGananciaStr = Util.DecimalToStringFormat(totalSumarized, userData.CodigoISO);
+
+            return pedidoSb2Model;
+        }
         [HttpPost]
         public async Task<JsonResult> AgergarPremioDefault()
         {
@@ -554,7 +580,8 @@ namespace Portal.Consultoras.Web.Controllers
                     DataBarra = GetDataBarra(),
                     cantidadTotalProductos = CantidadTotalProductos,
                     mensajeCondicional,
-                    EsReservado = esReservado
+                    EsReservado = esReservado,
+                    PedidoWeb = ActualizaModeloPedidoSb2Model(pedidoDetalleResult.PedidoWeb)
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -666,7 +693,8 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoAgrupado.TipoEstrategiaCodigo
                 },
                 cantidadTotalProductos = olstPedidoWebDetalle.Sum(x => x.Cantidad),
-                EsReservado = esReservado
+                EsReservado = esReservado,
+                PedidoWeb = ActualizaModeloPedidoSb2Model(result.PedidoWeb)
             }));
 
             return lastResult;

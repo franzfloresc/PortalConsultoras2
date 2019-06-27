@@ -5,10 +5,10 @@ using Portal.Consultoras.Common.Serializer;
 using Portal.Consultoras.Data.CaminoBrillante;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.CaminoBrillante;
+using Portal.Consultoras.Entities.OrdenYFiltros;
 using Portal.Consultoras.Entities.Pedido;
 using System;
 using System.Collections.Generic;
-using Portal.Consultoras.Entities.OrdenYFiltros;
 using System.Data;
 using System.Globalization;
 using System.Linq;
@@ -64,9 +64,9 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             }, tablaLogicaDatosEnterateMas, e.CodigoNivel)).ToList();
         }
 
-        private bool Niveles_TIeneOfertasEspeciales(List<BETablaLogicaDatos> bETablaLogicaDatos, string codNivel, bool defValor)
+        private bool Niveles_TIeneOfertasEspeciales(List<BETablaLogicaDatos> beTablaLogicaDatos, string codNivel, bool defValor)
         {
-            var bETablaLogicaDato = bETablaLogicaDatos.FirstOrDefault(e => e.Codigo == codNivel);
+            var bETablaLogicaDato = beTablaLogicaDatos.FirstOrDefault(e => e.Codigo == codNivel);
             return bETablaLogicaDato != null ? "1".Equals(bETablaLogicaDato.Valor) : defValor;
         }
 
@@ -777,14 +777,14 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return CacheManager<List<BEKitCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteOfertas, string.Format("{0}-{1}", periodoId, campaniaId), () => GetKitsProvider(paisId, periodoId, campaniaId));
         }
 
-        private List<BEKitsHistoricoConsultora> GeOfertasHistoricos(int paisId, long consultoraId, string codigoConsultora, int CampaniaId, int periodoId)
+        private List<BEKitsHistoricoConsultora> GeOfertasHistoricos(int paisId, long consultoraId, string codigoConsultora, int campaniaId, int periodoId)
         {
             _providerCaminoBrillante = _providerCaminoBrillante ?? GetCaminoBrillanteProvider(paisId);
             if (_providerCaminoBrillante == null) return null;
 
             var kitsHistoricos = _providerCaminoBrillante.GetKitHistoricoConsultora(Util.GetPaisIsoHanna(paisId), codigoConsultora, periodoId).Result ?? new List<KitsHistoricoConsultora>();
-            var kitsEnPedido = new DACaminoBrillante(paisId).GetPedidoWebDetalleCaminoBrillante(periodoId, CampaniaId, consultoraId).MapToCollection<BEKitsHistoricoConsultora>(closeReaderFinishing: true) ?? new List<BEKitsHistoricoConsultora>();
-            kitsEnPedido.AddRange(kitsHistoricos.Select(e => new BEKitsHistoricoConsultora() { CodigoKit = e.CodigoKit, CampaniaAtencion = e.CampaniaAtencion, CampaniaID = CampaniaId, FlagHistorico = true }));
+            var kitsEnPedido = new DACaminoBrillante(paisId).GetPedidoWebDetalleCaminoBrillante(periodoId, campaniaId, consultoraId).MapToCollection<BEKitsHistoricoConsultora>(closeReaderFinishing: true) ?? new List<BEKitsHistoricoConsultora>();
+            kitsEnPedido.AddRange(kitsHistoricos.Select(e => new BEKitsHistoricoConsultora() { CodigoKit = e.CodigoKit, CampaniaAtencion = e.CampaniaAtencion, CampaniaID = campaniaId, FlagHistorico = true }));
 
             return kitsEnPedido;
         }
@@ -1047,24 +1047,24 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             };
         }
 
-        private List<BEProductoCaminoBrillante> GetCuvsCaminoBrillante(int PaisID, int CampaniaID)
+        private List<BEProductoCaminoBrillante> GetCuvsCaminoBrillante(int paisId, int campaniaId)
         {
-            return GetCuvsCaminoBrillanteCache(PaisID, CampaniaID);
+            return GetCuvsCaminoBrillanteCache(paisId, campaniaId);
         }
 
-        private List<BEProductoCaminoBrillante> GetCuvsCaminoBrillanteCache(int PaisID, int CampaniaID)
+        private List<BEProductoCaminoBrillante> GetCuvsCaminoBrillanteCache(int paisId, int campaniaId)
         {
-            return CacheManager<List<BEProductoCaminoBrillante>>.ValidateDataElement(PaisID, ECacheItem.CaminoBrillanteCuvs, string.Format("{0}", CampaniaID), () => GetCuvsCaminoBrillanteBD(PaisID, CampaniaID));
+            return CacheManager<List<BEProductoCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteCuvs, string.Format("{0}", campaniaId), () => GetCuvsCaminoBrillanteBD(paisId, campaniaId));
         }
 
-        private List<BEProductoCaminoBrillante> GetCuvsCaminoBrillanteBD(int PaisID, int CampaniaID)
+        private List<BEProductoCaminoBrillante> GetCuvsCaminoBrillanteBD(int paisId, int campaniaId)
         {
-            var productos = new DACaminoBrillante(PaisID).GetCuvsCaminoBrillante(CampaniaID).MapToCollection<BEProductoCaminoBrillante>(closeReaderFinishing: true) ?? new List<BEProductoCaminoBrillante>();
+            var productos = new DACaminoBrillante(paisId).GetCuvsCaminoBrillante(campaniaId).MapToCollection<BEProductoCaminoBrillante>(closeReaderFinishing: true) ?? new List<BEProductoCaminoBrillante>();
 
             try
             {
                 var valProducto = ValProductoInList(productos);
-                var kits = GetKitsCache(PaisID, 0, CampaniaID) ?? new List<BEKitCaminoBrillante>();
+                var kits = GetKitsCache(paisId, 0, campaniaId) ?? new List<BEKitCaminoBrillante>();
                 kits.ForEach(e => valProducto(e, 1));
             }
             catch (Exception) {
@@ -1145,19 +1145,19 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             if (nivelId == 0) return;
 
             var demostradores = GetDemostradores(paisId, campaniaId, nivelId) ?? new List<BEDemostradoresCaminoBrillante>();
-            bEPedidoWebDetalle.EsDemCaminoBrillante = demostradores.Any(k => k.CUV == bEPedidoWebDetalle.CUV);
-            if (!bEPedidoWebDetalle.EsDemCaminoBrillante)
+            bePedidoWebDetalle.EsDemCaminoBrillante = demostradores.Any(k => k.CUV == bePedidoWebDetalle.CUV);
+            if (!bePedidoWebDetalle.EsDemCaminoBrillante)
             {
                 var periodo = GetPeriodo(paisId, campaniaId);
                 if (periodo != null)
                 {
                     var kits = GetKitsCache(paisId, periodo.Periodo, campaniaId) ?? new List<BEKitCaminoBrillante>();
-                    var kit = kits.FirstOrDefault(k => k.CUV == bEPedidoWebDetalle.CUV);
+                    var kit = kits.FirstOrDefault(k => k.CUV == bePedidoWebDetalle.CUV);
                     if (kit != null)
                     {
-                        bEPedidoWebDetalle.EsKitCaminoBrillante = true;
-                        bEPedidoWebDetalle.DescripcionCortadaProd = kit.DescripcionCUV;
-                        bEPedidoWebDetalle.DescripcionProd = kit.DescripcionCUV;
+                        bePedidoWebDetalle.EsKitCaminoBrillante = true;
+                        bePedidoWebDetalle.DescripcionCortadaProd = kit.DescripcionCUV;
+                        bePedidoWebDetalle.DescripcionProd = kit.DescripcionCUV;
                     }
                 }
             }
@@ -1200,7 +1200,6 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             {
                 return false;
             }
-
         }
 
         public string ValAgregarCaminiBrillante(BEEstrategia estrategia, BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle)
@@ -1263,17 +1262,17 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #region Orden y Filtros
 
-        public BEOrdenFiltroConfiguracion GetFiltrosCaminoBrillante(int paisID, bool isApp)
+        public BEOrdenFiltroConfiguracion GetFiltrosCaminoBrillante(int paisId, bool isApp)
         {
-            return GetFiltrosCache(paisID, isApp);
+            return GetFiltrosCache(paisId, isApp);
         }
 
-        private BEOrdenFiltroConfiguracion GetFiltros(int paisID, bool isApp)
+        private BEOrdenFiltroConfiguracion GetFiltros(int paisId, bool isApp)
         {
             return new BEOrdenFiltroConfiguracion()
             {
-                Ordenamientos = GetOrden(paisID, isApp),
-                Filtros = GetFiltro(paisID, isApp)
+                Ordenamientos = GetOrden(paisId, isApp),
+                Filtros = GetFiltro(paisId, isApp)
             };
         }
 
