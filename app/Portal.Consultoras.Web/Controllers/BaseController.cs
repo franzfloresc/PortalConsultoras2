@@ -12,6 +12,7 @@ using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
+using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
@@ -506,6 +507,26 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
+
+            #region pedidos_pendientes
+            ViewBag.CantidadPedidosPendientes = 0;
+            if (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig())
+            {
+                var paisesConsultoraOnline = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
+                if (paisesConsultoraOnline.Contains(userData.CodigoISO) && userData.EsConsultora())
+                {
+                    using (var svc = new UsuarioServiceClient())
+                    {
+                        var cantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                        if (cantPedidosPendientes > 0)
+                        {
+                            ViewBag.CantidadPedidosPendientes = cantPedidosPendientes;
+                        }
+                    }
+                }
+            }
+            #endregion
+
 
             return _menuProvider.SepararItemsMenu(userData.Menu);
         }

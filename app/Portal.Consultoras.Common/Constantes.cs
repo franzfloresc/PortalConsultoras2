@@ -556,6 +556,7 @@ namespace Portal.Consultoras.Common
             public const string UrlLMS = "UrlLMS";
             public const string CursosMarquesina = "CursosMarquesina";
             public const string UrlCursoMiAcademiaVideo = "UrlCursoMiAcademiaVideo";
+            public const string UrlCursoMiAcademiaPdf = "UrlCursoMiAcademiaPdf";
             public const string UrlMisCursos = "UrlMisCursos";
             public const string TokenMisCursos = "TokenMisCursos";
             public const string UrlCursoMiAcademia = "UrlCursoMiAcademia";
@@ -2634,13 +2635,6 @@ namespace Portal.Consultoras.Common
             public const string UPDATE = "U";
             public const string DELETE = "D";
             public const string UPDATESET = "US";
-        }
-
-        public static class ClasificadorPedido
-        {
-            public const string PedidoDetalle = "DetPedido";
-            public const string PedidoDetallePendiente = "DetPedidoPend";
-            public const string PedidoDetallePoputPendiente = "DetPedidoPoputPend";
         }
 
         public static class FlagRevista

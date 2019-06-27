@@ -202,69 +202,69 @@
         <div class="content_T_T" style="position:relative; z-index:100">
             <div class="bloque_left"></div>
             @*<div id="divListadoPedido" class="divListadoPedido tabla_pedidos">
-            <div class="paginador_pedidos mostrarPaginadorPedidos">
-                <div class="titulo_mis_pedidos" style="width:100%;">
+                    <div class="paginador_pedidos mostrarPaginadorPedidos">
+                        <div class="titulo_mis_pedidos" style="width:100%;">
 
-                    @if (ViewBag.MostrarPedidosPendientes == "1")
-                    {
-                        <h1 id="pedmostreo" class="w_40" data-pedido="1">PEDIDO <b>INGRESADO</b></h1>
+                            @if (ViewBag.MostrarPedidosPendientes == "1")
+                            {
+                                <h1 id="pedmostreo" class="w_40" data-pedido="1">PEDIDO <b>INGRESADO</b></h1>
 
-                        <h1 id="penmostreo" style="display: none; background: white;" class="w_25" data-pedido="2">
-                            <b>PENDIENTES</b>
-                            <div class="info_tiempo_oportunidad inicial">
-                                <div class="campana">
-                                    <a class="" href="javascript:;" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
-                                        <div class="campana_svg mensaje_svg"></div>
-                                        <p class="notificaciones notificaciones_existentes notificaciones_activas" id="cont1PedidosPend">0</p>
-                                    </a>
+                                <h1 id="penmostreo" style="display: none; background: white;" class="w_25" data-pedido="2">
+                                    <b>PENDIENTES</b>
+                                    <div class="info_tiempo_oportunidad inicial">
+                                        <div class="campana">
+                                            <a class="" href="javascript:;" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
+                                                <div class="campana_svg mensaje_svg"></div>
+                                                <p class="notificaciones notificaciones_existentes notificaciones_activas" id="cont1PedidosPend">0</p>
+                                            </a>
+                                        </div>
+                                        <div class="noticia">
+                                            <h6>Tienes <span id="cont2PedidosPend">0</span> pedidos pendientes.</h6>
+                                            <h6 class="tiempos_P"><span><b>Te quedan <span id="fecPedidoPendRec">00:00:00</span></b></span> horas para atenderlo.</h6>
+                                            <h4 class="linkea_Pendientes">►REVÍSALO</h4>
+                                        </div>
+                                    </div>
+                                </h1>
+                            }
+                            else
+                            {
+                                <h1>MIS <b>PRODUCTOS</b></h1>
+                            }
+                        </div>
+                        <div id="paginadorCab">
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+
+
+                    <div id="infoPedido">
+                        <div class="grilla_pedidos" data-tag="table" id="tbListaPedido">
+                            <div class="encabezado_ingresoPedido">
+                                <div class="texto_encabezado_pedidos cabecera_codigo" align="left">Código</div>
+                                <div class="texto_encabezado_pedidos cabecera_producto" align="left">Producto</div>
+                                <div class="texto_encabezado_pedidos cabecera_unidades">Unidades</div>
+                                <div class="texto_encabezado_pedidos precioUnitario cabecera_precioUnitario">Precio Unitario</div>
+                                <div class="texto_encabezado_pedidos subtotal cabecera_subtotal">
+                                    <span class="mostrarPrecioUnitario">Precio Unitario</span>
+                                    <span>Subtotal</span>
                                 </div>
-                                <div class="noticia">
-                                    <h6>Tienes <span id="cont2PedidosPend">0</span> pedidos pendientes.</h6>
-                                    <h6 class="tiempos_P"><span><b>Te quedan <span id="fecPedidoPendRec">00:00:00</span></b></span> horas para atenderlo.</h6>
-                                    <h4 class="linkea_Pendientes">►REVÍSALO</h4>
+                                <div class="texto_encabezado_pedidos cabecera_cliente">
+                                    <select id="ddlClientes" onchange="CambiarCliente(this)"></select>
                                 </div>
+                                <div class="texto_encabezado_pedidos acciones"></div>
                             </div>
-                        </h1>
-                    }
-                    else
-                    {
-                        <h1>MIS <b>PRODUCTOS</b></h1>
-                    }
-                </div>
-                <div id="paginadorCab">
-                </div>
-            </div>
-            <div class="clear"></div>
 
-
-            <div id="infoPedido">
-                <div class="grilla_pedidos" data-tag="table" id="tbListaPedido">
-                    <div class="encabezado_ingresoPedido">
-                        <div class="texto_encabezado_pedidos cabecera_codigo" align="left">Código</div>
-                        <div class="texto_encabezado_pedidos cabecera_producto" align="left">Producto</div>
-                        <div class="texto_encabezado_pedidos cabecera_unidades">Unidades</div>
-                        <div class="texto_encabezado_pedidos precioUnitario cabecera_precioUnitario">Precio Unitario</div>
-                        <div class="texto_encabezado_pedidos subtotal cabecera_subtotal">
-                            <span class="mostrarPrecioUnitario">Precio Unitario</span>
-                            <span>Subtotal</span>
+                            <div id="tbobyDetallePedido"></div>
                         </div>
-                        <div class="texto_encabezado_pedidos cabecera_cliente">
-                            <select id="ddlClientes" onchange="CambiarCliente(this)"></select>
-                        </div>
-                        <div class="texto_encabezado_pedidos acciones"></div>
                     </div>
 
-                    <div id="tbobyDetallePedido"></div>
-                </div>
-            </div>
+                    <div class="paginador_pedidos mostrarPaginadorPedidos inferior">
+                        <div id="paginadorPie">
+                        </div>
+                    </div>
 
-            <div class="paginador_pedidos mostrarPaginadorPedidos inferior">
-                <div id="paginadorPie">
-                </div>
-            </div>
-
-            <div class="clear"></div>
-        </div>*@
+                    <div class="clear"></div>
+                </div>*@
             @Html.Partial("~/Views/Pedido/_vpPedidoGrilla.cshtml", Model)
 
             @{
@@ -338,60 +338,60 @@
                         <div class="caja_montos">
                             <div style="position: relative;">
                                 @*@if (Model.IsShowGananciaConsultora)
-                                {*@
-                                    <div class="ganancia-estimada">
-                                        <div class="panel-toggle">
-                                            <div class="toggle-header">
-                                                <div class="toggle-switch closed">
-                                                    <div class="toggle-icon">
-                                                    </div>
-                                                </div>
-                                                <div class="toggle-info @colorEstilo">
-                                                    <span class="ganancia-titulo accent-color">
-                                                        @(cabezaEscala):
-                                                    </span>
-                                                    <span id="div-ganancia-total" class="ganancia-total accent-color">
-                                                        @Model.Simbolo <span id="div-ganancia-totalMontoGanancia">@Model.FormatoTotalMontoGanancia</span>
-                                                    </span>
+                                    {*@
+                                <div class="ganancia-estimada">
+                                    <div class="panel-toggle">
+                                        <div class="toggle-header">
+                                            <div class="toggle-switch closed">
+                                                <div class="toggle-icon">
                                                 </div>
                                             </div>
-                                            <div class="toggle-content">
-                                                <div class="toggle-info">
-                                                    <span class="ganancia-titulo first-color">
-                                                        Catálogo
-                                                    </span>
-                                                    <span class="ganancia-total first-color">
-                                                        @Model.Simbolo <span id="div-ganancia-totalGananciaCatalogo">@Model.FormatoMontoAhorroCatalogo</span>
-                                                    </span>
-                                                </div>
-                                                <div class="toggle-info">
-                                                    <span class="ganancia-titulo first-color">
-                                                        Guía de negocio
-                                                    </span>
-                                                    <span class="ganancia-total first-color">
-                                                        @Model.Simbolo <span id="div-ganancia-totalGananciaRevista">@Model.FormatoGananciaRevista</span>
-                                                    </span>
-                                                </div>
-                                                <div class="toggle-info">
-                                                    <span class="ganancia-titulo first-color">
-                                                        @ViewBag.LabelGananciaWeb
-                                                    </span>
-                                                    <span class="ganancia-total first-color">
-                                                        @Model.Simbolo <span id="div-ganancia-totalGananciaWeb">@Model.FormatoGananciaWeb</span>
-                                                    </span>
-                                                </div>
-                                                <div class="toggle-info">
-                                                    <span class="ganancia-titulo first-color">
-                                                        Otros
-                                                    </span>
-                                                    <span class="ganancia-total first-color">
-                                                        @Model.Simbolo <span id="div-ganancia-totalGananciaOtros">@Model.FormatoGananciaOtros</span>
-                                                    </span>
-                                                </div>
+                                            <div class="toggle-info @colorEstilo">
+                                                <span class="ganancia-titulo accent-color">
+                                                    @(cabezaEscala):
+                                                </span>
+                                                <span id="div-ganancia-total" class="ganancia-total accent-color">
+                                                    @Model.Simbolo <span id="div-ganancia-totalMontoGanancia">@Model.FormatoTotalMontoGanancia</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="toggle-content">
+                                            <div class="toggle-info">
+                                                <span class="ganancia-titulo first-color">
+                                                    Catálogo
+                                                </span>
+                                                <span class="ganancia-total first-color">
+                                                    @Model.Simbolo <span id="div-ganancia-totalGananciaCatalogo">@Model.FormatoMontoAhorroCatalogo</span>
+                                                </span>
+                                            </div>
+                                            <div class="toggle-info">
+                                                <span class="ganancia-titulo first-color">
+                                                    Guía de negocio
+                                                </span>
+                                                <span class="ganancia-total first-color">
+                                                    @Model.Simbolo <span id="div-ganancia-totalGananciaRevista">@Model.FormatoGananciaRevista</span>
+                                                </span>
+                                            </div>
+                                            <div class="toggle-info">
+                                                <span class="ganancia-titulo first-color">
+                                                    @ViewBag.LabelGananciaWeb
+                                                </span>
+                                                <span class="ganancia-total first-color">
+                                                    @Model.Simbolo <span id="div-ganancia-totalGananciaWeb">@Model.FormatoGananciaWeb</span>
+                                                </span>
+                                            </div>
+                                            <div class="toggle-info">
+                                                <span class="ganancia-titulo first-color">
+                                                    Otros
+                                                </span>
+                                                <span class="ganancia-total first-color">
+                                                    @Model.Simbolo <span id="div-ganancia-totalGananciaOtros">@Model.FormatoGananciaOtros</span>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
-                                   @*}*@
+                                </div>
+                                @*}*@
 
 
                                 <div class="contenedorCupon" style="width: 100%;">
@@ -432,18 +432,18 @@
                                             </span>
                                         </div>
                                         @*@if (!Model.IsShowGananciaConsultora)
-                                        {
-                                            <div class="ganancia-info">
-                                                <span class="ganancia-titulo accent-color @colorEstilo">
-                                                    <img src="/Content/Images/Esika/info-copy.png" onclick="MostrarDetalleGanancia();">
-                                                    @(cabezaEscala):
-                                                </span>
-                                                <span class="ganancia-total accent-color" data-pedidototal>
-                                                    <i>@Model.Simbolo</i> <span id="spnMontoGanancia" data-ganancia="">@Model.FormatoMontoGanancia</span>
+                                            {
+                                                <div class="ganancia-info">
+                                                    <span class="ganancia-titulo accent-color @colorEstilo">
+                                                        <img src="/Content/Images/Esika/info-copy.png" onclick="MostrarDetalleGanancia();">
+                                                        @(cabezaEscala):
+                                                    </span>
+                                                    <span class="ganancia-total accent-color" data-pedidototal>
+                                                        <i>@Model.Simbolo</i> <span id="spnMontoGanancia" data-ganancia="">@Model.FormatoMontoGanancia</span>
 
-                                                </span>
-                                            </div>
-                                        }*@
+                                                    </span>
+                                                </div>
+                                            }*@
 
                                     </div>
                                 </div>
@@ -456,9 +456,9 @@
                     </div>
                     <div class="contenedor_btnGuardarPedido">
                         @*@if (Model.IsShowGananciaConsultora)
-                        {*@
-                            <div class="mb-80">
-                            </div>
+                            {*@
+                        <div class="mb-80">
+                        </div>
                         @*}*@
                         @{
                             string[] tooltips = (Model.ProlTooltip ?? "").Split('|');
@@ -539,20 +539,20 @@
                     </div>
                     <div class="descripcion_observaciones_alerta" id="desc_obs_alerta">
                         @*<ul>
-                        <li>
-                            El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                            Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                        </li>
-                        <li>
-                            El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                            Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                        </li>
-                        <li>
-                            El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
-                            Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
-                        </li>
+                                <li>
+                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                                </li>
+                                <li>
+                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                                </li>
+                                <li>
+                                    El producto <b>43141 LABIAL HIDRACOLOR XT 3.8G</b> está agotado y no te lo cobraremos.
+                                    Se mantendrá en tu pedido el resto de productos del pack con los precios de la promoción 43141.
+                                </li>
 
-                    </ul>*@
+                            </ul>*@
                     </div>
 
                 </div>
@@ -634,39 +634,39 @@
                 <div class="clear"></div>
             </div>
             @*@if (ViewBag.MostrarPedidosPendientes == "1")
-        {
-            <div id="infoPendientes" style="background:white; display: none;">
+                {
+                    <div id="infoPendientes" style="background:white; display: none;">
 
-                <div id="paginadorCabPend" class="cant_productos_y_paginador_wrapper_top">
-                </div>
-                <div class="content_datos_pendientes">
-                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nombre de Cliente</div>
-                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Origen</div>
+                        <div id="paginadorCabPend" class="cant_productos_y_paginador_wrapper_top">
+                        </div>
+                        <div class="content_datos_pendientes">
+                            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Tipo y nombre de Cliente</div>
+                            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Origen</div>
 
-                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Fecha Registro</div>
-                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Precio Total</div>
-                    <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Acción</div>
-                </div>
-                <div class="linea_separadora" style="margin-top:-1px"></div>
-                <div>
-                    <div id="divPedidosPend"> </div>
-                </div>
-                <div id="paginadorPiePend" class="cant_productos_y_paginador_wrapper_bottom">
-                </div>
-                <div class="revision_pedidosAceptados">
-                    <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
-                    <span class="icono_consultoraOnline"></span>
-                    <span class="texto_misPedidosClientesOnline" style="cursor: pointer;" onclick="MostrarMisPedidosConsultoraOnline();">MIS PEDIDOS DEL <b>APP DE CATÁLOGOS</b></span>
-                </div>
+                            <div class="texto_gris_popup padding_tabla_pendientes dinamicostable">Fecha Registro</div>
+                            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablemedio">Precio Total</div>
+                            <div class="texto_gris_popup padding_tabla_pendientes dinamicostablegrande">Acción</div>
+                        </div>
+                        <div class="linea_separadora" style="margin-top:-1px"></div>
+                        <div>
+                            <div id="divPedidosPend"> </div>
+                        </div>
+                        <div id="paginadorPiePend" class="cant_productos_y_paginador_wrapper_bottom">
+                        </div>
+                        <div class="revision_pedidosAceptados">
+                            <span class="texto_revisaPedidos">Revisa tus pedidos aceptados en:</span>
+                            <span class="icono_consultoraOnline"></span>
+                            <span class="texto_misPedidosClientesOnline" style="cursor: pointer;" onclick="MostrarMisPedidosConsultoraOnline();">MIS PEDIDOS DEL <b>APP DE CATÁLOGOS</b></span>
+                        </div>
 
-                <div style="display: none;">
-                    @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmConsultoraOnline" }))
-                    {
-                        <input type="hidden" name="lanzarTabConsultoraOnline" value="true">
-                    }
-                </div>
-            </div>
-        }*@
+                        <div style="display: none;">
+                            @using (Html.BeginForm("", "", FormMethod.Post, new { id = "frmConsultoraOnline" }))
+                            {
+                                <input type="hidden" name="lanzarTabConsultoraOnline" value="true">
+                            }
+                        </div>
+                    </div>
+                }*@
         </div>
     </div>
 
@@ -1147,6 +1147,7 @@
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupPremio.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Pedido/_PopupDescuento.cshtml")
 @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupInformacionRegalo.cshtml");}
+@{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupReservaPedido.cshtml");}
 
 @if (Model.MostrarPopupPrecargados)
 {
@@ -1471,12 +1472,12 @@
                 </div>
                 <div class="mensajes_deAtencion">
 
-                    <span>¡No te pierdas esta oportunidad!</span>
-                    {{#if FlagConsultora}}
-                    <span>Te quedan<br>00:00:00</span>
-                    {{else}}
-                    <span>Te quedan<br>{{SaldoHoras}}</span>
-                    {{/if}}
+                <span>¡No te pierdas esta oportunidad!</span>
+                {{#if FlagConsultora}}
+                <span style="width:100%;"></span>
+                {{else}}
+                <span style="width:100%;"></span>
+                {{/if}}
 
                 </div>
 
@@ -2014,7 +2015,7 @@
 
 @section scripts{
 
-<script type="text/javascript">
+    <script type="text/javascript">
         var arregloProductos;
         var cantProductosLoad = '@Model.ListaEstrategias.Count';
         var constConfiguracionOfertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
@@ -2092,6 +2093,18 @@
         var urlValidarSuscripcionSE = '@Url.Action("ValidarSuscripcionSE", "PedidoRegistro", new { area = "" })';
         //FIN HD-4200
 
+        //INI HD-4294
+        var configActualizarCorreo = {
+        UrlActualizarEnviarCorreo: '@Url.Action("ActualizarEnviarCorreo", "Pedido", new { area = "" })',
+        UrlPedidoValidado: '@Url.Action("PedidoValidado", "Pedido", new { area = "" })',
+        UrlPedido: '@Url.Action("Index", "Pedido", new { area = "" })',
+        MensajeError: '@Html.Raw(Constantes.MensajesError.ActivacionCorreo)',
+        MensajeReenvioExitoso: '@Html.Raw(Constantes.MensajesExito.UpdCorreoConsultora_Reenvio)',
+        CorreoActual: '@Model.EMail'
+        };
+        //FIN HD-4294
+
+
         var urlObtenerComponentes = '@Url.Action("ObtenerComponentes", "DetalleEstrategia")';
         var listaIconoLluvia = [
             '@Url.Content("~/Content/Images/lluvia/ov-d.svg")',
@@ -2105,13 +2118,13 @@
 
         var activarRecomendaciones = '@ViewBag.ActivarRecomendaciones';
         var maxCaracteresRecomendaciones = '@ViewBag.MaxCaracteresRecomendaciones';
-        var ClasPedidoPopupPedidoPend = '@Constantes.ClasificadorPedido.PedidoDetallePoputPendiente';
+        @*var ClasPedidoPopupPedidoPend = '@Constantes.ClasificadorPedido.PedidoDetallePoputPendiente';
         var ClasPedidoDetalle = '@Constantes.ClasificadorPedido.PedidoDetalle';
-        var ClasPedidoDetallePendiente = '@Constantes.ClasificadorPedido.PedidoDetallePendiente';
+        var ClasPedidoDetallePendiente = '@Constantes.ClasificadorPedido.PedidoDetallePendiente';*@
         var kitsCaminoBrillante = '@ViewBag.KitsCaminoBrillante';
         var PedidoEscogeRegaloCarrusel = '@Constantes.OrigenPedidoWeb.DesktopPedidoEscogeRegaloCarrusel';/*HD-3710*/
 
-</script>
+    </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2-Pedido")
     @if (HttpContext.Current.Request.Browser.IsMobileDevice)
     {
@@ -2119,10 +2132,10 @@
             mobileDevice = true;
         </script>
     }
-    @if (ViewBag.MostrarPedidosPendientes == "1")
-    {
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ConsultoraOnline.js")"></script>
-    }
+    @*@if (ViewBag.MostrarPedidosPendientes == "1")
+        {
+            <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ConsultoraOnline.js")"></script>
+        }*@
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/FichaProducto/Index.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=2"></script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
