@@ -1893,7 +1893,7 @@ public ActionResult MostrarMensajeBuro(string respuestaBuro)
 
         public ActionResult PosibleFraudeUbicaciones(string nombre, string numDocu, string direccion, decimal x, decimal y, long solPostulanteId)
         {
-            ViewBag.HTMLSACUnete = getHTMLSACUnete("PosibleFraudeUbicaciones", $"&nombre={nombre}&numDocu={numDocu}&direccion={direccion}&x={x}&y={y}&solPostulanteId={solPostulanteId}");
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("PosibleFraudeUbicaciones", string.Format("&nombre={0}&numDocu={1}&direccion={2}&x={3}&y={4}&solPostulanteId={5}", nombre, numDocu, direccion, x, y, solPostulanteId));
             return PartialView("_PosibleFraudeUbicaciones");
         }
 
