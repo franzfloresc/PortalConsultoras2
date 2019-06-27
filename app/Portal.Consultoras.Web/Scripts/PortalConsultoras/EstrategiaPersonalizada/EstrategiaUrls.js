@@ -1,10 +1,6 @@
 ﻿
 var FichaVerDetalle = (function () {
-
-    //var estrategiaAgregar = EstrategiaAgregarModule;
-    //var analyticsPortal = AnalyticsPortalModule;
-    //var codigoOrigenPedidoWeb = CodigoOrigenPedidoWeb;
-
+    
     var onClickFichaDetalle = function (e) {
         //el objeto e debe ser establecido con target  (e.target)
         var infoCuvItem = EstrategiaAgregarModule.EstrategiaObtenerObj($(e));
@@ -194,12 +190,3 @@ var FichaVerDetalle = (function () {
     }
 
 })();
-
-//function BuscadorFichaDetalle(codigoCampania, codigoCuv, OrigenPedidoWeb, codigoEstrategia) {
-//    var UrlDetalle = GetPalanca(codigoEstrategia);
-//    if (UrlDetalle == "") return false;
-//    UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + OrigenPedidoWeb;
-//    window.location = UrlDetalle;
-//    return true;
-//}
-

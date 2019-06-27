@@ -355,7 +355,7 @@ var FichaModule = (function (config) {
                     var valData = $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia) || "";
                     if (valData != "") {
                         mensajeError += "\n valData != ''";
-                        estrategia = JSON.parse(valData);
+                        estrategia = $.extend(JSON.parse(valData), modeloFicha);
                     }
                     else {
                         mensajeError += "\n valData == ''";
@@ -369,8 +369,7 @@ var FichaModule = (function (config) {
                     + "| campania=" + _config.campania
                     + "| palanca=" + _config.palanca
                     + "| OfertasParaMi=" + _tipoEstrategiaTexto.OfertasParaMi;
-
-
+                
                 estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
                 if ((typeof estrategia === "undefined" || estrategia === null) && _config.palanca === _tipoEstrategiaTexto.OfertasParaMi) {
                     mensajeError += "\n estrategia == null 1"
@@ -380,18 +379,26 @@ var FichaModule = (function (config) {
             }
 
             if (typeof estrategia === "undefined" || estrategia == null) {
+                estrategia = { Error: true };
                 mensajeError += "\n estrategia null 2";
+            }
+            
+            if (estrategia.Error === true) {
+                //Consumir el lS Temporal por cuv y tipo estrategia
+                // en caso no exista, consumir MSPersonalizacion byCuv para obtener la oferta
                 throw mensajeError;
             }
 
             _getComponentesAndUpdateEsMultimarca(estrategia);
+
         }
         else {
             mensajeError += "\n _fichaServicioApi no";
             estrategia = modeloFicha;
 
             if (typeof estrategia === "undefined" || estrategia == null || typeof estrategia.EstrategiaID === "undefined" || estrategia.EstrategiaID == 0) {
-                throw '_getEstrategia, no obtiene oferta desde api';
+                mensajeError += '_getEstrategia, no obtiene oferta desde api';
+                throw mensajeError;
             }
 
             _esMultimarca = estrategia.EsMultimarca;
@@ -402,11 +409,6 @@ var FichaModule = (function (config) {
                 hermano = estrategia.Hermanos[idx];
                 hermano.esCampaniaSiguiente = estrategia.esCampaniaSiguiente;
             });
-
-            if (!estrategia || !estrategia.EstrategiaID) {
-                mensajeError += '\n no obtiene oferta desde api';
-                throw mensajeError;
-            }
         }
 
         _actualizarCodigoVariante(estrategia);
@@ -470,9 +472,6 @@ var FichaModule = (function (config) {
 
         estrategia.FotosCarrusel = estrategia.FotosCarrusel || [];
         _setHandlebars(_template.producto, estrategia);
-        /*TESLA-97*/
-
-        /*TESLA-97*/
 
         // TODO: falta implementar en ficha responsive
         _setEstrategiaTipoBoton(estrategia);
@@ -761,12 +760,12 @@ var FichaModule = (function (config) {
                 modeloFicha.Error = data.success === false;
             })
             .fail(function (data, error) {
-                modeloFicha.Error = true;
+                throw "_getModelo, promiseObternerModelo";
             });
 
-        if (modeloFicha.Error === true) {
-            throw "_getModelo, promiseObternerModelo";
-        }
+        //if (modeloFicha.Error === true) {
+        //    throw "_getModelo, promiseObternerModelo";
+        //}
 
         modeloFicha.ConfiguracionContenedor = modeloFicha.ConfiguracionContenedor || {};
         modeloFicha.BreadCrumbs = modeloFicha.BreadCrumbs || {};
@@ -786,7 +785,7 @@ var FichaModule = (function (config) {
         if (!modeloFicha.TieneCarrusel) {
             return false;
         }
-        
+
         carruselModule = CarruselModule({
             palanca: _config.palanca,
             campania: _config.campania,
@@ -888,13 +887,17 @@ var FichaModule = (function (config) {
         _config.esMobile = _config.generalModule.isMobile();
 
         var modeloFicha = _getModelo();
+        modeloFicha = _getEstrategia(modeloFicha);
+
+        if (modeloFicha.Error === true) {
+            throw "_init, error en la estrategia";
+        }
 
         _config.tieneSession = modeloFicha.TieneSession;
         _config.palanca = modeloFicha.Palanca || _config.palanca;
         _config.origen = modeloFicha.OrigenUrl || _config.origen;
         _config.mostrarCliente = modeloFicha.MostrarCliente || _config.mostrarCliente;
 
-        modeloFicha = _getEstrategia(modeloFicha);
         _modeloFicha(modeloFicha);
 
         //if (_modeloFicha().MostrarFichaResponsive &&
@@ -1005,7 +1008,7 @@ var FichaPartialModule = (function () {
         if (isShow) {
             $('body').css('overflow', 'hidden');
             $('#DivPopupFichaResumida').show();
-        /*Tesla-97*/
+
             if ($(".slider-nav-detail").length > 0) {
                 $('.slider-nav-detail').slick({
                     slidesToShow: 10,
@@ -1045,7 +1048,7 @@ var FichaPartialModule = (function () {
             }
 
             // Para versión Mobile
-            if ($(".slider-for-detail-mobile").length > 0){
+            if ($(".slider-for-detail-mobile").length > 0) {
                 $('.slider-for-detail-mobile').slick({
                     slidesToShow: 1,
                     slidesToScroll: 1,
@@ -1067,7 +1070,6 @@ var FichaPartialModule = (function () {
                 })
             }
 
-            /*Tesla-97*/
         }
         else {
             $("[data-ficha-contenido='ofertadeldia-template-style']").html("");
