@@ -106,7 +106,7 @@ namespace Portal.Consultoras.Common
         public static void EnviarMailPedidoRechazadoAceptado(string emailFrom, string emailTo, string titulo, string displayname, string consultora,string cliente,bool esOk)
         {
 
-            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\mailing_pedido_pendiente_aceptado_rechazado.html";
+            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_pedido_pendiente_aceptado_rechazado.html";
             string htmlTemplate = FileManager.GetContenido(templatePath);
 
             var mensaje = ", tu pedido ha sido aceptado.";
