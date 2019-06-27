@@ -2102,13 +2102,14 @@ function MostrarMensajeProl(response, fnOfertaFinal) {
                 var idPedidoGuardado = "#PopupPedidoGuardado", idPedidoPendiente = "#PopupPedidosPendientes", accionIgnorar = "#accionIgnorar";
                 $(accionIgnorar).hide();
                 $(idPedidoGuardado).fadeIn(250);
-                setContainerLluvia(idPedidoGuardado);
-                mostrarLluvia();
+                //setContainerLluvia(idPedidoGuardado);
+                //mostrarLluvia();
                 setTimeout(function () {
                     var cantidad = res.hasOwnProperty("CantPedidosPendientes") ? res.CantPedidosPendientes : 0;
-                    $(idPedidoGuardado).fadeOut(250);
+                    $(idPedidoGuardado).fadeOut(500);
                     if (cantidad > 0) {
-                        $(idPedidoPendiente).fadeIn(200);
+                        $(idPedidoPendiente).delay(300);
+                        $(idPedidoPendiente).fadeIn(500);
                     }
                 }, 3750);
                 return false;

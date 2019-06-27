@@ -995,9 +995,10 @@ function RespuestaEjecutarServicioPROL(response, fnOfertaFinal) {
                 mostrarLluvia();
                 setTimeout(function () {
                     var cantidad = res.hasOwnProperty("CantPedidosPendientes") ? res.CantPedidosPendientes : 0;
-                    $(idPedidoGuardado).fadeOut(250);
+                    $(idPedidoGuardado).fadeOut(700);
                     if (cantidad > 0) {
-                        $(idPedidoPendiente).fadeIn(200);
+                        $(idPedidoPendiente).delay(300);
+                        $(idPedidoPendiente).fadeIn(700);
                     }
                 }, 3750);
                 return false;
