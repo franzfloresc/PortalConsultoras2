@@ -3250,10 +3250,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 try
                 {
-
-                    Util.EnviarMailPedidoPendienteRechazado(emailDe, pedidoAux.Email, titulocliente, mensajecliente.ToString(), true,
+                    System.Threading.Tasks.Task.Factory.StartNew(() =>
+                    {
+                        Util.EnviarMailPedidoPendienteRechazado(emailDe, pedidoAux.Email, titulocliente, mensajecliente.ToString(), true,
                         pedidoAux.Email);
-
+                    });
                 }
                 catch (Exception ex)
                 {
@@ -3361,9 +3362,11 @@ namespace Portal.Consultoras.Web.Controllers
                 string emailDe =
                     _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
 
-                Util.EnviarMailPedidoPendienteRechazado(emailDe, pedido.Email, titulocliente, mensajecliente.ToString(), true,
+                System.Threading.Tasks.Task.Factory.StartNew(() =>
+                {
+                    Util.EnviarMailPedidoPendienteRechazado(emailDe, pedido.Email, titulocliente, mensajecliente.ToString(), true,
                     pedido.Email);
-
+                });
             }
             catch (Exception ex)
             {
