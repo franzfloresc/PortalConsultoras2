@@ -1353,5 +1353,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool InsertKitSE(BEUsuario usuario);
+
+        /*HD-4513*/
+        [OperationContract]
+        BEPedidoWeb ValidarPedidoTotalPagarContado(BEPedidoWeb bePedidoWeb);
     }
 }

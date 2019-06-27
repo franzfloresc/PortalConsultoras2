@@ -34,12 +34,12 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.RevistaDigital" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Usuario" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd12" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CDR" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ProgramaNuevas" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Incentivo" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Estrategia" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd11" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl" />
+      <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd12" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd13" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Producto" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd14" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.PagoEnLinea" />
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd15" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillante" />
@@ -54,6 +54,12 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_InsertKitSE_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertKitSEResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ValidarPedidoTotalPagarContado_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarPedidoTotalPagarContado" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ValidarPedidoTotalPagarContado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarPedidoTotalPagarContadoResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetReporteMovimientosPedido_InputMessage">
     <wsdl:part name="parameters" element="tns:GetReporteMovimientosPedido" />
@@ -2610,6 +2616,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertKitSE" message="tns:IPedidoService_InsertKitSE_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertKitSEResponse" message="tns:IPedidoService_InsertKitSE_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ValidarPedidoTotalPagarContado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ValidarPedidoTotalPagarContado" message="tns:IPedidoService_ValidarPedidoTotalPagarContado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ValidarPedidoTotalPagarContadoResponse" message="tns:IPedidoService_ValidarPedidoTotalPagarContado_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetReporteMovimientosPedido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteMovimientosPedido" message="tns:IPedidoService_GetReporteMovimientosPedido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteMovimientosPedidoResponse" message="tns:IPedidoService_GetReporteMovimientosPedido_OutputMessage" />
@@ -4315,6 +4325,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="InsertKitSE">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertKitSE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarPedidoTotalPagarContado">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ValidarPedidoTotalPagarContado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8153,6 +8172,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="InsertKitSE">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertKitSE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarPedidoTotalPagarContado">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ValidarPedidoTotalPagarContado" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

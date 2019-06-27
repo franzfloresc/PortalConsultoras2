@@ -2483,5 +2483,11 @@ namespace Portal.Consultoras.Service
         {
             return _pedidoBusinessLogic.InsertKitSE(usuario);
         }
+
+        /*HD-4513*/
+        public BEPedidoWeb ValidarPedidoTotalPagarContado(BEPedidoWeb pedidowebdetalle)
+        {
+            return _pedidoWebBusinessLogic.ValidarPedidoTotalPagarContado(pedidowebdetalle);
+        }
     }
 }

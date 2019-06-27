@@ -1517,7 +1517,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (resultado.RefreshPedido) SessionManager.SetPedidoWeb(null);
                 }
                 SessionManager.SetUserData(userData);
-
+           
                 var listPedidoWebDetalle = ObtenerPedidoWebDetalle();
                 var model = new PedidoSb2Model
                 {
@@ -1547,7 +1547,15 @@ namespace Portal.Consultoras.Web.Controllers
                     Enumeradores.ResultadoReserva.NoReservadoMontoMinimo
                 };
 
-
+                var PagoContadoPrm = new ServicePedido.BEPedidoWeb()
+                {
+                    PaisID=userData.PaisID,
+                    ConsultoraID=userData.ConsultoraID,
+                    CodigoConsultora=userData.CodigoConsultora,
+                    CampaniaID=userData.CampaniaID,
+                    PagoContado=userData.PagoContado,
+                    olstBEPedidoWebDetalle= listPedidoWebDetalle.ToArray()
+                };
                 var mensajeCondicional = resultado.ListaMensajeCondicional != null && resultado.ListaMensajeCondicional.Any() ? resultado.ListaMensajeCondicional[0].MensajeRxP : null;
                 return Json(new
                 {
@@ -1567,7 +1575,8 @@ namespace Portal.Consultoras.Web.Controllers
                     flagCorreo = resultado.EnviarCorreo ? "1" : "",
                     permiteOfertaFinal = listPermiteOfertaFinal.Contains(resultado.ResultadoReservaEnum),
                     mensajeCondicional,
-                    UltimoDiaFacturacion = (userData.FechaFacturacion == Util.GetDiaActual(userData.ZonaHoraria))
+                    UltimoDiaFacturacion = (userData.FechaFacturacion == Util.GetDiaActual(userData.ZonaHoraria)),
+                    resultPagoContado = GetConfPagoContado(PagoContadoPrm) /* HD-4513 */
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -1582,6 +1591,35 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        /*HD-4513*/
+
+        private BEPedidoWeb GetConfPagoContado(BEPedidoWeb bePedidoWeb)
+        {
+            BEPedidoWeb obj = new BEPedidoWeb();
+
+            if (userData.CodigoISO != Constantes.CodigosISOPais.Ecuador || !userData.DiaPROL)
+            {
+                obj.PagoContado = false;
+                return obj;
+            }
+
+            //Consultar servicio
+            try
+            {
+               
+                using (var sv = new PedidoServiceClient())
+                {
+                    obj =  sv.ValidarPedidoTotalPagarContado(bePedidoWeb);
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return obj;
+    
+        }
         /// <summary>
         /// Fecha actual según el pais.
         /// </summary>

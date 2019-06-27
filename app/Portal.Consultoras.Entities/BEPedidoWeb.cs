@@ -128,6 +128,22 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string RecogerNombre { get; set; }
 
+        /*HD-4513*/
+        [DataMember]
+        public bool STPPagoContado { get; set; }
+
+        [DataMember]
+        public string STPTotalPagar { get; set; }
+
+        [DataMember]
+        public string STPDescuento { get; set; }
+
+        [DataMember]
+        public string STPGastTransporte { get; set; }
+
+        [DataMember]
+        public bool PagoContado { get; set; }
+
         public BEPedidoWeb() { }
 
         public BEPedidoWeb(IDataRecord row)
