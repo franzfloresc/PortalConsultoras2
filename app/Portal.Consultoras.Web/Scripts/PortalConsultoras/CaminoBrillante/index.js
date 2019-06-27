@@ -509,7 +509,7 @@ $(".tog-vermas").click(function () {
 
 
 function MostrarBeneficios(tab_id) {
-   // TagMostrarPopupNivel(tab_id);
+    TagMostrarPopupNivel(tab_id);
     $("#OfertasEspeciales").hide();
     $("#BeneficiosPrincipal").hide();
     $("#boxganancias").hide();
