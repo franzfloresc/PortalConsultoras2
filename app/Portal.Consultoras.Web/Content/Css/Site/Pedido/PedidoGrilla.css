@@ -495,6 +495,18 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     vertical-align: top;
 }
 
+.caja_montos.PedidoValidado {
+    width: auto;
+}
+
+.PedidoValidado .separador_montos {
+    bottom: 90px;
+}
+
+.PedidoValidado .monto_total {
+    margin-bottom: 10px;
+}
+
     .caja_montos div.info_extra_Validado {
         vertical-align: top;
         position: absolute;
@@ -511,8 +523,8 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido {
     .caja_montos div.info_extra_Validado:hover .monto_resumenValidado {
         display: block;
     }
-
-    .caja_montos div {
+    .caja_montos .caja_montos_cantidades,
+    .caja_montos .caja_montos_textos {
         display: inline-block;
     }
 

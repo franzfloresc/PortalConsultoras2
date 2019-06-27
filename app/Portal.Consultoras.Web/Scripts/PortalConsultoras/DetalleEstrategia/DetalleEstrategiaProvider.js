@@ -5,7 +5,7 @@ var DetalleEstrategiaProvider = function () {
     var _urlDetalleEstrategia = ConstantesModule.UrlDetalleEstrategia;
     var _codigoVariedad = ConstantesModule.CodigoVariedad;
     var _tipoEstrategiaTexto = ConstantesModule.TipoEstrategiaTexto;
-    var _tipoAccionNavegar = ConstantesModule.TipoAccionNavegar;
+    //var _tipoAccionNavegar = ConstantesModule.TipoAccionNavegar;
 
     var _promiseObternerComponentes = function (params) {
         var dfd = $.Deferred();
@@ -71,7 +71,7 @@ var DetalleEstrategiaProvider = function () {
 
     var _promiseObternerModelo = function (params) {
         var dfd = $.Deferred();
-        
+
         try {
 
             $.ajax({
@@ -101,31 +101,33 @@ var DetalleEstrategiaProvider = function () {
         return dfd.promise();
     };
 
-    var _promiseObternerEstrategiaFicha = function (params) {
-        var dfd = $.Deferred();
+    //var _promiseObternerEstrategiaFicha = function (params) {
+    //    var dfd = $.Deferred();
 
-        $.ajax({
-            type: "POST",
-            url: _urlDetalleEstrategia.obtenerEstrategiaFicha,
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(params),
-            async: false,
-            cache: false,
-            success: function (data) {
-                dfd.resolve(data);
-            },
-            error: function (data, error) {
-                dfd.reject(data, error);
-            }
-        });
+    //    $.ajax({
+    //        type: "POST",
+    //        url: _urlDetalleEstrategia.obtenerEstrategiaFicha,
+    //        dataType: "json",
+    //        contentType: "application/json; charset=utf-8",
+    //        data: JSON.stringify(params),
+    //        async: false,
+    //        cache: false,
+    //        success: function (data) {
+    //            dfd.resolve(data);
+    //        },
+    //        error: function (data, error) {
+    //            dfd.reject(data, error);
+    //        }
+    //    });
 
-        return dfd.promise();
-    };
+    //    return dfd.promise();
+    //};
 
     var _getEstrategia = function (params) {
+        var sigueTexto = '_getEstrategia';
+        console.log(sigueTexto);
         var estrategia = {};
-        
+
         _promiseObternerModelo({
             palanca: params.palanca,
             campaniaId: params.campania,
@@ -136,19 +138,34 @@ var DetalleEstrategiaProvider = function () {
             estrategia = data.data || {};
             estrategia.Error = data.success === false;
         }).fail(function (data, error) {
-            throw "DetalleEstrategiaProvider.getEstrategia";
+            GeneralModule.consoleLog(['_promiseObternerModelo', data, error]);
+            throw "DetalleEstrategiaProvider._getEstrategia";
         });
+
+        if (estrategia.Error !== false) {
+            return estrategia;
+        }
+
+        sigueTexto += '_promiseObternerModelo';
+        console.log(sigueTexto);
         estrategia.ConfiguracionContenedor = estrategia.ConfiguracionContenedor || {};
         estrategia.BreadCrumbs = estrategia.BreadCrumbs || {};
         //
         var _objTipoPalanca = ConstantesModule.DiccionarioTipoEstrategia.find(function (x) { return x.texto === params.palanca });
         var _fichaServicioApi = (variablesPortal.MsFichaEstrategias && _objTipoPalanca) ? (variablesPortal.MsFichaEstrategias.indexOf(_objTipoPalanca.codigo) > -1) : false;
         //
+        sigueTexto += '_objTipoPalanca + _fichaServicioApi';
+        console.log(sigueTexto, _fichaServicioApi + "-" + estrategia.TieneSession);
         if (!_fichaServicioApi && !estrategia.TieneSession) {
             var estrategiaTmp = localStorageModule.ObtenerEstrategia(params.cuv, params.campania, params.palanca);
 
-            if ((typeof estrategia === "undefined" || estrategia === null) && params.palanca === _tipoEstrategiaTexto.OfertasParaMi) {
+            sigueTexto += 'estrategiaTmp';
+            console.log(sigueTexto, estrategiaTmp);
+
+            if ((typeof estrategiaTmp === "undefined" || estrategiaTmp === null) && estrategia.Palanca === _tipoEstrategiaTexto.OfertasParaMi) {
                 estrategiaTmp = localStorageModule.ObtenerEstrategia(params.cuv, params.campania, _tipoEstrategiaTexto.Ganadoras);
+                sigueTexto += 'get Ganadoras';
+                console.log(sigueTexto, estrategiaTmp);
             }
 
             if (typeof estrategiaTmp === "undefined" || estrategiaTmp == null) throw "estrategia is null";
@@ -177,7 +194,9 @@ var DetalleEstrategiaProvider = function () {
                 }).fail(function (data, error) {
                     estrategia.Hermanos = [];
                     estrategia.EsMultimarca = false;
-                    throw "DetalleEstrategiaProvider.GetEstrategia : promiseObternerComponentes";
+
+                    GeneralModule.consoleLog(['_promiseObternerComponentes', data, error]);
+                    throw "DetalleEstrategiaProvider._GetEstrategia : promiseObternerComponentes";
                 });
 
         }
@@ -229,7 +248,8 @@ var DetalleEstrategiaProvider = function () {
         //estrategia = $.extend(modeloFicha, estrategia);
         estrategia.TipoPersonalizacion = estrategia.CodigoEstrategia;
         estrategia.MostarTabsFichaEnriquecidaSinDetalle = estrategia.Hermanos.length == 1;
-        //
+
+        _esMultimarca = estrategia.EsMultimarca; // General.js/ifVerificarMarca
 
         return estrategia;
     };
@@ -238,7 +258,7 @@ var DetalleEstrategiaProvider = function () {
         promiseObternerComponentes: _promiseObternerComponentes,
         promiseObternerDetallePedido: _promiseObternerDetallePedido,
         promiseObternerModelo: _promiseObternerModelo,
-        promiseObtenerEstrategiaFicha: _promiseObternerEstrategiaFicha,
-        getEstrategia: _getEstrategia
+        //promiseObtenerEstrategiaFicha: _promiseObternerEstrategiaFicha,
+        promiseGetEstrategia: _getEstrategia
     };
 }();

@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data;
 
@@ -45,7 +46,7 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                throw new Exception(Common.LogManager.GetMensajeError(ex));
+                throw new ClientInformationException(Common.LogManager.GetMensajeError(ex));
             }
         }
 
