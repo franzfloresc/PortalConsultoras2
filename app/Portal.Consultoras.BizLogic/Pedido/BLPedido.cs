@@ -1460,7 +1460,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                                         x.EsCuponIndependiente,
                                                         null,
                                                         x.EsKitCaminoBrillante || x.EsDemCaminoBrillante);
-                        x.TipoPersonalizacion = Util.GetTipoPersonalizacionByCodigoEstrategia(x.TipoEstrategiaCodigo);
+
+                        var lstCatalogos = Util.GetCodigosCatalogo();
+                        var esCatalogo = lstCatalogos.Any(item => item == x.CodigoCatalago.ToString());
+                        x.TipoPersonalizacion = esCatalogo ? Constantes.CodigoEstrategiaBuscador.Catalogo : Util.GetTipoPersonalizacionByCodigoEstrategia(x.TipoEstrategiaCodigo);
                     });
 
                     lstDetalle.Where(x => x.EsKitNueva).Update(x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.DescripcionKitInicio);
