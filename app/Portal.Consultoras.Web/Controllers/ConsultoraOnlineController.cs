@@ -1455,7 +1455,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (NumIteracion == numIteracionMaximo)
                 {
-                    sv.RechazarSolicitudCliente(paisId, SolicitudId, true, OpcionRechazo, RazonMotivoRechazo);                   
+                    sv.RechazarSolicitudCliente(paisId, SolicitudId, true, OpcionRechazo, RazonMotivoRechazo);
 
                     String titulocliente = "Tu pedido ha sido RECHAZADO por " + userData.PrimerNombre + " " +
                                            userData.PrimerApellido + " - " + medio;
@@ -2362,11 +2362,9 @@ namespace Portal.Consultoras.Web.Controllers
                 MisPedidosModel model = GetPendientes();
 
                 var pedidoSession = pedidos.ListaPedidos.FirstOrDefault();
-                System.Threading.Tasks.Task.Factory.StartNew(() =>
-                {
-                    EnviarEmailPedidoRechazado(pedidoSession);
-                });
-                
+
+                EnviarEmailPedidoRechazado(pedidoSession);
+
 
                 var PendientesJson = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
                 {
@@ -2543,7 +2541,7 @@ namespace Portal.Consultoras.Web.Controllers
                         det.Elegido = false;
                     }
                 }
-                
+
                 foreach (var det in lstDetalle)
                 {
                     foreach (var cab in pedidos.ListaPedidos)
@@ -2833,10 +2831,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #region Email
             var pedidoSession = pedidosSesion.FirstOrDefault();
-            System.Threading.Tasks.Task.Factory.StartNew(() =>
-            {
-                EnviarEmailPedidoAceptado(pedidoSession);
-            });            
+            EnviarEmailPedidoAceptado(pedidoSession);
 
             #endregion
 
