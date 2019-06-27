@@ -103,6 +103,34 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        public static void EnviarMailPedidoRechazadoAceptado(string emailFrom, string emailTo, string titulo, string displayname, string consultora,string cliente,bool esOk)
+        {
+
+            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\mailing_pedido_pendiente_aceptado_rechazado.html";
+            string htmlTemplate = FileManager.GetContenido(templatePath);
+
+            var mensaje = ", tu pedido ha sido aceptado.";
+            var urlOk = "https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/icono-notificacion-positiva.png";
+
+            if (!esOk)
+            {
+                mensaje = ", tu pedido ha sido rechazado.";
+                urlOk = "https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/icono-notificacion-negativa.png";
+            }
+
+            mensaje = cliente + mensaje;
+
+            htmlTemplate = htmlTemplate.Replace("#urlOk#", urlOk);
+            htmlTemplate = htmlTemplate.Replace("#mensaje#", mensaje);
+            htmlTemplate = htmlTemplate.Replace("#consultora#", consultora);
+
+            try { Util.EnviarMailBase(emailFrom, emailTo, string.Empty, titulo, htmlTemplate, true, displayname); }
+            catch
+            {
+                //
+            }
+        }
+
         public static void EnviarMailProcesoActualizaMisDatos(string emailFrom, string emailTo, string titulo, string displayname,  string nombre, string url, string parametros)
         {
             string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\mailing_proceso_actualizar_misdatos.html";
