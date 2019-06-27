@@ -1145,19 +1145,19 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             if (nivelId == 0) return;
 
             var demostradores = GetDemostradores(paisId, campaniaId, nivelId) ?? new List<BEDemostradoresCaminoBrillante>();
-            bePedidoWebDetalle.EsDemCaminoBrillante = demostradores.Any(k => k.CUV == bePedidoWebDetalle.CUV);
-            if (!bePedidoWebDetalle.EsDemCaminoBrillante)
+            bEPedidoWebDetalle.EsDemCaminoBrillante = demostradores.Any(k => k.CUV == bEPedidoWebDetalle.CUV);
+            if (!bEPedidoWebDetalle.EsDemCaminoBrillante)
             {
                 var periodo = GetPeriodo(paisId, campaniaId);
                 if (periodo != null)
                 {
                     var kits = GetKitsCache(paisId, periodo.Periodo, campaniaId) ?? new List<BEKitCaminoBrillante>();
-                    var kit = kits.FirstOrDefault(k => k.CUV == bePedidoWebDetalle.CUV);
+                    var kit = kits.FirstOrDefault(k => k.CUV == bEPedidoWebDetalle.CUV);
                     if (kit != null)
                     {
-                        bePedidoWebDetalle.EsKitCaminoBrillante = true;
-                        bePedidoWebDetalle.DescripcionCortadaProd = kit.DescripcionCUV;
-                        bePedidoWebDetalle.DescripcionProd = kit.DescripcionCUV;
+                        bEPedidoWebDetalle.EsKitCaminoBrillante = true;
+                        bEPedidoWebDetalle.DescripcionCortadaProd = kit.DescripcionCUV;
+                        bEPedidoWebDetalle.DescripcionProd = kit.DescripcionCUV;
                     }
                 }
             }
