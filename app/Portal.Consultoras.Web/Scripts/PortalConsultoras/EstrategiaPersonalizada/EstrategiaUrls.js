@@ -30,9 +30,11 @@ var FichaVerDetalle = (function () {
         }
 
         if (typeof LocalStorageListado != 'undefined') {
+            var palanca = getPalanca(codigoEstrategia, OrigenPedidoWeb, false);
             var modeloEstrategiaTemporal = {
                 Origen: OrigenPedidoWeb,
                 Cuv: codigoCuv,
+                Palanca: palanca,
                 Estrategia: infoCuvItem
             };
             LocalStorageListado(ConstantesModule.KeysLocalStorage.EstrategiaTemporal, modeloEstrategiaTemporal);

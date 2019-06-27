@@ -355,7 +355,8 @@ var FichaModule = (function (config) {
                     var valData = $(_elementos.dataEstrategia.id).attr(_elementos.dataEstrategia.dataEstrategia) || "";
                     if (valData != "") {
                         mensajeError += "\n valData != ''";
-                        estrategia = $.extend(JSON.parse(valData), modeloFicha);
+                        estrategia = JSON.parse(valData);
+                        estrategia.Error = modeloFicha.Error;
                     }
                     else {
                         mensajeError += "\n valData == ''";
@@ -369,7 +370,7 @@ var FichaModule = (function (config) {
                     + "| campania=" + _config.campania
                     + "| palanca=" + _config.palanca
                     + "| OfertasParaMi=" + _tipoEstrategiaTexto.OfertasParaMi;
-                
+
                 estrategia = _config.localStorageModule.ObtenerEstrategia(_config.cuv, _config.campania, _config.palanca);
                 if ((typeof estrategia === "undefined" || estrategia === null) && _config.palanca === _tipoEstrategiaTexto.OfertasParaMi) {
                     mensajeError += "\n estrategia == null 1"
@@ -382,11 +383,18 @@ var FichaModule = (function (config) {
                 estrategia = { Error: true };
                 mensajeError += "\n estrategia null 2";
             }
-            
-            if (estrategia.Error === true) {
-                //Consumir el lS Temporal por cuv y tipo estrategia
-                // en caso no exista, consumir MSPersonalizacion byCuv para obtener la oferta
-                throw mensajeError;
+
+            if (estrategia.Error) {
+
+                estrategia = _getEstrategiaMongo();
+
+                if (estrategia.Error) {
+                    mensajeError += "\n estrategia error promiseObternerEstrategiaMongo";
+                    throw mensajeError;
+                }
+
+                estrategia = _mapperEstrategia(modeloFicha, estrategia);
+                estrategia.Error = false;
             }
 
             _getComponentesAndUpdateEsMultimarca(estrategia);
@@ -422,6 +430,63 @@ var FichaModule = (function (config) {
 
         estrategia = $.extend(modeloFicha, estrategia);
         estrategia.TipoPersonalizacion = _tipoPersonalizacion(estrategia.CodigoEstrategia);
+
+        return estrategia;
+    };
+
+    var _getEstrategiaMongo = function () {
+        var estrategiaMongo = { Error: true };
+        _config.detalleEstrategiaProvider
+            .promiseObternerEstrategiaMongo({
+                palanca: _config.palanca,
+                campaniaId: _config.campania,
+                cuv: _config.cuv
+            })
+            .done(function (data) {
+                estrategiaMongo = data.data || {};
+                estrategiaMongo.Error = data.success === false;
+            })
+            .fail(function (data, error) {
+                throw "FichaModule.js _getEstrategiaMongo, promiseObternerEstrategiaMongo";
+            });
+
+        return estrategiaMongo;
+    };
+
+    var _mapperEstrategia = function (base, estrategia) {
+
+        estrategia.OrigenUrl = base.OrigenUrl;
+        estrategia.Palanca = base.Palanca;
+        estrategia.Cuv = base.Cuv;
+        estrategia.Campania = base.Campania;
+
+        estrategia.CodigoVideo = base.CodigoVideo;
+        estrategia.OrigenAgregar = base.OrigenAgregar;
+        estrategia.OrigenAgregarCarrusel = base.OrigenAgregarCarrusel;
+        estrategia.OrigenAgregarCarruselCroselling = base.OrigenAgregarCarruselCroselling;
+        estrategia.OrigenAgregarCarruselSugeridos = base.OrigenAgregarCarruselSugeridos;
+        estrategia.CodigoUbigeoPortal = base.CodigoUbigeoPortal;
+        estrategia.TieneSession = base.TieneSession;
+        estrategia.EsEditable = base.EsEditable;
+        estrategia.IsMobile = base.IsMobile;
+        estrategia.TieneReloj = base.TieneReloj;
+        estrategia.TieneCompartir = base.TieneCompartir;
+        estrategia.TieneCarrusel = base.TieneCarrusel;
+        estrategia.TeQuedan = base.TeQuedan;
+        estrategia.ColorFondo1 = base.ColorFondo1;
+        estrategia.ConfiguracionContenedor = base.ConfiguracionContenedor;
+        estrategia.BreadCrumbs = base.BreadCrumbs;
+        estrategia.EsVC = base.EsVC;
+        estrategia.TipoAccionNavegar = base.TipoAccionNavegar;
+        estrategia.Cantidad = base.Cantidad;
+        estrategia.MostrarCliente = base.MostrarCliente;
+        estrategia.MostrarFichaEnriquecida = base.MostrarFichaEnriquecida;
+
+
+        estrategia.TipoEstrategiaDetalle = estrategia.TipoEstrategiaDetalle || base.TipoEstrategiaDetalle || {};
+        estrategia.ClaseBloqueada = estrategia.ClaseBloqueada || base.ClaseBloqueada || "";
+        estrategia.ClaseEstrategia = estrategia.ClaseEstrategia || base.ClaseEstrategia || "";
+        estrategia.Hermanos = estrategia.Hermanos || base.Hermanos || [];
 
         return estrategia;
     };
@@ -889,7 +954,7 @@ var FichaModule = (function (config) {
         var modeloFicha = _getModelo();
         modeloFicha = _getEstrategia(modeloFicha);
 
-        if (modeloFicha.Error === true) {
+        if (modeloFicha.Error) {
             throw "_init, error en la estrategia";
         }
 
@@ -899,15 +964,6 @@ var FichaModule = (function (config) {
         _config.mostrarCliente = modeloFicha.MostrarCliente || _config.mostrarCliente;
 
         _modeloFicha(modeloFicha);
-
-        //if (_modeloFicha().MostrarFichaResponsive &&
-        //    _modeloFicha().CodigoVariante == _codigoVariedad.ComuestaFija) {
-        //    var urlResponsive = _config.generalModule.getLocationPathname()/*.toLowerCase()*/;
-        //    urlResponsive = urlResponsive.replace("Detalle", "Detalles");
-        //    urlResponsive = urlResponsive.substr(1);
-        //    _config.generalModule.redirectTo(urlResponsive, _config.esMobile);
-        //    return;
-        //}
 
         _construirSeccionFicha();
         _construirSeccionEstrategia();
