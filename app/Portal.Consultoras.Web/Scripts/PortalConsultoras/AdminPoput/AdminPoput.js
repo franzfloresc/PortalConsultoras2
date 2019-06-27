@@ -300,7 +300,6 @@ function ConstruyeGrillaPoputValidador(data, valor) {
     ];
 
     /*Cabecera*/
-    var cantidadPoputs = "<h2 class='d__block text__bold administracion__popups__grilla__titulo'>" + (parseInt(data.length) + (data.length == 1 ? " Poput" : " Poputs") + " agregados") + "</h2 >";
     var cabecera = "<div class='background__color__m row__grilla administracion__popups__grilla__cabecera'>";
     listColumnas.forEach(function (element) {
         cabecera += "<div class='col__grilla " + (element.claseColumna).toString() + " text__center'>" + (element.tituloColumna).toString() + "</div>";

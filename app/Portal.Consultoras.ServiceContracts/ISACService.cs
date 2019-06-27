@@ -605,7 +605,7 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdSolicitudClienteDetalleCantidad(int paisID, long solicitudId, string cuv, int cantidad);
 
         [OperationContract]
-        void UpdSolicitudClienteRechazar(int paisID, long solicitudId);
+        void UpdSolicitudClienteRechazar(int paisID, long solicitudId, int motivoRechazoId, string motivoRechazoTexto);
 
         [OperationContract]
         void UpdSolicitudClienteRechazarPorCuv(int paisID, long solicitudId, string cuv);

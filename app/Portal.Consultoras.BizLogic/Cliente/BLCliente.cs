@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.BizLogic.Cliente;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Cliente;
@@ -297,7 +298,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     cliente.CodigoRespuesta = Constantes.ClienteValidacion.Code.ErrorGeneral;
                     LogManager.SaveLog(ex, consultoraId, paisID);
-                    throw new Exception(Common.LogManager.GetMensajeError(ex));
+                    throw new ClientInformationException(Common.LogManager.GetMensajeError(ex));
                 }
             }
 
