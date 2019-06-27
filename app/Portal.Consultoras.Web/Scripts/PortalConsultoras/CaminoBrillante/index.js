@@ -26,16 +26,17 @@ $(document).ready(function () {
         };
     }
 
-    if (TineCarrusel == '1') {
+    if (TineCarrusel === '1') {
         Carusel();    
         if ($("#template-kit").length > 0) {
+            debugger
             Handlebars.registerPartial("kit_template", $("#template-kit").html());
             Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
         }
         
         CargarCarrusel();
     }
-    if (TieneGanancias == '1') {
+    if (TieneGanancias === '1') {
         CargarGanancias();
     }
 
@@ -74,7 +75,9 @@ $(window).on("load", function () {
 });
 
 window.onbeforeunload = function (e) {
-    CargarCarrusel();
+    if (TineCarrusel === '1') {
+        CargarCarrusel();
+    }    
 }
 
 $(window).on("scroll", function () {

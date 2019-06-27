@@ -44,7 +44,7 @@
             @foreach (var nivel in @ViewBag.Niveles as List<NivelCaminoBrillanteModel>)
             {
                 var decorador = nivel.EsPasado ? "" : "onclick=\"TagMostrarPopupNivel('" + nivel.DescripcionNivel + "');\" data-toggle=\"modal\" data-target=\"#Nivel_" + nivel.CodigoNivel + "_Bnf\"";
-                var estilos = "pt" + nivel.CodigoNivel + (nivel.EsActual ? " brillante": "");
+                var estilos = "pt" + nivel.CodigoNivel + (nivel.EsActual ? " brillante" : "");
                 <span class='point @estilos' @Html.Raw(decorador) onclick='TagClickSeleccionNivel("@nivel.DescripcionNivel")'>
                     <img src=@nivel.UrlImagenNivel>
                     <em>@nivel.DescripcionNivel</em>
@@ -369,6 +369,9 @@
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/Carrusel")
+    @if (ViewBag.TieneCarrusel == "1")
+    {
+        @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/Carrusel")
+    }
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/Ganancias")
 }
