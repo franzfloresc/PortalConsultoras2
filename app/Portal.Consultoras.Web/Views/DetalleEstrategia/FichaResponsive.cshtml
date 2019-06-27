@@ -46,6 +46,21 @@
             <div class="carousel_ficha carrusel_seccion"></div>
         </div>
     </section>
+
+    <!--<FichaPromociones ticket="tesla-178">-->
+    <div class="ficha-promociones d-sm-block d-md-none" data-selector="open-modal">
+        <div class="titulo-promociones">
+            <span class="texto-promociones"> Promocion </span>
+        </div>
+        <div class="descripcion-promociones">
+            <span class="texto-promociones">Lleva un reloj Chronograph comprando uno de estos productos en oferta.</span>
+            <div class="contenedor-imagen">
+                <img src="https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoWebRedes/Esika_Talco_Perfumado_Expression_Cuidado_Personal_FotoProducto.jpg" alt="Texto" class="img-responsive" />
+            </div>
+        </div>
+    </div>
+    <!--</FichaPromociones">-->
+
     <section class="seccion_ficha" id="divFichaEnriquecida" style="display:none;">
         <div class="contenedor_detalle container">
             <h2 class="titulo_seccion">Detalle de producto</h2>
@@ -80,6 +95,7 @@
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/FichaEnriquecida/popup-ficha-enriquecida-template.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/componente-estrategia-template.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/modal-tipos-tonos.cshtml")
+@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/modal-promociones.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/tipos-tonos-componente-template.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/tipos-tonos-seleccionados-template.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/resumen-componente-template.cshtml")
@@ -100,4 +116,6 @@
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Responsive/Ficha")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
+
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Promociones/PromocionesView.js")"></script>
 }
