@@ -2,14 +2,10 @@
     var self = {};
     
     self.eventName = {
-        //onGruposLoaded: "onGruposLoaded",
-        //onSelectedComponentsChanged: "onSelectedComponentsChanged",
-        //onShowWarnings: "onShowWarnings",
+        onFichaResponsiveLoaded: "onFichaResponsiveLoaded"
     };
 
-    //registerEvent.call(self, self.eventName.onGruposLoaded);
-    //registerEvent.call(self, self.eventName.onSelectedComponentsChanged);
-    //registerEvent.call(self, self.eventName.onShowWarnings);
+    registerEvent.call(self, self.eventName.onFichaResponsiveLoaded);
 
     return self;
 };

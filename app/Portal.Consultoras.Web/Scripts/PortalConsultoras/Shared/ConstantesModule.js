@@ -198,8 +198,8 @@ var ConstantesModule = (function() {
         obtenerComponentes: '/DetalleEstrategia/ObtenerComponentes',
         obtenerComponenteDetalle: '/DetalleEstrategia/ObtenerComponenteDetalle',
         obtenerModelo: '/DetalleEstrategia/ObtenerModelo',
-        obtenerPedidoWebSetDetalle: '/Pedido/ObtenerPedidoWebSetDetalle',
-        obtenerEstrategiaFicha: '/Estrategia/ObtenerOfertaFicha'
+        obtenerPedidoWebSetDetalle: '/Pedido/ObtenerPedidoWebSetDetalle'
+        //obtenerEstrategiaFicha: '/Estrategia/ObtenerOfertaFicha'
     }
 
     var _urlPedido = {
@@ -234,6 +234,11 @@ var ConstantesModule = (function() {
         ToolTip: 2500
     }
 
+    var _tipoSeccion = {
+        Video: "01",
+        Texto: "02"
+    }
+
     return {
         CodigoPalanca: _codigoPalanca,
         TipoEstrategia: _codigoTipoEstrategia,
@@ -251,6 +256,7 @@ var ConstantesModule = (function() {
         GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia,
         MensajeAgregarPedido: _mensajeAgregarPedido,
         MensajeModificarPedido: _mensajeModificarPedido,
-        Tiempo: _tiempo
+        Tiempo: _tiempo,
+        TipoSeccion: _tipoSeccion
     }
 })();

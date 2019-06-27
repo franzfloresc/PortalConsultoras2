@@ -423,7 +423,7 @@ namespace Portal.Consultoras.Common
 
             public const string ListaEstrategia = "ListadoEstrategiaPedido";
 
-            public const string ProductoTemporal = "ProductoTemporal";
+            //public const string ProductoTemporal = "ProductoTemporal";
             public const string MenuContenedorActivo = "MenuContenedorActivo";
 
             public const string RevistaDigital = "RevistaDigital";
@@ -568,6 +568,7 @@ namespace Portal.Consultoras.Common
             public const string UrlLMS = "UrlLMS";
             public const string CursosMarquesina = "CursosMarquesina";
             public const string UrlCursoMiAcademiaVideo = "UrlCursoMiAcademiaVideo";
+            public const string UrlCursoMiAcademiaPdf = "UrlCursoMiAcademiaPdf";
             public const string UrlMisCursos = "UrlMisCursos";
             public const string TokenMisCursos = "TokenMisCursos";
             public const string UrlCursoMiAcademia = "UrlCursoMiAcademia";
@@ -1132,6 +1133,7 @@ namespace Portal.Consultoras.Common
             #region CaminoBrillante
             public const int CaminoBrillanteDesktopPedido = 1181901;
             public const int CaminoBrillanteMobilePedido = 2181901;
+
             public const int CaminoBrillanteAppConsultorasPedido = 4181901;
 
             public const int CaminoBrillanteDesktopPedido_Ficha = 1181902;
@@ -2664,13 +2666,6 @@ namespace Portal.Consultoras.Common
             public const string UPDATESET = "US";
         }
 
-        public static class ClasificadorPedido
-        {
-            public const string PedidoDetalle = "DetPedido";
-            public const string PedidoDetallePendiente = "DetPedidoPend";
-            public const string PedidoDetallePoputPendiente = "DetPedidoPoputPend";
-        }
-
         public static class FlagRevista
         {
             public const int Valor0 = 0;
@@ -3987,6 +3982,32 @@ namespace Portal.Consultoras.Common
         public static class DatosTuVozOnline
         {
             public const string FormatUrl = "{0}|{1}|{2}|{3}|Year={4}|Active={5}|Birthdate={6:dd-MM-yyyy}|Country={7}";
+        }
+
+        /// <summary>
+        /// Contiene los valores de los codigo de catalogo segun ODS.Catalogo.
+        /// </summary>
+        /// <remarks>
+        /// Provisionalmente contiene los que se utilizan para el calculo de ganancia.
+        /// En el futuro se pueden agregar los restante segú la necesidad.
+        /// </remarks>
+        public static class ODSCodigoCatalogo
+        {
+            //REVISTAS
+            public const string RevistaSinLimites = "6";
+            public const string RevistaEbelMagazine = "14";
+            public const string RevistaEsikaTeCuenta = "15";
+            public const string RevistaCyzone = "18";
+            public const string RevistaBelcorp = "24";
+            //WEB
+            public const string WebPortalFFVV = "35";
+            public const string WebShowRoom = "44";
+            public const string WebOfertasParaTi = "45";
+            public const string WebOfertasDelDia = "46";
+            //CATALOGOS
+            public const string CatalogoEbel = "9";
+            public const string CatalogoCyzone = "10";
+            public const string CatalogoEsika = "13";
         }
     }
 }

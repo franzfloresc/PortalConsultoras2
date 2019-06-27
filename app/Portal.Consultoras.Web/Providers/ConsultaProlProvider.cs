@@ -11,8 +11,6 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.ConsultaProl;
 using Portal.Consultoras.Web.ServiceOferta;
 
-
-
 namespace Portal.Consultoras.Web.Providers
 {
     public class ConsultaProlProvider
@@ -108,7 +106,7 @@ namespace Portal.Consultoras.Web.Providers
             }
             return validar;
         }
-
+        
         public List<BEEstrategia> ActualizarEstrategiaStockPROL(List<BEEstrategia> lista, string paisISO, int campaniaID, string codigoConsultora, bool esFacturacion)
         {
             if (lista.Count == 0) return lista;
