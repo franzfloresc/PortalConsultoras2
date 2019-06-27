@@ -60,7 +60,7 @@ strong {
     margin-top: 30px;
     padding: 30px;
     padding-top: 20px;
-    padding-bottom: 15px;
+    padding-bottom: 55px;
     border-bottom: 1px solid #e2e2e2;
     margin-bottom: 35px;
     padding-left: 0;
@@ -88,7 +88,7 @@ strong {
     display: none;
 }
 
-    #m_montoFaltante:after, #m_montoMinimo:after, .box-beneficios:after, .boxcenter:after, .cont-ganancias:after, .cont-logros:after, .cont-textLograr:after, .indicador-nivel:after, .list-crec:after, .list-ganacias:after, .boxtog ul:after, .boxtom ul:after {
+    #m_montoFaltante:after, #m_montoMinimo:after, .box-beneficios:after, .boxcenter:after, .cont-ganancias:after, .cont-logros:after, .cont-textLograr:after, .indicador-nivel:after, .list-crec:after, .list-ganacias:after, .boxtog ul:after, .boxtom ul:after, .cent-mant:after{
         content: "";
         display: block;
         clear: both
@@ -598,9 +598,27 @@ div .owl-carousel .owl-stage-outer {
     left: -5px;
     z-index: 5
 }
-
+.cent-mant {
+    margin: 30px auto;
+    margin-bottom:0;
+    display: block;
+    max-width: 700px;
+    width: 100%;
+}
+    .cent-mant .etiq-mant, .cent-mant .etiq-falta {
+        width: 48%;
+        float:left;
+        margin:0;
+    }
+.bord-bot {
+    max-width: 970px;
+    width: 100%;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e2e2e2;
+}
 #ProgressBar .brillante em {
-    color: #000
+    color: #000;
+    font-weight: bold;
 }
 
 #ProgressBar .activo em {
@@ -996,8 +1014,8 @@ div.ui-dialog.ui-widget-content {
 .box-enterate {
     display: block;
     margin: 0 auto;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #d6d6d6;
+    /*padding-bottom: 10px;
+    border-bottom: 1px solid #d6d6d6;*/
     max-width: 210px;
 }
 
@@ -1164,15 +1182,15 @@ div.opOrdenar {
 
 .tit-benef {
     position: relative;
-    padding-left: 35px;
+    padding-left: 30px;
 }
 
     .tit-benef img {
         position: absolute;
         display: block;
         left: 0;
-        top: 1px;
-        max-width: 25px;
+        top: 0;
+        max-width: 22px;
     }
 
 .progress-barnew {
@@ -1183,6 +1201,14 @@ div.opOrdenar {
     position: relative;
     margin: 30px auto;
     margin-bottom: 90px;
+}
+
+.mx-total {
+    margin: 30px auto;
+    margin-bottom: 70px;
+    display: block;
+    max-width: 600px;
+    width: 100%;
 }
 
 .new-bar {
@@ -1302,11 +1328,10 @@ div.opOrdenar {
 }
 
 #progress-b {
-    margin: 130px auto;
+    margin: 30px auto;
     margin-bottom: 70px;
     display: block;
-    max-width: 600px;
-    width: 100%;
+
 }
 
 .box-pg-bar {
@@ -1334,7 +1359,7 @@ div.opOrdenar {
     }
 
 .etiq-mant {
-    color: #4f0036;
+    color: #000;
     text-align: left;
     display: block;
     margin: 0 auto;
@@ -2232,8 +2257,23 @@ div .ficha__producto__precio__normal {
         }
 
 .bg-1 {
+    background: #faeded;
+}
+.bg-2 {
     background: #fcf5e7;
 }
+.bg-3 {
+    background: #f8ebe7;
+}
+.bg-4 {
+    background: #e6eff6;
+}
+.bg-5 {
+    background: #f2ede5;
+}
+
+
+
 
 @keyframes fade {
     0% {
@@ -2387,9 +2427,9 @@ div .ficha__producto__precio__normal {
         display: none
     }
 
-    .subtitle, .title {
+    /*.subtitle, .title {
         margin-bottom: 0
-    }
+    }*/
 
     #ProgressBar span {
         width: 35px;
@@ -2413,7 +2453,7 @@ div .ficha__producto__precio__normal {
     }
 
     #box-niveles {
-        margin: 55px auto;
+        margin: 35px auto;
         margin-bottom: 80px
     }
 
@@ -2678,7 +2718,7 @@ div .ficha__producto__precio__normal {
     }
 
     #progress-b {
-        margin: 70px auto;
+  
         margin-bottom: 40px;
     }
 
@@ -2738,6 +2778,17 @@ div .ficha__producto__precio__normal {
         .tog-vermas:after, .tog-vermenos:after {
             top: 1px;
         }
+    .mb-title {
+        display:none;
+    }
+
+    .cent-mant .etiq-mant, .cent-mant .etiq-falta {
+        width: 100%;
+        float: none;
+        margin: 0 auto;
+        margin-bottom:5px;
+        margin-left: 10%;
+    }
 }
 
 @media screen and (max-width:600px) {
@@ -2852,28 +2903,37 @@ div .ficha__producto__precio__normal {
         padding-top: 25px;
         padding-left: 20px;
         padding-right: 20px;
+        padding-bottom:30px;
     }
 
     .progress-barnew {
-        width: 68%;
+        width: 62%;
         margin-bottom: 80px;
+        margin-left: 10%;
     }
 
     .valor-final {
         right: -3px;
-        top: -16px;
+        top: -6px;
+        width: 78px;
     }
 
         .valor-final p {
-            font-size: 14px;
+            font-size: 15px;
+            text-align: left;
         }
 
         .valor-final span {
             font-size: 12px;
+            text-align: left;
         }
 
     .etiq-falta {
         font-size: 14px;
+        margin-left: 10%;
+    }
+    .etiq-mant {
+        margin-left: 10%;
     }
 }
 

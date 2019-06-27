@@ -39,7 +39,7 @@
 <br />
 <div class="container ">
     <div class="desk-bar">
-        <h2 class="title">Mi nivel</h2>
+        <h2 class="title mb-title">Mi nivel</h2>
         <input type="hidden" id="hfNivelActual" value="@ViewBag.NivelActual" />
         <div id="box-niveles">
             <div id="ProgressBar">
@@ -63,7 +63,7 @@
             </div>
         </div>
 
-
+        <h2 class="title">En el periodo:</h2>
         @if (ViewBag.TieneMontoAcumulado == "1" || true)
         {
             if (nivelSiguiente != null)
@@ -74,43 +74,53 @@
                 }
                 else
                 {
-                    <div class="box-pg-bar">
-                        <div id="progress-b">
-                            <div class="progress-barnew">
-                                <div id="bar-progreso" class="new-bar" data-min="@ViewBag.NivelActual.MontoMinimo" data-max="@nivelSiguiente.MontoMinimo" data-cur="@nivelSiguiente.MontoAlcanzado">
-                                    @if (nivelSiguiente.MontoAlcanzado > 0)
-                                    {
-                                        <div class="box-cent-valor">
-                                            <i class="arrowtop"></i>
-                                            <div class="box-mostrarvalor">
-                                                <span class="tip-valor">@ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoAlcanzado), @ViewBag.CodigoISODL)</span>
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="box-cent-valor">
-                                            <i class="arrowtop"></i>
-                                        </div>
-                                    }
+    
+    <div id="progress-b">
+        <div class="box-pg-bar">
+            <div class="mx-total">
+                <div class="progress-barnew">
+                    <div id="bar-progreso" class="new-bar" data-min="@ViewBag.NivelActual.MontoMinimo" data-max="@nivelSiguiente.MontoMinimo" data-cur="@nivelSiguiente.MontoAlcanzado">
+                        @if (nivelSiguiente.MontoAlcanzado > 0)
+                        {
+                            <div class="box-cent-valor">
+                                <i class="arrowtop"></i>
+                                <div class="box-mostrarvalor">
+                                    <span class="tip-valor">@ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoAlcanzado), @ViewBag.CodigoISODL)</span>
                                 </div>
-                                <img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" />
-                                <span class="tope tp-@ViewBag.NivelActual.CodigoNivel"></span>
                             </div>
-                            <div class="valor-final">
-                                <p> @nivelSiguiente.DescripcionNivel</p>
-                                <span>@ViewBag.SimboloMoneda  @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoMinimo), @ViewBag.CodigoISODL)</span>
+                        }
+                        else
+                        {
+                            <div class="box-cent-valor">
+                                <i class="arrowtop"></i>
                             </div>
-                            @if (nivelSiguiente.MontoFaltante != null)
-                            {
-                                if (Convert.ToDecimal(ViewBag.NivelActual.MontoMinimo) > 0)
-                                {
-                                    <span class="etiq-mant"><i><span class="tope tp-2"></span></i>Mantienes tu nivel @ViewBag.NivelActual.DescripcionNivel con @ViewBag.SimboloMoneda  @Util.DecimalToStringFormat(Convert.ToDecimal(ViewBag.NivelActual.MontoMinimo), @ViewBag.CodigoISODL)</span>
-                                }
-                                <p class="etiq-falta"><i><img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" /></i>Te falta @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoFaltante), @ViewBag.CodigoISODL) para cambiar a <span>Nivel @nivelSiguiente.DescripcionNivel</span></p>
-                            }
-                        </div>
+                        }
                     </div>
+                    <img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" />
+                    <span class="tope tp-@ViewBag.NivelActual.CodigoNivel"></span>
+                </div>
+                <div class="valor-final">
+                    <p> @nivelSiguiente.DescripcionNivel</p>
+                    <span>@ViewBag.SimboloMoneda  @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoMinimo), @ViewBag.CodigoISODL)</span>
+                </div>
+            </div>
+        </div>
+            <div class="bord-bot">
+                <div class="cent-mant">
+                    @if (nivelSiguiente.MontoFaltante != null)
+                    {
+                        if (Convert.ToDecimal(ViewBag.NivelActual.MontoMinimo) > 0)
+                        {
+                            <span class="etiq-mant"><i><span class="tope tp-2"></span></i>Mantienes tu nivel @ViewBag.NivelActual.DescripcionNivel con @ViewBag.SimboloMoneda  @Util.DecimalToStringFormat(Convert.ToDecimal(ViewBag.NivelActual.MontoMinimo), @ViewBag.CodigoISODL)</span>
+                        }
+                        <p class="etiq-falta"><i><img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" /></i>Te falta @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoFaltante), @ViewBag.CodigoISODL) para cambiar a <span>Nivel @nivelSiguiente.DescripcionNivel</span></p>
+                    }
+                </div>
+            </div>
+
+        </div>
+   
+
                 }
             }
         }
