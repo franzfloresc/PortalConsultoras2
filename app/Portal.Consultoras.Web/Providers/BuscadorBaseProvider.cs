@@ -75,8 +75,10 @@ namespace Portal.Consultoras.Web.Providers
             bool mobile,
             bool home,
             bool recomendaciones,
-            bool suscrita)
+            bool suscrita,
+            bool flagLaMasGanadoras = false)
         {
+            //var flagLaMasGanadoras = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(userData.PaisID, ConsTablaLogica.FlagFuncional.TablaLogicaId, ConsTablaLogica.FlagFuncional.PalancaLasMasGanadoras);
             var suscripcionActiva = revistaDigital.EsSuscrita && revistaDigital.EsActiva;
             if (!productos.Any()) return new List<Productos>();
 
@@ -90,7 +92,8 @@ namespace Portal.Consultoras.Web.Providers
                     labelAgregado = "Agregado";
                 }
 
-                item.CodigoTipoEstrategia = CambioPalancaMg(item, revistaDigital);
+                if (!flagLaMasGanadoras)
+                    item.CodigoTipoEstrategia = CambioPalancaMg(item, revistaDigital);
 
                 item.CampaniaID = userData.CampaniaID;
                 item.PrecioString = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO, userData.Simbolo);
