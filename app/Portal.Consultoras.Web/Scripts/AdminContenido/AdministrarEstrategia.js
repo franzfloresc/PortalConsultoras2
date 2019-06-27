@@ -69,7 +69,8 @@
         GuiaDeNegocio: 12,
         LosMasVendidos: 20,
         HerramientaVenta: 13,
-        ShowRoom: 30
+        ShowRoom: 30,
+        LasMasGanadoras: 10
     }
 
     var _editData = {};
@@ -527,7 +528,8 @@
                 || aux2 == _codigoTipoEstrategia.Lanzamiento
                 || aux2 == _codigoTipoEstrategia.OfertasParaMi
                 || aux2 == _codigoTipoEstrategia.PackAltoDesembolso
-                || aux2 == _codigoTipoEstrategia.ShowRoom) {
+                || aux2 == _codigoTipoEstrategia.ShowRoom
+                || aux2 == _codigoTipoEstrategia.LasMasGanadoras) {
                 $("#txtOrden").val("");
                 $("#div-orden").hide();
 
@@ -545,7 +547,8 @@
                 || aux2 == _codigoTipoEstrategia.Lanzamiento
                 || aux2 == _codigoTipoEstrategia.OfertasParaMi
                 || aux2 == _codigoTipoEstrategia.PackAltoDesembolso
-                || aux2 == _codigoTipoEstrategia.ShowRoom) {
+                || aux2 == _codigoTipoEstrategia.ShowRoom
+                || aux2 == _codigoTipoEstrategia.LasMasGanadoras) {
                 $("#ddlEtiqueta1").children("option").hide();
                 $("#ddlEtiqueta1").children("option[data-id='1']").show();
 
@@ -1290,7 +1293,8 @@
                 codigo == _codigoTipoEstrategia.GuiaDeNegocioDigitalizada ||
                 codigo == _codigoTipoEstrategia.ShowRoom ||
                 codigo == _codigoTipoEstrategia.HerramientasVenta ||
-                codigo == _codigoTipoEstrategia.ArmaTuPack),
+                codigo == _codigoTipoEstrategia.ArmaTuPack ||
+                codigo == _codigoTipoEstrategia.LasMasGanadoras),
             multiselectWidth: 35,
             colNames: [
                 "EstrategiaID", "Orden", "#", "Pedido asociado", "Precio", "CUV", "Descripción", "Límite venta", "Código SAP", "ImagenURL",
@@ -1495,7 +1499,8 @@
             || codigo == _codigoTipoEstrategia.PackAltoDesembolso
             || codigo == _codigoTipoEstrategia.GuiaDeNegocioDigitalizada
             || codigo == _codigoTipoEstrategia.ShowRoom
-            || codigo == _codigoTipoEstrategia.HerramientasVenta) {
+            || codigo == _codigoTipoEstrategia.HerramientasVenta
+            || codigo == _codigoTipoEstrategia.LasMasGanadoras) {
             $("#list").jqGrid("hideCol", ["Orden"]);
         }
 
@@ -1586,7 +1591,8 @@
             _idEstrategia.PackAltoDesembolso,
             _idEstrategia.OfertaDelDia,
             _idEstrategia.ShowRoom,
-            _idEstrategia.HerramientaVenta)) {
+            _idEstrategia.HerramientaVenta,
+            _idEstrategia.LasMasGanadoras)) {
 
             _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
             return false;
@@ -2996,7 +3002,8 @@
                 || aux2 == _codigoTipoEstrategia.Lanzamiento
                 || aux2 == _codigoTipoEstrategia.OfertasParaMi
                 || aux2 == _codigoTipoEstrategia.PackAltoDesembolso
-                || aux2 == _codigoTipoEstrategia.ShowRoom) {
+                || aux2 == _codigoTipoEstrategia.ShowRoom
+                || aux2 == _codigoTipoEstrategia.LasMasGanadoras) {
                 $("#txtOrden").val("");
                 $("#div-orden").hide();
 
@@ -3021,7 +3028,8 @@
                 || aux2 == _codigoTipoEstrategia.Lanzamiento
                 || aux2 == _codigoTipoEstrategia.OfertasParaMi
                 || aux2 == _codigoTipoEstrategia.PackAltoDesembolso
-                || aux2 == _codigoTipoEstrategia.ShowRoom) {
+                || aux2 == _codigoTipoEstrategia.ShowRoom
+                || aux2 == _codigoTipoEstrategia.LasMasGanadoras) {
 
                 $("#hdnEtiqueta1").val("1");
                 $("#hdnEtiqueta2").val("3");
@@ -3177,7 +3185,8 @@
                 codigo == _codigoTipoEstrategia.GuiaDeNegocioDigitalizada ||
                 codigo == _codigoTipoEstrategia.LosMasVendidos ||
                 codigo == _codigoTipoEstrategia.ShowRoom ||
-                codigo == _codigoTipoEstrategia.ArmaTuPack
+                codigo == _codigoTipoEstrategia.ArmaTuPack ||
+                codigo == _codigoTipoEstrategia.LasMasGanadoras
             ) {
                 $("#mensajeActivarDesactivar").show();
             } else {
@@ -3572,7 +3581,8 @@
                 _codigoTipoEstrategia.GuiaDeNegocioDigitalizada,
                 _codigoTipoEstrategia.ShowRoom,
                 _codigoTipoEstrategia.HerramientasVenta,
-                _codigoTipoEstrategia.ArmaTuPack
+                _codigoTipoEstrategia.ArmaTuPack,
+                _codigoTipoEstrategia.LasMasGanadoras
             )) {
 
                 $("#btnActivarDesactivar").show();

@@ -243,6 +243,8 @@ namespace Portal.Consultoras.Common
             public const string Catalogo = "CAT"; // No tiene referecia con BD, para tenerlo dentro de codigo
 
             public const string NotParticipaProgramaNuevas = "0";
+
+            public const string LasMasGanadoras = "LMG";
         }
 
         public static class TipoPersonalizacion

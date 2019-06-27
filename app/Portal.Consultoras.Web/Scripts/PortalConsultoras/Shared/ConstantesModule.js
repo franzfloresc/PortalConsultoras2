@@ -75,7 +75,9 @@ var ConstantesModule = (function() {
         ProgramaNuevasRegalo: "044",
         ParticipaProgramaNuevas: "1",
         NotParticipaProgramaNuevas: "0",
-        DuoPerfecto: "034" //HD-3473 EINCA
+        DuoPerfecto: "034", //HD-3473 EINCA
+
+        LasMasGanadoras: "LMG", 
     }
 
     var _tipoPersonalizacion = {
