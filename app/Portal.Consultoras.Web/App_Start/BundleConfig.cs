@@ -180,7 +180,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/PageResponsive").Include(
                 "~/Scripts/handlebars.js",
-                "~/Scripts/LogError.js",
+                //"~/Scripts/LogError.js",
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Shared/Menu.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayoutResponsive.js",
@@ -1122,15 +1122,11 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante").Include(
                 "~/Scripts/General.js",
+                "~/Scripts/owl.carousel.js",
+                "~/Scripts/chartjs.js",
                 "~/Scripts/PortalConsultoras/CaminoBrillante/index.js",
                 "~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"
                 ));
-
-            bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante/Carrusel").Include(
-                "~/Scripts/owl.carousel.js"));
-
-            bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante/Ganancias").Include(
-                "~/Scripts/chartjs.js"));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante/logros").Include(
                 "~/Scripts/PortalConsultoras/CaminoBrillante/logros.js"));

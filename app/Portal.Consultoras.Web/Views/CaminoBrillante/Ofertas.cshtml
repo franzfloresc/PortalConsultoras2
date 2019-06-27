@@ -115,8 +115,8 @@
         var _origenPedidoWeb = @origenPedido;
         var nroRegistrosDemostradores = 12;
         var nroRegistrosKits = 12;
+        var TineCarrusel = '1';//solo para ofertas.cshtml siempre sera 1.
         var urlObtenerFiltros = '@Url.Action("GetFiltrosCaminoBrillante", "CaminoBrillante", new { area = "" })';
-
         function isMobile() {
                 return "True" === "@ViewBag.EsMobile";
         }
