@@ -1231,7 +1231,7 @@ var PedidoRegistroModule = function () {
                     })
                 }
 
-                //divProductoInformacion
+                //divProductoInformacion                
                 var imagenProducto = null;
                 var objDataImg = $('#divProductoInformacion').find('div.producto_por_agregar_imagen').find('img');
                 if (objDataImg !== 'undefined' && objDataImg !== null) {

@@ -258,6 +258,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         int GetMiAcademiaVideo();
 
+        void SetMiAcademiaPdf(int id);
+
+        int GetMiAcademiaPdf();
+
         void SetMiAcademiaParametro(string value);
 
         string GetMiAcademiaParametro();

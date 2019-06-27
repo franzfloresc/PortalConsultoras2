@@ -139,7 +139,6 @@ namespace Portal.Consultoras.Web.Models
         public string Pagina { get; set; }
 
         public string PaginaDe { get; set; }
-        public string TipoPaginador { get; set; }
 
         public List<BECliente> ListaCliente { get; set; }
 
@@ -291,6 +290,10 @@ namespace Portal.Consultoras.Web.Models
         public string MensajeKitNuevas { get; set; }
 
         public bool EsConsultoraOficina { get; set; }
+
+        //INI HD-4294
+        public bool IsEmailConfirmado { get; set; }
+        //FIN HD-4294
         public decimal? GananciaRevista { get; set; }
         public decimal? GananciaWeb { get; set; }
         public decimal? GananciaOtros { get; set; }

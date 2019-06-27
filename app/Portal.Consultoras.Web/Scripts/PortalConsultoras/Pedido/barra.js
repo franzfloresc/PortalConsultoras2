@@ -2161,32 +2161,15 @@ function CalculoPosicionMinimoMaximoDestokp() {
 
             }
             else {
-                if (ConfiguradoRegalo == true) {
-                    var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMinimo, montoMaximo);
-                    document.getElementById('barra_0').style.left = AvancePorcentaje1;
+                var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMinimo, montoMaximo);
+                document.getElementById('barra_0').style.left = AvancePorcentaje1;
 
-                    AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%';
-                    document.getElementById('punto_0').style.left = AvancePorcentajeP1;
-
-
-                    document.getElementById('punto_1').style.left = '94%';
-                    document.getElementById('barra_1').style.left = '99.9%';
+                AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%';
+                document.getElementById('punto_0').style.left = AvancePorcentajeP1;
 
 
-                }
-                else {
-
-                    var AvancePorcentaje1 = CalculoPorcentajeAvance(montoMinimo, montoMaximo);
-                    document.getElementById('barra_0').style.left = AvancePorcentaje1;
-
-                    AvancePorcentajeP1 = (AvancePorcentaje1.substring(0, AvancePorcentaje1.length - 1) * 1 - 7) + '%';
-                    document.getElementById('punto_0').style.left = AvancePorcentajeP1;
-
-
-                    document.getElementById('punto_1').style.left = '94%';
-                    document.getElementById('barra_1').style.left = '99.9%';
-
-                }
+                document.getElementById('punto_1').style.left = '94%';
+                document.getElementById('barra_1').style.left = '99.9%';
             }
         }
     }
