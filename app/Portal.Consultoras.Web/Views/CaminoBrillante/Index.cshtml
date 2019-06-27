@@ -63,7 +63,7 @@
             </div>
         </div>
 
-        <h2 class="title">En el periodo:</h2>
+        
         @if (ViewBag.TieneMontoAcumulado == "1" || true)
         {
             if (nivelSiguiente != null)
@@ -76,6 +76,7 @@
                 {
     
     <div id="progress-b">
+        <h2 class="title">En el periodo:</h2>
         <div class="box-pg-bar">
             <div class="mx-total">
                 <div class="progress-barnew">
@@ -105,20 +106,20 @@
                 </div>
             </div>
         </div>
-            <div class="bord-bot">
-                <div class="cent-mant">
-                    @if (nivelSiguiente.MontoFaltante != null)
+        <div class="bord-bot">
+            <div class="cent-mant">
+                @if (nivelSiguiente.MontoFaltante != null)
+                {
+                    if (Convert.ToDecimal(ViewBag.NivelActual.MontoMinimo) > 0)
                     {
-                        if (Convert.ToDecimal(ViewBag.NivelActual.MontoMinimo) > 0)
-                        {
-                            <span class="etiq-mant"><i><span class="tope tp-2"></span></i>Mantienes tu nivel @ViewBag.NivelActual.DescripcionNivel con @ViewBag.SimboloMoneda  @Util.DecimalToStringFormat(Convert.ToDecimal(ViewBag.NivelActual.MontoMinimo), @ViewBag.CodigoISODL)</span>
-                        }
-                        <p class="etiq-falta"><i><img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" /></i>Te falta @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoFaltante), @ViewBag.CodigoISODL) para cambiar a <span>Nivel @nivelSiguiente.DescripcionNivel</span></p>
+                        <span class="etiq-mant"><i><span class="tope tp-2"></span></i>Mantienes tu nivel @ViewBag.NivelActual.DescripcionNivel con @ViewBag.SimboloMoneda  @Util.DecimalToStringFormat(Convert.ToDecimal(ViewBag.NivelActual.MontoMinimo), @ViewBag.CodigoISODL)</span>
                     }
-                </div>
+                    <p class="etiq-falta"><i><img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" /></i>Te falta @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoFaltante), @ViewBag.CodigoISODL) para cambiar a <span>Nivel @nivelSiguiente.DescripcionNivel</span></p>
+                }
             </div>
-
         </div>
+
+    </div>
    
 
                 }
@@ -151,7 +152,7 @@
                 }
                 @if (nivel.PuntajeAcumulado.HasValue)
                 {
-                    <p>Acumulaste @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.PuntajeAcumulado), @ViewBag.CodigoISODL) pts</p>
+                    <span>Acumulaste @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.PuntajeAcumulado), @ViewBag.CodigoISODL) pts</span>
                 }
                 
             </div>
