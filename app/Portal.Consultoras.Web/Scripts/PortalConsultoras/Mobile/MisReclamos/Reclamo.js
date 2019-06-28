@@ -7,7 +7,7 @@ var misReclamosRegistro;
 var listaPedidos = [];
 var datosCuv = [];
 var tipoDespacho = false;
-
+var $target = "";
 var dataCdrDevolucion = {};
 var flagSetsOrPack = false;
 var flagSolicitudEnviada = false;
@@ -15,6 +15,7 @@ var flagAgregarNuevo = false;
 
 $(document).ready(function () {
     'use strict';
+    $target = $('html,body');
 
     var PortalConsultorasReclamoRegistro;
 
@@ -576,21 +577,18 @@ $(document).ready(function () {
                     var dataValue = $this.attr("data-codigo");
                     if (dataValue === $this.val()) {
                         $this.val("");
+                        messageInfoValidado(me.Constantes.mensajeValidacionCUVYaIngresado);
                         return false;
                     }
 
                     var CampaniaId = $.trim($(me.Variables.ComboCampania).val()) || 0;
                     if (CampaniaId <= 0) return false;
-
-                    //limpiar control
-                    if ($this.val().length !== 5) {
-                        $this.attr("data-codigo", "").end().val("");
-                        return false;
-                    }
+                  
                     var $elements = $("#contenedorCuvTrueque .item-producto-cambio");
                     var $arrCuv = $elements.find(me.Constantes.SPAN_NAME_CODIGO);
                     if (me.Funciones.ValidarCUVYaIngresado($arrCuv, $this.val())) {
-                        messageInfoValidado("El CUV se encuentra en la lista, puedes aumentar la cantidad.");
+                        $this.val("");
+                        messageInfoValidado(me.Constantes.mensajeValidacionCUVYaIngresado);
                         return false;
                     }
 
@@ -612,10 +610,8 @@ $(document).ready(function () {
                         } else {
                             var datosCUV = data.producto[0];
                             if (datosCUV.MarcaID !== 0) {
-
                                 $this.attr("data-codigo", datosCUV.CUV);
                                 var $template = $("#template-cuv-cambio");
-
                                 $template.find("span[name=codigo]").attr("data-codigo", datosCUV.CUV).end()
                                     .find("span[name=codigo]").text(datosCUV.CUV).end()
                                     .find("span[name=descripcion]").attr("data-descripcion", datosCUV.Descripcion).end()
@@ -625,6 +621,8 @@ $(document).ready(function () {
                                 $("#contenedorCuvTrueque").append($template.html());
                                 $this.val("");
                                 me.Funciones.CalcularTotal();
+                                $this.blur();
+                                $target.animate({ scrollTop: $target.height() }, 1000);
                             }
                         }
                     });
@@ -754,6 +752,7 @@ $(document).ready(function () {
             SeleccionaOtraSoluccionPorcentajeFaltante: "Por favor, selecciona otra solución, ya que superas el porcentaje de faltante permitido en tu pedido facturado",
             SeleccionaOtraSoluccionMontoMinimo: "Por favor, selecciona otra solución, ya que tu pedido está quedando por debajo del monto mínimo permitido",
             SeleccionaOtraSoluccionSuperasPorcentaje: "Por favor, selecciona otra solución, ya que superas el porcentaje de devolución permitido en tu pedido facturado",
+            mensajeValidacionCUVYaIngresado: "El CUV se encuentra en la lista, puedes aumentar la cantidad.",
             INPUT_NAME_CANTIDAD: "input[name=cantidad]",
             SPAN_NAME_DESCRIPCION: "span[name=descripcion]",
             SPAN_NAME_PRECIO: "span[name=precio]",

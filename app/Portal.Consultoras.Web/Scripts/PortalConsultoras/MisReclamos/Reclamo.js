@@ -896,25 +896,6 @@ function ValidarPasoDosFaltante(codigoSsic) {
         return false;
 }
 
-//function ValidarPaso2Faltante(codigoSsic) {
-//    var esCantidadPermitidaValida = ValidarCantidadMaximaPermitida(codigoSsic);
-//    if (esCantidadPermitidaValida) {
-//        var montoTotalPedido = $("#hdImporteTotalPedido").val();
-//        var montoProductosFaltanteActual = ObtenerMontoProductosDevolver(codigoSsic);
-//        var montoCuvActual = (parseFloat($("#txtPrecioUnidad").val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
-//        var montoDevolver = montoProductosFaltanteActual + montoCuvActual;
-//        ObtenerValorParametria(codigoSsic);
-//        var valorParametria = $("#hdParametriaCdr").val() || 0;
-//        valorParametria = parseFloat(valorParametria);
-//        var montoMaximoDevolver = montoTotalPedido * valorParametria / 100;
-//        if (montoMaximoDevolver < montoDevolver) {
-//            alert_msg("Por favor, selecciona otra solución, ya que superas el porcentaje de faltante permitido en tu pedido facturado");
-//            return false;
-//        }
-//        return true;
-//    } else
-//        return false;
-//}
 function ValidarPasoDosFaltanteAbono(codigoSsic) {
     return ValidarCantidadMaximaPermitida(codigoSsic);
 }
@@ -1616,15 +1597,7 @@ function BuscarInfoCUV(e) {
     var dataValue = $this.attr("data-codigo");
     if (dataValue === $this.val())
         return false;
-
-    if ($this.val().length !== 5) {
-        //Limpiar controles
-        $this.attr("data-codigo", "");
-        $elements.children("input").val("").end()
-            .children(".contenedor-cantidad").find("input[name=cantidad]").val("1");
-        return false;
-    }
-
+    
     var $elementsCUV = $("#contenedorCuvTrueque .item-producto-cambio");
     var $arrCuv = $elementsCUV.find("input[name=codigo]");
     if (ValidarCUVYaIngresado($arrCuv, $this.val(), "data-codigo")) {

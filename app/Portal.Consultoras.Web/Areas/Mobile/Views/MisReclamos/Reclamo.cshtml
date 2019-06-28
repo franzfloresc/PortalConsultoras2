@@ -221,6 +221,13 @@
                             <p class="text-bold">Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo">15</span>:</p>
                             <div data-detalle-confirma=""></div>
                         </div>
+                        <div id="contenedorCuvTrueque" class="center-block lista_productos_a_cambiar">
+                        </div>
+                        <div id="MontoTotalProductoACambiar" class="center-block text-bold text-right lista_productos_a_cambiar_monto_total">
+                            Total:
+                            <span id="spnPrecioTotal"></span>
+                            <input type="hidden" id="hdImporteTotal2" />
+                        </div>
                         <div class="formulario_inscripcion_cdr">
                             <input id="cuvmobile2"
                                    class="border-radius-4 tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral"
@@ -229,17 +236,9 @@
                                    data-codigo=""
                                    name="codigo"
                                    maxlength="5"
-                                   placeholder="Código del producto" />                           
+                                   autocomplete="off"
+                                   placeholder="Código del producto" />
                         </div>
-                        <div id="contenedorCuvTrueque" class="center-block lista_productos_a_cambiar">
-
-                        </div>
-                        <div id="MontoTotalProductoACambiar" class="center-block text-bold text-right lista_productos_a_cambiar_monto_total">
-                            Total:
-                            <span id="spnPrecioTotal"></span>
-                            <input type="hidden" id="hdImporteTotal2" />
-                        </div>
-
                     </div>
                     <div id="OpcionCambioMismoProducto" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
                         <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambioMismoProducto">
