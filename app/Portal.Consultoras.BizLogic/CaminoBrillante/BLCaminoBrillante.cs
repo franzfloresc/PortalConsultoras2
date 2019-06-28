@@ -1125,6 +1125,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         /// <summary>
         /// Validar si el Origen de Pedido Web Pertenece a Camino Brillante
+        /// Nota: Alinear con CaminoBrillanteProvider.IsOrigenPedidoCaminoBrillante
         /// </summary>
         public bool IsOrigenPedidoCaminoBrillante(int origenPedidoWeb)
         {

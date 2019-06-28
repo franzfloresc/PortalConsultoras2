@@ -138,12 +138,12 @@ var FichaVerDetalle = (function () {
                 break;
             case ConstantesModule.TipoEstrategia.NotParticipaProgramaNuevas:
                 url += ConstantesModule.TipoEstrategiaTexto.NotParticipaProgramaNuevas;
-            break;
-        case ConstantesModule.TipoEstrategia.CaminoBrillanteDemostradores:
-            url += ConstantesModule.TipoEstrategiaTexto.CaminoBrillanteDemostradores;
-            break;
-        case ConstantesModule.TipoEstrategia.CaminoBrillanteKits:
-            url += ConstantesModule.TipoEstrategiaTexto.CaminoBrillanteKits;
+                break;
+            case ConstantesModule.TipoEstrategia.CaminoBrillanteDemostradores:
+                url += ConstantesModule.TipoEstrategiaTexto.CaminoBrillanteDemostradores;
+                break;
+            case ConstantesModule.TipoEstrategia.CaminoBrillanteKits:
+                url += ConstantesModule.TipoEstrategiaTexto.CaminoBrillanteKits;
                 break;
             case ConstantesModule.TipoEstrategia.MasGanadoras:
                 url += ConstantesModule.TipoEstrategiaTexto.Ganadoras;

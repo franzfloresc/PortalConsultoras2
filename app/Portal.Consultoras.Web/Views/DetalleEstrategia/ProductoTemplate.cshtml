@@ -1,4 +1,9 @@
 ﻿@using Portal.Consultoras.Common
+<style>
+    a.kit {
+        width: 100% !important;
+    }
+</style>
 <script id="ficha_producto_template" type="text/x-handlebars-template">
     <div data-OrigenPedidoWeb="{{OrigenUrl}}" data-OrigenPedidoWebAgregar="{{OrigenAgregar}}" data-OrigenPedidoEditar="{{CodigoUbigeoPortal}}">
         <div id="dvSeccionIzquierdo" class="ficha_producto">
@@ -227,16 +232,27 @@
                            disabled="disabled">
                 </div>
                 {{/iff}}
+                {{#iff TipoOfertaCaminoBrillante '==' 1}}
                 <a id="btnAgregalo"
-                   class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
+                   class="btn_agregalo kit {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
                    {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
                    onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true, {{esEditable}}); ">
                     AGRÉGALO
                 </a>
                 {{else}}
                 <a id="btnAgregalo"
+                   class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
+                   {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
+                   onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true, {{esEditable}}); ">
+                    AGRÉGALO
+                </a>
+                {{/iff}}
+                {{else}}
+                <a id="btnAgregalo"
                    class="boton_Agregalo_agotado btn_agregalo"
-                   style="pointer-events: none;">AGOTADO</a>
+                   style="pointer-events: none;">
+                    AGOTADO
+                </a>
                 {{/if}}
                 {{else}}
 
@@ -261,8 +277,7 @@
                         </a>
                     </div>
                 </div>
-                <a id="btnAgregalo"
-                   class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
+                <a id="btnAgregalo" class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
                    {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
                    onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true, {{esEditable}}); ">
                     AGRÉGALO

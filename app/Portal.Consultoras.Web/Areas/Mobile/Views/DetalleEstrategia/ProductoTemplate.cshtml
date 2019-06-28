@@ -9,6 +9,16 @@
         position: relative;
         top: -3px;
     }
+
+    .precio {
+        padding-left:0;
+        margin-left:0;
+        left:0;
+    }
+
+    a.kit {
+        width: 100% !important;
+    }
 </style>
 
 <script id="ficha_producto_template" type="text/x-handlebars-template">
@@ -100,8 +110,10 @@
                         <b>
                             {{#IsNullOrEmpty ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
                         </b>
+                        {{#iff TipoOfertaCaminoBrillante '==' 2}}
+                            <p>Precio<span> {{SimboloMoneda}} {{PrecioTachado}}</span></p>
+                        {{/iff}}
                     </p>
-
                 </div>
 
                 {{#each ListaPrecioNiveles as |itemNivel|}}
@@ -114,13 +126,12 @@
 
             <ul class="list_style_none precio">
                 <li class="precio_producto">
-                    <div class="col-md-12 col-sm-12 col-xs-12 precio_producto">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                         {{#iff TipoOfertaCaminoBrillante '==' 1}}
                             <p>Precio normal <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
                         {{else}}
                             {{#iff TipoOfertaCaminoBrillante '==' 2}}
-                            <p>Precio<span> {{SimboloMoneda}} {{PrecioTachado}}</span></p>
-                             {{else}}
+                            {{else}}
                             <p>Precio catálogo <span>{{SimboloMoneda}} {{PrecioTachado}}</span></p>
                             {{/iff}}
                         {{/iff}}
@@ -213,8 +224,7 @@
                                value="{{Cantidad}}"
                                id="txtCantidad"
                                class="rango_cantidad_pedido_fijo ValidaNumeral ValidaPasteNumeral"
-                               data-input="cantidad"
-                               >
+                               data-input="cantidad">
                     </div>
                     {{else}}
                     <div class="content_cantidad_ficha_producto_fijo" data-cantidad-contenedor="">
@@ -230,10 +240,21 @@
                                disabled="disabled">
                     </div>
                     {{/iff}}
+                    {{#iff TipoOfertaCaminoBrillante '==' 1}}
+                    <a class="btn_agregar_ficha_producto btn_agregar_ficha_producto_fijo kit {{#if esCampaniaSiguiente}} {{ClaseBloqueadaRangos}} {{/if}}"
+                       id="btnAgregalo"
+                       data-bloqueada=""
+                       onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true,{{esEditable}}); ">
+                        AGRÉGALO
+                    </a>
+                    {{else}}
                     <a class="btn_agregar_ficha_producto btn_agregar_ficha_producto_fijo {{#if esCampaniaSiguiente}} {{ClaseBloqueadaRangos}} {{/if}}"
                        id="btnAgregalo"
                        data-bloqueada=""
-                       onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true,{{esEditable}}); ">AGRÉGALO</a>
+                       onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true,{{esEditable}}); ">
+                        AGRÉGALO
+                    </a>
+                    {{/iff}}
                     {{/if}}
                     {{else}}
                     {{#if TieneStock}}
@@ -256,9 +277,11 @@
                     </div>
 
                     <a class="btn_agregar_ficha_producto {{#if esCampaniaSiguiente}} {{ClaseBloqueadaRangos}} {{/if}}"
-                       id="btnAgregalo"
-                       data-bloqueada=""
-                       onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true,{{esEditable}}); ">AGRÉGALO</a>
+                       id="btnAgregalo" data-bloqueada=""
+                       onclick="javascript:EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true,{{esEditable}}); ">
+                        AGRÉGALO
+                    </a>
+
                     {{/if}}
                     {{/iff}}
                     {{/iff}}
