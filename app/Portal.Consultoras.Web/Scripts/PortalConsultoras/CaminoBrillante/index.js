@@ -1,8 +1,10 @@
 ﻿var scrollBeneficios = true
 var scrollLogros = true
-$("#a").hide;
+
 
 $(document).ready(function () {
+
+    $("#a").hide;
 
     if (typeof history.pushState === "function") {
         history.pushState("jibberish", null, null);
@@ -65,12 +67,6 @@ $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');
    
 });
-
-window.onbeforeunload = function (e) {
-    //if (TineCarrusel === '1') {
-        CargarCarrusel();
-    //}    
-}
 
 $(window).on("scroll", function () {
     
