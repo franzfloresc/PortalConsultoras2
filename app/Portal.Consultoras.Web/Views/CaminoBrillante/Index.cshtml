@@ -366,13 +366,17 @@
         var nroRegistrosKits = 12;
         var TineCarrusel = '@ViewBag.TieneCarrusel';
         var TieneGanancias = '@ViewBag.TieneGanancias';
-        var TieneMontoAcumulado = '@ViewBag.TieneMontoAcumulado';
-            /* temporal Eliminar con el Homologado  */
-            function isMobile() {
-                return "True" === "@ViewBag.EsMobile";
-            }
+        var TieneMontoAcumulado = '@ViewBag.TieneMontoAcumulado';        
     </script>
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
+
+    <script>
+        /* temporal Eliminar con el Homologado  */
+        function isMobile() {
+            return "True" === "@ViewBag.EsMobile";
+        }
+    </script>
+
 }
