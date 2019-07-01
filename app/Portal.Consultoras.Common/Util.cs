@@ -3709,8 +3709,7 @@ namespace Portal.Consultoras.Common
             var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
         }
-
-
+        
         //Validación de la descripción del producto
         public static string obtenerNuevaDescripcionProducto(Dictionary<string, string> lista,
             bool suscripcion,
@@ -3777,6 +3776,7 @@ namespace Portal.Consultoras.Common
                         {
                             switch (tipoEstrategiaCodigo)
                             {
+                                case Constantes.TipoEstrategiaCodigo.MasGanadoras:
                                 case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
                                 case Constantes.TipoEstrategiaCodigo.OfertasParaMi:
                                 case Constantes.TipoEstrategiaCodigo.PackAltoDesembolso:
