@@ -17,9 +17,50 @@
     </style>
 }
 
-@Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupMensajesInformacion.cshtml")
-
 <link href="~/Content/Css/Site/FichaProductoResponsive/ficha-producto-responsive.css" rel="stylesheet" />
+
+
+<div id="popupInformacion" class="MensajeAlertaMobile" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacion').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+        <div id="mensajeInformacion" class="mensaje_alerta"></div>
+        <a href="javascript:;" onclick="$('#popupInformacion').hide();" class="btn_ok_mobile btn-aceptar"><b>OK</b></a>
+    </div>
+</div>
+
+<div id="popupInformacion2" class="MensajeAlertaMobile" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacion2').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile"></div>
+        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
+        <div id="mensajeInformacion2" class="mensaje_alerta"></div>
+        <a href="javascript:;" onclick="ModificarPedido2('2');" class="btn_ok_mobile btn-aceptar" style="width:152px;"><b>Modificar mi pedido</b></a>
+    </div>
+</div>
+
+<div id="popupInformacionValidado" class="MensajeAlertaMobile pedido detalle" style="display:none;">
+    <div class="content_mensajeAlerta">
+        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionValidado').hide();">
+            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
+        </a>
+        <hr class="clear">
+        <div class="icono_alerta exclamacion_icono_mobile" style="display: none;"></div>
+        <div class="icono_alerta check_icono_mobile" style="display: none;"></div>
+        <div class="contet_alert">
+            <div class="titulo_compartir"><b id="bTagTitulo">MENSAJE</b></div>
+            <div id="mensajeInformacionvalidado" class="mensaje_alerta"></div>
+        </div>
+        <a href="javascript:;" onclick="$('#popupInformacionValidado').hide();" class="btn_ok_mobile"><b>OK</b></a>
+    </div>
+</div>
 
 <div id="overlayer"><div class="loadingScreen-mensaje"></div></div>
 <section data-layout="ubicacionWeb" class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
@@ -56,7 +97,7 @@
         </div>
     </div>
 
-    @if (ViewBag.TieneMontoAcumulado == "1")
+    @if (ViewBag.TieneMontoAcumulado == "1" && false)
     {
         if (nivelSiguiente != null)
         {
