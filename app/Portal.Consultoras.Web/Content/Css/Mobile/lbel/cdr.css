@@ -1467,20 +1467,6 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
         margin-bottom:0;
     }
 
-.icono_eliminar_solic_cdr {
-    display: block;
-    width: 17px;
-    height: 20px;
-    position: absolute;
-    top: 17px;
-    right: 5px;
-}
-
-    .icono_eliminar_solic_cdr a {
-        display: block;
-        text-decoration: none;
-    }
-
 .content_solicitud_cdr,
 .eleccion_tipo_envio
 {
@@ -2064,7 +2050,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .datos_solicitud_cdr_consulta {
     background-color: #f7f7f7;
     position: relative;
-    margin-top:-26px;
+    margin-top:-25px;
     padding: 20px 0 20px 0;
 }
 
