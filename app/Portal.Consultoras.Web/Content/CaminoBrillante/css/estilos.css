@@ -1045,13 +1045,15 @@ div.opOrdenar {
     line-height: 17px;
     margin-bottom: 20px;
 }
-
-.box-left-ganancias, .box-right-ganancias {
-    display: block;
-    float: right;
-    width: 30%;
-    max-width: 300px;
+.box-camb .text-bold {
+    font-size: 17px;
 }
+    .box-left-ganancias, .box-right-ganancias {
+        display: block;
+        float: right;
+        width: 30%;
+        max-width: 300px;
+    }
 
 .box-left-ganancias {
     margin-top: 60px;
@@ -2120,12 +2122,12 @@ div .ficha__producto__precio__normal {
 
     .top-anios img {
         display: inline-block;
-        max-width: 15px;
-        margin-right: 8px;
-        background: silver;
+        max-width: 20px;
+        margin-right: 4px;
+        /* background: silver; */
         position: relative;
         /* margin-top: 2px; */
-        top: 3px;
+        top: -1px;
     }
 
 .frase-logros {
@@ -2164,15 +2166,18 @@ div .ficha__producto__precio__normal {
     .bar-logros span, .bar-logros p {
         display: block;
         text-align: center;
-        font-size: 17px;
+        font-size: 18px;
         line-height: 19px;
     }
-
-    .bar-logros p {
-        margin-top: 8px;
-        display: block;
-        font-weight: bold;
+    .bar-logros span {
+        margin-bottom:15px;
     }
+
+        .bar-logros p {
+            margin-top: 8px;
+            display: block;
+            font-weight: bold;
+        }
 
 .foto_perfil_home {
     width: 99px;
@@ -2188,14 +2193,41 @@ div .ficha__producto__precio__normal {
     overflow: hidden;
 }
 
-    .foto_perfil_home img {
-        width: 100%;
+.foto_perfil_home img {
+    width: 100%;
+}
+.logreg {
+    margin: 0 auto;
+    margin-bottom: 50px;
+    display: block;
+     max-width: 700px; 
+    width: 90%;
+}
+.logreg a.slick-arrow {
+    top: 20%;
+    width: 14px;
+    height: 30px;
+}
+.logreg a.slick-arrow img {
+    width:100%;
+}
+    .logreg .slick-track {
+        margin-left:0 !important;
+    }
+    .logreg > .text-bold {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 17px;
     }
 
-
-
-
-
+    /*.logreg .slick-track {
+        width: 100% !important;
+        left: 8px;
+    }*/
+.mobile-cont.flexslider {
+    margin: 0 auto;
+    display: block;
+}
 
 
 
@@ -2594,7 +2626,9 @@ div .ficha__producto__precio__normal {
     .slick-arrow {
         display: none !important;
     }
-
+    .logreg .slick-arrow {
+        display: block !important;
+    }
     .regular.slider .ficha__producto__kit {
         height: 456px;
     }

@@ -47,7 +47,8 @@
     <div class="foto_perfil_home">
         <img id="imgFotoUsuario" src="imgs/icono_avatar.svg">
     </div>
-    <span class="top-anios"><img src="imgs/icono_avatar.svg">10 años</span>
+
+    <span class="top-anios"><img src="~/Content/CaminoBrillante/imgs/corazon.png">10 años</span>
     <p class="frase-logros">¡Gracias por este tiempo</p>
 
     <ul class="bar-logros">
@@ -167,65 +168,142 @@
 
 </script>
 
-<div class="container">
-    <section class="regular slider">
+<div class="container cambio-crec logreg">
+    <p class="text-bold">Constancia del periodo: C04 a C09</p>
+    <section class="regular  slider">
         <div>
             <div class="itm">
                 <div class="circle-porcent crec-activo">
-                    <span>5%</span>
+                    <span>C01</span>
                 </div>
-                <span class="como-log inactivo">¡Ya lo tienes!</span>
+                <span class="como-log inactivo">C01</span>
             </div>
         </div>
         <div>
             <div class="itm">
                 <div class="circle-porcent crec-activo">
-                    <span>5%</span>
+                    <span>C02</span>
                 </div>
-                <span class="como-log inactivo">¡Ya lo tienes!</span>
+                <span class="como-log inactivo">C02</span>
             </div>
         </div>
         <div>
             <div class="itm">
                 <div class="circle-porcent crec-activo">
-                    <span>5%</span>
+                    <span>C03</span>
                 </div>
-                <span class="como-log inactivo">¡Ya lo tienes!</span>
+                <span class="como-log inactivo">C03</span>
             </div>
         </div>
         <div>
             <div class="itm">
                 <div class="circle-porcent crec-activo">
-                    <span>5%</span>
+                    <span>C04</span>
                 </div>
-                <span class="como-log inactivo">¡Ya lo tienes!</span>
+                <span class="como-log inactivo">C04</span>
             </div>
         </div>
         <div>
             <div class="itm">
                 <div class="circle-porcent crec-activo">
-                    <span>5%</span>
+                    <span>C05</span>
                 </div>
-                <span class="como-log inactivo">¡Ya lo tienes!</span>
+                <span class="como-log inactivo">C05</span>
             </div>
         </div>
         <div>
             <div class="itm">
                 <div class="circle-porcent crec-activo">
-                    <span>5%</span>
+                    <span>C06</span>
                 </div>
-                <span class="como-log inactivo">¡Ya lo tienes!</span>
+                <span class="como-log inactivo">C06</span>
             </div>
         </div>
         <div>
             <div class="itm">
                 <div class="circle-porcent crec-activo">
-                    <span>5%</span>
+                    <span>C07</span>
                 </div>
-                <span class="como-log inactivo">¡Ya lo tienes!</span>
+                <span class="como-log inactivo">C07</span>
             </div>
         </div>
+        <div>
+            <div class="itm">
+                <div class="circle-porcent crec-activo">
+                    <span>C08</span>
+                </div>
+                <span class="como-log inactivo">C08</span>
+            </div>
+        </div>
+
     </section>
+</div>
+
+
+<!-- Place somewhere in the <body> of your page -->
+<div class="flexslider container mobile-cont">
+    <ul class="slides">
+        <li>
+            <div class="itm">
+                <div class="circle-porcent crec-activo">
+                    <span>C08</span>
+                </div>
+                <span class="como-log inactivo">C08</span>
+            </div>
+            <div class="itm">
+                <div class="circle-porcent crec-activo">
+                    <span>C08</span>
+                </div>
+                <span class="como-log inactivo">C08</span>
+            </div>
+            <div class="itm">
+                <div class="circle-porcent crec-activo">
+                    <span>C08</span>
+                </div>
+                <span class="como-log inactivo">C08</span>
+            </div>
+            <div class="itm">
+                <div class="circle-porcent crec-activo">
+                    <span>C08</span>
+                </div>
+                <span class="como-log inactivo">C08</span>
+            </div>
+            <div class="itm">
+                <div class="circle-porcent crec-activo">
+                    <span>C08</span>
+                </div>
+                <span class="como-log inactivo">C08</span>
+            </div>
+            <div class="itm">
+                <div class="circle-porcent crec-activo">
+                    <span>C08</span>
+                </div>
+                <span class="como-log inactivo">C08</span>
+            </div>
+            <div class="itm">
+                <div class="circle-porcent crec-activo">
+                    <span>C08</span>
+                </div>
+                <span class="como-log inactivo">C08</span>
+            </div>
+            <div class="itm">
+                <div class="circle-porcent crec-activo">
+                    <span>C08</span>
+                </div>
+                <span class="como-log inactivo">C08</span>
+            </div>
+
+        </li>
+        <li>
+            <img src="slide2.jpg" />
+        </li>
+        <li>
+            <img src="slide3.jpg" />
+        </li>
+        <li>
+            <img src="slide4.jpg" />
+        </li>
+    </ul>
 </div>
 
 
@@ -238,33 +316,36 @@
 
 
     <script>
-
         $(document).on('ready', function () {
-
             $(".regular").slick({
-                dots: true,
-                infinite: true,
-                slidesToShow: 6,
-                slidesToScroll: 1,
                 dots: false,
-                prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
-                nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+                infinite: false,
+                slidesToShow: 6,
+                slidesToScroll: 6,
+                //initialSlide: 2,
+                prevArrow: '<a style="display: block;left: 0;margin-left: -2%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+                nextArrow: '<a style="display: block;right: 0;margin-right: -2%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
                 responsive: [
                     {
                         breakpoint: 768,
                         settings: {
 
-                            slidesToShow: 2,
+                            slidesToShow: 4, slidesToScroll: 4
                         }
                     }
                 ]
             });
 
+
+            $('.flexslider').flexslider({
+                animation: "slide"
+            });
+
+
         });
-
     </script>
-
-
+    <script src="~/Scripts/jquery.flexslider.js"></script>
+    <link href="~/Content/Css/Mobile/flexslider.css" rel="stylesheet" />
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/logros")
 
