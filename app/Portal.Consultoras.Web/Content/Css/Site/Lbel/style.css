@@ -29333,6 +29333,14 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     letter-spacing:0.5px;
 }
 
+.btn__sb--agregarOtroProductoASolicitud,
+.btn__sb--enviarSolicitud {
+    line-height: 40px;
+    padding-left:15px;
+    padding-right:15px;
+    margin-bottom:60px;
+}
+
 *::-webkit-input-placeholder {
     color: #b5b5b5;
 }
@@ -32618,8 +32626,9 @@ height:30px;
     margin-left: 3%;
 }
 
+.enlace_chat,
 .enlace_chat a {
-    display: inline;
+    display: inline-block;
     font-weight: bold;
     text-decoration: underline;
 }

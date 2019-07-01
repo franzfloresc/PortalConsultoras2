@@ -260,8 +260,8 @@
                     </div>
                 </div>
                 <div class="text-right">
-                    <a class="border-radius-4 btn_agrega_otro_reclamo" id="IrSolicitudInicial">AGREGA OTRO PRODUCTO A LA SOLICITUD</a>
-                    <a class="border-radius-4 multimarca-background-color btn_si_stock_cdr" href="javascript:;" style="width: 296px; margin-top: 2px;" id="IrSolicitudEnviada">FINALIZA Y ENVÍA TU SOLICITUD</a>
+                    <a class="pull-left border-radius-4 text-center text-bold btn__sb btn__sb__secondary btn__sb--agregarOtroProductoASolicitud" id="IrSolicitudInicial">AGREGA OTRO PRODUCTO A LA SOLICITUD</a>
+                    <a class="pull-right border-radius-4 text-center text-bold multimarca-background-color btn__sb btn__sb__primary btn__sb__primary--multimarca btn__sb--enviarSolicitud" href="javascript:;" style="width: 296px; margin-top: 2px;" id="IrSolicitudEnviada">FINALIZA Y ENVÍA TU SOLICITUD</a>
                 </div>
                 <hr class="clear" />
             </div>
@@ -346,7 +346,7 @@
 
 @*HD-3412 EINCA*@
 <div class="contenedor_popup_general" id="divConfirmEnviarSolicitudCDR" style="display:none;">
-    <div class="popup_general">
+    <div class="border-radius-4 popup_general">
         <div class="btn_cerrar_popup_general">
             <a href="javascript:;" onclick="CancelarConfirmEnvioSolicitudCDR();">
                 <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
@@ -359,10 +359,10 @@
                 ¿Deseas continuar?
             </span>
             <div class="grupo_botones_popup_general">
-                <button type="button" name="btn_accion_secundaria" class="btn_accion_secundaria" onclick="CancelarConfirmEnvioSolicitudCDR();">
+                <button type="button" name="btn_accion_secundaria" class="border-radius-4 btn_accion_secundaria" onclick="CancelarConfirmEnvioSolicitudCDR();">
                     Cancelar
                 </button>
-                <button type="button" name="btn_accion_principal" class="btn_accion_principal" onclick="ContinuarConfirmEnvioSolicitudCDR();">
+                <button type="button" name="btn_accion_principal" class="border-radius-4 multimarca-background-color btn_accion_principal" onclick="ContinuarConfirmEnvioSolicitudCDR();">
                     Si, continuar
                 </button>
             </div>
