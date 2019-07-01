@@ -3577,7 +3577,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public JsonResult RecibirPinCambioContrasenia()
+        public async Task<JsonResult> RecibirPinCambioContrasenia()
         {
             var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
             if (oUsu == null) return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
@@ -3590,7 +3590,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var svc = new UsuarioServiceClient())
                 {
-                    EstadoEnvio = svc.ProcesaEnvioEmailCambiaContrasenia2(paisID, oUsu);
+                    EstadoEnvio = await svc.ProcesaEnvioEmailCambiaContrasenia2Async(paisID, oUsu);
                 }
                 return Json(new
                 {
