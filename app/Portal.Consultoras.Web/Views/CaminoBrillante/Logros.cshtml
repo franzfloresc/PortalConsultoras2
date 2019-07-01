@@ -240,72 +240,57 @@
 </div>
 
 
-<!-- Place somewhere in the <body> of your page -->
-<div class="flexslider container mobile-cont">
-    <ul class="slides">
-        <li>
-            <div class="itm">
-                <div class="circle-porcent crec-activo">
-                    <span>C08</span>
-                </div>
-                <span class="como-log inactivo">C08</span>
-            </div>
-            <div class="itm">
-                <div class="circle-porcent crec-activo">
-                    <span>C08</span>
-                </div>
-                <span class="como-log inactivo">C08</span>
-            </div>
-            <div class="itm">
-                <div class="circle-porcent crec-activo">
-                    <span>C08</span>
-                </div>
-                <span class="como-log inactivo">C08</span>
-            </div>
-            <div class="itm">
-                <div class="circle-porcent crec-activo">
-                    <span>C08</span>
-                </div>
-                <span class="como-log inactivo">C08</span>
-            </div>
-            <div class="itm">
-                <div class="circle-porcent crec-activo">
-                    <span>C08</span>
-                </div>
-                <span class="como-log inactivo">C08</span>
-            </div>
-            <div class="itm">
-                <div class="circle-porcent crec-activo">
-                    <span>C08</span>
-                </div>
-                <span class="como-log inactivo">C08</span>
-            </div>
-            <div class="itm">
-                <div class="circle-porcent crec-activo">
-                    <span>C08</span>
-                </div>
-                <span class="como-log inactivo">C08</span>
-            </div>
-            <div class="itm">
-                <div class="circle-porcent crec-activo">
-                    <span>C08</span>
-                </div>
-                <span class="como-log inactivo">C08</span>
-            </div>
 
-        </li>
-        <li>
-            <img src="slide2.jpg" />
-        </li>
-        <li>
-            <img src="slide3.jpg" />
-        </li>
-        <li>
-            <img src="slide4.jpg" />
-        </li>
-    </ul>
-</div>
 
+
+
+
+
+
+
+
+
+
+
+
+<div id="carousel-example-generic" class="carousel slide container" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <img src="http://placehold.it/1200x315" alt="...">
+            <div class="carousel-caption">
+                <h3>Caption Text</h3>
+            </div>
+        </div>
+        <div class="item">
+            <img src="http://placehold.it/1200x315" alt="...">
+            <div class="carousel-caption">
+                <h3>Caption Text</h3>
+            </div>
+        </div>
+        <div class="item">
+            <img src="http://placehold.it/1200x315" alt="...">
+            <div class="carousel-caption">
+                <h3>Caption Text</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+    </a>
+</div> <!-- Carousel -->
 
 @section scripts{
     <script>
@@ -316,7 +301,12 @@
 
 
     <script>
+
+
+
         $(document).on('ready', function () {
+            $('.carousel').carousel();
+
             $(".regular").slick({
                 dots: false,
                 infinite: false,
@@ -337,19 +327,32 @@
             });
 
 
-            $('.flexslider').flexslider({
-                animation: "slide"
-            });
+            //$('.flexslider').flexslider({
+            //    animation: "slide",
+            //    controlNav: true,
+            //    directionNav: true,
+            //    drag: true,
+            //    touch: swipe,
+            //    touch: true,
+            //    prevText: "Previous",
+            //    nextText: "Next",
+
+            //});
 
 
         });
     </script>
-    <script src="~/Scripts/jquery.flexslider.js"></script>
-    <link href="~/Content/Css/Mobile/flexslider.css" rel="stylesheet" />
+
+
+
+    @*<script src="~/Scripts/jquery.flexslider.js"></script>
+        <link href="~/Content/Css/Mobile/flexslider.css" rel="stylesheet" />*@
+
+
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/logros")
 
 
-
+    <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
 
 }

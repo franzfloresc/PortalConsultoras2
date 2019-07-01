@@ -2227,6 +2227,7 @@ div .ficha__producto__precio__normal {
 .mobile-cont.flexslider {
     margin: 0 auto;
     display: block;
+    max-width:750px;
 }
 
 
