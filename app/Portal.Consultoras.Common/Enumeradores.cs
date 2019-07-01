@@ -335,7 +335,8 @@
         public enum MiAcademiaUrl
         {
             Cursos,
-            Video
+            Video,
+            Pdf
         }
 
         public enum ValidacionCaminoBrillante
