@@ -98,7 +98,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.ListaProductos = detallesPedidoWeb.ToList();
             model.CantidadProductos = detallesPedidoWeb.Sum(p => p.Cantidad);
             model.GananciaFormat = Util.DecimalToStringFormat(model.MontoAhorroCatalogo + model.MontoAhorroRevista, userData.CodigoISO);
-            model.FormatoMontoAhorroCatalogo = Util.DecimalToStringFormat(model.MontoAhorroCatalogo, userData.CodigoISO);
             model.FormatoMontoAhorroRevista = Util.DecimalToStringFormat(model.MontoAhorroRevista, userData.CodigoISO);
             model.ListaClientes = GetClientesByConsultora(userData) ?? new List<BECliente>();
             model.ListaClientes.Insert(0, new BECliente { ClienteID = 0, Nombre = userData.NombreConsultora });
@@ -119,6 +118,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             model.EstadoPedido = EsPedidoReservado(configuracionCampania).ToInt();
 
+            model.CodigoIso = userData.CodigoISO;
+            model.MontoAhorroCatalogo = pedidoWeb.MontoAhorroCatalogo;
+            model.GananciaRevista = pedidoWeb.GananciaRevista;
+            model.GananciaWeb = pedidoWeb.GananciaWeb;
+            model.GananciaOtros = pedidoWeb.GananciaOtros;
+
             if (isMobileApp && model.ListaClientes.Any(x => x.ClienteID == mobileConfiguracion.ClienteID))
             {
                 var cli = model.ListaClientes.FirstOrDefault(x => x.ClienteID == mobileConfiguracion.ClienteID) ?? new BECliente();
@@ -136,6 +141,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             ViewBag.ActivarRecomendaciones = ObtenerFlagActivacionRecomendaciones();
             ViewBag.MaxCaracteresRecomendaciones = ObtenerNumeroMaximoCaracteresRecomendaciones(true);
+            ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Ofertas digitales";
             return View("Index", model);
         }
 
@@ -542,6 +548,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
             #endregion
 
+            model.CodigoISO = userData.CodigoISO;
+            model.MontoAhorroCatalogo = pedidoWeb.MontoAhorroCatalogo;
+            model.GananciaRevista = pedidoWeb.GananciaRevista;
+            model.GananciaWeb = pedidoWeb.GananciaWeb;
+            model.GananciaOtros = pedidoWeb.GananciaOtros;
+
             int horaCierre = userData.EsZonaDemAnti;
             TimeSpan sp = horaCierre == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             model.HoraCierre = Util.FormatearHora(sp);
@@ -549,7 +561,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 model.Prol = "GUARDAR TU PEDIDO";
-
+            ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Ofertas digitales";
             return View(model);
         }
 

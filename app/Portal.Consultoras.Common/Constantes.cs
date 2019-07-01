@@ -309,6 +309,7 @@ namespace Portal.Consultoras.Common
             public const string ParticipaProgramaNuevas = "ParticipaProgramaNuevas";
             public const string NotParticipaProgramaNuevas = "NotParticipaProgramaNuevas";
             public const string MasGanadoras = "Ganadoras";
+            public const string Catalogo = "Catalogo"; // No tiene referecia con BD
 
             private static Dictionary<string, string> _Palancas;
             public static Dictionary<string, string> Palancas
@@ -359,6 +360,7 @@ namespace Portal.Consultoras.Common
                         {NombrePalanca.HerramientasVenta, TipoEstrategiaCodigo.HerramientasVenta},
                         {NombrePalanca.NotParticipaProgramaNuevas, TipoEstrategiaCodigo.NotParticipaProgramaNuevas},
                         {NombrePalanca.MasGanadoras, TipoEstrategiaCodigo.OfertasParaMi},
+                        {NombrePalanca.Catalogo, TipoEstrategiaCodigo.Catalogo}
                     });
                 }
             }
@@ -558,6 +560,7 @@ namespace Portal.Consultoras.Common
             public const string UrlLMS = "UrlLMS";
             public const string CursosMarquesina = "CursosMarquesina";
             public const string UrlCursoMiAcademiaVideo = "UrlCursoMiAcademiaVideo";
+            public const string UrlCursoMiAcademiaPdf = "UrlCursoMiAcademiaPdf";
             public const string UrlMisCursos = "UrlMisCursos";
             public const string TokenMisCursos = "TokenMisCursos";
             public const string UrlCursoMiAcademia = "UrlCursoMiAcademia";
@@ -2638,13 +2641,6 @@ namespace Portal.Consultoras.Common
             public const string UPDATESET = "US";
         }
 
-        public static class ClasificadorPedido
-        {
-            public const string PedidoDetalle = "DetPedido";
-            public const string PedidoDetallePendiente = "DetPedidoPend";
-            public const string PedidoDetallePoputPendiente = "DetPedidoPoputPend";
-        }
-
         public static class FlagRevista
         {
             public const int Valor0 = 0;
@@ -3488,10 +3484,10 @@ namespace Portal.Consultoras.Common
             public const string OfertaDelDia = "ODD";
         }
 
-        public static class NombreEstrategiaBuscador
-        {
-            public const string Catalogo = "Catalogo";
-        }
+        //public static class NombreEstrategiaBuscador
+        //{
+        //    public const string Catalogo = "Catalogo";
+        //}
 
         public static class MetaConsultora
         {

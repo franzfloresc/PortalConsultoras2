@@ -85,5 +85,5 @@ namespace Portal.Consultoras.Web
 
             LogManager.LogManager.LogErrorWebServicesBus(exception, userData.CodigoUsuario ?? "", userData.CodigoISO ?? "");
         }
-    }
+}
 }

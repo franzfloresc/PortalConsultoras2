@@ -29,6 +29,17 @@ var FichaVerDetalle = (function () {
             AnalyticsPortalModule.MarcaVerDetalleProducto(e, OrigenPedidoWeb, UrlDetalle);
         }
 
+        if (typeof LocalStorageListado != 'undefined') {
+            var palanca = getPalanca(codigoEstrategia, OrigenPedidoWeb, false);
+            var modeloEstrategiaTemporal = {
+                Origen: OrigenPedidoWeb,
+                Cuv: codigoCuv,
+                Palanca: palanca,
+                Estrategia: infoCuvItem
+            };
+            LocalStorageListado(ConstantesModule.KeysLocalStorage.EstrategiaTemporal, modeloEstrategiaTemporal);
+        }
+
         window.location = UrlDetalle;
 
         return true;
@@ -183,5 +194,3 @@ var FichaVerDetalle = (function () {
     }
 
 })();
-
-
