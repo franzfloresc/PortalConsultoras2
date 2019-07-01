@@ -296,7 +296,7 @@
         <hr class="clear" />
         <br />
         <div class="content_sombra_reclamo">
-            <div class="subtitulo_reclamo" style="font-weight:400; font-size:21px;">Solicitud de Cambios y Devoluciones</div>
+            <div class="subtitulo_reclamo subtitulo_reclamo--seccionSolicitudEnviada" style="font-weight:400; font-size:21px;">Solicitud de Cambios y Devoluciones</div>
             <hr class="clear" />
             <div style="text-align:center;">
                 <div class="detalle_estado_reclamo">
@@ -312,7 +312,7 @@
                     <b> <span id="spnSolicitudCampania">2016-15</span></b>
                 </div>
             </div>
-            <div id="spnTipoDespacho" class="detalle_estado_reclamo" style="width:100%;text-align:center;border-right: 0px solid black; margin-bottom: 10px;">
+            <div id="spnTipoDespacho" class="detalle_estado_reclamo" style="width:100%;text-align:center;border-right: 0px solid black; margin-bottom: 48px;">
             </div>
             <div class="linea_separadora"></div>
             <div class="grilla_detalle_reclamo">
@@ -325,7 +325,7 @@
                 </div>
             </div>
         </div>
-        <a class="btn_ver_solicitudes" href="@Url.Action("Index")" id="IrDetalleSolicitudes">VER TUS SOLICITUDES</a>
+        <a class="btn_ver_solicitudes btn_ver_solicitudes--seccionSolicitudEnviada" href="@Url.Action("Index")" id="IrDetalleSolicitudes">VER TUS SOLICITUDES</a>
     </div>
 
 </div>
@@ -620,7 +620,7 @@
             <br />
             Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
         </div>
-        <div class="listado_solicitud_reclamo text-center">
+        <div class="listado_solicitud_reclamo listado_solicitud_reclamo--solucionSolicitada text-center">
             <div class="listado_solicitud_reclamo_icono_solucion">
                 {{#if_eq item.CodigoOperacion 'D'}}
                 <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
@@ -650,17 +650,17 @@
             {{else if_eq CodigoOperacion 'T'}}
             {{#if item.DetalleReemplazo}}
             {{#each item.DetalleReemplazo as |subItem|}}
-            {{subItem.CUV}}
-            <br />
-            <b>{{subItem.Descripcion}}</b>
-            <br />
-            {{subItem.Cantidad}} unidades
-            <br />
-            Costo: {{SimboloMoneda}} {{subItem.PrecioFormato}}
-            <br />
+            <div>
+                {{subItem.CUV}}
+                <br />
+                <b>{{subItem.Descripcion}}</b>
+                <br />
+                {{subItem.Cantidad}} unidades
+                <br />
+                Costo: {{SimboloMoneda}} {{subItem.PrecioFormato}}
+            </div>
             {{/each}}
-            <br />
-            Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}
+            <div class="text-bold">Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}</div>
             {{else}}
             {{item.CUV2}}
             <br />

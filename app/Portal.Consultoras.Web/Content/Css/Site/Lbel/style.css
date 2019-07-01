@@ -28447,6 +28447,10 @@ div.motivoRechazo textarea {
     margin-top: 25px;
 }
 
+    .subtitulo_reclamo--seccionSolicitudEnviada{
+        margin-top:40px;
+    }
+
 .subtitulo_reclamo_motivo {
     font-size: 16px;
     margin-top: 30px;
@@ -29558,6 +29562,10 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     margin-right: 117px;
 }
 
+    .listado_solicitud_reclamo--solucionSolicitada {
+        padding-left: 29px;
+    }
+
 .listado_solicitud_reclamo--paso3 {
     margin-right: 85px;
 }
@@ -29873,7 +29881,8 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     background-position: 0 4px;
 }
 
-    .btn_ver_solicitudes--paso3{
+    .btn_ver_solicitudes--paso3,
+    .btn_ver_solicitudes--seccionSolicitudEnviada{
         margin-bottom:60px;
     }
 
