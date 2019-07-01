@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.Controllers
                 await _buscadorYFiltrosProvider.GetPersonalizacion(userData, true, true);
                 productosModel = await _buscadorYFiltrosProvider.GetBuscador(model);
                 productosModel.productos = _buscadorYFiltrosProvider.ValidacionProductoAgregado(
-                    productosModel.productos ?? new List<Productos>(), 
+                    productosModel.productos, 
                     SessionManager.GetDetallesPedido(), 
                     userData, 
                     revistaDigital, 
