@@ -2141,10 +2141,15 @@ div .ficha__producto__precio__normal {
     width: 100% !important;
 }
 
+.ficha__producto__imagen a img {
+    width: 100%!important;
+    height:auto!important;
+}
+
+
 /*   
     * Descripción  : alerta    
 */
-
 @media (max-width:999px) {
     .lista__opciones__ordenamiento__y__filtrar {
         display: none
