@@ -46,7 +46,7 @@ strong {
 
 .subtitle, .title {
     display: block;
-    font-size: 22px;
+    font-size: 24px;
     color: #000;
     margin-bottom: 15px;
     font-weight: 700 !important;
@@ -310,7 +310,7 @@ div .owl-carousel .owl-stage-outer {
 
 #ProgressBar {
     width: 94%;
-    height: 4px;
+    height: 9px;
     border-radius: 7px;
     background: #dedede;
     position: relative;
@@ -330,27 +330,27 @@ div .owl-carousel .owl-stage-outer {
 }
 
 .medal-1 {
-    width: 0%;
+    width: 11%;
     animation-name: progressUno
 }
 
 .medal-2 {
-    width: 20%;
+    width: 31%;
     animation-name: progressDos
 }
 
 .medal-3 {
-    width: 40%;
+    width: 51%;
     animation-name: progressTres
 }
 
 .medal-4 {
-    width: 60%;
+    width: 71%;
     animation-name: progressCuatro
 }
 
 .medal-5 {
-    width: 80%;
+    width: 91%;
     animation-name: progressCinco
 }
 
@@ -365,7 +365,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 0;
+        width: 11%;
     }
 }
 
@@ -375,7 +375,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 20%;
+        width: 31%;
     }
 }
 
@@ -385,7 +385,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 40%;
+        width: 51%;
     }
 }
 
@@ -395,7 +395,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 60%;
+        width: 71%;
     }
 }
 
@@ -405,7 +405,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 80%;
+        width: 91%;
     }
 }
 
@@ -427,7 +427,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 0%;
+        width: 11%;
     }
 }
 
@@ -437,7 +437,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 20%;
+        width: 31%;
     }
 }
 
@@ -447,7 +447,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 40%;
+        width: 51%;
     }
 }
 
@@ -457,7 +457,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 60%;
+        width: 71%;
     }
 }
 
@@ -467,7 +467,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 80%;
+        width: 91%;
     }
 }
 
@@ -487,7 +487,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 0%;
+        width: 13%;
     }
 }
 
@@ -497,7 +497,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 21%;
+        width: 33%;
     }
 }
 
@@ -507,7 +507,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 41%;
+        width: 53%;
     }
 }
 
@@ -517,7 +517,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 61%;
+        width: 73%;
     }
 }
 
@@ -527,7 +527,7 @@ div .owl-carousel .owl-stage-outer {
     }
 
     100% {
-        width: 81%;
+        width: 93%;
     }
 }
 
@@ -550,7 +550,7 @@ div .owl-carousel .owl-stage-outer {
 }
 .Progress:after {
     position: absolute;
-    top: -5px;
+    top: -3px;
     right: 0;
     content: "";
     display: block;
@@ -2096,9 +2096,54 @@ div .ficha__producto__precio__normal {
 }
 
 
+#alertDialogMensajes25seg {
+    padding-bottom: 20px !important;
+    min-height: 100px !important;
+}
 
+.alert-align {
+    display: flex;
+    align-items: center
+}
 
+.setBottom {
+    display: flex;
+    align-items: center;
+    border-radius: 4px !important;
+}
 
+    .setBottom > .ui-dialog-titlebar.ui-corner-all {
+        display: none;
+    }
+
+    .setBottom .pop_pedido_mensaje {
+        color: #569C04;
+        font-size: 16px;
+    }
+
+.pop_image .img-fluid {
+    max-width: 100%;
+    height: auto;
+    width: 100px;
+}
+
+.ui-dialog .ui-dialog-content {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.snackbar-align {
+    display: flex;
+    align-items: center;
+}
+
+.ui-widget-overlay {
+    width: 100% !important;
+}
+
+/*   
+    * Descripción  : alerta    
+*/
 
 @media (max-width:999px) {
     .lista__opciones__ordenamiento__y__filtrar {
@@ -2363,27 +2408,27 @@ div .ficha__producto__precio__normal {
     }
 
     .medal-1 {
-        width: 0%;
+        width: 11%;
         animation-name: MovilprogressUno;
     }
 
     .medal-2 {
-        width: 20%;
+        width: 31%;
         animation-name: MovilprogressDos;
     }
 
     .medal-3 {
-        width: 40%;
+        width: 51%;
         animation-name: MovilprogressTres;
     }
 
     .medal-4 {
-        width: 60%;
+        width: 71%;
         animation-name: MovilprogressCuatro;
     }
 
     .medal-5 {
-        width: 80%;
+        width: 91%;
         animation-name: MovilprogressCinco;
     }
 
@@ -2698,27 +2743,27 @@ div .ficha__producto__precio__normal {
 
 @media screen and (max-width:330px) {
     .medal-1 {
-        width: 0%;
+        width: 13%;
         animation-name: MovilDosprogressUno;
     }
 
     .medal-2 {
-        width: 21%;
+        width: 33%;
         animation-name: MovilDosprogressDos;
     }
 
     .medal-3 {
-        width: 41%;
+        width: 53%;
         animation-name: MovilDosprogressTres;
     }
 
     .medal-4 {
-        width: 61%;
+        width: 73%;
         animation-name: MovilDosprogressCuatro;
     }
 
     .medal-5 {
-        width: 81%;
+        width: 93%;
         animation-name: MovilDosprogressCinco;
     }
 

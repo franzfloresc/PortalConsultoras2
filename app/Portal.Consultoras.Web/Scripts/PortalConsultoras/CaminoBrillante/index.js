@@ -4,30 +4,6 @@ var scrollLogros = true
 
 $(document).ready(function () {
 
-    $("#a").hide;
-
-    if (typeof history.pushState === "function") {
-        history.pushState("jibberish", null, null);
-        window.onpopstate = function () {
-            history.pushState('newjibberish', null, null);
-
-        };
-    }
-    else {
-
-        window.onhashchange = function () {
-
-            if (!ignoreHashChange) {
-                ignoreHashChange = true;
-                window.location.hash = Math.random();
-
-            }
-            else {
-                ignoreHashChange = false;
-            }
-        };
-    }
-
     Carusel();    
     if ($("#template-kit").length > 0) {
         Handlebars.registerPartial("kit_template", $("#template-kit").html());
