@@ -173,7 +173,7 @@ var DetalleEstrategiaProvider = function () {
             estrategia = $.extend(estrategia, estrategiaTmp);
         }
 
-        if (!estrategia || !estrategia.EstrategiaID) throw 'no obtiene oferta desde api';
+        if (!estrategia || (!estrategia.EstrategiaID && !(estrategia.CodigoEstrategia === "035" || estrategia.CodigoEstrategia === "036") )) throw 'no obtiene oferta desde api';
 
         if (typeof estrategia.CodigoVariante != "undefined" &&
             estrategia.CodigoVariante != null &&
