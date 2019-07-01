@@ -127,22 +127,24 @@ $("#Tab-Demostradores").on("click", function () {
 $("#Demostradores").on('click', '.boton_agregar_ofertas', function (e) {
     var contenedor = $(this).parents('[data-item="BuscadorFichasProductos"]');
     var obj = JSON.parse($(this).parents('[data-item="BuscadorFichasProductos"]').find('div [data-demostrador]').attr("data-demostrador"));
+    var imagenProducto = obj.FotoProductoMedium;
     var cantidad = $(contenedor).find("#txtCantidad").val();
     var tab = $("#Demostradores").attr('id');
     if (cantidad <= 0) {
         AbrirMensaje("La cantidad ingresada debe ser un número mayor que cero, verifique");
         CerrarSplash();
     } else {
-        AgregarProducto(obj, cantidad, '', contenedor, tab, false);
+        AgregarProducto(obj, cantidad, imagenProducto, contenedor, tab, false);
     }
 });
 
 $("#kits").on('click', '.boton_agregar_ofertas', function (e) {
     var contenedor = $(this).parents('[data-item="BuscadorFichasProductos"]');
     var obj = JSON.parse($(this).parents('[data-item="BuscadorFichasProductos"]').find('div [data-kit]').attr("data-kit"));
+    var imagenProducto = obj.FotoProductoMedium;
     var cantidad = 1;
     var tab = $("#kits").attr('id');
-    AgregarProducto(obj, cantidad, '', contenedor, tab, true);
+    AgregarProducto(obj, cantidad, imagenProducto, contenedor, tab, true);
 });
 
 function Inicializar() {
