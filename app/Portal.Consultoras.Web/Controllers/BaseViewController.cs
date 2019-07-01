@@ -336,7 +336,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 : (Url.Action("Index", new { controller = "Ofertas", area }) + "#" + Constantes.ConfiguracionPais.MasGanadoras);
 
                             break;
-                        case Constantes.NombreEstrategiaBuscador.Catalogo:
+                        case Constantes.NombrePalanca.Catalogo:
                             breadCrumbs.Ofertas.Texto = string.Empty;
                             breadCrumbs.Ofertas.Url = "#";
                             breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "BusquedaProductos" });
@@ -368,7 +368,7 @@ namespace Portal.Consultoras.Web.Controllers
                 { Constantes.NombrePalanca.HerramientasVenta, "Demostradores" },
                 { Constantes.NombrePalanca.MasGanadoras, "Las más ganadoras" },
                 { Constantes.NombrePalanca.PackNuevas, _programaNuevasProvider.TieneDuoPerfecto() ? "Dúo Perfecto" : "Programa Nuevas" },
-                { Constantes.NombreEstrategiaBuscador.Catalogo, "Búsqueda" },
+                { Constantes.NombrePalanca.Catalogo, "Búsqueda" },
             };
 
             return nombresPalancas.ContainsKey(palanca) ? nombresPalancas[palanca] : string.Empty;
@@ -464,15 +464,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             #region Modelo
 
+            modelo.Cantidad = 1;
             modelo.OrigenUrl = origen;
             modelo.OrigenAgregar = GetFichaOrigenPedidoWeb(origen);
             modelo.CodigoUbigeoPortal = esEditar ? CodigoUbigeoPortal.GuionPedidoGuionFichaResumida : "";
             modelo.TipoAccionNavegar = GetTipoAccionNavegar(modelo.OrigenAgregar, esMobile, esEditar);
-
-            if (modelo.Error)
-            {
-                return modelo;
-            }
 
             modelo.BreadCrumbs = modelo.TipoAccionNavegar == Constantes.TipoAccionNavegar.BreadCrumbs
                 ? GetDetalleEstrategiaBreadCrumbs(campaniaId, palanca)
@@ -487,34 +483,51 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.OrigenAgregarCarruselCroselling = modelo.TieneCarrusel ? GetFichaOrigenPedidoWeb(origen, ConsOrigenPedidoWeb.Seccion.CarruselCrossSelling, modelo.TieneCarrusel) : 0;
             modelo.OrigenAgregarCarruselSugeridos = modelo.TieneCarrusel ? GetFichaOrigenPedidoWeb(origen, ConsOrigenPedidoWeb.Seccion.CarruselSugeridos, modelo.TieneCarrusel) : 0;
             modelo.TieneCompartir = GetTieneCompartir(palanca, esEditar, modelo.OrigenAgregar);
-            modelo.Cantidad = 1;
             #endregion
-
+            
             #region ODD
             if (modelo.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaDelDia)
             {
                 modelo = GetDatosOdd(modelo);
             }
-
             #endregion
 
-            modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile);
             modelo.NoEsCampaniaActual = campaniaId != userData.CampaniaID;
+            modelo.MostrarFichaEnriquecida = GetInformacionAdicional(esEditar);
+            //modelo.MostrarFichaEnriquecida = !esEditar && _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+            //                userData.PaisID,
+            //                ConsTablaLogica.FlagFuncional.TablaLogicaId,
+            //                ConsTablaLogica.FlagFuncional.FichaEnriquecida,
+            //                true
+            //                );
 
+            if (modelo.Error)
+            {
+                return modelo;
+            }
+
+            modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile);
             modelo.MostrarCliente = GetMostrarCliente(esEditar);
-            modelo.MostrarAdicional = GetInformacionAdicional(esEditar);
-            modelo.MostrarFichaEnriquecida = !esEditar && _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
-                            userData.PaisID,
-                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
-                            ConsTablaLogica.FlagFuncional.FichaEnriquecida,
-                            true
-                            );
-            modelo.MostrarFichaResponsive = !esEditar && _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
-                            userData.PaisID,
-                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
-                            ConsTablaLogica.FlagFuncional.FichaResponsive,
-                            true
-                            );
+            return modelo;
+        }
+
+        public DetalleEstrategiaFichaModel GetEstrategiaMongo(string palanca, int campaniaId, string cuv)
+        {
+            string codigoPalanca = string.Empty;
+            var tieneCodigoPalanca = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
+            
+            var modelo = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campaniaId.ToString(), codigoPalanca);
+
+            if (modelo == null) return null;
+
+            if (userData.CampaniaID != campaniaId) modelo.ClaseBloqueada = "btn_desactivado_general";
+            if (palanca == Constantes.NombrePalanca.PackNuevas)
+            {
+                modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
+                modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
+            }
+            modelo.Hermanos = _estrategiaComponenteProvider.FormatterEstrategiaComponentes(modelo.Hermanos, modelo.CUV2, modelo.CampaniaID, true);
+            modelo = _ofertaPersonalizadaProvider.FormatterEstrategiaFicha(modelo, userData.CampaniaID);
             return modelo;
         }
 
@@ -562,16 +575,7 @@ namespace Portal.Consultoras.Web.Controllers
             string codigoPalanca = string.Empty;
             bool esFichaApi = false;
             bool tieneCodigoPalanca = false;
-
-            if(palanca != Constantes.NombreEstrategiaBuscador.Catalogo)
-            {
-                tieneCodigoPalanca = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
-            }
-            else
-            {
-                tieneCodigoPalanca = true;
-                codigoPalanca = Constantes.CodigoEstrategiaBuscador.Catalogo;
-            }
+            tieneCodigoPalanca = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
 
             if (tieneCodigoPalanca) esFichaApi = new OfertaBaseProvider().UsaFichaMsPersonalizacion(codigoPalanca);
 
@@ -595,17 +599,19 @@ namespace Portal.Consultoras.Web.Controllers
             }
             else
             {
-                string mensaje;
-                modelo = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campaniaId.ToString(), codigoPalanca, out mensaje);
+                modelo = GetEstrategiaMongo(palanca, campaniaId, cuv);
+                //modelo = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campaniaId.ToString(), codigoPalanca);
+                
+                //if (modelo == null) return null;
 
-                if (userData.CampaniaID != campaniaId) modelo.ClaseBloqueada = "btn_desactivado_general";
-                if (palanca == Constantes.NombrePalanca.PackNuevas)
-                {
-                    modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
-                    modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
-                }
-                modelo.Hermanos = _estrategiaComponenteProvider.FormatterEstrategiaComponentes(modelo.Hermanos, modelo.CUV2, modelo.CampaniaID, esFichaApi);
-                modelo = _ofertaPersonalizadaProvider.FormatterEstrategiaFicha(modelo, userData.CampaniaID);
+                //if (userData.CampaniaID != campaniaId) modelo.ClaseBloqueada = "btn_desactivado_general";
+                //if (palanca == Constantes.NombrePalanca.PackNuevas)
+                //{
+                //    modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
+                //    modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
+                //}
+                //modelo.Hermanos = _estrategiaComponenteProvider.FormatterEstrategiaComponentes(modelo.Hermanos, modelo.CUV2, modelo.CampaniaID, esFichaApi);
+                //modelo = _ofertaPersonalizadaProvider.FormatterEstrategiaFicha(modelo, userData.CampaniaID);
             }
             return modelo;
         }
@@ -614,7 +620,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var tipo = Constantes.TipoAccionNavegar.SinBoton;
 
-            if (esMobile && origen.ToString().StartsWith(Constantes.IngresoExternoOrigen.App))
+            if (!esEditar && esMobile && origen.ToString().StartsWith(Constantes.IngresoExternoOrigen.App))
             {
                 return tipo;
             }
@@ -686,7 +692,14 @@ namespace Portal.Consultoras.Web.Controllers
         /// <returns></returns>
         private bool GetInformacionAdicional(bool esEditar)
         {
-            return !esEditar;
+            //return !esEditar;
+
+            return !esEditar && _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            userData.PaisID,
+                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                            ConsTablaLogica.FlagFuncional.FichaEnriquecida,
+                            true
+                            );
 
         }
     }

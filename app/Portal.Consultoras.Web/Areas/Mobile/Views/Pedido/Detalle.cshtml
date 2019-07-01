@@ -670,7 +670,7 @@
                 <div class="arrow"></div>
                 <ul class="list-tooltip">
                     <li class="icon-alert"><img class="icon_alerta" src="/Content/Images/Mobile/Esika/icono-alerta.svg" alt=""></li>
-                    <li>Este producto tiene observaciones. <button style="display: block;line-height: 19px;" class="boton-secundario" onclick="tooltipObservaciones('{{Mensaje}}');">Ver detalles</button></li>
+                    <li>Este producto tiene observaciones. <button style="display: block;line-height: 19px;" class="boton-secundario" onclick="tooltipObservaciones('{{EscapeSpecialChars  Mensaje}}');">Ver detalles</button></li>
                 </ul>
             </div>
             {{/IsNullOrEmpty}}
@@ -1180,6 +1180,7 @@
 @{ Html.RenderPartial("_PopupPremio");}
 @{ Html.RenderPartial("_PopupDescuento");}
 @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupInformacionRegalo.cshtml");}
+@{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupReservaPedido.cshtml");}
 <div id="DivPopupFichaResumida" class="Modal_Editar_Producto" style="display: none">
     @Html.Partial("~/Areas/Mobile/Views/DetalleEstrategia/FichaTemplate.cshtml")
 </div>
@@ -1212,6 +1213,17 @@
         //INI HD-4200
         var urlValidarSuscripcionSE = '@Url.Action("ValidarSuscripcionSE", "PedidoRegistro", new { area = "" })';
         //FIN HD-4200
+
+        //INI HD-4294
+        var configActualizarCorreo = {
+            UrlActualizarEnviarCorreo: '@Url.Action("ActualizarEnviarCorreo", "Pedido", new { area = "" })',
+            UrlPedidoValidado: '@Url.Action("Validado", "Pedido", new {area = "Mobile"})',
+            UrlPedido : '@Url.Action("Detalle", "Pedido", new {area = "Mobile"})',
+            MensajeError: '@Html.Raw(Constantes.MensajesError.ActivacionCorreo)',
+            MensajeReenvioExitoso: '@Html.Raw(Constantes.MensajesExito.UpdCorreoConsultora_Reenvio)',
+            CorreoActual: '@Model.EMail'
+        };
+        //FIN HD-4294
 
 
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';

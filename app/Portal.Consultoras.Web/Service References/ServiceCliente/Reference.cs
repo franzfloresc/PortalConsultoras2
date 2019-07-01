@@ -6307,6 +6307,12 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/MovimientoDetalleActualizar", ReplyAction="http://tempuri.org/IClienteService/MovimientoDetalleActualizarResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.ResponseTypeOfArrayOfBEMovimientoDetalleGaf1LoLd> MovimientoDetalleActualizarAsync(int paisId, Portal.Consultoras.Web.ServiceCliente.BEMovimientoDetalle[] movimientoDetalle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/GetUrlThumbnail", ReplyAction="http://tempuri.org/IClienteService/GetUrlThumbnailResponse")]
+        string GetUrlThumbnail(string codigoIso, string documento);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/GetUrlThumbnail", ReplyAction="http://tempuri.org/IClienteService/GetUrlThumbnailResponse")]
+        System.Threading.Tasks.Task<string> GetUrlThumbnailAsync(string codigoIso, string documento);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -6646,6 +6652,14 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCliente.ResponseTypeOfArrayOfBEMovimientoDetalleGaf1LoLd> MovimientoDetalleActualizarAsync(int paisId, Portal.Consultoras.Web.ServiceCliente.BEMovimientoDetalle[] movimientoDetalle) {
             return base.Channel.MovimientoDetalleActualizarAsync(paisId, movimientoDetalle);
+        }
+        
+        public string GetUrlThumbnail(string codigoIso, string documento) {
+            return base.Channel.GetUrlThumbnail(codigoIso, documento);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetUrlThumbnailAsync(string codigoIso, string documento) {
+            return base.Channel.GetUrlThumbnailAsync(codigoIso, documento);
         }
     }
 }
