@@ -102,7 +102,7 @@
                         {{/iff}}
                     {{/iff}} 
                 
-                    {{#iff componente.FactorCuadre '>' 1}}
+                    {{#iff componente.Hermanos.length '>' 1}}
                         <button type="button" class="tono_select_opt" data-tono-change="1" btn-show-types-tones-modal data-component-cuv="{{componente.Cuv}}">
                             {{componente.selectComponentText}}
                         </button>
