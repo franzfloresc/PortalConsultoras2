@@ -241,10 +241,16 @@
 
     @if (ViewBag.TieneOfertasEspeciales)
     {
-        if (ViewBag.TieneCarrusel == "1")
+        var mostrarCarrusel = "display:block;";
+        var mostrarBotonOfertas = "display:none;";
+        if (ViewBag.TieneCarrusel != "1")
         {
+            mostrarCarrusel = "display:none;";
+            mostrarBotonOfertas = "display:block;";
+        }
+
             <div class="ficha" data-item="CarruselFichasProductos"></div>
-            <div class="camino_brillante">
+            <div class="camino_brillante" style="@mostrarCarrusel">
                 <div class="camino_brillante" data-estrategia="{{JSON2string this}}">  </div>
                 <div id="carrusel" style="margin-top:25px;"></div>
                 @Html.Partial("Partial/template_kit")
@@ -273,11 +279,8 @@
                     </div>
                 </script>
             </div>
-        }
-        else
-        {
-            <a id="OfertasEspeciales" href="@Url.Action("Ofertas", "CaminoBrillante")" class="btn-principal">Ver ofertas</a>
-        }
+
+            <a id="OfertasEspeciales" href="@Url.Action("Ofertas", "CaminoBrillante")" class="btn-principal" style="@mostrarBotonOfertas">Ver ofertas</a>
     }
 </div>
 
@@ -371,18 +374,23 @@
         var urlGetCarrusel = '@Url.Action("GetCarruselCaminoBrillante", "CaminoBrillante")';
         var urlGetMisGanancias = '@Url.Action("GetMisGanancias", "CaminoBrillante")';
         var urlAgregarUnico = '@Url.Action("PedidoAgregarProductoTransaction", "PedidoRegistro", new { area = "" })';
+        var urlGetKits = '@Url.Action("GetKits", "CaminoBrillante", new { area = "" })';
         var _origenPedidoWeb = '@Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido';
+        var nroRegistrosDemostradores = 12;
+        var nroRegistrosKits = 12;
         var TineCarrusel = '@ViewBag.TieneCarrusel';
         var TieneGanancias = '@ViewBag.TieneGanancias';
-        var TieneMontoAcumulado = '@ViewBag.TieneMontoAcumulado';
-            /* temporal Eliminar con el Homologado  */
-            function isMobile() {
-                return "True" === "@ViewBag.EsMobile";
-            }
+        var TieneMontoAcumulado = '@ViewBag.TieneMontoAcumulado';        
+    </script>
+
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
+
+    <script>
+        /* temporal Eliminar con el Homologado  */
+        function isMobile() {
+            return "True" === "@ViewBag.EsMobile";
+        }
             </script>
 
-            @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
-            @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante")
-            @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/Carrusel")
-            @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/Ganancias")
         }

@@ -104,8 +104,6 @@
 
 
 @section scripts{
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/ofertas")
     <script type="text/javascript">
 
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
@@ -115,11 +113,15 @@
         var _origenPedidoWeb = @origenPedido;
         var nroRegistrosDemostradores = 12;
         var nroRegistrosKits = 12;
+        var TineCarrusel = '1';//solo para ofertas.cshtml siempre sera 1.
         var urlObtenerFiltros = '@Url.Action("GetFiltrosCaminoBrillante", "CaminoBrillante", new { area = "" })';
-
+    </script>    
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/ofertas")
+    <script>
+        /* temporal Eliminar con el Homologado  */
         function isMobile() {
-                return "True" === "@ViewBag.EsMobile";
+            return "True" === "@ViewBag.EsMobile";
         }
-
     </script>
 }

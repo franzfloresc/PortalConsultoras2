@@ -1,55 +1,26 @@
 ﻿var scrollBeneficios = true
 var scrollLogros = true
-$("#a").hide;
+
 
 $(document).ready(function () {
 
-    if (typeof history.pushState === "function") {
-        history.pushState("jibberish", null, null);
-        window.onpopstate = function () {
-            history.pushState('newjibberish', null, null);
-
-        };
+    Carusel();    
+    if ($("#template-kit").length > 0) {
+        Handlebars.registerPartial("kit_template", $("#template-kit").html());
+        Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
     }
-    else {
+    if (TineCarrusel == "1") CargarCarrusel();    
 
-        window.onhashchange = function () {
+    if (TieneGanancias == "1") CargarGanancias();
 
-            if (!ignoreHashChange) {
-                ignoreHashChange = true;
-                window.location.hash = Math.random();
-
-            }
-            else {
-                ignoreHashChange = false;
-            }
-        };
+    var progreso = $("#bar-progreso");
+    if (progreso.length > 0) {
+        var maxBar = $(progreso).data("max");
+        var curBar = $(progreso).data("cur");
+        var perc = (curBar / maxBar) * 100;
+        $('.new-bar').width(perc + '%');
     }
 
-    if (TineCarrusel == '1') {
-        Carusel();    
-        if ($("#template-kit").length > 0) {
-            Handlebars.registerPartial("kit_template", $("#template-kit").html());
-            Handlebars.registerPartial("demostrador_template", $("#template-demostrador").html());
-        }
-        
-        CargarCarrusel();
-    }
-    if (TieneGanancias == '1') {
-        CargarGanancias();
-    }
-
-    //Barra monto Acumulado
-    if (TieneMontoAcumulado == '1') {
-        var progreso = $("#bar-progreso");
-        if (progreso.length > 0) {
-            var maxBar = $(progreso).data("max");
-            var curBar = $(progreso).data("cur");
-            var perc = (curBar / maxBar) * 100;
-            $('.new-bar').width(perc + '%');
-        }
-    }
-    //fin
     
     var nivelactual = $("#hfNivelActual").val();
     for (var i = 1; i <= nivelactual; i++)
@@ -72,10 +43,6 @@ $(window).on("load", function () {
     TagNivelBeneficios('Mi Nivel');
    
 });
-
-window.onbeforeunload = function (e) {
-    CargarCarrusel();
-}
 
 $(window).on("scroll", function () {
     
@@ -221,7 +188,7 @@ function CargarCarrusel() {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
-            if (checkTimeout(data)) {
+            if (checkTimeout(data)) {                
                 ArmarCarrusel(data);
             }
         },

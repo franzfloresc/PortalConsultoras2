@@ -752,17 +752,21 @@ namespace Portal.Consultoras.Web.Providers
 
         /// <summary>
         /// Validar si el Origen de Pedido Web Pertenece a Camino Brillante
+        /// Nota: Alinear con BLCaminoBrillante.IsOrigenPedidoCaminoBrillante
         /// </summary>
-        public bool IsOrigenPedidoCaminoBrillante(int origen) {
-            return origen == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
-                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
-                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Ficha ||
-                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha ||
-                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Ficha ||
-                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel ||
-                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home ||
-                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel_Ficha ||
-                    origen == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel_Ficha
+        public bool IsOrigenPedidoCaminoBrillante(int origenPedidoWeb) {
+            return origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Ficha ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Ficha ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Ficha ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel_Ficha ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel_Ficha ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel
                     ;
 
         }

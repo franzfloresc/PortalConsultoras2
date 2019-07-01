@@ -1125,6 +1125,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         /// <summary>
         /// Validar si el Origen de Pedido Web Pertenece a Camino Brillante
+        /// Nota: Alinear con CaminoBrillanteProvider.IsOrigenPedidoCaminoBrillante
         /// </summary>
         public bool IsOrigenPedidoCaminoBrillante(int origenPedidoWeb)
         {
@@ -1136,7 +1137,10 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
                     origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Carrusel ||
                     origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppMobilePedido_Home || 
                     origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel_Ficha ||
-                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel_Ficha
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel_Ficha ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel ||
+                    origenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel
                     ;
         }
 
