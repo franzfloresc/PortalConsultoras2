@@ -77,7 +77,7 @@ namespace Portal.Consultoras.Web.Providers
             bool recomendaciones,
             bool suscrita)
         {
-            if (productos == null && !productos.Any()) return new List<Productos>();
+            if (productos == null || !productos.Any()) return new List<Productos>();
 
             var suscripcionActiva = revistaDigital.EsSuscrita && revistaDigital.EsActiva;
            
