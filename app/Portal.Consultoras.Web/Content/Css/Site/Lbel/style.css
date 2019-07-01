@@ -29900,7 +29900,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     height: auto;
     padding: 10px 14px 10px 20px;
     right: 0;
-    top: -15px;
+    top: 33px;
     -webkit-box-shadow: 0 2px 4px 0 rgba(174, 174, 174, .5);
     -moz-box-shadow: 0 2px 4px 0 rgba(174, 174, 174, .5);
     box-shadow: 0 2px 4px 0 rgba(174, 174, 174, .5);

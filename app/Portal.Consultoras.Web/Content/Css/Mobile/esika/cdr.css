@@ -2026,7 +2026,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .datos_solicitud_cdr_consulta {
     background-color: #f7f7f7;
     position: relative;
-    margin-top: -26px;
+    margin-top: 0;
     padding: 20px 0 20px 0;
 }
 
