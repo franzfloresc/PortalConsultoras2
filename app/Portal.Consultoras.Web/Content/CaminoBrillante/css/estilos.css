@@ -2145,8 +2145,55 @@ div .ficha__producto__precio__normal {
     width: 100%!important;
     height:auto!important;
 }
+.ui-draggable .ui-dialog-titlebar {
+    background:white;
+}
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+    float: none !important;
+    float: none;
+    margin: 0 auto;
+}
+.ui-dialog .ui-dialog-buttonpane button {
+    height: 35px;
+    width: 200px;
+    padding-top: 10px;
+    background: #e81c36;
+    border: 0;
+    text-transform: uppercase;
+    font-family: 'lato';
+    letter-spacing: 1.5px;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    float: none;
+    margin: 0 auto;
+    padding-top: 2px;
+}
+.ui-dialog .ui-dialog-buttonpane {
+    margin-bottom: 40px;
+}
 
-
+.ui-dialog .ui-dialog-content {
+    padding-bottom: 40px;
+}
+.terminos_title_2 {
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-align: center;
+    margin-top: 20px !important;
+    margin: 0 auto;
+    text-transform: uppercase;
+    font-size: 10pt !important;
+    font-family: 'lato';
+    color: #000;
+    letter-spacing: .5px;
+}
+.snackbar-align {
+    display:block;
+}
+.pop_image img {
+    margin: 10px auto;
+}
 /*   
     * Descripción  : alerta    
 */
