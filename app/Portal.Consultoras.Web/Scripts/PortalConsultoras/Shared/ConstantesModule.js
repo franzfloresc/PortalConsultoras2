@@ -177,15 +177,7 @@ var ConstantesModule = (function() {
         Activo: 1,
         Inactivo: 2
     };
-
-    var _urlDetalleEstrategia = {
-        obtenerComponentes: '/DetalleEstrategia/ObtenerComponentes',
-        obtenerComponenteDetalle: '/DetalleEstrategia/ObtenerComponenteDetalle',
-        obtenerModelo: '/DetalleEstrategia/ObtenerModelo',
-        obtenerPedidoWebSetDetalle: '/Pedido/ObtenerPedidoWebSetDetalle'
-        //obtenerEstrategiaFicha: '/Estrategia/ObtenerOfertaFicha'
-    }
-
+    
     var _urlPedido = {
         cargarDetallePedido: '/Pedido/CargarDetallePedido',
         ejecutarServicioProl: '/Pedido/EjecutarServicioPROL',
@@ -241,7 +233,6 @@ var ConstantesModule = (function() {
         TipoAccionNavegar: _tipoAccionNavegar,
         EditarItemPedido: _editarItemPedido,
         UrlObtenerEstrategia: _urlObtenerEstrategia,
-        UrlDetalleEstrategia: _urlDetalleEstrategia,
         UrlPedido: _urlPedido,
         DiccionarioTipoEstrategia: _diccionarioTipoEstrategia,
         GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia,
