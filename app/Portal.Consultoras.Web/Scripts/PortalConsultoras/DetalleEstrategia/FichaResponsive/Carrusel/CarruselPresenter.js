@@ -167,7 +167,7 @@ class CarruselPresenter {
                 titulo = "Ver más ofertas ¡Solo Hoy!";
             } else {
                 if (this.model.productosHermanos.length > 1) {
-                    titulo = "Packs parecidos con más productos";
+                    titulo = "Ofertas con alguno de estos productos";
                 } else {
                     let componenteInicial = {};
                     if (this.model.productosHermanos.length === 1) {
@@ -176,7 +176,7 @@ class CarruselPresenter {
                     if (componenteInicial.FactorCuadre * componenteInicial.Cantidad === 1) {
                         titulo = `Packs que contienen <span style="text-transform:capitalize">${this.model.tituloCarrusel.toLowerCase()}</span>`;
                     } else {
-                        titulo = "Packs parecidos con más productos";
+                        titulo = "Ofertas que contienen este nuevo producto";
                     }
                 }
             }

@@ -1152,7 +1152,20 @@ namespace Portal.Consultoras.Web.Providers
             var listaPedido = _pedidoWeb.ObtenerPedidoWebDetalle(0);
 
             estrategia.ClaseBloqueada = estrategia.CampaniaID > 0 && estrategia.CampaniaID != campaniaID ? claseBloqueada : "";
-            estrategia.IsAgregado = estrategia.ClaseBloqueada != claseBloqueada && listaPedido.Any(p => p.EstrategiaId == estrategia.EstrategiaID);
+
+            if (estrategia.CodigoEstrategia != Constantes.CodigoEstrategiaBuscador.Catalogo)
+            {
+                estrategia.IsAgregado = estrategia.ClaseBloqueada != claseBloqueada && listaPedido.Any(p => p.EstrategiaId == estrategia.EstrategiaID);
+            }
+            else
+            {
+                estrategia.IsAgregado = estrategia.ClaseBloqueada != claseBloqueada && listaPedido.Any(p => p.CUV == estrategia.CUV2 &&
+                    (
+                        p.CodigoCatalago.ToString() == Constantes.ODSCodigoCatalogo.CatalogoCyzone ||
+                        p.CodigoCatalago.ToString() == Constantes.ODSCodigoCatalogo.CatalogoEbel ||
+                        p.CodigoCatalago.ToString() == Constantes.ODSCodigoCatalogo.CatalogoEsika
+                    ));
+            }
 
             return estrategia;
         }

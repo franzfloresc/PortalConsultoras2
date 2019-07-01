@@ -742,13 +742,14 @@ var AnalyticsPortalModule = (function () {
             }
 
             var marco = false;
+            var parametroList = _getParametroListSegunOrigen(codigoOrigenPedido);
             var marcarTipoTono = origenEstructura.Pagina == CodigoOrigenPedidoWeb.CodigoEstructura.Pagina.ArmaTuPackDetalle;
             if (marcarTipoTono) {
-                var parametroList = _getParametroListSegunOrigen(codigoOrigenPedido);
                 marco = marcarAddToCartListaTipoTono(estrategia, parametroList);
             }
             else {
-                marco = marcaAnadirCarrito(codigoOrigenPedido, estrategia);
+                marco = marcarAddToCart(estrategia, parametroList);
+                //marco = marcaAnadirCarrito(codigoOrigenPedido, estrategia);
             }
 
             return marco;
