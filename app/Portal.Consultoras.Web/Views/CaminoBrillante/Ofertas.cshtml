@@ -1,9 +1,10 @@
 ﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models.CaminoBrillante
+
 @{
-    //ViewBag.CaminoBrillante = true;
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
-    //var Demostradores = ViewBag.Demostradores;
     var origenPedido = ViewBag.EsMobile ? Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido : Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido;
+    ViewBag.origenPedido = origenPedido;
 }
 
 <link href="@Url.Content("~/Content/Css/Site/BusquedaProductos/filtros-busqueda.css")" rel="stylesheet" />
@@ -16,11 +17,10 @@
     <div class="op-menu-horizontal">
         <ul class="subnavegador" data-es-suscrita="" data-es-activa="">
             <li data-campania="" data-activo="1" data-codigo="" data-es-ancla="">
-                <a href="javascript:void(0);" class="default-dorado activado-dorado" id="Tab-kits">Kits</a>
+                <a href="javascript:void(0)" class="default-dorado activado-dorado" id="Tab-kits">Kits</a>
             </li>
             <li data-campania="" data-activo="1" data-codigo="" data-es-ancla="">
-                <a href="javascript:void(0);"
-                   class="default-dorado" id="Tab-Demostradores">Demostradores</a>
+                <a class="default-dorado" id="Tab-Demostradores">Demostradores</a>
             </li>
         </ul>
     </div>
@@ -43,7 +43,8 @@
 <div class="ml-0 mr-0 mx-auto layout__content__fichaProductos clearboth opOrdenar" style="display:none">
     <div>
         <select id="ddlfiltros" class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca"></select>
-        <select id="ddlOrdenar" class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden"></select>        
+        <select id="ddlOrdenar" class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden"></select>
+
     </div>
 </div>
 
@@ -52,11 +53,8 @@
         <section class="col-12 col-lg-6 col-xl-6 busqueda__productos__encontrados__wrapper pr-lg-0 pr-xl-0">
             <br />
             <h1 class="col-12 pl-0 pr-0 busqueda__productos__titulo"></h1>
-            <p class="col-12 pl-0 pr-0 busqueda__productos__encontrados">
-
-            </p>
+            <p class="col-12 pl-0 pr-0 busqueda__productos__encontrados"></p>
         </section>
-
         <div id="divresultadosKit">
         </div>
         <section class="col-12 fichas__productos__wrapper text-center" id="kits"></section>
@@ -68,162 +66,62 @@
 </div>
 
 <style>
-    .hide { display: none; }
-    #ddlfiltros option, #ddlOrdenar option, #ddlfiltros, #ddlOrdenar { text-transform: uppercase; }
-    #ddlfiltros option, #ddlOrdenar option { padding: 4px; font-size: 12px; }
-    #ddlfiltros, #ddlOrdenar { font-size: 12px; }
+    .hide {
+        display: none;
+    }
+
+    .boxgrid {
+        display: grid !important;
+    }
+
+    #ddlfiltros option, #ddlOrdenar option, #ddlfiltros, #ddlOrdenar {
+        text-transform: uppercase;
+    }
+
+        #ddlfiltros option, #ddlOrdenar option {
+            padding: 4px;
+            font-size: 12px;
+        }
+
+    #ddlfiltros, #ddlOrdenar {
+        font-size: 12px;
+    }
 </style>
 
+@Html.Partial("Partial/template_kit")
+@Html.Partial("Partial/template_demostrador")
 <script id="template-Kits" type="text/x-handlebars-template">
     {{#each this}}
-    <article class="ficha__producto ficha__producto__kit {{#if FlagHabilitado}} {{else}} producto_desactivado {{/if}}" data-item="BuscadorFichasProductos">
-        <div class="etiq-producto">
-            <img class="ficha__producto__tag_enable {{#if FlagHabilitado }} {{else}} hide {{/if}}" src="{{FotoTagEnable}}" />
-            <img class="ficha__producto__tag_disable {{#if FlagHabilitado}} hide {{/if}}" src="{{FotoTagDisable}}" />
-        </div>
-        <div class="row flex-row justify-content-center ml-0 mr-0">
-            <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
-                {{#IsNullOrEmpty FotoProductoMedium '!='}}
-                <img class="" src="{{FotoProductoMedium}}">
-                {{/IsNullOrEmpty}}
-                {{#IsNullOrEmpty FotoProductoMedium '=='}}
-                <img class="" src="@ViewBag.RutaImagenNoDisponible">
-                {{/IsNullOrEmpty}}
-            </figure>
-            <div style="display:none;">
-                <div data-kit="{{JSON2string this}}"></div>
-            </div>
-            <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
-                <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
-                    {{DescripcionMarca}}
-                </div>
-
-                <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold redireccionarFicha boxheight">
-                    {{DescripcionCUV}}
-                </div>
-            </div>
-            <div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
-                <div>
-                    <div style="text-align: left;padding-right: 15px;font-size: 12px;">
-                        Precio para ti<br /><b>@ViewBag.Moneda {{PrecioCatalogoFormat}}</b>
-                    </div>
-                </div>
-                <div>
-                    <div style="font-size: 12px;text-align: left;">Ganancia<br />@ViewBag.Moneda {{GananciaFormat}}</div>
-                </div>
-            </div>
-            <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
-                <div class="col-12 col-md col-lg col-xl pl-0 pr-0" style="display:none;">
-                    <div class="row flex-row justify-content-between ml-0 mr-0 ficha__producto__rango__cantidad js-no-popup" data-cantidad-contenedor="">
-                        <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                            <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/menos.svg" alt="">
-                        </a>
-                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="col-4 col-md-8 col-lg-8 col-xl-8 pl-0 pr-0 d-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
-                        <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                            <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/mas.svg" alt="">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-12 col-md-12 col-lg-12 col-xl-12 pl-0 pr-0 flex-grow-1">
-                    <a class="boton_Agregalo_home boton_agregar_ofertas boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador act">
-                        <i>
-                            <img src="@Url.Content("/Content/CaminoBrillante/imgs/add_to_cart2.svg")" />
-                        </i> Agregar
-                    </a>
-                </div>
-            </div>
-            {{#if FlagSeleccionado}}
-            <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" data-Agregado="DivAgregado">
-                <span class="text-uppercase text-bold d-inline-block">Agregado</span>
-            </div>
-            {{else}}
-            <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" style="display:none;" data-Agregado="DivAgregado">
-                <span class="text-uppercase text-bold d-inline-block">Agregado</span>
-            </div>
-            {{/if}}
-        </div>
-    </article>
+    {{> kit_template}}
     {{/each}}
 </script>
 
 <script id="template-Demostradores" type="text/x-handlebars-template">
     {{#each this}}
-    <article class="ficha__producto" data-item="BuscadorFichasProductos">
-        <div class="row flex-row justify-content-center ml-0 mr-0">
-            <figure class="col-12 pl-0 pr-0 row flex-row ml-0 mr-0 justify-content-center align-items-end ficha__producto__imagen text-center">
-                {{#IsNullOrEmpty FotoProductoMedium '!='}}
-                <img class="" src="{{FotoProductoMedium}}">
-                {{/IsNullOrEmpty}}
-                {{#IsNullOrEmpty FotoProductoMedium '=='}}
-                <img class="" src="@ViewBag.RutaImagenNoDisponible">
-                {{/IsNullOrEmpty}}
-            </figure>
-            <div style="display:none;">
-                <div data-demostrador="{{JSON2string this}}"></div>
-            </div>
-            <div class="col-12 pl-0 pr-0 ficha__producto__descrip d-block mx-auto text-left">
-                <div class="col-12 pl-0 pr-0 ficha__producto__descrip__marca__pais text-uppercase">
-                    {{DescripcionMarca}}
-                </div>
-                <div class="col-12 pl-0 pr-0 ficha__producto__descrip__nom text-bold redireccionarFicha">
-                    {{DescripcionCUV}}
-                </div>
-
-            </div>
-            <div class="row flex-row align-items-end align-items-md-baseline ml-0 mr-0 col-12 pl-0 pr-0 ficha__producto__precio">
-                <div>
-                    <div style="text-align: left;padding-right: 15px; font-size: 12px;">Precio normal<br /><div style="text-decoration:line-through;">@ViewBag.Moneda {{PrecioValorizadoFormat}}</div></div>
-                </div>
-                <div>
-                    <div style="font-size: 12px;text-align: left;">Precio para ti<br /><b> @ViewBag.Moneda {{PrecioCatalogoFormat}}</b></div>
-                </div>
-            </div>
-            <div class="row flex-row justify-content-between ml-0 mr-0 pl-0 pr-0 ficha__producto__agregar__producto">
-                <div class="col-12 col-md col-lg col-xl pl-0 pr-0">
-                    <div class="row flex-row justify-content-between ml-0 mr-0 ficha__producto__rango__cantidad js-no-popup" data-cantidad-contenedor="">
-                        <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 menos d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.DisminuirCantidad(event)">
-                            <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/menos.svg" alt="">
-                        </a>
-                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" class="col-4 col-md-8 col-lg-8 col-xl-8 pl-0 pr-0 d-block text-center text-bold ValidaNumeral ValidaPasteNumeral js-no-popup">
-                        <a class="col-4 col-md-4 col-lg-4 col-xl-4 pl-0 pr-0 mas d-block js-no-popup" onclick="javascript:EstrategiaAgregarModule.AdicionarCantidad(event)">
-                            <img class="d-block js-no-popup" src="https://www.somosbelcorp.com/Content/Images/mas.svg" alt="">
-                        </a>
-                    </div>
-                </div>
-                <div class="col-12 col-md-7 col-lg-7 col-xl-7 pl-0 pr-0 flex-grow-1">
-                    <a class="boton_Agregalo_home boton_agregar_ofertas boton__agregalo--fichaProducto text-center d-block FichaAgregarProductoBuscador act cartbtn">
-                        <i>
-                            <img src="@Url.Content("/Content/CaminoBrillante/imgs/add_to_cart2.svg")" />
-                        </i> Agregar
-                    </a>
-                </div>
-            </div>
-            {{#if FlagSeleccionado}}
-            <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" data-Agregado="DivAgregado">
-                <span class="text-uppercase text-bold d-inline-block">Agregado</span>
-            </div>
-            {{else}}
-            <div class="col-12 pl-0 pr-0 etiqueta_buscador_producto ficha__producto__etiqueta text-center" style="display:none;" data-Agregado="DivAgregado">
-                <span class="text-uppercase text-bold d-inline-block">Agregado</span>
-            </div>
-            {{/if}}
-        </div>
-    </article>
+    {{> demostrador_template}}
     {{/each}}
 </script>
 
+
 @section scripts{
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
-    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/ofertas")
     <script type="text/javascript">
 
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var urlGetKits = '@Url.Action("GetKits", "CaminoBrillante", new { area = "" })';
         var urlGetDemostradores = '@Url.Action("GetDemostradores", "CaminoBrillante", new { area = "" })';
         var urlAgregarUnico = '@Url.Action("PedidoAgregarProductoTransaction", "PedidoRegistro", new { area = "" })';
-        var origenPedidoWeb = @origenPedido;
+        var _origenPedidoWeb = @origenPedido;
         var nroRegistrosDemostradores = 12;
         var nroRegistrosKits = 12;
+        var TineCarrusel = '1';//solo para ofertas.cshtml siempre sera 1.
         var urlObtenerFiltros = '@Url.Action("GetFiltrosCaminoBrillante", "CaminoBrillante", new { area = "" })';
+    </script>    
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
+    @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/ofertas")
+    <script>
+        /* temporal Eliminar con el Homologado  */
+        function isMobile() {
+            return "True" === "@ViewBag.EsMobile";
+        }
     </script>
 }

@@ -1,10 +1,15 @@
 ﻿@using Portal.Consultoras.Common
+<style>
+    a.kit {
+        width: 100% !important;
+    }
+</style>
 <script id="ficha_producto_template" type="text/x-handlebars-template">
     <div data-OrigenPedidoWeb="{{OrigenUrl}}" data-OrigenPedidoWebAgregar="{{OrigenAgregar}}" data-OrigenPedidoEditar="{{CodigoUbigeoPortal}}">
         <div id="dvSeccionIzquierdo" class="ficha_producto">
             <div id="dvSeccionFoto">
-                <div id="FichaImagenProducto" class="contenedor_imagen">                    
-                    <img class="contenedor_img" src="{{ImgUrl FotoProducto01}}" alt="">                     
+                <div id="FichaImagenProducto" class="contenedor_imagen">
+                    <img class="contenedor_img" src="{{ImgUrl FotoProducto01}}" alt="">
                 </div>
                 {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.IndividualConTonos,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
                 <hr class="clear">
@@ -50,9 +55,14 @@
                 {{/if}}
                 <div id="EtiquetaPackNuevas" class="contenedor_etiqueta_nuevo">
                     <div class="etiqueta_nuevo">
-                        {{#IsNullOrEmpty ImagenURL '!='}}
+                        {{#IsNullOrEmpty ImagenURL '!=' }}
+                        {{#iff TipoOfertaCaminoBrillante '>' 0}}
+                        <img src="" alt="" />
+                        {{else}}
                         <img src="{{ImagenURL}}" alt="" />
+                        {{/iff}}
                         {{/IsNullOrEmpty}}
+
                     </div>
                 </div>
             </div>
@@ -88,12 +98,9 @@
 
                     </div>
                     <div class="contenedor_derecho">
-                        {{#iff Precio '>' 0}}
-                        <div class="precio_valorizado">Precio catálogo: <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
-                        {{/iff}}
 
                         <ul class="precio_venta_oferta_list">
-                            <li>Precio para ti:</li>
+                            <li><b>Precio para ti:</b></li>
                             <li>
                                 <span data-precio_venta_oferta="">
                                     {{#IsNullOrEmpty this.ListaPrecioNiveles '!='}}1x {{/IsNullOrEmpty}}{{SimboloMoneda}} {{PrecioVenta}}
@@ -104,13 +111,30 @@
                             </li>
                         </ul>
 
+                        {{#iff Precio '>' 0}}
+                        {{#iff TipoOfertaCaminoBrillante '==' 1}}
+                        <div class="precio_valorizado">Precio normal: <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
+                        {{else}}
+                        {{#iff TipoOfertaCaminoBrillante '==' 2}}
+                        <div class="precio_valorizado">Precio: <span data-precio_valorizado="" style="text-decoration:line-through;">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
+                        {{else}}
+                        <div class="precio_valorizado">Precio catálogo: <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span></div>
+                        {{/iff}}
+                        {{/iff}}
+                        {{/iff}}
+
+
                         {{#iff Ganancia '>' 0}}
                         <div class="ganancia">
+                            {{#iff TipoOfertaCaminoBrillante '>' 0}}
+                            Gana hasta:
+                            {{else}}
                             {{#iff CodigoVariante '!=' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
                             GANA
                             {{/iff}}
                             {{#iff CodigoVariante '==' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
                             GANA HASTA
+                            {{/iff}}
                             {{/iff}}
                             <span data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span>
                         </div>
@@ -182,31 +206,54 @@
 
                 {{#iff TipoAccionAgregar '>' @Constantes.TipoAccionAgregar.SinBoton}}
                 {{#iff TipoAccionAgregar '==' '@Constantes.TipoAccionAgregar.AgregaloPackNuevas'}}
-                    {{#if TieneStock}}
-                    <div class="contenedor_fijo {{#if esCampaniaSiguiente}} {{ClaseBloqueadaRangos}} {{/if}}" id="idcontenedor_rangos" data-cantidad-contenedor="">
-                        <input class="txt_cantidad_pedido_fijo ValidaNumeral ValidaPasteNumeral"
-                               {{#if esCampaniaSiguiente}} {{RangoInputEnabled}} {{/if}}
-                               type="text"
-                               value="{{Cantidad}}"
-                               onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);"
-                               size="2"
-                               maxlength="2"
-                               id="txtCantidad"
-                               data-input="cantidad"
-                               data-cantidad-input="-"
-                               disabled="disabled">
-                    </div>
-                    <a id="btnAgregalo"
-                       class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
-                       {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
-                       onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true, {{esEditable}}); ">
-                        AGRÉGALO
-                    </a>
-                    {{else}}
-                    <a id="btnAgregalo"
-                       class="boton_Agregalo_agotado btn_agregalo"
-                       style="pointer-events: none;">AGOTADO</a>
-                    {{/if}}
+                {{#if TieneStock}}
+                {{#iff TipoOfertaCaminoBrillante '==' 1}}
+                <div class="contenedor_fijo" id="idcontenedor_rangos" data-cantidad-contenedor="" style="display:none">
+                    <input class="txt_cantidad_pedido_fijo ValidaNumeral ValidaPasteNumeral"
+                           type="text"
+                           value="{{Cantidad}}"
+                           onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);"
+                           id="txtCantidad"
+                           data-input="cantidad"
+                           data-cantidad-input="-">
+                </div>
+                {{else}}
+                <div class="contenedor_fijo {{#if esCampaniaSiguiente}} {{ClaseBloqueadaRangos}} {{/if}}" id="idcontenedor_rangos" data-cantidad-contenedor="">
+                    <input class="txt_cantidad_pedido_fijo ValidaNumeral ValidaPasteNumeral"
+                           {{#if esCampaniaSiguiente}} {{RangoInputEnabled}} {{/if}}
+                           type="text"
+                           value="{{Cantidad}}"
+                           onkeyup="EstrategiaAgregarModule.ValidaCantidad(event);"
+                           size="2"
+                           maxlength="2"
+                           id="txtCantidad"
+                           data-input="cantidad"
+                           data-cantidad-input="-"
+                           disabled="disabled">
+                </div>
+                {{/iff}}
+                {{#iff TipoOfertaCaminoBrillante '==' 1}}
+                <a id="btnAgregalo"
+                   class="btn_agregalo kit {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
+                   {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
+                   onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true, {{esEditable}}); ">
+                    AGRÉGALO
+                </a>
+                {{else}}
+                <a id="btnAgregalo"
+                   class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
+                   {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
+                   onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true, {{esEditable}}); ">
+                    AGRÉGALO
+                </a>
+                {{/iff}}
+                {{else}}
+                <a id="btnAgregalo"
+                   class="boton_Agregalo_agotado btn_agregalo"
+                   style="pointer-events: none;">
+                    AGOTADO
+                </a>
+                {{/if}}
                 {{else}}
 
                 {{#if TieneStock}}
@@ -230,8 +277,7 @@
                         </a>
                     </div>
                 </div>
-                <a id="btnAgregalo"
-                   class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
+                <a id="btnAgregalo" class="btn_agregalo {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}"
                    {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
                    onclick="javascript: EstrategiaAgregarModule.EstrategiaAgregar(event, false, 0, true, {{esEditable}}); ">
                     AGRÉGALO

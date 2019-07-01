@@ -17,5 +17,9 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         string ValAgregarCaminiBrillante(BEEstrategia estrategia, BEUsuario usuario, BEPedidoDetalle pedidoDetalle, List<BEPedidoWebDetalle> lstDetalle);
         BEValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(BEUsuario entidad, string cuv);
         BEOrdenFiltroConfiguracion GetFiltrosCaminoBrillante(int paisId, bool isApp);
+        BECarruselCaminoBrillante GetCarruselCaminoBrillante(BEUsuario entidad);
+        List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, string esApp);
+        BEOfertaCaminoBrillante GetOfertaCaminoBrillante(BEUsuario entidad, string CUV);
+        bool IsOrigenPedidoCaminoBrillante(int origenPedidoWeb);
     }
 }
