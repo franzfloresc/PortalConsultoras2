@@ -309,7 +309,7 @@ $(document).ready((function (cerrarRechazado) {
                         var price = $this.find("span[name=precio]").attr("data-precio");
                         total += parseInt(cant) * parseFloat(price);
                     });
-                    $parent.children(".detalle_cdr_solucion").children(".cls_total").find("span[name=total]").text(variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(total))
+                    $parent.children(".detalle_cdr_solucion").children(".cls_total").find("span[name=total]").text(variablesPortal.SimboloMoneda + " " + DecimalToStringFormat(total));
                 },
                 ActualizarDetalleObservado: function (lista) {
                     var resultado = false;

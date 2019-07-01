@@ -583,7 +583,7 @@ $(document).ready(function () {
 
                     var CampaniaId = $.trim($(me.Variables.ComboCampania).val()) || 0;
                     if (CampaniaId <= 0) return false;
-                  
+
                     var $elements = $("#contenedorCuvTrueque .item-producto-cambio");
                     var $arrCuv = $elements.find(me.Constantes.SPAN_NAME_CODIGO);
                     if (me.Funciones.ValidarCUVYaIngresado($arrCuv, $this.val())) {
@@ -1751,13 +1751,11 @@ $(document).ready(function () {
                     me.Funciones.ValidarTelefonoServer($.trim($(me.Variables.txtTelefono).val()), function (data) {
                         if (!data.success) {
                             me.Funciones.ControlSetError(me.Variables.txtTelefono, me.Variables.spnTelefonoError, '*Este número de celular ya está siendo utilizado. Intenta con otro.');
-                            //$(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
                             return false;
                         } else if ($.trim($(me.Variables.txtEmail).val()) != $.trim($(me.Variables.hdEmail).val())) {
                             me.Funciones.ValidarCorreoDuplicadoServer($.trim($(me.Variables.txtEmail).val()), function (data) {
                                 if (!data.success) {
                                     me.Funciones.ControlSetError(me.Variables.txtEmail, me.Variables.spnEmailError, '*Este correo ya está siendo utilizado. Intenta con otro');
-                                    //$(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
                                     return false;
                                 } else {
                                     me.Funciones.SolicitudCDREnviar(function (data) {
@@ -1767,17 +1765,12 @@ $(document).ready(function () {
                                                 mensajeInfo = data.message.replace(mensajeChatEnLinea, "").trim();
                                             } else mensajeInfo = data.message;
                                             messageInfo(mensajeInfo);
-                                            //$(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
                                             return false;
+                                        } else if (data.Cantidad == 1) {
+                                            $(me.Variables.tabs_vista_cdr_wrapper).fadeIn();
+                                            messageInfoValidado(data.message, "MENSAJE");
                                         } else {
-                                            if (data.Cantidad == 1) {
-                                                //$(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
-                                                $(me.Variables.tabs_vista_cdr_wrapper).show();
-                                                messageInfoValidado(data.message, "MENSAJE");
-                                            } else {
-                                                //Redireccionar a la vista index de reclamo
-                                                window.location.href = UrlVistaSolicitudesRegistradas;
-                                            }
+                                            window.location.href = UrlVistaSolicitudesRegistradas;
                                         }
                                     });
                                 }

@@ -14,7 +14,7 @@
         var listado = ViewBag.ListaDetalle;
 
 
-        var total = 0;
+        decimal total = 0;
 
         if (listado != null)
         {
@@ -24,7 +24,7 @@
                 {
                     foreach (var obj in item.DetalleReemplazo)
                     {
-                        total += Convert.ToDecimal(obj.Precio) * Convert.ToInt32(obj.Cantidad);
+                        total += obj.Precio * obj.Cantidad;
                     }
                     dic.Add(item.CDRWebDetalleID, total);
                 }
@@ -288,9 +288,6 @@ else if (ViewBag.Origen == "1")
                         <div class="detalle_cdr_solucion">
                             @if (item.CodigoOperacion.Equals("C") || item.CodigoOperacion.Equals("D") || item.CodigoOperacion.Equals("F") || item.CodigoOperacion.Equals("G"))
                             {
-                                @*<div class="text-bold detalle_cdr_solucion_titulo detalle_cdr_solucion_titulo_trueque">
-                                    @item.Solicitud :
-                                </div>*@
                                 <div class="d-flex detalle_productos_solicitud_cdr detalle_productos_solicitud_cdr--otrosTipoDeSolicitud">
                                     @if (item.Estado == 4)
                                     {
@@ -306,7 +303,6 @@ else if (ViewBag.Origen == "1")
                                                 </span>
                                                 <span class="d-inline-block">
                                                     @item.Observacion
-                                                    @*Eliminar este producto para procesar nuevamente tu solicitud.*@
                                                 </span>
                                             </div>
                                             <div class="d-flex w-100">

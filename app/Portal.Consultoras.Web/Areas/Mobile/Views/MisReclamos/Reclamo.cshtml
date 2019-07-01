@@ -151,7 +151,7 @@
                         @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "border-radius-4 select_reclamo", @required = "required" })
                         <select class="border-radius-4 elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;"></select>
                         <input id="txtNumPedido" autocomplete="off" type="text" class="border-radius-4" style="display:none;" />
-                        <input id="cuvmobile" autocomplete="off" class="border-radius-4 tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral valid" type="text" value="" placeholder="Código o Descripción del producto" readonly />
+                        <input id="cuvmobile" inputmode="numeric" autocomplete="off" class="border-radius-4 tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral valid" type="text" value="" placeholder="Código o Descripción del producto" readonly />
 
                         <div id="DescripcionCuv" class="producto_cdr" style="font-size:13px;display:none;">
                             <span id="txtCuv" class="text-bold codigo_producto_cdr"></span>
@@ -237,6 +237,7 @@
                                    name="codigo"
                                    maxlength="5"
                                    autocomplete="off"
+                                   inputmode="numeric"
                                    placeholder="Código del producto" />
                         </div>
                     </div>
@@ -641,19 +642,7 @@
                 </div>
             </div>
             <div class="listado_solicitada_reclamo">
-                {{#if_eq CodigoOperacion 'C'}}
-                <span class="text-bold d-block">{{item.Solicitud}}</span>
-                <span class="d-block">{{item.SolucionSolicitada}}</span>
-                {{else if_eq CodigoOperacion 'D'}}
-                <span class="text-bold d-block">{{item.Solicitud}}</span>
-                <span class="d-block">{{item.SolucionSolicitada}}</span>
-                {{else if_eq CodigoOperacion 'F'}}
-                <span class="text-bold d-block">{{item.Solicitud}}</span>
-                <span class="d-block">{{item.SolucionSolicitada}}</span>
-                {{else if_eq CodigoOperacion 'G'}}
-                <span class="text-bold d-block">{{item.Solicitud}}</span>
-                <span class="d-block">{{item.SolucionSolicitada}}</span>
-                {{else if_eq CodigoOperacion 'T'}}
+                {{#if_eq CodigoOperacion 'T'}}
                 <div class="listado_solicitud_reclamo">
                     <span class="text-bold d-block">{{item.Solicitud}} :</span>
                 </div>
