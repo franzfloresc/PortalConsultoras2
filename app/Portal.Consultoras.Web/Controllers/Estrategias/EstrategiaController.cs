@@ -203,21 +203,20 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         /// <param name="campania"></param>
         /// <param name="codigoISO"></param>
         /// <returns></returns>
-        [HttpPost]
-        public JsonResult ObtenerOfertaFicha(string cuv, string campania, string tipoEstrategia)
-        {
-            string message;
-            try
-            {
-                DetalleEstrategiaFichaModel model = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campania, tipoEstrategia, out message);
-
-                return Json(new { success = true, data = model, message }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message });
-            }
-        }
+        //[HttpPost]
+        //public JsonResult ObtenerOfertaFicha(string cuv, string campania, string tipoEstrategia)
+        //{
+        //    string message;
+        //    try
+        //    {
+        //        DetalleEstrategiaFichaModel model = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campania, tipoEstrategia, out message);
+        //        return Json(new { success = true, data = model, message }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message });
+        //    }
+        //}
 
         /// <summary>
         /// Función unificada
@@ -715,30 +714,30 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
         #endregion
 
-        [HttpPost]
-        public JsonResult GuardarProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
-        {
-            if (modelo != null)
-            {
-                modelo.ClaseBloqueada = Util.Trim(modelo.ClaseBloqueada);
-                modelo.ClaseEstrategia = Util.Trim(modelo.ClaseEstrategia);
-                modelo.CodigoEstrategia = Util.Trim(modelo.CodigoEstrategia);
-                modelo.DescripcionResumen = Util.Trim(modelo.DescripcionResumen);
-                modelo.DescripcionDetalle = Util.Trim(modelo.DescripcionDetalle);
-                modelo.DescripcionCompleta = Util.Trim(modelo.DescripcionCompleta);
-                modelo.PrecioTachado = Util.Trim(modelo.PrecioTachado);
-                modelo.CodigoVariante = Util.Trim(modelo.CodigoVariante);
-                modelo.TextoLibre = Util.Trim(modelo.TextoLibre);
-                modelo.FotoProducto01 = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, modelo.FotoProducto01);
-            }
+        //[HttpPost]
+        //public JsonResult GuardarProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
+        //{
+        //    if (modelo != null)
+        //    {
+        //        modelo.ClaseBloqueada = Util.Trim(modelo.ClaseBloqueada);
+        //        modelo.ClaseEstrategia = Util.Trim(modelo.ClaseEstrategia);
+        //        modelo.CodigoEstrategia = Util.Trim(modelo.CodigoEstrategia);
+        //        modelo.DescripcionResumen = Util.Trim(modelo.DescripcionResumen);
+        //        modelo.DescripcionDetalle = Util.Trim(modelo.DescripcionDetalle);
+        //        modelo.DescripcionCompleta = Util.Trim(modelo.DescripcionCompleta);
+        //        modelo.PrecioTachado = Util.Trim(modelo.PrecioTachado);
+        //        modelo.CodigoVariante = Util.Trim(modelo.CodigoVariante);
+        //        modelo.TextoLibre = Util.Trim(modelo.TextoLibre);
+        //        modelo.FotoProducto01 = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, modelo.FotoProducto01);
+        //    }
 
-            SessionManager.SetProductoTemporal(modelo);
+        //    SessionManager.SetProductoTemporal(modelo);
 
-            return Json(new
-            {
-                success = true
-            }, JsonRequestBehavior.AllowGet);
-        }
+        //    return Json(new
+        //    {
+        //        success = true
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
         #region Carrusel Ficha
 

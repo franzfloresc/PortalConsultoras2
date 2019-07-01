@@ -1,7 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Portal.Consultoras.Common;
 using System.Linq;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Service;
+using Portal.Consultoras.Web.ServiceCliente;
+using System.Threading.Tasks;
+using System.ServiceModel;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -179,5 +184,15 @@ namespace Portal.Consultoras.Web.Providers
             return url;
         }
 
+        public async Task<string> GetUrlThumbnail(string codigoIso , string codigoRevista)
+        {
+            string _urlPortada = string.Empty;
+
+            using (var sv = new ClienteServiceClient())
+            {
+                 _urlPortada = await sv.GetUrlThumbnailAsync(codigoIso, codigoRevista);
+            }
+            return _urlPortada;
+        }
     }
 }

@@ -412,7 +412,7 @@ namespace Portal.Consultoras.Common
 
             public const string ListaEstrategia = "ListadoEstrategiaPedido";
 
-            public const string ProductoTemporal = "ProductoTemporal";
+            //public const string ProductoTemporal = "ProductoTemporal";
             public const string MenuContenedorActivo = "MenuContenedorActivo";
 
             public const string RevistaDigital = "RevistaDigital";
@@ -2639,13 +2639,6 @@ namespace Portal.Consultoras.Common
             public const string UPDATESET = "US";
         }
 
-        public static class ClasificadorPedido
-        {
-            public const string PedidoDetalle = "DetPedido";
-            public const string PedidoDetallePendiente = "DetPedidoPend";
-            public const string PedidoDetallePoputPendiente = "DetPedidoPoputPend";
-        }
-
         public static class FlagRevista
         {
             public const int Valor0 = 0;
@@ -3948,6 +3941,32 @@ namespace Portal.Consultoras.Common
                 public const string Video = "video";
                 public const string Pdf = "pdf";
             }
+        }
+        
+        /// <summary>
+        /// Contiene los valores de los codigo de catalogo segun ODS.Catalogo.
+        /// </summary>
+        /// <remarks>
+        /// Provisionalmente contiene los que se utilizan para el calculo de ganancia.
+        /// En el futuro se pueden agregar los restante segú la necesidad.
+        /// </remarks>
+        public static class ODSCodigoCatalogo
+        {
+            //REVISTAS
+            public const string RevistaSinLimites = "6";
+            public const string RevistaEbelMagazine = "14";
+            public const string RevistaEsikaTeCuenta = "15";
+            public const string RevistaCyzone = "18";
+            public const string RevistaBelcorp = "24";
+            //WEB
+            public const string WebPortalFFVV = "35";
+            public const string WebShowRoom = "44";
+            public const string WebOfertasParaTi = "45";
+            public const string WebOfertasDelDia = "46";
+            //CATALOGOS
+            public const string CatalogoEbel = "9";
+            public const string CatalogoCyzone = "10";
+            public const string CatalogoEsika = "13";
         }
     }
 }

@@ -675,15 +675,15 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<ServiceUsuario.BEUsuario>)HttpContext.Current.Session["BEUsuarioModel"];
         }
 
-        void ISessionManager.SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
-        {
-            HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = modelo;
-        }
+        //void ISessionManager.SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
+        //{
+        //    HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal] = modelo;
+        //}
 
-        EstrategiaPersonalizadaProductoModel ISessionManager.GetProductoTemporal()
-        {
-            return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
-        }
+        //EstrategiaPersonalizadaProductoModel ISessionManager.GetProductoTemporal()
+        //{
+        //    return (EstrategiaPersonalizadaProductoModel)HttpContext.Current.Session[Constantes.ConstSession.ProductoTemporal];
+        //}
 
 
         public void SetPedidoValidado(bool validado)

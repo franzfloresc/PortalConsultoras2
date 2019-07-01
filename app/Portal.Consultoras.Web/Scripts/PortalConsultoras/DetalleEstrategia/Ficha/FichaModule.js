@@ -820,7 +820,6 @@ var FichaModule = (function (config) {
             }
 
             panelCliente.Abrir();
-            //console.log('_initCliente - DivPopupFichaResumida overflow hidden');
             $("#DivPopupFichaResumida").css("overflow", "hidden");
             isChangeCliente = true;
 
@@ -879,14 +878,14 @@ var FichaModule = (function (config) {
         modeloFicha = _getEstrategia(modeloFicha);
         _modeloFicha(modeloFicha);
 
-        //if (_modeloFicha().MostrarFichaResponsive &&
-        //    _modeloFicha().CodigoVariante == _codigoVariedad.ComuestaFija) {
-        //    var urlResponsive = _config.generalModule.getLocationPathname()/*.toLowerCase()*/;
-        //    urlResponsive = urlResponsive.replace("Detalle", "Detalles");
-        //    urlResponsive = urlResponsive.substr(1);
-        //    _config.generalModule.redirectTo(urlResponsive, _config.esMobile);
-        //    return;
-        //}
+        if (_modeloFicha().MostrarFichaResponsive &&
+            _modeloFicha().CodigoVariante == _codigoVariedad.ComuestaFija) {
+            var urlResponsive = _config.generalModule.getLocationPathname()/*.toLowerCase()*/;
+            urlResponsive = urlResponsive.replace("Detalle", "Detalles");
+            urlResponsive = urlResponsive.substr(1);
+            _config.generalModule.redirectTo(urlResponsive, _config.esMobile);
+            return;
+        }
 
         _construirSeccionFicha();
         _construirSeccionEstrategia();
