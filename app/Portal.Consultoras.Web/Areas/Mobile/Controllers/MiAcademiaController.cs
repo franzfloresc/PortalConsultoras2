@@ -1,15 +1,6 @@
-﻿using Newtonsoft.Json;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.MiAcademia;
+﻿using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.ServiceContenido;
-using Portal.Consultoras.Web.ServiceLMS;
 using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Net;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers

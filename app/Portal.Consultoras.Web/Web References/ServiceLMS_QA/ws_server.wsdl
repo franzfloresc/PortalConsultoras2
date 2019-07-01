@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+      <xsd:complexType name="result">
+        <xsd:all>
+          <xsd:element name="codigo" type="xsd:string" />
+          <xsd:element name="mensaje" type="xsd:string" />
+          <xsd:element name="token" type="xsd:string" />
+        </xsd:all>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ws_server.get_userRequest">
+    <wsdl:part name="username" type="xsd:string" />
+    <wsdl:part name="campania" type="xsd:string" />
+    <wsdl:part name="secret_key" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="ws_server.get_userResponse">
+    <wsdl:part name="return" type="tns:result" />
+  </wsdl:message>
+  <wsdl:message name="ws_server.create_userRequest">
+    <wsdl:part name="isoCodconsultora" type="xsd:string" />
+    <wsdl:part name="Nombre" type="xsd:string" />
+    <wsdl:part name="Email" type="xsd:string" />
+    <wsdl:part name="Campania" type="xsd:string" />
+    <wsdl:part name="Region" type="xsd:string" />
+    <wsdl:part name="Zona" type="xsd:string" />
+    <wsdl:part name="Segmento" type="xsd:string" />
+    <wsdl:part name="Seccion" type="xsd:string" />
+    <wsdl:part name="Lider" type="xsd:string" />
+    <wsdl:part name="NivelLider" type="xsd:string" />
+    <wsdl:part name="CampanaLider" type="xsd:string" />
+    <wsdl:part name="SeccionGestionLider" type="xsd:string" />
+    <wsdl:part name="NivelProyectado" type="xsd:string" />
+    <wsdl:part name="secret_key" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="ws_server.create_userResponse">
+    <wsdl:part name="return" type="tns:result" />
+  </wsdl:message>
+  <wsdl:portType name="ws_serverPortType">
+    <wsdl:operation name="ws_server.get_user">
+      <documentation>Verificar que usuario existe y retornar token para autentificacion.</documentation>
+      <wsdl:input message="tns:ws_server.get_userRequest" />
+      <wsdl:output message="tns:ws_server.get_userResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="ws_server.create_user">
+      <documentation>Verificar que usuario existe y retornar token para autentificacion.</documentation>
+      <wsdl:input message="tns:ws_server.create_userRequest" />
+      <wsdl:output message="tns:ws_server.create_userResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ws_serverBinding" type="tns:ws_serverPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="ws_server.get_user">
+      <soap:operation soapAction="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server/ws_server#getuser" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server/ws_server" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server/ws_server" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ws_server.create_user">
+      <soap:operation soapAction="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server/ws_server#createuser" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server/ws_server" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server/ws_server" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ws_server">
+    <wsdl:port name="ws_serverPort" binding="tns:ws_serverBinding">
+      <soap:address location="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ws_server.php" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

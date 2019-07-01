@@ -3,7 +3,7 @@ using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.Models.MiAcademia;
 using Portal.Consultoras.Web.ServiceContenido;
-using Portal.Consultoras.Web.ServiceLMS;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -12,6 +12,7 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class MiAcademiaProvider
     {
+        private static readonly string CodCreateUser = "002";
         private static readonly List<string> ListCodErrorGetUser = new List<string> { "003", "004", "005" };
         private static readonly List<string> ListCodErrorCreateUser = new List<string> { "002", "003", "004" };
 
@@ -92,41 +93,107 @@ namespace Portal.Consultoras.Web.Providers
         
         public ResultModel<string> GetToken(UsuarioModel userData, string isoUsuario)
         {
-            var token = "";
-            result getUser, createUser = new result();
+            ServRespMiAcademiaModel resp;
+            string key = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
 
-            using (ws_server svcLms = new ws_server())
+            using (IMiAcademiaServ svc = NewMiAcademiaServ())
             {
-                string key = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
-                getUser = svcLms.ws_serverget_user(isoUsuario, userData.CampaniaID.ToString(), key);
-                token = getUser.token;
-
-                if (getUser.codigo == "002")
+                resp = svc.GetUser(isoUsuario, userData.CampaniaID.ToString(), key);
+                if (resp.GetUserCod == CodCreateUser)
                 {
                     string email = GetEmailUsuario(userData);
                     string nivelProyectado = GetNivelProyectado(userData);
 
-                    createUser = svcLms.ws_servercreate_user(
-                        isoUsuario,
-                        userData.NombreConsultora,
-                        email,
-                        userData.CampaniaID.ToString(),
-                        userData.CodigorRegion,
-                        userData.CodigoZona,
-                        userData.SegmentoConstancia,
-                        userData.SeccionAnalytics,
-                        userData.Lider.ToString(),
-                        userData.NivelLider.ToString(),
-                        userData.CampaniaInicioLider,
-                        userData.SeccionGestionLider,
-                        nivelProyectado,
-                        key);
-                    token = createUser.token;
+                    var createUser = svc.CreateUser(userData, isoUsuario, email, nivelProyectado, key);
+                    resp.CreateUserCod = createUser.CreateUserCod;
+                    resp.Token = createUser.Token;
                 }
             }
 
-            var success = !ListCodErrorGetUser.Contains(getUser.codigo) && !ListCodErrorCreateUser.Contains(createUser.codigo);
-            return ResultModel<string>.Build(success, null, token);
+            var success = !ListCodErrorGetUser.Contains(resp.GetUserCod) && !ListCodErrorCreateUser.Contains(resp.CreateUserCod);
+            return ResultModel<string>.Build(success, null, resp.Token);
         }
+        private IMiAcademiaServ NewMiAcademiaServ()
+        {
+            string ambiente = _configuracionManager.GetConfiguracionManager(Constantes.ConfiguracionManager.Ambiente);
+            if (ambiente == "PR") return new MiAcademiaServPrd();
+            return new MiAcademiaServQa();
+        }
+    }
+
+    interface IMiAcademiaServ : IDisposable
+    {
+        ServRespMiAcademiaModel GetUser(string isoUsuario, string campaniaID, string key);
+        ServRespMiAcademiaModel CreateUser(UsuarioModel userData, string isoUsuario, string email, string nivelProyectado, string key);
+    }
+
+    class MiAcademiaServQa : IMiAcademiaServ
+    {
+        private ServiceLMS_QA.ws_server svc;
+
+        public MiAcademiaServQa() { svc = new ServiceLMS_QA.ws_server(); }
+
+        public ServRespMiAcademiaModel GetUser(string isoUsuario, string campaniaID, string key)
+        {
+            var result = svc.ws_serverget_user(isoUsuario, campaniaID, key);
+            return new ServRespMiAcademiaModel { GetUserCod = result.codigo, Token = result.token };
+        }
+        public ServRespMiAcademiaModel CreateUser(UsuarioModel userData, string isoUsuario, string email, string nivelProyectado, string key)
+        {
+            var result = svc.ws_servercreate_user(
+                isoUsuario,
+                userData.NombreConsultora,
+                email,
+                userData.CampaniaID.ToString(),
+                userData.CodigorRegion,
+                userData.CodigoZona,
+                userData.SegmentoConstancia,
+                userData.SeccionAnalytics,
+                userData.Lider.ToString(),
+                userData.NivelLider.ToString(),
+                userData.CampaniaInicioLider,
+                userData.SeccionGestionLider,
+                nivelProyectado,
+                key
+            );
+            return new ServRespMiAcademiaModel { CreateUserCod = result.codigo, Token = result.token };
+        }
+
+        public void Dispose() { svc.Dispose(); }
+    }
+
+    class MiAcademiaServPrd : IMiAcademiaServ
+    {
+        private ServiceLMS.ws_server svc;
+
+        public MiAcademiaServPrd() { svc = new ServiceLMS.ws_server(); }
+
+        public ServRespMiAcademiaModel GetUser(string isoUsuario, string campaniaID, string key)
+        {
+            var result = svc.ws_serverget_user(isoUsuario, campaniaID, key);
+            return new ServRespMiAcademiaModel { GetUserCod = result.codigo, Token = result.token };
+        }
+        public ServRespMiAcademiaModel CreateUser(UsuarioModel userData, string isoUsuario, string email, string nivelProyectado, string key)
+        {
+            var result = svc.ws_servercreate_user(
+                isoUsuario,
+                userData.NombreConsultora,
+                email,
+                userData.CampaniaID.ToString(),
+                userData.CodigorRegion,
+                userData.CodigoZona,
+                userData.SegmentoConstancia,
+                userData.SeccionAnalytics,
+                userData.Lider.ToString(),
+                userData.NivelLider.ToString(),
+                userData.CampaniaInicioLider,
+                userData.SeccionGestionLider,
+                nivelProyectado,
+                key
+            );
+            return new ServRespMiAcademiaModel { CreateUserCod = result.codigo, Token = result.token };
+        }
+
+        public void Dispose() { svc.Dispose(); }
     }
 }
