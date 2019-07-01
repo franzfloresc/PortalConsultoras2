@@ -7,10 +7,19 @@
 }
 
 @section css{
+
     <link href="~/Content/CaminoBrillante/css/estilos.css" rel="stylesheet" />
     <style>
         div.content_responsive {
             margin-top: 0px;
+        }
+
+
+        .regular .itm {
+            float: none;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0;
         }
     </style>
 }
@@ -155,13 +164,111 @@
     </div>
     {{/each}}
     <div class="clear"></div>
+
 </script>
+
+<div class="container">
+    <section class="regular slider">
+        <div>
+            <div class="itm">
+                <div class="circle-porcent crec-activo">
+                    <span>5%</span>
+                </div>
+                <span class="como-log inactivo">¡Ya lo tienes!</span>
+            </div>
+        </div>
+        <div>
+            <div class="itm">
+                <div class="circle-porcent crec-activo">
+                    <span>5%</span>
+                </div>
+                <span class="como-log inactivo">¡Ya lo tienes!</span>
+            </div>
+        </div>
+        <div>
+            <div class="itm">
+                <div class="circle-porcent crec-activo">
+                    <span>5%</span>
+                </div>
+                <span class="como-log inactivo">¡Ya lo tienes!</span>
+            </div>
+        </div>
+        <div>
+            <div class="itm">
+                <div class="circle-porcent crec-activo">
+                    <span>5%</span>
+                </div>
+                <span class="como-log inactivo">¡Ya lo tienes!</span>
+            </div>
+        </div>
+        <div>
+            <div class="itm">
+                <div class="circle-porcent crec-activo">
+                    <span>5%</span>
+                </div>
+                <span class="como-log inactivo">¡Ya lo tienes!</span>
+            </div>
+        </div>
+        <div>
+            <div class="itm">
+                <div class="circle-porcent crec-activo">
+                    <span>5%</span>
+                </div>
+                <span class="como-log inactivo">¡Ya lo tienes!</span>
+            </div>
+        </div>
+        <div>
+            <div class="itm">
+                <div class="circle-porcent crec-activo">
+                    <span>5%</span>
+                </div>
+                <span class="como-log inactivo">¡Ya lo tienes!</span>
+            </div>
+        </div>
+    </section>
+</div>
+
 
 @section scripts{
     <script>
         var urlGetLogros = '@Url.Action("GetLogros", "CaminoBrillante")';
         var categoriaLogro = "@categoria";
     </script>
+
+
+
+    <script>
+
+        $(document).on('ready', function () {
+
+            $(".regular").slick({
+                dots: true,
+                infinite: true,
+                slidesToShow: 6,
+                slidesToScroll: 1,
+                dots: false,
+                prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+                nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
+                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+
+                            slidesToShow: 2,
+                        }
+                    }
+                ]
+            });
+
+        });
+
+    </script>
+
+
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/logros")
+
+
+
+
 }
