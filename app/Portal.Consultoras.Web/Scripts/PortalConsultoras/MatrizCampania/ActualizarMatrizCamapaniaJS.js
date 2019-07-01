@@ -492,16 +492,16 @@ function ValidarExcel() {
 
                             contValidos++;
                             regValidos += "<tr style='background-color: white;'>";
-                            for (var j = 0; j < 4; j++) {
+                            for (var jValido = 0; jValido < 4; jValido++) {
 
                                 regValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'>";
-                                if (j == 2) {
-                                    if (isNaN(colum[j]) || colum[j].trim().length == 0) {
-                                        regValidos += colum[j];
+                                if (jValido == 2) {
+                                    if (isNaN(colum[jValido]) || colum[jValido].trim().length == 0) {
+                                        regValidos += colum[jValido];
                                     } else
-                                        regValidos += parseFloat(colum[j]).toFixed(2);
+                                        regValidos += parseFloat(colum[jValido]).toFixed(2);
                                 } else
-                                    regValidos += colum[j];
+                                    regValidos += colum[jValido];
                                 regValidos += "</td>";
                             }
                             regValidos += "</tr>";
@@ -543,19 +543,19 @@ function ValidarExcel() {
                             var cuv = "";
                             var descrip = "";
                             regInValidos += "<tr style='background-color: white;'>";
-                            for (var j = 0; j < 4; j++) {
+                            for (var jRegVal = 0; jRegVal < 4; jRegVal++) {
                                 cuv = colum[0];
                                 descrip = colum[1];
 
                                 regInValidos += "<td style='border-style: solid;border-width: 1px;text-align: center;'><div contenteditable='true'>";
 
-                                if (j == 2) {
-                                    if (isNaN(colum[j]) || colum[j].trim().length == 0) {
-                                        regInValidos += colum[j];
+                                if (jRegVal == 2) {
+                                    if (isNaN(colum[jRegVal]) || colum[jRegVal].trim().length == 0) {
+                                        regInValidos += colum[jRegVal];
                                     } else
-                                        regInValidos += parseFloat(colum[j]).toFixed(2);
+                                        regInValidos += parseFloat(colum[jRegVal]).toFixed(2);
                                 } else
-                                    regInValidos += colum[j];
+                                    regInValidos += colum[jRegVal];
 
                                 regInValidos += "</div></td>";
                             }

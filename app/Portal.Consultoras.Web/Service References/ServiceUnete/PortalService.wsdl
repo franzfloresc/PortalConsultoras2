@@ -339,17 +339,17 @@
   <wsdl:message name="IPortalService_ObtenerReporteDiasEspera_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerReporteDiasEsperaResponse" />
   </wsdl:message>
-  <wsdl:message name="IPortalService_ConsultarTipoPostulante_InputMessage">
-    <wsdl:part name="parameters" element="tns:ConsultarTipoPostulante" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_ConsultarTipoPostulante_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ConsultarTipoPostulanteResponse" />
-  </wsdl:message>
   <wsdl:message name="IPortalService_ConsultarPagodeKitLog_InputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarPagodeKitLog" />
   </wsdl:message>
   <wsdl:message name="IPortalService_ConsultarPagodeKitLog_OutputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarPagodeKitLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ConsultarTipoPostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarTipoPostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ConsultarTipoPostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarTipoPostulanteResponse" />
   </wsdl:message>
   <wsdl:message name="IPortalService_ConsultarSolicitudesPostulanteV2_InputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarSolicitudesPostulanteV2" />
@@ -874,13 +874,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerReporteDiasEspera" message="tns:IPortalService_ObtenerReporteDiasEspera_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerReporteDiasEsperaResponse" message="tns:IPortalService_ObtenerReporteDiasEspera_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ConsultarTipoPostulante">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarTipoPostulante" message="tns:IPortalService_ConsultarTipoPostulante_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarTipoPostulanteResponse" message="tns:IPortalService_ConsultarTipoPostulante_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="ConsultarPagodeKitLog">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarPagodeKitLog" message="tns:IPortalService_ConsultarPagodeKitLog_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarPagodeKitLogResponse" message="tns:IPortalService_ConsultarPagodeKitLog_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarTipoPostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarTipoPostulante" message="tns:IPortalService_ConsultarTipoPostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarTipoPostulanteResponse" message="tns:IPortalService_ConsultarTipoPostulante_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ConsultarSolicitudesPostulanteV2">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarSolicitudesPostulanteV2" message="tns:IPortalService_ConsultarSolicitudesPostulanteV2_InputMessage" />
@@ -1575,8 +1575,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ConsultarTipoPostulante">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarTipoPostulante" style="document" />
+    <wsdl:operation name="ConsultarPagodeKitLog">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarPagodeKitLog" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1584,8 +1584,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ConsultarPagodeKitLog">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarPagodeKitLog" style="document" />
+    <wsdl:operation name="ConsultarTipoPostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarTipoPostulante" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

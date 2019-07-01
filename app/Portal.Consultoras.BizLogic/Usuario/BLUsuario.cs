@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.BizLogic.RevistaDigital;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Data.ServiceActualizarFlagBoletaImpresa;
@@ -549,6 +550,7 @@ namespace Portal.Consultoras.BizLogic
                 var pagoEnLineaTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.PagoLinea.TablaLogicaId));
                 var tieneChatbotTask = Task.Run(() => usuario.TieneChatbot = TieneChatbot(paisID, usuario.CodigoConsultora));
                 var tieneGanaMasNativo = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.GanaNativo.TablaLogicaId));
+                var opcionesUsuario = Task.Run(() => GetUsuarioOpciones(paisID, usuario.CodigoUsuario));
 
                 var lstConfiguracionPais = new List<string>();
                 lstConfiguracionPais.Add(Constantes.ConfiguracionPais.RevistaDigital);
@@ -650,6 +652,13 @@ namespace Portal.Consultoras.BizLogic
                 usuario.EsUltimoDiaFacturacion = (usuario.FechaFinFacturacion - Common.Util.GetDiaActual(usuario.ZonaHoraria)).Days == 0;
 
 
+                //Para mostrar u ocultar el check de notificaciones de Whatsapp 
+                var opcionesUsuarioConfig = opcionesUsuario.Result.FirstOrDefault(x => x.OpcionesUsuarioId == Constantes.OpcionesUsuario.CompartirWhatsApp);
+                usuario.ActivaNotificacionesWhatsapp = (opcionesUsuarioConfig != null);
+
+                if (opcionesUsuarioConfig != null)
+                    usuario.NotificacionesWhatsapp = opcionesUsuarioConfig.CheckBox;
+                
                 return usuario;
             }
             catch (Exception ex)
@@ -1903,6 +1912,12 @@ namespace Portal.Consultoras.BizLogic
         {
             string resultado = string.Empty;
 
+            var DAUsuario = new DAUsuario(usuario.PaisID);
+            var usuarioOpciones = new BEUsuarioOpciones();
+            usuarioOpciones.OpcionesUsuarioId = Constantes.OpcionesUsuario.CompartirWhatsApp;
+            usuarioOpciones.CheckBox = usuario.NotificacionesWhatsapp;
+
+
             try
             {
                 if (usuario.EMail != string.Empty)
@@ -1916,6 +1931,7 @@ namespace Portal.Consultoras.BizLogic
                     else
                     {
                         this.UpdateDatos(usuario, CorreoAnterior);
+                        if(usuario.ActivaNotificacionesWhatsapp) DAUsuario.InsertarUsuarioOpciones(usuarioOpciones, usuario.CodigoUsuario);
 
                         if (usuario.EMail != CorreoAnterior)
                         {
@@ -1931,6 +1947,7 @@ namespace Portal.Consultoras.BizLogic
                 else if (usuario.PaisID == Constantes.PaisID.Colombia || usuario.PaisID == Constantes.PaisID.Chile)
                 {
                     this.UpdateDatos(usuario, CorreoAnterior);
+                    if (usuario.ActivaNotificacionesWhatsapp) DAUsuario.InsertarUsuarioOpciones(usuarioOpciones, usuario.CodigoUsuario);
                     resultado = string.Format("{0}|{1}|{2}|0", "1", "3", "- Sus datos se actualizaron correctamente");
                 }
             }
@@ -3550,7 +3567,7 @@ namespace Portal.Consultoras.BizLogic
         private BERevistaDigital ConfiguracionPaisDatosRevistaDigital(BERevistaDigital revistaDigitalModel, List<BEConfiguracionPaisDatos> configuracionesPaisDatos, string codigoIso)
         {
             if (revistaDigitalModel == null)
-                throw new ArgumentNullException("revistaDigitalModel", "no puede ser nulo");
+                throw new ClientInformationException("revistaDigitalModel no puede ser nulo");
 
             if (configuracionesPaisDatos == null || !configuracionesPaisDatos.Any() || string.IsNullOrEmpty(codigoIso))
                 return revistaDigitalModel;
@@ -3915,7 +3932,7 @@ namespace Portal.Consultoras.BizLogic
 
                     if (lst[0] == "0")
                     {
-                        throw new Exception(lst[2]);
+                        throw new ClientInformationException(lst[2]);
                     }
 
                     /*Insertar dirección entrega*/
@@ -3942,7 +3959,7 @@ namespace Portal.Consultoras.BizLogic
                                 objActualizarFlagBoleta.Add(new ConsultoraFlagImpBoleta { codigoConsultora = usuario.CodigoConsultora, indImprimeBoleta = flagBolImp, indImprimePaquete = flagBolImp });
                                 var result = svr.actualizaFlagImpBoletas(objActualizarFlagBoleta.ToArray());
                                 if (result.estado == 1)
-                                    throw new Exception(result.mensaje);
+                                    throw new ClientInformationException(result.mensaje);
                             }
 
                         }
@@ -4032,7 +4049,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
                     var result = svr.actualizacionDireccionEntrega(CodigoIsoSicc, Direccionexterna);
-                    if (result.codigo == "2") throw new Exception(result.mensaje);
+                    if (result.codigo == "2") throw new ClientInformationException(result.mensaje);
                 }
 
                 if (conTransaccion) ts.Complete();
@@ -4040,7 +4057,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 if (conTransaccion) LogManager.SaveLog(ex, direccionEntrega.ConsultoraID, direccionEntrega.PaisID);
-                throw new Exception("Exception BLUsuario - RegistrarDireccionEntrega", ex);
+                throw new ClientInformationException("Exception BLUsuario - RegistrarDireccionEntrega", ex);
             }
             finally
             {

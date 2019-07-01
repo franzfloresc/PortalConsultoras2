@@ -64,7 +64,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public string ObtenerOrigen()
         {
-            return Util.EsDispositivoMovil() ? "sb-mobile" : "sb-desktop";
+            return Util.OrigenSegunDispositivo();
         }
 
         public IList<Productos> ValidacionProductoAgregado(
