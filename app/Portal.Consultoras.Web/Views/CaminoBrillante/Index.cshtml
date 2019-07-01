@@ -16,6 +16,9 @@
         }
     </style>
 }
+
+@Html.Partial("~/Areas/Mobile/Views/Shared/VistaParcialMobileLayout/_vpBloquePopupMensajesInformacion.cshtml")
+
 <link href="~/Content/Css/Site/FichaProductoResponsive/ficha-producto-responsive.css" rel="stylesheet" />
 
 <div id="overlayer"><div class="loadingScreen-mensaje"></div></div>
@@ -249,38 +252,38 @@
             mostrarBotonOfertas = "display:block;";
         }
 
-            <div class="ficha" data-item="CarruselFichasProductos"></div>
-            <div class="camino_brillante" style="@mostrarCarrusel">
-                <div class="camino_brillante" data-estrategia="{{JSON2string this}}">  </div>
-                <div id="carrusel" style="margin-top:25px;"></div>
-                @Html.Partial("Partial/template_kit")
-                @Html.Partial("Partial/template_demostrador")
-                <script id="template-carrusel" type="text/x-handlebars-template">
-                    <div class="box-kit-demos">
+        <div class="ficha" data-item="CarruselFichasProductos"></div>
+        <div class="camino_brillante" style="@mostrarCarrusel">
+            <div class="camino_brillante" data-estrategia="{{JSON2string this}}">  </div>
+            <div id="carrusel" style="margin-top:25px;"></div>
+            @Html.Partial("Partial/template_kit")
+            @Html.Partial("Partial/template_demostrador")
+            <script id="template-carrusel" type="text/x-handlebars-template">
+                <div class="box-kit-demos">
 
-                        <h2 class="title fleft">Kits y demostradores</h2>
-                        {{#if VerMas}}
-                        <a href="@Url.Action("Ofertas", "CaminoBrillante")" class="ver-todos">Ver todos</a>
-                        {{/if}}
-                        <div class="clear"></div>
+                    <h2 class="title fleft">Kits y demostradores</h2>
+                    {{#if VerMas}}
+                    <a href="@Url.Action("Ofertas", "CaminoBrillante")" class="ver-todos">Ver todos</a>
+                    {{/if}}
+                    <div class="clear"></div>
 
-                        <section class="regular slider">
-                            {{#each Items}}
-                            <div class="revistadigital-landing">
-                                {{#iff TipoOferta '==' 2}}
-                                {{> demostrador_template}}
-                                {{/iff}}
-                                {{#iff TipoOferta '==' 1}}
-                                {{> kit_template}}
-                                {{/iff}}
-                            </div>
-                            {{/each}}
-                        </section>
-                    </div>
-                </script>
-            </div>
+                    <section class="regular slider">
+                        {{#each Items}}
+                        <div class="revistadigital-landing">
+                            {{#iff TipoOferta '==' 2}}
+                            {{> demostrador_template}}
+                            {{/iff}}
+                            {{#iff TipoOferta '==' 1}}
+                            {{> kit_template}}
+                            {{/iff}}
+                        </div>
+                        {{/each}}
+                    </section>
+                </div>
+            </script>
+        </div>
 
-            <a id="OfertasEspeciales" href="@Url.Action("Ofertas", "CaminoBrillante")" class="btn-principal" style="@mostrarBotonOfertas">Ver ofertas</a>
+        <a id="OfertasEspeciales" href="@Url.Action("Ofertas", "CaminoBrillante")" class="btn-principal" style="@mostrarBotonOfertas">Ver ofertas</a>
     }
 
     @if (ViewBag.ResumenLogros != null)
@@ -366,7 +369,7 @@
         var nroRegistrosKits = 12;
         var TineCarrusel = '@ViewBag.TieneCarrusel';
         var TieneGanancias = '@ViewBag.TieneGanancias';
-        var TieneMontoAcumulado = '@ViewBag.TieneMontoAcumulado';        
+        var TieneMontoAcumulado = '@ViewBag.TieneMontoAcumulado';
     </script>
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
