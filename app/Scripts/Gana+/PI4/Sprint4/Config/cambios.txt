@@ -1,0 +1,10 @@
+﻿1. Microservicio Sync
+	Modificar dentro de "Palancas" y agregar "LMG" a la cadena
+	
+	"Palancas": "...,LMG"
+
+2. Portal.Consultoras.Web
+	Modificar "Configuration/appSettings/EstrategiaDisponibleMicroservicioPersonalizacion"
+	agregando "LMG" en la cadena.
+	
+	<add key="EstrategiaDisponibleMicroservicioPersonalizacion" value="...,LMG"/>
