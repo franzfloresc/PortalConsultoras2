@@ -2,7 +2,6 @@
 
 * {
     box-sizing: border-box;
-    /*font-family:'Lato';*/
     font-family: 'Lato', sans-serif !important;
     font-size: 14px;
     font-weight: 400;
@@ -13,7 +12,7 @@ html, body{
     margin:0;
 }
 
-header,nav, section, aside, picture, fieldset, caption, figure, h1, h2, h3, h4, h5, h6, p{ 
+header,nav, section, aside, picture, fieldset, caption, figure, h1, h2, h3, h4, h5, h6, p{
     margin:0;
     padding:0;
 }
@@ -45,16 +44,20 @@ button:focus{
 
 /* COLORES MARCA PAÍS */
 
-.color__multimarca{
-    color:#B9007E;
+.background__color__multimarca {
+    background-color: #B9007E;
 }
 
-.color__gray__multimarca{
-    color:#808080;
+.color__multimarca {
+    color: #B9007E;
 }
 
-.background__color__gray__multimarca{
-    background-color:#808080;
+.color__gray__multimarca {
+    color: #808080;
+}
+
+.background__color__gray__multimarca {
+    background-color: #808080;
 }
 
 /* FIN - COLORES MARCA PAÍS */
@@ -74,10 +77,10 @@ button:focus{
 
 /* FORMS */
 
-.form__group__fields {
-    flex: 0 0 100%;
-    max-width: 100%;
-    position: relative;
+.form__group__fields{
+    flex:0 0 100%;
+    max-width:100%;
+    position:relative;
 }
 
 /* LABELS */
@@ -119,17 +122,17 @@ button:focus{
     transition: all 0.3s ease;
 }
 
-    .label__checkbox__sb + span {
-        font-size: 13px;
-        margin-top: -5px;
+    .label__checkbox__sb + span{
+        font-size:13px;
+        margin-top:-5px;
     }
 
-@media screen and (max-width:991px) {
+@media screen and (max-width:991px){
 
     .label__checkbox__sb + span {
         font-size: 13px;
         line-height: 18px;
-        margin-top: -4px;
+        margin-top:-4px;
     }
 }
 
@@ -551,7 +554,8 @@ input[type="checkbox"].switch__control,
     background: #FFFFFF !important;
     color: #555 !important;
     border-radius: 0;
-    z-index: 999999910 !important;
+    z-index: 999999999 !important; /* cambio de equipo gana mas */
+    /*z-index: 999999910 !important;*/  /* cambio de equipo ? */
 }
 
 .ui-dialog .ui-dialog-titlebar {
@@ -1215,7 +1219,7 @@ input[type="checkbox"].switch__control,
 /* SECCIÓN CONTENIDO */
 
 .layout__content{
-    margin-top:60px;
+    /*margin-top:60px;*/
     padding:20px 15px;
     min-height:calc(100vh - 207px);
     position:relative;

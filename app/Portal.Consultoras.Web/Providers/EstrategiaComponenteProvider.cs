@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 
@@ -81,6 +82,8 @@ namespace Portal.Consultoras.Web.Providers
                 listaEstrategiaComponente.ForEach(c =>
                 {
                     c.TieneDetalleSeccion = (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>()).Any() && c.Cabecera != null;
+                    var formateo = Util.TruncarADecimales(c.PrecioContenido.ToDecimal(), 2);
+                    c.PrecioContenidoStr = formateo.ToString("n2", CultureInfo.CreateSpecificCulture(string.Format("es-{0}", userData.CodigoISO)));
                 });
 
                 mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count;
@@ -215,6 +218,7 @@ namespace Portal.Consultoras.Web.Providers
                 componenteModel.Cuv = Util.Trim(beEstrategiaProducto.CUV);
                 componenteModel.Cantidad = beEstrategiaProducto.Cantidad;
                 componenteModel.FactorCuadre = beEstrategiaProducto.FactorCuadre > 0 ? beEstrategiaProducto.FactorCuadre : 1;
+                componenteModel.CodigoProducto = beEstrategiaProducto.SAP;
 
                 listaEstrategiaComponenteProductos.Add(componenteModel);
             }

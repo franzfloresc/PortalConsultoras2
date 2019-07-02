@@ -1,23 +1,32 @@
-﻿/* ESTILOS MARCA PAÍS */
+﻿
+/* ESTILOS MARCA PAÍS */
 
 .default-color {
-    color: #e81c36;
+    color:  #e81c36;
 }
 
 .default-background {
-    background-color: #e81c36;
+    background-color:  #e81c36;
 }
 
 .default-background-color {
-    background-color: #e81c36;
+    background-color:  #e81c36;
 }
 
 .default-border-hover:hover {
     border-color: #e81c36 !important;
 }
 
+.color-multimarca{
+    color:#b9007e!important;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
 .multimarca-background-color {
-    background-color: #b9007e!important; 
+    background-color: #b9007e!important;
 }
 
 .multimarca-border-color {
@@ -110,8 +119,8 @@ input[type="text"].text__field__sb,
     border-left: 0;
     border-right: 0;
     border-bottom: 1px solid #b4b4b4;
+    border-radius: 0;
     height: 40px;
-    border-radius:0;
     background-color: transparent;
     position: relative;
     z-index: 2;
@@ -188,11 +197,24 @@ input[type="text"].text__field__sb,
 
 /* VALIDATION MESSAGE */
 
-.validation__message{
-    color:#e81c36;
+.validation__message,
+.validation__field{
     font-size:11px;
     margin-top:4px;
 }
+
+.validation__field {
+    color: #808080;
+}
+    
+    .validation__message,
+    .validation__error{
+        color:#e81c36;
+    }
+
+    .validation__success{
+        color:#569c04;
+    }
 
 /* FIN - VALIDATION MESSAGE */
 
@@ -269,37 +291,37 @@ input[type="text"].text__field__sb,
     position: relative;
 }
 
-.btn__sb__primary,
-.btn__sb__primary--multimarca {
-    color: #FFF;
-}
+    .btn__sb__primary,
+    .btn__sb__primary--multimarca {
+        color: #FFF;
+    }
 
-.btn__sb__primary,
-.btn__sb__secondary {
-    border: 1px solid #000;
-}
+    .btn__sb__primary,
+    .btn__sb__secondary {
+        border: 1px solid #000;
+    }
 
-.btn__sb__primary {
-    background-color: #000;
-}
+    .btn__sb__primary {
+        background-color: #000;
+    }
 
-.btn__sb__primary--multimarca {
-    background-color: #B9007E;
-    border: 1px solid #B9007E;
-}
+    .btn__sb__primary--multimarca {
+        background-color: #B9007E;
+        border: 1px solid #B9007E;
+    }
 
-.btn__sb__secondary {
-    background-color: #FFF;
-    color: #000;
-}
+    .btn__sb__secondary {
+        background-color: #FFF;
+        color: #000;
+    }
 
-.btn__sb--disabled {
-    border: 1px solid #D1D1D4 !important;
-    background-color: #D1D1D4 !important;
-    pointer-events: none;
-    cursor: not-allowed;
-    color: #909094 !important;
-}
+    .btn__sb--disabled {
+        border: 1px solid #D1D1D4!important;
+        background-color: #D1D1D4!important;
+        pointer-events: none;
+        cursor: not-allowed;
+        color: #909094!important;
+    }
 
 @media screen and (max-width:991px) {
 
@@ -375,8 +397,8 @@ input[type="text"].text__field__sb,
 }
 
     .tag_sb--standard {
-        background-color: #000;
-        color: #FFF;
+    background-color: #000;
+    color: #FFF;
     }
 
 /* FIN - TAGS */
@@ -602,6 +624,10 @@ input[type="text"].text__field__sb,
 
 /* HELPERS CSS */
 
+.d-none {
+    display: none;
+}
+
 .d-block {
     display: block;
 }
@@ -635,6 +661,10 @@ input[type="text"].text__field__sb,
     text-transform: uppercase;
 }
 
+.text-underline {
+    text-decoration: underline;
+}
+
 .text-thin {
     font-weight: 300;
 }
@@ -644,7 +674,7 @@ input[type="text"].text__field__sb,
 }
 
 .text-bold {
-    font-weight: 700;
+    font-weight: bold !important;
 }
 
 .text-black {
@@ -663,6 +693,14 @@ input[type="text"].text__field__sb,
 
     .mt-53 {
         margin-top: 53px !important;
+    }
+
+}
+
+@media screen and (max-width:991px) {
+
+    .mb-60 {
+        margin-bottom: 60px;
     }
 }
 

@@ -18,6 +18,7 @@ using System.Web.Script.Serialization;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Portal.Consultoras.Common.Exceptions;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -26,41 +27,44 @@ namespace Portal.Consultoras.BizLogic
         private readonly int _timeOutIssuu = 10;
         private readonly string _apiKeyIssuu = "hvmznfoyahpnv79c0hdl2dryksonbxcp";
         private readonly string _secretKeyIssuu = "0w9gg5qn6xsn98gazggk9l27hu07gikv";
-        private readonly string _urlIssuuList = "http://api.issuu.com/1_0?action=issuu.documents.list&apiKey={0}&format=json&orgDocName={1}.pdf&signature={2}";
+
+        private readonly string _urlIssuuList =
+            "http://api.issuu.com/1_0?action=issuu.documents.list&apiKey={0}&format=json&orgDocName={1}.pdf&signature={2}";
+
         private readonly string _signatureIssuu = "{0}actionissuu.documents.listapiKey{1}formatjsonorgDocName{2}.pdf";
         private static HttpClient httpClient = null;
 
         private readonly List<BECatalogoRevista> _catalogosRevistas = new List<BECatalogoRevista>
+        {
+            new BECatalogoRevista
             {
-                new BECatalogoRevista
-                {
-                    MarcaID = 0,
-                    MarcaDescripcion = "Revista",
-                    UrlImagen = Constantes.CatalogoImagenDefault.Revista,
-                    UrlVisor = ""
-                },
-                new BECatalogoRevista
-                {
-                    MarcaID = Constantes.Marca.LBel,
-                    MarcaDescripcion = "Lbel",
-                    UrlImagen = Constantes.CatalogoImagenDefault.Catalogo,
-                    UrlVisor = Constantes.CatalogoUrlDefault.Lbel
-                },
-                new BECatalogoRevista
-                {
-                    MarcaID = Constantes.Marca.Esika,
-                    MarcaDescripcion = "Esika",
-                    UrlImagen = Constantes.CatalogoImagenDefault.Catalogo,
-                    UrlVisor = Constantes.CatalogoUrlDefault.Esika
-                },
-                new BECatalogoRevista
-                {
-                    MarcaID = Constantes.Marca.Cyzone,
-                    MarcaDescripcion = "Cyzone",
-                    UrlImagen = Constantes.CatalogoImagenDefault.Catalogo,
-                    UrlVisor = Constantes.CatalogoUrlDefault.Cyzone
-                }
-            };
+                MarcaID = 0,
+                MarcaDescripcion = "Revista",
+                UrlImagen = Constantes.CatalogoImagenDefault.Revista,
+                UrlVisor = ""
+            },
+            new BECatalogoRevista
+            {
+                MarcaID = Constantes.Marca.LBel,
+                MarcaDescripcion = "Lbel",
+                UrlImagen = Constantes.CatalogoImagenDefault.Catalogo,
+                UrlVisor = Constantes.CatalogoUrlDefault.Lbel
+            },
+            new BECatalogoRevista
+            {
+                MarcaID = Constantes.Marca.Esika,
+                MarcaDescripcion = "Esika",
+                UrlImagen = Constantes.CatalogoImagenDefault.Catalogo,
+                UrlVisor = Constantes.CatalogoUrlDefault.Esika
+            },
+            new BECatalogoRevista
+            {
+                MarcaID = Constantes.Marca.Cyzone,
+                MarcaDescripcion = "Cyzone",
+                UrlImagen = Constantes.CatalogoImagenDefault.Catalogo,
+                UrlVisor = Constantes.CatalogoUrlDefault.Cyzone
+            }
+        };
 
         public BLCatalogo()
         {
@@ -96,29 +100,35 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        public List<BECatalogoRevista> GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania, Enumeradores.TamanioImagenIssu tamanioImagenIssu)
+        public List<BECatalogoRevista> GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania,
+            Enumeradores.TamanioImagenIssu tamanioImagenIssu)
         {
             List<BECatalogoRevista> listCatalogoRevista;
-
+            bool ocurrioError = false;
             try
             {
                 var catalogoConfiguraciones = GetCatalogoConfiguracion(Util.GetPaisID(paisISO));
-                listCatalogoRevista = GetAllCatalogoRevista(paisISO, new[] { campania });
+                listCatalogoRevista = GetAllCatalogoRevista(paisISO, new[] {campania});
                 foreach (var catalogoRevista in listCatalogoRevista)
                 {
                     SetCatalogoRevistaMostrar(catalogoRevista, catalogoConfiguraciones);
                     SetCatalogoRevistaCodigoIssuu(codigoZona, catalogoRevista);
                     if (catalogoRevista.MarcaID == 0)
-                        SetCatalogoRevistaFieldsInOembedIssuu(catalogoRevista);
+                    {
+                        ocurrioError = SetCatalogoRevistaFieldsInOembedIssuu(catalogoRevista);
+                        if (ocurrioError) return new List<BECatalogoRevista>();
+                    }
                 }
 
-                SetCatalogoRevistaFieldsInSearchIssuu(listCatalogoRevista.Where(cr => cr.MarcaID != 0).ToList(), tamanioImagenIssu);
+                SetCatalogoRevistaFieldsInSearchIssuu(listCatalogoRevista.Where(cr => cr.MarcaID != 0).ToList(),
+                    tamanioImagenIssu);
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, "", paisISO);
                 listCatalogoRevista = new List<BECatalogoRevista>();
             }
+
             return listCatalogoRevista;
         }
 
@@ -136,7 +146,8 @@ namespace Portal.Consultoras.BizLogic
                 foreach (var catalogoRevista in catalogoRevistas)
                 {
                     SetCatalogoRevistaMostrar(catalogoRevista, catalogoConfiguraciones);
-                    if (catalogoRevista.Mostrar) lstTask.Add(Task.Run(() => GetCatalogoRevista(catalogoRevista, codigoZona)));
+                    if (catalogoRevista.Mostrar)
+                        lstTask.Add(Task.Run(() => GetCatalogoRevista(catalogoRevista, codigoZona)));
                 }
 
                 var arrTask = lstTask.ToArray();
@@ -152,13 +163,16 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #region Private Functions
+
         private BECatalogoRevista GetCatalogoRevista(BECatalogoRevista catalogoRevista, string codigoZona)
         {
+            bool ocurrioError = false;
             try
             {
                 SetCatalogoRevistaCodigoIssuu(codigoZona, catalogoRevista);
-                SetCatalogoRevistaFieldsInOembedIssuu(catalogoRevista);
-                AjusteRevistaTituloDescripcion(catalogoRevista);
+                ocurrioError = SetCatalogoRevistaFieldsInOembedIssuu(catalogoRevista);
+                if (!ocurrioError)
+                    AjusteRevistaTituloDescripcion(catalogoRevista);
             }
             catch (Exception ex)
             {
@@ -191,12 +205,16 @@ namespace Portal.Consultoras.BizLogic
             return catalogoRevistas;
         }
 
-        private void SetCatalogoRevistaMostrar(BECatalogoRevista catalogoRevista, IList<BECatalogoConfiguracion> catalogoConfiguraciones)
+        private void SetCatalogoRevistaMostrar(BECatalogoRevista catalogoRevista,
+            IList<BECatalogoConfiguracion> catalogoConfiguraciones)
         {
-            if (catalogoRevista.MarcaID == Constantes.Marca.Esika && EsCatalogoUnificado(catalogoRevista.PaisISO, catalogoRevista.CampaniaID))
+            if (catalogoRevista.MarcaID == Constantes.Marca.Esika &&
+                EsCatalogoUnificado(catalogoRevista.PaisISO, catalogoRevista.CampaniaID))
                 catalogoRevista.Mostrar = false;
             else
-                catalogoRevista.Mostrar = this.CampaniaInicioFin(catalogoConfiguraciones.FirstOrDefault(cc => cc.MarcaID == catalogoRevista.MarcaID), catalogoRevista.CampaniaID);
+                catalogoRevista.Mostrar = this.CampaniaInicioFin(
+                    catalogoConfiguraciones.FirstOrDefault(cc => cc.MarcaID == catalogoRevista.MarcaID),
+                    catalogoRevista.CampaniaID);
         }
 
         private bool CampaniaInicioFin(BECatalogoConfiguracion catalogo, int campania)
@@ -208,12 +226,14 @@ namespace Portal.Consultoras.BizLogic
             {
                 resultado = "1";
                 if ((campania >= catalogo.CampaniaInicio && campania <= catalogo.CampaniaFin)
-                    || (catalogo.CampaniaInicio != 0 && catalogo.CampaniaFin == 0 && campania >= catalogo.CampaniaInicio)
-                    )
+                    || (catalogo.CampaniaInicio != 0 && catalogo.CampaniaFin == 0 &&
+                        campania >= catalogo.CampaniaInicio)
+                )
                 {
                     resultado = "0";
                 }
             }
+
             return resultado != "1";
         }
 
@@ -241,7 +261,9 @@ namespace Portal.Consultoras.BizLogic
             string anioCampania = string.Empty;
             var datos = new BLTablaLogicaDatos().GetListCache(Util.GetPaisID(catalogoRevista.PaisISO),
                 Constantes.ConfiguracionManager.RevistaCatalogoTablaLogicaId);
-            var Grupos = GetValueByCode(datos, Constantes.ConfiguracionManager.RevistaPiloto_Grupos + catalogoRevista.PaisISO + catalogoRevista.CampaniaID);
+            var Grupos = GetValueByCode(datos,
+                Constantes.ConfiguracionManager.RevistaPiloto_Grupos + catalogoRevista.PaisISO +
+                catalogoRevista.CampaniaID);
 
             if (catalogoRevista.CampaniaID.ToString().Length >= 6)
                 nroCampania = catalogoRevista.CampaniaID.Substring(4, 2);
@@ -255,7 +277,9 @@ namespace Portal.Consultoras.BizLogic
 
                     foreach (var grupo in Grupos.Split(','))
                     {
-                        var zonas = GetValueByCode(datos,Constantes.ConfiguracionManager.RevistaPiloto_Zonas + catalogoRevista.PaisISO + catalogoRevista.CampaniaID + "_" + grupo);
+                        var zonas = GetValueByCode(datos,
+                            Constantes.ConfiguracionManager.RevistaPiloto_Zonas + catalogoRevista.PaisISO +
+                            catalogoRevista.CampaniaID + "_" + grupo);
                         esRevistaPiloto = zonas.Split(',').Select(zona => zona.Trim()).Contains(codigoZona);
                         if (esRevistaPiloto)
                         {
@@ -270,20 +294,28 @@ namespace Portal.Consultoras.BizLogic
                 codigo = ServiceSettings.Instance.CodigoRevistaIssuu;
 
                 if (esRevistaPiloto)
-                    catalogoRevista.CodigoIssuu = string.Format(codigo, catalogoRevista.PaisISO.ToLower(), nroCampania, anioCampania, codeGrupo.Replace(Constantes.ConfiguracionManager.RevistaPiloto_Escenario, ""));
+                    catalogoRevista.CodigoIssuu = string.Format(codigo, catalogoRevista.PaisISO.ToLower(), nroCampania,
+                        anioCampania, codeGrupo.Replace(Constantes.ConfiguracionManager.RevistaPiloto_Escenario, ""));
                 else
                 {
-                    catalogoRevista.CodigoIssuu = string.Format(codigo, catalogoRevista.PaisISO.ToLower(), nroCampania, anioCampania, "");
-                    catalogoRevista.CodigoIssuu = Util.Trim(catalogoRevista.CodigoIssuu.Substring(catalogoRevista.CodigoIssuu.Length - 1)) == "." ? catalogoRevista.CodigoIssuu.Substring(0, catalogoRevista.CodigoIssuu.Length - 1) : catalogoRevista.CodigoIssuu;
+                    catalogoRevista.CodigoIssuu = string.Format(codigo, catalogoRevista.PaisISO.ToLower(), nroCampania,
+                        anioCampania, "");
+                    catalogoRevista.CodigoIssuu =
+                        Util.Trim(catalogoRevista.CodigoIssuu.Substring(catalogoRevista.CodigoIssuu.Length - 1)) == "."
+                            ? catalogoRevista.CodigoIssuu.Substring(0, catalogoRevista.CodigoIssuu.Length - 1)
+                            : catalogoRevista.CodigoIssuu;
                 }
             }
             else
             {
-                catalogoRevista.CodigoIssuu = GetCatalogoCodigoIssuu(catalogoRevista.CampaniaID.ToString(), catalogoRevista.MarcaID, catalogoRevista.PaisISO, codigoZona, ServiceSettings.Instance.CodigoCatalogoIssuu, nroCampania, anioCampania);
+                catalogoRevista.CodigoIssuu = GetCatalogoCodigoIssuu(catalogoRevista.CampaniaID.ToString(),
+                    catalogoRevista.MarcaID, catalogoRevista.PaisISO, codigoZona,
+                    ServiceSettings.Instance.CodigoCatalogoIssuu, nroCampania, anioCampania);
             }
         }
 
-        private string GetCatalogoCodigoIssuu(string campania, int idMarcaCatalogo, string CodigoISO, string CodigoZona, string codigo, string nroCampania, string anioCampania)
+        private string GetCatalogoCodigoIssuu(string campania, int idMarcaCatalogo, string CodigoISO, string CodigoZona,
+            string codigo, string nroCampania, string anioCampania)
         {
             string nombreCatalogoIssuu = null;
             string nombreCatalogoConfig = null;
@@ -294,7 +326,8 @@ namespace Portal.Consultoras.BizLogic
             bool esMarcaEspecial;
             var datos = new BLTablaLogicaDatos().GetListCache(Util.GetPaisID(CodigoISO),
                 Constantes.ConfiguracionManager.RevistaCatalogoTablaLogicaId);
-            string marcas = GetValueByCode(datos, Constantes.ConfiguracionManager.Catalogo_Marca_Piloto + CodigoISO + campania);
+            string marcas = GetValueByCode(datos,
+                Constantes.ConfiguracionManager.Catalogo_Marca_Piloto + CodigoISO + campania);
 
             switch (idMarcaCatalogo)
             {
@@ -315,7 +348,9 @@ namespace Portal.Consultoras.BizLogic
                     break;
             }
 
-            Grupos = GetValueByCode(datos, Constantes.ConfiguracionManager.Catalogo_Piloto_Grupos + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + CodigoISO + campania);
+            Grupos = GetValueByCode(datos,
+                Constantes.ConfiguracionManager.Catalogo_Piloto_Grupos + nombreCatalogoConfig +
+                Constantes.ConfiguracionManager.SubGuion + CodigoISO + campania);
             esMarcaEspecial = marcas.Split(',').Select(marca => marca.Trim()).Contains(nombreCatalogoConfig);
 
 
@@ -323,7 +358,10 @@ namespace Portal.Consultoras.BizLogic
             {
                 foreach (var grupo in Grupos.Split(','))
                 {
-                    var zonas = GetValueByCode(datos, Constantes.ConfiguracionManager.Catalogo_Piloto_Zonas + nombreCatalogoConfig + Constantes.ConfiguracionManager.SubGuion + CodigoISO + campania + Constantes.ConfiguracionManager.SubGuion + grupo);
+                    var zonas = GetValueByCode(datos,
+                        Constantes.ConfiguracionManager.Catalogo_Piloto_Zonas + nombreCatalogoConfig +
+                        Constantes.ConfiguracionManager.SubGuion + CodigoISO + campania +
+                        Constantes.ConfiguracionManager.SubGuion + grupo);
                     esRevistaPiloto = zonas.Split(',').Select(zona => zona.Trim()).Contains(CodigoZona);
                     if (esRevistaPiloto)
                     {
@@ -337,18 +375,23 @@ namespace Portal.Consultoras.BizLogic
 
             if (esRevistaPiloto && esMarcaEspecial)
             {
-                requestUrl = string.Format(codigo, nombreCatalogoIssuu, Util.GetPaisNombreByISO(CodigoISO), nroCampania, anioCampania, CodeGrup.Replace(Constantes.ConfiguracionManager.Catalogo_Piloto_Escenario, ""));
+                requestUrl = string.Format(codigo, nombreCatalogoIssuu, Util.GetPaisNombreByISO(CodigoISO), nroCampania,
+                    anioCampania, CodeGrup.Replace(Constantes.ConfiguracionManager.Catalogo_Piloto_Escenario, ""));
             }
             else
             {
-                requestUrl = string.Format(codigo, nombreCatalogoIssuu, Util.GetPaisNombreByISO(CodigoISO), campania.Substring(4, 2), campania.Substring(0, 4), "");
-                requestUrl = Util.Trim(requestUrl.Substring(requestUrl.Length - 1)) == "." ? requestUrl.Substring(0, requestUrl.Length - 1) : requestUrl;
+                requestUrl = string.Format(codigo, nombreCatalogoIssuu, Util.GetPaisNombreByISO(CodigoISO),
+                    campania.Substring(4, 2), campania.Substring(0, 4), "");
+                requestUrl = Util.Trim(requestUrl.Substring(requestUrl.Length - 1)) == "."
+                    ? requestUrl.Substring(0, requestUrl.Length - 1)
+                    : requestUrl;
             }
 
             return requestUrl;
         }
 
-        private void SetCatalogoRevistaFieldsInSearchIssuu(List<BECatalogoRevista> listCatalogoRevista, Enumeradores.TamanioImagenIssu tamanioImagenIssu)
+        private void SetCatalogoRevistaFieldsInSearchIssuu(List<BECatalogoRevista> listCatalogoRevista,
+            Enumeradores.TamanioImagenIssu tamanioImagenIssu)
         {
             var txtBuil = new StringBuilder();
             for (int i = 0; i < listCatalogoRevista.Count; i++)
@@ -374,6 +417,7 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
             }
+
             if (response.Substring(0, 2) == "?(") response = response.Substring(2, response.Length - 3);
             JavaScriptSerializer javaScriptSerializer = new JavaScriptSerializer();
             var jsonReponse = javaScriptSerializer.Deserialize<dynamic>(response);
@@ -381,9 +425,15 @@ namespace Portal.Consultoras.BizLogic
             string tamanioImagen = "";
             switch (tamanioImagenIssu)
             {
-                case Enumeradores.TamanioImagenIssu.ThumbSmall: tamanioImagen = Constantes.TamaniosImagenIssuu.ThumbSmall; break;
-                case Enumeradores.TamanioImagenIssu.ThumbMedium: tamanioImagen = Constantes.TamaniosImagenIssuu.ThumbMedium; break;
-                case Enumeradores.TamanioImagenIssu.ThumbLarge: tamanioImagen = Constantes.TamaniosImagenIssuu.ThumbLarge; break;
+                case Enumeradores.TamanioImagenIssu.ThumbSmall:
+                    tamanioImagen = Constantes.TamaniosImagenIssuu.ThumbSmall;
+                    break;
+                case Enumeradores.TamanioImagenIssu.ThumbMedium:
+                    tamanioImagen = Constantes.TamaniosImagenIssuu.ThumbMedium;
+                    break;
+                case Enumeradores.TamanioImagenIssu.ThumbLarge:
+                    tamanioImagen = Constantes.TamaniosImagenIssuu.ThumbLarge;
+                    break;
             }
 
             string urlIssuuImage = ConfigurationManager.AppSettings["UrlIssuuImage"] ?? "";
@@ -399,34 +449,40 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        private void SetCatalogoRevistaFieldsInOembedIssuu(BECatalogoRevista catalogoRevista)
+        private bool SetCatalogoRevistaFieldsInOembedIssuu(BECatalogoRevista catalogoRevista)
         {
-            if (string.IsNullOrEmpty(catalogoRevista.CodigoIssuu)) return;
+            bool OcurrioError = false;
+            try
+            {
+                if (string.IsNullOrEmpty(catalogoRevista.CodigoIssuu)) return OcurrioError;
 
-            var signature = string.Format(_signatureIssuu, _secretKeyIssuu, _apiKeyIssuu, catalogoRevista.CodigoIssuu);
-            signature = Crypto.CreateMD5(signature).ToLower();
-            var url = string.Format(_urlIssuuList, _apiKeyIssuu, catalogoRevista.CodigoIssuu, signature);
+                var signature = string.Format(_signatureIssuu, _secretKeyIssuu, _apiKeyIssuu, catalogoRevista.CodigoIssuu);
+                signature = Crypto.CreateMD5(signature).ToLower();
+                var url = string.Format(_urlIssuuList, _apiKeyIssuu, catalogoRevista.CodigoIssuu, signature);
+                var paisID = Util.GetPaisID(catalogoRevista.PaisISO);
+                
+                var docs = GetIssuuObject(url, catalogoRevista.PaisISO, paisID, catalogoRevista.CodigoIssuu , out OcurrioError);
+                if(docs == null) return OcurrioError;
+                
+                var doc = docs.FirstOrDefault();
+                if (doc == null) return OcurrioError;
 
-            var json = ObtenerObjetoIssue(url, catalogoRevista.PaisISO);
+                var ndoc = doc["document"];
+                string titutlo = ndoc.Value<string>("title");
+                string Descripcion = ndoc.Value<string>("name");
 
-            if (string.IsNullOrEmpty(json)) return;
+                catalogoRevista.CatalogoTitulo = titutlo;
+                catalogoRevista.CatalogoDescripcion = Descripcion;
+                catalogoRevista.UrlVisor = string.Format(ServiceSettings.Instance.UrlIssuu, catalogoRevista.CodigoIssuu);
+                catalogoRevista.UrlImagen = string.Format("https://image.issuu.com/{0}/jpg/page_1_thumb_medium.jpg", ndoc["documentId"]);
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", catalogoRevista.PaisISO);
+                OcurrioError = true;
+            }
 
-            var oIssuu = JsonConvert.DeserializeObject<dynamic>(json);
-
-            var docs = (JArray)oIssuu.rsp._content.result._content;
-
-            var doc = docs.FirstOrDefault();
-
-            if (doc == null) return;
-
-            var ndoc = doc["document"];
-            string titutlo = ndoc.Value<string>("title");
-            string Descripcion = ndoc.Value<string>("name");
-
-            catalogoRevista.CatalogoTitulo = titutlo;
-            catalogoRevista.CatalogoDescripcion = Descripcion;
-            catalogoRevista.UrlVisor = string.Format(ServiceSettings.Instance.UrlIssuu, catalogoRevista.CodigoIssuu);
-            catalogoRevista.UrlImagen = string.Format("https://image.issuu.com/{0}/jpg/page_1_thumb_medium.jpg", ndoc["documentId"]);
+            return OcurrioError;
         }
 
         private void AjusteRevistaTituloDescripcion(BECatalogoRevista catalogoRevista)
@@ -436,9 +492,13 @@ namespace Portal.Consultoras.BizLogic
 
             if (catalogoRevista.MarcaID == 0)
             {
-                var revistaNombre = paisesEsika.Contains(catalogoRevista.PaisISO) ? Constantes.RevistaNombre.Esika : Constantes.RevistaNombre.Lbel;
-                catalogoRevista.CatalogoTitulo = string.Format("{0} {1} C{2}", revistaNombre, paisNombre, catalogoRevista.CampaniaID.Substring(4, 2));
-                catalogoRevista.CatalogoDescripcion = string.Format("Revista/Campaña {0}/{1}/{2}", catalogoRevista.CampaniaID.Substring(4, 2), paisNombre, catalogoRevista.CampaniaID.Substring(0, 4));
+                var revistaNombre = paisesEsika.Contains(catalogoRevista.PaisISO)
+                    ? Constantes.RevistaNombre.Esika
+                    : Constantes.RevistaNombre.Lbel;
+                catalogoRevista.CatalogoTitulo = string.Format("{0} {1} C{2}", revistaNombre, paisNombre,
+                    catalogoRevista.CampaniaID.Substring(4, 2));
+                catalogoRevista.CatalogoDescripcion = string.Format("Revista/Campaña {0}/{1}/{2}",
+                    catalogoRevista.CampaniaID.Substring(4, 2), paisNombre, catalogoRevista.CampaniaID.Substring(0, 4));
             }
         }
 
@@ -466,6 +526,7 @@ namespace Portal.Consultoras.BizLogic
 
             return Util.Trim(par.Valor);
         }
+
         #endregion
 
         #region Catalogo Revista ODS
@@ -489,17 +550,112 @@ namespace Portal.Consultoras.BizLogic
         {
             var catalogos = SelectCatalogoRevistas_ODS(paisID);
 
-            var oLista = catalogos.Where(x => x.Descripcion != null && x.Descripcion != Constantes.ConstSession.DescripcionPedidoOtro)
-                               .GroupBy(test => test.Descripcion)
-                               .Select(grp => grp.First())
-                               .ToList();
+            var oLista = catalogos.Where(x =>
+                    x.Descripcion != null && x.Descripcion != Constantes.ConstSession.DescripcionPedidoOtro)
+                .GroupBy(test => test.Descripcion)
+                .Select(grp => grp.First())
+                .ToList();
 
             if (catalogos.Any(x => x.Descripcion == Constantes.ConstSession.DescripcionPedidoOtro))
-                oLista.Add(new BECatalogoRevista_ODS { Descripcion = Constantes.ConstSession.DescripcionPedidoOtro, CodigoCatalogo = Constantes.ConstSession.CodigoPedidoOtro });
+                oLista.Add(new BECatalogoRevista_ODS
+                {
+                    Descripcion = Constantes.ConstSession.DescripcionPedidoOtro,
+                    CodigoCatalogo = Constantes.ConstSession.CodigoPedidoOtro
+                });
 
             return oLista;
         }
 
         #endregion
+        
+        private JArray GetIssuuObject(string url, string codigoIso , int paisId, string CodigoIssue , out bool error)
+        {
+            JArray result = null;
+            string Json = string.Empty;
+            string accion = string.Empty;
+            error = false;
+
+            try
+            {
+                var Issue = CacheManager<JArray>.GetDataElement(paisId, ECacheItem.ApiIssuuData, CodigoIssue);
+                if (Issue != null) return Issue;
+
+                Json = ObtenerObjetoIssue(url, codigoIso);
+                if (string.IsNullOrEmpty(Json)) return result;
+
+                accion = "JsonConvert.DeserializeObject<dynamic>(Json)";
+                var oIssuu = JsonConvert.DeserializeObject<dynamic>(Json);
+                accion =  "(JArray)oIssuu.rsp._content.result._content";
+                result =  (JArray)oIssuu.rsp._content.result._content;
+
+                CacheManager<JArray>.AddDataElement(paisId, ECacheItem.ApiIssuuData, CodigoIssue, result , new TimeSpan(7,0,0,0));
+            }
+            catch 
+            {
+                error = true;
+                StringBuilder build = new StringBuilder();
+                build.AppendLine("Tracking => GetIssuuObject");
+                build.AppendLine(string.Format("Url:{0}", url));
+                build.AppendLine(string.Format("Json:{0}", Json));
+                build.AppendLine(string.Format("Accion:{0}", accion));
+                build.AppendLine(string.Format("CodigoIssue:{0}", CodigoIssue));
+                LogManager.SaveLog(new ClientInformationException(build.ToString()), "userTracking", codigoIso);
+            }
+            return result;
+        }
+
+        public string GetUrlThumbnail(string codigoIso, string documento)
+        {
+            string _thumbnail = string.Empty;
+            string _url = string.Empty;
+            string _accion = string.Empty;
+            try
+            {
+                var paisID = Util.GetPaisID(codigoIso);
+                var _issue = CacheManager<string>.GetDataElement(paisID, ECacheItem.UrlThumbnail, documento);
+                if (_issue != null)
+                    return _issue;
+
+
+                string _templateUrl = @"https://issuu.com/oembed?url=https://issuu.com/somosbelcorp/docs/{0}";
+                _url = string.Format(_templateUrl, documento);
+                string resultApi = CallApiIssuu(_url, codigoIso);
+
+                if (string.IsNullOrEmpty(resultApi))
+                    return _thumbnail;
+
+                _accion = "new JavaScriptSerializer().Deserialize<object>(resultApi)";
+                dynamic item = new JavaScriptSerializer().Deserialize<object>(resultApi);
+                _accion = "item['thumbnail_url']";
+                _thumbnail = item["thumbnail_url"];
+
+                CacheManager<string>.AddDataElement(paisID, ECacheItem.UrlThumbnail, documento, _thumbnail, new TimeSpan(7, 0, 0, 0));
+            }
+            catch
+            {
+                StringBuilder build = new StringBuilder();
+                build.AppendLine("Tracking => GetUrlThumbnail");
+                build.AppendLine(string.Format("Url:{0}", _url));
+                build.AppendLine(string.Format("Accion:{0}", _accion));
+                LogManager.SaveLog(new ClientInformationException(build.ToString()), "userTracking", codigoIso);
+            }
+
+            return _thumbnail;
+        }
+        private string CallApiIssuu(string url, string codigoIso)
+        {
+            try
+            {
+                var response = httpClient.GetAsync(url).Result;
+                response.EnsureSuccessStatusCode();
+
+                return response.Content.ReadAsStringAsync().Result;
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, url, codigoIso);
+                return string.Empty;
+            }
+        }
     }
 }

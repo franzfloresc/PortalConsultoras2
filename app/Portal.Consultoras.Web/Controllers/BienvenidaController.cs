@@ -1,7 +1,7 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
@@ -11,7 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -260,6 +259,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 #endregion
+
+
             }
             catch (FaultException ex)
             {
@@ -2030,7 +2031,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (cuponResult != null)
                 cuponModel = MapearBECuponACuponModel(cuponResult);
             else
-                throw new Exception();
+                throw new ClientInformationException();
 
             return cuponModel;
         }
@@ -2094,33 +2095,24 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (resultadoActivoPopup == 1)
                         {
-                            if (userData.PaisID == Convert.ToInt32(Constantes.PaisID.Peru))
-                                ValidacionDatos = ValidacionPerfilConsultoraPeru(obj);
-                            else
-                                ValidacionDatos = ValidacionPerfilConsultorOtrosPaises(obj);
+                            ValidacionDatos = userData.PaisID == Convert.ToInt32(Constantes.PaisID.Peru) ? ValidacionPerfilConsultoraPeru(obj) : ValidacionPerfilConsultorOtrosPaises(obj);
                         }
                         else
                         {
-                            if (userData.PaisID == Convert.ToInt32(Constantes.PaisID.Peru))
-                                ValidacionDatos = ValidacionPerfilConsultoraToolTip(obj, pagina);
-                            else
-                                ValidacionDatos = ValidacionPerfilConsultorOtrosPaises(obj);
+                            ValidacionDatos = userData.PaisID == Convert.ToInt32(Constantes.PaisID.Peru) ? ValidacionPerfilConsultoraToolTip(obj, pagina) : ValidacionPerfilConsultorOtrosPaises(obj);
                         }
                     }
                     else
                         ValidacionDatos = ValidacionPerfilConsultoraToolTip(obj, pagina);
 
-                    if (EsDispositivoMovil()) urlMuestraPopup = Constantes.UrlDatsoPendientes.MiPerfilMobile;
-                    else urlMuestraPopup = Constantes.UrlDatsoPendientes.MiPerfilDesktop;
+                    urlMuestraPopup = Url.Action("Index", "MiPerfil", EsDispositivoMovil() ? new { area="Mobile" } : new { area="" });
 
-                    return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1].ToString(), tipoMostrador = resultadoActivoPopup, urlDispositivo = urlMuestraPopup }, JsonRequestBehavior.AllowGet);
+                    return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1], tipoMostrador = resultadoActivoPopup, urlDispositivo = urlMuestraPopup }, JsonRequestBehavior.AllowGet);
                 }
-                else
-                {
-                    ValidacionDatos[0] = "0";
-                    ValidacionDatos[1] = string.Empty;
-                }
-                return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1].ToString(), tipoMostrador = resultadoActivoPopup, urlDispositivo = urlMuestraPopup }, JsonRequestBehavior.AllowGet);
+
+                ValidacionDatos[0] = "0";
+                ValidacionDatos[1] = string.Empty;
+                return Json(new { valor = ValidacionDatos[0], mensaje = ValidacionDatos[1], tipoMostrador = resultadoActivoPopup, urlDispositivo = urlMuestraPopup }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)

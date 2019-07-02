@@ -12,7 +12,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 {
     public class BLDireccionEntrega : IDireccionEntregaBusinessLogic
     {
-        
+
         public BEDireccionEntrega Editar(BEDireccionEntrega Direccion)
         {
             BEDireccionEntrega entity;
@@ -22,29 +22,29 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 {
                     entity = reader.MapToCollection<BEDireccionEntrega>().FirstOrDefault();
                 }
-            
+
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ;
+                throw;
             }
 
             return entity ?? new BEDireccionEntrega();
         }
-      
+
         public BEDireccionEntrega Insertar(BEDireccionEntrega Direccion)
         {
             BEDireccionEntrega entity;
             try
             {
                 using (var reader = new DADireccionEntega(Direccion.PaisID).Insertar(Direccion))
-            {
-                entity = reader.MapToCollection<BEDireccionEntrega>().FirstOrDefault();
+                {
+                    entity = reader.MapToCollection<BEDireccionEntrega>().FirstOrDefault();
+                }
             }
-            }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ;
+                throw;
             }
 
             return entity ?? new BEDireccionEntrega();
@@ -59,11 +59,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     entity = reader.MapToCollection<BEDireccionEntrega>().FirstOrDefault();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ;
+                throw;
             }
-           
+
 
             return entity ?? new BEDireccionEntrega();
         }

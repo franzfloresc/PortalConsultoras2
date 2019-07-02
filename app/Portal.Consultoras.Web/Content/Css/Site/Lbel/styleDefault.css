@@ -1,4 +1,5 @@
-﻿/* ESTILOS MARCA PAÍS */
+﻿
+/* ESTILOS MARCA PAÍS */
 
 .default-color {
     color: #613c87;
@@ -16,8 +17,16 @@
     border-color: #613c87 !important;
 }
 
+.color-multimarca {
+    color: #b9007e!important;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
 .multimarca-background-color {
-    background-color: #b9007e!important; 
+    background-color: #b9007e !important;
 }
 
 .multimarca-border-color {
@@ -188,11 +197,24 @@ input[type="text"].text__field__sb,
 
 /* VALIDATION MESSAGE */
 
-.validation__message {
-    color: #e81c36;
-    font-size: 11px;
-    margin-top: 4px;
+.validation__message,
+.validation__field{
+    font-size:11px;
+    margin-top:4px;
 }
+
+.validation__field {
+    color: #808080;
+}
+    
+    .validation__message,
+    .validation__error{
+        color:#e81c36;
+    }
+
+    .validation__success{
+        color:#569c04;
+    }
 
 /* FIN - VALIDATION MESSAGE */
 
@@ -347,8 +369,8 @@ input[type="checkbox"].switch__control,
         height: auto;
     }
 
-.notificacion_estado--error{
-    color:#e81c36;
+.notificacion_estado--error {
+    color: #e81c36;
 }
 
 @media screen and (max-width:991px) {
@@ -376,7 +398,7 @@ input[type="checkbox"].switch__control,
 
     .tag_sb--standard {
         background-color: #000;
-        color: #FFF;
+    color: #FFF;
     }
 
 /* FIN - TAGS */
@@ -639,6 +661,10 @@ input[type="checkbox"].switch__control,
     text-transform: uppercase;
 }
 
+.text-underline {
+    text-decoration: underline;
+}
+
 .text-thin {
     font-weight: 300;
 }
@@ -667,6 +693,14 @@ input[type="checkbox"].switch__control,
 
     .mt-53 {
         margin-top: 53px !important;
+    }
+
+}
+
+@media screen and (max-width:991px) {
+
+    .mb-60 {
+        margin-bottom: 60px;
     }
 }
 

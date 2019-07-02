@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using Portal.Consultoras.Common.Exceptions;
 using System.Web.Routing;
 namespace Portal.Consultoras.Web
 {
@@ -13,11 +10,11 @@ namespace Portal.Consultoras.Web
         {
             if (routes == null)
             {
-                throw new ArgumentNullException("routes");
+                throw new ClientInformationException("routes");
             }
             if (url == null)
             {
-                throw new ArgumentNullException("url");
+                throw new ClientInformationException("url");
             }
             var route = new SBRoute(url);
             routes.Add(route);
@@ -29,7 +26,7 @@ namespace Portal.Consultoras.Web
         {
             if (target == null)
             {
-                throw new ArgumentNullException("target");
+                throw new ClientInformationException("target");
             }
 
             var source = new RedirectRoute(route.Pattern, target, isPermanent);
