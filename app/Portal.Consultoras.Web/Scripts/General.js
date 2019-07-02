@@ -821,31 +821,24 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             CerrarLoad();
             return false;
         }
-        //INI HD-3693
-        var msjBloq = validarpopupBloqueada(mensaje);
-        if (msjBloq != "") {
-            CerrarLoad();
-            alert_msg_bloqueadas(msjBloq);
-            return true;
-        }
-        //FIN HD-3693
-        titulo = titulo || "MENSAJE";
+
+        titulo = titulo || "Aviso";//***HD-4450
         var CONS_TIPO_ICONO = { ALERTA: 1, CHECK: 2 };
         var isUrlMobile = isMobile();
         if (isUrlMobile > 0) {
             $('.icono_alerta').hide();
             if (tipoIcono == CONS_TIPO_ICONO.ALERTA) {
-                $('.icono_alerta.exclamacion_icono_mobile').show();
+                $('.icono_alerta.alert_dialog_icono').show();//***HD-4450
             }
             if (tipoIcono == CONS_TIPO_ICONO.CHECK) {
                 $('.icono_alerta.check_icono_mobile').show();
             }
             if (tipoIcono == undefined || tipoIcono == null) {
-                $('.icono_alerta.exclamacion_icono_mobile').show();
+                $('.icono_alerta.alert_dialog_icono').show();//***HD-4450
             }
             $('#mensajeInformacionvalidado').html(mensaje);
             $('#popupInformacionValidado').show();
-            $('#popupInformacionValidado #bTagTitulo').html(titulo);
+            $('#popupInformacionValidado #bTagTitulo').html(titulo); 
 
             if ($.isFunction(fnAceptar)) {
                 var botonesCerrar = $('#popupInformacionValidado .btn_ok_mobile,.cerrar_popMobile');
@@ -854,6 +847,7 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             }
         }
         else {
+
             $('#alertDialogMensajes .terminos_title_2').html(titulo);
             $('#alertDialogMensajes .pop_pedido_mensaje').html(mensaje);
             showDialogSinScroll("alertDialogMensajes");
@@ -872,6 +866,7 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             });
 
             $('.ui-dialog .ui-button').focus();
+
         }
         CerrarLoad();
     } catch (e) {
@@ -928,14 +923,6 @@ function AbrirMensaje25seg(mensaje, imagen) {
             CerrarLoad();
             return false;
         }
-        //INI HD-3693
-        var msjBloq = validarpopupBloqueada(mensaje);
-        if (msjBloq != "") {
-            CerrarLoad();
-            alert_msg_bloqueadas(msjBloq);
-            return true;
-        }
-        //FIN HD-3693
         imagen = imagen || "";
 
         $("#pop_src").attr("src", "#")
@@ -2362,13 +2349,7 @@ var GeneralModule = (function () {
         consoleLog: _consoleLog
     };
 }());
-//INI HD-3693
-function validarpopupBloqueada(message) {
-    if (message.indexOf("HD3693~") != -1) return message.split("~")[1];
-    else return "";
 
-}
-//FIN HD-3693
 
 function AbrirMensajeImagen(mensaje) {
     var popup = $('#PopupInformacionRegalo');

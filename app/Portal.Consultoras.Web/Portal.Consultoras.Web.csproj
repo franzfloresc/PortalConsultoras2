@@ -1550,6 +1550,7 @@
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-informacion-regalos.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-cierre-sesion.css" />
     <Content Include="Content\Css\Site\styleBase.css" />
+    <Content Include="Content\Images\alerta-icono.png" />
     <Content Include="Content\Images\add-to-cart-disable.png" />
     <Content Include="Content\Images\add-to-cart-white.png" />
     <Content Include="Content\Images\checkBuroSAC.svg" />

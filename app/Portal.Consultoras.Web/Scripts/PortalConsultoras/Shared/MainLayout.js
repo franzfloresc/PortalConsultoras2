@@ -175,7 +175,7 @@ $(document).ready(function () {
         width: 400,
         draggable: true,
         buttons: {
-            "Aceptar": function () {
+            "Entendido": function () {
                 HideDialog("alertDialogMensajes");
             }
         }
@@ -371,27 +371,13 @@ function messageInfoError(message, titulo, fnAceptar) {
     message = $.trim(message);
     if (message != "") {
 
-        //$('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
-        //$('#dialog_ErrorMainLayout').show();
-
-        //$('#dialog_ErrorMainLayout .btn_ok').off('click');
-        //$('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
-
-        //$('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
-        //    $('#dialog_ErrorMainLayout').hide();
-        //    if ($.isFunction(fnAceptar)) fnAceptar();
-        //});
-
-        //$('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
-        //    $('#dialog_ErrorMainLayout').hide();
-        //    if ($.isFunction(fnAceptar)) fnAceptar();
-        //});
-
-        //INI HD-3693
-        var msjBloq = validarpopupBloqueada(message);
-        if (msjBloq != "") {
-            alert_msg_bloqueadas(msjBloq);
-        } else {
+        //INI HD-4450
+        if (window.matchMedia("(max-width:991px)").matches) {
+            $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(message);
+            $('#popupInformacionSB2Error').show();
+        }
+        //FIN  HD-4450
+        else {
             $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
             $('#dialog_ErrorMainLayout').show();
 
@@ -408,7 +394,6 @@ function messageInfoError(message, titulo, fnAceptar) {
                 if ($.isFunction(fnAceptar)) fnAceptar();
             });
         }
-        //FIN HD-3693
 
 
     }
@@ -704,7 +689,7 @@ function ValidarCorreoComunidad(tipo) {
 
 function alert_msg(message, titulo, funcion) {
     titulo = titulo || "MENSAJE";
-    $('#alertDialogMensajes .terminos_title_2').html(titulo);
+    //$('#alertDialogMensajes .terminos_title_2').html(titulo);***HD-4450
     $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
     if (typeof funcion == "function") {
         $("#alertDialogMensajes").dialog("option", "buttons", {
@@ -1289,9 +1274,3 @@ function OcultarChatEmtelco() {
         $(".CMXD-help").hide();
     }
 }
-//INI HD-3693
-function alert_msg_bloqueadas(message) {
-    $('#PopupBloqueoPorSistema .message_text_bloqueada').html(message);
-    $('#PopupBloqueoPorSistema').show();
-}
-//FIN HD-3693

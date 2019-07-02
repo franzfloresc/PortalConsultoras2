@@ -2164,16 +2164,9 @@ function EliminarPedido() {
 
             if (data.success != true) {
 
-                //INI HD-3693
-                //messageInfoError(data.message);
-                //CerrarSplash();
-                var msjBloq = validarpopupBloqueada(data.message);
-                if (msjBloq != "") { alert_msg_bloqueadas(msjBloq); }
-                else {
-                    messageInfoError(data.message);
-                    CerrarSplash();
-                }
-                //FIN HD-3693
+                
+                messageInfoError(data.message);
+                CerrarSplash();
                 return false;
             }
 
@@ -2866,14 +2859,8 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                     location.href = urlValidadoPedido;
                 }
             }
-            //INI HD-3693
-            //else if (mostrarAlerta == true) AbrirMensaje(data.message);
-            else if (mostrarAlerta == true) {
-                var msjBloq = validarpopupBloqueada(data.message);
-                if (msjBloq != "") { alert_msg_bloqueadas(msjBloq); }
-                else AbrirMensaje(data.message);
-            }
-            //FIN HD-3693
+
+            else if (mostrarAlerta == true) AbrirMensaje(data.message);
         },
         error: function (error, x) {
             AbrirMensaje("Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.");
@@ -2903,6 +2890,7 @@ function ConfirmarModificar() {
                 }
                 else {
                     closeWaitingDialog();
+                    HideDialog("divConfirmValidarPROL2");
                     messageInfoError(data.message);
                 }
             }

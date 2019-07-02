@@ -287,18 +287,10 @@ function ProcesarAceptarPedido(pedido) {
                     }
                     else if (response.code == 2) {
 
-                        //INI HD-3693
-                        //$('#MensajePedidoReservado').text(response.message);
-                        //$('#AlertaPedidoReservado').show();
-                        var msjBloq = validarpopupBloqueada(response.message);
-                        if (msjBloq != "") {
-                            alert_msg_bloqueadas(msjBloq);
-                        }
-                        else {
+              
+                        $('#MensajePedidoReservado').text(response.message);
+                        $('#AlertaPedidoReservado').show();
 
-                            $('#MensajePedidoReservado').text(response.message);
-                            $('#AlertaPedidoReservado').show();
-                        }
                     }
                 }
             }

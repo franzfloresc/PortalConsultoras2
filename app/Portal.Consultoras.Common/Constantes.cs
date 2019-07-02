@@ -1456,10 +1456,6 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RevistaDigital";
         }
 
-        public static class TipoPopupAlert
-        {
-            public const string Bloqueado = "HD3693~";
-        }
 
         public static class IngresoExternoPagina
         {
@@ -3633,7 +3629,7 @@ namespace Portal.Consultoras.Common
         {
             public const int BoletaImpresa = 1;
             public const int CompartirWhatsApp = 2;
-            public const int NotificacionWhatsApp = 3;
+            public const int NotificarWhatsApp = 3; /* HD-4358 */
         }
 
         public static class SegmentoDatami

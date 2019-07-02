@@ -126,12 +126,7 @@ function AceptarPedido(id, tipo) {
                         $('#PedidoAceptado').show();
                     }
                     else {
-                        //INI HD-3693
-                        //AbrirMensaje(response.message);
-                        var msjBloq = validarpopupBloqueada(response.message);
-                        if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
-                        else AbrirMensaje(response.message);
-                        //FIN HD-3693
+                        AbrirMensaje(response.message);
                     }
                 }
             },

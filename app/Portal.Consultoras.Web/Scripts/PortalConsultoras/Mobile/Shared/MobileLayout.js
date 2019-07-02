@@ -418,12 +418,8 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 else fnRedireccionar();
             }
             else if (mostrarAlerta == true) {
-                //INI HD-3693
-                //AbrirMensaje(data.message);
-                var msjBloq = validarpopupBloqueada(data.message);
-                if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
-                else AbrirMensaje(data.message);
-                //FIN HD-3693
+                AbrirMensaje(data.message);
+
             }
         },
         error: function (error) {
@@ -775,14 +771,7 @@ function messageInfo(message, fnAceptar) {
     if (message == "") {
         return false;
     }
-    //INI HD-3693
-    var msjBloq = validarpopupBloqueada(message);
-    if (msjBloq != "") {
-        CerrarLoad();
-        alert_msg_bloqueadas(msjBloq);
-        return true;
-    }
-        //FIN HD-3693
+
     $('#mensajeInformacion').html(message);
     $('#popupInformacion').show();
 
@@ -1181,12 +1170,6 @@ function CloseDialog(pop) {
 function CerrarSesion() {
     location.href = baseUrl + 'Login/LogOut';
 }
-//INI HD-3693
-function alert_msg_bloqueadas(message) {
-    $('#PopupBloqueoPorSistema .message_text_bloqueada').html(message);
-    $('#PopupBloqueoPorSistema').show();
-}
-//FIN HD-3693
 
 $('#alertDialogMensajes25seg').dialog({
     autoOpen: false,
