@@ -65,6 +65,9 @@
       <xs:element minOccurs="0" name="FechaProceso" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Flete" type="xs:decimal" />
+      <xs:element minOccurs="0" name="GananciaOtros" type="xs:decimal" />
+      <xs:element minOccurs="0" name="GananciaRevista" type="xs:decimal" />
+      <xs:element minOccurs="0" name="GananciaWeb" type="xs:decimal" />
       <xs:element minOccurs="0" name="IPUsuario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImporteCredito" type="xs:decimal" />
       <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
@@ -147,6 +150,7 @@
       <xs:element minOccurs="0" name="Flag" type="xs:int" />
       <xs:element minOccurs="0" name="FlagConsultoraOnline" type="xs:boolean" />
       <xs:element minOccurs="0" name="FlagNueva" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Ganancia" type="xs:decimal" />
       <xs:element minOccurs="0" name="IPUsuario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
       <xs:element minOccurs="0" name="ImporteTotalPedido" type="xs:decimal" />

@@ -529,6 +529,7 @@ namespace Portal.Consultoras.Entities
         public string PrimerNombre { get; set; }
 
         [DataMember]
+        [Column("PrimerApellido")]
         public string PrimerApellido { get; set; }
 
         [DataMember]
@@ -992,5 +993,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool PuedeConfirmarAllSms { get; set; }
 
+        [DataMember]
+        public bool NotificacionesWhatsapp { get; set; }
+
+        [DataMember]
+        public bool ActivaNotificacionesWhatsapp { get; set; }
     }
 }

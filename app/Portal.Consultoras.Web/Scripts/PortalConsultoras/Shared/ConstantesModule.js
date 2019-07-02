@@ -46,6 +46,7 @@ var ConstantesModule = (function() {
 
     // es homologo a DB TipoEstrategia, campo Codigo
     // es homologo a constantes.TipoEstrategiaCodigo
+    // agregar a CodigoOrigenPedidoWeb diccionarioTipoEstrategiaPalanca
     // antiguo var _constantesPalanca = {
     var _codigoTipoEstrategia = {
         OfertaParaTi: "001",
@@ -54,7 +55,6 @@ var ConstantesModule = (function() {
         ArmaTuPack: "004",
         Lanzamiento: "005",
         OfertasParaMi: "007",
-        MasGanadoras: "007", // No tiene referecia con BD, caso particular de OfertasParaMi 007
         PackAltoDesembolso: "008",
         OfertaDelDia: "009",
         GuiaDeNegocioDigitalizada: "010",
@@ -65,6 +65,7 @@ var ConstantesModule = (function() {
         ShowRoom: "030",
 
         RevistaDigital: "101", // No tiene referencia con BD, caso particular de OfertasParaMi 007
+        MasGanadoras: "201", // No tiene referecia con BD, caso particular de OfertasParaMi 007
 
         ProgramaNuevasRegalo: "044",
         ParticipaProgramaNuevas: "1",
@@ -168,8 +169,8 @@ var ConstantesModule = (function() {
         obtenerComponentes: '/DetalleEstrategia/ObtenerComponentes',
         obtenerComponenteDetalle: '/DetalleEstrategia/ObtenerComponenteDetalle',
         obtenerModelo: '/DetalleEstrategia/ObtenerModelo',
-        obtenerPedidoWebSetDetalle: '/Pedido/ObtenerPedidoWebSetDetalle',
-        obtenerEstrategiaFicha: '/Estrategia/ObtenerOfertaFicha'
+        obtenerPedidoWebSetDetalle: '/Pedido/ObtenerPedidoWebSetDetalle'
+        //obtenerEstrategiaFicha: '/Estrategia/ObtenerOfertaFicha'
     }
 
     var _urlPedido = {
@@ -204,6 +205,11 @@ var ConstantesModule = (function() {
         ToolTip: 2500
     }
 
+    var _tipoSeccion = {
+        Video: "01",
+        Texto: "02"
+    }
+
     return {
         CodigoPalanca: _codigoPalanca,
         TipoEstrategia: _codigoTipoEstrategia,
@@ -221,6 +227,7 @@ var ConstantesModule = (function() {
         GetTipoPersonalizacionByTipoEstrategia: _getTipoPersonalizacionByTipoEstrategia,
         MensajeAgregarPedido: _mensajeAgregarPedido,
         MensajeModificarPedido: _mensajeModificarPedido,
-        Tiempo: _tiempo
+        Tiempo: _tiempo,
+        TipoSeccion: _tipoSeccion
     }
 })();

@@ -3,6 +3,11 @@
     string controllerAction = this.ViewContext.RouteData.Values["controller"].ToString() + this.ViewContext.RouteData.Values["action"].ToString();
     controllerAction = controllerAction.ToLower();
 
+    int cantidadPedidosPendientes = 0;
+    if (ViewBag.CantidadPedidosPendientes != null)
+    {
+        cantidadPedidosPendientes = ViewBag.CantidadPedidosPendientes;
+    }
 }
 
 <div data-menu-header="parte3" class="menu_esika_b" id="vpMenu">
@@ -14,7 +19,7 @@
                 <div class="foto_consultora_menu">
                     <img id="imgFotoUsuarioHeader" src="@ViewBag.FotoPerfil" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" class="mostrar_perfil ImageLoadPhotoUser" region="Superior" alt="Foto de consultora" />
                 </div>
-            }            
+            }
         </div>
         <div class="campana visibilidadEnlaceMenu margenIzquierdoOpcionNotificacion @(controllerAction == "bienvenidaindex" ? "oculto" : "")">
             <a href="javascript:;" onclick="Notificaciones();" role="menu" region="Superior" title="Notificaciones" id="lnk-sup-notificacion">
@@ -37,12 +42,28 @@
                 <div class="flechita_info"></div>
                 <div class="linea_blanca"></div>
                 <div id="SinProductos">
-                    <div class="sin_productos">
-                        Todavía no has agregado
-                        <br />ningún producto a tu
-                        <br />pedido.
-                    </div>
-                    <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido esika">INGRESA TU PEDIDO</a>
+                    @if (cantidadPedidosPendientes > 0)
+                    {
+                        bool plural = (cantidadPedidosPendientes > 1) ? true : false;
+                        <div class="sin_productos">
+                             <span class="d-block text-left mensaje_cantidad_pedidos_pendientes_por_aprobar">
+                                Tienes @cantidadPedidosPendientes @((plural) ? "Pedidos pendientes" : "Pedido pendiente"),<br />
+                                apruébalos <a href="@Url.Action("Pendientes","ConsultoraOnline")" title="Ir A Pedidos Pendientes" class="d-inline-block enlace__sb enlace__sb--irAPedidosPendientes">aquí.</a>
+                            </span>
+                        </div>
+                        <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido esika">Ver mi carrito</a>
+                    }
+                    else
+                    {
+                        <div class="sin_productos">
+                            <span>
+                                Todavía no has agregado
+                                <br /> ningún producto a tu
+                                <br /> pedido.
+                            </span>
+                        </div>
+                        <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido esika">INGRESA TU PEDIDO</a>
+                    }
                 </div>
                 <div id="carrito_items"></div>
             </div>
