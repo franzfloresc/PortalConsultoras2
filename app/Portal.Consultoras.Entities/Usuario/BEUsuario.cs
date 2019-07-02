@@ -998,5 +998,8 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public bool ActivaNotificacionesWhatsapp { get; set; }
+
+        [DataMember]
+        public bool PagoContado { get; set; }
     }
 }
