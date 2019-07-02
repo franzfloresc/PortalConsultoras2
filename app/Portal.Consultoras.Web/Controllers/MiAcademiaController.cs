@@ -33,10 +33,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var idCurso = SessionManager.GetMiAcademia();
                 var flagVideo = SessionManager.GetMiAcademiaVideo();
+                var flagPdf = SessionManager.GetMiAcademiaPdf();
                 var parametrosSap = SessionManager.GetMiAcademiaParametro();
                 SessionManager.SetMiAcademia(0);
                 SessionManager.SetMiAcademiaVideo(0);
-
+                SessionManager.SetMiAcademiaPdf(0);
                 string key = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.secret_key);
                 string eMailNoExiste = userData.CodigoConsultora + "@notengocorreo.com";
                 string eMail = userData.EMail.Trim() == string.Empty ? eMailNoExiste : userData.EMail;
@@ -82,7 +83,7 @@ namespace Portal.Consultoras.Web.Controllers
                               createUser.codigo == "002" || createUser.codigo == "003" || createUser.codigo == "004");
                 if (exito)
                 {
-                    var tipoUrl = flagVideo == 0 ? Enumeradores.MiAcademiaUrl.Cursos : Enumeradores.MiAcademiaUrl.Video;
+                    var tipoUrl = flagVideo == 0 && flagPdf == 0 ? Enumeradores.MiAcademiaUrl.Cursos : flagPdf == 0 ? Enumeradores.MiAcademiaUrl.Video : Enumeradores.MiAcademiaUrl.Pdf;
                     string url = _miAcademiaProvider.GetUrl(tipoUrl, parametroUrl);                    
                     if (parametrosSap.Length > 1 && parametrosSap.Contains("SAP")) url = url + "&" + parametrosSap;
 
