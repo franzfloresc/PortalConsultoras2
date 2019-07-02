@@ -2479,8 +2479,37 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-    
-     
+        public BEPedidoDescarga ObtenerUltimaDescargaSinMarcar(int paisID)
+        {
+            var objBEPedidoDescarga = new BEPedidoDescarga();
+            var daPedidoWeb = new DAPedidoWeb(paisID);
+
+            using (IDataReader reader = daPedidoWeb.ObtenerUltimaDescargaSinMarcar())
+                while (reader.Read())
+                {
+                    var entidad = new BEPedidoDescarga(reader);
+                    objBEPedidoDescarga.CampaniaId = entidad.CampaniaId;
+                    objBEPedidoDescarga.DescripcionEstadoProcesoGeneral = entidad.DescripcionEstadoProcesoGeneral;
+                    objBEPedidoDescarga.FechaProceso = entidad.FechaProceso;
+                }
+
+            return objBEPedidoDescarga;
+        }
+
+        public int ObtenerultimaLlamadaPedidodescargavalidador(int paisID)
+        {
+            var daPedidoWeb = new DAPedidoWeb(paisID);
+            int estadoprocesoGeneral = 0;
+
+            using (IDataReader reader = daPedidoWeb.ObtenerultimaLlamadaPedidodescargavalidador())
+                while (reader.Read())
+                {
+                    var entidad = new BEPedidoDescarga(reader);
+                    estadoprocesoGeneral = entidad.EstadoProcesoGeneral;
+                }
+
+            return estadoprocesoGeneral;
+        }
 
         public List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb BEPedidoWeb)
         {
@@ -2543,8 +2572,11 @@ namespace Portal.Consultoras.BizLogic
             DataTable dtPedidosCabWeb = null, dtPedidosDetWeb = null, dtPedidosCabDD = null, dtPedidosDetDD = null;
             try
             {
+              int validador = ObtenerultimaLlamadaPedidodescargavalidador(paisID);
 
-                try
+                if (validador == 0) {
+
+                    try
                 {
                     daPedidoWeb = new DAPedidoWeb(paisID);
                     dsPedidosWeb = daPedidoWeb.DescargaPedidosClienteSinMarcarWEB(nroLote);
@@ -2563,7 +2595,6 @@ namespace Portal.Consultoras.BizLogic
                     dsPedidosDD = daPedidoWeb.DescargaPedidosClienteSinMarcarDD(nroLote);
                     dtPedidosCabDD = dsPedidosDD.Tables[0]; // Obtiene cabecera
                     dtPedidosDetDD = dsPedidosDD.Tables[1]; // Obtiene detalle
-                    dtPedidosDetDD = dsPedidosDD.Tables[1]; // Obtiene detalle
                 }
                 catch (SqlException ex)
                 {
@@ -2575,6 +2606,8 @@ namespace Portal.Consultoras.BizLogic
                 cargapedido = cargapedido + GenerarArchivosPedidoSinMarcar(dtPedidosCabDD, dtPedidosDetDD, campaniaid, paisID, nroLote, "D");
 
                 return RetornaMensajeresultado(cargapedido);
+            }
+                else return Constantes.MensajeProcesoDescargaregular.MensajeRetorno;
             }
             catch (BizLogicException ex)
             {
@@ -2602,61 +2635,67 @@ namespace Portal.Consultoras.BizLogic
                 codigoPais = new BLZonificacion().SelectPais(paisID).CodigoISO;
                 daPedidoWeb = new DAPedidoWeb(paisID);
 
-                try
-                {
-                    daPedidoWeb.InsPedidoDescargaSinMarcar(campanaId, Constantes.EstadoValorProcesoDescargaregular.EnProceso, tipoCronograma, usuario, out nuevoNroLote);
-                    dsPedidosWeb = daPedidoWeb.GetPedidoWebByFechaFacturacionSinMarcar(campanaId, tipoCronograma, nuevoNroLote, fechaFacturacion);
-                }
-                catch (SqlException ex)
-                {
-                 
-                    LogManager.SaveLog(ex, usuario, codigoPais);
-                    throw new BizLogicException("No se pudo acceder al origen de datos de pedidos Web.", ex);
-                }
+                int validador = ObtenerultimaLlamadaPedidodescargavalidador(paisID);
 
-                if (ConfigurationManager.AppSettings["OrderDownloadIncludeDD"] == "1")
+                if (validador == 0)
                 {
+
                     try
                     {
-                        daPedidoDd = new DAPedidoDD(paisID);
-                        dsPedidosDd = daPedidoDd.GetPedidoDDByFechaFacturacionSinMarcar(codigoPais, tipoCronograma, campanaId, nuevoNroLote, fechaFacturacion);
+                        daPedidoWeb.InsPedidoDescargaSinMarcar(campanaId, Constantes.EstadoValorProcesoDescargaregular.EnProceso, tipoCronograma, usuario, out nuevoNroLote);
+                        dsPedidosWeb = daPedidoWeb.GetPedidoWebByFechaFacturacionSinMarcar(campanaId, tipoCronograma, nuevoNroLote, fechaFacturacion);
+
                     }
                     catch (SqlException ex)
                     {
-                        
+
                         LogManager.SaveLog(ex, usuario, codigoPais);
-                        throw new BizLogicException("No se pudo acceder al origen de datos de pedidos DD.", ex);
+                        throw new BizLogicException("No se pudo acceder al origen de datos de pedidos Web.", ex);
                     }
-                }
-               
 
-                
-                TransactionOptions transactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
-                using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
-                {
-                    if (dsPedidosWeb.Tables[0].Rows.Count > 0 && dsPedidosWeb.Tables[0].Rows.Count > 0)
+                    if (ConfigurationManager.AppSettings["OrderDownloadIncludeDD"] == "1")
                     {
-                        this.ConfigurarDTCargaWebSinMarcar(dsPedidosWeb, campanaId, nuevoNroLote, usuario, codigoPais);
-                        daPedidoWeb.InsLogPedidoDescargaWebSinMarcar(dsPedidosWeb);
-                        valor = Constantes.MensajeProcesoDescargaregular.respuestaexito;
-                    }
-                    else valor = Constantes.MensajeProcesoDescargaregular.respuestanoCarga;
+                        try
+                        {
+                            daPedidoDd = new DAPedidoDD(paisID);
+                            dsPedidosDd = daPedidoDd.GetPedidoDDByFechaFacturacionSinMarcar(codigoPais, tipoCronograma, campanaId, nuevoNroLote, fechaFacturacion);
+                        }
+                        catch (SqlException ex)
+                        {
 
-                    if (dsPedidosDd.Tables[0].Rows.Count > 0 && dsPedidosDd.Tables[0].Rows.Count > 0)
+                            LogManager.SaveLog(ex, usuario, codigoPais);
+                            throw new BizLogicException("No se pudo acceder al origen de datos de pedidos DD.", ex);
+                        }
+                    }
+
+                    TransactionOptions transactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
+                    using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
                     {
-                        this.ConfigurarDTCargaDDSinMarcar(dsPedidosDd, campanaId, nuevoNroLote, usuario, codigoPais);
-                        daPedidoWeb.InsLogPedidoDescargaDDSinMarcar(dsPedidosDd);
-                        valor = valor + Constantes.MensajeProcesoDescargaregular.respuestaexito;
+                        if (dsPedidosWeb.Tables[0].Rows.Count > 0 && dsPedidosWeb.Tables[0].Rows.Count > 0)
+                        {
+                            this.ConfigurarDTCargaWebSinMarcar(dsPedidosWeb, campanaId, nuevoNroLote, usuario, codigoPais);
+                            daPedidoWeb.InsLogPedidoDescargaWebSinMarcar(dsPedidosWeb);
+                            valor = Constantes.MensajeProcesoDescargaregular.respuestaexito;
+                        }
+                        else valor = Constantes.MensajeProcesoDescargaregular.respuestanoCarga;
+
+                        if (dsPedidosDd.Tables[0].Rows.Count > 0 && dsPedidosDd.Tables[0].Rows.Count > 0)
+                        {
+                            this.ConfigurarDTCargaDDSinMarcar(dsPedidosDd, campanaId, nuevoNroLote, usuario, codigoPais);
+                            daPedidoWeb.InsLogPedidoDescargaDDSinMarcar(dsPedidosDd);
+                            valor = valor + Constantes.MensajeProcesoDescargaregular.respuestaexito;
+                        }
+                        else valor = valor + Constantes.MensajeProcesoDescargaregular.respuestanoCarga;
+
+                        daPedidoWeb.UpdLogPedidoDescargaWebDDSinMarcar(nuevoNroLote);
+                        daPedidoWeb.DeleteLogPedidoDescargasSinMarcar(nroLote, nuevoNroLote, valor, campanaId, usuario);
+                        transaction.Complete();
                     }
-                    else valor = valor + Constantes.MensajeProcesoDescargaregular.respuestanoCarga;
+                    mensaje = CapturarMensaje(valor);
 
-                    daPedidoWeb.UpdLogPedidoDescargaWebDDSinMarcar(nuevoNroLote);
-                    daPedidoWeb.DeleteLogPedidoDescargasSinMarcar(nroLote, nuevoNroLote, valor);
-                    transaction.Complete();
                 }
-                mensaje = CapturarMensaje(valor);
-
-                
+                else
+                    mensaje = Constantes.MensajeProcesoDescargaregular.MensajeRetorno;
             }
             catch (Exception ex)
             {
@@ -2679,28 +2718,28 @@ namespace Portal.Consultoras.BizLogic
 
         private string CapturarMensaje(string valor)
         {
-            string mensaje = "Proceso de carga de datos, {0}", mensajeFinal = string.Empty;
+            string mensaje =Constantes.MensajeProcesoDescargaregular.ProcesoDescarga + " {0}", mensajeFinal = string.Empty;
 
             if (valor.IndexOf("aa") != -1)
-                mensajeFinal = string.Format(mensaje, " se cargaron los pedidos WEB y DD");
+                mensajeFinal = string.Format(mensaje, Constantes.MensajeProcesoDescargaregular.ExitoDescargaWebDD);
 
             if (valor.IndexOf("ab") != -1)
-                mensajeFinal = string.Format(mensaje, " los pedidos DD no fueron cargados, solo se generó los pedidos web ya que no existe información");
+                mensajeFinal = string.Format(mensaje, Constantes.MensajeProcesoDescargaregular.ExitoDescargaSoloWeb);
 
             if (valor.IndexOf("ba") != -1)
-                mensajeFinal = string.Format(mensaje, " Los pedidos WEB no fueron cargados, solo se generó los pedidos DD ya que no existe información " );
+                mensajeFinal = string.Format(mensaje, Constantes.MensajeProcesoDescargaregular.ExitoDescargaSoloDD);
 
             if (valor.IndexOf("bb") != -1)
-                mensajeFinal = string.Format(mensaje, " no se generó la carga de pedido ya que no se encontró información");
+                mensajeFinal = string.Format(mensaje, Constantes.MensajeProcesoDescargaregular.NingunaDescargaWebDD);
             return mensajeFinal;
         }
 
-        public BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int PaisID)
+        public BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int PaisID, int campaniaID)
         {
             BEPedidoDescarga pedidoDescarga = new BEPedidoDescarga();
             DAPedidoWeb daPedidoWeb = new DAPedidoWeb(PaisID);
 
-            using (IDataReader reader = daPedidoWeb.ObtenerUltimaDescargaPedidoSinMarcar())
+            using (IDataReader reader = daPedidoWeb.ObtenerUltimaDescargaPedidoSinMarcar(campaniaID))
                 while (reader.Read())
                 {
                     pedidoDescarga = new BEPedidoDescarga(reader);
@@ -2732,10 +2771,10 @@ namespace Portal.Consultoras.BizLogic
             if (origen != string.Empty) AddDTColumn(dtPedidosCabecera, "Origen", origen);
             if (!DataRecord.HasColumn(dtPedidosCabecera, "VersionProl")) AddDTColumn<byte>(dtPedidosCabecera, "VersionProl", 2);
 
-            ConfigurarDTCargaDetalleSinMarcar(dsPedidos, campaniaid, nroLote);
+            ConfigurarDTCargaDetalleSinMarcar(dsPedidos, campaniaid, nroLote, usuario);
         }
 
-        private void ConfigurarDTCargaDetalleSinMarcar(DataSet dsPedidosDetalle, int campaniaid, int nroLote)
+        private void ConfigurarDTCargaDetalleSinMarcar(DataSet dsPedidosDetalle, int campaniaid, int nroLote, String usuario)
         {
             if (dsPedidosDetalle == null) return;
 
@@ -2744,6 +2783,7 @@ namespace Portal.Consultoras.BizLogic
 
             AddDTColumn(dtPedidosDetalle, "LogCampaniaid", campaniaid);
             AddDTColumn(dtPedidosDetalle, "LogNroLote", nroLote);
+            AddDTColumn(dtPedidosDetalle, "LogCodigoUsuarioProceso", usuario);
         }
 
         private string GenerarArchivosPedidoSinMarcar(DataTable dtPedidosCab, DataTable dtPedidosDet, int campaniaid, int paisID, int nroLote, string valor)
@@ -2943,20 +2983,20 @@ namespace Portal.Consultoras.BizLogic
 
         private string RetornaMensajeresultado(string cargapedido)
         {
-            string mensaje = "El proceso de carga de archivos {0}", mensajeFinal = string.Empty,
-                  mensajeExito = string.Concat("se generó de manera satisfactoria, la ruta para verificarlos es : ", ConfigurationManager.AppSettings["OrderDownloadPath"]);
+            string mensaje = Constantes.MensajeProcesoDescargaregular.ProcesoDescarga + " {0}", mensajeFinal = string.Empty,
+            mensajeExito = string.Concat(Constantes.MensajeProcesoDescargaregular.RutaDescarga, ConfigurationManager.AppSettings["OrderDownloadPath"]);
 
             if (cargapedido.IndexOf("aa") != -1)
                 mensajeFinal = string.Format(mensaje, mensajeExito);
 
             if (cargapedido.IndexOf("ab") != -1)
-                mensajeFinal = string.Format(mensaje, " los pedidos DD no fueron generados, solo se generó los pedidos web ya que no existe información, puede verificar los archivos en la ruta : " + ConfigurationManager.AppSettings["OrderDownloadPath"]);
+                mensajeFinal = string.Format(mensaje, Constantes.MensajeProcesoDescargaregular.ExitoDescargaSoloWeb + Constantes.MensajeProcesoDescargaregular.RutaMensaje + ConfigurationManager.AppSettings["OrderDownloadPath"]);
 
             if (cargapedido.IndexOf("ba") != -1)
-                mensajeFinal = string.Format(mensaje, " Los pedidos WEB no fueron generados, solo se generó los pedidos DD ya que no existe información, puede verificar los archivos en la ruta : " + ConfigurationManager.AppSettings["OrderDownloadPath"]);
+                mensajeFinal = string.Format(mensaje, Constantes.MensajeProcesoDescargaregular.ExitoDescargaSoloDD + Constantes.MensajeProcesoDescargaregular.RutaMensaje + ConfigurationManager.AppSettings["OrderDownloadPath"]);
 
             if (cargapedido.IndexOf("bb") != -1)
-                mensajeFinal = string.Format(mensaje, " no se generaron los archivos de pedido ya que no se encontró información");
+                mensajeFinal = string.Format(mensaje, Constantes.MensajeProcesoDescargaregular.NingunaDescargaWebDD);
             return mensajeFinal;
         }
         #endregion

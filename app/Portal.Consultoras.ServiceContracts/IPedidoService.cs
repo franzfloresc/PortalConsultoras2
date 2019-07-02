@@ -1362,8 +1362,14 @@ namespace Portal.Consultoras.ServiceContracts
         string DescargaPedidosWebSinMarcar(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote, DateTime fechaFacturacion);
 
         [OperationContract]
-        BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int PaisID);
+        BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int paisID, int campaniaID);
 
+        [OperationContract]
+        int ObtenerultimaLlamadaPedidodescargavalidador(int paisID);
+
+        [OperationContract]
+        BEPedidoDescarga ObtenerUltimaDescargaSinMarcar(int paisID);
+        
         #endregion
 
         [OperationContract]

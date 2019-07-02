@@ -22,6 +22,14 @@ namespace Portal.Consultoras.Common
             public const string Error = "El proceso tuvo complicaciones";
             public const string respuestaexito = "a";
             public const string respuestanoCarga = "b";
+            public const string MensajeRetorno = "Se está ejecutando un proceso desde otro punto para otra campaña, espere unos minutos y vuelva a intentarlo.";
+            public const string ProcesoDescarga = "Proceso de carga de datos,";
+            public const string ExitoDescargaWebDD = " se cargaron los pedidos WEB y DD ";
+            public const string ExitoDescargaSoloWeb = " los pedidos DD no fueron cargados, solo se generraron pedidos web ya que no existe información ";
+            public const string ExitoDescargaSoloDD = " Los pedidos WEB no fueron cargados, solo se generraron pedidos DD ya que no existe información ";
+            public const string NingunaDescargaWebDD = " no se generó la carga de pedido ya que no se encontró información ";
+            public const string RutaDescarga = "Se generó de manera satisfactoria, la ruta para verificarlos es : ";
+            public const string RutaMensaje = ", puede verificar los archivos en la ruta : ";
         }
 
         public static class EstadoValorProcesoDescargaregular
@@ -1182,6 +1190,8 @@ namespace Portal.Consultoras.Common
             public const string mensajeBackOrderDestokp = "Se agotó el producto, ¿Te lo enviamos la próxima campaña al mismo precio?. Recuerda ingresar pedido esta y la siguiente campaña para que te llegue.";
             public const string mensajeBackOrderMobile = "Se agotó el producto, ¿Te lo enviamos la próxima campaña al mismo precio?. Recuerda ingresar pedido esta y la siguiente campaña para que te llegue.";
         }
+
+      
 
         public static class EstadoCDRWeb
         {

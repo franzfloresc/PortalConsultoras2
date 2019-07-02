@@ -20,10 +20,14 @@
         IniFecha();
         $("#btnDescargar").data('click', false);
         $("#btnDescargar").click(function () {
-            RealizarDescarga($(this));
+            RealizarDescarga($(this)); 
         });
 
         $("#ddlPais").attr("disabled", true);
+
+        $("#ddlCampania").change(function () {
+            cargarLista();
+        });
     });
 
     function IniFecha() {
@@ -34,6 +38,31 @@
             dateFormat: 'dd/mm/yy'
         }).mask('99/99/9999');
     }
+
+    function cargarLista() {
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'ReporteConsultoraPedidoSAC/CargarLista',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            async: true,
+            success: function (data) {
+                if (!checkTimeout(data)) return;
+                closeWaitingDialog();
+                $("#list").GridUnload();
+                fnGrilla();
+            }
+            , error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert("Error del Sistema.");
+                }
+            }
+        });
+    }
+
+
+
 
     function RealizarDescarga($btnClick) {
         var vMessage = "";
@@ -104,18 +133,19 @@
 
     function ShowActionsArchivoClientes(cellvalue, options, rowObject) {
         var Des = "";
-        if (rowObject.NroLote == 0) {
-            Des = "<img disabled  src='" + rutaImagenArchivoClientes + "' alt='Generar Archivo Clientes' title='Generar Archivo Clientes' border='0' style='cursor:pointer' />";
+        if (rowObject.NroLote == 0 || rowObject.estadoProcesoGeneral ==1) {
+            Des = "<img   src='" + rutaImagenArchivoClientes + "' alt='Generar Archivo Clientes' title='Generar Archivo Clientes' border='0' style='cursor:pointer' disable />";
         } else { 
             Des = "<img   src='" + rutaImagenArchivoClientes + "' alt='Generar Archivo Clientes' title='Generar Archivo Clientes' border='0' style='cursor:pointer' />";
             NRO_LOTE = rowObject.NroLote;
         }
+
         return Des;
     }
 
     function fnGrilla() {
         jQuery("#list").jqGrid({
-            url: baseUrl + "ReporteConsultoraPedidoSAC/ObtenerUltimaDescargaPedidoSinMarcar",
+            url: baseUrl + "ReporteConsultoraPedidoSAC/ObtenerUltimaDescargaPedidoSinMarcar?campaniaID=" + $("#ddlCampania").val(),
             hidegrid: false,
             datatype: 'json',
             mtype: 'GET',
@@ -147,6 +177,9 @@
             altclass: 'jQGridAltRowClass',
             loadComplete: function () {
             },
+            gridComplete: function () {
+                obtenerUltimaDescargaExitosa();
+            },
             cache: false,
             cmTemplate: { sortable: false },
             onCellSelect: function (rowId, iCol, content, event) {
@@ -154,6 +187,36 @@
             }
         });
     }
+
+
+    function obtenerUltimaDescargaExitosa() {
+        waitingDialog({});
+        $.ajax({
+            type: 'POST',
+            url: baseUrl + 'ReporteConsultoraPedidoSAC/ObtenerUltimaDescargaExitosa',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            async: true,
+            cache: false,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        $("#Campania").text(data.descarga.CampaniaId);
+                        $("#Estado").text(data.descarga.DescripcionEstadoProcesoGeneral);
+                        $("#Fecha").text(data.descarga.FechaProceso);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    alert("Error del Sistema.");
+                }
+            }
+        });
+    }
+
+
 
     function ArchivoClientes(rowId) {
         var waiting = {
@@ -207,17 +270,18 @@
 
                 </div>
                 <div class="celda">
-                    <span>Fecha Facturación:</span>
-                    <div class="calendar borde_redondeado">
-                        <input type="text" id="txtFechaFacturacion" />
-                    </div>
-                </div>
-                <div class="celda">
                     <span>Campaña:</span>
                     <div class="selectP2 borde_redondeado">
                         @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaCampania, "CampaniaID", "Codigo"), new { id = "ddlCampania" })
                     </div>
                 </div>
+                <div class="celda">
+                    <span>Fecha Facturación:</span>
+                    <div class="calendar borde_redondeado">
+                        <input type="text" id="txtFechaFacturacion" />
+                    </div>
+                </div>
+
 
                 <div class="celda">
                     <span></span>
@@ -226,8 +290,38 @@
                     </div>
                 </div>
             </div>
+            <div class="UltimaDescarga">
+                <span>Último proceso de descarga de pedidos</span>
+                <table id="UltimaDescargaInfo">
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+
+                    <tr>
+                        <td>Campaña</td>
+                        <td><span id="Campania"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Estado</td>
+                        <td><span id="Estado"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Fecha</td>
+                        <td><span id="Fecha"></span></td>
+                    </tr>
+                </table>
+                <div class="textoDescarga">
+                    <img src='@Url.Content("~/Content/Images/indicador.png")' alt="" />
+                    <span>
+                        Podrá realizar descarga de pedidos y generación de archivos solo si no existe algún
+                        proceso en ejecución
+                    </span>
+                </div>
+            </div>
         </div>
-    </div>
+        </div>
 </div>
 <div class="wrap">
     <div class="container clearfix">

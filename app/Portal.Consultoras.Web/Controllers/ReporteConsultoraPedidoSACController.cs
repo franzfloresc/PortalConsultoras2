@@ -18,6 +18,7 @@ namespace Portal.Consultoras.Web.Controllers
     public class ReporteConsultoraPedidoSACController : BaseAdmController
     {
         #region HD-4327
+        string fechaDefault = "1/01/0001 00:00:00";
         public async Task<ActionResult> Index()
         {
             var reporteConsultoraPedidoSACModels = new ReporteConsultoraPedidoSACModels();
@@ -44,19 +45,40 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<JsonResult> ObtenerUltimaDescargaPedidoSinMarcar()
+        public ActionResult ObtenerUltimaDescargaExitosa()
         {
-            string fechaDefault = "1/01/0001 00:00:00";
+            BEPedidoDescarga ultimaDescarga;
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                ultimaDescarga = sv.ObtenerUltimaDescargaSinMarcar(userData.PaisID);
+            }
+
+            return Json(new
+            {
+                success = true,
+                descarga = new
+                {
+                    CampaniaId = ultimaDescarga.CampaniaId==0?"Ninguna": ultimaDescarga.CampaniaId.ToString(),
+                    DescripcionEstadoProcesoGeneral = ultimaDescarga.DescripcionEstadoProcesoGeneral.ToString(),
+                    FechaProceso =  ultimaDescarga.FechaProceso.ToString() == fechaDefault ? string.Empty : ultimaDescarga.FechaProceso.ToString(),
+                }
+            });
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> ObtenerUltimaDescargaPedidoSinMarcar(int campaniaID)
+        {
+           
             var usuario = userData ?? new UsuarioModel();
 
             try
             {
                 var lst = new List<BEPedidoDescarga>();
 
+                
                 using (var srv = new PedidoServiceClient())
                 {
-                    var ultimaDescargaPedido = await srv.ObtenerUltimaDescargaPedidoSinMarcarAsync(usuario.PaisID);
+                    var ultimaDescargaPedido = await srv.ObtenerUltimaDescargaPedidoSinMarcarAsync(usuario.PaisID, campaniaID);
                     lst.Add(ultimaDescargaPedido);
                 }
 
@@ -73,7 +95,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 Estado = tbl.Estado,
                                 Mensaje = tbl.Mensaje,
                                 NumeroPedidos = string.Format(" Web: {0}<br> DD: {1}", tbl.NumeroPedidosWeb, tbl.NumeroPedidosDD),
-                                NroLote = tbl.NroLote
+                                NroLote = tbl.NroLote,
+                                estadoProcesoGeneral=tbl.EstadoProcesoGeneral
                             })
                 };
 
@@ -98,7 +121,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (var srv = new PedidoServiceClient())
                 {
-                    mensajeFinal= await srv.DescargaPedidosClienteSinMarcarAsync(usuario.PaisID, campaniaid, nroLote, usuario.CodigoUsuario);
+                   mensajeFinal = await srv.DescargaPedidosClienteSinMarcarAsync(usuario.PaisID, campaniaid, nroLote, usuario.CodigoUsuario);
                 }
                 
                 var data = new
@@ -130,13 +153,29 @@ namespace Portal.Consultoras.Web.Controllers
                 string file=string.Empty;
                 using (var pedidoService = new PedidoServiceClient())
                 {
-                    file = pedidoService.DescargaPedidosWebSinMarcar(model.PaisID, model.CampanaId, tipoCronogramaID, userData.NombreConsultora,model.NroLote, model.FechaFacturacion);
+                        file = pedidoService.DescargaPedidosWebSinMarcar(model.PaisID, model.CampanaId, tipoCronogramaID, userData.NombreConsultora, model.NroLote, model.FechaFacturacion);
                 }
 
                 return Json(new
                 {
                     success = file
-                   
+                });
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult CargarLista()
+        {
+            try
+            {
+                return Json(new
+                {
+                    success = 1
                 });
             }
             catch (FaultException ex)

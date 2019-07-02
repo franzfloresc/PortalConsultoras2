@@ -23,10 +23,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionEstadoProcesoGeneralField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool DesmarcadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EstadoProcesoGeneralField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaEnvioField;
@@ -69,6 +78,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CampaniaId {
+            get {
+                return this.CampaniaIdField;
+            }
+            set {
+                if ((this.CampaniaIdField.Equals(value) != true)) {
+                    this.CampaniaIdField = value;
+                    this.RaisePropertyChanged("CampaniaId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DescripcionEstadoProcesoGeneral {
+            get {
+                return this.DescripcionEstadoProcesoGeneralField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionEstadoProcesoGeneralField, value) != true)) {
+                    this.DescripcionEstadoProcesoGeneralField = value;
+                    this.RaisePropertyChanged("DescripcionEstadoProcesoGeneral");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool Desmarcado {
             get {
                 return this.DesmarcadoField;
@@ -90,6 +125,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.EstadoField, value) != true)) {
                     this.EstadoField = value;
                     this.RaisePropertyChanged("Estado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EstadoProcesoGeneral {
+            get {
+                return this.EstadoProcesoGeneralField;
+            }
+            set {
+                if ((this.EstadoProcesoGeneralField.Equals(value) != true)) {
+                    this.EstadoProcesoGeneralField = value;
+                    this.RaisePropertyChanged("EstadoProcesoGeneral");
                 }
             }
         }
@@ -46580,10 +46628,24 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<string> DescargaPedidosWebSinMarcarAsync(int paisID, int campanaId, int tipoCronograma, string usuario, int nroLote, System.DateTime fechaFacturacion);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedidoSinMarcar", ReplyAction="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedidoSinMarcarResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int PaisID);
+        Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int paisID, int campaniaID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedidoSinMarcar", ReplyAction="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaPedidoSinMarcarResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga> ObtenerUltimaDescargaPedidoSinMarcarAsync(int PaisID);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga> ObtenerUltimaDescargaPedidoSinMarcarAsync(int paisID, int campaniaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerultimaLlamadaPedidodescargavalidador", ReplyAction="http://tempuri.org/IPedidoService/ObtenerultimaLlamadaPedidodescargavalidadorResp" +
+            "onse")]
+        int ObtenerultimaLlamadaPedidodescargavalidador(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerultimaLlamadaPedidodescargavalidador", ReplyAction="http://tempuri.org/IPedidoService/ObtenerultimaLlamadaPedidodescargavalidadorResp" +
+            "onse")]
+        System.Threading.Tasks.Task<int> ObtenerultimaLlamadaPedidodescargavalidadorAsync(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaSinMarcar", ReplyAction="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaSinMarcarResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga ObtenerUltimaDescargaSinMarcar(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaSinMarcar", ReplyAction="http://tempuri.org/IPedidoService/ObtenerUltimaDescargaSinMarcarResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga> ObtenerUltimaDescargaSinMarcarAsync(int paisID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertKitSE", ReplyAction="http://tempuri.org/IPedidoService/InsertKitSEResponse")]
         bool InsertKitSE(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario);
@@ -49227,12 +49289,28 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.DescargaPedidosWebSinMarcarAsync(paisID, campanaId, tipoCronograma, usuario, nroLote, fechaFacturacion);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int PaisID) {
-            return base.Channel.ObtenerUltimaDescargaPedidoSinMarcar(PaisID);
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int paisID, int campaniaID) {
+            return base.Channel.ObtenerUltimaDescargaPedidoSinMarcar(paisID, campaniaID);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga> ObtenerUltimaDescargaPedidoSinMarcarAsync(int PaisID) {
-            return base.Channel.ObtenerUltimaDescargaPedidoSinMarcarAsync(PaisID);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga> ObtenerUltimaDescargaPedidoSinMarcarAsync(int paisID, int campaniaID) {
+            return base.Channel.ObtenerUltimaDescargaPedidoSinMarcarAsync(paisID, campaniaID);
+        }
+        
+        public int ObtenerultimaLlamadaPedidodescargavalidador(int paisID) {
+            return base.Channel.ObtenerultimaLlamadaPedidodescargavalidador(paisID);
+        }
+        
+        public System.Threading.Tasks.Task<int> ObtenerultimaLlamadaPedidodescargavalidadorAsync(int paisID) {
+            return base.Channel.ObtenerultimaLlamadaPedidodescargavalidadorAsync(paisID);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga ObtenerUltimaDescargaSinMarcar(int paisID) {
+            return base.Channel.ObtenerUltimaDescargaSinMarcar(paisID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoDescarga> ObtenerUltimaDescargaSinMarcarAsync(int paisID) {
+            return base.Channel.ObtenerUltimaDescargaSinMarcarAsync(paisID);
         }
         
         public bool InsertKitSE(Portal.Consultoras.Web.ServicePedido.BEUsuario usuario) {

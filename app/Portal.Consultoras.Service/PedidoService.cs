@@ -2524,9 +2524,19 @@ namespace Portal.Consultoras.Service
             }
         }
 
-        public BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int PaisID)
+        public BEPedidoDescarga ObtenerUltimaDescargaPedidoSinMarcar(int paisID, int campaniaID)
         {
-            return BLPedidoWeb.ObtenerUltimaDescargaPedidoSinMarcar(PaisID);
+            return BLPedidoWeb.ObtenerUltimaDescargaPedidoSinMarcar(paisID, campaniaID);
+        }
+
+        public BEPedidoDescarga ObtenerUltimaDescargaSinMarcar(int paisID)
+        {
+            return BLPedidoWeb.ObtenerUltimaDescargaSinMarcar(paisID);
+        }
+
+        public int ObtenerultimaLlamadaPedidodescargavalidador(int paisID)
+        {
+            return BLPedidoWeb.ObtenerultimaLlamadaPedidodescargavalidador(paisID);
         }
         #endregion
 

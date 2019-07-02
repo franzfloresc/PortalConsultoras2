@@ -1041,12 +1041,15 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public int DeleteLogPedidoDescargasSinMarcar(int nroLote, int nuevoNroLote, string valor)
+        public int DeleteLogPedidoDescargasSinMarcar(int nroLote, int nuevoNroLote, string valor, int campaniaId, string usuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.DeletePedidoDescargaSinMarcar");
             Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, nroLote);
             Context.Database.AddInParameter(command, "@NuevoNroLote", DbType.Int32, nuevoNroLote);
             Context.Database.AddInParameter(command, "@Valor", DbType.AnsiString, valor);
+            Context.Database.AddInParameter(command, "@CampaniaId", DbType.AnsiString, campaniaId);
+            Context.Database.AddInParameter(command, "@Usuario", DbType.AnsiString, usuario);
+
 
             int result = Context.ExecuteNonQuery(command);
             return result;
@@ -1094,9 +1097,10 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        public IDataReader ObtenerUltimaDescargaPedidoSinMarcar()
+        public IDataReader ObtenerUltimaDescargaPedidoSinMarcar(int campaniaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaPedidoSinMarcar");
+            Context.Database.AddInParameter(command, "@campaniaid", DbType.Int32, campaniaID);
             return Context.ExecuteReader(command);
         }
 
@@ -1143,6 +1147,7 @@ namespace Portal.Consultoras.Data
                     oSqlBulkCopyDetalle.ColumnMappings.Add("PedidoID", "PedidoID");
                     oSqlBulkCopyDetalle.ColumnMappings.Add("CodigoVenta", "CUV");
                     oSqlBulkCopyDetalle.ColumnMappings.Add("Cantidad", "Cantidad");
+                    oSqlBulkCopyDetalle.ColumnMappings.Add("LogCodigoUsuarioProceso", "CodigoUsuarioProceso");
 
                     oSqlBulkCopyDetalle.WriteToServer(dtPedidosDetalle);
                     oSqlBulkCopyDetalle.Close();
@@ -1160,6 +1165,19 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@FechaFacturacion", DbType.Date, fechaFacturacion);
 
             return Context.ExecuteDataSet(command);
+        }
+
+        public IDataReader ObtenerultimaLlamadaPedidodescargavalidador() { 
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerultimaLlamadaPedidodescargavalidador");
+            command.CommandTimeout = 400;
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader ObtenerUltimaDescargaSinMarcar()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaSinMarcar");
+            command.CommandTimeout = 400;
+            return Context.ExecuteReader(command);
         }
         #endregion
 
