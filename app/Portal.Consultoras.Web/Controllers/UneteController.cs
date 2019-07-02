@@ -1891,6 +1891,12 @@ public ActionResult MostrarMensajeBuro(string respuestaBuro)
             return PartialView("_ConsultarUbicacion");
         }
 
+        public ActionResult PosibleFraudeUbicaciones(string nombre, string numDocu, string direccion, decimal x, decimal y, long solPostulanteId)
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("PosibleFraudeUbicaciones", string.Format("&nombre={0}&numDocu={1}&direccion={2}&x={3}&y={4}&solPostulanteId={5}", nombre, numDocu, direccion, x, y, solPostulanteId));
+            return PartialView("_PosibleFraudeUbicaciones");
+        }
+
 
         public ActionResult ReporteTipoConsultora()
         {

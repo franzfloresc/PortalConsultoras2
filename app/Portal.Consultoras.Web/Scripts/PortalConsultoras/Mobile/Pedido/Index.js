@@ -1,4 +1,5 @@
-﻿var arrayOfertasParaTi = [];
+﻿
+var arrayOfertasParaTi = [];
 
 var AutocompleteLastLI = null;
 var AutocompleteClick = false;
@@ -129,6 +130,8 @@ $(document).ready(function () {
     $("#divProductoMantenedor").hide();
     $(".btn_verMiPedido").on("click", function () {
         window.location.href = baseUrl + "Mobile/Pedido/Detalle";
+        localStorage.setItem("CodigoConsultora", document.getElementById("hdCodigoConsultora").value);
+        /*HD-4288*/
     });
 
     $("#txtCodigoProducto").on("keyup", function () {

@@ -1544,6 +1544,7 @@
     <Content Include="Content\Css\Site\Images\carrusel_prev_blanco_dorado.png" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas.gif" />
     <Content Include="Content\Css\Site\Images\gif_de_ofertas_2.gif" />
+    <Content Include="Content\Css\Site\Pedido\PopupRecepcionPedido.css" />
     <Content Include="Content\Css\Site\Pedido\GananciaEstimada.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-reserva-pedido.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-informacion-regalos.css" />
@@ -4346,6 +4347,7 @@
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PagoVisa.js" />
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PasarelaPago.js" />
     <Content Include="Scripts\PortalConsultoras\ArmaTuPack\ArmaTuPack.js" />
+    <Content Include="Scripts\PortalConsultoras\Pedido\PopupRecepcionPedido.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\ActualizarCorreoPedido.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\SuscripcionSE.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\PedidoProvider.js" />
@@ -5947,6 +5949,7 @@
     <Content Include="Views\CaminoBrillante\Partial\template_demostrador.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_fbsdk.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupInformacionRegalo.cshtml" />
+    <Content Include="Views\Pedido\_PopupRecepcionPedido.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\imagen-estrategia-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Estrategia\estrategia-template.cshtml" />
@@ -5961,6 +5964,7 @@
     <Content Include="Views\DetalleEstrategia\template-producto-carrusel-responsive.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\FichaEnriquecida\popup-ficha-enriquecida-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\resumen-componente-template.cshtml" />
+    <Content Include="Views\Unete\_PosibleFraudeUbicaciones.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupReservaPedido.cshtml" />
     <Content Include="Views\ConsultoraOnline\_MotivosRechazo.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">

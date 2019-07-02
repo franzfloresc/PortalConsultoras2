@@ -1,4 +1,6 @@
-﻿var animacion = true;
+﻿var UR_DESHACERRECEPCION_PEDIDO = baseUrl + "Pedido/DeshacerRecepcionPedidoRequest",
+    URL_VERIFICAR_CONSULTORA_DIGITAL = baseUrl + "Pedido/VerificarConsultoraDigitalRequest"
+var animacion = true;
 var contadorNext = 2;
 var positionCarrousel = 0;
 var posicionInicial = 0;
@@ -63,7 +65,7 @@ $(document).ready(function () {
         cerrar_popup_tutorial();
     });
 
- 
+
 
     $("body").click(function (e) {
         if (!$(e.target).closest(".ui-dialog").length) {
@@ -279,7 +281,6 @@ $(document).ready(function () {
 
         e.stopPropagation(); //Para evitar que se cierre el popup de divObservacionesPROL
     });
-    
 
     $("body").on("mouseleave", ".cantidad_detalle_focus", function () {
         var rowElement = $(this).closest(".contenido_ingresoPedido");
@@ -440,11 +441,10 @@ $(document).ready(function () {
         if (cuv.substring(0, 3) == '999') {
             sessionStorage.setItem('cuvPack', cuv);
         }
-
+        
         ProcesarActualizacionMostrarContenedorCupon();
         ProductoRecomendadoModule.OcultarProductosRecomendados();
         $("#btnAgregar").removeAttr("disabled");
-
         return false;
     });
     $("body").on("click", "[data-paginacion]", function (e) {
@@ -478,9 +478,9 @@ $(document).ready(function () {
     MostrarBarra();
 
     //INI HD-4200
-    ValidarSuscripcionSE(function () { CargarDetallePedido();},0);
+    ValidarSuscripcionSE(function () { CargarDetallePedido(); }, 0);
     //FIN HD-4200
-    
+
     CargarCarouselEstrategias();
     CargarAutocomplete();
     CargarDialogMesajePostulantePedido();
@@ -530,8 +530,12 @@ $(document).ready(function () {
         HideDialog("observaciones_alerta");
         return false;
     });
-
+    //
+    //doWhatYouNeed();
 });
+
+//paco
+
 
 function CargarDetallePedido(page, rows, asyncrono) {
     $(".pMontoCliente").css("display", "none");
@@ -653,6 +657,8 @@ function CargarDetallePedido(page, rows, asyncrono) {
                     }
                 }
 
+                /*HD-4288 - Switch Consultora 100% */
+                doWhatYouNeed()
             }
         })
         .fail(function (response, error) {
@@ -3046,3 +3052,130 @@ function PedidosPendientesPorAprobar() {
     }
     window.location.href = '/ConsultoraOnline/Pendientes';
 }
+
+/*HD-4288 - Switch Consultora 100% */
+function doWhatYouNeed() {
+    var object = { codigoConsultora: userData.codigoConsultora}
+
+    $.ajax({
+        type: "POST",
+        url: URL_VERIFICAR_CONSULTORA_DIGITAL,
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(object),
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+            
+            if (checkTimeout(data)) {
+                if (data != null) {
+                    if (data.IndicadorConsultoraDigital) {
+                        if (document.getElementById("bPedidoPaginarRegistrosTotal") != undefined && document.getElementById("bPedidoPaginarRegistrosTotal").innerHTML > 0 ) {
+                            if (data.IndicadorRecepcion) {
+                                $("div.contenedor_info_recepcion_pedido").css("display", "flex");
+                                $(".info_recepcion_pedido").css("display", "block");
+                                $(".switch__control").prop("checked", true);
+                                cargarDatosrecepcion(data);
+                            } else {
+                                $("div.contenedor_info_recepcion_pedido").css("display", "flex");
+                                $(".info_recepcion_pedido").css("display", "none");
+                                $(".switch__control").prop("checked", false);
+                            }
+
+                        } else {
+                            $("div.contenedor_info_recepcion_pedido").css("display", "none");
+                            $(".info_recepcion_pedido").css("display", "none");
+                            $(".switch__control").prop("checked", false);
+                        }
+                    } else $("div.contenedor_info_recepcion_pedido").css("display", "none")
+                }
+            }
+        },
+        error: function (x, xh, xhr) {
+            if (checkTimeout(x)) {
+                closeWaitingDialog();
+            }
+        }
+    });
+
+
+}
+
+$("input:checkbox[class=switch__control]").change(function () {
+    // 
+    if (!document.querySelectorAll("input[type=checkbox]:not(:checked )").length) {
+        LimpiarCamposRecepcionPoput();
+        $('#PopupRecepcionPedido').fadeIn(100);
+    } else {
+        DeshacerRecepcionpedido();
+    }
+
+});
+
+
+function DeshacerRecepcionpedido() {
+    $.ajax({
+        type: "POST",
+        url: UR_DESHACERRECEPCION_PEDIDO,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data > 0) {
+                    $(".info_recepcion_pedido").css("display", "none");
+                }
+            }
+        },
+        error: function (x, xh, xhr) {
+            if (checkTimeout(x)) {
+                closeWaitingDialog();
+            }
+        }
+    });
+}
+
+function cargarDatosrecepcion(object) {
+    var ListChildren = document.getElementsByClassName("datos__receptor__pedido")[0].children;
+    ListChildren[0].textContent = object.nombreYApellido;
+    ListChildren[1].textContent = object.numeroDocumento;
+}
+
+
+function LimpiarCamposRecepcionPoput() {
+    $("#txtNombreYApellido").removeClass('text__field__sb--withContent');
+    $("#txtNumeroDocumento").removeClass('text__field__sb--withContent');
+    document.getElementsByClassName("form__group__fields--nombreApellido")[0].children[2].textContent = "";
+    document.getElementsByClassName("form__group__fields--numeroDocumento")[0].children[2].textContent = "";
+    $("#txtNombreYApellido").val("");
+    $("#txtNumeroDocumento").val("");
+    $(".btn__sb__primary--multimarca").addClass("btn__sb--disabled");  
+        
+    object = {};
+}
+
+$(".popup__somos__belcorp__icono__cerrar--popupRecepcionPedido").click(function () {
+    ActualizarCheck(); 
+})
+
+$(".btn__sb--cambiarPersona").click(function () {
+    $("#txtNombreYApellido").addClass('text__field__sb--withContent');
+    $("#txtNumeroDocumento").addClass('text__field__sb--withContent');
+    $("#txtNombreYApellido").val(document.getElementsByClassName("datos__receptor__pedido")[0].children[0].textContent);
+    $("#txtNumeroDocumento").val(document.getElementsByClassName("datos__receptor__pedido")[0].children[1].textContent);
+    $(".btn__sb__primary--multimarca").removeClass("btn__sb--disabled");  
+});
+
+
+function ActualizarCheck() {
+    LimpiarCamposRecepcionPoput();
+    if ($(".info_recepcion_pedido").css("display") == "none") {
+        $(".switch__control").prop("checked", false);
+    }
+}
+
+
+
+
+
+
+/*HD-4288 - FIN*/
