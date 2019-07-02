@@ -3633,6 +3633,7 @@ namespace Portal.Consultoras.Common
         {
             public const int BoletaImpresa = 1;
             public const int CompartirWhatsApp = 2;
+            public const int NotificacionWhatsApp = 3;
         }
 
         public static class SegmentoDatami

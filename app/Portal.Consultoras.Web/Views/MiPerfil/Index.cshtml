@@ -154,7 +154,7 @@ else
                                     <label for="txtContrasenia" class="w-100">Contraseña</label>
                                 </div>
                                 <div>
-                                    <a href="@Url.Action("CambiarContrasenia", "MiPerfil", new {area = ""})" title="Cambiar contraseña" class="d-block enlace_cambiar_dato text-center">
+                                    <a href="@Url.Action("CambiarContrasenia", "MiPerfil", new { area = "" })" title="Cambiar contraseña" class="d-block enlace_cambiar_dato text-center">
                                         <span class="icono_cambiar_dato">
                                             <img src="@Url.Content("~/Content/Images/icono_cambiar_dato.svg")" alt="Editar" />
                                         </span>
@@ -224,10 +224,10 @@ else
                             -->
                             <div id="grupo_form_cambio_datos_sms" class="grupo_form_cambio_datos">
                                 <div>
-                                    <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="text" value="@Model.Celular" maxlength="@Model.limiteMaximoTelef"/>
+                                    <input id="txtCelularMD" name="txtCelularMD" class="w-100" type="text" value="@Model.Celular" maxlength="@Model.limiteMaximoTelef" />
                                     <label for="txtCelularMD" class="w-100">Celular <span class="asteriscos">*</span></label>
                                     <!-- INICIO - Este el mensaje de validación que se muestra si la consultora no tiene registrado o está pendiente de confirmación un número de celular -->
-                                    <span  class="d-block text-bold mensaje_validacion_campo" style="display:none;">Aún falta confirmar tu número</span>
+                                    <span class="d-block text-bold mensaje_validacion_campo" style="display:none;">Aún falta confirmar tu número</span>
                                     <!-- FIN - Este el mensaje de validación que se muestra si la consultora no tiene registrado o está pendiente de confirmación un número de celular -->
                                 </div>
                                 <div id="grupo_form_cambio_datos_sms_opcionsms">
@@ -244,6 +244,30 @@ else
                                     </button>
                                     <!-- FIN - Este botón aparece cuando la consultora tiene pendiente confirmar su celular -->
                                 </div>
+                                <!--INI HD-4358 -->
+                                    @{
+                                        var itemNotiWsp= Model.UsuarioOpciones.FirstOrDefault(x => x.OpcionesUsuarioId == Constantes.OpcionesUsuario.NotificacionWhatsApp);
+                                            
+                                    }
+                                    @if (itemNotiWsp != null)
+                                    {
+                                        var readOnlyNotiWsp = string.IsNullOrEmpty(Model.Celular);
+                                        var checkNotiWsp = !string.IsNullOrEmpty(Model.Celular) && itemNotiWsp.CheckBox;
+
+                                        <div class="w-100 permisos_cuenta_opciones notificaciones__whatsapp__checkbox">
+                                            <div class="d-flex permiso_cuenta_opcion">
+                                                <div class="permiso_cuenta_opcion_descripcion">
+                                                    @itemNotiWsp.Descripcion
+                                                </div>
+                                                <div class="grupo_form_permiso_cuenta">
+                                                    <input class="optCelCheckbox permiso_cuenta_opcion_checkbox" type="checkbox" data-tipoOpcion="@itemNotiWsp.OpcionesUsuarioId" name="@itemNotiWsp.Codigo" id="@itemNotiWsp.Codigo" checked="@checkNotiWsp" disabled="@readOnlyNotiWsp" style="display:none;" />
+                                                    <label for="@itemNotiWsp.Codigo" class="permiso_cuenta_opcion_label"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    }
+                                <!--FIN HD-4358 -->
                             </div>
                             <!-- FIN -->
 
@@ -377,6 +401,9 @@ else
 
                     @foreach (var item in Model.UsuarioOpciones)
                     {
+                        /* HD-4358 */
+                        if (item.OpcionesUsuarioId!= Constantes.OpcionesUsuario.NotificacionWhatsApp)
+                        {
                         <div class="permiso_cuenta_opcion">
                             <div class="permiso_cuenta_opcion_descripcion">@item.Opcion
                                 <span class="d-block">@item.Descripcion</span>
@@ -386,6 +413,7 @@ else
                                 <label for="@item.Codigo" class="permiso_cuenta_opcion_label"></label>
                             </div>
                         </div>
+                        }
                     }
                 </div>
             </div>

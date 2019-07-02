@@ -2,15 +2,15 @@
 /* ESTILOS MARCA PAÍS */
 
 .default-color {
-    color:  #e81c36;
+    color: #e81c36;
 }
 
 .default-background {
-    background-color:  #e81c36;
+    background-color: #e81c36;
 }
 
 .default-background-color {
-    background-color:  #e81c36;
+    background-color: #e81c36;
 }
 
 .default-border-hover:hover {
@@ -397,8 +397,8 @@ input[type="text"].text__field__sb,
 }
 
     .tag_sb--standard {
-    background-color: #000;
-    color: #FFF;
+        background-color: #000;
+        color: #FFF;
     }
 
 /* FIN - TAGS */
@@ -629,7 +629,7 @@ input[type="text"].text__field__sb,
 }
 
 .d-block {
-    display: block;
+        display: block;
 }
 
 .d-inline-block {
@@ -701,7 +701,7 @@ input[type="text"].text__field__sb,
 
     .mb-60 {
         margin-bottom: 60px;
-    }
+        }
 }
 
 /* FIN - HELPERS CSS */
@@ -977,3 +977,38 @@ input[type="text"].text__field__sb,
 }
 
 /* FIN - POPUP GENERAL (ACCIONES ACEPTAR Y CANCELAR) */
+
+/*  POPUP GENÉRICO */
+
+.general_dialog {
+    max-width: 404.78px;
+}
+
+.alert_dialog_icono {
+    width: 46px;
+    height: auto;
+}
+
+.alert_dialog_title,
+.terminos_title_2.alert_dialog_title {
+    text-transform: initial;
+    font-size: 20px !important;
+    margin-top: 11px !important;
+}
+
+.alert_dialog_message {
+    font-size: 14px !important;
+    line-height: 19px;
+    margin-top: 19px !important;
+    margin-bottom: 0;
+}
+
+.btn__sb--entendido {
+    font-size: 12px !important;
+    height: 40px !important;
+    line-height: 18px !important;
+    background-color: #B9007E !important;
+    border: 1px solid #B9007E !important;
+}
+
+/* FIN - POPUP GENÉRICO */
