@@ -295,8 +295,10 @@ var BuscadorModule = (function () {
                                 item.Descripcion = item.Descripcion.substring(0, TotalCaracteresEnListaBuscador) + "...";
                             }
                         });
+                        finalProductos = RedimPromociones(r.productos); //Agregamos promociones
 
-                        SetHandlebars("#js-ResultadoBuscador", r.productos, "#ResultadoBuscador");
+                        SetHandlebars("#js-ResultadoBuscador", finalProductos , "#ResultadoBuscador");
+                        
                         if ($('.searchCarousel').length > 0) {
                             const settings = {
                                 dots: false,
@@ -490,6 +492,46 @@ var BuscadorModule = (function () {
         }
     };
 
+    //Realiza un ajuste al resultado del busqueda para agregar promociones si hay en forma de un array.
+    function RedimPromociones(productos) {
+        productos = productos || "";
+        totalItems = productos.length;
+
+        var finalProductos = [];
+        var promociones = [];
+        if (productos !== "") {
+            $.each(productos, function (index, item) {
+                if (item.TienePremio) {
+                    promociones.push(item);
+                }
+            });
+        }
+        var notPromo = productos.filter(function(promo) {
+            return promo.TienePremio == false;
+        });
+        var misPromociones = { "Promociones": promociones };
+
+        //notPromo.push(misPromociones);
+        if (notPromo.length == 1)
+            notPromo.insert(1, misPromociones);
+        else if (notPromo.length == 0)
+            notPromo.insert(0, misPromociones);
+        else 
+            notPromo.insert(2, misPromociones);
+        
+
+        //$.each(notPromo,
+        //    function(idx, value) {
+        //        value.TotalItems = totalItems;
+        //        notPromo[idx] = value;
+        //    });
+        finalProductos = notPromo;
+        
+        return finalProductos;
+    }
+    Array.prototype.insert = function (index, item) {
+        this.splice(index, 0, item);
+    };
 
     //Public functions
     function Inicializar() {

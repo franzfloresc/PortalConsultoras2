@@ -1,5 +1,6 @@
 ﻿<script id="js-ResultadoBuscador" type="text/x-handlebars-template">
     {{#each this as |item|}}
+    {{#IsNullOrEmpty CUV '!='}}
     <div class="resultado_busqueda_producto {{#if Stock}} resultado_busqueda_producto--agotado {{/if}} ml-0 mr-0" data-item="ProductoBuscador">
         <div style="display:none;">
             <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
@@ -90,41 +91,32 @@
             {{/if_eq}}
         </div>
     </div>
-    {{/each}}
 
-    <!-- <NuevaExperiencia equipo="tesla" tipo="carrusel" ticket="tesla-178" -->   
+    {{/IsNullOrEmpty}}
+
+    {{#IsNullOrEmpty Promociones '!='}}
+    <!-- <NuevaExperiencia equipo="tesla" tipo="carrusel" ticket="tesla-178" -->
     <div class="content-searchCarousel">
         <div class="ribbon-promo">
             <span class="promo-text">Promo</span>
         </div>
         <div class="searchCarousel">
+            {{#each Promociones as |item1|}}
             <div class="searchCarousel-content">
                 <div class="searchCarousel-description">
-                    <span class="description-text">Lleva un "Nombre Producto" comprando un "Producto Condición"</span>
+                    <span class="description-text">Lleva un {{Descripcion}} comprando uno de estos productos en oferta.</span>
                 </div>
                 <div class="searchCarousel-image">
                     <img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2100910242019518303_ijhzowgfav.png" alt="Busqueda" class="img-responsive" />
                 </div>
             </div>
-            <div class="searchCarousel-content">
-                <div class="searchCarousel-description">
-                    <span class="description-text">Lleva un "Nombre Producto" comprando un "Producto Condición"</span>
-                </div>
-                <div class="searchCarousel-image">
-                    <img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2100910242019518303_ijhzowgfav.png" alt="Busqueda" class="img-responsive" />
-                </div>
-            </div>
-            <div class="searchCarousel-content">
-                <div class="searchCarousel-description">
-                    <span class="description-text">Lleva un "Nombre Producto" comprando un "Producto Condición"</span>
-                </div>
-                <div class="searchCarousel-image">
-                    <img src="https://cdn1-prd.somosbelcorp.com/Matriz/PE/PE_2100910242019518303_ijhzowgfav.png" alt="Busqueda" class="img-responsive" />
-                </div>
-            </div>
+            {{/each}}
         </div>
     </div>
     <!-- </NuevaExperiencia>-->
+    {{/IsNullOrEmpty}}
+    {{/each}}
+
 
     @if (ViewBag.MostrarBotonVerTodos == true)
     {

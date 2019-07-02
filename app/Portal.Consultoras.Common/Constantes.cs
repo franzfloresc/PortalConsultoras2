@@ -611,6 +611,7 @@ namespace Portal.Consultoras.Common
             public const string ChatBotPageId = "ChatBotPageId";
             public const string ChatBotUrl = "https://m.me/{0}?ref={1}";
             public const string DefaultPerfilImage = "/Content/Images/icono_avatar.svg";
+            public const string CodigoTipoOfertaPremio = "CodigoTipoOfertaPremio";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado

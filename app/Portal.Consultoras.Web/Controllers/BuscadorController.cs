@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -22,6 +23,8 @@ namespace Portal.Consultoras.Web.Controllers
             BuscadorYFiltrosModel productosModel;
             try
             {
+                var CodigoTipoOfertaPremio = base._configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoTipoOfertaPremio);
+
                 await _buscadorYFiltrosProvider.GetPersonalizacion(userData, true, true);
                 productosModel = await _buscadorYFiltrosProvider.GetBuscador(model);
                 productosModel.productos = _buscadorYFiltrosProvider.ValidacionProductoAgregado(
@@ -34,6 +37,8 @@ namespace Portal.Consultoras.Web.Controllers
                     false,
                     SessionManager.GetRevistaDigital().EsSuscrita                    
                     );
+                productosModel.productos[2].CodigoTipoOferta = "044";
+                productosModel.productos[2].TienePremio = CodigoTipoOfertaPremio.Contains(productosModel.productos[2].CodigoTipoOferta); 
             }
             catch (Exception ex)
             {
