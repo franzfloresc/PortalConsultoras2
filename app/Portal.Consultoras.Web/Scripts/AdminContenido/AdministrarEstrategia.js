@@ -521,10 +521,10 @@
             }
             /*END ATP*/
 
-            var aux1 = $("#ddlTipoEstrategia").find(":selected").data("id");
+            //var aux1 = $("#ddlTipoEstrategia").find(":selected").data("id");
             var aux2 = $("#hdEstrategiaCodigo").val();
 
-            if (aux1 == "4"
+            if (aux2 == _codigoTipoEstrategia.OfertaParaTi
                 || aux2 == _codigoTipoEstrategia.Lanzamiento
                 || aux2 == _codigoTipoEstrategia.OfertasParaMi
                 || aux2 == _codigoTipoEstrategia.PackAltoDesembolso
@@ -543,7 +543,9 @@
                 $("#txt2-estrella").show();
             }
 
-            if (aux1 == "4" || aux1 == "5"
+            // ya no existe 
+            if (aux2 == _codigoTipoEstrategia.OfertaParaTi
+                //|| aux1 == "5"
                 || aux2 == _codigoTipoEstrategia.Lanzamiento
                 || aux2 == _codigoTipoEstrategia.OfertasParaMi
                 || aux2 == _codigoTipoEstrategia.PackAltoDesembolso
@@ -559,13 +561,13 @@
                 $("#ddlEtiqueta2").children("option").show();
             }
 
-            if (aux1 == "6") {
+            if (aux2 == _codigoTipoEstrategia.PackNuevas) {
                 $(".OfertaUltimoMinuto").hide();
             } else {
                 $(".OfertaUltimoMinuto").show();
             }
 
-            if (aux1 == "7") {
+            if (aux2 == _codigoTipoEstrategia.OfertaDelDia) {
                 $(".Recomendados").hide();
 
                 $("#ddlEtiqueta1").children("option").hide();
@@ -1257,7 +1259,6 @@
     var _fnGrilla = function () {
         $("#divSeccionProductos").show();
         $("#list").jqGrid("GridUnload");
-        var tipo = $("#ddlTipoEstrategia").find(":selected").data("id");
         var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
 
         var colNameActions = "";
@@ -1284,9 +1285,9 @@
             }),
             mtype: "GET",
             contentType: "application/json; charset=utf-8",
-            multiselect: (tipo == "4" ||
-                tipo == "7" ||
-                tipo == "20" ||
+            multiselect: (codigo == _codigoTipoEstrategia.OfertaParaTi ||
+                codigo == _codigoTipoEstrategia.OfertaDelDia ||
+                codigo == _codigoTipoEstrategia.LosMasVendidos ||
                 codigo == _codigoTipoEstrategia.Lanzamiento ||
                 codigo == _codigoTipoEstrategia.OfertasParaMi ||
                 codigo == _codigoTipoEstrategia.PackAltoDesembolso ||
@@ -1493,7 +1494,7 @@
             "#pager",
             { edit: false, add: false, refresh: false, del: false, search: false });
 
-        if (tipo == "4"
+        if (codigo == _codigoTipoEstrategia.OfertaParaTi
             || codigo == _codigoTipoEstrategia.Lanzamiento
             || codigo == _codigoTipoEstrategia.OfertasParaMi
             || codigo == _codigoTipoEstrategia.PackAltoDesembolso
@@ -1583,7 +1584,7 @@
         }
 
         var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo") || "";
-        
+
         if (codigo.in(
             _codigoTipoEstrategia.OfertaParaTi,
             _codigoTipoEstrategia.GuiaDeNegocioDigitalizada,
@@ -2451,10 +2452,10 @@
                                 return false;
                             }
                         }
-                        
+
                         var aux3 = $("#ddlTipoEstrategia").find(":selected").data("codigo");
 
-                        if(aux3 !== _codigoTipoEstrategia.OfertaParaTi &&
+                        if (aux3 !== _codigoTipoEstrategia.OfertaParaTi &&
                             aux3 !== _codigoTipoEstrategia.OfertaDelDia &&
                             aux3 !== _codigoTipoEstrategia.LosMasVendidos &&
                             aux3 !== _codigoTipoEstrategia.Lanzamiento &&
@@ -3016,7 +3017,7 @@
             var aux1 = $("#ddlTipoEstrategia").find(":selected").data("id");
             var aux2 = $("#ddlTipoEstrategia").find(":selected").data("codigo");
 
-            if (aux1 == "4"
+            if (aux2 == _codigoTipoEstrategia.OfertaParaTi
                 || aux2 == _codigoTipoEstrategia.Lanzamiento
                 || aux2 == _codigoTipoEstrategia.OfertasParaMi
                 || aux2 == _codigoTipoEstrategia.PackAltoDesembolso
@@ -3037,12 +3038,8 @@
             $("#ddlEtiqueta1").children("option").show();
             $("#ddlEtiqueta2").children("option").show();
 
-            if (aux1 == "2") {
-                $("#ddlEtiqueta1").children("option").hide();
-                $("#ddlEtiqueta1").children("option[data-id='4']").show();
-
-                $("#hdnEtiqueta1").val("4");
-            } else if (aux1 == "4" || aux1 == "5"
+            if (aux2 == _codigoTipoEstrategia.OfertaParaTi
+                //|| aux1 == "5"
                 || aux2 == _codigoTipoEstrategia.Lanzamiento
                 || aux2 == _codigoTipoEstrategia.OfertasParaMi
                 || aux2 == _codigoTipoEstrategia.PackAltoDesembolso
@@ -3052,20 +3049,27 @@
                 $("#hdnEtiqueta1").val("1");
                 $("#hdnEtiqueta2").val("3");
 
-            } else if (aux1 == "0" || aux1 == "6") {
+            } else if (aux1 == "0"
+                || aux2 == _codigoTipoEstrategia.PackNuevas) {
                 $("#ddlEtiqueta1").children("option[data-id='5']").hide();
                 $("#ddlEtiqueta2").children("option[data-id='5']").hide();
                 $("#hdnEtiqueta1").val("5");
                 $("#hdnEtiqueta2").val("5");
             }
+            //else if (aux1 == "2") {
+            //    $("#ddlEtiqueta1").children("option").hide();
+            //    $("#ddlEtiqueta1").children("option[data-id='4']").show();
 
-            if (aux1 == "6") {
+            //    $("#hdnEtiqueta1").val("4");
+            //}
+
+            if (aux2 == _codigoTipoEstrategia.PackNuevas) {
                 $(".OfertaUltimoMinuto").hide();
             } else {
                 $(".OfertaUltimoMinuto").show();
             }
 
-            if (aux1 == "7") {
+            if (aux2 == _codigoTipoEstrategia.OfertaDelDia) {
                 $(".Recomendados").hide();
 
                 $("#ddlEtiqueta1").children("option").hide();
@@ -3520,7 +3524,7 @@
                 _toastHelper.error("Debe seleccionar un tipo de estrategia, verifique.");
                 return false;
             } else {
-                
+
                 var teCodigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
                 var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id");
                 if (teCodigo !== _codigoTipoEstrategia.OfertaParaTi &&
