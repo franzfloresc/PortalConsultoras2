@@ -137,7 +137,8 @@
                     <input type="hidden" id="hdCuvEnSession" value="@Session["CUVProductoDesctacado"]" />
                     <input type="hidden" id="hdfValorFlagNueva" />
                     <input type="hidden" id="hdLimiteVenta" />
-                    @*INI HD-3908 *@
+                    <input type="hidden" id="hdCodigoConsultora" value="@ViewBag.CodigoConsultora" />
+                           @*INI HD-3908 *@
                     <input type="hidden" id="hdfCodigoPalanca" />
                     <input type="hidden" id="hdfCampaniaID" />
                     @*FIN HD-3908 *@
@@ -695,4 +696,5 @@
         </script>
     }
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")?v=2"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/PopupRecepcionPedido.js")"></script>
 }

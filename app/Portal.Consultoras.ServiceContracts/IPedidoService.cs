@@ -1359,5 +1359,15 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         bool InsertKitSE(BEUsuario usuario);
+
+        #region HD-4288 - Switch Consultora 100%
+        [OperationContract]
+        int GuardarRecepcionPedido(string nombreYApellido, string numeroDocumento, int pedidoID, int paisID);
+        [OperationContract]
+        int DeshacerRecepcionPedido(int pedidoID, int paisID);
+        [OperationContract]
+        BEConsultora VerificarConsultoraDigital(string codigoConsultora, int pedidoID, int paisID);
+        #endregion
+
     }
 }

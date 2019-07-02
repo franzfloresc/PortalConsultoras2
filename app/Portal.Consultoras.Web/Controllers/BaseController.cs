@@ -9,6 +9,7 @@ using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
@@ -21,6 +22,7 @@ using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using System.Web.Security;
+using BEConsultora = Portal.Consultoras.Web.ServicePedido.BEConsultora;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -239,6 +241,26 @@ namespace Portal.Consultoras.Web.Controllers
             return _pedidoWebProvider.ObtenerPedidoWebDetalle(EsOpt());
 
         }
+
+        /*HD-4288 - Switch Consultora 100% */
+        public virtual int GuardarRecepcionPedido(string nombreYApellido, string numeroDocumento, int pedidoID, int paisID)
+        {
+            return _pedidoWebProvider.GuardarRecepcionPedido(nombreYApellido, numeroDocumento, pedidoID, paisID);
+
+        }
+
+        public virtual int DeshacerRecepcionPedido(int pedidoID, int paisID)
+        {
+            return _pedidoWebProvider.DeshacerRecepcionPedido(pedidoID, paisID);
+
+        }
+
+        public virtual BEConsultora VerificarConsultoraDigital(string codigoConsultora, int pedidoID, int paisID)
+        {
+            return _pedidoWebProvider.VerificarConsultoraDigital(codigoConsultora, pedidoID, paisID);
+
+        }
+        /*HD-4288 - Switch Consultora 100% - FIN */
 
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(bool noSession = false)
         {
