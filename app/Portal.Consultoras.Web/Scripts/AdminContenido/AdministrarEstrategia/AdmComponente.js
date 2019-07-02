@@ -151,7 +151,7 @@
         var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
 
         var ocultarGrupoEstrategia = codigo != _codigoTipoEstrategia.ArmaTuPack;
-        console.log('ocultarGrupoEstrategia', ocultarGrupoEstrategia);
+
         var parametros = {
             estrategiaId: estrategiaId,
             codigoTipoEstrategia: codigo
@@ -190,15 +190,15 @@
                 { name: "Options", index: "Options", width: 40, editable: true, sortable: false, align: "center", resizable: false, formatter: _showActionsDetalle, hidden: !ocultarGrupoEstrategia }
             ],
             jsonReader:
-            {
-                root: "rows",
-                page: "page",
-                total: "total",
-                records: "records",
-                repeatitems: true,
-                cell: "cell",
-                id: "id"
-            },
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: true,
+                    cell: "cell",
+                    id: "id"
+                },
             pager: jQuery("#pagerShowRoomDetalle"),
             loadtext: "Cargando datos...",
             recordtext: "{0} - {1} de {2} Registros",
@@ -328,8 +328,7 @@
             $("#hdImagenDetalleAnterior").val("");
             $("#imgProductoDetalle").attr("src", admConfig.Config.imagenProductoVacio);
         }
-
-        /*INI ATP*/
+        
         //Descriptivos por default
         var newTitulo = "Registro / Edición de Productoss";
         var newLabel0 = "Descripcion1:";
@@ -337,7 +336,6 @@
         var newLabel2 = '¿Activar Oferta?:';
 
         if ($("#ddlTipoEstrategia").find(":selected").data("codigo") == _codigoTipoEstrategia.ArmaTuPack) {
-            //Descriptivo para Grupos ATP
             newTitulo = "Edición de grupos";
             newLabel0 = "Nombre de Grupos:";
             newLabel1 = ' ';
@@ -351,9 +349,7 @@
         $('#spDescripcion1').html(newLabel0);
         $('#spMarcaProducto').html(newLabel1);
         $('#spActivarOferta').html(newLabel2);
-
-        /*INI ATP*/
-
+        
         showDialog("DialogRegistroOfertaShowRoomDetalleEditar");
     }
 
@@ -416,31 +412,31 @@
             draggable: true,
             title: "Registro / Edición de Productos",
             buttons:
-            {
-                "Guardar": function () {
-                    var vMessage = "";
-                    if (jQuery.trim($("#txtCUVProductoDetalle").val()) == "")
-                        vMessage += "- Debe ingresar el CUV del Producto.\n";
+                {
+                    "Guardar": function () {
+                        var vMessage = "";
+                        if (jQuery.trim($("#txtCUVProductoDetalle").val()) == "")
+                            vMessage += "- Debe ingresar el CUV del Producto.\n";
 
-                    if (jQuery.trim($("#ddlMarcaProductoDetalle").val()) == "0")
-                        vMessage += "- Seleccione una marca del Producto.\n";
+                        if (jQuery.trim($("#ddlMarcaProductoDetalle").val()) == "0")
+                            vMessage += "- Seleccione una marca del Producto.\n";
 
-                    if (jQuery.trim($("#txtNombreProductoDetalle").val()) == "")
-                        vMessage += "- Debe ingresar la el nombre del Producto.\n";
+                        if (jQuery.trim($("#txtNombreProductoDetalle").val()) == "")
+                            vMessage += "- Debe ingresar la el nombre del Producto.\n";
 
-                    if (vMessage != "") {
-                        alert(vMessage);
+                        if (vMessage != "") {
+                            alert(vMessage);
+                            return false;
+                        }
+                        else {
+                            _registrarOfertaShowRoomDetalle();
+                        }
                         return false;
+                    },
+                    "Cancelar": function () {
+                        HideDialog("DialogRegistroOfertaShowRoomDetalleEditar");
                     }
-                    else {
-                        _registrarOfertaShowRoomDetalle();
-                    }
-                    return false;
-                },
-                "Cancelar": function () {
-                    HideDialog("DialogRegistroOfertaShowRoomDetalleEditar");
                 }
-            }
         });
     }
 
