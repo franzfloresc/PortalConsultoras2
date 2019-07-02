@@ -65,7 +65,7 @@ else
                 <a href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" style="display: none;" id="volverBienvenida">Volver</a>
                 <a href="@Url.Action("CambiarFotoPerfil", "MiPerfil", new {area = "Mobile"})" title="Editar imagen" class="icono_camara multimarca-background-color"></a>
                 <div class="contenedor_foto_consultora">
-                    <img src="@ViewBag.FotoPerfil" class="ImageLoadPhotoUser" onerror="this.onerror=null; this.src='@Url.Content("~/Content/Images/icono_avatar.svg")'" alt="Imagen Consultora" />
+                    <img src="@ViewBag.FotoPerfil" class="ImageLoadPhotoUser" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" alt="Imagen Consultora" />
                 </div>
             </div>
             <div class="datos_consultora">
