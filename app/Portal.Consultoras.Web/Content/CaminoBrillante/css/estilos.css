@@ -1534,7 +1534,7 @@ button.close {
 
     .cambio-crec .como-log.inactivo {
         text-decoration: none;
-        color: gray;
+        color: #1b1b1b;
         cursor: auto
     }
 
@@ -1553,7 +1553,8 @@ button.close {
     height: 50px;
     border-radius: 50px;
     margin: 0 auto;
-    margin-bottom: 6px
+    margin-bottom: 6px;
+    position:relative;
 }
 
     .circle-porcent.crec-activo {
@@ -2219,27 +2220,65 @@ div .ficha__producto__precio__normal {
         margin-bottom: 30px;
         font-size: 17px;
     }
-
-    /*.logreg .slick-track {
+.carousel-inner .item:after {
+    content:"";
+    clear:both;
+    display:block;
+}
+/*.logreg .slick-track {
         width: 100% !important;
         left: 8px;
     }*/
-.mobile-cont.flexslider {
+/*.mobile-cont.flexslider {
     margin: 0 auto;
     display: block;
     max-width:750px;
+}*/
+
+.carousel-control {
+    background: transparent !important;
+    width: 14px !important;
+    height: 30px;
+    margin-top: 22px;
+    opacity:1 !important;
 }
-
-
-
-
-
-
-
-
-
-
-
+.carousel-inner .itm {
+    width: 10.5%;
+    margin: 0 3%;
+    float: left;
+    max-width: 85px;
+    display: block;
+    padding: 0 1%;
+    padding-top:2px;
+    margin-bottom: 18px;
+}
+.carousel-control span {
+    width: 14px;
+    height: 30px;
+    display: block;
+ 
+}
+    .carousel-control span img {
+        margin: 0;
+        width: 100%;
+    }
+.carousel-indicators {
+    display:none;
+}
+/*.circle-porcent:before {
+    content: "";
+    display: block;
+    width: 54px;
+    height: 54px;
+    border-radius: 54px;
+    border: 2px dashed #333333;
+    position: absolute;
+    top: -2px;
+    left: -2px;
+}*/
+.left.carousel-control {
+    left: -8px;
+}
 
 
 
@@ -2716,6 +2755,16 @@ div .ficha__producto__precio__normal {
     .bar-logros {
         padding-bottom: 8px;
     }
+    .carousel-inner .itm {
+        width: 18.5%;
+        margin: 0 3%;
+        margin-bottom: 16px;
+    }
+    .carousel-control {
+        margin-top: 54px;
+    }
+
+
 }
 
 @media screen and (max-width:600px) {
