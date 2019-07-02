@@ -82,7 +82,7 @@ function OfertaObtenerFiltro(filtro, clear) {
         }
     }
 
-    var listaFiltros = Clone(filtroIni);
+    listaFiltros = Clone(filtroIni);
     campaniaId = campaniaId || $(filtro).parents("[data-listado-campania]").attr("data-listado-campania") || 0;
     campaniaId = parseInt(campaniaId) || 0;
     listaFiltros.CampaniaID = campaniaId;
