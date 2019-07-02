@@ -87,11 +87,11 @@ strong {
 .boxtom {
     display: none;
 }
-#m_montoFaltante:after, #m_montoMinimo:after, .box-beneficios:after, .boxcenter:after, .cont-ganancias:after, .cont-logros:after, .cont-textLograr:after, .indicador-nivel:after, .list-crec:after, .list-ganacias:after, .boxtog ul:after, .boxtom ul:after {
-    content: "";
-    display: block;
-    clear: both
-}
+    #m_montoFaltante:after, #m_montoMinimo:after, .box-beneficios:after, .boxcenter:after, .cont-ganancias:after, .cont-logros:after, .cont-textLograr:after, .indicador-nivel:after, .list-crec:after, .list-ganacias:after, .boxtog ul:after, .boxtom ul:after, .cambio-crec:after {
+        content: "";
+        display: block;
+        clear: both
+    }
 
     .box-beneficios li {
         width: 32%;
@@ -2265,7 +2265,7 @@ div .ficha__producto__precio__normal {
 .carousel-indicators {
     display:none;
 }
-/*.circle-porcent:before {
+.bord:before {
     content: "";
     display: block;
     width: 54px;
@@ -2275,9 +2275,19 @@ div .ficha__producto__precio__normal {
     position: absolute;
     top: -2px;
     left: -2px;
-}*/
+}
 .left.carousel-control {
     left: -8px;
+}
+.regular .itm {
+    width: 10.5%;
+    margin: 0 3%;
+    float: left;
+    max-width: 85px;
+    display: block;
+    padding: 0 1%;
+    padding-top: 2px;
+    margin-bottom: 0;
 }
 
 
@@ -2666,9 +2676,11 @@ div .ficha__producto__precio__normal {
     .slick-arrow {
         display: none !important;
     }
+
     .logreg .slick-arrow {
         display: block !important;
     }
+
     .regular.slider .ficha__producto__kit {
         height: 456px;
     }
@@ -2680,15 +2692,19 @@ div .ficha__producto__precio__normal {
     .revistadigital-landing {
         padding: 0 5px 25px 5px;
     }
+
     div.opOrdenar {
         padding: 0 15px;
     }
+
     .regular.slider .ficha__producto {
         min-height: 458px;
     }
+
     .box-left-ganancias span {
-        font-size:12px;
+        font-size: 12px;
     }
+
     #progress-b {
         margin: 70px auto;
         margin-bottom: 40px;
@@ -2738,35 +2754,63 @@ div .ficha__producto__precio__normal {
             text-align: center;
             line-height: 50px
         }
+
     .tog-vermas, .tog-vermenos {
         width: 60px;
     }
+
     .tog-vermenos {
         width: 78px;
     }
-    .tog-vermas:after, .tog-vermenos:after {
-        top: 1px;
-    }
+
+        .tog-vermas:after, .tog-vermenos:after {
+            top: 1px;
+        }
+
     .bar-logros span, .bar-logros p {
         width: 90px;
         margin: 0 auto;
-        margin-bottom:15px;
+        margin-bottom: 15px;
     }
+
     .bar-logros {
         padding-bottom: 8px;
     }
+
     .carousel-inner .itm {
         width: 18.5%;
         margin: 0 3%;
         margin-bottom: 16px;
     }
+
     .carousel-control {
         margin-top: 54px;
     }
 
-
+    .regular .itm {
+        width: 18.5%;
+    }
+    .bord:before {
+        width: 44px;
+        height: 44px;
+        top: -2px;
+        left: -2px;
+    }
+    .regular .itm {
+        margin-bottom:15px;
+    }
+    .logreg {
+        padding:0;
+    }
+    .cambio-crec .itm {
+        width: 18.5%;
+        margin: 0 3%;
+        margin-bottom:15px;
+    }
+    .logreg > .text-bold {
+        text-align:left;
+    }
 }
-
 @media screen and (max-width:600px) {
 
     .ficha__producto .etiqueta-box img {

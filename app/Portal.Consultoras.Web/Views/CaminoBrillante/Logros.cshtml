@@ -14,38 +14,6 @@
             margin-top: 0px;
         }
 
-
-        .regular .itm {
-            float: none;
-            margin: 0 auto;
-            width: 100%;
-            padding: 0;
-        }
-
-
-        .carousel .carousel-item {
-            width: 100%;
-            height: 100vh;
-            background-size: cover;
-            background-position: center;
-        }
-
-            .carousel .carousel-item:first-of-type {
-                background-image: url("https://i2.wp.com/tkpurwo.com/wp-content/uploads/2018/05/wallpaper-flower-tumblr-blue-best-of-blue-flowers-tumblr-dc29fdc2bedc2b8nc281do-dc2b2-google-birdsampflowers-of-wallpaper-flower-tumblr-blue.jpg?fit=1200%2C750");
-            }
-
-            .carousel .carousel-item:nth-of-type(2) {
-                background-image: url("http://s9.favim.com/orig/130806/flower-flowers-photography-pink-Favim.com-833641.jpg");
-            }
-
-            .carousel .carousel-item:last-of-type {
-                background-image: url("https://4.bp.blogspot.com/-pxMLcrD3N7I/UjAMNkqM43I/AAAAAAAAABQ/2-etadUS_48/s640/flowers.jpg");
-            }
-
-        .carousel-control-prev-icon, .carousel-control-next-icon {
-            width: 50px;
-            height: 50px;
-        }
     </style>
 }
 
@@ -111,7 +79,7 @@
                     <img src="{{UrlMedalla}}" />
                 </div>
                 {{else if_eq Tipo 'CIRC'}}
-                <div class="circle-porcent {{#if Estado}}crec-activo{{else}}crec-inactivo{{/if}}">
+                <div class="bord circle-porcent {{#if Estado}}crec-activo{{else}}crec-inactivo{{/if}}">
                     <span>{{Valor}}</span>
                 </div>
                 {{else if_eq Tipo 'NIV'}}
@@ -193,20 +161,81 @@
 
 </script>
 
-@*<div class="container cambio-crec logreg">
+<div class="container cambio-crec logreg">
         <p class="text-bold">Constancia del periodo: C04 a C09</p>
         <section class="regular  slider">
             <div>
                 <div class="itm">
-                    <div class="circle-porcent crec-activo">
+                    <div class="bord circle-porcent crec-activo">
                         <span>C01</span>
                     </div>
                     <span class="como-log inactivo">C01</span>
                 </div>
+                <div class="itm">
+                    <div class="bord circle-porcent crec-activo">
+                        <span>C02</span>
+                    </div>
+                    <span class="como-log inactivo">C02</span>
+                </div>
+                <div class="itm">
+                    <div class="bord circle-porcent crec-activo">
+                        <span>C02</span>
+                    </div>
+                    <span class="como-log inactivo">C03</span>
+                </div>
+                <div class="itm">
+                    <div class="bord circle-porcent crec-activo">
+                        <span>C01</span>
+                    </div>
+                    <span class="como-log inactivo">C04</span>
+                </div>
+                <div class="itm">
+                    <div class="bord circle-porcent crec-activo">
+                        <span>C02</span>
+                    </div>
+                    <span class="como-log inactivo">C05</span>
+                </div>
+                <div class="itm">
+                    <div class="bord circle-porcent crec-activo">
+                        <span>C02</span>
+                    </div>
+                    <span class="como-log inactivo">C06</span>
+                </div>
+
             </div>
             <div>
                 <div class="itm">
-                    <div class="circle-porcent crec-activo">
+                    <div class="bord circle-porcent crec-activo">
+                        <span>C02</span>
+                    </div>
+                    <span class="como-log inactivo">C02</span>
+                </div>
+                <div class="itm">
+                    <div class="bord circle-porcent crec-activo">
+                        <span>C02</span>
+                    </div>
+                    <span class="como-log inactivo">C02</span>
+                </div>
+                <div class="itm">
+                    <div class="bord circle-porcent crec-activo">
+                        <span>C02</span>
+                    </div>
+                    <span class="como-log inactivo">C02</span>
+                </div>
+                <div class="itm">
+                    <div class="bord circle-porcent crec-activo">
+                        <span>C02</span>
+                    </div>
+                    <span class="como-log inactivo">C02</span>
+                </div>
+                <div class="itm">
+                    <div class="bord circle-porcent crec-activo">
+                        <span>C02</span>
+                    </div>
+                    <span class="como-log inactivo">C02</span>
+                </div>
+                <div class="itm">
+                    <div class="bord circle-porcent crec-activo">
                         <span>C02</span>
                     </div>
                     <span class="como-log inactivo">C02</span>
@@ -214,7 +243,7 @@
             </div>
             <div>
                 <div class="itm">
-                    <div class="circle-porcent crec-activo">
+                    <div class="bord circle-porcent crec-activo">
                         <span>C03</span>
                     </div>
                     <span class="como-log inactivo">C03</span>
@@ -222,7 +251,7 @@
             </div>
             <div>
                 <div class="itm">
-                    <div class="circle-porcent crec-activo">
+                    <div class="bord circle-porcent crec-activo">
                         <span>C04</span>
                     </div>
                     <span class="como-log inactivo">C04</span>
@@ -230,7 +259,7 @@
             </div>
             <div>
                 <div class="itm">
-                    <div class="circle-porcent crec-activo">
+                    <div class="bord circle-porcent crec-activo">
                         <span>C05</span>
                     </div>
                     <span class="como-log inactivo">C05</span>
@@ -238,7 +267,7 @@
             </div>
             <div>
                 <div class="itm">
-                    <div class="circle-porcent crec-activo">
+                    <div class="bord circle-porcent crec-activo">
                         <span>C06</span>
                     </div>
                     <span class="como-log inactivo">C06</span>
@@ -246,7 +275,7 @@
             </div>
             <div>
                 <div class="itm">
-                    <div class="circle-porcent crec-activo">
+                    <div class="bord circle-porcent crec-activo">
                         <span>C07</span>
                     </div>
                     <span class="como-log inactivo">C07</span>
@@ -254,7 +283,7 @@
             </div>
             <div>
                 <div class="itm">
-                    <div class="circle-porcent crec-activo">
+                    <div class="bord circle-porcent crec-activo">
                         <span>C08</span>
                     </div>
                     <span class="como-log inactivo">C08</span>
@@ -262,123 +291,15 @@
             </div>
 
         </section>
-    </div>*@
-
-
-
-
-
-
-
-
-
-<div class="container cambio-crec logreg">
-    <p class="text-bold">Constancia del periodo: C04 a C09</p>
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-
-            <div class="item active">
-                <div class="itm">
-                    <div class="circle-porcent crec-activo">
-                        <span>C08</span>
-                    </div>
-                    <span class="como-log inactivo">C08</span>
-                </div>
-                <div class="itm">
-                    <div class="circle-porcent crec-activo">
-                        <span>C08</span>
-                    </div>
-                    <span class="como-log inactivo">C08</span>
-                </div>
-                <div class="itm">
-                    <div class="circle-porcent crec-activo">
-                        <span>C08</span>
-                    </div>
-                    <span class="como-log inactivo">C08</span>
-                </div>
-                <div class="itm">
-                    <div class="circle-porcent crec-activo">
-                        <span>C08</span>
-                    </div>
-                    <span class="como-log inactivo">C08</span>
-                </div>
-                <div class="itm">
-                    <div class="circle-porcent crec-activo">
-                        <span>C08</span>
-                    </div>
-                    <span class="como-log inactivo">C08</span>
-                </div>
-                <div class="itm">
-                    <div class="circle-porcent crec-activo">
-                        <span>C08</span>
-                    </div>
-                    <span class="como-log inactivo">C08</span>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="itm">
-                    <div class="circle-porcent crec-activo">
-                        <span>C08</span>
-                    </div>
-                    <span class="como-log inactivo">C08</span>
-                </div>
-                <div class="itm">
-                    <div class="circle-porcent crec-activo">
-                        <span>C08</span>
-                    </div>
-                    <span class="como-log inactivo">C08</span>
-                </div>
-                <div class="itm">
-                    <div class="circle-porcent crec-activo">
-                        <span>C08</span>
-                    </div>
-                    <span class="como-log inactivo">C08</span>
-                </div>
-                <div class="itm">
-                    <div class="circle-porcent crec-activo">
-                        <span>C08</span>
-                    </div>
-                    <span class="como-log inactivo">C08</span>
-                </div>
-                <div class="itm">
-                    <div class="circle-porcent crec-activo">
-                        <span>C08</span>
-                    </div>
-                    <span class="como-log inactivo">C08</span>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="itm">
-                    <div class="circle-porcent crec-activo">
-                        <span>C08</span>
-                    </div>
-                    <span class="como-log inactivo">C08</span>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class=""><img src="/Content/Images/PL20/left_black_compra.png" )"="" alt="" class="icono_clase_control_color_dinamico"></span>
-
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class=""><img src="/Content/Images/PL20/right_black_compra.png" )"="" alt="" class="icono_clase_control_color_dinamico"></span>
-
-        </a>
     </div>
-</div>
+
+
+
+
+
+
+
+
 
 
 @section scripts{
@@ -399,8 +320,8 @@
             $(".regular").slick({
                 dots: false,
                 infinite: false,
-                slidesToShow: 6,
-                slidesToScroll: 6,
+                slidesToShow: 1,
+                slidesToScroll: 1,
                 //initialSlide: 2,
                 prevArrow: '<a style="display: block;left: 0;margin-left: -2%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
                 nextArrow: '<a style="display: block;right: 0;margin-right: -2%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" class="icono_clase_control_color_dinamico"/></a>',
@@ -409,7 +330,7 @@
                         breakpoint: 768,
                         settings: {
 
-                            slidesToShow: 4, slidesToScroll: 4
+                            slidesToShow: 1, slidesToScroll: 1
                         }
                     }
                 ]
@@ -417,11 +338,7 @@
         });
     </script>
 
-    <script src="http://code.jquery.com/mobile/1.2.1/jquery.mobile-1.2.1.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>*@
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/logros")
