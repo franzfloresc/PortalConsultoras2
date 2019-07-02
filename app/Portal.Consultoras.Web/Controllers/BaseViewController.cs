@@ -179,10 +179,10 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 CampaniaID = id,
                 IsMobile = esMobile,
-                FiltersBySorting = _ofertasViewProvider.GetFiltersBySorting(IsMobile()),
+                FiltersBySorting = _ofertasViewProvider.GetFiltersBySorting(esMobile),
                 FiltersByBrand = _ofertasViewProvider.GetFiltersByBrand(),
                 Success = true,
-                MensajeProductoBloqueado = _ofertasViewProvider.HVMensajeProductoBloqueado(herramientasVenta, esMobile),
+                MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile),
                 CantidadFilas = 10
             };
 

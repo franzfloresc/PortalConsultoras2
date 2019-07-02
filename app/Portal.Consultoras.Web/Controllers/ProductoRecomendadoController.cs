@@ -1,5 +1,8 @@
-﻿using Portal.Consultoras.Web.Models.Recomendaciones;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.LogManager;
+using Portal.Consultoras.Web.Models.Recomendaciones;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -21,6 +24,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         public async Task<JsonResult> ObtenerProductos(string cuv, string codigoProducto)
         {
+            var flagLaMasGanadoras = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(userData.PaisID, ConsTablaLogica.FlagFuncional.TablaLogicaId, ConsTablaLogica.FlagFuncional.PalancaLasMasGanadoras);
             if (!_productoRecomendadoProvider.ValidarRecomendacionActivo())
                 return Json(new RecomendacionesModel(), JsonRequestBehavior.AllowGet);
 
@@ -33,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!_productoRecomendadoProvider.ValidarCantidadMinima(recomendacionesModel))
                     return Json(new RecomendacionesModel(), JsonRequestBehavior.AllowGet);
 
-                recomendacionesModel.Productos = _productoRecomendadoProvider.ValidacionProductoAgregado(recomendacionesModel.Productos, SessionManager.GetDetallesPedido(), userData, revistaDigital, IsMobile(), false, true, SessionManager.GetRevistaDigital().EsSuscrita);
+                recomendacionesModel.Productos = _productoRecomendadoProvider.ValidacionProductoAgregado(recomendacionesModel.Productos, SessionManager.GetDetallesPedido(), userData, revistaDigital, IsMobile(), false, true, SessionManager.GetRevistaDigital().EsSuscrita, flagLaMasGanadoras);
             }
             catch (Exception ex)
             {

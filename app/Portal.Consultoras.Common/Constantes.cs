@@ -256,6 +256,7 @@ namespace Portal.Consultoras.Common
             public const string ShowRoom = "SR";
             public const string HerramientasVenta = "HV";
             public const string ArmaTuPack = "ATP";
+            public const string MasGanadoras = "LMG";
         }
 
         public static class TipoAccionAgregar

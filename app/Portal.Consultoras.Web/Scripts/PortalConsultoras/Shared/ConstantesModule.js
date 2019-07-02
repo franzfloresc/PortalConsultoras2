@@ -23,7 +23,7 @@ var ConstantesModule = (function() {
         LiquidacionWeb: "OfertasLiquidacion",
         GuiaNegocio: "GuiaNegocio",
         SR: "ShowRoom",
-        DuoPerfecto: "DuoPerfecto" //HD-3473 EINCA
+        DuoPerfecto: "DuoPerfecto"
     }
 
     var _keysLocalStorage = {
@@ -32,7 +32,6 @@ var ConstantesModule = (function() {
         Lanzamiento: "LANLista",
         RevistaDigital: "RDLista",
         Ganadoras: "MGLista",
-        //INI HD-3908
         PackNuevas: "PNLista",
         DuoPerfecto: "DPLista",
         //FIN HD-3908
@@ -75,7 +74,7 @@ var ConstantesModule = (function() {
         ProgramaNuevasRegalo: "044",
         ParticipaProgramaNuevas: "1",
         NotParticipaProgramaNuevas: "0",
-        DuoPerfecto: "034", //HD-3473 EINCA
+        DuoPerfecto: "034"
     }
 
     var _tipoPersonalizacion = {
@@ -125,9 +124,7 @@ var ConstantesModule = (function() {
         SR: "SR",
         ATP: "ATP",
         DP: "DP",
-        //INI HD-3908
         PN: "PN"
-        //FIN HD-3908
     };
 
     var _urlObtenerEstrategia = {
