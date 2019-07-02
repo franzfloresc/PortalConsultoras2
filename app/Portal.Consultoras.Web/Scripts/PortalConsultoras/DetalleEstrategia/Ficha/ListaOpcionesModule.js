@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../Scripts/jquery-1.11.2.js" />
+﻿/// <reference path="../../../../Scripts/jquery-1.11.2.js" />
 /// <reference path="../../../../Scripts/General.js" />
 /// <reference path="../../../../Scripts/PortalConsultoras/Shared/MainLayout.js" />
 /// <reference path="../../../../Scripts/PortalConsultoras/Bienvenida/Estrategia.js" />
@@ -343,7 +343,6 @@ var ListaOpcionesModule = (function () {
             $(".modal-fondo").css("opacity", "0");
             $(".modal-fondo").hide();
             $("body").removeClass("modal_activado");
-            console.log('CloseElegirOpcionesModal - DivPopupFichaResumida overflow auto');
             $("#DivPopupFichaResumida").css("overflow", "auto");
         }
         if (!_callFromSeleccionarPaletaOpcion) {

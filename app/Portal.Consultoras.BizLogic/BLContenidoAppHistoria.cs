@@ -1,14 +1,10 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.Entities.Oferta;
-
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Transactions;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -28,13 +24,14 @@ namespace Portal.Consultoras.BizLogic
                     var entidad = new BEContenidoAppHistoria();
                     using (var reader = da.Get(Codigo))
                     {
-                        if (reader.Read()) {
+                        if (reader.Read())
+                        {
                             entidad = new BEContenidoAppHistoria(reader);
-                        } 
+                        }
                     }
                     return entidad;
                 });
-                
+
                 contenidoApp = task1.Result;
             }
             catch (Exception ex)

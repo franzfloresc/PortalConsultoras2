@@ -2474,12 +2474,15 @@ namespace Portal.Consultoras.Service
             _pedidoWebBusinessLogic.UpdDatoRecogerPor(pedidowebdetalle);
         }
 
-        //INI HD-4200
         public List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb)
         {
             return BLPedidoWeb.GetCuvSuscripcionSE(bEPedidoWeb);
         }
-        //FIN HD-4200
+
+        public bool InsertKitSE(BEUsuario usuario)
+        {
+            return _pedidoBusinessLogic.InsertKitSE(usuario);
+        }
 
         #region HD-4288 - Switch Consultora 100%
         public int GuardarRecepcionPedido(string nombreYApellido, string numeroDocumento, int pedidoID, int paisID)

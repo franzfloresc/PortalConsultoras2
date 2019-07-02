@@ -70,9 +70,9 @@ namespace Portal.Consultoras.Web.SessionManager
 
         void SetListaCDRWebCargaInicial(List<CDRWebModel> lista);
 
-        bool? GetFlagIsSetsOrPack(); //HD-3703 EINCA
+        bool? GetFlagIsSetsOrPack();
 
-        void SetFlagIsSetsOrPack(bool? flag); //HD-3703 EINCA
+        void SetFlagIsSetsOrPack(bool? flag);
 
         #endregion
 
@@ -222,9 +222,9 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<EstadoCuentaModel> GetListadoEstadoCuenta();
 
-        void SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo);
+        //void SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo);
 
-        EstrategiaPersonalizadaProductoModel GetProductoTemporal();
+        //EstrategiaPersonalizadaProductoModel GetProductoTemporal();
 
         void SetEstrategiaSR(Models.Estrategia.ShowRoom.ConfigModel data);
 
@@ -258,6 +258,10 @@ namespace Portal.Consultoras.Web.SessionManager
 
         int GetMiAcademiaVideo();
 
+        void SetMiAcademiaPdf(int id);
+
+        int GetMiAcademiaPdf();
+
         void SetMiAcademiaParametro(string value);
 
         string GetMiAcademiaParametro();
@@ -286,11 +290,9 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetListPremioElectivo(List<PremioElectivoModel> listPremioElectivo);
         Dictionary<string, PremioProgNuevasOFModel> GetDictPremioProgNuevasOF();
         void SetDictPremioProgNuevasOF(Dictionary<string, PremioProgNuevasOFModel> dictPremioProgNuevasOF);
-
-        //INI HD-4200
+        
         bool GetProcesoSuscripcionSE();
         void SetProcesoSuscripcionSE(bool proceso);
-        //FIN HD-4200
         
         void SetBuscadorYFiltrosConfig(BuscadorYFiltrosConfiguracionModel buscadorYFiltrosModel);
 

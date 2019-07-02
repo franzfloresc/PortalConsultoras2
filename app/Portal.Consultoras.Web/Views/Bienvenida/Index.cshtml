@@ -60,14 +60,7 @@
                     </div>
                 </div>
                 <div class="foto_perfil_home">
-                    @if (ViewBag.FotoPerfilAncha)
-                    {
-                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width: auto; height: 100%;" />
-                    }
-                    else
-                    {
-                        <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" alt="" style="width: 100%; height: auto;" />
-                    }
+                    <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" onload="onLoadPhotoUser(this)" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" alt="" />
                 </div>
             }
             <div class="clear"></div>
@@ -2070,7 +2063,7 @@
         var urlShowRoomIntriga = '@Url.Action("Intriga", "ShowRoom")';
         var urlShowRoomVenta = '@Url.Action("Index", "ShowRoom")';
         var urlRevistaDigitalInformacion = '@Url.Action("Informacion", "RevistaDigital")';
-        var urlDetalleRevistaDigital = '@Url.Action("Detalle", "RevistaDigital")';
+        @*var urlDetalleRevistaDigital = '@Url.Action("Detalle", "RevistaDigital")';*@
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';
         var showRoomOrigenInsertar = '@Constantes.OrigenPedidoWeb.DesktopHomeShowroomCarrusel';
         var DesktopHomeLiquidacion = @Constantes.OrigenPedidoWeb.DesktopHomeLiquidacionCarrusel;
@@ -2091,7 +2084,7 @@
         var telefonoTrabajo = '@Model.TelefonoTrabajo';
         var sobreNombre = '@Model.SobreNombre';
         var nombreGerenteZonal =  '@Model.NombreGerenteZonal';
-        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
+        @*var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';*@
         var showPopupMisDatos = '@(Model.ShowPopupMisDatos ? 1 : 0)';
         var popupInicialCerrado = '@(Model.PopupInicialCerrado ? 1 : 0)';
         var popupCambioClave = '@Model.OpcionCambiaClave';

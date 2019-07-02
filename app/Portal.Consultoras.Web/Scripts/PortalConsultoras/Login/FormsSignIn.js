@@ -17,7 +17,7 @@ var procesoSms = false;
 var procesoEmail = false;
 var PrimerNombre = "";
 
-$(document).ready(function () {
+$(document).ready(function () {    
     $(window).resize(function () {
         //resize just happened, pixels changed
         resizeNameUserExt();
@@ -341,9 +341,22 @@ $(document).ready(function () {
     });
 
     $("#divChatearConNosotros").click(function () {
-        if (typeof FB === 'undefined') return;
+        if ($('#hddHabilitarChatBot').val() === 'true') {
+            if (typeof FB === 'undefined') return;
 
-        FB.XFBML.parse();
+            FB.XFBML.parse();
+
+            return;
+        }
+
+        if ($('#hddHabilitarChatEmtelco').val() === 'false') {
+            $('#popupChatDisabled').show();
+            return;
+        }
+        $('#marca').css('display', 'block');
+        var connected = localStorage.getItem('connected');
+        var idBtn = connected ? '#btn_open' : '#btn_init';
+        $(idBtn).trigger("click");
     });
 
     $("body").keyup(function (evt) {
@@ -661,7 +674,7 @@ function AbrirMensajeLogin(tipo, close) {
     }
     if ($(".DropDown").val() == "00") return;
     if (tipo == 1) {
-        val_Usuario = !val_Usuario;
+        //val_Usuario = !val_Usuario;
         switch ($(".DropDown").val()) {
             case "PE": $('.alerta_red_peru_user').toggleClass("alerta_red_block"); break;
             case "BO": $('.alerta_red_bolivia_user').toggleClass("alerta_red_block"); break;
@@ -679,7 +692,7 @@ function AbrirMensajeLogin(tipo, close) {
         }
     }
     else {
-        val_Password = !val_Password;
+        //val_Password = !val_Password;
         switch ($(".DropDown").val()) {
             case "PE": $('.alerta_red_peru_clave').toggleClass("alerta_red_block"); break;
             case "BO": $('.alerta_red_bolivia_clave').toggleClass("alerta_red_block"); break;
@@ -858,9 +871,9 @@ function login2() {
         dataType: 'json',
         //contentType: 'application/json; charset=utf-8',
         success: function (response) {
-            
-            var resul = "";
-            if (response.data != null) {        
+
+            //var resul = "";
+            if (response.data != null) {
                 analytics.invocarCompleteRegistrationPixel();
 
                 var datos = response.data;
@@ -870,7 +883,7 @@ function login2() {
                 closeWaitingDialog();
 
 
-            } else if (response.success) {   
+            } else if (response.success) {
                 analytics.invocarCompleteRegistrationPixel();
                 if (response.redirectTo !== "") {
                     analytics.invocarEventoPixel("FacebookLoginLogin");
@@ -1038,10 +1051,11 @@ function RecuperarContrasenia() {
                 var telefonos;
                 var datos = response.data;
                 $("#hddHabilitarChatEmtelco").val(response.habilitarChatEmtelco);
+                $("#hddHabilitarChatBot").val(response.habilitarChatBot);
 
                 OcultarContenidoPopup();
-                var nroCelular = $.trim(datos.Celular);
-                var email = $.trim(datos.Correo);
+                //var nroCelular = $.trim(datos.Celular);
+                //var email = $.trim(datos.Correo);
                 var primerNombre = $.trim(datos.PrimerNombre);
 
                 var tituloPopup = "CAMBIO DE <b>CONTRASEÑA</b>"

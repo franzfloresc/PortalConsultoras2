@@ -58,7 +58,9 @@ namespace Portal.Consultoras.BizLogic
         CaminoBrillanteOfertas,
         CaminoBrillanteDemostradores,
         CaminoBrillanteCuvs,
-        CaminoBrillanteFiltros
+        CaminoBrillanteFiltros,
+        ApiIssuuData,
+        UrlThumbnail,
     }
 
     internal static class CacheManager<T>

@@ -4,7 +4,6 @@ using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.PublicService.Cryptography;
-
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,16 +11,15 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
-using System.Transactions;
 using System.Net;
-using System.Web.Script.Serialization;
 using System.Threading.Tasks;
+using System.Transactions;
+using System.Web.Script.Serialization;
 
 namespace Portal.Consultoras.BizLogic
 {
     public class BLPedidoWeb : IPedidoWebBusinessLogic
     {
-        //INI HD-3693
         private readonly ITablaLogicaDatosBusinessLogic _tablaLogicaDatosBusinessLogic;
         public BLPedidoWeb() : this(new BLTablaLogicaDatos())
         { }
@@ -29,7 +27,7 @@ namespace Portal.Consultoras.BizLogic
         {
             _tablaLogicaDatosBusinessLogic = tablaLogicaDatosBusinessLogic;
         }
-        //FIN HD-3693
+
         public int ValidarCargadePedidos(int paisID, int TipoCronograma, int MarcaPedido, DateTime FechaFactura)
         {
             var DAPedidoWeb = new DAPedidoWeb(paisID);
@@ -2144,7 +2142,6 @@ namespace Portal.Consultoras.BizLogic
                 if (usuario != null)
                 {
 
-                    //INI HD-3693 
                     if (usuario.AutorizaPedido == "0")
                     {
 
@@ -2161,7 +2158,7 @@ namespace Portal.Consultoras.BizLogic
                             configuracion = reader.MapToObject<BEConfiguracionCampania>(true);
                         }
                     }
-                    //FIN HD-3693
+
 
                 }
 
@@ -2497,7 +2494,7 @@ namespace Portal.Consultoras.BizLogic
             }
         }
 
-        //INI HD-4200
+
         public List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb BEPedidoWeb)
         {
             var listaSuscripcionSE = new List<BEProducto>();
@@ -2511,7 +2508,6 @@ namespace Portal.Consultoras.BizLogic
                 }
             return listaSuscripcionSE;
         }
-        //FIN HD-4200
 
 
         private string ClienteLine(TemplateField[] template, BEDescargaPedidoCliente row)
@@ -2549,6 +2545,84 @@ namespace Portal.Consultoras.BizLogic
 
             daPedidoWeb.UpdDatoRecogerPor(pedidoWebDetalle);
         }
+
+        public BEPedidoWeb GetPedidoWebConCalculosGanancia(BEUsuario usuario, decimal montoAhorroCatalogo, decimal montoAhorroRevista, decimal montoDescuento, decimal montoEscala, List<BEPedidoWebDetalle> pedidoWebSetDetalleAgrupado)
+        {
+            //var pedidoWebSetDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, false, out int pedidoID);
+
+            var codigosCatalogosWeb = GetCodigosCatalogoWeb(false);
+            var codigosCatalogosRevista = GetCodigosCatalogoRevista();
+            var itemsCatalogo = GetCodigosCatalogo();
+
+            var itemsWeb = pedidoWebSetDetalleAgrupado.Where(p => codigosCatalogosWeb.Contains(p.CodigoCatalago.ToString()) ||
+                        (p.CodigoCatalago.ToString() == Constantes.ODSCodigoCatalogo.WebPortalFFVV && p.CodigoTipoOferta == "002") ||
+                        (p.CodigoCatalago.ToString() == Constantes.ODSCodigoCatalogo.WebPortalFFVV && Convert.ToInt32(p.CodigoTipoOferta) > 200)).ToList();
+
+            var itemsRevista = pedidoWebSetDetalleAgrupado.Where(p => codigosCatalogosRevista.Contains(p.CodigoCatalago.ToString())).ToList();
+
+            //obtener una lista excluyendo los items web, de revista y catalogo
+            var itemsOtros = pedidoWebSetDetalleAgrupado
+                .Where(p => !codigosCatalogosWeb.Contains(p.CodigoCatalago.ToString()))
+                .Where(p => !codigosCatalogosRevista.Contains(p.CodigoCatalago.ToString()))
+                .Where(p => p.CodigoCatalago.ToString() != Constantes.ODSCodigoCatalogo.WebPortalFFVV && (Convert.ToInt32(p.CodigoTipoOferta) < 200 && p.CodigoTipoOferta != "002"))
+                .Where(p => !itemsCatalogo.Contains(p.CodigoCatalago.ToString())).ToList();
+
+            var gananciaRevista = itemsRevista.Any() ? itemsRevista.Sum(p => p.Ganancia * p.Cantidad) : 0;
+            var gananciaWeb = itemsWeb.Any() ? itemsWeb.Sum(p => p.Ganancia * p.Cantidad) : 0;
+            var gananciaOtros = itemsOtros.Any() ? itemsOtros.Sum(p => p.Ganancia * p.Cantidad) : 0;
+
+            var bePedidoWeb = new BEPedidoWeb
+            {
+                PaisID = usuario.PaisID,
+                CampaniaID = usuario.CampaniaID,
+                ConsultoraID = usuario.ConsultoraID,
+                CodigoConsultora = usuario.CodigoConsultora,
+                MontoAhorroCatalogo = montoAhorroCatalogo,
+                MontoAhorroRevista = montoAhorroRevista,
+                DescuentoProl = montoDescuento,
+                MontoEscala = montoEscala,
+                GananciaRevista = gananciaRevista,
+                GananciaWeb = gananciaWeb,
+                GananciaOtros = gananciaOtros
+            };
+
+            return bePedidoWeb;
+        }
+
+        private List<string> GetCodigosCatalogo()
+        {
+            return new List<string>
+            {
+                Constantes.ODSCodigoCatalogo.CatalogoCyzone,
+                Constantes.ODSCodigoCatalogo.CatalogoEbel,
+                Constantes.ODSCodigoCatalogo.CatalogoEsika,
+            };
+        }
+
+        private List<string> GetCodigosCatalogoRevista()
+        {
+            return new List<string>
+            {
+                Constantes.ODSCodigoCatalogo.RevistaSinLimites,
+                Constantes.ODSCodigoCatalogo.RevistaEbelMagazine,
+                Constantes.ODSCodigoCatalogo.RevistaEsikaTeCuenta,
+                Constantes.ODSCodigoCatalogo.RevistaCyzone,
+                Constantes.ODSCodigoCatalogo.RevistaBelcorp,
+            };
+        }
+
+        private List<string> GetCodigosCatalogoWeb(bool incluirWebPortal = true)
+        {
+            var lista = new List<string>
+            {
+                Constantes.ODSCodigoCatalogo.WebShowRoom,
+                Constantes.ODSCodigoCatalogo.WebOfertasParaTi,
+                Constantes.ODSCodigoCatalogo.WebOfertasDelDia,
+            };
+            if (incluirWebPortal)
+                lista.Add(Constantes.ODSCodigoCatalogo.WebPortalFFVV);
+            return lista;
+        }
     }
 
     internal class TemplateField
@@ -2573,4 +2647,6 @@ namespace Portal.Consultoras.BizLogic
             get { return size; }
         }
     }
+
+    
 }

@@ -394,21 +394,16 @@ namespace Portal.Consultoras.Web.Controllers
         public async Task<string> leerArchivoExcel(string pais, string AnioCampania)
         {
             string rpta = "";
-            HttpPostedFileBase file = Request.Files[0];
-            io.Stream flujo = file.InputStream;
 
             try
             {
+                HttpPostedFileBase file = Request.Files[0];
+                io.Stream flujo = file.InputStream;
+
                 await Task.Run(() =>
                 {
-                    string contenido = "";
-                    string contenidoFila = "";
-                    int nRegistros = 0;
-                    List<string> hojas = new List<string>();
                     List<XmlDocument> docs = new List<XmlDocument>();
                     List<string> nombres = new List<string>();
-                    List<string> valores = new List<string>();
-                    List<string> columnas = new List<string>();
 
                     //Descomprimir el archivo Excel y guardar solo los archivos xml necesarios
                     //en una Lista de objetos de tipo XmlDocument
@@ -429,8 +424,13 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
+
+                    List<string> hojas = new List<string>();
+
                     if (docs.Count > 0)
                     {
+                        List<string> valores = new List<string>();
+
                         //Leer el archivo xml donde se guardan los datos de tipo cadena
                         int pos = nombres.IndexOf("sharedStrings.xml");
                         if (pos > -1)
@@ -446,6 +446,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         }
+
                         pos = nombres.IndexOf("workbook.xml");
                         if (pos > -1)
                         {
@@ -453,9 +454,14 @@ namespace Portal.Consultoras.Web.Controllers
                             XmlElement nodoRaizHojas = xdLibro.DocumentElement;
                             if (nodoRaizHojas != null)
                             {
+                                string contenidoFila = "";
+                                int nRegistros = 0;
+                                List<string> columnas = new List<string>();
+
                                 XmlNodeList nodosHojas = nodoRaizHojas.GetElementsByTagName("sheet");
-                                string id, hoja;
-                                contenido = "";
+                                string id;
+                                string hoja;
+                                string contenido = "";
                                 int ch = 0;
                                 foreach (XmlNode nodoHoja in nodosHojas)
                                 {
@@ -472,7 +478,8 @@ namespace Portal.Consultoras.Web.Controllers
                                             XmlNodeList nodosFilas = nodoRaizHoja.GetElementsByTagName("row");
 
                                             int indice;
-                                            string celda, valor;
+                                            string celda;
+                                            string valor;
                                             XmlAttribute tipoString;
                                             contenido = "";
                                             int cf = 0; //contador de filas

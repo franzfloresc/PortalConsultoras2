@@ -12,6 +12,11 @@ namespace Portal.Consultoras.Web.Providers
     {
         protected ISessionManager sessionManager;
 
+        public virtual void setSessionManager(ISessionManager sessionManager)
+        {
+            this.sessionManager = sessionManager;
+        }
+
         public TablaLogicaProvider()
         {
             sessionManager = SessionManager.SessionManager.Instance;
@@ -43,7 +48,7 @@ namespace Portal.Consultoras.Web.Providers
             return "";
         }
 
-        public List<TablaLogicaDatosModel> GetTablaLogicaDatos(int paisId, short tablaLogicaId, bool saveInSession = false)
+        public virtual List<TablaLogicaDatosModel> GetTablaLogicaDatos(int paisId, short tablaLogicaId, bool saveInSession = false)
         {
             var datos = saveInSession ? sessionManager.GetTablaLogicaDatosLista(Constantes.ConstSession.TablaLogicaDatos + tablaLogicaId) : null;
             if (datos == null)
@@ -129,7 +134,7 @@ namespace Portal.Consultoras.Web.Providers
             return valor == "1";
         }
 
-        public int GetTablaLogicaDatoValorInt(int paisId, short tablaLogicaId, string codigo, bool saveInSession = false)
+        public virtual int GetTablaLogicaDatoValorInt(int paisId, short tablaLogicaId, string codigo, bool saveInSession = false)
         {
             var valor = GetTablaLogicaDatos(paisId, tablaLogicaId, saveInSession);
             var valInt = GatCampoValorInt(valor, codigo);

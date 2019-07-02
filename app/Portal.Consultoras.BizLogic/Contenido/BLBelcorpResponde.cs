@@ -4,6 +4,8 @@ using Portal.Consultoras.Entities.Comunicado;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Text;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -125,25 +127,42 @@ namespace Portal.Consultoras.BizLogic
         private string[] GetArrayColumnas(List<BEComunicadoSegmentacion> listdatosCSV)
         {
             string[] arrayColumnas = new string[4];
-            if (listdatosCSV.Count > 0l)
+            string separar = "@";
+
+            if (listdatosCSV.Any())
             {
-                for (int j = 0; j < listdatosCSV.Count; j++)
+                var col0 = new StringBuilder();
+                var col1 = new StringBuilder();
+                var col2 = new StringBuilder();
+                var col3 = new StringBuilder();
+
+                foreach (var objDato in listdatosCSV)
                 {
-                    arrayColumnas[0] += string.Concat(listdatosCSV[j].RegionId.ToString(), "@");
-                    arrayColumnas[1] += string.Concat(listdatosCSV[j].ZonaId.ToString(), "@");
-                    arrayColumnas[2] += string.Concat(listdatosCSV[j].Estado.ToString(), "@");
-                    arrayColumnas[3] += string.Concat(listdatosCSV[j].Consultoraid.ToString(), "@");
+                    col0.Append(objDato.RegionId.ToString());
+                    col1.Append(objDato.ZonaId.ToString());
+                    col2.Append(objDato.Estado.ToString());
+                    col3.Append(objDato.Consultoraid);
+
+                    col0.Append(separar);
+                    col1.Append(separar);
+                    col2.Append(separar);
+                    col3.Append(separar);
                 }
+
+                arrayColumnas[0] = col0.ToString();
+                arrayColumnas[1] = col1.ToString();
+                arrayColumnas[2] = col2.ToString();
+                arrayColumnas[3] = col3.ToString();
+
                 for (int j = 0; j < arrayColumnas.Length; j++) arrayColumnas[j] = arrayColumnas[j].Length > 0 ? arrayColumnas[j].Substring(0, arrayColumnas[j].Length - 1) : string.Empty;
                 return arrayColumnas;
             }
             else
             {
-                arrayColumnas[0] = "@";
-                arrayColumnas[1] = "@";
-                arrayColumnas[2] = "@";
-                arrayColumnas[3] = "@";
-
+                arrayColumnas[0] = separar;
+                arrayColumnas[1] = separar;
+                arrayColumnas[2] = separar;
+                arrayColumnas[3] = separar;
             }
             return arrayColumnas;
         }
@@ -160,7 +179,7 @@ namespace Portal.Consultoras.BizLogic
             return daBelcorpResponde.EliminarArchivoCsv(comunicadoid);
         }
 
-    
+
         public int CargaEstadoValidadorDatos(int paisId)
         {
             int estado = 0;
@@ -175,11 +194,11 @@ namespace Portal.Consultoras.BizLogic
             return estado;
         }
 
-        public int GuardarPopupsValidador(bool checkDesktop,List<BEComunicadoSegmentacion> listdatosCSV, int paisID)
+        public int GuardarPopupsValidador(bool checkDesktop, List<BEComunicadoSegmentacion> listdatosCSV, int paisID)
         {
             var daBelcorpResponde = new DABelcorpResponde(paisID);
             string[] arrayColumnasBEComunicadoSegmentacion = GetArrayColumnas(listdatosCSV);
-            return daBelcorpResponde.GuardarPopupsValidador( checkDesktop, arrayColumnasBEComunicadoSegmentacion,  paisID);
+            return daBelcorpResponde.GuardarPopupsValidador(checkDesktop, arrayColumnasBEComunicadoSegmentacion, paisID);
 
         }
 
