@@ -881,7 +881,7 @@ namespace Portal.Consultoras.ServiceContracts
         #region Producto SUgerido
 
         [OperationContract]
-        IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido);
+        IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, BEProductoSugerido entidad);
 
         [OperationContract]
         BEMatrizComercial GetMatrizComercialByCampaniaAndCUV(int paisID, int campaniaID, string cuv);

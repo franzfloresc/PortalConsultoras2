@@ -1636,9 +1636,9 @@ namespace Portal.Consultoras.Service
 
         #region Producto Sugerido
 
-        public IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido)
+        public IList<BEProductoSugerido> GetPaginateProductoSugerido(int PaisID, BEProductoSugerido entidad)
         {
-            return BLProductoSugerido.GetPaginateProductoSugerido(PaisID, CampaniaID, CUVAgotado, CUVSugerido);
+            return BLProductoSugerido.GetPaginateProductoSugerido(PaisID, entidad);
         }
 
         public BEMatrizComercial GetMatrizComercialByCampaniaAndCUV(int paisID, int campaniaID, string cuv)

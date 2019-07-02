@@ -25863,8 +25863,8 @@ namespace Portal.Consultoras.Web.ServicePedido {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEReporteValidacionSRComponentes[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEReporteValidacionSRComponentes))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEActivarPremioNuevas))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEProductoSugerido[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEProductoSugerido))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEProductoSugerido[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEMatrizComercial))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEConfiguracionProgramaNuevas))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServicePedido.BEPedidoWeb[]))]
@@ -32183,6 +32183,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int CantidadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ConfiguracionZonaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ConsultoraIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -32276,6 +32279,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.CantidadField.Equals(value) != true)) {
                     this.CantidadField = value;
                     this.RaisePropertyChanged("Cantidad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ConfiguracionZona {
+            get {
+                return this.ConfiguracionZonaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ConfiguracionZonaField, value) != true)) {
+                    this.ConfiguracionZonaField = value;
+                    this.RaisePropertyChanged("ConfiguracionZona");
                 }
             }
         }
@@ -48531,10 +48547,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task HabilitarShowRoomTipoOfertaAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BEShowRoomTipoOferta entity);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPaginateProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/GetPaginateProductoSugeridoResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEProductoSugerido[] GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido);
+        Portal.Consultoras.Web.ServicePedido.BEProductoSugerido[] GetPaginateProductoSugerido(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetPaginateProductoSugerido", ReplyAction="http://tempuri.org/IPedidoService/GetPaginateProductoSugeridoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoSugerido[]> GetPaginateProductoSugeridoAsync(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoSugerido[]> GetPaginateProductoSugeridoAsync(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetMatrizComercialByCampaniaAndCUV", ReplyAction="http://tempuri.org/IPedidoService/GetMatrizComercialByCampaniaAndCUVResponse")]
         Portal.Consultoras.Web.ServicePedido.BEMatrizComercial GetMatrizComercialByCampaniaAndCUV(int paisID, int campaniaID, string cuv);
@@ -51396,12 +51412,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.HabilitarShowRoomTipoOfertaAsync(paisId, entity);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEProductoSugerido[] GetPaginateProductoSugerido(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido) {
-            return base.Channel.GetPaginateProductoSugerido(PaisID, CampaniaID, CUVAgotado, CUVSugerido);
+        public Portal.Consultoras.Web.ServicePedido.BEProductoSugerido[] GetPaginateProductoSugerido(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad) {
+            return base.Channel.GetPaginateProductoSugerido(PaisID, entidad);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoSugerido[]> GetPaginateProductoSugeridoAsync(int PaisID, int CampaniaID, string CUVAgotado, string CUVSugerido) {
-            return base.Channel.GetPaginateProductoSugeridoAsync(PaisID, CampaniaID, CUVAgotado, CUVSugerido);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoSugerido[]> GetPaginateProductoSugeridoAsync(int PaisID, Portal.Consultoras.Web.ServicePedido.BEProductoSugerido entidad) {
+            return base.Channel.GetPaginateProductoSugeridoAsync(PaisID, entidad);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEMatrizComercial GetMatrizComercialByCampaniaAndCUV(int paisID, int campaniaID, string cuv) {
