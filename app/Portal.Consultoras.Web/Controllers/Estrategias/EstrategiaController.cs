@@ -859,6 +859,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
         private IList<EstrategiaPersonalizadaProductoModel> ValidacionResultadosProductos(IList<EstrategiaPersonalizadaProductoModel> estrategiaPersonalizadaProductoModels, string tipoVentaIncremental)
         {
+            var flagLaMasGanadoras = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(userData.PaisID, ConsTablaLogica.FlagFuncional.TablaLogicaId, ConsTablaLogica.FlagFuncional.PalancaLasMasGanadoras);
+
             if (!estrategiaPersonalizadaProductoModels.Any()) return new List<EstrategiaPersonalizadaProductoModel>();
             var pedidos = SessionManager.GetDetallesPedido();
 
@@ -877,8 +879,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     tipoVentaIncremental == Constantes.TipoVentaIncremental.UpSelling,
                     item.CodigoVariante);
 
-                item.CodigoEstrategia = CambioPalancaMg(item);
-
+                if(!flagLaMasGanadoras)
+                    item.CodigoEstrategia = CambioPalancaMg(item);
             }
 
             estrategiaPersonalizadaProductoModels = estrategiaPersonalizadaProductoModels

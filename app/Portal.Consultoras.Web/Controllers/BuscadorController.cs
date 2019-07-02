@@ -1,6 +1,9 @@
-﻿using Portal.Consultoras.Web.Models;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.LogManager;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Buscador;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,13 +16,15 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly BuscadorYFiltrosProvider _buscadorYFiltrosProvider = new BuscadorYFiltrosProvider();
 
         public ActionResult Index()
-        {            
+        {
             return View();
         }
 
         public async Task<JsonResult> BusquedaProductos(BuscadorModel model)
         {
             BuscadorYFiltrosModel productosModel;
+            var flagLaMasGanadoras = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(userData.PaisID, ConsTablaLogica.FlagFuncional.TablaLogicaId, ConsTablaLogica.FlagFuncional.PalancaLasMasGanadoras);
+
             try
             {
                 await _buscadorYFiltrosProvider.GetPersonalizacion(userData, true, true);
@@ -32,8 +37,8 @@ namespace Portal.Consultoras.Web.Controllers
                     model.IsMobile, 
                     model.IsHome, 
                     false,
-                    SessionManager.GetRevistaDigital().EsSuscrita                    
-                    );
+                    SessionManager.GetRevistaDigital().EsSuscrita,
+                    flagLaMasGanadoras);
             }
             catch (Exception ex)
             {
@@ -59,8 +64,5 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Json(categoriasModel, JsonRequestBehavior.AllowGet);
         }
-
-
-
     }
 }

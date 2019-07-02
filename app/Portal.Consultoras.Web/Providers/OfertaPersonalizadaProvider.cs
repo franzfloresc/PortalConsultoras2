@@ -396,6 +396,8 @@ namespace Portal.Consultoras.Web.Providers
             codAgrupacion = Util.Trim(codAgrupacion);
             List<BEEstrategia> listEstrategia = new List<ServiceOferta.BEEstrategia>();
 
+            var flagLaMasGanadoras = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(_sessionManager.GetUserData().PaisID, ConsTablaLogica.FlagFuncional.TablaLogicaId, ConsTablaLogica.FlagFuncional.PalancaLasMasGanadoras);
+
             switch (codAgrupacion)
             {
                 case Constantes.TipoEstrategiaCodigo.RevistaDigital:
@@ -406,15 +408,7 @@ namespace Portal.Consultoras.Web.Providers
 
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.OfertaWeb, campaniaId));
 
-                    if (_sessionManager.MasGanadoras.GetModel().TieneMG)
-                    {
-                        listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile,
-                            Constantes.TipoEstrategiaCodigo.RevistaDigital,
-                            campaniaId,
-                            false,
-                            Constantes.MasGanadoras.ObtenerOpmSinForzadasMG1));
-                    }
-                    else
+                    if (flagLaMasGanadoras)
                     {
                         listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile,
                             Constantes.TipoEstrategiaCodigo.RevistaDigital,
@@ -422,7 +416,25 @@ namespace Portal.Consultoras.Web.Providers
                             false,
                             Constantes.MasGanadoras.ObtenerOpmTodo));
                     }
-
+                    else
+                    {
+                        if (_sessionManager.MasGanadoras.GetModel().TieneMG)
+                        {
+                            listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile,
+                                Constantes.TipoEstrategiaCodigo.RevistaDigital,
+                                campaniaId,
+                                false,
+                                Constantes.MasGanadoras.ObtenerOpmSinForzadasMG1));
+                        }
+                        else
+                        {
+                            listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile,
+                                Constantes.TipoEstrategiaCodigo.RevistaDigital,
+                                campaniaId,
+                                false,
+                                Constantes.MasGanadoras.ObtenerOpmTodo));
+                        }
+                    }
                     break;
                 case Constantes.TipoEstrategiaCodigo.Lanzamiento:
                     listEstrategia.AddRange(ConsultarEstrategiasPorTipo(esMobile,
@@ -454,8 +466,12 @@ namespace Portal.Consultoras.Web.Providers
                         Constantes.TipoEstrategiaCodigo.PackNuevas, campaniaId, filtrarNuevasAgregadas));
                     break;
                 case Constantes.TipoEstrategiaCodigo.MasGanadoras:
-                    List<BEEstrategia> lstTmp = ConsultarEstrategiasPorTipo(esMobile, Constantes.TipoEstrategiaCodigo.RevistaDigital,
-                        campaniaId, false, Constantes.MasGanadoras.ObtenerOpmSoloForzadasMG1);
+                    List<BEEstrategia> lstTmp = ConsultarEstrategiasPorTipo(
+                        esMobile,
+                        flagLaMasGanadoras ? Constantes.TipoEstrategiaCodigo.MasGanadoras : Constantes.TipoEstrategiaCodigo.RevistaDigital,
+                        campaniaId, 
+                        false, 
+                        Constantes.MasGanadoras.ObtenerOpmSoloForzadasMG1);
                     lstTmp.ForEach(e => {
                         e.TipoEstrategia = e.TipoEstrategia ?? new ServiceOferta.BETipoEstrategia();
                         e.TipoEstrategia.Codigo = Constantes.TipoEstrategiaCodigo.MasGanadoras;

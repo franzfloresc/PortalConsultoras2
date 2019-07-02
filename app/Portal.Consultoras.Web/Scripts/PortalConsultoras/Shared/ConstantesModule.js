@@ -34,6 +34,7 @@ var ConstantesModule = (function() {
         Ganadoras: "MGLista",
         PackNuevas: "PNLista",
         DuoPerfecto: "DPLista",
+        //FIN HD-3908
         EstrategiaTemporal: 'EstrategiaTemporal',
         DescripcionProductoCatalogo: function (codigoCampania, codigoCuv) {
             var key = 'producto-catalogo-descripcion-' + codigoCampania + '-' + codigoCuv;
