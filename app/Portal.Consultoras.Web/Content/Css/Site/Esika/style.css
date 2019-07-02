@@ -24376,6 +24376,18 @@ input[type='checkbox']:checked + span:after {
     margin-bottom: 20px;
 }
 
+.mensaje_cantidad_pedidos_pendientes_por_aprobar {
+    font-size: 20px;
+    color: #454549;
+    margin-bottom:56px;
+}
+
+    .enlace__sb--irAPedidosPendientes,
+    .enlace__sb--irAPedidosPendientes:hover,
+    .enlace__sb--irAPedidosPendientes:active{
+        color: #ff335a;
+    }
+
 .esika {
     background: #e81c36;
 }

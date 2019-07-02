@@ -309,12 +309,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfResumenDiasEsperaBE" nillable="true" type="tns:ArrayOfResumenDiasEsperaBE" />
-  <xs:complexType name="ArrayOfSolicitudPostulanteBE">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="SolicitudPostulanteBE" nillable="true" type="tns:SolicitudPostulanteBE" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfSolicitudPostulanteBE" nillable="true" type="tns:ArrayOfSolicitudPostulanteBE" />
   <xs:complexType name="ArrayOfReportePagoDeKitLog">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="ReportePagoDeKitLog" nillable="true" type="tns:ReportePagoDeKitLog" />
@@ -354,6 +348,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ReportePagoDeKitLog" nillable="true" type="tns:ReportePagoDeKitLog" />
+  <xs:complexType name="ArrayOfSolicitudPostulanteBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SolicitudPostulanteBE" nillable="true" type="tns:SolicitudPostulanteBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSolicitudPostulanteBE" nillable="true" type="tns:ArrayOfSolicitudPostulanteBE" />
   <xs:complexType name="ArrayOfSolicitudPostulanteXLS">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="SolicitudPostulanteXLS" nillable="true" type="tns:SolicitudPostulanteXLS" />
@@ -378,6 +378,7 @@
       <xs:element minOccurs="0" name="DiasEnEspera" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DiferenciaDias" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Direccion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Edad" type="xs:int" />
       <xs:element minOccurs="0" name="EstadoBuroCrediticio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EstadoGEO" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EstadoPostulante" nillable="true" type="xs:string" />
