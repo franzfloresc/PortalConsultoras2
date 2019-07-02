@@ -204,6 +204,9 @@
                             codigo = ConsOrigenPedidoWeb.Palanca.OfertasParaTi;
                         }
                         break;
+                    case Constantes.TipoEstrategiaCodigo.MasGanadoras:
+                        codigo = ConsOrigenPedidoWeb.Palanca.Ganadoras;
+                        break;
                 }
             }
             catch
