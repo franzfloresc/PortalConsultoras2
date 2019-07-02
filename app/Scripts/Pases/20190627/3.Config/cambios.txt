@@ -1,0 +1,8 @@
+1.SB MicroServicios - Search
+	Modificar dentro de papi.productAPI.porSap:
+		parametrosOut: '{codsap,destallamedidacatalogo,id,contenidoneto,umcontenido,largo,ancho,alto,unidadlongitud,destallamedidacatalogo,destitulopaso001,despaso001,destitulopaso002,despaso002,destitulopaso003,despaso003,destitulopaso004,despaso004,destitulodescubremas001,desdescubremas001,destitulodescubremas002,desdescubremas002,destitulodescubremas003,desdescubremas003,destitulotip001,destip001,destitulotip002,destip002,destitulotip003,destip003,destitulotip004,destip004,deslinkvideoId001,destextovideo001,deslinkvideoId002,destextovideo002,deslinkvideoId003,destextovideo003,deslinkvideoId004,destextovideo004,deslinkvideoId005,destextovideo005,codunidadnegocio,fotobulkwebredes,fotomodelowebredes,fotomontajewebredes,fotoproductofondoblancowebredes,fotoproductowebredes,fototips1webredes,fototips2webredes,fototips3webredes,fototips4webredes}}'
+
+
+2.SB PortalConsultoras2
+	Agregar:
+	<add key="UrlCursoMiAcademiaPdf" value="http://qasucb.cyzone.com/moodleventas/auth/consultoralogin/ingresar.php?usuario={0}&amp;token={1}&amp;pdf={5}"/>

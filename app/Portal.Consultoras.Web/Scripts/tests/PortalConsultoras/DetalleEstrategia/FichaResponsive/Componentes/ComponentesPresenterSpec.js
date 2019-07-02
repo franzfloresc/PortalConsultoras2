@@ -7,6 +7,7 @@ describe("DetalleEstrategia - FichaResponsive - Componentes - ComponentesPresent
    var componentesView;
    var analyticsPortal;
    var componentesPresenter;
+   var componentesAnalyticsPresenter;
 
    var estrategiaUnComponenteFactorCuadreIgualADos = function () {
       return {
@@ -703,9 +704,12 @@ describe("DetalleEstrategia - FichaResponsive - Componentes - ComponentesPresent
       errorMsg = '';
       componentesView = sinon.stub(ComponentesView());
       analyticsPortal = sinon.stub(AnalyticsPortalModule);
+      componentesAnalyticsPresenter = sinon.stub(ComponentesAnalyticsPresenter({
+         analyticsPortal: analyticsPortal
+      }));
       componentesPresenter = ComponentesPresenter({
          componentesView: componentesView,
-         analyticsPortal: analyticsPortal
+         componentesAnalyticsPresenter: componentesAnalyticsPresenter
       });
       //
       componentesView.renderComponente.returns(true);

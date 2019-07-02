@@ -1,0 +1,441 @@
+﻿
+/* GananciaEstimada.css */
+/*
+    *    Descripción: El objetivo es desplegar la información relacioanda a la ganancia, 
+                     se debe de crear un efecto de crecimiento y ocultar la información 
+                     de total sin descuento y ofertas
+    *    Accion: Colapsar 
+    *    Clase: 
+    *    Tipo: Toggle
+    *    Uso:  Hacer clic en el ícono '+' para mostrar la información de la ganancia
+                Inmediatamente el icono de '+' se transforma en un '-' 
+                para regresar la información a su estado oculto
+        
+    *    Estructura de elementos : Mapeo de clases
+
+            .ganancia-estimada // Contenedor principal 
+                .panel-toggle  // Contenedor de toggle
+
+                    .toggle_container
+                        .toggle-header
+                            .toggle-switch.closed
+                                .toggle-icon
+                            .toggle-info
+                                .ganancia_titulo.accent-color
+                                .ganancia_total.accent-color
+                            .toggle-content
+                                .toggle-info
+                                    .ganancia_titulo.accent-color
+                                    .ganancia_total.accent-color
+    */
+
+
+.ganancia-estimada {
+    
+    position: absolute;
+    width: 48%;
+    left: 52%;
+    height: 0;
+    bottom: 0;
+    
+    transition: all 0.5s ease-out;
+}
+    .ganancia-estimada.opened {
+        bottom: 100%;
+        left: 43.5%;
+        width: 56.5%;
+    }
+    /*
+            *
+            * Panel Toggle
+            *
+        */
+    /*
+            *
+            * Tipo:  Contenedor
+            * Padre: Ganancia Estimada
+            *
+        */
+    .ganancia-estimada .panel-toggle {
+        /*padding-bottom: 30px;*/
+        /*background-color: #f5f5f7;*/
+    }
+
+
+/*
+            *
+            * Tipo:  Contenedor
+            * Padre : Panel Toggle
+            *
+        */
+
+.panel-toggle .toggle-container {
+    padding: 1px;
+}
+/*
+            *
+            * Tipo: Header
+            * Padre : Toggle container
+            *
+        */
+
+.toggle-header {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    background-color: #f5f5f7;
+}
+/*
+                *
+                * Tipo: Switch
+                * Padre : Header
+                *
+            */
+.ganancia-estimada.opened .toggle-header .toggle-switch {
+    position: relative;
+    left: -5px;
+    top: -13px;
+    transform: scale(.6);
+    transition: transform 0.5s ease-in-out;
+}
+.toggle-header .toggle-switch {
+    left: -10px;
+    position: relative;
+}
+    /*
+                / ========= INICIO ============= /
+                * 
+                * Tipo: Switch
+                * Estado: Cerrado
+                * Padre : Header
+                *
+            */
+
+    .toggle-header .toggle-switch.closed {
+    }
+
+/*
+                *
+                * Tipo: Icono   
+                * Estado: Cerrado
+                * Padre : Switch
+                * Pseudos : Before - After
+                *
+            */
+
+.toggle-switch.closed .toggle-icon {
+    position: relative;
+    width: 2em;
+    height: 2em;
+    background-color: #909094;
+}
+
+    .toggle-switch.closed .toggle-icon:before,
+    .toggle-switch.closed .toggle-icon:after {
+        content: '';
+        position: absolute;
+        background-color: #fff;
+        transition: all 0.5s ease-in-out;
+        transform: rotate(-90deg);
+        left: 50%;
+        top: 50%;
+        z-index: 1;
+    }
+
+    .toggle-switch.closed .toggle-icon:before {
+        width: 12px;
+        height: 2px;
+        margin-left: -6px;
+        margin-top: -1px;
+    }
+
+    .toggle-switch.closed .toggle-icon:after {
+        width: 2px;
+        height: 12px;
+        margin-left: -1px;
+        margin-top: -6px;
+        opacity: 1;
+    }
+
+/*
+                /=========== FIN ================ /
+            */
+
+/*
+                * =================================*
+                * Tipo: Switch
+                * Estado: Abierto
+                * Padre : Header
+                *
+            */
+
+.toggle-header .toggle-switch.opened {
+    opacity: 1;
+}
+
+/*
+                *
+                * Tipo: Icono   
+                * Estado: Abierto
+                * Padre : Switch
+                * Pseudos : Before - After
+                *
+            */
+.toggle-switch.opened .toggle-icon {
+}
+
+    .toggle-switch.opened .toggle-icon:before,
+    .toggle-switch.opened .toggle-icon:after {
+        content: '';
+        position: absolute;
+        transition: all 0.5s ease-in-out;
+        transform: rotate(180deg);
+    }
+
+    .toggle-switch.opened .toggle-icon:before {
+    }
+
+    .toggle-switch.opened .toggle-icon:after {
+        opacity: 0;
+    }
+
+/*================================*/
+.toggle-header .toggle-info {
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding-left: 0;
+    padding-right: 4px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.ganancia-estimada.opened .toggle-header .toggle-info {
+    padding-right: 30px;
+    padding-left: 10px;
+}
+
+    .toggle-header .ganancia-titulo {
+    }
+
+.toggle-header .ganancia-total {
+}
+
+.toggle-header .accent-color {
+    color: #e81c36
+}
+/*================================*/
+
+.ganancia-estimada.opened .toggle-content.opened {
+    padding-right: 30px;
+    /*border:1px solid red;*/
+}
+
+/*================================*/
+.toggle-content {
+    display: flex;
+    
+    transition: max-height 0.25s ease-out, opacity 0.25s ease-out, transform 0.3s ease-out;
+    height: auto;
+    overflow: hidden;    
+    transform-origin: top;    
+    opacity: 0;
+    padding-left: 36px;
+    transform: scaleY(0);
+    background-color: #f5f5f7;
+    padding-bottom: 30px;
+}
+
+    .toggle-content .toggle-info {
+        font-size: 14px;
+        display: flex;
+        justify-content: space-between;
+    }
+.ganancia-estimada.opened .toggle-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.toggle-content.closed {
+    /* display: none;                 */
+    /* border: 1px solid red; */
+}
+
+    .toggle-content.opened {
+        /* display:block; */
+        /*max-height: 150px;*/
+        
+        transform: scaleY(1);
+        opacity: 1;
+    }
+
+.toggle-content .ganancia-titulo {
+}
+
+.toggle-content .ganancia-total {
+}
+
+.toggle-header .first-color {
+    color: #000;
+}
+/*================================*/
+
+.ganancia-total {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.ganancia-total .ganancia-content {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+.ganancia-info {
+    display: flex;
+    justify-content: space-between;
+}
+.ganancia-info .ganancia-titulo {
+    font-size: 16px;
+}
+.ganancia-titulo img {
+    position: absolute;
+    margin-left: -30px;
+    cursor: pointer;
+}
+.titulo-up {
+    text-transform: uppercase;
+}
+.titulo-700 {
+    font-weight: 700;
+}
+.ganancia-info .ganancia-total {
+    font-size: 16px;
+    font-weight: 700;
+}
+.ganancia-total i {
+    font-style: normal;
+    padding-right: 3px;
+}
+
+.mb-80 {
+    margin-bottom: 80px;
+}
+.mb-60 {
+    margin-bottom: 60px;
+}
+.separator {
+    border-bottom: 1px solid black;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+}
+
+/* Color */
+.ganancia-info .accent-color{
+    color: #e81c36;
+}
+.ganancia-info .pb-2 {
+    padding-bottom: 5px;
+}
+/* Responsive */
+@media (max-width: 600px) {
+    .toggle-content {
+        display: none;
+        padding-bottom: 10px;
+    }
+    .ganancia-estimada {        
+        
+        width: 78%;
+        left: 25px;
+        bottom: 74px;
+    }
+    .ganancia-estimada.PedidoValidado{
+        bottom:0;
+    }
+        .ganancia-estimada .ganancia-titulo,
+        .ganancia-estimada .ganancia-total {
+            font-size: 12px;
+        }
+    .ganancia-estimada .ganancia-titulo {
+        text-align: left;
+        margin-right: 20px;
+    }
+    .ganancia-estimada.opened {
+        bottom: 175px;
+        left: 0;
+        width: 100%;
+    }
+    .ganancia-total {
+        justify-content: center;
+    }
+    .ganancia-total .ganancia-titulo,
+    .ganancia-total .ganancia-total{
+        font-size: 12px;
+    }
+    .ganancia-total .ganancia-content {
+        width: 70%;
+    }
+    .ganancia-total [data-cantidadproducto] {
+        padding-right: 2px;
+    }
+    .toggle-info .ganancia-titulo {
+        text-align: left;        
+    }
+    .ganancia-total [data-cantidadproducto], .par-2{
+        padding-right: 2px;
+    }
+    /* (¯`·.¸¸.·´¯`·.¸¸.-> [ Inicio ] <-.¸¸.·´¯`·.¸¸.·´¯) */
+    /*             [Para Pedido Validado - Mobile]        */
+    .contenedor-ganancias {
+        margin-top: 20px;
+        margin-bottom: 60px;
+    }
+    .contenedor-ganancias .ganancia-total .ganancia-content,
+    .contenedor-ganancias .ganancia-estimada {
+        
+        width: 80%;
+    }
+        .contenedor-ganancias .ganancia-estimada.opened {
+            width: 94%;
+            bottom: 100px;
+            left: 10px;
+        }
+
+    /* (¯`·.¸¸.·´¯`·.¸¸.-> [ Inicio ] <-.¸¸.·´¯`·.¸¸.·´¯) */
+    /*             [Para Pedido Index - Mobile]        */
+    .PedidoMobile.ganancia-total .ganancia-content {
+        width: 90%;
+    }
+
+    .PedidoMobile.ganancia-estimada {
+        width: 90%;
+        left: 15px;
+        bottom: 120px;
+    }
+
+    .ganancia-estimada.PedidoMobile.opened {
+        bottom: 100%;
+        width: 100%;
+        left: 0;
+    }
+    /* (¯`·.¸¸.·´¯`·.¸¸.-> [ fin ] <-.¸¸.·´¯`·.¸¸.·´¯) */
+    
+}
+/* FIX TESLA 154 */
+/* Color por pais*/
+.toggle-info.lbel .accent-color {
+    color: #613c87;
+}
+
+/* Para pedido validado*/
+.bloque_montosPedido {
+    display: flex;
+    justify-content: flex-end;
+}
+.caja_montos.PedidoValidado {    
+    width: 74%;
+}
+
+
