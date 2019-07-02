@@ -971,7 +971,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                     model.ListaProductos = lstByProductos;
                     SessionManager.SetobjMisPedidos(model);
-                    model.RegistrosTotal = model.ListaPedidos.Count.ToString();
+                    model.RegistrosTotal = model.ListaPedidos.Count.ToString();                    
+
                 }
                 else
                 {
@@ -1036,6 +1037,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     var detallePedidos = Mapper.Map<List<BEMisPedidosDetalle>, List<MisPedidosDetalleModel2>>(lstPedidosDetatalle);
                     detallePedidos.Update(p => p.CodigoIso = userData.CodigoISO);
                     model.ListaDetalle2 = detallePedidos;
+                }
+
+                using (var sv = new SACServiceClient())
+                {
+                    var motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
+                    ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
                 }
             }
             catch (Exception ex)

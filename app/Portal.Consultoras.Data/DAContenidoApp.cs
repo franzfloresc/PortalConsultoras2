@@ -52,6 +52,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Accion", DbType.AnsiString, p.Accion);
             Context.Database.AddInParameter(command, "@CodigoDetalle", DbType.AnsiString, p.CodigoDetalle);
             Context.Database.AddInParameter(command, "@tipo", DbType.AnsiString, p.Tipo);
+            Context.Database.AddInParameter(command, "@Zona", DbType.AnsiString, p.Zona);
+            Context.Database.AddInParameter(command, "@Seccion", DbType.AnsiString, p.Seccion);
 
             Context.ExecuteNonQuery(command);
         }
