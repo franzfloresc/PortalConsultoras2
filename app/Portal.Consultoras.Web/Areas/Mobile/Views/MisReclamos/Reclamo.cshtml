@@ -221,7 +221,8 @@
                                    name="codigo"
                                    maxlength="5"
                                    autocomplete="off"
-                                   placeholder="Código del producto" />
+                                   placeholder="Código del producto"
+                                   inputmode="numeric"  style="margin-top:33px;" />
                         </div>
                         <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambiarPorOtroProducto" data-tipo-confirma="cambio">
                             <p>
@@ -239,7 +240,6 @@
                             <span id="spnPrecioTotal"></span>
                             <input type="hidden" id="hdImporteTotal2" />
                         </div>
-                                   inputmode="numeric"
                     </div>
                     <div id="OpcionCambioMismoProducto" class="opcion_cdr_seleccionada_info_wrapper" style="display:none;">
                         <div class="opcion_cdr_seleccionada_info opcion_cdr_seleccionada_info--cambioMismoProducto">
@@ -419,7 +419,7 @@
                     </a>
                 </div>
             </div>
-            <div class="wrapper_resumen_mobile tipografia_lato bloqueCDRRegistro" id="SolicitudEnviada" style="display:none;">
+            <div class="wrapper_resumen_mobile tipografia_lato bloqueCDRRegistro wrapper_resumen_mobile--solicitudEnviada" id="SolicitudEnviada" style="display:none;">
                 <div class="content_mensaje_solicitud_enviada">
                     <div class="icono_solicitud_enviada">
                         <img src="@Url.Content("~/Content/Images/Esika/icono_check_esika.svg")" alt="Solicitud Enviada">
@@ -431,11 +431,11 @@
                         Vamos a evaluarla y en un plazo de 30 minutos te enviaremos una respuesta a tu correo electrónico.
                     </div>
                 </div>
-                <div class="detalle_solicitud_cdr">
+                <div class="detalle_solicitud_cdr detalle_solicitud_cdr--solicitudEnviada">
                     <div class="text-bold titulo_detalle_solicitud_cdr">
                         Solicitud de Cambio y devolución
                     </div>
-                    <div class="text-thin info_detalle_cdr">
+                    <div class="text-thin info_detalle_cdr info_detalle_cdr--solicitudEnviada">
                         <div class="info_fecha_solicitud">
                             Fecha: <span class="tipografia_lato_regular" id="spnSolicitudFechaCulminado"></span>
                         </div>
@@ -678,34 +678,37 @@
 
 <script id="template-detalle-paso3-enviada" type="text/x-handlebars-template">
     {{#each detalle as |item|}}
-    <div class="contenedor_info_cdr">
-        <div class="listado_producto_reclamo">
-            <b>{{item.SolucionSolicitada}}</b><br />
-            {{item.CUV}} - {{item.Descripcion}}<br />
-            {{item.Cantidad}} unidades<br />
-            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}
+    <div class="contenedor_info_cdr contenedor_info_cdr--solicitudEnviada">
+        <div class="d-flex text-bold detalle_tipo_solicitud_titulo">
+            <span class="d-inline-block detalle_tipo_solicitud_icono">
+                {{#if_eq item.CodigoOperacion 'D'}}
+                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'T'}}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'C' }}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'F' }}
+                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{else if_eq item.CodigoOperacion 'G' }}
+                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
+                {{/if_eq}}
+            </span>
+            <span class="d-inline-block text-uppercase">{{item.SolucionSolicitada}}</span>
         </div>
-        <div class="listado_solicitud_reclamo">
+        <div class="listado_producto_reclamo listado_producto_reclamo--solicitudEnviada">
+            <span class="d-block mb-0">{{item.CUV}}</span>
+            <span class="d-block text-bold mb-0">{{item.Descripcion}}</span>
+            <span class="d-block mb-0">{{item.Cantidad}} unidades</span>
+            <span class="d-block mb-0">Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio}}</span>
+        </div>
+        <div class="listado_solicitud_reclamo listado_solicitud_reclamo--solicitudEnviada">
             {{#if_eq item.GrupoID ''}}
             {{else}}
             <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div><br />
             {{/if_eq}}
-            <b>{{item.Solicitud}}</b>
-            <div class="opcion_cdr_icono_wrapper">
-                {{#if_eq item.CodigoOperacion 'D'}}
-                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono" />
-                {{else if_eq item.CodigoOperacion 'T'}}
-                <img src="@Url.Content("~/Content/Images/opcion_cambio_otro_producto_cdr.svg")" alt="" class="opcion_cdr_icono" />
-                {{else if_eq item.CodigoOperacion 'C' }}
-                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono" />
-                {{else if_eq item.CodigoOperacion 'F' }}
-                <img src="@Url.Content("~/Content/Images/opcion_cambio_mismo_producto_cdr.svg")" alt="" class="opcion_cdr_icono" />
-                {{else if_eq item.CodigoOperacion 'G' }}
-                <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono" />
-                {{/if_eq}}
-            </div>
+            <b>{{item.Solicitud}} :</b>
         </div>
-        <div class="titulo_solicitud_cdr">
+        <div class="titulo_solicitud_cdr titulo_solicitud_cdr--solicitudEnviada">
             {{#if_eq CodigoOperacion 'C'}}
             {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'D'}}
@@ -729,13 +732,15 @@
             {{/each}}
             <div class="text-bold">Total: {{SimboloMoneda}} {{DecimalToStringFormat item.Total}}</div>
             {{else}}
-            {{item.CUV2}}
-            <br />
-            <b>{{item.Descripcion2}}</b>
-            <br />
-            {{item.Cantidad2}} unidades
-            <br />
-            Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
+            <div>
+                {{item.CUV2}}
+                <br />
+                <b>{{item.Descripcion2}}</b>
+                <br />
+                {{item.Cantidad2}} unidades
+                <br />
+                Costo: {{SimboloMoneda}} {{DecimalToStringFormat item.Precio2}}
+            </div>
             {{/if}}
             {{else}}
 
