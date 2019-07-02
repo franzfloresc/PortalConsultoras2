@@ -100,9 +100,9 @@
         <div class="ribbon-promo">
             <span class="promo-text">Promo</span>
         </div>
-        <div class="searchCarousel">
+        <div class="searchCarousel-container">
             {{#each Promociones as |item1|}}
-            <div class="resultado_busqueda_producto {{#if Stock}} resultado_busqueda_producto--agotado {{/if}} ml-0 mr-0" data-item="ProductoBuscador">
+            <div class="promo-carrusel {{#if Stock}} promo-carrusel--agotado {{/if}}" data-item="ProductoBuscador">
                 <div style="display:none;">
                     <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
                     <input type="hidden" class="hdBuscadorCUV" value="{{CUV}}" />
@@ -124,17 +124,20 @@
                     <input type="hidden" class="hdBuscadorEstrategiaID" value="{{EstrategiaID}}" />
                     <div data-imagen-producto="{{Imagen}}"></div>
                 </div>
-                <div class="searchCarousel-content redireccionarFicha">
-                    <div class="searchCarousel-description">
-                        <span class="description-text">Lleva un {{Descripcion}} comprando uno de estos productos en oferta.</span>
-                    </div>
-                    <div class="searchCarousel-image">
-                        <img src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")'" />
+                <div class="searchCarousel">
+                    <div class="searchCarousel-content redireccionarFicha">
+                        <div class="searchCarousel-description">
+                            <span class="description-text">Lleva un {{Descripcion}} comprando uno de estos productos en oferta.</span>
+                        </div>
+                        <div class="searchCarousel-image">
+                            <img class="img-responsive" src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")'" />
+                        </div>
                     </div>
                 </div>
+                
             </div>
             {{/each}}
-            </div>
+        </div>
     </div>
     <!-- </NuevaExperiencia>-->
     {{/IsNullOrEmpty}}

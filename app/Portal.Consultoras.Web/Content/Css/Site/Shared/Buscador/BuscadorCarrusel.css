@@ -24,7 +24,7 @@
     }
 
 .searchCarousel-content.slick-slide {
-    display: flex;
+    display: flex !important;
     justify-content: center;
 }
 
@@ -141,4 +141,35 @@
 }
 .searchCarousel-image{
     margin-right: 40px;
+}
+
+/*
+    Border - Inferior de promociones en buscador
+
+*/
+.content-searchCarousel {
+    border-bottom: 1px solid #b0b0b0;
+    padding-bottom: 15px;
+}
+.searchCarousel-content{
+    cursor: pointer;
+}
+/*
+    [Fin]
+*/
+
+@media screen and (max-width: 576px) {
+    .searchCarousel-description .description-text{
+        font-size: 13px;
+    }
+    .searchCarousel-description {
+        margin-left: 20px;    
+    }
+    .searchCarousel-image {
+        margin-right: 20px;
+    }
+    .searchCarousel-image .img-responsive{
+        object-fit: contain;
+    }
+
 }
