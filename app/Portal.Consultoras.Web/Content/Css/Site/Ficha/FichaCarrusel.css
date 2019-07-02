@@ -230,3 +230,6 @@
 .slick-dots li button:before {
     content: ""; /* conflicto en slick-pedido.css [line:202] */
 }
+.FichaCarrusel .contenedor_imagen {
+    height: auto;
+}
