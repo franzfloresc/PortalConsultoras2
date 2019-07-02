@@ -3592,7 +3592,7 @@ namespace Portal.Consultoras.Common
 
         public static string EnmascararCorreo(string correo)
         {
-            if (string.IsNullOrEmpty(correo)) return "";
+            if (string.IsNullOrWhiteSpace(correo)) return "";
             string[] separada = correo.Split('@');
             int inicio = 2;
             int final = 1;
