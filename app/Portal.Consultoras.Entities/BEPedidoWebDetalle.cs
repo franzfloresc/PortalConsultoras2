@@ -372,5 +372,8 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public BEPedidoWebSet PedidoWebSet { get; set; }
+
+        [DataMember]
+        public string TipoPersonalizacion { get; set; }
     }
 }
