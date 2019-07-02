@@ -1187,6 +1187,194 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
+        #region DistanciaLimite
+        public ActionResult DistanciaLimiteZonaSeccion()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("DistanciaLimiteZonaSeccion", null);
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult ConsultarDistanciaLimiteZonaSeccion(DistanciaLimiteZonaSeccionModelSAC model)
+        {
+            model.CodigoISO = CodigoISO;
+            using (var sv = new PortalServiceClient())
+            {
+                var data = sv.ConsultarDistanciaLimiteZonaSeccion(model);
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+
+        public ActionResult ExportarExcelDistanciaLimiteZonaSeccion()
+        {
+            ServiceUnete.ParametroUneteCollection lstSelect;
+            using (var sv = new PortalServiceClient())
+            {
+                lstSelect = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.DistanciaLimiteZonaSeccion, 0);
+            }
+
+            List<DistanciaLimiteZonaSeccionModel> items = new List<DistanciaLimiteZonaSeccionModel>();
+            foreach (var item in lstSelect)
+            {
+                var objNivel = new DistanciaLimiteZonaSeccionModel
+                {
+                    DistanciaLimite = item.Valor.ToString(),
+                    ZonaSeccion = item.Nombre
+                };
+                items.Add(objNivel);
+            }
+
+            Dictionary<string, string> dic =
+                new Dictionary<string, string> { { "ZonaSeccion", "ZonaSeccion" }, { "DistanciaLimite", "DistanciaLimite" } };
+
+            string fecha = String.Format("{0:dd-mm-yyyy_hhmmss}", System.DateTime.Now);
+            Util.ExportToExcel("ReporteDistanciaLimite_" + fecha, items, dic);
+            return View();
+        }
+
+        public ActionResult ExportarExcelHistoricoDistanciaLimiteZonaSeccion()
+        {
+            ServiceUnete.LogDetalleParametroUneteCollection lstSelect;
+            using (var sv = new PortalServiceClient())
+            {
+                lstSelect = sv.ObtenerLogDetalleParametroUnete(CodigoISO, EnumsTipoParametro.DistanciaLimiteZonaSeccion, 0);
+            }
+
+            List<LogDetalleParametroUneteModel> items = new List<LogDetalleParametroUneteModel>();
+            foreach (var item in lstSelect)
+            {
+                var objLog = new LogDetalleParametroUneteModel
+                {
+                    CodigoUsuario = item.CodigoUsuario.ToString(),
+                    Fecha = item.Fecha,
+                    Hora = item.Hora,
+                    Nombre = item.Nombre,
+                    Valor = item.Valor,
+                    IdCarga = item.IdCarga
+                };
+                items.Add(objLog);
+            }
+
+            Dictionary<string, string> dic =
+                new Dictionary<string, string>
+                { { "CodigoUsuario", "CodigoUsuario" }, { "Fecha", "Fecha" }, {"Hora", "Hora"}, {"Nombre", "Nombre" },
+                    {"Valor", "Valor" }, {"IdCarga", "IdCarga" } };
+
+            string fecha = String.Format("{0:dd-mm-yyyy_hhmmss}", System.DateTime.Now);
+            Util.ExportToExcel("HistoricoCambios_" + fecha, items, dic);
+            return View();
+        }
+
+        [HttpPost]
+        public string DistanciaLimiteZonaSeccionInsertar(HttpPostedFileBase uplArchivo, DistanciaLimiteZonaSeccionModel model)
+        {
+            model.CodigoISO = CodigoISO;
+            UsuarioModel oUsuarioModel = SessionManager.GetUserData();
+
+            try
+            {
+                if (uplArchivo == null)
+                {
+                    return "El archivo especificado no existe.";
+                }
+
+                if (!Util.IsFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
+                {
+                    return "El archivo especificado no es un documento de tipo MS-Excel.";
+                }
+
+                string fileextension = Util.Trim(Path.GetExtension(uplArchivo.FileName));
+
+                if (!fileextension.ToLower().Equals(".xlsx"))
+                {
+                    return "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
+                }
+
+                string fileName = Guid.NewGuid().ToString();
+                string pathfaltante = Server.MapPath("~/Content/ArchivoDistanciaLimite");
+                if (!Directory.Exists(pathfaltante)) Directory.CreateDirectory(pathfaltante);
+
+                var finalPath = Path.Combine(pathfaltante, fileName + fileextension);
+                uplArchivo.SaveAs(finalPath);
+
+                bool isCorrect = false;
+                DistanciaLimiteZonaSeccionModel prod = new DistanciaLimiteZonaSeccionModel();
+
+                IList<DistanciaLimiteZonaSeccionModel> lista = Util.ReadXmlFile(finalPath, prod, false, ref isCorrect);
+
+                foreach (var item in lista.ToList())
+                {
+                    if (item.DistanciaLimite == null || item.ZonaSeccion == null)
+                    {
+                        lista.Remove(item);
+                    }
+                }
+
+                if (lista.Count == 0)
+                {
+                    isCorrect = false;
+                }
+
+                System.IO.File.Delete(finalPath);
+                List<ParametroUnete> listafinal = new List<ParametroUnete>();
+                if (isCorrect)
+                {
+                    int distanciaLimiteItem = 0;
+                    bool itemEsNumerico = false;
+                    foreach (var item in lista)
+                    {
+                        itemEsNumerico = int.TryParse(item.DistanciaLimite, out distanciaLimiteItem);
+                        if (itemEsNumerico && distanciaLimiteItem > 0)
+                        {
+                            var parametroTodos = new ParametroUnete
+                            {
+                                Nombre = item.ZonaSeccion,
+                                Descripcion = "Distancia límite",
+                                Valor = distanciaLimiteItem,
+                                FK_IdTipoParametro = EnumsTipoParametro.DistanciaLimiteZonaSeccion.ToInt(),
+                                Estado = 1
+                            };
+                            listafinal.Add(parametroTodos);
+                        }
+                        else
+                        {
+                            return "Error en distancia límite. Sólo se permiten valores numéricos enteros positivos.";
+                        }
+                    }
+
+                    if (listafinal.Any())
+                    {
+                        using (var sv = new PortalServiceClient())
+                        {
+                            sv.InsertarDistanciaLimiteZonaSeccion(model.CodigoISO, listafinal.ToArray(), oUsuarioModel.CodigoUsuario);
+                        }
+
+                        return "Se realizo satisfactoriamente la carga de datos.";
+                    }
+
+                    return "No se Guardo ningun registro";
+
+                }
+                else
+                {
+                    return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
+                }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return "Verifique el formato del Documento, posiblemente no sea igual al de la Plantilla.";
+            }
+        }
+
+        #endregion DistanciaLimite
+
         public ActionResult NivelesGeograficos()
         {
             ViewBag.HTMLSACUnete = getHTMLSACUnete("NivelesGeograficos", null);
