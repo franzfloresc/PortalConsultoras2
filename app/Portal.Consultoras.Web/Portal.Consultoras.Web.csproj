@@ -4286,6 +4286,7 @@
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaEnriquecida\FichaEnriquecidaView.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaResponsive.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaResponsiveEvents.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Promociones\PromocionesPresenter.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Promociones\PromocionesView.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\CarruselAyuda.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\CarruselModule.js" />
@@ -5955,7 +5956,7 @@
     <Content Include="Views\DetalleEstrategia\template-producto-carrusel-responsive.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\FichaEnriquecida\popup-ficha-enriquecida-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\resumen-componente-template.cshtml" />
-    <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\modal-promociones.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\Promociones\modal-promociones.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
