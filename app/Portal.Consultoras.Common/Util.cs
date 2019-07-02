@@ -1036,8 +1036,9 @@ namespace Portal.Consultoras.Common
             return Util.EnviarMailMasivoColas2(strDe, strPara, strTitulo, strMensaje, isHTML, tags, null);
         }
 
-        public static bool EnviarMailBase(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML, string displayNameDe = null, bool IndicadorSimplificacionCUV = false)
+        public static bool EnviarMailBase(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML, string displayNameDe = null)
         {
+            bool resu = false;
             if (string.IsNullOrEmpty(strPara))
                 return false;
 
@@ -1054,66 +1055,46 @@ namespace Portal.Consultoras.Common
             string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
 
             MailMessage objMail = new MailMessage();
-            objMail.SubjectEncoding = System.Text.Encoding.UTF8;
+            // objMail.SubjectEncoding = System.Text.Encoding.UTF8;
             SmtpClient objClient = new SmtpClient(strServidor);
 
             AlternateView avHtml = AlternateView.CreateAlternateViewFromString(strMensaje, null, MediaTypeNames.Text.Html);
 
+            if (ParseString(ConfigurationManager.AppSettings["flagCorreo"]) == "0")
+            {
+                strPara = strUsuario;
+            }
+            objMail.AlternateViews.Add(avHtml);
             objMail.To.Add(strPara);
             objMail.From = string.IsNullOrEmpty(displayNameDe)
                 ? new MailAddress(strDe)
                 : new MailAddress(strDe, displayNameDe);
 
             objMail.Subject = strTitulo;
-            if (FileExists(HttpContext.Current.Request.MapPath("/Content/Images/indicador.png")) && FileExists(HttpContext.Current.Request.MapPath("/Content/Images/belcorp_logo.png")))
-            {
-                LinkedResource iconoSimplificacion = new LinkedResource(HttpContext.Current.Request.MapPath("../Content/Images/indicador.png"), MediaTypeNames.Image.Gif);
-                LinkedResource logo = new LinkedResource(HttpContext.Current.Request.MapPath("../Content/Images/belcorp_logo.png"), MediaTypeNames.Image.Gif);
-                logo.ContentId = "Logo";
-                avHtml.LinkedResources.Add(logo);
-
-                objMail.AlternateViews.Add(avHtml);
-
-
-                if (IndicadorSimplificacionCUV)
-                {
-                    iconoSimplificacion.ContentId = "IconoIndicador";
-                    avHtml.LinkedResources.Add(iconoSimplificacion);
-                    objMail.Body = String.Format(strMensaje, iconoSimplificacion.ContentId);
-                }
-                else
-                {
-                    objMail.Body = strMensaje;
-                }
-            }
-            else
-            {
-                objMail.AlternateViews.Add(avHtml);
-                objMail.Body = strMensaje;
-            }
+            objMail.Body = strMensaje;
             objMail.IsBodyHtml = isHTML;
+
             NetworkCredential credentials = new NetworkCredential(strUsuario, strPassword);
             objClient.EnableSsl = true;
             objClient.Credentials = credentials;
 
+
             try
             {
-                System.Threading.Tasks.Task.Factory.StartNew(() =>
-                {
-                    objClient.Send(objMail);
-                });
+                objClient.Send(objMail);
+                resu = true;
             }
             catch (Exception ex)
             {
+                resu = false;
                 throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
             }
             finally
             {
                 objMail.Dispose();
             }
-            return true;
+            return resu;
         }
-
         /// <summary>
         /// Metodo que permite llenar la entidad de páginación para grillas sin filtros
         /// </summary>

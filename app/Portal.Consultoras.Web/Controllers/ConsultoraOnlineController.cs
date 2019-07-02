@@ -2363,7 +2363,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pedidoSession = pedidos.ListaPedidos.FirstOrDefault();
 
-                EnviarEmailPedidoRechazado(pedidoSession,false);
+                EnviarEmailPedidoRechazado(pedidoSession, false);
 
 
                 var PendientesJson = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
@@ -2831,7 +2831,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #region Email
             var pedidoSession = pedidosSesion.FirstOrDefault();
-            EnviarEmailPedidoRechazado(pedidoSession,true);
+            EnviarEmailPedidoRechazado(pedidoSession, true);
 
             #endregion
 
@@ -3266,7 +3266,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         }
 
-        public void EnviarEmailPedidoRechazado(BEMisPedidos pedido,bool aceptado)
+        public void EnviarEmailPedidoRechazado(BEMisPedidos pedido, bool aceptado)
         {
             string medio = String.Empty;
             switch (pedido.FlagMedio)
@@ -3290,7 +3290,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             String consultora = (userData.PrimerNombre + " " + userData.PrimerApellido);
 
-            String titulocliente = "Tu pedido ha sido RECHAZADO por " + consultora + " - " + medio;
+            String estadoPedido = aceptado ? "ACEPTADO" : "RECHAZADO";
+            String titulocliente = "Tu pedido ha sido " + estadoPedido + "RECHAZADO por " + consultora + " - " + medio;
             String cliente = pedido.Cliente.Split(' ').First();
 
             StringBuilder mensajecliente = new StringBuilder();
