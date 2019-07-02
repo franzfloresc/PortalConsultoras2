@@ -1532,7 +1532,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             BEPedidoWeb obj = new BEPedidoWeb();
 
-            obj.STPPagoContado = userData.PagoContado && GetPagoContado();
+            bePedidoWeb.STPPagoContado = userData.PagoContado && GetPagoContado();
+            obj.STPPagoContado = bePedidoWeb.STPPagoContado;
+
             if (!bePedidoWeb.STPPagoContado)
                 return obj;
 

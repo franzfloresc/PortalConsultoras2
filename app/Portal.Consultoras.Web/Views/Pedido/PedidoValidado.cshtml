@@ -159,7 +159,23 @@
                                 <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
                                 <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
                             </div>
+                         @*HD-4513*@
+                            @*@if (Model.PaisID == Constantes.PaisID.Ecuador){
+                                <br />
+                              <div class="monto_STPDescuento">
+                                    <span><b>(-) Mis Descuentos:</b></span>
+                                </div>
+                                <br />
+                                <div class="monto_STPFlete">
+                                    <span><b>(+) Gastos de Transporte:</b></span>
+                                </div>  
+                                <br />
+                                <div class="monto_STPTotalPagar">
+                                    <span><b>Total a Pagar:</b></span>
+                                </div>
+                            }*@
                         </div>
+                          
                         <div class="caja_montos_cantidades">
 
                             <div class="caja_montos_cantidades_sinDescuento">
@@ -185,6 +201,28 @@
                                     <span id="spnMontoGanancia" >@ViewBag.GananciaEstimada</span>
                                 </b>
                             </p>
+                            @*HD-4513*@
+                            @*@if (Model.PaisID == Constantes.PaisID.Ecuador)
+                            {
+                                <p class="monto_STPDescuento default-color">
+                                    <b>
+                                        @Model.Simbolo
+                                        <span id="spnSTPDescuento" >@ViewBag.FormatoSTPDescuento</span>
+                                    </b>
+                                </p>
+                                <p class="monto_STPFlete default-color">
+                                    <b>
+                                        @Model.Simbolo
+                                        <span id="spnSTPFlete" >@ViewBag.FormatoSTPFlete</span>
+                                    </b>
+                                </p>
+                                <p class="monto_STPTotalPagar default-color">
+                                    <b>
+                                        @Model.Simbolo
+                                        <span id="spnSTPTotalPagar" >@ViewBag.FormatoSTPTotalPagar</span>
+                                    </b>
+                                </p>
+                            }*@
                         </div>
                     </div>
                 </div>

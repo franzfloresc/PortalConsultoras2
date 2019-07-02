@@ -2516,7 +2516,6 @@ namespace Portal.Consultoras.BizLogic
         #region Consultora Pago Contado
         public BEPedidoWeb UpdPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb)
         {
-            BEPedidoWeb obj= new BEPedidoWeb();
             DAPedidoWeb daPedidoWeb = new DAPedidoWeb(bePedidoWeb.PaisID);
             try
             {
@@ -2547,9 +2546,9 @@ namespace Portal.Consultoras.BizLogic
                         svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
                         var result = svr.ejecutarProcesoPEDPedidoRechazado(PedidoWeb);
                         if (result.mensajeError != "") throw new Exception(result.mensajeError);
-                        obj.STPDescuento = result.totalDesc;
-                        obj.STPTotalPagar = result.totalPaga;
-                        obj.STPGastTransporte = result.totalFlet;
+                        bePedidoWeb.STPDescuento = result.totalDesc;
+                        bePedidoWeb.STPTotalPagar = result.totalPaga;
+                        bePedidoWeb.STPGastTransporte = result.totalFlet;
                     }
 
                     /*Actualizar Log*/
@@ -2564,7 +2563,7 @@ namespace Portal.Consultoras.BizLogic
                 LogManager.SaveLog(ex, bePedidoWeb.CodigoConsultora, bePedidoWeb.PaisID);
                 throw new Exception("Exception BLPedidoWeb- ValidarPedidoTotalPagarContado", ex);
             }
-            return obj;
+            return bePedidoWeb;
         }
 
 

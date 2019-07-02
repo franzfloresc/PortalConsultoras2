@@ -1926,12 +1926,15 @@ namespace Portal.Consultoras.Web.Controllers
                 ConsultoraID = userData.ConsultoraID,
                 CodigoConsultora = userData.CodigoConsultora,
                 CampaniaID = userData.CampaniaID,
+                STPPagoTotal= model.TotalConDsctoFormato,
                 olstBEPedidoWebDetalle = lstPedidoWebDetalle.ToArray()
 
             };
 
-            //var resultPagoContado = GetConfPagoContado(PagoContadoPrm);
-            //ViewBag.FormatoSTPDescuento = resultPagoContado.STPDescuento;
+            var resultPagoContado = GetConfPagoContado(PagoContadoPrm);
+            ViewBag.FormatoSTPDescuento = resultPagoContado.STPDescuento;
+            ViewBag.FormatoSTPFlete = resultPagoContado.STPGastTransporte;
+            ViewBag.FormatoSTPTotalPagar = resultPagoContado.STPTotalPagar;
             #endregion
             return View(model);
         }
