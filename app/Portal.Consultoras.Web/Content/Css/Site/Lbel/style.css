@@ -30066,6 +30066,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom:80px;
 }
 
 .texto_solicitud_registrada {
