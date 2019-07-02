@@ -3267,7 +3267,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<JsonResult> ProcesaEnvioCorreo(ActualizarCorreoNuevoModel parametros)
+        public JsonResult ProcesaEnvioCorreo(ActualizarCorreoNuevoModel parametros)
         {
             var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
             if (!String.IsNullOrEmpty(parametros.CorreoActualizado))
@@ -3278,8 +3278,50 @@ namespace Portal.Consultoras.Web.Controllers
             int paisID = Convert.ToInt32(TempData["PaisID"]);
             try
             {
-                
-                UsuarioModel userData = new UsuarioModel();
+                TempData["PaisID"] = paisID;
+                bool EstadoEnvio = false;
+                oUsu.EsMobile = EsDispositivoMovil();
+
+                using (var svc = new UsuarioServiceClient())
+                {
+                    EstadoEnvio = svc.ProcesaEnvioEmail(paisID, oUsu, parametros.CantidadEnvios);
+                }
+
+                oUsu.Correo = parametros.CorreoActualizado;
+                oUsu.CorreoEnmascarado = Util.EnmascararCorreo(parametros.CorreoActualizado);
+                Session["DatosUsuario"] = oUsu;
+
+                return Json(new
+                {
+                    success = EstadoEnvio,
+                    menssage = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, oUsu.CodigoUsuario, Util.GetPaisISO(paisID));
+                return Json(new
+                {
+                    success = false,
+                    menssage = "Sucedio un Error al enviar el SMS. Intentelo mas tarde"
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<JsonResult> ProcesaActualizaEnvioCorreo(ActualizarCorreoNuevoModel parametros)
+        {
+            var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
+            if (!String.IsNullOrEmpty(parametros.CorreoActualizado))
+            {
+                oUsu.Correo = parametros.CorreoActualizado;
+            }
+            if (oUsu == null) return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
+            int paisID = Convert.ToInt32(TempData["PaisID"]);
+            try
+            {
+                UsuarioModel userData;
                 userData = await GetUserData(Util.GetPaisID(oUsu.CodigoIso), oUsu.CodigoUsuario);
                 BERespuestaServicio respuesta;
                 BEUsuario usuario = Mapper.Map<BEUsuario>(userData);
@@ -3287,33 +3329,10 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     respuesta = sv.ActualizarEmail(usuario, oUsu.Correo);
                 }
-                string tipoEnvio = Constantes.TipoEnvio.EMAIL.ToString();
-                TempData["PaisID"] = paisID;
+                string tipoEnvio = Constantes.TipoEnvio.EMAIL.ToString();                
                 ActualizarValidacionDatosUnique(EsDispositivoMovil(), userData.CodigoUsuario, tipoEnvio);
+
                 return Json(new { success = respuesta.Succcess, message = respuesta.Message });
-
-
-
-                TempData["PaisID"] = paisID;
-                bool EstadoEnvio = false;
-                //oUsu.EsMobile = EsDispositivoMovil();
-
-                //using (var svc = new UsuarioServiceClient())
-                //{
-                //    EstadoEnvio = svc.ProcesaEnvioEmail(paisID, oUsu, parametros.CantidadEnvios);
-                //}
-
-                //oUsu.Correo = parametros.CorreoActualizado;
-                //oUsu.CorreoEnmascarado = Util.EnmascararCorreo(parametros.CorreoActualizado);
-                //Session["DatosUsuario"] = oUsu;
-
-
-
-                return Json(new
-                {
-                    success = EstadoEnvio,
-                    menssage = ""
-                }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {

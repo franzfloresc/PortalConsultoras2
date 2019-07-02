@@ -380,7 +380,6 @@
 </body>
 </html>
 <script type="text/javascript">
-    var urlProcesaEnvioCorreo = '@Url.Action("ProcesaEnvioCorreo", "Login")';
     var urlProcesaEnvioSms = '@Url.Action("ProcesaEnvioSms", "Login")';
     var urlVerificarCodigoGenerado = '@Url.Action("VerificarCodigoGenerado", "Login")';
     var urlContinuarLogin = '@Url.Action("ContinuarLogin", "Login")';
@@ -442,7 +441,7 @@
     /*para Correo*/
     var config = {
         UrlPaginaPrevia: '@Url.Action("VerificaAutenticidad")',
-        UrlActualizarEnviarCorreo: '@Url.Action("ProcesaEnvioCorreo")',
+        UrlActualizarEnviarCorreo: '@Url.Action("ProcesaActualizaEnvioCorreo")',
         MensajeError: '@Html.Raw(Constantes.MensajesError.ActivacionCorreo)',
         MensajeReenvioExitoso: '@Html.Raw(Constantes.MensajesExito.UpdCorreoConsultora_Reenvio)',
         VistaActual: 1,
