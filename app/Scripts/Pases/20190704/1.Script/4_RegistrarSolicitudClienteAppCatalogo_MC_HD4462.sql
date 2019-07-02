@@ -19,8 +19,8 @@ ALTER PROCEDURE [dbo].[RegistrarSolicitudClienteAppCatalogo]
 	@UsuarioAppID BIGINT = 0,
 	@SolicitudDetalle dbo.SolicitudDetalleAppCatalogoType READONLY,
 	@SolicitudClienteOrigen BIGINT = null,
-	@IDCDC VARCHAR(80) = NULL,
-	@IDCMC VARCHAR(10) = NULL
+	@IDCDC VARCHAR(100) = NULL,
+	@IDCMC VARCHAR(200) = NULL
 AS
 BEGIN
 	DECLARE
@@ -298,8 +298,8 @@ ALTER PROCEDURE [dbo].[RegistrarSolicitudClienteAppCatalogo]
 	@UsuarioAppID BIGINT = 0,
 	@SolicitudDetalle dbo.SolicitudDetalleAppCatalogoType READONLY,
 	@SolicitudClienteOrigen BIGINT = null,
-	@IDCDC VARCHAR(80) = NULL,
-	@IDCMC VARCHAR(10) = NULL
+	@IDCDC VARCHAR(100) = NULL,
+	@IDCMC VARCHAR(200) = NULL
 AS
 BEGIN
 	DECLARE
@@ -577,8 +577,8 @@ ALTER PROCEDURE [dbo].[RegistrarSolicitudClienteAppCatalogo]
 	@UsuarioAppID BIGINT = 0,
 	@SolicitudDetalle dbo.SolicitudDetalleAppCatalogoType READONLY,
 	@SolicitudClienteOrigen BIGINT = null,
-	@IDCDC VARCHAR(80) = NULL,
-	@IDCMC VARCHAR(10) = NULL
+	@IDCDC VARCHAR(100) = NULL,
+	@IDCMC VARCHAR(200) = NULL
 AS
 BEGIN
 	DECLARE
@@ -856,8 +856,8 @@ ALTER PROCEDURE [dbo].[RegistrarSolicitudClienteAppCatalogo]
 	@UsuarioAppID BIGINT = 0,
 	@SolicitudDetalle dbo.SolicitudDetalleAppCatalogoType READONLY,
 	@SolicitudClienteOrigen BIGINT = null,
-	@IDCDC VARCHAR(80) = NULL,
-	@IDCMC VARCHAR(10) = NULL
+	@IDCDC VARCHAR(100) = NULL,
+	@IDCMC VARCHAR(200) = NULL
 AS
 BEGIN
 	DECLARE
@@ -1135,8 +1135,8 @@ ALTER PROCEDURE [dbo].[RegistrarSolicitudClienteAppCatalogo]
 	@UsuarioAppID BIGINT = 0,
 	@SolicitudDetalle dbo.SolicitudDetalleAppCatalogoType READONLY,
 	@SolicitudClienteOrigen BIGINT = null,
-	@IDCDC VARCHAR(80) = NULL,
-	@IDCMC VARCHAR(10) = NULL
+	@IDCDC VARCHAR(100) = NULL,
+	@IDCMC VARCHAR(200) = NULL
 AS
 BEGIN
 	DECLARE
@@ -1414,8 +1414,8 @@ ALTER PROCEDURE [dbo].[RegistrarSolicitudClienteAppCatalogo]
 	@UsuarioAppID BIGINT = 0,
 	@SolicitudDetalle dbo.SolicitudDetalleAppCatalogoType READONLY,
 	@SolicitudClienteOrigen BIGINT = null,
-	@IDCDC VARCHAR(80) = NULL,
-	@IDCMC VARCHAR(10) = NULL
+	@IDCDC VARCHAR(100) = NULL,
+	@IDCMC VARCHAR(200) = NULL
 AS
 BEGIN
 	DECLARE
@@ -1693,8 +1693,8 @@ ALTER PROCEDURE [dbo].[RegistrarSolicitudClienteAppCatalogo]
 	@UsuarioAppID BIGINT = 0,
 	@SolicitudDetalle dbo.SolicitudDetalleAppCatalogoType READONLY,
 	@SolicitudClienteOrigen BIGINT = null,
-	@IDCDC VARCHAR(80) = NULL,
-	@IDCMC VARCHAR(10) = NULL
+	@IDCDC VARCHAR(100) = NULL,
+	@IDCMC VARCHAR(200) = NULL
 AS
 BEGIN
 	DECLARE
@@ -1972,8 +1972,8 @@ ALTER PROCEDURE [dbo].[RegistrarSolicitudClienteAppCatalogo]
 	@UsuarioAppID BIGINT = 0,
 	@SolicitudDetalle dbo.SolicitudDetalleAppCatalogoType READONLY,
 	@SolicitudClienteOrigen BIGINT = null,
-	@IDCDC VARCHAR(80) = NULL,
-	@IDCMC VARCHAR(10) = NULL
+	@IDCDC VARCHAR(100) = NULL,
+	@IDCMC VARCHAR(200) = NULL
 AS
 BEGIN
 	DECLARE
@@ -2251,8 +2251,8 @@ ALTER PROCEDURE [dbo].[RegistrarSolicitudClienteAppCatalogo]
 	@UsuarioAppID BIGINT = 0,
 	@SolicitudDetalle dbo.SolicitudDetalleAppCatalogoType READONLY,
 	@SolicitudClienteOrigen BIGINT = null,
-	@IDCDC VARCHAR(80) = NULL,
-	@IDCMC VARCHAR(10) = NULL
+	@IDCDC VARCHAR(100) = NULL,
+	@IDCMC VARCHAR(200) = NULL
 AS
 BEGIN
 	DECLARE
@@ -2530,8 +2530,8 @@ ALTER PROCEDURE [dbo].[RegistrarSolicitudClienteAppCatalogo]
 	@UsuarioAppID BIGINT = 0,
 	@SolicitudDetalle dbo.SolicitudDetalleAppCatalogoType READONLY,
 	@SolicitudClienteOrigen BIGINT = null,
-	@IDCDC VARCHAR(80) = NULL,
-	@IDCMC VARCHAR(10) = NULL
+	@IDCDC VARCHAR(100) = NULL,
+	@IDCMC VARCHAR(200) = NULL
 AS
 BEGIN
 	DECLARE
@@ -2809,8 +2809,8 @@ ALTER PROCEDURE [dbo].[RegistrarSolicitudClienteAppCatalogo]
 	@UsuarioAppID BIGINT = 0,
 	@SolicitudDetalle dbo.SolicitudDetalleAppCatalogoType READONLY,
 	@SolicitudClienteOrigen BIGINT = null,
-	@IDCDC VARCHAR(80) = NULL,
-	@IDCMC VARCHAR(10) = NULL
+	@IDCDC VARCHAR(100) = NULL,
+	@IDCMC VARCHAR(200) = NULL
 AS
 BEGIN
 	DECLARE
@@ -3088,8 +3088,8 @@ ALTER PROCEDURE [dbo].[RegistrarSolicitudClienteAppCatalogo]
 	@UsuarioAppID BIGINT = 0,
 	@SolicitudDetalle dbo.SolicitudDetalleAppCatalogoType READONLY,
 	@SolicitudClienteOrigen BIGINT = null,
-	@IDCDC VARCHAR(80) = NULL,
-	@IDCMC VARCHAR(10) = NULL
+	@IDCDC VARCHAR(100) = NULL,
+	@IDCMC VARCHAR(200) = NULL
 AS
 BEGIN
 	DECLARE
