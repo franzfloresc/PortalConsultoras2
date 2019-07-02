@@ -1,9 +1,11 @@
-﻿
+﻿@using Portal.Consultoras.Web.Models.CaminoBrillante
+@using Portal.Consultoras.Common
 @{
     //ViewBag.CaminoBrillante = true;
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     var data = ViewBag.Informacion;
     var categoria = ViewBag.Vista;
+    var logro = ViewBag.ResumenLogros as LogroCaminoBrillanteModel;
 }
 
 @section css{
@@ -13,7 +15,6 @@
         div.content_responsive {
             margin-top: 0px;
         }
-
     </style>
 }
 
@@ -58,41 +59,67 @@
             <p>25%</p>
         </li>
     </ul>
+
 </div>
 
 <div class="container" id="logros"></div>
 <br />
 
 <script id="template-logros" type="text/x-handlebars-template">
-    <h2 class="title">{{Titulo}}</h2>
+
+
+    {{#each Indicadores}}
+
+    <div class="item">
+        <input type="hidden" value="{{Titulo}}" />
+        <div class="shad box-{{Titulo}}">
+            <p class="text-bold">{{Titulo}}</p>
+            <span class="text-down">{{Titulo}}</span>
+            <ul class="list-crec">
+                {{#each Medallas }}
+                <li>
+
+                    {{#if_eq Tipo 'PIE'}}
+                    <div class="circle-porcent">
+                        <span>{{Valor}}</span>
+                    </div>
+                    {{else}}
+
+                    <p>{{Titulo}}</p>
+                    {{/if_eq}}
+                </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+    {{/each}}
+
+
     {{#IsNullOrEmpty Descripcion '!='}}
     {{/IsNullOrEmpty}}
     {{#each Indicadores}}
+
+    {{#if_eq Titulo 'Cambio de nivel'}}
+
+    {{else if_eq Titulo 'Constancia'}}
+
+    {{else}}
     <div class="box-camb">
-        <input type="hidden" id="txttitulo" value="{{Titulo}}" />
+
         <p class="text-bold">{{Titulo}}</p>
+
         <div class="cambio-crec">
             {{#each Medallas }}
+
+            {{#if_eq Tipo 'PIE'}}
+
+            {{else if_eq Tipo 'NIV'}}
+
+            {{else}}
             <div class="itm">
-                {{#if_eq Tipo 'PIE'}}
-                <div class="circle-porcent imgpizz">
-                    <img src="{{UrlMedalla}}" />
-                </div>
-                {{else if_eq Tipo 'CIRC'}}
+                {{#if_eq Tipo 'CIRC'}}
                 <div class="bord circle-porcent {{#if Estado}}crec-activo{{else}}crec-inactivo{{/if}}">
                     <span>{{Valor}}</span>
-                </div>
-                {{else if_eq Tipo 'NIV'}}
-                <div class="circle-porcent imgpizz">
-                    <img src="{{UrlMedalla}}" />
-                </div>
-                {{else if_eq Tipo 'PED'}}
-                <div class="circle-porcent imgpizz">
-                    <img src="{{UrlMedalla}}" />
-                </div>
-                {{else if_eq Tipo 'TIME'}}
-                <div class="circle-porcent imgpizz">
-                    <img src="{{UrlMedalla}}" />
                 </div>
                 {{/if_eq}}
 
@@ -153,153 +180,151 @@
                 {{/IsNullOrEmpty}}
                 {{/if}}
             </div>
+            {{/if_eq}}
+
+
             {{/each}}
         </div>
     </div>
+    {{/if_eq}}
+
+
     {{/each}}
     <div class="clear"></div>
 
 </script>
 
 <div class="container cambio-crec logreg">
-        <p class="text-bold">Constancia del periodo: C04 a C09</p>
-        <section class="regular  slider">
-            <div>
-                <div class="itm">
-                    <div class="bord circle-porcent crec-activo">
-                        <span>C01</span>
-                    </div>
-                    <span class="como-log inactivo">C01</span>
+    <p class="text-bold">Constancia del periodo: C04 a C09</p>
+    <section class="regular  slider">
+        <div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C01</span>
                 </div>
-                <div class="itm">
-                    <div class="bord circle-porcent crec-activo">
-                        <span>C02</span>
-                    </div>
-                    <span class="como-log inactivo">C02</span>
-                </div>
-                <div class="itm">
-                    <div class="bord circle-porcent crec-activo">
-                        <span>C02</span>
-                    </div>
-                    <span class="como-log inactivo">C03</span>
-                </div>
-                <div class="itm">
-                    <div class="bord circle-porcent crec-activo">
-                        <span>C01</span>
-                    </div>
-                    <span class="como-log inactivo">C04</span>
-                </div>
-                <div class="itm">
-                    <div class="bord circle-porcent crec-activo">
-                        <span>C02</span>
-                    </div>
-                    <span class="como-log inactivo">C05</span>
-                </div>
-                <div class="itm">
-                    <div class="bord circle-porcent crec-activo">
-                        <span>C02</span>
-                    </div>
-                    <span class="como-log inactivo">C06</span>
-                </div>
-
+                <span class="como-log inactivo">C01</span>
             </div>
-            <div>
-                <div class="itm">
-                    <div class="bord circle-porcent crec-activo">
-                        <span>C02</span>
-                    </div>
-                    <span class="como-log inactivo">C02</span>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
                 </div>
-                <div class="itm">
-                    <div class="bord circle-porcent crec-activo">
-                        <span>C02</span>
-                    </div>
-                    <span class="como-log inactivo">C02</span>
-                </div>
-                <div class="itm">
-                    <div class="bord circle-porcent crec-activo">
-                        <span>C02</span>
-                    </div>
-                    <span class="como-log inactivo">C02</span>
-                </div>
-                <div class="itm">
-                    <div class="bord circle-porcent crec-activo">
-                        <span>C02</span>
-                    </div>
-                    <span class="como-log inactivo">C02</span>
-                </div>
-                <div class="itm">
-                    <div class="bord circle-porcent crec-activo">
-                        <span>C02</span>
-                    </div>
-                    <span class="como-log inactivo">C02</span>
-                </div>
-                <div class="itm">
-                    <div class="bord circle-porcent crec-activo">
-                        <span>C02</span>
-                    </div>
-                    <span class="como-log inactivo">C02</span>
-                </div>
+                <span class="como-log inactivo">C02</span>
             </div>
-            <div>
-                <div class="itm">
-                    <div class="bord circle-porcent crec-activo">
-                        <span>C03</span>
-                    </div>
-                    <span class="como-log inactivo">C03</span>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
                 </div>
+                <span class="como-log inactivo">C03</span>
             </div>
-            <div>
-                <div class="itm">
-                    <div class="bord circle-porcent crec-activo">
-                        <span>C04</span>
-                    </div>
-                    <span class="como-log inactivo">C04</span>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C01</span>
                 </div>
+                <span class="como-log inactivo">C04</span>
             </div>
-            <div>
-                <div class="itm">
-                    <div class="bord circle-porcent crec-activo">
-                        <span>C05</span>
-                    </div>
-                    <span class="como-log inactivo">C05</span>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
                 </div>
+                <span class="como-log inactivo">C05</span>
             </div>
-            <div>
-                <div class="itm">
-                    <div class="bord circle-porcent crec-activo">
-                        <span>C06</span>
-                    </div>
-                    <span class="como-log inactivo">C06</span>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
                 </div>
-            </div>
-            <div>
-                <div class="itm">
-                    <div class="bord circle-porcent crec-activo">
-                        <span>C07</span>
-                    </div>
-                    <span class="como-log inactivo">C07</span>
-                </div>
-            </div>
-            <div>
-                <div class="itm">
-                    <div class="bord circle-porcent crec-activo">
-                        <span>C08</span>
-                    </div>
-                    <span class="como-log inactivo">C08</span>
-                </div>
+                <span class="como-log inactivo">C06</span>
             </div>
 
-        </section>
-    </div>
+        </div>
+        <div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
+                </div>
+                <span class="como-log inactivo">C02</span>
+            </div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
+                </div>
+                <span class="como-log inactivo">C02</span>
+            </div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
+                </div>
+                <span class="como-log inactivo">C02</span>
+            </div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
+                </div>
+                <span class="como-log inactivo">C02</span>
+            </div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
+                </div>
+                <span class="como-log inactivo">C02</span>
+            </div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C02</span>
+                </div>
+                <span class="como-log inactivo">C02</span>
+            </div>
+        </div>
+        <div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C03</span>
+                </div>
+                <span class="como-log inactivo">C03</span>
+            </div>
+        </div>
+        <div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C04</span>
+                </div>
+                <span class="como-log inactivo">C04</span>
+            </div>
+        </div>
+        <div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C05</span>
+                </div>
+                <span class="como-log inactivo">C05</span>
+            </div>
+        </div>
+        <div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C06</span>
+                </div>
+                <span class="como-log inactivo">C06</span>
+            </div>
+        </div>
+        <div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C07</span>
+                </div>
+                <span class="como-log inactivo">C07</span>
+            </div>
+        </div>
+        <div>
+            <div class="itm">
+                <div class="bord circle-porcent crec-activo">
+                    <span>C08</span>
+                </div>
+                <span class="como-log inactivo">C08</span>
+            </div>
+        </div>
 
-
-
-
-
-
-
-
+    </section>
+</div>
 
 
 @section scripts{
@@ -338,11 +363,7 @@
         });
     </script>
 
-
-
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/bootstrap")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/CaminoBrillante/logros")
-
-
 
 }
