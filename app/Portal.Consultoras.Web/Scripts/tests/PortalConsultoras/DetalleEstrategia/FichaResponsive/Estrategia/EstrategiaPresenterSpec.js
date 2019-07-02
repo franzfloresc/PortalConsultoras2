@@ -4,8 +4,43 @@
 /// <reference path="../../../../../portalconsultoras/detalleestrategia/ficharesponsive/ficharesponsiveevents.js" />
 
 describe("DetalleEstrategia - FichaResponsive - Estrategia - EstrategiaPresenter", function () {
+    var errorMsg = '';
+    //
+    var generalModule = null;
+    //
+    var fichaResponsiveEvents = null;
+    var estrategiaView = null;
+    var estrategiaPresenter = null;
+
+    beforeEach(function () {
+        generalModule = sinon.stub(GeneralModule);
+        //
+        fichaResponsiveEvents = sinon.stub(FichaResponsiveEvents());
+        //
+        estrategiaView = sinon.stub(EstrategiaView());
+        estrategiaView.renderBreadcrumbs.returns(true);
+        estrategiaView.renderEstrategia.returns(true);
+        estrategiaView.renderBackgroundAndStamp.returns(true);
+        estrategiaView.renderReloj.returns(true);
+        estrategiaView.renderRelojStyle.returns(true);
+        estrategiaView.renderAgregar.returns(true);
+        estrategiaView.showTitleAgregado.returns(true);
+        estrategiaView.setEstrategiaTipoBotonAgregar.returns(true);
+        estrategiaView.showCarrusel.returns(true);
+        estrategiaView.fixButtonAddProduct.returns(true);
+        //
+        estrategiaPresenter = EstrategiaPresenter({
+            estrategiaView: estrategiaView,
+            generalModule: generalModule,
+            fichaResponsiveEvents : fichaResponsiveEvents
+        });
+    });
+
+    afterEach(function () {
+        sinon.restore();
+    });
+
     describe("Constructor", function () {
-       var errorMsg = '';
 
        beforeEach(function () {
            errorMsg = '';
@@ -121,30 +156,7 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - EstrategiaPresenter
     });
 
     describe("onEstrategiaModelLoaded",function(){
-       var errorMsg = '';
-       //
-       var generalModule = null;
-       //
-       var fichaResponsiveEvents = null;
-       var estrategiaView = null;
-       var estrategiaPresenter = null;
-
-       beforeEach(function () {
-           generalModule = sinon.stub(GeneralModule);
-           //
-           fichaResponsiveEvents = sinon.stub(FichaResponsiveEvents());
-           estrategiaView = sinon.stub(EstrategiaView());
-           estrategiaPresenter = EstrategiaPresenter({
-               estrategiaView: estrategiaView,
-               generalModule: generalModule,
-               fichaResponsiveEvents : fichaResponsiveEvents
-           });
-       });
-        
-       afterEach(function () {
-           sinon.restore();
-       });
-
+       
        it("throw an exception when estrategiaModel is undefined", function () {
             
            try {
@@ -203,10 +215,8 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - EstrategiaPresenter
        it("throw an exception when estrategiaView do not render lan background and stamp for lan", function () {
            // Arrange
            var estrategiaModel = {
-               codigoEstrategia : ConstantesModule.TipoEstrategia.Lanzamiento
+               CodigoEstrategia : ConstantesModule.TipoEstrategia.Lanzamiento
            };
-           estrategiaView.renderBreadcrumbs.returns(true);
-           estrategiaView.renderEstrategia.returns(true);
            estrategiaView.renderBackgroundAndStamp.returns(false);
 
            // Act
@@ -236,7 +246,6 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - EstrategiaPresenter
     });
 
     describe("onEstrategiaModelClick", function () {
-        var errorMsg = '';
         var eventClick = document.createEvent("MouseEvents");
 
         beforeEach(function () {
@@ -256,19 +265,6 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - EstrategiaPresenter
                 MouseEvent.metaKey, 
                 null, 
                 null);
-
-            generalModule = sinon.stub(GeneralModule);
-            fichaResponsiveEvents = sinon.stub(FichaResponsiveEvents());
-            estrategiaView = sinon.stub(EstrategiaView());
-            estrategiaPresenter = EstrategiaPresenter({
-                estrategiaView: estrategiaView,
-                generalModule: generalModule,
-                fichaResponsiveEvents : fichaResponsiveEvents
-            });
-        });
-
-        afterEach(function () {
-            sinon.restore();
         });
 
         it("throw an exception when parameter event is different to event", function () {
@@ -321,4 +317,5 @@ describe("DetalleEstrategia - FichaResponsive - Estrategia - EstrategiaPresenter
             expect(errorMsg).to.have.string("esEditable is undefined");
         });
     });
+
 });

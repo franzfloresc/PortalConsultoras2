@@ -2,7 +2,7 @@
 
 var PedidoProvider = function () {
     
-    _cargarDetallePedidoPromise = function (pageParams) {
+    var _cargarDetallePedidoPromise = function (pageParams) {
         if (typeof pageParams === "undefined" || pageParams === null) throw "pageParams is null or indefined. PedidoProvider._cargarDetallePedidoPromise]";
         var _pageParams = {
             sidx: pageParams.sidx || "",
@@ -32,7 +32,7 @@ var PedidoProvider = function () {
         return dfd.promise();
     };
 
-    _ejecutarServicioProlPromise = function (enviarCorreo) {
+    var _ejecutarServicioProlPromise = function (enviarCorreo) {
         if (typeof enviarCorreo === "undefined" || enviarCorreo === null) enviarCorreo = false;
 
         var dfd = jQuery.Deferred();
@@ -57,7 +57,7 @@ var PedidoProvider = function () {
         return dfd.promise();
     };
 
-    _updatePostulanteMensaje = function (params) {
+    var _updatePostulanteMensaje = function (params) {
         if (typeof params === "undefined" || enviarCorreo === null) params = false;
 
         var dfd = jQuery.Deferred();

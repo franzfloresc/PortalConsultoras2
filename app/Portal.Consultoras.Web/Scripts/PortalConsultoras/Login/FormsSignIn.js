@@ -17,7 +17,7 @@ var procesoSms = false;
 var procesoEmail = false;
 var PrimerNombre = "";
 
-$(document).ready(function () {
+$(document).ready(function () {    
     $(window).resize(function () {
         //resize just happened, pixels changed
         resizeNameUserExt();
@@ -674,7 +674,7 @@ function AbrirMensajeLogin(tipo, close) {
     }
     if ($(".DropDown").val() == "00") return;
     if (tipo == 1) {
-        val_Usuario = !val_Usuario;
+        //val_Usuario = !val_Usuario;
         switch ($(".DropDown").val()) {
             case "PE": $('.alerta_red_peru_user').toggleClass("alerta_red_block"); break;
             case "BO": $('.alerta_red_bolivia_user').toggleClass("alerta_red_block"); break;
@@ -692,7 +692,7 @@ function AbrirMensajeLogin(tipo, close) {
         }
     }
     else {
-        val_Password = !val_Password;
+        //val_Password = !val_Password;
         switch ($(".DropDown").val()) {
             case "PE": $('.alerta_red_peru_clave').toggleClass("alerta_red_block"); break;
             case "BO": $('.alerta_red_bolivia_clave').toggleClass("alerta_red_block"); break;
@@ -872,7 +872,7 @@ function login2() {
         //contentType: 'application/json; charset=utf-8',
         success: function (response) {
 
-            var resul = "";
+            //var resul = "";
             if (response.data != null) {
                 analytics.invocarCompleteRegistrationPixel();
 

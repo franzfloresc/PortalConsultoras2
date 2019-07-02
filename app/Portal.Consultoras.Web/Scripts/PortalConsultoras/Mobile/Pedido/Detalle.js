@@ -378,7 +378,7 @@ function UpdateLiquidacionTipoOfertaSis(urls, obj, elementRow) {
                 return false;
             }
 
-            var PrecioUnidad = obj.PrecioUnidad;
+            //var PrecioUnidad = obj.PrecioUnidad;
             var Unidad = $(cantidadElement).val();
             var Total = DecimalToStringFormat(parseFloat(cantidadActual * Unidad));
             $(elementRow).find(".ImporteTotal").html(Total);
@@ -433,9 +433,9 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
         CliID = 0;
     }
 
-    var Cantidad = CantidadModi;
+    //var Cantidad = CantidadModi;
     var PrecioUnidad = detalleObj.PrecioUnidad;
-    var Total = DecimalToStringFormat(parseFloat(Cantidad * PrecioUnidad));
+    var Total = DecimalToStringFormat(parseFloat(CantidadModi * PrecioUnidad));
     $(elementRow).find(".ImporteTotal").html(Total);
 
     var item = {
@@ -443,7 +443,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
         PedidoID: PedidoID,
         PedidoDetalleID: PedidoDetalleID,
         ClienteID: CliID,
-        Cantidad: Cantidad,
+        Cantidad: CantidadModi,
         PrecioUnidad: PrecioUnidad,
         ClienteDescripcion: CliDes,
         DescripcionProd: DesProd,
@@ -512,6 +512,11 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
                 if (data.success != true) {
                     messageInfoError(data.message);
                     return false;
+                }
+
+                var ActualizaGananciasLoad = typeof ActualizaGanancias === 'function';
+                if (ActualizaGananciasLoad) {
+                    ActualizaGanancias(data);
                 }
 
                 MostrarBarra(data);
@@ -751,7 +756,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBa
     }
 
     var PrecioUnidad = detalleObj.PrecioUnidad;
-    var Cantidad = $(cantidadElement).val();
+    //var Cantidad = $(cantidadElement).val();
     var Total = DecimalToStringFormat(parseFloat(Cantidad * PrecioUnidad));
     $(elementRow).find(".ImporteTotal").html(Total);
 
@@ -834,6 +839,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             } else {
                 mensaje = _mensajeModificarPedido.normal;
             }
+            ActualizaGanancias(data);          //Actualiza ganancias
 
             AbrirMensaje25seg(mensaje);
 
@@ -1015,20 +1021,32 @@ function RespuestaEjecutarServicioPROL(response, fnOfertaFinal) {
 function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == '1') EnviarCorreoPedidoReservado();
     if (estaRechazado == "2") cerrarMensajeEstadoPedido();
-
-    var idPedidoGuardado = "#PopupPedidoGuardado", msgReservado = "#msgPedidoReservado", msgGuardado = "#msgPedidoGuardado";
-    $(msgGuardado).hide();
-    $(msgReservado).show();
-
-    setContainerLluvia(idPedidoGuardado);
-    mostrarLluvia();
-    $(idPedidoGuardado).fadeIn(250);
+   
     var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
-    if (ultimoDiaFacturacion) {
-	    RedirigirPedidoValidado();
-    } else {
-	    location.reload();
+
+    //INI HD-4294
+    if (!response.data.IsEmailConfirmado) {
+        configActualizarCorreo.UrlPedidoValidado = (!ultimoDiaFacturacion) ? configActualizarCorreo.UrlPedido: configActualizarCorreo.UrlPedidoValidado;
+        new Pedido_ActualizarCorreo(configActualizarCorreo).Inicializar();
+
     }
+    //FIN HD-4294
+    else {
+         var idPedidoGuardado = "#PopupPedidoGuardado", msgReservado = "#msgPedidoReservado", msgGuardado = "#msgPedidoGuardado";
+         $(msgGuardado).hide();
+         $(msgReservado).show();
+
+         setContainerLluvia(idPedidoGuardado);
+         mostrarLluvia();
+         $(idPedidoGuardado).fadeIn(250);
+    	 if (ultimoDiaFacturacion) {
+	    RedirigirPedidoValidado();
+    	 } else {
+	    location.reload();
+    	 }
+    }
+    
+
 }
 
 function ConstruirObservacionesPROL(model) {
@@ -1305,4 +1323,16 @@ function AccionConfirmarModificarPedido() {
 			}
 		}
 	});
+}
+
+function ActualizaGanancias(data) {
+
+    data = data || "";
+    if (data !== "") {
+        $('#div-ganancia-totalMontoGanancia').text(data.PedidoWeb.FormatoTotalMontoGananciaStr);
+        $('#div-ganancia-totalGananciaCatalogo').text(data.PedidoWeb.FormatoTotalMontoAhorroCatalogoStr);
+        $('#div-ganancia-totalGananciaRevista').text(data.PedidoWeb.FormatoTotalGananciaRevistaStr);
+        $('#div-ganancia-totalGananciaWeb').text(data.PedidoWeb.FormatoTotalGananciaWebStr);
+        $('#div-ganancia-totalGananciaOtros').text(data.PedidoWeb.FormatoTotalGananciaOtrosStr);
+    }
 }

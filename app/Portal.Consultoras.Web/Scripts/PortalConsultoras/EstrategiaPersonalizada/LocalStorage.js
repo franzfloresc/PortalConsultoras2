@@ -28,23 +28,23 @@
         }
     };
 
-    var _obtenerKeyName = function (codigoPalanaca, campania) {
-        switch (codigoPalanaca) {
-            case _tipoEstrategia.RevistaDigital:
-            case _tipoEstrategia.OfertaParaTi:
-            case _tipoEstrategia.OfertasParaMi:
-            case _tipoEstrategia.PackAltoDesembolso:
-                return _keyLocalStorage.RevistaDigital;
-            case _tipoEstrategia.GuiaDeNegocioDigitalizada:
-                return _keyLocalStorage.GuiaDeNegocio;
-            case _tipoEstrategia.Lanzamiento:
-                return _keyLocalStorage.Lanzamiento;
-            case _tipoEstrategia.HerramientasVenta:
-                return _keyLocalStorage.HerramientasVenta;
-            default:
-                return null;
-        }
-    };
+    //var _obtenerKeyName = function (codigoPalanaca, campania) {
+    //    switch (codigoPalanaca) {
+    //        case _tipoEstrategia.RevistaDigital:
+    //        case _tipoEstrategia.OfertaParaTi:
+    //        case _tipoEstrategia.OfertasParaMi:
+    //        case _tipoEstrategia.PackAltoDesembolso:
+    //            return _keyLocalStorage.RevistaDigital;
+    //        case _tipoEstrategia.GuiaDeNegocioDigitalizada:
+    //            return _keyLocalStorage.GuiaDeNegocio;
+    //        case _tipoEstrategia.Lanzamiento:
+    //            return _keyLocalStorage.Lanzamiento;
+    //        case _tipoEstrategia.HerramientasVenta:
+    //            return _keyLocalStorage.HerramientasVenta;
+    //        default:
+    //            return null;
+    //    }
+    //};
 
     var _obtenerKeyName2 = function (codigoPalanaca, campania) {
         switch (codigoPalanaca) {

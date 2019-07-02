@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.BizLogic.RevistaDigital;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Data.ServiceActualizarFlagBoletaImpresa;
@@ -549,6 +550,7 @@ namespace Portal.Consultoras.BizLogic
                 var pagoEnLineaTask = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.PagoLinea.TablaLogicaId));
                 var tieneChatbotTask = Task.Run(() => usuario.TieneChatbot = TieneChatbot(paisID, usuario.CodigoConsultora));
                 var tieneGanaMasNativo = Task.Run(() => _tablaLogicaDatosBusinessLogic.GetListCache(paisID, ConsTablaLogica.GanaNativo.TablaLogicaId));
+                var opcionesUsuario = Task.Run(() => GetUsuarioOpciones(paisID, usuario.CodigoUsuario));
 
                 var lstConfiguracionPais = new List<string>();
                 lstConfiguracionPais.Add(Constantes.ConfiguracionPais.RevistaDigital);
@@ -650,6 +652,13 @@ namespace Portal.Consultoras.BizLogic
                 usuario.EsUltimoDiaFacturacion = (usuario.FechaFinFacturacion - Common.Util.GetDiaActual(usuario.ZonaHoraria)).Days == 0;
 
 
+                //Para mostrar u ocultar el check de notificaciones de Whatsapp 
+                var opcionesUsuarioConfig = opcionesUsuario.Result.FirstOrDefault(x => x.OpcionesUsuarioId == Constantes.OpcionesUsuario.CompartirWhatsApp);
+                usuario.ActivaNotificacionesWhatsapp = (opcionesUsuarioConfig != null);
+
+                if (opcionesUsuarioConfig != null)
+                    usuario.NotificacionesWhatsapp = opcionesUsuarioConfig.CheckBox;
+                
                 return usuario;
             }
             catch (Exception ex)
@@ -1903,6 +1912,12 @@ namespace Portal.Consultoras.BizLogic
         {
             string resultado = string.Empty;
 
+            var DAUsuario = new DAUsuario(usuario.PaisID);
+            var usuarioOpciones = new BEUsuarioOpciones();
+            usuarioOpciones.OpcionesUsuarioId = Constantes.OpcionesUsuario.CompartirWhatsApp;
+            usuarioOpciones.CheckBox = usuario.NotificacionesWhatsapp;
+
+
             try
             {
                 if (usuario.EMail != string.Empty)
@@ -1916,6 +1931,7 @@ namespace Portal.Consultoras.BizLogic
                     else
                     {
                         this.UpdateDatos(usuario, CorreoAnterior);
+                        if(usuario.ActivaNotificacionesWhatsapp) DAUsuario.InsertarUsuarioOpciones(usuarioOpciones, usuario.CodigoUsuario);
 
                         if (usuario.EMail != CorreoAnterior)
                         {
@@ -1931,6 +1947,7 @@ namespace Portal.Consultoras.BizLogic
                 else if (usuario.PaisID == Constantes.PaisID.Colombia || usuario.PaisID == Constantes.PaisID.Chile)
                 {
                     this.UpdateDatos(usuario, CorreoAnterior);
+                    if (usuario.ActivaNotificacionesWhatsapp) DAUsuario.InsertarUsuarioOpciones(usuarioOpciones, usuario.CodigoUsuario);
                     resultado = string.Format("{0}|{1}|{2}|0", "1", "3", "- Sus datos se actualizaron correctamente");
                 }
             }
@@ -3108,10 +3125,10 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 /*Verificando si tiene Verificacion*/
-                var oUsu = GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario);
+                BEUsuarioDatos oUsu = GetUsuarioVerificacionAutenticidad(paisID, CodigoUsuario);
                 if (oUsu.Cantidad == 0) return null;
                 /*Obteniendo Datos de Verificacion de Autenticidad*/
-                var opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
+                BEOpcionesVerificacion opcion = GetOpcionesVerificacion(paisID, Constantes.OpcionesDeVerificacion.OrigenVericacionAutenticidad);
                 if (opcion == null) return null;
                 /*validando si tiene Zona*/
                 if (opcion.TieneZonas)
@@ -3131,11 +3148,44 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion;
+
+
+
+                BEUsuario beusuario = Select(paisID, CodigoUsuario);
+
+                return GetVerificacionAutenticidadSMSEmail(beusuario, opcion, oUsu, paisID, CodigoUsuario);
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, CodigoUsuario, Common.Util.GetPaisISO(paisID));
+                return null;
+            }
+        }
+
+
+        private BEUsuarioDatos GetVerificacionAutenticidadSMSEmail(BEUsuario beusuario, BEOpcionesVerificacion opcion, BEUsuarioDatos oUsu, int paisID, string CodigoUsuario)
+        {
+            try
+            {
+                var smsCorreoValidado = false;
+                var flgCheckSMS = true;
+                var FlgCheckEmail = true;
+
+                if (beusuario != null)
+                {
+                    flgCheckSMS = beusuario.FlgCheckSMS;
+                    FlgCheckEmail = beusuario.FlgCheckEMAIL;
+                }
+
                 if (opcion.OpcionEmail)
                 {
                     oUsu.CorreoEnmascarado = Common.Util.EnmascararCorreo(oUsu.Correo);
                     oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmail;
+
+                    smsCorreoValidado = (opcion.OpcionSms) ? (flgCheckSMS && FlgCheckEmail) : (FlgCheckEmail);
                 }
+
                 if (opcion.OpcionSms)
                 {
                     oUsu.CelularEnmascarado = Common.Util.EnmascararCelular(oUsu.Celular);
@@ -3143,7 +3193,14 @@ namespace Portal.Consultoras.BizLogic
                         oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarEmailyCelular;
                     else
                         oUsu.MostrarOpcion = Constantes.VerificacionAutenticidad.NombreOpcion.MostrarCelular;
+                    smsCorreoValidado = (opcion.OpcionEmail) ? (flgCheckSMS && FlgCheckEmail) : (flgCheckSMS);
                 }
+
+                if (smsCorreoValidado)
+                {
+                    return null;
+                }
+
                 if (oUsu.MostrarOpcion == Constantes.VerificacionAutenticidad.NombreOpcion.SinOpcion) return null;
                 oUsu.OpcionChat = opcion.OpcionChat;
                 oUsu.TelefonoCentral = GetNumeroBelcorpRespondeByPaisID(paisID);
@@ -3154,11 +3211,12 @@ namespace Portal.Consultoras.BizLogic
                 GetOpcionHabilitar(paisID, Constantes.VerificacionAutenticidad.Origen, ref oUsu);
                 return oUsu;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                LogManager.SaveLog(ex, CodigoUsuario, Common.Util.GetPaisISO(paisID));
+
                 return null;
             }
+
         }
 
         private BEUsuarioDatos GetVerificacionAutenticidadWS(int paisID, string CodigoUsuario)
@@ -3272,20 +3330,42 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 if (CantidadEnvios >= 3) return false;
-                string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
-                string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
-                var esEsika = paisesEsika.Contains(paisISO);
+
                 string emailFrom = "no-responder@somosbelcorp.com";
                 string emailTo = oUsu.Correo;
-                string titulo = "(" + paisISO + ") Verificación de Autenticidad de Somosbelcorp";
-                string logo = (esEsika ? Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png" : Globals.RutaCdn + "/ImagenesPortal/Iconos/logod.png");
-                string nombrecorreo = oUsu.PrimerNombre.Trim();
+                string titulo = "Confirmación de Correo";
+                string displayname = oUsu.PrimerNombre;
+                string url = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+                string nomconsultora = oUsu.PrimerNombre; //(string.IsNullOrEmpty(beusuario.PrimerNombre) ? beusuario.PrimerNombre : beusuario.Sobrenombre);
 
-                string displayname = "Somos Belcorp";
-                string codigoGenerado = Common.Util.GenerarCodigoRandom();
-                Portal.Consultoras.Common.MailUtilities.EnviarMailPinAutenticacion(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, codigoGenerado);
-                if (CantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
-                InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorEmail, codigoGenerado);
+                string[] parametros = new string[] { oUsu.CodigoUsuario, Common.Util.GetPaisID(oUsu.CodigoIso).ToString(), oUsu.Correo };
+                string paramQuerystring = Common.Util.Encrypt(string.Join(";", parametros));
+                LogManager.SaveLog(new Exception(), oUsu.CodigoUsuario, oUsu.CodigoIso, " | data=" + paramQuerystring + " | parametros = " + string.Join("|", parametros));
+
+                //INI HD-3897//
+                //bool esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(usuario.CodigoISO);
+                //string logo = Globals.RutaCdn + (esEsika ? "/ImagenesPortal/Iconos/logo.png" : "/ImagenesPortal/Iconos/logod.png");
+                //string fondo = (esEsika ? "e81c36" : "642f80");
+
+                MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, nomconsultora, url, paramQuerystring);
+                //FIN HD-3897//
+
+
+
+                //string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
+                //string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
+                //var esEsika = paisesEsika.Contains(paisISO);
+                //string emailFrom = "no-responder@somosbelcorp.com";
+                //string emailTo = oUsu.Correo;
+                //string titulo = "(" + paisISO + ") Verificación de Autenticidad de Somosbelcorp";
+                //string logo = (esEsika ? Globals.RutaCdn + "/ImagenesPortal/Iconos/logo.png" : Globals.RutaCdn + "/ImagenesPortal/Iconos/logod.png");
+                //string nombrecorreo = oUsu.PrimerNombre.Trim();
+
+                //string displayname = "Somos Belcorp";
+                //string codigoGenerado = Common.Util.GenerarCodigoRandom();
+                //Portal.Consultoras.Common.MailUtilities.EnviarMailPinAutenticacion(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, codigoGenerado);
+                //if (CantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
+                //InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorEmail, codigoGenerado);
                 return true;
             }
             catch (Exception ex)
@@ -3487,7 +3567,7 @@ namespace Portal.Consultoras.BizLogic
         private BERevistaDigital ConfiguracionPaisDatosRevistaDigital(BERevistaDigital revistaDigitalModel, List<BEConfiguracionPaisDatos> configuracionesPaisDatos, string codigoIso)
         {
             if (revistaDigitalModel == null)
-                throw new ArgumentNullException("revistaDigitalModel", "no puede ser nulo");
+                throw new ClientInformationException("revistaDigitalModel no puede ser nulo");
 
             if (configuracionesPaisDatos == null || !configuracionesPaisDatos.Any() || string.IsNullOrEmpty(codigoIso))
                 return revistaDigitalModel;
@@ -3852,7 +3932,7 @@ namespace Portal.Consultoras.BizLogic
 
                     if (lst[0] == "0")
                     {
-                        throw new Exception(lst[2]);
+                        throw new ClientInformationException(lst[2]);
                     }
 
                     /*Insertar dirección entrega*/
@@ -3879,7 +3959,7 @@ namespace Portal.Consultoras.BizLogic
                                 objActualizarFlagBoleta.Add(new ConsultoraFlagImpBoleta { codigoConsultora = usuario.CodigoConsultora, indImprimeBoleta = flagBolImp, indImprimePaquete = flagBolImp });
                                 var result = svr.actualizaFlagImpBoletas(objActualizarFlagBoleta.ToArray());
                                 if (result.estado == 1)
-                                    throw new Exception(result.mensaje);
+                                    throw new ClientInformationException(result.mensaje);
                             }
 
                         }
@@ -3969,7 +4049,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
                     var result = svr.actualizacionDireccionEntrega(CodigoIsoSicc, Direccionexterna);
-                    if (result.codigo == "2") throw new Exception(result.mensaje);
+                    if (result.codigo == "2") throw new ClientInformationException(result.mensaje);
                 }
 
                 if (conTransaccion) ts.Complete();
@@ -3977,7 +4057,7 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception ex)
             {
                 if (conTransaccion) LogManager.SaveLog(ex, direccionEntrega.ConsultoraID, direccionEntrega.PaisID);
-                throw new Exception("Exception BLUsuario - RegistrarDireccionEntrega", ex);
+                throw new ClientInformationException("Exception BLUsuario - RegistrarDireccionEntrega", ex);
             }
             finally
             {
