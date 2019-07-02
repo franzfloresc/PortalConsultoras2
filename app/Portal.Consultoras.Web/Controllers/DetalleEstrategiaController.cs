@@ -1,13 +1,11 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using Portal.Consultoras.Web.LogManager;
-using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.SessionManager;
-using Portal.Consultoras.Web.Models.DetalleEstrategia;
-using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -67,6 +65,19 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                var fichaResponsiveEstaActivo = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            userData.PaisID,
+                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                            ConsTablaLogica.FlagFuncional.FichaResponsive,
+                            true
+                            );
+
+                if (fichaResponsiveEstaActivo)
+                {
+                    var urlFichaResponsive =string.Format( "/Detalles/{0}/{1}/{2}/{3}", palanca, campaniaId, cuv, origen);
+                    return Redirect(urlFichaResponsive);
+                }
+
                 var url = (Request.Url.Query).Split('?');
                 if (EsDispositivoMovil()
                     && url.Length > 1

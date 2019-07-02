@@ -1,10 +1,10 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.CustomHelpers;
 using Portal.Consultoras.Web.Infraestructure.Excel;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.Common;
 using Portal.Consultoras.Web.Models.Estrategia;
 using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 using Portal.Consultoras.Web.Models.Estrategia.ShowRoom;
@@ -12,6 +12,7 @@ using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServicesCalculosPROL;
+using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
@@ -495,10 +496,10 @@ namespace Portal.Consultoras.Web.Controllers
         public List<PermisoModel> BuildMenu(UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
             if (userData == null)
-                throw new ArgumentNullException("userData");
+                throw new ClientInformationException("userData");
 
             if (revistaDigital == null)
-                throw new ArgumentNullException("revistaDigital");
+                throw new ClientInformationException("revistaDigital");
 
             if (userData.Menu == null)
             {
@@ -507,16 +508,36 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
 
+            #region pedidos_pendientes
+            ViewBag.CantidadPedidosPendientes = 0;
+            if (_configuracionManagerProvider.GetMostrarPedidosPendientesFromConfig())
+            {
+                var paisesConsultoraOnline = _configuracionManagerProvider.GetPaisesConConsultoraOnlineFromConfig();
+                if (paisesConsultoraOnline.Contains(userData.CodigoISO) && userData.EsConsultora())
+                {
+                    using (var svc = new UsuarioServiceClient())
+                    {
+                        var cantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                        if (cantPedidosPendientes > 0)
+                        {
+                            ViewBag.CantidadPedidosPendientes = cantPedidosPendientes;
+                        }
+                    }
+                }
+            }
+            #endregion
+
+
             return _menuProvider.SepararItemsMenu(userData.Menu);
         }
 
         public List<MenuMobileModel> BuildMenuMobile(UsuarioModel userData, RevistaDigitalModel revistaDigital)
         {
             if (userData == null)
-                throw new ArgumentNullException("userData");
+                throw new ClientInformationException("userData");
 
             if (revistaDigital == null)
-                throw new ArgumentNullException("revistaDigital");
+                throw new ClientInformationException("revistaDigital");
 
             if (userData.MenuMobile != null ||
                 userData.RolID != Constantes.Rol.Consultora)
@@ -1437,7 +1458,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (ResultadoValidacion) URLCaminoExisto = string.Format("{0}{1}/{2}/{3}", URLConfig, userData.CodigoISO, userData.CampaniaID, Util.Security.ToMd5(userData.CodigoConsultora));
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 ResultadoValidacion = false;
             }
@@ -1509,7 +1530,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                     r = SessionManager.GetConsultoraDigital().Value;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 r = false;
             }

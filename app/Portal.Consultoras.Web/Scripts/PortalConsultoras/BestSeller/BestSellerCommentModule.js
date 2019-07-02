@@ -1,10 +1,6 @@
 ﻿var bestSellerCommentModule = (function () {
     "use strict"
 
-    var CONTANSTES_ = {
-
-    };
-
     var elements = {
         btnAgregarComentario: 'div.texto_agregarComentarios',
         btnCancelarComentario: 'a.cancelar_comentario',
