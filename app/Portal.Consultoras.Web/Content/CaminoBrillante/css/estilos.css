@@ -2145,8 +2145,55 @@ div .ficha__producto__precio__normal {
     width: 100%!important;
     height:auto!important;
 }
+.ui-draggable .ui-dialog-titlebar {
+    background:white;
+}
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+    float: none !important;
+    float: none;
+    margin: 0 auto;
+}
+.ui-dialog .ui-dialog-buttonpane button {
+    height: 35px;
+    width: 200px;
+    padding-top: 10px;
+    background: #e81c36;
+    border: 0;
+    text-transform: uppercase;
+    font-family: 'lato';
+    letter-spacing: 1.5px;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    float: none;
+    margin: 0 auto;
+    padding-top: 2px;
+}
+.ui-dialog .ui-dialog-buttonpane {
+    margin-bottom: 40px;
+}
 
-
+.ui-dialog .ui-dialog-content {
+    padding-bottom: 40px;
+}
+.terminos_title_2 {
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-align: center;
+    margin-top: 20px !important;
+    margin: 0 auto;
+    text-transform: uppercase;
+    font-size: 10pt !important;
+    font-family: 'lato';
+    color: #000;
+    letter-spacing: .5px;
+}
+.snackbar-align {
+    display:block;
+}
+.pop_image img {
+    margin: 10px auto;
+}
 /*   
     * Descripción  : alerta    
 */
@@ -2778,7 +2825,96 @@ div .ficha__producto__precio__normal {
     }
 }
 
+/*MENSAJES DE ALERTA CATÁLOGOS*/
+.MensajeAlertaMobile {
+    position: fixed;
+    z-index: 2010;
+    display: none;
+    width: 100%;
+    height: 100%;
+    padding: 15px;
+    top: 0;
+    background: rgba(0,0,0,.5);
+}
 
+.content_mensajeAlerta {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+    background: white;
+    padding: 20px;
+    overflow-y: auto;
+}
 
+.icono_alerta {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.check_icono_mobile {
+    background: url('/Content/Images/Esika/icono_check_esika.svg') no-repeat;
+    background-size: cover;
+}
+
+.check_icono_mobile_gano {
+    width: 60px !important;
+    height: 60px !important;
+    background: url('/Content/Images/Mobile/Esika/gift-rojo-2.png') no-repeat;
+    background-position: center;
+}
+
+.exclamacion_icono_mobile {
+    background: url('/Content/Images/Esika/icono_exclamacion_esika.png') no-repeat;
+    background-size: cover;
+}
+
+.btn_regalo_sorpresa_gano:before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 40px 0 0 25px;
+    border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #e81c37;
+    position: absolute;
+    right: -25px;
+    z-index: 1;
+}
+
+.icono_alerta img {
+    width: 100%;
+}
+
+.mensaje_alerta {
+    font-family: 'Lato';
+    font-size: 14px;
+    text-align: center;
+    margin-top: 13px;
+    margin-bottom: 17px;
+    color: black;
+}
+
+.btn_ok_mobile {
+    margin: 0 auto;
+    width: 139px;
+    height: 45px;
+    line-height: 45px;
+    color: white;
+    text-align: center;
+    display: block;
+    background-color: #e81c36;
+    margin-bottom: 20px;
+}
+
+.btn_ok_mobile {
+    color: #FFF !important;
+    text-decoration: none !important;
+}
+
+.btn_ok_mobile-inline {
+    display: inline-block;
+}
 
 

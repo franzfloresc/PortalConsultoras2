@@ -64,7 +64,7 @@
     {{#iff CodigoVariante 'ContainsArray' '[@Constantes.TipoEstrategiaSet.CompuestaFija,@Constantes.TipoEstrategiaSet.CompuestaVariable]'}}
         <h3 class="contenido_titulo">Contenido</h3>
         {{#each this.Hermanos as |componente|}}
-            {{#ifVerificarMarcaLast componente.DescripcionMarca EsMultimarca}}
+            {{#ifVerificarMarcaLast componente.DescripcionMarca ../EsMultimarca}}
                 <hr class="componentes_separador" />
             {{/ifVerificarMarcaLast}}
             <div class="tiposytonos_componentes"
