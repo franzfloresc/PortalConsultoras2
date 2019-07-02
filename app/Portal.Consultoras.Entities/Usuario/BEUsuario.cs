@@ -1001,5 +1001,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool PuedeConfirmarAllSms { get; set; }
 
+        [DataMember]
+        public bool NotificacionesWhatsapp { get; set; }
+
+        [DataMember]
+        public bool ActivaNotificacionesWhatsapp { get; set; }
     }
 }

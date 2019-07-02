@@ -128,6 +128,15 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string RecogerNombre { get; set; }
 
+        [DataMember]
+        public decimal GananciaRevista { get; set; }
+
+        [DataMember]
+        public decimal GananciaWeb { get; set; }
+
+        [DataMember]
+        public decimal GananciaOtros { get; set; }
+
         /*HD-4513*/
         [DataMember]
         public bool STPPagoContado { get; set; }
@@ -190,6 +199,9 @@ namespace Portal.Consultoras.Entities
             FechaFacturado = row.ToString("FechaFacturado");
             RecogerDNI = row.ToString("RecogerDNI");
             RecogerNombre = row.ToString("RecogerNombre");
+            GananciaRevista = row.ToDecimal("GananciaRevista");
+            GananciaWeb = row.ToDecimal("GananciaWeb");
+            GananciaOtros = row.ToDecimal("GananciaOtros");
             /*HD-4513*/
             STPTotalPagar = DataRecord.HasColumn(row, "TotalPagar")?row.ToString("TotalPagar"):"";
             STPDescuento = DataRecord.HasColumn(row, "TotalDescuento") ? row.ToString("TotalDescuento") : "";
