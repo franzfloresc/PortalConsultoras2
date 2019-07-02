@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoIso { get; set; }
         public string CodigoUsuario { get; set; }
         public bool EsMobile { get; set; }
-        [Required]
+        [Required(ErrorMessage = "La nueva contraseña es requerida")]
         [Display(Name = "Nueva Contraseña")]
         [DataType(DataType.Password)]
         [RegularExpression("^(?=.*[0-9])(?=.*[a-zA-Z]).{6,80}$", ErrorMessage = "La contraseña debe tener 6 o más caracteres combinado con letras y números"),]
@@ -28,7 +28,7 @@ namespace Portal.Consultoras.Web.Models
 
         [Required(ErrorMessage = "Confirme la contraseña")]
         [DataType(DataType.Password)]
-        [Compare("Contrasenia", ErrorMessage = "Las contraseñas no coinciden")]
+        [System.Web.Mvc.Compare("Contrasenia", ErrorMessage = "Las contraseñas no coinciden")]
         [Display(Name = "Connfirmar Contraseña")]
         public string ConfirmaContrasenia { get; set; }
     }
