@@ -2485,9 +2485,16 @@ namespace Portal.Consultoras.Service
         }
 
         /*HD-4513*/
-        public BEPedidoWeb ValidarPedidoTotalPagarContado(BEPedidoWeb pedidowebdetalle)
+        #region Consultora Pago Contado
+        public BEPedidoWeb UpdPedidoTotalPagoContado(BEPedidoWeb bEPedidoWeb)
         {
-            return _pedidoWebBusinessLogic.ValidarPedidoTotalPagarContado(pedidowebdetalle);
+            return _pedidoWebBusinessLogic.UpdPedidoTotalPagoContado(bEPedidoWeb);
         }
+
+        public BEPedidoWeb GetPedidoTotalPagoContado(BEPedidoWeb bEPedidoWeb)
+        {
+            return _pedidoWebBusinessLogic.GetPedidoTotalPagoContado(bEPedidoWeb);
+        }
+        #endregion
     }
 }

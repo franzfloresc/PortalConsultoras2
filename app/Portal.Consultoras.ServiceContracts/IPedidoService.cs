@@ -1355,7 +1355,12 @@ namespace Portal.Consultoras.ServiceContracts
         bool InsertKitSE(BEUsuario usuario);
 
         /*HD-4513*/
+        #region Consultora Pago Contado
         [OperationContract]
-        BEPedidoWeb ValidarPedidoTotalPagarContado(BEPedidoWeb bePedidoWeb);
+        BEPedidoWeb UpdPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb);
+
+        [OperationContract]
+        BEPedidoWeb GetPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb);
+        #endregion
     }
 }

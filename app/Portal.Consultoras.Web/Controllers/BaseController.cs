@@ -1515,5 +1515,45 @@ namespace Portal.Consultoras.Web.Controllers
 
             return r;
         }
+
+        /*HD-4513*/
+
+        #region Pago Contado
+        private bool GetPagoContado()
+        {
+            bool band = true;
+
+            if (userData.CodigoISO != Constantes.CodigosISOPais.Ecuador || !(userData.FechaFacturacion == Util.GetDiaActual(userData.ZonaHoraria))) band = false;
+
+
+            return band;
+        }
+        public BEPedidoWeb GetConfPagoContado(BEPedidoWeb bePedidoWeb)
+        {
+            BEPedidoWeb obj = new BEPedidoWeb();
+
+            obj.STPPagoContado = userData.PagoContado && GetPagoContado();
+            if (!bePedidoWeb.STPPagoContado)
+                return obj;
+
+            //Consultar servicio
+            try
+            {
+                using (var sv = new PedidoServiceClient())
+                {
+                    obj = sv.UpdPedidoTotalPagoContado(bePedidoWeb);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return obj;
+
+        }
+
+
+        #endregion
     }
 }

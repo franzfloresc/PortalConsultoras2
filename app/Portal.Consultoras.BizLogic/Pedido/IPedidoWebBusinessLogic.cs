@@ -78,6 +78,9 @@ namespace Portal.Consultoras.BizLogic
         List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb BEPedidoWeb);
 
         /*HD-4513*/
-        BEPedidoWeb ValidarPedidoTotalPagarContado(BEPedidoWeb bePedidoWeb);
+        #region Consultora Pago Contado
+        BEPedidoWeb GetPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb);
+        BEPedidoWeb UpdPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb);
+        #endregion
     }
 }

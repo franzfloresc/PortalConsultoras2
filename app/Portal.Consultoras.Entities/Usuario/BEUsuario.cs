@@ -256,6 +256,8 @@ namespace Portal.Consultoras.Entities
             CodigoClasificacion = row.ToString("CodigoClasificacion");
             CodigoSubClasificacion = row.ToString("CodigoSubClasificacion");
             DescripcionSubClasificacion = row.ToString("DescripcionSubClasificacion");
+            /*HD-4513*/
+            if (DataRecord.HasColumn(row, "PagoContado")) PagoContado = DbConvert.ToBoolean(row["PagoContado"]);
         }
 
         [Column("ConsultoraAsociadoID")]

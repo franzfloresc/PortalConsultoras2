@@ -2513,14 +2513,16 @@ namespace Portal.Consultoras.BizLogic
         }
 
         /*HD-4513*/
-        public BEPedidoWeb ValidarPedidoTotalPagarContado(BEPedidoWeb bePedidoWeb)
+        #region Consultora Pago Contado
+        public BEPedidoWeb UpdPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb)
         {
-            BLConsultora blConsultora = new BLConsultora();
             BEPedidoWeb obj= new BEPedidoWeb();
+            DAPedidoWeb daPedidoWeb = new DAPedidoWeb(bePedidoWeb.PaisID);
             try
             {
-                if (bePedidoWeb.PagoContado)
+                if (bePedidoWeb.STPPagoContado)
                 {
+
                     var remoteAddress = new EndpointAddress(WebConfig.ServicioTotalPagarSicc_EC);
 
                     List<PedidoDetalleWebServiceParameter> PedidoWebDetallePrm = null;
@@ -2550,7 +2552,8 @@ namespace Portal.Consultoras.BizLogic
                         obj.STPGastTransporte = result.totalFlet;
                     }
 
-                    
+                    /*Actualizar Log*/
+                    daPedidoWeb.UpdLogConsultoraPagoContado(bePedidoWeb);
                 }
                 
                
@@ -2563,6 +2566,23 @@ namespace Portal.Consultoras.BizLogic
             }
             return obj;
         }
+
+
+
+        public BEPedidoWeb GetPedidoTotalPagoContado(BEPedidoWeb bePedidoWeb)
+        {
+            BEPedidoWeb obj = null;
+            DAPedidoWeb daPedidoWeb = new DAPedidoWeb(bePedidoWeb.PaisID);
+
+            using (IDataReader reader = daPedidoWeb.ListLogConsultoraPagoContado(bePedidoWeb))
+            {
+                if (reader.Read()) obj = new BEPedidoWeb(reader);
+            }
+            if (obj.STPId == 0) obj= UpdPedidoTotalPagoContado(bePedidoWeb);
+            return obj;
+        }
+
+        #endregion
     }
 
     internal class TemplateField

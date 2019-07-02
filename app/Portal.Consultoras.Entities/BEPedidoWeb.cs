@@ -142,7 +142,10 @@ namespace Portal.Consultoras.Entities
         public string STPGastTransporte { get; set; }
 
         [DataMember]
-        public bool PagoContado { get; set; }
+        public string STPPagoTotal { get; set; }
+
+        [DataMember]
+        public int STPId { get; set; }
 
         public BEPedidoWeb() { }
 
@@ -187,6 +190,12 @@ namespace Portal.Consultoras.Entities
             FechaFacturado = row.ToString("FechaFacturado");
             RecogerDNI = row.ToString("RecogerDNI");
             RecogerNombre = row.ToString("RecogerNombre");
+            /*HD-4513*/
+            STPTotalPagar = DataRecord.HasColumn(row, "TotalPagar")?row.ToString("TotalPagar"):"";
+            STPDescuento = DataRecord.HasColumn(row, "TotalDescuento") ? row.ToString("TotalDescuento") : "";
+            STPGastTransporte = DataRecord.HasColumn(row, "TotalFlete") ? row.ToString("TotalFlete") : "";
+            STPId = DataRecord.HasColumn(row, "LogConsultoraPagoContadoID") ? row.ToInt32("LogConsultoraPagoContadoID") : 0;
+
         }
     }
 }
