@@ -59,19 +59,19 @@
 
     var _codigoTipoEstrategia = ConstantesModule.TipoEstrategia;
 
-    var _idEstrategia = {
-        OfertaParaTi: 4,
-        PackNuevas: 6,
-        Lanzamiento: 9,
-        OfertasParaMi: 10,
-        PackAltoDesembolso: 11,
-        OfertaDelDia: 7,
-        GuiaDeNegocio: 12,
-        LosMasVendidos: 20,
-        HerramientaVenta: 13,
-        ShowRoom: 30,
-        LasMasGanadoras: 10
-    }
+    //var _idEstrategia = {
+    //    OfertaParaTi: 4,
+    //    PackNuevas: 6,
+    //    Lanzamiento: 9,
+    //    OfertasParaMi: 10,
+    //    PackAltoDesembolso: 11,
+    //    OfertaDelDia: 7,
+    //    GuiaDeNegocio: 12,
+    //    LosMasVendidos: 20,
+    //    HerramientaVenta: 13,
+    //    ShowRoom: 30,
+    //    LasMasGanadoras: 10
+    //}
 
     var _editData = {};
     var _idImagen = 0;
@@ -617,7 +617,7 @@
     };
 
     var _obtenerImagenes = function (data, pagina, recargarPaginacion) {
-        
+
         var params = {
             paisID: data.paisID,
             estragiaId: data.EstrategiaID,
@@ -1582,21 +1582,38 @@
             return false;
         }
 
-        var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id") || "";
-        if (!estrategiaId.in(_idEstrategia.OfertaParaTi,
-            _idEstrategia.GuiaDeNegocio,
-            _idEstrategia.LosMasVendidos,
-            _idEstrategia.Lanzamiento,
-            _idEstrategia.OfertasParaMi,
-            _idEstrategia.PackAltoDesembolso,
-            _idEstrategia.OfertaDelDia,
-            _idEstrategia.ShowRoom,
-            _idEstrategia.HerramientaVenta,
-            _idEstrategia.LasMasGanadoras)) {
-
+        var codigo = $("#ddlTipoEstrategia").find(":selected").data("codigo") || "";
+        
+        if (codigo.in(
+            _codigoTipoEstrategia.OfertaParaTi,
+            _codigoTipoEstrategia.GuiaDeNegocioDigitalizada,
+            _codigoTipoEstrategia.LosMasVendidos,
+            _codigoTipoEstrategia.Lanzamiento,
+            _codigoTipoEstrategia.OfertasParaMi,
+            _codigoTipoEstrategia.PackAltoDesembolso,
+            _codigoTipoEstrategia.OfertaDelDia,
+            _codigoTipoEstrategia.ShowRoom,
+            _codigoTipoEstrategia.HerramientasVenta,
+            _codigoTipoEstrategia.MasGanadoras
+        )) {
             _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
             return false;
         }
+
+        //var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id") || "";
+        //if (!estrategiaId.in(_idEstrategia.OfertaParaTi,
+        //    _idEstrategia.GuiaDeNegocio,
+        //    _idEstrategia.LosMasVendidos,
+        //    _idEstrategia.Lanzamiento,
+        //    _idEstrategia.OfertasParaMi,
+        //    _idEstrategia.PackAltoDesembolso,
+        //    _idEstrategia.OfertaDelDia,
+        //    _idEstrategia.ShowRoom,
+        //    _idEstrategia.HerramientaVenta,
+        //    _idEstrategia.LasMasGanadoras)) {
+        //    _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
+        //    return false;
+        //}
 
         return true;
     }
@@ -2434,18 +2451,19 @@
                                 return false;
                             }
                         }
-
-                        var aux2 = $("#ddlTipoEstrategia").find(":selected").data("id");
+                        
                         var aux3 = $("#ddlTipoEstrategia").find(":selected").data("codigo");
-                        if (aux2 !== 4 &&
-                            aux2 !== 7 &&
-                            aux2 !== 20 &&
-                            aux2 !== 9 &&
-                            aux2 !== 10 &&
-                            aux2 !== 11 &&
-                            aux2 !== 12 &&
-                            aux2 !== 13 &&
-                            aux2 !== 30) {
+
+                        if(aux3 !== _codigoTipoEstrategia.OfertaParaTi &&
+                            aux3 !== _codigoTipoEstrategia.OfertaDelDia &&
+                            aux3 !== _codigoTipoEstrategia.LosMasVendidos &&
+                            aux3 !== _codigoTipoEstrategia.Lanzamiento &&
+                            aux3 !== _codigoTipoEstrategia.OfertasParaMi &&
+                            aux3 !== _codigoTipoEstrategia.MasGanadoras &&
+                            aux3 !== _codigoTipoEstrategia.PackAltoDesembolso &&
+                            aux3 !== _codigoTipoEstrategia.GuiaDeNegocioDigitalizada &&
+                            aux3 !== _codigoTipoEstrategia.HerramientasVenta &&
+                            aux3 !== _codigoTipoEstrategia.ShowRoom) {
                             if ($.trim($("#txtOrden").val()) == "" || $.isNumeric($("#txtOrden").val()) == false) {
                                 _toastHelper.error("Ingrese un orden para mostrar.");
                                 return false;
@@ -3502,10 +3520,18 @@
                 _toastHelper.error("Debe seleccionar un tipo de estrategia, verifique.");
                 return false;
             } else {
+                
+                var teCodigo = $("#ddlTipoEstrategia").find(":selected").data("codigo");
                 var estrategiaId = $("#ddlTipoEstrategia option:selected").data("id");
-                if (estrategiaId !== 4 && estrategiaId !== 20 && estrategiaId !== 9 &&
-                    estrategiaId !== 10 && estrategiaId !== 11 && estrategiaId !== 7 &&
-                    estrategiaId !== 12 && estrategiaId != 22 && estrategiaId !== 30) {
+                if (teCodigo !== _codigoTipoEstrategia.OfertaParaTi &&
+                    teCodigo !== _codigoTipoEstrategia.LosMasVendidos &&
+                    teCodigo !== _codigoTipoEstrategia.Lanzamiento &&
+                    teCodigo !== _codigoTipoEstrategia.OfertasParaMi &&
+                    teCodigo !== _codigoTipoEstrategia.PackAltoDesembolso &&
+                    teCodigo !== _codigoTipoEstrategia.OfertaDelDia &&
+                    teCodigo !== _codigoTipoEstrategia.GuiaDeNegocioDigitalizada &&
+                    estrategiaId != 22 &&
+                    teCodigo !== _codigoTipoEstrategia.ShowRoom) {
                     _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
                     return false;
                 }
