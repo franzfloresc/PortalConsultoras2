@@ -133,6 +133,7 @@
       <xs:element minOccurs="0" name="Identifier" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImporteTotal" type="xs:decimal" />
       <xs:element minOccurs="0" name="IngresoExternoOrigen" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsPedidoPendiente" type="xs:boolean" />
       <xs:element minOccurs="0" name="LimiteVenta" type="xs:int" />
       <xs:element minOccurs="0" name="ObservacionPROL" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OfertaWeb" type="xs:boolean" />

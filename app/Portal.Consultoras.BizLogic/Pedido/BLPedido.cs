@@ -141,7 +141,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha))
                     if (modeloOrigenPedido.Palanca != ConsOrigenPedidoWeb.Palanca.OfertaFinal)
                     {
-                        var respuesta = RespuestaModificarPedido(pedidoDetalle.Usuario);
+                        var respuesta = pedidoDetalle.IsPedidoPendiente ? null : RespuestaModificarPedido(pedidoDetalle.Usuario);
                         if (respuesta != null)
                         {
                             if (pedidoDetalle.ReservaProl != null)
@@ -1495,7 +1495,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     List<BEEstrategia> LstEstrategia = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(usuario.PaisID, usuario.CodigoPrograma, usuario.CampaniaID, usuario.Nivel);
                     LstEstrategia = LstEstrategia == null ? new List<BEEstrategia>() : LstEstrategia;
 
-                    if (LstEstrategia.Count > 0 && pedido.olstBEPedidoWebDetalle !=null)
+                    if (LstEstrategia.Count > 0 && pedido.olstBEPedidoWebDetalle != null)
                         pedido.olstBEPedidoWebDetalle.ForEach(p => p.EsPremioElectivo = LstEstrategia.Any(c => c.CUV2 == p.CUV));
                 }
 
