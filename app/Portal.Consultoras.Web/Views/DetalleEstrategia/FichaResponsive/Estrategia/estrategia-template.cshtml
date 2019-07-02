@@ -58,11 +58,12 @@
         <div class="precio_valorizado">
             {{#iff CodigoEstrategia '==' '036'}}
             Precio normal : <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span>
-            {{/iff}}
+            {{else}}
             {{#iff CodigoEstrategia '==' '035'}}
             Precio : <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span>
             {{else}}
             Para tu cliente : <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span>
+            {{/iff}}
             {{/iff}}
         </div>
         {{/iff}}
