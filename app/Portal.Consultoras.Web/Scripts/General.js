@@ -12,7 +12,10 @@ jQuery(document).ready(function () {
     CreateLoading();
 
     if (typeof habilitarChatBot !== 'undefined' && habilitarChatBot === 'True') {
-        $('.btn_chat_messenger_mobile').show();
+        if (window.matchMedia("(max-width:991px)").matches) {
+            $('.btn_chat_messenger').draggable();
+        }
+        $('.btn_chat_messenger').show();
     }
 
     if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {
@@ -1012,6 +1015,23 @@ function isMobile() {
     var isUrlMobile = $.trim(location.href.replace("#", "/") + "/").toLowerCase().indexOf("/mobile/") > 0 ||
         $.trim(location.href).toLowerCase().indexOf("/g/") > 0;
     return isUrlMobile;
+}
+
+function isMobileBrowser() {
+    if (sessionStorage.desktop)
+        return false;
+    else if (localStorage.mobile)
+        return true;
+    var mobile = [
+        'iphone', 'ipad', 'android', 'blackberry', 'nokia', 'opera mini', 'windows mobile', 'windows phone',
+        'iemobile'
+    ];
+    for (var i = 0; i < mobile.length; i++) {
+        if (navigator.userAgent.toLowerCase().indexOf(mobile[i].toLowerCase()) > 0)
+            return true;
+    }
+
+    return false;
 }
 
 var isMobileNative = {
@@ -2362,7 +2382,18 @@ function AbrirMensajeImagen(mensaje) {
 }
 
 function AbrirChatBot() {
+    var esDesktop = !isMobileBrowser();
+    if (esDesktop && typeof FB !== 'undefined') {
+        FB.CustomerChat.showDialog();
+        
+        return;
+    }
+
     if (typeof ChatBotUrlRef === 'undefined') return;
 
-    window.location.href = ChatBotUrlRef;
+    if (esDesktop) {
+        window.open(ChatBotUrlRef);
+    } else {
+        window.location.href = ChatBotUrlRef;
+    }
 }

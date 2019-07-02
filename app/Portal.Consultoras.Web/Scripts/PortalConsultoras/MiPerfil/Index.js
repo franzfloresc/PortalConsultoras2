@@ -208,21 +208,7 @@ $(document).ready(function () {
                 }
             },
             isMobile: function () {
-                if (sessionStorage.desktop)
-                    return false;
-                else if (localStorage.mobile)
-                    return true;
-                var mobile = [
-                    'iphone', 'ipad', 'android', 'blackberry', 'nokia', 'opera mini', 'windows mobile', 'windows phone',
-                    'iemobile'
-                ];
-                for (var i = 0; i < mobile.length; i++) {
-                    if (navigator.userAgent.toLowerCase().indexOf(mobile[i].toLowerCase()) > 0)
-                        return true;
-                }
-
-
-                return false;
+                return isMobileBrowser();
             },
             CloseLoading: function () {
                 if (me.Funciones.isMobile()) {
