@@ -4348,6 +4348,7 @@
     <Content Include="Scripts\PortalConsultoras\PagoEnLinea\PasarelaPago.js" />
     <Content Include="Scripts\PortalConsultoras\ArmaTuPack\ArmaTuPack.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\PopupRecepcionPedido.js" />
+    <Content Include="Scripts\PortalConsultoras\Pedido\ProductoSugeridoZoom.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\ActualizarCorreoPedido.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\SuscripcionSE.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\PedidoProvider.js" />

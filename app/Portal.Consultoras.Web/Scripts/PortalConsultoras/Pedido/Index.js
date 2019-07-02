@@ -1371,7 +1371,11 @@ function ObtenerProductosSugeridos(CUV) {
             $("#divCarruselSugerido").prepend($(".js-slick-prev-h"));
             $("#divCarruselSugerido").prepend($(".js-slick-next-h"));
             TagManagerCarruselSugeridosInicio(data);
-
+            // HD-4374 - Ver zoom producto en los productos sugeridos
+            setTimeout(function () {
+                productoSugeridoZoom.init('#ProductoSugeridoCarruselWrapper');
+            }, 1000);
+            // FIN - HD-4374 - Ver zoom producto en los productos sugeridos
         },
         error: function (data, error) {
             CerrarSplash();

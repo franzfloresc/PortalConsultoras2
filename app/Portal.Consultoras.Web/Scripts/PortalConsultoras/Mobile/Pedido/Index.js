@@ -651,6 +651,17 @@ function ObtenerProductosSugeridos(CUV) {
         }
     });
 }
+
+// HD-4374 - Popup para ver imagen ampliada de imagen de producto sugerido
+
+function MostrarPopupImagenProductoSugerido(imagen) {
+    var rutaImagenClickeada = $(imagen).find('img').attr('src');
+    $('#PopupImagenAmpliadaSugeridos').find('.imagen_producto_sugerido_ampliada_wrapper img').attr('src', rutaImagenClickeada);
+    $('#PopupImagenAmpliadaSugeridos').fadeIn(100);
+}
+
+// FIN - HD-4374 - Popup para ver imagen ampliada de imagen de producto sugerido
+
 function CancelarProductosSugeridos() {
     RegistrarDemandaTotalReemplazoSugerido(null, 0, 1, false);
     $("#txtCodigoProducto").val('');
