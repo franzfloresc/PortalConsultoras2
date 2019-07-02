@@ -539,35 +539,6 @@ ul.breadcumbs li a {
         margin-bottom: 54px;
     }
 
-    /*UpSelling*/
-    .carousel_ficha .slick-arrow {
-        display:none !important;
-    }
-
-    .img_producto img{
-        width: 100%;
-        height: auto;
-        margin-bottom: 0px;
-    }
-    .precio_normal{
-        display: none;
-    }
-
-    .caja_vertical {
-        /*max-width: 195px;*/
-        width: 250px !important;
-    }
-
-    .caja_horizontal {
-        /*max-width: 410px;*/
-        width: 250px !important;
-    }
-
-    .titulo_producto {
-        font-size: 14px;
-    }
-
-    /*Fin UpSelling*/
     .reloj_mobile {
         display: block !important;
     }
@@ -577,7 +548,6 @@ ul.breadcumbs li a {
     }
 
     .contenedor_detalle {
-        /*background: url('/Content/Images/etiqueta_nuevo.svg');*/
         background-position: top right;
         background-repeat: no-repeat;
         background-size: 60px;
