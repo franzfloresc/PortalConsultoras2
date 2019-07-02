@@ -615,7 +615,7 @@ ul.breadcumbs li a {
 
     .ficha_detalle {
         padding: 30px 15px 0px 15px !important;
-        background: none;
+        background-image: none;
     }
 
     .detalle_producto_detalle {
