@@ -18,7 +18,6 @@ namespace Portal.Consultoras.Web.Models
         public string RegistrosTotal { get; set; }
         public string Pagina { get; set; }
         public string PaginaDe { get; set; }
-        public string TipoPaginador { get; set; }        
 
         public int PedidoId { get; set; }
         public int PedidoDetalleId { get; set; }

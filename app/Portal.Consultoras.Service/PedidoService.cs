@@ -2478,5 +2478,10 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.GetCuvSuscripcionSE(bEPedidoWeb);
         }
+
+        public bool InsertKitSE(BEUsuario usuario)
+        {
+            return _pedidoBusinessLogic.InsertKitSE(usuario);
+        }
     }
 }
