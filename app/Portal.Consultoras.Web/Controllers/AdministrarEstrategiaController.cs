@@ -754,7 +754,7 @@ namespace Portal.Consultoras.Web.Controllers
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.LosMasVendidos ||
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada ||
                      model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.ShowRoom ||
-                     model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.LasMasGanadoras))
+                     model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.MasGanadoras))
                 {
                     error.Append("| region codigo_estrategia y variedad");
                     respuestaServiceCdr = EstrategiaProductoObtenerServicio(entidad);

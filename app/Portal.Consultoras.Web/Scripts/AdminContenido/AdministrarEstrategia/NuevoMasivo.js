@@ -392,7 +392,7 @@
             _codigoTipoEstrategia.ShowRoom,
             _codigoTipoEstrategia.HerramientasVenta,
             _codigoTipoEstrategia.ArmaTuPack,
-            _codigoTipoEstrategia.LasMasGanadoras)) {
+            _codigoTipoEstrategia.MasGanadoras)) {
 
             _toastHelper.error("Debe seleccionar el tipo de Estrategia que permita esta funcionalidad.");
             return false;
