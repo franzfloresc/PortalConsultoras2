@@ -2,7 +2,6 @@
 
 * {
     box-sizing: border-box;
-    /*font-family:'Lato';*/
     font-family: 'Lato', sans-serif !important;
     font-size: 14px;
     font-weight: 400;
@@ -42,6 +41,26 @@ button:focus{
 }
 
 /* FIN - ESTILOS GENERALES */
+
+/* COLORES MARCA PAÍS */
+
+.background__color__multimarca {
+    background-color: #B9007E;
+}
+
+.color__multimarca {
+    color: #B9007E;
+}
+
+.color__gray__multimarca {
+    color: #808080;
+}
+
+.background__color__gray__multimarca {
+    background-color: #808080;
+}
+
+/* FIN - COLORES MARCA PAÍS */
 
 /* COMPONENTES UI */
 
@@ -308,8 +327,8 @@ input[type="checkbox"].switch__control,
     }
 
     .btn__sb--disabled {
-        border: 1px solid #D1D1D4;
-        background-color: #D1D1D4;
+        border: 1px solid #D1D1D4!important;
+        background-color: #D1D1D4!important;
         pointer-events: none;
         cursor: not-allowed;
         color: #909094;
@@ -362,6 +381,10 @@ input[type="checkbox"].switch__control,
             height: auto;
         }
 
+    .notificacion__estado--error span{
+        color:#e81c36;
+    }
+
 /* FIN - NOTIFICACIONES */
 
 /* TAGS */
@@ -403,6 +426,14 @@ input[type="checkbox"].switch__control,
 
 .mb-30{
     margin-bottom:30px;
+}
+
+.mb-40{
+    margin-bottom:40px;
+}
+
+.mb-100{
+    margin-bottom:100px;
 }
 
 .pl-0{
@@ -488,6 +519,10 @@ input[type="checkbox"].switch__control,
 
 .full__height{
     height:100%;
+}
+
+.mt-40 {
+    margin-top: 40px;
 }
 
 .z__index__modal__nivel__alto {

@@ -432,44 +432,37 @@ function actualizarDatos() {
     /***  Seccion Mis Datos ***/
     if (txtEMailMD == "" && hdn_PaisID != 3) {
         $('#btnGuardar')[0].disabled = false;
-        alert("Debe ingresar EMail.\n");
+        AbrirMensaje("Debe ingresar EMail.\n");
         return false;
     }
 
     if (!validateEmail(txtEMailMD) && hdn_PaisID != 3) {
         $('#btnGuardar')[0].disabled = false;
-        alert("El formato del correo electrónico ingresado no es correcto.\n");
+        AbrirMensaje("El formato del correo electrónico ingresado no es correcto.\n");
         return false;
     }
 
     if ((txtCelularMD == null || txtCelularMD == "")) {
         $('#btnGuardar')[0].disabled = false;
-        alert('Debe ingresar un número de celular. \n');
+        AbrirMensaje('Debe ingresar un número de celular. \n');
         return false;
     }
-    //INI HD-3897
-    //if ((txtTelefonoMD == null || txtTelefonoMD == "") && hdn_PaisID != 3 ) {
-    //    $('#btnGuardar')[0].disabled = false;
-    //    alert('Debe ingresar un número de teléfono. \n');
-    //    return false;
-    //}
-    //FIN HD-3897
 
 
     if (txtCelularMD != "") {
         if (!isInt(txtCelularMD)) {
             $('#btnGuardar')[0].disabled = false;
-            alert('El formato del celular no es correcto');
+            AbrirMensaje('El formato del celular no es correcto');
             return false;
         }
         if (isZero(txtCelularMD)) {
             $('#btnGuardar')[0].disabled = false;
-            alert('El formato del celular no es correcto');
+            AbrirMensaje('El formato del celular no es correcto');
             return false;
         }
         if (txtCelularMD.length != hdn_CaracterMaximo) {
             $('#btnGuardar')[0].disabled = false;
-            alert('El formato del celular no es correcto');
+            AbrirMensaje('El formato del celular no es correcto');
             return false;
         }
     }
@@ -479,7 +472,7 @@ function actualizarDatos() {
             if (txtCelularMD != null) {
                 if (hdn_iniciaNumero != txtCelularMD.charAt(0)) {
                     $('#btnGuardar')[0].disabled = false;
-                    alert('Su número de celular debe empezar con ' + hdn_iniciaNumero + '.');
+                    AbrirMensaje('Su número de celular debe empezar con ' + hdn_iniciaNumero + '.');
                     return false;
                 }
             }
@@ -490,7 +483,7 @@ function actualizarDatos() {
         if (!ValidarTelefono(txtCelularMD)) {
             $('#btnGuardar')[0].disabled = false;
             $('#btnGuardar')[0].disabled = false;
-            alert('El celular que está ingresando ya se encuenta registrado.');
+            AbrirMensaje('El celular que está ingresando ya se encuenta registrado.');
             return false;
         }
     }
@@ -498,23 +491,23 @@ function actualizarDatos() {
     if (txtTelefonoMD != "" && hdn_PaisID != 3) {
         if (!isInt(txtTelefonoMD)) {
             $('#btnGuardar')[0].disabled = false;
-            alert('El formato de teléfono no es correcto');
+            AbrirMensaje('El formato de teléfono no es correcto');
             return false;
         }
         if (isZero(txtTelefonoMD)) {
             $('#btnGuardar')[0].disabled = false;
-            alert('El formato del teléfono no es correcto');
+            AbrirMensaje('El formato del teléfono no es correcto');
             return false;
         }
 
         if (txtTelefonoMD.length < hdn_CaracterMinimo) {
             $('#btnGuardar')[0].disabled = false;
-            alert('El número de teléfono debe tener como mínimo ' + hdn_CaracterMinimo + ' números.');
+            AbrirMensaje('El número de teléfono debe tener como mínimo ' + hdn_CaracterMinimo + ' números.');
             return false;
         }
         if (txtTelefonoMD.length > hdn_CaracterMaximo) {
             $('#btnGuardar')[0].disabled = false;
-            alert('El número de teléfono debe tener como máximo ' + hdn_CaracterMaximo + ' números.');
+            AbrirMensaje('El número de teléfono debe tener como máximo ' + hdn_CaracterMaximo + ' números.');
             return false;
         }
     }
@@ -522,23 +515,23 @@ function actualizarDatos() {
     if (txtTelefonoTrabajoMD != "") {
         if (!isInt(txtTelefonoTrabajoMD)) {
             $('#btnGuardar')[0].disabled = false;
-            alert('El formato de número adicional no es correcto');
+            AbrirMensaje('El formato de número adicional no es correcto');
             return false;
         }
         if (isZero(txtTelefonoTrabajoMD)) {
             $('#btnGuardar')[0].disabled = false;
-            alert('El formato de número adicional no es correcto');
+            AbrirMensaje('El formato de número adicional no es correcto');
             return false;
         }
 
         if (txtTelefonoTrabajoMD.length < hdn_CaracterMinimo) {
             $('#btnGuardar')[0].disabled = false;
-            alert('El número adicional debe tener como mínimo ' + hdn_CaracterMinimo + ' números.');
+            AbrirMensaje('El número adicional debe tener como mínimo ' + hdn_CaracterMinimo + ' números.');
             return false;
         }
         if (txtTelefonoTrabajoMD.length > hdn_CaracterMaximo) {
             $('#btnGuardar')[0].disabled = false;
-            alert('El número adicional debe tener como máximo ' + hdn_CaracterMaximo + ' números.');
+            AbrirMensaje('El número adicional debe tener como máximo ' + hdn_CaracterMaximo + ' números.');
             return false;
         }
     }
@@ -558,26 +551,24 @@ function actualizarDatos() {
 
         if (Ubigeo1 == "") {
             $('#btnGuardar')[0].disabled = false;
-            var item = $('label[for="Ubigeo1"]').text();
-            alert("Debe seleccionar " + item + ".");
+            AbrirMensaje("Debe seleccionar " + $('label[for="Ubigeo1"]').text() + ".");
             return false;
         }
         if (Ubigeo2 == "") {
             $('#btnGuardar')[0].disabled = false;
-            var item = $('label[for="Ubigeo2"]').text();
-            alert("Debe seleccionar " + item + ".");
+            AbrirMensaje("Debe seleccionar " + $('label[for="Ubigeo2"]').text() + ".");
             return false;
         }
 
         if (Zona == "" && hdn_PaisID != 3) {
             $('#btnGuardar')[0].disabled = false;
-            alert("Debe ingresar una Zona / N° de Deprtamento / Calle.");
+            AbrirMensaje("Debe ingresar una Zona / N° de Deprtamento / Calle.");
             return false;
         }
 
         if (Latitud == 0 || Longitud == 0) {
             $('#btnGuardar')[0].disabled = false;
-            alert("Debe ingresar una dirección valida.");
+            AbrirMensaje("Debe ingresar una dirección valida.");
             return false;
         }
     }
@@ -598,7 +589,7 @@ function actualizarDatos() {
 
     if (!$('#chkAceptoContratoMD').is(':checked')) {
         $('#btnGuardar')[0].disabled = false;
-        alert('Debe aceptar los términos y condiciones para poder actualizar sus datos.');
+        AbrirMensaje('Debe aceptar los términos y condiciones para poder actualizar sus datos.');
         return false;
     }
 
@@ -642,7 +633,7 @@ function actualizarDatos() {
         success: function (data) {
             if (checkTimeout(data)) {
                 CerrarLoad();
-                alert(data.message);
+                AbrirMensaje(data.message, "MENSAJE", null, 2);
                 $('#btnGuardar')[0].disabled = false;
                 window.location = $('#volverBienvenida').attr('href');
             }
@@ -650,7 +641,7 @@ function actualizarDatos() {
         error: function (data, error) {
             if (checkTimeout(data)) {
                 CerrarLoad();
-                alert("ERROR");
+                AbrirMensaje("ERROR");
             }
         }
     });
@@ -691,7 +682,7 @@ function ValidarTelefono(celular) {
 function limitarMinimo(contenido, caracteres, a) {
     if (contenido.length < caracteres && contenido.trim() != "") {
         var texto = a == 1 ? "teléfono" : a == 2 ? "celular" : "otro teléfono";
-        alert('El número de ' + texto + ' debe tener como mínimo ' + caracteres + ' números.');
+        AbrirMensaje('El número de ' + texto + ' debe tener como mínimo ' + caracteres + ' números.');
         return false;
     }
     return true;
@@ -727,7 +718,7 @@ function CambiarContrasenia() {
     }
 
     if (vMessage != "") {
-        alert(vMessage);
+        AbrirMensaje(vMessage);
         return false;
     } else {
         AbrirLoad();
@@ -751,12 +742,12 @@ function CambiarContrasenia() {
                             $("#txtContraseniaAnterior").val('');
                             $("#txtNuevaContrasenia01").val('');
                             $("#txtNuevaContrasenia02").val('');
-                            alert("La contraseña anterior ingresada es inválida");
+                            AbrirMensaje("La contraseña anterior ingresada es inválida");
                         } else if (data.message == "1") {
                             $("#txtContraseniaAnterior").val('');
                             $("#txtNuevaContrasenia01").val('');
                             $("#txtNuevaContrasenia02").val('');
-                            alert("Hubo un error al intentar cambiar la contraseña, por favor intente nuevamente.");
+                            AbrirMensaje("Hubo un error al intentar cambiar la contraseña, por favor intente nuevamente.");
                         } else if (data.message == "2") {
                             $("#txtContraseniaAnterior").val('');
                             $("#txtNuevaContrasenia01").val('');
@@ -773,7 +764,7 @@ function CambiarContrasenia() {
             error: function (data, error) {
                 if (checkTimeout(data)) {
                     CerrarLoad();
-                    alert("Error en el Cambio de Contraseña");
+                    AbrirMensaje("Error en el Cambio de Contraseña");
                 }
             }
         });
@@ -794,14 +785,14 @@ function eliminarFotoConsultora() {
         success: function (data) {
             if (checkTimeout(data)) {
                 CerrarLoad();
-                alert(data.message);
+                AbrirMensaje(data.message, "MENSAJE", null, 2);
                 window.location = $('#volverBienvenida').attr('href');
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
                 CerrarLoad();
-                alert("ERROR");
+                AbrirMensaje("ERROR");
             }
         }
     });
@@ -824,17 +815,17 @@ function SubirImagen(url, image) {
         success: function (data) {
             if (data.success) {
                 CerrarLoad();
-                alert('Su foto de perfil se cambió correctamente.');
+                AbrirMensaje('Su foto de perfil se cambió correctamente.', 'MENSAJE', null, 2);
                 window.location = url;
             } else {
-                alert('Hubo un error al cargar el archivo, intente nuevamente.');
+                AbrirMensaje('Hubo un error al cargar el archivo, intente nuevamente.', 'MENSAJE', null, 2);
                 CerrarLoad();
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
                 CerrarLoad();
-                alert("ERROR");
+                AbrirMensaje("ERROR");
             }
         }
     });
@@ -868,7 +859,7 @@ function ConsultarActualizaEmail() {
                 }
             },
             error: function (data, error) {
-                alert(error);
+                AbrirMensaje(error);
             }
         });
     }
@@ -1134,11 +1125,11 @@ var GoogleMap = function () {
                             }
 
                         } else {
-                            window.alert('No results found');
+                            AbrirMensaje('No results found');
                             return false;
                         }
                     } else {
-                        window.alert('Geocoder failed due to: ' + status);
+                        AbrirMensaje('Geocoder failed due to: ' + status);
                         return false;
                     }
                 });

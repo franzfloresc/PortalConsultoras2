@@ -29,7 +29,6 @@ function mostrarLluvia() {
 
     closeImagenRain = 0;
     if (listaIconoLluvia != null) {
-        var par = 0;
         $.each(listaIconoLluvia, function (index, value) {
             newObject(value, heightIcon, widthIcon);
         });
@@ -47,7 +46,7 @@ function mostrarLluvia() {
     }
 
     winSize();
-    for (i = 0; i < numObjects; i++) {
+    for (var i = 0; i < numObjects; i++) {
         fallObject(i, parseInt(Math.random() * fallingObjects.length), 1);
     }
 
@@ -93,7 +92,7 @@ function fallObject(num, vari, nu) {
 }
 
 function fall() {
-    for (i = 0; i < numObjects; i++) {
+    for (var i = 0; i < numObjects; i++) {
         var fallingObject = document.getElementById('fO' + i);
         if (!fallingObject) continue;
 
