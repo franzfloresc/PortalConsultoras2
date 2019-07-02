@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE.MercadoPago" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE.MercadoPago" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfCancelarKitBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CancelarKitBE" nillable="true" type="tns:CancelarKitBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCancelarKitBE" nillable="true" type="tns:ArrayOfCancelarKitBE" />
+  <xs:complexType name="CancelarKitBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="NumeroDocumento" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PagoDeKitLogId" type="xs:long" />
+      <xs:element minOccurs="0" name="PagoId" type="xs:long" />
+      <xs:element minOccurs="0" name="SolicitudPostulanteId" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CancelarKitBE" nillable="true" type="tns:CancelarKitBE" />
+</xs:schema>

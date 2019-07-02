@@ -333,6 +333,19 @@ namespace Portal.Consultoras.BizLogic
             }
             return zonas;
         }
+        public IList<BEZona> GetZonasByRegion(int paisID , int RegionID)
+        {
+
+            IList<BEZona> zonas = null;
+           
+                zonas = new List<BEZona>();
+                var daZonificacion = new DAZonificacion(paisID);
+                using (IDataReader reader = daZonificacion.GetZonaByRegion(RegionID))
+                    while (reader.Read())
+                        zonas.Add(new BEZona(reader));
+            
+            return zonas;
+        }
 
         #region Carga de ContenidoAppDetaAct HD-4144
         public IList<BEContenidoAppDetaAct> GetContenidoAppDetaAct(int paisId,int parent)
@@ -347,5 +360,18 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
 
+
+        public IList<BERegion> GetRegionByPaisZonaActivas(int paisID)
+        {
+
+            List<BERegion> regiones = new List<BERegion>();
+                var daZonificacion = new DAZonificacion(paisID);
+            using (IDataReader reader = daZonificacion.GetRegionByPaisZonaActivas())
+                while (reader.Read())
+                    regiones.Add(new BERegion(reader));
+         
+
+            return regiones;
+        }
     }
 }

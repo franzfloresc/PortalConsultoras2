@@ -71,7 +71,7 @@ var ProductoSugerido = function (config) {
                 $('#' + _config.matrizIdElementId).val(response.idMatrizComercial);
                 if (response.isNewRecord) {
                     $("#" + _config.fileUploadElementId).empty();
-                    var params = {
+                    var paramUpload = {
                         elementId: _config.fileUploadElementId,
                         idMatrizComercial: response.idMatrizComercial,
                         idImagenMatriz: 0,
@@ -79,7 +79,7 @@ var ProductoSugerido = function (config) {
                         codigoSAP: response.codigoSap,
                         onComplete: _uploadComplete
                     };
-                    _matrizFileUploader.crearFileUpload(params);
+                    _matrizFileUploader.crearFileUpload(paramUpload);
                 }
                 var params = _obtenerParametrosGetImagenes();
                 $("#matriz-imagenes-paginacion").empty();

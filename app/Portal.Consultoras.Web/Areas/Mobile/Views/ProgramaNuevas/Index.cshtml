@@ -18,7 +18,11 @@
 }
 
 @section styles{
-	@Styles.Render("~/Bundle/Css/Mobile/RevistaDigital-Landing")
+    @*INI HD-3908*@
+    @System.Web.Optimization.Styles.Render("~/Bundle/Css/Mobile/Ficha")
+    @*FIN HD-3908*@
+
+	@System.Web.Optimization.Styles.Render("~/Bundle/Css/Mobile/RevistaDigital-Landing")
 	<style>
 		.slct-box-filtro-mobile {
 			height: 40px;
@@ -112,8 +116,8 @@
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         var tipoOrigenPantalla = 1;
         var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductosNuevas", "Estrategia", new { area = ""})';
-        var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
-        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';
+        @*var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';*@
+        @*var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "Estrategia", new { area = "" })';*@
         var origenPedidoWebEstrategia = '@origenPedidoCarrusel';
         var tipoOrigenEstrategia = 27;
         var CantidadFilas = @Model.CantidadFilas;

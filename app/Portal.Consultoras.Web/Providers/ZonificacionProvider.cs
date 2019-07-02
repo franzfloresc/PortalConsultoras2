@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -97,6 +98,16 @@ namespace Portal.Consultoras.Web.Providers
             }
             return Mapper.Map<IList<BERegion>, IEnumerable<RegionModel>>(lst.OrderBy(zona => zona.Codigo).ToList());
         }
+        public async Task<IEnumerable<RegionModel>> GetRegionesAsync(int paisId)
+        {
+            IList<BERegion> lst;
+            using (var sv = new ZonificacionServiceClient())
+            {
+
+                lst = await sv.GetRegionByPaisZonaActivasAsync(paisId);
+            }
+            return Mapper.Map<IList<BERegion>, IEnumerable<RegionModel>>(lst.OrderBy(zona => zona.Codigo).ToList());
+        }
 
         public BEZona[] GetZonasEntidad(int paisId)
         {
@@ -127,6 +138,44 @@ namespace Portal.Consultoras.Web.Providers
             }
 
             return new BEZona();
+        }
+        public async Task<IEnumerable<ZonaModel>> GetZonasByRegionAsync(int paisId , int regionID)
+        {
+
+            IList<BEZona> lst = null;
+            using (var srv = new ZonificacionServiceClient())
+            {
+                lst =  await srv.GetZonasByRegionAsync(paisId ,  regionID);
+            }
+          
+            return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
+        }
+        public async Task<IEnumerable<ZonaModel>> GetZonasAsync(int paisId)
+        {
+            IList<BEZona> lst;
+            using (var srv = new ZonificacionServiceClient())
+            {
+                lst = await srv.SelectAllZonasAsync(paisId);
+            }
+            
+            return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst.ToList());
+        }
+        public async Task<IEnumerable<CampaniaModel>> GetCampaniasAsync(int paisId, bool addSeleccionar = false)
+        {
+
+
+            IList<BECampania> lst;
+            using (var zs = new ZonificacionServiceClient())
+            {
+                lst = await zs.SelectCampaniasAsync(paisId);
+            }
+
+            if (addSeleccionar)
+            {
+                lst.Insert(0, new BECampania() { CampaniaID = 0, Codigo = "-- Seleccionar --" });
+            }
+            
+            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
     }
 }

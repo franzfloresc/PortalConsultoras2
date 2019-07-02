@@ -120,10 +120,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string UploadFoto(string foto, string preFileName, string carpetaPais)
         {
+            string extension = ".png";
+
             if (!string.IsNullOrEmpty(foto))
             {
+                extension = foto.EndsWith(".gif", StringComparison.OrdinalIgnoreCase) ? ".gif" : extension;
                 string time = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Minute.ToString() + DateTime.Now.Millisecond.ToString();
-                var newfilename = preFileName + time + "_" + FileManager.RandomString() + ".png";
+                var newfilename = preFileName + time + "_" + FileManager.RandomString() + extension;
                 ConfigS3.SetFileS3(Path.Combine(Globals.RutaTemporales, foto), carpetaPais, newfilename);
                 return newfilename;
             }
@@ -481,7 +484,7 @@ namespace Portal.Consultoras.Web.Controllers
                 iso = Util.Trim(Util.GetPaisISO(paisID));
                 if (iso != "")
                 {
-                    habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(paisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoMatriz);
+                    habilitarNemotecnico = _tablaLogicaProvider.GetTablaLogicaDatoCodigo(paisID, ConsTablaLogica.Plan20.TablaLogicaId, ConsTablaLogica.Plan20.BusquedaNemotecnicoMatriz);
                 }
             }
             return Json(new

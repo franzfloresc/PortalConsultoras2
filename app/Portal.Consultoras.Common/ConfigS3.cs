@@ -215,6 +215,14 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        public static string GetUrlFileHistDetalle(string isoPais, string fileName, string cadena)
+        {
+            string[] arrCadena;
+            arrCadena = cadena.Split(',');
+            var carpetaPais = string.Format("{0}/{1}/{2}", arrCadena[0], isoPais, arrCadena[1]);
+
+            return GetUrlFileS3(carpetaPais, fileName);
+        }
 
         public static string SetFileS3URL(string path, string carpetaPais, string fileName, bool actualizar = false)
         {

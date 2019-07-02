@@ -21,13 +21,18 @@ namespace Portal.Consultoras.Web.Controllers
                 string iso = userData.CodigoISO;
                 bool isDigital = IndicadorConsultoraDigital();
 
-                if (isDigital)
+                if (paisId == Constantes.PaisID.Peru && isDigital)
                 {
+                    string NumeroDocumento = userData.DocumentoIdentidad;
+                    if (iso == Constantes.CodigosISOPais.Peru)
+                    {
+                        NumeroDocumento = userData.DocumentoIdentidad.Substring(NumeroDocumento.Length - 8);
+                    }
                     BonificacionesModel model = new BonificacionesModel
                     {
                         CodigoIso = userData.CodigoISO,
                         Codigoconsultora = userData.CodigoConsultora,
-                        NumeroDocumento = userData.DocumentoIdentidad
+                        NumeroDocumento = NumeroDocumento
                     };
 
                     string secretKey = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.JsonWebTokenSecretKey);
@@ -35,9 +40,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var token = JWT.JsonWebToken.Encode(model, secretKey, JWT.JwtHashAlgorithm.HS256);
 
                     ViewBag.Token = token;
-
-                    //ViewBag.Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJDb2RpZ29Jc28iOiJQRSIsIkNvZGlnb2NvbnN1bHRvcmEiOiIwNDQ2MzI5MjYiLCJOdW1lcm9Eb2N1bWVudG8iOiI3NTUxODA0OCIsImlhdCI6MTU1MjU5OTM5OH0.dtfzBzaqJUXqFWzXpBM-_6UCy5hrvLtfkFF4b-aQFnQ";
-
+                    
                     return View("IndexExterno");
                 }
                 else

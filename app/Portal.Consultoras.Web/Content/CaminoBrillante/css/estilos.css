@@ -851,6 +851,10 @@ div .layout__view__breadcrumbs__wrapper, div .layout__view__title__wrapper {
     display: none !important;
 }
 
+#m_montoMinimo span em {
+    font-style: normal;
+}
+
 @media (min-width:576px) {
     .modal-dialog {
         max-width: 500px;
@@ -1379,6 +1383,20 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
     .text-down {
         line-height: 15px;
     }
+
+    #ddlfiltros {
+        width: 48%;
+        margin-left: 4%;
+        box-sizing: border-box;
+        display: block;
+    }
+
+    #ddlOrdenar {
+        width: 48%;
+        box-sizing: border-box;
+        display: block;
+        margin-left: 0;
+    }
 }
 
 @media screen and (max-width:600px) {
@@ -1886,7 +1904,12 @@ div .boton__agregalo--fichaProducto, div.btn__elegir__opcion--fichaProducto span
 .subbox {
     display: block !important;
     position: fixed;
-    top: 60px
+    top: 60px;
+
+    width: 100%;
+    background-color: #fff;
+    z-index: 5;
+    box-shadow: 1px 2px 12px 0 rgba(0,0,0,.1);
 }
 
     .subbox .op-menu-horizontal {
@@ -1935,9 +1958,15 @@ div .cartbtn {
     display: block;
     margin-right: auto;
     text-align: left;
-    margin-bottom: 6px
+    margin-bottom: 6px;
+    float: left;
+    margin-top: 11px;
 }
-
+.clearboth:after {
+    content:"";
+    display:block;
+    clear:both !important;
+}
 @media (max-width:950px) {
     .op-menu-horizontal .subnavegador li {
         padding: 0 15px
@@ -2060,9 +2089,50 @@ ul li .menu__link--pedido {
     pointer-events: none;
     cursor: none;
     text-decoration: none;
-    opacity: .4
+    opacity: .4;
 }
 
 div.ui-dialog.ui-widget-content {
     z-index: 9999999900 !important
+}
+.marca_ept {
+    height: 40px;
+    color: #000;
+    font-family: 'Lato';
+    padding-left: 7px;
+    font-size: 11px;
+    float: right;
+    letter-spacing: .3px;
+    margin-left: 10px;
+    border-radius: 0px;
+    border-color: rgb(169, 169, 169);
+}
+.box-enterate {
+    display: block;
+    margin: 0 auto;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #d6d6d6;
+    max-width: 210px;
+}
+.box-enterate a {
+    text-align: center;
+    color: white;
+    position: relative;
+    display: block;
+    color: #fff !important;
+    border-radius: 5px;
+    border: 0;
+    padding: 10px 20px;
+    max-width: 205px;
+    text-align: center;
+    margin: 25px auto;
+    text-decoration: none;
+    background: #000;
+}
+.content_responsive {
+    margin-top: 140px;
+}
+div.opOrdenar {
+    padding: 0 15px;
+    padding-bottom: 0;
 }

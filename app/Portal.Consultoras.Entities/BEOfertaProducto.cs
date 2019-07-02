@@ -133,6 +133,14 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         [ViewProperty]
         public string ImagenProductoMedium { get; set; }
+        
+        [DataMember]
+        [ViewProperty]
+        public string UnidadMedida { get; set; }
+
+        [DataMember]
+        [ViewProperty]
+        public string PUM { get; set; }
 
         public BEOfertaProducto(IDataRecord row)
         {
@@ -167,6 +175,8 @@ namespace Portal.Consultoras.Entities
             DescripcionMarca = row.ToString("DescripcionMarca");
             DescripcionCategoria = row.ToString("DescripcionCategoria");
             DescripcionEstrategia = row.ToString("DescripcionEstrategia");
+            UnidadMedida = row.ToString("UnidadMedida");
+            PUM = row.ToString("PUM");
         }
         public BEOfertaProducto()
         { }

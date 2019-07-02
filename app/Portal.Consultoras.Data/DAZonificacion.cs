@@ -227,7 +227,19 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetZonaByPaisParametroCarga");
             return Context.ExecuteReader(command);
         }
+        public IDataReader GetZonaByRegion(int RegionID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerZonasPorRegion");
+            Context.Database.AddInParameter(command, "@RegionID", DbType.Int32, RegionID);
+            return Context.ExecuteReader(command);
+        }
+        public IDataReader GetRegionByPaisZonaActivas()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetRegionByPaisZonaActivas");
+            return Context.ExecuteReader(command);
+        }
 
+        
         #region Carga de ContenidoAppDetaAct HD-4144
         public IDataReader GetContenidoAppDetaAct(int parent)
         {

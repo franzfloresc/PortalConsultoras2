@@ -2,6 +2,7 @@
 using Portal.Consultoras.Entities.CaminoBrillante;
 using Portal.Consultoras.Entities.Cupon;
 using Portal.Consultoras.Entities.Estrategia;
+using Portal.Consultoras.Entities.OrdenYFiltros;
 using Portal.Consultoras.Entities.PagoEnLinea;
 using Portal.Consultoras.Entities.Pedido;
 using Portal.Consultoras.Entities.ProgramaNuevas;
@@ -511,6 +512,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoDD GetPedidoDDByCampaniaConsultora(int paisID, int campaniaID, long consultoraID);
 
         [OperationContract]
+
         void InsPedidoDD(BEPedidoDD bePedidoDD);
 
         [OperationContract]
@@ -978,6 +980,9 @@ namespace Portal.Consultoras.ServiceContracts
         BEValidacionModificacionPedido ValidacionModificarPedido(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA);
 
         [OperationContract]
+        bool GetEsPedidoReservado(int paisId, int campaniId, long consultoraId);
+
+        [OperationContract]
         BEValidacionModificacionPedido ValidacionModificarPedidoSelectiva(int paisID, long consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA, bool validarGPR, bool validarReservado, bool validarHorario);
 
         [OperationContract]
@@ -1328,14 +1333,25 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEEscalaDescuento> ListarEscalaDescuentoZona(int paisID, int campaniaID, string region, string zona);
 
         #region Camino Brillante
-
         [OperationContract]
         List<BEKitCaminoBrillante> GetKitsCaminoBrillante(BEUsuario entidad);
 
         [OperationContract]
-        List<BEDesmostradoresCaminoBrillante> GetDemostradoresCaminoBrillante(BEUsuario entidad);
-        
+        BEDemostradoresPaginado GetDemostradoresCaminoBrillante(BEUsuario entidad, int cantRegistros, int regMostrados, string codOrdenar, string codFiltro);
+
+        [OperationContract]
+        BEOrdenFiltroConfiguracion GetFiltrosCaminoBrillante(int paisID, bool isApp);
+
         #endregion
 
+        [OperationContract]
+        void UpdDatoRecogerPor(BEPedidoWeb pedidowebdetalle);
+
+        [OperationContract]
+        List<BEProducto> GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb);
+
+
+        [OperationContract]
+        bool InsertKitSE(BEUsuario usuario);
     }
 }

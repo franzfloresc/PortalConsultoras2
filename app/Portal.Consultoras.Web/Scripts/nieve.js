@@ -11,9 +11,9 @@ var timeCloseRain = timeCloseRain || 30000;   //tiempo de visualización del efec
 var esShowRoom = esShowRoom || false;
 
 var numObjects = vnumObjects,
-	waft = 50,
+    waft = 50,
     fallSpeed = vfallSpeed,
-	wind = 0;
+    wind = 0;
 
 var heightIcon = esMobile ? 7 : 10;
 var widthIcon = esMobile ? 7 : 10;
@@ -29,7 +29,6 @@ function mostrarLluvia() {
 
     closeImagenRain = 0;
     if (listaIconoLluvia != null) {
-        var par = 0;
         $.each(listaIconoLluvia, function (index, value) {
             newObject(value, heightIcon, widthIcon);
         });
@@ -47,7 +46,7 @@ function mostrarLluvia() {
     }
 
     winSize();
-    for (i = 0; i < numObjects; i++) {
+    for (var i = 0; i < numObjects; i++) {
         fallObject(i, parseInt(Math.random() * fallingObjects.length), 1);
     }
 
@@ -93,7 +92,7 @@ function fallObject(num, vari, nu) {
 }
 
 function fall() {
-    for (i = 0; i < numObjects; i++) {
+    for (var i = 0; i < numObjects; i++) {
         var fallingObject = document.getElementById('fO' + i);
         if (!fallingObject) continue;
 

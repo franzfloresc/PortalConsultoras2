@@ -12,7 +12,7 @@ namespace Portal.Consultoras.Web.Models
             FiltersBySorting = new List<BETablaLogicaDatos>();
             FiltersByCategory = new List<BETablaLogicaDatos>();
             FiltersByBrand = new List<BETablaLogicaDatos>();
-            FiltersByPublished = new List<BETablaLogicaDatos>();
+            FiltersByPublished = new List<BETablaLogicaDatos>();            
         }
 
         public bool Success { get; set; }

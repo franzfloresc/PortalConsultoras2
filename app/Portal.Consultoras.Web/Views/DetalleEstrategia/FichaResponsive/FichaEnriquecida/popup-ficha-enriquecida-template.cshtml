@@ -1,0 +1,59 @@
+﻿<div id="contenedor_popup_ficha_enriquecida"></div>
+
+<script id="popup-ficha-enriquecida-responsive" type="text/x-handlebars-template">
+    <section id="modal_popup_ficha_enriquecida" class="popup_full">
+        <div class="contenedor_detalle">
+            <button class="button_cerrar button_volver" onclick="javascript:fichaEnriquecidaPresenter.hidePopupFichaEnriquecida()">
+                <img src="/Content/Images/mobile/Esika/right-arrow.svg" alt=""> Volver
+            </button>
+            <div class="row ficha_producto">
+                <div class="col-12 col-lg-7 descripcion_enriquecida">
+                    <div>
+                        {{#IsNullOrEmpty DescripcionMarca '!='}}
+                        <div class="nombre_marca">{{DescripcionMarca}}</div>
+                        {{/IsNullOrEmpty}}
+
+                        {{#IsNullOrEmpty NombreComercial '!='}}
+                        <div class="descripcion">{{NombreComercial}}</div>
+                        {{/IsNullOrEmpty}}
+
+                        {{#IsNullOrEmpty Cabecera.ContenidoNeto '!='}}
+                        <div class="descripcion_item">{{Cabecera.ContenidoNeto}}</div>
+                        {{/IsNullOrEmpty}}
+
+                        {{#IsNullOrEmpty Cabecera.Dimensiones '!='}}
+                        <div class="descripcion_item">{{Cabecera.Dimensiones}}</div>
+                        {{/IsNullOrEmpty}}
+
+                        {{#IsNullOrEmpty Cabecera.TallaMedidas '!='}}
+                        <div class="descripcion_item">{{Cabecera.TallaMedidas}}</div>
+                        {{/IsNullOrEmpty}}
+
+                        {{#iff PrecioCatalogo '>' 0}}
+                        <div class="descripcion_item" style="font-weight:bold">
+                            Precio para ti: <span style="font-weight:bold">{{SimboloMoneda}} {{DecimalToStringFormat PrecioCatalogo}}</span>
+                        </div>
+                        {{/iff}}
+                        {{#IsNullOrEmpty UnidadMedidaContenido '!='}}
+                        {{#iff PrecioContenido '>' 0}}
+                        <div class="descripcion_item item_pum">{{UnidadMedidaContenido}} a {{SimboloMoneda}} {{PrecioContenidoStr}}</div>
+                        {{/iff}}
+                        {{/IsNullOrEmpty}}
+                    </div>
+                </div>
+                <div class="col-12 col-lg-5">
+                    <div class="contenedor_imagen">
+                        <div>
+                            <img src={{ImgUrl ImagenBulk}}>
+                        </div>
+                        <p>* Foto Referencial</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="popup_tabs_ficha_enriquecida_contenedor" class="popup_tabs_ficha">
+                
+            </div>
+        </div>
+    </section>
+</script>

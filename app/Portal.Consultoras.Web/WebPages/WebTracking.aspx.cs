@@ -434,14 +434,12 @@ namespace Portal.Consultoras.Web.WebPages
                     var horaEstimadaEntregaHasta = string.Empty;
                     var desde = listaPedidoSeguimientoModel.FirstOrDefault(a => a.Etapa == Constantes.SegPedidoSituacion.HoraEstimadaEntregaDesde);
                     var hasta = listaPedidoSeguimientoModel.FirstOrDefault(a => a.Etapa == Constantes.SegPedidoSituacion.HoraEstimadaEntregaHasta);
-
-                    //INI HD-3606 
+                    
                     if (desde != null && hasta != null)
                     {
                         if (desde.Fecha.HasValue) horaEstimadaEntregaDesde = desde.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? string.Empty : desde.Fecha.Value.ToString("HH:mm tt");
                         if (hasta.Fecha.HasValue) horaEstimadaEntregaHasta = hasta.Fecha.Value.TimeOfDay.TotalHours.Equals(0) ? string.Empty : hasta.Fecha.Value.ToString("HH:mm tt");
                     }
-                    //FIN HD-3606 
 
                     //Obtener si la zona y region permite los valores configurados
 
@@ -500,7 +498,6 @@ namespace Portal.Consultoras.Web.WebPages
                                 item.ValorTurno = string.Empty;
                             }
                         }
-                        //HD-3606 EINCA
 
                         var flag = horaEstimadaEntregaDesde != string.Empty && horaEstimadaEntregaHasta != string.Empty;
 
@@ -546,7 +543,7 @@ namespace Portal.Consultoras.Web.WebPages
                     int.TryParse(ViewState["ZONAID"].ToString(), out zonaid);
                     int.TryParse(ViewState["REGIONID"].ToString(), out regionid);
 
-                    var resultado = sv.GetTablaLogicaDatos(paisid, Constantes.TablaLogica.SegPedidoRegionZona).FirstOrDefault();
+                    var resultado = sv.GetTablaLogicaDatos(paisid, ConsTablaLogica.SegPedidoRegionZona.TablaLogicaId).FirstOrDefault();
                     if (resultado == null) return true; // si no hay registros mostrar
                     if (resultado.Valor.IsNullOrEmptyTrim()) return false;
                     string[] arrZonaRegion = resultado.Valor.Split(';');

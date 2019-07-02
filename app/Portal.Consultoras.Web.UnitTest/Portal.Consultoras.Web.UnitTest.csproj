@@ -113,10 +113,12 @@
     <Compile Include="Controllers\TusClientesControllerUnitTests.cs" />
     <Compile Include="Extensions\DataHandler.cs" />
     <Compile Include="Extensions\RedirectToRouteResultExtensions.cs" />
+    <Compile Include="Infraestructure\Route\RedirectRoute.cs" />
     <Compile Include="Infraestructure\Validator\Phone\MatchCountryPhoneTests.cs" />
     <Compile Include="Controllers\RevistaDigitalControllerUnitTest.cs" />
     <Compile Include="Models\RevistaDigitalModelUnitTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ChatbotProviderTests.cs" />
     <Compile Include="Providers\ConfiguracionOfertasHomeProviderUnitTests.cs" />
     <Compile Include="Providers\ShowRoomProviderTests.cs" />
   </ItemGroup>
@@ -147,6 +149,9 @@
       <Project>{f8b9b37b-8270-4602-b70c-4edb2986a28b}</Project>
       <Name>Portal.Consultoras.Web</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Infraestructure\Route\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

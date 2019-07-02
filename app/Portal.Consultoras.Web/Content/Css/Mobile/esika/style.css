@@ -3597,8 +3597,8 @@ table > thead > tr > th {
     max-width:60px;
 }
 
-.logo_marca_pais_wrapper{
-    padding-left:10px!important;
+.logo_marca_pais_wrapper {
+    padding-left: 2px!important;
 }
 
 .logo_mobile {
@@ -3609,6 +3609,14 @@ table > thead > tr > th {
     margin-top: 9px;
     background-size: 92%;
 }
+
+    .logo_esika--nuevoLogo{
+        background-image: url(/Content/Images/Esika/nuevo-logo-esika.svg);
+        background-repeat: no-repeat;
+        margin-top: 4px;
+        background-size: 100%;
+        width: 77px;
+    }
 
 .campana_mobile {
     float: right;
@@ -4215,6 +4223,10 @@ table > thead > tr > th {
     margin-bottom: 20px;
 }
 
+    .imagen_catalogo.imagen_miAcademia--nuevoLookAndFeelEsika {
+        min-height: 85.25px;
+    }
+
 .fondo_gris {
     background: #f0f0f0;
     width: 100%;
@@ -4449,6 +4461,24 @@ table > thead > tr > th {
     cursor: pointer;
 }
 
+/* INI HD-4009 */
+.producto_pum,
+.producto_pum_hidden {
+    margin-top:5px;
+    margin-bottom:0;
+    font-size:12px;
+    min-height:17px;
+}
+
+    .producto_pum span {
+        color: #000;
+    }
+
+.producto_pum_hidden {
+    visibility: hidden;
+}
+/* FIN HD-4009 */
+
 .producto_precio_oferta {
     margin: 0;
     padding: 0;
@@ -4480,6 +4510,21 @@ table > thead > tr > th {
     border-top: 1px solid #b0b0b0;
     border-bottom: 1px solid #b0b0b0;
 }
+
+.rango_cantidad_pedido_fijo {
+    -webkit-appearance: none;
+    border-radius: 0;
+    width: 100%;
+    height: 48px;
+    line-height: 48px;
+    background: transparent;
+    float: left;
+    text-align: center;
+    font-weight: 700;
+    border: 1px solid #b0b0b0;
+    color: rgb(84, 84, 84);
+}
+
 
 .cantidad_mas_home {
     float: left;
@@ -4579,13 +4624,16 @@ body {
 .sin_padding {
     padding-left: 0 !important;
     padding-right: 0 !important;
-    margin-top: 7 -5px;
+    margin-top: 0;
 }
 
 .banner_ingresoPedido {
     display: block;
     background-size: cover;
     height: 200px;
+    background-color:#000;
+    background-position:center center;
+    background-repeat:no-repeat;
 }
 
 .ingresoPedido {
@@ -5536,6 +5584,7 @@ body {
     color: #000000;
     margin-top: 30px;
     margin-bottom: 15px;
+    text-align: center;
 }
 
 .contet_alert{
@@ -5897,6 +5946,7 @@ input[type='checkbox']:checked + span:after {
     .titulo_compartir {
         font-size: 16px;
         line-height: 28px;
+        text-align: center;
     }
 }
 /*CAMBIO FOOTER*/
@@ -9558,8 +9608,30 @@ a {
     float: left;
 }
 
+.content_cantidad_ficha_producto_fijo {
+    width: 48px;
+    margin-right: 5%;
+    background: white;
+    overflow: hidden;
+    float: left;
+}
+
 .btn_agregar_ficha_producto {
     width: 50%;
+    height: 48px;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: white;
+    font-weight: 700;
+    display: block;
+    float: left;
+    text-align: center;
+    line-height: 47px;
+    background: black;
+}
+
+.btn_agregar_ficha_producto_fijo {
+    width: 70%;
     height: 48px;
     font-family: 'Lato';
     font-size: 14px;
@@ -14652,9 +14724,10 @@ a {
 }
 
 .opciones_regalo_carousel_programaNuevas.slick-initialized .slick-slide{
-    display:inline-block;
+    display:block;
+    /*display:inline-block;
     vertical-align:top;
-    float:none;
+    float:none;*/
     min-height:315px;
     padding-top:0!important;
     padding-bottom:25px!important;
@@ -14916,3 +14989,68 @@ a {
 /* FIN - POPUP LLEGASTE AL 30% DE DESCUENTO */
 
 /* FIN - PROGRAMA NUEVAS - ELIGE TU REGALO */
+
+/* HD-4214 - CHAT MESSENGER SOMOS BELCORP */
+
+.btn_chat_messenger_mobile {
+    background-color: #FFF;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    padding: 0px;
+    position: fixed;
+    bottom: 18pt;
+    right: 18pt;
+    top: auto;
+    z-index: 2147483646;
+    padding: 13px 17px 13px 17px;
+    -moz-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+    -webkit-box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, .15);
+    cursor: pointer;
+}
+
+    .btn_chat_messenger_mobile img{
+        width:100%;
+        height:auto;
+    }
+
+.fb_dialog_content {
+    display:none;
+    position: relative !important;
+}
+
+.icono_chat_sb {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    background-color: #FFF;
+    background-image: url(/Content/Images/icono-chat-sb.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    border-radius: 100%;
+    z-index: 2000;
+}
+
+.fb_dialog_content iframe {
+    display: none !important;
+}
+
+/* FIN - HD-4214 - CHAT MESSENGER SOMOS BELCORP */
+
+.input_modifica_horizontal_popup_pedido {
+    text-transform: uppercase;
+    width: 115px !important;
+    height: 45px;
+    letter-spacing: .5px;
+    color: white;
+    font-size: 13px;
+    border-radius: 4px;
+    background-color: #e81c36;
+    border: none;
+    font-weight: bold;
+}

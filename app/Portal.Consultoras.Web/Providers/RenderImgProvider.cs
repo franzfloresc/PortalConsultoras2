@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Web.Providers
         {
             var mensajeErrorImagenResize = string.Empty;
 
-            var lstImagenResize = _tablaLogicaProvider.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.ResizeImagenesAppGanaMas, true);
+            var lstImagenResize = _tablaLogicaProvider.GetTablaLogicaDatos(paisID, ConsTablaLogica.ResizeImagenesAppGana.TablaLogicaId, true);
 
             lstImagenResize = lstImagenResize.Where(x => x.Codigo.StartsWith(palanca)).ToList();
 
@@ -162,13 +162,13 @@ namespace Portal.Consultoras.Web.Providers
             var wMax = 0;
             if (tipoImg == Constantes.ConfiguracionImagenResize.TipoImagenSmall)
             {
-                hBase = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, ConsTablaLogica.ImagenesResize.TablaLogicaId, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightSmall, true);
-                wMax = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru,  ConsTablaLogica.ImagenesResize.TablaLogicaId, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxSmall, true);
+                hBase = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, ConsTablaLogica.ImagenesResize.TablaLogicaId, ConsTablaLogica.ImagenesResize.HeightSmall, true);
+                wMax = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru,  ConsTablaLogica.ImagenesResize.TablaLogicaId, ConsTablaLogica.ImagenesResize.WitdhMaxSmall, true);
             }
             else if (tipoImg == Constantes.ConfiguracionImagenResize.TipoImagenMedium)
             {
-                hBase = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, ConsTablaLogica.ImagenesResize.TablaLogicaId, Constantes.TablaLogicaDato.ValoresImagenesResizeHeightMedium, true);
-                wMax = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, ConsTablaLogica.ImagenesResize.TablaLogicaId, Constantes.TablaLogicaDato.ValoresImagenesResizeWitdhMaxMedium, true);
+                hBase = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, ConsTablaLogica.ImagenesResize.TablaLogicaId, ConsTablaLogica.ImagenesResize.HeightMedium, true);
+                wMax = _tablaLogicaProvider.GetTablaLogicaDatoCodigoInt(Constantes.PaisID.Peru, ConsTablaLogica.ImagenesResize.TablaLogicaId, ConsTablaLogica.ImagenesResize.WitdhMaxMedium, true);
             }
 
             if (hBase == 0 && wMax == 0)
@@ -198,6 +198,51 @@ namespace Portal.Consultoras.Web.Providers
                 ancho = wMax;
             }
         }
+
+        public string ImagenesResizeProcesoAppHistDetalle(string urlImagen, string codigoIso, int paisID, string palanca, string cadena)
+        {
+            var mensajeErrorImagenResize = string.Empty;
+
+            var lstImagenResize = _tablaLogicaProvider.GetTablaLogicaDatos(paisID, Constantes.TablaLogica.ResizeImagenesAppHistorias, true);
+
+            lstImagenResize = lstImagenResize.Where(x => x.Codigo.StartsWith(palanca)).ToList();
+
+            if (lstImagenResize.Any())
+            {
+                var lstFinal = lstImagenResize.Select(x =>
+                {
+                    var tipo = x.Codigo.Replace(palanca, string.Empty);
+                    var ancho = 0;
+                    var alto = 0;
+                    var medidas = x.Descripcion.Split('x');
+
+                    int.TryParse(medidas[0], out ancho);
+                    int.TryParse(medidas[1], out alto);
+
+                    var soloImagen = Path.GetFileNameWithoutExtension(urlImagen);
+                    var soloExtension = Path.GetExtension(urlImagen);
+                    var fileName = string.Concat(soloImagen, tipo, soloExtension);
+                    var rutaImagenResize = ConfigS3.GetUrlFileHistDetalle(codigoIso, fileName, cadena);
+
+                    var entidad = new EntidadMagickResize
+                    {
+                        RutaImagenOriginal = urlImagen,
+                        RutaImagenResize = rutaImagenResize,
+                        Width = ancho,
+                        Height = alto,
+                        TipoImagen = tipo,
+                        CodigoIso = codigoIso
+                    };
+
+                    return entidad;
+                }).ToList();
+
+                MagickNetLibrary.GuardarImagenesResizeParaleloHistDetalle(lstFinal, cadena, true);
+            }
+
+            return mensajeErrorImagenResize;
+        }
+
 
     }
 }

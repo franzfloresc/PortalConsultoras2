@@ -105,5 +105,11 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BEContenidoAppDetaAct> GetContenidoAppDetaAct(int paisId, int parent);
         #endregion
+        [OperationContract]
+        IList<BEZona> GetZonasByRegion(int PaisID, int RegionID);
+
+        [OperationContract]
+        IList<BERegion> GetRegionByPaisZonaActivas(int paisID);
+
     }
 }

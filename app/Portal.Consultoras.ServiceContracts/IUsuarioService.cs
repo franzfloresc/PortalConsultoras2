@@ -3,6 +3,7 @@ using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.CaminoBrillante;
 using Portal.Consultoras.Entities.OpcionesVerificacion;
 using Portal.Consultoras.Entities.Pedido;
+using Portal.Consultoras.Entities.Search.RequestRecomendacion;
 using Portal.Consultoras.Entities.Usuario;
 using System;
 using System.Collections.Generic;
@@ -178,6 +179,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BEMisPedidosDetalle> GetMisPedidosDetalleConsultoraOnline(int PaisID, long PedidoID);
+
+        [OperationContract]
+        IList<BEMisPedidosDetalle> GetMisPedidosDetallePendientesAll(int paisId, int campaniaId, long consultoraId);
 
         [OperationContract]
         int GetCantidadSolicitudesPedido(int PaisID, long ConsultoraId, int Campania);
@@ -395,7 +399,7 @@ namespace Portal.Consultoras.ServiceContracts
         #endregion
 
         #region Pin Autenticidad
-        [OperationContract]
+        [OperationContract]        
         BEUsuarioDatos GetVerificacionAutenticidad(int paisID, string CodigoUsuario, bool verificacionWeb);
         [OperationContract]
         BERespuestaSMS EnviarSmsVerificacionAutenticidad(int paisID, BEUsuarioDatos oUsu);
@@ -421,6 +425,9 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         string ActualizarNovedadBuscador(int paisID, string codigoUsuario);
+
+        [OperationContract]
+        IList<BEEstrategia> GetRecomendados(RecomendadoRequest RecomendadoRequest);
 
         #region ActualizacionDatos
         [OperationContract]
@@ -464,10 +471,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEValidacionDatos> ListarValidacionDatos(BEValidacionDatos beValidacionDatos);
-
-
-
-
-
+        
+        [OperationContract]
+        IList<BEMisPedidos> GetSolicitudesPedidoPendiente(int PaisID, long ConsultoraId, int Campania);
     }
 }

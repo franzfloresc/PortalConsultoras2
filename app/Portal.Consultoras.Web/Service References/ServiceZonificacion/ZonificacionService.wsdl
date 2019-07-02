@@ -206,11 +206,17 @@
   <wsdl:message name="IZonificacionService_GetSegmentoInternoBanner_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetSegmentoInternoBannerResponse" />
   </wsdl:message>
-  <wsdl:message name="IZonificacionService_GetContenidoAppDetaAct_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetContenidoAppDetaAct" />
+  <wsdl:message name="IZonificacionService_GetZonasByRegion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetZonasByRegion" />
   </wsdl:message>
-  <wsdl:message name="IZonificacionService_GetContenidoAppDetaAct_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetContenidoAppDetaActResponse" />
+  <wsdl:message name="IZonificacionService_GetZonasByRegion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetZonasByRegionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IZonificacionService_GetRegionByPaisZonaActivas_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRegionByPaisZonaActivas" />
+  </wsdl:message>
+  <wsdl:message name="IZonificacionService_GetRegionByPaisZonaActivas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRegionByPaisZonaActivasResponse" />
   </wsdl:message>
   <wsdl:portType name="IZonificacionService">
     <wsdl:operation name="SelectZonaByCodigo">
@@ -329,9 +335,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IZonificacionService/GetSegmentoInternoBanner" message="tns:IZonificacionService_GetSegmentoInternoBanner_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IZonificacionService/GetSegmentoInternoBannerResponse" message="tns:IZonificacionService_GetSegmentoInternoBanner_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetContenidoAppDetaAct">
-      <wsdl:input wsaw:Action="http://tempuri.org/IZonificacionService/GetContenidoAppDetaAct" message="tns:IZonificacionService_GetContenidoAppDetaAct_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IZonificacionService/GetContenidoAppDetaActResponse" message="tns:IZonificacionService_GetContenidoAppDetaAct_OutputMessage" />
+    <wsdl:operation name="GetZonasByRegion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IZonificacionService/GetZonasByRegion" message="tns:IZonificacionService_GetZonasByRegion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IZonificacionService/GetZonasByRegionResponse" message="tns:IZonificacionService_GetZonasByRegion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRegionByPaisZonaActivas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IZonificacionService/GetRegionByPaisZonaActivas" message="tns:IZonificacionService_GetRegionByPaisZonaActivas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IZonificacionService/GetRegionByPaisZonaActivasResponse" message="tns:IZonificacionService_GetRegionByPaisZonaActivas_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IZonificacionService" type="tns:IZonificacionService">
@@ -597,8 +607,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetContenidoAppDetaAct">
-      <soap:operation soapAction="http://tempuri.org/IZonificacionService/GetContenidoAppDetaAct" style="document" />
+    <wsdl:operation name="GetZonasByRegion">
+      <soap:operation soapAction="http://tempuri.org/IZonificacionService/GetZonasByRegion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRegionByPaisZonaActivas">
+      <soap:operation soapAction="http://tempuri.org/IZonificacionService/GetRegionByPaisZonaActivas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -871,8 +890,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetContenidoAppDetaAct">
-      <soap:operation soapAction="http://tempuri.org/IZonificacionService/GetContenidoAppDetaAct" style="document" />
+    <wsdl:operation name="GetZonasByRegion">
+      <soap:operation soapAction="http://tempuri.org/IZonificacionService/GetZonasByRegion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRegionByPaisZonaActivas">
+      <soap:operation soapAction="http://tempuri.org/IZonificacionService/GetRegionByPaisZonaActivas" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

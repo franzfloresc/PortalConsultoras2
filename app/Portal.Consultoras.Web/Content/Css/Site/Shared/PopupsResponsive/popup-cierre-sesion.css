@@ -1,0 +1,130 @@
+﻿
+/* MC - HD-3159 - POPUP CIERRE DE SESIÓN */
+
+.popup__wrapper--cierreSesion {
+    z-index: 999999910 !important;
+}
+
+.popup__somos__belcorp--cierreSesion {
+    max-width: 420px;
+    min-height: 290px;
+    padding: 50px 19px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+    .popup__somos__belcorp--cierreSesion .popup__somos__belcorp__icono__cerrar {
+        top: -38px;
+        right: -13px;
+    }
+
+.popup__somos__belcorp__mensaje--cierreSesion,
+.popup__somos__belcorp__mensaje--cierreSesion span {
+    font-size: 16px;
+    line-height: 23px;
+}
+
+.popup__somos__belcorp__mensaje--cierreSesion {
+    margin-bottom: 27px !important;
+}
+
+.info__tiempo__cierreSesion,
+.info__tiempo__cierreSesion span {
+    font-size: 14px !important;
+}
+
+.info__tiempo__cierreSesion {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.popup__somos__belcorp__icono--cierreSesion {
+    margin-top: 15px;
+}
+
+.popup__somos__belcorp__icono--sesionPorFinalizar,
+.popup__somos__belcorp__icono--alertaCierreSesion {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 17px !important;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.popup__somos__belcorp__icono--sesionPorFinalizar {
+    background-image: url(/Content/Images/icono_sesion_por_finalizar.svg);
+}
+
+.popup__somos__belcorp__icono--alertaCierreSesion {
+    background-image: url(/Content/Images/icono_alerta_cierre_sesion.svg);
+}
+
+.popup__somos__belcorp__btn.popup__somos__belcorp__btn--continuar,
+.popup__somos__belcorp__btn.popup__somos__belcorp__btn--cerrarSesion,
+.popup__somos__belcorp__btn.popup__somos__belcorp__btn--reservarPedido,
+.popup__somos__belcorp__btn.popup__somos__belcorp__btn--ingresar {
+    line-height: 36px;
+    font-family: 'Lato', sans-serif !important;
+}
+
+.popup__somos__belcorp__btn.popup__somos__belcorp__btn--continuar,
+.popup__somos__belcorp__btn.popup__somos__belcorp__btn--cerrarSesion,
+.popup__somos__belcorp__btn.popup__somos__belcorp__btn--reservarPedido {
+    display: inline-block;
+    width: 50%;
+    max-width: 119px;
+}
+
+.popup__somos__belcorp__btn.popup__somos__belcorp__btn--continuar,
+.popup__somos__belcorp__btn.popup__somos__belcorp__btn--reservarPedido,
+.popup__somos__belcorp__btn.popup__somos__belcorp__btn--ingresar {
+    color: #FFF;
+    border: 1px solid #b9007e;
+}
+
+.popup__somos__belcorp__btn.popup__somos__belcorp__btn--ingresar {
+    max-width: 152px;
+}
+
+.popup__somos__belcorp__btn.popup__somos__belcorp__btn--cerrarSesion {
+    background-color: #FFF;
+    color: #000;
+    border: 1px solid #000;
+    margin-right: 16px;
+}
+
+.btn_margen_inferior_30 {
+    margin-bottom: 30px;
+}
+
+@media screen and (max-width:991px){
+
+    .popup__somos__belcorp--cierreSesion {
+        width: 100%!important;
+        height: 100%;
+        max-width:none;
+        padding: 69px 19px;
+        top: 0!important;
+        border-radius: 0!important;
+        margin-bottom: 0!important;
+    }
+
+        .popup__somos__belcorp--cierreSesion .popup__somos__belcorp__icono__cerrar {
+            top: -56px;
+        }
+
+}
+
+@media screen and (max-width:324px) {
+
+    .popup__somos__belcorp--cierreSesion {
+        padding: 69px 16px;
+    }
+
+    .popup__somos__belcorp__btn--cerrarSesion {
+        margin-right: 8px;
+    }
+}
+
+/* FIN - MC - HD-3159 - POPUP CIERRE DE SESIÓN */

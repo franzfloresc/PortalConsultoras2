@@ -12,6 +12,7 @@
       <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
       <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.SAC" />
       <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais.MercadoPago" />
+      <xsd:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/PortalService.svc?xsd=xsd10" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE.MercadoPago" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IPortalService_ObtenerParametrosUnete_InputMessage">
@@ -19,6 +20,18 @@
   </wsdl:message>
   <wsdl:message name="IPortalService_ObtenerParametrosUnete_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerParametrosUneteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerParametrosUneteFinal_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerParametrosUneteFinal" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerParametrosUneteFinal_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerParametrosUneteFinalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerTipoParametrosUnete_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerTipoParametrosUnete" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerTipoParametrosUnete_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerTipoParametrosUneteResponse" />
   </wsdl:message>
   <wsdl:message name="IPortalService_ObtenerTablaLogicaDatos_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerTablaLogicaDatos" />
@@ -326,17 +339,17 @@
   <wsdl:message name="IPortalService_ObtenerReporteDiasEspera_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerReporteDiasEsperaResponse" />
   </wsdl:message>
-  <wsdl:message name="IPortalService_ConsultarTipoPostulante_InputMessage">
-    <wsdl:part name="parameters" element="tns:ConsultarTipoPostulante" />
-  </wsdl:message>
-  <wsdl:message name="IPortalService_ConsultarTipoPostulante_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ConsultarTipoPostulanteResponse" />
-  </wsdl:message>
   <wsdl:message name="IPortalService_ConsultarPagodeKitLog_InputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarPagodeKitLog" />
   </wsdl:message>
   <wsdl:message name="IPortalService_ConsultarPagodeKitLog_OutputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarPagodeKitLogResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ConsultarTipoPostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarTipoPostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ConsultarTipoPostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarTipoPostulanteResponse" />
   </wsdl:message>
   <wsdl:message name="IPortalService_ConsultarSolicitudesPostulanteV2_InputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarSolicitudesPostulanteV2" />
@@ -374,6 +387,12 @@
   <wsdl:message name="IPortalService_GetDictionaryReporteFunnel_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetDictionaryReporteFunnelResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_GetDictionaryReporteZonas_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDictionaryReporteZonas" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetDictionaryReporteZonas_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDictionaryReporteZonasResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_ObtenerReporteConsolidadoFiltro_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerReporteConsolidadoFiltro" />
   </wsdl:message>
@@ -398,6 +417,18 @@
   <wsdl:message name="IPortalService_ConsultarNivelesRiesgo_OutputMessage">
     <wsdl:part name="parameters" element="tns:ConsultarNivelesRiesgoResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_InsertarZonaValidacionTelefonica_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarZonaValidacionTelefonica" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_InsertarZonaValidacionTelefonica_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarZonaValidacionTelefonicaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ConsultarZonaValidacionTelefonica_InputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarZonaValidacionTelefonica" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ConsultarZonaValidacionTelefonica_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConsultarZonaValidacionTelefonicaResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_GetReporteFunnel_InputMessage">
     <wsdl:part name="parameters" element="tns:GetReporteFunnel" />
   </wsdl:message>
@@ -421,6 +452,12 @@
   </wsdl:message>
   <wsdl:message name="IPortalService_EnviarCodigoVerificacion_OutputMessage">
     <wsdl:part name="parameters" element="tns:EnviarCodigoVerificacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_EnviarCodigoVerificacionTelefonica_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarCodigoVerificacionTelefonica" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_EnviarCodigoVerificacionTelefonica_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarCodigoVerificacionTelefonicaResponse" />
   </wsdl:message>
   <wsdl:message name="IPortalService_EnviarSmsFelicitacion_InputMessage">
     <wsdl:part name="parameters" element="tns:EnviarSmsFelicitacion" />
@@ -470,11 +507,23 @@
   <wsdl:message name="IPortalService_ListarDocumentoExcepcion_OutputMessage">
     <wsdl:part name="parameters" element="tns:ListarDocumentoExcepcionResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_EnviarContrasenia_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarContrasenia" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_EnviarContrasenia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarContraseniaResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_ActualizarReferenciaEntregaSAC_InputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarReferenciaEntregaSAC" />
   </wsdl:message>
   <wsdl:message name="IPortalService_ActualizarReferenciaEntregaSAC_OutputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarReferenciaEntregaSACResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerEstadoPostulanteActual_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerEstadoPostulanteActual" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerEstadoPostulanteActual_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerEstadoPostulanteActualResponse" />
   </wsdl:message>
   <wsdl:message name="IPortalService_ImagenesWhatsApp_InputMessage">
     <wsdl:part name="parameters" element="tns:ImagenesWhatsApp" />
@@ -487,6 +536,12 @@
   </wsdl:message>
   <wsdl:message name="IPortalService_ResponseWhatsApp_OutputMessage">
     <wsdl:part name="parameters" element="tns:ResponseWhatsAppResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetDatosPagoEfectivoWhatsapp_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDatosPagoEfectivoWhatsapp" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetDatosPagoEfectivoWhatsapp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDatosPagoEfectivoWhatsappResponse" />
   </wsdl:message>
   <wsdl:message name="IPortalService_GetKitInicio_InputMessage">
     <wsdl:part name="parameters" element="tns:GetKitInicio" />
@@ -518,6 +573,12 @@
   <wsdl:message name="IPortalService_ConfirmarTransaccion_OutputMessage">
     <wsdl:part name="parameters" element="tns:ConfirmarTransaccionResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_CancelarTransaccionMP_InputMessage">
+    <wsdl:part name="parameters" element="tns:CancelarTransaccionMP" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_CancelarTransaccionMP_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CancelarTransaccionMPResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_GetKitInicioDetalle_InputMessage">
     <wsdl:part name="parameters" element="tns:GetKitInicioDetalle" />
   </wsdl:message>
@@ -542,10 +603,72 @@
   <wsdl:message name="IPortalService_GetZonasDigitales_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetZonasDigitalesResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_ValidarCodigoVerificacionTelefonica_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCodigoVerificacionTelefonica" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ValidarCodigoVerificacionTelefonica_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCodigoVerificacionTelefonicaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ValidarZonaDigital_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarZonaDigital" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ValidarZonaDigital_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarZonaDigitalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_EnvioCorreoValidacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnvioCorreoValidacion" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_EnvioCorreoValidacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnvioCorreoValidacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetKitInicioEdit_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetKitInicioEdit" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetKitInicioEdit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetKitInicioEditResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetKitInicioCatalogosEdit_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetKitInicioCatalogosEdit" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_GetKitInicioCatalogosEdit_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetKitInicioCatalogosEditResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_SaveKitInicio_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveKitInicio" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_SaveKitInicio_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveKitInicioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_SaveKitInicioCatalogos_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveKitInicioCatalogos" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_SaveKitInicioCatalogos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveKitInicioCatalogosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ValidarCampoFormularioSimplificadoSolicitudPrepostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCampoFormularioSimplificadoSolicitudPrepostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ValidarCampoFormularioSimplificadoSolicitudPrepostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCampoFormularioSimplificadoSolicitudPrepostulanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_InsertarSolicitantePrePostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarSolicitantePrePostulante" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_InsertarSolicitantePrePostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertarSolicitantePrePostulanteResponse" />
+  </wsdl:message>
   <wsdl:portType name="IPortalService">
     <wsdl:operation name="ObtenerParametrosUnete">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerParametrosUnete" message="tns:IPortalService_ObtenerParametrosUnete_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerParametrosUneteResponse" message="tns:IPortalService_ObtenerParametrosUnete_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerParametrosUneteFinal">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerParametrosUneteFinal" message="tns:IPortalService_ObtenerParametrosUneteFinal_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerParametrosUneteFinalResponse" message="tns:IPortalService_ObtenerParametrosUneteFinal_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerTipoParametrosUnete">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerTipoParametrosUnete" message="tns:IPortalService_ObtenerTipoParametrosUnete_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerTipoParametrosUneteResponse" message="tns:IPortalService_ObtenerTipoParametrosUnete_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerTablaLogicaDatos">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerTablaLogicaDatos" message="tns:IPortalService_ObtenerTablaLogicaDatos_InputMessage" />
@@ -751,13 +874,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerReporteDiasEspera" message="tns:IPortalService_ObtenerReporteDiasEspera_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerReporteDiasEsperaResponse" message="tns:IPortalService_ObtenerReporteDiasEspera_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ConsultarTipoPostulante">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarTipoPostulante" message="tns:IPortalService_ConsultarTipoPostulante_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarTipoPostulanteResponse" message="tns:IPortalService_ConsultarTipoPostulante_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="ConsultarPagodeKitLog">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarPagodeKitLog" message="tns:IPortalService_ConsultarPagodeKitLog_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarPagodeKitLogResponse" message="tns:IPortalService_ConsultarPagodeKitLog_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarTipoPostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarTipoPostulante" message="tns:IPortalService_ConsultarTipoPostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarTipoPostulanteResponse" message="tns:IPortalService_ConsultarTipoPostulante_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ConsultarSolicitudesPostulanteV2">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarSolicitudesPostulanteV2" message="tns:IPortalService_ConsultarSolicitudesPostulanteV2_InputMessage" />
@@ -783,6 +906,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetDictionaryReporteFunnel" message="tns:IPortalService_GetDictionaryReporteFunnel_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetDictionaryReporteFunnelResponse" message="tns:IPortalService_GetDictionaryReporteFunnel_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetDictionaryReporteZonas">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetDictionaryReporteZonas" message="tns:IPortalService_GetDictionaryReporteZonas_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetDictionaryReporteZonasResponse" message="tns:IPortalService_GetDictionaryReporteZonas_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerReporteConsolidadoFiltro">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerReporteConsolidadoFiltro" message="tns:IPortalService_ObtenerReporteConsolidadoFiltro_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerReporteConsolidadoFiltroResponse" message="tns:IPortalService_ObtenerReporteConsolidadoFiltro_OutputMessage" />
@@ -799,6 +926,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarNivelesRiesgo" message="tns:IPortalService_ConsultarNivelesRiesgo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarNivelesRiesgoResponse" message="tns:IPortalService_ConsultarNivelesRiesgo_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="InsertarZonaValidacionTelefonica">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/InsertarZonaValidacionTelefonica" message="tns:IPortalService_InsertarZonaValidacionTelefonica_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/InsertarZonaValidacionTelefonicaResponse" message="tns:IPortalService_InsertarZonaValidacionTelefonica_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarZonaValidacionTelefonica">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConsultarZonaValidacionTelefonica" message="tns:IPortalService_ConsultarZonaValidacionTelefonica_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConsultarZonaValidacionTelefonicaResponse" message="tns:IPortalService_ConsultarZonaValidacionTelefonica_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetReporteFunnel">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetReporteFunnel" message="tns:IPortalService_GetReporteFunnel_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetReporteFunnelResponse" message="tns:IPortalService_GetReporteFunnel_OutputMessage" />
@@ -814,6 +949,10 @@
     <wsdl:operation name="EnviarCodigoVerificacion">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/EnviarCodigoVerificacion" message="tns:IPortalService_EnviarCodigoVerificacion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/EnviarCodigoVerificacionResponse" message="tns:IPortalService_EnviarCodigoVerificacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCodigoVerificacionTelefonica">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/EnviarCodigoVerificacionTelefonica" message="tns:IPortalService_EnviarCodigoVerificacionTelefonica_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/EnviarCodigoVerificacionTelefonicaResponse" message="tns:IPortalService_EnviarCodigoVerificacionTelefonica_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="EnviarSmsFelicitacion">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/EnviarSmsFelicitacion" message="tns:IPortalService_EnviarSmsFelicitacion_InputMessage" />
@@ -847,9 +986,17 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ListarDocumentoExcepcion" message="tns:IPortalService_ListarDocumentoExcepcion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ListarDocumentoExcepcionResponse" message="tns:IPortalService_ListarDocumentoExcepcion_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="EnviarContrasenia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/EnviarContrasenia" message="tns:IPortalService_EnviarContrasenia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/EnviarContraseniaResponse" message="tns:IPortalService_EnviarContrasenia_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ActualizarReferenciaEntregaSAC">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarReferenciaEntregaSAC" message="tns:IPortalService_ActualizarReferenciaEntregaSAC_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarReferenciaEntregaSACResponse" message="tns:IPortalService_ActualizarReferenciaEntregaSAC_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerEstadoPostulanteActual">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerEstadoPostulanteActual" message="tns:IPortalService_ObtenerEstadoPostulanteActual_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerEstadoPostulanteActualResponse" message="tns:IPortalService_ObtenerEstadoPostulanteActual_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ImagenesWhatsApp">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ImagenesWhatsApp" message="tns:IPortalService_ImagenesWhatsApp_InputMessage" />
@@ -858,6 +1005,10 @@
     <wsdl:operation name="ResponseWhatsApp">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ResponseWhatsApp" message="tns:IPortalService_ResponseWhatsApp_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ResponseWhatsAppResponse" message="tns:IPortalService_ResponseWhatsApp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDatosPagoEfectivoWhatsapp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetDatosPagoEfectivoWhatsapp" message="tns:IPortalService_GetDatosPagoEfectivoWhatsapp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetDatosPagoEfectivoWhatsappResponse" message="tns:IPortalService_GetDatosPagoEfectivoWhatsapp_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetKitInicio">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetKitInicio" message="tns:IPortalService_GetKitInicio_InputMessage" />
@@ -879,6 +1030,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ConfirmarTransaccion" message="tns:IPortalService_ConfirmarTransaccion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ConfirmarTransaccionResponse" message="tns:IPortalService_ConfirmarTransaccion_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="CancelarTransaccionMP">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/CancelarTransaccionMP" message="tns:IPortalService_CancelarTransaccionMP_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/CancelarTransaccionMPResponse" message="tns:IPortalService_CancelarTransaccionMP_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetKitInicioDetalle">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetKitInicioDetalle" message="tns:IPortalService_GetKitInicioDetalle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetKitInicioDetalleResponse" message="tns:IPortalService_GetKitInicioDetalle_OutputMessage" />
@@ -895,11 +1050,65 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetZonasDigitales" message="tns:IPortalService_GetZonasDigitales_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetZonasDigitalesResponse" message="tns:IPortalService_GetZonasDigitales_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ValidarCodigoVerificacionTelefonica">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ValidarCodigoVerificacionTelefonica" message="tns:IPortalService_ValidarCodigoVerificacionTelefonica_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ValidarCodigoVerificacionTelefonicaResponse" message="tns:IPortalService_ValidarCodigoVerificacionTelefonica_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarZonaDigital">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ValidarZonaDigital" message="tns:IPortalService_ValidarZonaDigital_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ValidarZonaDigitalResponse" message="tns:IPortalService_ValidarZonaDigital_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnvioCorreoValidacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/EnvioCorreoValidacion" message="tns:IPortalService_EnvioCorreoValidacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/EnvioCorreoValidacionResponse" message="tns:IPortalService_EnvioCorreoValidacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetKitInicioEdit">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetKitInicioEdit" message="tns:IPortalService_GetKitInicioEdit_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetKitInicioEditResponse" message="tns:IPortalService_GetKitInicioEdit_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetKitInicioCatalogosEdit">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/GetKitInicioCatalogosEdit" message="tns:IPortalService_GetKitInicioCatalogosEdit_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/GetKitInicioCatalogosEditResponse" message="tns:IPortalService_GetKitInicioCatalogosEdit_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveKitInicio">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/SaveKitInicio" message="tns:IPortalService_SaveKitInicio_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/SaveKitInicioResponse" message="tns:IPortalService_SaveKitInicio_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveKitInicioCatalogos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/SaveKitInicioCatalogos" message="tns:IPortalService_SaveKitInicioCatalogos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/SaveKitInicioCatalogosResponse" message="tns:IPortalService_SaveKitInicioCatalogos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarCampoFormularioSimplificadoSolicitudPrepostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ValidarCampoFormularioSimplificadoSolicitudPrepostulante" message="tns:IPortalService_ValidarCampoFormularioSimplificadoSolicitudPrepostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ValidarCampoFormularioSimplificadoSolicitudPrepostulanteResponse" message="tns:IPortalService_ValidarCampoFormularioSimplificadoSolicitudPrepostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertarSolicitantePrePostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/InsertarSolicitantePrePostulante" message="tns:IPortalService_InsertarSolicitantePrePostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/InsertarSolicitantePrePostulanteResponse" message="tns:IPortalService_InsertarSolicitantePrePostulante_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPortalService" type="tns:IPortalService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="ObtenerParametrosUnete">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerParametrosUnete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerParametrosUneteFinal">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerParametrosUneteFinal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerTipoParametrosUnete">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerTipoParametrosUnete" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1366,8 +1575,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ConsultarTipoPostulante">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarTipoPostulante" style="document" />
+    <wsdl:operation name="ConsultarPagodeKitLog">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarPagodeKitLog" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1375,8 +1584,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ConsultarPagodeKitLog">
-      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarPagodeKitLog" style="document" />
+    <wsdl:operation name="ConsultarTipoPostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarTipoPostulante" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1438,6 +1647,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetDictionaryReporteZonas">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/GetDictionaryReporteZonas" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerReporteConsolidadoFiltro">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerReporteConsolidadoFiltro" style="document" />
       <wsdl:input>
@@ -1474,6 +1692,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="InsertarZonaValidacionTelefonica">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/InsertarZonaValidacionTelefonica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarZonaValidacionTelefonica">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ConsultarZonaValidacionTelefonica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetReporteFunnel">
       <soap:operation soapAction="http://tempuri.org/IPortalService/GetReporteFunnel" style="document" />
       <wsdl:input>
@@ -1503,6 +1739,15 @@
     </wsdl:operation>
     <wsdl:operation name="EnviarCodigoVerificacion">
       <soap:operation soapAction="http://tempuri.org/IPortalService/EnviarCodigoVerificacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCodigoVerificacionTelefonica">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/EnviarCodigoVerificacionTelefonica" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1582,8 +1827,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="EnviarContrasenia">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/EnviarContrasenia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ActualizarReferenciaEntregaSAC">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarReferenciaEntregaSAC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerEstadoPostulanteActual">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerEstadoPostulanteActual" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1602,6 +1865,15 @@
     </wsdl:operation>
     <wsdl:operation name="ResponseWhatsApp">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ResponseWhatsApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDatosPagoEfectivoWhatsapp">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/GetDatosPagoEfectivoWhatsapp" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1654,6 +1926,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CancelarTransaccionMP">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/CancelarTransaccionMP" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetKitInicioDetalle">
       <soap:operation soapAction="http://tempuri.org/IPortalService/GetKitInicioDetalle" style="document" />
       <wsdl:input>
@@ -1683,6 +1964,87 @@
     </wsdl:operation>
     <wsdl:operation name="GetZonasDigitales">
       <soap:operation soapAction="http://tempuri.org/IPortalService/GetZonasDigitales" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarCodigoVerificacionTelefonica">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ValidarCodigoVerificacionTelefonica" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarZonaDigital">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ValidarZonaDigital" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnvioCorreoValidacion">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/EnvioCorreoValidacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetKitInicioEdit">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/GetKitInicioEdit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetKitInicioCatalogosEdit">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/GetKitInicioCatalogosEdit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveKitInicio">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/SaveKitInicio" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveKitInicioCatalogos">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/SaveKitInicioCatalogos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarCampoFormularioSimplificadoSolicitudPrepostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ValidarCampoFormularioSimplificadoSolicitudPrepostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertarSolicitantePrePostulante">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/InsertarSolicitantePrePostulante" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

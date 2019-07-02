@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" />
-  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" />
+  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" />
+  <xs:import schemaLocation="http://internal-qaselb-portalffvvservicios-1152760669.us-east-1.elb.amazonaws.com/UneteWCF/BelcorpPaisService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" />
+  <xs:element name="ActualizarEstadoParametroUnete">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="model" nillable="true" type="q1:ParametroUneteBE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ActualizarEstadoParametroUneteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ActualizarEstadoParametroUneteResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ObtenerIdCampaniaActiva">
     <xs:complexType>
       <xs:sequence>
@@ -40,7 +55,7 @@
   <xs:element name="ObtenerPaisesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerPaisesResult" nillable="true" type="q1:PaisCollection" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerPaisesResult" nillable="true" type="q2:PaisCollection" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -55,7 +70,7 @@
   <xs:element name="ObtenerTablaLogicaDatosResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerTablaLogicaDatosResult" nillable="true" type="q2:TablaLogicaDatosCollection" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerTablaLogicaDatosResult" nillable="true" type="q3:TablaLogicaDatosCollection" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -71,7 +86,7 @@
   <xs:element name="ObtenerParametrosUneteResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerParametrosUneteResult" nillable="true" type="q3:ParametroUneteCollection" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerParametrosUneteResult" nillable="true" type="q4:ParametroUneteCollection" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -86,7 +101,7 @@
   <xs:element name="ObtenerParametroUnetePorTipoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ObtenerParametroUnetePorTipoResult" nillable="true" type="q4:ParametroUneteBE" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ObtenerParametroUnetePorTipoResult" nillable="true" type="q5:ParametroUneteBE" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -101,7 +116,7 @@
   <xs:element name="ObtenerParametroUneteResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ObtenerParametroUneteResult" nillable="true" type="q5:ParametroUneteBE" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ObtenerParametroUneteResult" nillable="true" type="q6:ParametroUneteBE" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -116,7 +131,7 @@
   <xs:element name="ObtenerConsultoraPorCodigoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ObtenerConsultoraPorCodigoResult" nillable="true" type="q6:ConsultoraBE" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ObtenerConsultoraPorCodigoResult" nillable="true" type="q7:ConsultoraBE" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -131,7 +146,7 @@
   <xs:element name="ObtenerConsultoraPorDocumentoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ObtenerConsultoraPorDocumentoResult" nillable="true" type="q7:ConsultoraBE" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ObtenerConsultoraPorDocumentoResult" nillable="true" type="q8:ConsultoraBE" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -145,7 +160,7 @@
   <xs:element name="ObtenerTelefonosDeBelcorpRespondeResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ObtenerTelefonosDeBelcorpRespondeResult" nillable="true" type="q8:BelcorpRespondeBE" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ObtenerTelefonosDeBelcorpRespondeResult" nillable="true" type="q9:BelcorpRespondeBE" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -159,7 +174,7 @@
   <xs:element name="ObtenerTiposBloqueoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerTiposBloqueoResult" nillable="true" type="q9:TipoBloqueoCollection" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerTiposBloqueoResult" nillable="true" type="q10:TipoBloqueoCollection" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -167,7 +182,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="model" nillable="true" type="q10:ParametroUneteBE" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="model" nillable="true" type="q11:ParametroUneteBE" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -182,7 +197,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="codigoIso" nillable="true" type="xs:string" />
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="model" nillable="true" type="q11:GestionValidacionesParameter" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="model" nillable="true" type="q12:GestionValidacionesParameter" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -206,7 +221,7 @@
   <xs:element name="ObtenerParametrosUnetePorNombreResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerParametrosUnetePorNombreResult" nillable="true" type="q12:ParametroUneteCollection" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerParametrosUnetePorNombreResult" nillable="true" type="q13:ParametroUneteCollection" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -238,7 +253,7 @@
   <xs:element name="ObtenerCampaniasAnterioresDesdeActualResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerCampaniasAnterioresDesdeActualResult" nillable="true" type="q13:CampaniaCollection" />
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerCampaniasAnterioresDesdeActualResult" nillable="true" type="q14:CampaniaCollection" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -253,7 +268,7 @@
   <xs:element name="ObtenerDatosConsultoraResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ObtenerDatosConsultoraResult" nillable="true" type="q14:ConsultoraBE" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="ObtenerDatosConsultoraResult" nillable="true" type="q15:ConsultoraBE" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -270,7 +285,21 @@
   <xs:element name="GetDatosConsultoraByRegionZonaResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="GetDatosConsultoraByRegionZonaResult" nillable="true" type="q15:ConsultoraBE" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="GetDatosConsultoraByRegionZonaResult" nillable="true" type="q16:ConsultoraBE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerPaisContrasenia">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CodigoISO" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerPaisContraseniaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ObtenerPaisContraseniaResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

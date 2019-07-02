@@ -62,6 +62,8 @@ namespace Portal.Consultoras.Entities
             CodigoTipoOferta = row.ToString("CodigoTipoOferta");
             SetID = row.ToInt32("SetID");
             EstrategiaId = row.ToInt32("EstrategiaId");
+            CUVReemplazo = row.ToString("CUVReemplazo");
+            EsSuscripcionSE = row.ToBoolean("EsSuscripcionSE");
         }
 
         public BEPedidoWebDetalle(IDataRecord row, string Consultora)
@@ -119,6 +121,9 @@ namespace Portal.Consultoras.Entities
             CodigoTipoOferta = row.ToString("CodigoTipoOferta");
             SetID = row.ToInt32("SetID");
             EstrategiaId = row.ToInt32("EstrategiaId");
+            CUVReemplazo = row.ToString("CUVReemplazo");
+            EsSuscripcionSE = row.ToBoolean("EsSuscripcionSE");
+            Ganancia = row.ToDecimal("Ganancia");
         }
 
         [DataMember]
@@ -347,10 +352,20 @@ namespace Portal.Consultoras.Entities
         public bool EsRegalo { get; set; }
         [DataMember]
         public bool EsArmaTuPack { get; set; }
+        [DataMember]
+        public string OrigenSolicitud { get; set; }
+        [DataMember]
+        public string CUVReemplazo { get; set; }
 
         [DataMember]
         public bool EsKitCaminoBrillante { get; set; }
         [DataMember]
         public bool EsDemCaminoBrillante { get; set; }
+        
+        [DataMember]
+        public bool EsSuscripcionSE { get; set; }
+
+        [DataMember]
+        public decimal Ganancia { get; set; }
     }
 }

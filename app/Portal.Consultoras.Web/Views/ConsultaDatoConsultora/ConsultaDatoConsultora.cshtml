@@ -44,7 +44,11 @@
                 alert("Debe seleccionar un País, verifique");
                 return false;
             } else if ($("#txtCodigos").val() == "" && $("#txtDocumento").val() == "") {
-                alert("codigo de consultora y documento invalidos, verifique");
+                var msg = "";
+                if ($("#SeleccionaId").val() == "1") msg = "Código de consultora, verifique";
+                else if ($("#SeleccionaId").val() == "2") msg = "Código de documento inválidos, verifique";
+
+                alert(msg);
                 return false;
             } else {
                 // Establece los efectos para cada uno de los Tabs
@@ -57,14 +61,14 @@
                 $("#listPedidoFacturado").jqGrid("clearGridData", true);
                 $("#fecha-vencimiento").html('');
                 $("#monto-pagar").html('');
-               DatoConsultora();
+                DatoConsultora();
             }
 
-
+            var CodigoConsultora = $("#txtCodigos").val() == "" ? $("#txtDCCodigoConsultoraVisible").text() : $("#txtCodigos").val();
             $.ajax({
                 dataType: "json",
                 url: baseUrl + "ConsultaDatoConsultora/GetCampaniasRVDigitalWeb",
-                data: "CodigoConsultora=" + $("#txtCodigos").val(),
+                data: "CodigoConsultora=" + CodigoConsultora,
                 success: function (resultado) {                    
                     $("#ddlCampaniaPaquete").empty();
                     $("#ddlCampaniaPaquete").append('<option value= "">-- Seleccionar --</option>');
@@ -77,6 +81,21 @@
                 }
             });
 
+        });
+
+        $("#SeleccionaId").change(function () {
+            if ($(this).val() == "1") {
+                $("#lblSelecciona").text("Cod. Consultora:");
+                $("#divCodConsultora").show();
+                $("#txtDocumento").val("");
+                $("#divDNI").hide();
+            }
+            else {
+                $("#lblSelecciona").text("Doc. de Identidad:");
+                $("#divDNI").show();
+                $("#txtCodigos").val("");
+                $("#divCodConsultora").hide();
+            }
         });
 
         //inicializar valores
@@ -96,16 +115,23 @@
                 <div class="selectP2 borde_redondeado">
                     @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
                 </div>
-                <div class="titG">Cod. Consultora:</div>
+                <div class="titG">Consultar por:</div>
                 <div class="selectP2 borde_redondeado">
-                    <input type="text" id="txtCodigos" />
+                    <select id="SeleccionaId" name="SeleccionaId">
+                        <option value="1">Codigo Consultora</option>
+                        <option value="2">DNI</option>
+                    </select>
                 </div>
             </div>
             <div class="div-3">
-                <div class="titG">Documento de Identidad:</div>
-                <div class="selectP2 borde_redondeado">
-                    <input type="text" id="txtDocumento" />
+                <div id="lblSelecciona" class="titG">Cod. Consultora:</div>
+                <div id="divCodConsultora" class="selectP2 borde_redondeado">
+                    <input type="text" id="txtCodigos" placeholder="Código consultora" />
                 </div>
+                <div id="divDNI" class="selectP2 borde_redondeado" hidden>
+                    <input type="text" id="txtDocumento" placeholder="DNI" />
+                </div>
+
                 <div class="input_search">
                     <input type="submit" name="" id="btnBuscar" value="Buscar" />
                 </div>

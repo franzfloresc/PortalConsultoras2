@@ -67,6 +67,7 @@
         var emt_device = ' ';
         var emt_default_message = '@Html.Raw(ViewBag.MensajeChat)';
         var habilitarChatEmtelco = '@ViewBag.HabilitarChatEmtelco';
+        var habilitarChatBot = '@ViewBag.HabilitarChatBot';
         // New Chat -->
         var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
         var FechaActual = '@(DateTime.Now.ToString("dd/MM/yyyy"))';
@@ -121,7 +122,7 @@
         }
     </script>
 
-    <header>
+    <header class="header--nuevoLookAndFeelEsika">
         @if (ViewBag.MostrarBannerPostulante == true)
         {
             @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpBloqueMensajesPostulante.cshtml")
@@ -201,8 +202,10 @@
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogMensajes.cshtml")
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogErrorMainLayout.cshtml")
-
+    
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogSesionMainLayout.cshtml")
+
+    @{ Html.RenderPartial("~/Views/Shared/PopupsResponsive/_PopupCierreSesion.cshtml");}
 
     @Html.Partial("~/Views/Shared/VistaParcialMainLayout/_vpDialogMensajePostulante.cshtml")
 
@@ -214,6 +217,9 @@
 
     @Html.Partial("~/Views/Shared/_template-ofertadeldia-style.cshtml")
 
+    @*INI HD-3693*@
+    @Html.Partial("~/Views/Shared/PopupsResponsive/_PopupBloqueoPorSistema.cshtml")
+    @*FIN HD-3693*@
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/JQueryJs")
 
     <script type="text/javascript">
@@ -241,6 +247,8 @@
         var TotalResultadosBuscador = '@ViewBag.TotalListadorBuscador';
         var AplicarLogicaCantidadBotonVerTodos = '@ViewBag.AplicarLogicaCantidadBotonVerTodos'.toLowerCase();
         var MostrarPalabrasMenoresACuatro = '@ViewBag.MostrarPalabrasMenoresACuatro';
+        var NoReservoPedido = '@ViewBag.NoReservoPedido' === 'True';
+        var SessionTimeout = '@ViewBag.SessionTimeout';
     </script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Desktop/SB2")
     <script type='text/javascript'>
@@ -254,9 +262,10 @@
             s.parentNode.insertBefore(trme, s);
         })();
     </script>
-
+    
     @RenderSection("scripts", required: false)
 
+    @{ Html.RenderPartial("VistaParcialMainLayout/_fbsdk");}
     <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
 
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/Login-Header")

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.OrdenYFiltros" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.OrdenYFiltros" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="BEOrdenFiltroConfiguracion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Filtros" nillable="true" type="tns:ArrayOfBEFiltroGrupo" />
+      <xs:element minOccurs="0" name="Ordenamientos" nillable="true" type="tns:ArrayOfBEOrdenGrupo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEOrdenFiltroConfiguracion" nillable="true" type="tns:BEOrdenFiltroConfiguracion" />
+  <xs:complexType name="ArrayOfBEFiltroGrupo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEFiltroGrupo" nillable="true" type="tns:BEFiltroGrupo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEFiltroGrupo" nillable="true" type="tns:ArrayOfBEFiltroGrupo" />
+  <xs:complexType name="BEFiltroGrupo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Excluyente" type="xs:boolean" />
+      <xs:element minOccurs="0" name="NombreGrupo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Opciones" nillable="true" type="tns:ArrayOfBEFiltro" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEFiltroGrupo" nillable="true" type="tns:BEFiltroGrupo" />
+  <xs:complexType name="ArrayOfBEFiltro">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEFiltro" nillable="true" type="tns:BEFiltro" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEFiltro" nillable="true" type="tns:ArrayOfBEFiltro" />
+  <xs:complexType name="BEFiltro">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEFiltro" nillable="true" type="tns:BEFiltro" />
+  <xs:complexType name="ArrayOfBEOrdenGrupo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEOrdenGrupo" nillable="true" type="tns:BEOrdenGrupo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEOrdenGrupo" nillable="true" type="tns:ArrayOfBEOrdenGrupo" />
+  <xs:complexType name="BEOrdenGrupo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="NombreGrupo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Opciones" nillable="true" type="tns:ArrayOfBEOrden" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEOrdenGrupo" nillable="true" type="tns:BEOrdenGrupo" />
+  <xs:complexType name="ArrayOfBEOrden">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEOrden" nillable="true" type="tns:BEOrden" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEOrden" nillable="true" type="tns:ArrayOfBEOrden" />
+  <xs:complexType name="BEOrden">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEOrden" nillable="true" type="tns:BEOrden" />
+</xs:schema>

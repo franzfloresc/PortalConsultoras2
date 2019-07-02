@@ -1408,9 +1408,19 @@ namespace Portal.Consultoras.Web.ServiceZonificacion {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZonificacionService/GetContenidoAppDetaAct", ReplyAction="http://tempuri.org/IZonificacionService/GetContenidoAppDetaActResponse")]
         Portal.Consultoras.Web.ServiceZonificacion.BEContenidoAppDetaAct[] GetContenidoAppDetaAct(int paisId, int parent);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZonificacionService/GetZonasByRegion", ReplyAction="http://tempuri.org/IZonificacionService/GetZonasByRegionResponse")]
+        Portal.Consultoras.Web.ServiceZonificacion.BEZona[] GetZonasByRegion(int PaisID, int RegionID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZonificacionService/GetContenidoAppDetaAct", ReplyAction="http://tempuri.org/IZonificacionService/GetContenidoAppDetaActResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceZonificacion.BEContenidoAppDetaAct[]> GetContenidoAppDetaActAsync(int paisId, int parent);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZonificacionService/GetZonasByRegion", ReplyAction="http://tempuri.org/IZonificacionService/GetZonasByRegionResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceZonificacion.BEZona[]> GetZonasByRegionAsync(int PaisID, int RegionID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZonificacionService/GetRegionByPaisZonaActivas", ReplyAction="http://tempuri.org/IZonificacionService/GetRegionByPaisZonaActivasResponse")]
+        Portal.Consultoras.Web.ServiceZonificacion.BERegion[] GetRegionByPaisZonaActivas(int paisID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IZonificacionService/GetRegionByPaisZonaActivas", ReplyAction="http://tempuri.org/IZonificacionService/GetRegionByPaisZonaActivasResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceZonificacion.BERegion[]> GetRegionByPaisZonaActivasAsync(int paisID);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1672,12 +1682,20 @@ namespace Portal.Consultoras.Web.ServiceZonificacion {
             return base.Channel.GetSegmentoInternoBannerAsync(PaisID);
         }
         
-        public Portal.Consultoras.Web.ServiceZonificacion.BEContenidoAppDetaAct[] GetContenidoAppDetaAct(int paisId, int parent) {
-            return base.Channel.GetContenidoAppDetaAct(paisId, parent);
+        public Portal.Consultoras.Web.ServiceZonificacion.BEZona[] GetZonasByRegion(int PaisID, int RegionID) {
+            return base.Channel.GetZonasByRegion(PaisID, RegionID);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceZonificacion.BEContenidoAppDetaAct[]> GetContenidoAppDetaActAsync(int paisId, int parent) {
-            return base.Channel.GetContenidoAppDetaActAsync(paisId, parent);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceZonificacion.BEZona[]> GetZonasByRegionAsync(int PaisID, int RegionID) {
+            return base.Channel.GetZonasByRegionAsync(PaisID, RegionID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceZonificacion.BERegion[] GetRegionByPaisZonaActivas(int paisID) {
+            return base.Channel.GetRegionByPaisZonaActivas(paisID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceZonificacion.BERegion[]> GetRegionByPaisZonaActivasAsync(int paisID) {
+            return base.Channel.GetRegionByPaisZonaActivasAsync(paisID);
         }
     }
 }

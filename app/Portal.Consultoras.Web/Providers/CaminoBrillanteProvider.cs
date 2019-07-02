@@ -8,6 +8,8 @@ using AutoMapper;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
+using Portal.Consultoras.Web.HojaInscripcionODS;
+using Portal.Consultoras.Web.ServiceODS;
 
 namespace Portal.Consultoras.Web.Providers
 {
@@ -166,7 +168,7 @@ namespace Portal.Consultoras.Web.Providers
                         CodigoConsultora = usuarioModel.CodigoConsultora,
                         NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
                     };
-                    kits = svc.GetKitsCaminoBrillante(usuario).ToList();
+                    kits = (svc.GetKitsCaminoBrillante(usuario) ?? new BEKitCaminoBrillante[] { }).ToList();
                 }
                 if (kits != null && kits.Any(e => e.FlagHistorico))
                 {
@@ -184,13 +186,10 @@ namespace Portal.Consultoras.Web.Providers
         /// <summary>
         /// Obtiene Demostradores disponibles para la consultora
         /// </summary>
-        public List<DemostradorCaminoBrillanteModel> GetDesmostradoresCaminoBrillante()
+        public DemostradoresPaginadoModel GetDesmostradoresCaminoBrillante(int cantRegistros, int regMostrados, string codOrdenar, string codFiltro)
         {
             try
             {
-                var demostradores = sessionManager.GetDemostradoresCaminoBrillante();
-                if (demostradores != null) return Format(Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores));
-
                 int nivel = 0;
                 var nivelConsultora = GetNivelActualConsultora();
                 if (nivelConsultora != null)
@@ -198,28 +197,30 @@ namespace Portal.Consultoras.Web.Providers
                     int.TryParse(nivelConsultora.Nivel, out nivel);
                 }
 
+                var usuario = new ServicePedido.BEUsuario()
+                {
+                    PaisID = usuarioModel.PaisID,
+                    CampaniaID = usuarioModel.CampaniaID,
+                    ConsultoraID = usuarioModel.ConsultoraID,
+                    CodigoConsultora = usuarioModel.CodigoConsultora,
+                    NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
+                };
+
+                BEDemostradoresPaginado demostradores;
                 using (var svc = new PedidoServiceClient())
                 {
-                    var usuario = new ServicePedido.BEUsuario()
-                    {
-                        PaisID = usuarioModel.PaisID,
-                        CampaniaID = usuarioModel.CampaniaID,
-                        ConsultoraID = usuarioModel.ConsultoraID,
-                        CodigoConsultora = usuarioModel.CodigoConsultora,
-                        NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
-                    };
-
-                    demostradores = svc.GetDemostradoresCaminoBrillante(usuario).ToList();
+                    demostradores = svc.GetDemostradoresCaminoBrillante(usuario, cantRegistros, regMostrados, codOrdenar, codFiltro);
                 }
 
-                sessionManager.SetDemostradoresCaminoBrillante(demostradores);
-
-                return Format(Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores));
+                var oDemostradores = new DemostradoresPaginadoModel();
+                oDemostradores.LstDemostradores = Format(Mapper.Map<List<DemostradorCaminoBrillanteModel>>(demostradores.LstDemostradores));
+                oDemostradores.Total = demostradores.Total;
+                return oDemostradores;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
-                return new List<DemostradorCaminoBrillanteModel>();
+                return new DemostradoresPaginadoModel();
             }
         }
 
@@ -258,8 +259,8 @@ namespace Portal.Consultoras.Web.Providers
         public bool ValidacionCaminoBrillante()
         {
             var informacion = GetConsultoraNivelCaminoBrillante();
-            if (informacion == null || informacion.NivelConsultora == null || !informacion.NivelConsultora.Any()) return false;
-            return true;
+            if (informacion == null || informacion.NivelConsultora == null || usuarioModel == null || !informacion.NivelConsultora.Any()) return false;
+            return usuarioModel.CaminoBrillante;
         }
 
         public bool LoadCaminoBrillante() {
@@ -285,12 +286,71 @@ namespace Portal.Consultoras.Web.Providers
             {
                 using (var svc = new UsuarioServiceClient())
                 {
-                    resumen = svc.GetConsultoraNivelCaminoBrillante(Mapper.Map<ServiceUsuario.BEUsuario>(usuarioModel));
+                    var beUsuario = Mapper.Map<ServiceUsuario.BEUsuario>(usuarioModel);
+                    beUsuario.Zona = usuarioModel.CodigoZona;
+                    beUsuario.Region = usuarioModel.CodigorRegion;
+                    resumen = svc.GetConsultoraNivelCaminoBrillante(beUsuario);
                 }                
                 sessionManager.SetConsultoraCaminoBrillante(resumen);                
             }
             return resumen;
         }
 
+        /// <summary>
+        /// Validación CUV Camino Brillante
+        /// </summary>
+        public BEValidacionCaminoBrillante ValidarBusquedaCaminoBrillante(string cuv)
+        {
+            try
+            {
+                using (var svc = new ServiceODS.ODSServiceClient())
+                {
+                    var usuario = new ServiceODS.BEUsuario()
+                    {
+                        PaisID = usuarioModel.PaisID,
+                        CampaniaID = usuarioModel.CampaniaID,
+                        ConsultoraID = usuarioModel.ConsultoraID,
+                        CodigoConsultora = usuarioModel.CodigoConsultora,
+                        NivelCaminoBrillante = usuarioModel.NivelCaminoBrillante,
+                    };
+
+                    return svc.ValidarBusquedaCaminoBrillante(usuario, cuv);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return new BEValidacionCaminoBrillante() { Validacion = Enumeradores.ValidacionCaminoBrillante.ProductoNoExiste };
+            }
+        }
+
+        public FiltrosCaminoBrillanteModel GetDatosOrdenFiltros()
+        {
+            try
+            {
+                var entidad = sessionManager.GetFiltrosCaminoBrillante();
+                if (entidad == null)
+                {
+                    using (var svc = new PedidoServiceClient())
+                        entidad = svc.GetFiltrosCaminoBrillante(usuarioModel.PaisID, false);
+
+                    if (entidad == null) return null;
+                    sessionManager.SetFiltrosCaminoBrillante(entidad);
+                }
+
+                var oFiltro = new FiltrosCaminoBrillanteModel();
+                if(entidad.Filtros.Length > 0)
+                    oFiltro.DatosFiltros = Mapper.Map<List<FiltrosDatosCaminoBrillante>>(entidad.Filtros[0].Opciones);
+                if (entidad.Ordenamientos.Length > 0)
+                    oFiltro.DatosOrden = Mapper.Map<List<OrdenDatosCaminoBrillante>>(entidad.Ordenamientos[0].Opciones);
+
+                return oFiltro;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, usuarioModel.CodigoConsultora, usuarioModel.CodigoISO);
+                return null;
+            }
+        }
     }
 }

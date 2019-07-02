@@ -1,16 +1,23 @@
 ﻿using Portal.Consultoras.Common;
 using System;
+using System.Net;
 using System.Web;
 
 namespace Portal.Consultoras.ServiceHost
 {
     public class Global : HttpApplication
     {
-        protected void Application_Error(object sender, EventArgs e)
+        protected void Application_Start()
         {
-            var exception = Server.GetLastError();
-
-            LogManager.SaveLog(exception, "", "");
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
         }
-    }
+       
+
+        protected void Application_Error(object sender, EventArgs e)
+            {
+                var exception = Server.GetLastError();
+
+                LogManager.SaveLog(exception, "", "");
+            }
+        }
 }

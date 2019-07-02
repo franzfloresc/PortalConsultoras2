@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.ReporteRevisionIncidencias;
 using Portal.Consultoras.Web.Providers;
@@ -142,7 +143,7 @@ namespace Portal.Consultoras.Web.Controllers
                     };
                     return Json(data, JsonRequestBehavior.AllowGet);
                 }
-                throw new Exception(ModelState.ToString());
+                throw new ClientInformationException(ModelState.ToString());
             }
             catch (Exception ex)
             {
