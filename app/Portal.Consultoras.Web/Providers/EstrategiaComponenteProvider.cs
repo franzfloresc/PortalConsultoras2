@@ -159,7 +159,7 @@ namespace Portal.Consultoras.Web.Providers
                 });
 
                 var validarDias = _consultaProlProvider.GetValidarDiasAntesStock(userData);
-                _consultaProlProvider.ActualizarComponenteStockPROL(listaEstrategiaComponente, cuv2, userData.CodigoISO, campania, userData.GetCodigoConsultora(), validarDias);
+                listaEstrategiaComponente = _consultaProlProvider.ActualizarComponenteStockPROL(listaEstrategiaComponente, cuv2, userData.CodigoISO, campania, userData.GetCodigoConsultora(), validarDias);
             }
 
             return listaEstrategiaComponente;
