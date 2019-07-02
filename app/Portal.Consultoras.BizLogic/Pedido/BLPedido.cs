@@ -4018,7 +4018,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var lstKitSE = _pedidoWebBusinessLogic.GetCuvSuscripcionSE(bEPedidoWeb);
 
             //Valida que se tenga kits para la consultora
-            if (!lstKitSE.Any()) return false;
+            if (!lstKitSE.Any()) return true;
 
             //Validamos si ya exite en el pedido.
             var bePedidoWebDetalleParametros = new BEPedidoBuscar
@@ -4037,7 +4037,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             //Agrega los CUV del kit SC
             foreach (var item in lstKitSE)
             {
-                if (lstDetalle.Any(x => x.CUV == item.CUV))
+                var fndProd = lstDetalle == null ? false : lstDetalle.Any(x => x.CUV == item.CUV);
+                if (!fndProd)
                 {
                     var detalle = new BEPedidoDetalle()
                     {
