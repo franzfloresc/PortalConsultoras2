@@ -139,7 +139,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha
                     //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalCarrusel
                     //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha))
-                    if (modeloOrigenPedido.Palanca != ConsOrigenPedidoWeb.Palanca.OfertaFinal)
+                    if (modeloOrigenPedido.Palanca != ConsOrigenPedidoWeb.Palanca.OfertaFinal && 
+                        !_bLCaminoBrillante.IsOrigenPedidoCaminoBrillante(pedidoDetalle.OrigenPedidoWeb))
                     {
                         var respuesta = RespuestaModificarPedido(pedidoDetalle.Usuario);
                         if (respuesta != null)
@@ -511,13 +512,11 @@ namespace Portal.Consultoras.BizLogic.Pedido
             #endregion
 
             #region CaminoBrillante
-
-            var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(pedidoDetalle.OrigenPedidoWeb);
-
-            //if (pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
+            
+            if (_bLCaminoBrillante.IsOrigenPedidoCaminoBrillante(pedidoDetalle.OrigenPedidoWeb))
             //    pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
             //    pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido)
-            if (modeloOrigenPedido.Palanca == ConsOrigenPedidoWeb.Palanca.OfertasEspeciales)
+           // if (modeloOrigenPedido.Palanca == ConsOrigenPedidoWeb.Palanca.OfertasEspeciales)
             {
                 if (_bLCaminoBrillante.UpdEstragiaCaminiBrillante(estrategia, usuario.PaisID, usuario.CampaniaID, usuario.NivelCaminoBrillante, pedidoDetalle.Producto.CUV))
                 {
