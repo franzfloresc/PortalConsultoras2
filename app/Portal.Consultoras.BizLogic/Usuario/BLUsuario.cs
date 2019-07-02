@@ -4208,9 +4208,10 @@ namespace Portal.Consultoras.BizLogic
 
                     string displayname = "Somos Belcorp";
                     string codigoGenerado = Common.Util.GenerarCodigoRandom();
+                    InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorEmail, codigoGenerado);
                     Portal.Consultoras.Common.MailUtilities.EnviarMailPinAutenticacion2(emailFrom, emailTo, titulo, displayname, nombrecorreo, codigoGenerado);
                     //if (CantidadEnvios >= 2) oUsu.OpcionDesabilitado = true;
-                    InsCodigoGenerado(oUsu, paisID, Constantes.TipoEnvioEmailSms.EnviarPorEmail, codigoGenerado);
+                    
                     return true;
                 }
                 catch (Exception ex)

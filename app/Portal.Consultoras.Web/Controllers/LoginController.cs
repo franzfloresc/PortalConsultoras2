@@ -3592,6 +3592,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     EstadoEnvio = await svc.ProcesaEnvioEmailCambiaContrasenia2Async(paisID, oUsu);
                 }
+
                 return Json(new
                 {
                     success = EstadoEnvio,
