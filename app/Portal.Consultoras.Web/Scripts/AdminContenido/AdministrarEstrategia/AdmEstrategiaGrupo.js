@@ -88,9 +88,9 @@
                 loadtext: "Cargando datos...",
                 recordtext: "{0} - {1} de {2} Registros",
                 emptyrecords: "No hay resultados",
-                 
+
                 afterSaveCell: function (rowid, name, val, iRow, iCol) {
-                    
+
                     if (name == 'DescripcionSingular') {
                         _EstrategiaGrupoData[rowid - 1].DescripcionSingular = val;
                     }
@@ -98,19 +98,19 @@
                         _EstrategiaGrupoData[rowid - 1].DescripcionPlural = val;
                     }
                     console.log(_EstrategiaGrupoData);
-                } 
+                }
             });
 
-            //INI AGANA 244: Terminar la edición al perder el foco de la celda
+
             $('#listGrupoEstrategia').setGridParam({
                 afterEditCell: function (id, name, val, iRow, iCol) {
-                     
+
                     $("#" + iRow + "_" + name, "#listGrupoEstrategia").bind('blur', function () {
                         $('#listGrupoEstrategia').saveCell(iRow, iCol);
                     });
                 }
-            }); 
-            //END AGANA 244
+            });
+
         } else {
 
             $("#listGrupoEstrategia").setGridParam({ data: _EstrategiaGrupoData }).trigger("reloadGrid", [{ page: 1 }]);

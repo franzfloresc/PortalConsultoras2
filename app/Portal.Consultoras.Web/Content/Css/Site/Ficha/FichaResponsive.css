@@ -183,11 +183,19 @@ ul.breadcumbs li a {
         padding-left: 3px;
         line-height: normal;
     }
+        /* / Tesla fix 204 \ */
+        .precio_venta_oferta span:nth-child(odd) {
+            display:inline-block;
+        }
+        .precio_venta_oferta span:nth-child(even) {
+            display: block;
+        }
+        /* \ Tesla fix 204/ */
 
-.ganancia, .ganancia span {
-    font-size: 14px;
-    line-height: normal;
-}
+        .ganancia, .ganancia span {
+            font-size: 14px;
+            line-height: normal;
+        }
 
 .descripcion_lanzamiento{
     margin-bottom: 30px;
@@ -839,15 +847,15 @@ ul.breadcumbs li a {
     transition: filter .5s ease;
     cursor: pointer;
 }
-        .contenedor_imagen_thumbnail .contenedor_carrusel.slick-slide img {
-            /* Tesla fix 96 */
-            
-            justify-content: center;
-            flex-flow: column;
-            object-fit: cover;
-            height: 100% !important;
-            /* Tesla fix 96 */
-        }
+    .contenedor_imagen_thumbnail .contenedor_carrusel.slick-slide img {
+        /* Tesla fix 96 */
+        justify-content: center;
+        flex-flow: column;
+        object-fit: cover;
+        width: 100% !important; /* <-- Tesla 201*/
+        height: 100% !important;
+        /* Tesla fix 96 */
+    }
 
     .contenedor_imagen_thumbnail .slick-slide.slick-current {
         border: 1px solid #979797;
@@ -909,9 +917,18 @@ ul.breadcumbs li a {
     .contenedor_imagen_thumbnail {
         display: none;
     }
+    /* \ Tesla fix 204/ */
     .contenedor_imagen.slider-for-detail.slick-initialized.slick-slider ~ p{
         margin-top: 2rem;
     }
+    .precio_venta_oferta span:nth-child(even), .precio_venta_oferta span:nth-child(odd){
+        position: relative;
+        left: 98px;
+    }
+    .precio_venta_oferta span:nth-child(1){
+        left: 0;
+    }
+    /* / Tesla fix 204\ */
 }
 
 .contenedor_imagen_thumbnail .contenedor_carrusel:nth-child(6) {

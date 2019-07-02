@@ -149,6 +149,7 @@
             justify-content: center;
             flex-flow: column;
             object-fit: cover;
+            width: 100% !important; /* <-- Tesla 201*/
             height: 100% !important;
             /* Tesla fix 96 */
         }
