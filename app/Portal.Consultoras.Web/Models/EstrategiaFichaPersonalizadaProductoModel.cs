@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Web.Models.DetalleEstrategia;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -39,6 +40,7 @@ namespace Portal.Consultoras.Web.Models
         public bool NoEsCampaniaActual { get; set; }
 
         public bool Error { get; set; }
+
         public int Cantidad { get; set; }
 
         public bool MostrarCliente { get; set; }
@@ -48,6 +50,16 @@ namespace Portal.Consultoras.Web.Models
         public bool MostrarFichaEnriquecida { get; set; }
 
         public bool MostrarFichaResponsive { get; set; }
+
+        //TODO:
+        public bool TienePromociones { get; set; }
+
+        public string CuvPromocion { get; set; }
+
+        public bool MostrarPromociones { get; set; }
+
+        public EstrategiaPersonalizadaProductoModel Promocion { get; set; }
+        public List<EstrategiaPersonalizadaProductoModel> Condiciones { get; set; }
     }
 
     public class DetalleEstrategiaFichaDisenoModel : DetalleEstrategiaFichaModel

@@ -324,6 +324,9 @@
     <Compile Include="Models\Estrategia\FotosComponenteModel.cs" />
     <Compile Include="Models\Search\ResponseOferta\OutputOfertaIncremental.cs" />
     <Compile Include="Models\Search\ResponseOferta\Estructura\FotosComponente.cs" />
+    <Compile Include="Models\Search\ResponsePromociones\Estructura\Estrategia.cs" />
+    <Compile Include="Models\Search\ResponsePromociones\Estructura\PromocionModel.cs" />
+    <Compile Include="Models\Search\ResponsePromociones\OutputPromociones.cs" />
     <Compile Include="Models\ZonaValidacionTelefonicaModel.cs" />
     <Compile Include="Models\CDRProductoRespuestaServicioModel.cs" />
     <Compile Include="Models\ConfiguracionZonaModel.cs" />
@@ -873,6 +876,7 @@
     <Compile Include="Providers\ConfiguracionPaisProvider.cs" />
     <Compile Include="Providers\ConsultaProlProvider.cs" />
     <Compile Include="Providers\ConsultoraOnlineProvider.cs" />
+    <Compile Include="Providers\PromocionesProvider.cs" />
     <Compile Include="Providers\VentaIncrementalProvider.cs" />
     <Compile Include="Providers\EstadoCuentaProvider.cs" />
     <Compile Include="Providers\EstrategiaComponenteProvider.cs" />
