@@ -2397,3 +2397,21 @@ function AbrirChatBot() {
         window.location.href = ChatBotUrlRef;
     }
 }
+
+function OpenUrl(url, newPage) {
+    if (newPage) {
+        window.open(url, '_blank');
+        return;
+    }
+    
+    window.location.href = url;
+}
+
+function OpenUrlCallbackNewPage(url, urlCallback, defaultNewPage) {
+    $.post(urlCallback, function(data) {
+        OpenUrl(url, data.NewPage);
+    })
+    .fail(function() {
+        OpenUrl(url, defaultNewPage);
+    });
+}

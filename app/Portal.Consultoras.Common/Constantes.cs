@@ -619,6 +619,7 @@ namespace Portal.Consultoras.Common
             public const string BonificacionesURL = "BonificacionesURL";
             public const string BonificacionesRegiones = "BonificacionesRegiones";
             public const string JsonWebTokenSecretKey = "JsonWebTokenSecretKey";
+            public const string QuestionProUrl = "QuestionProUrl";
             public const string ChatbotSecret = "ChatbotSecret";
             public const string ChatBotPageId = "ChatBotPageId";
             public const string ChatBotUrl = "https://m.me/{0}?ref={1}";
@@ -1435,6 +1436,7 @@ namespace Portal.Consultoras.Common
             public const string ContenedorOfertas = "ContenedorOfertas";
             public const string LiquidacionWeb = "LiquidacionWeb";
             public const string MiPerfil = "MiPerfil";
+            public const string TuVozOnline = "TuVozOnline";
         }
 
         public static class MenuPosicion
@@ -3948,6 +3950,11 @@ namespace Portal.Consultoras.Common
             public const string OrigenPedidoWebLandingFicha = "OrigenPedidoWebLandingFicha";
             public const string OrigenPedidoWebLandingFichaCarrusel = "OrigenPedidoWebLandingFichaCarrusel";
             public const string OrigenPedidoWebDesplegableFichaCarrusel = "OrigenPedidoWebDesplegableFichaCarrusel";
+        }
+
+        public static class TempDataKey
+        {
+            public const string MsgValidation = "MSG_VALIDATION";
         }
 
         public static class OpcionesIngresoPendientes
