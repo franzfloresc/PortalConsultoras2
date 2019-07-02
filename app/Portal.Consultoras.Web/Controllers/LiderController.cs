@@ -39,10 +39,14 @@ namespace Portal.Consultoras.Web.Controllers
                 payLoad.SeccionGestionLider = userData.SeccionGestionLider;
                 payLoad.EMail = userData.EMail;
                 payLoad.NombrePais = userData.NombrePais;
-                payLoad.Nombre = userData.NombreConsultora;
+                payLoad.NombreConsultora = userData.NombreConsultora;
                 payLoad.Celular = userData.Celular;
                 payLoad.Telefono = userData.Telefono;
                 payLoad.DescripcionNivel = userData.DescripcionNivel;
+                payLoad.PrimerNombre = userData.PrimerNombre;
+                payLoad.PrimerApellido = userData.PrimerApellido;
+                payLoad.NombreCorto = userData.NombreCorto;
+                payLoad.Origen = "SomosBelcorp";
 
                 var cadenaEncriptada = JWT.JsonWebToken.Encode(payLoad, secretKey, JWT.JwtHashAlgorithm.HS256);
                 urlAccesoExterno = ConfigurationManager.AppSettings["URL_LIDER"].ToString() + "/?token=" + cadenaEncriptada;
@@ -62,10 +66,14 @@ namespace Portal.Consultoras.Web.Controllers
             public string SeccionGestionLider { get; set; }
             public string EMail { get; set; }
             public string NombrePais { get; set; }
-            public string Nombre { get; set; }
+            public string NombreConsultora { get; set; }
             public string Celular { get; set; }
             public string Telefono { get; set; }
             public string DescripcionNivel { get; set; }
+            public string PrimerNombre { get; set; }            
+            public string PrimerApellido { get; set; }
+            public string NombreCorto { get; set; }
+            public string Origen { get; set; }
         }
 
     }
