@@ -25,6 +25,20 @@ namespace Portal.Consultoras.Entities
         public string Tipo { get; set; }
         [DataMember]
         public bool Estado { get; set; }
+        [DataMember]
+        public int Campania { get; set; }
+        [DataMember]
+        public string Region { get; set; }
+        [DataMember]
+        public string Zona { get; set; }
+        [DataMember]
+        public string Seccion { get; set; }
+        [DataMember]
+        public string DetaCodigo { get; set; }
+        [DataMember]
+        public string DetaAccionDescripcion { get; set; }
+        [DataMember]
+        public string DetaCodigoDetalleDescripcion { get; set; }
 
     }
 }

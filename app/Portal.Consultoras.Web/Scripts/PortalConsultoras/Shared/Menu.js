@@ -3,8 +3,8 @@ function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros)
     if (ControllerName == "ShowRoom") {
         var pEventoIDVenta = $("#hdEventoIDShowRoomVenta").val();
         if (ActionName == "Index") {
-            var pnombreedescripcion = $("#spnShowRoomEventoVenta").val();
-            var pnombreeventodescripcion = $("#spnShowRoomEventoDescripcionVenta").val();
+            var pnombreedescripcionV = $("#spnShowRoomEventoVenta").val();
+            var pnombreeventodescripcionV = $("#spnShowRoomEventoDescripcionVenta").val();
 
             dataLayer.push({
                 'event': 'promotionClick',
@@ -12,7 +12,7 @@ function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros)
                     'promoView': [
                         {
                             'id': pEventoIDVenta,
-                            'name': pnombreedescripcion + ' ' + pnombreeventodescripcion + ' ' + '- Compra ya',
+                            'name': pnombreedescripcionV + ' ' + pnombreeventodescripcionV + ' ' + '- Compra ya',
                             'position': 'Desktop menu - 1',
                             'creative': 'Menu'
                         }
@@ -40,16 +40,10 @@ function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros)
             });
         }
     }
-    else if (ControllerName == "JavaScript")
-    {
-        if (ActionName == "PopUpPrivacidadDatos")
-        {
+    else if (ControllerName == "JavaScript") {
+        if (ActionName == "PopUpPrivacidadDatos") {
             $("#box-pop-up").show();
             $("#pop-up-body").customScrollbar();
-        }
-        else
-        {
-
         }
         return false;
     }
@@ -62,8 +56,7 @@ function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros)
         $('#dialog_ErrorMainLayout').show();
         return false;
     }
-    else
-    {
+    else {
         if (ControllerName == '') URL = ActionName;
         else {
             if (ActionName == "Index") URL = location.protocol + "//" + location.host + "/" + ControllerName;

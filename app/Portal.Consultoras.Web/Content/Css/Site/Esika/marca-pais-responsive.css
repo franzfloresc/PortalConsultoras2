@@ -2,10 +2,14 @@
 
 /* HEADER */
 
-.header__marca__pais img{
-    width:auto;
-    height:100%;
-    margin-top:-1px;
+.header__marca__pais{
+    width:90px;
+}
+
+.header__marca__pais img {
+    width: 100%;
+    height: auto;
+    margin-top: -7px;
 }
 
 .icono__actualizarDatos,
@@ -134,10 +138,15 @@
         /*background-position:59% center;*/
     }
 
-    .header__marca__pais picture {
-        margin-top: 3px;
-        height:27px;
-    }
+        .header__marca__pais picture {
+            margin-top: 9px;
+            height: 31px;
+        }
+
+        .header__marca__pais img{
+            width:auto;
+            height:100%;
+        }
 
 }
 
@@ -223,9 +232,9 @@
 
 /* MIS CATÁLOGOS Y REVISTAS (DESKTOP) */
 
-.layout__content{
+/*.layout__content{
     margin-top:28px;
-}
+}*/
 
 .catalogos__campania--actual .catalogos__por__campania__item__imagen--esika{
     min-height:346px;

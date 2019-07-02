@@ -62,5 +62,7 @@
         public List<string> ListaDescripcionDetalle { get; set; }
         public EstrategiaDetalleModelo TipoEstrategiaDetalle { get; set; }
         public List<string> ListaPrecioNiveles { get; set; }
+
+        public string ImagenEtiqueta { get; set; }
     }
 }

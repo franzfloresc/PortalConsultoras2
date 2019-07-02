@@ -28,23 +28,23 @@
         }
     };
 
-    var _obtenerKeyName = function (codigoPalanaca, campania) {
-        switch (codigoPalanaca) {
-            case _tipoEstrategia.RevistaDigital:
-            case _tipoEstrategia.OfertaParaTi:
-            case _tipoEstrategia.OfertasParaMi:
-            case _tipoEstrategia.PackAltoDesembolso:
-                return _keyLocalStorage.RevistaDigital;
-            case _tipoEstrategia.GuiaDeNegocioDigitalizada:
-                return _keyLocalStorage.GuiaDeNegocio;
-            case _tipoEstrategia.Lanzamiento:
-                return _keyLocalStorage.Lanzamiento;
-            case _tipoEstrategia.HerramientasVenta:
-                return _keyLocalStorage.HerramientasVenta;
-            default:
-                return null;
-        }
-    };
+    //var _obtenerKeyName = function (codigoPalanaca, campania) {
+    //    switch (codigoPalanaca) {
+    //        case _tipoEstrategia.RevistaDigital:
+    //        case _tipoEstrategia.OfertaParaTi:
+    //        case _tipoEstrategia.OfertasParaMi:
+    //        case _tipoEstrategia.PackAltoDesembolso:
+    //            return _keyLocalStorage.RevistaDigital;
+    //        case _tipoEstrategia.GuiaDeNegocioDigitalizada:
+    //            return _keyLocalStorage.GuiaDeNegocio;
+    //        case _tipoEstrategia.Lanzamiento:
+    //            return _keyLocalStorage.Lanzamiento;
+    //        case _tipoEstrategia.HerramientasVenta:
+    //            return _keyLocalStorage.HerramientasVenta;
+    //        default:
+    //            return null;
+    //    }
+    //};
 
     var _obtenerKeyName2 = function (codigoPalanaca, campania) {
         switch (codigoPalanaca) {
@@ -183,6 +183,31 @@
         return resppuesta;
     };
 
+    var ObtenerEstrategiasNoLS = function (campania, palanca) {
+        var result = [];
+        var urlEstrategia = _obtenerUrlEstrategia(palanca);
+        if (urlEstrategia == null || urlEstrategia == "") {
+            return result;
+        }
+
+        var param = {
+            CampaniaID: campania,
+            IsMobile: isMobile()
+        };
+        
+        _promiseObternerEstrategia(urlEstrategia, param).done(function (data) {
+
+            if (data.success === true) {
+                result = data.lista;
+            }
+
+        }).fail(function (data, error) {
+            result = [];
+        });
+
+        return result;
+    };
+
     var _actualizarAgregado = function (lista, estrategiaId, valor) {
         var updated = false;
         if (lista !== undefined) {
@@ -267,7 +292,8 @@
 
     return {
         ObtenerEstrategia: ObtenerEstrategia,
-        ActualizarCheckAgregado: ActualizarCheckAgregado
+        ActualizarCheckAgregado: ActualizarCheckAgregado,
+        ObtenerEstrategiasNoLS: ObtenerEstrategiasNoLS
     };
 });
 

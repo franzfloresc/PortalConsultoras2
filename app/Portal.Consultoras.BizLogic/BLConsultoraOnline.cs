@@ -1,24 +1,23 @@
 ﻿using Newtonsoft.Json;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Search.RequestRecomendacion;
+using Portal.Consultoras.Entities.Search.RequestRecomendacion.Estructura;
+using Portal.Consultoras.Entities.Search.ResponseRecomendacion;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using Portal.Consultoras.Entities.Search.RequestRecomendacion;
-using Portal.Consultoras.Entities.Search.ResponseRecomendacion;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Entities.Search.RequestRecomendacion.Estructura;
 using ResponseRecomendacion = Portal.Consultoras.Entities.Search.ResponseRecomendacion.Estructura;
-using System.Linq;
 
 namespace Portal.Consultoras.BizLogic
 {
     public class BLConsultoraOnline
     {
-
         public IList<BEMisPedidos> GetSolicitudesPedidoPendiente(int PaisID, long ConsultoraId, int Campania)
         {
             var daMisPedidos = new DAConsultoraOnline(PaisID);
@@ -179,11 +178,13 @@ namespace Portal.Consultoras.BizLogic
                 var EstrategiasMs = GetRecomendadosApiMS(RecomendadoRequest);
 
                 var CodigoTipoEstrategiasNoAplica = new List<String>() {
-                    Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada,
-                    Constantes.TipoEstrategiaCodigo.OfertaDelDia,
-                    Constantes.TipoEstrategiaCodigo.PackNuevas
-                };
+                        Constantes.TipoEstrategiaCodigo.GuiaDeNegocioDigitalizada,
+                        Constantes.TipoEstrategiaCodigo.OfertaDelDia,
+                        Constantes.TipoEstrategiaCodigo.PackNuevas
+                    };
                 EstrategiasMs = EstrategiasMs.Where(x => x.CodigoEstrategia != 2003 && !CodigoTipoEstrategiasNoAplica.Contains(x.CodigoTipoEstrategia)).ToList();
+
+                EstrategiasMs = EstrategiasMs.OrderBy(x => x.Precio2).ToList();
 
                 EstrategiasMs = GetRecomendadosAlgorithm(RecomendadoRequest, EstrategiasMs);
 
@@ -456,12 +457,12 @@ namespace Portal.Consultoras.BizLogic
                 else
                 {
                     var ProductosSolicitados = new List<ProductoSolicitado>() {
-                        new ProductoSolicitado
-                        {
-                            Cantidad = residuo,
-                            CodigoSap = ProductoSolicitado.CodigoSap
-                        }
-                    };
+                            new ProductoSolicitado
+                            {
+                                Cantidad = residuo,
+                                CodigoSap = ProductoSolicitado.CodigoSap
+                            }
+                        };
 
                     var EstrategiasExactPackCombination = GetExactPackCombination(ProductosSolicitados, EstrategiasIndividuales);
 
@@ -627,7 +628,11 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
 
-            EstrategiasIndividuales = EstrategiasIndividuales.OrderByDescending(x => x.Componentes.First(y => y.CodigoSap.Equals(ProductoSolicitado.CodigoSap)).Cantidad).ToList();
+            EstrategiasIndividuales = EstrategiasIndividuales.OrderByDescending(x =>
+                            x.Componentes
+                            .FirstOrDefault(y => y.CodigoSap.Equals(ProductoSolicitado.CodigoSap))
+                            .Cantidad
+                ).ToList();
 
             foreach (var estrategia in EstrategiasIndividuales)
             {
@@ -698,5 +703,6 @@ namespace Portal.Consultoras.BizLogic
 
             return EstrategiasRecomendadas;
         }
+
     }
 }

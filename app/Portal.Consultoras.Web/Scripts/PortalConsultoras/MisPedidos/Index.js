@@ -299,12 +299,12 @@ function CargarDetalleFacturado(camp, page, rows, tipo, pedidoId) {
                     alert("No tiene Pedidos por la Web");
                     return false;
                 }
-                var facturado = data.ImporteFacturado;
+                var facturadoImporte = data.ImporteFacturado;
                 $('#pedidoPorCliente').attr("data-camp", camp);
                 $('#pedidoPorCliente').attr("data-idpedido", pedidoId);
                 $('#pedidoPorCliente').empty().html(htmlDiv);
                 $("#divGrilla").find(".content_datos_pedidosFacturados").removeClass("content_datos_pedidosFacturados").addClass("content_datos_pedidosIngresados");
-                $("[data-div='i']").find("[data-facturadoCabecera]").html(facturado);
+                $("[data-div='i']").find("[data-facturadoCabecera]").html(facturadoImporte);
                 $("#pedidoPorCliente").find('.info_extra_Validado').Visible(dataAjax.cliente == -1);
 
                 // en caso de facturados tenga, poner fuera del if else
@@ -387,7 +387,7 @@ function CargarDetalleIngresadoCliente(tag, camp, page, rows) {
     var objDet = $(obj).parent().find("[data-contenido='" + cliente + "']");
     if (!objDet) return false;
 
-    var camp = $(obj).parent().attr("data-camp");
+    camp = camp || $(obj).parent().attr("data-camp");
 
     waitingDialog();
     var dataAjax = {

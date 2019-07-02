@@ -267,8 +267,8 @@
             <a class="logos_footer" href="http://www.belcorp.biz/">
                 <img src="~/Content/Images/Login2/logo_belcorp.png" alt="" />
             </a>
-            <a class="logos_footer" id="footer_esika" href="http://www.esika.com/">
-                <img src="~/Content/Images/Login2/logo_esika2.png" alt="" />
+            <a class="logos_footer logos_footer--esika" id="footer_esika" href="http://www.esika.com/">
+                <img src="~/Content/Images/Login2/nuevo-logo-esika-login-blanco.svg" alt="" />
             </a>
             <a class="logos_footer" href="http://www.lbel.com/pe/">
                 <img src="~/Content/Images/Login2/logo_lbel2.png" alt="http://www.lbel.com/pe/" />
@@ -288,10 +288,6 @@
     @Scripts.Render("~/Bundle/Js/Desktop/Login2")
 
     @RenderSection("scripts", required: false)
-
-    @{
-        <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
-    }
-
+    <script type="text/javascript" src="@Url.Content("~/emt_chat/js/inject.js")"></script>
 </body>
 </html>

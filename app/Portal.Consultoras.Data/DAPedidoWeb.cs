@@ -346,6 +346,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@EsRechazado", DbType.AnsiString, BEPedidoDDWeb.EsRechazado);
             Context.Database.AddInParameter(command, "@FechaRegistroInicio", DbType.Date, BEPedidoDDWeb.FechaRegistroInicio);
             Context.Database.AddInParameter(command, "@FechaRegistroFin", DbType.Date, BEPedidoDDWeb.FechaRegistroFin);
+            Context.Database.AddInParameter(command, "@IndicadorConsultoraDigital", DbType.Int32, Convert.ToInt32(BEPedidoDDWeb.IndicadorConsultoraDigital));
 
             return Context.ExecuteReader(command);
         }
@@ -661,17 +662,20 @@ namespace Portal.Consultoras.Data
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
-        public void UpdateMontosPedidoWeb(BEPedidoWeb bePedidoWeb)
+        public void UpdateMontosPedidoWeb(BEPedidoWeb pedidoWeb)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdateMontosPedidoWeb_SB2");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, bePedidoWeb.CampaniaID);
-            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, bePedidoWeb.ConsultoraID);
-            Context.Database.AddInParameter(command, "@MontoAhorroCatalogo", DbType.Decimal, bePedidoWeb.MontoAhorroCatalogo);
-            Context.Database.AddInParameter(command, "@MontoAhorroRevista", DbType.Decimal, bePedidoWeb.MontoAhorroRevista);
-            Context.Database.AddInParameter(command, "@MontoDescuento", DbType.Decimal, bePedidoWeb.DescuentoProl);
-            Context.Database.AddInParameter(command, "@MontoEscala", DbType.Decimal, bePedidoWeb.MontoEscala);
-            Context.Database.AddInParameter(command, "@VersionProl", DbType.Byte, bePedidoWeb.VersionProl);
-            Context.Database.AddInParameter(command, "@PedidoSapId", DbType.Int64, bePedidoWeb.PedidoSapId);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, pedidoWeb.CampaniaID);
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, pedidoWeb.ConsultoraID);
+            Context.Database.AddInParameter(command, "@MontoAhorroCatalogo", DbType.Decimal, pedidoWeb.MontoAhorroCatalogo);
+            Context.Database.AddInParameter(command, "@MontoAhorroRevista", DbType.Decimal, pedidoWeb.MontoAhorroRevista);
+            Context.Database.AddInParameter(command, "@MontoDescuento", DbType.Decimal, pedidoWeb.DescuentoProl);
+            Context.Database.AddInParameter(command, "@MontoEscala", DbType.Decimal, pedidoWeb.MontoEscala);
+            Context.Database.AddInParameter(command, "@VersionProl", DbType.Byte, pedidoWeb.VersionProl);
+            Context.Database.AddInParameter(command, "@PedidoSapId", DbType.Int64, pedidoWeb.PedidoSapId);
+            Context.Database.AddInParameter(command, "@GananciaRevista", DbType.Decimal, pedidoWeb.GananciaRevista);
+            Context.Database.AddInParameter(command, "@GananciaWeb", DbType.Decimal, pedidoWeb.GananciaWeb);
+            Context.Database.AddInParameter(command, "@GananciaOtros", DbType.Decimal, pedidoWeb.GananciaOtros);
 
             Context.ExecuteNonQuery(command);
         }
@@ -962,5 +966,14 @@ namespace Portal.Consultoras.Data
                 Context.ExecuteNonQuery(command);
             }
         }
+
+        public IDataReader GetCuvSuscripcionSE(BEPedidoWeb bEPedidoWeb)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCuvSuscripcionSE");
+            Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, bEPedidoWeb.CampaniaID);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, bEPedidoWeb.CodigoConsultora);
+            return Context.ExecuteReader(command);
+        }
+
     }
 }

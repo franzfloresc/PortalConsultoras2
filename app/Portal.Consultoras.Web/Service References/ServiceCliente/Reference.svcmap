@@ -19,16 +19,15 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:41615/ClienteService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:41615/ClienteService.svc?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
     <MetadataFile FileName="ClienteService.xsd" MetadataType="Schema" ID="82bf08ad-557a-4000-89fb-9b9256990079" SourceId="1" SourceUrl="http://localhost:41615/ClienteService.svc?xsd=xsd0" />
     <MetadataFile FileName="ClienteService1.xsd" MetadataType="Schema" ID="271b73d2-abcb-4df8-8334-6a3f0adc9883" SourceId="1" SourceUrl="http://localhost:41615/ClienteService.svc?xsd=xsd1" />
-    <MetadataFile FileName="ClienteService.disco" MetadataType="Disco" ID="3d07620f-4fb1-489e-a39f-8fee93888292" SourceId="1" SourceUrl="http://localhost:41615/ClienteService.svc?disco" />
+    <MetadataFile FileName="ClienteService4.xsd" MetadataType="Schema" ID="a124d0a7-83cb-4e69-b74c-792d45a5a191" SourceId="1" SourceUrl="http://localhost:41615/ClienteService.svc?xsd=xsd6" />
     <MetadataFile FileName="ClienteService.wsdl" MetadataType="Wsdl" ID="9114c2e0-6cdd-4262-ac28-5ea7837c415f" SourceId="1" SourceUrl="http://localhost:41615/ClienteService.svc?wsdl" />
     <MetadataFile FileName="ClienteService3.xsd" MetadataType="Schema" ID="6f846cb1-0189-449f-a0d5-3574f19b0224" SourceId="1" SourceUrl="http://localhost:41615/ClienteService.svc?xsd=xsd4" />
     <MetadataFile FileName="ClienteService31.xsd" MetadataType="Schema" ID="4e1f13e4-be9e-442b-aa90-097503394d12" SourceId="1" SourceUrl="http://localhost:41615/ClienteService.svc?xsd=xsd5" />
-    <MetadataFile FileName="ClienteService4.xsd" MetadataType="Schema" ID="a124d0a7-83cb-4e69-b74c-792d45a5a191" SourceId="1" SourceUrl="http://localhost:41615/ClienteService.svc?xsd=xsd6" />
     <MetadataFile FileName="ClienteService5.xsd" MetadataType="Schema" ID="6fe7813b-cc47-445c-876a-061de432e28f" SourceId="1" SourceUrl="http://localhost:41615/ClienteService.svc?xsd=xsd7" />
     <MetadataFile FileName="ClienteService6.xsd" MetadataType="Schema" ID="6da85b37-8bf4-4a99-944f-f44dbdb113ad" SourceId="1" SourceUrl="http://localhost:41615/ClienteService.svc?xsd=xsd8" />
     <MetadataFile FileName="ClienteService2.xsd" MetadataType="Schema" ID="13ef3d58-ad80-457a-aca7-05fc6080c304" SourceId="1" SourceUrl="http://localhost:41615/ClienteService.svc?xsd=xsd2" />

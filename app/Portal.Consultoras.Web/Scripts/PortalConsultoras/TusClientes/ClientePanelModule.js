@@ -60,7 +60,6 @@
         });
 
         $("#btnPanelListaCerrar").click(function () {
-            console.log('btnPanelListaCerrar - DivPopupFichaResumida overflow auto');
             $("#DivPopupFichaResumida").css("overflow", "auto");
             _cerrar();
         });

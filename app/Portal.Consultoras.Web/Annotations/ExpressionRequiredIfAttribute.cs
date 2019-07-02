@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Common.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -53,7 +54,7 @@ namespace Portal.Consultoras.Web.Annotations
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if (validationContext == null) throw new ArgumentNullException("validationContext");
+            if (validationContext == null) throw new ClientInformationException("validationContext");
 
             var otherProperties = this.OtherProperty.Split('|');
             var otherValueProperties = OtherPropertyValue.ToString().Split('|');

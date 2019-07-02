@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -435,6 +436,29 @@ namespace Portal.Consultoras.Web.Providers
 
             return result;
         }
+
+        #region Suscripcion SE
+        public List<BEProducto> GetCuvsSuscripcionSE()
+        {
+            var userData = sessionManager.GetUserData();
+            List<BEProducto> lista;
+            try
+            {
+                var consultoraSE = Mapper.Map<BEPedidoWeb>(userData);
+                using (var sv = new PedidoServiceClient())
+                {
+                    lista=sv.GetCuvSuscripcionSE(consultoraSE).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                lista=null;
+            }
+
+            return lista ?? new List<BEProducto>();
+        }
+        #endregion Suscripcion SE
 
     }
 }

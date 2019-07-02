@@ -1,77 +1,69 @@
 ﻿using AutoMapper;
-
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceUsuario;
-
+using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.ServiceContenido;
+using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using System.Threading.Tasks;
-using Portal.Consultoras.Web.ServiceContenido;
-using System.Configuration;
-using System.Net;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarHistoriasController : BaseAdmController
     {
-        private static class _accion
+        protected TablaLogicaProvider _tablaLogica;
+        public AdministrarHistoriasController()
         {
-            public const int Nuevo = 1;
-            public const int Editar = 2;
-            public const int NuevoDatos = 3;
-            public const int Deshabilitar = 4;
+            _tablaLogica = new TablaLogicaProvider();
         }
 
         public ActionResult Index()
         {
             var model = new AdministrarHistorialModel();
-            string[] arrUrlMiniatura;
-            string[] arrHistAnchoAlto;
 
             try
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarHistorias/Index"))
                     return RedirectToAction("Index", "Bienvenida");
+
                 ViewBag.UrlS3 = GetUrlS3();
                 ViewBag.UrlDetalleS3 = GetUrlDetalleS3();
-                model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID, true);
+                model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID);
 
-                string HistAnchoAlto = ConfigurationManager.AppSettings["HistAnchoAlto"];
-                arrHistAnchoAlto = HistAnchoAlto.Split(',');
+                string HistAnchoAlto = CodigosTablaLogica(Constantes.DatosContenedorHistorias.HistAnchoAlto);
+                var arrHistAnchoAlto = HistAnchoAlto.Split(',');
                 model.Ancho = arrHistAnchoAlto[0];
                 model.Alto = arrHistAnchoAlto[1];
 
                 BEContenidoAppHistoria entidad;
                 using (var sv = new ServiceContenido.ContenidoServiceClient())
                 {
-                    entidad = sv.GetContenidoAppHistoria(Globals.CodigoHistoriasResumen);
-                    
+                    string CodigoHistoriasResumen = CodigosTablaLogica(Constantes.DatosContenedorHistorias.CodigoHistoriasResumen);
+                    entidad = sv.GetContenidoAppHistoria(userData.PaisID, CodigoHistoriasResumen);
 
                     model.IdContenido = entidad.IdContenido;
                     model.Codigo = entidad.Codigo;
                     model.Descripcion = entidad.Descripcion;
                     model.Estado = entidad.Estado;
-                    model.DesdeCampania = entidad.DesdeCampania;
                     model.CantidadContenido = entidad.CantidadContenido;
                 }
 
                 if (entidad.UrlMiniatura == string.Empty)
                 {
                     model.NombreImagenAnterior = Url.Content("~/Content/Images/") + "Question.png";
-                    model.NombreImagen = "";
+                    model.NombreImagen = string.Empty;
                 }
                 else
                 {
-                    arrUrlMiniatura = entidad.UrlMiniatura.Split('/');
+                    var arrUrlMiniatura = entidad.UrlMiniatura.Split('/');
                     model.NombreImagenAnterior = ViewBag.UrlS3 + arrUrlMiniatura[5];
-                    model.NombreImagen = "";
+                    model.NombreImagen = string.Empty;
                 }
+                model.NombreImagen = "";
                 return View(model);
             }
             catch (FaultException ex)
@@ -84,12 +76,15 @@ namespace Portal.Consultoras.Web.Controllers
         private string GetUrlS3()
         {
             var paisIso = Util.GetPaisISO(userData.PaisID);
-            return ConfigCdn.GetUrlCdnAppConsultora(paisIso);
+            string MatrizAppConsultora = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
+            return ConfigCdn.GetUrlCdnAppConsultora(paisIso, MatrizAppConsultora);
         }
+
         private string GetUrlDetalleS3()
         {
             var paisIso = Util.GetPaisISO(userData.PaisID);
-            return ConfigCdn.GetUrlCdnAppConsultoraDetalle(paisIso);
+            string MatrizAppConsultora = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
+            return ConfigCdn.GetUrlCdnAppConsultoraDetalle(paisIso, MatrizAppConsultora);
         }
 
         [HttpPost]
@@ -97,33 +92,45 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                BEContenidoAppHistoria beContenidoApp;
-                using (ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
-                {
-                    beContenidoApp = sv.GetContenidoAppHistoria(form.Codigo);
-                }
-
-                var entidad = new BEContenidoAppHistoria();
-                entidad.UrlMiniatura = beContenidoApp.UrlMiniatura;
                 if (form.NombreImagen != null)
                 {
-                    string histUrlMiniatura = ConfigurationManager.AppSettings["HistUrlMiniatura"];
-                    entidad.UrlMiniatura = SaveFileS3(form.NombreImagen, true);
-                    entidad.UrlMiniatura = histUrlMiniatura + entidad.UrlMiniatura;
-                }
-                entidad.IdContenido = form.IdContenido;
-                entidad.DesdeCampania = form.DesdeCampania;
+                    BEContenidoAppHistoria beContenidoApp;
+                    using (ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
+                    {
+                        beContenidoApp = sv.GetContenidoAppHistoria(userData.PaisID, form.Codigo);
+                    }
 
-                using (ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
-                {
-                    sv.UpdateContenidoApp(entidad);
+                    var entidad = new BEContenidoAppHistoria();
+                    entidad.UrlMiniatura = beContenidoApp.UrlMiniatura;
+                    if (form.NombreImagen != null)
+                    {
+                        string histUrlMiniatura = CodigosTablaLogica(Constantes.DatosContenedorHistorias.HistUrlMiniatura);
+                        entidad.UrlMiniatura = SaveFileS3(form.NombreImagen, true);
+                        entidad.UrlMiniatura = histUrlMiniatura + entidad.UrlMiniatura;
+                    }
+                    entidad.IdContenido = form.IdContenido;
+                    using (ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
+                    {
+                        sv.UpdateContenidoApp(userData.PaisID, entidad);
+                    }
+                    return Json(new
+                    {
+                        success = true,
+                        message = "Se actualizó satisfactoriamente.",
+                        extra = string.Empty
+                    });
                 }
-                return Json(new
+                else
                 {
-                    success = true,
-                    message = "Se actualizó satisfactoriamente.",
-                    extra = ""
-                });
+                    return Json(new
+                    {
+                        success = false,
+                        message = "No seleccionó una imagen.",
+                        extra = string.Empty
+                    });
+                }
+
+
             }
             catch (FaultException ex)
             {
@@ -132,7 +139,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = false,
                     message = "No se pudo realizar la carga de la Imagen.",
-                    extra = ""
+                    extra = string.Empty
                 });
             }
             catch (Exception ex)
@@ -142,64 +149,16 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = false,
                     message = "No se pudo realizar la carga de la Imagen.",
-                    extra = ""
+                    extra = string.Empty
                 });
             }
         }
 
-        [HttpPost]
-        public ActionResult InsertDet(AdministrarHistorialModel form)
+        public JsonResult ComponenteListar(string sidx, string sord, int page, int rows, int IdContenido, string Campania)
         {
             try
             {
-                var tempNombreImagen = form.NombreImagen;
-                var entidad = new BEContenidoAppDeta
-                {
-                    IdContenido = form.IdContenido,
-                    RutaContenido = "1.jpg",
-                    Tipo = "IMAGEN"
-                };
-
-                using (ContenidoServiceClient sv = new ContenidoServiceClient())
-                {
-                    sv.InsertContenidoAppDeta(entidad);
-                }
-
-
-                return Json(new
-                {
-                    success = true,
-                    message = "Se inserto satisfactoriamente.",
-                    extra = ""
-                });
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "No se pudo realizar la carga de la Imagen.",
-                    extra = ""
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "No se pudo realizar la carga de la Imagen.",
-                    extra = ""
-                });
-            }
-        }
-
-        public JsonResult ComponenteListar(string sidx, string sord, int page, int rows, int IdContenido)
-        {
-            try
-            {
-                var list = ComponenteListarDetService(IdContenido);
+                var list = ComponenteListarDetService(IdContenido, Campania);
                 var grid = new BEGrid
                 {
                     PageSize = rows,
@@ -217,14 +176,21 @@ namespace Portal.Consultoras.Web.Controllers
                     rows = from a in items
                            select new
                            {
-                               //id = a.IdContenidoDeta,
                                cell = new string[]
                                 {
                                     a.IdContenidoDeta.ToString(),
                                     a.Tipo,
                                     a.Orden.ToString(),
+                                    a.IdContenido.ToString(),
+                                    a.Campania.ToString(),
+                                    a.Zona,
+                                    a.Seccion,
+                                    a.Accion,
+                                    a.CodigoDetalle,
+                                    a.DetaCodigo,
+                                    a.DetaAccionDescripcion,
+                                    a.DetaCodigoDetalleDescripcion,
                                     a.RutaContenido,
-                                    a.IdContenido.ToString()
                                 }
                            }
                 };
@@ -238,9 +204,9 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private IEnumerable<ServiceContenido.BEContenidoAppList> ComponenteListarDetService(int IdContenido)
+        private IEnumerable<BEContenidoAppList> ComponenteListarDetService(int IdContenido, string Campania)
         {
-            List<ServiceContenido.BEContenidoAppList> listaEntidad = new List<ServiceContenido.BEContenidoAppList>();
+            List<BEContenidoAppList> listaEntidad = new List<BEContenidoAppList>();
 
             try
             {
@@ -251,8 +217,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (var sv = new ContenidoServiceClient())
                 {
-                    listaEntidad = sv.ListContenidoApp(entidad).ToList();
+                    listaEntidad = sv.ListContenidoApp(userData.PaisID, entidad).ToList();
                 }
+                if (Campania != string.Empty)
+                {
+                    var lista = from a in listaEntidad
+                                where a.Campania == Convert.ToInt32(Campania)
+                                select a;
+                    listaEntidad = lista.ToList();
+                }
+
             }
             catch (Exception ex)
             {
@@ -286,7 +260,7 @@ namespace Portal.Consultoras.Web.Controllers
             AdministrarHistorialDetaUpdModel modelo;
             try
             {
-               string url = GetUrlDetalleS3();
+                string url = GetUrlDetalleS3();
                 modelo = new AdministrarHistorialDetaUpdModel
                 {
                     IdContenidoDeta = entidad.IdContenidoDeta,
@@ -315,7 +289,7 @@ namespace Portal.Consultoras.Web.Controllers
                 };
                 using (var sv = new ServiceContenido.ContenidoServiceClient())
                 {
-                    valRespuesta = sv.UpdateContenidoAppDeta(entidad);
+                    valRespuesta = sv.UpdateContenidoAppDeta(userData.PaisID, entidad);
                 }
 
                 return Json(new { success = valRespuesta > 0 });
@@ -327,19 +301,34 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public ActionResult GetDetalle(int id, int IdContenido)
+        public ActionResult GetDetalle(int Proc, int IdContenido)
         {
+            string HistAnchoAlto = CodigosTablaLogica(Constantes.DatosContenedorHistorias.HistAnchoAltoDetalle);
 
-            string HistAnchoAlto = ConfigurationManager.AppSettings["HistAnchoAltoDetalle"];
             string[] arrHistAnchoAlto;
             arrHistAnchoAlto = HistAnchoAlto.Split(',');
 
             var model = new AdministrarHistorialDetaListModel();
+            model.Proc = Proc;
             model.IdContenido = IdContenido;
             model.Ancho = arrHistAnchoAlto[0];
             model.Alto = arrHistAnchoAlto[1];
 
+            model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID, true);
+            model.ListaAccion = GetContenidoAppDetaActService(0);
+            model.ListaCodigoDetalle = GetContenidoAppDetaActService(1);
+
+            BEContenidoAppHistoria entidad;
+            using (var sv = new ContenidoServiceClient())
+            {
+                string CodigoHistoriasResumen = CodigosTablaLogica(Constantes.DatosContenedorHistorias.CodigoHistoriasResumen);
+                string HistLimitDetMensaje = CodigosTablaLogica(Constantes.DatosContenedorHistorias.HistLimitDetMensaje);
+                entidad = sv.GetContenidoAppHistoria(userData.PaisID, CodigoHistoriasResumen);
+                model.LimitDetMensaje = string.Format(HistLimitDetMensaje, entidad.CantidadContenido);
+            }
+
             return PartialView("Partials/MantenimientoDetalle", model);
+
         }
 
         [HttpPost]
@@ -352,13 +341,23 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (ContenidoServiceClient sv = new ContenidoServiceClient())
                 {
+
                     var entidad = new BEContenidoAppDeta
                     {
+                        Proc = model.Proc,
+                        IdContenidoDeta = model.IdContenidoDeta,
                         IdContenido = model.IdContenido,
                         RutaContenido = model.RutaContenido,
-                        Tipo = "IMAGEN"
+                        Campania = model.Campania,
+                        Accion = model.Accion,
+                        CodigoDetalle = model.CodigoDetalle,
+                        Tipo = Constantes.TipoContenido.Imagen,
+                        Zona = model.Zona,
+                        Seccion = model.Seccion
                     };
-                    sv.InsertContenidoAppDeta(entidad);
+
+                    sv.InsertContenidoAppDeta(userData.PaisID, entidad);
+
                 }
 
                 return Json(new
@@ -378,7 +377,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-
         private AdministrarHistorialDetaListModel UpdateFilesDetalles(AdministrarHistorialDetaListModel model)
         {
             var resizeImagenApp = false;
@@ -390,9 +388,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (resizeImagenApp)
             {
-                string codeHist = ConfigurationManager.AppSettings["CodigoHist"].ToString();
-                var urlImagen = ConfigS3.GetUrlFileHistDetalle(userData.CodigoISO, model.RutaContenido);               
-                new Providers.RenderImgProvider().ImagenesResizeProcesoAppHistDetalle(urlImagen, userData.CodigoISO, userData.PaisID, codeHist);
+                string MatrizAppConsultora = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
+                string codeHist = CodigosTablaLogica(Constantes.DatosContenedorHistorias.CodigoHist);
+                var urlImagen = ConfigS3.GetUrlFileHistDetalle(userData.CodigoISO, model.RutaContenido, MatrizAppConsultora);
+                new Providers.RenderImgProvider().ImagenesResizeProcesoAppHistDetalle(urlImagen, userData.CodigoISO, userData.PaisID, codeHist, MatrizAppConsultora);
             }
 
             return model;
@@ -406,7 +405,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var path = Path.Combine(Globals.RutaTemporales, imagenEstrategia);
 
-            string cadena = Globals.UrlMatrizAppConsultora;
+            string cadena = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
             string[] arrCadena;
             arrCadena = cadena.Split(',');
             var carpetaPais = string.Format("{0}/{1}/{2}/{3}", arrCadena[0], userData.CodigoISO, arrCadena[1], arrCadena[2]);
@@ -426,7 +425,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var path = Path.Combine(Globals.RutaTemporales, imagenEstrategia);
 
-            string cadena = Globals.UrlMatrizAppConsultora;
+            string cadena = CodigosTablaLogica(Constantes.DatosContenedorHistorias.MatrizAppConsultora);
             string[] arrCadena;
             arrCadena = cadena.Split(',');
             var carpetaPais = string.Format("{0}/{1}/{2}", arrCadena[0], userData.CodigoISO, arrCadena[1]);
@@ -438,5 +437,132 @@ namespace Portal.Consultoras.Web.Controllers
             return newfilename;
         }
 
+        private IEnumerable<AdministrarHistorialDetaActModel> GetContenidoAppDetaActService(int Parent)
+        {
+
+            List<AdministrarHistorialDetaActModel> listaEntidad;
+
+            try
+            {
+                List<BEContenidoAppDetaAct> listaDatos;
+                using (var sv = new ContenidoServiceClient())
+                {
+                    listaDatos = sv.GetContenidoAppDetaActList(userData.PaisID).ToList();
+                }
+                var lista = from a in listaDatos
+                            where a.Parent == Parent
+                            select a;
+                listaEntidad = Mapper.Map<IList<BEContenidoAppDetaAct>, List<AdministrarHistorialDetaActModel>>(lista.ToList());
+
+            }
+            catch (Exception ex)
+            {
+                listaEntidad = new List<AdministrarHistorialDetaActModel>();
+                logManager.LogErrorWebServicesBusWrap(ex, userData.CodigoUsuario, userData.PaisID.ToString(),
+                    "AdministrarHistoriasController.GetContenidoAppDetaActService");
+            }
+            return listaEntidad;
+        }
+
+        public ActionResult ComponenteDetalleEditarViewDatos(AdministrarHistorialDetaListModel entidad)
+        {
+            AdministrarHistorialDetaListModel model = new AdministrarHistorialDetaListModel();
+
+            string HistAnchoAlto = CodigosTablaLogica(Constantes.DatosContenedorHistorias.HistAnchoAltoDetalle);
+            string[] arrHistAnchoAlto;
+            arrHistAnchoAlto = HistAnchoAlto.Split(',');
+            model.Ancho = arrHistAnchoAlto[0];
+            model.Alto = arrHistAnchoAlto[1];
+
+            try
+            {
+                model.Proc = entidad.Proc;
+                model.ListaCampanias = _zonificacionProvider.GetCampanias(userData.PaisID, true);
+                model.ListaAccion = GetContenidoAppDetaActService(0);
+                model.ListaCodigoDetalle = GetContenidoAppDetaActService(1);
+
+                model.IdContenidoDeta = entidad.IdContenidoDeta;
+                model.IdContenido = entidad.IdContenido;
+                model.Campania = entidad.Campania;
+                model.Accion = entidad.Accion;
+                model.CodigoDetalle = entidad.CodigoDetalle;
+                model.CUV = entidad.CodigoDetalle;
+                model.Zona = entidad.Zona;
+                model.Seccion = entidad.Seccion;
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                model = new AdministrarHistorialDetaListModel();
+            }
+            return PartialView("Partials/MantenimientoDetalle", model);
+        }
+
+        private string CodigosTablaLogica(string codigo)
+        {
+            var LogicaDatosHistoria = _tablaLogica.GetTablaLogicaDatos(userData.PaisID, Constantes.DatosContenedorHistorias.HistoriasLogicaId);
+            var listFind = LogicaDatosHistoria.FirstOrDefault(x => x.Codigo == codigo);
+            if (listFind != null)
+                return listFind.Descripcion;
+            else
+                return string.Empty;
+        }
+
+        public JsonResult ObtenerSegmento(int? PaisId)
+        {
+            PaisId = userData.PaisID;
+            IEnumerable<BESegmentoBanner> lst;
+
+            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            {
+                if (PaisId == Constantes.PaisID.Venezuela)
+                {
+                    lst = sv.GetSegmentoBanner(PaisId.GetValueOrDefault());
+                }
+                else
+                {
+                    lst = sv.GetSegmentoInternoBanner(PaisId.GetValueOrDefault());
+                }
+            }
+
+            return Json(new
+            {
+                listasegmento = lst
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CargarArbolRegionesZonas(int? pais)
+        {
+            pais = userData.PaisID;
+            if (pais.GetValueOrDefault() == 0)
+                return Json(null, JsonRequestBehavior.AllowGet);
+
+            IList<BEZonificacionJerarquia> lst;
+            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            {
+                lst = sv.GetZonificacionJerarquia(pais.GetValueOrDefault());
+            }
+            JsTreeModel[] tree = lst.Distinct<BEZonificacionJerarquia>(new BEZonificacionJerarquiaComparer()).Select(
+                                    r => new JsTreeModel
+                                    {
+                                        data = r.RegionNombre,
+                                        attr = new JsTreeAttribute
+                                        {
+                                            id = r.RegionId * 1000,
+                                            selected = false
+                                        },
+                                        children = lst.Where(i => i.RegionId == r.RegionId).Select(
+                                                        z => new JsTreeModel
+                                                        {
+                                                            data = z.ZonaNombre,
+                                                            attr = new JsTreeAttribute
+                                                            {
+                                                                id = z.ZonaId,
+                                                                selected = false
+                                                            }
+                                                        }).ToArray()
+                                    }).ToArray();
+            return Json(tree, JsonRequestBehavior.AllowGet);
+        }
     }
 }
