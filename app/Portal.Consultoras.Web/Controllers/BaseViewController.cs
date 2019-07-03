@@ -11,6 +11,7 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -526,17 +527,57 @@ namespace Portal.Consultoras.Web.Controllers
                             );
 
 #if DEBUG
-            modelo.TienePromociones = true;
+            modelo.CuvPromocion = cuv;
 #endif
 
             #region Promociones
-            if(modelo.MostrarPromociones && modelo.TienePromociones)
+            if(modelo.MostrarPromociones)
             {
-                var promociones = promocionesProvider.GetPromociones(userData.CodigoISO, userData.CampaniaID.ToString(), cuv);
-                if (promociones.Success)
+                var promociones = promocionesProvider.GetPromociones(userData.CodigoISO, userData.CampaniaID.ToString(), modelo.CuvPromocion);
+
+                if (promociones.Success && promociones.result.Any(x => x.Promocion != null && x.Condiciones.Any()))
                 {
-                    modelo.Promocion = Mapper.Map<Web.Models.Search.ResponsePromociones.Estructura.Estrategia, EstrategiaPersonalizadaProductoModel>(promociones.result[0].Promocion);
-                    modelo.Condiciones = Mapper.Map<List<Web.Models.Search.ResponsePromociones.Estructura.Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(promociones.result[0].Condiciones);
+                    promociones.result = promociones.result.Where(x => x.Promocion != null && x.Condiciones.Any()).ToList();
+                    modelo.Promocion = Mapper.Map<Web.Models.Search.ResponsePromociones.Estructura.Estrategia, EstrategiaPersonalizadaProductoModel>(promociones.result.First().Promocion);
+                    modelo.Condiciones = Mapper.Map<List<Web.Models.Search.ResponsePromociones.Estructura.Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(promociones.result.First().Condiciones);
+
+                    //
+                    var pedidos = SessionManager.GetDetallesPedido();
+
+                    foreach (var item in modelo.Condiciones)
+                    {
+                        var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV2).ToList();
+                        item.IsAgregado = pedidoAgregado.Any();
+
+                        item.CampaniaID = userData.CampaniaID;
+                        item.PrecioVenta = Util.DecimalToStringFormat(item.Precio2.ToDecimal(), userData.CodigoISO);
+                        item.PrecioTachado = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO);
+                        item.TipoAccionAgregar = _ofertaPersonalizadaProvider.TipoAccionAgregar(
+                            item.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable ? 1 : 0,
+                            item.CodigoEstrategia,
+                            userData.esConsultoraLider,
+                            false,
+                            item.CodigoVariante);
+
+                        //falta considerar item.CodigoConsultora == ConsConsultora.CodigoConsultora.Forzadas
+                        //item.CodigoEstrategia =
+                        //    item.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+                        //    && item.MaterialGanancia
+                        //    && sessionMg.TieneMG
+                        //    && revistaDigital.TieneRDC
+                        //    && revistaDigital.EsActiva
+                        //    ? Constantes.TipoEstrategiaCodigo.MasGanadoras
+                        //    : item.CodigoEstrategia;
+
+                    }
+
+                    modelo.Condiciones = modelo.Condiciones
+                        .Where(e =>
+                            e.TipoAccionAgregar == Constantes.TipoAccionAgregar.AgregaloPackNuevas
+                            || e.TipoAccionAgregar == Constantes.TipoAccionAgregar.AgregaloNormal
+                            || e.TipoAccionAgregar == Constantes.TipoAccionAgregar.EligeOpcion
+                        )
+                        .ToList();
                 }
             }
             #endregion

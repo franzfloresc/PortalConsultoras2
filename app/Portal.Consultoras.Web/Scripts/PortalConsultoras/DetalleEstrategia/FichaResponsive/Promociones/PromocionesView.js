@@ -8,6 +8,7 @@
     var _elements = {
         banner: {
             all: "[data-selector]",
+            hideBannerClass: "banner_promociones_ocultar",
         },
         promocionesModal: {
             id: "#modal-promociones",
@@ -47,16 +48,16 @@
     };
 
     var _hideBanner = function () {
-        $(_elements.banner.all).hide();
+        $(_elements.banner.all).addClass(_elements.banner.hideBannerClass);
     };
 
     var _showBanner = function () {
-        $(_elements.banner.all).show();
+        $(_elements.banner.all).removeClass(_elements.banner.hideBannerClass);
 
         $("body").on("click", _elements.banner.all, function (e) {
             e.preventDefault();
             _presenter.onShowModalPromocionesClicked();
-            
+
         });
 
         $(_elements.promocionesModal.btnCerrar.id).click(function (e) {
@@ -86,7 +87,7 @@
     };
 
     var _showPromotion = function (promotion) {
-        
+
     };
 
     return {
