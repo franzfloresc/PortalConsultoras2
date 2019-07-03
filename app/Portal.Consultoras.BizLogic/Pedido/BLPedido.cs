@@ -2203,9 +2203,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 switch (pedidoDetalle.TipoPersonalizacion)
                 {
-                    case Constantes.CodigoEstrategiaBuscador.Liquidacion:
+                    case Constantes.TipoPersonalizacion.Liquidacion:
                         return RegistroLiquidacion(pedidoDetalle);
-                    case Constantes.CodigoEstrategiaBuscador.Catalogo:
+                    case Constantes.TipoPersonalizacion.Catalogo:
                         return PedidoInsertarBuscador(pedidoDetalle);
                     default:
                         return PedidoAgregarProducto(pedidoDetalle);

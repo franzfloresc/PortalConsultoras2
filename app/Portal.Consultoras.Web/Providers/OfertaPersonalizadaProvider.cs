@@ -1153,7 +1153,7 @@ namespace Portal.Consultoras.Web.Providers
 
             estrategia.ClaseBloqueada = estrategia.CampaniaID > 0 && estrategia.CampaniaID != campaniaID ? claseBloqueada : "";
 
-            if (estrategia.CodigoEstrategia != Constantes.CodigoEstrategiaBuscador.Catalogo)
+            if (estrategia.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Catalogo)
             {
                 estrategia.IsAgregado = estrategia.ClaseBloqueada != claseBloqueada && listaPedido.Any(p => p.EstrategiaId == estrategia.EstrategiaID);
             }
