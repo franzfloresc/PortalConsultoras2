@@ -1073,7 +1073,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Shared/footer-responsive.css",
                 "~/Content/Css/Site/Menu/MenuContenedorResponsive.css",
                 "~/Content/Css/Site/slick.css",
-                "~/Content/Css/Site/Ficha/PopoverTooltip.css"
+                "~/Content/Css/Site/Ficha/PopoverTooltip.css",
+                "~/Content/Css/Site/Shared/Buscador/BuscadorCarrusel.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mixto/EsikaPageResponsive").Include(
