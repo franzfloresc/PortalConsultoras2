@@ -2715,6 +2715,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        #endregion
+
         [Obsolete("Revisar ya no se usa")]
         public void EnviarEmail(List<BEMisPedidos> pedidosSesion, string mensajeaCliente)
         {

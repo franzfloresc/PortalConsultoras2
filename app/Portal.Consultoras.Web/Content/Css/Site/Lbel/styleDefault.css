@@ -998,6 +998,7 @@ input[type="checkbox"].switch__control,
     text-transform: initial;
     font-size: 20px !important;
     margin-top: 11px !important;
+}
 
 .alert_dialog_message {
     font-size: 14px !important;
