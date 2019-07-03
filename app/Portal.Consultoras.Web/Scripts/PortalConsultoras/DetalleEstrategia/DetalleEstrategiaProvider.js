@@ -101,28 +101,6 @@ var DetalleEstrategiaProvider = function () {
         return dfd.promise();
     };
 
-    //var _promiseObternerEstrategiaFicha = function (params) {
-    //    var dfd = $.Deferred();
-
-    //    $.ajax({
-    //        type: "POST",
-    //        url: _urlDetalleEstrategia.obtenerEstrategiaFicha,
-    //        dataType: "json",
-    //        contentType: "application/json; charset=utf-8",
-    //        data: JSON.stringify(params),
-    //        async: false,
-    //        cache: false,
-    //        success: function (data) {
-    //            dfd.resolve(data);
-    //        },
-    //        error: function (data, error) {
-    //            dfd.reject(data, error);
-    //        }
-    //    });
-
-    //    return dfd.promise();
-    //};
-
     var _getEstrategia = function (params) {
         var sigueTexto = '_getEstrategia';
         console.log(sigueTexto);
@@ -243,11 +221,7 @@ var DetalleEstrategiaProvider = function () {
         estrategia.ClaseBloqueada = "btn_desactivado_general";
         estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
         estrategia.RangoInputEnabled = "disabled";
-        //estrategia.esEditable = _config.esEditable;
-        //estrategia.setId = _config.setId || 0;
-        //estrategia.TieneStock = _config.esEditable || estrategia.TieneStock;
-
-        //estrategia = $.extend(modeloFicha, estrategia);
+        
         estrategia.TipoPersonalizacion = estrategia.CodigoEstrategia;
         estrategia.MostarTabsFichaEnriquecidaSinDetalle = estrategia.Hermanos.length == 1;
 
@@ -260,7 +234,6 @@ var DetalleEstrategiaProvider = function () {
         promiseObternerComponentes: _promiseObternerComponentes,
         promiseObternerDetallePedido: _promiseObternerDetallePedido,
         promiseObternerModelo: _promiseObternerModelo,
-        //promiseObtenerEstrategiaFicha: _promiseObternerEstrategiaFicha,
         promiseGetEstrategia: _getEstrategia
     };
 }();
