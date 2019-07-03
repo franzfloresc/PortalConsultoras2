@@ -1,21 +1,12 @@
 ﻿<!-- Modal tipos y tonos -->
     <section id="modal_promociones" class="promociones-modal popup_lateral" data-selector="promo-modal">
+        <div class="titulo-promociones on-modal">
+            <span class="texto-promociones"> Promocion </span>
+        </div>
+
         <button id="cerrar-promociones-modal" class="button_cerrar">
             <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
-        </button>
-
-        <div class="header_fixed" id="contenedor-cabecera">
-            <div class="seleccion_header" id="contendor-titulo-opciones">
-                <h3 header-title>Elige 1 opción</h3>
-                @*<h3>¡Listo! <span>ya tienes tu</span> </h3>*@
-                <p header-selected-quantity>0 seleccionados</p>
-            </div>
-            <div class="contenedor_selecionados" id="contenedor-tipos-tonos-seleccionados" style="display:none">
-                <div class="selecionados_carrosel" id="tipos-tonos-seleccionados">
-
-                </div>
-            </div>
-        </div>
+        </button>        
         <!-- <ModalPromoción ticket="tesla-179"> -->
         
         <!--<ModalPromocionCopiadoDeUpSelling>-->
@@ -31,7 +22,7 @@
         <div class="row no-gutters mx-3 mb-4">
             <div class="contenedor-promocion-modal">
                 <div class="titulo-promociones">
-                    <span class="texto-promociones black dark-color">Y llevate esta promoción</span>
+                    <span class="texto-promociones black dark-color">¡Y llevate esta promoción!</span>
                 </div>
                 <div class="descripcion-promociones">
                     <div class="contenedor-imagen">
@@ -46,8 +37,8 @@
         <!-- </ProductoEnPromocion>-->
 
 
-        <div class="row no-gutters">
-            <div class="col-3">
+        <div class="row no-gutters px-3">
+            <div class="col-3 pr-2">
                 <div id="idcontenedor_rangos" data-cantidad-contenedor="" class="contenedor_rangos ">
                     <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" onkeyup="" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" data-cantidad-input="-" value="1">
                     <div>
@@ -60,7 +51,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-9">
+            <div class="col-9 pl-2">
                 <a id="btnAgregalo" onclick="" class="btn_agregalo btn_primario">
                     <div class="icono_agregar"></div> Agregar
                 </a>

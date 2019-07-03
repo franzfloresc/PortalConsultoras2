@@ -934,11 +934,15 @@ ul.breadcumbs li a {
     width: 100%;
     margin: 1rem 0;
 }
-    .ficha-promociones .titulo-promociones {
+    .ficha-promociones .titulo-promociones,
+    .promociones-modal .titulo-promociones.on-modal {
         width: 25%;
         border-radius: 4px 4px 0 0;
         text-align: center;
         background-image: linear-gradient(to right, #e81c36, #e71b38 25%, #cf0d5c 38%, #b9007e 47%, #7c0087 77%, #4e008e);
+    }
+    .promociones-modal .titulo-promociones.on-modal {
+        border-radius: 0;
     }
     .ficha-promociones .texto-promociones {
         font-size: 13px;
