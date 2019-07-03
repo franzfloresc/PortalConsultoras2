@@ -3979,6 +3979,9 @@ namespace Portal.Consultoras.Common
                 case Constantes.TipoEstrategiaCodigo.RevistaDigital:
                     tipoPersonalizacion = Constantes.ConfiguracionPais.RevistaDigital;
                     break;
+                case Constantes.TipoEstrategiaCodigo.MasGanadoras:
+                    tipoPersonalizacion = Constantes.TipoPersonalizacion.MasGanadoras;
+                    break;
                 default:
                     break;
             }
