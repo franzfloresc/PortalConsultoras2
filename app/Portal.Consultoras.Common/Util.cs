@@ -4135,6 +4135,16 @@ namespace Portal.Consultoras.Common
 
             return Encoding.UTF8.GetString(plainText);
         }
+
+        public static List<string> GetCodigosCatalogo()
+        {
+            return new List<string>
+            {
+                Constantes.ODSCodigoCatalogo.CatalogoCyzone,
+                Constantes.ODSCodigoCatalogo.CatalogoEbel,
+                Constantes.ODSCodigoCatalogo.CatalogoEsika,
+            };
+        }
     }
 
     public class SimpleCrypto
