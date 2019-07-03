@@ -54,7 +54,7 @@ namespace Portal.Consultoras.Web.Controllers
             var modelo = Mapper.Map<EstrategiaPersonalizadaProductoModel, DetalleEstrategiaFichaDisenoModel>(OfertaATP);
 
             #region Obtiene variables portal
-            var listaVariable = _configuracionPaisProvider.getBaseVariablesPortal(userData.CodigoISO, userData.Simbolo);
+            var listaVariable = _configuracionPaisProvider.getBaseVariablesPortal(userData.CodigoISO, userData.Simbolo, SessionManager.GetConfigMicroserviciosPersonalizacion());
             #endregion
             #region Asignacion de propiedades de diseño
             var listaSeccion = _confiOfertasHomeProvider

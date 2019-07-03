@@ -1441,31 +1441,33 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 {
                     lstDetalle.Where(x => x.ClienteID == 0).Update(x => x.Nombre = usuario.Nombre);
 
-                    lstDetalle.Update(x => x.DescripcionEstrategia = Util.obtenerNuevaDescripcionProductoDetalle(
-                        x.ConfiguracionOfertaID,
-                        pedidoValidado,
-                        x.FlagConsultoraOnline,
-                        x.OrigenPedidoWeb,
-                        lista,
-                        suscritaActiva,
-                        x.TipoEstrategiaCodigo,
-                        x.MarcaID,
-                        x.CodigoCatalago,
-                        x.DescripcionOferta,
-                        x.EsCuponNuevas,
-                        x.EsElecMultipleNuevas,
-                        x.EsPremioElectivo,
-                        x.EsCuponIndependiente,
-                        null,
-                        x.EsKitCaminoBrillante || x.EsDemCaminoBrillante));
+                    lstDetalle.Update(x =>
+                    {
+                        x.DescripcionEstrategia = Util.obtenerNuevaDescripcionProductoDetalle(
+                                                        x.ConfiguracionOfertaID,
+                                                        pedidoValidado,
+                                                        x.FlagConsultoraOnline,
+                                                        x.OrigenPedidoWeb,
+                                                        lista,
+                                                        suscritaActiva,
+                                                        x.TipoEstrategiaCodigo,
+                                                        x.MarcaID,
+                                                        x.CodigoCatalago,
+                                                        x.DescripcionOferta,
+                                                        x.EsCuponNuevas,
+                                                        x.EsElecMultipleNuevas,
+                                                        x.EsPremioElectivo,
+                                                        x.EsCuponIndependiente,
+                                                        null,
+                                                        x.EsKitCaminoBrillante || x.EsDemCaminoBrillante);
+                        x.TipoPersonalizacion = Util.GetTipoPersonalizacionByCodigoEstrategia(x.TipoEstrategiaCodigo);
+                    });
 
                     lstDetalle.Where(x => x.EsKitNueva).Update(x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.DescripcionKitInicio);
                     lstDetalle.Where(x => x.IndicadorOfertaCUV && x.TipoEstrategiaID == 0 && !x.EsKitCaminoBrillante && !x.EsDemCaminoBrillante)
                         .Update(x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.OfertaNiveles);
 
                     lstDetalle.Where(x => x.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.ArmaTuPack).Update(item => item.EsArmaTuPack = true);
-
-                    pedido.olstBEPedidoWebDetalle = lstDetalle;
 
                     pedido.CantidadProductos = lstDetalle.Sum(p => p.Cantidad);
                     pedido.CantidadCuv = lstDetalle.Count;
@@ -1492,22 +1494,32 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     if (tippingPoint.IndExigVent == "0" || tippingPoint.MontoVentaExigido == 0) pedido.TippingPoint = config.MontoMinimoPedido;
                     else pedido.TippingPoint = tippingPoint.MontoVentaExigido;
 
-                    List<BEEstrategia> LstEstrategia = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(usuario.PaisID, usuario.CodigoPrograma, usuario.CampaniaID, usuario.Nivel);
-                    LstEstrategia = LstEstrategia == null ? new List<BEEstrategia>() : LstEstrategia;
-
-                    if (LstEstrategia.Count > 0 && pedido.olstBEPedidoWebDetalle !=null)
-                        pedido.olstBEPedidoWebDetalle.ForEach(p => p.EsPremioElectivo = LstEstrategia.Any(c => c.CUV2 == p.CUV));
+                    var lstEstrategia = _estrategiaBusinessLogic.GetEstrategiaPremiosElectivos(usuario.PaisID, usuario.CodigoPrograma, usuario.CampaniaID, usuario.Nivel);
+                    if (lstEstrategia.Any() && lstDetalle.Any()) lstDetalle.ForEach(p => p.EsPremioElectivo = lstEstrategia.Any(c => c.CUV2 == p.CUV));
                 }
 
                 //Duo Perfecto
-                if (usuario.CodigoPrograma != string.Empty && usuario.ConsecutivoNueva > 0)
-                    lstDetalle.Where(x => x.FlagNueva && x.EsCuponNuevas)
-                        .Update(x => x.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvElecMultiple(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, x.CUV));
+                if (!string.IsNullOrEmpty(usuario.CodigoPrograma) && usuario.ConsecutivoNueva > 0)
+                {
+                    lstDetalle.Where(x => x.FlagNueva && x.EsCuponNuevas).Update(detalle =>
+                    {
+                        detalle.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvElecMultiple(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, detalle.CUV);
+                    });
+                }
+
+                //Web set y detalle
+                lstDetalle.Where(filtro => filtro.SetID > 0).Update(detalle =>
+                {
+                    detalle.PedidoWebSet = _pedidoWebSetBusinessLogic.Obtener(usuario.PaisID, detalle.SetID);
+                });
+
+                pedido.olstBEPedidoWebDetalle = lstDetalle;
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, usuario.ConsultoraID, usuario.PaisID);
             }
+
             return pedido;
         }
 
