@@ -1540,20 +1540,20 @@ namespace Portal.Consultoras.Web.Controllers
         /*HD-4513*/
 
         #region Pago Contado
-        private bool GetPagoContado()
+        public bool GetPagoContado()
         {
             bool band = true;
 
             if (userData.CodigoISO != Constantes.CodigosISOPais.Ecuador || !(userData.FechaFacturacion == Util.GetDiaActual(userData.ZonaHoraria))) band = false;
 
 
-            return band;
+            return userData.PagoContado && band;
         }
         public BEPedidoWeb GetConfPagoContado(BEPedidoWeb bePedidoWeb)
         {
             BEPedidoWeb obj = new BEPedidoWeb();
 
-            bePedidoWeb.STPPagoContado = userData.PagoContado && GetPagoContado();
+            bePedidoWeb.STPPagoContado =  GetPagoContado();
             obj.STPPagoContado = bePedidoWeb.STPPagoContado;
 
             if (!bePedidoWeb.STPPagoContado)

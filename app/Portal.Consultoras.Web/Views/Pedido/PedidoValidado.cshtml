@@ -221,9 +221,30 @@
                                         <i>S/.</i> <span id="sTotal" data-pedidocondescuento="">0000.00</span>
                                     </span>
                                 </div>
+                            @*HD-4513*@
+                            @if (ViewBag.PagoContado){
+                              <div class="ganancia-info first-color">
+                                    <span><b>(-) Mis Descuentos:</b></span>
+                                   <span class="ganancia-total first-color" data-stpdescuento>
+                                        S/. 0000.00
+                                    </span>
+                                </div>
+                                <div class="ganancia-info first-color">
+                                    <span><b>(+) Gastos de Transporte:</b></span>
+                                   <span class="ganancia-total first-color" data-stpflete>
+                                        S/. 0000.00
+                                    </span>
+                                </div>  
+                                <div class="ganancia-info pb-2">
+                                    <span class="titulo-up"><b>Total a Pagar:</b></span>
+                                   <span class="ganancia-total first-color" data-stptotalpagar>
+                                        S/. 0000.00
+                                    </span>
+                                </div>
+                            }
                             </div>
                         </div>
-
+                               
                         <!-- <NuevaExperiencia  ticket="tesla-98" descripcion="ocultado para cuando se implemente la logica de la nueva vista"> -->                        
                         @*<hr class="clear" />
                         <hr class="separador_montos" />
@@ -252,22 +273,8 @@
                                 <input type="hidden" id="hdeLbl1Ganancia" value="@lbl1Ganancia" />
                                 <input type="hidden" id="hdeLbl2Ganancia" value="@lbl2Ganancia" />
                             </div>
-                         @*HD-4513*@
-                            @*@if (Model.PaisID == Constantes.PaisID.Ecuador){
-                                <br />
-                              <div class="monto_STPDescuento">
-                                    <span><b>(-) Mis Descuentos:</b></span>
-                                </div>
-                                <br />
-                                <div class="monto_STPFlete">
-                                    <span><b>(+) Gastos de Transporte:</b></span>
-                                </div>  
-                                <br />
-                                <div class="monto_STPTotalPagar">
-                                    <span><b>Total a Pagar:</b></span>
-                                </div>
-                            }*@
-                        </div>
+                          
+                        </div> 
                           
                         <div class="caja_montos_cantidades">
 
@@ -293,7 +300,7 @@
                                     @Model.Simbolo
                                     <span id="spnMontoGanancia">@ViewBag.GananciaEstimada</span>
                                 </b>
-                            </p>
+                            </p> 
                         </div>*@
                         <!-- <NuevaExperiencia> -->
                     </div>

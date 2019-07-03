@@ -2623,9 +2623,9 @@ namespace Portal.Consultoras.BizLogic
                         svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
                         var result = svr.ejecutarProcesoPEDPedidoRechazado(PedidoWeb);
                         if (result.mensajeError != "") throw new Exception(result.mensajeError);
-                        bePedidoWeb.STPDescuento = result.totalDesc;
-                        bePedidoWeb.STPTotalPagar = result.totalPaga;
-                        bePedidoWeb.STPGastTransporte = result.totalFlet;
+                        bePedidoWeb.STPDescuento = result.totalDesc?? "";
+                        bePedidoWeb.STPTotalPagar = result.totalPaga ?? "";
+                        bePedidoWeb.STPGastTransporte = result.totalFlet ?? "";
                     }
 
                     /*Actualizar Log*/

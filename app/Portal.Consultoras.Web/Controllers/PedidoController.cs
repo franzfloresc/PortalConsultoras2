@@ -1978,24 +1978,8 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
             ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Ofertas digitales";
 
-            /* HD-4513 */
-            #region Consultora Pago Contado
-            var PagoContadoPrm = new ServicePedido.BEPedidoWeb()
-            {
-                PaisID = userData.PaisID,
-                ConsultoraID = userData.ConsultoraID,
-                CodigoConsultora = userData.CodigoConsultora,
-                CampaniaID = userData.CampaniaID,
-                STPPagoTotal= model.TotalConDsctoFormato,
-                olstBEPedidoWebDetalle = lstPedidoWebDetalle.ToArray()
+            ViewBag.PagoContado = GetPagoContado();
 
-            };
-
-            var resultPagoContado = GetConfPagoContado(PagoContadoPrm);
-            ViewBag.FormatoSTPDescuento = resultPagoContado.STPDescuento;
-            ViewBag.FormatoSTPFlete = resultPagoContado.STPGastTransporte;
-            ViewBag.FormatoSTPTotalPagar = resultPagoContado.STPTotalPagar;
-            #endregion
             return View(model);
         }
 
@@ -2052,12 +2036,36 @@ namespace Portal.Consultoras.Web.Controllers
                     pedidoModelo.PaginaDe = "0";
                 }
 
+                /* HD-4513 */
+                var objDataBarra=GetDataBarra(true, true);
+
+                #region Consultora Pago Contado
+                    if (GetPagoContado()) {
+                    var PagoContadoPrm = new ServicePedido.BEPedidoWeb()
+                    {
+                        PaisID = userData.PaisID,
+                        ConsultoraID = userData.ConsultoraID,
+                        CodigoConsultora = userData.CodigoConsultora,
+                        CampaniaID = userData.CampaniaID,
+                        STPPagoTotal = Convert.ToString(objDataBarra.TotalPedido - objDataBarra.MontoDescuento),
+                        olstBEPedidoWebDetalle = lstPedidoWebDetalle.ToArray()
+
+                    };
+
+                
+                    var resultPagoContado = GetConfPagoContado(PagoContadoPrm);
+                    objDataBarra.STPDescuento =(resultPagoContado.STPDescuento==null || resultPagoContado.STPDescuento=="")? "0.00": Util.DecimalToStringFormat(decimal.Parse(resultPagoContado.STPDescuento.Replace(",","")),userData.CodigoISO);
+                    objDataBarra.STPFlete = (resultPagoContado.STPGastTransporte == null || resultPagoContado.STPGastTransporte == "") ? "0.00" : Util.DecimalToStringFormat(decimal.Parse(resultPagoContado.STPGastTransporte.Replace(",", "")),userData.CodigoISO);
+                    objDataBarra.STPTotalPagar = (resultPagoContado.STPTotalPagar == null || resultPagoContado.STPTotalPagar == "") ? "0.00" : Util.DecimalToStringFormat(decimal.Parse(resultPagoContado.STPTotalPagar.Replace(",", "")),userData.CodigoISO);
+                }
+                #endregion
+
                 return Json(new
                 {
                     success = true,
                     message = "OK",
                     data = pedidoModelo,
-                    dataBarra = GetDataBarra(true, true)
+                    dataBarra = objDataBarra
                 });
             }
             catch (Exception ex)

@@ -1229,6 +1229,12 @@ function ActualizarGanancia(data) {
     $("[data-montoahorrocatalogo]").html(variablesPortal.SimboloMoneda + " " + data.MontoAhorroCatalogoStr);
     $("[data-montoahorrorevista]").html(variablesPortal.SimboloMoneda + " " + data.MontoAhorroRevistaStr);
 
+    /*HD-4513*/
+    $("[data-stpdescuento]").html(variablesPortal.SimboloMoneda + " " +data.STPDescuento);
+    $("[data-stpflete]").html(variablesPortal.SimboloMoneda + " " +data.STPFlete);
+    $("[data-stptotalpagar]").html(variablesPortal.SimboloMoneda + " " +data.STPTotalPagar);
+
+
     $(".num-menu-shop").html(data.CantidadProductos);
     $(".js-span-pedidoingresado").html(data.TotalPedidoStr);
 
