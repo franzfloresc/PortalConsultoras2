@@ -1,10 +1,12 @@
 ﻿using Portal.Consultoras.Common;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models.CaminoBrillante
 {
     public class KitCaminoBrillanteModel
     {
         public string PaisISO { private get; set; }
+        public int CampaniaID { get; set; }
         public string CUV { get; set; }
         public string DescripcionCUV { get; set; }
         public int MarcaID { get; set; }
@@ -16,10 +18,29 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         public string FotoProductoMedium { get; set; }
         public bool FlagSeleccionado { get; set; }
         public bool FlagHabilitado { get; set; }
+        public List<KitCaminoBrillanteModel> Detalle { get; set; }
+
+        public string CodigoEstrategia
+        {
+            get
+            {
+                return "036";
+            }
+        }
+
+        public string CUV2
+        {
+            get
+            {
+                return CUV.ToString();
+            }
+        }
+
         public string FotoTagEnable
         {
             get
             {
+                if (CodigoNivel == null) return null;
                 if (Constantes.CaminoBrillante.Niveles.Etiquetas.ContainsKey(CodigoNivel))
                     return Constantes.CaminoBrillante.Niveles.Etiquetas[CodigoNivel][1];
                 return null;
@@ -29,6 +50,7 @@ namespace Portal.Consultoras.Web.Models.CaminoBrillante
         {
             get
             {
+                if (CodigoNivel == null) return null;
                 if (Constantes.CaminoBrillante.Niveles.Etiquetas.ContainsKey(CodigoNivel))
                     return Constantes.CaminoBrillante.Niveles.Etiquetas[CodigoNivel][0];
                 return null;

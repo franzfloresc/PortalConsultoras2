@@ -116,7 +116,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     HttpContext.Response.Cache.SetCacheability(HttpCacheability.Server); 
                     HttpContext.Response.Cache.SetExpires(DateTime.Now.AddDays(1)); 
                     HttpContext.Response.Cache.SetValidUntilExpires(true);
-                    HttpContext.Response.Cache.VaryByParams["codigoRevista"] = true;
+                    HttpContext.Response.Cache.VaryByParams["*"] = true;
 
                 }
             }
