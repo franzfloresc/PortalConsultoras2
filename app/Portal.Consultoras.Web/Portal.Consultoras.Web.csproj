@@ -324,7 +324,6 @@
     <Compile Include="Models\ChatActivation.cs" />
     <Compile Include="Models\CaminoBrillante\CarruselCaminoBrillante.cs" />
     <Compile Include="Models\CaminoBrillante\FiltrosCaminoBrillanteModel.cs" />
-    <Compile Include="Models\EventoInsert.cs" />
     <Compile Include="Models\ElasticSearch\OutputProductosUpSelling.cs" />
     <Compile Include="Models\CaminoBrillante\MisGananciasCaminoBrillante.cs" />
     <Compile Include="Models\DistanciaLimiteZonaSeccionModel.cs" />
