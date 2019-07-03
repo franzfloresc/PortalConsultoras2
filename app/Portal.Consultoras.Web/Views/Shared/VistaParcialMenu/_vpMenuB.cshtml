@@ -8,6 +8,7 @@
     {
         cantidadPedidosPendientes = ViewBag.CantidadPedidosPendientes;
     }
+    bool plural = (cantidadPedidosPendientes > 1) ? true : false;
 }
 
 <div data-menu-header="parte3" class="menu_esika_b" id="vpMenu">
@@ -42,28 +43,34 @@
                 <div class="flechita_info"></div>
                 <div class="linea_blanca"></div>
                 <div id="SinProductos">
-                    @if (cantidadPedidosPendientes > 0)
-                    {
-                        bool plural = (cantidadPedidosPendientes > 1) ? true : false;
-                        <div class="sin_productos">
-                             <span class="d-block text-left mensaje_cantidad_pedidos_pendientes_por_aprobar">
-                                Tienes @cantidadPedidosPendientes @((plural) ? "Pedidos pendientes" : "Pedido pendiente"),<br />
-                                apruébalos <a href="@Url.Action("Pendientes","ConsultoraOnline")" title="Ir A Pedidos Pendientes" class="d-inline-block enlace__sb enlace__sb--irAPedidosPendientes">aquí.</a>
+                    <div class="sin_productos">
+                        @if (cantidadPedidosPendientes > 0)
+                        {<span class="d-block text-left mensaje_cantidad_pedidos_pendientes_por_aprobar">
+                                <span id="textoSinProductos">
+                                    Tienes @cantidadPedidosPendientes @((plural) ? "Pedidos pendientes" : "Pedido pendiente"),<br />
+                                </span>
+                                <span id="linkPendientesSinProductos">
+                                    apruébalos <a href="@Url.Action("Pendientes", "ConsultoraOnline")" title="Ir A Pedidos Pendientes" class="d-inline-block enlace__sb enlace__sb--irAPedidosPendientes">aquí.</a>
+                                </span>
+
                             </span>
-                        </div>
-                        <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido esika">Ver mi carrito</a>
-                    }
-                    else
-                    {
-                        <div class="sin_productos">
-                            <span>
-                                Todavía no has agregado
-                                <br /> ningún producto a tu
-                                <br /> pedido.
+                        }
+                        else
+                        {
+                            <span class="d-block text-left mensaje_cantidad_pedidos_pendientes_por_aprobar">
+                                <span id="textoSinProductos">
+                                    Todavía no has agregado
+                                    <br /> ningún producto a tu
+                                    <br /> pedido.
+                                </span>
+                                <span id="linkPendientesSinProductos" style="display:none">
+                                    apruébalos <a href="@Url.Action("Pendientes", "ConsultoraOnline")" title="Ir A Pedidos Pendientes" class="d-inline-block enlace__sb enlace__sb--irAPedidosPendientes">aquí.</a>
+                                </span>
                             </span>
-                        </div>
-                        <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido esika">INGRESA TU PEDIDO</a>
-                    }
+                        }
+                    </div>
+                    <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido esika">@((cantidadPedidosPendientes > 0) ? "VER MI CARRITO" : "INGRESA TU PEDIDO") </a>
+
                 </div>
                 <div id="carrito_items"></div>
             </div>
