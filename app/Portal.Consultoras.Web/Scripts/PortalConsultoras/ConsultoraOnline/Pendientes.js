@@ -4,8 +4,7 @@ var listaGana = [];
 var gTipoVista = 0;
 
 $(document).ready(function () {
-    cambiaTabs();    
-    $("#vpMenu .info_cam").remove();
+    cambiaTabs();        
 });
 
 function bindElments() {
@@ -322,6 +321,7 @@ function RechazarSolicitudCliente(pedidoId) {
                 RenderizarPendientes(Pendientes);
                 cambiaTabs();
 
+                CargarResumenCampaniaHeader(true);
             }
             else {
                 alert(response.message);
@@ -550,6 +550,7 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
 
                 RenderizarPendientes(Pendientes);
                 cambiaTabs();
+                CargarResumenCampaniaHeader(true)
             }
             else {
                 alert(response.message);

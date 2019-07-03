@@ -419,8 +419,17 @@ function CargarResumenCampaniaHeader(showPopup) {
                     });
 
                     if (data.ultimosTresPedidos.length == 0) {
+                        var textoSinPedido = "";
                         $('#carrito_items').hide();
                         $('#SinProductos').show();
+                        if (data.cantidadPedidosPendientes > 0) {
+                            textoSinPedido = 'Tienes ' + data.cantidadPedidosPendientes + ((data.cantidadPedidosPendientes > 1) ? ' Pedidos pendientes' : ' Pedido pendiente') + ',<br />';
+                            $('#linkPendientesSinProductos').css('display', 'block');
+                        } else {
+                            textoSinPedido = 'Todavía no has agregado<br/> ningún producto a tu<br/>pedido.';
+                            $('#linkPendientesSinProductos').css('display', 'none');
+                        }
+                        $('#textoSinProductos').html(textoSinPedido);
                     } else {
                         $('#carrito_items').show();
                         $('#SinProductos').hide();
