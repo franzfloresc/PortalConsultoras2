@@ -890,7 +890,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         private IList<EstrategiaPersonalizadaProductoModel> ValidacionResultadosProductos(IList<EstrategiaPersonalizadaProductoModel> estrategiaPersonalizadaProductoModels, string tipoVentaIncremental)
         {
             if (!estrategiaPersonalizadaProductoModels.Any()) return new List<EstrategiaPersonalizadaProductoModel>();
-            var pedidos = SessionManager.GetDetallesPedido();
+            var pedidos = SessionManager.GetDetallesPedidoSetAgrupado();
             var sessionMg = SessionManager.MasGanadoras.GetModel();
 
             foreach (var item in estrategiaPersonalizadaProductoModels)
