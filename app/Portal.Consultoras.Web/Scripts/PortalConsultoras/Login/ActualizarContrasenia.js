@@ -109,7 +109,16 @@ function Inicializar() {
 }
 
 
+function mostrarContrasenia(currentElement) {
+    debugger;
+    var contraseniaType = $(currentElement).parent().find('.text__field__sb')[0].type
 
+    if (contraseniaType === "password") {
+        $(currentElement).parent().find('.text__field__sb')[0].type = "text";
+    } else {
+        $(currentElement).parent().find('.text__field__sb')[0].type = "password";
+    }
+}
 
 
 

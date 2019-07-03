@@ -21,7 +21,7 @@
                     <section class="d-flex form__actualizarContrasenia__wrapper">
                         <div class="center-block text-left form__group__fields form__group__fields--actualizacionContrasenia">
                             <!-- Este mensaje contiene el icono para mostrar y ocultar contraseña, agregar clase  enlace__verPassword--mostrar para cambiar el icono correspondiente, y quitar clase para volver a icono por default -->
-                            <a id="MostrarOcultarPassword" title="Mostrar/Ocultar Password" class="d-block enlace__verPassword"></a>
+                            <a id="MostrarOcultarPassword" title="Mostrar/Ocultar Password" class="d-block enlace__verPassword"  onclick="javascript:mostrarContrasenia(this)"></a>
                             <!-- Fin - Este mensaje contiene el icono para mostrar y ocultar contraseña, agregar clase  enlace__verPassword--mostrar para cambiar el icono correspondiente, y quitar clase para volver a icono por default -->
                             @Html.PasswordFor(m => m.Contrasenia, new { @class = "d-block w-100 text-bold text__field__sb contrasenia" })
                             @*<input id="txtNuevoPassword" type="password" class="d-block w-100 text-bold text__field__sb" name="txtNuevoPassword" value="" />*@
@@ -38,7 +38,7 @@
 
                         </div>
                         <div class="center-block text-left form__group__fields form__group__fields--actualizacionContrasenia">
-                            <a id="MostrarOcultarPassword" title="Mostrar/Ocultar Password" class="d-block enlace__verPassword"></a>
+                            <a id="MostrarOcultarPassword" title="Mostrar/Ocultar Password" class="d-block enlace__verPassword"  onclick="javascript:mostrarContrasenia(this)"></a>
                             @Html.PasswordFor(m => m.ConfirmaContrasenia, new { @class = "d-block w-100 text-bold text__field__sb contrasenia" })
                             @*<input id="txtConfirmarNuevoPassword" type="password" class="d-block w-100 text-bold text__field__sb" name="txtConfirmarNuevoPassword" value="" />*@
                             <label for="txtConfirmarNuevoPassword" class="d-block w-100 text-regular label__field__sb">Confirmar contraseña</label>
