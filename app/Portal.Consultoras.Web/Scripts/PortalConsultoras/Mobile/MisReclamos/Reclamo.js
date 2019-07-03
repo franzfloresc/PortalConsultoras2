@@ -1987,7 +1987,7 @@ $(document).ready(function () {
 
                 //Faltante de abono
                 if (id === me.Variables.operaciones.faltanteAbono) {
-                    if (!me.ValidarPasoDosFaltanteAbono(id)) {
+                    if (!me.Funciones.ValidarPasoDosFaltanteAbono(id)) {
                         return { result: false, id: id };
                     }
                 }
