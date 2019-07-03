@@ -28,6 +28,7 @@ using Portal.Consultoras.Web.Providers;
 using System.Threading.Tasks;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceZonificacion;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -36,6 +37,11 @@ namespace Portal.Consultoras.Web.Controllers
         public string CodigoISO
         {
             get { return userData.CodigoISO; }
+        }
+
+        public string Usuario
+        {
+            get { return userData.UsuarioNombre; }
         }
 
         public ActionResult InscribePostulante()
@@ -1866,7 +1872,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public ActionResult MostrarMensajeBuro(string respuestaBuro)
-		{
+        {
             ViewBag.HTMLSACUnete = getHTMLSACUnete("MensajeRespuestaBuro", "&respuestaBuro=" + respuestaBuro);
             return PartialView("~/Views/Unete/_MensajeRespuestaBuro.cshtml");
         }
@@ -1875,9 +1881,21 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ConsultarEstadoCrediticia(int id, int idEstado)
         {
             bool actualizado;
-            using (var sv = new PortalServiceClient())
+            if (CodigoISO.Equals(PaisesCodigoIso.Colombia))
             {
-                actualizado = sv.ActualizarEstado(CodigoISO, id, EnumsTipoParametro.EstadoBurocrediticio, idEstado);
+                int idEstadoBuro = Util.convertirAEstadoBuro(idEstado);
+                using (var sv = new PortalServiceClient())
+                {
+                    actualizado = sv.ActualizarEstado(CodigoISO, id, EnumsTipoParametro.EstadoBurocrediticio, idEstadoBuro);
+                }
+                var urlClient = string.Format("portal/EventoSPEstadoBuro/{0}/{1}/{2}/{3}/{4}", CodigoISO, id, (int)Enumeradores.EstadoPostulante.Todos, idEstado, Usuario);
+                var resultado = (new RestApi()).GetAsync<EventoInsert>(urlClient);
+            }
+            else {
+                using (var sv = new PortalServiceClient())
+                {
+                    actualizado = sv.ActualizarEstado(CodigoISO, id, EnumsTipoParametro.EstadoBurocrediticio, idEstado);
+                }
             }
             RegistrarLogGestionSacUnete(id.ToString(), "CONSULTA CREDITICIA", "ASIGNAR");
             return Json(actualizado, JsonRequestBehavior.AllowGet);
