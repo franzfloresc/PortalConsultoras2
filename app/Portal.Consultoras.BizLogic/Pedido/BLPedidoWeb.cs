@@ -2552,7 +2552,7 @@ namespace Portal.Consultoras.BizLogic
 
             var codigosCatalogosWeb = GetCodigosCatalogoWeb(false);
             var codigosCatalogosRevista = GetCodigosCatalogoRevista();
-            var itemsCatalogo = GetCodigosCatalogo();
+            var itemsCatalogo = Common.Util.GetCodigosCatalogo();
 
             var itemsWeb = pedidoWebSetDetalleAgrupado.Where(p => codigosCatalogosWeb.Contains(p.CodigoCatalago.ToString()) ||
                         (p.CodigoCatalago.ToString() == Constantes.ODSCodigoCatalogo.WebPortalFFVV && p.CodigoTipoOferta == "002") ||
@@ -2587,16 +2587,6 @@ namespace Portal.Consultoras.BizLogic
             };
 
             return bePedidoWeb;
-        }
-
-        private List<string> GetCodigosCatalogo()
-        {
-            return new List<string>
-            {
-                Constantes.ODSCodigoCatalogo.CatalogoCyzone,
-                Constantes.ODSCodigoCatalogo.CatalogoEbel,
-                Constantes.ODSCodigoCatalogo.CatalogoEsika,
-            };
         }
 
         private List<string> GetCodigosCatalogoRevista()
