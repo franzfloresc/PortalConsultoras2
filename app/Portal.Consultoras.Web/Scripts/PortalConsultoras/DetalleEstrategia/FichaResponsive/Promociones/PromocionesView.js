@@ -13,6 +13,13 @@
             id: "#modal-promociones",
             btnCerrar: {
                 id: "#cerrar-promociones-modal"
+            },
+            condiciones: {
+                id: "#carrusel-condiciones",
+                templateid: "#template-producto-carrusel-responsive"
+            },
+            promocion: {
+                //id: "#cerrar-promociones-modal"
             }
         }
     };
@@ -62,10 +69,32 @@
         _showModal(_elements.promocionesModal.id);
     };
 
+    var _showConditions = function (conditions) {
+        $(_elements.promocionesModal.condiciones.id).slick("unslick");
+        $(_elements.promocionesModal.condiciones.id).html("");
+        SetHandlebars(_elements.promocionesModal.condiciones.templateid,
+            conditions,
+            _elements.promocionesModal.condiciones.id);
+        $(_elements.promocionesModal.condiciones.id).slick({
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplaySpeed: 2000,
+            fade: false,
+            arrows: false,
+            infinite: false
+        });
+    };
+
+    var _showPromotion = function (promotion) {
+        
+    };
+
     return {
         setPresenter: _setPresenter,
         hideBanner: _hideBanner,
         showBanner: _showBanner,
         showModalPromociones: _showModalPromociones,
+        showConditions: _showConditions,
+        showPromotion: _showPromotion,
     };
 };

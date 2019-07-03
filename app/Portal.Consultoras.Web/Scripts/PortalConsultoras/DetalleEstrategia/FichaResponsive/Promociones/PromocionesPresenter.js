@@ -11,6 +11,10 @@
         if (typeof value === "undefined") {
             return _estrategiaInstance;
         } else if (value !== null) {
+            value.MostrarPromociones || false;
+            value.Promocion = value.Promocion || null;
+            value.Condiciones = value.Condiciones || [];
+            value.lista = value.Condiciones;
             _estrategiaInstance = value;
         }
     };
@@ -28,8 +32,15 @@
         return true;
     };
     var _onShowModalPromocionesClicked = function () {
-        _config.promocionesView.showModalPromociones();
+        var estrategia = _estrategiaModel();
 
+        if (estrategia.Promocion == null || estrategia.Condiciones.length == 0) return true;
+
+        _config.promocionesView.showModalPromociones();
+        _config.promocionesView.showConditions(estrategia);
+        _config.promocionesView.showPromotion(estrategia.Promocion);
+
+        return true;
     };
 
     return {
