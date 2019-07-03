@@ -554,6 +554,30 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.GananciaWeb = pedidoWeb.GananciaWeb;
             model.GananciaOtros = pedidoWeb.GananciaOtros;
 
+
+            #region Consultora Pago Contado
+            if (GetPagoContado())
+            {
+                var PagoContadoPrm = new ServicePedido.BEPedidoWeb()
+                {
+                    PaisID = userData.PaisID,
+                    ConsultoraID = userData.ConsultoraID,
+                    CodigoConsultora = userData.CodigoConsultora,
+                    CampaniaID = userData.CampaniaID,
+                    STPPagoTotal = model.DescripcionTotal,
+                    olstBEPedidoWebDetalle = lstPedidoWebDetalle.ToArray()
+
+                };
+
+
+                var resultPagoContado = GetConfPagoContado(PagoContadoPrm);
+                model.STPDescuento = (resultPagoContado.STPDescuento == null || resultPagoContado.STPDescuento == "") ? "0.00" : Util.DecimalToStringFormat(decimal.Parse(resultPagoContado.STPDescuento.Replace(",", "")), userData.CodigoISO);
+                model.STPFlete = (resultPagoContado.STPGastTransporte == null || resultPagoContado.STPGastTransporte == "") ? "0.00" : Util.DecimalToStringFormat(decimal.Parse(resultPagoContado.STPGastTransporte.Replace(",", "")), userData.CodigoISO);
+                model.STPTotalPagar = (resultPagoContado.STPTotalPagar == null || resultPagoContado.STPTotalPagar == "") ? "0.00" : Util.DecimalToStringFormat(decimal.Parse(resultPagoContado.STPTotalPagar.Replace(",", "")), userData.CodigoISO);
+            }
+            ViewBag.PagoContado = GetPagoContado();
+            #endregion
+
             int horaCierre = userData.EsZonaDemAnti;
             TimeSpan sp = horaCierre == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
             model.HoraCierre = Util.FormatearHora(sp);
