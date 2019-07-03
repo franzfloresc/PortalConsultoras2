@@ -288,17 +288,9 @@
             <b> ENVIADA</b>!
         </div>
         <div class="sub_texto_alerta" id="mensaje_exclamacion_texto">Vamos a evaluarla y en un plazo de 30 minutos te enviaremos una respuesta a tu correo electrónico</div>
-        <div class="content_btn_imprimir">
-            <a class="btn_imprimir_reclamo" href="javascript:printElement('.content_sombra_reclamo')">
-                <div class="icono_imprimir_reclamo"></div>IMPRIMIR SOLICITUD
-            </a>
-        </div>
-        <hr class="clear" />
-        <br />
-        <div class="content_sombra_reclamo">
-            <div class="subtitulo_reclamo subtitulo_reclamo--seccionSolicitudEnviada" style="font-weight:400; font-size:21px;">Solicitud de Cambios y Devoluciones</div>
-            <hr class="clear" />
-            <div style="text-align:center;">
+        <div class="content_detalle_solicitudEnviada">
+            <div class="text-bold subtitulo_reclamo subtitulo_reclamo--seccionSolicitudEnviada">Solicitud de Cambios y Devoluciones</div>
+            <div style="text-align:center; max-width: 607px; margin-left: auto; margin-right: auto">
                 <div class="detalle_estado_reclamo">
                     Fecha:
                     <b> <span id="spnSolicitudFechaCulminado">10 Oct 2016</span> </b>
@@ -312,8 +304,14 @@
                     <b> <span id="spnSolicitudCampania">2016-15</span></b>
                 </div>
             </div>
-            <div id="spnTipoDespacho" class="detalle_estado_reclamo" style="width:100%;text-align:center;border-right: 0px solid black; margin-bottom: 48px;">
+            <div id="spnTipoDespacho" class="detalle_estado_reclamo" style="width:100%;text-align:center;border-right: 0px solid black; margin-bottom: 0;">
             </div>
+            <div class="content_btn_imprimir content_btn_imprimir--solicitudEnviada">
+                <a class="d-inline-block border-radius-4 text-bold text-center btn__sb btn__sb__secondary btn_imprimir_reclamo" href="javascript:printElement('.content_detalle_solicitudEnviada')">
+                    <div class="icono_imprimir_reclamo"></div>IMPRIMIR SOLICITUD
+                </a>
+            </div>
+            <hr class="clear" />
             <div class="linea_separadora"></div>
             <div class="grilla_detalle_reclamo">
                 <div class="content_listado_reclamo">

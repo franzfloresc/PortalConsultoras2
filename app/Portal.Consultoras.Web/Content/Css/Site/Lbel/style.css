@@ -28448,7 +28448,11 @@ div.motivoRechazo textarea {
 }
 
     .subtitulo_reclamo--seccionSolicitudEnviada{
-        margin-top:40px;
+        font-size: 21px;
+        margin-top: 55px;
+        margin-bottom:20px;
+        border-top: 1px solid #000;
+        padding-top: 32px;
     }
 
 .subtitulo_reclamo_motivo {
@@ -29820,25 +29824,26 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     border: 1px solid black;
 }
 
+    .content_btn_imprimir--solicitudEnviada {
+        border: 0;
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+
 .btn_imprimir_reclamo {
-    display: inline-block;
     width: 100%;
-    vertical-align: middle;
-    text-align: center;
-    line-height: 41px;
-    font-family: 'LAto';
+    line-height: 38px;
     font-size: 13px;
-    font-weight: 700;
 }
 
-.icono_imprimir_reclamo {
-    display: inline-block;
-    width: 25px;
-    height: 24px;
-    margin-right: 10px;
-    vertical-align: middle;
-    background: url('/Content/Images/Esika/imprimir_reclamo.png') no-repeat;
-}
+    .icono_imprimir_reclamo {
+        display: inline-block;
+        width: 25px;
+        height: 24px;
+        margin-right: 10px;
+        vertical-align: middle;
+        background: url('/Content/Images/Esika/imprimir_reclamo.png') no-repeat;
+    }
 
 .detalle_estado_reclamo {
     font-family: 'LAto';
@@ -29874,6 +29879,12 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     box-shadow: 0 2px 4px 0 rgba(154, 154, 154, .5);
 }
 
+.content_detalle_solicitudEnviada {
+    position: relative;
+    overflow: hidden;
+    padding: 0 30px 30px 30px;
+}
+
 .btn_ver_solicitudes {
     font-family: 'Lato', sans-serif;
     font-size: 14px;
@@ -29892,6 +29903,10 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     .btn_ver_solicitudes--paso3,
     .btn_ver_solicitudes--seccionSolicitudEnviada{
         margin-bottom:60px;
+    }
+
+    .btn_ver_solicitudes--seccionSolicitudEnviada{
+        margin-top:0;
     }
 
 .UltimasSolicitudes {
@@ -30056,6 +30071,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom:80px;
 }
 
 .texto_solicitud_registrada {
