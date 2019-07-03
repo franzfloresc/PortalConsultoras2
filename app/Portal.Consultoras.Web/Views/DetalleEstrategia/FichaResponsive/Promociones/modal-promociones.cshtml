@@ -3,7 +3,6 @@
         <div class="titulo-promociones on-modal">
             <span class="texto-promociones"> Promocion </span>
         </div>
-
     
         <button id="cerrar-promociones-modal" class="button_cerrar">
             <img src="/Content/Images/mobile/Esika/close-button.svg" alt="">
@@ -18,47 +17,44 @@
             </div>
         </section>
         <!--</ModalPromocionCopiadoDeUpSelling>-->
-        
-        <!-- <ProductoEnPromocion>-->
-        <div class="row no-gutters mx-3 mb-4">
-            <div class="contenedor-promocion-modal">
-                <div class="titulo-promociones">
+        <div class="modal-promociones--bottom fixed-bottom">
+            
+            <!-- <ProductoEnPromocion>-->
+            <div class="row no-gutters mx-3 mb-4">                
+                <div class="w-100 titulo-promociones">
                     <span class="texto-promociones black dark-color">¡Y llevate esta promoción!</span>
                 </div>
-                <div class="descripcion-promociones">
+                <div class="w-100 descripcion-promociones">
                     <div class="contenedor-imagen">
                         <img src="https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoWebRedes/Esika_Talco_Perfumado_Expression_Cuidado_Personal_FotoProducto.jpg" alt="Texto" class="img-responsive" />
                     </div>
                     <span class="texto-promociones">Ésika</span>
                     <span class="texto-promociones black">Reloj Chronograph</span>
                     <span class="texto-promociones"><span>Precio para ti:</span> S/. 100000.00</span>
-                </div>
+                </div>                
             </div>
-        </div>
-        <!-- </ProductoEnPromocion>-->
-
-
-        <div class="row no-gutters px-3">
-            <div class="col-3 pr-2">
-                <div id="idcontenedor_rangos" data-cantidad-contenedor="" class="contenedor_rangos ">
-                    <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" onkeyup="" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" data-cantidad-input="-" value="1">
-                    <div>
-                        <a class="txt_menos" data-cantidad-agregar="-" onclick="">
-                            <div class="dibujar_linea dibujar_menos"></div>
-                        </a>
-                        <a class="txt_mas" data-cantidad-agregar="+" onclick="">
-                            <div class="dibujar_linea dibujar_mas"></div>
-                        </a>
+            <!-- </ProductoEnPromocion>-->
+            <div class="row no-gutters px-3">
+                <div class="col-3 pr-2">
+                    <div id="idcontenedor_rangos" data-cantidad-contenedor="" class="contenedor_rangos ">
+                        <input class="txt_cantidad_pedido ValidaNumeral ValidaPasteNumeral" type="text" onkeyup="" size="2" maxlength="2" id="txtCantidad" data-input="cantidad" data-cantidad-input="-" value="1">
+                        <div>
+                            <a class="txt_menos" data-cantidad-agregar="-" onclick="">
+                                <div class="dibujar_linea dibujar_menos"></div>
+                            </a>
+                            <a class="txt_mas" data-cantidad-agregar="+" onclick="">
+                                <div class="dibujar_linea dibujar_mas"></div>
+                            </a>
+                        </div>
                     </div>
                 </div>
+                <div class="col-9 pl-2">
+                    <a id="btnAgregalo" onclick="" class="btn_agregalo btn_primario">
+                        <div class="icono_agregar"></div> Agregar
+                    </a>
+                </div>
             </div>
-            <div class="col-9 pl-2">
-                <a id="btnAgregalo" onclick="" class="btn_agregalo btn_primario">
-                    <div class="icono_agregar"></div> Agregar
-                </a>
-            </div>
+            <!-- </ModalPromoción> -->
+            
         </div>
-        <!-- </ModalPromoción> -->
-
-
     </section>

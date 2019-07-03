@@ -1198,6 +1198,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Responsive/Ficha").Include(
                 "~/Content/Css/Site/styleBase.css",
+                "~/Content/Css/Site/Ficha/FichaResponsiveCarrusel.css",
                 "~/Content/Css/Site/Ficha/FichaResponsive.css",
                 "~/Content/Css/Site/Ficha/SeleccionarTipoResponsive.css",
                 "~/Content/Css/Site/Ficha/FichaEnriquecidaResponsive.css",

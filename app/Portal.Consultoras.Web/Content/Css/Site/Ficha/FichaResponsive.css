@@ -575,7 +575,8 @@ ul.breadcumbs li a {
 
     .flip-clock-divider {
         top: 3px !important;
-    } 
+    }
+    
 }
 
 @media (max-width: 960px) {
@@ -716,6 +717,12 @@ ul.breadcumbs li a {
         border: none;
         box-shadow: 0 -1px 5px 0 rgba(0, 0, 0, 0.1);
     }
+    /* Modal Promocion Carrusel */
+    .promociones-modal.popup_lateral,
+    .modal-promociones--bottom {
+        width: 100%;
+    }
+
 }
 
 .ui-dialog.ui-widget-content {
@@ -919,87 +926,3 @@ ul.breadcumbs li a {
     flex-direction: column-reverse;
     flex-flow:wrap;
 }
-
-/*
-    [Inicio] Promociones 
-*/
-
-/* Promociones - Ficha*/
-.ficha-promociones > div, .descripcion-promociones > span {
-    /*border: 1px solid red;
-    margin: 1px;*/
-    cursor: pointer;
-}
-.ficha-promociones {
-    width: 100%;
-    margin: 1rem 0;
-}
-    .ficha-promociones .titulo-promociones,
-    .promociones-modal .titulo-promociones.on-modal {
-        width: 25%;
-        border-radius: 4px 4px 0 0;
-        text-align: center;
-        background-image: linear-gradient(to right, #e81c36, #e71b38 25%, #cf0d5c 38%, #b9007e 47%, #7c0087 77%, #4e008e);
-    }
-    .promociones-modal .titulo-promociones.on-modal {
-        border-radius: 0;
-    }
-    .ficha-promociones .texto-promociones {
-        font-size: 13px;
-        color: #000;
-    }
-    .titulo-promociones .texto-promociones {
-        color: #fff;
-    }
-
-    .descripcion-promociones {
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
-    }
-    .descripcion-promociones .contenedor-imagen {
-        text-align: center
-    }
-        .descripcion-promociones .contenedor-imagen img {
-            max-width: 100% !important;
-            height: 80px;
-        }
-/* Promocione - Detalle Modal */
-.promociones-modal.popup_lateral{
-    width: 360px;
-}
-.contenedor-promocion-modal{
-    width: 100%;    
-}
-.contenedor-promocion-modal .texto-promociones {
-}
-
-.promociones-modal .contenedor_rangos, .promociones-modal .btn_agregalo {
-    width: 99%
-}
-
-.promociones-modal .texto-promociones {
-    font-size: 14px;
-    
-}
-    .promociones-modal .texto-promociones.black {
-        font-weight: 600;
-        font-size: 16px;
-    }
-    .promociones-modal .dark-color{
-        color: black;
-    }
-.promociones-modal .descripcion-promociones {
-    flex-direction: column;
-    align-items: unset;
-    box-shadow: none;
-}
-.promociones-modal .contenedor-imagen img {
-    height: 150px;
-}
-.promociones-modal .img_producto img{
-    height: 100px;
-}
-/* [Fin] */
-
