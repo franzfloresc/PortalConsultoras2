@@ -1502,10 +1502,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 //Duo Perfecto
                 if (!string.IsNullOrEmpty(usuario.CodigoPrograma) && usuario.ConsecutivoNueva > 0)
-                    lstDetalle.Where(x => x.FlagNueva && x.EsCuponNuevas).Update(x =>
+                {
+                    lstDetalle.Where(x => x.FlagNueva && x.EsCuponNuevas).Update(detalle =>
                     {
-                        x.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvElecMultiple(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, x.CUV);
+                        detalle.EsDuoPerfecto = _programaNuevasBusinessLogic.EsCuvElecMultiple(usuario.PaisID, usuario.CampaniaID, usuario.ConsecutivoNueva, usuario.CodigoPrograma, detalle.CUV);
                     });
+                }
 
                 //Web set y detalle
                 lstDetalle.Where(filtro => filtro.SetID > 0).Update(detalle =>
@@ -2203,9 +2205,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 switch (pedidoDetalle.TipoPersonalizacion)
                 {
-                    case Constantes.CodigoEstrategiaBuscador.Liquidacion:
+                    case Constantes.TipoPersonalizacion.Liquidacion:
                         return RegistroLiquidacion(pedidoDetalle);
-                    case Constantes.CodigoEstrategiaBuscador.Catalogo:
+                    case Constantes.TipoPersonalizacion.Catalogo:
                         return PedidoInsertarBuscador(pedidoDetalle);
                     default:
                         return PedidoAgregarProducto(pedidoDetalle);

@@ -240,6 +240,8 @@ namespace Portal.Consultoras.Common
 
 
             public const string Liquidacion = "LIQ"; // No tiene referecia con BD, para tenerlo dentro de codigo
+            public const string Catalogo = "CAT"; // No tiene referecia con BD, para tenerlo dentro de codigo
+            
             public const string CaminoBrillanteDemostradores = "301"; // No tiene referecia con BD, caso particular
             public const string CaminoBrillanteKits = "302"; // No tiene referecia con BD, caso particular
 
@@ -257,6 +259,10 @@ namespace Portal.Consultoras.Common
             public const string ShowRoom = "SR";
             public const string HerramientasVenta = "HV";
             public const string ArmaTuPack = "ATP";
+
+            public const string Liquidacion = "LIQ"; // No tiene referecia con BD, para tenerlo dentro de codigo
+            public const string Catalogo = "CAT"; // No tiene referecia con BD, para tenerlo dentro de codigo
+            
             public const string CaminoBrillante = "CB";
             public const string CaminoBrillanteDemostradores = "CBD";
             public const string CaminoBrillanteKits = "CBK";
@@ -311,6 +317,8 @@ namespace Portal.Consultoras.Common
             public const string ParticipaProgramaNuevas = "ParticipaProgramaNuevas";
             public const string NotParticipaProgramaNuevas = "NotParticipaProgramaNuevas";
             public const string MasGanadoras = "Ganadoras";
+            public const string Catalogo = "Catalogo"; // No tiene referecia con BD
+            
             public const string CaminoBrillante = "CaminoBrillante"; // No tiene referecia con BD
             public const string CaminoBrillanteDemostradores = "CaminoBrillanteDemostradores"; // No tiene referecia con BD
             public const string CaminoBrillanteKits = "CaminoBrillanteKits"; // No tiene referecia con BD
@@ -337,6 +345,7 @@ namespace Portal.Consultoras.Common
                         {TipoEstrategiaCodigo.ShowRoom, NombrePalanca.ShowRoom},
                         {TipoEstrategiaCodigo.HerramientasVenta, NombrePalanca.HerramientasVenta},
                         {TipoEstrategiaCodigo.NotParticipaProgramaNuevas, NombrePalanca.NotParticipaProgramaNuevas},
+                        {TipoEstrategiaCodigo.Catalogo, NombrePalanca.Catalogo},
                         {TipoEstrategiaCodigo.CaminoBrillanteDemostradores, NombrePalanca.CaminoBrillanteDemostradores},
                         {TipoEstrategiaCodigo.CaminoBrillanteKits, NombrePalanca.CaminoBrillanteKits},
                     });
@@ -366,6 +375,7 @@ namespace Portal.Consultoras.Common
                         {NombrePalanca.HerramientasVenta, TipoEstrategiaCodigo.HerramientasVenta},
                         {NombrePalanca.NotParticipaProgramaNuevas, TipoEstrategiaCodigo.NotParticipaProgramaNuevas},
                         {NombrePalanca.MasGanadoras, TipoEstrategiaCodigo.OfertasParaMi},
+                        {NombrePalanca.Catalogo, TipoEstrategiaCodigo.Catalogo},
                         {NombrePalanca.CaminoBrillanteDemostradores, TipoEstrategiaCodigo.CaminoBrillanteDemostradores}, 
                         {NombrePalanca.CaminoBrillanteKits, TipoEstrategiaCodigo.CaminoBrillanteKits}, 
                     });
@@ -3232,6 +3242,11 @@ namespace Portal.Consultoras.Common
             /// Evento/listarconsultora/{pais}/{campania}/{codigoConsultora}
             /// </summary>
             public const string UrlObtenerEventoConsultora = "Evento/listarconsultora/{0}/{1}/{2}";
+
+            /// <summary>
+            /// Ventaincremental/{isoPais}/{campaniaId}/{origen}
+            /// </summary>
+            public const string UrlVentaIncremental = "Ventaincremental/{0}/{1}/{2}";
             #endregion
 
             #region Personalizacion
@@ -3503,6 +3518,11 @@ namespace Portal.Consultoras.Common
             public const string Catalogo = "CAT";
             public const string OfertaDelDia = "ODD";
         }
+
+        //public static class NombreEstrategiaBuscador
+        //{
+        //    public const string Catalogo = "Catalogo";
+        //}
 
         public static class MetaConsultora
         {
@@ -4012,6 +4032,13 @@ namespace Portal.Consultoras.Common
             public const string CatalogoEbel = "9";
             public const string CatalogoCyzone = "10";
             public const string CatalogoEsika = "13";
+        }
+
+        public static class TipoVentaIncremental
+        {
+            public const string CrossSelling = "CrossSell";
+            public const string Sugerido = "Suggested";
+            public const string UpSelling = "UpSelling";
         }
     }
 }
