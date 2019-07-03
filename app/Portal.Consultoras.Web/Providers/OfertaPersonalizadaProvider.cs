@@ -138,6 +138,12 @@ namespace Portal.Consultoras.Web.Providers
                 case Constantes.TipoConsultaOfertaPersonalizadas.ATPObtenerProductos:
                     palanca = Constantes.TipoEstrategiaCodigo.ArmaTuPack;
                     break;
+                case Constantes.TipoConsultaOfertaPersonalizadas.CBDObtenerProductos:
+                    palanca = Constantes.TipoEstrategiaCodigo.CaminoBrillanteDemostradores;
+                    break;
+                case Constantes.TipoConsultaOfertaPersonalizadas.CBKObtenerProductos:
+                    palanca = Constantes.TipoEstrategiaCodigo.CaminoBrillanteKits;
+                    break;
             }
 
             return palanca;
@@ -170,6 +176,10 @@ namespace Portal.Consultoras.Web.Providers
             else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.OPTObtenerProductos)
             {
                 retorno = 0;
+            }
+            else if (tipo == Constantes.TipoConsultaOfertaPersonalizadas.GNDObtenerProductos)
+            {
+                retorno = model.CampaniaID;
             }
 
             return retorno;
@@ -230,6 +240,8 @@ namespace Portal.Consultoras.Web.Providers
                 case Constantes.TipoConsultaOfertaPersonalizadas.OPTObtenerProductos:
                 case Constantes.TipoConsultaOfertaPersonalizadas.NuevasObtenerProductos:
                 case Constantes.TipoConsultaOfertaPersonalizadas.ATPObtenerProductos:
+                case Constantes.TipoConsultaOfertaPersonalizadas.CBDObtenerProductos:
+                case Constantes.TipoConsultaOfertaPersonalizadas.CBKObtenerProductos:
                     listModel1 = listaFinal1;
                     break;
             }
@@ -1627,10 +1639,13 @@ namespace Portal.Consultoras.Web.Providers
                     tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.MasGanadoras); break;
                 case Constantes.NombrePalanca.PackNuevas:
                     tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.ProgramaNuevas); break;
+                case Constantes.NombrePalanca.CaminoBrillanteDemostradores: 
+                    tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.CaminoBrillante); break;
+                case Constantes.NombrePalanca.CaminoBrillanteKits:
+                    tienePalanca = listaConfigPais.Any(x => x.Codigo == Constantes.ConfiguracionPais.CaminoBrillante); break;
                 default:
                     tienePalanca = false; break;
             }
-
 
             return tienePalanca;
         }

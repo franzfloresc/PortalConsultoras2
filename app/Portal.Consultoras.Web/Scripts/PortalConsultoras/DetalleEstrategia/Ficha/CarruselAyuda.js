@@ -205,7 +205,7 @@ var CarruselAyuda = function () {
     }
 
     var marcarAnalyticsContenedor = function (tipo, data, seccionName, slick, currentSlide, nextSlide) {
-        //tipo : 1= inicio, 2: cambio
+        //tipo : 1= inicio, 2: cambio, 3 cambio el ultimo item de carrusel
 
         try {
             var origen = {
@@ -221,7 +221,7 @@ var CarruselAyuda = function () {
                 marcarAnalyticsChange(slick, currentSlide, nextSlide, origen);
             }
             else if (tipo == 3) {
-                mostrarFlechaCarrusel(data, slick, currentSlide, origen);
+                mostrarFlechaCarrusel(slick, currentSlide, origen);
             }
         } catch (e) {
             console.log('marcarAnalyticsContenedor - ' + _texto.excepcion + e, e);
@@ -250,14 +250,14 @@ var CarruselAyuda = function () {
                 marcarAnalyticsChange(slick, currentSlide, nextSlide, origen);
             }
             else if (tipo == 3) {
-                mostrarFlechaCarrusel(data, slick, currentSlide, origen);
+                mostrarFlechaCarrusel(slick, currentSlide, origen);
             }
         } catch (e) {
             console.log('marcarAnalyticsLiquidacion - ' + _texto.excepcion + e, e);
         }
     }
 
-    var mostrarFlechaCarrusel = function (event, slick, currentSlide, origen) {
+    var mostrarFlechaCarrusel = function (slick, currentSlide, origen) {
 
         if (slick.options.infinite !== false) {
             return;
@@ -265,8 +265,6 @@ var CarruselAyuda = function () {
 
         var objPrevArrow = slick.$prevArrow;
         var objNextArrow = slick.$nextArrow;
-        //var objVisorSlick = $(event.target).find('.slick-list')[0];
-        //var lastSlick = $(event.target).find('[data-slick-index]')[slick.slideCount - 1];
 
         if (currentSlide === 0) {
             $(objPrevArrow).hide();
@@ -284,7 +282,7 @@ var CarruselAyuda = function () {
             if (anchoFalta > $(slick.$list).width()) {
                 var currentSlideback = $(slick.$list).attr('data-currentSlide') || $(slick.$list).attr('data-currentslide') || "";
                 if (currentSlideback == currentSlide) {
-                    slick.options.slidesToShow = isMobile() ? 1 : 2;
+                    slick.options.slidesToShow = isMobile() || isMobileNative.any() ? 1 : 2;
                     slick.setPosition();
                     slick.slickGoTo(currentSlide + 1);
                     currentSlide = currentSlide + 1;
