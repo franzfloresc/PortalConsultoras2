@@ -699,9 +699,9 @@ input[type="checkbox"].switch__control,
 
 @media screen and (max-width:991px) {
 
-        .mb-60 {
-            margin-bottom: 60px;
-        }
+    .mb-60 {
+        margin-bottom: 60px;
+    }
 }
 
 /* FIN - HELPERS CSS */

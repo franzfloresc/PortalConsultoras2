@@ -6,6 +6,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 
@@ -81,6 +82,8 @@ namespace Portal.Consultoras.Web.Providers
                 listaEstrategiaComponente.ForEach(c =>
                 {
                     c.TieneDetalleSeccion = (c.Secciones ?? new List<EstrategiaComponenteSeccionModel>()).Any() && c.Cabecera != null;
+                    var formateo = Util.TruncarADecimales(c.PrecioContenido.ToDecimal(), 2);
+                    c.PrecioContenidoStr = formateo.ToString("n2", CultureInfo.CreateSpecificCulture(string.Format("es-{0}", userData.CodigoISO)));
                 });
 
                 mensaje += "ObtenerModeloOfertaDesdeApi = " + listaEstrategiaComponente.Count;
@@ -90,7 +93,13 @@ namespace Portal.Consultoras.Web.Providers
                 mensaje += "NoMongo|";
 
                 List<BEEstrategiaProducto> listaBeEstrategiaProductos;
-                listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
+                if (codigoTipoEstrategia == "036" || codigoTipoEstrategia == "035")
+                {
+                    esMultimarca = codigoTipoEstrategia == "036";
+                    return estrategiaModelo.Hermanos;
+                }
+                else
+                    listaBeEstrategiaProductos = GetEstrategiaProductos(estrategiaModelo);
 
                 if (!listaBeEstrategiaProductos.Any()) return new List<EstrategiaComponenteModel>();
 

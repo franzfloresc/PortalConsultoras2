@@ -42,6 +42,12 @@
             return modelo;
         }
 
+        public static OrigenPedidoWebModel GetModelo(int origenInt)
+        {
+            var origen = origenInt.ToString();
+            return GetModelo(origen);
+        }
+
         public static string ToStr(OrigenPedidoWebModel modelo)
         {
             try

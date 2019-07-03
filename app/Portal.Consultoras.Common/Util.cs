@@ -4,6 +4,8 @@ using MaxMind.Db;
 using MaxMind.Util;
 using Microsoft.IdentityModel.Protocols.WSIdentity;
 using Microsoft.IdentityModel.Protocols.WSTrust;
+using Portal.Consultoras.Common.Exceptions;
+using Portal.Consultoras.Common.OrigenPedidoWeb;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -28,8 +30,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Script.Serialization;
-using Portal.Consultoras.Entities;
-using Portal.Consultoras.Common.OrigenPedidoWeb;
 
 namespace Portal.Consultoras.Common
 {
@@ -126,6 +126,13 @@ namespace Portal.Consultoras.Common
             DateTime dtValue = new DateTime(iYear, iMonth, iDay);
 
             return dtValue;
+        }
+
+        public static decimal TruncarADecimales(decimal number, int digits)
+        {
+            decimal stepper = (decimal)(Math.Pow(10.0, (double)digits));
+            int temp = (int)(stepper * number);
+            return (decimal)temp / stepper;
         }
 
         /// <summary>
@@ -297,7 +304,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -355,7 +362,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -433,7 +440,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -495,7 +502,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -553,7 +560,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -651,7 +658,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             return true;
         }
@@ -705,7 +712,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -716,6 +723,80 @@ namespace Portal.Consultoras.Common
         public static bool EnviarMailPedido(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML)
         {
             return Util.EnviarMailPedido(strDe, strPara, strParaOculto, strTitulo, strMensaje, isHTML, null);
+        }
+
+        public static bool EnviarMailPedidoPendienteRechazado(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string strBcc, string displayNameDe)
+        {
+            if (string.IsNullOrEmpty(strPara))
+                return true;
+
+            if (strPara.ToLower().Contains("ñ") || strPara.ToLower().Contains("á") || strPara.ToLower().Contains("é") ||
+                strPara.ToLower().Contains("í") || strPara.ToLower().Contains("ó") || strPara.ToLower().Contains("ú"))
+                return true;
+
+            RegexUtilities emailutil = new RegexUtilities();
+            if (!emailutil.IsValidEmail(strPara))
+                return true;
+
+            string strServidor = ParseString(ConfigurationManager.AppSettings["SMPTServer"]);
+            string strUsuario = ParseString(ConfigurationManager.AppSettings["SMPTUser"]);
+            string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
+
+            MailMessage objMail = new MailMessage();
+            SmtpClient objClient = new SmtpClient(strServidor);
+
+            AlternateView avHtml = AlternateView.CreateAlternateViewFromString(String.Format(strMensaje, "Logo"), null, MediaTypeNames.Text.Html);
+
+            LinkedResource logo = new LinkedResource(HttpContext.Current.Request.MapPath("../Content/Images/logotipo_belcorp_05.png"), MediaTypeNames.Image.Gif);
+            logo.ContentId = "Logo";
+            avHtml.LinkedResources.Add(logo);
+
+            if (ParseString(ConfigurationManager.AppSettings["flagCorreo"]) == "0")
+            {
+                strPara = strUsuario;
+            }
+            objMail.AlternateViews.Add(avHtml);
+            objMail.To.Add(strPara);
+            objMail.From = string.IsNullOrEmpty(displayNameDe)
+                ? new MailAddress(strDe)
+                : new MailAddress(strDe, displayNameDe);
+
+            var css = "a,body,table,td{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}table,td{mso-table-lspace:0;mso-table-rspace:0}img{-ms-interpolation-mode:bicubic}img{border:0;height:auto;line-height:100%;outline:0;text-decoration:none}a.disable-link{pointer-events:none;cursor:default}table{border-collapse:collapse!important}body{height:100%!important;margin:0!important;padding:0!important;width:100%!important}a[x-apple-data-detectors=true]{color:inherit!important;text-decoration:none!important;font-size:inherit!important;font-family:inherit!important;font-weight:inherit!important;line-height:inherit!important}@media screen and (max-width:480px){.mobile-hide{display:none!important}.mobile-center{text-align:center!important}.centerImage{width:100%!important}.centerMobile{text-align:center}.noPaddingTop{padding-top:35px!important}a[class=disable-link]{pointer-events:auto!important;cursor:auto!important;text-decoration:underline!important}}div[style*='margin: 16px 0;']{margin:0!important}";
+            var head = "<head> <meta charset = 'UTF-8'>  <meta name = 'viewport' content = 'width=device-width, initial-scale=1.0' >    <meta http-equiv = 'X-UA-Compatible' content = 'ie=edge' ><link href = 'https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i' rel = 'stylesheet'><style type='text/css'>" + css + "</style></head>";
+
+            StringBuilder body = new StringBuilder();
+            body.Append("<HTML>" + head + "<body topmargin='0' leftmargin='0' marginheight='0' marginwidth='0' style='font-family:Lato, Arial, Helvetica, Arial, sans-serif;'> ");
+
+            body.Append(String.Format(strMensaje, logo.ContentId));
+ 
+            body.Append("</body></HTML>");
+
+
+            objMail.Subject = strTitulo;
+            objMail.Body = body.ToString();
+            objMail.IsBodyHtml = isHTML;
+
+            NetworkCredential credentials = new NetworkCredential(strUsuario, strPassword);
+            objClient.EnableSsl = true;
+            objClient.Credentials = credentials;
+
+            try
+            {
+                objClient.Send(objMail);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+            }
+            finally
+            {
+                objMail.Dispose();
+            }
+            return true;
+        }
+        public static bool EnviarMailPedidoPendienteRechazado(string strDe, string strPara, string strTitulo, string strMensaje, bool isHTML, string strBcc)
+        {
+            return Util.EnviarMailPedidoPendienteRechazado(strDe, strPara, strTitulo, strMensaje, isHTML, strBcc, null);
         }
 
 
@@ -769,7 +850,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
             }
             finally
             {
@@ -828,7 +909,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception)
             {
-                throw new ApplicationException("Error al enviar correo electronico");
+                throw new ClientInformationException("Error al enviar correo electronico");
             }
             return true;
         }
@@ -877,7 +958,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception)
             {
-                throw new ApplicationException("Error al enviar correo electronico");
+                throw new ClientInformationException("Error al enviar correo electronico");
             }
             return true;
         }
@@ -947,13 +1028,13 @@ namespace Portal.Consultoras.Common
                     }
                     catch (Exception ex)
                     {
-                        throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
+                        throw new ClientInformationException("Error al enviar correo electronico: " + ex.Message);
                     }
                 });
             }
             catch (Exception)
             {
-                throw new ApplicationException("Error al enviar correo electronico");
+                throw new ClientInformationException("Error al enviar correo electronico");
             }
             return true;
         }
@@ -2734,7 +2815,7 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception)
             {
-                throw new Exception("Hubo un error en obtener el País");
+                throw new ClientInformationException("Hubo un error en obtener el País");
             }
             return (iso == null ? string.Empty : iso);
         }
@@ -2754,7 +2835,7 @@ namespace Portal.Consultoras.Common
 
         public static bool CheckIsImage(string contentType, string allowSubtypes)
         {
-            if (contentType == null) throw new ArgumentNullException("contentType", "Este parametro es obligatorio");
+            if (contentType == null) throw new ClientInformationException("contentType Este parametro es obligatorio");
             var result = contentType.StartsWith("image/");
             if (result && allowSubtypes != null)
             {
@@ -4023,6 +4104,12 @@ namespace Portal.Consultoras.Common
                 case Constantes.TipoEstrategiaCodigo.RevistaDigital:
                     tipoPersonalizacion = Constantes.ConfiguracionPais.RevistaDigital;
                     break;
+                case Constantes.TipoEstrategiaCodigo.CaminoBrillanteDemostradores:
+                    tipoPersonalizacion = Constantes.ConfiguracionPais.CaminoBrillanteDemostradores;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.CaminoBrillanteKits:
+                    tipoPersonalizacion = Constantes.ConfiguracionPais.CaminoBrillanteKits;
+                    break;
                 default:
                     break;
             }
@@ -4069,6 +4156,11 @@ namespace Portal.Consultoras.Common
             return result;
         }
 
+        public static string OrigenSegunDispositivo()
+        {
+            return EsDispositivoMovil() ? "sb-mobile" : "sb-desktop";
+        }
+
         public static string DecryptCryptoJs(string CipherText, string Password, string Salt, string Key, string Iv)
         {
             var cipherText = Convert.FromBase64String(CipherText);
@@ -4080,13 +4172,13 @@ namespace Portal.Consultoras.Common
             var iv = Convert.FromBase64String(Iv);
             if (!Enumerable.SequenceEqual(iv, crypto.IV))
             {
-                throw new Exception("IVs do not match");
+                throw new ClientInformationException("IVs do not match");
             }
 
             var key = Convert.FromBase64String(Key);
             if (!Enumerable.SequenceEqual(key, crypto.Key))
             {
-                throw new Exception("Keys do not match");
+                throw new ClientInformationException("Keys do not match");
             }
 
             var plainText = crypto.Decrypt(cipherText);

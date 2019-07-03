@@ -1,17 +1,14 @@
 ﻿(function () {
     var url = window.location;
     var pais = url.href.substring(url.href.indexOf("pais=") + 5, url.href.indexOf("pais=") + 7);
+    var css = document.createElement('link');
+    css.setAttribute("rel", "stylesheet");
     if (pais == 'CR' || pais == 'PA' || pais == 'MX' || pais == 'PR') {
-        var css = document.createElement('link');
-        css.setAttribute("rel", "stylesheet");
         css.setAttribute("href", "/Content/Css/Site/Lbel/unsubscribe.css");
-        document.getElementsByTagName('head')[0].appendChild(css);
     } else {
-        var css = document.createElement('link');
-        css.setAttribute("rel", "stylesheet");
         css.setAttribute("href", "/Content/Css/Site/Esika/unsubscribe.css");
-        document.getElementsByTagName('head')[0].appendChild(css);
     }
+    document.getElementsByTagName('head')[0].appendChild(css);
 }());
 
 var urlBase;
