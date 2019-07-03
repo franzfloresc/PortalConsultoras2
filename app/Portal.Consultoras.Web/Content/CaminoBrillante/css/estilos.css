@@ -596,7 +596,8 @@ div .owl-carousel .owl-stage-outer {
     position: absolute;
     top: -5px;
     left: -5px;
-    z-index: 5
+    z-index: 5;
+    transform: rotate(50deg);
 }
 
 #ProgressBar .brillante em {
@@ -617,7 +618,8 @@ div .owl-carousel .owl-stage-outer {
 
 #ProgressBar .pt3 {
     display: block;
-    left: 36%
+    left: 36%;
+    
 }
 
 #ProgressBar .pt4 {
@@ -2444,7 +2446,7 @@ div .ficha__producto__precio__normal {
     }
 
     #ProgressBar .pt3 {
-        left: 34%
+        left: 34%;
     }
 
     #ProgressBar .pt4 {
