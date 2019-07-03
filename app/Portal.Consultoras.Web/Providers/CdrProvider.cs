@@ -81,8 +81,8 @@ namespace Portal.Consultoras.Web.Providers
                 {
                     lista.Update(p =>
                     {
-                        p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado, paisId).Descripcion;
-                        p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado, paisId).Descripcion;
+                        p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Solucion, paisId).Descripcion;
+                        p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado, paisId).Descripcion;
                         p.Observacion = ObtenerObservacion(p.Observacion, p.MotivoRechazo, paisId, codigoIso);
                         p.FormatoPrecio1 = Util.DecimalToStringFormat(p.Precio, codigoIso);
                         p.FormatoPrecio2 = Util.DecimalToStringFormat(p.Precio2, codigoIso);

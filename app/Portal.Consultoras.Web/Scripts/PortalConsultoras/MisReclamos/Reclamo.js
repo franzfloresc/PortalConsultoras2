@@ -270,8 +270,7 @@ $(document).ready(function () {
         }
     });
 
-    var pedidoId = parseInt($("#txtPedidoID").val());
-    if (pedidoId != 0) {
+    if (parseInt($("#txtPedidoID").val()) != 0) {
         CambiarVistaPaso(reclamo.pasos.tres_finalizar_envio_solicitud)
         DetalleCargar();
     }
@@ -463,7 +462,7 @@ function BuscarCUV() {
     var item = {
         CampaniaID: CampaniaId,
         PedidoID: PedidoId,
-        CDRWebID: $("#CDRWebID").val()
+        CDRWebID: $("#CDRWebID").val() || 0
     };
 
     waitingDialog();
@@ -593,13 +592,14 @@ function AsignarCUV(pedido) {
 
     $("#divMotivo").html("");
     var EstadosConteo = 0;
-    var CDRWebID = 0;
+    var CDRWebID = $("#CDRWebID").val() || 0;
     $.each(pedido.BECDRWeb, function (i, item) {
         if (item.Estado === 3 || item.Estado === 2) {
             EstadosConteo++;
         }
         //obtener el cdr en estado pendiente
-        if (item.Estado === 1) { CDRWebID = item.CDRWebID; }
+        if (item.Estado === 1 && CDRWebID == 0)
+            CDRWebID = item.CDRWebID;
 
     });
     //Nueva solicitud de reclamo
@@ -617,7 +617,7 @@ function AsignarCUV(pedido) {
         $("#txtNumeroPedido").val(pedido.NumeroPedido);
         $("#txtPrecioUnidad").val(data.PrecioUnidad);
         $("#hdImporteTotalPedido").val(pedido.ImporteTotal);
-        $("#CDRWebID").val(CDRWebID);
+        $("#CDRWebID").val(CDRWebID) || 0;
         BuscarMotivo();
         DetalleCargar();
     }
@@ -1674,7 +1674,7 @@ function BuscarCUVCambiarServer(cuv, callbackWhenFinish) {
     var sendData = {
         CampaniaID: CampaniaId,
         PedidoID: PedidoId,
-        CDRWebID: $("#CDRWebID").val(),
+        CDRWebID: $("#CDRWebID").val() || 0,
         CUV: cuv
     };
 

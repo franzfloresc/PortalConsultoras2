@@ -26,13 +26,20 @@ $(document).ready(function () {
             aCambiarProducto: "#aCambiarProducto",
             aCambiarProducto2: "#aCambiarProducto2",
             alturaListaMiSolicitud: $(document).height(),
+            barra_progreso:"#barra_progreso",
             btn_ver_solicitudes: "#btn_ver_solicitudes",
             btnAceptarSolucion: "[data-cambiopaso]",
             btnCambioProducto: "#btnCambioProducto",
-            btnSiguiente0: "#btnSiguiente0",//HD-3412 EINCA
+            btnSiguiente0: "#btnSiguiente0",
             btnSiguiente1: "#btnSiguiente1",
             btnSiguiente4: "#btnSiguiente4",
-            //Cambio3: "#Cambio3",
+            cdrweb_id: ".cdrweb_id",
+            cdrweb_pedidoid: ".cdrweb_pedidoid",
+            cdrweb_estado: ".cdrweb_estado",
+            cdrweb_formatoFechaCulminado: ".cdrweb_formatoFechaCulminado",
+            cdrweb_formatocampania: ".cdrweb_formatocampania",
+            cdrweb_CantidadAprobados: ".cdrweb_CantidadAprobados",
+            cdrweb_CantidadRechazados: ".cdrweb_CantidadRechazados",
             ComboCampania: "#ddlCampania",
             content_solicitud_cdr: ".content_solicitud_cdr",
             campoBusquedaCuvDescripcionCdr: '#CampoBusquedaCuvDescripcion',
@@ -78,6 +85,7 @@ $(document).ready(function () {
             listadoProductosAgregados: ".listado_productos_agregados",
             listaMotivos: "#listaMotivos",
             ListaCoincidenciasBusquedaProductosCdr: "#ListaCoincidenciasBusquedaProductosCdr",
+            MensajeTenerEncuenta:"#MensajeTenerEncuenta",
             miSolicitudCDR: ".mi_solicitud_cdr",
             modificarPrecioMas: ".modificarPrecioMas",
             modificarPrecioMenos: ".modificarPrecioMenos",
@@ -169,14 +177,7 @@ $(document).ready(function () {
             wrpMobile: "#wrpMobile",
             VistaPaso1y2: "#VistaPaso1y2",
             VistaPaso3: "#VistaPaso3",
-            opcionCdrEnlace: ".opcion_cdr_enlace",
-            cdrweb_id: ".cdrweb_id",
-            cdrweb_pedidoid: ".cdrweb_pedidoid",
-            cdrweb_estado: ".cdrweb_estado",
-            cdrweb_formatoFechaCulminado: ".cdrweb_formatoFechaCulminado",
-            cdrweb_formatocampania: ".cdrweb_formatocampania",
-            cdrweb_CantidadAprobados: ".cdrweb_CantidadAprobados",
-            cdrweb_CantidadRechazados: ".cdrweb_CantidadRechazados"
+            opcionCdrEnlace: ".opcion_cdr_enlace"
         };
 
         me.Eventos = {
@@ -191,6 +192,7 @@ $(document).ready(function () {
                 var pedidoId = parseInt($(me.Variables.hdPedidoID).val());
                 if (pedidoId != 0) {
                     ShowLoading();
+                    me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.tres_finalizar_envio_solicitud);
                     me.Funciones.DetalleCargar();
                     $(me.Variables.btnSiguiente4).show();
                     $(me.Variables.RegistroAceptarSolucion).show();
@@ -264,13 +266,13 @@ $(document).ready(function () {
                     $(me.Variables.txtCuvMobile).val("");
                     me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.uno_seleccion_de_producto);
                     $(me.Variables.divUltimasSolicitudes).show();
-                    $("#VistaPaso3").hide();
+                    $(me.Variables.VistaPaso3).hide();
                     $(me.Variables.Registro1).show();
                     $(me.Variables.btnSiguiente1).show();
-                    $("#VistaPaso1y2").show();
+                    $(me.Variables.VistaPaso1y2).show();
                     $(me.Variables.DescripcionCuv).hide();
                     $(me.Variables.txtCuvMobile).fadeIn();
-                    $("#MensajeTenerEncuenta").hide();
+                    $(me.Variables.MensajeTenerEncuenta).hide();
                     $(me.Variables.DescripcionCuv2).hide();
                     $(me.Variables.txtCuvMobile2).fadeIn();
                     $(me.Variables.txtCuvMobile).removeClass(me.Variables.deshabilitarControl);
@@ -456,12 +458,12 @@ $(document).ready(function () {
                                     $.when(me.Funciones.DetalleCargar()).done(function () {
                                         $(me.Variables.wrpMobile).removeClass(me.Variables.pb120);
                                         var arrOcultarElementos = [me.Variables.TituloPreguntaInconvenientes, me.Variables.Registro4
-                                            , me.Variables.Registro3, me.Variables.infoOpcionesDeCambio, me.Variables.Enlace_regresar, "#VistaPaso1y2"];
+                                            , me.Variables.Registro3, me.Variables.infoOpcionesDeCambio, me.Variables.Enlace_regresar, me.Variables.VistaPaso1y2];
                                         $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarBoton);
                                         me.Funciones.HideTags(arrOcultarElementos);
                                         $(me.Variables.infoOpcionesDeCambio).children().hide();
                                         $(me.Variables.btnSiguiente4).show();
-                                        $("#VistaPaso3").show();
+                                        $(me.Variables.VistaPaso3).show();
                                         $(me.Variables.RegistroAceptarSolucion).show();
                                         $(me.Variables.EleccionTipoEnvio).show();
                                         me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.tres_finalizar_envio_solicitud);
@@ -480,7 +482,7 @@ $(document).ready(function () {
 
                     var arrHide = [me.Variables.Registro2, me.Variables.Registro3, me.Variables.Registro4, me.Variables.Enlace_regresar, me.Variables.btnAceptarSolucion,
                     me.Variables.btnCambioProducto, me.Variables.txtNumPedido, me.Variables.DescripcionCuv, me.Variables.DescripcionCuv2,
-                    me.Variables.infoOpcionesDeCambio, "#MensajeTenerEncuenta"];
+                        me.Variables.infoOpcionesDeCambio, me.Variables.MensajeTenerEncuenta];
                     me.Funciones.HideTags(arrHide);
                     me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.uno_seleccion_de_producto);
 
@@ -566,18 +568,16 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.txtCuvMobile2).on('keyup', function (e) {
-                    if (e.keyCode == 17) // filtramos la tecla control
+                    var charCode = (e.which) ? e.which : window.event.keyCode;
+                    var re = /^[0-9\s]*$/;
+                    var result = re.test(e.key);
+                    result = charCode == 86 ? true : result; //Si es control + v debe dejar pasar
+                    if (!result) // filtramos solo los números
                         return false;
 
                     var $this = $(this);
                     if ($this.val().length !== 5) {
                         $this.val($this.val().substring(0, 5));
-                        return false;
-                    }
-                    var dataValue = $this.attr("data-codigo");
-                    if (dataValue === $this.val()) {
-                        $this.val("");
-                        messageInfoValidado(me.Constantes.mensajeValidacionCUVYaIngresado);
                         return false;
                     }
 
@@ -706,11 +706,11 @@ $(document).ready(function () {
                     $(me.Variables.hdPedidoID).val(0);
                     $(me.Variables.hdNumeroPedido).val(0);
                     $(me.Variables.infoOpcionesDeCambio).hide();//solve bug 
-                    $("#MensajeTenerEncuenta").hide();//solve bug
-                    $("#VistaPaso3").hide();
+                    $(me.Variables.MensajeTenerEncuenta).hide();//solve bug
+                    $(me.Variables.VistaPaso3).hide();
                     $(me.Variables.SolicitudEnviada).hide();
                     me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.uno_seleccion_de_producto);
-                    $("#VistaPaso1y2").show();
+                    $(me.Variables.VistaPaso1y2).show();
                     $(me.Variables.ListaCoincidenciasBusquedaProductosCdr).empty();
                     $(me.Variables.linkNuevoCambio).click();
                     $(me.Variables.Registro1).fadeIn(100);
@@ -1032,8 +1032,8 @@ $(document).ready(function () {
                     if (item.Estado === 3 || item.Estado === 2) {
                         EstadosConteo++;
                     }
-
-                    if (item.Estado === 1) { CDRWebID = item.CDRWebID; }
+                    if (item.Estado === 1 && CDRWebID == 0)
+                        CDRWebID = item.CDRWebID;
                 });
                 var cantidad = CantidadReclamosPorPedidoConfig != null && CantidadReclamosPorPedidoConfig != '' ? parseInt(CantidadReclamosPorPedidoConfig) : 0;
                 if (cantidad === EstadosConteo && EstadosConteo > 0) {
@@ -1324,7 +1324,7 @@ $(document).ready(function () {
                             return false;
                         }
 
-                        $("#MensajeTenerEncuenta").fadeIn(100);
+                        $(me.Variables.MensajeTenerEncuenta).fadeIn(100);
                         $(me.Variables.spnMensajeTenerCuenta).html(data.texto);
                     },
                     error: function (data, error) { }
@@ -1767,6 +1767,8 @@ $(document).ready(function () {
                                             messageInfo(mensajeInfo);
                                             return false;
                                         } else if (data.Cantidad == 1) {
+                                            $(me.Variables.VistaPaso3).hide();
+                                            $(me.Variables.barra_progreso).hide();
                                             $(me.Variables.tabs_vista_cdr_wrapper).fadeIn();
                                             messageInfoValidado(data.message, "MENSAJE");
                                         } else {
@@ -1783,14 +1785,14 @@ $(document).ready(function () {
                                         mensajeInfo = data.message.replace(mensajeChatEnLinea, "").trim();
                                     } else mensajeInfo = data.message;
                                     messageInfo(mensajeInfo);
-                                    //$(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
                                     return false;
                                 } else {
                                     if (data.Cantidad == 1) {
-                                        //$(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');                                        
+                                        $(me.Variables.VistaPaso3).hide();
+                                        $(me.Variables.barra_progreso).hide();
+                                        $(me.Variables.tabs_vista_cdr_wrapper).fadeIn();
                                         messageInfoValidado(data.message, "MENSAJE");
                                     } else {
-                                        //Redireccionar a la vista index de reclamo
                                         window.location.href = UrlVistaSolicitudesRegistradas;
                                     }
                                 }
@@ -1818,7 +1820,7 @@ $(document).ready(function () {
                     //ocultamos la capa padre y los hijos
                     tagDivInfo.fadeOut(100).children().fadeOut(100);
                     $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarBoton);
-                    $("#MensajeTenerEncuenta").fadeOut(100);
+                    $(me.Variables.MensajeTenerEncuenta).fadeOut(100);
                     return false;
                 }
                 //Mostramos la capa padre

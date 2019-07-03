@@ -633,7 +633,7 @@
                 {{else}}
                 <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div>
                 {{/if_eq}}
-                <span class="text-bold d-block">{{item.SolucionSolicitada}} :</span>
+            <span class="text-bold d-block">{{item.Solicitud}} :</span>
                 <div>
                     <span class="d-block">{{item.CUV}}</span>
                     <span class="text-bold d-block">{{item.Descripcion}}</span>
@@ -644,7 +644,7 @@
             <div class="listado_solicitada_reclamo">
                 {{#if_eq CodigoOperacion 'T'}}
                 <div class="listado_solicitud_reclamo">
-                    <span class="text-bold d-block">{{item.Solicitud}} :</span>
+                    <span class="text-bold d-block">{{item.SolucionSolicitada}} :</span>
                 </div>
                 {{#if item.DetalleReemplazo}}
                 {{#each item.DetalleReemplazo as |subItem|}}
@@ -693,7 +693,7 @@
                 <img src="@Url.Content("~/Content/Images/opcion_devolucion_cdr.svg")" alt="" class="opcion_cdr_icono opcion_cdr_icono--solicitudReclamo" />
                 {{/if_eq}}
             </span>
-            <span class="d-inline-block text-uppercase">{{item.SolucionSolicitada}}</span>
+            <span class="d-inline-block text-uppercase">{{item.Solicitud}}</span>
         </div>
         <div class="listado_producto_reclamo listado_producto_reclamo--solicitudEnviada">
             <span class="d-block mb-0">{{item.CUV}}</span>
@@ -706,18 +706,12 @@
             {{else}}
             <div class="text-bold text-center tag_sb tag_sb--standard">Set o Pack</div><br />
             {{/if_eq}}
+            {{#if_eq CodigoOperacion 'T'}}
             <b>{{item.Solicitud}} :</b>
+            {{/if_eq}}
         </div>
         <div class="titulo_solicitud_cdr titulo_solicitud_cdr--solicitudEnviada">
-            {{#if_eq CodigoOperacion 'C'}}
-            {{item.SolucionSolicitada}}
-            {{else if_eq CodigoOperacion 'D'}}
-            {{item.SolucionSolicitada}}
-            {{else if_eq CodigoOperacion 'F'}}
-            {{item.SolucionSolicitada}}
-            {{else if_eq CodigoOperacion 'G'}}
-            {{item.SolucionSolicitada}}
-            {{else if_eq CodigoOperacion 'T'}}
+            {{#if_eq CodigoOperacion 'T'}}
             {{#if item.DetalleReemplazo}}
             {{#each item.DetalleReemplazo as |subItem|}}
             <div>
