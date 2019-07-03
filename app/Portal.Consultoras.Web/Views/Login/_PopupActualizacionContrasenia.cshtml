@@ -33,7 +33,7 @@
                             <span class="d-block w-100 validation__field validation__error validation__error1">@Html.ValidationMessageFor(m => m.Contrasenia)</span>
                             <!-- Fin - Cuando se llega a los 6 caracteres o se pasa al siguiente campo (Confirmar Contraseña) y no se cumple con las condiciones de password (error), agregar la clase validation__error -->
                             <!-- Cuando se llega a los 6 caracteres y se ha cumplido con las condiciones de password, agregar la clase validation__success -->
-                            <span class="d-block w-100 validation__field validation__success" style="display:none;">Contraseña válida</span>
+                            <span id="passValid"class="d-block w-100 validation__field validation__success" style="display:none;">Contraseña válida</span>
                             <!-- Fin - Cuando se llega a los 6 caracteres y se ha cumplido con las condiciones de password, agregar la clase validation__success -->
 
                         </div>
@@ -50,7 +50,7 @@
                             <span class="d-block w-100 validation__field validation__error">@Html.ValidationMessageFor(m => m.ConfirmaContrasenia)</span>
                             <!-- Fin - Cuando la contraseña no coincida (error), agregar la clase validation__error -->
                             <!-- Cuando la contraseña coincida, agregar la clase validation__success -->
-                            <span class="d-block w-100 validation__field validation__success" style="display:none;">Las contraseñas coinciden</span>
+                            <span id="passValid2" class="d-block w-100 validation__field validation__success" style="display:none;">Las contraseñas coinciden</span>
                             <!-- Fin - Cuando la contraseña coincida, agregar la clase validation__success -->
 
                         </div>

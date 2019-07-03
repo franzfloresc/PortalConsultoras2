@@ -80,14 +80,27 @@ function Inicializar() {
         });
 
 
-    $('.contrasenia').on('input', function (e) {
+    $('.contrasenia').on('input', function (e) {        
         var boton = $("#btnActualizarCorreo");
         var form = $("#formContrasenia").valid();
         if (form) {
-            boton.removeClass('btn__sb--disabled');
-        } else {
+            boton.removeClass('btn__sb--disabled');   
+        } else {           
             boton.addClass('btn__sb--disabled');
         }
+
+        if ($('#Contrasenia').valid()) {
+            $('#passValid').css('display','block');
+        } else {
+            $('#passValid').css('display', 'none');
+        }
+
+        if ($('#ConfirmaContrasenia').valid()) {
+            $('#passValid2').css('display', 'block');
+        } else {
+            $('#passValid2').css('display', 'none');
+        }
+
     });
 
     $('#btnReenviarCorreo').click(function () {
@@ -99,7 +112,7 @@ function Inicializar() {
     });
 
     $('.contrasenia').bind('input', function () {
-        var thiss = $(this);
+        var thiss = $(this);        
         if (thiss.val().trim() == '') {
             thiss.removeClass('text__field__sb--withContent');
         } else {
@@ -109,8 +122,7 @@ function Inicializar() {
 }
 
 
-function mostrarContrasenia(currentElement) {
-    debugger;
+function mostrarContrasenia(currentElement) {    
     var contraseniaType = $(currentElement).parent().find('.text__field__sb')[0].type
 
     if (contraseniaType === "password") {
