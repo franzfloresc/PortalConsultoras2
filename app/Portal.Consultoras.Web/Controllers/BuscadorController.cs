@@ -37,8 +37,22 @@ namespace Portal.Consultoras.Web.Controllers
                     false,
                     SessionManager.GetRevistaDigital().EsSuscrita                    
                     );
-                productosModel.productos[2].CodigoTipoOferta = "044";
-                productosModel.productos[2].TienePremio = CodigoTipoOfertaPremio.Contains(productosModel.productos[2].CodigoTipoOferta); 
+
+                var buscadorPromocionEstaActivo = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                    userData.PaisID,
+                    ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                    ConsTablaLogica.FlagFuncional.PromocionesBuscador,
+                    true
+                );
+                if (buscadorPromocionEstaActivo)
+                {
+                    //productosModel.productos[2].CodigoTipoOferta = "044";
+                    //productosModel.productos[2].TienePremio = CodigoTipoOfertaPremio.Contains(productosModel.productos[2].CodigoTipoOferta);
+                    foreach (var producto in productosModel.productos)
+                    {
+                        producto.TienePremio = CodigoTipoOfertaPremio.Contains(producto.CodigoTipoOferta);
+                    }
+                }
             }
             catch (Exception ex)
             {
