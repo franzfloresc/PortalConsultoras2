@@ -151,7 +151,7 @@
                         @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "border-radius-4 select_reclamo", @required = "required" })
                         <select class="border-radius-4 elige_num_pedido" id="ddlnumPedido" name="numPedido" required="required" style="display:none;"></select>
                         <input id="txtNumPedido" autocomplete="off" type="text" class="border-radius-4" style="display:none;" />
-                        <input id="cuvmobile" inputmode="numeric" autocomplete="off" class="border-radius-4 tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral valid" type="text" value="" placeholder="Código o Descripción del producto" readonly />
+                        <input id="cuvmobile" type="tel" inputmode="numeric" autocomplete="off" class="border-radius-4 tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral valid" value="" placeholder="Código o Descripción del producto" readonly />
 
                         <div id="DescripcionCuv" class="producto_cdr" style="font-size:13px;display:none;">
                             <span id="txtCuv" class="text-bold codigo_producto_cdr"></span>
@@ -215,7 +215,7 @@
                         <div class="formulario_inscripcion_cdr">
                             <input id="cuvmobile2"
                                    class="border-radius-4 tipografia_lato tipografia_lato_regular ValidaNumeral ValidaPasteNumeral"
-                                   type="text"
+                                   type="tel"
                                    value=""
                                    data-codigo=""
                                    name="codigo"
@@ -523,7 +523,7 @@
             </div>
             <div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
                 <div data-cantidad-contenedor="">
-                    <input type="text"
+                    <input type="tel"
                            value="1"
                            size="2"
                            maxlength="2"
@@ -531,7 +531,6 @@
                            class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
                            data-input="cantidad"
                            name="cantidad"
-                           @*onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"*@
                            onchange="misReclamosRegistro.Funciones.ActualizarCantidad(event);">
                     <a class="cantidad_menos_home modificarPrecioMenos" onclick="misReclamosRegistro.Funciones.AgregarODisminuirCantidad(event, 2);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                     <a class="cantidad_mas_home modificarPrecioMas" onclick="misReclamosRegistro.Funciones.AgregarODisminuirCantidad(event, 1);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
@@ -599,12 +598,6 @@
                 </div>
             </a>
         </li>
-        @*<a id="{{item.CodigoOperacion}}"
-               data-tipo="{{item.Tipo}}"
-               class="text-bold solucion_cdr"
-               title="{{item.CDRTipoOperacion.DescripcionOperacion}}">
-                {{item.CDRTipoOperacion.DescripcionOperacion}}
-            </a>*@
         {{/each}}
     </ul>
 </script>
