@@ -107,12 +107,12 @@ namespace Portal.Consultoras.Web.Providers
             return validar;
         }
         
-        public List<BEEstrategia> ActualizarEstrategiaStockPROL(List<BEEstrategia> lista, string paisISO, int campaniaID, string codigoConsultora, bool esFacturacion)
+        public List<BEEstrategia> ActualizarEstrategiaStockProl(List<BEEstrategia> lista, string paisISO, int campaniaID, string codigoConsultora, bool esFacturacion)
         {
-            if (lista.Count == 0) return lista;
-
             try
             {
+                if (lista.Count == 0) return lista;
+
                 var listaCUVs = string.Join("|", lista.Where(e => !string.IsNullOrEmpty(e.CUV2)).Select(e => e.CUV2));
                 ConsultaStockModel stock = new ConsultaStockModel
                 {
@@ -155,11 +155,12 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
-        public List<EstrategiaPersonalizadaProductoModel> ActualizarEstrategiaStockPROL(List<EstrategiaPersonalizadaProductoModel> lista, string paisISO, int campaniaID, string codigoConsultora, bool esFacturacion)
+        public List<EstrategiaPersonalizadaProductoModel> ActualizarEstrategiaStockProl(List<EstrategiaPersonalizadaProductoModel> lista, string paisISO, int campaniaID, string codigoConsultora, bool esFacturacion)
         {
             try
             {
                 if (lista.Count == 0) return lista;
+
                 var listaCUVs = string.Join("|", lista.Where(e => !string.IsNullOrEmpty(e.CUV2)).Select(e => e.CUV2));
                 var stock = new ConsultaStockModel
                 {
