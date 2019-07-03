@@ -1203,7 +1203,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TieneRDC = revistaDigital.TieneRDC;
             ViewBag.TieneHV = herramientasVenta.TieneHV;
             ViewBag.revistaDigital = getRevistaDigitalShortModel();
-            ViewBag.variableBase = _configuracionPaisProvider.getBaseVariablesPortal(userData.CodigoISO, userData.Simbolo);
+            ViewBag.variableBase = _configuracionPaisProvider.getBaseVariablesPortal(userData.CodigoISO, userData.Simbolo, SessionManager.GetConfigMicroserviciosPersonalizacion());
 
             ViewBag.TituloCatalogo = ((revistaDigital.TieneRDC && !userData.TieneGND && !revistaDigital.EsSuscrita) || revistaDigital.TieneRDI) ||
                 (!revistaDigital.TieneRDC || (revistaDigital.TieneRDC && !revistaDigital.EsActiva));

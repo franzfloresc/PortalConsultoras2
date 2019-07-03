@@ -127,7 +127,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 beGprBanner.MostrarBannerRechazo = true;
 
-                if (usuario.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Rechazado && ((!usuario.ValidacionAbierta && usuario.EstadoPedido == 201) || usuario.ValidacionAbierta && usuario.EstadoPedido == 202))
+                if (usuario.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Rechazado && ((!usuario.ValidacionAbierta && usuario.EstadoPedido == Constantes.EstadoPedido.Pendiente) || usuario.ValidacionAbierta && usuario.EstadoPedido == Constantes.EstadoPedido.Procesado))
                 {
                     beGprBanner.MostrarBannerRechazo = true;
                 }
