@@ -56,7 +56,7 @@
         <div class="consultora__datos consultora__datos--menu">
             @if (!string.IsNullOrEmpty(ViewBag.FotoPerfil))
             {
-                <div class="consultora__imagen w-100">
+                <div class="foto_usuaria_mobile">
                     <img id="imgFotoUsuario" src="@ViewBag.FotoPerfil" class="ImageLoadPhotoUser w-100" onerror="this.onerror=null; this.src='@Url.Content(Constantes.ConfiguracionManager.DefaultPerfilImage)'" alt="Foto Consultora" />
                 </div>
                 <div class="icono__actualizarDatos text-center">
@@ -389,11 +389,6 @@
             }
         }
     </ul>
-
-
-
-
-
     <a class="menu__link menu__link--cerrar-sesion text-underline mostrarEnMobile" title="Cerrar Sesión">
         Cerrar sesión
     </a>

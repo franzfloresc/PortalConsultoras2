@@ -60,7 +60,7 @@
             Precio normal : <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span>
             {{else}}
             {{#iff CodigoEstrategia '==' '035'}}
-            Precio : <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span>
+            Precio : <span data-precio_valorizado="" style="text-decoration:line-through">{{SimboloMoneda}} {{PrecioTachado}}</span>
             {{else}}
             Para tu cliente : <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span>
             {{/iff}}

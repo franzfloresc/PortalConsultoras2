@@ -879,14 +879,14 @@ var FichaModule = (function (config) {
         modeloFicha = _getEstrategia(modeloFicha);
         _modeloFicha(modeloFicha);
 
-        if (_modeloFicha().MostrarFichaResponsive &&
-            _modeloFicha().CodigoVariante == _codigoVariedad.ComuestaFija) {
-            var urlResponsive = _config.generalModule.getLocationPathname()/*.toLowerCase()*/;
-            urlResponsive = urlResponsive.replace("Detalle", "Detalles");
-            urlResponsive = urlResponsive.substr(1);
-            _config.generalModule.redirectTo(urlResponsive, _config.esMobile);
-            return;
-        }
+        //if (_modeloFicha().MostrarFichaResponsive &&
+        //    _modeloFicha().CodigoVariante == _codigoVariedad.ComuestaFija) {
+        //    var urlResponsive = _config.generalModule.getLocationPathname()/*.toLowerCase()*/;
+        //    urlResponsive = urlResponsive.replace("Detalle", "Detalles");
+        //    urlResponsive = urlResponsive.substr(1);
+        //    _config.generalModule.redirectTo(urlResponsive, _config.esMobile);
+        //    return;
+        //}
 
         _construirSeccionFicha();
         _construirSeccionEstrategia();
@@ -933,13 +933,22 @@ var FichaPartialModule = (function () {
         var campania = $.trim(row.attr("data-campania"));
         var cuv = $.trim(row.attr("data-cuv"));
         var setId = $.trim(row.attr("data-SetID"));
+        componenteDetalleModule = ComponenteDetalleModule({
+            localStorageModule: LocalStorageModule(),
+            analyticsPortalModule: AnalyticsPortalModule,
+            generalModule: GeneralModule,
+            palanca: palanca,
+            campania: campania,
+            cuv: cuv,
+            origen: OrigenPedidoWeb
+            });
 
         var objFicha = {
             localStorageModule: LocalStorageModule(),
             analyticsPortalModule: AnalyticsPortalModule,
             generalModule: GeneralModule,
             detalleEstrategiaProvider: DetalleEstrategiaProvider,
-            componenteDetalleModule: null,
+            componenteDetalleModule: componenteDetalleModule,
 
             palanca: palanca,
             campania: campania,
