@@ -5958,6 +5958,7 @@
     <Content Include="Views\DetalleEstrategia\FichaResponsive\FichaEnriquecida\popup-ficha-enriquecida-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\resumen-componente-template.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Promociones\modal-promociones.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\Promociones\producto-promocion-template.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
