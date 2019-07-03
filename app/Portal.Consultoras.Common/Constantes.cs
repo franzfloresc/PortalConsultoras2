@@ -2532,6 +2532,9 @@ namespace Portal.Consultoras.Common
 
                 public const string ERROR_AGREGAR_BACKORDER_NO_PERMITIDO = "2201";
                 public const string ERROR_AGREGAR_BACKORDER = "2202";
+
+                public const string ERROR_AGREGAR_PROMOCION = "4000";
+                public const string ERROR_MODIFICAR_CONDICION = "4001";
             }
 
             public static Dictionary<string, PedidoValidacionConfiguracion> Configuracion
@@ -3967,6 +3970,16 @@ namespace Portal.Consultoras.Common
             public const string CatalogoEbel = "9";
             public const string CatalogoCyzone = "10";
             public const string CatalogoEsika = "13";
+        }
+
+        public static class CodigoTipoOferta
+        {
+            public const string Promocion1 = "044";
+            public const string Promocion2 = "047";
+            public const string Promocion3 = "024";
+            public const string Promocion4 = "046";
+            public const string Promocion5 = "038";
+            public const string Promocion6 = "039";
         }
 
         public static class TipoVentaIncremental
