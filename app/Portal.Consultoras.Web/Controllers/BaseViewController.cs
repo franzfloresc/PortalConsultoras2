@@ -542,35 +542,13 @@ namespace Portal.Consultoras.Web.Controllers
                     modelo.Condiciones = Mapper.Map<List<Web.Models.Search.ResponsePromociones.Estructura.Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(promociones.result.First().Condiciones);
 
                     //
-                    var pedidos = SessionManager.GetDetallesPedido();
 
+                    metodo(modelo.Promocion);
                     foreach (var item in modelo.Condiciones)
                     {
-                        var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV2).ToList();
-                        item.IsAgregado = pedidoAgregado.Any();
-
-                        item.CampaniaID = userData.CampaniaID;
-                        item.PrecioVenta = Util.DecimalToStringFormat(item.Precio2.ToDecimal(), userData.CodigoISO);
-                        item.PrecioTachado = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO);
-                        item.TipoAccionAgregar = _ofertaPersonalizadaProvider.TipoAccionAgregar(
-                            item.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable ? 1 : 0,
-                            item.CodigoEstrategia,
-                            userData.esConsultoraLider,
-                            false,
-                            item.CodigoVariante);
-
-                        //falta considerar item.CodigoConsultora == ConsConsultora.CodigoConsultora.Forzadas
-                        //item.CodigoEstrategia =
-                        //    item.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-                        //    && item.MaterialGanancia
-                        //    && sessionMg.TieneMG
-                        //    && revistaDigital.TieneRDC
-                        //    && revistaDigital.EsActiva
-                        //    ? Constantes.TipoEstrategiaCodigo.MasGanadoras
-                        //    : item.CodigoEstrategia;
-
+                        metodo(item);
                     }
-
+                    
                     modelo.Condiciones = modelo.Condiciones
                         .Where(e =>
                             e.TipoAccionAgregar == Constantes.TipoAccionAgregar.AgregaloPackNuevas
@@ -583,6 +561,33 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             return modelo;
+        }
+
+        private void metodo(EstrategiaPersonalizadaProductoModel item)
+        {
+            var pedidos = SessionManager.GetDetallesPedido();
+            var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV2).ToList();
+            item.IsAgregado = pedidoAgregado.Any();
+
+            item.CampaniaID = userData.CampaniaID;
+            item.PrecioVenta = Util.DecimalToStringFormat(item.Precio2.ToDecimal(), userData.CodigoISO);
+            item.PrecioTachado = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO);
+            item.TipoAccionAgregar = _ofertaPersonalizadaProvider.TipoAccionAgregar(
+                item.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable ? 1 : 0,
+                item.CodigoEstrategia,
+                userData.esConsultoraLider,
+                false,
+                item.CodigoVariante);
+
+            //falta considerar item.CodigoConsultora == ConsConsultora.CodigoConsultora.Forzadas
+            //item.CodigoEstrategia =
+            //    item.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+            //    && item.MaterialGanancia
+            //    && sessionMg.TieneMG
+            //    && revistaDigital.TieneRDC
+            //    && revistaDigital.EsActiva
+            //    ? Constantes.TipoEstrategiaCodigo.MasGanadoras
+            //    : item.CodigoEstrategia;
         }
 
         private string IdentificarPalancaRevistaDigital(string palanca, int campaniaId)

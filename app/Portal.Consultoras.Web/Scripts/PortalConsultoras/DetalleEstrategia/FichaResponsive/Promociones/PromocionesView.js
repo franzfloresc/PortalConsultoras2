@@ -20,7 +20,8 @@
                 templateid: "#template-producto-carrusel-responsive"
             },
             promocion: {
-                //id: "#cerrar-promociones-modal"
+                id: "#producto-promocion",
+                templateid: "#producto-promocion-template"
             }
         }
     };
@@ -87,7 +88,9 @@
     };
 
     var _showPromotion = function (promotion) {
-
+        SetHandlebars(_elements.promocionesModal.promocion.templateid,
+            promotion,
+            _elements.promocionesModal.promocion.id);
     };
 
     return {
