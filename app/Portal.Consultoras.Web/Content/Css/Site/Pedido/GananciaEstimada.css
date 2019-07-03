@@ -29,20 +29,53 @@
                                     .ganancia_total.accent-color
     */
 
+/* HD-4513 - PAGO AL CONTADO */
+
+.info_mis_descuentos{
+    font-size:15px;
+}
+
+.modificarPosicionSiPagoAlContado{
+    bottom:-8px!important;
+}
+
+.modificarPosicionSiPagoAlContado.opened{
+    left:43.8%!important;
+}
+
+.modificarPosicionSiPagoAlContado.opened .toggle-header .toggle-info {
+    padding-top: 23px;
+}
+
+.modificarPosicionSiPagoAlContado.opened .toggle-header .toggle-switch {
+    top:-22px!important;
+}
+
+.modificarPosicionSiPagoAlContado.opened .toggle-content {
+    padding-bottom: 69px;
+}
+
+.total_a_pagar_wrapper {
+    margin-top: 16px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+
+/* FIN - HD-4513 - PAGO AL CONTADO */
 
 .ganancia-estimada {
-    
     position: absolute;
     width: 48%;
     left: 52%;
     height: 0;
-    bottom: 0;
-    
+    bottom: -8px;
     transition: all 0.5s ease-out;
 }
     .ganancia-estimada.opened {
-        bottom: 100%;
-        left: 43.5%;
+        bottom: 100%!important;
+        left: 44%;
         width: 56.5%;
     }
     /*

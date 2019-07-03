@@ -68,6 +68,9 @@
         lbl1Ganancia = "Mis descuentos";
         lbl2Ganancia = "Oportunidad de ahorro *(Revista y otros)";
     }
+
+    var siPagoAlContado = ViewBag.PagoContado ? "modificarPosicionSiPagoAlContado" : "";
+
 }
 <div class="franja_negra pedidoReservado" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
 <div class="wrapper_general2">
@@ -130,7 +133,7 @@
                 <div class="caja_montos PedidoValidado">
                     <div style="position:relative;">
                         <!-- <NuevaExperiencia ticket="tesla-98"> -->
-                        <div class="ganancia-estimada">
+                        <div class="ganancia-estimada @siPagoAlContado">
                             <div class="panel-toggle">
                                 <div class="toggle-header">
                                     <div class="toggle-switch closed">
@@ -214,8 +217,8 @@
                                     </span>
                                 </div>
                                 <div class="ganancia-info pb-2">
-                                    <span class="ganancia-titulo titulo-up titulo-700">
-                                        MONTO TOTAL :
+                                    <span class="ganancia-titulo titulo-700">
+                                        Monto Total :
                                     </span>
                                     <span class="ganancia-total first-color">
                                         <i>S/.</i> <span id="sTotal" data-pedidocondescuento="">0000.00</span>
@@ -223,20 +226,20 @@
                                 </div>
                             @*HD-4513*@
                             @if (ViewBag.PagoContado){
-                              <div class="ganancia-info first-color">
-                                    <span><b>(-) Mis Descuentos:</b></span>
+                                <div class="ganancia-info first-color">
+                                   <span class="info_mis_descuentos">(-) Mis Descuentos:</span>
                                    <span class="ganancia-total first-color" data-stpdescuento>
                                         S/. 0000.00
                                     </span>
                                 </div>
                                 <div class="ganancia-info first-color">
-                                    <span><b>(+) Gastos de Transporte:</b></span>
+                                   <span class="info_mis_descuentos">(+) Gastos de Transporte:</span>
                                    <span class="ganancia-total first-color" data-stpflete>
                                         S/. 0000.00
                                     </span>
                                 </div>  
-                                <div class="ganancia-info pb-2">
-                                    <span class="titulo-up"><b>Total a Pagar:</b></span>
+                                <div class="ganancia-info total_a_pagar_wrapper pb-2">
+                                    <span class="text-bold info_mis_descuentos titulo-up">Total a Pagar:</span>
                                    <span class="ganancia-total first-color" data-stptotalpagar>
                                         S/. 0000.00
                                     </span>
