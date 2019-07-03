@@ -575,6 +575,7 @@ var FichaModule = (function (config) {
         }
 
         var estrategiaBreadcrumb = (estrategia || {}).DescripcionCompleta || "";
+        var codigoEstrategia = (estrategia || {}).CodigoEstrategia || "";
 
         if (estrategiaBreadcrumb == "") {
             return false;
@@ -582,7 +583,7 @@ var FichaModule = (function (config) {
 
         estrategiaBreadcrumb = $.trim(estrategiaBreadcrumb);
         var palabrasEstrategiaDescripcion = estrategiaBreadcrumb.split(" ");
-        estrategiaBreadcrumb = palabrasEstrategiaDescripcion[0];
+        estrategiaBreadcrumb = ((codigoEstrategia === '036' || codigoEstrategia === '035') && _config.esMobile ? estrategiaBreadcrumb : palabrasEstrategiaDescripcion[0]);
         if (!_config.esMobile) {
             if (palabrasEstrategiaDescripcion.length > 1)
                 estrategiaBreadcrumb += " " + palabrasEstrategiaDescripcion[1];
@@ -591,7 +592,7 @@ var FichaModule = (function (config) {
             if (palabrasEstrategiaDescripcion.length > 3)
                 estrategiaBreadcrumb += "...";
         } else {
-            if (estrategiaBreadcrumb.length > 7)
+            if (estrategiaBreadcrumb.length > 9 )
                 estrategiaBreadcrumb = estrategiaBreadcrumb.substr(0, 7) + "...";
         }
 
@@ -1010,13 +1011,22 @@ var FichaPartialModule = (function () {
         var campania = $.trim(row.attr("data-campania"));
         var cuv = $.trim(row.attr("data-cuv"));
         var setId = $.trim(row.attr("data-SetID"));
+        componenteDetalleModule = ComponenteDetalleModule({
+            localStorageModule: LocalStorageModule(),
+            analyticsPortalModule: AnalyticsPortalModule,
+            generalModule: GeneralModule,
+            palanca: palanca,
+            campania: campania,
+            cuv: cuv,
+            origen: OrigenPedidoWeb
+            });
 
         var objFicha = {
             localStorageModule: LocalStorageModule(),
             analyticsPortalModule: AnalyticsPortalModule,
             generalModule: GeneralModule,
             detalleEstrategiaProvider: DetalleEstrategiaProvider,
-            componenteDetalleModule: null,
+            componenteDetalleModule: componenteDetalleModule,
 
             palanca: palanca,
             campania: campania,

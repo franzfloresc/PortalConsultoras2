@@ -180,7 +180,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/PageResponsive").Include(
                 "~/Scripts/handlebars.js",
-                "~/Scripts/LogError.js",
+                //"~/Scripts/LogError.js",
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Shared/Menu.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayoutResponsive.js",
@@ -1116,17 +1116,18 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/General.js"
             ));
 
-
             #region CaminoBrillante
             bundles.Add(new StyleBundle("~/Bundle/Css/CaminoBrillante").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/CaminoBrillante/css/estilos.css",
                 "~/Scripts/owl.carousel.2.0.0-beta.2.4/assets/owl.carousel.css"));
 
-
             bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante").Include(
+                "~/Scripts/General.js",
                 "~/Scripts/owl.carousel.js",
-                "~/Scripts/PortalConsultoras/CaminoBrillante/index.js"
+                "~/Scripts/chartjs.js",
+                "~/Scripts/PortalConsultoras/CaminoBrillante/index.js",
+                "~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante/logros").Include(
@@ -1134,12 +1135,14 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante/ofertas").Include(
                 "~/Scripts/PortalConsultoras/Cliente/Index.js",
-                "~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"));
+                "~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js",
+                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
+                ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/bootstrap").Include(
                "~/Scripts/bootstrap.js"));
-
-
             #endregion
             #region ArmaTuPack
 
