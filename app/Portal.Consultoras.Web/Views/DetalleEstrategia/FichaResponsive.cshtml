@@ -40,7 +40,7 @@
 </section>
 
 <div class="contenedor_seccion_fichas">
-    <section class="seccion_ficha" id="divFichaCarrusel_UpSelling" style="display:none;">
+    <section class="seccion_ficha" id="divFichaCarrusel_UpSelling" >
         <div class="contenedor_detalle container">
             <h2 class="titulo_seccion"></h2>
             <div class="carousel_ficha carrusel_seccion"></div>
@@ -48,7 +48,7 @@
     </section>
 
     <!--<FichaPromociones ticket="tesla-178">-->
-    <div class="ficha-promociones d-sm-block d-md-none" data-selector="open-modal">
+    <div class="ficha-promociones d-sm-block d-md-none" data-selector="open-modal" style="display:none;">
         <div class="titulo-promociones">
             <span class="texto-promociones"> Promocion </span>
         </div>
@@ -95,10 +95,11 @@
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/FichaEnriquecida/popup-ficha-enriquecida-template.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/componente-estrategia-template.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/modal-tipos-tonos.cshtml")
-@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/modal-promociones.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/tipos-tonos-componente-template.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/tipos-tonos-seleccionados-template.cshtml")
 @Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Componente/resumen-componente-template.cshtml")
+
+@Html.Partial("~/Views/DetalleEstrategia/FichaResponsive/Promociones/modal-promociones.cshtml")
 
 @section scripts{
 
@@ -112,10 +113,11 @@
             urlIncremental: '@Url.Action("FichaObtenerProductosIncremental", "Estrategia")'
         };
     </script>
-
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Promociones/PromocionesView.js")"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Promociones/PromocionesPresenter.js")"></script>
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Responsive/Ficha")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/EstrategiaAgregar")
     @System.Web.Optimization.Scripts.Render("~/Bundle/Js/Mixto/TusClientes")
 
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/DetalleEstrategia/FichaResponsive/Promociones/PromocionesView.js")"></script>
+
 }

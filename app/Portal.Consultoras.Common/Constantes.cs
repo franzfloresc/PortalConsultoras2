@@ -3230,6 +3230,11 @@ namespace Portal.Consultoras.Common
             /// </summary>
             public const string UrlReporteValidacion = "/api/Reporte/ReporteValidacion/{0}/{1}/{2}";
             #endregion
+
+            public static class Promociones
+            {
+                public static readonly string UrlGetPromociones = "Promociones/{0}/{1}/{2}";
+            }
         }
         public static class OfertaFinalLog
         {

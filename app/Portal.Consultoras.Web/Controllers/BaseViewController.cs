@@ -17,10 +17,12 @@ namespace Portal.Consultoras.Web.Controllers
     public class BaseViewController : BaseController
     {
         private readonly IssuuProvider _issuuProvider;
+        private readonly PromocionesProvider promocionesProvider;
 
         public BaseViewController() : base()
         {
             _issuuProvider = new IssuuProvider();
+            promocionesProvider = new PromocionesProvider();
         }
 
         public BaseViewController(ISessionManager sesionManager)
@@ -515,6 +517,30 @@ namespace Portal.Consultoras.Web.Controllers
                             ConsTablaLogica.FlagFuncional.FichaResponsive,
                             true
                             );
+            
+            modelo.MostrarPromociones = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            userData.PaisID,
+                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                            ConsTablaLogica.FlagFuncional.Promociones,
+                            true
+                            );
+
+#if DEBUG
+            modelo.TienePromociones = true;
+#endif
+
+            #region Promociones
+            if(modelo.MostrarPromociones && modelo.TienePromociones)
+            {
+                var promociones = promocionesProvider.GetPromociones(userData.CodigoISO, userData.CampaniaID.ToString(), cuv);
+                if (promociones.Success)
+                {
+                    modelo.Promocion = Mapper.Map<Web.Models.Search.ResponsePromociones.Estructura.Estrategia, EstrategiaPersonalizadaProductoModel>(promociones.result[0].Promocion);
+                    modelo.Condiciones = Mapper.Map<List<Web.Models.Search.ResponsePromociones.Estructura.Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(promociones.result[0].Condiciones);
+                }
+            }
+            #endregion
+
             return modelo;
         }
 
