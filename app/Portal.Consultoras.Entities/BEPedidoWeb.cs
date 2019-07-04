@@ -137,6 +137,24 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal GananciaOtros { get; set; }
 
+        [DataMember]
+        public bool STPPagoContado { get; set; }
+
+        [DataMember]
+        public string STPTotalPagar { get; set; }
+
+        [DataMember]
+        public string STPDescuento { get; set; }
+
+        [DataMember]
+        public string STPGastTransporte { get; set; }
+
+        [DataMember]
+        public string STPPagoTotal { get; set; }
+
+        [DataMember]
+        public int STPId { get; set; }
+
         public BEPedidoWeb() { }
 
         public BEPedidoWeb(IDataRecord row)
