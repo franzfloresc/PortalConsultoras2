@@ -78,13 +78,15 @@
             conditions,
             _elements.promocionesModal.condiciones.id);
         $(_elements.promocionesModal.condiciones.id).slick({
-            
+            slidesToScroll: 1,
             autoplaySpeed: 2000,
             swipe: true,
             swipeToSlide: true,
             fade: false,
             arrows: false,
-            infinite: false
+            infinite: false,
+            centerMode: false,
+            variableWidth: true
         });
         setTimeout(function () {
             $(_elements.promocionesModal.condiciones.id).slick('setPosition');

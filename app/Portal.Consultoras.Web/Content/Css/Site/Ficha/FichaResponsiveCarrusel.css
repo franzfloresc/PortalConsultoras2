@@ -67,7 +67,7 @@
     }
 
 .promociones-modal .contenedor_rangos, .promociones-modal .btn_agregalo {
-    width: 99%
+    width: 100%
 }
 
 .promociones-modal .texto-promociones {
@@ -90,11 +90,12 @@
 }
 
 .promociones-modal .contenedor-imagen img {
-    height: 150px;
+    height: 120px;
 }
 
 .promociones-modal .img_producto img {
     height: 70px;
+    margin-bottom: 0;
 }
 
 
@@ -108,18 +109,47 @@
     /* Barra separadora central*/
     content: "";
     position: absolute;
-    bottom: 47%;
+    bottom: 45%;
     width: 100%;
     border-bottom: 1px solid #dee2e6;
 }
+
 /* [Fin] */
 
 /* Adaptando carrusel para modal de promociones */
 
 .promociones-modal .caja_producto {
+    margin-right: 20px;
     padding: 10px;
+    margin-left: 0;
 }
 .promociones-modal .contenedor_detalle{
     padding-top: 10px;
     padding-bottom: 10px;
+    padding-right: 0;
+}
+
+.ficha-promociones.banner_promociones_ocultar {
+    display: none !important;
+}
+.b-0{
+    bottom: 0;
+}
+.w-92 {
+    width: 92%;
+}
+.h-40 {
+    height: 40% !important
+}
+
+@media (max-height: 666px) {
+    /* 👿 */
+    .promociones-modal.popup_lateral::after {
+        /* Barra separadora central*/
+        content: "";
+        position: absolute;
+        bottom: 47%;
+        width: 100%;
+        border-bottom: 0 solid #dee2e6;
+    }
 }
