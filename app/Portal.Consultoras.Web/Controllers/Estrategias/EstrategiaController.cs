@@ -867,7 +867,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     return Json(new { success = false });
 
                 listaProductos = ValidacionResultadosProductos(listaProductos, tipo).ToList();
-                listaProductos = _consultaProlProvider.ActualizarEstrategiaStockPROL(listaProductos,
+                listaProductos = _consultaProlProvider.ActualizarEstrategiaStockProl(listaProductos,
                     userData.CodigoISO,
                     userData.CampaniaID, 
                     userData.CodigoConsultora,

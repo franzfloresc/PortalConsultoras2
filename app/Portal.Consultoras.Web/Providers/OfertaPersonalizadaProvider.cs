@@ -574,7 +574,7 @@ namespace Portal.Consultoras.Web.Providers
                     return e;
                 }).ToList();
             }
-            listEstrategia = ActualizarEstrategiaStockPROL(listEstrategia, userData);
+            listEstrategia = ActualizarEstrategiaStockProl(listEstrategia, userData);
             return listEstrategia;
         }
 
@@ -617,7 +617,7 @@ namespace Portal.Consultoras.Web.Providers
             // validar stock con PROL
             if (tipo != Constantes.TipoEstrategiaCodigo.PackNuevas)
             {
-                listEstrategia = ActualizarEstrategiaStockPROL(listEstrategia, userData);
+                listEstrategia = ActualizarEstrategiaStockProl(listEstrategia, userData);
             }
 
             return listEstrategia;
@@ -1650,22 +1650,22 @@ namespace Portal.Consultoras.Web.Providers
             return tienePalanca;
         }
 
-        public List<ServiceOferta.BEEstrategia> ActualizarEstrategiaStockPROL(List<ServiceOferta.BEEstrategia> lstProducto, UsuarioModel userData)
+        public List<ServiceOferta.BEEstrategia> ActualizarEstrategiaStockProl(List<ServiceOferta.BEEstrategia> lstProducto, UsuarioModel userData)
         {
             if (lstProducto.Any())
             {
                 var validarDias = _consultaProlProvider.GetValidarDiasAntesStock(userData);
-                return _consultaProlProvider.ActualizarEstrategiaStockPROL(lstProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora, validarDias);
+                return _consultaProlProvider.ActualizarEstrategiaStockProl(lstProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora, validarDias);
             }
             return lstProducto;
         }
 
-        public List<DetalleEstrategiaFichaModel> ActualizarEstrategiaStockPROL(List<DetalleEstrategiaFichaModel> lstProducto, UsuarioModel userData)
+        public List<DetalleEstrategiaFichaModel> ActualizarEstrategiaStockProl(List<DetalleEstrategiaFichaModel> lstProducto, UsuarioModel userData)
         {
             if (lstProducto.Any())
             {
                 var validarDias = _consultaProlProvider.GetValidarDiasAntesStock(userData);
-                return _consultaProlProvider.ActualizarEstrategiaStockPROL(lstProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora, validarDias);
+                return _consultaProlProvider.ActualizarEstrategiaStockProl(lstProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora, validarDias);
             }
             return lstProducto;
 

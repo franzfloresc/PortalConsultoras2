@@ -165,9 +165,13 @@ class CarruselPresenter {
         } else {
             if (this.model.palanca === ConstantesModule.TipoEstrategiaTexto.OfertaDelDia) {
                 titulo = "Ver más ofertas ¡Solo Hoy!";
-            } else {
+            }
+            else if (this.model.palanca === ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
+                titulo = "Ofertas que contienen este nuevo producto";
+            }
+            else if (this.model.mostrarUpselling) {
                 if (this.model.productosHermanos.length > 1) {
-                    titulo = "Packs parecidos con más productos";
+                    titulo = "Ofertas con alguno de estos productos";
                 } else {
                     let componenteInicial = {};
                     if (this.model.productosHermanos.length === 1) {
@@ -176,9 +180,12 @@ class CarruselPresenter {
                     if (componenteInicial.FactorCuadre * componenteInicial.Cantidad === 1) {
                         titulo = `Packs que contienen <span style="text-transform:capitalize">${this.model.tituloCarrusel.toLowerCase()}</span>`;
                     } else {
-                        titulo = "Packs parecidos con más productos";
+                        titulo = "Ofertas con alguno de estos productos";
                     }
                 }
+            }
+            else {
+                titulo = "Ver más sets exclusivos para ti";
             }
         }
         return titulo;
