@@ -36,7 +36,7 @@
             estrategia.MostrarPromociones &&
             (typeof estrategia.Promocion != "undefined" && estrategia.Promocion != null) &&
             estrategia.Condiciones.length > 0) {
-            _config.promocionesView.showBanner();
+            _config.promocionesView.showBanner(estrategia);
         }
 
         return true;

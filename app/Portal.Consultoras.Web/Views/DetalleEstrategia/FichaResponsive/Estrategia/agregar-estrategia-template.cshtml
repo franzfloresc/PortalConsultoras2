@@ -108,9 +108,18 @@
                 <span class="texto-promociones"> Promocion </span>
             </div>
             <div class="descripcion-promociones">
-                <span class="texto-promociones">Lleva un reloj Chronograph comprando uno de estos productos en oferta.</span>
+                <span class="texto-promociones">!Ll&eacute;vate un(a) {{DescripcionCompleta}} en oferta! <br>Ent&eacute;rate aqu&iacute;.</span>
                 <div class="contenedor-imagen">
-                    <img src="https://belc-bigdata-mdm-images-qas.s3.amazonaws.com/images/FotoProductoWebRedes/Esika_Talco_Perfumado_Expression_Cuidado_Personal_FotoProducto.jpg" alt="Texto" class="img-responsive"/>
+                    {{#iff TipoPersonalizacion '==' 'CAT'}}
+                    <img src="{{FotoProducto01}}" alt="Texto" class="img-responsive"/>
+                    {{/iff}}
+                    {{#iff TipoPersonalizacion '!=' 'CAT'}}
+                    {{#if isMobile}}
+                    <img src="{{ImgMedium FotoProducto01}}" alt="Texto" class="img-responsive"/>
+                    {{else}}
+                    <img src="{{ImgUrl FotoProducto01}}" alt="Texto" class="img-responsive"/>
+                    {{/if}}
+                    {{/iff}}
                 </div>                
             </div>
         </div>
