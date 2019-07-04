@@ -589,6 +589,7 @@
     .contenedor_campo_cantidad_productos .rango_cantidad_pedido {
         border-top: 1px solid #d1d1d4;
         border-bottom: 1px solid #d1d1d4;
+        padding-right:15px!important;
     }
 
     .contenedor_campo_cantidad_productos .cantidad_menos_home {
