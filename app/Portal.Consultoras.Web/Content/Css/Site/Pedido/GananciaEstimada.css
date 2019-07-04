@@ -388,7 +388,8 @@
         bottom:0;
     }
         .ganancia-estimada .ganancia-titulo,
-        .ganancia-estimada .ganancia-total {
+        .ganancia-estimada .ganancia-total,
+        .info_mis_descuentos {
             font-size: 12px;
         }
     .ganancia-estimada .ganancia-titulo {
@@ -396,9 +397,22 @@
         margin-right: 20px;
     }
     .ganancia-estimada.opened {
-        bottom: 175px;
+        bottom: 175px!important;
         left: 0;
         width: 100%;
+    }
+    .modificarPosicionSiPagoAlContado {
+        left: 28px!important;
+    }
+    .modificarPosicionSiPagoAlContado.opened{
+        bottom:199px!important;
+        left:10px!important;
+    }
+    .modificarPosicionSiPagoAlContado.opened .toggle-header .toggle-switch {
+        top: -18px!important;
+    }
+    .modificarPosicionSiPagoAlContado.opened .toggle-content{
+        padding-bottom:80px;
     }
     .ganancia-total {
         justify-content: center;

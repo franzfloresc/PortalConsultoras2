@@ -11,6 +11,9 @@
     <link href="@Url.Content("~/Content/Css/Site/Pedido/GananciaEstimada.css")" rel="stylesheet">
 
 }
+@{ 
+    var siPagoAlContado = ViewBag.PagoContado ? "modificarPosicionSiPagoAlContado" : "";
+}
 <div class="titulo_mobile">MI PEDIDO RESERVADO</div>
 <div class="pestana_esika"></div>
 <div class="pestana_lbel"></div>
@@ -160,7 +163,7 @@
 
         <div class="contenedor-ganancias">
             <!-- <GananciaEstimada>-->
-            <div class="ganancia-estimada PedidoValidado">
+            <div class="ganancia-estimada PedidoValidado @siPagoAlContado">
                 <div class="panel-toggle">
                     <div class="toggle-header">
                         <div class="toggle-switch closed">
@@ -251,26 +254,26 @@
                         </span>
                     </div>
                       @*HD-4513*@
-                            @if (ViewBag.PagoContado){
-                                <div class="ganancia-info first-color">
-                                   <span class="info_mis_descuentos">(-) Mis Descuentos:</span>
-                                   <span class="ganancia-total first-color" >
-                                         @Model.Simbolo @Model.STPDescuento
-                                    </span>
-                                </div>
-                                <div class="ganancia-info first-color">
-                                   <span class="info_mis_descuentos">(+) Gastos de Transporte:</span>
-                                   <span class="ganancia-total first-color" >
-                                       @Model.Simbolo @Model.STPFlete
-                                    </span>
-                                </div>  
-                                <div class="ganancia-info total_a_pagar_wrapper pb-2">
-                                    <span class="text-bold info_mis_descuentos titulo-up">Total a Pagar:</span>
-                                   <span class="ganancia-total first-color" >
-                                        @Model.Simbolo @Model.STPTotalPagar
-                                    </span>
-                                </div>
-                    }
+                        @if (ViewBag.PagoContado){
+                            <div class="ganancia-info first-color">
+                                <span class="info_mis_descuentos">(-) Mis Descuentos:</span>
+                                <span class="ganancia-total first-color" >
+                                        @Model.Simbolo @Model.STPDescuento
+                                </span>
+                            </div>
+                            <div class="ganancia-info first-color">
+                                <span class="info_mis_descuentos">(+) Gastos de Transporte:</span>
+                                <span class="ganancia-total first-color" >
+                                    @Model.Simbolo @Model.STPFlete
+                                </span>
+                            </div>  
+                            <div class="ganancia-info total_a_pagar_wrapper pb-2">
+                                <span class="text-bold info_mis_descuentos titulo-up">Total a Pagar:</span>
+                                <span class="ganancia-total first-color" >
+                                    @Model.Simbolo @Model.STPTotalPagar
+                                </span>
+                            </div>
+                        }
                     @*@if (!Model.IsShowGananciaConsultora)
                 {
                     <div class="ganancia-info">
