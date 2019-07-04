@@ -1660,6 +1660,16 @@ namespace Portal.Consultoras.Web.Providers
             return lstProducto;
         }
 
+        public List<DetalleEstrategiaFichaModel> ActualizarEstrategiaStockProl(List<DetalleEstrategiaFichaModel> lstProducto, UsuarioModel userData)
+        {
+            if (lstProducto.Any())
+            {
+                var validarDias = _consultaProlProvider.GetValidarDiasAntesStock(userData);
+                return _consultaProlProvider.ActualizarEstrategiaStockProl(lstProducto, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora, validarDias);
+            }
+            return lstProducto;
+
+        }
         public List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
         {
             return _pedidoWeb.ObtenerPedidoWebDetalle(0);
