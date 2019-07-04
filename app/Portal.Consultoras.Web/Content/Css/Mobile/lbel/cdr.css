@@ -1440,7 +1440,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 
 .contenedor_info_cdr {
     width: 87%;
-    max-width: 243px;
+    max-width: 247px;
     text-align: left;
     font-size: 14px;
 }
@@ -1723,6 +1723,17 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
     line-height: 43px;
     background: #fff;
     font-size: 13px;
+}
+
+.btn__sb--continuarEnvioSolicitud,
+.btn__sb--cancelarEnvioSolicitud {
+    position: relative;
+    width: 70%;
+}
+
+.btn__sb--continuarEnvioSolicitud {
+    order: -1;
+    margin-bottom: 16px;
 }
 
 /* FIN VISTA PROCESO DE REGISTRO DE SOLICITUD CDR */
