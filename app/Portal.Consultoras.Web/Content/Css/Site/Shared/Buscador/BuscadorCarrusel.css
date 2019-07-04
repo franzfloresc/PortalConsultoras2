@@ -30,7 +30,8 @@
 
 .searchCarousel-image .img-responsive{
     max-width: 100% !important;
-    height: 100px;
+    height: 90px;
+    object-fit: contain;
 }
 
 /*Center text of description in promo */
@@ -138,6 +139,7 @@
 }
 .searchCarousel-description{
     margin-left: 40px;
+    text-align: left;
 }
 .searchCarousel-image{
     margin-right: 40px;
@@ -151,8 +153,12 @@
     border-bottom: 1px solid #b0b0b0;
     padding-bottom: 15px;
 }
-.searchCarousel-content{
+.searchCarousel-content {
     cursor: pointer;
+    /* Fix - Carrusel en buscador */
+    display: flex;
+    justify-content: space-around;
+    /* fin fix*/
 }
 /*
     [Fin]
@@ -171,5 +177,12 @@
     .searchCarousel-image .img-responsive{
         object-fit: contain;
     }
+    /* fix - mobile carrusel */
 
+    .searchCarousel-content .searchCarousel-description {
+        flex: 1 100%;
+    }
+    .searchCarousel-content .searchCarousel-image {
+        flex: 1 100px;
+    }
 }
