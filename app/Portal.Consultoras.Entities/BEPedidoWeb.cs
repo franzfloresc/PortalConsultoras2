@@ -201,6 +201,11 @@ namespace Portal.Consultoras.Entities
             GananciaRevista = row.ToDecimal("GananciaRevista");
             GananciaWeb = row.ToDecimal("GananciaWeb");
             GananciaOtros = row.ToDecimal("GananciaOtros");
+
+            STPTotalPagar = DataRecord.HasColumn(row, "TotalPagar") ? row.ToString("TotalPagar") : "";
+            STPDescuento = DataRecord.HasColumn(row, "TotalDescuento") ? row.ToString("TotalDescuento") : "";
+            STPGastTransporte = DataRecord.HasColumn(row, "TotalFlete") ? row.ToString("TotalFlete") : "";
+            STPId = DataRecord.HasColumn(row, "LogConsultoraPagoContadoID") ? row.ToInt32("LogConsultoraPagoContadoID") : 0;
         }
     }
 }
