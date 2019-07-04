@@ -22,7 +22,7 @@
     }
 
     .paso__1__actualizacionContrasenia{
-        padding-top:85px;
+        padding-top:75px;
     }
 
     .saludo__consultora{
@@ -62,6 +62,7 @@
         background-size: 45%;
         background-position: center;
         cursor: pointer;
+        z-index:10;
     }
 
         .enlace__verPassword--mostrar{
@@ -96,11 +97,11 @@
             width: 45px;
             height:45px;
             padding: 12px;
-            height: auto!important;
             position: absolute;
             top: -4px;
             right: -14px;
             box-sizing: border-box;
+            z-index:10;
         }
 
             .enlace__editarCorreoElectronico img{
@@ -161,8 +162,8 @@
 
 @media screen and (min-width:992px) {
 
-    .popup__somos__belcorp--actualizacionContrasenia {
-        top:0;
+    .popup__somos__belcorp.popup__somos__belcorp--actualizacionContrasenia {
+        top:110px;
         max-width: 556px;
         min-height: 535px;
         -moz-transition: all 0.3s ease;

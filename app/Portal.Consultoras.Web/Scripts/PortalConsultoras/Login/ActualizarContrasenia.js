@@ -123,13 +123,18 @@ function Inicializar() {
 
 
 function mostrarContrasenia(currentElement) {    
-    var contraseniaType = $(currentElement).parent().find('.text__field__sb')[0].type
+    var contraseniaType = $(currentElement).parent().find('.text__field__sb')[0].type;
 
-    if (contraseniaType === "password") {
-        $(currentElement).parent().find('.text__field__sb')[0].type = "text";
-    } else {
-        $(currentElement).parent().find('.text__field__sb')[0].type = "password";
+    if ($(currentElement).next().val() != 0) {
+        if (contraseniaType === "password") {
+            $(currentElement).addClass('enlace__verPassword--mostrar');
+            $(currentElement).parent().find('.text__field__sb')[0].type = "text";
+        } else {
+            $(currentElement).removeClass('enlace__verPassword--mostrar');
+            $(currentElement).parent().find('.text__field__sb')[0].type = "password";
+        }
     }
+
 }
 
 
