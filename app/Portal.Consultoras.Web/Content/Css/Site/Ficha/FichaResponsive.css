@@ -722,7 +722,13 @@ ul.breadcumbs li a {
     .modal-promociones--bottom {
         width: 100%;
     }
-
+    .descripcion-promociones .contenedor-imagen img {
+        object-fit: cover;
+        margin-right: 16px;
+    }
+    .ficha-promociones .descripcion-promociones .texto-promociones {
+        padding-left: 16px;
+    }
 }
 
 .ui-dialog.ui-widget-content {
