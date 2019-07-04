@@ -1,0 +1,175 @@
+﻿/* [Inicio]
+    * Para : Buscador 
+    * Funcionalidad : Carrusel
+*/
+
+/* On Dev
+.searchCarousel-content.slick-slide > div { /* for frontend purposes - remove on prod 
+    border: 1px solid red;
+}
+*/
+
+/*Ribbon text of promo*/
+.ribbon-promo {
+    max-width: 40%;
+    background-image: linear-gradient(to right, #e81c36, #e71b38 25%, #cf0d5c 38%, #b9007e 47%, #7c0087 77%, #4e008e);
+    text-align: left;
+
+}
+
+    .ribbon-promo .promo-text {
+        color: #faf8f8;
+        font-size: 13px;
+        padding-left: 15px;
+    }
+
+.searchCarousel-content.slick-slide {
+    display: flex !important;
+    justify-content: center;
+}
+
+.searchCarousel-image .img-responsive{
+    max-width: 100% !important;
+    height: 100px;
+}
+
+/*Center text of description in promo */
+.searchCarousel-description {    
+    display: flex;
+    align-items: center;
+}
+    .searchCarousel-description .description-text {
+        font-size: 16px;
+    }
+
+/*[Fin]*/
+
+/*[Flecha]*/
+.arrow {
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 10px;
+    height: 10px;
+    left: initial;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    transition: transform .1s;
+    width: 5px;
+}
+
+.arrow-top, .arrow-bottom {
+    background-color: #666;
+    height: 2px;
+    left: 4px;
+    position: absolute;
+    top: 50%;
+    width: 50%;
+}
+
+    .arrow-top:after, .arrow-bottom:after {
+        background-color: #000;
+        content: '';
+        height: 100%;
+        position: absolute;
+        top: 0;
+        transition: all 0.15s;
+    }
+
+.arrow-top {
+    transform: rotate(45deg);
+    transform-origin: bottom right;
+}
+
+    .arrow-top:after {
+        left: 100%;
+        right: 0;
+        transition-delay: 0s;
+    }
+
+.arrow-bottom {
+    transform: rotate(-45deg);
+    transform-origin: top right;
+}
+
+    .arrow-bottom:after {
+        left: 0;
+        right: 100%;
+        transition-delay: 0.15s;
+    }
+
+.arrow:hover .arrow-top:after {
+    left: 0;
+    transition-delay: 0.15s;
+}
+
+.arrow:hover .arrow-bottom:after {
+    right: 0;
+    transition-delay: 0s;
+}
+
+.arrow:active {
+    transform: translateX(-50%) translateY(-50%) scale(0.9);
+}
+
+/*[fin]*/
+/* Arrow Carrusel */
+.arrow.next{
+    right: 0;
+}
+.arrow.prev {
+    left: 15px;
+}
+.prev .arrow-top, 
+.prev .arrow-bottom{
+    left: 4px;
+}
+.prev .arrow-top {
+    transform: rotate(135deg);
+}
+
+.prev .arrow-bottom {
+    transform: rotate(-135deg);
+    top: 12px;
+}
+
+.searchCarousel .slick-disabled{
+    display: none !important;
+}
+.searchCarousel-description{
+    margin-left: 40px;
+}
+.searchCarousel-image{
+    margin-right: 40px;
+}
+
+/*
+    Border - Inferior de promociones en buscador
+
+*/
+.content-searchCarousel {
+    border-bottom: 1px solid #b0b0b0;
+    padding-bottom: 15px;
+}
+.searchCarousel-content{
+    cursor: pointer;
+}
+/*
+    [Fin]
+*/
+
+@media screen and (max-width: 576px) {
+    .searchCarousel-description .description-text{
+        font-size: 13px;
+    }
+    .searchCarousel-description {
+        margin-left: 20px;    
+    }
+    .searchCarousel-image {
+        margin-right: 20px;
+    }
+    .searchCarousel-image .img-responsive{
+        object-fit: contain;
+    }
+
+}

@@ -1,9 +1,7 @@
 ﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Buscador;
 using Portal.Consultoras.Web.Providers;
-using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -27,6 +25,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
+                var CodigoTipoOfertaPremio = base._configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoTipoOfertaPremio);
+
                 await _buscadorYFiltrosProvider.GetPersonalizacion(userData, true, true);
                 productosModel = await _buscadorYFiltrosProvider.GetBuscador(model);
                 productosModel.productos = _buscadorYFiltrosProvider.ValidacionProductoAgregado(
@@ -39,6 +39,23 @@ namespace Portal.Consultoras.Web.Controllers
                     false,
                     SessionManager.GetRevistaDigital().EsSuscrita,
                     flagLaMasGanadoras);
+
+                var buscadorPromocionEstaActivo = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                    userData.PaisID,
+                    ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                    ConsTablaLogica.FlagFuncional.PromocionesBuscador,
+                    true
+                );
+                if (buscadorPromocionEstaActivo)
+                {
+                    //productosModel.productos[2].CodigoTipoOferta = "044";
+                    //productosModel.productos[2].TienePremio = CodigoTipoOfertaPremio.Contains(productosModel.productos[2].CodigoTipoOferta);
+                    foreach (var producto in productosModel.productos)
+                    {
+                        if(producto.CodigoTipoOferta != "")
+                            producto.TienePremio = CodigoTipoOfertaPremio.Contains(producto.CodigoTipoOferta);
+                    }
+                }
             }
             catch (Exception ex)
             {
