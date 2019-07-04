@@ -544,7 +544,7 @@ namespace Portal.Consultoras.Web.Controllers
                     modelo.Condiciones = Mapper.Map<List<Web.Models.Search.ResponsePromociones.Estructura.Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(promociones.result.First().Condiciones);
 
                     //
-
+                    modelo.Promocion.EsPromocion = true;
                     metodo(modelo.Promocion);
                     foreach (var item in modelo.Condiciones)
                     {

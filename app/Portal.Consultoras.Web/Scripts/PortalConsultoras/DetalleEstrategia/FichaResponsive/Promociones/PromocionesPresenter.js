@@ -13,8 +13,12 @@
         } else if (value !== null) {
             value.MostrarPromociones || false;
             value.Promocion = value.Promocion || null;
+            //
             value.Condiciones = value.Condiciones || [];
             value.lista = value.Condiciones;
+            //
+            value.Promocion.Condiciones = JSON.parse(JSON.stringify(value.Condiciones));
+            //
             _estrategiaInstance = value;
         }
     };
