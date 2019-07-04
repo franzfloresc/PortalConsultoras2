@@ -87,7 +87,7 @@ strong {
 .boxtom {
     display: none;
 }
-    #m_montoFaltante:after, #m_montoMinimo:after, .box-beneficios:after, .boxcenter:after, .cont-ganancias:after, .cont-logros:after, .cont-textLograr:after, .indicador-nivel:after, .list-crec:after, .list-ganacias:after, .boxtog ul:after, .boxtom ul:after, .cambio-crec:after, .cent-mant:after {
+    #m_montoFaltante:after, #m_montoMinimo:after, .box-beneficios:after, .boxcenter:after, .cont-ganancias:after, .cont-logros:after, .cont-textLograr:after, .indicador-nivel:after, .list-crec:after, .list-ganacias:after, .boxtog ul:after, .boxtom ul:after, .cambio-crec:after, .cent-mant:after{
         content: "";
         display: block;
         clear: both
