@@ -3515,7 +3515,7 @@ namespace Portal.Consultoras.Web.Controllers
         /// <returns>Retorna los datos de la consultora 100% digital</returns>
         public JsonResult VerificarConsultoraDigitalRequest(string codigoConsultora)
         {
-            BEConsultora objConsultoraFicticiaModel =new BEConsultora();
+            BEConsultora objConsultoraFicticiaModel;
             try
             {
                 objConsultoraFicticiaModel = VerificarConsultoraDigital(codigoConsultora, userData.PedidoID, userData.PaisID);
