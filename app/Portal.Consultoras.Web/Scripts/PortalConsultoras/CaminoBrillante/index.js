@@ -505,3 +505,20 @@ $(document).ready(function ($) {
         $('.tope').css("left", perc_min+"%");
     }
 });
+
+function MostrarBeneficios(tab_id) {
+    TagMostrarPopupNivel(tab_id);
+
+    $("#OfertasEspeciales").hide();
+    $("#BeneficiosPrincipal").hide();
+    $("#boxganancias").hide();
+    $("#progress-b").hide();
+    $("#carrusel").hide();
+    $("#cont-logros").hide();
+
+    $('.tab-content').removeClass('current');
+    $("#" + tab_id).addClass('current');
+
+    $("#boxnivel").removeClass(tab_id);
+    $('.msj-boxnivel').addClass(tab_id);
+}
