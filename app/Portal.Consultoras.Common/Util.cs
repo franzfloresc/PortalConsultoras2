@@ -1085,7 +1085,6 @@ namespace Portal.Consultoras.Common
             objClient.EnableSsl = true;
             objClient.Credentials = credentials;
 
-
             try
             {
                 objClient.Send(objMail);
@@ -1102,6 +1101,7 @@ namespace Portal.Consultoras.Common
             }
             return resu;
         }
+      
         /// <summary>
         /// Metodo que permite llenar la entidad de páginación para grillas sin filtros
         /// </summary>

@@ -3031,6 +3031,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             String estadoPedido = aceptado ? "ACEPTADO" : "RECHAZADO";
             String titulocliente = "Tu pedido ha sido " + estadoPedido + " por " + consultora + " - " + medio;
+
             String cliente = pedido.Cliente.Split(' ').First();
 
             StringBuilder mensajecliente = new StringBuilder();
