@@ -698,12 +698,9 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                 } else {
                     CerrarSplash();
                     
-                    //INI HD-3693
-                    //alert(response.message);
                     var msjBloq = validarpopupBloqueada(response.message);
                     if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
                     else alert(response.message);
-                    //FIN HD-3693
                 }
             }
 

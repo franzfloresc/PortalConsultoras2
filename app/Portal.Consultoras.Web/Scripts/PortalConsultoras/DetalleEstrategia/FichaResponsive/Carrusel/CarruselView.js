@@ -20,20 +20,15 @@ class CarruselView {
             id:"#divFichaEnriquecida",
             capa: "divFichaEnriquecida"
         };
-        // this.divFichaCarrusel_Suggested = {
-        //     id:"#divFichaCarrusel_Suggested",
-        //     capa: "divFichaCarrusel_Suggested"
-        // };
+
         this.divCarrusel = {
             id: [
                 "#divFichaCarrusel_UpSelling", 
-                // "#divFichaEnriquecida", 
                 "#divFichaCarrusel_CrossSell", 
                 "#divFichaCarrusel_Suggested"
             ],
             capa: [
                 "divFichaCarrusel_UpSelling", 
-                // "divFichaEnriquecida", 
                 "divFichaCarrusel_CrossSell", 
                 "divFichaCarrusel_Suggested"
             ]
@@ -124,7 +119,7 @@ class CarruselView {
                     break;
             }
         }).on("lazyLoadError", function (event, slick, image, imageSource) {
-            //$(image[0]).attr("src", "/Content/Images/placeholder/img_placeholder_vertical.jpg");
+
         });
 
         $(this.divCarruselProducto).fadeIn();
@@ -165,9 +160,7 @@ class CarruselView {
     reorderFichaCarrusel(model){
         var orden = 0;
         var _this = this;
-
-        // _this.hiddenSinStock(model);
-
+        
         $.each($(this.divCarruselFicha.ficha), function(indice, elemento){
             $(elemento).css("order", "");
         });
@@ -186,17 +179,5 @@ class CarruselView {
             }
         });
     }
-
-    // hiddenSinStock(model) {
-    //     var _this = this;
-
-    //     if (!model.tieneStock && _this.filterFichaVisible(_this.divFichaCarrusel_Suggested.capa)) {
-    //         this.divCarrusel.id.forEach(function (ficha) {
-    //             $(ficha).hide();
-    //         });
-
-    //         $(_this.divFichaCarrusel_Suggested.id).show();
-    //     }
-    // }
 
 }

@@ -56,14 +56,6 @@ var panelCliente = ClientePanelModule({
 //Función para breadcumb
 function eventBreadCumb(url, titulo) {
 
-    //var codigoPalanca = fichaModule.GetEstrategia().CodigoPalanca || "";
-    //if (typeof AnalyticsPortalModule !== 'undefined') {
-    //    if (codigoPalanca === ConstantesModule.CodigoPalanca.MG) {
-    //        AnalyticsPortalModule.ClickOnBreadcrumb(url, codigoPalanca, titulo);
-    //        return;
-    //    }
-    //}
-
     document.location = url;
 }
 
@@ -515,7 +507,7 @@ var FichaModule = (function (config) {
 
         // TODO: falta implementar en ficha responsive
         if (config.componenteDetalleModule === null || typeof config.componenteDetalleModule === "undefined") {
-            //console.log('config.componenteDetalleModule is null or undefined');
+
         } else {
             _config.componenteDetalleModule.VerDetalleIndividual(estrategia);
         }
@@ -549,7 +541,6 @@ var FichaModule = (function (config) {
 
         if (estrategia.TieneReloj) {
             _crearReloj(estrategia);
-            //console.log(estrategia);
             _setHandlebars(_template.styleOdd, estrategia);
         }
 
@@ -793,7 +784,6 @@ var FichaModule = (function (config) {
     ////// Ini - Construir Estructura Ficha
 
     var _construirSeccionFicha = function () {
-        //console.log('Ficha - construir Seccion Ficha');
         var modeloFicha = _modeloFicha();
 
         if (!_validaOfertaDelDia(true)) {
@@ -815,7 +805,6 @@ var FichaModule = (function (config) {
     var _getModelo = function () {
 
         var modeloFicha = {};
-        //console.log('Ficha - promise Obterner Modelo');
         _config.detalleEstrategiaProvider
             .promiseObternerModelo({
                 palanca: _config.palanca,
@@ -831,10 +820,6 @@ var FichaModule = (function (config) {
             .fail(function (data, error) {
                 throw "_getModelo, promiseObternerModelo";
             });
-
-        //if (modeloFicha.Error === true) {
-        //    throw "_getModelo, promiseObternerModelo";
-        //}
 
         modeloFicha.ConfiguracionContenedor = modeloFicha.ConfiguracionContenedor || {};
         modeloFicha.BreadCrumbs = modeloFicha.BreadCrumbs || {};
@@ -918,8 +903,7 @@ var FichaModule = (function (config) {
 
         if (typeof _config.analyticsPortalModule === 'undefined')
             return;
-
-        //console.log('Ficha - analytics - Marca Visualizar Detalle Producto');
+        
         _config.analyticsPortalModule.MarcaVisualizarDetalleProducto(_modeloFicha());
 
     };

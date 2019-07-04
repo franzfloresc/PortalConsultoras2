@@ -78,13 +78,13 @@ $(document).ready(function () {
 
                     /*---------INI Celular ----------------------------------- */
                     var body = $('body');
-                    //INI HD-3897
+
                     body.on('click', '#btnGuardarNumero', me.Eventos.Continuar);
                     if (localData.IsConfirmar == 1) {
                         $('#NuevoCelular').val(localData.CelularActual);
                         $('#NuevoCelular').addClass('campo_con_datos');
                     }
-                    //FIN HD-3897
+
                     body.on('click', '.enlace_cambiar_numero_celular', me.Eventos.BackEdiNumber);
                     body.on('click', '#linkRenviarSms', me.Eventos.SendSmsCode);
                     body.on('keyup', '.campo_ingreso_codigo_sms', me.Eventos.ChangeCodeSms);
@@ -94,8 +94,7 @@ $(document).ready(function () {
                     body.on('click', '#hrefTerminosMD', me.Eventos.EnlaceTerminosCondiciones);
                     body.on('click', '.ContinuarBienvenida', me.Services.ContinuarLogin);
 					body.on('click', '#aChatearConNosotros', me.Eventos.AbrirChat);
-
-                    //INI HD-3897
+                    
                     $('.form_actualizar_celular input').on('keyup change', function () { me.Funciones.ActivaGuardar(); return $(this).val() });
                     $('#NuevoCelular').on('focusout', function () { me.Funciones.MensajeError(); });
                     $('.btnVolver').on('click', function () {
@@ -106,7 +105,7 @@ $(document).ready(function () {
                         }
 
                     });
-                    //FIN HD-3897
+
                     /*---------FIN Celular ----------------------------------- */
                     /*-------------------------------------------------------- */
 
@@ -117,18 +116,14 @@ $(document).ready(function () {
 
                         $('#btnCambiarCelular').bind('click', false);
                         $('#btnCambiarEmail').bind('click', false);
-                        //INI HD-3897
                         $('.btn_confirmar_dato').bind('click', false);
-                        //FIN HD-3897
                     }
                 },
                 PuedeCambiarTelefono: function () {
                     var smsFlag = $('#hdn_ServicioSMS').val();
                     if (smsFlag == '0' || smsFlag == false) {
                         $('#btnCambiarCelular').hide();
-                        //INI HD-3897
                         $('#grupo_form_cambio_datos_sms_opcionsms').hide();
-                        //FIN HD-3897
                     } else {
                         $('#txtCelularMD').prop('readonly', true);
                     }
@@ -141,7 +136,7 @@ $(document).ready(function () {
                         }
                     });
                 },
-                //INI HD-3897
+
                 ValidacionCheck: function () {
 
 
@@ -200,7 +195,7 @@ $(document).ready(function () {
 
 
                 },
-                //FIN HD-3897
+
                 EvitandoCopiarPegar: function () {
                     FuncionesGenerales.AvoidingCopyingAndPasting('txtCelularMD');
                 },
@@ -256,7 +251,7 @@ $(document).ready(function () {
 
 
                 /*------------INI CELULAR-------------------------*/
-                //INI HD-3897
+
                 ActivaGuardar: function () {
                     var btn = $("#btnGuardarNumero");
                     var obj = $.trim(IfNull($('#NuevoCelular').val(), ''));
@@ -290,7 +285,6 @@ $(document).ready(function () {
                     else obj.addClass("grupo_form_cambio_datos--validacionErronea");
 
                 },
-                //FIN HD-3897
 
                 GetLengthPais: function (iso) {
                     var paises = {
@@ -567,8 +561,6 @@ $(document).ready(function () {
                     me.Services.CargarEditarNumero();
                 },
                 EditarCorreo: function () {
-                    //tipo = 2;
-                    // nroIntentosSms = nroIntentosSms + 1;
 
                     me.Services.CargarEditarCorreo();
                 },
@@ -590,7 +582,7 @@ $(document).ready(function () {
                     localData.CelularNuevo = nuevoCelular;
                     me.Funciones.ResetSmsCode();
                     AbrirLoad();
-                    //INI HD-3897
+
                     var successEnviarSmsCode = function (r) {
                         $('#celularNuevo').text(nuevoCelular);
                         CerrarLoad();
@@ -610,10 +602,9 @@ $(document).ready(function () {
                             CerrarLoad();
                             me.Funciones.HandleError(er);
                         });
-
-                    //FIN HD-3897
+                    
                 },
-                //INI HD-3897
+
                 Confirmar: function () {
                     me.Funciones.ResetSmsCode();
                     AbrirLoad();
@@ -641,9 +632,8 @@ $(document).ready(function () {
                         });
 
                 },
-                //FIN HD-3897
+
                 EnlaceTerminosCondiciones: function () {
-                    // var enlace = $('#hdn_enlaceTerminosCondiciones').val();
                     var enlace = config.EnlaceTerminosCondiciones;
                     $('#hrefTerminosMD').attr('href', enlace);
                 },
@@ -784,12 +774,10 @@ $(document).ready(function () {
                             irALogin = false;
 
                             me.Funciones.SetIsoPais(localData.IsoPais);
-                            //actualizarCelularModule.Inicializar();
-                            //INI HD-3897
+
                             if (me.Elements.getIsConfirmar() == 1) {
                                 me.Eventos.Confirmar();
                             }
-                            //FIN HD-3897
 
                         },
                         error: function (data, error) {
@@ -844,10 +832,6 @@ $(document).ready(function () {
                             config.CorreoActual = response.data.CorreoActual;
                             config.IsConfirmar = response.data.IsConfirmar;
                             config.EnlaceTerminosCondiciones = response.data.UrlPdfTerminosyCondiciones;
-                            //localData.CelularNuevo = (response.data.IsConfirmarCel == 1) ? response.data.Celular : '';
-                            //localData.Expired = true;
-                            //localData.IsoPais = response.data.IsoPais;
-                            //localData.IsConfirmar = response.data.IsConfirmarCel;
 
                             $('#divPaso1').hide();
                             $("#ActualizarCorreo").show();
@@ -915,7 +899,6 @@ $(document).ready(function () {
                     else obj.addClass("grupo_form_cambio_datos--validacionErronea");
 
                 },
-                //FIN HD-3897
 
                 showSuccess: function (message) { AbrirAlert(message); },
                 showError: function (error) { AbrirAlert(error); },
@@ -963,13 +946,12 @@ $(document).ready(function () {
                 },
                 actualizarEnviarCorreo: function (fnSuccess) {
                     var data = me.Correo.getData();
-                    //INI HD-3897
                     var arrayError = me.Correo.getDataArrayError(data);
                     if (arrayError.length > 0) {
                         me.Correo.showArrayError(arrayError);
                         return;
                     }
-                    //FIN HD-3897
+
                     if (document.getElementById('chkAceptoContratoMDCorreo').checked == false) {
                         AbrirAlert('Debe aceptar los términos y condiciones para poder actualizar sus datos');
                         return false;
@@ -992,12 +974,7 @@ $(document).ready(function () {
                     $('#txtCorreoEnviado').html(email);
                 },
                 asignarEventos: function () {
-
-
-                    //$('#btnVolver').on('click', function () {
-                    //    if (config.VistaActual == 1 || config.IsConfirmar == 1) me.Correo.irPaginaPrevia();
-                    //    else if (config.VistaActual == 2) me.Correo.irVista(1);
-                    //});
+                    
                     $('#btnCancelar').on('click', me.Correo.irPaginaPrevia);
                     $('#btnReescribirCorreo').on('click', function () {
                         if (config.IsConfirmar == 1) {
@@ -1016,14 +993,12 @@ $(document).ready(function () {
                     });
                     $('#btnActualizarCorreo').on('click', function () { me.Correo.actualizarEnviarCorreo(function (data) { me.Correo.irVista2(data.correoNuevo); }); });
                     $('#hrefTerminosMD2').on('click', function () { me.Correo.enlaceTerminosCondiciones(); });
-
-                    //INI HD-3897
+                    
                     $('div[vista-id=1] input').on('keyup change', function () { me.Correo.activaGuardar(); return $(this).val() });
                     $('#NuevoCorreo').on('focusout', function () {
                         setTimeout(function () { me.Correo.mensajeError(); }, 200);
 
                     });
-                    //FIN HD-3897
 
                     FuncionesGenerales.AvoidingCopyingAndPasting('NuevoCorreo');
                 }
@@ -1035,9 +1010,7 @@ $(document).ready(function () {
 
             me.Funciones.PuedeActualizar();
             me.Funciones.PuedeCambiarTelefono();
-            //INI HD-3897
             me.Funciones.ValidacionCheck();
-            //FIN HD-3897
             me.Funciones.EvitandoCopiarPegar();
             me.Funciones.ValidacionSoloLetras();
 
