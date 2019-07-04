@@ -486,6 +486,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             var CodigosPromocion = GetCodigosPromocion();
 
+            //lstDetalleAgrupado.ForEach(x => { if (x.CUV == "31157" || x.CUV == "30870") { x.CodigoTipoOferta = "044"; } });
             var PromocionesAgregadas = lstDetalleAgrupado.Where(x => CodigosPromocion.Contains(x.CodigoTipoOferta)).ToList() ?? new List<BEPedidoWebDetalle>();
 
             //var PromocionesAgregadas = lstDetalleAgrupado.Where(x => CodigosPromocion.Contains(x.CodigoTipoOferta)).Where(x=>x.CUV!= promocionnueva.CuvPromocion).ToList() ?? new List<BEPedidoWebDetalle>();
@@ -511,7 +512,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 if (condicionesporpromocion == null || !condicionesporpromocion.Any()) continue;
 
-                CondicionesporPromocionesAgregadas.Concat(condicionesporpromocion);
+                CondicionesporPromocionesAgregadas = CondicionesporPromocionesAgregadas.Concat(condicionesporpromocion).ToList();
             }
 
             lstDetalleAgrupado.ForEach(x =>
@@ -523,7 +524,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 CuvCondicion = x.CUV,
                 Cantidad = x.Cantidad * x.FactorRepeticion
-            });
+            }).ToList();
 
             var Condiciones = CondicionesporPromocionesAgregadas.GroupBy(
                                 p => p.CuvCondicion,
@@ -535,7 +536,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                            select new Condicion
                            {
                                CuvCondicion = ca.CuvCondicion,
-                               Promociones = c.Promociones
+                               Promociones = c.Promociones,
+                               Cantidad = ca.Cantidad
                            }).ToList();
 
             var Promociones = CondicionesporPromocionesAgregadas.GroupBy(
@@ -554,13 +556,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             foreach (var promocion in Promociones)
             {
-                var CondicionesAgregadasParaEstaPromocion = CondicionesAgregadas.Where(x => promocion.Condiciones.Contains(x.CuvCondicion)).Where(x => x.EstaAsignada = false)
+                var CondicionesAgregadasParaEstaPromocion = CondicionesAgregadas.Where(x => promocion.Condiciones.Contains(x.CuvCondicion)).Where(x => x.EstaAsignada == false)
                     .Select(x => new Condicion
                     {
                         Cantidad = x.Cantidad - x.CantidadAsignada,
                         CuvCondicion = x.CuvCondicion,
                         EstaAsignada = x.EstaAsignada
-                    });
+                    }).ToList();
 
                 var CantidadPromocion = promocion.Cantidad;
 
@@ -603,7 +605,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
             promocionnueva.CampaniaID = usuario.CampaniaID;
             var promociones = _bLPedidoWebPromocion.GetCondicionesByPromocion(promocionnueva,usuario.PaisID);
 
-            if (promociones == null || promociones.Any())
+            if (promociones == null || !promociones.Any())
             {
                 _bLPedidoWebPromocion.InsertPedidoWebPromocion(lstPedidoWebPromociones, usuario.PaisID);
             }
@@ -612,13 +614,13 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 CuvCondicion = x.CUV,
                 Cantidad = x.Cantidad
-            });
+            }).ToList();
 
             var CondicionesAgregadas = ObtenerCondicionesAgregadas(lstDetalleAgrupado, usuario);
 
             var CondicionesNoContempladas = CondicionesSolicitadas.Where(x => !CondicionesAgregadas.Select(y => y.CuvCondicion).Contains(x.CuvCondicion)).ToList();
 
-            CondicionesAgregadas.Concat(CondicionesNoContempladas);
+            CondicionesAgregadas = CondicionesAgregadas.Concat(CondicionesNoContempladas).ToList();
 
             var CantidadCondicionesDisponibles = CondicionesAgregadas.Where(x => CondicionesSolicitadas.Select(y => y.CuvCondicion).Contains(x.CuvCondicion)).Where(x => x.EstaAsignada == false).Sum(x => x.Cantidad - x.CantidadAsignada);
 
