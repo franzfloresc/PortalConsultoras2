@@ -101,30 +101,31 @@
             <span class="promo-text">Promo</span>
         </div>
         <div class="searchCarousel-container">
-            {{#each Promociones as |item1|}}
-            <div class="promo-carrusel {{#if Stock}} promo-carrusel--agotado {{/if}}" data-item="ProductoBuscador">
-                <div style="display:none;">
-                    <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
-                    <input type="hidden" class="hdBuscadorCUV" value="{{CUV}}" />
-                    <input type="hidden" class="hdBuscadorSAP" value="{{SAP}}" />
-                    <input type="hidden" class="hdBuscadorPrecio" value="{{Precio}}" />
-                    <input type="hidden" class="hdBuscadorCodigoPalanca" value="{{TipoEstrategiaId}}" />
-                    <input type="hidden" class="hdBuscadorMarcaId" value="{{MarcaId}}" />
-                    <input type="hidden" class="hdBuscadorDescripcion" value="{{Descripcion}}" />
-                    <input type="hidden" class="hdBuscadorDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
-                    <input type="hidden" class="hdBuscadorPrecio" value="{{Precio}}" />
-                    <input type="hidden" class="hdBuscadorValorizado" value="{{Valorizado}}" />
-                    <input type="hidden" class="hdBuscadorPosicion" value="{{posicion}}" />
-                    <input type="hidden" class="hdBuscadorLimiteVenta" value="{{LimiteVenta}}" />
-                    <input type="hidden" class="hdBuscadorCantidadesAgregadas" value="{{CantidadesAgregadas}}" />
-                    <input type="hidden" class="hdBuscadorCodigoTipoEstrategia" value="{{CodigoTipoEstrategia}}" />
-                    <input type="hidden" class="hdBuscadorCampaniaID" value="{{CampaniaID}}" />
-                    <input type="hidden" class="hdBuscadorOrigenPedidoWeb" value="{{OrigenPedidoWeb}}" />
-                    <input type="hidden" class="hdBuscadorTipoPersonalizacion" value="{{TipoPersonalizacion}}" />
-                    <input type="hidden" class="hdBuscadorEstrategiaID" value="{{EstrategiaID}}" />
-                    <div data-imagen-producto="{{Imagen}}"></div>
-                </div>
-                <div class="searchCarousel">
+            <div class="searchCarousel">
+                {{#each Promociones as |item1|}}
+                <div class="promo-carrusel {{#if Stock}} promo-carrusel--agotado {{/if}}" data-item="ProductoBuscador">
+                    <div style="display:none;">
+                        <input type="hidden" class="hdBuscadorJSON" value="{{JSON2string item}}" />
+                        <input type="hidden" class="hdBuscadorCUV" value="{{CUV}}" />
+                        <input type="hidden" class="hdBuscadorSAP" value="{{SAP}}" />
+                        <input type="hidden" class="hdBuscadorPrecio" value="{{Precio}}" />
+                        <input type="hidden" class="hdBuscadorCodigoPalanca" value="{{TipoEstrategiaId}}" />
+                        <input type="hidden" class="hdBuscadorMarcaId" value="{{MarcaId}}" />
+                        <input type="hidden" class="hdBuscadorDescripcion" value="{{Descripcion}}" />
+                        <input type="hidden" class="hdBuscadorDescripcionEstrategia" value="{{DescripcionEstrategia}}" />
+                        <input type="hidden" class="hdBuscadorPrecio" value="{{Precio}}" />
+                        <input type="hidden" class="hdBuscadorValorizado" value="{{Valorizado}}" />
+                        <input type="hidden" class="hdBuscadorPosicion" value="{{posicion}}" />
+                        <input type="hidden" class="hdBuscadorLimiteVenta" value="{{LimiteVenta}}" />
+                        <input type="hidden" class="hdBuscadorCantidadesAgregadas" value="{{CantidadesAgregadas}}" />
+                        <input type="hidden" class="hdBuscadorCodigoTipoEstrategia" value="{{CodigoTipoEstrategia}}" />
+                        <input type="hidden" class="hdBuscadorCampaniaID" value="{{CampaniaID}}" />
+                        <input type="hidden" class="hdBuscadorOrigenPedidoWeb" value="{{OrigenPedidoWeb}}" />
+                        <input type="hidden" class="hdBuscadorTipoPersonalizacion" value="{{TipoPersonalizacion}}" />
+                        <input type="hidden" class="hdBuscadorEstrategiaID" value="{{EstrategiaID}}" />
+                        <div data-imagen-producto="{{Imagen}}"></div>
+                    </div>
+
                     <div class="searchCarousel-content redireccionarFicha">
                         <div class="searchCarousel-description">
                             <span class="description-text">Lleva un {{Descripcion}} comprando uno de estos productos en oferta.</span>
@@ -133,12 +134,13 @@
                             <img class="img-responsive" src="{{Imagen}}" onerror="this.onerror=null;this.src='@Url.Content("~/Content/Images/imagen_prod_no_disponible.jpg")'" />
                         </div>
                     </div>
+
+
                 </div>
-                
+                {{/each}}
             </div>
-            {{/each}}
         </div>
-    </div>
+        </div>
     <!-- </NuevaExperiencia>-->
     {{/IsNullOrEmpty}}
     {{/each}}
