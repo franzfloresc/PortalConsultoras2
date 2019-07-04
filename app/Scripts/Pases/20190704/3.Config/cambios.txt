@@ -1,3 +1,15 @@
 1.PortalConsultoras2 Web
 	Agregar:
-	<add key="QuestionProUrl" value="https://www.questionpro.com/a/panelsso"/>
+		<add key="QuestionProUrl" value="https://www.questionpro.com/a/panelsso"/>
+
+
+2.- SBMicroservicios: Personalizacion.SearchNode
+	Agregar:
+		app.endpoint:
+			ventaIncremental: "/ventaincremental"
+	Agregar:
+		constantes:
+          		marcas: { 1: "L'Bel", 2: "Ésika", 3: "Cyzone", 4: "Finart" }
+	Modificar:
+		constantes:
+			Pum: ['GND', 'LAN', 'ODD', 'OPM', 'OPT', 'PAD', 'SR', 'CAT']

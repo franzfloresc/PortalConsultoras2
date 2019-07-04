@@ -10,6 +10,7 @@ using Portal.Consultoras.Web.Providers;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -548,6 +549,14 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
                 modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
             }
+
+            // validar stock del CUV padre
+            var lstModelo = new List<DetalleEstrategiaFichaModel>();
+            lstModelo.Add(modelo);
+            lstModelo = _ofertaPersonalizadaProvider.ActualizarEstrategiaStockProl(lstModelo, userData);
+            modelo.TieneStock = lstModelo.Where(x => x.CUV2 == modelo.CUV2).First().TieneStock;
+
+            // validar stock de los CUV componentes
             modelo.Hermanos = _estrategiaComponenteProvider.FormatterEstrategiaComponentes(modelo.Hermanos, modelo.CUV2, modelo.CampaniaID, true);
             modelo = _ofertaPersonalizadaProvider.FormatterEstrategiaFicha(modelo, userData.CampaniaID);
             return modelo;

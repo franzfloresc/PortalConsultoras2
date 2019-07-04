@@ -487,7 +487,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public virtual BEConsultora VerificarConsultoraDigital(string codigoConsultora, int pedidoID, int paisId)
         {
-            BEConsultora objConsultoraFicticiaModel = new BEConsultora();
+            BEConsultora objConsultoraFicticiaModel;
             using (var pedidoServiceClient = new PedidoServiceClient())
             {
                 objConsultoraFicticiaModel = pedidoServiceClient.VerificarConsultoraDigital(codigoConsultora, pedidoID, paisId);

@@ -9,7 +9,7 @@ namespace Portal.Consultoras.Common
     public class RestApi
     {
         private const string _mediaType = "application/json";
-        private string _serviceUrl = ConfigurationManager.AppSettings["RutaService"].ToString();
+        private readonly string _serviceUrl = ConfigurationManager.AppSettings["RutaService"].ToString();
         public RestApi()
         {
 

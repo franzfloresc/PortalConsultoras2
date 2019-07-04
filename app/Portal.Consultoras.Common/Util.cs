@@ -1045,7 +1045,6 @@ namespace Portal.Consultoras.Common
 
         public static bool EnviarMailBase(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML, string displayNameDe = null)
         {
-            bool resu = false;
             if (string.IsNullOrEmpty(strPara))
                 return false;
 
@@ -1088,18 +1087,16 @@ namespace Portal.Consultoras.Common
             try
             {
                 objClient.Send(objMail);
-                resu = true;
             }
             catch (Exception ex)
             {
-                resu = false;
                 throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
             }
             finally
             {
                 objMail.Dispose();
             }
-            return resu;
+            return true;
         }
       
         /// <summary>
