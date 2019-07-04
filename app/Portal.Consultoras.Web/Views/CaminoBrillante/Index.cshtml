@@ -16,11 +16,9 @@
         }
     </style>
 }
-
 <link href="~/Content/Css/Site/FichaProductoResponsive/ficha-producto-responsive.css" rel="stylesheet" />
 
-
-
+<div id="overlayer"><div class="loadingScreen-mensaje"></div></div>
 <section data-layout="ubicacionWeb" class="row flex-row ml-0 mr-0 layout__view__breadcrumbs__wrapper mostrarEnDesktop">
     <div class="col-12 pl-0 pr-0 mx-auto layout__view__breadcrumbs">
         <ul class="row flex-row align-items-center ml-0 mr-0 layout__view__lista__breadcrumbs">
@@ -39,7 +37,7 @@
 <br />
 <div class="container ">
     <h2 class="title">Mi nivel</h2>
-    <input type="hidden" id="hfNivelActual" value="@ViewBag.NivelActual.CodigoNivel" />
+    <input type="hidden" id="hfNivelActual" value="@ViewBag.NivelActual" />
     <div id="box-niveles">
         <div id="ProgressBar">
             <div class="Progress medal-@ViewBag.NivelActual.CodigoNivel"></div>
@@ -55,7 +53,7 @@
         </div>
     </div>
 
-    @if (ViewBag.TieneMontoAcumulado == "1" && false)
+    @if (ViewBag.TieneMontoAcumulado == "1")
     {
         if (nivelSiguiente != null)
         {
@@ -284,7 +282,21 @@
 
         <a id="OfertasEspeciales" href="@Url.Action("Ofertas", "CaminoBrillante")" class="btn-principal" style="@mostrarBotonOfertas">Ver ofertas</a>
     }
+</div>
 
+<div class="container bglogros">
+    <div class="banner-logros">
+        <img src="~/Content/CaminoBrillante/imgs/mobile-logros.svg" class="img-log" />
+        <div class="right-banner">
+            <h2>Tus logros</h2>
+            <p>Todo tu esfuerzo tiene grandes resultados.</p>
+            <a href="@Url.Action("Logros", "CaminoBrillante")">Ver logros</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
     @if (ViewBag.ResumenLogros != null)
     {
         var logro = ViewBag.ResumenLogros as LogroCaminoBrillanteModel;
@@ -355,54 +367,10 @@
             <div class="clear"></div>
         </div>
     }
+
 </div>
-
-
-<div id="popupInformacion" class="MensajeAlertaMobile" style="display:none;">
-    <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacion').hide();">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div class="icono_alerta exclamacion_icono_mobile"></div>
-        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-        <div id="mensajeInformacion" class="mensaje_alerta"></div>
-        <a href="javascript:;" onclick="$('#popupInformacion').hide();" class="btn_ok_mobile btn-aceptar"><b>OK</b></a>
-    </div>
-</div>
-
-<div id="popupInformacion2" class="MensajeAlertaMobile" style="display:none;">
-    <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacion2').hide();">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div class="icono_alerta exclamacion_icono_mobile"></div>
-        <div class="titulo_compartir"><b>IMPORTANTE</b></div>
-        <div id="mensajeInformacion2" class="mensaje_alerta"></div>
-        <a href="javascript:;" onclick="ModificarPedido2('2');" class="btn_ok_mobile btn-aceptar" style="width:152px;"><b>Modificar mi pedido</b></a>
-    </div>
-</div>
-
-<div id="popupInformacionValidado" class="MensajeAlertaMobile pedido detalle" style="display:none;">
-    <div class="content_mensajeAlerta">
-        <a class="cerrar_popMobile" href="javascript:;" onclick="javascript: $('#popupInformacionValidado').hide();">
-            <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="-">
-        </a>
-        <hr class="clear">
-        <div class="icono_alerta exclamacion_icono_mobile" style="display: none;"></div>
-        <div class="icono_alerta check_icono_mobile" style="display: none;"></div>
-        <div class="contet_alert">
-            <div class="titulo_compartir"><b id="bTagTitulo">MENSAJE</b></div>
-            <div id="mensajeInformacionvalidado" class="mensaje_alerta"></div>
-        </div>
-        <a href="javascript:;" onclick="$('#popupInformacionValidado').hide();" class="btn_ok_mobile"><b>OK</b></a>
-    </div>
-</div>
-
-<div id="overlayer"><div class="loadingScreen-mensaje"></div></div>
-
-@section scripts{
+@section scripts
+{
     <script>
         var urlGetCarrusel = '@Url.Action("GetCarruselCaminoBrillante", "CaminoBrillante")';
         var urlGetMisGanancias = '@Url.Action("GetMisGanancias", "CaminoBrillante")';
