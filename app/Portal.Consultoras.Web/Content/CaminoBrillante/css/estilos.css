@@ -60,7 +60,7 @@ strong {
     margin-top: 30px;
     padding: 30px;
     padding-top: 20px;
-    padding-bottom: 15px;
+    padding-bottom: 55px;
     border-bottom: 1px solid #e2e2e2;
     margin-bottom: 35px;
     padding-left: 0;
@@ -78,12 +78,12 @@ strong {
     display: block;
     margin-top: 20px;
     overflow: hidden;
-
 }
+
 .expand {
     height: auto;
-
 }
+
 .boxtom {
     display: none;
 }
@@ -93,30 +93,30 @@ strong {
         clear: both
     }
 
-    .box-beneficios li {
-        width: 32%;
+.box-beneficios li {
+    width: 32%;
+    display: block;
+    float: left;
+    margin: 20px 1%;
+    margin-left: 0;
+    min-height: 60px;
+    margin-bottom: 0px
+}
+
+    .box-beneficios li img {
         display: block;
         float: left;
-        margin: 20px 1%;
-        margin-left: 0;
-        min-height: 60px;
-        margin-bottom: 0px
+        max-width: 35px;
+        width: 14%
     }
 
-        .box-beneficios li img {
-            display: block;
-            float: left;
-            max-width: 35px;
-            width: 14%
-        }
-
-        .box-beneficios li .txt-benf {
-            display: block;
-            float: left;
-            margin-left: 4%;
-            margin-top: 6px;
-            width: 82%
-        }
+    .box-beneficios li .txt-benf {
+        display: block;
+        float: left;
+        margin-left: 4%;
+        margin-top: 6px;
+        width: 82%
+    }
 
 .box-camb .text-bold, .owl-stage-outer .text-bold, .txt-benf .text-bold {
     color: #000;
@@ -545,9 +545,8 @@ div .owl-carousel .owl-stage-outer {
     0% {
         width: 0%;
     }
-
-
 }
+
 .Progress:after {
     position: absolute;
     top: -3px;
@@ -599,13 +598,33 @@ div .owl-carousel .owl-stage-outer {
     z-index: 5;
     transform: rotate(50deg);
 }
-
-#ProgressBar .brillante em {
-    color: #000
+.cent-mant {
+    margin: 30px auto;
+    margin-bottom:0;
+    display: block;
+    max-width: 700px;
+    width: 100%;
 }
+    .cent-mant .etiq-mant, .cent-mant .etiq-falta {
+        width: 48%;
+        float:left;
+        margin:0;
+    }
+.bord-bot {
+    max-width: 970px;
+    width: 100%;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e2e2e2;
+}
+#ProgressBar .brillante em {
+    color: #000;
+    font-weight: bold;
+}
+
 #ProgressBar .activo em {
     font-weight: bold;
 }
+
 #ProgressBar .pt1 {
     display: block;
     left: -3%
@@ -928,6 +947,7 @@ div .layout__view__breadcrumbs__wrapper, div .layout__view__title__wrapper {
     z-index: 100000;
     background: white;
 }
+
     #overlayer .loadingScreen-mensaje {
         position: fixed;
         width: 30px;
@@ -995,8 +1015,8 @@ div.ui-dialog.ui-widget-content {
 .box-enterate {
     display: block;
     margin: 0 auto;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #d6d6d6;
+    /*padding-bottom: 10px;
+    border-bottom: 1px solid #d6d6d6;*/
     max-width: 210px;
 }
 
@@ -1065,13 +1085,15 @@ div.opOrdenar {
     width: 70%;
     max-width: 700px;
 }
+
     .box-right-ganancias strong {
         font-weight: bold;
     }
-    .box-left-ganancias p, .box-left-ganancias span {
-        margin-bottom: 10px;
-        display: block;
-    }
+
+.box-left-ganancias p, .box-left-ganancias span {
+    margin-bottom: 10px;
+    display: block;
+}
 
 .text-bold {
     font-weight: bold;
@@ -1129,6 +1151,7 @@ div.opOrdenar {
     -webkit-transition: all .3s ease;
     letter-spacing: .2px;
 }
+
 .tog-vermas, .tog-vermenos {
     display: block;
     position: relative;
@@ -1136,12 +1159,13 @@ div.opOrdenar {
     cursor: pointer;
     margin: 0 auto;
     margin-top: 20px;
-    text-decoration:underline;
+    text-decoration: underline;
 }
 
 .tog-vermenos {
-    width:84px;
+    width: 84px;
 }
+
     .tog-vermas:after, .tog-vermenos:after {
         content: "";
         display: block;
@@ -1154,19 +1178,22 @@ div.opOrdenar {
         bottom: 0;
         background: url(/Content/CaminoBrillante/imgs/down.svg) no-repeat center center;
     }
+
     .tog-vermenos:after {
         background: url(/Content/CaminoBrillante/imgs/up.svg) no-repeat center center;
     }
+
 .tit-benef {
     position: relative;
-    padding-left: 35px;
+    padding-left: 30px;
 }
+
     .tit-benef img {
         position: absolute;
         display: block;
         left: 0;
-        top: 1px;
-        max-width: 25px;
+        top: 0;
+        max-width: 22px;
     }
 
 .progress-barnew {
@@ -1177,6 +1204,14 @@ div.opOrdenar {
     position: relative;
     margin: 30px auto;
     margin-bottom: 90px;
+}
+
+.mx-total {
+    margin: 30px auto;
+    margin-bottom: 70px;
+    display: block;
+    max-width: 600px;
+    width: 100%;
 }
 
 .new-bar {
@@ -1199,6 +1234,7 @@ div.opOrdenar {
     margin-top: 15px;
     width: 100%;
 }
+
 .box-mostrarvalor {
     position: relative;
     /* left: 0; */
@@ -1209,13 +1245,15 @@ div.opOrdenar {
     top: 25px;
     display: block;
 }
+
 .tip-valor {
     display: block;
     border-radius: 6px;
-    padding: 7px 10px;
+    padding: 5px 10px;
     background: #b9007e;
     color: white;
-    font-size: 18px;
+    font-size: 17px;
+    white-space: nowrap;
     /* position: relative; */
     /* left: 8%; */
 }
@@ -1235,11 +1273,13 @@ div.opOrdenar {
     margin-top: 4px;
     border-radius: 10px;
 }
+
 .box-cent-valor {
     position: absolute;
-    right:-6px;
+    right: -6px;
     top: 12px;
 }
+
 .arrowtop {
     position: absolute;
     margin: 0 auto;
@@ -1254,12 +1294,14 @@ div.opOrdenar {
     margin-top: 4px;
     border-radius: 10px;
 }
+
 .post0 {
     right: 0;
 }
+
 .valor-final {
     position: absolute;
-    right: 0;
+    right: -24px;
     top: -4px;
     width: 100px;
 }
@@ -1268,7 +1310,7 @@ div.opOrdenar {
         display: block;
         font-weight: bold;
         font-size: 18px;
-        text-align:left;
+        text-align: left;
     }
 
     .valor-final span {
@@ -1284,46 +1326,57 @@ div.opOrdenar {
     display: block;
     width: 24px;
     position: absolute;
-    right: 0;
+    right: -30px;
     top: -20px;
 }
+
 #progress-b {
-    margin: 130px auto;
+    margin: 30px auto;
     margin-bottom: 70px;
     display: block;
-    max-width: 600px;
-    width: 100%;
 
 }
+
 .box-pg-bar {
     max-width: 825px;
     margin: 0 auto;
     display: block;
     position: relative;
 }
+
 .etiq-falta {
     color: black;
-    background: #efefef;
-    padding: 6px 10px;
-    margin: 20px auto;
- 
+    /* background: #efefef; */
+    margin: 12px auto;
     width: 100%;
     max-width: 700px;
-    text-align: center;
+    text-align: left;
+    font-weight: bold;
     border-radius: 4px;
-    font-size:15px;
+    font-size: 15px;
+    position: relative;
 }
-.etiq-falta span {
-    font-weight:bold;
-}
+
+    .etiq-falta span {
+        font-weight: bold;
+    }
+
 .etiq-mant {
-    color: #4f0036;
-    text-align: center;
+    color: #000;
+    text-align: left;
     display: block;
     margin: 0 auto;
     font-weight: bold;
     font-size: 15px;
+    position: relative;
 }
+
+    .etiq-mant i, .etiq-falta i {
+        display: inline-block;
+        margin-right: 7px;
+        width: 12px;
+    }
+
 .tope {
     height: 24px;
     width: 3px;
@@ -1332,17 +1385,35 @@ div.opOrdenar {
     position: absolute;
     left: 50%;
 }
-.tope:before {
-    content: "";
-    display: block;
-    width: 8px;
-    height: 8px;
-    background: #cd5b5b;
-    position: absolute;
-    top: 0;
-    left: -3px;
-    border-radius: 8px;
+
+    .tope:before {
+        content: "";
+        display: block;
+        width: 8px;
+        height: 8px;
+        background: #cd5b5b;
+        position: absolute;
+        top: 0;
+        left: -3px;
+        border-radius: 8px;
+    }
+
+.etiq-mant .tope {
+    position: relative;
+    top: 1px;
+    left: inherit;
+    margin-left: 5px;
+    height: 12px;
+    width: 2px;
 }
+
+.etiq-falta .flagimg {
+    position: relative;
+    top: 1px;
+    right: inherit;
+    max-width: 12px;
+}
+
 .tp-1 {
     background: #b66fa6;
 }
@@ -1350,36 +1421,47 @@ div.opOrdenar {
     .tp-1:before {
         background: #b66fa6;
     }
+
 .tp-2 {
     background: #cd5b5b;
 }
-.tp-2:before {
-    background: #cd5b5b;
-}
+
+    .tp-2:before {
+        background: #cd5b5b;
+    }
+
 .tp-3 {
     background: #e8b74b;
 }
-.tp-3:before {
-    background: #e8b74b;
-}
+
+    .tp-3:before {
+        background: #e8b74b;
+    }
+
 .tp-4 {
     background: #db9e8a;
 }
-.tp-4:before {
-    background: #db9e8a;
-}
+
+    .tp-4:before {
+        background: #db9e8a;
+    }
+
 .tp-5 {
     background: #2d7ab0;
 }
-.tp-5:before {
-    background: #2d7ab0;
-}
+
+    .tp-5:before {
+        background: #2d7ab0;
+    }
+
 .tp-6 {
     background: #b19260;
 }
-.tp-6:before {
-    background: #b19260;
-}
+
+    .tp-6:before {
+        background: #b19260;
+    }
+
 button.close {
     padding: 0;
     background-color: transparent;
@@ -1600,6 +1682,7 @@ div .btn__productos__agregados--verMiPedido, div .footer__link, div .sub_footer 
 #is-mobile {
     display: none
 }
+
 .modal.fade:not(.show) {
     opacity: 1
 }
@@ -2107,6 +2190,117 @@ div .ficha__producto__precio__normal {
     margin: 30px auto;
     margin-bottom:60px;
 }
+.tabs {
+    margin: 0;
+    padding: 0;
+}
+
+    .tabs li {
+        float: left;
+        border: 1px solid #999;
+        border-bottom: none;
+        background: #e0e0e0;
+    }
+/*
+.tabs li a {
+ display: block;
+ padding: 10px 20px;
+ font-size: 16px;
+ color: #000;
+ text-decoration: none;
+}*/
+
+
+
+/*.tab_container {
+ border: 1px solid #999;
+ border-top: none;
+ background: #fff;
+}*/
+
+.tab_content {
+    padding: 20px;
+    font-size: 16px;
+}
+
+.tab-content.current {
+    animation-name: fade;
+    animation-iteration-count: 1;
+    animation-duration: 1s;
+}
+
+.tab-content {
+    display: none;
+}
+
+    .tab-content.current {
+        display: block;
+    }
+
+.msj-boxnivel {
+    padding: 15px;
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+}
+
+    .msj-boxnivel p, .msj-boxnivel span {
+        color: black;
+        text-align: center;
+        font-size: 13px;
+        display: block;
+        font-weight: bold;
+    }
+
+    .msj-boxnivel p {
+        font-size: 18px;
+        margin-top: 0;
+    }
+
+    .msj-boxnivel span {
+        font-size: 12px;
+        font-weight: normal;
+    }
+
+    .msj-boxnivel span strong {
+        font-weight: bold;
+    }
+
+.Coral {
+    background: #faeded;
+}
+.Ambar {
+    background: #fcf5e7;
+}
+.Perla {
+    background: #f8ebe7;
+}
+.Topacio {
+    background: #e6eff6;
+}
+.Brillante {
+    background: #f2ede5;
+}
+
+
+
+
+@keyframes fade {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+
 
 .avat-logros {
     display: block;
@@ -2406,6 +2600,7 @@ div .ficha__producto__precio__normal {
     .op-menu-horizontal .subnavegador li {
         padding: 0 15px
     }
+
     .box-left-ganancias, .box-right-ganancias {
         float: none;
         margin: 15px auto;
@@ -2435,7 +2630,7 @@ div .ficha__producto__precio__normal {
 }
 
 @media (min-width:576px) {
-        .modal-dialog {
+    .modal-dialog {
         max-width: 500px;
         margin: 1.75rem auto
     }
@@ -2473,11 +2668,17 @@ div .ficha__producto__precio__normal {
     .op-menu-horizontal .subnavegador li {
         padding: 0 10px
     }
+
     .valor-final p, .valor-final span {
         text-align: right;
     }
+
     .progress-barnew {
         width: 76%;
+    }
+
+    .valor-final {
+        right: 0;
     }
 }
 
@@ -2492,6 +2693,12 @@ div .ficha__producto__precio__normal {
         padding: 20px 60px
     }
 
+    .progress-barnew {
+        width: 70%;
+        margin: 30px auto;
+        margin-left: 0;
+        margin-bottom: 70px;
+    }
 }
 
 @media screen and (max-width:620px) {
@@ -2511,9 +2718,9 @@ div .ficha__producto__precio__normal {
         display: none
     }
 
-    .subtitle, .title {
+    /*.subtitle, .title {
         margin-bottom: 0
-    }
+    }*/
 
     #ProgressBar span {
         width: 35px;
@@ -2537,7 +2744,7 @@ div .ficha__producto__precio__normal {
     }
 
     #box-niveles {
-        margin: 55px auto;
+        margin: 35px auto;
         margin-bottom: 80px
     }
 
@@ -2871,7 +3078,19 @@ div .ficha__producto__precio__normal {
         width: 90px;
         margin: 0 auto;
         margin-bottom: 15px;
+        }
+    .mb-title {
+        display:none;
     }
+
+    .cent-mant .etiq-mant, .cent-mant .etiq-falta {
+        width: 100%;
+        float: none;
+        margin: 0 auto;
+        margin-bottom:5px;
+        margin-left: 10%;
+    }
+    
 
     .bar-logros {
         padding-bottom: 8px;
@@ -2930,6 +3149,7 @@ div .ficha__producto__precio__normal {
         width: 100%;
         margin-top: 6px
     }
+
     .left-ganancias, .right-ganancias {
         width: 100%;
         margin: 0;
@@ -2952,10 +3172,12 @@ div .ficha__producto__precio__normal {
     .cam-exito {
         padding: 0 3px
     }
+
     .tip-valor {
         font-size: 14px;
         padding: 5px 9px;
     }
+
     .box-mostrarvalor {
         right: -36%;
     }
@@ -3005,6 +3227,7 @@ div .ficha__producto__precio__normal {
     div .ficha__producto__descrip .boxheight {
         min-height: 17px !important
     }
+
     .slick-list {
         padding: 0 15px !important;
     }
@@ -3012,34 +3235,45 @@ div .ficha__producto__precio__normal {
     .slick-track {
         margin-left: -20px;
     }
+
     .cont-benf {
         box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
         border-bottom: 0;
         padding-top: 25px;
         padding-left: 20px;
-         padding-right: 20px;
+        padding-right: 20px;
+        padding-bottom:30px;
     }
+
     .progress-barnew {
-        width: 58%;
+        width: 62%;
         margin-bottom: 80px;
+        margin-left: 10%;
     }
 
     .valor-final {
         right: -3px;
-        top: -16px;
+        top: -6px;
+        width: 78px;
     }
 
         .valor-final p {
-            font-size: 14px;
+            font-size: 15px;
+            text-align: left;
         }
 
         .valor-final span {
             font-size: 12px;
+            text-align: left;
         }
+
     .etiq-falta {
         font-size: 14px;
+        margin-left: 10%;
     }
-
+    .etiq-mant {
+        margin-left: 10%;
+    }
 }
 
 @media screen and (max-width:330px) {
@@ -3227,7 +3461,6 @@ div .ficha__producto__precio__normal {
 .img-log {
     display: none;
 }
-
 @media only screen and (max-width: 900px) and (min-width: 521px) {
     .right-banner {
         background: rgba(255, 255, 255, 0.8);
@@ -3238,8 +3471,6 @@ div .ficha__producto__precio__normal {
         padding-top: 90px;
     }
 }
-
-
 @media screen and (max-width:520px) {
     .img-log {
         display: block;
@@ -3249,7 +3480,6 @@ div .ficha__producto__precio__normal {
         margin-left: 0%;
         box-sizing: border-box;
     }
-
     .banner-logros {
         background: #fff;
         height: auto;
