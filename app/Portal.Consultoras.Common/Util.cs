@@ -1044,7 +1044,7 @@ namespace Portal.Consultoras.Common
         }
 
         public static bool EnviarMailBase(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML, string displayNameDe = null)
-        {            
+        {
             if (string.IsNullOrEmpty(strPara))
                 return false;
 
@@ -1084,13 +1084,12 @@ namespace Portal.Consultoras.Common
             objClient.EnableSsl = true;
             objClient.Credentials = credentials;
 
-
             try
             {
-                objClient.Send(objMail);                
+                objClient.Send(objMail);
             }
             catch (Exception ex)
-            {                
+            {
                 throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
             }
             finally
@@ -1099,6 +1098,7 @@ namespace Portal.Consultoras.Common
             }
             return true;
         }
+      
         /// <summary>
         /// Metodo que permite llenar la entidad de páginación para grillas sin filtros
         /// </summary>
