@@ -12,7 +12,7 @@ var dataCdrDevolucion = {};
 var flagSetsOrPack = false;
 var flagSolicitudEnviada = false;
 var flagAgregarNuevo = false;
-
+var regexNumber = /^[0-9\s]*$/;
 $(document).ready(function () {
     'use strict';
     $target = $('html,body');
@@ -567,11 +567,14 @@ $(document).ready(function () {
                     me.Funciones.ControlSetError(me.Variables.txtEmail, me.Variables.spnEmailError, '');
                 });
 
-                $(me.Variables.txtCuvMobile2).on('keyup', function (e) {
-                    var charCode = (e.which) ? e.which : window.event.keyCode;
-                    var re = /^[0-9\s]*$/;
-                    var result = re.test(e.key);
-                    result = charCode == 86 ? true : result; //Si es control + v debe dejar pasar
+                $(me.Variables.txtCuvMobile2).on("keyup", function (event) {
+                    event = event || window.event;
+                    var charCode = event.which || event.keyCode;
+                    var keyChar = event.key || String.fromCharCode(charCode);
+                    var result = regexNumber.test(keyChar);
+                    result = (charCode == 86) ? true : result; //Si es control + v debe dejar pasar
+                    console.info("keyChar", keyChar,"charCode: ", charCode, "result: ", result);
+
                     if (!result) // filtramos solo los números
                         return false;
 
@@ -971,6 +974,7 @@ $(document).ready(function () {
                 $(me.Variables.txtCuvMobile).val(cuv + " - " + desc).focus();
                 $(me.Variables.Registro2).show();
                 $(me.Variables.txtCantidad1).focus();
+                $target.animate({ scrollTop: $target.height() }, 1000);
             },
 
             ObtenerDatosCuv: function () {
@@ -1876,6 +1880,7 @@ $(document).ready(function () {
                 $(me.Variables.btnSiguiente1).removeClass(me.Variables.deshabilitarBoton);
 
                 me.Funciones.CargarPropuesta(id);
+                $target.animate({ scrollTop: $target.height() }, 1000);
             },
             AgregarEventoMostrarBotonSiguiente: function () {
                 $("#listaMotivos input[name=motivo-cdr]").on('click', function () {
