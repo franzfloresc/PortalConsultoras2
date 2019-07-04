@@ -78,13 +78,18 @@
             conditions,
             _elements.promocionesModal.condiciones.id);
         $(_elements.promocionesModal.condiciones.id).slick({
-            slidesToShow: 4,
-            slidesToScroll: 1,
+            
             autoplaySpeed: 2000,
+            swipe: true,
+            swipeToSlide: true,
             fade: false,
             arrows: false,
             infinite: false
         });
+        setTimeout(function () {
+            $(_elements.promocionesModal.condiciones.id).slick('setPosition');
+        }, 500);
+        
     };
 
     var _showPromotion = function (promotion) {
