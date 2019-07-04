@@ -1,4 +1,4 @@
-GO
+﻿GO
 USE BelcorpPeru
 GO
 declare @idx int
@@ -14,12 +14,12 @@ where c.Codigo = 'EstrategiaDisponibleParaFicha'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
-	BEGIN
+IF @idx > 0
+BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 = REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponibleParaFicha'
 END
@@ -33,12 +33,12 @@ where c.Codigo = 'EstrategiaDisponible'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
+IF @idx > 0
 BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 =REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponible'
 END
@@ -61,12 +61,12 @@ where c.Codigo = 'EstrategiaDisponibleParaFicha'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
-	BEGIN
+IF @idx > 0
+BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 = REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponibleParaFicha'
 END
@@ -80,12 +80,12 @@ where c.Codigo = 'EstrategiaDisponible'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
+IF @idx > 0
 BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 =REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponible'
 END
@@ -108,12 +108,12 @@ where c.Codigo = 'EstrategiaDisponibleParaFicha'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
-	BEGIN
+IF @idx > 0
+BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 = REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponibleParaFicha'
 END
@@ -127,12 +127,12 @@ where c.Codigo = 'EstrategiaDisponible'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
+IF @idx > 0
 BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 =REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponible'
 END
@@ -155,12 +155,12 @@ where c.Codigo = 'EstrategiaDisponibleParaFicha'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
-	BEGIN
+IF @idx > 0
+BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 = REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponibleParaFicha'
 END
@@ -174,12 +174,12 @@ where c.Codigo = 'EstrategiaDisponible'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
+IF @idx > 0
 BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 =REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponible'
 END
@@ -202,12 +202,12 @@ where c.Codigo = 'EstrategiaDisponibleParaFicha'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
-	BEGIN
+IF @idx > 0
+BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 = REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponibleParaFicha'
 END
@@ -221,12 +221,12 @@ where c.Codigo = 'EstrategiaDisponible'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
+IF @idx > 0
 BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 =REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponible'
 END
@@ -249,12 +249,12 @@ where c.Codigo = 'EstrategiaDisponibleParaFicha'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
-	BEGIN
+IF @idx > 0
+BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 = REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponibleParaFicha'
 END
@@ -268,12 +268,12 @@ where c.Codigo = 'EstrategiaDisponible'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
+IF @idx > 0
 BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 =REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponible'
 END
@@ -296,12 +296,12 @@ where c.Codigo = 'EstrategiaDisponibleParaFicha'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
-	BEGIN
+IF @idx > 0
+BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 = REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponibleParaFicha'
 END
@@ -315,12 +315,12 @@ where c.Codigo = 'EstrategiaDisponible'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
+IF @idx > 0
 BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 =REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponible'
 END
@@ -343,12 +343,12 @@ where c.Codigo = 'EstrategiaDisponibleParaFicha'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
-	BEGIN
+IF @idx > 0
+BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 = REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponibleParaFicha'
 END
@@ -362,12 +362,12 @@ where c.Codigo = 'EstrategiaDisponible'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
+IF @idx > 0
 BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 =REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponible'
 END
@@ -390,12 +390,12 @@ where c.Codigo = 'EstrategiaDisponibleParaFicha'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
-	BEGIN
+IF @idx > 0
+BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 = REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponibleParaFicha'
 END
@@ -409,12 +409,12 @@ where c.Codigo = 'EstrategiaDisponible'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
+IF @idx > 0
 BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 =REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponible'
 END
@@ -437,12 +437,12 @@ where c.Codigo = 'EstrategiaDisponibleParaFicha'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
-	BEGIN
+IF @idx > 0
+BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 = REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponibleParaFicha'
 END
@@ -456,12 +456,12 @@ where c.Codigo = 'EstrategiaDisponible'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
+IF @idx > 0
 BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 =REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponible'
 END
@@ -484,12 +484,12 @@ where c.Codigo = 'EstrategiaDisponibleParaFicha'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
-	BEGIN
+IF @idx > 0
+BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 = REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponibleParaFicha'
 END
@@ -503,12 +503,12 @@ where c.Codigo = 'EstrategiaDisponible'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
+IF @idx > 0
 BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 =REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponible'
 END
@@ -531,12 +531,12 @@ where c.Codigo = 'EstrategiaDisponibleParaFicha'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
-	BEGIN
+IF @idx > 0
+BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 = REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponibleParaFicha'
 END
@@ -550,12 +550,12 @@ where c.Codigo = 'EstrategiaDisponible'
 --
 set @strToFind = 'CAT'
 
-SELECT @idx = CHARINDEX(@str, @strToFind)
+SELECT @idx = CHARINDEX(@strToFind , @str)
 
-IF @idx = 0
+IF @idx > 0
 BEGIN
 	update c
-	set c.Valor1 = c.Valor1 + ',CAT'
+	set c.Valor1 =REPLACE(c.Valor1,',CAT','')
 	from ConfiguracionPaisDatos c
 	where c.Codigo = 'EstrategiaDisponible'
 END

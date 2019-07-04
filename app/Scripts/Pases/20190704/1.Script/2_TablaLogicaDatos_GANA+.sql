@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 GO
 
 DELETE FROM [TablaLogicaDatos] WHERE [Codigo] IN ('FuncionalidadCrossSelling', 'FuncionalidadSugerido')
