@@ -425,7 +425,8 @@
 
     .campo_orden_solicitudes_cdr_wrapper select,
     .formulario_inscripcion_cdr select,
-    .formulario_inscripcion_cdr input[type='text'] {
+    .formulario_inscripcion_cdr input[type='text'],
+    .formulario_inscripcion_cdr input[type='tel'] {
         display: block;
         margin: 0 auto;
         height: 45px;
@@ -445,17 +446,20 @@
     }
 
     .formulario_inscripcion_cdr select,
-    .formulario_inscripcion_cdr input[type='text']{
-        width:276px;
+    .formulario_inscripcion_cdr input[type='text'],
+    .formulario_inscripcion_cdr input[type='tel'] {
+        width: 276px;
     }
 
         .campo_orden_solicitudes_cdr_wrapper select:focus,
         .formulario_inscripcion_cdr select:focus,
-        .formulario_inscripcion_cdr input[type='text']:focus {
+        .formulario_inscripcion_cdr input[type='text']:focus,
+        .formulario_inscripcion_cdr input[type='tel']:focus {
             border: 1px solid #000;
         }
 
-    .formulario_inscripcion_cdr input[type='text'] {
+    .formulario_inscripcion_cdr input[type='text'],
+    .formulario_inscripcion_cdr input[type='tel'] {
         color: #000;
         background-repeat: no-repeat;
         background-position: 96% center;
