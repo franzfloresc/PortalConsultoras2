@@ -1043,8 +1043,9 @@ namespace Portal.Consultoras.Common
             return Util.EnviarMailMasivoColas2(strDe, strPara, strTitulo, strMensaje, isHTML, tags, null);
         }
 
-        public static bool EnviarMailBase(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML, string displayNameDe = null, bool IndicadorSimplificacionCUV = false)
+        public static bool EnviarMailBase(string strDe, string strPara, string strParaOculto, string strTitulo, string strMensaje, bool isHTML, string displayNameDe = null)
         {
+            bool resu = false;
             if (string.IsNullOrEmpty(strPara))
                 return false;
 
@@ -1061,66 +1062,46 @@ namespace Portal.Consultoras.Common
             string strPassword = ParseString(ConfigurationManager.AppSettings["SMPTPassword"]);
 
             MailMessage objMail = new MailMessage();
-            objMail.SubjectEncoding = System.Text.Encoding.UTF8;
+            // objMail.SubjectEncoding = System.Text.Encoding.UTF8;
             SmtpClient objClient = new SmtpClient(strServidor);
 
             AlternateView avHtml = AlternateView.CreateAlternateViewFromString(strMensaje, null, MediaTypeNames.Text.Html);
 
+            if (ParseString(ConfigurationManager.AppSettings["flagCorreo"]) == "0")
+            {
+                strPara = strUsuario;
+            }
+            objMail.AlternateViews.Add(avHtml);
             objMail.To.Add(strPara);
             objMail.From = string.IsNullOrEmpty(displayNameDe)
                 ? new MailAddress(strDe)
                 : new MailAddress(strDe, displayNameDe);
 
             objMail.Subject = strTitulo;
-            if (FileExists(HttpContext.Current.Request.MapPath("/Content/Images/indicador.png")) && FileExists(HttpContext.Current.Request.MapPath("/Content/Images/belcorp_logo.png")))
-            {
-                LinkedResource iconoSimplificacion = new LinkedResource(HttpContext.Current.Request.MapPath("../Content/Images/indicador.png"), MediaTypeNames.Image.Gif);
-                LinkedResource logo = new LinkedResource(HttpContext.Current.Request.MapPath("../Content/Images/belcorp_logo.png"), MediaTypeNames.Image.Gif);
-                logo.ContentId = "Logo";
-                avHtml.LinkedResources.Add(logo);
-
-                objMail.AlternateViews.Add(avHtml);
-
-
-                if (IndicadorSimplificacionCUV)
-                {
-                    iconoSimplificacion.ContentId = "IconoIndicador";
-                    avHtml.LinkedResources.Add(iconoSimplificacion);
-                    objMail.Body = String.Format(strMensaje, iconoSimplificacion.ContentId);
-                }
-                else
-                {
-                    objMail.Body = strMensaje;
-                }
-            }
-            else
-            {
-                objMail.AlternateViews.Add(avHtml);
-                objMail.Body = strMensaje;
-            }
+            objMail.Body = strMensaje;
             objMail.IsBodyHtml = isHTML;
+
             NetworkCredential credentials = new NetworkCredential(strUsuario, strPassword);
             objClient.EnableSsl = true;
             objClient.Credentials = credentials;
 
             try
             {
-                System.Threading.Tasks.Task.Factory.StartNew(() =>
-                {
-                    objClient.Send(objMail);
-                });
+                objClient.Send(objMail);
+                resu = true;
             }
             catch (Exception ex)
             {
+                resu = false;
                 throw new ApplicationException("Error al enviar correo electronico:" + ex.Message);
             }
             finally
             {
                 objMail.Dispose();
             }
-            return true;
+            return resu;
         }
-
+      
         /// <summary>
         /// Metodo que permite llenar la entidad de páginación para grillas sin filtros
         /// </summary>
@@ -3512,7 +3493,7 @@ namespace Portal.Consultoras.Common
             }
 
             return result;
-        }        
+        }
 
         public static string GenerarRutaImagenResizeMedium(string rutaImagen)
         {
@@ -3670,7 +3651,7 @@ namespace Portal.Consultoras.Common
 
         public static string EnmascararCorreo(string correo)
         {
-            if (string.IsNullOrEmpty(correo.Trim())) return "";
+            if (string.IsNullOrWhiteSpace(correo)) return "";
             string[] separada = correo.Split('@');
             int inicio = 2;
             int final = 1;
@@ -3792,7 +3773,7 @@ namespace Portal.Consultoras.Common
         //Validación de la descripción del producto
         public static string obtenerNuevaDescripcionProducto(Dictionary<string, string> lista,
             bool suscripcion,
-            string codigoEstrategia,
+            string tipoPersonalizacion,
             string tipoEstrategiaCodigo,
             int marcaId,
             int codigoCatalago,
@@ -3816,7 +3797,7 @@ namespace Portal.Consultoras.Common
                         result = lista[Constantes.NuevoCatalogoProducto.CATALOGOCYZONE];
                         break;
                     default:
-                        if(marcaId == Constantes.Marca.Esika)
+                        if (marcaId == Constantes.Marca.Esika)
                         {
                             result = lista[Constantes.NuevoCatalogoProducto.CATALOGOESIKA];
                         }
@@ -3833,17 +3814,17 @@ namespace Portal.Consultoras.Common
             }
             else
             {
-                switch (codigoEstrategia)
+                switch (tipoPersonalizacion)
                 {
-                    case "LIQ":
+                    case Constantes.TipoPersonalizacion.Liquidacion:
                         result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
                         break;
-                    case "CAT":
+                    case Constantes.TipoPersonalizacion.Catalogo:
                         result = (marcaId == 1 ? lista[Constantes.NuevoCatalogoProducto.CATALOGOLBEL] :
                             (marcaId == 2 ? lista[Constantes.NuevoCatalogoProducto.CATALOGOESIKA] :
                             lista[Constantes.NuevoCatalogoProducto.CATALOGOCYZONE]));
                         break;
-                    case "ODD":
+                    case Constantes.TipoPersonalizacion.OfertaDelDia:
                         result = lista[Constantes.NuevoCatalogoProducto.SOLOHOY];
                         break;
                     default:
@@ -3929,45 +3910,45 @@ namespace Portal.Consultoras.Common
             }
             else
             {
-                    switch (origenPedido)
-                    {
-                        case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal:
-                        case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal:
-                        case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel:
-                        case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha:
-                        case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel:
-                        case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha:
-                            result = "";
-                            break;
-                        default:
-                            result = obtenerNuevaDescripcionProducto(lista, suscripcion, "", tipoEstrategiaCodigo, marcaId, codigoCatalogo);
+                switch (origenPedido)
+                {
+                    case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal:
+                    case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal:
+                    case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel:
+                    case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha:
+                    case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel:
+                    case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha:
+                        result = "";
+                        break;
+                    default:
+                        result = obtenerNuevaDescripcionProducto(lista, suscripcion, "", tipoEstrategiaCodigo, marcaId, codigoCatalogo);
 
-                            if (result == "") result = descripcion;
+                        if (result == "") result = descripcion;
 
-                            if (string.IsNullOrWhiteSpace(result))
+                        if (string.IsNullOrWhiteSpace(result))
+                        {
+                            switch (ofertaId)
                             {
-                                switch (ofertaId)
-                                {
-                                    case Constantes.TipoOferta.Liquidacion:
-                                        result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
-                                        break;
-                                    case Constantes.TipoOferta.Flexipago:
-                                        result = lista[Constantes.NuevoCatalogoProducto.OFERTASFLEXIPAGO];
-                                        break;
-                                    default:
-                                        result = "";
-                                        break;
-                                }
+                                case Constantes.TipoOferta.Liquidacion:
+                                    result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
+                                    break;
+                                case Constantes.TipoOferta.Flexipago:
+                                    result = lista[Constantes.NuevoCatalogoProducto.OFERTASFLEXIPAGO];
+                                    break;
+                                default:
+                                    result = "";
+                                    break;
                             }
+                        }
 
-                            break;
-                    }
+                        break;
+                }
             }
 
             return result;
         }
 
-        public static string obtenerCodigoOrigenWeb(string codigoEstrategia, string codigoTipoEstrategia,
+        public static string obtenerCodigoOrigenWeb(string tipoPersonalizacion, string codigoTipoEstrategia,
             int marcaId, bool mobile, bool home, bool recomendaciones, bool materialGanancia, bool suscripcion)
 
         {
@@ -3976,13 +3957,13 @@ namespace Portal.Consultoras.Common
             modelo.Seccion = recomendaciones ? ConsOrigenPedidoWeb.Seccion.Recomendado : home ? ConsOrigenPedidoWeb.Seccion.DesplegableBuscador : ConsOrigenPedidoWeb.Seccion.Carrusel;
             modelo.Pagina = recomendaciones ? ConsOrigenPedidoWeb.Pagina.Pedido : home ? ConsOrigenPedidoWeb.Pagina.Buscador : ConsOrigenPedidoWeb.Pagina.LandingBuscador;
 
-            switch (codigoEstrategia)
+            switch (tipoPersonalizacion)
             {
-                case "CAT":
+                case Constantes.TipoPersonalizacion.Catalogo:
                     modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunMarca(marcaId);
                     break;
                 default:
-                    codigoTipoEstrategia = codigoEstrategia == Constantes.CodigoEstrategiaBuscador.Liquidacion ? Constantes.TipoEstrategiaCodigo.Liquidacion : codigoTipoEstrategia;
+                    codigoTipoEstrategia = tipoPersonalizacion == Constantes.TipoPersonalizacion.Liquidacion ? Constantes.TipoEstrategiaCodigo.Liquidacion : codigoTipoEstrategia;
                     modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunTipoEstrategia(codigoTipoEstrategia, materialGanancia, recomendaciones, suscripcion);
                     break;
             }
@@ -3990,9 +3971,9 @@ namespace Portal.Consultoras.Common
 
         }
 
-        public static int obtenerCodigoOrigenWebApp(string codigoEstrategia, string codigoTipoEstrategia, int marcaId, bool desplegable, bool landing, bool ficha, bool fichaCarrusel, bool materialGanancia)
+        public static int obtenerCodigoOrigenWebApp(string tipoPersonalizacion, string codigoTipoEstrategia, int marcaId, bool desplegable, bool landing, bool ficha, bool fichaCarrusel, bool materialGanancia)
         {
-           
+
             if (desplegable == landing)
             {
                 return 0;
@@ -4005,13 +3986,13 @@ namespace Portal.Consultoras.Common
             modelo.Pagina = desplegable ? ConsOrigenPedidoWeb.Pagina.Buscador : ConsOrigenPedidoWeb.Pagina.LandingBuscador;
             modelo.Seccion = UtilOrigenPedidoWeb.GetSeccionSegunFicha(ficha, fichaCarrusel, desplegable);
 
-            switch (codigoEstrategia)
+            switch (tipoPersonalizacion)
             {
-                case Constantes.CodigoEstrategiaBuscador.Catalogo:
+                case Constantes.TipoPersonalizacion.Catalogo:
                     modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunMarca(marcaId);
                     break;
                 default:
-                    codigoTipoEstrategia = codigoEstrategia == Constantes.CodigoEstrategiaBuscador.Liquidacion ? Constantes.TipoEstrategiaCodigo.Liquidacion : codigoTipoEstrategia;
+                    codigoTipoEstrategia = tipoPersonalizacion == Constantes.TipoPersonalizacion.Liquidacion ? Constantes.TipoEstrategiaCodigo.Liquidacion : codigoTipoEstrategia;
                     modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunTipoEstrategia(codigoTipoEstrategia, materialGanancia);
                     break;
             }
@@ -4021,7 +4002,7 @@ namespace Portal.Consultoras.Common
         public static string GetTipoPersonalizacionByCodigoEstrategia(string codigoEstrategia)
         {
             var tipoPersonalizacion = string.Empty;
-
+            
             switch (codigoEstrategia)
             {
                 case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
@@ -4053,6 +4034,9 @@ namespace Portal.Consultoras.Common
                     break;
                 case Constantes.TipoEstrategiaCodigo.RevistaDigital:
                     tipoPersonalizacion = Constantes.ConfiguracionPais.RevistaDigital;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.Catalogo:
+                    tipoPersonalizacion = Constantes.TipoEstrategiaCodigo.Catalogo;
                     break;
                 case Constantes.TipoEstrategiaCodigo.CaminoBrillanteDemostradores:
                     tipoPersonalizacion = Constantes.ConfiguracionPais.CaminoBrillanteDemostradores;
@@ -4134,6 +4118,30 @@ namespace Portal.Consultoras.Common
             var plainText = crypto.Decrypt(cipherText);
 
             return Encoding.UTF8.GetString(plainText);
+        }
+
+        public static int convertirAEstadoBuro(int estado)
+        {
+            switch (estado)
+            {
+                case (int)Enumeradores.EstadoBuroSAC.SI_PUEDE_SER_CONSULTORA_Datacredito_con_error_de_escritura_en_sus_BD:
+                    return (int)Enumeradores.EstadoBurocrediticio.PuedeSerConsultora;
+                case (int)Enumeradores.EstadoBuroSAC.SI_PUEDE_SER_CONSULTORA_Documento_existe_en_fuentes_oficiales:
+                    return (int)Enumeradores.EstadoBurocrediticio.PuedeSerConsultora;
+                case (int)Enumeradores.EstadoBuroSAC.SI_PUEDE_SER_CONSULTORA_Nombres_o_Apellidos_corresponden_al_Documento:
+                    return (int)Enumeradores.EstadoBurocrediticio.PuedeSerConsultora;
+                default: return estado;
+            }
+        }
+
+        public static List<string> GetCodigosCatalogo()
+        {
+            return new List<string>
+            {
+                Constantes.ODSCodigoCatalogo.CatalogoCyzone,
+                Constantes.ODSCodigoCatalogo.CatalogoEbel,
+                Constantes.ODSCodigoCatalogo.CatalogoEsika,
+            };
         }
     }
 

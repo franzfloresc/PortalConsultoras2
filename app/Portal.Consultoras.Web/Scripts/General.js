@@ -12,7 +12,10 @@ jQuery(document).ready(function () {
     CreateLoading();
 
     if (typeof habilitarChatBot !== 'undefined' && habilitarChatBot === 'True') {
-        $('.btn_chat_messenger_mobile').show();
+        if (window.matchMedia("(max-width:991px)").matches) {
+            $('.btn_chat_messenger').draggable();
+        }
+        $('.btn_chat_messenger').show();
     }
 
     if (typeof (tokenPedidoAutenticoOk) !== 'undefined') {
@@ -38,6 +41,10 @@ jQuery(document).ready(function () {
         }
     }
 
+
+    $(".ImageLoadPhotoUser").on("load", function () {
+        onLoadPhotoUser(this);
+    });
 });
 
 (function ($) {
@@ -817,31 +824,24 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             CerrarLoad();
             return false;
         }
-        //INI HD-3693
-        var msjBloq = validarpopupBloqueada(mensaje);
-        if (msjBloq != "") {
-            CerrarLoad();
-            alert_msg_bloqueadas(msjBloq);
-            return true;
-        }
-        //FIN HD-3693
-        titulo = titulo || "MENSAJE";
+
+        titulo = titulo || "Aviso";//***HD-4450
         var CONS_TIPO_ICONO = { ALERTA: 1, CHECK: 2 };
         var isUrlMobile = isMobile();
         if (isUrlMobile > 0) {
             $('.icono_alerta').hide();
             if (tipoIcono == CONS_TIPO_ICONO.ALERTA) {
-                $('.icono_alerta.exclamacion_icono_mobile').show();
+                $('.icono_alerta.alert_dialog_icono').show();//***HD-4450
             }
             if (tipoIcono == CONS_TIPO_ICONO.CHECK) {
                 $('.icono_alerta.check_icono_mobile').show();
             }
             if (tipoIcono == undefined || tipoIcono == null) {
-                $('.icono_alerta.exclamacion_icono_mobile').show();
+                $('.icono_alerta.alert_dialog_icono').show();//***HD-4450
             }
             $('#mensajeInformacionvalidado').html(mensaje);
             $('#popupInformacionValidado').show();
-            $('#popupInformacionValidado #bTagTitulo').html(titulo);
+            $('#popupInformacionValidado #bTagTitulo').html(titulo); 
 
             if ($.isFunction(fnAceptar)) {
                 var botonesCerrar = $('#popupInformacionValidado .btn_ok_mobile,.cerrar_popMobile');
@@ -850,6 +850,7 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             }
         }
         else {
+
             $('#alertDialogMensajes .terminos_title_2').html(titulo);
             $('#alertDialogMensajes .pop_pedido_mensaje').html(mensaje);
             showDialogSinScroll("alertDialogMensajes");
@@ -868,6 +869,7 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             });
 
             $('.ui-dialog .ui-button').focus();
+
         }
         CerrarLoad();
     } catch (e) {
@@ -924,14 +926,6 @@ function AbrirMensaje25seg(mensaje, imagen) {
             CerrarLoad();
             return false;
         }
-        //INI HD-3693
-        var msjBloq = validarpopupBloqueada(mensaje);
-        if (msjBloq != "") {
-            CerrarLoad();
-            alert_msg_bloqueadas(msjBloq);
-            return true;
-        }
-        //FIN HD-3693
         imagen = imagen || "";
 
         $("#pop_src").attr("src", "#")
@@ -1021,6 +1015,23 @@ function isMobile() {
     var isUrlMobile = $.trim(location.href.replace("#", "/") + "/").toLowerCase().indexOf("/mobile/") > 0 ||
         $.trim(location.href).toLowerCase().indexOf("/g/") > 0;
     return isUrlMobile;
+}
+
+function isMobileBrowser() {
+    if (sessionStorage.desktop)
+        return false;
+    else if (localStorage.mobile)
+        return true;
+    var mobile = [
+        'iphone', 'ipad', 'android', 'blackberry', 'nokia', 'opera mini', 'windows mobile', 'windows phone',
+        'iemobile'
+    ];
+    for (var i = 0; i < mobile.length; i++) {
+        if (navigator.userAgent.toLowerCase().indexOf(mobile[i].toLowerCase()) > 0)
+            return true;
+    }
+
+    return false;
 }
 
 var isMobileNative = {
@@ -2358,13 +2369,7 @@ var GeneralModule = (function () {
         consoleLog: _consoleLog
     };
 }());
-//INI HD-3693
-function validarpopupBloqueada(message) {
-    if (message.indexOf("HD3693~") != -1) return message.split("~")[1];
-    else return "";
 
-}
-//FIN HD-3693
 
 function AbrirMensajeImagen(mensaje) {
     var popup = $('#PopupInformacionRegalo');
@@ -2377,7 +2382,36 @@ function AbrirMensajeImagen(mensaje) {
 }
 
 function AbrirChatBot() {
+    var esDesktop = !isMobileBrowser();
+    if (esDesktop && typeof FB !== 'undefined') {
+        FB.CustomerChat.showDialog();
+        
+        return;
+    }
+
     if (typeof ChatBotUrlRef === 'undefined') return;
 
-    window.location.href = ChatBotUrlRef;
+    if (esDesktop) {
+        window.open(ChatBotUrlRef);
+    } else {
+        window.location.href = ChatBotUrlRef;
+    }
+}
+
+function OpenUrl(url, newPage) {
+    if (newPage) {
+        window.open(url, '_blank');
+        return;
+    }
+    
+    window.location.href = url;
+}
+
+function OpenUrlCallbackNewPage(url, urlCallback, defaultNewPage) {
+    $.post(urlCallback, function(data) {
+        OpenUrl(url, data.NewPage);
+    })
+    .fail(function() {
+        OpenUrl(url, defaultNewPage);
+    });
 }

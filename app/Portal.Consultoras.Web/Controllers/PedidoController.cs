@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.Internal;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.Models;
@@ -25,7 +26,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
-
+using BEConsultora = Portal.Consultoras.Web.ServicePedido.BEConsultora;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -335,7 +336,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
-                ViewBag.CodigoConsultora = userData.CodigoConsultora;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 var ofertaFinal = SessionManager.GetOfertaFinalModel();
                 ViewBag.OfertaFinalEstado = ofertaFinal.Estado;
@@ -2339,17 +2339,13 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new PedidoServiceClient())
                 {
                     var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, false, true);
-                    if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.HorarioRestringido)
+               
+                    if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.HorarioRestringido )
                     {
                         mensaje = result.Mensaje;
                         estado = true;
                     }
-
-                    if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Bloqueado)
-                    {
-                        mensaje = Constantes.TipoPopupAlert.Bloqueado + result.Mensaje;
-                        estado = true;
-                    }
+                 
                 }
 
                 return Json(new
@@ -2395,8 +2391,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var pedidoReservado = (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado && userData.FechaFinCampania == Util.GetDiaActual(userData.ZonaHoraria));
                 var estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                 var mensaje = result.Mensaje;
-                if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Bloqueado) mensaje = Constantes.TipoPopupAlert.Bloqueado + result.Mensaje;
-
                 return Json(new
                 {
                     success = estado,
@@ -3464,15 +3458,79 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        #region /*HD-4288 - Switch Consultora 100% */
+
         /// <summary>
-        /// Requerimiento TESLA-28
-        /// [Ganancia] Cálculo Ganancia ofertas Catálogo*
+        /// Guarda los datos de la persona que recepcionará el pedido
         /// </summary>
-        /// <returns></returns>
-        //private bool IsCalculoGananaciaConsultora(BEPedidoWeb pedidoWeb)
-        //{
-        //    return pedidoWeb.GananciaRevista.HasValue &&
-        //           pedidoWeb.GananciaWeb.HasValue && pedidoWeb.GananciaWeb.HasValue;
-        //}
+        /// <param name="nombreYApellido">Nombres de la persona que recibirá el pedido</param>
+        /// /// <param name="numeroDocumento">DNI de la persona que recibirá el pedido</param>
+        /// <returns>Retorna un valor que indica si la acción se realizó o no</returns>
+        public JsonResult GuardarRecepcionPedidoRequest(string nombreYApellido, string numeroDocumento)
+        {
+            int result = 0;
+            try
+            {
+                result = GuardarRecepcionPedido(nombreYApellido, numeroDocumento, userData.PedidoID, userData.PaisID);
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /// <summary>
+        /// Deshace los datos de la persona que recibirá el pedido
+        /// </summary>
+        /// <returns>Un valor que deterina la acción</returns>
+        public JsonResult DeshacerRecepcionPedidoRequest()
+        {
+            int result = 0;
+            try
+            {
+                result = DeshacerRecepcionPedido(userData.PedidoID, userData.PaisID);
+
+
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        /// <summary>
+        /// Verifica si la consultoar es 100% digital
+        /// </summary>
+        /// <param name="codigoConsultora">Cósigo de la consultora</param>
+        /// <returns>Retorna los datos de la consultora 100% digital</returns>
+        public JsonResult VerificarConsultoraDigitalRequest(string codigoConsultora)
+        {
+            BEConsultora objConsultoraFicticiaModel =new BEConsultora();
+            try
+            {
+                objConsultoraFicticiaModel = VerificarConsultoraDigital(codigoConsultora, userData.PedidoID, userData.PaisID);
+                return Json(objConsultoraFicticiaModel, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+        /*HD-4288 - FIN*/
+        #endregion
     }
 }

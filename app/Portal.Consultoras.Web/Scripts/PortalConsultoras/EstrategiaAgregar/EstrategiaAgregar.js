@@ -400,6 +400,10 @@ var EstrategiaAgregarModule = (function () {
             ClienteID: _getClienteIdSelected()
         };
 
+        if (estrategia.CodigoEstrategia == ConstantesModule.TipoPersonalizacion.Catalogo) {
+            params.PrecioUnidad = estrategia.Precio2;
+        };
+
         EstrategiaAgregarProvider
             .pedidoAgregarProductoPromise(params)
             .done(function (data) {
@@ -409,16 +413,9 @@ var EstrategiaAgregarModule = (function () {
                 }
 
                 if (data.success === false) {
-                    //INI HD-3693
-                    //if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
-                    //else abrirMensajeEstrategia(data.message, esFicha);
+             
                     if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
-                    else {
-                        var msjBloq = validarpopupBloqueada(data.message);
-                        if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
-                        else abrirMensajeEstrategia(data.message, _config.esFicha);
-                    }
-                    //FIN HD-3693
+                    else abrirMensajeEstrategia(data.message, _config.esFicha);
 
                     CerrarLoad();
                     return false;

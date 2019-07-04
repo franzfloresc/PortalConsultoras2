@@ -1,5 +1,6 @@
 /// <reference path="../../pedido/pedidoprovider.js" />
-
+var UR_DESHACERRECEPCION_PEDIDO = baseUrl + "Pedido/DeshacerRecepcionPedidoRequest",
+    URL_VERIFICAR_CONSULTORA_DIGITAL = baseUrl + "Pedido/VerificarConsultoraDigitalRequest"
 var tipoOfertaFinal_Log = "";
 var gap_Log = 0;
 var tipoOrigen = '2';
@@ -86,8 +87,6 @@ $(document).ready(function () {
         numactual = numactual < 1 ? 1 : numactual > 99 ? 99 : numactual;
         $("#txtCantidad").val(numactual);
     });
-
-
 });
 
 var pedidoProvider = PedidoProvider();
@@ -138,6 +137,10 @@ function CargarPedidoRespuesta(data, firstLoad) {
     cuponModule.actualizarContenedorCupon();
 
     if (firstLoad && autoReservar) { EjecutarPROL(); }
+
+
+    /*HD-4288 - Switch Consultora 100% */
+    doWhatYouNeed()
 }
 
 function GetProductoEntidad(detalleId, setId) {
@@ -662,12 +665,7 @@ function PedidoDetalleEliminarTodo() {
             }
 
             if (data.success != true) {
-                //INI HD-3693
-                //messageInfoError(data.message);
-                var msjBloq = validarpopupBloqueada(data.message);
-                if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
-                else messageInfoError(data.message);
-                //FIN HD-3693
+                messageInfoError(data.message);
                 CloseLoading();
                 return false;
             }
@@ -1267,12 +1265,7 @@ function AccionConfirmarModificarPedido() {
 				} else {
 					CloseLoading();
 
-					//INI HD-3693
-					//messageInfoError(data.message);
-					var msjBloq = validarpopupBloqueada(data.message);
-					if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
-					else messageInfoError(data.message);
-					//FIN HD-3693
+					messageInfoError(data.message);
 
 				}
 			}
@@ -1297,3 +1290,130 @@ function ActualizaGanancias(data) {
         $('#div-ganancia-totalGananciaOtros').text(data.PedidoWeb.FormatoTotalGananciaOtrosStr);
     }
 }
+
+
+
+/*HD-4288 - Switch Consultora 100% --- */
+function doWhatYouNeed() {
+    var object = { codigoConsultora: userData.codigoConsultora }
+    
+    $.ajax({
+        type: "POST",
+        url: URL_VERIFICAR_CONSULTORA_DIGITAL,
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(object),
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+
+            if (checkTimeout(data)) {
+                if (data != null) {
+                    if (data.IndicadorConsultoraDigital) {
+                        if (document.querySelectorAll("div.montos_resumen")[0].children[2].children[1] != undefined && parseInt(document.querySelectorAll("div.montos_resumen")[0].children[2].children[1].innerHTML) > 0  ) {
+                            if (data.IndicadorRecepcion) {
+                                $("div.contenedor_info_recepcion_pedido").css("display", "flex");
+                                $(".info_recepcion_pedido").css("display", "block");
+                                $(".switch__control").prop("checked", true);
+                                cargarDatosrecepcion(data);
+                            } else {
+                                $("div.contenedor_info_recepcion_pedido").css("display", "flex");
+                                $(".info_recepcion_pedido").css("display", "none");
+                                $(".switch__control").prop("checked", false);
+                            }
+
+                        } else {
+                            $("div.contenedor_info_recepcion_pedido").css("display", "none");
+                            $(".info_recepcion_pedido").css("display", "none");
+                            $(".switch__control").prop("checked", false);
+                        }
+                    } else $("div.contenedor_info_recepcion_pedido").css("display", "none")
+                }
+            }
+        },
+        error: function (x, xh, xhr) {
+            if (checkTimeout(x)) {
+                closeWaitingDialog();
+            }
+        }
+    });
+
+
+}
+$("input:checkbox[class=switch__control]").change(function () {
+        if (!document.querySelectorAll("input[type=checkbox]:not(:checked )").length) {
+        LimpiarCamposRecepcionPoput();
+        $('#PopupRecepcionPedido').fadeIn(100);
+    } else {
+        DeshacerRecepcionpedido();
+    }
+
+});
+
+
+function DeshacerRecepcionpedido() {
+    $.ajax({
+        type: "POST",
+        url: UR_DESHACERRECEPCION_PEDIDO,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        cache: false,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data > 0) {
+                    $(".info_recepcion_pedido").css("display", "none");
+                }
+            }
+        },
+        error: function (x, xh, xhr) {
+            if (checkTimeout(x)) {
+                closeWaitingDialog();
+            }
+        }
+    });
+}
+
+function cargarDatosrecepcion(object) {
+    var ListChildren = document.getElementsByClassName("datos__receptor__pedido")[0].children;
+    ListChildren[0].textContent = object.nombreYApellido;
+    ListChildren[1].textContent = object.numeroDocumento;
+}
+
+
+function LimpiarCamposRecepcionPoput() {
+    $("#txtNombreYApellido").removeClass('text__field__sb--withContent');
+    $("#txtNumeroDocumento").removeClass('text__field__sb--withContent');
+    document.getElementsByClassName("form__group__fields--nombreApellido")[0].children[2].textContent = "";
+    document.getElementsByClassName("form__group__fields--numeroDocumento")[0].children[2].textContent = "";
+    $("#txtNombreYApellido").val("");
+    $("#txtNumeroDocumento").val("");
+    $(".btn__sb__primary--multimarca").addClass("btn__sb--disabled");
+
+    object = {};
+}
+
+$(".popup__somos__belcorp__icono__cerrar--popupRecepcionPedido").click(function () {
+    ActualizarCheck();
+})
+
+$(".btn__sb--cambiarPersona").click(function () {
+    $("#txtNombreYApellido").addClass('text__field__sb--withContent');
+    $("#txtNumeroDocumento").addClass('text__field__sb--withContent');
+    $("#txtNombreYApellido").val(document.getElementsByClassName("datos__receptor__pedido")[0].children[0].textContent);
+    $("#txtNumeroDocumento").val(document.getElementsByClassName("datos__receptor__pedido")[0].children[1].textContent);
+    $(".btn__sb__primary--multimarca").removeClass("btn__sb--disabled");
+});
+
+
+function ActualizarCheck() {
+    LimpiarCamposRecepcionPoput();
+    if ($(".info_recepcion_pedido").css("display") == "none") {
+        $(".switch__control").prop("checked", false);
+    }
+}
+
+
+
+
+
+
+/*HD-4288 - FIN*/

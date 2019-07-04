@@ -56,13 +56,14 @@ var CarruselAyuda = function () {
         }
     };
 
-    var obtenerEstrategiaSlick = function (slick, currentSlide, nextSlide) {
+    var obtenerEstrategiaSlick = function (slick, currentSlide, nextSlide, origen) {
 
         var objMostrar = _obtenerSlideMostrar(slick, currentSlide, nextSlide);
         var item = objMostrar.SlideMostrar;
         var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
 
         if (estrategia === "") {
+            origen = origen || {};
             if (origen.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Liquidacion) {
                 estrategia = _obtenerEstrategiaLiquidacion(objMostrar);
             }
@@ -182,16 +183,7 @@ var CarruselAyuda = function () {
 
             var objMostrar = _obtenerSlideMostrar(slick, currentSlide, nextSlide);
 
-            //var item = objMostrar.SlideMostrar;
-            //var estrategia = $($(item).find("[data-estrategia]")[0]).data("estrategia") || "";
-
-            //if (estrategia === "") {
-            //    if (origen.Palanca == CodigoOrigenPedidoWeb.CodigoEstructura.Palanca.Liquidacion) {
-            //        estrategia = _obtenerEstrategiaLiquidacion(objMostrar);
-            //    }
-            //}
-
-            var estrategia = obtenerEstrategiaSlick(slick, currentSlide, nextSlide);
+            var estrategia = obtenerEstrategiaSlick(slick, currentSlide, nextSlide, origen);
 
             estrategia = estrategia || "";
             if (estrategia != "") {

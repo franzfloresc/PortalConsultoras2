@@ -136,7 +136,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.Ambiente = _configuracionManagerProvider.GetBucketNameFromConfig();
             ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
             ViewBag.DataBarra = GetDataBarra(true, true);
-
+            ViewBag.CodigoConsultora = userData.CodigoConsultora;  /*HD-4288*/ 
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
 
             ViewBag.ActivarRecomendaciones = ObtenerFlagActivacionRecomendaciones();
@@ -371,7 +371,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
             model.MensajeKitNuevas = _programaNuevasProvider.GetMensajeKit();
             ViewBag.CantPedidoPendientes = _pedidoWebProvider.GetPedidoPendientes(userData);
-
             ViewBag.DataBarra = GetDataBarra(true, true);//OG
             ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Ofertas digitales";
             return View(model);
@@ -726,4 +725,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         //           pedidoWeb.GananciaWeb.HasValue && pedidoWeb.GananciaWeb.HasValue;
         //}
     }
+
 }

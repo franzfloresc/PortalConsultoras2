@@ -35,17 +35,6 @@ $(document).ready(function () {
             version: 'v3.0'
         });
 
-        if (typeof IsoPais !== 'undefined' && IsoPais == 'PE') {
-            FB.Event.subscribe('customerchat.load', function() {
-                setTimeout(function () {
-                    $('.fb_dialog_content').append('<div class="icono_chat_sb"></div>');
-                    $('body').on('click', '.icono_chat_sb', function (e) {
-                        FB.CustomerChat.showDialog();
-                    });
-                }, 2000);
-            });
-        }
-
         FB.getLoginStatus(function (response) {
             if (response.status === 'connected') {
                 getInfoFB(1);
@@ -218,6 +207,7 @@ $(document).ready(function () {
             $('.background__opciones__compartir__catalogos').css('display', 'flex');
             $(this).next().fadeIn(100);
             $(this).next().css('display', 'flex');
+            $('.btn_chat_messenger').fadeOut(100);
         } else {
             $(this).next().fadeIn(100);
             $(this).next().css('display', 'flex');
@@ -1067,8 +1057,10 @@ function ocultarTooltipCompartirCatalogo(e) {
         if ((!compartirCatalogoArea.is(e.target) && compartirCatalogoArea.has(e.target).length === 0)) {
             if (tooltipOpcionesCompartirCatalogoParteSuperior.is(':visible')) {
                 tooltipOpcionesCompartirCatalogoParteSuperior.fadeOut(100);
+                $('.btn_chat_messenger').fadeIn(100);
             } else {
                 tooltipOpcionesCompartirCatalogoParteInferior.fadeOut(100);
+                $('.btn_chat_messenger').fadeIn(100);
             }
         }
     }
@@ -1077,6 +1069,7 @@ function ocultarTooltipCompartirCatalogo(e) {
 function ocultarTooltipCompartirCatalogoMobile() {
     $('.opciones__compartir__catalogos').fadeOut(100);
     $(this).fadeOut(100);
+    $('.btn_chat_messenger').fadeIn(100);
 }
 
 // mensaje alerta

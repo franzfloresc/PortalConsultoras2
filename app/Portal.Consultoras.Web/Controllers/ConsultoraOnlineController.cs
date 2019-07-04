@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.Internal;
 using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.OrigenPedidoWeb;
@@ -2210,7 +2211,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pedidoSession = pedidos.ListaPedidos.FirstOrDefault();
 
-                EnviarEmailPedidoRechazado(pedidoSession,false);
+                EnviarEmailPedidoRechazado(pedidoSession, false);
 
 
                 var PendientesJson = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
@@ -2340,7 +2341,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SessionManager.SetobjMisPedidos(pedidos);
                 }
 
-                MisPedidosModel model = GetPendientes();                
+                MisPedidosModel model = GetPendientes();
                 var ContinuarExpPendientes = true;
                 if (pedidos.ListaPedidos == null || model.ListaPedidos.Count == 0)
                 {
@@ -2678,7 +2679,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             #region Email
             var pedidoSession = pedidosSesion.FirstOrDefault();
-            EnviarEmailPedidoRechazado(pedidoSession,true);
+            EnviarEmailPedidoRechazado(pedidoSession, true);
 
             #endregion
 
@@ -2713,6 +2714,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        #endregion
 
         [Obsolete("Revisar ya no se usa")]
         public void EnviarEmail(List<BEMisPedidos> pedidosSesion, string mensajeaCliente)
@@ -3001,114 +3004,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return new PedidosPendientesMedioPagoModel();
             }
         }
-
-        public void EnviarEmailPedidoAceptado(BEMisPedidos pedidoAux)
-        {
-            string emailDe = _configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.ConsultoraOnlineEmailDe);
-
-            if (pedidoAux.FlagMedio != null)
-            {
-                var medio = string.Empty;
-                switch (pedidoAux.FlagMedio)
-                {
-                    case Constantes.SolicitudCliente.FlagMedio.AppCatalogos:
-                        medio = "App Catálogo";
-                        break;
-                    case Constantes.SolicitudCliente.FlagMedio.WebMarcas:
-                        medio = "Web Marcas";
-                        break;
-                    case Constantes.SolicitudCliente.FlagMedio.CatalogoDigital:
-                        medio = "Catálogo Digital";
-                        break;
-                    case Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual:
-                        medio = "Maquillador Virtual";
-                        break;
-                }
-
-                var titulocliente = "Tu pedido ha sido CONFIRMADO por " + userData.PrimerNombre + " " +
-                                       userData.PrimerApellido + " - " + medio;
-                var mensajecliente = new StringBuilder();
-
-                mensajecliente.Append("<div style='display:block;margin-left:auto;margin-right:auto;width:100%;'>");
-                mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0' width='600'>");
-                mensajecliente.Append("<tr>");
-                mensajecliente.Append("<td height='70' style='background: #b11437; background:linear-gradient(to right, #b11437, #55046d);'>");
-                mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0'>");
-                mensajecliente.Append("<tr>");
-                mensajecliente.Append("<td width='93' height='70'>&nbsp;</td>");
-                mensajecliente.Append("<td width='425' height='70'>");
-                mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0' width='425'>");
-                mensajecliente.Append("<tr>");
-                mensajecliente.Append("<td width='98' height='70'><img src='https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/nuevo-logo-esika.png' width='98' height='36' style='display:block; width:98px; height:36px; margin-bottom:13px;' alt='&Eacute;sika'></td>");
-                mensajecliente.Append("<td width='55' height='70'>&nbsp;</td><td width='107' height='70'><img src='https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-lbel.png' width='105.92' height='22.27' style='display:block; width:105.92px; height:22.27px;' alt='Lbel'></td>");
-                mensajecliente.Append("<td width='46' height='70'>&nbsp;</td><td width='116' height='70'><img src='https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/logo-cyzone.png' width='100.91' height='31.75' style='display:block; width:100.91px; height:31.75px;margin-top:4px;' alt='Cyzone'></td>");
-                mensajecliente.Append("</tr>");
-                mensajecliente.Append("</table>");
-                mensajecliente.Append("</td>");
-                mensajecliente.Append("<td width='78' height='70'>&nbsp;</td>");
-                mensajecliente.Append("</tr>");
-                mensajecliente.Append("</table>");
-                mensajecliente.Append("</td>");
-                mensajecliente.Append("</tr>");
-                mensajecliente.Append("<tr>");
-                mensajecliente.Append("<td>");
-
-                mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0'>");
-                mensajecliente.Append("<tr><td width = '100%' height = '64' colspan = '3' > &nbsp;</td></tr>");
-                mensajecliente.Append("<tr>");
-                mensajecliente.Append("<td width='256' height='88'>&nbsp;</td>");
-                mensajecliente.Append("<td width='88' height='88'>");
-                mensajecliente.Append("<table align='center' border='0' cellpadding='0' cellspacing='0' width='88'>");
-                mensajecliente.Append("<tr>");
-                mensajecliente.Append("<td width='88' height='88'><img src='https://somosbelcorpqa.s3.amazonaws.com/Correo/PedidoE-Catalog/icono-notificacion-positiva.png' width='88' height='88' style='display:block; width:88px; height:88px;' alt='Pedido rechazado'></td>");
-                mensajecliente.Append("</tr>");
-                mensajecliente.Append("</table>");
-                mensajecliente.Append("</td>");
-                mensajecliente.Append("<td width='256' height='88'> &nbsp;</td>");
-                mensajecliente.Append("</tr>");
-                mensajecliente.Append("<tr><td width='100%' height='32' colspan='3'>&nbsp;</td></tr>");
-                mensajecliente.Append("<tr>");
-                mensajecliente.Append("<td align='center' width='100%' colspan='3'>");
-                mensajecliente.Append("<h5 style='display:block; text-align:center; margin-top:0; margin-bottom:0; font-family:Lato, Arial, Helvetica, Arial, sans-serif; font-size:16px; font-weight:bold; color:#000;'>");
-                mensajecliente.Append(pedidoAux.Cliente.Split(' ').First() + ", tu pedido ha sido aprobado.");
-                mensajecliente.Append("</h5>");
-                mensajecliente.Append("</td>");
-                mensajecliente.Append("</tr>");
-                mensajecliente.Append("<tr>");
-                mensajecliente.Append("<td align='center' width='100%' colspan='3'>");
-                mensajecliente.Append("<p style='display:block; text-align:center; margin-top:0; margin-bottom:0; padding-top:15px; font-family:Lato, Arial, Helvetica, Arial, sans-serif; font-size:14px; font-weight:400; line-height:20px; color:#000;'>");
-                mensajecliente.Append("Para m&aacute;s informaci&oacute;n comun&iacute;cate<br/>con nuestro(a) consultor(a) " + userData.PrimerNombre + " " + userData.PrimerApellido);
-                mensajecliente.Append("</p>");
-                mensajecliente.Append("</td>");
-                mensajecliente.Append("</tr>");
-                mensajecliente.Append("</table>");
-
-                mensajecliente.Append("</td>");
-                mensajecliente.Append("</tr>");
-                mensajecliente.Append("<tr><td width='100%' height='163'>&nbsp;</td></tr>");
-                mensajecliente.Append("</table>");
-                mensajecliente.Append("</div>");
-
-
-                try
-                {
-                    System.Threading.Tasks.Task.Factory.StartNew(() =>
-                    {
-                        Util.EnviarMailPedidoPendienteRechazado(emailDe, pedidoAux.Email, titulocliente, mensajecliente.ToString(), true,
-                        pedidoAux.Email);
-                    });
-                }
-                catch (Exception ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                }
-            }
-
-            #endregion
-
-        }
-
-        public void EnviarEmailPedidoRechazado(BEMisPedidos pedido,bool aceptado)
+       
+        public void EnviarEmailPedidoRechazado(BEMisPedidos pedido, bool aceptado)
         {
             string medio = String.Empty;
             switch (pedido.FlagMedio)
@@ -3125,12 +3022,16 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual:
                     medio = "Maquillador Virtual";
                     break;
+                default:
+                    break;
             }
 
 
             var consultora = (userData.PrimerNombre + " " + userData.PrimerApellido);
 
-            var titulocliente = "Tu pedido ha sido RECHAZADO por " + consultora + " - " + medio;
+            String estadoPedido = aceptado ? "ACEPTADO" : "RECHAZADO";
+            String titulocliente = "Tu pedido ha sido " + estadoPedido + " por " + consultora + " - " + medio;
+
             String cliente = pedido.Cliente.Split(' ').First();
 
             StringBuilder mensajecliente = new StringBuilder();
