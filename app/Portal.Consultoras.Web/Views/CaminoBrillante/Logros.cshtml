@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     var data = ViewBag.Informacion;
     var categoria = ViewBag.Vista;
-    var logro = ViewBag.ResumenLogros as LogroCaminoBrillanteModel;
+  
 }
 
 @section css{
@@ -68,31 +68,6 @@
 <script id="template-logros" type="text/x-handlebars-template">
 
 
-    {{#each Indicadores}}
-
-    <div class="item">
-        <input type="hidden" value="{{Titulo}}" />
-        <div class="shad box-{{Titulo}}">
-            <p class="text-bold">{{Titulo}}</p>
-            <span class="text-down">{{Titulo}}</span>
-            <ul class="list-crec">
-                {{#each Medallas }}
-                <li>
-
-                    {{#if_eq Tipo 'PIE'}}
-                    <div class="circle-porcent">
-                        <span>{{Valor}}</span>
-                    </div>
-                    {{else}}
-
-                    <p>{{Titulo}}</p>
-                    {{/if_eq}}
-                </li>
-                {{/each}}
-            </ul>
-        </div>
-    </div>
-    {{/each}}
 
 
     {{#IsNullOrEmpty Descripcion '!='}}
