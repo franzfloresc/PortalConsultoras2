@@ -653,7 +653,7 @@ namespace Portal.Consultoras.BizLogic
 
 
                 //Para mostrar u ocultar el check de notificaciones de Whatsapp 
-                var opcionesUsuarioConfig = opcionesUsuario.Result.FirstOrDefault(x => x.OpcionesUsuarioId == Constantes.OpcionesUsuario.CompartirWhatsApp);
+                var opcionesUsuarioConfig = opcionesUsuario.Result.FirstOrDefault(x => x.OpcionesUsuarioId == Constantes.OpcionesUsuario.NotificarWhatsApp);
                 usuario.ActivaNotificacionesWhatsapp = (opcionesUsuarioConfig != null);
 
                 if (opcionesUsuarioConfig != null)
