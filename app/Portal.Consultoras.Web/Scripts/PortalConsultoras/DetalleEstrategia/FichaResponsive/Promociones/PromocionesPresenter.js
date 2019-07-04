@@ -13,8 +13,12 @@
         } else if (value !== null) {
             value.MostrarPromociones || false;
             value.Promocion = value.Promocion || null;
+            //
             value.Condiciones = value.Condiciones || [];
             value.lista = value.Condiciones;
+            //
+            value.Promocion.Condiciones = JSON.parse(JSON.stringify(value.Condiciones));
+            //
             _estrategiaInstance = value;
         }
     };
@@ -25,7 +29,7 @@
         var estrategia = _estrategiaModel();
 
         _config.promocionesView.hideBanner();
-        if (typeof estrategia.MostrarPromocione != "undefined" &&
+        if (typeof estrategia.MostrarPromociones != "undefined" &&
             estrategia.MostrarPromociones &&
             (typeof estrategia.Promocion != "undefined" && estrategia.Promocion != null) &&
             estrategia.Condiciones.length > 0) {

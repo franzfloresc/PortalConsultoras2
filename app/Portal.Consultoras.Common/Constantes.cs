@@ -2535,6 +2535,7 @@ namespace Portal.Consultoras.Common
 
                 public const string ERROR_AGREGAR_PROMOCION = "4000";
                 public const string ERROR_MODIFICAR_CONDICION = "4001";
+                public const string ERROR_GUARDAR_CONDICION_REGLAS = "4002";
             }
 
             public static Dictionary<string, PedidoValidacionConfiguracion> Configuracion

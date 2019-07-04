@@ -404,6 +404,18 @@ var EstrategiaAgregarModule = (function () {
             params.PrecioUnidad = estrategia.Precio2;
         };
 
+        if (estrategia.EsPromocion) {
+            
+            var condiciones = [];
+            for (var i = 0; i < estrategia.Condiciones.length; i++) {
+                condiciones.push({
+                    CuvPromocion: estrategia.CUV2,
+                    CuvCondicion: estrategia.Condiciones[i].CUV2
+                });
+            }
+            params.PedidoWebPromociones = JSON.stringify(condiciones);
+        };
+       
         EstrategiaAgregarProvider
             .pedidoAgregarProductoPromise(params)
             .done(function (data) {
