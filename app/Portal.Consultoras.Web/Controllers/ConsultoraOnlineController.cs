@@ -3022,6 +3022,8 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.SolicitudCliente.FlagMedio.MaquilladorVirtual:
                     medio = "Maquillador Virtual";
                     break;
+                default:
+                    break;
             }
 
 
