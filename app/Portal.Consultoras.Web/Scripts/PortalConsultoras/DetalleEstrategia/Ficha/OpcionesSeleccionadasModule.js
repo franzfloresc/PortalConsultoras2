@@ -92,12 +92,6 @@ var OpcionesSeleccionadasModule = (function () {
         return false;
     }
 
-    //var GetCantidadOpcionesSeleccionadas = function () {
-    //    if (typeof _componente.Hermanos === "undefined" ||
-    //        typeof _componente.Hermanos.length === "undefined") return 0;
-    //    return _componente.Hermanos.length;
-    //};
-
     return {
         CargarOpcionesSeleccionadas: CargarOpcionesSeleccionadas
     };

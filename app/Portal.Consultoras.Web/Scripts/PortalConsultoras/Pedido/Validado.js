@@ -109,12 +109,9 @@ function ConfirmarModificar() {
                 }
                 else {
                     closeWaitingDialog();
-                    //INI HD-3693
-                    //messageInfoError(data.message);
                     var msjBloq = validarpopupBloqueada(data.message);
                     if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
                     else messageInfoError(data.message);
-                    //FIN HD-3693
                 }
             }
         },
@@ -214,7 +211,6 @@ $.fn.CreateSelected = function (array, val, text, etiqueta, index) {
         }
 
         $.each(array, function (i, item) {
-            //var objtemp = item;
             $(obj).append('<option value="' + item[val] + '">' + item[text] + '</option>');
         });
     } catch (e) {
