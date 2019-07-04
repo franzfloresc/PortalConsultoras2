@@ -21,6 +21,8 @@ namespace Portal.Consultoras.Common
             public const string MisClientes = "MisClientes";
             public const string FichaEnriquecida = "FichaEnriquecida";
             public const string FichaResponsive = "FichaResponsive";
+            public const string PalancaLasMasGanadoras = "LasMasGanadoras";
+            public const string PromocionesBuscador = "PromocionesBuscador";
         }
 
         public static class MotivoFlexipago

@@ -1545,6 +1545,7 @@
     <Content Include="Content\Css\Site\Images\gif_de_ofertas_2.gif" />
     <Content Include="Content\Css\Site\Pedido\GananciaEstimada.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-reserva-pedido.css" />
+    <Content Include="Content\Css\Site\Shared\Buscador\BuscadorCarrusel.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-informacion-regalos.css" />
     <Content Include="Content\Css\Site\Shared\PopupsResponsive\popup-cierre-sesion.css" />
     <Content Include="Content\Css\Site\styleBase.css" />

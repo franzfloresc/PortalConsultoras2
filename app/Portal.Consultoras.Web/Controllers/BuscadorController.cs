@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Web.Models;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Buscador;
 using Portal.Consultoras.Web.Providers;
 using System;
@@ -13,15 +14,19 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly BuscadorYFiltrosProvider _buscadorYFiltrosProvider = new BuscadorYFiltrosProvider();
 
         public ActionResult Index()
-        {            
+        {
             return View();
         }
 
         public async Task<JsonResult> BusquedaProductos(BuscadorModel model)
         {
             BuscadorYFiltrosModel productosModel;
+            var flagLaMasGanadoras = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(userData.PaisID, ConsTablaLogica.FlagFuncional.TablaLogicaId, ConsTablaLogica.FlagFuncional.PalancaLasMasGanadoras);
+
             try
             {
+                var CodigoTipoOfertaPremio = base._configuracionManagerProvider.GetConfiguracionManager(Constantes.ConfiguracionManager.CodigoTipoOfertaPremio);
+
                 await _buscadorYFiltrosProvider.GetPersonalizacion(userData, true, true);
                 productosModel = await _buscadorYFiltrosProvider.GetBuscador(model);
                 productosModel.productos = _buscadorYFiltrosProvider.ValidacionProductoAgregado(
@@ -32,8 +37,25 @@ namespace Portal.Consultoras.Web.Controllers
                     model.IsMobile, 
                     model.IsHome, 
                     false,
-                    SessionManager.GetRevistaDigital().EsSuscrita                    
-                    );
+                    SessionManager.GetRevistaDigital().EsSuscrita,
+                    flagLaMasGanadoras);
+
+                var buscadorPromocionEstaActivo = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                    userData.PaisID,
+                    ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                    ConsTablaLogica.FlagFuncional.PromocionesBuscador,
+                    true
+                );
+                if (buscadorPromocionEstaActivo)
+                {
+                    //productosModel.productos[2].CodigoTipoOferta = "044";
+                    //productosModel.productos[2].TienePremio = CodigoTipoOfertaPremio.Contains(productosModel.productos[2].CodigoTipoOferta);
+                    foreach (var producto in productosModel.productos)
+                    {
+                        if(producto.CodigoTipoOferta != "")
+                            producto.TienePremio = CodigoTipoOfertaPremio.Contains(producto.CodigoTipoOferta);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -59,8 +81,5 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Json(categoriasModel, JsonRequestBehavior.AllowGet);
         }
-
-
-
     }
 }

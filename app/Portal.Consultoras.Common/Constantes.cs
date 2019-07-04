@@ -236,7 +236,7 @@ namespace Portal.Consultoras.Common
             public const string ShowRoom = "030";
 
             public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
-            public const string MasGanadoras = "201"; // No tiene referecia con BD, caso particular de OfertasParaMi 007
+            public const string MasGanadoras = "LMG"; // No tiene referecia con BD, caso particular de OfertasParaMi 007, GA-252: antes codigo 201
 
 
             public const string Liquidacion = "LIQ"; // No tiene referecia con BD, para tenerlo dentro de codigo
@@ -256,6 +256,7 @@ namespace Portal.Consultoras.Common
             public const string ShowRoom = "SR";
             public const string HerramientasVenta = "HV";
             public const string ArmaTuPack = "ATP";
+            public const string MasGanadoras = "LMG";
         }
 
         public static class TipoAccionAgregar
@@ -614,6 +615,7 @@ namespace Portal.Consultoras.Common
             public const string ChatBotPageId = "ChatBotPageId";
             public const string ChatBotUrl = "https://m.me/{0}?ref={1}";
             public const string DefaultPerfilImage = "/Content/Images/icono_avatar.svg";
+            public const string CodigoTipoOfertaPremio = "CodigoTipoOfertaPremio";
         }
 
         public static class TipoOfertaFinalCatalogoPersonalizado
