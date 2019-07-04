@@ -36,77 +36,157 @@
 
 <br />
 <div class="container ">
-    <h2 class="title">Mi nivel</h2>
-    <input type="hidden" id="hfNivelActual" value="@ViewBag.NivelActual" />
-    <div id="box-niveles">
-        <div id="ProgressBar">
-            <div class="Progress medal-@ViewBag.NivelActual.CodigoNivel"></div>
-            @foreach (var nivel in @ViewBag.Niveles as List<NivelCaminoBrillanteModel>)
-            {
-                var decorador = nivel.EsPasado ? "" : "onclick=\"TagMostrarPopupNivel('" + nivel.DescripcionNivel + "');\" data-toggle=\"modal\" data-target=\"#Nivel_" + nivel.CodigoNivel + "_Bnf\"";
-                var estilos = "pt" + nivel.CodigoNivel + (nivel.EsActual ? " brillante" : "");
-                <span class='point @estilos' @Html.Raw(decorador) onclick='TagClickSeleccionNivel("@nivel.DescripcionNivel")'>
-                    <img src=@nivel.UrlImagenNivel>
-                    <em>@nivel.DescripcionNivel</em>
-                </span>
-            }
+    <div class="desk-bar">
+        <h2 class="title mb-title">Mi nivel</h2>
+        <input type="hidden" id="hfNivelActual" value="@ViewBag.NivelActual" />
+        <div id="box-niveles">
+            <div id="ProgressBar">
+                <div class="Progress medal-@ViewBag.NivelActual.CodigoNivel"></div>
+                @foreach (var nivel in @ViewBag.Niveles as List<NivelCaminoBrillanteModel>)
+                {
+                    if (ViewBag.EsMobile)
+                    {
+                        decorador = nivel.EsPasado ? "onclick =\"MostrarSecciones();\" data-toggle=\"collapse\" data-target=\"#tab-" + nivel.CodigoNivel + "_Bnf\"" : "onclick =\"MostrarBeneficios('" + nivel.DescripcionNivel + "');\" data-toggle=\"tab-content\" data-target=\"#tab-" + nivel.DescripcionNivel + "_Bnf\"";
+                    }
+                    else
+                    {
+                        decorador = nivel.EsPasado ? "" : "onclick=\"TagMostrarPopupNivel('" + nivel.DescripcionNivel + "');\" data-toggle=\"modal\" data-target=\"#Nivel_" + nivel.CodigoNivel + "_Bnf\"";
+                    }
+                    var estilos = "pt" + nivel.CodigoNivel + (nivel.EsActual ? " brillante" : "");
+                    <span class='point @estilos' @Html.Raw(decorador) onclick='TagClickSeleccionNivel("@nivel.DescripcionNivel")'>
+                        <img src=@nivel.UrlImagenNivel>
+                        <em>@nivel.DescripcionNivel</em>
+                    </span>
+                }
+            </div>
         </div>
-    </div>
 
-    @if (ViewBag.TieneMontoAcumulado == "1")
-    {
-        if (nivelSiguiente != null)
+
+        @if (ViewBag.TieneMontoAcumulado == "1" || true)
         {
-            if (nivelSiguiente.CodigoNivel == Constantes.CaminoBrillante.CodigoNiveles.Brillante || ViewBag.NivelActual.CodigoNivel == Constantes.CaminoBrillante.CodigoNiveles.Brillante)
+            if (nivelSiguiente != null)
             {
-                <div>Brillante</div>
-            }
-            else
-            {
-                <div class="box-pg-bar">
+                if (nivelSiguiente.CodigoNivel == Constantes.CaminoBrillante.CodigoNiveles.Brillante || ViewBag.NivelActual.CodigoNivel == Constantes.CaminoBrillante.CodigoNiveles.Brillante)
+                {
+                    <div>Brillante</div>
+                }
+                else
+                {
+
                     <div id="progress-b">
-                        <div class="progress-barnew">
-                            <div id="bar-progreso" class="new-bar" data-min="@ViewBag.NivelActual.MontoMinimo" data-max="@nivelSiguiente.MontoMinimo" data-cur="@nivelSiguiente.MontoAlcanzado">
-                                @if (nivelSiguiente.MontoAlcanzado > 0)
-                                {
-                                    <div class="box-cent-valor">
-                                        <i class="arrowtop"></i>
-                                        <div class="box-mostrarvalor">
-                                            <span class="tip-valor">@ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoAlcanzado), @ViewBag.CodigoISODL)</span>
-                                        </div>
+                        <h2 class="title">En el periodo:</h2>
+                        <div class="box-pg-bar">
+                            <div class="mx-total">
+                                <div class="progress-barnew">
+                                    <div id="bar-progreso" class="new-bar" data-min="@ViewBag.NivelActual.MontoMinimo" data-max="@nivelSiguiente.MontoMinimo" data-cur="@nivelSiguiente.MontoAlcanzado">
+                                        @if (nivelSiguiente.MontoAlcanzado > 0)
+                                        {
+                                            <div class="box-cent-valor">
+                                                <i class="arrowtop"></i>
+                                                <div class="box-mostrarvalor">
+                                                    <span class="tip-valor">@ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoAlcanzado), @ViewBag.CodigoISODL)</span>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="box-cent-valor">
+                                                <i class="arrowtop"></i>
+                                            </div>
+                                        }
                                     </div>
-                                }
-                                else
+                                    <img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" />
+                                    <span class="tope tp-@ViewBag.NivelActual.CodigoNivel"></span>
+                                </div>
+                                <div class="valor-final">
+                                    <p> @nivelSiguiente.DescripcionNivel</p>
+                                    <span>@ViewBag.SimboloMoneda  @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoMinimo), @ViewBag.CodigoISODL)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bord-bot">
+                            <div class="cent-mant">
+                                @if (nivelSiguiente.MontoFaltante != null)
                                 {
-                                    <div class="box-cent-valor">
-                                        <i class="arrowtop"></i>
-                                    </div>
+                                    if (Convert.ToDecimal(ViewBag.NivelActual.MontoMinimo) > 0)
+                                    {
+                                        <span class="etiq-mant"><i><span class="tope tp-2"></span></i>Mantienes tu nivel @ViewBag.NivelActual.DescripcionNivel con @ViewBag.SimboloMoneda  @Util.DecimalToStringFormat(Convert.ToDecimal(ViewBag.NivelActual.MontoMinimo), @ViewBag.CodigoISODL)</span>
+                                    }
+                                    <p class="etiq-falta"><i><img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" /></i>Te falta @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoFaltante), @ViewBag.CodigoISODL) para cambiar a <span>Nivel @nivelSiguiente.DescripcionNivel</span></p>
                                 }
                             </div>
-                            <img src="~/Content/CaminoBrillante/imgs/flag.svg" class="flagimg" />
-                            <span class="tope tp-@ViewBag.NivelActual.CodigoNivel"></span>
                         </div>
-                        <div class="valor-final">
-                            <p> @nivelSiguiente.DescripcionNivel</p>
-                            <span>@ViewBag.SimboloMoneda  @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoMinimo), @ViewBag.CodigoISODL)</span>
-                        </div>
-                        @if (nivelSiguiente.MontoFaltante != null)
-                        {
-                            if (Convert.ToDecimal(ViewBag.NivelActual.MontoMinimo) > 0)
-                            {
-                                <span class="etiq-mant">*Mantienes tu nivel Coral con @ViewBag.SimboloMoneda  @Util.DecimalToStringFormat(Convert.ToDecimal(ViewBag.NivelActual.MontoMinimo), @ViewBag.CodigoISODL)</span>
-                            }
-                            <p class="etiq-falta">Te falta @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoFaltante), @ViewBag.CodigoISODL) para cambiar a <span>Nivel @nivelSiguiente.DescripcionNivel</span></p>
-                        }
+
                     </div>
-                </div>
+
+
+                }
             }
         }
-    }
+    </div>
 
 
     @foreach (var nivel in @ViewBag.Niveles as List<NivelCaminoBrillanteModel>)
     {
+
+        // Para Mobile ---------------------------------------------
+
+        var idTab = nivel.DescripcionNivel;
+        <div id='@idTab' class="tab-content">
+            <div id="boxnivel" class="msj-boxnivel">
+
+                @if (nivel.PuntajeAcumulado.HasValue)
+                {
+                    <p>Nivel @nivel.DescripcionNivel @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.Puntaje), @ViewBag.CodigoISODL) @Html.Raw(" pts")</p>
+                }
+                else
+                {
+                    <p>Nivel @nivel.DescripcionNivel @ViewBag.SimboloMoneda  @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.MontoMinimo), @ViewBag.CodigoISODL)</p>
+                }
+
+                @if (nivel.MontoFaltante.HasValue)
+                {
+                    <span>Actualmente estas en <strong>Nivel @ViewBag.NivelActual.DescripcionNivel con @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelSiguiente.MontoAlcanzado), @ViewBag.CodigoISODL)</strong></span>
+                }
+                @if (nivel.PuntajeAcumulado.HasValue)
+                {
+                    <span>Acumulaste @Util.DecimalToStringFormat(Convert.ToDecimal(nivel.PuntajeAcumulado), @ViewBag.CodigoISODL) pts</span>
+                }
+
+            </div>
+
+            <div class="box-enterate">
+                <a target="_blank" href="@Url.Action("EnterateMas", "CaminoBrillante", new { nivel = nivel.CodigoNivel  })">Entérate más</a>
+            </div>
+
+            <ul class="box-beneficios cont-benf" id="ListaBeneficios">
+                <p class='title tit-benef'><img src="@nivel.UrlImagenNivelFull"> Beneficios de @nivel.DescripcionNivel</p>
+                @foreach (var beneficio in nivel.Beneficios as List<NivelCaminoBrillanteModel.BeneficioCaminoBrillanteModel>)
+                {
+                    <li>
+                        <img src='@beneficio.UrlIcono'>
+                        <div class="txt-benf">
+                            <p class="text-bold">
+                                @if (string.IsNullOrEmpty(beneficio.Descripcion))
+                                {
+                                    <span>@beneficio.NombreBeneficio</span>
+                                }
+                                else
+                                {
+                                    @beneficio.NombreBeneficio<span>@beneficio.Descripcion</span>
+                                }
+                            </p>
+                        </div>
+                    </li>
+                }
+
+
+            </ul>
+        </div>
+
+        //----------------------------------------------------------
+
+
         if (nivel.EsActual)
         {
             <div class="cont-benf" id="BeneficiosPrincipal">
@@ -168,6 +248,7 @@
         }
         else if (!nivel.EsPasado)
         {
+
             var idModal = "Nivel_" + nivel.CodigoNivel + "_Bnf";
             <div class="modal fade" id='@idModal' tabindex="-1" role="dialog" aria-labelledby="@nivel.DescripcionNivel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
@@ -200,14 +281,11 @@
                                             <p id="m_montoFaltante"><b>Tu puntaje es:</b><span style='float: right'>@nivel.PuntajeAcumulado puntos</span></p>
                                         }
                                     </div>
-                                    @if (ViewBag.TieneEnterateMas == "1")
+                                    @if (nivel.EnterateMas == 1 || nivel.EnterateMas == 2)
                                     {
-                                        if (nivel.EnterateMas == 1 || nivel.EnterateMas == 2)
-                                        {
-                                            <div class="box-enterate">
-                                                <a target="_blank" href="@Url.Action("EnterateMas", "CaminoBrillante", new { nivel = nivel.CodigoNivel  })">Entérate más</a>
-                                            </div>
-                                        }
+                                        <div class="box-enterate">
+                                            <a target="_blank" href="@Url.Action("EnterateMas", "CaminoBrillante", new { nivel = nivel.CodigoNivel  })">Entérate más</a>
+                                        </div>
                                     }
                                 </div>
                             </div>
