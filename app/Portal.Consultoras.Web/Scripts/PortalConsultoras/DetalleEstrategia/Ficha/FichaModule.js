@@ -676,6 +676,9 @@ var FichaModule = (function (config) {
             $(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "url('" + imgFondo + "')");
             $(_seccionesFichaProducto.ImagenDeFondo).show();
         }
+        else {
+            $(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "none");
+        }
     };
 
     var _crearReloj = function (estrategia) {
@@ -953,6 +956,7 @@ var FichaModule = (function (config) {
         _config.esMobile = _config.generalModule.isMobile();
 
         var modeloFicha = _getModelo();
+        _config.palanca = modeloFicha.Palanca || _config.palanca;
         modeloFicha = _getEstrategia(modeloFicha);
 
         if (modeloFicha.Error) {
@@ -960,7 +964,6 @@ var FichaModule = (function (config) {
         }
 
         _config.tieneSession = modeloFicha.TieneSession;
-        _config.palanca = modeloFicha.Palanca || _config.palanca;
         _config.origen = modeloFicha.OrigenUrl || _config.origen;
         _config.mostrarCliente = modeloFicha.MostrarCliente || _config.mostrarCliente;
 

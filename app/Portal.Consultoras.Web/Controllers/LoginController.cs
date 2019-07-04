@@ -57,8 +57,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private readonly ZonificacionProvider _zonificacionProvider;
         protected readonly RevistaDigitalProvider _revistaDigitalProvider = new RevistaDigitalProvider();
-
-        //private UsuarioModel model = new UsuarioModel();
+        
         private readonly LogDynamoProvider _logDynamoProvider = new LogDynamoProvider();
 
 
@@ -67,8 +66,6 @@ namespace Portal.Consultoras.Web.Controllers
         public LoginController()
         {
             _zonificacionProvider = new ZonificacionProvider();
-            //if (sessionManager != null && sessionManager.GetUserData() != null) model = sessionManager.GetUserData();
-            //model.MenuNotificaciones = 1;
         }
 
         public LoginController(ISessionManager sessionManager)
@@ -223,18 +220,18 @@ namespace Portal.Consultoras.Web.Controllers
 
                     else
                     {
-                        if (url9.Contains("MIACADEMIAPDF"))  //PPC
+                        if (url9.Contains("MIACADEMIAPDF"))
                         {
-                            TempData["FlagAcademiaPdf"] = 1;   //PPC
+                            TempData["FlagAcademiaPdf"] = 1;
                             flagMiAcademiaPdf = 1;
                             TempData["FlagAcademiaVideo"] = 0;
                             flagMiAcademiaVideo = 0;
                         }
-                        else  //PPC
+                        else
                         {
                             TempData["FlagAcademiaVideo"] = 0;
                             flagMiAcademiaVideo = 0;
-                            TempData["FlagAcademiaPdf"] = 0;   //PPC
+                            TempData["FlagAcademiaPdf"] = 0;
                             flagMiAcademiaPdf = 0;
                         }
                     }
@@ -703,36 +700,9 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ActualizarCelular()
         {
-            //var userData = new UsuarioModel();
-
             var userData = (BEUsuarioDatos)Session["DatosUsuario"];
             try
             {
-
-                //if (sessionManager != null && sessionManager.GetUserData() != null) userData = sessionManager.GetUserData();
-                //userData.MenuNotificaciones = 1;
-
-                //if (Session["DatosUsuario"] == null) return RedirectToAction("Index", "Login");
-                //var obj = (BEUsuarioDatos)Session["DatosUsuario"];
-                //var model = new BEUsuarioDatos();
-
-                //if (!userData.PuedeActualizar)
-                //{
-                //    return Json(new
-                //    {
-                //        success = false,
-                //        message = "Error: Usted no esta apta para actualizar datos"
-                //    });
-                //}
-
-                //if (!userData.PuedeEnviarSMS)
-                //{
-                //    return Json(new
-                //    {
-                //        success = false,
-                //        message = "Error: no puede enviar mensaje"
-                //    });
-                //}
                 int paisId = Util.GetPaisID(userData.CodigoIso);
 
                 var model = new ActualizaCelularModel();
@@ -1198,7 +1168,7 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.IngresoExternoPagina.HerramientasDeVenta:
                         return RedirectToUniqueRoute("HerramientasVenta", "Comprar");
                     case Constantes.IngresoExternoPagina.Reclamos:
-                        return RedirectToUniqueRoute("MisReclamos", "Index", null); // valido
+                        return RedirectToUniqueRoute("MisReclamos", "Index", null);
                     case Constantes.IngresoExternoPagina.MetodosPagos:
                         return RedirectToUniqueRoute("PagoEnLinea", "MetodoPagoExterno", new { IdOrigen = model.OrigenPedido });
                     case Constantes.IngresoExternoPagina.PagarAqui:

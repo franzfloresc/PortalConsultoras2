@@ -367,7 +367,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.Titulo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("Titulo1OfertaFinalRegalo", "Mobile");
                 ViewBag.ColorFondo1OFRegalo = _showRoomProvider.ObtenerValorPersonalizacionShowRoom("ColorFondo1OfertaFinalRegalo", "Mobile");
             }
-            //model.IsShowGananciaConsultora = IsCalculoGananaciaConsultora(pedidoWeb);
+
             model.MostrarPopupPrecargados = (GetMostradoPopupPrecargados() == 0);
             model.MensajeKitNuevas = _programaNuevasProvider.GetMensajeKit();
             ViewBag.CantPedidoPendientes = _pedidoWebProvider.GetPedidoPendientes(userData);
@@ -714,16 +714,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return resultado;
         }
-
-        /// <summary>
-        /// Requerimiento TESLA-28
-        /// [Ganancia] Cálculo Ganancia ofertas Catálogo*
-        /// </summary>
-        /// <returns></returns>
-        //private bool IsCalculoGananaciaConsultora(BEPedidoWeb pedidoWeb)
-        //{
-        //    return pedidoWeb.GananciaRevista.HasValue &&
-        //           pedidoWeb.GananciaWeb.HasValue && pedidoWeb.GananciaWeb.HasValue;
-        //}
+        
     }
 }

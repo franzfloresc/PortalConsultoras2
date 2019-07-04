@@ -1612,9 +1612,9 @@ namespace Portal.Consultoras.Web.Providers
         {
             bool tienePalanca = false;
             if (palanca == Constantes.NombrePalanca.Catalogo) return true;
-            //
+
             var listaConfigPais = SessionManager.GetConfiguracionesPaisModel();
-            //
+
             if (listaConfigPais == null || listaConfigPais.Count == 0) return tienePalanca;
             switch (palanca)
             {
@@ -1709,20 +1709,6 @@ namespace Portal.Consultoras.Web.Providers
             string codigoEstrategia = Util.GetTipoPersonalizacionByCodigoEstrategia(tipoEstrategia);
             var estrategia = _ofertaBaseProvider.ObtenerModeloOfertaFichaDesdeApi(cuv, campania, codigoEstrategia, userData.CodigoISO);
             
-            //if (estrategia != null && estrategia.Hermanos != null && estrategia.Hermanos.Any())
-            //{
-            //    estrategia.Hermanos.ForEach(x =>
-            //    {
-            //        x.TieneStock = true;
-            //        if (x.Hermanos != null && x.Hermanos.Any())
-            //        {
-            //            x.Hermanos.ForEach(y => y.TieneStock = true);
-            //        }
-            //    });
-            //    var validarDias = _consultaProlProvider.GetValidarDiasAntesStock(userData);
-            //    estrategia.Hermanos = _consultaProlProvider.ActualizarComponenteStockPROL(estrategia.Hermanos, cuv, userData.CodigoISO, estrategia.CampaniaID, userData.GetCodigoConsultora(), validarDias);
-            //}
-
             return estrategia;
         }
     }
