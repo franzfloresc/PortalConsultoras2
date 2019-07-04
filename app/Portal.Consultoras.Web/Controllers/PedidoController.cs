@@ -158,7 +158,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else // Periodo de facturacion
                 {
                     model.AccionBoton = "validar";
-                    if (model.EstadoPedido == 1) //Reservado
+                    if (model.EstadoPedido == Constantes.EstadoPedido.Registrado)
                         model.Prol = "MODIFICA TU PEDIDO";
                     else
                         model.Prol = "RESERVA TU PEDIDO";

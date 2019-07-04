@@ -658,7 +658,7 @@ namespace Portal.Consultoras.BizLogic
 
                 if (opcionesUsuarioConfig != null)
                     usuario.NotificacionesWhatsapp = opcionesUsuarioConfig.CheckBox;
-                
+
                 return usuario;
             }
             catch (Exception ex)
@@ -1931,7 +1931,7 @@ namespace Portal.Consultoras.BizLogic
                     else
                     {
                         this.UpdateDatos(usuario, CorreoAnterior);
-                        if(usuario.ActivaNotificacionesWhatsapp) DAUsuario.InsertarUsuarioOpciones(usuarioOpciones, usuario.CodigoUsuario);
+                        if (usuario.ActivaNotificacionesWhatsapp) DAUsuario.InsertarUsuarioOpciones(usuarioOpciones, usuario.CodigoUsuario);
 
                         if (usuario.EMail != CorreoAnterior)
                         {
@@ -2877,57 +2877,57 @@ namespace Portal.Consultoras.BizLogic
         {
             switch (paisID)
             {
-                case 2:
+                case Constantes.PaisID.Bolivia:
                     {
-                        return "901-105678"; //BOLIVIA
+                        return "901-105678";
                     }
-                case 3:
+                case Constantes.PaisID.Chile:
                     {
-                        return "02-28762100"; //CHILE
+                        return "02-28762100";
                     }
-                case 4:
+                case Constantes.PaisID.Colombia:
                     {
-                        return "01-8000-9-37452,5948060"; //COLOMBIA
+                        return "01-8000-9-37452,5948060";
                     }
-                case 5:
+                case Constantes.PaisID.CostaRica:
                     {
-                        return "800-000-5235,22019601,22019602"; //COSTA RICA
+                        return "800-000-5235,22019601,22019602";
                     }
-                case 6:
+                case Constantes.PaisID.Ecuador:
                     {
-                        return "1800-76667"; //ECUADOR
+                        return "1800-76667";
                     }
-                case 7:
+                case Constantes.PaisID.ElSalvador:
                     {
-                        return "800-37452-000,25101198,25101199"; //EL SALVADOR
+                        return "800-37452-000,25101198,25101199";
                     }
-                case 8:
+                case Constantes.PaisID.Guatemala:
                     {
-                        return "1-801-81-37452,22856185,23843795";  //GUATEMALA
+                        return "1-801-81-37452,22856185,23843795";
                     }
-                case 9:
+                case Constantes.PaisID.Mexico:
                     {
-                        return "01-800-2352677"; //MEXICO
+                        return "01-800-2352677";
                     }
-                case 10:
+                case Constantes.PaisID.Panama:
                     {
-                        return "800-5235,377-9399"; //PANAMA
+                        return "800-5235,377-9399";
                     }
-                case 11:
+                case Constantes.PaisID.Peru:
                     {
-                        return "01-2113614,080-11-3030"; //PERU
+                        return "01-2113614,080-11-3030";
                     }
-                case 12:
+                case Constantes.PaisID.PuertoRico:
                     {
-                        return "1-866-366-3235,787-622-3235"; //PUERTO RICO
+                        return "1-866-366-3235,787-622-3235";
                     }
-                case 13:
+                case Constantes.PaisID.RepublicaDominicana:
                     {
-                        return "1-809-200-5235,809-620-5235"; //REPUBLICA DOMINICANA
+                        return "1-809-200-5235,809-620-5235";
                     }
-                case 14:
+                case Constantes.PaisID.Venezuela:
                     {
-                        return "0501-2352677"; //VENEZUELA
+                        return "0501-2352677";
                     }
             }
             return "";
@@ -3341,7 +3341,7 @@ namespace Portal.Consultoras.BizLogic
                 string[] parametros = new string[] { oUsu.CodigoUsuario, Common.Util.GetPaisID(oUsu.CodigoIso).ToString(), oUsu.Correo };
                 string paramQuerystring = Common.Util.Encrypt(string.Join(";", parametros));
                 LogManager.SaveLog(new Exception(), oUsu.CodigoUsuario, oUsu.CodigoIso, " | data=" + paramQuerystring + " | parametros = " + string.Join("|", parametros));
-                
+
                 MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, nomconsultora, url, paramQuerystring);
                 return true;
             }

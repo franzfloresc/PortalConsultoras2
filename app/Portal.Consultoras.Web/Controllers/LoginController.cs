@@ -3261,29 +3261,6 @@ namespace Portal.Consultoras.Web.Controllers
                 TempData["PaisID"] = paisID;
                 ActualizarValidacionDatosUnique(EsDispositivoMovil(), userData.CodigoUsuario, tipoEnvio);
                 return Json(new { success = respuesta.Succcess, message = respuesta.Message });
-
-
-
-                TempData["PaisID"] = paisID;
-                bool EstadoEnvio = false;
-                //oUsu.EsMobile = EsDispositivoMovil();
-
-                //using (var svc = new UsuarioServiceClient())
-                //{
-                //    EstadoEnvio = svc.ProcesaEnvioEmail(paisID, oUsu, parametros.CantidadEnvios);
-                //}
-
-                //oUsu.Correo = parametros.CorreoActualizado;
-                //oUsu.CorreoEnmascarado = Util.EnmascararCorreo(parametros.CorreoActualizado);
-                //Session["DatosUsuario"] = oUsu;
-
-
-
-                return Json(new
-                {
-                    success = EstadoEnvio,
-                    menssage = ""
-                }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
