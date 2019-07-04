@@ -50,7 +50,8 @@ namespace Portal.Consultoras.Web.Controllers
                     //productosModel.productos[2].TienePremio = CodigoTipoOfertaPremio.Contains(productosModel.productos[2].CodigoTipoOferta);
                     foreach (var producto in productosModel.productos)
                     {
-                        producto.TienePremio = CodigoTipoOfertaPremio.Contains(producto.CodigoTipoOferta);
+                        if(producto.CodigoTipoOferta != "")
+                            producto.TienePremio = CodigoTipoOfertaPremio.Contains(producto.CodigoTipoOferta);
                     }
                 }
             }
