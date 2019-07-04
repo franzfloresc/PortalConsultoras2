@@ -130,7 +130,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
         #region Consultora
 
-        public BEConsultoraCaminoBrillante GetConsultoraNivel(BEUsuario entidad)
+        public BEConsultoraCaminoBrillante GetConsultoraNivel(BEUsuario entidad, int origen)
         {
             _providerCaminoBrillante = _providerCaminoBrillante ?? GetCaminoBrillanteProvider(entidad.PaisID);
             if (_providerCaminoBrillante == null) return null;
@@ -143,7 +143,7 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
 
             var nivelConsultora = (nivelesConsultora.FirstOrDefault(e => ((e.Campania == entidad.CampaniaID.ToString()) || (e.Campania == entidad.Campania))) ?? (nivelesConsultora.Count > 0 ? nivelesConsultora.First() : new NivelConsultoraCaminoBrillante()));
             var niveles = GetNiveles(entidad.PaisID);
-            var logros = GetConsultoraLogros(entidad, niveles, nivelConsultora, nivelesConsultora, periodo);
+            var logros = GetConsultoraLogros(entidad, niveles, nivelConsultora, nivelesConsultora, periodo, origen);
 
             return new BEConsultoraCaminoBrillante()
             {
@@ -210,8 +210,10 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
         }
 
         private List<BELogroCaminoBrillante> GetConsultoraLogros(BEUsuario entidad, List<BENivelCaminoBrillante> nivelesCaminoBrillantes,
-            NivelConsultoraCaminoBrillante nivelConsultora, List<NivelConsultoraCaminoBrillante> nivelesConsultora, BEPeriodoCaminoBrillante periodoActual)
+            NivelConsultoraCaminoBrillante nivelConsultora, List<NivelConsultoraCaminoBrillante> nivelesConsultora, BEPeriodoCaminoBrillante periodoActual,
+            int origen)
         {
+            //TODO adadS
             return new List<BELogroCaminoBrillante> {
                 GetConsultoraLogrosCrecimiento(entidad.PaisID, entidad, nivelesCaminoBrillantes, nivelConsultora, nivelesConsultora, periodoActual),
                 GetConsultoraLogrosCompromiso(entidad.PaisID, entidad, nivelConsultora) };
