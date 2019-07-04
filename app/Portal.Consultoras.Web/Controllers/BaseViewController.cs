@@ -531,11 +531,13 @@ namespace Portal.Consultoras.Web.Controllers
 #endif
 
             #region Promociones
-            if(modelo.MostrarPromociones)
+            if(modelo.MostrarPromociones && !string.IsNullOrEmpty(modelo.CuvPromocion))
             {
                 var promociones = promocionesProvider.GetPromociones(userData.CodigoISO, userData.CampaniaID.ToString(), modelo.CuvPromocion);
 
-                if (promociones.Success && promociones.result.Any(x => x.Promocion != null && x.Condiciones.Any()))
+                if (promociones.Success && 
+                    promociones.result != null && 
+                    promociones.result.Any(x => x.Promocion != null && x.Condiciones.Any()))
                 {
                     promociones.result = promociones.result.Where(x => x.Promocion != null && x.Condiciones.Any()).ToList();
                     modelo.Promocion = Mapper.Map<Web.Models.Search.ResponsePromociones.Estructura.Estrategia, EstrategiaPersonalizadaProductoModel>(promociones.result.First().Promocion);

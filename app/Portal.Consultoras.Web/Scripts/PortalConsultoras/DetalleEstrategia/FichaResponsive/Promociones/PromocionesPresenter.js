@@ -25,7 +25,8 @@
         var estrategia = _estrategiaModel();
 
         _config.promocionesView.hideBanner();
-        if (estrategia.MostrarPromociones &&
+        if (typeof estrategia.MostrarPromocione != "undefined" &&
+            estrategia.MostrarPromociones &&
             (typeof estrategia.Promocion != "undefined" && estrategia.Promocion != null) &&
             estrategia.Condiciones.length > 0) {
             _config.promocionesView.showBanner();
