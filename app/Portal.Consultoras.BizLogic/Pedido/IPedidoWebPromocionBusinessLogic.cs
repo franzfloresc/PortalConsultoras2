@@ -8,8 +8,8 @@ namespace Portal.Consultoras.BizLogic
 {
     public interface IPedidoWebPromocionBusinessLogic
     {
-        IList<BEPedidoWebPromocion> GetCondicionesByPromocion(BEPedidoWebPromocion BEPedidoWebPromocion);
-        IList<BEPedidoWebPromocion> GetPromocionesByCondicion(BEPedidoWebPromocion BEPedidoWebPromocion);
+        IList<BEPedidoWebPromocion> GetCondicionesByPromocion(BEPedidoWebPromocion BEPedidoWebPromocion, int paisID);
+        IList<BEPedidoWebPromocion> GetPromocionesByCondicion(BEPedidoWebPromocion BEPedidoWebPromocion, int paisID);
         bool InsertPedidoWebPromocion(List<BEPedidoWebPromocion> pedidoWebPromociones, int paisID);
     }
 }

@@ -23,10 +23,12 @@ namespace Portal.Consultoras.Entities.Pedido
             CuvCondicion = row.ToString("CuvCondicion");
             CampaniaID = row.ToInt32("CampaniaID");
         }
+        [DataMember]
         public string CuvPromocion { get; set; }
+        [DataMember]
         public string CuvCondicion { get; set; }
+        [DataMember]
         public int CampaniaID { get; set; }
-        public int PaisID { get; set; }
     }
 
     public class Promocion

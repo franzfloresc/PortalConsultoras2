@@ -505,9 +505,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
                 var promocion = new BEPedidoWebPromocion();
                 promocion.CampaniaID = usuario.CampaniaID;
                 promocion.CuvPromocion = item.CUV;
-                promocion.PaisID = usuario.PaisID;
 
-                var condicionesporpromocion = _bLPedidoWebPromocion.GetCondicionesByPromocion(promocion);
+
+                var condicionesporpromocion = _bLPedidoWebPromocion.GetCondicionesByPromocion(promocion,usuario.PaisID);
 
                 if (condicionesporpromocion == null || !condicionesporpromocion.Any()) continue;
 
@@ -600,8 +600,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             var lstPedidoWebPromociones = pedidoDetalle.PedidoWebPromociones;
             var promocionnueva = new BEPedidoWebPromocion();
             promocionnueva.CuvPromocion = lstPedidoWebPromociones[0].CuvPromocion;
-            promocionnueva.CampaniaID = lstPedidoWebPromociones[0].CampaniaID;
-            var promociones = _bLPedidoWebPromocion.GetCondicionesByPromocion(promocionnueva);
+            promocionnueva.CampaniaID = usuario.CampaniaID;
+            var promociones = _bLPedidoWebPromocion.GetCondicionesByPromocion(promocionnueva,usuario.PaisID);
 
             if (promociones == null || promociones.Any())
             {

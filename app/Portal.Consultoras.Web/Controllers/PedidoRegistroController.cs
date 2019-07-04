@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.Models;
@@ -363,6 +364,11 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.OrigenSolicitud = "WebMobile";
                 pedidoDetalle.EsDuoPerfecto = model.EsDuoPerfecto;
                 pedidoDetalle.IngresoExternoOrigen = Constantes.IngresoExternoOrigen.Portal;
+
+                if (!string.IsNullOrEmpty(model.PedidoWebPromociones)) {
+                    pedidoDetalle.PedidoWebPromociones = JsonConvert.DeserializeObject<List<BEPedidoWebPromocion>>(model.PedidoWebPromociones).ToArray();
+                }
+
                 var result = await DeletePremioIfReplace(model);
                 if (result != null && !result.Item1)
                 {

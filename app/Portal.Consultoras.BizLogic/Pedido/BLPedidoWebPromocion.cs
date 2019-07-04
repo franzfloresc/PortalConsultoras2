@@ -19,10 +19,10 @@ namespace Portal.Consultoras.BizLogic
 {
     public partial class BLPedidoWebPromocion : IPedidoWebPromocionBusinessLogic
     {
-        public IList<BEPedidoWebPromocion> GetCondicionesByPromocion(BEPedidoWebPromocion BEPedidoWebPromocion)
+        public IList<BEPedidoWebPromocion> GetCondicionesByPromocion(BEPedidoWebPromocion BEPedidoWebPromocion, int paisID)
         {
             var pedidoWebPromocion = new List<BEPedidoWebPromocion>();
-            var dAPedidoWebPromocion = new DAPedidoWebPromocion(BEPedidoWebPromocion.PaisID);
+            var dAPedidoWebPromocion = new DAPedidoWebPromocion(paisID);
 
             using (IDataReader reader = dAPedidoWebPromocion.GetCondicionesByPromocion(BEPedidoWebPromocion))
                 while (reader.Read())
@@ -34,10 +34,10 @@ namespace Portal.Consultoras.BizLogic
             return pedidoWebPromocion;
         }
 
-        public IList<BEPedidoWebPromocion> GetPromocionesByCondicion(BEPedidoWebPromocion BEPedidoWebPromocion)
+        public IList<BEPedidoWebPromocion> GetPromocionesByCondicion(BEPedidoWebPromocion BEPedidoWebPromocion, int paisID)
         {
             var pedidoWebPromocion = new List<BEPedidoWebPromocion>();
-            var dAPedidoWebPromocion = new DAPedidoWebPromocion(BEPedidoWebPromocion.PaisID);
+            var dAPedidoWebPromocion = new DAPedidoWebPromocion(paisID);
 
             using (IDataReader reader = dAPedidoWebPromocion.GetPromocionesByCondicion(BEPedidoWebPromocion))
                 while (reader.Read())

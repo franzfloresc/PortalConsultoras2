@@ -16153,6 +16153,15 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CampaniaIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CuvCondicionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CuvPromocionField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -16160,6 +16169,45 @@ namespace Portal.Consultoras.Web.ServicePedido {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CampaniaID {
+            get {
+                return this.CampaniaIDField;
+            }
+            set {
+                if ((this.CampaniaIDField.Equals(value) != true)) {
+                    this.CampaniaIDField = value;
+                    this.RaisePropertyChanged("CampaniaID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CuvCondicion {
+            get {
+                return this.CuvCondicionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CuvCondicionField, value) != true)) {
+                    this.CuvCondicionField = value;
+                    this.RaisePropertyChanged("CuvCondicion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CuvPromocion {
+            get {
+                return this.CuvPromocionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CuvPromocionField, value) != true)) {
+                    this.CuvPromocionField = value;
+                    this.RaisePropertyChanged("CuvPromocion");
+                }
             }
         }
         

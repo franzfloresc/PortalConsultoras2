@@ -158,7 +158,11 @@
   </xs:complexType>
   <xs:element name="ArrayOfBEPedidoWebPromocion" nillable="true" type="tns:ArrayOfBEPedidoWebPromocion" />
   <xs:complexType name="BEPedidoWebPromocion">
-    <xs:sequence />
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CuvCondicion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CuvPromocion" nillable="true" type="xs:string" />
+    </xs:sequence>
   </xs:complexType>
   <xs:element name="BEPedidoWebPromocion" nillable="true" type="tns:BEPedidoWebPromocion" />
   <xs:complexType name="BEPedidoDetalleResult">
