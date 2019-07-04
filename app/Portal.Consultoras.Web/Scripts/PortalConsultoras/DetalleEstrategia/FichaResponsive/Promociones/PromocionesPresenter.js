@@ -17,7 +17,10 @@
             value.Condiciones = value.Condiciones || [];
             value.lista = value.Condiciones;
             //
-            value.Promocion.Condiciones = JSON.parse(JSON.stringify(value.Condiciones));
+            if (value.Condiciones.length > 0) {
+                value.Promocion.Condiciones = JSON.parse(JSON.stringify(value.Condiciones));
+            }
+            
             //
             _estrategiaInstance = value;
         }
