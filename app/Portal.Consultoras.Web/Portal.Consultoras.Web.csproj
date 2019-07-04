@@ -324,6 +324,9 @@
     <Compile Include="Models\Estrategia\FotosComponenteModel.cs" />
     <Compile Include="Models\Search\ResponseOferta\OutputOfertaIncremental.cs" />
     <Compile Include="Models\Search\ResponseOferta\Estructura\FotosComponente.cs" />
+    <Compile Include="Models\Search\ResponsePromociones\Estructura\Estrategia.cs" />
+    <Compile Include="Models\Search\ResponsePromociones\Estructura\PromocionModel.cs" />
+    <Compile Include="Models\Search\ResponsePromociones\OutputPromociones.cs" />
     <Compile Include="Models\ZonaValidacionTelefonicaModel.cs" />
     <Compile Include="Models\CDRProductoRespuestaServicioModel.cs" />
     <Compile Include="Models\ConfiguracionZonaModel.cs" />
@@ -873,6 +876,7 @@
     <Compile Include="Providers\ConfiguracionPaisProvider.cs" />
     <Compile Include="Providers\ConsultaProlProvider.cs" />
     <Compile Include="Providers\ConsultoraOnlineProvider.cs" />
+    <Compile Include="Providers\PromocionesProvider.cs" />
     <Compile Include="Providers\VentaIncrementalProvider.cs" />
     <Compile Include="Providers\EstadoCuentaProvider.cs" />
     <Compile Include="Providers\EstrategiaComponenteProvider.cs" />
@@ -1524,6 +1528,7 @@
     <Content Include="Content\Css\Site\Esika\marca-pais-responsive.css" />
     <Content Include="Content\Css\Site\Ficha\FichaCarrusel.css" />
     <Content Include="Content\Css\Site\Ficha\FichaResponsive.css" />
+    <Content Include="Content\Css\Site\Ficha\FichaResponsiveCarrusel.css" />
     <Content Include="Content\Css\Site\Notificacion.css" />
     <Content Include="Content\Css\Site\Esika\nuevo-look-and-feel.css" />
     <Content Include="Content\Css\Site\Esika\styleDefault.css" />
@@ -4288,6 +4293,8 @@
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaEnriquecida\FichaEnriquecidaView.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaResponsive.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\FichaResponsiveEvents.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Promociones\PromocionesPresenter.js" />
+    <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\FichaResponsive\Promociones\PromocionesView.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\CarruselAyuda.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\CarruselModule.js" />
     <Content Include="Scripts\PortalConsultoras\DetalleEstrategia\Ficha\ComponenteDetalleModule.js" />
@@ -5958,6 +5965,8 @@
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\resumen-componente-template.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupReservaPedido.cshtml" />
     <Content Include="Views\ConsultoraOnline\_MotivosRechazo.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\Promociones\modal-promociones.cshtml" />
+    <Content Include="Views\DetalleEstrategia\FichaResponsive\Promociones\producto-promocion-template.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

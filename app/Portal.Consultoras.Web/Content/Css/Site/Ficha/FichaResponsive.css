@@ -583,7 +583,8 @@ ul.breadcumbs li a {
 
     .flip-clock-divider {
         top: 3px !important;
-    } 
+    }
+    
 }
 
 @media (max-width: 960px) {
@@ -724,6 +725,12 @@ ul.breadcumbs li a {
         border: none;
         box-shadow: 0 -1px 5px 0 rgba(0, 0, 0, 0.1);
     }
+    /* Modal Promocion Carrusel */
+    .promociones-modal.popup_lateral,
+    .modal-promociones--bottom {
+        width: 100%;
+    }
+
 }
 
 .ui-dialog.ui-widget-content {

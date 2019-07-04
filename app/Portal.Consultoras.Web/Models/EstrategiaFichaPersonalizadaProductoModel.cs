@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Web.Models.DetalleEstrategia;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -47,6 +48,13 @@ namespace Portal.Consultoras.Web.Models
         //public bool MostrarAdicional { get; set; }
 
         public bool MostrarFichaEnriquecida { get; set; }
+
+        public string CuvPromocion { get; set; }
+
+        public bool MostrarPromociones { get; set; }
+
+        public EstrategiaPersonalizadaProductoModel Promocion { get; set; }
+        public List<EstrategiaPersonalizadaProductoModel> Condiciones { get; set; }
     }
 
     public class DetalleEstrategiaFichaDisenoModel : DetalleEstrategiaFichaModel

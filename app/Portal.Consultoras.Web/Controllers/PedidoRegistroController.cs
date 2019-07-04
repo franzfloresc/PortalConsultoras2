@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Web.Models;
@@ -363,6 +364,11 @@ namespace Portal.Consultoras.Web.Controllers
                 pedidoDetalle.OrigenSolicitud = "WebMobile";
                 pedidoDetalle.EsDuoPerfecto = model.EsDuoPerfecto;
                 pedidoDetalle.IngresoExternoOrigen = Constantes.IngresoExternoOrigen.Portal;
+
+                if (!string.IsNullOrEmpty(model.PedidoWebPromociones)) {
+                    pedidoDetalle.PedidoWebPromociones = JsonConvert.DeserializeObject<List<BEPedidoWebPromocion>>(model.PedidoWebPromociones).ToArray();
+                }
+
                 var result = await DeletePremioIfReplace(model);
                 if (result != null && !result.Item1)
                 {
@@ -441,13 +447,16 @@ namespace Portal.Consultoras.Web.Controllers
         private PedidoSb2Model ActualizaModeloPedidoSb2Model(BEPedidoWeb pedidoWeb)
         {
             var pedidoSb2Model = new PedidoSb2Model();
-            pedidoSb2Model.FormatoTotalGananciaRevistaStr = Util.DecimalToStringFormat(pedidoWeb.GananciaRevista, userData.CodigoISO);
-            pedidoSb2Model.FormatoTotalGananciaWebStr = Util.DecimalToStringFormat(pedidoWeb.GananciaWeb, userData.CodigoISO);
-            pedidoSb2Model.FormatoTotalGananciaOtrosStr = Util.DecimalToStringFormat(pedidoWeb.GananciaOtros, userData.CodigoISO);
+            if (pedidoWeb != null)
+            {
+                pedidoSb2Model.FormatoTotalGananciaRevistaStr = Util.DecimalToStringFormat(pedidoWeb.GananciaRevista, userData.CodigoISO);
+                pedidoSb2Model.FormatoTotalGananciaWebStr = Util.DecimalToStringFormat(pedidoWeb.GananciaWeb, userData.CodigoISO);
+                pedidoSb2Model.FormatoTotalGananciaOtrosStr = Util.DecimalToStringFormat(pedidoWeb.GananciaOtros, userData.CodigoISO);
 
-            pedidoSb2Model.FormatoTotalMontoAhorroCatalogoStr = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo, userData.CodigoISO);
-            var totalSumarized = pedidoWeb.GananciaOtros + pedidoWeb.GananciaWeb + pedidoWeb.GananciaRevista + pedidoWeb.MontoAhorroCatalogo;
-            pedidoSb2Model.FormatoTotalMontoGananciaStr = Util.DecimalToStringFormat(totalSumarized, userData.CodigoISO);
+                pedidoSb2Model.FormatoTotalMontoAhorroCatalogoStr = Util.DecimalToStringFormat(pedidoWeb.MontoAhorroCatalogo, userData.CodigoISO);
+                var totalSumarized = pedidoWeb.GananciaOtros + pedidoWeb.GananciaWeb + pedidoWeb.GananciaRevista + pedidoWeb.MontoAhorroCatalogo;
+                pedidoSb2Model.FormatoTotalMontoGananciaStr = Util.DecimalToStringFormat(totalSumarized, userData.CodigoISO);
+            }
 
             return pedidoSb2Model;
         }

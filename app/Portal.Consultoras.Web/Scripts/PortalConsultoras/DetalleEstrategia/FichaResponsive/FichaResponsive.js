@@ -33,13 +33,20 @@ var fichaEnriquecidaPresenter = FichaEnriquecidaPresenter({
     fichaEnriquecidaView: fichaEnriquecidaView
 });
 
+var promocionesView = PromocionesView();
+var promocionesPresenter = PromocionesPresenter({
+    promocionesView: promocionesView
+});
+promocionesView.setPresenter(promocionesPresenter);
+
 var estrategia = {};
 
 $(document).ready(function () {
     try {
         fichaResponsiveEvents.applyChanges(fichaResponsiveEvents.eventName.onFichaResponsiveLoaded);
+        //
         analyticsPortal.MarcaVisualizarDetalleProducto(estrategia);
-
+        //
         let carruselInicializar = new CarruselInicializar();
         carruselInicializar.crearCarruseles(params, estrategia);
     } catch (e) {
@@ -52,8 +59,9 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         estrategiaPresenter.cleanContainer();
         componentesPresenter.cleanContainer();
 
-    	estrategia = detalleEstrategia.promiseGetEstrategia(params);
-        if (estrategia.Error){  
+        estrategia = detalleEstrategia.promiseGetEstrategia(params);
+
+        if (estrategia.Error) {
             GeneralModule.consoleLog(estrategia);
             GeneralModule.redirectTo('/Ofertas', true);
         }
@@ -62,8 +70,8 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
 
         estrategiaPresenter.onEstrategiaModelLoaded(estrategia);
         componentesPresenter.onEstrategiaModelLoaded(estrategia);
-
         fichaEnriquecidaPresenter.onFichaResponsiveModelLoaded(estrategia);
+        promocionesPresenter.onEstrategiaModelLoaded(estrategia);
     }
     catch (error) {
         GeneralModule.consoleLog(error);

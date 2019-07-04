@@ -11,16 +11,19 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseViewController : BaseController
     {
         private readonly IssuuProvider _issuuProvider;
+        private readonly PromocionesProvider promocionesProvider;
 
         public BaseViewController() : base()
         {
             _issuuProvider = new IssuuProvider();
+            promocionesProvider = new PromocionesProvider();
         }
 
         public BaseViewController(ISessionManager sesionManager)
@@ -528,7 +531,78 @@ namespace Portal.Consultoras.Web.Controllers
             }
             modelo.Hermanos = _estrategiaComponenteProvider.FormatterEstrategiaComponentes(modelo.Hermanos, modelo.CUV2, modelo.CampaniaID, true);
             modelo = _ofertaPersonalizadaProvider.FormatterEstrategiaFicha(modelo, userData.CampaniaID);
+            
+            modelo.MostrarPromociones = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            userData.PaisID,
+                            ConsTablaLogica.FlagFuncional.TablaLogicaId,
+                            ConsTablaLogica.FlagFuncional.Promociones,
+                            true
+                            );
+
+#if DEBUG
+            modelo.CuvPromocion = cuv;
+#endif
+
+            #region Promociones
+            if(modelo.MostrarPromociones && !string.IsNullOrEmpty(modelo.CuvPromocion))
+            {
+                var promociones = promocionesProvider.GetPromociones(userData.CodigoISO, userData.CampaniaID.ToString(), modelo.CuvPromocion);
+
+                if (promociones.Success && 
+                    promociones.result != null && 
+                    promociones.result.Any(x => x.Promocion != null && x.Condiciones.Any()))
+                {
+                    promociones.result = promociones.result.Where(x => x.Promocion != null && x.Condiciones.Any()).ToList();
+                    modelo.Promocion = Mapper.Map<Web.Models.Search.ResponsePromociones.Estructura.Estrategia, EstrategiaPersonalizadaProductoModel>(promociones.result.First().Promocion);
+                    modelo.Condiciones = Mapper.Map<List<Web.Models.Search.ResponsePromociones.Estructura.Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(promociones.result.First().Condiciones);
+
+                    //
+                    modelo.Promocion.EsPromocion = true;
+                    metodo(modelo.Promocion);
+                    foreach (var item in modelo.Condiciones)
+                    {
+                        metodo(item);
+                    }
+                    
+                    modelo.Condiciones = modelo.Condiciones
+                        .Where(e =>
+                            e.TipoAccionAgregar == Constantes.TipoAccionAgregar.AgregaloPackNuevas
+                            || e.TipoAccionAgregar == Constantes.TipoAccionAgregar.AgregaloNormal
+                            || e.TipoAccionAgregar == Constantes.TipoAccionAgregar.EligeOpcion
+                        )
+                        .ToList();
+                }
+            }
+            #endregion
+
             return modelo;
+        }
+
+        private void metodo(EstrategiaPersonalizadaProductoModel item)
+        {
+            var pedidos = SessionManager.GetDetallesPedido();
+            var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV2).ToList();
+            item.IsAgregado = pedidoAgregado.Any();
+
+            item.CampaniaID = userData.CampaniaID;
+            item.PrecioVenta = Util.DecimalToStringFormat(item.Precio2.ToDecimal(), userData.CodigoISO);
+            item.PrecioTachado = Util.DecimalToStringFormat(item.Precio.ToDecimal(), userData.CodigoISO);
+            item.TipoAccionAgregar = _ofertaPersonalizadaProvider.TipoAccionAgregar(
+                item.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable ? 1 : 0,
+                item.CodigoEstrategia,
+                userData.esConsultoraLider,
+                false,
+                item.CodigoVariante);
+
+            //falta considerar item.CodigoConsultora == ConsConsultora.CodigoConsultora.Forzadas
+            //item.CodigoEstrategia =
+            //    item.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
+            //    && item.MaterialGanancia
+            //    && sessionMg.TieneMG
+            //    && revistaDigital.TieneRDC
+            //    && revistaDigital.EsActiva
+            //    ? Constantes.TipoEstrategiaCodigo.MasGanadoras
+            //    : item.CodigoEstrategia;
         }
 
         private string IdentificarPalancaRevistaDigital(string palanca, int campaniaId)
