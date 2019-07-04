@@ -451,6 +451,9 @@ namespace Portal.Consultoras.ServiceContracts
         #region Camino Brillante
         [OperationContract]
         BEConsultoraCaminoBrillante GetConsultoraNivelCaminoBrillante(BEUsuario entidad);
+
+        [OperationContract]
+        List<BEConfiguracionCaminoBrillante> GetCaminoBrillanteConfiguracion(int paisID, string esApp);
         #endregion
 
         [OperationContract]

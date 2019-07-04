@@ -9526,6 +9526,8 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionCaminoBrillante[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionCaminoBrillante))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(string[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(int[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(Portal.Consultoras.Web.ServiceUsuario.BERevistaDigitalSuscripcion))]
@@ -10804,6 +10806,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             private string FechaIngresoField;
             
             [System.Runtime.Serialization.OptionalFieldAttribute()]
+            private System.Nullable<bool> FlagSeleccionMisGananciasField;
+            
+            [System.Runtime.Serialization.OptionalFieldAttribute()]
             private decimal GananciaAnualField;
             
             [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -10871,6 +10876,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                     if ((object.ReferenceEquals(this.FechaIngresoField, value) != true)) {
                         this.FechaIngresoField = value;
                         this.RaisePropertyChanged("FechaIngreso");
+                    }
+                }
+            }
+            
+            [System.Runtime.Serialization.DataMemberAttribute()]
+            public System.Nullable<bool> FlagSeleccionMisGanancias {
+                get {
+                    return this.FlagSeleccionMisGananciasField;
+                }
+                set {
+                    if ((this.FlagSeleccionMisGananciasField.Equals(value) != true)) {
+                        this.FlagSeleccionMisGananciasField = value;
+                        this.RaisePropertyChanged("FlagSeleccionMisGanancias");
                     }
                 }
             }
@@ -11424,6 +11442,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string EnterateMasParamField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> MontoAcumuladoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<decimal> MontoFaltanteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -11512,6 +11533,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.EnterateMasParamField, value) != true)) {
                     this.EnterateMasParamField = value;
                     this.RaisePropertyChanged("EnterateMasParam");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> MontoAcumulado {
+            get {
+                return this.MontoAcumuladoField;
+            }
+            set {
+                if ((this.MontoAcumuladoField.Equals(value) != true)) {
+                    this.MontoAcumuladoField = value;
+                    this.RaisePropertyChanged("MontoAcumulado");
                 }
             }
         }
@@ -11700,6 +11734,84 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.NombreBeneficioField, value) != true)) {
                     this.NombreBeneficioField = value;
                     this.RaisePropertyChanged("NombreBeneficio");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEConfiguracionCaminoBrillante", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.CaminoBrillan" +
+        "te")]
+    [System.SerializableAttribute()]
+    public partial class BEConfiguracionCaminoBrillante : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ValorField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Codigo {
+            get {
+                return this.CodigoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
+                    this.CodigoField = value;
+                    this.RaisePropertyChanged("Codigo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Descripcion {
+            get {
+                return this.DescripcionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
+                    this.DescripcionField = value;
+                    this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Valor {
+            get {
+                return this.ValorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ValorField, value) != true)) {
+                    this.ValorField = value;
+                    this.RaisePropertyChanged("Valor");
                 }
             }
         }
@@ -14400,9 +14512,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string FormatoPrecioTotalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IndexField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[] ListaClientesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -14416,9 +14525,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MensajeValidacionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string OptAtenderField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long PedidoDetalleIdField;
@@ -14568,19 +14674,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Index {
-            get {
-                return this.IndexField;
-            }
-            set {
-                if ((this.IndexField.Equals(value) != true)) {
-                    this.IndexField = value;
-                    this.RaisePropertyChanged("Index");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public Portal.Consultoras.Web.ServiceUsuario.BEMisPedidos[] ListaClientes {
             get {
                 return this.ListaClientesField;
@@ -14641,19 +14734,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.MensajeValidacionField, value) != true)) {
                     this.MensajeValidacionField = value;
                     this.RaisePropertyChanged("MensajeValidacion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string OptAtender {
-            get {
-                return this.OptAtenderField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.OptAtenderField, value) != true)) {
-                    this.OptAtenderField = value;
-                    this.RaisePropertyChanged("OptAtender");
                 }
             }
         }
@@ -18093,6 +18173,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetConsultoraNivelCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetConsultoraNivelCaminoBrillanteResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante> GetConsultoraNivelCaminoBrillanteAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetCaminoBrillanteConfiguracion", ReplyAction="http://tempuri.org/IUsuarioService/GetCaminoBrillanteConfiguracionResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionCaminoBrillante[] GetCaminoBrillanteConfiguracion(int paisID, string esApp);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetCaminoBrillanteConfiguracion", ReplyAction="http://tempuri.org/IUsuarioService/GetCaminoBrillanteConfiguracionResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionCaminoBrillante[]> GetCaminoBrillanteConfiguracionAsync(int paisID, string esApp);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarValidacionDatos", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarValidacionDatosResponse")]
         int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2);
         
@@ -19173,6 +19259,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConsultoraCaminoBrillante> GetConsultoraNivelCaminoBrillanteAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario entidad) {
             return base.Channel.GetConsultoraNivelCaminoBrillanteAsync(entidad);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionCaminoBrillante[] GetCaminoBrillanteConfiguracion(int paisID, string esApp) {
+            return base.Channel.GetCaminoBrillanteConfiguracion(paisID, esApp);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEConfiguracionCaminoBrillante[]> GetCaminoBrillanteConfiguracionAsync(int paisID, string esApp) {
+            return base.Channel.GetCaminoBrillanteConfiguracionAsync(paisID, esApp);
         }
         
         public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2) {

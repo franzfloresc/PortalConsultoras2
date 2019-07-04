@@ -614,10 +614,7 @@
     };
 
     var _obtenerImagenes = function (data, pagina, recargarPaginacion) {
-
-        var imagen = $("#imgSeleccionada").attr('src');
-        var ultimoSlash = imagen.lastIndexOf("/");
-        //var nombreImagen = imagen.substring(ultimoSlash + 1);
+        
         var params = {
             paisID: data.paisID,
             estragiaId: data.EstrategiaID,

@@ -14,5 +14,6 @@ namespace Portal.Consultoras.BizLogic
 
         List<BECatalogoRevista_ODS> SelectCatalogoRevistas_ODS(int paisID);
         List<BECatalogoRevista_ODS> PS_CatalogoRevistas_ODS(int paisID);
+        string GetUrlThumbnail(string codigoIso, string documento);
     }
 }
