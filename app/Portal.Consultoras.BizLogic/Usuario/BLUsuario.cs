@@ -580,7 +580,8 @@ namespace Portal.Consultoras.BizLogic
                                 usuarioPaisTask,
                                 pagoEnLineaTask,
                                 tieneChatbotTask,
-                                tieneGanaMasNativo);
+                                tieneGanaMasNativo,
+                                opcionesUsuario);
 
                 if (!Common.Util.IsUrl(usuario.FotoPerfil) && !string.IsNullOrEmpty(usuario.FotoPerfil))
                     usuario.FotoPerfil = string.Concat(ConfigCdn.GetUrlCdn(Dictionaries.FileManager.Configuracion[Dictionaries.FileManager.TipoArchivo.FotoPerfilConsultora]), usuario.FotoPerfil);
