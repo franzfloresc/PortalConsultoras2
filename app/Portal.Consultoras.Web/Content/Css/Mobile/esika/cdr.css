@@ -589,17 +589,18 @@
     .contenedor_campo_cantidad_productos .rango_cantidad_pedido {
         border-top: 1px solid #d1d1d4;
         border-bottom: 1px solid #d1d1d4;
-        padding-right:15px!important;
+        padding-right: 15px !important;
+        order: 0;
     }
+
+        .contenedor_campo_cantidad_productos .rango_cantidad_pedido_productoACambiar {
+            padding-right: 0 !important;
+        }
 
     .contenedor_campo_cantidad_productos .cantidad_menos_home {
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px;
         order: -1;
-    }
-
-    .contenedor_campo_cantidad_productos .rango_cantidad_pedido{
-        order:0;
     }
 
     .contenedor_campo_cantidad_productos .cantidad_mas_home {
