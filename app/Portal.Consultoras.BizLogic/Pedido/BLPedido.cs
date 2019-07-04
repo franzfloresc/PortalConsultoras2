@@ -600,6 +600,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             }
 
             var lstPedidoWebPromociones = pedidoDetalle.PedidoWebPromociones;
+            lstPedidoWebPromociones.ForEach(x => x.CampaniaID = usuario.CampaniaID);
+
             var promocionnueva = new BEPedidoWebPromocion();
             promocionnueva.CuvPromocion = lstPedidoWebPromociones[0].CuvPromocion;
             promocionnueva.CampaniaID = usuario.CampaniaID;
@@ -608,6 +610,10 @@ namespace Portal.Consultoras.BizLogic.Pedido
             if (promociones == null || !promociones.Any())
             {
                 _bLPedidoWebPromocion.InsertPedidoWebPromocion(lstPedidoWebPromociones, usuario.PaisID);
+            }
+            else
+            {
+                lstPedidoWebPromociones = promociones.ToList();
             }
 
             var CondicionesSolicitadas = lstDetalleAgrupado.Where(x => lstPedidoWebPromociones.Select(y => y.CuvCondicion).Distinct().ToList().Contains(x.CUV)).Select(x => new Condicion
