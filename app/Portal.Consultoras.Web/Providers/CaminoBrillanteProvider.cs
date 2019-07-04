@@ -96,6 +96,17 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
+        /// <summary>
+        /// Obtiene solamente el listado de niveles para administrador de contenidos.
+        /// </summary>
+        public List<NivelCaminoBrillanteModel> GetListaNiveles()
+        {
+            using (var svc = new UsuarioServiceClient())
+            {
+                return Mapper.Map<List<NivelCaminoBrillanteModel>>(svc.GetNiveles(usuarioModel.PaisID).ToList());
+            }
+        }
+
         #endregion
 
         #region Consultora

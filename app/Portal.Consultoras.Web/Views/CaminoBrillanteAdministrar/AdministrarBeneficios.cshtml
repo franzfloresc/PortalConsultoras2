@@ -1,4 +1,4 @@
-﻿
+﻿@model Portal.Consultoras.Web.Models.CaminoBrillante.AdministrarCaminoBrillanteModel
 @{
     ViewBag.Title = "Administrar Beneficios Camino Brillante";
 }
@@ -8,12 +8,17 @@
     <div class="filtros2">
         <div class="elements">
             <div class="div-2">
-                <h1><span>Administrar Tipo de Estrategia</span></h1>
+                <h1><span>Administrar Beneficios Camino Brillante</span></h1>
             </div>
             <div class="div-3">
                 <div class="titA">País:</div>
                 <div class="selectA borde_redondeado">
-                    @*@Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })*@
+                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
+                </div>
+
+                <div class="titA">Nivel:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.CodigoNivel, new SelectList(Model.listaNiveles, "CodigoNivel", "DescripcionNivel"), "-- Seleccionar --", new { id = "ddlNivel" })
                 </div>
 
                 <div class="input_horizontal">
@@ -137,28 +142,28 @@
                             <input type="hidden" id="imagenProductoAnterior01" />
                             <div id="fpUpload01">
                                 @*<script type="text/javascript">
-                            $.ajaxSetup({ cache: false });
-                            var uploader = new qq.FileUploader({
-                                allowedExtensions: ['jpg', 'png', 'jpeg'],
-                                element: document.getElementById('fpUpload01'),
-                                action: '@Url.Action("ImageTipoOfertaUpload", "AdministrarTipoEstrategia")',
-                                onComplete: function (id, fileName, responseJSON) {
-                                    if (checkTimeout(responseJSON)) {
-                                        $(".qq-upload-list").css("display", "none");
-                                        if (responseJSON.success) {
-                                            $("#imagenProducto01").val(responseJSON.name);
-                                            $('#img01').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
-                                        }
-                                        else {
-                                            alert(responseJSON.message);
-                                        }
-                                    }
-                                },
-                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
-                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
-                            });
-                                </script>*@
+                                    $.ajaxSetup({ cache: false });
+                                    var uploader = new qq.FileUploader({
+                                        allowedExtensions: ['jpg', 'png', 'jpeg'],
+                                        element: document.getElementById('fpUpload01'),
+                                        action: '@Url.Action("ImageTipoOfertaUpload", "AdministrarTipoEstrategia")',
+                                        onComplete: function (id, fileName, responseJSON) {
+                                            if (checkTimeout(responseJSON)) {
+                                                $(".qq-upload-list").css("display", "none");
+                                                if (responseJSON.success) {
+                                                    $("#imagenProducto01").val(responseJSON.name);
+                                                    $('#img01').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
+                                                }
+                                                else {
+                                                    alert(responseJSON.message);
+                                                }
+                                            }
+                                        },
+                                        onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                        onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                        onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                                    });
+                                        </script>*@
                             </div>
                         </div>
                     </div>
@@ -186,28 +191,28 @@
                             <input type="hidden" id="hdImagenOfertaIndependienteAnterior" />
                             <div id="fpUpload02">
                                 @*<script type="text/javascript">
-                            $.ajaxSetup({ cache: false });
-                            var uploader = new qq.FileUploader({
-                                allowedExtensions: ['jpg', 'png', 'jpeg'],
-                                element: document.getElementById('fpUpload02'),
-                                action: '@Url.Action("ImageTipoOfertaUpload", "AdministrarTipoEstrategia")',
-                                onComplete: function (id, fileName, responseJSON) {
-                                    if (checkTimeout(responseJSON)) {
-                                        $(".qq-upload-list").css("display", "none");
-                                        if (responseJSON.success) {
-                                            $("#hdImagenOfertaIndependiente").val(responseJSON.name);
-                                            $('#imgOfertaIndependiente').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
-                                        }
-                                        else {
-                                            alert(responseJSON.message);
-                                        }
-                                    }
-                                },
-                                onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
-                                onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-                                onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
-                            });
-                                </script>*@
+                                    $.ajaxSetup({ cache: false });
+                                    var uploader = new qq.FileUploader({
+                                        allowedExtensions: ['jpg', 'png', 'jpeg'],
+                                        element: document.getElementById('fpUpload02'),
+                                        action: '@Url.Action("ImageTipoOfertaUpload", "AdministrarTipoEstrategia")',
+                                        onComplete: function (id, fileName, responseJSON) {
+                                            if (checkTimeout(responseJSON)) {
+                                                $(".qq-upload-list").css("display", "none");
+                                                if (responseJSON.success) {
+                                                    $("#hdImagenOfertaIndependiente").val(responseJSON.name);
+                                                    $('#imgOfertaIndependiente').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
+                                                }
+                                                else {
+                                                    alert(responseJSON.message);
+                                                }
+                                            }
+                                        },
+                                        onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+                                        onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
+                                        onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+                                    });
+                                        </script>*@
                             </div>
                         </div>
                     </div>

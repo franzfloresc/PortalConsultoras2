@@ -983,6 +983,11 @@ namespace Portal.Consultoras.Service
         {
             return _caminoBrillanteBusinessLogic.GetCaminoBrillanteConfiguracion(paisID, esApp);
         }
+
+        public List<BENivelCaminoBrillante> GetNiveles(int paisID)
+        {
+            return _caminoBrillanteBusinessLogic.GetNiveles(paisID);
+        }
         #endregion
 
         public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo,  string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)

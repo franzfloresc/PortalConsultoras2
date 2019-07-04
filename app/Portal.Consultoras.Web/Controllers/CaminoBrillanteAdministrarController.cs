@@ -1,20 +1,17 @@
-﻿using Portal.Consultoras.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Portal.Consultoras.Web.Models.CaminoBrillante;
 using System.ServiceModel;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class CaminoBrillanteAdministrarController: BaseAdmController
     {
-        public ActionResult AdministrarBeneficios(TipoEstrategiaModel model)
+        public ActionResult AdministrarBeneficios(AdministrarCaminoBrillanteModel model)
         {
             try
             {
                 model.listaPaises = DropDowListPaises();
+                model.listaNiveles = DropDowListNivelesCaminoBrillante();
             }
             catch (FaultException ex)
             {
