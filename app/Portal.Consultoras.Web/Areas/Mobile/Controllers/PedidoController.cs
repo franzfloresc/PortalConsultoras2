@@ -564,7 +564,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ConsultoraID = userData.ConsultoraID,
                     CodigoConsultora = userData.CodigoConsultora,
                     CampaniaID = userData.CampaniaID,
-                    STPPagoTotal = model.DescripcionTotal,
+                    STPPagoTotal = Convert.ToString(model.Total),
                     olstBEPedidoWebDetalle = lstPedidoWebDetalle.ToArray()
 
                 };
