@@ -2295,10 +2295,122 @@ div .ficha__producto__precio__normal {
     }
 }
 
+/*bannerlogros   */
+.bglogros {
+    width: 100%;
+    max-width: 1250px;
+    margin: 35px auto;
+}
+
+.banner-logros {
+    background: #f9f9f9 url(/Content/CaminoBrillante/imgs/bannerlogros.png) no-repeat left center;
+    width: 100%;
+    height: 330px;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    margin: 50px auto;
+}
+
+.right-banner {
+    position: absolute;
+    right: 18%;
+    top: 0;
+    height: 158px;
+    bottom: 0;
+    margin: auto;
+}
+
+    .right-banner h2 {
+        font-size: 32px;
+        display: block;
+        font-weight: bold;
+    }
+
+    .right-banner p {
+        font-size: 20px;
+        display: block;
+        width: 210px;
+        margin-bottom: 18px;
+        /* margin: 15px 0; */
+        margin-top: 10px;
+        line-height: 22px;
+    }
+
+    .right-banner a {
+        display: block;
+        color: #fff !important;
+        border-radius: 5px;
+        border: 0;
+        padding: 12px 20px;
+        max-width: 175px;
+        text-align: center;
+        /* margin: 25px auto; */
+        margin-top: 10px;
+        text-decoration: none;
+        overflow: inherit;
+        background: #000;
+    }
+
+.img-log {
+    display: none;
+}
+
+@media only screen and (max-width: 900px) and (min-width: 521px) {
+    .right-banner {
+        background: rgba(255, 255, 255, 0.8);
+        padding: 20px;
+        right: 0;
+        box-sizing: border-box;
+        height: auto;
+        padding-top: 90px;
+    }
+}
 
 
+@media screen and (max-width:520px) {
+    .img-log {
+        display: block;
+        max-width: 150px;
+        width: 35%;
+        float: left;
+        margin-left: 0%;
+        box-sizing: border-box;
+    }
 
+    .banner-logros {
+        background: #fff;
+        height: auto;
+        padding: 35px 15px;
+        box-sizing: border-box;
+        margin: 0 auto;
+        width: 100%;
+    }
 
+    .right-banner {
+        position: relative;
+        float: right;
+        right: inherit;
+        top: inherit;
+        height: auto;
+        width: 56%;
+        margin-right: 3%;
+        max-width: 190px;
+        box-sizing: border-box;
+    }
+
+    .banner-logros:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+
+    .right-banner a {
+        max-width: 156px;
+    }
+
+    .right-banner h2 {
+        font-size: 29px;
+    }
 
 
 
@@ -2307,6 +2419,13 @@ div .ficha__producto__precio__normal {
     margin: 0 auto;
     max-width: 40px;
 }
+    .right-banner p {
+        font-size: 17px;
+    }
+}
+
+
+
 
 .top-anios, .frase-logros {
     display: block;
