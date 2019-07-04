@@ -567,6 +567,14 @@ ul.breadcumbs li a {
 } */
 /* FIn ubicación del carrucel*/
 
+@media screen and (max-width:991px){
+
+    .btn_chat_messenger {
+        display: none !important;
+    }
+
+}
+
 @media (min-width: 960px) {
     .contenedor_etiqueta_odd .clock_odd {
         margin: 0;
@@ -694,6 +702,7 @@ ul.breadcumbs li a {
         border: none;
         box-shadow: 0 -1px 5px 0 rgba(0, 0, 0, 0.1);
     }
+
 }
 
 .ui-dialog.ui-widget-content {
