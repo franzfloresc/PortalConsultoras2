@@ -31,5 +31,7 @@ namespace Portal.Consultoras.Web.Models
         [System.Web.Mvc.Compare("Contrasenia", ErrorMessage = "Las contraseñas no coinciden")]
         [Display(Name = "Connfirmar Contraseña")]
         public string ConfirmaContrasenia { get; set; }
+
+        public string Email { get; set; }
     }
 }

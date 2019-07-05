@@ -731,6 +731,10 @@ namespace Portal.Consultoras.Service
             return new BLUsuario().ActualizarEmail(usuario, correoNuevo);
         }
 
+        public BERespuestaServicio ActualizarEmailSinEnvioCorreo(BEUsuario usuario, string correoNuevo) {
+            return new BLUsuario().ActualizarEmailSinEnvioCorreo(usuario, correoNuevo);
+        }
+
         public BERespuestaServicio RegistrarEnvioSms(
             int paisId,
             string codigoUsuario,

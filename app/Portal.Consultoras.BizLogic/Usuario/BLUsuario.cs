@@ -2018,6 +2018,63 @@ namespace Portal.Consultoras.BizLogic
             return new BERespuestaServicio { Succcess = true, Code = Constantes.ActualizacionDatosValidacion.Code.SUCCESS };
         }
 
+        public BERespuestaServicio ActualizarEmailSinEnvioCorreo(BEUsuario usuario, string correoNuevo)
+        {
+            try
+            {
+                if (!usuario.PuedeActualizar) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_CAMBIO_NO_AUTORIZADO);
+                if (string.IsNullOrEmpty(correoNuevo)) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_VACIO);
+
+                if (usuario.EMail.ToLower() != correoNuevo.ToLower())
+                {
+                    var dAUsuario = new DAUsuario(usuario.PaisID);
+                    if (dAUsuario.ExistsUsuarioEmail(correoNuevo)) return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_CORREO_YA_EXISTE);
+                }
+
+                var dAValidacionDatos = new DAValidacionDatos(usuario.PaisID);
+                TransactionOptions transOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };
+                using (TransactionScope transScope = new TransactionScope(TransactionScopeOption.Required, transOptions))
+                {
+                    BEValidacionDatos validacionDato;
+                    using (var reader = dAValidacionDatos.GetValidacionDatosByTipoEnvioAndUsuario(Constantes.TipoEnvioEmailSms.EnviarPorEmail, usuario.CodigoUsuario))
+                    {
+                        validacionDato = MapUtil.MapToObject<BEValidacionDatos>(reader, true, true);
+                    }
+
+                    if (validacionDato == null)
+                    {
+                        dAValidacionDatos.InsValidacionDatos(new BEValidacionDatos
+                        {
+                            TipoEnvio = Constantes.TipoEnvioEmailSms.EnviarPorEmail,
+                            DatoAntiguo = usuario.EMail,
+                            DatoNuevo = correoNuevo.ToLower(),
+                            CodigoUsuario = usuario.CodigoUsuario,
+                            Estado = Constantes.ValidacionDatosEstado.Pendiente,
+                            UsuarioCreacion = usuario.CodigoUsuario
+                        });
+                    }
+                    else
+                    {
+                        validacionDato.DatoAntiguo = usuario.EMail;
+                        validacionDato.DatoNuevo = correoNuevo.ToLower();
+                        validacionDato.Estado = Constantes.ValidacionDatosEstado.Pendiente;
+                        validacionDato.UsuarioModificacion = usuario.CodigoUsuario;
+                        dAValidacionDatos.UpdValidacionDatos(validacionDato);
+                    }
+
+                    
+                    transScope.Complete();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, usuario.CodigoUsuario, string.Empty);
+                return ActualizacionDatosRespuesta(Constantes.ActualizacionDatosValidacion.Code.ERROR_INTERNO, Constantes.MensajesError.UpdCorreoConsultora);
+            }
+            return new BERespuestaServicio { Succcess = true, Code = Constantes.ActualizacionDatosValidacion.Code.SUCCESS };
+        }
+
+
         public BERespuestaServicio ActualizarEmailWS(BEUsuario usuario, string correoNuevo)
         {
 

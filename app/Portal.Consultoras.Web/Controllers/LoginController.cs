@@ -204,10 +204,10 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                        if (url9.Contains("MIACADEMIA") && url9.Contains("SAP"))
-                        {
-                            urlSapParametro = url9.Remove(0, 15);
-                            TempData["SapParametros"] = url9.Remove(0, 15);
-                        }                     
+                    {
+                        urlSapParametro = url9.Remove(0, 15);
+                        TempData["SapParametros"] = url9.Remove(0, 15);
+                    }
 
                 }
                 TempData["FlagAcademiaVideo"] = 1;
@@ -726,7 +726,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.PrimerNombre = obj.PrimerNombre;
             model.CodigoIso = obj.CodigoIso;
             model.CodigoUsuario = obj.CodigoUsuario;
-            model.EsMobile = EsDispositivoMovil(); 
+            model.EsMobile = EsDispositivoMovil();
 
             return View(model);
         }
@@ -3554,8 +3554,19 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var result = false;
+                BERespuestaServicio respuestasActivaEmail;
+                var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
+                int paisID = Common.Util.GetPaisID(actualizaContrasenia.CodigoIso);
+
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
+                    respuestasActivaEmail = sv.ActivarEmail(paisID, oUsu.CodigoUsuario, oUsu.Correo);
+
+                    if (respuestasActivaEmail.Succcess == false)
+                    {
+                        return Json(new { success = respuestasActivaEmail.Succcess, message = respuestasActivaEmail.Message });
+                    }
+
                     result = sv.CambiarClaveUsuario(Util.GetPaisID(actualizaContrasenia.CodigoIso), actualizaContrasenia.CodigoIso, actualizaContrasenia.CodigoUsuario,
                            actualizaContrasenia.Contrasenia, "", actualizaContrasenia.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
 
@@ -3566,7 +3577,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (result == true)
                 {
                     Session["DatosUsuarioRedirect"] = Session["DatosUsuario"];
-                    Session["DatosUsuario"] = null;
+                    Session.Remove("DatosUsuario");
                 }
 
 
@@ -3601,27 +3612,75 @@ namespace Portal.Consultoras.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<JsonResult> RecibirPinCambioContrasenia()
+        public async Task<JsonResult> RecibirPinCambioContrasenia(string emailNuevo = null)
         {
             var oUsu = (BEUsuarioDatos)Session["DatosUsuario"];
             if (oUsu == null) return SuccessJson(Constantes.EnviarSMS.Mensaje.NoEnviaSMS, false);
             int paisID = Common.Util.GetPaisID(oUsu.CodigoIso);
+
             try
             {
+
+                UsuarioModel userData = new UsuarioModel();
+                userData = await GetUserData(Util.GetPaisID(oUsu.CodigoIso), oUsu.CodigoUsuario);
+                BERespuestaServicio respuesta;
+                BEUsuario usuario = Mapper.Map<BEUsuario>(userData);
+
+                bool cambioCorreoNuevo = (string.IsNullOrEmpty(emailNuevo)) ? false : ((emailNuevo != oUsu.Correo) ? true : false);
+
                 TempData["PaisID"] = paisID;
                 bool EstadoEnvio = false;
+                //int existeCorreoRegistrado = 0;
                 //oUsu.EsMobile = EsDispositivoMovil();
 
-                using (var svc = new UsuarioServiceClient())
+
+                using (var sv = new UsuarioServiceClient())
                 {
-                    EstadoEnvio = await svc.ProcesaEnvioEmailCambiaContrasenia2Async(paisID, oUsu);
+                    //if (cambioCorreoNuevo == true && oUsu.Correo.ToLower() != emailNuevo.Trim().ToLower())
+                    //{
+                    //    oUsu.Correo = emailNuevo.Trim();
+                    //    existeCorreoRegistrado = await svc.ValidarEmailConsultoraAsync(paisID, oUsu.Correo, oUsu.CodigoUsuario);
+                    //    if (existeCorreoRegistrado > 0)
+                    //    {
+                    //        return Json(new
+                    //        {
+                    //            success = false,
+                    //            menssage = "error: El correo ya se encuentra registrado por otro usuario",
+                    //            correo = oUsu.Correo,
+                    //        }, JsonRequestBehavior.AllowGet);
+                    //    }
+                    //}
+                    if (cambioCorreoNuevo == true && oUsu.Correo.ToLower() != emailNuevo.Trim().ToLower())
+                    {
+                        oUsu.Correo = emailNuevo.Trim();
+                        Session["DatosUsuario"] = oUsu;
+                    }
+
+
+                    respuesta = sv.ActualizarEmailSinEnvioCorreo(usuario, oUsu.Correo);
+                   
+                    if (respuesta.Succcess == false)
+                    {
+                        return Json(new
+                        {
+                            success = respuesta.Succcess,
+                            menssage = respuesta.Message,
+                            correo = oUsu.Correo,
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    string tipoEnvio = Constantes.TipoEnvio.EMAIL.ToString();
+                    ActualizarValidacionDatosUnique(EsDispositivoMovil(), userData.CodigoUsuario, tipoEnvio);
+
+                    EstadoEnvio = await sv.ProcesaEnvioEmailCambiaContrasenia2Async(paisID, oUsu);
                 }
 
                 return Json(new
                 {
                     success = EstadoEnvio,
                     menssage = "",
-                    correo = oUsu.Correo
+                    correo = oUsu.Correo,
+                    cambioCorreo = cambioCorreoNuevo
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
@@ -3630,10 +3689,12 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    menssage = "Sucedio un Error al enviar el SMS. Intentelo mas tarde"
+                    menssage = "Sucedio un Error al enviar el Código de verificación. Intentelo mas tarde"
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+
 
         [AllowAnonymous]
         [HttpPost]

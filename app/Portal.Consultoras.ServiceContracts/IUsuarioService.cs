@@ -330,6 +330,9 @@ namespace Portal.Consultoras.ServiceContracts
         BERespuestaServicio ActualizarEmail(BEUsuario usuario, string correoNuevo);
 
         [OperationContract]
+        BERespuestaServicio ActualizarEmailSinEnvioCorreo(BEUsuario usuario, string correoNuevo);
+
+        [OperationContract]
         BERespuestaServicio ActualizarEmailWS(BEUsuario usuario, string correoNuevo);
 
         [OperationContract]

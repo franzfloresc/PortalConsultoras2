@@ -173,6 +173,12 @@
   <wsdl:message name="IUsuarioService_ActualizarEmail_OutputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarEmailResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_ActualizarEmailSinEnvioCorreo_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarEmailSinEnvioCorreo" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ActualizarEmailSinEnvioCorreo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarEmailSinEnvioCorreoResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_ActualizarEmailWS_InputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarEmailWS" />
   </wsdl:message>
@@ -1096,6 +1102,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmail" message="tns:IUsuarioService_ActualizarEmail_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmailResponse" message="tns:IUsuarioService_ActualizarEmail_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ActualizarEmailSinEnvioCorreo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmailSinEnvioCorreo" message="tns:IUsuarioService_ActualizarEmailSinEnvioCorreo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmailSinEnvioCorreoResponse" message="tns:IUsuarioService_ActualizarEmailSinEnvioCorreo_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ActualizarEmailWS">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmailWS" message="tns:IUsuarioService_ActualizarEmailWS_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarEmailWSResponse" message="tns:IUsuarioService_ActualizarEmailWS_OutputMessage" />
@@ -1846,6 +1856,15 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarEmail">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarEmailSinEnvioCorreo">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarEmailSinEnvioCorreo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3299,6 +3318,15 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarEmail">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarEmailSinEnvioCorreo">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarEmailSinEnvioCorreo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

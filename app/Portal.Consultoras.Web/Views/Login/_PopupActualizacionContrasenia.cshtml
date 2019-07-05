@@ -4,6 +4,14 @@
 <link href="@Url.Content("~/Content/Css/Site/Shared/PopupsResponsive/general-popups.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/Css/Site/Esika/styleDefault.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/Css/Site/Login2/popup-actualizacion-contrasenia.css")" rel="stylesheet" />
+<style type="text/css">
+    .linkAcentuadoReenvioCodigo {
+        font-size: 15px;
+        color: #B9007E;
+        font-weight: bold;
+    }
+
+</style>
 
 <div class="popup__wrapper bg__popups__default" id="PopupActualizacionContrasenia" style="display:block;">
     <div class="popup__somos__belcorp popup__somos__belcorp--actualizacionContrasenia mostrarPopup">
@@ -18,10 +26,11 @@
                     @Html.AntiForgeryToken()
                     @Html.HiddenFor(m => m.CodigoUsuario, new { @Value = Model.CodigoUsuario })
                     @Html.HiddenFor(m => m.CodigoIso, new { @Value = Model.CodigoIso })
+                    @Html.HiddenFor(m => m.Email, new { @Value = Model.Email })
                     <section class="d-flex form__actualizarContrasenia__wrapper">
                         <div class="center-block text-left form__group__fields form__group__fields--actualizacionContrasenia">
                             <!-- Este mensaje contiene el icono para mostrar y ocultar contraseña, agregar clase  enlace__verPassword--mostrar para cambiar el icono correspondiente, y quitar clase para volver a icono por default -->
-                            <a id="MostrarOcultarPassword" title="Mostrar/Ocultar Password" class="d-block enlace__verPassword"  onclick="javascript:mostrarContrasenia(this)"></a>
+                            <a id="MostrarOcultarPassword" title="Mostrar/Ocultar Password" class="d-block enlace__verPassword" onclick="javascript:mostrarContrasenia(this)"></a>
                             <!-- Fin - Este mensaje contiene el icono para mostrar y ocultar contraseña, agregar clase  enlace__verPassword--mostrar para cambiar el icono correspondiente, y quitar clase para volver a icono por default -->
                             @Html.PasswordFor(m => m.Contrasenia, new { @class = "d-block w-100 text-bold text__field__sb contrasenia" })
                             @*<input id="txtNuevoPassword" type="password" class="d-block w-100 text-bold text__field__sb" name="txtNuevoPassword" value="" />*@
@@ -33,12 +42,12 @@
                             <span class="d-block w-100 validation__field validation__error validation__error1">@Html.ValidationMessageFor(m => m.Contrasenia)</span>
                             <!-- Fin - Cuando se llega a los 6 caracteres o se pasa al siguiente campo (Confirmar Contraseña) y no se cumple con las condiciones de password (error), agregar la clase validation__error -->
                             <!-- Cuando se llega a los 6 caracteres y se ha cumplido con las condiciones de password, agregar la clase validation__success -->
-                            <span id="passValid"class="d-block w-100 validation__field validation__success" style="display:none;">Contraseña válida</span>
+                            <span id="passValid" class="d-block w-100 validation__field validation__success" style="display:none;">Contraseña válida</span>
                             <!-- Fin - Cuando se llega a los 6 caracteres y se ha cumplido con las condiciones de password, agregar la clase validation__success -->
 
                         </div>
                         <div class="center-block text-left form__group__fields form__group__fields--actualizacionContrasenia">
-                            <a id="MostrarOcultarPassword" title="Mostrar/Ocultar Password" class="d-block enlace__verPassword"  onclick="javascript:mostrarContrasenia(this)"></a>
+                            <a id="MostrarOcultarPassword" title="Mostrar/Ocultar Password" class="d-block enlace__verPassword" onclick="javascript:mostrarContrasenia(this)"></a>
                             @Html.PasswordFor(m => m.ConfirmaContrasenia, new { @class = "d-block w-100 text-bold text__field__sb contrasenia" })
                             @*<input id="txtConfirmarNuevoPassword" type="password" class="d-block w-100 text-bold text__field__sb" name="txtConfirmarNuevoPassword" value="" />*@
                             <label for="txtConfirmarNuevoPassword" class="d-block w-100 text-regular label__field__sb">Confirmar contraseña</label>
@@ -124,10 +133,10 @@
                 </p>
                 <div class="w-100 d-inline-block text-center form__group__fields form__group__fields--correoAlCualSeEnvio">
                     <div class="d-inline-block">
-                        <a id="EditarCorreoElectronico" title="Editar correo" class="d-block enlace__editarCorreoElectronico">
+                        <a id="EditarCorreoElectronico" title="Editar correo" class="d-block enlace__editarCorreoElectronico" onclick="javascript: activarEditarCorreo();">
                             <img src="@Url.Content("~/Content/Images/icono_edit.svg")" alt="Editar correo electrónico" />
                         </a>
-                        <input id="txtCorreoAlCualSeEnvioCodigo" type="text" class="d-inline-block text-center text-bold text__field__sb text__field__sb--correoAlCualSeEnvioCodigo" name="txtCorreoAlCualSeEnvioCodigo" value="cambiodecorreo@example.com" readonly />
+                        <input id="txtCorreoAlCualSeEnvioCodigo" type="text" class="d-inline-block text-center text-bold text__field__sb text__field__sb--correoAlCualSeEnvioCodigo" name="txtCorreoAlCualSeEnvioCodigo" placeholder="Escriba su correo aqui"  readonly />
                     </div>
                 </div>
                 <h2 class="d-block popup__somos__belcorp__titulo popup__somos__belcorp__titulo--ingresoCodigoConfirmacion">

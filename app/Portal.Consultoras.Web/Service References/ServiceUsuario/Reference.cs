@@ -4875,6 +4875,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool AceptoContratoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ActivaNotificacionesWhatsappField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ActivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5304,6 +5307,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string NombrePaisField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool NotificacionesWhatsappField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int NovedadBuscadorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5628,6 +5634,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.AceptoContratoField.Equals(value) != true)) {
                     this.AceptoContratoField = value;
                     this.RaisePropertyChanged("AceptoContrato");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ActivaNotificacionesWhatsapp {
+            get {
+                return this.ActivaNotificacionesWhatsappField;
+            }
+            set {
+                if ((this.ActivaNotificacionesWhatsappField.Equals(value) != true)) {
+                    this.ActivaNotificacionesWhatsappField = value;
+                    this.RaisePropertyChanged("ActivaNotificacionesWhatsapp");
                 }
             }
         }
@@ -7487,6 +7506,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.NombrePaisField, value) != true)) {
                     this.NombrePaisField = value;
                     this.RaisePropertyChanged("NombrePais");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool NotificacionesWhatsapp {
+            get {
+                return this.NotificacionesWhatsappField;
+            }
+            set {
+                if ((this.NotificacionesWhatsappField.Equals(value) != true)) {
+                    this.NotificacionesWhatsappField = value;
+                    this.RaisePropertyChanged("NotificacionesWhatsapp");
                 }
             }
         }
@@ -18231,6 +18263,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarEmail", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarEmailResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ActualizarEmailAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string correoNuevo);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarEmailSinEnvioCorreo", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarEmailSinEnvioCorreoResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio ActualizarEmailSinEnvioCorreo(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string correoNuevo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarEmailSinEnvioCorreo", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarEmailSinEnvioCorreoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ActualizarEmailSinEnvioCorreoAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string correoNuevo);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarEmailWS", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarEmailWSResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio ActualizarEmailWS(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string correoNuevo);
         
@@ -19285,6 +19323,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ActualizarEmailAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string correoNuevo) {
             return base.Channel.ActualizarEmailAsync(usuario, correoNuevo);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio ActualizarEmailSinEnvioCorreo(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string correoNuevo) {
+            return base.Channel.ActualizarEmailSinEnvioCorreo(usuario, correoNuevo);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio> ActualizarEmailSinEnvioCorreoAsync(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string correoNuevo) {
+            return base.Channel.ActualizarEmailSinEnvioCorreoAsync(usuario, correoNuevo);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BERespuestaServicio ActualizarEmailWS(Portal.Consultoras.Web.ServiceUsuario.BEUsuario usuario, string correoNuevo) {

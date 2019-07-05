@@ -1,4 +1,5 @@
 ﻿var CodigoIngresado;
+var correoOriginal = null;
 
 $(document).ready(function () {
     Inicializar();
@@ -80,17 +81,17 @@ function Inicializar() {
         });
 
 
-    $('.contrasenia').on('input', function (e) {        
+    $('.contrasenia').on('input', function (e) {
         var boton = $("#btnActualizarCorreo");
         var form = $("#formContrasenia").valid();
         if (form) {
-            boton.removeClass('btn__sb--disabled');   
-        } else {           
+            boton.removeClass('btn__sb--disabled');
+        } else {
             boton.addClass('btn__sb--disabled');
         }
 
         if ($('#Contrasenia').valid()) {
-            $('#passValid').css('display','block');
+            $('#passValid').css('display', 'block');
         } else {
             $('#passValid').css('display', 'none');
         }
@@ -112,17 +113,28 @@ function Inicializar() {
     });
 
     $('.contrasenia').bind('input', function () {
-        var thiss = $(this);        
+        var thiss = $(this);
         if (thiss.val().trim() == '') {
             thiss.removeClass('text__field__sb--withContent');
         } else {
             thiss.addClass('text__field__sb--withContent');
         }
     });
+
+    $('#txtCorreoAlCualSeEnvioCodigo').on('input', function (e) {
+        if (correoOriginal == null) {
+            return false;
+        }
+        if ($(this).val().trim().length > 0) {
+            $('#btnReenviarCorreo').addClass('linkAcentuadoReenvioCodigo');
+        } else {
+            $('#btnReenviarCorreo').removeClass('linkAcentuadoReenvioCodigo');
+        }
+    });
 }
 
 
-function mostrarContrasenia(currentElement) {    
+function mostrarContrasenia(currentElement) {
     var contraseniaType = $(currentElement).parent().find('.text__field__sb')[0].type;
 
     if ($(currentElement).next().val() != 0) {
@@ -137,23 +149,54 @@ function mostrarContrasenia(currentElement) {
 
 }
 
+function activarEditarCorreo() {
+    var correo = $('#txtCorreoAlCualSeEnvioCodigo');
+    if (correo.is('[readonly]') ) {
+        correo.attr("readonly", false);
+        correo.focus();
+    } else {
+        correo.attr("readonly", true);
+        correo.blur();
+    }
+}
 
 
 
 function RecibirPinVerficiacionCorreo(reenvio) {
+    var correoEnvio = $("#txtCorreoAlCualSeEnvioCodigo").val().trim().toLowerCase();
+    var regex = /[\w-\.]{2,}@([\w-]{2,}\.)*([\w-]{2,}\.)[\w-]{2,4}/;
+    if (!regex.test(correoEnvio) && correoOriginal != null ) {
+        AbrirAlert('Ingrese un formato de correo váldo');
+        return false;
+    }
+
     $(".seccion").hide();
     $("#VistaPrecarga").show();
+    
+    var parametros = {
+        emailNuevo: (correoOriginal == null) ? null : ((correoOriginal.trim().toLowerCase() == correoEnvio) ? null : correoEnvio)
+    };
+ 
     jQuery.ajax({
         type: 'POST',
         url: urlRecibirPinCambioContrasenia,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: null,
+        data: JSON.stringify(parametros),
         async: true,
-        success: function (data) {
+        success: function (data) {            
             $(".seccion").hide();
             $("#Paso2ActualizacionPassword").show();
             $("#txtCorreoAlCualSeEnvioCodigo").val(data.correo);
+            $("#Email").val(data.correo);
+            if (correoOriginal == null) {
+                correoOriginal = data.correo                
+            } 
+            
+            if (!data.success) {
+                AbrirAlert(data.menssage);
+                return;
+            }
 
             if (reenvio) {
                 $('.campo_ingreso_codigo').val('');
@@ -166,7 +209,7 @@ function RecibirPinVerficiacionCorreo(reenvio) {
             if (reenvio) {
                 $(".seccion").hide();
                 AbrirAlert('Error al reenviar el código');
-                $("#Paso2ActualizacionPassword").show();
+                $("#Paso1ActualizacionPassword").show();
                 return;
             }
             if (checkTimeout(data)) {
