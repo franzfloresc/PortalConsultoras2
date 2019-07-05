@@ -311,7 +311,7 @@ namespace Portal.Consultoras.Common
             public const string ParticipaProgramaNuevas = "ParticipaProgramaNuevas";
             public const string NotParticipaProgramaNuevas = "NotParticipaProgramaNuevas";
             public const string MasGanadoras = "Ganadoras";
-            public const string CaminoBrillante = "CaminoBrillante"; // No tiene referecia con BD
+            public const string CaminoBrillante = "Camino Brillante"; // No tiene referecia con BD
             public const string CaminoBrillanteDemostradores = "CaminoBrillanteDemostradores"; // No tiene referecia con BD
             public const string CaminoBrillanteKits = "CaminoBrillanteKits"; // No tiene referecia con BD
 
