@@ -213,32 +213,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                 return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message });
             }
         }
-
-        /// <summary>
-        /// Obtener oferta de ficha
-        /// </summary>
-        /// <param name="cuv"></param>
-        /// <param name="campania"></param>
-        /// <param name="codigoISO"></param>
-        /// <returns></returns>
-        //[HttpPost]
-        //public JsonResult ObtenerOfertaFicha(string cuv, string campania, string tipoEstrategia)
-        //{
-        //    string message;
-        //    try
-        //    {
-        //        DetalleEstrategiaFichaModel model = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campania, tipoEstrategia, out message);
-        //        return Json(new { success = true, data = model, message }, JsonRequestBehavior.AllowGet);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message });
-        //    }
-        //}
-
-        /// <summary>
-        /// Función unificada
-        /// </summary>
+        
         private JsonResult PreparListaModel(BusquedaProductoModel model, int tipoConsulta)
         {
             try
@@ -747,32 +722,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         }
 
         #endregion
-
-        //[HttpPost]
-        //public JsonResult GuardarProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
-        //{
-        //    if (modelo != null)
-        //    {
-        //        modelo.ClaseBloqueada = Util.Trim(modelo.ClaseBloqueada);
-        //        modelo.ClaseEstrategia = Util.Trim(modelo.ClaseEstrategia);
-        //        modelo.CodigoEstrategia = Util.Trim(modelo.CodigoEstrategia);
-        //        modelo.DescripcionResumen = Util.Trim(modelo.DescripcionResumen);
-        //        modelo.DescripcionDetalle = Util.Trim(modelo.DescripcionDetalle);
-        //        modelo.DescripcionCompleta = Util.Trim(modelo.DescripcionCompleta);
-        //        modelo.PrecioTachado = Util.Trim(modelo.PrecioTachado);
-        //        modelo.CodigoVariante = Util.Trim(modelo.CodigoVariante);
-        //        modelo.TextoLibre = Util.Trim(modelo.TextoLibre);
-        //        modelo.FotoProducto01 = ConfigCdn.GetUrlFileCdnMatriz(userData.CodigoISO, modelo.FotoProducto01);
-        //    }
-
-        //    SessionManager.SetProductoTemporal(modelo);
-
-        //    return Json(new
-        //    {
-        //        success = true
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
-
+        
         #region Carrusel Ficha
 
         [HttpPost]
@@ -839,7 +789,6 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     return Json(new { success = false });
 
                 listaProductos = ValidacionResultadosProductos(listaProductos, Constantes.TipoVentaIncremental.UpSelling).ToList();
-                //var listaProductosValidados = ValidacionResultadosProductos(dataProductosCarruselUpSelling.result, Constantes.TipoVentaIncremental.UpSelling).ToList();
                 listaProductos = _ofertaPersonalizadaProvider.RevisarCamposParaMostrar(listaProductos, true);
                 return Json(new
                 {
@@ -867,7 +816,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                     return Json(new { success = false });
 
                 listaProductos = ValidacionResultadosProductos(listaProductos, tipo).ToList();
-                listaProductos = _consultaProlProvider.ActualizarEstrategiaStockPROL(listaProductos,
+                listaProductos = _consultaProlProvider.ActualizarEstrategiaStockProl(listaProductos,
                     userData.CodigoISO,
                     userData.CampaniaID, 
                     userData.CodigoConsultora,
@@ -892,7 +841,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             var flagLaMasGanadoras = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(userData.PaisID, ConsTablaLogica.FlagFuncional.TablaLogicaId, ConsTablaLogica.FlagFuncional.PalancaLasMasGanadoras);
 
             if (!estrategiaPersonalizadaProductoModels.Any()) return new List<EstrategiaPersonalizadaProductoModel>();
-            var pedidos = SessionManager.GetDetallesPedido();
+            var pedidos = SessionManager.GetDetallesPedidoSetAgrupado();
 
             foreach (var item in estrategiaPersonalizadaProductoModels)
             {

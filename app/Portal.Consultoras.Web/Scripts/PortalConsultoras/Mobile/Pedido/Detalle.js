@@ -68,13 +68,9 @@ $(document).ready(function () {
         if (mostrar.css("display") == "none") mostrar.fadeIn(200);
         else mostrar.fadeOut(200);
     });
-
-    //INI HD-4200
-    ValidarSuscripcionSE(function () { ValidarKitNuevas(function () { CargarPedido(true); }) },1);
-     //FIN HD-4200
     
-   
-
+    ValidarSuscripcionSE(function () { ValidarKitNuevas(function () { CargarPedido(true); }) },1);
+    
     $("#suma, #resta").click(function (event) {
         if (!ValidarPermiso(this)) {
             event.preventDefault();
@@ -206,15 +202,6 @@ function UpdateLiquidacionSegunTipoOfertaSis(obj, elementRow) {
     }
     else {
         ShowLoading();
-        //if (ReservadoOEnHorarioRestringido()) {
-        //    obj.Cantidad = obj.CantidadTemporal;
-        //    belcorp.mobile.pedido.setDetalleById(obj);
-        //    //INI HD-3693
-        //    $(elementRow).find(".Cantidad").val(obj.Cantidad);
-        //    //FIN HD-3693
-        //    CloseLoading();
-        //    return false;
-        //}
 
         var cantidadElement = $(elementRow).find(".Cantidad");
         var Cantidad = $(cantidadElement).val() || "";
@@ -226,45 +213,11 @@ function UpdateLiquidacionSegunTipoOfertaSis(obj, elementRow) {
         }
 
         var CantidadSoli = (Cantidad - cantidadAnterior);
-        //if (obj.TipoOfertaSisID) CantidadSoli = (Cantidad - cantidadAnterior);
+
 		obj.Stock = CantidadSoli;
-
-        //var param = ({
-        //    CUV: obj.CUV,
-        //    PrecioUnidad: obj.PrecioUnidad,
-        //    Cantidad: CantidadSoli,
-        //    TipoOferta: obj.TipoOfertaSisID || 0,
-        //    esCuponNuevas: obj.EsCuponNuevas
-        //});
-
-        //ShowLoading();
 
         Update(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.FlagValidacion, obj.CUV, obj.EsBackOrder, obj, elementRow);
 
-        //jQuery.ajax({
-        //    type: 'POST',
-        //    url: urlValidarStockEstrategia,
-        //    dataType: 'json',
-        //    contentType: 'application/json; charset=utf-8',
-        //    data: JSON.stringify(param),
-        //    async: true,
-        //    success: function (datos) {
-        //        if (checkTimeout(datos)) {
-        //            CloseLoading();
-        //            if (!datos.result) {
-        //                messageInfoMalo(datos.message);
-        //                CargarPedido();
-        //                return false;
-        //            }
-        //            Update(obj.CampaniaID, obj.PedidoID, obj.PedidoDetalleID, obj.FlagValidacion, obj.CUV, obj.EsBackOrder, obj, elementRow);
-        //            if (datos.message.length > 3)
-        //                messageInfoMalo(datos.message);
-        //        }
-        //    },
-        //    error: function (data, error) {
-        //        CloseLoading();
-        //    }
-        //});
     }
 }
 
@@ -295,17 +248,7 @@ function UpdateLiquidacionTipoOfertaSis(urls, obj, elementRow) {
     }
 
     ShowLoading();
-
-    //if (ReservadoOEnHorarioRestringido()) {
-    //    CloseLoading();
-    //    return false;
-    //}
-
-    //if (HorarioRestringido()) {
-    //    CloseLoading();
-    //    return false;
-    //}
-
+    
     $.ajaxSetup({ cache: false });
 
     var CliID = obj.ClienteID;
@@ -367,8 +310,7 @@ function UpdateLiquidacionTipoOfertaSis(urls, obj, elementRow) {
                 CloseLoading();
                 return false;
             }
-
-            //var PrecioUnidad = obj.PrecioUnidad;
+            
             var Unidad = $(cantidadElement).val();
             var Total = DecimalToStringFormat(parseFloat(cantidadActual * Unidad));
             $(elementRow).find(".ImporteTotal").html(Total);
@@ -422,8 +364,7 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
     if (CliDes.length == 0) {
         CliID = 0;
     }
-
-    //var Cantidad = CantidadModi;
+    
     var PrecioUnidad = detalleObj.PrecioUnidad;
     var Total = DecimalToStringFormat(parseFloat(CantidadModi * PrecioUnidad));
     $(elementRow).find(".ImporteTotal").html(Total);
@@ -484,9 +425,8 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
             EsBackOrder: esBackOrder == 'true',
             SetId: setId
         });
-        //INI HD-3908
+
         var campaniaId = CampaniaID;
-        //FIN HD-3908
         ShowLoading();
         jQuery.ajax({
             type: 'POST',
@@ -530,13 +470,12 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
                 });
                 cuponModule.actualizarContenedorCupon();
                 messageDelete('El producto fue eliminado.');
-
-                //INI HD-3908
+                
                 if (!data.EsAgregado) {
                     var localStorageModule = new LocalStorageModule();
                     localStorageModule.ActualizarCheckAgregado($.trim(data.data.EstrategiaId), campaniaId, data.data.TipoEstrategiaCodigo, false);
                 }
-                //FIN HD-3908
+
                 ActualizarLocalStoragePalancas(data.data.CUV, false);
             },
             error: function (data, error) {
@@ -547,10 +486,7 @@ function ConfigurarFnEliminarProducto(CampaniaID, PedidoID, PedidoDetalleID, Tip
 }
 
 function ConfirmaEliminarPedido() {
-
-    //if (ReservadoOEnHorarioRestringido())
-    //    return false;
-
+    
     if ($.isFunction(fnEliminarProducto)) {
         fnEliminarProducto();
     }
@@ -662,12 +598,9 @@ function PedidoDetalleEliminarTodo() {
             }
 
             if (data.success != true) {
-                //INI HD-3693
-                //messageInfoError(data.message);
                 var msjBloq = validarpopupBloqueada(data.message);
                 if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
                 else messageInfoError(data.message);
-                //FIN HD-3693
                 CloseLoading();
                 return false;
             }
@@ -746,7 +679,6 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBa
     }
 
     var PrecioUnidad = detalleObj.PrecioUnidad;
-    //var Cantidad = $(cantidadElement).val();
     var Total = DecimalToStringFormat(parseFloat(Cantidad * PrecioUnidad));
     $(elementRow).find(".ImporteTotal").html(Total);
 
@@ -800,15 +732,6 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             var prevTotal = mtoLogroBarra || 0;
             MostrarBarra(data);
             
-
-            /**COMENTADO POR TESLA7 */
-            //var tooltip = $('[data-agregado="tooltip"]');
-            //if (typeof tooltip !== 'undefined') {
-            //    $('[data-agregado="mensaje1"]').html("Â¡Listo! ");
-            //    $('[data-agregado="mensaje2"]').html(" Modificaste tu pedido");
-            //    tooltip.show();
-            //    setTimeout(function () { tooltip.hide(); }, 4000);
-            //}
             CargarPedido();
             var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
             if (diferenciaCantidades > 0)
@@ -820,7 +743,6 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
                 detalleObj.CantidadTemporal = $(cantidadElement).val();
                 belcorp.mobile.pedido.setDetalleById(detalleObj);
             }
-            //Se pone aquÃ­ el nuevo mensaje para TESLA-03
             
             var isReservado = data.EsReservado || false;
             var mensaje = '';
@@ -829,7 +751,7 @@ function PedidoUpdate(item, PROL, detalleObj, elementRow) {
             } else {
                 mensaje = _mensajeModificarPedido.normal;
             }
-            ActualizaGanancias(data);          //Actualiza ganancias
+            ActualizaGanancias(data);
 
             AbrirMensaje25seg(mensaje);
 
@@ -994,14 +916,12 @@ function EjecutarAccionesReservaExitosa(response) {
     if (estaRechazado == "2") cerrarMensajeEstadoPedido();
 
     var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
-
-    //INI HD-4294
+    
     if (!response.data.IsEmailConfirmado) {
         configActualizarCorreo.UrlPedidoValidado = (!ultimoDiaFacturacion) ? configActualizarCorreo.UrlPedido: configActualizarCorreo.UrlPedidoValidado;
         new Pedido_ActualizarCorreo(configActualizarCorreo).Inicializar();
 
     }
-    //FIN HD-4294
     else {
         messageInfoBueno('<h3>Tu pedido fue reservado con &eacute;xito.</h3>');
     	if (ultimoDiaFacturacion) {
@@ -1090,30 +1010,6 @@ function ActualizarBtnGuardar(model) {
     $('#btnGuardarPedido').text(model.Prol);
 }
 
-//function AceptarObsInformativas() {
-//    ShowLoading();
-//    jQuery.ajax({
-//        type: 'POST',
-//        url: urlInsertarDesglose,
-//        dataType: 'json',
-//        contentType: 'application/json; charset=utf-8',
-//        async: true,
-//        success: function (data) {
-//            CloseLoading();
-//            if (!checkTimeout(data)) return;
-
-//            if (data.success) location.href = urlPedidoValidado;
-//            else messageInfoMalo(data.message);
-//        },
-//        error: function (data, error) {
-//            CloseLoading();
-//            if (!checkTimeout(data)) return;
-
-//            messageInfoMalo("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
-//        }
-//    });
-//}
-
 function CancelarObsInformativas() {
     if ($('#hdfModificaPedido').val() != 1) {
         ShowLoading();
@@ -1155,67 +1051,6 @@ function MostrarDetalleGanancia() {
     $('#popupGanancias').show();
 }
 
-//function InsertarProducto(model, asyncX, urlMobile) {    
-//    var retorno = new Object();
-
-//    urlPedidoInsert = (!urlMobile ? urlPedidoInsert : baseUrl + "Pedido/" + urlMobile);
-//    jQuery.ajax({
-//        type: 'POST',
-//        url: urlPedidoInsert,
-//        dataType: 'json',
-//        contentType: 'application/json; charset=utf-8',
-//        data: JSON.stringify(model),
-//        async: asyncX == undefined || asyncX == null ? true : asyncX,
-//        cache: false,
-//        success: function (data) {
-//            if (!checkTimeout(data)) {
-//                CloseLoading();
-//                return false;
-//            }
-
-//            if (data.success != true) {
-//                messageInfoError(data.message);
-//                CloseLoading();
-//                return false;
-//            }
-
-//            CloseLoading();
-
-//            setTimeout(function () { }, 2000);
-//            ActualizarGanancia(data.DataBarra);
-
-//            TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);
-//            dataLayer.push({
-//                'event': 'addToCart',
-//                'ecommerce': {
-//                    'add': {
-//                        'actionField': { 'list': 'Estándar' },
-//                        'products': [{
-//                            'name': data.data.DescripcionProd,
-//                            'price': String(data.data.PrecioUnidad),
-//                            'brand': data.data.DescripcionLarga,
-//                            'id': data.data.CUV,
-//                            'category': 'NO DISPONIBLE',
-//                            'variant': data.data.DescripcionOferta,
-//                            'quantity': Number(model.Cantidad),
-//                            'position': 1
-//                        }]
-//                    }
-//                }
-//            });
-
-//            CargarPedido();
-
-//            retorno = data;
-//        },
-//        error: function (data, error) {
-//            CloseLoading();
-//        }
-//    });
-
-//    return retorno;
-//};
-
 function ValidarPermiso(obj) {
     var permiso = $(obj).attr("disabled") || "";
     if (permiso != "") {
@@ -1245,7 +1080,6 @@ function closeDialogObservacionesProl() {
 }
 
 function PedidosPendientesPorAprobar() {
-    //DataLayerPedidosPendientes('virtualEvent', 'Carrito de Compras', 'Click Botón', 'Pedidos por aprobar');
     if (!(typeof AnalyticsPortalModule === 'undefined'))
         AnalyticsPortalModule.ClickBotonPedidosPendientes('Click Botón', 'Pedidos por aprobar');
 }
@@ -1266,13 +1100,10 @@ function AccionConfirmarModificarPedido() {
 					location.reload();
 				} else {
 					CloseLoading();
-
-					//INI HD-3693
-					//messageInfoError(data.message);
+                    
 					var msjBloq = validarpopupBloqueada(data.message);
 					if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
 					else messageInfoError(data.message);
-					//FIN HD-3693
 
 				}
 			}

@@ -45,8 +45,6 @@ namespace Portal.Consultoras.Web.Models
 
         public bool MostrarCliente { get; set; }
 
-        //public bool MostrarAdicional { get; set; }
-
         public bool MostrarFichaEnriquecida { get; set; }
 
         public string CuvPromocion { get; set; }

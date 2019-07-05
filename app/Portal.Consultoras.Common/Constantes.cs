@@ -259,6 +259,9 @@ namespace Portal.Consultoras.Common
             public const string HerramientasVenta = "HV";
             public const string ArmaTuPack = "ATP";
             public const string MasGanadoras = "LMG";
+            public const string Liquidacion = "LIQ"; // No tiene referecia con BD, para tenerlo dentro de codigo
+            public const string Catalogo = "CAT"; // No tiene referecia con BD, para tenerlo dentro de codigo
+            
             public const string CaminoBrillante = "CB";
             public const string CaminoBrillanteDemostradores = "CBD";
             public const string CaminoBrillanteKits = "CBK";
@@ -340,6 +343,7 @@ namespace Portal.Consultoras.Common
                         {TipoEstrategiaCodigo.ShowRoom, NombrePalanca.ShowRoom},
                         {TipoEstrategiaCodigo.HerramientasVenta, NombrePalanca.HerramientasVenta},
                         {TipoEstrategiaCodigo.NotParticipaProgramaNuevas, NombrePalanca.NotParticipaProgramaNuevas},
+                        {TipoEstrategiaCodigo.Catalogo, NombrePalanca.Catalogo},
                         {TipoEstrategiaCodigo.CaminoBrillanteDemostradores, NombrePalanca.CaminoBrillanteDemostradores},
                         {TipoEstrategiaCodigo.CaminoBrillanteKits, NombrePalanca.CaminoBrillanteKits},
                     });
@@ -426,8 +430,7 @@ namespace Portal.Consultoras.Common
             public const string MenuContenedor = "MenuContenedor";
 
             public const string ListaEstrategia = "ListadoEstrategiaPedido";
-
-            //public const string ProductoTemporal = "ProductoTemporal";
+            
             public const string MenuContenedorActivo = "MenuContenedorActivo";
 
             public const string RevistaDigital = "RevistaDigital";
@@ -3517,18 +3520,6 @@ namespace Portal.Consultoras.Common
         {
             public const string UrlExcelMatrizCampania = "http://somosbelcorpprd.s3.amazonaws.com/Matriz/PLANTILLA_MASIVO_MATRIZ.xlsx";
         }
-
-        public static class CodigoEstrategiaBuscador
-        {
-            public const string Liquidacion = "LIQ";
-            public const string Catalogo = "CAT";
-            public const string OfertaDelDia = "ODD";
-        }
-
-        //public static class NombreEstrategiaBuscador
-        //{
-        //    public const string Catalogo = "Catalogo";
-        //}
 
         public static class MetaConsultora
         {

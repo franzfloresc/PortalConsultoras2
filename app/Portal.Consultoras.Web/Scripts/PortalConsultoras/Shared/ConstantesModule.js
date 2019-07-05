@@ -36,7 +36,6 @@ var ConstantesModule = (function() {
         Ganadoras: "MGLista",
         PackNuevas: "PNLista",
         DuoPerfecto: "DPLista",
-
         CaminoBrillanteDemostradores: "CBDLista",
         CaminoBrillanteKits: "CBKLista",
         EstrategiaTemporal: 'EstrategiaTemporal',
@@ -108,7 +107,7 @@ var ConstantesModule = (function() {
         { codigo: _codigoTipoEstrategia.MasGanadoras, texto: _codigoTipoEstrategiaTexto.Ganadoras },
         { codigo: _tipoPersonalizacion.Catalogo, texto: _tipoPersonalizacionTexto.Catalogo },
         { codigo: _codigoTipoEstrategia.CaminoBrillanteDemostradores, texto: _codigoTipoEstrategiaTexto.CaminoBrillanteDemostradores },
-        { codigo: _codigoTipoEstrategia.CaminoBrillanteKits, texto: _codigoTipoEstrategiaTexto.CaminoBrillanteKits },
+        { codigo: _codigoTipoEstrategia.CaminoBrillanteKits, texto: _codigoTipoEstrategiaTexto.CaminoBrillanteKits }
     ];
 
     var _configuracionOferta = {
@@ -133,7 +132,7 @@ var ConstantesModule = (function() {
         SR: "SR",
         ATP: "ATP",
         DP: "DP",
-        PN:"PN",
+        PN: "PN",
         CBD: "CBD",
         CBK: "CBK"
     };
@@ -150,12 +149,7 @@ var ConstantesModule = (function() {
     };
 
     // en AnalyticsPortal.js tambiar actualizar los valores
-
-          //CB-CORREGIR  LandingCaminoBrillanteDemostradores: '16',  //GCP
-          //CB-CORREGIR  LandingCaminoBrillanteKits: '17'  //GCP
-          //CB-CORREGIR  CaminoBrillanteDemostradores: '18', // GCP
-          //CB-CORREGIR  CaminoBrillanteKits: '19' // GCP
-
+    
     var _origenPedidoWeb = {
 
         CaminoBrillanteDesktopPedido : "1181901",

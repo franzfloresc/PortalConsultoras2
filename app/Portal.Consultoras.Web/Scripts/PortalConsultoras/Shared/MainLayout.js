@@ -371,23 +371,6 @@ function messageInfoError(message, titulo, fnAceptar) {
     message = $.trim(message);
     if (message != "") {
 
-        //$('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
-        //$('#dialog_ErrorMainLayout').show();
-
-        //$('#dialog_ErrorMainLayout .btn_ok').off('click');
-        //$('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
-
-        //$('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
-        //    $('#dialog_ErrorMainLayout').hide();
-        //    if ($.isFunction(fnAceptar)) fnAceptar();
-        //});
-
-        //$('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
-        //    $('#dialog_ErrorMainLayout').hide();
-        //    if ($.isFunction(fnAceptar)) fnAceptar();
-        //});
-
-        //INI HD-3693
         var msjBloq = validarpopupBloqueada(message);
         if (msjBloq != "") {
             alert_msg_bloqueadas(msjBloq);
@@ -408,7 +391,6 @@ function messageInfoError(message, titulo, fnAceptar) {
                 if ($.isFunction(fnAceptar)) fnAceptar();
             });
         }
-        //FIN HD-3693
 
 
     }
@@ -469,7 +451,7 @@ function CargarResumenCampaniaHeader(showPopup) {
 }
 
 function CargarCantidadNotificacionesSinLeer() {
-    var sparam = localStorage.getItem('KeyPseudoParam'); //SALUD-58
+    var sparam = localStorage.getItem('KeyPseudoParam');
     $.ajax({
         type: 'GET',
         url: baseUrl + "Notificaciones/GetNotificacionesSinLeer?pseudoParam=" + sparam + "&codigoUsuario=" + codigoConsultora + "",
@@ -1289,9 +1271,9 @@ function OcultarChatEmtelco() {
         $(".CMXD-help").hide();
     }
 }
-//INI HD-3693
+
 function alert_msg_bloqueadas(message) {
     $('#PopupBloqueoPorSistema .message_text_bloqueada').html(message);
     $('#PopupBloqueoPorSistema').show();
 }
-//FIN HD-3693
+

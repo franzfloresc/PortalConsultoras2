@@ -3713,7 +3713,7 @@ namespace Portal.Consultoras.Common
         //Validación de la descripción del producto
         public static string obtenerNuevaDescripcionProducto(Dictionary<string, string> lista,
             bool suscripcion,
-            string codigoEstrategia,
+            string tipoPersonalizacion,
             string tipoEstrategiaCodigo,
             int marcaId,
             int codigoCatalago,
@@ -3754,17 +3754,17 @@ namespace Portal.Consultoras.Common
             }
             else
             {
-                switch (codigoEstrategia)
+                switch (tipoPersonalizacion)
                 {
-                    case "LIQ":
+                    case Constantes.TipoPersonalizacion.Liquidacion:
                         result = lista[Constantes.NuevoCatalogoProducto.OFERTASLIQUIDACION];
                         break;
-                    case "CAT":
+                    case Constantes.TipoPersonalizacion.Catalogo:
                         result = (marcaId == 1 ? lista[Constantes.NuevoCatalogoProducto.CATALOGOLBEL] :
                             (marcaId == 2 ? lista[Constantes.NuevoCatalogoProducto.CATALOGOESIKA] :
                             lista[Constantes.NuevoCatalogoProducto.CATALOGOCYZONE]));
                         break;
-                    case "ODD":
+                    case Constantes.TipoPersonalizacion.OfertaDelDia:
                         result = lista[Constantes.NuevoCatalogoProducto.SOLOHOY];
                         break;
                     default:
@@ -3889,7 +3889,7 @@ namespace Portal.Consultoras.Common
             return result;
         }
 
-        public static string obtenerCodigoOrigenWeb(string codigoEstrategia, string codigoTipoEstrategia,
+        public static string obtenerCodigoOrigenWeb(string tipoPersonalizacion, string codigoTipoEstrategia,
             int marcaId, bool mobile, bool home, bool recomendaciones, bool materialGanancia, bool suscripcion)
 
         {
@@ -3898,13 +3898,13 @@ namespace Portal.Consultoras.Common
             modelo.Seccion = recomendaciones ? ConsOrigenPedidoWeb.Seccion.Recomendado : home ? ConsOrigenPedidoWeb.Seccion.DesplegableBuscador : ConsOrigenPedidoWeb.Seccion.Carrusel;
             modelo.Pagina = recomendaciones ? ConsOrigenPedidoWeb.Pagina.Pedido : home ? ConsOrigenPedidoWeb.Pagina.Buscador : ConsOrigenPedidoWeb.Pagina.LandingBuscador;
 
-            switch (codigoEstrategia)
+            switch (tipoPersonalizacion)
             {
-                case "CAT":
+                case Constantes.TipoPersonalizacion.Catalogo:
                     modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunMarca(marcaId);
                     break;
                 default:
-                    codigoTipoEstrategia = codigoEstrategia == Constantes.CodigoEstrategiaBuscador.Liquidacion ? Constantes.TipoEstrategiaCodigo.Liquidacion : codigoTipoEstrategia;
+                    codigoTipoEstrategia = tipoPersonalizacion == Constantes.TipoPersonalizacion.Liquidacion ? Constantes.TipoEstrategiaCodigo.Liquidacion : codigoTipoEstrategia;
                     modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunTipoEstrategia(codigoTipoEstrategia, materialGanancia, recomendaciones, suscripcion);
                     break;
             }
@@ -3912,7 +3912,7 @@ namespace Portal.Consultoras.Common
 
         }
 
-        public static int obtenerCodigoOrigenWebApp(string codigoEstrategia, string codigoTipoEstrategia, int marcaId, bool desplegable, bool landing, bool ficha, bool fichaCarrusel, bool materialGanancia)
+        public static int obtenerCodigoOrigenWebApp(string tipoPersonalizacion, string codigoTipoEstrategia, int marcaId, bool desplegable, bool landing, bool ficha, bool fichaCarrusel, bool materialGanancia)
         {
            
             if (desplegable == landing)
@@ -3927,13 +3927,13 @@ namespace Portal.Consultoras.Common
             modelo.Pagina = desplegable ? ConsOrigenPedidoWeb.Pagina.Buscador : ConsOrigenPedidoWeb.Pagina.LandingBuscador;
             modelo.Seccion = UtilOrigenPedidoWeb.GetSeccionSegunFicha(ficha, fichaCarrusel, desplegable);
 
-            switch (codigoEstrategia)
+            switch (tipoPersonalizacion)
             {
-                case Constantes.CodigoEstrategiaBuscador.Catalogo:
+                case Constantes.TipoPersonalizacion.Catalogo:
                     modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunMarca(marcaId);
                     break;
                 default:
-                    codigoTipoEstrategia = codigoEstrategia == Constantes.CodigoEstrategiaBuscador.Liquidacion ? Constantes.TipoEstrategiaCodigo.Liquidacion : codigoTipoEstrategia;
+                    codigoTipoEstrategia = tipoPersonalizacion == Constantes.TipoPersonalizacion.Liquidacion ? Constantes.TipoEstrategiaCodigo.Liquidacion : codigoTipoEstrategia;
                     modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunTipoEstrategia(codigoTipoEstrategia, materialGanancia);
                     break;
             }
@@ -3943,10 +3943,7 @@ namespace Portal.Consultoras.Common
         public static string GetTipoPersonalizacionByCodigoEstrategia(string codigoEstrategia)
         {
             var tipoPersonalizacion = string.Empty;
-
-            if (codigoEstrategia == Constantes.CodigoEstrategiaBuscador.Catalogo)
-                return Constantes.CodigoEstrategiaBuscador.Catalogo;
-
+            
             switch (codigoEstrategia)
             {
                 case Constantes.TipoEstrategiaCodigo.OfertaParaTi:
@@ -3978,6 +3975,9 @@ namespace Portal.Consultoras.Common
                     break;
                 case Constantes.TipoEstrategiaCodigo.RevistaDigital:
                     tipoPersonalizacion = Constantes.ConfiguracionPais.RevistaDigital;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.Catalogo:
+                    tipoPersonalizacion = Constantes.TipoEstrategiaCodigo.Catalogo;
                     break;
                 case Constantes.TipoEstrategiaCodigo.MasGanadoras:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.MasGanadoras;

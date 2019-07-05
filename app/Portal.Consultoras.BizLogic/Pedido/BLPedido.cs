@@ -143,12 +143,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var reservado = false;
                     var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(pedidoDetalle.OrigenPedidoWeb);
 
-                    //if (!(pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel
-                    //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha
-                    //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel
-                    //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha
-                    //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalCarrusel
-                    //    || pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha))
                     if (modeloOrigenPedido.Palanca != ConsOrigenPedidoWeb.Palanca.OfertaFinal && 
                         !_bLCaminoBrillante.IsOrigenPedidoCaminoBrillante(pedidoDetalle.OrigenPedidoWeb))
                     {
@@ -805,9 +799,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
             #region CaminoBrillante
             
             if (_bLCaminoBrillante.IsOrigenPedidoCaminoBrillante(pedidoDetalle.OrigenPedidoWeb))
-            //    pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido ||
-            //    pedidoDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido)
-           // if (modeloOrigenPedido.Palanca == ConsOrigenPedidoWeb.Palanca.OfertasEspeciales)
             {
                 if (_bLCaminoBrillante.UpdEstragiaCaminiBrillante(estrategia, usuario.PaisID, usuario.CampaniaID, usuario.NivelCaminoBrillante, pedidoDetalle.Producto.CUV))
                 {
@@ -2516,9 +2507,9 @@ namespace Portal.Consultoras.BizLogic.Pedido
             {
                 switch (pedidoDetalle.TipoPersonalizacion)
                 {
-                    case Constantes.CodigoEstrategiaBuscador.Liquidacion:
+                    case Constantes.TipoPersonalizacion.Liquidacion:
                         return RegistroLiquidacion(pedidoDetalle);
-                    case Constantes.CodigoEstrategiaBuscador.Catalogo:
+                    case Constantes.TipoPersonalizacion.Catalogo:
                         return PedidoInsertarBuscador(pedidoDetalle);
                     default:
                         return PedidoAgregarProducto(pedidoDetalle);

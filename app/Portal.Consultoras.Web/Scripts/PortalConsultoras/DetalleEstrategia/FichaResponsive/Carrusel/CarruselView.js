@@ -20,20 +20,15 @@ class CarruselView {
             id:"#divFichaEnriquecida",
             capa: "divFichaEnriquecida"
         };
-        // this.divFichaCarrusel_Suggested = {
-        //     id:"#divFichaCarrusel_Suggested",
-        //     capa: "divFichaCarrusel_Suggested"
-        // };
+
         this.divCarrusel = {
             id: [
                 "#divFichaCarrusel_UpSelling", 
-                // "#divFichaEnriquecida", 
                 "#divFichaCarrusel_CrossSell", 
                 "#divFichaCarrusel_Suggested"
             ],
             capa: [
                 "divFichaCarrusel_UpSelling", 
-                // "divFichaEnriquecida", 
                 "divFichaCarrusel_CrossSell", 
                 "divFichaCarrusel_Suggested"
             ]
@@ -57,7 +52,6 @@ class CarruselView {
         $(this.divCarruselContenedor).show();
         this.marcarAnalytics(1, data);
     }
-    
     setValueAttrHtml(attrObj, value) {
         $(this.divCarruselProducto).attr(attrObj, value);
     }
@@ -124,7 +118,7 @@ class CarruselView {
                     break;
             }
         }).on("lazyLoadError", function (event, slick, image, imageSource) {
-            //$(image[0]).attr("src", "/Content/Images/placeholder/img_placeholder_vertical.jpg");
+
         });
 
         $(this.divCarruselProducto).fadeIn();
