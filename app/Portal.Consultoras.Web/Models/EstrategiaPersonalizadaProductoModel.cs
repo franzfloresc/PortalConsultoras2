@@ -101,5 +101,10 @@ namespace Portal.Consultoras.Web.Models
         public bool MaterialGanancia { get; set; }
 
         public bool EsPromocion { get; set; }
+        
+        /// <summary>
+        /// Tipo Oferta Camino Brillante
+        /// </summary>
+        public int TipoOfertaCaminoBrillante { get; set; }
     }
 }

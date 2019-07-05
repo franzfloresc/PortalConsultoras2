@@ -25,6 +25,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         protected ConfiguracionOfertasHomeProvider _configuracionOfertasHomeProvider;
         protected CarruselUpSellingProvider _carruselUpSellingProvider;
         private readonly ConfiguracionPaisDatosProvider _configuracionPaisDatosProvider;
+        private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
         protected VentaIncrementalProvider _ventaIncrementalProvider;
         protected ConsultaProlProvider _consultaProlProvider;
 
@@ -34,6 +35,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
             _configuracionPaisDatosProvider = new ConfiguracionPaisDatosProvider();
             _configuracionOfertasHomeProvider = new ConfiguracionOfertasHomeProvider();
             _carruselUpSellingProvider = new CarruselUpSellingProvider();
+            _caminoBrillanteProvider = new CaminoBrillanteProvider();
             _ventaIncrementalProvider = new VentaIncrementalProvider();
             _consultaProlProvider = new ConsultaProlProvider();
         }
@@ -98,6 +100,18 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
         public JsonResult ATPObtenerProductos(BusquedaProductoModel model)
         {
             return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.ATPObtenerProductos);
+        }
+
+        [HttpPost]
+        public JsonResult CBDObtenerProductos(BusquedaProductoModel model)
+        {
+            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.CBDObtenerProductos);
+        }
+
+        [HttpPost]
+        public JsonResult CBKObtenerProductos(BusquedaProductoModel model)
+        {
+            return PreparListaModel(model, Constantes.TipoConsultaOfertaPersonalizadas.CBKObtenerProductos);
         }
 
         [HttpGet]
@@ -304,6 +318,22 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                         listaSubCampania = _ofertaPersonalizadaProvider.FormatearModelo1ToPersonalizado(listaEstrategiaSubCampania, listaPedido, userData.CodigoISO, userData.CampaniaID, 2, userData.esConsultoraLider, userData.Simbolo).OrderBy(x => x.TieneStock, false).ToList();
                         SessionManager.ShowRoom.CargoOfertas = "0";
                     }
+                }
+                else if (tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.CBDObtenerProductos || tipoConsulta == Constantes.TipoConsultaOfertaPersonalizadas.CBKObtenerProductos)
+                {
+                    switch (tipoConsulta) {
+                        case Constantes.TipoConsultaOfertaPersonalizadas.CBKObtenerProductos:
+                            listModel = _caminoBrillanteProvider.ObtenerOfertasCaminoBrillante(Constantes.CaminoBrillante.TipoOferta.Kit);
+                            break;
+                        case Constantes.TipoConsultaOfertaPersonalizadas.CBDObtenerProductos:
+                            listModel = _caminoBrillanteProvider.ObtenerOfertasCaminoBrillante(Constantes.CaminoBrillante.TipoOferta.Demostrador);
+                            break;
+                        default:
+                            listModel = _caminoBrillanteProvider.ObtenerOfertasCaminoBrillante();
+                            break;
+                    }
+                    cantidadTotal0 = listModel.Count;
+                    listPerdio = listModel;
                 }
                 else
                 {

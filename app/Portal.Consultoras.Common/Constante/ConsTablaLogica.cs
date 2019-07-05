@@ -614,6 +614,7 @@ namespace Portal.Consultoras.Common
             public const short CaminoBrillanteEnterateMas = 173;
             public const short CaminoBrillanteFiltro = 174;
             public const short CaminoBrillanteOrden = 175;
+            public const short CaminoBrillanteConfigurar = 176;
         }
 
         public static class AdministradorHistoria

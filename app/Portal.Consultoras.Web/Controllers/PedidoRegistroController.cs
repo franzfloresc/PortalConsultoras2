@@ -20,11 +20,13 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private readonly PedidoSetProvider _pedidoSetProvider;
         protected ProductoFaltanteProvider _productoFaltanteProvider;
+        private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
 
         public PedidoRegistroController()
         {
             _pedidoSetProvider = new PedidoSetProvider();
             _productoFaltanteProvider = new ProductoFaltanteProvider();
+            _caminoBrillanteProvider = new CaminoBrillanteProvider();
         }
 
         [HttpPost]
@@ -314,10 +316,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var esCaminoBrillante = false;
                 #region Camino Brillante
-                //if (model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido ||
-                //    model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido)
-                if (modeloOrigenPedido.Palanca == ConsOrigenPedidoWeb.Palanca.OfertasEspeciales)
+                if (_caminoBrillanteProvider.IsOrigenPedidoCaminoBrillante(model.OrigenPedidoWeb))
                 {
+                    model.CuvTonos = Util.Trim(model.CUV);
                     esCaminoBrillante = true;
                     SessionManager.SetDemostradoresCaminoBrillante(null);
                 }

@@ -11,6 +11,7 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
 using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -18,11 +19,13 @@ namespace Portal.Consultoras.Web.Controllers
     public class BaseViewController : BaseController
     {
         private readonly IssuuProvider _issuuProvider;
+        private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
         private readonly PromocionesProvider promocionesProvider;
 
         public BaseViewController() : base()
         {
             _issuuProvider = new IssuuProvider();
+            _caminoBrillanteProvider = new CaminoBrillanteProvider();
             promocionesProvider = new PromocionesProvider();
         }
 
@@ -285,6 +288,14 @@ namespace Portal.Consultoras.Web.Controllers
                 var actionOfertas = productoPerteneceACampaniaActual ? "Index" : "Revisar";
                 breadCrumbs.Ofertas.Url = Url.Action(actionOfertas, new { controller = "Ofertas", area });
 
+                if (palanca == "CaminoBrillanteKits" || palanca == "CaminoBrillanteDemostradores")
+                {
+                    area = "";
+                    breadCrumbs.Ofertas.Texto = "Camino Brillante";
+                    breadCrumbs.Palanca.Texto = GetNombresPalancas(palanca);
+                    breadCrumbs.Ofertas.Url = Url.Action("Index", new { controller = "CaminoBrillante", area });
+                }
+
                 breadCrumbs.Palanca.Url = "#";
                 if (!string.IsNullOrWhiteSpace(breadCrumbs.Palanca.Texto))
                 {
@@ -325,6 +336,16 @@ namespace Portal.Consultoras.Web.Controllers
                         case Constantes.NombrePalanca.GuiaDeNegocioDigitalizada:
                             breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "GuiaNegocio", area });
                             break;
+                        case Constantes.NombrePalanca.CaminoBrillanteDemostradores:
+                            {
+                                breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "CaminoBrillante/Ofertas", area ,t=1});
+                                break;
+                            }
+                        case Constantes.NombrePalanca.CaminoBrillanteKits:
+                            {
+                                breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "CaminoBrillante/Ofertas", area });
+                                break;
+                            }
                         case Constantes.NombrePalanca.HerramientasVenta:
                             {
                                 var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
@@ -372,6 +393,8 @@ namespace Portal.Consultoras.Web.Controllers
                 { Constantes.NombrePalanca.MasGanadoras, "Las más ganadoras" },
                 { Constantes.NombrePalanca.PackNuevas, _programaNuevasProvider.TieneDuoPerfecto() ? "Dúo Perfecto" : "Programa Nuevas" },
                 { Constantes.NombrePalanca.Catalogo, "Búsqueda" },
+                { Constantes.NombrePalanca.CaminoBrillanteDemostradores, "Demostradores" },
+                { Constantes.NombrePalanca.CaminoBrillanteKits, "Kits" }
             };
 
             return nombresPalancas.ContainsKey(palanca) ? nombresPalancas[palanca] : string.Empty;
@@ -483,9 +506,9 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.Cuv = cuv;
             modelo.TieneCarrusel = GetValidationHasCarrusel(modelo.OrigenAgregar, esEditar);
             modelo.OrigenAgregarCarrusel = modelo.TieneCarrusel ? GetFichaOrigenPedidoWeb(origen, ConsOrigenPedidoWeb.Seccion.CarruselUpselling, modelo.TieneCarrusel) : 0;
+            modelo.TieneCompartir = _caminoBrillanteProvider.IsOrigenPedidoCaminoBrillante(modelo.OrigenAgregar) ? false : GetTieneCompartir(palanca, esEditar, modelo.OrigenAgregar);
             modelo.OrigenAgregarCarruselCroselling = modelo.TieneCarrusel ? GetFichaOrigenPedidoWeb(origen, ConsOrigenPedidoWeb.Seccion.CarruselCrossSelling, modelo.TieneCarrusel) : 0;
             modelo.OrigenAgregarCarruselSugeridos = modelo.TieneCarrusel ? GetFichaOrigenPedidoWeb(origen, ConsOrigenPedidoWeb.Seccion.CarruselSugeridos, modelo.TieneCarrusel) : 0;
-            modelo.TieneCompartir = GetTieneCompartir(palanca, esEditar, modelo.OrigenAgregar);
             #endregion
             
             #region ODD
@@ -648,9 +671,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string codigoPalanca = string.Empty;
             bool esFichaApi = false;
-            bool tieneCodigoPalanca = false;
-            tieneCodigoPalanca = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
-
+            bool tieneCodigoPalanca = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
             if (tieneCodigoPalanca) esFichaApi = new OfertaBaseProvider().UsaFichaMsPersonalizacion(codigoPalanca);
 
             var modelo = new DetalleEstrategiaFichaModel();
@@ -669,8 +690,11 @@ namespace Portal.Consultoras.Web.Controllers
                         modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
                         modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
                     }
-                }
-            }
+                }                
+                else if (palanca == "CaminoBrillanteDemostradores" || palanca == "CaminoBrillanteKits") {                    
+                    modelo = _caminoBrillanteProvider.GetDetalleEstrategiaFichaModel(cuv);
+                }                
+             }
             else
             {
                 modelo = GetEstrategiaMongo(palanca, campaniaId, cuv);
@@ -712,7 +736,8 @@ namespace Portal.Consultoras.Web.Controllers
         private bool EsProductoRecomendado(int origen)
         {
             var modelo = UtilOrigenPedidoWeb.GetModelo(origen.ToString());
-            
+            if (origen == 0 /*|| origenString.IsNullOrEmptyTrim()*/) return false; //CB-CORREGIR
+
             return modelo.Seccion.Equals(ConsOrigenPedidoWeb.Seccion.Recomendado) ||
                    modelo.Seccion.Equals(ConsOrigenPedidoWeb.Seccion.RecomendadoFicha);
         }

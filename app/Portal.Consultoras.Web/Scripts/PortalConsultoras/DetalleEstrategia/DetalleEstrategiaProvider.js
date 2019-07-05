@@ -151,6 +151,7 @@ var DetalleEstrategiaProvider = function () {
         console.log(sigueTexto);
         estrategia.ConfiguracionContenedor = estrategia.ConfiguracionContenedor || {};
         estrategia.BreadCrumbs = estrategia.BreadCrumbs || {};
+        params.palanca = estrategia.Palanca || params.palanca;
 
         var _objTipoPalanca = ConstantesModule.DiccionarioTipoEstrategia.find(function (x) { return x.texto === params.palanca });
         var _fichaServicioApi = (variablesPortal.MsFichaEstrategias && _objTipoPalanca) ? (variablesPortal.MsFichaEstrategias.indexOf(_objTipoPalanca.codigo) > -1) : false;
@@ -187,6 +188,7 @@ var DetalleEstrategiaProvider = function () {
             }
         }
 
+        //if (!estrategia || (!estrategia.EstrategiaID && !(estrategia.CodigoEstrategia === "035" || estrategia.CodigoEstrategia === "036") )) throw 'no obtiene oferta desde api';
         if (!estrategia || (_objTipoPalanca.codigo != ConstantesModule.TipoPersonalizacion.Catalogo && !estrategia.EstrategiaID)) throw 'no obtiene oferta desde api';
 
         estrategia.TextoLibre = estrategia.TextoLibre || '';

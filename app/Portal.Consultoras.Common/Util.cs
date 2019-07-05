@@ -3982,6 +3982,12 @@ namespace Portal.Consultoras.Common
                 case Constantes.TipoEstrategiaCodigo.MasGanadoras:
                     tipoPersonalizacion = Constantes.TipoPersonalizacion.MasGanadoras;
                     break;
+                case Constantes.TipoEstrategiaCodigo.CaminoBrillanteDemostradores:
+                    tipoPersonalizacion = Constantes.ConfiguracionPais.CaminoBrillanteDemostradores;
+                    break;
+                case Constantes.TipoEstrategiaCodigo.CaminoBrillanteKits:
+                    tipoPersonalizacion = Constantes.ConfiguracionPais.CaminoBrillanteKits;
+                    break;
                 default:
                     break;
             }
