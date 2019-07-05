@@ -457,6 +457,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BENivelCaminoBrillante> GetNiveles(int paisID);
+
+        [OperationContract]
+        List<BEBeneficioCaminoBrillante> GetBeneficiosCaminoBrillante(int paisID, string codigoNivel);
         #endregion
 
         [OperationContract]

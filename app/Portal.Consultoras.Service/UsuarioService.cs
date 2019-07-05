@@ -988,6 +988,11 @@ namespace Portal.Consultoras.Service
         {
             return _caminoBrillanteBusinessLogic.GetNiveles(paisID);
         }
+
+        public List<BEBeneficioCaminoBrillante> GetBeneficiosCaminoBrillante(int paisID, string codigoNivel)
+        {
+            return _caminoBrillanteBusinessLogic.GetBeneficiosCaminoBrillante(paisID, codigoNivel);
+        }
         #endregion
 
         public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo,  string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2)

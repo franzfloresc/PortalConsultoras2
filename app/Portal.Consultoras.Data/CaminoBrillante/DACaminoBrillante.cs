@@ -11,9 +11,10 @@ namespace Portal.Consultoras.Data.CaminoBrillante
 
         }
 
-        public IDataReader GetBeneficiosCaminoBrillante()
+        public IDataReader GetBeneficiosCaminoBrillante(string codigoNivel)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetBeneficioCaminoBrillante");
+            Context.Database.AddInParameter(command, "@CodigoNivel", DbType.String, codigoNivel);
             return Context.ExecuteReader(command);
         }
 

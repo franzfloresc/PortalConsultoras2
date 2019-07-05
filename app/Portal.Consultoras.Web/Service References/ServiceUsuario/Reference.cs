@@ -18217,6 +18217,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNiveles", ReplyAction="http://tempuri.org/IUsuarioService/GetNivelesResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[]> GetNivelesAsync(int paisID);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetBeneficiosCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetBeneficiosCaminoBrillanteResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante[] GetBeneficiosCaminoBrillante(int paisID, string codigoNivel);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetBeneficiosCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetBeneficiosCaminoBrillanteResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante[]> GetBeneficiosCaminoBrillanteAsync(int paisID, string codigoNivel);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarValidacionDatos", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarValidacionDatosResponse")]
         int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2);
         
@@ -19313,6 +19319,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENivelCaminoBrillante[]> GetNivelesAsync(int paisID) {
             return base.Channel.GetNivelesAsync(paisID);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante[] GetBeneficiosCaminoBrillante(int paisID, string codigoNivel) {
+            return base.Channel.GetBeneficiosCaminoBrillante(paisID, codigoNivel);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante[]> GetBeneficiosCaminoBrillanteAsync(int paisID, string codigoNivel) {
+            return base.Channel.GetBeneficiosCaminoBrillanteAsync(paisID, codigoNivel);
         }
         
         public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2) {

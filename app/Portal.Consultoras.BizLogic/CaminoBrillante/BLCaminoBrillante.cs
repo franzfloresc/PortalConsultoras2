@@ -90,9 +90,9 @@ namespace Portal.Consultoras.BizLogic.CaminoBrillante
             return CacheManager<List<BENivelCaminoBrillante>>.ValidateDataElement(paisId, ECacheItem.CaminoBrillanteNiveles, () => GetNivelesProvider(paisId));
         }
 
-        private List<BEBeneficioCaminoBrillante> GetBeneficiosCaminoBrillante(int paisId)
+        public List<BEBeneficioCaminoBrillante> GetBeneficiosCaminoBrillante(int paisId, string codigoNivel = "")
         {
-            return new DACaminoBrillante(paisId).GetBeneficiosCaminoBrillante().MapToCollection<BEBeneficioCaminoBrillante>(closeReaderFinishing: true);
+            return new DACaminoBrillante(paisId).GetBeneficiosCaminoBrillante(codigoNivel).MapToCollection<BEBeneficioCaminoBrillante>(closeReaderFinishing: true);
         }
 
         #endregion

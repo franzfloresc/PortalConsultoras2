@@ -107,6 +107,16 @@ namespace Portal.Consultoras.Web.Providers
             }
         }
 
+        /// <summary>
+        /// Obtiene solamente el listado de Beneficos para administrador de contenidos.
+        /// </summary>
+        public List<BEBeneficioCaminoBrillante> GetListaBeneficiosByNivel(int paisID, string codigoNivel)
+        {
+            using (var svc = new UsuarioServiceClient())
+            {
+                return svc.GetBeneficiosCaminoBrillante(paisID, codigoNivel).ToList();
+            }
+        }
         #endregion
 
         #region Consultora

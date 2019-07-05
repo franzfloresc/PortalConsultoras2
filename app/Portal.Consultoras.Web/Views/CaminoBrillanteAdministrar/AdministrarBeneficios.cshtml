@@ -3,6 +3,133 @@
     ViewBag.Title = "Administrar Beneficios Camino Brillante";
 }
 
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        fnGrilla();
+        $("#btnBuscar").click(function () {
+
+            if ($("#ddlPais").val() == "") {
+                alert("Debe seleccionar el País, verifique.");
+                return false;
+            }
+
+            if ($("#ddlNivel").val() == "") {
+                alert("Debe seleccionar un nivel, verifique.");
+                return false;
+            }
+            $("#hdTipoConsulta").val("1");
+            fnGrilla();
+        });
+
+        function fnGrilla() {
+
+            jQuery("#list").jqGrid({
+                url: baseUrl + "CaminoBrillanteAdministrar/Consultar",
+                hidegrid: false,
+                datatype: 'json',
+                postData: ({
+                    //CampaniaID: function () { return jQuery.trim($("#ddlCampania").val()); },
+                    paisID: function () { return jQuery.trim($("#ddlPais").val()); },
+                    CodigoNivel: function () { return jQuery.trim($("#ddlNivel").val());},
+                    Consulta: function () { return jQuery.trim($("#hdTipoConsulta").val()) }
+                }),
+                mtype: 'GET',
+                contentType: "application/json; charset=utf-8",
+                //colNames: ['TipoEstrategiaID', 'Código de Estrategia', 'Tipo de Estrategia', 'Ofertas', 'Orden', 'Imagen', 'OfertaID', 'Acción', '', '', '', 'CodigoPrograma', 'FlagMostrarImg', 'MostrarImgOfertaIndependiente', 'ImagenOfertaIndependiente', 'FlagValidarImagen', 'PesoMaximoImagen'],
+                colNames: ['Nro', 'Nombre Beneficio', 'Descripción', 'Icono', 'Orden', 'Opcion'],
+                colModel: [
+                    { name: 'Nro', index: 'Nro', width: 20, editable: true, resizable: false},
+                    { name: 'NombreBeneficio', index: 'NombreBeneficio', width: 100, editable: true, resizable: false},
+                    { name: 'Descripcion', index: 'Descripcion', width: 180, editable: true, resizable: false},
+                    { name: 'Icono', index: 'Icono', width: 180, editable: true, hidden: false, formatter: true },
+                    { name: 'Orden', index: 'Orden', width: 40, editable: true, align: 'center', resizable: true },
+                    { name: 'Opcion', index: 'Opcion', width: 70, editable: true, resizable: false, sortable: true, align: 'center', formatter: ShowImage },
+                    //{ name: 'OfertaID', index: 'OfertaID', width: 0, editable: true, resizable: false, hidden: true },
+                    //{ name: 'FlagActivo', index: 'FlagActivo', width: 40, align: 'center', editable: true, resizable: false, formatter: ShowActions },
+                    //{ name: 'FlagNueva', index: 'FlagNueva', width: 0, editable: true, resizable: false, hidden: true },
+                    //{ name: 'FlagRecoProduc', index: 'FlagRecoProduc', width: 0, editable: true, resizable: false, hidden: true },
+                    //{ name: 'FlagRecoPerfil', index: 'FlagRecoPerfil', width: 0, editable: true, resizable: false, hidden: true },
+                    //{ name: 'CodigoPrograma', index: 'CodigoPrograma', width: 0, editable: true, resizable: false, hidden: true },
+                    //{ name: 'FlagMostrarImg', index: 'FlagMostrarImg', width: 0, editable: true, resizable: false, hidden: true },
+                    //{ name: 'MostrarImgOfertaIndependiente', index: 'MostrarImgOfertaIndependiente', width: 0, editable: false, resizable: false, hidden: true },
+                    //{ name: 'ImagenOfertaIndependiente', index: 'ImagenOfertaIndependiente', width: 0, editable: false, resizable: false, hidden: true, formatter: ShowImage },
+                    //{ name: 'FlagValidarImagen', index: 'FlagValidarImagen', width: 0, editable: true, resizable: false, hidden: true },
+                    //{ name: 'PesoMaximoImagen', index: 'PesoMaximoImagen', width: 180, editable: true, resizable: false, hidden: true },
+                ],
+                jsonReader:
+                {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: true,
+                    cell: "cell",
+                    id: "id"
+                },
+                pager: jQuery('#pager'),
+                loadtext: 'Cargando datos...',
+                recordtext: "{0} - {1} de {2} Registros",
+                emptyrecords: 'No hay resultados',
+                rowNum: 10,
+                scrollOffset: 0,
+                rowList: [10, 20, 30, 40, 50],
+                sortname: 'Mensaje',
+                sortorder: 'asc',
+                viewrecords: true,
+                multiselect: false,
+                height: 'auto',
+                width: 930,
+                pgtext: 'Pág: {0} de {1}',
+                altRows: true,
+                altclass: 'jQGridAltRowClass',
+                loadComplete: function () { },
+                gridComplete: function () { }
+            });
+            jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+            jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+        }
+
+        //function ShowOferta(cellvalue, options, rowObject) {
+        //    var cellValueInt = parseInt(cellvalue);
+        //    var Des = rowObject[3].replace(/,/g, '<br />');
+        //    return Des;
+        //}
+
+        function ShowImage(cellvalue, options, rowObject) {
+            var image = "";
+            if (cellvalue != "") {
+                image = '<img src="' + cellvalue + '" alt="" width="100px" height="25px" title="" border="0" />';
+            } else {
+                image = '<img src="@Url.Content("~/Content/Images/prod_grilla_vacio.png")" alt="" width="60px" height="60px" title="" border="0" />';
+            }
+            return image;
+        }
+
+        function ShowActions(cellvalue, options, rowObject) {
+            var cellValueInt = parseInt(cellvalue);
+            var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('"
+                + rowObject[0]
+                + "','" + rowObject[1]
+                + "','" + rowObject[2]
+                + "','" + rowObject[4]
+                + "','" + rowObject[5]
+                + "','" + rowObject[6]
+                + "','" + rowObject[7]
+                + "','" + rowObject[11]
+                + "','" + rowObject[12]
+                + "','" + rowObject[13]
+                + "','" + rowObject[14]
+                + "','" + rowObject[15]
+                + "','" + rowObject[16]
+                + "');\" >"
+                + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";
+
+            Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Mensaje' title='Eliminar Mensaje' border='0' /></a>";
+            return Des;
+        }
+    });
+</script>
+
 <input type="hidden" id="hdTipoConsulta" value="0" />
 <div class="wrap_cab">
     <div class="filtros2">
