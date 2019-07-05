@@ -3630,9 +3630,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 TempData["PaisID"] = paisID;
                 bool EstadoEnvio = false;
-                //int existeCorreoRegistrado = 0;
-                //oUsu.EsMobile = EsDispositivoMovil();
-
 
                 using (var sv = new UsuarioServiceClient())
                 {
