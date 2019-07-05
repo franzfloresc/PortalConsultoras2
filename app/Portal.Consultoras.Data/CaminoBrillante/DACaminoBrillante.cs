@@ -62,11 +62,5 @@ namespace Portal.Consultoras.Data.CaminoBrillante
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
             return Context.ExecuteReader(command);
         }
-
-        public IDataReader GetFiltrosCaminoBrillante()
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetFiltrosCaminoBrillante");
-            return Context.ExecuteReader(command);
-        }
     }
 }

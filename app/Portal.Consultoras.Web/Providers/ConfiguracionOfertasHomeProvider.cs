@@ -226,6 +226,7 @@ namespace Portal.Consultoras.Web.Providers
                             seccion.UrlObtenerProductos = "Estrategia/ATPObtenerProductos";
                             seccion.UrlLandig = "ArmaTuPack/Detalle";
                             modeloOrigenPedido.Palanca = ConsOrigenPedidoWeb.Palanca.ArmaTuPack;
+
                             seccion.VerMas = false;
                             seccion.CodigoUbigeoPortal = CodigoUbigeoPortal.GuionContenedorArmaTuPackGuion;
                             break;
@@ -414,7 +415,7 @@ namespace Portal.Consultoras.Web.Providers
                 VerMas = true,
 
                 BotonColor = BotonColorCss(entConf.BotonColor, entConf.BotonColorTexto),
-                //BotonColorTexto = entConf.BotonColorTexto,
+
                 BotonTexto1 = entConf.BotonTexto1,
                 BotonTexto2 = entConf.BotonTexto2
             };

@@ -2512,8 +2512,6 @@ namespace Portal.Consultoras.BizLogic
 
         public BEPedidoWeb GetPedidoWebConCalculosGanancia(BEUsuario usuario, decimal montoAhorroCatalogo, decimal montoAhorroRevista, decimal montoDescuento, decimal montoEscala, List<BEPedidoWebDetalle> pedidoWebSetDetalleAgrupado)
         {
-            //var pedidoWebSetDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, false, out int pedidoID);
-
             var codigosCatalogosWeb = GetCodigosCatalogoWeb(false);
             var codigosCatalogosRevista = GetCodigosCatalogoRevista();
             var itemsCatalogo = Common.Util.GetCodigosCatalogo();

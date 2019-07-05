@@ -319,8 +319,10 @@
     <Compile Include="Models\ArmaTuPackModel.cs" />
     <Compile Include="Models\BuscadorYFiltrosCategoriaModel.cs" />
     <Compile Include="Models\ChatActivation.cs" />
+    <Compile Include="Models\CaminoBrillante\CarruselCaminoBrillante.cs" />
     <Compile Include="Models\CaminoBrillante\FiltrosCaminoBrillanteModel.cs" />
     <Compile Include="Models\ElasticSearch\OutputProductosUpSelling.cs" />
+    <Compile Include="Models\CaminoBrillante\MisGananciasCaminoBrillante.cs" />
     <Compile Include="Models\Estrategia\FotosComponenteModel.cs" />
     <Compile Include="Models\Search\ResponseOferta\OutputOfertaIncremental.cs" />
     <Compile Include="Models\Search\ResponseOferta\Estructura\FotosComponente.cs" />
@@ -1472,7 +1474,10 @@
     <Content Include="Content\CaminoBrillante\imgs\add_to_cart2.svg" />
     <Content Include="Content\CaminoBrillante\imgs\bg-modal.png" />
     <Content Include="Content\CaminoBrillante\imgs\brillo.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\down.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\flag.svg" />
     <Content Include="Content\CaminoBrillante\imgs\icon-s.svg" />
+    <Content Include="Content\CaminoBrillante\imgs\up.svg" />
     <Content Include="Content\CaminoBrillante\Mobile.css" />
     <Content Include="Content\Css\Button\style.css" />
     <Content Include="Content\Css\colorpicker\colorpicker.css" />
@@ -4165,6 +4170,7 @@
     <Content Include="Scripts\AdminContenido\ProductoSugerido.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\chartjs.js" />
     <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\colorpicker\colorpicker.js" />
     <Content Include="Scripts\Comunidad\fuzescale-1.3.min.js" />
@@ -4394,7 +4400,6 @@
     <Content Include="Scripts\AdminContenido\Palanca\AdminPalanca.js" />
     <Content Include="Scripts\PortalConsultoras\PedidoFIC\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />
-    <Content Include="Scripts\PortalConsultoras\Pedido\ConsultoraOnline.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\ofertafinal.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-ConfirmarDatos.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Landing.js" />
@@ -5947,6 +5952,8 @@
     <Content Include="Views\ConsultoraOnline\Pendientes.cshtml" />
     <Content Include="Views\CaminoBrillanteAdministrar\AdministrarBeneficios.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupGeneral.cshtml" />
+    <Content Include="Views\CaminoBrillante\Partial\template_kit.cshtml" />
+    <Content Include="Views\CaminoBrillante\Partial\template_demostrador.cshtml" />
     <Content Include="Views\Shared\VistaParcialMainLayout\_fbsdk.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupInformacionRegalo.cshtml" />
     <Content Include="Views\DetalleEstrategia\FichaResponsive.cshtml" />
