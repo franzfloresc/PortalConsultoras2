@@ -1915,7 +1915,7 @@ namespace Portal.Consultoras.BizLogic
 
             var DAUsuario = new DAUsuario(usuario.PaisID);
             var usuarioOpciones = new BEUsuarioOpciones();
-            usuarioOpciones.OpcionesUsuarioId = Constantes.OpcionesUsuario.CompartirWhatsApp;
+            usuarioOpciones.OpcionesUsuarioId = Constantes.OpcionesUsuario.NotificarWhatsApp;
             usuarioOpciones.CheckBox = usuario.NotificacionesWhatsapp;
 
 
