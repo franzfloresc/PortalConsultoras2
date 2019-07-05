@@ -502,7 +502,7 @@ namespace Portal.Consultoras.Web.Providers
         private string GetMisGananciasCaminoBrillante_Title(List<BEConsultoraCaminoBrillante.BENivelConsultoraCaminoBrillante> niveles, Func<string, string> funcCampania) {
             var nivelesOrdenados = niveles.OrderBy(e => e.Campania).ToList();
             if (!nivelesOrdenados.Any()) return string.Empty;
-            string end = nivelesOrdenados.Count() > 1 ? " a "+ funcCampania(nivelesOrdenados[nivelesOrdenados.Count - 1].Campania) : string.Empty;
+            string end = nivelesOrdenados.Count > 1 ? " a "+ funcCampania(nivelesOrdenados[nivelesOrdenados.Count - 1].Campania) : string.Empty;
             return string.Format("Monto de mi pedido {0}{1}", funcCampania(nivelesOrdenados[0].Campania), end);
         }
 
