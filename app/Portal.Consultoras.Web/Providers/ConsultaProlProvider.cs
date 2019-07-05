@@ -244,7 +244,7 @@ namespace Portal.Consultoras.Web.Providers
                         x.TieneStock = temp.STOCK == 1;
                     }
                 });
-                lista.RemoveAll(x => x.TieneStock == false);
+                lista.RemoveAll(x => !x.TieneStock);
                 return lista;
             }
             catch (Exception ex)
