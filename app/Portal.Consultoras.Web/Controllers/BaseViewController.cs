@@ -494,7 +494,6 @@ namespace Portal.Consultoras.Web.Controllers
         public DetalleEstrategiaFichaModel GetEstrategiaMongo(string palanca, int campaniaId, string cuv)
         {
             string codigoPalanca = string.Empty;
-            var tieneCodigoPalanca = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
             
             var modelo = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campaniaId.ToString(), codigoPalanca);
 
@@ -511,7 +510,7 @@ namespace Portal.Consultoras.Web.Controllers
             var lstModelo = new List<DetalleEstrategiaFichaModel>();
             lstModelo.Add(modelo);
             lstModelo = _ofertaPersonalizadaProvider.ActualizarEstrategiaStockProl(lstModelo, userData);
-            modelo.TieneStock = lstModelo.Where(x => x.CUV2 == modelo.CUV2).First().TieneStock;
+            modelo.TieneStock = lstModelo.FirstOrDefault(x => x.CUV2 == modelo.CUV2).TieneStock;
 
             // validar stock de los CUV componentes
             modelo.Hermanos = _estrategiaComponenteProvider.FormatterEstrategiaComponentes(modelo.Hermanos, modelo.CUV2, modelo.CampaniaID, true);

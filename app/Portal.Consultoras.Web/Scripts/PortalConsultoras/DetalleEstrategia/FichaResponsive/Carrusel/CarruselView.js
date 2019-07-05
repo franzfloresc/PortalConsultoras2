@@ -157,27 +157,27 @@ class CarruselView {
         })[0];
     }
 
-    reorderFichaCarrusel(model){
-        var orden = 0;
-        var _this = this;
+    //reorderFichaCarrusel(model){
+    //    var orden = 0;
+    //    var _this = this;
         
-        $.each($(this.divCarruselFicha.ficha), function(indice, elemento){
-            $(elemento).css("order", "");
-        });
+    //    $.each($(this.divCarruselFicha.ficha), function(indice, elemento){
+    //        $(elemento).css("order", "");
+    //    });
 
-        this.divCarrusel.capa.forEach(function (ficha) {
-            var encontrado = _this.filterFichaVisible(ficha);
-            if (encontrado != undefined) {
-                $(encontrado).css("order", orden);
+    //    this.divCarrusel.capa.forEach(function (ficha) {
+    //        var encontrado = _this.filterFichaVisible(ficha);
+    //        if (encontrado != undefined) {
+    //            $(encontrado).css("order", orden);
 
-                if (orden == 0 && _this.filterFichaVisible(_this.fichaEnriquecida.capa) != undefined) {
-                    $(_this.fichaEnriquecida.id).css("order", orden + 1);
-                    orden++;
-                }
+    //            if (orden == 0 && _this.filterFichaVisible(_this.fichaEnriquecida.capa) != undefined) {
+    //                $(_this.fichaEnriquecida.id).css("order", orden + 1);
+    //                orden++;
+    //            }
 
-                orden++;
-            }
-        });
-    }
+    //            orden++;
+    //        }
+    //    });
+    //}
 
 }
