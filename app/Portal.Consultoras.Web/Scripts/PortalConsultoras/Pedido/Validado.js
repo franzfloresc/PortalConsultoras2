@@ -209,7 +209,6 @@ $.fn.CreateSelected = function (array, val, text, etiqueta, index) {
         }
 
         $.each(array, function (i, item) {
-            //var objtemp = item;
             $(obj).append('<option value="' + item[val] + '">' + item[text] + '</option>');
         });
     } catch (e) {

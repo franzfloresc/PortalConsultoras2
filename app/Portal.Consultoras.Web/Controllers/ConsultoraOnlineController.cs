@@ -2176,7 +2176,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        //public JsonResult RechazarSolicitudCliente(string pedidoId)
         public JsonResult RechazarSolicitudCliente(string pedidoId, int motivoRechazoId, string motivoRechazoTexto)
         {
             try
@@ -2551,14 +2550,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
                         pedidoWebId = (pedidoDetalleResult.PedidoWebDetalle != null ? pedidoDetalleResult.PedidoWebDetalle.PedidoID : pedidoWebId);
-
-                        //listaClientesId.ForEach(clienteId =>
-                        //{
-                        //    pedidoDetalle.ClienteID = clienteId;
-                        //    var pedidoDetalleResult = _pedidoWebProvider.InsertPedidoDetalle(pedidoDetalle);
-                        //    pedidoWebId = (pedidoDetalleResult.PedidoWebDetalle != null ? pedidoDetalleResult.PedidoWebDetalle.PedidoID : pedidoWebId);
-                        //});
-
+                        
                     });
 
                     SessionManager.SetPedidoWeb(null);

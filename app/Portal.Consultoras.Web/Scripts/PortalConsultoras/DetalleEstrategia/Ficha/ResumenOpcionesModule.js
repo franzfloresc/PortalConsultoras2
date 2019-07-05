@@ -123,24 +123,6 @@ var ResumenOpcionesModule = (function () {
             _applySelectedAnalytics(_componente, tipo);
         }
 
-        //if (callCloseElegirOpcionesModal) {
-        //    var estrategia = fichaModule.GetEstrategia();
-        //    var nombreConcat = "";
-        //    if (_componente.FactorCuadre === 1) {
-        //        AnalyticsPortalModule.MarcarBotonAplicarSeleccion(estrategia, _componente);
-        //    } else {
-        //        $.each(_componente.resumenAplicados, function (index, opcion) {
-        //            if (opcion.cantidadSeleccionada > 0) {
-        //                nombreConcat += " " + estrategia.DescripcionCompleta + " " + opcion.NombreBulk + " |";
-        //            }
-        //        });
-
-        //        nombreConcat = Left(nombreConcat, nombreConcat.length - 1).trim();
-
-        //        AnalyticsPortalModule.MarcarPopupBotonAplicarSeleccionVariasOpciones(nombreConcat);
-        //    }
-        //}
-
         var isDesactivado = $('#btnAgregalo').hasClass('.btn_desactivado_general');
         if (!isDesactivado) {
             fichaModule.SetChangeFichaAnalytics(true, null, null);

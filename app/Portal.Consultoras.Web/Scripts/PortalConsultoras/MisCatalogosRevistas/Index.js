@@ -357,16 +357,11 @@ function CargarCarruselCatalogo() {
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{tipoCatalogoTodo}/g, tagTodo);
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{campania}/g, anio + nro);
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{textourl}/g, urlCatalogoPiloto);
-                //xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{isMovil}/g, isMovil);
-                //xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{FBAppId}/g, FBAppId);
-
-                /* INI HD-4248 */
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{WSP_textourl}/g, urlCatalogoPiloto_WSP);
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{FB_textourl}/g, urlCatalogoPiloto_FB);
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{MSN_textourl}/g, urlCatalogoPiloto_MSN);
                 xHtmlItemCatalogoPasosActual = xHtmlItemCatalogoPasosActual.replace(/{EMAIL_textourl}/g, urlCatalogoPiloto_EMAIL);
-                /* FIN HD-4248 */
-
+                
                 $("#idSection" + icam).append(xHtmlItemCatalogoPasosActual);
                 $("#txtUrlActual").val(urlCatalogoPiloto);
                 $("#idSection" + icam).addClass(" catalogos__campania--actual");
@@ -543,16 +538,14 @@ function CopiarEnlaceActual(catalogo, campania) {
     }
     else
         copyText.select();
-
-    //se agrego vento push - HD-3964
+    
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Catálogos y revistas',
         'action': 'Catálogo Digital - Copiar Enlace - clic botón',
         'label': campania
     });
-    // fin 
-
+    
     try {
         var successful = document.execCommand('copy');
         var msg = successful ? 'successful' : 'unsuccessful';
@@ -637,13 +630,9 @@ function GetCatalogosLinksByCampania(data, campania) {
 
             if (piloto == '1' && contDiv == 1) {
                 if (isMovil == "True")
-                    /* INI HD-4248 */
                     $("[data-accion='ms']").attr("href", "fb-messenger://share?link=" + encodeURIComponent(urlCatalogoPiloto_MSN) + "&app_id=" + encodeURIComponent(FBAppId));
-                    /* FIN HD-4248 */
                 else {
-                    /* INI HD-4248 */
                     $("[data-accion='ms']").attr("href", "https://www.facebook.com/dialog/send?app_id=" + encodeURIComponent(FBAppId) + "&link=" + encodeURIComponent(urlCatalogoPiloto_MSN) + "&redirect_uri=" + window.location.href + "?catalogo_compartido_fb_messenger=1");
-                    /* FIN HD-4248 */
                     $("[data-accion='ms']").attr("target", "_self");
                 }
             }
@@ -1027,7 +1016,6 @@ function getUrlImagenPortadaRevistaPromise(codigoCampania) {
     var defered = jQuery.Deferred();
 
     var data = JSON.stringify({
-        //codigoRevista: RevistaCodigoIssuu[codigoCampania],
         codigoCampania: codigoCampania
     });
     jQuery.ajax({

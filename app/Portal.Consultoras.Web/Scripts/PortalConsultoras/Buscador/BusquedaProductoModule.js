@@ -418,26 +418,6 @@
                 $('#ul-ordenar').addClass('d-none');
             }
 
-            //var isEscape = false;
-            //if ("key" in evt) {
-            //    isEscape = (evt.key == "Escape" || evt.key == "Esc");
-            //} else {
-            //    isEscape = (evt.keyCode == 27);
-            //}
-
-            //if (isEscape) {
-            //    if ((!dpwOrdenar.is(evt.target) && dpwOrdenar.has(evt.target).length === 0)) {
-            //        $('#dpw-ordenar').removeClass('opcion__ordenamiento__dropdown--desplegado');
-            //        $('#ul-ordenar').addClass('d-none');
-            //    }
-            //}
-            //else {
-            //    if ((!dpwOrdenar.is(evt.target) && dpwOrdenar.has(evt.target).length === 0)) {
-            //        $('#dpw-ordenar').removeClass('opcion__ordenamiento__dropdown--desplegado');
-            //        $('#ul-ordenar').addClass('d-none');
-            //    }
-            //}
-
         },
         ClickItemOrdenar: function () {
             _funciones.abrirCargaFiltros();
@@ -590,7 +570,7 @@
             var origenPedidoWeb = model.OrigenPedidoWeb;
             var descripcionProducto = model.DescripcionCompleta;
             var tipoPersonalizacionProducto = model.TipoPersonalizacion;
-            
+
             var codigo = ['030', '005', '001', '007', '008', '009', '010', '011'];
             var tipoPersonalizacion = ["CAT"];
 
@@ -603,7 +583,7 @@
             }
             if (UrlDetalle == "" && tipoPersonalizacion.indexOf(tipoPersonalizacionProducto) >= 0) {
                 UrlDetalle = FichaVerDetalle.GetUrlTipoPersonalizacion(tipoPersonalizacionProducto);
-                //
+
                 var key = ConstantesModule.KeysLocalStorage.DescripcionProductoCatalogo(codigoCampania, codigoCuv);
                 if (descripcionProducto != '') localStorage.setItem(key, descripcionProducto);
             }
