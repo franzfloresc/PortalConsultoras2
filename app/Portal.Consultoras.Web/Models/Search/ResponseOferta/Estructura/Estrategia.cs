@@ -64,5 +64,7 @@
         public List<string> ListaPrecioNiveles { get; set; }
 
         public string ImagenEtiqueta { get; set; }
+
+        public string CuvPromocion { get; set; }
     }
 }
