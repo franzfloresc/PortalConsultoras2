@@ -1764,7 +1764,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                         var lstCatalogos = Util.GetCodigosCatalogo();
                         var esCatalogo = lstCatalogos.Any(item => item == x.CodigoCatalago.ToString());
-                        x.TipoPersonalizacion = esCatalogo ? Constantes.CodigoEstrategiaBuscador.Catalogo : Util.GetTipoPersonalizacionByCodigoEstrategia(x.TipoEstrategiaCodigo);
+                        x.TipoPersonalizacion = esCatalogo ? Constantes.TipoPersonalizacion.Catalogo : Util.GetTipoPersonalizacionByCodigoEstrategia(x.TipoEstrategiaCodigo);
                     });
 
                     lstDetalle.Where(x => x.EsKitNueva).Update(x => x.DescripcionEstrategia = Constantes.PedidoDetalleApp.DescripcionKitInicio);
