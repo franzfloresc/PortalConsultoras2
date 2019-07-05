@@ -616,14 +616,18 @@ div .owl-carousel .owl-stage-outer {
         float: left;
         margin: 0;
         text-align: left;
-        font-weight: bold;
+        font-weight: normal;
     }
-.bord-bot {
-    max-width: 970px;
-    width: 100%;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #e2e2e2;
-}
+        .cent-mant .etiq-falta span {
+            display:inline-block;
+            font-weight:bold;
+        }
+        .bord-bot {
+            max-width: 970px;
+            width: 100%;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e2e2;
+        }
 #ProgressBar .brillante em {
     color: #000;
     font-weight: bold;
@@ -1311,20 +1315,24 @@ div.opOrdenar {
 
     .valor-final span {
         font-size: 15px;
-        color: gray;
+        color: #464646;
         display: block;
         text-align: left;
         margin-top: -5px;
         font-size: 13px;
     }
+        .valor-final span em {
+            font-style: normal;
+            color: #464646;
+        }
 
-.flagimg {
-    display: block;
-    width: 24px;
-    position: absolute;
-    right: -30px;
-    top: -20px;
-}
+    .flagimg {
+        display: block;
+        width: 24px;
+        position: absolute;
+        right: -30px;
+        top: -20px;
+    }
 
 #progress-b {
     margin: 30px auto;
@@ -2402,6 +2410,7 @@ div .ficha__producto__precio__normal {
 }
     .right-banner p {
         font-size: 17px;
+        width: 164px;
     }
 }
 
@@ -3166,11 +3175,12 @@ div .ficha__producto__precio__normal {
     }
 
     .cent-mant .etiq-mant, .cent-mant .etiq-falta {
-        width: 100%;
+        width: 92%;
         float: none;
         margin: 0 auto;
-        margin-bottom:5px;
-        margin-left: 10%;
+        margin-bottom: 8px;
+        margin-left: 8%;
+        font-size: 14px;
     }
     
 
@@ -3384,6 +3394,10 @@ div .ficha__producto__precio__normal {
     .medal-6 {
         width: 100%;
         animation-name: MovilDosprogressSeis;
+    }
+    .valor-final {
+        right: -20px;
+        width: 78px;
     }
 }
 

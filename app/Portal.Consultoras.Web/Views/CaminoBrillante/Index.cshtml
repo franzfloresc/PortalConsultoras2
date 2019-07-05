@@ -107,8 +107,8 @@
                                 <p> @((nivelSiguiente ?? nivelEvaluacion).DescripcionNivel)</p>
                                 <span>
                                     @if (showMoneda)
-                                    {
-                                        @ViewBag.SimboloMoneda @Util.DecimalToStringFormat(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), @ViewBag.CodigoISODL)
+                                    {   <em>@ViewBag.SimboloMoneda</em>
+                                         @Util.DecimalToStringFormat(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), @ViewBag.CodigoISODL)
                                     }
                                     else
                                     {
