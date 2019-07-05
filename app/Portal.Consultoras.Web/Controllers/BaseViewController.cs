@@ -526,9 +526,8 @@ namespace Portal.Consultoras.Web.Controllers
                             true
                             );
 
-#if DEBUG
+            // temporal de ahi quitar
             modelo.CuvPromocion = cuv;
-#endif
 
             #region Promociones
             if(modelo.MostrarPromociones && !string.IsNullOrEmpty(modelo.CuvPromocion))
