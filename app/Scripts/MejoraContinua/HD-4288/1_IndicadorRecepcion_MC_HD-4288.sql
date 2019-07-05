@@ -8,10 +8,11 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'IndicadorRecepcion') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD indicadorrecepcion BIT NOT NULL CONSTRAINT 
+        [DF__PedidoWeb__IndicadorRecepcion] DEFAULT (0) 
   END 
 
 go 
@@ -26,10 +27,11 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'IndicadorRecepcion') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD indicadorrecepcion BIT NOT NULL CONSTRAINT 
+        [DF__PedidoWeb__IndicadorRecepcion] DEFAULT (0) 
   END 
 
 go 
@@ -44,10 +46,11 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'IndicadorRecepcion') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD indicadorrecepcion BIT NOT NULL CONSTRAINT 
+        [DF__PedidoWeb__IndicadorRecepcion] DEFAULT (0) 
   END 
 
 go 
@@ -62,10 +65,11 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'IndicadorRecepcion') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD indicadorrecepcion BIT NOT NULL CONSTRAINT 
+        [DF__PedidoWeb__IndicadorRecepcion] DEFAULT (0) 
   END 
 
 go 
@@ -80,10 +84,11 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'IndicadorRecepcion') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD indicadorrecepcion BIT NOT NULL CONSTRAINT 
+        [DF__PedidoWeb__IndicadorRecepcion] DEFAULT (0) 
   END 
 
 go 
@@ -98,10 +103,11 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'IndicadorRecepcion') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD indicadorrecepcion BIT NOT NULL CONSTRAINT 
+        [DF__PedidoWeb__IndicadorRecepcion] DEFAULT (0) 
   END 
 
 go 
@@ -116,10 +122,11 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'IndicadorRecepcion') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD indicadorrecepcion BIT NOT NULL CONSTRAINT 
+        [DF__PedidoWeb__IndicadorRecepcion] DEFAULT (0) 
   END 
 
 go 
@@ -134,10 +141,11 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'IndicadorRecepcion') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD indicadorrecepcion BIT NOT NULL CONSTRAINT 
+        [DF__PedidoWeb__IndicadorRecepcion] DEFAULT (0) 
   END 
 
 go 
@@ -152,10 +160,11 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'IndicadorRecepcion') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD indicadorrecepcion BIT NOT NULL CONSTRAINT 
+        [DF__PedidoWeb__IndicadorRecepcion] DEFAULT (0) 
   END 
 
 go 
@@ -170,10 +179,11 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'IndicadorRecepcion') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD indicadorrecepcion BIT NOT NULL CONSTRAINT 
+        [DF__PedidoWeb__IndicadorRecepcion] DEFAULT (0) 
   END 
 
 go 
@@ -188,10 +198,11 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'IndicadorRecepcion') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD indicadorrecepcion BIT NOT NULL CONSTRAINT 
+        [DF__PedidoWeb__IndicadorRecepcion] DEFAULT (0) 
   END 
 
 go 
@@ -206,10 +217,11 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'IndicadorRecepcion') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD indicadorrecepcion BIT NOT NULL CONSTRAINT 
+        [DF__PedidoWeb__IndicadorRecepcion] DEFAULT (0) 
   END 
 
 go 

@@ -8,10 +8,10 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'NombresRecepcionPedido') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD nombresrecepcionpedido VARCHAR(512) NULL 
   END 
 
 go 
@@ -26,10 +26,10 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'NombresRecepcionPedido') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD nombresrecepcionpedido VARCHAR(512) NULL 
   END 
 
 go 
@@ -44,10 +44,10 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'NombresRecepcionPedido') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD nombresrecepcionpedido VARCHAR(512) NULL 
   END 
 
 go 
@@ -62,10 +62,10 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'NombresRecepcionPedido') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD nombresrecepcionpedido VARCHAR(512) NULL 
   END 
 
 go 
@@ -80,10 +80,10 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'NombresRecepcionPedido') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD nombresrecepcionpedido VARCHAR(512) NULL 
   END 
 
 go 
@@ -98,10 +98,10 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'NombresRecepcionPedido') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD nombresrecepcionpedido VARCHAR(512) NULL 
   END 
 
 go 
@@ -116,10 +116,10 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'NombresRecepcionPedido') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD nombresrecepcionpedido VARCHAR(512) NULL 
   END 
 
 go 
@@ -134,10 +134,10 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'NombresRecepcionPedido') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD nombresrecepcionpedido VARCHAR(512) NULL 
   END 
 
 go 
@@ -152,15 +152,15 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'NombresRecepcionPedido') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD nombresrecepcionpedido VARCHAR(512) NULL 
   END 
 
 go 
 
-USE [BelcorpPeru] 
+USE [Belcorpperu] 
 
 go 
 
@@ -170,10 +170,10 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'NombresRecepcionPedido') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD nombresrecepcionpedido VARCHAR(512) NULL 
   END 
 
 go 
@@ -188,10 +188,10 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'NombresRecepcionPedido') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD nombresrecepcionpedido VARCHAR(512) NULL 
   END 
 
 go 
@@ -206,10 +206,10 @@ IF NOT EXISTS (SELECT *
                         ON C.[object_id] = O.[object_id] 
                WHERE  O.type = 'U' 
                       AND O.NAME = 'pedidoweb' 
-                      AND C.NAME = 'DNIRecepcionPedido') 
+                      AND C.NAME = 'NombresRecepcionPedido') 
   BEGIN 
       ALTER TABLE pedidoweb 
-        ADD dnirecepcionpedido VARCHAR(512) NULL 
+        ADD nombresrecepcionpedido VARCHAR(512) NULL 
   END 
 
 go 
