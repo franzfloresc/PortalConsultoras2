@@ -11695,6 +11695,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreBeneficioField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OrdenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RegistroField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -11766,6 +11772,32 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.NombreBeneficioField, value) != true)) {
                     this.NombreBeneficioField = value;
                     this.RaisePropertyChanged("NombreBeneficio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Orden {
+            get {
+                return this.OrdenField;
+            }
+            set {
+                if ((this.OrdenField.Equals(value) != true)) {
+                    this.OrdenField = value;
+                    this.RaisePropertyChanged("Orden");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Registro {
+            get {
+                return this.RegistroField;
+            }
+            set {
+                if ((this.RegistroField.Equals(value) != true)) {
+                    this.RegistroField = value;
+                    this.RaisePropertyChanged("Registro");
                 }
             }
         }
