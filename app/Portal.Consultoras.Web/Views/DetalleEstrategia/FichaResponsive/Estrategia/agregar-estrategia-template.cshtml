@@ -53,11 +53,6 @@
                         <span class="msj_agotado">No hay stock disponible</span>
                     </div>
                 </div>
-                @*<a id="btnAgregalo"
-                   class="boton_Agregalo_agotado btn_agregalo"
-                   style="pointer-events: none;">
-                    AGOTADO
-                </a>*@
             {{/if}}
         {{else}}
             {{#if TieneStock}}
@@ -93,7 +88,7 @@
                    onclick="javascript: estrategiaPresenter.onEstrategiaModelClick(event, false, 0, true, {{EsEditable}});"
                    {{#if esCampaniaSiguiente}} data-bloqueada="{{ClaseBloqueada}}" {{/if}}
                    class="btn_agregalo btn_primario {{#if esCampaniaSiguiente}} {{ClaseBloqueada}} {{/if}}">
-                    Agrégalo
+                    <div class="icono_agregar"></div> Agrégalo
                 </a>
             {{else}}
                 <div class="row" style="width: 100%; flex-grow: 1;">
@@ -104,9 +99,6 @@
                         <span class="msj_agotado">No hay stock disponible</span>
                     </div>
                 </div>
-                @*<a id="btnAgregalo"
-                   class="boton_Agregalo_agotado btn_agregalo"
-                   style="pointer-events: none;">AGOTADO</a>*@
             {{/if}}
         {{/iff}}
     {{/iff}}

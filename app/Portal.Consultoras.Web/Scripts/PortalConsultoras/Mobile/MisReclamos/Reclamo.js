@@ -1839,7 +1839,6 @@ $(document).ready(function () {
                 var id = opcion.id;
                 var isChecked = tagCheck.is(':checked');
                 if (id == "" || !isChecked) {
-                    var id = opcion.id;
                     //ocultamos la capa padre y los hijos
                     tagDivInfo.fadeOut(100).children().fadeOut(100);
                     $(me.Variables.btnSiguiente1).addClass(me.Variables.deshabilitarBoton);

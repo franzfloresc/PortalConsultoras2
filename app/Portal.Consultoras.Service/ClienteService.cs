@@ -247,5 +247,10 @@ namespace Portal.Consultoras.Service
         {
             return _movimientoBusinessLogic.ActualizarDetalle(paisId, movimientoDetalle);
         }
+
+        public string GetUrlThumbnail(string codigoIso, string documento)
+        {
+            return _catalogoBusinessLogic.GetUrlThumbnail(codigoIso, documento);
+        }
     }
 }

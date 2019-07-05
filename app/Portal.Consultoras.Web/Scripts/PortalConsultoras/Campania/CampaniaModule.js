@@ -1,7 +1,7 @@
 ﻿var campaniaModule = (function () {
     "use strict"
 
-    var elements = {};
+    //var elements = {};
 
     var setting = {
         UrlListarCampanias: ''

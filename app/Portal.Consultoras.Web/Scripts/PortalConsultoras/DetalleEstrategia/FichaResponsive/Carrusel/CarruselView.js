@@ -10,9 +10,9 @@ class CarruselView {
         this.dataLazy = "img[data-lazy-seccion-revista-digital]";
         this.dataOrigenPedidoWeb = {
             busca: "[data-OrigenPedidoWeb]",
-                atributo: "data-OrigenPedidoWeb",
-                buscaAgregar: "[data-origenpedidowebagregar]",
-                atributoAgregar: "data-origenpedidowebagregar"
+            atributo: "data-OrigenPedidoWeb",
+            buscaAgregar: "[data-origenpedidowebagregar]",
+            atributoAgregar: "data-origenpedidowebagregar"
         }
     }
 
@@ -27,6 +27,16 @@ class CarruselView {
         $(this.idTituloCarrusel).html(titulo);
         $(this.divCarruselContenedor).show();
         this.marcarAnalytics(1, data);
+    }
+
+    
+    setValueAttrHtml(attrObj, value) {
+        $(this.divCarruselProducto).attr(attrObj, value);
+    }
+
+    setAttrHtml(origenIni, OrigenAgregar) {
+        this.setValueAttrHtml(this.dataOrigenPedidoWeb.atributo, origenIni);
+        this.setValueAttrHtml(this.dataOrigenPedidoWeb.atributoAgregar, OrigenAgregar);
     }
 
     mostrarSlicks(cantidadProdCarrusel) {
@@ -49,16 +59,24 @@ class CarruselView {
             dots: false,
             infinite: false,
             speed: 260,
-            slidesToShow: isMobile() ? 1 : 3,
+            slidesToShow: 3,
             slidesToScroll: 1,
-            variableWidth: false,
+            variableWidth: true,
             prevArrow: slickArrows[platform].prev,
             nextArrow: slickArrows[platform].next,
             responsive: [
                 {
-                    breakpoint: 720,
+                    breakpoint: 900,
                     settings: {
-                        slidesToShow: 1
+                        slidesToShow: 2,
+                        slidesToScroll: 1
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
                     }
                 }
             ]
@@ -66,7 +84,6 @@ class CarruselView {
             parent.marcarAnalytics(2, null, slick, currentSlide, nextSlide);
         }).on("lazyLoaded", function(event, slick, image, imageSource) {
             const aspectRatio = image[0].naturalWidth / image[0].naturalHeight;
-            console.log(`aspect_ratio: ${aspectRatio}`);
             switch (true) {
             case aspectRatio === 1:
                 break;
@@ -77,7 +94,7 @@ class CarruselView {
                 break;
             }
         }).on("lazyLoadError", function (event, slick, image, imageSource) {
-            //$(image[0].parentNode).closest("article").addClass("caja_vertical");
+            //$(image[0]).attr("src", "/Content/Images/placeholder/img_placeholder_vertical.jpg");
         });
 
         $(this.divCarruselProducto).fadeIn();

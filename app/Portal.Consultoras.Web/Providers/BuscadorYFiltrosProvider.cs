@@ -11,10 +11,14 @@ namespace Portal.Consultoras.Web.Providers
 {
     public class BuscadorYFiltrosProvider : BuscadorBaseProvider
     {
+        protected ConsultaProlProvider _consultaProlProvider;
+
         public BuscadorYFiltrosProvider()
         {
             _sessionManager = SessionManager.SessionManager.Instance;
+            _consultaProlProvider = new ConsultaProlProvider();
         }
+
         public async Task<BuscadorYFiltrosModel> GetBuscador(BuscadorModel buscadorModel)
         {
             var revistaDigital = _sessionManager.GetRevistaDigital();
@@ -53,9 +57,11 @@ namespace Portal.Consultoras.Web.Providers
             var suscripcion = (revistaDigital.EsSuscrita && revistaDigital.EsActiva);
             var presonalizaciones = "";
             var configBuscador = _sessionManager.GetBuscadorYFiltrosConfig();
-            if (configBuscador != null)
-                presonalizaciones = configBuscador.PersonalizacionDummy ?? "";
+            var esFacturacion = _consultaProlProvider.GetValidarDiasAntesStock(usuarioModel);
 
+            if (configBuscador != null)
+                presonalizaciones = configBuscador.PersonalizacionDummy ?? "";            
+            
             return new
             {
                 codigoConsultora = usuarioModel.CodigoConsultora,
@@ -70,7 +76,8 @@ namespace Portal.Consultoras.Web.Providers
                     rd = revistaDigital.TieneRDC.ToString(),
                     rdi = revistaDigital.TieneRDI.ToString(),
                     rdr = revistaDigital.TieneRDCR.ToString(),
-                    diaFacturacion = usuarioModel.DiaFacturacion
+                    diaFacturacion = usuarioModel.DiaFacturacion,
+                    esFacturacion
                 },
                 paginacion = new
                 {
