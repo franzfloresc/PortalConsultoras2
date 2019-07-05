@@ -19,6 +19,9 @@ $(document).ready(function () {
             var curBar = $(progreso).data("cur");
             var perc = (curBar / maxBar) * 100;
             $('.new-bar').width(perc + '%');
+            var minBar = $(progreso).data("min");
+            var percTope = (minBar / maxBar) * 100;
+            $('.progress-barnew .tope').css("left", percTope + '%');            
         }
     }
     //fin
