@@ -613,8 +613,10 @@ div .owl-carousel .owl-stage-outer {
 }
     .cent-mant .etiq-mant, .cent-mant .etiq-falta {
         width: 48%;
-        float:left;
-        margin:0;
+        float: left;
+        margin: 0;
+        text-align: left;
+        font-weight: bold;
     }
 .bord-bot {
     max-width: 970px;
@@ -1326,7 +1328,7 @@ div.opOrdenar {
 
 #progress-b {
     margin: 30px auto;
-    margin-bottom: 70px;
+    margin-bottom: 60px;
     display: block;
 
 }
@@ -1364,12 +1366,17 @@ div.opOrdenar {
     position: relative;
 }
 
-    .etiq-mant i, .etiq-falta i {
-        display: inline-block;
-        margin-right: 7px;
-        width: 12px;
-    }
-
+.etiq-mant i, .etiq-falta i {
+    display: inline-block;
+    margin-right: 7px;
+    width: 12px;
+}
+.cent-mant span {
+    text-align: center;
+    font-weight: normal;
+    display: block;
+    margin-bottom: 5px;
+}
 .tope {
     height: 24px;
     width: 3px;
@@ -1379,21 +1386,21 @@ div.opOrdenar {
     left: 50%;
 }
 
-    .tope:before {
-        content: "";
-        display: block;
-        width: 8px;
-        height: 8px;
-        background: #cd5b5b;
-        position: absolute;
-        top: 0;
-        left: -3px;
-        border-radius: 8px;
-    }
+.tope:before {
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
+    background: #cd5b5b;
+    position: absolute;
+    top: 0;
+    left: -3px;
+    border-radius: 8px;
+}
 
 .etiq-mant .tope {
     position: relative;
-    top: 1px;
+    top: 5px;
     left: inherit;
     margin-left: 5px;
     height: 12px;
@@ -2406,7 +2413,7 @@ div .ficha__producto__precio__normal {
     margin: 6px auto;
     text-align: center;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 19px;
     color: black;
 }
 
