@@ -9,7 +9,6 @@ var posicionTotal = 0;
 var salto = 3;
 
 var arrayOfertasParaTi = [];
-//var array_odd = [];
 var arrayProductosSugeridos = [];
 var arrayProductosGuardadoExito = [];
 var numImagen = 1;
@@ -25,9 +24,7 @@ var listaMensajeMeta = listaMensajeMeta;
 var listaParametriaOfertaFinal = listaParametriaOfertaFinal || {};
 var cuvbuscado = "";
 var cuvEsCuponNuevas = false;
-//INI HD-3908
 var _flagNueva = false;
-//FIN HD-3908
 var pedidoProvider = PedidoProvider();
 
 $(document).ready(function () {
@@ -226,8 +223,6 @@ $(document).ready(function () {
     $("#txtCUV").on('input', function () {
         if (isNaN($("#txtCUV").val()) == true) {
             $("#txtCUV").val("");
-            //document.getElementById('divObservaciones').style.display = 'block';
-            //$("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>El codigo CUV debe ser un número</div></div>");
             return false;
         }
     });
@@ -476,10 +471,8 @@ $(document).ready(function () {
 
     CrearDialogs();
     MostrarBarra();
-
-    //INI HD-4200
+    
     ValidarSuscripcionSE(function () { CargarDetallePedido(); }, 0);
-    //FIN HD-4200
 
     CargarCarouselEstrategias();
     CargarAutocomplete();
@@ -657,7 +650,7 @@ function CargarDetallePedido(page, rows, asyncrono) {
                     }
                 }
 
-                /*HD-4288 - Switch Consultora 100% */
+                /* Switch Consultora 100% */
                 doWhatYouNeed()
             }
         })
@@ -986,17 +979,6 @@ function ValidarDescripcion() {
     }
 }
 
-//function PreValidarCUV(event) {
-
-//    event = event || window.event;
-
-//    if (event.keyCode == 13) {
-//        if ($("#btnAgregar")[0].disabled == false) {
-//            PedidoRegistroModule.AgregarProductoListadoPasePedido();
-//        }
-//    }
-//}
-
 function SeleccionarContenido(control) {
     control.select();
 }
@@ -1220,11 +1202,10 @@ function BuscarByCUV(CUV) {
                 if (data[0].ObservacionCUV != null && data[0].ObservacionCUV != "") {
                     $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + data[0].ObservacionCUV + "</div></div>");
                 }
-                //INI HD-3908
                 _flagNueva = (data[0].FlagNueva == "1") ? true : false;
                 $("#hdfCodigoPalanca").val(data[0].CodigoPalanca);
                 $("#hdfCampaniaID").val(data[0].CampaniaID);
-                //FIN HD-3908
+
                 CargarProductosRecomendados(data[0]);
 
             } else {
@@ -1371,11 +1352,11 @@ function ObtenerProductosSugeridos(CUV) {
             $("#divCarruselSugerido").prepend($(".js-slick-prev-h"));
             $("#divCarruselSugerido").prepend($(".js-slick-next-h"));
             TagManagerCarruselSugeridosInicio(data);
-            // HD-4374 - Ver zoom producto en los productos sugeridos
+            // Ver zoom producto en los productos sugeridos
             setTimeout(function () {
                 productoSugeridoZoom.init('#ProductoSugeridoCarruselWrapper');
             }, 1000);
-            // FIN - HD-4374 - Ver zoom producto en los productos sugeridos
+            // FIN - Ver zoom producto en los productos sugeridos
         },
         error: function (data, error) {
             CerrarSplash();
@@ -2105,12 +2086,12 @@ function EjecutarAccionesReservaExitosa(response) {
     if (response.flagCorreo == "1") EnviarCorreoPedidoReservado();
 
     var ultimoDiaFacturacion = response.UltimoDiaFacturacion || false;
-    //INI HD-4294
+
     if (!response.data.IsEmailConfirmado) {
        
         configActualizarCorreo.UrlPedidoValidado = (!ultimoDiaFacturacion) ? configActualizarCorreo.UrlPedido: configActualizarCorreo.UrlPedidoValidado;
         new Pedido_ActualizarCorreo(configActualizarCorreo).Inicializar();
-   //FIN HD-4294
+
     }else {
         $("#dialog_divReservaSatisfactoria").show();
     
@@ -2163,10 +2144,10 @@ function EliminarPedido() {
             }
 
             if (data.success != true) {
-
                 
                 messageInfoError(data.message);
                 CerrarSplash();
+
                 return false;
             }
 
@@ -2724,7 +2705,6 @@ $.fn.CreateSelected = function (array, val, text, etiqueta, index) {
         }
 
         $.each(array, function (i, item) {
-            //var objtemp = item;
             $(obj).append('<option value="' + item[val] + '">' + item[text] + "</option>");
         });
     } catch (e) {
@@ -2861,6 +2841,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             }
 
             else if (mostrarAlerta == true) AbrirMensaje(data.message);
+
         },
         error: function (error, x) {
             AbrirMensaje("Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.");
@@ -3045,7 +3026,7 @@ function PedidosPendientesPorAprobar() {
     window.location.href = '/ConsultoraOnline/Pendientes';
 }
 
-/*HD-4288 - Switch Consultora 100% */
+/* Switch Consultora 100% */
 function doWhatYouNeed() {
     var object = { codigoConsultora: userData.codigoConsultora}
 
@@ -3165,9 +3146,4 @@ function ActualizarCheck() {
     }
 }
 
-
-
-
-
-
-/*HD-4288 - FIN*/
+/* Switch Consultora 100% - FIN*/

@@ -892,11 +892,11 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
 }
 
 function CargarCantidadNotificacionesSinLeer() {
-    var sparam = localStorage.getItem('KeyPseudoParam'); //SALUD-58 30-01-2019
+    var sparam = localStorage.getItem('KeyPseudoParam');
     $.ajax({
         type: 'GET',
-        url: urlGetNotificacionesSinLeer + "?pseudoParam=" + sparam + "&codigoUsuario=" + codigoConsultora + "", //SALUD-58 30-01-2019
-        data: {}, //SALUD-58 30-01-2019
+        url: urlGetNotificacionesSinLeer + "?pseudoParam=" + sparam + "&codigoUsuario=" + codigoConsultora + "",
+        data: {},
         cache: true,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -1140,22 +1140,6 @@ function getMobileOperatingSystem() {
 
     return "unknown";
 }
-
-//function ValidarKitNuevas(fnSuccess) {
-//    jQuery.ajax({
-//        type: 'POST',
-//        url: urlValidarKitNuevas,
-//        dataType: 'json',
-//        contentType: 'application/json; charset=utf-8',
-//        success: function (data) {
-//            if (!checkTimeout(data)) return false;
-
-//            if (!data.success) messageInfo('Ocurrió un error al intentar cargar el Kit de Nuevas.');
-//            else if ($.isFunction(fnSuccess)) fnSuccess();
-//        },
-//        error: function () { messageInfo('Ocurrió un error de conexion al intentar cargar el Kit de Nuevas.'); }
-//    });
-//}
 
 function PopUpPrivacidadDatos() {
     $("#box-pop-up").show();

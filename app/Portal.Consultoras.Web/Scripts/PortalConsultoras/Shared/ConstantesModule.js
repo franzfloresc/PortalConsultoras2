@@ -23,7 +23,7 @@ var ConstantesModule = (function() {
         LiquidacionWeb: "OfertasLiquidacion",
         GuiaNegocio: "GuiaNegocio",
         SR: "ShowRoom",
-        DuoPerfecto: "DuoPerfecto", //HD-3473 EINCA
+        DuoPerfecto: "DuoPerfecto",
         CaminoBrillanteDemostradores: "CaminoBrillanteDemostradores",
         CaminoBrillanteKits: "CaminoBrillanteKits"
     }
@@ -34,10 +34,8 @@ var ConstantesModule = (function() {
         Lanzamiento: "LANLista",
         RevistaDigital: "RDLista",
         Ganadoras: "MGLista",
-        //INI HD-3908
         PackNuevas: "PNLista",
         DuoPerfecto: "DPLista",
-        //FIN HD-3908
         CaminoBrillanteDemostradores: "CBDLista",
         CaminoBrillanteKits: "CBKLista",
         EstrategiaTemporal: 'EstrategiaTemporal',
@@ -79,7 +77,7 @@ var ConstantesModule = (function() {
         ProgramaNuevasRegalo: "044",
         ParticipaProgramaNuevas: "1",
         NotParticipaProgramaNuevas: "0",
-        DuoPerfecto: "034", //HD-3473 EINCA
+        DuoPerfecto: "034",
 
         CaminoBrillanteDemostradores: "035", // No tiene referecia con BD, GCP
         CaminoBrillanteKits: "036" // No tiene referecia con BD, GCP
@@ -134,9 +132,7 @@ var ConstantesModule = (function() {
         SR: "SR",
         ATP: "ATP",
         DP: "DP",
-        //INI HD-3908
-        PN:"PN",
-        //FIN HD-3908
+        PN: "PN",
         CBD: "CBD",
         CBK: "CBK"
     };
@@ -153,12 +149,7 @@ var ConstantesModule = (function() {
     };
 
     // en AnalyticsPortal.js tambiar actualizar los valores
-
-          //CB-CORREGIR  LandingCaminoBrillanteDemostradores: '16',  //GCP
-          //CB-CORREGIR  LandingCaminoBrillanteKits: '17'  //GCP
-          //CB-CORREGIR  CaminoBrillanteDemostradores: '18', // GCP
-          //CB-CORREGIR  CaminoBrillanteKits: '19' // GCP
-
+    
     var _origenPedidoWeb = {
 
         CaminoBrillanteDesktopPedido : "1181901",

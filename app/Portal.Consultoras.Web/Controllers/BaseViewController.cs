@@ -107,43 +107,6 @@ namespace Portal.Consultoras.Web.Controllers
             return model;
         }
 
-        //public ActionResult RDDetalleModel(string cuv, int campaniaId)
-        //{
-        //    var modelo = SessionManager.GetProductoTemporal();
-        //    if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv || modelo.CampaniaID != campaniaId)
-        //    {
-        //        return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-        //    }
-
-        //    if (!revistaDigital.TieneRevistaDigital())
-        //    {
-        //        return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-        //    }
-
-        //    if (_ofertaPersonalizadaProvider.EsCampaniaFalsa(modelo.CampaniaID))
-        //    {
-        //        return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-        //    }
-        //    if (modelo.EstrategiaID <= 0)
-        //    {
-        //        return RedirectToAction("Index", "Ofertas", new { area = IsMobile() ? "Mobile" : "" });
-        //    }
-
-        //    modelo.TipoEstrategiaDetalle = modelo.TipoEstrategiaDetalle ?? new EstrategiaDetalleModelo();
-        //    modelo.ListaDescripcionDetalle = modelo.ListaDescripcionDetalle ?? new List<string>();
-
-        //    ViewBag.EstadoSuscripcion = revistaDigital.SuscripcionModel.EstadoRegistro;
-
-        //    var dato = _ofertasViewProvider.ObtenerPerdioTitulo(modelo.CampaniaID, IsMobile());
-        //    ViewBag.TieneProductosPerdio = dato.Estado;
-        //    ViewBag.PerdioTitulo = dato.Valor1;
-        //    ViewBag.PerdioSubTitulo = dato.Valor2;
-
-        //    ViewBag.Campania = campaniaId;
-        //    return View(modelo);
-
-        //}
-
         #endregion
 
         #region Guia Negocio
@@ -517,13 +480,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             modelo.NoEsCampaniaActual = campaniaId != userData.CampaniaID;
             modelo.MostrarFichaEnriquecida = GetInformacionAdicional(esEditar);
-            //modelo.MostrarFichaEnriquecida = !esEditar && _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
-            //                userData.PaisID,
-            //                ConsTablaLogica.FlagFuncional.TablaLogicaId,
-            //                ConsTablaLogica.FlagFuncional.FichaEnriquecida,
-            //                true
-            //                );
-
+            
             if (modelo.Error)
             {
                 return modelo;
@@ -632,18 +589,6 @@ namespace Portal.Consultoras.Web.Controllers
             else
             {
                 modelo = GetEstrategiaMongo(palanca, campaniaId, cuv);
-                //modelo = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campaniaId.ToString(), codigoPalanca);
-                
-                //if (modelo == null) return null;
-
-                //if (userData.CampaniaID != campaniaId) modelo.ClaseBloqueada = "btn_desactivado_general";
-                //if (palanca == Constantes.NombrePalanca.PackNuevas)
-                //{
-                //    modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
-                //    modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
-                //}
-                //modelo.Hermanos = _estrategiaComponenteProvider.FormatterEstrategiaComponentes(modelo.Hermanos, modelo.CUV2, modelo.CampaniaID, esFichaApi);
-                //modelo = _ofertaPersonalizadaProvider.FormatterEstrategiaFicha(modelo, userData.CampaniaID);
             }
             return modelo;
         }
@@ -670,7 +615,7 @@ namespace Portal.Consultoras.Web.Controllers
         private bool EsProductoRecomendado(int origen)
         {
             var modelo = UtilOrigenPedidoWeb.GetModelo(origen.ToString());
-            if (origen == 0 /*|| origenString.IsNullOrEmptyTrim()*/) return false; //CB-CORREGIR
+            if (origen == 0) return false;
 
             return modelo.Seccion.Equals(ConsOrigenPedidoWeb.Seccion.Recomendado) ||
                    modelo.Seccion.Equals(ConsOrigenPedidoWeb.Seccion.RecomendadoFicha);
@@ -725,8 +670,6 @@ namespace Portal.Consultoras.Web.Controllers
         /// <returns></returns>
         private bool GetInformacionAdicional(bool esEditar)
         {
-            //return !esEditar;
-
             return !esEditar && _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
                             userData.PaisID,
                             ConsTablaLogica.FlagFuncional.TablaLogicaId,

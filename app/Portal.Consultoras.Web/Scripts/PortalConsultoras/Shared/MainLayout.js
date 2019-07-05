@@ -369,12 +369,10 @@ function messageInfoError(message, titulo, fnAceptar) {
     message = $.trim(message);
     if (message != "") {
 
-        //INI HD-4450
         if (window.matchMedia("(max-width:991px)").matches) {
             $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(message);
             $('#popupInformacionSB2Error').show();
         }
-        //FIN  HD-4450
         else {
             $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
             $('#dialog_ErrorMainLayout').show();
@@ -461,7 +459,7 @@ function CargarResumenCampaniaHeader(showPopup) {
 }
 
 function CargarCantidadNotificacionesSinLeer() {
-    var sparam = localStorage.getItem('KeyPseudoParam'); //SALUD-58
+    var sparam = localStorage.getItem('KeyPseudoParam');
     $.ajax({
         type: 'GET',
         url: baseUrl + "Notificaciones/GetNotificacionesSinLeer?pseudoParam=" + sparam + "&codigoUsuario=" + codigoConsultora + "",

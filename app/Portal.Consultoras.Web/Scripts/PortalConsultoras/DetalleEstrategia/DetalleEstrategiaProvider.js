@@ -90,12 +90,7 @@ var DetalleEstrategiaProvider = function () {
                 async: false,
                 cache: false,
                 success: function (data) {
-                    //if (data.success) {
                     dfd.resolve(data);
-                    //}
-                    //else {
-                    //    dfd.reject(data);
-                    //}
                 },
                 error: function (data, error) {
                     dfd.reject(data, error);
@@ -173,7 +168,6 @@ var DetalleEstrategiaProvider = function () {
             if (typeof estrategiaTmp === "undefined" || estrategiaTmp == null) {
 
                 estrategia.Error = true;
-                //throw "estrategia is null";
             }
             else {
                 estrategia = $.extend(estrategia, estrategiaTmp);

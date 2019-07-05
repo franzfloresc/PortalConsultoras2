@@ -432,8 +432,7 @@ namespace Portal.Consultoras.Common
             public const string MenuContenedor = "MenuContenedor";
 
             public const string ListaEstrategia = "ListadoEstrategiaPedido";
-
-            //public const string ProductoTemporal = "ProductoTemporal";
+            
             public const string MenuContenedorActivo = "MenuContenedorActivo";
 
             public const string RevistaDigital = "RevistaDigital";
@@ -3512,18 +3511,6 @@ namespace Portal.Consultoras.Common
             public const string UrlExcelMatrizCampania = "http://somosbelcorpprd.s3.amazonaws.com/Matriz/PLANTILLA_MASIVO_MATRIZ.xlsx";
         }
 
-        public static class CodigoEstrategiaBuscador
-        {
-            public const string Liquidacion = "LIQ";
-            public const string Catalogo = "CAT";
-            public const string OfertaDelDia = "ODD";
-        }
-
-        //public static class NombreEstrategiaBuscador
-        //{
-        //    public const string Catalogo = "Catalogo";
-        //}
-
         public static class MetaConsultora
         {
             public const string VerificacionCambioClave = "VF_CAMBIO_CLAVE";
@@ -3651,7 +3638,7 @@ namespace Portal.Consultoras.Common
         {
             public const int BoletaImpresa = 1;
             public const int CompartirWhatsApp = 2;
-            public const int NotificarWhatsApp = 3; /* HD-4358 */
+            public const int NotificarWhatsApp = 3;
         }
 
         public static class SegmentoDatami

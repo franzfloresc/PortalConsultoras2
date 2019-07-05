@@ -65,18 +65,14 @@ $(document).ready(function () {
                     $('#btnCambiarEmail').bind('click', false);
                     $('#btnAgregarOtroNumero').bind('click', false);
                     $('#btnGuardar').prop('disabled', true);
-                    //INI HD-3897
                     $('.btn_confirmar_dato').bind('click', false);
-                    //FIN HD-3897
                 }
             },
             PuedeCambiarTelefono: function () {
                 var smsFlag = $('#hdn_ServicioSMS').val();
                 if (smsFlag == '0' || smsFlag == false) {
                     $('#btnCambiarCelular').hide();
-                    //INI HD-3897
                     $('#grupo_form_cambio_datos_sms_opcionsms').hide();
-                    //FIN HD-3897
                 } else {
                     $('#txtCelularMD').prop('readonly', true);
                 }
@@ -89,7 +85,7 @@ $(document).ready(function () {
                     }
                 });
             },
-            //INI HD-3897
+
             ValidacionCheck: function () {
 
 
@@ -132,7 +128,7 @@ $(document).ready(function () {
                     $("#grupo_form_cambio_datos_sms_opcionsms").hide();
                 }
             },
-            //FIN HD-3897
+
             EvitandoCopiarPegar: function () {
                 FuncionesGenerales.AvoidingCopyingAndPasting('txtTelefonoMD');
                 FuncionesGenerales.AvoidingCopyingAndPasting('txtTelefonoTrabajoMD');
@@ -347,8 +343,7 @@ $(document).ready(function () {
                     var IdDependiente = '#Ubigeo' + (parseInt(Identity) + 1);
                     var Nivel = $(context).attr('Nivel');
                     var IdPadre = $(context).val() == "" ? "" : $(context).val();
-                    //var optVal = $('#' + IdName + ' option:selected').val();
-                    //var optionSelected = $("option:selected", this).attr('value');
+
                     _googleMap.Funciones.LimpiarControlesMap();
                     if ($(IdDependiente)[0] == undefined)
                         return;
@@ -396,9 +391,7 @@ $(document).ready(function () {
                 me.Funciones.mostrarTelefono();
                 me.Funciones.PuedeActualizar();
                 me.Funciones.PuedeCambiarTelefono();
-                //INI HD-3897
                 me.Funciones.ValidacionCheck();
-                //FIN HD-3897
                 me.Funciones.EvitandoCopiarPegar();
                 me.Funciones.ValidacionSoloLetras();
                 me.Funciones.ValidacionDireccion();
@@ -1114,13 +1107,9 @@ var GoogleMap = function () {
 
             marker.setPosition(place.geometry.location);
             marker.setVisible(true);
-            //var address = '';
+
             if (place.address_components) {
-                //address = [
-                //    (place.address_components[0] && place.address_components[0].short_name || ''),
-                //    (place.address_components[1] && place.address_components[1].short_name || ''),
-                //    (place.address_components[2] && place.address_components[2].short_name || '')
-                //].join(' ');
+
                 me.Propiedades.directionText = place.formatted_address;
                 $("#RouteDirection").html(place.formatted_address);
             }

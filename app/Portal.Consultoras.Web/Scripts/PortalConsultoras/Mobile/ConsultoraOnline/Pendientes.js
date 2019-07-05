@@ -187,9 +187,7 @@ function PedidosPendientesVistaProducto() {
 function AnalyticsMarcacionPopupConfirmacion(strTipo, prod) {
     if (!(typeof AnalyticsPortalModule === 'undefined')) {
         AnalyticsPortalModule.ClickTabPedidosPendientes("Pop up Pedido Aprobado", strTipo);
-
-        //var products = [];
-
+        
         AnalyticsPortalModule.ClickVistaAddToCardPedidoPendiente(strTipo, prod);
     }
 }

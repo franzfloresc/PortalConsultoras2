@@ -10,7 +10,7 @@
         CorreoActual: _config.CorreoActual,
         IsConfirmar: _config.IsConfirmar
     };
-    //INI HD-3897
+
     var activaGuardar = function () {
         var btn = $("#btnActualizarCorreo");
         btn.removeClass('btn_deshabilitado');
@@ -28,8 +28,7 @@
         else obj.addClass("grupo_form_cambio_datos--validacionErronea");
 
     }
-    //FIN HD-3897
-
+    
     var showError = function (error) { $("#ValidateCorreo").html(error); };
     var showArrayError = function (arrayError) {
         var mensaje = '';
@@ -71,13 +70,13 @@
     };
     var actualizarEnviarCorreo = function (fnSuccess) {
         var data = getData();
-        //INI HD-3897
+
         var arrayError = getDataArrayError(data);
         if (arrayError.length > 0) {
             showArrayError(arrayError);
             return;
         }
-        //FIN HD-3897
+
         if (document.getElementById('chkAceptoContratoMD').checked == false) {
             showError('Debe aceptar los términos y condiciones para poder actualizar sus datos');
             return false;
@@ -139,26 +138,24 @@
         $('#btnActualizarCorreo').on('click', function () { actualizarEnviarCorreo(function (data) { irVista2(data.correoNuevo); }); });
         $('#hrefTerminosMD').on('click', function () { enlaceTerminosCondiciones(); });
 
-        //INI HD-3897
         $('#tabVistas div[vista-id=1] input').on('keyup change', function () { activaGuardar(); return $(this).val() });
         $('#NuevoCorreo').on('focusout', function () { mensajeError(); });
-        //FIN HD-3897
-
+        
         FuncionesGenerales.AvoidingCopyingAndPasting('NuevoCorreo');
     };
 
     return {
         Inicializar: function () {
             asignarEventos();
-            //INI HD-3897
-            var fn = function () { irVista2(config.CorreoActual)};
+
+            var fn = function () { irVista2(config.CorreoActual) };
             if (config.IsConfirmar == 1) {
                 postActualizarEnviarCorreo({ correoNuevo: config.CorreoActual }, fn);
             } else {
                 irVista(config.VistaActual);
 
             }
-            //FIN HD-3897
+
         },
 		actualizarEnviarCorreo: actualizarEnviarCorreo
     }

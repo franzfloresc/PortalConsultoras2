@@ -466,8 +466,7 @@ function HandlebarsRegisterHelper() {
         Handlebars.registerHelper('Multiplicar', function (a, b) {
             return a * b;
         });
-
-        //EAAR
+        
         Handlebars.registerHelper('json', function (context) {
             return JSON.stringify(context).replace(/"/g, '&quot;');
         });
@@ -708,9 +707,6 @@ function CreateLoading() {
     $("#loadingScreen").parent().find(".ui-dialog-titlebar").hide();
 }
 
-//function eventCloseDialogMensaje() {
-//    HideDialog("alertDialogMensajes");
-//}
 function printElement(selector) {
     var element = document.querySelector(selector);
     if (!element) {
@@ -808,7 +804,6 @@ function CerrarLoad(opcion) {
 function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
 
     var valor = mensaje.indexOf("Sin embargo hemos reservado");
-    /*HD-3710 - 9_10 (Pop up Lo sentimos - Click Botón - Cerrar Pop up lo sentimos) - Web, Mobile*/
     if (valor != -1) {
         dataLayer.push({
             'event': 'virtualEvent',
@@ -831,13 +826,13 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
         if (isUrlMobile > 0) {
             $('.icono_alerta').hide();
             if (tipoIcono == CONS_TIPO_ICONO.ALERTA) {
-                $('.icono_alerta.alert_dialog_icono').show();//***HD-4450
+                $('.icono_alerta.alert_dialog_icono').show();
             }
             if (tipoIcono == CONS_TIPO_ICONO.CHECK) {
                 $('.icono_alerta.check_icono_mobile').show();
             }
             if (tipoIcono == undefined || tipoIcono == null) {
-                $('.icono_alerta.alert_dialog_icono').show();//***HD-4450
+                $('.icono_alerta.alert_dialog_icono').show();
             }
             $('#mensajeInformacionvalidado').html(mensaje);
             $('#popupInformacionValidado').show();
@@ -948,7 +943,7 @@ function AbrirMensaje25seg(mensaje, imagen) {
         var _newDialogHideByTop = document.querySelector(_dialogClass).style.top = _newTopDialog + 'px';
 
         CerrarLoad();
-        //Ocultar el scroll 
+
         $("body").css("overflow", "hidden");
 
         setTimeout(function () {
@@ -1427,12 +1422,12 @@ function autoCompleteByCharacters(inp, arr, car) {
                 b.innerHTML += "<input type='hidden' value='" + valueInput + arr[i] + "'>";
                 b.addEventListener("click", function (e) {
                     inp.value = this.getElementsByTagName("input")[0].value;
-                    //INI HD-3897
+
                     if ($(inp).hasClass("eventActPerfil_Auto")) {
                         $(inp).trigger("change");
                         $(inp).trigger("focusout");
                     }
-                    //FIN HD-3897
+
                     closeAllLists();
                 });
                 a.appendChild(b);
@@ -1746,31 +1741,6 @@ function IfNull(input, replaceNull) {
     return input == null ? replaceNull : input;
 }
 
-//function odd_desktop_google_analytics_promotion_click() {
-//    if ($('#divOddCarruselDetalle').length > 0 && $("#odd_simbolo_ver_ofertas").html() === "+") {
-//        var id = $('#divOddCarruselDetalle').find(".estrategia-id-odd").val();
-//        var name = "Oferta del día - " + $('#divOddCarruselDetalle').find(".nombre-odd").val();
-//        var creative = $('#divOddCarruselDetalle').find(".nombre-odd").val() + " - " + $('#divOddCarruselDetalle').find(".cuv2-odd").val();
-
-//        dataLayer.push({
-//            'event': 'promotionClick',
-//            'ecommerce': {
-//                'promoClick': {
-//                    'promotions': [
-//                        {
-//                            'id': id,
-//                            'name': name,
-//                            'position': 'Banner Superior Home - 1',
-//                            'creative': creative
-//                        }]
-//                }
-//            }
-//        });
-
-//        odd_desktop_google_analytics_product_impresion();
-//    }
-//}
-
 function odd_desktop_google_analytics_promotion_click_verofertas() {
     if ($('#divOddCarruselDetalle').length > 0 && $("#odd_simbolo_ver_ofertas").html() === "+") {
         var id = $('#banner-odd').find(".estrategia-id-odd").val();
@@ -1983,7 +1953,7 @@ function limpiar_local_storage() {
     if (typeof (Storage) !== 'undefined') {
         var itemSBTokenPais = localStorage.getItem('SBTokenPais');
         var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
-        var itemSurvicateStorage = GetItemLocalStorageSurvicate();//add
+        var itemSurvicateStorage = GetItemLocalStorageSurvicate();
         localStorage.clear();
 
         if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {

@@ -165,12 +165,7 @@
         if (typeof AnalyticsPortalModule === 'undefined') {
             return;
         }
-
-        //var origen = {
-        //    Seccion: CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselVerMas,
-        //    OrigenPedidoWeb: _config.OrigenPedidoWeb.toString()
-        //};
-
+        
         var origen = $(_elementos.divCarruselProducto).attr(_elementos.dataOrigenPedidoWeb.atributoAgregar)
             || $(_elementos.divCarruselProducto).attr(_elementos.dataOrigenPedidoWeb.atributo)
             || $(_elementos.divCarruselProducto).parents(_elementos.dataOrigenPedidoWeb.buscaAgregar).attr(_elementos.dataOrigenPedidoWeb.atributoAgregar)
