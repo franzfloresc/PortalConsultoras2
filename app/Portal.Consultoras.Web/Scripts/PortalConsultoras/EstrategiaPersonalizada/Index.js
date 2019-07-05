@@ -607,7 +607,6 @@ function RenderCarruselSimpleV2(divProd, data, cc) {
         nextArrow: '<a class="nextArrow" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
     }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
         CarruselAyuda.MarcarAnalyticsContenedor(2, null, seccionName, slick, currentSlide, nextSlide);
-
     }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
         CarruselAyuda.MarcarAnalyticsContenedor(3, event, seccionName, slick, currentSlide);
     });

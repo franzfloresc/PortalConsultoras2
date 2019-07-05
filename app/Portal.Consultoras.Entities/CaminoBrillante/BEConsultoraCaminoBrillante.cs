@@ -68,6 +68,10 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
             /// Puntaje Acumulado 
             /// </summary>
             public int? PuntajeAcumulado { get; set; }
+            /// <summary>
+            /// Flag de Auto Seleccion de Mis Ganancias
+            /// </summary>
+            public bool? FlagSeleccionMisGanancias { get; set; }
         }
 
     }

@@ -73,6 +73,7 @@
       <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EsActual" type="xs:boolean" />
       <xs:element minOccurs="0" name="FechaIngreso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FlagSeleccionMisGanancias" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="GananciaAnual" type="xs:decimal" />
       <xs:element minOccurs="0" name="GananciaCampania" type="xs:decimal" />
       <xs:element minOccurs="0" name="GananciaPeriodo" type="xs:decimal" />
@@ -122,4 +123,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEBeneficioCaminoBrillante" nillable="true" type="tns:BEBeneficioCaminoBrillante" />
+  <xs:complexType name="ArrayOfBEConfiguracionCaminoBrillante">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConfiguracionCaminoBrillante" nillable="true" type="tns:BEConfiguracionCaminoBrillante" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEConfiguracionCaminoBrillante" nillable="true" type="tns:ArrayOfBEConfiguracionCaminoBrillante" />
+  <xs:complexType name="BEConfiguracionCaminoBrillante">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Valor" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEConfiguracionCaminoBrillante" nillable="true" type="tns:BEConfiguracionCaminoBrillante" />
 </xs:schema>
