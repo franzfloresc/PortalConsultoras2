@@ -7,6 +7,8 @@
 
     var _elements = {
         banner: {
+            id: "#banner-promocion",
+            templateid: "#banner-promocion-template",
             all: "[data-selector]",
             hideBannerClass: "banner_promociones_ocultar",
         },
@@ -52,7 +54,11 @@
         $(_elements.banner.all).addClass(_elements.banner.hideBannerClass);
     };
 
-    var _showBanner = function () {
+    var _showBanner = function (estrategia) {
+        SetHandlebars(_elements.banner.templateid,
+            estrategia,
+            _elements.banner.id);
+
         $(_elements.banner.all).removeClass(_elements.banner.hideBannerClass);
 
         $("body").on("click", _elements.banner.all, function (e) {

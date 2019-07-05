@@ -11,11 +11,20 @@
             <!-- <ProductoEnPromocion>-->
             <div class="row no-gutters mx-3 mb-4">
                 <div class="w-100 titulo-promociones">
-                    <span class="texto-promociones black dark-color">¡Y llevate esta promoción!</span>
+                    <span class="texto-promociones black dark-color">¡Y llévate esta promoción!</span>
                 </div>
                 <div class="w-100 descripcion-promociones">
                     <div class="contenedor-imagen">
-                        <img src="/Content/Images/placeholder/img_placeholder_vertical.jpg" data-lazy="{{ImgUrl FotoProducto01}}" alt="Texto" class="img-responsive" />
+                        {{#iff TipoPersonalizacion '==' 'CAT'}}
+                        <img src="{{FotoProducto01}}" alt="Texto" class="img-responsive" />
+                        {{/iff}}
+                        {{#iff TipoPersonalizacion '!=' 'CAT'}}
+                        {{#if isMobile}}
+                        <img src="{{ImgMedium FotoProducto01}}" alt="Texto" class="img-responsive" />
+                        {{else}}
+                        <img src="{{ImgUrl FotoProducto01}}" alt="Texto" class="img-responsive" />
+                        {{/if}}
+                        {{/iff}}
                     </div>
                     <span class="texto-promociones">{{DescripcionMarca}}</span>
                     <span class="texto-promociones black">{{DescripcionCortada}}</span>
