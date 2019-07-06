@@ -246,7 +246,7 @@ else
                                 </div>
                                 <!--INI HD-4358 -->
                                     @{
-                                        var itemNotiWsp= Model.UsuarioOpciones.FirstOrDefault(x => x.OpcionesUsuarioId == Constantes.OpcionesUsuario.NotificacionWhatsApp);
+                                        var itemNotiWsp= Model.UsuarioOpciones.FirstOrDefault(x => x.OpcionesUsuarioId == Constantes.OpcionesUsuario.NotificarWhatsApp);
                                             
                                     }
                                     @if (itemNotiWsp != null)
@@ -402,7 +402,7 @@ else
                     @foreach (var item in Model.UsuarioOpciones)
                     {
                         /* HD-4358 */
-                        if (item.OpcionesUsuarioId!= Constantes.OpcionesUsuario.NotificacionWhatsApp)
+                        if (item.OpcionesUsuarioId!= Constantes.OpcionesUsuario.NotificarWhatsApp)
                         {
                         <div class="permiso_cuenta_opcion">
                             <div class="permiso_cuenta_opcion_descripcion">@item.Opcion

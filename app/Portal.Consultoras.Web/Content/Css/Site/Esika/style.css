@@ -2582,40 +2582,6 @@ a.subir_carousel, a.bajar_carousel {
         font-weight: bold;
     }
 
-    /* HD-4374 - Ver zoom producto en los productos sugeridos */
-
-    .producto_imagen_zoom {
-        display: block;
-        position: absolute;
-        width: 0;
-        height: 0;
-        top: 0;
-        background-color: #FFF;
-        border: 1px solid #d8d8d8;
-        z-index: 2000;
-        background-repeat: no-repeat;
-        opacity: 0;
-        -moz-transition: all 0.3s ease;
-        -o-transition: all 0.3s ease;
-        -webkit-transition: all 0.3s ease;
-        transition: all 0.3s ease;
-        -moz-box-shadow: rgba(0, 0, 0, 0.45) 0px 8px 8px -5px;
-        -webkit-box-shadow: rgba(0, 0, 0, 0.45) 0px 8px 8px -5px;
-        box-shadow: rgba(0, 0, 0, 0.45) 0px 8px 8px -5px;
-    }
-
-        .sugerido .producto_imagen{
-            cursor:pointer;
-        }
-
-            .mostrarImagenZoom {
-                opacity: 1;
-                width: 350px;
-                height: 350px;
-            }
-
-    /* FIN - HD-4374 - Ver zoom producto en los productos sugeridos */
-
 /* POPUP INVITACIÓN FLEXIPAGO */
 .contenedor_popup_agregarUnidades, .contenedor_popup_ofertaFinal, .contenedor_popup_detalleCarousel, .contenedor_popup_misDatos, .contenedor_fondo_popup {
     position: fixed;

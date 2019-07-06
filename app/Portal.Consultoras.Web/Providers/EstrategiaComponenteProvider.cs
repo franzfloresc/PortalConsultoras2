@@ -71,14 +71,14 @@ namespace Portal.Consultoras.Web.Providers
                 FotosCarrusel = new List<string>();
                 if (componente.FotosComponente != null)
                 {
-                    if (componente.FotosComponente.FotoProducto != null) { componente.FotosComponente.FotoProducto.ForEach(x => { FotosCarrusel.Add(x); }); };
-                    if (componente.FotosComponente.FotoModelo != null) { componente.FotosComponente.FotoModelo.ForEach(x => { FotosCarrusel.Add(x); }); };
-                    if (componente.FotosComponente.FotoMontaje != null) { componente.FotosComponente.FotoMontaje.ForEach(x => { FotosCarrusel.Add(x); }); };
-                    if (componente.FotosComponente.FotoBulk != null) { componente.FotosComponente.FotoBulk.ForEach(x => { FotosCarrusel.Add(x); }); };
-                    if (componente.FotosComponente.FotoTipoBelleza1 != null) { componente.FotosComponente.FotoTipoBelleza1.ForEach(x => { FotosCarrusel.Add(x); }); };
-                    if (componente.FotosComponente.FotoTipoBelleza2 != null) { componente.FotosComponente.FotoTipoBelleza2.ForEach(x => { FotosCarrusel.Add(x); }); };
-                    if (componente.FotosComponente.FotoTipoBelleza3 != null) { componente.FotosComponente.FotoTipoBelleza3.ForEach(x => { FotosCarrusel.Add(x); }); };
-                    if (componente.FotosComponente.FotoTipoBelleza4 != null) { componente.FotosComponente.FotoTipoBelleza4.ForEach(x => { FotosCarrusel.Add(x); }); };
+                    if (componente.FotosComponente.FotoProducto != null) { componente.FotosComponente.FotoProducto.ForEach(x => { FotosCarrusel.Add(x); }); }
+                    if (componente.FotosComponente.FotoModelo != null) { componente.FotosComponente.FotoModelo.ForEach(x => { FotosCarrusel.Add(x); }); }
+                    if (componente.FotosComponente.FotoMontaje != null) { componente.FotosComponente.FotoMontaje.ForEach(x => { FotosCarrusel.Add(x); }); }
+                    if (componente.FotosComponente.FotoBulk != null) { componente.FotosComponente.FotoBulk.ForEach(x => { FotosCarrusel.Add(x); }); }
+                    if (componente.FotosComponente.FotoTipoBelleza1 != null) { componente.FotosComponente.FotoTipoBelleza1.ForEach(x => { FotosCarrusel.Add(x); }); }
+                    if (componente.FotosComponente.FotoTipoBelleza2 != null) { componente.FotosComponente.FotoTipoBelleza2.ForEach(x => { FotosCarrusel.Add(x); }); }
+                    if (componente.FotosComponente.FotoTipoBelleza3 != null) { componente.FotosComponente.FotoTipoBelleza3.ForEach(x => { FotosCarrusel.Add(x); }); }
+                    if (componente.FotosComponente.FotoTipoBelleza4 != null) { componente.FotosComponente.FotoTipoBelleza4.ForEach(x => { FotosCarrusel.Add(x); }); }
 
                     componente.FotosCarrusel = FotosCarrusel.Take(10).ToList();
                 }
