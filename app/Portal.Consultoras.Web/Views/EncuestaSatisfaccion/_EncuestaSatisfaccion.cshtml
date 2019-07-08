@@ -6,7 +6,7 @@
     <a href="#" onclick="javascript: $('#EncuestaSatisfaccion').fadeOut(100);" title="Cerrar" class="d-block enlace__cerrar__encuesta__satisfaccion">
         <img src="@Url.Content("~/Content/Images/icono_cerrar_popup.svg")" alt="Cerrar Popup" />
     </a>
-    <div class="d-flex flex-row flex-wrap justify-content-center align-content-center">
+    <div id="Paso1" class="d-flex flex-row flex-wrap justify-content-center align-content-center">
         <h2 class="d-block text-center text-bold seccion__encuesta__satisfaccion__titulo">¿Qué te pareció el servicio de la <span id="numCampania">C07</span>?</h2>
         <div class="d-flex flex-row flex-wrap justify-content-center encuesta__satisfaccion__estados__wrapper">
             <ul class="d-flex flex-row flex-nowrap justify-content-evenly align-items-center encuesta__satisfaccion__estados__lista">
@@ -116,6 +116,15 @@
                 </button>
             </div>
         </section>
+    </div>
+    <div id="Paso2" class="d-flex flex-row flex-wrap justify-content-center encuesta__satisfaccion__agradecimiento__wrapper">
+        <div class="d-block center-block encuesta__satisfaccion__iconoAgradecimiento">
+            <img src="@Url.Content("~/Content/Images/success_icon.svg")" alt="¡Gracias por tu opinión!" />
+        </div>
+        <h3 class="d-block text-center encuesta__satisfaccion__titulo__agradecimiento">¡Gracias por tu opinión!</h3>
+        <p class="d-block text-center encuesta__satisfaccion__mensaje__agradecimiento">
+            Tu información es valiosa para<br />mejorar nuestro servicio
+        </p>
     </div>
 </section>
 

@@ -81,9 +81,9 @@
     width: 100%;
     height: 134px;
     padding: 16px;
-    -moz-box-shadow: 0 -2px 4px 0 rgba(150, 150, 150, 0.5);
-    -webkit-box-shadow: 0 -2px 4px 0 rgba(150, 150, 150, 0.5);
-    box-shadow: 0 -2px 4px 0 rgba(150, 150, 150, 0.5);
+    -moz-box-shadow: 0 -2px 9px -3px rgba(150, 150, 150, 0.5);
+    -webkit-box-shadow: 0 -2px 9px -3px rgba(150, 150, 150, 0.5);
+    box-shadow: 0 -2px 9px -3px rgba(150, 150, 150, 0.5);
     -moz-transition: height 0.8s ease;
     -o-transition: height 0.8s ease;
     -webkit-transition: height 0.8s ease;
@@ -100,13 +100,15 @@
     .encuesta__satisfaccion__estados__lista,
     .seccion__encuesta__satisfaccion__titulo,
     .encuesta__satisfaccion__motivosCalificacion__wrapper,
-    .encuesta__satisfaccion__motivosCalificacion__lista{
+    .encuesta__satisfaccion__motivosCalificacion__lista,
+    .encuesta__satisfaccion__titulo__agradecimiento,
+    .encuesta__satisfaccion__mensaje__agradecimiento{
         max-width: 100%;
     }
 
         .seccion__encuesta__satisfaccion > div {
             flex: 0 0 100%;
-            margin-top: 16px;
+            margin-top: 20px;
         }
 
         .seccion__encuesta__satisfaccion__expandir > div{
@@ -140,7 +142,9 @@
     .seccion__encuesta__satisfaccion__titulo,
     .encuesta__satisfaccion__estados__lista,
     .encuesta__satisfaccion__motivosCalificacion__wrapper,
-    .encuesta__satisfaccion__motivosCalificacion__lista{
+    .encuesta__satisfaccion__motivosCalificacion__lista,
+    .encuesta__satisfaccion__titulo__agradecimiento,
+    .encuesta__satisfaccion__mensaje__agradecimiento{
         flex:0 0 100%;
     }
 
@@ -181,6 +185,11 @@
                     margin-bottom:6px;
                 }
 
+                    .encuesta__satisfaccion__estado__imagen img{
+                        width:auto;
+                        height:100%;
+                    }
+
                 .encuesta__satisfaccion__estado__descrip,
                 .encuesta__satisfaccion__disabled .encuesta__satisfaccion__estado__descrip{
                     opacity:0;
@@ -193,6 +202,7 @@
 
     .seccion__encuesta__satisfaccion__motivosCalificacion{
         display:none;
+        opacity:0;
     }
 
         .seccion__encuesta__satisfaccion__titulo--motivoCalificacion{
@@ -211,12 +221,41 @@
                     .tag__checkbox__sb--motivoCalificacion{
                         margin-bottom:16px;
                         line-height:14px;
+                        cursor:pointer;
                     }
 
     .btn__sb--confirmar{
         width:92%;
         max-width:92%;
     }
+
+    .encuesta__satisfaccion__agradecimiento__wrapper{
+        display:none;
+    }
+
+        .encuesta__satisfaccion__iconoAgradecimiento{
+            margin-top: 60px;
+            width: 80px;
+            height: 80px;
+            position: relative;
+            left: 12px;
+        }
+
+            .encuesta__satisfaccion__iconoAgradecimiento img{
+                width:100%;
+                height:auto;
+            }
+
+        .encuesta__satisfaccion__titulo__agradecimiento{
+            font-size:24px;
+            margin-bottom:8px;
+        }
+
+        .encuesta__satisfaccion__mensaje__agradecimiento{
+            font-size:16px;
+            color:#646464;
+
+        }
 
 @media screen and (max-height:570px){
 
