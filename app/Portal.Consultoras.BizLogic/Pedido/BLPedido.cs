@@ -133,8 +133,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var reservado = false;
                     var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(pedidoDetalle.OrigenPedidoWeb);
 
-                    if (modeloOrigenPedido.Palanca != ConsOrigenPedidoWeb.Palanca.OfertaFinal && 
-                        !_bLCaminoBrillante.IsOrigenPedidoCaminoBrillante(pedidoDetalle.OrigenPedidoWeb))
+                    if (modeloOrigenPedido.Palanca != ConsOrigenPedidoWeb.Palanca.OfertaFinal &&
+                        !UtilOrigenPedidoWeb.EsCaminoBrillante(pedidoDetalle.OrigenPedidoWeb))
                     {
                         var respuesta = RespuestaModificarPedido(pedidoDetalle.Usuario);
                         if (respuesta != null)
@@ -506,8 +506,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             #endregion
 
             #region CaminoBrillante
-            
-            if (_bLCaminoBrillante.IsOrigenPedidoCaminoBrillante(pedidoDetalle.OrigenPedidoWeb))
+
+            if (UtilOrigenPedidoWeb.EsCaminoBrillante(pedidoDetalle.OrigenPedidoWeb))
             {
                 if (_bLCaminoBrillante.UpdEstragiaCaminiBrillante(estrategia, usuario.PaisID, usuario.CampaniaID, usuario.NivelCaminoBrillante, pedidoDetalle.Producto.CUV))
                 {
@@ -4035,12 +4035,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
             };
 
             var PedidoID = 0;
-            var lstDetalle = ObtenerPedidoWebDetalle(bePedidoWebDetalleParametros, out PedidoID);
+            var lstDetalle = ObtenerPedidoWebDetalle(bePedidoWebDetalleParametros, out PedidoID) ?? new List<BEPedidoWebDetalle>();
 
             //Agrega los CUV del kit SC
             foreach (var item in lstKitSE)
             {
-                var fndProd = lstDetalle == null ? false : lstDetalle.Any(x => x.CUV == item.CUV);
+                var fndProd = lstDetalle.Any(x => x.CUV == item.CUV);
                 if (!fndProd)
                 {
                     var detalle = new BEPedidoDetalle()
