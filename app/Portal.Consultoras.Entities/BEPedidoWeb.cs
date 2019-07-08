@@ -137,6 +137,24 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public decimal GananciaOtros { get; set; }
 
+        [DataMember]
+        public bool STPPagoContado { get; set; }
+
+        [DataMember]
+        public decimal STPTotalPagar { get; set; }
+
+        [DataMember]
+        public decimal STPDescuento { get; set; }
+
+        [DataMember]
+        public decimal STPGastTransporte { get; set; }
+
+        [DataMember]
+        public decimal STPPagoTotal { get; set; }
+
+        [DataMember]
+        public int STPId { get; set; }
+
         public BEPedidoWeb() { }
 
         public BEPedidoWeb(IDataRecord row)
@@ -183,6 +201,11 @@ namespace Portal.Consultoras.Entities
             GananciaRevista = row.ToDecimal("GananciaRevista");
             GananciaWeb = row.ToDecimal("GananciaWeb");
             GananciaOtros = row.ToDecimal("GananciaOtros");
+
+            STPTotalPagar = DataRecord.HasColumn(row, "TotalPagar") ? row.ToDecimal("TotalPagar") : 0;
+            STPDescuento = DataRecord.HasColumn(row, "TotalDescuento") ? row.ToDecimal("TotalDescuento") : 0;
+            STPGastTransporte = DataRecord.HasColumn(row, "TotalFlete") ? row.ToDecimal("TotalFlete") : 0;
+            STPId = DataRecord.HasColumn(row, "LogConsultoraPagoContadoID") ? row.ToInt32("LogConsultoraPagoContadoID") : 0;
         }
     }
 }
