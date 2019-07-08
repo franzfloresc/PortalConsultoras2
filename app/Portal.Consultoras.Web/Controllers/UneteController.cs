@@ -1838,7 +1838,7 @@ namespace Portal.Consultoras.Web.Controllers
                 actualizado = sv.ActualizarEstado(CodigoISO, id, EnumsTipoParametro.EstadoTelefonico, idEstado);
             }
             var urlClient = string.Format("portal/EventoSPEstadoTelefonico/{0}/{1}/{2}/{3}/{4}", CodigoISO, id, (int)Enumeradores.EstadoPostulante.Todos, idEstado, (int)Enumeradores.AppFuenteEstadoTelefonico.SAC);
-            var resultado = (new RestApi()).GetAsync<EventoInsert>(urlClient);
+            (new RestApi()).GetAsync<EventoInsert>(urlClient);
             RegistrarLogGestionSacUnete(id.ToString(), "CONSULTA TELEFONICA", "ASIGNAR");
             return Json(actualizado, JsonRequestBehavior.AllowGet);
         }
