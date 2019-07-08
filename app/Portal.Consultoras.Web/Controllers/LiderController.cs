@@ -44,9 +44,9 @@ namespace Portal.Consultoras.Web.Controllers
                 payLoad.Telefono = userData.Telefono;
                 payLoad.DescripcionNivel = userData.DescripcionNivel;
                 payLoad.PrimerNombre = userData.PrimerNombre;
-                payLoad.PrimerApellido = userData.PrimerApellido;
-                payLoad.NombreCorto = userData.NombreCorto;
+                payLoad.PrimerApellido = userData.PrimerApellido;                
                 payLoad.Origen = "SomosBelcorp";
+                payLoad.DocumentoIdentidad = userData.DocumentoIdentidad;
 
                 var cadenaEncriptada = JWT.JsonWebToken.Encode(payLoad, secretKey, JWT.JwtHashAlgorithm.HS256);
                 urlAccesoExterno = ConfigurationManager.AppSettings["URL_LIDER"].ToString() + "/?token=" + cadenaEncriptada;
@@ -71,8 +71,8 @@ namespace Portal.Consultoras.Web.Controllers
             public string Telefono { get; set; }
             public string DescripcionNivel { get; set; }
             public string PrimerNombre { get; set; }            
-            public string PrimerApellido { get; set; }
-            public string NombreCorto { get; set; }
+            public string PrimerApellido { get; set; }            
+            public string DocumentoIdentidad { get; set; }
             public string Origen { get; set; }
         }
 
