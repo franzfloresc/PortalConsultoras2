@@ -1284,14 +1284,12 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     return "El archivo especificado no existe.";
                 }
-
                 if (!Util.IsFileExtension(uplArchivo.FileName, Enumeradores.TypeDocExtension.Excel))
                 {
                     return "El archivo especificado no es un documento de tipo MS-Excel.";
                 }
 
                 string fileextension = Util.Trim(Path.GetExtension(uplArchivo.FileName));
-
                 if (!fileextension.ToLower().Equals(".xlsx"))
                 {
                     return "Sólo se permiten archivos MS-Excel versiones 2007-2012.";
@@ -1299,73 +1297,47 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string fileName = Guid.NewGuid().ToString();
                 string pathfaltante = Server.MapPath("~/Content/ArchivoDistanciaLimite");
-                if (!Directory.Exists(pathfaltante)) Directory.CreateDirectory(pathfaltante);
-
+                Directory.CreateDirectory(pathfaltante);
                 var finalPath = Path.Combine(pathfaltante, fileName + fileextension);
                 uplArchivo.SaveAs(finalPath);
 
                 bool isCorrect = false;
                 DistanciaLimiteZonaSeccionModel prod = new DistanciaLimiteZonaSeccionModel();
-
                 IList<DistanciaLimiteZonaSeccionModel> lista = Util.ReadXmlFile(finalPath, prod, false, ref isCorrect);
+                System.IO.File.Delete(finalPath);
+                if (!isCorrect) return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
 
                 foreach (var item in lista.ToList())
                 {
-                    if (item.DistanciaLimite == null || item.ZonaSeccion == null)
-                    {
-                        lista.Remove(item);
-                    }
+                    if (item.DistanciaLimite == null || item.ZonaSeccion == null) lista.Remove(item);
                 }
+                var listaValida = lista.Where(i => i.DistanciaLimite != null || i.ZonaSeccion != null).ToList();
+                if (listaValida.Count == 0) return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
 
-                if (lista.Count == 0)
-                {
-                    isCorrect = false;
-                }
-
-                System.IO.File.Delete(finalPath);
                 List<ParametroUnete> listafinal = new List<ParametroUnete>();
-                if (isCorrect)
+                int distanciaLimiteItem = 0;
+                foreach (var item in listaValida)
                 {
-                    int distanciaLimiteItem = 0;
-                    bool itemEsNumerico = false;
-                    foreach (var item in lista)
+                    int.TryParse(item.DistanciaLimite, out distanciaLimiteItem);
+                    if (distanciaLimiteItem <= 0) return "Error en distancia límite. Sólo se permiten valores numéricos enteros positivos.";
+
+                    var parametroTodos = new ParametroUnete
                     {
-                        itemEsNumerico = int.TryParse(item.DistanciaLimite, out distanciaLimiteItem);
-                        if (itemEsNumerico && distanciaLimiteItem > 0)
-                        {
-                            var parametroTodos = new ParametroUnete
-                            {
-                                Nombre = item.ZonaSeccion,
-                                Descripcion = "Distancia límite",
-                                Valor = distanciaLimiteItem,
-                                FK_IdTipoParametro = EnumsTipoParametro.DistanciaLimiteZonaSeccion.ToInt(),
-                                Estado = 1
-                            };
-                            listafinal.Add(parametroTodos);
-                        }
-                        else
-                        {
-                            return "Error en distancia límite. Sólo se permiten valores numéricos enteros positivos.";
-                        }
-                    }
-
-                    if (listafinal.Any())
-                    {
-                        using (var sv = new PortalServiceClient())
-                        {
-                            sv.InsertarDistanciaLimiteZonaSeccion(model.CodigoISO, listafinal.ToArray(), oUsuarioModel.CodigoUsuario);
-                        }
-
-                        return "Se realizo satisfactoriamente la carga de datos.";
-                    }
-
-                    return "No se Guardo ningun registro";
-
+                        Nombre = item.ZonaSeccion,
+                        Descripcion = "Distancia límite",
+                        Valor = distanciaLimiteItem,
+                        FK_IdTipoParametro = EnumsTipoParametro.DistanciaLimiteZonaSeccion.ToInt(),
+                        Estado = 1
+                    };
+                    listafinal.Add(parametroTodos);
                 }
-                else
+                if (listafinal.Count == 0) return "No se Guardo ningun registro";
+
+                using (var sv = new PortalServiceClient())
                 {
-                    return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
+                    sv.InsertarDistanciaLimiteZonaSeccion(model.CodigoISO, listafinal.ToArray(), oUsuarioModel.CodigoUsuario);
                 }
+                return "Se realizo satisfactoriamente la carga de datos.";                
             }
             catch (FaultException ex)
             {
@@ -1866,7 +1838,7 @@ namespace Portal.Consultoras.Web.Controllers
                 actualizado = sv.ActualizarEstado(CodigoISO, id, EnumsTipoParametro.EstadoTelefonico, idEstado);
             }
             var urlClient = string.Format("portal/EventoSPEstadoTelefonico/{0}/{1}/{2}/{3}/{4}", CodigoISO, id, (int)Enumeradores.EstadoPostulante.Todos, idEstado, (int)Enumeradores.AppFuenteEstadoTelefonico.SAC);
-            var resultado = (new RestApi()).GetAsync<EventoInsert>(urlClient);
+            (new RestApi()).GetAsync<EventoInsert>(urlClient);
             RegistrarLogGestionSacUnete(id.ToString(), "CONSULTA TELEFONICA", "ASIGNAR");
             return Json(actualizado, JsonRequestBehavior.AllowGet);
         }
@@ -1889,7 +1861,7 @@ namespace Portal.Consultoras.Web.Controllers
                     actualizado = sv.ActualizarEstado(CodigoISO, id, EnumsTipoParametro.EstadoBurocrediticio, idEstadoBuro);
                 }
                 var urlClient = string.Format("portal/EventoSPEstadoBuro/{0}/{1}/{2}/{3}/{4}", CodigoISO, id, (int)Enumeradores.EstadoPostulante.Todos, idEstado, Usuario);
-                var resultado = (new RestApi()).GetAsync<EventoInsert>(urlClient);
+                 (new RestApi()).GetAsync<EventoInsert>(urlClient);
             }
             else {
                 using (var sv = new PortalServiceClient())

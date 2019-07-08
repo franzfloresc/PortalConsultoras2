@@ -468,7 +468,7 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.OrigenAgregarCarrusel = modelo.TieneCarrusel ? GetFichaOrigenPedidoWeb(origen, ConsOrigenPedidoWeb.Seccion.CarruselUpselling, modelo.TieneCarrusel) : 0;
             modelo.OrigenAgregarCarruselCroselling = modelo.TieneCarrusel ? GetFichaOrigenPedidoWeb(origen, ConsOrigenPedidoWeb.Seccion.CarruselCrossSelling, modelo.TieneCarrusel) : 0;
             modelo.OrigenAgregarCarruselSugeridos = modelo.TieneCarrusel ? GetFichaOrigenPedidoWeb(origen, ConsOrigenPedidoWeb.Seccion.CarruselSugeridos, modelo.TieneCarrusel) : 0;
-            modelo.TieneCompartir = _caminoBrillanteProvider.IsOrigenPedidoCaminoBrillante(modelo.OrigenAgregar) ? false : GetTieneCompartir(palanca, esEditar, modelo.OrigenAgregar);
+            modelo.TieneCompartir = GetTieneCompartir(palanca, esEditar, modelo.OrigenAgregar);
             #endregion
             
             #region ODD
@@ -494,7 +494,9 @@ namespace Portal.Consultoras.Web.Controllers
         public DetalleEstrategiaFichaModel GetEstrategiaMongo(string palanca, int campaniaId, string cuv)
         {
             string codigoPalanca = string.Empty;
-            
+
+            bool noQuitar = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
+
             var modelo = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campaniaId.ToString(), codigoPalanca);
 
             if (modelo == null) return null;
@@ -510,7 +512,7 @@ namespace Portal.Consultoras.Web.Controllers
             var lstModelo = new List<DetalleEstrategiaFichaModel>();
             lstModelo.Add(modelo);
             lstModelo = _ofertaPersonalizadaProvider.ActualizarEstrategiaStockProl(lstModelo, userData);
-            modelo.TieneStock = lstModelo.FirstOrDefault(x => x.CUV2 == modelo.CUV2).TieneStock;
+            modelo.TieneStock = lstModelo.First(x => x.CUV2 == modelo.CUV2).TieneStock;
 
             // validar stock de los CUV componentes
             modelo.Hermanos = _estrategiaComponenteProvider.FormatterEstrategiaComponentes(modelo.Hermanos, modelo.CUV2, modelo.CampaniaID, true);
@@ -619,7 +621,7 @@ namespace Portal.Consultoras.Web.Controllers
             return modelo.Seccion.Equals(ConsOrigenPedidoWeb.Seccion.Recomendado) ||
                    modelo.Seccion.Equals(ConsOrigenPedidoWeb.Seccion.RecomendadoFicha);
         }
-        
+
         private bool GetValidationHasCarrusel(int origen, bool esEditar)
         {
             if (EsProductoRecomendado(origen))
@@ -632,6 +634,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private bool GetTieneCompartir(string palanca, bool esEditar, int origen)
         {
+            if (UtilOrigenPedidoWeb.EsCaminoBrillante(origen)) return false;
             if (EsProductoRecomendado(origen)) return false;
             return !esEditar && !MobileAppConfiguracion.EsAppMobile &&
                 !(Constantes.NombrePalanca.HerramientasVenta == palanca
