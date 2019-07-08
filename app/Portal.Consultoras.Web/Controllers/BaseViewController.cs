@@ -494,7 +494,9 @@ namespace Portal.Consultoras.Web.Controllers
         public DetalleEstrategiaFichaModel GetEstrategiaMongo(string palanca, int campaniaId, string cuv)
         {
             string codigoPalanca = string.Empty;
-            
+
+            bool noQuitar = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
+
             var modelo = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campaniaId.ToString(), codigoPalanca);
 
             if (modelo == null) return null;
