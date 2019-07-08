@@ -9,7 +9,7 @@ GO
 
 CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		@CDRWebDetalleID INT = 0	
-		,@DetalleXML XML  = '' 
+		,@DetalleXML XML  = NULL
 		,@RetornoID INT OUTPUT
 		)
 	AS
@@ -18,7 +18,7 @@ CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		SET @RetornoID = 0
 		 UPDATE CDRWebDetalle
 		 SET
-		 DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
+		 DetalleReemplazo = case   WHEN @DetalleXML IS NULL THEN DetalleReemplazo ELSE  @DetalleXML END
 		 WHERE CDRWebDetalleID = @CDRWebDetalleID;
 		 SET @RetornoID = 1	
 		 SET NOCOUNT OFF;
@@ -35,7 +35,7 @@ GO
 
 CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		@CDRWebDetalleID INT = 0	
-		,@DetalleXML XML  = '' 
+		,@DetalleXML XML  = NULL
 		,@RetornoID INT OUTPUT
 		)
 	AS
@@ -44,7 +44,7 @@ CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		SET @RetornoID = 0
 		 UPDATE CDRWebDetalle
 		 SET
-		 DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
+		 DetalleReemplazo = case   WHEN @DetalleXML IS NULL THEN DetalleReemplazo ELSE  @DetalleXML END
 		 WHERE CDRWebDetalleID = @CDRWebDetalleID;
 		 SET @RetornoID = 1	
 		 SET NOCOUNT OFF;
@@ -61,7 +61,7 @@ GO
 
 CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		@CDRWebDetalleID INT = 0	
-		,@DetalleXML XML  = '' 
+		,@DetalleXML XML  = NULL
 		,@RetornoID INT OUTPUT
 		)
 	AS
@@ -70,7 +70,7 @@ CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		SET @RetornoID = 0
 		 UPDATE CDRWebDetalle
 		 SET
-		 DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
+		 DetalleReemplazo = case   WHEN @DetalleXML IS NULL THEN DetalleReemplazo ELSE  @DetalleXML END
 		 WHERE CDRWebDetalleID = @CDRWebDetalleID;
 		 SET @RetornoID = 1	
 		 SET NOCOUNT OFF;
@@ -87,7 +87,7 @@ GO
 
 CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		@CDRWebDetalleID INT = 0	
-		,@DetalleXML XML  = '' 
+		,@DetalleXML XML  = NULL
 		,@RetornoID INT OUTPUT
 		)
 	AS
@@ -96,7 +96,7 @@ CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		SET @RetornoID = 0
 		 UPDATE CDRWebDetalle
 		 SET
-		 DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
+		 DetalleReemplazo = case   WHEN @DetalleXML IS NULL THEN DetalleReemplazo ELSE  @DetalleXML END
 		 WHERE CDRWebDetalleID = @CDRWebDetalleID;
 		 SET @RetornoID = 1	
 		 SET NOCOUNT OFF;
@@ -113,7 +113,7 @@ GO
 
 CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		@CDRWebDetalleID INT = 0	
-		,@DetalleXML XML  = '' 
+		,@DetalleXML XML  = NULL 
 		,@RetornoID INT OUTPUT
 		)
 	AS
@@ -122,7 +122,7 @@ CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		SET @RetornoID = 0
 		 UPDATE CDRWebDetalle
 		 SET
-		 DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
+		 DetalleReemplazo = case   WHEN @DetalleXML IS NULL THEN DetalleReemplazo ELSE  @DetalleXML END
 		 WHERE CDRWebDetalleID = @CDRWebDetalleID;
 		 SET @RetornoID = 1	
 		 SET NOCOUNT OFF;
@@ -139,7 +139,7 @@ GO
 
 CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		@CDRWebDetalleID INT = 0	
-		,@DetalleXML XML  = '' 
+		,@DetalleXML XML  = NULL
 		,@RetornoID INT OUTPUT
 		)
 	AS
@@ -148,7 +148,7 @@ CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		SET @RetornoID = 0
 		 UPDATE CDRWebDetalle
 		 SET
-		 DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
+		 DetalleReemplazo = case   WHEN @DetalleXML IS NULL THEN DetalleReemplazo ELSE  @DetalleXML END
 		 WHERE CDRWebDetalleID = @CDRWebDetalleID;
 		 SET @RetornoID = 1	
 		 SET NOCOUNT OFF;
@@ -165,7 +165,7 @@ GO
 
 CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		@CDRWebDetalleID INT = 0	
-		,@DetalleXML XML  = '' 
+		,@DetalleXML XML  = NULL
 		,@RetornoID INT OUTPUT
 		)
 	AS
@@ -174,7 +174,7 @@ CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		SET @RetornoID = 0
 		 UPDATE CDRWebDetalle
 		 SET
-		 DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
+		 DetalleReemplazo = case   WHEN @DetalleXML IS NULL THEN DetalleReemplazo ELSE  @DetalleXML END
 		 WHERE CDRWebDetalleID = @CDRWebDetalleID;
 		 SET @RetornoID = 1	
 		 SET NOCOUNT OFF;
@@ -191,7 +191,7 @@ GO
 
 CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		@CDRWebDetalleID INT = 0	
-		,@DetalleXML XML  = '' 
+		,@DetalleXML XML  = NULL 
 		,@RetornoID INT OUTPUT
 		)
 	AS
@@ -200,7 +200,7 @@ CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		SET @RetornoID = 0
 		 UPDATE CDRWebDetalle
 		 SET
-		 DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
+		 DetalleReemplazo = case   WHEN @DetalleXML IS NULL THEN DetalleReemplazo ELSE  @DetalleXML END
 		 WHERE CDRWebDetalleID = @CDRWebDetalleID;
 		 SET @RetornoID = 1	
 		 SET NOCOUNT OFF;
@@ -217,7 +217,7 @@ GO
 
 CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		@CDRWebDetalleID INT = 0	
-		,@DetalleXML XML  = '' 
+		,@DetalleXML XML  = NULL
 		,@RetornoID INT OUTPUT
 		)
 	AS
@@ -226,7 +226,7 @@ CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		SET @RetornoID = 0
 		 UPDATE CDRWebDetalle
 		 SET
-		 DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
+		 DetalleReemplazo = case   WHEN @DetalleXML IS NULL THEN DetalleReemplazo ELSE  @DetalleXML END
 		 WHERE CDRWebDetalleID = @CDRWebDetalleID;
 		 SET @RetornoID = 1	
 		 SET NOCOUNT OFF;
@@ -243,7 +243,7 @@ GO
 
 CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		@CDRWebDetalleID INT = 0	
-		,@DetalleXML XML  = '' 
+		,@DetalleXML XML  = NULL 
 		,@RetornoID INT OUTPUT
 		)
 	AS
@@ -252,7 +252,7 @@ CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		SET @RetornoID = 0
 		 UPDATE CDRWebDetalle
 		 SET
-		 DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
+		 DetalleReemplazo = case   WHEN @DetalleXML IS NULL THEN DetalleReemplazo ELSE  @DetalleXML END
 		 WHERE CDRWebDetalleID = @CDRWebDetalleID;
 		 SET @RetornoID = 1	
 		 SET NOCOUNT OFF;
@@ -269,7 +269,7 @@ GO
 
 CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		@CDRWebDetalleID INT = 0	
-		,@DetalleXML XML  = '' 
+		,@DetalleXML XML  = NULL
 		,@RetornoID INT OUTPUT
 		)
 	AS
@@ -278,7 +278,7 @@ CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		SET @RetornoID = 0
 		 UPDATE CDRWebDetalle
 		 SET
-		 DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
+		 DetalleReemplazo = case   WHEN @DetalleXML IS NULL THEN DetalleReemplazo ELSE  @DetalleXML END
 		 WHERE CDRWebDetalleID = @CDRWebDetalleID;
 		 SET @RetornoID = 1	
 		 SET NOCOUNT OFF;
@@ -295,7 +295,7 @@ GO
 
 CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		@CDRWebDetalleID INT = 0	
-		,@DetalleXML XML  = '' 
+		,@DetalleXML XML  = NULL
 		,@RetornoID INT OUTPUT
 		)
 	AS
@@ -304,7 +304,7 @@ CREATE PROCEDURE [dbo].[UpdCDRWebDetalle] (
 		SET @RetornoID = 0
 		 UPDATE CDRWebDetalle
 		 SET
-		 DetalleReemplazo = ISNULL(@DetalleXML,DetalleReemplazo)
+		 DetalleReemplazo = case   WHEN @DetalleXML IS NULL THEN DetalleReemplazo ELSE  @DetalleXML END
 		 WHERE CDRWebDetalleID = @CDRWebDetalleID;
 		 SET @RetornoID = 1	
 		 SET NOCOUNT OFF;
