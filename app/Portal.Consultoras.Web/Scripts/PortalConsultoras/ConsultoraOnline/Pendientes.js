@@ -578,9 +578,6 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
         data: JSON.stringify(obj),
         success: function (response) {
             if (response.success) {
-                var eliminoPedidoCompleto = true;
-                // ocultar div
-
                 MarcaAnalyticsClienteProducto('¿Quiere eliminar este pedido? - Sí, eliminar');
 
                 //Ajax
@@ -590,14 +587,7 @@ function EliminarSolicitudDetalle(pedidoId, cuv, origen) {
                     $.each(value.DetallePedido, function (index, value) {
                         cuvs.push(value.CUV.toString());
                     });
-                    if (value.PedidoId.toString() == pedidoId.toString()) {
-                        eliminoPedidoCompleto = false
-                    }
                 });
-
-                if (eliminoPedidoCompleto) {
-
-                }
 
                 if (origen == 'C') {
                     var idCuv = '#vc_pedido_' + cuv;
