@@ -245,9 +245,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
                 #endregion
-
-
-                var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(model.OrigenPedidoWeb);
+                
+                //var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(model.OrigenPedidoWeb);
 
                 #region VirtualCoach
                 if (model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.VirtualCoachDesktopPedido ||
@@ -315,7 +314,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var esCaminoBrillante = false;
                 #region Camino Brillante
-                if (_caminoBrillanteProvider.IsOrigenPedidoCaminoBrillante(model.OrigenPedidoWeb))
+                if (UtilOrigenPedidoWeb.EsCaminoBrillante(model.OrigenPedidoWeb))
                 {
                     model.CuvTonos = Util.Trim(model.CUV);
                     esCaminoBrillante = true;
