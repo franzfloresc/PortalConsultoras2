@@ -570,7 +570,7 @@ var EstrategiaAgregarModule = (function () {
                    }
                }
 
-               if (isMobile()) {
+               if (isMobile() && typeof esAppMobile === 'undefined') {
                    CargarCantidadProductosPedidos(true);
                    microefectoPedidoGuardado();
 
