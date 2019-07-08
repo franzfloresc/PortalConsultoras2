@@ -1703,7 +1703,8 @@ $(document).ready(function () {
 
                 var item = {
                     CDRWebDetalleID: pedidodetalleid,
-                    GrupoID: grupoid
+                    GrupoID: grupoid,
+                    Accion: "D"
                 };
                 var msg = "";
                 if (grupoid.length > 0) {

@@ -1061,20 +1061,24 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                int resultado = 0;
                 var entidadDetalle = new ServiceCDR.BECDRWebDetalle { CDRWebDetalleID = model.CDRWebDetalleID, GrupoID = model.GrupoID };
-                var resultado = EliminarTrueque(model, entidadDetalle);
-                if (resultado == 0)
+                if (model.Accion == "D" || model.CUV == null)
                 {
                     using (CDRServiceClient sv = new CDRServiceClient())
                     {
-                        sv.DelCDRWebDetalle(userData.PaisID, entidadDetalle);
+                        resultado = sv.DelCDRWebDetalle(userData.PaisID, entidadDetalle);
                     }
+                }
+                else
+                {
+                    resultado = EliminarTrueque(model, entidadDetalle);
                 }
 
                 return Json(new
                 {
-                    success = true,
-                    message = "",
+                    success = resultado > 0,
+                    message = resultado > 0 ? "": "Lo sentiemos, ocurrió un error inesperado.",
                     detalle = ""
                 }, JsonRequestBehavior.AllowGet);
             }

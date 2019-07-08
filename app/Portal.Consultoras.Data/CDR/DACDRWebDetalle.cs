@@ -38,8 +38,8 @@ namespace Portal.Consultoras.Data.CDR
             Context.Database.AddInParameter(command, "CDRWebDetalleID", DbType.Int32, entity.CDRWebDetalleID);
             Context.Database.AddInParameter(command, "DetalleXML", DbType.Xml, entity.XMLReemplazo);//HD-4017 EINCA 
             Context.Database.AddOutParameter(command, "RetornoID", DbType.Int32, 10);
-            var result = Context.ExecuteNonQuery(command);
-            return result;
+            Context.ExecuteNonQuery(command);
+            return Convert.ToInt32(command.Parameters["@RetornoID"].Value);
         }
 
         public int DelCDRWebDetalle(BECDRWebDetalle entity)

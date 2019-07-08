@@ -282,14 +282,7 @@ else if (ViewBag.Origen == "1")
                                             </span>
                                         </div>
                                     }
-                                }
-                            </div>
-                        </div>
-                        <div class="detalle_cdr_solucion">
-                            @if (item.CodigoOperacion.Equals("C") || item.CodigoOperacion.Equals("D") || item.CodigoOperacion.Equals("F") || item.CodigoOperacion.Equals("G"))
-                            {
-                                <div class="d-flex detalle_productos_solicitud_cdr detalle_productos_solicitud_cdr--otrosTipoDeSolicitud">
-                                    @if (item.Estado == 4)
+                                    else if (item.Estado == 4)
                                     {
                                         <div>
                                             <span class="d-block text-center text-bold text-uppercase tag_sb tag__sb--estadoSolicitud estado_rechazado">
@@ -323,12 +316,14 @@ else if (ViewBag.Origen == "1")
                                             </div>
                                         </div>
                                     }
-                                </div>
-                            }
-                            else if (item.CodigoOperacion.Equals("T"))
+                                }
+                            </div>
+                        </div>
+                        <div class="detalle_cdr_solucion">
+                            @if (item.CodigoOperacion.Equals("T"))
                             {
                                 <div class="text-bold detalle_cdr_solucion_titulo detalle_cdr_solucion_titulo_trueque">
-                                    @item.Solicitud :
+                                    Cambiar por:
                                 </div>
                                 if (item.DetalleReemplazo != null)
                                 {
@@ -520,12 +515,6 @@ else if (ViewBag.Origen == "1")
                                         </div>
                                     </div>
                                 }
-                            }
-                            else
-                            {
-                                <div class="text-bold detalle_cdr_solucion_titulo">
-                                    @item.Solicitud
-                                </div>
                             }
                         </div>
                     </div>

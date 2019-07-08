@@ -1566,7 +1566,8 @@ function EliminarDetalle(el) {
 
     var item = {
         CDRWebDetalleID: pedidodetalleid,
-        GrupoID: grupoid
+        GrupoID: grupoid,
+        Accion: "D"
     };
 
     var functionEliminar = function () {

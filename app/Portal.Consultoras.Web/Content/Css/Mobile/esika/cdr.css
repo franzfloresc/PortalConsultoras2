@@ -1917,7 +1917,7 @@ input[type="checkbox"]:checked + .opcion_cdr_checkbox {
 .detalle_productos_solicitud_cdr {
     justify-content:space-between;
     flex-direction:row;
-    flex-wrap:nowrap;
+    flex-wrap:wrap;
     border-bottom: 1px solid #808080;
     padding-top: 16px;
     padding-bottom: 16px;
