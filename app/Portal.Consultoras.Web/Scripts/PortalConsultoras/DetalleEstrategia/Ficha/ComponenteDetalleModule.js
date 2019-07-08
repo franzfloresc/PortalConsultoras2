@@ -12,7 +12,7 @@
 
     if (config.generalModule === null || typeof config.generalModule === "undefined")
         throw "config.generalModule is null or undefined";
-    
+
     var _config = {
         localStorageModule: config.localStorageModule,
         analyticsPortalModule: config.analyticsPortalModule,
@@ -58,21 +58,24 @@
 
             //estrategia.Hermanos por default es solo 1
 
-            if (estrategia.Hermanos.length == 1) {
-                if (estrategia.MostrarFichaEnriquecida) {
+            var idContenido = _template.getTagDataHtml(_template.componenteDetalleIndividual);
 
-                    _util.setHandlebars(_template.componenteDetalleIndividual, estrategia.Hermanos[0]);
+            if (estrategia.Hermanos.length == 1 && estrategia.MostrarFichaEnriquecida) {
 
-                    this.setYoutubeId();
-                    if (!_config.generalModule.isMobile()) {
-                        this.setTabDetalleComponente();
-                    }
-                    else {
-                        this.setAcordionDetalleComponente();
-                    }
-                    this.setCarrusel(_template.CarruselIndividualVideo);
-                    this.setYoutubeApi();
+                _util.setHandlebars(_template.componenteDetalleIndividual, estrategia.Hermanos[0]);
+
+                this.setYoutubeId();
+                if (!_config.generalModule.isMobile()) {
+                    this.setTabDetalleComponente();
                 }
+                else {
+                    this.setAcordionDetalleComponente();
+                }
+                this.setCarrusel(_template.CarruselIndividualVideo);
+                this.setYoutubeApi();
+            }
+            else {
+                $(idContenido).html("");
             }
         },
         setCarrusel: function (id) {
