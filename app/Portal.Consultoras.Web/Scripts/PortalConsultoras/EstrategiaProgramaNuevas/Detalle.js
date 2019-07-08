@@ -143,8 +143,7 @@ function fnImagenes_Paginador(data) {
     $(".EstrategiaTabFooter").html(htmlPaginador);
 }
 function fnImagenes_FileUpload(data) {
-
-    uploader = new qq.FileUploader({
+    new qq.FileUploader({
         allowedExtensions: ['jpg', 'png', 'jpeg'],
         element: document.getElementById("file-uploader"),
         action: baseUrl + 'MatrizComercial/ActualizarMatrizComercial',

@@ -1020,8 +1020,9 @@ function ArmarPopupObsReserva(esIconCheck, titulo, mensaje) {
     objIcon.addClass(esIconCheck ? 'check_icono_mobile' : 'exclamacion_icono_mobile');
 }
 function MostrarPopupErrorReserva(mensajePedido, esAviso) {
-    if (esAviso) ArmarPopupObsReserva(false, 'AVISO', mensajePedido);
-    else ArmarPopupObsReserva(false, 'ERROR', mensajePedido);
+    if (typeof esAviso === 'undefined') esAviso = false;
+    ArmarPopupObsReserva(false, esAviso ? 'AVISO' : 'ERROR', mensajePedido);
+
     $('#popup-observaciones-prol').show();
 }
 
