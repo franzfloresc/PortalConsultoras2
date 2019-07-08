@@ -216,5 +216,13 @@
 
             return codigo;
         }
+        
+        public static bool EsCaminoBrillante(int origen)
+        {
+            var modelo = UtilOrigenPedidoWeb.GetModelo(origen.ToString());
+            if (origen == 0) return false;
+
+            return modelo.Palanca.Equals(ConsOrigenPedidoWeb.Palanca.OfertasEspeciales);
+        }
     }
 }
