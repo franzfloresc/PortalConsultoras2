@@ -1,25 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using AutoMapper;
-using Newtonsoft.Json;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.ElasticSearch;
 using Portal.Consultoras.Web.Models.Search.ResponseOferta;
 using Portal.Consultoras.Web.Models.Search.ResponseOferta.Estructura;
 using Portal.Consultoras.Web.SessionManager;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
     public class VentaIncrementalProvider : OfertaBaseProvider
     {
-        protected static TablaLogicaProvider _tablaLogicaProvider;
+        protected readonly TablaLogicaProvider _tablaLogicaProvider;
         private readonly ISessionManager _sessionManager = SessionManager.SessionManager.Instance;
 
         public VentaIncrementalProvider()

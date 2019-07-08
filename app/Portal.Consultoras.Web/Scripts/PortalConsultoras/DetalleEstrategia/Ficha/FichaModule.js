@@ -506,9 +506,7 @@ var FichaModule = (function (config) {
         _setEstrategiaBreadcrumb(estrategia);
 
         // TODO: falta implementar en ficha responsive
-        if (config.componenteDetalleModule === null || typeof config.componenteDetalleModule === "undefined") {
-
-        } else {
+        if (!(config.componenteDetalleModule === null || typeof config.componenteDetalleModule === "undefined")) {
             _config.componenteDetalleModule.VerDetalleIndividual(estrategia);
         }
 
