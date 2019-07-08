@@ -530,43 +530,6 @@ ul.breadcumbs li a {
     box-shadow: none !important;
 }
 
-/*Ubicación del carrucel*/
-/* .contenedor_sinUpselling #divFichaCarrusel_upselling {
-    display: none !important;
-    order: 1;
-}
-
-.contenedor_sinUpselling  #divFichaEnriquecida{
-    order: 2;
-}
-
-.contenedor_sinUpselling #divFichaCarrusel_cross {
-    order: 1;
-}
-
-.contenedor_sinUpselling #divFichaCarrusel_sugerido {
-    order: 3;
-}
-
-.contenedor_ficha_agotado #divFichaCarrusel_upselling {
-    display: none !important;
-    order: 3;
-} */
-
-/* .contenedor_ficha_agotado #divFichaEnriquecida {
-    order: 2;
-}
-
-.contenedor_ficha_agotado #divFichaCarrusel_cross {
-    display: none !important;
-    order: 4;
-}
-
-.contenedor_ficha_agotado divFichaCarrusel_sugerido {
-    order: 1;
-} */
-/* FIn ubicación del carrucel*/
-
 @media (min-width: 960px) {
     .contenedor_etiqueta_odd .clock_odd {
         margin: 0;
