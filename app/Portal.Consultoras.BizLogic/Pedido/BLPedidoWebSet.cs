@@ -23,12 +23,12 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
             return set;
         }
-        
+
         public bool EliminarTransaction(int paisId, int id, long ConsultoraId)
         {
 
             try
-            {                 
+            {
                 var da = new DAPedidoWebSet(paisId);
                 var result = da.Eliminar(id);
 
@@ -46,7 +46,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
         {
             TransactionOptions oTransactionOptions =
                 new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted };
-          
+
             try
             {
                 var result = 0;
@@ -57,7 +57,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var daPedidoWebDetalle = new DAPedidoWebDetalle(paisId);
 
                     result = da.Eliminar(id);
-                    
+
                     var listaDetalle = bLPedidoWebDetalle.GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros);
                     var importeTotal = listaDetalle.Sum(p => p.ImporteTotal);
 
@@ -68,7 +68,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     return result > 0;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

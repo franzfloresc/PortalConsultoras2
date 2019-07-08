@@ -6,7 +6,7 @@ namespace Portal.Consultoras.Common.Exceptions
     [Serializable]
     public class ClientInformationException : System.Exception
     {
-        public ClientInformationException()
+        public ClientInformationException() : base()
         {
         }
 

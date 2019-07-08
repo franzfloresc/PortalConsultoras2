@@ -37,6 +37,17 @@ namespace Portal.Consultoras.Entities.Pedido
         public string DescuentoProl { get; set; }
         [DataMember]
         public string MontoEscala { get; set; }
+        [DataMember]
+        public decimal? GananciaRevista { get; set; }
+
+        [DataMember]
+        public decimal? GananciaWeb { get; set; }
+
+        [DataMember]
+        public decimal? GananciaOtros { get; set; }
+
+        [DataMember]
+        public BEPedidoWeb PedidoWeb { get; set; }
 
         public BEPedidoDetalleResult()
         {

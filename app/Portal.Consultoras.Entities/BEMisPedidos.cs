@@ -199,12 +199,6 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool Elegido { get; set; }
 
-        [DataMember]
-        public string OptAtender { get; set; }
-
-        [DataMember]
-        public int Index { get; set; }
-
         public BEMisPedidosDetalle()
         {
         }
@@ -228,8 +222,6 @@ namespace Portal.Consultoras.Entities
             Estado = row.ToInt32("Estado");
             Url = row.ToString("Url");
             CodigoSap = row.ToString("CodigoSap");
-            OptAtender = row.ToString("OptAtender");
-            Index = row.ToInt32("Index");
         }
     }
 }

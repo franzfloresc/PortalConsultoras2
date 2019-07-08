@@ -508,12 +508,8 @@ namespace Portal.Consultoras.BizLogic
 
             #region Camino Brillante
             if (updLabelCaminoBrillante) {
-                var origenPedidoWeb = new int[] {
-                    Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido,
-                    Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido,
-                    Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido };
                 var blCaminoBrillante = new BLCaminoBrillante();
-                listpedidoDetalle.Where(e => origenPedidoWeb.Contains(e.OrigenPedidoWeb)).ToList().ForEach(e => {                    
+                listpedidoDetalle.Where(e => blCaminoBrillante.IsOrigenPedidoCaminoBrillante(e.OrigenPedidoWeb)).ToList().ForEach(e => {                    
                     blCaminoBrillante.UpdFlagsKitsOrDemostradores(e, detParametros.PaisId, detParametros.CampaniaId, detParametros.NivelCaminoBrillante);
                 });
             }
@@ -939,6 +935,30 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return Notdecrypt;
+        }
+
+        public List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(BEUsuario usuario, out int pedidoID)
+        {
+            return ObtenerPedidoWebSetDetalleAgrupado(usuario, false, out pedidoID);
+        }
+        public List<BEPedidoWebDetalle> ObtenerPedidoWebSetDetalleAgrupado(BEUsuario usuario, bool updLabelNuevas, out int pedidoID)
+        {
+            var bePedidoWebDetalleParametros = new BEPedidoWebDetalleParametros
+            {
+                PaisId = usuario.PaisID,
+                CampaniaId = usuario.CampaniaID,
+                ConsultoraId = usuario.ConsultoraID,
+                Consultora = usuario.Nombre,
+                CodigoPrograma = usuario.CodigoPrograma,
+                NumeroPedido = usuario.ConsecutivoNueva,
+                AgruparSet = true,
+                NivelCaminoBrillante = usuario.NivelCaminoBrillante
+            };
+
+            var detallesPedidoWeb = GetPedidoWebDetalleByCampania(bePedidoWebDetalleParametros, true, updLabelNuevas, true).ToList();
+            pedidoID = detallesPedidoWeb.Any() ? detallesPedidoWeb.FirstOrDefault().PedidoID : 0;
+
+            return detallesPedidoWeb;
         }
 
     }

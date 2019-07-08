@@ -88,7 +88,6 @@
         $(_elements.hfNombre).val(nombre);
 
         if (paisId != "") {
-            console.log('_seleccionarRegistro - DivPopupFichaResumida overflow auto');
             $("#DivPopupFichaResumida").css("overflow", "auto");
         }
 

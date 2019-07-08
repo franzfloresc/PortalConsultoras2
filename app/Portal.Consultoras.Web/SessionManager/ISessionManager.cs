@@ -222,9 +222,9 @@ namespace Portal.Consultoras.Web.SessionManager
 
         List<EstadoCuentaModel> GetListadoEstadoCuenta();
 
-        void SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo);
+        //void SetProductoTemporal(EstrategiaPersonalizadaProductoModel modelo);
 
-        EstrategiaPersonalizadaProductoModel GetProductoTemporal();
+        //EstrategiaPersonalizadaProductoModel GetProductoTemporal();
 
         void SetEstrategiaSR(Models.Estrategia.ShowRoom.ConfigModel data);
 
@@ -257,6 +257,10 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMiAcademiaVideo(int id);
 
         int GetMiAcademiaVideo();
+
+        void SetMiAcademiaPdf(int id);
+
+        int GetMiAcademiaPdf();
 
         void SetMiAcademiaParametro(string value);
 
@@ -524,5 +528,8 @@ namespace Portal.Consultoras.Web.SessionManager
         
         void SetFiltrosCaminoBrillante(BEOrdenFiltroConfiguracion val);
         BEOrdenFiltroConfiguracion GetFiltrosCaminoBrillante();
+
+        void SetConfiguracionCaminoBrillante(List<BEConfiguracionCaminoBrillante> val);
+        List<BEConfiguracionCaminoBrillante> GetConfiguracionCaminoBrillante();
     }
 }

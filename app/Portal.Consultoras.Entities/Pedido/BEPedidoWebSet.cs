@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Entities.Pedido
 {
@@ -84,7 +81,6 @@ namespace Portal.Consultoras.Entities.Pedido
         [Column("ClienteId")]
         public int ClienteId { get; set; }
 
-        //todo: usar audit
         [DataMember]
         [Column("ClienteNombre")]
         public string ClienteNombre { get; set; }

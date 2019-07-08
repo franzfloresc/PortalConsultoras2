@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Providers
 {
-    public class CarruselUpSellingProvider:BuscadorBaseProvider
+    public class CarruselUpSellingProvider : BuscadorBaseProvider
     {
         protected TablaLogicaProvider _tablaLogicaProvider;
+        protected ConsultaProlProvider _consultaProlProvider;
 
         public CarruselUpSellingProvider()
         {
             _sessionManager = SessionManager.SessionManager.Instance;
             _tablaLogicaProvider = new TablaLogicaProvider();
+            _consultaProlProvider = new ConsultaProlProvider();
         }
 
         public virtual async Task<OutputProductosUpSelling> ObtenerProductosCarruselUpSelling(string cuv, string[] codigosProductos, double precioProducto)
@@ -32,7 +34,7 @@ namespace Portal.Consultoras.Web.Providers
 
                 return await PostAsync<OutputProductosUpSelling>(pathBuscador, jsonData);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return new OutputProductosUpSelling();
             }
@@ -41,22 +43,24 @@ namespace Portal.Consultoras.Web.Providers
         private int ObtenerCantidadProductosUpSelling()
         {
             var userData = _sessionManager.GetUserData();
-            var cantidadProductos = _tablaLogicaProvider.GetTablaLogicaDatoValorInt(userData.PaisID, 
-                ConsTablaLogica.ConfiguracionesFicha.TablaLogicaId, 
+            var cantidadProductos = _tablaLogicaProvider.GetTablaLogicaDatoValorInt(userData.PaisID,
+                ConsTablaLogica.ConfiguracionesFicha.TablaLogicaId,
                 ConsTablaLogica.ConfiguracionesFicha.CantidadProductosUpSelling, true);
             return cantidadProductos;
         }
 
-        private dynamic GenerarJsonParaConsulta(UsuarioModel usuarioModel, 
-            RevistaDigitalModel revistaDigital, 
-            string[] codigosProductos, 
-            int cantidadProductos, 
+        private dynamic GenerarJsonParaConsulta(UsuarioModel usuarioModel,
+            RevistaDigitalModel revistaDigital,
+            string[] codigosProductos,
+            int cantidadProductos,
             double precioProducto,
             string cuv)
         {
             var suscripcion = revistaDigital.EsActiva;
             var personalizaciones = "";
             var buscadorConfig = _sessionManager.GetBuscadorYFiltrosConfig();
+            var esFacturacion = _consultaProlProvider.GetValidarDiasAntesStock(usuarioModel);
+
             if (buscadorConfig != null)
                 personalizaciones = buscadorConfig.PersonalizacionDummy ?? "";
 
@@ -77,7 +81,8 @@ namespace Portal.Consultoras.Web.Providers
                     rd = revistaDigital.TieneRDC.ToString(),
                     rdi = revistaDigital.TieneRDI.ToString(),
                     rdr = revistaDigital.TieneRDCR.ToString(),
-                    diaFacturacion = usuarioModel.DiaFacturacion
+                    diaFacturacion = usuarioModel.DiaFacturacion,
+                    esFacturacion
                 }
             };
         }
