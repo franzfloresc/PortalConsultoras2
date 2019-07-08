@@ -38,9 +38,10 @@ jQuery(document).ready(function () {
         }
     }
 
-
-    $(".ImageLoadPhotoUser").on("load", function () {
-        onLoadPhotoUser(this);
+    $(".ImageLoadPhotoUser").on('load', function () {
+        onLoadPhotoUser(this);        
+    }).each(function () {
+        if (this.complete && this.naturalHeight !== 0) $(this).load();
     });
 });
 
