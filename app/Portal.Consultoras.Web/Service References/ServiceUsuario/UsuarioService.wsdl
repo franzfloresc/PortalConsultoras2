@@ -95,6 +95,12 @@
   <wsdl:message name="IUsuarioService_CambiarClaveUsuario_OutputMessage">
     <wsdl:part name="parameters" element="tns:CambiarClaveUsuarioResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_CambiarContraseniaAleatoria_InputMessage">
+    <wsdl:part name="parameters" element="tns:CambiarContraseniaAleatoria" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_CambiarContraseniaAleatoria_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CambiarContraseniaAleatoriaResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_ExisteUsuario_InputMessage">
     <wsdl:part name="parameters" element="tns:ExisteUsuario" />
   </wsdl:message>
@@ -1050,6 +1056,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/CambiarClaveUsuario" message="tns:IUsuarioService_CambiarClaveUsuario_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/CambiarClaveUsuarioResponse" message="tns:IUsuarioService_CambiarClaveUsuario_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="CambiarContraseniaAleatoria">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/CambiarContraseniaAleatoria" message="tns:IUsuarioService_CambiarContraseniaAleatoria_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/CambiarContraseniaAleatoriaResponse" message="tns:IUsuarioService_CambiarContraseniaAleatoria_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ExisteUsuario">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ExisteUsuario" message="tns:IUsuarioService_ExisteUsuario_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ExisteUsuarioResponse" message="tns:IUsuarioService_ExisteUsuario_OutputMessage" />
@@ -1739,6 +1749,15 @@
     </wsdl:operation>
     <wsdl:operation name="CambiarClaveUsuario">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/CambiarClaveUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CambiarContraseniaAleatoria">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/CambiarContraseniaAleatoria" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3201,6 +3220,15 @@
     </wsdl:operation>
     <wsdl:operation name="CambiarClaveUsuario">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/CambiarClaveUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CambiarContraseniaAleatoria">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/CambiarContraseniaAleatoria" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

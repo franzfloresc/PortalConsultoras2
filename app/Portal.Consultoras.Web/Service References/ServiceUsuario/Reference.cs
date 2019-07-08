@@ -18183,6 +18183,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/CambiarClaveUsuario", ReplyAction="http://tempuri.org/IUsuarioService/CambiarClaveUsuarioResponse")]
         System.Threading.Tasks.Task<bool> CambiarClaveUsuarioAsync(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen origen);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/CambiarContraseniaAleatoria", ReplyAction="http://tempuri.org/IUsuarioService/CambiarContraseniaAleatoriaResponse")]
+        bool CambiarContraseniaAleatoria(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen origen);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/CambiarContraseniaAleatoria", ReplyAction="http://tempuri.org/IUsuarioService/CambiarContraseniaAleatoriaResponse")]
+        System.Threading.Tasks.Task<bool> CambiarContraseniaAleatoriaAsync(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen origen);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ExisteUsuario", ReplyAction="http://tempuri.org/IUsuarioService/ExisteUsuarioResponse")]
         int ExisteUsuario(int paisId, string codigoUsuario, string clave);
         
@@ -19219,6 +19225,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<bool> CambiarClaveUsuarioAsync(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen origen) {
             return base.Channel.CambiarClaveUsuarioAsync(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
+        }
+        
+        public bool CambiarContraseniaAleatoria(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen origen) {
+            return base.Channel.CambiarContraseniaAleatoria(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CambiarContraseniaAleatoriaAsync(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen origen) {
+            return base.Channel.CambiarContraseniaAleatoriaAsync(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
         }
         
         public int ExisteUsuario(int paisId, string codigoUsuario, string clave) {

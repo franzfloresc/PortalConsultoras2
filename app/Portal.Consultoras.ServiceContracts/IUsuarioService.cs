@@ -289,6 +289,8 @@ namespace Portal.Consultoras.ServiceContracts
         bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo,
             string codigoUsuarioAutenticado, EAplicacionOrigen origen);
 
+        [OperationContract]
+        bool CambiarContraseniaAleatoria(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen);
 
         [OperationContract]
         int ExisteUsuario(int paisId, string codigoUsuario, string clave);

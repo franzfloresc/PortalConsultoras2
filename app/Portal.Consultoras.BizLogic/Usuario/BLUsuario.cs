@@ -1875,6 +1875,28 @@ namespace Portal.Consultoras.BizLogic
             return resultado;
         }
 
+        public bool CambiarContraseniaAleatoria(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
+        {
+            bool resultado;
+
+            try
+            {
+                var daUsuario = new DAUsuario(paisId);
+                daUsuario.CambiarClaveUsuario(codigoUsuario, nuevacontrasena, correo);
+                daUsuario.InsLogCambioContrasenia(codigoUsuarioAutenticado, paisIso + codigoUsuario, nuevacontrasena,
+                    correo, Enum.GetName(typeof(EAplicacionOrigen), origen));
+                daUsuario.InsMetaConsultora(codigoUsuario, Constantes.MetaConsultora.VerificacionCambioClave, "0");
+                resultado = true;
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, codigoUsuario, paisIso);
+                resultado = false;
+            }
+
+            return resultado;
+        }
+
         public int ExisteUsuario(int paisId, string codigoUsuario, string clave)
         {
             int resultado;

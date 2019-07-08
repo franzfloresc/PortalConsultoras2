@@ -3567,7 +3567,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return Json(new { success = respuestasActivaEmail.Succcess, message = respuestasActivaEmail.Message });
                     }
 
-                    result = sv.CambiarClaveUsuario(Util.GetPaisID(actualizaContrasenia.CodigoIso), actualizaContrasenia.CodigoIso, actualizaContrasenia.CodigoUsuario,
+                    result = sv.CambiarContraseniaAleatoria(Util.GetPaisID(actualizaContrasenia.CodigoIso), actualizaContrasenia.CodigoIso, actualizaContrasenia.CodigoUsuario,
                            actualizaContrasenia.Contrasenia, "", actualizaContrasenia.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
 
                     rslt = result ? 2 : 1;
