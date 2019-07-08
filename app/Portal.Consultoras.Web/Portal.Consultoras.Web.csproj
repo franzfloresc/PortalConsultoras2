@@ -1518,6 +1518,7 @@
     <Content Include="Content\Css\Site\Contenedor\BannerInteractivo.css" />
     <Content Include="Content\Css\Site\BusquedaProductos\filtros-busqueda.css" />
     <Content Include="Content\Css\Site\Contenedor\Index.css" />
+    <Content Include="Content\Css\Site\EncuestaSatisfaccion\encuesta-satisfaccion.css" />
     <Content Include="Content\Css\Site\EscalaDescuentos\escala-descuentos.css" />
     <Content Include="Content\Css\Site\Esika\buscador-filtros.css" />
     <Content Include="Content\Css\Site\Esika\campania-navidenia.css" />
@@ -1552,6 +1553,11 @@
     <Content Include="Content\Images\add-to-cart-disable.png" />
     <Content Include="Content\Images\add-to-cart-white.png" />
     <Content Include="Content\Images\checkBuroSAC.svg" />
+    <Content Include="Content\Images\EncuestaSatisfaccion\bueno.svg" />
+    <Content Include="Content\Images\EncuestaSatisfaccion\excelente.svg" />
+    <Content Include="Content\Images\EncuestaSatisfaccion\mal.svg" />
+    <Content Include="Content\Images\EncuestaSatisfaccion\pesimo.svg" />
+    <Content Include="Content\Images\EncuestaSatisfaccion\regular.svg" />
     <Content Include="Content\Images\etiqueta_nuevo.svg" />
     <Content Include="Content\Images\Esika\club-gana-mas.gif" />
     <Content Include="Content\Images\Esika\favicon.ico" />
@@ -5960,6 +5966,7 @@
     <Content Include="Views\DetalleEstrategia\FichaResponsive\Componente\resumen-componente-template.cshtml" />
     <Content Include="Views\Shared\PopupsResponsive\_PopupReservaPedido.cshtml" />
     <Content Include="Views\ConsultoraOnline\_MotivosRechazo.cshtml" />
+    <Content Include="Views\EncuestaSatisfaccion\_EncuestaSatisfaccion.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

@@ -1,0 +1,234 @@
+﻿/*  HELPERS CSS */
+
+.flex-row{
+    flex-direction:row;
+}
+
+.flex-column{
+    flex-direction:column;
+}
+
+.flex-nowrap{
+    flex-wrap:nowrap;
+}
+
+.flex-wrap{
+    flex-wrap:wrap;
+}
+
+.justify-content-start{
+    justify-content:flex-start;
+}
+
+.justify-content-center{
+    justify-content:center;
+}
+
+.justify-content-end{
+    justify-content:flex-end;
+}
+
+.justify-content-between{
+    justify-content:space-between;
+}
+
+.justify-content-evenly{
+    justify-content:space-evenly;
+}
+
+.justify-content-around{
+    justify-content:space-around;
+}
+
+.align-items-start{
+    align-items:flex-start;
+}
+
+.align-items-center{
+    align-items:center;
+}
+
+.align-items-end{
+    align-items:flex-end;
+}
+
+.align-content-start{
+    align-content:flex-start;
+}
+
+.align-content-center{
+    align-content:center;
+}
+
+.align-content-end{
+    align-content:flex-end;
+}
+
+/* FIN - HELPERS CSS */
+
+/* HD-4357 - ENCUESTA DE SATISFACCIÓN */
+
+.btn_chat_messenger_mobile{
+    display:none!important;
+}
+
+.seccion__encuesta__satisfaccion {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 999999909;
+    background-color: #FFF;
+    width: 100%;
+    height: 134px;
+    padding: 16px;
+    -moz-box-shadow: 0 -2px 4px 0 rgba(150, 150, 150, 0.5);
+    -webkit-box-shadow: 0 -2px 4px 0 rgba(150, 150, 150, 0.5);
+    box-shadow: 0 -2px 4px 0 rgba(150, 150, 150, 0.5);
+    -moz-transition: height 0.8s ease;
+    -o-transition: height 0.8s ease;
+    -webkit-transition: height 0.8s ease;
+    transition: height 0.8s ease;
+}
+
+    .seccion__encuesta__satisfaccion__expandir{
+        height:100vh;
+        overflow:auto;
+    }
+
+    .seccion__encuesta__satisfaccion,
+    .seccion__encuesta__satisfaccion > div,
+    .encuesta__satisfaccion__estados__lista,
+    .seccion__encuesta__satisfaccion__titulo,
+    .encuesta__satisfaccion__motivosCalificacion__wrapper,
+    .encuesta__satisfaccion__motivosCalificacion__lista{
+        max-width: 100%;
+    }
+
+        .seccion__encuesta__satisfaccion > div {
+            flex: 0 0 100%;
+            margin-top: 16px;
+        }
+
+        .seccion__encuesta__satisfaccion__expandir > div{
+            margin-top:26px;
+        }
+
+            .seccion__encuesta__satisfaccion__expandir .encuesta__satisfaccion__estado__descrip{
+                opacity:1;
+            }
+
+            .seccion__encuesta__satisfaccion__expandir .encuesta__satisfaccion__estados__wrapper{
+                flex:0 0 320px;
+                max-width:320px;
+            }
+
+    .enlace__cerrar__encuesta__satisfaccion{
+        width: 45px;
+        height: 45px;
+        padding: 12px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        cursor:pointer;
+    }
+        
+        .enlace__cerrar__encuesta__satisfaccion img{
+            width:100%;
+            height:auto;
+        }
+
+    .seccion__encuesta__satisfaccion__titulo,
+    .encuesta__satisfaccion__estados__lista,
+    .encuesta__satisfaccion__motivosCalificacion__wrapper,
+    .encuesta__satisfaccion__motivosCalificacion__lista{
+        flex:0 0 100%;
+    }
+
+    .seccion__encuesta__satisfaccion__titulo{
+        margin:0 0 16px 0;
+        font-size:16px;
+    }
+
+    .encuesta__satisfaccion__estados__wrapper{
+        flex:0 0 300px;
+        max-width:300px;
+        min-height:40px;
+    }
+
+        .encuesta__satisfaccion__estados__lista,
+        .encuesta__satisfaccion__motivosCalificacion__lista{
+            margin:0;
+            list-style-type:none;
+        }
+
+        .encuesta__satisfaccion__estado,
+        .encuesta__satisfaccion__estado__descrip{
+            -moz-transition: opacity 0.3s ease;
+            -o-transition: opacity 0.3s ease;
+            -webkit-transition: opacity 0.3s ease;
+            transition: opacity 0.3s ease;
+        }
+
+            .encuesta__satisfaccion__estado {
+                opacity:1;
+            }
+
+                .encuesta__satisfaccion__disabled{
+                    opacity:0.4;
+                }
+
+                .encuesta__satisfaccion__estado__imagen{
+                    margin-bottom:6px;
+                }
+
+                .encuesta__satisfaccion__estado__descrip,
+                .encuesta__satisfaccion__disabled .encuesta__satisfaccion__estado__descrip{
+                    opacity:0;
+                }
+
+                .encuesta__satisfaccion__estado__descrip{
+                    font-size:12px;
+                    color:#000;
+                }
+
+    .seccion__encuesta__satisfaccion__motivosCalificacion{
+        display:none;
+    }
+
+        .seccion__encuesta__satisfaccion__titulo--motivoCalificacion{
+            margin:24px 0 16px 0;
+        }
+
+            .encuesta__satisfaccion__motivosCalificacion__lista{
+                margin-bottom:8px;
+            }
+
+                .encuesta__satisfaccion__motivoCalificacion{
+                    flex: 0 0 48%;
+                    max-width: 48%;
+                }
+
+                    .tag__checkbox__sb--motivoCalificacion{
+                        margin-bottom:16px;
+                        line-height:14px;
+                    }
+
+    .btn__sb--confirmar{
+        width:92%;
+        max-width:92%;
+    }
+
+@media screen and (max-height:570px){
+
+    .btn__sb--confirmar{
+        position:relative;
+        top:0;
+        margin-top:32px;
+        margin-bottom:16px;
+        flex:0 0 100%;
+        max-width:100%;
+    }
+
+}
+
+/* FIN - HD-4357 - ENCUESTA DE SATISFACCIÓN */
