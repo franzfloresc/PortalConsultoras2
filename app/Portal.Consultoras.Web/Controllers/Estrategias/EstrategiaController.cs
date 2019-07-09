@@ -613,7 +613,7 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
 
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 var esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
-
+                var campaniaId = userData.CampaniaID;
                 var listaTieneStock = new List<Lista>();
 
                 if (esFacturacion)
@@ -656,8 +656,8 @@ namespace Portal.Consultoras.Web.Controllers.Estrategias
                             FlagNueva = beProducto.FlagNueva,
                             TipoEstrategiaID = beProducto.TipoEstrategiaID,
                             ImagenProductoSugerido = beProducto.ImagenProductoSugerido ?? "",
-                            ImagenProductoSugeridoSmall = _baseProvider.ObtenerRutaImagenResize(beProducto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall, userData.CodigoISO),
-                            ImagenProductoSugeridoMedium = _baseProvider.ObtenerRutaImagenResize(beProducto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium, userData.CodigoISO),
+                            ImagenProductoSugeridoSmall = _baseProvider.ObtenerRutaImagenResize(beProducto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenSmall, userData.CodigoISO, campaniaid: Convert.ToString(campaniaId), isProductoSugerido: true),
+                            ImagenProductoSugeridoMedium = _baseProvider.ObtenerRutaImagenResize(beProducto.ImagenProductoSugerido, Constantes.ConfiguracionImagenResize.ExtensionNombreImagenMedium, userData.CodigoISO, campaniaid: Convert.ToString(campaniaId), isProductoSugerido: true),
                             CodigoProducto = beProducto.CodigoProducto,
                             TieneStockPROL = true
                         });

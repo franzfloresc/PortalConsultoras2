@@ -204,7 +204,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string rutaImagen = entidad.ImagenProducto.Clone().ToString();
 
-                _renderImgProvider.ImagenesResizeProceso(entidad.ImagenProducto, userData.CodigoISO, imagenAppCatalogo);
+                _renderImgProvider.ImagenesResizeProceso(entidad.ImagenProducto, userData.CodigoISO, imagenAppCatalogo,campaniaID: model.CampaniaID.ToString());
 
                 #endregion
 
