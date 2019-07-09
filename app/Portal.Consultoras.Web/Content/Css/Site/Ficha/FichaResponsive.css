@@ -123,10 +123,12 @@ ul.breadcumbs li a {
 
 .ficha_detalle {
     padding: 62px 40px 0px 40px;
-    /*background: url('/Content/Images/etiqueta_nuevo.svg');*/
+    background-color: #fff;
+}
+
+.tag_nuevo {
     background-position: top right;
     background-repeat: no-repeat;
-    background-color: #fff;
     background-size: 70px;
 }
 
@@ -443,43 +445,6 @@ ul.breadcumbs li a {
     box-shadow: none !important;
 }
 
-/*Ubicación del carrucel*/
-/* .contenedor_sinUpselling #divFichaCarrusel_upselling {
-    display: none !important;
-    order: 1;
-}
-
-.contenedor_sinUpselling  #divFichaEnriquecida{
-    order: 2;
-}
-
-.contenedor_sinUpselling #divFichaCarrusel_cross {
-    order: 1;
-}
-
-.contenedor_sinUpselling #divFichaCarrusel_sugerido {
-    order: 3;
-}
-
-.contenedor_ficha_agotado #divFichaCarrusel_upselling {
-    display: none !important;
-    order: 3;
-} */
-
-/* .contenedor_ficha_agotado #divFichaEnriquecida {
-    order: 2;
-}
-
-.contenedor_ficha_agotado #divFichaCarrusel_cross {
-    display: none !important;
-    order: 4;
-}
-
-.contenedor_ficha_agotado divFichaCarrusel_sugerido {
-    order: 1;
-} */
-/* FIn ubicación del carrucel*/
-
 @media (min-width: 960px) {
     .contenedor_etiqueta_odd .clock_odd {
         margin: 0;
@@ -496,7 +461,8 @@ ul.breadcumbs li a {
 
     .flip-clock-divider {
         top: 3px !important;
-    } 
+    }
+    
 }
 
 @media (max-width: 960px) {
@@ -504,35 +470,6 @@ ul.breadcumbs li a {
         margin-bottom: 54px;
     }
 
-    /*UpSelling*/
-    .carousel_ficha .slick-arrow {
-        display:none !important;
-    }
-
-    .img_producto img{
-        width: 100%;
-        height: auto;
-        margin-bottom: 0px;
-    }
-    .precio_normal{
-        display: none;
-    }
-
-    .caja_vertical {
-        /*max-width: 195px;*/
-        width: 250px !important;
-    }
-
-    .caja_horizontal {
-        /*max-width: 410px;*/
-        width: 250px !important;
-    }
-
-    .titulo_producto {
-        font-size: 14px;
-    }
-
-    /*Fin UpSelling*/
     .reloj_mobile {
         display: block !important;
     }
@@ -542,7 +479,6 @@ ul.breadcumbs li a {
     }
 
     .contenedor_detalle {
-        /*background: url('/Content/Images/etiqueta_nuevo.svg');*/
         background-position: top right;
         background-repeat: no-repeat;
         background-size: 60px;
@@ -580,8 +516,8 @@ ul.breadcumbs li a {
 
     .ficha_detalle {
         padding: 0 15px !important;
-        margin-top: 30px; /* Modificado para el carrusel de imagenes responsive - tesla */
-        background: none;
+        margin-top: 30px;
+        background-image: none !important;
     }
 
     .detalle_producto_detalle {
@@ -636,6 +572,18 @@ ul.breadcumbs li a {
         padding: 15px;
         border: none;
         box-shadow: 0 -1px 5px 0 rgba(0, 0, 0, 0.1);
+    }
+    /* Modal Promocion Carrusel */
+    .promociones-modal.popup_lateral,
+    .modal-promociones--bottom {
+        width: 100%;
+    }
+    .descripcion-promociones .contenedor-imagen img {
+        object-fit: cover;
+        margin-right: 16px;
+    }
+    .ficha-promociones .descripcion-promociones .texto-promociones {
+        padding-left: 16px;
     }
 }
 
@@ -826,6 +774,12 @@ ul.breadcumbs li a {
         .contenedor_imagen .slick-dots li.slick-active button {
             background-color: #979797 !important;
         }
+
+@media (min-width: 600px) {
+    .contenedor_detalle.tag_nuevo{
+        background:none !important;
+    }
+}
 @media (max-width: 600px) {
     .contenedor_imagen_thumbnail {
         display: none;

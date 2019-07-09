@@ -40,7 +40,6 @@ var EstrategiaAgregarModule = (function () {
         dataItemTagAgregar: "[data-item-tag=\"agregar\"]",
         dataItemTagFondo: "[data-item-tag=\"fotofondo\"]",
         dataItemTagVerDetalle: "[data-item-tag=\"verdetalle\"]",
-        //dataItemAccionVerDetalle: "[data-item-accion=\"verdetalle\"]",
         dataItemTagContenido: "[data-item-tag=\"contenido\"]",
         dataTono: "[data-tono]",
         dataTonoSelect: "[data-tono-select]",
@@ -177,7 +176,7 @@ var EstrategiaAgregarModule = (function () {
         var $btnAgregarTmp = $btnAgregar;
         var $divMsgProductoBloqueado = null;
         var dataItemHtml = null;
-        //var estrategiaTmp = estrategia;
+
         return {
             getDivMsgProductoBloqueado: function () {
                 $divMsgProductoBloqueado = $(elementosDiv.divMensajeBloqueada);
@@ -203,7 +202,6 @@ var EstrategiaAgregarModule = (function () {
                 dataItemHtml.find(dataProperties.dataItemTagAgregar).remove();
                 dataItemHtml.find(dataProperties.dataItemTagFondo).remove();
                 dataItemHtml.find(dataProperties.dataItemTagVerDetalle).remove();
-                //dataItemHtml.find(dataProperties.dataItemAccionVerDetalle).remove();
                 dataItemHtml.find(dataProperties.dataItemTagContenido).removeAttr("onclick");
                 dataItemHtml.find(dataProperties.dataItemTagContenido).css("position", "initial");
                 dataItemHtml.find(dataProperties.dataItemTagContenido).attr("class", "");
@@ -281,12 +279,10 @@ var EstrategiaAgregarModule = (function () {
             if (origenModelo.Pagina == _codigoOrigenPedidoWeb.CodigoEstructura.Pagina.ArmaTuPackDetalle) {
                 if (typeof (seleccionadosPresenter) !== 'undefined') {
                     if (seleccionadosPresenter.packComponents() !== 'undefined') {
-                        //var seleccionados = seleccionadosPresenter.packComponents().componentesSeleccionados;
                         estrategiaAnalytics = JSON.parse($("#data-estrategia").attr("data-estrategia"));
                         var codigoubigeoportal = estrategiaAnalytics.CodigoUbigeoPortal;
 
                         if (codigoubigeoportal !== "") {
-                            //AnalyticsPortalModule.MarcarAddCarArmaTuPack(codigoubigeoportal, seleccionados);
                             AnalyticsPortalModule.MarcaClickAgregarArmaTuPack(codigoubigeoportal, "Agregar", "Click Botón");
                         }
                     }
@@ -404,6 +400,18 @@ var EstrategiaAgregarModule = (function () {
             params.PrecioUnidad = estrategia.Precio2;
         };
 
+        if (estrategia.EsPromocion) {
+            
+            var condiciones = [];
+            for (var i = 0; i < estrategia.Condiciones.length; i++) {
+                condiciones.push({
+                    CuvPromocion: estrategia.CUV2,
+                    CuvCondicion: estrategia.Condiciones[i].CUV2
+                });
+            }
+            params.PedidoWebPromociones = JSON.stringify(condiciones);
+        };
+       
         EstrategiaAgregarProvider
             .pedidoAgregarProductoPromise(params)
             .done(function (data) {
@@ -413,16 +421,12 @@ var EstrategiaAgregarModule = (function () {
                 }
 
                 if (data.success === false) {
-                    //INI HD-3693
-                    //if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
-                    //else abrirMensajeEstrategia(data.message, esFicha);
                     if (!IsNullOrEmpty(data.mensajeAviso)) AbrirMensaje(data.mensajeAviso, data.tituloMensaje);
                     else {
                         var msjBloq = validarpopupBloqueada(data.message);
                         if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
                         else abrirMensajeEstrategia(data.message, _config.esFicha);
                     }
-                    //FIN HD-3693
 
                     CerrarLoad();
                     return false;
@@ -461,40 +465,14 @@ var EstrategiaAgregarModule = (function () {
                         }
                     }
                 }
-
-
-                //INI HD-3908
-
-                ////Tooltip de agregado
-                //if (esFicha) {
-                //    try {
-                //        var $AgregadoTooltip = $(dataProperties.tooltip);
-                //        if (params.EsEditable) {
-                //            $AgregadoTooltip.find(dataProperties.tooltipMensaje1).html("¡Listo! ");
-                //            $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
-                //        }
-                //        $AgregadoTooltip.show();
-                //        setTimeout(function () { $AgregadoTooltip.hide(); }, 4000);
-                //        ResumenOpcionesModule.LimpiarOpciones();
-                //    } catch (e) {
-                //        console.error(e);
-                //    }
-
-                //}
+                
                 var esFichaT = ((estrategia.FlagNueva == 1 ? true : false) && IsNullOrEmpty(data.mensajeAviso)) || _config.esFicha;
 
                 var mensaje = '';
                 //Tooltip de agregado
                 if (esFichaT) {
                     try {
-                        //var $AgregadoTooltip = $(dataProperties.tooltip);
-                        //if (params.EsEditable) {
-                        //    $AgregadoTooltip.find(dataProperties.tooltipMensaje1).html("¡Listo! ");
-                        //    $AgregadoTooltip.find(dataProperties.tooltipMensaje2).html(" Modificaste tu pedido");
-                        //}
-                        //$AgregadoTooltip.show();
                         setTimeout(function () {
-                            //$AgregadoTooltip.hide();
                             if (typeof esAppMobile == 'undefined') {
                                 if (origenPedidoWebEstrategia === _OrigenPedido.DesktopContenedorArmaTuPack) {
                                     window.location = "/ofertas";
@@ -529,7 +507,6 @@ var EstrategiaAgregarModule = (function () {
                     }
 
                }
-               //FIN HD-3908
 
                var barraJsLoaded = typeof MostrarBarra === 'function';
 
@@ -558,7 +535,7 @@ var EstrategiaAgregarModule = (function () {
                    }
                }
 
-               if (isMobile()) {
+               if (isMobile() && typeof esAppMobile === 'undefined') {
                    CargarCantidadProductosPedidos(true);
                    microefectoPedidoGuardado();
 
@@ -742,13 +719,6 @@ var EstrategiaAgregarModule = (function () {
                     if (typeof (seleccionadosPresenter) !== 'undefined') {
                         var packComponents = seleccionadosPresenter.packComponents();
                         if (packComponents !== 'undefined') {
-                            //var estrategiaAnalytics = JSON.parse($("#data-estrategia").attr("data-estrategia"));
-                            //var codigoubigeoportal = estrategiaAnalytics.CodigoUbigeoPortal;
-
-                            //if (codigoubigeoportal !== "") {
-                            //    var seleccionados = packComponents.componentesSeleccionados;
-                            //    AnalyticsPortalModule.MarcarAddCarArmaTuPack(origenPedidoWebEstrategia, seleccionados);
-                            //}
 
                             estrategia = packComponents.componentesSeleccionados;
                         }

@@ -28,10 +28,9 @@ $(document).ready(function () {
             btn_ver_solicitudes: "#btn_ver_solicitudes",
             btnAceptarSolucion: "[data-cambiopaso]",
             btnCambioProducto: "#btnCambioProducto",
-            btnSiguiente0: "#btnSiguiente0",//HD-3412 EINCA
+            btnSiguiente0: "#btnSiguiente0",
             btnSiguiente1: "#btnSiguiente1",
             btnSiguiente4: "#btnSiguiente4",
-            //Cambio3: "#Cambio3",
             ComboCampania: "#ddlCampania",
             content_solicitud_cdr: ".content_solicitud_cdr",
             campoBusquedaCuvDescripcionCdr: '#CampoBusquedaCuvDescripcion',
@@ -511,9 +510,7 @@ $(document).ready(function () {
                     $(me.Variables.txtCuvMobile2).val("");
                     $(me.Variables.txtPrecioCuv2).html("");
                     $(me.Variables.txtCantidad2).val("1");
-                    //$(me.Variables.ComboCampania).val(0);
                     $(me.Variables.txtCuvMobile).val("");
-                    //$(me.Variables.txtNumPedido).val("");
 
                     $(me.Variables.txtCuvMobile).fadeIn();
                     $(me.Variables.txtCuvMobile2).fadeIn();
@@ -656,8 +653,8 @@ $(document).ready(function () {
                     $(me.Variables.txtNumPedido).val("").hide();
                     $(me.Variables.hdPedidoID).val(0);
                     $(me.Variables.hdNumeroPedido).val(0);
-                    $(me.Variables.infoOpcionesDeCambio).hide();//solve bug 
-                    $("#MensajeTenerEncuenta").hide();//solve bug
+                    $(me.Variables.infoOpcionesDeCambio).hide();
+                    $("#MensajeTenerEncuenta").hide();
                     $("#VistaPaso3").hide();
                     $(me.Variables.SolicitudEnviada).hide();
                     me.Funciones.CambiarEstadoBarraProgreso(me.Variables.pasos.uno_seleccion_de_producto);
@@ -1171,8 +1168,6 @@ $(document).ready(function () {
 
             RegresarRegistro1: function () {
                 $(me.Variables.Registro2).hide();
-                //$(me.Variables.pasodosactivo).hide();
-                //$(me.Variables.pasodos).show();
                 $(me.Variables.Registro1).show();
             },
 
@@ -1211,7 +1206,6 @@ $(document).ready(function () {
                     var montoProductosFaltanteActual = me.Funciones.ObtenerMontoProductosDevolver(codigoSsic);
                     var montoCuvActual = (parseFloat($(me.Variables.txtPrecioUnidad).val()) || 0) * (parseInt($(me.Variables.txtCantidad1).val()) || 0);
                     var montoDevolver = montoProductosFaltanteActual + montoCuvActual;
-                    //me.Funciones.ObtenerValorParametria(codigoSsic);
                     var valorParametria = $(me.Variables.hdParametriaCdr).val() || 0;
                     valorParametria = parseFloat(valorParametria);
                     var montoMaximoDevolver = montoTotalPedido * valorParametria / 100;
@@ -1768,13 +1762,11 @@ $(document).ready(function () {
                     me.Funciones.ValidarTelefonoServer($.trim($(me.Variables.txtTelefono).val()), function (data) {
                         if (!data.success) {
                             me.Funciones.ControlSetError(me.Variables.txtTelefono, me.Variables.spnTelefonoError, '*Este número de celular ya está siendo utilizado. Intenta con otro.');
-                            //$(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
                             return false;
                         } else if ($.trim($(me.Variables.txtEmail).val()) != $.trim($(me.Variables.hdEmail).val())) {
                             me.Funciones.ValidarCorreoDuplicadoServer($.trim($(me.Variables.txtEmail).val()), function (data) {
                                 if (!data.success) {
                                     me.Funciones.ControlSetError(me.Variables.txtEmail, me.Variables.spnEmailError, '*Este correo ya está siendo utilizado. Intenta con otro');
-                                    //$(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
                                     return false;
                                 } else {
                                     me.Funciones.SolicitudCDREnviar(function (data) {
@@ -1784,15 +1776,12 @@ $(document).ready(function () {
                                                 mensajeInfo = data.message.replace(mensajeChatEnLinea, "").trim();
                                             } else mensajeInfo = data.message;
                                             messageInfo(mensajeInfo);
-                                            //$(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
                                             return false;
                                         } else {
                                             if (data.Cantidad == 1) {
-                                                //$(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
                                                 $(me.Variables.tabs_vista_cdr_wrapper).show();
                                                 messageInfoValidado(data.message, "MENSAJE");
                                             } else {
-                                                //Redireccionar a la vista index de reclamo
                                                 window.location.href = UrlVistaSolicitudesRegistradas;
                                             }
                                         }
@@ -1807,14 +1796,11 @@ $(document).ready(function () {
                                         mensajeInfo = data.message.replace(mensajeChatEnLinea, "").trim();
                                     } else mensajeInfo = data.message;
                                     messageInfo(mensajeInfo);
-                                    //$(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');
                                     return false;
                                 } else {
-                                    if (data.Cantidad == 1) {
-                                        //$(me.Variables.btnSiguiente4).removeClass('btn_deshabilitado');                                        
+                                    if (data.Cantidad == 1) {                                    
                                         messageInfoValidado(data.message, "MENSAJE");
                                     } else {
-                                        //Redireccionar a la vista index de reclamo
                                         window.location.href = UrlVistaSolicitudesRegistradas;
                                     }
                                 }
@@ -1911,7 +1897,6 @@ $(document).ready(function () {
             },
 
             SetMontoCampaniaTotal: function () {
-                //$(me.Variables.wrpMobile).addClass(me.Variables.pb120);
                 $(me.Variables.spnSimboloMonedaReclamo).html(variablesPortal.SimboloMoneda);
                 var precioUnidad = $(me.Variables.txtPrecioUnidad).val();
                 var cantidad = $(me.Variables.txtCantidad1).val();
@@ -2038,10 +2023,6 @@ $(document).ready(function () {
                 var _CantidadRechazados = $(elemento).find(me.Variables.cdrweb_CantidadRechazados).val();
 
                 if (_Estado === "1") {
-                    //if (mensajeCdrFueraDeFechaCompleto !== "") {
-                    //    messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
-                    //    return false;
-                    //}
                     if (mensajeGestionCdrInhabilitada !== "") {
                         messageInfoValidado(mensajeGestionCdrInhabilitada);
                         return false;

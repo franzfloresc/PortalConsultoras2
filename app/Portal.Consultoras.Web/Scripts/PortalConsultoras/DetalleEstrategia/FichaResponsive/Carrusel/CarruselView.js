@@ -20,20 +20,15 @@ class CarruselView {
             id:"#divFichaEnriquecida",
             capa: "divFichaEnriquecida"
         };
-        // this.divFichaCarrusel_Suggested = {
-        //     id:"#divFichaCarrusel_Suggested",
-        //     capa: "divFichaCarrusel_Suggested"
-        // };
+
         this.divCarrusel = {
             id: [
                 "#divFichaCarrusel_UpSelling", 
-                // "#divFichaEnriquecida", 
                 "#divFichaCarrusel_CrossSell", 
                 "#divFichaCarrusel_Suggested"
             ],
             capa: [
                 "divFichaCarrusel_UpSelling", 
-                // "divFichaEnriquecida", 
                 "divFichaCarrusel_CrossSell", 
                 "divFichaCarrusel_Suggested"
             ]
@@ -57,7 +52,6 @@ class CarruselView {
         $(this.divCarruselContenedor).show();
         this.marcarAnalytics(1, data);
     }
-    
     setValueAttrHtml(attrObj, value) {
         $(this.divCarruselProducto).attr(attrObj, value);
     }
@@ -110,19 +104,21 @@ class CarruselView {
             ]
         }).on("beforeChange", function (event, slick, currentSlide, nextSlide) {
             parent.marcarAnalytics(2, null, slick, currentSlide, nextSlide);
-        }).on("lazyLoaded", function(event, slick, image, imageSource) {
+        }).on("afterChange", function (event, slick, currentSlide, nextSlide) {
+            parent.marcarAnalytics(3, null, slick, currentSlide);
+        }).on("lazyLoaded", function (event, slick, image, imageSource) {
             const aspectRatio = image[0].naturalWidth / image[0].naturalHeight;
             switch (true) {
-            case aspectRatio === 1:
-                break;
-            case aspectRatio > 1.3:
-                $(image[0].parentNode).closest("article").removeClass("caja_vertical").addClass("caja_horizontal");
-                break;
-            case aspectRatio < 1:
-                break;
+                case aspectRatio === 1:
+                    break;
+                case aspectRatio > 1.3:
+                    $(image[0].parentNode).closest("article").removeClass("caja_vertical").addClass("caja_horizontal");
+                    break;
+                case aspectRatio < 1:
+                    break;
             }
         }).on("lazyLoadError", function (event, slick, image, imageSource) {
-            //$(image[0]).attr("src", "/Content/Images/placeholder/img_placeholder_vertical.jpg");
+
         });
 
         $(this.divCarruselProducto).fadeIn();
@@ -147,6 +143,11 @@ class CarruselView {
             origenModelo = CodigoOrigenPedidoWeb.GetOrigenModelo(origen);
             CarruselAyuda.MarcarAnalyticsChange(slick, currentSlide, nextSlide, origenModelo);
         }
+        else if (tipo === 3) {
+            const estrategia = CarruselAyuda.ObtenerEstrategiaSlick(slick, currentSlide, nextSlide);
+            origen = CodigoOrigenPedidoWeb.GetCambioSegunTipoEstrategia(origen, estrategia.CodigoEstrategia);
+            CarruselAyuda.MostrarFlechaCarrusel(slick, currentSlide, origen);
+        }
     }
 
     filterFichaVisible(ficha){
@@ -155,30 +156,30 @@ class CarruselView {
         })[0];
     }
 
-    reorderFichaCarrusel(model){
-        var orden = 0;
-        var _this = this;
+    //reorderFichaCarrusel(model){
+    //    var orden = 0;
+    //    var _this = this;
 
-        // _this.hiddenSinStock(model);
+    //    // _this.hiddenSinStock(model);
 
-        $.each($(this.divCarruselFicha.ficha), function(indice, elemento){
-            $(elemento).css("order", "");
-        });
+    //    $.each($(this.divCarruselFicha.ficha), function(indice, elemento){
+    //        $(elemento).css("order", "");
+    //    });
 
-        this.divCarrusel.capa.forEach(function (ficha) {
-            var encontrado = _this.filterFichaVisible(ficha);
-            if (encontrado != undefined) {
-                $(encontrado).css("order", orden);
+    //    this.divCarrusel.capa.forEach(function (ficha) {
+    //        var encontrado = _this.filterFichaVisible(ficha);
+    //        if (encontrado != undefined) {
+    //            $(encontrado).css("order", orden);
 
-                if (orden == 0 && _this.filterFichaVisible(_this.fichaEnriquecida.capa) != undefined) {
-                    $(_this.fichaEnriquecida.id).css("order", orden + 1);
-                    orden++;
-                }
+    //            if (orden == 0 && _this.filterFichaVisible(_this.fichaEnriquecida.capa) != undefined) {
+    //                $(_this.fichaEnriquecida.id).css("order", orden + 1);
+    //                orden++;
+    //            }
 
-                orden++;
-            }
-        });
-    }
+    //            orden++;
+    //        }
+    //    });
+    //}
 
     // hiddenSinStock(model) {
     //     var _this = this;

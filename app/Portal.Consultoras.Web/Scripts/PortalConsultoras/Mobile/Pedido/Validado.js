@@ -31,12 +31,9 @@ function ConfirmarModificarPedido() {
                 } else {
                     CloseLoading();
                     
-                    //INI HD-3693
-                    //messageInfoError(data.message);
                     var msjBloq = validarpopupBloqueada(data.message);
                     if (msjBloq != "") alert_msg_bloqueadas(msjBloq);
                     else messageInfoError(data.message);
-                    //FIN HD-3693
 
                 }
             }

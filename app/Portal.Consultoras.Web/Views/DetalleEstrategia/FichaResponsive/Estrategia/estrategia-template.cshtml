@@ -37,7 +37,7 @@
 
         <div class="precio_venta_oferta">
             {{#iff TipoPersonalizacion '!=' 'CAT'}}
-            Precio para ti
+            Precio para ti :
             {{/iff}}
 
             {{#iff TipoPersonalizacion '==' 'CAT'}}
@@ -65,17 +65,29 @@
         {{#iff TipoPersonalizacion '!=' 'CAT'}}
         {{#iff Precio '>' 0}}
         <div class="precio_valorizado">
+            {{#iff CodigoEstrategia '==' '036'}}
+            Precio normal : <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span>
+            {{else}}
+            {{#iff CodigoEstrategia '==' '035'}}
+            Precio : <span data-precio_valorizado="" style="text-decoration:line-through">{{SimboloMoneda}} {{PrecioTachado}}</span>
+            {{else}}
             Para tu cliente : <span data-precio_valorizado="">{{SimboloMoneda}} {{PrecioTachado}}</span>
+            {{/iff}}
+            {{/iff}}
         </div>
         {{/iff}}
 
         {{#iff Ganancia '>' 0}}
         <div class="ganancia color_primario">
+            {{#iff CodigoEstrategia '==' '036'}}
+            Gana hasta :
+            {{else}}
             {{#iff CodigoVariante '!=' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
             Gana
             {{/iff}}
             {{#iff CodigoVariante '==' '@Constantes.TipoEstrategiaSet.CompuestaVariable'}}
             Gana hasta
+            {{/iff}}
             {{/iff}}
             <span class="color_primario" data-ganancia="">{{SimboloMoneda}} {{GananciaString}}</span>
         </div>
