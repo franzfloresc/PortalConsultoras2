@@ -251,7 +251,6 @@
         },
         quitarFiltroMarcado: function (idFiltro) {
             var filtro = get_local_storage(_config.filtrosLocalStorage);
-            var conteo = 0;
             filtro = !filtro ? [] : filtro;
 
             for (var i = 0; i < filtro.length; i++) {
@@ -332,10 +331,7 @@
             e.preventDefault();
 
             var divPadre = $(this).parents("[data-item='buscadorCriterios']").eq(0);
-            var idFiltro = $(divPadre).find(".CriteriosFiltrosId").val();
             var filtroLabel = $(divPadre).find(".CriteriosFiltrosLabel").val();
-
-            var filtroCriterio = _funciones.quitarFiltroMarcado(idFiltro)
 
             if (_config.isMobile) {
                 _elementos.contenedorEtiquetas = $('.layout__content__etiquetas__criteriosElegidosMobile').find('.lista__etiquetas__criteriosElegidos');
@@ -576,13 +572,13 @@
             localStorage.setItem('valorBuscador', _config.textoBusqueda);
 
             if (codigo.indexOf(codigoEstrategia) >= 0) {
-                var UrlDetalle = GetPalanca(codigoEstrategia, origenPedidoWeb);
-                var UrlGeneral = "";
+                var UrlDetalle = FichaVerDetalle.GetPalanca(codigoEstrategia, origenPedidoWeb);
 
                 if (UrlDetalle == "") return false;
 
                 UrlDetalle += codigoCampania + "/" + codigoCuv + "/" + origenPedidoWeb;
 
+                var UrlGeneral = "";
                 if (_config.isMobile) {
                     UrlGeneral = "/Mobile" + UrlDetalle;
                 } else {

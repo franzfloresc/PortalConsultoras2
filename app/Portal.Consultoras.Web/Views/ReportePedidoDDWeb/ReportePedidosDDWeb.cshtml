@@ -12,7 +12,7 @@
             if (Id != null) {
                 waitingDialog({});
                 $.ajaxSetup({ cache: false });
-                $.getJSON(baseUrl + 'BaseAdm/ObtenerCampaniasZonasRegionesPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
+                $.getJSON(baseUrl + 'BaseAdm/ObtenerCampaniasZonasRegionesPorPaisAsync', { PaisID: Id == "" ? 0 : Id }, function (data) {
                     if (checkTimeout(data)) {
                         LimpiarDependencias(Id);
                         if (Id != "") {
@@ -56,21 +56,22 @@
             }
         });
         $('#ddlRegion').change(function () {
-            var Id = $(this).val();
+            var Id = $(this).val() == "" ? -1 : $(this).val();
             if (Id != null) {
                 waitingDialog({});
                 $.ajaxSetup({ cache: false });
                 $.ajax({
                     type: 'GET',
-                    url: baseUrl + 'ReportePedidoDDWeb/ObtenerZonasByRegion',
-                    data: "PaisID=" + $("#ddlPais").val() + "&RegionID=" + (Id == "" ? -1 : Id),
+                    url: baseUrl + 'ReportePedidoDDWeb/GetZonasByRegion',
+                    //data: "PaisID=" + $("#ddlPais").val() + "&RegionID=" + (Id == "" ? -1 : Id),
+                    data: { PaisID : $("#ddlPais").val(), RegionID :Id},
                     cache: false,
                     dataType: 'Json',
                     success: function (data) {
-                        if (checkTimeout(data)) {
+                        if (checkTimeout(data)) {                            
                             var ddlZona = $('#ddlZona');
                             ddlZona.empty();
-                            if (data.listaZonas.length > 0) {
+                            //if (data.listaZonas.length > 0) {
                                 ddlZona.append($('<option/>', {
                                     value: "",
                                     text: "-- Todas --"
@@ -83,7 +84,7 @@
                                         }));
                                     }
                                 }
-                            }
+                            //}
                             closeWaitingDialog();
                         }
                     },
@@ -185,16 +186,16 @@
             var esRechazado = jQuery.trim($("#ddlEsRechazado option:selected").val());
             var fechaInicio = $("#txtFechaInicio").val();
             var fechaFin = $("#txtFechaFin").val();
-
+            var IndicadorConsultoraDigital = $("#ddlEsDigital option:selected").val();
             setTimeout(function () {
-                DownloadExcelPedido(paisID, campania, consultora, regionID, zonaID, origen, estadoValidacion, esRechazado, fechaInicio, fechaFin)
+                DownloadExcelPedido(paisID, campania, consultora, regionID, zonaID, origen, estadoValidacion, esRechazado, fechaInicio, fechaFin, IndicadorConsultoraDigital)
             }, 0);
         });
 
         fnGrilla();
     });
 
-    function DownloadExcelPedido(paisID, campania, consultora, regionID, zonaID, origen, estadoValidacion, esRechazado, fechaInicio, fechaFin) {        
+    function DownloadExcelPedido(paisID, campania, consultora, regionID, zonaID, origen, estadoValidacion, esRechazado, fechaInicio, fechaFin, IndicadorConsultoraDigital) {        
         var urlExcel = "ExportarExcelCabecera";
         var urlCount = "ValidLimitCountCabecera";
         var mensajeError = "@Html.Raw(Constantes.MensajesError.ReportePedidoDDWeb_DescargaCabecera)";
@@ -214,7 +215,8 @@
             "&EstadoValidacion=" + estadoValidacion +
             "&EsRechazado=" + esRechazado +
             "&FechaInicio=" + fechaInicio +
-            "&FechaFin=" + fechaFin;
+            "&FechaFin=" + fechaFin +  
+            "&IndicadorConsultoraDigital=" + IndicadorConsultoraDigital;
 
         waitingDialog();
         $.get(baseUrl + "ReportePedidoDDWeb/" + urlCount + parameters)
@@ -324,11 +326,12 @@
                 EstadoValidacion: function () { return jQuery.trim($("#ddlEnviadosValidacion").val()); },
                 EsRechazado: function () { return $("#ddlEsRechazado option:selected").val(); },
                 FechaInicio: function () { return $("#txtFechaInicio").val(); },
-                FechaFin: function () { return $("#txtFechaFin").val(); }
+                FechaFin: function () { return $("#txtFechaFin").val(); } ,
+                IndicadorConsultoraDigital: function () { return $("#ddlEsDigital option:selected").val(); },
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['PaisISO', 'N° Registro', 'Fecha Ingreso', 'Fecha/Hora Validación', 'Año / Campaña', 'Región', 'Zona', 'Sección', 'Cod. Consultora', 'Nombre Consultora', 'Documento Identidad', 'Monto Total Pedido', 'Monto Total Pedido con Descuento', 'Saldo', 'Origen', 'Validado', 'Estado', 'Tipo Proceso', 'Motivo de Rechazo', 'Detalle'],
+            colNames: ['PaisISO', 'N° Registro', 'Fecha Ingreso', 'Fecha/Hora Validación', 'Año / Campaña', 'Región', 'Zona', 'Sección', 'Cod. Consultora', 'Nombre Consultora', 'Documento Identidad', 'Monto Total Pedido', 'Monto Total Pedido con Descuento', 'Saldo', 'Origen', 'Validado', 'Estado', 'Tipo Proceso', 'Motivo de Rechazo','100% Digital', 'Detalle'],
             colModel: [
                 { name: 'paisISO', index: 'paisISO', width: 0, editable: false, align: 'center', hidden: true },
                 { name: 'NroRegistro', index: 'NroRegistro', width: 6, editable: true, resizable: false },
@@ -340,7 +343,7 @@
                 { name: 'Seccion', index: 'Seccion', width: 6, editable: true, resizable: false },
                 { name: 'ConsultoraCodigo', index: 'ConsultoraCodigo', width: 10, editable: true, resizable: false },
                 { name: 'ConsultoraNombre', index: 'ConsultoraNombre', width: 15, editable: true, resizable: false },
-                { name: 'DocumentoIdentidad', index: 'DocumentoIdentidad', width: 15, editable: true, resizable: false },
+                { name: 'DocumentoIdentidad', index: 'DocumentoIdentidad', width: 18, editable: true, resizable: false },
                 { name: 'ImporteTotal', index: 'ImporteTotal', width: 8, editable: true, resizable: false },
                 { name: 'ImporteTotalConDescuento', index: 'ImporteTotalConDescuento', width: 8, editable: true, resizable: false },
                 { name: 'ConsultoraSaldo', index: 'ConsultoraSaldo', width: 8, editable: true, resizable: false },
@@ -357,6 +360,7 @@
                         return cellValue.replace(',', '<br/>');
                     }
                 },
+                { name: 'IndicadorConsultoraDigital', index: 'IndicadorConsultoraDigital', width: 6, editable: true, resizable: false },
                 { name: 'Detalle', index: 'Detalle', width: 6, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
             ],
             jsonReader:
@@ -401,8 +405,8 @@
 
     }
 
-    function SendData(paisISO, CampaniaCod, ConsultoraCod, ConsultoraNombre, UsuarioNombre, Origen, Validado, Saldo, Importe, importeConDescuento, tipoProceso, motivoRechazo) {
-       
+    function SendData(paisISO, CampaniaCod, ConsultoraCod, ConsultoraNombre, UsuarioNombre, Origen, Validado, Saldo, Importe, importeConDescuento, tipoProceso, motivoRechazo, IndicadorConsultoraDigital) {
+        
         var form1 = document.createElement("form");
         var data = document.createElement("input");
         form1.setAttribute("id", "form1");
@@ -423,7 +427,8 @@
             ImporteConDescuento: importeConDescuento,
             Usuario: $("#hdnUsuario").val(),
             TipoProceso: tipoProceso,
-            MotivoRechazo: motivoRechazo == 'null' ? '' : motivoRechazo
+            MotivoRechazo: motivoRechazo == 'null' ? '' : motivoRechazo,
+            IndicadorConsultoraDigital: IndicadorConsultoraDigital
         }
         data.value = JSON.stringify(d);
         form1.appendChild(data);
@@ -431,9 +436,10 @@
         form1.submit();
     }
     function ShowActions(cellvalue, options, rowObject) {
+        
         var cellValueInt = parseInt(cellvalue);
         var Edit = "&nbsp;<a href=# >"
-     + "<img src='@Url.Content("~/Content/Images/Detail.png")' alt='Detalle Registro' title='Detalle Registro' onclick=\"SendData('" + rowObject[0] + "','" +
+            + "<img src='@Url.Content("~/Content/Images/Detail.png")' alt='Detalle Registro' title='Detalle Registro' onclick=\"SendData('" + rowObject[0] + "','" +
                                                                                                                                        rowObject[4] + "','" +
                                                                                                                                        rowObject[8] + "','" +
                                                                                                                                        rowObject[9] + "','" +
@@ -444,7 +450,8 @@
                                                                                                                                        rowObject[11] + "','" +
                                                                                                                                        rowObject[12] + "','" +
                                                                                                                                        rowObject[17] + "','" +
-                                                                                                                                       rowObject[18] + "');\" border='0' /></a>";
+                                                                                                                                       rowObject[18] + "','" +
+                                                                                                                                       rowObject[19] +  "');\" border='0' /></a>";
         return Edit;
     }
 
@@ -509,8 +516,17 @@
                 </div>
             </div>
             <div class="div-3">
+                <div class="titC">100% Digital:</div>
+                <div class="selectP2 borde_redondeado">
+                    <select id="ddlEsDigital">
+                        <option value="2">-- Todos --</option>
+                        <option value="1">SI</option>
+                        <option value="0">NO</option>
+                    </select>
+                </div>
+                <div class="titC" style=" width: 70px;"></div>
                 <fieldset class="fieldset-2">
-                    <legend >Fecha de Ingreso</legend>
+                    <legend>Fecha de Ingreso</legend>
 
                     <div class="titC" style="padding-left: 0px;">Inicio:</div>
                     <div class="calendar borde_redondeado">

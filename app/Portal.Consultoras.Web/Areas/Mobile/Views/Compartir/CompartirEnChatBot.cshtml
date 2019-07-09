@@ -15,19 +15,6 @@
             estado: "0"
         };
 
-        function InsertarLogCatalogoDynamo(opcionAccion, campaniaCatalogo, marca, cantidad) {
-            InsertarLogDymnamo(
-                'Catalogo-Compartir',
-                opcionAccion,
-                true,
-                [
-                    { 'key': 'CampaniaCatalogo', 'value': campaniaCatalogo },
-                    { 'key': 'Marca', 'value': marca },
-                    { 'key': 'Cantidad', 'value': cantidad }
-                ]
-            );
-        }
-
         $(document).ready(function () {
             var urlCatWs = urlCat;
 

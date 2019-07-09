@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Common.Exceptions;
+using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
@@ -124,7 +125,7 @@ namespace Portal.Consultoras.Common
         public byte[] StrToByteArray(string str)
         {
             if (str.Length == 0)
-                throw new Exception("Invalid string value in StrToByteArray");
+                throw new ClientInformationException("Invalid string value in StrToByteArray");
 
             byte[] byteArr = new byte[str.Length / 3];
             int i = 0;

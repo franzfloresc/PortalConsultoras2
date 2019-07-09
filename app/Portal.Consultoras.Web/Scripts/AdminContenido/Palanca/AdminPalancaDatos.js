@@ -397,7 +397,7 @@
             var tipoDato = $(datox).attr('data-tipodato');
             var valOrigen = "";
             if (tipoDato === _tipoDato.Img) {
-                var valOrigen = $("#nombre-" + idConca[3]).attr("data-valueorigin");
+                valOrigen = $("#nombre-" + idConca[3]).attr("data-valueorigin");
                 valor1 = $("#nombre-" + idConca[3]).val();
             }
             else if (tipoDato === _tipoDato.checkbox) {

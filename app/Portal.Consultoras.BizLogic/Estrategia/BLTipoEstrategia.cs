@@ -33,13 +33,17 @@ namespace Portal.Consultoras.BizLogic
 
         public BETipoEstrategia GetTipoEstrategiaById(int paisId, int tipoEntidadId)
         {
-            var tipoEstrategia = new BETipoEstrategia
+            if (tipoEntidadId > 0)
             {
-                TipoEstrategiaID = tipoEntidadId,
-                PaisID = paisId
-            };
-            var lista = GetTipoEstrategias(tipoEstrategia);
-            return lista.FirstOrDefault() ?? new BETipoEstrategia();
+                var tipoEstrategia = new BETipoEstrategia
+                {
+                    TipoEstrategiaID = tipoEntidadId,
+                    PaisID = paisId
+                };
+                var lista = GetTipoEstrategias(tipoEstrategia);
+                return lista.FirstOrDefault() ?? new BETipoEstrategia();
+            }
+            return new BETipoEstrategia();
         }
     }
 }

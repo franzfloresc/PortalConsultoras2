@@ -12,7 +12,8 @@
      class="container-fluid pl-lg-0 pr-lg-0 layout__header--menuContenedorOfertas">
     <nav id="seccion-fixed-menu" class="mx-auto">
         
-        @if (menuList.Any() && !@ViewBag.CaminoBrillante)
+        @*@if (menuList.Any() && !@ViewBag.CaminoBrillante)*@
+        @if (menuList.Any())
         {
             <div data-layout-menu2="">                 
                 <ul class="row flex-row flex-nowrap justify-content-center ml-lg-0 mr-lg-0 subnavegador menu__contenedor__carrusel__wrapper"

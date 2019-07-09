@@ -1,18 +1,11 @@
 ﻿
 var _toastHelper = ToastHelper();
-var _listPalanca = ["LAN", "RDR", "RD", "OPT"];
-var _palanca = {
-    showroom: "SR",
-    odd: "ODD",
-    pn: "PN",
-    dp: "DP"
-}
 
-var _tipopresentacion = {
-    showroom: "5",
-    odd: "6",
-    banner: "4",
-    bannerInterativo: "10"
+var _obj_mensaje = {
+    seleccionImagen: "No seleccionó una imagen",
+    seleccionCampania: "Debe seleccionar una Campaña",
+    seleccionZonaRegion: "No se ha marcado ninguna zona o región.",
+    seleccionSegmento: "No se ha marcado ningún Segmento."
 }
 
 jQuery(document).ready(function () {
@@ -34,7 +27,7 @@ function IniDialogDetalle() {
         resizable: false,
         modal: true,
         closeOnEscape: true,
-        width: 550,
+        width: 650,
         draggable: false,
         title: "Nuevo",
         close: function () {
@@ -44,13 +37,70 @@ function IniDialogDetalle() {
         buttons:
             {
             "Guardar": function () {
-                
-                    var params = {
-                        RutaContenido: $("#nombre-desktop-detalle").val(),
-                        IdContenido: $("#IdContenido").val()                      
-                };
-          
-                    waitingDialog({});
+                var Proc = $("#Proc").val();    
+                var CodigoDetalle = "";
+                var zonas = "";
+                var SegmentoInterno = "";
+                if ($("#nombre-desktop-detalle").val() == "") {
+                    showDialogMensaje(_obj_mensaje.seleccionImagen, 'Alerta');
+                    return false;
+                }
+
+                if ($("#ddlCampaniaDetalle").val() === "0") {
+                    showDialogMensaje(_obj_mensaje.seleccionCampania, 'Alerta');
+                    return false;
+                }
+
+                if ($("#ddlAccion").val() == "VER_MAS") {
+                    CodigoDetalle = $("#ddlCodigoDetalle").val();
+                }
+                else if ($("#ddlAccion").val() == "AGR_CAR") {
+                    CodigoDetalle = $("#txtCUV").val();
+                }       
+
+                $("#ddlSegmento").find('input[type="checkbox"]').each(function () {
+                    if ($(this).attr("checked")) {
+                        SegmentoInterno += $(this).val() + ",";
+                    }
+                });
+
+                if (SegmentoInterno == "") {
+                    showDialogMensaje(_obj_mensaje.seleccionSegmento, 'Alerta');
+                    return false;
+                }
+
+                if (SegmentoInterno != "") {
+                    SegmentoInterno = SegmentoInterno.substring(0, SegmentoInterno.length - 1);
+                }
+
+                $.jstree._reference($("#arbolRegionZona")).get_checked(null, true).each(function () {
+                    if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
+                        return true;
+                    }
+                    zonas += this.id + ",";
+                });
+                if (zonas != "") {
+                    zonas = zonas.substring(0, zonas.length - 1);
+                }
+
+                if (zonas == "") {
+                    showDialogMensaje(_obj_mensaje.seleccionZonaRegion, 'Alerta');
+                    return false;
+                }                               
+                               
+                var params = {
+                    Proc: Proc,
+                    RutaContenido: $("#nombre-desktop-detalle").val(),
+                    IdContenidoDeta: $("#IdContenidoDeta").val(),
+                    IdContenido: $("#IdContenido").val(),
+                    Campania: $("#ddlCampaniaDetalle").val(),
+                    Accion: $("#ddlAccion").val(),
+                    CodigoDetalle: CodigoDetalle,
+                    Zona: zonas,
+                    Seccion: SegmentoInterno                      
+                 };
+                        
+                waitingDialog({});
 
                     jQuery.ajax({
                         type: "POST",
@@ -87,10 +137,10 @@ function IniDialogDetalle() {
 }
 
 function NuevoDetalle(IdContenido) {
-    ModificarDetalle(0, IdContenido);
+    ModificarDetalle(1, IdContenido);
 }
 
-function ModificarDetalle(id, IdContenido) {
+function ModificarDetalle(Proc, IdContenido) {
 
     waitingDialog();
     $.ajax({
@@ -98,7 +148,7 @@ function ModificarDetalle(id, IdContenido) {
         type: "GET",
         dataType: "html",
         data: {
-            id: id,
+            Proc: Proc,
             IdContenido: IdContenido 
         },
         contentType: "application/json; charset=utf-8",
@@ -110,7 +160,7 @@ function ModificarDetalle(id, IdContenido) {
             $("#dialog-content-detalle").html(result).ready(function () {
                 UploadFileDetalle("desktop-detalle");
             });
-
+            $('#DialogMantenimientoDetalle').dialog('option', 'title', "Nuevo");
             showDialog("DialogMantenimientoDetalle");
         },
         error: function (request, status, error) { closeWaitingDialog(); _toastHelper.error("Error al cargar la ventana."); }
@@ -157,6 +207,7 @@ function UploadFileDetalle(tag) {
 
     return false;
 }
+
 function UploadFile() {    
                       
     var params = {};

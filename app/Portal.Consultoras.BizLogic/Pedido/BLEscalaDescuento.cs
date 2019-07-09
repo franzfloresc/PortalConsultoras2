@@ -37,7 +37,7 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 lista = new List<BEEscalaDescuento>();
             }
@@ -90,7 +90,7 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 lista = new List<BEEscalaDescuento>();
             }

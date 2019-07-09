@@ -3,7 +3,7 @@
 
     var setting = {
         baseUrl: ''
-    }; 
+    };
 
     var _bindEvents = function () {
         $(document).ready(function () {
