@@ -581,16 +581,6 @@ namespace Portal.Consultoras.Web.Controllers
                 userData.esConsultoraLider,
                 false,
                 item.CodigoVariante);
-
-            //falta considerar item.CodigoConsultora == ConsConsultora.CodigoConsultora.Forzadas
-            //item.CodigoEstrategia =
-            //    item.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-            //    && item.MaterialGanancia
-            //    && sessionMg.TieneMG
-            //    && revistaDigital.TieneRDC
-            //    && revistaDigital.EsActiva
-            //    ? Constantes.TipoEstrategiaCodigo.MasGanadoras
-            //    : item.CodigoEstrategia;
         }
 
         private string IdentificarPalancaRevistaDigital(string palanca, int campaniaId)
