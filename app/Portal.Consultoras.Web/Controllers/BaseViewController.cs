@@ -502,7 +502,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string codigoPalanca = string.Empty;
 
-            bool noQuitar = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
+            Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
 
             var modelo = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campaniaId.ToString(), codigoPalanca);
 
