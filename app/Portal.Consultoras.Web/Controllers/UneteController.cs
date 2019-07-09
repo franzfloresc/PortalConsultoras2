@@ -1301,11 +1301,7 @@ namespace Portal.Consultoras.Web.Controllers
                 System.IO.File.Delete(finalPath);
                 if (!isCorrect) return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
 
-                foreach (var item in lista.ToList())
-                {
-                    if (item.DistanciaLimite == null || item.ZonaSeccion == null) lista.Remove(item);
-                }
-                var listaValida = lista.Where(i => i.DistanciaLimite != null || i.ZonaSeccion != null).ToList();
+                var listaValida = lista.Where(i => i.DistanciaLimite != null && i.ZonaSeccion != null).ToList();
                 if (listaValida.Count == 0) return "Ocurrió un problema al cargar el documento o tal vez se encuentra vacío.";
 
                 List<ParametroUnete> listafinal = new List<ParametroUnete>();
