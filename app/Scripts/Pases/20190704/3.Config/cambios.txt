@@ -1,6 +1,7 @@
 1.PortalConsultoras2 Web
 	Agregar:
 		<add key="QuestionProUrl" value="https://www.questionpro.com/a/panelsso"/>
+		<add key="RutaService" value="https://apiqa.somosbelcorp.com/api/" /> (Diferente en PRD)
 
 
 2.- SBMicroservicios: Personalizacion.SearchNode
