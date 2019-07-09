@@ -123,10 +123,12 @@ ul.breadcumbs li a {
 
 .ficha_detalle {
     padding: 62px 40px 0px 40px;
-    /*background: url('/Content/Images/etiqueta_nuevo.svg');*/
+    background-color: #fff;
+}
+
+.tag_nuevo {
     background-position: top right;
     background-repeat: no-repeat;
-    background-color: #fff;
     background-size: 70px;
 }
 
@@ -601,8 +603,8 @@ ul.breadcumbs li a {
 
     .ficha_detalle {
         padding: 0 15px !important;
-        margin-top: 30px; /* Modificado para el carrusel de imagenes responsive - tesla */
-        background-image: none;
+        margin-top: 30px;
+        background-image: none !important;
     }
 
     .detalle_producto_detalle {
@@ -859,6 +861,12 @@ ul.breadcumbs li a {
         .contenedor_imagen .slick-dots li.slick-active button {
             background-color: #979797 !important;
         }
+
+@media (min-width: 600px) {
+    .contenedor_detalle.tag_nuevo{
+        background:none !important;
+    }
+}
 @media (max-width: 600px) {
     .contenedor_imagen_thumbnail {
         display: none;
