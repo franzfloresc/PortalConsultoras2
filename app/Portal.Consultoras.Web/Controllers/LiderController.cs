@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.Controllers
                 PayLoad payLoad = new PayLoad();
 
                 payLoad.ConsultoraID = userData.ConsultoraID;
-                payLoad.CodigoConsultora = userData.CodigoConsultora;
+                payLoad.CodigoConsultora = strCodigoUsuario;
                 payLoad.PaisID = userData.PaisID;
                 payLoad.CodigoISO = userData.CodigoISO;
                 payLoad.FuenteOrigen = "SomosBelcorp";              
