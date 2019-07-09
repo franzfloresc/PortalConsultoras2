@@ -328,6 +328,11 @@ div .owl-carousel .owl-stage-outer {
     animation-iteration-count: 1;
     animation-duration: 2s
 }
+.urlImagenActiva {
+    position: absolute;
+    top: 0;
+}
+
 
 .medal-1 {
     width: 0%;
@@ -616,14 +621,18 @@ div .owl-carousel .owl-stage-outer {
         float: left;
         margin: 0;
         text-align: left;
-        font-weight: bold;
+        font-weight: normal;
     }
-.bord-bot {
-    max-width: 970px;
-    width: 100%;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #e2e2e2;
-}
+        .cent-mant .etiq-falta span {
+            display:inline-block;
+            font-weight:bold;
+        }
+        .bord-bot {
+            max-width: 970px;
+            width: 100%;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e2e2;
+        }
 #ProgressBar .brillante em {
     color: #000;
     font-weight: bold;
@@ -1311,20 +1320,24 @@ div.opOrdenar {
 
     .valor-final span {
         font-size: 15px;
-        color: gray;
+        color: #464646;
         display: block;
         text-align: left;
         margin-top: -5px;
         font-size: 13px;
     }
+        .valor-final span em {
+            font-style: normal;
+            color: #464646;
+        }
 
-.flagimg {
-    display: block;
-    width: 24px;
-    position: absolute;
-    right: -30px;
-    top: -20px;
-}
+    .flagimg {
+        display: block;
+        width: 24px;
+        position: absolute;
+        right: -30px;
+        top: -20px;
+    }
 
 #progress-b {
     margin: 30px auto;
@@ -2402,6 +2415,7 @@ div .ficha__producto__precio__normal {
 }
     .right-banner p {
         font-size: 17px;
+        width: 164px;
     }
 }
 
@@ -3166,11 +3180,12 @@ div .ficha__producto__precio__normal {
     }
 
     .cent-mant .etiq-mant, .cent-mant .etiq-falta {
-        width: 100%;
+        width: 92%;
         float: none;
         margin: 0 auto;
-        margin-bottom:5px;
-        margin-left: 10%;
+        margin-bottom: 8px;
+        margin-left: 8%;
+        font-size: 14px;
     }
     
 
@@ -3212,384 +3227,401 @@ div .ficha__producto__precio__normal {
         text-align:left;
     }
 }
-@media screen and (max-width:600px) {
 
-    .ficha__producto .etiqueta-box img {
-        display: block;
-        float: left
-    }
 
-    .layout__content {
-        margin-top: 0
-    }
-
-    #divresultadosKit {
-        margin-left: 10px
-    }
-
-    .ficha__producto__precio > div {
-        width: 100%;
-        margin-top: 6px
-    }
-
-    .left-ganancias, .right-ganancias {
-        width: 100%;
-        margin: 0;
-        float: none
-    }
-
-    #mov-mont {
-        display: block;
-        margin-top: 20px
-    }
-
-    .list-ganacias {
-        display: none
-    }
-
-    div .owl-carousel .owl-stage-outer {
-        overflow: hidden
-    }
-
-    .cam-exito {
-        padding: 0 3px
-    }
-
-    .tip-valor {
-        font-size: 14px;
-        padding: 5px 9px;
-    }
-
-    .box-mostrarvalor {
-        right: -36%;
+@media screen and (min-width:621px) {
+    #activo{
+        display:none !important;
     }
 }
 
-@media (max-width:580px) {
-    .progress-barnew {
-        width: 64%;
-    }
-}
+    @media screen and (max-width:600px) {
 
-@media screen and (max-width:530px) {
-    .box-beneficios li {
-        width: 96%;
-        margin: 10px 2%
-    }
-
-    .box-beneficios li {
-        margin: 0 0
-    }
-
-    .cam-exito a {
-        font-size: 13px
-    }
-}
-
-@media screen and (max-width:430px) {
-    .text-bold {
-        font-size: 12px
-    }
-
-    .itm {
-        width: 25%
-    }
-
-    .box-camb {
-        margin-bottom: 0
-    }
-
-    .ficha__producto__agregar__producto div .boton__agregalo--fichaProducto i {
-        left: 18%;
-    }
-
-    div .ficha__producto__descrip .boxheight {
-        min-height: 17px !important
-    }
-
-    .slick-list {
-        padding: 0 15px !important;
-    }
-
-    .slick-track {
-        margin-left: -20px;
-    }
-
-    .cont-benf {
-        box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
-        border-bottom: 0;
-        padding-top: 25px;
-        padding-left: 20px;
-        padding-right: 20px;
-        padding-bottom:30px;
-    }
-
-    .progress-barnew {
-        width: 62%;
-        margin-bottom: 80px;
-        margin-left: 10%;
-    }
-
-    .valor-final {
-        right: -3px;
-        top: -6px;
-        width: 78px;
-    }
-
-        .valor-final p {
-            font-size: 15px;
-            text-align: left;
+        .ficha__producto .etiqueta-box img {
+            display: block;
+            float: left
         }
 
-        .valor-final span {
-            font-size: 12px;
-            text-align: left;
+        .layout__content {
+            margin-top: 0
         }
 
-    .etiq-falta {
-        font-size: 14px;
-        margin-left: 10%;
-    }
-    .etiq-mant {
-        margin-left: 10%;
-    }
-}
+        #divresultadosKit {
+            margin-left: 10px
+        }
 
-@media screen and (max-width:330px) {
-    .medal-1 {
-        width: 0%;
-        animation-name: MovilDosprogressUno;
+        .ficha__producto__precio > div {
+            width: 100%;
+            margin-top: 6px
+        }
+
+        .left-ganancias, .right-ganancias {
+            width: 100%;
+            margin: 0;
+            float: none
+        }
+
+        #mov-mont {
+            display: block;
+            margin-top: 20px
+        }
+
+        .list-ganacias {
+            display: none
+        }
+
+        div .owl-carousel .owl-stage-outer {
+            overflow: hidden
+        }
+
+        .cam-exito {
+            padding: 0 3px
+        }
+
+        .tip-valor {
+            font-size: 14px;
+            padding: 5px 9px;
+        }
+
+        .box-mostrarvalor {
+            right: -36%;
+        }
     }
 
-    .medal-2 {
-        width: 21%;
-        animation-name: MovilDosprogressDos;
+    @media (max-width:580px) {
+        .progress-barnew {
+            width: 64%;
+        }
     }
 
-    .medal-3 {
-        width: 41%;
-        animation-name: MovilDosprogressTres;
+    @media screen and (max-width:530px) {
+        .box-beneficios li {
+            width: 96%;
+            margin: 10px 2%
+        }
+
+        .box-beneficios li {
+            margin: 0 0
+        }
+
+        .cam-exito a {
+            font-size: 13px
+        }
     }
 
-    .medal-4 {
-        width: 61%;
-        animation-name: MovilDosprogressCuatro;
+    @media screen and (max-width:430px) {
+        .text-bold {
+            font-size: 12px
+        }
+
+        .itm {
+            width: 25%
+        }
+
+        .box-camb {
+            margin-bottom: 0
+        }
+
+        .ficha__producto__agregar__producto div .boton__agregalo--fichaProducto i {
+            left: 18%;
+        }
+
+        div .ficha__producto__descrip .boxheight {
+            min-height: 17px !important
+        }
+
+        .slick-list {
+            padding: 0 15px !important;
+        }
+
+        .slick-track {
+            margin-left: -20px;
+        }
+
+        .cont-benf {
+            box-shadow: 0px 1px 3px rgba(0,0,0,0.2);
+            border-bottom: 0;
+            padding-top: 25px;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-bottom: 30px;
+        }
+
+        .progress-barnew {
+            width: 62%;
+            margin-bottom: 80px;
+            margin-left: 10%;
+        }
+
+        .valor-final {
+            right: -3px;
+            top: -6px;
+            width: 78px;
+        }
+
+            .valor-final p {
+                font-size: 15px;
+                text-align: left;
+            }
+
+            .valor-final span {
+                font-size: 12px;
+                text-align: left;
+            }
+
+        .etiq-falta {
+            font-size: 14px;
+            margin-left: 10%;
+        }
+
+        .etiq-mant {
+            margin-left: 10%;
+        }
     }
 
-    .medal-5 {
-        width: 81%;
-        animation-name: MovilDosprogressCinco;
+    @media screen and (max-width:330px) {
+        .medal-1 {
+            width: 0%;
+            animation-name: MovilDosprogressUno;
+        }
+
+        .medal-2 {
+            width: 21%;
+            animation-name: MovilDosprogressDos;
+        }
+
+        .medal-3 {
+            width: 41%;
+            animation-name: MovilDosprogressTres;
+        }
+
+        .medal-4 {
+            width: 61%;
+            animation-name: MovilDosprogressCuatro;
+        }
+
+        .medal-5 {
+            width: 81%;
+            animation-name: MovilDosprogressCinco;
+        }
+
+        .medal-6 {
+            width: 100%;
+            animation-name: MovilDosprogressSeis;
+        }
+
+        .valor-final {
+            right: -20px;
+            width: 78px;
+        }
     }
 
-    .medal-6 {
+
+    .MensajeAlertaMobile {
+        position: fixed;
+        z-index: 2010;
+        display: none;
         width: 100%;
-        animation-name: MovilDosprogressSeis;
-    }
-}
-
-
-.MensajeAlertaMobile {
-    position: fixed;
-    z-index: 2010;
-    display: none;
-    width: 100%;
-    height: 100%;
-    padding: 15px;
-    top: 0;
-    background: rgba(0,0,0,.5);
-}
-
-.content_mensajeAlerta {
-    width: 100%;
-    height: auto;
-    margin: 0 auto;
-    position: relative;
-    background: white;
-    padding: 20px;
-    overflow-y: auto;
-}
-
-.icono_alerta {
-    width: 50px;
-    height: 50px;
-    margin: 0 auto;
-    margin-top: 30px;
-}
-
-.check_icono_mobile {
-    background: url('/Content/Images/Esika/icono_check_esika.svg') no-repeat;
-    background-size: cover;
-}
-
-.check_icono_mobile_gano {
-    width: 60px !important;
-    height: 60px !important;
-    background: url('/Content/Images/Mobile/Esika/gift-rojo-2.png') no-repeat;
-    background-position: center;
-}
-
-.exclamacion_icono_mobile {
-    background: url('/Content/Images/Esika/icono_exclamacion_esika.png') no-repeat;
-    background-size: cover;
-}
-
-.btn_regalo_sorpresa_gano:before {
-    content: '';
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 40px 0 0 25px;
-    border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #e81c37;
-    position: absolute;
-    right: -25px;
-    z-index: 1;
-}
-
-.icono_alerta img {
-    width: 100%;
-}
-
-.mensaje_alerta {
-    font-family: 'Lato';
-    font-size: 14px;
-    text-align: center;
-    margin-top: 13px;
-    margin-bottom: 17px;
-    color: black;
-}
-
-.btn_ok_mobile {
-    margin: 0 auto;
-    width: 139px;
-    height: 45px;
-    line-height: 45px;
-    color: white;
-    text-align: center;
-    display: block;
-    background-color: #e81c36;
-    margin-bottom: 20px;
-}
-
-.btn_ok_mobile {
-    color: #FFF !important;
-    text-decoration: none !important;
-}
-
-.btn_ok_mobile-inline {
-    display: inline-block;
-}
-
-.bglogros {
-    width: 100%;
-    max-width: 1250px;
-    margin: 35px auto;
-}
-
-.banner-logros {
-    background: #f9f9f9 url(/Content/CaminoBrillante/imgs/bannerlogros.png) no-repeat left center;
-    width: 100%;
-    height: 330px;
-    position: relative;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
-    margin: 50px auto;
-}
-
-.right-banner {
-    position: absolute;
-    right: 18%;
-    top: 0;
-    height: 158px;
-    bottom: 0;
-    margin: auto;
-}
-
-    .right-banner h2 {
-        font-size: 32px;
-        display: block;
-        font-weight: bold;
+        height: 100%;
+        padding: 15px;
+        top: 0;
+        background: rgba(0,0,0,.5);
     }
 
-    .right-banner p {
-        font-size: 20px;
-        display: block;
-        width: 210px;
-        margin-bottom: 18px;
-        margin-top: 10px;
-        line-height: 22px;
-    }
-
-    .right-banner a {
-        display: block;
-        color: #fff !important;
-        border-radius: 5px;
-        border: 0;
-        padding: 12px 20px;
-        max-width: 175px;
-        text-align: center;
-        margin-top: 10px;
-        text-decoration: none;
-        overflow: inherit;
-        background: #000;
-    }
-
-.img-log {
-    display: none;
-}
-@media only screen and (max-width: 900px) and (min-width: 521px) {
-    .right-banner {
-        background: rgba(255, 255, 255, 0.8);
-        padding: 20px;
-        right: 0;
-        box-sizing: border-box;
+    .content_mensajeAlerta {
+        width: 100%;
         height: auto;
-        padding-top: 90px;
-    }
-}
-@media screen and (max-width:520px) {
-    .img-log {
-        display: block;
-        max-width: 150px;
-        width: 35%;
-        float: left;
-        margin-left: 0%;
-        box-sizing: border-box;
-    }
-    .banner-logros {
-        background: #fff;
-        height: auto;
-        padding: 35px 15px;
-        box-sizing: border-box;
         margin: 0 auto;
+        position: relative;
+        background: white;
+        padding: 20px;
+        overflow-y: auto;
+    }
+
+    .icono_alerta {
+        width: 50px;
+        height: 50px;
+        margin: 0 auto;
+        margin-top: 30px;
+    }
+
+    .check_icono_mobile {
+        background: url('/Content/Images/Esika/icono_check_esika.svg') no-repeat;
+        background-size: cover;
+    }
+
+    .check_icono_mobile_gano {
+        width: 60px !important;
+        height: 60px !important;
+        background: url('/Content/Images/Mobile/Esika/gift-rojo-2.png') no-repeat;
+        background-position: center;
+    }
+
+    .exclamacion_icono_mobile {
+        background: url('/Content/Images/Esika/icono_exclamacion_esika.png') no-repeat;
+        background-size: cover;
+    }
+
+    .btn_regalo_sorpresa_gano:before {
+        content: '';
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 40px 0 0 25px;
+        border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #e81c37;
+        position: absolute;
+        right: -25px;
+        z-index: 1;
+    }
+
+    .icono_alerta img {
         width: 100%;
     }
 
-    .right-banner {
-        position: relative;
-        float: right;
-        right: inherit;
-        top: inherit;
-        height: auto;
-        width: 56%;
-        margin-right: 3%;
-        max-width: 190px;
-        box-sizing: border-box;
+    .mensaje_alerta {
+        font-family: 'Lato';
+        font-size: 14px;
+        text-align: center;
+        margin-top: 13px;
+        margin-bottom: 17px;
+        color: black;
     }
 
-    .banner-logros:after {
-        content: "";
+    .btn_ok_mobile {
+        margin: 0 auto;
+        width: 139px;
+        height: 45px;
+        line-height: 45px;
+        color: white;
+        text-align: center;
         display: block;
-        clear: both;
+        background-color: #e81c36;
+        margin-bottom: 20px;
     }
 
-    .right-banner a {
-        max-width: 156px;
+    .btn_ok_mobile {
+        color: #FFF !important;
+        text-decoration: none !important;
     }
 
-    .right-banner h2 {
-        font-size: 29px;
+    .btn_ok_mobile-inline {
+        display: inline-block;
     }
 
-    .right-banner p {
-        font-size: 17px;
+    .bglogros {
+        width: 100%;
+        max-width: 1250px;
+        margin: 35px auto;
     }
-}
+
+    .banner-logros {
+        background: #f9f9f9 url(/Content/CaminoBrillante/imgs/bannerlogros.png) no-repeat left center;
+        width: 100%;
+        height: 330px;
+        position: relative;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        margin: 50px auto;
+    }
+
+    .right-banner {
+        position: absolute;
+        right: 18%;
+        top: 0;
+        height: 158px;
+        bottom: 0;
+        margin: auto;
+    }
+
+        .right-banner h2 {
+            font-size: 32px;
+            display: block;
+            font-weight: bold;
+        }
+
+        .right-banner p {
+            font-size: 20px;
+            display: block;
+            width: 210px;
+            margin-bottom: 18px;
+            margin-top: 10px;
+            line-height: 22px;
+        }
+
+        .right-banner a {
+            display: block;
+            color: #fff !important;
+            border-radius: 5px;
+            border: 0;
+            padding: 12px 20px;
+            max-width: 175px;
+            text-align: center;
+            margin-top: 10px;
+            text-decoration: none;
+            overflow: inherit;
+            background: #000;
+        }
+
+    .img-log {
+        display: none;
+    }
+
+    @media only screen and (max-width: 900px) and (min-width: 521px) {
+        .right-banner {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            right: 0;
+            box-sizing: border-box;
+            height: auto;
+            padding-top: 90px;
+        }
+    }
+
+    @media screen and (max-width:520px) {
+        .img-log {
+            display: block;
+            max-width: 150px;
+            width: 35%;
+            float: left;
+            margin-left: 0%;
+            box-sizing: border-box;
+        }
+
+        .banner-logros {
+            background: #fff;
+            height: auto;
+            padding: 35px 15px;
+            box-sizing: border-box;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .right-banner {
+            position: relative;
+            float: right;
+            right: inherit;
+            top: inherit;
+            height: auto;
+            width: 56%;
+            margin-right: 3%;
+            max-width: 190px;
+            box-sizing: border-box;
+        }
+
+        .banner-logros:after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        .right-banner a {
+            max-width: 156px;
+        }
+
+        .right-banner h2 {
+            font-size: 29px;
+        }
+
+        .right-banner p {
+            font-size: 17px;
+        }
+    }
