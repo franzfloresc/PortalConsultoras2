@@ -55,13 +55,16 @@
                         decorador = nivel.EsPasado ? "" : "onclick=\"TagMostrarPopupNivel('" + nivel.DescripcionNivel + "','" + nivel.CodigoNivel + "','" + nivel.UrlImagenNivelFull + "','" + nivel.UrlImagenNivel + "');\" data-toggle=\"modal\" data-target=\"#Nivel_" + nivel.CodigoNivel + "_Bnf\"";
                     }
                     var estilos = "pt" + nivel.CodigoNivel + (nivel.EsActual ? " brillante" : "");
-                    <span class='point @estilos' @Html.Raw(decorador) onclick='TagClickSeleccionNivel("@nivel.DescripcionNivel")'>
-                        <img src=@nivel.UrlImagenNivel>
-                        <i id="activo">
-                            <img id="@nivel.CodigoNivel" src="" style="display:none">
-                        </i>
-                        <em>@nivel.DescripcionNivel</em>
-                    </span>
+                <span class='point @estilos' @Html.Raw(decorador) onclick='TagClickSeleccionNivel("@nivel.DescripcionNivel")'>
+                    <img src=@nivel.UrlImagenNivel>
+                    @if (ViewBag.EsMobile)
+                    {
+                    <i id="activo">
+                        <img id="@nivel.CodigoNivel" src="" style="display:none">
+                    </i>
+                    }
+                    <em>@nivel.DescripcionNivel</em>
+                </span>
                 }
             </div>
         </div>
