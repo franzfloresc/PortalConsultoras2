@@ -617,6 +617,11 @@ namespace Portal.Consultoras.Common
             public const short CaminoBrillanteConfigurar = 176;
         }
 
+        public static class MsjPopupBloqueadas
+        {
+            public const int TablaLogicaId = 230;
+        }
+
         public static class AdministradorHistoria
         {
             public const int TablaLogicaId = 231;
