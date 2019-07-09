@@ -48,8 +48,6 @@ namespace Portal.Consultoras.Web.Controllers
                 );
                 if (buscadorPromocionEstaActivo)
                 {
-                    //productosModel.productos[2].CodigoTipoOferta = "044";
-                    //productosModel.productos[2].TienePremio = CodigoTipoOfertaPremio.Contains(productosModel.productos[2].CodigoTipoOferta);
                     foreach (var producto in productosModel.productos)
                     {
                         if(producto.CodigoTipoOferta != "")

@@ -490,6 +490,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             modelo.MensajeProductoBloqueado = _ofertasViewProvider.MensajeProductoBloqueado(esMobile);
             modelo.MostrarCliente = GetMostrarCliente(esEditar);
+
+            modelo.MostrarUpselling = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            userData.PaisID,
+                            ConsTablaLogica.ConfiguracionesFicha.TablaLogicaId,
+                            ConsTablaLogica.ConfiguracionesFicha.FuncionalidadUpSelling,
+                            true
+                            );
             return modelo;
         }
 
@@ -497,7 +504,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             string codigoPalanca = string.Empty;
 
-            bool noQuitar = Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
+            Constantes.NombrePalanca.PalancasbyCodigo.TryGetValue(palanca, out codigoPalanca);
 
             var modelo = _ofertaPersonalizadaProvider.GetEstrategiaFicha(cuv, campaniaId.ToString(), codigoPalanca);
 
@@ -581,16 +588,6 @@ namespace Portal.Consultoras.Web.Controllers
                 userData.esConsultoraLider,
                 false,
                 item.CodigoVariante);
-
-            //falta considerar item.CodigoConsultora == ConsConsultora.CodigoConsultora.Forzadas
-            //item.CodigoEstrategia =
-            //    item.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi
-            //    && item.MaterialGanancia
-            //    && sessionMg.TieneMG
-            //    && revistaDigital.TieneRDC
-            //    && revistaDigital.EsActiva
-            //    ? Constantes.TipoEstrategiaCodigo.MasGanadoras
-            //    : item.CodigoEstrategia;
         }
 
         private string IdentificarPalancaRevistaDigital(string palanca, int campaniaId)
