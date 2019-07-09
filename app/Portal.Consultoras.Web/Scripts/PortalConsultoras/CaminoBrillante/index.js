@@ -161,9 +161,9 @@ function TagClickSeleccionNivel(nivelConsultora, codigoNivel, urlImagenActiva ) 
 
 }
  
-function TagMostrarPopupNivel(nivelConsultora, codigoNivel, urlImagenActiva, urlImagenOpaca) {
+function TagMostrarPopupNivel(nivelConsultora, codigoNivel, urlImagenActiva) {
 
-    TagClickSeleccionNivel(nivelConsultora, codigoNivel, urlImagenActiva, urlImagenOpaca);
+    TagClickSeleccionNivel(nivelConsultora, codigoNivel, urlImagenActiva);
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Nivel y beneficios',
@@ -269,7 +269,6 @@ function ArmarMisGanancias(data) {
         serie.push(item.ValorSerie);
         titles.push(item.ValorSerieFormat);
         backgroundColors.push(colorBar);
-        //hoverBackgrounds.push(colorBarSelected);
         if (item.FlagSeleccionMisGanancias) {
             indexSeleccion = x;
         }
@@ -280,7 +279,6 @@ function ArmarMisGanancias(data) {
         serie.push(0);
         titles.push("");
         backgroundColors.push(colorBar);
-        //hoverBackgrounds.push(colorBarSelected);
     }
 
     Chart.pluginService.register({
@@ -453,7 +451,6 @@ function ArmarMisGanancias(data) {
     });
 
     var item = data.MisGanancias[indexSeleccion];
-    var iteminicial = data.MisGanancias[0];
     $("#ganancia-campania-nombre").text("Ganancia " + item.LabelSerie);
     $("#ganancia-campania").text(variablesPortal.SimboloMoneda + " " + item.GananciaCampaniaFormat);
     $("#ganancia-periodo").text(variablesPortal.SimboloMoneda + " " + item.GananciaPeriodoFormat);
@@ -503,7 +500,6 @@ function ArmarCarrusel(data) {
 
 $(window).load(function () {
     $("#overlayer").delay(200).fadeOut("slow");
-   
 })
 
 $(".tog-vermas").click(function () {
@@ -517,8 +513,7 @@ $(".tog-vermas").click(function () {
     }
 });
 
-function MostrarBeneficios(tab_id, codigoNivel, urlImagenActiva, urlImagenOpaca) {
-    TagMostrarPopupNivel(tab_id, codigoNivel, urlImagenActiva, urlImagenOpaca);
+function MostrarBeneficios(tab_id, codigoNivel, urlImagenActiva) {
 
     $("#OfertasEspeciales").hide();
     $("#BeneficiosPrincipal").hide();
@@ -530,6 +525,5 @@ function MostrarBeneficios(tab_id, codigoNivel, urlImagenActiva, urlImagenOpaca)
     $('.tab-content').removeClass('current');
     $("#" + tab_id).addClass('current');
 
-    $("#boxnivel").removeClass(tab_id);
-    $('.msj-boxnivel').addClass(tab_id);
+    TagMostrarPopupNivel(tab_id, codigoNivel, urlImagenActiva);
 }

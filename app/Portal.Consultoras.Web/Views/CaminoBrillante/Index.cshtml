@@ -2,7 +2,6 @@
 @using Portal.Consultoras.Common
 
 @{
-    //ViewBag.CaminoBrillante = true;
     Layout = "~/Views/Shared/_MainLayoutResponsive.cshtml";
     var origenPedido = ViewBag.EsMobile ? Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido_Carrusel : Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido_Carrusel;
     ViewBag.origenPedido = origenPedido;
@@ -48,11 +47,11 @@
                 {
                     if (ViewBag.EsMobile)
                     {
-                        decorador = nivel.EsPasado ? "onclick =\"MostrarSecciones();\" data-toggle=\"collapse\" data-target=\"#tab-" + nivel.CodigoNivel + "_Bnf\"" : "onclick =\"MostrarBeneficios('" + nivel.DescripcionNivel + "','" + nivel.CodigoNivel + "','" + nivel.UrlImagenNivelFull + "','" + nivel.UrlImagenNivel + "');\" data-toggle=\"tab-content\" data-target=\"#tab-" + nivel.DescripcionNivel + "_Bnf\"";
+                        decorador = nivel.EsPasado ? "onclick =\"MostrarSecciones();\" data-toggle=\"collapse\" data-target=\"#tab-" + nivel.CodigoNivel + "_Bnf\"" : "onclick =\"MostrarBeneficios('" + nivel.DescripcionNivel + "','" + nivel.CodigoNivel + "','" + nivel.UrlImagenNivelFull + "');\" data-toggle=\"tab-content\" data-target=\"#tab-" + nivel.DescripcionNivel + "_Bnf\"";
                     }
                     else
                     {
-                        decorador = nivel.EsPasado ? "" : "onclick=\"TagMostrarPopupNivel('" + nivel.DescripcionNivel + "','" + nivel.CodigoNivel + "','" + nivel.UrlImagenNivelFull + "','" + nivel.UrlImagenNivel + "');\" data-toggle=\"modal\" data-target=\"#Nivel_" + nivel.CodigoNivel + "_Bnf\"";
+                        decorador = nivel.EsPasado ? "" : "onclick=\"TagMostrarPopupNivel('" + nivel.DescripcionNivel + "','" + nivel.CodigoNivel + "','" + nivel.UrlImagenNivelFull + "');\" data-toggle=\"modal\" data-target=\"#Nivel_" + nivel.CodigoNivel + "_Bnf\"";
                     }
                     var estilos = "pt" + nivel.CodigoNivel + (nivel.EsActual ? " brillante" : "");
                 <span class='point @estilos' @Html.Raw(decorador) onclick='TagClickSeleccionNivel("@nivel.DescripcionNivel")'>
@@ -81,7 +80,6 @@
             var montoMinimoBarra = showMoneda ? ViewBag.NivelActual.MontoMinimo : 0;
             var montoMaximoBarra = showMoneda ? Math.Max(Convert.ToDecimal(nivelEvaluacion.MontoMinimo), (decimal)(Convert.ToDecimal(ViewBag.NivelActual.MontoMinimo) * (decimal)1.10)) : nivelEvaluacion.Puntaje;
             var montoAlcanzadoBarra = showMoneda ? nivelEvaluacion.MontoAlcanzado : nivelEvaluacion.PuntajeAcumulado;
-            //nivelSiguiente = nivelSiguiente ?? nivelEvaluacion;
 
             if (nivelEvaluacion != null)
             {
@@ -158,7 +156,7 @@
 
         var idTab = nivel.DescripcionNivel;
         <div id='@idTab' class="tab-content">
-            <div id="boxnivel" class="msj-boxnivel">
+            <div id="boxnivel" class="msj-boxnivel @idTab">
 
                 @if (nivel.PuntajeAcumulado.HasValue)
                 {
