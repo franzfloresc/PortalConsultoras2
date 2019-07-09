@@ -147,9 +147,9 @@
 
                 if (CampaniaEfectiva.Equals(CampaniaActual))
                 {
-                <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                    ¡Bienvenida a <a href="javascript:RedireccionarContenedorComprar('@CodigoUbigeoPortal.MobileRevistaDigitalResumenBelcorp', '@Constantes.ConfiguracionPais.RevistaDigital')"> Gana+</a> @nombreConsultora
-                </div>
+                    <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
+                        ¡Bienvenida a <a href="javascript:RedireccionarContenedorComprar('@CodigoUbigeoPortal.MobileRevistaDigitalResumenBelcorp', '@Constantes.ConfiguracionPais.RevistaDigital')"> Gana+</a> @nombreConsultora
+                    </div>
                 }
                 else
                 {
@@ -501,35 +501,38 @@
 @if (esDigital)
 {
     /* INI HD-4086 */
-    if(Model.CodigoISO == Constantes.CodigosISOPais.Peru) { 
-    <div class="wrapper_resumen_mobile">
-        <div class="comartir_home_mobile">
-            INCENTIVOS
+    if (Model.CodigoISO == Constantes.CodigosISOPais.Peru)
+    {
+        <div class="wrapper_resumen_mobile">
+            <div class="comartir_home_mobile">
+                INCENTIVOS
+                <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
+                   class="btn_compartelos" href="@Url.Action("IndexExterno", "Incentivos", new { area = "Mobile" })">VER MAS</a>
+            </div>
             <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
-               class="btn_compartelos" href="@Url.Action("IndexExterno", "Incentivos", new { area = "Mobile" })">VER MAS</a>
+               class="btn_compartelos" href="@Url.Action("IndexExterno", "Incentivos", new { area = "Mobile" })">
+                <div class="imagen_catalogo bonificaciones_digital"></div>
+            </a>
+            <hr class="clear" />
+            <div class="linea_separadora_mobile"></div>
         </div>
-        <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
-           class="btn_compartelos" href="@Url.Action("IndexExterno", "Incentivos", new { area = "Mobile" })">
-            <div class="imagen_catalogo bonificaciones_digital"></div>
-        </a>
-        <hr class="clear" />
-        <div class="linea_separadora_mobile"></div>
-    </div>
-   /* FIN HD-4086 */
-  } else{
-    <div class="wrapper_resumen_mobile">
-        <div class="comartir_home_mobile">
-            BONIFICACIONES
+        /* FIN HD-4086 */
+    }
+    else
+    {
+        <div class="wrapper_resumen_mobile">
+            <div class="comartir_home_mobile">
+                BONIFICACIONES
+                <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
+                   class="btn_compartelos" href="@Url.Action("IndexExterno", "Bonificaciones", new { area = "Mobile" })">VER MAS</a>
+            </div>
             <a role="link" region="Central" parent="Comparte tus Catálogos" title="Comparte tus Catálogos"
-               class="btn_compartelos" href="@Url.Action("IndexExterno", "Bonificaciones", new { area = "Mobile" })">VER MAS</a>
+               class="btn_compartelos" href="@Url.Action("IndexExterno", "Bonificaciones", new { area = "Mobile" })">
+                <div class="imagen_catalogo bonificaciones_digital"></div>
+            </a>
+            <hr class="clear" />
+            <div class="linea_separadora_mobile"></div>
         </div>
-        <a role = "link" region= "Central" parent= "Comparte tus Catálogos" title= "Comparte tus Catálogos"
-           class="btn_compartelos" href="@Url.Action("IndexExterno", "Bonificaciones", new { area = "Mobile" })">
-            <div class="imagen_catalogo bonificaciones_digital"></div>
-        </a>
-        <hr class="clear" />
-        <div class="linea_separadora_mobile"></div>
-    </div>
     }
 }
 
@@ -849,11 +852,9 @@
 
 <!--FIN-->
 <!-- POPUP VERIFICACIÓN DE CORREO ELECTRÓNICO PENDIENTE  -->
-
 <!-- POPUP ACTUALIZACIÓN DE CORREO ECUADOR -->
 @Html.Partial("~/Views/Shared/PopupsResponsive/_PopupActualizacionCorreo.cshtml")
 <!-- FIN - POPUP ACTUALIZACIÓN DE CORREO ECUADOR -->
-
 <!-- HD-4357 - ENCUESTA DE SATISFACCIÓN -->
 @Html.Partial("~/Views/EncuestaSatisfaccion/_EncuestaSatisfaccion.cshtml")
 <!-- FIN - HD-4357 - ENCUESTA DE SATISFACCIÓN -->
@@ -948,6 +949,7 @@
         var appVersion = navigator.appVersion;
         var arrayPaisNoBannerLiq = ['@Constantes.CodigosISOPais.Peru'];
     </script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/EncuestaSatisfaccion/Index.js")" type="text/javascript"></script>
     @Scripts.Render("~/Bundle/Js/Mobile/Bienvenida")
 
 }
