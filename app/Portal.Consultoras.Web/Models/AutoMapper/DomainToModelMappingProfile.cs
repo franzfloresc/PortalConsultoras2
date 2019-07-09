@@ -712,7 +712,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.MarcaDescripcion))
                 .ForMember(t => t.CodigoEstrategia, f => f.MapFrom(c => c.CodigoTipoEstrategia))
                 .ForMember(t => t.CodigoPalanca, f => f.MapFrom(c => c.TipoPersonalizacion))
-                .ForMember(t => t.ImagenURL, f => f.MapFrom(c => c.ImagenEtiqueta));
+                .ForMember(t => t.ImagenURL, f => f.MapFrom(c => c.ImagenEtiqueta))
+                .ForMember(t => t.CuvPromocion, f => f.MapFrom(c => c.CuvPromocion));
 
             Mapper.CreateMap<Search.ResponseOferta.Estructura.Estrategia, EstrategiaPersonalizadaProductoModel>()
                 .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CodigoCampania))
@@ -726,6 +727,16 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<Search.ResponseOferta.Estructura.FotosComponente, FotosComponenteModel>();
 
+            Mapper.CreateMap<Search.ResponsePromociones.Estructura.Estrategia, EstrategiaPersonalizadaProductoModel>()
+               .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CodigoCampania))
+               .ForMember(t => t.FlagNueva, f => f.MapFrom(c => c.FlagNueva ? 1 : 0))
+               //.ForMember(t => t.Hermanos, f => f.MapFrom(c => c.Componentes))
+               .ForMember(t => t.CodigoVariante, f => f.MapFrom(c => c.CodigoEstrategia))
+               .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.MarcaDescripcion))
+               .ForMember(t => t.CodigoEstrategia, f => f.MapFrom(c => c.CodigoTipoEstrategia))
+               .ForMember(t => t.CodigoPalanca, f => f.MapFrom(c => c.TipoPersonalizacion))
+               .ForMember(t => t.ImagenURL, f => f.MapFrom(c => c.ImagenEtiqueta));
+
             #region Camino Brillante
 
             Mapper.CreateMap<BEKitCaminoBrillante, KitCaminoBrillanteModel>();
@@ -736,7 +747,11 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BELogroCaminoBrillante.BEIndicadorCaminoBrillante, LogroCaminoBrillanteModel.IndicadorCaminoBrillanteModel>();
             Mapper.CreateMap<BELogroCaminoBrillante.BEIndicadorCaminoBrillante.BEMedallaCaminoBrillante, LogroCaminoBrillanteModel.IndicadorCaminoBrillanteModel.MedallaCaminoBrillanteModel>();
             Mapper.CreateMap<BEFiltro, FiltrosDatosCaminoBrillante>();
-            Mapper.CreateMap<BEOrden, OrdenDatosCaminoBrillante>();
+            Mapper.CreateMap<BEOrden, OrdenDatosCaminoBrillante>();            
+            Mapper.CreateMap<BEOfertaCaminoBrillante, KitCaminoBrillanteModel>();
+            Mapper.CreateMap<BEOfertaCaminoBrillante, DemostradorCaminoBrillanteModel>();
+            Mapper.CreateMap<BEOfertaCaminoBrillante, OfertaCaminoBrillanteModel>();
+            Mapper.CreateMap<BECarruselCaminoBrillante, CarruselCaminoBrillanteModel>();
             #endregion
 
             #region Historial

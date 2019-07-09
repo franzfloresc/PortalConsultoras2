@@ -90,8 +90,10 @@
     <Compile Include="BEPremiosProgramaNuevas.cs" />
     <Compile Include="BuscadorYFiltros\BEBuscadorYFiltrosConfiguracion.cs" />
     <Compile Include="BuscadorYFiltros\BEFiltroBuscador.cs" />
+    <Compile Include="CaminoBrillante\BEConfiguracionCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEConsultoraCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEDesmostradoresCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\BEOfertaCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEOrdenFiltrosCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEKitsHistoricoConsultora.cs" />
     <Compile Include="CaminoBrillante\BELogroCaminoBrillante.cs" />
@@ -100,6 +102,7 @@
     <Compile Include="CaminoBrillante\BEKitCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEPeriodoCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEProductoCaminoBrillante.cs" />
+    <Compile Include="CaminoBrillante\BECarruselCaminoBrillante.cs" />
     <Compile Include="CaminoBrillante\BEValidacionCaminoBrillante.cs" />
     <Compile Include="CargaMasiva\BECargaMasivaImagenes.cs" />
     <Compile Include="BEMiCertificado.cs" />
@@ -127,7 +130,9 @@
     <Compile Include="PagoEnLinea\BEPagoEnLineaBanco.cs" />
     <Compile Include="PagoEnLinea\BEPagoEnLineaVisa.cs" />
     <Compile Include="Pedido\BEDireccionEntrega.cs" />
+    <Compile Include="Pedido\BEPedidoWebPromocion.cs" />
     <Compile Include="Pedido\BEPedidoReservaResult.cs" />
+    <Compile Include="Pedido\BEPedidoWebPromocionResult.cs" />
     <Compile Include="Producto\BEBuscadorResponse.cs" />
     <Compile Include="ProgramaNuevas\BEPremioNuevas.cs" />
     <Compile Include="LimiteVenta\BERespValidarLimiteVenta.cs" />

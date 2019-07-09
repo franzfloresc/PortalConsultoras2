@@ -61,7 +61,7 @@
     //Public functions
     function Inicializar() {
         _funciones.InicializarEventos();
-        if (_config.isMobile) {
+        if (_config.isMobile && typeof esAppMobile === 'undefined') {
             document.getElementById("pUrlProductosPedido").href = "/Mobile/Pedido/Detalle";
         }
         _funciones.SetUrlContactanos();

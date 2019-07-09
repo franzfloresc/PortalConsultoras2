@@ -3,6 +3,7 @@ using Portal.Consultoras.BizLogic.Pedido;
 using Portal.Consultoras.BizLogic.Reserva;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Common.Exceptions;
+using Portal.Consultoras.Common.OrigenPedidoWeb;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Entities.Pedido;
@@ -508,12 +509,8 @@ namespace Portal.Consultoras.BizLogic
 
             #region Camino Brillante
             if (updLabelCaminoBrillante) {
-                var origenPedidoWeb = new int[] {
-                    Constantes.OrigenPedidoWeb.CaminoBrillanteAppConsultorasPedido,
-                    Constantes.OrigenPedidoWeb.CaminoBrillanteDesktopPedido,
-                    Constantes.OrigenPedidoWeb.CaminoBrillanteMobilePedido };
                 var blCaminoBrillante = new BLCaminoBrillante();
-                listpedidoDetalle.Where(e => origenPedidoWeb.Contains(e.OrigenPedidoWeb)).ToList().ForEach(e => {                    
+                listpedidoDetalle.Where(e => UtilOrigenPedidoWeb.EsCaminoBrillante(e.OrigenPedidoWeb)).ToList().ForEach(e => {                    
                     blCaminoBrillante.UpdFlagsKitsOrDemostradores(e, detParametros.PaisId, detParametros.CampaniaId, detParametros.NivelCaminoBrillante);
                 });
             }

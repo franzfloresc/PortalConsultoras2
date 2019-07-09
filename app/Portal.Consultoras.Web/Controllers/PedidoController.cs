@@ -158,7 +158,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else // Periodo de facturacion
                 {
                     model.AccionBoton = "validar";
-                    if (model.EstadoPedido == 1) //Reservado
+                    if (model.EstadoPedido == Constantes.EstadoPedido.Registrado)
                         model.Prol = "MODIFICA TU PEDIDO";
                     else
                         model.Prol = "RESERVA TU PEDIDO";
@@ -201,7 +201,6 @@ namespace Portal.Consultoras.Web.Controllers
                     model.GananciaRevista = pedidoWeb.GananciaRevista;
                     model.GananciaWeb = pedidoWeb.GananciaWeb;
                     model.GananciaOtros = pedidoWeb.GananciaOtros;
-                    //model.IsShowGananciaConsultora = IsCalculoGananaciaConsultora(pedidoWeb);
 
                     SessionManager.SetMontosProl(
                         new List<ObjMontosProl>
@@ -1546,10 +1545,8 @@ namespace Portal.Consultoras.Web.Controllers
                     CodigoMensajeProl = resultado.CodigoMensaje
                 };
                 model.TotalConDescuento = model.Total - model.MontoDescuento;
-                //INI HD-4294
                 model.IsEmailConfirmado = IsEmailConfirmado();
                 model.EMail = userData.EMail;
-                //FIN HD-4294
                 SetMensajesBotonesProl(model);
 
                 var listPermiteOfertaFinal = new List<Enumeradores.ResultadoReserva> {
@@ -1592,7 +1589,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
-        //INI HD-4294
+
         public bool IsEmailConfirmado() { 
                 bool flag = false;
             try
@@ -1640,7 +1637,7 @@ namespace Portal.Consultoras.Web.Controllers
                 sv.ActualizarValidacionDatos(isMobile, ipDispositivo, codigoUsuario, userData.PaisID, codigoUsuario, tipoEnvio, string.Empty);
             }
         }
-        //FIN HD-4294
+
         public async Task<JsonResult> EnviarCorreoPedidoReservado()
         {
             try
@@ -2699,23 +2696,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return 0;
             }
-
-            //if (
-            //    (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoProductoSugeridoCarrusel
-            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoProductoSugeridoCarrusel)
-            //    || (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel
-            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha
-            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel
-            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha
-            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalCarrusel
-            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraPedidoOfertaFinalFicha)
-            //    || (producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppConsultoraLandingShowroomShowroomSubCampania
-            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopLandingShowroomShowroomSubCampania
-            //    || producto.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobileLandingShowroomShowroomSubCampania)
-            //    || producto.TipoEstrategiaCodigo == Constantes.TipoEstrategiaCodigo.PackNuevas
-            //    )
-            //    return 0;
-
+            
             switch (producto.TipoEstrategiaCodigo)
             {
                 case Constantes.TipoEstrategiaCodigo.MasGanadoras:
@@ -3465,15 +3446,5 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        /// <summary>
-        /// Requerimiento TESLA-28
-        /// [Ganancia] Cálculo Ganancia ofertas Catálogo*
-        /// </summary>
-        /// <returns></returns>
-        //private bool IsCalculoGananaciaConsultora(BEPedidoWeb pedidoWeb)
-        //{
-        //    return pedidoWeb.GananciaRevista.HasValue &&
-        //           pedidoWeb.GananciaWeb.HasValue && pedidoWeb.GananciaWeb.HasValue;
-        //}
     }
 }

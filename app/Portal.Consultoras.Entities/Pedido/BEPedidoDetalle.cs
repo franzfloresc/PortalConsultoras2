@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Entities.ReservaProl;
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Portal.Consultoras.Entities.Pedido
@@ -72,6 +73,8 @@ namespace Portal.Consultoras.Entities.Pedido
         public BEInputReservaProl ReservaProl { get; set; }
         [DataMember]
         public string IngresoExternoOrigen { get; set; }
+        [DataMember]
+        public List<BEPedidoWebPromocion> PedidoWebPromociones { get; set; }
 
         public bool Reservado { get; set; }
         public object Clone()

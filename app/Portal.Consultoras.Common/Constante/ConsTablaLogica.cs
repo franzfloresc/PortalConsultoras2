@@ -22,6 +22,7 @@ namespace Portal.Consultoras.Common
             public const string FichaEnriquecida = "FichaEnriquecida";
             public const string FichaResponsive = "FichaResponsive";
             public const string PalancaLasMasGanadoras = "LasMasGanadoras";
+            public const string Promociones = "Promociones";
             public const string PromocionesBuscador = "PromocionesBuscador";
         }
 
@@ -613,6 +614,7 @@ namespace Portal.Consultoras.Common
             public const short CaminoBrillanteEnterateMas = 173;
             public const short CaminoBrillanteFiltro = 174;
             public const short CaminoBrillanteOrden = 175;
+            public const short CaminoBrillanteConfigurar = 176;
         }
 
         public static class AdministradorHistoria
