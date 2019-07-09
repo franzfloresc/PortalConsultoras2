@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 strCodigoUsuario = userData.CodigoUsuario;
             }
-            
+
             string urlAccesoExterno = string.Empty;
             string secretKey = ConfigurationManager.AppSettings["JsonWebTokenSecretKey"] ?? "";
 
@@ -31,22 +31,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 PayLoad payLoad = new PayLoad();
 
+                payLoad.ConsultoraID = userData.ConsultoraID;
                 payLoad.CodigoConsultora = userData.CodigoConsultora;
-                payLoad.CodPais = userData.CodigoISO;
-                payLoad.CodRegion = userData.CodigorRegion;
-                payLoad.CodZona = userData.CodigoZona;
-                payLoad.CodSeccion = userData.SeccionAnalytics;
-                payLoad.SeccionGestionLider = userData.SeccionGestionLider;
-                payLoad.EMail = userData.EMail;
-                payLoad.NombrePais = userData.NombrePais;
-                payLoad.NombreConsultora = userData.NombreConsultora;
-                payLoad.Celular = userData.Celular;
-                payLoad.Telefono = userData.Telefono;
-                payLoad.DescripcionNivel = userData.DescripcionNivel;
-                payLoad.PrimerNombre = userData.PrimerNombre;
-                payLoad.PrimerApellido = userData.PrimerApellido;                
-                payLoad.Origen = "SomosBelcorp";
-                payLoad.DocumentoIdentidad = userData.DocumentoIdentidad;
+                payLoad.PaisID = userData.PaisID;
+                payLoad.CodigoISO = userData.CodigoISO;
+                payLoad.FuenteOrigen = "SomosBelcorp";              
 
                 var cadenaEncriptada = JWT.JsonWebToken.Encode(payLoad, secretKey, JWT.JwtHashAlgorithm.HS256);
                 urlAccesoExterno = ConfigurationManager.AppSettings["URL_LIDER"].ToString() + "/?token=" + cadenaEncriptada;
@@ -57,23 +46,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         public class PayLoad
         {
+            public long ConsultoraID { get; set; }
             public string CodigoConsultora { get; set; }
-            public string CodRol { get; set; }
-            public string CodPais { get; set; }
-            public string CodRegion { get; set; }
-            public string CodZona { get; set; }
-            public string CodSeccion { get; set; }
-            public string SeccionGestionLider { get; set; }
-            public string EMail { get; set; }
-            public string NombrePais { get; set; }
-            public string NombreConsultora { get; set; }
-            public string Celular { get; set; }
-            public string Telefono { get; set; }
-            public string DescripcionNivel { get; set; }
-            public string PrimerNombre { get; set; }            
-            public string PrimerApellido { get; set; }            
-            public string DocumentoIdentidad { get; set; }
-            public string Origen { get; set; }
+            public int PaisID { get; set; }
+            public string CodigoISO { get; set; }
+            public string FuenteOrigen { get; set; }            
         }
 
     }
