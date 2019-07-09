@@ -74,9 +74,10 @@
 
 .seccion__encuesta__satisfaccion {
     position: fixed;
+    opacity:0;
     left: 0;
-    bottom: 0;
-    z-index: 999999909;
+    bottom: -138px;
+    z-index: 4001;
     background-color: #FFF;
     width: 100%;
     height: 134px;
@@ -84,11 +85,64 @@
     -moz-box-shadow: 0 -2px 9px -3px rgba(150, 150, 150, 0.5);
     -webkit-box-shadow: 0 -2px 9px -3px rgba(150, 150, 150, 0.5);
     box-shadow: 0 -2px 9px -3px rgba(150, 150, 150, 0.5);
-    -moz-transition: height 0.4s ease;
-    -o-transition: height 0.4s ease;
-    -webkit-transition: height 0.4s ease;
-    transition: height 0.4s ease;
+    -moz-transition: height 0.3s ease;
+    -o-transition: height 0.3s ease;
+    -webkit-transition: height 0.3s ease;
+    transition: height 0.3s ease;
+    animation-name:mostrarEncuestaSatisfaccion;
+    animation-delay:3s;
+    animation-duration:0.5s;
+    animation-timing-function:ease;
+    animation-fill-mode:forwards;
 }
+
+    @keyframes mostrarEncuestaSatisfaccion{
+        0%{
+            bottom:-138px;
+            opacity:0;
+        }
+
+        100%{
+            bottom:0;
+            opacity:1;
+        }
+    }
+
+    @-moz-keyframes mostrarEncuestaSatisfaccion{
+        0% {
+            bottom: -138px;
+            opacity: 0;
+        }
+
+        100% {
+            bottom: 0;
+            opacity: 1;
+        }
+    }
+
+    @-o-keyframes mostrarEncuestaSatisfaccion{
+        0% {
+            bottom: -138px;
+            opacity: 0;
+        }
+
+        100% {
+            bottom: 0;
+            opacity: 1;
+        }
+    }
+
+    @-webkit-keyframes mostrarEncuestaSatisfaccion{
+        0% {
+            bottom: -138px;
+            opacity: 0;
+        }
+
+        100% {
+            bottom: 0;
+            opacity: 1;
+        }
+    }
 
     .seccion__encuesta__satisfaccion__expandir{
         height:100vh;
@@ -112,7 +166,7 @@
         }
 
         .seccion__encuesta__satisfaccion__expandir > div{
-            margin-top:26px;
+            margin-top:40px;
         }
 
             .seccion__encuesta__satisfaccion__expandir .encuesta__satisfaccion__estado__descrip{
@@ -124,20 +178,31 @@
                 max-width:320px;
             }
 
-    .enlace__cerrar__encuesta__satisfaccion{
+    .enlace__cerrar__encuesta__satisfaccion,
+    .enlace__volver__atras__encuesta__satisfaccion{
         width: 45px;
         height: 45px;
-        padding: 12px;
         position: absolute;
-        top: 0;
-        right: 0;
         cursor:pointer;
     }
+
+    .enlace__cerrar__encuesta__satisfaccion{
+        padding: 12px;
+        top: 0;
+        right: 0;
+    }
+
+    .enlace__volver__atras__encuesta__satisfaccion{
+        padding: 10.5px;
+        top: 5px;
+        left:0;
+    }
         
-        .enlace__cerrar__encuesta__satisfaccion img{
-            width:100%;
-            height:auto;
-        }
+    .enlace__cerrar__encuesta__satisfaccion img,
+    .enlace__volver__atras__encuesta__satisfaccion img{
+        width:100%;
+        height:auto;
+    }
 
     .seccion__encuesta__satisfaccion__titulo,
     .encuesta__satisfaccion__estados__lista,
@@ -179,6 +244,7 @@
 
                 .encuesta__satisfaccion__disabled{
                     opacity:0.4;
+                    pointer-events:none;
                 }
 
                 .encuesta__satisfaccion__estado__imagen{

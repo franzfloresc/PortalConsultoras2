@@ -1552,6 +1552,7 @@
     <Content Include="Content\Css\Site\styleBase.css" />
     <Content Include="Content\Images\add-to-cart-disable.png" />
     <Content Include="Content\Images\add-to-cart-white.png" />
+    <Content Include="Content\Images\btn-back.svg" />
     <Content Include="Content\Images\checkBuroSAC.svg" />
     <Content Include="Content\Images\EncuestaSatisfaccion\bueno.svg" />
     <Content Include="Content\Images\EncuestaSatisfaccion\excelente.svg" />

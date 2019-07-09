@@ -3,8 +3,11 @@
 <link href="@Url.Content("~/Content/Css/Site/EncuestaSatisfaccion/encuesta-satisfaccion.css")" rel="stylesheet" />
 
 <section id="EncuestaSatisfaccion" class="d-flex flex-row flex-wrap justify-content-center align-items-start seccion__encuesta__satisfaccion">
-    <a href="#" onclick="javascript: $('#EncuestaSatisfaccion').fadeOut(100);" title="Cerrar" class="d-block enlace__cerrar__encuesta__satisfaccion">
+    <a href="#" title="Cerrar" class="d-block enlace__cerrar__encuesta__satisfaccion">
         <img src="@Url.Content("~/Content/Images/icono_cerrar_popup.svg")" alt="Cerrar Popup" />
+    </a>
+    <a href="#" title="Cerrar" class="d-block enlace__volver__atras__encuesta__satisfaccion" style="display:none;">
+        <img src="@Url.Content("~/Content/Images/btn-back.svg")" alt="Volver atrás" />
     </a>
     <div id="Paso1" class="d-flex flex-row flex-wrap justify-content-center align-content-center">
         <h2 class="d-block text-center text-bold seccion__encuesta__satisfaccion__titulo">¿Qué te pareció el servicio de la <span id="numCampania">C07</span>?</h2>
@@ -111,7 +114,7 @@
                 <div class="d-none flex-row justify-content-start form__group__fields form__group__fields--motivoCalificacionAdicionalWrapper">
                     <input id="txtOtroMotivoCalificacion" type="text" class="d-block w-100 p-0 text__field__sb" placeholder="¿Tuviste algún inconveniente?">
                 </div>
-                <button id="btnConfirmaMotivo" class="d-block center-block border-radius-4 text-bold btn__sb btn__sb__primary btn__sb__primary--multimarca btn__sb--confirmar">
+                <button id="btnConfirmaMotivo" class="d-block center-block border-radius-4 text-bold btn__sb btn__sb--disabled btn__sb__primary btn__sb__primary--multimarca btn__sb--confirmar">
                     Confirmar
                 </button>
             </div>
