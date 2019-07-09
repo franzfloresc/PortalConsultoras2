@@ -141,16 +141,25 @@ namespace Portal.Consultoras.Entities
         public bool STPPagoContado { get; set; }
 
         [DataMember]
-        public decimal STPTotalPagar { get; set; }
+        public double STPTotalPagar { get; set; }
 
         [DataMember]
-        public decimal STPDescuento { get; set; }
+        public double STPDescuento { get; set; }
 
         [DataMember]
-        public decimal STPGastTransporte { get; set; }
+        public double STPGastTransporte { get; set; }
 
         [DataMember]
-        public decimal STPPagoTotal { get; set; }
+        public double STPPagoTotal { get; set; }
+
+        [DataMember]
+        public double STPDeuda { get; set; }
+
+        [DataMember]
+        public double STPTotalconDeuda { get; set; }
+
+        [DataMember]
+        public string STPDeudaLog { get; set; }
 
         [DataMember]
         public int STPId { get; set; }
@@ -202,9 +211,9 @@ namespace Portal.Consultoras.Entities
             GananciaWeb = row.ToDecimal("GananciaWeb");
             GananciaOtros = row.ToDecimal("GananciaOtros");
 
-            STPTotalPagar = DataRecord.HasColumn(row, "TotalPagar") ? row.ToDecimal("TotalPagar") : 0;
-            STPDescuento = DataRecord.HasColumn(row, "TotalDescuento") ? row.ToDecimal("TotalDescuento") : 0;
-            STPGastTransporte = DataRecord.HasColumn(row, "TotalFlete") ? row.ToDecimal("TotalFlete") : 0;
+            STPTotalPagar = DataRecord.HasColumn(row, "TotalPagar") ? row.ToDouble("TotalPagar") : 0;
+            STPDescuento = DataRecord.HasColumn(row, "TotalDescuento") ? row.ToDouble("TotalDescuento") : 0;
+            STPGastTransporte = DataRecord.HasColumn(row, "TotalFlete") ? row.ToDouble("TotalFlete") : 0;
             STPId = DataRecord.HasColumn(row, "LogConsultoraPagoContadoID") ? row.ToInt32("LogConsultoraPagoContadoID") : 0;
         }
     }
