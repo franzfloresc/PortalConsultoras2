@@ -6,6 +6,7 @@
 <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
 <script type="text/javascript">
     jQuery(document).ready(function () {
+        IniDialog();
         fnGrilla();
 
         $.ajaxSetup({ cache: false });
@@ -15,7 +16,6 @@
                 alert("Debe seleccionar el País, verifique.");
                 return false;
             }
-            debugger
             $.ajaxSetup({ cache: false });
             $("#chkNueva").attr("checked", false);
             $("#chkRecoProduc").attr("checked", false);
@@ -39,6 +39,7 @@
             $("#txtCodigoPrograma").prop('disabled', true).val("");
 
             $("#chkMostrarImg").attr("checked", false);
+
             $("#chkMostrarImgIndependiente").attr("checked", false);
             $(".divOfertaIndependiente").hide();
 
@@ -66,7 +67,6 @@
     });
 
     function fnGrilla() {
-    
         jQuery("#list").jqGrid({
             url: baseUrl + "CaminoBrillanteAdministrar/Consultar",
             hidegrid: false,
@@ -132,7 +132,7 @@
         jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
     }
-    
+
     function IniDialog() {
         $('#DialogAdministracionTipoEstrategia').dialog({
             autoOpen: false,
@@ -298,7 +298,7 @@
         });
 
     }
-    
+
     function ShowImage(cellvalue, options, rowObject) {
         var image = "";
         if (cellvalue != "") {
@@ -308,7 +308,7 @@
         }
         return image;
     }
-    
+
     function ShowActions(cellvalue, options, rowObject) {
         var cellValueInt = parseInt(cellvalue);
         var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('"
@@ -327,7 +327,7 @@
             + "','" + rowObject[16]
             + "');\" >"
             + "<img src='@Url.Content("~/Content/Images/Edit.png")' alt='Editar Mensaje' title='Editar Mensaje' border='0' /></a>";
-    
+
         Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Mensaje' title='Eliminar Mensaje' border='0' /></a>";
         return Des;
     }
@@ -583,4 +583,6 @@
     </div>
 </div>
 <div id="loadingScreen"></div>
+
+
 
