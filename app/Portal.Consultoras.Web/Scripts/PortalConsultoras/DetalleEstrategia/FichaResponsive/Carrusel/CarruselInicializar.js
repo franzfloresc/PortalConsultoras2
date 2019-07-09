@@ -15,6 +15,7 @@ class CarruselInicializar {
             estrategia.DescripcionCompleta,
             estrategia.Hermanos,
             estrategia.TieneStock,
+            estrategia.MostrarUpselling,
             ConstantesModule.TipoVentaIncremental.UpSelling,
             estrategia.CodigoProducto,
             estrategia.Precio2);
@@ -32,6 +33,7 @@ class CarruselInicializar {
             estrategia.DescripcionCompleta,
             estrategia.Hermanos,
             estrategia.TieneStock,
+            estrategia.MostrarUpselling,
             ConstantesModule.TipoVentaIncremental.CrossSelling,
             estrategia.CodigoProducto,
             estrategia.Precio2);
@@ -49,6 +51,7 @@ class CarruselInicializar {
             estrategia.DescripcionCompleta,
             estrategia.Hermanos,
             estrategia.TieneStock,
+            estrategia.MostrarUpselling,
             ConstantesModule.TipoVentaIncremental.Sugerido,
             estrategia.CodigoProducto,
             estrategia.Precio2);
