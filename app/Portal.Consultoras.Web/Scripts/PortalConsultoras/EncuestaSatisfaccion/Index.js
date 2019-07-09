@@ -30,11 +30,11 @@
             $(this).parents('.encuesta__satisfaccion__estado').removeClass('encuesta__satisfaccion__disabled');
             if (!$(_elementos.motivosCalificacion).is(':visible')) {
                 $(_elementos.motivosCalificacion).show();
-                $(_elementos.motivosCalificacion).delay(380);
+                $(_elementos.motivosCalificacion).delay(280);
                 $(_elementos.motivosCalificacion).animate({
                     'opacity': 1,
                     'top': 0
-                }, 350);
+                }, 300);
             }
         },
         volverAtras: function (e) {
