@@ -1818,6 +1818,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private int GetOrigenPedidoWeb(string flagMedio, int marcaID, int dispositivo, int tipoVista)
         {
+
             var modelo = new OrigenPedidoWebModel();
             modelo.Pagina = ConsOrigenPedidoWeb.Pagina.Pedido;
             modelo.Palanca = UtilOrigenPedidoWeb.GetPalancaSegunMarca(marcaID);
