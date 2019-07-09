@@ -247,8 +247,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
                 
-                //var modeloOrigenPedido = UtilOrigenPedidoWeb.GetModelo(model.OrigenPedidoWeb);
-
                 #region VirtualCoach
                 if (model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.VirtualCoachDesktopPedido ||
                     model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.VirtualCoachMobilePedido)
