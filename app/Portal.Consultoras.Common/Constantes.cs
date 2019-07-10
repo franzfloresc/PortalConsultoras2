@@ -159,12 +159,12 @@ namespace Portal.Consultoras.Common
             public const int IdMaximo = 502;
         }
 
-        [Obsolete("Use ConsTablaLogica")]
-        public static class TablaLogicaDato
-        {
-            // TODO es utilizado en BLUsuario en metodo GetActualizacionEmailySms, los valore de Mensajes Tooltip Perfil empiezan TablaLogicaId = 10
-            //public const int MensajeActualizarFijo = 16261;
-        }
+        //[Obsolete("Use ConsTablaLogica")]
+        //public static class TablaLogicaDato
+        //{
+        //    // TODO es utilizado en BLUsuario en metodo GetActualizacionEmailySms, los valore de Mensajes Tooltip Perfil empiezan TablaLogicaId = 10
+        //    //public const int MensajeActualizarFijo = 16261;
+        //}
 
         public static class ParametrosNames
         {
@@ -1946,10 +1946,10 @@ namespace Portal.Consultoras.Common
             public const int NoPopUp = 3;
         }
 
-        [Obsolete("Use ConsTablaLogica")]
-        public struct TablaLogica
-        {
-        }
+        //[Obsolete("Use ConsTablaLogica")]
+        //public struct TablaLogica
+        //{
+        //}
 
         public struct MensajesCDRExpress
         {
