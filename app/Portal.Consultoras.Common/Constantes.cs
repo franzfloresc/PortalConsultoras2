@@ -159,23 +159,12 @@ namespace Portal.Consultoras.Common
             public const int IdMaximo = 502;
         }
 
-        [Obsolete("Use ConsTablaLogica")]
-        public static class TablaLogicaDato
-        {
-
-            public const int MensajeActualizarFijo = 16261;
-
-
-            public static class PagoEnLinea
-            {
-                public const decimal MontoMinimoPago = 0.50m;
-            }
-
-
-            public const short CierreSessionValidado = 15301;
-
-
-        }
+        //[Obsolete("Use ConsTablaLogica")]
+        //public static class TablaLogicaDato
+        //{
+        //    // TODO es utilizado en BLUsuario en metodo GetActualizacionEmailySms, los valore de Mensajes Tooltip Perfil empiezan TablaLogicaId = 10
+        //    //public const int MensajeActualizarFijo = 16261;
+        //}
 
         public static class ParametrosNames
         {
@@ -261,7 +250,7 @@ namespace Portal.Consultoras.Common
             public const string MasGanadoras = "LMG";
             public const string Liquidacion = "LIQ"; // No tiene referecia con BD, para tenerlo dentro de codigo
             public const string Catalogo = "CAT"; // No tiene referecia con BD, para tenerlo dentro de codigo
-            
+
             public const string CaminoBrillante = "CB";
             public const string CaminoBrillanteDemostradores = "CBD";
             public const string CaminoBrillanteKits = "CBK";
@@ -374,8 +363,8 @@ namespace Portal.Consultoras.Common
                         {NombrePalanca.NotParticipaProgramaNuevas, TipoEstrategiaCodigo.NotParticipaProgramaNuevas},
                         {NombrePalanca.MasGanadoras, TipoEstrategiaCodigo.OfertasParaMi},
                         {NombrePalanca.Catalogo, TipoEstrategiaCodigo.Catalogo},
-                        {NombrePalanca.CaminoBrillanteDemostradores, TipoEstrategiaCodigo.CaminoBrillanteDemostradores}, 
-                        {NombrePalanca.CaminoBrillanteKits, TipoEstrategiaCodigo.CaminoBrillanteKits}, 
+                        {NombrePalanca.CaminoBrillanteDemostradores, TipoEstrategiaCodigo.CaminoBrillanteDemostradores},
+                        {NombrePalanca.CaminoBrillanteKits, TipoEstrategiaCodigo.CaminoBrillanteKits},
                     });
                 }
             }
@@ -430,7 +419,7 @@ namespace Portal.Consultoras.Common
             public const string MenuContenedor = "MenuContenedor";
 
             public const string ListaEstrategia = "ListadoEstrategiaPedido";
-            
+
             public const string MenuContenedorActivo = "MenuContenedorActivo";
 
             public const string RevistaDigital = "RevistaDigital";
@@ -1147,7 +1136,7 @@ namespace Portal.Consultoras.Common
             public const int CaminoBrillanteDesktopPedido_Ficha = 1181902;
             public const int CaminoBrillanteMobilePedido_Ficha = 2181902;
 
-            public const int CaminoBrillanteDesktopPedido_Carrusel = 1201901; 
+            public const int CaminoBrillanteDesktopPedido_Carrusel = 1201901;
             public const int CaminoBrillanteMobilePedido_Carrusel = 2201901;
 
             public const int CaminoBrillanteDesktopPedido_Carrusel_Ficha = 1201902;
@@ -1690,8 +1679,7 @@ namespace Portal.Consultoras.Common
             public const string CaminoBrillanteKits = "KITS";
             public const string CaminoBrillanteMsg = "HomeCaminoBrillante";
         }
-
-
+        
         public static class ConfiguracionPaisComponente
         {
             public static class RD
@@ -1958,13 +1946,10 @@ namespace Portal.Consultoras.Common
             public const int NoPopUp = 3;
         }
 
-        [Obsolete("Use ConsTablaLogica")]
-        public struct TablaLogica
-        {
-            public const short CierreSessionValidado = 153;
-            public const int MsjPopupBloqueadas = 230;
-            public const short ResizeImagenesAppHistorias = 162;
-        }
+        //[Obsolete("Use ConsTablaLogica")]
+        //public struct TablaLogica
+        //{
+        //}
 
         public struct MensajesCDRExpress
         {
@@ -2886,6 +2871,12 @@ namespace Portal.Consultoras.Common
         };
 
         #region PagoEnLinea
+
+
+        public static class PagoEnLineaMonto
+        {
+            public const decimal MontoMinimoPago = 0.50m;
+        }
 
         public static class PagoEnLineaTipoPago
         {

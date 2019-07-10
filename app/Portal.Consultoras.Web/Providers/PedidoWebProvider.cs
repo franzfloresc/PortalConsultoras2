@@ -179,7 +179,7 @@ namespace Portal.Consultoras.Web.Providers
 
         public bool RequiereCierreSessionValidado(TablaLogicaProvider provider, int paisId)
         {
-            var value = provider.GetTablaLogicaDatoValor(paisId, Constantes.TablaLogica.CierreSessionValidado, Constantes.TablaLogicaDato.CierreSessionValidado, true);
+            var value = provider.GetTablaLogicaDatoValor(paisId, ConsTablaLogica.CierreSession.TablaLogicaId, ConsTablaLogica.CierreSession.CierreSessionValidado, true);
             return value == "1";
         }
 
