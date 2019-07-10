@@ -2954,6 +2954,17 @@ namespace Portal.Consultoras.Common
             return importe;
         }
 
+        public static string DoubleToStringFormat(double valor, string pais)
+        {
+            if (string.IsNullOrEmpty(pais)) return "";
+
+            var importe = string.Format("{0:#,##0.00}", valor);
+            string listaPaises = ParseString(ConfigurationManager.AppSettings["KeyPaisFormatDecimal"] ?? "");
+            if (listaPaises.Contains(pais)) importe = importe.Split('.')[0].Replace(",", ".");
+
+            return importe;
+        }
+
         /// <summary>
         /// Convierte el decimal a string con el formato segun el pais
         /// </summary>

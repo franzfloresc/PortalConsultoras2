@@ -23,6 +23,11 @@
         <div class="left_reservado">
             <div class="agregados_reservado">Unidades:</div>
             <div class="monto_reservado_mobile">Total:</div>
+            @*HD-4513*@
+            @if (ViewBag.PagoContado)
+            {
+            <div class="monto_reservado_mobile">Total a Pagar:</div>
+            }
             @{
                 string colorEstilo = null;
                 if (!System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
@@ -97,6 +102,11 @@
         <div class="right_reservado">
             <div class="agregados_reservado">@Model.CantidadProductos</div>
             <div class="monto_reservado_mobile">@Model.Simbolo @Model.DescripcionTotal</div>
+            @*HD-4513*@
+            @if (ViewBag.PagoContado)
+            {
+            <div class="monto_reservado_mobile">@Model.Simbolo @Model.STPPagoTotal</div>
+            }
             <div class="ganancia_reservado">@Model.Simbolo @Model.DescripcionGanaciaEstimada</div>
         </div>
         <hr class="clear" />
@@ -254,26 +264,32 @@
                         </span>
                     </div>
                       @*HD-4513*@
-                        @if (ViewBag.PagoContado){
-                            <div class="ganancia-info first-color">
-                                <span class="info_mis_descuentos">(-) Mis Descuentos:</span>
-                                <span class="ganancia-total first-color" >
-                                        @Model.Simbolo @Model.STPDescuento
-                                </span>
-                            </div>
-                            <div class="ganancia-info first-color">
-                                <span class="info_mis_descuentos">(+) Gastos de Transporte:</span>
-                                <span class="ganancia-total first-color" >
-                                    @Model.Simbolo @Model.STPFlete
-                                </span>
-                            </div>  
-                            <div class="ganancia-info total_a_pagar_wrapper pb-2">
-                                <span class="text-bold info_mis_descuentos titulo-up">Total a Pagar:</span>
-                                <span class="ganancia-total first-color" >
-                                    @Model.Simbolo @Model.STPTotalPagar
-                                </span>
-                            </div>
-                        }
+                    @if (ViewBag.PagoContado){
+                        <div class="ganancia-info first-color">
+                            <span class="info_mis_descuentos">(-) Mis Descuentos:</span>
+                            <span class="ganancia-total first-color" >
+                                    @Model.Simbolo @Model.STPDescuento
+                            </span>
+                        </div>
+                        <div class="ganancia-info first-color">
+                            <span class="info_mis_descuentos">(+) Gastos de Transporte:</span>
+                            <span class="ganancia-total first-color" >
+                                @Model.Simbolo @Model.STPFlete
+                            </span>
+                        </div>  
+                        <div class="ganancia-info first-color">
+                            <span class="info_mis_descuentos">(-) Deuda:</span>
+                            <span class="ganancia-total first-color" >
+                                @Model.Simbolo @Model.STPDeuda
+                            </span>
+                        </div>  
+                        <div class="ganancia-info total_a_pagar_wrapper pb-2">
+                            <span class="text-bold info_mis_descuentos titulo-up">Total a Pagar:</span>
+                            <span class="ganancia-total first-color" >
+                                @Model.Simbolo @Model.STPPagoTotal
+                            </span>
+                        </div>
+                    }
                     @*@if (!Model.IsShowGananciaConsultora)
                 {
                     <div class="ganancia-info">

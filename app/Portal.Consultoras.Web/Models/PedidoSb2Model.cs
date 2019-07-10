@@ -343,5 +343,8 @@ namespace Portal.Consultoras.Web.Models
         public string FormatoTotalMontoAhorroCatalogoStr { get; set; }
         public string FormatoTotalMontoGananciaStr { get; set; }
         //public bool IsShowGananciaConsultora { get; set; }
+
+
+
     }
 }

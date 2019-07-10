@@ -983,29 +983,22 @@ namespace Portal.Consultoras.Data
             {
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, bEPedidoWeb.CampaniaID);
                 Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, bEPedidoWeb.ConsultoraID);
-                Context.Database.AddInParameter(command, "@TotalAtendido", DbType.String, bEPedidoWeb.STPPagoTotal);
+                Context.Database.AddInParameter(command, "@TotalAtendido", DbType.String, bEPedidoWeb.STPTotalPagar);
                 Context.Database.AddInParameter(command, "@TotalDescuento", DbType.String, bEPedidoWeb.STPDescuento);
                 Context.Database.AddInParameter(command, "@TotalFlete", DbType.String, bEPedidoWeb.STPGastTransporte);
-                Context.Database.AddInParameter(command, "@TotalPagar", DbType.String, bEPedidoWeb.STPTotalPagar);
-
+                Context.Database.AddInParameter(command, "@PagoTotalSinDeuda", DbType.String, bEPedidoWeb.STPPagoTotalSinDeuda);
+                Context.Database.AddInParameter(command, "@PagoTotal", DbType.String, bEPedidoWeb.STPPagoTotal);
+                Context.Database.AddInParameter(command, "@TotalDeuda", DbType.String, bEPedidoWeb.STPDeudaLog);
                 Context.ExecuteNonQuery(command);
             }
         }
 
-        public void DelLogConsultoraPagoContado(BEPedidoWeb bEPedidoWeb)
-        {
-            using (var command = Context.Database.GetStoredProcCommand("dbo.LogConsultoraPagoContado_Delete"))
-            {
-                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, bEPedidoWeb.CampaniaID);
-                Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, bEPedidoWeb.ConsultoraID);
-                Context.ExecuteNonQuery(command);
-            }
-        }
+
         public IDataReader ListLogConsultoraPagoContado(BEPedidoWeb bEPedidoWeb)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.LogConsultoraPagoContado_List");
             Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, bEPedidoWeb.CampaniaID);
-            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, bEPedidoWeb.CodigoConsultora);
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.String, bEPedidoWeb.ConsultoraID);
             return Context.ExecuteReader(command);
         }
 

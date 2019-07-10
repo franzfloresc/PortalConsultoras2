@@ -223,6 +223,18 @@
                                 <span>@Model.Simbolo <span data-pedidocondescuento="">@Model.MontoConDsctoStr</span></span>
                             </span>
                         </div>
+                         @*HD-4513*@
+                        @if (ViewBag.PagoContado)
+                        {
+                            <div class="ganancia-info pb-2">
+                                <span class="ganancia-titulo titulo-up titulo-700">
+                                    TOTAL A PAGAR :
+                                </span>
+                                <span class="ganancia-total first-color">
+                                    <span>@Model.Simbolo <span data-stppagototalresumen="">0.00</span></span>
+                                </span>
+                            </div>
+                        }
                     </div>
                 </div>
                 <div class="ganancia-estimada PedidoMobile">

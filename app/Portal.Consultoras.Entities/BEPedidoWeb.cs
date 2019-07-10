@@ -142,19 +142,28 @@ namespace Portal.Consultoras.Entities
         public bool STPPagoContado { get; set; }
 
         [DataMember]
-        public string STPTotalPagar { get; set; }
+        public double STPTotalPagar { get; set; }
 
         [DataMember]
-        public string STPDescuento { get; set; }
+        public double STPDescuento { get; set; }
 
         [DataMember]
-        public string STPGastTransporte { get; set; }
+        public double STPGastTransporte { get; set; }
 
         [DataMember]
-        public string STPPagoTotal { get; set; }
+        public double STPPagoTotal { get; set; }
 
         [DataMember]
-        public int STPId { get; set; }
+        public double STPDeuda { get; set; }
+
+        [DataMember]
+        public double STPPagoTotalSinDeuda { get; set; }
+
+        [DataMember]
+        public string STPDeudaLog { get; set; }
+
+
+
 
         public BEPedidoWeb() { }
 
@@ -203,10 +212,11 @@ namespace Portal.Consultoras.Entities
             GananciaWeb = row.ToDecimal("GananciaWeb");
             GananciaOtros = row.ToDecimal("GananciaOtros");
             /*HD-4513*/
-            STPTotalPagar = DataRecord.HasColumn(row, "TotalPagar")?row.ToString("TotalPagar"):"";
-            STPDescuento = DataRecord.HasColumn(row, "TotalDescuento") ? row.ToString("TotalDescuento") : "";
-            STPGastTransporte = DataRecord.HasColumn(row, "TotalFlete") ? row.ToString("TotalFlete") : "";
-            STPId = DataRecord.HasColumn(row, "LogConsultoraPagoContadoID") ? row.ToInt32("LogConsultoraPagoContadoID") : 0;
+            STPPagoTotalSinDeuda = DataRecord.HasColumn(row, "PagoTotalSinDeuda") ?row.ToDouble("PagoTotalSinDeuda") :0;
+            STPPagoTotal = DataRecord.HasColumn(row, "PagoTotal") ? row.ToDouble("PagoTotal") : 0;
+            STPDescuento = DataRecord.HasColumn(row, "TotalDescuento") ? row.ToDouble("TotalDescuento") : 0;
+            STPGastTransporte = DataRecord.HasColumn(row, "TotalFlete") ? row.ToDouble("TotalFlete") : 0;
+            STPDeudaLog = row.ToString("TotalDeuda");
 
         }
     }

@@ -224,6 +224,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.DataBarra = GetDataBarra(true, true);
 
+
                 userData.PedidoID = 0;
                 if (model.PedidoWebDetalle.Count != 0
                     && userData.PedidoID == 0)
@@ -351,6 +352,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
+                ViewBag.PagoContado = model.EstadoPedido == 1 && GetPagoContado();
             }
             catch (FaultException ex)
             {
@@ -1560,7 +1562,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var mensajeCondicional = resultado.ListaMensajeCondicional != null && resultado.ListaMensajeCondicional.Any() ? resultado.ListaMensajeCondicional[0].MensajeRxP : null;
 
-           
+
                 return Json(new
                 {
                     success = true,
@@ -1977,8 +1979,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             ViewBag.UrlFranjaNegra = _eventoFestivoProvider.GetUrlFranjaNegra();
             ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Ofertas digitales";
-
-            ViewBag.PagoContado = GetPagoContado();
+            //HD-4513
+            var estadoPedido = EsPedidoReservado(obeConfiguracionCampania).ToInt();
+            ViewBag.PagoContado = estadoPedido == 1 && GetPagoContado();
 
             return View(model);
         }
@@ -2040,23 +2043,26 @@ namespace Portal.Consultoras.Web.Controllers
                 var objDataBarra=GetDataBarra(true, true);
 
                 #region Consultora Pago Contado
-                    if (GetPagoContado()) {
+
+                var estadoPedido= EsPedidoReservado().ToInt(); ;
+                if (estadoPedido == 1 && GetPagoContado()) {
                     var PagoContadoPrm = new ServicePedido.BEPedidoWeb()
                     {
                         PaisID = userData.PaisID,
                         ConsultoraID = userData.ConsultoraID,
                         CodigoConsultora = userData.CodigoConsultora,
                         CampaniaID = userData.CampaniaID,
-                        STPPagoTotal = Convert.ToString(objDataBarra.TotalPedido - objDataBarra.MontoDescuento),
+                        STPTotalPagar = Convert.ToDouble(objDataBarra.TotalPedido - objDataBarra.MontoDescuento),
                         olstBEPedidoWebDetalle = lstPedidoWebDetalle.ToArray()
 
                     };
 
                 
                     var resultPagoContado = GetConfPagoContado(PagoContadoPrm);
-                    objDataBarra.STPDescuento =(resultPagoContado.STPDescuento==null || resultPagoContado.STPDescuento=="")? "0.00": Util.DecimalToStringFormat(decimal.Parse(resultPagoContado.STPDescuento.Replace(",","")),userData.CodigoISO);
-                    objDataBarra.STPFlete = (resultPagoContado.STPGastTransporte == null || resultPagoContado.STPGastTransporte == "") ? "0.00" : Util.DecimalToStringFormat(decimal.Parse(resultPagoContado.STPGastTransporte.Replace(",", "")),userData.CodigoISO);
-                    objDataBarra.STPTotalPagar = (resultPagoContado.STPTotalPagar == null || resultPagoContado.STPTotalPagar == "") ? "0.00" : Util.DecimalToStringFormat(decimal.Parse(resultPagoContado.STPTotalPagar.Replace(",", "")),userData.CodigoISO);
+                    objDataBarra.STPDescuento = Util.DoubleToStringFormat(resultPagoContado.STPDescuento, userData.CodigoISO);
+                    objDataBarra.STPFlete = Util.DoubleToStringFormat(resultPagoContado.STPGastTransporte, userData.CodigoISO);
+                    objDataBarra.STPPagoTotal = Util.DoubleToStringFormat(resultPagoContado.STPPagoTotal, userData.CodigoISO);
+                    objDataBarra.STPDeuda = Util.DoubleToStringFormat(resultPagoContado.STPDeuda, userData.CodigoISO);
                 }
                 #endregion
 
@@ -2634,12 +2640,39 @@ namespace Portal.Consultoras.Web.Controllers
                 model.MensajeCierreCampania = ViewBag.MensajeCierreCampania;
                 model.Simbolo = userData.Simbolo;
 
+                var databarra = GetDataBarra(true, false, true);
+                //HD-4513
+                #region Consultora Pago Contado
+                var estadoPedido = EsPedidoReservado().ToInt();
+                if (estadoPedido == 1 && GetPagoContado())
+                {
+                    var PagoContadoPrm = new ServicePedido.BEPedidoWeb()
+                    {
+                        PaisID = userData.PaisID,
+                        ConsultoraID = userData.ConsultoraID,
+                        CodigoConsultora = userData.CodigoConsultora,
+                        CampaniaID = userData.CampaniaID,
+                        STPTotalPagar = Convert.ToDouble(model.TotalConDescuento),
+                        olstBEPedidoWebDetalle = listaDetalle.ToArray()
+
+                    };
+
+
+                    var resultPagoContado = UpdConfPagoContado(PagoContadoPrm);
+                    databarra.STPDescuento = Util.DoubleToStringFormat(resultPagoContado.STPDescuento, userData.CodigoISO);
+                    databarra.STPFlete = Util.DoubleToStringFormat(resultPagoContado.STPGastTransporte, userData.CodigoISO);
+                    databarra.STPPagoTotal = Util.DoubleToStringFormat(resultPagoContado.STPPagoTotal, userData.CodigoISO);
+                    databarra.STPDeuda = Util.DoubleToStringFormat(resultPagoContado.STPDeuda, userData.CodigoISO);
+                }
+
+                #endregion
+
                 return Json(new
                 {
                     success = true,
                     message = "OK",
                     data = model,
-                    dataBarra = GetDataBarra(true, false, true)
+                    dataBarra = databarra
                 });
             }
             catch (Exception ex)

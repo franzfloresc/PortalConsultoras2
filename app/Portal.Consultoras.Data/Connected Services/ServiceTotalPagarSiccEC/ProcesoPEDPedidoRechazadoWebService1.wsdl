@@ -218,10 +218,10 @@
           <xsd:element name="mensajes" nillable="true" type="intf:ArrayOf_tns8_ProcesoPEDPedidoMensajesRechazadoWebServiceResponse" />
           <xsd:element name="oidSicc" nillable="true" type="soapenc:int" />
           <xsd:element name="periodo" nillable="true" type="soapenc:string" />
-          <xsd:element name="totalDesc" nillable="true" type="soapenc:string" />
-          <xsd:element name="totalDeta" nillable="true" type="soapenc:string" />
-          <xsd:element name="totalFlet" nillable="true" type="soapenc:string" />
-          <xsd:element name="totalPaga" nillable="true" type="soapenc:string" />
+          <xsd:element name="totalDesc" nillable="true" type="soapenc:double" />
+          <xsd:element name="totalDeta" nillable="true" type="soapenc:double" />
+          <xsd:element name="totalFlet" nillable="true" type="soapenc:double" />
+          <xsd:element name="totalPaga" nillable="true" type="soapenc:double" />
         </xsd:sequence>
       </xsd:complexType>
     </xsd:schema>

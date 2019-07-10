@@ -142,6 +142,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.ActivarRecomendaciones = ObtenerFlagActivacionRecomendaciones();
             ViewBag.MaxCaracteresRecomendaciones = ObtenerNumeroMaximoCaracteresRecomendaciones(true);
             ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Ofertas digitales";
+
+            //HD-4513
+            var estadoPedido = EsPedidoReservado(configuracionCampania).ToInt();
+            ViewBag.PagoContado = estadoPedido == 1 && GetPagoContado();
             return View("Index", model);
         }
 
@@ -374,6 +378,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             ViewBag.DataBarra = GetDataBarra(true, true);//OG
             ViewBag.LabelGananciaWeb = (revistaDigital.EsActiva) ? "Gana+" : "Ofertas digitales";
+            //HD-4513
+            ViewBag.PagoContado = model.EstadoPedido == 1 && GetPagoContado();
             return View(model);
         }
 
@@ -554,9 +560,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.GananciaWeb = pedidoWeb.GananciaWeb;
             model.GananciaOtros = pedidoWeb.GananciaOtros;
 
-
+            //HD-4513
             #region Consultora Pago Contado
-            if (GetPagoContado())
+            var estadoPedido = EsPedidoReservado(beConfiguracionCampania).ToInt();
+            ViewBag.PagoContado = estadoPedido == 1 && GetPagoContado();
+            if (ViewBag.PagoContado)
             {
                 var PagoContadoPrm = new ServicePedido.BEPedidoWeb()
                 {
@@ -564,18 +572,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     ConsultoraID = userData.ConsultoraID,
                     CodigoConsultora = userData.CodigoConsultora,
                     CampaniaID = userData.CampaniaID,
-                    STPPagoTotal = Convert.ToString(model.Total),
+                    STPTotalPagar = Convert.ToDouble(model.Total),
                     olstBEPedidoWebDetalle = lstPedidoWebDetalle.ToArray()
 
                 };
 
 
                 var resultPagoContado = GetConfPagoContado(PagoContadoPrm);
-                model.STPDescuento = (resultPagoContado.STPDescuento == null || resultPagoContado.STPDescuento == "") ? "0.00" : Util.DecimalToStringFormat(decimal.Parse(resultPagoContado.STPDescuento.Replace(",", "")), userData.CodigoISO);
-                model.STPFlete = (resultPagoContado.STPGastTransporte == null || resultPagoContado.STPGastTransporte == "") ? "0.00" : Util.DecimalToStringFormat(decimal.Parse(resultPagoContado.STPGastTransporte.Replace(",", "")), userData.CodigoISO);
-                model.STPTotalPagar = (resultPagoContado.STPTotalPagar == null || resultPagoContado.STPTotalPagar == "") ? "0.00" : Util.DecimalToStringFormat(decimal.Parse(resultPagoContado.STPTotalPagar.Replace(",", "")), userData.CodigoISO);
+                model.STPDescuento =  Util.DoubleToStringFormat(resultPagoContado.STPDescuento, userData.CodigoISO);
+                model.STPFlete = Util.DoubleToStringFormat(resultPagoContado.STPGastTransporte, userData.CodigoISO);
+                model.STPPagoTotal = Util.DoubleToStringFormat(resultPagoContado.STPPagoTotal, userData.CodigoISO);
+                model.STPDeuda = Util.DoubleToStringFormat(resultPagoContado.STPDeuda, userData.CodigoISO);
             }
-            ViewBag.PagoContado = GetPagoContado();
+            
             #endregion
 
             int horaCierre = userData.EsZonaDemAnti;

@@ -312,13 +312,13 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         private string cuvField;
         
-        private System.Nullable<double> montoAPagarField;
+        private double montoAPagarField;
         
-        private System.Nullable<double> montoCataField;
+        private double montoCataField;
         
-        private System.Nullable<double> montoDescField;
+        private double montoDescField;
         
-        private System.Nullable<double> montoTotaField;
+        private double montoTotaField;
         
         private string observacionesField;
         
@@ -328,7 +328,7 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         private System.Nullable<int> porcentajeDescField;
         
-        private System.Nullable<double> precioCatalogoField;
+        private double precioCatalogoField;
         
         private System.Nullable<int> unidadesField;
         
@@ -350,7 +350,7 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public System.Nullable<double> montoAPagar {
+        public double montoAPagar {
             get {
                 return this.montoAPagarField;
             }
@@ -362,7 +362,7 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public System.Nullable<double> montoCata {
+        public double montoCata {
             get {
                 return this.montoCataField;
             }
@@ -374,7 +374,7 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public System.Nullable<double> montoDesc {
+        public double montoDesc {
             get {
                 return this.montoDescField;
             }
@@ -386,7 +386,7 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public System.Nullable<double> montoTota {
+        public double montoTota {
             get {
                 return this.montoTotaField;
             }
@@ -446,7 +446,7 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public System.Nullable<double> precioCatalogo {
+        public double precioCatalogo {
             get {
                 return this.precioCatalogoField;
             }
@@ -614,13 +614,13 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         private string periodoField;
         
-        private string totalDescField;
+        private double totalDescField;
         
-        private string totalDetaField;
+        private double totalDetaField;
         
-        private string totalFletField;
+        private double totalFletField;
         
-        private string totalPagaField;
+        private double totalPagaField;
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
@@ -792,7 +792,7 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public string totalDesc {
+        public double totalDesc {
             get {
                 return this.totalDescField;
             }
@@ -804,7 +804,7 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public string totalDeta {
+        public double totalDeta {
             get {
                 return this.totalDetaField;
             }
@@ -816,7 +816,7 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public string totalFlet {
+        public double totalFlet {
             get {
                 return this.totalFletField;
             }
@@ -828,7 +828,7 @@ namespace Portal.Consultoras.Data.ServiceTotalPagarSiccEC {
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public string totalPaga {
+        public double totalPaga {
             get {
                 return this.totalPagaField;
             }

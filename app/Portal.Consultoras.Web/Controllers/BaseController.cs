@@ -1544,12 +1544,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             bool band = true;
 
-            if (userData.CodigoISO != Constantes.CodigosISOPais.Ecuador || !(userData.FechaFacturacion == Util.GetDiaActual(userData.ZonaHoraria))) band = false;
+            if (userData.CodigoISO != Constantes.CodigosISOPais.Ecuador || !userData.DiaPROL) band = false;
 
 
             return userData.PagoContado && band;
         }
-        public BEPedidoWeb GetConfPagoContado(BEPedidoWeb bePedidoWeb)
+        public BEPedidoWeb UpdConfPagoContado(BEPedidoWeb bePedidoWeb)
         {
             BEPedidoWeb obj = new BEPedidoWeb();
 
@@ -1565,6 +1565,33 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new PedidoServiceClient())
                 {
                     obj = sv.UpdPedidoTotalPagoContado(bePedidoWeb);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return obj;
+
+        }
+
+        public BEPedidoWeb GetConfPagoContado(BEPedidoWeb bePedidoWeb)
+        {
+            BEPedidoWeb obj = new BEPedidoWeb();
+
+            bePedidoWeb.STPPagoContado = GetPagoContado();
+            obj.STPPagoContado = bePedidoWeb.STPPagoContado;
+
+            if (!bePedidoWeb.STPPagoContado)
+                return obj;
+
+            //Consultar servicio
+            try
+            {
+                using (var sv = new PedidoServiceClient())
+                {
+                    obj = sv.GetPedidoTotalPagoContado(bePedidoWeb);
                 }
 
             }

@@ -2620,12 +2620,15 @@ namespace Portal.Consultoras.BizLogic
                     };
                     using (var svr = new ProcesoPEDPedidoRechazadoWebServiceImplClient(new BasicHttpBinding(), remoteAddress))
                     {
-                        svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0, 10);
+                        svr.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, 0,50);
                         var result = svr.ejecutarProcesoPEDPedidoRechazado(PedidoWeb);
                         if (result.mensajeError != "") throw new Exception(result.mensajeError);
-                        bePedidoWeb.STPDescuento = result.totalDesc?? "";
-                        bePedidoWeb.STPTotalPagar = result.totalPaga ?? "";
-                        bePedidoWeb.STPGastTransporte = result.totalFlet ?? "";
+                        bePedidoWeb.STPDescuento = result.totalDesc;
+                        bePedidoWeb.STPPagoTotalSinDeuda = result.totalPaga;
+                        bePedidoWeb.STPDeudaLog = result.deuda;
+                        bePedidoWeb.STPDeuda = (result.deuda == "") ? 0 : Convert.ToDouble(result.deuda.Replace(",",""));
+                        bePedidoWeb.STPPagoTotal = bePedidoWeb.STPPagoTotalSinDeuda + bePedidoWeb.STPDeuda;
+                        bePedidoWeb.STPGastTransporte = result.totalFlet;
                     }
 
                     /*Actualizar Log*/
@@ -2654,7 +2657,12 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (reader.Read()) obj = new BEPedidoWeb(reader);
             }
-            if (obj.STPId == 0) obj= UpdPedidoTotalPagoContado(bePedidoWeb);
+
+            obj = obj?? UpdPedidoTotalPagoContado(bePedidoWeb);
+            obj.STPDeuda = (obj.STPDeudaLog == "") ? 0 : Convert.ToDouble(obj.STPDeudaLog.Replace(",", ""));
+            obj.STPTotalPagar = obj.STPPagoTotalSinDeuda + obj.STPDeuda;
+
+
             return obj;
         }
 

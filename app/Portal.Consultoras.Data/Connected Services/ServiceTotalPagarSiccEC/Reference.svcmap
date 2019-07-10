@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="49f20844-b413-4c53-9d1f-0a37cc406e74" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="03d04f15-3fa2-4585-8578-bc86c4946d44" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,7 +22,7 @@
     <MetadataSource Address="http://pelnx2041:7003/ssicceclbpdp/services/ProcesoPEDPedidoRechazadoWebService?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ProcesoPEDPedidoRechazadoWebService.wsdl" MetadataType="Wsdl" ID="25aefae1-3eb8-4c4c-aa55-237bbdc6213b" SourceId="1" SourceUrl="http://pelnx2041:7003/ssicceclbpdp/services/ProcesoPEDPedidoRechazadoWebService?wsdl" />
+    <MetadataFile FileName="ProcesoPEDPedidoRechazadoWebService1.wsdl" MetadataType="Wsdl" ID="946c1fd7-5101-4a6f-b886-4a0add85daff" SourceId="1" SourceUrl="http://pelnx2041:7003/ssicceclbpdp/services/ProcesoPEDPedidoRechazadoWebService?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

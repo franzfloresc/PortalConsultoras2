@@ -43,6 +43,8 @@ namespace Portal.Consultoras.Web.Models
         /*HD-4513*/
         public string STPDescuento { get; set; }
         public string STPFlete { get; set; }
-        public string STPTotalPagar { get; set; }
+        public string STPPagoTotal { get; set; }
+        public string STPDeuda { get; set; }
+
     }
 }

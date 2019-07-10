@@ -9379,22 +9379,28 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string RutaPaqueteDocumentarioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string STPDescuentoField;
+        private double STPDescuentoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string STPGastTransporteField;
+        private double STPDeudaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int STPIdField;
+        private string STPDeudaLogField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double STPGastTransporteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool STPPagoContadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string STPPagoTotalField;
+        private double STPPagoTotalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string STPTotalPagarField;
+        private double STPPagoTotalSinDeudaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private double STPTotalPagarField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal SaldoDeudaField;
@@ -10010,12 +10016,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string STPDescuento {
+        public double STPDescuento {
             get {
                 return this.STPDescuentoField;
             }
             set {
-                if ((object.ReferenceEquals(this.STPDescuentoField, value) != true)) {
+                if ((this.STPDescuentoField.Equals(value) != true)) {
                     this.STPDescuentoField = value;
                     this.RaisePropertyChanged("STPDescuento");
                 }
@@ -10023,27 +10029,40 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string STPGastTransporte {
+        public double STPDeuda {
             get {
-                return this.STPGastTransporteField;
+                return this.STPDeudaField;
             }
             set {
-                if ((object.ReferenceEquals(this.STPGastTransporteField, value) != true)) {
-                    this.STPGastTransporteField = value;
-                    this.RaisePropertyChanged("STPGastTransporte");
+                if ((this.STPDeudaField.Equals(value) != true)) {
+                    this.STPDeudaField = value;
+                    this.RaisePropertyChanged("STPDeuda");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int STPId {
+        public string STPDeudaLog {
             get {
-                return this.STPIdField;
+                return this.STPDeudaLogField;
             }
             set {
-                if ((this.STPIdField.Equals(value) != true)) {
-                    this.STPIdField = value;
-                    this.RaisePropertyChanged("STPId");
+                if ((object.ReferenceEquals(this.STPDeudaLogField, value) != true)) {
+                    this.STPDeudaLogField = value;
+                    this.RaisePropertyChanged("STPDeudaLog");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double STPGastTransporte {
+            get {
+                return this.STPGastTransporteField;
+            }
+            set {
+                if ((this.STPGastTransporteField.Equals(value) != true)) {
+                    this.STPGastTransporteField = value;
+                    this.RaisePropertyChanged("STPGastTransporte");
                 }
             }
         }
@@ -10062,12 +10081,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string STPPagoTotal {
+        public double STPPagoTotal {
             get {
                 return this.STPPagoTotalField;
             }
             set {
-                if ((object.ReferenceEquals(this.STPPagoTotalField, value) != true)) {
+                if ((this.STPPagoTotalField.Equals(value) != true)) {
                     this.STPPagoTotalField = value;
                     this.RaisePropertyChanged("STPPagoTotal");
                 }
@@ -10075,12 +10094,25 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string STPTotalPagar {
+        public double STPPagoTotalSinDeuda {
+            get {
+                return this.STPPagoTotalSinDeudaField;
+            }
+            set {
+                if ((this.STPPagoTotalSinDeudaField.Equals(value) != true)) {
+                    this.STPPagoTotalSinDeudaField = value;
+                    this.RaisePropertyChanged("STPPagoTotalSinDeuda");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public double STPTotalPagar {
             get {
                 return this.STPTotalPagarField;
             }
             set {
-                if ((object.ReferenceEquals(this.STPTotalPagarField, value) != true)) {
+                if ((this.STPTotalPagarField.Equals(value) != true)) {
                     this.STPTotalPagarField = value;
                     this.RaisePropertyChanged("STPTotalPagar");
                 }
