@@ -682,6 +682,17 @@ namespace Portal.Consultoras.Common
             public const string MPacksNuevas = "2M0";
         }
 
+        // Seccion BPT, metodo GetPartialSectionBptModel, se puede controlar con el origen pedido web y enviar dispositivo + pagina
+        public static class SectionBpt
+        {
+            public const int SectionBptDesktopPedido = 12;
+            public const int SectionBptDesktopHome = 11;
+            public const int SectionBptDesktopCatalogo = 14;
+            public const int SectionBptMobilePedido = 22;
+            public const int SectionBptMobileHome = 21;
+            public const int SectionBptMobileCatalogo = 24;
+        }
+
         /// <summary>
         /// Los cambios replicarlos en
         /// RevistaDigital-DataLayer.js + ConstantesModule.js + CodigoOrigenPedidoWeb.js
@@ -728,12 +739,12 @@ namespace Portal.Consultoras.Common
             // Cuarto Dígito
             // 1. Sin popUp                 2. Con popUp
 
-            public const int SectionBptDesktopPedido = 12; // Seccion BPT, metodo GetPartialSectionBptModel
-            public const int SectionBptDesktopHome = 11; // Seccion BPT, metodo GetPartialSectionBptModel
-            public const int SectionBptDesktopCatalogo = 14; // Seccion BPT, metodo GetPartialSectionBptModel
-            public const int SectionBptMobilePedido = 22; // Seccion BPT, metodo GetPartialSectionBptModel
-            public const int SectionBptMobileHome = 21; // Seccion BPT, metodo GetPartialSectionBptModel
-            public const int SectionBptMobileCatalogo = 24; // Seccion BPT, metodo GetPartialSectionBptModel
+            //public const int SectionBptDesktopPedido = 12; // Seccion BPT, metodo GetPartialSectionBptModel
+            //public const int SectionBptDesktopHome = 11; // Seccion BPT, metodo GetPartialSectionBptModel
+            //public const int SectionBptDesktopCatalogo = 14; // Seccion BPT, metodo GetPartialSectionBptModel
+            //public const int SectionBptMobilePedido = 22; // Seccion BPT, metodo GetPartialSectionBptModel
+            //public const int SectionBptMobileHome = 21; // Seccion BPT, metodo GetPartialSectionBptModel
+            //public const int SectionBptMobileCatalogo = 24; // Seccion BPT, metodo GetPartialSectionBptModel
 
             #region CatalogoPersonalizado
             public const int CatalogoPersonalizadoDesktopHome = 1131;
