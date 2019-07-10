@@ -2355,6 +2355,42 @@ namespace Portal.Consultoras.BizLogic
             var daPedidoWeb = new DAPedidoWeb(paisID);
             daPedidoWeb.UpdateMostradoProductosPrecargados(CampaniaID, ConsultoraID, IPUsuario);
         }
+
+
+
+        #endregion
+
+
+        #region HD-4288
+        public int DeshacerRecepcionPedido(int pedidoID, int paisID)
+        {
+            var daPedidoWeb = new DAPedidoWeb(paisID);
+            return daPedidoWeb.DeshacerRecepcionPedido(pedidoID);
+        }
+
+        public int GuardarRecepcionPedido(string nombreYApellido, string numeroDocumento, int pedidoID, int paisID)
+        {
+            var daPedidoWeb = new DAPedidoWeb(paisID);
+            return daPedidoWeb.GuardarRecepcionPedido(nombreYApellido, numeroDocumento, pedidoID);
+        }
+
+        public BEConsultora VerificarConsultoraDigital(string codigoConsultora, int pedidoID, int paisID)
+        {
+            var objBEConsultora = new BEConsultora();
+            var daPedidoWeb = new DAPedidoWeb(paisID);
+
+            using (IDataReader reader = daPedidoWeb.VerificarConsultoraDigital(codigoConsultora, pedidoID))
+            {
+                if (reader.Read())
+                {
+                    objBEConsultora.IndicadorRecepcion = reader[0].ToBool();
+                    objBEConsultora.nombreYApellido = reader[1] == null ? string.Empty : reader[1].ToString();
+                    objBEConsultora.numeroDocumento = reader[2] == null ? string.Empty : reader[2].ToString();
+                    objBEConsultora.IndicadorConsultoraDigital = reader[3].ToBool();
+                }
+            }
+            return objBEConsultora;
+        }
         #endregion
 
         #region Certificado Digital
@@ -2512,11 +2548,9 @@ namespace Portal.Consultoras.BizLogic
 
         public BEPedidoWeb GetPedidoWebConCalculosGanancia(BEUsuario usuario, decimal montoAhorroCatalogo, decimal montoAhorroRevista, decimal montoDescuento, decimal montoEscala, List<BEPedidoWebDetalle> pedidoWebSetDetalleAgrupado)
         {
-            //var pedidoWebSetDetalleAgrupado = ObtenerPedidoWebSetDetalleAgrupado(usuario, false, out int pedidoID);
-
             var codigosCatalogosWeb = GetCodigosCatalogoWeb(false);
             var codigosCatalogosRevista = GetCodigosCatalogoRevista();
-            var itemsCatalogo = GetCodigosCatalogo();
+            var itemsCatalogo = Common.Util.GetCodigosCatalogo();
 
             var itemsWeb = pedidoWebSetDetalleAgrupado.Where(p => codigosCatalogosWeb.Contains(p.CodigoCatalago.ToString()) ||
                         (p.CodigoCatalago.ToString() == Constantes.ODSCodigoCatalogo.WebPortalFFVV && p.CodigoTipoOferta == "002") ||
@@ -2551,16 +2585,6 @@ namespace Portal.Consultoras.BizLogic
             };
 
             return bePedidoWeb;
-        }
-
-        private List<string> GetCodigosCatalogo()
-        {
-            return new List<string>
-            {
-                Constantes.ODSCodigoCatalogo.CatalogoCyzone,
-                Constantes.ODSCodigoCatalogo.CatalogoEbel,
-                Constantes.ODSCodigoCatalogo.CatalogoEsika,
-            };
         }
 
         private List<string> GetCodigosCatalogoRevista()

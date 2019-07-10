@@ -53,6 +53,7 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         componentesPresenter.cleanContainer();
 
     	estrategia = detalleEstrategia.promiseGetEstrategia(params);
+        params.palanca = estrategia.Palanca || params.palanca;
         if (estrategia.Error){  
             GeneralModule.consoleLog(estrategia);
             GeneralModule.redirectTo('/Ofertas', true);

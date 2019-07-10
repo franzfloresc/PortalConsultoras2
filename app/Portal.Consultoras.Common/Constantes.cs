@@ -241,6 +241,9 @@ namespace Portal.Consultoras.Common
 
             public const string Liquidacion = "LIQ"; // No tiene referecia con BD, para tenerlo dentro de codigo
             public const string Catalogo = "CAT"; // No tiene referecia con BD, para tenerlo dentro de codigo
+            
+            public const string CaminoBrillanteDemostradores = "301"; // No tiene referecia con BD, caso particular
+            public const string CaminoBrillanteKits = "302"; // No tiene referecia con BD, caso particular
 
             public const string NotParticipaProgramaNuevas = "0";
         }
@@ -256,6 +259,13 @@ namespace Portal.Consultoras.Common
             public const string ShowRoom = "SR";
             public const string HerramientasVenta = "HV";
             public const string ArmaTuPack = "ATP";
+
+            public const string Liquidacion = "LIQ"; // No tiene referecia con BD, para tenerlo dentro de codigo
+            public const string Catalogo = "CAT"; // No tiene referecia con BD, para tenerlo dentro de codigo
+            
+            public const string CaminoBrillante = "CB";
+            public const string CaminoBrillanteDemostradores = "CBD";
+            public const string CaminoBrillanteKits = "CBK";
         }
 
         public static class TipoAccionAgregar
@@ -266,7 +276,6 @@ namespace Portal.Consultoras.Common
             public const int EligeOpcion = 3;
             public const int LoQuieres = 4;
             public const int LoQuieresInactivo = 5;
-
             public const int BannerCarrusel = 11;
 
         }
@@ -309,6 +318,10 @@ namespace Portal.Consultoras.Common
             public const string NotParticipaProgramaNuevas = "NotParticipaProgramaNuevas";
             public const string MasGanadoras = "Ganadoras";
             public const string Catalogo = "Catalogo"; // No tiene referecia con BD
+            
+            public const string CaminoBrillante = "Camino Brillante"; // No tiene referecia con BD
+            public const string CaminoBrillanteDemostradores = "CaminoBrillanteDemostradores"; // No tiene referecia con BD
+            public const string CaminoBrillanteKits = "CaminoBrillanteKits"; // No tiene referecia con BD
 
             private static Dictionary<string, string> _Palancas;
             public static Dictionary<string, string> Palancas
@@ -332,6 +345,9 @@ namespace Portal.Consultoras.Common
                         {TipoEstrategiaCodigo.ShowRoom, NombrePalanca.ShowRoom},
                         {TipoEstrategiaCodigo.HerramientasVenta, NombrePalanca.HerramientasVenta},
                         {TipoEstrategiaCodigo.NotParticipaProgramaNuevas, NombrePalanca.NotParticipaProgramaNuevas},
+                        {TipoEstrategiaCodigo.Catalogo, NombrePalanca.Catalogo},
+                        {TipoEstrategiaCodigo.CaminoBrillanteDemostradores, NombrePalanca.CaminoBrillanteDemostradores},
+                        {TipoEstrategiaCodigo.CaminoBrillanteKits, NombrePalanca.CaminoBrillanteKits},
                     });
                 }
             }
@@ -359,7 +375,9 @@ namespace Portal.Consultoras.Common
                         {NombrePalanca.HerramientasVenta, TipoEstrategiaCodigo.HerramientasVenta},
                         {NombrePalanca.NotParticipaProgramaNuevas, TipoEstrategiaCodigo.NotParticipaProgramaNuevas},
                         {NombrePalanca.MasGanadoras, TipoEstrategiaCodigo.OfertasParaMi},
-                        {NombrePalanca.Catalogo, TipoEstrategiaCodigo.Catalogo}
+                        {NombrePalanca.Catalogo, TipoEstrategiaCodigo.Catalogo},
+                        {NombrePalanca.CaminoBrillanteDemostradores, TipoEstrategiaCodigo.CaminoBrillanteDemostradores}, 
+                        {NombrePalanca.CaminoBrillanteKits, TipoEstrategiaCodigo.CaminoBrillanteKits}, 
                     });
                 }
             }
@@ -414,8 +432,7 @@ namespace Portal.Consultoras.Common
             public const string MenuContenedor = "MenuContenedor";
 
             public const string ListaEstrategia = "ListadoEstrategiaPedido";
-
-            //public const string ProductoTemporal = "ProductoTemporal";
+            
             public const string MenuContenedorActivo = "MenuContenedorActivo";
 
             public const string RevistaDigital = "RevistaDigital";
@@ -468,6 +485,7 @@ namespace Portal.Consultoras.Common
             public const string KitCaminoBrillante = "KitCaminoBrillante";
             public const string DemostradoresCaminoBrillante = "DemostradoresCaminoBrillante";
             public const string FiltrosCaminoBrillante = "FiltrosCaminoBrillante";
+            public const string ConfiguracionCaminoBrillante = "ConfiguracionCaminoBrillante";
         }
 
         public static class ConfiguracionManager
@@ -610,6 +628,7 @@ namespace Portal.Consultoras.Common
             public const string BonificacionesURL = "BonificacionesURL";
             public const string BonificacionesRegiones = "BonificacionesRegiones";
             public const string JsonWebTokenSecretKey = "JsonWebTokenSecretKey";
+            public const string QuestionProUrl = "QuestionProUrl";
             public const string ChatbotSecret = "ChatbotSecret";
             public const string ChatBotPageId = "ChatBotPageId";
             public const string ChatBotUrl = "https://m.me/{0}?ref={1}";
@@ -1124,7 +1143,22 @@ namespace Portal.Consultoras.Common
             #region CaminoBrillante
             public const int CaminoBrillanteDesktopPedido = 1181901;
             public const int CaminoBrillanteMobilePedido = 2181901;
+
             public const int CaminoBrillanteAppConsultorasPedido = 4181901;
+
+            public const int CaminoBrillanteDesktopPedido_Ficha = 1181902;
+            public const int CaminoBrillanteMobilePedido_Ficha = 2181902;
+
+            public const int CaminoBrillanteDesktopPedido_Carrusel = 1201901; 
+            public const int CaminoBrillanteMobilePedido_Carrusel = 2201901;
+
+            public const int CaminoBrillanteDesktopPedido_Carrusel_Ficha = 1201902;
+            public const int CaminoBrillanteMobilePedido_Carrusel_Ficha = 2201902;
+
+            public const int CaminoBrillanteAppMobilePedido_Home = 4181902;
+            public const int CaminoBrillanteAppMobilePedido_Ficha = 4201901;
+            public const int CaminoBrillanteAppMobilePedido_Carrusel = 4201902;
+
             #endregion
         }
 
@@ -1411,6 +1445,7 @@ namespace Portal.Consultoras.Common
             public const string ContenedorOfertas = "ContenedorOfertas";
             public const string LiquidacionWeb = "LiquidacionWeb";
             public const string MiPerfil = "MiPerfil";
+            public const string TuVozOnline = "TuVozOnline";
         }
 
         public static class MenuPosicion
@@ -1432,10 +1467,6 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RevistaDigital";
         }
 
-        public static class TipoPopupAlert
-        {
-            public const string Bloqueado = "HD3693~";
-        }
 
         public static class IngresoExternoPagina
         {
@@ -1654,6 +1685,8 @@ namespace Portal.Consultoras.Common
             public const string DireccionEntrega = "DIRECCION_ENTREGA";
             public const string ArmaTuPack = "ATP";
             public const string CaminoBrillante = "CAMINOBRILLANTE";
+            public const string CaminoBrillanteDemostradores = "DEMOSTRADORES";
+            public const string CaminoBrillanteKits = "KITS";
             public const string CaminoBrillanteMsg = "HomeCaminoBrillante";
         }
 
@@ -2843,6 +2876,8 @@ namespace Portal.Consultoras.Common
             public const int MGObtenerProductos = 7;
             public const int SRObtenerProductos = 8;
             public const int ATPObtenerProductos = 9;
+            public const int CBDObtenerProductos = 10;
+            public const int CBKObtenerProductos = 11;
         };
 
         #region PagoEnLinea
@@ -3476,18 +3511,6 @@ namespace Portal.Consultoras.Common
             public const string UrlExcelMatrizCampania = "http://somosbelcorpprd.s3.amazonaws.com/Matriz/PLANTILLA_MASIVO_MATRIZ.xlsx";
         }
 
-        public static class CodigoEstrategiaBuscador
-        {
-            public const string Liquidacion = "LIQ";
-            public const string Catalogo = "CAT";
-            public const string OfertaDelDia = "ODD";
-        }
-
-        //public static class NombreEstrategiaBuscador
-        //{
-        //    public const string Catalogo = "Catalogo";
-        //}
-
         public static class MetaConsultora
         {
             public const string VerificacionCambioClave = "VF_CAMBIO_CLAVE";
@@ -3615,6 +3638,7 @@ namespace Portal.Consultoras.Common
         {
             public const int BoletaImpresa = 1;
             public const int CompartirWhatsApp = 2;
+            public const int NotificarWhatsApp = 3;
         }
 
         public static class SegmentoDatami
@@ -3869,6 +3893,12 @@ namespace Portal.Consultoras.Common
                 }
             }
 
+            public static class CodigoNiveles
+            {
+                public const string Topacio = "5";
+                public const string Brillante = "6";
+            }
+
             public static class CodigosOrdenamiento
             {
                 public const string SinOrden = "00";
@@ -3882,6 +3912,27 @@ namespace Portal.Consultoras.Common
                 public const string Lbel = "01";
                 public const string Esika = "02";
                 public const string Cyzone = "03";
+            }
+
+            public static class TipoOferta
+            {
+                public const int Kit = 1;
+                public const int Demostrador = 2;
+            }
+
+            public static class Configuracion
+            {
+                public const string App = "app";
+                public const string SomosBelcorp = "sb";
+
+                public const string sb_carrusel = "sb_carrusel";
+                public const string sb_ganancias = "sb_ganancias";
+                public const string sb_barraMontoAcumulado = "sb_barraMonto";
+                public const string sb_enterateMas = "sb_enterateMas";
+                public const string app_carrusel = "app_carrusel";
+                public const string app_ganancias = "app_ganancias";
+                public const string app_barraMontoAcumulado = "app_barraMonto";
+                public const string app_enterateMas = "app_enterateMas";
             }
         }
 
@@ -3906,6 +3957,11 @@ namespace Portal.Consultoras.Common
             public const string OrigenPedidoWebLandingFicha = "OrigenPedidoWebLandingFicha";
             public const string OrigenPedidoWebLandingFichaCarrusel = "OrigenPedidoWebLandingFichaCarrusel";
             public const string OrigenPedidoWebDesplegableFichaCarrusel = "OrigenPedidoWebDesplegableFichaCarrusel";
+        }
+
+        public static class TempDataKey
+        {
+            public const string MsgValidation = "MSG_VALIDATION";
         }
 
         public static class OpcionesIngresoPendientes

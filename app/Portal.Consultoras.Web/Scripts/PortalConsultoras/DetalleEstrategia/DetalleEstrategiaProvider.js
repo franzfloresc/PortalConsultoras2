@@ -90,12 +90,7 @@ var DetalleEstrategiaProvider = function () {
                 async: false,
                 cache: false,
                 success: function (data) {
-                    //if (data.success) {
                     dfd.resolve(data);
-                    //}
-                    //else {
-                    //    dfd.reject(data);
-                    //}
                 },
                 error: function (data, error) {
                     dfd.reject(data, error);
@@ -151,6 +146,7 @@ var DetalleEstrategiaProvider = function () {
         console.log(sigueTexto);
         estrategia.ConfiguracionContenedor = estrategia.ConfiguracionContenedor || {};
         estrategia.BreadCrumbs = estrategia.BreadCrumbs || {};
+        params.palanca = estrategia.Palanca || params.palanca;
 
         var _objTipoPalanca = ConstantesModule.DiccionarioTipoEstrategia.find(function (x) { return x.texto === params.palanca });
         var _fichaServicioApi = (variablesPortal.MsFichaEstrategias && _objTipoPalanca) ? (variablesPortal.MsFichaEstrategias.indexOf(_objTipoPalanca.codigo) > -1) : false;
@@ -172,7 +168,6 @@ var DetalleEstrategiaProvider = function () {
             if (typeof estrategiaTmp === "undefined" || estrategiaTmp == null) {
 
                 estrategia.Error = true;
-                //throw "estrategia is null";
             }
             else {
                 estrategia = $.extend(estrategia, estrategiaTmp);
@@ -187,7 +182,13 @@ var DetalleEstrategiaProvider = function () {
             }
         }
 
-        if (!estrategia || (_objTipoPalanca.codigo != ConstantesModule.TipoPersonalizacion.Catalogo && !estrategia.EstrategiaID)) throw 'no obtiene oferta desde api';
+        if (
+            !estrategia
+            || (!estrategia.EstrategiaID
+                && _objTipoPalanca.codigo != ConstantesModule.TipoPersonalizacion.Catalogo
+                && estrategia.CodigoEstrategia != "035"
+                && estrategia.CodigoEstrategia != "036")
+        ) throw 'no obtiene oferta desde api';
 
         estrategia.TextoLibre = estrategia.TextoLibre || '';
 
@@ -203,34 +204,10 @@ var DetalleEstrategiaProvider = function () {
                 lstHermanos: estrategia.Hermanos
             };
 
-            //if (estrategia.Hermanos.length === 1) {
-            //    if (estrategia.Hermanos[0].Hermanos) {
-            //        if (estrategia.Hermanos[0].Hermanos.length > 0) {
-            //            if (estrategia.Hermanos[0].FactorCuadre === 1) {
-            //                estrategia.CodigoVariante = _codigoVariedad.IndividualVariable;
-            //            }
-            //        }
-
             _promiseObternerComponentes(paramsObtenerComponente)
                 .done(function (data) {
-                    estrategia.Hermanos = data.componentes;
+                    estrategia.Hermanos = data.componentes || [];
                     estrategia.EsMultimarca = data.esMultimarca;
-
-                    if (typeof estrategia.Hermanos != "undefined" && estrategia.Hermanos != null) {
-                        $.each(estrategia.Hermanos, function (idx, componente) {
-
-                            if (estrategia.CodigoEstrategia === ConstantesModule.TipoPersonalizacion.Catalogo) {
-                                componente.FotosCarrusel = [];
-                            } else {
-                                componente.FotosCarrusel = componente.FotosCarrusel || [];
-                            }
-                        });
-
-                        if (estrategia.Hermanos.length === 1) {
-                            estrategia.FotosCarrusel = estrategia.Hermanos[0].FotosCarrusel;
-                        }
-                    }
-
                 }).fail(function (data, error) {
                     estrategia.Hermanos = [];
                     estrategia.EsMultimarca = false;
@@ -244,12 +221,24 @@ var DetalleEstrategiaProvider = function () {
             estrategia.Hermanos = [];
             estrategia.EsMultimarca = false;
         }
-        estrategia.FotosCarrusel = estrategia.FotosCarrusel || [];
-        estrategia.Hermanos = estrategia.Hermanos || [];
 
-        $.each(estrategia.Hermanos, function (idx, hermano) {
-            hermano = estrategia.Hermanos[idx];
-        });
+        estrategia.Hermanos = estrategia.Hermanos || [];
+        if (estrategia.Hermanos.length > 0) {
+            $.each(estrategia.Hermanos, function (idx, componente) {
+
+                if (estrategia.CodigoEstrategia === ConstantesModule.TipoPersonalizacion.Catalogo) {
+                    componente.FotosCarrusel = [];
+                } else {
+                    componente.FotosCarrusel = componente.FotosCarrusel || [];
+                }
+            });
+
+            if (estrategia.Hermanos.length === 1) {
+                estrategia.FotosCarrusel = estrategia.Hermanos[0].FotosCarrusel;
+            }
+        }
+
+        estrategia.FotosCarrusel = estrategia.FotosCarrusel || [];
 
         if (estrategia.Hermanos.length === 1) {
             if (estrategia.Hermanos[0].Hermanos) {
@@ -286,7 +275,7 @@ var DetalleEstrategiaProvider = function () {
 
         if (_objTipoPalanca.codigo == ConstantesModule.TipoPersonalizacion.Catalogo) {
             estrategia.BreadCrumbs.Palanca.Url += "?q=" + localStorage.getItem('valorBuscador');
-            //
+
             var key = ConstantesModule.KeysLocalStorage.DescripcionProductoCatalogo(estrategia.Campania, estrategia.CUV2);
             var descripcionCompleta = localStorage.getItem(key);
             if (descripcionCompleta != '') {

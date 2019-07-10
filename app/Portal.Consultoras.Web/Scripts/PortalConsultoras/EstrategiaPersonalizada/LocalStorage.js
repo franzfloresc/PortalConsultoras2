@@ -22,6 +22,10 @@
                 return _keyLocalStorage.HerramientasVenta + campania;
             case _tipoEstrategiaTexto.Ganadoras:
                 return _keyLocalStorage.Ganadoras + campania;
+            case _tipoEstrategiaTexto.CaminoBrillanteDemostradores:
+                return _keyLocalStorage.CaminoBrillanteDemostradores + campania;
+            case _tipoEstrategiaTexto.CaminoBrillanteKits:
+                return _keyLocalStorage.CaminoBrillanteKits + campania;
 
             default:
                 return null;
@@ -48,14 +52,17 @@
             case _codigoPalanca.MG:
             case _tipoEstrategia.MasGanadoras:
                 return _keyLocalStorage.Ganadoras;
-            //INI HD-3908
             case _codigoPalanca.PN:
             case _tipoEstrategia.PackNuevas:
                 return _keyLocalStorage.PackNuevas;
             case _codigoPalanca.DP:
-                //case _tipoEstrategia.PackNuevas:
                 return _keyLocalStorage.DuoPerfecto;
-            //FIN HD-3908
+            case _codigoPalanca.CBD:
+            case _tipoEstrategia.CaminoBrillanteDemostradores:
+                return _keyLocalStorage.CaminoBrillanteDemostradores;
+            case _codigoPalanca.CBK:
+            case _tipoEstrategia.CaminoBrillanteKits:
+                return _keyLocalStorage.CaminoBrillanteKits;
             default:
                 return null;
         }
@@ -115,6 +122,10 @@
                 return _urlObtenerEstrategia.HerrameintasVenta;
             case _tipoEstrategiaTexto.Ganadoras:
                 return _urlObtenerEstrategia.MasGanadoras;
+            case _tipoEstrategiaTexto.CaminoBrillanteDemostradores:
+                return _urlObtenerEstrategia.CaminoBrillanteDemostradores;
+            case _tipoEstrategiaTexto.CaminoBrillanteKits:
+                return _urlObtenerEstrategia.CaminoBrillanteKits;
             default:
                 return null;
         }
@@ -232,14 +243,13 @@
             var nombreKey = _obtenerKeyName2(codigoPalanaca);
             var nombreKeyLocalStorage = nombreKey + campania;
             var valLocalStorage = localStorage.getItem(nombreKeyLocalStorage);
-
-            //INI HD-3908
+            
             if (valLocalStorage == null && codigoPalanaca === _tipoEstrategia.PackNuevas) {
                 nombreKey = _keyLocalStorage.DuoPerfecto;
                 nombreKeyLocalStorage = nombreKey + campania;
                 valLocalStorage = localStorage.getItem(nombreKeyLocalStorage);
             }
-            //FIN HD-3908
+
             if (valLocalStorage != null) {
                 var data = JSON.parse(valLocalStorage);
                 var updated;
@@ -344,10 +354,10 @@ function ActualizarLocalStoragePalancas(cuv, valor) {
     ActualizarLocalStorageAgregado("HV", cuv, valor);
     ActualizarLocalStorageAgregado("LAN", cuv, valor);
     ActualizarLocalStorageAgregado("MG", cuv, valor);
-    //INI HD-3908
     ActualizarLocalStorageAgregado("PN", cuv, valor);
     ActualizarLocalStorageAgregado("DP", cuv, valor);
-    //FIN HD-3908
+    ActualizarLocalStorageAgregado("CBD", cuv, valor);
+    ActualizarLocalStorageAgregado("CBK", cuv, valor);
 }
 
 function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
@@ -378,14 +388,19 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
         else if (tipo == ConstantesModule.CodigoPalanca.MG) {
             lista = ConstantesModule.KeysLocalStorage.Ganadoras;
         }
-        //INI HD-3908
         else if (tipo == ConstantesModule.CodigoPalanca.PN) {
             lista = ConstantesModule.KeysLocalStorage.PackNuevas;
         }
         else if (tipo == ConstantesModule.CodigoPalanca.DP) {
             lista = ConstantesModule.KeysLocalStorage.DuoPerfecto;
         }
-        //FIN HD-3908
+        else if (tipo == ConstantesModule.CodigoPalanca.CBD) {
+            lista = ConstantesModule.KeysLocalStorage.CaminoBrillanteDemostrador;
+        }
+        else if (tipo == ConstantesModule.CodigoPalanca.CBK) {
+            lista = ConstantesModule.KeysLocalStorage.CaminoBrillanteKits;
+        }
+
         if (lista == "") {
             return;
         }

@@ -1,6 +1,6 @@
 ﻿
 var FichaVerDetalle = (function () {
-    
+
     var onClickFichaDetalle = function (e) {
         //el objeto e debe ser establecido con target  (e.target)
         var infoCuvItem = EstrategiaAgregarModule.EstrategiaObtenerObj($(e));
@@ -30,14 +30,24 @@ var FichaVerDetalle = (function () {
         }
 
         if (typeof LocalStorageListado != 'undefined') {
-            var palanca = getPalanca(codigoEstrategia, OrigenPedidoWeb, false);
-            var modeloEstrategiaTemporal = {
-                Origen: OrigenPedidoWeb,
-                Cuv: codigoCuv,
-                Palanca: palanca,
-                Estrategia: infoCuvItem
-            };
-            LocalStorageListado(ConstantesModule.KeysLocalStorage.EstrategiaTemporal, modeloEstrategiaTemporal);
+
+            var origenModelo = CodigoOrigenPedidoWeb.GetOrigenModelo(OrigenPedidoWeb);
+            if (origenModelo.Seccion === CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselCrossSelling
+                || origenModelo.Seccion === CodigoOrigenPedidoWeb.CodigoEstructura.Seccion.CarruselUpselling) {
+
+                var palanca = getPalanca(codigoEstrategia, OrigenPedidoWeb, false);
+                var modeloEstrategiaTemporal = {
+                    Origen: OrigenPedidoWeb,
+                    Cuv: codigoCuv,
+                    Palanca: palanca,
+                    Estrategia: infoCuvItem
+                };
+                LocalStorageListado(ConstantesModule.KeysLocalStorage.EstrategiaTemporal, modeloEstrategiaTemporal);
+            }
+            else {
+                LocalStorageListado(ConstantesModule.KeysLocalStorage.EstrategiaTemporal, null, 2);
+            }
+
         }
 
         window.location = UrlDetalle;
@@ -147,6 +157,12 @@ var FichaVerDetalle = (function () {
             case ConstantesModule.TipoEstrategia.NotParticipaProgramaNuevas:
                 url += ConstantesModule.TipoEstrategiaTexto.NotParticipaProgramaNuevas;
                 break;
+            case ConstantesModule.TipoEstrategia.CaminoBrillanteDemostradores:
+                url += ConstantesModule.TipoEstrategiaTexto.CaminoBrillanteDemostradores;
+                break;
+            case ConstantesModule.TipoEstrategia.CaminoBrillanteKits:
+                url += ConstantesModule.TipoEstrategiaTexto.CaminoBrillanteKits;
+                break;
             case ConstantesModule.TipoEstrategia.MasGanadoras:
                 url += ConstantesModule.TipoEstrategiaTexto.Ganadoras;
                 break;
@@ -168,7 +184,7 @@ var FichaVerDetalle = (function () {
         if (tipoPersonalizacion == null || typeof tipoPersonalizacion === "undefined") {
             return url;
         }
-        
+
         url = isMobile() ? "/Mobile/Detalle/" : "/Detalle/";
 
         switch (tipoPersonalizacion) {
@@ -176,7 +192,7 @@ var FichaVerDetalle = (function () {
             case ConstantesModule.TipoPersonalizacion.Catalogo:
                 url += ConstantesModule.TipoPersonalizacionTexto.Catalogo + "/";
                 break;
-            
+
             default:
                 url = "";
         }

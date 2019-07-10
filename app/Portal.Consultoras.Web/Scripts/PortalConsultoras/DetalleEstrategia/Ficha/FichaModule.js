@@ -56,14 +56,6 @@ var panelCliente = ClientePanelModule({
 //Función para breadcumb
 function eventBreadCumb(url, titulo) {
 
-    //var codigoPalanca = fichaModule.GetEstrategia().CodigoPalanca || "";
-    //if (typeof AnalyticsPortalModule !== 'undefined') {
-    //    if (codigoPalanca === ConstantesModule.CodigoPalanca.MG) {
-    //        AnalyticsPortalModule.ClickOnBreadcrumb(url, codigoPalanca, titulo);
-    //        return;
-    //    }
-    //}
-
     document.location = url;
 }
 
@@ -514,9 +506,7 @@ var FichaModule = (function (config) {
         _setEstrategiaBreadcrumb(estrategia);
 
         // TODO: falta implementar en ficha responsive
-        if (config.componenteDetalleModule === null || typeof config.componenteDetalleModule === "undefined") {
-            //console.log('config.componenteDetalleModule is null or undefined');
-        } else {
+        if (!(config.componenteDetalleModule === null || typeof config.componenteDetalleModule === "undefined")) {
             _config.componenteDetalleModule.VerDetalleIndividual(estrategia);
         }
 
@@ -549,7 +539,6 @@ var FichaModule = (function (config) {
 
         if (estrategia.TieneReloj) {
             _crearReloj(estrategia);
-            //console.log(estrategia);
             _setHandlebars(_template.styleOdd, estrategia);
         }
 
@@ -575,6 +564,7 @@ var FichaModule = (function (config) {
         }
 
         var estrategiaBreadcrumb = (estrategia || {}).DescripcionCompleta || "";
+        var codigoEstrategia = (estrategia || {}).CodigoEstrategia || "";
 
         if (estrategiaBreadcrumb == "") {
             return false;
@@ -582,7 +572,7 @@ var FichaModule = (function (config) {
 
         estrategiaBreadcrumb = $.trim(estrategiaBreadcrumb);
         var palabrasEstrategiaDescripcion = estrategiaBreadcrumb.split(" ");
-        estrategiaBreadcrumb = palabrasEstrategiaDescripcion[0];
+        estrategiaBreadcrumb = ((codigoEstrategia === ConstantesModule.TipoEstrategia.CaminoBrillanteDemostradores || codigoEstrategia === ConstantesModule.TipoEstrategia.CaminoBrillanteKits) && _config.esMobile ? estrategiaBreadcrumb : palabrasEstrategiaDescripcion[0]);
         if (!_config.esMobile) {
             if (palabrasEstrategiaDescripcion.length > 1)
                 estrategiaBreadcrumb += " " + palabrasEstrategiaDescripcion[1];
@@ -591,7 +581,7 @@ var FichaModule = (function (config) {
             if (palabrasEstrategiaDescripcion.length > 3)
                 estrategiaBreadcrumb += "...";
         } else {
-            if (estrategiaBreadcrumb.length > 7)
+            if (estrategiaBreadcrumb.length > 9 )
                 estrategiaBreadcrumb = estrategiaBreadcrumb.substr(0, 7) + "...";
         }
 
@@ -674,6 +664,9 @@ var FichaModule = (function (config) {
         if (imgFondo !== "") {
             $(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "url('" + imgFondo + "')");
             $(_seccionesFichaProducto.ImagenDeFondo).show();
+        }
+        else {
+            $(_seccionesFichaProducto.ImagenDeFondo).css("background-image", "none");
         }
     };
 
@@ -789,7 +782,6 @@ var FichaModule = (function (config) {
     ////// Ini - Construir Estructura Ficha
 
     var _construirSeccionFicha = function () {
-        //console.log('Ficha - construir Seccion Ficha');
         var modeloFicha = _modeloFicha();
 
         if (!_validaOfertaDelDia(true)) {
@@ -811,7 +803,6 @@ var FichaModule = (function (config) {
     var _getModelo = function () {
 
         var modeloFicha = {};
-        //console.log('Ficha - promise Obterner Modelo');
         _config.detalleEstrategiaProvider
             .promiseObternerModelo({
                 palanca: _config.palanca,
@@ -827,10 +818,6 @@ var FichaModule = (function (config) {
             .fail(function (data, error) {
                 throw "_getModelo, promiseObternerModelo";
             });
-
-        //if (modeloFicha.Error === true) {
-        //    throw "_getModelo, promiseObternerModelo";
-        //}
 
         modeloFicha.ConfiguracionContenedor = modeloFicha.ConfiguracionContenedor || {};
         modeloFicha.BreadCrumbs = modeloFicha.BreadCrumbs || {};
@@ -914,8 +901,7 @@ var FichaModule = (function (config) {
 
         if (typeof _config.analyticsPortalModule === 'undefined')
             return;
-
-        //console.log('Ficha - analytics - Marca Visualizar Detalle Producto');
+        
         _config.analyticsPortalModule.MarcaVisualizarDetalleProducto(_modeloFicha());
 
     };
@@ -952,6 +938,7 @@ var FichaModule = (function (config) {
         _config.esMobile = _config.generalModule.isMobile();
 
         var modeloFicha = _getModelo();
+        _config.palanca = modeloFicha.Palanca || _config.palanca;
         modeloFicha = _getEstrategia(modeloFicha);
 
         if (modeloFicha.Error) {
@@ -959,7 +946,6 @@ var FichaModule = (function (config) {
         }
 
         _config.tieneSession = modeloFicha.TieneSession;
-        _config.palanca = modeloFicha.Palanca || _config.palanca;
         _config.origen = modeloFicha.OrigenUrl || _config.origen;
         _config.mostrarCliente = modeloFicha.MostrarCliente || _config.mostrarCliente;
 
@@ -1010,13 +996,22 @@ var FichaPartialModule = (function () {
         var campania = $.trim(row.attr("data-campania"));
         var cuv = $.trim(row.attr("data-cuv"));
         var setId = $.trim(row.attr("data-SetID"));
+        componenteDetalleModule = ComponenteDetalleModule({
+            localStorageModule: LocalStorageModule(),
+            analyticsPortalModule: AnalyticsPortalModule,
+            generalModule: GeneralModule,
+            palanca: palanca,
+            campania: campania,
+            cuv: cuv,
+            origen: OrigenPedidoWeb
+            });
 
         var objFicha = {
             localStorageModule: LocalStorageModule(),
             analyticsPortalModule: AnalyticsPortalModule,
             generalModule: GeneralModule,
             detalleEstrategiaProvider: DetalleEstrategiaProvider,
-            componenteDetalleModule: null,
+            componenteDetalleModule: componenteDetalleModule,
 
             palanca: palanca,
             campania: campania,

@@ -180,7 +180,6 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Mixto/PageResponsive").Include(
                 "~/Scripts/handlebars.js",
-                "~/Scripts/LogError.js",
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Shared/Menu.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayoutResponsive.js",
@@ -417,7 +416,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/Pedido/PedidoGrilla.css",
                 "~/Content/Css/Site/Pedido/PedidoTooltip.css",
                 "~/Content/Css/Site/Landing/producto.landing.css",
-                "~/Content/Css/Site/Pedido/GananciaEstimada.css"
+                "~/Content/Css/Site/Pedido/GananciaEstimada.css",
+                "~/Content/Css/Site/Pedido/ProductosSugeridos.css"
             ));
 
             //Tener en cuenta : se esta usando en pedidoFic.
@@ -448,8 +448,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Pedido/tooltip.js",
                 "~/Scripts/PortalConsultoras/ProductoRecomendado/ProductoRecomendadoModule.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
-                "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js",// HD-4200
-                "~/Scripts/PortalConsultoras/Pedido/ActualizarCorreoPedido.js" // HD-4294
+                "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js",
+                "~/Scripts/PortalConsultoras/Pedido/ActualizarCorreoPedido.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/Desktop/PedidoValidado").Include(
@@ -549,8 +549,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/ProductoRecomendado/ProductoRecomendadoModule.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
-                "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js", //HD-4200
-                "~/Scripts/PortalConsultoras/Pedido/ActualizarCorreoPedido.js", // HD-4294
+                "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js",
+                "~/Scripts/PortalConsultoras/Pedido/ActualizarCorreoPedido.js",
                 "~/Scripts/PortalConsultoras/Shared/TogglePanel.js"
             ));
 
@@ -561,12 +561,11 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
-                //"~/Scripts/PortalConsultoras/EstrategiaAgregar/EstrategiaAgregar.js",
                 "~/Scripts/PortalConsultoras/Pedido/tooltip.js",
                 "~/Scripts/PortalConsultoras/EstrategiaAgregar/PedidoRegistro.js",
                 "~/Scripts/PortalConsultoras/Pedido/KitNuevas.js",
-                "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js", //HD-4200
-                "~/Scripts/PortalConsultoras/Pedido/ActualizarCorreoPedido.js", // HD-4294
+                "~/Scripts/PortalConsultoras/Pedido/SuscripcionSE.js",
+                "~/Scripts/PortalConsultoras/Pedido/ActualizarCorreoPedido.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js"
             ));
 
@@ -633,7 +632,6 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Descargables.js"
-            //"~/Scripts/PortalConsultoras/EstrategiaPersonalizada/BannerInteractivo.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Desktop/Ofertas").Include(
@@ -668,7 +666,6 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js",
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/CajaProducto.js"
-            //"~/Scripts/PortalConsultoras/EstrategiaPersonalizada/BannerInteractivo.js"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/Ofertas").Include(
@@ -687,7 +684,8 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Mobile/ProductoListado/CajaProducto.css",
                 "~/Content/Css/Mobile/Pedido/PedidoGrilla.css",
                 "~/Content/Css/Mobile/Pedido/EditarProductoFicha.css",
-                "~/Content/Css/Site/Pedido/GananciaEstimada.css"
+                "~/Content/Css/Site/Pedido/GananciaEstimada.css",
+                "~/Content/Css/Site/Pedido/ProductosSugeridos.css"
             ));
 
             bundles.Add(new StyleBundle("~/Bundle/Css/Mobile/PedidoDetalle").Include(
@@ -1116,17 +1114,18 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/General.js"
             ));
 
-
             #region CaminoBrillante
             bundles.Add(new StyleBundle("~/Bundle/Css/CaminoBrillante").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/CaminoBrillante/css/estilos.css",
                 "~/Scripts/owl.carousel.2.0.0-beta.2.4/assets/owl.carousel.css"));
 
-
             bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante").Include(
+                "~/Scripts/General.js",
                 "~/Scripts/owl.carousel.js",
-                "~/Scripts/PortalConsultoras/CaminoBrillante/index.js"
+                "~/Scripts/chartjs.js",
+                "~/Scripts/PortalConsultoras/CaminoBrillante/index.js",
+                "~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante/logros").Include(
@@ -1134,12 +1133,14 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/CaminoBrillante/ofertas").Include(
                 "~/Scripts/PortalConsultoras/Cliente/Index.js",
-                "~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js"));
+                "~/Scripts/PortalConsultoras/CaminoBrillante/Ofertas.js",
+                 "~/Scripts/PortalConsultoras/Shared/AnalyticsPortal.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaUrls.js"
+                ));
 
             bundles.Add(new ScriptBundle("~/Bundle/Js/bootstrap").Include(
                "~/Scripts/bootstrap.js"));
-
-
             #endregion
             #region ArmaTuPack
 

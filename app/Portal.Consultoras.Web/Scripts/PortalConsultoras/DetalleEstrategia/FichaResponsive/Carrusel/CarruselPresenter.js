@@ -57,7 +57,7 @@ class CarruselPresenter {
                         }
                     }
 
-                    thisReference.view.reorderFichaCarrusel(thisReference.model);
+                    //thisReference.view.reorderFichaCarrusel(thisReference.model);
                 }
             });
         } else {
@@ -67,7 +67,7 @@ class CarruselPresenter {
                 if (data.lista.length > 0) {
                     $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
                     this.view.crearPlantilla(data, this.obtenerTitulo());
-                    this.view.reorderFichaCarrusel(this.model);
+                    //this.view.reorderFichaCarrusel(this.model);
                 }
             }
             else {
@@ -84,7 +84,7 @@ class CarruselPresenter {
                         data.lista = response.result;
                         $.each(data.lista, function (i, item) { item.Posicion = i + 1; });
                         thisReference.view.crearPlantilla(data, thisReference.obtenerTitulo());
-                        thisReference.view.reorderFichaCarrusel(thisReference.model);
+                        //thisReference.view.reorderFichaCarrusel(thisReference.model);
                     }
                 });
             }
@@ -165,9 +165,13 @@ class CarruselPresenter {
         } else {
             if (this.model.palanca === ConstantesModule.TipoEstrategiaTexto.OfertaDelDia) {
                 titulo = "Ver más ofertas ¡Solo Hoy!";
-            } else {
+            }
+            else if (this.model.palanca === ConstantesModule.TipoEstrategiaTexto.Lanzamiento) {
+                titulo = "Ofertas que contienen este nuevo producto";
+            }
+            else if (this.model.mostrarUpselling) {
                 if (this.model.productosHermanos.length > 1) {
-                    titulo = "Packs parecidos con más productos";
+                    titulo = "Ofertas con alguno de estos productos";
                 } else {
                     let componenteInicial = {};
                     if (this.model.productosHermanos.length === 1) {
@@ -176,9 +180,12 @@ class CarruselPresenter {
                     if (componenteInicial.FactorCuadre * componenteInicial.Cantidad === 1) {
                         titulo = `Packs que contienen <span style="text-transform:capitalize">${this.model.tituloCarrusel.toLowerCase()}</span>`;
                     } else {
-                        titulo = "Packs parecidos con más productos";
+                        titulo = "Ofertas con alguno de estos productos";
                     }
                 }
+            }
+            else {
+                titulo = "Ver más sets exclusivos para ti";
             }
         }
         return titulo;

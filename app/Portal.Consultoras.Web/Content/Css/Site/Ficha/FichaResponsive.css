@@ -567,6 +567,14 @@ ul.breadcumbs li a {
 } */
 /* FIn ubicación del carrucel*/
 
+@media screen and (max-width:991px){
+
+    .btn_chat_messenger {
+        display: none !important;
+    }
+
+}
+
 @media (min-width: 960px) {
     .contenedor_etiqueta_odd .clock_odd {
         margin: 0;
@@ -591,35 +599,6 @@ ul.breadcumbs li a {
         margin-bottom: 54px;
     }
 
-    /*UpSelling*/
-    .carousel_ficha .slick-arrow {
-        display:none !important;
-    }
-
-    .img_producto img{
-        width: 100%;
-        height: auto;
-        margin-bottom: 0px;
-    }
-    .precio_normal{
-        display: none;
-    }
-
-    .caja_vertical {
-        /*max-width: 195px;*/
-        width: 250px !important;
-    }
-
-    .caja_horizontal {
-        /*max-width: 410px;*/
-        width: 250px !important;
-    }
-
-    .titulo_producto {
-        font-size: 14px;
-    }
-
-    /*Fin UpSelling*/
     .reloj_mobile {
         display: block !important;
     }
@@ -629,7 +608,6 @@ ul.breadcumbs li a {
     }
 
     .contenedor_detalle {
-        /*background: url('/Content/Images/etiqueta_nuevo.svg');*/
         background-position: top right;
         background-repeat: no-repeat;
         background-size: 60px;
@@ -668,7 +646,7 @@ ul.breadcumbs li a {
     .ficha_detalle {
         padding: 0 15px !important;
         margin-top: 30px; /* Modificado para el carrusel de imagenes responsive - tesla */
-        background: none;
+        background-image: none;
     }
 
     .detalle_producto_detalle {
@@ -724,6 +702,7 @@ ul.breadcumbs li a {
         border: none;
         box-shadow: 0 -1px 5px 0 rgba(0, 0, 0, 0.1);
     }
+
 }
 
 .ui-dialog.ui-widget-content {
