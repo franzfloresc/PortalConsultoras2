@@ -19,11 +19,11 @@
 
     var _showPopupFichaEnriquecida = function (grupo, cuv) {
         var _estrategia = _estrategiaModel();
-        var _componente = _estrategia.Hermanos.filter(function(hermano){
+        var _componente = _estrategia.Hermanos.filter(function (hermano) {
             return hermano.Grupo === grupo && hermano.Cuv === cuv;
         })[0];
 
-        if(_componente === undefined) throw("componente doesn't exist.");
+        if (_componente === undefined) throw ("componente doesn't exist.");
 
         _config.fichaEnriquecidaView.showPopup(_componente);
 
@@ -41,9 +41,17 @@
 
         var model = _estrategiaModel();
 
-        if (model.MostrarFichaEnriquecida &&
-            model.MostarTabsFichaEnriquecidaSinDetalle &&
-            !_config.fichaEnriquecidaView.renderFichaEnriquecida(model.Hermanos[0], false)) throw "fichaEnriquecidaView don't render ficha enriquecida.";
+        if (
+            model.MostrarFichaEnriquecida &&
+            model.MostarTabsFichaEnriquecidaSinDetalle
+        ) {
+            var componente1 = model.Hermanos[0];
+            componente1.Secciones = componente1.Secciones || [];
+            var valorx = !_config.fichaEnriquecidaView.renderFichaEnriquecida(componente1, false);
+            if (valorx) {
+                throw "fichaEnriquecidaView don't render ficha enriquecida.";
+            }
+        }
 
         return true;
     }
