@@ -177,7 +177,7 @@ function MostrarSecciones() {
     $("#boxganancias").show();
     $("#progress-b").show();
     $("#carrusel").show();
-    $("#cont-logros").show();
+    $(".bglogros").show();
     $('.tab-content').removeClass('current');
     $(".urlImagenActiva").hide();
 
@@ -520,7 +520,7 @@ function MostrarBeneficios(tab_id, codigoNivel, urlImagenActiva) {
     $("#boxganancias").hide();
     $("#progress-b").hide();
     $("#carrusel").hide();
-    $("#cont-logros").hide();
+    $(".bglogros").hide();
 
     $('.tab-content').removeClass('current');
     $("#" + tab_id).addClass('current');

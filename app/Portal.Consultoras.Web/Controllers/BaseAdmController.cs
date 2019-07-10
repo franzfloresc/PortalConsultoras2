@@ -1,10 +1,13 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.Providers;
+using Portal.Consultoras.Web.ServiceUsuario;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using static Portal.Consultoras.Web.Models.CaminoBrillante.NivelCaminoBrillanteModel;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -13,11 +16,13 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public readonly ZonificacionProvider _zonificacionProvider;
         protected readonly AdministrarEstrategiaProvider administrarEstrategiaProvider;
+        protected readonly CaminoBrillanteProvider _caminoBrillanteProvider;
 
         public BaseAdmController()
         {
             _zonificacionProvider = new ZonificacionProvider();
             administrarEstrategiaProvider = new AdministrarEstrategiaProvider();
+            _caminoBrillanteProvider = new CaminoBrillanteProvider();
         }
 
         public IEnumerable<PaisModel> DropDowListPaises(int rolId = 0)
@@ -148,5 +153,17 @@ namespace Portal.Consultoras.Web.Controllers
                 lstRegion = lstRegiones.OrderBy(p => p.Codigo),
             }, JsonRequestBehavior.AllowGet);
         }
+        #region CaminoBrillante
+        public IEnumerable<NivelCaminoBrillanteModel> DropDowListNivelesCaminoBrillante()
+        {
+            return _caminoBrillanteProvider.GetListaNiveles();
+        }
+
+        public List<BeneficioCaminoBrillanteModel> GetListaBeneficiosByNivel(int paisID, string codigoNivel)
+        {
+            return _caminoBrillanteProvider.GetListaBeneficiosByNivel(paisID, codigoNivel);
+        }
+        #endregion
+
     }
 }

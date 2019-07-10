@@ -63,7 +63,6 @@
     <Compile Include="BEBuscadorYFiltros.cs" />
     <Compile Include="BEContenidoAppDetaAct.cs" />
     <Compile Include="BEContenidoAppHistoria.cs" />
-    <Compile Include="BEBeneficiosCaminoBrillante.cs" />
     <Compile Include="BEContenidoAppDetalle.cs" />
     <Compile Include="BEContenidoAppDeta.cs" />
     <Compile Include="BEContenidoAppList.cs" />

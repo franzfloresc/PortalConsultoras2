@@ -613,7 +613,7 @@ div .owl-carousel .owl-stage-outer {
     margin: 30px auto;
     margin-bottom:0;
     display: block;
-    max-width: 700px;
+    max-width: 730px;
     width: 100%;
 }
     .cent-mant .etiq-mant, .cent-mant .etiq-falta {
@@ -2343,6 +2343,7 @@ div .ficha__producto__precio__normal {
         text-decoration: none;
         overflow: inherit;
         background: #000;
+        font-size:16px;
     }
 
 .img-log {
@@ -3508,62 +3509,6 @@ div .ficha__producto__precio__normal {
         display: inline-block;
     }
 
-    .bglogros {
-        width: 100%;
-        max-width: 1250px;
-        margin: 35px auto;
-    }
-
-    .banner-logros {
-        background: #f9f9f9 url(/Content/CaminoBrillante/imgs/bannerlogros.png) no-repeat left center;
-        width: 100%;
-        height: 330px;
-        position: relative;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.3);
-        margin: 50px auto;
-    }
-
-    .right-banner {
-        position: absolute;
-        right: 18%;
-        top: 0;
-        height: 158px;
-        bottom: 0;
-        margin: auto;
-    }
-
-        .right-banner h2 {
-            font-size: 32px;
-            display: block;
-            font-weight: bold;
-        }
-
-        .right-banner p {
-            font-size: 20px;
-            display: block;
-            width: 210px;
-            margin-bottom: 18px;
-            margin-top: 10px;
-            line-height: 22px;
-        }
-
-        .right-banner a {
-            display: block;
-            color: #fff !important;
-            border-radius: 5px;
-            border: 0;
-            padding: 12px 20px;
-            max-width: 175px;
-            text-align: center;
-            margin-top: 10px;
-            text-decoration: none;
-            overflow: inherit;
-            background: #000;
-        }
-
-    .img-log {
-        display: none;
-    }
 
     @media only screen and (max-width: 900px) and (min-width: 521px) {
         .right-banner {
