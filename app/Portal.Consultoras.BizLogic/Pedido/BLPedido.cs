@@ -1701,7 +1701,6 @@ namespace Portal.Consultoras.BizLogic.Pedido
                                                         x.EsElecMultipleNuevas,
                                                         x.EsPremioElectivo,
                                                         x.EsCuponIndependiente,
-                                                        null,
                                                         x.EsKitCaminoBrillante || x.EsDemCaminoBrillante);
 
                         var lstCatalogos = Util.GetCodigosCatalogo();
