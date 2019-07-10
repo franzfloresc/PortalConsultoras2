@@ -2626,7 +2626,7 @@ namespace Portal.Consultoras.BizLogic
                         bePedidoWeb.STPDescuento = result.totalDesc;
                         bePedidoWeb.STPPagoTotalSinDeuda = result.totalPaga;
                         bePedidoWeb.STPDeudaLog = result.deuda;
-                        bePedidoWeb.STPDeuda = (result.deuda == "") ? 0 : Convert.ToDouble(result.deuda.Replace(",",""));
+                        bePedidoWeb.STPDeuda = (string.IsNullOrEmpty(result.deuda)) ? 0 : Convert.ToDouble(result.deuda.Replace(",",""));
                         bePedidoWeb.STPPagoTotal = bePedidoWeb.STPPagoTotalSinDeuda + bePedidoWeb.STPDeuda;
                         bePedidoWeb.STPGastTransporte = result.totalFlet;
                     }
@@ -2659,7 +2659,7 @@ namespace Portal.Consultoras.BizLogic
             }
 
             obj = obj?? UpdPedidoTotalPagoContado(bePedidoWeb);
-            obj.STPDeuda = (obj.STPDeudaLog == "") ? 0 : Convert.ToDouble(obj.STPDeudaLog.Replace(",", ""));
+            obj.STPDeuda = (string.IsNullOrEmpty(obj.STPDeudaLog)) ? 0 : Convert.ToDouble(obj.STPDeudaLog.Replace(",", ""));
             obj.STPTotalPagar = obj.STPPagoTotalSinDeuda + obj.STPDeuda;
 
 
