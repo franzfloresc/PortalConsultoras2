@@ -516,6 +516,13 @@ namespace Portal.Consultoras.Web.Controllers
                             ConsTablaLogica.FlagFuncional.FichaResponsive,
                             true
                             );
+
+            modelo.MostrarUpselling = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            userData.PaisID,
+                            ConsTablaLogica.ConfiguracionesFicha.TablaLogicaId,
+                            ConsTablaLogica.ConfiguracionesFicha.FuncionalidadUpSelling,
+                            true
+                            );
             return modelo;
         }
 
