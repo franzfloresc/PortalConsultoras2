@@ -201,26 +201,6 @@ input.field__checkbox__sb{
                 animation-timing-function:cubic-bezier(0.45, 0.25, 0.60, 0.95);
             }
 
-                .encuesta__satisfaccion__estado--pesimo{
-                    animation-delay:2.4s;
-                }
-
-                .encuesta__satisfaccion__estado--malo{
-                    animation-delay:2.5s;
-                }
-
-                .encuesta__satisfaccion__estado--regular{
-                    animation-delay:2.6s;
-                }
-
-                .encuesta__satisfaccion__estado--bueno{
-                    animation-delay:2.7s;
-                }
-
-                .encuesta__satisfaccion__estado--excelente{
-                    animation-delay:2.8s;
-                }
-
             @keyframes mostrarEstadosEncuesta {
                 0% {
                     bottom: -80px;
@@ -287,7 +267,6 @@ input.field__checkbox__sb{
 
                 .encuesta__satisfaccion__disabled{
                     opacity:0.4;
-                    pointer-events:none;
                 }
 
                 .encuesta__satisfaccion__estado__imagen{
@@ -318,7 +297,7 @@ input.field__checkbox__sb{
 
         .seccion__encuesta__satisfaccion__motivosCalificacion--mostrar{
             animation-name: mostrarMotivosCalificacion;
-            animation-delay: 0.28s;
+            animation-delay: 0.2s;
             animation-duration: 0.3s;
             animation-iteration-count:1;
             animation-timing-function:cubic-bezier(0.45, 0.25, 0.60, 0.95);
@@ -398,7 +377,8 @@ input.field__checkbox__sb{
         margin-top:42px;
     }
 
-    .encuesta__satisfaccion__agradecimiento__wrapper{
+    .encuesta__satisfaccion__agradecimiento__wrapper,
+    .btn__sb--confirmar{
         display:none;
     }
 
@@ -434,9 +414,96 @@ input.field__checkbox__sb{
         position: fixed;
         top: 0;
         left: 0;
-        width:100%;
-        height:100%;
+        width: 100%;
+        height: 100%;
     }
+
+        .bg__popup__encuestaSatisfaccion__desktop--mostrar{
+            display:flex;
+        }
+
+        .seccion__encuesta__satisfaccion--mostrar {
+            opacity: 0;
+            top:-60px;
+        }
+
+            .bg__popup__encuestaSatisfaccion__desktop--mostrar .seccion__encuesta__satisfaccion--mostrar{
+                animation-name:mostrarEncuestaSatisfaccionDesktop;
+                animation-iteration-count:1;
+                animation-delay: 0.5s;
+                animation-duration: 0.3s;
+                animation-timing-function:cubic-bezier(0.45, 0.25, 0.60, 0.95);
+                animation-play-state:running;
+                animation-fill-mode: forwards;
+            }
+
+            @keyframes mostrarEncuestaSatisfaccionDesktop {
+                0% {
+                    top:-60px;
+                    opacity: 0;
+                }
+
+                100% {
+                    top: 0;
+                    opacity: 1;
+                }
+            }
+
+            @-moz-keyframes mostrarEncuestaSatisfaccionDesktop {
+                0% {
+                    top: -60px;
+                    opacity: 0;
+                }
+
+                100% {
+                    top: 0;
+                    opacity: 1;
+                }
+            }
+
+            @-o-keyframes mostrarEncuestaSatisfaccionDesktop {
+                0% {
+                    top: -60px;
+                    opacity: 0;
+                }
+
+                100% {
+                    top: 0;
+                    opacity: 1;
+                }
+            }
+
+            @-webkit-keyframes mostrarEncuestaSatisfaccionDesktop {
+                0% {
+                    top: -60px;
+                    opacity: 0;
+                }
+
+                100% {
+                    top: 0;
+                    opacity: 1;
+                }
+            }
+
+            .encuesta__satisfaccion__estado--pesimo{
+                animation-delay:0.7s;
+            }
+
+            .encuesta__satisfaccion__estado--malo{
+                animation-delay:0.8s;
+            }
+
+            .encuesta__satisfaccion__estado--regular{
+                animation-delay:0.9s;
+            }
+
+            .encuesta__satisfaccion__estado--bueno{
+                animation-delay:1s;
+            }
+
+            .encuesta__satisfaccion__estado--excelente{
+                animation-delay:1.1s;
+            }
 
         .motivo__adicional__otro{
             margin-top:0!important;
@@ -464,7 +531,7 @@ input.field__checkbox__sb{
     }
 
         .seccion__encuesta__satisfaccion--mostrar{
-            animation-name: mostrarEncuestaSatisfaccion;
+            animation-name: mostrarEncuestaSatisfaccionMobile;
             animation-iteration-count:1;
             animation-delay: 2s;
             animation-duration: 0.3s;
@@ -474,7 +541,7 @@ input.field__checkbox__sb{
         }
 
         .seccion__encuesta__satisfaccion--ocultar{
-            animation-name: ocultarEncuestaSatisfaccion;
+            animation-name: ocultarEncuestaSatisfaccionMobile;
             animation-iteration-count:1;
             animation-duration: 0.3s;
             animation-timing-function:cubic-bezier(0.45, 0.25, 0.60, 0.95);
@@ -482,7 +549,7 @@ input.field__checkbox__sb{
             animation-fill-mode:forwards;
         }
 
-    @keyframes mostrarEncuestaSatisfaccion {
+    @keyframes mostrarEncuestaSatisfaccionMobile {
         0% {
             bottom: -138px;
             opacity: 0;
@@ -494,7 +561,7 @@ input.field__checkbox__sb{
         }
     }
 
-    @-moz-keyframes mostrarEncuestaSatisfaccion {
+    @-moz-keyframes mostrarEncuestaSatisfaccionMobile {
         0% {
             bottom: -138px;
             opacity: 0;
@@ -506,7 +573,7 @@ input.field__checkbox__sb{
         }
     }
 
-    @-o-keyframes mostrarEncuestaSatisfaccion {
+    @-o-keyframes mostrarEncuestaSatisfaccionMobile {
         0% {
             bottom: -138px;
             opacity: 0;
@@ -518,7 +585,7 @@ input.field__checkbox__sb{
         }
     }
 
-    @-webkit-keyframes mostrarEncuestaSatisfaccion {
+    @-webkit-keyframes mostrarEncuestaSatisfaccionMobile {
         0% {
             bottom: -138px;
             opacity: 0;
@@ -530,7 +597,7 @@ input.field__checkbox__sb{
         }
     }
 
-    @keyframes ocultarEncuestaSatisfaccion {
+    @keyframes ocultarEncuestaSatisfaccionMobile {
         0% {
             bottom: 0;
             opacity: 1;
@@ -542,7 +609,7 @@ input.field__checkbox__sb{
         }
     }
 
-    @-moz-keyframes ocultarEncuestaSatisfaccion {
+    @-moz-keyframes ocultarEncuestaSatisfaccionMobile {
         0% {
             bottom: 0;
             opacity: 1;
@@ -554,7 +621,7 @@ input.field__checkbox__sb{
         }
     }
 
-    @-o-keyframes ocultarEncuestaSatisfaccion {
+    @-o-keyframes ocultarEncuestaSatisfaccionMobile {
         0% {
             bottom: 0;
             opacity: 1;
@@ -566,7 +633,7 @@ input.field__checkbox__sb{
         }
     }
 
-    @-webkit-keyframes ocultarEncuestaSatisfaccion {
+    @-webkit-keyframes ocultarEncuestaSatisfaccionMobile {
         0% {
             bottom: 0;
             opacity: 1;
@@ -581,6 +648,26 @@ input.field__checkbox__sb{
         .seccion__encuesta__satisfaccion.seccion__encuesta__satisfaccion__expandir {
             height: 100vh;
         }
+
+            .encuesta__satisfaccion__estado--pesimo{
+                animation-delay:2.4s;
+            }
+
+            .encuesta__satisfaccion__estado--malo{
+                animation-delay:2.5s;
+            }
+
+            .encuesta__satisfaccion__estado--regular{
+                animation-delay:2.6s;
+            }
+
+            .encuesta__satisfaccion__estado--bueno{
+                animation-delay:2.7s;
+            }
+
+            .encuesta__satisfaccion__estado--excelente{
+                animation-delay:2.8s;
+            }
 
         .btn__sb--confirmar {
             width: 92%;
