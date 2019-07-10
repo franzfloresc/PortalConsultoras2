@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
+using static Portal.Consultoras.Web.Models.CaminoBrillante.NivelCaminoBrillanteModel;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -28,8 +29,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var lst = Consulta == "1" ? GetListaBeneficiosByNivel(paisID, CodigoNivel) : new List<BEBeneficioCaminoBrillante>();
-                lst = lst ?? new List<BEBeneficioCaminoBrillante>();
+                var lst = Consulta == "1" ? GetListaBeneficiosByNivel(paisID, CodigoNivel) : new List<BeneficioCaminoBrillanteModel>();
+                lst = lst ?? new List<BeneficioCaminoBrillanteModel>();
 
                 //if (lst.Count > 0)
                 //{
@@ -44,7 +45,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SortColumn = sidx,
                     SortOrder = sord
                 };
-                IEnumerable<BEBeneficioCaminoBrillante> items = lst;
+                IEnumerable<BeneficioCaminoBrillanteModel> items = lst;
 
                 #region Sort Section
                 //if (sord == "asc")
@@ -88,11 +89,12 @@ namespace Portal.Consultoras.Web.Controllers
                                id = a.CodigoBeneficio,
                                cell = new string[]
                                {
+                                   a.CodigoBeneficio,
                                    a.Registro.ToString(),
                                    a.NombreBeneficio,
                                    a.Descripcion,
                                    a.Orden.ToString(),
-                                   a.Icono
+                                   a.UrlIcono
                                    //a.Orden.ToString(),
                                    //a.ImagenEstrategia,
                                    //a.OfertaID,

@@ -17,6 +17,8 @@
                 return false;
             }
             $.ajaxSetup({ cache: false });
+            var _ddlNivel = $("#ddlNivel").val();
+            $("#ddlNivelModal").val(_ddlNivel);
             $("#chkNueva").attr("checked", false);
             $("#chkRecoProduc").attr("checked", false);
             $("#chkRecoPerfil").attr("checked", false);
@@ -67,6 +69,7 @@
     });
 
     function fnGrilla() {
+        
         jQuery("#list").jqGrid({
             url: baseUrl + "CaminoBrillanteAdministrar/Consultar",
             hidegrid: false,
@@ -80,13 +83,14 @@
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
             //colNames: ['TipoEstrategiaID', 'Código de Estrategia', 'Tipo de Estrategia', 'Ofertas', 'Orden', 'Imagen', 'OfertaID', 'Acción', '', '', '', 'CodigoPrograma', 'FlagMostrarImg', 'MostrarImgOfertaIndependiente', 'ImagenOfertaIndependiente', 'FlagValidarImagen', 'PesoMaximoImagen'],
-            colNames: ['Nro', 'Nombre Beneficio', 'Descripción', 'Orden', 'Icono', 'Opcion'],
+            colNames: ['Codigo Beneficio', 'Nro', 'Nombre Beneficio', 'Descripción', 'Orden', 'Icono', 'Opcion'],
             colModel: [
-                { name: 'Registro', index: 'Registro', width: 20, editable: true, resizable: false},
+                { name: 'CodigoBeneficio', index: 'CodigoBeneficio', width: 20, editable: true, resizable: false, hidden: true },
+                { name: 'Registro', index: 'Registro', width: 20, editable: true, resizable: false },
                 { name: 'NombreBeneficio', index: 'NombreBeneficio', width: 230, editable: true, resizable: false},
                 { name: 'Descripcion', index: 'Descripcion', width: 230, editable: true, resizable: false},
                 { name: 'Orden', index: 'Orden', width: 35, editable: true, align: 'center', hidden: false, formatter: true },
-                { name: 'Icono', index: 'Icono', width: 35, editable: true, align: 'center', resizable: true },
+                { name: 'UrlIcono', index: 'UrlIcono', width: 70, editable: true, resizable: false, sortable: false, align: 'center', formatter: ShowImage },
                 { name: 'Opcion', index: 'Opcion', width: 70, editable: true, resizable: false, sortable: true, align: 'center', formatter: ShowActions },
                 //{ name: 'OfertaID', index: 'OfertaID', width: 0, editable: true, resizable: false, hidden: true },
                 //{ name: 'FlagActivo', index: 'FlagActivo', width: 40, align: 'center', editable: true, resizable: false, formatter: ShowActions },
@@ -141,7 +145,7 @@
             closeOnEscape: true,
             width: 805,
             draggable: true,
-            title: "Registro de Tipo de Estrategias",
+            title: "Registro de Beneficios",
             buttons:
             {
                 "Guardar": function () {
@@ -309,6 +313,64 @@
         return image;
     }
 
+    function fnGrillaOfertas(id) {
+        $("#listaOfertas").jqGrid("GridUnload");
+        var url = "AdministrarTipoEstrategia/ConsultarOfertas/" + id
+        jQuery("#listaOfertas").jqGrid({
+            url: baseUrl + url,
+            hidegrid: false,
+            datatype: 'json',
+            mtype: 'GET',
+            contentType: "application/json; charset=utf-8",
+            colNames: ['', 'Codigo', 'Descripción', ''],
+            colModel: [
+                { name: 'OfertaID', index: 'OfertaID', width: 10, editable: true, resizable: false, hidden: false, formatter: ShowChecks },
+                { name: 'CodigoOferta', index: 'CodigoOferta', width: 30, editable: true, resizable: false, hidden: false },
+                { name: 'DescripcionOferta', index: 'DescripcionOferta', width: 200, editable: true, hidden: false },
+                { name: 'AccionOferta', index: 'AccionOferta', width: 30, editable: true, hidden: false, formatter: ShowActionsOferta }
+            ],
+            jsonReader:
+            {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: true,
+                cell: "cell",
+                id: "id"
+            },
+            pager: jQuery('#pagerOferta'),
+            loadtext: 'Cargando datos...',
+            recordtext: "",
+            emptyrecords: 'No hay resultados',
+            rowNum: 10,
+            scrollOffset: 0,
+            rowList: [],
+            sortname: 'Descripcion',
+            sortorder: 'asc',
+            viewrecords: true,
+            multiselect: false,
+            height: 'auto',
+            width: 625,
+            pgtext: '',
+            altRows: true,
+            altclass: 'jQGridAltRowClass',
+            loadComplete: function () { },
+            gridComplete: function () {
+                $("#listaOfertas input[type='checkbox']").each(function () {
+                    var valor = $(this).attr("value");
+                    var contenedor = $("#hdofertas").val();
+                    var n = contenedor.lastIndexOf(valor);
+                    if (n > -1) {
+                        $(this).attr("checked", true)
+                    }
+                });
+            }
+        });
+        jQuery("#listaOfertas").jqGrid('navGrid', "#pagerOferta", { edit: false, add: false, refresh: false, del: false, search: false });
+        jQuery("#listaOfertas").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+    }
+
     function ShowActions(cellvalue, options, rowObject) {
         var cellValueInt = parseInt(cellvalue);
         var Des = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Editar('"
@@ -331,6 +393,128 @@
         Des += "&nbsp;&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[0] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Mensaje' title='Eliminar Mensaje' border='0' /></a>";
         return Des;
     }
+
+    $.jgrid.extend({
+        Editar: function (id, codigo, descripcion, orden, imagen, ofertas, flagactivo, codigoPrograma, flagMostrarImg, MostrarImgOfertaIndependiente, ImagenOfertaIndependiente, flagValidarImagen, pesoMaximoImagen) {
+            if (id) {
+                $("#txtPaisModal").val($("#ddlPais option:selected").html());
+                $("#hdPais").val($("#ddlPais").val());
+                $("#txCodigoOriginalModal").val(codigo)
+                $("#txtDescripcionOriginalModal").val(descripcion);
+                $("#txtOrden").val(orden);
+                $("#txtPaisOferta").val($("#ddlPais option:selected").html());
+                var img = $($("#list").jqGrid('getCell', id, 'UrlIcono')).attr('src');
+                
+                $('#img01').attr('src', img);
+                img = img.replace(/^.*[\\\/]/, '');
+
+                if (img.length > 0) {
+                    $('#imagenProducto01').val(img);
+                    $('#imagenProductoAnterior01').val(img);
+                }
+
+                //var imgOfertaIndependiente = $($("#list").jqGrid('getCell', id, 'ImagenOfertaIndependiente')).attr('src');
+                //$('#imgOfertaIndependiente').attr('src', imgOfertaIndependiente);
+
+                //imgOfertaIndependiente = imgOfertaIndependiente.replace(/^.*[\\\/]/, '');
+
+
+
+                var flagValidarImagen = jQuery("#list").jqGrid('getCell', id, 'FlagValidarImagen');
+                $("#chkValImg").attr("checked", (flagValidarImagen == "1"));
+
+                $("#txtPesoMaximoImagen").val(pesoMaximoImagen);
+
+
+
+                //if (imgOfertaIndependiente.length > 0) {
+                //    $('#hdImagenOfertaIndependiente').val(imgOfertaIndependiente);
+                //    $('#hdImagenOfertaIndependienteAnterior').val(imgOfertaIndependiente);
+                //}
+
+                var flagNueva = jQuery("#list").jqGrid('getCell', id, 'FlagNueva');
+                var flagRecoProduc = jQuery("#list").jqGrid('getCell', id, 'FlagRecoProduc');
+                var flagRecoPerfil = jQuery("#list").jqGrid('getCell', id, 'FlagRecoPerfil');
+                var flagImagenOfertaIndependiente = jQuery("#list").jqGrid('getCell', id, 'MostrarImgOfertaIndependiente');
+
+
+                $('#chkNueva').attr("checked", (flagNueva == "1"));
+                $('#chkRecoProduc').attr("checked", (flagRecoProduc == "1"));
+                $('#chkRecoPerfil').attr("checked", (flagRecoPerfil == "1"));
+                $('#chkMostrarImgIndependiente').attr("checked", (flagImagenOfertaIndependiente == "1"));
+
+                $("#hdTipoEstrategiaID").val(id);
+                $("#hdofertas").val(ofertas + ',');
+
+                if (flagactivo == "1") {
+                    $("#chkActivo").attr("checked", true);
+                }
+                $("#txtCodigoPrograma").prop('disabled', true);
+                $("#txtCodigoPrograma").val(codigoPrograma);
+
+                if (flagMostrarImg == "1") {
+                    $("#chkMostrarImg").attr("checked", true);
+                }
+                else {
+                    $("#chkMostrarImg").attr("checked", false);
+                }
+                if (flagNueva == "1") {
+                    $(".divOfertaIndependiente").show();
+                } else {
+                    $(".divOfertaIndependiente").hide();
+                }
+
+                if (flagValidarImagen == "1") {
+                    $("#txtPesoMaximoImagen").prop('disabled', false);
+                } else {
+                    $("#txtPesoMaximoImagen").prop('disabled', true);
+                }
+
+                //fnGrillaOfertas(id);
+
+                showDialog("DialogAdministracionTipoEstrategia");
+            } else {
+                alert("No selecciono el Cliente");
+            }
+            return false;
+        },
+        Eliminar: function (Id) {
+            var paisID = $("#hdPais").val();
+
+            var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado?');
+            if (!elimina)
+                return false;
+
+            waitingDialog({});
+
+            jQuery.ajax({
+                type: 'POST',
+                url: baseUrl + 'AdministrarTipoEstrategia/Eliminar',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ PaisID: paisID, TipoEstrategiaID: Id }),
+                async: true,
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                        if (data.success == true) {
+                            alert(data.message);
+                            jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+                        }
+                        else
+                            alert(data.message);
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        closeWaitingDialog();
+                    }
+                }
+            });
+
+            return false;
+        }
+    });
 </script>
 
 <input type="hidden" id="hdTipoConsulta" value="0" />
@@ -378,82 +562,43 @@
             <div class="selectP2 borde_redondeado">
                 <input type="text" id="txtPaisModal" readonly="readonly" />
             </div>
+            @*<div class="titB">Nivel:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="ddlNivelModal" />
+            </div>*@
+            <div class="titA">Nivel:</div>
+            <div class="selectA borde_redondeado">
+                @Html.DropDownListFor(model => model.CodigoNivel, new SelectList(Model.listaNiveles, "CodigoNivel", "DescripcionNivel"), "-- Seleccionar --", new { id = "ddlNivelModal" })
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titB">Nombre Beneficio:</div>
+            <div class="selectP2 borde_redondeado">
+                <input type="text" id="txtNombreBeneficioModal" />
+            </div>
+        </div>
+        <div class="div-3">
+            <div class="titB">Descripción Beneficio:</div>
+            <div class="selectP2 borde_redondeado" style="width:535px">
+                <input type="text" id="txtDescripcionModal" style="width:100%" />
+            </div>
+        </div>
+        <div class="div-3">
             <div class="titB">Orden:</div>
             <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtOrden" />
+                <input type="text" id="txtordenModal" />
             </div>
         </div>
         <div class="div-3">
-            <div class="titB">Código:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txCodigoOriginalModal" />
-            </div>
             <div class="titB">Activo:</div>
             <div class="selectCheck borde_redondeado">
-                <input type="checkbox" id="chkActivo" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titB">Descripción:</div>
-            <div class="selectP2 borde_redondeado" style="width:535px">
-                <input type="text" id="txtDescripcionOriginalModal" style="width:100%" />
-            </div>
-        </div>
-        <div class="div-3">
-            <div class="titB">Tipo:</div>
-            <div class="selectE borde_redondeado">
-                <div class="titB">Nueva:</div>
-                <div class="selectCheck borde_redondeado">
-                    <input type="checkbox" id="chkNueva" />
-                </div>
-                <div class="titF">Recomendación por CUV:</div>
-                <div class="selectCheck borde_redondeado">
-                    <input type="checkbox" id="chkRecoProduc" />
-                </div>
-                <div class="titF" style="width:180px">Recomendación por perfil:</div>
-                <div class="selectCheck borde_redondeado">
-                    <input type="checkbox" id="chkRecoPerfil" />
-                </div>
-            </div>
-        </div>
-        <div class="div-3 divCodigoPrograma">
-            <div class="titB">Código Programa:</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="text" id="txtCodigoPrograma" />
-            </div>
-        </div>
-
-        <div class="div-3">
-            <div class="titB">Validar Tamaño :</div>
-            <div class="selectCheck borde_redondeado">
-                <input type="checkbox" id="chkValImg" />
-            </div>
-            <div class="titB">Tamaño (Kb):</div>
-            <div class="selectP2 borde_redondeado">
-                <input type="number" id="txtPesoMaximoImagen" />
-            </div>
-
-        </div>
-
-
-        <div class="div-3">
-            <div class="titA"></div>
-            <div class="titG">
-                <div class="input_search">
-                    <input type="button" name="btnNuevaOferta" id="btnNuevaOferta" value="Ofertas" style="float:right;" />
-                </div>
+                <input type="checkbox" id="chkActivoModal" />
             </div>
         </div>
         <div>
             <div class="float-left">
                 <div class="div-3">
-                    <div class="titB">Mostrar imagen:</div>
-                    <div class="selectCheck borde_redondeado">
-                        <input type="checkbox" id="chkMostrarImg" />
-                    </div>
-                </div>
-                <div class="div-3">
-                    <div class="titB">Imagen:</div>
+                    <div class="titB">Icono:</div>
                     <div class="selectP2 borde_redondeado aligncenter" style="height: 162px;">
                         <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="img01">
                     </div>
@@ -471,7 +616,7 @@
                             <input type="hidden" id="imagenProducto01" />
                             <input type="hidden" id="imagenProductoAnterior01" />
                             <div id="fpUpload01">
-                                @*<script type="text/javascript">
+                                <script type="text/javascript">
                                     $.ajaxSetup({ cache: false });
                                     var uploader = new qq.FileUploader({
                                         allowedExtensions: ['jpg', 'png', 'jpeg'],
@@ -493,64 +638,17 @@
                                         onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
                                         onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
                                     });
-                                        </script>*@
+                                    </script>
                             </div>
                         </div>
                     </div>
 
                 </div>
             </div>
-            <div class="float-left">
-                <div class="div-3 divOfertaIndependiente">
-                    <div class="titB">Imagen Independiente:</div>
-                    <div class="selectCheck borde_redondeado">
-                        <input type="checkbox" id="chkMostrarImgIndependiente" />
-                    </div>
-                </div>
-                <div class="div-3 divOfertaIndependiente" style="display:none;">
-                    <div class="titB">Imagen indep.:</div>
-                    <div class="selectP2 borde_redondeado aligncenter" style="height: 162px;">
-                        <img src='@Url.Content("~/Content/Images/prod_grilla_vacio.png")' id="imgOfertaIndependiente">
-                    </div>
-                </div>
-                <div class="div-3 divOfertaIndependiente" style="display:none;">
-                    <div class="titF">Tamaño de imagen: (Ancho: 62px - Alto: 62px)</div>
-                    <div class="titG" style="width: 180px;">
-                        <div class="input_search">
-                            <input type="hidden" id="hdImagenOfertaIndependiente" />
-                            <input type="hidden" id="hdImagenOfertaIndependienteAnterior" />
-                            <div id="fpUpload02">
-                                @*<script type="text/javascript">
-                                    $.ajaxSetup({ cache: false });
-                                    var uploader = new qq.FileUploader({
-                                        allowedExtensions: ['jpg', 'png', 'jpeg'],
-                                        element: document.getElementById('fpUpload02'),
-                                        action: '@Url.Action("ImageTipoOfertaUpload", "AdministrarTipoEstrategia")',
-                                        onComplete: function (id, fileName, responseJSON) {
-                                            if (checkTimeout(responseJSON)) {
-                                                $(".qq-upload-list").css("display", "none");
-                                                if (responseJSON.success) {
-                                                    $("#hdImagenOfertaIndependiente").val(responseJSON.name);
-                                                    $('#imgOfertaIndependiente').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
-                                                }
-                                                else {
-                                                    alert(responseJSON.message);
-                                                }
-                                            }
-                                        },
-                                        onSubmit: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
-                                        onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-                                        onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
-                                    });
-                                        </script>*@
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
+
 <div id="DialogAdministracionNuevaOferta" style="display: none;">
     <div class="Content_modal">
         <div class="div-3" style="display: none">

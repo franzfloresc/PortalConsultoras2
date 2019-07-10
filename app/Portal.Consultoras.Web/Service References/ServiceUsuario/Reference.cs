@@ -11690,6 +11690,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string DescripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string IconoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -11746,6 +11749,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.DescripcionField, value) != true)) {
                     this.DescripcionField = value;
                     this.RaisePropertyChanged("Descripcion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Estado {
+            get {
+                return this.EstadoField;
+            }
+            set {
+                if ((this.EstadoField.Equals(value) != true)) {
+                    this.EstadoField = value;
+                    this.RaisePropertyChanged("Estado");
                 }
             }
         }
@@ -18255,6 +18271,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetBeneficiosCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/GetBeneficiosCaminoBrillanteResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante[]> GetBeneficiosCaminoBrillanteAsync(int paisID, string codigoNivel);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillanteResponse")]
+        void InsBeneficioCaminoBrillante(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillante", ReplyAction="http://tempuri.org/IUsuarioService/InsBeneficioCaminoBrillanteResponse")]
+        System.Threading.Tasks.Task InsBeneficioCaminoBrillanteAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante entidad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ActualizarValidacionDatos", ReplyAction="http://tempuri.org/IUsuarioService/ActualizarValidacionDatosResponse")]
         int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2);
         
@@ -19359,6 +19381,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante[]> GetBeneficiosCaminoBrillanteAsync(int paisID, string codigoNivel) {
             return base.Channel.GetBeneficiosCaminoBrillanteAsync(paisID, codigoNivel);
+        }
+        
+        public void InsBeneficioCaminoBrillante(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante entidad) {
+            base.Channel.InsBeneficioCaminoBrillante(paisId, entidad);
+        }
+        
+        public System.Threading.Tasks.Task InsBeneficioCaminoBrillanteAsync(int paisId, Portal.Consultoras.Web.ServiceUsuario.BEBeneficioCaminoBrillante entidad) {
+            return base.Channel.InsBeneficioCaminoBrillanteAsync(paisId, entidad);
         }
         
         public int ActualizarValidacionDatos(bool isMobile, string ipDispositivo, string codigoConsultora, int PaisID, string CodigoUsuario, string tipoEnvio1, string tipoEnvio2) {

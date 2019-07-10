@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using static Portal.Consultoras.Web.Models.CaminoBrillante.NivelCaminoBrillanteModel;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -158,7 +159,7 @@ namespace Portal.Consultoras.Web.Controllers
             return _caminoBrillanteProvider.GetListaNiveles();
         }
 
-        public List<BEBeneficioCaminoBrillante> GetListaBeneficiosByNivel(int paisID, string codigoNivel)
+        public List<BeneficioCaminoBrillanteModel> GetListaBeneficiosByNivel(int paisID, string codigoNivel)
         {
             return _caminoBrillanteProvider.GetListaBeneficiosByNivel(paisID, codigoNivel);
         }

@@ -460,6 +460,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEBeneficioCaminoBrillante> GetBeneficiosCaminoBrillante(int paisID, string codigoNivel);
+
+        [OperationContract]
+        void InsBeneficioCaminoBrillante(int paisId, BEBeneficioCaminoBrillante entidad);
         #endregion
 
         [OperationContract]
@@ -473,7 +476,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int ValidaEstadoPopup(int PaisID);
-
 
         [OperationContract]
         List<BEValidacionDatos> GetTipoEnvioActivos(int PaisID, string CodigoUsuario);

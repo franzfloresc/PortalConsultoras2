@@ -87,6 +87,10 @@ namespace Portal.Consultoras.Entities.CaminoBrillante
         [DataMember]
         [Column("Icono")]
         public string Icono { get; set; }
+
+        [DataMember]
+        [Column("Estado")]
+        public bool Estado { get; set; }
     }
 
 }
