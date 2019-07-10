@@ -643,8 +643,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
             if (pedidoDetalle.Cantidad > CantidadCondicionesDisponibles)
             {
                 int CantidadFaltante = pedidoDetalle.Cantidad - CantidadCondicionesDisponibles;
-                var texto = (CantidadFaltante == 1) ? "condición" : "condiciones";
-                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_AGREGAR_PROMOCION, String.Format("Lo siento, Debe agregar {0} {1} más a su pedido para poder agregar está promoción.", CantidadFaltante, texto));
+                var texto = (CantidadFaltante == 1) ? "condicional" : "condicionales";
+                return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_AGREGAR_PROMOCION, String.Format("Te falta(n) {0} producto(s) {1} para poder llevarte la cantidad de promociones que deseas", CantidadFaltante, texto));
             }
 
             return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.SUCCESS);
@@ -690,7 +690,7 @@ namespace Portal.Consultoras.BizLogic.Pedido
                     var cantidafaltante = (cantidadmodificada - Cantidaddisponible);
                     var texto = cantidafaltante == 1 ? "promoción" : "promociones";
 
-                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_MODIFICAR_CONDICION, String.Format("Tiene promociones vinculadas a este producto (cuvs de promoción: {0} ), debe eliminar {1} {2} de su pedido para poder continuar.", cuvspromocion, cantidafaltante, texto));
+                    return PedidoDetalleRespuesta(Constantes.PedidoValidacion.Code.ERROR_MODIFICAR_CONDICION, String.Format("Debes eliminar {0} {1} (3) para completar esta acción", cantidafaltante, texto, cuvspromocion));
                 }
             }
 
