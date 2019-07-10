@@ -51,19 +51,22 @@
         public static string GetSeccionSegunFicha(bool ficha, bool fichaCarrusel, bool desplegable = false)
         {
             string codigo = "";
-            if (!ficha && !fichaCarrusel)
+            if (!fichaCarrusel)
             {
-                codigo = desplegable ? ConsOrigenPedidoWeb.Seccion.DesplegableBuscador : ConsOrigenPedidoWeb.Seccion.Carrusel;
+                if (ficha)
+                {
+                    codigo = ConsOrigenPedidoWeb.Seccion.Ficha;
+                }
+                else
+                {
+                    codigo = desplegable ? ConsOrigenPedidoWeb.Seccion.DesplegableBuscador : ConsOrigenPedidoWeb.Seccion.Carrusel;
+                }
             }
-            else if (ficha && !fichaCarrusel)
-            {
-                codigo = ConsOrigenPedidoWeb.Seccion.Ficha;
-            }
-            else if (!ficha && fichaCarrusel)
+            else if (!ficha)
             {
                 codigo = ConsOrigenPedidoWeb.Seccion.CarruselVerMas;
             }
-
+            
             return codigo;
         }
 

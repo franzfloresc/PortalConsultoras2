@@ -527,10 +527,6 @@ namespace Portal.Consultoras.Web.Controllers
                             true
                             );
 
-//#if DEBUG
-//            modelo.CuvPromocion = cuv;
-//#endif
-
             #region Promociones
             if(modelo.MostrarPromociones && !string.IsNullOrEmpty(modelo.CuvPromocion))
             {
@@ -543,8 +539,7 @@ namespace Portal.Consultoras.Web.Controllers
                     promociones.result = promociones.result.Where(x => x.Promocion != null && x.Condiciones.Any()).ToList();
                     modelo.Promocion = Mapper.Map<Web.Models.Search.ResponsePromociones.Estructura.Estrategia, EstrategiaPersonalizadaProductoModel>(promociones.result.First().Promocion);
                     modelo.Condiciones = Mapper.Map<List<Web.Models.Search.ResponsePromociones.Estructura.Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(promociones.result.First().Condiciones);
-
-                    //
+                    
                     modelo.Promocion.EsPromocion = true;
                     metodo(modelo.Promocion);
                     foreach (var item in modelo.Condiciones)
