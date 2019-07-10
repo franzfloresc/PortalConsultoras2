@@ -111,6 +111,11 @@ namespace Portal.Consultoras.Common.OrigenPedidoWeb
                 return Convert.ToInt32(Dispositivo.AppConsultora + Pagina.ArmaTuPackDetalle + Palanca.ArmaTuPack + Seccion.AppCatalogoPendienteDeAprobar);
             }
         }
+        
+        #region VirtualCoach
+        public const int VirtualCoachDesktopPedido = 1231;
+        public const int VirtualCoachMobilePedido = 2231;
+        #endregion
 
     }
 }

@@ -807,10 +807,10 @@ namespace Portal.Consultoras.Common
             public const int MobilePedidoPackNuevasFicha = 2021702;
             #endregion
 
-            #region VirtualCoach
-            public const int VirtualCoachDesktopPedido = 1231;
-            public const int VirtualCoachMobilePedido = 2231;
-            #endregion
+            //#region VirtualCoach
+            //public const int VirtualCoachDesktopPedido = 1231;
+            //public const int VirtualCoachMobilePedido = 2231;
+            //#endregion
 
             #region Programa de Nuevas
             public const string Mensaje1 = "El código solicitado es exclusivo del Programa de Nuevas.";

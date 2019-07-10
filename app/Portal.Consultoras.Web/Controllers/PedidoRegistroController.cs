@@ -246,8 +246,8 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
                 
                 #region VirtualCoach
-                if (model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.VirtualCoachDesktopPedido ||
-                    model.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.VirtualCoachMobilePedido)
+                if (model.OrigenPedidoWeb == ConsOrigenPedidoWeb.VirtualCoachDesktopPedido ||
+                    model.OrigenPedidoWeb == ConsOrigenPedidoWeb.VirtualCoachMobilePedido)
                 {
                     var ficha = SessionManager.GetFichaProductoTemporal();
                     if (ficha == null)
