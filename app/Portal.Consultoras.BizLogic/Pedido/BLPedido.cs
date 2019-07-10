@@ -671,22 +671,8 @@ namespace Portal.Consultoras.BizLogic.Pedido
 
                 if (cantidadmodificada > Cantidaddisponible)
                 {
-                    var PromocionesVinculadas = lstDetalleAgrupado.Where(x => Condicion.Promociones.Contains(x.CUV));
-                    var cuvspromocion = "";
-                    var i = 0;
-                    foreach (var item in PromocionesVinculadas)
-                    {
-                        if (i == 0)
-                        {
-                            cuvspromocion = item.CUV;
-                        }
-                        else
-                        {
-                            cuvspromocion = cuvspromocion + "," + item.CUV;
-                        }
-
-                        i++;
-                    }
+                    var promocionesVinculadas = lstDetalleAgrupado.Where(x => Condicion.Promociones.Contains(x.CUV));
+                    var cuvspromocion = String.Join(",", promocionesVinculadas.Select(p => p.CUV));
                     var cantidafaltante = (cantidadmodificada - Cantidaddisponible);
                     var texto = cantidafaltante == 1 ? "promoción" : "promociones";
 
