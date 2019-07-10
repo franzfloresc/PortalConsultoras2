@@ -8952,7 +8952,10 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string sordField;
-        
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TipoPagoIdField;
+
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -9261,7 +9264,20 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 }
             }
         }
-        
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TipoPagoId {
+            get {
+                return this.TipoPagoIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoPagoIdField, value) != true)) {
+                    this.TipoPagoIdField = value;
+                    this.RaisePropertyChanged("TipoPagoId");
+                }
+            }
+        }
+
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -9708,7 +9724,10 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string campania1erPasePedidoField;
-        
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoPagoField;
+
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -10628,7 +10647,20 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 }
             }
         }
-        
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoPago {
+            get {
+                return this.TipoPagoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoPagoField, value) != true)) {
+                    this.TipoPagoField = value;
+                    this.RaisePropertyChanged("TipoPago");
+                }
+            }
+        }
+
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
