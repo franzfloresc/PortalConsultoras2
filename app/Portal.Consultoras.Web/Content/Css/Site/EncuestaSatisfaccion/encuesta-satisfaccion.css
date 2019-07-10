@@ -64,12 +64,16 @@
     align-content:flex-end;
 }
 
+input.field__checkbox__sb{
+    display:none!important;
+}
+
 /* FIN - HELPERS CSS */
 
 /* HD-4357 - ENCUESTA DE SATISFACCIÓN */
 
-.btn_chat_messenger_mobile{
-    display:none!important;
+.btn_chat_messenger_mobile {
+    display: none !important;
 }
 
 .bg__popup__encuestaSatisfaccion__desktop {
@@ -81,11 +85,19 @@
     z-index: 4001;
     background-color: #FFF;
     width: 100%;
-    max-width:550px;
+    max-width: 550px;
     height: 145px;
-    padding: 16px;
-    border-radius:4px;
+    padding: 16px 32px;
+    border-radius: 4px;
+    -moz-transition: height 0.3s ease;
+    -o-transition: height 0.3s ease;
+    -webkit-transition: height 0.3s ease;
+    transition: height 0.3s ease;
 }
+
+    .seccion__encuesta__satisfaccion.seccion__encuesta__satisfaccion__expandir {
+        height: 561px;
+    }
 
     @keyframes mostrarEncuestaSatisfaccion{
         0%{
@@ -133,11 +145,6 @@
             bottom: 0;
             opacity: 1;
         }
-    }
-
-    .seccion__encuesta__satisfaccion.seccion__encuesta__satisfaccion__expandir{
-        height:100vh;
-        overflow:auto;
     }
 
     .seccion__encuesta__satisfaccion > div,
@@ -283,9 +290,14 @@
                         cursor:pointer;
                     }
 
+                .motivo__adicional__otro{
+                    margin-top:0!important;
+                }
+
     .btn__sb--confirmar{
-        width:92%;
-        max-width:92%;
+        width:100%;
+        max-width:328px;
+        margin-top:42px;
     }
 
     .encuesta__satisfaccion__agradecimiento__wrapper{
@@ -319,13 +331,13 @@
 @media screen and (min-width:992px){
 
     .bg__popup__encuestaSatisfaccion__desktop {
+        display:none;
         background-color: rgba(0,0,0,0.7);
         position: fixed;
         top: 0;
         left: 0;
         width:100%;
         height:100%;
-
     }
 
 }
@@ -349,16 +361,22 @@
         -moz-box-shadow: 0 -2px 9px -3px rgba(150, 150, 150, 0.5);
         -webkit-box-shadow: 0 -2px 9px -3px rgba(150, 150, 150, 0.5);
         box-shadow: 0 -2px 9px -3px rgba(150, 150, 150, 0.5);
-        -moz-transition: height 0.3s ease;
-        -o-transition: height 0.3s ease;
-        -webkit-transition: height 0.3s ease;
-        transition: height 0.3s ease;
         animation-name: mostrarEncuestaSatisfaccion;
         animation-delay: 3s;
         animation-duration: 0.5s;
         animation-timing-function: ease;
         animation-fill-mode: forwards;
     }
+
+        .seccion__encuesta__satisfaccion.seccion__encuesta__satisfaccion__expandir {
+            height: 100vh;
+            overflow: auto;
+        }
+
+        .btn__sb--confirmar {
+            width: 92%;
+            max-width: 92%;
+        }
 
 }
 
