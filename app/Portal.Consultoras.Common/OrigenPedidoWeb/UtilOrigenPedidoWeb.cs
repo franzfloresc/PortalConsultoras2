@@ -166,6 +166,15 @@
 
             return codigo;
         }
+        
+        public static bool EsProductoRecomendado(int origen)
+        {
+            var modelo = GetModelo(origen.ToString());
+            if (origen == 0) return false;
+
+            return modelo.Seccion.Equals(ConsOrigenPedidoWeb.Seccion.Recomendado) ||
+                   modelo.Seccion.Equals(ConsOrigenPedidoWeb.Seccion.RecomendadoFicha);
+        }
 
         public static bool EsCaminoBrillante(int origen)
         {
