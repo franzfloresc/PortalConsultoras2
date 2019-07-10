@@ -10838,7 +10838,10 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ZonaGZField;
-        
+
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TipoPagoField;
+
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -11537,7 +11540,20 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 }
             }
         }
-        
+
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TipoPago {
+            get {
+                return this.TipoPagoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TipoPagoField, value) != true)) {
+                    this.TipoPagoField = value;
+                    this.RaisePropertyChanged("TipoPago");
+                }
+            }
+        }
+
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -17150,10 +17166,10 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.paginacionGrid> ConsultarSolicitudesPostulanteV2Async(Portal.Consultoras.Web.ServiceUnete.GestionaPostulanteModelSAC model);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerReporteGestionPostulante", ReplyAction="http://tempuri.org/IPortalService/ObtenerReporteGestionPostulanteResponse")]
-        Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteXLS[] ObtenerReporteGestionPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int PaginaActual, string CodigoConsultora, System.Nullable<int> PDigital, System.Nullable<int> PTradicional, int MostrarPaso1y2SE);
+        Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteXLS[] ObtenerReporteGestionPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int PaginaActual, string CodigoConsultora, System.Nullable<int> PDigital, System.Nullable<int> PTradicional, int MostrarPaso1y2SE, int TipoPago = -1);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerReporteGestionPostulante", ReplyAction="http://tempuri.org/IPortalService/ObtenerReporteGestionPostulanteResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteXLS[]> ObtenerReporteGestionPostulanteAsync(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int PaginaActual, string CodigoConsultora, System.Nullable<int> PDigital, System.Nullable<int> PTradicional, int MostrarPaso1y2SE);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteXLS[]> ObtenerReporteGestionPostulanteAsync(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int PaginaActual, string CodigoConsultora, System.Nullable<int> PDigital, System.Nullable<int> PTradicional, int MostrarPaso1y2SE, int TipoPago = -1);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/GetDictionaryReporteFuenteIngreso", ReplyAction="http://tempuri.org/IPortalService/GetDictionaryReporteFuenteIngresoResponse")]
         System.Collections.Generic.Dictionary<string, string> GetDictionaryReporteFuenteIngreso();
@@ -17941,12 +17957,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
             return base.Channel.ConsultarSolicitudesPostulanteV2Async(model);
         }
         
-        public Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteXLS[] ObtenerReporteGestionPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int PaginaActual, string CodigoConsultora, System.Nullable<int> PDigital, System.Nullable<int> PTradicional, int MostrarPaso1y2SE) {
-            return base.Channel.ObtenerReporteGestionPostulante(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO, PaginaActual, CodigoConsultora, PDigital, PTradicional, MostrarPaso1y2SE);
+        public Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteXLS[] ObtenerReporteGestionPostulante(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int PaginaActual, string CodigoConsultora, System.Nullable<int> PDigital, System.Nullable<int> PTradicional, int MostrarPaso1y2SE,int TipoPago = -1) {
+            return base.Channel.ObtenerReporteGestionPostulante(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO, PaginaActual, CodigoConsultora, PDigital, PTradicional, MostrarPaso1y2SE,TipoPago);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteXLS[]> ObtenerReporteGestionPostulanteAsync(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int PaginaActual, string CodigoConsultora, System.Nullable<int> PDigital, System.Nullable<int> PTradicional, int MostrarPaso1y2SE) {
-            return base.Channel.ObtenerReporteGestionPostulanteAsync(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO, PaginaActual, CodigoConsultora, PDigital, PTradicional, MostrarPaso1y2SE);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.SolicitudPostulanteXLS[]> ObtenerReporteGestionPostulanteAsync(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre, int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso, string CodigoISO, int PaginaActual, string CodigoConsultora, System.Nullable<int> PDigital, System.Nullable<int> PTradicional, int MostrarPaso1y2SE, int TipoPago= -1) {
+            return base.Channel.ObtenerReporteGestionPostulanteAsync(PrefijoISOPais, FechaDesde, FechaHasta, Nombre, Estado, DocumentoIdentidad, codigoZona, CodigoRegion, FuenteIngreso, CodigoISO, PaginaActual, CodigoConsultora, PDigital, PTradicional, MostrarPaso1y2SE, TipoPago);
         }
         
         public System.Collections.Generic.Dictionary<string, string> GetDictionaryReporteFuenteIngreso() {
