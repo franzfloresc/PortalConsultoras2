@@ -534,10 +534,6 @@ namespace Portal.Consultoras.Web.Controllers
                             true
                             );
 
-//#if DEBUG
-//            modelo.CuvPromocion = cuv;
-//#endif
-
             #region Promociones
             if(modelo.MostrarPromociones && !string.IsNullOrEmpty(modelo.CuvPromocion))
             {
@@ -550,8 +546,7 @@ namespace Portal.Consultoras.Web.Controllers
                     promociones.result = promociones.result.Where(x => x.Promocion != null && x.Condiciones.Any()).ToList();
                     modelo.Promocion = Mapper.Map<Web.Models.Search.ResponsePromociones.Estructura.Estrategia, EstrategiaPersonalizadaProductoModel>(promociones.result.First().Promocion);
                     modelo.Condiciones = Mapper.Map<List<Web.Models.Search.ResponsePromociones.Estructura.Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(promociones.result.First().Condiciones);
-
-                    //
+                    
                     modelo.Promocion.EsPromocion = true;
                     metodo(modelo.Promocion);
                     foreach (var item in modelo.Condiciones)
@@ -680,21 +675,12 @@ namespace Portal.Consultoras.Web.Controllers
 
         private int GetAccionNavegarSegunOrigen(int origen)
         {
-            return EsProductoRecomendado(origen) ? Constantes.TipoAccionNavegar.Volver : Constantes.TipoAccionNavegar.BreadCrumbs;
+            return UtilOrigenPedidoWeb.EsProductoRecomendado(origen) ? Constantes.TipoAccionNavegar.Volver : Constantes.TipoAccionNavegar.BreadCrumbs;
         }
-
-        private bool EsProductoRecomendado(int origen)
-        {
-            var modelo = UtilOrigenPedidoWeb.GetModelo(origen.ToString());
-            if (origen == 0) return false;
-
-            return modelo.Seccion.Equals(ConsOrigenPedidoWeb.Seccion.Recomendado) ||
-                   modelo.Seccion.Equals(ConsOrigenPedidoWeb.Seccion.RecomendadoFicha);
-        }
-
+        
         private bool GetValidationHasCarrusel(int origen, bool esEditar)
         {
-            if (EsProductoRecomendado(origen))
+            if (UtilOrigenPedidoWeb.EsProductoRecomendado(origen))
             {
                 return false;
             }
@@ -705,7 +691,7 @@ namespace Portal.Consultoras.Web.Controllers
         private bool GetTieneCompartir(string palanca, bool esEditar, int origen)
         {
             if (UtilOrigenPedidoWeb.EsCaminoBrillante(origen)) return false;
-            if (EsProductoRecomendado(origen)) return false;
+            if (UtilOrigenPedidoWeb.EsProductoRecomendado(origen)) return false;
             return !esEditar && !MobileAppConfiguracion.EsAppMobile &&
                 !(Constantes.NombrePalanca.HerramientasVenta == palanca
                 || Constantes.NombrePalanca.PackNuevas == palanca);
