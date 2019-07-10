@@ -183,7 +183,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = mensaje,
+                    message = "¡Lo sentimos!, Ha ocurrido un error inesperado.",
                     datos = listaNroPedidos,
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -531,7 +531,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = false,
                     producto,
-                    message = "Error al realizar la busqueda.",
+                    message = "¡Lo sentimos!, Ha ocurrido un error inesperado.",
                     TieneSugerido = 0
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -670,7 +670,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Lo sentirmos, ocurrió un error. Vuelva a interntar mas tarde.",
+                    message = "¡Lo sentimos!, Ha ocurrido un error inesperado.",
                     data = respuestaServiceCdr,
                     flagSetsOrPack = false,
                 }, JsonRequestBehavior.AllowGet);
@@ -745,7 +745,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "",
+                    message = "¡Lo sentimos!, Ha ocurrido un error inesperado.",
                     texto = ""
                 }, JsonRequestBehavior.AllowGet);
                 throw;
@@ -988,7 +988,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = id > 0,
-                    message = id > 0 ? "" : "Error, vuelva a intentarlo",
+                    message = id > 0 ? "" : "¡Lo sentimos!, Ha ocurrido un error inesperado.",
                     detalle = model.CDRWebID
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -999,7 +999,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Error, vuelva a intentarlo"
+                    message = "¡Lo sentimos!, Ha ocurrido un error inesperado."
                 }, JsonRequestBehavior.AllowGet);
             }
         }
@@ -1087,7 +1087,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Error: " + ex.Message,
+                    message = "¡Lo sentimos!, Ha ocurrido un error inesperado.",
                     detalle = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1227,7 +1227,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return ErrorJson("Error, vuelva a intentarlo", true);
+                return ErrorJson("¡Lo sentimos!, Ha ocurrido un error inesperado.", true);
             }
         }
 
@@ -1281,7 +1281,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Error: " + ex.Message,
+                    message = "¡Lo sentimos!, Ha ocurrido un error inesperado.",
                     detalle = ""
                 }, JsonRequestBehavior.AllowGet);
             }
