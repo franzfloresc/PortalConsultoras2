@@ -17,6 +17,8 @@
             $(document).on("click", _elementos.estadoEncuestaSatisfaccion, _eventos.mostrarMotivosCalificacion);
             $(document).on("click", _elementos.enlaceVolverAtras, _eventos.volverAtras);
             $(document).on("click", _elementos.enlaceCerrarEncuestaSatisfaccion, _eventos.cerrarEncuestaSatisfaccion);
+            $(_elementos.encuestaSatisfaccion).removeClass('seccion__encuesta__satisfaccion--ocultar');
+            $(_elementos.encuestaSatisfaccion).addClass('seccion__encuesta__satisfaccion--mostrar');
         }
     };
 
@@ -44,12 +46,8 @@
         },
         cerrarEncuestaSatisfaccion: function (e) {
             e.preventDefault();
-            $(_elementos.encuestaSatisfaccion).animate({
-                'bottom': -138 + 'px',
-                'opacity': 0
-            }, 350);
-            $(_elementos.encuestaSatisfaccion).delay(380);
-            $(_elementos.encuestaSatisfaccion).fadeOut(100);
+            $(_elementos.encuestaSatisfaccion).removeClass('seccion__encuesta__satisfaccion--mostrar');
+            $(_elementos.encuestaSatisfaccion).addClass('seccion__encuesta__satisfaccion--ocultar');
         }
     };
 
