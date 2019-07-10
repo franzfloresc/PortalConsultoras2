@@ -1,6 +1,8 @@
-﻿using Portal.Consultoras.Common;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models.CaminoBrillante;
 using Portal.Consultoras.Web.ServiceUsuario;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -114,6 +116,52 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             return RedirectToAction("AdministrarBeneficios", "CaminoBrillanteAdministrar");
+        }
+
+        [HttpPost]
+        public JsonResult RegistrarBeneficio(int paisID, BeneficioCaminoBrillanteModel model)
+        {
+            string operacion = "registró";
+            try
+            {
+                //BEOferta entidad = new BEOferta
+                //{
+                //    OfertaID = Convert.ToInt32(OfertaID),
+                //    PaisID = userData.PaisID,
+                //    CodigoOferta = CodigoOferta,
+                //    DescripcionOferta = DescripcionOferta,
+                //    UsuarioRegistro = userData.CodigoUsuario,
+                //    UsuarioModificacion = userData.CodigoUsuario,
+                //    CodigoPrograma = CodigoPrograma
+                //};
+
+                var entidad = Mapper.Map<BEBeneficioCaminoBrillante>(model) ?? new BEBeneficioCaminoBrillante();
+
+                using (var sv = new UsuarioServiceClient())
+                {
+                    sv.InsBeneficioCaminoBrillante(paisID, entidad);
+                }
+
+                //if (OfertaID != "0")
+                //{
+                //    operacion = "modificó";
+                //}
+                return Json(new
+                {
+                    success = true,
+                    message = String.Format("Se {0} con éxito el beneficio.", operacion),
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
         }
     }
 }

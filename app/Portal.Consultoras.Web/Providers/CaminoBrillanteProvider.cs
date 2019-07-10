@@ -809,5 +809,16 @@ namespace Portal.Consultoras.Web.Providers
             return lst;
         }
         #endregion
+
+        #region Mantenedor Beneficios
+        public void InsBeneficioCaminoBrillante(BeneficioCaminoBrillanteModel model)
+        {
+            var entidad = Mapper.Map<BEBeneficioCaminoBrillante>(model) ?? new BEBeneficioCaminoBrillante();
+            using (var svc = new UsuarioServiceClient())
+            {
+                svc.InsBeneficioCaminoBrillante(usuarioModel.PaisID, entidad);
+            }
+        }
+        #endregion
     }
 }

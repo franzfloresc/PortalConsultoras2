@@ -66,6 +66,100 @@
             $("#hdTipoConsulta").val("1");
             fnGrilla();
         });
+
+        //$("#btnAgregarOferta").click(function () {
+
+        //    //var ofertaID = $("#hdofertaid").val();
+        //    //var paisID = $("#hdPais").val();
+        //    //var codigoOferta = $("#txtCodigoOferta").val();
+        //    //var descripcionOferta = $("#txtDescripcionOferta").val();
+        //    //var flagNueva = ($("#chkNueva").attr("checked")) ? true : false;
+        //    //var codigoPrograma = flagNueva ? $("#txtCodigoPrograma").val() : null;
+
+        //    var model = {
+        //        CodigoNivel: codigoNivel,
+        //        CodigoBeneficio: 
+        //    };
+
+        //    Registro 
+        //    CodigoNivel 
+        //    CodigoBeneficio 
+        //    NombreBeneficio 
+        //    Descripcion 
+        //    Icono 
+        //    UrlIcono
+
+        //    var paisID = $("#txtPaisModal").val();
+        //    var codigoNivel = $("#ddlNivelModal").val();
+        //    var nombreBeneficio = $("#txtNombreBeneficioModal").val();
+        //    var descripcionBeneficio = $("#txtDescripcionModal").val();
+        //    var orden = $("#txtordenModal").val();
+        //    var activo = ($("#chkActivoModal").attr("checked")) ? true : false;
+        //    //var paisID = $("#txtPaisModal").val();
+        //    //var paisID = $("#txtPaisModal").val();
+        //    //var paisID = $("#txtPaisModal").val();
+
+        //    if (flagNueva && $("#txtCodigoPrograma").val() == "") {
+        //        alert("No ingresó Codigo de Programa");
+        //        return false;
+        //    }
+
+        //    if ($.trim(codigoOferta) == "") {
+        //        alert("No ingresó el código de oferta.");
+        //        return false;
+        //    }
+
+        //    if ($.trim(descripcionOferta) == "") {
+        //        alert("No ingresó la descripción de oferta.");
+        //        return false;
+        //    }
+
+
+        //    var params = {
+        //        OfertaID: ofertaID,
+        //        PaisID: paisID,
+        //        CodigoOferta: codigoOferta,
+        //        DescripcionOferta: descripcionOferta,
+        //        CodigoPrograma: codigoPrograma
+        //    };
+
+        //    jQuery.ajax({
+        //        type: 'POST',
+        //        url: baseUrl + 'AdministrarTipoEstrategia/RegistrarOferta',
+        //        dataType: 'json',
+        //        contentType: 'application/json; charset=utf-8',
+        //        data: JSON.stringify(params),
+        //        async: true,
+        //        success: function (data) {
+        //            if (checkTimeout(data)) {
+        //                if (data.success == true) {
+
+        //                    var id = $("#hdTipoEstrategiaID").val()
+        //                    var ofertas = $("#hdofertas").val() + codigoOferta + ',';
+        //                    $("#hdofertas").val(ofertas);
+
+        //                    $("#hdofertaid").val("0");
+        //                    $("#txtCodigoOferta").val("");
+        //                    $("#txtDescripcionOferta").val("");
+        //                    $("#btnAgregarOferta").val("Agregar");
+        //                    $("#txtCodigoOferta").focus();
+
+        //                    fnGrillaOfertas(id);
+        //                }
+        //                else {
+        //                    alert(data.message);
+        //                }
+        //            }
+        //        },
+        //        error: function (data, error) {
+        //            if (checkTimeout(data)) {
+        //                alert(data.message);
+        //                HideDialog("DialogAdministracionNuevaOferta");
+        //            }
+        //        }
+        //    });
+
+        //});
     });
 
     function fnGrilla() {
