@@ -103,13 +103,13 @@
 
                 if (CampaniaEfectiva.Equals(CampaniaActual))
                 {
-                <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
-                    ¡Bienvenida a
-                    <a href="javascript:RedireccionarContenedorComprar('@CodigoUbigeoPortal.DesktopRevistaDigitalResumenBelcorp', '@Constantes.ConfiguracionPais.RevistaDigital')">
-                        Gana+
-                    </a>
-                    <br />@nombreConsultora
-                </div>
+                    <div class="nombre_consultora_2018 color_cincuenta_anios_belcorp">
+                        ¡Bienvenida a
+                        <a href="javascript:RedireccionarContenedorComprar('@CodigoUbigeoPortal.DesktopRevistaDigitalResumenBelcorp', '@Constantes.ConfiguracionPais.RevistaDigital')">
+                            Gana+
+                        </a>
+                        <br />@nombreConsultora
+                    </div>
                 }
                 else
                 {
@@ -171,7 +171,7 @@
     {
         <link href="~/Content/CaminoBrillante/Content.css" rel="stylesheet" />
         <div class="items_belcorp cam-exito">
-            <img src="@Model.UrlLogoCaminoBrillante" /> 
+            <img src="@Model.UrlLogoCaminoBrillante" />
             <p class="toptext">Camino Brillante</p>
             <p id="TextoCaminoBrillante">
                 @Html.Raw(Model.CaminoBrillanteMsg)
@@ -1299,7 +1299,7 @@
                 @*INI HD-4009*@
                 @if (@ViewBag.CodigoISODL == Constantes.CodigosISOPais.Colombia)
                 {
-                <div class="text-center {{#if ValPUM}}producto_pum{{else}}producto_pum_hidden{{/if}}"><span>{{UnidadMedida}} a </span>{{SimboloMoneda}}{{PUM}}</div>
+                    <div class="text-center {{#if ValPUM}}producto_pum{{else}}producto_pum_hidden{{/if}}"><span>{{UnidadMedida}} a </span>{{SimboloMoneda}}{{PUM}}</div>
                 }
                 @*FIN HD-4009*@
                 <div class="producto_precio">
@@ -1963,6 +1963,9 @@
 <!-- POPUP ACTUALIZACIÓN DE CORREO ECUADOR -->
 @Html.Partial("~/Views/Shared/PopupsResponsive/_PopupActualizacionCorreo.cshtml")
 <!-- FIN - POPUP ACTUALIZACIÓN DE CORREO ECUADOR -->
+<!-- HD-4357 - ENCUESTA DE SATISFACCIÓN -->
+@Html.Partial("~/Views/EncuestaSatisfaccion/_EncuestaSatisfaccion.cshtml")
+<!-- FIN - HD-4357 - ENCUESTA DE SATISFACCIÓN -->
 
 @if (revistaDigital.TieneRDS == true)
 {
