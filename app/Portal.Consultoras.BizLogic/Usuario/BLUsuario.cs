@@ -3714,7 +3714,9 @@ namespace Portal.Consultoras.BizLogic
             oMensaje.MensajeAmbos = tablaLogica.Where(a => a.TablaLogicaDatosID == ConsTablaLogica.MensajesTooltipPerfil.MensajeActualizarEmailSms).Select(b => b.Valor).FirstOrDefault();
             oMensaje.MensajeCelular = tablaLogica.Where(a => a.TablaLogicaDatosID == ConsTablaLogica.MensajesTooltipPerfil.MensajeActualizarSms).Select(b => b.Valor).FirstOrDefault();
             oMensaje.MensajeEmail = tablaLogica.Where(a => a.TablaLogicaDatosID == ConsTablaLogica.MensajesTooltipPerfil.MensajeActualizarEmail).Select(b => b.Valor).FirstOrDefault();
-            oMensaje.MensajeFijo = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarFijo).Select(b => b.Valor).FirstOrDefault();
+
+            //TODO: no tiene sentido en Constantes.cs el valor de  MensajeActualizarFijo = 16261, mientras que los demas son TablaLogicaId = 10
+            //oMensaje.MensajeFijo = tablaLogica.Where(a => a.TablaLogicaDatosID == Constantes.TablaLogicaDato.MensajeActualizarFijo).Select(b => b.Valor).FirstOrDefault();
 
             return oMensaje;
         }
