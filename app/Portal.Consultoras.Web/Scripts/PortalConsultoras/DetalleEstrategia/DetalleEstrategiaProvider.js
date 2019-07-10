@@ -101,28 +101,6 @@ var DetalleEstrategiaProvider = function () {
         return dfd.promise();
     };
 
-    //var _promiseObternerEstrategiaFicha = function (params) {
-    //    var dfd = $.Deferred();
-
-    //    $.ajax({
-    //        type: "POST",
-    //        url: _urlDetalleEstrategia.obtenerEstrategiaFicha,
-    //        dataType: "json",
-    //        contentType: "application/json; charset=utf-8",
-    //        data: JSON.stringify(params),
-    //        async: false,
-    //        cache: false,
-    //        success: function (data) {
-    //            dfd.resolve(data);
-    //        },
-    //        error: function (data, error) {
-    //            dfd.reject(data, error);
-    //        }
-    //    });
-
-    //    return dfd.promise();
-    //};
-
     var _getEstrategia = function (params) {
         var sigueTexto = '_getEstrategia';
         console.log(sigueTexto);
@@ -150,6 +128,8 @@ var DetalleEstrategiaProvider = function () {
         console.log(sigueTexto);
         estrategia.ConfiguracionContenedor = estrategia.ConfiguracionContenedor || {};
         estrategia.BreadCrumbs = estrategia.BreadCrumbs || {};
+        params.palanca = estrategia.Palanca || params.palanca;
+
         //
         var _objTipoPalanca = ConstantesModule.DiccionarioTipoEstrategia.find(function (x) { return x.texto === params.palanca });
         var _fichaServicioApi = (variablesPortal.MsFichaEstrategias && _objTipoPalanca) ? (variablesPortal.MsFichaEstrategias.indexOf(_objTipoPalanca.codigo) > -1) : false;
@@ -173,7 +153,7 @@ var DetalleEstrategiaProvider = function () {
             estrategia = $.extend(estrategia, estrategiaTmp);
         }
 
-        if (!estrategia || !estrategia.EstrategiaID) throw 'no obtiene oferta desde api';
+        if (!estrategia || (!estrategia.EstrategiaID && !(estrategia.CodigoEstrategia === "035" || estrategia.CodigoEstrategia === "036") )) throw 'no obtiene oferta desde api';
 
         if (typeof estrategia.CodigoVariante != "undefined" &&
             estrategia.CodigoVariante != null &&
@@ -241,11 +221,7 @@ var DetalleEstrategiaProvider = function () {
         estrategia.ClaseBloqueada = "btn_desactivado_general";
         estrategia.ClaseBloqueadaRangos = "contenedor_rangos_desactivado";
         estrategia.RangoInputEnabled = "disabled";
-        //estrategia.esEditable = _config.esEditable;
-        //estrategia.setId = _config.setId || 0;
-        //estrategia.TieneStock = _config.esEditable || estrategia.TieneStock;
-
-        //estrategia = $.extend(modeloFicha, estrategia);
+        
         estrategia.TipoPersonalizacion = estrategia.CodigoEstrategia;
         estrategia.MostarTabsFichaEnriquecidaSinDetalle = estrategia.Hermanos.length == 1;
 
@@ -258,7 +234,6 @@ var DetalleEstrategiaProvider = function () {
         promiseObternerComponentes: _promiseObternerComponentes,
         promiseObternerDetallePedido: _promiseObternerDetallePedido,
         promiseObternerModelo: _promiseObternerModelo,
-        //promiseObtenerEstrategiaFicha: _promiseObternerEstrategiaFicha,
         promiseGetEstrategia: _getEstrategia
     };
 }();

@@ -11,16 +11,20 @@ using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.Models.Estrategia.OfertaDelDia;
+using System.Linq;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseViewController : BaseController
     {
         private readonly IssuuProvider _issuuProvider;
+        private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
 
         public BaseViewController() : base()
         {
             _issuuProvider = new IssuuProvider();
+            _caminoBrillanteProvider = new CaminoBrillanteProvider();
         }
 
         public BaseViewController(ISessionManager sesionManager)
@@ -282,6 +286,14 @@ namespace Portal.Consultoras.Web.Controllers
                 var actionOfertas = productoPerteneceACampaniaActual ? "Index" : "Revisar";
                 breadCrumbs.Ofertas.Url = Url.Action(actionOfertas, new { controller = "Ofertas", area });
 
+                if (palanca == "CaminoBrillanteKits" || palanca == "CaminoBrillanteDemostradores")
+                {
+                    area = "";
+                    breadCrumbs.Ofertas.Texto = "Camino Brillante";
+                    breadCrumbs.Palanca.Texto = GetNombresPalancas(palanca);
+                    breadCrumbs.Ofertas.Url = Url.Action("Index", new { controller = "CaminoBrillante", area });
+                }
+
                 breadCrumbs.Palanca.Url = "#";
                 if (!string.IsNullOrWhiteSpace(breadCrumbs.Palanca.Texto))
                 {
@@ -322,6 +334,16 @@ namespace Portal.Consultoras.Web.Controllers
                         case Constantes.NombrePalanca.GuiaDeNegocioDigitalizada:
                             breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "GuiaNegocio", area });
                             break;
+                        case Constantes.NombrePalanca.CaminoBrillanteDemostradores:
+                            {
+                                breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "CaminoBrillante/Ofertas", area ,t=1});
+                                break;
+                            }
+                        case Constantes.NombrePalanca.CaminoBrillanteKits:
+                            {
+                                breadCrumbs.Palanca.Url = Url.Action("Index", new { controller = "CaminoBrillante/Ofertas", area });
+                                break;
+                            }
                         case Constantes.NombrePalanca.HerramientasVenta:
                             {
                                 var actionPalanca = productoPerteneceACampaniaActual ? "Comprar" : "Revisar";
@@ -362,6 +384,8 @@ namespace Portal.Consultoras.Web.Controllers
                 { Constantes.NombrePalanca.GuiaDeNegocioDigitalizada, "Guía De Negocio" },
                 { Constantes.NombrePalanca.HerramientasVenta, "Demostradores" },
                 { Constantes.NombrePalanca.MasGanadoras, "Las más ganadoras" },
+                { Constantes.NombrePalanca.CaminoBrillanteDemostradores, "Demostradores" },
+                { Constantes.NombrePalanca.CaminoBrillanteKits, "Kits" },
                 { Constantes.NombrePalanca.PackNuevas, _programaNuevasProvider.TieneDuoPerfecto() ? "Dúo Perfecto" : "Programa Nuevas" }
             };
 
@@ -463,7 +487,7 @@ namespace Portal.Consultoras.Web.Controllers
             modelo.Cuv = cuv;
             modelo.TieneCarrusel = GetValidationHasCarrusel(modelo.OrigenAgregar, esEditar);
             modelo.OrigenAgregarCarrusel = modelo.TieneCarrusel ? GetFichaOrigenPedidoWeb(origen, ConsOrigenPedidoWeb.Seccion.CarruselUpselling, modelo.TieneCarrusel) : 0;
-            modelo.TieneCompartir = GetTieneCompartir(palanca, esEditar, modelo.OrigenAgregar);
+            modelo.TieneCompartir = _caminoBrillanteProvider.IsOrigenPedidoCaminoBrillante(modelo.OrigenAgregar) ? false : GetTieneCompartir(palanca, esEditar, modelo.OrigenAgregar);
             modelo.Cantidad = 1;
             #endregion
 
@@ -490,6 +514,13 @@ namespace Portal.Consultoras.Web.Controllers
                             userData.PaisID,
                             ConsTablaLogica.FlagFuncional.TablaLogicaId,
                             ConsTablaLogica.FlagFuncional.FichaResponsive,
+                            true
+                            );
+
+            modelo.MostrarUpselling = _tablaLogicaProvider.GetTablaLogicaDatoValorBool(
+                            userData.PaisID,
+                            ConsTablaLogica.ConfiguracionesFicha.TablaLogicaId,
+                            ConsTablaLogica.ConfiguracionesFicha.FuncionalidadUpSelling,
                             true
                             );
             return modelo;
@@ -557,8 +588,11 @@ namespace Portal.Consultoras.Web.Controllers
                         modelo.TipoEstrategiaDetalle.Slogan = "Contenido del Set:";
                         modelo.ListaDescripcionDetalle = modelo.ArrayContenidoSet;
                     }
-                }
-            }
+                }                
+                else if (palanca == "CaminoBrillanteDemostradores" || palanca == "CaminoBrillanteKits") {                    
+                    modelo = _caminoBrillanteProvider.GetDetalleEstrategiaFichaModel(cuv);
+                }                
+             }
             else
             {
                 string mensaje;
@@ -598,7 +632,8 @@ namespace Portal.Consultoras.Web.Controllers
         private bool EsProductoRecomendado(int origen)
         {
             var modelo = UtilOrigenPedidoWeb.GetModelo(origen.ToString());
-            
+            if (origen == 0 /*|| origenString.IsNullOrEmptyTrim()*/) return false; //CB-CORREGIR
+
             return modelo.Seccion.Equals(ConsOrigenPedidoWeb.Seccion.Recomendado) ||
                    modelo.Seccion.Equals(ConsOrigenPedidoWeb.Seccion.RecomendadoFicha);
         }

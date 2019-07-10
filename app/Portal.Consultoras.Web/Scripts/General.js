@@ -391,7 +391,6 @@ function HandlebarsRegisterHelper() {
             cadena = cadena || "";
             cadena = $.trim(cadena);
             length2 = length2 || 0;
-
             if (window.innerWidth > 750) {
                 if (cadena.length > length) {
                     cadena = cadena.substring(0, length) + "...";
@@ -403,7 +402,6 @@ function HandlebarsRegisterHelper() {
                     }
                 }
             }
-
             return new Handlebars.SafeString(cadena);
         });
 
@@ -2382,4 +2380,22 @@ function AbrirChatBot() {
     if (typeof ChatBotUrlRef === 'undefined') return;
 
     window.location.href = ChatBotUrlRef;
+}
+
+function OpenUrl(url, newPage) {
+    if (newPage) {
+        window.open(url, '_blank');
+        return;
+    }
+    
+    window.location.href = url;
+}
+
+function OpenUrlCallbackNewPage(url, urlCallback, defaultNewPage) {
+    $.post(urlCallback, function(data) {
+        OpenUrl(url, data.NewPage);
+    })
+    .fail(function() {
+        OpenUrl(url, defaultNewPage);
+    });
 }

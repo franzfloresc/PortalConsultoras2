@@ -58,7 +58,9 @@ $(document).ready(function () {
         estrategia.CodigoProducto,
         estrategia.Precio2,
         estrategia.Hermanos,
-        estrategia.TieneStock);
+        estrategia.TieneStock,
+        estrategia.MostrarUpselling
+    );
 
     carruselPresenter.initialize(carruselModel, carruselView);
 });
@@ -69,6 +71,7 @@ fichaResponsiveEvents.subscribe(fichaResponsiveEvents.eventName.onFichaResponsiv
         componentesPresenter.cleanContainer();
 
         estrategia = detalleEstrategia.promiseGetEstrategia(params);
+        params.palanca = estrategia.Palanca || params.palanca;
 
         if (estrategia.Error !== false) {
             GeneralModule.consoleLog(estrategia);
