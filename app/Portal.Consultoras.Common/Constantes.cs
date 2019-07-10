@@ -164,11 +164,6 @@ namespace Portal.Consultoras.Common
         {
             // TODO es utilizado en BLUsuario en metodo GetActualizacionEmailySms, los valore de Mensajes Tooltip Perfil empiezan TablaLogicaId = 10
             //public const int MensajeActualizarFijo = 16261;
-
-            public static class PagoEnLinea
-            {
-                public const decimal MontoMinimoPago = 0.50m;
-            }
         }
 
         public static class ParametrosNames
@@ -1684,8 +1679,7 @@ namespace Portal.Consultoras.Common
             public const string CaminoBrillanteKits = "KITS";
             public const string CaminoBrillanteMsg = "HomeCaminoBrillante";
         }
-
-
+        
         public static class ConfiguracionPaisComponente
         {
             public static class RD
@@ -2877,6 +2871,12 @@ namespace Portal.Consultoras.Common
         };
 
         #region PagoEnLinea
+
+
+        public static class PagoEnLineaMonto
+        {
+            public const decimal MontoMinimoPago = 0.50m;
+        }
 
         public static class PagoEnLineaTipoPago
         {
