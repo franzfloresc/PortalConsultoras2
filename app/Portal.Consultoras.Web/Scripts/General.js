@@ -391,7 +391,6 @@ function HandlebarsRegisterHelper() {
             cadena = cadena || "";
             cadena = $.trim(cadena);
             length2 = length2 || 0;
-
             if (window.innerWidth > 750) {
                 if (cadena.length > length) {
                     cadena = cadena.substring(0, length) + "...";
@@ -403,7 +402,6 @@ function HandlebarsRegisterHelper() {
                     }
                 }
             }
-
             return new Handlebars.SafeString(cadena);
         });
 
