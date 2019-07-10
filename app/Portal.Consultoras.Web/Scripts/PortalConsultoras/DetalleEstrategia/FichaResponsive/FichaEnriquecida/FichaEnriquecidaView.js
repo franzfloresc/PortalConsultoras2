@@ -99,16 +99,16 @@
 
         if ($(".slider-nav-detail").length > 0) {
             $('.slider-nav-detail').slick({
-                slidesToShow: 10,
+                slidesToShow: 5,
                 slidesToScroll: 1,
-
                 asNavFor: '.slider-for-detail',
                 dots: false,
                 infinite: false,
-                arrows: false,
-                centerMode: true,
+                arrows: true,
                 focusOnSelect: true,
-                vertical: true
+                vertical: true,
+                prevArrow: '<div class="arrow prev arrow_vertical" style="left: 16%;"><div class="arrow-top"></div><div class="arrow-bottom"></div></div>',
+                nextArrow: '<div class="arrow next arrow_vertical" style="left: 16%;"><div class="arrow-top"></div><div class="arrow-bottom"></div></div>',
             });
         }
         if ($(".slider-for-detail").length > 0) {
