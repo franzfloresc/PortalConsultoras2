@@ -1955,7 +1955,6 @@ namespace Portal.Consultoras.Common
         [Obsolete("Use ConsTablaLogica")]
         public struct TablaLogica
         {
-            public const short ResizeImagenesAppHistorias = 162;
         }
 
         public struct MensajesCDRExpress
