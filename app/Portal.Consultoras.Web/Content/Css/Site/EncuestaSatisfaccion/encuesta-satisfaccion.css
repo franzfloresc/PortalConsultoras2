@@ -290,10 +290,6 @@ input.field__checkbox__sb{
                         cursor:pointer;
                     }
 
-                .motivo__adicional__otro{
-                    margin-top:0!important;
-                }
-
     .btn__sb--confirmar{
         width:100%;
         max-width:328px;
@@ -340,6 +336,10 @@ input.field__checkbox__sb{
         height:100%;
     }
 
+        .motivo__adicional__otro{
+            margin-top:0!important;
+        }
+
 }
 
 @media screen and (max-width:991px){
@@ -362,8 +362,8 @@ input.field__checkbox__sb{
         -webkit-box-shadow: 0 -2px 9px -3px rgba(150, 150, 150, 0.5);
         box-shadow: 0 -2px 9px -3px rgba(150, 150, 150, 0.5);
         animation-name: mostrarEncuestaSatisfaccion;
-        animation-delay: 3s;
-        animation-duration: 0.5s;
+        animation-delay: 2s;
+        animation-duration: 0.3s;
         animation-timing-function: ease;
         animation-fill-mode: forwards;
     }
@@ -372,6 +372,101 @@ input.field__checkbox__sb{
             height: 100vh;
             overflow: auto;
         }
+
+            .encuesta__satisfaccion__estado{
+                position:relative;
+                opacity:0;
+                bottom:-80px;
+                animation-name:mostrarEstadosEncuesta;
+                animation-iteration-count:1;
+                animation-duration:0.3s;
+                animation-fill-mode:forwards;
+                animation-timing-function:ease;
+            }
+
+                .encuesta__satisfaccion__estado--pesimo{
+                    animation-delay:2.4s;
+                }
+
+                .encuesta__satisfaccion__estado--malo{
+                    animation-delay:2.5s;
+                }
+
+                .encuesta__satisfaccion__estado--regular{
+                    animation-delay:2.6s;
+                }
+
+                .encuesta__satisfaccion__estado--bueno{
+                    animation-delay:2.7s;
+                }
+
+                .encuesta__satisfaccion__estado--excelente{
+                    animation-delay:2.8s;
+                }
+
+            @keyframes mostrarEstadosEncuesta {
+                0% {
+                    bottom: -80px;
+                    opacity: 0;
+                }
+
+                80% {
+                    bottom:10px;
+                }
+
+                100% {
+                    bottom: 0;
+                    opacity: 1;
+                }
+            }
+
+            @-moz-keyframes mostrarEstadosEncuesta {
+                0% {
+                    bottom: -80px;
+                    opacity: 0;
+                }
+
+                80% {
+                    bottom: 10px;
+                }
+
+                100% {
+                    bottom: 0;
+                    opacity: 1;
+                }
+            }
+
+            @-o-keyframes mostrarEstadosEncuesta {
+                0% {
+                    bottom: -80px;
+                    opacity: 0;
+                }
+
+                80% {
+                    bottom: 10px;
+                }
+
+                100% {
+                    bottom: 0;
+                    opacity: 1;
+                }
+            }
+
+            @-webkit-keyframes mostrarEstadosEncuesta {
+                0% {
+                    bottom: -80px;
+                    opacity: 0;
+                }
+
+                80% {
+                    bottom: 10px;
+                }
+
+                100% {
+                    bottom: 0;
+                    opacity: 1;
+                }
+            }
 
         .btn__sb--confirmar {
             width: 92%;

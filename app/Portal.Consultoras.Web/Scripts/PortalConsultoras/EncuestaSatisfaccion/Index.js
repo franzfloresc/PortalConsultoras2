@@ -41,7 +41,7 @@
             e.preventDefault();
             $(_elementos.motivosCalificacion).animate({
                 'opacity': 0,
-                'top': -30 + 'px'
+                'top': -30
             }, 350);
             $(_elementos.motivosCalificacion).hide();
             $(_elementos.estadoEncuestaSatisfaccion).parents('.encuesta__satisfaccion__estado').removeClass('encuesta__satisfaccion__disabled');
@@ -55,6 +55,7 @@
                 'bottom': -138 + 'px',
                 'opacity': 0
             }, 350);
+            $(_elementos.encuestaSatisfaccion).delay(380);
             $(_elementos.encuestaSatisfaccion).fadeOut(100);
         }
     };
