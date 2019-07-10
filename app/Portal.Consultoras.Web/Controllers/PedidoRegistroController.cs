@@ -20,13 +20,11 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private readonly PedidoSetProvider _pedidoSetProvider;
         protected ProductoFaltanteProvider _productoFaltanteProvider;
-        private readonly CaminoBrillanteProvider _caminoBrillanteProvider;
 
         public PedidoRegistroController()
         {
             _pedidoSetProvider = new PedidoSetProvider();
             _productoFaltanteProvider = new ProductoFaltanteProvider();
-            _caminoBrillanteProvider = new CaminoBrillanteProvider();
         }
 
         [HttpPost]
