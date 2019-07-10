@@ -3851,17 +3851,16 @@ namespace Portal.Consultoras.Common
             }
             else
             {
-                    switch (origenPedido)
-                    {
-                        case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal:
-                        case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal:
-                        case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalCarrusel:
-                        case Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinalFicha:
-                        case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalCarrusel:
-                        case Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinalFicha:
-                            result = "";
-                            break;
-                        default:
+                var modeloOrigen = UtilOrigenPedidoWeb.GetModelo(origenPedido);
+
+                if (modeloOrigen.Palanca == ConsOrigenPedidoWeb.Palanca.OfertaFinal
+                    || origenPedido == ConsOrigenPedidoWeb.DesktopPedidoOfertaFinal
+                    || origenPedido == ConsOrigenPedidoWeb.MobilePedidoOfertaFinal)
+                {
+                    result = "";
+                }
+                else
+                {
                             result = obtenerNuevaDescripcionProducto(lista, suscripcion, "", tipoEstrategiaCodigo, marcaId, codigoCatalogo);
 
                             if (result == "") result = descripcion;
@@ -3881,9 +3880,7 @@ namespace Portal.Consultoras.Common
                                         break;
                                 }
                             }
-
-                            break;
-                    }
+                }
             }
 
             return result;

@@ -117,5 +117,11 @@ namespace Portal.Consultoras.Common.OrigenPedidoWeb
         public const int VirtualCoachMobilePedido = 2231;
         #endregion
 
+
+        #region OfertaFinal
+        public const int DesktopPedidoOfertaFinal = 1261; // se mantiene para el metodo obtenerNuevaDescripcionProductoDetalle, grilla pedido
+        public const int MobilePedidoOfertaFinal = 2261; // se mantiene para el metodo obtenerNuevaDescripcionProductoDetalle, grilla pedido
+        #endregion
+
     }
 }

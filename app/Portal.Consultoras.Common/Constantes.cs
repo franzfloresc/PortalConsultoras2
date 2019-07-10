@@ -755,8 +755,8 @@ namespace Portal.Consultoras.Common
             public const int CatalogoPersonalizadoMobilePopUp = 2432;
             #endregion
 
-            public const int DesktopPedidoOfertaFinal = 1261; // se mantiene para el metodo obtenerNuevaDescripcionProductoDetalle, grilla pedido
-            public const int MobilePedidoOfertaFinal = 2261; // se mantiene para el metodo obtenerNuevaDescripcionProductoDetalle, grilla pedido
+            //public const int DesktopPedidoOfertaFinal = 1261; // se mantiene para el metodo obtenerNuevaDescripcionProductoDetalle, grilla pedido
+            //public const int MobilePedidoOfertaFinal = 2261; // se mantiene para el metodo obtenerNuevaDescripcionProductoDetalle, grilla pedido
 
             #region MasVendidos
             public const int MasVendidosDesktopHomeCarrusel = 1151;
@@ -934,12 +934,12 @@ namespace Portal.Consultoras.Common
             public const int MobileLandingGNDGNDCarrusel = 2060501;
             public const int MobileLandingGNDGNDFicha = 2060502;
             public const int AppConsultoraLandingGNDGNDFicha = 4060502;
-            public const int DesktopPedidoOfertaFinalCarrusel = 1020401;
-            public const int DesktopPedidoOfertaFinalFicha = 1020402;
-            public const int MobilePedidoOfertaFinalCarrusel = 2020401;
-            public const int MobilePedidoOfertaFinalFicha = 2020402;
-            public const int AppConsultoraPedidoOfertaFinalCarrusel = 4020401;
-            public const int AppConsultoraPedidoOfertaFinalFicha = 4020402;
+            //public const int DesktopPedidoOfertaFinalCarrusel = 1020401;
+            //public const int DesktopPedidoOfertaFinalFicha = 1020402;
+            //public const int MobilePedidoOfertaFinalCarrusel = 2020401;
+            //public const int MobilePedidoOfertaFinalFicha = 2020402;
+            //public const int AppConsultoraPedidoOfertaFinalCarrusel = 4020401;
+            //public const int AppConsultoraPedidoOfertaFinalFicha = 4020402;
             public const int DesktopContenedorHerramientasdeVentaCarrusel = 1080801;
             public const int DesktopContenedorHerramientasdeVentaFicha = 1080802;
             public const int DesktopLandingHerramientasdeVentaHerramientasdeVentaCarrusel = 1000801;
