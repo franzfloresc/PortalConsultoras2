@@ -556,6 +556,12 @@ namespace Portal.Consultoras.Common
         {
             public const int TablaLogicaId = 151;
         }
+        
+        public static class CierreSession
+        {
+            public const int TablaLogicaId = 153;
+            public const short CierreSessionValidado = 15301;
+        }
 
         public static class PilotoCatalogoDigital
         {

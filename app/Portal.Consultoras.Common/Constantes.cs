@@ -163,7 +163,6 @@ namespace Portal.Consultoras.Common
         public static class TablaLogicaDato
         {
             public const int MensajeActualizarFijo = 16261;
-            public const short CierreSessionValidado = 15301;
             
             public static class PagoEnLinea
             {
@@ -1955,7 +1954,6 @@ namespace Portal.Consultoras.Common
         [Obsolete("Use ConsTablaLogica")]
         public struct TablaLogica
         {
-            public const short CierreSessionValidado = 153;
             public const short ResizeImagenesAppHistorias = 162;
         }
 
