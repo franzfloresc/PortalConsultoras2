@@ -46,6 +46,8 @@ namespace Portal.Consultoras.Web.Models
         public bool MostrarFichaEnriquecida { get; set; }
 
         public bool MostrarFichaResponsive { get; set; }
+
+        public bool MostrarUpselling { get; set; }
     }
 
     public class DetalleEstrategiaFichaDisenoModel : DetalleEstrategiaFichaModel
