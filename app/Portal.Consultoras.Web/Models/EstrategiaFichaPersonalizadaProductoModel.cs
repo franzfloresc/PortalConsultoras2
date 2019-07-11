@@ -48,12 +48,9 @@ namespace Portal.Consultoras.Web.Models
         public bool MostrarFichaEnriquecida { get; set; }
 
         public bool MostrarUpselling { get; set; }
-        public string CuvPromocion { get; set; }
 
         public bool MostrarPromociones { get; set; }
 
-        public EstrategiaPersonalizadaProductoModel Promocion { get; set; }
-        public List<EstrategiaPersonalizadaProductoModel> Condiciones { get; set; }
     }
 
     public class DetalleEstrategiaFichaDisenoModel : DetalleEstrategiaFichaModel

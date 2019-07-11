@@ -544,23 +544,26 @@ namespace Portal.Consultoras.Web.Controllers
                     promociones.result.Any(x => x.Promocion != null && x.Condiciones.Any()))
                 {
                     promociones.result = promociones.result.Where(x => x.Promocion != null && x.Condiciones.Any()).ToList();
-                    modelo.Promocion = Mapper.Map<Web.Models.Search.ResponsePromociones.Estructura.Estrategia, EstrategiaPersonalizadaProductoModel>(promociones.result.First().Promocion);
-                    modelo.Condiciones = Mapper.Map<List<Web.Models.Search.ResponsePromociones.Estructura.Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(promociones.result.First().Condiciones);
-                    
-                    modelo.Promocion.EsPromocion = true;
-                    metodo(modelo.Promocion);
-                    foreach (var item in modelo.Condiciones)
+                    var promocion = Mapper.Map<Web.Models.Search.ResponsePromociones.Estructura.Estrategia, EstrategiaPersonalizadaProductoModel>(promociones.result.First().Promocion);
+                    var condiciones = Mapper.Map<List<Web.Models.Search.ResponsePromociones.Estructura.Estrategia>, List<EstrategiaPersonalizadaProductoModel>>(promociones.result.First().Condiciones);
+
+                    ActualizarInformacionPreciosYAgregado(promocion);
+                    foreach (var condicio in condiciones)
                     {
-                        metodo(item);
+                        ActualizarInformacionPreciosYAgregado(condicio);
                     }
-                    
-                    modelo.Condiciones = modelo.Condiciones
-                        .Where(e =>
-                            e.TipoAccionAgregar == Constantes.TipoAccionAgregar.AgregaloPackNuevas
-                            || e.TipoAccionAgregar == Constantes.TipoAccionAgregar.AgregaloNormal
-                            || e.TipoAccionAgregar == Constantes.TipoAccionAgregar.EligeOpcion
-                        )
-                        .ToList();
+                    condiciones = condiciones.Where(e =>
+                    {
+                        return e.TipoAccionAgregar == Constantes.TipoAccionAgregar.AgregaloPackNuevas
+                        || e.TipoAccionAgregar == Constantes.TipoAccionAgregar.AgregaloNormal
+                        || e.TipoAccionAgregar == Constantes.TipoAccionAgregar.EligeOpcion;
+                    }).ToList();
+                    //
+                    modelo.EsPromocion = modelo.CuvPromocion == cuv;
+                    modelo.Condiciones = condiciones;
+                    modelo.Promocion = promocion;
+                    modelo.Promocion.EsPromocion = true;
+                    modelo.Promocion.Condiciones = condiciones;
                 }
             }
             #endregion
@@ -568,7 +571,7 @@ namespace Portal.Consultoras.Web.Controllers
             return modelo;
         }
 
-        private void metodo(EstrategiaPersonalizadaProductoModel item)
+        private void ActualizarInformacionPreciosYAgregado(EstrategiaPersonalizadaProductoModel item)
         {
             var pedidos = SessionManager.GetDetallesPedido();
             var pedidoAgregado = pedidos.Where(x => x.CUV == item.CUV2).ToList();
