@@ -1643,7 +1643,9 @@ button.close {
     display: block;
     margin: 0 auto
 }
-
+.cambio-crec .regular .itm img {
+    min-width: 54px;
+}
 .cambio-crec > .col-3 {
     margin-bottom: 20px
 }
@@ -2378,8 +2380,19 @@ div .ficha__producto__precio__normal {
     display: block;
 }
 
-
-
+.slick-arrow {
+    width: 20px;
+    height: 197px;
+}
+.trunktext {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    min-height: 34px !important;
+}
 
 
 
@@ -3263,7 +3276,7 @@ div .ficha__producto__precio__normal {
     .logreg > .text-bold {
         text-align:left;
     }
-    nuevo logros unif
+    /*nuevo logros unif*/
     .cambio-crec .bigitem {
         width: 25%;
         display: block;
@@ -3281,6 +3294,9 @@ div .ficha__producto__precio__normal {
         width: 70px;
         height: 70px;
         border-radius: 70px;
+    }
+    .bigitem .bord:before {
+        display: none;
     }
     .right-m .itm {
         width: 25%;
@@ -3301,7 +3317,10 @@ div .ficha__producto__precio__normal {
     .mo-3 .text-bold {
         text-align:left;
     }
-
+    .cambio-crec .regular .itm img {
+        min-width:inherit;
+        max-width:44px;
+    }
 
 }
 
